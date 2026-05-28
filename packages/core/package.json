@@ -1,0 +1,52 @@
+{
+  "name": "@swingiq/core",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./diagnostic": {
+      "import": "./dist/diagnostic/index.mjs",
+      "require": "./dist/diagnostic/index.js",
+      "types": "./dist/diagnostic/index.d.ts"
+    },
+    "./scoring": {
+      "import": "./dist/scoring/index.mjs",
+      "require": "./dist/scoring/index.js",
+      "types": "./dist/scoring/index.d.ts"
+    },
+    "./training": {
+      "import": "./dist/training/index.mjs",
+      "require": "./dist/training/index.js",
+      "types": "./dist/training/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "type-check": "tsc --noEmit",
+    "test": "jest",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "@types/jest": "^29.0.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0"
+  }
+}
