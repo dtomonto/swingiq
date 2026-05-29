@@ -14,16 +14,14 @@ Use this file to track what you need to do manually vs. what has already been bu
 - [x] YouTube drill link generator
 - [x] Scoring engine (face control, strike, consistency, etc.)
 - [x] CSV import normalizer for all major brands
-- [x] Next.js web app scaffold
+- [x] Next.js web app — mobile-optimized, works on phone/tablet/computer
 - [x] Web dashboard home page
 - [x] Web golfer profile form
 - [x] Web golf bag manager
 - [x] Web CSV import wizard (7-step)
 - [x] Web diagnostic results page
 - [x] Web training routine page
-- [x] React Native mobile app scaffold
-- [x] Mobile dashboard screen
-- [x] Mobile tab navigation
+- [x] Mobile-responsive navigation (hamburger menu on phones, sidebar on desktop)
 - [x] Supabase database schema (SQL)
 - [x] Row-Level Security for user data
 - [x] Environment variable templates
@@ -44,9 +42,6 @@ Use this file to track what you need to do manually vs. what has already been bu
 - [ ] Create the file `apps/web/.env.local` from the `.env.example` template
 - [ ] Paste your Supabase URL into `apps/web/.env.local`
 - [ ] Paste your Supabase anon key into `apps/web/.env.local`
-- [ ] Create the file `apps/mobile/.env` from the `.env.example` template
-- [ ] Paste your Supabase URL into `apps/mobile/.env`
-- [ ] Paste your Supabase anon key into `apps/mobile/.env`
 - [ ] Run the database schema: copy `server/supabase_schema.sql` into Supabase SQL Editor and click Run
 - [ ] Open a terminal in VS Code and run: `npm install`
 
@@ -55,10 +50,7 @@ Use this file to track what you need to do manually vs. what has already been bu
 - [ ] In terminal, run: `npm run dev:web`
 - [ ] Open a browser and go to: http://localhost:3000
 - [ ] Confirm the SwingIQ dashboard appears
-- [ ] Install Expo Go on your phone (App Store or Google Play)
-- [ ] In a second terminal, run: `npm run dev:mobile`
-- [ ] Scan the QR code with your phone's camera (iPhone) or Expo Go (Android)
-- [ ] Confirm the mobile app opens on your phone
+- [ ] On your phone, open the same address in a mobile browser to confirm it looks good on a small screen
 
 ### First Use
 
@@ -70,14 +62,12 @@ Use this file to track what you need to do manually vs. what has already been bu
 - [ ] Review the primary diagnosis
 - [ ] Click through to the training routine
 - [ ] Open at least one YouTube drill link
-- [ ] Test the mobile app: view dashboard, check that session appears
 
 ---
 
 ## Things You Need to Sign Up For
 
 - [ ] **Supabase** (free plan) — https://supabase.com — for database storage
-- [ ] **Expo** (free) — https://expo.dev — optional, only needed if you want to build/publish the mobile app
 - [ ] **Vercel** (free plan) — https://vercel.com — ONLY needed if you want to share the web app with others over the internet (not required for personal use)
 
 ---
@@ -85,14 +75,13 @@ Use this file to track what you need to do manually vs. what has already been bu
 ## Things You Need to Copy and Paste
 
 ### From Supabase:
-- Your Project URL → paste into `apps/web/.env.local` and `apps/mobile/.env`
-- Your anon key → paste into same files
+- Your Project URL → paste into `apps/web/.env.local`
+- Your anon key → paste into `apps/web/.env.local`
 - The entire contents of `server/supabase_schema.sql` → paste into Supabase SQL Editor
 
 ### Into VS Code terminal:
 - `npm install` — installs all software packages
 - `npm run dev:web` — starts the web app
-- `npm run dev:mobile` — starts the mobile app
 
 ---
 
@@ -104,8 +93,7 @@ Use this file to track what you need to do manually vs. what has already been bu
 - [ ] "Import Data" wizard runs through all 7 steps
 - [ ] "Diagnose" page shows a diagnosis after import
 - [ ] "Training" page shows the routine and YouTube links
-- [ ] Mobile app shows the dashboard screen
-- [ ] Mobile app tabs switch correctly
+- [ ] Web app looks good on your phone (open http://localhost:3000 in your phone's browser while on the same Wi-Fi network)
 
 ---
 
@@ -118,7 +106,6 @@ These are for later phases:
 - [ ] Video analysis — MVP 3
 - [ ] 3D avatar model — MVP 4
 - [ ] Coach sharing features — MVP 5
-- [ ] Publishing to the App Store or Google Play — post-MVP
 - [ ] Setting up custom email/domain
 - [ ] Paying for any services (Supabase free plan is sufficient for personal use)
 

@@ -57,7 +57,7 @@ function makeShotWith(overrides: {
       attack_angle: overrides.attack_angle ?? -4,
       club_path: overrides.club_path ?? 0,
       face_angle_to_target: overrides.face_angle ?? 0,
-      face_to_path: overrides.face_to_path ?? 0,
+      face_to_path: 'face_to_path' in overrides ? (overrides.face_to_path ?? null) : 0,
       dynamic_loft: overrides.dynamic_loft ?? 22,
       spin_loft: null,
       swing_plane_horizontal: null,

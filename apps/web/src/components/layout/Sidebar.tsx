@@ -11,16 +11,16 @@ import {
   Activity,
   Target,
   Video,
-  Box,
   FileText,
   TrendingUp,
   MessageSquare,
   Settings,
   LogOut,
   Dumbbell,
+  X,
 } from 'lucide-react';
 
-const navItems = [
+export const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/profile', label: 'My Profile', icon: User },
   { href: '/bag', label: 'Golf Bag', icon: ShoppingBag },
@@ -29,21 +29,24 @@ const navItems = [
   { href: '/diagnose', label: 'Diagnose', icon: Target },
   { href: '/training', label: 'Training', icon: Dumbbell },
   { href: '/video', label: 'Video Analysis', icon: Video },
-  { href: '/avatar', label: '3D Avatar', icon: Box },
   { href: '/progress', label: 'Progress', icon: TrendingUp },
   { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
   { href: '/reports', label: 'Reports', icon: FileText },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  onClose?: () => void;
+}
+
+export function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-golf-dark min-h-screen flex flex-col">
-      {/* Logo */}
-      <div className="px-6 py-5 border-b border-green-800">
+    <aside className="w-64 bg-golf-dark flex flex-col h-full">
+      {/* Logo + close button (close only visible on mobile) */}
+      <div className="px-6 py-5 border-b border-green-800 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-golf-fairway rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-golf-fairway rounded-lg flex items-center justify-center flex-shrink-0">
             <span className="text-white font-black text-sm">SQ</span>
           </div>
           <div>
@@ -51,6 +54,15 @@ export function Sidebar() {
             <p className="text-green-400 text-xs">Golf Performance</p>
           </div>
         </div>
+        {onClose && (
+          <button
+            onClick={onClose}
+            aria-label="Close menu"
+            className="text-green-300 hover:text-white p-1 rounded transition-colors lg:hidden"
+          >
+            <X size={20} />
+          </button>
+        )}
       </div>
 
       {/* Navigation */}
@@ -61,6 +73,7 @@ export function Sidebar() {
             <Link
               key={href}
               href={href}
+              onClick={onClose}
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
                 isActive
@@ -79,6 +92,7 @@ export function Sidebar() {
       <div className="px-3 py-4 border-t border-green-800 space-y-1">
         <Link
           href="/settings"
+          onClick={onClose}
           className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-200 hover:bg-green-800 hover:text-white transition-colors"
         >
           <Settings size={18} />

@@ -53,9 +53,8 @@ export function ProfileForm() {
     },
   });
 
-  const onSubmit = async (data: GolferProfileInput) => {
-    console.log('Profile data:', data);
-    // TODO: save to Supabase
+  const onSubmit = async (_data: GolferProfileInput) => {
+    // TODO: save profile to Supabase
     await new Promise((r) => setTimeout(r, 800));
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);

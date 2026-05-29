@@ -2,16 +2,15 @@
   "name": "swingiq",
   "version": "1.0.0",
   "private": true,
-  "description": "SwingIQ — Multi-platform golf swing performance system",
+  "description": "SwingIQ — Web-based AI golf performance platform (mobile-optimized)",
   "workspaces": [
     "apps/*",
     "packages/*",
     "server"
   ],
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --filter=@swingiq/web",
     "dev:web": "turbo run dev --filter=@swingiq/web",
-    "dev:mobile": "turbo run dev --filter=@swingiq/mobile",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
@@ -24,6 +23,7 @@
     "rimraf": "^5.0.0",
     "@types/node": "^20.0.0"
   },
+  "packageManager": "npm@10.8.2",
   "engines": {
     "node": ">=18.0.0"
   }

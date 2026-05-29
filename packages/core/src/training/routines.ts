@@ -994,6 +994,120 @@ export const TRAINING_ROUTINES: Record<DiagnosisCategory, TrainingRoutine[]> = {
       estimated_duration_minutes: 20,
     },
   ],
+  driver_attack_angle_down: [
+    {
+      id: 'driver-upswing-drill',
+      diagnosis_category: 'driver_attack_angle_down',
+      name: 'Driver Setup — Positive Attack Angle',
+      goal: 'Change driver attack angle from downward to upward to maximize carry and reduce spin',
+      data_point_being_improved: 'attack_angle',
+      why_it_matters:
+        'Hitting up on the driver (+1° to +4°) reduces spin and increases launch, adding 10-20 yards of carry without changing club speed.',
+      skill_level: 'beginner',
+      setup:
+        'Ball teed high (top half above driver crown). Ball positioned off left heel. Shoulders tilted slightly away from target.',
+      drill_steps: [
+        'Tee the ball so half the ball is above the driver crown.',
+        'Move the ball 1-2 inches forward in your stance (off left heel).',
+        'At address, tilt your trail shoulder slightly lower than normal — this builds in an upswing attack angle.',
+        'Hit 10 shots at 75% speed focusing on the feeling of sweeping up through the ball.',
+        'Hit 20 shots at full speed maintaining the setup. Check attack angle on monitor.',
+        'Target: attack angle moves to 0° or positive.',
+      ],
+      ball_count: 35,
+      intensity: 'medium',
+      feedback_metric: 'attack_angle, launch_angle, spin_rate, carry_distance',
+      success_criteria: 'Attack angle reaches 0° or positive. Spin rate reduces. Carry increases.',
+      common_mistakes: [
+        'Hanging back too much causing a thin strike',
+        'Flipping at the ball trying to help it up',
+        'Ball too far forward causing a miss to the right',
+      ],
+      progression:
+        'Once attack angle is positive, optimize tee height and ball speed for maximum carry distance.',
+      retest_protocol: {
+        shot_count: 20,
+        club: 'Driver',
+        focus_metrics: ['attack_angle', 'spin_rate', 'launch_angle', 'carry_distance'],
+        success_criteria: 'Attack angle +1° or better, spin reduced by 300+ rpm',
+        notes: 'Compare carry distance before and after.',
+      },
+      drill_recommendations: [
+        {
+          id: 'driver-upswing-1',
+          name: 'Driver Upswing Attack Angle Drill',
+          category: 'driver_setup',
+          difficulty: 'beginner',
+          why_this_matches:
+            'Setup adjustments (tee height, ball position, shoulder tilt) are the fastest way to create positive attack angle',
+          youtube_search_query:
+            'golf driver attack angle positive upswing tee height ball position drill',
+          youtube_search_url:
+            'https://www.youtube.com/results?search_query=golf+driver+attack+angle+positive+upswing+tee+height+ball+position+drill',
+          warning: null,
+          curated_video_id: null,
+          coach_channel: null,
+        },
+      ],
+      estimated_duration_minutes: 25,
+    },
+  ],
+  launch_angle_low: [
+    {
+      id: 'low-launch-fix',
+      diagnosis_category: 'launch_angle_low',
+      name: 'Launch Angle Fix — Ball Position and Loft Delivery',
+      goal: 'Increase launch angle to reach the target window for the club',
+      data_point_being_improved: 'launch_angle_vertical',
+      why_it_matters:
+        'Too-low launch angle reduces carry distance and makes the ball prone to running through greens.',
+      skill_level: 'beginner',
+      setup:
+        'One club (same as session). Alignment stick. Check ball position before starting.',
+      drill_steps: [
+        'Check ball position — move it 1-2 inches forward of current position.',
+        'Check grip — an overly strong grip can close the face and reduce dynamic loft.',
+        'Hit 10 shots at 70% speed feeling the ball launch higher.',
+        'Hit 20 shots at full speed maintaining the setup change.',
+        'Check launch angle after each block of 10.',
+      ],
+      ball_count: 30,
+      intensity: 'low',
+      feedback_metric: 'launch_angle_vertical, dynamic_loft, carry_distance',
+      success_criteria: 'Launch angle moves into target window for club category',
+      common_mistakes: [
+        'Moving ball too far forward causing thin contact',
+        'Helping the ball up with the hands (flipping)',
+      ],
+      progression:
+        'Once launch is in range, check spin rate — increasing launch without changing spin loft is ideal.',
+      retest_protocol: {
+        shot_count: 20,
+        club: 'Same club',
+        focus_metrics: ['launch_angle_vertical', 'dynamic_loft', 'carry_distance'],
+        success_criteria: 'Launch angle within target window',
+        notes: 'Compare carry distance. Launch improvements often add 5-15 yards.',
+      },
+      drill_recommendations: [
+        {
+          id: 'low-launch-1',
+          name: 'Ball Position Launch Angle Fix',
+          category: 'launch_window_control',
+          difficulty: 'beginner',
+          why_this_matches:
+            'Ball position is the primary setup variable controlling launch angle',
+          youtube_search_query:
+            'golf low launch angle fix ball position grip dynamic loft iron driver',
+          youtube_search_url:
+            'https://www.youtube.com/results?search_query=golf+low+launch+angle+fix+ball+position+grip+dynamic+loft+iron+driver',
+          warning: null,
+          curated_video_id: null,
+          coach_channel: null,
+        },
+      ],
+      estimated_duration_minutes: 20,
+    },
+  ],
   optimal: [],
   low_point_behind: [],
 };

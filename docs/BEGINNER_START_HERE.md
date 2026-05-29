@@ -320,41 +320,28 @@ To share it with others (like a coach), the app needs to be "deployed" — see t
 
 ---
 
-## Part 5: Run the Mobile App
+## Part 5: Use SwingIQ on Your Phone
 
-### Step 1: Install Expo Go on Your Phone
+SwingIQ is a web app that works on **any device** — phone, tablet, or computer — using your browser. There is no separate app to install.
 
-1. On your iPhone: Open the App Store and search for **"Expo Go"**. Install it.
-2. On your Android: Open Google Play Store and search for **"Expo Go"**. Install it.
+### Using It on Your Phone
 
----
+While the web app is running on your computer (`npm run dev:web` is active):
 
-### Step 2: Start the Mobile App
-
-Open a **second** terminal window in VS Code:
-1. Click Terminal → New Terminal.
-2. Type:
+1. Make sure your phone is connected to the **same Wi-Fi network** as your computer.
+2. On your computer, find your computer's local network address:
+   - Press **Windows key + R**, type `cmd`, press Enter.
+   - Type `ipconfig` and press Enter.
+   - Look for the line that says **IPv4 Address** — it will look like `192.168.1.xxx`.
+3. On your phone, open your browser (Safari or Chrome).
+4. Type your computer's IP address followed by `:3000`, like:
    ```
-   npm run dev:mobile
+   192.168.1.42:3000
    ```
-3. Press Enter.
-4. A QR code will appear in the terminal.
+   (Use your actual IP address, not this example.)
+5. The full SwingIQ app will open on your phone, just like on your computer.
 
----
-
-### Step 3: Open on Your Phone
-
-**iPhone:**
-1. Open the Camera app.
-2. Point it at the QR code on your computer screen.
-3. Tap the notification that appears.
-
-**Android:**
-1. Open Expo Go.
-2. Tap "Scan QR Code".
-3. Point the camera at the QR code.
-
-The SwingIQ mobile app will open on your phone.
+> **Tip:** You can add it to your phone's home screen. In Safari on iPhone, tap the Share icon → "Add to Home Screen". On Android in Chrome, tap the three-dot menu → "Add to Home Screen". It will look and feel like a regular app.
 
 ---
 

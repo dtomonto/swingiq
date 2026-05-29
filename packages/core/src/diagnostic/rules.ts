@@ -507,6 +507,132 @@ export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
   },
 
   {
+    id: 'attack_angle_steep',
+    name: 'Steep Attack Angle (Digger Pattern)',
+    check: (s) =>
+      s.club_category !== 'driver' &&
+      s.avg_attack_angle !== undefined && s.avg_attack_angle < -7,
+    confidence: (s) => {
+      if (s.avg_attack_angle === undefined) return 0;
+      const excess = -s.avg_attack_angle - 7;
+      if (excess < 1) return 40;
+      if (excess < 3) return 65;
+      return 80;
+    },
+    priority: 'medium',
+    score_impact: 1.2,
+    primary_issue: (s) =>
+      `Attack angle is too steep: ${s.avg_attack_angle?.toFixed(1) ?? 'N/A'}°. ` +
+      `Target for irons is -4° to -6°. Steep angle causes thin/fat contact and excess spin.`,
+    likely_cause:
+      'Overly steep downswing, steep shoulder plane, or casting from the top. ' +
+      'Can cause divots that start before the ball or thin contact at the bottom of the arc.',
+    drill_categories: ['attack_angle_control', 'swing_plane', 'shoulder_turn'],
+    retest: {
+      shot_count: 25,
+      club: '7-iron',
+      focus_metrics: ['attack_angle', 'launch_angle', 'spin_rate', 'smash_factor'],
+      success_criteria: 'Attack angle between -4° and -6°, spin rate reduced',
+      notes: 'Feel a shallower approach into the ball. Try a wider takeaway to flatten the swing plane.',
+    },
+    what_improvement_looks_like: (s) =>
+      `Attack angle should move from ${s.avg_attack_angle?.toFixed(1) ?? 'N/A'}° toward -4° to -6°. ` +
+      `Expect lower spin, better contact, and more predictable carry.`,
+    is_swing_issue: true,
+    is_strike_issue: true,
+    is_equipment_concern: false,
+    is_setup_issue: false,
+  },
+
+  {
+    id: 'driver_attack_angle_down',
+    name: 'Hitting Down on Driver',
+    check: (s) =>
+      s.club_category === 'driver' &&
+      s.avg_attack_angle !== undefined && s.avg_attack_angle < -1,
+    confidence: (s) => {
+      if (s.avg_attack_angle === undefined || s.club_category !== 'driver') return 0;
+      const deficit = -s.avg_attack_angle + 1;
+      if (deficit < 1) return 45;
+      if (deficit < 3) return 65;
+      return 82;
+    },
+    priority: 'high',
+    score_impact: 2.0,
+    primary_issue: (s) =>
+      `Hitting down on driver: attack angle ${s.avg_attack_angle?.toFixed(1) ?? 'N/A'}°. ` +
+      `Driver needs an upswing attack angle (+1° to +4°) to maximize carry and minimize spin.`,
+    likely_cause:
+      'Ball position too far back in stance, too much weight on front foot at address, ' +
+      'or treating the driver like an iron swing. Hitting down creates high spin and steep trajectory.',
+    drill_categories: ['attack_angle_control', 'driver_setup', 'ball_position'],
+    retest: {
+      shot_count: 20,
+      club: 'Driver',
+      focus_metrics: ['attack_angle', 'spin_rate', 'launch_angle', 'carry_distance'],
+      success_criteria: 'Attack angle positive (+1° or more), spin rate reduced by 300+ rpm',
+      notes: 'Move ball forward in stance (off left heel), tilt spine away from target slightly.',
+    },
+    what_improvement_looks_like: (s) =>
+      `Attack angle should move from ${s.avg_attack_angle?.toFixed(1) ?? 'N/A'}° to +1° or better. ` +
+      `Expect lower spin, higher launch, and 10-20 yards more carry.`,
+    is_swing_issue: true,
+    is_strike_issue: false,
+    is_equipment_concern: false,
+    is_setup_issue: true,
+  },
+
+  {
+    id: 'launch_angle_low',
+    name: 'Low Launch Angle',
+    check: (s) => {
+      const window = TARGET_WINDOWS[s.club_category] ?? TARGET_WINDOWS.mid_iron;
+      return s.avg_launch_angle !== undefined && s.avg_launch_angle < window.launch_angle.min - 2;
+    },
+    confidence: (s) => {
+      const window = TARGET_WINDOWS[s.club_category] ?? TARGET_WINDOWS.mid_iron;
+      if (s.avg_launch_angle === undefined) return 0;
+      const deficit = window.launch_angle.min - s.avg_launch_angle;
+      if (deficit < 2) return 40;
+      if (deficit < 5) return 60;
+      return 75;
+    },
+    priority: 'medium',
+    score_impact: 1.0,
+    primary_issue: (s) => {
+      const window = TARGET_WINDOWS[s.club_category] ?? TARGET_WINDOWS.mid_iron;
+      return (
+        `Launch angle is too low: ${s.avg_launch_angle?.toFixed(1) ?? 'N/A'}° ` +
+        `vs. target of ${window.launch_angle.min}–${window.launch_angle.max}°. ` +
+        `Low launch reduces carry distance and time in the air.`
+      );
+    },
+    likely_cause:
+      'Low launch may be caused by excessive shaft lean (de-lofting the club), ' +
+      'strong grip pressing the hands too far forward, or ball position too far back in stance. ' +
+      'Also possible: shaft/loft that doesn\'t match swing speed.',
+    drill_categories: ['launch_window_control', 'shaft_lean', 'ball_position'],
+    retest: {
+      shot_count: 20,
+      club: 'Same club',
+      focus_metrics: ['launch_angle', 'carry_distance', 'dynamic_loft'],
+      success_criteria: 'Launch angle reaches target window minimum',
+      notes: 'Try moving ball position slightly forward. Check that hands are not too far ahead of ball.',
+    },
+    what_improvement_looks_like: (s) => {
+      const window = TARGET_WINDOWS[s.club_category] ?? TARGET_WINDOWS.mid_iron;
+      return (
+        `Launch angle should rise from ${s.avg_launch_angle?.toFixed(1) ?? 'N/A'}° ` +
+        `toward ${window.launch_angle.ideal}°. Carry distance should increase.`
+      );
+    },
+    is_swing_issue: true,
+    is_strike_issue: false,
+    is_equipment_concern: true,
+    is_setup_issue: true,
+  },
+
+  {
     id: 'inconsistent_carry',
     name: 'Inconsistent Carry Distance',
     check: (s) =>

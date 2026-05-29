@@ -4,15 +4,28 @@ import { useState } from 'react';
 import { Plus, Edit2, Trash2, ChevronRight, Target } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ClubSchema, type ClubInput } from '@swingiq/core';
+import { ClubSchema, type ClubInput, type ClubCategory, type ShaftFlex } from '@swingiq/core';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { cn, clubCategoryLabel } from '@/lib/utils';
 
+interface SampleClub {
+  id: string;
+  club_name: string;
+  club_category: ClubCategory;
+  brand: string;
+  model: string;
+  loft: number;
+  shaft_flex: ShaftFlex;
+  typical_carry: number;
+  confidence_score: number;
+  current_primary_miss: string | null;
+}
+
 // Sample clubs — replace with Supabase query
-const SAMPLE_CLUBS = [
+const SAMPLE_CLUBS: SampleClub[] = [
   { id: '1', club_name: 'Driver', club_category: 'driver', brand: 'TaylorMade', model: 'Stealth 2', loft: 10.5, shaft_flex: 'stiff', typical_carry: 235, confidence_score: 42, current_primary_miss: 'Push-fade' },
   { id: '2', club_name: '3-Wood', club_category: 'fairway_wood', brand: 'TaylorMade', model: 'Stealth 2', loft: 15, shaft_flex: 'stiff', typical_carry: 210, confidence_score: 65, current_primary_miss: null },
   { id: '3', club_name: '5-Iron', club_category: 'long_iron', brand: 'Callaway', model: 'Apex Pro', loft: 27, shaft_flex: 'stiff', typical_carry: 178, confidence_score: 71, current_primary_miss: null },
@@ -23,7 +36,7 @@ const SAMPLE_CLUBS = [
   { id: '8', club_name: '58° LW', club_category: 'wedge', brand: 'Cleveland', model: 'RTX Full-Face', loft: 58, shaft_flex: 'stiff', typical_carry: 78, confidence_score: 72, current_primary_miss: null },
 ];
 
-type Club = (typeof SAMPLE_CLUBS)[0];
+type Club = SampleClub;
 
 const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none';
 const selectClass = `${inputClass} bg-white`;
@@ -84,8 +97,8 @@ function ClubFormModal({
     },
   });
 
-  const onSubmit = async (data: ClubInput) => {
-    console.log('Club data:', data);
+  const onSubmit = async (_data: ClubInput) => {
+    // TODO: save club to Supabase
     await new Promise((r) => setTimeout(r, 500));
     onClose();
   };
