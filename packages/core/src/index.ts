@@ -8,3 +8,5 @@ export * from './diagnostic/engine';
 export * from './training/routines';
 export * from './import/normalizer';
 export * from './scoring/engine';
+export * from './video-analysis';
+export * from './research';
