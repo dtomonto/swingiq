@@ -10,3 +10,4 @@ export * from './import/normalizer';
 export * from './scoring/engine';
 export * from './video-analysis';
 export * from './research';
+export * from './sports';

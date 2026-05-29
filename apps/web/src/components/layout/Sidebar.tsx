@@ -19,6 +19,7 @@ import {
   Dumbbell,
   X,
 } from 'lucide-react';
+import { SportPillDropdown } from '@/components/sport/SportSelector';
 
 export const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -87,6 +88,12 @@ export function Sidebar({ onClose }: SidebarProps) {
           );
         })}
       </nav>
+
+      {/* Sport Switcher */}
+      <div className="px-3 pb-3">
+        <p className="text-xs text-green-500 font-medium mb-1.5 px-1">Active Sport</p>
+        <SportPillDropdown onClose={onClose} />
+      </div>
 
       {/* Bottom */}
       <div className="px-3 py-4 border-t border-green-800 space-y-1">
