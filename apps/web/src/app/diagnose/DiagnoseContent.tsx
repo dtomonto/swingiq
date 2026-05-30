@@ -24,6 +24,7 @@ import {
   computeSwingScores,
   getRoutineForDiagnosis,
   type DiagnosisOutput,
+  type SkillLevel,
 } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
 import { useSwingIQStore } from '@/store';
@@ -31,9 +32,9 @@ import { format } from 'date-fns';
 
 // ── Diagnosis card ───────────────────────────────────────────
 
-function DiagnosisCard({ diagnosis, rank }: { diagnosis: DiagnosisOutput; rank: number }) {
+function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOutput; rank: number; skillLevel: SkillLevel }) {
   const [expanded, setExpanded] = useState(rank === 1);
-  const routine = getRoutineForDiagnosis(diagnosis.rule.id, 'beginner');
+  const routine = getRoutineForDiagnosis(diagnosis.rule.id, skillLevel);
 
   return (
     <Card className={rank === 1 ? 'ring-2 ring-red-300' : ''}>
@@ -200,7 +201,8 @@ function DiagnosisCard({ diagnosis, rank }: { diagnosis: DiagnosisOutput; rank: 
 // ── Main component ───────────────────────────────────────────
 
 export function DiagnoseContent() {
-  const { sessions } = useSwingIQStore();
+  const { sessions, profile } = useSwingIQStore();
+  const skillLevel: SkillLevel = (profile?.skill_level ?? 'beginner') as SkillLevel;
   const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
 
   // Sessions newest-first
@@ -369,7 +371,7 @@ export function DiagnoseContent() {
         )}
 
         {result.diagnoses.map((d, i) => (
-          <DiagnosisCard key={d.rule.id} diagnosis={d} rank={i + 1} />
+          <DiagnosisCard key={d.rule.id} diagnosis={d} rank={i + 1} skillLevel={skillLevel} />
         ))}
       </div>
     </div>

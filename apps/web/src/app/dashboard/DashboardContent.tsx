@@ -112,7 +112,7 @@ function dnaLabel(val: number | null | undefined, lowLabel: string, highLabel: s
 // ─────────────────────────────────────────────────────────────
 
 export function DashboardContent() {
-  const { profile, clubs, sessions, training } = useSwingIQStore();
+  const { profile, clubs, sessions, training, recordPractice } = useSwingIQStore();
   const latestSession = useLatestDiagnosedSession();
   const overallScore = useOverallScore();
   const { activeSport } = useSport();
@@ -200,6 +200,15 @@ export function DashboardContent() {
 
   const clubs3 = clubs.slice(0, 3);
 
+  // Practice reminder — triggered if last practice was 2+ days ago
+  const practiceReminder = useMemo(() => {
+    if (!training.last_practice_date) return null;
+    const daysSince = Math.floor(
+      (Date.now() - new Date(training.last_practice_date).getTime()) / 86400000
+    );
+    return daysSince >= 2 ? daysSince : null;
+  }, [training.last_practice_date]);
+
   // Daily Focus drill — picks one drill per day from active routine
   const dailyFocus = useMemo(() => {
     const diagId = (typedDiagnosis?.rule.id ?? training.active_diagnosis_id) as DiagnosisCategory | undefined;
@@ -259,6 +268,31 @@ export function DashboardContent() {
 
       {/* What do I do next */}
       <WhatNextBanner step={nextStep} />
+
+      {/* Practice reminder */}
+      {practiceReminder !== null && (
+        <div className="flex items-center justify-between gap-4 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">⏰</span>
+            <div>
+              <p className="font-semibold text-amber-900 text-sm">
+                {practiceReminder === 2 ? "It's been 2 days since your last practice." : `${practiceReminder} days since your last practice.`}
+              </p>
+              <p className="text-xs text-amber-700">Consistent practice builds muscle memory faster. Even 15 minutes counts.</p>
+            </div>
+          </div>
+          <div className="flex gap-2 flex-shrink-0">
+            <Link href="/training">
+              <Button size="sm" className="bg-amber-600 hover:bg-amber-700 text-white whitespace-nowrap">
+                Start Training
+              </Button>
+            </Link>
+            <Button size="sm" variant="outline" onClick={recordPractice} className="border-amber-300 text-amber-700 whitespace-nowrap">
+              Log Today
+            </Button>
+          </div>
+        </div>
+      )}
 
       {/* Quick Actions */}
       <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">

@@ -1,7 +1,7 @@
 'use client';
 
 import { AppShell } from '@/components/layout/AppShell';
-import { useSwingIQStore } from '@/store';
+import { useSwingIQStore, type LocalSession } from '@/store';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
@@ -11,7 +11,7 @@ import { MetricCard } from '@/components/ui/MetricCard';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import {
   ArrowLeft, Target, TrendingUp, AlertCircle, ExternalLink,
-  Calendar, Layers, ChevronRight,
+  Calendar, Layers, ChevronRight, Info,
 } from 'lucide-react';
 import { format } from 'date-fns';
 import {
@@ -31,7 +31,7 @@ import { DispersionChart } from '@/components/charts/DispersionChart';
 export default function SessionDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const { sessions, updateSession, setActiveDiagnosis } = useSwingIQStore();
+  const { sessions, updateSession, setActiveDiagnosis, profile } = useSwingIQStore();
 
   const session = sessions.find((s) => s.id === id);
 
@@ -124,7 +124,8 @@ export default function SessionDetailPage() {
   }
 
   const topDiagnosis = analysis?.diagnoses[0];
-  const routine = topDiagnosis ? getRoutineForDiagnosis(topDiagnosis.rule.id, 'beginner') : null;
+  const skillLevel = (profile?.skill_level ?? 'beginner') as 'beginner' | 'intermediate' | 'advanced' | 'elite';
+  const routine = topDiagnosis ? getRoutineForDiagnosis(topDiagnosis.rule.id, skillLevel) : null;
 
   return (
     <AppShell>
@@ -163,6 +164,14 @@ export default function SessionDetailPage() {
             )}
           </div>
         </div>
+
+        {/* Session notes */}
+        {session.notes && session.notes.trim() && (
+          <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+            <Info size={15} className="text-blue-600 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-blue-800">{session.notes}</p>
+          </div>
+        )}
 
         {session.shots.length < 3 ? (
           <Card>
