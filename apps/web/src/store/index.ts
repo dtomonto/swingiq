@@ -12,6 +12,17 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import type { GolferProfileInput, Shot, DiagnosisOutput } from '@swingiq/core';
 import type { SportId } from '@swingiq/core';
 
+// ── Sport-specific profile storage types ──────────────────────
+// These are intentionally loose (Record<string, unknown>) so the
+// store doesn't couple tightly to the schema types. Consumers
+// cast to the appropriate type when reading.
+export type SportProfiles = {
+  tennis?: Record<string, unknown>;
+  baseball?: Record<string, unknown>;
+  softball_slow?: Record<string, unknown>;
+  softball_fast?: Record<string, unknown>;
+};
+
 // ── Types ─────────────────────────────────────────────────────
 
 export interface LocalClub {
@@ -81,8 +92,11 @@ export interface AppSettings {
 }
 
 export interface SwingIQState {
-  // Profile
+  // Golf profile (existing)
   profile: GolferProfileInput | null;
+
+  // Sport-specific profiles for all non-golf sports
+  sportProfiles: SportProfiles;
 
   // Equipment
   clubs: LocalClub[];
@@ -104,8 +118,11 @@ export interface SwingIQState {
 }
 
 export interface SwingIQActions {
-  // Profile
+  // Golf profile
   setProfile: (profile: GolferProfileInput) => void;
+
+  // Sport-specific profiles (non-golf)
+  setSportProfile: (sport: Exclude<SportId, 'golf'>, data: Record<string, unknown>) => void;
 
   // Clubs
   addClub: (club: Omit<LocalClub, 'id' | 'created_at'>) => void;
@@ -166,6 +183,7 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
     (set, get) => ({
       // Initial state
       profile: null,
+      sportProfiles: {},
       clubs: [],
       sessions: [],
       video_analyses: [],
@@ -173,11 +191,17 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
       settings: DEFAULT_SETTINGS,
       setup_step: 'profile',
 
-      // ── Profile ──
+      // ── Golf Profile ──
       setProfile: (profile) => {
         set({ profile });
         get().computeSetupStep();
       },
+
+      // ── Sport-Specific Profiles ──
+      setSportProfile: (sport, data) =>
+        set((s) => ({
+          sportProfiles: { ...s.sportProfiles, [sport]: data },
+        })),
 
       // ── Clubs ──
       addClub: (club) => {
@@ -307,6 +331,7 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
       reset: () =>
         set({
           profile: null,
+          sportProfiles: {},
           clubs: [],
           sessions: [],
           video_analyses: [],

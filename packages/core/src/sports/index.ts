@@ -28,3 +28,5 @@ export * from './softball-fast/phases';
 export * from './softball-fast/drills';
 export * from './softball-fast/benchmarks';
 export * from './softball-fast/analysis';
+
+export * from './sport-profiles';
