@@ -23,6 +23,7 @@ import {
   Flame,
   CalendarDays,
   Trophy,
+  GitCompareArrows,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
@@ -42,6 +43,7 @@ export const navItems = [
   { href: '/drills', label: 'Drill Library', icon: BookOpen },
   { href: '/progress', label: 'Progress', icon: TrendingUp },
   { href: '/milestones', label: 'Milestones', icon: Trophy },
+  { href: '/compare', label: 'Compare Sessions', icon: GitCompareArrows },
   { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
   { href: '/reports', label: 'Reports', icon: FileText },
 ];
