@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, ChevronDown, ChevronUp, Zap } from 'lucide-react';
+import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, ChevronDown, ChevronUp, Zap, SlidersHorizontal } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { getRoutineForDiagnosis, type TrainingRoutine, type DrillRecommendation, type DiagnosisCategory } from '@swingiq/core';
+import { getRoutineForDiagnosis, type TrainingRoutine, type DrillRecommendation, type DiagnosisCategory, type SkillLevel } from '@swingiq/core';
 import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
 import Link from 'next/link';
 
@@ -68,7 +68,7 @@ function StepList({ steps }: { steps: string[] }) {
 }
 
 export function TrainingContent() {
-  const { training, toggleDrillStep, recordPractice } = useSwingIQStore();
+  const { training, toggleDrillStep, recordPractice, profile } = useSwingIQStore();
   const latestSession = useLatestDiagnosedSession();
 
   // Use active diagnosis from store, or fall back to latest session's diagnosis
@@ -78,8 +78,12 @@ export function TrainingContent() {
     ?? 'slice_weak_fade'
   ) as DiagnosisCategory;
 
-  const routine = getRoutineForDiagnosis(diagnosisId, 'beginner')
-    ?? getRoutineForDiagnosis('slice_weak_fade', 'beginner')!;
+  // Skill level — default from profile, user can override
+  const profileSkill = (profile?.skill_level ?? 'beginner') as SkillLevel;
+  const [skillLevel, setSkillLevel] = useState<SkillLevel>(profileSkill);
+
+  const routine = getRoutineForDiagnosis(diagnosisId, skillLevel)
+    ?? getRoutineForDiagnosis('slice_weak_fade', skillLevel)!;
 
   const completedSteps = new Set(training.completed_steps);
 
@@ -115,6 +119,22 @@ export function TrainingContent() {
             <p className="text-xs text-gray-500">Complete</p>
           </div>
         </div>
+      </div>
+
+      {/* Skill level selector */}
+      <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+        <SlidersHorizontal size={15} className="text-gray-500 flex-shrink-0" />
+        <span className="text-sm font-medium text-gray-700 flex-1">Difficulty Level</span>
+        <select
+          value={skillLevel}
+          onChange={(e) => setSkillLevel(e.target.value as SkillLevel)}
+          className="border border-gray-300 rounded-lg px-2 py-1 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-none"
+        >
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+          <option value="elite">Elite</option>
+        </select>
       </div>
 
       {hasNoData && (

@@ -17,6 +17,7 @@ import {
   Flame,
   CalendarDays,
   Dna,
+  Ruler,
 } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -24,8 +25,8 @@ import { Button } from '@/components/ui/Button';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { useSwingIQStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
-import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis } from '@swingiq/core';
-import type { DiagnosisOutput, Shot } from '@swingiq/core';
+import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps } from '@swingiq/core';
+import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
 import { format } from 'date-fns';
 import { useSport } from '@/contexts/SportContext';
 import { useMemo } from 'react';
@@ -198,6 +199,27 @@ export function DashboardContent() {
   }, [sessionWithShots]);
 
   const clubs3 = clubs.slice(0, 3);
+
+  // Club gap analysis
+  const gapAnalysis = useMemo(() => {
+    if (clubs.length < 2) return null;
+    const inputs: ClubGapInput[] = clubs
+      .filter((c) => c.typical_carry !== null)
+      .sort((a, b) => (b.typical_carry ?? 0) - (a.typical_carry ?? 0))
+      .map((c) => ({
+        id: c.id,
+        name: c.name,
+        category: c.category,
+        typical_carry: c.typical_carry,
+        sort_order: c.sort_order,
+      }));
+    if (inputs.length < 2) return null;
+    try {
+      return analyzeClubGaps(inputs);
+    } catch {
+      return null;
+    }
+  }, [clubs]);
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -583,6 +605,54 @@ export function DashboardContent() {
               )}
             </CardBody>
           </Card>
+          {/* Club Gap Analysis */}
+          {gapAnalysis && (
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Ruler size={16} className="text-blue-600" />
+                    <CardTitle>Club Gaps</CardTitle>
+                  </div>
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                    gapAnalysis.overall_grade === 'A' ? 'bg-green-100 text-green-700'
+                    : gapAnalysis.overall_grade === 'B' ? 'bg-blue-100 text-blue-700'
+                    : gapAnalysis.overall_grade === 'C' ? 'bg-yellow-100 text-yellow-700'
+                    : 'bg-red-100 text-red-700'
+                  }`}>Grade {gapAnalysis.overall_grade}</span>
+                </div>
+              </CardHeader>
+              <CardBody>
+                <p className="text-xs text-gray-600 mb-3">{gapAnalysis.summary}</p>
+                <div className="space-y-1">
+                  {gapAnalysis.results.slice(0, 5).map((r) => (
+                    <div key={r.club_id} className="flex items-center justify-between text-xs py-1 border-b last:border-0">
+                      <span className="text-gray-700 font-medium">{r.club_name}</span>
+                      <div className="flex items-center gap-2">
+                        {r.carry !== null && (
+                          <span className="text-gray-500">{r.carry} yds</span>
+                        )}
+                        {r.gap_to_next !== null && (
+                          <span className={`font-semibold ${
+                            r.gap_status === 'ideal' ? 'text-green-600'
+                            : r.gap_status === 'too_large' ? 'text-red-600'
+                            : r.gap_status === 'too_small' ? 'text-yellow-600'
+                            : 'text-gray-400'
+                          }`}>↕ {r.gap_to_next} yds</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {gapAnalysis.largest_gap && gapAnalysis.largest_gap.gap_status === 'too_large' && (
+                  <p className="text-xs text-red-600 mt-2">⚠ Largest gap: {gapAnalysis.largest_gap.club_name} — consider adding a club</p>
+                )}
+                <Link href="/bag" className="block mt-3">
+                  <Button variant="outline" size="sm" className="w-full">Manage Bag →</Button>
+                </Link>
+              </CardBody>
+            </Card>
+          )}
         </div>
       </div>
     </div>

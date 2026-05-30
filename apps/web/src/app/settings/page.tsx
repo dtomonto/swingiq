@@ -22,8 +22,14 @@ export default function SettingsPage() {
     const data = {
       profile: store.profile,
       clubs: store.clubs,
-      sessions: store.sessions.map((s) => ({ ...s, shots: s.shots.slice(0, 5) })),
+      sessions: store.sessions,
+      training: {
+        streak_days: store.training.streak_days,
+        drills_completed: store.training.drills_completed,
+        milestones_earned: store.training.milestones_earned,
+      },
       exported_at: new Date().toISOString(),
+      version: '1.0',
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);

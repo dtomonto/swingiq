@@ -1,19 +1,22 @@
 'use client';
 
 import { AppShell } from '@/components/layout/AppShell';
-import { Card, CardBody } from '@/components/ui/Card';
+import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { useState } from 'react';
-import { ExternalLink, Search, Filter } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { ExternalLink, Search, Sparkles } from 'lucide-react';
 import {
   ALL_SPORTS_INCLUDING_GOLF,
   TENNIS_DRILLS,
   BASEBALL_DRILLS,
   SLOW_PITCH_DRILLS,
   FAST_PITCH_DRILLS,
+  getRoutineForDiagnosis,
+  type DiagnosisCategory,
 } from '@swingiq/core';
 import type { SportId } from '@swingiq/core';
 import { cn } from '@/lib/utils';
+import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
 
 // Golf drills live in the training routines — we surface a curated list here
 const GOLF_DRILLS = [
@@ -45,6 +48,16 @@ export default function DrillsPage() {
   const [search, setSearch] = useState('');
   const [sportFilter, setSportFilter] = useState<SportId | 'all'>('all');
   const [diffFilter, setDiffFilter] = useState<'all' | 'beginner' | 'intermediate' | 'advanced'>('all');
+  const { training } = useSwingIQStore();
+  const latestDiagnosed = useLatestDiagnosedSession();
+
+  // Recommended drills from active diagnosis
+  const recommendedDrills = useMemo(() => {
+    const diagId = (training.active_diagnosis_id ?? latestDiagnosed?.diagnoses[0]?.rule?.id) as DiagnosisCategory | undefined;
+    if (!diagId) return [];
+    const routine = getRoutineForDiagnosis(diagId, 'beginner');
+    return routine?.drill_recommendations ?? [];
+  }, [training.active_diagnosis_id, latestDiagnosed]);
 
   const filtered = ALL_DRILLS.filter((d) => {
     const matchSport = sportFilter === 'all' || d.sport_id === sportFilter;
@@ -64,6 +77,44 @@ export default function DrillsPage() {
             {ALL_DRILLS.length} drills across {ALL_SPORTS_INCLUDING_GOLF.length} sports — find the right drill for your issue.
           </p>
         </div>
+
+        {/* Recommended for your swing */}
+        {recommendedDrills.length > 0 && (
+          <Card className="mb-6 border-green-200 bg-green-50">
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <Sparkles size={16} className="text-green-600" />
+                <CardTitle className="text-green-800">Recommended for Your Swing</CardTitle>
+              </div>
+              <p className="text-xs text-green-600 mt-0.5">
+                Based on your active diagnosis: <strong>{latestDiagnosed?.diagnoses[0]?.rule?.name ?? training.active_diagnosis_id}</strong>
+              </p>
+            </CardHeader>
+            <CardBody>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {recommendedDrills.map((drill) => (
+                  <div key={drill.id} className="bg-white rounded-lg border border-green-200 p-3 flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm text-gray-900">{drill.name}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{drill.why_this_matches}</p>
+                      {drill.warning && (
+                        <p className="text-xs text-amber-700 mt-1">⚠ {drill.warning}</p>
+                      )}
+                    </div>
+                    <a
+                      href={drill.youtube_search_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-shrink-0 flex items-center gap-1 px-2 py-1.5 bg-red-600 text-white rounded text-xs hover:bg-red-700"
+                    >
+                      <ExternalLink size={10} /> YT
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </CardBody>
+          </Card>
+        )}
 
         {/* Filters */}
         <div className="flex flex-wrap gap-3 mb-6">

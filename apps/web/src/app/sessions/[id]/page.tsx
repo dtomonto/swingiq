@@ -38,7 +38,7 @@ export default function SessionDetailPage() {
   const analysis = useMemo(() => {
     if (!session || session.shots.length < 3) return null;
     const shots = session.shots as Shot[];
-    const clubCategory = session.club_category || 'iron';
+    const clubCategory = session.club_category || 'mid_iron';
     const result = runDiagnosticEngine(shots, clubCategory, session.id, 'local');
     const scores = computeSwingScores(result.stats);
     const insight = buildSessionInsight(result);

@@ -334,10 +334,12 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
 
 // ── Selectors ─────────────────────────────────────────────────
 
-/** Latest session with diagnoses */
+/** Latest session with diagnoses (sorted newest-first) */
 export function useLatestDiagnosedSession() {
   return useSwingIQStore((s) =>
-    [...s.sessions].find((sess) => sess.diagnoses.length > 0)
+    [...s.sessions]
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .find((sess) => sess.diagnoses.length > 0)
   );
 }
 

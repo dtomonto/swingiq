@@ -5,12 +5,15 @@ import Link from 'next/link';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { ScoreRing } from '@/components/ui/ScoreRing';
 import { Upload, ChevronRight, Trash2, Calendar, Activity } from 'lucide-react';
 import { useSwingIQStore } from '@/store';
 import { format } from 'date-fns';
+import { useState } from 'react';
 
 export default function SessionsPage() {
   const { sessions, removeSession } = useSwingIQStore();
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   const sorted = [...sessions].sort(
     (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
@@ -68,24 +71,36 @@ export default function SessionsPage() {
                   </div>
                   <div className="flex items-center gap-3 flex-shrink-0">
                     {session.swing_score !== null && (
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-900">{session.swing_score}</p>
-                        <p className="text-xs text-gray-500">Score</p>
-                      </div>
+                      <ScoreRing score={session.swing_score} size={44} strokeWidth={4} />
                     )}
                     <Link href={`/sessions/${session.id}`}>
                       <Button variant="ghost" size="sm">
                         View <ChevronRight size={14} />
                       </Button>
                     </Link>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-red-400 hover:text-red-600 hover:bg-red-50"
-                      onClick={() => removeSession(session.id)}
-                    >
-                      <Trash2 size={14} />
-                    </Button>
+                    {confirmDeleteId === session.id ? (
+                      <div className="flex items-center gap-1">
+                        <Button
+                          size="sm"
+                          className="bg-red-600 hover:bg-red-700 text-white text-xs px-2 py-1"
+                          onClick={() => { removeSession(session.id); setConfirmDeleteId(null); }}
+                        >
+                          Delete
+                        </Button>
+                        <Button variant="ghost" size="sm" className="text-xs" onClick={() => setConfirmDeleteId(null)}>
+                          Cancel
+                        </Button>
+                      </div>
+                    ) : (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-red-400 hover:text-red-600 hover:bg-red-50"
+                        onClick={() => setConfirmDeleteId(session.id)}
+                      >
+                        <Trash2 size={14} />
+                      </Button>
+                    )}
                   </div>
                 </CardBody>
               </Card>
