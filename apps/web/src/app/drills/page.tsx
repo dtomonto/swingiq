@@ -17,6 +17,7 @@ import {
 import type { SportId } from '@swingiq/core';
 import { cn } from '@/lib/utils';
 import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
+import { useSport } from '@/contexts/SportContext';
 
 // Golf drills live in the training routines — we surface a curated list here
 const GOLF_DRILLS = [
@@ -45,8 +46,10 @@ const DIFFICULTY_COLORS = {
 };
 
 export default function DrillsPage() {
+  const { activeSport, sportEmoji, sportName } = useSport();
   const [search, setSearch] = useState('');
-  const [sportFilter, setSportFilter] = useState<SportId | 'all'>('all');
+  // Default to the active sport so the page immediately shows relevant drills
+  const [sportFilter, setSportFilter] = useState<SportId | 'all'>(activeSport);
   const [diffFilter, setDiffFilter] = useState<'all' | 'beginner' | 'intermediate' | 'advanced'>('all');
   const { training } = useSwingIQStore();
   const latestDiagnosed = useLatestDiagnosedSession();
@@ -66,15 +69,17 @@ export default function DrillsPage() {
     return matchSport && matchDiff && matchSearch;
   });
 
-  const sportEmoji = (id: string) => ALL_SPORTS_INCLUDING_GOLF.find((s) => s.id === id)?.emoji ?? '🏌️';
+  const getSportEmoji = (id: string) => ALL_SPORTS_INCLUDING_GOLF.find((s) => s.id === id)?.emoji ?? '🏌️';
 
   return (
     <AppShell>
       <div className="p-6 max-w-5xl mx-auto">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">Drill Library</h1>
+          <h1 className="text-2xl font-bold text-gray-900">
+            {sportEmoji} {sportName} Drill Library
+          </h1>
           <p className="text-gray-500 text-sm mt-1">
-            {ALL_DRILLS.length} drills across {ALL_SPORTS_INCLUDING_GOLF.length} sports — find the right drill for your issue.
+            {ALL_DRILLS.filter((d) => d.sport_id === activeSport).length} {sportName} drills · {ALL_DRILLS.length} total across all sports. Use the sport filter to explore others.
           </p>
         </div>
 
@@ -159,7 +164,7 @@ export default function DrillsPage() {
               <CardBody className="space-y-2">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-xl">{sportEmoji(drill.sport_id)}</span>
+                    <span className="text-xl">{getSportEmoji(drill.sport_id)}</span>
                     <h3 className="font-bold text-gray-900 text-sm">{drill.name}</h3>
                   </div>
                   <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0', DIFFICULTY_COLORS[drill.difficulty])}>

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import type { CoachContext } from '@/lib/ai-coach-prompts';
+import type { SportId } from '@swingiq/core';
 
 interface Message {
   id: number;
@@ -12,23 +13,68 @@ interface Message {
   isError?: boolean;
 }
 
-const SUGGESTED_QUESTIONS = [
-  'Why am I slicing my driver?',
-  'What should I practice today?',
-  'Why is my 7-iron launching too high?',
-  'Which club is hurting my scoring the most?',
-  'Am I improving?',
-  'Is this a swing issue or an equipment issue?',
-  'What YouTube drill should I watch?',
-  'What should I retest after practice?',
-];
+const SUGGESTED_QUESTIONS_BY_SPORT: Record<SportId, string[]> = {
+  golf: [
+    'Why am I slicing my driver?',
+    'What should I practice today?',
+    'Why is my 7-iron launching too high?',
+    'Which club is hurting my scoring the most?',
+    'Am I improving?',
+    'Is this a swing issue or an equipment issue?',
+    'What YouTube drill should I watch?',
+    'What should I retest after practice?',
+  ],
+  tennis: [
+    'Why do I keep hitting the net on my forehand?',
+    'How do I improve my serve consistency?',
+    'What is my biggest stroke weakness?',
+    'How do I fix my late contact?',
+    'What drills should I work on today?',
+    'Am I improving session to session?',
+    'How do I get more topspin on my forehand?',
+    'What should I focus on in my next practice?',
+  ],
+  baseball: [
+    'Why do I keep rolling over to the pull side?',
+    'What is my biggest swing issue?',
+    'How do I fix early shoulder pull?',
+    'What drills should I work on today?',
+    'How do I drive the ball to the opposite field?',
+    'Am I improving from session to session?',
+    'How do I improve my bat speed?',
+    'What should I focus on in my next cage session?',
+  ],
+  softball_slow: [
+    'How do I hit the arc pitch better?',
+    'Why do I keep popping up?',
+    'What is my biggest swing issue?',
+    'How do I hit for more power?',
+    'What drills should I work on this week?',
+    'How do I drive the ball the other way?',
+    'Am I getting better over time?',
+    'What should I focus on before my next game?',
+  ],
+  softball_fast: [
+    'How do I time the rise ball?',
+    'Why do I keep swinging late?',
+    'What is my biggest issue at the plate?',
+    'How do I stay back on off-speed pitches?',
+    'What drills should I work on today?',
+    'How do I improve my reaction time?',
+    'Am I getting better session to session?',
+    'What should I focus on before my next game?',
+  ],
+};
 
 interface AICoachChatProps {
   /** Pre-built coaching context from the diagnostic engine — never passes raw secrets */
   coachContext?: Partial<CoachContext>;
+  sport?: SportId;
+  sportName?: string;
 }
 
-export function AICoachChat({ coachContext }: AICoachChatProps) {
+export function AICoachChat({ coachContext, sport = 'golf', sportName = 'Golf' }: AICoachChatProps) {
+  const suggestedQuestions = SUGGESTED_QUESTIONS_BY_SPORT[sport] ?? SUGGESTED_QUESTIONS_BY_SPORT.golf;
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 0,
@@ -110,9 +156,9 @@ export function AICoachChat({ coachContext }: AICoachChatProps) {
   return (
     <div className="flex flex-col h-[calc(100dvh-4rem)] lg:h-screen max-h-screen p-4 lg:p-6 max-w-4xl mx-auto">
       <div className="mb-4 flex-shrink-0">
-        <h1 className="text-xl lg:text-2xl font-bold text-gray-900">AI Coach</h1>
+        <h1 className="text-xl lg:text-2xl font-bold text-gray-900">{sportName} AI Coach</h1>
         <p className="text-sm text-gray-500 mt-1">
-          Ask any question about your game. Answers are grounded in your actual data.
+          Ask any question about your {sportName.toLowerCase()} development. Answers are grounded in your actual data.
         </p>
       </div>
 
@@ -172,7 +218,7 @@ export function AICoachChat({ coachContext }: AICoachChatProps) {
       {/* Suggested questions — shown only before first user message */}
       {messages.filter((m) => m.role === 'user').length === 0 && (
         <div className="mb-3 flex-shrink-0 flex flex-wrap gap-2">
-          {SUGGESTED_QUESTIONS.map((q) => (
+          {suggestedQuestions.map((q) => (
             <button
               key={q}
               onClick={() => sendMessage(q)}

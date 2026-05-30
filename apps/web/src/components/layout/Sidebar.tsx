@@ -29,25 +29,6 @@ import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
 import { useSwingIQStore } from '@/store';
 
-export const navItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/profile', label: 'My Profile', icon: User },
-  { href: '/bag', label: 'Equipment', icon: ShoppingBag },
-  { href: '/sessions', label: 'Sessions', icon: Activity },
-  { href: '/sessions/import', label: 'Import Data', icon: Upload },
-  { href: '/diagnose', label: 'Diagnose', icon: Target },
-  { href: '/training', label: 'Training', icon: Dumbbell },
-  { href: '/practice', label: 'Practice Schedule', icon: CalendarDays },
-  { href: '/pre-round', label: 'Pre-Round', icon: Sun },
-  { href: '/video', label: 'Video Analysis', icon: Video },
-  { href: '/drills', label: 'Drill Library', icon: BookOpen },
-  { href: '/progress', label: 'Progress', icon: TrendingUp },
-  { href: '/milestones', label: 'Milestones', icon: Trophy },
-  { href: '/compare', label: 'Compare Sessions', icon: GitCompareArrows },
-  { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
-  { href: '/reports', label: 'Reports', icon: FileText },
-];
-
 interface SidebarProps {
   onClose?: () => void;
 }
@@ -55,6 +36,38 @@ interface SidebarProps {
 export function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
   const { training } = useSwingIQStore();
+  const { activeSport, sportEmoji, sportTagline, sportLabels, isGolf } = useSport();
+
+  // Sport-aware nav items — core items change labels by sport
+  const navItems = [
+    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/profile', label: sportLabels.profile_short, icon: User },
+    // Only show Equipment tab for golf (clubs) or for all sports with equipment
+    { href: '/bag', label: isGolf ? 'Equipment' : sportLabels.equipment_short, icon: ShoppingBag },
+    { href: '/sessions', label: sportLabels.sessions, icon: Activity },
+    { href: '/sessions/import', label: isGolf ? 'Import Data' : 'Log Session', icon: Upload },
+    { href: '/diagnose', label: isGolf ? 'Diagnose' : 'Analyze Swing', icon: Target },
+    { href: '/training', label: 'Training', icon: Dumbbell },
+    { href: '/practice', label: 'Practice Schedule', icon: CalendarDays },
+    { href: '/pre-round', label: isGolf ? 'Pre-Round' : 'Pre-Game Warm-Up', icon: Sun },
+    { href: '/video', label: 'Video Analysis', icon: Video },
+    { href: '/drills', label: isGolf ? 'Drill Library' : 'Drills', icon: BookOpen },
+    { href: '/progress', label: 'Progress', icon: TrendingUp },
+    { href: '/milestones', label: 'Milestones', icon: Trophy },
+    { href: '/compare', label: 'Compare Sessions', icon: GitCompareArrows },
+    { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
+    { href: '/reports', label: 'Reports', icon: FileText },
+  ] as const;
+
+  // Sport accent colors for active state
+  const accentColors: Record<string, string> = {
+    golf: 'bg-green-700',
+    tennis: 'bg-yellow-600',
+    baseball: 'bg-red-700',
+    softball_slow: 'bg-orange-600',
+    softball_fast: 'bg-pink-600',
+  };
+  const activeClass = accentColors[activeSport] ?? 'bg-green-700';
 
   return (
     <aside className="w-64 bg-golf-dark flex flex-col h-full">
@@ -66,7 +79,10 @@ export function Sidebar({ onClose }: SidebarProps) {
           </div>
           <div>
             <span className="text-white font-bold text-lg">SwingIQ</span>
-            <p className="text-green-400 text-xs">Golf Performance</p>
+            <p className="text-green-400 text-xs flex items-center gap-1">
+              <span>{sportEmoji}</span>
+              <span>{sportTagline}</span>
+            </p>
           </div>
         </div>
         {onClose && (
@@ -92,7 +108,7 @@ export function Sidebar({ onClose }: SidebarProps) {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-green-700 text-white'
+                  ? `${activeClass} text-white`
                   : 'text-green-200 hover:bg-green-800 hover:text-white',
               )}
             >
@@ -132,3 +148,23 @@ export function Sidebar({ onClose }: SidebarProps) {
     </aside>
   );
 }
+
+// Keep navItems export for legacy references
+export const navItems = [
+  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/profile', label: 'My Profile', icon: User },
+  { href: '/bag', label: 'Equipment', icon: ShoppingBag },
+  { href: '/sessions', label: 'Sessions', icon: Activity },
+  { href: '/sessions/import', label: 'Import Data', icon: Upload },
+  { href: '/diagnose', label: 'Diagnose', icon: Target },
+  { href: '/training', label: 'Training', icon: Dumbbell },
+  { href: '/practice', label: 'Practice Schedule', icon: CalendarDays },
+  { href: '/pre-round', label: 'Pre-Round', icon: Sun },
+  { href: '/video', label: 'Video Analysis', icon: Video },
+  { href: '/drills', label: 'Drill Library', icon: BookOpen },
+  { href: '/progress', label: 'Progress', icon: TrendingUp },
+  { href: '/milestones', label: 'Milestones', icon: Trophy },
+  { href: '/compare', label: 'Compare Sessions', icon: GitCompareArrows },
+  { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
+  { href: '/reports', label: 'Reports', icon: FileText },
+];

@@ -22,6 +22,7 @@ import {
   getSportConfig,
   runSportAnalysis,
   ALL_SPORTS_INCLUDING_GOLF,
+  SPORT_CAMERA_ANGLES,
 } from '@swingiq/core';
 import type {
   SportId,
@@ -496,24 +497,39 @@ export function SportVideoAnalyzerContent() {
           </CardBody>
         </Card>
 
+        {/* Sport-specific camera angle selector */}
         {config && (
           <Card>
-            <CardBody>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xl">{config.emoji}</span>
-                <div>
-                  <p className="text-sm font-bold text-gray-900">{config.name} — Camera Guidance</p>
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                {Object.entries(config.camera_angle_guidance).map(([angle, tip]) => (
-                  <div key={angle} className="flex gap-2">
-                    <span className="text-xs font-semibold text-gray-500 capitalize w-28 flex-shrink-0">
-                      {angle.replace(/_/g, ' ')}:
-                    </span>
-                    <span className="text-xs text-gray-600">{tip}</span>
-                  </div>
-                ))}
+            <CardBody className="space-y-3">
+              <p className="text-sm font-semibold text-gray-700">
+                Camera Angle <span className="text-xs font-normal text-gray-400">(helps improve phase timing estimates)</span>
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {(SPORT_CAMERA_ANGLES[selectedSport] ?? SPORT_CAMERA_ANGLES['golf']).map((opt) => {
+                  const isSelected = (videoMetadata?.camera_angle ?? 'unknown') === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() =>
+                        setVideoMetadata((prev) =>
+                          prev ? { ...prev, camera_angle: opt.value } as typeof prev : prev,
+                        )
+                      }
+                      className={`flex items-start gap-2 p-3 rounded-lg border text-left transition-colors ${
+                        isSelected
+                          ? 'border-green-500 bg-green-50'
+                          : 'border-gray-200 bg-white hover:border-gray-300'
+                      }`}
+                    >
+                      <div className={`w-3 h-3 rounded-full border-2 mt-0.5 flex-shrink-0 ${isSelected ? 'border-green-500 bg-green-500' : 'border-gray-300'}`} />
+                      <div>
+                        <p className={`text-xs font-semibold ${isSelected ? 'text-green-700' : 'text-gray-700'}`}>{opt.label}</p>
+                        <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{opt.description}</p>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </CardBody>
           </Card>

@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/Button';
 import { TrendingUp, TrendingDown, Minus, Upload, Activity } from 'lucide-react';
 import Link from 'next/link';
 import { useSwingIQStore } from '@/store';
+import { useSport } from '@/contexts/SportContext';
+import { NonGolfProgress } from './NonGolfProgress';
 import { computeSwingScores, runDiagnosticEngine } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
 import { format } from 'date-fns';
@@ -166,6 +168,9 @@ function TrendBadge({ change }: { change: number }) {
 }
 
 export default function ProgressPage() {
+  const { isGolf } = useSport();
+  if (!isGolf) return <NonGolfProgress />;
+
   const { sessions } = useSwingIQStore();
 
   // Build snapshots from scored sessions (newest-first)

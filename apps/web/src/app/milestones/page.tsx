@@ -4,9 +4,10 @@ import { useMemo } from 'react';
 import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { useSwingIQStore, type LocalSession, type LocalClub, type TrainingProgress } from '@/store';
+import { useSwingIQStore, type LocalSession, type LocalClub, type TrainingProgress, type LocalVideoAnalysis } from '@/store';
 import type { GolferProfileInput } from '@swingiq/core';
 import { cn } from '@/lib/utils';
+import { useSport } from '@/contexts/SportContext';
 
 interface Milestone {
   id: string;
@@ -24,6 +25,10 @@ function computeMilestones(
   training: TrainingProgress,
   clubs: LocalClub[],
   profile: GolferProfileInput | null,
+  videoAnalyses: LocalVideoAnalysis[],
+  isGolf: boolean,
+  sportName: string,
+  sportProfiles: Record<string, unknown>,
 ): Milestone[] {
   const sessionCount = sessions.length;
   const shotCount = sessions.reduce((s, sess) => s + sess.shots.length, 0);
@@ -34,189 +39,93 @@ function computeMilestones(
     : 0;
   const drillCount = Object.keys(training.drills_completed).length;
   const streak = training.streak_days;
-  const hasProfile = !!profile;
+  const hasProfile = !!profile || Object.keys(sportProfiles).length > 0;
   const clubCount = clubs.length;
+  const videoCount = videoAnalyses.length;
+  const analyzedVideos = videoAnalyses.filter((v) => !!v.primary_issue);
 
-  const list: Array<Omit<Milestone, 'earned' | 'earnedAt'> & { check: boolean; date?: string }> = [
-    // Profile
-    {
-      id: 'profile_created',
-      icon: '👤',
-      title: 'Profile Built',
-      description: 'Created your golfer profile',
-      category: 'profile',
-      check: hasProfile,
-      hint: 'Complete your profile to unlock personalized coaching',
-    },
-    // Equipment
-    {
-      id: 'first_club',
-      icon: '⛳',
-      title: 'First Club Added',
+  type ListEntry = Omit<Milestone, 'earned' | 'earnedAt'> & { check: boolean; date?: string };
+  const list: ListEntry[] = [];
+
+  // Profile
+  list.push({
+    id: 'profile_created', icon: '👤',
+    title: 'Profile Built',
+    description: `Created your ${sportName} player profile`,
+    category: 'profile', check: hasProfile,
+    hint: 'Complete your profile to unlock personalized coaching',
+  });
+
+  // Equipment (golf only)
+  if (isGolf) {
+    list.push({
+      id: 'first_club', icon: '⛳', title: 'First Club Added',
       description: 'Added your first club to the bag',
-      category: 'equipment',
-      check: clubCount >= 1,
+      category: 'equipment', check: clubCount >= 1,
       hint: 'Add at least one club to your bag',
-    },
-    {
-      id: 'full_bag',
-      icon: '🏌️',
-      title: 'Full Bag',
+    });
+    list.push({
+      id: 'full_bag', icon: '🏌️', title: 'Full Bag',
       description: 'Added 8 or more clubs to your bag',
-      category: 'equipment',
-      check: clubCount >= 8,
+      category: 'equipment', check: clubCount >= 8,
       hint: `${Math.max(0, 8 - clubCount)} more clubs needed`,
-    },
-    // Sessions
-    {
-      id: 'first_session',
-      icon: '📊',
-      title: 'First Session',
-      description: 'Imported your first launch-monitor session',
-      category: 'sessions',
-      check: sessionCount >= 1,
-      date: sessions[sessions.length - 1]?.created_at,
-      hint: 'Import your first CSV file',
-    },
-    {
-      id: 'five_sessions',
-      icon: '📈',
-      title: 'Getting Consistent',
-      description: 'Logged 5 sessions',
-      category: 'sessions',
-      check: sessionCount >= 5,
-      hint: `${Math.max(0, 5 - sessionCount)} more sessions needed`,
-    },
-    {
-      id: 'ten_sessions',
-      icon: '🌟',
-      title: 'Data Veteran',
-      description: 'Logged 10 sessions',
-      category: 'sessions',
-      check: sessionCount >= 10,
-      hint: `${Math.max(0, 10 - sessionCount)} more sessions needed`,
-    },
-    {
-      id: 'hundred_shots',
-      icon: '🎯',
-      title: 'Hundred Shots',
-      description: 'Analyzed 100+ shots',
-      category: 'sessions',
-      check: shotCount >= 100,
-      hint: `${Math.max(0, 100 - shotCount)} more shots needed`,
-    },
-    {
-      id: 'five_hundred_shots',
-      icon: '💯',
-      title: 'Range Warrior',
-      description: 'Analyzed 500+ shots',
-      category: 'sessions',
-      check: shotCount >= 500,
-      hint: `${Math.max(0, 500 - shotCount)} more shots needed`,
-    },
-    // Diagnosis
-    {
-      id: 'first_diagnosis',
-      icon: '🔍',
-      title: 'Diagnosed',
-      description: 'Ran your first swing diagnosis',
-      category: 'diagnosis',
-      check: diagnosedSessions.length >= 1,
-      hint: 'Run the diagnostic engine on a session',
-    },
-    {
-      id: 'three_diagnoses',
-      icon: '🧠',
-      title: 'Pattern Seeker',
-      description: 'Diagnosed 3 different sessions',
-      category: 'diagnosis',
-      check: diagnosedSessions.length >= 3,
-      hint: `${Math.max(0, 3 - diagnosedSessions.length)} more diagnosed sessions needed`,
-    },
-    // Scores
-    {
-      id: 'score_50',
-      icon: '📉',
-      title: 'On the Board',
-      description: 'Achieved a swing score of 50+',
-      category: 'score',
-      check: maxScore >= 50,
-      hint: 'Import a session and reach a swing score of 50',
-    },
-    {
-      id: 'score_65',
-      icon: '🏅',
-      title: 'Mid-Range Scorer',
-      description: 'Achieved a swing score of 65+',
-      category: 'score',
-      check: maxScore >= 65,
-      hint: `Best score: ${maxScore} — need 65`,
-    },
-    {
-      id: 'score_80',
-      icon: '🥇',
-      title: 'High Performer',
-      description: 'Achieved a swing score of 80+',
-      category: 'score',
-      check: maxScore >= 80,
-      hint: `Best score: ${maxScore} — need 80`,
-    },
-    {
-      id: 'score_90',
-      icon: '🏆',
-      title: 'Tour Territory',
-      description: 'Achieved a swing score of 90+',
-      category: 'score',
-      check: maxScore >= 90,
-      hint: `Best score: ${maxScore} — need 90`,
-    },
-    // Practice
-    {
-      id: 'first_drill',
-      icon: '🏋️',
-      title: 'First Drill',
-      description: 'Completed your first drill',
-      category: 'practice',
-      check: drillCount >= 1,
-      hint: 'Go to Training and check off your first drill step',
-    },
-    {
-      id: 'five_drills',
-      icon: '🔥',
-      title: 'Drill Machine',
-      description: 'Completed 5 different drills',
-      category: 'practice',
-      check: drillCount >= 5,
-      hint: `${Math.max(0, 5 - drillCount)} more drills needed`,
-    },
-    {
-      id: 'streak_3',
-      icon: '🔥',
-      title: '3-Day Streak',
-      description: 'Practiced 3 days in a row',
-      category: 'practice',
-      check: streak >= 3,
-      hint: `Current streak: ${streak} days`,
-    },
-    {
-      id: 'streak_7',
-      icon: '⚡',
-      title: 'Week Warrior',
-      description: 'Practiced 7 days in a row',
-      category: 'practice',
-      check: streak >= 7,
-      hint: `Current streak: ${streak} days`,
-    },
-    {
-      id: 'streak_30',
-      icon: '🌟',
-      title: 'Dedicated Golfer',
-      description: 'Practiced 30 days in a row',
-      category: 'practice',
-      check: streak >= 30,
-      hint: `Current streak: ${streak} days`,
-    },
-  ];
+    });
+  }
+
+  // Video milestones (non-golf only)
+  if (!isGolf) {
+    list.push({
+      id: 'first_video', icon: '🎬', title: 'First Video Analyzed',
+      description: `Uploaded and analyzed your first ${sportName} video`,
+      category: 'sessions', check: videoCount >= 1,
+      hint: 'Upload a video on the Video Analysis page',
+    });
+    list.push({
+      id: 'five_videos', icon: '🎥', title: 'Film Student',
+      description: `Analyzed 5 ${sportName} videos`,
+      category: 'sessions', check: videoCount >= 5,
+      hint: `${Math.max(0, 5 - videoCount)} more videos needed`,
+    });
+    list.push({
+      id: 'first_issue_detected', icon: '🔍', title: 'Issue Identified',
+      description: 'Had a primary issue detected in a video analysis',
+      category: 'diagnosis', check: analyzedVideos.length >= 1,
+      hint: 'Upload a video to detect your primary issue',
+    });
+  }
+
+  // Sessions (shared)
+  list.push({
+    id: 'first_session', icon: '📊',
+    title: isGolf ? 'First Session' : `First ${sportName} Log`,
+    description: isGolf ? 'Imported your first launch-monitor session' : `Logged your first ${sportName} session`,
+    category: 'sessions', check: sessionCount >= 1 || videoCount >= 1,
+    date: sessions[sessions.length - 1]?.created_at,
+    hint: isGolf ? 'Import your first CSV file' : 'Log or upload your first session',
+  });
+
+  // Sessions (shared)
+  list.push({ id: 'five_sessions', icon: '📈', title: 'Getting Consistent', description: 'Logged 5 sessions', category: 'sessions', check: sessionCount >= 5, hint: `${Math.max(0, 5 - sessionCount)} more sessions needed` });
+  list.push({ id: 'ten_sessions', icon: '🌟', title: 'Data Veteran', description: 'Logged 10 sessions', category: 'sessions', check: sessionCount >= 10, hint: `${Math.max(0, 10 - sessionCount)} more sessions needed` });
+
+  // Golf-specific: shot counts
+  if (isGolf) {
+    list.push({ id: 'hundred_shots', icon: '🎯', title: 'Hundred Shots', description: 'Analyzed 100+ shots', category: 'sessions', check: shotCount >= 100, hint: `${Math.max(0, 100 - shotCount)} more shots needed` });
+    list.push({ id: 'five_hundred_shots', icon: '💯', title: 'Range Warrior', description: 'Analyzed 500+ shots', category: 'sessions', check: shotCount >= 500, hint: `${Math.max(0, 500 - shotCount)} more shots needed` });
+    list.push({ id: 'first_diagnosis', icon: '🔍', title: 'Diagnosed', description: 'Ran your first swing diagnosis', category: 'diagnosis', check: diagnosedSessions.length >= 1, hint: 'Run the diagnostic engine on a session' });
+    list.push({ id: 'three_diagnoses', icon: '🧠', title: 'Pattern Seeker', description: 'Diagnosed 3 different sessions', category: 'diagnosis', check: diagnosedSessions.length >= 3, hint: `${Math.max(0, 3 - diagnosedSessions.length)} more diagnosed sessions needed` });
+    list.push({ id: 'score_50', icon: '📉', title: 'On the Board', description: 'Achieved a swing score of 50+', category: 'score', check: maxScore >= 50, hint: 'Import a session and reach a swing score of 50' });
+    list.push({ id: 'score_65', icon: '🏅', title: 'Mid-Range Scorer', description: 'Achieved a swing score of 65+', category: 'score', check: maxScore >= 65, hint: `Best score: ${maxScore} — need 65` });
+    list.push({ id: 'score_80', icon: '🥇', title: 'High Performer', description: 'Achieved a swing score of 80+', category: 'score', check: maxScore >= 80, hint: `Best score: ${maxScore} — need 80` });
+    list.push({ id: 'score_90', icon: '🏆', title: 'Tour Territory', description: 'Achieved a swing score of 90+', category: 'score', check: maxScore >= 90, hint: `Best score: ${maxScore} — need 90` });
+  }
+
+  // Practice (shared)
+  list.push({ id: 'first_drill', icon: '🏋️', title: 'First Drill', description: 'Completed your first drill', category: 'practice', check: drillCount >= 1, hint: 'Go to Training and check off your first drill step' });
+  list.push({ id: 'five_drills', icon: '🔥', title: 'Drill Machine', description: 'Completed 5 different drills', category: 'practice', check: drillCount >= 5, hint: `${Math.max(0, 5 - drillCount)} more drills needed` });
+  list.push({ id: 'streak_3', icon: '🔥', title: '3-Day Streak', description: 'Practiced 3 days in a row', category: 'practice', check: streak >= 3, hint: `Current streak: ${streak} days` });
+  list.push({ id: 'streak_7', icon: '⚡', title: 'Week Warrior', description: 'Practiced 7 days in a row', category: 'practice', check: streak >= 7, hint: `Current streak: ${streak} days` });
+  list.push({ id: 'streak_30', icon: '🌟', title: 'Dedicated Athlete', description: 'Practiced 30 days in a row', category: 'practice', check: streak >= 30, hint: `Current streak: ${streak} days` });
 
   return list.map((m) => ({
     id: m.id,
@@ -249,11 +158,25 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 export default function MilestonesPage() {
-  const { sessions, training, clubs, profile } = useSwingIQStore();
+  const { sessions, training, clubs, profile, sportProfiles, video_analyses } = useSwingIQStore();
+  const { isGolf, sportName, sportEmoji, activeSport } = useSport();
+
+  // Filter sessions and videos by active sport
+  const sportSessions = useMemo(
+    () => sessions.filter((s) => isGolf ? (s.sport === 'golf' || !s.sport) : s.sport === activeSport),
+    [sessions, activeSport, isGolf],
+  );
+  const sportVideos = useMemo(
+    () => video_analyses.filter((v) => v.sport === activeSport),
+    [video_analyses, activeSport],
+  );
 
   const milestones = useMemo(
-    () => computeMilestones(sessions, training, clubs, profile),
-    [sessions, training, clubs, profile],
+    () => computeMilestones(
+      sportSessions, training, clubs, profile, sportVideos, isGolf, sportName,
+      sportProfiles as Record<string, unknown>,
+    ),
+    [sportSessions, training, clubs, profile, sportVideos, isGolf, sportName, sportProfiles],
   );
 
   const earned = milestones.filter((m) => m.earned);
@@ -271,7 +194,9 @@ export default function MilestonesPage() {
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Milestones</h1>
+          <h1 className="text-2xl font-bold text-gray-900">
+            {sportEmoji} {sportName} Milestones
+          </h1>
           <p className="text-gray-500 text-sm mt-1">
             {earned.length} of {milestones.length} earned · {pct}% complete
           </p>

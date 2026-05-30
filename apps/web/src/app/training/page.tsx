@@ -1,12 +1,15 @@
+'use client';
+
 import { AppShell } from '@/components/layout/AppShell';
 import { TrainingContent } from './TrainingContent';
-
-export const metadata = { title: 'Training Routines — SwingIQ' };
+import { NonGolfTrainingContent } from './NonGolfTrainingContent';
+import { useSport } from '@/contexts/SportContext';
 
 export default function TrainingPage() {
+  const { isGolf } = useSport();
   return (
     <AppShell>
-      <TrainingContent />
+      {isGolf ? <TrainingContent /> : <NonGolfTrainingContent />}
     </AppShell>
   );
 }

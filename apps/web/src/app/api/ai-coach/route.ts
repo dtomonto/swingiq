@@ -61,8 +61,8 @@ export async function POST(req: NextRequest) {
 
   const ctx = body as CoachContext;
 
-  // Validate the question
-  const questionError = validateUserQuestion(ctx.user_question ?? '');
+  // Validate the question (sport-aware guardrails)
+  const questionError = validateUserQuestion(ctx.user_question ?? '', ctx.active_sport);
   if (questionError) {
     return NextResponse.json({ error: questionError }, { status: 400 });
   }
@@ -172,49 +172,66 @@ export async function POST(req: NextRequest) {
 
 /** Returns a data-grounded placeholder when no AI key is configured. */
 function buildDevPlaceholderResponse(ctx: CoachContext): string {
+  const sport = ctx.active_sport ?? 'golf';
   const s = ctx.current_session_stats;
-  const hasData = s && Object.keys(s).length > 0;
+  const hasGolfData = s && Object.keys(s).length > 0;
+  const hasVideoData = !!ctx.primary_video_issue;
+  const hasAnyData = hasGolfData || hasVideoData;
 
-  if (!hasData) {
+  if (!hasAnyData) {
+    const sportActions: Record<string, string> = {
+      golf: 'import a CSV from your launch monitor using the Import Data section',
+      tennis: 'upload a video of your stroke using the Video Analysis section',
+      baseball: 'upload a swing video using the Video Analysis section',
+      softball_slow: 'upload a swing video using the Video Analysis section',
+      softball_fast: 'upload a swing video using the Video Analysis section',
+    };
+    const action = sportActions[sport] ?? sportActions.golf;
     return (
-      `I don't have any session data yet. Please import a CSV from your launch monitor using the Import Data section, ` +
-      `then come back and I'll answer your question using your actual numbers.\n\n` +
-      `What to do next: Click "Import Data" in the menu to upload your first session.`
+      `I don't have any ${sport.replace('_', ' ')} analysis data yet. Please ${action}, ` +
+      `then come back and I'll answer your question using your actual data.\n\n` +
+      `What to do next: Upload your first video or session to get started.`
     );
   }
 
   const lines: string[] = [];
 
-  if (ctx.primary_diagnosis_name) {
-    lines.push(`Based on your data, your primary pattern is: ${ctx.primary_diagnosis_name}.`);
-    if (ctx.primary_diagnosis_confidence !== undefined) {
-      lines.push(`The engine detected this with ${ctx.primary_diagnosis_confidence}% confidence.`);
+  // Golf-specific
+  if (sport === 'golf') {
+    if (ctx.primary_diagnosis_name) {
+      lines.push(`Based on your data, your primary pattern is: ${ctx.primary_diagnosis_name}.`);
+      if (ctx.primary_diagnosis_confidence !== undefined) {
+        lines.push(`The engine detected this with ${ctx.primary_diagnosis_confidence}% confidence.`);
+      }
+    }
+    if (s?.avg_face_to_path !== undefined) {
+      const ftp = s.avg_face_to_path;
+      if (Math.abs(ftp) > 3) {
+        lines.push(
+          `Your face-to-path is ${ftp > 0 ? '+' : ''}${ftp.toFixed(1)}° — ` +
+          `${ftp > 0 ? 'open face causing fade/slice' : 'closed face causing draw/hook'}.`,
+        );
+      }
+    }
+    if (s?.avg_carry !== undefined && s?.shot_count !== undefined) {
+      lines.push(`You averaged ${s.avg_carry.toFixed(0)} yards carry over ${s.shot_count} shots.`);
     }
   }
 
-  if (s?.avg_face_to_path !== undefined) {
-    const ftp = s.avg_face_to_path;
-    if (Math.abs(ftp) > 3) {
-      lines.push(
-        `Your face-to-path is ${ftp > 0 ? '+' : ''}${ftp.toFixed(1)}° — ` +
-        `${ftp > 0 ? 'open face causing fade/slice' : 'closed face causing draw/hook'}.`,
-      );
-    }
-  }
-
-  if (s?.avg_carry !== undefined && s?.shot_count !== undefined) {
-    lines.push(`You averaged ${s.avg_carry.toFixed(0)} yards carry over ${s.shot_count} shots.`);
+  // Non-golf: video analysis
+  if (sport !== 'golf' && ctx.primary_video_issue) {
+    lines.push(`Your latest video analysis identified: ${ctx.primary_video_issue}.`);
+    lines.push(`This is a pose-based estimate — confidence is moderate.`);
   }
 
   lines.push('');
   lines.push(
-    `Note: AI narrative responses require an API key. Set AI_PROVIDER=openai or AI_PROVIDER=anthropic ` +
-    `in your apps/web/.env.local file and add your key (OPENAI_API_KEY or ANTHROPIC_API_KEY). ` +
-    `See docs/OWNER_TASKS.md for details.`,
+    `Note: Full AI narrative responses require an API key. Set AI_PROVIDER=openai or AI_PROVIDER=anthropic ` +
+    `in your apps/web/.env.local file and add your key.`,
   );
 
   lines.push('');
-  lines.push(`What to do next: ${ctx.engine_summary ?? 'Check the Diagnose page for your full training routine.'}`);
+  lines.push(`What to do next: ${ctx.engine_summary ?? 'Check the Training page for your current drill plan.'}`);
 
   return lines.join('\n');
 }
