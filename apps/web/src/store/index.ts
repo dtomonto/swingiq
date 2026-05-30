@@ -316,12 +316,23 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
 
       // ── Computed setup step ──
       computeSetupStep: () => {
-        const { profile, clubs, sessions } = get();
+        const { profile, clubs, sessions, sportProfiles, video_analyses } = get();
+
+        // For non-golf sports: a sport profile counts as a profile,
+        // having any sport profile skips the "bag" (clubs) requirement,
+        // and having any video analysis counts as a "session".
+        const anyProfile = !!profile || Object.keys(sportProfiles).length > 0;
+        const hasBagOrSportProfile = clubs.length > 0 || Object.keys(sportProfiles).length > 0;
+        const anyContent = sessions.length > 0 || video_analyses.length > 0;
+        const anyDiagnosed =
+          sessions.some((s) => s.diagnoses.length > 0) ||
+          video_analyses.some((v) => !!v.primary_issue);
+
         let step: SwingIQState['setup_step'] = 'profile';
-        if (profile) step = 'bag';
-        if (profile && clubs.length > 0) step = 'session';
-        if (profile && clubs.length > 0 && sessions.length > 0) step = 'diagnose';
-        if (profile && clubs.length > 0 && sessions.length > 0 && sessions.some((s) => s.diagnoses.length > 0)) {
+        if (anyProfile) step = 'bag';
+        if (anyProfile && hasBagOrSportProfile) step = 'session';
+        if (anyProfile && hasBagOrSportProfile && anyContent) step = 'diagnose';
+        if (anyProfile && hasBagOrSportProfile && anyContent && anyDiagnosed) {
           step = 'complete';
         }
         set({ setup_step: step });

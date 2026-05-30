@@ -8,8 +8,18 @@ import { generatePreRoundRoutine } from '@swingiq/core';
 import { useMemo, useState } from 'react';
 import { CheckCircle, Circle, Clock, ExternalLink, Zap } from 'lucide-react';
 import Link from 'next/link';
+import { NonGolfWarmUp } from './NonGolfWarmUp';
+import { useSport } from '@/contexts/SportContext';
 
 export default function PreRoundPage() {
+  const { isGolf } = useSport();
+
+  // Non-golf: sport-specific warm-up
+  if (!isGolf) {
+    return <AppShell><NonGolfWarmUp /></AppShell>;
+  }
+
+  // Golf: original content continues below...
   const latestSession = useLatestDiagnosedSession();
   const { training } = useSwingIQStore();
   const [completed, setCompleted] = useState<Set<number>>(new Set());
