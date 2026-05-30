@@ -124,6 +124,44 @@ export default function ProgressPage() {
     ? newest.strike_quality - oldest.strike_quality
     : 0;
 
+  // Personal bests across ALL sessions (not just last 6)
+  const allSnapshots = useMemo<SessionSnapshot[]>(() => {
+    const sorted = [...sessions].sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    );
+    return sorted.filter((s) => s.shots.length > 0).map((s) => {
+      let overall = s.swing_score ?? 0;
+      let face_control = 0, path_control = 0, strike_quality = 0;
+      let avg_carry: number | null = null, avg_smash: number | null = null, avg_face_to_path: number | null = null;
+      try {
+        const result = runDiagnosticEngine(s.shots as Shot[], s.club_category || 'mid_iron', s.id, 'local');
+        const scores = computeSwingScores(result.stats);
+        overall = scores.overall; face_control = scores.face_control;
+        path_control = scores.path_control; strike_quality = scores.strike_quality;
+        avg_carry = result.stats.avg_carry ?? null;
+        avg_smash = result.stats.avg_smash_factor ?? null;
+        avg_face_to_path = result.stats.avg_face_to_path ?? null;
+      } catch { /* use stored */ }
+      return { id: s.id, name: s.name, date: s.created_at, overall, face_control, path_control, strike_quality, shot_count: s.shot_count, club_name: s.club_name, primary_issue: s.diagnoses[0]?.rule?.name ?? null, avg_carry, avg_smash, avg_face_to_path };
+    });
+  }, [sessions]);
+
+  const bests = useMemo(() => ({
+    score: allSnapshots.reduce((b, s) => s.overall > b ? s.overall : b, 0),
+    carry: allSnapshots.reduce((b: number | null, s) => (s.avg_carry !== null && (b === null || s.avg_carry > b)) ? s.avg_carry : b, null as number | null),
+    smash: allSnapshots.reduce((b: number | null, s) => (s.avg_smash !== null && (b === null || s.avg_smash > b)) ? s.avg_smash : b, null as number | null),
+    ftp: allSnapshots.reduce((b: number | null, s) => (s.avg_face_to_path !== null && (b === null || Math.abs(s.avg_face_to_path) < Math.abs(b))) ? s.avg_face_to_path : b, null as number | null),
+  }), [allSnapshots]);
+
+  // Rough handicap estimate based on swing score
+  function handicapRange(score: number): string {
+    if (score >= 85) return 'Scratch / 0–5';
+    if (score >= 70) return '6–14';
+    if (score >= 55) return '15–25';
+    if (score >= 40) return '26–36';
+    return '36+';
+  }
+
   // Most improved sub-score
   const improvements = [
     { label: 'Overall Score', change: overallChange },
@@ -303,6 +341,51 @@ export default function ProgressPage() {
             </CardBody>
           </Card>
         )}
+
+        {/* Personal Bests + Handicap Estimate */}
+        <div className="grid grid-cols-2 gap-4">
+          <Card>
+            <CardHeader><CardTitle>🏆 Personal Bests</CardTitle></CardHeader>
+            <CardBody className="space-y-2 text-sm">
+              <div className="flex items-center justify-between py-1 border-b border-gray-100">
+                <span className="text-gray-500">Best Score</span>
+                <span className="font-bold text-green-600">{bests.score > 0 ? bests.score : '—'}</span>
+              </div>
+              <div className="flex items-center justify-between py-1 border-b border-gray-100">
+                <span className="text-gray-500">Best Carry</span>
+                <span className="font-bold text-gray-900">{bests.carry !== null ? `${Math.round(bests.carry)} yds` : '—'}</span>
+              </div>
+              <div className="flex items-center justify-between py-1 border-b border-gray-100">
+                <span className="text-gray-500">Best Smash Factor</span>
+                <span className="font-bold text-gray-900">{bests.smash !== null ? bests.smash.toFixed(2) : '—'}</span>
+              </div>
+              <div className="flex items-center justify-between py-1">
+                <span className="text-gray-500">Squarest Face-to-Path</span>
+                <span className="font-bold text-gray-900">{bests.ftp !== null ? `${Math.abs(bests.ftp).toFixed(1)}°` : '—'}</span>
+              </div>
+            </CardBody>
+          </Card>
+
+          <Card className="border-indigo-200 bg-indigo-50">
+            <CardHeader>
+              <CardTitle className="text-indigo-900">📊 Handicap Estimate</CardTitle>
+            </CardHeader>
+            <CardBody>
+              {newest && newest.overall > 0 ? (
+                <>
+                  <p className="text-3xl font-black text-indigo-700">{handicapRange(newest.overall)}</p>
+                  <p className="text-xs text-indigo-600 mt-1">estimated handicap range</p>
+                  <p className="text-xs text-gray-500 mt-3 leading-relaxed">
+                    Based on your latest swing score of <strong>{newest.overall}</strong>.
+                    This is a rough heuristic — not an official WHS calculation.
+                  </p>
+                </>
+              ) : (
+                <p className="text-sm text-gray-500">Import sessions to estimate your handicap range.</p>
+              )}
+            </CardBody>
+          </Card>
+        </div>
 
         {/* Most improved / needs work */}
         <div className="grid grid-cols-2 gap-4">
