@@ -11,7 +11,7 @@ import { MetricCard } from '@/components/ui/MetricCard';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import {
   ArrowLeft, Target, TrendingUp, AlertCircle, ExternalLink,
-  Calendar, Layers, ChevronRight, Info,
+  Calendar, Layers, ChevronRight, Info, Edit2, Check, X as XIcon,
 } from 'lucide-react';
 import { format } from 'date-fns';
 import {
@@ -25,7 +25,7 @@ import {
   predictFromDiagnosis,
 } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { DispersionChart } from '@/components/charts/DispersionChart';
 
 export default function SessionDetailPage() {
@@ -541,9 +541,60 @@ export default function SessionDetailPage() {
                 </div>
               </CardBody>
             </Card>
+            {/* Notes editor */}
+            <SessionNotesEditor session={session} onSave={(notes) => updateSession(id, { notes })} />
           </>
         )}
       </div>
     </AppShell>
+  );
+}
+
+function SessionNotesEditor({ session, onSave }: { session: { notes: string }; onSave: (notes: string) => void }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(session.notes ?? '');
+
+  const handleSave = () => {
+    onSave(draft);
+    setEditing(false);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Info size={16} className="text-blue-500" />
+            <CardTitle>Session Notes</CardTitle>
+          </div>
+          {!editing && (
+            <Button variant="ghost" size="sm" onClick={() => { setDraft(session.notes ?? ''); setEditing(true); }}>
+              <Edit2 size={14} /> {session.notes ? 'Edit' : 'Add Notes'}
+            </Button>
+          )}
+        </div>
+      </CardHeader>
+      <CardBody>
+        {editing ? (
+          <div className="space-y-3">
+            <textarea
+              value={draft}
+              onChange={(e) => setDraft(e.target.value)}
+              rows={4}
+              placeholder="Add notes about this session — conditions, how you felt, what you tried, what worked..."
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none"
+            />
+            <div className="flex gap-2">
+              <Button size="sm" onClick={handleSave}><Check size={14} /> Save Notes</Button>
+              <Button size="sm" variant="ghost" onClick={() => setEditing(false)}><XIcon size={14} /> Cancel</Button>
+            </div>
+          </div>
+        ) : session.notes && session.notes.trim() ? (
+          <p className="text-sm text-gray-700 leading-relaxed">{session.notes}</p>
+        ) : (
+          <p className="text-sm text-gray-400 italic">No notes yet. Click &ldquo;Add Notes&rdquo; to record observations about this session.</p>
+        )}
+      </CardBody>
+    </Card>
   );
 }
