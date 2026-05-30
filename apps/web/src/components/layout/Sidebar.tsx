@@ -18,18 +18,25 @@ import {
   LogOut,
   Dumbbell,
   X,
+  BookOpen,
+  Sun,
+  Flame,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
+import { useSport } from '@/contexts/SportContext';
+import { useSwingIQStore } from '@/store';
 
 export const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/profile', label: 'My Profile', icon: User },
-  { href: '/bag', label: 'Golf Bag', icon: ShoppingBag },
+  { href: '/bag', label: 'Equipment', icon: ShoppingBag },
   { href: '/sessions', label: 'Sessions', icon: Activity },
   { href: '/sessions/import', label: 'Import Data', icon: Upload },
   { href: '/diagnose', label: 'Diagnose', icon: Target },
   { href: '/training', label: 'Training', icon: Dumbbell },
+  { href: '/pre-round', label: 'Pre-Round', icon: Sun },
   { href: '/video', label: 'Video Analysis', icon: Video },
+  { href: '/drills', label: 'Drill Library', icon: BookOpen },
   { href: '/progress', label: 'Progress', icon: TrendingUp },
   { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
   { href: '/reports', label: 'Reports', icon: FileText },
@@ -41,6 +48,7 @@ interface SidebarProps {
 
 export function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
+  const { training } = useSwingIQStore();
 
   return (
     <aside className="w-64 bg-golf-dark flex flex-col h-full">
@@ -83,7 +91,12 @@ export function Sidebar({ onClose }: SidebarProps) {
               )}
             >
               <Icon size={18} className="flex-shrink-0" />
-              {label}
+              <span className="flex-1">{label}</span>
+              {href === '/training' && training.streak_days > 1 && (
+                <span className="flex items-center gap-0.5 text-xs text-orange-400">
+                  <Flame size={11} />{training.streak_days}
+                </span>
+              )}
             </Link>
           );
         })}

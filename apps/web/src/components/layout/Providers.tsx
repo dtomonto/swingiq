@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
 import { SportProvider } from '@/contexts/SportContext';
+import { FloatingCoach } from '@/components/ui/FloatingCoach';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -22,6 +23,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <SportProvider>
         {children}
+        <FloatingCoach />
       </SportProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

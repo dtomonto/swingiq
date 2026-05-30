@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, ChevronDown, ChevronUp, Zap } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { getRoutineForDiagnosis, type TrainingRoutine, type DrillRecommendation } from '@swingiq/core';
-
-const routine = getRoutineForDiagnosis('slice_weak_fade', 'beginner')!;
+import { getRoutineForDiagnosis, type TrainingRoutine, type DrillRecommendation, type DiagnosisCategory } from '@swingiq/core';
+import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
+import Link from 'next/link';
 
 function DrillCard({ drill }: { drill: DrillRecommendation }) {
   return (
@@ -68,31 +68,67 @@ function StepList({ steps }: { steps: string[] }) {
 }
 
 export function TrainingContent() {
-  const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
+  const { training, toggleDrillStep, recordPractice } = useSwingIQStore();
+  const latestSession = useLatestDiagnosedSession();
+
+  // Use active diagnosis from store, or fall back to latest session's diagnosis
+  const diagnosisId: DiagnosisCategory = (
+    training.active_diagnosis_id
+    ?? latestSession?.diagnoses[0]?.rule?.id
+    ?? 'slice_weak_fade'
+  ) as DiagnosisCategory;
+
+  const routine = getRoutineForDiagnosis(diagnosisId, 'beginner')
+    ?? getRoutineForDiagnosis('slice_weak_fade', 'beginner')!;
+
+  const completedSteps = new Set(training.completed_steps);
 
   const toggleStep = (i: number) => {
-    setCompletedSteps((prev) => {
-      const next = new Set(prev);
-      if (next.has(i)) next.delete(i);
-      else next.add(i);
-      return next;
-    });
+    toggleDrillStep(i);
+    if (!completedSteps.has(i)) recordPractice();
   };
 
-  const progress = Math.round((completedSteps.size / routine.drill_steps.length) * 100);
+  const progress = routine.drill_steps.length
+    ? Math.round((training.completed_steps.length / routine.drill_steps.length) * 100)
+    : 0;
+
+  const hasNoData = !latestSession && !training.active_diagnosis_id;
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Training Routine</h1>
-          <p className="text-gray-500 text-sm mt-1">Based on your primary diagnosis. Follow the steps below.</p>
+          <p className="text-gray-500 text-sm mt-1">
+            {hasNoData ? 'Sample routine — import session data for personalized training.' : `Based on: ${routine.name}`}
+          </p>
         </div>
-        <div className="text-right">
-          <p className="text-2xl font-bold text-green-600">{progress}%</p>
-          <p className="text-xs text-gray-500">Complete</p>
+        <div className="flex items-center gap-4">
+          {training.streak_days > 0 && (
+            <div className="text-center">
+              <p className="text-2xl font-bold text-orange-500">🔥 {training.streak_days}</p>
+              <p className="text-xs text-gray-500">day streak</p>
+            </div>
+          )}
+          <div className="text-right">
+            <p className="text-2xl font-bold text-green-600">{progress}%</p>
+            <p className="text-xs text-gray-500">Complete</p>
+          </div>
         </div>
       </div>
+
+      {hasNoData && (
+        <Card className="border-amber-200 bg-amber-50">
+          <CardBody className="flex items-center gap-3">
+            <Zap size={18} className="text-amber-600 flex-shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-amber-800">No personal diagnosis yet</p>
+              <p className="text-xs text-amber-600">Import your launch monitor data to get a training routine built specifically for your swing.</p>
+              <Link href="/sessions/import" className="text-xs font-semibold text-green-700 hover:underline mt-1 block">Import your first session →</Link>
+            </div>
+          </CardBody>
+        </Card>
+      )}
 
       {/* Routine header */}
       <Card className="border-l-4 border-l-red-500">

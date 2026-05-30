@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
+import { useSwingIQStore } from '@/store';
 
 function FormField({
   label,
@@ -35,13 +36,15 @@ const selectClass = `${inputClass} bg-white`;
 
 export function ProfileForm() {
   const [saved, setSaved] = useState(false);
+  const { profile, setProfile } = useSwingIQStore();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<GolferProfileInput>({
     resolver: zodResolver(GolferProfileSchema),
-    defaultValues: {
+    defaultValues: profile ?? {
       handedness: 'right',
       home_simulator: false,
       indoor_outdoor: 'outdoor',
@@ -53,9 +56,9 @@ export function ProfileForm() {
     },
   });
 
-  const onSubmit = async (_data: GolferProfileInput) => {
-    // TODO: save profile to Supabase
-    await new Promise((r) => setTimeout(r, 800));
+  const onSubmit = async (data: GolferProfileInput) => {
+    setProfile(data);
+    await new Promise((r) => setTimeout(r, 400));
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
   };

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import {
   Upload,
   ChevronRight,
@@ -23,7 +23,24 @@ import {
   normalizeRow,
   type NormalizedShot,
 } from '@swingiq/core';
-import type { LaunchMonitorBrand } from '@swingiq/core';
+import type { LaunchMonitorBrand, ClubCategory } from '@swingiq/core';
+
+/** Best-effort mapping from a club name string to a typed ClubCategory. */
+function inferClubCategory(clubName: string): ClubCategory {
+  const n = clubName.toLowerCase();
+  if (n.includes('driver') || n === 'dr' || n === '1w') return 'driver';
+  if (n.includes('fairway') || /[2-5]w/.test(n)) return 'fairway_wood';
+  if (n.includes('hybrid') || /[2-5]h/.test(n)) return 'hybrid';
+  if (/^(2|3|4)\s?i(ron)?$/.test(n) || n === '2-iron' || n === '3-iron' || n === '4-iron') return 'long_iron';
+  if (/^(5|6|7)\s?i(ron)?$/.test(n) || n === '5-iron' || n === '6-iron' || n === '7-iron') return 'mid_iron';
+  if (/^(8|9)\s?i(ron)?$/.test(n) || n.includes('pw') || n.includes('pitching')) return 'short_iron';
+  if (n.includes('wedge') || n.includes('aw') || n.includes('sw') || n.includes('lw') || n.includes('gap')) return 'wedge';
+  if (n.includes('putter') || n === 'pt') return 'putter';
+  // fall back to mid_iron as the most common default
+  return 'mid_iron';
+}
+import { useSwingIQStore } from '@/store';
+import { useSport } from '@/contexts/SportContext';
 
 type WizardStep = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
@@ -46,6 +63,8 @@ interface ParsedFile {
 }
 
 export function ImportWizard() {
+  const { addSession } = useSwingIQStore();
+  const { activeSport } = useSport();
   const [step, setStep] = useState<WizardStep>(1);
   const [brand, setBrand] = useState<LaunchMonitorBrand | null>(null);
   const [file, setFile] = useState<ParsedFile | null>(null);
@@ -127,12 +146,89 @@ export function ImportWizard() {
     { key: 'impact_location_lateral', label: 'Strike Location (X)', critical: false },
   ];
 
-  // ── Import to Supabase ────────────────────────────────────
+  // ── Import to local store ─────────────────────────────────
 
   const runImport = async () => {
     setImporting(true);
-    // TODO: call Supabase to save session + shots
-    await new Promise((r) => setTimeout(r, 1500)); // simulate
+    await new Promise((r) => setTimeout(r, 600));
+
+    // Convert NormalizedShots to Shot objects (NormalizedShot nests data under ball_data/club_data/strike_data)
+    const shots = normalizedShots.map((ns, i) => ({
+      id: `shot_${Date.now()}_${i}`,
+      session_id: 'pending',
+      user_id: 'local',
+      club_id: null,
+      club_name: ns.club_name || 'Unknown',
+      club_category: inferClubCategory(ns.club_name || ''),
+      shot_number: i + 1,
+      date_time: new Date().toISOString(),
+      swing_type: 'full' as const,
+      intended_shot_shape: null,
+      actual_shot_shape: ns.ball_data.shot_shape ?? null,
+      is_outlier: false,
+      user_notes: '',
+      ball_data: {
+        carry_distance: ns.ball_data.carry_distance,
+        total_distance: ns.ball_data.total_distance,
+        ball_speed: ns.ball_data.ball_speed,
+        launch_angle_vertical: ns.ball_data.launch_angle_vertical,
+        spin_rate: ns.ball_data.spin_rate,
+        spin_axis: ns.ball_data.spin_axis,
+        side_carry: ns.ball_data.side_carry,
+        lateral_offline: ns.ball_data.lateral_offline ?? ns.ball_data.side_carry,
+        apex_height: ns.ball_data.apex_height,
+        smash_factor: ns.ball_data.smash_factor,
+        roll_distance: ns.ball_data.roll_distance,
+        descent_angle: ns.ball_data.descent_angle,
+        launch_direction_horizontal: ns.ball_data.launch_direction_horizontal,
+        flight_time: ns.ball_data.flight_time,
+        curve: ns.ball_data.curve,
+        shot_shape: ns.ball_data.shot_shape,
+      },
+      club_data: {
+        club_speed: ns.club_data.club_speed,
+        attack_angle: ns.club_data.attack_angle,
+        club_path: ns.club_data.club_path,
+        face_angle_to_target: ns.club_data.face_angle_to_target,
+        face_to_path: ns.club_data.face_to_path,
+        dynamic_loft: ns.club_data.dynamic_loft,
+        spin_loft: ns.club_data.spin_loft,
+        swing_plane_horizontal: ns.club_data.swing_plane_horizontal,
+        swing_plane_vertical: ns.club_data.swing_plane_vertical,
+        low_point_position: ns.club_data.low_point_position,
+        low_point_height: ns.club_data.low_point_height,
+        closure_rate: ns.club_data.closure_rate,
+        swing_direction: ns.club_data.swing_direction,
+        lie_angle_dynamic: ns.club_data.lie_angle_dynamic,
+      },
+      strike_data: {
+        impact_location_lateral: ns.strike_data.impact_location_lateral,
+        impact_location_vertical: ns.strike_data.impact_location_vertical,
+      },
+      created_at: new Date().toISOString(),
+    }));
+
+    // Detect primary club
+    const clubCounts: Record<string, number> = {};
+    shots.forEach((s) => { clubCounts[s.club_name] = (clubCounts[s.club_name] ?? 0) + 1; });
+    const primaryClub = Object.entries(clubCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'Mixed';
+
+    addSession({
+      name: sessionName || `Session ${new Date().toLocaleDateString()}`,
+      date: new Date().toISOString(),
+      sport: activeSport,
+      club_name: primaryClub,
+      club_category: inferClubCategory(primaryClub),
+      launch_monitor: brand ?? 'manual',
+      indoor_outdoor: 'outdoor',
+      mat_or_grass: 'mat',
+      notes: '',
+      shot_count: shots.length,
+      shots,
+      diagnoses: [],
+      swing_score: null,
+    });
+
     setImporting(false);
     setImportDone(true);
     setStep(7);
