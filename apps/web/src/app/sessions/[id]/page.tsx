@@ -64,6 +64,41 @@ export default function SessionDetailPage() {
     });
   }, [analysis]);
 
+  // Within-session shot trend: compare first half vs second half
+  const shotTrend = useMemo(() => {
+    const shots = (session?.shots ?? []) as Shot[];
+    if (shots.length < 6) return null; // Need at least 6 to split meaningfully
+    const mid = Math.floor(shots.length / 2);
+    const firstHalf = shots.slice(0, mid);
+    const secondHalf = shots.slice(mid);
+
+    function avg(arr: (number | null)[]): number | null {
+      const vals = arr.filter((v): v is number => v !== null && !isNaN(v));
+      return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+    }
+
+    const f = {
+      carry: avg(firstHalf.map((s) => s.ball_data.carry_distance)),
+      smash: avg(firstHalf.map((s) => s.ball_data.smash_factor)),
+      ftp: avg(firstHalf.map((s) => s.club_data.face_to_path)),
+    };
+    const l = {
+      carry: avg(secondHalf.map((s) => s.ball_data.carry_distance)),
+      smash: avg(secondHalf.map((s) => s.ball_data.smash_factor)),
+      ftp: avg(secondHalf.map((s) => s.club_data.face_to_path)),
+    };
+
+    const carryDelta = f.carry !== null && l.carry !== null ? l.carry - f.carry : null;
+    const smashDelta = f.smash !== null && l.smash !== null ? l.smash - f.smash : null;
+    const ftpDelta = f.ftp !== null && l.ftp !== null ? Math.abs(l.ftp) - Math.abs(f.ftp) : null;
+
+    const warmingUp = (carryDelta !== null && carryDelta > 2) || (smashDelta !== null && smashDelta > 0.02);
+    const fatiguing = (carryDelta !== null && carryDelta < -3) || (smashDelta !== null && smashDelta < -0.03);
+    const consistent = !warmingUp && !fatiguing;
+
+    return { f, l, carryDelta, smashDelta, ftpDelta, warmingUp, fatiguing, consistent, midPoint: mid };
+  }, [session]);
+
   // Save diagnoses + swing score back to session on first analysis (avoid infinite loop)
   useMemo(() => {
     if (!session || !analysis || session.diagnoses.length > 0) return;
@@ -338,6 +373,78 @@ export default function SessionDetailPage() {
                       </Badge>
                     </div>
                   ))}
+                </CardBody>
+              </Card>
+            )}
+
+            {/* Within-session trend */}
+            {shotTrend && (
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <TrendingUp size={18} className="text-blue-600" />
+                      <CardTitle>Within-Session Trend</CardTitle>
+                    </div>
+                    <Badge
+                      variant={shotTrend.warmingUp ? 'success' : shotTrend.fatiguing ? 'warning' : 'info'}
+                    >
+                      {shotTrend.warmingUp ? '📈 Warming Up' : shotTrend.fatiguing ? '📉 Fatiguing' : '→ Consistent'}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardBody>
+                  <p className="text-xs text-gray-500 mb-3">
+                    First {shotTrend.midPoint} shots vs last {shotTrend.midPoint} shots
+                  </p>
+                  <div className="grid grid-cols-3 gap-3 text-sm">
+                    <div className="text-center bg-gray-50 rounded-lg p-3">
+                      <p className="text-xs text-gray-500 mb-1">Avg Carry</p>
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="font-medium text-gray-700">{shotTrend.f.carry !== null ? `${Math.round(shotTrend.f.carry)}` : '—'}</span>
+                        <span className="text-gray-400">→</span>
+                        <span className="font-bold text-gray-900">{shotTrend.l.carry !== null ? `${Math.round(shotTrend.l.carry)}` : '—'}</span>
+                      </div>
+                      {shotTrend.carryDelta !== null && (
+                        <p className={`text-xs font-semibold mt-0.5 ${shotTrend.carryDelta > 1 ? 'text-green-600' : shotTrend.carryDelta < -1 ? 'text-red-600' : 'text-gray-400'}`}>
+                          {shotTrend.carryDelta > 0 ? '+' : ''}{Math.round(shotTrend.carryDelta)} yds
+                        </p>
+                      )}
+                    </div>
+                    <div className="text-center bg-gray-50 rounded-lg p-3">
+                      <p className="text-xs text-gray-500 mb-1">Smash Factor</p>
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="font-medium text-gray-700">{shotTrend.f.smash !== null ? shotTrend.f.smash.toFixed(2) : '—'}</span>
+                        <span className="text-gray-400">→</span>
+                        <span className="font-bold text-gray-900">{shotTrend.l.smash !== null ? shotTrend.l.smash.toFixed(2) : '—'}</span>
+                      </div>
+                      {shotTrend.smashDelta !== null && (
+                        <p className={`text-xs font-semibold mt-0.5 ${shotTrend.smashDelta > 0.01 ? 'text-green-600' : shotTrend.smashDelta < -0.01 ? 'text-red-600' : 'text-gray-400'}`}>
+                          {shotTrend.smashDelta > 0 ? '+' : ''}{shotTrend.smashDelta.toFixed(3)}
+                        </p>
+                      )}
+                    </div>
+                    <div className="text-center bg-gray-50 rounded-lg p-3">
+                      <p className="text-xs text-gray-500 mb-1">Face-to-Path</p>
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="font-medium text-gray-700">{shotTrend.f.ftp !== null ? `${Math.abs(shotTrend.f.ftp).toFixed(1)}°` : '—'}</span>
+                        <span className="text-gray-400">→</span>
+                        <span className="font-bold text-gray-900">{shotTrend.l.ftp !== null ? `${Math.abs(shotTrend.l.ftp).toFixed(1)}°` : '—'}</span>
+                      </div>
+                      {shotTrend.ftpDelta !== null && (
+                        <p className={`text-xs font-semibold mt-0.5 ${shotTrend.ftpDelta < -0.3 ? 'text-green-600' : shotTrend.ftpDelta > 0.3 ? 'text-red-600' : 'text-gray-400'}`}>
+                          FTP: {shotTrend.ftpDelta > 0 ? '+' : ''}{shotTrend.ftpDelta.toFixed(1)}°
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-3 italic">
+                    {shotTrend.warmingUp
+                      ? 'Your swing improved as the session progressed — great warm-up effect!'
+                      : shotTrend.fatiguing
+                      ? 'Performance dropped toward the end — consider shortening sessions or taking more breaks.'
+                      : 'Very consistent throughout the session. Good mental focus.'}
+                  </p>
                 </CardBody>
               </Card>
             )}

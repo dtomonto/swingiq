@@ -25,7 +25,7 @@ import { Button } from '@/components/ui/Button';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { useSwingIQStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
-import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps } from '@swingiq/core';
+import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps, getRoutineForDiagnosis, type DiagnosisCategory } from '@swingiq/core';
 import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
 import { format } from 'date-fns';
 import { useSport } from '@/contexts/SportContext';
@@ -199,6 +199,17 @@ export function DashboardContent() {
   }, [sessionWithShots]);
 
   const clubs3 = clubs.slice(0, 3);
+
+  // Daily Focus drill — picks one drill per day from active routine
+  const dailyFocus = useMemo(() => {
+    const diagId = (typedDiagnosis?.rule.id ?? training.active_diagnosis_id) as DiagnosisCategory | undefined;
+    if (!diagId) return null;
+    const routine = getRoutineForDiagnosis(diagId, 'beginner');
+    if (!routine?.drill_recommendations.length) return null;
+    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+    const drill = routine.drill_recommendations[dayOfYear % routine.drill_recommendations.length]!;
+    return { drill, routineName: routine.name };
+  }, [typedDiagnosis, training.active_diagnosis_id]);
 
   // Club gap analysis
   const gapAnalysis = useMemo(() => {
@@ -375,6 +386,39 @@ export function DashboardContent() {
                     Import a new session using the same club after completing your training routine.
                     Compare your diagnosis confidence to see if the pattern has improved.
                   </p>
+                </div>
+              </CardBody>
+            </Card>
+          )}
+
+          {/* Daily Focus */}
+          {dailyFocus && (
+            <Card className="border-indigo-200 bg-indigo-50">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <BookOpen size={16} className="text-indigo-600" />
+                  <CardTitle className="text-indigo-900">Today&apos;s Focus Drill</CardTitle>
+                </div>
+              </CardHeader>
+              <CardBody>
+                <p className="text-xs text-indigo-600 mb-1">From: {dailyFocus.routineName}</p>
+                <p className="font-bold text-gray-900 text-sm">{dailyFocus.drill.name}</p>
+                <p className="text-xs text-gray-600 mt-0.5">{dailyFocus.drill.why_this_matches}</p>
+                {dailyFocus.drill.warning && (
+                  <p className="text-xs text-amber-700 mt-1">⚠ {dailyFocus.drill.warning}</p>
+                )}
+                <div className="flex items-center gap-2 mt-3">
+                  <a
+                    href={dailyFocus.drill.youtube_search_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-medium hover:bg-red-700"
+                  >
+                    <ExternalLink size={11} /> Find on YouTube
+                  </a>
+                  <Link href="/training">
+                    <Button size="sm" variant="outline">Full Routine →</Button>
+                  </Link>
                 </div>
               </CardBody>
             </Card>
