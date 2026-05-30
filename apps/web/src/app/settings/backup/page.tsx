@@ -1,0 +1,308 @@
+'use client';
+
+import { useState, useRef } from 'react';
+import { AppShell } from '@/components/layout/AppShell';
+import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { useSwingIQStore } from '@/store';
+import { Download, Upload, CheckCircle, AlertTriangle, RefreshCw, Shield } from 'lucide-react';
+import { exportUserData, downloadBackup } from '@/lib/backup/export';
+import { parseBackupFile } from '@/lib/backup/validate';
+import { previewRestore, mergeRestore, replaceRestore, generateRestoreResult } from '@/lib/backup/restore';
+import type { SwingIQBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
+
+type ImportStep = 'idle' | 'parsing' | 'preview' | 'confirming-replace' | 'done';
+
+export default function BackupPage() {
+  const store = useSwingIQStore();
+  const [exported, setExported] = useState(false);
+  const [importStep, setImportStep] = useState<ImportStep>('idle');
+  const [importError, setImportError] = useState<string | null>(null);
+  const [pendingBackup, setPendingBackup] = useState<SwingIQBackup | null>(null);
+  const [preview, setPreview] = useState<RestorePreview | null>(null);
+  const [restoreResult, setRestoreResult] = useState<RestoreResult | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleExport() {
+    const backup = exportUserData(store);
+    downloadBackup(backup);
+    setExported(true);
+    setTimeout(() => setExported(false), 3000);
+  }
+
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setImportError(null);
+    setImportStep('parsing');
+
+    const { backup, error } = await parseBackupFile(file);
+    if (error || !backup) {
+      setImportError(error ?? 'Unknown parse error');
+      setImportStep('idle');
+      return;
+    }
+
+    const p = previewRestore(backup, store);
+    setPendingBackup(backup);
+    setPreview(p);
+    setImportStep('preview');
+  }
+
+  function handleMerge() {
+    if (!pendingBackup || !preview) return;
+    const delta = mergeRestore(pendingBackup, store);
+    useSwingIQStore.setState(delta);
+    setRestoreResult(generateRestoreResult(preview, true));
+    setImportStep('done');
+  }
+
+  function handleReplace() {
+    if (!pendingBackup || !preview) return;
+    const delta = replaceRestore(pendingBackup, store.settings);
+    useSwingIQStore.setState(delta);
+    useSwingIQStore.getState().computeSetupStep();
+    setRestoreResult(generateRestoreResult(preview, true));
+    setImportStep('done');
+  }
+
+  function reset() {
+    setImportStep('idle');
+    setImportError(null);
+    setPendingBackup(null);
+    setPreview(null);
+    setRestoreResult(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }
+
+  const { sessions, clubs, video_analyses } = store;
+
+  return (
+    <AppShell>
+      <div className="p-6 max-w-2xl mx-auto space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Backup &amp; Restore</h1>
+          <p className="text-gray-500 text-sm mt-1">
+            Download a complete copy of your SwingIQ data, or restore from a previous backup.
+          </p>
+        </div>
+
+        {/* Privacy notice */}
+        <div className="flex gap-3 bg-green-50 border border-green-200 rounded-xl p-4">
+          <Shield className="text-green-600 mt-0.5 shrink-0" size={20} />
+          <div className="text-sm text-green-800 space-y-1">
+            <p className="font-semibold">Your data stays on your device</p>
+            <p>This backup contains your profiles, sessions, clubs, and analysis results.</p>
+            <p>Video files are not included — only metadata and analysis results.</p>
+            <p>No passwords, API keys, or payment credentials are stored in SwingIQ.</p>
+            <p className="font-medium">Store the file somewhere safe.</p>
+          </div>
+        </div>
+
+        {/* Export section */}
+        <Card>
+          <CardHeader><CardTitle>Download My Data Backup</CardTitle></CardHeader>
+          <CardBody className="space-y-4">
+            <p className="text-sm text-gray-600">
+              Creates a complete JSON file with everything SwingIQ knows about you.
+            </p>
+
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-gray-50 rounded-lg p-3">
+                <p className="text-2xl font-bold text-gray-900">{sessions.length}</p>
+                <p className="text-xs text-gray-500 mt-0.5">Sessions</p>
+              </div>
+              <div className="bg-gray-50 rounded-lg p-3">
+                <p className="text-2xl font-bold text-gray-900">{clubs.length}</p>
+                <p className="text-xs text-gray-500 mt-0.5">Clubs</p>
+              </div>
+              <div className="bg-gray-50 rounded-lg p-3">
+                <p className="text-2xl font-bold text-gray-900">{video_analyses.length}</p>
+                <p className="text-xs text-gray-500 mt-0.5">Video Analyses</p>
+              </div>
+            </div>
+
+            <p className="text-xs text-gray-400">
+              Includes: golf &amp; sport profiles, all sessions, clubs, video analysis metadata,
+              training progress, and settings.
+            </p>
+
+            <Button size="lg" onClick={handleExport} className="w-full">
+              <Download size={18} />
+              Download Backup
+            </Button>
+
+            {exported && (
+              <div className="flex items-center gap-2 text-green-600 text-sm font-medium">
+                <CheckCircle size={16} /> Backup downloaded successfully
+              </div>
+            )}
+          </CardBody>
+        </Card>
+
+        {/* Import section */}
+        <Card>
+          <CardHeader><CardTitle>Restore from Backup</CardTitle></CardHeader>
+          <CardBody className="space-y-4">
+            {importStep === 'idle' && (
+              <>
+                <p className="text-sm text-gray-600">
+                  Select a SwingIQ backup .json file to preview what will be restored.
+                </p>
+                {importError && (
+                  <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+                    <AlertTriangle size={16} className="shrink-0 mt-0.5" />
+                    <span>{importError}</span>
+                  </div>
+                )}
+                <label className="block">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".json"
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <Upload size={18} />
+                    Select Backup File
+                  </Button>
+                </label>
+              </>
+            )}
+
+            {importStep === 'parsing' && (
+              <div className="flex items-center gap-3 text-sm text-gray-600 py-4 justify-center">
+                <RefreshCw size={18} className="animate-spin text-green-600" />
+                Reading backup file…
+              </div>
+            )}
+
+            {importStep === 'preview' && preview && pendingBackup && (
+              <div className="space-y-4">
+                <div className="flex gap-2 bg-green-50 border border-green-200 rounded-lg p-3 text-sm text-green-800">
+                  <CheckCircle size={16} className="shrink-0 mt-0.5 text-green-600" />
+                  <div>
+                    <p className="font-semibold">Valid backup (v{pendingBackup.backupVersion})</p>
+                    <p>{preview.summary}</p>
+                  </div>
+                </div>
+
+                <div className="rounded-lg border border-gray-200 divide-y divide-gray-100 text-sm">
+                  <div className="grid grid-cols-3 text-center py-2 font-medium text-gray-500 text-xs uppercase tracking-wide bg-gray-50 rounded-t-lg">
+                    <span>Category</span>
+                    <span>New</span>
+                    <span>Skipped</span>
+                  </div>
+                  <div className="grid grid-cols-3 text-center py-2.5">
+                    <span className="text-gray-700">Sessions</span>
+                    <span className="font-semibold text-green-700">{preview.newRecords.sessions}</span>
+                    <span className="text-gray-400">{preview.skippedDuplicates.sessions}</span>
+                  </div>
+                  <div className="grid grid-cols-3 text-center py-2.5">
+                    <span className="text-gray-700">Clubs</span>
+                    <span className="font-semibold text-green-700">{preview.newRecords.clubs}</span>
+                    <span className="text-gray-400">{preview.skippedDuplicates.clubs}</span>
+                  </div>
+                  <div className="grid grid-cols-3 text-center py-2.5">
+                    <span className="text-gray-700">Video Analyses</span>
+                    <span className="font-semibold text-green-700">{preview.newRecords.videoAnalyses}</span>
+                    <span className="text-gray-400">{preview.skippedDuplicates.videoAnalyses}</span>
+                  </div>
+                </div>
+
+                {preview.warnings.length > 0 && (
+                  <div className="space-y-1">
+                    {preview.warnings.map((w, i) => (
+                      <div key={i} className="flex gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-2.5">
+                        <AlertTriangle size={15} className="shrink-0 mt-0.5" />
+                        <span>{w}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <Button variant="outline" size="lg" className="w-full" onClick={handleMerge}>
+                      Merge
+                    </Button>
+                    <p className="text-xs text-gray-400 text-center">Add new records to current data</p>
+                  </div>
+                  <div className="space-y-1">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="w-full text-red-600 border-red-300 hover:bg-red-50"
+                      onClick={() => setImportStep('confirming-replace')}
+                    >
+                      Replace
+                    </Button>
+                    <p className="text-xs text-gray-400 text-center">Overwrite all current data</p>
+                  </div>
+                </div>
+
+                <Button variant="ghost" size="sm" onClick={reset} className="w-full text-gray-500">
+                  Cancel
+                </Button>
+              </div>
+            )}
+
+            {importStep === 'confirming-replace' && (
+              <div className="space-y-4">
+                <div className="flex gap-3 bg-red-50 border border-red-200 rounded-xl p-4">
+                  <AlertTriangle className="text-red-500 shrink-0 mt-0.5" size={20} />
+                  <div className="text-sm text-red-800 space-y-1">
+                    <p className="font-semibold">This will overwrite your current data</p>
+                    <p>
+                      All existing sessions, clubs, profiles, and video analyses will be replaced
+                      with the backup. Your settings will be kept. This cannot be undone.
+                    </p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <Button variant="outline" size="lg" onClick={() => setImportStep('preview')}>
+                    Go Back
+                  </Button>
+                  <Button
+                    size="lg"
+                    className="bg-red-600 hover:bg-red-700 text-white"
+                    onClick={handleReplace}
+                  >
+                    Yes, Replace Everything
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {importStep === 'done' && restoreResult && (
+              <div className="space-y-4">
+                <div className="flex gap-2 bg-green-50 border border-green-200 rounded-lg p-4 text-sm text-green-800">
+                  <CheckCircle size={18} className="shrink-0 mt-0.5 text-green-600" />
+                  <div>
+                    <p className="font-semibold text-base">Restore complete</p>
+                    <p>{restoreResult.summary}</p>
+                    {restoreResult.errors.length > 0 && (
+                      <ul className="mt-2 list-disc list-inside text-red-600">
+                        {restoreResult.errors.map((e, i) => <li key={i}>{e}</li>)}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+                <Button size="lg" className="w-full" onClick={reset}>
+                  Done
+                </Button>
+              </div>
+            )}
+          </CardBody>
+        </Card>
+      </div>
+    </AppShell>
+  );
+}

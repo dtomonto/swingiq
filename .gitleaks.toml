@@ -1,0 +1,30 @@
+# Gitleaks configuration for SwingIQ
+# Docs: https://github.com/gitleaks/gitleaks
+
+title = "SwingIQ Gitleaks Config"
+
+[extend]
+# Extend the default gitleaks ruleset
+useDefault = true
+
+[[allowlist]]
+description = "Allow .env.example — contains placeholder values only, not real secrets"
+paths = [
+  '''.env\.example''',
+]
+
+[[allowlist]]
+description = "Allow docs and security documentation that reference secret names but not values"
+paths = [
+  '''SECURITY\.md''',
+  '''docs/.*\.md''',
+  '''\.github/pull_request_template\.md''',
+]
+
+[[allowlist]]
+description = "Allow test fixture files with obviously fake/placeholder values"
+paths = [
+  '''.*\.test\.(ts|tsx|js|jsx)''',
+  '''.*\.spec\.(ts|tsx|js|jsx)''',
+  '''__tests__/.*''',
+]

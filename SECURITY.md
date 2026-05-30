@@ -62,6 +62,28 @@ If user data (swing sessions, launch monitor data, video metadata, profiles) is 
 - `NEXT_PUBLIC_` variables are embedded in the browser bundle — they are not secret
 - Rotate any secret that was ever committed to git history
 
+## Automated Security Checks
+
+SwingIQ uses automated CI/CD security workflows that run on every push and pull request. See [`docs/security-automation.md`](docs/security-automation.md) for the full guide.
+
+| Workflow | What It Checks | Schedule |
+|---|---|---|
+| **Secret Scan** (Gitleaks) | Commits that contain API keys, tokens, or passwords | Every push |
+| **Dependency Audit** (`npm audit`) | Known CVEs in npm packages | Every push + weekly |
+| **Lint & Typecheck** | ESLint security rules (`no-eval`, `no-implied-eval`) + TypeScript | Every push |
+| **Custom Security Checks** | `NEXT_PUBLIC_` secrets, `eval()`, `dangerouslySetInnerHTML`, hardcoded keys | Every push |
+| **CodeQL Analysis** | Deep static analysis for XSS, injection, and other OWASP vulnerabilities | Push to main + weekly |
+| **Dependabot** | Automated PRs for outdated/vulnerable dependencies | Weekly |
+
+To run security checks locally:
+```bash
+npm run security:check     # custom source code scan
+npm run security:deps      # npm audit (critical only)
+npm run security:all       # both of the above
+```
+
+---
+
 ## Production Hardening Checklist
 
 - [ ] `ADMIN_SECRET` set to a 32+ character random string
