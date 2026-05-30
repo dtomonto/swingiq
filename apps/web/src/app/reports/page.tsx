@@ -5,9 +5,12 @@ import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { FileText, ChevronRight, Activity, Upload } from 'lucide-react';
+import { FileText, ChevronRight, Activity, Upload, Copy, CheckCircle } from 'lucide-react';
 import { useSwingIQStore } from '@/store';
+import { runDiagnosticEngine, computeSwingScores } from '@swingiq/core';
+import type { Shot } from '@swingiq/core';
 import { format } from 'date-fns';
+import { useMemo, useState } from 'react';
 
 const REPORT_TYPES = [
   {
@@ -49,11 +52,124 @@ const REPORT_TYPES = [
 ] as const;
 
 export default function ReportsPage() {
-  const { sessions } = useSwingIQStore();
+  const { sessions, profile, clubs, training } = useSwingIQStore();
+  const [copied, setCopied] = useState(false);
 
   const sorted = [...sessions].sort(
     (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
   );
+
+  // Build coach report text from live data
+  const coachReport = useMemo(() => {
+    const latestWithShots = sorted.find((s) => s.shots.length > 0);
+    const lines: string[] = [];
+
+    lines.push('=== SwingIQ Player Report ===');
+    lines.push(`Generated: ${format(new Date(), 'MMMM d, yyyy')}`);
+    lines.push('');
+
+    // Profile
+    if (profile) {
+      lines.push('--- Player Profile ---');
+      lines.push(`Name: ${profile.name}`);
+      lines.push(`Skill Level: ${profile.skill_level}`);
+      lines.push(`Typical Miss: ${profile.current_miss ?? 'Not specified'}`);
+      if (profile.handicap !== null && profile.handicap !== undefined) lines.push(`Current Handicap: ${profile.handicap}`);
+      lines.push(`Primary Goal: ${profile.primary_goal ?? 'Not specified'}`);
+      lines.push('');
+    }
+
+    // Bag
+    if (clubs.length > 0) {
+      lines.push('--- Bag ---');
+      clubs.filter((c) => c.typical_carry).forEach((c) => {
+        lines.push(`  ${c.name}: ~${c.typical_carry} yds carry`);
+      });
+      lines.push('');
+    }
+
+    // Latest session stats
+    if (latestWithShots) {
+      lines.push(`--- Latest Session: ${latestWithShots.name} ---`);
+      lines.push(`Date: ${format(new Date(latestWithShots.created_at), 'MMMM d, yyyy')}`);
+      lines.push(`Club: ${latestWithShots.club_name} | Shots: ${latestWithShots.shots.length}`);
+      lines.push(`Launch Monitor: ${latestWithShots.launch_monitor}`);
+
+      try {
+        const result = runDiagnosticEngine(
+          latestWithShots.shots as Shot[],
+          latestWithShots.club_category || 'mid_iron',
+          latestWithShots.id,
+          'local',
+        );
+        const scores = computeSwingScores(result.stats);
+        const s = result.stats;
+
+        lines.push('');
+        lines.push('Swing Scores:');
+        lines.push(`  Overall: ${scores.overall}`);
+        lines.push(`  Face Control: ${scores.face_control}`);
+        lines.push(`  Path Control: ${scores.path_control}`);
+        lines.push(`  Strike Quality: ${scores.strike_quality}`);
+        lines.push(`  Consistency: ${scores.consistency}`);
+
+        lines.push('');
+        lines.push('Key Metrics:');
+        if (s.avg_carry !== undefined) lines.push(`  Avg Carry: ${Math.round(s.avg_carry)} yds`);
+        if (s.avg_ball_speed !== undefined) lines.push(`  Avg Ball Speed: ${Math.round(s.avg_ball_speed)} mph`);
+        if (s.avg_smash_factor !== undefined) lines.push(`  Avg Smash Factor: ${s.avg_smash_factor.toFixed(2)}`);
+        if (s.avg_spin_rate !== undefined) lines.push(`  Avg Spin Rate: ${Math.round(s.avg_spin_rate)} rpm`);
+        if (s.avg_face_to_path !== undefined) lines.push(`  Avg Face-to-Path: ${s.avg_face_to_path.toFixed(1)}°`);
+        if (s.avg_club_path !== undefined) lines.push(`  Avg Club Path: ${s.avg_club_path.toFixed(1)}°`);
+        if (s.avg_attack_angle !== undefined) lines.push(`  Avg Attack Angle: ${s.avg_attack_angle.toFixed(1)}°`);
+        if (s.avg_lateral_offline !== undefined) lines.push(`  Avg Lateral Miss: ${s.avg_lateral_offline.toFixed(0)} yds`);
+
+        if (result.diagnoses.length > 0) {
+          lines.push('');
+          lines.push('Diagnoses:');
+          result.diagnoses.forEach((d, i) => {
+            lines.push(`  ${i + 1}. ${d.rule.name} (${d.rule.priority}, ${d.confidence}% confidence)`);
+            lines.push(`     Likely cause: ${d.rule.likely_cause}`);
+          });
+        }
+      } catch {
+        lines.push('  (Stats unavailable for this session)');
+      }
+    }
+
+    // Training progress
+    lines.push('');
+    lines.push('--- Training Progress ---');
+    lines.push(`Practice streak: ${training.streak_days} days`);
+    lines.push(`Drills completed: ${Object.keys(training.drills_completed).length}`);
+    lines.push(`Total sessions: ${sessions.length}`);
+    if (training.active_diagnosis_id) {
+      lines.push(`Currently working on: ${training.active_diagnosis_id.replace(/_/g, ' ')}`);
+    }
+
+    lines.push('');
+    lines.push('Generated by SwingIQ — swingiq.app');
+
+    return lines.join('\n');
+  }, [sorted, profile, clubs, training, sessions]);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(coachReport);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    } catch {
+      // Fallback for browsers without clipboard API
+      const el = document.createElement('textarea');
+      el.value = coachReport;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    }
+  };
 
   return (
     <AppShell>
@@ -161,6 +277,38 @@ export default function ReportsPage() {
                 )}
               </div>
             )}
+          </CardBody>
+        </Card>
+
+        {/* Coach Report Generator */}
+        <Card className="border-green-200 bg-green-50">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <FileText size={18} className="text-green-600" />
+                <CardTitle className="text-green-900">Share with Your Coach</CardTitle>
+              </div>
+              <Button
+                size="sm"
+                className="bg-green-600 hover:bg-green-700 text-white"
+                onClick={handleCopy}
+              >
+                {copied ? (
+                  <><CheckCircle size={14} /> Copied!</>
+                ) : (
+                  <><Copy size={14} /> Copy Report</>
+                )}
+              </Button>
+            </div>
+          </CardHeader>
+          <CardBody>
+            <p className="text-xs text-green-700 mb-3">
+              Copy a formatted text summary to share with your golf coach, club fitter, or training partner.
+              Includes scores, ball data, diagnoses, and training progress.
+            </p>
+            <pre className="bg-white rounded-lg border border-green-200 p-3 text-xs text-gray-700 font-mono whitespace-pre-wrap max-h-48 overflow-y-auto leading-relaxed">
+              {coachReport}
+            </pre>
           </CardBody>
         </Card>
 
