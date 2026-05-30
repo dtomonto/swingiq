@@ -115,7 +115,7 @@ export function DashboardContent() {
   const { profile, clubs, sessions, training, recordPractice } = useSwingIQStore();
   const latestSession = useLatestDiagnosedSession();
   const overallScore = useOverallScore();
-  const { activeSport } = useSport();
+  const { activeSport, isGolf } = useSport();
 
   const hasProfile = !!profile;
   const hasBag = clubs.length > 0;
@@ -209,6 +209,26 @@ export function DashboardContent() {
     return daysSince >= 2 ? daysSince : null;
   }, [training.last_practice_date]);
 
+  // Training improvement alert
+  const improvementAlert = useMemo(() => {
+    if (!isGolf || !training.active_session_id) return null;
+    const golfSessions = sessions.filter((s) => s.sport === 'golf' || !s.sport);
+    const startSession = golfSessions.find((s) => s.id === training.active_session_id);
+    const latestScored = [...golfSessions]
+      .filter((s) => s.swing_score !== null)
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0] ?? null;
+    if (!startSession || !latestScored || startSession.id === latestScored.id) return null;
+    if (startSession.swing_score === null || latestScored.swing_score === null) return null;
+    const delta = latestScored.swing_score - startSession.swing_score;
+    if (delta < 5) return null;
+    return {
+      delta,
+      fromScore: startSession.swing_score,
+      toScore: latestScored.swing_score,
+      diagnosisId: training.active_diagnosis_id,
+    };
+  }, [sessions, training.active_session_id, training.active_diagnosis_id, isGolf]);
+
   // Daily Focus drill — picks one drill per day from active routine
   const dailyFocus = useMemo(() => {
     const diagId = (typedDiagnosis?.rule.id ?? training.active_diagnosis_id) as DiagnosisCategory | undefined;
@@ -291,6 +311,31 @@ export function DashboardContent() {
               Log Today
             </Button>
           </div>
+        </div>
+      )}
+
+      {/* Training improvement alert */}
+      {improvementAlert && (
+        <div className="flex items-center justify-between gap-4 p-4 bg-green-50 border border-green-200 rounded-xl">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🎉</span>
+            <div>
+              <p className="font-semibold text-green-900 text-sm">
+                Your training is working — score up {improvementAlert.delta} points!
+              </p>
+              <p className="text-xs text-green-700">
+                From {improvementAlert.fromScore} when you started training
+                {improvementAlert.diagnosisId ? ` on ${improvementAlert.diagnosisId.replace(/_/g, ' ')}` : ''}
+                {' '}→ now {improvementAlert.toScore}.
+                Keep going.
+              </p>
+            </div>
+          </div>
+          <Link href="/progress">
+            <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white whitespace-nowrap">
+              See Progress
+            </Button>
+          </Link>
         </div>
       )}
 

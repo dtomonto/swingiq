@@ -18,7 +18,8 @@
       "Bash(Write-Host \"Cleared .next cache\")",
       "Bash(ls /mnt/c/Users/dtomo/OneDrive/Desktop/swingiq/apps/web/ | grep env)",
       "Bash(Get-ChildItem -Directory)",
-      "Bash(Select-Object Name)"
+      "Bash(Select-Object Name)",
+      "Bash(git stash *)"
     ]
   }
 }

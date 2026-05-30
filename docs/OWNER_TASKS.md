@@ -107,23 +107,23 @@ The AI Coach works without a key (returns data-grounded placeholder responses). 
 
 Vercel lets you access SwingIQ from any device, anywhere — not just your home computer.
 
+> **Good news:** The project now includes a `vercel.json` configuration file. Vercel will automatically use the correct build command and output directory — **no manual overrides needed**.
+
 - [ ] Create a free account at https://vercel.com (sign in with GitHub)
 - [ ] Click **Add New → Project**
 - [ ] Import `dtomonto/swingiq` from GitHub
-- [ ] Set **Root Directory** to: `apps/web`
-- [ ] Set **Build Command** to: `cd ../.. && npx turbo run build --filter=@swingiq/web`
-- [ ] Set **Output Directory** to: `.next`
-- [ ] Add environment variables (same as your `.env.local` but with the real Vercel URL):
-  - `NEXT_PUBLIC_APP_URL` = `https://your-app-name.vercel.app`
-  - `AI_PROVIDER` = `openai` (or `anthropic`, or leave blank)
-  - `OPENAI_API_KEY` = your key (if using OpenAI)
-  - `ANTHROPIC_API_KEY` = your key (if using Anthropic)
+- [ ] On the "Configure Project" screen, **leave all build settings at their defaults** — the `vercel.json` in the repo handles everything automatically
+- [ ] Add these environment variables before clicking Deploy:
+  - `NEXT_PUBLIC_APP_URL` = `https://your-app-name.vercel.app` *(update after first deploy)*
+  - `AI_PROVIDER` = `openai`
+  - `OPENAI_API_KEY` = your key *(copy from `apps/web/.env.local`)*
 - [ ] Click **Deploy** — takes about 2 minutes
-- [ ] Open the Vercel URL and confirm the app loads
-- [ ] Update `NEXT_PUBLIC_APP_URL` to your actual Vercel URL (e.g., `https://swingiq-yourusername.vercel.app`)
-- [ ] Redeploy from Vercel → Deployments
+- [ ] When it finishes, copy your real Vercel URL (e.g. `swingiq-dtomonto.vercel.app`)
+- [ ] Go to **Settings → Environment Variables** → update `NEXT_PUBLIC_APP_URL` to your real URL
+- [ ] Go to **Deployments** → click three dots on latest → **Redeploy**
+- [ ] Open your Vercel URL on your phone to confirm it works
 
-> After this, every push to GitHub automatically deploys to Vercel.
+> After this, every push to GitHub `master` automatically deploys to Vercel within 2 minutes.
 
 ### Task 4: Set Up Supabase for Cloud Data Storage (optional, 20 minutes)
 
