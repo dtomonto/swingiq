@@ -19,7 +19,11 @@
       "Bash(ls /mnt/c/Users/dtomo/OneDrive/Desktop/swingiq/apps/web/ | grep env)",
       "Bash(Get-ChildItem -Directory)",
       "Bash(Select-Object Name)",
-      "Bash(git stash *)"
+      "Bash(git stash *)",
+      "WebFetch(domain:swingiq.vercel.app)",
+      "WebFetch(domain:swingiq-dtomonto.vercel.app)",
+      "WebFetch(domain:swingiq-web-nine.vercel.app)",
+      "Bash(git commit *)"
     ]
   }
 }
