@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, ChevronDown, ChevronUp, Zap, SlidersHorizontal } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, ChevronDown, ChevronUp, Zap, SlidersHorizontal, TrendingUp } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { getRoutineForDiagnosis, type TrainingRoutine, type DrillRecommendation, type DiagnosisCategory, type SkillLevel } from '@swingiq/core';
+import { getRoutineForDiagnosis, runDiagnosticEngine, type TrainingRoutine, type DrillRecommendation, type DiagnosisCategory, type SkillLevel } from '@swingiq/core';
+import type { Shot } from '@swingiq/core';
 import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
 import Link from 'next/link';
+import { format } from 'date-fns';
 
 function DrillCard({ drill }: { drill: DrillRecommendation }) {
   return (
@@ -68,7 +70,7 @@ function StepList({ steps }: { steps: string[] }) {
 }
 
 export function TrainingContent() {
-  const { training, toggleDrillStep, recordPractice, profile } = useSwingIQStore();
+  const { sessions, training, toggleDrillStep, recordPractice, profile } = useSwingIQStore();
   const latestSession = useLatestDiagnosedSession();
 
   // Use active diagnosis from store, or fall back to latest session's diagnosis
@@ -97,6 +99,107 @@ export function TrainingContent() {
     : 0;
 
   const hasNoData = !latestSession && !training.active_diagnosis_id;
+
+  // ── Training Effectiveness ────────────────────────────────────
+  const trainingEffectiveness = useMemo(() => {
+    if (!sessions.length) return null;
+
+    const sorted = [...sessions].sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    );
+
+    // "After" = most recent session with shots
+    const afterSession = sorted.find((s) => s.shots.length > 0);
+    // "Before" = session when training started, or oldest session with shots
+    const beforeSession = training.active_session_id
+      ? sessions.find((s) => s.id === training.active_session_id)
+      : [...sorted].reverse().find((s) => s.shots.length > 0);
+
+    if (!beforeSession || !afterSession || beforeSession.id === afterSession.id) return null;
+    if (!beforeSession.shots.length || !afterSession.shots.length) return null;
+
+    const scoreBefore = beforeSession.swing_score;
+    const scoreAfter = afterSession.swing_score;
+    const scoreDelta =
+      scoreBefore !== null && scoreAfter !== null ? scoreAfter - scoreBefore : null;
+
+    const metricKey = routine.data_point_being_improved;
+
+    type StatGetter = (s: ReturnType<typeof runDiagnosticEngine>['stats']) => number | undefined;
+    const statMap: Record<string, StatGetter> = {
+      face_to_path: (s) => s.avg_face_to_path,
+      club_path: (s) => s.avg_club_path,
+      attack_angle: (s) => s.avg_attack_angle,
+      spin_rate: (s) => s.avg_spin_rate,
+      smash_factor: (s) => s.avg_smash_factor,
+      carry_distance: (s) => s.avg_carry,
+      lateral_miss: (s) => s.avg_lateral_offline,
+    };
+
+    let metricBefore: number | null = null;
+    let metricAfter: number | null = null;
+
+    try {
+      const rBefore = runDiagnosticEngine(
+        beforeSession.shots as Shot[],
+        beforeSession.club_category || 'mid_iron',
+        beforeSession.id,
+        'local',
+      );
+      const rAfter = runDiagnosticEngine(
+        afterSession.shots as Shot[],
+        afterSession.club_category || 'mid_iron',
+        afterSession.id,
+        'local',
+      );
+      const getter = statMap[metricKey];
+      if (getter) {
+        metricBefore = getter(rBefore.stats) ?? null;
+        metricAfter = getter(rAfter.stats) ?? null;
+      }
+    } catch {
+      // stats unavailable
+    }
+
+    // Determine direction (lower absolute = better for these)
+    const lowerAbsIsBetter = new Set(['face_to_path', 'club_path', 'lateral_miss', 'spin_rate']);
+    const isLowerAbs = lowerAbsIsBetter.has(metricKey);
+
+    let metricDelta: number | null = null;
+    let metricImproved: boolean | null = null;
+    if (metricBefore !== null && metricAfter !== null) {
+      metricDelta = metricAfter - metricBefore;
+      metricImproved = isLowerAbs
+        ? Math.abs(metricAfter) < Math.abs(metricBefore)
+        : metricAfter > metricBefore;
+    }
+
+    const verdict =
+      metricImproved === true
+        ? 'improving'
+        : metricImproved === false
+        ? 'regressing'
+        : scoreDelta !== null && scoreDelta >= 3
+        ? 'improving'
+        : scoreDelta !== null && scoreDelta <= -3
+        ? 'regressing'
+        : 'neutral';
+
+    return {
+      scoreBefore,
+      scoreAfter,
+      scoreDelta,
+      metricKey,
+      metricBefore,
+      metricAfter,
+      metricDelta,
+      metricImproved,
+      isLowerAbs,
+      verdict,
+      beforeDate: beforeSession.created_at,
+      afterDate: afterSession.created_at,
+    };
+  }, [sessions, training.active_session_id, routine.data_point_being_improved]);
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
@@ -136,6 +239,129 @@ export function TrainingContent() {
           <option value="elite">Elite</option>
         </select>
       </div>
+
+      {/* ── Training Effectiveness ─────────────────────────────── */}
+      {trainingEffectiveness && (
+        <Card
+          className={
+            trainingEffectiveness.verdict === 'improving'
+              ? 'border-green-300 bg-green-50'
+              : trainingEffectiveness.verdict === 'regressing'
+              ? 'border-red-300 bg-red-50'
+              : 'border-gray-200 bg-gray-50'
+          }
+        >
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <TrendingUp
+                size={18}
+                className={
+                  trainingEffectiveness.verdict === 'improving'
+                    ? 'text-green-600'
+                    : trainingEffectiveness.verdict === 'regressing'
+                    ? 'text-red-600'
+                    : 'text-gray-500'
+                }
+              />
+              <CardTitle>Is My Training Working?</CardTitle>
+              <span className="text-lg">
+                {trainingEffectiveness.verdict === 'improving'
+                  ? '✅'
+                  : trainingEffectiveness.verdict === 'regressing'
+                  ? '📉'
+                  : '→'}
+              </span>
+            </div>
+            <p className="text-xs text-gray-500 mt-1">
+              {format(new Date(trainingEffectiveness.beforeDate), 'MMM d')}
+              {' → '}
+              {format(new Date(trainingEffectiveness.afterDate), 'MMM d')}
+            </p>
+          </CardHeader>
+          <CardBody className="space-y-3">
+            <div className="grid grid-cols-2 gap-3">
+              {/* Overall score tile */}
+              <div className="bg-white rounded-lg p-3 border border-gray-200">
+                <p className="text-xs text-gray-500">Overall Score</p>
+                <div className="flex items-end gap-2 mt-1">
+                  <p className="text-xl font-bold text-gray-900">
+                    {trainingEffectiveness.scoreAfter ?? '—'}
+                  </p>
+                  {trainingEffectiveness.scoreDelta !== null && (
+                    <p
+                      className={`text-sm font-semibold pb-0.5 ${
+                        trainingEffectiveness.scoreDelta > 0
+                          ? 'text-green-600'
+                          : trainingEffectiveness.scoreDelta < 0
+                          ? 'text-red-600'
+                          : 'text-gray-500'
+                      }`}
+                    >
+                      {trainingEffectiveness.scoreDelta > 0 ? '+' : ''}
+                      {trainingEffectiveness.scoreDelta}
+                    </p>
+                  )}
+                </div>
+                <p className="text-xs text-gray-400 mt-0.5">
+                  Was {trainingEffectiveness.scoreBefore ?? '—'}
+                </p>
+              </div>
+
+              {/* Target metric tile */}
+              {trainingEffectiveness.metricBefore !== null &&
+                trainingEffectiveness.metricAfter !== null && (
+                  <div
+                    className={`rounded-lg p-3 border ${
+                      trainingEffectiveness.metricImproved
+                        ? 'bg-green-50 border-green-200'
+                        : 'bg-red-50 border-red-200'
+                    }`}
+                  >
+                    <p className="text-xs text-gray-500 capitalize">
+                      {trainingEffectiveness.metricKey.replace(/_/g, ' ')}
+                    </p>
+                    <div className="flex items-end gap-2 mt-1">
+                      <p className="text-xl font-bold text-gray-900">
+                        {trainingEffectiveness.metricAfter.toFixed(1)}
+                      </p>
+                      {trainingEffectiveness.metricDelta !== null && (
+                        <p
+                          className={`text-sm font-semibold pb-0.5 ${
+                            trainingEffectiveness.metricImproved
+                              ? 'text-green-600'
+                              : 'text-red-600'
+                          }`}
+                        >
+                          {trainingEffectiveness.metricDelta > 0 ? '+' : ''}
+                          {trainingEffectiveness.metricDelta.toFixed(1)}
+                        </p>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-400 mt-0.5">
+                      Was {trainingEffectiveness.metricBefore.toFixed(1)}
+                    </p>
+                  </div>
+                )}
+            </div>
+
+            <p
+              className={`text-sm font-medium ${
+                trainingEffectiveness.verdict === 'improving'
+                  ? 'text-green-700'
+                  : trainingEffectiveness.verdict === 'regressing'
+                  ? 'text-red-700'
+                  : 'text-gray-600'
+              }`}
+            >
+              {trainingEffectiveness.verdict === 'improving'
+                ? '✅ Your training is paying off — keep going!'
+                : trainingEffectiveness.verdict === 'regressing'
+                ? "📉 The numbers are moving the wrong way. Review your technique or try a different drill."
+                : '→ No clear change yet. Import more sessions to sharpen this picture.'}
+            </p>
+          </CardBody>
+        </Card>
+      )}
 
       {hasNoData && (
         <Card className="border-amber-200 bg-amber-50">

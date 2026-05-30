@@ -29,6 +29,122 @@ interface SessionSnapshot {
   avg_face_to_path: number | null;
 }
 
+// ── SVG score trend line chart ───────────────────────────────
+
+interface SparkSnapshot {
+  overall: number;
+  date: string;
+  name: string;
+}
+
+function ScoreTrendChart({ snapshots }: { snapshots: SparkSnapshot[] }) {
+  if (snapshots.length < 2) return null;
+
+  // Oldest → newest (left to right)
+  const ordered = [...snapshots].reverse();
+
+  const W = 600;
+  const H = 170;
+  const pad = { top: 24, bottom: 32, left: 36, right: 16 };
+
+  const scores = ordered.map((s) => s.overall);
+  const minS = Math.max(0, Math.min(...scores) - 8);
+  const maxS = Math.min(100, Math.max(...scores) + 8);
+
+  const toX = (i: number) =>
+    pad.left + (i / Math.max(1, ordered.length - 1)) * (W - pad.left - pad.right);
+  const toY = (score: number) =>
+    pad.top + (1 - (score - minS) / (maxS - minS)) * (H - pad.top - pad.bottom);
+
+  const pts = ordered.map((s, i) => ({
+    x: toX(i),
+    y: toY(s.overall),
+    score: s.overall,
+    date: s.date,
+    name: s.name,
+  }));
+
+  const linePath = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
+  const fillPath = `${linePath} L${pts.at(-1)!.x},${H - pad.bottom} L${pts[0]!.x},${H - pad.bottom} Z`;
+
+  const trend = pts.at(-1)!.score - pts[0]!.score;
+  const lineColor = trend >= 0 ? '#22c55e' : '#ef4444';
+
+  // Grid scores
+  const gridScores = [25, 50, 75].filter((v) => v > minS && v < maxS);
+
+  return (
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      className="w-full"
+      style={{ maxHeight: H }}
+      aria-label="Score trend over time"
+    >
+      {/* Grid */}
+      {gridScores.map((v) => {
+        const y = toY(v);
+        return (
+          <g key={v}>
+            <line
+              x1={pad.left}
+              y1={y}
+              x2={W - pad.right}
+              y2={y}
+              stroke="#e5e7eb"
+              strokeWidth="1"
+            />
+            <text x={pad.left - 4} y={y + 3} fontSize="9" fill="#9ca3af" textAnchor="end">
+              {v}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Area fill */}
+      <path d={fillPath} fill={`${lineColor}18`} />
+
+      {/* Line */}
+      <path
+        d={linePath}
+        fill="none"
+        stroke={lineColor}
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Dots + score labels */}
+      {pts.map((p, i) => (
+        <g key={i}>
+          <circle cx={p.x} cy={p.y} r="5" fill="white" stroke={lineColor} strokeWidth="2.5" />
+          <text
+            x={p.x}
+            y={p.y - 9}
+            fontSize="9.5"
+            fill="#111827"
+            textAnchor="middle"
+            fontWeight="bold"
+          >
+            {p.score}
+          </text>
+          <text
+            x={p.x}
+            y={H - 6}
+            fontSize="8.5"
+            fill="#9ca3af"
+            textAnchor="middle"
+          >
+            {format(new Date(p.date), 'MMM d')}
+          </text>
+          <title>{`${p.name}: ${p.score}`}</title>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+// ── Trend badge ───────────────────────────────────────────────
+
 function TrendBadge({ change }: { change: number }) {
   if (change > 0)
     return (
@@ -241,6 +357,26 @@ export default function ProgressPage() {
             </Card>
           ))}
         </div>
+
+        {/* Score trend chart */}
+        {snapshots.length > 1 && (
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <TrendingUp size={16} className="text-green-600" />
+                  <CardTitle>Score Over Time</CardTitle>
+                </div>
+                {overallChange !== 0 && (
+                  <TrendBadge change={overallChange} />
+                )}
+              </div>
+            </CardHeader>
+            <CardBody>
+              <ScoreTrendChart snapshots={snapshots} />
+            </CardBody>
+          </Card>
+        )}
 
         {/* Improvements summary */}
         {snapshots.length > 1 && (
