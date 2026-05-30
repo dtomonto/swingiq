@@ -34,7 +34,11 @@ function checkRateLimit(ip: string): boolean {
 
 interface VideoAnalysisRequest {
   video_id: string;
-  user_id: string;
+  // user_id is intentionally NOT accepted from the client body — it must be
+  // derived server-side from the authenticated session to prevent IDOR attacks.
+  // TODO: once Supabase auth is wired up, read user_id from the verified session:
+  //   const { data: { user } } = await supabase.auth.getUser();
+  //   const user_id = user?.id;
   session_id: string | null;
   metadata: SwingVideoMetadata;
 }
@@ -56,11 +60,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 });
   }
 
-  const { video_id, user_id, session_id, metadata } = body;
+  const { video_id, session_id, metadata } = body;
 
-  if (!video_id || !user_id || !metadata) {
+  // Derive user identity server-side. Until Supabase auth is wired up,
+  // use a placeholder. Replace with real session lookup before going to production.
+  // TODO: const user_id = await getAuthenticatedUserId(req);
+  const user_id = 'anonymous';
+
+  if (!video_id || !metadata) {
     return NextResponse.json(
-      { error: 'Missing required fields: video_id, user_id, metadata.' },
+      { error: 'Missing required fields: video_id, metadata.' },
       { status: 400 },
     );
   }
