@@ -1,17 +1,84 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, Bot, AlertCircle } from 'lucide-react';
+import { Send, Bot, AlertCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import type { CoachContext } from '@/lib/ai-coach-prompts';
 import type { SportId } from '@swingiq/core';
 
+// ── Types ─────────────────────────────────────────────────────
+
 interface Message {
   id: number;
-  role: 'user' | 'assistant';
+  role: 'user' | 'assistant' | 'system';
   content: string;
   isError?: boolean;
 }
+
+// ── Sport display config ──────────────────────────────────────
+
+const SPORT_DISPLAY: Record<SportId, {
+  emoji: string;
+  color: string;         // Tailwind bg for badge
+  textColor: string;     // Tailwind text for badge
+  borderColor: string;   // Tailwind border for header
+  avatarBg: string;      // Tailwind bg for bot avatar
+  placeholder: string;
+  greeting: string;
+}> = {
+  golf: {
+    emoji: '⛳',
+    color: 'bg-green-100',
+    textColor: 'text-green-800',
+    borderColor: 'border-green-200',
+    avatarBg: 'bg-green-600',
+    placeholder: 'Ask about your swing, launch data, drills, or practice plan…',
+    greeting:
+      'Hello! I\'m your SwingIQ Golf Coach. I have access to your launch-monitor data, swing scores, and diagnosis history.\n\nAsk me anything about your game — carry distance, face-to-path, spin rate, your training routine, or what to work on next. I\'ll always ground my answers in your actual numbers.',
+  },
+  tennis: {
+    emoji: '🎾',
+    color: 'bg-yellow-100',
+    textColor: 'text-yellow-800',
+    borderColor: 'border-yellow-200',
+    avatarBg: 'bg-yellow-500',
+    placeholder: 'Ask about your forehand, serve, drills, or next practice focus…',
+    greeting:
+      'Hello! I\'m your SwingIQ Tennis Coach. I have access to your video analysis results and tennis profile.\n\nAsk me about your stroke technique, phase-by-phase observations, drill recommendations, or what to focus on in your next practice session.',
+  },
+  baseball: {
+    emoji: '⚾',
+    color: 'bg-red-100',
+    textColor: 'text-red-800',
+    borderColor: 'border-red-200',
+    avatarBg: 'bg-red-600',
+    placeholder: 'Ask about your swing, bat path, timing, drills, or next session focus…',
+    greeting:
+      'Hello! I\'m your SwingIQ Baseball Hitting Coach. I have access to your swing analysis and hitter profile.\n\nAsk me about your bat path, load and stride timing, hip-shoulder separation, contact point, or what drills to work on in your next cage session.',
+  },
+  softball_slow: {
+    emoji: '🥎',
+    color: 'bg-orange-100',
+    textColor: 'text-orange-800',
+    borderColor: 'border-orange-200',
+    avatarBg: 'bg-orange-500',
+    placeholder: 'Ask about your swing, arc timing, bat path, or next practice focus…',
+    greeting:
+      'Hello! I\'m your SwingIQ Slow Pitch Coach. I have access to your swing analysis and player profile.\n\nAsk me about timing the arc pitch, hip rotation, contact height, bat path, or what drills to work on before your next game.',
+  },
+  softball_fast: {
+    emoji: '🥎',
+    color: 'bg-pink-100',
+    textColor: 'text-pink-800',
+    borderColor: 'border-pink-200',
+    avatarBg: 'bg-pink-500',
+    placeholder: 'Ask about your swing, rise ball timing, bat path, or next practice focus…',
+    greeting:
+      'Hello! I\'m your SwingIQ Fast Pitch Coach. I have access to your swing analysis and hitter profile.\n\nAsk me about reacting to the rise ball, keeping your path compact, load and stride timing, or what drills to prioritize before your next game.',
+  },
+};
+
+// ── Suggested questions per sport ─────────────────────────────
 
 const SUGGESTED_QUESTIONS_BY_SPORT: Record<SportId, string[]> = {
   golf: [
@@ -66,32 +133,60 @@ const SUGGESTED_QUESTIONS_BY_SPORT: Record<SportId, string[]> = {
   ],
 };
 
+// ── Context-switch message ────────────────────────────────────
+
+function makeSwitchMessage(sport: SportId, sportName: string, id: number): Message {
+  const d = SPORT_DISPLAY[sport];
+  return {
+    id,
+    role: 'system',
+    content: `${d.emoji} Switched to **${sportName}** context. My next answers will be about your ${sportName.toLowerCase()} game.`,
+  };
+}
+
+// ── Props ─────────────────────────────────────────────────────
+
 interface AICoachChatProps {
-  /** Pre-built coaching context from the diagnostic engine — never passes raw secrets */
   coachContext?: Partial<CoachContext>;
   sport?: SportId;
   sportName?: string;
 }
 
-export function AICoachChat({ coachContext, sport = 'golf', sportName = 'Golf' }: AICoachChatProps) {
+// ── Component ─────────────────────────────────────────────────
+
+export function AICoachChat({
+  coachContext,
+  sport = 'golf',
+  sportName = 'Golf',
+}: AICoachChatProps) {
+  const display = SPORT_DISPLAY[sport] ?? SPORT_DISPLAY.golf;
   const suggestedQuestions = SUGGESTED_QUESTIONS_BY_SPORT[sport] ?? SUGGESTED_QUESTIONS_BY_SPORT.golf;
+
   const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 0,
-      role: 'assistant',
-      content:
-        'Hello! I am your SwingIQ AI Coach. I have access to your launch-monitor data and swing profile. ' +
-        'Ask me anything about your game — I will always ground my answers in your actual numbers.',
-    },
+    { id: 0, role: 'assistant', content: display.greeting },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Track previous sport so we can detect a change
+  const prevSportRef = useRef<SportId>(sport);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom on new messages
+  // Auto-scroll on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
+
+  // Inject a visible system notice when the user switches sports mid-session
+  useEffect(() => {
+    if (prevSportRef.current !== sport) {
+      prevSportRef.current = sport;
+      setMessages((prev) => [
+        ...prev,
+        makeSwitchMessage(sport, sportName, prev.length),
+      ]);
+    }
+  }, [sport, sportName]);
 
   const sendMessage = async (text: string) => {
     const trimmed = text.trim();
@@ -103,7 +198,6 @@ export function AICoachChat({ coachContext, sport = 'golf', sportName = 'Golf' }
     setLoading(true);
 
     try {
-      // Build the full context for this request
       const requestBody: CoachContext = {
         ...(coachContext ?? {}),
         user_question: trimmed,
@@ -130,11 +224,7 @@ export function AICoachChat({ coachContext, sport = 'golf', sportName = 'Golf' }
       } else {
         setMessages((prev) => [
           ...prev,
-          {
-            id: prev.length,
-            role: 'assistant',
-            content: data.message ?? 'No response received.',
-          },
+          { id: prev.length, role: 'assistant', content: data.message ?? 'No response received.' },
         ]);
       }
     } catch {
@@ -143,8 +233,7 @@ export function AICoachChat({ coachContext, sport = 'golf', sportName = 'Golf' }
         {
           id: prev.length,
           role: 'assistant',
-          content:
-            'Could not reach the AI service. Check your internet connection and try again.',
+          content: 'Could not reach the AI service. Check your internet connection and try again.',
           isError: true,
         },
       ]);
@@ -153,61 +242,114 @@ export function AICoachChat({ coachContext, sport = 'golf', sportName = 'Golf' }
     }
   };
 
+  const resetChat = () => {
+    const freshDisplay = SPORT_DISPLAY[sport] ?? SPORT_DISPLAY.golf;
+    prevSportRef.current = sport;
+    setMessages([{ id: 0, role: 'assistant', content: freshDisplay.greeting }]);
+    setInput('');
+  };
+
+  const hasUserMessages = messages.some((m) => m.role === 'user');
+
   return (
     <div className="flex flex-col h-[calc(100dvh-4rem)] lg:h-screen max-h-screen p-4 lg:p-6 max-w-4xl mx-auto">
-      <div className="mb-4 flex-shrink-0">
-        <h1 className="text-xl lg:text-2xl font-bold text-gray-900">{sportName} AI Coach</h1>
-        <p className="text-sm text-gray-500 mt-1">
-          Ask any question about your {sportName.toLowerCase()} development. Answers are grounded in your actual data.
-        </p>
+
+      {/* ── Header ──────────────────────────────────────────── */}
+      <div className={`mb-4 flex-shrink-0 pb-4 border-b-2 ${display.borderColor}`}>
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              {/* Sport badge — the primary visual indicator */}
+              <span
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold ${display.color} ${display.textColor} border ${display.borderColor}`}
+              >
+                <span className="text-base leading-none">{display.emoji}</span>
+                {sportName} Mode
+              </span>
+            </div>
+            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">AI Coach</h1>
+            <p className="text-sm text-gray-500 mt-0.5">
+              Answering{' '}
+              <span className={`font-semibold ${display.textColor}`}>
+                {sportName.toLowerCase()}
+              </span>{' '}
+              questions — switch sports in the sidebar to change context.
+            </p>
+          </div>
+
+          {/* Reset / New conversation button */}
+          <button
+            onClick={resetChat}
+            title="Start a new conversation"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-500 hover:text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors flex-shrink-0 mt-1"
+          >
+            <RefreshCw size={12} />
+            New chat
+          </button>
+        </div>
       </div>
 
-      {/* Message area */}
+      {/* ── Message area ────────────────────────────────────── */}
       <div className="flex-1 overflow-y-auto space-y-4 mb-4 min-h-0">
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
-            {msg.role === 'assistant' && (
-              <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center mr-2 flex-shrink-0 mt-1">
-                {msg.isError ? (
-                  <AlertCircle size={16} className="text-white" />
-                ) : (
-                  <Bot size={16} className="text-white" />
-                )}
+        {messages.map((msg) => {
+
+          // System context-switch notice — centred pill
+          if (msg.role === 'system') {
+            return (
+              <div key={msg.id} className="flex justify-center">
+                <div className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium border ${display.color} ${display.textColor} ${display.borderColor}`}>
+                  <span>{display.emoji}</span>
+                  <span>
+                    Switched to <strong>{sportName}</strong> — questions now about your{' '}
+                    {sportName.toLowerCase()} game
+                  </span>
+                </div>
               </div>
-            )}
+            );
+          }
+
+          // Regular user / assistant message
+          return (
             <div
-              className={`max-w-[85%] lg:max-w-2xl px-4 py-3 rounded-xl text-sm leading-relaxed whitespace-pre-wrap ${
-                msg.role === 'user'
-                  ? 'bg-green-600 text-white'
-                  : msg.isError
-                  ? 'bg-red-50 border border-red-200 text-red-800'
-                  : 'bg-white border border-gray-200 text-gray-800'
-              }`}
+              key={msg.id}
+              className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
-              {msg.content}
+              {msg.role === 'assistant' && (
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 flex-shrink-0 mt-1 ${display.avatarBg}`}
+                >
+                  {msg.isError ? (
+                    <AlertCircle size={16} className="text-white" />
+                  ) : (
+                    <Bot size={16} className="text-white" />
+                  )}
+                </div>
+              )}
+              <div
+                className={`max-w-[85%] lg:max-w-2xl px-4 py-3 rounded-xl text-sm leading-relaxed whitespace-pre-wrap ${
+                  msg.role === 'user'
+                    ? `${display.avatarBg} text-white`
+                    : msg.isError
+                    ? 'bg-red-50 border border-red-200 text-red-800'
+                    : 'bg-white border border-gray-200 text-gray-800'
+                }`}
+              >
+                {msg.content}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {loading && (
           <div className="flex justify-start">
-            <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center mr-2 flex-shrink-0">
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 flex-shrink-0 ${display.avatarBg}`}>
               <Bot size={16} className="text-white" />
             </div>
             <div className="bg-white border border-gray-200 px-4 py-3 rounded-xl">
               <div className="flex gap-1 items-center">
                 <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                <div
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                  style={{ animationDelay: '0.1s' }}
-                />
-                <div
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                  style={{ animationDelay: '0.2s' }}
-                />
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
               </div>
             </div>
           </div>
@@ -215,15 +357,15 @@ export function AICoachChat({ coachContext, sport = 'golf', sportName = 'Golf' }
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Suggested questions — shown only before first user message */}
-      {messages.filter((m) => m.role === 'user').length === 0 && (
+      {/* ── Suggested questions ──────────────────────────────── */}
+      {!hasUserMessages && (
         <div className="mb-3 flex-shrink-0 flex flex-wrap gap-2">
           {suggestedQuestions.map((q) => (
             <button
               key={q}
               onClick={() => sendMessage(q)}
               disabled={loading}
-              className="px-3 py-1.5 bg-gray-100 hover:bg-green-50 hover:text-green-700 text-gray-600 rounded-full text-xs border border-gray-200 hover:border-green-300 transition-colors disabled:opacity-50"
+              className={`px-3 py-1.5 ${display.color} hover:opacity-80 ${display.textColor} rounded-full text-xs border ${display.borderColor} transition-colors disabled:opacity-50`}
             >
               {q}
             </button>
@@ -231,7 +373,7 @@ export function AICoachChat({ coachContext, sport = 'golf', sportName = 'Golf' }
         </div>
       )}
 
-      {/* Input */}
+      {/* ── Input ───────────────────────────────────────────── */}
       <div className="flex gap-2 flex-shrink-0">
         <input
           type="text"
@@ -243,22 +385,26 @@ export function AICoachChat({ coachContext, sport = 'golf', sportName = 'Golf' }
               sendMessage(input);
             }
           }}
-          placeholder="Ask about your swing, data, drills, or practice plan..."
-          className="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none disabled:bg-gray-50"
+          placeholder={display.placeholder}
+          className={`flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:border-transparent outline-none disabled:bg-gray-50 focus:ring-${sport === 'golf' ? 'green' : sport === 'tennis' ? 'yellow' : sport === 'baseball' ? 'red' : sport === 'softball_slow' ? 'orange' : 'pink'}-500`}
           disabled={loading}
           maxLength={1000}
-          aria-label="Type your golf question"
+          aria-label={`Ask your ${sportName} question`}
         />
         <Button
           onClick={() => sendMessage(input)}
           disabled={!input.trim() || loading}
           aria-label="Send message"
+          className={display.avatarBg}
         >
           <Send size={16} />
         </Button>
       </div>
+
       <p className="text-xs text-gray-400 mt-2 text-center flex-shrink-0">
-        Diagnoses are pattern-based data interpretations — not guaranteed mechanical analyses.
+        {sport === 'golf'
+          ? 'Diagnoses are pattern-based data interpretations — not guaranteed mechanical analyses.'
+          : 'Video analysis observations are heuristic estimates — use as a starting point for your own review.'}
       </p>
     </div>
   );
