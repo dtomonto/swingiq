@@ -1,259 +1,254 @@
 # SwingIQ — Data Import Guide
 
-This guide explains how to export data from every major launch monitor brand,
-what each metric means, and what to do when data is missing.
+How to get your performance data into SwingIQ for every sport.
 
 ---
 
-## Understanding Launch Monitor Metrics
+## Golf: Launch Monitor CSV Import
 
-Before importing, here is a plain-English explanation of each measurement.
+### Step-by-step import
 
-### Ball Flight Metrics (what the ball does)
+1. Click **Import Data** in the left sidebar (only shows for golf)
+2. Choose your launch monitor brand
+3. Upload your CSV file (drag-and-drop or browse)
+4. Review column mapping — adjust anything that looks wrong
+5. Check validation warnings
+6. Preview the first 10 shots
+7. Name your session
+8. Click **Import Session**
 
-| Metric | What it means | Why it matters |
+---
+
+### Understanding Golf Metrics
+
+#### Ball Flight (what the ball does)
+
+| Metric | Plain English | Why it matters |
 |---|---|---|
-| Carry Distance | How far the ball travels through the air | Primary distance measurement |
+| Carry Distance | How far the ball travels in the air | Primary distance measurement |
 | Total Distance | Carry + roll | Course management |
-| Ball Speed | How fast the ball leaves the clubface (mph) | Power / energy transfer |
-| Launch Angle | Angle the ball leaves the ground | Too high or low affects carry |
-| Spin Rate | How fast the ball is spinning (rpm) | Affects height, distance, stopping |
-| Spin Axis | Which direction the ball spins (left or right) | Causes curve |
-| Apex Height | How high the ball gets at its peak | Flight shape |
-| Descent Angle | Angle the ball is coming down at landing | Stopping power on greens |
-| Side Carry | How far left or right of the target (yards) | Accuracy |
-| Smash Factor | Ball speed ÷ club speed | Efficiency of contact |
+| Ball Speed | How fast the ball leaves the face (mph) | Measures energy transfer |
+| Launch Angle | Angle the ball leaves the ground (°) | Affects carry and height |
+| Spin Rate | How fast the ball spins (rpm) | Affects height, distance, stopping |
+| Spin Axis | Tilt direction of spin (left = draw, right = fade) | Determines ball curve |
+| Apex Height | Highest point of ball flight (yards) | Shows flight shape |
+| Descent Angle | Angle ball is falling at landing (°) | Stopping power on greens |
+| Side Carry | Lateral distance from target line (yards) | Accuracy measurement |
+| Smash Factor | Ball speed ÷ club speed | Strike efficiency |
 
-### Club Delivery Metrics (what the club does at impact)
+#### Club Delivery (what the club does at impact)
 
-| Metric | What it means | Why it matters |
+| Metric | Plain English | Why it matters |
 |---|---|---|
-| Club Speed | How fast the clubhead is moving (mph) | Raw power potential |
-| Attack Angle | Whether club is going up or down at impact (degrees) | Affects launch and spin |
-| Club Path | Which direction the club is swinging (left or right of target) | Affects ball start direction |
-| Face Angle | Which direction the clubface is pointing at impact | Primary cause of ball curve |
-| Face-to-Path | Face angle relative to club path | The most important metric for shot shape |
-| Dynamic Loft | Actual loft delivered at impact | Affects launch angle and spin |
-| Spin Loft | Difference between dynamic loft and attack angle | Determines spin rate |
-| Low Point | Where the club bottoms out relative to the ball | Fat/thin contact indicator |
+| Club Speed | Clubhead speed at impact (mph) | Raw power potential |
+| Attack Angle | Whether club moves up or down at impact (°) | Affects launch and spin |
+| Club Path | Direction of club swing relative to target (°) | Affects ball start |
+| Face Angle | Direction the face points at impact (°) | Primary curve cause |
+| Face-to-Path | Face angle relative to club path (°) | **Most important for shot shape** |
+| Dynamic Loft | Actual loft delivered (°) | Affects launch and spin |
+| Spin Loft | Dynamic loft minus attack angle (°) | Determines spin rate |
+| Low Point | Where club bottoms out relative to ball (inches) | Fat/thin indicator |
 
-### Strike Metrics (where the ball hit on the face)
+#### Strike Location
 
-| Metric | What it means |
+| Metric | Plain English |
 |---|---|
-| Impact Location X | Left-right position on face (negative = heel, positive = toe) |
-| Impact Location Y | Up-down position on face (negative = low, positive = high) |
+| Impact Location X | Left-right on face (negative = heel, positive = toe) |
+| Impact Location Y | High-low on face (negative = low, positive = high) |
 
 ---
 
-## What "Face-to-Path" Actually Means
+### What Face-to-Path Actually Means
 
-Face-to-path is the single most important metric for diagnosing shot shape.
+Face-to-path is the most important single metric for diagnosing shot shape.
 
-- **Positive number** (e.g., +4°): Face is open relative to path → causes fade or slice
-- **Negative number** (e.g., -4°): Face is closed relative to path → causes draw or hook
-- **Zero** (0°): Face and path match → ball goes straight (or at least curves predictably)
+- **+4°** (positive): Face is open relative to path → causes fade or slice
+- **-4°** (negative): Face is closed relative to path → causes draw or hook
+- **0°**: Face and path match → ball goes straight or curves predictably
 
-Target: Between -3° and +3° for most golfers.
+Target range: **-3° to +3°** for most golfers.
 
 ---
 
-## How to Export from Each Launch Monitor
+### How to Export from Each Launch Monitor
 
-### FlightScope Mevo / Mevo+ / Mevo Gen 2
+#### FlightScope Mevo / Mevo+ / Mevo Gen 2
 
-**On iPhone/iPad:**
+**iPhone/iPad (FS Golf app):**
 1. Open the **FS Golf** app.
-2. Tap "Sessions" at the bottom.
+2. Tap **Sessions** at the bottom.
 3. Tap the session you want.
-4. Tap the share icon (top right corner — looks like a box with an arrow).
-5. Tap "Export Session" → choose CSV.
-6. Send to yourself via email or save to Files.
+4. Tap the share icon (top right) → **Export Session** → CSV.
+5. Send yourself via email, AirDrop, or save to Files.
 
-**What data FlightScope provides:**
-- Ball speed ✓
-- Club speed ✓
-- Carry distance ✓
-- Launch angle ✓
-- Spin rate ✓
-- Spin axis ✓
-- Smash factor ✓
-- Attack angle ✓ (Mevo+ and above)
-- Club path ✓ (Mevo+ and above)
-- Face angle ✓ (Mevo+ and above)
-- Face-to-path ✓ (Mevo+ and above)
-- Dynamic loft ✓ (Mevo+ and above)
-- Strike location — not available on standard Mevo
+**What FlightScope provides:**
+- Ball speed, club speed, carry, launch angle, spin rate, spin axis, smash factor ✓
+- Attack angle, club path, face angle, face-to-path, dynamic loft ✓ (Mevo+ and above only)
+- Strike location: not available on original Mevo
 
 ---
 
-### TrackMan 4 / TrackMan iO
+#### TrackMan 4 / TrackMan iO
 
-**TrackMan App:**
-1. Open the TrackMan app or web dashboard.
-2. Select your session.
-3. Tap the share / export icon.
-4. Choose "Export to CSV" or "Download Data".
-5. Email or download to your computer.
+**TrackMan App or Web Dashboard:**
+1. Select your session.
+2. Tap the export/share icon.
+3. Choose **Export to CSV** or **Download Data**.
+4. Email or download to computer.
 
 **What TrackMan provides:**
 - All ball flight metrics ✓
 - All club delivery metrics ✓
 - Strike location ✓ (with camera)
-- Very high accuracy
+- High accuracy across all metrics
 
 ---
 
-### Foresight GCQuad / GC3 / Bushnell Launch Pro
+#### Foresight GCQuad / GC3 / Bushnell Launch Pro
 
 **FSX Software (PC/Mac):**
 1. Open FSX or FSX Play.
-2. Go to the main menu → File → Export Data.
-3. Select your session from the history list.
-4. Click Export → Choose CSV format.
-5. Save to your computer.
+2. Go to **File → Export Data**.
+3. Select your session from the history.
+4. Click Export → choose CSV format.
 
-**Note:** Foresight sometimes exports distances in meters.
-The SwingIQ importer detects this automatically and converts to yards.
+**Note:** Foresight sometimes exports distances in meters. SwingIQ detects this and converts automatically.
 
 **What Foresight provides:**
 - All ball data ✓
-- Back spin (spin rate in their format) ✓
-- Side spin (spin axis in their format) ✓
-- Club data: GCQuad provides full club delivery; GC3 provides most
+- Back spin + side spin (converted to spin rate and spin axis) ✓
+- Club delivery: GCQuad provides full data; GC3 provides most metrics ✓
 - Strike location ✓ on GCQuad with camera
 
 ---
 
-### SkyTrak / SkyTrak+ / ST Max
+#### SkyTrak / SkyTrak+ / ST Max
 
 **SkyTrak App:**
-1. Go to the Range or Game Zone where you hit your shots.
-2. Tap the session history icon.
-3. Tap the session you want.
-4. Tap the share icon → Export CSV.
-5. Email the file to yourself.
+1. Go to the Range or Game Zone session history.
+2. Tap the session → Share icon → **Export CSV**.
+3. Email to yourself.
 
 **What SkyTrak provides:**
-- Ball speed ✓
-- Carry distance ✓
-- Launch angle ✓
-- Back spin (spin rate) ✓
-- Side spin (spin axis) ✓
+- Ball speed, carry, launch angle, spin rate, spin axis ✓
 - Club speed ✓ (SkyTrak+ and above)
-- Club path: limited on original SkyTrak; better on SkyTrak+
+- Club path: limited on original SkyTrak; improved on SkyTrak+
 
 ---
 
-### Uneekor Eye Mini / Eye XO / Eye XO2 / Eye XR
+#### Uneekor Eye Mini / Eye XO / Eye XO2 / Eye XR
 
 **View Software (PC):**
-1. Open View software.
-2. Click Reports → Sessions.
-3. Select the session you want.
-4. Click Export → CSV.
-5. Save to your computer.
+1. Click **Reports → Sessions**.
+2. Select the session.
+3. Click **Export → CSV**.
 
 **What Uneekor provides:**
 - All ball data ✓
 - All club delivery data ✓ (varies by model)
 - Strike location ✓ (with camera ball tracking)
-- Swing video if camera is set up
 
 ---
 
-### Garmin Approach R10
+#### Garmin Approach R10
 
 **Garmin Golf App:**
-1. Open the Garmin Golf app on your phone.
-2. Tap the Activity icon (bottom bar).
-3. Tap the range session.
-4. Tap the three dots (more options) in the top right.
-5. Tap "Export Activity" → choose CSV or JSON.
-6. Email the file to yourself.
+1. Tap the **Activity** icon (bottom bar).
+2. Tap the range session.
+3. Tap three dots → **Export Activity** → CSV.
 
 **What Garmin provides:**
-- Ball speed ✓
-- Club speed ✓
-- Carry distance ✓
-- Launch angle ✓
-- Spin rate ✓
-- Attack angle ✓ (limited accuracy)
-- Club path ✓ (limited accuracy)
-- Face angle ✓ (limited accuracy)
-- Note: Garmin is a camera-based system. Accuracy on delivery metrics is lower than dual radar systems like TrackMan.
+- Ball speed, club speed, carry, launch angle, spin rate ✓
+- Attack angle, club path, face angle ✓ (lower accuracy than dual-radar systems)
+- Note: Garmin is camera-based. Delivery metric accuracy is lower than TrackMan or Foresight.
 
 ---
 
-### Rapsodo MLM / MLM2PRO
+#### Rapsodo MLM / MLM2PRO
 
 **Rapsodo App:**
-1. Open the Rapsodo app.
-2. Tap History at the bottom.
-3. Tap your session.
-4. Tap the share icon.
-5. Choose "Export as CSV" or "Send to Email".
+1. Tap **History** → your session.
+2. Tap share → **Export as CSV**.
 
 **What Rapsodo provides:**
-- Ball speed ✓
-- Carry distance ✓
-- Launch angle ✓
-- Spin rate ✓
-- Video (MLM2PRO) ✓
+- Ball speed, carry, launch angle, spin rate, video (MLM2PRO) ✓
 - Club delivery data: limited — Rapsodo is primarily a ball-flight device
 
 ---
 
-### Full Swing KIT
+#### Full Swing KIT
 
 **Full Swing App:**
-1. Open the Full Swing app.
-2. Navigate to your session.
-3. Tap export or share.
-4. Choose CSV export.
+1. Navigate to your session.
+2. Tap export/share → **CSV export**.
 
 ---
 
-## What to Do When Data Is Missing
+### What Can Be Diagnosed with Partial Data
 
-Different launch monitors provide different data. Here is what the app can diagnose with partial data:
+| Data available | What can be diagnosed |
+|---|---|
+| Carry distance only | Inconsistent carry, distance gaps |
+| + Ball speed | Strike quality (smash factor) |
+| + Launch angle + spin rate | Launch window, spin window, distance optimization |
+| + Face-to-path + club path | Face control, path pattern, shot shape |
+| + Attack angle + dynamic loft | Full diagnosis — all 24 diagnostic rules can run |
 
-### If you have ONLY carry distance:
-- Can diagnose: inconsistent carry, distance gaps
-- Cannot diagnose: face-to-path, path, attack angle issues
-
-### If you have carry + ball speed:
-- Can calculate smash factor
-- Can diagnose: strike quality (smash factor)
-
-### If you have carry + ball speed + launch + spin:
-- Can diagnose: launch window, spin window, distance
-- Cannot diagnose: face/path issues without face-to-path data
-
-### If you have ALL data including face-to-path, path, dynamic loft:
-- Full diagnosis available — all 12+ diagnostic rules can run
-
-**The import wizard always tells you what is missing and what can still be diagnosed.**
+**The import wizard always tells you what is missing and what can still be diagnosed.** A partial dataset still produces useful analysis — it just means some rules won't have enough evidence.
 
 ---
 
-## Manual Data Entry
+## Non-Golf: Video Upload
 
-If you don't have a CSV export, you can enter data manually:
+For tennis, baseball, slow pitch softball, and fast pitch softball, video is the primary data source.
 
-1. Click "Import Data" → select "Manual Entry / Other".
-2. Choose your club.
-3. Enter numbers one shot at a time.
-4. Even entering just carry distance for 10 shots creates a useful baseline.
+### How to record a good swing video
 
-Manual entry is less efficient than CSV import but works for any situation.
+| Angle | Best for | Sport recommendation |
+|---|---|---|
+| Open Side (face-on) | Hip rotation, stride, contact point | All bat sports (best all-around) |
+| Behind player (down-the-line) | Racquet/bat path, extension | Tennis, baseball |
+| Catcher view | Bat path, extension through zone | Baseball, fast pitch |
+| Pitcher view | Contact point, front-side mechanics | All bat sports |
+
+**Tips for better video:**
+- Film at the highest frame rate your phone supports (60fps or 120fps is ideal)
+- Ensure good lighting — avoid backlighting
+- Keep the full body in frame with some space above the hands
+- Phone video in landscape mode gives the best resolution
+- 5–15 second clips are ideal (you don't need the whole session)
+
+### Uploading
+
+1. Switch your active sport to the correct sport
+2. Click **Video Analysis** in the sidebar
+3. Upload or drag-and-drop your video file
+4. Select the camera angle
+5. Click **Analyze**
+
+Supported formats: MP4, MOV, WebM. Max recommended size: 100MB.
 
 ---
 
-## Tips for Better Data
+## Non-Golf: Manual Session Log
 
-1. **Hit at least 10 shots per club** — the diagnostic engine needs enough data to find patterns.
-2. **Use the same ball each session** — different balls have different spin rates, which affects carry.
-3. **Note whether you're on mat or grass** — mat shots sometimes play differently.
-4. **Tag each session clearly** — "Driver Session May 25" is better than "Session 1".
-5. **Don't include warm-up shots** — your first 3–5 shots may not be representative of your swing.
+No video? You can still log sessions manually.
+
+1. Click **Log Session** in the sidebar (non-golf)
+2. Enter session name, type, duration, and swings taken
+3. Describe what you worked on
+4. Note the outcome and how it felt
+5. Click **Log Session**
+
+Manual sessions build your history, contribute to your practice streak, and add to your milestones — even without video analysis.
+
+---
+
+## Tips for Best Results
+
+1. **Golf:** Import after every range session, even a short one. 10+ shots per club gives the best diagnosis.
+2. **Non-golf:** Side-angle video at 60fps or higher gives the most useful phase analysis.
+3. **All sports:** Be consistent with your notes — good session names ("Driver session — working on path, May 25") are easy to track later.
+4. **Golf:** Use the same ball across sessions when possible — different balls have different spin rates.
+5. **Golf:** Mark warm-up shots by deleting the first 3–5 if they are clearly different from your normal swing.
+6. **All sports:** Review the AI Coach after each import — it personalizes based on your latest data.

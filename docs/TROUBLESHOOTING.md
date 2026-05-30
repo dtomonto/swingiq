@@ -1,7 +1,6 @@
 # SwingIQ — Troubleshooting Guide
 
-This guide covers the most common problems beginners encounter.
-Each problem includes: what happened, why, and how to fix it step by step.
+Step-by-step fixes for the most common problems.
 
 ---
 
@@ -9,179 +8,183 @@ Each problem includes: what happened, why, and how to fix it step by step.
 
 **What you see:** Red error text after typing `npm install`
 
-**Why it happens:** Node.js might not be installed correctly, or the terminal is in the wrong folder.
+**Fix 1 — Node.js not installed or outdated:**
+1. Type `node --version` and press Enter.
+2. If you see an error, go to https://nodejs.org, download the LTS version, and reinstall.
+3. Close and reopen VS Code after installing, then try `npm install` again.
 
-**How to fix it:**
-
-1. Check that Node.js is installed:
-   - Type `node --version` and press Enter.
-   - If you see an error, go back to BEGINNER_START_HERE.md and reinstall Node.js.
-
-2. Make sure the terminal is in the right folder:
-   - At the top of the terminal, look at the path shown. It should end with `swingiq`.
-   - If it doesn't, in VS Code: click Terminal → New Terminal. VS Code automatically opens the terminal in your project folder.
-
-3. Try again: type `npm install` and press Enter.
+**Fix 2 — Terminal is in the wrong folder:**
+1. Look at the terminal prompt — it should end with `swingiq`.
+2. If it doesn't: in VS Code, click **Terminal → New Terminal** (this automatically opens in the project folder).
+3. Try `npm install` again.
 
 ---
 
-## Problem 2: The web app won't start ("npm run dev:web" gives an error)
+## Problem 2: "npm run dev:web" gives an error
 
-**What you see:** Error message after running `npm run dev:web`
+**Fix A — Missing .env.local file:**
+1. In VS Code Explorer, go to `apps` → `web`.
+2. If you don't see `.env.local`, you haven't created it.
+3. Right-click `.env.example` → Copy → Paste into the same `web` folder → rename the copy to `.env.local`.
+4. Try again.
 
-**Common causes and fixes:**
+**Fix B — Port 3000 is already in use:**
+- You see: `Error: listen EADDRINUSE: address already in use :::3000`
+- Close any other terminal windows that may be running `npm` commands.
+- On Windows: open Task Manager → find any `node.exe` processes → end them.
+- On Mac: in Terminal, type `lsof -ti:3000 | xargs kill` and press Enter.
+- Try again.
 
-### Fix A — Missing .env.local file
-- Go to `apps/web/` in VS Code.
-- If you don't see a file called `.env.local`, you haven't created it yet.
-- Follow Part 2, Step 4 in BEGINNER_START_HERE.md.
-
-### Fix B — Wrong Supabase URL or key
-- Open `apps/web/.env.local`.
-- Make sure the URL starts with `https://` and ends with `.supabase.co`.
-- Make sure there are no spaces before or after the values.
-- Make sure there are no quotation marks around the values.
-
-### Fix C — Port 3000 is already in use
-- What you see: `Error: listen EADDRINUSE: address already in use :::3000`
-- Another program is using port 3000.
-- Close any other terminal windows that might be running npm commands.
-- Or, open Task Manager (Windows) or Activity Monitor (Mac) and close any node.js processes.
+**Fix C — Stale build cache (EINVAL error):**
+- You see something like: `EINVAL: invalid argument, readlink`
+- Delete the cache folder: in VS Code terminal, type:
+  ```
+  npm run build
+  ```
+  If that also fails, delete `apps/web/.next` manually:
+  1. In VS Code Explorer, right-click `apps/web/.next` → Delete.
+  2. Run `npm run dev:web` again.
 
 ---
 
-## Problem 3: The browser shows "This site can't be reached"
+## Problem 3: Browser shows "This site can't be reached"
 
-**What you see:** Browser error when going to http://localhost:3000
+**Why:** The app isn't running yet, or it crashed.
 
-**Why it happens:** The web app isn't running yet, or it crashed.
+**Fix:**
+1. Check the VS Code terminal — does it say `Local: http://localhost:3000`?
+2. If not, run `npm run dev:web` again.
+3. Wait 15 seconds, then refresh your browser.
 
-**How to fix it:**
-1. Go back to VS Code.
-2. Check the terminal. Does it say `Local: http://localhost:3000`? If not, the app is not running.
+---
+
+## Problem 4: The app loads but shows a blank white page
+
+**Fix 1 — JavaScript error in browser:**
+1. Press F12 to open browser developer tools.
+2. Click the **Console** tab.
+3. Look for red errors. Copy the error text.
+4. Usually caused by a missing or malformed `.env.local` — check that file.
+
+**Fix 2 — Build cache issue:**
+1. Close the terminal running the dev server (press Ctrl+C).
+2. Delete `apps/web/.next` folder.
 3. Run `npm run dev:web` again.
-4. Wait 15 seconds before refreshing your browser.
 
 ---
 
-## Problem 4: Supabase schema gives errors when you run it
+## Problem 5: CSV import shows "0 shots detected" or "no data found"
 
-**What you see:** Red errors in the Supabase SQL Editor after pasting the schema.
+**Fix 1 — Wrong file format:**
+1. Open your CSV file in Excel or Google Sheets.
+2. Make sure the first row contains column headers (like "Carry Distance", "Ball Speed").
+3. Make sure there is real data below the headers.
+4. Re-save from Excel as **CSV (Comma-Separated Values)**.
+5. Try importing the new file.
 
-**Common causes:**
+**Fix 2 — Wrong launch monitor brand selected:**
+1. In Step 1 of the import wizard, make sure you selected your actual device.
+2. Different brands use different column names. Selecting the wrong brand causes mismatches.
 
-### If the error says "already exists":
-- The tables were already created from a previous attempt.
-- This is usually fine. The schema uses `IF NOT EXISTS` to avoid duplicates.
-- Scroll through the errors — if most are just "already exists", the setup worked.
-
-### If the error says "permission denied":
-- Make sure you are logged in to the correct Supabase project.
-- Try logging out of Supabase and back in.
-
-### If the error says "syntax error":
-- The SQL text may have been partially copied.
-- Go back to VS Code, open `server/supabase_schema.sql`.
-- Press Ctrl+A to select ALL the text.
-- Press Ctrl+C to copy.
-- Go back to Supabase SQL Editor.
-- Click in the text box.
-- Press Ctrl+A to select any existing text.
-- Press Delete to clear it.
-- Press Ctrl+V to paste.
-- Click Run.
+**Fix 3 — Manual column mapping:**
+1. In Step 3 of the import wizard, manually match your file's columns to SwingIQ's fields.
+2. Check your CSV file in Excel to see exactly what each column is named.
 
 ---
 
-## Problem 5: CSV import says "no data found" or "0 shots detected"
+## Problem 6: The diagnostic engine says "No critical issues detected"
 
-**What you see:** The import wizard shows 0 shots after uploading your file.
+**Why:** The engine needs enough data and the right metrics to detect patterns.
 
-**Why it happens:** The CSV file may be empty, or the first row isn't recognized as column headers.
-
-**How to fix it:**
-1. Open your CSV file in Microsoft Excel or Google Sheets.
-2. Make sure the first row contains column names (like "Carry Distance", "Ball Speed", etc.).
-3. Make sure there is actual data in the rows below.
-4. If the file looks correct but the import still shows 0, try saving it again from Excel as "CSV (Comma-Separated Values)".
-5. Re-upload the new file.
+**Fix:**
+1. Make sure you imported **at least 10 shots** from the same club.
+2. Make sure the CSV includes face-to-path, club path, or spin axis data — without these, face/path diagnoses cannot run.
+3. Basic devices (Garmin R10, entry SkyTrak) may not capture all club delivery data. The app will tell you what it can and cannot diagnose with your available data.
+4. Check the "Key Metrics" section even if no critical diagnosis appears — individual metric values are still shown.
 
 ---
 
-## Problem 6: CSV import maps columns incorrectly
+## Problem 7: Sport switcher isn't working or the wrong dashboard shows
 
-**What you see:** Carry distance shows up in the wrong column, or values look way too high or too low.
-
-**Why it happens:** Different launch monitors use different column names. The auto-detection might not match your device's format exactly.
-
-**How to fix it:**
-1. In the import wizard, go to Step 3 (Map Columns).
-2. For each SwingIQ field on the left, use the dropdown on the right to select the correct column from your file.
-3. Look at your CSV file in Excel to find what each column is named.
-4. Match them manually if the auto-detection was wrong.
+**Fix:**
+1. Click the **Active Sport** selector in the bottom of the left sidebar.
+2. Select your sport from the dropdown.
+3. The dashboard, profile, sessions, and training pages should all update immediately.
+4. If the page content doesn't change: try a hard refresh (Ctrl+Shift+R on Windows, Command+Shift+R on Mac).
+5. If it still doesn't change: open browser DevTools (F12) → Application → Local Storage → find `swingiq_active_sport` → confirm it shows your sport.
 
 ---
 
-## Problem 7: The diagnosis shows no issues detected
+## Problem 8: AI Coach returns placeholder text instead of real answers
 
-**What you see:** After importing, the Diagnose page says "No critical issues detected."
+**Why:** No AI API key is configured, or the key is in the wrong place.
 
-**Why it happens:** You may need more shots, or the data doesn't have enough detail for the diagnostic rules to trigger.
-
-**How to fix it:**
-1. Make sure you imported at least 10 shots from the same club.
-2. Make sure the CSV includes face-to-path, club path, or spin axis data. Without these, some diagnoses cannot run.
-3. Check the "Evidence" section — even if no critical issue is found, key metrics will still show.
-4. If you only have carry distance data, the app can diagnose consistency but not face/path patterns.
-
----
-
-## Problem 8: The mobile app shows a blank screen
-
-**What you see:** The Expo app loads but shows a white or black screen.
-
-**Why it happens:** The app may have crashed or the connection was lost.
-
-**How to fix it:**
-1. On your phone, close the Expo Go app completely.
-2. Re-open Expo Go.
-3. Tap "Recent" and reopen SwingIQ, or scan the QR code again.
+**Fix:**
+1. Open `apps/web/.env.local` in VS Code.
+2. Confirm these lines are present and correct:
+   ```
+   AI_PROVIDER=openai
+   OPENAI_API_KEY=sk-your-actual-key-here
+   ```
+   or
+   ```
+   AI_PROVIDER=anthropic
+   ANTHROPIC_API_KEY=sk-ant-your-actual-key-here
+   ```
+3. Make sure the file is at `apps/web/.env.local` — **not** at the root `swingiq/.env.local`.
+4. Restart the dev server: press Ctrl+C in the terminal, then run `npm run dev:web` again.
+5. Refresh the AI Coach page and try again.
 
 ---
 
-## Problem 9: The mobile app can't connect to the server
+## Problem 9: My data disappeared after refreshing the page
 
-**What you see:** Error about "network request failed" or "CORS"
+**Why:** SwingIQ saves data in your browser's localStorage. Clearing browser data or switching browsers erases it.
 
-**Why it happens:** Your phone and computer need to be on the same WiFi network.
-
-**How to fix it:**
-1. On your phone: go to Settings → WiFi. Note which network you are on.
-2. On your computer: check you are on the same WiFi network.
-3. If they don't match, connect both to the same WiFi and try again.
+**Fix:**
+1. If you cleared browser history or cookies, the data is gone from that browser.
+2. Going forward: use the same browser every time.
+3. To protect your data permanently: set up Supabase (see [OWNER_TASKS.md](OWNER_TASKS.md) Task 4).
+4. To manually back up now: go to **Settings** in the app → **Export Data** → save the JSON file.
 
 ---
 
-## Problem 10: Changes I made don't appear in the app
+## Problem 10: Video upload fails or shows "unsupported format"
 
-**What you see:** You saved your profile or added a club, but it's still showing old data.
+**Why:** The video file format may not be supported, or the file is too large.
 
-**Why it happens:** The page may need to be refreshed, or data is being stored locally only (before Supabase is connected).
+**Fix:**
+1. Supported formats: MP4 (H.264), MOV, WebM. Convert if needed using a free tool like Handbrake.
+2. File size: keep under 100MB for reliable uploads. Trim the video to just the swing if needed.
+3. If the video plays fine locally but won't upload: try a different browser (Chrome works best).
+4. Very long videos (over 5 minutes) may be too large — trim to just the swing clips.
 
-**How to fix it:**
-1. Press F5 (Windows) or Command+R (Mac) to refresh the page.
-2. If data is still missing, the Supabase connection may not be set up. Check your `.env.local` file has the correct values.
+---
+
+## Problem 11: The app is deployed to Vercel but shows an error
+
+**Fix 1 — Environment variables missing:**
+1. Go to Vercel → your project → **Settings → Environment Variables**.
+2. Confirm `NEXT_PUBLIC_APP_URL` is set to your actual Vercel URL.
+3. If you added Supabase or AI keys, confirm those are there too.
+4. After adding/changing env vars: go to **Deployments** tab → click **Redeploy**.
+
+**Fix 2 — Build failed:**
+1. Go to Vercel → your project → **Deployments** tab.
+2. Click the failed deployment to see the build log.
+3. Look for the first red error line — it will tell you what went wrong.
 
 ---
 
 ## When to Ask for Help
 
-If you have followed all the steps in this guide and something still isn't working, describe the problem with:
+If none of the above fixes work, describe the problem with:
 
-1. Which step number from BEGINNER_START_HERE.md you were on
+1. Which step you were on
 2. Exactly what you typed or clicked
-3. A copy of the error message (if any)
-4. What operating system you are using (Windows 10, Windows 11, Mac)
-5. What version of Node.js you have (type `node --version` to check)
+3. The full error message (copy and paste it)
+4. Your operating system (Windows 10, Windows 11, Mac)
+5. Your Node.js version (type `node --version`)
+6. Which browser you are using
 
-With this information, the problem can almost always be diagnosed and fixed.
+With this information, almost any problem can be diagnosed and fixed quickly.

@@ -1,216 +1,338 @@
-# SwingIQ Web App Guide
+# SwingIQ — Web App Guide
 
-This guide explains everything about the web-based version of SwingIQ.
-It is written for someone who is not a developer.
-
----
-
-## 1. What Is the Web App?
-
-The SwingIQ web app is a website that runs on your computer.
-You open it in a browser (like Chrome or Edge) by going to:
-`http://localhost:3000`
-
-"Localhost" just means it's running on your own computer, not on the internet.
-Think of it as a private app that only you can see.
-
-The web app is the best place for:
-- Importing launch monitor CSV files (easier with a mouse and keyboard)
-- Reviewing detailed charts and session comparisons
-- Generating and printing reports
-- Deep analysis with multiple filters
-- Reviewing swing video frame-by-frame
-- Exploring the 3D avatar model
+A plain-English guide to every feature in the app.
 
 ---
 
-## 2. How Is It Different from the Mobile App?
+## 1. The Basics
 
-| Feature | Web App | Mobile App |
+SwingIQ is a web app. There is no separate mobile app to install — everything runs in your browser at either:
+- `http://localhost:3000` (when running on your own computer)
+- Your Vercel URL (when deployed — accessible anywhere)
+
+It works on phones, tablets, and computers. The layout adjusts automatically.
+
+---
+
+## 2. The Sport Switcher
+
+**This is the most important control in the app.**
+
+The Sport Switcher is at the bottom of the left sidebar, labeled **Active Sport**. Clicking it opens a dropdown of all five sports:
+- ⛳ Golf
+- 🎾 Tennis
+- ⚾ Baseball
+- 🥎 Slow Pitch Softball
+- 🥎 Fast Pitch Softball
+
+When you switch sports, the entire app changes:
+- Dashboard content and cards
+- Profile form fields
+- Sessions list (filtered to that sport)
+- Training page content
+- Pre-game warm-up
+- Drill library default
+- Milestones
+- AI Coach language and suggested questions
+- Progress tracker
+- Reports
+
+Your sport choice is saved in your browser, so it persists after page refreshes.
+
+---
+
+## 3. Navigation
+
+The left sidebar has 16 pages. Labels change based on your active sport:
+
+| Page | Golf label | Tennis/Baseball/Softball label |
 |---|---|---|
-| Best screen size | Desktop / laptop | Phone |
-| Best for | Analysis, import, reports | Quick entry, field use |
-| CSV import | Yes — drag and drop | Not yet |
-| Video review | Yes — full controls | Basic view |
-| 3D avatar | Yes | Web-based link |
-| Charts | Large, detailed | Simplified |
-| Typing | Easier on keyboard | Harder |
+| Profile | My Golfer Profile | My Tennis/Hitter Profile |
+| Equipment | Equipment | Equipment |
+| Sessions | Sessions | Hitting/Training Sessions |
+| Import | Import Data | Log Session |
+| Diagnose | Diagnose | Analyze Swing |
+| Pre-Round | Pre-Round | Pre-Game Warm-Up |
+| Drills | Drill Library | Drills |
 
-Both apps use the same account, same data, and same diagnoses.
-
----
-
-## 3. How to Open the Web App Locally
-
-1. Open VS Code.
-2. Click Terminal → New Terminal.
-3. Type `npm run dev:web` and press Enter.
-4. Wait about 10 seconds.
-5. Open Chrome or any browser.
-6. Go to: `http://localhost:3000`
-
-The app will open.
+On mobile, tap the menu icon (☰) at the top left to open the sidebar.
 
 ---
 
-## 4. How to Log In
+## 4. Dashboard
 
-The login system is powered by Supabase (your database provider).
+The dashboard is the home screen. It changes completely by sport.
 
-1. The first time: click "Sign Up" and create an account with your email.
-2. Check your email for a confirmation link. Click it.
-3. After that, you can log in with your email and password.
+**Golf dashboard includes:**
+- "What should I do next?" banner (5-step onboarding flow)
+- Practice reminder (if 2+ days since last practice)
+- Primary diagnosis card with evidence and stroke savings potential
+- Retest protocol
+- Today's focus drill
+- Recent session summary
+- Swing scores (overall, face, path, strike, consistency, dispersion)
+- Player DNA (typical miss, face tendency, path tendency, avg carry, smash factor)
+- Progress (streak, sessions, drills)
+- Club list with scores
+- Club gap analysis
 
----
-
-## 5. How to Create a Golfer Profile
-
-1. In the left sidebar, click **"My Profile"**.
-2. Fill in the form:
-   - Your name
-   - Your handicap
-   - Your typical miss (e.g., "push-fade with driver")
-   - How often you practice
-   - What launch monitor you own
-3. Click **"Save Profile"**.
-
-Your profile helps the diagnostic engine personalize every recommendation.
-
----
-
-## 6. How to Add Clubs
-
-1. In the left sidebar, click **"Golf Bag"**.
-2. Click the green **"Add Club"** button.
-3. Fill in:
-   - Club name (e.g., "7-Iron", "Driver", "52° Gap Wedge")
-   - Category (Driver, Fairway Wood, Hybrid, Iron, Wedge, Putter)
-   - Brand and model (optional but helpful)
-   - Loft angle (check your clubhead if unsure)
-   - Typical carry distance (how far it usually goes in the air)
-4. Click **"Save Club"**.
-5. Repeat for each club.
-
-Start with: Driver, 7-Iron, and Pitching Wedge. You can add more later.
+**Non-golf dashboard includes:**
+- "What should I do next?" banner (profile → video → training plan)
+- Primary issue from latest video analysis
+- Recent analyses list
+- Overview stats (videos analyzed, sessions logged, latest score)
+- Setup completion progress bar
+- AI Coach CTA
+- Benchmark/evidence note for the sport
 
 ---
 
-## 7. How to Import a CSV File
+## 5. My Profile
 
-1. Click **"Import Data"** in the left sidebar.
-2. **Step 1:** Choose your launch monitor brand from the list.
-3. **Step 2:** Drag your CSV file into the upload box, or click "Browse for file".
-4. **Step 3:** The app automatically detects the column names. Adjust any that look wrong.
-5. **Step 4:** Review any warnings about missing data.
-6. **Step 5:** Preview the first 10 shots to make sure the data looks right.
-7. **Step 6:** Give your session a name.
-8. **Step 7:** Click "Import Session".
+Each sport has its own profile form with sport-specific fields.
 
-Done. Your shot data is now saved.
+**Golf:** Name, handicap, scoring average, low round, skill level, typical miss, desired shot shape, practice frequency, practice environment, indoor/outdoor, launch monitor owned, ball used, coaching style.
 
----
+**Tennis:** Dominant hand, backhand style (1H or 2H), playing level, primary strokes, common miss, racquet brand/model, string setup, court surface, practice frequency, primary goal.
 
-## 8. How to Review a Session
+**Baseball:** Batting side, throwing hand, position, competition level, bat brand/model, common hitting result, common miss, timing tendency, training frequency, primary goal.
 
-1. Click **"Sessions"** in the left sidebar.
-2. Click on a session name.
-3. You will see:
-   - Summary (how many shots, which clubs, date)
-   - Shot table (each shot listed)
-   - Charts (carry distance, face-to-path, dispersion)
-   - Primary diagnosis for that session
+**Slow Pitch:** Batting side, throwing hand, position, league type (recreational/church/corporate/competitive/tournament), bat brand/model, bat certification, typical hitting result, desired hitting style, common miss, timing tendency.
+
+**Fast Pitch:** Batting side, throwing hand, position, competition level, bat brand/model, pitch speed range faced, common hitting result, timing tendency, contact point tendency.
+
+Click **Save Profile** after filling it in. Your profile is used to personalize every drill, training plan, and AI Coach response.
 
 ---
 
-## 9. How to Run a Diagnosis
+## 6. Equipment (Bag)
 
-1. Click **"Diagnose"** in the left sidebar.
-2. The diagnostic engine runs automatically on your most recent session.
-3. You will see:
-   - **Primary Diagnosis** — the biggest issue (e.g., "Open Face / Slice Pattern")
-   - **Evidence** — the data numbers that prove it
-   - **Likely Cause** — what the swing is probably doing
-   - **Training Routine** — what to practice
-   - **YouTube Drills** — drill videos for your specific issue
-   - **Retest Protocol** — how to check if you improved
+For golf: manage your clubs with carry distances, loft, shaft flex, brand, and model. The gap analysis button shows whether your carry gaps between clubs are ideal, too large, or too close.
+
+For other sports: this page can store equipment notes (bat specs, racquet info, etc.) — primarily entered through the Profile form.
 
 ---
 
-## 10. How to Upload Video
+## 7. Sessions
 
-1. Click **"Video Analysis"** in the left sidebar.
-2. Click **"Upload Video"**.
-3. Choose a video file from your computer.
-4. The video player loads with these controls:
-   - Play / Pause
-   - Slow Motion (0.25x, 0.5x speed)
-   - Frame-by-frame scrubbing
-   - Draw lines overlay
-5. Click phase buttons to jump to key swing positions.
-6. Grade each phase (A/B/C/D/F).
+Shows all sessions for your active sport. Switch to a different sport to see that sport's sessions.
 
----
+An **All Sports** toggle in the top right shows everything across all sports with sport emoji badges.
 
-## 11. How to Use the 3D Avatar
-
-1. Click **"3D Avatar"** in the left sidebar.
-2. The 3D golfer model appears.
-3. Use your mouse to:
-   - **Rotate**: Click and drag
-   - **Zoom**: Scroll wheel
-4. Use the phase slider at the bottom to scrub through the swing.
-5. Click fault buttons (like "Open Face", "Heel Strike") to see what those look like.
-6. The avatar shows your likely swing pattern based on your data.
-
-**Important:** The avatar shows a likely pattern based on data — it is not a guaranteed exact copy of your body movement. The label "Likely movement pattern based on launch-monitor data" will always be shown.
+Clicking a session opens the full detail view:
+- Score rings (overall, face, path, strike, dispersion)
+- Primary diagnosis with stroke savings estimate
+- "What do I do next?" green card
+- Shot dispersion chart (SVG scatter plot with 95% confidence ellipse)
+- Within-session trend (first half vs second half comparison)
+- All diagnosed patterns
+- Full shot table (carry, ball speed, launch, spin, face-to-path, lateral miss)
+- Session notes editor (click "Add Notes" to attach observations)
 
 ---
 
-## 12. How to Generate a Report
+## 8. Import Data (Golf) / Log Session (Non-Golf)
 
-1. Click **"Reports"** in the left sidebar.
-2. Choose what to include:
-   - Golfer profile summary
-   - Session summary
-   - Club-by-club breakdown
-   - Primary diagnosis
-   - Training plan
-   - Progress trend
-3. Click **"Generate PDF Report"**.
-4. The report downloads to your computer.
-5. Open it and print it, or email it to your coach.
+**Golf — Import Data:**
+1. Choose your launch monitor brand
+2. Upload your CSV file (drag and drop or browse)
+3. Review column mapping — adjust anything that looks wrong
+4. Check for validation warnings
+5. Preview the first 10 shots
+6. Name your session
+7. Click Import
 
----
+**Non-Golf — Log Session:**
+1. Give your session a name
+2. Choose the session type (tee work, cage BP, live BP, match, etc.)
+3. Enter optional metrics (swings taken, duration)
+4. Note what you worked on and how it went
+5. Rate how the session felt (1–5)
+6. Click Log Session
 
-## 13. Common Beginner Problems
-
-### "The page is blank"
-- Wait 5 seconds and try refreshing (press F5).
-- Make sure you ran `npm run dev:web` in the terminal.
-
-### "I uploaded a CSV but it shows no shots"
-- Open the CSV in Excel and confirm it has column headers in row 1.
-- Re-save from Excel as "CSV (Comma-Separated Values)".
-- Try again.
-
-### "My club names don't match"
-- In Step 3 of the import wizard, manually match your club column.
-- Look for a column called "Club", "Club Name", or similar.
-
-### "The diagnose page shows nothing"
-- Import at least 10 shots from the same club first.
-- The engine needs enough data to detect patterns.
-
-### "I can't see my saved profile"
-- Make sure Supabase is connected (`.env.local` has your URL and key).
-- Refresh the page.
+Both pages also have a blue "Analyze Video" CTA card linking to the video analyzer.
 
 ---
 
-## 14. Next Steps After the Web App Is Working
+## 9. Video Analysis
 
-1. Import sessions after every practice and range session.
-2. Run the diagnosis each time.
-3. Follow the training routine.
-4. After 3–5 sessions, check the **Progress** page to see improvement trends.
-5. Share a report with your coach or club fitter by generating a PDF.
+The video analyzer supports all five sports with sport-specific phase timing and coaching.
+
+**Step 1 — Upload:**
+Choose your sport and upload a video file. Supported formats: MP4, MOV, WebM. Side view (face-on) gives the best results.
+
+**Step 2 — Configure:**
+- Confirm the sport
+- Select your camera angle (sport-specific options: Open Side, Catcher View, Pitcher View, Behind Hitter, etc.)
+- Click Analyze
+
+**Step 3 — Results:**
+- Phase timeline with estimated timing (clearly labeled as estimated)
+- Detected issues with severity (Critical / Notable / Minor / Watch)
+- Phase-specific coaching cues
+- Recommended drills with YouTube search links
+- Overall visual score (0–100)
+- "Save to sessions" to store in your history
+
+All detections are heuristic estimates based on pose analysis — labeled ⚠ Estimated throughout. This is honest by design.
+
+---
+
+## 10. Diagnose (Golf)
+
+The golf diagnostic engine analyzes your most recent session's launch-monitor data.
+
+You can switch to any other session using the dropdown at the top.
+
+The page shows:
+- Session score rings (overall, face, path, strike, dispersion)
+- "What should I do next?" summary card
+- Key metric cards (avg carry, face-to-path, lateral miss, smash factor)
+- All diagnosed patterns (ranked by priority) with:
+  - Problem description
+  - Evidence data points
+  - Likely cause
+  - What improvement looks like
+  - Training routine + drill steps
+  - YouTube drill links
+  - Retest protocol (how to measure success)
+
+---
+
+## 11. Training
+
+**Golf:** Shows the full training routine for your active diagnosis. Includes:
+- Skill level selector (Beginner → Elite)
+- Training effectiveness card ("Is my training working?") comparing before/after on the target metric
+- Interactive drill checklist — check off each step to track your practice streak
+- Common mistakes to avoid
+- YouTube drill links
+- Retest protocol
+
+**Non-Golf:** Shows a drill checklist matched to your sport and the primary issue from your latest video analysis. Includes phase reference card and evidence note from the sport config.
+
+---
+
+## 12. Practice Schedule
+
+Auto-generates a 7-day practice week based on your active diagnosis.
+
+Controls:
+- **Frequency:** 1×, 2×, 3×, 4×, 5×/week, or Daily
+- **Session length:** Short (20 min), Medium (45 min), Long (90 min)
+
+Each day shows blocks (warm-up, main work, retest, cool-down) with:
+- Duration and ball count
+- Focus metric
+- YouTube search link for the drill
+
+Click any day card to expand the full block details.
+
+---
+
+## 13. Pre-Round / Pre-Game Warm-Up
+
+**Golf:** Personalized warm-up exercises matched to your active diagnosis. Includes a key thought for the round and an on-course reminder.
+
+**Tennis:** 8 exercises including arm circles, hip circles, lateral shuffle, shadow groundstrokes, mini-rally, and serve warm-up.
+
+**Baseball:** 7 exercises including shoulder rotation, hip flexor stretch, load practice, tee work, and soft toss.
+
+**Slow Pitch:** 7 exercises including arc pitch visualization, hip drive practice, and timing drills.
+
+**Fast Pitch:** 8 exercises including wrist snaps, quick load reps, compact swing practice, and rise ball mental simulation.
+
+Each exercise has a category badge, duration, reps, and a coaching cue. Check each one off as you complete it. Progress bar tracks completion.
+
+---
+
+## 14. Drill Library
+
+80+ drills across all five sports, defaulting to your active sport.
+
+Filters:
+- **Sport:** All sports or specific sport
+- **Difficulty:** All, Beginner, Intermediate, Advanced
+- **Search:** Name or goal keyword
+
+Each drill card shows:
+- Sport emoji
+- Drill name and goal
+- Reps or duration
+- Equipment needed
+- Safety note (if applicable)
+- YouTube search link
+
+**Recommended for Your Swing** card at the top shows drills from your active golf diagnosis (if available).
+
+---
+
+## 15. Progress
+
+**Golf:** Score trend chart (SVG line chart), score changes breakdown with before/after bars, ball data trend (avg carry, smash factor, face-to-path deltas), personal bests, handicap estimate, most improved/needs work summary, session history list.
+
+**Non-Golf:** Video analysis score sparkline, summary strip (latest score, best score, practice streak), recurring issues frequency chart, full analysis history.
+
+---
+
+## 16. Milestones
+
+Achievement badges for your active sport.
+
+**Golf milestones:** Profile built, first club added, full bag (8+), first session, consistency (5 sessions), data veteran (10 sessions), hundred shots, range warrior (500 shots), first diagnosis, pattern seeker, score thresholds (50/65/80/90), drill milestones, practice streaks (3/7/30 days).
+
+**Non-golf milestones:** Profile built, first video analyzed, film student (5 videos), issue identified, sessions logged (5/10), drill milestones, practice streaks.
+
+Progress bar, category groupings, locked/unlocked state, and hints on how to earn each badge.
+
+---
+
+## 17. Compare Sessions
+
+Side-by-side comparison of any two sessions.
+
+Select Session A and Session B from dropdowns. The page shows:
+- Score rings for each session
+- Key metrics side-by-side (carry, smash factor, face-to-path, lateral miss)
+- Dispersion stats comparison
+- Verdict: Session A wins / Tie / Session B wins
+- "Go to Training" and "Run New Diagnosis" CTAs
+
+---
+
+## 18. AI Coach
+
+Chat interface for asking questions about your game.
+
+The coach receives context from your actual data:
+- Golf: launch-monitor stats, diagnosis, skill level, typical miss
+- Non-golf: video analysis results, sport profile summary, skill level
+
+Sport-specific suggested questions appear before your first message. The AI responds in sport-appropriate language — no golf terminology when you're asking about your baseball swing.
+
+Works with OpenAI or Anthropic (see OWNER_TASKS.md). Returns data-grounded placeholder responses if no API key is configured.
+
+---
+
+## 19. Reports
+
+The **Share with Your Coach** card generates a formatted text report for your active sport. Click **Copy Report** to copy it to your clipboard.
+
+**Golf report includes:** Player profile, golf bag (clubs with carry distances), latest session scores and key metrics, diagnoses with confidence, training progress.
+
+**Non-golf report includes:** Sport player profile (batting side, goals, equipment), latest video analysis score and primary issue, sessions logged, training progress.
+
+Paste into a message, email, or notes app to share with your coach or club fitter.
+
+---
+
+## 20. Settings
+
+- **Units:** Yards or meters
+- **Theme:** Light, dark, or system
+- **Show estimated warnings:** Toggle the ⚠ Estimated labels
+- **Coaching style:** Data-first, feel-first, balanced, encouragement
+- **Default club for diagnose:** Pre-selects a club in the diagnostic dropdown
+- **Export Data:** Downloads a full JSON backup of all your sessions, clubs, profile, and training data
+- **Import Data:** Restores from a previous JSON backup
+- **Reset App:** Clears all data (asks for confirmation)
