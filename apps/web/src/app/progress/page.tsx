@@ -24,6 +24,9 @@ interface SessionSnapshot {
   shot_count: number;
   club_name: string;
   primary_issue: string | null;
+  avg_carry: number | null;
+  avg_smash: number | null;
+  avg_face_to_path: number | null;
 }
 
 function TrendBadge({ change }: { change: number }) {
@@ -64,6 +67,9 @@ export default function ProgressPage() {
         let face_control = 0;
         let path_control = 0;
         let strike_quality = 0;
+        let avg_carry: number | null = null;
+        let avg_smash: number | null = null;
+        let avg_face_to_path: number | null = null;
 
         try {
           const result = runDiagnosticEngine(
@@ -77,6 +83,9 @@ export default function ProgressPage() {
           face_control = scores.face_control;
           path_control = scores.path_control;
           strike_quality = scores.strike_quality;
+          avg_carry = result.stats.avg_carry ?? null;
+          avg_smash = result.stats.avg_smash_factor ?? null;
+          avg_face_to_path = result.stats.avg_face_to_path ?? null;
         } catch {
           // fall back to stored swing_score
         }
@@ -92,6 +101,9 @@ export default function ProgressPage() {
           shot_count: s.shot_count,
           club_name: s.club_name,
           primary_issue: s.diagnoses[0]?.rule?.name ?? null,
+          avg_carry,
+          avg_smash,
+          avg_face_to_path,
         };
       });
   }, [sessions]);
@@ -232,6 +244,61 @@ export default function ProgressPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+            </CardBody>
+          </Card>
+        )}
+
+        {/* Physical stats trend */}
+        {snapshots.length > 1 && (newest?.avg_carry !== null || newest?.avg_smash !== null) && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Ball Data Trend</CardTitle>
+            </CardHeader>
+            <CardBody>
+              <div className="grid grid-cols-3 gap-4">
+                {newest?.avg_carry !== null && oldest?.avg_carry !== null && (
+                  <div className="text-center p-3 bg-gray-50 rounded-lg">
+                    <p className="text-xs text-gray-500 mb-1">Avg Carry</p>
+                    <div className="text-lg font-bold text-gray-900">{Math.round(newest!.avg_carry!)} yds</div>
+                    {(() => {
+                      const delta = newest!.avg_carry! - oldest!.avg_carry!;
+                      return delta !== 0 ? (
+                        <p className={`text-xs font-semibold mt-0.5 ${delta > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                          {delta > 0 ? '+' : ''}{Math.round(delta)} yds vs first
+                        </p>
+                      ) : null;
+                    })()}
+                  </div>
+                )}
+                {newest?.avg_smash !== null && oldest?.avg_smash !== null && (
+                  <div className="text-center p-3 bg-gray-50 rounded-lg">
+                    <p className="text-xs text-gray-500 mb-1">Smash Factor</p>
+                    <div className="text-lg font-bold text-gray-900">{newest!.avg_smash!.toFixed(2)}</div>
+                    {(() => {
+                      const delta = newest!.avg_smash! - oldest!.avg_smash!;
+                      return Math.abs(delta) > 0.005 ? (
+                        <p className={`text-xs font-semibold mt-0.5 ${delta > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                          {delta > 0 ? '+' : ''}{delta.toFixed(3)} vs first
+                        </p>
+                      ) : null;
+                    })()}
+                  </div>
+                )}
+                {newest?.avg_face_to_path !== null && oldest?.avg_face_to_path !== null && (
+                  <div className="text-center p-3 bg-gray-50 rounded-lg">
+                    <p className="text-xs text-gray-500 mb-1">Face-to-Path</p>
+                    <div className="text-lg font-bold text-gray-900">{Math.abs(newest!.avg_face_to_path!).toFixed(1)}°</div>
+                    {(() => {
+                      const delta = Math.abs(newest!.avg_face_to_path!) - Math.abs(oldest!.avg_face_to_path!);
+                      return Math.abs(delta) > 0.2 ? (
+                        <p className={`text-xs font-semibold mt-0.5 ${delta < 0 ? 'text-green-600' : 'text-red-500'}`}>
+                          {delta > 0 ? '+' : ''}{delta.toFixed(1)}° vs first
+                        </p>
+                      ) : null;
+                    })()}
+                  </div>
+                )}
               </div>
             </CardBody>
           </Card>
