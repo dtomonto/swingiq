@@ -355,6 +355,11 @@ export default function SessionDetailPage() {
               </Card>
             )}
 
+            {/* Shot shape breakdown */}
+            {session.shots.length >= 3 && (
+              <ShotShapeBreakdown shots={session.shots as Shot[]} />
+            )}
+
             {/* All diagnoses */}
             {analysis && analysis.diagnoses.length > 1 && (
               <Card>
@@ -547,6 +552,82 @@ export default function SessionDetailPage() {
         )}
       </div>
     </AppShell>
+  );
+}
+
+// ── Shot Shape Breakdown ──────────────────────────────────────
+interface ShapeCount { shape: string; count: number; pct: number }
+
+const SHAPE_COLORS: Record<string, string> = {
+  slice: 'bg-red-500',
+  fade: 'bg-orange-400',
+  straight: 'bg-green-500',
+  draw: 'bg-blue-500',
+  hook: 'bg-purple-500',
+  push: 'bg-amber-500',
+  pull: 'bg-gray-400',
+  push_draw: 'bg-cyan-500',
+  pull_fade: 'bg-pink-400',
+};
+
+const SHAPE_LABELS: Record<string, string> = {
+  slice: 'Slice', fade: 'Fade', straight: 'Straight',
+  draw: 'Draw', hook: 'Hook', push: 'Push',
+  pull: 'Pull', push_draw: 'Push-Draw', pull_fade: 'Pull-Fade',
+};
+
+const IDEAL_SHAPES = new Set(['straight', 'draw', 'fade']);
+
+function ShotShapeBreakdown({ shots }: { shots: Shot[] }) {
+  const counts: Record<string, number> = {};
+  shots.forEach((s) => {
+    const shape = s.ball_data.shot_shape;
+    if (shape) counts[shape] = (counts[shape] ?? 0) + 1;
+  });
+
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  if (total < 3) return null;
+
+  const rows: ShapeCount[] = Object.entries(counts)
+    .map(([shape, count]) => ({ shape, count, pct: Math.round((count / total) * 100) }))
+    .sort((a, b) => b.count - a.count);
+
+  const idealPct = rows.filter(r => IDEAL_SHAPES.has(r.shape)).reduce((s, r) => s + r.pct, 0);
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Target size={18} className="text-green-600" />
+            <CardTitle>Shot Shape Distribution</CardTitle>
+          </div>
+          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${idealPct >= 70 ? 'bg-green-100 text-green-700' : idealPct >= 50 ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>
+            {idealPct}% in ideal zone
+          </span>
+        </div>
+      </CardHeader>
+      <CardBody className="space-y-2">
+        {rows.map(({ shape, count, pct }) => (
+          <div key={shape} className="flex items-center gap-3">
+            <span className={`w-2 h-2 rounded-full flex-shrink-0 ${SHAPE_COLORS[shape] ?? 'bg-gray-300'}`} />
+            <span className="text-xs text-gray-600 w-20 flex-shrink-0">{SHAPE_LABELS[shape] ?? shape}</span>
+            <div className="flex-1 h-4 bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all ${SHAPE_COLORS[shape] ?? 'bg-gray-400'} ${IDEAL_SHAPES.has(shape) ? 'opacity-100' : 'opacity-60'}`}
+                style={{ width: `${pct}%` }}
+              />
+            </div>
+            <span className="text-xs font-semibold text-gray-700 w-12 text-right flex-shrink-0">
+              {count} ({pct}%)
+            </span>
+          </div>
+        ))}
+        <p className="text-xs text-gray-400 pt-1">
+          Straight, draw, and fade = ideal zone. Slice, hook, push, and pull indicate face/path issues.
+        </p>
+      </CardBody>
+    </Card>
   );
 }
 

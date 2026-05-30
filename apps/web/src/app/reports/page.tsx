@@ -5,7 +5,7 @@ import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { FileText, ChevronRight, Activity, Upload, Copy, CheckCircle } from 'lucide-react';
+import { FileText, ChevronRight, Activity, Upload, Copy, CheckCircle, Printer } from 'lucide-react';
 import { useSwingIQStore } from '@/store';
 import { runDiagnosticEngine, computeSwingScores } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
@@ -212,6 +212,14 @@ export default function ReportsPage() {
 
   return (
     <AppShell>
+      <style>{`
+        @media print {
+          nav, aside, [data-sidebar], button { display: none !important; }
+          .print\\:hidden { display: none !important; }
+          body { font-size: 12px; }
+          pre { white-space: pre-wrap; word-break: break-all; }
+        }
+      `}</style>
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
@@ -223,7 +231,7 @@ export default function ReportsPage() {
         </div>
 
         {/* Report types */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 print:hidden">
           {REPORT_TYPES.map((report) => (
             <Card key={report.title} className={`border-2 ${report.color}`}>
               <CardBody className="space-y-3">
@@ -249,7 +257,7 @@ export default function ReportsPage() {
         </div>
 
         {/* Recent sessions as "reports" */}
-        <Card>
+        <Card className="print:hidden">
           <CardHeader>
             <CardTitle>Recent Sessions</CardTitle>
           </CardHeader>
@@ -328,17 +336,26 @@ export default function ReportsPage() {
                 <FileText size={18} className="text-green-600" />
                 <CardTitle className="text-green-900">Share with Your Coach</CardTitle>
               </div>
-              <Button
-                size="sm"
-                className="bg-green-600 hover:bg-green-700 text-white"
-                onClick={handleCopy}
-              >
-                {copied ? (
-                  <><CheckCircle size={14} /> Copied!</>
-                ) : (
-                  <><Copy size={14} /> Copy Report</>
-                )}
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => window.print()}
+                >
+                  <Printer size={14} /> Print / PDF
+                </Button>
+                <Button
+                  size="sm"
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                  onClick={handleCopy}
+                >
+                  {copied ? (
+                    <><CheckCircle size={14} /> Copied!</>
+                  ) : (
+                    <><Copy size={14} /> Copy Report</>
+                  )}
+                </Button>
+              </div>
             </div>
           </CardHeader>
           <CardBody>
@@ -353,7 +370,7 @@ export default function ReportsPage() {
         </Card>
 
         {/* Export note */}
-        <Card className="border-dashed border-gray-300">
+        <Card className="border-dashed border-gray-300 print:hidden">
           <CardBody className="text-center py-6">
             <p className="text-sm text-gray-500">
               <span className="font-semibold text-gray-700">PDF export & share links</span>{' '}

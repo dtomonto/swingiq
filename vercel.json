@@ -1,5 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npx turbo run build --filter=@swingiq/web",
+  "outputDirectory": "apps/web/.next",
+  "installCommand": "npm install",
   "crons": [
     {
       "path": "/api/research/run",
