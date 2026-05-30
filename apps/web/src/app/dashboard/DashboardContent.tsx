@@ -15,6 +15,8 @@ import {
   Sun,
   BookOpen,
   Flame,
+  CalendarDays,
+  Dna,
 } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -22,9 +24,11 @@ import { Button } from '@/components/ui/Button';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { useSwingIQStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
-import type { DiagnosisOutput } from '@swingiq/core';
+import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis } from '@swingiq/core';
+import type { DiagnosisOutput, Shot } from '@swingiq/core';
 import { format } from 'date-fns';
 import { useSport } from '@/contexts/SportContext';
+import { useMemo } from 'react';
 
 // ── "What do I do next?" helper ──────────────────────────────
 
@@ -87,6 +91,7 @@ function WhatNextBanner({ step }: { step: 'no_profile' | 'no_bag' | 'no_data' | 
 const quickActions = [
   { label: 'Import CSV', href: '/sessions/import', icon: Upload, color: 'bg-blue-50 text-blue-700 hover:bg-blue-100' },
   { label: 'Diagnose', href: '/diagnose', icon: Target, color: 'bg-green-50 text-green-700 hover:bg-green-100' },
+  { label: 'Schedule', href: '/practice', icon: CalendarDays, color: 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100' },
   { label: 'Add Club', href: '/bag', icon: Plus, color: 'bg-purple-50 text-purple-700 hover:bg-purple-100' },
   { label: 'Upload Video', href: '/video', icon: Video, color: 'bg-orange-50 text-orange-700 hover:bg-orange-100' },
   { label: 'Pre-Round', href: '/pre-round', icon: Sun, color: 'bg-pink-50 text-pink-700 hover:bg-pink-100' },
@@ -94,10 +99,18 @@ const quickActions = [
   { label: 'Drills', href: '/drills', icon: BookOpen, color: 'bg-teal-50 text-teal-700 hover:bg-teal-100' },
 ];
 
+// ── Player DNA helpers ────────────────────────────────────────
+
+function dnaLabel(val: number | null | undefined, lowLabel: string, highLabel: string, midLabel: string, threshold = 3): string {
+  if (val === null || val === undefined) return '—';
+  if (val < -threshold) return lowLabel;
+  if (val > threshold) return highLabel;
+  return midLabel;
+}
+
 // ─────────────────────────────────────────────────────────────
 
 export function DashboardContent() {
-  // Real data from localStorage store
   const { profile, clubs, sessions, training } = useSwingIQStore();
   const latestSession = useLatestDiagnosedSession();
   const overallScore = useOverallScore();
@@ -117,7 +130,7 @@ export function DashboardContent() {
   const topDiagnosis = latestSession?.diagnoses[0];
   const mostRecentSession = sessions[0];
 
-  // Build real diagnosis display object using correct DiagnosisOutput type
+  // Build real diagnosis display object
   const typedDiagnosis = topDiagnosis as DiagnosisOutput | undefined;
   const activeDiagnosis = typedDiagnosis ? {
     category: typedDiagnosis.rule.id,
@@ -136,23 +149,55 @@ export function DashboardContent() {
     retest: typedDiagnosis.rule.retest.success_criteria,
   } : null;
 
-  // Scores: swing_score is a single aggregate number per session
+  // ── Live stats from most recent session with shots ────────
+  const sessionWithShots = useMemo(() => {
+    return [...sessions]
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .find((s) => s.shots.length > 0) ?? null;
+  }, [sessions]);
+
+  const liveStats = useMemo(() => {
+    if (!sessionWithShots || sessionWithShots.shots.length < 3) return null;
+    try {
+      const result = runDiagnosticEngine(
+        sessionWithShots.shots as Shot[],
+        sessionWithShots.club_category || 'mid_iron',
+        sessionWithShots.id,
+        'local',
+      );
+      const scores = computeSwingScores(result.stats);
+      return { stats: result.stats, scores };
+    } catch {
+      return null;
+    }
+  }, [sessionWithShots]);
+
+  // Stroke savings from live stats
+  const strokeSavings = useMemo(() => {
+    if (!liveStats || !typedDiagnosis) return null;
+    try {
+      return predictFromDiagnosis(typedDiagnosis.rule.id, {
+        avg_face_to_path: liveStats.stats.avg_face_to_path,
+        avg_lateral_miss: liveStats.stats.avg_lateral_offline,
+        avg_smash_factor: liveStats.stats.avg_smash_factor,
+      });
+    } catch {
+      return null;
+    }
+  }, [liveStats, typedDiagnosis]);
+
+  // Display score
   const swingScore = latestSession?.swing_score ?? null;
-  const displayScore = swingScore ?? overallScore ?? 0;
+  const displayScore = liveStats?.scores.overall ?? swingScore ?? overallScore ?? 0;
 
-  // Compute avg carry for most recent session
-  const sessionShots = mostRecentSession?.shots ?? [];
-  const carryValues = sessionShots
-    .map((s) => (s as { carry?: number }).carry)
-    .filter((v): v is number => typeof v === 'number' && v > 0);
-  const avgCarry = carryValues.length > 0
-    ? Math.round(carryValues.reduce((a, b) => a + b, 0) / carryValues.length)
-    : null;
+  // Avg carry from typed ball_data
+  const avgCarry = useMemo(() => {
+    const shots = (sessionWithShots?.shots ?? []) as Shot[];
+    const carries = shots.map((s) => s.ball_data.carry_distance).filter((v): v is number => typeof v === 'number' && v > 0);
+    return carries.length > 0 ? Math.round(carries.reduce((a, b) => a + b, 0) / carries.length) : null;
+  }, [sessionWithShots]);
 
-  // Clubs with session data
-  const clubsWithSessions = clubs
-    .filter((c) => sessions.some((s) => s.club_name === c.name))
-    .slice(0, 3);
+  const clubs3 = clubs.slice(0, 3);
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -183,7 +228,7 @@ export function DashboardContent() {
       <WhatNextBanner step={nextStep} />
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-4 sm:grid-cols-7 gap-3">
+      <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
         {quickActions.map(({ label, href, icon: Icon, color }) => (
           <Link
             key={href}
@@ -240,6 +285,17 @@ export function DashboardContent() {
                           </div>
                         ))}
                       </div>
+                    </div>
+                  )}
+
+                  {/* Stroke savings */}
+                  {strokeSavings && strokeSavings.total_potential_savings > 0 && (
+                    <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                      <p className="text-xs font-semibold text-green-800 mb-0.5">Stroke Savings Potential</p>
+                      <p className="text-sm text-green-700">{strokeSavings.prioritized_action}</p>
+                      <p className="text-xs text-green-600 mt-1 font-medium">
+                        ~{strokeSavings.total_potential_savings} strokes/round if fixed
+                      </p>
                     </div>
                   )}
 
@@ -327,9 +383,7 @@ export function DashboardContent() {
                     <MetricCard label="Avg Carry" value={avgCarry !== null ? `${avgCarry} yds` : '—'} status="neutral" />
                     <MetricCard
                       label="Top Diagnosis"
-                      value={
-                        mostRecentSession.diagnoses[0]?.rule?.name ?? '—'
-                      }
+                      value={mostRecentSession.diagnoses[0]?.rule?.name ?? '—'}
                       status={mostRecentSession.diagnoses.length > 0 ? 'warning' : 'neutral'}
                     />
                     <MetricCard label="Total Sessions" value={String(sessions.length)} status="neutral" />
@@ -348,7 +402,7 @@ export function DashboardContent() {
           </Card>
         </div>
 
-        {/* Right: Scores */}
+        {/* Right: Scores + Player DNA */}
         <div className="space-y-5">
           {/* Overall Score */}
           <Card>
@@ -361,8 +415,28 @@ export function DashboardContent() {
                   <div className="flex justify-center">
                     <ScoreRing score={displayScore} size={100} strokeWidth={8} label="Overall" />
                   </div>
+                  {liveStats && (
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="text-center">
+                        <p className="text-xs text-gray-500">Face Control</p>
+                        <p className="font-bold text-gray-900">{liveStats.scores.face_control}</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-xs text-gray-500">Strike Quality</p>
+                        <p className="font-bold text-gray-900">{liveStats.scores.strike_quality}</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-xs text-gray-500">Path Control</p>
+                        <p className="font-bold text-gray-900">{liveStats.scores.path_control}</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-xs text-gray-500">Consistency</p>
+                        <p className="font-bold text-gray-900">{liveStats.scores.consistency}</p>
+                      </div>
+                    </div>
+                  )}
                   <p className="text-xs text-center text-gray-500">
-                    Based on {sessions.filter((s) => s.swing_score !== null).length} scored sessions
+                    Based on {sessionWithShots?.shots.length ?? 0} shots · {sessionWithShots?.club_name ?? ''}
                   </p>
                 </>
               ) : (
@@ -370,13 +444,62 @@ export function DashboardContent() {
                   <p className="text-gray-400 text-sm">Import a session to see your swing scores.</p>
                 </div>
               )}
-              {swingScore !== null && (
-                <p className="text-xs text-gray-400 text-center">
-                  Last session: {mostRecentSession?.shots.length ?? 0} shots · {mostRecentSession?.name}
-                </p>
-              )}
             </CardBody>
           </Card>
+
+          {/* Player DNA */}
+          {liveStats && (
+            <Card className="border-indigo-200">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Dna size={16} className="text-indigo-500" />
+                  <CardTitle>Player DNA</CardTitle>
+                </div>
+              </CardHeader>
+              <CardBody className="space-y-2 text-sm">
+                <div className="flex items-center justify-between py-1 border-b border-gray-100">
+                  <span className="text-gray-500">Typical Miss</span>
+                  <span className="font-semibold text-gray-900">
+                    {dnaLabel(liveStats.stats.avg_lateral_offline, 'Left', 'Right', 'On Line', 5)}
+                    {liveStats.stats.avg_lateral_offline !== null && liveStats.stats.avg_lateral_offline !== undefined
+                      ? ` (${Math.abs(liveStats.stats.avg_lateral_offline).toFixed(0)} yds)`
+                      : ''}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between py-1 border-b border-gray-100">
+                  <span className="text-gray-500">Face Tendency</span>
+                  <span className="font-semibold text-gray-900">
+                    {dnaLabel(liveStats.stats.avg_face_to_path, 'Closed (Hook)', 'Open (Slice)', 'Square', 2)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between py-1 border-b border-gray-100">
+                  <span className="text-gray-500">Path Tendency</span>
+                  <span className="font-semibold text-gray-900">
+                    {dnaLabel(liveStats.stats.avg_club_path, 'Out-to-In', 'In-to-Out', 'Neutral', 2)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between py-1 border-b border-gray-100">
+                  <span className="text-gray-500">Avg Carry</span>
+                  <span className="font-semibold text-gray-900">
+                    {liveStats.stats.avg_carry !== null && liveStats.stats.avg_carry !== undefined
+                      ? `${Math.round(liveStats.stats.avg_carry)} yds`
+                      : '—'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between py-1">
+                  <span className="text-gray-500">Smash Factor</span>
+                  <span className="font-semibold text-gray-900">
+                    {liveStats.stats.avg_smash_factor?.toFixed(2) ?? '—'}
+                  </span>
+                </div>
+                <Link href="/diagnose" className="block pt-2">
+                  <Button variant="outline" size="sm" className="w-full">
+                    Full Diagnosis →
+                  </Button>
+                </Link>
+              </CardBody>
+            </Card>
+          )}
 
           {/* Progress */}
           <Card>
@@ -417,7 +540,7 @@ export function DashboardContent() {
             </CardBody>
           </Card>
 
-          {/* Clubs Needing Attention */}
+          {/* Clubs */}
           <Card>
             <CardHeader>
               <CardTitle>Clubs in Bag</CardTitle>
@@ -425,7 +548,7 @@ export function DashboardContent() {
             <CardBody className="space-y-2">
               {clubs.length > 0 ? (
                 <>
-                  {clubs.slice(0, 3).map((c) => {
+                  {clubs3.map((c) => {
                     const clubSessions = sessions.filter((s) => s.club_name === c.name);
                     return (
                       <div key={c.id} className="flex items-center justify-between py-1.5 border-b last:border-0">

@@ -21,6 +21,7 @@ import {
   BookOpen,
   Sun,
   Flame,
+  CalendarDays,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
@@ -34,6 +35,7 @@ export const navItems = [
   { href: '/sessions/import', label: 'Import Data', icon: Upload },
   { href: '/diagnose', label: 'Diagnose', icon: Target },
   { href: '/training', label: 'Training', icon: Dumbbell },
+  { href: '/practice', label: 'Practice Schedule', icon: CalendarDays },
   { href: '/pre-round', label: 'Pre-Round', icon: Sun },
   { href: '/video', label: 'Video Analysis', icon: Video },
   { href: '/drills', label: 'Drill Library', icon: BookOpen },
