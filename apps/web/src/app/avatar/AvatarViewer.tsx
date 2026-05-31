@@ -153,11 +153,11 @@ export function AvatarViewer() {
     ];
   }, [liveData]);
 
-  // Pattern description from real diagnosis
+  // Pattern description from real diagnosis — returns structured data, not HTML
   const patternDescription = useMemo(() => {
     if (!liveData?.topDiagnosis) return null;
     const d = liveData.topDiagnosis;
-    return `Based on your data, the avatar is showing a likely <strong>${d.rule.name.toLowerCase()}</strong> pattern. ${d.rule.likely_cause}`;
+    return { name: d.rule.name.toLowerCase(), cause: d.rule.likely_cause };
   }, [liveData]);
 
   return (
@@ -286,10 +286,11 @@ export function AvatarViewer() {
             <CardBody>
               {patternDescription ? (
                 <>
-                  <p
-                    className="text-xs text-gray-600 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: patternDescription }}
-                  />
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    Based on your data, the avatar is showing a likely{' '}
+                    <strong>{patternDescription.name}</strong> pattern.{' '}
+                    {patternDescription.cause}
+                  </p>
                   <p className="text-xs text-gray-500 mt-2 italic">
                     Estimated mechanical pattern — not a confirmed analysis.
                   </p>

@@ -5,7 +5,8 @@ import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSwingIQStore } from '@/store';
 import { useState } from 'react';
-import { CheckCircle, AlertTriangle, Download, Trash2 } from 'lucide-react';
+import { CheckCircle, Trash2, HardDrive } from 'lucide-react';
+import Link from 'next/link';
 
 export default function SettingsPage() {
   const { settings, updateSettings, reset } = useSwingIQStore();
@@ -17,28 +18,6 @@ export default function SettingsPage() {
     setTimeout(() => setSaved(false), 2500);
   };
 
-  const handleExport = () => {
-    const store = useSwingIQStore.getState();
-    const data = {
-      profile: store.profile,
-      clubs: store.clubs,
-      sessions: store.sessions,
-      training: {
-        streak_days: store.training.streak_days,
-        drills_completed: store.training.drills_completed,
-        milestones_earned: store.training.milestones_earned,
-      },
-      exported_at: new Date().toISOString(),
-      version: '1.0',
-    };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `swingiq-export-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
 
   return (
     <AppShell>
@@ -116,12 +95,14 @@ export default function SettingsPage() {
           <CardBody className="space-y-3">
             <div className="flex items-center justify-between py-2">
               <div>
-                <p className="text-sm font-medium text-gray-700">Export My Data</p>
-                <p className="text-xs text-gray-500">Download all your profile, clubs, and session data as JSON</p>
+                <p className="text-sm font-medium text-gray-700">Backup &amp; Restore</p>
+                <p className="text-xs text-gray-500">Full backup including all sports, profiles, sessions, and analyses</p>
               </div>
-              <Button variant="outline" size="sm" onClick={handleExport}>
-                <Download size={14} /> Export
-              </Button>
+              <Link href="/settings/backup">
+                <Button variant="outline" size="sm">
+                  <HardDrive size={14} /> Backup
+                </Button>
+              </Link>
             </div>
             <div className="flex items-center justify-between py-2 border-t">
               <div>

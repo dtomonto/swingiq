@@ -169,8 +169,6 @@ function TrendBadge({ change }: { change: number }) {
 
 export default function ProgressPage() {
   const { isGolf } = useSport();
-  if (!isGolf) return <NonGolfProgress />;
-
   const { sessions } = useSwingIQStore();
 
   // Build snapshots from scored sessions (newest-first)
@@ -292,6 +290,9 @@ export default function ProgressPage() {
   ];
   const mostImproved = [...improvements].sort((a, b) => b.change - a.change)[0]!;
   const needsWork = [...improvements].sort((a, b) => a.change - b.change)[0]!;
+
+  // Non-golf: all hooks have already run above, safe to return now
+  if (!isGolf) return <NonGolfProgress />;
 
   // ── Empty state ─────────────────────────────────────────────
   if (!sessions.length) {

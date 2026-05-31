@@ -15,13 +15,22 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
-    "clean": "turbo run clean && rimraf node_modules"
+    "clean": "turbo run clean && rimraf node_modules",
+    "security:deps": "npm audit --audit-level=critical",
+    "security:secrets": "echo 'Run: docker run --rm -v $(pwd):/repo zricethezav/gitleaks:latest detect --source=/repo'",
+    "security:check": "node scripts/security-check.mjs",
+    "security:all": "npm run security:deps && npm run security:check",
+    "ci": "npm run type-check && npm run security:all"
   },
   "devDependencies": {
     "turbo": "^2.0.0",
     "typescript": "^5.4.0",
     "rimraf": "^5.0.0",
-    "@types/node": "^20.0.0"
+    "@types/node": "^20.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "15.5.18",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0"
   },
   "packageManager": "npm@10.8.2",
   "engines": {

@@ -1,0 +1,21 @@
+# Gitleaks configuration for SwingIQ
+# Docs: https://github.com/gitleaks/gitleaks
+# Compatible with Gitleaks v8.x (allowlist is a single map, not an array)
+
+title = "SwingIQ Gitleaks Config"
+
+[extend]
+# Extend the default gitleaks ruleset
+useDefault = true
+
+[allowlist]
+description = "Safe files — placeholder values, docs, and test fixtures"
+paths = [
+  '''.env\.example''',
+  '''SECURITY\.md''',
+  '''docs/.*\.md''',
+  '''\.github/pull_request_template\.md''',
+  '''.*\.test\.(ts|tsx|js|jsx)''',
+  '''.*\.spec\.(ts|tsx|js|jsx)''',
+  '''__tests__/.*''',
+]

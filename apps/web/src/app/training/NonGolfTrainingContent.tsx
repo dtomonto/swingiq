@@ -132,9 +132,9 @@ export function NonGolfTrainingContent() {
   const { video_analyses, training, recordPractice } = useSwingIQStore();
   const [completedDrills, setCompletedDrills] = useState<Set<string>>(new Set());
 
-  if (isGolf) return null; // Golf handled by TrainingContent
-
-  const sport = activeSport as Exclude<SportId, 'golf'>;
+  // Derive sport before hooks that depend on it — default to 'tennis' when isGolf to
+  // satisfy hook rules (all hooks must run unconditionally before any early return).
+  const sport = (isGolf ? 'tennis' : activeSport) as Exclude<SportId, 'golf'>;
   const sportConfig = getSportConfig(sport);
   const allDrills = SPORT_DRILL_MAP[sport] ?? [];
 
@@ -170,6 +170,9 @@ export function NonGolfTrainingContent() {
       return next;
     });
   };
+
+  // Golf is handled by TrainingContent — safe to return after all hooks have run
+  if (isGolf) return null;
 
   const completedCount = completedDrills.size;
   const totalCount = recommendedDrills.length;

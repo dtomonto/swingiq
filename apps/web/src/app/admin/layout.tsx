@@ -1,7 +1,15 @@
-// Admin layout — basic guard.
-// In production, replace this with proper Supabase auth role check.
-// For now, the admin routes are protected by ADMIN_SECRET header at the API layer.
+/**
+ * Admin layout — server-side guard.
+ *
+ * Blocks access to all /admin/* routes unless ADMIN_SECRET is set in the
+ * environment AND the request carries the matching x-admin-secret header.
+ *
+ * Long-term: replace with a Supabase role check once auth is wired up.
+ * See middleware.ts for the session-based auth stub.
+ */
 
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,7 +17,26 @@ export const metadata: Metadata = {
   robots: 'noindex, nofollow',
 };
 
+function isAdminAuthorized(): boolean {
+  const adminSecret = process.env.ADMIN_SECRET;
+
+  // If no ADMIN_SECRET is set in production, block all access.
+  // In development without a secret, allow access for local iteration.
+  if (!adminSecret) {
+    return process.env.NODE_ENV === 'development';
+  }
+
+  const requestHeaders = headers();
+  const provided = requestHeaders.get('x-admin-secret');
+  return provided === adminSecret;
+}
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  if (!isAdminAuthorized()) {
+    // Redirect rather than show a 403 to avoid confirming the route exists.
+    redirect('/dashboard');
+  }
+
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       {/* Admin top bar */}

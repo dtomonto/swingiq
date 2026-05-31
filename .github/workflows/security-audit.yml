@@ -1,0 +1,156 @@
+name: Security Audit
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+  schedule:
+    # Every Monday at 8:00 AM UTC
+    - cron: "0 8 * * 1"
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  # ─────────────────────────────────────────────
+  # 1. Secret Scan (Gitleaks)
+  # ─────────────────────────────────────────────
+  secret-scan:
+    name: Secret Scan (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+  # ─────────────────────────────────────────────
+  # 2. Dependency Audit
+  # ─────────────────────────────────────────────
+  dependency-audit:
+    name: Dependency Audit (npm audit)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit (fail on critical)
+        run: |
+          mkdir -p security-reports
+          npm audit --json > security-reports/npm-audit.json || true
+          # Fail only on critical vulnerabilities
+          npm audit --audit-level=critical
+        continue-on-error: false
+
+      - name: Warn on high severity
+        run: |
+          HIGH=$(npm audit --json 2>/dev/null | node -e "
+            let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{
+              try {
+                const j=JSON.parse(d);
+                const meta=j.metadata||{};
+                const vulns=meta.vulnerabilities||{};
+                console.log(vulns.high||0);
+              } catch(e){ console.log(0); }
+            });
+          ")
+          if [ "$HIGH" -gt "0" ]; then
+            echo "::warning::Found $HIGH high-severity vulnerabilities. Review security-reports/npm-audit.json"
+          fi
+        continue-on-error: true
+
+      - name: Upload audit report artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-audit-report
+          path: security-reports/npm-audit.json
+          retention-days: 14
+
+  # ─────────────────────────────────────────────
+  # 3. Lint, Typecheck
+  # ─────────────────────────────────────────────
+  lint-typecheck:
+    name: Lint & Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: |
+          if [ -f "apps/web/.eslintrc.json" ] || [ -f "apps/web/.eslintrc.js" ] || [ -f "apps/web/eslint.config.mjs" ]; then
+            ./node_modules/.bin/eslint apps/web/src --ext .ts,.tsx
+          else
+            echo "No ESLint config found — skipping lint step"
+          fi
+
+      - name: Run TypeScript typecheck
+        run: npm run type-check
+
+  # ─────────────────────────────────────────────
+  # 4. Custom Security Checks
+  # ─────────────────────────────────────────────
+  custom-security-checks:
+    name: Custom Security Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run custom security check script
+        run: node scripts/security-check.mjs
+
+      - name: Upload custom security report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: custom-security-report
+          path: security-reports/custom-check-results.txt
+          retention-days: 14

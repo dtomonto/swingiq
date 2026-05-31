@@ -98,14 +98,19 @@ export function ResearchAdminContent() {
   const [isDryRun, setIsDryRun] = useState(true);
   const [expandedProposal, setExpandedProposal] = useState<string | null>(null);
   const [scope, setScope] = useState<string>('full');
+  // Admin secret entered at runtime — never from NEXT_PUBLIC_ env vars
+  const [adminSecret, setAdminSecret] = useState('');
 
   const triggerRun = async () => {
+    if (!adminSecret.trim()) {
+      setRunError('Enter the admin secret before triggering a run.');
+      return;
+    }
     setIsRunning(true);
     setRunError(null);
     setRunResult(null);
 
     try {
-      const adminSecret = process.env.NEXT_PUBLIC_ADMIN_SECRET_HINT ?? '';
       const res = await fetch('/api/research/run', {
         method: 'POST',
         headers: {
@@ -218,9 +223,21 @@ export function ResearchAdminContent() {
             </div>
           </div>
 
+          <div>
+            <label className="text-xs font-medium text-gray-400 mb-1 block">Admin Secret</label>
+            <input
+              type="password"
+              value={adminSecret}
+              onChange={(e) => setAdminSecret(e.target.value)}
+              placeholder="Enter ADMIN_SECRET to authenticate"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-green-500"
+            />
+            <p className="text-xs text-gray-600 mt-1">Never stored — entered each session. Set ADMIN_SECRET in your environment.</p>
+          </div>
+
           <button
             onClick={triggerRun}
-            disabled={isRunning}
+            disabled={isRunning || !adminSecret.trim()}
             className={cn(
               'w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm transition-all',
               isRunning
