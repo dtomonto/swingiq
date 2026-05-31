@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Terms of Service | SwingIQ',
   description: 'SwingIQ terms of service — what you can expect from us and what we ask of you.',
-  robots: 'noindex',
+  alternates: { canonical: '/terms' },
 };
 
 export default function TermsPage() {

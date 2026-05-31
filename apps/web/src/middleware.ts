@@ -21,6 +21,29 @@ const PUBLIC_PATHS = new Set([
   '/',
   '/login',
   '/signup',
+  // Public marketing & SEO pages
+  '/how-it-works',
+  '/golf-swing-analysis',
+  '/tennis-swing-analysis',
+  '/baseball-swing-analysis',
+  '/softball-swing-analysis',
+  '/golf',
+  '/tennis',
+  '/baseball',
+  '/slow-pitch-softball',
+  '/fast-pitch-softball',
+  '/features',
+  '/faq',
+  '/pricing',
+  '/parents',
+  '/updates',
+  '/resources',
+  '/glossary',
+  // Trust & legal
+  '/privacy',
+  '/terms',
+  '/trust',
+  '/security',
 ]);
 
 // Prefixes that are always public (static assets, Next.js internals, public API docs)

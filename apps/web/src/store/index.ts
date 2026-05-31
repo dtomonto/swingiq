@@ -87,6 +87,14 @@ export interface TrainingProgress {
   milestones_earned: string[];
 }
 
+export type UsageCategory =
+  | 'adult'
+  | 'parent_guardian'
+  | 'coach'
+  | 'minor_13_17'
+  | 'minor_under_13'
+  | null;
+
 export interface AppSettings {
   units: 'yards' | 'meters';
   theme: 'light' | 'dark' | 'system';
@@ -95,6 +103,74 @@ export interface AppSettings {
   default_club_for_diagnose: string;
   onboarding_complete: boolean;
   language?: LanguageCode;
+  usage_category: UsageCategory;
+  usage_category_set_at: string | null;
+}
+
+// ── Sport equipment types (non-golf) ──────────────────────────
+
+export interface TennisRacket {
+  id: string;
+  brand: string;
+  model: string;
+  year: string;
+  head_size_sq_in: number | null;
+  weight_strung_oz: number | null;
+  balance_pts_hl: number | null;
+  swingweight: number | null;
+  stiffness_ra: number | null;
+  string_pattern: string;
+  grip_size: string;
+  string_brand: string;
+  string_tension_mains: number | null;
+  condition: 'new' | 'good' | 'fair' | 'worn';
+  notes: string;
+  created_at: string;
+}
+
+export interface BaseballBat {
+  id: string;
+  brand: string;
+  model: string;
+  year: string;
+  length_in: number | null;
+  weight_oz: number | null;
+  drop: number | null;
+  barrel_diameter_in: number | null;
+  material: 'wood' | 'alloy' | 'composite' | 'hybrid' | '';
+  piece_construction: 'one_piece' | 'two_piece' | '';
+  balance: 'balanced' | 'end_loaded' | '';
+  certification: string;
+  composite_broken_in: boolean | null;
+  condition: 'new' | 'good' | 'fair' | 'worn';
+  notes: string;
+  created_at: string;
+}
+
+export interface SoftballBat {
+  id: string;
+  brand: string;
+  model: string;
+  year: string;
+  length_in: number | null;
+  weight_oz: number | null;
+  end_load_oz: number | null;
+  balance: 'balanced' | 'end_loaded' | '';
+  barrel_length_in: number | null;
+  compression_rating: number | null;
+  material: 'alloy' | 'composite' | 'hybrid' | '';
+  certification_stamps: string;
+  break_in_status: 'new' | 'partially_broken_in' | 'fully_broken_in' | '';
+  condition: 'new' | 'good' | 'fair' | 'worn';
+  notes: string;
+  created_at: string;
+}
+
+export interface SportEquipment {
+  tennis: TennisRacket[];
+  baseball: BaseballBat[];
+  softball_slow: SoftballBat[];
+  softball_fast: SoftballBat[];
 }
 
 export interface SwingIQState {
@@ -104,8 +180,11 @@ export interface SwingIQState {
   // Sport-specific profiles for all non-golf sports
   sportProfiles: SportProfiles;
 
-  // Equipment
+  // Golf equipment
   clubs: LocalClub[];
+
+  // Non-golf equipment
+  sportEquipment: SportEquipment;
 
   // Sessions & shots
   sessions: LocalSession[];
@@ -136,11 +215,19 @@ export interface SwingIQActions {
   // Sport-specific profiles (non-golf)
   setSportProfile: (sport: Exclude<SportId, 'golf'>, data: Record<string, unknown>) => void;
 
-  // Clubs
+  // Golf clubs
   addClub: (club: Omit<LocalClub, 'id' | 'created_at'>) => void;
   updateClub: (id: string, updates: Partial<LocalClub>) => void;
   removeClub: (id: string) => void;
   reorderClubs: (clubs: LocalClub[]) => void;
+
+  // Non-golf equipment
+  addTennisRacket: (racket: Omit<TennisRacket, 'id' | 'created_at'>) => void;
+  removeTennisRacket: (id: string) => void;
+  addBaseballBat: (bat: Omit<BaseballBat, 'id' | 'created_at'>) => void;
+  removeBaseballBat: (id: string) => void;
+  addSoftballBat: (sport: 'softball_slow' | 'softball_fast', bat: Omit<SoftballBat, 'id' | 'created_at'>) => void;
+  removeSoftballBat: (sport: 'softball_slow' | 'softball_fast', id: string) => void;
 
   // Sessions
   addSession: (session: Omit<LocalSession, 'id' | 'created_at'>) => void;
@@ -182,6 +269,15 @@ const DEFAULT_SETTINGS: AppSettings = {
   coaching_style: 'balanced',
   default_club_for_diagnose: 'Driver',
   onboarding_complete: false,
+  usage_category: null,
+  usage_category_set_at: null,
+};
+
+const DEFAULT_SPORT_EQUIPMENT: SportEquipment = {
+  tennis: [],
+  baseball: [],
+  softball_slow: [],
+  softball_fast: [],
 };
 
 const DEFAULT_TRAINING: TrainingProgress = {
@@ -204,6 +300,7 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
       profile: null,
       sportProfiles: {},
       clubs: [],
+      sportEquipment: DEFAULT_SPORT_EQUIPMENT,
       sessions: [],
       video_analyses: [],
       training: DEFAULT_TRAINING,
@@ -238,6 +335,26 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
         set((s) => ({ clubs: s.clubs.map((c) => (c.id === id ? { ...c, ...updates } : c)) })),
       removeClub: (id) => set((s) => ({ clubs: s.clubs.filter((c) => c.id !== id) })),
       reorderClubs: (clubs) => set({ clubs }),
+
+      // ── Non-golf equipment ──
+      addTennisRacket: (racket) => {
+        const item: TennisRacket = { ...racket, id: `racket_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`, created_at: new Date().toISOString() };
+        set((s) => ({ sportEquipment: { ...s.sportEquipment, tennis: [...s.sportEquipment.tennis, item] } }));
+      },
+      removeTennisRacket: (id) =>
+        set((s) => ({ sportEquipment: { ...s.sportEquipment, tennis: s.sportEquipment.tennis.filter((r) => r.id !== id) } })),
+      addBaseballBat: (bat) => {
+        const item: BaseballBat = { ...bat, id: `bat_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`, created_at: new Date().toISOString() };
+        set((s) => ({ sportEquipment: { ...s.sportEquipment, baseball: [...s.sportEquipment.baseball, item] } }));
+      },
+      removeBaseballBat: (id) =>
+        set((s) => ({ sportEquipment: { ...s.sportEquipment, baseball: s.sportEquipment.baseball.filter((b) => b.id !== id) } })),
+      addSoftballBat: (sport, bat) => {
+        const item: SoftballBat = { ...bat, id: `sbat_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`, created_at: new Date().toISOString() };
+        set((s) => ({ sportEquipment: { ...s.sportEquipment, [sport]: [...s.sportEquipment[sport], item] } }));
+      },
+      removeSoftballBat: (sport, id) =>
+        set((s) => ({ sportEquipment: { ...s.sportEquipment, [sport]: s.sportEquipment[sport].filter((b: SoftballBat) => b.id !== id) } })),
 
       // ── Sessions ──
       addSession: (session) => {
@@ -384,6 +501,7 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
           profile: null,
           sportProfiles: {},
           clubs: [],
+          sportEquipment: DEFAULT_SPORT_EQUIPMENT,
           sessions: [],
           video_analyses: [],
           training: DEFAULT_TRAINING,

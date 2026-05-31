@@ -169,6 +169,9 @@ export default function LogSessionPage() {
     <AppShell>
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         <div>
+          <Link href="/sessions" className="inline-flex items-center gap-1 text-sm text-green-700 hover:underline mb-2">
+            ← Back to Sessions
+          </Link>
           <h1 className="text-2xl font-bold text-gray-900">
             {sportEmoji} Log {sportName} Session
           </h1>

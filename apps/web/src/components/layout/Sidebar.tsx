@@ -27,6 +27,7 @@ import {
   Users,
   Database,
   Award,
+  Package,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
@@ -47,7 +48,7 @@ export function Sidebar({ onClose }: SidebarProps) {
   const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/profile', label: sportLabels.profile_short, icon: User },
-    { href: '/bag', label: isGolf ? 'Equipment' : sportLabels.equipment_short, icon: ShoppingBag },
+    { href: isGolf ? '/bag' : '/equipment', label: isGolf ? 'Equipment' : sportLabels.equipment_short, icon: isGolf ? ShoppingBag : Package },
     { href: '/sessions', label: sportLabels.sessions, icon: Activity },
     { href: '/sessions/import', label: isGolf ? 'Import Data' : 'Log Session', icon: Upload },
     { href: '/diagnose', label: isGolf ? 'Diagnose' : 'Analyze Swing', icon: Target },

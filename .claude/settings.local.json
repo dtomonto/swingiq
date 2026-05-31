@@ -45,7 +45,10 @@
       "Bash(Select-Object -ExpandProperty FullName)",
       "Bash(Sort-Object)",
       "Bash(Remove-Item \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\\\\apps\\\\web\\\\jest.config.ts\")",
-      "Bash(git check-ignore *)"
+      "Bash(git check-ignore *)",
+      "Bash(cat middleware.ts)",
+      "Bash(cat \"../middleware.ts\")",
+      "Bash(cat \"../../middleware.ts\")"
     ]
   }
 }

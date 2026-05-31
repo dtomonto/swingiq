@@ -40,6 +40,7 @@ export function exportUserData(state: SwingIQState): SwingIQBackup {
       profile: state.profile,
       sportProfiles: state.sportProfiles,
       clubs: state.clubs,
+      sportEquipment: state.sportEquipment,
       sessions: state.sessions,
       videoAnalyses: state.video_analyses,
       training: state.training,

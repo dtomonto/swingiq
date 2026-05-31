@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { SportProvider } from '@/contexts/SportContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { FloatingCoach } from '@/components/ui/FloatingCoach';
+import { UsageCategoryModal } from '@/components/ui/UsageCategoryModal';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -26,6 +27,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <LanguageProvider>
           {children}
           <FloatingCoach />
+          <UsageCategoryModal />
         </LanguageProvider>
       </SportProvider>
       <ReactQueryDevtools initialIsOpen={false} />

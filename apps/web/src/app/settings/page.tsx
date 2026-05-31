@@ -161,6 +161,27 @@ export default function SettingsPage() {
           </CardBody>
         </Card>
 
+        {/* Usage Category */}
+        <Card>
+          <CardHeader><CardTitle>Usage Category</CardTitle></CardHeader>
+          <CardBody className="space-y-3">
+            <p className="text-xs text-gray-500">
+              This setting controls youth safety messaging. Stored only on your device.
+            </p>
+            <select
+              value={settings.usage_category ?? ''}
+              onChange={(e) => updateSettings({ usage_category: (e.target.value || null) as typeof settings.usage_category })}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-none bg-white"
+            >
+              <option value="">Not set</option>
+              <option value="adult">Adult athlete (18+)</option>
+              <option value="parent_guardian">Parent or guardian</option>
+              <option value="coach">Coach or instructor</option>
+              <option value="minor_13_17">Young athlete (13–17)</option>
+            </select>
+          </CardBody>
+        </Card>
+
         {/* About */}
         <Card>
           <CardHeader><CardTitle>About SwingIQ</CardTitle></CardHeader>

@@ -9,6 +9,7 @@ import type {
   LocalVideoAnalysis,
   TrainingProgress,
   AppSettings,
+  SportEquipment,
 } from '@/store';
 import type { CommunityState } from '@/lib/community/types';
 import type { LanguageCode } from '@/lib/i18n';
@@ -23,6 +24,7 @@ export interface SwingIQBackupData {
   profile: GolferProfileInput | null;
   sportProfiles: SportProfiles;
   clubs: LocalClub[];
+  sportEquipment?: SportEquipment;
   sessions: LocalSession[];
   videoAnalyses: LocalVideoAnalysis[];
   training: TrainingProgress;
