@@ -32,13 +32,41 @@ _Last updated: May 2026_
 - Practice routine generator with weekly schedule builder
 - Drill library per sport and fault type
 
+### Gamified Community System
+- Achievement/badge system with 50+ badges across 10 categories (consistency, improvement, data protection, sport mastery, etc.)
+- XP and leveling system with event history
+- Challenge system (consistency, improvement, data, personal best, skill, team types)
+- Activity feed with visibility controls (private / followers / public)
+- Groups/clubs with sport filtering and group challenges
+- Leaderboards based on improvement % and consistency — not raw scores
+- Youth athlete privacy protections (extra data protection flags, separate ranking)
+- All community progress included in backup/restore (schema v1.2.0)
+
+### Contextual Help / Tutorial System
+- Always-accessible "?" button in mobile top bar and desktop sidebar on every screen
+- 20+ screen-specific step-by-step guides (Dashboard, Profile, Equipment, Sessions, Diagnose, Training, Video Analysis, Community, Challenges, Badges, Leaderboard, Data Center, Settings, and more)
+- Plain-language content written for athletes, parents, and coaches
+- Tutorial progress tracked in Zustand store and included in every backup
+- Centralized content registry (`lib/tutorial/content.ts`) for easy additions
+- Keyboard accessible — Escape to close, arrow keys to navigate
+
+### Backup & Data Portability (Schema v1.2.0)
+- Complete data backup covering all sports, profiles, sessions, equipment, community/gamification, tutorial progress, and settings
+- Auto-migration: old backups (v1.0.0, v1.1.0) upgrade automatically on import
+- AES-256-GCM password encryption with PBKDF2 (310k iterations, no external deps)
+- Merge restore (deduplicates by ID and composite key) and Replace restore
+- Enhanced restore preview showing every category with counts
+- Security hardening: prototype pollution guard, complexity bomb guard, 50 MB cap
+- Backup data registry (`lib/backup/registry.ts`) — centralized contract for future features
+- Developer documentation: `docs/BACKUP_SYSTEM.md`
+
 ### Infrastructure
-- Auth middleware (Supabase-ready)
+- Auth middleware (Supabase-ready, activates on env key presence)
 - Rate limiter (in-memory, per-IP)
-- Backup encryption system (AES-256 stub)
 - CI security scan pipeline
 - Admin guard middleware
 - IDOR protection on data routes
+- 20-language i18n system with RTL support (Arabic, Urdu)
 
 ### Image/Table Import
 - Image upload page (4-step wizard): drag-and-drop, preview, manual entry, confirm, save
@@ -74,7 +102,7 @@ _Last updated: May 2026_
 ### Platform
 6. Email notifications (session saved, diagnosis complete, weekly summary)
 7. Supabase Row Level Security audit
-8. GDPR-compliant data export (download all my data as JSON)
+8. ~~GDPR-compliant data export (download all my data as JSON)~~ **✅ Done — full backup system live (v1.2.0)**
 9. Account deletion with full data purge
 
 ---

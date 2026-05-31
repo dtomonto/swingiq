@@ -58,10 +58,11 @@ export default function BackupPage() {
       } else {
         downloadBackup(backup);
       }
+      store.recordExport();
       setExported(true);
       setTimeout(() => setExported(false), 3000);
     } catch {
-      setExportError('Encryption failed. Please try again.');
+      setExportError('Export failed. Please try again.');
     } finally {
       setExportLoading(false);
     }
@@ -92,7 +93,7 @@ export default function BackupPage() {
       return;
     }
 
-    const { backup, error } = await parseBackupFile(file);
+    const { backup, error, warnings: parseWarnings } = await parseBackupFile(file);
     if (error || !backup) {
       setImportError(error ?? 'Unknown parse error');
       setImportStep('idle');
@@ -100,6 +101,9 @@ export default function BackupPage() {
     }
 
     const p = previewRestore(backup, store);
+    if (parseWarnings.length > 0) {
+      p.warnings = [...(p.warnings ?? []), ...parseWarnings];
+    }
     setPendingBackup(backup);
     setPreview(p);
     setImportStep('preview');
@@ -148,7 +152,7 @@ export default function BackupPage() {
     if (fileInputRef.current) fileInputRef.current.value = '';
   }
 
-  const { sessions, clubs, video_analyses } = store;
+  const { sessions, clubs, video_analyses, community, tutorialProgress } = store;
 
   return (
     <AppShell>
@@ -195,10 +199,21 @@ export default function BackupPage() {
               </div>
             </div>
 
-            <p className="text-xs text-gray-400">
-              Includes: golf &amp; sport profiles, all sessions, clubs, video analysis metadata,
-              training progress, and settings.
-            </p>
+            <div className="bg-gray-50 rounded-xl p-4 text-xs text-gray-600 space-y-1">
+              <p className="font-medium text-gray-900 text-sm">Your backup includes:</p>
+              <ul className="space-y-0.5 text-gray-600">
+                <li>✓ All sessions &amp; shot data ({sessions.length} sessions)</li>
+                <li>✓ Club &amp; equipment profiles ({clubs.length} clubs)</li>
+                <li>✓ Video analyses ({video_analyses.length})</li>
+                <li>✓ Golf &amp; sport profiles</li>
+                <li>✓ Training progress &amp; milestones</li>
+                <li>✓ Community badges &amp; XP ({community.achievementsEarned.length} badges · {community.xpTotal} XP)</li>
+                <li>✓ Challenge history ({community.challengesCompleted.length} completed)</li>
+                <li>✓ Tutorial progress ({tutorialProgress.completed.length} guides completed)</li>
+                <li>✓ App settings &amp; language preference</li>
+              </ul>
+              <p className="text-gray-400 pt-1">Video files are not included — only analysis results and metadata.</p>
+            </div>
 
             {/* Encryption toggle */}
             <div className="border border-gray-200 rounded-xl p-4 space-y-3">
@@ -360,7 +375,7 @@ export default function BackupPage() {
                 <div className="rounded-lg border border-gray-200 divide-y divide-gray-100 text-sm">
                   <div className="grid grid-cols-3 text-center py-2 font-medium text-gray-500 text-xs uppercase tracking-wide bg-gray-50 rounded-t-lg">
                     <span>Category</span>
-                    <span>New</span>
+                    <span>New / Updated</span>
                     <span>Skipped</span>
                   </div>
                   <div className="grid grid-cols-3 text-center py-2.5">
@@ -378,6 +393,15 @@ export default function BackupPage() {
                     <span className="font-semibold text-green-700">{preview.newRecords.videoAnalyses}</span>
                     <span className="text-gray-400">{preview.skippedDuplicates.videoAnalyses}</span>
                   </div>
+                  {preview.updatedRecords.communityUpdated && (
+                    <div className="grid grid-cols-3 text-center py-2.5 bg-purple-50">
+                      <span className="text-gray-700">Badges &amp; XP</span>
+                      <span className="font-semibold text-purple-700">
+                        {preview.updatedRecords.communityBadges ?? 0} badges
+                      </span>
+                      <span className="text-gray-400">—</span>
+                    </div>
+                  )}
                 </div>
 
                 {preview.warnings.length > 0 && (

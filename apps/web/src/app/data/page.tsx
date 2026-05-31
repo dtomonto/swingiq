@@ -20,8 +20,8 @@ import { parseBackupFile } from '@/lib/backup/validate';
 import { previewRestore, mergeRestore, replaceRestore, generateRestoreResult } from '@/lib/backup/restore';
 import { encryptBackup, decryptBackup, isEncryptedBackup } from '@/lib/backup/crypto';
 import { calculateBackupHealth, formatLastExport } from '@/lib/community/backup-health';
+import { getExportableModules } from '@/lib/backup/registry';
 import type { SwingIQBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
-import type { LanguageCode } from '@/lib/i18n';
 import {
   Download, Upload, Shield, Lock, AlertTriangle, CheckCircle,
   RefreshCw, Database, Globe, Info, Trash2, Calendar,
@@ -32,7 +32,7 @@ type ImportStep = 'idle' | 'parsing' | 'needs-password' | 'preview' | 'confirmin
 export default function DataCenterPage() {
   const store = useSwingIQStore();
   const { t, language } = useLanguage();
-  const { sessions, clubs, video_analyses, training, community, settings } = store;
+  const { sessions, clubs, video_analyses, community } = store;
 
   // Export state
   const [exported, setExported] = useState(false);
@@ -52,10 +52,6 @@ export default function DataCenterPage() {
   const [restoreResult, setRestoreResult] = useState<RestoreResult | null>(null);
   const [restoreLanguage, setRestoreLanguage] = useState<'backup' | 'current'>('current');
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const backupHealth = calculateBackupHealth(
-    sessions, video_analyses, training, community.lastExportAt, community.exportCount
-  );
 
   async function handleExport() {
     setExportError(null);
@@ -101,9 +97,13 @@ export default function DataCenterPage() {
       return;
     }
 
-    const { backup, error } = await parseBackupFile(file);
+    const { backup, error, warnings: parseWarnings } = await parseBackupFile(file);
     if (error || !backup) { setImportError(error ?? 'Unknown parse error'); setImportStep('idle'); return; }
     const p = previewRestore(backup, store);
+    // Merge parser warnings into preview warnings
+    if (parseWarnings.length > 0) {
+      p.warnings = [...(p.warnings ?? []), ...parseWarnings];
+    }
     setPendingBackup(backup);
     setPreview(p);
     setImportStep('preview');
@@ -158,8 +158,6 @@ export default function DataCenterPage() {
     if (fileInputRef.current) fileInputRef.current.value = '';
   }
 
-  const totalItems = sessions.length + video_analyses.length;
-
   return (
     <AppShell>
       <div className="p-4 sm:p-6 space-y-6 max-w-2xl mx-auto pb-24">
@@ -188,7 +186,7 @@ export default function DataCenterPage() {
         {/* Stats */}
         <div className="grid grid-cols-4 gap-3 text-center">
           <StatCard label={t('data.totalSessions')} value={String(sessions.length)} />
-          <StatCard label={t('common.badges')} value={String(clubs.length)} />
+          <StatCard label={t('data.totalClubs')} value={String(clubs.length)} />
           <StatCard label={t('data.totalVideos')} value={String(video_analyses.length)} />
           <StatCard label="Exports" value={String(community.exportCount)} />
         </div>
@@ -207,15 +205,19 @@ export default function DataCenterPage() {
             <div className="bg-gray-50 rounded-xl p-4 space-y-2 text-sm text-gray-700">
               <p className="font-medium text-gray-900">Your backup includes:</p>
               <ul className="space-y-1 text-xs text-gray-600">
-                <li>✓ All sessions &amp; shots ({sessions.length} sessions)</li>
-                <li>✓ Club / equipment data ({clubs.length} clubs)</li>
-                <li>✓ Video analyses ({video_analyses.length})</li>
-                <li>✓ Training progress &amp; milestones</li>
-                <li>✓ Community achievements &amp; challenges</li>
-                <li>✓ App settings &amp; preferences</li>
-                <li className="flex items-center gap-1 text-green-700 font-medium">
+                {getExportableModules().map((mod) => (
+                  <li key={mod.id} className="flex items-start gap-1.5">
+                    <span className="text-green-600 font-bold flex-shrink-0">✓</span>
+                    <span>
+                      <span className="font-medium">{mod.label}</span>
+                      {' — '}
+                      <span className="text-gray-500">{mod.getSummaryLine(store)}</span>
+                    </span>
+                  </li>
+                ))}
+                <li className="flex items-center gap-1.5 text-green-700 font-medium pt-0.5">
                   <Globe size={12} aria-hidden="true" />
-                  Language preference ({LANGUAGE_CONFIG[language]?.nativeName ?? language})
+                  Language: {LANGUAGE_CONFIG[language]?.nativeName ?? language}
                 </li>
               </ul>
             </div>
@@ -442,7 +444,7 @@ export default function DataCenterPage() {
                 <div className="rounded-lg border border-gray-200 divide-y divide-gray-100 text-sm" role="table" aria-label="Restore preview">
                   <div className="grid grid-cols-3 text-center py-2 font-medium text-gray-500 text-xs uppercase tracking-wide bg-gray-50 rounded-t-lg">
                     <span>Category</span>
-                    <span>New</span>
+                    <span>New / Updated</span>
                     <span>Skipped</span>
                   </div>
                   <div className="grid grid-cols-3 text-center py-2.5">
@@ -460,6 +462,29 @@ export default function DataCenterPage() {
                     <span className="font-semibold text-green-700">{preview.newRecords.videoAnalyses}</span>
                     <span className="text-gray-400">{preview.skippedDuplicates.videoAnalyses}</span>
                   </div>
+                  {preview.updatedRecords.communityUpdated && (
+                    <div className="grid grid-cols-3 text-center py-2.5 bg-purple-50">
+                      <span className="text-gray-700">Badges &amp; XP</span>
+                      <span className="font-semibold text-purple-700">
+                        {preview.updatedRecords.communityBadges ?? 0} badges · {preview.updatedRecords.communityXP ?? 0} XP
+                      </span>
+                      <span className="text-gray-400">—</span>
+                    </div>
+                  )}
+                  {preview.updatedRecords.training && (
+                    <div className="grid grid-cols-3 text-center py-2.5">
+                      <span className="text-gray-700">Training Progress</span>
+                      <span className="font-semibold text-green-700">Updated</span>
+                      <span className="text-gray-400">—</span>
+                    </div>
+                  )}
+                  {preview.updatedRecords.tutorialUpdated && (
+                    <div className="grid grid-cols-3 text-center py-2.5">
+                      <span className="text-gray-700">Tutorial Progress</span>
+                      <span className="font-semibold text-green-700">Updated</span>
+                      <span className="text-gray-400">—</span>
+                    </div>
+                  )}
                 </div>
 
                 {preview.warnings.length > 0 && (

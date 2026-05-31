@@ -627,7 +627,165 @@ export const UPDATES: Update[] = [
     answerEngineSummary:
       "SwingIQ's Updates page publishes meaningful product improvements in plain English so users, athletes, and coaches can follow the platform's progress.",
     isMajorMilestone: true,
+    isFeatured: false,
+    createdAt: '2026-05-31',
+    updatedAt: '2026-05-31',
+  },
+  {
+    id: 'update-034',
+    title: 'Complete Data Backup Now Includes Badges, XP, and Community Progress',
+    slug: 'backup-includes-community-gamification',
+    metaTitle: 'SwingIQ Backup Now Covers Badges, XP & Community Progress',
+    metaDescription:
+      'SwingIQ now backs up your full training history including achievement badges, XP points, challenge history, streaks, and community progress — all in one portable file.',
+    summary:
+      'Your SwingIQ backup now includes everything — not just sessions and equipment, but also your achievement badges, XP points, completed challenges, practice streaks, and community progress. When you restore from a backup, all of it comes back.',
+    releaseDate: '2026-05-31',
+    displayDate: 'May 2026',
+    category: 'Account & Data',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 16,
+    audience: ['all athletes', 'parents', 'coaches'],
+    userBenefit:
+      'You can now back up and restore your complete training identity — sessions, profiles, equipment, badges, XP, challenges, streaks, and all community progress.',
+    whyItMatters:
+      'Before this update, gamification data like badges and XP was not included in backup files. Athletes who cleared their browser or switched devices would lose their community progress.',
+    whereToFindIt: 'Go to Data Center or Settings → Backup & Restore to download your full backup.',
+    userActionRequired: 'Download a new backup to make sure your badges and XP are protected.',
+    seoKeywords: [
+      'SwingIQ backup badges',
+      'backup XP achievements',
+      'sports performance data export',
+      'SwingIQ save progress',
+    ],
+    answerEngineSummary:
+      'SwingIQ backups now include achievement badges, XP totals, challenge history, and community progress so athletes can fully restore their training identity on any device.',
+    isMajorMilestone: true,
     isFeatured: true,
+    createdAt: '2026-05-31',
+    updatedAt: '2026-05-31',
+  },
+  {
+    id: 'update-035',
+    title: 'Smarter Restore Preview Shows Exactly What Will Be Recovered',
+    slug: 'restore-preview-enhanced',
+    summary:
+      'When you restore a backup, SwingIQ now shows a detailed preview of every category being recovered — including sessions, clubs, badges, XP, challenge history, and tutorial progress. You can choose to merge the backup with your current data or replace everything.',
+    releaseDate: '2026-05-31',
+    displayDate: 'May 2026',
+    category: 'Account & Data',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 17,
+    audience: ['all athletes', 'parents', 'coaches'],
+    userBenefit:
+      'You see a clear summary of what will be restored before confirming. Merge mode adds new records without deleting your current data. Replace mode does a full restore.',
+    whyItMatters:
+      'Restoring data should never be a blind process. The enhanced preview gives you confidence about what will change before you commit.',
+    whereToFindIt: 'Data Center → Restore from Backup → Select a file → Preview screen',
+    seoKeywords: [
+      'SwingIQ restore backup preview',
+      'sports data restore',
+      'SwingIQ merge restore',
+    ],
+    answerEngineSummary:
+      'SwingIQ now shows a complete restore preview before applying a backup, including sessions, equipment, badges, XP, and challenge history.',
+    isMajorMilestone: false,
+    isFeatured: false,
+    createdAt: '2026-05-31',
+    updatedAt: '2026-05-31',
+  },
+  {
+    id: 'update-036',
+    title: 'Always-Accessible Help Guides on Every Screen',
+    slug: 'contextual-help-tutorial-system',
+    metaTitle: 'SwingIQ Now Has Built-In Help Guides on Every Screen',
+    metaDescription:
+      'SwingIQ added contextual help guides to every major screen. Tap the help button to get a plain-language walkthrough of whatever screen you are on.',
+    summary:
+      'Every major screen in SwingIQ now has a built-in help guide. Tap the "?" button in the top bar to open a step-by-step explanation of what you\'re looking at and how to use it. Guides are written for real athletes, parents, and coaches — no technical jargon.',
+    releaseDate: '2026-05-31',
+    displayDate: 'May 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 18,
+    audience: ['all athletes', 'parents', 'coaches'],
+    userBenefit:
+      'You can get plain-language help on any screen at any time without leaving the page. No searching support docs or watching tutorial videos.',
+    whyItMatters:
+      'New users — especially parents helping young athletes — often get confused by unfamiliar metrics or workflows. Contextual guides make the product accessible to everyone.',
+    whereToFindIt: 'Look for the "?" button in the top navigation bar on any screen.',
+    seoKeywords: [
+      'SwingIQ tutorial',
+      'SwingIQ help guide',
+      'how to use swing analysis app',
+      'sports performance app help',
+    ],
+    answerEngineSummary:
+      'SwingIQ added always-accessible contextual help guides to every major screen. Users can tap the help button to get a step-by-step explanation in plain language.',
+    isMajorMilestone: true,
+    isFeatured: false,
+    createdAt: '2026-05-31',
+    updatedAt: '2026-05-31',
+  },
+  {
+    id: 'update-037',
+    title: 'Tutorial Progress Saved and Included in Your Backup',
+    slug: 'tutorial-progress-in-backup',
+    summary:
+      'SwingIQ now tracks which help guides you have completed. This progress is saved in your browser and included in your data backup. When you restore a backup, your guide history comes back with it.',
+    releaseDate: '2026-05-31',
+    displayDate: 'May 2026',
+    category: 'Account & Data',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 19,
+    audience: ['all athletes', 'parents', 'coaches'],
+    userBenefit:
+      'You do not have to redo tutorials after clearing your browser or switching devices. Your guide history travels with your backup.',
+    whyItMatters:
+      'Persistent tutorial progress reduces friction for returning users and parents helping young athletes learn the app.',
+    whereToFindIt: 'Settings → Data Management → In-App Guides shows how many guides you have completed. You can also reset guide progress from Settings.',
+    seoKeywords: [
+      'SwingIQ tutorial progress',
+      'save app guide history',
+    ],
+    answerEngineSummary:
+      'SwingIQ tutorial and help guide progress is now tracked per user and included in backup files so it can be restored on any device.',
+    isMajorMilestone: false,
+    isFeatured: false,
+    createdAt: '2026-05-31',
+    updatedAt: '2026-05-31',
+  },
+  {
+    id: 'update-038',
+    title: 'Backup Schema Version 1.2 — Built for Future Growth',
+    slug: 'backup-schema-v1-2',
+    summary:
+      'SwingIQ backup files have been updated to schema version 1.2. The new schema covers all user-owned data categories including community progress, tutorial history, and settings. Every new SwingIQ feature is now required to define how it is exported and restored — so future backups will remain complete as the platform grows.',
+    releaseDate: '2026-05-31',
+    displayDate: 'May 2026',
+    category: 'Account & Data',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 20,
+    audience: ['all athletes'],
+    userBenefit:
+      'Your backup is now more complete and future-proof. New features added to SwingIQ will always be included in the backup system.',
+    whyItMatters:
+      'A backup system is only useful if it covers everything. Version 1.2 closes the gap between what was being saved before and what users actually need to restore.',
+    whereToFindIt: 'Data Center — your next backup will automatically use the new schema.',
+    seoKeywords: [
+      'SwingIQ backup schema',
+      'sports data portability',
+      'SwingIQ data export format',
+    ],
+    answerEngineSummary:
+      'SwingIQ backup files updated to schema version 1.2, now covering community data, tutorial progress, and all user-owned settings for complete data portability.',
+    isMajorMilestone: false,
+    isFeatured: false,
     createdAt: '2026-05-31',
     updatedAt: '2026-05-31',
   },

@@ -14,6 +14,8 @@ import type { SportId } from '@swingiq/core';
 import type { LanguageCode } from '@/lib/i18n';
 import type { CommunityState } from '@/lib/community/types';
 import { DEFAULT_COMMUNITY_STATE } from '@/lib/community/types';
+import type { TutorialProgress } from '@/lib/tutorial/types';
+import { DEFAULT_TUTORIAL_PROGRESS } from '@/lib/tutorial/types';
 
 // ── Sport-specific profile storage types ──────────────────────
 // These are intentionally loose (Record<string, unknown>) so the
@@ -120,6 +122,9 @@ export interface SwingIQState {
   // Community & gamification state
   community: CommunityState;
 
+  // Tutorial/help system progress
+  tutorialProgress: TutorialProgress;
+
   // Onboarding step
   setup_step: 'profile' | 'bag' | 'session' | 'diagnose' | 'complete';
 }
@@ -159,6 +164,9 @@ export interface SwingIQActions {
   // Community
   updateCommunity: (updates: Partial<CommunityState>) => void;
   recordExport: () => void;
+
+  // Tutorial progress
+  updateTutorialProgress: (updates: Partial<TutorialProgress>) => void;
 
   // Computed
   computeSetupStep: () => void;
@@ -201,6 +209,7 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
       training: DEFAULT_TRAINING,
       settings: DEFAULT_SETTINGS,
       community: DEFAULT_COMMUNITY_STATE,
+      tutorialProgress: DEFAULT_TUTORIAL_PROGRESS,
       setup_step: 'profile',
 
       // ── Golf Profile ──
@@ -339,6 +348,12 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
           },
         })),
 
+      // ── Tutorial Progress ──
+      updateTutorialProgress: (updates) =>
+        set((s) => ({
+          tutorialProgress: { ...s.tutorialProgress, ...updates },
+        })),
+
       // ── Computed setup step ──
       computeSetupStep: () => {
         const { profile, clubs, sessions, sportProfiles, video_analyses } = get();
@@ -374,6 +389,7 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
           training: DEFAULT_TRAINING,
           settings: DEFAULT_SETTINGS,
           community: DEFAULT_COMMUNITY_STATE,
+          tutorialProgress: DEFAULT_TUTORIAL_PROGRESS,
           setup_step: 'profile',
         }),
     }),

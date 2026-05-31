@@ -99,14 +99,30 @@ Sport-aware coach report generator. Copy a formatted summary to share with your 
 - Sport-specific phase checklist and honest limitation notice
 - All unverified entries clearly marked — no fake YouTube IDs
 
-### 💾 Backup & Restore
-- Full data backup: all sports, all profiles, sessions, video analyses, drills, settings
+### 💾 Backup & Restore (Schema v1.2.0)
+- **Complete data backup** — all sports, profiles, sessions, video analyses, drills, equipment, community progress, tutorial progress, and settings in one file
+- **Community / gamification data included** — badges, XP totals, challenge history, streaks, group memberships, and privacy settings all backed up
+- **Tutorial progress included** — which in-app guides have been completed or dismissed, portable across devices
 - Download as `swingiq-backup-YYYY-MM-DD.json` or `.swingiqbackup` (encrypted)
 - **Optional password-based encryption** (AES-256-GCM, PBKDF2, 310k iterations — no external dependencies)
-- Restore modes: **Merge** (add to current) or **Replace** (overwrite with confirmation)
+- **Auto-migration** — old backups (v1.0.0, v1.1.0) are automatically upgraded to the current schema on import
+- Restore modes: **Merge** (add to current, deduplicates by ID and composite key) or **Replace** (full restore with confirmation)
+- **Enhanced restore preview** — shows every category being restored including badge/XP counts
 - Smart duplicate detection (by ID and by sport + date + source)
-- Multi-device portability — backup on iPad, restore on iPhone
-- Found at **Settings → Backup & Restore**
+- **Security hardening** — prototype pollution guard, complexity bomb guard, 50 MB size cap, extension whitelist
+- **Backup data registry** (`lib/backup/registry.ts`) — centralized contract so every future feature declares its own export/import behavior
+- Multi-device portability — backup on any device, restore anywhere
+- Found at **Data Center** (`/data`) or **Settings → Backup & Restore**
+
+### ❓ Always-Accessible Contextual Help System
+- Every major screen has a built-in step-by-step guide — tap the **?** button in the top bar (mobile) or sidebar (desktop)
+- **20+ screen-specific tutorials** covering Dashboard, Profile, Equipment, Sessions, Diagnose, Training, Video Analysis, Community, Data Center, Settings, and more
+- Tutorials use plain language — written for athletes, parents, and coaches, not developers
+- **Tutorial progress is saved** in the browser and included in your backup — guides restore when you switch devices
+- Guides can be dismissed, restarted, and reset from Settings
+- Keyboard accessible — `Escape` closes, `←`/`→` navigates steps
+- i18n-ready architecture — content is structured for extraction into all 20 supported languages
+- Centralized content registry (`lib/tutorial/content.ts`) — adding a tutorial for a new screen takes one object
 
 ### 🔒 Security
 - Security headers on every response (CSP, HSTS, X-Frame-Options, etc.)
@@ -137,9 +153,15 @@ swingiq/
 │           │                   # /softball-swing-analysis, /pricing, /parents,
 │           │                   # /privacy, /terms
 │           ├── components/     # UI, layout, video, sport, chart components
-│           ├── contexts/       # SportContext
-│           ├── lib/            # analytics, backup (schema/export/validate/restore/crypto),
-│           │                   # rate-limit, supabase-server, ai-coach-prompts
+│           ├── contexts/       # SportContext, LanguageContext
+│           ├── hooks/          # useTutorial (tutorial progress hook)
+│           ├── lib/
+│           │   ├── backup/     # schema, export, validate, restore, migrate,
+│           │   │               # registry, crypto — complete data portability system
+│           │   ├── tutorial/   # content registry (20+ screens), types
+│           │   ├── community/  # achievements, challenges, XP, backup-health,
+│           │   │               # activity-feed, groups, leaderboard
+│           │   └── i18n/       # 20-language system with RTL support
 │           └── store/          # Zustand store (persisted to localStorage)
 ├── packages/
 │   └── core/                   # Shared TypeScript logic (@swingiq/core)
@@ -168,6 +190,7 @@ swingiq/
 │   ├── CODEOWNERS
 │   └── pull_request_template.md
 └── docs/
+    ├── BACKUP_SYSTEM.md        ← Developer guide for the backup/restore architecture
     ├── BEGINNER_START_HERE.md
     ├── OWNER_TASKS.md
     ├── TROUBLESHOOTING.md
@@ -311,6 +334,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | When something breaks |
 | [WEB_APP_GUIDE.md](docs/WEB_APP_GUIDE.md) | Using every app feature |
 | [DATA_IMPORT_GUIDE.md](docs/DATA_IMPORT_GUIDE.md) | Exporting CSV from each launch monitor brand |
+| [BACKUP_SYSTEM.md](docs/BACKUP_SYSTEM.md) | **Developer guide** — backup schema, registry, migration, tutorial system |
 | [PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md) | 30/60/90-day roadmap + monetization |
 | [ANALYTICS_PLAN.md](ANALYTICS_PLAN.md) | Event taxonomy, funnels, KPIs |
 | [SEO_AEO_GEO_PLAN.md](SEO_AEO_GEO_PLAN.md) | SEO page map + structured data strategy |

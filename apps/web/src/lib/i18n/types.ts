@@ -462,6 +462,17 @@ export interface Translations {
     exportPromptMessage: string;
   };
 
+  tutorial: {
+    guide: string;
+    openGuide: string;
+    notNow: string;
+    gotIt: string;
+    stepOf: string;
+    alreadyCompleted: string;
+    resetAllTutorials: string;
+    tutorialResetConfirm: string;
+  };
+
   seo: {
     communityTitle: string;
     communityDescription: string;

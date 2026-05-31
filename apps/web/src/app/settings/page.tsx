@@ -5,17 +5,26 @@ import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSwingIQStore } from '@/store';
 import { useState } from 'react';
-import { CheckCircle, Trash2, HardDrive } from 'lucide-react';
+import { CheckCircle, Trash2, HardDrive, HelpCircle, Database } from 'lucide-react';
 import Link from 'next/link';
+import { useTutorial } from '@/hooks/useTutorial';
 
 export default function SettingsPage() {
   const { settings, updateSettings, reset } = useSwingIQStore();
+  const { resetAll: resetTutorials, tutorialProgress } = useTutorial();
   const [saved, setSaved] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [tutorialsReset, setTutorialsReset] = useState(false);
 
   const handleSave = () => {
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
+  };
+
+  const handleResetTutorials = () => {
+    resetTutorials();
+    setTutorialsReset(true);
+    setTimeout(() => setTutorialsReset(false), 2500);
   };
 
 
@@ -95,14 +104,41 @@ export default function SettingsPage() {
           <CardBody className="space-y-3">
             <div className="flex items-center justify-between py-2">
               <div>
+                <p className="text-sm font-medium text-gray-700">Data Center</p>
+                <p className="text-xs text-gray-500">Export, import, and restore your full SwingIQ data</p>
+              </div>
+              <Link href="/data">
+                <Button variant="outline" size="sm">
+                  <Database size={14} /> Open
+                </Button>
+              </Link>
+            </div>
+            <div className="flex items-center justify-between py-2 border-t">
+              <div>
                 <p className="text-sm font-medium text-gray-700">Backup &amp; Restore</p>
-                <p className="text-xs text-gray-500">Full backup including all sports, profiles, sessions, and analyses</p>
+                <p className="text-xs text-gray-500">Full backup including all sports, profiles, sessions, badges, and analyses</p>
               </div>
               <Link href="/settings/backup">
                 <Button variant="outline" size="sm">
                   <HardDrive size={14} /> Backup
                 </Button>
               </Link>
+            </div>
+            <div className="flex items-center justify-between py-2 border-t">
+              <div>
+                <p className="text-sm font-medium text-gray-700">In-App Guides</p>
+                <p className="text-xs text-gray-500">
+                  {tutorialProgress.completed.length} guide{tutorialProgress.completed.length !== 1 ? 's' : ''} completed
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                {tutorialsReset && (
+                  <span className="text-xs text-green-600 font-medium">Reset!</span>
+                )}
+                <Button variant="outline" size="sm" onClick={handleResetTutorials}>
+                  <HelpCircle size={14} /> Reset Guides
+                </Button>
+              </div>
             </div>
             <div className="flex items-center justify-between py-2 border-t">
               <div>
@@ -129,7 +165,7 @@ export default function SettingsPage() {
         <Card>
           <CardHeader><CardTitle>About SwingIQ</CardTitle></CardHeader>
           <CardBody className="space-y-2 text-sm text-gray-600">
-            <p><span className="font-semibold">Version:</span> 1.0.0</p>
+            <p><span className="font-semibold">Version:</span> 1.1.0</p>
             <p><span className="font-semibold">Sports:</span> Golf · Tennis · Baseball · Slow-Pitch Softball · Fast-Pitch Softball</p>
             <p><span className="font-semibold">Data storage:</span> All data stored locally in your browser. No account required until Supabase sync is enabled.</p>
             <p className="text-xs text-gray-400 pt-2">

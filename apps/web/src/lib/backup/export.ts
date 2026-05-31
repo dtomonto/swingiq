@@ -45,6 +45,7 @@ export function exportUserData(state: SwingIQState): SwingIQBackup {
       training: state.training,
       settings: state.settings,
       community: state.community,
+      tutorialProgress: state.tutorialProgress,
       preferredLanguage: state.settings.language,
     },
     metadata: {
@@ -54,6 +55,10 @@ export function exportUserData(state: SwingIQState): SwingIQBackup {
         videoAnalyses: state.video_analyses.length,
         milestones: state.training.milestones_earned.length,
         drillsCompleted: Object.keys(state.training.drills_completed).length,
+        achievementsEarned: state.community.achievementsEarned.length,
+        challengesCompleted: state.community.challengesCompleted.length,
+        xpTotal: state.community.xpTotal,
+        tutorialsCompleted: state.tutorialProgress.completed.length,
       },
       sportsIncluded: Array.from(sportIds),
       dateRange: {

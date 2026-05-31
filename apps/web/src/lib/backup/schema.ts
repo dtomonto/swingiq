@@ -12,11 +12,12 @@ import type {
 } from '@/store';
 import type { CommunityState } from '@/lib/community/types';
 import type { LanguageCode } from '@/lib/i18n';
+import type { TutorialProgress } from '@/lib/tutorial/types';
 
 export const BACKUP_FORMAT = 'swingiq-backup-v1';
-export const CURRENT_BACKUP_VERSION = '1.1.0';
-export const APP_VERSION = '1.0.0';
-export const SCHEMA_VERSION = '1.1.0';
+export const CURRENT_BACKUP_VERSION = '1.2.0';
+export const APP_VERSION = '1.1.0';
+export const SCHEMA_VERSION = '1.2.0';
 
 export interface SwingIQBackupData {
   profile: GolferProfileInput | null;
@@ -27,6 +28,7 @@ export interface SwingIQBackupData {
   training: TrainingProgress;
   settings: AppSettings;
   community?: CommunityState;
+  tutorialProgress?: TutorialProgress;
   preferredLanguage?: LanguageCode;
 }
 
@@ -37,6 +39,10 @@ export interface BackupMetadata {
     videoAnalyses: number;
     milestones: number;
     drillsCompleted: number;
+    achievementsEarned?: number;
+    challengesCompleted?: number;
+    xpTotal?: number;
+    tutorialsCompleted?: number;
   };
   sportsIncluded: SportId[];
   dateRange: { earliest: string | null; latest: string | null };
@@ -78,6 +84,10 @@ export interface RestorePreview {
     profile: boolean;
     sportProfiles: string[];
     training: boolean;
+    communityBadges?: number;
+    communityXP?: number;
+    communityUpdated?: boolean;
+    tutorialUpdated?: boolean;
   };
   skippedDuplicates: {
     sessions: number;

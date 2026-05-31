@@ -419,6 +419,17 @@ export const en: Translations = {
     exportPromptMessage: 'Session saved. Your progress now powers your streaks, badges, challenges, and leaderboards. Export a backup to protect this training history.',
   },
 
+  tutorial: {
+    guide: 'Guide',
+    openGuide: 'Open Guide',
+    notNow: 'Not now',
+    gotIt: 'Got it',
+    stepOf: 'Step {step} of {total}',
+    alreadyCompleted: 'You have already completed this guide.',
+    resetAllTutorials: 'Reset All Guides',
+    tutorialResetConfirm: 'This will mark all guides as not yet completed. You can restart any guide from the Help button.',
+  },
+
   seo: {
     communityTitle: 'SwingIQ Community — Performance Network for Athletes',
     communityDescription: 'Join the SwingIQ Community. Track your sports performance, earn achievement badges, compete in challenges, and protect your training history with exportable backups.',

@@ -349,39 +349,101 @@ Paste into a message, email, or notes app to share with your coach or club fitte
 
 ---
 
-## 21. Backup & Restore
+## 20b. In-App Help Guides
 
-Found at **Settings → Backup & Restore**.
+Every major screen has a built-in step-by-step guide available at any time.
+
+**How to open a guide:**
+- **Mobile:** Tap the **?** icon in the top navigation bar
+- **Desktop:** Click **Guide** in the bottom section of the left sidebar
+
+The guide opens a panel on the right side (desktop) or slides up from the bottom (mobile). It explains what the current screen does and walks you through it step by step.
+
+**Navigation:**
+- Use **Next** and **Back** buttons to move between steps
+- Use the `←` and `→` arrow keys on a keyboard
+- Press `Escape` to close
+- Tap the dot indicators to jump to any step
+
+**Saving progress:**
+- Your guide history is saved automatically
+- Completed guides are marked so you know you've been through them
+- You can re-open any guide as many times as you want
+- To reset all guide progress: **Settings → Data Management → In-App Guides → Reset Guides**
+
+**Guides are included in your backup.** When you restore from a backup on a new device, your guide history comes with it.
+
+---
+
+## 21. Data Center & Backup / Restore
+
+There are two ways to access backup and restore:
+- **Data Center** — primary hub at `/data` (link in the sidebar under Community)
+- **Settings → Backup & Restore** — for a focused backup-only view
+
+---
+
+### What your backup includes (v1.2.0)
+
+Everything SwingIQ knows about you is in one file:
+
+| Category | Examples |
+|---|---|
+| Golf profile | Handicap, goals, skill level, miss tendency |
+| Sport profiles | Tennis, baseball, slow/fast softball profiles |
+| All sessions | Every session with shot data, scores, diagnoses, notes |
+| Equipment | All clubs, bats, rackets with specs |
+| Video analyses | All analysis results, scores, identified issues |
+| Training progress | Drill history, streaks, milestones |
+| **Badges & XP** | Every earned badge, total XP, challenge history |
+| **Tutorial progress** | Which in-app guides you have completed or dismissed |
+| Settings | Language, units, coaching style, display preferences |
+
+> **Not included:** Raw video files, passwords, API keys, or payment data (none of these are stored).
+
+---
 
 ### Downloading a backup
-1. The page shows live counts of your data (sessions, clubs, video analyses)
-2. Optionally toggle "Encrypt with password" and enter a password (recommended for sensitive data)
-3. Click **Download Backup**
-4. The file saves as `swingiq-backup-YYYY-MM-DD.json` (or `.swingiqbackup` if encrypted)
-5. Store the file somewhere safe — iCloud Drive, Google Drive, email, or USB
 
-> ⚠️ If you encrypt the backup, do not forget your password. There is no recovery option.
+1. Open the **Data Center** (`/data`) or **Settings → Backup & Restore**
+2. Review the contents list — it shows a live summary of everything that will be exported
+3. Optionally toggle "Encrypt with password" and enter a password (recommended)
+4. Click **Download Backup**
+5. Save the file somewhere safe — iCloud, Google Drive, USB drive, or email it to yourself
+
+> ⚠️ If you encrypt, do not forget your password — there is no recovery option.
+
+---
 
 ### Restoring from a backup
-1. Tap **Upload Backup File** and select your `.json` or `.swingiqbackup` file
-2. If encrypted, enter your password
-3. The page shows a preview: new records, duplicates, warnings
-4. Choose your restore mode:
-   - **Merge** — adds backup data to your current data (safe, recommended)
-   - **Replace** — replaces your current data with the backup (requires confirmation)
-5. The result summary shows what was restored, skipped, and any warnings
 
-### What is included
-- Golf profile and all sport-specific profiles
-- Equipment (clubs, racquets, bats)
-- All sessions with shots and diagnoses
-- Video analysis results
-- Training progress (streak, drills, milestones)
-- Settings and preferences
+1. Click **Select Backup File** under "Restore from Backup"
+2. Select your `.json` or `.swingiqbackup` file
+3. If the file is encrypted, enter your backup password
+4. **Review the preview** — it shows every category being restored with counts before anything changes
+5. Old backups (v1.0.0, v1.1.0) are automatically upgraded to the current format
+6. Choose your restore mode:
+   - **Merge** — adds new records from the backup to your current data (recommended; deduplicates automatically)
+   - **Replace** — clears all current data and fully restores the backup (requires confirmation)
+7. A result summary shows what was restored, skipped, and any warnings
 
-### What is NOT included
-- API keys, passwords, or tokens (never stored in the app)
-- Raw video files (metadata and analysis results are included; raw video files are not)
+---
+
+### Transferring progress to a new device
+
+1. Download a backup on your old device
+2. Email it to yourself or save it to cloud storage
+3. Open SwingIQ on the new device
+4. Go to Data Center → Restore → select the backup file → Merge
+
+---
+
+### Protecting your backup file
+
+The backup contains your personal training history. Treat it like a private document:
+- Do not share it publicly
+- Store it in cloud storage or a password manager
+- If you use encryption, record the password somewhere secure separately
 
 ---
 

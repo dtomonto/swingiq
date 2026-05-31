@@ -244,7 +244,10 @@ Just open your Vercel URL on any device, anywhere.
 | **Compare Sessions** | Side-by-side comparison of two sessions |
 | **AI Coach** | Ask questions about your game — answers grounded in your data |
 | **Reports** | Text summary to share with your coach |
-| **Settings** | Units, coaching style, data export |
+| **Community** | Badges, XP, challenges, streaks, leaderboards |
+| **Data Center** | Download/restore a complete backup of your data |
+| **Settings** | Units, coaching style, language, guide resets |
+| **? (Help button)** | Step-by-step guide for whatever screen you are on |
 
 ---
 
@@ -258,6 +261,12 @@ A: The app itself is free to run locally. Supabase (cloud storage) has a free ti
 
 **Q: Can other people see my data?**
 A: When running locally, only you can see it. When deployed to Vercel, only people with your URL can access it, and data is stored in your own Supabase account.
+
+**Q: How do I save my progress so I don't lose it?**
+A: Go to **Data Center** in the sidebar and click **Download Backup**. Save that file somewhere safe (cloud drive, email). If you ever switch browsers or devices, upload that file on the new device to restore everything — sessions, badges, equipment, training history, and more.
+
+**Q: What is the ? button in the top corner?**
+A: That opens a step-by-step guide for whatever screen you are on. Tap it on any page to learn what it does. Guides are built in plain language for athletes and parents, not developers.
 
 **Q: Something looks wrong or the app won't start.**
 A: See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for step-by-step fixes.

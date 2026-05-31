@@ -32,6 +32,7 @@ import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
 import { useSwingIQStore } from '@/store';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
+import { ContextualHelpButton } from '@/components/tutorial/ContextualHelpButton';
 
 interface SidebarProps {
   onClose?: () => void;
@@ -168,6 +169,13 @@ export function Sidebar({ onClose }: SidebarProps) {
         {/* Language toggle */}
         <div className="px-1 pb-1">
           <LanguageToggle variant="sidebar" onClose={onClose} />
+        </div>
+        {/* Help guide button */}
+        <div className="px-1 pb-1">
+          <ContextualHelpButton
+            variant="inline"
+            className="w-full justify-start gap-3 px-2 py-2 text-green-200 bg-transparent border-transparent hover:bg-green-800 hover:text-white"
+          />
         </div>
         <Link
           href="/settings"

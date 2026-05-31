@@ -7,6 +7,7 @@ import { Sidebar, navItems } from './Sidebar';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
+import { ContextualHelpButton } from '@/components/tutorial/ContextualHelpButton';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -91,8 +92,9 @@ export function AppShell({ children }: AppShellProps) {
             </div>
             <span className="text-white font-bold text-base">SwingIQ</span>
           </div>
-          {/* Language toggle on right */}
-          <div className="w-10 flex justify-end">
+          {/* Help + Language toggles on right */}
+          <div className="flex items-center gap-1">
+            <ContextualHelpButton className="text-green-200 hover:text-white hover:bg-green-800" />
             <LanguageToggle variant="compact" />
           </div>
         </header>

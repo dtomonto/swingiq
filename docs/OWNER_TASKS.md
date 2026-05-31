@@ -69,13 +69,20 @@ Use this file to track what has already been built and what you still need to se
 - [x] 4-step wizard: Upload → Review → Confirm → Analyze
 - [x] Auto-extraction (OCR) service layer is built — requires API key integration to activate
 
-### Backup & Restore
-- [x] Full data backup (all sports, profiles, sessions, analyses, drills, settings)
+### Backup & Restore (Schema v1.2.0)
+- [x] Full data backup — all sports, profiles, sessions, analyses, drills, settings
+- [x] **Community/gamification data in backup** — badges, XP, challenges, streaks, groups, privacy settings
+- [x] **Tutorial progress in backup** — which in-app guides are completed/dismissed
 - [x] Optional AES-256-GCM password encryption (PBKDF2, 310k iterations — no external dependencies)
-- [x] Merge restore (add backup to current data) and Replace restore (overwrite with confirmation)
+- [x] **Auto-migration** — old backups (v1.0.0, v1.1.0) upgrade automatically on import
+- [x] Merge restore (add backup to current, deduplicates by ID and composite key)
+- [x] Replace restore (full overwrite with confirmation, keeps current settings)
+- [x] **Enhanced restore preview** — shows all categories including badge/XP counts
+- [x] **Security hardening** — prototype pollution guard, complexity bomb guard, file size cap
+- [x] **Backup data registry** — future features declare their own export contract
 - [x] Smart duplicate detection (by ID, sport, date, source)
 - [x] Multi-device portability — backup on one device, restore on another
-- [x] Found at: **Settings → Backup & Restore**
+- [x] Found at: **Data Center** (`/data`) or **Settings → Backup & Restore**
 
 ### Professional Swing Reference Library
 - [x] 32 seeded professional athlete profiles across all 5 sports
@@ -115,6 +122,15 @@ Use this file to track what has already been built and what you still need to se
 - [x] 30-event analytics abstraction (`apps/web/src/lib/analytics.ts`)
 - [x] Ready to connect to PostHog, GA4, Segment, or Mixpanel
 
+### Contextual Help / Tutorial System
+- [x] **Always-accessible "?" button** in mobile top bar and desktop sidebar on every screen
+- [x] **20+ screen-specific guides** — Dashboard, Profile, Equipment, Sessions, Diagnose, Training, Video Analysis, Community, Challenges, Badges, Leaderboard, Data Center, Settings, and more
+- [x] Plain-language content — written for athletes, parents, and coaches
+- [x] Tutorial progress saved in browser and included in backup
+- [x] Guide history can be reset from **Settings → Data Management → In-App Guides**
+- [x] Keyboard accessible (Escape to close, arrow keys to navigate)
+- [x] Centralized content registry (`lib/tutorial/content.ts`) for easy additions
+
 ### Documentation
 - [x] README.md (full architecture + feature overview + setup guide)
 - [x] PRODUCT_ROADMAP.md (30/60/90-day + AI + monetization)
@@ -124,6 +140,7 @@ Use this file to track what has already been built and what you still need to se
 - [x] ADMIN_OPERATIONS_ROADMAP.md (video verification, data ops, support)
 - [x] SECURITY.md (vulnerability reporting, rotation guide, hardening checklist)
 - [x] docs/security-automation.md (CI/CD workflow guide + branch protection steps)
+- [x] **docs/BACKUP_SYSTEM.md** (developer guide — backup schema, registry, migration, tutorial system)
 
 ---
 
@@ -254,7 +271,11 @@ Use this file to track what has already been built and what you still need to se
 - [ ] Golf import wizard runs (7 steps)
 - [ ] Video analyzer works for a non-golf sport
 - [ ] AI Coach responds (placeholder or live depending on key)
-- [ ] Settings → Backup & Restore — download a backup file
+- [ ] **Data Center** (`/data`) — download a backup file; confirm the contents list shows all categories
+- [ ] **Restore backup** — upload the just-downloaded file and check the preview shows sessions/badges/XP
+- [ ] **Help button (?)** — tap in the top bar on any screen and confirm the guide opens for that screen
+- [ ] **Settings → Data Management** — confirm "In-App Guides" shows a count and Reset button
 - [ ] Equipment → Loft Gapping tab shows club gaps
 - [ ] Compare & References → Browse References shows athlete cards
+- [ ] Community → Badges page loads and shows badge grid
 - [ ] Homepage (/) shows the public landing page (not the dashboard)
