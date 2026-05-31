@@ -85,7 +85,7 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
           {drill.focus_feel && (
             <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
               <p className="text-xs font-semibold text-amber-800 mb-0.5">Feel cue</p>
-              <p className="text-xs text-amber-700 italic">"{drill.focus_feel}"</p>
+              <p className="text-xs text-amber-700 italic">&ldquo;{drill.focus_feel}&rdquo;</p>
             </div>
           )}
 

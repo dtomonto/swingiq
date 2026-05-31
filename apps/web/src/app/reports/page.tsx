@@ -374,7 +374,7 @@ export default function ReportsPage() {
           <CardBody className="text-center py-6">
             <p className="text-sm text-gray-500">
               <span className="font-semibold text-gray-700">PDF export & share links</span>{' '}
-              — coming in a future update. For now, use your browser's Print → Save as PDF
+              — coming in a future update. For now, use your browser&apos;s Print → Save as PDF
               on any session detail page.
             </p>
           </CardBody>
