@@ -181,6 +181,7 @@ export default function BaseballSwingAnalysisPage() {
           <Link href="/softball-swing-analysis" className="text-gray-600 hover:text-gray-900">Softball Analysis</Link>
           <Link href="/how-it-works" className="text-gray-600 hover:text-gray-900">How It Works</Link>
           <Link href="/login" className="text-gray-600 hover:text-gray-900">Sign In</Link>
+          <Link href="/updates" className="text-green-700 hover:underline font-medium">Updates</Link>
         </div>
       </footer>
     </>

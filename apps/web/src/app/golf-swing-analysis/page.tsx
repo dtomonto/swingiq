@@ -198,6 +198,7 @@ export default function GolfSwingAnalysisPage() {
           <Link href="/how-it-works" className="text-gray-600 hover:text-gray-900">How It Works</Link>
           <Link href="/login" className="text-gray-600 hover:text-gray-900">Sign In</Link>
           <Link href="/dashboard" className="text-gray-600 hover:text-gray-900">Dashboard</Link>
+          <Link href="/updates" className="text-green-700 hover:underline font-medium">Updates</Link>
         </div>
       </footer>
     </>

@@ -194,6 +194,7 @@ export default function HomePage() {
             <Link href="/parents" className="hover:text-white">Parents</Link>
             <Link href="/pricing" className="hover:text-white">Pricing</Link>
             <Link href="/how-it-works" className="hover:text-white">How It Works</Link>
+            <Link href="/updates" className="hover:text-white text-green-400">Updates</Link>
           </div>
         </div>
       </footer>
