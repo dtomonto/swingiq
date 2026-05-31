@@ -40,7 +40,12 @@
       "Bash(sed -n '518,525p' src/app/training/TrainingContent.tsx)",
       "Bash(sed -n '582,590p' src/app/sessions/import/ImportWizard.tsx)",
       "Bash(sed -n '179,186p' src/components/video/CoachingPanel.tsx)",
-      "Bash(git fetch *)"
+      "Bash(git fetch *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\" -Recurse -Force -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "Bash(Remove-Item \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\\\\apps\\\\web\\\\jest.config.ts\")",
+      "Bash(git check-ignore *)"
     ]
   }
 }

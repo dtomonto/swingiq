@@ -10,10 +10,13 @@ import type {
   TrainingProgress,
   AppSettings,
 } from '@/store';
+import type { CommunityState } from '@/lib/community/types';
+import type { LanguageCode } from '@/lib/i18n';
 
 export const BACKUP_FORMAT = 'swingiq-backup-v1';
-export const CURRENT_BACKUP_VERSION = '1.0.0';
+export const CURRENT_BACKUP_VERSION = '1.1.0';
 export const APP_VERSION = '1.0.0';
+export const SCHEMA_VERSION = '1.1.0';
 
 export interface SwingIQBackupData {
   profile: GolferProfileInput | null;
@@ -23,6 +26,8 @@ export interface SwingIQBackupData {
   videoAnalyses: LocalVideoAnalysis[];
   training: TrainingProgress;
   settings: AppSettings;
+  community?: CommunityState;
+  preferredLanguage?: LanguageCode;
 }
 
 export interface BackupMetadata {
@@ -42,6 +47,7 @@ export interface SwingIQBackup {
   backupFormat: typeof BACKUP_FORMAT;
   backupVersion: string;
   appVersion: string;
+  schemaVersion: string;
   createdAt: string;
   exportedAt: string;
   sourceInfo: {
@@ -50,6 +56,7 @@ export interface SwingIQBackup {
   };
   dataScope: 'full';
   encrypted: false;
+  preferredLanguage?: LanguageCode;
   data: SwingIQBackupData;
   metadata: BackupMetadata;
 }

@@ -4,6 +4,7 @@ import {
   BACKUP_FORMAT,
   CURRENT_BACKUP_VERSION,
   APP_VERSION,
+  SCHEMA_VERSION,
   type SwingIQBackup,
 } from './schema';
 
@@ -25,6 +26,7 @@ export function exportUserData(state: SwingIQState): SwingIQBackup {
     backupFormat: BACKUP_FORMAT,
     backupVersion: CURRENT_BACKUP_VERSION,
     appVersion: APP_VERSION,
+    schemaVersion: SCHEMA_VERSION,
     createdAt: now,
     exportedAt: now,
     sourceInfo: {
@@ -33,6 +35,7 @@ export function exportUserData(state: SwingIQState): SwingIQBackup {
     },
     dataScope: 'full',
     encrypted: false,
+    preferredLanguage: state.settings.language,
     data: {
       profile: state.profile,
       sportProfiles: state.sportProfiles,
@@ -41,6 +44,8 @@ export function exportUserData(state: SwingIQState): SwingIQBackup {
       videoAnalyses: state.video_analyses,
       training: state.training,
       settings: state.settings,
+      community: state.community,
+      preferredLanguage: state.settings.language,
     },
     metadata: {
       recordCounts: {

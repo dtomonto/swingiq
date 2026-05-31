@@ -11,6 +11,9 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { GolferProfileInput, Shot, DiagnosisOutput } from '@swingiq/core';
 import type { SportId } from '@swingiq/core';
+import type { LanguageCode } from '@/lib/i18n';
+import type { CommunityState } from '@/lib/community/types';
+import { DEFAULT_COMMUNITY_STATE } from '@/lib/community/types';
 
 // ── Sport-specific profile storage types ──────────────────────
 // These are intentionally loose (Record<string, unknown>) so the
@@ -89,6 +92,7 @@ export interface AppSettings {
   coaching_style: 'detailed' | 'concise' | 'encouragement' | 'balanced';
   default_club_for_diagnose: string;
   onboarding_complete: boolean;
+  language?: LanguageCode;
 }
 
 export interface SwingIQState {
@@ -112,6 +116,9 @@ export interface SwingIQState {
 
   // Settings
   settings: AppSettings;
+
+  // Community & gamification state
+  community: CommunityState;
 
   // Onboarding step
   setup_step: 'profile' | 'bag' | 'session' | 'diagnose' | 'complete';
@@ -148,6 +155,10 @@ export interface SwingIQActions {
 
   // Settings
   updateSettings: (updates: Partial<AppSettings>) => void;
+
+  // Community
+  updateCommunity: (updates: Partial<CommunityState>) => void;
+  recordExport: () => void;
 
   // Computed
   computeSetupStep: () => void;
@@ -189,6 +200,7 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
       video_analyses: [],
       training: DEFAULT_TRAINING,
       settings: DEFAULT_SETTINGS,
+      community: DEFAULT_COMMUNITY_STATE,
       setup_step: 'profile',
 
       // ── Golf Profile ──
@@ -314,6 +326,19 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
       updateSettings: (updates) =>
         set((s) => ({ settings: { ...s.settings, ...updates } })),
 
+      // ── Community ──
+      updateCommunity: (updates) =>
+        set((s) => ({ community: { ...s.community, ...updates } })),
+
+      recordExport: () =>
+        set((s) => ({
+          community: {
+            ...s.community,
+            lastExportAt: new Date().toISOString(),
+            exportCount: s.community.exportCount + 1,
+          },
+        })),
+
       // ── Computed setup step ──
       computeSetupStep: () => {
         const { profile, clubs, sessions, sportProfiles, video_analyses } = get();
@@ -348,6 +373,7 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
           video_analyses: [],
           training: DEFAULT_TRAINING,
           settings: DEFAULT_SETTINGS,
+          community: DEFAULT_COMMUNITY_STATE,
           setup_step: 'profile',
         }),
     }),

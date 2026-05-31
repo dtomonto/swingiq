@@ -24,10 +24,14 @@ import {
   CalendarDays,
   Trophy,
   GitCompareArrows,
+  Users,
+  Database,
+  Award,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
 import { useSwingIQStore } from '@/store';
+import { LanguageToggle } from '@/components/language/LanguageToggle';
 
 interface SidebarProps {
   onClose?: () => void;
@@ -42,7 +46,6 @@ export function Sidebar({ onClose }: SidebarProps) {
   const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/profile', label: sportLabels.profile_short, icon: User },
-    // Only show Equipment tab for golf (clubs) or for all sports with equipment
     { href: '/bag', label: isGolf ? 'Equipment' : sportLabels.equipment_short, icon: ShoppingBag },
     { href: '/sessions', label: sportLabels.sessions, icon: Activity },
     { href: '/sessions/import', label: isGolf ? 'Import Data' : 'Log Session', icon: Upload },
@@ -57,6 +60,12 @@ export function Sidebar({ onClose }: SidebarProps) {
     { href: '/compare', label: 'Compare & References', icon: GitCompareArrows },
     { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
     { href: '/reports', label: 'Reports', icon: FileText },
+  ] as const;
+
+  const communityItems = [
+    { href: '/community', label: 'Community', icon: Users },
+    { href: '/community/badges', label: 'Badges', icon: Award },
+    { href: '/data', label: 'Data Center', icon: Database },
   ] as const;
 
   // Sport accent colors for active state
@@ -97,7 +106,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto" aria-label="Main navigation">
         {navItems.map(({ href, label, icon: Icon }) => {
           const isActive = pathname === href || pathname.startsWith(href + '/');
           return (
@@ -112,16 +121,40 @@ export function Sidebar({ onClose }: SidebarProps) {
                   : 'text-green-200 hover:bg-green-800 hover:text-white',
               )}
             >
-              <Icon size={18} className="flex-shrink-0" />
+              <Icon size={18} className="flex-shrink-0" aria-hidden="true" />
               <span className="flex-1">{label}</span>
               {href === '/training' && training.streak_days > 1 && (
-                <span className="flex items-center gap-0.5 text-xs text-orange-400">
-                  <Flame size={11} />{training.streak_days}
+                <span className="flex items-center gap-0.5 text-xs text-orange-400" aria-label={`${training.streak_days} day streak`}>
+                  <Flame size={11} aria-hidden="true" />{training.streak_days}
                 </span>
               )}
             </Link>
           );
         })}
+
+        {/* Community section */}
+        <div className="pt-2 pb-1">
+          <p className="text-xs text-green-500 font-medium px-3 pb-1 uppercase tracking-wide">Community</p>
+          {communityItems.map(({ href, label, icon: Icon }) => {
+            const isActive = pathname === href || pathname.startsWith(href + '/');
+            return (
+              <Link
+                key={href}
+                href={href}
+                onClick={onClose}
+                className={cn(
+                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
+                  isActive
+                    ? `${activeClass} text-white`
+                    : 'text-green-200 hover:bg-green-800 hover:text-white',
+                )}
+              >
+                <Icon size={18} className="flex-shrink-0" aria-hidden="true" />
+                <span className="flex-1">{label}</span>
+              </Link>
+            );
+          })}
+        </div>
       </nav>
 
       {/* Sport Switcher */}
@@ -132,16 +165,20 @@ export function Sidebar({ onClose }: SidebarProps) {
 
       {/* Bottom */}
       <div className="px-3 py-4 border-t border-green-800 space-y-1">
+        {/* Language toggle */}
+        <div className="px-1 pb-1">
+          <LanguageToggle variant="sidebar" onClose={onClose} />
+        </div>
         <Link
           href="/settings"
           onClick={onClose}
           className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-200 hover:bg-green-800 hover:text-white transition-colors"
         >
-          <Settings size={18} />
+          <Settings size={18} aria-hidden="true" />
           Settings
         </Link>
         <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-200 hover:bg-red-800 hover:text-white transition-colors">
-          <LogOut size={18} />
+          <LogOut size={18} aria-hidden="true" />
           Sign Out
         </button>
       </div>

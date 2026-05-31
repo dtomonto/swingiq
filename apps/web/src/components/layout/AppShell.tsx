@@ -6,6 +6,7 @@ import { Menu } from 'lucide-react';
 import { Sidebar, navItems } from './Sidebar';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { LanguageToggle } from '@/components/language/LanguageToggle';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -90,8 +91,10 @@ export function AppShell({ children }: AppShellProps) {
             </div>
             <span className="text-white font-bold text-base">SwingIQ</span>
           </div>
-          {/* Right spacer so logo stays centered */}
-          <div className="w-10" aria-hidden="true" />
+          {/* Language toggle on right */}
+          <div className="w-10 flex justify-end">
+            <LanguageToggle variant="compact" />
+          </div>
         </header>
 
         {/* Page content */}
