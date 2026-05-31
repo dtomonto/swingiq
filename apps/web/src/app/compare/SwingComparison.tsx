@@ -105,8 +105,11 @@ function UserSwingPanel() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file || !file.type.startsWith('video/')) return;
     const url = URL.createObjectURL(file);
+    // URL.createObjectURL always returns a blob: URL; this guard satisfies
+    // static analysis tools that track user-controlled URLs to DOM sinks.
+    if (!url.startsWith('blob:')) return;
     setLocalVideoUrl(url);
     setLocalVideoName(file.name);
     setSelectedAnalysisId('');
@@ -203,8 +206,8 @@ function UserSwingPanel() {
           />
         </div>
 
-        {/* Video player — only render when URL is a blob: created by this page */}
-        {localVideoUrl && localVideoUrl.startsWith('blob:') && (
+        {/* Video player */}
+        {localVideoUrl && (
           <div className="aspect-video bg-black rounded-xl overflow-hidden">
             <video
               src={localVideoUrl}
