@@ -8,6 +8,12 @@ const nextConfig = {
   // Never ship source maps to production browsers
   productionBrowserSourceMaps: false,
 
+  // ESLint runs in CI (security-audit.yml) — skip the duplicate run during next build
+  // to prevent build failures from warnings in the @typescript-eslint config.
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   // Security headers applied to every response
   async headers() {
     return [

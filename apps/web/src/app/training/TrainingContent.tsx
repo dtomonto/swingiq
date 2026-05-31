@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, ChevronDown, ChevronUp, Zap, SlidersHorizontal, TrendingUp } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -8,7 +9,6 @@ import { Button } from '@/components/ui/Button';
 import { getRoutineForDiagnosis, runDiagnosticEngine, type TrainingRoutine, type DrillRecommendation, type DiagnosisCategory, type SkillLevel } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
 import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
-import Link from 'next/link';
 import { format } from 'date-fns';
 
 function DrillCard({ drill }: { drill: DrillRecommendation }) {
@@ -518,12 +518,12 @@ export function TrainingContent() {
       </Card>
 
       <div className="flex gap-3">
-        <a href="/sessions/import" className="flex-1">
+        <Link href="/sessions/import" className="flex-1">
           <Button variant="outline" className="w-full">Import Retest Session</Button>
-        </a>
-        <a href="/diagnose" className="flex-1">
+        </Link>
+        <Link href="/diagnose" className="flex-1">
           <Button className="w-full">Run New Diagnosis</Button>
-        </a>
+        </Link>
       </div>
     </div>
   );
