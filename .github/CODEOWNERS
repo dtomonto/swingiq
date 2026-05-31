@@ -1,28 +1,28 @@
 # CODEOWNERS — Require review from a code owner before merging changes to sensitive paths.
 #
-# Replace @REPLACE_WITH_GITHUB_USERNAME with your actual GitHub username.
+# Replace @dtomonto with your actual GitHub username.
 # Example: @dtomo
 #
 # GitHub docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
 # ─── CI/CD Workflows ────────────────────────────────────────────────────────
 # Any change to GitHub Actions workflows must be reviewed by an owner.
-.github/workflows/*                         @REPLACE_WITH_GITHUB_USERNAME
+.github/workflows/*                         @dtomonto
 
 # ─── API Routes (server-side secrets live here) ─────────────────────────────
-apps/web/src/app/api/*                      @REPLACE_WITH_GITHUB_USERNAME
+apps/web/src/app/api/*                      @dtomonto
 
 # ─── Auth & Middleware ───────────────────────────────────────────────────────
-apps/web/src/lib/supabase.ts                @REPLACE_WITH_GITHUB_USERNAME
-apps/web/src/middleware.ts                  @REPLACE_WITH_GITHUB_USERNAME
+apps/web/src/lib/supabase.ts                @dtomonto
+apps/web/src/middleware.ts                  @dtomonto
 
 # ─── Admin Routes ────────────────────────────────────────────────────────────
-apps/web/src/app/admin/*                    @REPLACE_WITH_GITHUB_USERNAME
+apps/web/src/app/admin/*                    @dtomonto
 
 # ─── Environment Variable Templates & Security Docs ─────────────────────────
-.env.example                                @REPLACE_WITH_GITHUB_USERNAME
-SECURITY.md                                 @REPLACE_WITH_GITHUB_USERNAME
+.env.example                                @dtomonto
+SECURITY.md                                 @dtomonto
 
 # ─── Dependabot & Security Config ────────────────────────────────────────────
-.github/dependabot.yml                      @REPLACE_WITH_GITHUB_USERNAME
-.gitleaks.toml                              @REPLACE_WITH_GITHUB_USERNAME
+.github/dependabot.yml                      @dtomonto
+.gitleaks.toml                              @dtomonto

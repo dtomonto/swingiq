@@ -338,15 +338,14 @@ To report a vulnerability: see [SECURITY.md](SECURITY.md).
 
 ## Branch Strategy
 
+All development is merged directly into `master`. Feature branches are deleted after merge.
+
 | Branch | Purpose |
 |---|---|
-| `master` | Stable baseline |
-| `security/platform-hardening` | Security hardening pass (headers, admin guard, middleware) |
-| `feature/complete-sprints` | Next.js 15, rate limiter, backup encryption, auth middleware |
-| `feature/swingiq-multisport-diagnostics-loft-ocr-comparison` | Current: loft autofill, expanded diagnostics, reference library, comparison, SEO |
+| `master` | Single production branch — all features live here |
 
 ---
 
 ## License
 
-Copyright © 2024–2025 SwingIQ. All rights reserved. Proprietary and confidential. See [LICENSE](LICENSE).
+Copyright © 2024–2026 SwingIQ. All rights reserved. Proprietary and confidential. See [LICENSE](LICENSE).

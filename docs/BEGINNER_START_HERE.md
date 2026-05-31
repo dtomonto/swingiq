@@ -134,7 +134,7 @@ npm run dev:web
 
 Press Enter. Wait about 10 seconds. You will see:
 ```
-▲ Next.js 14.x.x
+▲ Next.js 15.x.x
 - Local: http://localhost:3000
 ```
 

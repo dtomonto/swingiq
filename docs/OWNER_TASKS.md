@@ -140,10 +140,7 @@ Use this file to track what has already been built and what you still need to se
 
 ### 🟠 Priority 2 — Before Pushing to GitHub
 
-- [ ] **Update CODEOWNERS**
-  - Open `.github/CODEOWNERS`
-  - Replace all 9 instances of `@REPLACE_WITH_GITHUB_USERNAME` with your actual GitHub username
-  - Save the file
+- [x] **Update CODEOWNERS** *(done — set to @dtomonto)*
 
 ### 🟡 Priority 3 — After Pushing to GitHub (GitHub Settings)
 
