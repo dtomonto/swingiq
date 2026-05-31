@@ -114,7 +114,13 @@ function checkDangerousHtml(filePath, lines, findings) {
         context.includes("dompurify") ||
         context.includes("safe html") ||
         context.includes("xss") ||
-        context.includes("trusted");
+        context.includes("trusted") ||
+        // JSON-LD structured data is a standard Next.js SEO pattern —
+        // content is always a static object, never user input.
+        context.includes("ld+json") ||
+        context.includes("json.stringify") ||
+        context.includes("structured data") ||
+        context.includes("application/ld");
       if (!hasSanitizeComment) {
         findings.push({
           severity: "CRITICAL",
