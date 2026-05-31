@@ -49,6 +49,8 @@ function makeMinimalBackup(overrides: Partial<SwingIQBackupData> = {}): SwingIQB
         coaching_style: 'balanced',
         default_club_for_diagnose: 'Driver',
         onboarding_complete: false,
+        usage_category: null,
+        usage_category_set_at: null,
       },
       community: DEFAULT_COMMUNITY_STATE,
       tutorialProgress: DEFAULT_TUTORIAL_PROGRESS,
@@ -342,6 +344,8 @@ describe('replaceRestore', () => {
       coaching_style: 'concise' as const,
       default_club_for_diagnose: '7 Iron',
       onboarding_complete: true,
+      usage_category: null,
+      usage_category_set_at: null,
     };
     const backup = makeMinimalBackup();
     const delta = replaceRestore(backup, currentSettings);
@@ -414,6 +418,8 @@ describe('migrateBackup', () => {
           coaching_style: 'balanced',
           default_club_for_diagnose: 'Driver',
           onboarding_complete: false,
+          usage_category: null,
+          usage_category_set_at: null,
         },
       },
       metadata: {

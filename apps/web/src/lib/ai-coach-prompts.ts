@@ -243,18 +243,133 @@ export function validateUserQuestion(question: string, sport?: SportId): string 
   if (!trimmed) return 'Please type a question.';
   if (trimmed.length > 1000) return 'Please keep your question under 1000 characters.';
 
-  // Rudimentary off-topic guardrails
-  const offTopicPatterns = [
-    /\b(invest|stock|crypto|money|financial|tax)\b/i,
-    /\b(medical|doctor|symptom|pain|injur(y|ies))\b/i,
-    /\b(password|login|hack|bypass|exploit)\b/i,
-  ];
-  for (const pattern of offTopicPatterns) {
+  // Financial/off-topic hard block
+  const financialPatterns = [/\b(invest|stock|crypto|money|financial|tax)\b/i];
+  for (const pattern of financialPatterns) {
     if (pattern.test(trimmed)) {
       const sportLabel = sport === 'golf' ? 'golf swing' : sport ? `${sport.replace('_', ' ')} swing` : 'swing';
       return `I can only help with ${sportLabel} and performance questions. Please ask something about your game.`;
     }
   }
 
+  // Security/abuse hard block
+  if (/\b(password|login|hack|bypass|exploit|jailbreak|ignore previous)\b/i.test(trimmed)) {
+    return 'That question is outside what I can help with here.';
+  }
+
+  // Pain/injury — soft redirect (not a hard block; the AI will handle gracefully)
+  // We do NOT block injury questions — they're legitimate sports questions.
+  // The system prompt instructs the AI to add a caution and refer to a professional.
+
   return null;
 }
+
+// ── Structured Response Trust Layer ──────────────────────────
+
+/**
+ * The structured output model for AI coaching responses.
+ *
+ * This type describes what an ideal AI coaching response contains.
+ * Not all fields will be present in every response — the AI produces
+ * free-text that the app renders. This type is for future structured
+ * output parsing and longitudinal tracking.
+ *
+ * Fields mirror the coaching trust requirements:
+ * summary, main issue, evidence, confidence, why it matters,
+ * recommended fix, drill, safety note, beginner/advanced explanation,
+ * next-session focus, and change since last session.
+ */
+export interface AICoachResponse {
+  /** One-sentence summary of the coaching response */
+  summary: string;
+  /** The primary issue identified */
+  main_issue: string | null;
+  /** What in the data supports this diagnosis */
+  evidence: string | null;
+  /** How confident the AI is (0–100) — if expressible */
+  confidence_pct: number | null;
+  /** Why this issue matters to the athlete's performance */
+  why_it_matters: string | null;
+  /** The concrete fix recommended */
+  recommended_fix: string | null;
+  /** A specific drill to practice */
+  drill: string | null;
+  /** Any safety, injury, or physical caution */
+  safety_note: string | null;
+  /** Plain-language explanation for beginners */
+  beginner_explanation: string | null;
+  /** More technical explanation for advanced athletes */
+  advanced_explanation: string | null;
+  /** What to focus on in the next practice session */
+  next_session_focus: string | null;
+  /** How this compares to the previous session (if prior data provided) */
+  change_since_last_session: string | null;
+  /** Raw text response from the AI (always present) */
+  raw_text: string;
+  /** Sport this response is for */
+  sport: SportId;
+  /** ISO timestamp when the response was generated */
+  generated_at: string;
+  /** Whether a medical/injury disclaimer was included */
+  has_safety_note: boolean;
+}
+
+/** Metadata attached to each AI coaching interaction for trust and auditability */
+export interface CoachInteractionMetadata {
+  sport: SportId;
+  /** Whether a session or video analysis was available in context */
+  had_data_context: boolean;
+  /** Whether the AI cited specific data from context */
+  referenced_data: boolean;
+  /** Whether the response includes an injury/medical caution */
+  has_safety_note: boolean;
+  /** Provider used for this call (recorded server-side) */
+  ai_provider?: string;
+  /** Model version used */
+  ai_model?: string;
+  /** Estimated token count */
+  token_estimate?: number;
+}
+
+/**
+ * Builds longitudinal context — a brief summary of recent sessions for AI memory.
+ * Include this in the context block when prior session data is available.
+ *
+ * This is the foundation for "AI coach memory" — where the coach can reference
+ * what was worked on last time and detect regression or improvement.
+ */
+export function buildLongitudinalContext(
+  priorSessions: Array<{
+    date: string;
+    primary_issue: string | null;
+    swing_score: number | null;
+  }>,
+  maxSessions = 3,
+): string {
+  const recent = priorSessions.slice(0, maxSessions);
+  if (!recent.length) return '';
+
+  const lines: string[] = ['[RECENT HISTORY (for context — do not fabricate details)]'];
+  recent.forEach((s, i) => {
+    const label = i === 0 ? 'Last session' : `${i + 1} sessions ago`;
+    const scorePart = s.swing_score != null ? `, score: ${s.swing_score}` : '';
+    const issuePart = s.primary_issue ? `, primary issue: ${s.primary_issue}` : ', no diagnosis run';
+    lines.push(`  ${label} (${s.date})${scorePart}${issuePart}`);
+  });
+  lines.push('[END RECENT HISTORY]');
+  return '\n' + lines.join('\n');
+}
+
+/** AI disclaimer shown to users before or alongside AI coaching responses */
+export const AI_COACHING_DISCLAIMER =
+  'AI coaching is based on patterns in your data and is not a substitute for instruction from a qualified professional. ' +
+  'SwingIQ is not a medical device. If you experience pain, consult a sports medicine professional.';
+
+/** Short inline disclaimer shown in the AI chat UI */
+export const AI_COACHING_DISCLAIMER_SHORT =
+  'AI suggestions are pattern-based, not a replacement for a professional coach.';
+
+/** Medical redirect — shown when the AI detects an injury/pain question */
+export const MEDICAL_REDIRECT_NOTE =
+  '⚠️ For any pain or injury concerns, please consult a sports medicine professional or physiotherapist. ' +
+  'SwingIQ can help with swing mechanics, but is not a medical tool.';
