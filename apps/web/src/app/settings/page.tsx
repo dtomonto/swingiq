@@ -59,7 +59,7 @@ export default function SettingsPage() {
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-none bg-white"
               >
                 <option value="light">Light</option>
-                <option value="dark">Dark (coming soon)</option>
+                <option value="dark">Dark</option>
                 <option value="system">System default</option>
               </select>
             </div>

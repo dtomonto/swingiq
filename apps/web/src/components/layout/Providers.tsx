@@ -7,6 +7,9 @@ import { SportProvider } from '@/contexts/SportContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { FloatingCoach } from '@/components/ui/FloatingCoach';
 import { UsageCategoryModal } from '@/components/ui/UsageCategoryModal';
+import { CookieBanner } from '@/components/ui/CookieBanner';
+import { PWAInstallBanner } from '@/components/ui/PWAInstallBanner';
+import { ThemeApplicator } from '@/components/layout/ThemeApplicator';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -25,9 +28,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <SportProvider>
         <LanguageProvider>
+          <ThemeApplicator />
           {children}
           <FloatingCoach />
           <UsageCategoryModal />
+          <CookieBanner />
+          <PWAInstallBanner />
         </LanguageProvider>
       </SportProvider>
       <ReactQueryDevtools initialIsOpen={false} />
