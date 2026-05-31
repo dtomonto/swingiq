@@ -1,10 +1,10 @@
 # SwingIQ — robots.txt
-# The SwingIQ application is a private, authenticated platform.
-# All app routes are blocked from crawling and indexing.
+# Public marketing pages are crawlable and indexable.
+# Authenticated app routes are blocked from crawlers.
 
 User-agent: *
 
-# Private app routes — require authentication, must not be indexed
+# ── Private app routes (require login) ────────────────────────
 Disallow: /dashboard
 Disallow: /sessions
 Disallow: /diagnose
@@ -23,13 +23,34 @@ Disallow: /avatar
 Disallow: /pre-round
 Disallow: /ai-coach
 
-# Admin routes — always block
+# ── Admin & API (always block) ─────────────────────────────────
 Disallow: /admin
-
-# API routes — block
 Disallow: /api/
 
-# Allow public pages
+# ── Public marketing & informational pages ─────────────────────
 Allow: /
+Allow: /how-it-works
+Allow: /golf-swing-analysis
+Allow: /tennis-swing-analysis
+Allow: /baseball-swing-analysis
+Allow: /softball-swing-analysis
+Allow: /golf
+Allow: /tennis
+Allow: /baseball
+Allow: /slow-pitch-softball
+Allow: /fast-pitch-softball
+Allow: /features
+Allow: /faq
+Allow: /pricing
+Allow: /parents
+Allow: /updates
+Allow: /resources
+Allow: /glossary
+Allow: /trust
+Allow: /privacy
+Allow: /terms
 Allow: /login
 Allow: /signup
+
+# Sitemap location
+Sitemap: https://swingiq.app/sitemap.xml

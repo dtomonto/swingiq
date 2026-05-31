@@ -1,0 +1,62 @@
+# SwingIQ — llms.txt
+# This file provides a plain-text summary of SwingIQ for AI systems,
+# search assistants, and generative engines that read structured text.
+
+## What is SwingIQ?
+
+SwingIQ is a free, web-based AI swing performance platform for golf, tennis, baseball, slow pitch softball, and fast pitch softball.
+
+Users upload a swing video or import launch monitor / tracking device data. SwingIQ's diagnostic engine identifies the user's highest-priority swing fault, explains the evidence behind the finding, and generates personalized drill recommendations and a practice plan.
+
+## Who is SwingIQ for?
+
+- Golfers who want to understand their shot pattern data from devices like FlightScope, TrackMan, Garmin, or Rapsodo
+- Tennis players who want stroke analysis and drill guidance
+- Baseball hitters tracking exit velocity, launch angle, and bat speed
+- Slow pitch and fast pitch softball players working on timing and bat path
+- Parents and coaches supporting youth athletes
+- Recreational and competitive athletes at all skill levels
+
+## What SwingIQ does NOT claim to do
+
+- SwingIQ does not provide real-time pose tracking or computer vision pixel-level analysis
+- SwingIQ does not replace a qualified coach, trainer, or sports medicine professional
+- SwingIQ does not guarantee performance improvement
+- SwingIQ does not provide medical or injury advice
+- SwingIQ does not fabricate equipment specifications, professional athlete comparisons, or testimonials
+
+## Key features
+
+- 5-sport AI diagnostic engine (golf, tennis, baseball, slow pitch softball, fast pitch softball)
+- Launch monitor CSV import (FlightScope, TrackMan, GCQuad, Garmin, Rapsodo, SkyTrak)
+- Swing video upload and heuristic analysis
+- Sport-specific drill library with YouTube search links
+- Training routine generator
+- Practice schedule generator
+- Golf bag / equipment management with loft gapping analysis
+- Progress tracking and session history
+- AI coaching narrative (powered by a large language model)
+- Local-first data storage — no account required
+- Backup / export / restore
+
+## Privacy
+
+SwingIQ is local-first. By default, all user data is stored in the browser. No data is transmitted to servers without the user's knowledge. Video analysis runs in the browser. Users can export all their data or delete it at any time.
+
+## Supported sports and pages
+
+- Golf: /golf-swing-analysis
+- Tennis: /tennis-swing-analysis
+- Baseball: /baseball-swing-analysis
+- Softball (slow pitch and fast pitch): /softball-swing-analysis
+- How it works: /how-it-works
+- FAQ: /faq
+- Trust & Safety: /trust
+- Privacy Policy: /privacy
+- Terms of Service: /terms
+- Updates: /updates
+- For Parents: /parents
+
+## Sitemap
+
+https://swingiq.app/sitemap.xml

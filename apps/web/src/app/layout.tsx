@@ -6,14 +6,27 @@ import { Providers } from '@/components/layout/Providers';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'SwingIQ — Golf Performance System',
+  title: 'SwingIQ — AI Swing Performance Platform',
   description:
-    'Turn launch-monitor data into a complete player development system. Diagnose swing patterns, get training routines, and track improvement.',
-  keywords: ['golf', 'launch monitor', 'swing analysis', 'golf training', 'golf performance'],
+    'AI-powered swing analysis for golf, tennis, baseball, and softball. Upload a video or import launch monitor data to identify your top swing fault, get personalized drills, and track improvement.',
+  keywords: [
+    'swing analysis',
+    'AI swing coach',
+    'golf swing analysis',
+    'tennis swing analysis',
+    'baseball swing analysis',
+    'softball swing analysis',
+    'launch monitor',
+    'swing improvement',
+    'golf training',
+  ],
+  metadataBase: new URL('https://swingiq.app'),
   openGraph: {
-    title: 'SwingIQ — Golf Performance System',
-    description: 'Turn launch-monitor data into actionable insights and training routines.',
+    title: 'SwingIQ — AI Swing Performance Platform',
+    description:
+      'Upload a swing video or import launch monitor data. Get a free AI diagnosis, personalized drills, and a practice plan — golf, tennis, baseball, and softball.',
     type: 'website',
+    url: 'https://swingiq.app',
   },
   // PWA / installability hints
   manifest: '/manifest.json',

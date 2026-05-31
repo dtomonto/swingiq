@@ -14,11 +14,11 @@ export const metadata: Metadata = {
 };
 
 const SPORTS = [
-  { emoji: '⛳', name: 'Golf', desc: 'Launch monitor analysis, club path, face angle, shot shape diagnosis' },
-  { emoji: '🎾', name: 'Tennis', desc: 'Forehand, backhand, serve mechanics and phase-by-phase coaching' },
-  { emoji: '⚾', name: 'Baseball', desc: 'Full swing analysis from load through extension and follow-through' },
-  { emoji: '🥎', name: 'Slow Pitch Softball', desc: 'Arc timing, line-drive bat path, directional hitting coaching' },
-  { emoji: '🥎', name: 'Fast Pitch Softball', desc: 'Compact launch, quick timing, pitch-speed adaptation drills' },
+  { emoji: '⛳', name: 'Golf', desc: 'Launch monitor analysis, club path, face angle, shot shape diagnosis', href: '/golf-swing-analysis' },
+  { emoji: '🎾', name: 'Tennis', desc: 'Forehand, backhand, serve mechanics and phase-by-phase coaching', href: '/tennis-swing-analysis' },
+  { emoji: '⚾', name: 'Baseball', desc: 'Full swing analysis from load through extension and follow-through', href: '/baseball-swing-analysis' },
+  { emoji: '🥎', name: 'Slow Pitch Softball', desc: 'Arc timing, line-drive bat path, directional hitting coaching', href: '/softball-swing-analysis' },
+  { emoji: '🥎', name: 'Fast Pitch Softball', desc: 'Compact launch, quick timing, pitch-speed adaptation drills', href: '/softball-swing-analysis' },
 ];
 
 const HOW_IT_WORKS = [
@@ -92,7 +92,7 @@ export default function HomePage() {
           <p className="text-center text-gray-500 mb-10">Each sport has its own AI diagnostic engine, issue categories, and drill library.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {SPORTS.map((sport) => (
-              <Link key={sport.name} href="/dashboard" className="block p-5 border border-gray-200 rounded-xl hover:border-green-400 hover:bg-green-50 transition-colors">
+              <Link key={sport.name} href={sport.href} className="block p-5 border border-gray-200 rounded-xl hover:border-green-400 hover:bg-green-50 transition-colors">
                 <div className="text-2xl mb-2">{sport.emoji}</div>
                 <h3 className="font-semibold text-gray-900 mb-1">{sport.name}</h3>
                 <p className="text-xs text-gray-500">{sport.desc}</p>
@@ -189,12 +189,14 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto flex flex-wrap justify-between items-center gap-4 text-xs">
           <span>&copy; {new Date().getFullYear()} SwingIQ. All rights reserved.</span>
           <div className="flex gap-4 flex-wrap">
+            <Link href="/how-it-works" className="hover:text-white">How It Works</Link>
+            <Link href="/faq" className="hover:text-white">FAQ</Link>
+            <Link href="/parents" className="hover:text-white">Parents</Link>
+            <Link href="/trust" className="hover:text-white">Trust & Safety</Link>
+            <Link href="/updates" className="hover:text-white text-green-400">Updates</Link>
+            <Link href="/pricing" className="hover:text-white">Pricing</Link>
             <Link href="/privacy" className="hover:text-white">Privacy</Link>
             <Link href="/terms" className="hover:text-white">Terms</Link>
-            <Link href="/parents" className="hover:text-white">Parents</Link>
-            <Link href="/pricing" className="hover:text-white">Pricing</Link>
-            <Link href="/how-it-works" className="hover:text-white">How It Works</Link>
-            <Link href="/updates" className="hover:text-white text-green-400">Updates</Link>
           </div>
         </div>
       </footer>

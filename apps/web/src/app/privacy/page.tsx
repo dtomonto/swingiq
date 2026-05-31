@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Privacy Policy | SwingIQ',
   description: 'SwingIQ privacy policy — how we collect, use, and protect your data.',
-  robots: 'noindex',
+  alternates: { canonical: '/privacy' },
 };
 
 export default function PrivacyPage() {
