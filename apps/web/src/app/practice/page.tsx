@@ -2,8 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { AppShell } from '@/components/layout/AppShell';
-import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
+import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import {
   Calendar,
@@ -24,7 +23,7 @@ import {
   type SessionLength,
   type WeekDay,
 } from '@swingiq/core';
-import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
+import { useLatestDiagnosedSession } from '@/store';
 
 const INTENSITY_COLORS: Record<string, string> = {
   warmup: 'bg-blue-100 text-blue-700',
@@ -127,7 +126,6 @@ function PracticeDayCard({ day }: { day: WeekDay }) {
 }
 
 export default function PracticePage() {
-  const { sessions, profile } = useSwingIQStore();
   const latestDiagnosed = useLatestDiagnosedSession();
 
   const [frequency, setFrequency] = useState<PracticeFrequency>('3x');

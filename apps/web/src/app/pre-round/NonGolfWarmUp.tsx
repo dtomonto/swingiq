@@ -7,8 +7,8 @@
 // ============================================================
 
 import { useState } from 'react';
-import { CheckCircle, Circle, Clock, Zap } from 'lucide-react';
-import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
+import { CheckCircle, Circle, Clock } from 'lucide-react';
+import { Card, CardBody } from '@/components/ui/Card';
 import { useSport } from '@/contexts/SportContext';
 import type { SportId } from '@swingiq/core';
 import Link from 'next/link';

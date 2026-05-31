@@ -54,7 +54,7 @@ export function Sidebar({ onClose }: SidebarProps) {
     { href: '/drills', label: isGolf ? 'Drill Library' : 'Drills', icon: BookOpen },
     { href: '/progress', label: 'Progress', icon: TrendingUp },
     { href: '/milestones', label: 'Milestones', icon: Trophy },
-    { href: '/compare', label: 'Compare Sessions', icon: GitCompareArrows },
+    { href: '/compare', label: 'Compare & References', icon: GitCompareArrows },
     { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
     { href: '/reports', label: 'Reports', icon: FileText },
   ] as const;

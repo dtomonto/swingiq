@@ -14,7 +14,6 @@ import {
   Target,
   TrendingUp,
   MessageSquare,
-  ExternalLink,
   Dumbbell,
   Sun,
   CalendarDays,
@@ -34,11 +33,8 @@ import { useSport } from '@/contexts/SportContext';
 import { format } from 'date-fns';
 import { useMemo } from 'react';
 import type { SportId } from '@swingiq/core';
-import { SPORT_QUICK_ACTIONS, SPORT_NAV_LABELS } from '@swingiq/core';
-import {
-  getSportConfig,
-  ALL_SPORTS_INCLUDING_GOLF,
-} from '@swingiq/core';
+import { SPORT_QUICK_ACTIONS } from '@swingiq/core';
+import { getSportConfig } from '@swingiq/core';
 
 // ── Sport-specific "What to do next" banner ───────────────────
 
@@ -250,7 +246,6 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
   );
 
   const sportConfig = getSportConfig(sport);
-  const sportName = sportConfig?.name ?? 'Your sport';
 
   if (!latest) {
     return (
@@ -435,7 +430,7 @@ function BenchmarksDisclaimerCard({ sport }: { sport: SportId }) {
 // ── Main NonGolfDashboard ─────────────────────────────────────
 
 export function NonGolfDashboard() {
-  const { activeSport, sportEmoji, sportName, sportLabels } = useSport();
+  const { activeSport, sportEmoji, sportName } = useSport();
   const { profile, sportProfiles } = useSwingIQStore();
   const { video_analyses, training } = useSwingIQStore();
 

@@ -61,7 +61,14 @@ export function SignupForm() {
       </Button>
 
       <p className="text-xs text-gray-400 text-center">
-        By signing up you agree to our terms of service and privacy policy.
+        By signing up you agree to our{' '}
+        <Link href="/terms" className="underline hover:text-gray-600">terms of service</Link>{' '}
+        and{' '}
+        <Link href="/privacy" className="underline hover:text-gray-600">privacy policy</Link>.
+      </p>
+      <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-3 text-center">
+        <strong>Under 13?</strong> A parent or guardian must create and manage your account.
+        SwingIQ is not directed at children under 13.
       </p>
     </form>
   );

@@ -1,8 +1,7 @@
 'use client';
 
 import { AppShell } from '@/components/layout/AppShell';
-import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Card, CardBody } from '@/components/ui/Card';
 import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
 import { generatePreRoundRoutine } from '@swingiq/core';
 import { useMemo, useState } from 'react';

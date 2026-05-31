@@ -8,10 +8,9 @@
 // ============================================================
 
 import { useState, useCallback, useEffect } from 'react';
-import { ChevronLeft, Loader2, AlertCircle, Zap, Info, CheckCircle } from 'lucide-react';
+import { ChevronLeft, Loader2, AlertCircle, Info, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
 import { cn } from '@/lib/utils';
 import { VideoUpload, VideoPreviewCard } from '@/components/video/VideoUpload';
 import { SwingVideoPlayer } from '@/components/video/SwingVideoPlayer';
@@ -21,7 +20,6 @@ import { useSport } from '@/contexts/SportContext';
 import {
   getSportConfig,
   runSportAnalysis,
-  ALL_SPORTS_INCLUDING_GOLF,
   SPORT_CAMERA_ANGLES,
 } from '@swingiq/core';
 import type {
@@ -31,8 +29,7 @@ import type {
   SportDetectedIssue,
   SportDrillRecommendation,
 } from '@swingiq/core';
-import type { SwingVideoMetadata, FeedbackRating } from '@swingiq/core';
-import { validateVideoFile, extractVideoMetadata } from '@/lib/video-metadata';
+import type { SwingVideoMetadata } from '@swingiq/core';
 
 type AnalysisStep = 'upload' | 'configure' | 'analyzing' | 'results';
 
@@ -358,7 +355,7 @@ export function SportVideoAnalyzerContent() {
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
 
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [, setDuration] = useState(0);
 
   const [activePhase, setActivePhase] = useState<SportPhaseSegment | null>(null);
 

@@ -6,7 +6,7 @@
 // any page. Context-aware: passes current page to the coach.
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MessageSquare, X, Send, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
@@ -35,7 +35,7 @@ export function FloatingCoach() {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const pathname = usePathname();
-  const { profile, training } = useSwingIQStore();
+  const { profile } = useSwingIQStore();
   const latestSession = useLatestDiagnosedSession();
 
   // Don't show on dedicated AI coach page or auth pages

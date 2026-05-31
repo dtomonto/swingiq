@@ -2,7 +2,6 @@
 
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { Play, Pause, SkipBack, SkipForward, Gauge } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { formatDuration } from '@/lib/video-metadata';
 

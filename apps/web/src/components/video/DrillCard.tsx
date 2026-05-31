@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { ExternalLink, ChevronDown, ChevronUp, Youtube } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { cn } from '@/lib/utils';
 import type { VideoDrillRecommendation, DrillOutcome } from '@swingiq/core';

@@ -42,6 +42,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -53,8 +55,6 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install --prefer-offline --no-audit --no-fund
@@ -101,6 +101,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -112,8 +114,6 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install --prefer-offline --no-audit --no-fund
@@ -121,6 +121,8 @@ jobs:
       - name: Run ESLint
         run: |
           if [ -f "apps/web/.eslintrc.json" ] || [ -f "apps/web/.eslintrc.js" ] || [ -f "apps/web/eslint.config.mjs" ]; then
+            # Use root node_modules eslint binary (hoisted by npm workspaces).
+            # Fails on errors (eval, dangerouslySetInnerHTML, etc.); warnings are reported but do not block CI.
             ./node_modules/.bin/eslint apps/web/src --ext .ts,.tsx
           else
             echo "No ESLint config found — skipping lint step"

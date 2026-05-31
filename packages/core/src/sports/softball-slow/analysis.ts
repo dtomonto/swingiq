@@ -101,6 +101,217 @@ const SLOW_PITCH_ISSUE_RULES: Array<{
       'Front shoulder rotating toward the pitcher before or during stride.',
     detect: (m) => (m.camera_suitable ? 0.28 : 0),
   },
+
+  // ── Additional expanded issues ────────────────────────────────
+
+  {
+    issueId: 'sp_poor_stance_setup',
+    label: 'Poor Stance Setup',
+    severity: 'watch',
+    affectedPhases: ['load'],
+    description:
+      'Stance at the plate appears unbalanced or improperly aligned — feet too narrow, too wide, or weight unevenly distributed before the pitch arc arrives.',
+    likelyCause:
+      'No deliberate pre-swing routine, casual recreational approach, or copying stance without understanding the mechanics.',
+    visualIndicator:
+      'Feet visibly uneven, stance very open or closed, or excessive forward lean at address.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_poor_pitch_tracking',
+    label: 'Poor Arc Pitch Tracking',
+    severity: 'notable',
+    affectedPhases: ['load', 'stride'],
+    description:
+      'The hitter does not appear to be tracking the high arc of the pitch from release, making timing adjustments reactive rather than planned.',
+    likelyCause:
+      'Habit of swinging at a ball trajectory rather than tracking the arc peak and descent, or looking away from the ball during early flight.',
+    visualIndicator:
+      'Head position does not appear to follow the ball through the peak of the arc.',
+    detect: (m) => (m.camera_suitable ? 0.30 : 0),
+  },
+  {
+    issueId: 'sp_mistimed_load_arc',
+    label: 'Load Timed Wrong for Arc Pitch',
+    severity: 'notable',
+    affectedPhases: ['load'],
+    description:
+      'The weight-transfer load initiates before the ball reaches its peak arc — too early for the slow pitch delivery timing window.',
+    likelyCause:
+      'Habit from fast pitch or baseball, or misunderstanding that the slow pitch arc requires a later load trigger than a flat trajectory pitch.',
+    visualIndicator:
+      'Weight appears already shifted and loaded while the ball is still ascending.',
+    detect: (m) => (m.camera_suitable ? 0.30 : 0),
+  },
+  {
+    issueId: 'sp_poor_stride_timing',
+    label: 'Poor Stride Timing',
+    severity: 'notable',
+    affectedPhases: ['stride'],
+    description:
+      'Stride initiates too early or too late relative to the arc pitch descent, disrupting the timing chain.',
+    likelyCause:
+      'Inconsistent arc pitch recognition, poor load-stride coordination, or missing a deliberate timing trigger cue.',
+    visualIndicator:
+      'Stride foot lands before the pitch begins to descend, or not until the ball is nearly at the plate.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_over_striding',
+    label: 'Over-Striding',
+    severity: 'notable',
+    affectedPhases: ['stride'],
+    description:
+      'Stride length is excessive — weight shifts too far forward, compromising rotational power and balance.',
+    likelyCause:
+      'Eagerness to swing, trying to reach the pitch, or poor stride constraint training.',
+    visualIndicator:
+      'Front foot lands far beyond shoulder width — front knee heavily bent or nearly locked.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_poor_weight_transfer',
+    label: 'Poor Weight Transfer',
+    severity: 'notable',
+    affectedPhases: ['stride', 'hip_fire'],
+    description:
+      'Weight does not shift smoothly from back to front during the swing — stays too far back or shifts too abruptly.',
+    likelyCause:
+      'No awareness of the weight-shift sequence, overly static approach, or excessive "stay back" instruction.',
+    visualIndicator:
+      'Weight appears stuck on back leg through contact, or collapses forward in a lurch.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_lunging_ball',
+    label: 'Lunging at the Ball',
+    severity: 'notable',
+    affectedPhases: ['stride', 'load'],
+    description:
+      'Upper body and head lurch forward toward the plate during the swing, leaving the weight over the front foot too early and before the pitch descends into the hitting zone.',
+    likelyCause:
+      'Impatience with the arc delivery, or thinking forward momentum creates power.',
+    visualIndicator:
+      'Head and chest visibly forward of the front foot at stride landing.',
+    detect: (m) => (m.appears_short_swing && m.camera_suitable ? 0.33 : 0),
+  },
+  {
+    issueId: 'sp_poor_hip_rotation',
+    label: 'Insufficient Hip Rotation',
+    severity: 'critical',
+    affectedPhases: ['hip_fire', 'contact_arc'],
+    description:
+      'Hips do not rotate fully through contact — swing relies primarily on arm strength, limiting power generation.',
+    likelyCause:
+      'Recreational swing habit developed without coaching, or belief that slow pitch only requires arm power.',
+    visualIndicator:
+      'Belt buckle does not reach toward the pitcher at contact — hips remain partially closed.',
+    detect: (m) => (m.camera_suitable ? 0.33 : 0),
+  },
+  {
+    issueId: 'sp_long_looping_swing',
+    label: 'Long Looping Swing Path',
+    severity: 'notable',
+    affectedPhases: ['hip_fire', 'contact_arc'],
+    description:
+      'Bat takes a long looping arc to the ball rather than a direct path through the zone, reducing bat speed and making contact zone timing narrow.',
+    likelyCause:
+      'No inside-the-ball training, arm-dominant swing without hip drive, or compensating for a drop-and-extend habit.',
+    visualIndicator:
+      'Bat head drops below the hands before approaching the contact zone.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_too_steep_contact',
+    label: 'Too Steep at Contact — Groundball Pattern',
+    severity: 'minor',
+    affectedPhases: ['contact_arc'],
+    description:
+      'Bat enters the contact zone on a steep downward angle, producing excessive groundballs from a pitch that descends steeply and requires a slight upward contact angle.',
+    likelyCause:
+      '"Hit down" coaching cue applied incorrectly to the slow pitch arc, or early shoulder drop creating a steep path.',
+    visualIndicator:
+      'Bat clearly angled downward at contact — ball driven into the ground.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_too_uppercut',
+    label: 'Excessive Uppercut — Pop-Up Pattern',
+    severity: 'notable',
+    affectedPhases: ['contact_arc'],
+    description:
+      'Swing angle is too steep upward at contact, causing excessive pop-ups rather than line drives on the arc pitch.',
+    likelyCause:
+      'Trying to "get under" the arc pitch by dropping the back shoulder too much, or over-correcting a flat swing.',
+    visualIndicator:
+      'Back shoulder visibly lower than front shoulder at contact, bat angled steeply upward.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_poor_bat_path_zone',
+    label: 'Inconsistent Bat Path Through Zone',
+    severity: 'minor',
+    affectedPhases: ['contact_arc', 'extension'],
+    description:
+      'Bat path varies through the contact zone — sometimes flat, sometimes steep — producing inconsistent contact across different pitch arcs.',
+    likelyCause:
+      'No ingrained swing template for the arc pitch, arm-only swing adjustments, or variable hip timing.',
+    visualIndicator:
+      'Bat angle at contact varies across swings in the same session.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_pulling_off_early',
+    label: 'Pulling Off the Ball Early',
+    severity: 'notable',
+    affectedPhases: ['contact_arc', 'extension'],
+    description:
+      'Front shoulder and head rotate toward the pull field before contact is complete, dragging the bat off the ideal path.',
+    likelyCause:
+      'Pull-conscious mentality, attempting to pull the high arc for extra bases, or poor hip-shoulder separation habit.',
+    visualIndicator:
+      'Front shoulder rotating toward the dugout before follow-through begins.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_poor_opposite_field',
+    label: 'Poor Opposite-Field Bat Control',
+    severity: 'watch',
+    affectedPhases: ['contact_arc', 'extension'],
+    description:
+      'Hitter lacks the ability to drive the arc pitch to the opposite field — all contact is pulled or going to center regardless of pitch location.',
+    likelyCause:
+      'One-dimensional approach (pull everything), or no opposite-field specific training for the arc pitch.',
+    visualIndicator:
+      'All balls going to the pull field regardless of pitch location on the plate.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_poor_finish_balance',
+    label: 'Poor Finish Balance',
+    severity: 'minor',
+    affectedPhases: ['follow_through'],
+    description:
+      'At the end of the swing, the hitter is off-balance — falling forward, sideways, or back — indicating balance was compromised during the swing.',
+    likelyCause:
+      'Lunging, over-rotation, or poor weight transfer causing the finish position to be unstable.',
+    visualIndicator:
+      'Hitter steps or stumbles at the end of the swing to regain balance.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'sp_poor_pitch_arc_timing',
+    label: 'Arc Timing Breakdown',
+    severity: 'critical',
+    affectedPhases: ['load', 'stride', 'hip_fire'],
+    description:
+      'The entire timing chain is out of sync with the arc pitch delivery — load, stride, and hip fire are not coordinated to the arc\'s descent.',
+    likelyCause:
+      'No arc-specific timing training, pitchers with different arc heights confusing the hitter, or fast-pitch timing habits carried over.',
+    visualIndicator:
+      'Swing timing is clearly either very early or very late relative to the pitch entering the zone.',
+    detect: (m) => (m.camera_suitable ? 0.35 : 0),
+  },
 ];
 
 function estimateSlowPitchPhaseSegments(

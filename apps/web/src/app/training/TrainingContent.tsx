@@ -2,11 +2,11 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, ChevronDown, ChevronUp, Zap, SlidersHorizontal, TrendingUp } from 'lucide-react';
+import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, Zap, SlidersHorizontal, TrendingUp } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { getRoutineForDiagnosis, runDiagnosticEngine, type TrainingRoutine, type DrillRecommendation, type DiagnosisCategory, type SkillLevel } from '@swingiq/core';
+import { getRoutineForDiagnosis, runDiagnosticEngine, type DrillRecommendation, type DiagnosisCategory, type SkillLevel } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
 import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
 import { format } from 'date-fns';
@@ -38,33 +38,6 @@ function DrillCard({ drill }: { drill: DrillRecommendation }) {
       <div className="mt-2 text-xs text-gray-500">
         Search: <span className="italic">{drill.youtube_search_query}</span>
       </div>
-    </div>
-  );
-}
-
-function StepList({ steps }: { steps: string[] }) {
-  const [showAll, setShowAll] = useState(false);
-  const visible = showAll ? steps : steps.slice(0, 3);
-
-  return (
-    <div className="space-y-2">
-      {visible.map((step, i) => (
-        <div key={i} className="flex gap-3 text-sm text-gray-700">
-          <span className="w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
-            {i + 1}
-          </span>
-          <span className="leading-relaxed">{step}</span>
-        </div>
-      ))}
-      {steps.length > 3 && (
-        <button
-          onClick={() => setShowAll(!showAll)}
-          className="flex items-center gap-1 text-xs text-green-600 hover:underline ml-9"
-        >
-          {showAll ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-          {showAll ? 'Show less' : `Show ${steps.length - 3} more steps`}
-        </button>
-      )}
     </div>
   );
 }

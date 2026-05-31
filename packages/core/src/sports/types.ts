@@ -18,7 +18,7 @@ export type SportId =
   | 'softball_fast';
 
 export type SportIssueId =
-  // Tennis
+  // Tennis — original
   | 'late_contact'
   | 'open_hips_early'
   | 'wrist_rollover'
@@ -27,7 +27,24 @@ export type SportIssueId =
   | 'head_pull_tennis'
   | 'loop_timing_off'
   | 'feet_not_moving'
-  // Baseball
+  // Tennis — extended
+  | 'poor_split_step'
+  | 'weak_unit_turn'
+  | 'poor_loading'
+  | 'off_balance_contact'
+  | 'poor_racquet_path'
+  | 'excessive_wrist'
+  | 'inconsistent_swing_plane'
+  | 'poor_extension'
+  | 'short_follow_through'
+  | 'poor_recovery'
+  | 'over_rotation'
+  | 'poor_footwork'
+  | 'falling_away'
+  | 'serve_toss_inconsistency'
+  | 'serve_trophy_breakdown'
+  | 'late_preparation'
+  // Baseball — original
   | 'casting_hands'
   | 'lunging_forward'
   | 'hip_stall'
@@ -36,12 +53,65 @@ export type SportIssueId =
   | 'extreme_uppercut'
   | 'early_shoulder_pull'
   | 'head_off_ball'
-  // Softball (shared with baseball where applicable)
+  // Baseball — extended
+  | 'poor_stance_setup'
+  | 'late_load'
+  | 'early_load'
+  | 'poor_stride_direction'
+  | 'over_striding'
+  | 'under_striding'
+  | 'poor_hip_shoulder_separation'
+  | 'drifting_swaying'
+  | 'collapsing_back_side'
+  | 'long_swing_path'
+  | 'steep_bat_path'
+  | 'flat_bat_path'
+  | 'weak_bat_acceleration'
+  | 'contact_too_forward'
+  | 'pull_off_early'
+  // Softball — original (shared with baseball where applicable)
   | 'dropping_back_shoulder'
   | 'high_hands_load'
   | 'contact_too_deep'
   | 'no_hip_drive_soft'
-  | 'arm_short_follow';
+  | 'arm_short_follow'
+  // Softball slow pitch — extended
+  | 'sp_poor_stance_setup'
+  | 'sp_poor_pitch_tracking'
+  | 'sp_mistimed_load_arc'
+  | 'sp_poor_stride_timing'
+  | 'sp_over_striding'
+  | 'sp_poor_weight_transfer'
+  | 'sp_lunging_ball'
+  | 'sp_poor_hip_rotation'
+  | 'sp_long_looping_swing'
+  | 'sp_too_steep_contact'
+  | 'sp_too_uppercut'
+  | 'sp_poor_bat_path_zone'
+  | 'sp_pulling_off_early'
+  | 'sp_poor_opposite_field'
+  | 'sp_poor_finish_balance'
+  | 'sp_poor_pitch_arc_timing'
+  // Fast pitch softball — extended
+  | 'fp_poor_stance_setup'
+  | 'fp_late_load'
+  | 'fp_early_load'
+  | 'fp_poor_stride_timing'
+  | 'fp_poor_stride_direction'
+  | 'fp_over_striding'
+  | 'fp_under_striding'
+  | 'fp_poor_separation'
+  | 'fp_poor_weight_transfer'
+  | 'fp_lunging'
+  | 'fp_drifting_swaying'
+  | 'fp_hand_drop'
+  | 'fp_steep_attack_pattern'
+  | 'fp_poor_attack_angle'
+  | 'fp_contact_too_deep'
+  | 'fp_contact_too_forward'
+  | 'fp_poor_extension_contact'
+  // Generic fallback for new issues not yet in the union
+  | string;
 
 export type SportIssueSeverity = 'critical' | 'notable' | 'minor' | 'watch';
 

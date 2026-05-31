@@ -4,8 +4,6 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { describeProposal } from '@swingiq/core';
-import type { BenchmarkChangeProposal } from '@swingiq/core';
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 

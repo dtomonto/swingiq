@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useRef } from 'react';
-import { Upload, Video, AlertCircle, Shield, X, CheckCircle } from 'lucide-react';
+import { Video, AlertCircle, Shield, X, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import {
