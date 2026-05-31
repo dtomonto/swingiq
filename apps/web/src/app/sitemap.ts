@@ -115,6 +115,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.5,
     },
+    {
+      url: `${BASE_URL}/vulnerability-disclosure`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.4,
+    },
 
     // ── Blog ────────────────────────────────────────────────────
     {

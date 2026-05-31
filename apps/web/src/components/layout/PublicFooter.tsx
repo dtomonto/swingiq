@@ -1,20 +1,101 @@
 import Link from 'next/link';
 
-export function PublicFooter() {
+const FOOTER_COLUMNS = [
+  {
+    heading: 'Sports',
+    links: [
+      { label: 'Golf', href: '/golf-swing-analysis' },
+      { label: 'Tennis', href: '/tennis-swing-analysis' },
+      { label: 'Baseball', href: '/baseball-swing-analysis' },
+      { label: 'Softball', href: '/softball-swing-analysis' },
+    ],
+  },
+  {
+    heading: 'Learn',
+    links: [
+      { label: 'How It Works', href: '/how-it-works' },
+      { label: 'FAQ', href: '/faq' },
+      { label: 'Glossary', href: '/glossary' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Updates', href: '/updates' },
+    ],
+  },
+  {
+    heading: 'Product',
+    links: [
+      { label: 'Features', href: '/features' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Sign Up Free', href: '/signup' },
+      { label: 'Parents', href: '/parents' },
+    ],
+  },
+  {
+    heading: 'Trust',
+    links: [
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+      { label: 'Trust & Safety', href: '/trust' },
+      { label: 'Vulnerability Disclosure', href: '/vulnerability-disclosure' },
+    ],
+  },
+];
+
+interface PublicFooterProps {
+  className?: string;
+}
+
+export function PublicFooter({ className }: PublicFooterProps) {
   return (
-    <footer className="bg-gray-900 text-gray-400 py-8 px-4">
-      <div className="max-w-4xl mx-auto flex flex-wrap justify-between items-center gap-4 text-xs">
-        <span>&copy; {new Date().getFullYear()} SwingIQ. All rights reserved.</span>
-        <nav className="flex gap-4 flex-wrap">
-          <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
-          <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
-          <Link href="/parents" className="hover:text-white transition-colors">Parents</Link>
-          <Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link>
-          <Link href="/how-it-works" className="hover:text-white transition-colors">How It Works</Link>
-          <Link href="/about" className="hover:text-white transition-colors">About</Link>
-          <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
-          <Link href="/updates" className="hover:text-white text-green-400 transition-colors">Updates</Link>
-        </nav>
+    <footer
+      className={`bg-gray-900 text-gray-300 pt-12 pb-8 px-4 ${className ?? ''}`}
+      aria-label="Site footer"
+    >
+      <div className="max-w-5xl mx-auto">
+        {/* Logo + tagline */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
+            <span className="text-white font-black text-sm" aria-hidden="true">SQ</span>
+          </div>
+          <div>
+            <span className="text-white font-bold text-lg">SwingIQ</span>
+            <p className="text-gray-500 text-xs">AI Swing Analysis — Golf, Tennis, Baseball &amp; Softball</p>
+          </div>
+        </div>
+
+        {/* Link columns */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
+          {FOOTER_COLUMNS.map((col) => (
+            <div key={col.heading}>
+              <h3 className="text-white text-sm font-semibold mb-3">{col.heading}</h3>
+              <ul className="space-y-2">
+                {col.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-gray-400 hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* AI disclaimer + copyright */}
+        <div className="border-t border-gray-800 pt-6 space-y-3">
+          <p className="text-xs text-gray-500 leading-relaxed max-w-3xl">
+            <strong className="text-gray-400">AI Disclaimer:</strong> SwingIQ&apos;s AI coaching helps
+            identify swing patterns and prioritize practice. It is not a substitute for a qualified
+            professional coach. SwingIQ is not a medical device — consult a sports medicine professional
+            if you experience pain.
+          </p>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-gray-600">
+            <span>&copy; {new Date().getFullYear()} SwingIQ. All rights reserved.</span>
+            <span>Data stays local by default. We do not sell your personal information.</span>
+          </div>
+        </div>
       </div>
     </footer>
   );

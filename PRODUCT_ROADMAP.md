@@ -96,8 +96,8 @@ _Last updated: May 2026_
 1. **Coach / team accounts** — invite athletes, view their sessions, annotate findings
 2. **Video storage** — upload swing videos to Supabase Storage; link to sessions
 3. **Real OCR pipeline** — production OCR with confidence scores, column mapping suggestions, and user correction UI
-4. **Progress tracking** — session-over-session trend charts for key metrics
-5. **AI Coach chat** — context-aware chat with session data injected into prompt
+4. ~~**Progress tracking**~~ **✅ Done — score trend chart, ball data trends, personal bests, training effectiveness card, handicap estimator all live**
+5. ~~**AI Coach chat**~~ **✅ Done — AI Coach now uses real session data, diagnosed faults, and training history**
 
 ### Platform
 6. Email notifications (session saved, diagnosis complete, weekly summary)
@@ -117,7 +117,7 @@ _Last updated: May 2026_
 5. Usage metering hooks for AI API cost management
 
 ### Mobile & PWA
-6. iOS/Android install prompts with proper PWA manifest
+6. ~~iOS/Android install prompts with proper PWA manifest~~ **✅ Done — PWA install banner live (beforeinstallprompt)**
 7. Offline-first session logging (IndexedDB sync)
 8. Push notifications for practice reminders
 9. Share card generation (Instagram-ready session summary image)

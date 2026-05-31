@@ -129,6 +129,7 @@ export default function TrustPage() {
           <Link href="/terms" className="text-green-700 hover:underline">Terms of Service</Link>
           <Link href="/faq" className="text-green-700 hover:underline">FAQ</Link>
           <Link href="/parents" className="text-green-700 hover:underline">SwingIQ for Parents</Link>
+          <Link href="/vulnerability-disclosure" className="text-green-700 hover:underline">Vulnerability Disclosure</Link>
         </nav>
       </div>
     </div>

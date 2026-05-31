@@ -6,7 +6,7 @@ If you discover a security vulnerability in SwingIQ, please report it responsibl
 
 **Do not open a public GitHub issue.** Public disclosure before remediation puts users at risk.
 
-**Contact:** [Add your security contact email here — e.g., security@yourdomain.com]
+**Contact:** security@swingiq.app
 
 Please include:
 - A clear description of the vulnerability

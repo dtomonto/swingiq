@@ -208,12 +208,7 @@ Use this file to track what has already been built and what you still need to se
   - Add to `.env.local` and Vercel as `CRON_SECRET=<result>`
   - Update Vercel cron job configuration to use this secret
 
-- [ ] **Replace `[Add contact email]` placeholders**
-  - `apps/web/src/app/privacy/page.tsx`
-  - `apps/web/src/app/terms/page.tsx`
-  - `apps/web/src/app/parents/page.tsx`
-  - `apps/web/src/app/pricing/page.tsx`
-  - `SECURITY.md`
+- [x] **Replace `[Add contact email]` placeholders** — Done. `hello@swingiq.app` in pricing/privacy/terms; `security@swingiq.app` in SECURITY.md
 
 - [ ] **Verify professional swing references**
   - Open `packages/core/src/sports/professional-references.ts`
