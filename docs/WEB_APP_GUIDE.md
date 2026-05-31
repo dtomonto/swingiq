@@ -43,17 +43,18 @@ Your sport choice is saved in your browser, so it persists after page refreshes.
 
 ## 3. Navigation
 
-The left sidebar has 16 pages. Labels change based on your active sport:
+The left sidebar has 17 pages. Labels change based on your active sport:
 
 | Page | Golf label | Tennis/Baseball/Softball label |
 |---|---|---|
 | Profile | My Golfer Profile | My Tennis/Hitter Profile |
-| Equipment | Equipment | Equipment |
+| Equipment | Equipment (with Loft Gapping) | Equipment |
 | Sessions | Sessions | Hitting/Training Sessions |
 | Import | Import Data | Log Session |
 | Diagnose | Diagnose | Analyze Swing |
 | Pre-Round | Pre-Round | Pre-Game Warm-Up |
 | Drills | Drill Library | Drills |
+| Compare & References | Compare & References | Compare & References |
 
 On mobile, tap the menu icon (☰) at the top left to open the sidebar.
 
@@ -287,16 +288,26 @@ Progress bar, category groupings, locked/unlocked state, and hints on how to ear
 
 ---
 
-## 17. Compare Sessions
+## 17. Compare & References
 
-Side-by-side comparison of any two sessions.
+Two-tab page: **Browse References** and **Side-by-Side Comparison**.
 
-Select Session A and Session B from dropdowns. The page shows:
-- Score rings for each session
-- Key metrics side-by-side (carry, smash factor, face-to-path, lateral miss)
-- Dispersion stats comparison
-- Verdict: Session A wins / Tie / Session B wins
-- "Go to Training" and "Run New Diagnosis" CTAs
+### Browse References tab
+- Browse professional athlete swing references filtered by sport, sex, movement type, handedness, and style tags
+- Cards show athlete name, active status, and style tags
+- Entries marked "Pending Admin Verification" need YouTube IDs confirmed before videos show
+- Click a card to open the detail drawer — shows bio, movement types, and video slots
+- For unverified entries: a YouTube search link is provided so you can find the athlete's swing yourself
+- Click "Select for Comparison" to send an athlete to the comparison tab
+
+### Side-by-Side Comparison tab
+- **Your Swing (left):** Upload a new video or select a saved video analysis from your history
+- **Professional Reference (right):** Shows the selected athlete reference; use "Browse References →" if none selected
+- **Phase Checklist:** Sport-specific swing phase labels below both panels
+- **Limitation notice:** SwingIQ has not analyzed the professional video frames — comparisons are observational only
+- Mobile: panels stack vertically
+
+> Note: YouTube video embeds are privacy-enhanced (youtube-nocookie.com) for any verified references.
 
 ---
 
@@ -333,6 +344,78 @@ Paste into a message, email, or notes app to share with your coach or club fitte
 - **Show estimated warnings:** Toggle the ⚠ Estimated labels
 - **Coaching style:** Data-first, feel-first, balanced, encouragement
 - **Default club for diagnose:** Pre-selects a club in the diagnostic dropdown
-- **Export Data:** Downloads a full JSON backup of all your sessions, clubs, profile, and training data
-- **Import Data:** Restores from a previous JSON backup
+- **Backup & Restore:** Full backup and restore system (see below)
 - **Reset App:** Clears all data (asks for confirmation)
+
+---
+
+## 21. Backup & Restore
+
+Found at **Settings → Backup & Restore**.
+
+### Downloading a backup
+1. The page shows live counts of your data (sessions, clubs, video analyses)
+2. Optionally toggle "Encrypt with password" and enter a password (recommended for sensitive data)
+3. Click **Download Backup**
+4. The file saves as `swingiq-backup-YYYY-MM-DD.json` (or `.swingiqbackup` if encrypted)
+5. Store the file somewhere safe — iCloud Drive, Google Drive, email, or USB
+
+> ⚠️ If you encrypt the backup, do not forget your password. There is no recovery option.
+
+### Restoring from a backup
+1. Tap **Upload Backup File** and select your `.json` or `.swingiqbackup` file
+2. If encrypted, enter your password
+3. The page shows a preview: new records, duplicates, warnings
+4. Choose your restore mode:
+   - **Merge** — adds backup data to your current data (safe, recommended)
+   - **Replace** — replaces your current data with the backup (requires confirmation)
+5. The result summary shows what was restored, skipped, and any warnings
+
+### What is included
+- Golf profile and all sport-specific profiles
+- Equipment (clubs, racquets, bats)
+- All sessions with shots and diagnoses
+- Video analysis results
+- Training progress (streak, drills, milestones)
+- Settings and preferences
+
+### What is NOT included
+- API keys, passwords, or tokens (never stored in the app)
+- Raw video files (metadata and analysis results are included; raw video files are not)
+
+---
+
+## 22. Equipment — Loft Autofill & Gapping (Golf)
+
+When adding or editing a golf club:
+
+1. Select the club type (Driver, 3 Wood, 7 Iron, etc.)
+2. The **Loft** field autofills based on known manufacturer data or generic defaults
+3. A badge next to the field shows the source and confidence:
+   - **TaylorMade Stealth 2 (manufacturer spec)** — high confidence
+   - **Generic default — editable** — medium confidence
+   - **Custom (manually entered)** — your own value
+4. You can always edit the loft manually — it becomes "Custom"
+5. A **Reset to default** link appears when you've set a custom value
+
+### Loft Gapping view
+Click the **Loft Gapping** button on the Equipment page to see:
+- All your clubs sorted by loft angle
+- Gap between each adjacent club
+- Color coding: 🟢 Good gap · 🟡 Overlap or tight · 🔴 Large gap (>6°)
+- Recommendations for gaps that need attention
+
+---
+
+## 23. Screenshot / Image Import
+
+Found at **Sessions → Import from Image** (or the image icon on the Import page).
+
+Use this to get data into SwingIQ from a screenshot or photo of a performance table.
+
+1. **Upload:** Select your sport and movement type, choose the data source (FlightScope, TrackMan, HitTrax, etc.), and upload your image (jpg, png, webp — max 10 MB)
+2. **Review:** Enter your data values into the editable table. Columns are pre-populated based on the source you selected. Add or delete rows as needed.
+3. **Confirm:** Review your final data before saving. A privacy notice confirms your data stays local.
+4. **Analyze:** Your confirmed data is saved and routed to the diagnostic engine.
+
+> Auto-extraction (OCR) is coming in a future release. For now, manual entry is the supported workflow.

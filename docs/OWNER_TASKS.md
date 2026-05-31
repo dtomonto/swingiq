@@ -9,7 +9,7 @@ Use this file to track what has already been built and what you still need to se
 ### Core Platform
 - [x] Multi-sport platform: golf, tennis, baseball, slow pitch softball, fast pitch softball
 - [x] Sport context — switching sport changes the entire app experience
-- [x] Turborepo monorepo with `@swingiq/core` package and `apps/web` Next.js app
+- [x] Turborepo monorepo with `@swingiq/core` package and `apps/web` Next.js 15 app
 - [x] Zustand state management with localStorage persistence (works offline, no Supabase required)
 - [x] Mobile-optimized responsive layout — works on any phone, tablet, or desktop
 
@@ -26,6 +26,15 @@ Use this file to track what has already been built and what you still need to se
 - [x] Personal bests and handicap estimate
 - [x] Pre-round warm-up generator (personalized to active diagnosis)
 - [x] Practice schedule generator (7-day, configurable frequency and session length)
+- [x] **Golf bag loft autofill** — 30+ model-specific specs, generic defaults for all club types, loft source/confidence labels, manual override, reset to default
+- [x] **Loft Gapping view** — color-coded gap analysis with recommendations (Equipment page → "Loft Gapping" tab)
+
+### Multi-Sport Diagnostic Engines
+- [x] Tennis: 24 issue categories (split step, unit turn, racquet path, serve trophy, recovery, etc.)
+- [x] Baseball: 24 issue categories (load, stride, hip-shoulder separation, bat path, contact point, etc.)
+- [x] Slow Pitch Softball: 24 issue categories (arc timing, pitch tracking, line-drive bat path, etc.)
+- [x] Fast Pitch Softball: 24 issue categories (compact launch, quick load, timing pressure, etc.)
+- [x] All engines return sport-specific severity, confidence, evidence, and drill recommendations
 
 ### Multi-Sport Features
 - [x] Sport-specific profile forms (golf, tennis, baseball, slow pitch, fast pitch)
@@ -49,153 +58,206 @@ Use this file to track what has already been built and what you still need to se
 
 ### AI Coach
 - [x] Five sport-specific system prompts
-- [x] Golf: answers grounded in launch monitor stats
-- [x] Non-golf: answers grounded in video analysis results and sport profile
-- [x] Sport-specific suggested questions
+- [x] Answers grounded in actual data (launch monitor stats or video analysis results)
 - [x] Rate limiting and off-topic guardrails
 - [x] Works with OpenAI (GPT-4o-mini) or Anthropic (Claude)
 - [x] Data-grounded placeholder responses when no API key is configured
 
-### All Pages
-- [x] Dashboard, Profile, Equipment (Bag), Sessions, Import/Log, Video Analysis
-- [x] Diagnose, Training, Practice Schedule, Pre-Round/Pre-Game
-- [x] Drill Library (80+ drills, sport-filtered), Progress, Milestones
-- [x] Compare Sessions, AI Coach, Reports (with copy-to-clipboard coach report)
-- [x] Settings (units, coaching style, full data export)
-- [x] Avatar page, Login/Signup pages
+### Screenshot / Image Import
+- [x] Upload photos of performance tables from FlightScope, TrackMan, Foresight, HitTrax, Rapsodo, Blast Motion, Zepp, spreadsheets, and more (Settings → Import from Image)
+- [x] Manual review and edit before any data is saved
+- [x] 4-step wizard: Upload → Review → Confirm → Analyze
+- [x] Auto-extraction (OCR) service layer is built — requires API key integration to activate
+
+### Backup & Restore
+- [x] Full data backup (all sports, profiles, sessions, analyses, drills, settings)
+- [x] Optional AES-256-GCM password encryption (PBKDF2, 310k iterations — no external dependencies)
+- [x] Merge restore (add backup to current data) and Replace restore (overwrite with confirmation)
+- [x] Smart duplicate detection (by ID, sport, date, source)
+- [x] Multi-device portability — backup on one device, restore on another
+- [x] Found at: **Settings → Backup & Restore**
+
+### Professional Swing Reference Library
+- [x] 32 seeded professional athlete profiles across all 5 sports
+- [x] Filter by sport, sex, movement type, handedness, and style tags
+- [x] "Pending Admin Verification" overlay on unverified entries
+- [x] YouTube search fallback for all entries (no fake video IDs)
+- [x] Privacy-enhanced YouTube embeds for any future verified videos
+
+### Side-by-Side Swing Comparison
+- [x] Upload your swing video or select from analysis history
+- [x] Browse and select a professional reference
+- [x] Side-by-side layout (stacked on mobile, side-by-side on desktop)
+- [x] Sport-specific phase checklist
+- [x] Honest limitation notice (professional video frames are not AI-analyzed)
+- [x] Found at: **Compare & References** in the sidebar
+
+### Public Marketing & SEO Pages
+- [x] Homepage (`/`) with JSON-LD structured data (WebApplication + FAQPage)
+- [x] How It Works page (`/how-it-works`)
+- [x] Sport-specific SEO pages: `/golf-swing-analysis`, `/tennis-swing-analysis`, `/baseball-swing-analysis`, `/softball-swing-analysis`
+- [x] Pricing page (`/pricing`) — free tier + Pro coming soon
+- [x] Parents/youth safety page (`/parents`)
+- [x] Privacy policy (`/privacy`)
+- [x] Terms of service (`/terms`)
+
+### Security
+- [x] Security headers on all responses (CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, CORP, COOP)
+- [x] Production source maps disabled
+- [x] Admin panel protected by ADMIN_SECRET environment variable
+- [x] Supabase session middleware (activates automatically when env keys are set)
+- [x] Rate limiting on AI Coach and video analysis endpoints
+- [x] Automated CI: Gitleaks secret scan + npm audit + CodeQL + custom security scanner
+- [x] Dependabot configured for weekly automated dependency updates
+- [x] Supabase RLS migration SQL ready to apply (`apps/web/supabase-rls.sql`)
+
+### Analytics
+- [x] 30-event analytics abstraction (`apps/web/src/lib/analytics.ts`)
+- [x] Ready to connect to PostHog, GA4, Segment, or Mixpanel
+
+### Documentation
+- [x] README.md (full architecture + feature overview + setup guide)
+- [x] PRODUCT_ROADMAP.md (30/60/90-day + AI + monetization)
+- [x] ANALYTICS_PLAN.md (event taxonomy, funnels, KPIs)
+- [x] SEO_AEO_GEO_PLAN.md (page map, structured data, content clusters)
+- [x] COMPETITIVE_POSITIONING.md (category framing, differentiation)
+- [x] ADMIN_OPERATIONS_ROADMAP.md (video verification, data ops, support)
+- [x] SECURITY.md (vulnerability reporting, rotation guide, hardening checklist)
+- [x] docs/security-automation.md (CI/CD workflow guide + branch protection steps)
 
 ---
 
-## 📋 Things You Need to Do Manually
+## 📋 Manual Steps Required — Work Through In Order
 
-### Task 1: Get the App Running Locally
+### 🔴 Priority 1 — Do Right Now
 
-- [ ] Install Node.js from https://nodejs.org (choose "LTS")
-- [ ] Install VS Code from https://code.visualstudio.com
-- [ ] Open the `swingiq` folder in VS Code
-- [ ] Open a terminal in VS Code (Terminal → New Terminal)
-- [ ] Run: `npm install`
-- [ ] Copy `apps/web/.env.example` → rename copy to `apps/web/.env.local`
-- [ ] Run: `npm run dev:web`
-- [ ] Open http://localhost:3000 — confirm the dashboard appears
+- [ ] **Rotate your OpenAI API key**
+  - Go to https://platform.openai.com/api-keys
+  - Delete the current key and generate a new one
+  - Update `apps/web/.env.local` with the new key
+  - Update the key in your Vercel project environment variables
+  - *Why: the previous key was in a local plaintext file and should be treated as compromised*
 
-### Task 2: Enable the AI Coach (5 minutes, pick one)
+### 🟠 Priority 2 — Before Pushing to GitHub
 
-The AI Coach works without a key (returns data-grounded placeholder responses). To enable live AI answers:
+- [ ] **Update CODEOWNERS**
+  - Open `.github/CODEOWNERS`
+  - Replace all 9 instances of `@REPLACE_WITH_GITHUB_USERNAME` with your actual GitHub username
+  - Save the file
 
-**Option A — OpenAI (recommended, slightly cheaper):**
-- [ ] Go to https://platform.openai.com/api-keys and create an API key
-- [ ] Add a small credit balance ($5–10 lasts months at SwingIQ usage rates)
-- [ ] In `apps/web/.env.local`, set:
-  ```
-  AI_PROVIDER=openai
-  OPENAI_API_KEY=sk-your-key-here
-  ```
+### 🟡 Priority 3 — After Pushing to GitHub (GitHub Settings)
 
-**Option B — Anthropic (Claude):**
-- [ ] Go to https://console.anthropic.com and create an API key
-- [ ] In `apps/web/.env.local`, set:
-  ```
-  AI_PROVIDER=anthropic
-  ANTHROPIC_API_KEY=sk-ant-your-key-here
-  ```
+- [ ] **Enable branch protection on `master`**
+  - GitHub → Settings → Branches → Add rule
+  - Branch name pattern: `master`
+  - ✓ Require a pull request before merging
+  - ✓ Require status checks: `security-audit` and `CodeQL` must pass
+  - ✓ Restrict who can push directly to `master`
+  - ✓ Restrict force pushes
 
-- [ ] Restart the dev server (`Ctrl+C` then `npm run dev:web`)
-- [ ] Test: open the AI Coach page and ask a question
+- [ ] **Enable GitHub secret scanning**
+  - GitHub → Settings → Security → Secret scanning → Enable
 
-### Task 3: Deploy to the Internet with Vercel (10 minutes)
+- [ ] **Enable Dependabot alerts + automatic security updates**
+  - GitHub → Settings → Security → Dependabot → Enable alerts
+  - GitHub → Settings → Security → Dependabot → Enable automatic security updates
 
-Vercel lets you access SwingIQ from any device, anywhere — not just your home computer.
+- [ ] **Enable private vulnerability reporting**
+  - GitHub → Settings → Security → Private vulnerability reporting → Enable
 
-> **Good news:** The project now includes a `vercel.json` configuration file. Vercel will automatically use the correct build command and output directory — **no manual overrides needed**.
+### 🟢 Priority 4 — When You Connect Supabase
 
-- [ ] Create a free account at https://vercel.com (sign in with GitHub)
-- [ ] Click **Add New → Project**
-- [ ] Import `dtomonto/swingiq` from GitHub
-- [ ] On the "Configure Project" screen, **leave all build settings at their defaults** — the `vercel.json` in the repo handles everything automatically
-- [ ] Add these environment variables before clicking Deploy:
-  - `NEXT_PUBLIC_APP_URL` = `https://your-app-name.vercel.app` *(update after first deploy)*
-  - `AI_PROVIDER` = `openai`
-  - `OPENAI_API_KEY` = your key *(copy from `apps/web/.env.local`)*
-- [ ] Click **Deploy** — takes about 2 minutes
-- [ ] When it finishes, copy your real Vercel URL (e.g. `swingiq-dtomonto.vercel.app`)
-- [ ] Go to **Settings → Environment Variables** → update `NEXT_PUBLIC_APP_URL` to your real URL
-- [ ] Go to **Deployments** → click three dots on latest → **Redeploy**
-- [ ] Open your Vercel URL on your phone to confirm it works
+- [ ] **Run the RLS migration**
+  - Go to your Supabase project → SQL Editor
+  - Paste the entire contents of `apps/web/supabase-rls.sql`
+  - Click Run
 
-> After this, every push to GitHub `master` automatically deploys to Vercel within 2 minutes.
+- [ ] **Set storage buckets to private**
+  - Supabase Dashboard → Storage → each bucket → Policies → Private (not Public)
 
-### Task 4: Set Up Supabase for Cloud Data Storage (optional, 20 minutes)
+- [ ] **Add Supabase keys to Vercel**
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+  - `SUPABASE_SERVICE_ROLE_KEY`
+  - Redeploy after adding
+  - *The auth middleware in `middleware.ts` activates automatically once these keys are present*
 
-Supabase is optional. Without it, all data is saved in your browser's localStorage — it works perfectly for personal use on one device. Add Supabase when you want cloud backup or multi-device access.
+### 🔵 Priority 5 — Before Going Live
 
-- [ ] Create a free account at https://supabase.com
-- [ ] Click **New project** → name it `swingiq`, choose a region, set a database password
-- [ ] Wait ~1 minute for the project to provision
-- [ ] Go to **Settings → API** and copy:
-  - **Project URL** (looks like `https://abcxyz.supabase.co`)
-  - **anon public** key (long string starting with `eyJ`)
-  - **service_role** key (keep this secret)
-- [ ] Add to `apps/web/.env.local`:
-  ```
-  NEXT_PUBLIC_SUPABASE_URL=https://abcxyz.supabase.co
-  NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
-  SUPABASE_SERVICE_ROLE_KEY=eyJ...
-  ```
-- [ ] In Supabase, go to **SQL Editor → New query**
-- [ ] Open `server/supabase_schema.sql` in VS Code, copy all the content, paste into Supabase SQL Editor, click **Run**
-- [ ] Add the same Supabase env vars to your Vercel project (Settings → Environment Variables → Redeploy)
+- [ ] **Set ADMIN_SECRET**
+  - Run: `openssl rand -hex 32`
+  - Add the result to `apps/web/.env.local` as `ADMIN_SECRET=<result>`
+  - Add the same value to Vercel environment variables
+
+- [ ] **Set CRON_SECRET**
+  - Run: `openssl rand -hex 32`
+  - Add to `.env.local` and Vercel as `CRON_SECRET=<result>`
+  - Update Vercel cron job configuration to use this secret
+
+- [ ] **Replace `[Add contact email]` placeholders**
+  - `apps/web/src/app/privacy/page.tsx`
+  - `apps/web/src/app/terms/page.tsx`
+  - `apps/web/src/app/parents/page.tsx`
+  - `apps/web/src/app/pricing/page.tsx`
+  - `SECURITY.md`
+
+- [ ] **Verify professional swing references**
+  - Open `packages/core/src/sports/professional-references.ts`
+  - For each athlete, find a real YouTube video URL
+  - Replace `PLACEHOLDER_REQUIRES_ADMIN_VERIFICATION` with the actual video ID
+  - Set `verified: true` and `requiresVerification: false`
+  - See `ADMIN_OPERATIONS_ROADMAP.md` for the full verification workflow
+
+### ⚪ Priority 6 — Legal Review (Before Commercial Launch)
+
+- [ ] **Privacy policy attorney review**
+  - `apps/web/src/app/privacy/page.tsx` is a practical placeholder
+  - Get legal counsel review before collecting user data commercially
+  - Especially important for GDPR (EU), CCPA (California), COPPA (under-13 users)
+
+- [ ] **Terms of service attorney review**
+  - `apps/web/src/app/terms/page.tsx` is a practical placeholder
 
 ---
 
-## 🧪 Things to Test After Each Step
+## 🔧 Developer Setup (First Time)
 
-### After local setup:
+- [ ] Install Node.js 18+ from https://nodejs.org
+- [ ] Run `npm install` from the repo root
+- [ ] Copy `apps/web/.env.example` → `apps/web/.env.local`
+- [ ] Run `npm run dev:web` — open http://localhost:3000
+
+---
+
+## 🚀 Deploy to Vercel
+
+- [ ] Sign in at https://vercel.com with GitHub
+- [ ] Import the `swingiq` repository
+- [ ] Leave all build settings as defaults (vercel.json handles everything)
+- [ ] Add environment variables before deploying (at minimum: `OPENAI_API_KEY`, `AI_PROVIDER=openai`)
+- [ ] Deploy — takes ~2 minutes
+- [ ] Update `NEXT_PUBLIC_APP_URL` to your Vercel URL in environment variables → Redeploy
+
+> After setup, every push to GitHub `master` auto-deploys to Vercel within 2 minutes.
+
+---
+
+## 📱 Add to Phone Home Screen (PWA)
+
+**iPhone (Safari):** Open SwingIQ → tap Share → "Add to Home Screen" → Add
+
+**Android (Chrome):** Open SwingIQ → three-dot menu → "Add to Home Screen"
+
+---
+
+## 🧪 Post-Setup Test Checklist
+
 - [ ] App loads at http://localhost:3000
-- [ ] Switch to tennis sport — dashboard changes
-- [ ] Switch back to golf — dashboard shows golf content
-- [ ] "My Profile" shows sport-appropriate fields
-- [ ] Import wizard runs (golf) or log session page loads (non-golf)
-
-### After AI key is added:
-- [ ] Open AI Coach page
-- [ ] Ask: "What should I work on today?"
-- [ ] Confirm response is relevant to your sport (not generic placeholder)
-
-### After Vercel deployment:
-- [ ] App loads at your Vercel URL on a different device (phone, tablet)
-- [ ] Sport switcher works on mobile
-- [ ] All pages load without errors
-
-### After Supabase setup:
-- [ ] Data entered on one device appears on another device after refresh
-
----
-
-## 📱 Optional: Add to Phone Home Screen
-
-SwingIQ is a PWA (Progressive Web App) — you can add it to your home screen.
-
-**iPhone (Safari):**
-1. Open the Vercel URL in Safari
-2. Tap the Share icon (box with arrow)
-3. Tap "Add to Home Screen"
-4. Tap "Add"
-
-**Android (Chrome):**
-1. Open the Vercel URL in Chrome
-2. Tap the three-dot menu
-3. Tap "Add to Home Screen"
-
-It will open full-screen, just like a native app.
-
----
-
-## 💡 Tips for Getting the Most Out of SwingIQ
-
-- **Consistency beats volume.** One session per week analyzed correctly beats ten sessions ignored.
-- **Pick one sport at a time.** The sport switcher is there, but focus on your primary sport first.
-- **For golf:** import after every range session, even a short one.
-- **For non-golf:** any video at a side angle gives the most useful analysis.
-- **Use the Pre-Game Warm-Up** page before practices. It takes 10–15 minutes and tunes you into your current focus.
-- **Share your coach report.** The Reports page generates a formatted text summary to paste into a message to your coach.
+- [ ] Switching sports changes the dashboard
+- [ ] Golf import wizard runs (7 steps)
+- [ ] Video analyzer works for a non-golf sport
+- [ ] AI Coach responds (placeholder or live depending on key)
+- [ ] Settings → Backup & Restore — download a backup file
+- [ ] Equipment → Loft Gapping tab shows club gaps
+- [ ] Compare & References → Browse References shows athlete cards
+- [ ] Homepage (/) shows the public landing page (not the dashboard)
