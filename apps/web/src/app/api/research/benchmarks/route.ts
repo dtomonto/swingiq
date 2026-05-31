@@ -5,7 +5,7 @@
 // ============================================================
 
 import { NextResponse } from 'next/server';
-import { BASELINE_VERSION, benchmarkRegistry } from '@swingiq/core';
+import { benchmarkRegistry } from '@swingiq/core';
 
 export async function GET() {
   const version = benchmarkRegistry.getActiveVersion();

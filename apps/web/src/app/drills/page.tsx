@@ -2,7 +2,6 @@
 
 import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
 import { useState, useMemo } from 'react';
 import { ExternalLink, Search, Sparkles } from 'lucide-react';
 import {

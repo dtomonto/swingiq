@@ -1,7 +1,7 @@
 'use client';
 
 import { AppShell } from '@/components/layout/AppShell';
-import { useSwingIQStore, type LocalSession } from '@/store';
+import { useSwingIQStore } from '@/store';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
@@ -16,7 +16,6 @@ import {
 import { format } from 'date-fns';
 import {
   runDiagnosticEngine,
-  computeSessionStats,
   computeSwingScores,
   buildSessionInsight,
   getRoutineForDiagnosis,

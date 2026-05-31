@@ -128,7 +128,7 @@ function SportDrillCard({
 }
 
 export function NonGolfTrainingContent() {
-  const { activeSport, isGolf, sportEmoji, sportName, sportLabels } = useSport();
+  const { activeSport, isGolf, sportEmoji, sportName } = useSport();
   const { video_analyses, training, recordPractice } = useSwingIQStore();
   const [completedDrills, setCompletedDrills] = useState<Set<string>>(new Set());
 
@@ -136,7 +136,7 @@ export function NonGolfTrainingContent() {
   // satisfy hook rules (all hooks must run unconditionally before any early return).
   const sport = (isGolf ? 'tennis' : activeSport) as Exclude<SportId, 'golf'>;
   const sportConfig = getSportConfig(sport);
-  const allDrills = SPORT_DRILL_MAP[sport] ?? [];
+  const allDrills = useMemo(() => SPORT_DRILL_MAP[sport] ?? [], [sport]);
 
   // Latest video analysis for this sport
   const latestAnalysis = useMemo(

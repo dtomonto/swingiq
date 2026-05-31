@@ -115,7 +115,7 @@ export function DashboardContent() {
   const { profile, clubs, sessions, training, recordPractice } = useSwingIQStore();
   const latestSession = useLatestDiagnosedSession();
   const overallScore = useOverallScore();
-  const { activeSport, isGolf } = useSport();
+  const { isGolf } = useSport();
 
   const hasProfile = !!profile;
   const hasBag = clubs.length > 0;

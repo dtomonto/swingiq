@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import {
   Upload,
@@ -9,7 +9,6 @@ import {
   AlertTriangle,
   CheckCircle,
   Info,
-  ExternalLink,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';

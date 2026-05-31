@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { AppShell } from '@/components/layout/AppShell';
 import { AICoachChat } from './AICoachChat';
-import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
+import { useSwingIQStore } from '@/store';
 import { runDiagnosticEngine, buildSessionInsight } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
 import type { CoachContext } from '@/lib/ai-coach-prompts';
@@ -12,8 +12,6 @@ import { useSport } from '@/contexts/SportContext';
 export default function AICoachPage() {
   const { profile, sessions, sportProfiles, video_analyses } = useSwingIQStore();
   const { activeSport, isGolf, sportName } = useSport();
-  const latestDiagnosed = useLatestDiagnosedSession();
-
   // Pick the most recent golf session with shots for context
   const latestWithShots = useMemo(() => {
     return [...sessions]

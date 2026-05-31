@@ -38,7 +38,7 @@ function FormField({
 // ── Tennis Profile Form ───────────────────────────────────────
 
 export function TennisProfileForm() {
-  const { sportProfiles, setSportProfile } = useSwingIQStore() as any;
+  const { sportProfiles, setSportProfile } = useSwingIQStore();
   const existing = sportProfiles?.tennis ?? {};
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
@@ -184,7 +184,7 @@ export function TennisProfileForm() {
 // ── Baseball Profile Form ─────────────────────────────────────
 
 export function BaseballProfileForm() {
-  const { sportProfiles, setSportProfile } = useSwingIQStore() as any;
+  const { sportProfiles, setSportProfile } = useSwingIQStore();
   const existing = sportProfiles?.baseball ?? {};
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
@@ -331,7 +331,7 @@ export function BaseballProfileForm() {
 // ── Slow Pitch Softball Profile Form ─────────────────────────
 
 export function SlowPitchProfileForm() {
-  const { sportProfiles, setSportProfile } = useSwingIQStore() as any;
+  const { sportProfiles, setSportProfile } = useSwingIQStore();
   const existing = sportProfiles?.softball_slow ?? {};
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
@@ -486,7 +486,7 @@ export function SlowPitchProfileForm() {
 // ── Fast Pitch Softball Profile Form ─────────────────────────
 
 export function FastPitchProfileForm() {
-  const { sportProfiles, setSportProfile } = useSwingIQStore() as any;
+  const { sportProfiles, setSportProfile } = useSwingIQStore();
   const existing = sportProfiles?.softball_fast ?? {};
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
