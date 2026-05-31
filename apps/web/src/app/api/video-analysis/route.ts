@@ -14,23 +14,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { runVideoAnalysis } from '@swingiq/core';
 import type { SwingVideoMetadata } from '@swingiq/core';
-
-// Simple in-memory rate limiter (per IP, resets on cold start)
-const ipRequestMap = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT = 30;        // requests per window
-const RATE_WINDOW_MS = 60_000; // 1 minute
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const entry = ipRequestMap.get(ip);
-  if (!entry || now > entry.resetAt) {
-    ipRequestMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return true;
-  }
-  if (entry.count >= RATE_LIMIT) return false;
-  entry.count++;
-  return true;
-}
+import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 
 interface VideoAnalysisRequest {
   video_id: string;
@@ -46,11 +30,9 @@ interface VideoAnalysisRequest {
 export async function POST(req: NextRequest) {
   // Rate limiting
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  if (!checkRateLimit(ip)) {
-    return NextResponse.json(
-      { error: 'Too many requests. Please wait a moment.' },
-      { status: 429 },
-    );
+  const rl = checkRateLimit(`${ip}:video-analysis`, { limit: 30, windowMs: 60_000 });
+  if (!rl.allowed) {
+    return rateLimitResponse();
   }
 
   let body: VideoAnalysisRequest;

@@ -17,34 +17,16 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { buildCoachPrompt, validateUserQuestion, type CoachContext } from '@/lib/ai-coach-prompts';
-
-// ── Rate limiting (simple in-memory, per-IP) ──────────────────
-const requestCounts = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT = 20;         // requests
-const RATE_WINDOW_MS = 60_000; // per 60 seconds
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = requestCounts.get(ip);
-  if (!entry || now > entry.resetAt) {
-    requestCounts.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return false;
-  }
-  if (entry.count >= RATE_LIMIT) return true;
-  entry.count++;
-  return false;
-}
+import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 
 // ── Handler ───────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   // IP-based rate limiting
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: 'Too many requests. Please wait a moment before asking again.' },
-      { status: 429 },
-    );
+  const rl = checkRateLimit(`${ip}:ai-coach`, { limit: 20, windowMs: 60_000 });
+  if (!rl.allowed) {
+    return rateLimitResponse();
   }
 
   // Parse and validate request body

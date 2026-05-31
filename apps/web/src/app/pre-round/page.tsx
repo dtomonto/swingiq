@@ -14,12 +14,7 @@ import { useSport } from '@/contexts/SportContext';
 export default function PreRoundPage() {
   const { isGolf } = useSport();
 
-  // Non-golf: sport-specific warm-up
-  if (!isGolf) {
-    return <AppShell><NonGolfWarmUp /></AppShell>;
-  }
-
-  // Golf: original content continues below...
+  // All hooks must be called unconditionally before any early return.
   const latestSession = useLatestDiagnosedSession();
   const { training } = useSwingIQStore();
   const [completed, setCompleted] = useState<Set<number>>(new Set());
@@ -29,8 +24,13 @@ export default function PreRoundPage() {
 
   const routine = useMemo(
     () => generatePreRoundRoutine(diagnosisId, diagnosisName),
-    [diagnosisId, diagnosisName]
+    [diagnosisId, diagnosisName],
   );
+
+  // Non-golf: sport-specific warm-up (after hooks)
+  if (!isGolf) {
+    return <AppShell><NonGolfWarmUp /></AppShell>;
+  }
 
   const toggle = (i: number) =>
     setCompleted((prev) => {

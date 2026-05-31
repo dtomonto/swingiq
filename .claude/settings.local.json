@@ -23,7 +23,23 @@
       "WebFetch(domain:swingiq.vercel.app)",
       "WebFetch(domain:swingiq-dtomonto.vercel.app)",
       "WebFetch(domain:swingiq-web-nine.vercel.app)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(ls src/)",
+      "Bash(ls app/)",
+      "Bash(npm run *)",
+      "Bash(npm audit *)",
+      "Bash(npm show *)",
+      "Bash(find . -name \".github\" -type d)",
+      "Bash(ls -la .github)",
+      "Bash(node scripts/security-check.mjs)",
+      "Bash(node -e \"const s = require\\('@supabase/ssr'\\); console.log\\(Object.keys\\(s\\)\\)\")",
+      "Bash(node -e \"const p=require\\('./apps/web/package.json'\\); console.log\\('next:', p.dependencies.next, 'react:', p.dependencies.react\\)\")",
+      "Bash(npx next *)",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(sed -n '518,525p' src/app/training/TrainingContent.tsx)",
+      "Bash(sed -n '582,590p' src/app/sessions/import/ImportWizard.tsx)",
+      "Bash(sed -n '179,186p' src/components/video/CoachingPanel.tsx)"
     ]
   }
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useRef } from 'react';
+import Link from 'next/link';
 import {
   Upload,
   ChevronRight,
@@ -580,12 +581,12 @@ export function ImportWizard() {
               {normalizedShots.length} shots have been saved. The diagnostic engine is ready to analyze your data.
             </p>
             <div className="flex justify-center gap-3 pt-2">
-              <a href="/diagnose">
+              <Link href="/diagnose">
                 <Button>Run Diagnostic Engine</Button>
-              </a>
-              <a href="/sessions">
+              </Link>
+              <Link href="/sessions">
                 <Button variant="outline">View Session</Button>
-              </a>
+              </Link>
             </div>
           </CardBody>
         </Card>

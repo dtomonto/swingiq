@@ -179,7 +179,7 @@ export function CoachingPanel({
 
                 <div className="rounded-lg bg-green-50 border border-green-200 p-3">
                   <p className="text-xs font-semibold text-green-800 mb-1">Feel cue</p>
-                  <p className="text-sm text-green-700 italic">"{phaseDef.coaching_cue}"</p>
+                  <p className="text-sm text-green-700 italic">&ldquo;{phaseDef.coaching_cue}&rdquo;</p>
                 </div>
 
                 <div className="rounded-lg bg-blue-50 border border-blue-200 p-3">
