@@ -39,7 +39,7 @@ function FormField({
 
 export function TennisProfileForm() {
   const { sportProfiles, setSportProfile } = useSwingIQStore();
-  const existing = sportProfiles?.tennis ?? {};
+  const existing = (sportProfiles?.tennis ?? {}) as Record<string, string>;
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
     dominant_hand: existing.dominant_hand ?? 'right',
@@ -185,7 +185,7 @@ export function TennisProfileForm() {
 
 export function BaseballProfileForm() {
   const { sportProfiles, setSportProfile } = useSwingIQStore();
-  const existing = sportProfiles?.baseball ?? {};
+  const existing = (sportProfiles?.baseball ?? {}) as Record<string, string>;
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
     batting_side: existing.batting_side ?? 'right',
@@ -332,7 +332,7 @@ export function BaseballProfileForm() {
 
 export function SlowPitchProfileForm() {
   const { sportProfiles, setSportProfile } = useSwingIQStore();
-  const existing = sportProfiles?.softball_slow ?? {};
+  const existing = (sportProfiles?.softball_slow ?? {}) as Record<string, string>;
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
     batting_side: existing.batting_side ?? 'right',
@@ -487,7 +487,7 @@ export function SlowPitchProfileForm() {
 
 export function FastPitchProfileForm() {
   const { sportProfiles, setSportProfile } = useSwingIQStore();
-  const existing = sportProfiles?.softball_fast ?? {};
+  const existing = (sportProfiles?.softball_fast ?? {}) as Record<string, string>;
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
     batting_side: existing.batting_side ?? 'right',
