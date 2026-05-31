@@ -48,10 +48,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/features`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE_URL}/faq`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/resources`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/glossary`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
       url: `${BASE_URL}/updates`,

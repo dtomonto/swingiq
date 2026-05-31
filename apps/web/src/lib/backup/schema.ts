@@ -9,16 +9,18 @@ import type {
   LocalVideoAnalysis,
   TrainingProgress,
   AppSettings,
+  SportEquipment,
 } from '@/store';
 
 export const BACKUP_FORMAT = 'swingiq-backup-v1';
-export const CURRENT_BACKUP_VERSION = '1.0.0';
+export const CURRENT_BACKUP_VERSION = '1.1.0';
 export const APP_VERSION = '1.0.0';
 
 export interface SwingIQBackupData {
   profile: GolferProfileInput | null;
   sportProfiles: SportProfiles;
   clubs: LocalClub[];
+  sportEquipment?: SportEquipment;
   sessions: LocalSession[];
   videoAnalyses: LocalVideoAnalysis[];
   training: TrainingProgress;

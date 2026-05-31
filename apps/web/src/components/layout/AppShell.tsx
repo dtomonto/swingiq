@@ -44,6 +44,14 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
+      {/* ── Skip-to-content link (screen readers / keyboard users) ── */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:text-green-800 focus:font-semibold focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+      >
+        Skip to main content
+      </a>
+
       {/* ── Desktop sidebar (hidden on mobile) ── */}
       <div className="hidden lg:flex lg:flex-shrink-0">
         <div className="w-64 flex flex-col min-h-screen sticky top-0 h-screen">
@@ -95,7 +103,7 @@ export function AppShell({ children }: AppShellProps) {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-auto pb-20 lg:pb-0">
+        <main id="main-content" className="flex-1 overflow-auto pb-20 lg:pb-0">
           {children}
         </main>
 

@@ -47,12 +47,23 @@ const faqItems = [
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqItems.map(({ question, answer }) => ({
-    '@type': 'Question',
-    name: question,
-    acceptedAnswer: { '@type': 'Answer', text: answer },
-  })),
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'SwingIQ', item: 'https://swingiq.app' },
+        { '@type': 'ListItem', position: 2, name: 'Baseball Swing Analysis', item: 'https://swingiq.app/baseball-swing-analysis' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(({ question, answer }) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer },
+      })),
+    },
+  ],
 };
 
 const metrics = [

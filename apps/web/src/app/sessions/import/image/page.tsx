@@ -267,6 +267,11 @@ export default function ImageImportPage() {
   return (
     <AppShell>
       <div className="max-w-4xl mx-auto px-4 py-6">
+        {/* Back link */}
+        <Link href="/sessions/import" className="inline-flex items-center gap-1 text-sm text-green-700 hover:underline mb-4">
+          ← Back to Import Options
+        </Link>
+
         {/* Page header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Import from Screenshot or Photo</h1>
