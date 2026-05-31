@@ -58,8 +58,8 @@ export function validateBackupFile(parsed: unknown): BackupValidationResult {
 export async function parseBackupFile(
   file: File,
 ): Promise<{ backup: SwingIQBackup | null; error: string | null }> {
-  if (!file.name.endsWith('.json')) {
-    return { backup: null, error: 'Only .json backup files are accepted' };
+  if (!file.name.endsWith('.json') && !file.name.endsWith('.swingiqbackup')) {
+    return { backup: null, error: 'Only .json or .swingiqbackup backup files are accepted' };
   }
 
   if (file.size > MAX_FILE_SIZE) {

@@ -60,18 +60,22 @@ export function exportUserData(state: SwingIQState): SwingIQBackup {
   };
 }
 
-export function generateBackupFilename(backup: SwingIQBackup): string {
+export function generateBackupFilename(backup: SwingIQBackup, encrypted = false): string {
   const date = new Date(backup.createdAt).toISOString().split('T')[0];
-  return `swingiq-backup-${date}.json`;
+  return encrypted
+    ? `swingiq-backup-${date}.swingiqbackup`
+    : `swingiq-backup-${date}.json`;
 }
 
-export function downloadBackup(backup: SwingIQBackup): void {
-  const json = JSON.stringify(backup, null, 2);
-  const blob = new Blob([json], { type: 'application/json' });
+export function downloadBackup(backup: SwingIQBackup, encryptedBlob?: string): void {
+  const isEncrypted = typeof encryptedBlob === 'string';
+  const content = isEncrypted ? encryptedBlob : JSON.stringify(backup, null, 2);
+  const mimeType = isEncrypted ? 'application/octet-stream' : 'application/json';
+  const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = generateBackupFilename(backup);
+  a.download = generateBackupFilename(backup, isEncrypted);
   a.click();
   URL.revokeObjectURL(url);
 }

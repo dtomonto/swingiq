@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   robots: 'noindex, nofollow',
 };
 
-function isAdminAuthorized(): boolean {
+async function isAdminAuthorized(): Promise<boolean> {
   const adminSecret = process.env.ADMIN_SECRET;
 
   // If no ADMIN_SECRET is set in production, block all access.
@@ -26,13 +26,13 @@ function isAdminAuthorized(): boolean {
     return process.env.NODE_ENV === 'development';
   }
 
-  const requestHeaders = headers();
+  const requestHeaders = await headers();
   const provided = requestHeaders.get('x-admin-secret');
   return provided === adminSecret;
 }
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  if (!isAdminAuthorized()) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  if (!(await isAdminAuthorized())) {
     // Redirect rather than show a 403 to avoid confirming the route exists.
     redirect('/dashboard');
   }

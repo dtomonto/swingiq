@@ -5,29 +5,66 @@ import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSwingIQStore } from '@/store';
-import { Download, Upload, CheckCircle, AlertTriangle, RefreshCw, Shield } from 'lucide-react';
+import { Download, Upload, CheckCircle, AlertTriangle, RefreshCw, Shield, Lock } from 'lucide-react';
 import { exportUserData, downloadBackup } from '@/lib/backup/export';
 import { parseBackupFile } from '@/lib/backup/validate';
 import { previewRestore, mergeRestore, replaceRestore, generateRestoreResult } from '@/lib/backup/restore';
+import { encryptBackup, decryptBackup, isEncryptedBackup } from '@/lib/backup/crypto';
 import type { SwingIQBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
 
-type ImportStep = 'idle' | 'parsing' | 'preview' | 'confirming-replace' | 'done';
+type ImportStep = 'idle' | 'parsing' | 'needs-password' | 'preview' | 'confirming-replace' | 'done';
 
 export default function BackupPage() {
   const store = useSwingIQStore();
+
+  // Export state
   const [exported, setExported] = useState(false);
+  const [exportEncrypt, setExportEncrypt] = useState(false);
+  const [exportPassword, setExportPassword] = useState('');
+  const [exportPasswordConfirm, setExportPasswordConfirm] = useState('');
+  const [exportError, setExportError] = useState<string | null>(null);
+  const [exportLoading, setExportLoading] = useState(false);
+
+  // Import state
   const [importStep, setImportStep] = useState<ImportStep>('idle');
   const [importError, setImportError] = useState<string | null>(null);
   const [pendingBackup, setPendingBackup] = useState<SwingIQBackup | null>(null);
+  const [pendingEncryptedContent, setPendingEncryptedContent] = useState<string | null>(null);
+  const [importPassword, setImportPassword] = useState('');
   const [preview, setPreview] = useState<RestorePreview | null>(null);
   const [restoreResult, setRestoreResult] = useState<RestoreResult | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  function handleExport() {
-    const backup = exportUserData(store);
-    downloadBackup(backup);
-    setExported(true);
-    setTimeout(() => setExported(false), 3000);
+  async function handleExport() {
+    setExportError(null);
+
+    if (exportEncrypt) {
+      if (exportPassword.length < 8) {
+        setExportError('Password must be at least 8 characters.');
+        return;
+      }
+      if (exportPassword !== exportPasswordConfirm) {
+        setExportError('Passwords do not match.');
+        return;
+      }
+    }
+
+    setExportLoading(true);
+    try {
+      const backup = exportUserData(store);
+      if (exportEncrypt) {
+        const blob = await encryptBackup(backup, exportPassword);
+        downloadBackup(backup, blob);
+      } else {
+        downloadBackup(backup);
+      }
+      setExported(true);
+      setTimeout(() => setExported(false), 3000);
+    } catch {
+      setExportError('Encryption failed. Please try again.');
+    } finally {
+      setExportLoading(false);
+    }
   }
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -36,6 +73,24 @@ export default function BackupPage() {
 
     setImportError(null);
     setImportStep('parsing');
+    setPendingEncryptedContent(null);
+    setPendingBackup(null);
+
+    let content: string;
+    try {
+      content = await file.text();
+    } catch {
+      setImportError('Could not read file.');
+      setImportStep('idle');
+      return;
+    }
+
+    if (isEncryptedBackup(content)) {
+      setPendingEncryptedContent(content);
+      setImportPassword('');
+      setImportStep('needs-password');
+      return;
+    }
 
     const { backup, error } = await parseBackupFile(file);
     if (error || !backup) {
@@ -48,6 +103,21 @@ export default function BackupPage() {
     setPendingBackup(backup);
     setPreview(p);
     setImportStep('preview');
+  }
+
+  async function handleDecrypt() {
+    if (!pendingEncryptedContent) return;
+    setImportError(null);
+
+    try {
+      const backup = await decryptBackup(pendingEncryptedContent, importPassword);
+      const p = previewRestore(backup, store);
+      setPendingBackup(backup);
+      setPreview(p);
+      setImportStep('preview');
+    } catch {
+      setImportError('Incorrect password. Please try again.');
+    }
   }
 
   function handleMerge() {
@@ -71,8 +141,10 @@ export default function BackupPage() {
     setImportStep('idle');
     setImportError(null);
     setPendingBackup(null);
+    setPendingEncryptedContent(null);
     setPreview(null);
     setRestoreResult(null);
+    setImportPassword('');
     if (fileInputRef.current) fileInputRef.current.value = '';
   }
 
@@ -105,7 +177,7 @@ export default function BackupPage() {
           <CardHeader><CardTitle>Download My Data Backup</CardTitle></CardHeader>
           <CardBody className="space-y-4">
             <p className="text-sm text-gray-600">
-              Creates a complete JSON file with everything SwingIQ knows about you.
+              Creates a complete file with everything SwingIQ knows about you.
             </p>
 
             <div className="grid grid-cols-3 gap-3 text-center">
@@ -128,9 +200,62 @@ export default function BackupPage() {
               training progress, and settings.
             </p>
 
-            <Button size="lg" onClick={handleExport} className="w-full">
-              <Download size={18} />
-              Download Backup
+            {/* Encryption toggle */}
+            <div className="border border-gray-200 rounded-xl p-4 space-y-3">
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={exportEncrypt}
+                  onChange={(e) => {
+                    setExportEncrypt(e.target.checked);
+                    setExportError(null);
+                    setExportPassword('');
+                    setExportPasswordConfirm('');
+                  }}
+                  className="w-4 h-4 rounded text-green-600"
+                />
+                <div className="flex items-center gap-2">
+                  <Lock size={16} className="text-gray-500" />
+                  <span className="text-sm font-medium text-gray-800">Encrypt with password (recommended)</span>
+                </div>
+              </label>
+
+              {exportEncrypt && (
+                <div className="space-y-3 pt-1">
+                  <div className="flex gap-2 bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800">
+                    <AlertTriangle size={14} className="shrink-0 mt-0.5" />
+                    <span>
+                      <strong>Important:</strong> If you forget your backup password, your data cannot be recovered.
+                    </span>
+                  </div>
+                  <input
+                    type="password"
+                    placeholder="Password (min. 8 characters)"
+                    value={exportPassword}
+                    onChange={(e) => setExportPassword(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                  <input
+                    type="password"
+                    placeholder="Confirm password"
+                    value={exportPasswordConfirm}
+                    onChange={(e) => setExportPasswordConfirm(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                </div>
+              )}
+            </div>
+
+            {exportError && (
+              <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+                <AlertTriangle size={16} className="shrink-0 mt-0.5" />
+                <span>{exportError}</span>
+              </div>
+            )}
+
+            <Button size="lg" onClick={handleExport} className="w-full" disabled={exportLoading}>
+              {exportLoading ? <RefreshCw size={18} className="animate-spin" /> : <Download size={18} />}
+              {exportLoading ? 'Encrypting…' : 'Download Backup'}
             </Button>
 
             {exported && (
@@ -148,7 +273,7 @@ export default function BackupPage() {
             {importStep === 'idle' && (
               <>
                 <p className="text-sm text-gray-600">
-                  Select a SwingIQ backup .json file to preview what will be restored.
+                  Select a SwingIQ backup file (.json or .swingiqbackup) to preview what will be restored.
                 </p>
                 {importError && (
                   <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
@@ -160,7 +285,7 @@ export default function BackupPage() {
                   <input
                     ref={fileInputRef}
                     type="file"
-                    accept=".json"
+                    accept=".json,.swingiqbackup"
                     onChange={handleFileChange}
                     className="hidden"
                   />
@@ -181,6 +306,44 @@ export default function BackupPage() {
               <div className="flex items-center gap-3 text-sm text-gray-600 py-4 justify-center">
                 <RefreshCw size={18} className="animate-spin text-green-600" />
                 Reading backup file…
+              </div>
+            )}
+
+            {importStep === 'needs-password' && (
+              <div className="space-y-4">
+                <div className="flex gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
+                  <Lock className="text-blue-500 shrink-0 mt-0.5" size={20} />
+                  <div className="text-sm text-blue-800">
+                    <p className="font-semibold">This backup is encrypted</p>
+                    <p>Enter your backup password to continue.</p>
+                  </div>
+                </div>
+
+                {importError && (
+                  <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+                    <AlertTriangle size={16} className="shrink-0 mt-0.5" />
+                    <span>{importError}</span>
+                  </div>
+                )}
+
+                <input
+                  type="password"
+                  placeholder="Backup password"
+                  value={importPassword}
+                  onChange={(e) => setImportPassword(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') handleDecrypt(); }}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  autoFocus
+                />
+
+                <div className="grid grid-cols-2 gap-3">
+                  <Button variant="outline" size="lg" onClick={reset}>
+                    Cancel
+                  </Button>
+                  <Button size="lg" onClick={handleDecrypt} disabled={importPassword.length === 0}>
+                    Unlock Backup
+                  </Button>
+                </div>
               </div>
             )}
 

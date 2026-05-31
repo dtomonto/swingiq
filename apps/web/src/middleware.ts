@@ -14,6 +14,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { createServerClient } from '@supabase/ssr';
 
 // Routes that do not require authentication
 const PUBLIC_PATHS = new Set([
@@ -45,44 +46,43 @@ export async function middleware(request: NextRequest) {
   }
 
   // ── Supabase auth check ────────────────────────────────────────
-  // Activate this block once Supabase is configured.
-  // It reads the session cookie set by @supabase/ssr and redirects
-  // unauthenticated users to /login.
-  //
-  // const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  // const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  //
-  // if (supabaseUrl && supabaseAnonKey) {
-  //   const { createServerClient } = await import('@supabase/ssr');
-  //   const response = NextResponse.next();
-  //
-  //   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
-  //     cookies: {
-  //       getAll() { return request.cookies.getAll(); },
-  //       setAll(cookiesToSet) {
-  //         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-  //         cookiesToSet.forEach(({ name, value, options }) =>
-  //           response.cookies.set(name, value, options)
-  //         );
-  //       },
-  //     },
-  //   });
-  //
-  //   const { data: { user } } = await supabase.auth.getUser();
-  //
-  //   if (!user) {
-  //     const loginUrl = new URL('/login', request.url);
-  //     loginUrl.searchParams.set('next', pathname);
-  //     return NextResponse.redirect(loginUrl);
-  //   }
-  //
-  //   return response;
-  // }
-  // ── End Supabase auth check ────────────────────────────────────
+  // If Supabase is not configured (env vars missing), pass through — dev mode.
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  // TODO: Remove this dev bypass once Supabase is connected.
-  // With Supabase configured, every non-public path requires a valid session.
-  return NextResponse.next();
+  if (!supabaseUrl || !supabaseAnonKey) {
+    // Dev mode without Supabase — allow all traffic through
+    return NextResponse.next();
+  }
+
+  // Supabase is configured — enforce session on protected routes.
+  // Middleware uses request.cookies (synchronous), NOT next/headers cookies().
+  const response = NextResponse.next();
+
+  const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll();
+      },
+      setAll(cookiesToSet: Array<{ name: string; value: string; options?: Record<string, unknown> }>) {
+        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+        cookiesToSet.forEach(({ name, value, options }) =>
+          response.cookies.set(name, value, options as Parameters<typeof response.cookies.set>[2]),
+        );
+      },
+    },
+  });
+
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('next', pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  return response;
+  // ── End Supabase auth check ────────────────────────────────────
 }
 
 export const config = {
