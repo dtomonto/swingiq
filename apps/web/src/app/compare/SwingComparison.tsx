@@ -203,8 +203,8 @@ function UserSwingPanel() {
           />
         </div>
 
-        {/* Video player */}
-        {localVideoUrl && (
+        {/* Video player — only render when URL is a blob: created by this page */}
+        {localVideoUrl && localVideoUrl.startsWith('blob:') && (
           <div className="aspect-video bg-black rounded-xl overflow-hidden">
             <video
               src={localVideoUrl}
@@ -278,9 +278,10 @@ function ProfessionalReferencePanel({
 
   const activeVideo = reference.referenceVideos[activeVideoIndex];
   const isPlaceholder = activeVideo ? isPlaceholderVideo(activeVideo) : true;
-  const searchUrl = activeVideo
+  const rawSearchUrl = activeVideo
     ? buildAthleteYouTubeSearchUrl(reference.athleteName, activeVideo.movementType)
     : `https://www.youtube.com/results?search_query=${encodeURIComponent(reference.athleteName)}`;
+  const searchUrl = rawSearchUrl.startsWith('https://www.youtube.com/') ? rawSearchUrl : '#';
 
   return (
     <Card className="flex-1">
