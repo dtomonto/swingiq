@@ -39,7 +39,8 @@
       "Bash(npx eslint *)",
       "Bash(sed -n '518,525p' src/app/training/TrainingContent.tsx)",
       "Bash(sed -n '582,590p' src/app/sessions/import/ImportWizard.tsx)",
-      "Bash(sed -n '179,186p' src/components/video/CoachingPanel.tsx)"
+      "Bash(sed -n '179,186p' src/components/video/CoachingPanel.tsx)",
+      "Bash(git fetch *)"
     ]
   }
 }
