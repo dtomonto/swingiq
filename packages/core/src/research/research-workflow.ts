@@ -23,7 +23,6 @@
 
 import type {
   ResearchRun,
-  ResearchRunStatus,
   EvidenceSource,
   BenchmarkChangeProposal,
   ResearchScope,
@@ -38,7 +37,6 @@ import {
   type SourceSummaryOutput,
   type BenchmarkComparisonOutput,
 } from './llm-prompts';
-import { BASELINE_VERSION } from './benchmark-registry';
 import { TARGET_WINDOWS } from '../diagnostic/rules';
 
 // ──────────────────────────────────────────────────────────────

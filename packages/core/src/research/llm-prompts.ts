@@ -9,7 +9,6 @@
 //  • Prompts are versioned for reproducibility
 // ============================================================
 
-import type { ResearchScope } from './types';
 
 export const PROMPT_VERSION = '1.0.0';
 

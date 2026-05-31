@@ -37,17 +37,6 @@ function deriveTennisMetrics(input: SportAnalysisInput): TennisHeuristicMetrics 
 // Issue detection rules
 // ──────────────────────────────────────────────────────────────
 
-interface TennisIssueRule {
-  id: Parameters<typeof Array.prototype.find>[0] extends infer T ? never : string;
-  issueId: string;
-  label: string;
-  severity: 'critical' | 'notable' | 'minor' | 'watch';
-  affectedPhases: string[];
-  description: string;
-  likelyCause: string;
-  visualIndicator: string;
-  detect: (m: TennisHeuristicMetrics) => number; // 0 = not detected, >0 = confidence
-}
 
 const TENNIS_ISSUE_RULES: Array<{
   issueId: string;

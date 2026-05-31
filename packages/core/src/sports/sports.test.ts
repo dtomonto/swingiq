@@ -7,7 +7,6 @@ import {
   ALL_SPORTS_INCLUDING_GOLF,
   getSportConfig,
   runSportAnalysis,
-  SPORT_CONFIGS,
 } from './sport-registry';
 import { runTennisAnalysis } from './tennis/analysis';
 import { runBaseballAnalysis } from './baseball/analysis';

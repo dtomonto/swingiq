@@ -13,7 +13,6 @@
 //   4. Old versions are preserved for historical comparison
 // ============================================================
 
-import type { ClubCategory, SkillLevel } from '../types';
 import type {
   BenchmarkMetric,
   BenchmarkVersion,

@@ -5,10 +5,7 @@
 // ============================================================
 
 import type {
-  Shot,
-  Diagnosis,
   DiagnosisCategory,
-  SupportingDataPoint,
   InsightPriority,
   RetestProtocol,
 } from '../types';

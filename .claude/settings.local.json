@@ -48,7 +48,9 @@
       "Bash(git check-ignore *)",
       "Bash(cat middleware.ts)",
       "Bash(cat \"../middleware.ts\")",
-      "Bash(cat \"../../middleware.ts\")"
+      "Bash(cat \"../../middleware.ts\")",
+      "Bash(dir \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\")",
+      "Bash(npx jest *)"
     ]
   }
 }

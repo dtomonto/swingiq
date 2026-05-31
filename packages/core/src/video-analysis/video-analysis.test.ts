@@ -6,7 +6,7 @@
 import { runVideoAnalysis } from './deterministic-analysis';
 import { estimatePhaseSegments } from './deterministic-analysis';
 import { buildYouTubeSearchUrl, getPhaseSearchUrl, getIssueSearchUrl } from './youtube-service';
-import { getDrillsForIssue, getDrillById } from './drill-library';
+import { getDrillsForIssue, getDrillById, VIDEO_DRILLS } from './drill-library';
 import {
   createDefaultLearningProfile,
   applyFeedbackToProfile,
@@ -174,7 +174,6 @@ describe('Drill library', () => {
   });
 
   test('all drills have required fields', () => {
-    const { VIDEO_DRILLS } = require('./drill-library');
     for (const drill of VIDEO_DRILLS) {
       expect(drill.id).toBeTruthy();
       expect(drill.name).toBeTruthy();

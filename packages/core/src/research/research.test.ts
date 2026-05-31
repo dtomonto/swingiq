@@ -8,13 +8,11 @@ import {
   benchmarkRegistry,
   BASELINE_VERSION,
   diffWindows,
-  buildOverridesFromMetrics,
 } from './benchmark-registry';
 import {
   assessRisk,
   shouldAutoApprove,
   planVersionApplication,
-  describeProposal,
 } from './proposal-engine';
 import {
   computeNextScheduled,
@@ -31,7 +29,7 @@ import {
   analyzeSegment,
   anonymizeOutcomes,
 } from './recommendation-outcome';
-import type { BenchmarkChangeProposal, BenchmarkMetric, BenchmarkVersion } from './types';
+import type { BenchmarkChangeProposal, BenchmarkVersion } from './types';
 import { TARGET_WINDOWS } from '../diagnostic/rules';
 
 // ──────────────────────────────────────────────────────────────

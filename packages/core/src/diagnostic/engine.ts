@@ -3,7 +3,7 @@
 // Converts shot data arrays into prioritized diagnoses
 // ============================================================
 
-import type { Shot, Diagnosis, SupportingDataPoint } from '../types';
+import type { Shot, SupportingDataPoint } from '../types';
 import { DIAGNOSTIC_RULES, type SessionStats, type DiagnosticRule } from './rules';
 
 function average(values: (number | null | undefined)[]): number | undefined {
@@ -80,8 +80,8 @@ export interface DiagnosisOutput {
 export function runDiagnosticEngine(
   shots: Shot[],
   clubCategory: string,
-  sessionId: string,
-  userId: string,
+  _sessionId: string,
+  _userId: string,
 ): DiagnosticResult {
   if (shots.length < 3) {
     return { stats: computeSessionStats(shots, clubCategory), diagnoses: [], primary: null, secondary: [] };
@@ -127,7 +127,7 @@ export function runDiagnosticEngine(
   };
 }
 
-function buildSupportingData(stats: SessionStats, ruleId: string): SupportingDataPoint[] {
+function buildSupportingData(stats: SessionStats, _ruleId: string): SupportingDataPoint[] {
   const points: SupportingDataPoint[] = [];
 
   const add = (

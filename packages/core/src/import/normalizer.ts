@@ -123,7 +123,7 @@ export function getMissingRecommendedFields(mapping: Record<string, string>): st
 
 function parseNum(value: string | undefined): number | null {
   if (value === undefined || value === null || value.trim() === '' || value === '--' || value === 'N/A') return null;
-  const n = parseFloat(value.replace(/[^0-9.\-]/g, ''));
+  const n = parseFloat(value.replace(/[^0-9.-]/g, ''));
   return isNaN(n) ? null : n;
 }
 
@@ -148,8 +148,8 @@ export function normalizeRow(
   // Unit conversions
   let carry = parseNum(get('carry_distance'));
   let total = parseNum(get('total_distance'));
-  let ballSpeed = parseNum(get('ball_speed'));
-  let clubSpeed = parseNum(get('club_speed'));
+  const ballSpeed = parseNum(get('ball_speed'));
+  const clubSpeed = parseNum(get('club_speed'));
 
   // Foresight sometimes exports in meters
   if (brand === 'foresight') {
