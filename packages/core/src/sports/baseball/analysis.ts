@@ -117,6 +117,204 @@ const BASEBALL_ISSUE_RULES: Array<{
       'Bat path clearly travels downward — contact results in groundballs even on mistake pitches.',
     detect: (m) => (m.camera_suitable ? 0.28 : 0),
   },
+
+  // ── Additional expanded issues ────────────────────────────────
+
+  {
+    issueId: 'poor_stance_setup',
+    label: 'Poor Stance Setup',
+    severity: 'watch',
+    affectedPhases: ['load'],
+    description:
+      'Stance width, foot alignment, or body posture at setup appears suboptimal — too wide, too narrow, or weight poorly distributed before the pitch.',
+    likelyCause:
+      'No deliberate stance routine, copying a stance without understanding the purpose, or compensating for previous technique issues.',
+    visualIndicator:
+      'Feet noticeably uneven, stance very narrow or excessively wide, or significant forward lean at address.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'late_load',
+    label: 'Late Loading',
+    severity: 'notable',
+    affectedPhases: ['load'],
+    description:
+      'Weight transfer onto the back leg begins too late, shortening the available time for hip rotation and power generation.',
+    likelyCause:
+      'Reactive rather than anticipatory load, or inexperience reading pitcher timing.',
+    visualIndicator:
+      'Back leg load begins just before or simultaneous with the stride rather than early in the pitch cycle.',
+    detect: (m) => (m.camera_suitable ? 0.30 : 0),
+  },
+  {
+    issueId: 'early_load',
+    label: 'Early Loading',
+    severity: 'minor',
+    affectedPhases: ['load'],
+    description:
+      'Weight transfers to the back leg too early relative to pitch delivery, causing the hitter to "leak" forward during the wait period.',
+    likelyCause:
+      'Nervousness, over-eager loading, or timing adjustment for fast pitching gone too far.',
+    visualIndicator:
+      'Back leg heavily loaded before the pitcher reaches the release point, followed by a drift forward.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'poor_stride_direction',
+    label: 'Poor Stride Direction',
+    severity: 'notable',
+    affectedPhases: ['stride'],
+    description:
+      'Stride foot lands open (toward pull field) or closed (toward opposite field) rather than directly toward the pitcher.',
+    likelyCause:
+      'Habit, compensating for shoulder-open tendency, or pulling off the ball mentally before the pitch arrives.',
+    visualIndicator:
+      'Front foot toe points noticeably left or right at stride landing rather than toward the mound.',
+    detect: (m) => (m.camera_suitable ? 0.30 : 0),
+  },
+  {
+    issueId: 'over_striding',
+    label: 'Over-Striding',
+    severity: 'notable',
+    affectedPhases: ['stride'],
+    description:
+      'Stride length is excessive — front foot lands too far forward, causing the hitter to shift weight prematurely and lose rotational power.',
+    likelyCause:
+      'Trying to get closer to the pitch, aggressive approach, or poor stride-length training.',
+    visualIndicator:
+      'Stride foot lands more than 6 inches beyond the hitter\'s normal shoulder-width, front leg very bent at landing.',
+    detect: (m) => (m.appears_long_stride && m.camera_suitable ? 0.35 : 0),
+  },
+  {
+    issueId: 'under_striding',
+    label: 'Under-Striding',
+    severity: 'minor',
+    affectedPhases: ['stride'],
+    description:
+      'Stride is minimal or absent, resulting in a static, power-limited swing.',
+    likelyCause:
+      'Fear of over-striding causing over-correction, or a training cue taken too literally.',
+    visualIndicator:
+      'Little to no foot movement at stride — batter appears to swing without shifting weight at all.',
+    detect: (m) => (!m.appears_long_stride && m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'poor_hip_shoulder_separation',
+    label: 'Poor Hip-Shoulder Separation',
+    severity: 'critical',
+    affectedPhases: ['hip_rotation', 'bat_lag'],
+    description:
+      'Hips and shoulders appear to rotate simultaneously rather than hips firing first, eliminating the "X-factor" stretch that generates maximum bat speed.',
+    likelyCause:
+      'Arms-only swing habit, no understanding of kinetic chain, or improper hip-rotation coaching.',
+    visualIndicator:
+      'Hips and shoulders face the pitcher at the same moment — no lag between hip rotation and shoulder turn.',
+    detect: (m) => (m.camera_suitable ? 0.33 : 0),
+  },
+  {
+    issueId: 'drifting_swaying',
+    label: 'Drifting / Swaying During Load',
+    severity: 'notable',
+    affectedPhases: ['load', 'stride'],
+    description:
+      'Body sways backward excessively during the load, causing the weight to drift past the back foot and making it difficult to shift forward efficiently.',
+    likelyCause:
+      'Trying to "stay back" too aggressively, improper weight loading cue, or poor balance training.',
+    visualIndicator:
+      'Head moves visibly backward beyond the back foot — back knee bows outward under excessive weight.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'collapsing_back_side',
+    label: 'Collapsing Back Side',
+    severity: 'notable',
+    affectedPhases: ['hip_rotation', 'contact'],
+    description:
+      'The back hip and leg collapse inward rather than driving forward and through, reducing rotational power at contact.',
+    likelyCause:
+      'Weak hip musculature, lunging habit causing early front-side dominance, or no hip "drive through" training.',
+    visualIndicator:
+      'Back knee buckles or drops toward the plate at contact rather than driving through.',
+    detect: (m) => (m.camera_suitable ? 0.30 : 0),
+  },
+  {
+    issueId: 'long_swing_path',
+    label: 'Long Swing Path',
+    severity: 'notable',
+    affectedPhases: ['bat_lag', 'hip_rotation'],
+    description:
+      'Bat takes a long, wide arc to reach the contact zone rather than a direct inside path, reducing bat speed and reaction time to inside pitches.',
+    likelyCause:
+      'Casting hands away from the body, early barrel extension, or no "hands inside the ball" training.',
+    visualIndicator:
+      'Bat barrel visible looping wide before approaching the contact zone.',
+    detect: (m) => (m.camera_suitable ? 0.30 : 0),
+  },
+  {
+    issueId: 'steep_bat_path',
+    label: 'Steep (Chopping) Bat Path',
+    severity: 'minor',
+    affectedPhases: ['bat_lag', 'contact'],
+    description:
+      'Bat travels on a steep downward angle, creating a high groundball rate and reducing the hitter\'s margin of error in the vertical zone.',
+    likelyCause:
+      '"Hit down on the ball" cue, early top-hand dominance, or disconnected swing from the hip rotation.',
+    visualIndicator:
+      'Bat clearly traveling downward at an angle steeper than the pitch descent.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'flat_bat_path',
+    label: 'Flat Bat Path',
+    severity: 'minor',
+    affectedPhases: ['bat_lag', 'contact'],
+    description:
+      'Bat travels on an overly flat (horizontal) path rather than matching the pitch descent angle, resulting in pop-ups on pitches above the zone.',
+    likelyCause:
+      'Over-correcting a downswing, trying to hit for power by swinging "up," or hip-drop creating shoulder tilt.',
+    visualIndicator:
+      'Bat travels nearly parallel to the ground with little upward trajectory through the zone.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'weak_bat_acceleration',
+    label: 'Weak Bat Acceleration',
+    severity: 'notable',
+    affectedPhases: ['hip_rotation', 'contact', 'extension'],
+    description:
+      'Bat speed appears to peak early or remain slow through the contact zone, suggesting the kinetic chain is not fully transferring energy to the barrel.',
+    likelyCause:
+      'Arms-only swing, poor hip rotation timing, or grip too tight causing deceleration through contact.',
+    visualIndicator:
+      'Swing appears to "push" the ball rather than drive it — contact lacks crispness.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'contact_too_forward',
+    label: 'Contact Point Too Far Forward',
+    severity: 'notable',
+    affectedPhases: ['contact'],
+    description:
+      'Contact occurs too far in front of the body, causing the bat to be out of the power zone and resulting in weak pull-side contact or foul balls.',
+    likelyCause:
+      'Trying to pull every pitch, timing too early, or reacting to an anticipated fastball on an off-speed.',
+    visualIndicator:
+      'Hands extended nearly straight at contact — bat nearly fully extended before reaching the plate.',
+    detect: (m) => (m.camera_suitable ? 0.28 : 0),
+  },
+  {
+    issueId: 'pull_off_early',
+    label: 'Pulling Off the Ball Early',
+    severity: 'notable',
+    affectedPhases: ['contact', 'extension'],
+    description:
+      'Head, front shoulder, and/or hips rotate toward the pull field before or during contact, causing the bat to drag across the zone.',
+    likelyCause:
+      'Pull-conscious approach, front-shoulder habit, or a visual cue to "see" where the ball is going too early.',
+    visualIndicator:
+      'Front shoulder and head visible rotating toward the pull side before follow-through is complete.',
+    detect: (m) => (m.camera_suitable ? 0.30 : 0),
+  },
 ];
 
 function estimateBaseballPhaseSegments(

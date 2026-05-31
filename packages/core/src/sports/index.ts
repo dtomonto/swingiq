@@ -30,3 +30,5 @@ export * from './softball-fast/benchmarks';
 export * from './softball-fast/analysis';
 
 export * from './sport-profiles';
+export * from './professional-references';
+export * from './professional-reference-service';
