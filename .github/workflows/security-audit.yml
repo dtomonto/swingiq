@@ -121,7 +121,7 @@ jobs:
       - name: Run ESLint
         run: |
           if [ -f "apps/web/.eslintrc.json" ] || [ -f "apps/web/.eslintrc.js" ] || [ -f "apps/web/eslint.config.mjs" ]; then
-            cd apps/web && npx eslint src --ext .ts,.tsx --max-warnings=0
+            ./node_modules/.bin/eslint apps/web/src --ext .ts,.tsx
           else
             echo "No ESLint config found — skipping lint step"
           fi
