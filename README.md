@@ -124,6 +124,18 @@ Sport-aware coach report generator. Copy a formatted summary to share with your 
 - i18n-ready architecture — content is structured for extraction into all 20 supported languages
 - Centralized content registry (`lib/tutorial/content.ts`) — adding a tutorial for a new screen takes one object
 
+### 🌐 Multi-Language Support
+SwingIQ is available in 20 languages with full Spanish and French translations. Switch languages from Settings or the language toggle in the navigation.
+
+### 🏅 Community Hub
+- **50+ Badges** across 10 categories: consistency, improvement, data protection, sport mastery, and more
+- **XP & Leveling** — earn XP for sessions, diagnoses, drills, backups, and milestones
+- **Challenges** — consistency, improvement, personal best, data, skill, and team challenge types
+- **Groups/Clubs** — join or create sport-specific groups with group leaderboards and challenges
+- **Activity Feed** — privacy-controlled (private / followers / public)
+- **Leaderboards** — ranked by improvement % and consistency, not raw scores; youth athletes ranked separately
+- All community progress (badges, XP, challenge history, group memberships) is **included in backup/restore**
+
 ### 🔒 Security
 - Security headers on every response (CSP, HSTS, X-Frame-Options, etc.)
 - Source maps disabled in production
@@ -142,7 +154,7 @@ swingiq/
 │   └── web/                    # Next.js 15 App Router — mobile-optimized
 │       ├── public/             # robots.txt, manifest
 │       └── src/
-│           ├── app/            # 35+ routes
+│           ├── app/            # 80+ routes (79 static pages)
 │           │   ├── (app)       # dashboard, profile, sessions, video, training…
 │           │   ├── compare/    # Professional references + side-by-side comparison
 │           │   ├── settings/backup/  # Backup & Restore
@@ -190,7 +202,13 @@ swingiq/
 │   ├── CODEOWNERS
 │   └── pull_request_template.md
 └── docs/
-    ├── BACKUP_SYSTEM.md        ← Developer guide for the backup/restore architecture
+    ├── BACKUP_SYSTEM.md        ← backup/restore architecture guide
+    ├── ARCHITECTURE_DECISIONS.md ← 13 ADRs for all major design choices
+    ├── LAUNCH_READINESS_CHECKLIST.md ← pre-launch checklist (4 tiers)
+    ├── DATA_PORTABILITY.md     ← export/import guide
+    ├── SECURITY_AND_PRIVACY.md ← OWASP, GDPR/COPPA/CCPA
+    ├── SEO_GEO_AEO.md          ← SEO/GEO/AEO strategy
+    ├── HOW_TO_PUBLISH_UPDATES.md ← guide for /updates page
     ├── BEGINNER_START_HERE.md
     ├── OWNER_TASKS.md
     ├── TROUBLESHOOTING.md
@@ -314,6 +332,18 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 |---|---|
 | `/` | Landing page with JSON-LD structured data |
 | `/how-it-works` | 4-step explainer, sport engine detail |
+| `/about` | Mission, values, who uses SwingIQ |
+| `/features` | Full feature grid with 14+ features |
+| `/faq` | Accordion FAQ with 18 Q&As + JSON-LD schema |
+| `/trust` | Data privacy commitments and AI honesty |
+| `/glossary` | Searchable ~45 swing terms across all sports |
+| `/resources` | Getting started guides and quick links |
+| `/updates` | User-facing product update history (44 entries) |
+| `/blog` | Blog index + 8 SEO articles |
+| `/blog/[slug]` | Individual blog posts (8 statically pre-rendered) |
+| `/benchmarks` | Performance standard index for all sports |
+| `/benchmarks/[sport]` | Beginner → elite ranges: golf, tennis, baseball, softball |
+| `/drills/[sport]` | Public drill library for each sport |
 | `/golf-swing-analysis` | Golf SEO landing page |
 | `/tennis-swing-analysis` | Tennis SEO landing page |
 | `/baseball-swing-analysis` | Baseball SEO landing page |
@@ -322,6 +352,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | `/parents` | Youth safety, FAQ |
 | `/privacy` | Privacy policy |
 | `/terms` | Terms of service + AI disclaimer |
+| `/vulnerability-disclosure` | Responsible security disclosure policy |
 
 ---
 
@@ -335,9 +366,15 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | [WEB_APP_GUIDE.md](docs/WEB_APP_GUIDE.md) | Using every app feature |
 | [DATA_IMPORT_GUIDE.md](docs/DATA_IMPORT_GUIDE.md) | Exporting CSV from each launch monitor brand |
 | [BACKUP_SYSTEM.md](docs/BACKUP_SYSTEM.md) | **Developer guide** — backup schema, registry, migration, tutorial system |
+| [ARCHITECTURE_DECISIONS.md](docs/ARCHITECTURE_DECISIONS.md) | 13 ADRs explaining every major technology and design choice |
+| [LAUNCH_READINESS_CHECKLIST.md](docs/LAUNCH_READINESS_CHECKLIST.md) | Plain-English pre-launch checklist (4 readiness tiers) |
+| [DATA_PORTABILITY.md](docs/DATA_PORTABILITY.md) | Backup/export developer and owner guide |
+| [SECURITY_AND_PRIVACY.md](docs/SECURITY_AND_PRIVACY.md) | OWASP coverage, GDPR/COPPA/CCPA status, breach plan |
+| [SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md) | SEO/GEO/AEO strategy with content calendar |
+| [HOW_TO_PUBLISH_UPDATES.md](docs/HOW_TO_PUBLISH_UPDATES.md) | Guide for adding entries to the /updates page |
 | [PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md) | 30/60/90-day roadmap + monetization |
 | [ANALYTICS_PLAN.md](ANALYTICS_PLAN.md) | Event taxonomy, funnels, KPIs |
-| [SEO_AEO_GEO_PLAN.md](SEO_AEO_GEO_PLAN.md) | SEO page map + structured data strategy |
+| [SEO_AEO_GEO_PLAN.md](SEO_AEO_GEO_PLAN.md) | Legacy SEO plan (superseded by docs/SEO_GEO_AEO.md) |
 | [COMPETITIVE_POSITIONING.md](COMPETITIVE_POSITIONING.md) | Category framing + differentiation |
 | [ADMIN_OPERATIONS_ROADMAP.md](ADMIN_OPERATIONS_ROADMAP.md) | Professional video verification, data ops |
 | [SECURITY.md](SECURITY.md) | Vulnerability reporting, secret rotation, hardening checklist |
