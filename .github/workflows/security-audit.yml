@@ -50,13 +50,6 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Debug — verify checked-out state
-        run: |
-          echo "Event: ${{ github.event_name }}"
-          echo "SHA: $(git rev-parse HEAD)"
-          echo "next in apps/web/package.json: $(node -e "console.log(require('./apps/web/package.json').dependencies.next)")"
-          echo "next in lock file (apps/web): $(node -e "const l=require('./package-lock.json'); console.log(l.packages['apps/web'].dependencies.next)")"
-
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
@@ -64,7 +57,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --prefer-offline --no-audit --no-fund
 
       - name: Run npm audit (fail on critical)
         run: |
@@ -116,13 +109,6 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Debug — verify checked-out state
-        run: |
-          echo "Event: ${{ github.event_name }}"
-          echo "SHA: $(git rev-parse HEAD)"
-          echo "next in apps/web/package.json: $(node -e "console.log(require('./apps/web/package.json').dependencies.next)")"
-          echo "next in lock file (apps/web): $(node -e "const l=require('./package-lock.json'); console.log(l.packages['apps/web'].dependencies.next)")"
-
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
@@ -130,7 +116,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --prefer-offline --no-audit --no-fund
 
       - name: Run ESLint
         run: |
