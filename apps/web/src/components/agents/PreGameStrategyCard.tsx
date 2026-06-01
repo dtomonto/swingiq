@@ -17,7 +17,7 @@ export function PreGameStrategyCard() {
   if (!ready || !plan) return null;
 
   return (
-    <Card className="border-indigo-200 bg-gradient-to-br from-indigo-50 to-white">
+    <Card className="border-indigo-200 bg-linear-to-br from-indigo-50 to-white">
       <CardHeader className="flex flex-row items-center gap-2">
         <Brain size={16} className="text-indigo-600" />
         <CardTitle>{plan.title}</CardTitle>

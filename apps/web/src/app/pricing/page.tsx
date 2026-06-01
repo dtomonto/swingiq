@@ -38,7 +38,7 @@ export default function PricingPage() {
                 'Local data storage (no account needed)',
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2">
-                  <span className="text-green-500 mt-0.5 flex-shrink-0">✓</span>
+                  <span className="text-green-500 mt-0.5 shrink-0">✓</span>
                   {f}
                 </li>
               ))}
@@ -66,7 +66,7 @@ export default function PricingPage() {
                 'Priority support',
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2">
-                  <span className="text-gray-300 mt-0.5 flex-shrink-0">○</span>
+                  <span className="text-gray-300 mt-0.5 shrink-0">○</span>
                   {f}
                 </li>
               ))}

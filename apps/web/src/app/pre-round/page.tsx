@@ -69,7 +69,7 @@ export default function PreRoundPage() {
         {!latestSession && (
           <Card className="border-amber-200 bg-amber-50">
             <CardBody className="flex items-center gap-3">
-              <Zap size={18} className="text-amber-600 flex-shrink-0" />
+              <Zap size={18} className="text-amber-600 shrink-0" />
               <div>
                 <p className="text-sm font-medium text-amber-800">No diagnosis yet</p>
                 <p className="text-xs text-amber-600">Import a session and run the diagnostic engine to get a personalized warm-up.</p>
@@ -119,7 +119,7 @@ export default function PreRoundPage() {
             <Card key={i} className={completed.has(i) ? 'bg-green-50 border-green-200' : ''}>
               <CardBody>
                 <div className="flex items-start gap-3">
-                  <button onClick={() => toggle(i)} className="mt-0.5 flex-shrink-0">
+                  <button onClick={() => toggle(i)} className="mt-0.5 shrink-0">
                     {completed.has(i)
                       ? <CheckCircle size={22} className="text-green-500" />
                       : <Circle size={22} className="text-gray-300 hover:text-gray-400" />
@@ -140,7 +140,7 @@ export default function PreRoundPage() {
                       {ex.reps && <span>× {ex.reps} reps</span>}
                       {ex.equipment !== 'None' && <span>🎯 {ex.equipment}</span>}
                     </div>
-                    <p className="text-xs text-blue-700 bg-blue-50 px-2 py-1 rounded mt-2 italic">
+                    <p className="text-xs text-blue-700 bg-blue-50 px-2 py-1 rounded-sm mt-2 italic">
                       &ldquo;{ex.coaching_cue}&rdquo;
                     </p>
                   </div>
@@ -148,7 +148,7 @@ export default function PreRoundPage() {
                     href={`https://www.youtube.com/results?search_query=${encodeURIComponent(ex.youtube_search_query)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-shrink-0 flex items-center gap-1 px-2 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700"
+                    className="shrink-0 flex items-center gap-1 px-2 py-1 bg-red-600 text-white rounded-sm text-xs hover:bg-red-700"
                   >
                     <ExternalLink size={10} /> YT
                   </a>

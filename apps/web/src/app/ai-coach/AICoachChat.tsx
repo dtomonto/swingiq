@@ -255,7 +255,7 @@ export function AICoachChat({
     <div className="flex flex-col h-[calc(100dvh-4rem)] lg:h-screen max-h-screen p-4 lg:p-6 max-w-4xl mx-auto">
 
       {/* ── Header ──────────────────────────────────────────── */}
-      <div className={`mb-4 flex-shrink-0 pb-4 border-b-2 ${display.borderColor}`}>
+      <div className={`mb-4 shrink-0 pb-4 border-b-2 ${display.borderColor}`}>
         <div className="flex items-start justify-between gap-3">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -281,7 +281,7 @@ export function AICoachChat({
           <button
             onClick={resetChat}
             title="Start a new conversation"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-500 hover:text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors flex-shrink-0 mt-1"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-500 hover:text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors shrink-0 mt-1"
           >
             <RefreshCw size={12} />
             New chat
@@ -316,7 +316,7 @@ export function AICoachChat({
             >
               {msg.role === 'assistant' && (
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 flex-shrink-0 mt-1 ${display.avatarBg}`}
+                  className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 shrink-0 mt-1 ${display.avatarBg}`}
                 >
                   {msg.isError ? (
                     <AlertCircle size={16} className="text-white" />
@@ -342,7 +342,7 @@ export function AICoachChat({
 
         {loading && (
           <div className="flex justify-start">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 flex-shrink-0 ${display.avatarBg}`}>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 shrink-0 ${display.avatarBg}`}>
               <Bot size={16} className="text-white" />
             </div>
             <div className="bg-white border border-gray-200 px-4 py-3 rounded-xl">
@@ -359,7 +359,7 @@ export function AICoachChat({
 
       {/* ── Suggested questions ──────────────────────────────── */}
       {!hasUserMessages && (
-        <div className="mb-3 flex-shrink-0 flex flex-wrap gap-2">
+        <div className="mb-3 shrink-0 flex flex-wrap gap-2">
           {suggestedQuestions.map((q) => (
             <button
               key={q}
@@ -374,7 +374,7 @@ export function AICoachChat({
       )}
 
       {/* ── Input ───────────────────────────────────────────── */}
-      <div className="flex gap-2 flex-shrink-0">
+      <div className="flex gap-2 shrink-0">
         <input
           type="text"
           value={input}
@@ -386,7 +386,7 @@ export function AICoachChat({
             }
           }}
           placeholder={display.placeholder}
-          className={`flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:border-transparent outline-none disabled:bg-gray-50 focus:ring-${sport === 'golf' ? 'green' : sport === 'tennis' ? 'yellow' : sport === 'baseball' ? 'red' : sport === 'softball_slow' ? 'orange' : 'pink'}-500`}
+          className={`flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:border-transparent outline-hidden disabled:bg-gray-50 focus:ring-${sport === 'golf' ? 'green' : sport === 'tennis' ? 'yellow' : sport === 'baseball' ? 'red' : sport === 'softball_slow' ? 'orange' : 'pink'}-500`}
           disabled={loading}
           maxLength={1000}
           aria-label={`Ask your ${sportName} question`}
@@ -401,7 +401,7 @@ export function AICoachChat({
         </Button>
       </div>
 
-      <p className="text-xs text-gray-400 mt-2 text-center flex-shrink-0">
+      <p className="text-xs text-gray-400 mt-2 text-center shrink-0">
         {sport === 'golf'
           ? 'Diagnoses are pattern-based data interpretations — not guaranteed mechanical analyses.'
           : 'Video analysis observations are heuristic estimates — use as a starting point for your own review.'}

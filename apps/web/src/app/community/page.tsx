@@ -160,7 +160,7 @@ export default function CommunityPage() {
               aria-label={`Level ${level} progress: ${progressToNext}%`}
             >
               <div
-                className="h-full bg-gradient-to-r from-purple-500 to-green-500 rounded-full transition-all duration-500"
+                className="h-full bg-linear-to-r from-purple-500 to-green-500 rounded-full transition-all duration-500"
                 style={{ width: `${progressToNext}%` }}
               />
             </div>
@@ -203,11 +203,11 @@ export default function CommunityPage() {
             <CardBody className="space-y-3">
               {activeChallenges.map(({ challenge, progress }) => (
                 <div key={challenge.id} className="flex items-center gap-3">
-                  <span className="text-2xl flex-shrink-0" aria-hidden="true">{challenge.icon}</span>
+                  <span className="text-2xl shrink-0" aria-hidden="true">{challenge.icon}</span>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between text-sm mb-1">
                       <span className="font-medium text-gray-900 truncate">{challenge.title}</span>
-                      <span className="text-gray-500 text-xs flex-shrink-0">{progress}%</span>
+                      <span className="text-gray-500 text-xs shrink-0">{progress}%</span>
                     </div>
                     <div
                       className="h-1.5 bg-gray-200 rounded-full overflow-hidden"
@@ -307,7 +307,7 @@ export default function CommunityPage() {
                   key={challenge.id}
                   className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100"
                 >
-                  <span className="text-2xl flex-shrink-0 mt-0.5" aria-hidden="true">{challenge.icon}</span>
+                  <span className="text-2xl shrink-0 mt-0.5" aria-hidden="true">{challenge.icon}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-gray-900">{challenge.title}</p>
                     <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{challenge.description}</p>
@@ -343,7 +343,7 @@ export default function CommunityPage() {
                 </p>
                 <p className="text-xs text-gray-500 mt-0.5">{t('community.exportReminder')}</p>
               </div>
-              <div className="flex gap-2 flex-shrink-0">
+              <div className="flex gap-2 shrink-0">
                 <Link href="/data" className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors">
                   <Download size={14} aria-hidden="true" />
                   {t('community.exportData')}

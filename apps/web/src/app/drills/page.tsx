@@ -109,7 +109,7 @@ export default function DrillsPage() {
                       href={drill.youtube_search_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-shrink-0 flex items-center gap-1 px-2 py-1.5 bg-red-600 text-white rounded text-xs hover:bg-red-700"
+                      className="shrink-0 flex items-center gap-1 px-2 py-1.5 bg-red-600 text-white rounded-sm text-xs hover:bg-red-700"
                     >
                       <ExternalLink size={10} /> YT
                     </a>
@@ -129,13 +129,13 @@ export default function DrillsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search drills..."
-              className="w-full border border-gray-300 rounded-lg pl-8 pr-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full border border-gray-300 rounded-lg pl-8 pr-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-hidden"
             />
           </div>
           <select
             value={sportFilter}
             onChange={(e) => setSportFilter(e.target.value as SportId | 'all')}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-none"
+            className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-hidden"
           >
             <option value="all">All Sports</option>
             {ALL_SPORTS_INCLUDING_GOLF.map((s) => (
@@ -145,7 +145,7 @@ export default function DrillsPage() {
           <select
             value={diffFilter}
             onChange={(e) => setDiffFilter(e.target.value as typeof diffFilter)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-none"
+            className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-hidden"
           >
             <option value="all">All Levels</option>
             <option value="beginner">Beginner</option>
@@ -166,7 +166,7 @@ export default function DrillsPage() {
                     <span className="text-xl">{getSportEmoji(drill.sport_id)}</span>
                     <h3 className="font-bold text-gray-900 text-sm">{drill.name}</h3>
                   </div>
-                  <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0', DIFFICULTY_COLORS[drill.difficulty])}>
+                  <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium shrink-0', DIFFICULTY_COLORS[drill.difficulty])}>
                     {drill.difficulty}
                   </span>
                 </div>
@@ -176,7 +176,7 @@ export default function DrillsPage() {
                   {drill.equipment_needed && <span>🎯 {drill.equipment_needed}</span>}
                 </div>
                 {drill.safety_note && (
-                  <p className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded">⚠ {drill.safety_note}</p>
+                  <p className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded-sm">⚠ {drill.safety_note}</p>
                 )}
                 <a
                   href={drill.youtube_search_url}

@@ -52,7 +52,7 @@ export default function LeaderboardPage() {
 
         {/* Privacy notice */}
         <div className="flex gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
-          <Shield size={18} className="flex-shrink-0 mt-0.5 text-blue-600" aria-hidden="true" />
+          <Shield size={18} className="shrink-0 mt-0.5 text-blue-600" aria-hidden="true" />
           <div>
             <p className="font-semibold">Privacy-Safe Rankings</p>
             <p>
@@ -109,7 +109,7 @@ export default function LeaderboardPage() {
                       <div>
                         <p className="font-semibold text-gray-900">
                           {myEntry.displayName}
-                          <span className="ms-2 text-xs text-green-700 bg-green-100 px-1.5 py-0.5 rounded">You</span>
+                          <span className="ms-2 text-xs text-green-700 bg-green-100 px-1.5 py-0.5 rounded-sm">You</span>
                         </p>
                         <p className="text-xs text-gray-500">Level {level}</p>
                       </div>
@@ -145,7 +145,7 @@ export default function LeaderboardPage() {
                     privacy: { ...community.privacy, leaderboardOptOut: !e.target.checked },
                   });
                 }}
-                className="mt-0.5 w-4 h-4 rounded text-green-600"
+                className="mt-0.5 w-4 h-4 rounded-sm text-green-600"
                 aria-label={t('leaderboard.optIn')}
               />
               <div>

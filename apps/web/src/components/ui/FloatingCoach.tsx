@@ -161,7 +161,7 @@ export function FloatingCoach() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(input); } }}
               placeholder="Ask about your swing..."
-              className="flex-1 border border-gray-300 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-green-500 outline-none"
+              className="flex-1 border border-gray-300 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-green-500 outline-hidden"
               disabled={loading}
               maxLength={500}
             />

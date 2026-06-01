@@ -78,7 +78,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm print:border-0 print:shadow-none">
+    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs print:border-0 print:shadow-none">
       {/* Report body (printable) */}
       <div className="p-6">
         <div className="mb-4 flex items-center justify-between">
@@ -120,7 +120,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
             className="mt-0.5"
           />
           <span className="flex items-start gap-1">
-            <ShieldAlert size={14} className="mt-0.5 flex-shrink-0 text-amber-500" aria-hidden="true" />
+            <ShieldAlert size={14} className="mt-0.5 shrink-0 text-amber-500" aria-hidden="true" />
             I understand this shares a text summary (no video).
             {data.isYouth && ' For a youth athlete, only a parent or guardian should share this.'}
           </span>
@@ -128,19 +128,19 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
 
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           <button onClick={copy} disabled={!acknowledged}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500">
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500">
             {copied ? <><Check size={15} className="text-green-600" /> Copied</> : <><Copy size={15} /> Copy</>}
           </button>
           <button onClick={emailCoach} disabled={!acknowledged}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500">
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500">
             <Mail size={15} /> Coach
           </button>
           <button onClick={webShare} disabled={!acknowledged}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500">
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500">
             <Share2 size={15} /> Share
           </button>
           <button onClick={print}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500">
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500">
             <Printer size={15} /> Print / PDF
           </button>
         </div>

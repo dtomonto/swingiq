@@ -167,7 +167,7 @@ export default function PracticePage() {
               <select
                 value={frequency}
                 onChange={(e) => setFrequency(e.target.value as PracticeFrequency)}
-                className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 outline-none bg-white"
+                className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
               >
                 <option value="1x">1×/week</option>
                 <option value="2x">2×/week</option>
@@ -182,7 +182,7 @@ export default function PracticePage() {
               <select
                 value={sessionLength}
                 onChange={(e) => setSessionLength(e.target.value as SessionLength)}
-                className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 outline-none bg-white"
+                className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
               >
                 <option value="short">Short (20 min)</option>
                 <option value="medium">Medium (45 min)</option>
@@ -196,7 +196,7 @@ export default function PracticePage() {
         {!hasRealData && (
           <Card className="border-amber-200 bg-amber-50">
             <CardBody className="flex items-center gap-3">
-              <Zap size={18} className="text-amber-600 flex-shrink-0" />
+              <Zap size={18} className="text-amber-600 shrink-0" />
               <div>
                 <p className="text-sm font-medium text-amber-800">
                   Using a sample schedule — no diagnosis yet
@@ -251,7 +251,7 @@ export default function PracticePage() {
         {/* Success criteria */}
         <Card className="border-green-200 bg-green-50">
           <CardBody className="flex items-start gap-3">
-            <CheckCircle size={18} className="text-green-600 flex-shrink-0 mt-0.5" />
+            <CheckCircle size={18} className="text-green-600 shrink-0 mt-0.5" />
             <div>
               <p className="text-sm font-semibold text-green-800 mb-0.5">Success Goal for This Week</p>
               <p className="text-sm text-green-700 leading-relaxed">{schedule.success_criteria}</p>

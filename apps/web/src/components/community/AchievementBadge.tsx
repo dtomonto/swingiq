@@ -49,7 +49,7 @@ export function AchievementBadge({
         'relative rounded-xl border transition-all',
         sizeClasses[size],
         earned
-          ? 'bg-white border-green-200 shadow-sm hover:shadow-md'
+          ? 'bg-white border-green-200 shadow-xs hover:shadow-md'
           : 'bg-gray-50 border-gray-200 opacity-70'
       )}
       role="article"
@@ -78,7 +78,7 @@ export function AchievementBadge({
         </div>
 
         {earned && (
-          <span className="text-xs font-semibold text-green-700 bg-green-100 px-2 py-0.5 rounded-full flex-shrink-0">
+          <span className="text-xs font-semibold text-green-700 bg-green-100 px-2 py-0.5 rounded-full shrink-0">
             +{achievement.xpReward} {t('common.xp')}
           </span>
         )}

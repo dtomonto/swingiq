@@ -137,7 +137,7 @@ export default async function BlogPostPage({
                 <Link
                   key={related.slug}
                   href={`/blog/${related.slug}`}
-                  className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 hover:border-green-400 transition-colors block"
+                  className="bg-white rounded-xl border border-gray-200 shadow-xs p-4 hover:border-green-400 transition-colors block"
                 >
                   <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SPORT_BADGE_COLORS[related.sport] ?? 'bg-gray-100 text-gray-600'} mb-2 inline-block`}>
                     {related.sport === 'all' ? 'All Sports' : related.sport.charAt(0).toUpperCase() + related.sport.slice(1)}

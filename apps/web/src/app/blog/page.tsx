@@ -49,7 +49,7 @@ export default function BlogIndexPage() {
             placeholder="Search posts..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full max-w-md mx-auto block px-4 py-3 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full max-w-md mx-auto block px-4 py-3 rounded-xl text-gray-900 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-400"
           />
         </div>
       </section>
@@ -81,7 +81,7 @@ export default function BlogIndexPage() {
           ) : (
             <div className="grid sm:grid-cols-2 gap-6">
               {filtered.map((post) => (
-                <article key={post.slug} className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 sm:p-6 flex flex-col">
+                <article key={post.slug} className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 sm:p-6 flex flex-col">
                   <div className="flex items-center gap-2 mb-3">
                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SPORT_BADGE_COLORS[post.sport] ?? 'bg-gray-100 text-gray-600'}`}>
                       {post.sport === 'all' ? 'All Sports' : post.sport.charAt(0).toUpperCase() + post.sport.slice(1)}

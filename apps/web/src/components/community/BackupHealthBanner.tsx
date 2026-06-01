@@ -72,7 +72,7 @@ export function BackupHealthBanner({
       role="status"
       aria-label={`${t('data.health')}: ${statusLabel}`}
     >
-      <Icon size={20} className="flex-shrink-0 mt-0.5" aria-hidden="true" />
+      <Icon size={20} className="shrink-0 mt-0.5" aria-hidden="true" />
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-2 flex-wrap">
           <p className="text-sm font-semibold">{statusLabel}</p>

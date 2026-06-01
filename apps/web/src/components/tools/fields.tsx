@@ -36,7 +36,7 @@ export function ChoiceGroup({
               aria-checked={selected}
               name={name}
               onClick={() => onChange(c.value)}
-              className={`rounded-xl border px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1 ${
+              className={`rounded-xl border px-4 py-2 text-sm font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1 ${
                 selected
                   ? 'border-green-600 bg-green-600 text-white'
                   : 'border-gray-300 bg-white text-gray-700 hover:border-green-400'
@@ -86,7 +86,7 @@ export function NumberField({
           step={step}
           value={value}
           onChange={(e) => onChange(e.target.value === '' ? '' : Number(e.target.value))}
-          className="w-40 rounded-xl border border-gray-300 px-3 py-2 text-sm focus:border-green-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+          className="w-40 rounded-xl border border-gray-300 px-3 py-2 text-sm focus:border-green-500 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500"
         />
         {suffix && <span className="text-sm text-gray-500">{suffix}</span>}
       </div>

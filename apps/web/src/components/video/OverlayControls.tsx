@@ -42,7 +42,7 @@ export function OverlayControls({ settings, onChange, className }: OverlayContro
             title={description}
             className={cn(
               'flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full transition-all duration-150',
-              'focus:outline-none focus:ring-2 focus:ring-green-500',
+              'focus:outline-hidden focus:ring-2 focus:ring-green-500',
               on
                 ? 'bg-green-100 text-green-700 border border-green-300'
                 : 'bg-gray-100 text-gray-500 border border-gray-200 hover:border-gray-300',

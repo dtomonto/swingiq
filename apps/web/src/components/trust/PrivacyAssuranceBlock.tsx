@@ -19,7 +19,7 @@ export function PrivacyAssuranceBlock({ className = '' }: { className?: string }
       <ul className="space-y-3">
         {POINTS.map(({ icon: Icon, text }) => (
           <li key={text} className="flex items-start gap-3 text-sm text-gray-600">
-            <span className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-green-50">
+            <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-green-50">
               <Icon size={15} className="text-green-700" aria-hidden="true" />
             </span>
             <span>{text}</span>

@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import type { SportId } from '@swingiq/core';
 
-const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none';
+const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-hidden';
 const selectClass = `${inputClass} bg-white`;
 
 function FormField({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
@@ -280,7 +280,7 @@ export default function LogSessionPage() {
         {/* Analyze video CTA */}
         <Card className="border-blue-200 bg-blue-50">
           <CardBody className="flex items-center gap-3">
-            <Video size={18} className="text-blue-600 flex-shrink-0" />
+            <Video size={18} className="text-blue-600 shrink-0" />
             <div className="flex-1">
               <p className="text-sm font-medium text-blue-800">Have video from this session?</p>
               <p className="text-xs text-blue-600">Upload it for phase-by-phase analysis and drill recommendations.</p>

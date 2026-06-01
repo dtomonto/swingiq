@@ -57,7 +57,7 @@ function SportDrillCard({
       <div className="flex items-start gap-3 p-4">
         <button
           onClick={onToggle}
-          className="flex-shrink-0 mt-0.5"
+          className="shrink-0 mt-0.5"
           aria-label={completed ? 'Mark incomplete' : 'Mark complete'}
         >
           <div
@@ -83,7 +83,7 @@ function SportDrillCard({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={() => setExpanded(!expanded)}
             className="text-xs text-gray-400 hover:text-gray-600"
@@ -94,7 +94,7 @@ function SportDrillCard({
             href={drill.youtube_search_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 px-2 py-1.5 bg-red-600 text-white rounded text-xs hover:bg-red-700"
+            className="flex items-center gap-1 px-2 py-1.5 bg-red-600 text-white rounded-sm text-xs hover:bg-red-700"
           >
             <ExternalLink size={10} /> YT
           </a>
@@ -104,14 +104,14 @@ function SportDrillCard({
       {expanded && (
         <div className="border-t border-gray-100 px-4 pb-4 pt-3 space-y-3">
           {drill.safety_note && (
-            <div className="rounded bg-yellow-50 border border-yellow-200 px-3 py-2">
+            <div className="rounded-sm bg-yellow-50 border border-yellow-200 px-3 py-2">
               <p className="text-xs text-yellow-800">⚠ {drill.safety_note}</p>
             </div>
           )}
           <ol className="space-y-1.5">
             {drill.steps.map((step, i) => (
               <li key={i} className="flex gap-2 text-sm text-gray-700">
-                <span className="font-bold text-green-600 flex-shrink-0 w-4">{i + 1}.</span>
+                <span className="font-bold text-green-600 shrink-0 w-4">{i + 1}.</span>
                 {step}
               </li>
             ))}
@@ -216,7 +216,7 @@ export function NonGolfTrainingContent() {
       {hasNoAnalysis && (
         <Card className="border-amber-200 bg-amber-50">
           <CardBody className="flex items-center gap-3">
-            <Zap size={18} className="text-amber-600 flex-shrink-0" />
+            <Zap size={18} className="text-amber-600 shrink-0" />
             <div>
               <p className="text-sm font-medium text-amber-800">No {sportName} analysis yet</p>
               <p className="text-xs text-amber-600">
@@ -234,7 +234,7 @@ export function NonGolfTrainingContent() {
       {latestAnalysis && (
         <Card className="border-l-4 border-l-red-500">
           <CardBody className="flex items-start gap-3">
-            <AlertCircle size={16} className="text-red-500 flex-shrink-0 mt-0.5" />
+            <AlertCircle size={16} className="text-red-500 shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-xs text-gray-500 mb-0.5">Training focus from latest analysis</p>
               <p className="font-bold text-gray-900">{latestAnalysis.primary_issue}</p>

@@ -19,7 +19,7 @@ export function TrustBar({ className = '' }: { className?: string }) {
     >
       {ITEMS.map(({ icon: Icon, label }) => (
         <li key={label} className="flex items-center gap-2">
-          <Icon size={16} className="flex-shrink-0" aria-hidden="true" />
+          <Icon size={16} className="shrink-0" aria-hidden="true" />
           <span>{label}</span>
         </li>
       ))}

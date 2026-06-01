@@ -2,17 +2,15 @@
 const nextConfig = {
   transpilePackages: ['@swingiq/core'],
   experimental: {
-    optimizePackageImports: ['recharts', 'lucide-react'],
+    optimizePackageImports: ['lucide-react'],
   },
 
   // Never ship source maps to production browsers
   productionBrowserSourceMaps: false,
 
-  // ESLint runs in CI (security-audit.yml) — skip the duplicate run during next build
-  // to prevent build failures from warnings in the @typescript-eslint config.
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // Note: Next 16 removed `next lint` and the `eslint` config key. Linting now
+  // runs standalone via `npm run lint` (ESLint flat config) in CI and locally;
+  // the build no longer invokes ESLint.
 
   // Security headers applied to every response
   async headers() {

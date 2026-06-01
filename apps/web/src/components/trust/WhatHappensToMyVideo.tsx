@@ -17,7 +17,7 @@ export function WhatHappensToMyVideo({ className = '' }: { className?: string })
       <ol className="space-y-4">
         {STEPS.map(({ icon: Icon, title, text }, i) => (
           <li key={title} className="flex items-start gap-3">
-            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-600 text-sm font-bold text-white">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-600 text-sm font-bold text-white">
               {i + 1}
             </span>
             <div>

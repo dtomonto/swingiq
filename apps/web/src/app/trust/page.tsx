@@ -90,7 +90,7 @@ export default function TrustPage() {
       <div className="max-w-3xl mx-auto px-4 py-12 space-y-10">
         {TRUST_SECTIONS.map(({ icon: Icon, title, body }) => (
           <section key={title} className="flex gap-4">
-            <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center mt-0.5">
+            <div className="shrink-0 w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center mt-0.5">
               <Icon className="text-green-700" size={20} />
             </div>
             <div>
@@ -104,10 +104,10 @@ export default function TrustPage() {
         <section className="bg-gray-50 border border-gray-200 rounded-xl p-6">
           <h2 className="text-lg font-bold text-gray-900 mb-3">Security posture</h2>
           <ul className="space-y-2 text-sm text-gray-600">
-            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span>All SwingIQ pages are served over HTTPS with security headers including Content-Security-Policy, X-Frame-Options, and HSTS.</span></li>
-            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span>API keys and secrets are never included in pages delivered to your browser.</span></li>
-            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span>Automated security audits run on every code change using CodeQL, dependency scanning, and secret scanning.</span></li>
-            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 flex-shrink-0" /><span>User-generated content is sanitized before being rendered in the interface.</span></li>
+            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 shrink-0" /><span>All SwingIQ pages are served over HTTPS with security headers including Content-Security-Policy, X-Frame-Options, and HSTS.</span></li>
+            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 shrink-0" /><span>API keys and secrets are never included in pages delivered to your browser.</span></li>
+            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 shrink-0" /><span>Automated security audits run on every code change using CodeQL, dependency scanning, and secret scanning.</span></li>
+            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 shrink-0" /><span>User-generated content is sanitized before being rendered in the interface.</span></li>
           </ul>
         </section>
 

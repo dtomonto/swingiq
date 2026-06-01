@@ -136,14 +136,14 @@ export default function SoftballSwingAnalysisPage() {
               },
             ].map(({ title, color, badge, points }) => (
               <div key={title} className={`rounded-xl border-2 ${color} bg-white p-6`}>
-                <span className={`text-xs font-bold px-2 py-1 rounded ${badge} mb-3 inline-block`}>
+                <span className={`text-xs font-bold px-2 py-1 rounded-sm ${badge} mb-3 inline-block`}>
                   {title}
                 </span>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">{title} Analysis</h3>
                 <ul className="space-y-2">
                   {points.map((pt) => (
                     <li key={pt} className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="text-green-500 flex-shrink-0 mt-0.5">✓</span>
+                      <span className="text-green-500 shrink-0 mt-0.5">✓</span>
                       {pt}
                     </li>
                   ))}

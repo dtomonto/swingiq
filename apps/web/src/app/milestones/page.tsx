@@ -205,7 +205,7 @@ export default function MilestonesPage() {
         {/* Progress bar */}
         <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full transition-all duration-700"
+            className="h-full bg-linear-to-r from-green-400 to-green-600 rounded-full transition-all duration-700"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -256,7 +256,7 @@ export default function MilestonesPage() {
                       className={cn(
                         'rounded-xl p-4 border text-center transition-all',
                         m.earned
-                          ? 'bg-green-50 border-green-200 shadow-sm'
+                          ? 'bg-green-50 border-green-200 shadow-xs'
                           : 'bg-gray-50 border-gray-200 opacity-60',
                       )}
                     >

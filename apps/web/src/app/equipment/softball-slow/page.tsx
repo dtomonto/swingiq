@@ -9,7 +9,7 @@ import { scoreBat } from '@/lib/equipment/scoring';
 import Link from 'next/link';
 import { Plus, Trash2, ChevronDown, ChevronUp, Info, AlertTriangle } from 'lucide-react';
 
-const inp = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none';
+const inp = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-hidden';
 const sel = `${inp} bg-white`;
 
 const EMPTY: Omit<SoftballBat, 'id' | 'created_at'> = {
@@ -53,7 +53,7 @@ export default function SlowPitchEquipmentPage() {
         </div>
 
         <div className="flex gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4">
-          <AlertTriangle className="text-amber-600 mt-0.5 flex-shrink-0" size={18} />
+          <AlertTriangle className="text-amber-600 mt-0.5 shrink-0" size={18} />
           <p className="text-sm text-amber-800">
             <strong>Association compliance reminder:</strong> USSSA, USA/ASA, ISA, NSA, and SSUSA each maintain their own approved bat lists. SwingIQ cannot verify current stamp approval — always check your association&apos;s official list before play.
           </p>

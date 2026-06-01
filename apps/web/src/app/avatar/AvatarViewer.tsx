@@ -44,7 +44,7 @@ const DIAGNOSIS_FAULTS: Record<string, string[]> = {
 
 function Avatar3DPlaceholder({ phase, fault }: { phase: number; fault: string | null }) {
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gradient-to-b from-slate-800 to-slate-900 rounded-xl">
+    <div className="w-full h-full flex items-center justify-center bg-linear-to-b from-slate-800 to-slate-900 rounded-xl">
       <div className="text-center">
         <svg width="120" height="240" viewBox="0 0 120 240" className="mx-auto mb-4">
           {/* Head */}
@@ -171,7 +171,7 @@ export function AvatarViewer() {
 
       {/* Disclaimer */}
       <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg mb-5">
-        <Info size={16} className="text-amber-600 flex-shrink-0 mt-0.5" />
+        <Info size={16} className="text-amber-600 shrink-0 mt-0.5" />
         <p className="text-xs text-amber-800">
           <strong>Estimated pattern only.</strong> This avatar shows the likely movement pattern based on
           launch-monitor data. It is NOT an exact recreation of your body position unless motion-capture

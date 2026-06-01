@@ -9,7 +9,7 @@ import { scoreBat } from '@/lib/equipment/scoring';
 import Link from 'next/link';
 import { Plus, Trash2, ChevronDown, ChevronUp, Info, AlertTriangle } from 'lucide-react';
 
-const inp = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none';
+const inp = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent outline-hidden';
 const sel = `${inp} bg-white`;
 
 const EMPTY: Omit<BaseballBat, 'id' | 'created_at'> = {
@@ -54,7 +54,7 @@ export default function BaseballEquipmentPage() {
         </div>
 
         <div className="flex gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
-          <Info className="text-blue-500 mt-0.5 flex-shrink-0" size={18} />
+          <Info className="text-blue-500 mt-0.5 shrink-0" size={18} />
           <p className="text-sm text-blue-800">
             <strong>Optional.</strong> You can skip this and still use all SwingIQ features. Missing specs lower confidence scores — they don&apos;t block anything.
           </p>
@@ -167,7 +167,7 @@ export default function BaseballEquipmentPage() {
               </div>
               {form.material === 'composite' && (
                 <div className="flex items-center gap-3">
-                  <input type="checkbox" id="bi" checked={form.composite_broken_in === true} onChange={(e) => set('composite_broken_in', e.target.checked)} className="w-4 h-4 rounded text-red-600" />
+                  <input type="checkbox" id="bi" checked={form.composite_broken_in === true} onChange={(e) => set('composite_broken_in', e.target.checked)} className="w-4 h-4 rounded-sm text-red-600" />
                   <label htmlFor="bi" className="text-sm text-gray-700">Composite is broken in</label>
                 </div>
               )}
@@ -182,7 +182,7 @@ export default function BaseballEquipmentPage() {
 
         {bats.length === 0 && !showForm && (
           <div className="flex gap-2 text-sm text-gray-500 bg-gray-50 border border-gray-200 rounded-xl p-4">
-            <AlertTriangle size={16} className="text-gray-400 mt-0.5 flex-shrink-0" />
+            <AlertTriangle size={16} className="text-gray-400 mt-0.5 shrink-0" />
             No bat logged. This is optional — you can still use all SwingIQ features without it.
           </div>
         )}

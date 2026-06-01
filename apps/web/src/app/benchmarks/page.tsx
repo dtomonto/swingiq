@@ -32,7 +32,7 @@ export default function BenchmarksIndexPage() {
               <Link
                 key={sport.slug}
                 href={`/benchmarks/${sport.slug}`}
-                className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 sm:p-6 hover:border-green-400 transition-colors block"
+                className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 sm:p-6 hover:border-green-400 transition-colors block"
               >
                 <div className="text-3xl mb-3">{sport.emoji}</div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{sport.sport}</h3>

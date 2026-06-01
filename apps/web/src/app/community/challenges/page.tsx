@@ -67,7 +67,7 @@ export default function ChallengesPage() {
               onClick={() => setTab(tabId)}
               className={cn(
                 'px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
-                tab === tabId ? 'bg-white shadow-sm text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                tab === tabId ? 'bg-white shadow-xs text-gray-900' : 'text-gray-600 hover:text-gray-900'
               )}
             >
               {tabId === 'active' ? `${t('challenges.active')} (${activeChallenges.length})`
@@ -87,7 +87,7 @@ export default function ChallengesPage() {
                 <Card key={challenge.id}>
                   <CardBody className="space-y-3">
                     <div className="flex items-start gap-3">
-                      <span className="text-3xl flex-shrink-0" aria-hidden="true">{challenge.icon}</span>
+                      <span className="text-3xl shrink-0" aria-hidden="true">{challenge.icon}</span>
                       <div className="flex-1">
                         <div className="flex items-center justify-between gap-2">
                           <h3 className="font-semibold text-gray-900">{challenge.title}</h3>
@@ -162,7 +162,7 @@ export default function ChallengesPage() {
                 <Card key={challenge.id}>
                   <CardBody className="space-y-3">
                     <div className="flex items-start gap-3">
-                      <span className="text-3xl flex-shrink-0" aria-hidden="true">{challenge.icon}</span>
+                      <span className="text-3xl shrink-0" aria-hidden="true">{challenge.icon}</span>
                       <div className="flex-1">
                         <div className="flex items-center justify-between gap-2">
                           <h3 className="font-semibold text-gray-900">{challenge.title}</h3>
@@ -210,14 +210,14 @@ export default function ChallengesPage() {
                 return (
                   <Card key={completed.id}>
                     <CardBody className="flex items-center gap-3">
-                      <span className="text-3xl flex-shrink-0" aria-hidden="true">{challenge.icon}</span>
+                      <span className="text-3xl shrink-0" aria-hidden="true">{challenge.icon}</span>
                       <div className="flex-1">
                         <h3 className="font-semibold text-gray-900">{challenge.title}</h3>
                         <p className="text-xs text-gray-500 mt-0.5">
                           {t('challenges.completedOn')} {new Date(completed.completedAt).toLocaleDateString()} · +{completed.xpEarned} {t('common.xp')}
                         </p>
                       </div>
-                      <CheckCircle size={20} className="text-green-500 flex-shrink-0" aria-label="Completed" />
+                      <CheckCircle size={20} className="text-green-500 shrink-0" aria-label="Completed" />
                     </CardBody>
                   </Card>
                 );

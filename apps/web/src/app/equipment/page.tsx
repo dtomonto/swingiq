@@ -39,7 +39,7 @@ export default function EquipmentHubPage() {
 
         {/* Optional notice */}
         <div className="flex gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
-          <Info className="text-blue-500 mt-0.5 flex-shrink-0" size={18} />
+          <Info className="text-blue-500 mt-0.5 shrink-0" size={18} />
           <p className="text-sm text-blue-800">
             Equipment setup is <strong>optional</strong>. Entering your equipment improves the accuracy of coaching recommendations but is not required to run diagnostics or get drills.
           </p>
@@ -67,7 +67,7 @@ export default function EquipmentHubPage() {
                     </div>
                     <p className="text-xs text-gray-500">{route.sublabel}</p>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="flex items-center gap-2 shrink-0">
                     {count > 0 && (
                       <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
                         {count} logged

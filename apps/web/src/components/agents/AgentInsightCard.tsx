@@ -36,7 +36,7 @@ export function AgentInsightCard({
   return (
     <div
       className={cn(
-        'bg-white rounded-xl border border-gray-200 border-l-4 shadow-sm p-4',
+        'bg-white rounded-xl border border-gray-200 border-l-4 shadow-xs p-4',
         tone.ring,
         className,
       )}
@@ -44,7 +44,7 @@ export function AgentInsightCard({
       aria-label={insight.title}
     >
       <div className="flex items-start gap-3">
-        <Icon size={18} className={cn('mt-0.5 flex-shrink-0', tone.iconColor)} aria-hidden="true" />
+        <Icon size={18} className={cn('mt-0.5 shrink-0', tone.iconColor)} aria-hidden="true" />
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <p className="font-semibold text-gray-900 text-sm">{insight.title}</p>
@@ -52,7 +52,7 @@ export function AgentInsightCard({
               <button
                 onClick={() => onDismiss(insight.id)}
                 aria-label={`Dismiss: ${insight.title}`}
-                className="text-gray-300 hover:text-gray-500 -mt-0.5 -mr-1 p-1 rounded focus:outline-none focus:ring-2 focus:ring-gray-300"
+                className="text-gray-300 hover:text-gray-500 -mt-0.5 -mr-1 p-1 rounded-sm focus:outline-hidden focus:ring-2 focus:ring-gray-300"
               >
                 <X size={14} />
               </button>

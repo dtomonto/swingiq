@@ -77,7 +77,7 @@ export function VideoUpload({ onVideoReady, onError, disabled }: VideoUploadProp
       {/* Privacy Notice */}
       <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
         <div className="flex gap-3">
-          <Shield className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+          <Shield className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
           <div className="text-sm text-amber-800">
             <p className="font-semibold mb-1">Privacy notice</p>
             <p className="text-amber-700 leading-relaxed">
@@ -91,7 +91,7 @@ export function VideoUpload({ onVideoReady, onError, disabled }: VideoUploadProp
                 type="checkbox"
                 checked={privacyAcknowledged}
                 onChange={(e) => setPrivacyAcknowledged(e.target.checked)}
-                className="rounded border-amber-400 text-green-600"
+                className="rounded-sm border-amber-400 text-green-600"
               />
               <span className="font-medium">I understand and want to continue</span>
             </label>
@@ -178,7 +178,7 @@ export function VideoUpload({ onVideoReady, onError, disabled }: VideoUploadProp
       {/* Error display */}
       {processingError && (
         <div className="flex items-start gap-3 rounded-lg bg-red-50 border border-red-200 p-3">
-          <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+          <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
           <div className="flex-1">
             <p className="text-sm text-red-700 font-medium">Upload failed</p>
             <p className="text-sm text-red-600">{processingError}</p>
@@ -215,7 +215,7 @@ interface VideoPreviewCardProps {
 export function VideoPreviewCard({ file, metadata, onRemove }: VideoPreviewCardProps) {
   return (
     <div className="flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 p-4">
-      <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+      <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
         <CheckCircle className="w-5 h-5 text-green-600" />
       </div>
       <div className="flex-1 min-w-0">
@@ -226,7 +226,7 @@ export function VideoPreviewCard({ file, metadata, onRemove }: VideoPreviewCardP
           {metadata.width > 0 ? `${metadata.width}×${metadata.height}` : 'unknown resolution'}
         </p>
       </div>
-      <Button variant="ghost" size="sm" onClick={onRemove} className="text-gray-400 hover:text-red-500 flex-shrink-0">
+      <Button variant="ghost" size="sm" onClick={onRemove} className="text-gray-400 hover:text-red-500 shrink-0">
         <X className="w-4 h-4" />
       </Button>
     </div>

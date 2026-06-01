@@ -185,7 +185,7 @@ export function VideoAnalyzerContent() {
                   if (step === 'results') setStep('configure');
                   else if (step === 'configure') setStep('upload');
                 }}
-                className="text-gray-500 hover:text-gray-700 p-1 rounded"
+                className="text-gray-500 hover:text-gray-700 p-1 rounded-sm"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -273,7 +273,7 @@ export function VideoAnalyzerContent() {
 
             {analyzeError && (
               <div className="flex items-start gap-3 rounded-lg bg-red-50 border border-red-200 p-3">
-                <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
                 <p className="text-sm text-red-700">{analyzeError}</p>
               </div>
             )}
@@ -310,7 +310,7 @@ export function VideoAnalyzerContent() {
           <div className="space-y-4">
             {/* Score bar */}
             <div className="flex items-center gap-4 bg-white rounded-xl border border-gray-200 p-4">
-              <div className="text-center flex-shrink-0">
+              <div className="text-center shrink-0">
                 <div
                   className={cn(
                     'w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold border-4',

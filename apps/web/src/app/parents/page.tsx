@@ -77,7 +77,7 @@ export default function ParentsPage() {
               { q: 'Is my child\'s video data private?', a: 'Yes. Video analysis runs locally in the browser when possible. Videos are not shared publicly. See our Privacy Policy for full details.' },
               { q: 'What age range is SwingIQ for?', a: 'SwingIQ can be used by youth athletes (8+) with parent/guardian involvement, through high school, college, recreational adult, and competitive adult players. Accounts for users under 13 must be managed by a parent or guardian.' },
             ].map((item) => (
-              <div key={item.q} className="bg-white rounded-xl p-6 shadow-sm">
+              <div key={item.q} className="bg-white rounded-xl p-6 shadow-xs">
                 <h3 className="font-semibold text-gray-900 mb-2">{item.q}</h3>
                 <p className="text-sm text-gray-600">{item.a}</p>
               </div>

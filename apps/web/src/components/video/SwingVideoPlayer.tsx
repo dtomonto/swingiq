@@ -143,7 +143,7 @@ export function SwingVideoPlayer({
             {/* Step back */}
             <button
               onClick={() => stepFrame(-1)}
-              className="text-gray-300 hover:text-white p-1.5 rounded hover:bg-gray-700 transition-colors"
+              className="text-gray-300 hover:text-white p-1.5 rounded-sm hover:bg-gray-700 transition-colors"
               title="Previous frame"
             >
               <SkipBack className="w-4 h-4" />
@@ -164,7 +164,7 @@ export function SwingVideoPlayer({
             {/* Step forward */}
             <button
               onClick={() => stepFrame(1)}
-              className="text-gray-300 hover:text-white p-1.5 rounded hover:bg-gray-700 transition-colors"
+              className="text-gray-300 hover:text-white p-1.5 rounded-sm hover:bg-gray-700 transition-colors"
               title="Next frame"
             >
               <SkipForward className="w-4 h-4" />

@@ -81,7 +81,7 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
               >
                 <span className="flex-1 truncate" dir={isRTL ? 'rtl' : 'ltr'}>{config.nativeName}</span>
                 {language === code && (
-                  <span className="w-2 h-2 rounded-full bg-green-600 flex-shrink-0" aria-hidden="true" />
+                  <span className="w-2 h-2 rounded-full bg-green-600 shrink-0" aria-hidden="true" />
                 )}
               </button>
             );
@@ -101,7 +101,7 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
           aria-label={`${t('language.change')}: ${currentConfig.nativeName}`}
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-200 hover:bg-green-800 hover:text-white transition-colors"
         >
-          <Globe size={18} className="flex-shrink-0" aria-hidden="true" />
+          <Globe size={18} className="shrink-0" aria-hidden="true" />
           <span className="flex-1 truncate" dir={RTL_LANGUAGES.has(language) ? 'rtl' : 'ltr'}>
             {currentConfig.nativeName}
           </span>
@@ -164,7 +164,7 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
         <div
           role="listbox"
           aria-label={t('language.change')}
-          className="absolute top-full end-0 mt-1 w-52 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-auto max-h-72 py-1"
+          className="absolute top-full inset-e-0 mt-1 w-52 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-auto max-h-72 py-1"
         >
           {ALL_LANGUAGE_CODES.map((code) => {
             const config = LANGUAGE_CONFIG[code];

@@ -281,7 +281,7 @@ export default function ReportsPage() {
                   <Link
                     key={s.id}
                     href={`/sessions/${s.id}`}
-                    className="flex items-center justify-between py-2.5 px-2 border-b last:border-0 hover:bg-gray-50 rounded transition-colors group"
+                    className="flex items-center justify-between py-2.5 px-2 border-b last:border-0 hover:bg-gray-50 rounded-sm transition-colors group"
                   >
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-900 truncate">
@@ -301,7 +301,7 @@ export default function ReportsPage() {
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 flex-shrink-0 ml-4">
+                    <div className="flex items-center gap-3 shrink-0 ml-4">
                       {s.swing_score !== null && (
                         <div className="text-right">
                           <p className="text-lg font-bold text-gray-900">{s.swing_score}</p>

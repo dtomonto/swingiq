@@ -173,7 +173,7 @@ export default function DataCenterPage() {
 
         {/* Main description */}
         <div className="flex gap-3 bg-green-50 border border-green-200 rounded-xl p-4">
-          <Shield className="text-green-600 mt-0.5 flex-shrink-0" size={20} aria-hidden="true" />
+          <Shield className="text-green-600 mt-0.5 shrink-0" size={20} aria-hidden="true" />
           <div className="text-sm text-green-800 space-y-1">
             <p className="font-semibold">{t('data.promptValueOfData')}</p>
             <p>{t('data.mainDescription')}</p>
@@ -207,7 +207,7 @@ export default function DataCenterPage() {
               <ul className="space-y-1 text-xs text-gray-600">
                 {getExportableModules().map((mod) => (
                   <li key={mod.id} className="flex items-start gap-1.5">
-                    <span className="text-green-600 font-bold flex-shrink-0">✓</span>
+                    <span className="text-green-600 font-bold shrink-0">✓</span>
                     <span>
                       <span className="font-medium">{mod.label}</span>
                       {' — '}
@@ -240,7 +240,7 @@ export default function DataCenterPage() {
                     setExportPassword('');
                     setExportPasswordConfirm('');
                   }}
-                  className="w-4 h-4 rounded text-green-600"
+                  className="w-4 h-4 rounded-sm text-green-600"
                   aria-label="Encrypt backup with password"
                 />
                 <div className="flex items-center gap-2">
@@ -252,7 +252,7 @@ export default function DataCenterPage() {
               {exportEncrypt && (
                 <div className="space-y-3 pt-1">
                   <div className="flex gap-2 bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800">
-                    <AlertTriangle size={14} className="flex-shrink-0 mt-0.5" aria-hidden="true" />
+                    <AlertTriangle size={14} className="shrink-0 mt-0.5" aria-hidden="true" />
                     <span><strong>Important:</strong> If you forget your backup password, your data cannot be recovered.</span>
                   </div>
                   <input
@@ -260,7 +260,7 @@ export default function DataCenterPage() {
                     placeholder="Password (min. 8 characters)"
                     value={exportPassword}
                     onChange={(e) => setExportPassword(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
                     aria-label="Backup encryption password"
                   />
                   <input
@@ -268,7 +268,7 @@ export default function DataCenterPage() {
                     placeholder="Confirm password"
                     value={exportPasswordConfirm}
                     onChange={(e) => setExportPasswordConfirm(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
                     aria-label="Confirm backup encryption password"
                   />
                 </div>
@@ -277,7 +277,7 @@ export default function DataCenterPage() {
 
             {exportError && (
               <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700" role="alert">
-                <AlertTriangle size={16} className="flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <AlertTriangle size={16} className="shrink-0 mt-0.5" aria-hidden="true" />
                 <span>{exportError}</span>
               </div>
             )}
@@ -302,7 +302,7 @@ export default function DataCenterPage() {
         <Card>
           <CardBody>
             <div className="flex items-start gap-3">
-              <Globe size={18} className="text-green-600 mt-0.5 flex-shrink-0" aria-hidden="true" />
+              <Globe size={18} className="text-green-600 mt-0.5 shrink-0" aria-hidden="true" />
               <div className="flex-1">
                 <p className="text-sm font-semibold text-gray-900">{t('data.languageInBackup')}</p>
                 <p className="text-xs text-gray-500 mt-0.5">{t('language.backupNote')}</p>
@@ -331,7 +331,7 @@ export default function DataCenterPage() {
                 </p>
                 {importError && (
                   <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700" role="alert">
-                    <AlertTriangle size={16} className="flex-shrink-0 mt-0.5" aria-hidden="true" />
+                    <AlertTriangle size={16} className="shrink-0 mt-0.5" aria-hidden="true" />
                     <span>{importError}</span>
                   </div>
                 )}
@@ -362,7 +362,7 @@ export default function DataCenterPage() {
             {importStep === 'needs-password' && (
               <div className="space-y-4">
                 <div className="flex gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
-                  <Lock className="text-blue-500 flex-shrink-0 mt-0.5" size={20} aria-hidden="true" />
+                  <Lock className="text-blue-500 shrink-0 mt-0.5" size={20} aria-hidden="true" />
                   <div className="text-sm text-blue-800">
                     <p className="font-semibold">This backup is encrypted</p>
                     <p>Enter your backup password to continue.</p>
@@ -380,7 +380,7 @@ export default function DataCenterPage() {
                   value={importPassword}
                   onChange={(e) => setImportPassword(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') handleDecrypt(); }}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
                   autoFocus
                   aria-label="Backup decryption password"
                 />
@@ -394,7 +394,7 @@ export default function DataCenterPage() {
             {importStep === 'preview' && preview && pendingBackup && (
               <div className="space-y-4">
                 <div className="flex gap-2 bg-green-50 border border-green-200 rounded-lg p-3 text-sm text-green-800" role="status">
-                  <CheckCircle size={16} className="flex-shrink-0 mt-0.5 text-green-600" aria-hidden="true" />
+                  <CheckCircle size={16} className="shrink-0 mt-0.5 text-green-600" aria-hidden="true" />
                   <div>
                     <p className="font-semibold">Valid backup (v{pendingBackup.backupVersion})</p>
                     <p>{preview.summary}</p>
@@ -491,7 +491,7 @@ export default function DataCenterPage() {
                   <div className="space-y-1">
                     {preview.warnings.map((w, i) => (
                       <div key={i} className="flex gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-2.5" role="alert">
-                        <AlertTriangle size={15} className="flex-shrink-0 mt-0.5" aria-hidden="true" />
+                        <AlertTriangle size={15} className="shrink-0 mt-0.5" aria-hidden="true" />
                         <span>{w}</span>
                       </div>
                     ))}
@@ -522,7 +522,7 @@ export default function DataCenterPage() {
             {importStep === 'confirming-replace' && (
               <div className="space-y-4">
                 <div className="flex gap-3 bg-red-50 border border-red-200 rounded-xl p-4" role="alertdialog">
-                  <AlertTriangle className="text-red-500 flex-shrink-0 mt-0.5" size={20} aria-hidden="true" />
+                  <AlertTriangle className="text-red-500 shrink-0 mt-0.5" size={20} aria-hidden="true" />
                   <div className="text-sm text-red-800 space-y-1">
                     <p className="font-semibold">This will overwrite your current data</p>
                     <p>{t('data.promptBeforeClear')}</p>
@@ -540,7 +540,7 @@ export default function DataCenterPage() {
             {importStep === 'done' && restoreResult && (
               <div className="space-y-4">
                 <div className="flex gap-2 bg-green-50 border border-green-200 rounded-lg p-4 text-sm text-green-800" role="status" aria-live="polite">
-                  <CheckCircle size={18} className="flex-shrink-0 mt-0.5 text-green-600" aria-hidden="true" />
+                  <CheckCircle size={18} className="shrink-0 mt-0.5 text-green-600" aria-hidden="true" />
                   <div>
                     <p className="font-semibold text-base">Restore complete</p>
                     <p>{restoreResult.summary}</p>
@@ -561,7 +561,7 @@ export default function DataCenterPage() {
         <Card>
           <CardBody>
             <div className="flex items-center gap-3">
-              <Info size={18} className="text-gray-400 flex-shrink-0" aria-hidden="true" />
+              <Info size={18} className="text-gray-400 shrink-0" aria-hidden="true" />
               <div className="text-xs text-gray-500 space-y-0.5">
                 <p>{t('data.schemaVersion')}: 1.1.0</p>
                 <p>Backup format: swingiq-backup-v1</p>
@@ -581,7 +581,7 @@ export default function DataCenterPage() {
           </CardHeader>
           <CardBody className="space-y-4">
             <div className="flex gap-3 bg-red-50 border border-red-200 rounded-xl p-4" role="alert">
-              <AlertTriangle className="text-red-500 flex-shrink-0 mt-0.5" size={18} aria-hidden="true" />
+              <AlertTriangle className="text-red-500 shrink-0 mt-0.5" size={18} aria-hidden="true" />
               <p className="text-sm text-red-800">{t('data.exportBeforeClear')}</p>
             </div>
             <Button

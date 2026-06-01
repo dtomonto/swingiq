@@ -75,7 +75,7 @@ function VideoPreviewRow({
       </div>
 
       {isPlaceholder ? (
-        <div className="bg-amber-50 border border-amber-200 rounded p-2.5">
+        <div className="bg-amber-50 border border-amber-200 rounded-sm p-2.5">
           <p className="text-xs text-amber-700 font-medium mb-1">
             Video Pending Admin Verification
           </p>
@@ -94,7 +94,7 @@ function VideoPreviewRow({
           </a>
         </div>
       ) : (
-        <div className="aspect-video bg-gray-100 rounded overflow-hidden">
+        <div className="aspect-video bg-gray-100 rounded-sm overflow-hidden">
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${video.youtubeVideoId}`}
             title={video.title}
@@ -153,7 +153,7 @@ function ReferenceDetailDrawer({
           </div>
           <button
             onClick={onClose}
-            className="ml-2 p-1.5 rounded hover:bg-gray-100 text-gray-500"
+            className="ml-2 p-1.5 rounded-sm hover:bg-gray-100 text-gray-500"
             aria-label="Close"
           >
             <X size={18} />
@@ -213,7 +213,7 @@ function ReferenceDetailDrawer({
 
           {/* Admin notes (shown as informational) */}
           {reference.adminNotes && (
-            <div className="bg-gray-50 border border-gray-200 rounded p-3">
+            <div className="bg-gray-50 border border-gray-200 rounded-sm p-3">
               <p className="text-xs text-gray-500 italic">{reference.adminNotes}</p>
             </div>
           )}
@@ -377,7 +377,7 @@ export function ReferenceBrowser({
               <select
                 value={sexFilter}
                 onChange={(e) => setSexFilter(e.target.value as SexFilter)}
-                className="border border-gray-300 rounded-lg px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+                className="border border-gray-300 rounded-lg px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-hidden"
               >
                 <option value="all">All</option>
                 <option value="male">Male</option>
@@ -392,7 +392,7 @@ export function ReferenceBrowser({
                 <select
                   value={movementFilter}
                   onChange={(e) => setMovementFilter(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="border border-gray-300 rounded-lg px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-hidden"
                 >
                   <option value="">All</option>
                   {movementOptions.map((m) => (
@@ -410,7 +410,7 @@ export function ReferenceBrowser({
               <select
                 value={handednessFilter}
                 onChange={(e) => setHandednessFilter(e.target.value as HandednessFilter)}
-                className="border border-gray-300 rounded-lg px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+                className="border border-gray-300 rounded-lg px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-hidden"
               >
                 <option value="any">Any</option>
                 <option value="right">Right</option>

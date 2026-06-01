@@ -14,7 +14,7 @@ export function ChallengeView({ challenge }: { challenge: Challenge }) {
         <div className="mx-auto max-w-2xl">
           <Breadcrumbs
             items={[{ name: 'Home', path: '/' }, { name: 'Challenges', path: '/challenges' }, { name: challenge.title, path: `/challenges/${challenge.slug}` }]}
-            className="mb-4 [&_*]:!text-green-200"
+            className="mb-4 **:text-green-200!"
           />
           <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-green-700/40 px-3 py-1 text-xs font-semibold">
             <CalendarCheck size={14} aria-hidden="true" /> {challenge.sport} · Free
@@ -32,7 +32,7 @@ export function ChallengeView({ challenge }: { challenge: Challenge }) {
         <ol className="mt-8 space-y-4">
           {challenge.days.map((d) => (
             <li key={d.day} className="flex items-start gap-4 rounded-xl border border-gray-200 p-4">
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-green-600 text-sm font-bold text-white">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-600 text-sm font-bold text-white">
                 {d.day}
               </span>
               <div>

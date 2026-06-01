@@ -67,7 +67,7 @@ export function AgentPracticePlanCard() {
 
         {/* Warmup */}
         <div className="flex items-start gap-2 text-sm">
-          <Clock size={15} className="text-gray-400 mt-0.5 flex-shrink-0" />
+          <Clock size={15} className="text-gray-400 mt-0.5 shrink-0" />
           <p className="text-gray-700"><span className="font-medium">Warm-up:</span> {plan.warmup}</p>
         </div>
 

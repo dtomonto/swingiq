@@ -34,7 +34,7 @@ function IssueCard({ issue }: { issue: DetectedSwingIssue }) {
         onClick={() => setExpanded((v) => !v)}
         className="w-full flex items-start gap-3 p-4 text-left hover:bg-gray-50 transition-colors"
       >
-        <Icon className={cn('w-5 h-5 flex-shrink-0 mt-0.5', config.color)} />
+        <Icon className={cn('w-5 h-5 shrink-0 mt-0.5', config.color)} />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm font-semibold text-gray-900">{issue.label}</span>
@@ -45,7 +45,7 @@ function IssueCard({ issue }: { issue: DetectedSwingIssue }) {
           </div>
           <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{issue.description}</p>
         </div>
-        <div className="flex-shrink-0 text-gray-400">
+        <div className="shrink-0 text-gray-400">
           {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
         </div>
       </button>
@@ -101,8 +101,8 @@ export function CoachingPanel({
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={cn(
-              'flex-shrink-0 px-4 py-3 text-sm font-medium transition-colors',
-              'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500',
+              'shrink-0 px-4 py-3 text-sm font-medium transition-colors',
+              'focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-green-500',
               activeTab === tab.id
                 ? 'text-green-700 border-b-2 border-green-600 bg-green-50/50'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
@@ -170,7 +170,7 @@ export function CoachingPanel({
                   <ul className="space-y-1.5">
                     {phaseDef.key_checkpoints.map((cp, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                        <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
                         {cp}
                       </li>
                     ))}
@@ -192,7 +192,7 @@ export function CoachingPanel({
                   <ul className="space-y-1.5">
                     {phaseDef.common_errors.map((err, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                        <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+                        <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
                         {err}
                       </li>
                     ))}
@@ -240,7 +240,7 @@ export function CoachingPanel({
                 <p className="text-sm font-semibold text-gray-700">AI narrative not generated</p>
                 <p className="text-xs text-gray-500 max-w-xs mx-auto">
                   AI coaching is generated server-side when enabled. Configure{' '}
-                  <code className="bg-gray-100 px-1 rounded">AI_PROVIDER</code> in your environment
+                  <code className="bg-gray-100 px-1 rounded-sm">AI_PROVIDER</code> in your environment
                   variables to activate it.
                 </p>
               </div>

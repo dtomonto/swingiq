@@ -126,7 +126,7 @@ export default function SessionsPage() {
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 flex-shrink-0">
+                    <div className="flex items-center gap-3 shrink-0">
                       {session.swing_score !== null && (
                         <ScoreRing score={session.swing_score} size={44} strokeWidth={4} />
                       )}

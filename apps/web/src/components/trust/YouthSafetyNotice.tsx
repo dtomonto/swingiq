@@ -11,7 +11,7 @@ export function YouthSafetyNotice({ className = '' }: { className?: string }) {
       className={`flex items-start gap-3 rounded-xl border border-blue-200 bg-blue-50 p-4 ${className}`}
       role="note"
     >
-      <Users size={18} className="mt-0.5 flex-shrink-0 text-blue-700" aria-hidden="true" />
+      <Users size={18} className="mt-0.5 shrink-0 text-blue-700" aria-hidden="true" />
       <div className="text-sm text-blue-900">
         <p className="font-semibold">For young athletes</p>
         <p className="mt-1 text-blue-800">

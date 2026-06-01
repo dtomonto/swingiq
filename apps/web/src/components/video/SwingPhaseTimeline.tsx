@@ -50,7 +50,7 @@ export function SwingPhaseTimeline({
               type="button"
               className={cn(
                 'absolute top-0 h-full border-r border-white/60 transition-all duration-150',
-                'hover:brightness-90 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500',
+                'hover:brightness-90 focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-green-500',
                 isActive ? 'brightness-100' : 'brightness-90 opacity-70',
                 // Alternating color pattern for readability
                 i % 2 === 0 ? 'bg-green-200' : 'bg-green-300',
@@ -79,10 +79,10 @@ export function SwingPhaseTimeline({
               type="button"
               onClick={() => onSeekToPhase?.(phase.key_frame_time)}
               className={cn(
-                'flex-shrink-0 text-xs px-2.5 py-1 rounded-full transition-all duration-150',
-                'focus:outline-none focus:ring-2 focus:ring-green-500',
+                'shrink-0 text-xs px-2.5 py-1 rounded-full transition-all duration-150',
+                'focus:outline-hidden focus:ring-2 focus:ring-green-500',
                 isActive
-                  ? 'bg-green-600 text-white font-semibold shadow-sm'
+                  ? 'bg-green-600 text-white font-semibold shadow-xs'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
               )}
             >

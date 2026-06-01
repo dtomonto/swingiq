@@ -146,7 +146,7 @@ function UserSwingPanel() {
                   setLocalVideoName(null);
                 }
               }}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-hidden"
             >
               <option value="">— choose a saved analysis —</option>
               {video_analyses.map((v) => (
@@ -298,7 +298,7 @@ function ProfessionalReferencePanel({
           </div>
           <button
             onClick={onClear}
-            className="p-1 rounded hover:bg-gray-100 text-gray-400"
+            className="p-1 rounded-sm hover:bg-gray-100 text-gray-400"
             aria-label="Clear reference"
           >
             <X size={16} />

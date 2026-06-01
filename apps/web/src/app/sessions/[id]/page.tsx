@@ -167,7 +167,7 @@ export default function SessionDetailPage() {
         {/* Session notes */}
         {session.notes && session.notes.trim() && (
           <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-            <Info size={15} className="text-blue-600 flex-shrink-0 mt-0.5" />
+            <Info size={15} className="text-blue-600 shrink-0 mt-0.5" />
             <p className="text-sm text-blue-800">{session.notes}</p>
           </div>
         )}
@@ -374,14 +374,14 @@ export default function SessionDetailPage() {
                       key={d.rule.id}
                       className="flex items-start gap-3 py-2 border-b last:border-0"
                     >
-                      <span className="w-6 h-6 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                      <span className="w-6 h-6 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center text-xs font-bold shrink-0">
                         {i + 2}
                       </span>
                       <div>
                         <p className="font-semibold text-sm text-gray-900">{d.rule.name}</p>
                         <p className="text-xs text-gray-500">{d.rule.likely_cause}</p>
                       </div>
-                      <Badge variant="info" className="ml-auto flex-shrink-0 capitalize">
+                      <Badge variant="info" className="ml-auto shrink-0 capitalize">
                         {d.rule.priority}
                       </Badge>
                     </div>
@@ -609,15 +609,15 @@ function ShotShapeBreakdown({ shots }: { shots: Shot[] }) {
       <CardBody className="space-y-2">
         {rows.map(({ shape, count, pct }) => (
           <div key={shape} className="flex items-center gap-3">
-            <span className={`w-2 h-2 rounded-full flex-shrink-0 ${SHAPE_COLORS[shape] ?? 'bg-gray-300'}`} />
-            <span className="text-xs text-gray-600 w-20 flex-shrink-0">{SHAPE_LABELS[shape] ?? shape}</span>
+            <span className={`w-2 h-2 rounded-full shrink-0 ${SHAPE_COLORS[shape] ?? 'bg-gray-300'}`} />
+            <span className="text-xs text-gray-600 w-20 shrink-0">{SHAPE_LABELS[shape] ?? shape}</span>
             <div className="flex-1 h-4 bg-gray-100 rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all ${SHAPE_COLORS[shape] ?? 'bg-gray-400'} ${IDEAL_SHAPES.has(shape) ? 'opacity-100' : 'opacity-60'}`}
                 style={{ width: `${pct}%` }}
               />
             </div>
-            <span className="text-xs font-semibold text-gray-700 w-12 text-right flex-shrink-0">
+            <span className="text-xs font-semibold text-gray-700 w-12 text-right shrink-0">
               {count} ({pct}%)
             </span>
           </div>
@@ -662,7 +662,7 @@ function SessionNotesEditor({ session, onSave }: { session: { notes: string }; o
               onChange={(e) => setDraft(e.target.value)}
               rows={4}
               placeholder="Add notes about this session — conditions, how you felt, what you tried, what worked..."
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-hidden resize-none"
             />
             <div className="flex gap-2">
               <Button size="sm" onClick={handleSave}><Check size={14} /> Save Notes</Button>

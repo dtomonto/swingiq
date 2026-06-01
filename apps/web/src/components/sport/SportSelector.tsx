@@ -34,7 +34,7 @@ export function SportCardGrid({ selectedSport, onSelect, className }: SportCardG
             className={cn(
               'flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all text-center',
               isActive
-                ? 'border-golf-fairway bg-golf-fairway/10 shadow-sm'
+                ? 'border-golf-fairway bg-golf-fairway/10 shadow-xs'
                 : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50',
             )}
           >
@@ -118,7 +118,7 @@ export function SportPillDropdown({ className, onClose }: SportPillDropdownProps
                     <div className="font-medium">{sport.name}</div>
                     <div className="text-xs text-green-400 truncate">{sport.tagline}</div>
                   </div>
-                  {isActive && <Check size={14} className="text-green-300 flex-shrink-0" />}
+                  {isActive && <Check size={14} className="text-green-300 shrink-0" />}
                 </button>
               );
             })}

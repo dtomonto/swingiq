@@ -73,7 +73,7 @@ export function PublicFooter({ className }: PublicFooterProps) {
       <div className="max-w-5xl mx-auto">
         {/* Logo + tagline */}
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center shrink-0">
             <span className="text-white font-black text-sm" aria-hidden="true">SQ</span>
           </div>
           <div>

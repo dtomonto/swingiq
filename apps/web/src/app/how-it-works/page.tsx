@@ -149,7 +149,7 @@ export default function HowItWorksPage() {
             {steps.map(({ number, title, desc, color }) => (
               <div key={number} className="flex gap-6 items-start">
                 <div
-                  className={`w-12 h-12 rounded-full ${color} text-white font-black text-xl flex items-center justify-center flex-shrink-0 mt-1`}
+                  className={`w-12 h-12 rounded-full ${color} text-white font-black text-xl flex items-center justify-center shrink-0 mt-1`}
                 >
                   {number}
                 </div>

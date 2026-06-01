@@ -53,7 +53,7 @@ export default function GroupsPage() {
               onClick={() => setTab(tabId)}
               className={cn(
                 'px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
-                tab === tabId ? 'bg-white shadow-sm text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                tab === tabId ? 'bg-white shadow-xs text-gray-900' : 'text-gray-600 hover:text-gray-900'
               )}
             >
               {tabId === 'browse'
@@ -132,7 +132,7 @@ export default function GroupsPage() {
 
         {/* Data export reminder */}
         <div className="flex gap-3 bg-green-50 border border-green-200 rounded-xl p-4 text-sm text-green-800">
-          <Shield size={16} className="flex-shrink-0 mt-0.5 text-green-600" aria-hidden="true" />
+          <Shield size={16} className="shrink-0 mt-0.5 text-green-600" aria-hidden="true" />
           <p>{t('groups.exportReminderGroup')}</p>
         </div>
       </div>
@@ -160,11 +160,11 @@ function GroupCard({
     <Card>
       <CardBody className="space-y-3">
         <div className="flex items-start gap-3">
-          <span className="text-3xl flex-shrink-0" aria-hidden="true">{group.icon}</span>
+          <span className="text-3xl shrink-0" aria-hidden="true">{group.icon}</span>
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between gap-2">
               <h3 className="font-semibold text-gray-900">{group.name}</h3>
-              <div className="flex items-center gap-1 text-xs text-gray-500 flex-shrink-0">
+              <div className="flex items-center gap-1 text-xs text-gray-500 shrink-0">
                 <PrivacyIcon size={12} aria-hidden="true" />
                 {privacyLabel}
               </div>

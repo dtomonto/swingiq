@@ -70,9 +70,9 @@ export function EmailCapture({
       <div className={`rounded-2xl border p-4 ${persisted ? 'border-green-200 bg-green-50' : 'border-blue-200 bg-blue-50'} ${className}`} role="status">
         <div className="flex items-start gap-2">
           {persisted ? (
-            <CheckCircle2 size={18} className="mt-0.5 flex-shrink-0 text-green-600" aria-hidden="true" />
+            <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-green-600" aria-hidden="true" />
           ) : (
-            <Info size={18} className="mt-0.5 flex-shrink-0 text-blue-600" aria-hidden="true" />
+            <Info size={18} className="mt-0.5 shrink-0 text-blue-600" aria-hidden="true" />
           )}
           <p className={`text-sm ${persisted ? 'text-green-900' : 'text-blue-900'}`}>{message}</p>
         </div>
@@ -96,12 +96,12 @@ export function EmailCapture({
           placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 rounded-xl border border-gray-300 px-3 py-2 text-sm focus:border-green-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+          className="flex-1 rounded-xl border border-gray-300 px-3 py-2 text-sm focus:border-green-500 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500"
         />
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="rounded-xl bg-green-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-green-700 disabled:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1"
+          className="rounded-xl bg-green-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-green-700 disabled:opacity-60 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1"
         >
           {status === 'submitting' ? 'Sending…' : 'Email it to me'}
         </button>

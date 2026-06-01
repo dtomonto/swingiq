@@ -33,7 +33,7 @@ function build(a: Answers): Plan {
 
   const warmup = [
     'Gentle full-body mobility: arm circles, trunk rotations, hip openers (2–3 min).',
-    a.sport === 'golf' ? 'Slow practice swings to feel tempo, no ball.' : 'Slow practice swings / shadow reps to feel the motion.',
+    a.sport === 'golf' ? 'Slow practice swings to feel tempo, no ball.' : 'Slow practice swings / shadow-sm reps to feel the motion.',
     'A few easy reps at 50% to wake up the pattern.',
   ];
 
@@ -101,7 +101,7 @@ export function AtHomeDrillTool() {
           <ChoiceGroup label="Who is practicing?" name="who" value={a.who} onChange={set('who')}
             choices={[{ value: 'adult', label: 'Adult' }, { value: 'youth', label: 'Youth (with parent supervision)' }]} />
           {error && <p role="alert" className="mb-3 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
+          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
             Generate My Home Session
           </button>
         </form>
