@@ -43,7 +43,7 @@ function PhaseChecklist({ sportId }: { sportId: string }) {
 
     return (
       <div>
-        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
           Golf Swing Phases — Visual Checklist
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -55,7 +55,7 @@ function PhaseChecklist({ sportId }: { sportId: string }) {
                 onChange={() => setChecked((prev) => ({ ...prev, [phase]: !prev[phase] }))}
                 className="accent-green-600"
               />
-              <span className="text-xs text-gray-700">{phase}</span>
+              <span className="text-xs text-foreground">{phase}</span>
             </label>
           ))}
         </div>
@@ -68,7 +68,7 @@ function PhaseChecklist({ sportId }: { sportId: string }) {
 
   return (
     <div>
-      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
         {config.name} Phases — Visual Checklist
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -83,7 +83,7 @@ function PhaseChecklist({ sportId }: { sportId: string }) {
                 onChange={() => setChecked((prev) => ({ ...prev, [phaseKey]: !prev[phaseKey] }))}
                 className="accent-green-600"
               />
-              <span className="text-xs text-gray-700">{label}</span>
+              <span className="text-xs text-foreground">{label}</span>
             </label>
           );
         })}
@@ -133,7 +133,7 @@ function UserSwingPanel() {
         {/* Select from past analyses */}
         {video_analyses.length > 0 && (
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-muted-foreground mb-1">
               Select from saved analyses
             </label>
             <select
@@ -146,7 +146,7 @@ function UserSwingPanel() {
                   setLocalVideoName(null);
                 }
               }}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-hidden"
+              className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
             >
               <option value="">— choose a saved analysis —</option>
               {video_analyses.map((v) => (
@@ -160,15 +160,15 @@ function UserSwingPanel() {
 
         {/* Or upload a new video */}
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">
+          <label className="block text-xs font-medium text-muted-foreground mb-1">
             {video_analyses.length > 0 ? 'Or upload a video' : 'Upload your swing video'}
           </label>
           <div
             className={cn(
               'border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors',
               localVideoUrl
-                ? 'border-green-300 bg-green-50'
-                : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50',
+                ? 'border-primary/40 bg-primary/10'
+                : 'border-border hover:border-accent-secondary/50 hover:bg-accent-secondary/10',
             )}
             onClick={() => fileRef.current?.click()}
             onKeyDown={(e) => e.key === 'Enter' && fileRef.current?.click()}
@@ -177,8 +177,8 @@ function UserSwingPanel() {
           >
             {localVideoUrl ? (
               <div className="space-y-2">
-                <Video size={28} className="mx-auto text-green-500" />
-                <p className="text-sm font-medium text-green-700">{localVideoName}</p>
+                <Video size={28} className="mx-auto text-primary" />
+                <p className="text-sm font-medium text-primary">{localVideoName}</p>
                 <Button
                   size="sm"
                   variant="ghost"
@@ -189,11 +189,11 @@ function UserSwingPanel() {
               </div>
             ) : (
               <div className="space-y-2">
-                <Upload size={28} className="mx-auto text-gray-400" />
-                <p className="text-sm text-gray-600">
+                <Upload size={28} className="mx-auto text-muted-foreground" />
+                <p className="text-sm text-muted-foreground">
                   Click to upload <span className="font-medium">your swing video</span>
                 </p>
-                <p className="text-xs text-gray-400">MP4, MOV, AVI, or WEBM</p>
+                <p className="text-xs text-muted-foreground">MP4, MOV, AVI, or WEBM</p>
               </div>
             )}
           </div>
@@ -222,16 +222,16 @@ function UserSwingPanel() {
           const analysis = video_analyses.find((v) => v.id === selectedAnalysisId);
           if (!analysis) return null;
           return (
-            <div className="bg-gray-50 rounded-lg p-3 text-sm space-y-1">
-              <p className="font-medium text-gray-800">{analysis.file_name}</p>
-              <p className="text-xs text-gray-500">
+            <div className="bg-muted rounded-lg p-3 text-sm space-y-1">
+              <p className="font-medium text-foreground">{analysis.file_name}</p>
+              <p className="text-xs text-muted-foreground">
                 Sport: {analysis.sport} &middot; Angle: {analysis.camera_angle} &middot;
                 Score: {analysis.overall_score}
               </p>
               {analysis.primary_issue && (
                 <Badge variant="warning">{analysis.primary_issue}</Badge>
               )}
-              <p className="text-xs text-gray-400 italic mt-1">
+              <p className="text-xs text-muted-foreground italic mt-1">
                 Note: Video playback is not available for saved analyses. Upload the original file above for side-by-side viewing.
               </p>
             </div>
@@ -265,9 +265,9 @@ function ProfessionalReferencePanel({
         </CardHeader>
         <CardBody className="flex flex-col items-center justify-center min-h-[280px] text-center gap-4">
           <div className="space-y-2">
-            <Search size={36} className="mx-auto text-gray-300" />
-            <p className="font-medium text-gray-500">No reference selected</p>
-            <p className="text-sm text-gray-400">
+            <Search size={36} className="mx-auto text-muted-foreground" />
+            <p className="font-medium text-muted-foreground">No reference selected</p>
+            <p className="text-sm text-muted-foreground">
               Browse the professional library and select an athlete to compare against.
             </p>
           </div>
@@ -292,13 +292,13 @@ function ProfessionalReferencePanel({
         <div className="flex items-start justify-between gap-2">
           <div>
             <CardTitle>{reference.athleteName}</CardTitle>
-            <p className="text-xs text-gray-500 mt-0.5 capitalize">
+            <p className="text-xs text-muted-foreground mt-0.5 capitalize">
               {reference.sport.replace(/_/g, ' ')} &middot; {reference.sex}
             </p>
           </div>
           <button
             onClick={onClear}
-            className="p-1 rounded-sm hover:bg-gray-100 text-gray-400"
+            className="p-1 rounded-sm hover:bg-muted text-muted-foreground"
             aria-label="Clear reference"
           >
             <X size={16} />
@@ -316,8 +316,8 @@ function ProfessionalReferencePanel({
                 className={cn(
                   'text-xs px-2.5 py-1 rounded-full border transition-colors',
                   i === activeVideoIndex
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
-                    : 'border-gray-300 text-gray-600 hover:bg-gray-50',
+                    ? 'border-accent-secondary bg-accent-secondary/10 text-accent-secondary'
+                    : 'border-border text-muted-foreground hover:bg-muted',
                 )}
               >
                 {v.movementType.replace(/_/g, ' ')}
@@ -330,11 +330,11 @@ function ProfessionalReferencePanel({
         {activeVideo && (
           <>
             {isPlaceholder ? (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-3">
-                <p className="text-sm font-semibold text-amber-700">
+              <div className="bg-warning/10 border border-warning/30 rounded-xl p-4 space-y-3">
+                <p className="text-sm font-semibold text-warning">
                   Video Pending Admin Verification
                 </p>
-                <p className="text-sm text-amber-600">
+                <p className="text-sm text-warning">
                   Search for{' '}
                   <span className="font-semibold">
                     {reference.athleteName} {activeVideo.movementType.replace(/_/g, ' ')}
@@ -345,7 +345,7 @@ function ProfessionalReferencePanel({
                   href={searchUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-amber-800 underline hover:text-amber-900"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-warning underline hover:text-foreground"
                 >
                   <Search size={14} />
                   Search on YouTube
@@ -367,14 +367,14 @@ function ProfessionalReferencePanel({
         )}
 
         {/* Bio */}
-        <p className="text-sm text-gray-600">{reference.bio}</p>
+        <p className="text-sm text-muted-foreground">{reference.bio}</p>
 
         {/* Style tags */}
         <div className="flex flex-wrap gap-1.5">
           {reference.styleTags.map((tag) => (
             <span
               key={tag}
-              className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
+              className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-full"
             >
               {tag.replace(/_/g, ' ')}
             </span>
@@ -414,9 +414,9 @@ export function SwingComparison({
   return (
     <div className="space-y-6">
       {/* Limitation notice */}
-      <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
-        <Info size={18} className="text-blue-500 shrink-0 mt-0.5" />
-        <p className="text-sm text-blue-700">
+      <div className="flex items-start gap-3 bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl p-4">
+        <Info size={18} className="text-accent-secondary shrink-0 mt-0.5" />
+        <p className="text-sm text-accent-secondary">
           <span className="font-semibold">Visual comparison only.</span> This tool lets you watch your swing and a professional reference side by side. SwingIQ has not analyzed the professional video frames — AI analysis applies only to videos you upload.
         </p>
       </div>
@@ -437,7 +437,7 @@ export function SwingComparison({
           <CardTitle>Phase-by-Phase Checklist</CardTitle>
         </CardHeader>
         <CardBody>
-          <p className="text-xs text-gray-500 mb-3">
+          <p className="text-xs text-muted-foreground mb-3">
             Use this checklist to visually compare phases while watching both videos.
           </p>
           <PhaseChecklist sportId={sportId} />

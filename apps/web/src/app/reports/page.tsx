@@ -20,8 +20,8 @@ const REPORT_TYPES = [
     title: 'Session Report',
     description:
       'Full breakdown of a single practice session: shot table, dispersion chart, diagnosis, and training plan.',
-    color: 'bg-blue-50 border-blue-200',
-    iconColor: 'text-blue-600',
+    color: 'bg-accent-secondary/10 border-accent-secondary/25',
+    iconColor: 'text-accent-secondary',
     href: '/sessions',
     cta: 'View Sessions',
   },
@@ -29,8 +29,8 @@ const REPORT_TYPES = [
     title: 'Progress Report',
     description:
       'See how your scores and key metrics have changed across all sessions.',
-    color: 'bg-green-50 border-green-200',
-    iconColor: 'text-green-600',
+    color: 'bg-primary/10 border-primary/30',
+    iconColor: 'text-primary',
     href: '/progress',
     cta: 'View Progress',
   },
@@ -38,8 +38,8 @@ const REPORT_TYPES = [
     title: 'Swing Diagnosis',
     description:
       'Deep analysis of your primary swing faults — causes, evidence, and drills.',
-    color: 'bg-purple-50 border-purple-200',
-    iconColor: 'text-purple-600',
+    color: 'bg-accent-secondary/10 border-accent-secondary/25',
+    iconColor: 'text-accent-secondary',
     href: '/diagnose',
     cta: 'Run Diagnosis',
   },
@@ -47,8 +47,8 @@ const REPORT_TYPES = [
     title: 'AI Coach Summary',
     description:
       'Ask your AI Coach for a plain-English summary of your game, designed to share with a coach or club fitter.',
-    color: 'bg-orange-50 border-orange-200',
-    iconColor: 'text-orange-600',
+    color: 'bg-warning/10 border-warning/30',
+    iconColor: 'text-warning',
     href: '/ai-coach',
     cta: 'Ask AI Coach',
   },
@@ -224,10 +224,10 @@ export default function ReportsPage() {
       `}</style>
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             {sportEmoji} {sportName} Reports
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1">
             Detailed views of your {sportName.toLowerCase()} data — share with your coach or training partner.
           </p>
         </div>
@@ -243,8 +243,8 @@ export default function ReportsPage() {
                   <FileText size={22} className={report.iconColor} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900">{report.title}</h3>
-                  <p className="text-sm text-gray-500 mt-1 leading-relaxed">
+                  <h3 className="font-bold text-foreground">{report.title}</h3>
+                  <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                     {report.description}
                   </p>
                 </div>
@@ -266,8 +266,8 @@ export default function ReportsPage() {
           <CardBody>
             {sorted.length === 0 ? (
               <div className="text-center py-8">
-                <Activity size={32} className="mx-auto text-gray-300 mb-3" />
-                <p className="text-gray-400 text-sm mb-4">
+                <Activity size={32} className="mx-auto text-muted-foreground mb-3" />
+                <p className="text-muted-foreground text-sm mb-4">
                   No sessions yet. Import a CSV to generate your first report.
                 </p>
                 <Link href="/sessions/import">
@@ -282,14 +282,14 @@ export default function ReportsPage() {
                   <Link
                     key={s.id}
                     href={`/sessions/${s.id}`}
-                    className="flex items-center justify-between py-2.5 px-2 border-b last:border-0 hover:bg-gray-50 rounded-sm transition-colors group"
+                    className="flex items-center justify-between py-2.5 px-2 border-b last:border-0 hover:bg-muted rounded-sm transition-colors group"
                   >
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-foreground truncate">
                         {s.name}
                       </p>
                       <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-muted-foreground">
                           {format(new Date(s.created_at), 'MMM d, yyyy')} · {s.shot_count} shots
                         </p>
                         <Badge variant="default" className="text-xs">
@@ -305,13 +305,13 @@ export default function ReportsPage() {
                     <div className="flex items-center gap-3 shrink-0 ml-4">
                       {s.swing_score !== null && (
                         <div className="text-right">
-                          <p className="text-lg font-bold text-gray-900">{s.swing_score}</p>
-                          <p className="text-xs text-gray-400">Score</p>
+                          <p className="text-lg font-bold text-foreground">{s.swing_score}</p>
+                          <p className="text-xs text-muted-foreground">Score</p>
                         </div>
                       )}
                       <ChevronRight
                         size={16}
-                        className="text-gray-300 group-hover:text-gray-500 transition-colors"
+                        className="text-muted-foreground group-hover:text-muted-foreground transition-colors"
                       />
                     </div>
                   </Link>
@@ -363,12 +363,12 @@ export default function ReportsPage() {
         </div>
 
         {/* Coach Report Generator */}
-        <Card className="border-green-200 bg-green-50">
+        <Card className="border-primary/30 bg-primary/10">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <FileText size={18} className="text-green-600" />
-                <CardTitle className="text-green-900">Share with Your Coach</CardTitle>
+                <FileText size={18} className="text-primary" />
+                <CardTitle className="text-primary">Share with Your Coach</CardTitle>
               </div>
               <div className="flex gap-2">
                 <Button
@@ -380,7 +380,7 @@ export default function ReportsPage() {
                 </Button>
                 <Button
                   size="sm"
-                  className="bg-green-600 hover:bg-green-700 text-white"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
                   onClick={handleCopy}
                 >
                   {copied ? (
@@ -393,21 +393,21 @@ export default function ReportsPage() {
             </div>
           </CardHeader>
           <CardBody>
-            <p className="text-xs text-green-700 mb-3">
+            <p className="text-xs text-primary mb-3">
               Copy a formatted text summary to share with your golf coach, club fitter, or training partner.
               Includes scores, ball data, diagnoses, and training progress.
             </p>
-            <pre className="bg-white rounded-lg border border-green-200 p-3 text-xs text-gray-700 font-mono whitespace-pre-wrap max-h-48 overflow-y-auto leading-relaxed">
+            <pre className="bg-card rounded-lg border border-primary/30 p-3 text-xs text-foreground font-mono whitespace-pre-wrap max-h-48 overflow-y-auto leading-relaxed">
               {coachReport}
             </pre>
           </CardBody>
         </Card>
 
         {/* Export note */}
-        <Card className="border-dashed border-gray-300 print:hidden">
+        <Card className="border-dashed border-border print:hidden">
           <CardBody className="text-center py-6">
-            <p className="text-sm text-gray-500">
-              <span className="font-semibold text-gray-700">PDF export & share links</span>{' '}
+            <p className="text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground">PDF export & share links</span>{' '}
               — coming in a future update. For now, use your browser&apos;s Print → Save as PDF
               on any session detail page.
             </p>

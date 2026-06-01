@@ -140,12 +140,12 @@ function computeMilestones(
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  sessions: 'bg-blue-100 text-blue-700',
-  practice: 'bg-orange-100 text-orange-700',
-  score: 'bg-green-100 text-green-700',
-  diagnosis: 'bg-purple-100 text-purple-700',
-  equipment: 'bg-yellow-100 text-yellow-700',
-  profile: 'bg-pink-100 text-pink-700',
+  sessions: 'bg-accent-secondary/15 text-accent-secondary',
+  practice: 'bg-warning/15 text-warning',
+  score: 'bg-primary/15 text-primary',
+  diagnosis: 'bg-accent-secondary/15 text-accent-secondary',
+  equipment: 'bg-warning/15 text-warning',
+  profile: 'bg-accent-secondary/15 text-accent-secondary',
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -194,18 +194,18 @@ export default function MilestonesPage() {
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             {sportEmoji} {sportName} Milestones
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1">
             {earned.length} of {milestones.length} earned · {pct}% complete
           </p>
         </div>
 
         {/* Progress bar */}
-        <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+        <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
           <div
-            className="h-full bg-linear-to-r from-green-400 to-green-600 rounded-full transition-all duration-700"
+            className="h-full bg-linear-to-r from-primary/70 to-primary rounded-full transition-all duration-700"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -214,20 +214,20 @@ export default function MilestonesPage() {
         <div className="grid grid-cols-3 gap-3">
           <Card className="text-center">
             <CardBody className="py-4">
-              <p className="text-3xl font-black text-green-600">{earned.length}</p>
-              <p className="text-xs text-gray-500 mt-0.5">Earned</p>
+              <p className="text-3xl font-black text-primary">{earned.length}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Earned</p>
             </CardBody>
           </Card>
           <Card className="text-center">
             <CardBody className="py-4">
-              <p className="text-3xl font-black text-gray-400">{unearned.length}</p>
-              <p className="text-xs text-gray-500 mt-0.5">Remaining</p>
+              <p className="text-3xl font-black text-muted-foreground">{unearned.length}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Remaining</p>
             </CardBody>
           </Card>
           <Card className="text-center">
             <CardBody className="py-4">
-              <p className="text-3xl font-black text-blue-600">{pct}%</p>
-              <p className="text-xs text-gray-500 mt-0.5">Complete</p>
+              <p className="text-3xl font-black text-accent-secondary">{pct}%</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Complete</p>
             </CardBody>
           </Card>
         </div>
@@ -240,12 +240,12 @@ export default function MilestonesPage() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className={cn('text-xs font-semibold px-2 py-0.5 rounded-full', CATEGORY_COLORS[cat] ?? 'bg-gray-100 text-gray-600')}>
+                    <span className={cn('text-xs font-semibold px-2 py-0.5 rounded-full', CATEGORY_COLORS[cat] ?? 'bg-muted text-muted-foreground')}>
                       {CATEGORY_LABELS[cat] ?? cat}
                     </span>
                     <CardTitle>{CATEGORY_LABELS[cat] ?? cat}</CardTitle>
                   </div>
-                  <span className="text-xs text-gray-500">{catEarned}/{items.length}</span>
+                  <span className="text-xs text-muted-foreground">{catEarned}/{items.length}</span>
                 </div>
               </CardHeader>
               <CardBody>
@@ -256,23 +256,23 @@ export default function MilestonesPage() {
                       className={cn(
                         'rounded-xl p-4 border text-center transition-all',
                         m.earned
-                          ? 'bg-green-50 border-green-200 shadow-xs'
-                          : 'bg-gray-50 border-gray-200 opacity-60',
+                          ? 'bg-primary/10 border-primary/30 shadow-xs'
+                          : 'bg-muted border-border opacity-60',
                       )}
                     >
                       <div className={cn('text-3xl mb-2', m.earned ? '' : 'grayscale')}>
                         {m.earned ? m.icon : '🔒'}
                       </div>
-                      <p className={cn('text-sm font-bold', m.earned ? 'text-gray-900' : 'text-gray-400')}>
+                      <p className={cn('text-sm font-bold', m.earned ? 'text-foreground' : 'text-muted-foreground')}>
                         {m.title}
                       </p>
-                      <p className="text-xs text-gray-500 mt-0.5 leading-tight">{m.description}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5 leading-tight">{m.description}</p>
                       {m.earned ? (
-                        <Badge variant="default" className="mt-2 text-xs bg-green-100 text-green-700">
+                        <Badge variant="default" className="mt-2 text-xs bg-primary/15 text-primary">
                           ✓ Earned
                         </Badge>
                       ) : m.hint ? (
-                        <p className="text-xs text-gray-400 mt-2 italic">{m.hint}</p>
+                        <p className="text-xs text-muted-foreground mt-2 italic">{m.hint}</p>
                       ) : null}
                     </div>
                   ))}

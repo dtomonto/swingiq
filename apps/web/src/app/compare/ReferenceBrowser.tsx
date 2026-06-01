@@ -63,30 +63,30 @@ function VideoPreviewRow({
   const searchUrl = buildAthleteYouTubeSearchUrl(athleteName, video.movementType);
 
   return (
-    <div className="border border-gray-200 rounded-lg p-3 space-y-2">
+    <div className="border border-border rounded-lg p-3 space-y-2">
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="text-sm font-medium text-gray-800">{video.title}</p>
-          <p className="text-xs text-gray-500 capitalize mt-0.5">
+          <p className="text-sm font-medium text-foreground">{video.title}</p>
+          <p className="text-xs text-muted-foreground capitalize mt-0.5">
             {video.movementType.replace(/_/g, ' ')} &middot; {video.cameraAngle.replace(/_/g, ' ')}
           </p>
         </div>
-        <Video size={16} className="text-gray-400 shrink-0 mt-0.5" />
+        <Video size={16} className="text-muted-foreground shrink-0 mt-0.5" />
       </div>
 
       {isPlaceholder ? (
-        <div className="bg-amber-50 border border-amber-200 rounded-sm p-2.5">
-          <p className="text-xs text-amber-700 font-medium mb-1">
+        <div className="bg-warning/10 border border-warning/30 rounded-sm p-2.5">
+          <p className="text-xs text-warning font-medium mb-1">
             Video Pending Admin Verification
           </p>
-          <p className="text-xs text-amber-600 mb-2">
+          <p className="text-xs text-warning mb-2">
             Search for <span className="font-semibold">{athleteName} {video.movementType.replace(/_/g, ' ')}</span> on YouTube
           </p>
           <a
             href={searchUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs font-medium text-amber-800 hover:text-amber-900 underline"
+            className="inline-flex items-center gap-1 text-xs font-medium text-warning hover:text-foreground underline"
           >
             <Search size={11} />
             Search on YouTube
@@ -94,7 +94,7 @@ function VideoPreviewRow({
           </a>
         </div>
       ) : (
-        <div className="aspect-video bg-gray-100 rounded-sm overflow-hidden">
+        <div className="aspect-video bg-muted rounded-sm overflow-hidden">
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${video.youtubeVideoId}`}
             title={video.title}
@@ -133,18 +133,18 @@ function ReferenceDetailDrawer({
       />
 
       {/* Drawer */}
-      <div className="fixed inset-y-0 right-0 w-full max-w-lg bg-white z-50 shadow-2xl flex flex-col overflow-hidden">
+      <div className="fixed inset-y-0 right-0 w-full max-w-lg bg-card z-50 shadow-2xl flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-start justify-between p-4 border-b border-gray-200">
+        <div className="flex items-start justify-between p-4 border-b border-border">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-lg font-bold text-gray-900">{reference.athleteName}</h2>
+              <h2 className="text-lg font-bold text-foreground">{reference.athleteName}</h2>
               <ActiveStatusBadge status={reference.activeStatus} />
               {reference.requiresVerification && (
                 <Badge variant="warning">Pending Verification</Badge>
               )}
             </div>
-            <p className="text-xs text-gray-500 mt-0.5 capitalize">
+            <p className="text-xs text-muted-foreground mt-0.5 capitalize">
               {reference.sport.replace(/_/g, ' ')} &middot; {reference.sex}
               {reference.handedness && reference.handedness !== 'unknown'
                 ? ` &middot; ${reference.handedness}-handed`
@@ -153,7 +153,7 @@ function ReferenceDetailDrawer({
           </div>
           <button
             onClick={onClose}
-            className="ml-2 p-1.5 rounded-sm hover:bg-gray-100 text-gray-500"
+            className="ml-2 p-1.5 rounded-sm hover:bg-muted text-muted-foreground"
             aria-label="Close"
           >
             <X size={18} />
@@ -164,7 +164,7 @@ function ReferenceDetailDrawer({
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {/* Bio */}
           <div>
-            <p className="text-sm text-gray-700 leading-relaxed">{reference.bio}</p>
+            <p className="text-sm text-foreground leading-relaxed">{reference.bio}</p>
           </div>
 
           {/* Style tags */}
@@ -173,7 +173,7 @@ function ReferenceDetailDrawer({
               {reference.styleTags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-block bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full"
+                  className="inline-block bg-muted text-muted-foreground text-xs px-2 py-0.5 rounded-full"
                 >
                   {tag.replace(/_/g, ' ')}
                 </span>
@@ -183,7 +183,7 @@ function ReferenceDetailDrawer({
 
           {/* Movement types */}
           <div>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
               Movement Types
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -197,7 +197,7 @@ function ReferenceDetailDrawer({
 
           {/* Videos */}
           <div>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
               Reference Videos ({reference.referenceVideos.length})
             </p>
             <div className="space-y-3">
@@ -213,14 +213,14 @@ function ReferenceDetailDrawer({
 
           {/* Admin notes (shown as informational) */}
           {reference.adminNotes && (
-            <div className="bg-gray-50 border border-gray-200 rounded-sm p-3">
-              <p className="text-xs text-gray-500 italic">{reference.adminNotes}</p>
+            <div className="bg-muted border border-border rounded-sm p-3">
+              <p className="text-xs text-muted-foreground italic">{reference.adminNotes}</p>
             </div>
           )}
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-border">
           <Button
             className="w-full"
             variant={isSelected ? 'secondary' : 'primary'}
@@ -262,10 +262,10 @@ function ReferenceCard({
       onClick={onClick}
       className={cn(
         'relative w-full text-left rounded-xl border-2 p-4 transition-all cursor-pointer',
-        'hover:shadow-md hover:border-blue-300',
+        'hover:shadow-md hover:border-accent-secondary/40',
         isSelected
-          ? 'border-blue-500 bg-blue-50 shadow-md'
-          : 'border-gray-200 bg-white',
+          ? 'border-accent-secondary bg-accent-secondary/10 shadow-md'
+          : 'border-border bg-card',
       )}
     >
       {/* Pending verification overlay */}
@@ -277,23 +277,23 @@ function ReferenceCard({
 
       {/* TBD overlay */}
       {isTBD && (
-        <div className="absolute inset-0 bg-gray-50/80 rounded-xl flex items-center justify-center">
-          <span className="text-xs font-medium text-gray-400">Pending Verification</span>
+        <div className="absolute inset-0 bg-muted/80 rounded-xl flex items-center justify-center">
+          <span className="text-xs font-medium text-muted-foreground">Pending Verification</span>
         </div>
       )}
 
       {/* Avatar placeholder */}
       <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
-          <User size={20} className="text-gray-400" />
+        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center shrink-0">
+          <User size={20} className="text-muted-foreground" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-gray-900 text-sm truncate">
+          <p className="font-semibold text-foreground text-sm truncate">
             {reference.athleteName}
           </p>
           <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
             <ActiveStatusBadge status={reference.activeStatus} />
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-muted-foreground">
               {reference.sex === 'male' ? 'M' : 'F'}
               {reference.handedness && reference.handedness !== 'unknown'
                 ? ` · ${reference.handedness[0]?.toUpperCase()}H`
@@ -309,19 +309,19 @@ function ReferenceCard({
           {reference.styleTags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="text-[10px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded-full"
+              className="text-[10px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded-full"
             >
               {tag.replace(/_/g, ' ')}
             </span>
           ))}
           {reference.styleTags.length > 3 && (
-            <span className="text-[10px] text-gray-400">+{reference.styleTags.length - 3}</span>
+            <span className="text-[10px] text-muted-foreground">+{reference.styleTags.length - 3}</span>
           )}
         </div>
       )}
 
       {/* Video count */}
-      <div className="flex items-center gap-1.5 mt-3 text-xs text-gray-500">
+      <div className="flex items-center gap-1.5 mt-3 text-xs text-muted-foreground">
         <Video size={12} />
         <span>
           {verifiedVideoCount > 0
@@ -373,11 +373,11 @@ export function ReferenceBrowser({
           <div className="flex flex-wrap gap-3">
             {/* Sex filter */}
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Gender</label>
+              <label className="block text-xs font-medium text-muted-foreground mb-1">Gender</label>
               <select
                 value={sexFilter}
                 onChange={(e) => setSexFilter(e.target.value as SexFilter)}
-                className="border border-gray-300 rounded-lg px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-hidden"
+                className="border border-border rounded-lg px-2.5 py-1.5 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
               >
                 <option value="all">All</option>
                 <option value="male">Male</option>
@@ -388,11 +388,11 @@ export function ReferenceBrowser({
             {/* Movement type */}
             {movementOptions.length > 0 && (
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Movement</label>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">Movement</label>
                 <select
                   value={movementFilter}
                   onChange={(e) => setMovementFilter(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-hidden"
+                  className="border border-border rounded-lg px-2.5 py-1.5 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
                 >
                   <option value="">All</option>
                   {movementOptions.map((m) => (
@@ -406,11 +406,11 @@ export function ReferenceBrowser({
 
             {/* Handedness */}
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Handedness</label>
+              <label className="block text-xs font-medium text-muted-foreground mb-1">Handedness</label>
               <select
                 value={handednessFilter}
                 onChange={(e) => setHandednessFilter(e.target.value as HandednessFilter)}
-                className="border border-gray-300 rounded-lg px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-hidden"
+                className="border border-border rounded-lg px-2.5 py-1.5 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
               >
                 <option value="any">Any</option>
                 <option value="right">Right</option>
@@ -421,7 +421,7 @@ export function ReferenceBrowser({
 
             {/* Result count */}
             <div className="flex items-end">
-              <span className="text-xs text-gray-500 pb-1.5">
+              <span className="text-xs text-muted-foreground pb-1.5">
                 {references.length} athlete{references.length !== 1 ? 's' : ''}
               </span>
             </div>
@@ -431,7 +431,7 @@ export function ReferenceBrowser({
 
       {/* Grid */}
       {references.length === 0 ? (
-        <div className="text-center py-12 text-gray-400">
+        <div className="text-center py-12 text-muted-foreground">
           <User size={36} className="mx-auto mb-3" />
           <p className="font-medium">No athletes match these filters.</p>
           <p className="text-sm mt-1">Try clearing some filters.</p>

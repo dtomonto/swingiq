@@ -94,13 +94,13 @@ const WARM_UP_ROUTINES: Record<Exclude<SportId, 'golf'>, WarmUpRoutine> = {
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  mobility: 'bg-blue-100 text-blue-700',
-  footwork: 'bg-green-100 text-green-700',
-  mechanics: 'bg-purple-100 text-purple-700',
-  hitting: 'bg-orange-100 text-orange-700',
-  stroke: 'bg-yellow-100 text-yellow-700',
-  serve: 'bg-red-100 text-red-700',
-  mental: 'bg-pink-100 text-pink-700',
+  mobility: 'bg-accent-secondary/15 text-accent-secondary',
+  footwork: 'bg-primary/15 text-primary',
+  mechanics: 'bg-accent-secondary/15 text-accent-secondary',
+  hitting: 'bg-warning/15 text-warning',
+  stroke: 'bg-warning/15 text-warning',
+  serve: 'bg-error/15 text-error',
+  mental: 'bg-accent-secondary/15 text-accent-secondary',
 };
 
 export function NonGolfWarmUp() {
@@ -128,16 +128,16 @@ export function NonGolfWarmUp() {
     <div className="p-6 max-w-3xl mx-auto space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             {sportEmoji} Pre-Game Warm-Up
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
-            Personalized for: <span className="font-medium text-gray-700">{sportName}</span>
+          <p className="text-muted-foreground text-sm mt-1">
+            Personalized for: <span className="font-medium text-foreground">{sportName}</span>
           </p>
         </div>
         <div className="text-right">
-          <p className="text-2xl font-bold text-green-600">{progress}%</p>
-          <p className="text-xs text-gray-500">Complete</p>
+          <p className="text-2xl font-bold text-primary">{progress}%</p>
+          <p className="text-xs text-muted-foreground">Complete</p>
         </div>
       </div>
 
@@ -145,68 +145,68 @@ export function NonGolfWarmUp() {
       <PreGameStrategyCard />
 
       {/* Progress bar */}
-      <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+      <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
         <div
-          className="h-full bg-green-500 rounded-full transition-all duration-500"
+          className="h-full bg-primary rounded-full transition-all duration-500"
           style={{ width: `${progress}%` }}
         />
       </div>
 
       {/* Routine header */}
-      <Card className="border-green-200 bg-green-50">
+      <Card className="border-primary/30 bg-primary/10">
         <CardBody className="grid grid-cols-3 gap-4 text-center">
           <div>
-            <p className="text-2xl font-bold text-green-700">{routine.total_minutes}</p>
-            <p className="text-xs text-green-600">minutes total</p>
+            <p className="text-2xl font-bold text-primary">{routine.total_minutes}</p>
+            <p className="text-xs text-primary">minutes total</p>
           </div>
           <div>
-            <p className="text-2xl font-bold text-green-700">{routine.exercises.length}</p>
-            <p className="text-xs text-green-600">exercises</p>
+            <p className="text-2xl font-bold text-primary">{routine.exercises.length}</p>
+            <p className="text-xs text-primary">exercises</p>
           </div>
           <div>
-            <p className="text-sm font-bold text-green-700 leading-tight">
+            <p className="text-sm font-bold text-primary leading-tight">
               {routine.key_thought.length > 28 ? routine.key_thought.slice(0, 28) + '…' : routine.key_thought}
             </p>
-            <p className="text-xs text-green-600">key thought</p>
+            <p className="text-xs text-primary">key thought</p>
           </div>
         </CardBody>
       </Card>
 
       {/* Key thought */}
-      <Card className="border-l-4 border-l-green-500">
+      <Card className="border-l-4 border-l-primary">
         <CardBody>
-          <p className="text-xs text-gray-500 mb-1">Key Thought for Today</p>
-          <p className="font-bold text-gray-900">&ldquo;{routine.key_thought}&rdquo;</p>
+          <p className="text-xs text-muted-foreground mb-1">Key Thought for Today</p>
+          <p className="font-bold text-foreground">&ldquo;{routine.key_thought}&rdquo;</p>
         </CardBody>
       </Card>
 
       {/* Exercises */}
       <div className="space-y-3">
         {routine.exercises.map((ex) => (
-          <Card key={ex.id} className={completed.has(ex.id) ? 'bg-green-50 border-green-200' : ''}>
+          <Card key={ex.id} className={completed.has(ex.id) ? 'bg-primary/10 border-primary/30' : ''}>
             <CardBody>
               <div className="flex items-start gap-3">
                 <button onClick={() => toggle(ex.id)} className="mt-0.5 shrink-0">
                   {completed.has(ex.id)
-                    ? <CheckCircle size={22} className="text-green-500" />
-                    : <Circle size={22} className="text-gray-300 hover:text-gray-400" />
+                    ? <CheckCircle size={22} className="text-primary" />
+                    : <Circle size={22} className="text-muted-foreground hover:text-muted-foreground" />
                   }
                 </button>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className={`font-bold text-sm ${completed.has(ex.id) ? 'text-green-700 line-through' : 'text-gray-900'}`}>
+                    <h3 className={`font-bold text-sm ${completed.has(ex.id) ? 'text-primary line-through' : 'text-foreground'}`}>
                       {ex.title}
                     </h3>
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${CATEGORY_COLORS[ex.category] ?? 'bg-gray-100 text-gray-600'}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${CATEGORY_COLORS[ex.category] ?? 'bg-muted text-muted-foreground'}`}>
                       {ex.category}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-600 mt-1">{ex.description}</p>
-                  <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
+                  <p className="text-xs text-muted-foreground mt-1">{ex.description}</p>
+                  <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1"><Clock size={11} /> {ex.duration_seconds}s</span>
                     {ex.reps && <span>× {ex.reps} reps</span>}
                   </div>
-                  <p className="text-xs text-blue-700 bg-blue-50 px-2 py-1 rounded-sm mt-2 italic">
+                  <p className="text-xs text-accent-secondary bg-accent-secondary/10 px-2 py-1 rounded-sm mt-2 italic">
                     &ldquo;{ex.coaching_cue}&rdquo;
                   </p>
                 </div>
@@ -219,15 +219,15 @@ export function NonGolfWarmUp() {
       {/* On-game reminder */}
       <Card className="border-golf-dark bg-golf-dark text-white">
         <CardBody>
-          <p className="text-xs text-green-300 mb-1">On-Game Reminder</p>
-          <p className="font-semibold text-green-100">{routine.on_court_reminder}</p>
+          <p className="text-xs text-primary-foreground/80 mb-1">On-Game Reminder</p>
+          <p className="font-semibold text-primary-foreground/90">{routine.on_court_reminder}</p>
         </CardBody>
       </Card>
 
       {progress === 100 && (
         <div className="text-center py-4">
           <p className="text-2xl mb-2">🎯</p>
-          <p className="font-bold text-green-600 text-lg">Warm-up complete — go play your best game!</p>
+          <p className="font-bold text-primary text-lg">Warm-up complete — go play your best game!</p>
         </div>
       )}
 

@@ -114,19 +114,19 @@ function Delta({ before, after, unit = '', higherIsBetter = true }: {
   unit?: string;
   higherIsBetter?: boolean;
 }) {
-  if (before === null || after === null) return <span className="text-gray-300">—</span>;
+  if (before === null || after === null) return <span className="text-muted-foreground">—</span>;
   const change = after - before;
   const improved = higherIsBetter ? change > 0 : change < 0;
   const neutral = Math.abs(change) < 0.5;
 
   if (neutral) return (
-    <span className="flex items-center gap-0.5 text-xs text-gray-400">
+    <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
       <Minus size={10} /> 0{unit}
     </span>
   );
 
   return (
-    <span className={cn('flex items-center gap-0.5 text-xs font-semibold', improved ? 'text-green-600' : 'text-red-600')}>
+    <span className={cn('flex items-center gap-0.5 text-xs font-semibold', improved ? 'text-primary' : 'text-error')}>
       {improved ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
       {change > 0 ? '+' : ''}{change.toFixed(1)}{unit}
     </span>
@@ -152,12 +152,12 @@ function MetricRow({ label, a, b, unit = '', higherIsBetter = true, format: fmt 
   return (
     <div className={cn(
       'grid grid-cols-3 items-center py-2 border-b last:border-0 text-sm',
-      improved === true ? 'bg-green-50/50' : improved === false ? 'bg-red-50/50' : '',
+      improved === true ? 'bg-primary/10/50' : improved === false ? 'bg-error/10/50' : '',
     )}>
-      <span className="text-gray-600">{label}</span>
-      <span className="text-center font-medium text-gray-700">{fmtVal(a)}</span>
+      <span className="text-muted-foreground">{label}</span>
+      <span className="text-center font-medium text-foreground">{fmtVal(a)}</span>
       <div className="text-center flex items-center justify-center gap-2">
-        <span className="font-medium text-gray-900">{fmtVal(b)}</span>
+        <span className="font-medium text-foreground">{fmtVal(b)}</span>
         <Delta before={a} after={b} unit={unit} higherIsBetter={higherIsBetter} />
       </div>
     </div>
@@ -188,9 +188,9 @@ function SessionComparisonTab() {
   if (sorted.length < 2) {
     return (
       <div className="text-center py-20">
-        <Activity size={48} className="mx-auto text-gray-300 mb-4" />
-        <p className="text-gray-400 text-lg font-medium mb-2">Need 2+ sessions to compare</p>
-        <p className="text-gray-500 text-sm mb-6">
+        <Activity size={48} className="mx-auto text-muted-foreground mb-4" />
+        <p className="text-muted-foreground text-lg font-medium mb-2">Need 2+ sessions to compare</p>
+        <p className="text-muted-foreground text-sm mb-6">
           Import at least two sessions to see how your swing has changed.
         </p>
         <Link href="/sessions/import">
@@ -205,13 +205,13 @@ function SessionComparisonTab() {
       {/* Session selectors */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-2">
+          <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-2">
             Session A (Before)
           </label>
           <select
             value={sessionAId}
             onChange={(e) => setSessionAId(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-hidden"
+            className="w-full border border-border rounded-lg px-3 py-2.5 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
           >
             {sorted.map((s) => (
               <option key={s.id} value={s.id} disabled={s.id === sessionBId}>
@@ -221,13 +221,13 @@ function SessionComparisonTab() {
           </select>
         </div>
         <div>
-          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-2">
+          <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-2">
             Session B (After)
           </label>
           <select
             value={sessionBId}
             onChange={(e) => setSessionBId(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-hidden"
+            className="w-full border border-border rounded-lg px-3 py-2.5 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
           >
             {sorted.map((s) => (
               <option key={s.id} value={s.id} disabled={s.id === sessionAId}>
@@ -243,11 +243,11 @@ function SessionComparisonTab() {
         <>
           <div className="grid grid-cols-2 gap-4">
             {/* Session A summary */}
-            <Card className="border-blue-200">
+            <Card className="border-accent-secondary/25">
               <CardBody className="text-center py-5">
                 <Badge variant="info" className="mb-3">Session A</Badge>
-                <p className="font-bold text-gray-900 text-lg mb-0.5">{analysisA.name}</p>
-                <p className="text-xs text-gray-500 mb-4">
+                <p className="font-bold text-foreground text-lg mb-0.5">{analysisA.name}</p>
+                <p className="text-xs text-muted-foreground mb-4">
                   {format(new Date(analysisA.date), 'MMM d, yyyy')} · {analysisA.shot_count} shots · {analysisA.club_name}
                 </p>
                 <ScoreRing score={analysisA.overall} size={80} strokeWidth={7} label="Overall" />
@@ -258,11 +258,11 @@ function SessionComparisonTab() {
             </Card>
 
             {/* Session B summary */}
-            <Card className="border-green-200">
+            <Card className="border-primary/30">
               <CardBody className="text-center py-5">
-                <Badge variant="default" className="mb-3 bg-green-100 text-green-700">Session B</Badge>
-                <p className="font-bold text-gray-900 text-lg mb-0.5">{analysisB.name}</p>
-                <p className="text-xs text-gray-500 mb-4">
+                <Badge variant="default" className="mb-3 bg-primary/15 text-primary">Session B</Badge>
+                <p className="font-bold text-foreground text-lg mb-0.5">{analysisB.name}</p>
+                <p className="text-xs text-muted-foreground mb-4">
                   {format(new Date(analysisB.date), 'MMM d, yyyy')} · {analysisB.shot_count} shots · {analysisB.club_name}
                 </p>
                 <ScoreRing score={analysisB.overall} size={80} strokeWidth={7} label="Overall" />
@@ -276,10 +276,10 @@ function SessionComparisonTab() {
           {/* Scores comparison */}
           <Card>
             <CardHeader>
-              <div className="grid grid-cols-3 text-sm font-semibold text-gray-500">
+              <div className="grid grid-cols-3 text-sm font-semibold text-muted-foreground">
                 <span>Metric</span>
-                <span className="text-center text-blue-600">Session A</span>
-                <span className="text-center text-green-600">Session B</span>
+                <span className="text-center text-accent-secondary">Session A</span>
+                <span className="text-center text-primary">Session B</span>
               </div>
             </CardHeader>
             <CardBody className="p-0 px-4">
@@ -308,32 +308,32 @@ function SessionComparisonTab() {
           {/* Verdict */}
           <Card className={cn(
             'border-2',
-            analysisB.overall > analysisA.overall ? 'border-green-400 bg-green-50' : analysisB.overall < analysisA.overall ? 'border-red-300 bg-red-50' : 'border-gray-200',
+            analysisB.overall > analysisA.overall ? 'border-primary/50 bg-primary/10' : analysisB.overall < analysisA.overall ? 'border-error/40 bg-error/10' : 'border-border',
           )}>
             <CardBody>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Verdict</p>
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">Verdict</p>
               {analysisB.overall > analysisA.overall ? (
                 <div>
-                  <p className="font-bold text-green-700 text-lg">
+                  <p className="font-bold text-primary text-lg">
                     Improved by {analysisB.overall - analysisA.overall} points
                   </p>
-                  <p className="text-sm text-green-600 mt-0.5">
+                  <p className="text-sm text-primary mt-0.5">
                     Session B shows meaningful improvement. Keep working on the same routine.
                   </p>
                 </div>
               ) : analysisB.overall < analysisA.overall ? (
                 <div>
-                  <p className="font-bold text-red-700 text-lg">
+                  <p className="font-bold text-error text-lg">
                     Score dropped by {analysisA.overall - analysisB.overall} points
                   </p>
-                  <p className="text-sm text-red-600 mt-0.5">
+                  <p className="text-sm text-error mt-0.5">
                     {analysisB.primary_issue
                       ? `Primary issue in Session B: ${analysisB.primary_issue}. Focus the next training block on this.`
                       : "Review Session B's diagnosis for the main culprit."}
                   </p>
                 </div>
               ) : (
-                <p className="font-bold text-gray-700">No change in overall score. Check specific sub-scores for micro-trends.</p>
+                <p className="font-bold text-foreground">No change in overall score. Check specific sub-scores for micro-trends.</p>
               )}
             </CardBody>
           </Card>
@@ -377,14 +377,14 @@ export default function ComparePage() {
       <div className="p-6 max-w-5xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Compare</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-foreground">Compare</h1>
+          <p className="text-muted-foreground text-sm mt-1">
             Browse professional references and compare your swing side by side, or compare two of your own sessions.
           </p>
         </div>
 
         {/* Tab bar */}
-        <div className="flex border-b border-gray-200">
+        <div className="flex border-b border-border">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -392,13 +392,13 @@ export default function ComparePage() {
               className={cn(
                 'px-4 py-3 text-sm font-medium border-b-2 -mb-px transition-colors',
                 activeTab === tab.id
-                  ? 'border-green-600 text-green-700'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border',
               )}
             >
               {tab.label}
               {tab.id === 'compare' && selectedReference && (
-                <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 bg-green-100 text-green-700 rounded-full text-[10px] font-bold">
+                <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 bg-primary/15 text-primary rounded-full text-[10px] font-bold">
                   1
                 </span>
               )}
@@ -409,7 +409,7 @@ export default function ComparePage() {
           <div className="ml-auto flex items-center pb-1">
             <button
               onClick={() => setActiveTab('browse')}
-              className="text-xs text-gray-400 hover:text-gray-600 px-2"
+              className="text-xs text-muted-foreground hover:text-muted-foreground px-2"
             >
               Session vs Session
             </button>
@@ -430,7 +430,7 @@ export default function ComparePage() {
 
             {/* Session comparison section below the browser */}
             <div>
-              <h2 className="text-lg font-bold text-gray-800 mb-4">Session vs Session</h2>
+              <h2 className="text-lg font-bold text-foreground mb-4">Session vs Session</h2>
               <SessionComparisonTab />
             </div>
           </div>

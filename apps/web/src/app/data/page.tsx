@@ -164,17 +164,17 @@ export default function DataCenterPage() {
 
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <Database size={24} className="text-green-600" aria-hidden="true" />
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <Database size={24} className="text-primary" aria-hidden="true" />
             {t('data.title')}
           </h1>
-          <p className="text-gray-500 text-sm mt-1">{t('data.subtitle')}</p>
+          <p className="text-muted-foreground text-sm mt-1">{t('data.subtitle')}</p>
         </div>
 
         {/* Main description */}
-        <div className="flex gap-3 bg-green-50 border border-green-200 rounded-xl p-4">
-          <Shield className="text-green-600 mt-0.5 shrink-0" size={20} aria-hidden="true" />
-          <div className="text-sm text-green-800 space-y-1">
+        <div className="flex gap-3 bg-primary/10 border border-primary/30 rounded-xl p-4">
+          <Shield className="text-primary mt-0.5 shrink-0" size={20} aria-hidden="true" />
+          <div className="text-sm text-primary space-y-1">
             <p className="font-semibold">{t('data.promptValueOfData')}</p>
             <p>{t('data.mainDescription')}</p>
           </div>
@@ -195,27 +195,27 @@ export default function DataCenterPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Download size={18} className="text-green-600" aria-hidden="true" />
+              <Download size={18} className="text-primary" aria-hidden="true" />
               {t('data.exportFull')}
             </CardTitle>
           </CardHeader>
           <CardBody className="space-y-4">
-            <p className="text-sm text-gray-600">{t('data.backupContains')}</p>
+            <p className="text-sm text-muted-foreground">{t('data.backupContains')}</p>
 
-            <div className="bg-gray-50 rounded-xl p-4 space-y-2 text-sm text-gray-700">
-              <p className="font-medium text-gray-900">Your backup includes:</p>
-              <ul className="space-y-1 text-xs text-gray-600">
+            <div className="bg-muted rounded-xl p-4 space-y-2 text-sm text-foreground">
+              <p className="font-medium text-foreground">Your backup includes:</p>
+              <ul className="space-y-1 text-xs text-muted-foreground">
                 {getExportableModules().map((mod) => (
                   <li key={mod.id} className="flex items-start gap-1.5">
-                    <span className="text-green-600 font-bold shrink-0">✓</span>
+                    <span className="text-primary font-bold shrink-0">✓</span>
                     <span>
                       <span className="font-medium">{mod.label}</span>
                       {' — '}
-                      <span className="text-gray-500">{mod.getSummaryLine(store)}</span>
+                      <span className="text-muted-foreground">{mod.getSummaryLine(store)}</span>
                     </span>
                   </li>
                 ))}
-                <li className="flex items-center gap-1.5 text-green-700 font-medium pt-0.5">
+                <li className="flex items-center gap-1.5 text-primary font-medium pt-0.5">
                   <Globe size={12} aria-hidden="true" />
                   Language: {LANGUAGE_CONFIG[language]?.nativeName ?? language}
                 </li>
@@ -223,13 +223,13 @@ export default function DataCenterPage() {
             </div>
 
             {/* Last export */}
-            <div className="flex items-center gap-2 text-xs text-gray-500">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Calendar size={14} aria-hidden="true" />
               <span>{t('data.lastExport')}: <strong>{formatLastExport(community.lastExportAt)}</strong></span>
             </div>
 
             {/* Encryption toggle */}
-            <div className="border border-gray-200 rounded-xl p-4 space-y-3">
+            <div className="border border-border rounded-xl p-4 space-y-3">
               <label className="flex items-center gap-3 cursor-pointer">
                 <input
                   type="checkbox"
@@ -240,18 +240,18 @@ export default function DataCenterPage() {
                     setExportPassword('');
                     setExportPasswordConfirm('');
                   }}
-                  className="w-4 h-4 rounded-sm text-green-600"
+                  className="w-4 h-4 rounded-sm text-primary"
                   aria-label="Encrypt backup with password"
                 />
                 <div className="flex items-center gap-2">
-                  <Lock size={16} className="text-gray-500" aria-hidden="true" />
-                  <span className="text-sm font-medium text-gray-800">Encrypt with password (recommended)</span>
+                  <Lock size={16} className="text-muted-foreground" aria-hidden="true" />
+                  <span className="text-sm font-medium text-foreground">Encrypt with password (recommended)</span>
                 </div>
               </label>
 
               {exportEncrypt && (
                 <div className="space-y-3 pt-1">
-                  <div className="flex gap-2 bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800">
+                  <div className="flex gap-2 bg-warning/10 border border-warning/30 rounded-lg p-3 text-xs text-warning">
                     <AlertTriangle size={14} className="shrink-0 mt-0.5" aria-hidden="true" />
                     <span><strong>Important:</strong> If you forget your backup password, your data cannot be recovered.</span>
                   </div>
@@ -260,7 +260,7 @@ export default function DataCenterPage() {
                     placeholder="Password (min. 8 characters)"
                     value={exportPassword}
                     onChange={(e) => setExportPassword(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
                     aria-label="Backup encryption password"
                   />
                   <input
@@ -268,7 +268,7 @@ export default function DataCenterPage() {
                     placeholder="Confirm password"
                     value={exportPasswordConfirm}
                     onChange={(e) => setExportPasswordConfirm(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
                     aria-label="Confirm backup encryption password"
                   />
                 </div>
@@ -276,7 +276,7 @@ export default function DataCenterPage() {
             </div>
 
             {exportError && (
-              <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700" role="alert">
+              <div className="flex gap-2 bg-error/10 border border-error/30 rounded-lg p-3 text-sm text-error" role="alert">
                 <AlertTriangle size={16} className="shrink-0 mt-0.5" aria-hidden="true" />
                 <span>{exportError}</span>
               </div>
@@ -288,13 +288,13 @@ export default function DataCenterPage() {
             </Button>
 
             {exported && (
-              <div className="flex items-center gap-2 text-green-600 text-sm font-medium" role="status" aria-live="polite">
+              <div className="flex items-center gap-2 text-primary text-sm font-medium" role="status" aria-live="polite">
                 <CheckCircle size={16} aria-hidden="true" />
                 Backup downloaded! Your progress is protected.
               </div>
             )}
 
-            <p className="text-xs text-gray-400">{t('data.privacyNote')}</p>
+            <p className="text-xs text-muted-foreground">{t('data.privacyNote')}</p>
           </CardBody>
         </Card>
 
@@ -302,12 +302,12 @@ export default function DataCenterPage() {
         <Card>
           <CardBody>
             <div className="flex items-start gap-3">
-              <Globe size={18} className="text-green-600 mt-0.5 shrink-0" aria-hidden="true" />
+              <Globe size={18} className="text-primary mt-0.5 shrink-0" aria-hidden="true" />
               <div className="flex-1">
-                <p className="text-sm font-semibold text-gray-900">{t('data.languageInBackup')}</p>
-                <p className="text-xs text-gray-500 mt-0.5">{t('language.backupNote')}</p>
+                <p className="text-sm font-semibold text-foreground">{t('data.languageInBackup')}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{t('language.backupNote')}</p>
                 <div className="mt-3">
-                  <p className="text-xs text-gray-500 mb-2">{t('settings.languageHelper')}</p>
+                  <p className="text-xs text-muted-foreground mb-2">{t('settings.languageHelper')}</p>
                   <LanguageToggle variant="full" />
                 </div>
               </div>
@@ -319,18 +319,18 @@ export default function DataCenterPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Upload size={18} className="text-blue-600" aria-hidden="true" />
+              <Upload size={18} className="text-accent-secondary" aria-hidden="true" />
               {t('data.importBackup')}
             </CardTitle>
           </CardHeader>
           <CardBody className="space-y-4">
             {importStep === 'idle' && (
               <>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   Select a SwingIQ backup file (.json or .swingiqbackup) to preview what will be restored.
                 </p>
                 {importError && (
-                  <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700" role="alert">
+                  <div className="flex gap-2 bg-error/10 border border-error/30 rounded-lg p-3 text-sm text-error" role="alert">
                     <AlertTriangle size={16} className="shrink-0 mt-0.5" aria-hidden="true" />
                     <span>{importError}</span>
                   </div>
@@ -353,23 +353,23 @@ export default function DataCenterPage() {
             )}
 
             {importStep === 'parsing' && (
-              <div className="flex items-center gap-3 text-sm text-gray-600 py-4 justify-center" role="status" aria-live="polite">
-                <RefreshCw size={18} className="animate-spin text-green-600" aria-hidden="true" />
+              <div className="flex items-center gap-3 text-sm text-muted-foreground py-4 justify-center" role="status" aria-live="polite">
+                <RefreshCw size={18} className="animate-spin text-primary" aria-hidden="true" />
                 Reading backup file…
               </div>
             )}
 
             {importStep === 'needs-password' && (
               <div className="space-y-4">
-                <div className="flex gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
-                  <Lock className="text-blue-500 shrink-0 mt-0.5" size={20} aria-hidden="true" />
-                  <div className="text-sm text-blue-800">
+                <div className="flex gap-3 bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl p-4">
+                  <Lock className="text-accent-secondary shrink-0 mt-0.5" size={20} aria-hidden="true" />
+                  <div className="text-sm text-foreground">
                     <p className="font-semibold">This backup is encrypted</p>
                     <p>Enter your backup password to continue.</p>
                   </div>
                 </div>
                 {importError && (
-                  <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700" role="alert">
+                  <div className="flex gap-2 bg-error/10 border border-error/30 rounded-lg p-3 text-sm text-error" role="alert">
                     <AlertTriangle size={16} aria-hidden="true" />
                     <span>{importError}</span>
                   </div>
@@ -380,7 +380,7 @@ export default function DataCenterPage() {
                   value={importPassword}
                   onChange={(e) => setImportPassword(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') handleDecrypt(); }}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
                   autoFocus
                   aria-label="Backup decryption password"
                 />
@@ -393,8 +393,8 @@ export default function DataCenterPage() {
 
             {importStep === 'preview' && preview && pendingBackup && (
               <div className="space-y-4">
-                <div className="flex gap-2 bg-green-50 border border-green-200 rounded-lg p-3 text-sm text-green-800" role="status">
-                  <CheckCircle size={16} className="shrink-0 mt-0.5 text-green-600" aria-hidden="true" />
+                <div className="flex gap-2 bg-primary/10 border border-primary/30 rounded-lg p-3 text-sm text-primary" role="status">
+                  <CheckCircle size={16} className="shrink-0 mt-0.5 text-primary" aria-hidden="true" />
                   <div>
                     <p className="font-semibold">Valid backup (v{pendingBackup.backupVersion})</p>
                     <p>{preview.summary}</p>
@@ -403,21 +403,21 @@ export default function DataCenterPage() {
 
                 {/* Language restore option */}
                 {pendingBackup.preferredLanguage && pendingBackup.preferredLanguage !== language && (
-                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 space-y-3">
+                  <div className="bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl p-4 space-y-3">
                     <div className="flex items-center gap-2">
-                      <Globe size={16} className="text-blue-600" aria-hidden="true" />
-                      <p className="text-sm font-semibold text-blue-900">{t('data.previewLanguage')}</p>
+                      <Globe size={16} className="text-accent-secondary" aria-hidden="true" />
+                      <p className="text-sm font-semibold text-foreground">{t('data.previewLanguage')}</p>
                     </div>
                     <div className="grid grid-cols-2 gap-3 text-xs">
-                      <div className="bg-white rounded-lg p-2.5 text-center border border-blue-100">
-                        <p className="font-medium text-gray-700">Backup Language</p>
-                        <p className="text-gray-900 mt-0.5">
+                      <div className="bg-card rounded-lg p-2.5 text-center border border-accent-secondary/20">
+                        <p className="font-medium text-foreground">Backup Language</p>
+                        <p className="text-foreground mt-0.5">
                           {LANGUAGE_CONFIG[pendingBackup.preferredLanguage]?.nativeName ?? pendingBackup.preferredLanguage}
                         </p>
                       </div>
-                      <div className="bg-white rounded-lg p-2.5 text-center border border-blue-100">
-                        <p className="font-medium text-gray-700">Current Language</p>
-                        <p className="text-gray-900 mt-0.5">{LANGUAGE_CONFIG[language]?.nativeName ?? language}</p>
+                      <div className="bg-card rounded-lg p-2.5 text-center border border-accent-secondary/20">
+                        <p className="font-medium text-foreground">Current Language</p>
+                        <p className="text-foreground mt-0.5">{LANGUAGE_CONFIG[language]?.nativeName ?? language}</p>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -429,9 +429,9 @@ export default function DataCenterPage() {
                             value={option}
                             checked={restoreLanguage === option}
                             onChange={() => setRestoreLanguage(option)}
-                            className="w-4 h-4 text-green-600"
+                            className="w-4 h-4 text-primary"
                           />
-                          <span className="text-sm text-gray-700">
+                          <span className="text-sm text-foreground">
                             {option === 'backup' ? t('data.restoreLanguage') : t('data.keepCurrentLanguage')}
                           </span>
                         </label>
@@ -441,48 +441,48 @@ export default function DataCenterPage() {
                 )}
 
                 {/* Preview table */}
-                <div className="rounded-lg border border-gray-200 divide-y divide-gray-100 text-sm" role="table" aria-label="Restore preview">
-                  <div className="grid grid-cols-3 text-center py-2 font-medium text-gray-500 text-xs uppercase tracking-wide bg-gray-50 rounded-t-lg">
+                <div className="rounded-lg border border-border divide-y divide-border text-sm" role="table" aria-label="Restore preview">
+                  <div className="grid grid-cols-3 text-center py-2 font-medium text-muted-foreground text-xs uppercase tracking-wide bg-muted rounded-t-lg">
                     <span>Category</span>
                     <span>New / Updated</span>
                     <span>Skipped</span>
                   </div>
                   <div className="grid grid-cols-3 text-center py-2.5">
-                    <span className="text-gray-700">Sessions</span>
-                    <span className="font-semibold text-green-700">{preview.newRecords.sessions}</span>
-                    <span className="text-gray-400">{preview.skippedDuplicates.sessions}</span>
+                    <span className="text-foreground">Sessions</span>
+                    <span className="font-semibold text-primary">{preview.newRecords.sessions}</span>
+                    <span className="text-muted-foreground">{preview.skippedDuplicates.sessions}</span>
                   </div>
                   <div className="grid grid-cols-3 text-center py-2.5">
-                    <span className="text-gray-700">Clubs</span>
-                    <span className="font-semibold text-green-700">{preview.newRecords.clubs}</span>
-                    <span className="text-gray-400">{preview.skippedDuplicates.clubs}</span>
+                    <span className="text-foreground">Clubs</span>
+                    <span className="font-semibold text-primary">{preview.newRecords.clubs}</span>
+                    <span className="text-muted-foreground">{preview.skippedDuplicates.clubs}</span>
                   </div>
                   <div className="grid grid-cols-3 text-center py-2.5">
-                    <span className="text-gray-700">Video Analyses</span>
-                    <span className="font-semibold text-green-700">{preview.newRecords.videoAnalyses}</span>
-                    <span className="text-gray-400">{preview.skippedDuplicates.videoAnalyses}</span>
+                    <span className="text-foreground">Video Analyses</span>
+                    <span className="font-semibold text-primary">{preview.newRecords.videoAnalyses}</span>
+                    <span className="text-muted-foreground">{preview.skippedDuplicates.videoAnalyses}</span>
                   </div>
                   {preview.updatedRecords.communityUpdated && (
-                    <div className="grid grid-cols-3 text-center py-2.5 bg-purple-50">
-                      <span className="text-gray-700">Badges &amp; XP</span>
-                      <span className="font-semibold text-purple-700">
+                    <div className="grid grid-cols-3 text-center py-2.5 bg-accent-secondary/10">
+                      <span className="text-foreground">Badges &amp; XP</span>
+                      <span className="font-semibold text-accent-secondary">
                         {preview.updatedRecords.communityBadges ?? 0} badges · {preview.updatedRecords.communityXP ?? 0} XP
                       </span>
-                      <span className="text-gray-400">—</span>
+                      <span className="text-muted-foreground">—</span>
                     </div>
                   )}
                   {preview.updatedRecords.training && (
                     <div className="grid grid-cols-3 text-center py-2.5">
-                      <span className="text-gray-700">Training Progress</span>
-                      <span className="font-semibold text-green-700">Updated</span>
-                      <span className="text-gray-400">—</span>
+                      <span className="text-foreground">Training Progress</span>
+                      <span className="font-semibold text-primary">Updated</span>
+                      <span className="text-muted-foreground">—</span>
                     </div>
                   )}
                   {preview.updatedRecords.tutorialUpdated && (
                     <div className="grid grid-cols-3 text-center py-2.5">
-                      <span className="text-gray-700">Tutorial Progress</span>
-                      <span className="font-semibold text-green-700">Updated</span>
-                      <span className="text-gray-400">—</span>
+                      <span className="text-foreground">Tutorial Progress</span>
+                      <span className="font-semibold text-primary">Updated</span>
+                      <span className="text-muted-foreground">—</span>
                     </div>
                   )}
                 </div>
@@ -490,7 +490,7 @@ export default function DataCenterPage() {
                 {preview.warnings.length > 0 && (
                   <div className="space-y-1">
                     {preview.warnings.map((w, i) => (
-                      <div key={i} className="flex gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-2.5" role="alert">
+                      <div key={i} className="flex gap-2 text-sm text-warning bg-warning/10 border border-warning/30 rounded-lg p-2.5" role="alert">
                         <AlertTriangle size={15} className="shrink-0 mt-0.5" aria-hidden="true" />
                         <span>{w}</span>
                       </div>
@@ -501,36 +501,36 @@ export default function DataCenterPage() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <Button variant="outline" size="lg" className="w-full" onClick={handleMerge}>Merge</Button>
-                    <p className="text-xs text-gray-400 text-center">Add new records to current data</p>
+                    <p className="text-xs text-muted-foreground text-center">Add new records to current data</p>
                   </div>
                   <div className="space-y-1">
                     <Button
                       variant="outline"
                       size="lg"
-                      className="w-full text-red-600 border-red-300 hover:bg-red-50"
+                      className="w-full text-error border-error/40 hover:bg-error/10"
                       onClick={() => setImportStep('confirming-replace')}
                     >
                       Replace
                     </Button>
-                    <p className="text-xs text-gray-400 text-center">Overwrite all current data</p>
+                    <p className="text-xs text-muted-foreground text-center">Overwrite all current data</p>
                   </div>
                 </div>
-                <Button variant="ghost" size="sm" onClick={reset} className="w-full text-gray-500">{t('common.cancel')}</Button>
+                <Button variant="ghost" size="sm" onClick={reset} className="w-full text-muted-foreground">{t('common.cancel')}</Button>
               </div>
             )}
 
             {importStep === 'confirming-replace' && (
               <div className="space-y-4">
-                <div className="flex gap-3 bg-red-50 border border-red-200 rounded-xl p-4" role="alertdialog">
-                  <AlertTriangle className="text-red-500 shrink-0 mt-0.5" size={20} aria-hidden="true" />
-                  <div className="text-sm text-red-800 space-y-1">
+                <div className="flex gap-3 bg-error/10 border border-error/30 rounded-xl p-4" role="alertdialog">
+                  <AlertTriangle className="text-error shrink-0 mt-0.5" size={20} aria-hidden="true" />
+                  <div className="text-sm text-error space-y-1">
                     <p className="font-semibold">This will overwrite your current data</p>
                     <p>{t('data.promptBeforeClear')}</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <Button variant="outline" size="lg" onClick={() => setImportStep('preview')}>Go Back</Button>
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white" onClick={handleReplace}>
+                  <Button size="lg" className="bg-error text-error-foreground hover:bg-error/90" onClick={handleReplace}>
                     Yes, Replace Everything
                   </Button>
                 </div>
@@ -539,13 +539,13 @@ export default function DataCenterPage() {
 
             {importStep === 'done' && restoreResult && (
               <div className="space-y-4">
-                <div className="flex gap-2 bg-green-50 border border-green-200 rounded-lg p-4 text-sm text-green-800" role="status" aria-live="polite">
-                  <CheckCircle size={18} className="shrink-0 mt-0.5 text-green-600" aria-hidden="true" />
+                <div className="flex gap-2 bg-primary/10 border border-primary/30 rounded-lg p-4 text-sm text-primary" role="status" aria-live="polite">
+                  <CheckCircle size={18} className="shrink-0 mt-0.5 text-primary" aria-hidden="true" />
                   <div>
                     <p className="font-semibold text-base">Restore complete</p>
                     <p>{restoreResult.summary}</p>
                     {restoreResult.errors.length > 0 && (
-                      <ul className="mt-2 list-disc list-inside text-red-600">
+                      <ul className="mt-2 list-disc list-inside text-error">
                         {restoreResult.errors.map((e, i) => <li key={i}>{e}</li>)}
                       </ul>
                     )}
@@ -561,8 +561,8 @@ export default function DataCenterPage() {
         <Card>
           <CardBody>
             <div className="flex items-center gap-3">
-              <Info size={18} className="text-gray-400 shrink-0" aria-hidden="true" />
-              <div className="text-xs text-gray-500 space-y-0.5">
+              <Info size={18} className="text-muted-foreground shrink-0" aria-hidden="true" />
+              <div className="text-xs text-muted-foreground space-y-0.5">
                 <p>{t('data.schemaVersion')}: 1.1.0</p>
                 <p>Backup format: swingiq-backup-v1</p>
                 <p>{t('data.privacyNote')}</p>
@@ -574,19 +574,19 @@ export default function DataCenterPage() {
         {/* Danger zone */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-red-600">
+            <CardTitle className="flex items-center gap-2 text-error">
               <Trash2 size={18} aria-hidden="true" />
               {t('data.clearData')}
             </CardTitle>
           </CardHeader>
           <CardBody className="space-y-4">
-            <div className="flex gap-3 bg-red-50 border border-red-200 rounded-xl p-4" role="alert">
-              <AlertTriangle className="text-red-500 shrink-0 mt-0.5" size={18} aria-hidden="true" />
-              <p className="text-sm text-red-800">{t('data.exportBeforeClear')}</p>
+            <div className="flex gap-3 bg-error/10 border border-error/30 rounded-xl p-4" role="alert">
+              <AlertTriangle className="text-error shrink-0 mt-0.5" size={18} aria-hidden="true" />
+              <p className="text-sm text-error">{t('data.exportBeforeClear')}</p>
             </div>
             <Button
               variant="outline"
-              className="text-red-600 border-red-300 hover:bg-red-50 w-full"
+              className="text-error border-error/40 hover:bg-error/10 w-full"
               onClick={() => {
                 if (window.confirm(t('data.promptBeforeClear'))) {
                   store.reset();
@@ -606,9 +606,9 @@ export default function DataCenterPage() {
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-gray-50 rounded-lg p-3 text-center">
-      <p className="text-2xl font-bold text-gray-900">{value}</p>
-      <p className="text-xs text-gray-500 mt-0.5 leading-tight">{label}</p>
+    <div className="bg-muted rounded-lg p-3 text-center">
+      <p className="text-2xl font-bold text-foreground">{value}</p>
+      <p className="text-xs text-muted-foreground mt-0.5 leading-tight">{label}</p>
     </div>
   );
 }

@@ -8,6 +8,14 @@ import {
   YouthSafetyNotice,
   NotCoachReplacementNotice,
 } from '@/components/trust';
+import { JsonLd } from '@/components/seo/JsonLd';
+import {
+  buildGraph,
+  organizationSchema,
+  websiteSchema,
+  softwareApplicationSchema,
+  faqPageSchema,
+} from '@/lib/seo/jsonLd';
 
 export const metadata: Metadata = {
   title: 'SwingIQ — Free AI Swing Analysis for Golf, Tennis, Baseball & Softball',
@@ -223,32 +231,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* JSON-LD structured data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@graph': [
-              {
-                '@type': 'WebApplication',
-                name: 'SwingIQ',
-                description: 'Free AI swing analysis for golf, tennis, baseball, and softball.',
-                applicationCategory: 'SportsApplication',
-                operatingSystem: 'Web browser',
-                offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-              },
-              {
-                '@type': 'FAQPage',
-                mainEntity: FAQS.map((faq) => ({
-                  '@type': 'Question',
-                  name: faq.q,
-                  acceptedAnswer: { '@type': 'Answer', text: faq.a },
-                })),
-              },
-            ],
-          }),
-        }}
+      {/* JSON-LD structured data — site-wide Organization + WebSite + app entity,
+          plus the homepage FAQ. Built from the canonical schema helpers so the
+          Organization/WebSite nodes (entity grounding for search + AI engines)
+          stay consistent across the site. */}
+      <JsonLd
+        data={buildGraph(
+          organizationSchema(),
+          websiteSchema(),
+          softwareApplicationSchema(),
+          faqPageSchema(FAQS.map((faq) => ({ question: faq.q, answer: faq.a }))),
+        )}
       />
 
       {/* Final CTA */}

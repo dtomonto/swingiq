@@ -39,9 +39,9 @@ const ALL_DRILLS = [
 ];
 
 const DIFFICULTY_COLORS = {
-  beginner: 'bg-green-100 text-green-700',
-  intermediate: 'bg-blue-100 text-blue-700',
-  advanced: 'bg-purple-100 text-purple-700',
+  beginner: 'bg-primary/15 text-primary',
+  intermediate: 'bg-accent-secondary/15 text-accent-secondary',
+  advanced: 'bg-accent-secondary/15 text-accent-secondary',
 };
 
 export default function DrillsPage() {
@@ -74,35 +74,35 @@ export default function DrillsPage() {
     <AppShell>
       <div className="p-6 max-w-5xl mx-auto">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             {sportEmoji} {sportName} Drill Library
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1">
             {ALL_DRILLS.filter((d) => d.sport_id === activeSport).length} {sportName} drills · {ALL_DRILLS.length} total across all sports. Use the sport filter to explore others.
           </p>
         </div>
 
         {/* Recommended for your swing */}
         {recommendedDrills.length > 0 && (
-          <Card className="mb-6 border-green-200 bg-green-50">
+          <Card className="mb-6 border-primary/30 bg-primary/10">
             <CardHeader>
               <div className="flex items-center gap-2">
-                <Sparkles size={16} className="text-green-600" />
-                <CardTitle className="text-green-800">Recommended for Your Swing</CardTitle>
+                <Sparkles size={16} className="text-primary" />
+                <CardTitle className="text-primary">Recommended for Your Swing</CardTitle>
               </div>
-              <p className="text-xs text-green-600 mt-0.5">
+              <p className="text-xs text-primary mt-0.5">
                 Based on your active diagnosis: <strong>{latestDiagnosed?.diagnoses[0]?.rule?.name ?? training.active_diagnosis_id}</strong>
               </p>
             </CardHeader>
             <CardBody>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {recommendedDrills.map((drill) => (
-                  <div key={drill.id} className="bg-white rounded-lg border border-green-200 p-3 flex items-start justify-between gap-3">
+                  <div key={drill.id} className="bg-card rounded-lg border border-primary/30 p-3 flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm text-gray-900">{drill.name}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{drill.why_this_matches}</p>
+                      <p className="font-semibold text-sm text-foreground">{drill.name}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{drill.why_this_matches}</p>
                       {drill.warning && (
-                        <p className="text-xs text-amber-700 mt-1">⚠ {drill.warning}</p>
+                        <p className="text-xs text-warning mt-1">⚠ {drill.warning}</p>
                       )}
                     </div>
                     <a
@@ -123,19 +123,19 @@ export default function DrillsPage() {
         {/* Filters */}
         <div className="flex flex-wrap gap-3 mb-6">
           <div className="relative flex-1 min-w-[200px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search drills..."
-              className="w-full border border-gray-300 rounded-lg pl-8 pr-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-hidden"
+              className="w-full border border-border rounded-lg pl-8 pr-3 py-2 text-sm focus:ring-2 focus:ring-ring outline-hidden"
             />
           </div>
           <select
             value={sportFilter}
             onChange={(e) => setSportFilter(e.target.value as SportId | 'all')}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-hidden"
+            className="border border-border rounded-lg px-3 py-2 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
           >
             <option value="all">All Sports</option>
             {ALL_SPORTS_INCLUDING_GOLF.map((s) => (
@@ -145,7 +145,7 @@ export default function DrillsPage() {
           <select
             value={diffFilter}
             onChange={(e) => setDiffFilter(e.target.value as typeof diffFilter)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-hidden"
+            className="border border-border rounded-lg px-3 py-2 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
           >
             <option value="all">All Levels</option>
             <option value="beginner">Beginner</option>
@@ -154,7 +154,7 @@ export default function DrillsPage() {
           </select>
         </div>
 
-        <p className="text-xs text-gray-400 mb-4">{filtered.length} drill{filtered.length !== 1 ? 's' : ''} found</p>
+        <p className="text-xs text-muted-foreground mb-4">{filtered.length} drill{filtered.length !== 1 ? 's' : ''} found</p>
 
         {/* Drill grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -164,19 +164,19 @@ export default function DrillsPage() {
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <span className="text-xl">{getSportEmoji(drill.sport_id)}</span>
-                    <h3 className="font-bold text-gray-900 text-sm">{drill.name}</h3>
+                    <h3 className="font-bold text-foreground text-sm">{drill.name}</h3>
                   </div>
                   <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium shrink-0', DIFFICULTY_COLORS[drill.difficulty])}>
                     {drill.difficulty}
                   </span>
                 </div>
-                <p className="text-xs text-gray-600">{drill.goal}</p>
-                <div className="flex items-center gap-3 text-xs text-gray-400">
+                <p className="text-xs text-muted-foreground">{drill.goal}</p>
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
                   {drill.reps_or_duration && <span>🔄 {drill.reps_or_duration}</span>}
                   {drill.equipment_needed && <span>🎯 {drill.equipment_needed}</span>}
                 </div>
                 {drill.safety_note && (
-                  <p className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded-sm">⚠ {drill.safety_note}</p>
+                  <p className="text-xs text-warning bg-warning/10 px-2 py-1 rounded-sm">⚠ {drill.safety_note}</p>
                 )}
                 <a
                   href={drill.youtube_search_url}
@@ -193,7 +193,7 @@ export default function DrillsPage() {
 
         {filtered.length === 0 && (
           <div className="text-center py-16">
-            <p className="text-gray-400">No drills match your filters.</p>
+            <p className="text-muted-foreground">No drills match your filters.</p>
           </div>
         )}
       </div>
