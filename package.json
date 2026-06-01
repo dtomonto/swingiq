@@ -41,6 +41,11 @@
     "@typescript-eslint/parser": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0"
   },
+  "//overrides": "Security: force patched transitive deps without major bumps. minimatch (ReDoS via @typescript-eslint), postcss (XSS via next build tooling). Both are build/dev-time only.",
+  "overrides": {
+    "minimatch": "^9.0.5",
+    "postcss": "^8.5.10"
+  },
   "packageManager": "npm@10.8.2",
   "engines": {
     "node": ">=18.0.0"
