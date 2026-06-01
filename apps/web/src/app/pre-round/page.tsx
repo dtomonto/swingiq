@@ -9,6 +9,7 @@ import { CheckCircle, Circle, Clock, ExternalLink, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { NonGolfWarmUp } from './NonGolfWarmUp';
 import { useSport } from '@/contexts/SportContext';
+import { PreGameStrategyCard } from '@/components/agents/PreGameStrategyCard';
 
 export default function PreRoundPage() {
   const { isGolf } = useSport();
@@ -77,6 +78,9 @@ export default function PreRoundPage() {
             </CardBody>
           </Card>
         )}
+
+        {/* Pre-game strategy (agent layer) — complements the physical warm-up */}
+        <PreGameStrategyCard />
 
         {/* Progress bar */}
         <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">

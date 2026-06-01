@@ -15,6 +15,7 @@ import {
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { AgentPracticePlanCard } from '@/components/agents/AgentPracticePlanCard';
 import {
   TENNIS_DRILLS,
   BASEBALL_DRILLS,
@@ -207,6 +208,9 @@ export function NonGolfTrainingContent() {
           </div>
         </div>
       </div>
+
+      {/* Personalized practice plan (agent layer) */}
+      <AgentPracticePlanCard />
 
       {/* No data banner */}
       {hasNoAnalysis && (

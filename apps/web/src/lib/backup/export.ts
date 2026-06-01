@@ -47,6 +47,7 @@ export function exportUserData(state: SwingIQState): SwingIQBackup {
       settings: state.settings,
       community: state.community,
       tutorialProgress: state.tutorialProgress,
+      agentState: state.agent,
       preferredLanguage: state.settings.language,
     },
     metadata: {

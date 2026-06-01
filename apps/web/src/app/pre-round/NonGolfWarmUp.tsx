@@ -13,6 +13,7 @@ import { useSport } from '@/contexts/SportContext';
 import type { SportId } from '@swingiq/core';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
+import { PreGameStrategyCard } from '@/components/agents/PreGameStrategyCard';
 
 interface WarmUpExercise {
   id: string;
@@ -139,6 +140,9 @@ export function NonGolfWarmUp() {
           <p className="text-xs text-gray-500">Complete</p>
         </div>
       </div>
+
+      {/* Pre-game strategy (agent layer) — complements the physical warm-up */}
+      <PreGameStrategyCard />
 
       {/* Progress bar */}
       <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">

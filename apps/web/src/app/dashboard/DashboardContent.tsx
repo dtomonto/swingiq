@@ -25,67 +25,12 @@ import { Button } from '@/components/ui/Button';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { useSwingIQStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
+import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence';
 import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps, getRoutineForDiagnosis, type DiagnosisCategory } from '@swingiq/core';
 import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
 import { format } from 'date-fns';
 import { useSport } from '@/contexts/SportContext';
 import { useMemo } from 'react';
-
-// ── "What do I do next?" helper ──────────────────────────────
-
-function WhatNextBanner({ step }: { step: 'no_profile' | 'no_bag' | 'no_data' | 'no_diagnosis' | 'has_diagnosis' }) {
-  const steps = {
-    no_profile: {
-      icon: '👤',
-      title: 'Create your golfer profile first.',
-      body: 'This tells the app your handicap, scoring goals, common miss, practice setup, and launch monitor. The diagnostic engine uses this to personalize every recommendation.',
-      action: { label: 'Create Profile', href: '/profile' },
-    },
-    no_bag: {
-      icon: '🏌️',
-      title: 'Add your clubs next.',
-      body: 'The app needs your club list so it can compare your driver, woods, irons, wedges, and short-game swings separately. Add at least 3 clubs to start.',
-      action: { label: 'Add Clubs', href: '/bag' },
-    },
-    no_data: {
-      icon: '📊',
-      title: 'Enter or import your first session.',
-      body: 'Start with one club — such as your 7-iron or driver. Import a CSV from your launch monitor, or enter shots manually. The app needs at least 5 shots to build a swing profile.',
-      action: { label: 'Import Data', href: '/sessions/import' },
-    },
-    no_diagnosis: {
-      icon: '🔍',
-      title: 'Run the diagnostic engine.',
-      body: 'The app will compare your swing data to target windows and identify the biggest improvement opportunity. This usually takes under 10 seconds.',
-      action: { label: 'Diagnose My Swing', href: '/diagnose' },
-    },
-    has_diagnosis: {
-      icon: '🎯',
-      title: 'Start your recommended training routine.',
-      body: 'Focus on one issue at a time. Complete the drill plan, then retest with the same club. Small improvements in the right metric can save 2+ strokes per round.',
-      action: { label: 'View Training Plan', href: '/training' },
-    },
-  };
-
-  const s = steps[step];
-
-  return (
-    <div className="bg-golf-dark text-white rounded-xl p-5 flex items-start gap-4">
-      <span className="text-2xl">{s.icon}</span>
-      <div className="flex-1 min-w-0">
-        <p className="font-semibold text-green-300 text-sm mb-0.5">What should I do next?</p>
-        <p className="font-bold text-base mb-1">{s.title}</p>
-        <p className="text-green-200 text-sm leading-relaxed">{s.body}</p>
-      </div>
-      <Link href={s.action.href}>
-        <Button size="sm" className="bg-green-600 hover:bg-green-500 text-white whitespace-nowrap">
-          {s.action.label}
-          <ChevronRight size={14} />
-        </Button>
-      </Link>
-    </div>
-  );
-}
 
 // ── Quick Actions ─────────────────────────────────────────────
 
@@ -116,17 +61,6 @@ export function DashboardContent() {
   const latestSession = useLatestDiagnosedSession();
   const overallScore = useOverallScore();
   const { isGolf } = useSport();
-
-  const hasProfile = !!profile;
-  const hasBag = clubs.length > 0;
-  const hasData = sessions.length > 0;
-  const hasDiagnosis = !!latestSession;
-
-  const nextStep = !hasProfile ? 'no_profile'
-    : !hasBag ? 'no_bag'
-    : !hasData ? 'no_data'
-    : !hasDiagnosis ? 'no_diagnosis'
-    : 'has_diagnosis';
 
   const topDiagnosis = latestSession?.diagnoses[0];
   const mostRecentSession = sessions[0];
@@ -286,8 +220,8 @@ export function DashboardContent() {
         </div>
       </div>
 
-      {/* What do I do next */}
-      <WhatNextBanner step={nextStep} />
+      {/* Intelligent product layer: Welcome Back / next best step + insights */}
+      <DashboardIntelligence />
 
       {/* Practice reminder */}
       {practiceReminder !== null && (

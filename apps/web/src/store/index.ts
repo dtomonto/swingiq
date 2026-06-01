@@ -173,6 +173,18 @@ export interface SportEquipment {
   softball_fast: SoftballBat[];
 }
 
+// ── Agent layer client state (dismissals + continuity) ────────
+// Small, exportable slice so the intelligent layer's dismissals
+// travel with a profile backup. The Welcome Back summary itself
+// is always re-derived from sessions/training, so only the user's
+// dismiss choices need to persist here.
+export interface AgentClientState {
+  /** Keys of dismissed insight cards, formatted `${contextHash}:${insightId}`. */
+  dismissedKeys: string[];
+  /** Context hash at which the Welcome Back card was dismissed. */
+  welcomeBackDismissedHash: string | null;
+}
+
 export interface SwingIQState {
   // Golf profile (existing)
   profile: GolferProfileInput | null;
@@ -203,6 +215,9 @@ export interface SwingIQState {
 
   // Tutorial/help system progress
   tutorialProgress: TutorialProgress;
+
+  // Agent layer client state (dismissals, continuity)
+  agent: AgentClientState;
 
   // Onboarding step
   setup_step: 'profile' | 'bag' | 'session' | 'diagnose' | 'complete';
@@ -255,6 +270,11 @@ export interface SwingIQActions {
   // Tutorial progress
   updateTutorialProgress: (updates: Partial<TutorialProgress>) => void;
 
+  // Agent layer
+  dismissAgentInsight: (key: string) => void;
+  setWelcomeBackDismissed: (hash: string) => void;
+  resetAgentDismissals: () => void;
+
   // Computed
   computeSetupStep: () => void;
   reset: () => void;
@@ -291,6 +311,11 @@ const DEFAULT_TRAINING: TrainingProgress = {
   milestones_earned: [],
 };
 
+const DEFAULT_AGENT_STATE: AgentClientState = {
+  dismissedKeys: [],
+  welcomeBackDismissedHash: null,
+};
+
 // ── Store ─────────────────────────────────────────────────────
 
 export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
@@ -307,6 +332,7 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
       settings: DEFAULT_SETTINGS,
       community: DEFAULT_COMMUNITY_STATE,
       tutorialProgress: DEFAULT_TUTORIAL_PROGRESS,
+      agent: DEFAULT_AGENT_STATE,
       setup_step: 'profile',
 
       // ── Golf Profile ──
@@ -471,6 +497,17 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
           tutorialProgress: { ...s.tutorialProgress, ...updates },
         })),
 
+      // ── Agent layer (dismissals + continuity) ──
+      dismissAgentInsight: (key) =>
+        set((s) =>
+          s.agent.dismissedKeys.includes(key)
+            ? s
+            : { agent: { ...s.agent, dismissedKeys: [...s.agent.dismissedKeys, key].slice(-100) } },
+        ),
+      setWelcomeBackDismissed: (hash) =>
+        set((s) => ({ agent: { ...s.agent, welcomeBackDismissedHash: hash } })),
+      resetAgentDismissals: () => set({ agent: DEFAULT_AGENT_STATE }),
+
       // ── Computed setup step ──
       computeSetupStep: () => {
         const { profile, clubs, sessions, sportProfiles, video_analyses } = get();
@@ -508,6 +545,7 @@ export const useSwingIQStore = create<SwingIQState & SwingIQActions>()(
           settings: DEFAULT_SETTINGS,
           community: DEFAULT_COMMUNITY_STATE,
           tutorialProgress: DEFAULT_TUTORIAL_PROGRESS,
+          agent: DEFAULT_AGENT_STATE,
           setup_step: 'profile',
         }),
     }),

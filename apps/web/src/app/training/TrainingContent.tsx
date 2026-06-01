@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { getRoutineForDiagnosis, runDiagnosticEngine, type DrillRecommendation, type DiagnosisCategory, type SkillLevel } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
 import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
+import { AgentPracticePlanCard } from '@/components/agents/AgentPracticePlanCard';
 import { format } from 'date-fns';
 
 function DrillCard({ drill }: { drill: DrillRecommendation }) {
@@ -196,6 +197,9 @@ export function TrainingContent() {
           </div>
         </div>
       </div>
+
+      {/* Personalized practice plan (agent layer) */}
+      <AgentPracticePlanCard />
 
       {/* Skill level selector */}
       <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg">

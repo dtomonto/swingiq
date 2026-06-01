@@ -13,6 +13,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { IntakeQualityHint } from '@/components/agents/IntakeQualityHint';
 import { cn } from '@/lib/utils';
 import {
   parseCSV,
@@ -242,6 +243,11 @@ export function ImportWizard() {
         <p className="text-gray-500 text-sm mt-1">
           Follow the steps below to import your session. The app will detect column names automatically.
         </p>
+      </div>
+
+      {/* Pre-analysis quality hint (agent layer) */}
+      <div className="mb-6 empty:hidden">
+        <IntakeQualityHint />
       </div>
 
       {/* Step indicator */}

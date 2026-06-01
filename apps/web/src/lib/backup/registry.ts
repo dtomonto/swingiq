@@ -210,6 +210,20 @@ registerBackupModule({
 });
 
 registerBackupModule({
+  id: 'agent_state',
+  label: 'Smart Recommendations',
+  description: 'Which in-app recommendations you have dismissed, so the app stays in sync across devices.',
+  sensitive: false,
+  exportable: true,
+  getCount: (s) => s.agent?.dismissedKeys.length ?? 0,
+  getSummaryLine: (s) => {
+    const n = s.agent?.dismissedKeys.length ?? 0;
+    return n > 0 ? `${n} dismissed recommendation${n !== 1 ? 's' : ''}` : 'No dismissed recommendations';
+  },
+  getBackupCount: (b) => b.data.agentState?.dismissedKeys.length ?? 0,
+});
+
+registerBackupModule({
   id: 'settings',
   label: 'App Settings',
   description: 'Language preference, measurement units, coaching style, and display options.',

@@ -10,6 +10,7 @@ import type {
   TrainingProgress,
   AppSettings,
   SportEquipment,
+  AgentClientState,
 } from '@/store';
 import type { CommunityState } from '@/lib/community/types';
 import type { LanguageCode } from '@/lib/i18n';
@@ -31,6 +32,7 @@ export interface SwingIQBackupData {
   settings: AppSettings;
   community?: CommunityState;
   tutorialProgress?: TutorialProgress;
+  agentState?: AgentClientState;
   preferredLanguage?: LanguageCode;
 }
 

@@ -789,4 +789,45 @@ export const UPDATES: Update[] = [
     createdAt: '2026-05-31',
     updatedAt: '2026-05-31',
   },
+  {
+    id: 'update-039',
+    title: 'SwingIQ Now Picks Up Where You Left Off',
+    slug: 'pick-up-where-you-left-off',
+    metaTitle: 'SwingIQ Remembers Where You Left Off — Personalized Next Steps',
+    metaDescription:
+      'SwingIQ now welcomes returning athletes back with a summary of their last focus and a clear next step — plus smarter, plain-English guidance across golf, tennis, baseball, and softball.',
+    summary:
+      'SwingIQ now greets you when you return, reminds you what you were working on, and points you to the single best next step. Across the app you will see clearer "what to do next" guidance, a confidence rating on your top priority, a personalized practice plan, and a pre-game focus card — all generated from your own data, with no setup required.',
+    releaseDate: '2026-05-31',
+    displayDate: 'May 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 21,
+    sport: 'All Sports',
+    audience: ['all athletes', 'parents', 'coaches', 'returning users'],
+    userBenefit:
+      'When you come back, you no longer have to remember where you were. SwingIQ summarizes your last session, your focus, and your progress, then gives you one clear, low-friction next step so you can get back to improving in seconds.',
+    whyItMatters:
+      'The hardest part of improvement is staying consistent. By making it effortless to pick up where you left off — and by always showing the single most useful next step — SwingIQ removes the friction that causes people to drift away from practice.',
+    whereToFindIt:
+      'Open your Dashboard. Returning users see a "Pick up where you left off" card; everyone sees their next best step, plus a personalized practice plan on the Training page and a pre-game focus card before you play.',
+    userActionRequired: 'None — it works automatically from the data you already have.',
+    seoKeywords: [
+      'AI golf swing analysis',
+      'personalized practice plan',
+      'swing improvement app',
+      'tennis baseball softball swing analysis',
+      'resume training where you left off',
+    ],
+    answerEngineSummary:
+      'SwingIQ added an intelligent product layer that welcomes returning athletes back with a summary of their last focus, a confidence-rated top priority, a personalized practice plan, and a pre-game focus card across golf, tennis, baseball, and softball. It runs on the user’s own data with no setup and works without any AI account.',
+    generativeSearchSummary:
+      'SwingIQ now provides a "pick up where you left off" experience and a clear next-best-step recommendation on every visit, plus personalized practice plans and pre-game focus guidance for all five supported sports.',
+    internalLinkTargets: ['/dashboard', '/training', '/pre-round', '/reports'],
+    isMajorMilestone: true,
+    isFeatured: true,
+    createdAt: '2026-05-31',
+    updatedAt: '2026-05-31',
+  },
 ];

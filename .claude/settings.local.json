@@ -50,7 +50,21 @@
       "Bash(cat \"../middleware.ts\")",
       "Bash(cat \"../../middleware.ts\")",
       "Bash(dir \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\")",
-      "Bash(npx jest *)"
+      "Bash(npx jest *)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\" -Force | Format-Table Name, @{Name=\"Type\";Expression={if\\($_.PSIsContainer\\){\"Directory\"}else{\"File\"}}})",
+      "Bash(mkdir -p \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\\\\.claude\\\\worktrees\\\\agent-a7782551a26497a70\\\\apps\\\\web\\\\src\\\\app\\\\blog\" && mkdir -p \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\\\\.claude\\\\worktrees\\\\agent-a7782551a26497a70\\\\apps\\\\web\\\\src\\\\app\\\\blog\\\\[slug]\")",
+      "Bash(cd \"/c/Users/dtomo/OneDrive/Desktop/swingiq\" && ls apps/web/src/app/ | sort | head -40)",
+      "Bash(cp -r /c/Users/dtomo/OneDrive/Desktop/swingiq/.claude/worktrees/agent-a7782551a26497a70/apps/web/src/app/about /c/Users/dtomo/OneDrive/Desktop/swingiq/apps/web/src/app/)",
+      "Bash(cp -r /c/Users/dtomo/OneDrive/Desktop/swingiq/.claude/worktrees/agent-a7782551a26497a70/apps/web/src/app/blog /c/Users/dtomo/OneDrive/Desktop/swingiq/apps/web/src/app/)",
+      "Bash(cp -r /c/Users/dtomo/OneDrive/Desktop/swingiq/.claude/worktrees/agent-a7782551a26497a70/apps/web/src/app/benchmarks /c/Users/dtomo/OneDrive/Desktop/swingiq/apps/web/src/app/)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(x['id'], '—', x['title']\\) for x in d]\")",
+      "Bash(node --input-type=module --eval ' *)",
+      "Read(//c/c/Users/dtomo/OneDrive/Desktop/swingiq/**)",
+      "Read(//c/c/Users/dtomo/OneDrive/Desktop/**)",
+      "Bash(cd \"/c/Users/dtomo/OneDrive/Desktop/swingiq\" && sed -n '/^## 60-Day/,/^## 90-Day/p' PRODUCT_ROADMAP.md | head -40)",
+      "Bash(node scripts/patch-readme.mjs)",
+      "Bash(xxd)",
+      "Bash(git merge *)"
     ]
   }
 }

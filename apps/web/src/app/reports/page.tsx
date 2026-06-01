@@ -12,6 +12,7 @@ import type { Shot } from '@swingiq/core';
 import { format } from 'date-fns';
 import { useMemo, useState } from 'react';
 import { useSport } from '@/contexts/SportContext';
+import { CoachSummaryCard } from '@/components/agents/CoachSummaryCard';
 
 const REPORT_TYPES = [
   {
@@ -327,6 +328,9 @@ export default function ReportsPage() {
             )}
           </CardBody>
         </Card>
+
+        {/* Plain-English coach prep + questions (agent layer) */}
+        <CoachSummaryCard />
 
         {/* Coach Report Generator */}
         <Card className="border-green-200 bg-green-50">

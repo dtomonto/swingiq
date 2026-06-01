@@ -30,83 +30,12 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { useSwingIQStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
+import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence';
 import { format } from 'date-fns';
 import { useMemo } from 'react';
 import type { SportId } from '@swingiq/core';
 import { SPORT_QUICK_ACTIONS } from '@swingiq/core';
 import { getSportConfig } from '@swingiq/core';
-
-// ── Sport-specific "What to do next" banner ───────────────────
-
-interface NextStep {
-  icon: string;
-  title: string;
-  body: string;
-  action: { label: string; href: string };
-}
-
-function getNextStep(
-  sport: SportId,
-  hasProfile: boolean,
-  hasVideoAnalysis: boolean,
-  hasTrainingPlan: boolean,
-): NextStep {
-  const sportConfig = getSportConfig(sport);
-  const sportEmojis: Record<string, string> = {
-    tennis: '🎾', baseball: '⚾', softball_slow: '🥎', softball_fast: '🥎',
-  };
-  const emoji = sportEmojis[sport] ?? '🏃';
-
-  if (!hasProfile) {
-    return {
-      icon: '👤',
-      title: `Create your ${sportConfig?.name ?? 'sport'} profile first.`,
-      body: 'Your profile tells SwingIQ your skill level, goals, equipment, and tendencies so every analysis and drill recommendation is tailored to you.',
-      action: { label: 'Create Profile', href: '/profile' },
-    };
-  }
-  if (!hasVideoAnalysis) {
-    return {
-      icon: emoji,
-      title: 'Upload your first video to start analysis.',
-      body: `SwingIQ will break down your ${sport === 'tennis' ? 'stroke' : 'swing'} phase by phase, identify your primary issue, and build a drill plan matched to your level. Aim for a side-on or face-on angle for best results.`,
-      action: { label: 'Analyze Video', href: '/video' },
-    };
-  }
-  if (!hasTrainingPlan) {
-    return {
-      icon: '🎯',
-      title: `Start your recommended training routine.`,
-      body: 'Your video analysis identified a priority issue. Focus on one thing at a time — complete the drill plan, then re-analyze to see if it improved.',
-      action: { label: 'View Training Plan', href: '/training' },
-    };
-  }
-  return {
-    icon: '📈',
-    title: `Keep training and re-analyze your ${sport === 'tennis' ? 'stroke' : 'swing'}.`,
-    body: 'Upload another video after completing your drill plan to track your improvement. Consistent re-testing is what turns analysis into real progress.',
-    action: { label: 'Analyze New Video', href: '/video' },
-  };
-}
-
-function WhatNextBanner({ step }: { step: NextStep }) {
-  return (
-    <div className="bg-golf-dark text-white rounded-xl p-5 flex items-start gap-4">
-      <span className="text-2xl flex-shrink-0">{step.icon}</span>
-      <div className="flex-1 min-w-0">
-        <p className="font-semibold text-green-300 text-sm mb-0.5">What should I do next?</p>
-        <p className="font-bold text-base mb-1">{step.title}</p>
-        <p className="text-green-200 text-sm leading-relaxed">{step.body}</p>
-      </div>
-      <Link href={step.action.href}>
-        <Button size="sm" className="bg-green-600 hover:bg-green-500 text-white whitespace-nowrap">
-          {step.action.label}
-          <ChevronRight size={14} />
-        </Button>
-      </Link>
-    </div>
-  );
-}
 
 // ── Sport-specific quick actions ──────────────────────────────
 
@@ -431,14 +360,9 @@ function BenchmarksDisclaimerCard({ sport }: { sport: SportId }) {
 
 export function NonGolfDashboard() {
   const { activeSport, sportEmoji, sportName } = useSport();
-  const { profile, sportProfiles } = useSwingIQStore();
   const { video_analyses, training } = useSwingIQStore();
 
-  const hasProfile = !!profile || !!(sportProfiles as Record<string, unknown>)[activeSport];
   const hasVideoAnalysis = video_analyses.some((v) => v.sport === activeSport);
-  const hasTrainingPlan = !!training.active_diagnosis_id;
-
-  const nextStep = getNextStep(activeSport, hasProfile, hasVideoAnalysis, hasTrainingPlan);
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -459,8 +383,8 @@ export function NonGolfDashboard() {
         )}
       </div>
 
-      {/* What to do next */}
-      <WhatNextBanner step={nextStep} />
+      {/* Intelligent product layer: Welcome Back / next best step + insights */}
+      <DashboardIntelligence />
 
       {/* Quick actions */}
       <QuickActions sport={activeSport} />

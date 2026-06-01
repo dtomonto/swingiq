@@ -267,6 +267,19 @@ export function mergeRestore(
     },
   };
 
+  // ── Agent layer continuity (dismissals) ──────────────────
+  const currentAgent = currentState.agent ?? { dismissedKeys: [], welcomeBackDismissedHash: null };
+  const backupAgent = backup.data.agentState;
+  const mergedAgent = backupAgent
+    ? {
+        dismissedKeys: Array.from(
+          new Set([...(currentAgent.dismissedKeys ?? []), ...(backupAgent.dismissedKeys ?? [])]),
+        ),
+        welcomeBackDismissedHash:
+          currentAgent.welcomeBackDismissedHash ?? backupAgent.welcomeBackDismissedHash ?? null,
+      }
+    : currentAgent;
+
   return {
     profile,
     sportProfiles: mergedSportProfiles,
@@ -276,6 +289,7 @@ export function mergeRestore(
     training,
     community: mergedCommunity,
     tutorialProgress: mergedTutorialProgress,
+    agent: mergedAgent,
     // keep current settings
     settings: currentState.settings,
   };
@@ -294,6 +308,7 @@ export function replaceRestore(
     training: backup.data.training,
     community: backup.data.community,
     tutorialProgress: backup.data.tutorialProgress ?? DEFAULT_TUTORIAL_PROGRESS,
+    agent: backup.data.agentState ?? { dismissedKeys: [], welcomeBackDismissedHash: null },
     // preserve current settings — don't wipe user preferences
     settings: currentSettings,
   };

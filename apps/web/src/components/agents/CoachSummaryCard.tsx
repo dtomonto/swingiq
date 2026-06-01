@@ -1,0 +1,90 @@
+'use client';
+
+import { useMemo, useState } from 'react';
+import { MessageSquareQuote, Copy, CheckCircle } from 'lucide-react';
+import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { useAgentContext } from '@/hooks/useAgentContext';
+import { buildCoachShareSummary } from '@/lib/agents';
+
+// Surfaces the Coach Sharing workflow: a plain-English narrative plus the
+// most useful thing — good questions to bring to a human coach. Complements
+// the raw data report already on the page.
+
+export function CoachSummaryCard() {
+  const { ready, ctx } = useAgentContext();
+  const [copied, setCopied] = useState(false);
+
+  const summary = useMemo(() => (ctx ? buildCoachShareSummary(ctx) : null), [ctx]);
+
+  if (!ready || !ctx || !ctx.latestSession || !summary) return null;
+
+  const asText = [
+    'SwingIQ — Coach Prep',
+    '',
+    summary.coachSummary,
+    '',
+    'Key evidence:',
+    ...summary.keyEvidence.map((e) => `  - ${e}`),
+    '',
+    `Recent trend: ${summary.recentTrend}`,
+    `Next practice focus: ${summary.nextPracticeFocus}`,
+    '',
+    'Questions for my coach:',
+    ...summary.suggestedCoachQuestions.map((q) => `  - ${q}`),
+  ].join('\n');
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(asText);
+    } catch {
+      const el = document.createElement('textarea');
+      el.value = asText;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
+
+  return (
+    <Card className="border-orange-200 bg-orange-50/50">
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div className="flex items-center gap-2">
+          <MessageSquareQuote size={18} className="text-orange-600" />
+          <CardTitle className="text-orange-900">Prep for your coach</CardTitle>
+        </div>
+        <Button
+          size="sm"
+          className="bg-orange-600 hover:bg-orange-700 text-white"
+          onClick={handleCopy}
+        >
+          {copied ? (<><CheckCircle size={14} /> Copied!</>) : (<><Copy size={14} /> Copy</>)}
+        </Button>
+      </CardHeader>
+      <CardBody className="space-y-3">
+        <p className="text-sm text-gray-700 leading-relaxed">{summary.coachSummary}</p>
+
+        <div>
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+            Questions to ask your coach
+          </p>
+          <ul className="space-y-1">
+            {summary.suggestedCoachQuestions.map((q, i) => (
+              <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
+                <span className="text-orange-500">?</span>
+                {q}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <p className="text-xs text-gray-500">
+          SwingIQ helps you prepare — it doesn&apos;t replace a qualified coach.
+        </p>
+      </CardBody>
+    </Card>
+  );
+}

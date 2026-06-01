@@ -21,6 +21,9 @@ build
 # Turbo
 .turbo
 
+# Claude Code internal worktrees (transient, machine-local)
+.claude/worktrees/
+
 # OS
 .DS_Store
 Thumbs.db
