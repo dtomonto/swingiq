@@ -8,9 +8,10 @@ import { runDiagnosticEngine, buildSessionInsight } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
 import type { CoachContext } from '@/lib/ai-coach-prompts';
 import { useSport } from '@/contexts/SportContext';
+import { getTone } from '@/lib/coaching/tones';
 
 export default function AICoachPage() {
-  const { profile, sessions, sportProfiles, video_analyses } = useSwingIQStore();
+  const { profile, sessions, sportProfiles, video_analyses, settings } = useSwingIQStore();
   const { activeSport, isGolf, sportName } = useSport();
   // Pick the most recent golf session with shots for context
   const latestWithShots = useMemo(() => {
@@ -32,6 +33,8 @@ export default function AICoachPage() {
   const coachContext = useMemo((): Partial<CoachContext> => {
     const ctx: Partial<CoachContext> = {
       active_sport: activeSport,
+      // Audience tone (Beginner/Parent/Competitive/Coach) shapes how answers are written.
+      coaching_tone_hint: getTone(settings.coaching_tone).promptHint,
     };
 
     // ── Golf context: launch monitor stats ──
@@ -108,7 +111,7 @@ export default function AICoachPage() {
     }
 
     return ctx;
-  }, [latestWithShots, latestVideoAnalysis, profile, sportProfiles, activeSport, isGolf]);
+  }, [latestWithShots, latestVideoAnalysis, profile, sportProfiles, activeSport, isGolf, settings.coaching_tone]);
 
   return (
     <AppShell>

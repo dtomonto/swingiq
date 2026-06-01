@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ToolShell, ResultPanel, ToolCta } from '@/components/tools/ToolShell';
 import { ChoiceGroup, type Choice } from '@/components/tools/fields';
 import { EmailCapture } from '@/components/email/EmailCapture';
+import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 
 // Seeded, extensible question set per sport. Replace/extend with a
@@ -153,6 +154,22 @@ export function EquipmentDiagnosticTool() {
             measurements. For anything that affects performance or comfort, see a qualified fitter or coach. SwingIQ does not
             use a live manufacturer database.
           </p>
+
+          <AnalysisTransparency
+            resultNoun="fit-risk check"
+            basedOn={[
+              `Your equipment type: ${sport?.label ?? ''}`,
+              'Your answers to the fit questions',
+            ]}
+            videoAnalyzed={false}
+            confidence={{ level: 'low', score: 30, reason: 'based on your answers, not measurements or a fitting' }}
+            whatImproves={[
+              'Get a session with a qualified club/bat/racket fitter',
+              'Measure your swing speed (or bat speed)',
+              'Bring the "questions to validate" above to a pro',
+            ]}
+            showSafetyNotice={false}
+          />
 
           <EmailCapture source="general" heading="Email me these fitting questions" subheading="Take them to your next fitting or lesson." />
           <ToolCta href="/dashboard" label="Analyze My Performance Data Free" />

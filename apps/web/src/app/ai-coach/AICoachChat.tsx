@@ -402,9 +402,11 @@ export function AICoachChat({
       </div>
 
       <p className="text-xs text-gray-400 mt-2 text-center shrink-0">
+        Answers are AI-generated guidance based on the data you&apos;ve saved — not measured from video.{' '}
         {sport === 'golf'
-          ? 'Diagnoses are pattern-based data interpretations — not guaranteed mechanical analyses.'
-          : 'Video analysis observations are heuristic estimates — use as a starting point for your own review.'}
+          ? 'Diagnoses are pattern-based data interpretations, not guaranteed mechanical analyses.'
+          : 'Video analysis observations are heuristic estimates — a starting point for your own review.'}{' '}
+        Not a substitute for a qualified coach.
       </p>
     </div>
   );

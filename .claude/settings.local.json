@@ -84,7 +84,10 @@
       "Bash(echo \"jq: $\\(command -v jq || echo NO\\)\")",
       "Bash(command -v python)",
       "Bash(command -v python3)",
-      "Bash(echo \"python: $\\(command -v python || command -v python3 || echo NO\\)\")"
+      "Bash(echo \"python: $\\(command -v python || command -v python3 || echo NO\\)\")",
+      "Skill(schedule)",
+      "Skill(schedule:*)",
+      "Bash(git -C \"C:/Users/dtomo/OneDrive/Desktop/swingiq\" remote -v)"
     ]
   }
 }

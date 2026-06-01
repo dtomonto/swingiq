@@ -75,20 +75,20 @@ export default function SoftballSwingAnalysisPage() {
       />
 
       {/* Hero */}
-      <header className="bg-[#2a1a20] text-white">
+      <header className="bg-primary text-primary-foreground">
         <div className="max-w-4xl mx-auto px-4 py-14 text-center">
-          <p className="text-pink-300 text-sm font-semibold uppercase tracking-widest mb-3">Free Tool</p>
+          <p className="text-primary-foreground/80 text-sm font-semibold uppercase tracking-widest mb-3">Free Tool</p>
           <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-4">
             AI Softball Swing Analysis<br className="sm:hidden" /> — Slow Pitch &amp; Fast Pitch
           </h1>
-          <p className="text-pink-100 text-lg max-w-2xl mx-auto mb-8">
+          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto mb-8">
             Import your hitting data or upload a swing video. Get AI analysis of your swing faults
             with drills designed for softball mechanics — free.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/sessions/import/image"
-              className="bg-pink-500 hover:bg-pink-400 text-white font-bold px-8 py-3 rounded-xl transition-colors"
+              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors"
             >
               Import Hitting Data
             </Link>
@@ -103,17 +103,17 @@ export default function SoftballSwingAnalysisPage() {
       </header>
 
       {/* Two modes */}
-      <section className="bg-white py-14">
+      <section className="bg-card py-14">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">
+          <h2 className="text-2xl font-bold text-foreground text-center mb-10">
             Two Separate Analysis Modes
           </h2>
           <div className="grid sm:grid-cols-2 gap-6">
             {[
               {
                 title: 'Slow Pitch Softball',
-                color: 'border-orange-400',
-                badge: 'bg-orange-100 text-orange-700',
+                color: 'border-warning/50',
+                badge: 'bg-warning/15 text-warning',
                 points: [
                   'Arc timing and launch angle optimization',
                   'Power hitting vs. gap-to-gap strategy',
@@ -124,8 +124,8 @@ export default function SoftballSwingAnalysisPage() {
               },
               {
                 title: 'Fast Pitch Softball',
-                color: 'border-pink-400',
-                badge: 'bg-pink-100 text-pink-700',
+                color: 'border-primary/50',
+                badge: 'bg-primary/15 text-primary',
                 points: [
                   'Timing against 50–75 mph rise balls and drops',
                   'Short, efficient swing path analysis',
@@ -135,15 +135,15 @@ export default function SoftballSwingAnalysisPage() {
                 ],
               },
             ].map(({ title, color, badge, points }) => (
-              <div key={title} className={`rounded-xl border-2 ${color} bg-white p-6`}>
+              <div key={title} className={`rounded-xl border-2 ${color} bg-card p-6`}>
                 <span className={`text-xs font-bold px-2 py-1 rounded-sm ${badge} mb-3 inline-block`}>
                   {title}
                 </span>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{title} Analysis</h3>
+                <h3 className="text-lg font-bold text-foreground mb-3">{title} Analysis</h3>
                 <ul className="space-y-2">
                   {points.map((pt) => (
-                    <li key={pt} className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="text-green-500 shrink-0 mt-0.5">✓</span>
+                    <li key={pt} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="text-primary shrink-0 mt-0.5">✓</span>
                       {pt}
                     </li>
                   ))}
@@ -155,9 +155,9 @@ export default function SoftballSwingAnalysisPage() {
       </section>
 
       {/* How it works */}
-      <section className="bg-gray-50 py-14">
+      <section className="bg-muted py-14">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">
+          <h2 className="text-2xl font-bold text-foreground text-center mb-10">
             How Softball Analysis Works
           </h2>
           <ol className="grid sm:grid-cols-3 gap-6">
@@ -167,11 +167,11 @@ export default function SoftballSwingAnalysisPage() {
               { step: '3', title: 'Get Your Drill Plan', desc: 'Receive targeted drills, a weekly training schedule, and benchmarks tailored to your competition level.' },
             ].map(({ step, title, desc }) => (
               <li key={step} className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-pink-500 text-white font-black text-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-black text-lg flex items-center justify-center mb-4">
                   {step}
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
-                <p className="text-sm text-gray-600">{desc}</p>
+                <h3 className="font-bold text-foreground mb-2">{title}</h3>
+                <p className="text-sm text-muted-foreground">{desc}</p>
               </li>
             ))}
           </ol>
@@ -179,13 +179,13 @@ export default function SoftballSwingAnalysisPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#2a1a20] py-12">
+      <section className="bg-primary py-12">
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">Elevate your softball swing</h2>
-          <p className="text-pink-200 mb-6 text-sm">Free. No subscription. Your data stays private.</p>
+          <h2 className="text-2xl font-bold text-primary-foreground mb-3">Elevate your softball swing</h2>
+          <p className="text-primary-foreground/90 mb-6 text-sm">Free. No subscription. Your data stays private.</p>
           <Link
             href="/login"
-            className="bg-pink-500 hover:bg-pink-400 text-white font-bold px-10 py-3 rounded-xl transition-colors inline-block"
+            className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-10 py-3 rounded-xl transition-colors inline-block"
           >
             Get Started Free
           </Link>
@@ -193,29 +193,29 @@ export default function SoftballSwingAnalysisPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-white py-14">
+      <section className="bg-card py-14">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">Frequently Asked Questions</h2>
           <dl className="space-y-6">
             {faqItems.map(({ question, answer }) => (
               <div key={question}>
-                <dt className="font-semibold text-gray-900 mb-1">{question}</dt>
-                <dd className="text-sm text-gray-600 leading-relaxed">{answer}</dd>
+                <dt className="font-semibold text-foreground mb-1">{question}</dt>
+                <dd className="text-sm text-muted-foreground leading-relaxed">{answer}</dd>
               </div>
             ))}
           </dl>
         </div>
       </section>
 
-      <footer className="bg-gray-50 border-t border-gray-200 py-8">
+      <footer className="bg-muted border-t border-border py-8">
         <div className="max-w-4xl mx-auto px-4 flex flex-wrap gap-4 justify-center text-sm">
-          <Link href="/golf-swing-analysis" className="text-gray-600 hover:text-gray-900">Golf Analysis</Link>
-          <Link href="/tennis-swing-analysis" className="text-gray-600 hover:text-gray-900">Tennis Analysis</Link>
-          <Link href="/baseball-swing-analysis" className="text-gray-600 hover:text-gray-900">Baseball Analysis</Link>
-          <Link href="/softball-swing-analysis" className="text-pink-700 hover:underline">Softball Analysis</Link>
-          <Link href="/how-it-works" className="text-gray-600 hover:text-gray-900">How It Works</Link>
-          <Link href="/login" className="text-gray-600 hover:text-gray-900">Sign In</Link>
-          <Link href="/updates" className="text-green-700 hover:underline font-medium">Updates</Link>
+          <Link href="/golf-swing-analysis" className="text-muted-foreground hover:text-foreground">Golf Analysis</Link>
+          <Link href="/tennis-swing-analysis" className="text-muted-foreground hover:text-foreground">Tennis Analysis</Link>
+          <Link href="/baseball-swing-analysis" className="text-muted-foreground hover:text-foreground">Baseball Analysis</Link>
+          <Link href="/softball-swing-analysis" className="text-primary hover:underline">Softball Analysis</Link>
+          <Link href="/how-it-works" className="text-muted-foreground hover:text-foreground">How It Works</Link>
+          <Link href="/login" className="text-muted-foreground hover:text-foreground">Sign In</Link>
+          <Link href="/updates" className="text-primary hover:underline font-medium">Updates</Link>
         </div>
       </footer>
     </>

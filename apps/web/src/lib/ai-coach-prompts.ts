@@ -37,6 +37,8 @@ export interface CoachContext {
   primary_video_issue_confidence?: number;
   /** Non-golf sport profile context */
   sport_profile_summary?: string;
+  /** Optional audience-tone instruction (Beginner/Parent/Competitive/Coach). */
+  coaching_tone_hint?: string;
   /** The specific question the athlete is asking */
   user_question: string;
 }
@@ -226,7 +228,9 @@ export function buildCoachPrompt(ctx: CoachContext): { system: string; user: str
   const contextBlock = buildContextBlock(ctx);
   const questionLabel = SPORT_QUESTION_LABELS[sport] ?? 'Question';
   return {
-    system: systemPrompt,
+    system: ctx.coaching_tone_hint
+      ? `${systemPrompt}\n\nTONE — match this audience: ${ctx.coaching_tone_hint}`
+      : systemPrompt,
     user: `${contextBlock}\n\n${questionLabel}: ${ctx.user_question}`,
   };
 }

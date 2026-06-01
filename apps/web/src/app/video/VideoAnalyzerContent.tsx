@@ -15,6 +15,7 @@ import { SwingVideoPlayer } from '@/components/video/SwingVideoPlayer';
 import { AnalysisProgress, type AnalysisStage } from '@/components/video/AnalysisProgress';
 import { AIVisualAnalysisPanel } from '@/components/video/AIVisualAnalysisPanel';
 import { AINotConfiguredNotice } from '@/components/video/AINotConfiguredNotice';
+import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
@@ -247,6 +248,7 @@ export function VideoAnalyzerContent() {
                 onStartOver={handleRemoveVideo}
               />
             ) : analysis ? (
+              <>
               <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-5 items-start">
                 {/* Left: video */}
                 <div className="space-y-3 lg:sticky lg:top-20">
@@ -268,6 +270,30 @@ export function VideoAnalyzerContent() {
                 {/* Right: AI analysis */}
                 <AIVisualAnalysisPanel analysis={analysis} />
               </div>
+
+              {/* How this video review was produced */}
+              <AnalysisTransparency
+                resultNoun="video review"
+                videoAnalyzed
+                basedOn={[
+                  'Still frames sampled from your uploaded swing video',
+                  `Declared camera angle: ${cameraAngle.replace(/_/g, ' ')}`,
+                  'An AI vision review of those frames',
+                ]}
+                confidence={{
+                  level: 'medium',
+                  score: 50,
+                  reason:
+                    'an AI visual review of sampled frames — an informed estimate, not a biomechanical measurement',
+                }}
+                whatImproves={[
+                  'Film from a clean down-the-line or face-on angle',
+                  'Use good lighting and keep the whole swing in frame',
+                  'Add launch-monitor or session data for measured numbers',
+                  'Have a qualified coach confirm what the AI noticed',
+                ]}
+              />
+              </>
             ) : null}
           </div>
         )}
