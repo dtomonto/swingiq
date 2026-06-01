@@ -186,7 +186,7 @@ export function NonGolfWarmUp() {
           <Card key={ex.id} className={completed.has(ex.id) ? 'bg-green-50 border-green-200' : ''}>
             <CardBody>
               <div className="flex items-start gap-3">
-                <button onClick={() => toggle(ex.id)} className="mt-0.5 flex-shrink-0">
+                <button onClick={() => toggle(ex.id)} className="mt-0.5 shrink-0">
                   {completed.has(ex.id)
                     ? <CheckCircle size={22} className="text-green-500" />
                     : <Circle size={22} className="text-gray-300 hover:text-gray-400" />
@@ -206,7 +206,7 @@ export function NonGolfWarmUp() {
                     <span className="flex items-center gap-1"><Clock size={11} /> {ex.duration_seconds}s</span>
                     {ex.reps && <span>× {ex.reps} reps</span>}
                   </div>
-                  <p className="text-xs text-blue-700 bg-blue-50 px-2 py-1 rounded mt-2 italic">
+                  <p className="text-xs text-blue-700 bg-blue-50 px-2 py-1 rounded-sm mt-2 italic">
                     &ldquo;{ex.coaching_cue}&rdquo;
                   </p>
                 </div>

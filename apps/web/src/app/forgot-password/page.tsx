@@ -13,7 +13,7 @@ export default function ForgotPasswordPage() {
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-md px-4 py-16">
-        <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm">
+        <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-xs">
           <h1 className="text-2xl font-bold text-gray-900">Reset your password</h1>
 
           <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4">

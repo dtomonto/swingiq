@@ -90,7 +90,7 @@ export default function AboutPage() {
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-10">What We Believe</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {BELIEFS.map((b) => (
-              <div key={b.title} className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 sm:p-6">
+              <div key={b.title} className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 sm:p-6">
                 <h3 className="font-semibold text-gray-900 mb-2">{b.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{b.desc}</p>
               </div>
@@ -106,7 +106,7 @@ export default function AboutPage() {
           <p className="text-gray-600 text-sm mb-10">Each sport has its own dedicated analysis engine, drill library, and benchmark standards.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {SPORTS.map((s) => (
-              <div key={s.name} className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 sm:p-6">
+              <div key={s.name} className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 sm:p-6">
                 <div className="text-2xl mb-2">{s.emoji}</div>
                 <h3 className="font-semibold text-gray-900 mb-1">{s.name}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
@@ -122,7 +122,7 @@ export default function AboutPage() {
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-10">Who Uses SwingIQ</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {WHO_USES.map((w) => (
-              <div key={w.title} className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 sm:p-6">
+              <div key={w.title} className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 sm:p-6">
                 <h3 className="font-semibold text-gray-900 mb-2">{w.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{w.desc}</p>
               </div>

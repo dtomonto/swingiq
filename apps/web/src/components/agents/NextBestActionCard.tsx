@@ -15,7 +15,7 @@ export function NextBestActionCard({ action }: { action: AgentAction }) {
       role="region"
       aria-label="Your next best step"
     >
-      <span className="flex-shrink-0 mt-0.5">
+      <span className="shrink-0 mt-0.5">
         <Compass size={22} className="text-green-300" aria-hidden="true" />
       </span>
       <div className="flex-1 min-w-0">

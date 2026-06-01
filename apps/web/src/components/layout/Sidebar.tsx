@@ -85,7 +85,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       {/* Logo + close button (close only visible on mobile) */}
       <div className="px-6 py-5 border-b border-green-800 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-golf-fairway rounded-lg flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 bg-golf-fairway rounded-lg flex items-center justify-center shrink-0">
             <span className="text-white font-black text-sm">SQ</span>
           </div>
           <div>
@@ -100,7 +100,7 @@ export function Sidebar({ onClose }: SidebarProps) {
           <button
             onClick={onClose}
             aria-label="Close menu"
-            className="text-green-300 hover:text-white p-1 rounded transition-colors lg:hidden"
+            className="text-green-300 hover:text-white p-1 rounded-sm transition-colors lg:hidden"
           >
             <X size={20} />
           </button>
@@ -123,7 +123,7 @@ export function Sidebar({ onClose }: SidebarProps) {
                   : 'text-green-200 hover:bg-green-800 hover:text-white',
               )}
             >
-              <Icon size={18} className="flex-shrink-0" aria-hidden="true" />
+              <Icon size={18} className="shrink-0" aria-hidden="true" />
               <span className="flex-1">{label}</span>
               {href === '/training' && training.streak_days > 1 && (
                 <span className="flex items-center gap-0.5 text-xs text-orange-400" aria-label={`${training.streak_days} day streak`}>
@@ -151,7 +151,7 @@ export function Sidebar({ onClose }: SidebarProps) {
                     : 'text-green-200 hover:bg-green-800 hover:text-white',
                 )}
               >
-                <Icon size={18} className="flex-shrink-0" aria-hidden="true" />
+                <Icon size={18} className="shrink-0" aria-hidden="true" />
                 <span className="flex-1">{label}</span>
               </Link>
             );

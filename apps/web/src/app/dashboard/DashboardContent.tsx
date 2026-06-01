@@ -235,7 +235,7 @@ export function DashboardContent() {
               <p className="text-xs text-amber-700">Consistent practice builds muscle memory faster. Even 15 minutes counts.</p>
             </div>
           </div>
-          <div className="flex gap-2 flex-shrink-0">
+          <div className="flex gap-2 shrink-0">
             <Link href="/training">
               <Button size="sm" className="bg-amber-600 hover:bg-amber-700 text-white whitespace-nowrap">
                 Start Training

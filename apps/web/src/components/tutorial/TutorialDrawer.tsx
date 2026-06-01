@@ -96,7 +96,7 @@ export function TutorialDrawer({
         {/* Header */}
         <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-gray-100">
           <div className="flex items-center gap-2 min-w-0">
-            <HelpCircle size={18} className="text-green-600 flex-shrink-0" aria-hidden="true" />
+            <HelpCircle size={18} className="text-green-600 shrink-0" aria-hidden="true" />
             <div className="min-w-0">
               <p className="text-xs font-medium text-green-700 uppercase tracking-wide">Guide</p>
               <h2 className="text-base font-bold text-gray-900 truncate">{tutorial.pageTitle}</h2>
@@ -105,7 +105,7 @@ export function TutorialDrawer({
           <button
             ref={closeButtonRef}
             onClick={onDismiss}
-            className="p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors flex-shrink-0 ml-2"
+            className="p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors shrink-0 ml-2"
             aria-label="Close guide"
           >
             <X size={18} />

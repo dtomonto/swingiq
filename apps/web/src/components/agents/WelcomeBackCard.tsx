@@ -48,7 +48,7 @@ export function WelcomeBackCard({
 
   return (
     <section
-      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-700 via-green-800 to-golf-dark text-white p-6 shadow-md"
+      className="relative overflow-hidden rounded-2xl bg-linear-to-br from-green-700 via-green-800 to-golf-dark text-white p-6 shadow-md"
       role="region"
       aria-label="Welcome back"
     >
@@ -56,7 +56,7 @@ export function WelcomeBackCard({
         <button
           onClick={onDismiss}
           aria-label="Dismiss welcome back"
-          className="absolute top-3 right-3 text-white/50 hover:text-white p-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/40"
+          className="absolute top-3 right-3 text-white/50 hover:text-white p-1.5 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-white/40"
         >
           <X size={18} />
         </button>

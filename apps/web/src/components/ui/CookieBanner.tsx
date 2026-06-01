@@ -36,7 +36,7 @@ export function CookieBanner() {
         <p className="text-gray-300 text-xs leading-relaxed flex-1">
           SwingIQ uses cookies for essential app functionality. No advertising or tracking cookies are used. Your data stays on your device.
         </p>
-        <div className="flex gap-3 flex-shrink-0">
+        <div className="flex gap-3 shrink-0">
           <Link
             href="/privacy"
             className="text-gray-400 hover:text-white text-xs underline transition-colors"

@@ -257,7 +257,7 @@ export function ImportWizard() {
           const isActive = n === step;
           const isDone = n < step;
           return (
-            <div key={n} className="flex items-center gap-1 flex-shrink-0">
+            <div key={n} className="flex items-center gap-1 shrink-0">
               <div
                 className={cn(
                   'flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors',
@@ -272,7 +272,7 @@ export function ImportWizard() {
                 </span>
                 <span className="hidden sm:block">{label}</span>
               </div>
-              {i < steps.length - 1 && <ChevronRight size={14} className="text-gray-400 flex-shrink-0" />}
+              {i < steps.length - 1 && <ChevronRight size={14} className="text-gray-400 shrink-0" />}
             </div>
           );
         })}
@@ -305,7 +305,7 @@ export function ImportWizard() {
             ))}
             <div className="pt-3 border-t">
               <div className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg">
-                <Info size={16} className="text-blue-600 flex-shrink-0 mt-0.5" />
+                <Info size={16} className="text-blue-600 shrink-0 mt-0.5" />
                 <p className="text-xs text-blue-700">
                   <strong>Don&rsquo;t see your device?</strong> Choose &ldquo;Manual Entry / Other&rdquo; — you&rsquo;ll map the columns yourself in Step 3.
                 </p>
@@ -381,7 +381,7 @@ export function ImportWizard() {
             <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
               {UNIVERSAL_FIELDS.map(({ key, label, critical }) => (
                 <div key={key} className="flex items-center gap-3 py-1.5 border-b border-gray-100 last:border-0">
-                  <div className="w-40 flex-shrink-0">
+                  <div className="w-40 shrink-0">
                     <span className="text-sm text-gray-700">{label}</span>
                     {critical && <Badge variant="danger" className="ml-2 text-xs">Required</Badge>}
                   </div>
@@ -396,7 +396,7 @@ export function ImportWizard() {
                     ))}
                   </select>
                   {columnMapping[key] ? (
-                    <CheckCircle size={16} className="text-green-500 flex-shrink-0" />
+                    <CheckCircle size={16} className="text-green-500 shrink-0" />
                   ) : (
                     <div className="w-4" />
                   )}

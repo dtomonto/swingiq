@@ -89,7 +89,7 @@ export function ExportPrompt({
       >
         <Shield
           size={16}
-          className={isCritical ? 'text-red-600 flex-shrink-0' : 'text-amber-600 flex-shrink-0'}
+          className={isCritical ? 'text-red-600 shrink-0' : 'text-amber-600 shrink-0'}
           aria-hidden="true"
         />
         <p className={`text-sm flex-1 ${isCritical ? 'text-red-800' : 'text-amber-800'}`}>
@@ -99,7 +99,7 @@ export function ExportPrompt({
           size="sm"
           onClick={handleExport}
           disabled={loading || exported}
-          className="flex-shrink-0"
+          className="shrink-0"
         >
           {exported ? '✓' : <Download size={14} aria-hidden="true" />}
           {exported ? 'Exported!' : t('data.downloadBackup')}
@@ -108,7 +108,7 @@ export function ExportPrompt({
           <button
             onClick={handleDismiss}
             aria-label={t('common.close')}
-            className="text-amber-500 hover:text-amber-700 p-1 flex-shrink-0"
+            className="text-amber-500 hover:text-amber-700 p-1 shrink-0"
           >
             <X size={14} aria-hidden="true" />
           </button>
@@ -122,14 +122,14 @@ export function ExportPrompt({
       className={`rounded-xl border p-5 space-y-4 ${
         isCritical
           ? 'bg-red-50 border-red-200'
-          : 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-200'
+          : 'bg-linear-to-br from-green-50 to-emerald-50 border-green-200'
       }`}
       role={isCritical ? 'alertdialog' : 'complementary'}
       aria-label={t('data.downloadBackup')}
     >
       <div className="flex items-start gap-3">
         <div
-          className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+          className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
             isCritical ? 'bg-red-100' : 'bg-green-100'
           }`}
           aria-hidden="true"

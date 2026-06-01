@@ -30,7 +30,7 @@ function DrillCard({ drill }: { drill: DrillRecommendation }) {
           href={drill.youtube_search_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-medium hover:bg-red-700 ml-3 flex-shrink-0"
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-medium hover:bg-red-700 ml-3 shrink-0"
         >
           <ExternalLink size={11} />
           YouTube
@@ -203,12 +203,12 @@ export function TrainingContent() {
 
       {/* Skill level selector */}
       <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-        <SlidersHorizontal size={15} className="text-gray-500 flex-shrink-0" />
+        <SlidersHorizontal size={15} className="text-gray-500 shrink-0" />
         <span className="text-sm font-medium text-gray-700 flex-1">Difficulty Level</span>
         <select
           value={skillLevel}
           onChange={(e) => setSkillLevel(e.target.value as SkillLevel)}
-          className="border border-gray-300 rounded-lg px-2 py-1 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-none"
+          className="border border-gray-300 rounded-lg px-2 py-1 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-hidden"
         >
           <option value="beginner">Beginner</option>
           <option value="intermediate">Intermediate</option>
@@ -343,7 +343,7 @@ export function TrainingContent() {
       {hasNoData && (
         <Card className="border-amber-200 bg-amber-50">
           <CardBody className="flex items-center gap-3">
-            <Zap size={18} className="text-amber-600 flex-shrink-0" />
+            <Zap size={18} className="text-amber-600 shrink-0" />
             <div>
               <p className="text-sm font-medium text-amber-800">No personal diagnosis yet</p>
               <p className="text-xs text-amber-600">Import your launch monitor data to get a training routine built specifically for your swing.</p>
@@ -356,7 +356,7 @@ export function TrainingContent() {
       {/* Routine header */}
       <Card className="border-l-4 border-l-red-500">
         <CardBody className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center flex-shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center shrink-0">
             <Target size={20} className="text-red-600" />
           </div>
           <div className="flex-1">
@@ -414,7 +414,7 @@ export function TrainingContent() {
                 completedSteps.has(i) ? 'bg-green-50 border border-green-200' : 'bg-gray-50 border border-gray-200 hover:border-green-300'
               }`}
             >
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors ${
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
                 completedSteps.has(i) ? 'bg-green-500' : 'bg-gray-300'
               }`}>
                 {completedSteps.has(i)
@@ -436,7 +436,7 @@ export function TrainingContent() {
         <CardBody className="space-y-2">
           {routine.common_mistakes.map((mistake, i) => (
             <div key={i} className="flex gap-2 text-sm text-gray-700">
-              <AlertCircle size={16} className="text-orange-500 flex-shrink-0 mt-0.5" />
+              <AlertCircle size={16} className="text-orange-500 shrink-0 mt-0.5" />
               {mistake}
             </div>
           ))}
@@ -447,7 +447,7 @@ export function TrainingContent() {
       <Card>
         <CardHeader>
           <div className="flex items-center gap-2">
-            <div className="w-5 h-5 bg-red-600 rounded flex items-center justify-center">
+            <div className="w-5 h-5 bg-red-600 rounded-sm flex items-center justify-center">
               <span className="text-white text-xs font-bold">▶</span>
             </div>
             <CardTitle>YouTube Drill Links</CardTitle>

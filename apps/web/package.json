@@ -43,6 +43,7 @@
     "zustand": "^5.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.0",
     "@types/papaparse": "^5.3.0",
@@ -50,12 +51,11 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
-    "autoprefixer": "^10.4.0",
     "eslint": "^8.57.1",
     "eslint-config-next": "^15.5.18",
     "jest": "^30.0.0",
     "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.0",
+    "tailwindcss": "^4.3.0",
     "ts-jest": "^29.4.0",
     "typescript": "^6.0.0"
   }

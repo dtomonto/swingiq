@@ -261,7 +261,7 @@ export default function FeaturesPage() {
             <div className="space-y-6">
               {group.features.map((f) => (
                 <div key={f.name} className="flex gap-4">
-                  <div className="flex-shrink-0 w-2 h-2 rounded-full bg-green-500 mt-2" />
+                  <div className="shrink-0 w-2 h-2 rounded-full bg-green-500 mt-2" />
                   <div>
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <h3 className="font-semibold text-gray-900">{f.name}</h3>

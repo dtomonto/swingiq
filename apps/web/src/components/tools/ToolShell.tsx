@@ -68,7 +68,7 @@ export function ToolShell({
 /** Reusable result panel used by tools after a submit. */
 export function ResultPanel({ children }: { children: React.ReactNode }) {
   return (
-    <section aria-live="polite" className="mt-6 space-y-4 rounded-2xl border border-green-200 bg-white p-5 shadow-sm">
+    <section aria-live="polite" className="mt-6 space-y-4 rounded-2xl border border-green-200 bg-white p-5 shadow-xs">
       {children}
     </section>
   );

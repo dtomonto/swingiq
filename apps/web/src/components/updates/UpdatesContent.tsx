@@ -61,7 +61,7 @@ function MilestoneTimeline({ milestones }: MilestoneProps) {
           <li key={m.id} className="flex gap-4 sm:gap-6">
             {/* Step circle */}
             <div
-              className="relative z-10 flex-shrink-0 w-10 h-10 rounded-full bg-green-600 text-white text-sm font-bold flex items-center justify-center shadow-sm"
+              className="relative z-10 shrink-0 w-10 h-10 rounded-full bg-green-600 text-white text-sm font-bold flex items-center justify-center shadow-xs"
               aria-hidden="true"
             >
               {i + 1}
@@ -189,7 +189,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
                 placeholder="Search updates..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
+                className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-green-400 focus:border-transparent"
               />
             </div>
 
@@ -222,7 +222,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
                 id="category-filter"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value as UpdateCategory | 'all')}
-                className="border border-gray-200 rounded-lg text-sm text-gray-700 px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-green-400 bg-white"
+                className="border border-gray-200 rounded-lg text-sm text-gray-700 px-3 py-1.5 focus:outline-hidden focus:ring-2 focus:ring-green-400 bg-white"
               >
                 {availableCategories.map((cat) => (
                   <option key={cat} value={cat}>
@@ -234,7 +234,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
               {hasFilters && (
                 <button
                   onClick={clearFilters}
-                  className="text-xs text-green-700 underline hover:text-green-900 focus:outline-none focus:ring-2 focus:ring-green-400 rounded"
+                  className="text-xs text-green-700 underline hover:text-green-900 focus:outline-hidden focus:ring-2 focus:ring-green-400 rounded-sm"
                 >
                   Clear filters
                 </button>

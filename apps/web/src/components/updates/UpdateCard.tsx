@@ -50,7 +50,7 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
   return (
     <article
       className={cn(
-        'bg-white rounded-xl border shadow-sm overflow-hidden',
+        'bg-white rounded-xl border shadow-xs overflow-hidden',
         featured
           ? 'border-green-300 ring-2 ring-green-200'
           : 'border-gray-200',
@@ -126,7 +126,7 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
               </p>
             )}
             {update.userActionRequired && (
-              <p className="text-xs text-blue-700 bg-blue-50 rounded px-2 py-1">
+              <p className="text-xs text-blue-700 bg-blue-50 rounded-sm px-2 py-1">
                 <span className="font-medium">Action:</span> {update.userActionRequired}
               </p>
             )}

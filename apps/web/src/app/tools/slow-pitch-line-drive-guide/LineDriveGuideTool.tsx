@@ -53,7 +53,7 @@ export function LineDriveGuideTool() {
           <ChoiceGroup label="Your most common result?" name="result" value={result} onChange={setResult}
             choices={[{ value: 'popups', label: 'Pop-ups' }, { value: 'grounders', label: 'Ground balls' }, { value: 'mishits', label: 'Mis-hits / inconsistent' }]} />
           {error && <p role="alert" className="mb-3 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
+          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
             Get My Line-Drive Fix
           </button>
         </form>

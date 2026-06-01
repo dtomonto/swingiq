@@ -44,7 +44,7 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
           </div>
           <button
             onClick={() => setExpanded((v) => !v)}
-            className="text-gray-400 hover:text-gray-600 flex-shrink-0 mt-0.5"
+            className="text-gray-400 hover:text-gray-600 shrink-0 mt-0.5"
             aria-label={expanded ? 'Collapse drill' : 'Expand drill'}
           >
             {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -71,7 +71,7 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
             <ol className="space-y-1.5">
               {drill.steps.map((step, i) => (
                 <li key={i} className="flex gap-2 text-sm text-gray-700">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 text-green-700 text-xs font-bold flex items-center justify-center">
+                  <span className="shrink-0 w-5 h-5 rounded-full bg-green-100 text-green-700 text-xs font-bold flex items-center justify-center">
                     {i + 1}
                   </span>
                   <span className="leading-relaxed">{step}</span>
@@ -96,9 +96,9 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
             className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700 hover:bg-red-100 transition-colors"
             onClick={() => handleInteraction('felt_helpful')}
           >
-            <Video className="w-4 h-4 flex-shrink-0" />
+            <Video className="w-4 h-4 shrink-0" />
             <span className="flex-1 font-medium">Search YouTube: {drill.youtube_search_query}</span>
-            <ExternalLink className="w-3.5 h-3.5 flex-shrink-0 opacity-60" />
+            <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-60" />
           </a>
 
           {/* Feedback buttons */}

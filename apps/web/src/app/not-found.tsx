@@ -27,7 +27,7 @@ export default function NotFound() {
         </Link>
 
         {/* Error */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm mb-6">
+        <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-xs mb-6">
           <p className="text-5xl font-black text-gray-200 mb-4">404</p>
           <h1 className="text-xl font-bold text-gray-900 mb-2">Page Not Found</h1>
           <p className="text-gray-500 text-sm">

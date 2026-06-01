@@ -21,7 +21,7 @@ export function IntakeQualityHint() {
   return (
     <div className="rounded-xl border border-blue-200 bg-blue-50 p-4" role="note" aria-label="Upload tips">
       <div className="flex items-start gap-2.5">
-        <CheckCircle2 size={18} className="text-blue-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+        <CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" aria-hidden="true" />
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold text-blue-900">{result.headline}</p>
 
@@ -29,7 +29,7 @@ export function IntakeQualityHint() {
             <ul className="mt-1.5 space-y-1">
               {result.improvements.map((tip, i) => (
                 <li key={i} className="text-xs text-blue-800 flex items-start gap-1.5">
-                  <Lightbulb size={12} className="mt-0.5 flex-shrink-0" aria-hidden="true" />
+                  <Lightbulb size={12} className="mt-0.5 shrink-0" aria-hidden="true" />
                   {tip}
                 </li>
               ))}

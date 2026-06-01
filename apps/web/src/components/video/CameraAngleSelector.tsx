@@ -61,9 +61,9 @@ export function CameraAngleSelector({ value, onChange, disabled }: CameraAngleSe
             onClick={() => onChange(opt.value)}
             className={cn(
               'rounded-xl border-2 p-4 text-left transition-all duration-150',
-              'focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2',
+              'focus:outline-hidden focus:ring-2 focus:ring-green-500 focus:ring-offset-2',
               value === opt.value
-                ? 'border-green-500 bg-green-50 shadow-sm'
+                ? 'border-green-500 bg-green-50 shadow-xs'
                 : 'border-gray-200 bg-white hover:border-green-300 hover:bg-green-50/50',
               disabled && 'opacity-50 cursor-not-allowed',
             )}
@@ -78,7 +78,7 @@ export function CameraAngleSelector({ value, onChange, disabled }: CameraAngleSe
               </div>
               <div
                 className={cn(
-                  'w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5',
+                  'w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5',
                   value === opt.value ? 'border-green-500 bg-green-500' : 'border-gray-300',
                 )}
               >

@@ -44,7 +44,7 @@ export function SavingsCalculatorTool() {
           <NumberField id="perMonth" label="Lessons per month" value={perMonth} onChange={setPerMonth} min={0} max={30} suffix="per month" />
           <NumberField id="months" label="Months per year you take lessons" value={months} onChange={setMonths} min={0} max={12} suffix="months" />
           {error && <p role="alert" className="mb-3 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
+          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
             Calculate
           </button>
         </form>

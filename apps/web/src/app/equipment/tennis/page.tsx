@@ -10,7 +10,7 @@ import { useSport } from '@/contexts/SportContext';
 import Link from 'next/link';
 import { Plus, Trash2, ChevronDown, ChevronUp, Info, AlertTriangle } from 'lucide-react';
 
-const inp = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none';
+const inp = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-hidden';
 const sel = `${inp} bg-white`;
 
 const EMPTY: Omit<TennisRacket, 'id' | 'created_at'> = {
@@ -56,7 +56,7 @@ export default function TennisEquipmentPage() {
         </div>
 
         <div className="flex gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
-          <Info className="text-blue-500 mt-0.5 flex-shrink-0" size={18} />
+          <Info className="text-blue-500 mt-0.5 shrink-0" size={18} />
           <p className="text-sm text-blue-800">
             <strong>Optional.</strong> Partial specs are fine — SwingIQ will note what data is missing and lower confidence accordingly. You can skip this entirely.
           </p>
@@ -118,7 +118,7 @@ export default function TennisEquipmentPage() {
                     )}
                     {score.adjustmentFirst && (
                       <div className="flex gap-2 text-xs bg-green-50 border border-green-200 rounded-lg p-2.5">
-                        <Info size={13} className="text-green-600 flex-shrink-0 mt-0.5" />
+                        <Info size={13} className="text-green-600 shrink-0 mt-0.5" />
                         <span className="text-green-800">Test adjustments (strings, tension, lead tape) before buying a new frame.</span>
                       </div>
                     )}
@@ -188,7 +188,7 @@ export default function TennisEquipmentPage() {
 
         {rackets.length === 0 && !showForm && (
           <div className="flex gap-2 text-sm text-gray-500 bg-gray-50 border border-gray-200 rounded-xl p-4">
-            <AlertTriangle size={16} className="text-gray-400 mt-0.5 flex-shrink-0" />
+            <AlertTriangle size={16} className="text-gray-400 mt-0.5 shrink-0" />
             No racket logged. Equipment context is optional — you can still use all SwingIQ features without it.
           </div>
         )}

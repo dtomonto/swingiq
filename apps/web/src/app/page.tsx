@@ -124,7 +124,7 @@ export default function HomePage() {
               { title: 'Evidence-Based Drills', desc: 'Every recommended drill is tied to the specific issue detected — not generic advice.' },
               { title: 'Privacy-First Design', desc: 'Video analysis runs locally when possible. Your swing data is never shared publicly by default.' },
             ].map((item) => (
-              <div key={item.title} className="bg-white p-6 rounded-xl shadow-sm">
+              <div key={item.title} className="bg-white p-6 rounded-xl shadow-xs">
                 <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
                 <p className="text-sm text-gray-600">{item.desc}</p>
               </div>

@@ -42,7 +42,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       {/* Admin top bar */}
       <div className="bg-gray-900 border-b border-gray-800 px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-2 py-0.5 rounded">
+          <span className="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-2 py-0.5 rounded-sm">
             ADMIN
           </span>
           <span className="text-sm font-semibold text-gray-200">SwingIQ Internal</span>

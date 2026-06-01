@@ -140,7 +140,7 @@ function ConfidenceBadge({ level }: { level: string }) {
     unreviewed: 'bg-gray-100 text-gray-500',
   };
   return (
-    <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${styles[level] ?? styles.unreviewed}`}>
+    <span className={`text-xs px-1.5 py-0.5 rounded-sm font-medium ${styles[level] ?? styles.unreviewed}`}>
       {level}
     </span>
   );
@@ -298,7 +298,7 @@ export default function ImageImportPage() {
                     setSport(e.target.value as typeof activeSport);
                     setMovementType('');
                   }}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
                 >
                   {sportOptions.map((o) => (
                     <option key={o.value} value={o.value}>{o.label}</option>
@@ -312,7 +312,7 @@ export default function ImageImportPage() {
                 <select
                   value={movementType}
                   onChange={(e) => setMovementType(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
                 >
                   <option value="">— Select —</option>
                   {movementOptions.map((o) => (
@@ -327,7 +327,7 @@ export default function ImageImportPage() {
                 <select
                   value={dataSource}
                   onChange={(e) => setDataSource(e.target.value as ImageExtractionSource)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
                 >
                   {DATA_SOURCES.map((o) => (
                     <option key={o.value} value={o.value}>{o.label}</option>
@@ -427,7 +427,7 @@ export default function ImageImportPage() {
             <div className="flex flex-col lg:flex-row gap-4">
               {/* Image reference panel */}
               {imagePreviewUrl && (
-                <div className="lg:w-80 flex-shrink-0">
+                <div className="lg:w-80 shrink-0">
                   <Card>
                     <CardHeader>
                       <CardTitle className="text-sm">Reference Image</CardTitle>
@@ -472,7 +472,7 @@ export default function ImageImportPage() {
                               <input
                                 value={header}
                                 onChange={(e) => updateHeader(ci, e.target.value)}
-                                className="w-full text-xs font-semibold text-gray-700 bg-transparent border-b border-dashed border-gray-300 focus:outline-none focus:border-green-500 py-0.5"
+                                className="w-full text-xs font-semibold text-gray-700 bg-transparent border-b border-dashed border-gray-300 focus:outline-hidden focus:border-green-500 py-0.5"
                               />
                               <div className="mt-1">
                                 <ConfidenceBadge level="high" />
@@ -492,7 +492,7 @@ export default function ImageImportPage() {
                                   value={row[ci] ?? ''}
                                   onChange={(e) => updateCell(ri, ci, e.target.value)}
                                   placeholder="—"
-                                  className="w-full border border-gray-200 rounded px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-green-500"
+                                  className="w-full border border-gray-200 rounded-sm px-2 py-1 text-sm focus:outline-hidden focus:ring-1 focus:ring-green-500"
                                 />
                               </td>
                             ))}
@@ -593,7 +593,7 @@ export default function ImageImportPage() {
 
                 {/* Privacy notice */}
                 <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 flex gap-3">
-                  <span className="text-blue-600 text-lg flex-shrink-0">🔒</span>
+                  <span className="text-blue-600 text-lg shrink-0">🔒</span>
                   <p className="text-sm text-blue-800">
                     <strong>Privacy first:</strong> Your data stays in your browser. Nothing is uploaded to our servers until you explicitly save a session.
                   </p>

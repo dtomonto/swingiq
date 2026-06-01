@@ -18,7 +18,7 @@ export function SafeUploadExplainer({ className = '' }: { className?: string }) 
       <ul className="space-y-2">
         {TIPS.map((tip) => (
           <li key={tip} className="flex items-start gap-2 text-sm text-gray-700">
-            <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0 text-green-600" aria-hidden="true" />
+            <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-green-600" aria-hidden="true" />
             <span>{tip}</span>
           </li>
         ))}

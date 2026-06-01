@@ -85,7 +85,7 @@ export default function BadgesPage() {
               onClick={() => setTab(tabId)}
               className={cn(
                 'px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
-                tab === tabId ? 'bg-white shadow-sm text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                tab === tabId ? 'bg-white shadow-xs text-gray-900' : 'text-gray-600 hover:text-gray-900'
               )}
             >
               {tabId === 'all' ? t('achievements.allBadges')

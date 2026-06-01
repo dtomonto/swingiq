@@ -28,7 +28,7 @@ const CATEGORY_TO_CLUB_TYPE: Record<string, string> = {
   other: 'other',
 };
 
-const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none';
+const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-hidden';
 const selectClass = `${inputClass} bg-white`;
 
 type ViewMode = 'clubs' | 'loft_gapping';
@@ -70,7 +70,7 @@ function ClubCard({ club, onEdit, onDelete }: { club: LocalClub; onEdit: () => v
             </p>
           )}
         </div>
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           <Link href={`/diagnose?club=${encodeURIComponent(club.name)}`}>
             <Button variant="ghost" size="sm" className="text-green-600">
               <Target size={14} /> Analyze
@@ -467,7 +467,7 @@ export function BagManager() {
             <div className="space-y-2">
               {gapAnalysis.results.map((r) => (
                 <div key={r.club_id} className="flex items-start gap-3 py-2 border-b last:border-0">
-                  <div className="w-28 flex-shrink-0">
+                  <div className="w-28 shrink-0">
                     <p className="text-sm font-semibold text-gray-900">{r.club_name}</p>
                     <p className="text-xs text-gray-500">{r.carry} yds</p>
                   </div>

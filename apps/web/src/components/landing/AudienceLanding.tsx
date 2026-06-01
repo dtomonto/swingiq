@@ -29,7 +29,7 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
         <div className="mx-auto max-w-3xl">
           <Breadcrumbs
             items={[{ name: 'Home', path: '/' }, { name: config.name, path: `/${config.slug}` }]}
-            className="mb-4 [&_*]:!text-green-200"
+            className="mb-4 **:text-green-200!"
           />
           <h1 className="text-3xl font-bold md:text-4xl">{config.headline}</h1>
           <p className="mt-4 max-w-2xl text-lg text-green-100">{config.positioning}</p>
@@ -58,7 +58,7 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
           <ol className="mt-5 space-y-3">
             {config.how.map((step, i) => (
               <li key={step} className="flex items-start gap-3">
-                <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-green-600 text-sm font-bold text-white">{i + 1}</span>
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-600 text-sm font-bold text-white">{i + 1}</span>
                 <span className="text-gray-700">{step}</span>
               </li>
             ))}
@@ -73,7 +73,7 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
             <ul className="space-y-2">
               {['No cost to start', 'Web-based — nothing to install', 'Privacy-first, youth-safe by default', 'Works alongside your existing coaching'].map((p) => (
                 <li key={p} className="flex items-start gap-2 text-sm text-gray-700">
-                  <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0 text-green-600" aria-hidden="true" />
+                  <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-green-600" aria-hidden="true" />
                   <span>{p}</span>
                 </li>
               ))}

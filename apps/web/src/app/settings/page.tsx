@@ -45,7 +45,7 @@ export default function SettingsPage() {
               <select
                 value={settings.units}
                 onChange={(e) => updateSettings({ units: e.target.value as 'yards' | 'meters' })}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-none bg-white"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
               >
                 <option value="yards">Yards (US / UK)</option>
                 <option value="meters">Meters</option>
@@ -56,7 +56,7 @@ export default function SettingsPage() {
               <select
                 value={settings.theme}
                 onChange={(e) => updateSettings({ theme: e.target.value as 'light' | 'dark' | 'system' })}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-none bg-white"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
               >
                 <option value="light">Light</option>
                 <option value="dark">Dark</option>
@@ -75,7 +75,7 @@ export default function SettingsPage() {
               <select
                 value={settings.coaching_style}
                 onChange={(e) => updateSettings({ coaching_style: e.target.value as 'detailed' | 'concise' | 'encouragement' | 'balanced' })}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-none bg-white"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
               >
                 <option value="detailed">Detailed — I want all the information</option>
                 <option value="concise">Concise — Keep it short and actionable</option>
@@ -92,7 +92,7 @@ export default function SettingsPage() {
                 onClick={() => updateSettings({ show_estimated_warnings: !settings.show_estimated_warnings })}
                 className={`w-11 h-6 rounded-full transition-colors ${settings.show_estimated_warnings ? 'bg-green-500' : 'bg-gray-300'}`}
               >
-                <div className={`w-4 h-4 rounded-full bg-white shadow mx-1 transition-transform ${settings.show_estimated_warnings ? 'translate-x-5' : 'translate-x-0'}`} />
+                <div className={`w-4 h-4 rounded-full bg-white shadow-sm mx-1 transition-transform ${settings.show_estimated_warnings ? 'translate-x-5' : 'translate-x-0'}`} />
               </button>
             </div>
           </CardBody>
@@ -171,7 +171,7 @@ export default function SettingsPage() {
             <select
               value={settings.usage_category ?? ''}
               onChange={(e) => updateSettings({ usage_category: (e.target.value || null) as typeof settings.usage_category })}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-none bg-white"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
             >
               <option value="">Not set</option>
               <option value="adult">Adult athlete (18+)</option>

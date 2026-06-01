@@ -76,7 +76,7 @@ export function FeedbackPanel({ analysisId: _analysisId, onSubmit, className }: 
               onClick={() => setRating(star)}
               onMouseEnter={() => setHoveredRating(star)}
               onMouseLeave={() => setHoveredRating(null)}
-              className="p-0.5 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="p-0.5 rounded-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
               aria-label={`Rate ${star} star${star > 1 ? 's' : ''}`}
             >
               <Star
@@ -100,7 +100,7 @@ export function FeedbackPanel({ analysisId: _analysisId, onSubmit, className }: 
             value={mostUseful}
             onChange={(e) => setMostUseful(e.target.value)}
             placeholder="e.g. The early extension explanation"
-            className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+            className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-hidden"
             maxLength={200}
           />
         </div>
@@ -112,7 +112,7 @@ export function FeedbackPanel({ analysisId: _analysisId, onSubmit, className }: 
             value={leastUseful}
             onChange={(e) => setLeastUseful(e.target.value)}
             placeholder="e.g. The phase timeline wasn't accurate"
-            className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+            className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-hidden"
             maxLength={200}
           />
         </div>
@@ -125,7 +125,7 @@ export function FeedbackPanel({ analysisId: _analysisId, onSubmit, className }: 
             onChange={(e) => setFreeText(e.target.value)}
             placeholder="Any other feedback…"
             rows={2}
-            className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none resize-none"
+            className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-hidden resize-none"
             maxLength={500}
           />
         </div>

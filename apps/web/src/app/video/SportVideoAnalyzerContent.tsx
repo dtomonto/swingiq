@@ -51,7 +51,7 @@ function SportPhaseTimeline({
     <div className="space-y-2">
       <div className="flex items-center gap-2">
         <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Swing Phases</p>
-        <span className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded px-1.5 py-0.5">
+        <span className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-sm px-1.5 py-0.5">
           ⚠ Estimated timing
         </span>
       </div>
@@ -62,9 +62,9 @@ function SportPhaseTimeline({
             <span
               key={seg.phase}
               className={cn(
-                'px-2 py-1 rounded text-xs font-medium border',
+                'px-2 py-1 rounded-sm text-xs font-medium border',
                 isActive
-                  ? 'bg-golf-fairway text-white border-golf-fairway shadow-sm'
+                  ? 'bg-golf-fairway text-white border-golf-fairway shadow-xs'
                   : 'bg-white text-gray-600 border-gray-200',
               )}
             >
@@ -98,11 +98,11 @@ function SportIssueCard({ issue }: { issue: SportDetectedIssue }) {
         onClick={() => setExpanded((v) => !v)}
         className="w-full flex items-start gap-3 p-4 text-left hover:bg-gray-50 transition-colors"
       >
-        <AlertCircle className={cn('w-4 h-4 flex-shrink-0 mt-0.5', cfg.color)} />
+        <AlertCircle className={cn('w-4 h-4 shrink-0 mt-0.5', cfg.color)} />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm font-semibold text-gray-900">{issue.label}</span>
-            <span className={cn('text-xs font-medium px-1.5 py-0.5 rounded border', cfg.bg, cfg.color)}>
+            <span className={cn('text-xs font-medium px-1.5 py-0.5 rounded-sm border', cfg.bg, cfg.color)}>
               {cfg.badge}
             </span>
             <span className="text-xs text-amber-600">⚠ Estimated</span>
@@ -164,14 +164,14 @@ function SportDrillCard({ drill }: { drill: SportDrillRecommendation }) {
             </p>
           )}
           {drill.safety_note && (
-            <div className="rounded bg-yellow-50 border border-yellow-200 px-3 py-2">
+            <div className="rounded-sm bg-yellow-50 border border-yellow-200 px-3 py-2">
               <p className="text-xs text-yellow-800">⚠ {drill.safety_note}</p>
             </div>
           )}
           <ol className="space-y-1.5">
             {drill.steps.map((step, i) => (
               <li key={i} className="flex gap-2 text-sm text-gray-700">
-                <span className="font-bold text-golf-fairway flex-shrink-0">{i + 1}.</span>
+                <span className="font-bold text-golf-fairway shrink-0">{i + 1}.</span>
                 <span>{step}</span>
               </li>
             ))}
@@ -283,7 +283,7 @@ function SportCoachingPanel({
                   <ul className="space-y-1">
                     {phaseDef.key_checkpoints.map((c, i) => (
                       <li key={i} className="flex gap-2 text-sm text-gray-700">
-                        <span className="text-golf-fairway font-bold flex-shrink-0">✓</span>
+                        <span className="text-golf-fairway font-bold shrink-0">✓</span>
                         {c}
                       </li>
                     ))}
@@ -304,7 +304,7 @@ function SportCoachingPanel({
                   <ul className="space-y-1">
                     {phaseDef.common_errors.map((e, i) => (
                       <li key={i} className="flex gap-2 text-sm text-gray-700">
-                        <span className="text-red-400 flex-shrink-0">✗</span>
+                        <span className="text-red-400 shrink-0">✗</span>
                         {e}
                       </li>
                     ))}
@@ -452,7 +452,7 @@ export function SportVideoAnalyzerContent() {
 
         <div className="rounded-xl bg-blue-50 border border-blue-200 p-4">
           <div className="flex items-start gap-2">
-            <Info className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+            <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
             <p className="text-xs text-blue-700">
               <strong>Evidence-informed coaching.</strong> SwingIQ benchmarks are periodically
               reviewed and updated based on current sports performance research. All detections are
@@ -519,7 +519,7 @@ export function SportVideoAnalyzerContent() {
                           : 'border-gray-200 bg-white hover:border-gray-300'
                       }`}
                     >
-                      <div className={`w-3 h-3 rounded-full border-2 mt-0.5 flex-shrink-0 ${isSelected ? 'border-green-500 bg-green-500' : 'border-gray-300'}`} />
+                      <div className={`w-3 h-3 rounded-full border-2 mt-0.5 shrink-0 ${isSelected ? 'border-green-500 bg-green-500' : 'border-gray-300'}`} />
                       <div>
                         <p className={`text-xs font-semibold ${isSelected ? 'text-green-700' : 'text-gray-700'}`}>{opt.label}</p>
                         <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{opt.description}</p>
@@ -534,7 +534,7 @@ export function SportVideoAnalyzerContent() {
 
         {analyzeError && (
           <div className="rounded-xl bg-red-50 border border-red-200 p-4 flex gap-2">
-            <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
             <p className="text-sm text-red-700">{analyzeError}</p>
           </div>
         )}
@@ -601,7 +601,7 @@ export function SportVideoAnalyzerContent() {
 
       {/* Evidence note */}
       <div className="rounded-xl bg-blue-50 border border-blue-100 p-3 flex gap-2">
-        <Info className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
+        <Info className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
         <p className="text-xs text-blue-700">{config.evidence_note}</p>
       </div>
 

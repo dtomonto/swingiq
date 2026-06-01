@@ -81,7 +81,7 @@ export function UsageCategoryModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm px-4 py-6"
+      className="fixed inset-0 z-200 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs px-4 py-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby="usage-modal-title"
@@ -90,7 +90,7 @@ export function UsageCategoryModal() {
         {/* Header */}
         <div className="px-6 pt-6 pb-4">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center shrink-0">
               <Shield className="text-white" size={20} />
             </div>
             <div>
@@ -129,7 +129,7 @@ export function UsageCategoryModal() {
                 <p className="text-xs text-gray-500">{sublabel}</p>
               </div>
               <div
-                className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${
+                className={`w-4 h-4 rounded-full border-2 shrink-0 ${
                   selected === value ? 'border-green-500 bg-green-500' : 'border-gray-300'
                 }`}
               />

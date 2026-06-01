@@ -227,7 +227,7 @@ export default function BackupPage() {
                     setExportPassword('');
                     setExportPasswordConfirm('');
                   }}
-                  className="w-4 h-4 rounded text-green-600"
+                  className="w-4 h-4 rounded-sm text-green-600"
                 />
                 <div className="flex items-center gap-2">
                   <Lock size={16} className="text-gray-500" />
@@ -248,14 +248,14 @@ export default function BackupPage() {
                     placeholder="Password (min. 8 characters)"
                     value={exportPassword}
                     onChange={(e) => setExportPassword(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
                   />
                   <input
                     type="password"
                     placeholder="Confirm password"
                     value={exportPasswordConfirm}
                     onChange={(e) => setExportPasswordConfirm(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
                   />
                 </div>
               )}
@@ -347,7 +347,7 @@ export default function BackupPage() {
                   value={importPassword}
                   onChange={(e) => setImportPassword(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') handleDecrypt(); }}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
                   autoFocus
                 />
 

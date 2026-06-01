@@ -54,7 +54,7 @@ function StatusBadge({ status }: { status: string }) {
 
   const Icon = config.icon;
   return (
-    <span className={cn('inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded border font-medium', config.color)}>
+    <span className={cn('inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-sm border font-medium', config.color)}>
       <Icon className="w-3 h-3" />
       {status}
     </span>
@@ -69,7 +69,7 @@ function RiskBadge({ risk }: { risk: string }) {
   }[risk] ?? 'text-gray-400 bg-gray-400/10 border-gray-400/30';
 
   return (
-    <span className={cn('text-xs px-2 py-0.5 rounded border font-medium', config)}>
+    <span className={cn('text-xs px-2 py-0.5 rounded-sm border font-medium', config)}>
       {risk} risk
     </span>
   );
@@ -189,7 +189,7 @@ export function ResearchAdminContent() {
               <select
                 value={scope}
                 onChange={(e) => setScope(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-hidden"
               >
                 <option value="full">Full (all domains)</option>
                 <option value="launch_monitor_benchmarks">Launch Monitor Benchmarks</option>
@@ -230,7 +230,7 @@ export function ResearchAdminContent() {
               value={adminSecret}
               onChange={(e) => setAdminSecret(e.target.value)}
               placeholder="Enter ADMIN_SECRET to authenticate"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-green-500"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-hidden focus:ring-1 focus:ring-green-500"
             />
             <p className="text-xs text-gray-600 mt-1">Never stored — entered each session. Set ADMIN_SECRET in your environment.</p>
           </div>
@@ -254,7 +254,7 @@ export function ResearchAdminContent() {
 
           {runError && (
             <div className="flex items-start gap-2 rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-sm text-red-400">
-              <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
               {runError}
             </div>
           )}
@@ -324,7 +324,7 @@ export function ResearchAdminContent() {
                     </div>
                     <p className="text-xs text-gray-400 mt-0.5 truncate">{proposal.rationale}</p>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="flex items-center gap-2 shrink-0">
                     <span className="text-xs text-gray-400">{proposal.confidence_score}% confidence</span>
                     {expandedProposal === proposal.id
                       ? <ChevronUp className="w-4 h-4 text-gray-400" />
@@ -438,7 +438,7 @@ export function ResearchAdminContent() {
         <div className="space-y-2">
           {CURATED_SOURCES.map((source, i) => (
             <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-gray-800">
-              <Shield className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+              <Shield className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-200 truncate">{source.title}</p>
                 <p className="text-xs text-gray-500 mt-0.5">{source.publisher} · {source.scope.join(', ')}</p>
@@ -447,7 +447,7 @@ export function ResearchAdminContent() {
                 href={source.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-green-400 hover:text-green-300 flex-shrink-0"
+                className="text-xs text-green-400 hover:text-green-300 shrink-0"
               >
                 View →
               </a>

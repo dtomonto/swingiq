@@ -149,7 +149,7 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
               <div className="px-4 py-3 space-y-2">
                 {routine.drill_steps.slice(0, 3).map((step, i) => (
                   <div key={i} className="flex gap-2 text-sm text-gray-700">
-                    <span className="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+                    <span className="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                       {i + 1}
                     </span>
                     {step}
@@ -303,7 +303,7 @@ export function DiagnoseContent() {
             <select
               value={activeSession.id}
               onChange={(e) => setSelectedSessionId(e.target.value)}
-              className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 outline-none bg-white"
+              className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
               aria-label="Select session to diagnose"
             >
               {sorted.map((s) => (

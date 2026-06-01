@@ -140,7 +140,7 @@ function RecentAnalyses({ sport }: { sport: SportId }) {
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+            <div className="flex items-center gap-2 shrink-0 ml-2">
               {analysis.overall_score > 0 && (
                 <div className="text-right">
                   <p className="text-lg font-bold text-gray-900">{analysis.overall_score}</p>
@@ -326,9 +326,9 @@ function DataCompletenessCard({ sport }: { sport: SportId }) {
           {checks.map((check) => (
             <div key={check.label} className="flex items-center gap-2 text-sm">
               {check.done ? (
-                <CheckCircle2 size={15} className="text-green-500 flex-shrink-0" />
+                <CheckCircle2 size={15} className="text-green-500 shrink-0" />
               ) : (
-                <div className="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0" />
+                <div className="w-4 h-4 rounded-full border-2 border-gray-300 shrink-0" />
               )}
               <span className={check.done ? 'text-gray-700' : 'text-gray-400'}>{check.label}</span>
             </div>

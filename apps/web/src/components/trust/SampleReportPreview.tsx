@@ -14,7 +14,7 @@ export function SampleReportPreview({
   href?: string;
 }) {
   return (
-    <div className={`overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm ${className}`}>
+    <div className={`overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs ${className}`}>
       <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-5 py-3">
         <span className="text-sm font-bold text-gray-900">Sample report</span>
         <span className="rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-gray-600">

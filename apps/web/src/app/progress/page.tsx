@@ -577,7 +577,7 @@ export default function ProgressPage() {
                 <Link
                   key={snap.id}
                   href={`/sessions/${snap.id}`}
-                  className="flex items-center justify-between py-2 border-b last:border-0 hover:bg-gray-50 px-1 rounded transition-colors"
+                  className="flex items-center justify-between py-2 border-b last:border-0 hover:bg-gray-50 px-1 rounded-sm transition-colors"
                 >
                   <div>
                     <p className="text-sm font-medium text-gray-900">{snap.name}</p>

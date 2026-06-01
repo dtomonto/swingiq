@@ -48,9 +48,9 @@ const SPORTS: SportConfig[] = [
       { value: 'weak', label: 'No power' },
     ],
     outcomes: {
-      long: { issue: 'Too flat, not enough topspin', checkpoint: 'Add low-to-high brush for margin.', drills: ['Drop-feed topspin', 'Low-to-high shadow swings', 'Window target drill'], plan: ['Days 1–3: topspin feel', 'Days 4–6: rally', 'Day 7: retest'] },
+      long: { issue: 'Too flat, not enough topspin', checkpoint: 'Add low-to-high brush for margin.', drills: ['Drop-feed topspin', 'Low-to-high shadow-sm swings', 'Window target drill'], plan: ['Days 1–3: topspin feel', 'Days 4–6: rally', 'Day 7: retest'] },
       net: { issue: 'Closing the face / brushing down', checkpoint: 'Finish high and meet the ball out front.', drills: ['High-finish cue', 'Contact-point catch', 'Drop-feed'], plan: ['Days 1–3: contact point', 'Days 4–6: rally', 'Day 7: retest'] },
-      late: { issue: 'Late unit turn', checkpoint: 'Turn shoulders before the bounce.', drills: ['Early-turn shadow', 'Split-step timing', 'Catch-at-contact'], plan: ['Daily turn timing, retest day 7'] },
+      late: { issue: 'Late unit turn', checkpoint: 'Turn shoulders before the bounce.', drills: ['Early-turn shadow-sm', 'Split-step timing', 'Catch-at-contact'], plan: ['Daily turn timing, retest day 7'] },
       weak: { issue: 'All-arm swing, no legs/core', checkpoint: 'Drive from the ground up.', drills: ['Load-and-explode', 'Hip-lead rotation', 'Medicine-ball throw (light)'], plan: ['Days 1–3: sequence', 'Days 4–6: power', 'Day 7: retest'] },
     },
   },
@@ -146,7 +146,7 @@ export function SwingMistakeQuizTool() {
             <ChoiceGroup label={sport.symptomLabel} name="symptom" value={symptom} onChange={setSymptom} choices={sport.symptoms} />
           )}
           {error && <p role="alert" className="mb-3 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
+          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
             See My Likely Issue
           </button>
         </form>

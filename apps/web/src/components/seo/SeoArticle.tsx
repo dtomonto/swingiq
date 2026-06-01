@@ -99,7 +99,7 @@ export function SeoArticle({ page }: { page: SeoPage }) {
           <ul className="space-y-2">
             {page.diagnosisSteps.map((s) => (
               <li key={s.slice(0, 24)} className="flex items-start gap-2 text-gray-700">
-                <CheckCircle2 size={17} className="mt-0.5 flex-shrink-0 text-green-600" aria-hidden="true" />
+                <CheckCircle2 size={17} className="mt-0.5 shrink-0 text-green-600" aria-hidden="true" />
                 <span>{s}</span>
               </li>
             ))}
@@ -112,7 +112,7 @@ export function SeoArticle({ page }: { page: SeoPage }) {
           <ul className="grid gap-2 sm:grid-cols-2">
             {page.whatSwingIQLooksFor.map((s) => (
               <li key={s.slice(0, 24)} className="flex items-start gap-2 text-sm text-gray-700">
-                <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-green-600" aria-hidden="true" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-600" aria-hidden="true" />
                 <span>{s}</span>
               </li>
             ))}

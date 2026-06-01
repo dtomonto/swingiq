@@ -9,7 +9,7 @@ import { scoreBat } from '@/lib/equipment/scoring';
 import Link from 'next/link';
 import { Plus, Trash2, ChevronDown, ChevronUp, Info, AlertTriangle } from 'lucide-react';
 
-const inp = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none';
+const inp = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-hidden';
 const sel = `${inp} bg-white`;
 
 const EMPTY: Omit<SoftballBat, 'id' | 'created_at'> = {
@@ -53,7 +53,7 @@ export default function FastPitchEquipmentPage() {
         </div>
 
         <div className="flex gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
-          <Info className="text-blue-500 mt-0.5 flex-shrink-0" size={18} />
+          <Info className="text-blue-500 mt-0.5 shrink-0" size={18} />
           <p className="text-sm text-blue-800">
             <strong>Optional.</strong> Fast pitch analysis focuses on bat speed and compact swing fit. A bat that is too heavy or too long is the most common equipment issue flagged in fast pitch.
           </p>
@@ -168,7 +168,7 @@ export default function FastPitchEquipmentPage() {
 
         {bats.length === 0 && !showForm && (
           <div className="flex gap-2 text-sm text-gray-500 bg-gray-50 border border-gray-200 rounded-xl p-4">
-            <AlertTriangle size={16} className="text-gray-400 mt-0.5 flex-shrink-0" />
+            <AlertTriangle size={16} className="text-gray-400 mt-0.5 shrink-0" />
             No bat logged. Optional — all SwingIQ features work without equipment setup.
           </div>
         )}

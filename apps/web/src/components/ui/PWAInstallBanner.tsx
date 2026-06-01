@@ -58,7 +58,7 @@ export function PWAInstallBanner() {
         <p className="text-white text-xs leading-relaxed flex-1">
           Add SwingIQ to your home screen for quick access.
         </p>
-        <div className="flex gap-2 flex-shrink-0">
+        <div className="flex gap-2 shrink-0">
           <button
             onClick={handleInstall}
             className="bg-white text-green-700 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-green-50 transition-colors"
