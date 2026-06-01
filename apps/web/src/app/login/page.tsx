@@ -24,24 +24,24 @@ export default function LoginPage() {
         </div>
         <div>
           <p className="text-white font-bold text-xl leading-tight">SwingIQ</p>
-          <p className="text-green-400 text-xs">Golf Performance System</p>
+          <p className="text-primary-foreground/90 text-xs">Golf Performance System</p>
         </div>
       </div>
 
       {/* Card */}
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-1">Welcome back</h1>
-        <p className="text-gray-500 text-sm mb-6">Sign in to your SwingIQ account</p>
+      <div className="w-full max-w-sm bg-card rounded-2xl shadow-2xl p-8">
+        <h1 className="text-2xl font-bold text-foreground mb-1">Welcome back</h1>
+        <p className="text-muted-foreground text-sm mb-6">Sign in to your SwingIQ account</p>
         <LoginForm />
-        <p className="text-center text-sm text-gray-500 mt-4">
+        <p className="text-center text-sm text-muted-foreground mt-4">
           Don&apos;t have an account?{' '}
-          <Link href="/signup" className="text-green-600 font-semibold hover:underline">
+          <Link href="/signup" className="text-primary font-semibold hover:underline">
             Sign up free
           </Link>
         </p>
       </div>
 
-      <p className="text-green-400 text-xs mt-6 text-center max-w-xs">
+      <p className="text-primary-foreground/90 text-xs mt-6 text-center max-w-xs">
         While signing in, you can still use SwingIQ — your data is saved locally in your browser.
       </p>
     </div>

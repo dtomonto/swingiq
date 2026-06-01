@@ -50,15 +50,15 @@ export default function ChallengesPage() {
     <AppShell>
       <div className="p-4 sm:p-6 space-y-6 max-w-3xl mx-auto pb-24">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <Target size={24} className="text-green-600" aria-hidden="true" />
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <Target size={24} className="text-primary" aria-hidden="true" />
             {t('challenges.title')}
           </h1>
-          <p className="text-gray-500 text-sm mt-1">{t('challenges.subtitle')}</p>
+          <p className="text-muted-foreground text-sm mt-1">{t('challenges.subtitle')}</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-gray-100 rounded-lg p-1 w-fit" role="tablist">
+        <div className="flex gap-1 bg-muted rounded-lg p-1 w-fit" role="tablist">
           {(['active', 'available', 'completed'] as const).map(tabId => (
             <button
               key={tabId}
@@ -67,7 +67,7 @@ export default function ChallengesPage() {
               onClick={() => setTab(tabId)}
               className={cn(
                 'px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
-                tab === tabId ? 'bg-white shadow-xs text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                tab === tabId ? 'bg-card shadow-xs text-foreground' : 'text-muted-foreground hover:text-foreground'
               )}
             >
               {tabId === 'active' ? `${t('challenges.active')} (${activeChallenges.length})`
@@ -90,18 +90,18 @@ export default function ChallengesPage() {
                       <span className="text-3xl shrink-0" aria-hidden="true">{challenge.icon}</span>
                       <div className="flex-1">
                         <div className="flex items-center justify-between gap-2">
-                          <h3 className="font-semibold text-gray-900">{challenge.title}</h3>
+                          <h3 className="font-semibold text-foreground">{challenge.title}</h3>
                           <DifficultyBadge difficulty={challenge.difficulty} />
                         </div>
-                        <p className="text-sm text-gray-600 mt-1">{challenge.description}</p>
-                        <div className="flex gap-3 mt-2 text-xs text-gray-500">
+                        <p className="text-sm text-muted-foreground mt-1">{challenge.description}</p>
+                        <div className="flex gap-3 mt-2 text-xs text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <Clock size={12} aria-hidden="true" />
                             {challenge.durationDays}d challenge
                           </span>
                           <span>+{challenge.rewardXP} {t('common.xp')}</span>
                           {challenge.isDataChallenge && (
-                            <span className="text-green-700 font-medium">💾 Data Challenge</span>
+                            <span className="text-primary font-medium">💾 Data Challenge</span>
                           )}
                         </div>
                       </div>
@@ -109,11 +109,11 @@ export default function ChallengesPage() {
 
                     <div>
                       <div className="flex justify-between text-sm mb-1.5">
-                        <span className="text-gray-600">{t('challenges.progress')}</span>
+                        <span className="text-muted-foreground">{t('challenges.progress')}</span>
                         <span className="font-semibold">{progress}%</span>
                       </div>
                       <div
-                        className="h-2 bg-gray-200 rounded-full overflow-hidden"
+                        className="h-2 bg-muted rounded-full overflow-hidden"
                         role="progressbar"
                         aria-valuenow={progress}
                         aria-valuemin={0}
@@ -122,7 +122,7 @@ export default function ChallengesPage() {
                         <div
                           className={cn(
                             'h-full rounded-full transition-all',
-                            progress >= 100 ? 'bg-green-500' : 'bg-blue-500'
+                            progress >= 100 ? 'bg-primary' : 'bg-accent-secondary'
                           )}
                           style={{ width: `${progress}%` }}
                         />
@@ -130,7 +130,7 @@ export default function ChallengesPage() {
                     </div>
 
                     {challenge.isDataChallenge && (
-                      <p className="text-xs text-green-700 bg-green-50 rounded-lg px-3 py-2">
+                      <p className="text-xs text-primary bg-primary/10 rounded-lg px-3 py-2">
                         💡 {t('challenges.exportReminder')}
                       </p>
                     )}
@@ -140,7 +140,7 @@ export default function ChallengesPage() {
                         variant="outline"
                         size="sm"
                         onClick={() => handleLeave(challenge.id)}
-                        className="text-red-600 border-red-200 hover:bg-red-50"
+                        className="text-error border-error/30 hover:bg-error/10"
                       >
                         {t('challenges.leave')}
                       </Button>
@@ -165,21 +165,21 @@ export default function ChallengesPage() {
                       <span className="text-3xl shrink-0" aria-hidden="true">{challenge.icon}</span>
                       <div className="flex-1">
                         <div className="flex items-center justify-between gap-2">
-                          <h3 className="font-semibold text-gray-900">{challenge.title}</h3>
+                          <h3 className="font-semibold text-foreground">{challenge.title}</h3>
                           <DifficultyBadge difficulty={challenge.difficulty} />
                         </div>
-                        <p className="text-sm text-gray-600 mt-1">{challenge.description}</p>
-                        <div className="flex gap-3 mt-2 text-xs text-gray-500 flex-wrap">
+                        <p className="text-sm text-muted-foreground mt-1">{challenge.description}</p>
+                        <div className="flex gap-3 mt-2 text-xs text-muted-foreground flex-wrap">
                           <span>{challenge.durationDays}d</span>
-                          <span className="text-green-700 font-medium">+{challenge.rewardXP} {t('common.xp')}</span>
+                          <span className="text-primary font-medium">+{challenge.rewardXP} {t('common.xp')}</span>
                           {challenge.isDataChallenge && (
-                            <span className="text-blue-700">💾 Includes data backup</span>
+                            <span className="text-accent-secondary">💾 Includes data backup</span>
                           )}
                         </div>
                         <ul className="mt-2 space-y-0.5">
                           {challenge.rules.map((rule, i) => (
-                            <li key={i} className="text-xs text-gray-500 flex items-start gap-1.5">
-                              <span className="text-green-500 mt-0.5" aria-hidden="true">•</span>
+                            <li key={i} className="text-xs text-muted-foreground flex items-start gap-1.5">
+                              <span className="text-primary mt-0.5" aria-hidden="true">•</span>
                               {rule}
                             </li>
                           ))}
@@ -212,12 +212,12 @@ export default function ChallengesPage() {
                     <CardBody className="flex items-center gap-3">
                       <span className="text-3xl shrink-0" aria-hidden="true">{challenge.icon}</span>
                       <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900">{challenge.title}</h3>
-                        <p className="text-xs text-gray-500 mt-0.5">
+                        <h3 className="font-semibold text-foreground">{challenge.title}</h3>
+                        <p className="text-xs text-muted-foreground mt-0.5">
                           {t('challenges.completedOn')} {new Date(completed.completedAt).toLocaleDateString()} · +{completed.xpEarned} {t('common.xp')}
                         </p>
                       </div>
-                      <CheckCircle size={20} className="text-green-500 shrink-0" aria-label="Completed" />
+                      <CheckCircle size={20} className="text-primary shrink-0" aria-label="Completed" />
                     </CardBody>
                   </Card>
                 );
@@ -232,12 +232,12 @@ export default function ChallengesPage() {
 
 function DifficultyBadge({ difficulty }: { difficulty: string }) {
   const colors = {
-    beginner: 'bg-green-100 text-green-700',
-    intermediate: 'bg-blue-100 text-blue-700',
-    advanced: 'bg-purple-100 text-purple-700',
+    beginner: 'bg-primary/15 text-primary',
+    intermediate: 'bg-accent-secondary/15 text-accent-secondary',
+    advanced: 'bg-accent-secondary/15 text-accent-secondary',
   };
   return (
-    <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium capitalize', colors[difficulty as keyof typeof colors] ?? 'bg-gray-100 text-gray-600')}>
+    <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium capitalize', colors[difficulty as keyof typeof colors] ?? 'bg-muted text-muted-foreground')}>
       {difficulty}
     </span>
   );
@@ -248,7 +248,7 @@ function EmptyState({ message, icon }: { message: string; icon: string }) {
     <Card>
       <CardBody className="text-center py-12 space-y-2">
         <span className="text-4xl" aria-hidden="true">{icon}</span>
-        <p className="text-gray-500 text-sm">{message}</p>
+        <p className="text-muted-foreground text-sm">{message}</p>
       </CardBody>
     </Card>
   );

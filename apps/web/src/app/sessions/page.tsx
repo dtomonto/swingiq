@@ -44,11 +44,11 @@ export default function SessionsPage() {
           <div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">{sportEmoji}</span>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-foreground">
                 {showAllSports ? 'All Sessions' : `${sportName} Sessions`}
               </h1>
             </div>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               {showAllSports
                 ? `${totalAllSports} session${totalAllSports !== 1 ? 's' : ''} across all sports`
                 : `${totalForSport} session${totalForSport !== 1 ? 's' : ''} recorded`}
@@ -60,7 +60,7 @@ export default function SessionsPage() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowAllSports(!showAllSports)}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-muted-foreground hover:text-foreground"
               >
                 {showAllSports ? `${sportName} Only` : 'All Sports'}
               </Button>
@@ -73,11 +73,11 @@ export default function SessionsPage() {
 
         {filteredSessions.length === 0 ? (
           <div className="text-center py-20">
-            <Activity size={48} className="mx-auto text-gray-300 mb-4" />
-            <p className="text-gray-400 text-lg font-medium mb-2">
+            <Activity size={48} className="mx-auto text-muted-foreground mb-4" />
+            <p className="text-muted-foreground text-lg font-medium mb-2">
               No {sportName} sessions yet
             </p>
-            <p className="text-gray-500 text-sm mb-6 max-w-md mx-auto">
+            <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">
               {sportLabels.empty_sessions}
             </p>
             <Link href={importHref}>
@@ -105,7 +105,7 @@ export default function SessionsPage() {
                         {showAllSports && (
                           <span className="text-sm" title={session.sport}>{sessionSportEmoji}</span>
                         )}
-                        <p className="font-semibold text-gray-900">{session.name}</p>
+                        <p className="font-semibold text-foreground">{session.name}</p>
                         {session.shot_count > 0 && (
                           <Badge variant="info">{session.shot_count} shots</Badge>
                         )}
@@ -118,7 +118,7 @@ export default function SessionsPage() {
                           </Badge>
                         )}
                       </div>
-                      <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                         <Calendar size={12} />
                         {format(new Date(session.created_at), 'MMM d, yyyy')}
                         {session.launch_monitor && session.launch_monitor !== 'manual' && (
@@ -139,7 +139,7 @@ export default function SessionsPage() {
                         <div className="flex items-center gap-1">
                           <Button
                             size="sm"
-                            className="bg-red-600 hover:bg-red-700 text-white text-xs px-2 py-1"
+                            className="bg-error text-error-foreground hover:bg-error/90 text-xs px-2 py-1"
                             onClick={() => { removeSession(session.id); setConfirmDeleteId(null); }}
                           >
                             Delete
@@ -152,7 +152,7 @@ export default function SessionsPage() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-red-400 hover:text-red-600 hover:bg-red-50"
+                          className="text-error hover:text-error hover:bg-error/10"
                           onClick={() => setConfirmDeleteId(session.id)}
                         >
                           <Trash2 size={14} />

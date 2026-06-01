@@ -17,14 +17,14 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import type { SportId } from '@swingiq/core';
 
-const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-hidden';
-const selectClass = `${inputClass} bg-white`;
+const inputClass = 'w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring focus:border-transparent outline-hidden';
+const selectClass = `${inputClass} bg-card`;
 
 function FormField({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
-      {hint && <p className="text-xs text-gray-500">{hint}</p>}
+      <label className="text-sm font-medium text-foreground">{label}</label>
+      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
       {children}
     </div>
   );
@@ -123,7 +123,7 @@ export default function LogSessionPage() {
     return (
       <AppShell>
         <div className="p-6 max-w-2xl mx-auto text-center py-20">
-          <p className="text-gray-500 mb-4">Golf sessions use CSV import from your launch monitor.</p>
+          <p className="text-muted-foreground mb-4">Golf sessions use CSV import from your launch monitor.</p>
           <Link href="/sessions/import"><Button>Import Launch Monitor Data</Button></Link>
         </div>
       </AppShell>
@@ -169,13 +169,13 @@ export default function LogSessionPage() {
     <AppShell>
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         <div>
-          <Link href="/sessions" className="inline-flex items-center gap-1 text-sm text-green-700 hover:underline mb-2">
+          <Link href="/sessions" className="inline-flex items-center gap-1 text-sm text-primary hover:underline mb-2">
             ← Back to Sessions
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             {sportEmoji} Log {sportName} Session
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1">
             Record what you worked on to track your development over time.
           </p>
         </div>
@@ -263,14 +263,14 @@ export default function LogSessionPage() {
                   onClick={() => set('felt_rating', String(n))}
                   className={`w-10 h-10 rounded-full font-bold text-sm transition-all ${
                     form.felt_rating === String(n)
-                      ? 'bg-green-600 text-white shadow-md scale-110'
-                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                      ? 'bg-primary text-white shadow-md scale-110'
+                      : 'bg-muted text-muted-foreground hover:bg-muted'
                   }`}
                 >
                   {n}
                 </button>
               ))}
-              <p className="text-sm text-gray-500 ml-2">
+              <p className="text-sm text-muted-foreground ml-2">
                 {['', 'Rough', 'Below average', 'Average', 'Good', 'Great'][parseInt(form.felt_rating)] ?? ''}
               </p>
             </div>
@@ -278,15 +278,15 @@ export default function LogSessionPage() {
         </Card>
 
         {/* Analyze video CTA */}
-        <Card className="border-blue-200 bg-blue-50">
+        <Card className="border-accent-secondary/25 bg-accent-secondary/10">
           <CardBody className="flex items-center gap-3">
-            <Video size={18} className="text-blue-600 shrink-0" />
+            <Video size={18} className="text-accent-secondary shrink-0" />
             <div className="flex-1">
-              <p className="text-sm font-medium text-blue-800">Have video from this session?</p>
-              <p className="text-xs text-blue-600">Upload it for phase-by-phase analysis and drill recommendations.</p>
+              <p className="text-sm font-medium text-foreground">Have video from this session?</p>
+              <p className="text-xs text-accent-secondary">Upload it for phase-by-phase analysis and drill recommendations.</p>
             </div>
             <Link href="/video">
-              <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white whitespace-nowrap">
+              <Button size="sm" className="bg-accent-secondary hover:bg-accent-secondary/90 text-white whitespace-nowrap">
                 Analyze Video
               </Button>
             </Link>
@@ -302,7 +302,7 @@ export default function LogSessionPage() {
             {saved ? '✓ Saved!' : 'Log Session'}
           </Button>
           {saved && (
-            <div className="flex items-center gap-1.5 text-green-600 text-sm font-medium">
+            <div className="flex items-center gap-1.5 text-primary text-sm font-medium">
               <CheckCircle size={16} /> Session logged! Redirecting…
             </div>
           )}

@@ -36,15 +36,15 @@ export default function GroupsPage() {
     <AppShell>
       <div className="p-4 sm:p-6 space-y-6 max-w-3xl mx-auto pb-24">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <Users size={24} className="text-green-600" aria-hidden="true" />
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <Users size={24} className="text-primary" aria-hidden="true" />
             {t('groups.title')}
           </h1>
-          <p className="text-gray-500 text-sm mt-1">{t('groups.subtitle')}</p>
+          <p className="text-muted-foreground text-sm mt-1">{t('groups.subtitle')}</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-gray-100 rounded-lg p-1 w-fit" role="tablist">
+        <div className="flex gap-1 bg-muted rounded-lg p-1 w-fit" role="tablist">
           {(['browse', 'my'] as const).map(tabId => (
             <button
               key={tabId}
@@ -53,7 +53,7 @@ export default function GroupsPage() {
               onClick={() => setTab(tabId)}
               className={cn(
                 'px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
-                tab === tabId ? 'bg-white shadow-xs text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                tab === tabId ? 'bg-card shadow-xs text-foreground' : 'text-muted-foreground hover:text-foreground'
               )}
             >
               {tabId === 'browse'
@@ -74,8 +74,8 @@ export default function GroupsPage() {
                 className={cn(
                   'px-3 py-1 rounded-full text-xs font-medium transition-colors capitalize',
                   sportFilter === sport
-                    ? 'bg-green-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-primary text-white'
+                    : 'bg-muted text-muted-foreground hover:bg-muted'
                 )}
               >
                 {sport === 'all' ? t('sports.allSports')
@@ -131,8 +131,8 @@ export default function GroupsPage() {
         )}
 
         {/* Data export reminder */}
-        <div className="flex gap-3 bg-green-50 border border-green-200 rounded-xl p-4 text-sm text-green-800">
-          <Shield size={16} className="shrink-0 mt-0.5 text-green-600" aria-hidden="true" />
+        <div className="flex gap-3 bg-primary/10 border border-primary/30 rounded-xl p-4 text-sm text-primary">
+          <Shield size={16} className="shrink-0 mt-0.5 text-primary" aria-hidden="true" />
           <p>{t('groups.exportReminderGroup')}</p>
         </div>
       </div>
@@ -163,16 +163,16 @@ function GroupCard({
           <span className="text-3xl shrink-0" aria-hidden="true">{group.icon}</span>
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="font-semibold text-gray-900">{group.name}</h3>
-              <div className="flex items-center gap-1 text-xs text-gray-500 shrink-0">
+              <h3 className="font-semibold text-foreground">{group.name}</h3>
+              <div className="flex items-center gap-1 text-xs text-muted-foreground shrink-0">
                 <PrivacyIcon size={12} aria-hidden="true" />
                 {privacyLabel}
               </div>
             </div>
-            <p className="text-sm text-gray-600 mt-1">{group.description}</p>
+            <p className="text-sm text-muted-foreground mt-1">{group.description}</p>
             <div className="flex gap-2 mt-2 flex-wrap">
               {group.tags.map(tag => (
-                <span key={tag} className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                <span key={tag} className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-full">
                   {tag}
                 </span>
               ))}
@@ -185,7 +185,7 @@ function GroupCard({
               <Button variant="outline" size="sm" onClick={onLeave}>
                 {t('groups.leave')}
               </Button>
-              <span className="flex items-center text-xs text-green-700 font-medium bg-green-100 px-3 py-1 rounded-full">
+              <span className="flex items-center text-xs text-primary font-medium bg-primary/15 px-3 py-1 rounded-full">
                 ✓ Joined
               </span>
             </>
@@ -205,7 +205,7 @@ function EmptyState({ message }: { message: string }) {
     <Card>
       <CardBody className="text-center py-12 space-y-2">
         <span className="text-4xl" aria-hidden="true">👥</span>
-        <p className="text-gray-500 text-sm">{message}</p>
+        <p className="text-muted-foreground text-sm">{message}</p>
       </CardBody>
     </Card>
   );

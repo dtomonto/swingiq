@@ -14,8 +14,8 @@ import { useSwingIQStore } from '@/store';
 import type { SportId } from '@swingiq/core';
 
 const inputClass =
-  'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-hidden';
-const selectClass = `${inputClass} bg-white`;
+  'w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring focus:border-transparent outline-hidden';
+const selectClass = `${inputClass} bg-card`;
 
 function FormField({
   label,
@@ -28,8 +28,8 @@ function FormField({
 }) {
   return (
     <div className="space-y-1">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
-      {hint && <p className="text-xs text-gray-500">{hint}</p>}
+      <label className="text-sm font-medium text-foreground">{label}</label>
+      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
       {children}
     </div>
   );
@@ -172,7 +172,7 @@ export function TennisProfileForm() {
       <div className="flex items-center gap-3">
         <Button onClick={handleSave} size="lg">Save Tennis Profile</Button>
         {saved && (
-          <div className="flex items-center gap-1.5 text-green-600 text-sm font-medium">
+          <div className="flex items-center gap-1.5 text-primary text-sm font-medium">
             <CheckCircle size={16} /> Profile saved!
           </div>
         )}
@@ -319,7 +319,7 @@ export function BaseballProfileForm() {
       <div className="flex items-center gap-3">
         <Button onClick={handleSave} size="lg">Save Baseball Profile</Button>
         {saved && (
-          <div className="flex items-center gap-1.5 text-green-600 text-sm font-medium">
+          <div className="flex items-center gap-1.5 text-primary text-sm font-medium">
             <CheckCircle size={16} /> Profile saved!
           </div>
         )}
@@ -474,7 +474,7 @@ export function SlowPitchProfileForm() {
       <div className="flex items-center gap-3">
         <Button onClick={handleSave} size="lg">Save Slow Pitch Profile</Button>
         {saved && (
-          <div className="flex items-center gap-1.5 text-green-600 text-sm font-medium">
+          <div className="flex items-center gap-1.5 text-primary text-sm font-medium">
             <CheckCircle size={16} /> Profile saved!
           </div>
         )}
@@ -630,7 +630,7 @@ export function FastPitchProfileForm() {
       <div className="flex items-center gap-3">
         <Button onClick={handleSave} size="lg">Save Fast Pitch Profile</Button>
         {saved && (
-          <div className="flex items-center gap-1.5 text-green-600 text-sm font-medium">
+          <div className="flex items-center gap-1.5 text-primary text-sm font-medium">
             <CheckCircle size={16} /> Profile saved!
           </div>
         )}

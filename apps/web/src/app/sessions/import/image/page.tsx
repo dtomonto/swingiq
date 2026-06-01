@@ -99,9 +99,9 @@ function StepIndicator({ current }: { current: number }) {
               <div
                 className={[
                   'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-colors',
-                  done ? 'bg-green-600 border-green-600 text-white' : '',
-                  active ? 'bg-white border-green-600 text-green-700' : '',
-                  !done && !active ? 'bg-white border-gray-300 text-gray-400' : '',
+                  done ? 'bg-primary border-primary text-white' : '',
+                  active ? 'bg-card border-primary text-primary' : '',
+                  !done && !active ? 'bg-card border-border text-muted-foreground' : '',
                 ].join(' ')}
               >
                 {done ? '✓' : stepNum}
@@ -109,7 +109,7 @@ function StepIndicator({ current }: { current: number }) {
               <span
                 className={[
                   'text-xs mt-1 font-medium hidden sm:block',
-                  active ? 'text-green-700' : done ? 'text-green-600' : 'text-gray-400',
+                  active ? 'text-primary' : done ? 'text-primary' : 'text-muted-foreground',
                 ].join(' ')}
               >
                 {label}
@@ -119,7 +119,7 @@ function StepIndicator({ current }: { current: number }) {
               <div
                 className={[
                   'h-0.5 w-8 sm:w-12 mx-1 mt-0 sm:-mt-4 transition-colors',
-                  done ? 'bg-green-600' : 'bg-gray-200',
+                  done ? 'bg-primary' : 'bg-muted',
                 ].join(' ')}
               />
             )}
@@ -134,10 +134,10 @@ function StepIndicator({ current }: { current: number }) {
 
 function ConfidenceBadge({ level }: { level: string }) {
   const styles: Record<string, string> = {
-    high: 'bg-green-100 text-green-700',
-    medium: 'bg-yellow-100 text-yellow-700',
-    low: 'bg-red-100 text-red-700',
-    unreviewed: 'bg-gray-100 text-gray-500',
+    high: 'bg-primary/15 text-primary',
+    medium: 'bg-warning/15 text-warning',
+    low: 'bg-error/15 text-error',
+    unreviewed: 'bg-muted text-muted-foreground',
   };
   return (
     <span className={`text-xs px-1.5 py-0.5 rounded-sm font-medium ${styles[level] ?? styles.unreviewed}`}>
@@ -268,14 +268,14 @@ export default function ImageImportPage() {
     <AppShell>
       <div className="max-w-4xl mx-auto px-4 py-6">
         {/* Back link */}
-        <Link href="/sessions/import" className="inline-flex items-center gap-1 text-sm text-green-700 hover:underline mb-4">
+        <Link href="/sessions/import" className="inline-flex items-center gap-1 text-sm text-primary hover:underline mb-4">
           ← Back to Import Options
         </Link>
 
         {/* Page header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">Import from Screenshot or Photo</h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <h1 className="text-2xl font-bold text-foreground">Import from Screenshot or Photo</h1>
+          <p className="text-sm text-muted-foreground mt-1">
             Upload a photo of your launch monitor screen or stats table, then enter your data manually.
           </p>
         </div>
@@ -291,14 +291,14 @@ export default function ImageImportPage() {
             <CardBody className="space-y-6">
               {/* Sport selector */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Sport</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Sport</label>
                 <select
                   value={sport}
                   onChange={(e) => {
                     setSport(e.target.value as typeof activeSport);
                     setMovementType('');
                   }}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
                 >
                   {sportOptions.map((o) => (
                     <option key={o.value} value={o.value}>{o.label}</option>
@@ -308,11 +308,11 @@ export default function ImageImportPage() {
 
               {/* Movement type */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Movement / Shot Type</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Movement / Shot Type</label>
                 <select
                   value={movementType}
                   onChange={(e) => setMovementType(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
                 >
                   <option value="">— Select —</option>
                   {movementOptions.map((o) => (
@@ -323,11 +323,11 @@ export default function ImageImportPage() {
 
               {/* Data source */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Data Source / Device</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Data Source / Device</label>
                 <select
                   value={dataSource}
                   onChange={(e) => setDataSource(e.target.value as ImageExtractionSource)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
                 >
                   {DATA_SOURCES.map((o) => (
                     <option key={o.value} value={o.value}>{o.label}</option>
@@ -337,7 +337,7 @@ export default function ImageImportPage() {
 
               {/* Upload area */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Upload Image (optional but recommended)</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Upload Image (optional but recommended)</label>
                 <div
                   onClick={() => fileInputRef.current?.click()}
                   onDrop={onDrop}
@@ -345,7 +345,7 @@ export default function ImageImportPage() {
                   onDragLeave={onDragLeave}
                   className={[
                     'border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors',
-                    isDragOver ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-green-400 hover:bg-gray-50',
+                    isDragOver ? 'border-primary bg-primary/10' : 'border-border hover:border-primary/50 hover:bg-muted',
                   ].join(' ')}
                 >
                   {imagePreviewUrl ? (
@@ -353,18 +353,18 @@ export default function ImageImportPage() {
                       <img
                         src={imagePreviewUrl}
                         alt="Uploaded preview"
-                        className="max-h-48 mx-auto rounded-lg object-contain border border-gray-200"
+                        className="max-h-48 mx-auto rounded-lg object-contain border border-border"
                       />
-                      <p className="text-sm text-gray-600 font-medium">{imageFile?.name}</p>
-                      <p className="text-xs text-gray-400">Click to replace</p>
+                      <p className="text-sm text-muted-foreground font-medium">{imageFile?.name}</p>
+                      <p className="text-xs text-muted-foreground">Click to replace</p>
                     </div>
                   ) : (
                     <div className="space-y-2">
                       <div className="text-4xl">📷</div>
-                      <p className="text-sm font-medium text-gray-700">
+                      <p className="text-sm font-medium text-foreground">
                         Drag & drop or click to upload
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-muted-foreground">
                         JPEG, PNG, WebP, HEIC — max 10 MB
                       </p>
                     </div>
@@ -379,7 +379,7 @@ export default function ImageImportPage() {
                   aria-label="Upload image file"
                 />
                 {fileSizeError && (
-                  <p className="mt-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                  <p className="mt-2 text-sm text-error bg-error/10 border border-error/30 rounded-lg px-3 py-2">
                     {fileSizeError}
                   </p>
                 )}
@@ -398,7 +398,7 @@ export default function ImageImportPage() {
                 </Button>
               </div>
               {!movementType && (
-                <p className="text-xs text-gray-400 text-right -mt-4">
+                <p className="text-xs text-muted-foreground text-right -mt-4">
                   Please select a movement type to continue.
                 </p>
               )}
@@ -410,16 +410,16 @@ export default function ImageImportPage() {
         {step === 2 && (
           <div className="space-y-4">
             {/* Notice banner */}
-            <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
-              <p className="text-sm font-medium text-amber-800">Auto-extract is coming soon.</p>
-              <p className="text-sm text-amber-700">
+            <div className="bg-warning/10 border border-warning/30 rounded-xl px-4 py-3">
+              <p className="text-sm font-medium text-warning">Auto-extract is coming soon.</p>
+              <p className="text-sm text-warning">
                 Please type your values into the table below. Your uploaded image is shown for reference.
               </p>
             </div>
 
             {/* Warnings */}
             {warnings.map((w, i) => (
-              <div key={i} className="text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
+              <div key={i} className="text-xs text-muted-foreground bg-muted border border-border rounded-lg px-3 py-2">
                 {w}
               </div>
             ))}
@@ -436,7 +436,7 @@ export default function ImageImportPage() {
                       <img
                         src={imagePreviewUrl}
                         alt="Reference"
-                        className="w-full rounded-lg object-contain border border-gray-100 max-h-64 lg:max-h-96"
+                        className="w-full rounded-lg object-contain border border-border max-h-64 lg:max-h-96"
                       />
                     </CardBody>
                   </Card>
@@ -458,21 +458,21 @@ export default function ImageImportPage() {
                         </Button>
                       </div>
                     </div>
-                    <p className="text-xs text-gray-400 mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                       Edit column headers by clicking them. Add rows as needed.
                     </p>
                   </CardHeader>
                   <CardBody className="overflow-x-auto p-0">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="bg-gray-50 border-b border-gray-200">
-                          <th className="px-3 py-2 text-left text-xs text-gray-500 w-10">#</th>
+                        <tr className="bg-muted border-b border-border">
+                          <th className="px-3 py-2 text-left text-xs text-muted-foreground w-10">#</th>
                           {columnHeaders.map((header, ci) => (
                             <th key={ci} className="px-2 py-2 text-left min-w-28">
                               <input
                                 value={header}
                                 onChange={(e) => updateHeader(ci, e.target.value)}
-                                className="w-full text-xs font-semibold text-gray-700 bg-transparent border-b border-dashed border-gray-300 focus:outline-hidden focus:border-green-500 py-0.5"
+                                className="w-full text-xs font-semibold text-foreground bg-transparent border-b border-dashed border-border focus:outline-hidden focus:border-primary py-0.5"
                               />
                               <div className="mt-1">
                                 <ConfidenceBadge level="high" />
@@ -484,15 +484,15 @@ export default function ImageImportPage() {
                       </thead>
                       <tbody>
                         {tableRows.map((row, ri) => (
-                          <tr key={ri} className="border-b border-gray-100 hover:bg-gray-50">
-                            <td className="px-3 py-2 text-xs text-gray-400">{ri + 1}</td>
+                          <tr key={ri} className="border-b border-border hover:bg-muted">
+                            <td className="px-3 py-2 text-xs text-muted-foreground">{ri + 1}</td>
                             {columnHeaders.map((_, ci) => (
                               <td key={ci} className="px-2 py-1">
                                 <input
                                   value={row[ci] ?? ''}
                                   onChange={(e) => updateCell(ri, ci, e.target.value)}
                                   placeholder="—"
-                                  className="w-full border border-gray-200 rounded-sm px-2 py-1 text-sm focus:outline-hidden focus:ring-1 focus:ring-green-500"
+                                  className="w-full border border-border rounded-sm px-2 py-1 text-sm focus:outline-hidden focus:ring-1 focus:ring-ring"
                                 />
                               </td>
                             ))}
@@ -500,7 +500,7 @@ export default function ImageImportPage() {
                               <button
                                 onClick={() => deleteRow(ri)}
                                 disabled={tableRows.length === 1}
-                                className="text-gray-300 hover:text-red-500 disabled:opacity-30 text-xs"
+                                className="text-muted-foreground hover:text-error disabled:opacity-30 text-xs"
                                 aria-label="Delete row"
                               >
                                 ✕
@@ -530,7 +530,7 @@ export default function ImageImportPage() {
               </Button>
             </div>
             {!hasAtLeastOneRow && (
-              <p className="text-xs text-gray-400 text-right -mt-2">
+              <p className="text-xs text-muted-foreground text-right -mt-2">
                 Add at least one row of data to continue.
               </p>
             )}
@@ -547,30 +547,30 @@ export default function ImageImportPage() {
               <CardBody className="space-y-4">
                 {/* Summary */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  <div className="bg-green-50 rounded-lg px-4 py-3">
-                    <p className="text-xs text-gray-500">Sport</p>
-                    <p className="font-semibold text-gray-900 text-sm">{sportName}</p>
+                  <div className="bg-primary/10 rounded-lg px-4 py-3">
+                    <p className="text-xs text-muted-foreground">Sport</p>
+                    <p className="font-semibold text-foreground text-sm">{sportName}</p>
                   </div>
-                  <div className="bg-green-50 rounded-lg px-4 py-3">
-                    <p className="text-xs text-gray-500">Movement Type</p>
-                    <p className="font-semibold text-gray-900 text-sm capitalize">
+                  <div className="bg-primary/10 rounded-lg px-4 py-3">
+                    <p className="text-xs text-muted-foreground">Movement Type</p>
+                    <p className="font-semibold text-foreground text-sm capitalize">
                       {movementType.replace(/_/g, ' ')}
                     </p>
                   </div>
-                  <div className="bg-green-50 rounded-lg px-4 py-3">
-                    <p className="text-xs text-gray-500">Rows</p>
-                    <p className="font-semibold text-gray-900 text-sm">{tableRows.filter((r) => r.some((c) => c.trim())).length}</p>
+                  <div className="bg-primary/10 rounded-lg px-4 py-3">
+                    <p className="text-xs text-muted-foreground">Rows</p>
+                    <p className="font-semibold text-foreground text-sm">{tableRows.filter((r) => r.some((c) => c.trim())).length}</p>
                   </div>
                 </div>
 
                 {/* Read-only table */}
-                <div className="overflow-x-auto rounded-xl border border-gray-200">
+                <div className="overflow-x-auto rounded-xl border border-border">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-gray-50 border-b border-gray-200">
-                        <th className="px-3 py-2 text-left text-xs text-gray-500 w-10">#</th>
+                      <tr className="bg-muted border-b border-border">
+                        <th className="px-3 py-2 text-left text-xs text-muted-foreground w-10">#</th>
                         {columnHeaders.map((h, i) => (
-                          <th key={i} className="px-3 py-2 text-left text-xs font-semibold text-gray-700">
+                          <th key={i} className="px-3 py-2 text-left text-xs font-semibold text-foreground">
                             {h}
                           </th>
                         ))}
@@ -578,11 +578,11 @@ export default function ImageImportPage() {
                     </thead>
                     <tbody>
                       {tableRows.map((row, ri) => (
-                        <tr key={ri} className="border-b border-gray-100">
-                          <td className="px-3 py-2 text-xs text-gray-400">{ri + 1}</td>
+                        <tr key={ri} className="border-b border-border">
+                          <td className="px-3 py-2 text-xs text-muted-foreground">{ri + 1}</td>
                           {row.map((cell, ci) => (
-                            <td key={ci} className="px-3 py-2 text-gray-900">
-                              {cell || <span className="text-gray-300">—</span>}
+                            <td key={ci} className="px-3 py-2 text-foreground">
+                              {cell || <span className="text-muted-foreground">—</span>}
                             </td>
                           ))}
                         </tr>
@@ -592,9 +592,9 @@ export default function ImageImportPage() {
                 </div>
 
                 {/* Privacy notice */}
-                <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 flex gap-3">
-                  <span className="text-blue-600 text-lg shrink-0">🔒</span>
-                  <p className="text-sm text-blue-800">
+                <div className="bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl px-4 py-3 flex gap-3">
+                  <span className="text-accent-secondary text-lg shrink-0">🔒</span>
+                  <p className="text-sm text-foreground">
                     <strong>Privacy first:</strong> Your data stays in your browser. Nothing is uploaded to our servers until you explicitly save a session.
                   </p>
                 </div>
@@ -623,23 +623,23 @@ export default function ImageImportPage() {
             <Card>
               <CardBody className="text-center py-12 space-y-4">
                 <div className="text-5xl">✅</div>
-                <h2 className="text-xl font-bold text-gray-900">Import Successful</h2>
-                <p className="text-gray-600 text-sm max-w-sm mx-auto">
+                <h2 className="text-xl font-bold text-foreground">Import Successful</h2>
+                <p className="text-muted-foreground text-sm max-w-sm mx-auto">
                   Your data has been saved. Head to sessions to review, or run a full AI analysis now.
                 </p>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-sm mx-auto text-left mt-4">
-                  <div className="bg-gray-50 rounded-lg px-4 py-3">
-                    <p className="text-xs text-gray-500">Sport</p>
-                    <p className="font-semibold text-sm text-gray-900">{sportName}</p>
+                  <div className="bg-muted rounded-lg px-4 py-3">
+                    <p className="text-xs text-muted-foreground">Sport</p>
+                    <p className="font-semibold text-sm text-foreground">{sportName}</p>
                   </div>
-                  <div className="bg-gray-50 rounded-lg px-4 py-3">
-                    <p className="text-xs text-gray-500">Rows saved</p>
-                    <p className="font-semibold text-sm text-gray-900">{tableRows.filter((r) => r.some((c) => c.trim())).length}</p>
+                  <div className="bg-muted rounded-lg px-4 py-3">
+                    <p className="text-xs text-muted-foreground">Rows saved</p>
+                    <p className="font-semibold text-sm text-foreground">{tableRows.filter((r) => r.some((c) => c.trim())).length}</p>
                   </div>
-                  <div className="bg-green-50 rounded-lg px-4 py-3 col-span-2 sm:col-span-1">
-                    <p className="text-xs text-green-700">Status</p>
-                    <p className="font-semibold text-sm text-green-800">Saved</p>
+                  <div className="bg-primary/10 rounded-lg px-4 py-3 col-span-2 sm:col-span-1">
+                    <p className="text-xs text-primary">Status</p>
+                    <p className="font-semibold text-sm text-primary">Saved</p>
                   </div>
                 </div>
 

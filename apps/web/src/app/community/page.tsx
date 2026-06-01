@@ -106,35 +106,35 @@ export default function CommunityPage() {
 
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{t('community.title')}</h1>
-          <p className="text-gray-500 text-sm mt-1">{t('community.subtitle')}</p>
+          <h1 className="text-2xl font-bold text-foreground">{t('community.title')}</h1>
+          <p className="text-muted-foreground text-sm mt-1">{t('community.subtitle')}</p>
         </div>
 
         {/* Stats row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <StatCard
-            icon={<Calendar size={20} className="text-blue-600" aria-hidden="true" />}
+            icon={<Calendar size={20} className="text-accent-secondary" aria-hidden="true" />}
             label={t('community.sessionCount')}
             value={String(totalSessions)}
-            bg="bg-blue-50"
+            bg="bg-accent-secondary/10"
           />
           <StatCard
-            icon={<Flame size={20} className="text-orange-500" aria-hidden="true" />}
+            icon={<Flame size={20} className="text-warning" aria-hidden="true" />}
             label={t('community.streakDays')}
             value={`${streakDays}d`}
-            bg="bg-orange-50"
+            bg="bg-warning/10"
           />
           <StatCard
-            icon={<Zap size={20} className="text-purple-600" aria-hidden="true" />}
+            icon={<Zap size={20} className="text-accent-secondary" aria-hidden="true" />}
             label={t('community.xpPoints')}
             value={`${community.xpTotal} XP`}
-            bg="bg-purple-50"
+            bg="bg-accent-secondary/10"
           />
           <StatCard
             icon={<Trophy size={20} className="text-amber-500" aria-hidden="true" />}
             label={t('common.badges')}
             value={String(allEarned.length)}
-            bg="bg-amber-50"
+            bg="bg-warning/10"
           />
         </div>
 
@@ -143,16 +143,16 @@ export default function CommunityPage() {
           <CardBody>
             <div className="flex items-center justify-between mb-2">
               <div>
-                <p className="text-sm font-semibold text-gray-900">Level {level} — {levelTitle}</p>
-                <p className="text-xs text-gray-500">{xpForNext > 0 ? `${xpForNext} XP to next level` : 'Max level reached!'}</p>
+                <p className="text-sm font-semibold text-foreground">Level {level} — {levelTitle}</p>
+                <p className="text-xs text-muted-foreground">{xpForNext > 0 ? `${xpForNext} XP to next level` : 'Max level reached!'}</p>
               </div>
-              <div className="flex items-center gap-1 text-purple-700 bg-purple-50 px-3 py-1 rounded-full text-sm font-bold">
+              <div className="flex items-center gap-1 text-accent-secondary bg-accent-secondary/10 px-3 py-1 rounded-full text-sm font-bold">
                 <Star size={14} aria-hidden="true" />
                 {community.xpTotal} XP
               </div>
             </div>
             <div
-              className="h-2 bg-gray-200 rounded-full overflow-hidden"
+              className="h-2 bg-muted rounded-full overflow-hidden"
               role="progressbar"
               aria-valuenow={progressToNext}
               aria-valuemin={0}
@@ -160,7 +160,7 @@ export default function CommunityPage() {
               aria-label={`Level ${level} progress: ${progressToNext}%`}
             >
               <div
-                className="h-full bg-linear-to-r from-purple-500 to-green-500 rounded-full transition-all duration-500"
+                className="h-full bg-linear-to-r from-accent-secondary to-primary rounded-full transition-all duration-500"
                 style={{ width: `${progressToNext}%` }}
               />
             </div>
@@ -174,16 +174,16 @@ export default function CommunityPage() {
         {totalSessions === 0 && (
           <Card>
             <CardBody className="text-center py-10 space-y-3">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto" aria-hidden="true">
-                <Users size={28} className="text-green-600" />
+              <div className="w-16 h-16 bg-primary/15 rounded-full flex items-center justify-center mx-auto" aria-hidden="true">
+                <Users size={28} className="text-primary" />
               </div>
-              <h2 className="text-lg font-semibold text-gray-900">{t('community.joinCommunity')}</h2>
-              <p className="text-sm text-gray-500 max-w-sm mx-auto">{t('community.communityDesc')}</p>
+              <h2 className="text-lg font-semibold text-foreground">{t('community.joinCommunity')}</h2>
+              <p className="text-sm text-muted-foreground max-w-sm mx-auto">{t('community.communityDesc')}</p>
               <div className="flex justify-center gap-3 flex-wrap">
-                <Link href="/sessions/import" className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors">
+                <Link href="/sessions/import" className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary transition-colors">
                   Import Session
                 </Link>
-                <Link href="/sessions/log" className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors">
+                <Link href="/sessions/log" className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-card text-foreground border border-border hover:bg-muted transition-colors">
                   Log Session
                 </Link>
               </div>
@@ -196,7 +196,7 @@ export default function CommunityPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Target size={18} className="text-green-600" aria-hidden="true" />
+                <Target size={18} className="text-primary" aria-hidden="true" />
                 {t('community.activeChallenges')}
               </CardTitle>
             </CardHeader>
@@ -206,25 +206,25 @@ export default function CommunityPage() {
                   <span className="text-2xl shrink-0" aria-hidden="true">{challenge.icon}</span>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between text-sm mb-1">
-                      <span className="font-medium text-gray-900 truncate">{challenge.title}</span>
-                      <span className="text-gray-500 text-xs shrink-0">{progress}%</span>
+                      <span className="font-medium text-foreground truncate">{challenge.title}</span>
+                      <span className="text-muted-foreground text-xs shrink-0">{progress}%</span>
                     </div>
                     <div
-                      className="h-1.5 bg-gray-200 rounded-full overflow-hidden"
+                      className="h-1.5 bg-muted rounded-full overflow-hidden"
                       role="progressbar"
                       aria-valuenow={progress}
                       aria-valuemin={0}
                       aria-valuemax={100}
                     >
                       <div
-                        className="h-full bg-green-500 rounded-full"
+                        className="h-full bg-primary rounded-full"
                         style={{ width: `${progress}%` }}
                       />
                     </div>
                   </div>
                 </div>
               ))}
-              <Link href="/community/challenges" className="flex items-center gap-1 text-sm text-green-700 font-medium hover:underline mt-1">
+              <Link href="/community/challenges" className="flex items-center gap-1 text-sm text-primary font-medium hover:underline mt-1">
                 {t('activity.viewAll')} <ChevronRight size={14} aria-hidden="true" />
               </Link>
             </CardBody>
@@ -240,7 +240,7 @@ export default function CommunityPage() {
                   <Award size={18} className="text-amber-500" aria-hidden="true" />
                   {t('community.recentBadges')}
                 </CardTitle>
-                <Link href="/community/badges" className="text-sm text-green-700 font-medium hover:underline">
+                <Link href="/community/badges" className="text-sm text-primary font-medium hover:underline">
                   {t('activity.viewAll')}
                 </Link>
               </div>
@@ -272,7 +272,7 @@ export default function CommunityPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <TrendingUp size={18} className="text-green-600" aria-hidden="true" />
+                <TrendingUp size={18} className="text-primary" aria-hidden="true" />
                 {t('achievements.progressTo')} next badge
               </CardTitle>
             </CardHeader>
@@ -293,10 +293,10 @@ export default function CommunityPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2">
-                  <Target size={18} className="text-blue-600" aria-hidden="true" />
+                  <Target size={18} className="text-accent-secondary" aria-hidden="true" />
                   {t('community.suggestedChallenges')}
                 </CardTitle>
-                <Link href="/community/challenges" className="text-sm text-green-700 font-medium hover:underline">
+                <Link href="/community/challenges" className="text-sm text-primary font-medium hover:underline">
                   {t('activity.viewAll')}
                 </Link>
               </div>
@@ -305,17 +305,17 @@ export default function CommunityPage() {
               {suggestedChallenges.map(challenge => (
                 <div
                   key={challenge.id}
-                  className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100"
+                  className="flex items-start gap-3 p-3 rounded-lg bg-muted border border-border"
                 >
                   <span className="text-2xl shrink-0 mt-0.5" aria-hidden="true">{challenge.icon}</span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-gray-900">{challenge.title}</p>
-                    <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{challenge.description}</p>
+                    <p className="text-sm font-semibold text-foreground">{challenge.title}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{challenge.description}</p>
                     <div className="flex items-center gap-2 mt-2">
-                      <span className="text-xs font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">
+                      <span className="text-xs font-medium text-primary bg-primary/15 px-2 py-0.5 rounded-full">
                         +{challenge.rewardXP} XP
                       </span>
-                      <span className="text-xs text-gray-400">{challenge.durationDays}d</span>
+                      <span className="text-xs text-muted-foreground">{challenge.durationDays}d</span>
                     </div>
                   </div>
                   <Button
@@ -337,14 +337,14 @@ export default function CommunityPage() {
           <CardBody>
             <div className="flex items-center gap-3 flex-wrap">
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-900">
-                  <Shield size={14} className="inline mr-1 text-green-600" aria-hidden="true" />
+                <p className="text-sm font-semibold text-foreground">
+                  <Shield size={14} className="inline mr-1 text-primary" aria-hidden="true" />
                   {t('data.promptValueOfData')}
                 </p>
-                <p className="text-xs text-gray-500 mt-0.5">{t('community.exportReminder')}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{t('community.exportReminder')}</p>
               </div>
               <div className="flex gap-2 shrink-0">
-                <Link href="/data" className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors">
+                <Link href="/data" className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary transition-colors">
                   <Download size={14} aria-hidden="true" />
                   {t('community.exportData')}
                 </Link>
@@ -374,9 +374,9 @@ function StatCard({
     <div className={`${bg} rounded-xl p-4 flex flex-col gap-2`}>
       <div className="flex items-center gap-2">
         {icon}
-        <span className="text-xs text-gray-600 font-medium leading-tight">{label}</span>
+        <span className="text-xs text-muted-foreground font-medium leading-tight">{label}</span>
       </div>
-      <p className="text-2xl font-bold text-gray-900">{value}</p>
+      <p className="text-2xl font-bold text-foreground">{value}</p>
     </div>
   );
 }
@@ -385,11 +385,11 @@ function QuickLink({ href, icon, label }: { href: string; icon: string; label: s
   return (
     <Link
       href={href}
-      className="flex items-center gap-2 p-3 rounded-xl border border-gray-200 bg-white hover:border-green-300 hover:bg-green-50 transition-colors"
+      className="flex items-center gap-2 p-3 rounded-xl border border-border bg-card hover:border-primary/40 hover:bg-primary/10 transition-colors"
     >
       <span className="text-xl" aria-hidden="true">{icon}</span>
-      <span className="text-sm font-medium text-gray-700">{label}</span>
-      <ChevronRight size={14} className="ms-auto text-gray-400" aria-hidden="true" />
+      <span className="text-sm font-medium text-foreground">{label}</span>
+      <ChevronRight size={14} className="ms-auto text-muted-foreground" aria-hidden="true" />
     </Link>
   );
 }

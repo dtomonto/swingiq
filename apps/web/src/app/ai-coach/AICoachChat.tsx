@@ -28,29 +28,29 @@ const SPORT_DISPLAY: Record<SportId, {
 }> = {
   golf: {
     emoji: '⛳',
-    color: 'bg-green-100',
-    textColor: 'text-green-800',
-    borderColor: 'border-green-200',
-    avatarBg: 'bg-green-600',
+    color: 'bg-primary/15',
+    textColor: 'text-primary',
+    borderColor: 'border-primary/30',
+    avatarBg: 'bg-primary',
     placeholder: 'Ask about your swing, launch data, drills, or practice plan…',
     greeting:
       'Hello! I\'m your SwingIQ Golf Coach. I have access to your launch-monitor data, swing scores, and diagnosis history.\n\nAsk me anything about your game — carry distance, face-to-path, spin rate, your training routine, or what to work on next. I\'ll always ground my answers in your actual numbers.',
   },
   tennis: {
     emoji: '🎾',
-    color: 'bg-yellow-100',
-    textColor: 'text-yellow-800',
-    borderColor: 'border-yellow-200',
-    avatarBg: 'bg-yellow-500',
+    color: 'bg-warning/15',
+    textColor: 'text-warning',
+    borderColor: 'border-warning/30',
+    avatarBg: 'bg-warning',
     placeholder: 'Ask about your forehand, serve, drills, or next practice focus…',
     greeting:
       'Hello! I\'m your SwingIQ Tennis Coach. I have access to your video analysis results and tennis profile.\n\nAsk me about your stroke technique, phase-by-phase observations, drill recommendations, or what to focus on in your next practice session.',
   },
   baseball: {
     emoji: '⚾',
-    color: 'bg-red-100',
-    textColor: 'text-red-800',
-    borderColor: 'border-red-200',
+    color: 'bg-error/15',
+    textColor: 'text-error',
+    borderColor: 'border-error/30',
     avatarBg: 'bg-red-600',
     placeholder: 'Ask about your swing, bat path, timing, drills, or next session focus…',
     greeting:
@@ -58,17 +58,17 @@ const SPORT_DISPLAY: Record<SportId, {
   },
   softball_slow: {
     emoji: '🥎',
-    color: 'bg-orange-100',
+    color: 'bg-warning/15',
     textColor: 'text-orange-800',
-    borderColor: 'border-orange-200',
-    avatarBg: 'bg-orange-500',
+    borderColor: 'border-warning/30',
+    avatarBg: 'bg-warning',
     placeholder: 'Ask about your swing, arc timing, bat path, or next practice focus…',
     greeting:
       'Hello! I\'m your SwingIQ Slow Pitch Coach. I have access to your swing analysis and player profile.\n\nAsk me about timing the arc pitch, hip rotation, contact height, bat path, or what drills to work on before your next game.',
   },
   softball_fast: {
     emoji: '🥎',
-    color: 'bg-pink-100',
+    color: 'bg-accent-secondary/15',
     textColor: 'text-pink-800',
     borderColor: 'border-pink-200',
     avatarBg: 'bg-pink-500',
@@ -267,8 +267,8 @@ export function AICoachChat({
                 {sportName} Mode
               </span>
             </div>
-            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">AI Coach</h1>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <h1 className="text-xl lg:text-2xl font-bold text-foreground">AI Coach</h1>
+            <p className="text-sm text-muted-foreground mt-0.5">
               Answering{' '}
               <span className={`font-semibold ${display.textColor}`}>
                 {sportName.toLowerCase()}
@@ -281,7 +281,7 @@ export function AICoachChat({
           <button
             onClick={resetChat}
             title="Start a new conversation"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-500 hover:text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors shrink-0 mt-1"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground border border-border rounded-lg hover:bg-muted transition-colors shrink-0 mt-1"
           >
             <RefreshCw size={12} />
             New chat
@@ -330,8 +330,8 @@ export function AICoachChat({
                   msg.role === 'user'
                     ? `${display.avatarBg} text-white`
                     : msg.isError
-                    ? 'bg-red-50 border border-red-200 text-red-800'
-                    : 'bg-white border border-gray-200 text-gray-800'
+                    ? 'bg-error/10 border border-error/30 text-error'
+                    : 'bg-card border border-border text-foreground'
                 }`}
               >
                 {msg.content}
@@ -345,11 +345,11 @@ export function AICoachChat({
             <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 shrink-0 ${display.avatarBg}`}>
               <Bot size={16} className="text-white" />
             </div>
-            <div className="bg-white border border-gray-200 px-4 py-3 rounded-xl">
+            <div className="bg-card border border-border px-4 py-3 rounded-xl">
               <div className="flex gap-1 items-center">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" />
+                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
               </div>
             </div>
           </div>
@@ -386,7 +386,7 @@ export function AICoachChat({
             }
           }}
           placeholder={display.placeholder}
-          className={`flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:border-transparent outline-hidden disabled:bg-gray-50 focus:ring-${sport === 'golf' ? 'green' : sport === 'tennis' ? 'yellow' : sport === 'baseball' ? 'red' : sport === 'softball_slow' ? 'orange' : 'pink'}-500`}
+          className={`flex-1 border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:border-transparent outline-hidden disabled:bg-muted focus:ring-${sport === 'golf' ? 'green' : sport === 'tennis' ? 'yellow' : sport === 'baseball' ? 'red' : sport === 'softball_slow' ? 'orange' : 'pink'}-500`}
           disabled={loading}
           maxLength={1000}
           aria-label={`Ask your ${sportName} question`}
@@ -401,7 +401,7 @@ export function AICoachChat({
         </Button>
       </div>
 
-      <p className="text-xs text-gray-400 mt-2 text-center shrink-0">
+      <p className="text-xs text-muted-foreground mt-2 text-center shrink-0">
         Answers are AI-generated guidance based on the data you&apos;ve saved — not measured from video.{' '}
         {sport === 'golf'
           ? 'Diagnoses are pattern-based data interpretations, not guaranteed mechanical analyses.'

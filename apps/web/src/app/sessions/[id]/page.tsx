@@ -111,7 +111,7 @@ export default function SessionDetailPage() {
     return (
       <AppShell>
         <div className="p-6 max-w-4xl mx-auto">
-          <p className="text-gray-500">Session not found.</p>
+          <p className="text-muted-foreground">Session not found.</p>
           <Link href="/sessions">
             <Button variant="outline" className="mt-4">
               <ArrowLeft size={14} /> Back
@@ -134,20 +134,20 @@ export default function SessionDetailPage() {
           <div>
             <button
               onClick={() => router.back()}
-              className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 mb-2"
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-2"
             >
               <ArrowLeft size={14} /> Sessions
             </button>
-            <h1 className="text-2xl font-bold text-gray-900">{session.name}</h1>
+            <h1 className="text-2xl font-bold text-foreground">{session.name}</h1>
             <div className="flex items-center gap-2 mt-1">
-              <Calendar size={13} className="text-gray-400" />
-              <span className="text-sm text-gray-500">
+              <Calendar size={13} className="text-muted-foreground" />
+              <span className="text-sm text-muted-foreground">
                 {format(new Date(session.created_at), 'MMMM d, yyyy')}
               </span>
-              <span className="text-gray-300">·</span>
-              <span className="text-sm text-gray-500">{session.shot_count} shots</span>
-              <span className="text-gray-300">·</span>
-              <span className="text-sm text-gray-500 capitalize">{session.club_name}</span>
+              <span className="text-muted-foreground">·</span>
+              <span className="text-sm text-muted-foreground">{session.shot_count} shots</span>
+              <span className="text-muted-foreground">·</span>
+              <span className="text-sm text-muted-foreground capitalize">{session.club_name}</span>
             </div>
           </div>
           <div className="flex gap-2">
@@ -166,16 +166,16 @@ export default function SessionDetailPage() {
 
         {/* Session notes */}
         {session.notes && session.notes.trim() && (
-          <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-            <Info size={15} className="text-blue-600 shrink-0 mt-0.5" />
-            <p className="text-sm text-blue-800">{session.notes}</p>
+          <div className="flex items-start gap-2 p-3 bg-accent-secondary/10 border border-accent-secondary/25 rounded-lg">
+            <Info size={15} className="text-accent-secondary shrink-0 mt-0.5" />
+            <p className="text-sm text-foreground">{session.notes}</p>
           </div>
         )}
 
         {session.shots.length < 3 ? (
           <Card>
             <CardBody className="text-center py-10">
-              <p className="text-gray-500">
+              <p className="text-muted-foreground">
                 This session has fewer than 3 shots — not enough for analysis.
               </p>
             </CardBody>
@@ -197,7 +197,7 @@ export default function SessionDetailPage() {
                   <Card key={key}>
                     <CardBody className="text-center py-3">
                       <ScoreRing score={val} size={56} strokeWidth={5} />
-                      <p className="text-xs text-gray-500 mt-1">{key}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{key}</p>
                     </CardBody>
                   </Card>
                 ))}
@@ -206,11 +206,11 @@ export default function SessionDetailPage() {
 
             {/* Primary diagnosis */}
             {topDiagnosis && (
-              <Card className="border-l-4 border-l-red-500">
+              <Card className="border-l-4 border-l-error">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <AlertCircle size={18} className="text-red-500" />
+                      <AlertCircle size={18} className="text-error" />
                       <CardTitle>Primary Diagnosis</CardTitle>
                     </div>
                     <Badge variant="critical" className="capitalize">
@@ -220,30 +220,30 @@ export default function SessionDetailPage() {
                 </CardHeader>
                 <CardBody className="space-y-3">
                   <div>
-                    <h3 className="font-bold text-gray-900 text-lg">{topDiagnosis.rule.name}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{topDiagnosis.rule.likely_cause}</p>
+                    <h3 className="font-bold text-foreground text-lg">{topDiagnosis.rule.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">{topDiagnosis.rule.likely_cause}</p>
                   </div>
                   {strokePrediction && strokePrediction.estimates.length > 0 && (
-                    <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-                      <p className="text-xs font-semibold text-green-800 mb-1">
+                    <div className="p-3 bg-primary/10 border border-primary/30 rounded-lg">
+                      <p className="text-xs font-semibold text-primary mb-1">
                         Stroke Savings Potential
                       </p>
-                      <p className="text-sm text-green-700">{strokePrediction.prioritized_action}</p>
-                      <p className="text-xs text-green-600 mt-1">
+                      <p className="text-sm text-primary">{strokePrediction.prioritized_action}</p>
+                      <p className="text-xs text-primary mt-1">
                         Total potential:{' '}
                         <strong>~{strokePrediction.total_potential_savings} strokes/round</strong>
                         {strokePrediction.estimates[0]?.handicap_improvement_estimate
                           ? ` (est. ${strokePrediction.estimates[0].handicap_improvement_estimate} handicap improvement)`
                           : ''}
                       </p>
-                      <p className="text-xs text-gray-400 mt-1">{strokePrediction.caveat}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{strokePrediction.caveat}</p>
                     </div>
                   )}
                   {routine && (
                     <div className="flex items-center justify-between border-t pt-3">
                       <div>
-                        <p className="text-xs text-gray-500">Recommended routine</p>
-                        <p className="font-semibold text-sm text-gray-900">{routine.name}</p>
+                        <p className="text-xs text-muted-foreground">Recommended routine</p>
+                        <p className="font-semibold text-sm text-foreground">{routine.name}</p>
                       </div>
                       <div className="flex gap-2">
                         {routine.drill_recommendations[0]?.youtube_search_url && (
@@ -251,7 +251,7 @@ export default function SessionDetailPage() {
                             href={routine.drill_recommendations[0].youtube_search_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs text-red-600 hover:underline flex items-center gap-1"
+                            className="text-xs text-error hover:underline flex items-center gap-1"
                           >
                             <ExternalLink size={11} /> YouTube
                           </a>
@@ -274,22 +274,22 @@ export default function SessionDetailPage() {
 
             {/* What to do next */}
             {analysis?.insight && (
-              <Card className="border-green-200 bg-green-50">
+              <Card className="border-primary/30 bg-primary/10">
                 <CardBody className="space-y-2">
-                  <p className="text-sm font-semibold text-green-800">
+                  <p className="text-sm font-semibold text-primary">
                     What do I do next?
                   </p>
-                  <p className="text-sm text-green-700">{analysis.insight.what_do_i_do_next}</p>
+                  <p className="text-sm text-primary">{analysis.insight.what_do_i_do_next}</p>
                   <div className="grid grid-cols-2 gap-3 mt-2">
-                    <div className="bg-white rounded-lg p-3 border border-green-200">
-                      <p className="text-xs text-gray-500">Technical Focus</p>
-                      <p className="text-sm font-semibold text-gray-900">
+                    <div className="bg-card rounded-lg p-3 border border-primary/30">
+                      <p className="text-xs text-muted-foreground">Technical Focus</p>
+                      <p className="text-sm font-semibold text-foreground">
                         {analysis.insight.technical_focus}
                       </p>
                     </div>
-                    <div className="bg-white rounded-lg p-3 border border-green-200">
-                      <p className="text-xs text-gray-500">Ball Flight</p>
-                      <p className="text-sm font-semibold text-gray-900">
+                    <div className="bg-card rounded-lg p-3 border border-primary/30">
+                      <p className="text-xs text-muted-foreground">Ball Flight</p>
+                      <p className="text-sm font-semibold text-foreground">
                         {analysis.insight.ball_flight_focus}
                       </p>
                     </div>
@@ -304,7 +304,7 @@ export default function SessionDetailPage() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Layers size={18} className="text-blue-600" />
+                      <Layers size={18} className="text-accent-secondary" />
                       <CardTitle>Shot Dispersion</CardTitle>
                     </div>
                     <Badge
@@ -364,7 +364,7 @@ export default function SessionDetailPage() {
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-2">
-                    <TrendingUp size={18} className="text-gray-600" />
+                    <TrendingUp size={18} className="text-muted-foreground" />
                     <CardTitle>All Diagnosed Patterns</CardTitle>
                   </div>
                 </CardHeader>
@@ -374,12 +374,12 @@ export default function SessionDetailPage() {
                       key={d.rule.id}
                       className="flex items-start gap-3 py-2 border-b last:border-0"
                     >
-                      <span className="w-6 h-6 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center text-xs font-bold shrink-0">
+                      <span className="w-6 h-6 rounded-full bg-muted text-foreground flex items-center justify-center text-xs font-bold shrink-0">
                         {i + 2}
                       </span>
                       <div>
-                        <p className="font-semibold text-sm text-gray-900">{d.rule.name}</p>
-                        <p className="text-xs text-gray-500">{d.rule.likely_cause}</p>
+                        <p className="font-semibold text-sm text-foreground">{d.rule.name}</p>
+                        <p className="text-xs text-muted-foreground">{d.rule.likely_cause}</p>
                       </div>
                       <Badge variant="info" className="ml-auto shrink-0 capitalize">
                         {d.rule.priority}
@@ -396,7 +396,7 @@ export default function SessionDetailPage() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <TrendingUp size={18} className="text-blue-600" />
+                      <TrendingUp size={18} className="text-accent-secondary" />
                       <CardTitle>Within-Session Trend</CardTitle>
                     </div>
                     <Badge
@@ -407,51 +407,51 @@ export default function SessionDetailPage() {
                   </div>
                 </CardHeader>
                 <CardBody>
-                  <p className="text-xs text-gray-500 mb-3">
+                  <p className="text-xs text-muted-foreground mb-3">
                     First {shotTrend.midPoint} shots vs last {shotTrend.midPoint} shots
                   </p>
                   <div className="grid grid-cols-3 gap-3 text-sm">
-                    <div className="text-center bg-gray-50 rounded-lg p-3">
-                      <p className="text-xs text-gray-500 mb-1">Avg Carry</p>
+                    <div className="text-center bg-muted rounded-lg p-3">
+                      <p className="text-xs text-muted-foreground mb-1">Avg Carry</p>
                       <div className="flex items-center justify-center gap-2">
-                        <span className="font-medium text-gray-700">{shotTrend.f.carry !== null ? `${Math.round(shotTrend.f.carry)}` : '—'}</span>
-                        <span className="text-gray-400">→</span>
-                        <span className="font-bold text-gray-900">{shotTrend.l.carry !== null ? `${Math.round(shotTrend.l.carry)}` : '—'}</span>
+                        <span className="font-medium text-foreground">{shotTrend.f.carry !== null ? `${Math.round(shotTrend.f.carry)}` : '—'}</span>
+                        <span className="text-muted-foreground">→</span>
+                        <span className="font-bold text-foreground">{shotTrend.l.carry !== null ? `${Math.round(shotTrend.l.carry)}` : '—'}</span>
                       </div>
                       {shotTrend.carryDelta !== null && (
-                        <p className={`text-xs font-semibold mt-0.5 ${shotTrend.carryDelta > 1 ? 'text-green-600' : shotTrend.carryDelta < -1 ? 'text-red-600' : 'text-gray-400'}`}>
+                        <p className={`text-xs font-semibold mt-0.5 ${shotTrend.carryDelta > 1 ? 'text-primary' : shotTrend.carryDelta < -1 ? 'text-error' : 'text-muted-foreground'}`}>
                           {shotTrend.carryDelta > 0 ? '+' : ''}{Math.round(shotTrend.carryDelta)} yds
                         </p>
                       )}
                     </div>
-                    <div className="text-center bg-gray-50 rounded-lg p-3">
-                      <p className="text-xs text-gray-500 mb-1">Smash Factor</p>
+                    <div className="text-center bg-muted rounded-lg p-3">
+                      <p className="text-xs text-muted-foreground mb-1">Smash Factor</p>
                       <div className="flex items-center justify-center gap-2">
-                        <span className="font-medium text-gray-700">{shotTrend.f.smash !== null ? shotTrend.f.smash.toFixed(2) : '—'}</span>
-                        <span className="text-gray-400">→</span>
-                        <span className="font-bold text-gray-900">{shotTrend.l.smash !== null ? shotTrend.l.smash.toFixed(2) : '—'}</span>
+                        <span className="font-medium text-foreground">{shotTrend.f.smash !== null ? shotTrend.f.smash.toFixed(2) : '—'}</span>
+                        <span className="text-muted-foreground">→</span>
+                        <span className="font-bold text-foreground">{shotTrend.l.smash !== null ? shotTrend.l.smash.toFixed(2) : '—'}</span>
                       </div>
                       {shotTrend.smashDelta !== null && (
-                        <p className={`text-xs font-semibold mt-0.5 ${shotTrend.smashDelta > 0.01 ? 'text-green-600' : shotTrend.smashDelta < -0.01 ? 'text-red-600' : 'text-gray-400'}`}>
+                        <p className={`text-xs font-semibold mt-0.5 ${shotTrend.smashDelta > 0.01 ? 'text-primary' : shotTrend.smashDelta < -0.01 ? 'text-error' : 'text-muted-foreground'}`}>
                           {shotTrend.smashDelta > 0 ? '+' : ''}{shotTrend.smashDelta.toFixed(3)}
                         </p>
                       )}
                     </div>
-                    <div className="text-center bg-gray-50 rounded-lg p-3">
-                      <p className="text-xs text-gray-500 mb-1">Face-to-Path</p>
+                    <div className="text-center bg-muted rounded-lg p-3">
+                      <p className="text-xs text-muted-foreground mb-1">Face-to-Path</p>
                       <div className="flex items-center justify-center gap-2">
-                        <span className="font-medium text-gray-700">{shotTrend.f.ftp !== null ? `${Math.abs(shotTrend.f.ftp).toFixed(1)}°` : '—'}</span>
-                        <span className="text-gray-400">→</span>
-                        <span className="font-bold text-gray-900">{shotTrend.l.ftp !== null ? `${Math.abs(shotTrend.l.ftp).toFixed(1)}°` : '—'}</span>
+                        <span className="font-medium text-foreground">{shotTrend.f.ftp !== null ? `${Math.abs(shotTrend.f.ftp).toFixed(1)}°` : '—'}</span>
+                        <span className="text-muted-foreground">→</span>
+                        <span className="font-bold text-foreground">{shotTrend.l.ftp !== null ? `${Math.abs(shotTrend.l.ftp).toFixed(1)}°` : '—'}</span>
                       </div>
                       {shotTrend.ftpDelta !== null && (
-                        <p className={`text-xs font-semibold mt-0.5 ${shotTrend.ftpDelta < -0.3 ? 'text-green-600' : shotTrend.ftpDelta > 0.3 ? 'text-red-600' : 'text-gray-400'}`}>
+                        <p className={`text-xs font-semibold mt-0.5 ${shotTrend.ftpDelta < -0.3 ? 'text-primary' : shotTrend.ftpDelta > 0.3 ? 'text-error' : 'text-muted-foreground'}`}>
                           FTP: {shotTrend.ftpDelta > 0 ? '+' : ''}{shotTrend.ftpDelta.toFixed(1)}°
                         </p>
                       )}
                     </div>
                   </div>
-                  <p className="text-xs text-gray-500 mt-3 italic">
+                  <p className="text-xs text-muted-foreground mt-3 italic">
                     {shotTrend.warmingUp
                       ? 'Your swing improved as the session progressed — great warm-up effect!'
                       : shotTrend.fatiguing
@@ -471,7 +471,7 @@ export default function SessionDetailPage() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs">
                     <thead>
-                      <tr className="border-b text-gray-500">
+                      <tr className="border-b text-muted-foreground">
                         <th className="text-left py-2 px-2">#</th>
                         <th className="text-right py-2 px-2">Club</th>
                         <th className="text-right py-2 px-2">Carry</th>
@@ -490,9 +490,9 @@ export default function SessionDetailPage() {
                         return (
                           <tr
                             key={shot.id}
-                            className="border-b last:border-0 hover:bg-gray-50"
+                            className="border-b last:border-0 hover:bg-muted"
                           >
-                            <td className="py-1.5 px-2 text-gray-400">{shot.shot_number}</td>
+                            <td className="py-1.5 px-2 text-muted-foreground">{shot.shot_number}</td>
                             <td className="py-1.5 px-2 text-right font-medium">
                               {shot.club_name}
                             </td>
@@ -511,7 +511,7 @@ export default function SessionDetailPage() {
                             <td
                               className={`py-1.5 px-2 text-right font-medium ${
                                 cd.face_to_path !== null && Math.abs(cd.face_to_path) > 3
-                                  ? 'text-red-600'
+                                  ? 'text-error'
                                   : ''
                               }`}
                             >
@@ -522,9 +522,9 @@ export default function SessionDetailPage() {
                             <td
                               className={`py-1.5 px-2 text-right font-medium ${
                                 Math.abs(lat) > 15
-                                  ? 'text-red-600'
+                                  ? 'text-error'
                                   : Math.abs(lat) > 8
-                                  ? 'text-orange-500'
+                                  ? 'text-warning'
                                   : ''
                               }`}
                             >
@@ -538,7 +538,7 @@ export default function SessionDetailPage() {
                     </tbody>
                   </table>
                   {session.shots.length > 30 && (
-                    <p className="text-xs text-gray-400 mt-2 text-center">
+                    <p className="text-xs text-muted-foreground mt-2 text-center">
                       Showing 30 of {session.shots.length} shots
                     </p>
                   )}
@@ -558,9 +558,9 @@ export default function SessionDetailPage() {
 interface ShapeCount { shape: string; count: number; pct: number }
 
 const SHAPE_COLORS: Record<string, string> = {
-  slice: 'bg-red-500',
+  slice: 'bg-error',
   fade: 'bg-orange-400',
-  straight: 'bg-green-500',
+  straight: 'bg-primary',
   draw: 'bg-blue-500',
   hook: 'bg-purple-500',
   push: 'bg-amber-500',
@@ -598,10 +598,10 @@ function ShotShapeBreakdown({ shots }: { shots: Shot[] }) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Target size={18} className="text-green-600" />
+            <Target size={18} className="text-primary" />
             <CardTitle>Shot Shape Distribution</CardTitle>
           </div>
-          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${idealPct >= 70 ? 'bg-green-100 text-green-700' : idealPct >= 50 ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>
+          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${idealPct >= 70 ? 'bg-primary/15 text-primary' : idealPct >= 50 ? 'bg-warning/15 text-warning' : 'bg-error/15 text-error'}`}>
             {idealPct}% in ideal zone
           </span>
         </div>
@@ -609,20 +609,20 @@ function ShotShapeBreakdown({ shots }: { shots: Shot[] }) {
       <CardBody className="space-y-2">
         {rows.map(({ shape, count, pct }) => (
           <div key={shape} className="flex items-center gap-3">
-            <span className={`w-2 h-2 rounded-full shrink-0 ${SHAPE_COLORS[shape] ?? 'bg-gray-300'}`} />
-            <span className="text-xs text-gray-600 w-20 shrink-0">{SHAPE_LABELS[shape] ?? shape}</span>
-            <div className="flex-1 h-4 bg-gray-100 rounded-full overflow-hidden">
+            <span className={`w-2 h-2 rounded-full shrink-0 ${SHAPE_COLORS[shape] ?? 'bg-muted'}`} />
+            <span className="text-xs text-muted-foreground w-20 shrink-0">{SHAPE_LABELS[shape] ?? shape}</span>
+            <div className="flex-1 h-4 bg-muted rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all ${SHAPE_COLORS[shape] ?? 'bg-gray-400'} ${IDEAL_SHAPES.has(shape) ? 'opacity-100' : 'opacity-60'}`}
                 style={{ width: `${pct}%` }}
               />
             </div>
-            <span className="text-xs font-semibold text-gray-700 w-12 text-right shrink-0">
+            <span className="text-xs font-semibold text-foreground w-12 text-right shrink-0">
               {count} ({pct}%)
             </span>
           </div>
         ))}
-        <p className="text-xs text-gray-400 pt-1">
+        <p className="text-xs text-muted-foreground pt-1">
           Straight, draw, and fade = ideal zone. Slice, hook, push, and pull indicate face/path issues.
         </p>
       </CardBody>
@@ -644,7 +644,7 @@ function SessionNotesEditor({ session, onSave }: { session: { notes: string }; o
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Info size={16} className="text-blue-500" />
+            <Info size={16} className="text-accent-secondary" />
             <CardTitle>Session Notes</CardTitle>
           </div>
           {!editing && (
@@ -662,7 +662,7 @@ function SessionNotesEditor({ session, onSave }: { session: { notes: string }; o
               onChange={(e) => setDraft(e.target.value)}
               rows={4}
               placeholder="Add notes about this session — conditions, how you felt, what you tried, what worked..."
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-hidden resize-none"
+              className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring outline-hidden resize-none"
             />
             <div className="flex gap-2">
               <Button size="sm" onClick={handleSave}><Check size={14} /> Save Notes</Button>
@@ -670,9 +670,9 @@ function SessionNotesEditor({ session, onSave }: { session: { notes: string }; o
             </div>
           </div>
         ) : session.notes && session.notes.trim() ? (
-          <p className="text-sm text-gray-700 leading-relaxed">{session.notes}</p>
+          <p className="text-sm text-foreground leading-relaxed">{session.notes}</p>
         ) : (
-          <p className="text-sm text-gray-400 italic">No notes yet. Click &ldquo;Add Notes&rdquo; to record observations about this session.</p>
+          <p className="text-sm text-muted-foreground italic">No notes yet. Click &ldquo;Add Notes&rdquo; to record observations about this session.</p>
         )}
       </CardBody>
     </Card>

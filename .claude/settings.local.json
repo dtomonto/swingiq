@@ -87,7 +87,11 @@
       "Bash(echo \"python: $\\(command -v python || command -v python3 || echo NO\\)\")",
       "Skill(schedule)",
       "Skill(schedule:*)",
-      "Bash(git -C \"C:/Users/dtomo/OneDrive/Desktop/swingiq\" remote -v)"
+      "Bash(git -C \"C:/Users/dtomo/OneDrive/Desktop/swingiq\" remote -v)",
+      "Bash(node scripts/audit-growth.mjs)",
+      "Bash(echo \"=== growth exit: $? ===\")",
+      "Bash(git ls-tree *)",
+      "Bash(git ls-remote *)"
     ]
   }
 }

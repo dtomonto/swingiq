@@ -23,17 +23,17 @@ function FormField({
 }) {
   return (
     <div className="space-y-1">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
-      {hint && <p className="text-xs text-gray-500">{hint}</p>}
+      <label className="text-sm font-medium text-foreground">{label}</label>
+      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
       {children}
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {error && <p className="text-xs text-error">{error}</p>}
     </div>
   );
 }
 
 const inputClass =
-  'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-hidden';
-const selectClass = `${inputClass} bg-white`;
+  'w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring focus:border-transparent outline-hidden';
+const selectClass = `${inputClass} bg-card`;
 
 export function ProfileForm() {
   const [saved, setSaved] = useState(false);
@@ -224,7 +224,7 @@ export function ProfileForm() {
           Save Profile
         </Button>
         {saved && (
-          <div className="flex items-center gap-1.5 text-green-600 text-sm font-medium">
+          <div className="flex items-center gap-1.5 text-primary text-sm font-medium">
             <CheckCircle size={16} />
             Profile saved!
           </div>

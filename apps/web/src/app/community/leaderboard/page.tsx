@@ -43,16 +43,16 @@ export default function LeaderboardPage() {
     <AppShell>
       <div className="p-4 sm:p-6 space-y-6 max-w-3xl mx-auto pb-24">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
             <Trophy size={24} className="text-amber-500" aria-hidden="true" />
             {t('leaderboard.title')}
           </h1>
-          <p className="text-gray-500 text-sm mt-1">{t('leaderboard.subtitle')}</p>
+          <p className="text-muted-foreground text-sm mt-1">{t('leaderboard.subtitle')}</p>
         </div>
 
         {/* Privacy notice */}
-        <div className="flex gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
-          <Shield size={18} className="shrink-0 mt-0.5 text-blue-600" aria-hidden="true" />
+        <div className="flex gap-3 bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl p-4 text-sm text-foreground">
+          <Shield size={18} className="shrink-0 mt-0.5 text-accent-secondary" aria-hidden="true" />
           <div>
             <p className="font-semibold">Privacy-Safe Rankings</p>
             <p>
@@ -73,8 +73,8 @@ export default function LeaderboardPage() {
               className={cn(
                 'px-4 py-2 rounded-full text-sm font-medium transition-colors',
                 metric === m.id
-                  ? 'bg-green-600 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-primary text-white'
+                  : 'bg-muted text-muted-foreground hover:bg-muted'
               )}
             >
               {m.label}
@@ -91,15 +91,15 @@ export default function LeaderboardPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm" aria-label={`${t('leaderboard.title')} — ${metrics.find(m => m.id === metric)?.label}`}>
                 <thead>
-                  <tr className="border-b border-gray-100 bg-gray-50">
-                    <th className="px-4 py-3 text-start text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('leaderboard.rank')}</th>
-                    <th className="px-4 py-3 text-start text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('leaderboard.athlete')}</th>
-                    <th className="px-4 py-3 text-end text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('leaderboard.metric')}</th>
+                  <tr className="border-b border-border bg-muted">
+                    <th className="px-4 py-3 text-start text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t('leaderboard.rank')}</th>
+                    <th className="px-4 py-3 text-start text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t('leaderboard.athlete')}</th>
+                    <th className="px-4 py-3 text-end text-xs font-semibold text-muted-foreground uppercase tracking-wide">{t('leaderboard.metric')}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {/* Current user's entry */}
-                  <tr className="bg-green-50 border-b border-green-100">
+                  <tr className="bg-primary/10 border-b border-primary/20">
                     <td className="px-4 py-3">
                       <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-400 text-white text-xs font-bold" aria-label="Rank 1">
                         1
@@ -107,20 +107,20 @@ export default function LeaderboardPage() {
                     </td>
                     <td className="px-4 py-3">
                       <div>
-                        <p className="font-semibold text-gray-900">
+                        <p className="font-semibold text-foreground">
                           {myEntry.displayName}
-                          <span className="ms-2 text-xs text-green-700 bg-green-100 px-1.5 py-0.5 rounded-sm">You</span>
+                          <span className="ms-2 text-xs text-primary bg-primary/15 px-1.5 py-0.5 rounded-sm">You</span>
                         </p>
-                        <p className="text-xs text-gray-500">Level {level}</p>
+                        <p className="text-xs text-muted-foreground">Level {level}</p>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-end font-bold text-gray-900">{formatValue(metric, myEntry.value)}</td>
+                    <td className="px-4 py-3 text-end font-bold text-foreground">{formatValue(metric, myEntry.value)}</td>
                   </tr>
 
                   {/* No-data notice */}
                   <tr>
                     <td colSpan={3} className="px-4 py-6 text-center">
-                      <div className="flex flex-col items-center gap-2 text-gray-400">
+                      <div className="flex flex-col items-center gap-2 text-muted-foreground">
                         <Info size={20} aria-hidden="true" />
                         <p className="text-sm">Cloud leaderboards coming soon.</p>
                         <p className="text-xs">For now, your personal stats are shown. Invite friends to compare progress.</p>
@@ -145,12 +145,12 @@ export default function LeaderboardPage() {
                     privacy: { ...community.privacy, leaderboardOptOut: !e.target.checked },
                   });
                 }}
-                className="mt-0.5 w-4 h-4 rounded-sm text-green-600"
+                className="mt-0.5 w-4 h-4 rounded-sm text-primary"
                 aria-label={t('leaderboard.optIn')}
               />
               <div>
-                <p className="text-sm font-medium text-gray-900">{t('leaderboard.optIn')}</p>
-                <p className="text-xs text-gray-500 mt-0.5">
+                <p className="text-sm font-medium text-foreground">{t('leaderboard.optIn')}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
                   Appear on leaderboards. You can use an anonymous display name in your profile settings.
                 </p>
               </div>
@@ -160,7 +160,7 @@ export default function LeaderboardPage() {
 
         {/* Empty / no sessions */}
         {totalSessions === 0 && (
-          <div className="text-center py-6 text-gray-500 text-sm">
+          <div className="text-center py-6 text-muted-foreground text-sm">
             {t('leaderboard.noData')}
           </div>
         )}

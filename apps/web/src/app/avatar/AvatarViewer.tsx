@@ -79,7 +79,7 @@ function Avatar3DPlaceholder({ phase, fault }: { phase: number; fault: string | 
         </svg>
         <p className="text-white font-semibold">{SWING_PHASES[phase]}</p>
         {fault && (
-          <div className="mt-2 px-3 py-1 bg-red-500/20 border border-red-400/30 rounded-lg">
+          <div className="mt-2 px-3 py-1 bg-error/20 border border-error/50/30 rounded-lg">
             <p className="text-red-300 text-xs">{FAULT_TOGGLES.find((f) => f.id === fault)?.label}</p>
           </div>
         )}
@@ -163,16 +163,16 @@ export function AvatarViewer() {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-900">3D Swing Avatar</h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <h1 className="text-2xl font-bold text-foreground">3D Swing Avatar</h1>
+        <p className="text-muted-foreground text-sm mt-1">
           Educational swing model based on your launch-monitor data pattern.
         </p>
       </div>
 
       {/* Disclaimer */}
-      <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg mb-5">
-        <Info size={16} className="text-amber-600 shrink-0 mt-0.5" />
-        <p className="text-xs text-amber-800">
+      <div className="flex items-start gap-2 p-3 bg-warning/10 border border-warning/30 rounded-lg mb-5">
+        <Info size={16} className="text-warning shrink-0 mt-0.5" />
+        <p className="text-xs text-warning">
           <strong>Estimated pattern only.</strong> This avatar shows the likely movement pattern based on
           launch-monitor data. It is NOT an exact recreation of your body position unless motion-capture
           or video keypoint data is available.
@@ -181,8 +181,8 @@ export function AvatarViewer() {
 
       {/* No data state */}
       {!sessionWithShots && (
-        <div className="mb-5 p-4 bg-gray-50 border border-gray-200 rounded-xl text-center">
-          <p className="text-gray-500 text-sm mb-3">No session data yet. Import data to personalize the avatar.</p>
+        <div className="mb-5 p-4 bg-muted border border-border rounded-xl text-center">
+          <p className="text-muted-foreground text-sm mb-3">No session data yet. Import data to personalize the avatar.</p>
           <Link href="/sessions/import">
             <Button size="sm" variant="outline"><Upload size={14} /> Import Session</Button>
           </Link>
@@ -205,8 +205,8 @@ export function AvatarViewer() {
           {/* Phase scrubber */}
           <div className="mt-4">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Swing Phase</p>
-              <p className="text-sm font-bold text-gray-900">{SWING_PHASES[phase]}</p>
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Swing Phase</p>
+              <p className="text-sm font-bold text-foreground">{SWING_PHASES[phase]}</p>
             </div>
             <input
               type="range"
@@ -217,16 +217,16 @@ export function AvatarViewer() {
               className="w-full accent-green-600"
             />
             <div className="flex justify-between mt-1">
-              <span className="text-xs text-gray-400">Address</span>
-              <span className="text-xs text-gray-400">Impact</span>
-              <span className="text-xs text-gray-400">Finish</span>
+              <span className="text-xs text-muted-foreground">Address</span>
+              <span className="text-xs text-muted-foreground">Impact</span>
+              <span className="text-xs text-muted-foreground">Finish</span>
             </div>
           </div>
 
           {/* Data overlay — real data */}
           <Card className="mt-4">
             <CardBody>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                 {sessionWithShots
                   ? `Impact Data — ${sessionWithShots.name}`
                   : 'Impact Data (no session loaded)'}
@@ -235,10 +235,10 @@ export function AvatarViewer() {
                 {impactData.map((d) => (
                   <div
                     key={d.label}
-                    className={`rounded-lg p-2 ${d.bad ? 'bg-red-50 border border-red-200' : 'bg-gray-50 border border-gray-200'}`}
+                    className={`rounded-lg p-2 ${d.bad ? 'bg-error/10 border border-error/30' : 'bg-muted border border-border'}`}
                   >
-                    <p className="text-xs text-gray-500">{d.label}</p>
-                    <p className={`font-bold text-sm ${d.bad ? 'text-red-700' : 'text-gray-900'}`}>{d.value}</p>
+                    <p className="text-xs text-muted-foreground">{d.label}</p>
+                    <p className={`font-bold text-sm ${d.bad ? 'text-error' : 'text-foreground'}`}>{d.value}</p>
                   </div>
                 ))}
               </div>
@@ -251,17 +251,17 @@ export function AvatarViewer() {
           <Card>
             <CardHeader><CardTitle>Fault Visualization</CardTitle></CardHeader>
             <CardBody className="space-y-2">
-              <p className="text-xs text-gray-500 mb-1">Click a fault to see how it appears in the avatar:</p>
+              <p className="text-xs text-muted-foreground mb-1">Click a fault to see how it appears in the avatar:</p>
               {FAULT_TOGGLES.map((fault) => (
                 <button
                   key={fault.id}
                   onClick={() => setActiveFault(activeFault === fault.id ? null : fault.id)}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors border ${
                     activeFault === fault.id
-                      ? 'bg-red-50 border-red-400 text-red-700 font-semibold'
+                      ? 'bg-error/10 border-error/50 text-error font-semibold'
                       : suggestedFaults.includes(fault.id)
-                      ? 'border-orange-200 bg-orange-50 text-orange-700 hover:border-orange-400'
-                      : 'border-gray-200 text-gray-700 hover:border-red-300 hover:bg-red-50'
+                      ? 'border-warning/30 bg-warning/10 text-warning hover:border-warning/50'
+                      : 'border-border text-foreground hover:border-error/40 hover:bg-error/10'
                   }`}
                 >
                   {suggestedFaults.includes(fault.id) && (
@@ -271,12 +271,12 @@ export function AvatarViewer() {
                 </button>
               ))}
               {activeFault && (
-                <Button variant="ghost" size="sm" onClick={() => setActiveFault(null)} className="w-full text-gray-500">
+                <Button variant="ghost" size="sm" onClick={() => setActiveFault(null)} className="w-full text-muted-foreground">
                   Clear fault
                 </Button>
               )}
               {suggestedFaults.length > 0 && (
-                <p className="text-xs text-orange-600 mt-1">⚠ = suggested by your diagnosis</p>
+                <p className="text-xs text-warning mt-1">⚠ = suggested by your diagnosis</p>
               )}
             </CardBody>
           </Card>
@@ -286,12 +286,12 @@ export function AvatarViewer() {
             <CardBody>
               {patternDescription ? (
                 <>
-                  <p className="text-xs text-gray-600 leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
                     Based on your data, the avatar is showing a likely{' '}
                     <strong>{patternDescription.name}</strong> pattern.{' '}
                     {patternDescription.cause}
                   </p>
-                  <p className="text-xs text-gray-500 mt-2 italic">
+                  <p className="text-xs text-muted-foreground mt-2 italic">
                     Estimated mechanical pattern — not a confirmed analysis.
                   </p>
                   <Link href="/diagnose" className="mt-3 block">
@@ -301,7 +301,7 @@ export function AvatarViewer() {
                   </Link>
                 </>
               ) : (
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-muted-foreground">
                   Import a session and run the diagnostic engine to see your likely pattern.
                 </p>
               )}

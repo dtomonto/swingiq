@@ -239,8 +239,8 @@ export function ImportWizard() {
     <div className="p-6 max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Import Launch-Monitor Data</h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <h1 className="text-2xl font-bold text-foreground">Import Launch-Monitor Data</h1>
+        <p className="text-muted-foreground text-sm mt-1">
           Follow the steps below to import your session. The app will detect column names automatically.
         </p>
       </div>
@@ -261,18 +261,18 @@ export function ImportWizard() {
               <div
                 className={cn(
                   'flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors',
-                  isActive ? 'bg-green-600 text-white' : isDone ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500',
+                  isActive ? 'bg-primary text-white' : isDone ? 'bg-primary/15 text-primary' : 'bg-muted text-muted-foreground',
                 )}
               >
                 <span className={cn(
                   'w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold',
-                  isActive ? 'bg-white text-green-600' : isDone ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-600',
+                  isActive ? 'bg-card text-primary' : isDone ? 'bg-primary text-white' : 'bg-muted text-muted-foreground',
                 )}>
                   {isDone ? '✓' : n}
                 </span>
                 <span className="hidden sm:block">{label}</span>
               </div>
-              {i < steps.length - 1 && <ChevronRight size={14} className="text-gray-400 shrink-0" />}
+              {i < steps.length - 1 && <ChevronRight size={14} className="text-muted-foreground shrink-0" />}
             </div>
           );
         })}
@@ -283,7 +283,7 @@ export function ImportWizard() {
         <Card>
           <CardHeader>
             <CardTitle>Step 1: Choose Your Launch Monitor</CardTitle>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               Select the brand and model you used. This helps the app recognize your column names automatically.
             </p>
           </CardHeader>
@@ -295,18 +295,18 @@ export function ImportWizard() {
                 className={cn(
                   'w-full text-left px-4 py-3 rounded-lg border transition-colors',
                   brand === lm.value
-                    ? 'border-green-500 bg-green-50 ring-1 ring-green-400'
-                    : 'border-gray-200 hover:border-green-300 hover:bg-green-50',
+                    ? 'border-primary bg-primary/10 ring-1 ring-primary/50'
+                    : 'border-border hover:border-primary/40 hover:bg-primary/10',
                 )}
               >
-                <p className="font-medium text-gray-900 text-sm">{lm.label}</p>
-                <p className="text-xs text-gray-500 mt-0.5">{lm.notes}</p>
+                <p className="font-medium text-foreground text-sm">{lm.label}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{lm.notes}</p>
               </button>
             ))}
             <div className="pt-3 border-t">
-              <div className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg">
-                <Info size={16} className="text-blue-600 shrink-0 mt-0.5" />
-                <p className="text-xs text-blue-700">
+              <div className="flex items-start gap-2 p-3 bg-accent-secondary/10 rounded-lg">
+                <Info size={16} className="text-accent-secondary shrink-0 mt-0.5" />
+                <p className="text-xs text-accent-secondary">
                   <strong>Don&rsquo;t see your device?</strong> Choose &ldquo;Manual Entry / Other&rdquo; — you&rsquo;ll map the columns yourself in Step 3.
                 </p>
               </div>
@@ -326,7 +326,7 @@ export function ImportWizard() {
               <CardTitle>Step 2: Upload Your CSV File</CardTitle>
               <Badge variant="info">{LAUNCH_MONITORS.find((lm) => lm.value === brand)?.label}</Badge>
             </div>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               Export a CSV from your launch monitor software, then drag it here or click to browse.
             </p>
           </CardHeader>
@@ -337,24 +337,24 @@ export function ImportWizard() {
               onDragLeave={() => setDragOver(false)}
               className={cn(
                 'border-2 border-dashed rounded-xl p-10 text-center transition-colors cursor-pointer',
-                dragOver ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-green-400 hover:bg-green-50',
+                dragOver ? 'border-primary bg-primary/10' : 'border-border hover:border-primary/50 hover:bg-primary/10',
               )}
             >
-              <Upload size={32} className="mx-auto mb-3 text-gray-400" />
-              <p className="font-medium text-gray-700">Drag and drop your CSV file here</p>
-              <p className="text-sm text-gray-500 mt-1">or</p>
+              <Upload size={32} className="mx-auto mb-3 text-muted-foreground" />
+              <p className="font-medium text-foreground">Drag and drop your CSV file here</p>
+              <p className="text-sm text-muted-foreground mt-1">or</p>
               <label className="mt-3 inline-block cursor-pointer">
                 <input type="file" accept=".csv,.xlsx" className="hidden" onChange={onFileInput} />
-                <span className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700">
+                <span className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary">
                   Browse for file
                 </span>
               </label>
-              <p className="text-xs text-gray-400 mt-3">Supports .csv and .xlsx files</p>
+              <p className="text-xs text-muted-foreground mt-3">Supports .csv and .xlsx files</p>
             </div>
 
-            <div className="mt-4 p-4 bg-gray-50 rounded-lg border">
-              <p className="text-xs font-semibold text-gray-600 mb-2">How to export from your device:</p>
-              <p className="text-xs text-gray-600 italic">
+            <div className="mt-4 p-4 bg-muted rounded-lg border">
+              <p className="text-xs font-semibold text-muted-foreground mb-2">How to export from your device:</p>
+              <p className="text-xs text-muted-foreground italic">
                 {LAUNCH_MONITORS.find((lm) => lm.value === brand)?.notes}
               </p>
             </div>
@@ -373,22 +373,22 @@ export function ImportWizard() {
         <Card>
           <CardHeader>
             <CardTitle>Step 3: Confirm Column Mapping</CardTitle>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               The app detected {file.rows.length} shots and auto-mapped your columns. Adjust any mappings that look wrong.
             </p>
           </CardHeader>
           <CardBody>
             <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
               {UNIVERSAL_FIELDS.map(({ key, label, critical }) => (
-                <div key={key} className="flex items-center gap-3 py-1.5 border-b border-gray-100 last:border-0">
+                <div key={key} className="flex items-center gap-3 py-1.5 border-b border-border last:border-0">
                   <div className="w-40 shrink-0">
-                    <span className="text-sm text-gray-700">{label}</span>
+                    <span className="text-sm text-foreground">{label}</span>
                     {critical && <Badge variant="danger" className="ml-2 text-xs">Required</Badge>}
                   </div>
                   <select
                     value={columnMapping[key] ?? ''}
                     onChange={(e) => setColumnMapping((m) => ({ ...m, [key]: e.target.value }))}
-                    className="flex-1 text-sm border border-gray-300 rounded-md px-2 py-1.5 bg-white"
+                    className="flex-1 text-sm border border-border rounded-md px-2 py-1.5 bg-card"
                   >
                     <option value="">(not in file)</option>
                     {file.headers.map((h) => (
@@ -396,7 +396,7 @@ export function ImportWizard() {
                     ))}
                   </select>
                   {columnMapping[key] ? (
-                    <CheckCircle size={16} className="text-green-500 shrink-0" />
+                    <CheckCircle size={16} className="text-primary shrink-0" />
                   ) : (
                     <div className="w-4" />
                   )}
@@ -428,35 +428,35 @@ export function ImportWizard() {
           </CardHeader>
           <CardBody className="space-y-4">
             {missingCritical.length > 0 && (
-              <div className="p-4 bg-red-50 rounded-lg border border-red-200">
+              <div className="p-4 bg-error/10 rounded-lg border border-error/30">
                 <div className="flex items-center gap-2 mb-2">
-                  <AlertTriangle size={16} className="text-red-600" />
-                  <p className="font-semibold text-red-700 text-sm">Missing Required Fields</p>
+                  <AlertTriangle size={16} className="text-error" />
+                  <p className="font-semibold text-error text-sm">Missing Required Fields</p>
                 </div>
-                <p className="text-sm text-red-600">{missingCritical.join(', ')} — these fields are required. Go back and map them.</p>
+                <p className="text-sm text-error">{missingCritical.join(', ')} — these fields are required. Go back and map them.</p>
               </div>
             )}
 
             {missingRecommended.length > 0 && (
-              <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+              <div className="p-4 bg-warning/10 rounded-lg border border-warning/30">
                 <div className="flex items-center gap-2 mb-2">
-                  <AlertTriangle size={16} className="text-yellow-600" />
-                  <p className="font-semibold text-yellow-700 text-sm">Limited Diagnostic Data</p>
+                  <AlertTriangle size={16} className="text-warning" />
+                  <p className="font-semibold text-warning text-sm">Limited Diagnostic Data</p>
                 </div>
-                <p className="text-sm text-yellow-700">{getMissingFieldMessage(missingRecommended)}</p>
+                <p className="text-sm text-warning">{getMissingFieldMessage(missingRecommended)}</p>
               </div>
             )}
 
             {missingCritical.length === 0 && missingRecommended.length === 0 && (
-              <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+              <div className="p-4 bg-primary/10 rounded-lg border border-primary/30">
                 <div className="flex items-center gap-2">
-                  <CheckCircle size={16} className="text-green-600" />
-                  <p className="font-semibold text-green-700 text-sm">All key fields detected. Full diagnostic is available.</p>
+                  <CheckCircle size={16} className="text-primary" />
+                  <p className="font-semibold text-primary text-sm">All key fields detected. Full diagnostic is available.</p>
                 </div>
               </div>
             )}
 
-            <div className="p-4 bg-gray-50 rounded-lg border text-sm text-gray-600">
+            <div className="p-4 bg-muted rounded-lg border text-sm text-muted-foreground">
               <p><strong>{normalizedShots.length}</strong> shots detected.</p>
               <p className="mt-1">Clubs found: {[...new Set(normalizedShots.map((s) => s.club_name))].join(', ')}</p>
             </div>
@@ -478,48 +478,48 @@ export function ImportWizard() {
         <Card>
           <CardHeader>
             <CardTitle>Step 5: Preview Shots</CardTitle>
-            <p className="text-sm text-gray-500 mt-1">First 10 shots shown. Verify the data looks correct before importing.</p>
+            <p className="text-sm text-muted-foreground mt-1">First 10 shots shown. Verify the data looks correct before importing.</p>
           </CardHeader>
           <CardBody>
             <div className="overflow-x-auto">
               <table className="w-full text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left py-2 px-2 font-semibold text-gray-500">#</th>
-                    <th className="text-left py-2 px-2 font-semibold text-gray-500">Club</th>
-                    <th className="text-right py-2 px-2 font-semibold text-gray-500">Carry</th>
-                    <th className="text-right py-2 px-2 font-semibold text-gray-500">Ball Spd</th>
-                    <th className="text-right py-2 px-2 font-semibold text-gray-500">Launch°</th>
-                    <th className="text-right py-2 px-2 font-semibold text-gray-500">Spin</th>
-                    <th className="text-right py-2 px-2 font-semibold text-gray-500">F-to-P</th>
-                    <th className="text-right py-2 px-2 font-semibold text-gray-500">Path</th>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-2 px-2 font-semibold text-muted-foreground">#</th>
+                    <th className="text-left py-2 px-2 font-semibold text-muted-foreground">Club</th>
+                    <th className="text-right py-2 px-2 font-semibold text-muted-foreground">Carry</th>
+                    <th className="text-right py-2 px-2 font-semibold text-muted-foreground">Ball Spd</th>
+                    <th className="text-right py-2 px-2 font-semibold text-muted-foreground">Launch°</th>
+                    <th className="text-right py-2 px-2 font-semibold text-muted-foreground">Spin</th>
+                    <th className="text-right py-2 px-2 font-semibold text-muted-foreground">F-to-P</th>
+                    <th className="text-right py-2 px-2 font-semibold text-muted-foreground">Path</th>
                   </tr>
                 </thead>
                 <tbody>
                   {normalizedShots.slice(0, 10).map((shot, i) => (
-                    <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
-                      <td className="py-2 px-2 text-gray-400">{i + 1}</td>
-                      <td className="py-2 px-2 font-medium text-gray-900">{shot.club_name}</td>
-                      <td className="py-2 px-2 text-right text-gray-700">
+                    <tr key={i} className="border-b border-border hover:bg-muted">
+                      <td className="py-2 px-2 text-muted-foreground">{i + 1}</td>
+                      <td className="py-2 px-2 font-medium text-foreground">{shot.club_name}</td>
+                      <td className="py-2 px-2 text-right text-foreground">
                         {shot.ball_data.carry_distance?.toFixed(0) ?? '—'}
                       </td>
-                      <td className="py-2 px-2 text-right text-gray-700">
+                      <td className="py-2 px-2 text-right text-foreground">
                         {shot.ball_data.ball_speed?.toFixed(1) ?? '—'}
                       </td>
-                      <td className="py-2 px-2 text-right text-gray-700">
+                      <td className="py-2 px-2 text-right text-foreground">
                         {shot.ball_data.launch_angle_vertical?.toFixed(1) ?? '—'}
                       </td>
-                      <td className="py-2 px-2 text-right text-gray-700">
+                      <td className="py-2 px-2 text-right text-foreground">
                         {shot.ball_data.spin_rate?.toFixed(0) ?? '—'}
                       </td>
                       <td className={cn(
                         'py-2 px-2 text-right font-medium',
-                        (shot.club_data.face_to_path ?? 0) > 3 ? 'text-red-600' :
-                        (shot.club_data.face_to_path ?? 0) < -3 ? 'text-blue-600' : 'text-green-600',
+                        (shot.club_data.face_to_path ?? 0) > 3 ? 'text-error' :
+                        (shot.club_data.face_to_path ?? 0) < -3 ? 'text-accent-secondary' : 'text-primary',
                       )}>
                         {shot.club_data.face_to_path !== null ? `${(shot.club_data.face_to_path ?? 0).toFixed(1)}°` : '—'}
                       </td>
-                      <td className="py-2 px-2 text-right text-gray-700">
+                      <td className="py-2 px-2 text-right text-foreground">
                         {shot.club_data.club_path !== null ? `${(shot.club_data.club_path ?? 0).toFixed(1)}°` : '—'}
                       </td>
                     </tr>
@@ -548,20 +548,20 @@ export function ImportWizard() {
           </CardHeader>
           <CardBody className="space-y-4">
             <div>
-              <label className="text-sm font-medium text-gray-700 block mb-1">Session Name</label>
+              <label className="text-sm font-medium text-foreground block mb-1">Session Name</label>
               <input
                 type="text"
                 value={sessionName}
                 onChange={(e) => setSessionName(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring focus:border-transparent"
                 placeholder="e.g. Range Session — Driver, May 25"
               />
             </div>
 
-            <div className="p-4 bg-gray-50 rounded-lg border text-sm space-y-1">
-              <p className="font-semibold text-gray-700">Ready to import:</p>
-              <p className="text-gray-600">{normalizedShots.length} shots · {brand}</p>
-              <p className="text-gray-600">Clubs: {[...new Set(normalizedShots.map((s) => s.club_name))].join(', ')}</p>
+            <div className="p-4 bg-muted rounded-lg border text-sm space-y-1">
+              <p className="font-semibold text-foreground">Ready to import:</p>
+              <p className="text-muted-foreground">{normalizedShots.length} shots · {brand}</p>
+              <p className="text-muted-foreground">Clubs: {[...new Set(normalizedShots.map((s) => s.club_name))].join(', ')}</p>
             </div>
 
             <div className="flex gap-2">
@@ -580,9 +580,9 @@ export function ImportWizard() {
       {step === 7 && importDone && (
         <Card>
           <CardBody className="py-12 text-center space-y-4">
-            <CheckCircle size={48} className="mx-auto text-green-500" />
-            <h2 className="text-xl font-bold text-gray-900">Session Imported!</h2>
-            <p className="text-gray-600 max-w-md mx-auto">
+            <CheckCircle size={48} className="mx-auto text-primary" />
+            <h2 className="text-xl font-bold text-foreground">Session Imported!</h2>
+            <p className="text-muted-foreground max-w-md mx-auto">
               {normalizedShots.length} shots have been saved. The diagnostic engine is ready to analyze your data.
             </p>
             <div className="flex justify-center gap-3 pt-2">

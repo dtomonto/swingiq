@@ -23,9 +23,9 @@ export default function ProfilePage() {
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-2xl">{sportEmojis[activeSport] ?? '🏃'}</span>
-            <h1 className="text-2xl font-bold text-gray-900">{labels.profile}</h1>
+            <h1 className="text-2xl font-bold text-foreground">{labels.profile}</h1>
           </div>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1">
             Your profile helps SwingIQ personalize every analysis, routine, and recommendation.
             Take 3 minutes to fill this out accurately.
           </p>

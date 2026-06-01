@@ -54,29 +54,29 @@ export default function BadgesPage() {
       <div className="p-4 sm:p-6 space-y-6 max-w-4xl mx-auto pb-24">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
             <Award size={24} className="text-amber-500" aria-hidden="true" />
             {t('achievements.title')}
           </h1>
-          <p className="text-gray-500 text-sm mt-1">{t('achievements.subtitle')}</p>
+          <p className="text-muted-foreground text-sm mt-1">{t('achievements.subtitle')}</p>
         </div>
 
         {/* Stats */}
         <div className="flex gap-4 text-sm">
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-green-500 inline-block" aria-hidden="true" />
+            <span className="w-3 h-3 rounded-full bg-primary inline-block" aria-hidden="true" />
             <span className="font-semibold">{allEarned.length}</span>
-            <span className="text-gray-500">{t('achievements.earnedBadges')}</span>
+            <span className="text-muted-foreground">{t('achievements.earnedBadges')}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-gray-300 inline-block" aria-hidden="true" />
+            <span className="w-3 h-3 rounded-full bg-muted inline-block" aria-hidden="true" />
             <span className="font-semibold">{ACHIEVEMENTS.length - allEarned.length}</span>
-            <span className="text-gray-500">{t('achievements.lockedBadges')}</span>
+            <span className="text-muted-foreground">{t('achievements.lockedBadges')}</span>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-gray-100 rounded-lg p-1 w-fit" role="tablist" aria-label={t('achievements.title')}>
+        <div className="flex gap-1 bg-muted rounded-lg p-1 w-fit" role="tablist" aria-label={t('achievements.title')}>
           {(['all', 'earned', 'locked'] as const).map(tabId => (
             <button
               key={tabId}
@@ -85,7 +85,7 @@ export default function BadgesPage() {
               onClick={() => setTab(tabId)}
               className={cn(
                 'px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
-                tab === tabId ? 'bg-white shadow-xs text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                tab === tabId ? 'bg-card shadow-xs text-foreground' : 'text-muted-foreground hover:text-foreground'
               )}
             >
               {tabId === 'all' ? t('achievements.allBadges')
@@ -109,8 +109,8 @@ export default function BadgesPage() {
               className={cn(
                 'px-3 py-1 rounded-full text-xs font-medium transition-colors',
                 activeCategory === cat.id
-                  ? 'bg-green-600 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-primary text-white'
+                  : 'bg-muted text-muted-foreground hover:bg-muted'
               )}
             >
               {cat.label}
@@ -123,7 +123,7 @@ export default function BadgesPage() {
           <Card>
             <CardBody className="text-center py-12 space-y-2">
               <span className="text-4xl" aria-hidden="true">🏅</span>
-              <p className="text-gray-500 text-sm">{t('achievements.noAchievements')}</p>
+              <p className="text-muted-foreground text-sm">{t('achievements.noAchievements')}</p>
             </CardBody>
           </Card>
         ) : (
@@ -149,8 +149,8 @@ export default function BadgesPage() {
         {/* Empty state for no sessions */}
         {sessions.length === 0 && video_analyses.length === 0 && (
           <Card>
-            <CardBody className="bg-amber-50 border-amber-200 rounded-xl p-4">
-              <p className="text-sm text-amber-800 font-medium">
+            <CardBody className="bg-warning/10 border-warning/30 rounded-xl p-4">
+              <p className="text-sm text-warning font-medium">
                 {t('empty.noSessions')}
               </p>
             </CardBody>

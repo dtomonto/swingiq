@@ -43,19 +43,81 @@ Users upload a swing video or import launch monitor / tracking device data. Swin
 
 SwingIQ is local-first. By default, all user data is stored in the browser. No data is transmitted to servers without the user's knowledge. Video analysis runs in the browser. Users can export all their data or delete it at any time.
 
-## Supported sports and pages
+## Sport swing-analysis pages
 
 - Golf: /golf-swing-analysis
 - Tennis: /tennis-swing-analysis
 - Baseball: /baseball-swing-analysis
 - Softball (slow pitch and fast pitch): /softball-swing-analysis
+
+## Answer guides (how-to and diagnosis)
+
+- Free swing analysis: /free-swing-analysis
+- Fix a golf slice: /golf/fix-slice
+- Why do I slice my driver: /golf/why-do-i-slice-my-driver
+- Launch monitor data analysis: /golf/launch-monitor-analysis
+- Practice golf at home: /golf/practice-at-home
+- High-handicap swing analysis: /golf/high-handicap-swing-analysis
+- Stop topping the ball: /golf/stop-topping-the-ball
+- Slow-pitch softball power: /softball/slow-pitch-power
+- How to hit line drives (softball): /softball/how-to-hit-line-drives
+- Stop popping up (softball): /softball/stop-popping-up
+- Youth hitting (baseball): /baseball/youth-hitting
+- Exit-velocity drills (baseball): /baseball/exit-velocity-drills
+- Tennis forehand analysis: /tennis/forehand-analysis
+- Tennis backhand basics: /tennis/backhand-basics
+
+## Free tools (no account required)
+
+- All tools: /tools
+- Golf slice fixer: /tools/golf-slice-fixer
+- Swing mistake quiz: /tools/swing-mistake-quiz
+- At-home drill generator: /tools/at-home-swing-drill-generator
+- Practice plan generator: /tools/practice-plan-generator
+- Private-lesson savings calculator: /tools/private-lesson-savings-calculator
+- Slow-pitch line-drive guide: /tools/slow-pitch-line-drive-guide
+- Equipment diagnostic: /tools/equipment-diagnostic
+
+## Guided challenges
+
+- All challenges: /challenges
+- 7-day golf slice fix: /challenges/7-day-golf-slice
+- 7-day slow-pitch line drive: /challenges/7-day-slow-pitch-line-drive
+- 30-day SwingIQ challenge: /challenges/30-day-swingiq
+
+## Benchmarks (reference data)
+
+- Overview: /benchmarks
+- Golf: /benchmarks/golf
+- Tennis: /benchmarks/tennis
+- Baseball: /benchmarks/baseball
+- Softball: /benchmarks/softball
+
+## Blog (educational articles)
+
+- All articles: /blog
+- How to fix a golf slice: /blog/how-to-fix-a-golf-slice
+- What is smash factor: /blog/what-is-smash-factor
+- How to read launch monitor data: /blog/how-to-read-launch-monitor-data
+- How AI swing analysis works: /blog/how-ai-swing-analysis-works
+
+## Product, methodology, and trust
+
 - How it works: /how-it-works
+- Features: /features
+- Methodology (how diagnoses are made): /methodology
+- Pricing: /pricing
+- Glossary of swing terms: /glossary
+- Resources: /resources
 - FAQ: /faq
+- About: /about
 - Trust & Safety: /trust
+- Updates: /updates
+- For parents: /parents
+- For coaches: /coaches
+- For teams: /teams
 - Privacy Policy: /privacy
 - Terms of Service: /terms
-- Updates: /updates
-- For Parents: /parents
 
 ## Sitemap
 

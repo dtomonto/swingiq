@@ -16,21 +16,21 @@ export default function SignupPage() {
         </div>
         <div>
           <p className="text-white font-bold text-xl leading-tight">SwingIQ</p>
-          <p className="text-green-400 text-xs">Golf Performance System</p>
+          <p className="text-primary-foreground/90 text-xs">Golf Performance System</p>
         </div>
       </div>
 
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-1">Create your account</h1>
-        <p className="text-gray-500 text-sm mb-6">Start improving your game today — it&apos;s free.</p>
+      <div className="w-full max-w-sm bg-card rounded-2xl shadow-2xl p-8">
+        <h1 className="text-2xl font-bold text-foreground mb-1">Create your account</h1>
+        <p className="text-muted-foreground text-sm mb-6">Start improving your game today — it&apos;s free.</p>
         <SignupForm />
-        <p className="text-center text-sm text-gray-500 mt-4">
+        <p className="text-center text-sm text-muted-foreground mt-4">
           Already have an account?{' '}
-          <Link href="/login" className="text-green-600 font-semibold hover:underline">Sign in</Link>
+          <Link href="/login" className="text-primary font-semibold hover:underline">Sign in</Link>
         </p>
       </div>
 
-      <div className="mt-6 text-center text-green-300 text-xs max-w-xs space-y-1">
+      <div className="mt-6 text-center text-primary-foreground/80 text-xs max-w-xs space-y-1">
         <p>⛳ Golf · 🎾 Tennis · ⚾ Baseball · 🥎 Softball</p>
         <p>All swing sports. One genie.</p>
       </div>
