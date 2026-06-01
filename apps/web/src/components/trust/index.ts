@@ -8,3 +8,5 @@ export { WhatHappensToMyVideo } from './WhatHappensToMyVideo';
 export { NotCoachReplacementNotice } from './NotCoachReplacementNotice';
 export { SafeUploadExplainer } from './SafeUploadExplainer';
 export { SampleReportPreview } from './SampleReportPreview';
+export { AnalysisTransparency } from './AnalysisTransparency';
+export type { AnalysisTransparencyProps } from './AnalysisTransparency';

@@ -266,6 +266,7 @@ export default function HomePage() {
           <span>&copy; {new Date().getFullYear()} SwingIQ. All rights reserved.</span>
           <div className="flex gap-4 flex-wrap">
             <Link href="/how-it-works" className="hover:text-white">How It Works</Link>
+            <Link href="/methodology" className="hover:text-white">Methodology</Link>
             <Link href="/tools" className="hover:text-white">Free Tools</Link>
             <Link href="/challenges" className="hover:text-white">Challenges</Link>
             <Link href="/coaches" className="hover:text-white">Coaches</Link>

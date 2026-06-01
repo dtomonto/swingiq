@@ -28,9 +28,7 @@ import {
   ArrowLeft,
   ArrowRight,
   RotateCcw,
-  CheckCircle2,
   Info,
-  ShieldCheck,
   Sparkles,
 } from 'lucide-react';
 import type { SportId } from '@swingiq/core';
@@ -38,12 +36,12 @@ import { SportCardGrid } from '@/components/sport/SportSelector';
 import { ChoiceGroup } from '@/components/tools/fields';
 import { ConfidenceBadge } from '@/components/agents/ConfidenceBadge';
 import { NotCoachReplacementNotice } from '@/components/trust/NotCoachReplacementNotice';
+import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { useSport } from '@/contexts/SportContext';
 import { useSwingIQStore } from '@/store';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import {
-  ONBOARDING_SPORTS,
   USER_TYPES,
   SKILL_LEVELS,
   INPUT_METHODS,
@@ -465,36 +463,14 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
         </div>
       </div>
 
-      {/* Transparency: what this is based on */}
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <div className="flex items-center gap-2">
-          <ShieldCheck size={18} className="text-green-700" aria-hidden="true" />
-          <h3 className="text-sm font-bold text-gray-900">What this result is based on</h3>
-        </div>
-        <ul className="mt-3 space-y-1.5 text-sm text-gray-700">
-          {result.evidence.map((e) => (
-            <li key={e} className="flex gap-2">
-              <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-green-600" aria-hidden="true" />
-              {e}
-            </li>
-          ))}
-        </ul>
-        <p className="mt-3 flex items-start gap-2 rounded-lg bg-gray-50 p-3 text-xs text-gray-600">
-          <Info size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
-          <span>
-            No swing video was analysed for this quick result, and no swing was measured.
-            It&apos;s an <strong>estimate from your answers</strong> — {result.confidence.reason}.
-          </span>
-        </p>
-        <div className="mt-4">
-          <p className="text-xs font-semibold text-gray-900">What would raise the confidence</p>
-          <ul className="mt-1.5 space-y-1 text-sm text-gray-600">
-            {result.whatImproves.map((w) => (
-              <li key={w} className="flex gap-2"><span className="text-green-600">→</span>{w}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      {/* Transparency: what this is based on (shared, reusable panel) */}
+      <AnalysisTransparency
+        basedOn={result.evidence}
+        videoAnalyzed={result.videoAnalyzed}
+        confidence={result.confidence}
+        whatImproves={result.whatImproves}
+        showSafetyNotice={false}
+      />
 
       {/* Drills */}
       <div className="rounded-2xl border border-gray-200 bg-white p-5">

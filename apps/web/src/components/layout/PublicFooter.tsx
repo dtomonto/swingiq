@@ -14,6 +14,7 @@ const FOOTER_COLUMNS = [
     heading: 'Learn',
     links: [
       { label: 'How It Works', href: '/how-it-works' },
+      { label: 'Methodology', href: '/methodology' },
       { label: 'FAQ', href: '/faq' },
       { label: 'Glossary', href: '/glossary' },
       { label: 'Blog', href: '/blog' },
