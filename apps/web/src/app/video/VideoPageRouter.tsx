@@ -10,6 +10,8 @@ import { useSport } from '@/contexts/SportContext';
 import { VideoAnalyzerContent } from './VideoAnalyzerContent';
 import { SportVideoAnalyzerContent } from './SportVideoAnalyzerContent';
 import { IntakeQualityHint } from '@/components/agents/IntakeQualityHint';
+import { WhatHappensToMyVideo } from '@/components/trust/WhatHappensToMyVideo';
+import { SafeUploadExplainer } from '@/components/trust/SafeUploadExplainer';
 
 export function VideoPageRouter() {
   const { activeSport } = useSport();
@@ -20,6 +22,20 @@ export function VideoPageRouter() {
       <div className="px-6 pt-6 max-w-5xl mx-auto empty:hidden">
         <IntakeQualityHint />
       </div>
+
+      {/* Upload trust + safety, collapsible so it never blocks the tool. */}
+      <div className="px-6 pt-4 max-w-5xl mx-auto">
+        <details className="group">
+          <summary className="cursor-pointer list-none text-sm font-medium text-green-700 hover:underline">
+            What happens to my video? (privacy &amp; upload tips)
+          </summary>
+          <div className="mt-3 grid gap-4 md:grid-cols-2">
+            <WhatHappensToMyVideo />
+            <SafeUploadExplainer />
+          </div>
+        </details>
+      </div>
+
       {activeSport === 'golf' ? <VideoAnalyzerContent /> : <SportVideoAnalyzerContent />}
     </>
   );
