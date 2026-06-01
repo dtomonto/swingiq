@@ -9,6 +9,7 @@ import { CheckCircle, Trash2, HardDrive, HelpCircle, Database } from 'lucide-rea
 import Link from 'next/link';
 import { useTutorial } from '@/hooks/useTutorial';
 import { ThemeSelector } from '@/components/theme/ThemeSelector';
+import { CoachingToneSelector } from '@/components/settings/CoachingToneSelector';
 
 export default function SettingsPage() {
   const { settings, updateSettings, reset } = useSwingIQStore();
@@ -33,8 +34,8 @@ export default function SettingsPage() {
     <AppShell>
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-          <p className="text-gray-500 text-sm mt-1">Customize how SwingIQ works for you.</p>
+          <h1 className="text-2xl font-bold text-foreground">Settings</h1>
+          <p className="text-muted-foreground text-sm mt-1">Customize how SwingIQ works for you.</p>
         </div>
 
         {/* Display */}
@@ -42,11 +43,11 @@ export default function SettingsPage() {
           <CardHeader><CardTitle>Display &amp; Units</CardTitle></CardHeader>
           <CardBody className="space-y-4">
             <div>
-              <label className="text-sm font-medium text-gray-700 block mb-1">Distance Units</label>
+              <label className="text-sm font-medium text-foreground block mb-1">Distance Units</label>
               <select
                 value={settings.units}
                 onChange={(e) => updateSettings({ units: e.target.value as 'yards' | 'meters' })}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
+                className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring outline-hidden bg-card text-foreground"
               >
                 <option value="yards">Yards (US / UK)</option>
                 <option value="meters">Meters</option>
@@ -60,12 +61,13 @@ export default function SettingsPage() {
         <Card>
           <CardHeader><CardTitle>Coaching Preferences</CardTitle></CardHeader>
           <CardBody className="space-y-4">
+            <CoachingToneSelector />
             <div>
-              <label className="text-sm font-medium text-gray-700 block mb-1">Coaching Style</label>
+              <label className="text-sm font-medium text-foreground block mb-1">Coaching Style</label>
               <select
                 value={settings.coaching_style}
                 onChange={(e) => updateSettings({ coaching_style: e.target.value as 'detailed' | 'concise' | 'encouragement' | 'balanced' })}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
+                className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring outline-hidden bg-card text-foreground"
               >
                 <option value="detailed">Detailed — I want all the information</option>
                 <option value="concise">Concise — Keep it short and actionable</option>
@@ -75,12 +77,12 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-700">Show &quot;Estimated&quot; Warnings</p>
-                <p className="text-xs text-gray-500">Show disclaimers when data is heuristically estimated</p>
+                <p className="text-sm font-medium text-foreground">Show &quot;Estimated&quot; Warnings</p>
+                <p className="text-xs text-muted-foreground">Show disclaimers when data is heuristically estimated</p>
               </div>
               <button
                 onClick={() => updateSettings({ show_estimated_warnings: !settings.show_estimated_warnings })}
-                className={`w-11 h-6 rounded-full transition-colors ${settings.show_estimated_warnings ? 'bg-green-500' : 'bg-gray-300'}`}
+                className={`w-11 h-6 rounded-full transition-colors ${settings.show_estimated_warnings ? 'bg-success' : 'bg-muted'}`}
               >
                 <div className={`w-4 h-4 rounded-full bg-white shadow-sm mx-1 transition-transform ${settings.show_estimated_warnings ? 'translate-x-5' : 'translate-x-0'}`} />
               </button>
@@ -94,8 +96,8 @@ export default function SettingsPage() {
           <CardBody className="space-y-3">
             <div className="flex items-center justify-between py-2">
               <div>
-                <p className="text-sm font-medium text-gray-700">Data Center</p>
-                <p className="text-xs text-gray-500">Export, import, and restore your full SwingIQ data</p>
+                <p className="text-sm font-medium text-foreground">Data Center</p>
+                <p className="text-xs text-muted-foreground">Export, import, and restore your full SwingIQ data</p>
               </div>
               <Link href="/data">
                 <Button variant="outline" size="sm">
@@ -105,8 +107,8 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center justify-between py-2 border-t">
               <div>
-                <p className="text-sm font-medium text-gray-700">Backup &amp; Restore</p>
-                <p className="text-xs text-gray-500">Full backup including all sports, profiles, sessions, badges, and analyses</p>
+                <p className="text-sm font-medium text-foreground">Backup &amp; Restore</p>
+                <p className="text-xs text-muted-foreground">Full backup including all sports, profiles, sessions, badges, and analyses</p>
               </div>
               <Link href="/settings/backup">
                 <Button variant="outline" size="sm">
@@ -116,14 +118,14 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center justify-between py-2 border-t">
               <div>
-                <p className="text-sm font-medium text-gray-700">In-App Guides</p>
-                <p className="text-xs text-gray-500">
+                <p className="text-sm font-medium text-foreground">In-App Guides</p>
+                <p className="text-xs text-muted-foreground">
                   {tutorialProgress.completed.length} guide{tutorialProgress.completed.length !== 1 ? 's' : ''} completed
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 {tutorialsReset && (
-                  <span className="text-xs text-green-600 font-medium">Reset!</span>
+                  <span className="text-xs text-success font-medium">Reset!</span>
                 )}
                 <Button variant="outline" size="sm" onClick={handleResetTutorials}>
                   <HelpCircle size={14} /> Reset Guides
@@ -132,17 +134,17 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center justify-between py-2 border-t">
               <div>
-                <p className="text-sm font-medium text-red-700">Reset All Data</p>
-                <p className="text-xs text-gray-500">Permanently delete your profile, clubs, and all sessions</p>
+                <p className="text-sm font-medium text-error">Reset All Data</p>
+                <p className="text-xs text-muted-foreground">Permanently delete your profile, clubs, and all sessions</p>
               </div>
               {!confirmReset ? (
-                <Button variant="outline" size="sm" className="text-red-600 border-red-300 hover:bg-red-50" onClick={() => setConfirmReset(true)}>
+                <Button variant="outline" size="sm" className="text-error border-error/40 hover:bg-error/10" onClick={() => setConfirmReset(true)}>
                   <Trash2 size={14} /> Reset
                 </Button>
               ) : (
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" onClick={() => setConfirmReset(false)}>Cancel</Button>
-                  <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white" onClick={() => { reset(); setConfirmReset(false); }}>
+                  <Button size="sm" className="bg-error text-error-foreground hover:bg-error/90" onClick={() => { reset(); setConfirmReset(false); }}>
                     Yes, Delete Everything
                   </Button>
                 </div>
@@ -155,13 +157,13 @@ export default function SettingsPage() {
         <Card>
           <CardHeader><CardTitle>Usage Category</CardTitle></CardHeader>
           <CardBody className="space-y-3">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-muted-foreground">
               This setting controls youth safety messaging. Stored only on your device.
             </p>
             <select
               value={settings.usage_category ?? ''}
               onChange={(e) => updateSettings({ usage_category: (e.target.value || null) as typeof settings.usage_category })}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
+              className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring outline-hidden bg-card text-foreground"
             >
               <option value="">Not set</option>
               <option value="adult">Adult athlete (18+)</option>

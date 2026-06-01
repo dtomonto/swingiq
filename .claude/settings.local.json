@@ -77,7 +77,14 @@
       "Bash(node -e \"const l=require\\('C:/Users/dtomo/OneDrive/Desktop/swingiq/node_modules/lucide-react/package.json'\\); console.log\\('lucide-react', l.version\\); const m=require\\('C:/Users/dtomo/OneDrive/Desktop/swingiq/node_modules/lucide-react'\\); console.log\\(['Compass','Sparkles','Rocket','Flag','Play','Wand2','Wand','Map','Footprints'].map\\(n=>n+':'+\\(typeof m[n]==='object'||typeof m[n]==='function'\\)\\).join\\(' '\\)\\)\")",
       "PowerShell(npm run test -w @swingiq/web 2>&1)",
       "mcp__Claude_Preview__preview_start",
-      "Bash(git --no-pager diff apps/web/src/app/page.tsx)"
+      "Bash(git --no-pager diff apps/web/src/app/page.tsx)",
+      "Bash(git rev-list *)",
+      "PowerShell($g = Get-Command gh -ErrorAction SilentlyContinue; if \\($g\\) { \"gh found: $\\($g.Source\\)\"; gh auth status } else { \"gh NOT found\" })",
+      "Bash(command -v jq)",
+      "Bash(echo \"jq: $\\(command -v jq || echo NO\\)\")",
+      "Bash(command -v python)",
+      "Bash(command -v python3)",
+      "Bash(echo \"python: $\\(command -v python || command -v python3 || echo NO\\)\")"
     ]
   }
 }

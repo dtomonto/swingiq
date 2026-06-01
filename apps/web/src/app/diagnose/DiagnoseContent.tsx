@@ -31,6 +31,7 @@ import { useSwingIQStore } from '@/store';
 import { format } from 'date-fns';
 import { ShareableReportCard, type ReportData } from '@/components/report/ShareableReportCard';
 import { EmailCapture } from '@/components/email/EmailCapture';
+import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 
 // ── Diagnosis card ───────────────────────────────────────────
 
@@ -283,6 +284,39 @@ export function DiagnoseContent() {
     );
   }
 
+  // Honest "what is this based on" inputs for the transparency panel.
+  const topConfidencePct = result.diagnoses[0]?.confidence ?? null;
+  const transparencyConfidence = {
+    level: (topConfidencePct == null
+      ? 'low'
+      : topConfidencePct >= 70
+      ? 'high'
+      : topConfidencePct >= 40
+      ? 'medium'
+      : 'low') as 'high' | 'medium' | 'low',
+    score: topConfidencePct ?? 30,
+    reason: `based on ${result.stats.shot_count} shots${
+      activeSession.launch_monitor && activeSession.launch_monitor !== 'manual'
+        ? ` from ${activeSession.launch_monitor}`
+        : ' you entered'
+    }`,
+  };
+  const transparencyBasedOn = [
+    `${result.stats.shot_count} shots from this session`,
+    activeSession.launch_monitor && activeSession.launch_monitor !== 'manual'
+      ? `Launch-monitor data (${activeSession.launch_monitor})`
+      : 'Manually entered shot data',
+    `Club: ${activeSession.club_name}`,
+  ];
+  const transparencyWhatImproves = [
+    'Add more shots for a higher-confidence read',
+    activeSession.launch_monitor === 'manual'
+      ? 'Import launch-monitor data for measured numbers'
+      : 'Keep conditions consistent across sessions',
+    'Retest after a few practice sessions to confirm the change',
+    'Have a qualified coach validate the top priority',
+  ];
+
   // ── Full diagnosis view ──────────────────────────────────────
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6">
@@ -395,6 +429,15 @@ export function DiagnoseContent() {
           <DiagnosisCard key={d.rule.id} diagnosis={d} rank={i + 1} skillLevel={skillLevel} />
         ))}
       </div>
+
+      {/* How this diagnosis was produced */}
+      <AnalysisTransparency
+        resultNoun="diagnosis"
+        basedOn={transparencyBasedOn}
+        videoAnalyzed={false}
+        confidence={transparencyConfidence}
+        whatImproves={transparencyWhatImproves}
+      />
 
       {/* Share + save your plan */}
       {reportData && (

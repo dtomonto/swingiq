@@ -13,6 +13,7 @@ import { format } from 'date-fns';
 import { useMemo, useState } from 'react';
 import { useSport } from '@/contexts/SportContext';
 import { CoachSummaryCard } from '@/components/agents/CoachSummaryCard';
+import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 
 const REPORT_TYPES = [
   {
@@ -331,6 +332,35 @@ export default function ReportsPage() {
 
         {/* Plain-English coach prep + questions (agent layer) */}
         <CoachSummaryCard />
+
+        {/* What this report is based on */}
+        <div className="print:hidden">
+          <AnalysisTransparency
+            resultNoun="report"
+            basedOn={[
+              `${sorted.length} ${sportName} session${sorted.length === 1 ? '' : 's'}`,
+              isGolf
+                ? (profile ? 'Your golf profile' : 'No golf profile added yet')
+                : ((sportProfiles as Record<string, unknown>)[activeSport] ? `Your ${sportName} profile` : `No ${sportName} profile added yet`),
+              ...(!isGolf && sportAnalyses.length > 0
+                ? [`${sportAnalyses.length} video analysis record${sportAnalyses.length === 1 ? '' : 's'} (pose-based estimates)`]
+                : []),
+              'Your training progress (streak, drills completed)',
+            ]}
+            videoAnalyzed={false}
+            confidence={{
+              level: sorted.length >= 3 ? 'medium' : 'low',
+              score: Math.min(70, 25 + sorted.length * 8),
+              reason: `summary built from ${sorted.length} session${sorted.length === 1 ? '' : 's'}`,
+            }}
+            whatImproves={[
+              'Log more sessions for a fuller picture',
+              isGolf ? 'Import launch-monitor data for measured numbers' : 'Add more video analyses',
+              'Complete your player profile',
+              'Have a qualified coach review this summary',
+            ]}
+          />
+        </div>
 
         {/* Coach Report Generator */}
         <Card className="border-green-200 bg-green-50">

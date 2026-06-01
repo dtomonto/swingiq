@@ -58,6 +58,7 @@ import {
   saveStartHere,
   type StartHereRecord,
 } from '@/lib/onboarding/storage';
+import { getTone, toneFromUserType } from '@/lib/coaching/tones';
 
 type Step = 'sport' | 'about' | 'method' | 'questions' | 'result' | 'handoff';
 
@@ -190,7 +191,11 @@ export function StartHereFlow() {
     };
     saveStartHere(record);
     setReturning(record);
-    updateSettings({ onboarding_complete: true });
+    // Establish the coaching tone from who they told us they are.
+    updateSettings({
+      onboarding_complete: true,
+      coaching_tone: toneFromUserType(built.userType),
+    });
 
     track(ANALYTICS_EVENTS.QUIZ_COMPLETED, { tool: 'start_here', sport: built.sportId });
     track(ANALYTICS_EVENTS.TOOL_RESULT_GENERATED, {
@@ -443,6 +448,7 @@ export function StartHereFlow() {
 
 function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () => void }) {
   const sport = getSport(result.sportId);
+  const tone = getTone(toneFromUserType(result.userType));
   return (
     <section aria-live="polite" className="space-y-4">
       {/* Headline */}
@@ -461,6 +467,14 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
           <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-700">Why it matters</p>
           <p className="mt-1 text-gray-800">{result.whyItMatters}</p>
         </div>
+      </div>
+
+      {/* Coaching mode framing (tone-aware) */}
+      <div className="rounded-2xl border border-green-200 bg-green-50 p-4">
+        <p className="text-xs font-semibold text-green-800">Coaching mode: {tone.label}</p>
+        <p className="mt-1 text-sm text-green-900">{tone.resultIntro}</p>
+        {tone.note && <p className="mt-2 text-xs text-green-800">{tone.note}</p>}
+        <p className="mt-2 text-[11px] text-green-700">You can change this in Settings → Coaching Preferences.</p>
       </div>
 
       {/* Transparency: what this is based on (shared, reusable panel) */}
@@ -494,14 +508,6 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
           </p>
         )}
       </div>
-
-      {/* Parent tone note */}
-      {result.parentNote && (
-        <div className="rounded-2xl border border-blue-200 bg-blue-50 p-5">
-          <h3 className="text-sm font-bold text-blue-900">For parents</h3>
-          <p className="mt-1.5 text-sm text-blue-800">{result.parentNote}</p>
-        </div>
-      )}
 
       {/* Email the plan (honest: no fake success if no provider) */}
       {sport && (

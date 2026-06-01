@@ -13,6 +13,7 @@ import type { GolferProfileInput, Shot, DiagnosisOutput } from '@swingiq/core';
 import type { SportId } from '@swingiq/core';
 import type { LanguageCode } from '@/lib/i18n';
 import type { ThemeId } from '@/lib/theme/themes';
+import type { CoachingTone } from '@/lib/coaching/tones';
 import type { CommunityState } from '@/lib/community/types';
 import { DEFAULT_COMMUNITY_STATE } from '@/lib/community/types';
 import type { TutorialProgress } from '@/lib/tutorial/types';
@@ -105,6 +106,9 @@ export interface AppSettings {
   colorTheme: ThemeId;
   show_estimated_warnings: boolean;
   coaching_style: 'detailed' | 'concise' | 'encouragement' | 'balanced';
+  /** Audience-oriented tone (Beginner/Parent/Competitive/Coach). Optional for
+   *  back-compat with older saved state and backups. Defaults to 'beginner'. */
+  coaching_tone?: CoachingTone;
   default_club_for_diagnose: string;
   onboarding_complete: boolean;
   language?: LanguageCode;
@@ -293,6 +297,7 @@ const DEFAULT_SETTINGS: AppSettings = {
   colorTheme: 'standard',
   show_estimated_warnings: true,
   coaching_style: 'balanced',
+  coaching_tone: 'beginner',
   default_club_for_diagnose: 'Driver',
   onboarding_complete: false,
   usage_category: null,
