@@ -49,11 +49,11 @@ export function LineDriveGuideTool() {
       subtitle="Hitting pop-ups or grounders in slow-pitch? Find your likely swing-path issue, a line-drive checkpoint, a tee drill, and a timing cue."
     >
       {!guide && (
-        <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="rounded-2xl border border-gray-200 bg-white p-5">
+        <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="rounded-2xl border border-border bg-card p-5">
           <ChoiceGroup label="Your most common result?" name="result" value={result} onChange={setResult}
             choices={[{ value: 'popups', label: 'Pop-ups' }, { value: 'grounders', label: 'Ground balls' }, { value: 'mishits', label: 'Mis-hits / inconsistent' }]} />
-          {error && <p role="alert" className="mb-3 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
+          {error && <p role="alert" className="mb-3 text-sm font-medium text-error">{error}</p>}
+          <button type="submit" className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition-colors hover:bg-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1">
             Get My Line-Drive Fix
           </button>
         </form>
@@ -62,25 +62,25 @@ export function LineDriveGuideTool() {
       {guide && (
         <ResultPanel>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-green-700">Likely swing-path issue</p>
-            <p className="mt-1 text-gray-800">{guide.pathIssue}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Likely swing-path issue</p>
+            <p className="mt-1 text-foreground">{guide.pathIssue}</p>
           </div>
-          <div className="rounded-xl bg-amber-50 p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-700">Line-drive checkpoint</p>
-            <p className="mt-1 text-gray-800">{guide.checkpoint}</p>
+          <div className="rounded-xl bg-warning/10 p-4">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Line-drive checkpoint</p>
+            <p className="mt-1 text-foreground">{guide.checkpoint}</p>
           </div>
-          <div className="rounded-lg border border-gray-200 p-3">
-            <p className="text-sm font-semibold text-gray-900">Tee drill</p>
-            <p className="text-sm text-gray-600">{guide.teeDrill}</p>
+          <div className="rounded-lg border border-border p-3">
+            <p className="text-sm font-semibold text-foreground">Tee drill</p>
+            <p className="text-sm text-muted-foreground">{guide.teeDrill}</p>
           </div>
-          <div className="rounded-lg border border-gray-200 p-3">
-            <p className="text-sm font-semibold text-gray-900">Timing cue</p>
-            <p className="text-sm text-gray-600">{guide.timingCue}</p>
+          <div className="rounded-lg border border-border p-3">
+            <p className="text-sm font-semibold text-foreground">Timing cue</p>
+            <p className="text-sm text-muted-foreground">{guide.timingCue}</p>
           </div>
 
           <EmailCapture source="slow_pitch_softball" heading="Email me this line-drive fix" subheading="Plus a reminder to retest in a week." />
           <ToolCta href="/dashboard" label="Analyze My Softball Swing Free" />
-          <button onClick={reset} className="w-full rounded-xl border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">Start over</button>
+          <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Start over</button>
         </ResultPanel>
       )}
     </ToolShell>

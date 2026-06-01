@@ -83,16 +83,16 @@ export function ExportPrompt({
     return (
       <div
         className={`flex items-center gap-3 rounded-lg border px-4 py-3 ${
-          isCritical ? 'bg-red-50 border-red-200' : 'bg-amber-50 border-amber-200'
+          isCritical ? 'bg-error/10 border-error/30' : 'bg-warning/10 border-warning/30'
         }`}
         role="alert"
       >
         <Shield
           size={16}
-          className={isCritical ? 'text-red-600 shrink-0' : 'text-amber-600 shrink-0'}
+          className={isCritical ? 'text-error shrink-0' : 'text-warning shrink-0'}
           aria-hidden="true"
         />
-        <p className={`text-sm flex-1 ${isCritical ? 'text-red-800' : 'text-amber-800'}`}>
+        <p className={`text-sm flex-1 ${isCritical ? 'text-error' : 'text-warning'}`}>
           {t(messageKey) || t('data.promptProtect')}
         </p>
         <Button
@@ -108,7 +108,7 @@ export function ExportPrompt({
           <button
             onClick={handleDismiss}
             aria-label={t('common.close')}
-            className="text-amber-500 hover:text-amber-700 p-1 shrink-0"
+            className="text-warning hover:text-warning p-1 shrink-0"
           >
             <X size={14} aria-hidden="true" />
           </button>
@@ -121,8 +121,8 @@ export function ExportPrompt({
     <div
       className={`rounded-xl border p-5 space-y-4 ${
         isCritical
-          ? 'bg-red-50 border-red-200'
-          : 'bg-linear-to-br from-green-50 to-emerald-50 border-green-200'
+          ? 'bg-error/10 border-error/30'
+          : 'bg-linear-to-br from-green-50 to-emerald-50 border-primary/30'
       }`}
       role={isCritical ? 'alertdialog' : 'complementary'}
       aria-label={t('data.downloadBackup')}
@@ -130,22 +130,22 @@ export function ExportPrompt({
       <div className="flex items-start gap-3">
         <div
           className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-            isCritical ? 'bg-red-100' : 'bg-green-100'
+            isCritical ? 'bg-error/15' : 'bg-primary/15'
           }`}
           aria-hidden="true"
         >
           <Shield
             size={20}
-            className={isCritical ? 'text-red-600' : 'text-green-600'}
+            className={isCritical ? 'text-error' : 'text-primary'}
           />
         </div>
         <div className="flex-1">
           <p
-            className={`text-sm font-semibold ${isCritical ? 'text-red-900' : 'text-green-900'}`}
+            className={`text-sm font-semibold ${isCritical ? 'text-red-900' : 'text-primary'}`}
           >
             {isCritical ? t('data.exportBeforeClear') : t('data.promptValueOfData')}
           </p>
-          <p className={`text-sm mt-1 ${isCritical ? 'text-red-700' : 'text-green-700'}`}>
+          <p className={`text-sm mt-1 ${isCritical ? 'text-error' : 'text-primary'}`}>
             {t(messageKey) || t('data.promptProtect')}
           </p>
         </div>
@@ -153,7 +153,7 @@ export function ExportPrompt({
           <button
             onClick={handleDismiss}
             aria-label={t('common.close')}
-            className="text-gray-400 hover:text-gray-600 p-1"
+            className="text-muted-foreground hover:text-muted-foreground p-1"
           >
             <X size={16} aria-hidden="true" />
           </button>
@@ -176,7 +176,7 @@ export function ExportPrompt({
         )}
       </div>
 
-      <p className="text-xs text-gray-500 italic">
+      <p className="text-xs text-muted-foreground italic">
         {t('data.promptIncludesLanguage')}
       </p>
     </div>

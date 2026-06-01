@@ -13,12 +13,12 @@ const TIPS = [
  */
 export function SafeUploadExplainer({ className = '' }: { className?: string }) {
   return (
-    <div className={`rounded-2xl border border-green-200 bg-green-50 p-6 ${className}`}>
-      <h3 className="mb-3 text-base font-bold text-gray-900">Before you upload</h3>
+    <div className={`rounded-2xl border border-primary/30 bg-primary/10 p-6 ${className}`}>
+      <h3 className="mb-3 text-base font-bold text-foreground">Before you upload</h3>
       <ul className="space-y-2">
         {TIPS.map((tip) => (
-          <li key={tip} className="flex items-start gap-2 text-sm text-gray-700">
-            <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-green-600" aria-hidden="true" />
+          <li key={tip} className="flex items-start gap-2 text-sm text-foreground">
+            <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-primary" aria-hidden="true" />
             <span>{tip}</span>
           </li>
         ))}

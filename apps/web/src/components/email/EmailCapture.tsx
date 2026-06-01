@@ -67,25 +67,25 @@ export function EmailCapture({
 
   if (status === 'done') {
     return (
-      <div className={`rounded-2xl border p-4 ${persisted ? 'border-green-200 bg-green-50' : 'border-blue-200 bg-blue-50'} ${className}`} role="status">
+      <div className={`rounded-2xl border p-4 ${persisted ? 'border-primary/30 bg-primary/10' : 'border-accent-secondary/25 bg-accent-secondary/10'} ${className}`} role="status">
         <div className="flex items-start gap-2">
           {persisted ? (
-            <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-green-600" aria-hidden="true" />
+            <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-primary" aria-hidden="true" />
           ) : (
-            <Info size={18} className="mt-0.5 shrink-0 text-blue-600" aria-hidden="true" />
+            <Info size={18} className="mt-0.5 shrink-0 text-accent-secondary" aria-hidden="true" />
           )}
-          <p className={`text-sm ${persisted ? 'text-green-900' : 'text-blue-900'}`}>{message}</p>
+          <p className={`text-sm ${persisted ? 'text-primary' : 'text-foreground'}`}>{message}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className={`rounded-2xl border border-gray-200 bg-gray-50 p-4 ${className}`}>
-      <p className="flex items-center gap-2 text-sm font-semibold text-gray-900">
-        <Mail size={16} className="text-green-700" aria-hidden="true" /> {heading}
+    <form onSubmit={onSubmit} className={`rounded-2xl border border-border bg-muted p-4 ${className}`}>
+      <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
+        <Mail size={16} className="text-primary" aria-hidden="true" /> {heading}
       </p>
-      <p className="mt-1 text-xs text-gray-600">{subheading}</p>
+      <p className="mt-1 text-xs text-muted-foreground">{subheading}</p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
         <label htmlFor={`email-${source}`} className="sr-only">Email address</label>
         <input
@@ -96,18 +96,18 @@ export function EmailCapture({
           placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 rounded-xl border border-gray-300 px-3 py-2 text-sm focus:border-green-500 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500"
+          className="flex-1 rounded-xl border border-border px-3 py-2 text-sm focus:border-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
         />
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="rounded-xl bg-green-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-green-700 disabled:opacity-60 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1"
+          className="rounded-xl bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary disabled:opacity-60 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
         >
           {status === 'submitting' ? 'Sending…' : 'Email it to me'}
         </button>
       </div>
-      {status === 'error' && <p role="alert" className="mt-2 text-xs font-medium text-red-600">{message}</p>}
-      <p className="mt-2 text-[11px] text-gray-400">
+      {status === 'error' && <p role="alert" className="mt-2 text-xs font-medium text-error">{message}</p>}
+      <p className="mt-2 text-[11px] text-muted-foreground">
         We only use your email to send what you asked for. See our{' '}
         <a href="/privacy" className="underline">privacy policy</a>.
       </p>

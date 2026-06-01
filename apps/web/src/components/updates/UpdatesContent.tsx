@@ -61,7 +61,7 @@ function MilestoneTimeline({ milestones }: MilestoneProps) {
           <li key={m.id} className="flex gap-4 sm:gap-6">
             {/* Step circle */}
             <div
-              className="relative z-10 shrink-0 w-10 h-10 rounded-full bg-green-600 text-white text-sm font-bold flex items-center justify-center shadow-xs"
+              className="relative z-10 shrink-0 w-10 h-10 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center shadow-xs"
               aria-hidden="true"
             >
               {i + 1}
@@ -69,12 +69,12 @@ function MilestoneTimeline({ milestones }: MilestoneProps) {
             <div className="pt-1 min-w-0">
               <time
                 dateTime={m.releaseDate}
-                className="text-xs text-gray-400 font-medium uppercase tracking-wide"
+                className="text-xs text-muted-foreground font-medium uppercase tracking-wide"
               >
                 {m.displayDate}
               </time>
-              <h3 className="text-base font-semibold text-gray-900 mt-0.5">{m.title}</h3>
-              <p className="text-sm text-gray-600 mt-1">{m.userBenefit}</p>
+              <h3 className="text-base font-semibold text-foreground mt-0.5">{m.title}</h3>
+              <p className="text-sm text-muted-foreground mt-1">{m.userBenefit}</p>
             </div>
           </li>
         ))}
@@ -134,9 +134,9 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
     <>
       {/* ── Featured / Latest update ───────────────────────────────────── */}
       {featured && !hasFilters && (
-        <section className="py-12 px-4 bg-green-50 border-b border-green-100">
+        <section className="py-12 px-4 bg-primary/10 border-b border-green-100">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-lg font-bold text-green-800 mb-4 uppercase tracking-wide text-sm">
+            <h2 className="text-lg font-bold text-primary mb-4 uppercase tracking-wide text-sm">
               Latest Update
             </h2>
             <UpdateCard update={featured} featured />
@@ -146,11 +146,11 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
 
       {/* ── Product progress milestone timeline ───────────────────────── */}
       {milestones.length > 0 && !hasFilters && (
-        <section className="py-14 px-4 bg-gray-50 border-b border-gray-100">
+        <section className="py-14 px-4 bg-muted border-b border-border">
           <div className="max-w-4xl mx-auto">
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">How SwingIQ Has Improved Over Time</h2>
-              <p className="text-gray-500 mt-2 text-sm">
+              <h2 className="text-2xl font-bold text-foreground">How SwingIQ Has Improved Over Time</h2>
+              <p className="text-muted-foreground mt-2 text-sm">
                 Key milestones in SwingIQ&apos;s journey — told from a user perspective, not a technical one.
               </p>
             </div>
@@ -163,10 +163,10 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
       <section className="py-14 px-4" id="all-updates">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-foreground">
               {hasFilters ? 'Filtered Updates' : 'All Updates'}
             </h2>
-            <p className="text-gray-500 mt-1 text-sm">Sorted newest first. Only meaningful user-facing changes are published here.</p>
+            <p className="text-muted-foreground mt-1 text-sm">Sorted newest first. Only meaningful user-facing changes are published here.</p>
           </div>
 
           {/* Filters */}
@@ -175,7 +175,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
             <div className="relative">
               <label htmlFor="updates-search" className="sr-only">Search updates</label>
               <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -189,7 +189,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
                 placeholder="Search updates..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-green-400 focus:border-transparent"
+                className="w-full pl-9 pr-4 py-2.5 border border-border rounded-lg text-sm text-foreground placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-primary/50 focus:border-transparent"
               />
             </div>
 
@@ -202,8 +202,8 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
                   className={[
                     'inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors',
                     selectedSport === opt.value
-                      ? 'bg-green-600 text-white border-green-600'
-                      : 'bg-white text-gray-600 border-gray-200 hover:border-green-400 hover:text-green-700',
+                      ? 'bg-primary text-white border-primary'
+                      : 'bg-card text-muted-foreground border-border hover:border-primary/50 hover:text-primary',
                   ].join(' ')}
                   aria-pressed={selectedSport === opt.value}
                 >
@@ -215,14 +215,14 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
 
             {/* Category dropdown */}
             <div className="flex items-center gap-3 flex-wrap">
-              <label htmlFor="category-filter" className="text-xs font-medium text-gray-500 whitespace-nowrap">
+              <label htmlFor="category-filter" className="text-xs font-medium text-muted-foreground whitespace-nowrap">
                 Category:
               </label>
               <select
                 id="category-filter"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value as UpdateCategory | 'all')}
-                className="border border-gray-200 rounded-lg text-sm text-gray-700 px-3 py-1.5 focus:outline-hidden focus:ring-2 focus:ring-green-400 bg-white"
+                className="border border-border rounded-lg text-sm text-foreground px-3 py-1.5 focus:outline-hidden focus:ring-2 focus:ring-primary/50 bg-card"
               >
                 {availableCategories.map((cat) => (
                   <option key={cat} value={cat}>
@@ -234,7 +234,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
               {hasFilters && (
                 <button
                   onClick={clearFilters}
-                  className="text-xs text-green-700 underline hover:text-green-900 focus:outline-hidden focus:ring-2 focus:ring-green-400 rounded-sm"
+                  className="text-xs text-primary underline hover:text-primary focus:outline-hidden focus:ring-2 focus:ring-primary/50 rounded-sm"
                 >
                   Clear filters
                 </button>
@@ -244,11 +244,11 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
 
           {/* Results */}
           {filtered.length === 0 ? (
-            <div className="text-center py-16 bg-gray-50 rounded-xl border border-gray-200">
-              <p className="text-gray-500 font-medium">No updates match your filters.</p>
+            <div className="text-center py-16 bg-muted rounded-xl border border-border">
+              <p className="text-muted-foreground font-medium">No updates match your filters.</p>
               <button
                 onClick={clearFilters}
-                className="mt-3 text-sm text-green-700 underline hover:text-green-900"
+                className="mt-3 text-sm text-primary underline hover:text-primary"
               >
                 Clear filters to see all updates
               </button>
@@ -263,7 +263,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
 
           {/* Update count */}
           {filtered.length > 0 && (
-            <p className="text-xs text-gray-400 mt-6 text-center">
+            <p className="text-xs text-muted-foreground mt-6 text-center">
               Showing {filtered.length} of {updates.length} update{updates.length !== 1 ? 's' : ''}
             </p>
           )}
@@ -271,17 +271,17 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
       </section>
 
       {/* ── FAQ ────────────────────────────────────────────────────────── */}
-      <section className="py-14 px-4 bg-gray-50 border-t border-gray-100">
+      <section className="py-14 px-4 bg-muted border-t border-border">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">Frequently Asked Questions</h2>
-          <p className="text-center text-gray-500 text-sm mb-10">
+          <h2 className="text-2xl font-bold text-foreground text-center mb-2">Frequently Asked Questions</h2>
+          <p className="text-center text-muted-foreground text-sm mb-10">
             Quick answers about SwingIQ and how it can help you improve.
           </p>
           <div className="space-y-4">
             {FAQS.map((faq) => (
-              <div key={faq.q} className="bg-white border border-gray-200 rounded-xl p-5">
-                <h3 className="font-semibold text-gray-900 mb-1">{faq.q}</h3>
-                <p className="text-sm text-gray-600">{faq.a}</p>
+              <div key={faq.q} className="bg-card border border-border rounded-xl p-5">
+                <h3 className="font-semibold text-foreground mb-1">{faq.q}</h3>
+                <p className="text-sm text-muted-foreground">{faq.a}</p>
               </div>
             ))}
           </div>
@@ -289,9 +289,9 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
       </section>
 
       {/* ── Disclaimer ─────────────────────────────────────────────────── */}
-      <section className="py-8 px-4 bg-amber-50 border-y border-amber-200">
+      <section className="py-8 px-4 bg-warning/10 border-y border-warning/30">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xs text-amber-800">
+          <p className="text-xs text-warning">
             <strong>SwingIQ is an AI-powered improvement assistant — not a certified coach, medical professional, or training authority.</strong>{' '}
             Results are heuristic estimates. Always consult qualified professionals for safety-critical decisions, injury concerns, or advanced competitive development. Young athletes should practice with adult supervision.
           </p>
@@ -299,7 +299,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
       </section>
 
       {/* ── Footer ─────────────────────────────────────────────────────── */}
-      <footer className="bg-gray-900 text-gray-400 py-8 px-4">
+      <footer className="bg-secondary text-muted-foreground py-8 px-4">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-between items-center gap-4 text-xs">
           <span>&copy; {new Date().getFullYear()} SwingIQ. All rights reserved.</span>
           <nav aria-label="Footer navigation">
@@ -309,7 +309,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
               <Link href="/parents" className="hover:text-white">Parents</Link>
               <Link href="/pricing" className="hover:text-white">Pricing</Link>
               <Link href="/how-it-works" className="hover:text-white">How It Works</Link>
-              <Link href="/updates" className="hover:text-white text-green-400">Updates</Link>
+              <Link href="/updates" className="hover:text-white text-primary-foreground/90">Updates</Link>
             </div>
           </nav>
         </div>

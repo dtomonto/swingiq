@@ -120,14 +120,14 @@ export function EquipmentDiagnosticTool() {
       subtitle="Spot possible equipment fit-risk flags and the questions to validate with a professional fitter. This is a starting point, not a fitting."
     >
       {!result && (
-        <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="rounded-2xl border border-gray-200 bg-white p-5">
+        <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="rounded-2xl border border-border bg-card p-5">
           <ChoiceGroup label="Equipment type" name="sport" value={sportKey} onChange={(v) => { setSportKey(v); setAnswers({}); }}
             choices={SPORTS.map((s) => ({ value: s.key, label: s.label }))} />
           {sport?.questions.map((q) => (
             <ChoiceGroup key={q.key} label={q.label} name={q.key} value={answers[q.key] ?? ''} onChange={set(q.key)} choices={q.choices} />
           ))}
-          {error && <p role="alert" className="mb-3 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
+          {error && <p role="alert" className="mb-3 text-sm font-medium text-error">{error}</p>}
+          <button type="submit" className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition-colors hover:bg-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1">
             Check Fit Risk
           </button>
         </form>
@@ -136,20 +136,20 @@ export function EquipmentDiagnosticTool() {
       {result && (
         <ResultPanel>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-green-700">Fit-risk flags</p>
-            <ul className="mt-2 space-y-1 text-sm text-gray-700">{result.flags.map((f) => <li key={f} className="flex gap-2"><span className="text-amber-500">⚑</span>{f}</li>)}</ul>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Fit-risk flags</p>
+            <ul className="mt-2 space-y-1 text-sm text-foreground">{result.flags.map((f) => <li key={f} className="flex gap-2"><span className="text-warning">⚑</span>{f}</li>)}</ul>
           </div>
           {result.mismatch.length > 0 && (
             <div>
-              <p className="font-semibold text-gray-900">Possible mismatch areas</p>
-              <ul className="mt-2 space-y-1 text-sm text-gray-600">{result.mismatch.map((m) => <li key={m} className="flex gap-2"><span className="text-green-600">•</span>{m}</li>)}</ul>
+              <p className="font-semibold text-foreground">Possible mismatch areas</p>
+              <ul className="mt-2 space-y-1 text-sm text-muted-foreground">{result.mismatch.map((m) => <li key={m} className="flex gap-2"><span className="text-primary">•</span>{m}</li>)}</ul>
             </div>
           )}
           <div>
-            <p className="font-semibold text-gray-900">Questions to validate</p>
-            <ul className="mt-2 space-y-1 text-sm text-gray-600">{result.validate.map((q) => <li key={q} className="flex gap-2"><span className="text-gray-400">?</span>{q}</li>)}</ul>
+            <p className="font-semibold text-foreground">Questions to validate</p>
+            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">{result.validate.map((q) => <li key={q} className="flex gap-2"><span className="text-muted-foreground">?</span>{q}</li>)}</ul>
           </div>
-          <p className="rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
+          <p className="rounded-xl bg-warning/10 p-4 text-sm text-foreground">
             <strong>This is not a professional fitting.</strong> These flags are starting points based on your answers, not
             measurements. For anything that affects performance or comfort, see a qualified fitter or coach. SwingIQ does not
             use a live manufacturer database.
@@ -173,7 +173,7 @@ export function EquipmentDiagnosticTool() {
 
           <EmailCapture source="general" heading="Email me these fitting questions" subheading="Take them to your next fitting or lesson." />
           <ToolCta href="/dashboard" label="Analyze My Performance Data Free" />
-          <button onClick={reset} className="w-full rounded-xl border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">Start over</button>
+          <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Start over</button>
         </ResultPanel>
       )}
     </ToolShell>

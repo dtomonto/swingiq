@@ -16,17 +16,17 @@ export function NextBestActionCard({ action }: { action: AgentAction }) {
       aria-label="Your next best step"
     >
       <span className="shrink-0 mt-0.5">
-        <Compass size={22} className="text-green-300" aria-hidden="true" />
+        <Compass size={22} className="text-primary-foreground/80" aria-hidden="true" />
       </span>
       <div className="flex-1 min-w-0">
-        <p className="font-semibold text-green-300 text-sm mb-0.5">Your next best step</p>
+        <p className="font-semibold text-primary-foreground/80 text-sm mb-0.5">Your next best step</p>
         <p className="font-bold text-base mb-1">{action.label}</p>
         {action.helperText && (
-          <p className="text-green-200 text-sm leading-relaxed">{action.helperText}</p>
+          <p className="text-primary-foreground/90 text-sm leading-relaxed">{action.helperText}</p>
         )}
       </div>
       <Link href={action.href}>
-        <Button size="sm" className="bg-green-600 hover:bg-green-500 text-white whitespace-nowrap">
+        <Button size="sm" className="bg-primary hover:bg-primary text-white whitespace-nowrap">
           Continue
           <ChevronRight size={14} />
         </Button>

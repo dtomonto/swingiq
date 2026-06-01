@@ -68,18 +68,18 @@ interface PublicFooterProps {
 export function PublicFooter({ className }: PublicFooterProps) {
   return (
     <footer
-      className={`bg-gray-900 text-gray-300 pt-12 pb-8 px-4 ${className ?? ''}`}
+      className={`bg-secondary text-muted-foreground pt-12 pb-8 px-4 ${className ?? ''}`}
       aria-label="Site footer"
     >
       <div className="max-w-5xl mx-auto">
         {/* Logo + tagline */}
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shrink-0">
             <span className="text-white font-black text-sm" aria-hidden="true">SQ</span>
           </div>
           <div>
             <span className="text-white font-bold text-lg">SwingIQ</span>
-            <p className="text-gray-500 text-xs">AI Swing Analysis — Golf, Tennis, Baseball &amp; Softball</p>
+            <p className="text-muted-foreground text-xs">AI Swing Analysis — Golf, Tennis, Baseball &amp; Softball</p>
           </div>
         </div>
 
@@ -93,7 +93,7 @@ export function PublicFooter({ className }: PublicFooterProps) {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-400 hover:text-white transition-colors"
+                      className="text-sm text-muted-foreground hover:text-white transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -106,13 +106,13 @@ export function PublicFooter({ className }: PublicFooterProps) {
 
         {/* AI disclaimer + copyright */}
         <div className="border-t border-gray-800 pt-6 space-y-3">
-          <p className="text-xs text-gray-500 leading-relaxed max-w-3xl">
-            <strong className="text-gray-400">AI Disclaimer:</strong> SwingIQ&apos;s AI coaching helps
+          <p className="text-xs text-muted-foreground leading-relaxed max-w-3xl">
+            <strong className="text-muted-foreground">AI Disclaimer:</strong> SwingIQ&apos;s AI coaching helps
             identify swing patterns and prioritize practice. It is not a substitute for a qualified
             professional coach. SwingIQ is not a medical device — consult a sports medicine professional
             if you experience pain.
           </p>
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-gray-600">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-muted-foreground">
             <span>&copy; {new Date().getFullYear()} SwingIQ. All rights reserved.</span>
             <span>Data stays local by default. We do not sell your personal information.</span>
           </div>

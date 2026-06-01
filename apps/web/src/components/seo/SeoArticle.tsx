@@ -69,23 +69,23 @@ export function SeoArticle({ page }: { page: SeoPage }) {
   const isYouth = page.audience === 'parent';
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-card">
       <article className="mx-auto max-w-3xl px-4 py-10">
         <Breadcrumbs items={crumbs} className="mb-6" />
 
-        <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900 md:text-4xl">
+        <h1 className="mb-4 text-3xl font-bold leading-tight text-foreground md:text-4xl">
           {page.title}
         </h1>
 
         {/* Direct answer (AEO/GEO) */}
-        <div className="mb-8 rounded-2xl border border-green-200 bg-green-50 p-5">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-green-700">Quick answer</p>
-          <p className="mt-1 text-gray-800">{page.directAnswer}</p>
+        <div className="mb-8 rounded-2xl border border-primary/30 bg-primary/10 p-5">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Quick answer</p>
+          <p className="mt-1 text-foreground">{page.directAnswer}</p>
         </div>
 
         {/* Problem explanation */}
-        <section className="mb-8 space-y-3 text-gray-700">
-          <h2 className="text-xl font-bold text-gray-900">What is happening</h2>
+        <section className="mb-8 space-y-3 text-foreground">
+          <h2 className="text-xl font-bold text-foreground">What is happening</h2>
           {page.problemExplanation.map((p) => (
             <p key={p.slice(0, 24)}>{p}</p>
           ))}
@@ -93,13 +93,13 @@ export function SeoArticle({ page }: { page: SeoPage }) {
 
         {/* Diagnosis checklist */}
         <section className="mb-8">
-          <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-gray-900">
-            <Target size={20} className="text-green-700" aria-hidden="true" /> Diagnose it yourself
+          <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-foreground">
+            <Target size={20} className="text-primary" aria-hidden="true" /> Diagnose it yourself
           </h2>
           <ul className="space-y-2">
             {page.diagnosisSteps.map((s) => (
-              <li key={s.slice(0, 24)} className="flex items-start gap-2 text-gray-700">
-                <CheckCircle2 size={17} className="mt-0.5 shrink-0 text-green-600" aria-hidden="true" />
+              <li key={s.slice(0, 24)} className="flex items-start gap-2 text-foreground">
+                <CheckCircle2 size={17} className="mt-0.5 shrink-0 text-primary" aria-hidden="true" />
                 <span>{s}</span>
               </li>
             ))}
@@ -107,12 +107,12 @@ export function SeoArticle({ page }: { page: SeoPage }) {
         </section>
 
         {/* What SwingIQ looks for */}
-        <section className="mb-8 rounded-2xl bg-gray-50 p-5">
-          <h2 className="mb-3 text-xl font-bold text-gray-900">What SwingIQ looks for</h2>
+        <section className="mb-8 rounded-2xl bg-muted p-5">
+          <h2 className="mb-3 text-xl font-bold text-foreground">What SwingIQ looks for</h2>
           <ul className="grid gap-2 sm:grid-cols-2">
             {page.whatSwingIQLooksFor.map((s) => (
-              <li key={s.slice(0, 24)} className="flex items-start gap-2 text-sm text-gray-700">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-600" aria-hidden="true" />
+              <li key={s.slice(0, 24)} className="flex items-start gap-2 text-sm text-foreground">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
                 <span>{s}</span>
               </li>
             ))}
@@ -121,14 +121,14 @@ export function SeoArticle({ page }: { page: SeoPage }) {
 
         {/* Drills */}
         <section className="mb-8">
-          <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-gray-900">
-            <Dumbbell size={20} className="text-green-700" aria-hidden="true" /> Beginner-safe drills
+          <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-foreground">
+            <Dumbbell size={20} className="text-primary" aria-hidden="true" /> Beginner-safe drills
           </h2>
           <div className="space-y-3">
             {page.drills.map((d, i) => (
-              <div key={d.name} className="rounded-xl border border-gray-200 p-4">
-                <p className="font-semibold text-gray-900">{i + 1}. {d.name}</p>
-                <p className="mt-1 text-sm text-gray-600">{d.how}</p>
+              <div key={d.name} className="rounded-xl border border-border p-4">
+                <p className="font-semibold text-foreground">{i + 1}. {d.name}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{d.how}</p>
               </div>
             ))}
           </div>
@@ -136,13 +136,13 @@ export function SeoArticle({ page }: { page: SeoPage }) {
 
         {/* Mistakes */}
         <section className="mb-8">
-          <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-gray-900">
-            <AlertTriangle size={20} className="text-amber-600" aria-hidden="true" /> Common mistakes to avoid
+          <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-foreground">
+            <AlertTriangle size={20} className="text-warning" aria-hidden="true" /> Common mistakes to avoid
           </h2>
           <ul className="space-y-2">
             {page.mistakesToAvoid.map((m) => (
-              <li key={m.slice(0, 24)} className="flex items-start gap-2 text-gray-700">
-                <span className="mt-1 text-amber-500" aria-hidden="true">✕</span>
+              <li key={m.slice(0, 24)} className="flex items-start gap-2 text-foreground">
+                <span className="mt-1 text-warning" aria-hidden="true">✕</span>
                 <span>{m}</span>
               </li>
             ))}
@@ -151,8 +151,8 @@ export function SeoArticle({ page }: { page: SeoPage }) {
 
         {/* When to work with a coach */}
         <section className="mb-8">
-          <h2 className="mb-2 text-xl font-bold text-gray-900">When to work with a coach</h2>
-          <p className="text-gray-700">{page.whenToWorkWithCoach}</p>
+          <h2 className="mb-2 text-xl font-bold text-foreground">When to work with a coach</h2>
+          <p className="text-foreground">{page.whenToWorkWithCoach}</p>
         </section>
 
         {/* Safety / youth notice */}
@@ -162,20 +162,20 @@ export function SeoArticle({ page }: { page: SeoPage }) {
           <NotCoachReplacementNotice className="mb-4" />
         )}
         {page.safetyNotes && (
-          <p className="mb-8 text-xs italic text-gray-500">{page.safetyNotes}</p>
+          <p className="mb-8 text-xs italic text-muted-foreground">{page.safetyNotes}</p>
         )}
 
         {/* FAQ */}
         {page.faqs.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-gray-900">
-              <HelpCircle size={20} className="text-green-700" aria-hidden="true" /> FAQ
+            <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-foreground">
+              <HelpCircle size={20} className="text-primary" aria-hidden="true" /> FAQ
             </h2>
             <div className="space-y-3">
               {page.faqs.map((f) => (
-                <details key={f.question} className="rounded-xl border border-gray-200 p-4">
-                  <summary className="cursor-pointer font-semibold text-gray-900">{f.question}</summary>
-                  <p className="mt-2 text-sm text-gray-600">{f.answer}</p>
+                <details key={f.question} className="rounded-xl border border-border p-4">
+                  <summary className="cursor-pointer font-semibold text-foreground">{f.question}</summary>
+                  <p className="mt-2 text-sm text-muted-foreground">{f.answer}</p>
                 </details>
               ))}
             </div>
@@ -183,25 +183,25 @@ export function SeoArticle({ page }: { page: SeoPage }) {
         )}
 
         {/* CTA */}
-        <section className="mb-8 rounded-2xl bg-[#1a3a2a] p-6 text-center text-white">
+        <section className="mb-8 rounded-2xl bg-primary p-6 text-center text-white">
           <p className="mb-4 text-lg font-bold">Ready to see your own swing?</p>
           <Link
             href={page.cta.href}
-            className="inline-block rounded-xl bg-green-500 px-8 py-3 font-bold text-white transition-colors hover:bg-green-400"
+            className="inline-block rounded-xl bg-primary px-8 py-3 font-bold text-white transition-colors hover:bg-primary-foreground/90"
           >
             {page.cta.label}
           </Link>
-          <p className="mt-3 text-xs text-green-300">No account required · Free · Private by default</p>
+          <p className="mt-3 text-xs text-primary-foreground/80">No account required · Free · Private by default</p>
         </section>
 
         {/* Related links */}
         {page.relatedLinks.length > 0 && (
-          <nav aria-label="Related pages" className="border-t border-gray-200 pt-6">
-            <p className="mb-2 text-sm font-semibold text-gray-900">Keep learning</p>
+          <nav aria-label="Related pages" className="border-t border-border pt-6">
+            <p className="mb-2 text-sm font-semibold text-foreground">Keep learning</p>
             <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
               {page.relatedLinks.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-green-700 hover:underline">{l.label}</Link>
+                  <Link href={l.href} className="text-primary hover:underline">{l.label}</Link>
                 </li>
               ))}
             </ul>

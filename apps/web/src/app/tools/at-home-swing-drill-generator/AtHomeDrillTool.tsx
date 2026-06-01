@@ -85,7 +85,7 @@ export function AtHomeDrillTool() {
       subtitle="Tell us your sport, space, gear, and time. Get a safe at-home session with a warm-up, three drills, structure, and a progression."
     >
       {!plan && (
-        <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="rounded-2xl border border-gray-200 bg-white p-5">
+        <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="rounded-2xl border border-border bg-card p-5">
           <ChoiceGroup label="Sport" name="sport" value={a.sport} onChange={set('sport')}
             choices={[{ value: 'golf', label: 'Golf' }, { value: 'tennis', label: 'Tennis' }, { value: 'baseball', label: 'Baseball' }, { value: 'softball', label: 'Softball' }]} />
           <ChoiceGroup label="Skill level" name="skill" value={a.skill} onChange={set('skill')}
@@ -100,8 +100,8 @@ export function AtHomeDrillTool() {
             choices={[{ value: 'path', label: 'Swing path' }, { value: 'contact', label: 'Contact' }, { value: 'timing', label: 'Timing' }, { value: 'consistency', label: 'Consistency' }]} />
           <ChoiceGroup label="Who is practicing?" name="who" value={a.who} onChange={set('who')}
             choices={[{ value: 'adult', label: 'Adult' }, { value: 'youth', label: 'Youth (with parent supervision)' }]} />
-          {error && <p role="alert" className="mb-3 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
+          {error && <p role="alert" className="mb-3 text-sm font-medium text-error">{error}</p>}
+          <button type="submit" className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition-colors hover:bg-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1">
             Generate My Home Session
           </button>
         </form>
@@ -111,36 +111,36 @@ export function AtHomeDrillTool() {
         <ResultPanel>
           {youth && <YouthSafetyNotice />}
           <div>
-            <p className="font-semibold text-gray-900">Warm-up</p>
-            <ul className="mt-2 space-y-1 text-sm text-gray-600">{plan.warmup.map((w) => <li key={w} className="flex gap-2"><span className="text-green-600">•</span>{w}</li>)}</ul>
+            <p className="font-semibold text-foreground">Warm-up</p>
+            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">{plan.warmup.map((w) => <li key={w} className="flex gap-2"><span className="text-primary">•</span>{w}</li>)}</ul>
           </div>
           <div>
-            <p className="font-semibold text-gray-900">3 drills</p>
+            <p className="font-semibold text-foreground">3 drills</p>
             <div className="mt-2 space-y-2">
               {plan.drills.map((d, i) => (
-                <div key={d.name} className="rounded-lg border border-gray-200 p-3">
-                  <p className="text-sm font-semibold text-gray-900">{i + 1}. {d.name}</p>
-                  <p className="text-sm text-gray-600">{d.how}</p>
+                <div key={d.name} className="rounded-lg border border-border p-3">
+                  <p className="text-sm font-semibold text-foreground">{i + 1}. {d.name}</p>
+                  <p className="text-sm text-muted-foreground">{d.how}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-xl bg-gray-50 p-4">
-            <p className="font-semibold text-gray-900">Session structure</p>
-            <p className="mt-1 text-sm text-gray-600">{plan.structure}</p>
+          <div className="rounded-xl bg-muted p-4">
+            <p className="font-semibold text-foreground">Session structure</p>
+            <p className="mt-1 text-sm text-muted-foreground">{plan.structure}</p>
           </div>
           <div>
-            <p className="font-semibold text-gray-900">Progression</p>
-            <p className="mt-1 text-sm text-gray-600">{plan.progression}</p>
+            <p className="font-semibold text-foreground">Progression</p>
+            <p className="mt-1 text-sm text-muted-foreground">{plan.progression}</p>
           </div>
-          <p className="text-xs italic text-gray-500">
+          <p className="text-xs italic text-muted-foreground">
             Safety: clear your space before any swing, keep full-speed swings outdoors, warm up first, and stop if anything hurts.
             {youth ? ' A parent or guardian should supervise youth practice and confirm equipment fit.' : ''}
           </p>
 
           <EmailCapture source={youth ? 'youth_baseball' : 'practice_plan'} heading="Email me this session" subheading="Plus a reminder to retest in a week." meta={{ sport: a.sport }} />
           <ToolCta href="/dashboard" label="Analyze My Swing Free" />
-          <button onClick={reset} className="w-full rounded-xl border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">Start over</button>
+          <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Start over</button>
         </ResultPanel>
       )}
     </ToolShell>

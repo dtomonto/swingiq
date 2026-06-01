@@ -5,9 +5,9 @@ import type { AgentConfidence } from '@/lib/agents';
 // trust — never raw model/technical metadata.
 
 const STYLES: Record<AgentConfidence['level'], string> = {
-  high: 'bg-green-100 text-green-800',
-  medium: 'bg-yellow-100 text-yellow-800',
-  low: 'bg-gray-100 text-gray-600',
+  high: 'bg-primary/15 text-primary',
+  medium: 'bg-warning/15 text-warning',
+  low: 'bg-muted text-muted-foreground',
 };
 
 const LABEL: Record<AgentConfidence['level'], string> = {
@@ -34,7 +34,7 @@ export function ConfidenceBadge({
         {LABEL[confidence.level]}
       </span>
       {showReason && confidence.reason && (
-        <span className="text-gray-400">— {confidence.reason}</span>
+        <span className="text-muted-foreground">— {confidence.reason}</span>
       )}
     </span>
   );

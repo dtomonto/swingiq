@@ -53,10 +53,10 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
   if (variant === 'full') {
     return (
       <div className="space-y-3">
-        <label className="block text-sm font-medium text-gray-700" id="language-select-label">
+        <label className="block text-sm font-medium text-foreground" id="language-select-label">
           {t('language.setting')}
         </label>
-        <p className="text-xs text-gray-500">{t('language.helperText')}</p>
+        <p className="text-xs text-muted-foreground">{t('language.helperText')}</p>
         <div
           className="grid grid-cols-2 gap-2 sm:grid-cols-3"
           role="radiogroup"
@@ -75,13 +75,13 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
                 className={cn(
                   'flex items-center gap-2 px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors text-start',
                   language === code
-                    ? 'border-green-600 bg-green-50 text-green-800'
-                    : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'
+                    ? 'border-primary bg-primary/10 text-primary'
+                    : 'border-border bg-card text-foreground hover:border-border hover:bg-muted'
                 )}
               >
                 <span className="flex-1 truncate" dir={isRTL ? 'rtl' : 'ltr'}>{config.nativeName}</span>
                 {language === code && (
-                  <span className="w-2 h-2 rounded-full bg-green-600 shrink-0" aria-hidden="true" />
+                  <span className="w-2 h-2 rounded-full bg-primary shrink-0" aria-hidden="true" />
                 )}
               </button>
             );
@@ -99,7 +99,7 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-label={`${t('language.change')}: ${currentConfig.nativeName}`}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-200 hover:bg-green-800 hover:text-white transition-colors"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-primary-foreground/90 hover:bg-primary hover:text-white transition-colors"
         >
           <Globe size={18} className="shrink-0" aria-hidden="true" />
           <span className="flex-1 truncate" dir={RTL_LANGUAGES.has(language) ? 'rtl' : 'ltr'}>
@@ -111,7 +111,7 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
           <div
             role="listbox"
             aria-label={t('language.change')}
-            className="absolute bottom-full left-0 mb-1 w-56 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-auto max-h-72 py-1"
+            className="absolute bottom-full left-0 mb-1 w-56 bg-card border border-border rounded-xl shadow-xl z-50 overflow-auto max-h-72 py-1"
           >
             {ALL_LANGUAGE_CODES.map((code) => {
               const config = LANGUAGE_CONFIG[code];
@@ -126,13 +126,13 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
                   className={cn(
                     'w-full flex items-center gap-2 px-4 py-2 text-sm text-start transition-colors',
                     language === code
-                      ? 'bg-green-50 text-green-800 font-medium'
-                      : 'text-gray-700 hover:bg-gray-50'
+                      ? 'bg-primary/10 text-primary font-medium'
+                      : 'text-foreground hover:bg-muted'
                   )}
                 >
                   <span className="flex-1">{config.nativeName}</span>
                   {language === code && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-600" aria-hidden="true" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
                   )}
                 </button>
               );
@@ -151,7 +151,7 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-label={`${t('language.change')}: ${currentConfig.nativeName}`}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
       >
         <Globe size={16} aria-hidden="true" />
         <span className="hidden sm:inline" dir={RTL_LANGUAGES.has(language) ? 'rtl' : 'ltr'}>
@@ -164,7 +164,7 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
         <div
           role="listbox"
           aria-label={t('language.change')}
-          className="absolute top-full inset-e-0 mt-1 w-52 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-auto max-h-72 py-1"
+          className="absolute top-full inset-e-0 mt-1 w-52 bg-card border border-border rounded-xl shadow-xl z-50 overflow-auto max-h-72 py-1"
         >
           {ALL_LANGUAGE_CODES.map((code) => {
             const config = LANGUAGE_CONFIG[code];
@@ -179,13 +179,13 @@ export function LanguageToggle({ variant = 'compact', onClose }: LanguageToggleP
                 className={cn(
                   'w-full flex items-center gap-2 px-4 py-2 text-sm text-start transition-colors',
                   language === code
-                    ? 'bg-green-50 text-green-800 font-medium'
-                    : 'text-gray-700 hover:bg-gray-50'
+                    ? 'bg-primary/10 text-primary font-medium'
+                    : 'text-foreground hover:bg-muted'
                 )}
               >
                 <span className="flex-1">{config.nativeName}</span>
                 {language === code && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-600" aria-hidden="true" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
                 )}
               </button>
             );

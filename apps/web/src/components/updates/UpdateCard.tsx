@@ -50,11 +50,11 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
   return (
     <article
       className={cn(
-        'bg-white rounded-xl border shadow-xs overflow-hidden',
+        'bg-card rounded-xl border shadow-xs overflow-hidden',
         featured
-          ? 'border-green-300 ring-2 ring-green-200'
-          : 'border-gray-200',
-        update.isMajorMilestone && !featured && 'border-l-4 border-l-green-500',
+          ? 'border-primary/40 ring-2 ring-green-200'
+          : 'border-border',
+        update.isMajorMilestone && !featured && 'border-l-4 border-l-primary',
         className,
       )}
       aria-label={update.title}
@@ -64,24 +64,24 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <Badge variant={categoryVariant}>{update.category}</Badge>
           {update.sport && (
-            <Badge variant="default" className="bg-gray-100 text-gray-600">
+            <Badge variant="default" className="bg-muted text-muted-foreground">
               {sportEmoji && <span className="mr-1">{sportEmoji}</span>}
               {update.sport}
             </Badge>
           )}
           {update.isMajorMilestone && (
-            <Badge variant="success" className="bg-green-50 text-green-700 border border-green-200">
+            <Badge variant="success" className="bg-primary/10 text-primary border border-primary/30">
               Major milestone
             </Badge>
           )}
           {featured && (
-            <Badge variant="success" className="bg-green-600 text-white">
+            <Badge variant="success" className="bg-primary text-white">
               Latest update
             </Badge>
           )}
           <time
             dateTime={update.releaseDate}
-            className="ml-auto text-xs text-gray-400 whitespace-nowrap"
+            className="ml-auto text-xs text-muted-foreground whitespace-nowrap"
           >
             {update.displayDate}
           </time>
@@ -90,7 +90,7 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
         {/* Title */}
         <h3
           className={cn(
-            'font-bold text-gray-900 mb-2 leading-snug',
+            'font-bold text-foreground mb-2 leading-snug',
             featured ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg',
           )}
         >
@@ -98,35 +98,35 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
         </h3>
 
         {/* Summary */}
-        <p className="text-sm text-gray-600 mb-4 leading-relaxed">{update.summary}</p>
+        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{update.summary}</p>
 
         {/* User benefit + why it matters */}
         <div className="space-y-3 mb-4">
           <div>
-            <span className="text-xs font-semibold text-green-700 uppercase tracking-wide">
+            <span className="text-xs font-semibold text-primary uppercase tracking-wide">
               What this means for you
             </span>
-            <p className="text-sm text-gray-700 mt-1">{update.userBenefit}</p>
+            <p className="text-sm text-foreground mt-1">{update.userBenefit}</p>
           </div>
           <div>
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
               Why it matters
             </span>
-            <p className="text-sm text-gray-600 mt-1">{update.whyItMatters}</p>
+            <p className="text-sm text-muted-foreground mt-1">{update.whyItMatters}</p>
           </div>
         </div>
 
         {/* Where to find + action required */}
         {(update.whereToFindIt || update.userActionRequired) && (
-          <div className="border-t border-gray-100 pt-3 mt-3 space-y-1">
+          <div className="border-t border-border pt-3 mt-3 space-y-1">
             {update.whereToFindIt && (
-              <p className="text-xs text-gray-500">
-                <span className="font-medium text-gray-700">Where to find it:</span>{' '}
+              <p className="text-xs text-muted-foreground">
+                <span className="font-medium text-foreground">Where to find it:</span>{' '}
                 {update.whereToFindIt}
               </p>
             )}
             {update.userActionRequired && (
-              <p className="text-xs text-blue-700 bg-blue-50 rounded-sm px-2 py-1">
+              <p className="text-xs text-accent-secondary bg-accent-secondary/10 rounded-sm px-2 py-1">
                 <span className="font-medium">Action:</span> {update.userActionRequired}
               </p>
             )}

@@ -17,19 +17,19 @@ export function PreGameStrategyCard() {
   if (!ready || !plan) return null;
 
   return (
-    <Card className="border-indigo-200 bg-linear-to-br from-indigo-50 to-white">
+    <Card className="border-accent-secondary/25 bg-linear-to-br from-indigo-50 to-white">
       <CardHeader className="flex flex-row items-center gap-2">
-        <Brain size={16} className="text-indigo-600" />
+        <Brain size={16} className="text-accent-secondary" />
         <CardTitle>{plan.title}</CardTitle>
       </CardHeader>
       <CardBody className="space-y-3">
         <div>
-          <p className="text-xs font-semibold text-indigo-700 uppercase tracking-wide mb-1.5 flex items-center gap-1">
+          <p className="text-xs font-semibold text-accent-secondary uppercase tracking-wide mb-1.5 flex items-center gap-1">
             <Sparkles size={12} /> Today&apos;s swing thoughts
           </p>
           <ul className="space-y-1">
             {plan.swingThoughts.map((t, i) => (
-              <li key={i} className="text-sm font-medium text-gray-900 flex items-start gap-2">
+              <li key={i} className="text-sm font-medium text-foreground flex items-start gap-2">
                 <span className="text-indigo-500">•</span>
                 {t}
               </li>
@@ -38,20 +38,20 @@ export function PreGameStrategyCard() {
         </div>
 
         <div className="grid sm:grid-cols-2 gap-2 text-xs">
-          <div className="rounded-lg bg-white border border-gray-200 p-2.5">
-            <p className="font-semibold text-gray-500 mb-0.5">Warm-up focus</p>
-            <p className="text-gray-700">{plan.warmupFocus}</p>
+          <div className="rounded-lg bg-card border border-border p-2.5">
+            <p className="font-semibold text-muted-foreground mb-0.5">Warm-up focus</p>
+            <p className="text-foreground">{plan.warmupFocus}</p>
           </div>
-          <div className="rounded-lg bg-white border border-gray-200 p-2.5">
-            <p className="font-semibold text-gray-500 mb-0.5">On the day</p>
-            <p className="text-gray-700">{plan.tacticalReminder}</p>
+          <div className="rounded-lg bg-card border border-border p-2.5">
+            <p className="font-semibold text-muted-foreground mb-0.5">On the day</p>
+            <p className="text-foreground">{plan.tacticalReminder}</p>
           </div>
         </div>
 
-        <div className="rounded-lg bg-green-50 border border-green-200 p-2.5">
-          <p className="text-xs text-green-800">{plan.confidenceCue}</p>
+        <div className="rounded-lg bg-primary/10 border border-primary/30 p-2.5">
+          <p className="text-xs text-primary">{plan.confidenceCue}</p>
         </div>
-        <p className="text-xs text-amber-700">Avoid: {plan.whatToAvoid}</p>
+        <p className="text-xs text-warning">Avoid: {plan.whatToAvoid}</p>
       </CardBody>
     </Card>
   );

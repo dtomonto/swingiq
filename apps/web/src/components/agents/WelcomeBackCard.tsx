@@ -16,7 +16,7 @@ import type { ResumeState } from '@/lib/agents';
 
 function StatChip({ icon: Icon, label }: { icon: typeof Clock; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs text-green-100/90 bg-white/10 rounded-full px-2.5 py-1">
+    <span className="inline-flex items-center gap-1.5 text-xs text-primary-foreground/90/90 bg-card/10 rounded-full px-2.5 py-1">
       <Icon size={12} aria-hidden="true" />
       {label}
     </span>
@@ -48,7 +48,7 @@ export function WelcomeBackCard({
 
   return (
     <section
-      className="relative overflow-hidden rounded-2xl bg-linear-to-br from-green-700 via-green-800 to-golf-dark text-white p-6 shadow-md"
+      className="relative overflow-hidden rounded-2xl bg-linear-to-br from-primary via-green-800 to-golf-dark text-white p-6 shadow-md"
       role="region"
       aria-label="Welcome back"
     >
@@ -63,11 +63,11 @@ export function WelcomeBackCard({
       )}
 
       <div className="max-w-3xl">
-        <p className="text-green-300 text-xs font-semibold uppercase tracking-wide mb-1">
+        <p className="text-primary-foreground/80 text-xs font-semibold uppercase tracking-wide mb-1">
           Pick up where you left off
         </p>
         <h2 className="text-2xl font-bold mb-2">{resume.headline}</h2>
-        <p className="text-green-50/90 text-sm leading-relaxed mb-4">{resume.summary}</p>
+        <p className="text-primary-foreground/90 text-sm leading-relaxed mb-4">{resume.summary}</p>
 
         {/* Context chips */}
         <div className="flex flex-wrap gap-2 mb-5">
@@ -82,7 +82,7 @@ export function WelcomeBackCard({
         {/* Primary action */}
         <div className="flex flex-wrap items-center gap-3">
           <Link href={resume.nextBestAction.href}>
-            <Button className="bg-white text-green-800 hover:bg-green-50 font-semibold">
+            <Button className="bg-card text-primary hover:bg-primary/10 font-semibold">
               {resume.nextBestAction.label}
               <ChevronRight size={16} />
             </Button>
@@ -91,7 +91,7 @@ export function WelcomeBackCard({
           {/* Secondary options */}
           {resume.options.slice(0, 3).map((opt) => (
             <Link key={opt.id} href={opt.href}>
-              <button className="text-sm font-medium text-green-50 hover:text-white underline-offset-4 hover:underline px-1 py-1">
+              <button className="text-sm font-medium text-primary-foreground hover:text-white underline-offset-4 hover:underline px-1 py-1">
                 {opt.label}
               </button>
             </Link>
@@ -101,7 +101,7 @@ export function WelcomeBackCard({
         {/* Helper + confidence */}
         <div className="mt-4 flex flex-wrap items-center gap-3">
           {resume.nextBestAction.helperText && (
-            <p className="text-green-100/70 text-xs">{resume.nextBestAction.helperText}</p>
+            <p className="text-primary-foreground/90/70 text-xs">{resume.nextBestAction.helperText}</p>
           )}
           <ConfidenceBadge confidence={resume.confidence} showReason={false} className="opacity-90" />
         </div>

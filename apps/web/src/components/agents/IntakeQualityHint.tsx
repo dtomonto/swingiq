@@ -19,16 +19,16 @@ export function IntakeQualityHint() {
   if (nothingToSay) return null;
 
   return (
-    <div className="rounded-xl border border-blue-200 bg-blue-50 p-4" role="note" aria-label="Upload tips">
+    <div className="rounded-xl border border-accent-secondary/25 bg-accent-secondary/10 p-4" role="note" aria-label="Upload tips">
       <div className="flex items-start gap-2.5">
-        <CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" aria-hidden="true" />
+        <CheckCircle2 size={18} className="text-accent-secondary shrink-0 mt-0.5" aria-hidden="true" />
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-blue-900">{result.headline}</p>
+          <p className="text-sm font-semibold text-foreground">{result.headline}</p>
 
           {result.improvements.length > 0 && (
             <ul className="mt-1.5 space-y-1">
               {result.improvements.map((tip, i) => (
-                <li key={i} className="text-xs text-blue-800 flex items-start gap-1.5">
+                <li key={i} className="text-xs text-foreground flex items-start gap-1.5">
                   <Lightbulb size={12} className="mt-0.5 shrink-0" aria-hidden="true" />
                   {tip}
                 </li>
@@ -38,19 +38,19 @@ export function IntakeQualityHint() {
 
           {result.filmingTips.length > 0 && (
             <div className="mt-2">
-              <p className="text-xs font-semibold text-blue-900 flex items-center gap-1">
+              <p className="text-xs font-semibold text-foreground flex items-center gap-1">
                 <Camera size={12} aria-hidden="true" /> Filming tips
               </p>
               <ul className="mt-1 space-y-0.5">
                 {result.filmingTips.map((tip, i) => (
-                  <li key={i} className="text-xs text-blue-800">• {tip}</li>
+                  <li key={i} className="text-xs text-foreground">• {tip}</li>
                 ))}
               </ul>
             </div>
           )}
 
           {result.allowContinueAnyway && (
-            <p className="text-xs text-blue-500 mt-2">These are optional — you can continue either way.</p>
+            <p className="text-xs text-accent-secondary mt-2">These are optional — you can continue either way.</p>
           )}
         </div>
       </div>

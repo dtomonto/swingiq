@@ -37,27 +37,27 @@ export function ToolShell({
   ];
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-muted">
       <div className="mx-auto max-w-2xl px-4 py-10">
         <Breadcrumbs items={trail} className="mb-5" />
 
         <header className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
-          <p className="mt-2 text-gray-600">{subtitle}</p>
-          <p className="mt-2 text-xs font-medium text-green-700">Free · No account required · Private by default</p>
+          <h1 className="text-3xl font-bold text-foreground">{title}</h1>
+          <p className="mt-2 text-muted-foreground">{subtitle}</p>
+          <p className="mt-2 text-xs font-medium text-primary">Free · No account required · Private by default</p>
         </header>
 
         {children}
 
         {showCoachNotice && <NotCoachReplacementNotice className="mt-8" />}
 
-        <nav aria-label="More free tools" className="mt-6 border-t border-gray-200 pt-5">
-          <p className="mb-2 text-sm font-semibold text-gray-900">More free tools</p>
+        <nav aria-label="More free tools" className="mt-6 border-t border-border pt-5">
+          <p className="mb-2 text-sm font-semibold text-foreground">More free tools</p>
           <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-            <li><Link href="/tools/golf-slice-fixer" className="text-green-700 hover:underline">Golf Slice Fixer</Link></li>
-            <li><Link href="/tools/swing-mistake-quiz" className="text-green-700 hover:underline">Swing Mistake Quiz</Link></li>
-            <li><Link href="/tools/practice-plan-generator" className="text-green-700 hover:underline">Practice Plan Generator</Link></li>
-            <li><Link href="/tools/at-home-swing-drill-generator" className="text-green-700 hover:underline">At-Home Drill Generator</Link></li>
+            <li><Link href="/tools/golf-slice-fixer" className="text-primary hover:underline">Golf Slice Fixer</Link></li>
+            <li><Link href="/tools/swing-mistake-quiz" className="text-primary hover:underline">Swing Mistake Quiz</Link></li>
+            <li><Link href="/tools/practice-plan-generator" className="text-primary hover:underline">Practice Plan Generator</Link></li>
+            <li><Link href="/tools/at-home-swing-drill-generator" className="text-primary hover:underline">At-Home Drill Generator</Link></li>
           </ul>
         </nav>
       </div>
@@ -68,7 +68,7 @@ export function ToolShell({
 /** Reusable result panel used by tools after a submit. */
 export function ResultPanel({ children }: { children: React.ReactNode }) {
   return (
-    <section aria-live="polite" className="mt-6 space-y-4 rounded-2xl border border-green-200 bg-white p-5 shadow-xs">
+    <section aria-live="polite" className="mt-6 space-y-4 rounded-2xl border border-primary/30 bg-card p-5 shadow-xs">
       {children}
     </section>
   );
@@ -79,7 +79,7 @@ export function ToolCta({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="block w-full rounded-xl bg-green-600 py-3 text-center font-semibold text-white transition-colors hover:bg-green-700"
+      className="block w-full rounded-xl bg-primary py-3 text-center font-semibold text-white transition-colors hover:bg-primary"
     >
       {label}
     </Link>

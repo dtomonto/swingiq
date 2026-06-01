@@ -77,7 +77,7 @@ export function PracticePlanTool() {
       subtitle="Build a focused 7-day (or 30-day) practice plan with success metrics and a retest schedule."
     >
       {!plan && (
-        <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="rounded-2xl border border-gray-200 bg-white p-5">
+        <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="rounded-2xl border border-border bg-card p-5">
           <ChoiceGroup label="Sport" name="sport" value={a.sport} onChange={set('sport')}
             choices={[{ value: 'golf', label: 'Golf' }, { value: 'tennis', label: 'Tennis' }, { value: 'baseball', label: 'Baseball' }, { value: 'softball', label: 'Softball' }]} />
           <ChoiceGroup label="Main focus" name="issue" value={a.issue} onChange={set('issue')}
@@ -86,8 +86,8 @@ export function PracticePlanTool() {
             choices={[{ value: '2', label: '2' }, { value: '3', label: '3–4' }, { value: '5', label: '5+' }]} />
           <ChoiceGroup label="Plan length" name="horizon" value={a.horizon} onChange={set('horizon')}
             choices={[{ value: '7', label: '7-day' }, { value: '30', label: '30-day' }]} />
-          {error && <p role="alert" className="mb-3 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
+          {error && <p role="alert" className="mb-3 text-sm font-medium text-error">{error}</p>}
+          <button type="submit" className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition-colors hover:bg-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1">
             Build My Plan
           </button>
         </form>
@@ -96,27 +96,27 @@ export function PracticePlanTool() {
       {plan && (
         <ResultPanel>
           <div>
-            <p className="font-semibold text-gray-900">7-day plan</p>
-            <ul className="mt-2 space-y-1 text-sm text-gray-600">{plan.week.map((d) => <li key={d}>{d}</li>)}</ul>
+            <p className="font-semibold text-foreground">7-day plan</p>
+            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">{plan.week.map((d) => <li key={d}>{d}</li>)}</ul>
           </div>
           {plan.month && (
             <div>
-              <p className="font-semibold text-gray-900">30-day arc</p>
-              <ul className="mt-2 space-y-1 text-sm text-gray-600">{plan.month.map((d) => <li key={d}>{d}</li>)}</ul>
+              <p className="font-semibold text-foreground">30-day arc</p>
+              <ul className="mt-2 space-y-1 text-sm text-muted-foreground">{plan.month.map((d) => <li key={d}>{d}</li>)}</ul>
             </div>
           )}
-          <div className="rounded-xl bg-gray-50 p-4">
-            <p className="font-semibold text-gray-900">Success metrics</p>
-            <ul className="mt-2 space-y-1 text-sm text-gray-600">{plan.metrics.map((m) => <li key={m} className="flex gap-2"><span className="text-green-600">•</span>{m}</li>)}</ul>
+          <div className="rounded-xl bg-muted p-4">
+            <p className="font-semibold text-foreground">Success metrics</p>
+            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">{plan.metrics.map((m) => <li key={m} className="flex gap-2"><span className="text-primary">•</span>{m}</li>)}</ul>
           </div>
           <div>
-            <p className="font-semibold text-gray-900">Retest schedule</p>
-            <p className="mt-1 text-sm text-gray-600">{plan.retest}</p>
+            <p className="font-semibold text-foreground">Retest schedule</p>
+            <p className="mt-1 text-sm text-muted-foreground">{plan.retest}</p>
           </div>
 
           <EmailCapture source="practice_plan" heading="Email me this plan + reminders" subheading="We'll send the plan and retest reminders so you actually finish it." meta={{ sport: a.sport }} />
           <ToolCta href="/dashboard" label="Analyze My Swing & Track Progress Free" />
-          <button onClick={reset} className="w-full rounded-xl border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">Start over</button>
+          <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Start over</button>
         </ResultPanel>
       )}
     </ToolShell>

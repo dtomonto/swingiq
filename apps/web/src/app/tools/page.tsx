@@ -21,11 +21,11 @@ const TOOLS = [
 
 export default function ToolsIndex() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-card">
       <div className="mx-auto max-w-3xl px-4 py-10">
         <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Free Tools', path: '/tools' }]} className="mb-5" />
-        <h1 className="text-3xl font-bold text-gray-900 md:text-4xl">Free Swing Tools</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-3xl font-bold text-foreground md:text-4xl">Free Swing Tools</h1>
+        <p className="mt-2 text-muted-foreground">
           Quick, free tools to diagnose your swing and build a plan. No account required.
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -33,11 +33,11 @@ export default function ToolsIndex() {
             <Link
               key={t.href}
               href={t.href}
-              className="block rounded-2xl border border-gray-200 p-5 transition-colors hover:border-green-400 hover:bg-green-50"
+              className="block rounded-2xl border border-border p-5 transition-colors hover:border-primary/50 hover:bg-primary/10"
             >
               <div className="text-2xl">{t.emoji}</div>
-              <h2 className="mt-2 font-semibold text-gray-900">{t.name}</h2>
-              <p className="mt-1 text-sm text-gray-600">{t.desc}</p>
+              <h2 className="mt-2 font-semibold text-foreground">{t.name}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{t.desc}</p>
             </Link>
           ))}
         </div>

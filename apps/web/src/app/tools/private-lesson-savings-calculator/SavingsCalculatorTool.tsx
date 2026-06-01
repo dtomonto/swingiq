@@ -39,12 +39,12 @@ export function SavingsCalculatorTool() {
       subtitle="Estimate your lesson spend and see how much more value you might get by practicing better between sessions."
     >
       {!result && (
-        <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="rounded-2xl border border-gray-200 bg-white p-5">
+        <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} className="rounded-2xl border border-border bg-card p-5">
           <NumberField id="cost" label="Cost per lesson" value={cost} onChange={setCost} min={0} max={1000} suffix="USD" />
           <NumberField id="perMonth" label="Lessons per month" value={perMonth} onChange={setPerMonth} min={0} max={30} suffix="per month" />
           <NumberField id="months" label="Months per year you take lessons" value={months} onChange={setMonths} min={0} max={12} suffix="months" />
-          {error && <p role="alert" className="mb-3 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
+          {error && <p role="alert" className="mb-3 text-sm font-medium text-error">{error}</p>}
+          <button type="submit" className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition-colors hover:bg-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1">
             Calculate
           </button>
         </form>
@@ -53,20 +53,20 @@ export function SavingsCalculatorTool() {
       {result && (
         <ResultPanel>
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-gray-50 p-4 text-center">
-              <p className="text-xs text-gray-500">Estimated yearly lesson spend</p>
-              <p className="mt-1 text-2xl font-bold text-gray-900">{money(result.annualSpend)}</p>
+            <div className="rounded-xl bg-muted p-4 text-center">
+              <p className="text-xs text-muted-foreground">Estimated yearly lesson spend</p>
+              <p className="mt-1 text-2xl font-bold text-foreground">{money(result.annualSpend)}</p>
             </div>
-            <div className="rounded-xl bg-green-50 p-4 text-center">
-              <p className="text-xs text-green-700">Potential optimized spend</p>
-              <p className="mt-1 text-2xl font-bold text-green-700">{money(result.optimized)}</p>
+            <div className="rounded-xl bg-primary/10 p-4 text-center">
+              <p className="text-xs text-primary">Potential optimized spend</p>
+              <p className="mt-1 text-2xl font-bold text-primary">{money(result.optimized)}</p>
             </div>
           </div>
-          <p className="text-center text-sm text-gray-700">
+          <p className="text-center text-sm text-foreground">
             By practicing the right priority between sessions, many players get the same value from fewer lessons —
             an estimated <strong>{money(result.saved)}/year</strong> in this scenario.
           </p>
-          <p className="rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
+          <p className="rounded-xl bg-warning/10 p-4 text-sm text-foreground">
             <strong>Lessons are still valuable.</strong> A good coach is often the fastest path to real improvement. This
             calculator is an illustration, not a promise — SwingIQ is designed to make your lessons and your practice more
             effective, not to replace your coach.
@@ -74,7 +74,7 @@ export function SavingsCalculatorTool() {
 
           <EmailCapture source="general" heading="Send me a smarter practice plan" subheading="See how to get more from each lesson with focused practice between sessions." />
           <ToolCta href="/dashboard" label="Try SwingIQ Free Before Your Next Lesson" />
-          <button onClick={reset} className="w-full rounded-xl border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">Recalculate</button>
+          <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Recalculate</button>
         </ResultPanel>
       )}
     </ToolShell>

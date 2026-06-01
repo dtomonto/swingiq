@@ -86,21 +86,21 @@ export function UsageCategoryModal() {
       aria-modal="true"
       aria-labelledby="usage-modal-title"
     >
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className="bg-card rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="px-6 pt-6 pb-4">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shrink-0">
               <Shield className="text-white" size={20} />
             </div>
             <div>
-              <h2 id="usage-modal-title" className="text-lg font-bold text-gray-900">
+              <h2 id="usage-modal-title" className="text-lg font-bold text-foreground">
                 Welcome to SwingIQ
               </h2>
-              <p className="text-xs text-gray-500">One quick question before you start</p>
+              <p className="text-xs text-muted-foreground">One quick question before you start</p>
             </div>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-muted-foreground">
             Who will be using SwingIQ on this device? This helps us apply the right safety settings.
             No personal information is collected.
           </p>
@@ -114,23 +114,23 @@ export function UsageCategoryModal() {
               onClick={() => setSelected(value)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 text-left transition-colors ${
                 selected === value
-                  ? 'border-green-500 bg-green-50'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
+                  ? 'border-primary bg-primary/10'
+                  : 'border-border hover:border-border bg-card'
               }`}
             >
               <Icon
                 size={18}
-                className={selected === value ? 'text-green-600' : 'text-gray-400'}
+                className={selected === value ? 'text-primary' : 'text-muted-foreground'}
               />
               <div className="flex-1 min-w-0">
-                <p className={`text-sm font-medium ${selected === value ? 'text-green-800' : 'text-gray-800'}`}>
+                <p className={`text-sm font-medium ${selected === value ? 'text-primary' : 'text-foreground'}`}>
                   {label}
                 </p>
-                <p className="text-xs text-gray-500">{sublabel}</p>
+                <p className="text-xs text-muted-foreground">{sublabel}</p>
               </div>
               <div
                 className={`w-4 h-4 rounded-full border-2 shrink-0 ${
-                  selected === value ? 'border-green-500 bg-green-500' : 'border-gray-300'
+                  selected === value ? 'border-primary bg-primary' : 'border-border'
                 }`}
               />
             </button>
@@ -139,9 +139,9 @@ export function UsageCategoryModal() {
 
         {/* Under-13 warning */}
         {isUnder13 && (
-          <div className="mx-6 mb-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
-            <p className="text-sm font-semibold text-amber-800 mb-1">Parent or guardian required</p>
-            <p className="text-sm text-amber-700">
+          <div className="mx-6 mb-4 bg-warning/10 border border-warning/30 rounded-xl p-4">
+            <p className="text-sm font-semibold text-warning mb-1">Parent or guardian required</p>
+            <p className="text-sm text-warning">
               SwingIQ is not designed for children under 13 without a parent or guardian. Please ask
               a parent or guardian to set up SwingIQ and select <strong>&quot;Parent or guardian&quot;</strong> on this screen.
             </p>
@@ -150,8 +150,8 @@ export function UsageCategoryModal() {
 
         {/* Minor advisory */}
         {selected === 'minor_13_17' && (
-          <div className="mx-6 mb-4 bg-blue-50 border border-blue-200 rounded-xl p-3">
-            <p className="text-sm text-blue-800">
+          <div className="mx-6 mb-4 bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl p-3">
+            <p className="text-sm text-foreground">
               Welcome! For the best experience, let a parent, guardian, or coach know you&apos;re using SwingIQ.
               Always practice drills with adult supervision.
             </p>
@@ -163,11 +163,11 @@ export function UsageCategoryModal() {
           <button
             onClick={handleConfirm}
             disabled={!selected || isUnder13}
-            className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl transition-colors"
+            className="w-full bg-primary hover:bg-primary disabled:bg-muted disabled:text-muted-foreground text-white font-semibold py-3 rounded-xl transition-colors"
           >
             Continue to SwingIQ
           </button>
-          <p className="text-center text-xs text-gray-400">
+          <p className="text-center text-xs text-muted-foreground">
             This is stored only on your device. You can change it anytime in Settings.
           </p>
         </div>

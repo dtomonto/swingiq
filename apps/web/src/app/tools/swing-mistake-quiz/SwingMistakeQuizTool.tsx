@@ -135,7 +135,7 @@ export function SwingMistakeQuizTool() {
         <form
           onSubmit={(e) => { e.preventDefault(); onSubmit(); }}
           onFocus={() => track(ANALYTICS_EVENTS.QUIZ_STARTED, { tool: 'swing-mistake-quiz' })}
-          className="rounded-2xl border border-gray-200 bg-white p-5"
+          className="rounded-2xl border border-border bg-card p-5"
         >
           <ChoiceGroup
             label="Choose your sport" name="sport" value={sportKey}
@@ -145,8 +145,8 @@ export function SwingMistakeQuizTool() {
           {sport && (
             <ChoiceGroup label={sport.symptomLabel} name="symptom" value={symptom} onChange={setSymptom} choices={sport.symptoms} />
           )}
-          {error && <p role="alert" className="mb-3 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1">
+          {error && <p role="alert" className="mb-3 text-sm font-medium text-error">{error}</p>}
+          <button type="submit" className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition-colors hover:bg-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1">
             See My Likely Issue
           </button>
         </form>
@@ -154,24 +154,24 @@ export function SwingMistakeQuizTool() {
 
       {result && (
         <ResultPanel>
-          <p className="text-sm font-medium text-gray-500">{result.sport.label}</p>
+          <p className="text-sm font-medium text-muted-foreground">{result.sport.label}</p>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-green-700">Likely top issue</p>
-            <p className="mt-1 text-lg font-bold text-gray-900">{result.outcome.issue}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Likely top issue</p>
+            <p className="mt-1 text-lg font-bold text-foreground">{result.outcome.issue}</p>
           </div>
-          <div className="rounded-xl bg-amber-50 p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-700">Key checkpoint</p>
-            <p className="mt-1 text-gray-800">{result.outcome.checkpoint}</p>
+          <div className="rounded-xl bg-warning/10 p-4">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Key checkpoint</p>
+            <p className="mt-1 text-foreground">{result.outcome.checkpoint}</p>
           </div>
           <div>
-            <p className="font-semibold text-gray-900">Drills</p>
-            <ul className="mt-2 space-y-1 text-sm text-gray-600">
-              {result.outcome.drills.map((d) => <li key={d} className="flex gap-2"><span className="text-green-600">•</span>{d}</li>)}
+            <p className="font-semibold text-foreground">Drills</p>
+            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
+              {result.outcome.drills.map((d) => <li key={d} className="flex gap-2"><span className="text-primary">•</span>{d}</li>)}
             </ul>
           </div>
           <div>
-            <p className="font-semibold text-gray-900">Practice plan</p>
-            <ul className="mt-2 space-y-1 text-sm text-gray-600">
+            <p className="font-semibold text-foreground">Practice plan</p>
+            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
               {result.outcome.plan.map((p) => <li key={p}>{p}</li>)}
             </ul>
           </div>
@@ -179,7 +179,7 @@ export function SwingMistakeQuizTool() {
           <EmailCapture source={result.sport.leadSource} heading="Email me this plan" subheading="Your plan plus a day-7 retest reminder." meta={{ sport: result.sport.key }} />
 
           <ToolCta href="/dashboard" label="Analyze My Real Swing Free" />
-          <button onClick={reset} className="w-full rounded-xl border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">Start over</button>
+          <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Start over</button>
         </ResultPanel>
       )}
     </ToolShell>

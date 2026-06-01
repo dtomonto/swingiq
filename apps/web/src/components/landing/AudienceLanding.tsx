@@ -24,16 +24,16 @@ export interface AudienceConfig {
 
 export function AudienceLanding({ config }: { config: AudienceConfig }) {
   return (
-    <main className="min-h-screen bg-white">
-      <section className="bg-[#1a3a2a] px-4 py-16 text-white">
+    <main className="min-h-screen bg-card">
+      <section className="bg-primary px-4 py-16 text-white">
         <div className="mx-auto max-w-3xl">
           <Breadcrumbs
             items={[{ name: 'Home', path: '/' }, { name: config.name, path: `/${config.slug}` }]}
-            className="mb-4 **:text-green-200!"
+            className="mb-4 **:text-primary-foreground/90!"
           />
           <h1 className="text-3xl font-bold md:text-4xl">{config.headline}</h1>
-          <p className="mt-4 max-w-2xl text-lg text-green-100">{config.positioning}</p>
-          <Link href="#get-started" className="mt-6 inline-block rounded-xl bg-green-500 px-7 py-3 font-bold text-white transition-colors hover:bg-green-400">
+          <p className="mt-4 max-w-2xl text-lg text-primary-foreground/90">{config.positioning}</p>
+          <Link href="#get-started" className="mt-6 inline-block rounded-xl bg-primary px-7 py-3 font-bold text-white transition-colors hover:bg-primary-foreground/90">
             {config.ctaLabel}
           </Link>
         </div>
@@ -43,23 +43,23 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
         <div className="mx-auto max-w-3xl">
           <div className="grid gap-6 sm:grid-cols-3">
             {config.benefits.map((b) => (
-              <div key={b.title} className="rounded-2xl border border-gray-200 p-5">
-                <h2 className="font-semibold text-gray-900">{b.title}</h2>
-                <p className="mt-1 text-sm text-gray-600">{b.desc}</p>
+              <div key={b.title} className="rounded-2xl border border-border p-5">
+                <h2 className="font-semibold text-foreground">{b.title}</h2>
+                <p className="mt-1 text-sm text-muted-foreground">{b.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-gray-50 px-4 py-14">
+      <section className="bg-muted px-4 py-14">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-gray-900">How it works</h2>
+          <h2 className="text-2xl font-bold text-foreground">How it works</h2>
           <ol className="mt-5 space-y-3">
             {config.how.map((step, i) => (
               <li key={step} className="flex items-start gap-3">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-600 text-sm font-bold text-white">{i + 1}</span>
-                <span className="text-gray-700">{step}</span>
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">{i + 1}</span>
+                <span className="text-foreground">{step}</span>
               </li>
             ))}
           </ol>
@@ -72,8 +72,8 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
             <PrivacyAssuranceBlock />
             <ul className="space-y-2">
               {['No cost to start', 'Web-based — nothing to install', 'Privacy-first, youth-safe by default', 'Works alongside your existing coaching'].map((p) => (
-                <li key={p} className="flex items-start gap-2 text-sm text-gray-700">
-                  <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-green-600" aria-hidden="true" />
+                <li key={p} className="flex items-start gap-2 text-sm text-foreground">
+                  <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-primary" aria-hidden="true" />
                   <span>{p}</span>
                 </li>
               ))}
@@ -83,14 +83,14 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
         </div>
       </section>
 
-      <section id="get-started" className="scroll-mt-16 bg-[#1a3a2a] px-4 py-14 text-white">
+      <section id="get-started" className="scroll-mt-16 bg-primary px-4 py-14 text-white">
         <div className="mx-auto max-w-lg text-center">
           <h2 className="text-2xl font-bold">{config.ctaLabel}</h2>
-          <p className="mt-2 text-green-100">{config.captureSub}</p>
+          <p className="mt-2 text-primary-foreground/90">{config.captureSub}</p>
           <div className="mt-6 text-left">
             <EmailCapture source={config.leadSource} heading={config.captureHeading} subheading="We'll be in touch. No spam." />
           </div>
-          <p className="mt-4 text-sm text-green-200">
+          <p className="mt-4 text-sm text-primary-foreground/90">
             Prefer email? <a href="mailto:support@swingiq.app" className="underline">support@swingiq.app</a>
           </p>
         </div>

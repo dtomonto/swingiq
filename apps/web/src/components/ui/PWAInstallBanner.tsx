@@ -53,7 +53,7 @@ export function PWAInstallBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-green-700 border-b border-green-600 px-4 py-3">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-primary border-b border-primary px-4 py-3">
       <div className="max-w-4xl mx-auto flex items-center gap-4">
         <p className="text-white text-xs leading-relaxed flex-1">
           Add SwingIQ to your home screen for quick access.
@@ -61,13 +61,13 @@ export function PWAInstallBanner() {
         <div className="flex gap-2 shrink-0">
           <button
             onClick={handleInstall}
-            className="bg-white text-green-700 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-green-50 transition-colors"
+            className="bg-card text-primary text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-colors"
           >
             Add to Home Screen
           </button>
           <button
             onClick={handleDismiss}
-            className="text-green-200 hover:text-white text-sm font-bold leading-none"
+            className="text-primary-foreground/90 hover:text-white text-sm font-bold leading-none"
             aria-label="Dismiss"
           >
             ×

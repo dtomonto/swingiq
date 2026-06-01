@@ -78,41 +78,41 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs print:border-0 print:shadow-none">
+    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-xs print:border-0 print:shadow-none">
       {/* Report body (printable) */}
       <div className="p-6">
         <div className="mb-4 flex items-center justify-between">
-          <span className="font-bold text-gray-900">SwingIQ Report</span>
-          <span className="text-xs uppercase tracking-wide text-gray-400">{data.sport}</span>
+          <span className="font-bold text-foreground">SwingIQ Report</span>
+          <span className="text-xs uppercase tracking-wide text-muted-foreground">{data.sport}</span>
         </div>
 
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-700">Top priority</p>
-          <p className="mt-1 font-bold text-gray-900">{data.topIssue}</p>
-          {data.confidence && <p className="mt-1 text-xs text-gray-600">Confidence: {data.confidence}</p>}
+        <div className="rounded-xl border border-warning/30 bg-warning/10 p-4">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Top priority</p>
+          <p className="mt-1 font-bold text-foreground">{data.topIssue}</p>
+          {data.confidence && <p className="mt-1 text-xs text-muted-foreground">Confidence: {data.confidence}</p>}
         </div>
 
         <div className="mt-4">
-          <p className="text-sm font-semibold text-gray-900">Drills</p>
-          <ul className="mt-1 space-y-1 text-sm text-gray-600">
+          <p className="text-sm font-semibold text-foreground">Drills</p>
+          <ul className="mt-1 space-y-1 text-sm text-muted-foreground">
             {data.drills.map((d, i) => <li key={d}>{i + 1}. {d}</li>)}
           </ul>
         </div>
 
-        <div className="mt-4 rounded-xl bg-gray-50 p-4">
-          <p className="text-sm font-semibold text-gray-900">Practice plan</p>
-          <p className="mt-1 text-sm text-gray-600">{data.planSummary}</p>
+        <div className="mt-4 rounded-xl bg-muted p-4">
+          <p className="text-sm font-semibold text-foreground">Practice plan</p>
+          <p className="mt-1 text-sm text-muted-foreground">{data.planSummary}</p>
         </div>
 
-        <p className="mt-4 text-[11px] italic text-gray-400">
+        <p className="mt-4 text-[11px] italic text-muted-foreground">
           AI estimate, not certified instruction. Made with SwingIQ — {siteConfig.liveSiteUrl}
         </p>
       </div>
 
       {/* Actions (hidden when printing) */}
-      <div className="border-t border-gray-100 bg-gray-50 p-4 print:hidden">
+      <div className="border-t border-border bg-muted p-4 print:hidden">
         {/* Privacy reminder */}
-        <label className="mb-3 flex items-start gap-2 text-xs text-gray-600">
+        <label className="mb-3 flex items-start gap-2 text-xs text-muted-foreground">
           <input
             type="checkbox"
             checked={acknowledged}
@@ -120,7 +120,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
             className="mt-0.5"
           />
           <span className="flex items-start gap-1">
-            <ShieldAlert size={14} className="mt-0.5 shrink-0 text-amber-500" aria-hidden="true" />
+            <ShieldAlert size={14} className="mt-0.5 shrink-0 text-warning" aria-hidden="true" />
             I understand this shares a text summary (no video).
             {data.isYouth && ' For a youth athlete, only a parent or guardian should share this.'}
           </span>
@@ -128,23 +128,23 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
 
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           <button onClick={copy} disabled={!acknowledged}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500">
-            {copied ? <><Check size={15} className="text-green-600" /> Copied</> : <><Copy size={15} /> Copy</>}
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
+            {copied ? <><Check size={15} className="text-primary" /> Copied</> : <><Copy size={15} /> Copy</>}
           </button>
           <button onClick={emailCoach} disabled={!acknowledged}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500">
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
             <Mail size={15} /> Coach
           </button>
           <button onClick={webShare} disabled={!acknowledged}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500">
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
             <Share2 size={15} /> Share
           </button>
           <button onClick={print}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500">
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
             <Printer size={15} /> Print / PDF
           </button>
         </div>
-        <p className="mt-2 text-[11px] text-gray-400">
+        <p className="mt-2 text-[11px] text-muted-foreground">
           Tip: use your browser&apos;s &ldquo;Save as PDF&rdquo; in the print dialog to export a PDF.
         </p>
       </div>

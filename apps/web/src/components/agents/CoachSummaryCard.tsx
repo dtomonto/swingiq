@@ -50,10 +50,10 @@ export function CoachSummaryCard() {
   };
 
   return (
-    <Card className="border-orange-200 bg-orange-50/50">
+    <Card className="border-warning/30 bg-warning/10/50">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="flex items-center gap-2">
-          <MessageSquareQuote size={18} className="text-orange-600" />
+          <MessageSquareQuote size={18} className="text-warning" />
           <CardTitle className="text-orange-900">Prep for your coach</CardTitle>
         </div>
         <Button
@@ -65,23 +65,23 @@ export function CoachSummaryCard() {
         </Button>
       </CardHeader>
       <CardBody className="space-y-3">
-        <p className="text-sm text-gray-700 leading-relaxed">{summary.coachSummary}</p>
+        <p className="text-sm text-foreground leading-relaxed">{summary.coachSummary}</p>
 
         <div>
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
             Questions to ask your coach
           </p>
           <ul className="space-y-1">
             {summary.suggestedCoachQuestions.map((q, i) => (
-              <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
-                <span className="text-orange-500">?</span>
+              <li key={i} className="text-sm text-foreground flex items-start gap-2">
+                <span className="text-warning">?</span>
                 {q}
               </li>
             ))}
           </ul>
         </div>
 
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-muted-foreground">
           SwingIQ helps you prepare — it doesn&apos;t replace a qualified coach.
         </p>
       </CardBody>

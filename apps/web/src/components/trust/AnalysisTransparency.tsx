@@ -54,18 +54,18 @@ export function AnalysisTransparency({
   return (
     <section
       aria-label="How this result was produced"
-      className={cn('rounded-2xl border border-gray-200 bg-white p-5', className)}
+      className={cn('rounded-2xl border border-border bg-card p-5', className)}
     >
       <div className="flex items-center gap-2">
-        <ShieldCheck size={18} className="text-green-700" aria-hidden="true" />
-        <h3 className="text-sm font-bold text-gray-900">What this {resultNoun} is based on</h3>
+        <ShieldCheck size={18} className="text-primary" aria-hidden="true" />
+        <h3 className="text-sm font-bold text-foreground">What this {resultNoun} is based on</h3>
       </div>
 
       {basedOn.length > 0 && (
-        <ul className="mt-3 space-y-1.5 text-sm text-gray-700">
+        <ul className="mt-3 space-y-1.5 text-sm text-foreground">
           {basedOn.map((e) => (
             <li key={e} className="flex gap-2">
-              <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-green-600" aria-hidden="true" />
+              <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-primary" aria-hidden="true" />
               {e}
             </li>
           ))}
@@ -73,7 +73,7 @@ export function AnalysisTransparency({
       )}
 
       {/* Video honesty + confidence reason */}
-      <p className="mt-3 flex items-start gap-2 rounded-lg bg-gray-50 p-3 text-xs text-gray-600">
+      <p className="mt-3 flex items-start gap-2 rounded-lg bg-muted p-3 text-xs text-muted-foreground">
         <Info size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
         <span>
           {videoAnalyzed ? (
@@ -99,10 +99,10 @@ export function AnalysisTransparency({
       {/* What would raise confidence */}
       {whatImproves && whatImproves.length > 0 && (
         <div className="mt-4">
-          <p className="text-xs font-semibold text-gray-900">What would raise the confidence</p>
-          <ul className="mt-1.5 space-y-1 text-sm text-gray-600">
+          <p className="text-xs font-semibold text-foreground">What would raise the confidence</p>
+          <ul className="mt-1.5 space-y-1 text-sm text-muted-foreground">
             {whatImproves.map((w) => (
-              <li key={w} className="flex gap-2"><span className="text-green-600">→</span>{w}</li>
+              <li key={w} className="flex gap-2"><span className="text-primary">→</span>{w}</li>
             ))}
           </ul>
         </div>
@@ -115,7 +115,7 @@ export function AnalysisTransparency({
       {nextAction && (
         <Link
           href={nextAction.href}
-          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-700"
+          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary"
         >
           {nextAction.label}
           <ArrowRight size={16} aria-hidden="true" />
