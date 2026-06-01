@@ -245,31 +245,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-
-    // ── Drill library ───────────────────────────────────────────
-    {
-      url: `${BASE_URL}/drills/golf`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/drills/tennis`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/drills/baseball`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/drills/softball`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
+    // Note: /drills is an authenticated app route (blocked in robots.txt),
+    // and per-sport drill URLs (/drills/golf, etc.) are not standalone
+    // routes — so they are intentionally NOT listed in the sitemap.
   ];
 }

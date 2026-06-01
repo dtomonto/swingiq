@@ -1,0 +1,23 @@
+{
+  "$comment": "SwingIQ SEO content backlog. Each item is a candidate page. status: backlog | drafting | published. Promote to apps/web/src/content/seoPages.ts only when fully written (no thin pages).",
+  "items": [
+    { "keyword": "how to fix a slice", "sport": "golf", "intent": "informational", "funnelStage": "consideration", "priority": 1, "slug": "golf/fix-slice", "cta": "Analyze My Slice Free", "status": "published" },
+    { "keyword": "why do I slice my driver", "sport": "golf", "intent": "informational", "funnelStage": "awareness", "priority": 2, "slug": "golf/why-do-i-slice-my-driver", "cta": "Analyze My Driver Swing Free", "status": "published" },
+    { "keyword": "launch monitor analysis", "sport": "golf", "intent": "commercial", "funnelStage": "consideration", "priority": 1, "slug": "golf/launch-monitor-analysis", "cta": "Import My Launch Data Free", "status": "published" },
+    { "keyword": "practice golf at home", "sport": "golf", "intent": "informational", "funnelStage": "consideration", "priority": 2, "slug": "golf/practice-at-home", "cta": "Build My Home Practice Plan", "status": "published" },
+    { "keyword": "high handicap swing analysis", "sport": "golf", "intent": "informational", "funnelStage": "consideration", "priority": 3, "slug": "golf/high-handicap-swing-analysis", "cta": "Analyze My Swing Free", "status": "backlog" },
+    { "keyword": "slow pitch softball power", "sport": "softball", "intent": "informational", "funnelStage": "consideration", "priority": 2, "slug": "softball/slow-pitch-power", "cta": "Analyze My Softball Swing Free", "status": "published" },
+    { "keyword": "how to hit line drives softball", "sport": "softball", "intent": "informational", "funnelStage": "consideration", "priority": 2, "slug": "softball/how-to-hit-line-drives", "cta": "Analyze My Swing Free", "status": "published" },
+    { "keyword": "stop popping up softball", "sport": "softball", "intent": "informational", "funnelStage": "consideration", "priority": 3, "slug": "softball/stop-popping-up", "cta": "Analyze My Swing Free", "status": "backlog" },
+    { "keyword": "youth baseball hitting", "sport": "baseball", "intent": "informational", "funnelStage": "consideration", "priority": 2, "slug": "baseball/youth-hitting", "cta": "See How SwingIQ Helps Parents", "status": "published" },
+    { "keyword": "youth baseball hitting for parents", "sport": "baseball", "intent": "informational", "funnelStage": "consideration", "priority": 3, "slug": "parents/youth-baseball-hitting", "cta": "See How SwingIQ Helps Parents", "status": "backlog" },
+    { "keyword": "tennis forehand analysis", "sport": "tennis", "intent": "informational", "funnelStage": "consideration", "priority": 2, "slug": "tennis/forehand-analysis", "cta": "Analyze My Forehand Free", "status": "published" },
+    { "keyword": "free swing analysis", "sport": "multi", "intent": "transactional", "funnelStage": "conversion", "priority": 1, "slug": "free-swing-analysis", "cta": "Analyze My Swing Free", "status": "published" },
+    { "keyword": "swing app vs private lessons", "sport": "multi", "intent": "commercial", "funnelStage": "consideration", "priority": 3, "slug": "compare/private-lessons", "cta": "Try SwingIQ Free", "status": "backlog" },
+    { "keyword": "youtube swing tips vs analysis", "sport": "multi", "intent": "commercial", "funnelStage": "consideration", "priority": 3, "slug": "compare/youtube-swing-tips", "cta": "Try SwingIQ Free", "status": "backlog" },
+    { "keyword": "how to stop topping the golf ball", "sport": "golf", "intent": "informational", "funnelStage": "consideration", "priority": 3, "slug": "golf/stop-topping-the-ball", "cta": "Analyze My Swing Free", "status": "backlog" },
+    { "keyword": "tennis backhand basics", "sport": "tennis", "intent": "informational", "funnelStage": "awareness", "priority": 4, "slug": "tennis/backhand-basics", "cta": "Analyze My Backhand Free", "status": "backlog" },
+    { "keyword": "baseball exit velocity drills", "sport": "baseball", "intent": "informational", "funnelStage": "consideration", "priority": 3, "slug": "baseball/exit-velocity-drills", "cta": "Analyze My Swing Free", "status": "backlog" },
+    { "keyword": "fast pitch softball timing", "sport": "softball", "intent": "informational", "funnelStage": "consideration", "priority": 3, "slug": "softball/fast-pitch-timing", "cta": "Analyze My Swing Free", "status": "backlog" }
+  ]
+}
