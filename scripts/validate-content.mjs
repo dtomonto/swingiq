@@ -41,7 +41,7 @@ const emails = walk(emailDir, ['.md']);
 if (emails.length === 0) errors.push('No email templates found in content/emails');
 for (const f of emails) {
   const txt = readFileSync(f, 'utf8');
-  const fm = /^---\n([\s\S]*?)\n---/.exec(txt);
+  const fm = /^---\r?\n([\s\S]*?)\r?\n---/.exec(txt);
   if (!fm) { errors.push(`${f} has no frontmatter`); continue; }
   if (!/\bid:\s*\S/.test(fm[1])) errors.push(`${f} frontmatter missing id`);
   if (!/\bsubject:\s*\S/.test(fm[1])) errors.push(`${f} frontmatter missing subject`);

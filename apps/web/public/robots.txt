@@ -58,10 +58,15 @@ Allow: /golf/fix-slice
 Allow: /golf/why-do-i-slice-my-driver
 Allow: /golf/launch-monitor-analysis
 Allow: /golf/practice-at-home
+Allow: /golf/high-handicap-swing-analysis
+Allow: /golf/stop-topping-the-ball
 Allow: /softball/slow-pitch-power
 Allow: /softball/how-to-hit-line-drives
+Allow: /softball/stop-popping-up
 Allow: /baseball/youth-hitting
+Allow: /baseball/exit-velocity-drills
 Allow: /tennis/forehand-analysis
+Allow: /tennis/backhand-basics
 
 # ── Free growth tools ──────────────────────────────────────────
 Allow: /tools/
