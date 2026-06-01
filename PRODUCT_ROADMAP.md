@@ -4,6 +4,21 @@ _Last updated: May 2026_
 
 ---
 
+## 📘 In Plain English (start here)
+
+**What this page is:** The plan for where SwingIQ is heading — what's already built, what's hoped for in the next 30, 60, and 90 days, and ideas for charging money later.
+
+**What you actually need to know:**
+- This is a **planning and wish-list document**, not a list of things that are broken or things you must do today.
+- Items marked **✅ Done** are finished. Everything else is a goal, not a promise or a deadline.
+- The pricing tiers (Free, Pro at $12/month, Team at $49/month) are **proposals** — none of them are live or charging anyone yet.
+
+**What to do next:** Nothing is required. Use this page to decide what to prioritize, or to brief a developer, contractor, or AI assistant on the direction.
+
+> The sections below use some technical shorthand (feature names, file paths). You can read it as a plain list of "done vs. planned" and skip anything that looks like code.
+
+---
+
 ## Current State (Built)
 
 ### Core Platform

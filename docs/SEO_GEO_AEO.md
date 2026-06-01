@@ -4,6 +4,21 @@ This document explains SwingIQ's strategy for being found by search engines (SEO
 
 **Written for:** App owners who want to understand how the app gets discovered, and developers implementing content improvements.
 
+## 📘 In Plain English (start here)
+
+**What this page is:** How people — and AI tools like ChatGPT — find SwingIQ on the internet, and how to grow that traffic steadily over time.
+
+**What you actually need to know:**
+- The three letter-soup terms simply mean: **SEO** = show up in Google searches. **GEO** = get mentioned when someone asks an AI tool (ChatGPT, Perplexity). **AEO** = directly answer the exact question someone asks out loud or types.
+- The foundation is **already built** — sport landing pages, an FAQ, a glossary, and the behind-the-scenes settings search engines look for. Growth from here is mostly about adding a little good content regularly.
+- The single most important one-time setup after you go live: **Google Search Console** (free, ~30 minutes) so you can see what people search to find you.
+
+**What to do next (your steps, after launch):**
+1. Set up Google Search Console and submit your sitemap (steps are in the "Google Search Console Setup" section below).
+2. Once a month, publish one small piece of content (a blog post, a few new glossary terms, or an update entry).
+
+> The checklists and code boxes further down are for whoever writes or builds the pages — a developer, a content writer, or an AI assistant. The concepts, though, are written for you.
+
 ---
 
 ## What These Three Terms Mean

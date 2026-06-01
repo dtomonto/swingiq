@@ -1,10 +1,25 @@
 # SwingIQ — Growth Implementation Guide
 
 This document tracks the SwingIQ Growth Operating System: what is built, what is
-still manual, and how to operate and extend each piece. It is written to be
-readable by a non-developer owner — every step is spelled out.
+still manual, and how to operate and extend each piece.
 
 Last updated: May 31, 2026.
+
+---
+
+## 📘 In Plain English (start here)
+
+**What this page is:** A progress log of the "growth" features — the trust badges, search-friendly pages, free tools, email sign-up forms, and usage analytics — listing what's finished and what still needs you.
+
+**What you actually need to know — the only four things on your plate:**
+1. **Set up your email inboxes.** Make sure `support@swingiq.app`, `privacy@swingiq.app`, and `security@swingiq.app` actually receive mail (set up forwarding at your domain/email host). The site now shows these addresses publicly, so they need to work.
+2. **(Optional) Turn on analytics.** Add a Google Analytics ID to see your visitor numbers. Leave it off and the site stays private. (Steps in section 5 below.)
+3. **(Optional) Turn on email capture.** Connect one email provider (Resend, ConvertKit, or Mailchimp) so sign-up forms actually save addresses. Until you do, the forms honestly tell people their address was not stored. (Steps in section 6.)
+4. **Get legal review** of your Privacy Policy and Terms before charging money or scaling up.
+
+**What to do next:** Handle item 1 (inboxes) soon; items 2–4 when you're ready. Everything else on this page — the file names, code, and command lines — is for a developer or an AI assistant.
+
+> The rest of this page lists exactly what was built and where it lives in the code. It's a reference for a developer or an AI assistant; you only need the four items above.
 
 ---
 

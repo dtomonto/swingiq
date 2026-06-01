@@ -4,6 +4,21 @@
 
 ---
 
+## 📘 In Plain English (start here)
+
+**What this page is:** A quick technical "map" of the project — what each part is built with, where every page lives, and the commands a developer runs.
+
+**What you actually need to know:**
+- This is a reference sheet for a developer or an AI assistant, not a to-do list for you.
+- One useful fact for you: right now the app saves everything **in your browser** and works fully **without a database**. It only needs the Supabase database once you want accounts, logins, and syncing across devices.
+- If something here ever contradicts what you see in the app, trust the app — this is a snapshot that can drift over time.
+
+**What to do next:** Nothing. If you bring in a developer or ask an AI assistant for help, hand them this page and they'll understand the whole project in a few minutes.
+
+> Everything below this point is a technical reference for a developer or an AI assistant. You don't need to read it to use or run SwingIQ.
+
+---
+
 ## Architecture Summary
 
 SwingIQ is a **Turborepo monorepo** with the following workspaces:

@@ -2,6 +2,19 @@
 
 This document explains the major technical choices made when building SwingIQ and why each decision was made. It's written for developers joining the project, and also for the owner to understand why the app works the way it does.
 
+## 📘 In Plain English (start here)
+
+**What this page is:** A record of the big "what is SwingIQ built with, and why" choices — like which website tool, which database, and which AI service it uses.
+
+**What you actually need to know:**
+- SwingIQ is built out of popular, mainstream tools that lots of people know. That's on purpose: it makes the app cheaper to host, easier to get help with, and more likely to keep working for years.
+- You are not locked in to any single company. The app is built so the AI provider, the database, and even the website framework can be swapped later if needed.
+- Nothing on this page is a task for you. It's the "why it's built this way" background.
+
+**What to do next:** Nothing is required. If you're curious, read the bold **Decision** and **Why** lines in each section — you can safely skip the code boxes. If you ever hire a developer or ask an AI assistant for help, point them here first; it gets them up to speed fastest.
+
+> Everything below this point is technical background for a developer or an AI assistant helping you. You don't need to read or understand it to use or run SwingIQ.
+
 ---
 
 ## How to Read This Document

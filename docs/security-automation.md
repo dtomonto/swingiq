@@ -4,6 +4,21 @@ This document explains the automated security systems that run on every push and
 
 ---
 
+## 📘 In Plain English (start here)
+
+**What this page is:** A description of the automatic safety checks that run by themselves every time the app's code is changed on GitHub.
+
+**What you actually need to know:**
+- These checks run **on their own** — you don't start them or watch them. Every code change is automatically scanned for leaked passwords, known security holes in outside software, and coding mistakes.
+- The one-time setup that's on you is in GitHub's settings (also listed in [OWNER_TASKS.md](OWNER_TASKS.md)): turning on secret scanning, Dependabot, and "branch protection" (a rule that stops bad code from being merged).
+- **Dependabot** is a helper that automatically suggests fixes when outside software the app relies on has a security update. When it opens a suggestion and the checks pass, you can accept it.
+
+**What to do next:** Do the GitHub security switches in [OWNER_TASKS.md](OWNER_TASKS.md). You can ignore the command-line examples on this page unless a developer or AI assistant is helping you.
+
+> The rest of this page (workflow names, commands, `git filter-repo`, etc.) is for a developer or an AI assistant maintaining the project. None of it is required to run SwingIQ.
+
+---
+
 ## Overview of Workflows
 
 ### 1. `security-audit.yml` — Main Security Audit

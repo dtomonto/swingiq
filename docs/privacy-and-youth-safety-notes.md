@@ -7,6 +7,21 @@ Last updated: May 31, 2026.
 
 ---
 
+## 📘 In Plain English (start here)
+
+**What this page is:** Short, plain notes on how SwingIQ protects privacy, how it treats young athletes, and the claims it is careful **not** to make. This whole page is written for you — there's no developer-only section to skip.
+
+**What you actually need to know:**
+- **Private by default.** Before anyone makes an account, their data stays in their own browser. Videos are analyzed on the device, not uploaded. Nothing is shared publicly unless the user chooses to — and even then it's a text summary, never the raw video.
+- **Young athletes are handled carefully.** SwingIQ is not aimed at children under 13, and for anyone under 18 it asks a parent or guardian to manage uploads and review results. Youth data is never made public by default.
+- **Honest claims only.** SwingIQ does **not** claim to be certified under any privacy law (COPPA, GDPR, CCPA), does not give medical advice, and does not promise guaranteed results or show fake reviews/ratings.
+
+**What to do next (your steps):**
+1. Make sure the three contact inboxes work: `privacy@swingiq.app`, `support@swingiq.app`, `security@swingiq.app`.
+2. Get a lawyer to review your Privacy Policy and Terms before you charge money or grow into regulated areas.
+
+---
+
 ## 1. Safety posture (what's true today)
 
 - **Local-first by default.** Pre-account data lives in the browser, not on a
