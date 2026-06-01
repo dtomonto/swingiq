@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Shield, Lock, Eye, Trash2, AlertTriangle, Users, CheckCircle } from 'lucide-react';
+import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Trust & Safety | SwingIQ',
@@ -114,11 +115,14 @@ export default function TrustPage() {
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-2">Contact &amp; reporting</h2>
           <p className="text-sm text-gray-600">
-            If you have a privacy concern, a data deletion request, or a security issue to report, email us at{' '}
-            <strong>[contact email — add before launch]</strong>. We will respond within a reasonable timeframe.
+            For a privacy concern or data deletion request, email{' '}
+            <a href={`mailto:${siteConfig.privacyEmail}`} className="text-green-700 font-semibold hover:underline">{siteConfig.privacyEmail}</a>.
+            To report a security issue, email{' '}
+            <a href={`mailto:${siteConfig.securityEmail}`} className="text-green-700 font-semibold hover:underline">{siteConfig.securityEmail}</a>.
+            We will respond within a reasonable timeframe.
           </p>
           <p className="text-xs text-gray-400 mt-2 italic">
-            This page reflects our current practices and intentions. SwingIQ is a pre-launch product. Attorney review of our formal Privacy Policy and Terms of Service is recommended before commercial launch.
+            This page reflects our current practices in plain English. We have not certified compliance with specific regulatory frameworks, and recommend independent legal review of our Privacy Policy and Terms before scaling commercially.
           </p>
         </section>
 

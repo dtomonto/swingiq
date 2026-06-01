@@ -1,5 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import {
+  TrustBar,
+  LiveAndFreeBadge,
+  SampleReportPreview,
+  PrivacyAssuranceBlock,
+  YouthSafetyNotice,
+  NotCoachReplacementNotice,
+} from '@/components/trust';
 
 export const metadata: Metadata = {
   title: 'SwingIQ — Free AI Swing Analysis for Golf, Tennis, Baseball & Softball',
@@ -48,22 +56,26 @@ export default function HomePage() {
             </div>
             <span className="text-white font-bold text-2xl">SwingIQ</span>
           </div>
+          <div className="mb-4 flex justify-center">
+            <LiveAndFreeBadge />
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
             Free AI Swing Analysis for<br />
             <span className="text-green-400">Golf, Tennis, Baseball &amp; Softball</span>
           </h1>
           <p className="text-green-100 text-xl mb-10 max-w-2xl mx-auto">
-            Upload a swing video, choose your sport, and get a sport-specific AI breakdown with your top mechanical issue, personalized drills, and a practice plan.
+            Upload a swing video or swing data. Get your top issue, beginner-safe drills, and a practice plan.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/dashboard" className="bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors">
               Analyze My Swing Free
             </Link>
-            <Link href="/how-it-works" className="border border-green-400 text-green-200 hover:bg-green-900 font-semibold px-8 py-4 rounded-xl text-lg transition-colors">
-              See How It Works
+            <Link href="#sample-report" className="border border-green-400 text-green-200 hover:bg-green-900 font-semibold px-8 py-4 rounded-xl text-lg transition-colors">
+              See Sample Report
             </Link>
           </div>
-          <p className="text-green-400 text-sm mt-4">No account required · No credit card · 100% free</p>
+          <p className="text-green-300 text-sm mt-5">No account required. No credit card. Private by default.</p>
+          <TrustBar className="mt-6 text-green-200" />
         </div>
       </section>
 
@@ -117,6 +129,40 @@ export default function HomePage() {
                 <p className="text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sample report preview */}
+      <section id="sample-report" className="scroll-mt-16 py-16 px-4 bg-gray-50">
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">See what you&apos;ll get</h2>
+            <p className="text-gray-600 mb-4">
+              Every analysis leads with your single highest-priority issue — not an overwhelming list.
+              You get the top fix, three beginner-safe drills tied to that issue, and a simple practice plan.
+            </p>
+            <Link href="/dashboard" className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors">
+              Analyze My Swing Free
+            </Link>
+          </div>
+          <SampleReportPreview />
+        </div>
+      </section>
+
+      {/* Parent & coach trust */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-3">Built for confident, private practice</h2>
+          <p className="text-center text-gray-500 mb-10 max-w-2xl mx-auto">
+            Parents, coaches, and players can trust how SwingIQ handles data and sets honest expectations.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6 items-start">
+            <PrivacyAssuranceBlock />
+            <div className="space-y-4">
+              <YouthSafetyNotice />
+              <NotCoachReplacementNotice />
+            </div>
           </div>
         </div>
       </section>

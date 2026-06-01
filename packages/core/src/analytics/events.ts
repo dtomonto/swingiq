@@ -49,6 +49,28 @@ export const ANALYTICS_EVENTS = {
   // Marketing
   PRICING_VIEWED: 'pricing_viewed',
   CONVERSION_CTA_CLICKED: 'conversion_cta_clicked',
+  CTA_CLICKED: 'cta_clicked',
+  SAMPLE_REPORT_VIEWED: 'sample_report_viewed',
+  OUTBOUND_PARTNER_CLICKED: 'outbound_partner_clicked',
+
+  // Growth tools / quizzes
+  QUIZ_STARTED: 'quiz_started',
+  QUIZ_COMPLETED: 'quiz_completed',
+  TOOL_RESULT_GENERATED: 'tool_result_generated',
+
+  // Email capture
+  EMAIL_CAPTURE_VIEWED: 'email_capture_viewed',
+  EMAIL_CAPTURE_SUBMITTED: 'email_capture_submitted',
+
+  // Shareable reports
+  REPORT_COPIED: 'report_copied',
+  REPORT_SHARED: 'report_shared',
+  COACH_SHARE_CLICKED: 'coach_share_clicked',
+  PDF_DOWNLOADED: 'pdf_downloaded',
+
+  // Trust & safety
+  PRIVACY_PAGE_VIEWED: 'privacy_page_viewed',
+  PARENT_SAFETY_VIEWED: 'parent_safety_viewed',
 } as const;
 
 export type AnalyticsEventName =

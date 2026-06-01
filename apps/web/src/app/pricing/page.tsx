@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Pricing | SwingIQ — Free AI Swing Analysis',
@@ -77,7 +78,11 @@ export default function PricingPage() {
         </div>
 
         <p className="text-center text-sm text-gray-500 mt-12">
-          Have questions? Contact us at <strong>[Add contact email]</strong>.
+          Have questions? Contact us at{' '}
+          <a href={`mailto:${siteConfig.contactEmail}`} className="text-green-700 font-semibold hover:underline">
+            {siteConfig.contactEmail}
+          </a>
+          .
         </p>
       </div>
     </div>

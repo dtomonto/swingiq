@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Terms of Service | SwingIQ',
   description: 'SwingIQ terms of service — what you can expect from us and what we ask of you.',
   alternates: { canonical: '/terms' },
 };
+
+const EFFECTIVE_DATE = 'May 31, 2026';
 
 export default function TermsPage() {
   return (
@@ -14,7 +17,7 @@ export default function TermsPage() {
         <Link href="/dashboard" className="text-sm text-green-700 hover:underline mb-6 block">← Back to SwingIQ</Link>
 
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Terms of Service</h1>
-        <p className="text-sm text-gray-500 mb-8">Last updated: {new Date().getFullYear()}. <em>This is a placeholder. Attorney review is recommended before commercial launch.</em></p>
+        <p className="text-sm text-gray-500 mb-8">Effective date: {EFFECTIVE_DATE}. Written in plain English to describe how SwingIQ works today.</p>
 
         <div className="space-y-8 text-sm text-gray-700 leading-relaxed">
 
@@ -32,7 +35,7 @@ export default function TermsPage() {
               <li>Professional athletic training supervision</li>
               <li>Biomechanical laboratory measurement</li>
             </ul>
-            <p className="mt-3">SwingIQ provides heuristic analysis and educational information. Results are estimates and should not be treated as definitive measurements.</p>
+            <p className="mt-3">SwingIQ provides heuristic analysis and educational information. Results are estimates and should not be treated as definitive measurements. SwingIQ does not guarantee any specific athletic outcome, score improvement, or competitive result.</p>
           </section>
 
           <section>
@@ -63,8 +66,9 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3">7. Contact</h2>
-            <p>Questions? Reach us at: <strong>[Add contact email]</strong></p>
-            <p className="mt-2 text-xs text-gray-500 italic">Note: These terms are a practical placeholder. Legal review is strongly recommended before commercial launch.</p>
+            <p>Questions about these terms? Email{' '}
+              <a href={`mailto:${siteConfig.contactEmail}`} className="text-green-700 font-semibold hover:underline">{siteConfig.contactEmail}</a>.</p>
+            <p className="mt-2 text-xs text-gray-500 italic">These terms describe how SwingIQ works today in plain English. We recommend independent legal review before scaling commercially.</p>
           </section>
         </div>
       </div>
