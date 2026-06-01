@@ -25,6 +25,14 @@ deliberately do **not** automate.
 
 Run before every deploy: `npm run type-check && npm run lint && npm run audit:growth && npm run build`.
 
+**Accessibility:** `lint` now extends `plugin:jsx-a11y/recommended`, so most
+accessibility rules are enforced as errors. Seven rules with pre-existing
+violations in the older app surface (`label-has-associated-control`,
+`media-has-caption`, `no-autofocus`, `click-events-have-key-events`,
+`no-static-element-interactions`, `no-redundant-roles`,
+`interactive-supports-focus`) are set to **warn** in `apps/web/.eslintrc.json`
+and tracked for incremental cleanup. New code should satisfy them.
+
 ## 2. CI workflows (`.github/workflows/`)
 
 - **growth-ci.yml** (added): on push/PR to `master` — type-check, lint, build,
