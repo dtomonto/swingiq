@@ -4,6 +4,21 @@ This document explains how SwingIQ is built to stay relevant, adaptable, and tru
 
 **This is a strategic document** — it's useful for understanding where the platform is heading and why it's built the way it is.
 
+## 📘 In Plain English (start here)
+
+**What this page is:** The long-term thinking on how SwingIQ stays useful, flexible, and trustworthy for many years — not just today.
+
+**What you actually need to know — the 5 promises this page is built around:**
+1. **New sports can be added** without rebuilding the app.
+2. **You're never stuck with one AI company** — the AI service can be swapped by changing a single setting.
+3. **Your data is never trapped** — you can always export it and move it.
+4. **Old backups always work** — a backup from years ago will still load in a future version.
+5. **The code stays understandable** — so you, a future developer, or an AI assistant can maintain it.
+
+**What to do next:** Nothing. This is background and strategy, not a task list. The "Deferred Work" table near the end lists future ideas — it's a wish list, not things that are broken.
+
+> The sections below include some code examples and file names aimed at a developer or an AI assistant. You can skim the headings and skip those boxes.
+
 ---
 
 ## The "100-Year" Vision

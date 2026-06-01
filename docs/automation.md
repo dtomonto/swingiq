@@ -5,6 +5,20 @@ deliberately do **not** automate.
 
 ---
 
+## 📘 In Plain English (start here)
+
+**What this page is:** A list of what the project does by itself, what a human still has to do by hand, and — most importantly — the things SwingIQ **refuses** to automate on purpose.
+
+**What you actually need to know:**
+- The one section worth reading even as a non-developer is **"What we do NOT automate (by policy)"** near the bottom. It's a values and safety statement: no fake reviews or ratings, no spam or mass-messaging, no auto-posting to social media, and **youth data is never made public by default.** These are promises about how SwingIQ behaves.
+- The table of `npm run` commands is for a developer or an AI assistant — those are typed into a terminal, not something you click in the app.
+
+**What to do next:** Nothing required. If you ever wonder "does SwingIQ secretly spam people or fake reviews?", the answer is in the "What we do NOT automate" section — and it's no.
+
+> The command tables and CI/workflow sections below are a developer/AI reference. You don't need them to use or run SwingIQ.
+
+---
+
 ## 1. Scripts (run with `npm run <name>`)
 
 | Command | What it does | Fails build? |

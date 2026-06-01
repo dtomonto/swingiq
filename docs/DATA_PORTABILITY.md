@@ -4,6 +4,20 @@ This document explains how SwingIQ handles your data — what you can export, ho
 
 **Written for:** App owners and developers who need to understand the data portability system. For a user-facing guide, see `docs/DATA_IMPORT_GUIDE.md`.
 
+## 📘 In Plain English (start here)
+
+**What this page is:** A deeper look at how your data gets in and out of SwingIQ, and the privacy promises behind it.
+
+**What you actually need to know:**
+- **You own your data.** You can export everything as one file and load it back on any phone, tablet, or computer.
+- **Your actual swing videos never leave your device.** Only the analysis results (scores, detected issues) are saved — not the video itself. Keep your original video files separately if you want to hang on to them.
+- **Old backup files always still work.** When the app gets new features, it quietly upgrades your old backup during import so nothing breaks.
+- For the simple "how do I export / import" steps, see [DATA_IMPORT_GUIDE.md](DATA_IMPORT_GUIDE.md) and [WEB_APP_GUIDE.md](WEB_APP_GUIDE.md).
+
+**What to do next:** Nothing technical. The JSON examples and the "Developer Notes" section near the bottom are for a developer or an AI assistant — you can skip them.
+
+> The sections below get into the technical detail. You're welcome to read it, but you don't need any of it to export, back up, or restore your data.
+
 ---
 
 ## Core Philosophy

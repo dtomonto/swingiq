@@ -4,6 +4,19 @@ A production-grade, web-based AI swing development platform for **golf, tennis, 
 
 Web-first. Mobile-optimized. No app store required. Works on any phone, tablet, or desktop browser.
 
+## 📘 In Plain English (start here)
+
+**What this page is:** The technical "front door" to the project — mostly for a developer or an AI assistant. It lists every feature, the folder layout, the setup commands, and the technology behind SwingIQ.
+
+**What you actually need to know:**
+- **If you're the owner and just want to get the app running, don't start here.** Start with **[docs/BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md)** — it walks you through every step in plain language.
+- The app **works fully without any setup keys** — it saves your data in your browser. A database, logins, and live AI answers are optional add-ons you can turn on later.
+- The **Feature Overview** section just below is a complete, readable catalogue of what SwingIQ can do — handy to skim when you forget whether a feature exists.
+
+**What to do next:** Owner → open [docs/BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md). Developer or AI assistant → keep reading here.
+
+> The Quick Start, Architecture, API Routes, and Technology Stack sections further down are developer reference. You don't need to understand them to use SwingIQ — the feature list, though, is written for everyone.
+
 ---
 
 ## What SwingIQ Does

@@ -6,6 +6,20 @@ SEO = Search Engine Optimization | AEO = Answer Engine Optimization | GEO = Gene
 
 ---
 
+## 📘 In Plain English (start here)
+
+**What this page is:** An **earlier** version of the plan for getting SwingIQ found in Google and AI tools. It has since been replaced by **[docs/SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md)** — this file is kept only as background reference.
+
+**What you actually need to know:**
+- For the current, owner-friendly SEO strategy **and your actual to-do steps**, read [docs/SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md) instead. (Those three terms simply mean: show up in Google, get mentioned by AI tools, and answer the exact questions people ask.)
+- The detail below — keyword lists, page ideas, content "clusters" — is still useful raw material, but parts are out of date (some items marked "to create" already exist).
+
+**What to do next:** Use [docs/SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md) as your main SEO guide. Treat this page as an old draft you can mine for ideas.
+
+> The checklists and formulas below are working notes for whoever writes or builds pages — a developer, a content writer, or an AI assistant.
+
+---
+
 ## Page Map (All Public Routes)
 
 | Route | Type | Primary Keyword Target |

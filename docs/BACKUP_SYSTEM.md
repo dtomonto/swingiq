@@ -6,6 +6,21 @@
 
 ---
 
+## 📘 In Plain English (start here)
+
+**What this page is:** The under-the-hood blueprint for the **Download Backup / Restore Backup** feature in the app.
+
+**What you actually need to know:**
+- You never have to operate any of the machinery on this page. As a user, you just click **Download Backup** and **Restore** in the app. The simple, step-by-step instructions for that are in [WEB_APP_GUIDE.md](WEB_APP_GUIDE.md) (section 21) and [DATA_IMPORT_GUIDE.md](DATA_IMPORT_GUIDE.md).
+- The three promises this system keeps: a backup file holds **all** of your data, you can **password-protect** it, and an **old backup still works** even after the app is updated.
+- It's safe to back up often. Save the file somewhere safe (cloud drive, email to yourself). If you ever switch phones or browsers, restoring that file brings everything back.
+
+**What to do next:** To actually back up your data right now, follow the steps in [WEB_APP_GUIDE.md](WEB_APP_GUIDE.md). You can ignore the rest of this page.
+
+> Everything below this point is technical reference for a developer or an AI assistant adding new features to the backup system. You don't need to read it to back up or restore your data.
+
+---
+
 ## Overview
 
 SwingIQ stores all user data in the browser's `localStorage` via Zustand. Because there is no cloud sync yet (Supabase is schema-ready but not activated), data portability depends entirely on the backup/restore system.

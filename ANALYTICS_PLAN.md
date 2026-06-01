@@ -4,6 +4,21 @@ _Last updated: May 2026_
 
 ---
 
+## 📘 In Plain English (start here)
+
+**What this page is:** The plan for what SwingIQ would measure about how people use it — things like sign-ups, first analysis, and return visits — once you switch usage tracking on.
+
+**What you actually need to know:**
+- This is **strategy, not a task**, and **nothing is being tracked until you turn analytics on** (the simple how-to is in [docs/analytics-events.md](docs/analytics-events.md)).
+- The numbers here (like "target 40%") are **goals to aim for**, not current results.
+- "Funnel" just means the step-by-step path a person takes from first visit to becoming a regular user; this page maps those steps so you can see where people drop off.
+
+**What to do next:** Nothing required. If and when you turn on analytics, this page tells you which numbers actually matter so you don't drown in data.
+
+> The event tables, funnel diagrams, and "Implementation Notes" below are reference for a developer or an AI assistant wiring up tracking. You don't need them to use SwingIQ.
+
+---
+
 ## Event Taxonomy
 
 Events are referenced as `ANALYTICS_EVENTS` constants in the codebase. All events follow the naming convention: `object_action` (e.g., `session_imported`, `diagnosis_viewed`).

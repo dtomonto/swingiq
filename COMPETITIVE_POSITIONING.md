@@ -4,6 +4,19 @@ _Last updated: May 2026_
 
 ---
 
+## 📘 In Plain English (start here)
+
+**What this page is:** The "how SwingIQ is different and who it's for" summary — the most useful page here when you describe the product to others, write your website copy, or post on social media. The whole page is plain English; there's no technical section to skip.
+
+**What you actually need to know — the short version:**
+- **What makes SwingIQ different:** it covers five sports in one place, the core analysis is free, it never sells your data, it combines a rules engine with AI (so findings are traceable, not guesses), and it works with any device's data.
+- **Who it's for:** self-coached athletes, youth athletes and their parents, coaches/facilities (the paying segment), and serious amateur golfers.
+- **What SwingIQ is NOT:** not a coach replacement, not a hardware company, not a data seller, not an entertainment toy. Use these lines to set honest expectations.
+
+**What to do next:** Borrow this language directly for your homepage, pitches, and posts. It's already written the way you'd want to say it.
+
+---
+
 ## Category
 
 **AI Swing Development Platform** — not a launch monitor, not a coaching app, not a stats tracker. SwingIQ sits at the intersection of all three and connects them into a development workflow.

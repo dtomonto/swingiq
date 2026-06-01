@@ -4,6 +4,22 @@ This document covers everything related to keeping SwingIQ users safe — how da
 
 **Audience:** App owner (non-developer), developers, and anyone doing a security review.
 
+## 📘 In Plain English (start here)
+
+**What this page is:** How SwingIQ keeps users' information safe, what protection is already built in, and the few safety tasks only you can do before you open the app to the public.
+
+**What you actually need to know:**
+- **Already true today (good news):** swing videos stay on the user's own device, secret keys are kept out of the code, and automatic scans check every code change for problems.
+- **Your to-do items before launch** (these also appear in [OWNER_TASKS.md](OWNER_TASKS.md)):
+  1. Make sure a real security email (`security@swingiq.app`) exists and reaches you.
+  2. Turn on the GitHub security switches (secret scanning, Dependabot, branch protection).
+  3. Have a lawyer review your Privacy Policy and Terms before you collect real users' data.
+- **If data is ever exposed,** there's a step-by-step "Data Breach Response Plan" lower down — find it and follow it in order.
+
+**What to do next:** Work through the security items in [OWNER_TASKS.md](OWNER_TASKS.md). Think of this page as the plain-English "why" behind those checkboxes.
+
+> The deeper sections below (OWASP table, security headers, code examples) are written for a developer or an AI assistant doing a security review. You don't need to understand them to do your part.
+
 ---
 
 ## Security Philosophy
