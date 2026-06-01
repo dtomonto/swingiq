@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ExternalLink, ChevronDown, ChevronUp, Youtube } from 'lucide-react';
+import { ExternalLink, ChevronDown, ChevronUp, Video } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { cn } from '@/lib/utils';
 import type { VideoDrillRecommendation, DrillOutcome } from '@swingiq/core';
@@ -96,7 +96,7 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
             className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700 hover:bg-red-100 transition-colors"
             onClick={() => handleInteraction('felt_helpful')}
           >
-            <Youtube className="w-4 h-4 flex-shrink-0" />
+            <Video className="w-4 h-4 flex-shrink-0" />
             <span className="flex-1 font-medium">Search YouTube: {drill.youtube_search_query}</span>
             <ExternalLink className="w-3.5 h-3.5 flex-shrink-0 opacity-60" />
           </a>
