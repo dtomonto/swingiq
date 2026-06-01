@@ -48,7 +48,7 @@ export function WelcomeBackCard({
 
   return (
     <section
-      className="relative overflow-hidden rounded-2xl bg-linear-to-br from-primary via-green-800 to-golf-dark text-white p-6 shadow-md"
+      className="relative overflow-hidden rounded-2xl bg-linear-to-br from-primary to-primary/75 text-primary-foreground p-6 shadow-md"
       role="region"
       aria-label="Welcome back"
     >

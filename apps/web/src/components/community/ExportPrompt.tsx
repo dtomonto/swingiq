@@ -122,7 +122,7 @@ export function ExportPrompt({
       className={`rounded-xl border p-5 space-y-4 ${
         isCritical
           ? 'bg-error/10 border-error/30'
-          : 'bg-linear-to-br from-green-50 to-emerald-50 border-primary/30'
+          : 'bg-linear-to-br from-primary/10 to-primary/10 border-primary/30'
       }`}
       role={isCritical ? 'alertdialog' : 'complementary'}
       aria-label={t('data.downloadBackup')}
@@ -141,7 +141,7 @@ export function ExportPrompt({
         </div>
         <div className="flex-1">
           <p
-            className={`text-sm font-semibold ${isCritical ? 'text-red-900' : 'text-primary'}`}
+            className={`text-sm font-semibold ${isCritical ? 'text-error' : 'text-primary'}`}
           >
             {isCritical ? t('data.exportBeforeClear') : t('data.promptValueOfData')}
           </p>

@@ -52,7 +52,7 @@ export function AgentInsightCard({
               <button
                 onClick={() => onDismiss(insight.id)}
                 aria-label={`Dismiss: ${insight.title}`}
-                className="text-muted-foreground hover:text-muted-foreground -mt-0.5 -mr-1 p-1 rounded-sm focus:outline-hidden focus:ring-2 focus:ring-gray-300"
+                className="text-muted-foreground hover:text-muted-foreground -mt-0.5 -mr-1 p-1 rounded-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
               >
                 <X size={14} />
               </button>

@@ -52,7 +52,7 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
       className={cn(
         'bg-card rounded-xl border shadow-xs overflow-hidden',
         featured
-          ? 'border-primary/40 ring-2 ring-green-200'
+          ? 'border-primary/40 ring-2 ring-primary/30'
           : 'border-border',
         update.isMajorMilestone && !featured && 'border-l-4 border-l-primary',
         className,

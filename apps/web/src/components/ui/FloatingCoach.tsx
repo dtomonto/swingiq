@@ -181,7 +181,7 @@ export function FloatingCoach() {
         onClick={() => setOpen(!open)}
         className={cn(
           'fixed bottom-6 right-4 lg:right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all',
-          open ? 'bg-gray-700 hover:bg-gray-600' : 'bg-golf-dark hover:bg-primary',
+          open ? 'bg-secondary hover:bg-muted' : 'bg-golf-dark hover:bg-primary',
         )}
         aria-label="Open AI Coach"
       >

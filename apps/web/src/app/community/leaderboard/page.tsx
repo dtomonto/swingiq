@@ -44,7 +44,7 @@ export default function LeaderboardPage() {
       <div className="p-4 sm:p-6 space-y-6 max-w-3xl mx-auto pb-24">
         <div>
           <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
-            <Trophy size={24} className="text-amber-500" aria-hidden="true" />
+            <Trophy size={24} className="text-warning" aria-hidden="true" />
             {t('leaderboard.title')}
           </h1>
           <p className="text-muted-foreground text-sm mt-1">{t('leaderboard.subtitle')}</p>
@@ -101,7 +101,7 @@ export default function LeaderboardPage() {
                   {/* Current user's entry */}
                   <tr className="bg-primary/10 border-b border-primary/20">
                     <td className="px-4 py-3">
-                      <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-400 text-white text-xs font-bold" aria-label="Rank 1">
+                      <span className="flex items-center justify-center w-7 h-7 rounded-full bg-warning text-white text-xs font-bold" aria-label="Rank 1">
                         1
                       </span>
                     </td>

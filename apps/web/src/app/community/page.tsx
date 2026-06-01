@@ -131,7 +131,7 @@ export default function CommunityPage() {
             bg="bg-accent-secondary/10"
           />
           <StatCard
-            icon={<Trophy size={20} className="text-amber-500" aria-hidden="true" />}
+            icon={<Trophy size={20} className="text-warning" aria-hidden="true" />}
             label={t('common.badges')}
             value={String(allEarned.length)}
             bg="bg-warning/10"
@@ -237,7 +237,7 @@ export default function CommunityPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2">
-                  <Award size={18} className="text-amber-500" aria-hidden="true" />
+                  <Award size={18} className="text-warning" aria-hidden="true" />
                   {t('community.recentBadges')}
                 </CardTitle>
                 <Link href="/community/badges" className="text-sm text-primary font-medium hover:underline">

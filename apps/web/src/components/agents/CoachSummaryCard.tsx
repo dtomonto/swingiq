@@ -54,11 +54,11 @@ export function CoachSummaryCard() {
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="flex items-center gap-2">
           <MessageSquareQuote size={18} className="text-warning" />
-          <CardTitle className="text-orange-900">Prep for your coach</CardTitle>
+          <CardTitle className="text-foreground">Prep for your coach</CardTitle>
         </div>
         <Button
           size="sm"
-          className="bg-orange-600 hover:bg-orange-700 text-white"
+          className="bg-warning text-warning-foreground hover:bg-warning/90"
           onClick={handleCopy}
         >
           {copied ? (<><CheckCircle size={14} /> Copied!</>) : (<><Copy size={14} /> Copy</>)}

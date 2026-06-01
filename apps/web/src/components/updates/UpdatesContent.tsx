@@ -55,7 +55,7 @@ function MilestoneTimeline({ milestones }: MilestoneProps) {
   return (
     <div className="relative">
       {/* Vertical line */}
-      <div className="absolute left-5 top-0 bottom-0 w-px bg-green-200 hidden sm:block" aria-hidden="true" />
+      <div className="absolute left-5 top-0 bottom-0 w-px bg-primary/30 hidden sm:block" aria-hidden="true" />
       <ol className="space-y-6">
         {milestones.map((m, i) => (
           <li key={m.id} className="flex gap-4 sm:gap-6">
@@ -134,7 +134,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
     <>
       {/* ── Featured / Latest update ───────────────────────────────────── */}
       {featured && !hasFilters && (
-        <section className="py-12 px-4 bg-primary/10 border-b border-green-100">
+        <section className="py-12 px-4 bg-primary/10 border-b border-primary/20">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-lg font-bold text-primary mb-4 uppercase tracking-wide text-sm">
               Latest Update

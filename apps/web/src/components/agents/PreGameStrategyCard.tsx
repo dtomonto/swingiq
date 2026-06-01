@@ -17,7 +17,7 @@ export function PreGameStrategyCard() {
   if (!ready || !plan) return null;
 
   return (
-    <Card className="border-accent-secondary/25 bg-linear-to-br from-indigo-50 to-white">
+    <Card className="border-accent-secondary/25 bg-linear-to-br from-accent-secondary/10 to-card">
       <CardHeader className="flex flex-row items-center gap-2">
         <Brain size={16} className="text-accent-secondary" />
         <CardTitle>{plan.title}</CardTitle>
@@ -30,7 +30,7 @@ export function PreGameStrategyCard() {
           <ul className="space-y-1">
             {plan.swingThoughts.map((t, i) => (
               <li key={i} className="text-sm font-medium text-foreground flex items-start gap-2">
-                <span className="text-indigo-500">•</span>
+                <span className="text-accent-secondary">•</span>
                 {t}
               </li>
             ))}

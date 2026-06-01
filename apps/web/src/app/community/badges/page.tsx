@@ -55,7 +55,7 @@ export default function BadgesPage() {
         {/* Header */}
         <div>
           <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
-            <Award size={24} className="text-amber-500" aria-hidden="true" />
+            <Award size={24} className="text-warning" aria-hidden="true" />
             {t('achievements.title')}
           </h1>
           <p className="text-muted-foreground text-sm mt-1">{t('achievements.subtitle')}</p>

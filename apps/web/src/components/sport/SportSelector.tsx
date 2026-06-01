@@ -98,7 +98,7 @@ export function SportPillDropdown({ className, onClose }: SportPillDropdownProps
             aria-hidden="true"
           />
           {/* Dropdown */}
-          <div className="absolute bottom-full left-0 right-0 mb-1 z-20 bg-secondary border border-green-800 rounded-xl shadow-xl overflow-hidden">
+          <div className="absolute bottom-full left-0 right-0 mb-1 z-20 bg-secondary border border-border rounded-xl shadow-xl overflow-hidden">
             {ALL_SPORTS_INCLUDING_GOLF.map((sport) => {
               const isActive = activeSport === sport.id;
               return (
@@ -122,7 +122,7 @@ export function SportPillDropdown({ className, onClose }: SportPillDropdownProps
                 </button>
               );
             })}
-            <div className="px-3 py-2 border-t border-green-800/50">
+            <div className="px-3 py-2 border-t border-border/50">
               <p className="text-xs text-primary">
                 Select your sport to get tailored swing coaching.
               </p>

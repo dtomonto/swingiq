@@ -33,7 +33,7 @@ export function AgentPracticePlanCard() {
       <CardBody className="space-y-4">
         <div>
           <div className="flex items-center gap-2">
-            <Target size={15} className="text-indigo-500" />
+            <Target size={15} className="text-accent-secondary" />
             <p className="font-semibold text-foreground text-sm capitalize">{plan.practiceFocus}</p>
           </div>
           <p className="text-xs text-muted-foreground mt-1">{plan.whyThisPlan}</p>
@@ -77,7 +77,7 @@ export function AgentPracticePlanCard() {
             <div key={i} className="rounded-lg bg-card border border-border p-3">
               <div className="flex items-center justify-between gap-2">
                 <p className="font-semibold text-foreground text-sm flex items-center gap-1.5">
-                  <Dumbbell size={13} className="text-indigo-500" /> {d.name}
+                  <Dumbbell size={13} className="text-accent-secondary" /> {d.name}
                 </p>
                 <span className="text-xs text-muted-foreground whitespace-nowrap">{d.repsOrTime}</span>
               </div>
