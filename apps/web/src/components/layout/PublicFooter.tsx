@@ -21,12 +21,32 @@ const FOOTER_COLUMNS = [
     ],
   },
   {
+    heading: 'Free Tools',
+    links: [
+      { label: 'All Free Tools', href: '/tools' },
+      { label: 'Golf Slice Fixer', href: '/tools/golf-slice-fixer' },
+      { label: 'Swing Mistake Quiz', href: '/tools/swing-mistake-quiz' },
+      { label: 'Practice Plan Generator', href: '/tools/practice-plan-generator' },
+      { label: 'Challenges', href: '/challenges' },
+    ],
+  },
+  {
+    heading: 'For You',
+    links: [
+      { label: 'Parents', href: '/parents' },
+      { label: 'Coaches', href: '/coaches' },
+      { label: 'Teams', href: '/teams' },
+      { label: 'Creators', href: '/creators' },
+      { label: 'Facilities & Partners', href: '/partners' },
+    ],
+  },
+  {
     heading: 'Product',
     links: [
       { label: 'Features', href: '/features' },
       { label: 'Pricing', href: '/pricing' },
       { label: 'Sign Up Free', href: '/signup' },
-      { label: 'Parents', href: '/parents' },
+      { label: 'Sample Report', href: '/report/sample' },
     ],
   },
   {
@@ -63,7 +83,7 @@ export function PublicFooter({ className }: PublicFooterProps) {
         </div>
 
         {/* Link columns */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 mb-10">
           {FOOTER_COLUMNS.map((col) => (
             <div key={col.heading}>
               <h3 className="text-white text-sm font-semibold mb-3">{col.heading}</h3>
