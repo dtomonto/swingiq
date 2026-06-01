@@ -67,14 +67,18 @@ export default function HomePage() {
             Upload a swing video or swing data. Get your top issue, beginner-safe drills, and a practice plan.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/dashboard" className="bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors">
-              Analyze My Swing Free
+            <Link href="/start" className="bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors">
+              Start Here — Free
             </Link>
-            <Link href="#sample-report" className="border border-green-400 text-green-200 hover:bg-green-900 font-semibold px-8 py-4 rounded-xl text-lg transition-colors">
-              See Sample Report
+            <Link href="/dashboard" className="border border-green-400 text-green-200 hover:bg-green-900 font-semibold px-8 py-4 rounded-xl text-lg transition-colors">
+              Analyze My Swing
             </Link>
           </div>
-          <p className="text-green-300 text-sm mt-5">No account required. No credit card. Private by default.</p>
+          <p className="text-green-300 text-sm mt-5">
+            Your first result in about 3 minutes.{' '}
+            <Link href="#sample-report" className="underline hover:text-white">See a sample report</Link>.
+            <span className="block mt-1">No account required. No credit card. Private by default.</span>
+          </p>
           <TrustBar className="mt-6 text-green-200" />
         </div>
       </section>
@@ -251,8 +255,8 @@ export default function HomePage() {
       <section className="bg-[#1a3a2a] text-white py-16 px-4 text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">Start Improving Your Swing Today</h2>
         <p className="text-green-200 mb-8">Free AI analysis for golf, tennis, baseball, and softball. No account needed.</p>
-        <Link href="/dashboard" className="inline-block bg-green-500 hover:bg-green-400 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors">
-          Analyze My Swing Free
+        <Link href="/start" className="inline-block bg-green-500 hover:bg-green-400 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors">
+          Start Here — Free
         </Link>
       </section>
 
