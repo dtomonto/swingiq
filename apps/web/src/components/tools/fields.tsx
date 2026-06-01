@@ -24,7 +24,7 @@ export function ChoiceGroup({
 }) {
   return (
     <fieldset className="mb-5">
-      <legend className="mb-2 block text-sm font-semibold text-gray-900">{label}</legend>
+      <legend className="mb-2 block text-sm font-semibold text-foreground">{label}</legend>
       <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-2">
         {choices.map((c) => {
           const selected = value === c.value;
@@ -36,10 +36,10 @@ export function ChoiceGroup({
               aria-checked={selected}
               name={name}
               onClick={() => onChange(c.value)}
-              className={`rounded-xl border px-4 py-2 text-sm font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1 ${
+              className={`rounded-xl border px-4 py-2 text-sm font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 ${
                 selected
-                  ? 'border-green-600 bg-green-600 text-white'
-                  : 'border-gray-300 bg-white text-gray-700 hover:border-green-400'
+                  ? 'border-primary bg-primary text-white'
+                  : 'border-border bg-card text-foreground hover:border-primary/50'
               }`}
             >
               {c.label}
@@ -73,7 +73,7 @@ export function NumberField({
 }) {
   return (
     <div className="mb-5">
-      <label htmlFor={id} className="mb-2 block text-sm font-semibold text-gray-900">
+      <label htmlFor={id} className="mb-2 block text-sm font-semibold text-foreground">
         {label}
       </label>
       <div className="flex items-center gap-2">
@@ -86,9 +86,9 @@ export function NumberField({
           step={step}
           value={value}
           onChange={(e) => onChange(e.target.value === '' ? '' : Number(e.target.value))}
-          className="w-40 rounded-xl border border-gray-300 px-3 py-2 text-sm focus:border-green-500 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500"
+          className="w-40 rounded-xl border border-border px-3 py-2 text-sm focus:border-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
         />
-        {suffix && <span className="text-sm text-gray-500">{suffix}</span>}
+        {suffix && <span className="text-sm text-muted-foreground">{suffix}</span>}
       </div>
     </div>
   );

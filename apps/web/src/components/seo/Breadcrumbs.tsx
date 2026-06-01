@@ -20,21 +20,21 @@ export function Breadcrumbs({
   return (
     <>
       <nav aria-label="Breadcrumb" className={className}>
-        <ol className="flex flex-wrap items-center gap-1 text-sm text-gray-500">
+        <ol className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
           {items.map((item, i) => {
             const isLast = i === items.length - 1;
             return (
               <li key={item.path} className="flex items-center gap-1">
                 {isLast ? (
-                  <span aria-current="page" className="font-medium text-gray-700">
+                  <span aria-current="page" className="font-medium text-foreground">
                     {item.name}
                   </span>
                 ) : (
                   <>
-                    <Link href={item.path} className="hover:text-green-700 hover:underline">
+                    <Link href={item.path} className="hover:text-primary hover:underline">
                       {item.name}
                     </Link>
-                    <ChevronRight size={14} className="text-gray-400" aria-hidden="true" />
+                    <ChevronRight size={14} className="text-muted-foreground" aria-hidden="true" />
                   </>
                 )}
               </li>

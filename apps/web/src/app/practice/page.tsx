@@ -26,10 +26,10 @@ import {
 import { useLatestDiagnosedSession } from '@/store';
 
 const INTENSITY_COLORS: Record<string, string> = {
-  warmup: 'bg-blue-100 text-blue-700',
-  main: 'bg-green-100 text-green-700',
-  challenge: 'bg-orange-100 text-orange-700',
-  cool_down: 'bg-gray-100 text-gray-600',
+  warmup: 'bg-accent-secondary/15 text-accent-secondary',
+  main: 'bg-primary/15 text-primary',
+  challenge: 'bg-warning/15 text-warning',
+  cool_down: 'bg-muted text-muted-foreground',
 };
 
 const INTENSITY_LABELS: Record<string, string> = {
@@ -44,39 +44,39 @@ function PracticeDayCard({ day }: { day: WeekDay }) {
 
   if (day.rest) {
     return (
-      <Card className="border-dashed border-gray-200 opacity-70">
+      <Card className="border-dashed border-border opacity-70">
         <CardBody className="py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-gray-400 w-8">{day.day}</span>
-              <Coffee size={14} className="text-gray-300" />
-              <span className="text-sm text-gray-400">Rest Day</span>
+              <span className="font-bold text-muted-foreground w-8">{day.day}</span>
+              <Coffee size={14} className="text-muted-foreground" />
+              <span className="text-sm text-muted-foreground">Rest Day</span>
             </div>
           </div>
-          <p className="text-xs text-gray-400 mt-2 ml-10 italic">{day.mental_tip}</p>
+          <p className="text-xs text-muted-foreground mt-2 ml-10 italic">{day.mental_tip}</p>
         </CardBody>
       </Card>
     );
   }
 
   return (
-    <Card className="border-l-4 border-l-green-500">
+    <Card className="border-l-4 border-l-primary">
       <CardBody>
         <button
           className="w-full flex items-center justify-between text-left"
           onClick={() => setOpen(!open)}
         >
           <div className="flex items-center gap-3">
-            <span className="font-bold text-gray-900 w-8">{day.day}</span>
+            <span className="font-bold text-foreground w-8">{day.day}</span>
             <div>
-              <p className="text-sm font-semibold text-gray-900">{day.session_label}</p>
-              <p className="text-xs text-gray-500 flex items-center gap-2 mt-0.5">
+              <p className="text-sm font-semibold text-foreground">{day.session_label}</p>
+              <p className="text-xs text-muted-foreground flex items-center gap-2 mt-0.5">
                 <Clock size={10} />
                 {day.total_minutes} min · {day.balls_needed} balls
               </p>
             </div>
           </div>
-          <span className="text-xs text-green-600 font-medium">
+          <span className="text-xs text-primary font-medium">
             {open ? '▲ Hide' : '▼ Details'}
           </span>
         </button>
@@ -86,30 +86,30 @@ function PracticeDayCard({ day }: { day: WeekDay }) {
             {day.blocks.map((block, i) => (
               <div
                 key={i}
-                className="flex gap-3 p-3 rounded-lg bg-gray-50 border border-gray-200"
+                className="flex gap-3 p-3 rounded-lg bg-muted border border-border"
               >
                 <span
                   className={cn(
                     'text-xs font-semibold px-2 py-0.5 rounded-full h-fit mt-0.5',
-                    INTENSITY_COLORS[block.intensity] ?? 'bg-gray-100 text-gray-600',
+                    INTENSITY_COLORS[block.intensity] ?? 'bg-muted text-muted-foreground',
                   )}
                 >
                   {INTENSITY_LABELS[block.intensity] ?? block.intensity}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-gray-900">{block.title}</p>
-                  <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">
+                  <p className="text-sm font-semibold text-foreground">{block.title}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                     {block.description}
                   </p>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-muted-foreground">
                       {block.duration_minutes} min · Focus: {block.focus_metric.replace(/_/g, ' ')}
                     </span>
                     <a
                       href={`https://www.youtube.com/results?search_query=${encodeURIComponent(block.youtube_search_query)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-red-600 hover:underline"
+                      className="flex items-center gap-1 text-xs text-error hover:underline"
                     >
                       <ExternalLink size={10} />
                       YouTube
@@ -154,8 +154,8 @@ export default function PracticePage() {
         {/* Header */}
         <div className="flex items-start justify-between flex-wrap gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Practice Schedule</h1>
-            <p className="text-gray-500 text-sm mt-1">
+            <h1 className="text-2xl font-bold text-foreground">Practice Schedule</h1>
+            <p className="text-muted-foreground text-sm mt-1">
               {hasRealData
                 ? `Personalized for: ${diagnosisName}`
                 : 'Import session data for a personalized schedule'}
@@ -163,11 +163,11 @@ export default function PracticePage() {
           </div>
           <div className="flex items-center gap-3 flex-wrap">
             <div>
-              <label className="text-xs text-gray-500 block mb-1">Frequency</label>
+              <label className="text-xs text-muted-foreground block mb-1">Frequency</label>
               <select
                 value={frequency}
                 onChange={(e) => setFrequency(e.target.value as PracticeFrequency)}
-                className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
+                className="text-sm border border-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-ring outline-hidden bg-card"
               >
                 <option value="1x">1×/week</option>
                 <option value="2x">2×/week</option>
@@ -178,11 +178,11 @@ export default function PracticePage() {
               </select>
             </div>
             <div>
-              <label className="text-xs text-gray-500 block mb-1">Session Length</label>
+              <label className="text-xs text-muted-foreground block mb-1">Session Length</label>
               <select
                 value={sessionLength}
                 onChange={(e) => setSessionLength(e.target.value as SessionLength)}
-                className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
+                className="text-sm border border-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-ring outline-hidden bg-card"
               >
                 <option value="short">Short (20 min)</option>
                 <option value="medium">Medium (45 min)</option>
@@ -194,19 +194,19 @@ export default function PracticePage() {
 
         {/* No data banner */}
         {!hasRealData && (
-          <Card className="border-amber-200 bg-amber-50">
+          <Card className="border-warning/30 bg-warning/10">
             <CardBody className="flex items-center gap-3">
-              <Zap size={18} className="text-amber-600 shrink-0" />
+              <Zap size={18} className="text-warning shrink-0" />
               <div>
-                <p className="text-sm font-medium text-amber-800">
+                <p className="text-sm font-medium text-warning">
                   Using a sample schedule — no diagnosis yet
                 </p>
-                <p className="text-xs text-amber-600">
+                <p className="text-xs text-warning">
                   Import your launch monitor data to get a schedule built specifically for your swing faults.
                 </p>
                 <Link
                   href="/sessions/import"
-                  className="text-xs font-semibold text-green-700 hover:underline mt-1 block"
+                  className="text-xs font-semibold text-primary hover:underline mt-1 block"
                 >
                   Import your first session →
                 </Link>
@@ -219,42 +219,42 @@ export default function PracticePage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <Card>
             <CardBody className="text-center py-4">
-              <p className="text-2xl font-bold text-gray-900">{practiceCount}</p>
-              <p className="text-xs text-gray-500 mt-0.5">Sessions/week</p>
+              <p className="text-2xl font-bold text-foreground">{practiceCount}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Sessions/week</p>
             </CardBody>
           </Card>
           <Card>
             <CardBody className="text-center py-4">
-              <p className="text-2xl font-bold text-gray-900">{schedule.total_balls}</p>
-              <p className="text-xs text-gray-500 mt-0.5">Balls/week</p>
+              <p className="text-2xl font-bold text-foreground">{schedule.total_balls}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Balls/week</p>
             </CardBody>
           </Card>
           <Card>
             <CardBody className="text-center py-4">
-              <p className="text-sm font-bold text-green-700 leading-tight">
+              <p className="text-sm font-bold text-primary leading-tight">
                 {schedule.key_focus.replace(/_/g, ' ').toUpperCase()}
               </p>
-              <p className="text-xs text-gray-500 mt-0.5">Key Focus</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Key Focus</p>
             </CardBody>
           </Card>
           <Card>
             <CardBody className="text-center py-4">
               <div className="flex items-center justify-center gap-1">
-                <Target size={16} className="text-green-600" />
-                <p className="text-xs font-bold text-green-700">Active</p>
+                <Target size={16} className="text-primary" />
+                <p className="text-xs font-bold text-primary">Active</p>
               </div>
-              <p className="text-xs text-gray-500 mt-0.5">This Week</p>
+              <p className="text-xs text-muted-foreground mt-0.5">This Week</p>
             </CardBody>
           </Card>
         </div>
 
         {/* Success criteria */}
-        <Card className="border-green-200 bg-green-50">
+        <Card className="border-primary/30 bg-primary/10">
           <CardBody className="flex items-start gap-3">
-            <CheckCircle size={18} className="text-green-600 shrink-0 mt-0.5" />
+            <CheckCircle size={18} className="text-primary shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-green-800 mb-0.5">Success Goal for This Week</p>
-              <p className="text-sm text-green-700 leading-relaxed">{schedule.success_criteria}</p>
+              <p className="text-sm font-semibold text-primary mb-0.5">Success Goal for This Week</p>
+              <p className="text-sm text-primary leading-relaxed">{schedule.success_criteria}</p>
             </div>
           </CardBody>
         </Card>
@@ -262,8 +262,8 @@ export default function PracticePage() {
         {/* Weekly calendar */}
         <div className="space-y-2">
           <div className="flex items-center gap-2 mb-3">
-            <Calendar size={18} className="text-gray-600" />
-            <h2 className="text-lg font-bold text-gray-900">This Week</h2>
+            <Calendar size={18} className="text-muted-foreground" />
+            <h2 className="text-lg font-bold text-foreground">This Week</h2>
           </div>
           {schedule.days.map((day) => (
             <PracticeDayCard key={day.day} day={day} />

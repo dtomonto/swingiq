@@ -54,7 +54,7 @@ export function ContextualHelpButton({
           onClick={handleOpen}
           className={cn(
             'fixed bottom-24 right-4 z-30 w-12 h-12 rounded-full shadow-lg flex items-center justify-center',
-            'bg-white border-2 border-green-200 text-green-600 hover:bg-green-50 hover:border-green-400',
+            'bg-card border-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50',
             'transition-colors lg:bottom-6 lg:right-6',
             className,
           )}
@@ -84,7 +84,7 @@ export function ContextualHelpButton({
           onClick={handleOpen}
           className={cn(
             'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium',
-            'text-green-700 bg-green-50 border border-green-200 hover:bg-green-100 transition-colors',
+            'text-primary bg-primary/10 border border-primary/30 hover:bg-primary/15 transition-colors',
             className,
           )}
           aria-label={`Open guide: ${tutorial.pageTitle}`}
@@ -112,7 +112,7 @@ export function ContextualHelpButton({
       <button
         onClick={handleOpen}
         className={cn(
-          'p-2 rounded-lg text-gray-400 hover:text-green-600 hover:bg-green-50 transition-colors',
+          'p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors',
           className,
         )}
         aria-label={`Open guide: ${tutorial.pageTitle}`}

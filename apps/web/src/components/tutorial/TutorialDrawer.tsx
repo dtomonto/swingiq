@@ -88,24 +88,24 @@ export function TutorialDrawer({
         aria-modal="true"
         aria-label={`Help: ${tutorial.pageTitle}`}
         className={cn(
-          'fixed z-50 bg-white shadow-2xl flex flex-col',
+          'fixed z-50 bg-card shadow-2xl flex flex-col',
           'bottom-0 left-0 right-0 rounded-t-2xl max-h-[85vh]',
           'lg:bottom-auto lg:top-20 lg:right-4 lg:left-auto lg:w-96 lg:rounded-2xl lg:max-h-[calc(100vh-6rem)]',
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-gray-100">
+        <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-border">
           <div className="flex items-center gap-2 min-w-0">
-            <HelpCircle size={18} className="text-green-600 shrink-0" aria-hidden="true" />
+            <HelpCircle size={18} className="text-primary shrink-0" aria-hidden="true" />
             <div className="min-w-0">
-              <p className="text-xs font-medium text-green-700 uppercase tracking-wide">Guide</p>
-              <h2 className="text-base font-bold text-gray-900 truncate">{tutorial.pageTitle}</h2>
+              <p className="text-xs font-medium text-primary uppercase tracking-wide">Guide</p>
+              <h2 className="text-base font-bold text-foreground truncate">{tutorial.pageTitle}</h2>
             </div>
           </div>
           <button
             ref={closeButtonRef}
             onClick={onDismiss}
-            className="p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors shrink-0 ml-2"
+            className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0 ml-2"
             aria-label="Close guide"
           >
             <X size={18} />
@@ -116,16 +116,16 @@ export function TutorialDrawer({
         <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
           {/* Intro (only on first step) */}
           {isFirstStep && (
-            <p className="text-sm text-gray-600 leading-relaxed">{tutorial.intro}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{tutorial.intro}</p>
           )}
 
           {/* Step content */}
-          <div className="bg-green-50 border border-green-200 rounded-xl p-4 space-y-2">
-            <p className="text-xs font-semibold text-green-700 uppercase tracking-wide">
+          <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 space-y-2">
+            <p className="text-xs font-semibold text-primary uppercase tracking-wide">
               Step {step + 1} of {totalSteps}
             </p>
-            <h3 className="text-sm font-bold text-gray-900">{currentStep.title}</h3>
-            <p className="text-sm text-gray-700 leading-relaxed">{currentStep.body}</p>
+            <h3 className="text-sm font-bold text-foreground">{currentStep.title}</h3>
+            <p className="text-sm text-foreground leading-relaxed">{currentStep.body}</p>
           </div>
 
           {/* Step progress dots */}
@@ -137,7 +137,7 @@ export function TutorialDrawer({
                   onClick={() => setStep(i)}
                   className={cn(
                     'w-2 h-2 rounded-full transition-colors',
-                    i === step ? 'bg-green-600' : 'bg-gray-300 hover:bg-gray-400',
+                    i === step ? 'bg-primary' : 'bg-muted hover:bg-muted-foreground',
                   )}
                   aria-label={`Go to step ${i + 1}`}
                   aria-current={i === step ? 'step' : undefined}
@@ -147,7 +147,7 @@ export function TutorialDrawer({
           )}
 
           {alreadyCompleted && (
-            <div className="flex items-center gap-2 text-xs text-green-700 bg-green-50 rounded-lg px-3 py-2">
+            <div className="flex items-center gap-2 text-xs text-primary bg-primary/10 rounded-lg px-3 py-2">
               <CheckCircle size={14} aria-hidden="true" />
               <span>You have already completed this guide.</span>
             </div>
@@ -155,11 +155,11 @@ export function TutorialDrawer({
         </div>
 
         {/* Footer navigation */}
-        <div className="px-5 pb-5 pt-3 border-t border-gray-100 flex gap-3">
+        <div className="px-5 pb-5 pt-3 border-t border-border flex gap-3">
           {!isFirstStep && (
             <button
               onClick={() => setStep((s) => s - 1)}
-              className="flex items-center gap-1 px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-1 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors"
               aria-label="Previous step"
             >
               <ChevronLeft size={16} aria-hidden="true" />
@@ -170,7 +170,7 @@ export function TutorialDrawer({
           {isFirstStep && (
             <button
               onClick={onDismiss}
-              className="px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+              className="px-4 py-2 rounded-lg border border-border text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
             >
               Not now
             </button>
@@ -181,7 +181,7 @@ export function TutorialDrawer({
           {!isLastStep ? (
             <button
               onClick={() => setStep((s) => s + 1)}
-              className="flex items-center gap-1 px-4 py-2 rounded-lg bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition-colors"
+              className="flex items-center gap-1 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary transition-colors"
               aria-label="Next step"
             >
               Next
@@ -190,7 +190,7 @@ export function TutorialDrawer({
           ) : (
             <button
               onClick={handleComplete}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary transition-colors"
             >
               <CheckCircle size={16} aria-hidden="true" />
               Got it

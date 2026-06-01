@@ -12,20 +12,20 @@ const STEPS = [
  */
 export function WhatHappensToMyVideo({ className = '' }: { className?: string }) {
   return (
-    <div className={`rounded-2xl border border-gray-200 bg-gray-50 p-6 ${className}`}>
-      <h3 className="mb-4 text-base font-bold text-gray-900">What happens to my video?</h3>
+    <div className={`rounded-2xl border border-border bg-muted p-6 ${className}`}>
+      <h3 className="mb-4 text-base font-bold text-foreground">What happens to my video?</h3>
       <ol className="space-y-4">
         {STEPS.map(({ icon: Icon, title, text }, i) => (
           <li key={title} className="flex items-start gap-3">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-600 text-sm font-bold text-white">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
               {i + 1}
             </span>
             <div>
-              <p className="flex items-center gap-2 text-sm font-semibold text-gray-900">
-                <Icon size={15} className="text-green-700" aria-hidden="true" />
+              <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                <Icon size={15} className="text-primary" aria-hidden="true" />
                 {title}
               </p>
-              <p className="mt-0.5 text-sm text-gray-600">{text}</p>
+              <p className="mt-0.5 text-sm text-muted-foreground">{text}</p>
             </div>
           </li>
         ))}

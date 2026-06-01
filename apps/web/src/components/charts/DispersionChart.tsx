@@ -60,7 +60,7 @@ export function DispersionChart({ stats, height = 300, className }: Props) {
         aria-label="Shot dispersion chart"
       >
         {/* Background */}
-        <rect x="0" y="0" width={width} height={height} fill="#f9fafb" rx="8" />
+        <rect x="0" y="0" width={width} height={height} fill="hsl(var(--muted))" rx="8" />
 
         {/* Target line */}
         <line x1={midX} y1={padY} x2={midX} y2={height - padY} stroke="#22c55e" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.6" />
@@ -95,14 +95,14 @@ export function DispersionChart({ stats, height = 300, className }: Props) {
         })}
 
         {/* Axis labels */}
-        <text x={padX} y={height - 5} fontSize="9" fill="#9ca3af">{`-${maxLat.toFixed(0)} yds`}</text>
-        <text x={width - padX - 24} y={height - 5} fontSize="9" fill="#9ca3af">{`+${maxLat.toFixed(0)} yds`}</text>
-        <text x={2} y={padY + 4} fontSize="9" fill="#9ca3af">{carryMax.toFixed(0)}</text>
-        <text x={2} y={height - padY} fontSize="9" fill="#9ca3af">{carryMin.toFixed(0)}</text>
+        <text x={padX} y={height - 5} fontSize="9" fill="hsl(var(--muted-foreground))">{`-${maxLat.toFixed(0)} yds`}</text>
+        <text x={width - padX - 24} y={height - 5} fontSize="9" fill="hsl(var(--muted-foreground))">{`+${maxLat.toFixed(0)} yds`}</text>
+        <text x={2} y={padY + 4} fontSize="9" fill="hsl(var(--muted-foreground))">{carryMax.toFixed(0)}</text>
+        <text x={2} y={height - padY} fontSize="9" fill="hsl(var(--muted-foreground))">{carryMin.toFixed(0)}</text>
 
         {/* Labels */}
-        <text x={width / 2} y={height - 2} fontSize="9" fill="#9ca3af" textAnchor="middle">Left ← Lateral → Right</text>
-        <text x={8} y={height / 2} fontSize="9" fill="#9ca3af" transform={`rotate(-90, 8, ${height / 2})`} textAnchor="middle">Carry (yds)</text>
+        <text x={width / 2} y={height - 2} fontSize="9" fill="hsl(var(--muted-foreground))" textAnchor="middle">Left ← Lateral → Right</text>
+        <text x={8} y={height / 2} fontSize="9" fill="hsl(var(--muted-foreground))" transform={`rotate(-90, 8, ${height / 2})`} textAnchor="middle">Carry (yds)</text>
 
         {/* Grade badge */}
         <rect x={width - padX - 28} y={padY} width={28} height={18} rx="4" fill={gradeColor} />
@@ -112,7 +112,7 @@ export function DispersionChart({ stats, height = 300, className }: Props) {
       </svg>
 
       {/* Legend */}
-      <div className="flex flex-wrap gap-3 mt-2 justify-center text-xs text-gray-500">
+      <div className="flex flex-wrap gap-3 mt-2 justify-center text-xs text-muted-foreground">
         <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block" /> Slice</span>
         <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-orange-500 inline-block" /> Fade</span>
         <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-green-500 inline-block" /> Straight</span>

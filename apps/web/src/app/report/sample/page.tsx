@@ -20,12 +20,12 @@ const SAMPLE: ReportData = {
 
 export default function SampleReportPage() {
   return (
-    <main className="min-h-screen bg-gray-50 print:bg-white">
+    <main className="min-h-screen bg-muted print:bg-card">
       <div className="mx-auto max-w-2xl px-4 py-10">
         <div className="print:hidden">
           <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Sample Report', path: '/report/sample' }]} className="mb-5" />
-          <h1 className="text-3xl font-bold text-gray-900">Sample Swing Report</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-3xl font-bold text-foreground">Sample Swing Report</h1>
+          <p className="mt-2 text-muted-foreground">
             This is an example using sample data so you can see what you&apos;ll get. Your real report is built from your own swing.
           </p>
         </div>
@@ -35,10 +35,10 @@ export default function SampleReportPage() {
         </div>
 
         <div className="mt-6 text-center print:hidden">
-          <Link href="/dashboard" className="inline-block rounded-xl bg-green-600 px-8 py-3 font-semibold text-white transition-colors hover:bg-green-700">
+          <Link href="/dashboard" className="inline-block rounded-xl bg-primary px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
             Get My Real Report Free
           </Link>
-          <p className="mt-3 text-xs text-gray-500">No account required · Private by default</p>
+          <p className="mt-3 text-xs text-muted-foreground">No account required · Private by default</p>
         </div>
       </div>
     </main>

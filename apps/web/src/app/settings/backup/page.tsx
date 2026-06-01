@@ -158,16 +158,16 @@ export default function BackupPage() {
     <AppShell>
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Backup &amp; Restore</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-foreground">Backup &amp; Restore</h1>
+          <p className="text-muted-foreground text-sm mt-1">
             Download a complete copy of your SwingIQ data, or restore from a previous backup.
           </p>
         </div>
 
         {/* Privacy notice */}
-        <div className="flex gap-3 bg-green-50 border border-green-200 rounded-xl p-4">
-          <Shield className="text-green-600 mt-0.5 shrink-0" size={20} />
-          <div className="text-sm text-green-800 space-y-1">
+        <div className="flex gap-3 bg-primary/10 border border-primary/30 rounded-xl p-4">
+          <Shield className="text-primary mt-0.5 shrink-0" size={20} />
+          <div className="text-sm text-primary space-y-1">
             <p className="font-semibold">Your data stays on your device</p>
             <p>This backup contains your profiles, sessions, clubs, and analysis results.</p>
             <p>Video files are not included — only metadata and analysis results.</p>
@@ -180,28 +180,28 @@ export default function BackupPage() {
         <Card>
           <CardHeader><CardTitle>Download My Data Backup</CardTitle></CardHeader>
           <CardBody className="space-y-4">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-muted-foreground">
               Creates a complete file with everything SwingIQ knows about you.
             </p>
 
             <div className="grid grid-cols-3 gap-3 text-center">
-              <div className="bg-gray-50 rounded-lg p-3">
-                <p className="text-2xl font-bold text-gray-900">{sessions.length}</p>
-                <p className="text-xs text-gray-500 mt-0.5">Sessions</p>
+              <div className="bg-muted rounded-lg p-3">
+                <p className="text-2xl font-bold text-foreground">{sessions.length}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Sessions</p>
               </div>
-              <div className="bg-gray-50 rounded-lg p-3">
-                <p className="text-2xl font-bold text-gray-900">{clubs.length}</p>
-                <p className="text-xs text-gray-500 mt-0.5">Clubs</p>
+              <div className="bg-muted rounded-lg p-3">
+                <p className="text-2xl font-bold text-foreground">{clubs.length}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Clubs</p>
               </div>
-              <div className="bg-gray-50 rounded-lg p-3">
-                <p className="text-2xl font-bold text-gray-900">{video_analyses.length}</p>
-                <p className="text-xs text-gray-500 mt-0.5">Video Analyses</p>
+              <div className="bg-muted rounded-lg p-3">
+                <p className="text-2xl font-bold text-foreground">{video_analyses.length}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Video Analyses</p>
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-4 text-xs text-gray-600 space-y-1">
-              <p className="font-medium text-gray-900 text-sm">Your backup includes:</p>
-              <ul className="space-y-0.5 text-gray-600">
+            <div className="bg-muted rounded-xl p-4 text-xs text-muted-foreground space-y-1">
+              <p className="font-medium text-foreground text-sm">Your backup includes:</p>
+              <ul className="space-y-0.5 text-muted-foreground">
                 <li>✓ All sessions &amp; shot data ({sessions.length} sessions)</li>
                 <li>✓ Club &amp; equipment profiles ({clubs.length} clubs)</li>
                 <li>✓ Video analyses ({video_analyses.length})</li>
@@ -212,11 +212,11 @@ export default function BackupPage() {
                 <li>✓ Tutorial progress ({tutorialProgress.completed.length} guides completed)</li>
                 <li>✓ App settings &amp; language preference</li>
               </ul>
-              <p className="text-gray-400 pt-1">Video files are not included — only analysis results and metadata.</p>
+              <p className="text-muted-foreground pt-1">Video files are not included — only analysis results and metadata.</p>
             </div>
 
             {/* Encryption toggle */}
-            <div className="border border-gray-200 rounded-xl p-4 space-y-3">
+            <div className="border border-border rounded-xl p-4 space-y-3">
               <label className="flex items-center gap-3 cursor-pointer">
                 <input
                   type="checkbox"
@@ -227,17 +227,17 @@ export default function BackupPage() {
                     setExportPassword('');
                     setExportPasswordConfirm('');
                   }}
-                  className="w-4 h-4 rounded-sm text-green-600"
+                  className="w-4 h-4 rounded-sm text-primary"
                 />
                 <div className="flex items-center gap-2">
-                  <Lock size={16} className="text-gray-500" />
-                  <span className="text-sm font-medium text-gray-800">Encrypt with password (recommended)</span>
+                  <Lock size={16} className="text-muted-foreground" />
+                  <span className="text-sm font-medium text-foreground">Encrypt with password (recommended)</span>
                 </div>
               </label>
 
               {exportEncrypt && (
                 <div className="space-y-3 pt-1">
-                  <div className="flex gap-2 bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800">
+                  <div className="flex gap-2 bg-warning/10 border border-warning/30 rounded-lg p-3 text-xs text-warning">
                     <AlertTriangle size={14} className="shrink-0 mt-0.5" />
                     <span>
                       <strong>Important:</strong> If you forget your backup password, your data cannot be recovered.
@@ -248,21 +248,21 @@ export default function BackupPage() {
                     placeholder="Password (min. 8 characters)"
                     value={exportPassword}
                     onChange={(e) => setExportPassword(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
                   />
                   <input
                     type="password"
                     placeholder="Confirm password"
                     value={exportPasswordConfirm}
                     onChange={(e) => setExportPasswordConfirm(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
                   />
                 </div>
               )}
             </div>
 
             {exportError && (
-              <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+              <div className="flex gap-2 bg-error/10 border border-error/30 rounded-lg p-3 text-sm text-error">
                 <AlertTriangle size={16} className="shrink-0 mt-0.5" />
                 <span>{exportError}</span>
               </div>
@@ -274,7 +274,7 @@ export default function BackupPage() {
             </Button>
 
             {exported && (
-              <div className="flex items-center gap-2 text-green-600 text-sm font-medium">
+              <div className="flex items-center gap-2 text-primary text-sm font-medium">
                 <CheckCircle size={16} /> Backup downloaded successfully
               </div>
             )}
@@ -287,11 +287,11 @@ export default function BackupPage() {
           <CardBody className="space-y-4">
             {importStep === 'idle' && (
               <>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   Select a SwingIQ backup file (.json or .swingiqbackup) to preview what will be restored.
                 </p>
                 {importError && (
-                  <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+                  <div className="flex gap-2 bg-error/10 border border-error/30 rounded-lg p-3 text-sm text-error">
                     <AlertTriangle size={16} className="shrink-0 mt-0.5" />
                     <span>{importError}</span>
                   </div>
@@ -318,24 +318,24 @@ export default function BackupPage() {
             )}
 
             {importStep === 'parsing' && (
-              <div className="flex items-center gap-3 text-sm text-gray-600 py-4 justify-center">
-                <RefreshCw size={18} className="animate-spin text-green-600" />
+              <div className="flex items-center gap-3 text-sm text-muted-foreground py-4 justify-center">
+                <RefreshCw size={18} className="animate-spin text-primary" />
                 Reading backup file…
               </div>
             )}
 
             {importStep === 'needs-password' && (
               <div className="space-y-4">
-                <div className="flex gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
-                  <Lock className="text-blue-500 shrink-0 mt-0.5" size={20} />
-                  <div className="text-sm text-blue-800">
+                <div className="flex gap-3 bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl p-4">
+                  <Lock className="text-accent-secondary shrink-0 mt-0.5" size={20} />
+                  <div className="text-sm text-foreground">
                     <p className="font-semibold">This backup is encrypted</p>
                     <p>Enter your backup password to continue.</p>
                   </div>
                 </div>
 
                 {importError && (
-                  <div className="flex gap-2 bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+                  <div className="flex gap-2 bg-error/10 border border-error/30 rounded-lg p-3 text-sm text-error">
                     <AlertTriangle size={16} className="shrink-0 mt-0.5" />
                     <span>{importError}</span>
                   </div>
@@ -347,7 +347,7 @@ export default function BackupPage() {
                   value={importPassword}
                   onChange={(e) => setImportPassword(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') handleDecrypt(); }}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
                   autoFocus
                 />
 
@@ -364,42 +364,42 @@ export default function BackupPage() {
 
             {importStep === 'preview' && preview && pendingBackup && (
               <div className="space-y-4">
-                <div className="flex gap-2 bg-green-50 border border-green-200 rounded-lg p-3 text-sm text-green-800">
-                  <CheckCircle size={16} className="shrink-0 mt-0.5 text-green-600" />
+                <div className="flex gap-2 bg-primary/10 border border-primary/30 rounded-lg p-3 text-sm text-primary">
+                  <CheckCircle size={16} className="shrink-0 mt-0.5 text-primary" />
                   <div>
                     <p className="font-semibold">Valid backup (v{pendingBackup.backupVersion})</p>
                     <p>{preview.summary}</p>
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-gray-200 divide-y divide-gray-100 text-sm">
-                  <div className="grid grid-cols-3 text-center py-2 font-medium text-gray-500 text-xs uppercase tracking-wide bg-gray-50 rounded-t-lg">
+                <div className="rounded-lg border border-border divide-y divide-border text-sm">
+                  <div className="grid grid-cols-3 text-center py-2 font-medium text-muted-foreground text-xs uppercase tracking-wide bg-muted rounded-t-lg">
                     <span>Category</span>
                     <span>New / Updated</span>
                     <span>Skipped</span>
                   </div>
                   <div className="grid grid-cols-3 text-center py-2.5">
-                    <span className="text-gray-700">Sessions</span>
-                    <span className="font-semibold text-green-700">{preview.newRecords.sessions}</span>
-                    <span className="text-gray-400">{preview.skippedDuplicates.sessions}</span>
+                    <span className="text-foreground">Sessions</span>
+                    <span className="font-semibold text-primary">{preview.newRecords.sessions}</span>
+                    <span className="text-muted-foreground">{preview.skippedDuplicates.sessions}</span>
                   </div>
                   <div className="grid grid-cols-3 text-center py-2.5">
-                    <span className="text-gray-700">Clubs</span>
-                    <span className="font-semibold text-green-700">{preview.newRecords.clubs}</span>
-                    <span className="text-gray-400">{preview.skippedDuplicates.clubs}</span>
+                    <span className="text-foreground">Clubs</span>
+                    <span className="font-semibold text-primary">{preview.newRecords.clubs}</span>
+                    <span className="text-muted-foreground">{preview.skippedDuplicates.clubs}</span>
                   </div>
                   <div className="grid grid-cols-3 text-center py-2.5">
-                    <span className="text-gray-700">Video Analyses</span>
-                    <span className="font-semibold text-green-700">{preview.newRecords.videoAnalyses}</span>
-                    <span className="text-gray-400">{preview.skippedDuplicates.videoAnalyses}</span>
+                    <span className="text-foreground">Video Analyses</span>
+                    <span className="font-semibold text-primary">{preview.newRecords.videoAnalyses}</span>
+                    <span className="text-muted-foreground">{preview.skippedDuplicates.videoAnalyses}</span>
                   </div>
                   {preview.updatedRecords.communityUpdated && (
-                    <div className="grid grid-cols-3 text-center py-2.5 bg-purple-50">
-                      <span className="text-gray-700">Badges &amp; XP</span>
-                      <span className="font-semibold text-purple-700">
+                    <div className="grid grid-cols-3 text-center py-2.5 bg-accent-secondary/10">
+                      <span className="text-foreground">Badges &amp; XP</span>
+                      <span className="font-semibold text-accent-secondary">
                         {preview.updatedRecords.communityBadges ?? 0} badges
                       </span>
-                      <span className="text-gray-400">—</span>
+                      <span className="text-muted-foreground">—</span>
                     </div>
                   )}
                 </div>
@@ -407,7 +407,7 @@ export default function BackupPage() {
                 {preview.warnings.length > 0 && (
                   <div className="space-y-1">
                     {preview.warnings.map((w, i) => (
-                      <div key={i} className="flex gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-2.5">
+                      <div key={i} className="flex gap-2 text-sm text-warning bg-warning/10 border border-warning/30 rounded-lg p-2.5">
                         <AlertTriangle size={15} className="shrink-0 mt-0.5" />
                         <span>{w}</span>
                       </div>
@@ -420,22 +420,22 @@ export default function BackupPage() {
                     <Button variant="outline" size="lg" className="w-full" onClick={handleMerge}>
                       Merge
                     </Button>
-                    <p className="text-xs text-gray-400 text-center">Add new records to current data</p>
+                    <p className="text-xs text-muted-foreground text-center">Add new records to current data</p>
                   </div>
                   <div className="space-y-1">
                     <Button
                       variant="outline"
                       size="lg"
-                      className="w-full text-red-600 border-red-300 hover:bg-red-50"
+                      className="w-full text-error border-error/40 hover:bg-error/10"
                       onClick={() => setImportStep('confirming-replace')}
                     >
                       Replace
                     </Button>
-                    <p className="text-xs text-gray-400 text-center">Overwrite all current data</p>
+                    <p className="text-xs text-muted-foreground text-center">Overwrite all current data</p>
                   </div>
                 </div>
 
-                <Button variant="ghost" size="sm" onClick={reset} className="w-full text-gray-500">
+                <Button variant="ghost" size="sm" onClick={reset} className="w-full text-muted-foreground">
                   Cancel
                 </Button>
               </div>
@@ -443,9 +443,9 @@ export default function BackupPage() {
 
             {importStep === 'confirming-replace' && (
               <div className="space-y-4">
-                <div className="flex gap-3 bg-red-50 border border-red-200 rounded-xl p-4">
-                  <AlertTriangle className="text-red-500 shrink-0 mt-0.5" size={20} />
-                  <div className="text-sm text-red-800 space-y-1">
+                <div className="flex gap-3 bg-error/10 border border-error/30 rounded-xl p-4">
+                  <AlertTriangle className="text-error shrink-0 mt-0.5" size={20} />
+                  <div className="text-sm text-error space-y-1">
                     <p className="font-semibold">This will overwrite your current data</p>
                     <p>
                       All existing sessions, clubs, profiles, and video analyses will be replaced
@@ -459,7 +459,7 @@ export default function BackupPage() {
                   </Button>
                   <Button
                     size="lg"
-                    className="bg-red-600 hover:bg-red-700 text-white"
+                    className="bg-error text-error-foreground hover:bg-error/90"
                     onClick={handleReplace}
                   >
                     Yes, Replace Everything
@@ -470,13 +470,13 @@ export default function BackupPage() {
 
             {importStep === 'done' && restoreResult && (
               <div className="space-y-4">
-                <div className="flex gap-2 bg-green-50 border border-green-200 rounded-lg p-4 text-sm text-green-800">
-                  <CheckCircle size={18} className="shrink-0 mt-0.5 text-green-600" />
+                <div className="flex gap-2 bg-primary/10 border border-primary/30 rounded-lg p-4 text-sm text-primary">
+                  <CheckCircle size={18} className="shrink-0 mt-0.5 text-primary" />
                   <div>
                     <p className="font-semibold text-base">Restore complete</p>
                     <p>{restoreResult.summary}</p>
                     {restoreResult.errors.length > 0 && (
-                      <ul className="mt-2 list-disc list-inside text-red-600">
+                      <ul className="mt-2 list-disc list-inside text-error">
                         {restoreResult.errors.map((e, i) => <li key={i}>{e}</li>)}
                       </ul>
                     )}
