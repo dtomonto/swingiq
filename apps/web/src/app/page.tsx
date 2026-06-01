@@ -133,6 +133,32 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Free tools */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-3">Free tools to get started</h2>
+          <p className="text-center text-gray-500 mb-10">No account needed — try a quick diagnosis or build a plan.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { name: 'Golf Slice Fixer', desc: 'Diagnose your slice + 7-day plan', href: '/tools/golf-slice-fixer' },
+              { name: 'Swing Mistake Quiz', desc: 'Find your top issue across 5 sports', href: '/tools/swing-mistake-quiz' },
+              { name: 'Practice Plan Generator', desc: '7-day & 30-day plans with retests', href: '/tools/practice-plan-generator' },
+              { name: 'At-Home Drill Generator', desc: 'Drills for your space, gear & time', href: '/tools/at-home-swing-drill-generator' },
+              { name: 'Lesson Savings Calculator', desc: 'Estimate spend & smarter practice', href: '/tools/private-lesson-savings-calculator' },
+              { name: 'Swing Challenges', desc: '7-day & 30-day guided challenges', href: '/challenges' },
+            ].map((t) => (
+              <Link key={t.href} href={t.href} className="block p-5 border border-gray-200 rounded-xl hover:border-green-400 hover:bg-green-50 transition-colors">
+                <h3 className="font-semibold text-gray-900 mb-1">{t.name}</h3>
+                <p className="text-xs text-gray-500">{t.desc}</p>
+              </Link>
+            ))}
+          </div>
+          <p className="text-center mt-6">
+            <Link href="/tools" className="text-sm font-semibold text-green-700 hover:underline">See all free tools →</Link>
+          </p>
+        </div>
+      </section>
+
       {/* Sample report preview */}
       <section id="sample-report" className="scroll-mt-16 py-16 px-4 bg-gray-50">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10 items-center">
@@ -236,11 +262,13 @@ export default function HomePage() {
           <span>&copy; {new Date().getFullYear()} SwingIQ. All rights reserved.</span>
           <div className="flex gap-4 flex-wrap">
             <Link href="/how-it-works" className="hover:text-white">How It Works</Link>
-            <Link href="/faq" className="hover:text-white">FAQ</Link>
+            <Link href="/tools" className="hover:text-white">Free Tools</Link>
+            <Link href="/challenges" className="hover:text-white">Challenges</Link>
+            <Link href="/coaches" className="hover:text-white">Coaches</Link>
+            <Link href="/teams" className="hover:text-white">Teams</Link>
             <Link href="/parents" className="hover:text-white">Parents</Link>
-            <Link href="/trust" className="hover:text-white">Trust & Safety</Link>
+            <Link href="/trust" className="hover:text-white">Trust &amp; Safety</Link>
             <Link href="/updates" className="hover:text-white text-green-400">Updates</Link>
-            <Link href="/pricing" className="hover:text-white">Pricing</Link>
             <Link href="/privacy" className="hover:text-white">Privacy</Link>
             <Link href="/terms" className="hover:text-white">Terms</Link>
           </div>

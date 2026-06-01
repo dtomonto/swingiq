@@ -1,11 +1,47 @@
 import type { MetadataRoute } from 'next';
+import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
 
 const BASE_URL = 'https://swingiq.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
 
+  // Programmatic SEO landing pages (only those marked 'published').
+  const seoPages: MetadataRoute.Sitemap = PUBLISHED_SEO_PAGES.map((p) => ({
+    url: `${BASE_URL}/${p.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: p.priority === 1 ? 0.8 : 0.7,
+  }));
+
+  // Free growth tools.
+  const toolPages: MetadataRoute.Sitemap = [
+    '/tools/golf-slice-fixer',
+    '/tools/swing-mistake-quiz',
+    '/tools/at-home-swing-drill-generator',
+    '/tools/practice-plan-generator',
+    '/tools/private-lesson-savings-calculator',
+    '/tools/slow-pitch-line-drive-guide',
+    '/tools/equipment-diagnostic',
+  ].map((path) => ({ url: `${BASE_URL}${path}`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.6 }));
+
+  // Partner / audience pages.
+  const partnerPages: MetadataRoute.Sitemap = ['/coaches', '/creators', '/teams', '/partners'].map(
+    (path) => ({ url: `${BASE_URL}${path}`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.6 }),
+  );
+
+  // Challenge pages.
+  const challengePages: MetadataRoute.Sitemap = [
+    '/challenges/7-day-golf-slice',
+    '/challenges/7-day-slow-pitch-line-drive',
+    '/challenges/30-day-swingiq',
+  ].map((path) => ({ url: `${BASE_URL}${path}`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.5 }));
+
   return [
+    ...seoPages,
+    ...toolPages,
+    ...partnerPages,
+    ...challengePages,
     // ── Homepage ────────────────────────────────────────────────
     {
       url: BASE_URL,
@@ -209,31 +245,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-
-    // ── Drill library ───────────────────────────────────────────
-    {
-      url: `${BASE_URL}/drills/golf`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/drills/tennis`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/drills/baseball`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/drills/softball`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
+    // Note: /drills is an authenticated app route (blocked in robots.txt),
+    // and per-sport drill URLs (/drills/golf, etc.) are not standalone
+    // routes — so they are intentionally NOT listed in the sitemap.
   ];
 }

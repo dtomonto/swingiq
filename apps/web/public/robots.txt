@@ -52,5 +52,26 @@ Allow: /terms
 Allow: /login
 Allow: /signup
 
+# ── Programmatic SEO landing pages ─────────────────────────────
+Allow: /free-swing-analysis
+Allow: /golf/fix-slice
+Allow: /golf/why-do-i-slice-my-driver
+Allow: /golf/launch-monitor-analysis
+Allow: /golf/practice-at-home
+Allow: /softball/slow-pitch-power
+Allow: /softball/how-to-hit-line-drives
+Allow: /baseball/youth-hitting
+Allow: /tennis/forehand-analysis
+
+# ── Free growth tools ──────────────────────────────────────────
+Allow: /tools/
+
+# ── Partner & challenge pages ──────────────────────────────────
+Allow: /coaches
+Allow: /creators
+Allow: /teams
+Allow: /partners
+Allow: /challenges/
+
 # Sitemap location
 Sitemap: https://swingiq.app/sitemap.xml
