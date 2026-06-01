@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "generated": "2026-06-01",
+  "branch": "chore/seo-audit/2026-06",
+  "status": "local-working-document-not-pushed",
+  "legend": {
+    "priority": { "P0": "critical", "P1": "high", "P2": "medium", "P3": "low" },
+    "effort": ["S", "M", "L"],
+    "confidence": ["High", "Med", "Low (needs verification)"]
+  },
+  "auditSources": [
+    {
+      "id": "S1",
+      "path": "docs/audits/seo-aeo-geo/2026-06-01.md",
+      "type": "SEO/AEO/GEO audit",
+      "date": "2026-06-01",
+      "scheduled": true,
+      "schedule": "monthly (seo-aeo-geo-monthly-audit, cron 7 9 1 * *)",
+      "contribution": "OG/icon gap (P1), metadata-standardization (P2), llms.txt CV claim to verify (P3), deferred marketing pages; Organization/WebSite + llms.txt fixes applied"
+    },
+    {
+      "id": "S2",
+      "path": "docs/audits/staged-navigation-seo-geo-aeo-audit.md",
+      "type": "Navigation + SEO/GEO/AEO audit",
+      "date": "2026-05-31",
+      "scheduled": false,
+      "schedule": "one-time sprint audit (code inspection)",
+      "contribution": "Closed P0/P1 (404, middleware, robots, sitemap); deferred a11y, deep-page back links, BreadcrumbList/HowTo JSON-LD, content gaps, E2E tests"
+    },
+    {
+      "id": "S3",
+      "path": "security-reports/custom-check-results.txt",
+      "type": "Custom security scan output",
+      "date": "2026-06-01",
+      "scheduled": true,
+      "schedule": "weekly via CI + every push (scripts/security-check.mjs)",
+      "contribution": "0 findings, 0 critical (no public secret vars, no unsanitized HTML, no eval, no hardcoded keys)"
+    },
+    {
+      "id": "S4",
+      "path": ".github/workflows/security-audit.yml",
+      "type": "CI security pipeline (config)",
+      "date": null,
+      "scheduled": true,
+      "schedule": "weekly Mon 08:00 UTC + every push/PR",
+      "contribution": "Gitleaks, npm audit (fail on critical), lint/typecheck, custom scanner"
+    },
+    {
+      "id": "S5",
+      "path": "content/growth/reports/2026-06-01.md",
+      "type": "Growth surface report",
+      "date": "2026-06-01",
+      "scheduled": true,
+      "schedule": "on-demand (npm run growth:report)",
+      "contribution": "Surface counts (9 published / 5 draft SEO pages, 6 tools, 2 challenges, 6 emails); KPI table empty -> measurement gap"
+    },
+    {
+      "id": "S6",
+      "path": "content/growth/weekly-plans/2026-06-01.md",
+      "type": "Weekly growth plan",
+      "date": "2026-06-01",
+      "scheduled": true,
+      "schedule": "on-demand (npm run growth:plan)",
+      "contribution": "Content/outreach cadence; drafts only, manual posting (no auto-posting policy)"
+    },
+    {
+      "id": "R1",
+      "path": "docs/LAUNCH_READINESS_CHECKLIST.md",
+      "type": "Reference backlog",
+      "date": "2026-05",
+      "scheduled": false,
+      "contribution": "4-tier launch backlog (DB, AI key, deploy, legal, payments, monitoring, RLS, deletion, moat items)"
+    },
+    {
+      "id": "R2",
+      "path": "docs/OWNER_TASKS.md",
+      "type": "Reference backlog",
+      "date": null,
+      "scheduled": false,
+      "contribution": "Owner manual steps: key rotation, GitHub security switches, RLS/storage, ADMIN/CRON secrets, pro-reference verification, legal review"
+    },
+    {
+      "id": "R3",
+      "path": "docs/privacy-and-youth-safety-notes.md",
+      "type": "Reference (privacy)",
+      "date": "2026-05-31",
+      "scheduled": false,
+      "contribution": "Privacy posture, youth handling, claims avoided, needs-legal-review-before-scale"
+    },
+    {
+      "id": "R4",
+      "path": "docs/SEO_GEO_AEO.md",
+      "type": "Reference (strategy)",
+      "date": "2026-05",
+      "scheduled": false,
+      "contribution": "Content calendar, GSC setup, backlink strategy, on-page checklist, tracking targets"
+    },
+    {
+      "id": "R5",
+      "path": "docs/seo-system.md",
+      "type": "Reference (system)",
+      "date": null,
+      "scheduled": false,
+      "contribution": "Canonical helpers (buildMetadata, jsonLd.ts), anti-thin-content gate"
+    },
+    {
+      "id": "R6",
+      "path": "docs/automation.md",
+      "type": "Reference (automation)",
+      "date": null,
+      "scheduled": false,
+      "contribution": "Script catalog, CI map, a11y lint posture (7 rules at warn), no-auto-publish policy"
+    },
+    {
+      "id": "R7",
+      "path": "docs/security-automation.md",
+      "type": "Reference (security)",
+      "date": null,
+      "scheduled": false,
+      "contribution": "Workflow detail, branch-protection settings, Dependabot, custom rule table"
+    }
+  ],
+  "consolidatedFindings": [
+    { "id": "F-01", "category": "SEO/Brand/PWA", "finding": "og-default.png, icon-192.png, icon-512.png referenced but absent from apps/web/public (verified: only robots.txt + llms.txt present)", "businessImpact": "Blank link previews on every share; no favicon; PWA not installable; Org logo in JSON-LD 404s", "technicalImpact": "Metadata, JSON-LD logo, manifest reference non-existent assets", "recommendation": "Add real artwork or implement app/opengraph-image.tsx + app/icon.tsx (brand green #1a3a2a, SQ wordmark)", "priority": "P1", "effort": "S-M", "confidence": "High", "sources": ["S1"], "status": "open" },
+    { "id": "F-02", "category": "SEO/Theme/Debt", "finding": "~16 public marketing pages mid-edit (theme tokenization) skipped by the SEO audit", "businessImpact": "Delays consistent branding + re-audit coverage", "technicalImpact": "Uncommitted working tree blocks safe automated edits", "recommendation": "Commit theme-tokenization work, then re-audit + tokenize those pages", "priority": "P2", "effort": "M", "confidence": "High", "sources": ["S1", "git-status"], "status": "open" },
+    { "id": "F-03", "category": "SEO/Maintainability", "finding": "Sport-analysis & other pages hand-roll metadata + JSON-LD instead of buildMetadata()/jsonLd.ts", "businessImpact": "Inconsistent canonicals/Twitter cards; weaker Org linkage; drift risk", "technicalImpact": "Duplicated SEO logic; some pages lack explicit canonical", "recommendation": "Migrate hand-rolled pages onto shared helpers", "priority": "P2", "effort": "M", "confidence": "High", "sources": ["S1", "R5"], "status": "open" },
+    { "id": "F-04", "category": "AEO/Accuracy/Trust", "finding": "llms.txt claims SwingIQ does not do computer-vision pixel analysis; may conflict with live AI-vision analyzer", "businessImpact": "Inaccurate claim erodes trust + AI-engine accuracy", "technicalImpact": "Capability statement out of sync with shipped feature", "recommendation": "Verify against current video analyzer; correct the claim", "priority": "P1", "effort": "S", "confidence": "Med", "sources": ["S1", "project-memory"], "status": "needs-verification" },
+    { "id": "F-05", "category": "Accessibility", "finding": "No skip-to-content link; focus rings only Tailwind default; no breadcrumb component", "businessImpact": "Harder for keyboard/screen-reader users; WCAG gap", "technicalImpact": "AppShell lacks skip target; no Breadcrumbs component", "recommendation": "Add skip-link to AppShell, standardize visible focus, build breadcrumb component", "priority": "P1", "effort": "S-M", "confidence": "High", "sources": ["S2"], "status": "open" },
+    { "id": "F-06", "category": "UX/Navigation", "finding": "/sessions/import/image and /sessions/log lack back links (dead-end risk)", "businessImpact": "Users can get stuck mid-workflow", "technicalImpact": "Missing return navigation on deep pages", "recommendation": "Add back/return links", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S2"], "status": "open" },
+    { "id": "F-07", "category": "SEO/Content", "finding": "Conflict: staged audit says /features, /resources, /glossary not created; strategy doc lists glossary/blog/features/benchmarks as built", "businessImpact": "Missed long-tail/AEO coverage if gaps remain", "technicalImpact": "Routing/content state unclear", "recommendation": "Verify which hub pages exist now; fill remaining gaps; run monthly content calendar", "priority": "P2", "effort": "M", "confidence": "Low", "sources": ["S2", "R4"], "status": "needs-verification" },
+    { "id": "F-08", "category": "AEO", "finding": "BreadcrumbList + HowTo JSON-LD deferred on sport-analysis pages", "businessImpact": "Fewer rich-result/answer-engine surfaces", "technicalImpact": "Schema builders exist but unused on these pages", "recommendation": "Add breadcrumb + HowTo schema (rides on F-05)", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S2", "R5"], "status": "open" },
+    { "id": "F-09", "category": "GEO", "finding": "Site-wide Organization + WebSite nodes were missing; fixed on homepage", "businessImpact": "Improves who-are-you signals for AI engines", "technicalImpact": "Other pages still lack Org linkage until F-03", "recommendation": "Spread Org linkage via F-03 standardization", "priority": "P2", "effort": "-", "confidence": "High", "sources": ["S1"], "status": "partially-resolved" },
+    { "id": "F-10", "category": "GEO", "finding": "llms.txt answer-page coverage was sparse; fixed (categorized full listing)", "businessImpact": "More answer pages discoverable by AI crawlers", "technicalImpact": "none", "recommendation": "Keep updated as pages ship", "priority": "-", "effort": "-", "confidence": "High", "sources": ["S1"], "status": "resolved" },
+    { "id": "F-11", "category": "Security/Process", "finding": "GitHub branch protection on master, secret scanning, Dependabot alerts/auto-updates, private vuln reporting not enabled", "businessImpact": "CI runs but does not gate merges; no auto dep fixes", "technicalImpact": "Protections are config-only until owner enables", "recommendation": "Flip the four switches in GitHub Settings", "priority": "P1", "effort": "S", "confidence": "High", "sources": ["R2", "R7"], "status": "open" },
+    { "id": "F-12", "category": "Security", "finding": "OpenAI API key was in a local plaintext file - treat as compromised", "businessImpact": "Key abuse / unexpected billing risk", "technicalImpact": "none", "recommendation": "Rotate key; update .env.local + Vercel", "priority": "P0", "effort": "S", "confidence": "High", "sources": ["R2"], "status": "open" },
+    { "id": "F-13", "category": "Security/Config", "finding": "ADMIN_SECRET and CRON_SECRET not set for production", "businessImpact": "Admin panel + cron endpoints unprotected if deployed without them", "technicalImpact": "Endpoints expect these env vars", "recommendation": "Generate (openssl rand -hex 32); set in .env.local + Vercel", "priority": "P1", "effort": "S", "confidence": "High", "sources": ["R2"], "status": "open" },
+    { "id": "F-14", "category": "Security/Data", "finding": "Supabase RLS migration + private storage buckets not yet applied", "businessImpact": "Row-level data exposure once cloud is live", "technicalImpact": "apps/web/supabase-rls.sql ready but unapplied", "recommendation": "Apply RLS SQL; set buckets to private", "priority": "P1", "effort": "S", "confidence": "High", "sources": ["R2", "R1"], "status": "open" },
+    { "id": "F-15", "category": "Privacy/Compliance", "finding": "Privacy Policy + Terms are placeholders; no COPPA/GDPR/CCPA review", "businessImpact": "Legal exposure before paid/youth scale", "technicalImpact": "none", "recommendation": "Attorney review before commercial launch", "priority": "P1", "effort": "L", "confidence": "High", "sources": ["R2", "R3", "R1"], "status": "open" },
+    { "id": "F-16", "category": "Privacy/Compliance", "finding": "No cloud delete-my-account-and-data flow or documented retention policy", "businessImpact": "COPPA/GDPR deletion-right gap once cloud accounts ship", "technicalImpact": "Deletion exists locally; cloud path missing", "recommendation": "Build account-deletion flow; document retention", "priority": "P2", "effort": "M", "confidence": "Med", "sources": ["R1"], "status": "open" },
+    { "id": "F-17", "category": "Content/Trust", "finding": "Professional swing references use PLACEHOLDER_REQUIRES_ADMIN_VERIFICATION video IDs", "businessImpact": "Reference library looks unfinished; trust dip", "technicalImpact": "Unverified entries flagged in UI", "recommendation": "Verify real YouTube IDs; set verified: true", "priority": "P2", "effort": "M", "confidence": "High", "sources": ["R2"], "status": "open" },
+    { "id": "F-18", "category": "Reliability/Observability", "finding": "No error monitoring (Sentry) or uptime monitoring configured", "businessImpact": "Outages/errors invisible in production", "technicalImpact": "No instrumentation hook installed", "recommendation": "Add Sentry + uptime monitor before launch", "priority": "P1", "effort": "S-M", "confidence": "High", "sources": ["R1"], "status": "open" },
+    { "id": "F-19", "category": "Growth/Measurement", "finding": "Analytics not connected; growth-report KPI table is empty", "businessImpact": "Cannot measure funnel, drop-off, or any KPI - blocks the growth loop", "technicalImpact": "30-event abstraction exists but no provider wired", "recommendation": "Connect GA4/PostHog/Plausible; set up GSC; fill KPIs", "priority": "P1", "effort": "S-M", "confidence": "High", "sources": ["S5", "R1", "R4"], "status": "open" },
+    { "id": "F-20", "category": "SEO/Performance", "finding": "Core Web Vitals + live-crawl checks pending production deploy", "businessImpact": "Unknown real-world performance/SEO health", "technicalImpact": "Requires live deployment to measure", "recommendation": "Run CWV + crawl after first deploy", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S2", "R4"], "status": "open" },
+    { "id": "F-21", "category": "SEO", "finding": "Sitemap not yet submitted to Google Search Console / Bing", "businessImpact": "Slower indexing/discovery", "technicalImpact": "none", "recommendation": "Submit sitemap.xml post-deploy (~30 min)", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S2", "R4"], "status": "open" },
+    { "id": "F-22", "category": "Product/AI", "finding": "OCR auto-extraction service built but inactive (needs API key integration)", "businessImpact": "Image-import friction (manual entry only)", "technicalImpact": "Service layer present, not wired to a provider", "recommendation": "Integrate OCR provider key; activate", "priority": "P3", "effort": "M", "confidence": "High", "sources": ["R2"], "status": "open" },
+    { "id": "F-23", "category": "Quality/Debt", "finding": "No E2E navigation tests (Playwright)", "businessImpact": "Regressions in nav/journeys can slip through", "technicalImpact": "Test coverage gap", "recommendation": "Add Playwright journey tests", "priority": "P2", "effort": "M", "confidence": "High", "sources": ["S2"], "status": "open" },
+    { "id": "F-24", "category": "Accessibility/Debt", "finding": "7 jsx-a11y rules set to warn (pre-existing violations); ~126 lint warnings", "businessImpact": "Latent a11y issues remain", "technicalImpact": "Incremental-cleanup backlog", "recommendation": "Burn down the 7 warn-rules in older surfaces", "priority": "P3", "effort": "M", "confidence": "High", "sources": ["R6", "S1"], "status": "open" },
+    { "id": "F-25", "category": "AI/Architecture", "finding": "AI Coach memory/session continuity not built; AI-enhancement backlog (latest model IDs, prompt caching, fallbacks)", "businessImpact": "Weaker retention moat; missed AI quality gains", "technicalImpact": "Per the monthly AI-audit spec (not yet run)", "recommendation": "Run the AI audit; add session-memory context", "priority": "P2", "effort": "M-L", "confidence": "Med", "sources": ["R1", "project-memory"], "status": "open" },
+    { "id": "F-26", "category": "Growth/Retention", "finding": "Email templates exist but no provider connected; no welcome sequence", "businessImpact": "Lost re-engagement; leads not nurtured", "technicalImpact": "/api/email-capture honest no-op without provider", "recommendation": "Connect provider; build welcome series", "priority": "P2", "effort": "S-M", "confidence": "High", "sources": ["R6", "R1"], "status": "open" },
+    { "id": "F-27", "category": "Business/Product", "finding": "No payment processing (Stripe) implemented", "businessImpact": "Cannot monetize", "technicalImpact": "none", "recommendation": "Implement Stripe Checkout + webhooks before paid tier", "priority": "P1", "effort": "L", "confidence": "High", "sources": ["R1"], "status": "open" },
+    { "id": "F-28", "category": "Security", "finding": "Production HTTP security headers need post-deploy verification", "businessImpact": "Misconfig could weaken CSP/clickjacking defense", "technicalImpact": "Headers reportedly set in middleware/next config", "recommendation": "Verify at securityheaders.com after deploy", "priority": "P2", "effort": "S", "confidence": "Med", "sources": ["R1", "R2"], "status": "open" },
+    { "id": "F-29", "category": "Debt/Verify", "finding": "Parse error seen in video/SportVideoAnalyzerContent.tsx during audit dev run; tsc now clean", "businessImpact": "Possible transient/already-fixed", "technicalImpact": "none", "recommendation": "Confirm builds clean on the committed tree", "priority": "P3", "effort": "S", "confidence": "Low", "sources": ["S1"], "status": "needs-verification" }
+  ],
+  "topInsights": [
+    { "rank": 1, "id": "F-01", "title": "Ship missing share image + app icons", "expectedImpact": "Higher share CTR, installable PWA, complete brand/knowledge signals", "successMetric": "Non-blank link preview; favicon visible; Lighthouse PWA installable passes" },
+    { "rank": 2, "ids": ["F-19", "F-21"], "title": "Connect analytics + Google Search Console", "expectedImpact": "Funnel visibility; populated KPIs; indexing insight", "successMetric": "Events in provider dashboard; sitemap Success in GSC" },
+    { "rank": 3, "id": "F-11", "title": "Enable the four GitHub security switches", "expectedImpact": "CI becomes an enforced merge gate; auto dep fixes", "successMetric": "Merges to master blocked unless security-audit + CodeQL pass" },
+    { "rank": 4, "ids": ["F-12", "F-13"], "title": "Rotate OpenAI key + set production secrets", "expectedImpact": "Removes key-abuse risk; protects admin/cron paths", "successMetric": "Old key revoked; endpoints reject requests without the secret" },
+    { "rank": 5, "id": "F-18", "title": "Add production observability (Sentry + uptime)", "expectedImpact": "Errors and downtime become visible", "successMetric": "Test error in Sentry; uptime alert fires" },
+    { "rank": 6, "ids": ["F-05", "F-08"], "title": "Close the accessibility baseline", "expectedImpact": "WCAG/keyboard wins + BreadcrumbList AEO surfaces", "successMetric": "Keyboard reaches main in one tab; a11y score up; breadcrumb rich results validate" },
+    { "rank": 7, "id": "F-15", "title": "Legal review of Privacy + Terms", "expectedImpact": "Reduced legal exposure before paid/youth scale", "successMetric": "Attorney sign-off on both documents" },
+    { "rank": 8, "ids": ["F-03", "F-09"], "title": "Standardize metadata + schema on shared helpers", "expectedImpact": "Consistent canonicals/cards; spread Org linkage; less drift", "successMetric": "Every public page emits canonical + consistent OG/Twitter + Org link" },
+    { "rank": 9, "id": "F-04", "title": "Verify + fix llms.txt computer-vision claim", "expectedImpact": "Accurate self-description for trust + AI engines", "successMetric": "Capability statements match shipped behavior" },
+    { "rank": 10, "ids": ["F-14", "F-16"], "title": "Lock down cloud data before it exists", "expectedImpact": "RLS + deletion ready before real/youth data lands", "successMetric": "RLS denies cross-user reads; deletion removes all user rows in window" }
+  ],
+  "roadmap": {
+    "immediate_0_7_days": ["F-12", "F-11", "F-01", "F-04", "F-29"],
+    "shortTerm_8_30_days": ["F-19", "F-21", "F-18", "F-13", "F-05", "F-08", "F-06", "F-03", "F-09", "F-20"],
+    "strategic_31_90_days": ["F-15", "F-14", "F-16", "F-27", "F-26", "F-17", "F-07", "F-23", "F-22", "F-24", "F-25"],
+    "longTerm_90_plus_days": [
+      "AI Coach memory as retention moat (F-25 extension)",
+      "Proprietary community benchmark database",
+      "Multi-generational family profiles",
+      "White-label for courses/schools",
+      "Real pose-estimation video analysis at scale",
+      "Coach certification + badging network"
+    ]
+  },
+  "technicalDebt": [
+    { "id": "TD-1", "item": "Hand-rolled metadata/JSON-LD instead of shared helpers", "relatedFinding": "F-03", "severity": "Med", "effort": "M", "remediation": "Migrate to buildMetadata() + jsonLd.ts builders" },
+    { "id": "TD-2", "item": "~16 marketing pages mid-theme-tokenization", "relatedFinding": "F-02", "severity": "Med", "effort": "M", "remediation": "Commit theme work; finish tokenization; re-audit" },
+    { "id": "TD-3", "item": "7 jsx-a11y rules at warn + ~126 lint warnings", "relatedFinding": "F-24", "severity": "Med", "effort": "M", "remediation": "Incremental cleanup; promote rules to error as fixed" },
+    { "id": "TD-4", "item": "No E2E navigation tests", "relatedFinding": "F-23", "severity": "Med", "effort": "M", "remediation": "Add Playwright journey coverage" },
+    { "id": "TD-5", "item": "Professional references use placeholder video IDs", "relatedFinding": "F-17", "severity": "Med", "effort": "M", "remediation": "Verify real IDs; flip verified flags" },
+    { "id": "TD-6", "item": "OCR service built but inactive", "relatedFinding": "F-22", "severity": "Low", "effort": "M", "remediation": "Integrate provider key; activate extraction" },
+    { "id": "TD-7", "item": "Possible transient parse error in SportVideoAnalyzerContent.tsx", "relatedFinding": "F-29", "severity": "Low", "effort": "S", "remediation": "Confirm clean build on committed tree" },
+    { "id": "TD-8", "item": "No cloud account-deletion flow / retention policy", "relatedFinding": "F-16", "severity": "High (pre-cloud)", "effort": "M", "remediation": "Build deletion endpoint; document retention" },
+    { "id": "TD-9", "item": "Missing OG/icon assets create 404 references", "relatedFinding": "F-01", "severity": "High", "effort": "S", "remediation": "Add assets or dynamic generation" }
+  ],
+  "implementationBacklog": [
+    {
+      "epic": "A - Brand & Shareability",
+      "stories": [
+        { "id": "A1", "story": "As a user sharing a link, I see a branded preview image", "acceptance": ["og-default.png or opengraph-image.tsx resolves 200", "preview renders in iMessage/Slack/Facebook"], "files": ["apps/web/src/app/opengraph-image.tsx", "apps/web/src/app/icon.tsx", "apps/web/public/", "apps/web/src/config/site.ts"] },
+        { "id": "A2", "story": "As a mobile user, I can install SwingIQ with a real icon", "acceptance": ["manifest icons resolve", "Lighthouse installable passes"], "files": ["apps/web/public/manifest*", "icon files"] }
+      ]
+    },
+    {
+      "epic": "B - Measurement & Observability",
+      "stories": [
+        { "id": "B1", "story": "As the owner, I can see funnel + KPI data", "acceptance": ["events flow to provider", "growth-report KPI table can be populated"], "files": ["apps/web/src/lib/analytics.ts", "layout/provider wiring", "scripts/growth-report.mjs"] },
+        { "id": "B2", "story": "As the owner, I am alerted to errors and downtime", "acceptance": ["test error in Sentry", "uptime alert fires"], "files": ["apps/web Sentry config (new)", "external uptime monitor"] },
+        { "id": "B3", "story": "As the owner, my pages are indexed", "acceptance": ["sitemap submitted + Success in GSC"], "files": ["apps/web/src/app/sitemap.ts", "GSC (external)"] }
+      ]
+    },
+    {
+      "epic": "C - Security & Governance",
+      "stories": [
+        { "id": "C1", "story": "Merges to master require passing security checks", "acceptance": ["branch protection requires security-audit + CodeQL"], "files": ["GitHub settings"] },
+        { "id": "C2", "story": "Secrets are rotated/set", "acceptance": ["OpenAI key rotated", "ADMIN_SECRET + CRON_SECRET set"], "files": [".env.local", "Vercel env"] },
+        { "id": "C3", "story": "Cloud data is protected by RLS + private buckets", "acceptance": ["RLS denies cross-user reads", "buckets private"], "files": ["apps/web/supabase-rls.sql", "Supabase Storage policies"] },
+        { "id": "C4", "story": "Users can delete their account + all data", "acceptance": ["deletion removes all user rows in stated window"], "files": ["new API route", "Settings UI", "apps/web/src/app/privacy/page.tsx"] }
+      ]
+    },
+    {
+      "epic": "D - SEO/AEO Consistency",
+      "stories": [
+        { "id": "D1", "story": "Every public page uses shared metadata/schema helpers", "acceptance": ["all pages emit canonical + consistent OG/Twitter + Org link"], "files": ["apps/web/src/app/*/page.tsx", "apps/web/src/lib/seo/metadata.ts", "apps/web/src/lib/seo/jsonLd.ts"] },
+        { "id": "D2", "story": "Sport pages emit BreadcrumbList + HowTo JSON-LD", "acceptance": ["breadcrumb + HowTo rich results validate"], "files": ["sport-analysis page.tsx", "components/seo/*", "lib/seo/jsonLd.ts"] },
+        { "id": "D3", "story": "llms.txt capability claims match the live analyzer", "acceptance": ["claims verified against video analyzer"], "files": ["apps/web/public/llms.txt", "apps/web/src/app/video/*"] }
+      ]
+    },
+    {
+      "epic": "E - Accessibility",
+      "stories": [
+        { "id": "E1", "story": "Keyboard users can skip to main content", "acceptance": ["skip-link reaches main in one tab"], "files": ["components/layout/AppShell*"] },
+        { "id": "E2", "story": "Visible focus + breadcrumb component shipped", "acceptance": ["consistent focus ring", "Breadcrumbs component renders"], "files": ["components/seo/Breadcrumbs.tsx", "global focus styles"] },
+        { "id": "E3", "story": "jsx-a11y warn-rules resolved in older surfaces", "acceptance": ["7 rules promoted to error with 0 violations"], "files": ["apps/web/.eslintrc.json", "affected components"] }
+      ]
+    },
+    {
+      "epic": "F - Monetization & Lifecycle (pre-paid)",
+      "stories": [
+        { "id": "F1", "story": "Users can subscribe via Stripe with ToS acceptance + AI disclaimer", "acceptance": ["Stripe Checkout + webhook verify payment server-side"], "files": ["new Stripe routes", "apps/web/src/app/pricing/page.tsx", "apps/web/src/app/terms/page.tsx"] },
+        { "id": "F2", "story": "New signups receive a welcome email sequence", "acceptance": ["provider connected", "welcome series sends"], "files": ["content/emails/*", "email provider config"] }
+      ]
+    }
+  ],
+  "kpis": [
+    { "area": "SEO", "kpi": "Organic clicks, impressions, avg position, indexed pages", "tool": "Google Search Console", "target": "Growing MoM; <10 avg position on primary keywords" },
+    { "area": "SEO", "kpi": "Core Web Vitals", "tool": "GSC / Lighthouse", "target": "All green post-deploy" },
+    { "area": "Product", "kpi": "Completed analyses, tool results generated", "tool": "Analytics (F-19)", "target": "Growing WoW" },
+    { "area": "Conversion", "kpi": "Signup rate, email captures, report shares", "tool": "Analytics", "target": "Improve via weekly conversion experiment" },
+    { "area": "Retention", "kpi": "Returning users, sessions/user", "tool": "Analytics", "target": "Growing WoW" },
+    { "area": "AI quality", "kpi": "AI Coach response success rate, fallback rate, rate-limit hits", "tool": "Sentry + logs", "target": "Low fallback/error rate" },
+    { "area": "Reliability", "kpi": "Uptime %, error rate", "tool": "Uptime monitor + Sentry", "target": ">99.9% uptime; trending-down error rate" },
+    { "area": "Security", "kpi": "Open Dependabot/CodeQL alerts, secret-scan findings", "tool": "GitHub Security", "target": "0 critical open" },
+    { "area": "Growth surface", "kpi": "Published vs draft SEO pages, tools, challenges", "tool": "npm run growth:report", "target": "Steady publish cadence" }
+  ],
+  "unresolvedQuestions": [
+    { "id": "Q1", "relatedFinding": "F-04", "question": "Does the current video analyzer perform computer-vision/pose analysis, contradicting the llms.txt claim? Project memory says it now uses real AI vision; llms.txt says it does not do pixel-level CV. Reconcile." },
+    { "id": "Q2", "relatedFinding": "F-07", "question": "Which content-hub pages (/features, /resources, /glossary, /blog, /benchmarks) are actually routed and published today? The 2026-05-31 audit and the strategy doc disagree." },
+    { "id": "Q3", "relatedFinding": "F-29", "question": "Is the SportVideoAnalyzerContent.tsx parse error fully resolved on the committed tree, or only on the in-progress working copy?" },
+    { "id": "Q4", "relatedFinding": "F-28", "question": "Are all intended security headers actually served in production (host-level), given OWNER_TASKS reports them set in middleware/next config?" },
+    { "id": "Q5", "relatedFinding": "F-19", "question": "Which analytics provider does the owner want (GA4 vs privacy-friendly Plausible vs PostHog)? Affects the privacy disclosure copy." }
+  ]
+}

@@ -29,22 +29,22 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
   };
 
   return (
-    <div className={cn('rounded-xl border border-gray-200 bg-white overflow-hidden', className)}>
+    <div className={cn('rounded-xl border border-border bg-card overflow-hidden', className)}>
       {/* Header */}
       <div className="p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="text-sm font-semibold text-gray-900">{drill.name}</h3>
+              <h3 className="text-sm font-semibold text-foreground">{drill.name}</h3>
               <Badge variant="default" className="text-xs">
                 {SKILL_LABEL[drill.skill_level] ?? drill.skill_level}
               </Badge>
             </div>
-            <p className="text-xs text-gray-600 mt-1">{drill.goal}</p>
+            <p className="text-xs text-muted-foreground mt-1">{drill.goal}</p>
           </div>
           <button
             onClick={() => setExpanded((v) => !v)}
-            className="text-gray-400 hover:text-gray-600 shrink-0 mt-0.5"
+            className="text-muted-foreground hover:text-muted-foreground shrink-0 mt-0.5"
             aria-label={expanded ? 'Collapse drill' : 'Expand drill'}
           >
             {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -52,10 +52,10 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
         </div>
 
         {/* Reps / duration badge */}
-        <div className="mt-2 flex flex-wrap gap-2 text-xs text-gray-500">
-          <span className="bg-gray-100 px-2 py-0.5 rounded-full">{drill.reps_or_duration}</span>
+        <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted-foreground">
+          <span className="bg-muted px-2 py-0.5 rounded-full">{drill.reps_or_duration}</span>
           {drill.coach_channel_hint && (
-            <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">
+            <span className="bg-accent-secondary/10 text-accent-secondary px-2 py-0.5 rounded-full">
               💡 {drill.coach_channel_hint}
             </span>
           )}
@@ -64,14 +64,14 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
 
       {/* Expanded content */}
       {expanded && (
-        <div className="border-t border-gray-100 p-4 space-y-4">
+        <div className="border-t border-border p-4 space-y-4">
           {/* Steps */}
           <div>
-            <p className="text-xs font-semibold text-gray-700 mb-2">How to do it</p>
+            <p className="text-xs font-semibold text-foreground mb-2">How to do it</p>
             <ol className="space-y-1.5">
               {drill.steps.map((step, i) => (
-                <li key={i} className="flex gap-2 text-sm text-gray-700">
-                  <span className="shrink-0 w-5 h-5 rounded-full bg-green-100 text-green-700 text-xs font-bold flex items-center justify-center">
+                <li key={i} className="flex gap-2 text-sm text-foreground">
+                  <span className="shrink-0 w-5 h-5 rounded-full bg-primary/15 text-primary text-xs font-bold flex items-center justify-center">
                     {i + 1}
                   </span>
                   <span className="leading-relaxed">{step}</span>
@@ -82,9 +82,9 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
 
           {/* Feel cue */}
           {drill.focus_feel && (
-            <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
-              <p className="text-xs font-semibold text-amber-800 mb-0.5">Feel cue</p>
-              <p className="text-xs text-amber-700 italic">&ldquo;{drill.focus_feel}&rdquo;</p>
+            <div className="rounded-lg bg-warning/10 border border-warning/30 p-3">
+              <p className="text-xs font-semibold text-warning mb-0.5">Feel cue</p>
+              <p className="text-xs text-warning italic">&ldquo;{drill.focus_feel}&rdquo;</p>
             </div>
           )}
 
@@ -93,7 +93,7 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
             href={drill.youtube_search_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700 hover:bg-red-100 transition-colors"
+            className="flex items-center gap-2 rounded-lg bg-error/10 border border-error/30 p-3 text-sm text-error hover:bg-error/15 transition-colors"
             onClick={() => handleInteraction('felt_helpful')}
           >
             <Video className="w-4 h-4 shrink-0" />
@@ -104,7 +104,7 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
           {/* Feedback buttons */}
           {!interacted ? (
             <div className="space-y-1">
-              <p className="text-xs text-gray-500">Was this drill relevant to your swing?</p>
+              <p className="text-xs text-muted-foreground">Was this drill relevant to your swing?</p>
               <div className="flex gap-2 flex-wrap">
                 {(
                   [
@@ -117,7 +117,7 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
                   <button
                     key={outcome}
                     onClick={() => handleInteraction(outcome)}
-                    className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2.5 py-1 rounded-full transition-colors"
+                    className="text-xs bg-muted hover:bg-muted text-foreground px-2.5 py-1 rounded-full transition-colors"
                   >
                     {label}
                   </button>
@@ -125,7 +125,7 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
               </div>
             </div>
           ) : (
-            <p className="text-xs text-green-600 font-medium">
+            <p className="text-xs text-primary font-medium">
               ✓ Feedback recorded — your preferences will be used to personalise future recommendations.
             </p>
           )}

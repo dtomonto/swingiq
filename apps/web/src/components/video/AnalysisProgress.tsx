@@ -41,29 +41,29 @@ export function AnalysisProgress({ stage }: { stage: AnalysisStage }) {
             <li key={s.id} className="flex items-start gap-3">
               <span className="mt-0.5 shrink-0">
                 {state === 'done' ? (
-                  <CheckCircle className="w-5 h-5 text-green-600" />
+                  <CheckCircle className="w-5 h-5 text-primary" />
                 ) : state === 'active' ? (
                   <Loader2 className="w-5 h-5 text-golf-fairway animate-spin" />
                 ) : (
-                  <Circle className="w-5 h-5 text-gray-300" />
+                  <Circle className="w-5 h-5 text-muted-foreground" />
                 )}
               </span>
               <div>
                 <p
                   className={cn(
                     'text-sm font-semibold',
-                    state === 'pending' ? 'text-gray-400' : 'text-gray-900',
+                    state === 'pending' ? 'text-muted-foreground' : 'text-foreground',
                   )}
                 >
                   {s.label}
                 </p>
-                <p className="text-xs text-gray-500">{s.detail}</p>
+                <p className="text-xs text-muted-foreground">{s.detail}</p>
               </div>
             </li>
           );
         })}
       </ol>
-      <p className="text-center text-xs text-gray-400 mt-6">
+      <p className="text-center text-xs text-muted-foreground mt-6">
         Only still frames are sent for analysis — your original video never leaves this device.
       </p>
     </div>

@@ -30,16 +30,16 @@ import type {
 // ──────────────────────────────────────────────────────────────
 
 const QUALITY_STYLES: Record<VisibilityQuality, string> = {
-  excellent: 'bg-green-50 text-green-700 border-green-200',
-  good: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  limited: 'bg-amber-50 text-amber-700 border-amber-200',
-  poor: 'bg-red-50 text-red-700 border-red-200',
+  excellent: 'bg-primary/10 text-primary border-primary/30',
+  good: 'bg-primary/10 text-primary border-primary/30',
+  limited: 'bg-warning/10 text-warning border-warning/30',
+  poor: 'bg-error/10 text-error border-error/30',
 };
 
 const CONFIDENCE_STYLES: Record<ConfidenceLevel, string> = {
-  high: 'bg-green-50 text-green-700 border-green-200',
-  moderate: 'bg-amber-50 text-amber-700 border-amber-200',
-  low: 'bg-gray-50 text-gray-600 border-gray-200',
+  high: 'bg-primary/10 text-primary border-primary/30',
+  moderate: 'bg-warning/10 text-warning border-warning/30',
+  low: 'bg-muted text-muted-foreground border-border',
 };
 
 function QualityChip({ quality }: { quality: VisibilityQuality }) {
@@ -78,10 +78,10 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="bg-white rounded-2xl border border-gray-200 p-5">
+    <section className="bg-card rounded-2xl border border-border p-5">
       <div className="flex items-center gap-2 mb-3">
         {icon}
-        <h3 className="text-sm font-bold text-gray-900">{title}</h3>
+        <h3 className="text-sm font-bold text-foreground">{title}</h3>
       </div>
       {children}
     </section>
@@ -110,24 +110,24 @@ export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis
         icon={<Sparkles className="w-4 h-4 text-golf-fairway" />}
         title="AI Visual Mechanics Summary"
       >
-        <p className="text-sm text-gray-700 leading-relaxed">{analysis.summary}</p>
+        <p className="text-sm text-foreground leading-relaxed">{analysis.summary}</p>
         <div className="flex items-center gap-2 mt-3">
           <QualityChip quality={analysis.visibilityQuality} />
-          <span className="text-xs text-gray-500">
-            Overall confidence: <span className="font-semibold text-gray-700">{confidencePct}%</span>
+          <span className="text-xs text-muted-foreground">
+            Overall confidence: <span className="font-semibold text-foreground">{confidencePct}%</span>
           </span>
         </div>
       </Section>
 
       {/* What was clearly visible */}
       <Section
-        icon={<CheckCircle className="w-4 h-4 text-green-600" />}
+        icon={<CheckCircle className="w-4 h-4 text-primary" />}
         title="What SwingIQ Could Clearly See"
       >
         <ul className="space-y-2">
           {analysis.whatWasClearlyVisible.map((item, i) => (
-            <li key={i} className="flex gap-2 text-sm text-gray-700">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">·</span>
+            <li key={i} className="flex gap-2 text-sm text-foreground">
+              <span className="text-primary font-bold mt-0.5 shrink-0">·</span>
               {item}
             </li>
           ))}
@@ -136,76 +136,76 @@ export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis
 
       {/* Video quality / visibility limits */}
       <Section
-        icon={<Camera className="w-4 h-4 text-blue-600" />}
+        icon={<Camera className="w-4 h-4 text-accent-secondary" />}
         title="Video Quality & Visibility Limits"
       >
         <div className="grid grid-cols-2 gap-2">
           {QUALITY_ROWS.map((row) => {
             const cell = vq[row.key] as { quality: VisibilityQuality; note: string };
             return (
-              <div key={row.key} className="rounded-lg border border-gray-100 bg-gray-50 p-2.5">
+              <div key={row.key} className="rounded-lg border border-border bg-muted p-2.5">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-semibold text-gray-600">{row.label}</span>
+                  <span className="text-xs font-semibold text-muted-foreground">{row.label}</span>
                   <QualityChip quality={cell.quality} />
                 </div>
-                <p className="text-xs text-gray-500 mt-1 leading-snug">{cell.note}</p>
+                <p className="text-xs text-muted-foreground mt-1 leading-snug">{cell.note}</p>
               </div>
             );
           })}
         </div>
-        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-xs text-gray-600">
+        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1">
             {vq.contactVisible ? (
-              <CheckCircle className="w-3.5 h-3.5 text-green-600" />
+              <CheckCircle className="w-3.5 h-3.5 text-primary" />
             ) : (
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
+              <AlertTriangle className="w-3.5 h-3.5 text-warning" />
             )}
             Contact {vq.contactVisible ? 'was visible' : 'not clearly visible'}
           </span>
           <span className="inline-flex items-center gap-1">
             {vq.fullMotionCaptured ? (
-              <CheckCircle className="w-3.5 h-3.5 text-green-600" />
+              <CheckCircle className="w-3.5 h-3.5 text-primary" />
             ) : (
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
+              <AlertTriangle className="w-3.5 h-3.5 text-warning" />
             )}
             Full motion {vq.fullMotionCaptured ? 'captured' : 'partially captured'}
           </span>
         </div>
-        <div className="flex items-start gap-2 mt-3 rounded-lg bg-blue-50 border border-blue-100 p-2.5">
-          <Info className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
-          <p className="text-xs text-blue-700">{vq.nextCaptureRecommendation}</p>
+        <div className="flex items-start gap-2 mt-3 rounded-lg bg-accent-secondary/10 border border-accent-secondary/20 p-2.5">
+          <Info className="w-3.5 h-3.5 text-accent-secondary shrink-0 mt-0.5" />
+          <p className="text-xs text-accent-secondary">{vq.nextCaptureRecommendation}</p>
         </div>
       </Section>
 
       {/* Top priorities */}
       <Section
-        icon={<Target className="w-4 h-4 text-red-600" />}
+        icon={<Target className="w-4 h-4 text-error" />}
         title="Top Mechanical Priorities"
       >
         <div className="space-y-3">
           {analysis.topPriorities.map((p, i) => (
-            <div key={i} className="rounded-xl border border-gray-200 p-4">
+            <div key={i} className="rounded-xl border border-border p-4">
               <div className="flex items-start justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
                   <span className="flex items-center justify-center w-5 h-5 rounded-full bg-golf-fairway text-white text-xs font-bold shrink-0">
                     {i + 1}
                   </span>
-                  <h4 className="text-sm font-semibold text-gray-900">{p.issue}</h4>
+                  <h4 className="text-sm font-semibold text-foreground">{p.issue}</h4>
                 </div>
                 <ConfidenceChip level={p.confidence} />
               </div>
               <dl className="space-y-1.5 text-sm">
                 <div>
-                  <dt className="text-xs font-semibold text-gray-500">Why it matters</dt>
-                  <dd className="text-gray-700">{p.whyItMatters}</dd>
+                  <dt className="text-xs font-semibold text-muted-foreground">Why it matters</dt>
+                  <dd className="text-foreground">{p.whyItMatters}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-semibold text-gray-500">Evidence from your video</dt>
-                  <dd className="text-gray-700">{p.evidenceFromVideo}</dd>
+                  <dt className="text-xs font-semibold text-muted-foreground">Evidence from your video</dt>
+                  <dd className="text-foreground">{p.evidenceFromVideo}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-semibold text-gray-500">Corrective focus</dt>
-                  <dd className="text-gray-700">{p.correctiveFocus}</dd>
+                  <dt className="text-xs font-semibold text-muted-foreground">Corrective focus</dt>
+                  <dd className="text-foreground">{p.correctiveFocus}</dd>
                 </div>
               </dl>
             </div>
@@ -215,22 +215,22 @@ export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis
 
       {/* Practice plan */}
       <Section
-        icon={<Sparkles className="w-4 h-4 text-purple-600" />}
+        icon={<Sparkles className="w-4 h-4 text-accent-secondary" />}
         title="Personalized Practice Plan"
       >
         <div className="space-y-3">
           {analysis.practicePlan.map((d, i) => (
-            <div key={i} className="rounded-xl border border-gray-200 p-4">
-              <p className="text-sm font-semibold text-gray-900">{d.name}</p>
-              <p className="text-sm text-gray-700 mt-1">{d.purpose}</p>
+            <div key={i} className="rounded-xl border border-border p-4">
+              <p className="text-sm font-semibold text-foreground">{d.name}</p>
+              <p className="text-sm text-foreground mt-1">{d.purpose}</p>
               <div className="grid sm:grid-cols-2 gap-2 mt-2">
-                <div className="rounded-lg bg-gray-50 border border-gray-100 p-2.5">
-                  <p className="text-xs font-semibold text-gray-500">Reps / duration</p>
-                  <p className="text-sm text-gray-700">{d.repsOrDuration}</p>
+                <div className="rounded-lg bg-muted border border-border p-2.5">
+                  <p className="text-xs font-semibold text-muted-foreground">Reps / duration</p>
+                  <p className="text-sm text-foreground">{d.repsOrDuration}</p>
                 </div>
                 <div className="rounded-lg bg-golf-fairway/5 border border-golf-fairway/20 p-2.5">
                   <p className="text-xs font-semibold text-golf-fairway">You&apos;re doing it right when…</p>
-                  <p className="text-sm text-gray-700">{d.howToKnowCorrect}</p>
+                  <p className="text-sm text-foreground">{d.howToKnowCorrect}</p>
                 </div>
               </div>
             </div>
@@ -240,10 +240,10 @@ export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis
 
       {/* Next upload */}
       <Section
-        icon={<Camera className="w-4 h-4 text-gray-700" />}
+        icon={<Camera className="w-4 h-4 text-foreground" />}
         title="Your Next Upload — How to Capture It"
       >
-        <ul className="space-y-2 text-sm text-gray-700">
+        <ul className="space-y-2 text-sm text-foreground">
           {[
             ['Camera angle', analysis.nextUpload.cameraAngle],
             ['Framing', analysis.nextUpload.framing],
@@ -252,9 +252,9 @@ export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis
             ['Sport notes', analysis.nextUpload.sportNotes],
           ].map(([label, value]) => (
             <li key={label} className="flex gap-2">
-              <ChevronRight className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
+              <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
               <span>
-                <span className="font-semibold text-gray-800">{label}:</span> {value}
+                <span className="font-semibold text-foreground">{label}:</span> {value}
               </span>
             </li>
           ))}
@@ -262,8 +262,8 @@ export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis
       </Section>
 
       {/* Provenance footer */}
-      <div className="rounded-xl bg-gray-50 border border-gray-200 p-3">
-        <p className="text-xs text-gray-500">
+      <div className="rounded-xl bg-muted border border-border p-3">
+        <p className="text-xs text-muted-foreground">
           Analyzed {analysis.meta.frameCountAnalyzed} frames with {analysis.meta.provider} ·{' '}
           {analysis.meta.model} · schema v{analysis.meta.schemaVersion}. AI-generated guidance from
           your video frames — helpful for self-coaching, not a substitute for an in-person coach.

@@ -152,7 +152,7 @@ function MetricRow({ label, a, b, unit = '', higherIsBetter = true, format: fmt 
   return (
     <div className={cn(
       'grid grid-cols-3 items-center py-2 border-b last:border-0 text-sm',
-      improved === true ? 'bg-primary/10/50' : improved === false ? 'bg-error/10/50' : '',
+      improved === true ? 'bg-primary/10' : improved === false ? 'bg-error/10' : '',
     )}>
       <span className="text-muted-foreground">{label}</span>
       <span className="text-center font-medium text-foreground">{fmtVal(a)}</span>

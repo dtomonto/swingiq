@@ -91,7 +91,9 @@
       "Bash(node scripts/audit-growth.mjs)",
       "Bash(echo \"=== growth exit: $? ===\")",
       "Bash(git ls-tree *)",
-      "Bash(git ls-remote *)"
+      "Bash(git ls-remote *)",
+      "Bash(node -e \"const d=require\\('./docs/master-audit-report.json'\\); console.log\\('JSON valid. findings:', d.consolidatedFindings.length, '| sources:', d.auditSources.length, '| topInsights:', d.topInsights.length, '| kpis:', d.kpis.length, '| unresolved:', d.unresolvedQuestions.length\\);\")",
+      "Bash(node -e ' *)"
     ]
   }
 }

@@ -17,7 +17,7 @@ export const metadata = buildMetadata({
 
 export default function StartHerePage() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-muted">
       <div className="mx-auto max-w-2xl px-4 pt-8">
         <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Start Here', path: '/start' }]} />
       </div>

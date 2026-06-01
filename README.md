@@ -374,6 +374,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | File | For |
 |---|---|
 | [BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md) | Non-developer owners — start here |
+| [master-audit-report.md](docs/master-audit-report.md) | **Consolidated audit roadmap** — merges every scheduled audit (SEO, security, growth) into one prioritized to-do list; see [audit-action-dashboard.md](docs/audit-action-dashboard.md) for the at-a-glance board. Feed each future scheduled-audit run back into §3. |
 | [OWNER_TASKS.md](docs/OWNER_TASKS.md) | Full setup checklist + manual steps |
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | When something breaks |
 | [WEB_APP_GUIDE.md](docs/WEB_APP_GUIDE.md) | Using every app feature |

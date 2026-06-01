@@ -22,7 +22,7 @@ export function AgentPracticePlanCard() {
   if (!ready || !plan) return null;
 
   return (
-    <Card className="border-accent-secondary/25 bg-accent-secondary/10/40">
+    <Card className="border-accent-secondary/25 bg-accent-secondary/10">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="flex items-center gap-2">
           <Sparkles size={16} className="text-accent-secondary" />

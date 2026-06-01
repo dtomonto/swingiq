@@ -212,14 +212,14 @@ export function StartHereFlow() {
     <div className="mx-auto max-w-2xl px-4 py-8">
       {/* Header */}
       <header className="mb-6">
-        <div className="flex items-center gap-2 text-green-700">
+        <div className="flex items-center gap-2 text-primary">
           <Compass size={20} aria-hidden="true" />
           <span className="text-sm font-semibold uppercase tracking-wide">Start Here</span>
         </div>
-        <h1 className="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">
+        <h1 className="mt-1 text-2xl font-bold text-foreground sm:text-3xl">
           Get your first result in a few minutes
         </h1>
-        <p className="mt-1 text-sm text-gray-600">
+        <p className="mt-1 text-sm text-muted-foreground">
           No account, no credit card. Your answers stay on this device.
         </p>
       </header>
@@ -228,13 +228,13 @@ export function StartHereFlow() {
       {returning && step === 'sport' && (
         <section
           aria-label="Welcome back"
-          className="mb-6 rounded-2xl border border-green-200 bg-green-50 p-5"
+          className="mb-6 rounded-2xl border border-primary/30 bg-primary/10 p-5"
         >
-          <div className="flex items-center gap-2 text-green-800">
+          <div className="flex items-center gap-2 text-primary">
             <Sparkles size={18} aria-hidden="true" />
             <h2 className="text-base font-bold">Welcome back</h2>
           </div>
-          <p className="mt-2 text-sm text-green-900">
+          <p className="mt-2 text-sm text-primary">
             Last time you focused on <strong>{returning.focus}</strong> in{' '}
             <strong>{returning.emoji} {returning.sportLabel}</strong>.
             {returning.retestDate && (
@@ -245,7 +245,7 @@ export function StartHereFlow() {
             <Link
               href="/dashboard"
               onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta: 'start_here_resume' })}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-700"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary"
             >
               Pick up where you left off
               <ArrowRight size={16} aria-hidden="true" />
@@ -253,7 +253,7 @@ export function StartHereFlow() {
             <button
               type="button"
               onClick={() => setReturning(null)}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-green-300 px-4 py-2.5 text-sm font-medium text-green-800 transition-colors hover:bg-green-100"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-primary/40 px-4 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-primary/15"
             >
               Start a new quick result
             </button>
@@ -263,22 +263,22 @@ export function StartHereFlow() {
 
       {/* Progress */}
       {showProgress && (
-        <p className="mb-4 text-xs font-medium text-gray-500" aria-live="polite">
+        <p className="mb-4 text-xs font-medium text-muted-foreground" aria-live="polite">
           Step {stepIndex + 1} of {QUIZ_STEPS.length}
         </p>
       )}
 
       {/* ── Step 1: Sport ── */}
       {step === 'sport' && (
-        <section aria-labelledby="step-sport" className="rounded-2xl border border-gray-200 bg-white p-5">
-          <h2 id="step-sport" className="mb-3 text-lg font-bold text-gray-900">
+        <section aria-labelledby="step-sport" className="rounded-2xl border border-border bg-card p-5">
+          <h2 id="step-sport" className="mb-3 text-lg font-bold text-foreground">
             Which sport are you working on?
           </h2>
           <SportCardGrid
             selectedSport={(sportId || undefined) as SportId | undefined}
             onSelect={(id) => setSportId(id as OnboardingSportId)}
           />
-          {error && <p role="alert" className="mt-3 text-sm font-medium text-red-600">{error}</p>}
+          {error && <p role="alert" className="mt-3 text-sm font-medium text-error">{error}</p>}
           <div className="mt-5 flex justify-end">
             <PrimaryButton onClick={handleSportContinue} disabled={!sportId}>
               Continue
@@ -289,11 +289,11 @@ export function StartHereFlow() {
 
       {/* ── Step 2: About you ── */}
       {step === 'about' && (
-        <section aria-labelledby="step-about" className="rounded-2xl border border-gray-200 bg-white p-5">
-          <h2 id="step-about" className="mb-3 text-lg font-bold text-gray-900">
+        <section aria-labelledby="step-about" className="rounded-2xl border border-border bg-card p-5">
+          <h2 id="step-about" className="mb-3 text-lg font-bold text-foreground">
             Who is this for?
           </h2>
-          <p className="mb-4 text-sm text-gray-600">
+          <p className="mb-4 text-sm text-muted-foreground">
             This tailors the tone and safety reminders. It doesn&apos;t change your privacy — everything stays on this device.
           </p>
           <div role="radiogroup" aria-label="Who is this for" className="space-y-2">
@@ -306,33 +306,33 @@ export function StartHereFlow() {
                   role="radio"
                   aria-checked={selected}
                   onClick={() => setUserType(u.value)}
-                  className={`flex w-full items-center gap-3 rounded-xl border-2 px-4 py-3 text-left transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1 ${
-                    selected ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-gray-300'
+                  className={`flex w-full items-center gap-3 rounded-xl border-2 px-4 py-3 text-left transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 ${
+                    selected ? 'border-primary bg-primary/10' : 'border-border hover:border-border'
                   }`}
                 >
                   <div className="flex-1">
-                    <p className={`text-sm font-semibold ${selected ? 'text-green-800' : 'text-gray-800'}`}>{u.label}</p>
-                    <p className="text-xs text-gray-500">{u.sublabel}</p>
+                    <p className={`text-sm font-semibold ${selected ? 'text-primary' : 'text-foreground'}`}>{u.label}</p>
+                    <p className="text-xs text-muted-foreground">{u.sublabel}</p>
                   </div>
-                  <span className={`h-4 w-4 shrink-0 rounded-full border-2 ${selected ? 'border-green-500 bg-green-500' : 'border-gray-300'}`} />
+                  <span className={`h-4 w-4 shrink-0 rounded-full border-2 ${selected ? 'border-primary bg-primary' : 'border-border'}`} />
                 </button>
               );
             })}
           </div>
           {userType === 'parent' && (
-            <p className="mt-3 rounded-lg bg-blue-50 p-3 text-xs text-blue-800">
+            <p className="mt-3 rounded-lg bg-accent-secondary/10 p-3 text-xs text-foreground">
               SwingIQ is built for parent-guided youth practice. We&apos;ll keep tips encouraging and safety-first.
             </p>
           )}
-          {error && <p role="alert" className="mt-3 text-sm font-medium text-red-600">{error}</p>}
+          {error && <p role="alert" className="mt-3 text-sm font-medium text-error">{error}</p>}
           <StepNav onBack={goBack} onNext={handleAboutContinue} nextDisabled={!userType} />
         </section>
       )}
 
       {/* ── Step 3: How to start ── */}
       {step === 'method' && (
-        <section aria-labelledby="step-method" className="rounded-2xl border border-gray-200 bg-white p-5">
-          <h2 id="step-method" className="mb-3 text-lg font-bold text-gray-900">
+        <section aria-labelledby="step-method" className="rounded-2xl border border-border bg-card p-5">
+          <h2 id="step-method" className="mb-3 text-lg font-bold text-foreground">
             How would you like to start?
           </h2>
           <div role="radiogroup" aria-label="How would you like to start" className="space-y-2">
@@ -345,30 +345,30 @@ export function StartHereFlow() {
                   role="radio"
                   aria-checked={selected}
                   onClick={() => setMethod(m.value)}
-                  className={`flex w-full items-start gap-3 rounded-xl border-2 px-4 py-3 text-left transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1 ${
-                    selected ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-gray-300'
+                  className={`flex w-full items-start gap-3 rounded-xl border-2 px-4 py-3 text-left transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 ${
+                    selected ? 'border-primary bg-primary/10' : 'border-border hover:border-border'
                   }`}
                 >
                   <div className="flex-1">
                     <div className="flex items-center justify-between gap-2">
-                      <p className={`text-sm font-semibold ${selected ? 'text-green-800' : 'text-gray-800'}`}>{m.label}</p>
-                      <span className="shrink-0 text-[11px] font-medium text-gray-400">{m.timeHint}</span>
+                      <p className={`text-sm font-semibold ${selected ? 'text-primary' : 'text-foreground'}`}>{m.label}</p>
+                      <span className="shrink-0 text-[11px] font-medium text-muted-foreground">{m.timeHint}</span>
                     </div>
-                    <p className="mt-0.5 text-xs text-gray-500">{m.description}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{m.description}</p>
                   </div>
                 </button>
               );
             })}
           </div>
-          {error && <p role="alert" className="mt-3 text-sm font-medium text-red-600">{error}</p>}
+          {error && <p role="alert" className="mt-3 text-sm font-medium text-error">{error}</p>}
           <StepNav onBack={goBack} onNext={handleMethodContinue} nextDisabled={!method} />
         </section>
       )}
 
       {/* ── Step 4 (quiz): A couple of questions ── */}
       {step === 'questions' && sport && (
-        <section aria-labelledby="step-questions" className="rounded-2xl border border-gray-200 bg-white p-5">
-          <h2 id="step-questions" className="mb-4 text-lg font-bold text-gray-900">
+        <section aria-labelledby="step-questions" className="rounded-2xl border border-border bg-card p-5">
+          <h2 id="step-questions" className="mb-4 text-lg font-bold text-foreground">
             Two quick questions about your {sport.label.toLowerCase()} swing
           </h2>
           <ChoiceGroup
@@ -385,19 +385,19 @@ export function StartHereFlow() {
             onChange={(v) => setSkill(v as StartSkillLevel)}
             choices={SKILL_LEVELS}
           />
-          {error && <p role="alert" className="mt-1 mb-2 text-sm font-medium text-red-600">{error}</p>}
+          {error && <p role="alert" className="mt-1 mb-2 text-sm font-medium text-error">{error}</p>}
           <StepNav onBack={goBack} onNext={handleSeeResult} nextLabel="See my result" nextDisabled={!symptom || !skill} />
         </section>
       )}
 
       {/* ── Handoff (non-quiz methods) ── */}
       {step === 'handoff' && selectedMethod && selectedMethod.href !== 'inline' && (
-        <section aria-labelledby="step-handoff" className="rounded-2xl border border-green-200 bg-white p-5">
-          <h2 id="step-handoff" className="mb-2 text-lg font-bold text-gray-900">
+        <section aria-labelledby="step-handoff" className="rounded-2xl border border-primary/30 bg-card p-5">
+          <h2 id="step-handoff" className="mb-2 text-lg font-bold text-foreground">
             {selectedMethod.label}
           </h2>
-          <p className="text-sm text-gray-600">{selectedMethod.description}</p>
-          <div className="mt-4 rounded-xl bg-amber-50 p-4 text-xs text-amber-800">
+          <p className="text-sm text-muted-foreground">{selectedMethod.description}</p>
+          <div className="mt-4 rounded-xl bg-warning/10 p-4 text-xs text-warning">
             <p className="flex items-start gap-2">
               <Info size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
               <span>
@@ -410,7 +410,7 @@ export function StartHereFlow() {
             <Link
               href={selectedMethod.href}
               onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta: `start_here_${selectedMethod.value}` })}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-green-700"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary"
             >
               Continue
               <ArrowRight size={16} aria-hidden="true" />
@@ -418,7 +418,7 @@ export function StartHereFlow() {
             <button
               type="button"
               onClick={() => { setMethod('quiz'); setStep('questions'); }}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-muted"
             >
               Just answer a couple of questions instead
             </button>
@@ -426,7 +426,7 @@ export function StartHereFlow() {
           <button
             type="button"
             onClick={goBack}
-            className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-800"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft size={15} aria-hidden="true" /> Back
           </button>
@@ -452,29 +452,29 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
   return (
     <section aria-live="polite" className="space-y-4">
       {/* Headline */}
-      <div className="rounded-2xl border border-green-200 bg-white p-5 shadow-xs">
+      <div className="rounded-2xl border border-primary/30 bg-card p-5 shadow-xs">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-sm font-medium text-gray-500">
+          <p className="text-sm font-medium text-muted-foreground">
             {result.emoji} {result.sportLabel}
           </p>
           <ConfidenceBadge confidence={result.confidence} showReason={false} />
         </div>
-        <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-green-700">
+        <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-primary">
           Your top thing to work on first
         </p>
-        <h2 className="mt-1 text-xl font-bold text-gray-900">{result.issue}</h2>
-        <div className="mt-3 rounded-xl bg-amber-50 p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-700">Why it matters</p>
-          <p className="mt-1 text-gray-800">{result.whyItMatters}</p>
+        <h2 className="mt-1 text-xl font-bold text-foreground">{result.issue}</h2>
+        <div className="mt-3 rounded-xl bg-warning/10 p-4">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Why it matters</p>
+          <p className="mt-1 text-foreground">{result.whyItMatters}</p>
         </div>
       </div>
 
       {/* Coaching mode framing (tone-aware) */}
-      <div className="rounded-2xl border border-green-200 bg-green-50 p-4">
-        <p className="text-xs font-semibold text-green-800">Coaching mode: {tone.label}</p>
-        <p className="mt-1 text-sm text-green-900">{tone.resultIntro}</p>
-        {tone.note && <p className="mt-2 text-xs text-green-800">{tone.note}</p>}
-        <p className="mt-2 text-[11px] text-green-700">You can change this in Settings → Coaching Preferences.</p>
+      <div className="rounded-2xl border border-primary/30 bg-primary/10 p-4">
+        <p className="text-xs font-semibold text-primary">Coaching mode: {tone.label}</p>
+        <p className="mt-1 text-sm text-primary">{tone.resultIntro}</p>
+        {tone.note && <p className="mt-2 text-xs text-primary">{tone.note}</p>}
+        <p className="mt-2 text-[11px] text-primary">You can change this in Settings → Coaching Preferences.</p>
       </div>
 
       {/* Transparency: what this is based on (shared, reusable panel) */}
@@ -487,23 +487,23 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
       />
 
       {/* Drills */}
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h3 className="text-sm font-bold text-gray-900">Three beginner-safe drills</h3>
-        <ul className="mt-2 space-y-1.5 text-sm text-gray-700">
+      <div className="rounded-2xl border border-border bg-card p-5">
+        <h3 className="text-sm font-bold text-foreground">Three beginner-safe drills</h3>
+        <ul className="mt-2 space-y-1.5 text-sm text-foreground">
           {result.drills.map((d) => (
-            <li key={d} className="flex gap-2"><span className="text-green-600">•</span>{d}</li>
+            <li key={d} className="flex gap-2"><span className="text-primary">•</span>{d}</li>
           ))}
         </ul>
       </div>
 
       {/* 7-day plan */}
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h3 className="text-sm font-bold text-gray-900">Your 7-day practice plan</h3>
-        <ul className="mt-2 space-y-1 text-sm text-gray-700">
+      <div className="rounded-2xl border border-border bg-card p-5">
+        <h3 className="text-sm font-bold text-foreground">Your 7-day practice plan</h3>
+        <ul className="mt-2 space-y-1 text-sm text-foreground">
           {result.plan.map((p) => <li key={p}>{p}</li>)}
         </ul>
         {result.retestDate && (
-          <p className="mt-3 text-xs font-medium text-green-700">
+          <p className="mt-3 text-xs font-medium text-primary">
             Retest reminder saved for {formatDate(result.retestDate)}.
           </p>
         )}
@@ -520,8 +520,8 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
       )}
 
       {/* Next actions */}
-      <div className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h3 className="mb-3 text-sm font-bold text-gray-900">What next?</h3>
+      <div className="rounded-2xl border border-border bg-card p-5">
+        <h3 className="mb-3 text-sm font-bold text-foreground">What next?</h3>
         <div className="grid gap-2 sm:grid-cols-2">
           <NextAction href="/dashboard" cta="start_here_dashboard" primary>Go to my dashboard</NextAction>
           <NextAction href="/training" cta="start_here_training">Start my practice plan</NextAction>
@@ -535,7 +535,7 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
         <button
           type="button"
           onClick={onRestart}
-          className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-gray-900"
+          className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
         >
           <RotateCcw size={15} aria-hidden="true" /> Try another sport
         </button>
@@ -562,7 +562,7 @@ function PrimaryButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="inline-flex items-center gap-2 rounded-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-700 disabled:bg-gray-200 disabled:text-gray-400"
+      className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary disabled:bg-muted disabled:text-muted-foreground"
     >
       {children}
       <ArrowRight size={16} aria-hidden="true" />
@@ -586,7 +586,7 @@ function StepNav({
       <button
         type="button"
         onClick={onBack}
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-800"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft size={15} aria-hidden="true" /> Back
       </button>
@@ -614,8 +614,8 @@ function NextAction({
       onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta })}
       className={`flex items-center justify-between gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors ${
         primary
-          ? 'bg-green-600 text-white hover:bg-green-700'
-          : 'border border-gray-200 text-gray-800 hover:border-green-400 hover:bg-green-50'
+          ? 'bg-primary text-white hover:bg-primary'
+          : 'border border-border text-foreground hover:border-primary/50 hover:bg-primary/10'
       }`}
     >
       {children}

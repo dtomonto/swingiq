@@ -50,7 +50,7 @@ export function CoachSummaryCard() {
   };
 
   return (
-    <Card className="border-warning/30 bg-warning/10/50">
+    <Card className="border-warning/30 bg-warning/10">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="flex items-center gap-2">
           <MessageSquareQuote size={18} className="text-warning" />

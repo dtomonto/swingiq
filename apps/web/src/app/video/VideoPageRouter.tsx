@@ -26,7 +26,7 @@ export function VideoPageRouter() {
       {/* Upload trust + safety, collapsible so it never blocks the tool. */}
       <div className="px-6 pt-4 max-w-5xl mx-auto">
         <details className="group">
-          <summary className="cursor-pointer list-none text-sm font-medium text-green-700 hover:underline">
+          <summary className="cursor-pointer list-none text-sm font-medium text-primary hover:underline">
             What happens to my video? (privacy &amp; upload tips)
           </summary>
           <div className="mt-3 grid gap-4 md:grid-cols-2">

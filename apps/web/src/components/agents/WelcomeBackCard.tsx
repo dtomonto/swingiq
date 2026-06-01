@@ -16,7 +16,7 @@ import type { ResumeState } from '@/lib/agents';
 
 function StatChip({ icon: Icon, label }: { icon: typeof Clock; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs text-primary-foreground/90/90 bg-card/10 rounded-full px-2.5 py-1">
+    <span className="inline-flex items-center gap-1.5 text-xs text-primary-foreground/90 bg-card/10 rounded-full px-2.5 py-1">
       <Icon size={12} aria-hidden="true" />
       {label}
     </span>
@@ -101,7 +101,7 @@ export function WelcomeBackCard({
         {/* Helper + confidence */}
         <div className="mt-4 flex flex-wrap items-center gap-3">
           {resume.nextBestAction.helperText && (
-            <p className="text-primary-foreground/90/70 text-xs">{resume.nextBestAction.helperText}</p>
+            <p className="text-primary-foreground/90 text-xs">{resume.nextBestAction.helperText}</p>
           )}
           <ConfidenceBadge confidence={resume.confidence} showReason={false} className="opacity-90" />
         </div>

@@ -79,7 +79,7 @@ function Avatar3DPlaceholder({ phase, fault }: { phase: number; fault: string | 
         </svg>
         <p className="text-white font-semibold">{SWING_PHASES[phase]}</p>
         {fault && (
-          <div className="mt-2 px-3 py-1 bg-error/20 border border-error/50/30 rounded-lg">
+          <div className="mt-2 px-3 py-1 bg-error/20 border border-error/50 rounded-lg">
             <p className="text-red-300 text-xs">{FAULT_TOGGLES.find((f) => f.id === fault)?.label}</p>
           </div>
         )}

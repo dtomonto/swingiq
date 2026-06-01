@@ -120,9 +120,9 @@ export function VideoAnalyzerContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-muted">
       {/* Page header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-20">
+      <div className="bg-card border-b border-border sticky top-0 z-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             {step !== 'upload' && (
@@ -131,15 +131,15 @@ export function VideoAnalyzerContent() {
                   if (step === 'results') setStep('configure');
                   else if (step === 'configure') setStep('upload');
                 }}
-                className="text-gray-500 hover:text-gray-700 p-1 rounded-sm"
+                className="text-muted-foreground hover:text-foreground p-1 rounded-sm"
                 aria-label="Back"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
             )}
             <div>
-              <h1 className="text-lg font-bold text-gray-900">Swing Video Analyzer</h1>
-              <p className="text-xs text-gray-500 hidden sm:block">
+              <h1 className="text-lg font-bold text-foreground">Swing Video Analyzer</h1>
+              <p className="text-xs text-muted-foreground hidden sm:block">
                 Upload · AI reviews your frames · Improve
               </p>
             </div>
@@ -152,10 +152,10 @@ export function VideoAnalyzerContent() {
                 className={cn(
                   'w-2 h-2 rounded-full transition-all',
                   step === s || (step === 'analyzing' && s === 'configure')
-                    ? 'bg-green-600 w-4'
+                    ? 'bg-primary w-4'
                     : i < ['upload', 'configure', 'results'].indexOf(step === 'analyzing' ? 'results' : step)
-                    ? 'bg-green-400'
-                    : 'bg-gray-300',
+                    ? 'bg-primary/60'
+                    : 'bg-muted',
                 )}
               />
             ))}
@@ -168,8 +168,8 @@ export function VideoAnalyzerContent() {
         {step === 'upload' && (
           <div className="max-w-2xl mx-auto space-y-6">
             <div className="text-center">
-              <h2 className="text-xl font-bold text-gray-900">Upload your swing video</h2>
-              <p className="text-sm text-gray-500 mt-1">
+              <h2 className="text-xl font-bold text-foreground">Upload your swing video</h2>
+              <p className="text-sm text-muted-foreground mt-1">
                 Record from down the line or face on. SwingIQ&apos;s AI reviews the actual frames of
                 your swing.
               </p>
@@ -179,10 +179,10 @@ export function VideoAnalyzerContent() {
             <Card>
               <CardBody className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <Info className="w-4 h-4 text-blue-500" />
-                  <p className="text-sm font-semibold text-gray-700">Recording tips</p>
+                  <Info className="w-4 h-4 text-accent-secondary" />
+                  <p className="text-sm font-semibold text-foreground">Recording tips</p>
                 </div>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-sm text-muted-foreground">
                   {[
                     'Use a phone or camera on a tripod at hip height',
                     'Film from directly behind (down the line) or directly to the side (face on)',
@@ -191,7 +191,7 @@ export function VideoAnalyzerContent() {
                     'A clean, uncluttered background helps the AI see your body',
                   ].map((tip, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold mt-0.5">·</span>
+                      <span className="text-primary font-bold mt-0.5">·</span>
                       {tip}
                     </li>
                   ))}
@@ -209,9 +209,9 @@ export function VideoAnalyzerContent() {
             <CameraAngleSelector value={cameraAngle} onChange={setCameraAngle} />
 
             {analyzeError && (
-              <div className="flex items-start gap-3 rounded-lg bg-red-50 border border-red-200 p-3">
-                <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
-                <p className="text-sm text-red-700">{analyzeError}</p>
+              <div className="flex items-start gap-3 rounded-lg bg-error/10 border border-error/30 p-3">
+                <AlertCircle className="w-5 h-5 text-error shrink-0" />
+                <p className="text-sm text-error">{analyzeError}</p>
               </div>
             )}
 
@@ -220,7 +220,7 @@ export function VideoAnalyzerContent() {
               Analyze Swing with AI
             </Button>
 
-            <p className="text-center text-xs text-gray-400">
+            <p className="text-center text-xs text-muted-foreground">
               Only sampled still frames are sent to the AI vision provider for analysis — your
               original video never leaves this device and frames are not stored.
             </p>
@@ -232,7 +232,7 @@ export function VideoAnalyzerContent() {
           <div className="py-10">
             <div className="text-center mb-8">
               <Loader2 className="w-8 h-8 animate-spin text-golf-fairway mx-auto mb-3" />
-              <h2 className="text-lg font-semibold text-gray-800">Analyzing your swing</h2>
+              <h2 className="text-lg font-semibold text-foreground">Analyzing your swing</h2>
             </div>
             <AnalysisProgress stage={stage} />
           </div>

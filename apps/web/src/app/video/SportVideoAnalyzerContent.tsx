@@ -122,8 +122,8 @@ export function SportVideoAnalyzerContent() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
         <div className="text-center space-y-2">
-          <h1 className="text-2xl font-bold text-gray-900">Swing Video Analyzer</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-foreground">Swing Video Analyzer</h1>
+          <p className="text-sm text-muted-foreground">
             Upload a swing video and SwingIQ&apos;s AI reviews the actual frames — golf, tennis,
             baseball, and softball.
           </p>
@@ -131,17 +131,17 @@ export function SportVideoAnalyzerContent() {
 
         <Card>
           <CardBody className="space-y-3">
-            <p className="text-sm font-semibold text-gray-700">Which sport are you analyzing?</p>
+            <p className="text-sm font-semibold text-foreground">Which sport are you analyzing?</p>
             <SportCardGrid selectedSport={selectedSport} onSelect={setSelectedSport} />
           </CardBody>
         </Card>
 
         <VideoUpload onVideoReady={handleVideoReady} />
 
-        <div className="rounded-xl bg-blue-50 border border-blue-200 p-4">
+        <div className="rounded-xl bg-accent-secondary/10 border border-accent-secondary/25 p-4">
           <div className="flex items-start gap-2">
-            <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-            <p className="text-xs text-blue-700">
+            <Info className="w-4 h-4 text-accent-secondary shrink-0 mt-0.5" />
+            <p className="text-xs text-accent-secondary">
               <strong>Real AI video review.</strong> SwingIQ samples still frames across your whole
               swing and an AI vision model assesses what it can actually see — with an honest
               confidence level and video-quality notes.
@@ -160,12 +160,12 @@ export function SportVideoAnalyzerContent() {
           <button
             type="button"
             onClick={handleRemoveVideo}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-lg hover:bg-muted transition-colors"
             aria-label="Back"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <h1 className="text-xl font-bold text-gray-900">Configure Analysis</h1>
+          <h1 className="text-xl font-bold text-foreground">Configure Analysis</h1>
         </div>
 
         {videoFile && videoMetadata && (
@@ -174,7 +174,7 @@ export function SportVideoAnalyzerContent() {
 
         <Card>
           <CardBody className="space-y-3">
-            <p className="text-sm font-semibold text-gray-700">Sport</p>
+            <p className="text-sm font-semibold text-foreground">Sport</p>
             <SportCardGrid selectedSport={selectedSport} onSelect={setSelectedSport} />
           </CardBody>
         </Card>
@@ -182,9 +182,9 @@ export function SportVideoAnalyzerContent() {
         {config && (
           <Card>
             <CardBody className="space-y-3">
-              <p className="text-sm font-semibold text-gray-700">
+              <p className="text-sm font-semibold text-foreground">
                 Camera Angle{' '}
-                <span className="text-xs font-normal text-gray-400">
+                <span className="text-xs font-normal text-muted-foreground">
                   (helps the AI verify what it&apos;s seeing)
                 </span>
               </p>
@@ -202,20 +202,20 @@ export function SportVideoAnalyzerContent() {
                       }
                       className={`flex items-start gap-2 p-3 rounded-lg border text-left transition-colors ${
                         isSelected
-                          ? 'border-green-500 bg-green-50'
-                          : 'border-gray-200 bg-white hover:border-gray-300'
+                          ? 'border-primary bg-primary/10'
+                          : 'border-border bg-card hover:border-border'
                       }`}
                     >
                       <div
                         className={`w-3 h-3 rounded-full border-2 mt-0.5 shrink-0 ${
-                          isSelected ? 'border-green-500 bg-green-500' : 'border-gray-300'
+                          isSelected ? 'border-primary bg-primary' : 'border-border'
                         }`}
                       />
                       <div>
-                        <p className={`text-xs font-semibold ${isSelected ? 'text-green-700' : 'text-gray-700'}`}>
+                        <p className={`text-xs font-semibold ${isSelected ? 'text-primary' : 'text-foreground'}`}>
                           {opt.label}
                         </p>
-                        <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{opt.description}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{opt.description}</p>
                       </div>
                     </button>
                   );
@@ -226,9 +226,9 @@ export function SportVideoAnalyzerContent() {
         )}
 
         {analyzeError && (
-          <div className="rounded-xl bg-red-50 border border-red-200 p-4 flex gap-2">
-            <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-            <p className="text-sm text-red-700">{analyzeError}</p>
+          <div className="rounded-xl bg-error/10 border border-error/30 p-4 flex gap-2">
+            <AlertCircle className="w-4 h-4 text-error shrink-0 mt-0.5" />
+            <p className="text-sm text-error">{analyzeError}</p>
           </div>
         )}
 
@@ -241,7 +241,7 @@ export function SportVideoAnalyzerContent() {
           )}
         </Button>
 
-        <p className="text-center text-xs text-gray-400">
+        <p className="text-center text-xs text-muted-foreground">
           Only sampled still frames are sent to the AI vision provider — your original video never
           leaves this device and frames are not stored.
         </p>
@@ -255,7 +255,7 @@ export function SportVideoAnalyzerContent() {
       <div className="max-w-xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
           <Loader2 className="w-8 h-8 animate-spin text-golf-fairway mx-auto mb-3" />
-          <h2 className="text-lg font-semibold text-gray-800">Analyzing your swing</h2>
+          <h2 className="text-lg font-semibold text-foreground">Analyzing your swing</h2>
         </div>
         <AnalysisProgress stage={stage} />
       </div>
@@ -269,13 +269,13 @@ export function SportVideoAnalyzerContent() {
         <button
           type="button"
           onClick={() => setStep('configure')}
-          className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-2 rounded-lg hover:bg-muted transition-colors"
           aria-label="Back"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <div>
-          <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-xl font-bold text-foreground flex items-center gap-2">
             {config && <span>{config.emoji}</span>}
             {config?.name ?? 'Swing'} AI Analysis
           </h1>
@@ -300,10 +300,10 @@ export function SportVideoAnalyzerContent() {
 
             {/* General coaching reference — NOT detected from this video */}
             {config && (
-              <details className="rounded-xl border border-gray-200 bg-white">
-                <summary className="cursor-pointer list-none px-4 py-3 text-sm font-semibold text-gray-700">
+              <details className="rounded-xl border border-border bg-card">
+                <summary className="cursor-pointer list-none px-4 py-3 text-sm font-semibold text-foreground">
                   General {config.name} phase reference
-                  <span className="block text-xs font-normal text-gray-400">
+                  <span className="block text-xs font-normal text-muted-foreground">
                     Educational reference — not detected from your video
                   </span>
                 </summary>
@@ -312,9 +312,9 @@ export function SportVideoAnalyzerContent() {
                     const def = config.phases[phaseId];
                     if (!def) return null;
                     return (
-                      <div key={phaseId} className="rounded-lg bg-gray-50 border border-gray-100 p-2.5">
-                        <p className="text-xs font-semibold text-gray-700">{def.label}</p>
-                        <p className="text-xs text-gray-500 mt-0.5">{def.coaching_cue}</p>
+                      <div key={phaseId} className="rounded-lg bg-muted border border-border p-2.5">
+                        <p className="text-xs font-semibold text-foreground">{def.label}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">{def.coaching_cue}</p>
                       </div>
                     );
                   })}
