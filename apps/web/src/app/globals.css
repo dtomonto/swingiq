@@ -28,6 +28,26 @@
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
 
+  /* ── Theme system additions (consumed via data-theme palettes below) ── */
+  --color-surface: hsl(var(--card));
+  --color-elevated: hsl(var(--popover));
+
+  --color-accent-secondary: hsl(var(--accent-secondary));
+  --color-accent-secondary-foreground: hsl(var(--accent-secondary-foreground));
+
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+  --color-error: hsl(var(--error));
+  --color-error-foreground: hsl(var(--error-foreground));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
   --color-brand-50: #f0fdf4;
   --color-brand-100: #dcfce7;
   --color-brand-200: #bbf7d0;
@@ -104,50 +124,286 @@
   }
 }
 
+/*
+  Subtle theme pattern overlay. Renders nothing unless the active theme sets
+  `--pattern-overlay` (only Bird Print does). Apply ONLY in safe areas
+  (theme previews, empty states, decorative panels) — never behind body text,
+  charts, forms, diagnosis results, or CTAs.
+*/
+@utility bg-theme-pattern {
+  background-image: var(--pattern-overlay, none);
+  background-repeat: repeat;
+}
+
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+  /* ─────────────────────────────────────────────────────────────
+     THEME TOKENS
+     Every theme redefines the SAME semantic variables, so layout,
+     hierarchy, and component structure are identical across themes —
+     only the "emotional layer" (color) changes. Palettes are tuned
+     for WCAG AA text contrast on their own surfaces.
+     ───────────────────────────────────────────────────────────── */
+
+  /* Standard — default. Timeless off-white + charcoal + premium green. */
+  :root,
+  [data-theme='standard'] {
+    --background: 210 20% 98%;
+    --foreground: 222 22% 14%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 222 22% 14%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 142.1 76.2% 36.3%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 142.1 76.2% 36.3%;
+    --popover-foreground: 222 22% 14%;
+    --primary: 142 64% 30%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 94%;
+    --secondary-foreground: 222 20% 20%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 16% 40%;
+    --accent: 210 20% 94%;
+    --accent-foreground: 222 20% 20%;
+    --accent-secondary: 188 72% 32%;
+    --accent-secondary-foreground: 0 0% 100%;
+    --success: 142 64% 30%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 40%;
+    --warning-foreground: 30 45% 12%;
+    --error: 0 72% 42%;
+    --error-foreground: 0 0% 100%;
+    --destructive: 0 72% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 18% 88%;
+    --input: 214 18% 88%;
+    --ring: 142 64% 30%;
+    --chart-1: 142 64% 36%;
+    --chart-2: 188 72% 38%;
+    --chart-3: 217 79% 52%;
+    --chart-4: 38 92% 48%;
+    --chart-5: 280 55% 55%;
+    --pattern-overlay: none;
     --radius: 0.5rem;
   }
 
+  /* Dark Performance — near-black, graphite cards, athletic teal. */
+  [data-theme='dark-performance'],
   .dark {
-    --background: 20 14.3% 4.1%;
-    --foreground: 0 0% 95%;
-    --card: 24 9.8% 10%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 142.1 70.6% 45.3%;
-    --primary-foreground: 144.9 80.4% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 12 6.5% 15.1%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 142.4 71.8% 29.2%;
+    --background: 222 24% 7%;
+    --foreground: 210 16% 92%;
+    --card: 222 18% 11%;
+    --card-foreground: 210 16% 92%;
+    --popover: 222 18% 13%;
+    --popover-foreground: 210 16% 92%;
+    --primary: 160 64% 44%;
+    --primary-foreground: 222 40% 8%;
+    --secondary: 222 14% 18%;
+    --secondary-foreground: 210 16% 92%;
+    --muted: 222 14% 16%;
+    --muted-foreground: 215 14% 64%;
+    --accent: 222 14% 18%;
+    --accent-foreground: 210 16% 92%;
+    --accent-secondary: 199 80% 54%;
+    --accent-secondary-foreground: 222 40% 8%;
+    --success: 152 58% 50%;
+    --success-foreground: 222 40% 8%;
+    --warning: 38 92% 58%;
+    --warning-foreground: 30 45% 10%;
+    --error: 0 72% 62%;
+    --error-foreground: 0 0% 100%;
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 14% 20%;
+    --input: 222 14% 20%;
+    --ring: 160 64% 44%;
+    --chart-1: 160 64% 50%;
+    --chart-2: 199 80% 58%;
+    --chart-3: 217 80% 66%;
+    --chart-4: 38 92% 62%;
+    --chart-5: 280 65% 68%;
+    --pattern-overlay: none;
+  }
+
+  /* Coach Mode — whiteboard clarity, confident blue, stronger borders. */
+  [data-theme='coach-mode'] {
+    --background: 210 30% 99%;
+    --foreground: 217 33% 17%;
+    --card: 0 0% 100%;
+    --card-foreground: 217 33% 17%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 217 33% 17%;
+    --primary: 217 79% 42%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 28% 95%;
+    --secondary-foreground: 217 33% 20%;
+    --muted: 210 28% 95%;
+    --muted-foreground: 217 18% 40%;
+    --accent: 210 28% 95%;
+    --accent-foreground: 217 33% 20%;
+    --accent-secondary: 173 58% 32%;
+    --accent-secondary-foreground: 0 0% 100%;
+    --success: 152 60% 30%;
+    --success-foreground: 0 0% 100%;
+    --warning: 32 90% 40%;
+    --warning-foreground: 30 45% 12%;
+    --error: 0 70% 42%;
+    --error-foreground: 0 0% 100%;
+    --destructive: 0 70% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 25% 83%;
+    --input: 214 25% 83%;
+    --ring: 217 79% 42%;
+    --chart-1: 217 79% 48%;
+    --chart-2: 173 58% 38%;
+    --chart-3: 152 60% 38%;
+    --chart-4: 32 90% 48%;
+    --chart-5: 268 55% 56%;
+    --pattern-overlay: none;
+  }
+
+  /* Heritage Club — cream, navy, forest green, brass. */
+  [data-theme='heritage-club'] {
+    --background: 42 33% 95%;
+    --foreground: 218 38% 18%;
+    --card: 40 36% 98%;
+    --card-foreground: 218 38% 18%;
+    --popover: 40 36% 98%;
+    --popover-foreground: 218 38% 18%;
+    --primary: 150 34% 25%;
+    --primary-foreground: 42 40% 96%;
+    --secondary: 40 25% 90%;
+    --secondary-foreground: 218 38% 22%;
+    --muted: 40 25% 90%;
+    --muted-foreground: 218 16% 38%;
+    --accent: 40 25% 90%;
+    --accent-foreground: 218 38% 22%;
+    --accent-secondary: 38 54% 38%;
+    --accent-secondary-foreground: 42 40% 96%;
+    --success: 150 40% 27%;
+    --success-foreground: 42 40% 96%;
+    --warning: 36 70% 36%;
+    --warning-foreground: 40 45% 95%;
+    --error: 4 60% 40%;
+    --error-foreground: 42 40% 96%;
+    --destructive: 4 60% 40%;
+    --destructive-foreground: 42 40% 96%;
+    --border: 40 22% 81%;
+    --input: 40 22% 81%;
+    --ring: 150 34% 25%;
+    --chart-1: 150 34% 32%;
+    --chart-2: 218 38% 38%;
+    --chart-3: 38 54% 44%;
+    --chart-4: 4 50% 46%;
+    --chart-5: 200 30% 40%;
+    --pattern-overlay: none;
+  }
+
+  /* Field & Court — chalk background, turf green, clay accent. */
+  [data-theme='field-court'] {
+    --background: 80 18% 96%;
+    --foreground: 150 18% 15%;
+    --card: 80 20% 99%;
+    --card-foreground: 150 18% 15%;
+    --popover: 80 20% 99%;
+    --popover-foreground: 150 18% 15%;
+    --primary: 135 45% 28%;
+    --primary-foreground: 80 20% 97%;
+    --secondary: 80 16% 91%;
+    --secondary-foreground: 150 18% 20%;
+    --muted: 80 16% 91%;
+    --muted-foreground: 150 10% 37%;
+    --accent: 80 16% 91%;
+    --accent-foreground: 150 18% 20%;
+    --accent-secondary: 18 68% 42%;
+    --accent-secondary-foreground: 80 20% 97%;
+    --success: 135 45% 28%;
+    --success-foreground: 80 20% 97%;
+    --warning: 36 84% 38%;
+    --warning-foreground: 30 45% 12%;
+    --error: 6 66% 42%;
+    --error-foreground: 0 0% 100%;
+    --destructive: 6 66% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 80 14% 83%;
+    --input: 80 14% 83%;
+    --ring: 135 45% 28%;
+    --chart-1: 135 45% 34%;
+    --chart-2: 18 68% 48%;
+    --chart-3: 200 55% 42%;
+    --chart-4: 45 80% 46%;
+    --chart-5: 280 40% 52%;
+    --pattern-overlay: none;
+  }
+
+  /* Arcade Practice — energetic indigo + magenta, still premium. */
+  [data-theme='arcade-practice'] {
+    --background: 240 30% 98%;
+    --foreground: 240 30% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 30% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 30% 14%;
+    --primary: 256 68% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 250 30% 95%;
+    --secondary-foreground: 240 30% 20%;
+    --muted: 250 30% 95%;
+    --muted-foreground: 248 14% 42%;
+    --accent: 250 30% 95%;
+    --accent-foreground: 240 30% 20%;
+    --accent-secondary: 330 75% 46%;
+    --accent-secondary-foreground: 0 0% 100%;
+    --success: 150 62% 34%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 44%;
+    --warning-foreground: 30 45% 12%;
+    --error: 350 72% 50%;
+    --error-foreground: 0 0% 100%;
+    --destructive: 350 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 250 24% 88%;
+    --input: 250 24% 88%;
+    --ring: 256 68% 50%;
+    --chart-1: 256 68% 56%;
+    --chart-2: 330 75% 56%;
+    --chart-3: 190 80% 44%;
+    --chart-4: 40 95% 52%;
+    --chart-5: 150 62% 42%;
+    --pattern-overlay: none;
+  }
+
+  /* Bird Print Lifestyle — sky-teal + coral, with subtle pattern overlay. */
+  [data-theme='bird-print'] {
+    --background: 196 30% 96%;
+    --foreground: 205 32% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 205 32% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 205 32% 16%;
+    --primary: 192 62% 34%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 196 28% 92%;
+    --secondary-foreground: 205 32% 20%;
+    --muted: 196 28% 92%;
+    --muted-foreground: 202 16% 39%;
+    --accent: 196 28% 92%;
+    --accent-foreground: 205 32% 20%;
+    --accent-secondary: 8 72% 54%;
+    --accent-secondary-foreground: 0 0% 100%;
+    --success: 162 54% 30%;
+    --success-foreground: 0 0% 100%;
+    --warning: 36 86% 42%;
+    --warning-foreground: 30 45% 12%;
+    --error: 4 70% 46%;
+    --error-foreground: 0 0% 100%;
+    --destructive: 4 70% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 196 22% 83%;
+    --input: 196 22% 83%;
+    --ring: 192 62% 34%;
+    --chart-1: 192 62% 40%;
+    --chart-2: 8 72% 58%;
+    --chart-3: 168 50% 38%;
+    --chart-4: 40 88% 50%;
+    --chart-5: 268 50% 56%;
+    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='64'%20height='64'%20viewBox='0%200%2064%2064'%3E%3Cg%20fill='none'%20stroke='%230e7490'%20stroke-opacity='0.10'%20stroke-width='1.6'%20stroke-linecap='round'%3E%3Cpath%20d='M8%2018%20Q12%2012%2016%2018%20Q20%2012%2024%2018'/%3E%3Cpath%20d='M36%2030%20Q40%2024%2044%2030%20Q48%2024%2052%2030'/%3E%3Cpath%20d='M14%2046%20Q18%2040%2022%2046%20Q26%2040%2030%2046'/%3E%3C/g%3E%3C/svg%3E");
   }
 }
 

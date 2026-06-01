@@ -72,7 +72,12 @@
       "Bash(git --no-pager diff .claude/settings.local.json)",
       "Bash(npm update *)",
       "Bash(node -e \"console.log\\(require\\('./node_modules/react-hook-form/package.json'\\).version\\)\")",
-      "Bash(git --no-pager diff package-lock.json)"
+      "Bash(git --no-pager diff package-lock.json)",
+      "Bash(npm test *)",
+      "Bash(node -e \"const l=require\\('C:/Users/dtomo/OneDrive/Desktop/swingiq/node_modules/lucide-react/package.json'\\); console.log\\('lucide-react', l.version\\); const m=require\\('C:/Users/dtomo/OneDrive/Desktop/swingiq/node_modules/lucide-react'\\); console.log\\(['Compass','Sparkles','Rocket','Flag','Play','Wand2','Wand','Map','Footprints'].map\\(n=>n+':'+\\(typeof m[n]==='object'||typeof m[n]==='function'\\)\\).join\\(' '\\)\\)\")",
+      "PowerShell(npm run test -w @swingiq/web 2>&1)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git --no-pager diff apps/web/src/app/page.tsx)"
     ]
   }
 }

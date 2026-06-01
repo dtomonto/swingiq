@@ -45,11 +45,11 @@ export function AppShell({ children }: AppShellProps) {
   const closeDrawer = useCallback(() => setDrawerOpen(false), []);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-background">
       {/* ── Skip-to-content link (screen readers / keyboard users) ── */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:bg-white focus:text-green-800 focus:font-semibold focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:outline-hidden focus:ring-2 focus:ring-green-600"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:bg-card focus:text-foreground focus:font-semibold focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:outline-hidden focus:ring-2 focus:ring-ring"
       >
         Skip to main content
       </a>
@@ -86,11 +86,11 @@ export function AppShell({ children }: AppShellProps) {
       {/* ── Main content area ── */}
       <div className="flex flex-col flex-1 min-w-0">
         {/* Mobile top bar */}
-        <header className="sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-golf-dark lg:hidden shadow-md">
+        <header className="sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-secondary border-b border-border lg:hidden shadow-xs">
           <button
             onClick={() => setDrawerOpen(true)}
             aria-label="Open navigation menu"
-            className="p-2 rounded-lg text-green-200 hover:bg-green-800 hover:text-white transition-colors"
+            className="p-2 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
           >
             <Menu size={22} />
           </button>
@@ -98,11 +98,11 @@ export function AppShell({ children }: AppShellProps) {
             <div className="w-7 h-7 bg-golf-fairway rounded-md flex items-center justify-center">
               <span className="text-white font-black text-xs">SQ</span>
             </div>
-            <span className="text-white font-bold text-base">SwingIQ</span>
+            <span className="text-foreground font-bold text-base">SwingIQ</span>
           </div>
           {/* Help + Language toggles on right */}
           <div className="flex items-center gap-1">
-            <ContextualHelpButton className="text-green-200 hover:text-white hover:bg-green-800" />
+            <ContextualHelpButton className="text-muted-foreground hover:text-foreground hover:bg-muted" />
             <LanguageToggle variant="compact" />
           </div>
         </header>
@@ -114,7 +114,7 @@ export function AppShell({ children }: AppShellProps) {
 
         {/* ── Mobile bottom navigation bar ── */}
         <nav
-          className="fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-200 flex lg:hidden safe-area-inset-bottom"
+          className="fixed bottom-0 left-0 right-0 z-30 bg-card border-t border-border flex lg:hidden safe-area-inset-bottom"
           aria-label="Bottom navigation"
         >
           {BOTTOM_NAV.map(({ href, label, icon: Icon }) => {
@@ -126,14 +126,14 @@ export function AppShell({ children }: AppShellProps) {
                 className={cn(
                   'flex-1 flex flex-col items-center justify-center py-2 gap-0.5 text-xs font-medium transition-colors',
                   isActive
-                    ? 'text-green-700'
-                    : 'text-gray-500 hover:text-gray-900',
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-foreground',
                 )}
               >
                 <Icon
                   size={20}
                   className={cn(
-                    isActive ? 'text-green-700' : 'text-gray-400',
+                    isActive ? 'text-primary' : 'text-muted-foreground',
                   )}
                 />
                 <span className="leading-tight">{label}</span>
@@ -143,10 +143,10 @@ export function AppShell({ children }: AppShellProps) {
           {/* "More" button opens the full drawer */}
           <button
             onClick={() => setDrawerOpen(true)}
-            className="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 text-xs font-medium text-gray-500 hover:text-gray-900 transition-colors"
+            className="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
             aria-label="More navigation options"
           >
-            <Menu size={20} className="text-gray-400" />
+            <Menu size={20} className="text-muted-foreground" />
             <span className="leading-tight">More</span>
           </button>
         </nav>

@@ -35,14 +35,14 @@ import { useMemo } from 'react';
 // ── Quick Actions ─────────────────────────────────────────────
 
 const quickActions = [
-  { label: 'Import CSV', href: '/sessions/import', icon: Upload, color: 'bg-blue-50 text-blue-700 hover:bg-blue-100' },
-  { label: 'Diagnose', href: '/diagnose', icon: Target, color: 'bg-green-50 text-green-700 hover:bg-green-100' },
-  { label: 'Schedule', href: '/practice', icon: CalendarDays, color: 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100' },
-  { label: 'Add Club', href: '/bag', icon: Plus, color: 'bg-purple-50 text-purple-700 hover:bg-purple-100' },
-  { label: 'Upload Video', href: '/video', icon: Video, color: 'bg-orange-50 text-orange-700 hover:bg-orange-100' },
-  { label: 'Pre-Round', href: '/pre-round', icon: Sun, color: 'bg-pink-50 text-pink-700 hover:bg-pink-100' },
-  { label: 'Training', href: '/training', icon: Dumbbell, color: 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100' },
-  { label: 'Drills', href: '/drills', icon: BookOpen, color: 'bg-teal-50 text-teal-700 hover:bg-teal-100' },
+  { label: 'Import CSV', href: '/sessions/import', icon: Upload, color: 'bg-accent-secondary/10 text-accent-secondary hover:bg-accent-secondary/15' },
+  { label: 'Diagnose', href: '/diagnose', icon: Target, color: 'bg-success/10 text-success hover:bg-success/15' },
+  { label: 'Schedule', href: '/practice', icon: CalendarDays, color: 'bg-primary/10 text-primary hover:bg-primary/15' },
+  { label: 'Add Club', href: '/bag', icon: Plus, color: 'bg-accent-secondary/10 text-accent-secondary hover:bg-accent-secondary/15' },
+  { label: 'Upload Video', href: '/video', icon: Video, color: 'bg-warning/10 text-warning hover:bg-warning/15' },
+  { label: 'Pre-Round', href: '/pre-round', icon: Sun, color: 'bg-primary/10 text-primary hover:bg-primary/15' },
+  { label: 'Training', href: '/training', icon: Dumbbell, color: 'bg-warning/10 text-warning hover:bg-warning/15' },
+  { label: 'Drills', href: '/drills', icon: BookOpen, color: 'bg-success/10 text-success hover:bg-success/15' },
 ];
 
 // ── Player DNA helpers ────────────────────────────────────────
@@ -200,19 +200,19 @@ export function DashboardContent() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             Welcome back{profile?.name ? `, ${profile.name.split(' ')[0]}` : ''} 👋
           </h1>
-          <p className="text-gray-500 text-sm mt-0.5">Here is your performance overview and next steps.</p>
+          <p className="text-muted-foreground text-sm mt-0.5">Here is your performance overview and next steps.</p>
         </div>
         <div className="flex items-center gap-3">
           {training.streak_days > 1 && (
-            <div className="flex items-center gap-1 text-orange-500 font-bold text-sm">
+            <div className="flex items-center gap-1 text-warning font-bold text-sm">
               <Flame size={16} /> {training.streak_days}-day streak
             </div>
           )}
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <span className="w-2 h-2 bg-green-500 rounded-full inline-block" />
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="w-2 h-2 bg-success rounded-full inline-block" />
             {mostRecentSession
               ? `Last session: ${format(new Date(mostRecentSession.created_at), 'MMM d')}`
               : 'No sessions yet'}
@@ -225,23 +225,23 @@ export function DashboardContent() {
 
       {/* Practice reminder */}
       {practiceReminder !== null && (
-        <div className="flex items-center justify-between gap-4 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+        <div className="flex items-center justify-between gap-4 p-4 bg-warning/10 border border-warning/30 rounded-xl">
           <div className="flex items-center gap-3">
             <span className="text-2xl">⏰</span>
             <div>
-              <p className="font-semibold text-amber-900 text-sm">
+              <p className="font-semibold text-foreground text-sm">
                 {practiceReminder === 2 ? "It's been 2 days since your last practice." : `${practiceReminder} days since your last practice.`}
               </p>
-              <p className="text-xs text-amber-700">Consistent practice builds muscle memory faster. Even 15 minutes counts.</p>
+              <p className="text-xs text-warning">Consistent practice builds muscle memory faster. Even 15 minutes counts.</p>
             </div>
           </div>
           <div className="flex gap-2 shrink-0">
             <Link href="/training">
-              <Button size="sm" className="bg-amber-600 hover:bg-amber-700 text-white whitespace-nowrap">
+              <Button size="sm" className="bg-warning text-warning-foreground hover:bg-warning/90 whitespace-nowrap">
                 Start Training
               </Button>
             </Link>
-            <Button size="sm" variant="outline" onClick={recordPractice} className="border-amber-300 text-amber-700 whitespace-nowrap">
+            <Button size="sm" variant="outline" onClick={recordPractice} className="border-warning/40 text-warning whitespace-nowrap">
               Log Today
             </Button>
           </div>
@@ -250,14 +250,14 @@ export function DashboardContent() {
 
       {/* Training improvement alert */}
       {improvementAlert && (
-        <div className="flex items-center justify-between gap-4 p-4 bg-green-50 border border-green-200 rounded-xl">
+        <div className="flex items-center justify-between gap-4 p-4 bg-success/10 border border-success/25 rounded-xl">
           <div className="flex items-center gap-3">
             <span className="text-2xl">🎉</span>
             <div>
-              <p className="font-semibold text-green-900 text-sm">
+              <p className="font-semibold text-foreground text-sm">
                 Your training is working — score up {improvementAlert.delta} points!
               </p>
-              <p className="text-xs text-green-700">
+              <p className="text-xs text-success">
                 From {improvementAlert.fromScore} when you started training
                 {improvementAlert.diagnosisId ? ` on ${improvementAlert.diagnosisId.replace(/_/g, ' ')}` : ''}
                 {' '}→ now {improvementAlert.toScore}.
@@ -266,7 +266,7 @@ export function DashboardContent() {
             </div>
           </div>
           <Link href="/progress">
-            <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white whitespace-nowrap">
+            <Button size="sm" className="bg-success text-success-foreground hover:bg-success/90 whitespace-nowrap">
               See Progress
             </Button>
           </Link>
@@ -295,7 +295,7 @@ export function DashboardContent() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div className="flex items-center gap-2">
-                <AlertCircle size={18} className="text-red-500" />
+                <AlertCircle size={18} className="text-error" />
                 <CardTitle>Primary Diagnosis</CardTitle>
               </div>
               {activeDiagnosis && (
@@ -308,24 +308,24 @@ export function DashboardContent() {
               {activeDiagnosis ? (
                 <>
                   <div>
-                    <h3 className="font-bold text-gray-900 text-lg">{activeDiagnosis.title}</h3>
-                    <p className="text-gray-600 text-sm mt-1 leading-relaxed">{activeDiagnosis.summary}</p>
+                    <h3 className="font-bold text-foreground text-lg">{activeDiagnosis.title}</h3>
+                    <p className="text-muted-foreground text-sm mt-1 leading-relaxed">{activeDiagnosis.summary}</p>
                   </div>
 
                   {/* Evidence */}
                   {activeDiagnosis.data_points.length > 0 && (
                     <div>
-                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Evidence</p>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Evidence</p>
                       <div className="grid grid-cols-2 gap-2">
                         {activeDiagnosis.data_points.map((dp) => (
                           <div
                             key={dp.label}
                             className={`rounded-lg px-3 py-2 ${
-                              dp.status === 'danger' ? 'bg-red-50 border border-red-200' : 'bg-yellow-50 border border-yellow-200'
+                              dp.status === 'danger' ? 'bg-error/10 border border-error/30' : 'bg-warning/10 border border-warning/30'
                             }`}
                           >
-                            <p className="text-xs text-gray-500 capitalize">{dp.label}</p>
-                            <p className={`font-bold ${dp.status === 'danger' ? 'text-red-700' : 'text-yellow-700'}`}>
+                            <p className="text-xs text-muted-foreground capitalize">{dp.label}</p>
+                            <p className={`font-bold ${dp.status === 'danger' ? 'text-error' : 'text-warning'}`}>
                               {dp.value}
                             </p>
                           </div>
@@ -336,10 +336,10 @@ export function DashboardContent() {
 
                   {/* Stroke savings */}
                   {strokeSavings && strokeSavings.total_potential_savings > 0 && (
-                    <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-                      <p className="text-xs font-semibold text-green-800 mb-0.5">Stroke Savings Potential</p>
-                      <p className="text-sm text-green-700">{strokeSavings.prioritized_action}</p>
-                      <p className="text-xs text-green-600 mt-1 font-medium">
+                    <div className="p-3 bg-success/10 border border-success/25 rounded-lg">
+                      <p className="text-xs font-semibold text-success mb-0.5">Stroke Savings Potential</p>
+                      <p className="text-sm text-success">{strokeSavings.prioritized_action}</p>
+                      <p className="text-xs text-success mt-1 font-medium">
                         ~{strokeSavings.total_potential_savings} strokes/round if fixed
                       </p>
                     </div>
@@ -348,8 +348,8 @@ export function DashboardContent() {
                   {/* Action */}
                   <div className="border-t pt-4 flex items-center justify-between">
                     <div>
-                      <p className="text-xs text-gray-500">Recommended routine</p>
-                      <p className="font-semibold text-gray-900 text-sm capitalize">
+                      <p className="text-xs text-muted-foreground">Recommended routine</p>
+                      <p className="font-semibold text-foreground text-sm capitalize">
                         {activeDiagnosis.routine.replace(/_/g, ' ')}
                       </p>
                     </div>
@@ -358,7 +358,7 @@ export function DashboardContent() {
                         href={activeDiagnosis.youtube_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-xs text-red-600 hover:underline"
+                        className="flex items-center gap-1 text-xs text-error hover:underline"
                       >
                         <ExternalLink size={12} />
                         YouTube Drill
@@ -371,9 +371,9 @@ export function DashboardContent() {
                 </>
               ) : (
                 <div className="py-6 text-center">
-                  <Target size={32} className="mx-auto text-gray-300 mb-2" />
-                  <p className="text-gray-500 text-sm">No diagnosis yet.</p>
-                  <p className="text-gray-400 text-xs mt-1">Import a session and run the diagnostic engine to see your #1 fix.</p>
+                  <Target size={32} className="mx-auto text-muted-foreground mb-2" />
+                  <p className="text-muted-foreground text-sm">No diagnosis yet.</p>
+                  <p className="text-muted-foreground text-xs mt-1">Import a session and run the diagnostic engine to see your #1 fix.</p>
                   <Link href="/diagnose" className="mt-3 inline-block">
                     <Button size="sm" variant="outline">Run Diagnosis</Button>
                   </Link>
@@ -387,15 +387,15 @@ export function DashboardContent() {
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 size={18} className="text-green-600" />
+                  <CheckCircle2 size={18} className="text-success" />
                   <CardTitle>Retest Protocol</CardTitle>
                 </div>
               </CardHeader>
               <CardBody>
-                <p className="text-sm text-gray-700 leading-relaxed">{activeDiagnosis.retest}</p>
-                <div className="mt-3 p-3 bg-green-50 rounded-lg border border-green-200">
-                  <p className="text-xs font-semibold text-green-800 mb-1">How to retest</p>
-                  <p className="text-xs text-green-700">
+                <p className="text-sm text-foreground leading-relaxed">{activeDiagnosis.retest}</p>
+                <div className="mt-3 p-3 bg-success/10 rounded-lg border border-success/25">
+                  <p className="text-xs font-semibold text-success mb-1">How to retest</p>
+                  <p className="text-xs text-success">
                     Import a new session using the same club after completing your training routine.
                     Compare your diagnosis confidence to see if the pattern has improved.
                   </p>
@@ -406,19 +406,19 @@ export function DashboardContent() {
 
           {/* Daily Focus */}
           {dailyFocus && (
-            <Card className="border-indigo-200 bg-indigo-50">
+            <Card className="border-accent-secondary/25 bg-accent-secondary/10">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <BookOpen size={16} className="text-indigo-600" />
-                  <CardTitle className="text-indigo-900">Today&apos;s Focus Drill</CardTitle>
+                  <BookOpen size={16} className="text-accent-secondary" />
+                  <CardTitle className="text-foreground">Today&apos;s Focus Drill</CardTitle>
                 </div>
               </CardHeader>
               <CardBody>
-                <p className="text-xs text-indigo-600 mb-1">From: {dailyFocus.routineName}</p>
-                <p className="font-bold text-gray-900 text-sm">{dailyFocus.drill.name}</p>
-                <p className="text-xs text-gray-600 mt-0.5">{dailyFocus.drill.why_this_matches}</p>
+                <p className="text-xs text-accent-secondary mb-1">From: {dailyFocus.routineName}</p>
+                <p className="font-bold text-foreground text-sm">{dailyFocus.drill.name}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{dailyFocus.drill.why_this_matches}</p>
                 {dailyFocus.drill.warning && (
-                  <p className="text-xs text-amber-700 mt-1">⚠ {dailyFocus.drill.warning}</p>
+                  <p className="text-xs text-warning mt-1">⚠ {dailyFocus.drill.warning}</p>
                 )}
                 <div className="flex items-center gap-2 mt-3">
                   <a
@@ -441,7 +441,7 @@ export function DashboardContent() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Recent Session</CardTitle>
-              <Link href="/sessions" className="text-xs text-green-600 hover:underline flex items-center gap-1">
+              <Link href="/sessions" className="text-xs text-success hover:underline flex items-center gap-1">
                 View all <ChevronRight size={12} />
               </Link>
             </CardHeader>
@@ -450,8 +450,8 @@ export function DashboardContent() {
                 <>
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <p className="font-semibold text-gray-900">{mostRecentSession.name}</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="font-semibold text-foreground">{mostRecentSession.name}</p>
+                      <p className="text-xs text-muted-foreground">
                         {format(new Date(mostRecentSession.date || mostRecentSession.created_at), 'MMM d, yyyy')}
                         {' · '}{mostRecentSession.club_name}
                       </p>
@@ -470,8 +470,8 @@ export function DashboardContent() {
                 </>
               ) : (
                 <div className="py-6 text-center">
-                  <Upload size={28} className="mx-auto text-gray-300 mb-2" />
-                  <p className="text-gray-500 text-sm">No sessions yet.</p>
+                  <Upload size={28} className="mx-auto text-muted-foreground mb-2" />
+                  <p className="text-muted-foreground text-sm">No sessions yet.</p>
                   <Link href="/sessions/import" className="mt-2 inline-block">
                     <Button size="sm" variant="outline">Import Your First Session</Button>
                   </Link>
@@ -497,30 +497,30 @@ export function DashboardContent() {
                   {liveStats && (
                     <div className="grid grid-cols-2 gap-2">
                       <div className="text-center">
-                        <p className="text-xs text-gray-500">Face Control</p>
-                        <p className="font-bold text-gray-900">{liveStats.scores.face_control}</p>
+                        <p className="text-xs text-muted-foreground">Face Control</p>
+                        <p className="font-bold text-foreground">{liveStats.scores.face_control}</p>
                       </div>
                       <div className="text-center">
-                        <p className="text-xs text-gray-500">Strike Quality</p>
-                        <p className="font-bold text-gray-900">{liveStats.scores.strike_quality}</p>
+                        <p className="text-xs text-muted-foreground">Strike Quality</p>
+                        <p className="font-bold text-foreground">{liveStats.scores.strike_quality}</p>
                       </div>
                       <div className="text-center">
-                        <p className="text-xs text-gray-500">Path Control</p>
-                        <p className="font-bold text-gray-900">{liveStats.scores.path_control}</p>
+                        <p className="text-xs text-muted-foreground">Path Control</p>
+                        <p className="font-bold text-foreground">{liveStats.scores.path_control}</p>
                       </div>
                       <div className="text-center">
-                        <p className="text-xs text-gray-500">Consistency</p>
-                        <p className="font-bold text-gray-900">{liveStats.scores.consistency}</p>
+                        <p className="text-xs text-muted-foreground">Consistency</p>
+                        <p className="font-bold text-foreground">{liveStats.scores.consistency}</p>
                       </div>
                     </div>
                   )}
-                  <p className="text-xs text-center text-gray-500">
+                  <p className="text-xs text-center text-muted-foreground">
                     Based on {sessionWithShots?.shots.length ?? 0} shots · {sessionWithShots?.club_name ?? ''}
                   </p>
                 </>
               ) : (
                 <div className="py-4 text-center">
-                  <p className="text-gray-400 text-sm">Import a session to see your swing scores.</p>
+                  <p className="text-muted-foreground text-sm">Import a session to see your swing scores.</p>
                 </div>
               )}
             </CardBody>
@@ -528,46 +528,46 @@ export function DashboardContent() {
 
           {/* Player DNA */}
           {liveStats && (
-            <Card className="border-indigo-200">
+            <Card className="border-accent-secondary/25">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <Dna size={16} className="text-indigo-500" />
+                  <Dna size={16} className="text-accent-secondary" />
                   <CardTitle>Player DNA</CardTitle>
                 </div>
               </CardHeader>
               <CardBody className="space-y-2 text-sm">
-                <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500">Typical Miss</span>
-                  <span className="font-semibold text-gray-900">
+                <div className="flex items-center justify-between py-1 border-b border-border">
+                  <span className="text-muted-foreground">Typical Miss</span>
+                  <span className="font-semibold text-foreground">
                     {dnaLabel(liveStats.stats.avg_lateral_offline, 'Left', 'Right', 'On Line', 5)}
                     {liveStats.stats.avg_lateral_offline !== null && liveStats.stats.avg_lateral_offline !== undefined
                       ? ` (${Math.abs(liveStats.stats.avg_lateral_offline).toFixed(0)} yds)`
                       : ''}
                   </span>
                 </div>
-                <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500">Face Tendency</span>
-                  <span className="font-semibold text-gray-900">
+                <div className="flex items-center justify-between py-1 border-b border-border">
+                  <span className="text-muted-foreground">Face Tendency</span>
+                  <span className="font-semibold text-foreground">
                     {dnaLabel(liveStats.stats.avg_face_to_path, 'Closed (Hook)', 'Open (Slice)', 'Square', 2)}
                   </span>
                 </div>
-                <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500">Path Tendency</span>
-                  <span className="font-semibold text-gray-900">
+                <div className="flex items-center justify-between py-1 border-b border-border">
+                  <span className="text-muted-foreground">Path Tendency</span>
+                  <span className="font-semibold text-foreground">
                     {dnaLabel(liveStats.stats.avg_club_path, 'Out-to-In', 'In-to-Out', 'Neutral', 2)}
                   </span>
                 </div>
-                <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500">Avg Carry</span>
-                  <span className="font-semibold text-gray-900">
+                <div className="flex items-center justify-between py-1 border-b border-border">
+                  <span className="text-muted-foreground">Avg Carry</span>
+                  <span className="font-semibold text-foreground">
                     {liveStats.stats.avg_carry !== null && liveStats.stats.avg_carry !== undefined
                       ? `${Math.round(liveStats.stats.avg_carry)} yds`
                       : '—'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between py-1">
-                  <span className="text-gray-500">Smash Factor</span>
-                  <span className="font-semibold text-gray-900">
+                  <span className="text-muted-foreground">Smash Factor</span>
+                  <span className="font-semibold text-foreground">
                     {liveStats.stats.avg_smash_factor?.toFixed(2) ?? '—'}
                   </span>
                 </div>
@@ -584,7 +584,7 @@ export function DashboardContent() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div className="flex items-center gap-2">
-                <TrendingUp size={16} className="text-green-600" />
+                <TrendingUp size={16} className="text-success" />
                 <CardTitle>Progress</CardTitle>
               </div>
             </CardHeader>
@@ -592,22 +592,22 @@ export function DashboardContent() {
               {sessions.length >= 2 ? (
                 <>
                   <div className="flex items-center justify-between py-1">
-                    <span className="text-sm text-gray-600">Sessions logged</span>
-                    <span className="text-sm font-semibold text-green-600">{sessions.length}</span>
+                    <span className="text-sm text-muted-foreground">Sessions logged</span>
+                    <span className="text-sm font-semibold text-success">{sessions.length}</span>
                   </div>
                   <div className="flex items-center justify-between py-1">
-                    <span className="text-sm text-gray-600">Practice streak</span>
-                    <span className="text-sm font-semibold text-orange-500">
+                    <span className="text-sm text-muted-foreground">Practice streak</span>
+                    <span className="text-sm font-semibold text-warning">
                       {training.streak_days > 0 ? `🔥 ${training.streak_days} days` : '0 days'}
                     </span>
                   </div>
                   <div className="flex items-center justify-between py-1">
-                    <span className="text-sm text-gray-600">Drills completed</span>
-                    <span className="text-sm font-semibold text-green-600">{Object.keys(training.drills_completed).length}</span>
+                    <span className="text-sm text-muted-foreground">Drills completed</span>
+                    <span className="text-sm font-semibold text-success">{Object.keys(training.drills_completed).length}</span>
                   </div>
                 </>
               ) : (
-                <p className="text-xs text-gray-400 text-center py-2">
+                <p className="text-xs text-muted-foreground text-center py-2">
                   Log 2+ sessions to track trends.
                 </p>
               )}
@@ -632,8 +632,8 @@ export function DashboardContent() {
                     return (
                       <div key={c.id} className="flex items-center justify-between py-1.5 border-b last:border-0">
                         <div>
-                          <p className="text-sm font-medium text-gray-900">{c.name}</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-sm font-medium text-foreground">{c.name}</p>
+                          <p className="text-xs text-muted-foreground">
                             {c.typical_carry ? `~${c.typical_carry} yds` : c.brand ?? c.category}
                             {clubSessions.length > 0 ? ` · ${clubSessions.length} sessions` : ''}
                           </p>
@@ -647,14 +647,14 @@ export function DashboardContent() {
                     );
                   })}
                   {clubs.length > 3 && (
-                    <Link href="/bag" className="text-xs text-green-600 hover:underline block text-center mt-1">
+                    <Link href="/bag" className="text-xs text-success hover:underline block text-center mt-1">
                       +{clubs.length - 3} more clubs →
                     </Link>
                   )}
                 </>
               ) : (
                 <div className="py-4 text-center">
-                  <p className="text-gray-400 text-sm">No clubs added yet.</p>
+                  <p className="text-muted-foreground text-sm">No clubs added yet.</p>
                   <Link href="/bag" className="mt-2 inline-block">
                     <Button size="sm" variant="outline">Add Clubs</Button>
                   </Link>
@@ -668,33 +668,33 @@ export function DashboardContent() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Ruler size={16} className="text-blue-600" />
+                    <Ruler size={16} className="text-accent-secondary" />
                     <CardTitle>Club Gaps</CardTitle>
                   </div>
                   <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                    gapAnalysis.overall_grade === 'A' ? 'bg-green-100 text-green-700'
-                    : gapAnalysis.overall_grade === 'B' ? 'bg-blue-100 text-blue-700'
-                    : gapAnalysis.overall_grade === 'C' ? 'bg-yellow-100 text-yellow-700'
-                    : 'bg-red-100 text-red-700'
+                    gapAnalysis.overall_grade === 'A' ? 'bg-success/15 text-success'
+                    : gapAnalysis.overall_grade === 'B' ? 'bg-accent-secondary/15 text-accent-secondary'
+                    : gapAnalysis.overall_grade === 'C' ? 'bg-warning/15 text-warning'
+                    : 'bg-error/15 text-error'
                   }`}>Grade {gapAnalysis.overall_grade}</span>
                 </div>
               </CardHeader>
               <CardBody>
-                <p className="text-xs text-gray-600 mb-3">{gapAnalysis.summary}</p>
+                <p className="text-xs text-muted-foreground mb-3">{gapAnalysis.summary}</p>
                 <div className="space-y-1">
                   {gapAnalysis.results.slice(0, 5).map((r) => (
                     <div key={r.club_id} className="flex items-center justify-between text-xs py-1 border-b last:border-0">
-                      <span className="text-gray-700 font-medium">{r.club_name}</span>
+                      <span className="text-foreground font-medium">{r.club_name}</span>
                       <div className="flex items-center gap-2">
                         {r.carry !== null && (
-                          <span className="text-gray-500">{r.carry} yds</span>
+                          <span className="text-muted-foreground">{r.carry} yds</span>
                         )}
                         {r.gap_to_next !== null && (
                           <span className={`font-semibold ${
-                            r.gap_status === 'ideal' ? 'text-green-600'
-                            : r.gap_status === 'too_large' ? 'text-red-600'
-                            : r.gap_status === 'too_small' ? 'text-yellow-600'
-                            : 'text-gray-400'
+                            r.gap_status === 'ideal' ? 'text-success'
+                            : r.gap_status === 'too_large' ? 'text-error'
+                            : r.gap_status === 'too_small' ? 'text-warning'
+                            : 'text-muted-foreground'
                           }`}>↕ {r.gap_to_next} yds</span>
                         )}
                       </div>
@@ -702,7 +702,7 @@ export function DashboardContent() {
                   ))}
                 </div>
                 {gapAnalysis.largest_gap && gapAnalysis.largest_gap.gap_status === 'too_large' && (
-                  <p className="text-xs text-red-600 mt-2">⚠ Largest gap: {gapAnalysis.largest_gap.club_name} — consider adding a club</p>
+                  <p className="text-xs text-error mt-2">⚠ Largest gap: {gapAnalysis.largest_gap.club_name} — consider adding a club</p>
                 )}
                 <Link href="/bag" className="block mt-3">
                   <Button variant="outline" size="sm" className="w-full">Manage Bag →</Button>

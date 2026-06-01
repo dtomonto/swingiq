@@ -14,15 +14,15 @@ import { format } from 'date-fns';
 
 function DrillCard({ drill }: { drill: DrillRecommendation }) {
   return (
-    <div className="border rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition-colors">
+    <div className="border rounded-lg p-4 bg-muted hover:bg-muted transition-colors">
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-gray-900 text-sm">{drill.name}</p>
-          <p className="text-xs text-gray-500 mt-0.5">{drill.why_this_matches}</p>
+          <p className="font-semibold text-foreground text-sm">{drill.name}</p>
+          <p className="text-xs text-muted-foreground mt-0.5">{drill.why_this_matches}</p>
           {drill.warning && (
             <div className="flex items-center gap-1 mt-1">
-              <AlertCircle size={11} className="text-yellow-600" />
-              <p className="text-xs text-yellow-700">{drill.warning}</p>
+              <AlertCircle size={11} className="text-warning" />
+              <p className="text-xs text-warning">{drill.warning}</p>
             </div>
           )}
         </div>
@@ -36,7 +36,7 @@ function DrillCard({ drill }: { drill: DrillRecommendation }) {
           YouTube
         </a>
       </div>
-      <div className="mt-2 text-xs text-gray-500">
+      <div className="mt-2 text-xs text-muted-foreground">
         Search: <span className="italic">{drill.youtube_search_query}</span>
       </div>
     </div>
@@ -179,21 +179,21 @@ export function TrainingContent() {
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Training Routine</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-foreground">Training Routine</h1>
+          <p className="text-muted-foreground text-sm mt-1">
             {hasNoData ? 'Sample routine — import session data for personalized training.' : `Based on: ${routine.name}`}
           </p>
         </div>
         <div className="flex items-center gap-4">
           {training.streak_days > 0 && (
             <div className="text-center">
-              <p className="text-2xl font-bold text-orange-500">🔥 {training.streak_days}</p>
-              <p className="text-xs text-gray-500">day streak</p>
+              <p className="text-2xl font-bold text-warning">🔥 {training.streak_days}</p>
+              <p className="text-xs text-muted-foreground">day streak</p>
             </div>
           )}
           <div className="text-right">
-            <p className="text-2xl font-bold text-green-600">{progress}%</p>
-            <p className="text-xs text-gray-500">Complete</p>
+            <p className="text-2xl font-bold text-success">{progress}%</p>
+            <p className="text-xs text-muted-foreground">Complete</p>
           </div>
         </div>
       </div>
@@ -202,13 +202,13 @@ export function TrainingContent() {
       <AgentPracticePlanCard />
 
       {/* Skill level selector */}
-      <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-        <SlidersHorizontal size={15} className="text-gray-500 shrink-0" />
-        <span className="text-sm font-medium text-gray-700 flex-1">Difficulty Level</span>
+      <div className="flex items-center gap-3 p-3 bg-muted border border-border rounded-lg">
+        <SlidersHorizontal size={15} className="text-muted-foreground shrink-0" />
+        <span className="text-sm font-medium text-foreground flex-1">Difficulty Level</span>
         <select
           value={skillLevel}
           onChange={(e) => setSkillLevel(e.target.value as SkillLevel)}
-          className="border border-gray-300 rounded-lg px-2 py-1 text-sm bg-white focus:ring-2 focus:ring-green-500 outline-hidden"
+          className="border border-border rounded-lg px-2 py-1 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
         >
           <option value="beginner">Beginner</option>
           <option value="intermediate">Intermediate</option>
@@ -222,10 +222,10 @@ export function TrainingContent() {
         <Card
           className={
             trainingEffectiveness.verdict === 'improving'
-              ? 'border-green-300 bg-green-50'
+              ? 'border-success/40 bg-success/10'
               : trainingEffectiveness.verdict === 'regressing'
-              ? 'border-red-300 bg-red-50'
-              : 'border-gray-200 bg-gray-50'
+              ? 'border-error/40 bg-error/10'
+              : 'border-border bg-muted'
           }
         >
           <CardHeader>
@@ -234,10 +234,10 @@ export function TrainingContent() {
                 size={18}
                 className={
                   trainingEffectiveness.verdict === 'improving'
-                    ? 'text-green-600'
+                    ? 'text-success'
                     : trainingEffectiveness.verdict === 'regressing'
-                    ? 'text-red-600'
-                    : 'text-gray-500'
+                    ? 'text-error'
+                    : 'text-muted-foreground'
                 }
               />
               <CardTitle>Is My Training Working?</CardTitle>
@@ -249,7 +249,7 @@ export function TrainingContent() {
                   : '→'}
               </span>
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               {format(new Date(trainingEffectiveness.beforeDate), 'MMM d')}
               {' → '}
               {format(new Date(trainingEffectiveness.afterDate), 'MMM d')}
@@ -258,20 +258,20 @@ export function TrainingContent() {
           <CardBody className="space-y-3">
             <div className="grid grid-cols-2 gap-3">
               {/* Overall score tile */}
-              <div className="bg-white rounded-lg p-3 border border-gray-200">
-                <p className="text-xs text-gray-500">Overall Score</p>
+              <div className="bg-card rounded-lg p-3 border border-border">
+                <p className="text-xs text-muted-foreground">Overall Score</p>
                 <div className="flex items-end gap-2 mt-1">
-                  <p className="text-xl font-bold text-gray-900">
+                  <p className="text-xl font-bold text-foreground">
                     {trainingEffectiveness.scoreAfter ?? '—'}
                   </p>
                   {trainingEffectiveness.scoreDelta !== null && (
                     <p
                       className={`text-sm font-semibold pb-0.5 ${
                         trainingEffectiveness.scoreDelta > 0
-                          ? 'text-green-600'
+                          ? 'text-success'
                           : trainingEffectiveness.scoreDelta < 0
-                          ? 'text-red-600'
-                          : 'text-gray-500'
+                          ? 'text-error'
+                          : 'text-muted-foreground'
                       }`}
                     >
                       {trainingEffectiveness.scoreDelta > 0 ? '+' : ''}
@@ -279,7 +279,7 @@ export function TrainingContent() {
                     </p>
                   )}
                 </div>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   Was {trainingEffectiveness.scoreBefore ?? '—'}
                 </p>
               </div>
@@ -290,23 +290,23 @@ export function TrainingContent() {
                   <div
                     className={`rounded-lg p-3 border ${
                       trainingEffectiveness.metricImproved
-                        ? 'bg-green-50 border-green-200'
-                        : 'bg-red-50 border-red-200'
+                        ? 'bg-success/10 border-success/25'
+                        : 'bg-error/10 border-error/30'
                     }`}
                   >
-                    <p className="text-xs text-gray-500 capitalize">
+                    <p className="text-xs text-muted-foreground capitalize">
                       {trainingEffectiveness.metricKey.replace(/_/g, ' ')}
                     </p>
                     <div className="flex items-end gap-2 mt-1">
-                      <p className="text-xl font-bold text-gray-900">
+                      <p className="text-xl font-bold text-foreground">
                         {trainingEffectiveness.metricAfter.toFixed(1)}
                       </p>
                       {trainingEffectiveness.metricDelta !== null && (
                         <p
                           className={`text-sm font-semibold pb-0.5 ${
                             trainingEffectiveness.metricImproved
-                              ? 'text-green-600'
-                              : 'text-red-600'
+                              ? 'text-success'
+                              : 'text-error'
                           }`}
                         >
                           {trainingEffectiveness.metricDelta > 0 ? '+' : ''}
@@ -314,7 +314,7 @@ export function TrainingContent() {
                         </p>
                       )}
                     </div>
-                    <p className="text-xs text-gray-400 mt-0.5">
+                    <p className="text-xs text-muted-foreground mt-0.5">
                       Was {trainingEffectiveness.metricBefore.toFixed(1)}
                     </p>
                   </div>
@@ -324,10 +324,10 @@ export function TrainingContent() {
             <p
               className={`text-sm font-medium ${
                 trainingEffectiveness.verdict === 'improving'
-                  ? 'text-green-700'
+                  ? 'text-success'
                   : trainingEffectiveness.verdict === 'regressing'
-                  ? 'text-red-700'
-                  : 'text-gray-600'
+                  ? 'text-error'
+                  : 'text-muted-foreground'
               }`}
             >
               {trainingEffectiveness.verdict === 'improving'
@@ -341,31 +341,31 @@ export function TrainingContent() {
       )}
 
       {hasNoData && (
-        <Card className="border-amber-200 bg-amber-50">
+        <Card className="border-warning/30 bg-warning/10">
           <CardBody className="flex items-center gap-3">
-            <Zap size={18} className="text-amber-600 shrink-0" />
+            <Zap size={18} className="text-warning shrink-0" />
             <div>
-              <p className="text-sm font-medium text-amber-800">No personal diagnosis yet</p>
-              <p className="text-xs text-amber-600">Import your launch monitor data to get a training routine built specifically for your swing.</p>
-              <Link href="/sessions/import" className="text-xs font-semibold text-green-700 hover:underline mt-1 block">Import your first session →</Link>
+              <p className="text-sm font-medium text-warning">No personal diagnosis yet</p>
+              <p className="text-xs text-warning">Import your launch monitor data to get a training routine built specifically for your swing.</p>
+              <Link href="/sessions/import" className="text-xs font-semibold text-success hover:underline mt-1 block">Import your first session →</Link>
             </div>
           </CardBody>
         </Card>
       )}
 
       {/* Routine header */}
-      <Card className="border-l-4 border-l-red-500">
+      <Card className="border-l-4 border-l-error">
         <CardBody className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center shrink-0">
-            <Target size={20} className="text-red-600" />
+          <div className="w-10 h-10 rounded-lg bg-error/15 flex items-center justify-center shrink-0">
+            <Target size={20} className="text-error" />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
-              <h2 className="font-bold text-gray-900 text-lg">{routine.name}</h2>
+              <h2 className="font-bold text-foreground text-lg">{routine.name}</h2>
               <Badge variant="critical">Critical Fix</Badge>
             </div>
-            <p className="text-sm text-gray-600">{routine.goal}</p>
-            <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+            <p className="text-sm text-muted-foreground">{routine.goal}</p>
+            <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
               <span className="flex items-center gap-1"><Clock size={12} />{routine.estimated_duration_minutes} minutes</span>
               <span>{routine.ball_count} balls</span>
               <span className="capitalize">{routine.intensity} intensity</span>
@@ -378,10 +378,10 @@ export function TrainingContent() {
       <Card>
         <CardHeader><CardTitle>Why This Matters</CardTitle></CardHeader>
         <CardBody>
-          <p className="text-sm text-gray-700 leading-relaxed">{routine.why_it_matters}</p>
-          <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-xs font-semibold text-blue-700 mb-1">Data Point Being Improved</p>
-            <p className="text-sm text-blue-800">{routine.data_point_being_improved.replace(/_/g, ' ').toUpperCase()}</p>
+          <p className="text-sm text-foreground leading-relaxed">{routine.why_it_matters}</p>
+          <div className="mt-3 p-3 bg-accent-secondary/10 rounded-lg border border-accent-secondary/25">
+            <p className="text-xs font-semibold text-accent-secondary mb-1">Data Point Being Improved</p>
+            <p className="text-sm text-foreground">{routine.data_point_being_improved.replace(/_/g, ' ').toUpperCase()}</p>
           </div>
         </CardBody>
       </Card>
@@ -390,7 +390,7 @@ export function TrainingContent() {
       <Card>
         <CardHeader><CardTitle>Setup</CardTitle></CardHeader>
         <CardBody>
-          <p className="text-sm text-gray-700 leading-relaxed">{routine.setup}</p>
+          <p className="text-sm text-foreground leading-relaxed">{routine.setup}</p>
         </CardBody>
       </Card>
 
@@ -398,9 +398,9 @@ export function TrainingContent() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Drill Steps</CardTitle>
-          <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
             <div
-              className="h-full bg-green-500 rounded-full transition-all"
+              className="h-full bg-success rounded-full transition-all"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -411,18 +411,18 @@ export function TrainingContent() {
               key={i}
               onClick={() => toggleStep(i)}
               className={`w-full flex gap-3 text-left p-3 rounded-lg transition-colors ${
-                completedSteps.has(i) ? 'bg-green-50 border border-green-200' : 'bg-gray-50 border border-gray-200 hover:border-green-300'
+                completedSteps.has(i) ? 'bg-success/10 border border-success/25' : 'bg-muted border border-border hover:border-success/40'
               }`}
             >
               <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
-                completedSteps.has(i) ? 'bg-green-500' : 'bg-gray-300'
+                completedSteps.has(i) ? 'bg-success' : 'bg-muted'
               }`}>
                 {completedSteps.has(i)
-                  ? <CheckCircle size={14} className="text-white" />
-                  : <span className="text-xs font-bold text-white">{i + 1}</span>
+                  ? <CheckCircle size={14} className="text-success-foreground" />
+                  : <span className="text-xs font-bold text-foreground">{i + 1}</span>
                 }
               </div>
-              <span className={`text-sm leading-relaxed ${completedSteps.has(i) ? 'text-green-700 line-through' : 'text-gray-700'}`}>
+              <span className={`text-sm leading-relaxed ${completedSteps.has(i) ? 'text-success line-through' : 'text-foreground'}`}>
                 {step}
               </span>
             </button>
@@ -435,8 +435,8 @@ export function TrainingContent() {
         <CardHeader><CardTitle>Common Mistakes to Avoid</CardTitle></CardHeader>
         <CardBody className="space-y-2">
           {routine.common_mistakes.map((mistake, i) => (
-            <div key={i} className="flex gap-2 text-sm text-gray-700">
-              <AlertCircle size={16} className="text-orange-500 shrink-0 mt-0.5" />
+            <div key={i} className="flex gap-2 text-sm text-foreground">
+              <AlertCircle size={16} className="text-warning shrink-0 mt-0.5" />
               {mistake}
             </div>
           ))}
@@ -452,7 +452,7 @@ export function TrainingContent() {
             </div>
             <CardTitle>YouTube Drill Links</CardTitle>
           </div>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             Click any link to find the best matching drills on YouTube. Save the ones that help.
           </p>
         </CardHeader>
@@ -464,32 +464,32 @@ export function TrainingContent() {
       </Card>
 
       {/* Retest */}
-      <Card className="border-green-200 bg-green-50">
+      <Card className="border-success/25 bg-success/10">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <CheckCircle size={18} className="text-green-600" />
+            <CheckCircle size={18} className="text-success" />
             <CardTitle>Retest Protocol</CardTitle>
           </div>
         </CardHeader>
         <CardBody className="space-y-3">
-          <p className="text-sm text-gray-700 leading-relaxed">{routine.retest_protocol.notes}</p>
+          <p className="text-sm text-foreground leading-relaxed">{routine.retest_protocol.notes}</p>
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-white rounded-lg p-3 border border-green-200">
-              <p className="text-xs text-gray-500">Shot Count</p>
-              <p className="font-bold text-gray-900">{routine.retest_protocol.shot_count} shots</p>
+            <div className="bg-card rounded-lg p-3 border border-success/25">
+              <p className="text-xs text-muted-foreground">Shot Count</p>
+              <p className="font-bold text-foreground">{routine.retest_protocol.shot_count} shots</p>
             </div>
-            <div className="bg-white rounded-lg p-3 border border-green-200">
-              <p className="text-xs text-gray-500">Club</p>
-              <p className="font-bold text-gray-900">{routine.retest_protocol.club}</p>
+            <div className="bg-card rounded-lg p-3 border border-success/25">
+              <p className="text-xs text-muted-foreground">Club</p>
+              <p className="font-bold text-foreground">{routine.retest_protocol.club}</p>
             </div>
           </div>
-          <div className="bg-white rounded-lg p-3 border border-green-200">
-            <p className="text-xs text-gray-500 mb-1">Success Criteria</p>
-            <p className="text-sm font-semibold text-green-800">{routine.retest_protocol.success_criteria}</p>
+          <div className="bg-card rounded-lg p-3 border border-success/25">
+            <p className="text-xs text-muted-foreground mb-1">Success Criteria</p>
+            <p className="text-sm font-semibold text-success">{routine.retest_protocol.success_criteria}</p>
           </div>
-          <div className="bg-white rounded-lg p-3 border border-green-200">
-            <p className="text-xs text-gray-500 mb-1">Focus Metrics</p>
-            <p className="text-sm text-gray-700">{routine.retest_protocol.focus_metrics.join(' · ')}</p>
+          <div className="bg-card rounded-lg p-3 border border-success/25">
+            <p className="text-xs text-muted-foreground mb-1">Focus Metrics</p>
+            <p className="text-sm text-foreground">{routine.retest_protocol.focus_metrics.join(' · ')}</p>
           </div>
         </CardBody>
       </Card>

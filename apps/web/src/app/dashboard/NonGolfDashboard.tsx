@@ -95,8 +95,8 @@ function RecentAnalyses({ sport }: { sport: SportId }) {
         </CardHeader>
         <CardBody>
           <div className="text-center py-8">
-            <Video size={32} className="mx-auto text-gray-300 mb-3" />
-            <p className="text-gray-400 text-sm mb-4">No video analyses yet.</p>
+            <Video size={32} className="mx-auto text-muted-foreground mb-3" />
+            <p className="text-muted-foreground text-sm mb-4">No video analyses yet.</p>
             <Link href="/video">
               <Button size="sm">
                 <Video size={14} /> Analyze Your First Video
@@ -113,7 +113,7 @@ function RecentAnalyses({ sport }: { sport: SportId }) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Recent Analyses</CardTitle>
-          <Link href="/sessions" className="text-xs text-green-600 hover:underline flex items-center gap-1">
+          <Link href="/sessions" className="text-xs text-success hover:underline flex items-center gap-1">
             View all <ChevronRight size={12} />
           </Link>
         </div>
@@ -125,9 +125,9 @@ function RecentAnalyses({ sport }: { sport: SportId }) {
             className="flex items-center justify-between py-2 border-b last:border-0"
           >
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">{analysis.file_name}</p>
+              <p className="text-sm font-medium text-foreground truncate">{analysis.file_name}</p>
               <div className="flex items-center gap-2 mt-0.5">
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-muted-foreground">
                   {format(new Date(analysis.created_at), 'MMM d, yyyy')}
                 </p>
                 <Badge variant="info" className="text-xs capitalize">
@@ -143,8 +143,8 @@ function RecentAnalyses({ sport }: { sport: SportId }) {
             <div className="flex items-center gap-2 shrink-0 ml-2">
               {analysis.overall_score > 0 && (
                 <div className="text-right">
-                  <p className="text-lg font-bold text-gray-900">{analysis.overall_score}</p>
-                  <p className="text-xs text-gray-400">Score</p>
+                  <p className="text-lg font-bold text-foreground">{analysis.overall_score}</p>
+                  <p className="text-xs text-muted-foreground">Score</p>
                 </div>
               )}
             </div>
@@ -181,15 +181,15 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
       <Card>
         <CardHeader>
           <div className="flex items-center gap-2">
-            <AlertCircle size={18} className="text-gray-400" />
+            <AlertCircle size={18} className="text-muted-foreground" />
             <CardTitle>Primary Issue</CardTitle>
           </div>
         </CardHeader>
         <CardBody>
           <div className="py-4 text-center">
-            <Target size={28} className="mx-auto text-gray-300 mb-2" />
-            <p className="text-gray-500 text-sm">No analysis yet.</p>
-            <p className="text-gray-400 text-xs mt-1">
+            <Target size={28} className="mx-auto text-muted-foreground mb-2" />
+            <p className="text-muted-foreground text-sm">No analysis yet.</p>
+            <p className="text-muted-foreground text-xs mt-1">
               Upload a video to identify your #1 priority.
             </p>
             <Link href="/video" className="mt-3 inline-block">
@@ -202,11 +202,11 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
   }
 
   return (
-    <Card className="border-l-4 border-l-red-500">
+    <Card className="border-l-4 border-l-error">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <AlertCircle size={18} className="text-red-500" />
+            <AlertCircle size={18} className="text-error" />
             <CardTitle>Primary Issue</CardTitle>
           </div>
           <Badge variant="warning" className="text-xs">Latest Analysis</Badge>
@@ -214,17 +214,17 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
       </CardHeader>
       <CardBody className="space-y-3">
         <div>
-          <h3 className="font-bold text-gray-900 text-lg">{latest.primary_issue}</h3>
-          <p className="text-gray-500 text-xs mt-1">
+          <h3 className="font-bold text-foreground text-lg">{latest.primary_issue}</h3>
+          <p className="text-muted-foreground text-xs mt-1">
             Detected in: {latest.file_name} · {format(new Date(latest.created_at), 'MMM d, yyyy')}
           </p>
         </div>
-        <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="p-3 bg-accent-secondary/10 border border-accent-secondary/25 rounded-lg">
           <div className="flex items-center gap-2 mb-1">
-            <Info size={14} className="text-blue-600" />
-            <p className="text-xs font-semibold text-blue-700">Video-derived analysis</p>
+            <Info size={14} className="text-accent-secondary" />
+            <p className="text-xs font-semibold text-accent-secondary">Video-derived analysis</p>
           </div>
-          <p className="text-xs text-blue-700 leading-relaxed">
+          <p className="text-xs text-accent-secondary leading-relaxed">
             This detection is based on estimated pose analysis. Confidence is moderate —
             upload additional angles or consult your coach to confirm.
           </p>
@@ -259,25 +259,25 @@ function SportStatsCard({ sport }: { sport: SportId }) {
       <CardHeader><CardTitle>Overview</CardTitle></CardHeader>
       <CardBody className="space-y-3">
         <div className="grid grid-cols-2 gap-3">
-          <div className="text-center p-3 bg-gray-50 rounded-lg">
-            <p className="text-2xl font-bold text-gray-900">{sportAnalyses.length}</p>
-            <p className="text-xs text-gray-500 mt-0.5">Videos Analyzed</p>
+          <div className="text-center p-3 bg-muted rounded-lg">
+            <p className="text-2xl font-bold text-foreground">{sportAnalyses.length}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Videos Analyzed</p>
           </div>
-          <div className="text-center p-3 bg-gray-50 rounded-lg">
-            <p className="text-2xl font-bold text-gray-900">{sportSessions.length}</p>
-            <p className="text-xs text-gray-500 mt-0.5">Sessions Logged</p>
+          <div className="text-center p-3 bg-muted rounded-lg">
+            <p className="text-2xl font-bold text-foreground">{sportSessions.length}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Sessions Logged</p>
           </div>
           {latestScore !== null && (
-            <div className="text-center p-3 bg-green-50 rounded-lg col-span-2">
-              <p className="text-3xl font-bold text-green-700">{latestScore}</p>
-              <p className="text-xs text-gray-500 mt-0.5">Latest Analysis Score</p>
+            <div className="text-center p-3 bg-success/10 rounded-lg col-span-2">
+              <p className="text-3xl font-bold text-success">{latestScore}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Latest Analysis Score</p>
             </div>
           )}
         </div>
         {training.streak_days > 0 && (
           <div className="flex items-center justify-between py-2 border-t">
-            <span className="text-sm text-gray-600">Practice streak</span>
-            <span className="text-sm font-semibold text-orange-500 flex items-center gap-1">
+            <span className="text-sm text-muted-foreground">Practice streak</span>
+            <span className="text-sm font-semibold text-warning flex items-center gap-1">
               <Flame size={14} /> {training.streak_days} days
             </span>
           </div>
@@ -312,13 +312,13 @@ function DataCompletenessCard({ sport }: { sport: SportId }) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Setup Progress</CardTitle>
-          <span className="text-sm font-bold text-green-600">{pct}%</span>
+          <span className="text-sm font-bold text-success">{pct}%</span>
         </div>
       </CardHeader>
       <CardBody>
-        <div className="w-full h-2 bg-gray-100 rounded-full mb-3">
+        <div className="w-full h-2 bg-muted rounded-full mb-3">
           <div
-            className="h-full bg-green-500 rounded-full transition-all"
+            className="h-full bg-success rounded-full transition-all"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -326,11 +326,11 @@ function DataCompletenessCard({ sport }: { sport: SportId }) {
           {checks.map((check) => (
             <div key={check.label} className="flex items-center gap-2 text-sm">
               {check.done ? (
-                <CheckCircle2 size={15} className="text-green-500 shrink-0" />
+                <CheckCircle2 size={15} className="text-success shrink-0" />
               ) : (
-                <div className="w-4 h-4 rounded-full border-2 border-gray-300 shrink-0" />
+                <div className="w-4 h-4 rounded-full border-2 border-border shrink-0" />
               )}
-              <span className={check.done ? 'text-gray-700' : 'text-gray-400'}>{check.label}</span>
+              <span className={check.done ? 'text-foreground' : 'text-muted-foreground'}>{check.label}</span>
             </div>
           ))}
         </div>
@@ -345,10 +345,10 @@ function BenchmarksDisclaimerCard({ sport }: { sport: SportId }) {
   const config = getSportConfig(sport);
   if (!config) return null;
   return (
-    <Card className="border-dashed border-gray-300 bg-gray-50">
+    <Card className="border-dashed border-border bg-muted">
       <CardBody>
-        <p className="text-xs text-gray-500 leading-relaxed">
-          <span className="font-semibold text-gray-600">About benchmarks: </span>
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          <span className="font-semibold text-muted-foreground">About benchmarks: </span>
           {config.evidence_note}
         </p>
       </CardBody>
@@ -369,15 +369,15 @@ export function NonGolfDashboard() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             {sportEmoji} Welcome back!
           </h1>
-          <p className="text-gray-500 text-sm mt-0.5">
+          <p className="text-muted-foreground text-sm mt-0.5">
             {sportName} performance overview and next steps.
           </p>
         </div>
         {training.streak_days > 1 && (
-          <div className="flex items-center gap-1 text-orange-500 font-bold text-sm">
+          <div className="flex items-center gap-1 text-warning font-bold text-sm">
             <Flame size={16} /> {training.streak_days}-day streak
           </div>
         )}
@@ -404,16 +404,16 @@ export function NonGolfDashboard() {
 
           {/* Practice reminder */}
           {training.streak_days === 0 && hasVideoAnalysis && (
-            <Card className="border-amber-200 bg-amber-50">
+            <Card className="border-warning/30 bg-warning/10">
               <CardBody>
-                <p className="text-sm font-medium text-amber-800 mb-1">
+                <p className="text-sm font-medium text-warning mb-1">
                   No practice logged yet
                 </p>
-                <p className="text-xs text-amber-700 mb-3">
+                <p className="text-xs text-warning mb-3">
                   Log a practice session to start your streak and track consistency.
                 </p>
                 <Link href="/training">
-                  <Button size="sm" className="bg-amber-600 hover:bg-amber-700 text-white w-full">
+                  <Button size="sm" className="bg-warning text-warning-foreground hover:bg-warning/90 w-full">
                     Start Training
                   </Button>
                 </Link>
@@ -422,14 +422,14 @@ export function NonGolfDashboard() {
           )}
 
           {/* AI Coach CTA */}
-          <Card className="border-purple-200 bg-purple-50">
+          <Card className="border-accent-secondary/25 bg-accent-secondary/10">
             <CardBody>
-              <p className="text-sm font-bold text-purple-900 mb-1">AI Coach</p>
-              <p className="text-xs text-purple-700 mb-3">
+              <p className="text-sm font-bold text-foreground mb-1">AI Coach</p>
+              <p className="text-xs text-accent-secondary mb-3">
                 Ask anything about your {sportName.toLowerCase()} development — technique, drills, timing, or next steps.
               </p>
               <Link href="/ai-coach">
-                <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white w-full">
+                <Button size="sm" className="bg-accent-secondary text-accent-secondary-foreground hover:bg-accent-secondary/90 w-full">
                   <MessageSquare size={14} /> Ask AI Coach
                 </Button>
               </Link>

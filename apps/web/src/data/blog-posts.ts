@@ -326,7 +326,7 @@ For golf, the primary inputs are launch monitor metrics: ball speed, club head s
 
 For baseball and softball, the primary inputs are exit velocity, launch angle, bat speed, and attack angle — data that comes from devices like HitTrax, Rapsodo, and Blast Motion.
 
-For video analysis, the engine uses a pose-estimation approach that is more limited. It identifies key positions in the swing (address, top of backswing, impact) and compares angles and positions to reference models. The results are estimates — useful as starting points, but not as precise as data from a dedicated tracking device.
+For video analysis, SwingIQ extracts key frames from your swing and sends them to an AI vision model that examines the actual footage — your setup, body positions, and movement through address, the top of the backswing, and impact. Rather than reducing the swing to estimated joint angles, it reads what is visible in the video itself. It still isn't a substitute for a dedicated tracking device, so treat its feedback as informed coaching observations rather than precise measurements.
 
 ## Real Limitations vs. Professional Coaching
 

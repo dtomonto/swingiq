@@ -45,6 +45,7 @@ function makeMinimalBackup(overrides: Partial<SwingIQBackupData> = {}): SwingIQB
       settings: {
         units: 'yards',
         theme: 'light',
+        colorTheme: 'standard',
         show_estimated_warnings: true,
         coaching_style: 'balanced',
         default_club_for_diagnose: 'Driver',
@@ -340,6 +341,7 @@ describe('replaceRestore', () => {
     const currentSettings = {
       units: 'meters' as const,
       theme: 'dark' as const,
+      colorTheme: 'standard' as const,
       show_estimated_warnings: false,
       coaching_style: 'concise' as const,
       default_club_for_diagnose: '7 Iron',
@@ -414,6 +416,7 @@ describe('migrateBackup', () => {
         settings: {
           units: 'yards',
           theme: 'light',
+          colorTheme: 'standard',
           show_estimated_warnings: true,
           coaching_style: 'balanced',
           default_club_for_diagnose: 'Driver',

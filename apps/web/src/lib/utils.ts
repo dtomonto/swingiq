@@ -47,20 +47,20 @@ export function scoreToColor(score: number): string {
 }
 
 export function scoreToBgColor(score: number): string {
-  if (score >= 85) return 'bg-green-100 text-green-800';
-  if (score >= 70) return 'bg-blue-100 text-blue-800';
-  if (score >= 55) return 'bg-yellow-100 text-yellow-800';
-  if (score >= 40) return 'bg-orange-100 text-orange-800';
-  return 'bg-red-100 text-red-800';
+  // Theme-aware tints (collapse 5 grade tiers to good/ok/bad so they stay
+  // legible across every theme, including Dark Performance).
+  if (score >= 70) return 'bg-success/15 text-success';
+  if (score >= 40) return 'bg-warning/15 text-warning';
+  return 'bg-error/15 text-error';
 }
 
 export function priorityToColor(priority: string): string {
   switch (priority) {
-    case 'critical': return 'bg-red-100 text-red-800 border-red-200';
-    case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
-    case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-    case 'monitor': return 'bg-blue-100 text-blue-800 border-blue-200';
-    default: return 'bg-gray-100 text-gray-800 border-gray-200';
+    case 'critical': return 'bg-error/12 text-error border-error/30';
+    case 'high': return 'bg-warning/15 text-warning border-warning/35';
+    case 'medium': return 'bg-warning/10 text-warning border-warning/25';
+    case 'monitor': return 'bg-accent-secondary/12 text-accent-secondary border-accent-secondary/30';
+    default: return 'bg-muted text-foreground border-border';
   }
 }
 

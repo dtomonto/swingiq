@@ -2,28 +2,24 @@
 
 import { useEffect } from 'react';
 import { useSwingIQStore } from '@/store';
+import { isDarkTheme, normalizeThemeId } from '@/lib/theme/themes';
 
+/**
+ * Applies the active curated theme to <html> by setting `data-theme`
+ * (which selects the token palette in globals.css) and toggling the
+ * `.dark` class for the dark theme family so any `dark:` utilities keep
+ * working. A matching pre-paint inline script in layout.tsx applies the
+ * same attributes before React hydrates to avoid a flash of the default
+ * theme.
+ */
 export function ThemeApplicator() {
-  const theme = useSwingIQStore((s) => s.settings.theme);
+  const colorTheme = useSwingIQStore((s) => normalizeThemeId(s.settings.colorTheme));
+
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      return;
-    } else if (theme === 'light') {
-      root.classList.remove('dark');
-      return;
-    }
-    // system
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    if (mq.matches) root.classList.add('dark');
-    else root.classList.remove('dark');
-    const handler = (e: MediaQueryListEvent) => {
-      if (e.matches) root.classList.add('dark');
-      else root.classList.remove('dark');
-    };
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, [theme]);
+    root.setAttribute('data-theme', colorTheme);
+    root.classList.toggle('dark', isDarkTheme(colorTheme));
+  }, [colorTheme]);
+
   return null;
 }

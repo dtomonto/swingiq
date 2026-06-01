@@ -150,18 +150,18 @@ function ScoreTrendChart({ snapshots }: { snapshots: SparkSnapshot[] }) {
 function TrendBadge({ change }: { change: number }) {
   if (change > 0)
     return (
-      <span className="flex items-center gap-0.5 text-xs font-semibold text-green-600">
+      <span className="flex items-center gap-0.5 text-xs font-semibold text-success">
         <TrendingUp size={12} /> +{change}
       </span>
     );
   if (change < 0)
     return (
-      <span className="flex items-center gap-0.5 text-xs font-semibold text-red-600">
+      <span className="flex items-center gap-0.5 text-xs font-semibold text-error">
         <TrendingDown size={12} /> {change}
       </span>
     );
   return (
-    <span className="flex items-center gap-0.5 text-xs font-semibold text-gray-400">
+    <span className="flex items-center gap-0.5 text-xs font-semibold text-muted-foreground">
       <Minus size={12} /> 0
     </span>
   );
@@ -300,9 +300,9 @@ export default function ProgressPage() {
       <AppShell>
         <div className="p-6 max-w-5xl mx-auto">
           <div className="text-center py-20">
-            <Activity size={48} className="mx-auto text-gray-300 mb-4" />
-            <p className="text-gray-400 text-lg font-medium mb-2">No sessions yet</p>
-            <p className="text-gray-500 text-sm mb-6">
+            <Activity size={48} className="mx-auto text-muted-foreground mb-4" />
+            <p className="text-muted-foreground text-lg font-medium mb-2">No sessions yet</p>
+            <p className="text-muted-foreground text-sm mb-6">
               Import sessions to track your progress over time.
             </p>
             <Link href="/sessions/import">
@@ -325,8 +325,8 @@ export default function ProgressPage() {
     <AppShell>
       <div className="p-6 max-w-5xl mx-auto space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Progress Tracker</h1>
-          <p className="text-gray-500 text-sm mt-1">{periodLabel}</p>
+          <h1 className="text-2xl font-bold text-foreground">Progress Tracker</h1>
+          <p className="text-muted-foreground text-sm mt-1">{periodLabel}</p>
         </div>
 
         {/* Score snapshots — show last 4 */}
@@ -334,22 +334,22 @@ export default function ProgressPage() {
           {[...snapshots].reverse().slice(-4).map((snap, idx, arr) => (
             <Card
               key={snap.id}
-              className={idx === arr.length - 1 ? 'ring-2 ring-green-400' : ''}
+              className={idx === arr.length - 1 ? 'ring-2 ring-success/50' : ''}
             >
               <CardBody className="text-center py-5">
-                <p className="text-xs text-gray-500 mb-1 truncate">
+                <p className="text-xs text-muted-foreground mb-1 truncate">
                   {idx === arr.length - 1 ? 'Latest' : format(new Date(snap.date), 'MMM d')}
                 </p>
-                <p className="text-xs text-gray-400 mb-3 truncate">{snap.club_name}</p>
+                <p className="text-xs text-muted-foreground mb-3 truncate">{snap.club_name}</p>
                 <ScoreRing score={snap.overall} size={70} strokeWidth={6} label="Overall" />
                 <div className="grid grid-cols-2 gap-2 mt-3">
                   <div>
-                    <p className="text-xs text-gray-500">Face</p>
-                    <p className="font-bold text-sm text-gray-900">{snap.face_control}</p>
+                    <p className="text-xs text-muted-foreground">Face</p>
+                    <p className="font-bold text-sm text-foreground">{snap.face_control}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500">Strike</p>
-                    <p className="font-bold text-sm text-gray-900">{snap.strike_quality}</p>
+                    <p className="text-xs text-muted-foreground">Strike</p>
+                    <p className="font-bold text-sm text-foreground">{snap.strike_quality}</p>
                   </div>
                 </div>
                 {snap.primary_issue && (
@@ -370,7 +370,7 @@ export default function ProgressPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <TrendingUp size={16} className="text-green-600" />
+                  <TrendingUp size={16} className="text-success" />
                   <CardTitle>Score Over Time</CardTitle>
                 </div>
                 {overallChange !== 0 && (
@@ -400,24 +400,24 @@ export default function ProgressPage() {
                 ].map(({ metric, before, after, change }) => (
                   <div key={metric} className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm text-gray-700 font-medium">{metric}</p>
+                      <p className="text-sm text-foreground font-medium">{metric}</p>
                       <div className="flex items-center gap-3">
-                        <span className="text-xs text-gray-400">
+                        <span className="text-xs text-muted-foreground">
                           {before} → {after}
                         </span>
                         <TrendBadge change={change} />
                       </div>
                     </div>
-                    <div className="relative h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="relative h-2.5 bg-muted rounded-full overflow-hidden">
                       {/* Baseline bar */}
                       <div
-                        className="absolute top-0 left-0 h-full bg-gray-300 rounded-full"
+                        className="absolute top-0 left-0 h-full bg-muted rounded-full"
                         style={{ width: `${before}%` }}
                       />
                       {/* Current bar */}
                       <div
                         className={`absolute top-0 left-0 h-full rounded-full transition-all ${
-                          change >= 0 ? 'bg-green-500' : 'bg-red-400'
+                          change >= 0 ? 'bg-success' : 'bg-error'
                         }`}
                         style={{ width: `${after}%` }}
                       />
@@ -438,13 +438,13 @@ export default function ProgressPage() {
             <CardBody>
               <div className="grid grid-cols-3 gap-4">
                 {newest?.avg_carry !== null && oldest?.avg_carry !== null && (
-                  <div className="text-center p-3 bg-gray-50 rounded-lg">
-                    <p className="text-xs text-gray-500 mb-1">Avg Carry</p>
-                    <div className="text-lg font-bold text-gray-900">{Math.round(newest!.avg_carry!)} yds</div>
+                  <div className="text-center p-3 bg-muted rounded-lg">
+                    <p className="text-xs text-muted-foreground mb-1">Avg Carry</p>
+                    <div className="text-lg font-bold text-foreground">{Math.round(newest!.avg_carry!)} yds</div>
                     {(() => {
                       const delta = newest!.avg_carry! - oldest!.avg_carry!;
                       return delta !== 0 ? (
-                        <p className={`text-xs font-semibold mt-0.5 ${delta > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                        <p className={`text-xs font-semibold mt-0.5 ${delta > 0 ? 'text-success' : 'text-error'}`}>
                           {delta > 0 ? '+' : ''}{Math.round(delta)} yds vs first
                         </p>
                       ) : null;
@@ -452,13 +452,13 @@ export default function ProgressPage() {
                   </div>
                 )}
                 {newest?.avg_smash !== null && oldest?.avg_smash !== null && (
-                  <div className="text-center p-3 bg-gray-50 rounded-lg">
-                    <p className="text-xs text-gray-500 mb-1">Smash Factor</p>
-                    <div className="text-lg font-bold text-gray-900">{newest!.avg_smash!.toFixed(2)}</div>
+                  <div className="text-center p-3 bg-muted rounded-lg">
+                    <p className="text-xs text-muted-foreground mb-1">Smash Factor</p>
+                    <div className="text-lg font-bold text-foreground">{newest!.avg_smash!.toFixed(2)}</div>
                     {(() => {
                       const delta = newest!.avg_smash! - oldest!.avg_smash!;
                       return Math.abs(delta) > 0.005 ? (
-                        <p className={`text-xs font-semibold mt-0.5 ${delta > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                        <p className={`text-xs font-semibold mt-0.5 ${delta > 0 ? 'text-success' : 'text-error'}`}>
                           {delta > 0 ? '+' : ''}{delta.toFixed(3)} vs first
                         </p>
                       ) : null;
@@ -466,13 +466,13 @@ export default function ProgressPage() {
                   </div>
                 )}
                 {newest?.avg_face_to_path !== null && oldest?.avg_face_to_path !== null && (
-                  <div className="text-center p-3 bg-gray-50 rounded-lg">
-                    <p className="text-xs text-gray-500 mb-1">Face-to-Path</p>
-                    <div className="text-lg font-bold text-gray-900">{Math.abs(newest!.avg_face_to_path!).toFixed(1)}°</div>
+                  <div className="text-center p-3 bg-muted rounded-lg">
+                    <p className="text-xs text-muted-foreground mb-1">Face-to-Path</p>
+                    <div className="text-lg font-bold text-foreground">{Math.abs(newest!.avg_face_to_path!).toFixed(1)}°</div>
                     {(() => {
                       const delta = Math.abs(newest!.avg_face_to_path!) - Math.abs(oldest!.avg_face_to_path!);
                       return Math.abs(delta) > 0.2 ? (
-                        <p className={`text-xs font-semibold mt-0.5 ${delta < 0 ? 'text-green-600' : 'text-red-500'}`}>
+                        <p className={`text-xs font-semibold mt-0.5 ${delta < 0 ? 'text-success' : 'text-error'}`}>
                           {delta > 0 ? '+' : ''}{delta.toFixed(1)}° vs first
                         </p>
                       ) : null;
@@ -489,41 +489,41 @@ export default function ProgressPage() {
           <Card>
             <CardHeader><CardTitle>🏆 Personal Bests</CardTitle></CardHeader>
             <CardBody className="space-y-2 text-sm">
-              <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                <span className="text-gray-500">Best Score</span>
-                <span className="font-bold text-green-600">{bests.score > 0 ? bests.score : '—'}</span>
+              <div className="flex items-center justify-between py-1 border-b border-border">
+                <span className="text-muted-foreground">Best Score</span>
+                <span className="font-bold text-success">{bests.score > 0 ? bests.score : '—'}</span>
               </div>
-              <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                <span className="text-gray-500">Best Carry</span>
-                <span className="font-bold text-gray-900">{bests.carry !== null ? `${Math.round(bests.carry)} yds` : '—'}</span>
+              <div className="flex items-center justify-between py-1 border-b border-border">
+                <span className="text-muted-foreground">Best Carry</span>
+                <span className="font-bold text-foreground">{bests.carry !== null ? `${Math.round(bests.carry)} yds` : '—'}</span>
               </div>
-              <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                <span className="text-gray-500">Best Smash Factor</span>
-                <span className="font-bold text-gray-900">{bests.smash !== null ? bests.smash.toFixed(2) : '—'}</span>
+              <div className="flex items-center justify-between py-1 border-b border-border">
+                <span className="text-muted-foreground">Best Smash Factor</span>
+                <span className="font-bold text-foreground">{bests.smash !== null ? bests.smash.toFixed(2) : '—'}</span>
               </div>
               <div className="flex items-center justify-between py-1">
-                <span className="text-gray-500">Squarest Face-to-Path</span>
-                <span className="font-bold text-gray-900">{bests.ftp !== null ? `${Math.abs(bests.ftp).toFixed(1)}°` : '—'}</span>
+                <span className="text-muted-foreground">Squarest Face-to-Path</span>
+                <span className="font-bold text-foreground">{bests.ftp !== null ? `${Math.abs(bests.ftp).toFixed(1)}°` : '—'}</span>
               </div>
             </CardBody>
           </Card>
 
-          <Card className="border-indigo-200 bg-indigo-50">
+          <Card className="border-accent-secondary/25 bg-accent-secondary/10">
             <CardHeader>
-              <CardTitle className="text-indigo-900">📊 Handicap Estimate</CardTitle>
+              <CardTitle className="text-foreground">📊 Handicap Estimate</CardTitle>
             </CardHeader>
             <CardBody>
               {newest && newest.overall > 0 ? (
                 <>
-                  <p className="text-3xl font-black text-indigo-700">{handicapRange(newest.overall)}</p>
-                  <p className="text-xs text-indigo-600 mt-1">estimated handicap range</p>
-                  <p className="text-xs text-gray-500 mt-3 leading-relaxed">
+                  <p className="text-3xl font-black text-accent-secondary">{handicapRange(newest.overall)}</p>
+                  <p className="text-xs text-accent-secondary mt-1">estimated handicap range</p>
+                  <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
                     Based on your latest swing score of <strong>{newest.overall}</strong>.
                     This is a rough heuristic — not an official WHS calculation.
                   </p>
                 </>
               ) : (
-                <p className="text-sm text-gray-500">Import sessions to estimate your handicap range.</p>
+                <p className="text-sm text-muted-foreground">Import sessions to estimate your handicap range.</p>
               )}
             </CardBody>
           </Card>
@@ -533,34 +533,34 @@ export default function ProgressPage() {
         <div className="grid grid-cols-2 gap-4">
           <Card>
             <CardBody>
-              <p className="text-xs text-gray-500 mb-1">Most Improved</p>
+              <p className="text-xs text-muted-foreground mb-1">Most Improved</p>
               {mostImproved.change > 0 ? (
                 <>
-                  <p className="text-lg font-bold text-green-600">{mostImproved.label}</p>
-                  <p className="text-sm text-gray-600">+{mostImproved.change} points</p>
+                  <p className="text-lg font-bold text-success">{mostImproved.label}</p>
+                  <p className="text-sm text-muted-foreground">+{mostImproved.change} points</p>
                 </>
               ) : (
-                <p className="text-sm text-gray-500 mt-1">Import more sessions to track improvement.</p>
+                <p className="text-sm text-muted-foreground mt-1">Import more sessions to track improvement.</p>
               )}
             </CardBody>
           </Card>
           <Card>
             <CardBody>
-              <p className="text-xs text-gray-500 mb-1">Current Priority</p>
+              <p className="text-xs text-muted-foreground mb-1">Current Priority</p>
               {newest?.primary_issue ? (
                 <>
-                  <p className="text-lg font-bold text-red-600 leading-tight">{newest.primary_issue}</p>
-                  <p className="text-sm text-gray-600 mt-0.5">
+                  <p className="text-lg font-bold text-error leading-tight">{newest.primary_issue}</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">
                     Latest session · {newest.club_name}
                   </p>
                 </>
               ) : needsWork.change < 0 ? (
                 <>
-                  <p className="text-lg font-bold text-red-600">{needsWork.label}</p>
-                  <p className="text-sm text-gray-600">{needsWork.change} points — needs attention</p>
+                  <p className="text-lg font-bold text-error">{needsWork.label}</p>
+                  <p className="text-sm text-muted-foreground">{needsWork.change} points — needs attention</p>
                 </>
               ) : (
-                <p className="text-sm text-gray-500 mt-1">No issues flagged in latest session. Keep going!</p>
+                <p className="text-sm text-muted-foreground mt-1">No issues flagged in latest session. Keep going!</p>
               )}
             </CardBody>
           </Card>
@@ -577,18 +577,18 @@ export default function ProgressPage() {
                 <Link
                   key={snap.id}
                   href={`/sessions/${snap.id}`}
-                  className="flex items-center justify-between py-2 border-b last:border-0 hover:bg-gray-50 px-1 rounded-sm transition-colors"
+                  className="flex items-center justify-between py-2 border-b last:border-0 hover:bg-muted px-1 rounded-sm transition-colors"
                 >
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{snap.name}</p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-sm font-medium text-foreground">{snap.name}</p>
+                    <p className="text-xs text-muted-foreground">
                       {format(new Date(snap.date), 'MMM d, yyyy')} · {snap.shot_count} shots ·{' '}
                       {snap.club_name}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold text-gray-900">{snap.overall}</span>
-                    <span className="text-xs text-gray-400">Score</span>
+                    <span className="text-lg font-bold text-foreground">{snap.overall}</span>
+                    <span className="text-xs text-muted-foreground">Score</span>
                   </div>
                 </Link>
               ))}

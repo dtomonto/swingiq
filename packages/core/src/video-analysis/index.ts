@@ -5,3 +5,5 @@ export * from './drill-library';
 export * from './youtube-service';
 export * from './deterministic-analysis';
 export * from './learning-profile-service';
+// Real AI visual analysis (frames -> AI vision model -> validated result)
+export * from './visual';

@@ -18,9 +18,9 @@ import { useSport } from '@/contexts/SportContext';
 import { format } from 'date-fns';
 
 function TrendBadge({ change }: { change: number }) {
-  if (change > 0) return <span className="flex items-center gap-0.5 text-xs font-semibold text-green-600"><TrendingUp size={12} /> +{change}</span>;
-  if (change < 0) return <span className="flex items-center gap-0.5 text-xs font-semibold text-red-600"><TrendingDown size={12} /> {change}</span>;
-  return <span className="flex items-center gap-0.5 text-xs font-semibold text-gray-400"><Minus size={12} /> 0</span>;
+  if (change > 0) return <span className="flex items-center gap-0.5 text-xs font-semibold text-success"><TrendingUp size={12} /> +{change}</span>;
+  if (change < 0) return <span className="flex items-center gap-0.5 text-xs font-semibold text-error"><TrendingDown size={12} /> {change}</span>;
+  return <span className="flex items-center gap-0.5 text-xs font-semibold text-muted-foreground"><Minus size={12} /> 0</span>;
 }
 
 // Simple SVG sparkline for video analysis scores
@@ -71,9 +71,9 @@ export function NonGolfProgress() {
       <AppShell>
         <div className="p-6 max-w-5xl mx-auto">
           <div className="text-center py-20">
-            <Activity size={48} className="mx-auto text-gray-300 mb-4" />
-            <p className="text-gray-400 text-lg font-medium mb-2">No {sportName} analyses yet</p>
-            <p className="text-gray-500 text-sm mb-6">
+            <Activity size={48} className="mx-auto text-muted-foreground mb-4" />
+            <p className="text-muted-foreground text-lg font-medium mb-2">No {sportName} analyses yet</p>
+            <p className="text-muted-foreground text-sm mb-6">
               Upload a video to start tracking your {sportName.toLowerCase()} development.
             </p>
             <Link href="/video">
@@ -105,10 +105,10 @@ export function NonGolfProgress() {
     <AppShell>
       <div className="p-6 max-w-5xl mx-auto space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             {sportEmoji} {sportName} Progress
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1">
             {sportAnalyses.length} video{sportAnalyses.length !== 1 ? 's' : ''} analyzed ·{' '}
             {format(new Date(oldest.created_at), 'MMM d')} → {format(new Date(newest.created_at), 'MMM d, yyyy')}
           </p>
@@ -118,23 +118,23 @@ export function NonGolfProgress() {
         <div className="grid grid-cols-3 gap-4">
           <Card className="text-center">
             <CardBody className="py-5">
-              <p className="text-3xl font-black text-gray-900">{newest.overall_score}</p>
-              <p className="text-xs text-gray-500 mt-1">Latest Score</p>
+              <p className="text-3xl font-black text-foreground">{newest.overall_score}</p>
+              <p className="text-xs text-muted-foreground mt-1">Latest Score</p>
               {scoreChange !== 0 && <TrendBadge change={scoreChange} />}
             </CardBody>
           </Card>
           <Card className="text-center">
             <CardBody className="py-5">
-              <p className="text-3xl font-black text-green-600">{bestScore}</p>
-              <p className="text-xs text-gray-500 mt-1">Best Score</p>
+              <p className="text-3xl font-black text-success">{bestScore}</p>
+              <p className="text-xs text-muted-foreground mt-1">Best Score</p>
             </CardBody>
           </Card>
           <Card className="text-center">
             <CardBody className="py-5">
-              <p className="text-3xl font-black text-orange-500">
+              <p className="text-3xl font-black text-warning">
                 {training.streak_days > 0 ? `🔥 ${training.streak_days}` : '0'}
               </p>
-              <p className="text-xs text-gray-500 mt-1">Practice Streak</p>
+              <p className="text-xs text-muted-foreground mt-1">Practice Streak</p>
             </CardBody>
           </Card>
         </div>
@@ -145,7 +145,7 @@ export function NonGolfProgress() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <TrendingUp size={16} className="text-green-600" />
+                  <TrendingUp size={16} className="text-success" />
                   <CardTitle>Score Over Time</CardTitle>
                 </div>
                 <TrendBadge change={scoreChange} />
@@ -153,7 +153,7 @@ export function NonGolfProgress() {
             </CardHeader>
             <CardBody>
               <VideoScoreChart analyses={sportAnalyses} />
-              <p className="text-xs text-gray-400 mt-2 text-center">
+              <p className="text-xs text-muted-foreground mt-2 text-center">
                 Scores are video-derived estimates based on pose analysis. Use as a relative trend indicator.
               </p>
             </CardBody>
@@ -168,12 +168,12 @@ export function NonGolfProgress() {
               {topIssues.map(([issue, count]) => (
                 <div key={issue} className="flex items-center justify-between py-2 border-b last:border-0">
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{issue}</p>
-                    <p className="text-xs text-gray-400">Seen in {count} of {sportAnalyses.length} analyses</p>
+                    <p className="text-sm font-medium text-foreground">{issue}</p>
+                    <p className="text-xs text-muted-foreground">Seen in {count} of {sportAnalyses.length} analyses</p>
                   </div>
-                  <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-red-400 rounded-full"
+                      className="h-full bg-error rounded-full"
                       style={{ width: `${Math.round((count / sportAnalyses.length) * 100)}%` }}
                     />
                   </div>
@@ -190,17 +190,17 @@ export function NonGolfProgress() {
             {sportAnalyses.slice(0, 8).map((a) => (
               <div key={a.id} className="flex items-center justify-between py-2 border-b last:border-0">
                 <div>
-                  <p className="text-sm font-medium text-gray-900 truncate max-w-[200px]">{a.file_name}</p>
+                  <p className="text-sm font-medium text-foreground truncate max-w-[200px]">{a.file_name}</p>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <p className="text-xs text-gray-400">{format(new Date(a.created_at), 'MMM d, yyyy')}</p>
+                    <p className="text-xs text-muted-foreground">{format(new Date(a.created_at), 'MMM d, yyyy')}</p>
                     {a.primary_issue && (
                       <Badge variant="warning" className="text-xs">⚠ {a.primary_issue.length > 24 ? a.primary_issue.slice(0, 24) + '…' : a.primary_issue}</Badge>
                     )}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg font-bold text-gray-900">{a.overall_score}</span>
-                  <span className="text-xs text-gray-400">Score</span>
+                  <span className="text-lg font-bold text-foreground">{a.overall_score}</span>
+                  <span className="text-xs text-muted-foreground">Score</span>
                 </div>
               </div>
             ))}

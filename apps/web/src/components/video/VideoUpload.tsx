@@ -81,10 +81,11 @@ export function VideoUpload({ onVideoReady, onError, disabled }: VideoUploadProp
           <div className="text-sm text-amber-800">
             <p className="font-semibold mb-1">Privacy notice</p>
             <p className="text-amber-700 leading-relaxed">
-              Your video is processed locally in your browser for analysis. We do not upload,
-              store, or share your swing video on any external server without your explicit
-              consent. No third parties will receive your video. Your video data is never used
-              to train a shared model.
+              Your video is read locally in your browser. When you run an analysis, SwingIQ sends
+              only sampled still frames — not your full video file — to the AI vision provider so it
+              can review your mechanics. Your original video is never uploaded or stored on our
+              servers, the frames are not retained after analysis, and your video is never used to
+              train a shared model.
             </p>
             <label className="flex items-center gap-2 mt-3 cursor-pointer">
               <input

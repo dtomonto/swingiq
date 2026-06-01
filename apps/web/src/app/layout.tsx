@@ -47,10 +47,18 @@ export const viewport: Viewport = {
   themeColor: '#1a3a2a',
 };
 
+// Pre-paint theme bootstrap: applies the persisted curated theme to <html>
+// before React hydrates so there is no flash of the default theme. Kept in
+// sync with lib/theme/themes (theme ids) and ThemeApplicator.
+const THEME_BOOTSTRAP = `(function(){try{var ids=['standard','dark-performance','coach-mode','heritage-club','field-court','arcade-practice','bird-print'];var t='standard';var raw=localStorage.getItem('swingiq-store');if(raw){var s=JSON.parse(raw);var c=s&&s.state&&s.state.settings&&s.state.settings.colorTheme;if(ids.indexOf(c)!==-1){t=c;}}var el=document.documentElement;el.setAttribute('data-theme',t);if(t==='dark-performance'){el.classList.add('dark');}}catch(e){}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased bg-gray-50 min-h-screen`}>
+    <html lang="en" suppressHydrationWarning data-theme="standard">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
+      </head>
+      <body className={`${inter.variable} font-sans antialiased bg-background min-h-screen`}>
         <Providers>{children}</Providers>
         <Analytics />
       </body>

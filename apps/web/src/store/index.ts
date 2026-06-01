@@ -12,6 +12,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import type { GolferProfileInput, Shot, DiagnosisOutput } from '@swingiq/core';
 import type { SportId } from '@swingiq/core';
 import type { LanguageCode } from '@/lib/i18n';
+import type { ThemeId } from '@/lib/theme/themes';
 import type { CommunityState } from '@/lib/community/types';
 import { DEFAULT_COMMUNITY_STATE } from '@/lib/community/types';
 import type { TutorialProgress } from '@/lib/tutorial/types';
@@ -97,7 +98,11 @@ export type UsageCategory =
 
 export interface AppSettings {
   units: 'yards' | 'meters';
+  /** Legacy light/dark/system toggle. Retained for back-compat; the curated
+   *  `colorTheme` selector is now the primary appearance control. */
   theme: 'light' | 'dark' | 'system';
+  /** Active curated theme from the multi-theme system (see lib/theme/themes). */
+  colorTheme: ThemeId;
   show_estimated_warnings: boolean;
   coaching_style: 'detailed' | 'concise' | 'encouragement' | 'balanced';
   default_club_for_diagnose: string;
@@ -285,6 +290,7 @@ export interface SwingIQActions {
 const DEFAULT_SETTINGS: AppSettings = {
   units: 'yards',
   theme: 'light',
+  colorTheme: 'standard',
   show_estimated_warnings: true,
   coaching_style: 'balanced',
   default_club_for_diagnose: 'Driver',

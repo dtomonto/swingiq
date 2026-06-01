@@ -51,7 +51,7 @@ function SportDrillCard({
   return (
     <div
       className={`rounded-xl border overflow-hidden transition-colors ${
-        completed ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-white'
+        completed ? 'border-success/25 bg-success/10' : 'border-border bg-card'
       }`}
     >
       <div className="flex items-start gap-3 p-4">
@@ -62,22 +62,22 @@ function SportDrillCard({
         >
           <div
             className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors ${
-              completed ? 'bg-green-500' : 'bg-gray-200 hover:bg-gray-300'
+              completed ? 'bg-success' : 'bg-muted hover:bg-muted'
             }`}
           >
-            {completed && <CheckCircle size={14} className="text-white" />}
+            {completed && <CheckCircle size={14} className="text-success-foreground" />}
           </div>
         </button>
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <p className={`font-semibold text-sm ${completed ? 'text-green-700 line-through' : 'text-gray-900'}`}>
+            <p className={`font-semibold text-sm ${completed ? 'text-success line-through' : 'text-foreground'}`}>
               {drill.name}
             </p>
             <Badge variant="default" className="text-xs capitalize">{drill.difficulty}</Badge>
           </div>
-          <p className="text-xs text-gray-500 mt-0.5">{drill.goal}</p>
-          <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
+          <p className="text-xs text-muted-foreground mt-0.5">{drill.goal}</p>
+          <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
             {drill.reps_or_duration && <span className="flex items-center gap-1"><Clock size={10} />{drill.reps_or_duration}</span>}
             {drill.equipment_needed && <span>🎯 {drill.equipment_needed}</span>}
           </div>
@@ -86,7 +86,7 @@ function SportDrillCard({
         <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="text-xs text-gray-400 hover:text-gray-600"
+            className="text-xs text-muted-foreground hover:text-muted-foreground"
           >
             {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
@@ -102,24 +102,24 @@ function SportDrillCard({
       </div>
 
       {expanded && (
-        <div className="border-t border-gray-100 px-4 pb-4 pt-3 space-y-3">
+        <div className="border-t border-border px-4 pb-4 pt-3 space-y-3">
           {drill.safety_note && (
-            <div className="rounded-sm bg-yellow-50 border border-yellow-200 px-3 py-2">
-              <p className="text-xs text-yellow-800">⚠ {drill.safety_note}</p>
+            <div className="rounded-sm bg-warning/10 border border-warning/30 px-3 py-2">
+              <p className="text-xs text-warning">⚠ {drill.safety_note}</p>
             </div>
           )}
           <ol className="space-y-1.5">
             {drill.steps.map((step, i) => (
-              <li key={i} className="flex gap-2 text-sm text-gray-700">
-                <span className="font-bold text-green-600 shrink-0 w-4">{i + 1}.</span>
+              <li key={i} className="flex gap-2 text-sm text-foreground">
+                <span className="font-bold text-success shrink-0 w-4">{i + 1}.</span>
                 {step}
               </li>
             ))}
           </ol>
           {drill.focus_feel && (
-            <div className="rounded-lg bg-green-50 border border-green-200 p-3">
-              <p className="text-xs font-semibold text-green-700 mb-0.5">Focus feel</p>
-              <p className="text-sm text-gray-700 italic">&ldquo;{drill.focus_feel}&rdquo;</p>
+            <div className="rounded-lg bg-success/10 border border-success/25 p-3">
+              <p className="text-xs font-semibold text-success mb-0.5">Focus feel</p>
+              <p className="text-sm text-foreground italic">&ldquo;{drill.focus_feel}&rdquo;</p>
             </div>
           )}
         </div>
@@ -186,10 +186,10 @@ export function NonGolfTrainingContent() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             {sportEmoji} {sportName} Training
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1">
             {latestAnalysis
               ? `Based on: ${latestAnalysis.primary_issue ?? 'Latest video analysis'}`
               : `Sample ${sportName} drills — upload a video for personalized recommendations`}
@@ -198,13 +198,13 @@ export function NonGolfTrainingContent() {
         <div className="flex items-center gap-4">
           {training.streak_days > 0 && (
             <div className="text-center">
-              <p className="text-2xl font-bold text-orange-500">🔥 {training.streak_days}</p>
-              <p className="text-xs text-gray-500">day streak</p>
+              <p className="text-2xl font-bold text-warning">🔥 {training.streak_days}</p>
+              <p className="text-xs text-muted-foreground">day streak</p>
             </div>
           )}
           <div className="text-right">
-            <p className="text-2xl font-bold text-green-600">{progress}%</p>
-            <p className="text-xs text-gray-500">Complete</p>
+            <p className="text-2xl font-bold text-success">{progress}%</p>
+            <p className="text-xs text-muted-foreground">Complete</p>
           </div>
         </div>
       </div>
@@ -214,15 +214,15 @@ export function NonGolfTrainingContent() {
 
       {/* No data banner */}
       {hasNoAnalysis && (
-        <Card className="border-amber-200 bg-amber-50">
+        <Card className="border-warning/30 bg-warning/10">
           <CardBody className="flex items-center gap-3">
-            <Zap size={18} className="text-amber-600 shrink-0" />
+            <Zap size={18} className="text-warning shrink-0" />
             <div>
-              <p className="text-sm font-medium text-amber-800">No {sportName} analysis yet</p>
-              <p className="text-xs text-amber-600">
+              <p className="text-sm font-medium text-warning">No {sportName} analysis yet</p>
+              <p className="text-xs text-warning">
                 Upload a video to get drills matched to your specific issue.
               </p>
-              <Link href="/video" className="text-xs font-semibold text-green-700 hover:underline mt-1 block">
+              <Link href="/video" className="text-xs font-semibold text-success hover:underline mt-1 block">
                 Analyze your first video →
               </Link>
             </div>
@@ -232,13 +232,13 @@ export function NonGolfTrainingContent() {
 
       {/* Latest analysis context */}
       {latestAnalysis && (
-        <Card className="border-l-4 border-l-red-500">
+        <Card className="border-l-4 border-l-error">
           <CardBody className="flex items-start gap-3">
-            <AlertCircle size={16} className="text-red-500 shrink-0 mt-0.5" />
+            <AlertCircle size={16} className="text-error shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="text-xs text-gray-500 mb-0.5">Training focus from latest analysis</p>
-              <p className="font-bold text-gray-900">{latestAnalysis.primary_issue}</p>
-              <p className="text-xs text-gray-400 mt-0.5">
+              <p className="text-xs text-muted-foreground mb-0.5">Training focus from latest analysis</p>
+              <p className="font-bold text-foreground">{latestAnalysis.primary_issue}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
                 {format(new Date(latestAnalysis.created_at), 'MMM d, yyyy')} · Score: {latestAnalysis.overall_score}/100
               </p>
             </div>
@@ -250,9 +250,9 @@ export function NonGolfTrainingContent() {
       )}
 
       {/* Progress bar */}
-      <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+      <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
         <div
-          className="h-full bg-green-500 rounded-full transition-all duration-500"
+          className="h-full bg-success rounded-full transition-all duration-500"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -263,7 +263,7 @@ export function NonGolfTrainingContent() {
           <div className="flex items-center justify-between">
             <CardTitle>
               Drill Plan
-              <span className="text-sm font-normal text-gray-500 ml-2">
+              <span className="text-sm font-normal text-muted-foreground ml-2">
                 {completedCount}/{totalCount} done
               </span>
             </CardTitle>
@@ -271,7 +271,7 @@ export function NonGolfTrainingContent() {
               <Badge variant="success" className="text-xs">✓ Session Complete!</Badge>
             )}
           </div>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             Check off each drill as you complete it. Your streak updates automatically.
           </p>
         </CardHeader>
@@ -292,7 +292,7 @@ export function NonGolfTrainingContent() {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <Target size={16} className="text-gray-500" />
+              <Target size={16} className="text-muted-foreground" />
               <CardTitle>Swing Phase Reference</CardTitle>
             </div>
           </CardHeader>
@@ -303,16 +303,16 @@ export function NonGolfTrainingContent() {
                 return (
                   <div
                     key={phase}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-muted border border-border rounded-lg"
                     title={def?.coaching_cue ?? ''}
                   >
-                    <span className="text-xs font-bold text-gray-500">{i + 1}</span>
-                    <span className="text-xs font-medium text-gray-700">{def?.label ?? phase}</span>
+                    <span className="text-xs font-bold text-muted-foreground">{i + 1}</span>
+                    <span className="text-xs font-medium text-foreground">{def?.label ?? phase}</span>
                   </div>
                 );
               })}
             </div>
-            <p className="text-xs text-gray-400 mt-3">
+            <p className="text-xs text-muted-foreground mt-3">
               Hover any phase to see the coaching cue. These are the movement phases your video analysis evaluates.
             </p>
           </CardBody>
@@ -321,10 +321,10 @@ export function NonGolfTrainingContent() {
 
       {/* Evidence note */}
       {sportConfig?.evidence_note && (
-        <Card className="border-dashed border-gray-200 bg-gray-50">
+        <Card className="border-dashed border-border bg-muted">
           <CardBody>
-            <p className="text-xs text-gray-500 leading-relaxed">
-              <span className="font-semibold text-gray-600">About these benchmarks: </span>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              <span className="font-semibold text-muted-foreground">About these benchmarks: </span>
               {sportConfig.evidence_note}
             </p>
           </CardBody>

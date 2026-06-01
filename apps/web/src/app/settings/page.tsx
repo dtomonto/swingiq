@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { CheckCircle, Trash2, HardDrive, HelpCircle, Database } from 'lucide-react';
 import Link from 'next/link';
 import { useTutorial } from '@/hooks/useTutorial';
+import { ThemeSelector } from '@/components/theme/ThemeSelector';
 
 export default function SettingsPage() {
   const { settings, updateSettings, reset } = useSwingIQStore();
@@ -51,18 +52,7 @@ export default function SettingsPage() {
                 <option value="meters">Meters</option>
               </select>
             </div>
-            <div>
-              <label className="text-sm font-medium text-gray-700 block mb-1">App Theme</label>
-              <select
-                value={settings.theme}
-                onChange={(e) => updateSettings({ theme: e.target.value as 'light' | 'dark' | 'system' })}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
-              >
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-                <option value="system">System default</option>
-              </select>
-            </div>
+            <ThemeSelector />
           </CardBody>
         </Card>
 

@@ -41,7 +41,7 @@ export function ScoreRing({ score, size = 80, strokeWidth = 6, label, className 
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="#e5e7eb"
+            stroke="hsl(var(--border))"
             strokeWidth={strokeWidth}
           />
           <circle
@@ -59,10 +59,10 @@ export function ScoreRing({ score, size = 80, strokeWidth = 6, label, className 
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <span className="text-lg font-bold" style={{ color }}>{getGrade(score)}</span>
-          <span className="text-xs text-gray-500">{score}</span>
+          <span className="text-xs text-muted-foreground">{score}</span>
         </div>
       </div>
-      {label && <p className="text-xs text-gray-600 text-center">{label}</p>}
+      {label && <p className="text-xs text-muted-foreground text-center">{label}</p>}
     </div>
   );
 }

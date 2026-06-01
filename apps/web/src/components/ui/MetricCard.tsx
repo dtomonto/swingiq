@@ -14,10 +14,10 @@ interface MetricCardProps {
 }
 
 const statusColors = {
-  good: 'border-green-200 bg-green-50',
-  warning: 'border-yellow-200 bg-yellow-50',
-  danger: 'border-red-200 bg-red-50',
-  neutral: 'border-gray-200 bg-white',
+  good: 'border-success/30 bg-success/10',
+  warning: 'border-warning/30 bg-warning/10',
+  danger: 'border-error/30 bg-error/10',
+  neutral: 'border-border bg-card',
 };
 
 export function MetricCard({
@@ -32,7 +32,7 @@ export function MetricCard({
   className,
 }: MetricCardProps) {
   const TrendIcon = trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus;
-  const trendColor = trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-600' : 'text-gray-400';
+  const trendColor = trend === 'up' ? 'text-success' : trend === 'down' ? 'text-error' : 'text-muted-foreground';
 
   return (
     <div
@@ -42,13 +42,13 @@ export function MetricCard({
         className,
       )}
     >
-      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">{label}</p>
+      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">{label}</p>
       <div className="flex items-end gap-1.5 mb-1">
-        <span className="text-2xl font-bold text-gray-900">{value}</span>
-        {unit && <span className="text-sm text-gray-500 mb-0.5">{unit}</span>}
+        <span className="text-2xl font-bold text-foreground">{value}</span>
+        {unit && <span className="text-sm text-muted-foreground mb-0.5">{unit}</span>}
       </div>
       {target && (
-        <p className="text-xs text-gray-500">Target: {target}</p>
+        <p className="text-xs text-muted-foreground">Target: {target}</p>
       )}
       {(trend || trendLabel) && (
         <div className={cn('flex items-center gap-1 mt-1.5', trendColor)}>
@@ -57,7 +57,7 @@ export function MetricCard({
         </div>
       )}
       {description && (
-        <p className="text-xs text-gray-500 mt-1.5 leading-relaxed">{description}</p>
+        <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">{description}</p>
       )}
     </div>
   );

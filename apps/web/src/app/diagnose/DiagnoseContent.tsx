@@ -39,7 +39,7 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
   const routine = getRoutineForDiagnosis(diagnosis.rule.id, skillLevel);
 
   return (
-    <Card className={rank === 1 ? 'ring-2 ring-red-300' : ''}>
+    <Card className={rank === 1 ? 'ring-2 ring-error/40' : ''}>
       <CardHeader>
         <button
           onClick={() => setExpanded(!expanded)}
@@ -48,24 +48,26 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
           <div className="flex items-center gap-3">
             <span
               className={cn(
-                'w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white',
-                rank === 1 ? 'bg-red-500' : rank === 2 ? 'bg-orange-500' : 'bg-yellow-500',
+                'w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold',
+                rank === 1
+                  ? 'bg-error text-error-foreground'
+                  : 'bg-warning text-warning-foreground',
               )}
             >
               {rank}
             </span>
-            <span className="font-bold text-gray-900">{diagnosis.rule.name}</span>
+            <span className="font-bold text-foreground">{diagnosis.rule.name}</span>
             <Badge variant={diagnosis.rule.priority as 'critical' | 'high' | 'medium'}>
               {diagnosis.rule.priority}
             </Badge>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-muted-foreground">
               Confidence: {diagnosis.confidence}%
             </span>
           </div>
           {expanded ? (
-            <ChevronUp size={16} className="text-gray-400" />
+            <ChevronUp size={16} className="text-muted-foreground" />
           ) : (
-            <ChevronDown size={16} className="text-gray-400" />
+            <ChevronDown size={16} className="text-muted-foreground" />
           )}
         </button>
       </CardHeader>
@@ -82,7 +84,7 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
 
           {/* Evidence */}
           <div>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
               Evidence
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -92,18 +94,18 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
                   className={cn(
                     'rounded-lg p-3 border',
                     dp.deviation !== null && Math.abs(dp.deviation) > 2
-                      ? 'bg-red-50 border-red-200'
-                      : 'bg-gray-50 border-gray-200',
+                      ? 'bg-error/10 border-error/30'
+                      : 'bg-muted border-border',
                   )}
                 >
-                  <p className="text-xs text-gray-500">{dp.metric}</p>
-                  <p className="font-bold text-gray-900 text-sm">
+                  <p className="text-xs text-muted-foreground">{dp.metric}</p>
+                  <p className="font-bold text-foreground text-sm">
                     {typeof dp.value === 'number'
                       ? `${dp.value.toFixed(dp.unit === 'rpm' ? 0 : 1)}${dp.unit}`
                       : dp.value}
                   </p>
                   {dp.target_min !== null && dp.target_max !== null && (
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-muted-foreground">
                       Target: {dp.target_min}–{dp.target_max}
                       {dp.unit}
                     </p>
@@ -114,25 +116,25 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
           </div>
 
           {/* Likely Cause */}
-          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <div className="p-4 bg-accent-secondary/10 rounded-lg border border-accent-secondary/25">
             <div className="flex items-center gap-2 mb-1">
-              <Info size={14} className="text-blue-600" />
-              <p className="text-xs font-semibold text-blue-700">Likely Cause</p>
+              <Info size={14} className="text-accent-secondary" />
+              <p className="text-xs font-semibold text-accent-secondary">Likely Cause</p>
             </div>
-            <p className="text-sm text-blue-800 leading-relaxed">
+            <p className="text-sm text-foreground leading-relaxed">
               {diagnosis.rule.likely_cause}
             </p>
           </div>
 
           {/* What improvement looks like */}
-          <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+          <div className="p-4 bg-success/10 rounded-lg border border-success/25">
             <div className="flex items-center gap-2 mb-1">
-              <CheckCircle size={14} className="text-green-600" />
-              <p className="text-xs font-semibold text-green-700">
+              <CheckCircle size={14} className="text-success" />
+              <p className="text-xs font-semibold text-success">
                 What Improvement Looks Like
               </p>
             </div>
-            <p className="text-sm text-green-800 leading-relaxed">
+            <p className="text-sm text-foreground leading-relaxed">
               {diagnosis.rule.what_improvement_looks_like(diagnosis.stats)}
             </p>
           </div>
@@ -140,23 +142,23 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
           {/* Routine + Drills */}
           {routine && (
             <div className="border rounded-lg overflow-hidden">
-              <div className="bg-gray-50 px-4 py-3 border-b">
-                <p className="font-semibold text-gray-900 text-sm">{routine.name}</p>
-                <p className="text-xs text-gray-500">
+              <div className="bg-muted px-4 py-3 border-b border-border">
+                <p className="font-semibold text-foreground text-sm">{routine.name}</p>
+                <p className="text-xs text-muted-foreground">
                   {routine.ball_count} balls · ~{routine.estimated_duration_minutes} min
                 </p>
               </div>
               <div className="px-4 py-3 space-y-2">
                 {routine.drill_steps.slice(0, 3).map((step, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-gray-700">
-                    <span className="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+                  <div key={i} className="flex gap-2 text-sm text-foreground">
+                    <span className="w-5 h-5 rounded-full bg-primary/15 text-primary flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                       {i + 1}
                     </span>
                     {step}
                   </div>
                 ))}
                 {routine.drill_steps.length > 3 && (
-                  <p className="text-xs text-gray-400 pl-7">
+                  <p className="text-xs text-muted-foreground pl-7">
                     +{routine.drill_steps.length - 3} more steps in full routine
                   </p>
                 )}
@@ -169,7 +171,7 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
                       href={drill.youtube_search_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-red-600 hover:underline"
+                      className="flex items-center gap-1 text-xs text-primary hover:underline"
                     >
                       <ExternalLink size={11} />
                       {drill.name.length > 25 ? drill.name.substring(0, 25) + '…' : drill.name}
@@ -184,12 +186,12 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
           )}
 
           {/* Retest */}
-          <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-            <p className="text-xs font-semibold text-gray-600 mb-1">Retest Protocol</p>
-            <p className="text-sm text-gray-700">
+          <div className="p-4 bg-muted rounded-lg border border-border">
+            <p className="text-xs font-semibold text-muted-foreground mb-1">Retest Protocol</p>
+            <p className="text-sm text-foreground">
               {diagnosis.rule.retest.success_criteria}
             </p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               {diagnosis.rule.retest.shot_count} shots · Focus:{' '}
               {diagnosis.rule.retest.focus_metrics.join(', ')}
             </p>
@@ -256,9 +258,9 @@ export function DiagnoseContent() {
     return (
       <div className="p-6 max-w-5xl mx-auto">
         <div className="text-center py-20">
-          <Activity size={48} className="mx-auto text-gray-300 mb-4" />
-          <p className="text-gray-400 text-lg font-medium mb-2">No session data yet</p>
-          <p className="text-gray-500 text-sm mb-6">
+          <Activity size={48} className="mx-auto text-muted-foreground mb-4" />
+          <p className="text-muted-foreground text-lg font-medium mb-2">No session data yet</p>
+          <p className="text-muted-foreground text-sm mb-6">
             Import a launch-monitor CSV to run your first swing diagnosis.
           </p>
           <Link href="/sessions/import">
@@ -274,7 +276,7 @@ export function DiagnoseContent() {
   if (!result || !insight || !scores || !activeSession) {
     return (
       <div className="p-6 max-w-5xl mx-auto">
-        <p className="text-gray-500 mt-8 text-center">
+        <p className="text-muted-foreground mt-8 text-center">
           This session has no shot data — try importing another session.
         </p>
       </div>
@@ -287,8 +289,8 @@ export function DiagnoseContent() {
       {/* Header */}
       <div className="flex items-start justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Swing Diagnosis</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-foreground">Swing Diagnosis</h1>
+          <p className="text-muted-foreground text-sm mt-1">
             {result.stats.shot_count} shots ·{' '}
             {activeSession.club_name}
             {activeSession.launch_monitor && activeSession.launch_monitor !== 'manual' && (
@@ -303,7 +305,7 @@ export function DiagnoseContent() {
             <select
               value={activeSession.id}
               onChange={(e) => setSelectedSessionId(e.target.value)}
-              className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 outline-hidden bg-white"
+              className="text-sm border border-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-ring outline-hidden bg-card text-foreground"
               aria-label="Select session to diagnose"
             >
               {sorted.map((s) => (
@@ -321,13 +323,13 @@ export function DiagnoseContent() {
       </div>
 
       {/* What to do next */}
-      <div className="bg-golf-dark text-white rounded-xl p-5 flex items-start gap-4">
+      <div className="bg-primary text-primary-foreground rounded-xl p-5 flex items-start gap-4">
         <span className="text-2xl">🎯</span>
         <div className="flex-1">
-          <p className="font-semibold text-green-300 text-sm mb-0.5">
+          <p className="font-semibold text-primary-foreground/80 text-sm mb-0.5">
             What should I do next?
           </p>
-          <p className="text-white font-bold">{insight.what_do_i_do_next}</p>
+          <p className="text-primary-foreground font-bold">{insight.what_do_i_do_next}</p>
         </div>
       </div>
 
@@ -369,8 +371,8 @@ export function DiagnoseContent() {
       {/* Diagnoses */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <AlertCircle size={18} className="text-gray-600" />
-          <h2 className="text-lg font-bold text-gray-900">
+          <AlertCircle size={18} className="text-muted-foreground" />
+          <h2 className="text-lg font-bold text-foreground">
             {result.diagnoses.length} Issue
             {result.diagnoses.length !== 1 ? 's' : ''} Identified
           </h2>
@@ -379,9 +381,9 @@ export function DiagnoseContent() {
         {result.diagnoses.length === 0 && (
           <Card>
             <CardBody className="py-10 text-center">
-              <CheckCircle size={40} className="mx-auto mb-3 text-green-500" />
-              <p className="font-bold text-gray-900">No critical issues detected.</p>
-              <p className="text-gray-500 text-sm mt-1">
+              <CheckCircle size={40} className="mx-auto mb-3 text-success" />
+              <p className="font-bold text-foreground">No critical issues detected.</p>
+              <p className="text-muted-foreground text-sm mt-1">
                 Focus on maintaining consistency. Add more shots for a higher-confidence
                 analysis.
               </p>
@@ -398,8 +400,8 @@ export function DiagnoseContent() {
       {reportData && (
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <CheckCircle size={18} className="text-gray-600" />
-            <h2 className="text-lg font-bold text-gray-900">Share or save your plan</h2>
+            <CheckCircle size={18} className="text-muted-foreground" />
+            <h2 className="text-lg font-bold text-foreground">Share or save your plan</h2>
           </div>
           <ShareableReportCard data={reportData} />
           <EmailCapture

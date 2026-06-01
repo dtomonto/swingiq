@@ -1,9 +1,9 @@
 import { Smartphone, Cpu, EyeOff } from 'lucide-react';
 
 const STEPS = [
-  { icon: Smartphone, title: 'You choose a video', text: 'Pick a swing video from your device. Nothing uploads until you start an analysis.' },
-  { icon: Cpu, title: 'It is analyzed in your browser', text: 'Pose estimation runs on your device. Your raw footage is not sent to an external server by default.' },
-  { icon: EyeOff, title: 'It stays private', text: 'Videos are never shared publicly by default. You decide if and when to share a summary.' },
+  { icon: Smartphone, title: 'You choose a video', text: 'Pick a swing video from your device. Nothing is sent anywhere until you start an analysis.' },
+  { icon: Cpu, title: 'AI reviews still frames', text: 'When you start an analysis, SwingIQ samples still frames across your swing and sends only those frames — not your full video file — to an AI vision provider for review.' },
+  { icon: EyeOff, title: 'Your footage stays yours', text: 'Your original video never leaves your device, the sampled frames are not stored after analysis, and your video is never used to train a shared model.' },
 ];
 
 /**
