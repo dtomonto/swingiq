@@ -74,7 +74,7 @@ export default function BaseballEquipmentPage() {
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-gray-900">{bat.brand} {bat.model} {bat.year}</p>
                     <div className="flex flex-wrap gap-2 mt-1">
-                      {bat.length_in && <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{bat.length_in}"</span>}
+                      {bat.length_in && <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{bat.length_in}&quot;</span>}
                       {bat.weight_oz && <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{bat.weight_oz} oz</span>}
                       {bat.drop && <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">Drop {bat.drop}</span>}
                       {bat.certification && <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{bat.certification}</span>}

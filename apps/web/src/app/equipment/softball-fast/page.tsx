@@ -75,7 +75,7 @@ export default function FastPitchEquipmentPage() {
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-gray-900">{bat.brand} {bat.model} {bat.year}</p>
                     <div className="flex flex-wrap gap-2 mt-1">
-                      {bat.length_in && <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{bat.length_in}"</span>}
+                      {bat.length_in && <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{bat.length_in}&quot;</span>}
                       {bat.weight_oz && <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{bat.weight_oz} oz</span>}
                       {bat.certification_stamps && <span className="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full">{bat.certification_stamps}</span>}
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${

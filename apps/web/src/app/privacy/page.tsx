@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | SwingIQ',
   description: 'SwingIQ privacy policy — how we collect, use, and protect your data.',
   alternates: { canonical: '/privacy' },
 };
+
+const EFFECTIVE_DATE = 'May 31, 2026';
 
 export default function PrivacyPage() {
   return (
@@ -14,7 +17,7 @@ export default function PrivacyPage() {
         <Link href="/dashboard" className="text-sm text-green-700 hover:underline mb-6 block">← Back to SwingIQ</Link>
 
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
-        <p className="text-sm text-gray-500 mb-8">Last updated: {new Date().getFullYear()}. <em>This is a placeholder policy. Attorney review is recommended before commercial launch.</em></p>
+        <p className="text-sm text-gray-500 mb-8">Effective date: {EFFECTIVE_DATE}. Written in plain English to describe how SwingIQ actually handles your data today.</p>
 
         <div className="prose prose-gray max-w-none space-y-8 text-sm text-gray-700 leading-relaxed">
 
@@ -82,9 +85,16 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">8. Contact</h2>
-            <p>Questions about this policy? Contact us at: <strong>[Add contact email]</strong></p>
-            <p className="mt-2 text-xs text-gray-500 italic">Note: This privacy policy is a practical placeholder. Legal counsel review is strongly recommended before commercial launch or collecting data from users in regulated jurisdictions (GDPR, CCPA, COPPA).</p>
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">8. Data Deletion &amp; Requests</h2>
+            <p>You can delete your data at any time from <strong>Settings → Data Management</strong>. Because pre-account data is stored only in your browser, clearing your browser storage also removes it. To request access to, or deletion of, any data associated with you, email{' '}
+              <a href={`mailto:${siteConfig.privacyEmail}`} className="text-green-700 font-semibold hover:underline">{siteConfig.privacyEmail}</a> and we will respond promptly.</p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">9. Contact</h2>
+            <p>Questions about this policy? Email{' '}
+              <a href={`mailto:${siteConfig.privacyEmail}`} className="text-green-700 font-semibold hover:underline">{siteConfig.privacyEmail}</a>.</p>
+            <p className="mt-2 text-xs text-gray-500 italic">This policy describes our current practices in plain English. We have not certified compliance with specific regulatory frameworks (such as GDPR, CCPA, or COPPA), and we recommend independent legal review before scaling or collecting data from users in regulated jurisdictions.</p>
           </section>
         </div>
       </div>
