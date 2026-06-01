@@ -2,6 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { GolferProfileSchema, type GolferProfileInput } from '@swingiq/core';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -42,7 +43,9 @@ export function ProfileForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<GolferProfileInput>({
+    // resolvers v5 distinguishes the schema's input (defaults optional) from its
+    // output (GolferProfileInput, post-defaults); type useForm with both.
+  } = useForm<z.input<typeof GolferProfileSchema>, unknown, GolferProfileInput>({
     resolver: zodResolver(GolferProfileSchema),
     defaultValues: profile ?? {
       handedness: 'right',
