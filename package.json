@@ -36,14 +36,17 @@
     "typescript": "^6.0.0",
     "rimraf": "^6.0.0",
     "@types/node": "^24.0.0",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "15.5.18",
-    "@typescript-eslint/parser": "^6.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0"
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0"
   },
-  "//overrides": "Security: force patched transitive deps without major bumps. minimatch (ReDoS via @typescript-eslint), postcss (XSS via next build tooling). Both are build/dev-time only.",
+  "//overrides": "Security: force patched transitive deps. minimatch (ReDoS) pinned >=9 globally; but eslint-plugin-jsx-a11y relies on minimatch's older callable default export, so it gets the patched 3.1.2 (>=3.0.5, ReDoS-safe) via a scoped override. postcss (XSS via next build tooling). All build/dev-time only.",
   "overrides": {
     "minimatch": "^9.0.5",
+    "eslint-plugin-jsx-a11y": {
+      "minimatch": "^3.1.2"
+    },
     "postcss": "^8.5.10"
   },
   "packageManager": "npm@10.8.2",
