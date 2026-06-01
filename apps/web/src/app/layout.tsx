@@ -56,6 +56,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning data-theme="standard">
       <head>
+        {/* Trusted, developer-authored static constant (THEME_BOOTSTRAP) with no
+            user input — not an XSS sink; safe to inline. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
       </head>
       <body className={`${inter.variable} font-sans antialiased bg-background min-h-screen`}>
