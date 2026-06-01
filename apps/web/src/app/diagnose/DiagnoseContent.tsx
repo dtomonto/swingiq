@@ -29,6 +29,8 @@ import {
 import type { Shot } from '@swingiq/core';
 import { useSwingIQStore } from '@/store';
 import { format } from 'date-fns';
+import { ShareableReportCard, type ReportData } from '@/components/report/ShareableReportCard';
+import { EmailCapture } from '@/components/email/EmailCapture';
 
 // ── Diagnosis card ───────────────────────────────────────────
 
@@ -232,6 +234,23 @@ export function DiagnoseContent() {
   const insight = useMemo(() => (result ? buildSessionInsight(result) : null), [result]);
   const scores = useMemo(() => (result ? computeSwingScores(result.stats) : null), [result]);
 
+  // Privacy-safe shareable summary built from the top diagnosis.
+  const reportData = useMemo<ReportData | null>(() => {
+    if (!result || !insight || result.diagnoses.length === 0) return null;
+    const top = result.diagnoses[0];
+    const routine = getRoutineForDiagnosis(top.rule.id, skillLevel);
+    const drills = routine?.drill_recommendations.map((d) => d.name).slice(0, 3)
+      ?? routine?.drill_steps.slice(0, 3)
+      ?? [];
+    return {
+      sport: 'Golf',
+      topIssue: top.rule.name,
+      confidence: `${top.confidence}%`,
+      drills,
+      planSummary: insight.what_do_i_do_next,
+    };
+  }, [result, insight, skillLevel]);
+
   // ── Empty state ──────────────────────────────────────────────
   if (!sessions.length) {
     return (
@@ -374,6 +393,23 @@ export function DiagnoseContent() {
           <DiagnosisCard key={d.rule.id} diagnosis={d} rank={i + 1} skillLevel={skillLevel} />
         ))}
       </div>
+
+      {/* Share + save your plan */}
+      {reportData && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-2">
+            <CheckCircle size={18} className="text-gray-600" />
+            <h2 className="text-lg font-bold text-gray-900">Share or save your plan</h2>
+          </div>
+          <ShareableReportCard data={reportData} />
+          <EmailCapture
+            source="launch_monitor"
+            heading="Email me this plan + a retest reminder"
+            subheading="We'll send your top priority, drills, and a reminder to retest. No spam."
+            meta={{ sport: 'golf', issue: reportData.topIssue }}
+          />
+        </div>
+      )}
     </div>
   );
 }
