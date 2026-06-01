@@ -64,7 +64,15 @@
       "Bash(cd \"/c/Users/dtomo/OneDrive/Desktop/swingiq\" && sed -n '/^## 60-Day/,/^## 90-Day/p' PRODUCT_ROADMAP.md | head -40)",
       "Bash(node scripts/patch-readme.mjs)",
       "Bash(xxd)",
-      "Bash(git merge *)"
+      "Bash(git merge *)",
+      "Bash(cd \"C:/Users/dtomo/OneDrive/Desktop/swingiq/apps/web\" && echo \"=== eslint config files ===\" && ls -a | grep -iE \"eslint\" ; echo \"=== .eslintrc content ===\" && cat .eslintrc.json 2>/dev/null || cat .eslintrc.js 2>/dev/null || cat .eslintrc 2>/dev/null; echo \"=== jsx-a11y installed? ===\" && ls ../../node_modules/eslint-plugin-jsx-a11y/package.json 2>/dev/null && echo \"yes\" || echo \"no\")",
+      "Bash(git branch *)",
+      "Bash(xargs -r git branch -d)",
+      "Bash(git --no-pager diff --stat)",
+      "Bash(git --no-pager diff .claude/settings.local.json)",
+      "Bash(npm update *)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/react-hook-form/package.json'\\).version\\)\")",
+      "Bash(git --no-pager diff package-lock.json)"
     ]
   }
 }
