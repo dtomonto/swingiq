@@ -9,11 +9,11 @@ const SPORT_FILTERS = ['All', 'Golf', 'Tennis', 'Baseball', 'Softball'] as const
 type SportFilter = typeof SPORT_FILTERS[number];
 
 const SPORT_BADGE_COLORS: Record<string, string> = {
-  golf: 'bg-green-100 text-green-700',
-  tennis: 'bg-yellow-100 text-yellow-700',
-  baseball: 'bg-red-100 text-red-700',
-  softball: 'bg-pink-100 text-pink-700',
-  all: 'bg-gray-100 text-gray-600',
+  golf: 'bg-primary/15 text-primary',
+  tennis: 'bg-warning/15 text-warning',
+  baseball: 'bg-error/15 text-error',
+  softball: 'bg-accent-secondary/15 text-accent-secondary',
+  all: 'bg-muted text-muted-foreground',
 };
 
 export default function BlogIndexPage() {
@@ -36,12 +36,12 @@ export default function BlogIndexPage() {
   });
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-card">
       {/* Hero */}
-      <section className="bg-[#1a3a2a] text-white py-20 px-4">
+      <section className="bg-primary text-primary-foreground py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">SwingIQ Blog</h1>
-          <p className="text-green-100 text-xl max-w-2xl mx-auto mb-8">
+          <p className="text-primary-foreground/90 text-xl max-w-2xl mx-auto mb-8">
             Swing tips, analysis guides, and training advice for golf, tennis, baseball, and softball.
           </p>
           <input
@@ -49,13 +49,13 @@ export default function BlogIndexPage() {
             placeholder="Search posts..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full max-w-md mx-auto block px-4 py-3 rounded-xl text-gray-900 text-sm focus:outline-hidden focus:ring-2 focus:ring-green-400"
+            className="w-full max-w-md mx-auto block px-4 py-3 rounded-xl text-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-primary/50"
           />
         </div>
       </section>
 
       {/* Filter pills */}
-      <section className="bg-gray-50 border-b border-gray-200 py-4 px-4 sticky top-0 z-10">
+      <section className="bg-muted border-b border-border py-4 px-4 sticky top-0 z-10">
         <div className="max-w-4xl mx-auto flex gap-2 flex-wrap">
           {SPORT_FILTERS.map((sport) => (
             <button
@@ -63,8 +63,8 @@ export default function BlogIndexPage() {
               onClick={() => setSportFilter(sport)}
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                 sportFilter === sport
-                  ? 'bg-green-600 text-white'
-                  : 'bg-white border border-gray-200 text-gray-600 hover:border-green-400 hover:text-green-700'
+                  ? 'bg-primary text-white'
+                  : 'bg-card border border-border text-muted-foreground hover:border-primary/50 hover:text-primary'
               }`}
             >
               {sport}
@@ -77,30 +77,30 @@ export default function BlogIndexPage() {
       <section className="py-12 px-4">
         <div className="max-w-4xl mx-auto">
           {filtered.length === 0 ? (
-            <p className="text-gray-500 text-center py-12">No posts match your search.</p>
+            <p className="text-muted-foreground text-center py-12">No posts match your search.</p>
           ) : (
             <div className="grid sm:grid-cols-2 gap-6">
               {filtered.map((post) => (
-                <article key={post.slug} className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 sm:p-6 flex flex-col">
+                <article key={post.slug} className="bg-card rounded-xl border border-border shadow-xs p-5 sm:p-6 flex flex-col">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SPORT_BADGE_COLORS[post.sport] ?? 'bg-gray-100 text-gray-600'}`}>
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SPORT_BADGE_COLORS[post.sport] ?? 'bg-muted text-muted-foreground'}`}>
                       {post.sport === 'all' ? 'All Sports' : post.sport.charAt(0).toUpperCase() + post.sport.slice(1)}
                     </span>
-                    <span className="text-xs text-gray-400">{post.category}</span>
+                    <span className="text-xs text-muted-foreground">{post.category}</span>
                   </div>
-                  <h2 className="font-bold text-gray-900 text-base mb-2 leading-snug">
-                    <Link href={`/blog/${post.slug}`} className="hover:text-green-700 transition-colors">
+                  <h2 className="font-bold text-foreground text-base mb-2 leading-snug">
+                    <Link href={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
                       {post.title}
                     </Link>
                   </h2>
-                  <p className="text-gray-600 text-sm leading-relaxed flex-1 mb-4">{post.excerpt}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-4">{post.excerpt}</p>
                   <div className="flex items-center justify-between mt-auto">
-                    <div className="text-xs text-gray-400">
+                    <div className="text-xs text-muted-foreground">
                       {post.displayDate} &middot; {post.readingTime}
                     </div>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="text-green-700 text-xs font-medium hover:underline"
+                      className="text-primary text-xs font-medium hover:underline"
                     >
                       Read more →
                     </Link>

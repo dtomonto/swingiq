@@ -132,18 +132,18 @@ export default function FAQPage() {
   const allItems = FAQ_SECTIONS.flatMap((s) => s.items);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-card">
       {/* Header */}
-      <div className="bg-[#1a3a2a] text-white py-14 px-4">
+      <div className="bg-primary text-primary-foreground py-14 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-green-500 rounded-xl flex items-center justify-center">
+            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
               <span className="text-white font-black text-sm">SQ</span>
             </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-green-300 transition-colors">SwingIQ</Link>
+            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingIQ</Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h1>
-          <p className="text-green-200 text-lg max-w-2xl mx-auto">
+          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
             Common questions about SwingIQ — what it does, how it works, and what it honestly cannot do.
           </p>
         </div>
@@ -153,14 +153,14 @@ export default function FAQPage() {
       <div className="max-w-3xl mx-auto px-4 py-12 space-y-12">
         {FAQ_SECTIONS.map((section) => (
           <section key={section.heading}>
-            <h2 className="text-xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+            <h2 className="text-xl font-bold text-foreground mb-6 pb-2 border-b border-border">
               {section.heading}
             </h2>
             <dl className="space-y-6">
               {section.items.map((item) => (
                 <div key={item.q}>
-                  <dt className="font-semibold text-gray-900 mb-1 text-base">{item.q}</dt>
-                  <dd className="text-gray-600 text-sm leading-relaxed">{item.a}</dd>
+                  <dt className="font-semibold text-foreground mb-1 text-base">{item.q}</dt>
+                  <dd className="text-muted-foreground text-sm leading-relaxed">{item.a}</dd>
                 </div>
               ))}
             </dl>
@@ -187,24 +187,24 @@ export default function FAQPage() {
         />
 
         {/* CTA */}
-        <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-          <h3 className="text-lg font-bold text-gray-900 mb-2">Ready to analyze your swing?</h3>
-          <p className="text-gray-600 text-sm mb-4">Free. No account required. Works on any device.</p>
+        <div className="bg-primary/10 border border-primary/30 rounded-xl p-6 text-center">
+          <h3 className="text-lg font-bold text-foreground mb-2">Ready to analyze your swing?</h3>
+          <p className="text-muted-foreground text-sm mb-4">Free. No account required. Works on any device.</p>
           <Link
             href="/dashboard"
-            className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
+            className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-xl transition-colors"
           >
             Start Free Analysis
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-gray-200">
-          <Link href="/" className="text-green-700 hover:underline">← SwingIQ Home</Link>
-          <Link href="/how-it-works" className="text-green-700 hover:underline">How It Works</Link>
-          <Link href="/trust" className="text-green-700 hover:underline">Trust & Safety</Link>
-          <Link href="/parents" className="text-green-700 hover:underline">For Parents</Link>
-          <Link href="/updates" className="text-green-700 hover:underline">Updates</Link>
+        <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
+          <Link href="/" className="text-primary hover:underline">← SwingIQ Home</Link>
+          <Link href="/how-it-works" className="text-primary hover:underline">How It Works</Link>
+          <Link href="/trust" className="text-primary hover:underline">Trust & Safety</Link>
+          <Link href="/parents" className="text-primary hover:underline">For Parents</Link>
+          <Link href="/updates" className="text-primary hover:underline">Updates</Link>
         </nav>
       </div>
     </div>

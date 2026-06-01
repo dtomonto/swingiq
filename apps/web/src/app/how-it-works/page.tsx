@@ -22,25 +22,25 @@ const steps = [
     number: '1',
     title: 'Select Your Sport',
     desc: 'SwingIQ supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own analysis engine, drill library, and benchmarks calibrated for that discipline.',
-    color: 'bg-green-600',
+    color: 'bg-primary',
   },
   {
     number: '2',
     title: 'Upload or Enter Your Data',
     desc: 'Import a CSV from your launch monitor, upload a swing video, take a screenshot and enter your stats manually, or connect a Bluetooth sensor. SwingIQ meets you where your data already lives.',
-    color: 'bg-blue-600',
+    color: 'bg-accent-secondary',
   },
   {
     number: '3',
     title: 'Get Your AI Analysis',
     desc: 'A deterministic rules engine cross-references your numbers against proven biomechanical benchmarks. Then an AI layer generates a ranked list of your top swing faults and identifies your highest-leverage fix.',
-    color: 'bg-purple-600',
+    color: 'bg-accent-secondary',
   },
   {
     number: '4',
     title: 'Follow Your Practice Plan',
     desc: 'Receive targeted drills matched to your exact fault pattern, a weekly practice schedule based on your availability, and progress benchmarks so you can see measurable improvement.',
-    color: 'bg-orange-500',
+    color: 'bg-warning',
   },
 ];
 
@@ -50,35 +50,35 @@ const sports = [
     name: 'Golf',
     href: '/golf-swing-analysis',
     description: 'Launch monitor data analysis. Club path, face angle, attack angle, spin, and distance benchmarks aligned with tour stats.',
-    accentClass: 'border-green-400 bg-green-50',
+    accentClass: 'border-primary/50 bg-primary/10',
   },
   {
     emoji: '🎾',
     name: 'Tennis',
     href: '/tennis-swing-analysis',
     description: 'Video-based stroke analysis. Forehand, backhand, serve, and volley phase-by-phase breakdown against ATP/WTA technical models.',
-    accentClass: 'border-yellow-400 bg-yellow-50',
+    accentClass: 'border-warning/50 bg-warning/10',
   },
   {
     emoji: '⚾',
     name: 'Baseball',
     href: '/baseball-swing-analysis',
     description: 'Exit velocity, launch angle, bat speed, and attack angle tracking. Integrates HitTrax, Rapsodo, and Blast Motion data.',
-    accentClass: 'border-red-400 bg-red-50',
+    accentClass: 'border-error/50 bg-error/10',
   },
   {
     emoji: '🥎',
     name: 'Slow Pitch Softball',
     href: '/softball-swing-analysis',
     description: 'Arc timing, launch angle optimization, and power metrics calibrated specifically for slow pitch mechanics and bat certifications.',
-    accentClass: 'border-orange-400 bg-orange-50',
+    accentClass: 'border-warning/50 bg-warning/10',
   },
   {
     emoji: '🥎',
     name: 'Fast Pitch Softball',
     href: '/softball-swing-analysis',
     description: 'Short-to-the-ball swing analysis. Contact point depth, attack angle, and timing benchmarks for competitive fast pitch levels.',
-    accentClass: 'border-pink-400 bg-pink-50',
+    accentClass: 'border-primary/50 bg-primary/10',
   },
 ];
 
@@ -120,19 +120,19 @@ export default function HowItWorksPage() {
       />
 
       {/* Hero */}
-      <header className="bg-[#1a3a2a] text-white">
+      <header className="bg-primary text-primary-foreground">
         <div className="max-w-4xl mx-auto px-4 py-14 text-center">
-          <p className="text-green-300 text-sm font-semibold uppercase tracking-widest mb-3">How It Works</p>
+          <p className="text-primary-foreground/80 text-sm font-semibold uppercase tracking-widest mb-3">How It Works</p>
           <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-4">
             Better Technique in 4 Steps
           </h1>
-          <p className="text-green-100 text-lg max-w-2xl mx-auto mb-8">
+          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto mb-8">
             SwingIQ combines a deterministic analysis engine with AI to give every athlete a
             personalized, data-driven development path — across 5 sports.
           </p>
           <Link
             href="/login"
-            className="bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-3 rounded-xl transition-colors inline-block"
+            className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors inline-block"
           >
             Get Started Free
           </Link>
@@ -140,9 +140,9 @@ export default function HowItWorksPage() {
       </header>
 
       {/* 4-step how it works */}
-      <section className="bg-white py-16">
+      <section className="bg-card py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">
+          <h2 className="text-2xl font-bold text-foreground text-center mb-12">
             The SwingIQ Process
           </h2>
           <div className="space-y-10">
@@ -154,8 +154,8 @@ export default function HowItWorksPage() {
                   {number}
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{desc}</p>
+                  <h3 className="text-lg font-bold text-foreground mb-2">{title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{desc}</p>
                 </div>
               </div>
             ))}
@@ -164,10 +164,10 @@ export default function HowItWorksPage() {
       </section>
 
       {/* 5 sports */}
-      <section className="bg-gray-50 py-16">
+      <section className="bg-muted py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">5 Sports, One Platform</h2>
-          <p className="text-gray-600 mb-8 text-sm">
+          <h2 className="text-2xl font-bold text-foreground mb-3">5 Sports, One Platform</h2>
+          <p className="text-muted-foreground mb-8 text-sm">
             Every sport has a dedicated analysis engine. You can switch sports at any time.
           </p>
           <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -178,9 +178,9 @@ export default function HowItWorksPage() {
                   className={`block rounded-xl border-2 ${accentClass} p-5 hover:shadow-md transition-shadow`}
                 >
                   <div className="text-3xl mb-2">{emoji}</div>
-                  <h3 className="font-bold text-gray-900 mb-2">{name}</h3>
-                  <p className="text-xs text-gray-600 leading-relaxed">{description}</p>
-                  <span className="text-xs text-green-600 font-semibold mt-2 inline-block">
+                  <h3 className="font-bold text-foreground mb-2">{name}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{description}</p>
+                  <span className="text-xs text-primary font-semibold mt-2 inline-block">
                     Learn more →
                   </span>
                 </Link>
@@ -191,9 +191,9 @@ export default function HowItWorksPage() {
       </section>
 
       {/* Privacy & tech */}
-      <section className="bg-white py-14">
+      <section className="bg-card py-14">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+          <h2 className="text-2xl font-bold text-foreground mb-8 text-center">
             Privacy-First. Deterministic + AI Hybrid.
           </h2>
           <div className="grid sm:grid-cols-3 gap-6">
@@ -216,8 +216,8 @@ export default function HowItWorksPage() {
             ].map(({ icon, title, desc }) => (
               <div key={title} className="text-center">
                 <div className="text-4xl mb-3">{icon}</div>
-                <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
-                <p className="text-sm text-gray-600">{desc}</p>
+                <h3 className="font-bold text-foreground mb-2">{title}</h3>
+                <p className="text-sm text-muted-foreground">{desc}</p>
               </div>
             ))}
           </div>
@@ -225,14 +225,14 @@ export default function HowItWorksPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#1a3a2a] py-12">
+      <section className="bg-primary py-12">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold text-white mb-3">Ready to get started?</h2>
-          <p className="text-green-200 mb-6 text-sm">Free. No subscription required. Works on any device.</p>
+          <p className="text-primary-foreground/90 mb-6 text-sm">Free. No subscription required. Works on any device.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/login"
-              className="bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-3 rounded-xl transition-colors"
+              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors"
             >
               Create Free Account
             </Link>
@@ -247,29 +247,29 @@ export default function HowItWorksPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-white py-14">
+      <section className="bg-card py-14">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Common Questions</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">Common Questions</h2>
           <dl className="space-y-6">
             {faqs.map(({ q, a }) => (
               <div key={q}>
-                <dt className="font-semibold text-gray-900 mb-1">{q}</dt>
-                <dd className="text-sm text-gray-600 leading-relaxed">{a}</dd>
+                <dt className="font-semibold text-foreground mb-1">{q}</dt>
+                <dd className="text-sm text-muted-foreground leading-relaxed">{a}</dd>
               </div>
             ))}
           </dl>
         </div>
       </section>
 
-      <footer className="bg-gray-50 border-t border-gray-200 py-8">
+      <footer className="bg-muted border-t border-border py-8">
         <div className="max-w-4xl mx-auto px-4 flex flex-wrap gap-4 justify-center text-sm">
-          <Link href="/golf-swing-analysis" className="text-gray-600 hover:text-gray-900">Golf Analysis</Link>
-          <Link href="/tennis-swing-analysis" className="text-gray-600 hover:text-gray-900">Tennis Analysis</Link>
-          <Link href="/baseball-swing-analysis" className="text-gray-600 hover:text-gray-900">Baseball Analysis</Link>
-          <Link href="/softball-swing-analysis" className="text-gray-600 hover:text-gray-900">Softball Analysis</Link>
-          <Link href="/how-it-works" className="text-green-700 hover:underline">How It Works</Link>
-          <Link href="/login" className="text-gray-600 hover:text-gray-900">Sign In</Link>
-          <Link href="/updates" className="text-green-700 hover:underline font-medium">Updates</Link>
+          <Link href="/golf-swing-analysis" className="text-muted-foreground hover:text-foreground">Golf Analysis</Link>
+          <Link href="/tennis-swing-analysis" className="text-muted-foreground hover:text-foreground">Tennis Analysis</Link>
+          <Link href="/baseball-swing-analysis" className="text-muted-foreground hover:text-foreground">Baseball Analysis</Link>
+          <Link href="/softball-swing-analysis" className="text-muted-foreground hover:text-foreground">Softball Analysis</Link>
+          <Link href="/how-it-works" className="text-primary hover:underline">How It Works</Link>
+          <Link href="/login" className="text-muted-foreground hover:text-foreground">Sign In</Link>
+          <Link href="/updates" className="text-primary hover:underline font-medium">Updates</Link>
         </div>
       </footer>
     </>

@@ -52,25 +52,25 @@ const TRUST_SECTIONS = [
 
 export default function TrustPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-card">
       {/* Header */}
-      <div className="bg-[#1a3a2a] text-white py-14 px-4">
+      <div className="bg-primary text-primary-foreground py-14 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-green-500 rounded-xl flex items-center justify-center">
+            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
               <span className="text-white font-black text-sm">SQ</span>
             </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-green-300 transition-colors">SwingIQ</Link>
+            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingIQ</Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Trust &amp; Safety</h1>
-          <p className="text-green-200 text-lg max-w-2xl mx-auto">
+          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
             SwingIQ is built on a simple principle: your data is yours, the AI is honest about its limits, and nothing happens without your knowledge.
           </p>
         </div>
       </div>
 
       {/* Summary row */}
-      <div className="bg-green-50 border-b border-green-100 py-6 px-4">
+      <div className="bg-primary/10 border-b border-primary/20 py-6 px-4">
         <div className="max-w-3xl mx-auto grid sm:grid-cols-3 gap-4 text-center text-sm">
           {[
             { label: 'Local-first storage', sub: 'Data stays on your device by default' },
@@ -78,9 +78,9 @@ export default function TrustPage() {
             { label: 'Honest AI labels', sub: 'Every estimate is labeled as an estimate' },
           ].map((item) => (
             <div key={item.label} className="flex flex-col items-center gap-1">
-              <CheckCircle className="text-green-600" size={20} />
-              <p className="font-semibold text-gray-800">{item.label}</p>
-              <p className="text-gray-500 text-xs">{item.sub}</p>
+              <CheckCircle className="text-primary" size={20} />
+              <p className="font-semibold text-foreground">{item.label}</p>
+              <p className="text-muted-foreground text-xs">{item.sub}</p>
             </div>
           ))}
         </div>
@@ -90,50 +90,50 @@ export default function TrustPage() {
       <div className="max-w-3xl mx-auto px-4 py-12 space-y-10">
         {TRUST_SECTIONS.map(({ icon: Icon, title, body }) => (
           <section key={title} className="flex gap-4">
-            <div className="shrink-0 w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center mt-0.5">
-              <Icon className="text-green-700" size={20} />
+            <div className="shrink-0 w-10 h-10 bg-primary/15 rounded-xl flex items-center justify-center mt-0.5">
+              <Icon className="text-primary" size={20} />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-2">{title}</h2>
-              <p className="text-gray-600 text-sm leading-relaxed">{body}</p>
+              <h2 className="text-lg font-bold text-foreground mb-2">{title}</h2>
+              <p className="text-muted-foreground text-sm leading-relaxed">{body}</p>
             </div>
           </section>
         ))}
 
         {/* Security posture */}
-        <section className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-3">Security posture</h2>
-          <ul className="space-y-2 text-sm text-gray-600">
-            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 shrink-0" /><span>All SwingIQ pages are served over HTTPS with security headers including Content-Security-Policy, X-Frame-Options, and HSTS.</span></li>
-            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 shrink-0" /><span>API keys and secrets are never included in pages delivered to your browser.</span></li>
-            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 shrink-0" /><span>Automated security audits run on every code change using CodeQL, dependency scanning, and secret scanning.</span></li>
-            <li className="flex gap-2"><CheckCircle size={15} className="text-green-500 mt-0.5 shrink-0" /><span>User-generated content is sanitized before being rendered in the interface.</span></li>
+        <section className="bg-muted border border-border rounded-xl p-6">
+          <h2 className="text-lg font-bold text-foreground mb-3">Security posture</h2>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li className="flex gap-2"><CheckCircle size={15} className="text-primary mt-0.5 shrink-0" /><span>All SwingIQ pages are served over HTTPS with security headers including Content-Security-Policy, X-Frame-Options, and HSTS.</span></li>
+            <li className="flex gap-2"><CheckCircle size={15} className="text-primary mt-0.5 shrink-0" /><span>API keys and secrets are never included in pages delivered to your browser.</span></li>
+            <li className="flex gap-2"><CheckCircle size={15} className="text-primary mt-0.5 shrink-0" /><span>Automated security audits run on every code change using CodeQL, dependency scanning, and secret scanning.</span></li>
+            <li className="flex gap-2"><CheckCircle size={15} className="text-primary mt-0.5 shrink-0" /><span>User-generated content is sanitized before being rendered in the interface.</span></li>
           </ul>
         </section>
 
         {/* Contact */}
         <section>
-          <h2 className="text-lg font-bold text-gray-900 mb-2">Contact &amp; reporting</h2>
-          <p className="text-sm text-gray-600">
+          <h2 className="text-lg font-bold text-foreground mb-2">Contact &amp; reporting</h2>
+          <p className="text-sm text-muted-foreground">
             For a privacy concern or data deletion request, email{' '}
-            <a href={`mailto:${siteConfig.privacyEmail}`} className="text-green-700 font-semibold hover:underline">{siteConfig.privacyEmail}</a>.
+            <a href={`mailto:${siteConfig.privacyEmail}`} className="text-primary font-semibold hover:underline">{siteConfig.privacyEmail}</a>.
             To report a security issue, email{' '}
-            <a href={`mailto:${siteConfig.securityEmail}`} className="text-green-700 font-semibold hover:underline">{siteConfig.securityEmail}</a>.
+            <a href={`mailto:${siteConfig.securityEmail}`} className="text-primary font-semibold hover:underline">{siteConfig.securityEmail}</a>.
             We will respond within a reasonable timeframe.
           </p>
-          <p className="text-xs text-gray-400 mt-2 italic">
+          <p className="text-xs text-muted-foreground mt-2 italic">
             This page reflects our current practices in plain English. We have not certified compliance with specific regulatory frameworks, and recommend independent legal review of our Privacy Policy and Terms before scaling commercially.
           </p>
         </section>
 
         {/* Navigation */}
-        <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-gray-200">
-          <Link href="/" className="text-green-700 hover:underline">← SwingIQ Home</Link>
-          <Link href="/privacy" className="text-green-700 hover:underline">Privacy Policy</Link>
-          <Link href="/terms" className="text-green-700 hover:underline">Terms of Service</Link>
-          <Link href="/faq" className="text-green-700 hover:underline">FAQ</Link>
-          <Link href="/parents" className="text-green-700 hover:underline">SwingIQ for Parents</Link>
-          <Link href="/vulnerability-disclosure" className="text-green-700 hover:underline">Vulnerability Disclosure</Link>
+        <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
+          <Link href="/" className="text-primary hover:underline">← SwingIQ Home</Link>
+          <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
+          <Link href="/terms" className="text-primary hover:underline">Terms of Service</Link>
+          <Link href="/faq" className="text-primary hover:underline">FAQ</Link>
+          <Link href="/parents" className="text-primary hover:underline">SwingIQ for Parents</Link>
+          <Link href="/vulnerability-disclosure" className="text-primary hover:underline">Vulnerability Disclosure</Link>
         </nav>
       </div>
     </div>

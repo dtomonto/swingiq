@@ -31,11 +31,11 @@ export async function generateMetadata({
 }
 
 const SPORT_BADGE_COLORS: Record<string, string> = {
-  golf: 'bg-green-100 text-green-700',
-  tennis: 'bg-yellow-100 text-yellow-700',
-  baseball: 'bg-red-100 text-red-700',
-  softball: 'bg-pink-100 text-pink-700',
-  all: 'bg-gray-100 text-gray-600',
+  golf: 'bg-primary/15 text-primary',
+  tennis: 'bg-warning/15 text-warning',
+  baseball: 'bg-error/15 text-error',
+  softball: 'bg-accent-secondary/15 text-accent-secondary',
+  all: 'bg-muted text-muted-foreground',
 };
 
 function renderContent(content: string): React.ReactNode[] {
@@ -43,7 +43,7 @@ function renderContent(content: string): React.ReactNode[] {
   return blocks.map((block, i) => {
     if (block.startsWith('## ')) {
       return (
-        <h2 key={i} className="text-xl font-bold text-gray-900 mt-8 mb-4">
+        <h2 key={i} className="text-xl font-bold text-foreground mt-8 mb-4">
           {block.replace('## ', '')}
         </h2>
       );
@@ -52,7 +52,7 @@ function renderContent(content: string): React.ReactNode[] {
       // Bold lead paragraph
       const parts = block.split(/(\*\*[^*]+\*\*)/g);
       return (
-        <p key={i} className="text-gray-700 text-sm leading-relaxed mb-4">
+        <p key={i} className="text-foreground text-sm leading-relaxed mb-4">
           {parts.map((part, j) =>
             part.startsWith('**') && part.endsWith('**') ? (
               <strong key={j}>{part.slice(2, -2)}</strong>
@@ -64,7 +64,7 @@ function renderContent(content: string): React.ReactNode[] {
       );
     }
     return (
-      <p key={i} className="text-gray-700 text-sm leading-relaxed mb-4">
+      <p key={i} className="text-foreground text-sm leading-relaxed mb-4">
         {block}
       </p>
     );
@@ -85,23 +85,23 @@ export default async function BlogPostPage({
     : [];
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-card">
       {/* Hero */}
-      <section className="bg-[#1a3a2a] text-white py-16 px-4">
+      <section className="bg-primary text-primary-foreground py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-2 mb-4">
-            <Link href="/blog" className="text-green-300 text-sm hover:underline">
+            <Link href="/blog" className="text-primary-foreground/80 text-sm hover:underline">
               ← Blog
             </Link>
           </div>
           <div className="flex items-center gap-2 mb-4">
-            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SPORT_BADGE_COLORS[post.sport] ?? 'bg-gray-100 text-gray-600'}`}>
+            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SPORT_BADGE_COLORS[post.sport] ?? 'bg-muted text-muted-foreground'}`}>
               {post.sport === 'all' ? 'All Sports' : post.sport.charAt(0).toUpperCase() + post.sport.slice(1)}
             </span>
-            <span className="text-green-300 text-xs">{post.category}</span>
+            <span className="text-primary-foreground/80 text-xs">{post.category}</span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">{post.title}</h1>
-          <div className="text-green-300 text-sm">
+          <div className="text-primary-foreground/80 text-sm">
             {post.displayDate} &middot; {post.readingTime}
           </div>
         </div>
@@ -118,7 +118,7 @@ export default async function BlogPostPage({
           {post.tags.length > 0 && (
             <div className="mt-8 flex flex-wrap gap-2">
               {post.tags.map((tag) => (
-                <span key={tag} className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full">
+                <span key={tag} className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">
                   {tag}
                 </span>
               ))}
@@ -129,21 +129,21 @@ export default async function BlogPostPage({
 
       {/* Related posts */}
       {relatedPosts.length > 0 && (
-        <section className="py-12 px-4 bg-gray-50">
+        <section className="py-12 px-4 bg-muted">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Related Articles</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Related Articles</h2>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
               {relatedPosts.map((related) => (
                 <Link
                   key={related.slug}
                   href={`/blog/${related.slug}`}
-                  className="bg-white rounded-xl border border-gray-200 shadow-xs p-4 hover:border-green-400 transition-colors block"
+                  className="bg-card rounded-xl border border-border shadow-xs p-4 hover:border-primary/50 transition-colors block"
                 >
-                  <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SPORT_BADGE_COLORS[related.sport] ?? 'bg-gray-100 text-gray-600'} mb-2 inline-block`}>
+                  <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SPORT_BADGE_COLORS[related.sport] ?? 'bg-muted text-muted-foreground'} mb-2 inline-block`}>
                     {related.sport === 'all' ? 'All Sports' : related.sport.charAt(0).toUpperCase() + related.sport.slice(1)}
                   </span>
-                  <h3 className="font-semibold text-gray-900 text-sm leading-snug mt-1">{related.title}</h3>
-                  <p className="text-xs text-gray-400 mt-1">{related.readingTime}</p>
+                  <h3 className="font-semibold text-foreground text-sm leading-snug mt-1">{related.title}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{related.readingTime}</p>
                 </Link>
               ))}
             </div>
@@ -152,10 +152,10 @@ export default async function BlogPostPage({
       )}
 
       {/* CTA */}
-      <section className="bg-[#1a3a2a] text-white py-16 px-4 text-center">
+      <section className="bg-primary text-primary-foreground py-16 px-4 text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">Apply This to Your Own Swing</h2>
-        <p className="text-green-200 mb-8 text-sm">Import your data and get a personalized diagnosis based on your actual numbers — free.</p>
-        <Link href="/dashboard" className="inline-block bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-3 rounded-xl transition-colors">
+        <p className="text-primary-foreground/90 mb-8 text-sm">Import your data and get a personalized diagnosis based on your actual numbers — free.</p>
+        <Link href="/dashboard" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
           Analyze My Swing Free
         </Link>
       </section>

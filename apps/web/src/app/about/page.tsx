@@ -49,28 +49,28 @@ const WHO_USES = [
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-card">
       {/* Hero */}
-      <section className="bg-[#1a3a2a] text-white py-20 px-4">
+      <section className="bg-primary text-primary-foreground py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
               <span className="text-white font-black text-base">SQ</span>
             </div>
             <span className="text-white font-bold text-2xl">SwingIQ</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">About SwingIQ</h1>
-          <p className="text-green-100 text-xl max-w-2xl mx-auto">
+          <p className="text-primary-foreground/90 text-xl max-w-2xl mx-auto">
             Making professional-quality swing coaching accessible to every athlete, at every level, for free.
           </p>
         </div>
       </section>
 
       {/* Mission */}
-      <section className="py-16 px-4 bg-white">
+      <section className="py-16 px-4 bg-card">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Our Mission</h2>
-          <div className="text-gray-600 text-sm leading-relaxed space-y-4 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Our Mission</h2>
+          <div className="text-muted-foreground text-sm leading-relaxed space-y-4 max-w-3xl">
             <p>
               SwingIQ was built because private coaching is expensive and inaccessible for most players. A single hour with a certified golf instructor can cost more than many people spend on a month of range balls. For tennis, baseball, and softball players, video analysis and data-driven coaching have historically been reserved for those at the highest levels of the sport.
             </p>
@@ -85,14 +85,14 @@ export default function AboutPage() {
       </section>
 
       {/* What we believe */}
-      <section className="py-16 px-4 bg-gray-50">
+      <section className="py-16 px-4 bg-muted">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-10">What We Believe</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">What We Believe</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {BELIEFS.map((b) => (
-              <div key={b.title} className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 sm:p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">{b.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{b.desc}</p>
+              <div key={b.title} className="bg-card rounded-xl border border-border shadow-xs p-5 sm:p-6">
+                <h3 className="font-semibold text-foreground mb-2">{b.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{b.desc}</p>
               </div>
             ))}
           </div>
@@ -100,16 +100,16 @@ export default function AboutPage() {
       </section>
 
       {/* Supported sports */}
-      <section className="py-16 px-4 bg-white">
+      <section className="py-16 px-4 bg-card">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Supported Sports</h2>
-          <p className="text-gray-600 text-sm mb-10">Each sport has its own dedicated analysis engine, drill library, and benchmark standards.</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">Supported Sports</h2>
+          <p className="text-muted-foreground text-sm mb-10">Each sport has its own dedicated analysis engine, drill library, and benchmark standards.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {SPORTS.map((s) => (
-              <div key={s.name} className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 sm:p-6">
+              <div key={s.name} className="bg-card rounded-xl border border-border shadow-xs p-5 sm:p-6">
                 <div className="text-2xl mb-2">{s.emoji}</div>
-                <h3 className="font-semibold text-gray-900 mb-1">{s.name}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
+                <h3 className="font-semibold text-foreground mb-1">{s.name}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -117,14 +117,14 @@ export default function AboutPage() {
       </section>
 
       {/* Who uses SwingIQ */}
-      <section className="py-16 px-4 bg-gray-50">
+      <section className="py-16 px-4 bg-muted">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-10">Who Uses SwingIQ</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">Who Uses SwingIQ</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {WHO_USES.map((w) => (
-              <div key={w.title} className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 sm:p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">{w.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{w.desc}</p>
+              <div key={w.title} className="bg-card rounded-xl border border-border shadow-xs p-5 sm:p-6">
+                <h3 className="font-semibold text-foreground mb-2">{w.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{w.desc}</p>
               </div>
             ))}
           </div>
@@ -132,9 +132,9 @@ export default function AboutPage() {
       </section>
 
       {/* Disclaimer */}
-      <section className="py-8 px-4 bg-amber-50 border-y border-amber-200">
+      <section className="py-8 px-4 bg-warning/10 border-y border-warning/30">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xs text-amber-800 leading-relaxed">
+          <p className="text-xs text-warning leading-relaxed">
             <strong>SwingIQ is an AI-powered improvement assistant — not a certified coach, medical professional, or training authority.</strong>{' '}
             Findings are heuristic estimates based on data patterns. Always consult qualified professionals for safety-critical decisions, injury concerns, or advanced competitive development. Young athletes should practice under adult supervision.
           </p>
@@ -142,10 +142,10 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#1a3a2a] text-white py-16 px-4 text-center">
+      <section className="bg-primary text-primary-foreground py-16 px-4 text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">Start Improving Your Swing Today</h2>
-        <p className="text-green-200 mb-8 text-sm">Free AI analysis for golf, tennis, baseball, and softball. No account needed.</p>
-        <Link href="/dashboard" className="inline-block bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-3 rounded-xl transition-colors">
+        <p className="text-primary-foreground/90 mb-8 text-sm">Free AI analysis for golf, tennis, baseball, and softball. No account needed.</p>
+        <Link href="/dashboard" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
           Analyze My Swing Free
         </Link>
       </section>

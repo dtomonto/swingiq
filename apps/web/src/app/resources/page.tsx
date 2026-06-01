@@ -132,23 +132,23 @@ const structuredData = {
 
 export default function ResourcesPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-card">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       {/* Header */}
-      <div className="bg-[#1a3a2a] text-white py-14 px-4">
+      <div className="bg-primary text-primary-foreground py-14 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-green-500 rounded-xl flex items-center justify-center">
+            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
               <span className="text-white font-black text-sm">SQ</span>
             </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-green-300 transition-colors">SwingIQ</Link>
+            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingIQ</Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Swing Training Resources</h1>
-          <p className="text-green-200 text-lg max-w-2xl mx-auto">
+          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
             Guides and references to help you understand your swing data and make better use of your practice time — for all 5 sports.
           </p>
         </div>
@@ -160,16 +160,16 @@ export default function ResourcesPage() {
           <section key={section.sport}>
             <div className="flex items-center gap-3 mb-6">
               <span className="text-2xl">{section.emoji}</span>
-              <h2 className="text-xl font-bold text-gray-900">{section.sport}</h2>
-              <Link href={section.href} className="text-xs text-green-700 hover:underline ml-auto">
+              <h2 className="text-xl font-bold text-foreground">{section.sport}</h2>
+              <Link href={section.href} className="text-xs text-primary hover:underline ml-auto">
                 {section.sport} Analysis →
               </Link>
             </div>
             <div className="space-y-5">
               {section.resources.map((r) => (
-                <div key={r.title} className="border-l-2 border-green-200 pl-4">
-                  <h3 className="font-semibold text-gray-900 mb-1">{r.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{r.desc}</p>
+                <div key={r.title} className="border-l-2 border-primary/30 pl-4">
+                  <h3 className="font-semibold text-foreground mb-1">{r.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{r.desc}</p>
                 </div>
               ))}
             </div>
@@ -177,23 +177,23 @@ export default function ResourcesPage() {
         ))}
 
         {/* CTA */}
-        <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-          <h3 className="text-lg font-bold text-gray-900 mb-2">Apply this in SwingIQ</h3>
-          <p className="text-gray-600 text-sm mb-4">Import your data and get a diagnosis based on your actual swing — not just general advice.</p>
+        <div className="bg-primary/10 border border-primary/30 rounded-xl p-6 text-center">
+          <h3 className="text-lg font-bold text-foreground mb-2">Apply this in SwingIQ</h3>
+          <p className="text-muted-foreground text-sm mb-4">Import your data and get a diagnosis based on your actual swing — not just general advice.</p>
           <Link
             href="/dashboard"
-            className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
+            className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-xl transition-colors"
           >
             Start Free Analysis
           </Link>
         </div>
 
         {/* Nav */}
-        <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-gray-200">
-          <Link href="/" className="text-green-700 hover:underline">← SwingIQ Home</Link>
-          <Link href="/glossary" className="text-green-700 hover:underline">Glossary</Link>
-          <Link href="/faq" className="text-green-700 hover:underline">FAQ</Link>
-          <Link href="/how-it-works" className="text-green-700 hover:underline">How It Works</Link>
+        <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
+          <Link href="/" className="text-primary hover:underline">← SwingIQ Home</Link>
+          <Link href="/glossary" className="text-primary hover:underline">Glossary</Link>
+          <Link href="/faq" className="text-primary hover:underline">FAQ</Link>
+          <Link href="/how-it-works" className="text-primary hover:underline">How It Works</Link>
         </nav>
       </div>
     </div>

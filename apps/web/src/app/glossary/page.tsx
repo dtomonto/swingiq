@@ -107,33 +107,33 @@ const structuredData = {
 
 export default function GlossaryPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-card">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       {/* Header */}
-      <div className="bg-[#1a3a2a] text-white py-14 px-4">
+      <div className="bg-primary text-primary-foreground py-14 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-green-500 rounded-xl flex items-center justify-center">
+            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
               <span className="text-white font-black text-sm">SQ</span>
             </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-green-300 transition-colors">SwingIQ</Link>
+            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingIQ</Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Swing & Performance Glossary</h1>
-          <p className="text-green-200 text-lg max-w-2xl mx-auto">
+          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
             Plain-English definitions for every term SwingIQ uses — launch monitor metrics, batting stats, stroke terminology, and AI concepts.
           </p>
         </div>
       </div>
 
       {/* Jump links */}
-      <div className="bg-gray-50 border-b border-gray-200 py-4 px-4 sticky top-0 z-10">
+      <div className="bg-muted border-b border-border py-4 px-4 sticky top-0 z-10">
         <div className="max-w-4xl mx-auto flex flex-wrap gap-3 text-sm">
           {SECTIONS.map((s) => (
-            <a key={s.sport} href={`#${s.sport}`} className="text-green-700 hover:underline whitespace-nowrap">
+            <a key={s.sport} href={`#${s.sport}`} className="text-primary hover:underline whitespace-nowrap">
               {s.heading.split('—')[0].trim()}
             </a>
           ))}
@@ -144,14 +144,14 @@ export default function GlossaryPage() {
       <div className="max-w-4xl mx-auto px-4 py-12 space-y-14">
         {SECTIONS.map((section) => (
           <section key={section.sport} id={section.sport}>
-            <h2 className="text-xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+            <h2 className="text-xl font-bold text-foreground mb-6 pb-2 border-b border-border">
               {section.heading}
             </h2>
             <dl className="space-y-5">
               {section.terms.map((t) => (
                 <div key={t.term} className="grid sm:grid-cols-[220px_1fr] gap-2 sm:gap-4">
-                  <dt className="font-semibold text-gray-900 text-sm pt-0.5">{t.term}</dt>
-                  <dd className="text-sm text-gray-600 leading-relaxed">{t.def}</dd>
+                  <dt className="font-semibold text-foreground text-sm pt-0.5">{t.term}</dt>
+                  <dd className="text-sm text-muted-foreground leading-relaxed">{t.def}</dd>
                 </div>
               ))}
             </dl>
@@ -159,11 +159,11 @@ export default function GlossaryPage() {
         ))}
 
         {/* Nav */}
-        <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-gray-200">
-          <Link href="/" className="text-green-700 hover:underline">← SwingIQ Home</Link>
-          <Link href="/resources" className="text-green-700 hover:underline">Resources</Link>
-          <Link href="/faq" className="text-green-700 hover:underline">FAQ</Link>
-          <Link href="/golf-swing-analysis" className="text-green-700 hover:underline">Golf Analysis</Link>
+        <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
+          <Link href="/" className="text-primary hover:underline">← SwingIQ Home</Link>
+          <Link href="/resources" className="text-primary hover:underline">Resources</Link>
+          <Link href="/faq" className="text-primary hover:underline">FAQ</Link>
+          <Link href="/golf-swing-analysis" className="text-primary hover:underline">Golf Analysis</Link>
         </nav>
       </div>
     </div>

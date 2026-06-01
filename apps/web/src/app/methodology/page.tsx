@@ -63,8 +63,8 @@ function Section({
 }) {
   return (
     <section aria-labelledby={id} className="mt-10">
-      <h2 id={id} className="text-xl font-bold text-gray-900">{title}</h2>
-      <div className="mt-3 space-y-3 text-gray-700">{children}</div>
+      <h2 id={id} className="text-xl font-bold text-foreground">{title}</h2>
+      <div className="mt-3 space-y-3 text-foreground">{children}</div>
     </section>
   );
 }
@@ -85,16 +85,16 @@ export default function MethodologyPage() {
   );
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-card">
       <div className="mx-auto max-w-3xl px-4 py-10">
         <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Methodology', path: '/methodology' }]} className="mb-5" />
 
         <header>
-          <p className="text-sm font-semibold uppercase tracking-wide text-green-700">Methodology</p>
-          <h1 className="mt-1 text-3xl font-bold text-gray-900 md:text-4xl">
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">Methodology</p>
+          <h1 className="mt-1 text-3xl font-bold text-foreground md:text-4xl">
             What SwingIQ measures, estimates, and does not measure
           </h1>
-          <p className="mt-3 text-gray-600">
+          <p className="mt-3 text-muted-foreground">
             SwingIQ is built to be useful and honest. Every result is labelled with what it is based on
             and how confident it is, so you always know whether you are looking at a measurement or an
             estimate. Here is exactly how that works.
@@ -171,7 +171,7 @@ export default function MethodologyPage() {
             By default, your profiles, sessions, and results are stored locally on your device — not in the
             cloud. Some optional features may need to send selected inputs for processing, and SwingIQ tells
             you when that happens. You own your data: you can export it, back it up, and delete it at any time
-            from the <Link href="/data" className="text-green-700 hover:underline">Data Center</Link>.
+            from the <Link href="/data" className="text-primary hover:underline">Data Center</Link>.
           </p>
         </Section>
 
@@ -184,14 +184,14 @@ export default function MethodologyPage() {
         </Section>
 
         {/* CTA */}
-        <div className="mt-10 rounded-2xl border border-green-200 bg-green-50 p-6">
-          <h2 className="text-lg font-bold text-gray-900">Ready to try it?</h2>
-          <p className="mt-1 text-sm text-gray-700">
+        <div className="mt-10 rounded-2xl border border-primary/30 bg-primary/10 p-6">
+          <h2 className="text-lg font-bold text-foreground">Ready to try it?</h2>
+          <p className="mt-1 text-sm text-foreground">
             Get your first honestly-labelled result in a few minutes — free, no account.
           </p>
           <Link
             href="/start"
-            className="mt-4 inline-flex items-center rounded-xl bg-green-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-green-700"
+            className="mt-4 inline-flex items-center rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary"
           >
             Start Here — Free
           </Link>
@@ -199,12 +199,12 @@ export default function MethodologyPage() {
 
         {/* FAQ */}
         <section aria-labelledby="faq" className="mt-12">
-          <h2 id="faq" className="text-2xl font-bold text-gray-900">Frequently asked questions</h2>
+          <h2 id="faq" className="text-2xl font-bold text-foreground">Frequently asked questions</h2>
           <div className="mt-4 space-y-4">
             {FAQS.map((f) => (
-              <div key={f.question} className="rounded-xl border border-gray-200 p-5">
-                <h3 className="font-semibold text-gray-900">{f.question}</h3>
-                <p className="mt-1 text-sm text-gray-600">{f.answer}</p>
+              <div key={f.question} className="rounded-xl border border-border p-5">
+                <h3 className="font-semibold text-foreground">{f.question}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{f.answer}</p>
               </div>
             ))}
           </div>
@@ -212,13 +212,13 @@ export default function MethodologyPage() {
 
         <NotCoachReplacementNotice className="mt-10" />
 
-        <nav aria-label="Related" className="mt-8 border-t border-gray-200 pt-5 text-sm">
-          <span className="font-semibold text-gray-900">Related: </span>
-          <Link href="/trust" className="text-green-700 hover:underline">Trust &amp; Safety</Link>
-          <span className="text-gray-300"> · </span>
-          <Link href="/privacy" className="text-green-700 hover:underline">Privacy</Link>
-          <span className="text-gray-300"> · </span>
-          <Link href="/how-it-works" className="text-green-700 hover:underline">How It Works</Link>
+        <nav aria-label="Related" className="mt-8 border-t border-border pt-5 text-sm">
+          <span className="font-semibold text-foreground">Related: </span>
+          <Link href="/trust" className="text-primary hover:underline">Trust &amp; Safety</Link>
+          <span className="text-muted-foreground"> · </span>
+          <Link href="/privacy" className="text-primary hover:underline">Privacy</Link>
+          <span className="text-muted-foreground"> · </span>
+          <Link href="/how-it-works" className="text-primary hover:underline">How It Works</Link>
         </nav>
       </div>
 
