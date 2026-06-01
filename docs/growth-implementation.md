@@ -55,25 +55,56 @@ Last updated: May 31, 2026.
 
 ---
 
-## 2. What remains manual / not yet built
+### Phase 3 — Programmatic SEO (complete for priority pages)
+- `apps/web/src/content/seoPages.ts` registry + `components/seo/SeoArticle.tsx`.
+- 9 published pages: `/free-swing-analysis`, `/golf/fix-slice`,
+  `/golf/why-do-i-slice-my-driver`, `/golf/launch-monitor-analysis`,
+  `/golf/practice-at-home`, `/softball/slow-pitch-power`,
+  `/softball/how-to-hit-line-drives`, `/baseball/youth-hitting`,
+  `/tennis/forehand-analysis`. Drafts remain unrouted.
 
-These phases from the growth plan are **not** yet implemented and are good
-candidates for the next sprint:
+### Phase 4 — Free tools (complete)
+- `/tools` + 7 tools: golf-slice-fixer, swing-mistake-quiz,
+  at-home-swing-drill-generator, practice-plan-generator,
+  private-lesson-savings-calculator, slow-pitch-line-drive-guide,
+  equipment-diagnostic.
 
-- Programmatic SEO content registry + templates (Phase 3) and the priority
-  landing pages (`/golf/fix-slice`, `/free-swing-analysis`, `/coaches`, etc.).
-- Free growth tools (Phase 4): slice fixer, swing-mistake quiz, drill generator,
-  practice-plan generator, savings calculator, line-drive guide, equipment
-  diagnostic.
-- Shareable reports + referral loops (Phase 5) and challenge pages.
-- Email capture UI + provider integration (Phase 6) — abstraction pathway only;
-  no provider connected yet.
-- Growth content operating system (Phase 8) and remaining automation scripts +
-  CI workflows (Phase 9).
-- Coach/creator/team/facility expansion pages (Phase 10) beyond existing
-  `/parents`.
-- Remaining docs: `seo-system.md`, `automation.md`,
-  `privacy-and-youth-safety-notes.md` (Phase 12).
+### Phase 5 — Shareable reports + challenges (complete)
+- `components/report/ShareableReportCard.tsx`, `/report/sample`, and challenge
+  pages (`/challenges` + 3 challenges).
+
+### Phase 6 — Email capture (complete; provider optional)
+- `lib/email/capture.ts`, `/api/email-capture`, `components/email/EmailCapture.tsx`,
+  6 lifecycle templates in `content/emails/`.
+
+### Phase 8 + 9 — Growth content + automation (complete)
+- `content/growth/*` (backlog, video ideas, community/outreach templates,
+  weekly review). Scripts: `validate:seo`, `validate:content`, `validate:links`,
+  `generate:sitemap`, `growth:report`, `growth:plan`, `audit:growth`. CI:
+  `.github/workflows/growth-ci.yml`.
+
+### Phase 10 — Audience pages (complete)
+- `/coaches`, `/creators`, `/teams`, `/partners` (plus existing `/parents`).
+
+### Phase 12 — Docs (complete)
+- `docs/seo-system.md`, `docs/automation.md`,
+  `docs/privacy-and-youth-safety-notes.md`, `docs/analytics-events.md`, this file.
+
+## 2b. What remains manual / future work
+
+- **Connect a real email provider** (Phase 6 is wired but no provider is set —
+  see section 6). Until then, capture forms honestly report "not stored."
+- **Connect analytics** (set `NEXT_PUBLIC_GA_ID`).
+- **Write the draft SEO backlog pages** before publishing them (they're in
+  `content/growth/seo-backlog.json` / `seoPages.ts` as drafts to avoid thin
+  content).
+- **Retrofit trust components** into the upload/diagnose flow and every sport
+  page (currently on the homepage, SEO pages, tools, challenges, and audience
+  pages).
+- **Wire the ShareableReportCard into the live analysis result screen** (today
+  it's demonstrated on `/report/sample`).
+- **Lifecycle email scheduling** runs in your email provider, not in-app.
+- **Legal review** of privacy/terms before commercial scale.
 
 ---
 
@@ -127,10 +158,20 @@ Run all of these before deploying.
 
 ## 6. How to configure email capture
 
-Not yet wired. When you choose a provider (ConvertKit, Mailchimp, Resend,
-Supabase, Airtable, or a database), the next sprint will add a provider-agnostic
-abstraction that reads its key from an environment variable and **never shows a
-fake success message** if persistence is not connected.
+The abstraction is built (`apps/web/src/lib/email/capture.ts`) and the capture
+form (`EmailCapture`) appears on tools, challenges, and audience pages. It
+**never shows a fake success message** — if no provider is configured it tells
+the user their address was not stored. To turn it on, add ONE provider's
+variables to `apps/web/.env.local`:
+
+- **Resend:** `RESEND_API_KEY` + `RESEND_AUDIENCE_ID`
+- **ConvertKit:** `CONVERTKIT_API_KEY` + `CONVERTKIT_FORM_ID`
+- **Mailchimp:** `MAILCHIMP_API_KEY` + `MAILCHIMP_LIST_ID` + `MAILCHIMP_SERVER_PREFIX`
+- **Any other system:** `EMAIL_CAPTURE_WEBHOOK_URL` (receives a POST with the lead)
+
+Restart/redeploy after adding. Lead `source` (e.g. `golf_slice`, `coach`) is
+captured automatically. Lifecycle copy lives in `content/emails/` — schedule
+sends through your provider's automations.
 
 ---
 
