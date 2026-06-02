@@ -181,11 +181,13 @@
     --chart-5: 280 55% 55%;
     --pattern-overlay: none;
     --radius: 0.5rem;
+    color-scheme: light;
   }
 
   /* Dark Performance — near-black, graphite cards, athletic teal. */
   [data-theme='dark-performance'],
   .dark {
+    color-scheme: dark;
     --background: 222 24% 7%;
     --foreground: 210 16% 92%;
     --card: 222 18% 11%;
@@ -414,5 +416,50 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  /*
+    Accessibility (WCAG 2.4.7): a consistent, visible keyboard-focus indicator
+    app-wide. `:focus-visible` only matches keyboard / assistive-tech focus, so
+    mouse clicks stay clean. Components that define their own focus ring (e.g.
+    Tailwind `focus:ring-*` / `focus:outline-*` utilities) have higher
+    specificity and still win — this is just the safety-net default.
+  */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+/*
+  Accessibility: honor the user's reduced-motion preference. Near-instant
+  (not zero, so transitionend/animationend handlers still fire) animations
+  and transitions, and disable smooth scrolling. Applies app-wide.
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+  Print: drop app chrome (nav, floating actions, banners) marked `.no-print`
+  so diagnosis / practice / progress pages print as clean reports. Force a
+  light surface and remove shadows for ink economy.
+*/
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  [class*='shadow'] {
+    box-shadow: none !important;
   }
 }

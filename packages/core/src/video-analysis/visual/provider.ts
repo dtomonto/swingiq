@@ -56,6 +56,8 @@ export interface VisionAnalysisRequest {
   notes?: string | null;
   profile?: VisionUserProfile | null;
   previous?: PreviousAnalysisSummary | null;
+  /** Objective signals from on-device pose detection, if available. */
+  poseSummary?: string | null;
 }
 
 export type VisionAnalysisOutcome =
@@ -169,6 +171,7 @@ abstract class BaseVisionProvider implements AIVisionProvider {
       notes: req.notes,
       profile: req.profile,
       previous: req.previous,
+      poseSummary: req.poseSummary,
     });
 
     let raw: RawResult;

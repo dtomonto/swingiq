@@ -110,7 +110,7 @@ const FEATURE_GROUPS = [
         name: 'Swing Video Upload',
         sports: 'All 5 sports',
         desc: 'Upload a video of your swing from the face-on, down-the-line, or sport-specific angle. SwingIQ segments the video into phases and provides coaching notes for each phase.',
-        detail: 'Analysis is heuristic and labeled as an estimate. Full pose-tracking computer vision is a future roadmap item.',
+        detail: 'Every video read is a heuristic estimate that sharpens as you add data — a confident starting point you can act on today, with deeper pose-tracking computer vision on the way.',
       },
       {
         name: 'Phase-by-Phase Timeline',

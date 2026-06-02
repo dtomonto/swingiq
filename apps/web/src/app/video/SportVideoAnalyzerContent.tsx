@@ -26,6 +26,8 @@ import { useSport } from '@/contexts/SportContext';
 import { getSportConfig, SPORT_CAMERA_ANGLES } from '@swingiq/core';
 import type { SportId, AIVisualAnalysis, SwingVideoMetadata } from '@swingiq/core';
 import { extractSwingFrames } from '@/lib/frame-extraction';
+import { detectSwingPose, type PoseMetrics } from '@/lib/pose';
+import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import {
   saveVideoAnalysis,
   toPreviousSummary,
@@ -49,6 +51,7 @@ export function SportVideoAnalyzerContent() {
   const [notConfiguredMessage, setNotConfiguredMessage] = useState<string | null>(null);
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [stage, setStage] = useState<AnalysisStage>('preparing');
+  const [poseMetrics, setPoseMetrics] = useState<PoseMetrics | null>(null);
 
   // Returning-user history for the selected sport, compare toggle, saved record.
   // `useVideoHistory` reads localStorage after hydration and live-updates on
@@ -90,6 +93,7 @@ export function SportVideoAnalyzerContent() {
     setVideoObjectUrl(null);
     setVideoMetadata(null);
     setAnalysis(null);
+    setPoseMetrics(null);
     setNotConfiguredMessage(null);
     setAnalyzeError(null);
     setStep('upload');
@@ -114,6 +118,10 @@ export function SportVideoAnalyzerContent() {
       setStage('extracting');
       const extraction = await extractSwingFrames(videoFile);
 
+      setStage('measuring');
+      const pose = await detectSwingPose(extraction.frames);
+      setPoseMetrics(pose.metrics);
+
       setStage('inspecting');
       const res = await fetch('/api/video-vision-analysis', {
         method: 'POST',
@@ -127,6 +135,7 @@ export function SportVideoAnalyzerContent() {
             declaredCameraAngle: videoMetadata.camera_angle,
           },
           previous,
+          poseSummary: pose.summary,
         }),
       });
 
@@ -415,7 +424,10 @@ export function SportVideoAnalyzerContent() {
             )}
           </div>
 
-          <AIVisualAnalysisPanel analysis={analysis} />
+          <div className="space-y-4">
+            {poseMetrics && <PoseSignalsCard metrics={poseMetrics} />}
+            <AIVisualAnalysisPanel analysis={analysis} />
+          </div>
         </div>
 
         {/* How this video review was produced */}

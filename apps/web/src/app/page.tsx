@@ -10,6 +10,7 @@ import {
 } from '@/components/trust';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ThemePreviewStrip } from '@/components/theme/ThemePreviewStrip';
+import { PublicFooter } from '@/components/layout/PublicFooter';
 import {
   buildGraph,
   organizationSchema,
@@ -49,7 +50,7 @@ const FAQS = [
   { q: 'Is SwingIQ free?', a: "Yes. SwingIQ's full analysis, drill recommendations, and progress tracking are free. No credit card required." },
   { q: 'Do I need to create an account?', a: 'No account is required to start. Your data is saved locally in your browser. Account sync is coming soon.' },
   { q: 'What sports does SwingIQ support?', a: 'Golf, tennis, baseball, slow pitch softball, and fast pitch softball — each with its own sport-specific diagnostic engine.' },
-  { q: 'Does SwingIQ replace a coach?', a: 'No. SwingIQ is an AI-powered improvement assistant. It helps you identify patterns and prioritize practice. For complex technique work or injury concerns, work with a qualified coach.' },
+  { q: 'Does SwingIQ replace a coach?', a: 'SwingIQ is your everyday improvement edge — it pinpoints the single highest-impact fix in your swing and hands you the drills and plan to groove it, no appointment needed. For injury concerns or advanced technique work it pairs perfectly with a qualified coach, and you will show up to those sessions already ahead.' },
   { q: 'Is my swing video private?', a: 'Yes. Video analysis runs in your browser. Videos are not shared publicly by default.' },
 ];
 
@@ -69,11 +70,12 @@ export default function HomePage() {
             <LiveAndFreeBadge />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            Free AI Swing Analysis for<br />
+            The Swing Coach in Your Pocket for<br />
             <span className="text-primary-foreground/80">Golf, Tennis, Baseball &amp; Softball</span>
           </h1>
           <p className="text-primary-foreground/90 text-xl mb-10 max-w-2xl mx-auto">
-            Upload a swing video or swing data. Get your top issue, beginner-safe drills, and a practice plan.
+            The improvement edge every athlete — and every parent of an athlete — has wished for.
+            Upload a swing and get the one fix that matters most, the drills to groove it, and a plan that gets you there.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/start" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-4 rounded-xl text-lg transition-colors">
@@ -230,9 +232,9 @@ export default function HomePage() {
       <section className="py-8 px-4 bg-warning/10 border-y border-warning/30">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs text-foreground">
-            <strong>SwingIQ is an AI-powered improvement assistant — not a certified coach, medical professional, or training authority.</strong>{' '}
-            Results are heuristic estimates. Always consult qualified professionals for safety-critical decisions, injury concerns, or advanced competitive development.
-            Young athletes should practice with adult supervision.
+            <strong>SwingIQ is your AI-powered improvement edge — confident, data-backed coaching you can use every day.</strong>{' '}
+            Findings are heuristic estimates — smart reads that sharpen with every swing you add. For injury concerns or advanced competitive development, loop in a qualified coach,
+            and keep young athletes supervised during practice.
           </p>
         </div>
       </section>
@@ -274,25 +276,7 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-secondary text-muted-foreground border-t border-border py-8 px-4">
-        <div className="max-w-4xl mx-auto flex flex-wrap justify-between items-center gap-4 text-xs">
-          <span>&copy; {new Date().getFullYear()} SwingIQ. All rights reserved.</span>
-          <div className="flex gap-4 flex-wrap">
-            <Link href="/how-it-works" className="hover:text-foreground">How It Works</Link>
-            <Link href="/methodology" className="hover:text-foreground">Methodology</Link>
-            <Link href="/tools" className="hover:text-foreground">Free Tools</Link>
-            <Link href="/challenges" className="hover:text-foreground">Challenges</Link>
-            <Link href="/coaches" className="hover:text-foreground">Coaches</Link>
-            <Link href="/teams" className="hover:text-foreground">Teams</Link>
-            <Link href="/parents" className="hover:text-foreground">Parents</Link>
-            <Link href="/trust" className="hover:text-foreground">Trust &amp; Safety</Link>
-            <Link href="/updates" className="hover:text-foreground text-primary">Updates</Link>
-            <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
-            <Link href="/terms" className="hover:text-foreground">Terms</Link>
-          </div>
-        </div>
-      </footer>
+      <PublicFooter />
     </main>
   );
 }

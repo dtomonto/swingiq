@@ -19,7 +19,7 @@ Users upload a swing video or import launch monitor / tracking device data. Swin
 
 ## What SwingIQ does NOT claim to do
 
-- SwingIQ does not provide real-time pose tracking or computer vision pixel-level analysis
+- SwingIQ does not perform real-time pose tracking or skeletal/landmark motion capture. Its optional AI video analysis reviews a small set of downscaled still frames with an AI vision model — it is qualitative frame review, not frame-by-frame biomechanical measurement
 - SwingIQ does not replace a qualified coach, trainer, or sports medicine professional
 - SwingIQ does not guarantee performance improvement
 - SwingIQ does not provide medical or injury advice
@@ -29,7 +29,7 @@ Users upload a swing video or import launch monitor / tracking device data. Swin
 
 - 5-sport AI diagnostic engine (golf, tennis, baseball, slow pitch softball, fast pitch softball)
 - Launch monitor CSV import (FlightScope, TrackMan, GCQuad, Garmin, Rapsodo, SkyTrak)
-- Swing video upload and heuristic analysis
+- Swing video upload with optional AI vision analysis of sampled still frames, plus a heuristic phase-by-phase breakdown
 - Sport-specific drill library with YouTube search links
 - Training routine generator
 - Practice schedule generator
@@ -41,7 +41,7 @@ Users upload a swing video or import launch monitor / tracking device data. Swin
 
 ## Privacy
 
-SwingIQ is local-first. By default, all user data is stored in the browser. No data is transmitted to servers without the user's knowledge. Video analysis runs in the browser. Users can export all their data or delete it at any time.
+SwingIQ is local-first. By default, all user data is stored in the browser. No data is transmitted to servers without the user's knowledge. The original swing video never leaves the device; the heuristic phase analysis runs in the browser. The optional AI vision feature sends only a small set of downscaled still frames to the configured AI provider for that analysis — those frames are not persisted server-side. Users can export all their data or delete it at any time.
 
 ## Sport swing-analysis pages
 

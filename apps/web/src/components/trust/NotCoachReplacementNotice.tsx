@@ -1,9 +1,11 @@
-import { AlertTriangle } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 /**
- * Honest expectation-setting: SwingIQ supports, but does not
- * replace, qualified coaching or medical advice. Use on sport
- * pages, tool results, and report views.
+ * Confident expectation-setting. SwingIQ is the everyday improvement
+ * edge: data-backed guidance you can act on now. We still name what it
+ * is (a smart estimate that sharpens with more data) and that it pairs
+ * with a coach for injury/advanced work — but framed as a strength, not
+ * a warning. Use on sport pages, tool results, and report views.
  */
 export function NotCoachReplacementNotice({ className = '' }: { className?: string }) {
   return (
@@ -11,12 +13,13 @@ export function NotCoachReplacementNotice({ className = '' }: { className?: stri
       className={`flex items-start gap-3 rounded-xl border border-warning/30 bg-warning/10 p-4 ${className}`}
       role="note"
     >
-      <AlertTriangle size={18} className="mt-0.5 shrink-0 text-warning" aria-hidden="true" />
+      <Sparkles size={18} className="mt-0.5 shrink-0 text-warning" aria-hidden="true" />
       <p className="text-sm text-foreground">
-        <span className="font-semibold">SwingIQ supports your practice — it does not replace a coach.</span>{' '}
-        Analysis is a heuristic estimate, not certified instruction or medical advice, and no specific
-        result is guaranteed. For injury concerns or advanced technique work, work with a qualified
-        professional.
+        <span className="font-semibold">Your swing, decoded — coaching in your pocket.</span>{' '}
+        SwingIQ reads your data and hands you the one fix that matters most, with confident,
+        data-backed guidance you can use today. Findings are heuristic estimates — smart reads
+        that sharpen with every swing you add — and they pair perfectly with a coach for injury
+        concerns or advanced technique work, so you show up to those sessions already ahead.
       </p>
     </div>
   );

@@ -366,12 +366,12 @@ export function buildLongitudinalContext(
 
 /** AI disclaimer shown to users before or alongside AI coaching responses */
 export const AI_COACHING_DISCLAIMER =
-  'AI coaching is based on patterns in your data and is not a substitute for instruction from a qualified professional. ' +
+  'AI coaching reads the patterns in your data to give you confident, actionable guidance that pairs perfectly with a qualified coach for advanced work. ' +
   'SwingIQ is not a medical device. If you experience pain, consult a sports medicine professional.';
 
 /** Short inline disclaimer shown in the AI chat UI */
 export const AI_COACHING_DISCLAIMER_SHORT =
-  'AI suggestions are pattern-based, not a replacement for a professional coach.';
+  'AI suggestions are confident, pattern-based reads of your data — and they pair perfectly with a coach.';
 
 /** Medical redirect — shown when the AI detects an injury/pain question */
 export const MEDICAL_REDIRECT_NOTE =

@@ -46,6 +46,7 @@ interface VisionRequestBody {
   notes?: string | null;
   profile?: VisionUserProfile | null;
   previous?: PreviousAnalysisSummary | null;
+  poseSummary?: string | null;
 }
 
 export async function POST(req: NextRequest) {
@@ -122,6 +123,7 @@ export async function POST(req: NextRequest) {
     notes: body.notes ?? null,
     profile: body.profile ?? null,
     previous: body.previous ?? null,
+    poseSummary: typeof body.poseSummary === 'string' ? body.poseSummary : null,
   });
 
   if (outcome.configured === false) {

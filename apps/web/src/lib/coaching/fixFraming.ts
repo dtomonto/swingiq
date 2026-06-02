@@ -17,8 +17,16 @@
 // ============================================================
 
 import type { ResumeState, ActionIntent } from '@/lib/agents/types';
+import type { LanguageCode } from '@/lib/i18n';
+import { FIX_STRINGS_EN, resolveFixStrings, type FixStrings } from './fixFramingI18n';
+
+export type { FixStrings };
+export { resolveFixStrings } from './fixFramingI18n';
 
 // ── CTA labels (action-oriented, never exaggerated) ───────────
+// English constants kept for non-localized callers (e.g. the
+// dashboard "Show Me What To Fix" button). For localized copy use
+// resolveFixStrings(language) / buildTodaysFix(resume, language).
 export const FIX_CTA = {
   findMyOneFix: 'Find My One Fix',
   startMyFreeSwingCheck: 'Start My Free Swing Check',
@@ -46,33 +54,38 @@ export const FIX_FRAMING = {
   whenToRetestLabel: 'When to retest',
 } as const;
 
-// Map an engine action intent to emotionally compelling copy.
-// Falls back to the engine's own label when there's no better word
-// (so we never lose accuracy for the sake of flavor).
-const INTENT_LABELS: Partial<Record<ActionIntent, string>> = {
-  continue_plan: FIX_CTA.continueMyFix,
-  create_plan: FIX_CTA.buildMy7DayPlan,
-  upload_session: FIX_CTA.proveTheFixWorked,
-  run_diagnosis: FIX_CTA.showMeWhatToFix,
-  review_session: FIX_CTA.showMeWhatChanged,
-  view_progress: FIX_CTA.showMeWhatChanged,
-  generate_report: FIX_CTA.createMyCoachSummary,
-  share_coach: FIX_CTA.createMyCoachSummary,
-  restart: FIX_CTA.comebackSession,
+// Map an engine action intent to the emotionally compelling copy
+// key. Falls back to the engine's own label when there's no better
+// word (so we never lose accuracy for the sake of flavor).
+const INTENT_KEYS: Partial<Record<ActionIntent, keyof FixStrings>> = {
+  continue_plan: 'continueMyFix',
+  create_plan: 'buildMy7DayPlan',
+  upload_session: 'proveTheFixWorked',
+  run_diagnosis: 'showMeWhatToFix',
+  review_session: 'showMeWhatChanged',
+  view_progress: 'showMeWhatChanged',
+  generate_report: 'createMyCoachSummary',
+  share_coach: 'createMyCoachSummary',
+  restart: 'comebackSession',
 };
 
-export function frameActionLabel(intent: ActionIntent, fallback: string): string {
-  return INTENT_LABELS[intent] ?? fallback;
+export function frameActionLabel(
+  intent: ActionIntent,
+  fallback: string,
+  strings: FixStrings = FIX_STRINGS_EN,
+): string {
+  const key = INTENT_KEYS[intent];
+  return key ? strings[key] : fallback;
 }
 
 // Supportive comeback messaging — never shame, pressure, or fake
 // urgency. Returns null when the user has been active recently.
-export function comebackLine(daysSinceLastActivity: number | null): string | null {
+export function comebackLine(
+  daysSinceLastActivity: number | null,
+  strings: FixStrings = FIX_STRINGS_EN,
+): string | null {
   if (daysSinceLastActivity == null || daysSinceLastActivity < 7) return null;
-  if (daysSinceLastActivity < 21) {
-    return 'Your progress is paused, not lost. One short session restarts your rhythm.';
-  }
-  return 'No need to start over — continue from your last fix. One drill, no judgment.';
+  return daysSinceLastActivity < 21 ? strings.comebackPaused : strings.comebackStartOver;
 }
 
 // ── The "Today's Fix" view model ──────────────────────────────
@@ -84,7 +97,13 @@ export interface TodaysFixCta {
 }
 
 export interface TodaysFixView {
+  /** Localized "Today's Fix" eyebrow. */
   eyebrow: string;
+  /** Localized structural labels for the "One Fix Today" block. */
+  focusLabel: string;
+  whatToDoLabel: string;
+  howToKnowLabel: string;
+  whenToRetestLabel: string;
   /** The single thing to focus on (last/ current top priority). */
   priority: string | null;
   whatToDoToday: string;
@@ -101,14 +120,16 @@ export interface TodaysFixView {
 }
 
 /**
- * Reframe the deterministic resume state as a "Today's Fix".
- * Reuses the engine's own routes and helper text — only the
- * labels and surrounding language change.
+ * Reframe the deterministic resume state as a "Today's Fix" in the
+ * user's coaching language (English fallback for any missing copy).
+ * Reuses the engine's own routes and helper text — only the labels
+ * and surrounding language change; no new facts are invented.
  */
-export function buildTodaysFix(resume: ResumeState): TodaysFixView {
+export function buildTodaysFix(resume: ResumeState, lang?: LanguageCode | null): TodaysFixView {
+  const s = resolveFixStrings(lang);
   const nba = resume.nextBestAction;
   const primary: TodaysFixCta = {
-    label: frameActionLabel(nba.intent, nba.label),
+    label: frameActionLabel(nba.intent, nba.label, s),
     href: nba.href,
     helperText: nba.helperText,
   };
@@ -121,20 +142,21 @@ export function buildTodaysFix(resume: ResumeState): TodaysFixView {
   );
 
   const whenToRetest =
-    resume.practicePlanStatus === 'in_progress'
-      ? 'After your next short practice session, retest to compare.'
-      : 'Once you’ve done a drill or two, retest to see what changed.';
+    resume.practicePlanStatus === 'in_progress' ? s.whenToRetestInProgress : s.whenToRetestDefault;
 
   return {
-    eyebrow: FIX_FRAMING.eyebrow,
+    eyebrow: s.eyebrow,
+    focusLabel: s.focusLabel,
+    whatToDoLabel: s.whatToDoLabel,
+    howToKnowLabel: s.howToKnowLabel,
+    whenToRetestLabel: s.whenToRetestLabel,
     priority: resume.lastFocus ?? resume.lastGoal ?? null,
     whatToDoToday: nba.helperText ?? primary.label,
-    howToKnowItWorked:
-      'Re-run your swing check and compare it to your last result — look for your focus area improving.',
+    howToKnowItWorked: s.howToKnowItWorked,
     whenToRetest,
     primary,
-    retest: retestOpt ? { label: FIX_CTA.proveTheFixWorked, href: retestOpt.href } : null,
-    rebuild: rebuildOpt ? { label: FIX_CTA.rebuildMyPlan, href: rebuildOpt.href } : null,
-    comeback: comebackLine(resume.daysSinceLastActivity),
+    retest: retestOpt ? { label: s.proveTheFixWorked, href: retestOpt.href } : null,
+    rebuild: rebuildOpt ? { label: s.rebuildMyPlan, href: rebuildOpt.href } : null,
+    comeback: comebackLine(resume.daysSinceLastActivity, s),
   };
 }

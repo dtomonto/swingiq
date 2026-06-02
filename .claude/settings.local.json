@@ -101,7 +101,14 @@
       "Bash(git mv *)",
       "Bash(echo \"remote master: $\\(git ls-remote origin -h refs/heads/master)",
       "mcp__scheduled-tasks__list_scheduled_tasks",
-      "PowerShell(git -C \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\" rm --cached apps/web/tsconfig.tsbuildinfo packages/core/tsconfig.tsbuildinfo)"
+      "PowerShell(git -C \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\" rm --cached apps/web/tsconfig.tsbuildinfo packages/core/tsconfig.tsbuildinfo)",
+      "Bash(node -e \"const p=require\\('./apps/web/package.json'\\); console.log\\(JSON.stringify\\(p.scripts,null,2\\)\\)\")",
+      "Bash(git grep *)",
+      "Bash(grep -nE \"^#{1,3} \" docs/PRODUCT_ROADMAP.md)",
+      "Bash(grep -n '<footer\\\\|</footer>' apps/web/src/app/__TRACKED_VAR__/page.tsx)",
+      "Bash(grep -n ^import apps/web/src/app/__TRACKED_VAR__/page.tsx)",
+      "Bash(node -e \"try{require.resolve\\('next/og'\\);console.log\\('next/og: yes'\\)}catch\\(e\\){console.log\\('next/og: no'\\)}\")",
+      "Bash(node -e \"try{require.resolve\\('sharp'\\);console.log\\('sharp: yes'\\)}catch\\(e\\){console.log\\('sharp: no'\\)}\")"
     ]
   }
 }
