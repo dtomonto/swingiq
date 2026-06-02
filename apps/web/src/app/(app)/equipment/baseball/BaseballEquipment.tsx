@@ -18,7 +18,7 @@ const EMPTY: Omit<BaseballBat, 'id' | 'created_at'> = {
   condition: 'good', notes: '',
 };
 
-export default function BaseballEquipmentPage() {
+export function BaseballEquipment() {
   const { sportEquipment, addBaseballBat, removeBaseballBat } = useSwingIQStore();
   const bats = sportEquipment.baseball;
 

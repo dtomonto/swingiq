@@ -19,7 +19,7 @@ const EMPTY: Omit<TennisRacket, 'id' | 'created_at'> = {
   condition: 'good', notes: '',
 };
 
-export default function TennisEquipmentPage() {
+export function TennisEquipment() {
   const { sportEquipment, addTennisRacket, removeTennisRacket } = useSwingIQStore();
   const { sportLabels } = useSport();
   const rackets = sportEquipment.tennis;

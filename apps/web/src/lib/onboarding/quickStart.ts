@@ -350,7 +350,7 @@ export const INPUT_METHODS: InputMethodOption[] = [
     value: 'sample',
     label: 'See a sample report first',
     description: 'Preview exactly what SwingIQ produces before you put anything in.',
-    href: '/report/sample',
+    href: '/sample-report',
     timeHint: 'about 1 minute',
   },
 ];

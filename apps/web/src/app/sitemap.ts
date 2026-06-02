@@ -101,7 +101,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       // Public worked example of a swing report.
-      url: `${BASE_URL}/report/sample`,
+      url: `${BASE_URL}/sample-report`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,

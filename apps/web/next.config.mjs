@@ -8,6 +8,16 @@ const nextConfig = {
   // Never ship source maps to production browsers
   productionBrowserSourceMaps: false,
 
+  // URL redirects — preserve old paths after the IA restructure (audit IA-5/IA-6)
+  async redirects() {
+    return [
+      // Resolve the /report vs /reports singular/plural collision (IA-6)
+      { source: '/report/sample', destination: '/sample-report', permanent: true },
+      // Equipment unified under /equipment/[sport]; golf was the odd-one-out at /bag (IA-5)
+      { source: '/bag', destination: '/equipment/golf', permanent: true },
+    ];
+  },
+
   // Note: Next 16 removed `next lint` and the `eslint` config key. Linting now
   // runs standalone via `npm run lint` (ESLint flat config) in CI and locally;
   // the build no longer invokes ESLint.

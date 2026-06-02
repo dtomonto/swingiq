@@ -17,7 +17,7 @@ const EMPTY: Omit<SoftballBat, 'id' | 'created_at'> = {
   material: '', certification_stamps: '', break_in_status: '', condition: 'good', notes: '',
 };
 
-export default function SlowPitchEquipmentPage() {
+export function SlowPitchEquipment() {
   const { sportEquipment, addSoftballBat, removeSoftballBat } = useSwingIQStore();
   const bats = sportEquipment.softball_slow;
 

@@ -32,6 +32,8 @@ import {
   Compass,
   RotateCcw,
   ChevronDown,
+  BarChart3,
+  PersonStanding,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -78,6 +80,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       children: [
         { href: '/diagnose', label: isGolf ? 'Diagnose' : 'Analyze Swing', icon: Target },
         { href: '/video', label: 'Video Analysis', icon: Video },
+        { href: '/avatar', label: '3D Swing Avatar', icon: PersonStanding },
         { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
         { href: '/sessions/import', label: isGolf ? 'Import Data' : 'Log Session', icon: Upload },
       ],
@@ -103,6 +106,7 @@ export function Sidebar({ onClose }: SidebarProps) {
         { href: '/retest', label: 'Retest', icon: RotateCcw },
         { href: '/milestones', label: 'Milestones', icon: Trophy },
         { href: '/compare', label: 'Compare & References', icon: GitCompareArrows },
+        { href: '/benchmarks', label: 'Benchmarks', icon: BarChart3 },
       ],
     },
     { href: '/reports', label: 'Share & Coach', icon: FileText },
@@ -111,7 +115,7 @@ export function Sidebar({ onClose }: SidebarProps) {
   const accountItems: NavLeaf[] = [
     { href: '/profile', label: sportLabels.profile_short, icon: User },
     {
-      href: isGolf ? '/bag' : '/equipment',
+      href: isGolf ? '/equipment/golf' : '/equipment',
       label: isGolf ? 'Equipment' : sportLabels.equipment_short,
       icon: isGolf ? ShoppingBag : Package,
     },
