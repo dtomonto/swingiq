@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Copy, Mail, Share2, Printer, Check, ShieldAlert } from 'lucide-react';
+import { Copy, Mail, Share2, Printer, Check, ShieldAlert, Download } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
+import { shareCardImage } from '@/lib/share/shareCard';
 
 export interface ReportData {
   sport: string;
@@ -41,7 +42,17 @@ function buildSummary(d: ReportData): string {
 export function ShareableReportCard({ data }: { data: ReportData }) {
   const [copied, setCopied] = useState(false);
   const [acknowledged, setAcknowledged] = useState(false);
+  const [imageState, setImageState] = useState<'idle' | 'working'>('idle');
   const summary = buildSummary(data);
+
+  async function saveImage() {
+    setImageState('working');
+    const result = await shareCardImage(data);
+    if (result !== 'failed') {
+      track(ANALYTICS_EVENTS.REPORT_SHARED, { sport: data.sport, method: `image_${result}` });
+    }
+    setImageState('idle');
+  }
 
   async function copy() {
     try {
@@ -126,7 +137,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
           </span>
         </label>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
           <button onClick={copy} disabled={!acknowledged}
             className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
             {copied ? <><Check size={15} className="text-primary" /> Copied</> : <><Copy size={15} /> Copy</>}
@@ -138,6 +149,10 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
           <button onClick={webShare} disabled={!acknowledged}
             className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
             <Share2 size={15} /> Share
+          </button>
+          <button onClick={saveImage} disabled={!acknowledged || imageState === 'working'}
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
+            <Download size={15} /> {imageState === 'working' ? '…' : 'Image'}
           </button>
           <button onClick={print}
             className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
