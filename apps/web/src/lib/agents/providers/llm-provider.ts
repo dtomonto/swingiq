@@ -12,7 +12,7 @@
 //   (and implement /api/agents/enhance server-side to use a key)
 // ============================================================
 
-import { localRuleProvider, type AgentProvider, type EnhanceInput } from './localRuleProvider';
+import { localRuleProvider, type AgentProvider, type EnhanceInput } from './local-rule-provider';
 
 function llmEnabled(): boolean {
   // Client-readable flag. The actual provider key stays server-side in the

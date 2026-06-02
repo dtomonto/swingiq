@@ -6,7 +6,7 @@
 // Adapts to the active sport. Deterministic.
 // ============================================================
 
-import { getSportAgentProfile } from '../sportProfiles';
+import { getSportAgentProfile } from '../sport-profiles';
 import type { AgentContext, PreGamePlan } from '../types';
 
 export function buildPreGamePlan(ctx: AgentContext): PreGamePlan {

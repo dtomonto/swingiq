@@ -13,7 +13,7 @@
 
 import type { SportId } from '@swingiq/core';
 import type { AgentAction, AgentContext } from './types';
-import { getSportAgentProfile } from './sportProfiles';
+import { getSportAgentProfile } from './sport-profiles';
 
 // ── Route helpers ─────────────────────────────────────────────
 

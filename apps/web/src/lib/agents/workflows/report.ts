@@ -6,11 +6,11 @@
 // and reuses other workflow outputs. Deterministic.
 // ============================================================
 
-import { getSportAgentProfile } from '../sportProfiles';
-import { computeProgressTrend } from './progressMemory';
-import { buildDiagnosisConfidence } from './diagnosisConfidence';
-import { buildPracticePlan } from './practicePlanner';
-import { buildEquipmentFit } from './equipmentFit';
+import { getSportAgentProfile } from '../sport-profiles';
+import { computeProgressTrend } from './progress-memory';
+import { buildDiagnosisConfidence } from './diagnosis-confidence';
+import { buildPracticePlan } from './practice-planner';
+import { buildEquipmentFit } from './equipment-fit';
 import type { AgentContext, ReportSection, ReportSummary } from '../types';
 
 export type ReportKind = ReportSummary['kind'];

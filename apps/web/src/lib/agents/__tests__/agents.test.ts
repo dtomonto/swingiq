@@ -7,7 +7,7 @@
 // ============================================================
 
 import type { SwingIQState } from '@/store';
-import { buildAgentContext } from '../contextBuilder';
+import { buildAgentContext } from '../context-builder';
 import { getNextBestAction } from '../scoring';
 import { buildResumeState } from '../workflows/resume';
 import { runOrchestrator } from '../orchestrator';

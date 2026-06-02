@@ -7,7 +7,7 @@
 // ============================================================
 
 import type { SkillLevel } from '@swingiq/core';
-import { getSportAgentProfile } from '../sportProfiles';
+import { getSportAgentProfile } from '../sport-profiles';
 import { isYouthContext } from '../guardrails';
 import type { AgentContext, PracticeDrill, PracticePlan } from '../types';
 

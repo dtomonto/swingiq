@@ -7,10 +7,10 @@
 // for a human coach. Copy/share-friendly plain text.
 // ============================================================
 
-import { getSportAgentProfile } from '../sportProfiles';
-import { computeProgressTrend } from './progressMemory';
-import { buildDiagnosisConfidence } from './diagnosisConfidence';
-import { buildPracticePlan } from './practicePlanner';
+import { getSportAgentProfile } from '../sport-profiles';
+import { computeProgressTrend } from './progress-memory';
+import { buildDiagnosisConfidence } from './diagnosis-confidence';
+import { buildPracticePlan } from './practice-planner';
 import type { AgentContext, CoachShareSummary } from '../types';
 
 export function buildCoachShareSummary(ctx: AgentContext): CoachShareSummary {
