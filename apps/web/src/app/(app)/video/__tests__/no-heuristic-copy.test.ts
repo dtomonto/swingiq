@@ -11,9 +11,9 @@ import { join } from 'path';
 const UI_FILES = [
   join(__dirname, '..', 'VideoAnalyzerContent.tsx'),
   join(__dirname, '..', 'SportVideoAnalyzerContent.tsx'),
-  join(__dirname, '..', '..', '..', 'components', 'video', 'AIVisualAnalysisPanel.tsx'),
-  join(__dirname, '..', '..', '..', 'components', 'video', 'AnalysisProgress.tsx'),
-  join(__dirname, '..', '..', '..', 'components', 'video', 'AINotConfiguredNotice.tsx'),
+  join(__dirname, '..', '..', '..', '..', 'components', 'video', 'AIVisualAnalysisPanel.tsx'),
+  join(__dirname, '..', '..', '..', '..', 'components', 'video', 'AnalysisProgress.tsx'),
+  join(__dirname, '..', '..', '..', '..', 'components', 'video', 'AINotConfiguredNotice.tsx'),
 ];
 
 /** Strip block + line comments so we only inspect user-facing copy. */
