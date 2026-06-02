@@ -1,10 +1,11 @@
 // ============================================================
 // SwingIQ — Motion Engine: Public API (barrel)
 // ------------------------------------------------------------
-// Readiness scaffolding for a future browser-side motion pipeline.
-// No model runs yet; the provider seam + honest data-basis labeling
-// let MediaPipe / MoveNet / WebGPU / a server model drop in later.
-// Import from '@/lib/motion'.
+// The provider seam + honest data-basis labeling over a browser-side
+// motion pipeline. Real pose estimation lives in `@/lib/pose` (the
+// single source of truth); the on-device provider here adapts it to
+// the seam, with MoveNet / WebGPU / a server model able to drop in
+// later behind the same interface. Import from '@/lib/motion'.
 // ============================================================
 
 export * from './types';
@@ -20,4 +21,4 @@ export {
   type MotionEngineCapabilities,
 } from './engine';
 export { mockPoseProvider, getActivePoseProvider } from './providers';
-export { mediapipePoseProvider, isPoseEngineEnabled } from './mediapipeProvider';
+export { onDevicePoseProvider } from './onDevicePoseProvider';

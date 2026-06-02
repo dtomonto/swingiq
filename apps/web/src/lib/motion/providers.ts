@@ -1,15 +1,17 @@
 // ============================================================
-// SwingIQ — Motion Engine: Provider Seam (scaffolding)
+// SwingIQ — Motion Engine: Provider Seam
 // ------------------------------------------------------------
 // The interchangeable boundary between the app and a pose model.
 // A real provider (MediaPipe / MoveNet / a server endpoint) just
-// implements PoseProvider. Until one is wired, `mockPoseProvider`
-// returns clearly-flagged placeholder data so pipelines can be
-// built and tested without a model — and without faking results.
+// implements PoseProvider. The real one today is `onDevicePoseProvider`,
+// which delegates to `@/lib/pose` — the single source of truth for
+// actual pose estimation. When it can't run (no browser / no WASM),
+// `mockPoseProvider` returns clearly-flagged placeholder data so
+// pipelines still work — and without faking results.
 // ============================================================
 
 import type { MotionEngineCapabilities, PoseEstimateInput, PoseProvider, PoseSequence } from './engine';
-import { mediapipePoseProvider } from './mediapipeProvider';
+import { onDevicePoseProvider } from './onDevicePoseProvider';
 
 // (Types live in engine.ts to keep the provider seam dependency-light;
 //  re-exported here for ergonomic imports.)
@@ -39,9 +41,10 @@ export const mockPoseProvider: PoseProvider = {
 };
 
 /**
- * The active provider: the real MediaPipe provider when it's enabled and
- * available (flag on, browser, WASM), otherwise the honest mock.
+ * The active provider: the real on-device pose engine (`@/lib/pose`) when it
+ * can run (browser + WASM), otherwise the honest mock. The on-device provider
+ * reports basis 'estimated', so any score derived from it keeps its disclaimer.
  */
 export function getActivePoseProvider(): PoseProvider {
-  return mediapipePoseProvider.isAvailable() ? mediapipePoseProvider : mockPoseProvider;
+  return onDevicePoseProvider.isAvailable() ? onDevicePoseProvider : mockPoseProvider;
 }

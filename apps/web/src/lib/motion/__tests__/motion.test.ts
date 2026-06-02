@@ -13,8 +13,7 @@ import {
   computeMotionScoreFromPose,
   swingFingerprintFromPose,
   mockPoseProvider,
-  mediapipePoseProvider,
-  isPoseEngineEnabled,
+  onDevicePoseProvider,
   getActivePoseProvider,
 } from '..';
 import type { PoseSequence } from '..';
@@ -75,12 +74,25 @@ describe('data-basis honesty', () => {
   });
 });
 
-describe('mediapipe provider (flagged)', () => {
-  it('is disabled by default and falls back to the mock', () => {
-    expect(isPoseEngineEnabled()).toBe(false);
-    expect(mediapipePoseProvider.isAvailable()).toBe(false);
-    // With the flag off / no browser, the active provider is the honest mock.
+describe('on-device pose provider', () => {
+  it('is unavailable without a browser and falls back to the mock', () => {
+    // testEnvironment is node → no `window`, so the real pose engine can't run.
+    expect(onDevicePoseProvider.isAvailable()).toBe(false);
+    // With no browser, the active provider is the honest mock.
     expect(getActivePoseProvider().id).toBe('mock');
+  });
+
+  it('stays honest (estimated, zero-confidence) when no pose is detected', async () => {
+    // No browser ⇒ `@/lib/pose` returns no frames; the adapter must still
+    // report basis 'estimated' (never 'measured') and never fabricate frames.
+    const seq = await onDevicePoseProvider.estimate({
+      frames: [{ timestampMs: 0, image: 'x' }, { timestampMs: 33, image: 'y' }],
+    });
+    expect(seq.schema).toBe('mediapipe_pose_33');
+    expect(seq.basis).toBe('estimated');
+    expect(seq.frameCount).toBe(2);
+    expect(seq.frames).toHaveLength(0);
+    expect(seq.confidence).toBe(0);
   });
 });
 
