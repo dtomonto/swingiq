@@ -34,6 +34,7 @@ import {
   ChevronDown,
   Sparkles,
   Route,
+  FlaskConical,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -79,6 +80,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       icon: Target,
       children: [
         { href: '/diagnose', label: isGolf ? 'Diagnose' : 'Analyze Swing', icon: Target },
+        { href: '/motion-lab', label: 'Motion Lab (3D)', icon: FlaskConical },
         { href: '/video', label: 'Video Analysis', icon: Video },
         { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
         { href: '/sessions/import', label: isGolf ? 'Import Data' : 'Log Session', icon: Upload },
