@@ -22,6 +22,9 @@ Disallow: /compare
 Disallow: /avatar
 Disallow: /pre-round
 Disallow: /ai-coach
+Disallow: /community
+Disallow: /equipment
+Disallow: /data
 
 # ── Admin & API (always block) ─────────────────────────────────
 Disallow: /admin
@@ -30,6 +33,7 @@ Disallow: /api/
 # ── Public marketing & informational pages ─────────────────────
 Allow: /
 Allow: /how-it-works
+Allow: /start
 Allow: /golf-swing-analysis
 Allow: /tennis-swing-analysis
 Allow: /baseball-swing-analysis
@@ -37,8 +41,7 @@ Allow: /softball-swing-analysis
 Allow: /golf
 Allow: /tennis
 Allow: /baseball
-Allow: /slow-pitch-softball
-Allow: /fast-pitch-softball
+Allow: /softball
 Allow: /features
 Allow: /faq
 Allow: /pricing
@@ -46,6 +49,11 @@ Allow: /parents
 Allow: /updates
 Allow: /resources
 Allow: /glossary
+Allow: /methodology
+Allow: /report/sample
+Allow: /about
+Allow: /benchmarks
+Allow: /blog
 Allow: /trust
 Allow: /privacy
 Allow: /terms

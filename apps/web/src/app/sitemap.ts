@@ -14,8 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: p.priority === 1 ? 0.8 : 0.7,
   }));
 
-  // Free growth tools.
+  // Free growth tools (index + individual tools).
   const toolPages: MetadataRoute.Sitemap = [
+    '/tools',
     '/tools/golf-slice-fixer',
     '/tools/swing-mistake-quiz',
     '/tools/at-home-swing-drill-generator',
@@ -30,8 +31,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     (path) => ({ url: `${BASE_URL}${path}`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.6 }),
   );
 
-  // Challenge pages.
+  // Challenge pages (index + individual challenges).
   const challengePages: MetadataRoute.Sitemap = [
+    '/challenges',
     '/challenges/7-day-golf-slice',
     '/challenges/7-day-slow-pitch-line-drive',
     '/challenges/30-day-swingiq',
@@ -82,6 +84,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.8,
+    },
+    {
+      // Onboarding entry point (public, indexable conversion page).
+      url: `${BASE_URL}/start`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      // Transparency page: what SwingIQ measures vs. estimates.
+      url: `${BASE_URL}/methodology`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      // Public worked example of a swing report.
+      url: `${BASE_URL}/report/sample`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
     {
       url: `${BASE_URL}/features`,
