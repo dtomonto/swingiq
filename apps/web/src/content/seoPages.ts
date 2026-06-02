@@ -563,7 +563,7 @@ const FREE_SWING_ANALYSIS: SeoPage = {
     'SwingIQ gives you a genuinely free swing analysis for golf, tennis, baseball, and softball. Upload a swing video or import launch monitor data and you get your single highest-priority issue, three beginner-safe drills, and a simple practice plan — with no account, no credit card, and your data private by default.',
   problemExplanation: [
     'Most "free" analysis tools are demos that gate the useful part behind a paywall, or they bury you in numbers without telling you what to fix first. SwingIQ leads with one priority and a plan.',
-    'Because analysis runs in your browser and your data stays local by default, you can try it with confidence before deciding to save anything.',
+    'Because SwingIQ keeps your full swing video on your device and your data local by default, you can try it with confidence before deciding to save anything. When you choose AI video analysis, only a few selected still frames are sent for review — never your whole video.',
   ],
   diagnosisSteps: [
     'Pick your sport.',
