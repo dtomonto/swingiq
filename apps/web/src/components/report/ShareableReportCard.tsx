@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Copy, Mail, Share2, Printer, Check, ShieldAlert } from 'lucide-react';
+import { Copy, Mail, Share2, Printer, Check, ShieldAlert, ImageDown, Loader2 } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
+import { shareCardImage } from '@/lib/share/shareCardImage';
 
 export interface ReportData {
   sport: string;
@@ -41,7 +42,18 @@ function buildSummary(d: ReportData): string {
 export function ShareableReportCard({ data }: { data: ReportData }) {
   const [copied, setCopied] = useState(false);
   const [acknowledged, setAcknowledged] = useState(false);
+  const [imageBusy, setImageBusy] = useState(false);
   const summary = buildSummary(data);
+
+  async function shareImage() {
+    setImageBusy(true);
+    try {
+      const ok = await shareCardImage(data);
+      if (ok) track(ANALYTICS_EVENTS.REPORT_SHARED, { sport: data.sport, method: 'image' });
+    } finally {
+      setImageBusy(false);
+    }
+  }
 
   async function copy() {
     try {
@@ -126,7 +138,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
           </span>
         </label>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
           <button onClick={copy} disabled={!acknowledged}
             className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
             {copied ? <><Check size={15} className="text-primary" /> Copied</> : <><Copy size={15} /> Copy</>}
@@ -138,6 +150,10 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
           <button onClick={webShare} disabled={!acknowledged}
             className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
             <Share2 size={15} /> Share
+          </button>
+          <button onClick={shareImage} disabled={!acknowledged || imageBusy}
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
+            {imageBusy ? <><Loader2 size={15} className="animate-spin" /> Image</> : <><ImageDown size={15} /> Image</>}
           </button>
           <button onClick={print}
             className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-2 text-sm font-medium text-foreground hover:bg-muted focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
