@@ -1,11 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Eye, EyeOff, LogIn } from 'lucide-react';
 import Link from 'next/link';
+import { useAuth } from '@/lib/auth/useAuth';
 
 export function LoginForm() {
+  const router = useRouter();
+  const { signIn, mode } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -19,14 +23,18 @@ export function LoginForm() {
     setError(null);
     setLoading(true);
 
-    // Supabase auth will be wired here once .env.local is populated
-    // For now, show a helpful message
-    await new Promise((r) => setTimeout(r, 600));
+    const result = await signIn(email, password);
     setLoading(false);
-    setError(
-      'Authentication is not yet connected. Add your Supabase keys to apps/web/.env.local to enable sign-in. ' +
-      'In the meantime, your data is being saved locally — just click the logo to continue to the app.'
-    );
+
+    if (result.ok) {
+      const next =
+        (typeof window !== 'undefined' &&
+          new URLSearchParams(window.location.search).get('next')) ||
+        '/dashboard';
+      router.push(next.startsWith('/') ? next : '/dashboard');
+      return;
+    }
+    setError(result.message ?? 'Could not sign in.');
   };
 
   return (
@@ -82,6 +90,24 @@ export function LoginForm() {
       <Button type="submit" loading={loading} className="w-full" size="lg">
         <LogIn size={16} /> Sign In
       </Button>
+
+      <div className="text-center space-y-2">
+        <p className="text-xs text-muted-foreground">
+          New to SwingIQ?{' '}
+          <Link href="/signup" className="font-semibold text-primary hover:underline">
+            Create an account
+          </Link>
+        </p>
+        {mode === 'local' && (
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            Your account is saved on this device. No internet account is required —
+            add Supabase keys later to enable cloud sync across devices.
+          </p>
+        )}
+        <Link href="/dashboard" className="inline-block text-xs text-muted-foreground hover:text-foreground hover:underline">
+          Continue without an account →
+        </Link>
+      </div>
     </form>
   );
 }
