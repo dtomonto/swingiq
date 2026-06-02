@@ -60,7 +60,7 @@ export default function PricingPage() {
 
                 {isFree ? (
                   <Link
-                    href="/dashboard"
+                    href="/start"
                     className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold py-3 rounded-xl transition-colors text-center"
                   >
                     Start Free

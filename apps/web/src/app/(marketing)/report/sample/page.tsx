@@ -35,7 +35,7 @@ export default function SampleReportPage() {
         </div>
 
         <div className="mt-6 text-center print:hidden">
-          <Link href="/dashboard" className="inline-block rounded-xl bg-primary px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
+          <Link href="/start" className="inline-block rounded-xl bg-primary px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
             Get My Real Report Free
           </Link>
           <p className="mt-3 text-xs text-muted-foreground">No account required · Private by default</p>

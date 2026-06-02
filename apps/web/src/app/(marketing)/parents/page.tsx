@@ -25,7 +25,7 @@ export default function ParentsPage() {
             suggest sport-specific drills, and track progress — for golf, tennis, baseball, and softball.
           </p>
           <Link
-            href="/dashboard"
+            href="/start"
             className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-semibold px-8 py-3 rounded-xl text-lg transition-colors"
           >
             Try SwingIQ Free
@@ -90,7 +90,7 @@ export default function ParentsPage() {
       <div className="text-center py-16 px-4">
         <h2 className="text-2xl font-bold text-foreground mb-4">Start Free Today</h2>
         <p className="text-muted-foreground mb-6">No account required to try SwingIQ. All data saved locally in the browser.</p>
-        <Link href="/dashboard" className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8 py-3 rounded-xl transition-colors">
+        <Link href="/start" className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8 py-3 rounded-xl transition-colors">
           Analyze My Athlete&apos;s Swing Free
         </Link>
         <p className="text-xs text-muted-foreground mt-4">

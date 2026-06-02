@@ -181,7 +181,7 @@ export default function ResourcesPage() {
           <h3 className="text-lg font-bold text-foreground mb-2">Apply this in SwingIQ</h3>
           <p className="text-muted-foreground text-sm mb-4">Import your data and get a diagnosis based on your actual swing — not just general advice.</p>
           <Link
-            href="/dashboard"
+            href="/start"
             className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-xl transition-colors"
           >
             Start Free Analysis
