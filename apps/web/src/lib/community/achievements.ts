@@ -220,7 +220,7 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
   },
   {
     id: 'ten_drills',
-    name: 'Drill Addict',
+    name: 'Practice Builder',
     description: 'Complete 10 different training drills.',
     category: 'coachability',
     sport: 'all',
