@@ -98,7 +98,10 @@
       "Bash(grep -h 'robots:\\\\|title:' apps/web/src/app/__TRACKED_VAR__/page.tsx)",
       "Bash(grep -hn 'AppShell\\\\|robots:\\\\|index:\\\\|export const metadata\\\\|noindex' apps/web/src/app/__TRACKED_VAR__/page.tsx)",
       "Bash(echo \"exit: $?\")",
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Bash(echo \"remote master: $\\(git ls-remote origin -h refs/heads/master)",
+      "mcp__scheduled-tasks__list_scheduled_tasks",
+      "PowerShell(git -C \"C:\\\\Users\\\\dtomo\\\\OneDrive\\\\Desktop\\\\swingiq\" rm --cached apps/web/tsconfig.tsbuildinfo packages/core/tsconfig.tsbuildinfo)"
     ]
   }
 }

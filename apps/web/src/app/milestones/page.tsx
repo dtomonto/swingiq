@@ -87,7 +87,7 @@ function computeMilestones(
       hint: `${Math.max(0, 5 - videoCount)} more videos needed`,
     });
     list.push({
-      id: 'first_issue_detected', icon: '🔍', title: 'Issue Identified',
+      id: 'first_issue_detected', icon: '🔍', title: 'First Fix Found',
       description: 'Had a primary issue detected in a video analysis',
       category: 'diagnosis', check: analyzedVideos.length >= 1,
       hint: 'Upload a video to detect your primary issue',
@@ -112,7 +112,7 @@ function computeMilestones(
   if (isGolf) {
     list.push({ id: 'hundred_shots', icon: '🎯', title: 'Hundred Shots', description: 'Analyzed 100+ shots', category: 'sessions', check: shotCount >= 100, hint: `${Math.max(0, 100 - shotCount)} more shots needed` });
     list.push({ id: 'five_hundred_shots', icon: '💯', title: 'Range Warrior', description: 'Analyzed 500+ shots', category: 'sessions', check: shotCount >= 500, hint: `${Math.max(0, 500 - shotCount)} more shots needed` });
-    list.push({ id: 'first_diagnosis', icon: '🔍', title: 'Diagnosed', description: 'Ran your first swing diagnosis', category: 'diagnosis', check: diagnosedSessions.length >= 1, hint: 'Run the diagnostic engine on a session' });
+    list.push({ id: 'first_diagnosis', icon: '🔍', title: 'First Fix Found', description: 'Ran your first swing diagnosis', category: 'diagnosis', check: diagnosedSessions.length >= 1, hint: 'Run the diagnostic engine on a session' });
     list.push({ id: 'three_diagnoses', icon: '🧠', title: 'Pattern Seeker', description: 'Diagnosed 3 different sessions', category: 'diagnosis', check: diagnosedSessions.length >= 3, hint: `${Math.max(0, 3 - diagnosedSessions.length)} more diagnosed sessions needed` });
     list.push({ id: 'score_50', icon: '📉', title: 'On the Board', description: 'Achieved a swing score of 50+', category: 'score', check: maxScore >= 50, hint: 'Import a session and reach a swing score of 50' });
     list.push({ id: 'score_65', icon: '🏅', title: 'Mid-Range Scorer', description: 'Achieved a swing score of 65+', category: 'score', check: maxScore >= 65, hint: `Best score: ${maxScore} — need 65` });
@@ -123,8 +123,8 @@ function computeMilestones(
   // Practice (shared)
   list.push({ id: 'first_drill', icon: '🏋️', title: 'First Drill', description: 'Completed your first drill', category: 'practice', check: drillCount >= 1, hint: 'Go to Training and check off your first drill step' });
   list.push({ id: 'five_drills', icon: '🔥', title: 'Drill Machine', description: 'Completed 5 different drills', category: 'practice', check: drillCount >= 5, hint: `${Math.max(0, 5 - drillCount)} more drills needed` });
-  list.push({ id: 'streak_3', icon: '🔥', title: '3-Day Streak', description: 'Practiced 3 days in a row', category: 'practice', check: streak >= 3, hint: `Current streak: ${streak} days` });
-  list.push({ id: 'streak_7', icon: '⚡', title: 'Week Warrior', description: 'Practiced 7 days in a row', category: 'practice', check: streak >= 7, hint: `Current streak: ${streak} days` });
+  list.push({ id: 'streak_3', icon: '🔥', title: 'Practice Rhythm Started', description: 'Practiced 3 days in a row', category: 'practice', check: streak >= 3, hint: `Current streak: ${streak} days` });
+  list.push({ id: 'streak_7', icon: '⚡', title: 'Consistency Builder', description: 'Practiced 7 days in a row', category: 'practice', check: streak >= 7, hint: `Current streak: ${streak} days` });
   list.push({ id: 'streak_30', icon: '🌟', title: 'Dedicated Athlete', description: 'Practiced 30 days in a row', category: 'practice', check: streak >= 30, hint: `Current streak: ${streak} days` });
 
   return list.map((m) => ({
@@ -194,11 +194,15 @@ export default function MilestonesPage() {
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+            Swing Passport
+          </p>
           <h1 className="text-2xl font-bold text-foreground">
-            {sportEmoji} {sportName} Milestones
+            {sportEmoji} Your {sportName} Swing Passport
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
-            {earned.length} of {milestones.length} earned · {pct}% complete
+            Collect a stamp for every step of your improvement journey · {earned.length} of{' '}
+            {milestones.length} earned · {pct}% complete
           </p>
         </div>
 

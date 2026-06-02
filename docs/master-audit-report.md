@@ -2,6 +2,12 @@
 
 _Consolidated: 2026-06-01 · Branch: `chore/seo-audit/2026-06` · Status: **local working document — nothing pushed**_
 
+> **🔄 Auto-compiled monthly.** This report is regenerated on the 1st of each month at 11:00 AM by the
+> `monthly-master-audit-report` scheduled task, which merges every scheduled audit — SEO/AEO/GEO (S1),
+> AI-features (S7), build/CI health, security (S3/S4), and growth (S5/S6) — into this single executive
+> document. Each source audit writes its own dated report under `docs/audits/…`; the compiler reads
+> those and overwrites this file. It commits **locally only — never pushes** (the owner reviews + pushes).
+
 > **📘 In Plain English (start here).** This single page merges every audit SwingIQ has
 > run — the monthly SEO/AEO/GEO scan, the staged-navigation review, the automated security
 > checks, and the weekly growth report — into one prioritized to-do list. It does **not**
@@ -58,6 +64,9 @@ below with sources.
 | S4 | [.github/workflows/security-audit.yml](../.github/workflows/security-audit.yml) | CI security pipeline | (config) | ✅ Weekly (Mon 08:00 UTC) + every push/PR | Gitleaks, `npm audit` (fail on critical), lint/typecheck, custom scanner — defines the recurring security regime |
 | S5 | [content/growth/reports/2026-06-01.md](../content/growth/reports/2026-06-01.md) | Growth surface report | 2026-06-01 | ✅ On-demand (`npm run growth:report`) | Surface counts (9 published / 5 draft SEO pages, 6 tools, 2 challenges, 6 emails); **KPI table empty → measurement gap** |
 | S6 | [content/growth/weekly-plans/2026-06-01.md](../content/growth/weekly-plans/2026-06-01.md) | Weekly growth plan | 2026-06-01 | ✅ On-demand (`npm run growth:plan`) | Content/outreach cadence (1 article, 5 scripts, 10 outreach, 3 community posts, 1 conversion improvement) — drafts only, manual posting |
+| S7 | docs/audits/ai-features/&lt;YYYY-MM-DD&gt;.md (written per run) | AI-features audit | (recurring) | ✅ Monthly (`ai-features-monthly-audit`, cron `23 8 1 * *`) | Audits/fixes/improves/enhances the AI video-vision feature, AI Coach/agents, prompts, model IDs, prompt caching, fallbacks, input validation & security, and capability-copy honesty. Commits LOCALLY only (owner pushes); feeds AI findings (F-04, F-25) into this report |
+| S8 | docs/audits/build-health/&lt;YYYY-MM-DD&gt;.md (written per run) | Build / CI health audit | (recurring) | ✅ Weekly (`weekly-github-build-audit`, cron `47 8 * * 1`) | Audits GitHub open/stuck PRs + failing CI/Actions and local type-check/lint/build; fixes safe breakages. Commits LOCALLY only (owner pushes); feeds build/CI health into this report |
+| — | (compiler) | Executive consolidation | (recurring) | ✅ Monthly (`monthly-master-audit-report`, cron `0 11 1 * *`) | Merges S1/S3/S4/S5/S6/S7/S8 into THIS executive report + `audit-action-dashboard.md` + `master-audit-report.json`. Commits LOCALLY only (owner pushes) |
 | R1 | [docs/LAUNCH_READINESS_CHECKLIST.md](LAUNCH_READINESS_CHECKLIST.md) | Reference backlog | May 2026 | — | 4-tier launch backlog (DB, AI key, deploy, legal, payments, monitoring, RLS, deletion, moat items) |
 | R2 | [docs/OWNER_TASKS.md](OWNER_TASKS.md) | Reference backlog | — | — | Owner manual steps: key rotation (P1), GitHub security switches (P3), RLS/storage (P4), ADMIN/CRON secrets (P5), pro-reference verification, legal review (P6) |
 | R3 | [docs/privacy-and-youth-safety-notes.md](privacy-and-youth-safety-notes.md) | Reference (privacy) | 2026-05-31 | — | Privacy posture, youth handling, claims avoided, "needs legal review before scale" |
@@ -66,7 +75,9 @@ below with sources.
 | R6 | [docs/automation.md](automation.md) | Reference (automation) | — | — | Script catalog, CI map, a11y lint posture (7 rules at warn), no-auto-publish policy |
 | R7 | [docs/security-automation.md](security-automation.md) | Reference (security) | — | — | Workflow detail, branch-protection settings, Dependabot, custom rule table |
 
-> **Traceability note.** S1–S6 are genuine audit *outputs*. R1–R7 are reference docs that
+> **Traceability note.** S1–S8 are genuine audit *outputs* (S7 AI-features → `docs/audits/ai-features/`,
+> S8 build/CI health → `docs/audits/build-health/`); the compiler row is the process that merges them
+> here. R1–R7 are reference docs that
 > contain backlog/recommendations and supply evidence; they are not themselves "scheduled audit
 > runs," and are labeled as such so findings stay honest.
 
@@ -103,7 +114,7 @@ High / Med / Low (Low = *needs verification*).
 | F-22 | Product / AI | OCR auto-extraction service built but inactive (needs API key integration) | Image-import friction (manual entry only) | Service layer present, not wired to a provider | Integrate OCR provider key; activate | P3 | M | High | R2 |
 | F-23 | Quality / Debt | No E2E navigation tests (Playwright) | Regressions in nav/journeys can slip through | Test coverage gap | Add Playwright journey tests | P2 | M | High | S2 |
 | F-24 | Accessibility / Debt | 7 jsx-a11y rules set to `warn` (pre-existing violations); ~126 lint warnings | Latent a11y issues remain | Incremental-cleanup backlog | Burn down the 7 warn-rules in older surfaces | P3 | M | High | R6, S1 |
-| F-25 | AI / Architecture | AI Coach memory/session continuity not built; AI-enhancement backlog (latest model IDs, prompt caching, fallbacks) | Weaker retention "moat"; missed AI quality gains | Per the monthly AI-audit spec (not yet run) | Run the AI audit; add session-memory context | P2 | M–L | Med | R1, project memory |
+| F-25 | AI / Architecture | AI Coach memory/session continuity not built; AI-enhancement backlog (latest model IDs, prompt caching, fallbacks) | Weaker retention "moat"; missed AI quality gains | Recurring AI audit now automated (S7, `ai-features-monthly-audit`); still add session-memory context | P2 | M–L | Med | R1, S7, project memory |
 | F-26 | Growth / Retention | Email templates exist but no provider connected; no welcome sequence | Lost re-engagement; leads not nurtured | `/api/email-capture` honest no-op without provider | Connect provider; build welcome series | P2 | S–M | High | R6, R1 |
 | F-27 | Business / Product | No payment processing (Stripe) implemented | Cannot monetize | — | Implement Stripe Checkout + webhooks before paid tier | P1 (pre-paid) | L | High | R1 |
 | F-28 | Security | Production HTTP security headers need post-deploy verification | Misconfig could weaken CSP/clickjacking defense | Headers reportedly set in middleware/next config | Verify at securityheaders.com after deploy | P2 | S | Med | R1, R2 |
@@ -224,7 +235,7 @@ High / Med / Low (Low = *needs verification*).
 - **F-23** Add Playwright E2E navigation tests.
 - **F-22** Activate OCR auto-extraction.
 - **F-24** Burn down the 7 jsx-a11y warn-rules.
-- **F-25** Run the monthly AI-features audit; add AI Coach session memory.
+- **F-25** Monthly AI-features audit now automated (`ai-features-monthly-audit`, S7); add AI Coach session memory.
 
 ### Long-term platform investments — 90+ days
 - AI Coach memory as a retention moat (F-25 extension).
@@ -255,9 +266,11 @@ High / Med / Low (Low = *needs verification*).
 
 ## 7. AI & Technical Architecture Recommendations
 
-- **Run the monthly AI audit (F-25):** Per the AI-audit spec, review model IDs (prefer latest Claude),
-  prompt quality, error handling/fallbacks, prompt caching, and input validation across AI Coach and
-  the video analyzer.
+- **Run the monthly AI audit (F-25):** Now automated as the `ai-features-monthly-audit` scheduled task
+  (cron `23 8 1 * *`, 1st of each month). Each run audits/fixes/improves/enhances the AI video-vision
+  feature, AI Coach/agents, and all AI items — model IDs (prefer latest Claude), prompt quality, error
+  handling/fallbacks, prompt caching, input validation/security, and capability-copy honesty — commits
+  LOCALLY only (owner pushes), and feeds findings back into this report (S7).
 - **AI Coach session memory (F-25):** Include the last ~3 session summaries in prompt context to
   create continuity ("last week your issue was X").
 - **Capability honesty (F-04):** Keep `llms.txt`, trust copy, and limitation notices in lockstep with
@@ -418,8 +431,9 @@ items first, then the compliance gates, then the growth engine:
 
 Maintain the project's strongest existing habit — **honesty** (estimated labels, no fake reviews,
 no auto-publishing, local-first youth privacy). That posture is itself a competitive moat in a space
-full of overclaiming apps. Keep this report current by feeding each future scheduled-audit run back
-into it (see the README pointer and §2).
+full of overclaiming apps. This report now stays current automatically — the `monthly-master-audit-report`
+task recompiles it on the 1st of each month from every scheduled audit (see the auto-compiled note at the
+top and §2).
 
 ---
 

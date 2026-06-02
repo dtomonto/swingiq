@@ -165,6 +165,13 @@ export function Sidebar({ onClose }: SidebarProps) {
       <div className="px-3 pb-3">
         <p className="text-xs text-muted-foreground font-medium mb-1.5 px-1">Active Sport</p>
         <SportPillDropdown onClose={onClose} />
+        <Link
+          href="/sports"
+          onClick={onClose}
+          className="mt-1.5 block px-1 text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
+        >
+          View all sports →
+        </Link>
       </div>
 
       {/* Bottom */}

@@ -5,13 +5,17 @@ import { ChevronRight, X, Clock, Target, Dumbbell, TrendingUp } from 'lucide-rea
 import { Button } from '@/components/ui/Button';
 import { ConfidenceBadge } from './ConfidenceBadge';
 import type { ResumeState } from '@/lib/agents';
+import { buildTodaysFix, FIX_FRAMING } from '@/lib/coaching/fixFraming';
 
 // ============================================================
-// Welcome Back / "Pick Up Where You Left Off"
+// Today's Fix / Welcome Back — returning-user centerpiece
 // ------------------------------------------------------------
-// The premium continuity feature for returning users. Presents
-// a structured summary of where they left off and a clear,
-// low-friction path to continue. Deterministic, fast, dismissible.
+// Reframes the deterministic resume workflow as a personal
+// "Today's Fix": one priority, what to do today, how you'll know
+// it worked, and when to retest — with a clear Continue / Retest /
+// Rebuild path. Fast, deterministic, dismissible. The reframing
+// lives in `lib/coaching/fixFraming.ts`; this component only
+// renders it (props are unchanged so dashboard wiring is intact).
 // ============================================================
 
 function StatChip({ icon: Icon, label }: { icon: typeof Clock; label: string }) {
@@ -23,6 +27,18 @@ function StatChip({ icon: Icon, label }: { icon: typeof Clock; label: string }) 
   );
 }
 
+/** One scannable row of the "One Fix Today" pattern. */
+function FixRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-2">
+      <dt className="text-xs font-semibold uppercase tracking-wide text-primary-foreground/70 sm:w-40 sm:shrink-0">
+        {label}
+      </dt>
+      <dd className="text-sm text-primary-foreground/95 leading-snug">{value}</dd>
+    </div>
+  );
+}
+
 export function WelcomeBackCard({
   resume,
   onDismiss,
@@ -30,6 +46,8 @@ export function WelcomeBackCard({
   resume: ResumeState;
   onDismiss?: () => void;
 }) {
+  const fix = buildTodaysFix(resume);
+
   const planLabel =
     resume.practicePlanStatus === 'in_progress'
       ? 'Plan in progress'
@@ -50,12 +68,12 @@ export function WelcomeBackCard({
     <section
       className="relative overflow-hidden rounded-2xl bg-linear-to-br from-primary to-primary/75 text-primary-foreground p-6 shadow-md"
       role="region"
-      aria-label="Welcome back"
+      aria-label="Today's fix"
     >
       {onDismiss && (
         <button
           onClick={onDismiss}
-          aria-label="Dismiss welcome back"
+          aria-label="Dismiss today's fix"
           className="absolute top-3 right-3 text-white/50 hover:text-white p-1.5 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-white/40"
         >
           <X size={18} />
@@ -64,45 +82,62 @@ export function WelcomeBackCard({
 
       <div className="max-w-3xl">
         <p className="text-primary-foreground/80 text-xs font-semibold uppercase tracking-wide mb-1">
-          Pick up where you left off
+          {fix.eyebrow}
         </p>
         <h2 className="text-2xl font-bold mb-2">{resume.headline}</h2>
         <p className="text-primary-foreground/90 text-sm leading-relaxed mb-4">{resume.summary}</p>
 
+        {fix.comeback && (
+          <p className="text-sm font-medium text-white bg-card/10 rounded-lg px-3 py-2 mb-4">
+            {fix.comeback}
+          </p>
+        )}
+
         {/* Context chips */}
-        <div className="flex flex-wrap gap-2 mb-5">
+        <div className="flex flex-wrap gap-2 mb-4">
           {resume.lastSessionDate && (
             <StatChip icon={Clock} label={`Last: ${resume.lastSessionDate}`} />
           )}
-          {resume.lastFocus && <StatChip icon={Target} label={resume.lastFocus} />}
+          {fix.priority && <StatChip icon={Target} label={fix.priority} />}
           {planLabel && <StatChip icon={Dumbbell} label={planLabel} />}
           {trendLabel && <StatChip icon={TrendingUp} label={trendLabel} />}
         </div>
 
-        {/* Primary action */}
+        {/* The "One Fix Today" block */}
+        <dl className="space-y-2 rounded-xl bg-black/10 p-4 mb-5">
+          {fix.priority && <FixRow label={FIX_FRAMING.focusLabel} value={fix.priority} />}
+          <FixRow label={FIX_FRAMING.whatToDoLabel} value={fix.whatToDoToday} />
+          <FixRow label={FIX_FRAMING.howToKnowLabel} value={fix.howToKnowItWorked} />
+          <FixRow label={FIX_FRAMING.whenToRetestLabel} value={fix.whenToRetest} />
+        </dl>
+
+        {/* Continue / Retest / Rebuild */}
         <div className="flex flex-wrap items-center gap-3">
-          <Link href={resume.nextBestAction.href}>
+          <Link href={fix.primary.href}>
             <Button className="bg-card text-primary hover:bg-primary/10 font-semibold">
-              {resume.nextBestAction.label}
+              {fix.primary.label}
               <ChevronRight size={16} />
             </Button>
           </Link>
 
-          {/* Secondary options */}
-          {resume.options.slice(0, 3).map((opt) => (
-            <Link key={opt.id} href={opt.href}>
+          {fix.retest && (
+            <Link href={fix.retest.href}>
               <button className="text-sm font-medium text-primary-foreground hover:text-white underline-offset-4 hover:underline px-1 py-1">
-                {opt.label}
+                {fix.retest.label}
               </button>
             </Link>
-          ))}
+          )}
+          {fix.rebuild && (
+            <Link href={fix.rebuild.href}>
+              <button className="text-sm font-medium text-primary-foreground hover:text-white underline-offset-4 hover:underline px-1 py-1">
+                {fix.rebuild.label}
+              </button>
+            </Link>
+          )}
         </div>
 
-        {/* Helper + confidence */}
+        {/* Confidence */}
         <div className="mt-4 flex flex-wrap items-center gap-3">
-          {resume.nextBestAction.helperText && (
-            <p className="text-primary-foreground/90 text-xs">{resume.nextBestAction.helperText}</p>
-          )}
           <ConfidenceBadge confidence={resume.confidence} showReason={false} className="opacity-90" />
         </div>
       </div>

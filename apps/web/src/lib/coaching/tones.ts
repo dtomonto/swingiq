@@ -13,7 +13,7 @@
 // onboarding flow, and the AI-coach prompt builder.
 // ============================================================
 
-export type CoachingTone = 'beginner' | 'parent' | 'competitive' | 'coach';
+export type CoachingTone = 'beginner' | 'parent' | 'competitive' | 'coach' | 'team';
 
 export interface ToneGuidance {
   id: CoachingTone;
@@ -72,6 +72,16 @@ export const COACHING_TONES: ToneGuidance[] = [
     promptHint:
       "Use concise, coach-facing language. Summarize the athlete's focus, suggested drills, and a practice assignment. Frame everything as input to the coach's judgment.",
   },
+  {
+    id: 'team',
+    label: 'Team organizer',
+    description: 'One clear focus you can hand to every player.',
+    detail: 'balanced',
+    resultIntro: 'One clear focus you can give each athlete before the next practice.',
+    note: 'Built to scale across a roster — and to support, not replace, qualified coaching.',
+    promptHint:
+      'Use clear, scalable, operational language for a team organizer managing multiple athletes. Give one simple focus per player that is easy to communicate and repeat across a roster. Keep it safe and supportive, and defer mechanics to qualified coaching.',
+  },
 ];
 
 const TONE_MAP: Record<CoachingTone, ToneGuidance> = COACHING_TONES.reduce(
@@ -95,8 +105,9 @@ export function toneFromUserType(
     case 'parent':
       return 'parent';
     case 'coach':
-    case 'team':
       return 'coach';
+    case 'team':
+      return 'team';
     case 'athlete':
     default:
       return 'beginner';

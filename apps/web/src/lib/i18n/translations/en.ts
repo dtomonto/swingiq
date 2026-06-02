@@ -92,8 +92,8 @@ export const en: Translations = {
   language: {
     title: 'Language',
     change: 'Change Language',
-    setting: 'App Language',
-    helperText: 'Choose the language used across SwingIQ. Your preference is saved and included in your data backup.',
+    setting: 'Choose your coaching language',
+    helperText: 'SwingIQ will coach you in this language — drills, tips, and encouragement. Saved on this device and included in your data backup.',
     backupNote: 'Your exported SwingIQ backup includes your sessions, profile settings, community progress, achievements, challenges, and preferred language.',
     en: 'English',
     es: 'Español',
