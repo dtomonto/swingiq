@@ -10,7 +10,7 @@
 
 import type { SportId } from '@swingiq/core';
 import type { SavedVideoAnalysis } from '@/lib/video/history';
-import { resolveFault } from '@/lib/faults';
+import { resolveFault, matchFaultId } from '@/lib/faults';
 import { buildWindow, statusFor, compareAnalyses } from './engine';
 import type { RetestResult, RetestStoreState, RetestTarget } from './types';
 
@@ -33,7 +33,10 @@ function focusSlug(focus: string): string {
 /** Turn the most recent analysis for a sport into an OPEN retest target. */
 function toTarget(latest: SavedVideoAnalysis, now: Date): RetestTarget {
   const focus = latest.topFocus;
-  const fault = resolveFault(focusSlug(focus), { label: focus, sport: latest.sport });
+  // Prefer a curated fault (richer retest criteria); fall back to a slug so
+  // the ontology can still synthesize an honest generated entry.
+  const id = matchFaultId(focus, latest.sport) ?? focusSlug(focus);
+  const fault = resolveFault(id, { label: focus, sport: latest.sport });
   const window = buildWindow(latest.createdAt, fault.retest.activeWindowDays);
   return {
     id: latest.id,
@@ -49,6 +52,17 @@ function toTarget(latest: SavedVideoAnalysis, now: Date): RetestTarget {
     sameConditions: fault.retest.sameConditions,
     whatToReassess: fault.retest.whatToReassess,
   };
+}
+
+const URGENCY_RANK = { overdue: 0, due: 1, active: 2 } as const;
+
+/** Sort targets by urgency (overdue → due → active), then by time waiting. */
+export function sortRetestTargets(targets: RetestTarget[]): RetestTarget[] {
+  return [...targets].sort((a, b) => {
+    const r = URGENCY_RANK[a.status.status] - URGENCY_RANK[b.status.status];
+    if (r !== 0) return r;
+    return b.status.daysSinceDiagnosis - a.status.daysSinceDiagnosis;
+  });
 }
 
 /**
@@ -70,12 +84,7 @@ export function deriveRetestTargets(
     targets.push(toTarget(latest, now));
   }
 
-  const rank = { overdue: 0, due: 1, active: 2 } as const;
-  return targets.sort((a, b) => {
-    const r = rank[a.status.status] - rank[b.status.status];
-    if (r !== 0) return r;
-    return b.status.daysSinceDiagnosis - a.status.daysSinceDiagnosis;
-  });
+  return sortRetestTargets(targets);
 }
 
 /**

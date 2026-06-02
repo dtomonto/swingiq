@@ -4,10 +4,12 @@
 // SwingIQ — useRetests hook
 // ------------------------------------------------------------
 // A reactive, SSR-safe view of the user's open retests and
-// completed results. Backed by `useSyncExternalStore`, it stays
-// referentially stable between renders and live-updates when a
-// new analysis is saved OR a reminder is dismissed — including
-// across browser tabs.
+// completed results across BOTH data sources:
+//   - video history (tennis / baseball / softball / golf video)
+//   - launch-monitor sessions in the Zustand store (golf)
+// Backed by `useSyncExternalStore`, it stays referentially stable
+// between renders and live-updates when a new analysis is saved, a
+// session is added, or a reminder is dismissed — including across tabs.
 // ============================================================
 
 import { useSyncExternalStore } from 'react';
@@ -16,6 +18,7 @@ import {
   subscribeVideoHistory,
   getVideoHistoryVersion,
 } from '@/lib/video/history';
+import { useSwingIQStore } from '@/store';
 import {
   loadRetestStore,
   subscribeRetestStore,
@@ -23,7 +26,8 @@ import {
   dismissTarget,
   acknowledgeResult,
 } from './store';
-import { deriveRetestTargets, deriveRetestResults, topRetestTarget } from './targets';
+import { deriveRetestTargets, deriveRetestResults, sortRetestTargets, topRetestTarget } from './targets';
+import { deriveGolfRetestTargets, deriveGolfRetestResults } from './targets.golf';
 import type { RetestResult, RetestTarget } from './types';
 
 export interface RetestView {
@@ -48,24 +52,39 @@ const SERVER_VIEW: RetestView = {
   acknowledge: () => {},
 };
 
-// Cache the computed view so getSnapshot returns a stable reference until
-// either underlying store changes (required by useSyncExternalStore).
-let cache: { version: number; value: RetestView } | null = null;
+// Cache the computed view so getSnapshot returns a stable reference until any
+// underlying source changes (required by useSyncExternalStore).
+let cache: { key: string; value: RetestView } | null = null;
 
-function combinedVersion(): number {
-  // Distinct multipliers so changes in either store always bump the key.
-  return getVideoHistoryVersion() * 1_000_003 + getRetestStoreVersion();
+/** Cheap signature of the golf sessions that affect retests. */
+function golfSignature(): string {
+  const sessions = useSwingIQStore.getState().sessions;
+  const golf = sessions.filter((s) => s.sport === 'golf');
+  const latest = golf[0];
+  return `${golf.length}:${latest?.id ?? ''}:${latest?.diagnoses?.length ?? 0}:${latest?.swing_score ?? ''}`;
+}
+
+function snapshotKey(): string {
+  return `${getVideoHistoryVersion()}:${getRetestStoreVersion()}:${golfSignature()}`;
 }
 
 function getSnapshot(): RetestView {
-  const version = combinedVersion();
-  if (cache && cache.version === version) return cache.value;
+  const key = snapshotKey();
+  if (cache && cache.key === key) return cache.value;
 
   const history = loadVideoHistory();
   const store = loadRetestStore();
+  const sessions = useSwingIQStore.getState().sessions;
   const now = new Date();
-  const targets = deriveRetestTargets(history, store, now);
-  const results = deriveRetestResults(history, store);
+
+  const targets = sortRetestTargets([
+    ...deriveRetestTargets(history, store, now),
+    ...deriveGolfRetestTargets(sessions, store, now),
+  ]);
+  const results = [
+    ...deriveRetestResults(history, store),
+    ...deriveGolfRetestResults(sessions, store),
+  ].sort((a, b) => new Date(b.currentDate).getTime() - new Date(a.currentDate).getTime());
 
   const value: RetestView = {
     ready: true,
@@ -75,16 +94,18 @@ function getSnapshot(): RetestView {
     dismiss: dismissTarget,
     acknowledge: acknowledgeResult,
   };
-  cache = { version, value };
+  cache = { key, value };
   return value;
 }
 
 function subscribe(callback: () => void): () => void {
   const unsubA = subscribeVideoHistory(callback);
   const unsubB = subscribeRetestStore(callback);
+  const unsubC = useSwingIQStore.subscribe(callback);
   return () => {
     unsubA();
     unsubB();
+    unsubC();
   };
 }
 

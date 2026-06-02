@@ -13,6 +13,7 @@ import {
   resolveFault,
   retestCriteriaFor,
   explainFault,
+  matchFaultId,
   audienceFromTone,
   audienceFromUsageCategory,
 } from '..';
@@ -111,5 +112,23 @@ describe('fault ontology — audience-aware explanations', () => {
     expect(audienceFromUsageCategory('minor_under_13')).toBe('parent');
     expect(audienceFromUsageCategory('adult')).toBe('advanced');
     expect(audienceFromUsageCategory(null)).toBe('advanced');
+  });
+});
+
+describe('fault ontology — free-text → curated id matching', () => {
+  it('matches AI free-text to the right curated fault within a sport', () => {
+    // The baseball curated entry is "Casting — Barrel Drops Early".
+    expect(matchFaultId('Casting (barrel drops early)', 'baseball')).toBe('casting_hands');
+    expect(matchFaultId('Hips opening too early', 'tennis')).toBe('open_hips_early');
+  });
+
+  it('returns null when nothing matches confidently', () => {
+    expect(matchFaultId('completely unrelated phrasing zzz', 'golf')).toBeNull();
+    expect(matchFaultId('', 'golf')).toBeNull();
+  });
+
+  it('respects the sport filter', () => {
+    // "Casting" is a baseball/softball fault, not a tennis one.
+    expect(matchFaultId('casting barrel drops early', 'tennis')).toBeNull();
   });
 });

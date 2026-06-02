@@ -13,9 +13,11 @@
 // ============================================================
 
 import { useAgentInsights } from '@/hooks/useAgentInsights';
+import { useRetests } from '@/lib/retest';
 import { WelcomeBackCard } from './WelcomeBackCard';
 import { NextBestActionCard } from './NextBestActionCard';
 import { AgentInsightCard } from './AgentInsightCard';
+import { RetestReminderCard } from '@/components/retest/RetestReminderCard';
 
 export function DashboardIntelligence() {
   const {
@@ -27,6 +29,10 @@ export function DashboardIntelligence() {
     dismissWelcomeBack,
     dismissInsight,
   } = useAgentInsights();
+
+  // The single most urgent retest (due/overdue only) — keeps the dashboard
+  // calm by never nagging about findings that are still comfortably active.
+  const { topTarget, dismiss: dismissRetest } = useRetests();
 
   if (!ready || !resume || !nextBestAction) return null;
 
@@ -43,6 +49,8 @@ export function DashboardIntelligence() {
       ) : (
         <NextBestActionCard action={nextBestAction} />
       )}
+
+      {topTarget && <RetestReminderCard target={topTarget} onDismiss={dismissRetest} />}
 
       {insights.length > 0 && (
         <div className="grid sm:grid-cols-2 gap-3">

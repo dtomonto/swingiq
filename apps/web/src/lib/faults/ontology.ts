@@ -453,3 +453,47 @@ export function explainFault(
 ): string {
   return resolveFault(id, opts).explanations[audience];
 }
+
+// ── Free-text → curated id matching ───────────────────────────
+
+function normalizeText(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+/** Tokens worth matching on (drops short/common filler words). */
+const STOP = new Set(['the', 'and', 'too', 'for', 'of', 'to', 'in', 'on', 'is', 'at', 'or', 'your', 'a', 'an']);
+function tokenize(s: string): Set<string> {
+  return new Set(normalizeText(s).split(' ').filter((w) => w.length > 2 && !STOP.has(w)));
+}
+
+function jaccard(a: Set<string>, b: Set<string>): number {
+  if (a.size === 0 || b.size === 0) return 0;
+  let inter = 0;
+  for (const t of a) if (b.has(t)) inter++;
+  return inter / (a.size + b.size - inter);
+}
+
+/**
+ * Best-effort map a free-text issue (e.g. from AI vision) to a CURATED fault id
+ * for a sport, so retest criteria and explanations come from the rich entry
+ * rather than the generic fallback. Returns null when nothing matches
+ * confidently — callers then fall back to the honest generated entry.
+ */
+export function matchFaultId(text: string, sport?: SportId): string | null {
+  const txt = normalizeText(text);
+  if (!txt) return null;
+  const candidates = sport ? getFaultsForSport(sport) : CURATED;
+  const txtTokens = tokenize(text);
+
+  let best: { id: string; score: number } | null = null;
+  for (const f of candidates) {
+    const name = normalizeText(f.name);
+    // Strong signal: one string contains the other.
+    let score = txt.includes(name) || name.includes(txt) ? 0.9 : 0;
+    // Otherwise fall back to token overlap.
+    score = Math.max(score, jaccard(txtTokens, tokenize(f.name)));
+    if (score > (best?.score ?? 0)) best = { id: f.id, score };
+  }
+
+  return best && best.score >= 0.5 ? best.id : null;
+}

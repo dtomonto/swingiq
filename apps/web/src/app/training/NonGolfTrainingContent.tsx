@@ -16,6 +16,7 @@ import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { AgentPracticePlanCard } from '@/components/agents/AgentPracticePlanCard';
+import { FaultExplanation } from '@/components/faults/FaultExplanation';
 import {
   TENNIS_DRILLS,
   BASEBALL_DRILLS,
@@ -246,6 +247,11 @@ export function NonGolfTrainingContent() {
               <Button variant="outline" size="sm">Re-Analyze</Button>
             </Link>
           </CardBody>
+          {latestAnalysis.primary_issue && (
+            <div className="px-6 pb-4">
+              <FaultExplanation faultText={latestAnalysis.primary_issue} sport={activeSport} />
+            </div>
+          )}
         </Card>
       )}
 
