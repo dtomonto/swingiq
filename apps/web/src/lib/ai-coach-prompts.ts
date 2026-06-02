@@ -220,6 +220,23 @@ export function buildContextBlock(ctx: CoachContext): string {
   return lines.join('\n');
 }
 
+// ── Evidence-Citation Rule ────────────────────────────────────
+
+/**
+ * Appended to every coach system prompt. Forces the model to cite the
+ * specific metric + value it is reasoning from (chain-of-thought with
+ * explicit evidence), and to flag any claim that isn't backed by a number
+ * as a general observation rather than a measurement. Reduces confident-
+ * sounding fabrication.
+ */
+export const EVIDENCE_CITATION_RULE =
+  'EVIDENCE & REASONING:\n' +
+  '- When you state an issue or a strength, cite the specific metric and its value from the [DATA CONTEXT] as evidence ' +
+  '(for example: "your face-to-path averaged +6.2°, which points the face open at impact").\n' +
+  '- Show your reasoning briefly in this order: the data fact → what it implies about the swing → what to do about it.\n' +
+  '- If a claim is NOT backed by a number in the context, label it a general observation, not a measurement — and never present it as certain.\n' +
+  '- Prefer one well-evidenced point over several unsupported ones.';
+
 // ── Full Prompt Assembly ──────────────────────────────────────
 
 export function buildCoachPrompt(ctx: CoachContext): { system: string; user: string } {
@@ -227,10 +244,11 @@ export function buildCoachPrompt(ctx: CoachContext): { system: string; user: str
   const systemPrompt = SPORT_SYSTEM_PROMPTS[sport] ?? GOLF_SYSTEM_PROMPT;
   const contextBlock = buildContextBlock(ctx);
   const questionLabel = SPORT_QUESTION_LABELS[sport] ?? 'Question';
+  const baseSystem = `${systemPrompt}\n\n${EVIDENCE_CITATION_RULE}`;
   return {
     system: ctx.coaching_tone_hint
-      ? `${systemPrompt}\n\nTONE — match this audience: ${ctx.coaching_tone_hint}`
-      : systemPrompt,
+      ? `${baseSystem}\n\nTONE — match this audience: ${ctx.coaching_tone_hint}`
+      : baseSystem,
     user: `${contextBlock}\n\n${questionLabel}: ${ctx.user_question}`,
   };
 }
