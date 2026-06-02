@@ -67,7 +67,6 @@ export function WelcomeBackCard({
   return (
     <section
       className="relative overflow-hidden rounded-2xl bg-linear-to-br from-primary to-primary/75 text-primary-foreground p-6 shadow-md"
-      role="region"
       aria-label="Today's fix"
     >
       {onDismiss && (
