@@ -417,6 +417,17 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  /*
+    Accessibility (WCAG 2.4.7): a consistent, visible keyboard-focus indicator
+    app-wide. `:focus-visible` only matches keyboard / assistive-tech focus, so
+    mouse clicks stay clean. Components that define their own focus ring (e.g.
+    Tailwind `focus:ring-*` / `focus:outline-*` utilities) have higher
+    specificity and still win — this is just the safety-net default.
+  */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
 }
 
 /*
