@@ -240,6 +240,7 @@ Just open your Vercel URL on any device, anywhere.
 | **Pre-Round / Pre-Game** | Sport-specific warm-up checklist |
 | **Drill Library** | 80+ drills across all sports — defaults to your active sport |
 | **Progress** | Score trends over time (golf: launch monitor; others: video scores) |
+| **Retest** | Reminds you when a finding is due for a recheck, then shows an honest before-and-after read once you re-analyze under the same conditions |
 | **Milestones** | Achievement badges for your active sport |
 | **Compare Sessions** | Side-by-side comparison of two sessions |
 | **AI Coach** | Ask questions about your game — answers grounded in your data |
@@ -258,6 +259,12 @@ A: Only for golf data-driven analysis. Golf video analysis works too. For tennis
 
 **Q: Do I need to pay for anything?**
 A: The app itself is free to run locally. Supabase (cloud storage) has a free tier. Vercel (deployment) has a free tier. An AI key (for live AI Coach answers) costs a few dollars per month at most.
+
+**Q: Do I have to create an account?**
+A: No. SwingIQ starts keyless — open it and jump straight in, with your data saved privately on your own device. An account is optional and only matters if you turn on cloud sync (Supabase); then sign-up, sign-in, and password reset are available whenever you choose.
+
+**Q: Does it work without internet?**
+A: Yes for the on-device parts. If your connection drops (common at a range), a banner lets you know, your work is held safely on your device, and anything that needs the network is queued to finish automatically once you reconnect.
 
 **Q: Can other people see my data?**
 A: When running locally, only you can see it. When deployed to Vercel, only people with your URL can access it, and data is stored in your own Supabase account.

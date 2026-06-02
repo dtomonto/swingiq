@@ -71,8 +71,9 @@ Sport-aware video analyzer with phase-by-phase coaching for all five sports.
 ### 📸 Screenshot / Image Import
 - Upload photos or screenshots of performance tables from any device
 - Supports FlightScope, TrackMan, Foresight, HitTrax, Rapsodo, Blast Motion, Zepp, spreadsheets, and more
+- **Optional OCR auto-extraction** — when an extraction provider is configured, SwingIQ reads the numbers off your image to pre-fill the review table (labeled with a confidence note); without a provider it falls back to manual entry automatically
 - Manual review and edit before any data is saved — no unreviewed OCR output is ever analyzed
-- Auto-extraction coming in a future release; manual entry available now
+- Manual entry stays the default, supported path on every device
 
 ### 🏋️ Training
 - Golf: interactive drill checklist based on active diagnosis, training effectiveness tracker
@@ -95,6 +96,21 @@ Generates a personalized 7-day practice week based on diagnosis and frequency pr
 - Golf: score trend chart, ball data trends, personal bests, handicap estimate
 - Non-golf: video analysis score sparkline, recurring issue frequency chart
 
+### 🔁 Retest — Prove the Change
+- Dedicated **Retest** page (`/retest`) that closes the improvement loop
+- Reminds you when a diagnosed finding is **due for a retest** after you've drilled it
+- After you re-analyze under the same conditions (camera angle, distance, equipment), shows an honest **before-and-after read** of whether the finding actually changed
+- Golf retests match curated faults against fresh launch-monitor data; video sports retest from a re-analysis
+- Comparisons are clearly labeled as **directional reads**, not measured biomechanics
+- Retest reminders and results also surface on the dashboard
+
+### 🗣️ Role-Aware Fault Explanations
+- The same diagnosed fault is explained in the way most useful to **who is reading it**
+- **Player:** a plain, encouraging "here's what to feel" explanation
+- **Coach:** the technical cause and cue
+- **Parent:** a supportive, jargon-free version they can use to help
+- Appears on the **Diagnose, Training, and Retest** screens
+
 ### 🏆 Milestones
 Sport-specific achievement system across all five sports.
 
@@ -103,6 +119,7 @@ Five sport-specific system prompts — grounded in your actual data. Never inven
 
 ### 📋 Reports
 Sport-aware coach report generator. Copy a formatted summary to share with your coach.
+- **Share as an image** — turn your report card (top priority, recommended drills, practice plan) into a clean, ready-to-post square image. The image is built privately on-device; mobile shares straight to messages/social apps, desktop downloads it.
 
 ### 🎥 Professional Swing Reference Library & Side-by-Side Comparison
 - Browse 32 seeded professional athlete profiles across 5 sports (all pending admin verification)
@@ -145,7 +162,23 @@ Sport-aware coach report generator. Copy a formatted summary to share with your 
 - Choose under **Settings → Appearance**
 
 ### 🌐 Multi-Language Support
-SwingIQ is available in 20 languages with full Spanish and French translations. Switch languages from Settings or the language toggle in the navigation.
+SwingIQ is available in 20 languages with full Spanish and French translations. Switch languages from Settings or the language toggle in the navigation. "Today's Fix" engagement CTAs are translated across all 20 coaching languages.
+
+### 🚪 Keyless Instant Start (No Account Required)
+- Open SwingIQ and start analyzing immediately — **no sign-up wall**
+- Data is saved privately on your own device by default (keyless local account)
+- An **optional account** is available anytime — sign-up, sign-in, and password reset all work when Supabase auth is configured, for users who want cloud sync
+- Monetization is keyless too: a **Pro waitlist** runs without any payment provider; optional Stripe checkout activates only when keys are present (see `lib/billing/tiers.ts`)
+
+### 📶 Offline Support
+- A clear **offline status banner** appears when the connection drops (common at a range or back field)
+- Your work is held safely on-device; anything that needs the network is queued in an **IndexedDB outbox** and completes automatically once you reconnect
+- Nothing to set up — offline handling is always on
+
+### 🎥 Motion Engine (Pose Analysis)
+- On-device pose estimation lives in `lib/pose` (the single source of truth) feeding the motion engine in `lib/motion`
+- An optional **real MediaPipe pose provider** sits behind a feature flag, with a pose-derived swing score and signal fingerprint
+- All pose-derived output stays labeled as a heuristic/directional estimate — honest by design
 
 ### 🏅 Community Hub
 - **50+ Badges** across 10 categories: consistency, improvement, data protection, sport mastery, and more
@@ -310,6 +343,10 @@ Start here: **[docs/BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md)**
 | Charts | Recharts + custom SVG |
 | Icons | Lucide React |
 | AI | OpenAI GPT-4o-mini or Anthropic Claude (configurable) |
+| Pose / Motion | On-device pose estimation (`lib/pose`) + motion engine (`lib/motion`); optional MediaPipe provider behind a flag |
+| Auth | Keyless local accounts by default; optional Supabase auth |
+| Billing | Keyless Pro waitlist; optional Stripe checkout |
+| Offline | IndexedDB outbox + offline status banner |
 | Encryption | Web Crypto API — AES-256-GCM (backup encryption, no external deps) |
 | Database (optional) | Supabase (PostgreSQL + Auth + RLS) |
 | Monorepo | Turborepo |
@@ -375,7 +412,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | `/tools`, `/tools/*` | Free quizzes, drill & practice generators |
 | `/challenges`, `/challenges/*` | Free multi-sport practice challenges |
 | `/coaches`, `/creators`, `/teams`, `/partners` | Partner / audience landing pages |
-| `/pricing` | Free tier + Pro coming soon |
+| `/pricing` | Free tier + Pro waitlist (keyless; optional Stripe checkout) |
 | `/parents` | Youth safety, FAQ |
 | `/privacy` | Privacy policy |
 | `/terms` | Terms of service + AI disclaimer |

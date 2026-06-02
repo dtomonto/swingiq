@@ -61,11 +61,13 @@ SwingIQ is a **Turborepo monorepo** with the following workspaces:
 /trust                     Trust & Safety page
 /privacy                   Privacy Policy
 /terms                     Terms of Service
-/login                     Supabase auth — login
-/signup                    Supabase auth — sign up
+/login                     Optional Supabase auth — sign in
+/signup                    Optional Supabase auth — sign up
+/forgot-password           Optional Supabase auth — password reset
 ```
 
-### Protected app routes (require auth when Supabase is connected)
+### App routes (keyless by default; require auth only when Supabase is connected)
+> SwingIQ uses keyless local accounts by default — these routes work with no sign-in, storing data on-device. They become auth-gated only when Supabase auth keys are present.
 ```
 /dashboard                 Sport-aware dashboard (golf vs non-golf)
 /profile                   Sport-specific profile form
@@ -81,6 +83,7 @@ SwingIQ is a **Turborepo monorepo** with the following workspaces:
 /video                     Video analysis (sport-aware)
 /drills                    Drill library
 /progress                  Progress tracking
+/retest                    Retest hub — due reminders + directional before/after reads
 /milestones                Milestones tracker
 /compare                   Session comparison / professional references
 /ai-coach                  AI coaching chat

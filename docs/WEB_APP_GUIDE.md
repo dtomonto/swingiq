@@ -12,6 +12,10 @@ SwingIQ is a web app. There is no separate mobile app to install — everything 
 
 It works on phones, tablets, and computers. The layout adjusts automatically.
 
+**No account needed to start.** You can open SwingIQ and jump straight in — your data is saved privately on your own device. If you ever want an account (for example, to sync across devices), you can create one anytime from the sign-in screen; sign-up, sign-in, and password reset all work when cloud sync is turned on.
+
+**Works offline.** If your connection drops — common at a range or a back field — a clear banner lets you know, your work is held safely on your device, and anything that needs the internet is queued to finish automatically once you reconnect. Nothing to set up.
+
 ---
 
 ## 2. The Sport Switcher
@@ -43,7 +47,7 @@ Your sport choice is saved in your browser, so it persists after page refreshes.
 
 ## 3. Navigation
 
-The left sidebar has 17 pages. Labels change based on your active sport:
+The left sidebar lists the main pages. Labels change based on your active sport:
 
 | Page | Golf label | Tennis/Baseball/Softball label |
 |---|---|---|
@@ -54,6 +58,7 @@ The left sidebar has 17 pages. Labels change based on your active sport:
 | Diagnose | Diagnose | Analyze Swing |
 | Pre-Round | Pre-Round | Pre-Game Warm-Up |
 | Drills | Drill Library | Drills |
+| Retest | Retest | Retest |
 | Compare & References | Compare & References | Compare & References |
 
 On mobile, tap the menu icon (☰) at the top left to open the sidebar.
@@ -212,6 +217,23 @@ The page shows:
 
 **Non-Golf:** Shows a drill checklist matched to your sport and the primary issue from your latest video analysis. Includes phase reference card and evidence note from the sport config.
 
+**Fault explanations adapt to you.** On Diagnose, Training, and Retest, each fault is explained for your role: players get a plain "here's what to feel" version, coaches get the technical cause and cue, and parents get a supportive, jargon-free version. Same finding, told the right way for whoever is reading.
+
+---
+
+## 11b. Retest — Prove the Change
+
+A diagnosis is a starting point, not a verdict. The **Retest** page (in the main navigation) closes the improvement loop.
+
+- It reminds you when a diagnosed finding is **due for a retest** — after you've had time to work the drills.
+- Re-analyze under the **same conditions** (same camera angle, distance, and equipment) so the comparison is fair.
+- SwingIQ then shows an honest **before-and-after read** of whether the finding actually changed.
+- **Golf:** retests match curated faults against your fresh launch-monitor data.
+- **Video sports:** retests compare a new video analysis to the earlier one.
+- Reminders for what's due and the results you've already earned also appear on your dashboard.
+
+> Retest comparisons are **directional reads** from your data and video — an honest "looks like it's moving the right way," not lab-measured biomechanics.
+
 ---
 
 ## 12. Practice Schedule
@@ -335,12 +357,14 @@ The **Share with Your Coach** card generates a formatted text report for your ac
 
 Paste into a message, email, or notes app to share with your coach or club fitter.
 
+**Share as an image.** Open your shareable report card and choose the **Image** action to turn it into a clean, ready-to-post square picture — your top priority, recommended drills, and practice plan in one shot. The image is created privately on your own device. On a phone it shares straight to your messages or social apps; on a computer it downloads so you can save or post it.
+
 ---
 
 ## 20. Settings
 
 - **Units:** Yards or meters
-- **Theme:** Light, dark, or system
+- **Theme:** 7 curated themes (Standard, Dark Performance, Coach Mode, Heritage Club, Field & Court, Arcade Practice, Bird Print Lifestyle) under **Settings → Appearance** — visual layer only, never changes layout or coaching logic
 - **Show estimated warnings:** Toggle the ⚠ Estimated labels
 - **Coaching style:** Data-first, feel-first, balanced, encouragement
 - **Default club for diagnose:** Pre-selects a club in the diagnostic dropdown
@@ -476,8 +500,8 @@ Found at **Sessions → Import from Image** (or the image icon on the Import pag
 Use this to get data into SwingIQ from a screenshot or photo of a performance table.
 
 1. **Upload:** Select your sport and movement type, choose the data source (FlightScope, TrackMan, HitTrax, etc.), and upload your image (jpg, png, webp — max 10 MB)
-2. **Review:** Enter your data values into the editable table. Columns are pre-populated based on the source you selected. Add or delete rows as needed.
+2. **Extract & Review:** If auto-extraction is available, SwingIQ reads the numbers off your image and pre-fills the table with a confidence note (e.g. "Auto-extracted 6 rows at medium confidence — please review every value"). Otherwise the table starts blank. Either way, you enter or correct values into the editable table. Columns are pre-populated based on the source you selected. Add or delete rows as needed.
 3. **Confirm:** Review your final data before saving. A privacy notice confirms your data stays local.
 4. **Analyze:** Your confirmed data is saved and routed to the diagnostic engine.
 
-> Auto-extraction (OCR) is coming in a future release. For now, manual entry is the supported workflow.
+> Auto-extraction (OCR) runs only when an extraction provider is configured, and it's purely a head start — every value lands in the review table for you to check before anything is saved. Manual entry is always the default, fully supported workflow, and no unreviewed OCR output is ever analyzed.

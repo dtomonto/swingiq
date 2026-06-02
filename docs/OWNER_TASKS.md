@@ -43,6 +43,16 @@ Use this file to track what has already been built and what you still need to se
 - [x] Sport-specific empty states and CTAs throughout
 - [x] Non-golf training page with sport-specific drill checklist
 - [x] Non-golf progress tracker (video analysis score trends, recurring issues)
+
+### Improvement Loop, Accounts & Offline
+- [x] **Retest page** (`/retest`) — reminds you when a finding is due for a retest and shows an honest, directional before-and-after read once you re-analyze under the same conditions (golf matches curated faults to fresh launch-monitor data; video sports compare analyses). Reminders + results also surface on the dashboard.
+- [x] **Role-aware fault explanations** — every fault is explained for the reader (player / coach / parent) on the Diagnose, Training, and Retest screens
+- [x] **Keyless instant start** — no sign-up required; data is saved privately on-device by default. Optional account (sign-up / sign-in / password reset) activates when Supabase auth keys are present.
+- [x] **Keyless monetization** — Pro waitlist works with no payment provider; optional Stripe checkout activates when keys are present (`lib/billing/tiers.ts`)
+- [x] **Offline support** — offline status banner + IndexedDB outbox queues network actions and completes them automatically on reconnect (always on, nothing to configure)
+- [x] **Share report as image** — Reports → report card → Image action builds a ready-to-post square image on-device (mobile shares natively; desktop downloads)
+- [x] **"Today's Fix" engagement CTAs** translated across all 20 coaching languages
+- [x] **Motion engine scaffolding** — on-device pose estimation (`lib/pose`) + motion engine (`lib/motion`); optional MediaPipe pose provider behind a feature flag, with a pose-derived score
 - [x] Non-golf pre-game warm-up checklists (tennis, baseball, slow pitch, fast pitch)
 - [x] Non-golf session log page (manual entry)
 - [x] Sport-specific camera angle selector in video analyzer
@@ -66,8 +76,8 @@ Use this file to track what has already been built and what you still need to se
 ### Screenshot / Image Import
 - [x] Upload photos of performance tables from FlightScope, TrackMan, Foresight, HitTrax, Rapsodo, Blast Motion, Zepp, spreadsheets, and more (Settings → Import from Image)
 - [x] Manual review and edit before any data is saved
-- [x] 4-step wizard: Upload → Review → Confirm → Analyze
-- [x] Auto-extraction (OCR) service layer is built — requires API key integration to activate
+- [x] 4-step wizard: Upload → Extract & Review → Confirm → Analyze
+- [x] **Optional OCR auto-extraction** is wired in — when an extraction provider is configured it pre-fills the review table (with a confidence note); with no provider it falls back to manual entry automatically. Manual entry stays the default, supported path and no unreviewed output is ever analyzed.
 
 ### Backup & Restore (Schema v1.2.0)
 - [x] Full data backup — all sports, profiles, sessions, analyses, drills, settings
@@ -103,7 +113,7 @@ Use this file to track what has already been built and what you still need to se
 - [x] Homepage (`/`) with JSON-LD structured data (WebApplication + FAQPage)
 - [x] How It Works page (`/how-it-works`)
 - [x] Sport-specific SEO pages: `/golf-swing-analysis`, `/tennis-swing-analysis`, `/baseball-swing-analysis`, `/softball-swing-analysis`
-- [x] Pricing page (`/pricing`) — free tier + Pro coming soon
+- [x] Pricing page (`/pricing`) — free tier + Pro **waitlist** (keyless; works with no payment provider, optional Stripe checkout activates when keys are present)
 - [x] Parents/youth safety page (`/parents`)
 - [x] Privacy policy (`/privacy`)
 - [x] Terms of service (`/terms`)

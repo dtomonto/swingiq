@@ -168,7 +168,7 @@ This checklist tells you exactly what to do before you open SwingIQ to the publi
 
 ### 3.6 Mobile PWA Improvements
 - [ ] Test "Add to Home Screen" on both iOS Safari and Android Chrome
-- [ ] Verify offline mode shows a friendly message when there's no internet
+- [x] Offline mode shows a friendly banner when there's no internet, and queues network actions to finish on reconnect (IndexedDB outbox) — shipped; verify it on your own device
 - [ ] Add push notifications for practice reminders (Web Push API)
 - [ ] Test that the app icon and splash screen look correct on phone home screen
 
