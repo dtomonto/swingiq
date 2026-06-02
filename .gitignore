@@ -26,6 +26,8 @@ build
 
 # Claude Code internal worktrees (transient, machine-local)
 .claude/worktrees/
+# Claude Code per-machine permission allowlist — stays local, not shared
+.claude/settings.local.json
 
 # OS
 .DS_Store
