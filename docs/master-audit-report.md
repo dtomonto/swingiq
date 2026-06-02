@@ -4,9 +4,9 @@ _Consolidated: 2026-06-01 · Branch: `chore/seo-audit/2026-06` · Status: **loca
 
 > **🔄 Auto-compiled monthly.** This report is regenerated on the 1st of each month at 11:00 AM by the
 > `monthly-master-audit-report` scheduled task, which merges every scheduled audit — SEO/AEO/GEO (S1),
-> AI-features (S7), build/CI health, security (S3/S4), and growth (S5/S6) — into this single executive
-> document. Each source audit writes its own dated report under `docs/audits/…`; the compiler reads
-> those and overwrites this file. It commits **locally only — never pushes** (the owner reviews + pushes).
+> AI-features (S7), engagement/retention (S9), build/CI health (S8), security (S3/S4), and growth (S5/S6) —
+> into this single executive document. Each source audit writes its own dated report under `docs/audits/…`;
+> the compiler reads those and overwrites this file. It commits **locally only — never pushes** (the owner reviews + pushes).
 
 > **📘 In Plain English (start here).** This single page merges every audit SwingIQ has
 > run — the monthly SEO/AEO/GEO scan, the staged-navigation review, the automated security
@@ -66,7 +66,8 @@ below with sources.
 | S6 | [content/growth/weekly-plans/2026-06-01.md](../content/growth/weekly-plans/2026-06-01.md) | Weekly growth plan | 2026-06-01 | ✅ On-demand (`npm run growth:plan`) | Content/outreach cadence (1 article, 5 scripts, 10 outreach, 3 community posts, 1 conversion improvement) — drafts only, manual posting |
 | S7 | docs/audits/ai-features/&lt;YYYY-MM-DD&gt;.md (written per run) | AI-features audit | (recurring) | ✅ Monthly (`ai-features-monthly-audit`, cron `23 8 1 * *`) | Audits/fixes/improves/enhances the AI video-vision feature, AI Coach/agents, prompts, model IDs, prompt caching, fallbacks, input validation & security, and capability-copy honesty. Commits LOCALLY only (owner pushes); feeds AI findings (F-04, F-25) into this report |
 | S8 | docs/audits/build-health/&lt;YYYY-MM-DD&gt;.md (written per run) | Build / CI health audit | (recurring) | ✅ Weekly (`weekly-github-build-audit`, cron `47 8 * * 1`) | Audits GitHub open/stuck PRs + failing CI/Actions and local type-check/lint/build; fixes safe breakages. Commits LOCALLY only (owner pushes); feeds build/CI health into this report |
-| — | (compiler) | Executive consolidation | (recurring) | ✅ Monthly (`monthly-master-audit-report`, cron `0 11 1 * *`) | Merges S1/S3/S4/S5/S6/S7/S8 into THIS executive report + `audit-action-dashboard.md` + `master-audit-report.json`. Commits LOCALLY only (owner pushes) |
+| S9 | docs/audits/engagement/&lt;YYYY-MM-DD&gt;.md (written per run) | Engagement / retention audit | (recurring) | ✅ Monthly (`engagement-features-monthly-audit`, cron `39 9 1 * *`) | Audits/fixes/improves/enhances the "ethical progress" engagement layer — Today's Fix returning-user card + `fixFraming` copy, Swing Passport milestones, ethical streaks + comeback flows, role coaching tones, challenges, coach-safe share cards, coaching-language i18n. Checks for dark patterns/manipulation, honesty/determinism, a11y, mobile-first, reuse, and translation coverage. Commits LOCALLY only (owner pushes); feeds engagement findings (F-30) into this report |
+| — | (compiler) | Executive consolidation | (recurring) | ✅ Monthly (`monthly-master-audit-report`, cron `0 11 1 * *`) | Merges S1/S3/S4/S5/S6/S7/S8/S9 into THIS executive report + `audit-action-dashboard.md` + `master-audit-report.json`. Commits LOCALLY only (owner pushes) |
 | R1 | [docs/LAUNCH_READINESS_CHECKLIST.md](LAUNCH_READINESS_CHECKLIST.md) | Reference backlog | May 2026 | — | 4-tier launch backlog (DB, AI key, deploy, legal, payments, monitoring, RLS, deletion, moat items) |
 | R2 | [docs/OWNER_TASKS.md](OWNER_TASKS.md) | Reference backlog | — | — | Owner manual steps: key rotation (P1), GitHub security switches (P3), RLS/storage (P4), ADMIN/CRON secrets (P5), pro-reference verification, legal review (P6) |
 | R3 | [docs/privacy-and-youth-safety-notes.md](privacy-and-youth-safety-notes.md) | Reference (privacy) | 2026-05-31 | — | Privacy posture, youth handling, claims avoided, "needs legal review before scale" |
@@ -75,8 +76,9 @@ below with sources.
 | R6 | [docs/automation.md](automation.md) | Reference (automation) | — | — | Script catalog, CI map, a11y lint posture (7 rules at warn), no-auto-publish policy |
 | R7 | [docs/security-automation.md](security-automation.md) | Reference (security) | — | — | Workflow detail, branch-protection settings, Dependabot, custom rule table |
 
-> **Traceability note.** S1–S8 are genuine audit *outputs* (S7 AI-features → `docs/audits/ai-features/`,
-> S8 build/CI health → `docs/audits/build-health/`); the compiler row is the process that merges them
+> **Traceability note.** S1–S9 are genuine audit *outputs* (S7 AI-features → `docs/audits/ai-features/`,
+> S8 build/CI health → `docs/audits/build-health/`, S9 engagement/retention → `docs/audits/engagement/`);
+> the compiler row is the process that merges them
 > here. R1–R7 are reference docs that
 > contain backlog/recommendations and supply evidence; they are not themselves "scheduled audit
 > runs," and are labeled as such so findings stay honest.
@@ -119,6 +121,7 @@ High / Med / Low (Low = *needs verification*).
 | F-27 | Business / Product | No payment processing (Stripe) implemented | Cannot monetize | — | Implement Stripe Checkout + webhooks before paid tier | P1 (pre-paid) | L | High | R1 |
 | F-28 | Security | Production HTTP security headers need post-deploy verification | Misconfig could weaken CSP/clickjacking defense | Headers reportedly set in middleware/next config | Verify at securityheaders.com after deploy | P2 | S | Med | R1, R2 |
 | F-29 | Debt / Verify | Parse error seen in `video/SportVideoAnalyzerContent.tsx` during audit dev run; `tsc` now clean | Possible transient/already-fixed | — | Confirm builds clean on the committed tree | P3 | S | Low | S1 |
+| F-30 | Product / Retention | "Ethical progress" engagement layer shipped (master @ `78a08ac`/`5d7afd2`): Today's Fix returning-user card + centralized `fixFraming` copy, Swing Passport milestones, role coaching tones (incl. Team organizer), "Choose your coaching language" label. Reuses existing agent/community/i18n engines (no duplication); verified tsc + 87 tests + lint clean + browser-rendered | Stronger return loop + clearer next action (retention moat, complements F-25/F-26) | Reframes the existing deterministic resume engine — no new claims/data; degrades gracefully on missing local data | **Enhance** (now auto-audited monthly via S9): translate the new fix-framing CTAs into the other 19 languages; wire streak-eligible/engagement events into analytics (F-19) so retention is measurable; optional app-wide CTA-language sweep | P3 | M | High | S9, project memory |
 
 ---
 
@@ -236,6 +239,7 @@ High / Med / Low (Low = *needs verification*).
 - **F-22** Activate OCR auto-extraction.
 - **F-24** Burn down the 7 jsx-a11y warn-rules.
 - **F-25** Monthly AI-features audit now automated (`ai-features-monthly-audit`, S7); add AI Coach session memory.
+- **F-30** Engagement layer shipped + now auto-audited monthly (`engagement-features-monthly-audit`, S9); enhance by translating the fix-framing CTAs and wiring engagement events into analytics (F-19).
 
 ### Long-term platform investments — 90+ days
 - AI Coach memory as a retention moat (F-25 extension).
@@ -259,6 +263,12 @@ High / Med / Low (Low = *needs verification*).
   the offline message.
 - **Retention:** Connect the email lifecycle (F-26) and pursue AI Coach memory (F-25) so returning
   users feel continuity.
+- **Engagement layer (F-30):** The "ethical progress" surface now shipped — Today's Fix returning-user
+  card, Swing Passport milestones, ethical streaks/comeback flows, role coaching tones, coach-safe
+  share cards. It is now audited monthly (S9, `engagement-features-monthly-audit`) for dark patterns,
+  honesty, accessibility and translation coverage. Next enhancements: translate the new fix-framing
+  CTAs (currently English-only) and wire engagement events into analytics (F-19) so the return loop
+  is measurable. Keep all comeback/streak copy supportive — never shame or fake-urgency.
 - **Conversion measurement:** The weekly plan (S6) calls for one conversion improvement per week —
   this is only meaningful once analytics (F-19) is live to measure before/after.
 
