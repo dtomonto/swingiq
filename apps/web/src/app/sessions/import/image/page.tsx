@@ -12,6 +12,7 @@ import { Card, CardHeader, CardBody, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSport } from '@/contexts/SportContext';
 import type { ImageExtractionSource } from '@swingiq/core';
+import { runOcr } from '@/lib/import/ocrClient';
 
 // ── Sport movement types ──────────────────────────────────────
 
@@ -167,10 +168,9 @@ export default function ImageImportPage() {
   // Step 2 state
   const [columnHeaders, setColumnHeaders] = useState<string[]>([]);
   const [tableRows, setTableRows] = useState<string[][]>([]);
-  const warnings = [
-    'Automatic extraction is not yet enabled. Please enter your data manually below.',
-    'Upload your image for reference, then type your values into the table.',
-  ];
+  const [extracting, setExtracting] = useState(false);
+  const [autoExtracted, setAutoExtracted] = useState(false);
+  const [extractionNote, setExtractionNote] = useState<string | null>(null);
 
   // Step 4 state
   const [saved, setSaved] = useState(false);
@@ -211,13 +211,39 @@ export default function ImageImportPage() {
 
   // ── Step transitions ──────────────────────────────────────
 
-  const goToStep2 = useCallback(() => {
-    // Initialize column headers from selected source
+  const goToStep2 = useCallback(async () => {
     const defaultCols = DEFAULT_COLUMNS[dataSource] ?? ['Column 1', 'Column 2', 'Column 3'];
+    setExtractionNote(null);
+    setAutoExtracted(false);
+
+    // If OCR is configured and an image was uploaded, try auto-extraction.
+    // This is purely additive — any failure falls back to manual entry.
+    if (imageFile) {
+      setExtracting(true);
+      const result = await runOcr(imageFile, dataSource);
+      setExtracting(false);
+      if (result.configured && result.headers && result.headers.length > 0) {
+        setColumnHeaders(result.headers);
+        setTableRows(
+          result.rows && result.rows.length > 0
+            ? result.rows
+            : [Array(result.headers.length).fill('')],
+        );
+        setAutoExtracted(true);
+        setExtractionNote(
+          `Auto-extracted ${result.rows?.length ?? 0} row(s) at ${result.confidence ?? 'low'} confidence — please review every value before saving.`,
+        );
+        setStep(2);
+        return;
+      }
+      if (result.message) setExtractionNote(result.message);
+    }
+
+    // Keyless / fallback path: manual entry with sensible default columns.
     setColumnHeaders(defaultCols);
     setTableRows([Array(defaultCols.length).fill('')]);
     setStep(2);
-  }, [dataSource]);
+  }, [dataSource, imageFile]);
 
   const addRow = useCallback(() => {
     setTableRows((prev) => [...prev, Array(columnHeaders.length).fill('')]);
@@ -391,10 +417,11 @@ export default function ImageImportPage() {
                   variant="primary"
                   size="lg"
                   onClick={goToStep2}
-                  disabled={!movementType}
+                  disabled={!movementType || extracting}
+                  loading={extracting}
                   className="gap-2"
                 >
-                  Next: Review Data →
+                  {extracting ? 'Reading image…' : 'Next: Review Data →'}
                 </Button>
               </div>
               {!movementType && (
@@ -409,20 +436,23 @@ export default function ImageImportPage() {
         {/* ── STEP 2: Extract & Review ── */}
         {step === 2 && (
           <div className="space-y-4">
-            {/* Notice banner */}
-            <div className="bg-warning/10 border border-warning/30 rounded-xl px-4 py-3">
-              <p className="text-sm font-medium text-warning">Auto-extract is coming soon.</p>
-              <p className="text-sm text-warning">
-                Please type your values into the table below. Your uploaded image is shown for reference.
-              </p>
-            </div>
-
-            {/* Warnings */}
-            {warnings.map((w, i) => (
-              <div key={i} className="text-xs text-muted-foreground bg-muted border border-border rounded-lg px-3 py-2">
-                {w}
+            {/* Notice banner — capability-aware */}
+            {autoExtracted ? (
+              <div className="bg-primary/10 border border-primary/30 rounded-xl px-4 py-3">
+                <p className="text-sm font-medium text-primary">Auto-extracted from your image.</p>
+                <p className="text-sm text-primary">
+                  {extractionNote ?? 'Review every value carefully — nothing is saved until you confirm.'}
+                </p>
               </div>
-            ))}
+            ) : (
+              <div className="bg-warning/10 border border-warning/30 rounded-xl px-4 py-3">
+                <p className="text-sm font-medium text-warning">Enter your data below.</p>
+                <p className="text-sm text-warning">
+                  {extractionNote ??
+                    'Type your values into the table. Your uploaded image is shown for reference. (Add an OCR provider key to enable automatic extraction.)'}
+                </p>
+              </div>
+            )}
 
             <div className="flex flex-col lg:flex-row gap-4">
               {/* Image reference panel */}
