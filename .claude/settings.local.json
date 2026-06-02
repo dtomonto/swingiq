@@ -108,7 +108,12 @@
       "Bash(grep -n '<footer\\\\|</footer>' apps/web/src/app/__TRACKED_VAR__/page.tsx)",
       "Bash(grep -n ^import apps/web/src/app/__TRACKED_VAR__/page.tsx)",
       "Bash(node -e \"try{require.resolve\\('next/og'\\);console.log\\('next/og: yes'\\)}catch\\(e\\){console.log\\('next/og: no'\\)}\")",
-      "Bash(node -e \"try{require.resolve\\('sharp'\\);console.log\\('sharp: yes'\\)}catch\\(e\\){console.log\\('sharp: no'\\)}\")"
+      "Bash(node -e \"try{require.resolve\\('sharp'\\);console.log\\('sharp: yes'\\)}catch\\(e\\){console.log\\('sharp: no'\\)}\")",
+      "Bash(git worktree *)",
+      "Bash(grep -vE '\\\\.md$')",
+      "Bash(git -C \"C:/Users/dtomo/OneDrive/Desktop/swingiq\" ls-files \"apps/web/src/app\")",
+      "Bash(git -C \"C:/Users/dtomo/OneDrive/Desktop/swingiq\" status --short)",
+      "Bash(git -C \"C:/Users/dtomo/OneDrive/Desktop/swingiq\" diff --stat)"
     ]
   }
 }
