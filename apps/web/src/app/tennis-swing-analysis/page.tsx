@@ -1,22 +1,28 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PublicFooter } from '@/components/layout/PublicFooter';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import {
+  buildGraph,
+  organizationSchema,
+  websiteSchema,
+  howToSchema,
+  faqPageSchema,
+} from '@/lib/seo/jsonLd';
 
-export const metadata: Metadata = {
-  title: 'Free Tennis Swing Analysis — AI Stroke Analysis & Drill Recommendations | SwingIQ',
+export const metadata = buildMetadata({
+  title: 'Free Tennis Swing Analysis — AI Stroke Analysis & Drill Recommendations',
   description:
     'Get a free AI tennis swing analysis. Upload a video of your groundstrokes, serve, or volleys and receive instant fault diagnosis and personalized drills.',
-  openGraph: {
-    title: 'Free Tennis Swing Analysis — AI-Powered | SwingIQ',
-    description:
-      'Upload a video of your groundstrokes, serve, or volleys and receive instant AI stroke analysis with personalized drill recommendations.',
-    type: 'website',
-    url: 'https://swingiq.app/tennis-swing-analysis',
-  },
-  alternates: {
-    canonical: '/tennis-swing-analysis',
-  },
-};
+  path: '/tennis-swing-analysis',
+  keywords: [
+    'tennis swing analysis',
+    'AI tennis coach',
+    'tennis stroke analysis app',
+    'improve forehand',
+  ],
+});
 
 const faqItems = [
   {
@@ -46,26 +52,26 @@ const faqItems = [
   },
 ];
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'SwingIQ', item: 'https://swingiq.app' },
-        { '@type': 'ListItem', position: 2, name: 'Tennis Swing Analysis', item: 'https://swingiq.app/tennis-swing-analysis' },
-      ],
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: faqItems.map(({ question, answer }) => ({
-        '@type': 'Question',
-        name: question,
-        acceptedAnswer: { '@type': 'Answer', text: answer },
-      })),
-    },
-  ],
-};
+// Single source of truth for the visible "How it works" steps AND the HowTo
+// JSON-LD, so the page and structured data never drift.
+const howSteps = [
+  { name: 'Upload Your Video', text: 'Film from the side or behind. Any phone camera works. Upload directly to SwingIQ.' },
+  { name: 'AI Diagnoses Each Phase', text: 'The system checks preparation, backswing, forward swing, contact, and follow-through against technical benchmarks.' },
+  { name: 'Train With Purpose', text: 'Get targeted drills, a weekly practice schedule, and progress tracking for each stroke.' },
+];
+
+// Breadcrumb trail (also drives the BreadcrumbList JSON-LD via <Breadcrumbs>).
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Tennis Swing Analysis', path: '/tennis-swing-analysis' },
+];
+
+const pageGraph = buildGraph(
+  organizationSchema(),
+  websiteSchema(),
+  howToSchema('How Tennis Stroke Analysis Works', howSteps),
+  faqPageSchema(faqItems),
+);
 
 const strokes = [
   { name: 'Forehand', focus: 'Unit turn, contact point depth, follow-through height' },
@@ -79,10 +85,8 @@ const strokes = [
 export default function TennisSwingAnalysisPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={pageGraph} />
+      <Breadcrumbs items={crumbs} className="max-w-4xl mx-auto px-4 pt-4" />
 
       {/* Hero */}
       <header className="bg-primary text-primary-foreground">
@@ -119,17 +123,13 @@ export default function TennisSwingAnalysisPage() {
             How Tennis Stroke Analysis Works
           </h2>
           <ol className="grid sm:grid-cols-3 gap-6">
-            {[
-              { step: '1', title: 'Upload Your Video', desc: 'Film from the side or behind. Any phone camera works. Upload directly to SwingIQ.' },
-              { step: '2', title: 'AI Diagnoses Each Phase', desc: 'The system checks preparation, backswing, forward swing, contact, and follow-through against technical benchmarks.' },
-              { step: '3', title: 'Train With Purpose', desc: 'Get targeted drills, a weekly practice schedule, and progress tracking for each stroke.' },
-            ].map(({ step, title, desc }) => (
-              <li key={step} className="flex flex-col items-center text-center">
+            {howSteps.map((s, i) => (
+              <li key={s.name} className="flex flex-col items-center text-center">
                 <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-black text-lg flex items-center justify-center mb-4">
-                  {step}
+                  {i + 1}
                 </div>
-                <h3 className="font-bold text-foreground mb-2">{title}</h3>
-                <p className="text-sm text-muted-foreground">{desc}</p>
+                <h3 className="font-bold text-foreground mb-2">{s.name}</h3>
+                <p className="text-sm text-muted-foreground">{s.text}</p>
               </li>
             ))}
           </ol>

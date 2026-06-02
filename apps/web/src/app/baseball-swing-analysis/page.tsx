@@ -1,22 +1,28 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PublicFooter } from '@/components/layout/PublicFooter';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import {
+  buildGraph,
+  organizationSchema,
+  websiteSchema,
+  howToSchema,
+  faqPageSchema,
+} from '@/lib/seo/jsonLd';
 
-export const metadata: Metadata = {
-  title: 'Free Baseball Swing Analysis — Exit Velocity, Launch Angle & Bat Speed | SwingIQ',
+export const metadata = buildMetadata({
+  title: 'Free Baseball Swing Analysis — Exit Velocity, Launch Angle & Bat Speed',
   description:
     'Analyze your baseball swing with AI. Track exit velocity, launch angle, bat speed, and attack angle. Get drill recommendations to fix your swing faults.',
-  openGraph: {
-    title: 'Free Baseball Swing Analysis — AI-Powered | SwingIQ',
-    description:
-      'Track exit velocity, launch angle, and bat speed. Get AI-powered swing fault diagnosis and drill recommendations — free.',
-    type: 'website',
-    url: 'https://swingiq.app/baseball-swing-analysis',
-  },
-  alternates: {
-    canonical: '/baseball-swing-analysis',
-  },
-};
+  path: '/baseball-swing-analysis',
+  keywords: [
+    'baseball swing analysis',
+    'AI baseball hitting coach',
+    'bat path analysis',
+    'exit velocity',
+  ],
+});
 
 const faqItems = [
   {
@@ -46,26 +52,26 @@ const faqItems = [
   },
 ];
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'SwingIQ', item: 'https://swingiq.app' },
-        { '@type': 'ListItem', position: 2, name: 'Baseball Swing Analysis', item: 'https://swingiq.app/baseball-swing-analysis' },
-      ],
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: faqItems.map(({ question, answer }) => ({
-        '@type': 'Question',
-        name: question,
-        acceptedAnswer: { '@type': 'Answer', text: answer },
-      })),
-    },
-  ],
-};
+// Single source of truth for the visible "How it works" steps AND the HowTo
+// JSON-LD, so the page and structured data never drift.
+const howSteps = [
+  { name: 'Import Your Data', text: 'Connect HitTrax, Rapsodo, or Blast Motion. Or upload a screenshot from any device.' },
+  { name: 'AI Identifies Faults', text: 'The system compares your EV, launch angle, bat speed, and attack angle to level-appropriate benchmarks.' },
+  { name: 'Drill & Improve', text: "Get specific drills for your pattern — whether it's early extension, casting, or a steep attack angle." },
+];
+
+// Breadcrumb trail (also drives the BreadcrumbList JSON-LD via <Breadcrumbs>).
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Baseball Swing Analysis', path: '/baseball-swing-analysis' },
+];
+
+const pageGraph = buildGraph(
+  organizationSchema(),
+  websiteSchema(),
+  howToSchema('How Baseball Swing Analysis Works', howSteps),
+  faqPageSchema(faqItems),
+);
 
 const metrics = [
   { label: 'Exit Velocity', detail: 'Ball speed off the bat. Primary indicator of hard-hit contact quality.' },
@@ -81,10 +87,8 @@ const metrics = [
 export default function BaseballSwingAnalysisPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={pageGraph} />
+      <Breadcrumbs items={crumbs} className="max-w-4xl mx-auto px-4 pt-4" />
 
       {/* Hero */}
       <header className="bg-primary text-primary-foreground">
@@ -121,17 +125,13 @@ export default function BaseballSwingAnalysisPage() {
             How Baseball Swing Analysis Works
           </h2>
           <ol className="grid sm:grid-cols-3 gap-6">
-            {[
-              { step: '1', title: 'Import Your Data', desc: 'Connect HitTrax, Rapsodo, or Blast Motion. Or upload a screenshot from any device.' },
-              { step: '2', title: 'AI Identifies Faults', desc: 'The system compares your EV, launch angle, bat speed, and attack angle to level-appropriate benchmarks.' },
-              { step: '3', title: 'Drill & Improve', desc: 'Get specific drills for your pattern — whether it\'s early extension, casting, or a steep attack angle.' },
-            ].map(({ step, title, desc }) => (
-              <li key={step} className="flex flex-col items-center text-center">
+            {howSteps.map((s, i) => (
+              <li key={s.name} className="flex flex-col items-center text-center">
                 <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-black text-lg flex items-center justify-center mb-4">
-                  {step}
+                  {i + 1}
                 </div>
-                <h3 className="font-bold text-foreground mb-2">{title}</h3>
-                <p className="text-sm text-muted-foreground">{desc}</p>
+                <h3 className="font-bold text-foreground mb-2">{s.name}</h3>
+                <p className="text-sm text-muted-foreground">{s.text}</p>
               </li>
             ))}
           </ol>

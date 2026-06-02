@@ -1,22 +1,28 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PublicFooter } from '@/components/layout/PublicFooter';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import {
+  buildGraph,
+  organizationSchema,
+  websiteSchema,
+  howToSchema,
+  faqPageSchema,
+} from '@/lib/seo/jsonLd';
 
-export const metadata: Metadata = {
-  title: 'Free Golf Swing Analysis — AI-Powered Launch Monitor Data | SwingIQ',
+export const metadata = buildMetadata({
+  title: 'Free Golf Swing Analysis — AI-Powered Launch Monitor Data',
   description:
     'Upload your launch monitor data or swing video for a free AI golf swing analysis. Identify your top swing fault, get personalized drills, and track improvement.',
-  openGraph: {
-    title: 'Free Golf Swing Analysis — AI-Powered | SwingIQ',
-    description:
-      'Upload your launch monitor data or swing video for a free AI golf swing analysis. Identify your top swing fault, get personalized drills, and track improvement.',
-    type: 'website',
-    url: 'https://swingiq.app/golf-swing-analysis',
-  },
-  alternates: {
-    canonical: '/golf-swing-analysis',
-  },
-};
+  path: '/golf-swing-analysis',
+  keywords: [
+    'golf swing analysis',
+    'free golf swing analyzer',
+    'AI golf coach',
+    'launch monitor data analysis',
+  ],
+});
 
 const faqItems = [
   {
@@ -46,26 +52,26 @@ const faqItems = [
   },
 ];
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'SwingIQ', item: 'https://swingiq.app' },
-        { '@type': 'ListItem', position: 2, name: 'Golf Swing Analysis', item: 'https://swingiq.app/golf-swing-analysis' },
-      ],
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: faqItems.map(({ question, answer }) => ({
-        '@type': 'Question',
-        name: question,
-        acceptedAnswer: { '@type': 'Answer', text: answer },
-      })),
-    },
-  ],
-};
+// Single source of truth for the visible "How it works" steps AND the HowTo
+// JSON-LD, so the page and structured data never drift.
+const howSteps = [
+  { name: 'Upload Your Data', text: 'Import a CSV from your launch monitor, upload a screenshot, or manually enter key metrics.' },
+  { name: 'AI Diagnoses Your Faults', text: 'Our rules engine cross-references 20+ biomechanical benchmarks to identify your top swing pattern issues.' },
+  { name: 'Get Your Practice Plan', text: 'Receive drill recommendations, a weekly training schedule, and benchmarks to track improvement.' },
+];
+
+// Breadcrumb trail (also drives the BreadcrumbList JSON-LD via <Breadcrumbs>).
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Golf Swing Analysis', path: '/golf-swing-analysis' },
+];
+
+const pageGraph = buildGraph(
+  organizationSchema(),
+  websiteSchema(),
+  howToSchema('How Golf Swing Analysis Works', howSteps),
+  faqPageSchema(faqItems),
+);
 
 const metrics = [
   { label: 'Ball Speed', detail: 'Measures energy transfer from club to ball. Target smash factor 1.45–1.50.' },
@@ -83,10 +89,8 @@ const metrics = [
 export default function GolfSwingAnalysisPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={pageGraph} />
+      <Breadcrumbs items={crumbs} className="max-w-4xl mx-auto px-4 pt-4" />
 
       {/* Hero */}
       <header className="bg-primary text-primary-foreground">
@@ -123,29 +127,13 @@ export default function GolfSwingAnalysisPage() {
             How Golf Swing Analysis Works
           </h2>
           <ol className="grid sm:grid-cols-3 gap-6">
-            {[
-              {
-                step: '1',
-                title: 'Upload Your Data',
-                desc: 'Import a CSV from your launch monitor, upload a screenshot, or manually enter key metrics.',
-              },
-              {
-                step: '2',
-                title: 'AI Diagnoses Your Faults',
-                desc: 'Our rules engine cross-references 20+ biomechanical benchmarks to identify your top swing pattern issues.',
-              },
-              {
-                step: '3',
-                title: 'Get Your Practice Plan',
-                desc: 'Receive drill recommendations, a weekly training schedule, and benchmarks to track improvement.',
-              },
-            ].map(({ step, title, desc }) => (
-              <li key={step} className="flex flex-col items-center text-center">
+            {howSteps.map((s, i) => (
+              <li key={s.name} className="flex flex-col items-center text-center">
                 <div className="w-12 h-12 rounded-full bg-primary text-white font-black text-lg flex items-center justify-center mb-4">
-                  {step}
+                  {i + 1}
                 </div>
-                <h3 className="font-bold text-foreground mb-2">{title}</h3>
-                <p className="text-sm text-muted-foreground">{desc}</p>
+                <h3 className="font-bold text-foreground mb-2">{s.name}</h3>
+                <p className="text-sm text-muted-foreground">{s.text}</p>
               </li>
             ))}
           </ol>

@@ -1,22 +1,28 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PublicFooter } from '@/components/layout/PublicFooter';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import {
+  buildGraph,
+  organizationSchema,
+  websiteSchema,
+  howToSchema,
+  faqPageSchema,
+} from '@/lib/seo/jsonLd';
 
-export const metadata: Metadata = {
-  title: 'Free Softball Swing Analysis — Slow Pitch & Fast Pitch AI Tool | SwingIQ',
+export const metadata = buildMetadata({
+  title: 'Free Softball Swing Analysis — Slow Pitch & Fast Pitch AI Tool',
   description:
     'Analyze your softball swing with AI — for both slow pitch and fast pitch. Track exit velocity, launch angle, bat speed, and get personalized drill recommendations.',
-  openGraph: {
-    title: 'Free Softball Swing Analysis — Slow Pitch & Fast Pitch | SwingIQ',
-    description:
-      'AI swing analysis for slow pitch and fast pitch softball. Track exit velocity, launch angle, and bat speed — get personalized drills free.',
-    type: 'website',
-    url: 'https://swingiq.app/softball-swing-analysis',
-  },
-  alternates: {
-    canonical: '/softball-swing-analysis',
-  },
-};
+  path: '/softball-swing-analysis',
+  keywords: [
+    'softball swing analysis',
+    'AI softball hitting coach',
+    'slow pitch softball swing',
+    'fast pitch softball hitting',
+  ],
+});
 
 const faqItems = [
   {
@@ -46,34 +52,32 @@ const faqItems = [
   },
 ];
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'SwingIQ', item: 'https://swingiq.app' },
-        { '@type': 'ListItem', position: 2, name: 'Softball Swing Analysis', item: 'https://swingiq.app/softball-swing-analysis' },
-      ],
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: faqItems.map(({ question, answer }) => ({
-        '@type': 'Question',
-        name: question,
-        acceptedAnswer: { '@type': 'Answer', text: answer },
-      })),
-    },
-  ],
-};
+// Single source of truth for the visible "How it works" steps AND the HowTo
+// JSON-LD, so the page and structured data never drift.
+const howSteps = [
+  { name: 'Select Your Sport Mode', text: 'Choose slow pitch or fast pitch. SwingIQ loads the right benchmarks and drill library for your discipline.' },
+  { name: 'Import or Enter Data', text: 'Upload a Blast Motion session, Rapsodo data, or use the photo import to manually enter stats from any device.' },
+  { name: 'Get Your Drill Plan', text: 'Receive targeted drills, a weekly training schedule, and benchmarks tailored to your competition level.' },
+];
+
+// Breadcrumb trail (also drives the BreadcrumbList JSON-LD via <Breadcrumbs>).
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Softball Swing Analysis', path: '/softball-swing-analysis' },
+];
+
+const pageGraph = buildGraph(
+  organizationSchema(),
+  websiteSchema(),
+  howToSchema('How Softball Analysis Works', howSteps),
+  faqPageSchema(faqItems),
+);
 
 export default function SoftballSwingAnalysisPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={pageGraph} />
+      <Breadcrumbs items={crumbs} className="max-w-4xl mx-auto px-4 pt-4" />
 
       {/* Hero */}
       <header className="bg-primary text-primary-foreground">
@@ -162,17 +166,13 @@ export default function SoftballSwingAnalysisPage() {
             How Softball Analysis Works
           </h2>
           <ol className="grid sm:grid-cols-3 gap-6">
-            {[
-              { step: '1', title: 'Select Your Sport Mode', desc: 'Choose slow pitch or fast pitch. SwingIQ loads the right benchmarks and drill library for your discipline.' },
-              { step: '2', title: 'Import or Enter Data', desc: 'Upload a Blast Motion session, Rapsodo data, or use the photo import to manually enter stats from any device.' },
-              { step: '3', title: 'Get Your Drill Plan', desc: 'Receive targeted drills, a weekly training schedule, and benchmarks tailored to your competition level.' },
-            ].map(({ step, title, desc }) => (
-              <li key={step} className="flex flex-col items-center text-center">
+            {howSteps.map((s, i) => (
+              <li key={s.name} className="flex flex-col items-center text-center">
                 <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-black text-lg flex items-center justify-center mb-4">
-                  {step}
+                  {i + 1}
                 </div>
-                <h3 className="font-bold text-foreground mb-2">{title}</h3>
-                <p className="text-sm text-muted-foreground">{desc}</p>
+                <h3 className="font-bold text-foreground mb-2">{s.name}</h3>
+                <p className="text-sm text-muted-foreground">{s.text}</p>
               </li>
             ))}
           </ol>
