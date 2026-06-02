@@ -135,8 +135,8 @@ export default function AboutPage() {
       <section className="py-8 px-4 bg-warning/10 border-y border-warning/30">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs text-warning leading-relaxed">
-            <strong>SwingIQ is an AI-powered improvement assistant — not a certified coach, medical professional, or training authority.</strong>{' '}
-            Findings are heuristic estimates based on data patterns. Always consult qualified professionals for safety-critical decisions, injury concerns, or advanced competitive development. Young athletes should practice under adult supervision.
+            <strong>SwingIQ is your AI-powered improvement edge — confident, data-backed coaching you can use every day.</strong>{' '}
+            Findings are heuristic estimates that sharpen with every swing you add. For injury concerns or advanced competitive development, loop in a qualified coach, and keep young athletes supervised during practice.
           </p>
         </div>
       </section>

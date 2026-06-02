@@ -31,7 +31,7 @@ import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeC
 import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
 import { format } from 'date-fns';
 import { useSport } from '@/contexts/SportContext';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 // ── Quick Actions ─────────────────────────────────────────────
 
@@ -135,14 +135,17 @@ export function DashboardContent() {
 
   const clubs3 = clubs.slice(0, 3);
 
+  // Stable mount-time timestamp so date math stays pure across renders.
+  const [now] = useState(() => Date.now());
+
   // Practice reminder — triggered if last practice was 2+ days ago
   const practiceReminder = useMemo(() => {
     if (!training.last_practice_date) return null;
     const daysSince = Math.floor(
-      (Date.now() - new Date(training.last_practice_date).getTime()) / 86400000
+      (now - new Date(training.last_practice_date).getTime()) / 86400000
     );
     return daysSince >= 2 ? daysSince : null;
-  }, [training.last_practice_date]);
+  }, [training.last_practice_date, now]);
 
   // Training improvement alert
   const improvementAlert = useMemo(() => {
@@ -170,10 +173,11 @@ export function DashboardContent() {
     if (!diagId) return null;
     const routine = getRoutineForDiagnosis(diagId, 'beginner');
     if (!routine?.drill_recommendations.length) return null;
-    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+    const startOfYear = new Date(new Date(now).getFullYear(), 0, 0).getTime();
+    const dayOfYear = Math.floor((now - startOfYear) / 86400000);
     const drill = routine.drill_recommendations[dayOfYear % routine.drill_recommendations.length]!;
     return { drill, routineName: routine.name };
-  }, [typedDiagnosis, training.active_diagnosis_id]);
+  }, [typedDiagnosis, training.active_diagnosis_id, now]);
 
   // Club gap analysis
   const gapAnalysis = useMemo(() => {

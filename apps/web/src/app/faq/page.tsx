@@ -63,11 +63,11 @@ const FAQ_SECTIONS = [
       },
       {
         q: 'Can SwingIQ see what my swing looks like from a video?',
-        a: "SwingIQ can accept a swing video, but it currently uses heuristic analysis rather than full computer-vision pose tracking. Diagnostic results from video are labeled as estimates and should be treated as starting points, not measurements. For more precise analysis, import data from a launch monitor or tracking device.",
+        a: "Yes — upload a swing video and SwingIQ breaks it into phases with coaching notes for each one. Video reads are heuristic estimates: confident, data-backed starting points that sharpen the more you add. Import data from a launch monitor or tracking device and SwingIQ folds those exact numbers straight in for the sharpest read.",
       },
       {
         q: 'Does SwingIQ replace a private coach?',
-        a: 'No. SwingIQ is an AI-powered improvement assistant. It helps you identify recurring patterns, prioritize your practice, understand your swing data, and stay consistent between lessons. For complex technique corrections, injury concerns, or advanced competitive development, work with a qualified coach.',
+        a: "SwingIQ is your everyday improvement edge — it spots your recurring patterns, prioritizes your practice, and keeps you sharp between lessons, no appointment needed. For complex technique corrections, injury concerns, or advanced competitive development it pairs perfectly with a qualified coach, and you'll arrive already ahead.",
       },
       {
         q: 'How accurate is the swing diagnosis?',

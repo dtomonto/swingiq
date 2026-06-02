@@ -37,6 +37,8 @@ export interface VisionPromptInput {
   notes?: string | null;
   profile?: VisionUserProfile | null;
   previous?: PreviousAnalysisSummary | null;
+  /** Objective signals from on-device pose detection, if available. */
+  poseSummary?: string | null;
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -240,6 +242,14 @@ export function buildVisionPrompt(input: VisionPromptInput): BuiltVisionPrompt {
     userLines.push(
       `For context only, the athlete's previous priorities were: ${input.previous.priorities.join('; ')}. ` +
         `Do NOT assume improvement — judge only from these new frames, and you may note whether the new frames still show those patterns.`,
+    );
+  }
+  userLines.push('');
+  if (input.poseSummary) {
+    userLines.push(
+      `Objective body signals measured on-device by pose detection (use as grounding alongside ` +
+        `what you can see; these are proxies, not lab measurements, so don't over-rely on them): ` +
+        input.poseSummary,
     );
   }
   userLines.push('');

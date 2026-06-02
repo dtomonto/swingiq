@@ -95,7 +95,7 @@ export function FloatingCoach() {
     <>
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-24 right-4 lg:right-6 z-50 w-80 bg-card rounded-2xl shadow-2xl border border-border flex flex-col max-h-96">
+        <div className="fixed bottom-24 right-4 lg:right-6 z-50 w-80 bg-card rounded-2xl shadow-2xl border border-border flex flex-col max-h-96 no-print">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-golf-dark rounded-t-2xl">
             <div className="flex items-center gap-2">
@@ -180,7 +180,7 @@ export function FloatingCoach() {
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          'fixed bottom-6 right-4 lg:right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all',
+          'fixed bottom-6 right-4 lg:right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all no-print',
           open ? 'bg-secondary hover:bg-muted' : 'bg-golf-dark hover:bg-primary',
         )}
         aria-label="Open AI Coach"

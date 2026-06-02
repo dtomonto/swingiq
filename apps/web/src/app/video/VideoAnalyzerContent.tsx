@@ -21,6 +21,8 @@ import { VideoProgress } from '@/components/video/VideoProgress';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { Button } from '@/components/ui/Button';
 import { extractSwingFrames } from '@/lib/frame-extraction';
+import { detectSwingPose, type PoseMetrics } from '@/lib/pose';
+import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import {
   saveVideoAnalysis,
   toPreviousSummary,
@@ -47,6 +49,7 @@ export function VideoAnalyzerContent() {
   const [notConfiguredMessage, setNotConfiguredMessage] = useState<string | null>(null);
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [stage, setStage] = useState<AnalysisStage>('preparing');
+  const [poseMetrics, setPoseMetrics] = useState<PoseMetrics | null>(null);
 
   // Returning-user history (golf), compare toggle, and the just-saved record.
   // `useVideoHistory` reads localStorage after hydration and live-updates on
@@ -82,6 +85,7 @@ export function VideoAnalyzerContent() {
     setVideoObjectUrl(null);
     setVideoMetadata(null);
     setAnalysis(null);
+    setPoseMetrics(null);
     setNotConfiguredMessage(null);
     setAnalyzeError(null);
     setStep('upload');
@@ -106,7 +110,12 @@ export function VideoAnalyzerContent() {
       setStage('extracting');
       const extraction = await extractSwingFrames(videoFile);
 
-      // 2. Send only the frames + metadata to the AI vision route.
+      // 2. On-device pose detection → objective body signals (best-effort).
+      setStage('measuring');
+      const pose = await detectSwingPose(extraction.frames);
+      setPoseMetrics(pose.metrics);
+
+      // 3. Send only the frames + metadata (+ pose summary) to the AI route.
       setStage('inspecting');
       const res = await fetch('/api/video-vision-analysis', {
         method: 'POST',
@@ -120,6 +129,7 @@ export function VideoAnalyzerContent() {
             declaredCameraAngle: cameraAngle,
           },
           previous,
+          poseSummary: pose.summary,
         }),
       });
 
@@ -320,7 +330,10 @@ export function VideoAnalyzerContent() {
                 </div>
 
                 {/* Right: AI analysis */}
-                <AIVisualAnalysisPanel analysis={analysis} />
+                <div className="space-y-4">
+                  {poseMetrics && <PoseSignalsCard metrics={poseMetrics} />}
+                  <AIVisualAnalysisPanel analysis={analysis} />
+                </div>
               </div>
 
               {/* How this video review was produced */}

@@ -16,37 +16,63 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 
-// Routes that do not require authentication
+// Posture: protect app routes by default; allow public routes explicitly.
+// Public routes are expressed two ways so the list does not drift as new
+// SEO pages are added:
+//   • PUBLIC_PATHS         — exact, single public pages.
+//   • PUBLIC_SUBTREES      — prefix match; covers a route AND all of its
+//                            nested children (e.g. every /tools/* page).
+// Keep this in sync with the route tree in apps/web/src/app.
+
+// Exact, single public pages (no meaningful children).
 const PUBLIC_PATHS = new Set([
   '/',
+  // Auth
   '/login',
   '/signup',
-  // Public marketing & SEO pages
+  '/forgot-password',
+  // Marketing & product
   '/how-it-works',
-  '/golf-swing-analysis',
-  '/tennis-swing-analysis',
-  '/baseball-swing-analysis',
-  '/softball-swing-analysis',
-  '/golf',
-  '/tennis',
-  '/baseball',
-  '/slow-pitch-softball',
-  '/fast-pitch-softball',
+  '/methodology',
   '/features',
-  '/faq',
   '/pricing',
-  '/parents',
-  '/updates',
-  '/resources',
+  '/faq',
   '/glossary',
+  '/resources',
+  '/about',
+  '/sports',
+  '/updates',
+  '/free-swing-analysis',
+  '/report/sample',
+  // Audience landing pages
+  '/parents',
+  '/coaches',
+  '/teams',
+  '/creators',
+  '/partners',
   // Trust & legal
   '/privacy',
   '/terms',
   '/trust',
-  '/security',
+  '/vulnerability-disclosure',
 ]);
 
-// Prefixes that are always public (static assets, Next.js internals, public API docs)
+// Public subtrees — prefix match covers the page and every nested child,
+// so new SEO/marketing pages under these trees are public automatically.
+// NOTE: the sport prefixes also cover the hyphenated pillar pages
+// (e.g. '/golf' matches both '/golf/fix-slice' and '/golf-swing-analysis').
+const PUBLIC_SUBTREES = [
+  '/tools',
+  '/challenges',
+  '/blog',
+  '/benchmarks',
+  '/golf',
+  '/tennis',
+  '/baseball',
+  '/softball',
+];
+
+// Prefixes that are always public (static assets, Next.js internals, health).
 const PUBLIC_PREFIXES = [
   '/_next/',
   '/favicon',
@@ -55,8 +81,20 @@ const PUBLIC_PREFIXES = [
   '/api/health',
 ];
 
+// A subtree prefix P matches: the index (P), nested children (P/…), and the
+// hyphenated sport pillar (P-…, e.g. '/golf' → '/golf-swing-analysis').
+// It deliberately does NOT match unrelated routes like '/community/challenges'.
+function matchesSubtree(pathname: string, prefix: string): boolean {
+  return (
+    pathname === prefix ||
+    pathname.startsWith(prefix + '/') ||
+    pathname.startsWith(prefix + '-')
+  );
+}
+
 function isPublicPath(pathname: string): boolean {
   if (PUBLIC_PATHS.has(pathname)) return true;
+  if (PUBLIC_SUBTREES.some((prefix) => matchesSubtree(pathname, prefix))) return true;
   return PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 }
 
