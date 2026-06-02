@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
-import { Menu } from 'lucide-react';
-import { Sidebar, navItems } from './Sidebar';
+import { Menu, LayoutDashboard, Target, Dumbbell, TrendingUp } from 'lucide-react';
+import { Sidebar } from './Sidebar';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
@@ -14,10 +14,14 @@ interface AppShellProps {
   children: React.ReactNode;
 }
 
-// The 4 most important nav items shown in the bottom bar on mobile.
-const BOTTOM_NAV = navItems.filter((item) =>
-  ['/dashboard', '/sessions/import', '/diagnose', '/training'].includes(item.href),
-);
+// The core journey, mirrored in the mobile bottom bar: Today → Analyze →
+// Practice → Progress. "More" opens the full drawer for everything else.
+const BOTTOM_NAV = [
+  { href: '/dashboard', label: 'Today', icon: LayoutDashboard },
+  { href: '/diagnose', label: 'Analyze', icon: Target },
+  { href: '/training', label: 'Practice', icon: Dumbbell },
+  { href: '/progress', label: 'Progress', icon: TrendingUp },
+] as const;
 
 export function AppShell({ children }: AppShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);

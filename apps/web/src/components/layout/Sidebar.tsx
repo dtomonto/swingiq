@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -30,6 +31,8 @@ import {
   Package,
   Compass,
   RotateCcw,
+  ChevronDown,
+  type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
@@ -41,38 +44,105 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
+// A single navigable link.
+interface NavLeaf {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+  /** Show the practice-streak flame indicator on this row. */
+  showStreak?: boolean;
+}
+
+// A journey bucket. If it has children it is expandable; the header still
+// links to `href` (the bucket's home page).
+interface NavSection extends NavLeaf {
+  children?: NavLeaf[];
+}
+
 export function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
   const { training } = useSwingIQStore();
   const { activeSport, sportEmoji, sportTagline, sportLabels, isGolf } = useSport();
 
-  // Sport-aware nav items — core items change labels by sport
-  const navItems = [
-    { href: '/start', label: 'Start Here', icon: Compass },
-    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/profile', label: sportLabels.profile_short, icon: User },
-    { href: isGolf ? '/bag' : '/equipment', label: isGolf ? 'Equipment' : sportLabels.equipment_short, icon: isGolf ? ShoppingBag : Package },
-    { href: '/sessions', label: sportLabels.sessions, icon: Activity },
-    { href: '/sessions/import', label: isGolf ? 'Import Data' : 'Log Session', icon: Upload },
-    { href: '/diagnose', label: isGolf ? 'Diagnose' : 'Analyze Swing', icon: Target },
-    { href: '/training', label: 'Training', icon: Dumbbell },
-    { href: '/practice', label: 'Practice Schedule', icon: CalendarDays },
-    { href: '/pre-round', label: isGolf ? 'Pre-Round' : 'Pre-Game Warm-Up', icon: Sun },
-    { href: '/video', label: 'Video Analysis', icon: Video },
-    { href: '/drills', label: isGolf ? 'Drill Library' : 'Drills', icon: BookOpen },
-    { href: '/progress', label: 'Progress', icon: TrendingUp },
-    { href: '/retest', label: 'Retest', icon: RotateCcw },
-    { href: '/milestones', label: 'Milestones', icon: Trophy },
-    { href: '/compare', label: 'Compare & References', icon: GitCompareArrows },
-    { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
-    { href: '/reports', label: 'Reports', icon: FileText },
-  ] as const;
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
-  const communityItems = [
+  // ── The core journey: one clear path, not a feature inventory. ──
+  // Today → Analyze → Practice → Progress → Share. Advanced tools live as
+  // children that reveal on demand (progressive disclosure).
+  const journey: NavSection[] = [
+    { href: '/dashboard', label: 'Today', icon: LayoutDashboard },
+    {
+      href: '/diagnose',
+      label: 'Analyze',
+      icon: Target,
+      children: [
+        { href: '/diagnose', label: isGolf ? 'Diagnose' : 'Analyze Swing', icon: Target },
+        { href: '/video', label: 'Video Analysis', icon: Video },
+        { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
+        { href: '/sessions/import', label: isGolf ? 'Import Data' : 'Log Session', icon: Upload },
+      ],
+    },
+    {
+      href: '/training',
+      label: 'Practice',
+      icon: Dumbbell,
+      children: [
+        { href: '/training', label: 'Training', icon: Dumbbell, showStreak: true },
+        { href: '/drills', label: isGolf ? 'Drill Library' : 'Drills', icon: BookOpen },
+        { href: '/practice', label: 'Practice Schedule', icon: CalendarDays },
+        { href: '/pre-round', label: isGolf ? 'Pre-Round' : 'Pre-Game Warm-Up', icon: Sun },
+      ],
+    },
+    {
+      href: '/progress',
+      label: 'Progress',
+      icon: TrendingUp,
+      children: [
+        { href: '/progress', label: 'Progress', icon: TrendingUp },
+        { href: '/sessions', label: sportLabels.sessions, icon: Activity },
+        { href: '/retest', label: 'Retest', icon: RotateCcw },
+        { href: '/milestones', label: 'Milestones', icon: Trophy },
+        { href: '/compare', label: 'Compare & References', icon: GitCompareArrows },
+      ],
+    },
+    { href: '/reports', label: 'Share & Coach', icon: FileText },
+  ];
+
+  const accountItems: NavLeaf[] = [
+    { href: '/profile', label: sportLabels.profile_short, icon: User },
+    {
+      href: isGolf ? '/bag' : '/equipment',
+      label: isGolf ? 'Equipment' : sportLabels.equipment_short,
+      icon: isGolf ? ShoppingBag : Package,
+    },
+  ];
+
+  const communityItems: NavLeaf[] = [
     { href: '/community', label: 'Community', icon: Users },
     { href: '/community/badges', label: 'Badges', icon: Award },
     { href: '/data', label: 'Data Center', icon: Database },
-  ] as const;
+  ];
+
+  // A journey section starts expanded when the user is somewhere inside it,
+  // so the active tool is always visible without manual digging.
+  const initialExpanded = () => {
+    const set = new Set<string>();
+    for (const s of journey) {
+      if (s.children && (isActive(s.href) || s.children.some((c) => isActive(c.href)))) {
+        set.add(s.href);
+      }
+    }
+    return set;
+  };
+  const [expanded, setExpanded] = useState<Set<string>>(initialExpanded);
+
+  const toggle = (href: string) =>
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(href)) next.delete(href);
+      else next.add(href);
+      return next;
+    });
 
   // Sport accent colors for active state
   const accentColors: Record<string, string> = {
@@ -83,6 +153,22 @@ export function Sidebar({ onClose }: SidebarProps) {
     softball_fast: 'bg-pink-600',
   };
   const activeClass = accentColors[activeSport] ?? 'bg-green-700';
+
+  const rowClass = (active: boolean) =>
+    cn(
+      'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
+      active ? `${activeClass} text-white` : 'text-foreground/75 hover:bg-muted hover:text-foreground',
+    );
+
+  const streakBadge = (
+    <span
+      className="flex items-center gap-0.5 text-xs text-warning"
+      aria-label={`${training.streak_days} day streak`}
+    >
+      <Flame size={11} aria-hidden="true" />
+      {training.streak_days}
+    </span>
+  );
 
   return (
     <aside className="w-64 bg-secondary text-secondary-foreground border-r border-border flex flex-col h-full">
@@ -113,54 +199,94 @@ export function Sidebar({ onClose }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto" aria-label="Main navigation">
-        {navItems.map(({ href, label, icon: Icon }) => {
-          const isActive = pathname === href || pathname.startsWith(href + '/');
+        {/* New-user on-ramp */}
+        <Link href="/start" onClick={onClose} className={rowClass(isActive('/start'))}>
+          <Compass size={18} className="shrink-0" aria-hidden="true" />
+          <span className="flex-1">Start Here</span>
+        </Link>
+
+        {/* Journey */}
+        <p className="text-xs text-muted-foreground font-medium px-3 pt-3 pb-1 uppercase tracking-wide">
+          Your Journey
+        </p>
+        {journey.map((section) => {
+          const Icon = section.icon;
+          const sectionActive = isActive(section.href);
+          const isOpen = expanded.has(section.href);
+          const hasChildren = !!section.children?.length;
+
           return (
-            <Link
-              key={href}
-              href={href}
-              onClick={onClose}
-              className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
-                isActive
-                  ? `${activeClass} text-white`
-                  : 'text-foreground/75 hover:bg-muted hover:text-foreground',
+            <div key={section.href}>
+              <div className={cn('flex items-center', rowClass(sectionActive), 'pr-1')}>
+                <Link
+                  href={section.href}
+                  onClick={onClose}
+                  className="flex flex-1 items-center gap-3 min-w-0"
+                >
+                  <Icon size={18} className="shrink-0" aria-hidden="true" />
+                  <span className="flex-1 truncate">{section.label}</span>
+                </Link>
+                {hasChildren && (
+                  <button
+                    type="button"
+                    onClick={() => toggle(section.href)}
+                    aria-expanded={isOpen}
+                    aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${section.label}`}
+                    className="shrink-0 p-1 rounded-md hover:bg-black/10"
+                  >
+                    <ChevronDown
+                      size={15}
+                      aria-hidden="true"
+                      className={cn('transition-transform', isOpen ? 'rotate-180' : '')}
+                    />
+                  </button>
+                )}
+              </div>
+
+              {hasChildren && isOpen && (
+                <div className="mt-1 mb-1 ms-4 ps-2 border-s border-border space-y-1">
+                  {section.children!.map((child) => {
+                    const ChildIcon = child.icon;
+                    return (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={onClose}
+                        className={rowClass(isActive(child.href))}
+                      >
+                        <ChildIcon size={16} className="shrink-0" aria-hidden="true" />
+                        <span className="flex-1 truncate">{child.label}</span>
+                        {child.showStreak && training.streak_days > 1 && streakBadge}
+                      </Link>
+                    );
+                  })}
+                </div>
               )}
-            >
-              <Icon size={18} className="shrink-0" aria-hidden="true" />
-              <span className="flex-1">{label}</span>
-              {href === '/training' && training.streak_days > 1 && (
-                <span className="flex items-center gap-0.5 text-xs text-warning" aria-label={`${training.streak_days} day streak`}>
-                  <Flame size={11} aria-hidden="true" />{training.streak_days}
-                </span>
-              )}
-            </Link>
+            </div>
           );
         })}
 
-        {/* Community section */}
-        <div className="pt-2 pb-1">
-          <p className="text-xs text-muted-foreground font-medium px-3 pb-1 uppercase tracking-wide">Community</p>
-          {communityItems.map(({ href, label, icon: Icon }) => {
-            const isActive = pathname === href || pathname.startsWith(href + '/');
-            return (
-              <Link
-                key={href}
-                href={href}
-                onClick={onClose}
-                className={cn(
-                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
-                  isActive
-                    ? `${activeClass} text-white`
-                    : 'text-foreground/75 hover:bg-muted hover:text-foreground',
-                )}
-              >
-                <Icon size={18} className="shrink-0" aria-hidden="true" />
-                <span className="flex-1">{label}</span>
-              </Link>
-            );
-          })}
-        </div>
+        {/* Account */}
+        <p className="text-xs text-muted-foreground font-medium px-3 pt-3 pb-1 uppercase tracking-wide">
+          Account
+        </p>
+        {accountItems.map(({ href, label, icon: Icon }) => (
+          <Link key={href} href={href} onClick={onClose} className={rowClass(isActive(href))}>
+            <Icon size={18} className="shrink-0" aria-hidden="true" />
+            <span className="flex-1 truncate">{label}</span>
+          </Link>
+        ))}
+
+        {/* Community */}
+        <p className="text-xs text-muted-foreground font-medium px-3 pt-3 pb-1 uppercase tracking-wide">
+          Community
+        </p>
+        {communityItems.map(({ href, label, icon: Icon }) => (
+          <Link key={href} href={href} onClick={onClose} className={rowClass(isActive(href))}>
+            <Icon size={18} className="shrink-0" aria-hidden="true" />
+            <span className="flex-1 truncate">{label}</span>
+          </Link>
+        ))}
       </nav>
 
       {/* Sport Switcher */}
@@ -205,23 +331,3 @@ export function Sidebar({ onClose }: SidebarProps) {
     </aside>
   );
 }
-
-// Keep navItems export for legacy references
-export const navItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/profile', label: 'My Profile', icon: User },
-  { href: '/bag', label: 'Equipment', icon: ShoppingBag },
-  { href: '/sessions', label: 'Sessions', icon: Activity },
-  { href: '/sessions/import', label: 'Import Data', icon: Upload },
-  { href: '/diagnose', label: 'Diagnose', icon: Target },
-  { href: '/training', label: 'Training', icon: Dumbbell },
-  { href: '/practice', label: 'Practice Schedule', icon: CalendarDays },
-  { href: '/pre-round', label: 'Pre-Round', icon: Sun },
-  { href: '/video', label: 'Video Analysis', icon: Video },
-  { href: '/drills', label: 'Drill Library', icon: BookOpen },
-  { href: '/progress', label: 'Progress', icon: TrendingUp },
-  { href: '/milestones', label: 'Milestones', icon: Trophy },
-  { href: '/compare', label: 'Compare Sessions', icon: GitCompareArrows },
-  { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
-  { href: '/reports', label: 'Reports', icon: FileText },
-];
