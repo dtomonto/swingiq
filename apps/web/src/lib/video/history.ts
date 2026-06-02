@@ -82,10 +82,42 @@ function isValidRecord(value: unknown): value is SavedVideoAnalysis {
   );
 }
 
+// ── Change notification (powers the useVideoHistory React hook) ──
+const listeners = new Set<() => void>();
+let storeVersion = 0;
+
+/** Monotonic version that changes whenever stored history changes (same tab). */
+export function getVideoHistoryVersion(): number {
+  return storeVersion;
+}
+
+function notifyChange(): void {
+  storeVersion++;
+  for (const listener of listeners) listener();
+}
+
+/**
+ * Subscribe to history changes — same-tab mutations (save/delete/clear) and
+ * cross-tab `storage` events. Returns an unsubscribe function. Consumed by
+ * `useVideoHistory` via `useSyncExternalStore`.
+ */
+export function subscribeVideoHistory(callback: () => void): () => void {
+  listeners.add(callback);
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === KEY) notifyChange();
+  };
+  if (typeof window !== 'undefined') window.addEventListener('storage', onStorage);
+  return () => {
+    listeners.delete(callback);
+    if (typeof window !== 'undefined') window.removeEventListener('storage', onStorage);
+  };
+}
+
 function writeAll(records: SavedVideoAnalysis[]): void {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem(KEY, JSON.stringify(records.slice(0, MAX_ENTRIES)));
+    notifyChange();
   } catch {
     // storage full / unavailable — non-critical
   }
@@ -155,6 +187,7 @@ export function clearVideoHistory(): void {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.removeItem(KEY);
+    notifyChange();
   } catch {
     // ignore
   }

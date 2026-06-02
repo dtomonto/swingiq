@@ -9,6 +9,7 @@ import {
   NotCoachReplacementNotice,
 } from '@/components/trust';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { ThemePreviewStrip } from '@/components/theme/ThemePreviewStrip';
 import {
   buildGraph,
   organizationSchema,
@@ -123,6 +124,26 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
+          <p className="text-center mt-8">
+            <Link
+              href="/sports"
+              className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-xl transition-colors"
+            >
+              Choose My Sport
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* Themes */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-3">Make it yours</h2>
+          <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
+            Seven premium themes — from a clean Standard look to Dark Performance training mode.
+            Themes change the look only; your coaching results never change.
+          </p>
+          <ThemePreviewStrip />
         </div>
       </section>
 
