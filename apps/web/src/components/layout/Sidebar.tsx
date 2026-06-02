@@ -36,6 +36,7 @@ import {
   PersonStanding,
   Sparkles,
   Route,
+  FlaskConical,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -109,6 +110,7 @@ export function Sidebar({ onClose }: SidebarProps) {
         { href: '/sessions', label: sportLabels.sessions, icon: Activity },
         { href: '/retest', label: 'Retest', icon: RotateCcw },
         { href: '/milestones', label: 'Milestones', icon: Trophy },
+        { href: '/labs', label: 'SwingIQ Labs', icon: FlaskConical },
         { href: '/compare', label: 'Compare & References', icon: GitCompareArrows },
         { href: '/benchmarks', label: 'Benchmarks', icon: BarChart3 },
       ],
