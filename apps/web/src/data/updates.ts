@@ -865,4 +865,186 @@ export const UPDATES: Update[] = [
     createdAt: '2026-06-01',
     updatedAt: '2026-06-01',
   },
+  {
+    id: 'update-048',
+    title: 'Prove Your Swing Actually Changed With Retests',
+    slug: 'retest-improvement-loop',
+    metaTitle: 'SwingIQ Retests — See If Your Swing Actually Improved',
+    metaDescription:
+      'SwingIQ now closes the improvement loop: after you work your drills, retest under the same conditions and see an honest before-and-after comparison of your swing.',
+    summary:
+      'A diagnosis is a starting point, not a verdict. SwingIQ now reminds you when a finding is due for a retest, then — after you work your drills and re-analyze under the same conditions — shows you an honest before-and-after read of whether it actually changed. There is a new Retest page that collects what is due and the results you have already earned.',
+    releaseDate: '2026-06-01',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 23,
+    sport: 'All Sports',
+    audience: ['all athletes', 'coaches', 'parents'],
+    relatedFeature: 'Retest',
+    userBenefit:
+      'You finally get to answer the most important practice question: did the work pay off? SwingIQ tracks what you were trying to fix, reminds you when it is time to check, and gives you a clear, directional before-and-after instead of leaving you to guess.',
+    whyItMatters:
+      'Improvement only sticks when you can see it. By turning each diagnosis into a retest you can actually pass, SwingIQ keeps you working on the right thing and gives you proof when it works — which is what keeps you coming back.',
+    whereToFindIt:
+      'Go to Retest in the main navigation. Analyze a swing video, complete the suggested drills, then return to retest under the same camera angle, distance, and equipment.',
+    userActionRequired: 'None — retest reminders appear automatically as you use SwingIQ.',
+    seoKeywords: [
+      'swing retest',
+      'before and after swing analysis',
+      'track swing improvement',
+      'golf swing progress proof',
+      'did my swing improve',
+    ],
+    answerEngineSummary:
+      'SwingIQ added a Retest feature that reminds athletes when a diagnosed swing finding is due for re-checking and shows an honest, directional before-and-after comparison once they re-analyze under the same conditions. Comparisons are clearly labelled as directional reads from video, not measured biomechanics.',
+    generativeSearchSummary:
+      'SwingIQ now closes the improvement loop with a Retest hub: it reminds players to recheck a diagnosed fault after drilling it and shows whether it actually changed, with comparisons honestly labelled directional.',
+    internalLinkTargets: ['/retest', '/video', '/diagnose'],
+    isMajorMilestone: true,
+    isFeatured: true,
+    createdAt: '2026-06-01',
+    updatedAt: '2026-06-01',
+  },
+  {
+    id: 'update-049',
+    title: 'Swing Feedback Written for You — Player, Parent, or Coach',
+    slug: 'role-aware-fault-explanations',
+    summary:
+      'SwingIQ now explains each swing fault in the way that is most useful to who is reading it. Players get a plain, encouraging "here is what to feel" explanation; coaches get the technical cause and cue; parents get a supportive, jargon-free version they can use to help. The same finding, told the right way for you.',
+    releaseDate: '2026-06-01',
+    displayDate: 'June 2026',
+    category: 'Training Improvement',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 24,
+    sport: 'All Sports',
+    audience: ['all athletes', 'parents', 'coaches'],
+    relatedFeature: 'Diagnose',
+    userBenefit:
+      'You see your swing feedback in language that fits you. No wading through coaching jargon if you just want to know what to do — and no oversimplified tips if you are a coach who wants the real cause.',
+    whyItMatters:
+      'The same correction explained the wrong way is confusing or useless. Matching the explanation to the reader — athlete, parent, or coach — makes the advice land faster and helps families and coaches work together.',
+    whereToFindIt:
+      'Fault explanations appear on the Diagnose, Training, and Retest screens, adapted to your role.',
+    seoKeywords: [
+      'plain english swing feedback',
+      'golf swing fault explanation',
+      'coaching cues for players',
+      'help my child improve swing',
+    ],
+    answerEngineSummary:
+      'SwingIQ explains each diagnosed swing fault differently depending on the reader — a plain, encouraging version for athletes, a technical cause-and-cue version for coaches, and a supportive jargon-free version for parents — across its Diagnose, Training, and Retest screens.',
+    isMajorMilestone: false,
+    isFeatured: false,
+    createdAt: '2026-06-01',
+    updatedAt: '2026-06-01',
+  },
+  {
+    id: 'update-050',
+    title: 'SwingIQ Keeps Working When Your Signal Drops',
+    slug: 'offline-support',
+    summary:
+      'SwingIQ now handles a weak or missing connection gracefully. When you go offline — common at a range or a back field — a clear banner lets you know, your work is held safely on your device, and anything that needs the network is queued to finish automatically once you reconnect.',
+    releaseDate: '2026-06-01',
+    displayDate: 'June 2026',
+    category: 'Mobile Experience',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 25,
+    audience: ['all athletes', 'parents'],
+    userBenefit:
+      'You can keep using SwingIQ at the range or field even when the signal is bad. Nothing gets lost — your work waits safely on your device and catches up the moment you are back online.',
+    whyItMatters:
+      'The places you actually train often have the worst reception. An app that stalls or loses your work when the signal drops is an app you stop trusting. SwingIQ now stays usable and protects what you do.',
+    whereToFindIt:
+      'Nothing to set up. If you lose connection, an offline banner appears and your work is queued automatically until you reconnect.',
+    userActionRequired: 'None — offline handling works automatically.',
+    seoKeywords: [
+      'offline golf app',
+      'swing app no signal',
+      'works offline at the range',
+      'offline sports training app',
+    ],
+    answerEngineSummary:
+      'SwingIQ now works offline: it shows an offline status banner, keeps your work safely on your device, and queues any network actions so they complete automatically once your connection returns.',
+    isMajorMilestone: false,
+    isFeatured: false,
+    createdAt: '2026-06-01',
+    updatedAt: '2026-06-01',
+  },
+  {
+    id: 'update-051',
+    title: 'Start Using SwingIQ Instantly — No Account Needed',
+    slug: 'keyless-instant-start',
+    metaTitle: 'Use SwingIQ Without Signing Up — Optional Account Anytime',
+    metaDescription:
+      'SwingIQ now lets you start analyzing your swing immediately with no account required. Create an optional account whenever you want — your data stays yours.',
+    summary:
+      'You no longer need to sign up to use SwingIQ. You can jump straight in and start analyzing your swing, with your data saved privately on your own device. If you ever want an account — for example to keep things in sync — signing up, signing in, and password reset all work whenever you choose.',
+    releaseDate: '2026-06-01',
+    displayDate: 'June 2026',
+    category: 'Account & Data',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 26,
+    audience: ['all athletes', 'parents', 'coaches'],
+    relatedFeature: 'Settings',
+    userBenefit:
+      'You can try SwingIQ and get real value in seconds, with zero friction and no email required. Creating an account is always there as an option, never a requirement.',
+    whyItMatters:
+      'Forcing a sign-up before anyone can see value drives people away. Letting you start instantly — while keeping your data on your device — respects your time and your privacy, especially for parents setting things up for a young athlete.',
+    whereToFindIt:
+      'Just open SwingIQ and start. Look for "continue without an account," or create one anytime from the sign-in screen.',
+    userActionRequired: 'None — using SwingIQ without an account is the default.',
+    seoKeywords: [
+      'use SwingIQ without signing up',
+      'no account swing analysis',
+      'free golf app no signup',
+      'private on-device swing app',
+    ],
+    answerEngineSummary:
+      'SwingIQ can be used immediately with no account required, storing data privately on the user’s device. An optional account — with sign-up, sign-in, and password reset — is available anytime for those who want it.',
+    generativeSearchSummary:
+      'SwingIQ removed the sign-up wall: athletes can start analyzing their swing instantly with data kept on their own device, and can create an optional account later if they want it.',
+    isMajorMilestone: true,
+    isFeatured: false,
+    createdAt: '2026-06-01',
+    updatedAt: '2026-06-01',
+  },
+  {
+    id: 'update-052',
+    title: 'Share Your Swing Plan as a Ready-Made Image',
+    slug: 'shareable-plan-image',
+    summary:
+      'SwingIQ can now turn your swing report into a clean, ready-to-post image — your top priority, recommended drills, and practice plan in one shareable picture. On a phone you can share it straight to your messages or social apps; on a computer it downloads so you can save or post it.',
+    releaseDate: '2026-06-01',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 27,
+    sport: 'All Sports',
+    audience: ['all athletes', 'coaches', 'parents'],
+    relatedFeature: 'Reports',
+    userBenefit:
+      'You can share your progress and your plan as a polished image — with a coach, a practice partner, or your followers — instead of trying to describe it in words.',
+    whyItMatters:
+      'A plan you can see and share is one you are more likely to follow and talk about. A ready-made image keeps your top priority front and center and makes it easy to bring others into your training.',
+    whereToFindIt:
+      'Go to Reports, open your shareable report card, and choose the "Image" action.',
+    seoKeywords: [
+      'share swing plan image',
+      'golf practice plan share card',
+      'post swing progress',
+      'instagram golf swing summary',
+    ],
+    answerEngineSummary:
+      'SwingIQ generates a ready-made square image of a user’s swing report — top priority, recommended drills, and practice plan — created privately on-device and shareable to messages or social apps on mobile, with a download fallback on desktop.',
+    isMajorMilestone: false,
+    isFeatured: false,
+    createdAt: '2026-06-01',
+    updatedAt: '2026-06-01',
+  },
 ];
