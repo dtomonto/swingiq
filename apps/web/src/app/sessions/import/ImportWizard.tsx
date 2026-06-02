@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import {
   Upload,
@@ -9,6 +9,8 @@ import {
   AlertTriangle,
   CheckCircle,
   Info,
+  Sparkles,
+  Wand2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -61,6 +63,64 @@ interface ParsedFile {
   headers: string[];
   rows: Record<string, string>[];
   raw: string;
+  /** What the robust parser had to do to read the file — shown for transparency. */
+  meta: {
+    delimiter: string;
+    headerRowIndex: number;
+    preambleCount: number;
+    droppedSummaryRows: number;
+    unitsRowSkipped: boolean;
+  };
+}
+
+/** Human label for a detected delimiter. */
+function delimiterLabel(d: string): string {
+  if (d === '\t') return 'tab';
+  if (d === ';') return 'semicolon';
+  if (d === '|') return 'pipe';
+  return 'comma';
+}
+
+/**
+ * Ask the AI CSV agent to map columns this file's headers + a few sample
+ * rows. Returns {} on any failure or when no AI provider is configured —
+ * callers keep their deterministic mapping in that case.
+ */
+async function fetchAiMapping(
+  headers: string[],
+  rows: Record<string, string>[],
+): Promise<Record<string, string>> {
+  try {
+    const sampleRows = rows.slice(0, 8).map((r) => headers.map((h) => r[h] ?? ''));
+    const res = await fetch('/api/agents/csv-map', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ headers, sampleRows }),
+    });
+    if (!res.ok) return {};
+    const data = (await res.json()) as { mapping?: Record<string, string> };
+    return data && typeof data.mapping === 'object' && data.mapping ? data.mapping : {};
+  } catch {
+    return {};
+  }
+}
+
+/** Plain-English note explaining what the robust parser had to clean up. */
+function ParseMetaNote({ meta }: { meta: ParsedFile['meta'] }) {
+  const bits: string[] = [];
+  if (meta.delimiter !== ',') bits.push(`read ${delimiterLabel(meta.delimiter)}-separated values`);
+  if (meta.preambleCount > 0)
+    bits.push(`skipped ${meta.preambleCount} title/metadata row${meta.preambleCount > 1 ? 's' : ''}`);
+  if (meta.unitsRowSkipped) bits.push('skipped a units row');
+  if (meta.droppedSummaryRows > 0)
+    bits.push(`dropped ${meta.droppedSummaryRows} summary row${meta.droppedSummaryRows > 1 ? 's' : ''} (Average/Std Dev)`);
+  if (bits.length === 0) return null;
+  return (
+    <p className="mt-2 flex items-start gap-1.5 text-xs text-muted-foreground">
+      <Info size={13} className="mt-0.5 shrink-0" aria-hidden="true" />
+      <span>Cleaned your file automatically: {bits.join(', ')}.</span>
+    </p>
+  );
 }
 
 export function ImportWizard() {
@@ -70,13 +130,24 @@ export function ImportWizard() {
   const [brand, setBrand] = useState<LaunchMonitorBrand | null>(null);
   const [file, setFile] = useState<ParsedFile | null>(null);
   const [columnMapping, setColumnMapping] = useState<Record<string, string>>({});
-  const [missingCritical, setMissingCritical] = useState<string[]>([]);
-  const [missingRecommended, setMissingRecommended] = useState<string[]>([]);
-  const [normalizedShots, setNormalizedShots] = useState<NormalizedShot[]>([]);
+  // Derived from the mapping — recompute whenever the file or mapping changes,
+  // so manual remapping (step 3) and AI re-reads (step 5) reflect immediately
+  // in the preview and warnings.
+  const normalizedShots = useMemo<NormalizedShot[]>(
+    () => (file ? file.rows.map((row) => normalizeRow(row, columnMapping, brand ?? 'manual')) : []),
+    [file, columnMapping, brand],
+  );
+  const missingCritical = useMemo(() => getMissingCriticalFields(columnMapping), [columnMapping]);
+  const missingRecommended = useMemo(() => getMissingRecommendedFields(columnMapping), [columnMapping]);
   const [sessionName, setSessionName] = useState('');
   const [importing, setImporting] = useState(false);
   const [importDone, setImportDone] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  // AI CSV agent + parse feedback
+  const [aiAssisting, setAiAssisting] = useState(false);
+  const [aiUsed, setAiUsed] = useState(false);
+  const [aiMessage, setAiMessage] = useState('');
+  const [parseError, setParseError] = useState('');
 
   const steps = [
     'Choose launch monitor',
@@ -91,27 +162,76 @@ export function ImportWizard() {
   // ── File handling ─────────────────────────────────────────
 
   const handleFile = useCallback((f: File) => {
+    setParseError('');
+    setAiMessage('');
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const text = e.target?.result as string;
       const parsed = parseCSV(text);
-      if (parsed.headers.length === 0) return;
+      if (parsed.headers.length === 0 || parsed.rows.length === 0) {
+        setParseError(
+          "We couldn't find clear rows of shot data in this file. Make sure it's a CSV exported from your launch monitor — " +
+          'or upload it anyway and use “This data looks wrong?” on the preview step to have our AI re-read it.',
+        );
+        return;
+      }
 
-      const mapping = detectColumnMapping(parsed.headers, brand ?? 'manual');
-      const critical = getMissingCriticalFields(mapping);
-      const recommended = getMissingRecommendedFields(mapping);
-      const shots = parsed.rows.map((row) => normalizeRow(row, mapping, brand ?? 'manual'));
+      let mapping = detectColumnMapping(parsed.headers, brand ?? 'manual');
 
-      setFile({ headers: parsed.headers, rows: parsed.rows, raw: text });
-      setColumnMapping(mapping);
-      setMissingCritical(critical);
-      setMissingRecommended(recommended);
-      setNormalizedShots(shots);
+      setFile({
+        headers: parsed.headers,
+        rows: parsed.rows,
+        raw: text,
+        meta: {
+          delimiter: parsed.delimiter,
+          headerRowIndex: parsed.headerRowIndex,
+          preambleCount: parsed.preamble.length,
+          droppedSummaryRows: parsed.droppedSummaryRows,
+          unitsRowSkipped: parsed.unitsRow !== null,
+        },
+      });
       setSessionName(f.name.replace(/\.(csv|xlsx?)$/i, '').replace(/_/g, ' '));
+      setAiUsed(false);
+
+      // Auto AI-assist: if the deterministic detector can't even find the
+      // critical fields, let the AI agent read the headers + sample rows and
+      // fill the gaps. Deterministic matches always win where they exist.
+      if (getMissingCriticalFields(mapping).length > 0) {
+        setAiAssisting(true);
+        const ai = await fetchAiMapping(parsed.headers, parsed.rows);
+        setAiAssisting(false);
+        if (Object.keys(ai).length > 0) {
+          mapping = { ...ai, ...mapping };
+          setAiUsed(true);
+        }
+      }
+
+      // The live effect below recomputes shots + missing fields from mapping.
+      setColumnMapping(mapping);
       setStep(3);
     };
     reader.readAsText(f);
   }, [brand]);
+
+  // "This data looks wrong?" — hand the file to the AI agent and let it
+  // override the current mapping. Used on the preview step.
+  const reReadWithAI = useCallback(async () => {
+    if (!file) return;
+    setAiMessage('');
+    setAiAssisting(true);
+    const ai = await fetchAiMapping(file.headers, file.rows);
+    setAiAssisting(false);
+    if (Object.keys(ai).length > 0) {
+      setColumnMapping((prev) => ({ ...prev, ...ai }));
+      setAiUsed(true);
+      setAiMessage('Our AI re-read your file and updated the column mapping. Check the preview below.');
+    } else {
+      setAiMessage(
+        "Our AI couldn't confidently re-map this file (it may need an API key, or the columns are very unusual). " +
+        'Use “Fix the columns myself” to map them by hand.',
+      );
+    }
+  }, [file]);
 
   const onDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -127,24 +247,40 @@ export function ImportWizard() {
 
   // ── Column mapping editor ─────────────────────────────────
 
+  // Full universal data-point set (covers documented FlightScope + TrackMan
+  // parameters) so every column can be mapped by hand if needed.
   const UNIVERSAL_FIELDS = [
     { key: 'club', label: 'Club Name', critical: true },
     { key: 'carry_distance', label: 'Carry Distance', critical: true },
+    { key: 'total_distance', label: 'Total Distance', critical: false },
+    { key: 'roll_distance', label: 'Roll / Run', critical: false },
     { key: 'ball_speed', label: 'Ball Speed', critical: false },
     { key: 'club_speed', label: 'Club Speed', critical: false },
-    { key: 'launch_angle', label: 'Launch Angle', critical: false },
-    { key: 'spin_rate', label: 'Spin Rate', critical: false },
-    { key: 'spin_axis', label: 'Spin Axis', critical: false },
-    { key: 'face_to_path', label: 'Face-to-Path', critical: false },
-    { key: 'club_path', label: 'Club Path', critical: false },
-    { key: 'face_angle', label: 'Face Angle', critical: false },
-    { key: 'attack_angle', label: 'Attack Angle', critical: false },
-    { key: 'dynamic_loft', label: 'Dynamic Loft', critical: false },
     { key: 'smash_factor', label: 'Smash Factor', critical: false },
-    { key: 'apex_height', label: 'Apex Height', critical: false },
-    { key: 'side_carry', label: 'Side / Offline', critical: false },
-    { key: 'total_distance', label: 'Total Distance', critical: false },
-    { key: 'impact_location_lateral', label: 'Strike Location (X)', critical: false },
+    { key: 'launch_angle', label: 'Launch Angle (vert.)', critical: false },
+    { key: 'launch_direction', label: 'Launch Direction (horiz.)', critical: false },
+    { key: 'spin_rate', label: 'Spin Rate', critical: false },
+    { key: 'spin_axis', label: 'Spin Axis / Side Spin', critical: false },
+    { key: 'apex_height', label: 'Apex / Max Height', critical: false },
+    { key: 'descent_angle', label: 'Descent / Landing Angle', critical: false },
+    { key: 'curve', label: 'Curve', critical: false },
+    { key: 'hang_time', label: 'Hang / Flight Time', critical: false },
+    { key: 'side_carry', label: 'Side Carry (offline)', critical: false },
+    { key: 'lateral_offline', label: 'Total Offline / Side', critical: false },
+    { key: 'attack_angle', label: 'Attack Angle', critical: false },
+    { key: 'club_path', label: 'Club Path', critical: false },
+    { key: 'face_angle', label: 'Face Angle (to target)', critical: false },
+    { key: 'face_to_path', label: 'Face-to-Path', critical: false },
+    { key: 'dynamic_loft', label: 'Dynamic Loft', critical: false },
+    { key: 'spin_loft', label: 'Spin Loft', critical: false },
+    { key: 'swing_plane_vertical', label: 'Swing Plane (vert.)', critical: false },
+    { key: 'swing_plane_horizontal', label: 'Swing Plane (horiz.)', critical: false },
+    { key: 'swing_direction', label: 'Swing Direction', critical: false },
+    { key: 'closure_rate', label: 'Face Closure Rate', critical: false },
+    { key: 'dynamic_lie', label: 'Dynamic Lie', critical: false },
+    { key: 'low_point', label: 'Low Point', critical: false },
+    { key: 'impact_location_lateral', label: 'Strike Location (toe/heel)', critical: false },
+    { key: 'impact_location_vertical', label: 'Strike Location (high/low)', critical: false },
   ];
 
   // ── Import to local store ─────────────────────────────────
@@ -352,6 +488,19 @@ export function ImportWizard() {
               <p className="text-xs text-muted-foreground mt-3">Supports .csv and .xlsx files</p>
             </div>
 
+            {aiAssisting && (
+              <div className="mt-4 flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 p-3 text-sm text-primary">
+                <Sparkles size={16} className="animate-pulse shrink-0" />
+                Reading your file with AI to figure out the columns…
+              </div>
+            )}
+            {parseError && (
+              <div className="mt-4 flex items-start gap-2 rounded-lg border border-warning/30 bg-warning/10 p-3 text-sm text-warning">
+                <AlertTriangle size={16} className="mt-0.5 shrink-0" />
+                <span>{parseError}</span>
+              </div>
+            )}
+
             <div className="mt-4 p-4 bg-muted rounded-lg border">
               <p className="text-xs font-semibold text-muted-foreground mb-2">How to export from your device:</p>
               <p className="text-xs text-muted-foreground italic">
@@ -376,6 +525,12 @@ export function ImportWizard() {
             <p className="text-sm text-muted-foreground mt-1">
               The app detected {file.rows.length} shots and auto-mapped your columns. Adjust any mappings that look wrong.
             </p>
+            {aiUsed && (
+              <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+                <Wand2 size={13} aria-hidden="true" /> AI helped map unfamiliar columns — double-check the matches below.
+              </p>
+            )}
+            <ParseMetaNote meta={file.meta} />
           </CardHeader>
           <CardBody>
             <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
@@ -526,6 +681,26 @@ export function ImportWizard() {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* "This data looks wrong?" — recovery path: AI re-read or manual fix. */}
+            <div className="mt-5 rounded-xl border border-warning/30 bg-warning/10 p-4">
+              <p className="flex items-center gap-2 text-sm font-semibold text-warning">
+                <AlertTriangle size={16} className="shrink-0" /> Does this data look wrong?
+              </p>
+              <p className="mt-1 text-sm text-warning">
+                If the numbers look off or a column landed in the wrong place, let our AI re-read your file —
+                or fix the columns yourself.
+              </p>
+              <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                <Button onClick={reReadWithAI} loading={aiAssisting} className="gap-1.5">
+                  <Sparkles size={15} /> Re-read my file with AI
+                </Button>
+                <Button variant="outline" onClick={() => setStep(3)} className="gap-1.5">
+                  <Wand2 size={15} /> Fix the columns myself
+                </Button>
+              </div>
+              {aiMessage && <p className="mt-2 text-xs text-warning">{aiMessage}</p>}
             </div>
 
             <div className="flex gap-2 mt-4">
