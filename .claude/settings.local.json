@@ -144,7 +144,8 @@
       "Bash(rm -f .git/layout-fix.patch)",
       "Bash(git --no-pager log -1 --format='%B')",
       "Bash(git --no-pager log -1 --format='%s')",
-      "Bash(rm -f .git/COMMIT_MSG.txt)"
+      "Bash(rm -f .git/COMMIT_MSG.txt)",
+      "Bash(echo \"=== npm install exit: $? ===\")"
     ]
   }
 }
