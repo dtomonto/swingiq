@@ -260,15 +260,24 @@ export function DiagnoseContent() {
       <div className="p-6 max-w-5xl mx-auto">
         <div className="text-center py-20">
           <Activity size={48} className="mx-auto text-muted-foreground mb-4" />
-          <p className="text-muted-foreground text-lg font-medium mb-2">No session data yet</p>
-          <p className="text-muted-foreground text-sm mb-6">
-            Import a launch-monitor CSV to run your first swing diagnosis.
+          <p className="text-foreground text-lg font-semibold mb-2">Let&apos;s run your first diagnosis</p>
+          <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">
+            Import a launch-monitor CSV for the most precise read — or, if you don&apos;t have launch-monitor
+            data yet, start with a guided quick check or a swing video.
           </p>
-          <Link href="/sessions/import">
-            <Button>
-              <Upload size={16} /> Import Your First Session
-            </Button>
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <Link href="/sessions/import">
+              <Button>
+                <Upload size={16} /> Import Your First Session
+              </Button>
+            </Link>
+            <Link href="/start">
+              <Button variant="outline">Try the quick start</Button>
+            </Link>
+            <Link href="/video">
+              <Button variant="outline">Upload a swing video</Button>
+            </Link>
+          </div>
         </div>
       </div>
     );
