@@ -17,6 +17,7 @@ import { AIVisualAnalysisPanel } from '@/components/video/AIVisualAnalysisPanel'
 import { AINotConfiguredNotice } from '@/components/video/AINotConfiguredNotice';
 import { RecordingGuide } from '@/components/video/RecordingGuide';
 import { VideoWelcomeBack } from '@/components/video/VideoWelcomeBack';
+import { VideoProgress } from '@/components/video/VideoProgress';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { Button } from '@/components/ui/Button';
 import { extractSwingFrames } from '@/lib/frame-extraction';
@@ -221,6 +222,8 @@ export function VideoAnalyzerContent() {
               onExport={downloadAnalysisJson}
               onDelete={handleDeleteHistory}
             />
+
+            <VideoProgress history={history} />
 
             <RecordingGuide sport="golf" defaultOpen={history.length === 0} />
 

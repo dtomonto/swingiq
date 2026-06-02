@@ -19,6 +19,7 @@ import { AIVisualAnalysisPanel } from '@/components/video/AIVisualAnalysisPanel'
 import { AINotConfiguredNotice } from '@/components/video/AINotConfiguredNotice';
 import { RecordingGuide } from '@/components/video/RecordingGuide';
 import { VideoWelcomeBack } from '@/components/video/VideoWelcomeBack';
+import { VideoProgress } from '@/components/video/VideoProgress';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { SportCardGrid } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
@@ -189,6 +190,8 @@ export function SportVideoAnalyzerContent() {
           onExport={downloadAnalysisJson}
           onDelete={handleDeleteHistory}
         />
+
+        <VideoProgress history={history} />
 
         {selectedSport !== 'golf' && (
           <RecordingGuide sport={selectedSport} defaultOpen={history.length === 0} />
