@@ -10,6 +10,9 @@ out
 build
 .expo
 
+# TypeScript incremental build cache (regenerated on every tsc/type-check run)
+*.tsbuildinfo
+
 # Environment variables
 .env
 .env.local
