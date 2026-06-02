@@ -204,22 +204,13 @@ export function Sidebar({ onClose }: SidebarProps) {
   );
 }
 
-// Keep navItems export for legacy references
-export const navItems = [
+// Canonical mobile bottom-bar items — the single source of truth consumed by
+// AppShell's bottom navigation. Labels are intentionally short and
+// sport-neutral for the compact bar; the full desktop sidebar (above) applies
+// sport-specific labels. Keep these 4 hrefs aligned with the sidebar nav.
+export const BOTTOM_NAV_ITEMS = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/profile', label: 'My Profile', icon: User },
-  { href: '/bag', label: 'Equipment', icon: ShoppingBag },
-  { href: '/sessions', label: 'Sessions', icon: Activity },
-  { href: '/sessions/import', label: 'Import Data', icon: Upload },
+  { href: '/sessions/import', label: 'Import', icon: Upload },
   { href: '/diagnose', label: 'Diagnose', icon: Target },
   { href: '/training', label: 'Training', icon: Dumbbell },
-  { href: '/practice', label: 'Practice Schedule', icon: CalendarDays },
-  { href: '/pre-round', label: 'Pre-Round', icon: Sun },
-  { href: '/video', label: 'Video Analysis', icon: Video },
-  { href: '/drills', label: 'Drill Library', icon: BookOpen },
-  { href: '/progress', label: 'Progress', icon: TrendingUp },
-  { href: '/milestones', label: 'Milestones', icon: Trophy },
-  { href: '/compare', label: 'Compare Sessions', icon: GitCompareArrows },
-  { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
-  { href: '/reports', label: 'Reports', icon: FileText },
-];
+] as const;

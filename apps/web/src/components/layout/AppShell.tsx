@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
-import { Sidebar, navItems } from './Sidebar';
+import { Sidebar, BOTTOM_NAV_ITEMS } from './Sidebar';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
@@ -14,9 +14,8 @@ interface AppShellProps {
 }
 
 // The 4 most important nav items shown in the bottom bar on mobile.
-const BOTTOM_NAV = navItems.filter((item) =>
-  ['/dashboard', '/sessions/import', '/diagnose', '/training'].includes(item.href),
-);
+// Sourced from the single canonical list in Sidebar.
+const BOTTOM_NAV = BOTTOM_NAV_ITEMS;
 
 export function AppShell({ children }: AppShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);

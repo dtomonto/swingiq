@@ -5,7 +5,8 @@ import { ChevronRight, X, Clock, Target, Dumbbell, TrendingUp } from 'lucide-rea
 import { Button } from '@/components/ui/Button';
 import { ConfidenceBadge } from './ConfidenceBadge';
 import type { ResumeState } from '@/lib/agents';
-import { buildTodaysFix, FIX_FRAMING } from '@/lib/coaching/fixFraming';
+import { buildTodaysFix } from '@/lib/coaching/fixFraming';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // ============================================================
 // Today's Fix / Welcome Back — returning-user centerpiece
@@ -46,7 +47,8 @@ export function WelcomeBackCard({
   resume: ResumeState;
   onDismiss?: () => void;
 }) {
-  const fix = buildTodaysFix(resume);
+  const { language } = useLanguage();
+  const fix = buildTodaysFix(resume, language);
 
   const planLabel =
     resume.practicePlanStatus === 'in_progress'
@@ -104,10 +106,10 @@ export function WelcomeBackCard({
 
         {/* The "One Fix Today" block */}
         <dl className="space-y-2 rounded-xl bg-black/10 p-4 mb-5">
-          {fix.priority && <FixRow label={FIX_FRAMING.focusLabel} value={fix.priority} />}
-          <FixRow label={FIX_FRAMING.whatToDoLabel} value={fix.whatToDoToday} />
-          <FixRow label={FIX_FRAMING.howToKnowLabel} value={fix.howToKnowItWorked} />
-          <FixRow label={FIX_FRAMING.whenToRetestLabel} value={fix.whenToRetest} />
+          {fix.priority && <FixRow label={fix.focusLabel} value={fix.priority} />}
+          <FixRow label={fix.whatToDoLabel} value={fix.whatToDoToday} />
+          <FixRow label={fix.howToKnowLabel} value={fix.howToKnowItWorked} />
+          <FixRow label={fix.whenToRetestLabel} value={fix.whenToRetest} />
         </dl>
 
         {/* Continue / Retest / Rebuild */}
