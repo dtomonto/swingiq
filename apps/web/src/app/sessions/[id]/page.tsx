@@ -24,7 +24,7 @@ import {
   predictFromDiagnosis,
 } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { DispersionChart } from '@/components/charts/DispersionChart';
 
 export default function SessionDetailPage() {
@@ -98,9 +98,17 @@ export default function SessionDetailPage() {
     return { f, l, carryDelta, smashDelta, ftpDelta, warmingUp, fatiguing, consistent, midPoint: mid };
   }, [session]);
 
-  // Save diagnoses + swing score back to session on first analysis (avoid infinite loop)
-  useMemo(() => {
-    if (!session || !analysis || session.diagnoses.length > 0) return;
+  // Save diagnoses + swing score back to session on first analysis.
+  // Runs as a post-render effect (never during render) and is guarded by a
+  // ref so it persists at most once per session id — otherwise a session that
+  // yields zero diagnoses would keep `diagnoses.length === 0` and update on
+  // every render, causing an infinite update loop.
+  const persistedSessionId = useRef<string | null>(null);
+  useEffect(() => {
+    if (!session || !analysis) return;
+    if (session.diagnoses.length > 0) return;
+    if (persistedSessionId.current === id) return;
+    persistedSessionId.current = id;
     updateSession(id, {
       diagnoses: analysis.diagnoses,
       swing_score: analysis.scores.overall,
@@ -184,7 +192,7 @@ export default function SessionDetailPage() {
           <>
             {/* Score overview */}
             {analysis && (
-              <div className="grid grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                 {(
                   [
                     ['Overall', analysis.scores.overall],
@@ -321,7 +329,7 @@ export default function SessionDetailPage() {
                   </div>
                 </CardHeader>
                 <CardBody>
-                  <div className="grid grid-cols-4 gap-3 mb-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                     <MetricCard
                       label="Mean Lateral"
                       value={`${dispersion.mean_lateral > 0 ? '+' : ''}${dispersion.mean_lateral} yds`}

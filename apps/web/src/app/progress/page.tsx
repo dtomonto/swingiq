@@ -330,7 +330,7 @@ export default function ProgressPage() {
         </div>
 
         {/* Score snapshots — show last 4 */}
-        <div className={`grid gap-4 ${snapshots.length >= 4 ? 'grid-cols-4' : snapshots.length === 3 ? 'grid-cols-3' : snapshots.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+        <div className={`grid gap-4 ${snapshots.length >= 4 ? 'grid-cols-2 sm:grid-cols-4' : snapshots.length === 3 ? 'grid-cols-2 sm:grid-cols-3' : snapshots.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
           {[...snapshots].reverse().slice(-4).map((snap, idx, arr) => (
             <Card
               key={snap.id}

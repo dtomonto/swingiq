@@ -189,9 +189,9 @@ export function AvatarViewer() {
         </div>
       )}
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* 3D viewer */}
-        <div className="col-span-2">
+        <div className="lg:col-span-2">
           <div className="h-96 rounded-xl overflow-hidden">
             <Suspense fallback={
               <div className="h-full bg-slate-800 rounded-xl flex items-center justify-center text-white">
@@ -231,7 +231,7 @@ export function AvatarViewer() {
                   ? `Impact Data — ${sessionWithShots.name}`
                   : 'Impact Data (no session loaded)'}
               </p>
-              <div className="grid grid-cols-4 gap-3 text-center">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
                 {impactData.map((d) => (
                   <div
                     key={d.label}

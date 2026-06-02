@@ -184,7 +184,7 @@ export default function DataCenterPage() {
         <BackupHealthBanner showExportButton />
 
         {/* Stats */}
-        <div className="grid grid-cols-4 gap-3 text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
           <StatCard label={t('data.totalSessions')} value={String(sessions.length)} />
           <StatCard label={t('data.totalClubs')} value={String(clubs.length)} />
           <StatCard label={t('data.totalVideos')} value={String(video_analyses.length)} />
