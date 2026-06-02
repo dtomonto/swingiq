@@ -5,20 +5,26 @@
 // ------------------------------------------------------------
 // Guided, account-free, mobile-first onboarding. Gets a first-time
 // user one useful, HONESTLY-LABELLED result in under three minutes:
-//   sport → who you are → how to start → a couple of questions →
+//   sport(s) → who you are → how to start → a couple of questions →
 //   top issue + confidence + evidence + 3 drills + 7-day plan +
 //   clear next actions.
+//
+// Multi-sport: an athlete can pick EVERY sport they play. We save
+// the whole set, then start with one "primary" sport for the first
+// result. They can switch sports anytime from the sidebar.
+//
+// Returning users can bypass intake entirely via the "skip setup"
+// link and the richer Welcome Back panel.
 //
 // Trust by design:
 //   - The quick result is an estimate from self-reported answers.
 //     We say so, show confidence, and explain what would improve it.
 //   - No video pixels are analysed on this path; we state that.
-//   - Returning visitors get a "Welcome back" resume panel.
 //
-// Persistence is deliberately light: it sets the active sport, marks
-// onboarding complete, and writes its OWN swingiq-start-here-v1
-// record. It does NOT modify the main store schema, backup, or
-// export/import.
+// Persistence is deliberately light: it sets the active + selected
+// sports, marks onboarding complete, and writes its OWN
+// swingiq-start-here-v1 record. It does NOT modify the main store
+// schema, backup, or export/import.
 // ============================================================
 
 import { useEffect, useMemo, useState } from 'react';
@@ -35,7 +41,6 @@ import type { SportId } from '@swingiq/core';
 import { SportCardGrid } from '@/components/sport/SportSelector';
 import { ChoiceGroup } from '@/components/tools/fields';
 import { ConfidenceBadge } from '@/components/agents/ConfidenceBadge';
-import { NotCoachReplacementNotice } from '@/components/trust/NotCoachReplacementNotice';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { useSport } from '@/contexts/SportContext';
@@ -73,11 +78,15 @@ function formatDate(iso: string): string {
 }
 
 export function StartHereFlow() {
-  const { setActiveSport } = useSport();
+  const { setActiveSport, setSelectedSports } = useSport();
   const updateSettings = useSwingIQStore((s) => s.updateSettings);
+  const onboardingComplete = useSwingIQStore((s) => s.settings.onboarding_complete);
 
   const [step, setStep] = useState<Step>('sport');
-  const [sportId, setSportId] = useState<OnboardingSportId | ''>('');
+  // Multi-sport: the athlete can pick every sport they play. `primarySport`
+  // is the one we build the first result for.
+  const [sportIds, setSportIds] = useState<OnboardingSportId[]>([]);
+  const [primarySport, setPrimarySport] = useState<OnboardingSportId | ''>('');
   const [userType, setUserType] = useState<UserType | ''>('');
   const [method, setMethod] = useState<InputMethod | ''>('');
   const [symptom, setSymptom] = useState('');
@@ -86,7 +95,7 @@ export function StartHereFlow() {
   const [error, setError] = useState('');
   const [returning, setReturning] = useState<StartHereRecord | null>(null);
 
-  const sport = sportId ? getSport(sportId) : undefined;
+  const sport = primarySport ? getSport(primarySport) : undefined;
   const selectedMethod = useMemo(
     () => INPUT_METHODS.find((m) => m.value === method),
     [method],
@@ -96,6 +105,10 @@ export function StartHereFlow() {
   useEffect(() => {
     setReturning(loadStartHere());
   }, []);
+
+  // A returning user is anyone who has finished setup before or has a
+  // saved quick-start record — they can skip intake.
+  const isReturningUser = onboardingComplete || returning !== null;
 
   // Progress label (quiz path only — handoff path is shorter).
   const stepIndex = QUIZ_STEPS.indexOf(step);
@@ -112,7 +125,8 @@ export function StartHereFlow() {
 
   function restart() {
     setStep('sport');
-    setSportId('');
+    setSportIds([]);
+    setPrimarySport('');
     setUserType('');
     setMethod('');
     setSymptom('');
@@ -121,14 +135,39 @@ export function StartHereFlow() {
     setError('');
   }
 
+  function toggleSport(id: OnboardingSportId) {
+    setError('');
+    setSportIds((prev) => {
+      if (prev.includes(id)) {
+        const next = prev.filter((s) => s !== id);
+        // If we removed the current primary, re-point it.
+        setPrimarySport((p) => (p === id ? (next[0] ?? '') : p));
+        return next;
+      }
+      const next = [...prev, id];
+      // First pick becomes the default primary.
+      setPrimarySport((p) => (p === '' ? id : p));
+      return next;
+    });
+  }
+
   function handleSportContinue() {
-    if (!sportId) {
-      setError('Please choose your sport to continue.');
+    if (sportIds.length === 0) {
+      setError('Please choose at least one sport to continue.');
       return;
     }
+    const primary = (primarySport || sportIds[0]) as OnboardingSportId;
     setError('');
-    setActiveSport(sportId as SportId);
-    track(ANALYTICS_EVENTS.SPORT_SELECTED, { sport: sportId, context: 'start_here' });
+    setPrimarySport(primary);
+    // Save the whole multi-sport set, then start with the primary.
+    setSelectedSports(sportIds as SportId[]);
+    setActiveSport(primary as SportId);
+    track(ANALYTICS_EVENTS.SPORT_SELECTED, {
+      sport: primary,
+      sports: sportIds.join(','),
+      sport_count: sportIds.length,
+      context: 'start_here',
+    });
     track(ANALYTICS_EVENTS.PROFILE_STARTED, { context: 'start_here' });
     setStep('about');
   }
@@ -149,7 +188,7 @@ export function StartHereFlow() {
     }
     setError('');
     if (method === 'quiz') {
-      track(ANALYTICS_EVENTS.QUIZ_STARTED, { tool: 'start_here', sport: sportId });
+      track(ANALYTICS_EVENTS.QUIZ_STARTED, { tool: 'start_here', sport: primarySport });
       setStep('questions');
     } else {
       setStep('handoff');
@@ -157,12 +196,12 @@ export function StartHereFlow() {
   }
 
   function handleSeeResult() {
-    if (!sportId || !symptom || !skill || !userType) {
+    if (!primarySport || !symptom || !skill || !userType) {
       setError('Please answer both questions to see your result.');
       return;
     }
     const built = buildQuickResult({
-      sportId,
+      sportId: primarySport,
       symptom,
       userType: userType as UserType,
       skill: skill as StartSkillLevel,
@@ -212,9 +251,21 @@ export function StartHereFlow() {
     <div className="mx-auto max-w-2xl px-4 py-8">
       {/* Header */}
       <header className="mb-6">
-        <div className="flex items-center gap-2 text-primary">
-          <Compass size={20} aria-hidden="true" />
-          <span className="text-sm font-semibold uppercase tracking-wide">Start Here</span>
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-primary">
+            <Compass size={20} aria-hidden="true" />
+            <span className="text-sm font-semibold uppercase tracking-wide">Start Here</span>
+          </div>
+          {/* Returning-user bypass — always available so anyone who has
+              used SwingIQ before can skip straight to their dashboard. */}
+          <Link
+            href="/dashboard"
+            onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta: 'start_here_skip_setup' })}
+            className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-primary"
+          >
+            Used SwingIQ before? Skip setup
+            <ArrowRight size={13} aria-hidden="true" />
+          </Link>
         </div>
         <h1 className="mt-1 text-2xl font-bold text-foreground sm:text-3xl">
           Get your first result in a few minutes
@@ -225,7 +276,7 @@ export function StartHereFlow() {
       </header>
 
       {/* Returning-user welcome back (shown on the first step) */}
-      {returning && step === 'sport' && (
+      {isReturningUser && step === 'sport' && (
         <section
           aria-label="Welcome back"
           className="mb-6 rounded-2xl border border-primary/30 bg-primary/10 p-5"
@@ -234,13 +285,19 @@ export function StartHereFlow() {
             <Sparkles size={18} aria-hidden="true" />
             <h2 className="text-base font-bold">Welcome back</h2>
           </div>
-          <p className="mt-2 text-sm text-primary">
-            Last time you focused on <strong>{returning.focus}</strong> in{' '}
-            <strong>{returning.emoji} {returning.sportLabel}</strong>.
-            {returning.retestDate && (
-              <> Your retest reminder is set for <strong>{formatDate(returning.retestDate)}</strong>.</>
-            )}
-          </p>
+          {returning ? (
+            <p className="mt-2 text-sm text-primary">
+              Last time you focused on <strong>{returning.focus}</strong> in{' '}
+              <strong>{returning.emoji} {returning.sportLabel}</strong>.
+              {returning.retestDate && (
+                <> Your retest reminder is set for <strong>{formatDate(returning.retestDate)}</strong>.</>
+              )}
+            </p>
+          ) : (
+            <p className="mt-2 text-sm text-primary">
+              You&apos;re already set up. Jump straight back into your dashboard, or start a fresh quick result below.
+            </p>
+          )}
           <div className="mt-4 flex flex-col gap-2 sm:flex-row">
             <Link
               href="/dashboard"
@@ -252,7 +309,7 @@ export function StartHereFlow() {
             </Link>
             <button
               type="button"
-              onClick={() => setReturning(null)}
+              onClick={() => { setReturning(null); updateSettings({ onboarding_complete: false }); }}
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-primary/40 px-4 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-primary/15"
             >
               Start a new quick result
@@ -268,19 +325,53 @@ export function StartHereFlow() {
         </p>
       )}
 
-      {/* ── Step 1: Sport ── */}
+      {/* ── Step 1: Sport(s) ── */}
       {step === 'sport' && (
         <section aria-labelledby="step-sport" className="rounded-2xl border border-border bg-card p-5">
-          <h2 id="step-sport" className="mb-3 text-lg font-bold text-foreground">
-            Which sport are you working on?
+          <h2 id="step-sport" className="mb-1 text-lg font-bold text-foreground">
+            Which sports are you working on?
           </h2>
+          <p className="mb-3 text-sm text-muted-foreground">
+            Pick every sport you play — tap as many as you like. You can switch between them anytime, and
+            we&apos;ll start with one.
+          </p>
           <SportCardGrid
-            selectedSport={(sportId || undefined) as SportId | undefined}
-            onSelect={(id) => setSportId(id as OnboardingSportId)}
+            selectedSports={sportIds as SportId[]}
+            onToggle={(id) => toggleSport(id as OnboardingSportId)}
           />
+
+          {/* Primary picker — only when more than one sport is chosen */}
+          {sportIds.length > 1 && (
+            <div className="mt-4">
+              <p className="mb-2 text-sm font-semibold text-foreground">Which one do you want to start with?</p>
+              <div className="flex flex-wrap gap-2">
+                {sportIds.map((id) => {
+                  const s = getSport(id);
+                  if (!s) return null;
+                  const selected = primarySport === id;
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => setPrimarySport(id)}
+                      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
+                        selected
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border text-foreground hover:border-primary/50'
+                      }`}
+                    >
+                      <span>{s.emoji}</span>
+                      {s.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {error && <p role="alert" className="mt-3 text-sm font-medium text-error">{error}</p>}
           <div className="mt-5 flex justify-end">
-            <PrimaryButton onClick={handleSportContinue} disabled={!sportId}>
+            <PrimaryButton onClick={handleSportContinue} disabled={sportIds.length === 0}>
               Continue
             </PrimaryButton>
           </div>
@@ -483,7 +574,6 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
         videoAnalyzed={result.videoAnalyzed}
         confidence={result.confidence}
         whatImproves={result.whatImproves}
-        showSafetyNotice={false}
       />
 
       {/* Drills */}
@@ -540,8 +630,6 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
           <RotateCcw size={15} aria-hidden="true" /> Try another sport
         </button>
       </div>
-
-      <NotCoachReplacementNotice />
     </section>
   );
 }
