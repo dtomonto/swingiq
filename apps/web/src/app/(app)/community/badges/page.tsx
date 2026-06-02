@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardBody } from '@/components/ui/Card';
 import { AchievementBadge } from '@/components/community/AchievementBadge';
 import { useSwingIQStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';

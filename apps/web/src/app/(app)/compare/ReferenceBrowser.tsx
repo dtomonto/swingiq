@@ -373,8 +373,9 @@ export function ReferenceBrowser({
           <div className="flex flex-wrap gap-3">
             {/* Sex filter */}
             <div>
-              <label className="block text-xs font-medium text-muted-foreground mb-1">Gender</label>
+              <label htmlFor="ref-sex-filter" className="block text-xs font-medium text-muted-foreground mb-1">Gender</label>
               <select
+                id="ref-sex-filter"
                 value={sexFilter}
                 onChange={(e) => setSexFilter(e.target.value as SexFilter)}
                 className="border border-border rounded-lg px-2.5 py-1.5 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
@@ -388,8 +389,9 @@ export function ReferenceBrowser({
             {/* Movement type */}
             {movementOptions.length > 0 && (
               <div>
-                <label className="block text-xs font-medium text-muted-foreground mb-1">Movement</label>
+                <label htmlFor="ref-movement-filter" className="block text-xs font-medium text-muted-foreground mb-1">Movement</label>
                 <select
+                  id="ref-movement-filter"
                   value={movementFilter}
                   onChange={(e) => setMovementFilter(e.target.value)}
                   className="border border-border rounded-lg px-2.5 py-1.5 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
@@ -406,8 +408,9 @@ export function ReferenceBrowser({
 
             {/* Handedness */}
             <div>
-              <label className="block text-xs font-medium text-muted-foreground mb-1">Handedness</label>
+              <label htmlFor="ref-handedness-filter" className="block text-xs font-medium text-muted-foreground mb-1">Handedness</label>
               <select
+                id="ref-handedness-filter"
                 value={handednessFilter}
                 onChange={(e) => setHandednessFilter(e.target.value as HandednessFilter)}
                 className="border border-border rounded-lg px-2.5 py-1.5 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"

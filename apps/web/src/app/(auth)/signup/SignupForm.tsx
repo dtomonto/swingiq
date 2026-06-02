@@ -43,17 +43,17 @@ export function SignupForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="text-sm font-medium text-foreground block mb-1">Your Name</label>
-        <input type="text" required value={name} onChange={(e) => setName(e.target.value)} className={inputClass} placeholder="Tiger Woods" autoComplete="name" />
+        <label htmlFor="signup-name" className="text-sm font-medium text-foreground block mb-1">Your Name</label>
+        <input id="signup-name" type="text" required value={name} onChange={(e) => setName(e.target.value)} className={inputClass} placeholder="Tiger Woods" autoComplete="name" />
       </div>
       <div>
-        <label className="text-sm font-medium text-foreground block mb-1">Email</label>
-        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} placeholder="you@example.com" autoComplete="email" />
+        <label htmlFor="signup-email" className="text-sm font-medium text-foreground block mb-1">Email</label>
+        <input id="signup-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} placeholder="you@example.com" autoComplete="email" />
       </div>
       <div>
-        <label className="text-sm font-medium text-foreground block mb-1">Password</label>
+        <label htmlFor="signup-password" className="text-sm font-medium text-foreground block mb-1">Password</label>
         <div className="relative">
-          <input type={showPassword ? 'text' : 'password'} required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className={`${inputClass} pr-10`} placeholder="At least 8 characters" autoComplete="new-password" />
+          <input id="signup-password" type={showPassword ? 'text' : 'password'} required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className={`${inputClass} pr-10`} placeholder="At least 8 characters" autoComplete="new-password" />
           <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground">
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>

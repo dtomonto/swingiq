@@ -204,10 +204,11 @@ function SessionComparisonTab() {
       {/* Session selectors */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-2">
+          <label htmlFor="compare-session-a" className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-2">
             Session A (Before)
           </label>
           <select
+            id="compare-session-a"
             value={sessionAId}
             onChange={(e) => setSessionAId(e.target.value)}
             className="w-full border border-border rounded-lg px-3 py-2.5 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"
@@ -220,10 +221,11 @@ function SessionComparisonTab() {
           </select>
         </div>
         <div>
-          <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-2">
+          <label htmlFor="compare-session-b" className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-2">
             Session B (After)
           </label>
           <select
+            id="compare-session-b"
             value={sessionBId}
             onChange={(e) => setSessionBId(e.target.value)}
             className="w-full border border-border rounded-lg px-3 py-2.5 text-sm bg-card focus:ring-2 focus:ring-ring outline-hidden"

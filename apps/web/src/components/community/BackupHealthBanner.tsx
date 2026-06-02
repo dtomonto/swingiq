@@ -6,7 +6,7 @@
 // ============================================================
 
 import Link from 'next/link';
-import { Shield, AlertTriangle, AlertCircle, Download } from 'lucide-react';
+import { Shield, AlertTriangle, Download } from 'lucide-react';
 import { useSwingIQStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { calculateBackupHealth, getHealthColor, formatLastExport } from '@/lib/community/backup-health';

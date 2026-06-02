@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSwingIQStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { CHALLENGES, getActiveChallengesWithProgress, getChallengeProgress } from '@/lib/community/challenges';
+import { CHALLENGES, getActiveChallengesWithProgress } from '@/lib/community/challenges';
 import { Target, CheckCircle, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -82,7 +82,7 @@ export default function ChallengesPage() {
             {activeChallenges.length === 0 ? (
               <EmptyState message={t('challenges.noActiveChallenges')} icon="⚔️" />
             ) : (
-              activeChallenges.map(({ challenge, active, progress }) => (
+              activeChallenges.map(({ challenge, progress }) => (
                 <Card key={challenge.id}>
                   <CardBody className="space-y-3">
                     <div className="flex items-start gap-3">

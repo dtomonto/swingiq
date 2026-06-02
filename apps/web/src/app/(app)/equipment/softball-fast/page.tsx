@@ -135,28 +135,28 @@ export default function FastPitchEquipmentPage() {
             <CardHeader><CardTitle>Add Fast Pitch Bat</CardTitle></CardHeader>
             <CardBody className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Brand</label><input className={inp} placeholder="DeMarini, Easton…" value={form.brand} onChange={(e) => set('brand', e.target.value)} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Model</label><input className={inp} placeholder="CF, Ghost…" value={form.model} onChange={(e) => set('model', e.target.value)} /></div>
+                <div><label htmlFor="sbf-brand" className="text-xs font-medium text-muted-foreground block mb-1">Brand</label><input id="sbf-brand" className={inp} placeholder="DeMarini, Easton…" value={form.brand} onChange={(e) => set('brand', e.target.value)} /></div>
+                <div><label htmlFor="sbf-model" className="text-xs font-medium text-muted-foreground block mb-1">Model</label><input id="sbf-model" className={inp} placeholder="CF, Ghost…" value={form.model} onChange={(e) => set('model', e.target.value)} /></div>
               </div>
               <div className="grid grid-cols-3 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Length (in)</label><input type="number" className={inp} placeholder="32" value={form.length_in ?? ''} onChange={(e) => set('length_in', numOrNull(e.target.value))} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Weight (oz)</label><input type="number" className={inp} placeholder="22" value={form.weight_oz ?? ''} onChange={(e) => set('weight_oz', numOrNull(e.target.value))} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Drop</label><input type="number" className={inp} placeholder="-12" value={form.end_load_oz ?? ''} onChange={(e) => set('end_load_oz', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="sbf-length" className="text-xs font-medium text-muted-foreground block mb-1">Length (in)</label><input id="sbf-length" type="number" className={inp} placeholder="32" value={form.length_in ?? ''} onChange={(e) => set('length_in', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="sbf-weight" className="text-xs font-medium text-muted-foreground block mb-1">Weight (oz)</label><input id="sbf-weight" type="number" className={inp} placeholder="22" value={form.weight_oz ?? ''} onChange={(e) => set('weight_oz', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="sbf-drop" className="text-xs font-medium text-muted-foreground block mb-1">Drop</label><input id="sbf-drop" type="number" className={inp} placeholder="-12" value={form.end_load_oz ?? ''} onChange={(e) => set('end_load_oz', numOrNull(e.target.value))} /></div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Material</label>
-                  <select className={sel} value={form.material} onChange={(e) => set('material', e.target.value)}>
+                <div><label htmlFor="sbf-material" className="text-xs font-medium text-muted-foreground block mb-1">Material</label>
+                  <select id="sbf-material" className={sel} value={form.material} onChange={(e) => set('material', e.target.value)}>
                     <option value="">Select…</option><option value="alloy">Alloy</option><option value="composite">Composite</option><option value="hybrid">Hybrid</option>
                   </select>
                 </div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Balance</label>
-                  <select className={sel} value={form.balance} onChange={(e) => set('balance', e.target.value)}>
+                <div><label htmlFor="sbf-balance" className="text-xs font-medium text-muted-foreground block mb-1">Balance</label>
+                  <select id="sbf-balance" className={sel} value={form.balance} onChange={(e) => set('balance', e.target.value)}>
                     <option value="">Select…</option><option value="balanced">Balanced</option><option value="end_loaded">End-Loaded</option>
                   </select>
                 </div>
               </div>
-              <div><label className="text-xs font-medium text-muted-foreground block mb-1">Certification stamps</label><input className={inp} placeholder="USA Softball, NFHS, NCAA…" value={form.certification_stamps} onChange={(e) => set('certification_stamps', e.target.value)} /></div>
-              <div><label className="text-xs font-medium text-muted-foreground block mb-1">Notes</label><textarea className={inp} rows={2} value={form.notes} onChange={(e) => set('notes', e.target.value)} /></div>
+              <div><label htmlFor="sbf-certification" className="text-xs font-medium text-muted-foreground block mb-1">Certification stamps</label><input id="sbf-certification" className={inp} placeholder="USA Softball, NFHS, NCAA…" value={form.certification_stamps} onChange={(e) => set('certification_stamps', e.target.value)} /></div>
+              <div><label htmlFor="sbf-notes" className="text-xs font-medium text-muted-foreground block mb-1">Notes</label><textarea id="sbf-notes" className={inp} rows={2} value={form.notes} onChange={(e) => set('notes', e.target.value)} /></div>
               <div className="flex gap-3">
                 <Button variant="outline" className="flex-1" onClick={() => { setForm(EMPTY); setShowForm(false); }}>Cancel</Button>
                 <Button className="flex-1" onClick={handleAdd} disabled={!form.brand.trim() && !form.model.trim()}>Save Bat</Button>

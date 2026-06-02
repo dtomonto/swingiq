@@ -133,10 +133,11 @@ function UserSwingPanel() {
         {/* Select from past analyses */}
         {video_analyses.length > 0 && (
           <div>
-            <label className="block text-xs font-medium text-muted-foreground mb-1">
+            <label htmlFor="compare-saved-analysis" className="block text-xs font-medium text-muted-foreground mb-1">
               Select from saved analyses
             </label>
             <select
+              id="compare-saved-analysis"
               value={selectedAnalysisId}
               onChange={(e) => {
                 setSelectedAnalysisId(e.target.value);

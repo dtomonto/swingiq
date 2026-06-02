@@ -136,30 +136,30 @@ export default function BaseballEquipmentPage() {
             <CardHeader><CardTitle>Add Baseball Bat</CardTitle></CardHeader>
             <CardBody className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Brand</label><input className={inp} placeholder="Louisville, Marucci…" value={form.brand} onChange={(e) => set('brand', e.target.value)} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Model</label><input className={inp} placeholder="Cat9, Omaha…" value={form.model} onChange={(e) => set('model', e.target.value)} /></div>
+                <div><label htmlFor="bb-brand" className="text-xs font-medium text-muted-foreground block mb-1">Brand</label><input id="bb-brand" className={inp} placeholder="Louisville, Marucci…" value={form.brand} onChange={(e) => set('brand', e.target.value)} /></div>
+                <div><label htmlFor="bb-model" className="text-xs font-medium text-muted-foreground block mb-1">Model</label><input id="bb-model" className={inp} placeholder="Cat9, Omaha…" value={form.model} onChange={(e) => set('model', e.target.value)} /></div>
               </div>
               <div className="grid grid-cols-3 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Length (in)</label><input type="number" className={inp} placeholder="32" value={form.length_in ?? ''} onChange={(e) => set('length_in', numOrNull(e.target.value))} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Weight (oz)</label><input type="number" className={inp} placeholder="29" value={form.weight_oz ?? ''} onChange={(e) => set('weight_oz', numOrNull(e.target.value))} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Drop</label><input type="number" className={inp} placeholder="-3" value={form.drop ?? ''} onChange={(e) => set('drop', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="bb-length" className="text-xs font-medium text-muted-foreground block mb-1">Length (in)</label><input id="bb-length" type="number" className={inp} placeholder="32" value={form.length_in ?? ''} onChange={(e) => set('length_in', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="bb-weight" className="text-xs font-medium text-muted-foreground block mb-1">Weight (oz)</label><input id="bb-weight" type="number" className={inp} placeholder="29" value={form.weight_oz ?? ''} onChange={(e) => set('weight_oz', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="bb-drop" className="text-xs font-medium text-muted-foreground block mb-1">Drop</label><input id="bb-drop" type="number" className={inp} placeholder="-3" value={form.drop ?? ''} onChange={(e) => set('drop', numOrNull(e.target.value))} /></div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Material</label>
-                  <select className={sel} value={form.material} onChange={(e) => set('material', e.target.value)}>
+                <div><label htmlFor="bb-material" className="text-xs font-medium text-muted-foreground block mb-1">Material</label>
+                  <select id="bb-material" className={sel} value={form.material} onChange={(e) => set('material', e.target.value)}>
                     <option value="">Select…</option><option value="wood">Wood</option><option value="alloy">Alloy</option><option value="composite">Composite</option><option value="hybrid">Hybrid</option>
                   </select>
                 </div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Balance</label>
-                  <select className={sel} value={form.balance} onChange={(e) => set('balance', e.target.value)}>
+                <div><label htmlFor="bb-balance" className="text-xs font-medium text-muted-foreground block mb-1">Balance</label>
+                  <select id="bb-balance" className={sel} value={form.balance} onChange={(e) => set('balance', e.target.value)}>
                     <option value="">Select…</option><option value="balanced">Balanced</option><option value="end_loaded">End-Loaded</option>
                   </select>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Certification</label><input className={inp} placeholder="BBCOR, USSSA, USA…" value={form.certification} onChange={(e) => set('certification', e.target.value)} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Condition</label>
-                  <select className={sel} value={form.condition} onChange={(e) => set('condition', e.target.value as BaseballBat['condition'])}>
+                <div><label htmlFor="bb-certification" className="text-xs font-medium text-muted-foreground block mb-1">Certification</label><input id="bb-certification" className={inp} placeholder="BBCOR, USSSA, USA…" value={form.certification} onChange={(e) => set('certification', e.target.value)} /></div>
+                <div><label htmlFor="bb-condition" className="text-xs font-medium text-muted-foreground block mb-1">Condition</label>
+                  <select id="bb-condition" className={sel} value={form.condition} onChange={(e) => set('condition', e.target.value as BaseballBat['condition'])}>
                     <option value="new">New</option><option value="good">Good</option><option value="fair">Fair</option><option value="worn">Worn</option>
                   </select>
                 </div>
@@ -170,7 +170,7 @@ export default function BaseballEquipmentPage() {
                   <label htmlFor="bi" className="text-sm text-foreground">Composite is broken in</label>
                 </div>
               )}
-              <div><label className="text-xs font-medium text-muted-foreground block mb-1">Notes</label><textarea className={inp} rows={2} value={form.notes} onChange={(e) => set('notes', e.target.value)} /></div>
+              <div><label htmlFor="bb-notes" className="text-xs font-medium text-muted-foreground block mb-1">Notes</label><textarea id="bb-notes" className={inp} rows={2} value={form.notes} onChange={(e) => set('notes', e.target.value)} /></div>
               <div className="flex gap-3">
                 <Button variant="outline" className="flex-1" onClick={() => { setForm(EMPTY); setShowForm(false); }}>Cancel</Button>
                 <Button className="flex-1" onClick={handleAdd} disabled={!form.brand.trim() && !form.model.trim()}>Save Bat</Button>

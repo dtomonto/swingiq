@@ -93,10 +93,11 @@ export function FeedbackPanel({ analysisId: _analysisId, onSubmit, className }: 
       {/* Optional text fields */}
       <div className="space-y-3">
         <div>
-          <label className="text-xs font-medium text-muted-foreground">
+          <label htmlFor="feedback-most-useful" className="text-xs font-medium text-muted-foreground">
             Most useful insight (optional)
           </label>
           <input
+            id="feedback-most-useful"
             value={mostUseful}
             onChange={(e) => setMostUseful(e.target.value)}
             placeholder="e.g. The early extension explanation"
@@ -105,10 +106,11 @@ export function FeedbackPanel({ analysisId: _analysisId, onSubmit, className }: 
           />
         </div>
         <div>
-          <label className="text-xs font-medium text-muted-foreground">
+          <label htmlFor="feedback-least-useful" className="text-xs font-medium text-muted-foreground">
             Least useful (optional)
           </label>
           <input
+            id="feedback-least-useful"
             value={leastUseful}
             onChange={(e) => setLeastUseful(e.target.value)}
             placeholder="e.g. The phase timeline wasn't accurate"
@@ -117,10 +119,11 @@ export function FeedbackPanel({ analysisId: _analysisId, onSubmit, className }: 
           />
         </div>
         <div>
-          <label className="text-xs font-medium text-muted-foreground">
+          <label htmlFor="feedback-other-comments" className="text-xs font-medium text-muted-foreground">
             Other comments (optional)
           </label>
           <textarea
+            id="feedback-other-comments"
             value={freeText}
             onChange={(e) => setFreeText(e.target.value)}
             placeholder="Any other feedback…"

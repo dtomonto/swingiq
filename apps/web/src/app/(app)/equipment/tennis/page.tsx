@@ -5,7 +5,6 @@ import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSwingIQStore, type TennisRacket } from '@/store';
 import { scoreTennisRacket } from '@/lib/equipment/scoring';
-import { useSport } from '@/contexts/SportContext';
 import Link from 'next/link';
 import { Plus, Trash2, ChevronDown, ChevronUp, Info, AlertTriangle } from 'lucide-react';
 
@@ -21,7 +20,6 @@ const EMPTY: Omit<TennisRacket, 'id' | 'created_at'> = {
 
 export default function TennisEquipmentPage() {
   const { sportEquipment, addTennisRacket, removeTennisRacket } = useSwingIQStore();
-  const { sportLabels } = useSport();
   const rackets = sportEquipment.tennis;
 
   const [form, setForm] = useState<Omit<TennisRacket, 'id' | 'created_at'>>(EMPTY);
@@ -152,31 +150,31 @@ export default function TennisEquipmentPage() {
             <CardHeader><CardTitle>Add Racket</CardTitle></CardHeader>
             <CardBody className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Brand</label><input className={inp} placeholder="Wilson, Babolat…" value={form.brand} onChange={(e) => set('brand', e.target.value)} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Model</label><input className={inp} placeholder="Pro Staff, Pure Drive…" value={form.model} onChange={(e) => set('model', e.target.value)} /></div>
+                <div><label htmlFor="tn-brand" className="text-xs font-medium text-muted-foreground block mb-1">Brand</label><input id="tn-brand" className={inp} placeholder="Wilson, Babolat…" value={form.brand} onChange={(e) => set('brand', e.target.value)} /></div>
+                <div><label htmlFor="tn-model" className="text-xs font-medium text-muted-foreground block mb-1">Model</label><input id="tn-model" className={inp} placeholder="Pro Staff, Pure Drive…" value={form.model} onChange={(e) => set('model', e.target.value)} /></div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Year <span className="text-muted-foreground">(optional)</span></label><input className={inp} placeholder="2024" value={form.year} onChange={(e) => set('year', e.target.value)} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Head size (sq in)</label><input type="number" className={inp} placeholder="98–110" value={form.head_size_sq_in ?? ''} onChange={(e) => set('head_size_sq_in', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="tn-year" className="text-xs font-medium text-muted-foreground block mb-1">Year <span className="text-muted-foreground">(optional)</span></label><input id="tn-year" className={inp} placeholder="2024" value={form.year} onChange={(e) => set('year', e.target.value)} /></div>
+                <div><label htmlFor="tn-headsize" className="text-xs font-medium text-muted-foreground block mb-1">Head size (sq in)</label><input id="tn-headsize" type="number" className={inp} placeholder="98–110" value={form.head_size_sq_in ?? ''} onChange={(e) => set('head_size_sq_in', numOrNull(e.target.value))} /></div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Strung weight (oz)</label><input type="number" className={inp} placeholder="10.5–11.5" step="0.1" value={form.weight_strung_oz ?? ''} onChange={(e) => set('weight_strung_oz', numOrNull(e.target.value))} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Swingweight</label><input type="number" className={inp} placeholder="300–340" value={form.swingweight ?? ''} onChange={(e) => set('swingweight', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="tn-strungweight" className="text-xs font-medium text-muted-foreground block mb-1">Strung weight (oz)</label><input id="tn-strungweight" type="number" className={inp} placeholder="10.5–11.5" step="0.1" value={form.weight_strung_oz ?? ''} onChange={(e) => set('weight_strung_oz', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="tn-swingweight" className="text-xs font-medium text-muted-foreground block mb-1">Swingweight</label><input id="tn-swingweight" type="number" className={inp} placeholder="300–340" value={form.swingweight ?? ''} onChange={(e) => set('swingweight', numOrNull(e.target.value))} /></div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Stiffness (RA)</label><input type="number" className={inp} placeholder="56–72" value={form.stiffness_ra ?? ''} onChange={(e) => set('stiffness_ra', numOrNull(e.target.value))} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Grip size</label><input className={inp} placeholder="4 1/4, 4 3/8…" value={form.grip_size} onChange={(e) => set('grip_size', e.target.value)} /></div>
+                <div><label htmlFor="tn-stiffness" className="text-xs font-medium text-muted-foreground block mb-1">Stiffness (RA)</label><input id="tn-stiffness" type="number" className={inp} placeholder="56–72" value={form.stiffness_ra ?? ''} onChange={(e) => set('stiffness_ra', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="tn-gripsize" className="text-xs font-medium text-muted-foreground block mb-1">Grip size</label><input id="tn-gripsize" className={inp} placeholder="4 1/4, 4 3/8…" value={form.grip_size} onChange={(e) => set('grip_size', e.target.value)} /></div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">String brand / type</label><input className={inp} placeholder="Luxilon, Babolat RPM…" value={form.string_brand} onChange={(e) => set('string_brand', e.target.value)} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">String tension (mains, lbs)</label><input type="number" className={inp} placeholder="50–60" value={form.string_tension_mains ?? ''} onChange={(e) => set('string_tension_mains', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="tn-stringbrand" className="text-xs font-medium text-muted-foreground block mb-1">String brand / type</label><input id="tn-stringbrand" className={inp} placeholder="Luxilon, Babolat RPM…" value={form.string_brand} onChange={(e) => set('string_brand', e.target.value)} /></div>
+                <div><label htmlFor="tn-stringtension" className="text-xs font-medium text-muted-foreground block mb-1">String tension (mains, lbs)</label><input id="tn-stringtension" type="number" className={inp} placeholder="50–60" value={form.string_tension_mains ?? ''} onChange={(e) => set('string_tension_mains', numOrNull(e.target.value))} /></div>
               </div>
-              <div><label className="text-xs font-medium text-muted-foreground block mb-1">Condition</label>
-                <select className={sel} value={form.condition} onChange={(e) => set('condition', e.target.value as TennisRacket['condition'])}>
+              <div><label htmlFor="tn-condition" className="text-xs font-medium text-muted-foreground block mb-1">Condition</label>
+                <select id="tn-condition" className={sel} value={form.condition} onChange={(e) => set('condition', e.target.value as TennisRacket['condition'])}>
                   <option value="new">New</option><option value="good">Good</option><option value="fair">Fair</option><option value="worn">Worn</option>
                 </select>
               </div>
-              <div><label className="text-xs font-medium text-muted-foreground block mb-1">Notes <span className="text-muted-foreground">(optional)</span></label><textarea className={inp} rows={2} value={form.notes} onChange={(e) => set('notes', e.target.value)} /></div>
+              <div><label htmlFor="tn-notes" className="text-xs font-medium text-muted-foreground block mb-1">Notes <span className="text-muted-foreground">(optional)</span></label><textarea id="tn-notes" className={inp} rows={2} value={form.notes} onChange={(e) => set('notes', e.target.value)} /></div>
               <div className="flex gap-3">
                 <Button variant="outline" className="flex-1" onClick={() => { setForm(EMPTY); setShowForm(false); }}>Cancel</Button>
                 <Button className="flex-1" onClick={handleAdd} disabled={!form.brand.trim() && !form.model.trim()}>Save Racket</Button>

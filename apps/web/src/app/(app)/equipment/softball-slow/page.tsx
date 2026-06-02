@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { useSwingIQStore, type SoftballBat } from '@/store';
 import { scoreBat } from '@/lib/equipment/scoring';
 import Link from 'next/link';
-import { Plus, Trash2, ChevronDown, ChevronUp, Info, AlertTriangle } from 'lucide-react';
+import { Plus, Trash2, ChevronDown, ChevronUp, AlertTriangle } from 'lucide-react';
 
 const inp = 'w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring focus:border-transparent outline-hidden';
 const sel = `${inp} bg-card`;
@@ -136,36 +136,36 @@ export default function SlowPitchEquipmentPage() {
             <CardHeader><CardTitle>Add Slow Pitch Bat</CardTitle></CardHeader>
             <CardBody className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Brand</label><input className={inp} placeholder="Easton, Louisville…" value={form.brand} onChange={(e) => set('brand', e.target.value)} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Model</label><input className={inp} placeholder="Fire Flex, Omaha…" value={form.model} onChange={(e) => set('model', e.target.value)} /></div>
+                <div><label htmlFor="sbs-brand" className="text-xs font-medium text-muted-foreground block mb-1">Brand</label><input id="sbs-brand" className={inp} placeholder="Easton, Louisville…" value={form.brand} onChange={(e) => set('brand', e.target.value)} /></div>
+                <div><label htmlFor="sbs-model" className="text-xs font-medium text-muted-foreground block mb-1">Model</label><input id="sbs-model" className={inp} placeholder="Fire Flex, Omaha…" value={form.model} onChange={(e) => set('model', e.target.value)} /></div>
               </div>
               <div className="grid grid-cols-3 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Length (in)</label><input type="number" className={inp} placeholder="34" value={form.length_in ?? ''} onChange={(e) => set('length_in', numOrNull(e.target.value))} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Weight (oz)</label><input type="number" className={inp} placeholder="26" value={form.weight_oz ?? ''} onChange={(e) => set('weight_oz', numOrNull(e.target.value))} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">End load (oz)</label><input type="number" className={inp} placeholder="0.5–1.5" step="0.1" value={form.end_load_oz ?? ''} onChange={(e) => set('end_load_oz', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="sbs-length" className="text-xs font-medium text-muted-foreground block mb-1">Length (in)</label><input id="sbs-length" type="number" className={inp} placeholder="34" value={form.length_in ?? ''} onChange={(e) => set('length_in', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="sbs-weight" className="text-xs font-medium text-muted-foreground block mb-1">Weight (oz)</label><input id="sbs-weight" type="number" className={inp} placeholder="26" value={form.weight_oz ?? ''} onChange={(e) => set('weight_oz', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="sbs-endload" className="text-xs font-medium text-muted-foreground block mb-1">End load (oz)</label><input id="sbs-endload" type="number" className={inp} placeholder="0.5–1.5" step="0.1" value={form.end_load_oz ?? ''} onChange={(e) => set('end_load_oz', numOrNull(e.target.value))} /></div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Balance</label>
-                  <select className={sel} value={form.balance} onChange={(e) => set('balance', e.target.value)}>
+                <div><label htmlFor="sbs-balance" className="text-xs font-medium text-muted-foreground block mb-1">Balance</label>
+                  <select id="sbs-balance" className={sel} value={form.balance} onChange={(e) => set('balance', e.target.value)}>
                     <option value="">Select…</option><option value="balanced">Balanced</option><option value="end_loaded">End-Loaded</option>
                   </select>
                 </div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Material</label>
-                  <select className={sel} value={form.material} onChange={(e) => set('material', e.target.value)}>
+                <div><label htmlFor="sbs-material" className="text-xs font-medium text-muted-foreground block mb-1">Material</label>
+                  <select id="sbs-material" className={sel} value={form.material} onChange={(e) => set('material', e.target.value)}>
                     <option value="">Select…</option><option value="alloy">Alloy</option><option value="composite">Composite</option><option value="hybrid">Hybrid</option>
                   </select>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Compression rating</label><input type="number" className={inp} placeholder="220–275 PSI" value={form.compression_rating ?? ''} onChange={(e) => set('compression_rating', numOrNull(e.target.value))} /></div>
-                <div><label className="text-xs font-medium text-muted-foreground block mb-1">Break-in status</label>
-                  <select className={sel} value={form.break_in_status} onChange={(e) => set('break_in_status', e.target.value)}>
+                <div><label htmlFor="sbs-compression" className="text-xs font-medium text-muted-foreground block mb-1">Compression rating</label><input id="sbs-compression" type="number" className={inp} placeholder="220–275 PSI" value={form.compression_rating ?? ''} onChange={(e) => set('compression_rating', numOrNull(e.target.value))} /></div>
+                <div><label htmlFor="sbs-breakin" className="text-xs font-medium text-muted-foreground block mb-1">Break-in status</label>
+                  <select id="sbs-breakin" className={sel} value={form.break_in_status} onChange={(e) => set('break_in_status', e.target.value)}>
                     <option value="">Select…</option><option value="new">New</option><option value="partially_broken_in">Partially broken in</option><option value="fully_broken_in">Fully broken in</option>
                   </select>
                 </div>
               </div>
-              <div><label className="text-xs font-medium text-muted-foreground block mb-1">Certification stamps (USSSA, USA/ASA, ISA, NSA, SSUSA…)</label><input className={inp} placeholder="USSSA, USA/ASA" value={form.certification_stamps} onChange={(e) => set('certification_stamps', e.target.value)} /></div>
-              <div><label className="text-xs font-medium text-muted-foreground block mb-1">Notes</label><textarea className={inp} rows={2} value={form.notes} onChange={(e) => set('notes', e.target.value)} /></div>
+              <div><label htmlFor="sbs-certification" className="text-xs font-medium text-muted-foreground block mb-1">Certification stamps (USSSA, USA/ASA, ISA, NSA, SSUSA…)</label><input id="sbs-certification" className={inp} placeholder="USSSA, USA/ASA" value={form.certification_stamps} onChange={(e) => set('certification_stamps', e.target.value)} /></div>
+              <div><label htmlFor="sbs-notes" className="text-xs font-medium text-muted-foreground block mb-1">Notes</label><textarea id="sbs-notes" className={inp} rows={2} value={form.notes} onChange={(e) => set('notes', e.target.value)} /></div>
               <div className="flex gap-3">
                 <Button variant="outline" className="flex-1" onClick={() => { setForm(EMPTY); setShowForm(false); }}>Cancel</Button>
                 <Button className="flex-1" onClick={handleAdd} disabled={!form.brand.trim() && !form.model.trim()}>Save Bat</Button>
