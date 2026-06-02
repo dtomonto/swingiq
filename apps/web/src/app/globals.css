@@ -181,11 +181,13 @@
     --chart-5: 280 55% 55%;
     --pattern-overlay: none;
     --radius: 0.5rem;
+    color-scheme: light;
   }
 
   /* Dark Performance — near-black, graphite cards, athletic teal. */
   [data-theme='dark-performance'],
   .dark {
+    color-scheme: dark;
     --background: 222 24% 7%;
     --foreground: 210 16% 92%;
     --card: 222 18% 11%;
