@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
+import { BILLING_TIERS } from '@/lib/billing/tiers';
+import { PricingCTA } from './PricingCTA';
 
 export const metadata: Metadata = {
   title: 'Pricing | SwingIQ — Free AI Swing Analysis',
-  description: 'SwingIQ is free to use. Analyze your swing, get personalized drills, and track progress at no cost.',
+  description:
+    'SwingIQ is free to use — analyze your swing, get personalized drills, and track progress at no cost. Pro and Team plans add cloud sync, video storage, and coach tools.',
 };
 
 export default function PricingPage() {
@@ -15,66 +18,59 @@ export default function PricingPage() {
         <p className="text-primary-foreground/90 text-lg">Start free. No credit card required.</p>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+      <div className="max-w-5xl mx-auto px-4 py-16">
+        <div className="grid gap-8 md:grid-cols-3">
+          {BILLING_TIERS.map((tier) => {
+            const isFree = tier.id === 'free';
+            return (
+              <div
+                key={tier.id}
+                className={`rounded-2xl p-8 flex flex-col ${
+                  tier.popular ? 'border-2 border-primary shadow-lg' : 'border border-border bg-muted'
+                }`}
+              >
+                <div className="text-center">
+                  {tier.popular && (
+                    <div className="inline-block mb-3 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                      Most popular
+                    </div>
+                  )}
+                  <div className="text-primary font-bold text-sm uppercase tracking-wide mb-2">{tier.name}</div>
+                  <div className="text-foreground mb-1">
+                    {isFree ? (
+                      <span className="text-5xl font-bold">$0</span>
+                    ) : (
+                      <>
+                        <span className="text-4xl font-bold">${tier.priceMonthly}</span>
+                        <span className="text-muted-foreground text-base">/mo</span>
+                      </>
+                    )}
+                  </div>
+                  <div className="text-muted-foreground text-sm mb-6">{tier.tagline}</div>
+                </div>
 
-          {/* Free */}
-          <div className="border-2 border-primary rounded-2xl p-8 text-center shadow-lg">
-            <div className="text-primary font-bold text-sm uppercase tracking-wide mb-2">Free</div>
-            <div className="text-5xl font-bold text-foreground mb-1">$0</div>
-            <div className="text-muted-foreground text-sm mb-6">Forever free</div>
-            <ul className="text-sm text-foreground space-y-2 text-left mb-8">
-              {[
-                'All 5 sports (golf, tennis, baseball, softball)',
-                'AI swing analysis',
-                'Diagnostic engine — priority issue detection',
-                'Drill recommendations with YouTube search links',
-                'Session history',
-                'Progress tracking',
-                'Data backup & restore',
-                'Golf bag loft autofill',
-                'Professional reference library (browse)',
-                'Side-by-side swing comparison',
-                'Local data storage (no account needed)',
-              ].map((f) => (
-                <li key={f} className="flex items-start gap-2">
-                  <span className="text-primary mt-0.5 shrink-0">✓</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <Link href="/dashboard" className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold py-3 rounded-xl transition-colors text-center">
-              Start Free
-            </Link>
-          </div>
+                <ul className="text-sm text-foreground space-y-2 text-left mb-8 grow">
+                  {tier.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2">
+                      <span className="text-primary mt-0.5 shrink-0">✓</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
 
-          {/* Pro — Coming Soon */}
-          <div className="border border-border rounded-2xl p-8 text-center bg-muted">
-            <div className="text-muted-foreground font-bold text-sm uppercase tracking-wide mb-2">Pro</div>
-            <div className="text-3xl font-bold text-muted-foreground mb-1">Coming Soon</div>
-            <div className="text-muted-foreground text-sm mb-6">Planned for future release</div>
-            <ul className="text-sm text-muted-foreground space-y-2 text-left mb-8">
-              {[
-                'Everything in Free',
-                'Cloud sync across devices',
-                'Video storage & history',
-                'OCR/image data extraction',
-                'Verified professional swing library',
-                'AI narrative coaching (unlimited)',
-                'PDF reports',
-                'Coach sharing',
-                'Priority support',
-              ].map((f) => (
-                <li key={f} className="flex items-start gap-2">
-                  <span className="text-muted-foreground mt-0.5 shrink-0">○</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <button disabled className="w-full bg-muted text-muted-foreground font-semibold py-3 rounded-xl cursor-not-allowed">
-              Coming Soon
-            </button>
-          </div>
+                {isFree ? (
+                  <Link
+                    href="/dashboard"
+                    className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold py-3 rounded-xl transition-colors text-center"
+                  >
+                    Start Free
+                  </Link>
+                ) : (
+                  <PricingCTA tier={tier} />
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <p className="text-center text-sm text-muted-foreground mt-12">

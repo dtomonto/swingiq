@@ -68,11 +68,22 @@ export function isOcrConfigured(): boolean {
   return false;
 }
 
-/** Transactional email delivery (e.g. Resend). Keyless default: no-op + local log. */
+/**
+ * Email lead capture (Resend / ConvertKit / Mailchimp / webhook).
+ * Mirrors lib/email/capture.ts `configuredProvider()`. Keyless default:
+ * honest no-op (the API reports persisted:false).
+ */
 export function isEmailConfigured(): boolean {
-  const provider = process.env.EMAIL_PROVIDER;
-  if (!isConfigured(provider)) return false;
-  if (provider === 'resend') return isConfigured(process.env.RESEND_API_KEY);
+  if (isConfigured(process.env.RESEND_API_KEY) && isConfigured(process.env.RESEND_AUDIENCE_ID)) return true;
+  if (isConfigured(process.env.CONVERTKIT_API_KEY) && isConfigured(process.env.CONVERTKIT_FORM_ID)) return true;
+  if (
+    isConfigured(process.env.MAILCHIMP_API_KEY) &&
+    isConfigured(process.env.MAILCHIMP_LIST_ID) &&
+    isConfigured(process.env.MAILCHIMP_SERVER_PREFIX)
+  ) {
+    return true;
+  }
+  if (isConfigured(process.env.EMAIL_CAPTURE_WEBHOOK_URL)) return true;
   return false;
 }
 

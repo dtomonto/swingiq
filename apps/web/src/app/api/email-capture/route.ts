@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 const VALID_SOURCES: LeadSource[] = [
   'golf_slice', 'launch_monitor', 'slow_pitch_softball', 'youth_baseball',
   'youth_softball', 'tennis_forehand', 'coach', 'creator', 'team',
-  'challenge', 'practice_plan', 'general',
+  'challenge', 'practice_plan', 'pro_waitlist', 'team_waitlist', 'general',
 ];
 
 export async function POST(req: NextRequest) {

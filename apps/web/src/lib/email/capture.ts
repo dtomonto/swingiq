@@ -26,6 +26,8 @@ export type LeadSource =
   | 'team'
   | 'challenge'
   | 'practice_plan'
+  | 'pro_waitlist'
+  | 'team_waitlist'
   | 'general';
 
 export interface CaptureInput {
