@@ -31,6 +31,12 @@ export const ANALYTICS_EVENTS = {
   DRILL_CLICKED: 'drill_clicked',
   PRACTICE_PLAN_SAVED: 'practice_plan_saved',
 
+  // Improvement loop (Fix Stack + DrillMatch)
+  FIX_STACK_CREATED: 'fix_stack_created',
+  DRILL_STARTED: 'drill_started',
+  DRILL_COMPLETED: 'drill_completed',
+  DRILL_FEEDBACK_RECORDED: 'drill_feedback_recorded',
+
   // Professional comparison
   PROFESSIONAL_REFERENCE_PREVIEWED: 'professional_reference_previewed',
   PROFESSIONAL_REFERENCE_SELECTED: 'professional_reference_selected',

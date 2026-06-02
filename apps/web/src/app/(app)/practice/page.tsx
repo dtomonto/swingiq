@@ -23,6 +23,7 @@ import {
   type WeekDay,
 } from '@swingiq/core';
 import { useLatestDiagnosedSession } from '@/store';
+import { FixStackPanel } from '@/components/drillmatch';
 
 const INTENSITY_COLORS: Record<string, string> = {
   warmup: 'bg-accent-secondary/15 text-accent-secondary',
@@ -191,6 +192,17 @@ export default function PracticePage() {
               </select>
             </div>
           </div>
+        </div>
+
+        {/* One Fix First — the highest-leverage fix, before the full week */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-bold text-foreground">Start with one fix</h2>
+            <Link href="/fix" className="text-xs text-primary hover:underline">
+              Open Fix Stack →
+            </Link>
+          </div>
+          <FixStackPanel />
         </div>
 
         {/* No data banner */}
