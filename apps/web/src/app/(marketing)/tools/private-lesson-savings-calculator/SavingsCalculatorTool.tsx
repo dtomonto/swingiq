@@ -73,7 +73,7 @@ export function SavingsCalculatorTool() {
           </p>
 
           <EmailCapture source="general" heading="Send me a smarter practice plan" subheading="See how to get more from each lesson with focused practice between sessions." />
-          <ToolCta href="/dashboard" label="Try SwingIQ Free Before Your Next Lesson" />
+          <ToolCta href="/start" label="Try SwingIQ Free Before Your Next Lesson" />
           <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Recalculate</button>
         </ResultPanel>
       )}

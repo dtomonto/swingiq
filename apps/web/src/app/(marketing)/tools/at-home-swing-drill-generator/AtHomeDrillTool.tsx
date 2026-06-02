@@ -139,7 +139,7 @@ export function AtHomeDrillTool() {
           </p>
 
           <EmailCapture source={youth ? 'youth_baseball' : 'practice_plan'} heading="Email me this session" subheading="Plus a reminder to retest in a week." meta={{ sport: a.sport }} />
-          <ToolCta href="/dashboard" label="Analyze My Swing Free" />
+          <ToolCta href="/video" label="Analyze My Swing Free" />
           <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Start over</button>
         </ResultPanel>
       )}

@@ -172,7 +172,7 @@ export function EquipmentDiagnosticTool() {
           />
 
           <EmailCapture source="general" heading="Email me these fitting questions" subheading="Take them to your next fitting or lesson." />
-          <ToolCta href="/dashboard" label="Analyze My Performance Data Free" />
+          <ToolCta href="/start" label="Analyze My Performance Data Free" />
           <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Start over</button>
         </ResultPanel>
       )}

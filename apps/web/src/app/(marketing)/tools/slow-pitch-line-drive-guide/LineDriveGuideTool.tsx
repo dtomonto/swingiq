@@ -79,7 +79,7 @@ export function LineDriveGuideTool() {
           </div>
 
           <EmailCapture source="slow_pitch_softball" heading="Email me this line-drive fix" subheading="Plus a reminder to retest in a week." />
-          <ToolCta href="/dashboard" label="Analyze My Softball Swing Free" />
+          <ToolCta href="/video" label="Analyze My Softball Swing Free" />
           <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Start over</button>
         </ResultPanel>
       )}

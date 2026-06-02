@@ -178,7 +178,7 @@ export function SwingMistakeQuizTool() {
 
           <EmailCapture source={result.sport.leadSource} heading="Email me this plan" subheading="Your plan plus a day-7 retest reminder." meta={{ sport: result.sport.key }} />
 
-          <ToolCta href="/dashboard" label="Analyze My Real Swing Free" />
+          <ToolCta href="/video" label="Analyze My Real Swing Free" />
           <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Start over</button>
         </ResultPanel>
       )}

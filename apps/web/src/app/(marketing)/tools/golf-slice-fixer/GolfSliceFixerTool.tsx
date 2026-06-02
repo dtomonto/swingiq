@@ -190,7 +190,7 @@ export function GolfSliceFixerTool() {
             subheading="We'll send your slice plan and a day-7 retest reminder. No spam."
           />
 
-          <ToolCta href="/dashboard" label="Analyze My Real Swing Free" />
+          <ToolCta href="/video" label="Analyze My Real Swing Free" />
           <button onClick={onReset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">
             Start over
           </button>
