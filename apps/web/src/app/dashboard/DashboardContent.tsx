@@ -22,6 +22,7 @@ import {
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { FIX_CTA } from '@/lib/coaching/fixFraming';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { useSwingIQStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
@@ -375,7 +376,7 @@ export function DashboardContent() {
                   <p className="text-muted-foreground text-sm">No diagnosis yet.</p>
                   <p className="text-muted-foreground text-xs mt-1">Import a session and run the diagnostic engine to see your #1 fix.</p>
                   <Link href="/diagnose" className="mt-3 inline-block">
-                    <Button size="sm" variant="outline">Run Diagnosis</Button>
+                    <Button size="sm" variant="outline">{FIX_CTA.showMeWhatToFix}</Button>
                   </Link>
                 </div>
               )}

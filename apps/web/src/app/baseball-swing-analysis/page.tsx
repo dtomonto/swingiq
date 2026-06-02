@@ -164,7 +164,7 @@ export default function BaseballSwingAnalysisPage() {
             href="/login"
             className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-10 py-3 rounded-xl transition-colors inline-block"
           >
-            Get Started Free
+            Analyze My Baseball Swing Free
           </Link>
         </div>
       </section>
