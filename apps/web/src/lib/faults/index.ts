@@ -14,5 +14,6 @@ export {
   resolveFault,
   retestCriteriaFor,
   explainFault,
+  matchFaultId,
 } from './ontology';
 export { audienceFromTone, audienceFromUsageCategory } from './audience';

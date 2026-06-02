@@ -19,6 +19,12 @@ export {
 export {
   deriveRetestTargets,
   deriveRetestResults,
+  sortRetestTargets,
   topRetestTarget,
 } from './targets';
+export {
+  deriveGolfRetestTargets,
+  deriveGolfRetestResults,
+  compareGolfSessions,
+} from './targets.golf';
 export { useRetests, type RetestView } from './useRetests';
