@@ -332,4 +332,4 @@ Backlinks (other websites linking to SwingIQ) are a major Google ranking factor.
 
 ---
 
-*Last updated: May 2026 | See also: `docs/ARCHITECTURE_DECISIONS.md`, `SEO_AEO_GEO_PLAN.md` (root), `docs/audits/staged-navigation-seo-geo-aeo-audit.md`*
+*Last updated: June 2026 | See also: `docs/ARCHITECTURE_DECISIONS.md`, `docs/SEO_AEO_GEO_PLAN.md` (legacy), `docs/audits/staged-navigation-seo-geo-aeo-audit.md`*

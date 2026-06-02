@@ -402,11 +402,11 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | [SECURITY_AND_PRIVACY.md](docs/SECURITY_AND_PRIVACY.md) | OWASP coverage, GDPR/COPPA/CCPA status, breach plan |
 | [SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md) | SEO/GEO/AEO strategy with content calendar |
 | [HOW_TO_PUBLISH_UPDATES.md](docs/HOW_TO_PUBLISH_UPDATES.md) | Guide for adding entries to the /updates page |
-| [PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md) | 30/60/90-day roadmap + monetization |
-| [ANALYTICS_PLAN.md](ANALYTICS_PLAN.md) | Event taxonomy, funnels, KPIs |
-| [SEO_AEO_GEO_PLAN.md](SEO_AEO_GEO_PLAN.md) | Legacy SEO plan (superseded by docs/SEO_GEO_AEO.md) |
-| [COMPETITIVE_POSITIONING.md](COMPETITIVE_POSITIONING.md) | Category framing + differentiation |
-| [ADMIN_OPERATIONS_ROADMAP.md](ADMIN_OPERATIONS_ROADMAP.md) | Professional video verification, data ops |
+| [PRODUCT_ROADMAP.md](docs/PRODUCT_ROADMAP.md) | 30/60/90-day roadmap + monetization |
+| [ANALYTICS_PLAN.md](docs/ANALYTICS_PLAN.md) | Event taxonomy, funnels, KPIs |
+| [SEO_AEO_GEO_PLAN.md](docs/SEO_AEO_GEO_PLAN.md) | Legacy SEO plan (superseded by docs/SEO_GEO_AEO.md) |
+| [COMPETITIVE_POSITIONING.md](docs/COMPETITIVE_POSITIONING.md) | Category framing + differentiation |
+| [ADMIN_OPERATIONS_ROADMAP.md](docs/ADMIN_OPERATIONS_ROADMAP.md) | Professional video verification, data ops |
 | [SECURITY.md](SECURITY.md) | Vulnerability reporting, secret rotation, hardening checklist |
 | [docs/security-automation.md](docs/security-automation.md) | CI/CD security workflow guide |
 

@@ -61,7 +61,7 @@
       "Bash(node --input-type=module --eval ' *)",
       "Read(//c/c/Users/dtomo/OneDrive/Desktop/swingiq/**)",
       "Read(//c/c/Users/dtomo/OneDrive/Desktop/**)",
-      "Bash(cd \"/c/Users/dtomo/OneDrive/Desktop/swingiq\" && sed -n '/^## 60-Day/,/^## 90-Day/p' PRODUCT_ROADMAP.md | head -40)",
+      "Bash(cd \"/c/Users/dtomo/OneDrive/Desktop/swingiq\" && sed -n '/^## 60-Day/,/^## 90-Day/p' docs/PRODUCT_ROADMAP.md | head -40)",
       "Bash(node scripts/patch-readme.mjs)",
       "Bash(xxd)",
       "Bash(git merge *)",
@@ -93,7 +93,12 @@
       "Bash(git ls-tree *)",
       "Bash(git ls-remote *)",
       "Bash(node -e \"const d=require\\('./docs/master-audit-report.json'\\); console.log\\('JSON valid. findings:', d.consolidatedFindings.length, '| sources:', d.auditSources.length, '| topInsights:', d.topInsights.length, '| kpis:', d.kpis.length, '| unresolved:', d.unresolvedQuestions.length\\);\")",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(grep -l 'AppShell\\\\|requireAuth\\\\|redirect\\('\\\\''/login'\\\\''\\)\\\\|noindex' apps/web/src/app/__TRACKED_VAR__/page.tsx)",
+      "Bash(grep -h 'robots:\\\\|title:' apps/web/src/app/__TRACKED_VAR__/page.tsx)",
+      "Bash(grep -hn 'AppShell\\\\|robots:\\\\|index:\\\\|export const metadata\\\\|noindex' apps/web/src/app/__TRACKED_VAR__/page.tsx)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(git mv *)"
     ]
   }
 }
