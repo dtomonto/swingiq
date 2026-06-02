@@ -29,6 +29,7 @@ import {
   Award,
   Package,
   Compass,
+  RotateCcw,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
@@ -60,6 +61,7 @@ export function Sidebar({ onClose }: SidebarProps) {
     { href: '/video', label: 'Video Analysis', icon: Video },
     { href: '/drills', label: isGolf ? 'Drill Library' : 'Drills', icon: BookOpen },
     { href: '/progress', label: 'Progress', icon: TrendingUp },
+    { href: '/retest', label: 'Retest', icon: RotateCcw },
     { href: '/milestones', label: 'Milestones', icon: Trophy },
     { href: '/compare', label: 'Compare & References', icon: GitCompareArrows },
     { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },

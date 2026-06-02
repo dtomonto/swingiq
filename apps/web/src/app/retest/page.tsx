@@ -60,7 +60,7 @@ export default function RetestPage() {
               Time to retest
             </h2>
             {targets.map((t) => (
-              <RetestReminderCard key={t.id} target={t} onDismiss={dismiss} />
+              <RetestReminderCard key={t.id} target={t} onDismiss={dismiss} showExplanation />
             ))}
           </section>
         )}

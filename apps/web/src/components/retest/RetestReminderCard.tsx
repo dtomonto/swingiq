@@ -14,6 +14,7 @@ import { ChevronDown, ChevronRight, RotateCcw, Video, X, CheckCircle2 } from 'lu
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { FaultExplanation } from '@/components/faults/FaultExplanation';
 import type { RetestTarget, RetestStatus } from '@/lib/retest';
 
 const STATUS_META: Record<
@@ -32,10 +33,13 @@ function recordHref(sport: RetestTarget['sport']): string {
 export function RetestReminderCard({
   target,
   onDismiss,
+  showExplanation = false,
   className,
 }: {
   target: RetestTarget;
   onDismiss?: (id: string) => void;
+  /** Show the role-aware "what this means" block (used on the Retest hub). */
+  showExplanation?: boolean;
   className?: string;
 }) {
   const [showHow, setShowHow] = useState(false);
@@ -98,6 +102,12 @@ export function RetestReminderCard({
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+
+          {showExplanation && (
+            <div className="mt-3">
+              <FaultExplanation faultId={target.faultId} faultText={target.focus} sport={target.sport} />
             </div>
           )}
 

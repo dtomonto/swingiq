@@ -10,6 +10,7 @@ import { getRoutineForDiagnosis, runDiagnosticEngine, type DrillRecommendation, 
 import type { Shot } from '@swingiq/core';
 import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
 import { AgentPracticePlanCard } from '@/components/agents/AgentPracticePlanCard';
+import { FaultExplanation } from '@/components/faults/FaultExplanation';
 import { format } from 'date-fns';
 
 function DrillCard({ drill }: { drill: DrillRecommendation }) {
@@ -369,6 +370,9 @@ export function TrainingContent() {
               <span className="flex items-center gap-1"><Clock size={12} />{routine.estimated_duration_minutes} minutes</span>
               <span>{routine.ball_count} balls</span>
               <span className="capitalize">{routine.intensity} intensity</span>
+            </div>
+            <div className="mt-3">
+              <FaultExplanation faultId={diagnosisId} faultText={routine.name} sport="golf" />
             </div>
           </div>
         </CardBody>
