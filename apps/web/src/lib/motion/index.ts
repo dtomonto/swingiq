@@ -13,8 +13,11 @@ export {
   weakestBasis,
   computeMotionScore,
   buildSwingFingerprint,
+  computeMotionScoreFromPose,
+  swingFingerprintFromPose,
   type PoseProvider,
   type PoseEstimateInput,
   type MotionEngineCapabilities,
 } from './engine';
 export { mockPoseProvider, getActivePoseProvider } from './providers';
+export { mediapipePoseProvider, isPoseEngineEnabled } from './mediapipeProvider';

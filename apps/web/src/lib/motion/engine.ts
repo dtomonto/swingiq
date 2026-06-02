@@ -142,3 +142,59 @@ export function buildSwingFingerprint(
     createdAt,
   };
 }
+
+// ── Pose-sequence → transparent metrics ───────────────────────
+// Honest derivations only. Single-camera 2D pose is an ESTIMATE, never a
+// lab measurement, so these never claim more than tracking quality and
+// coverage — enough to be useful without overstating precision.
+
+/** Average landmark visibility across the sequence (0–1). */
+function avgVisibility(seq: PoseSequence): number {
+  let sum = 0;
+  let n = 0;
+  for (const frame of seq.frames) {
+    for (const lm of frame.landmarks) {
+      if (typeof lm.visibility === 'number') {
+        sum += lm.visibility;
+        n++;
+      }
+    }
+  }
+  return n > 0 ? sum / n : 0;
+}
+
+/** Spread (variance) of the first landmark's x across frames — a motion proxy. */
+function landmarkSpread(seq: PoseSequence): number {
+  const xs = seq.frames.map((f) => f.landmarks[0]?.x).filter((x): x is number => typeof x === 'number');
+  if (xs.length < 2) return 0;
+  const mean = xs.reduce((s, x) => s + x, 0) / xs.length;
+  return xs.reduce((s, x) => s + (x - mean) ** 2, 0) / xs.length;
+}
+
+/**
+ * A transparent Motion Score from a pose sequence. Components are only what we
+ * can honestly derive (tracking quality + motion coverage); the score inherits
+ * the sequence's basis, so an estimated pose keeps its disclaimer.
+ */
+export function computeMotionScoreFromPose(seq: PoseSequence): MotionScore {
+  const tracking = avgVisibility(seq);
+  const coverage = seq.frameCount > 0 ? Math.min(1, seq.frames.length / seq.frameCount) : 0;
+  const components: MotionScoreComponent[] = [
+    { id: 'tracking', label: 'Tracking quality', score: Math.round(tracking * 100), weight: 2 },
+    { id: 'coverage', label: 'Motion coverage', score: Math.round(coverage * 100), weight: 1 },
+  ];
+  return computeMotionScore(components, seq.basis);
+}
+
+/** A Swing Fingerprint derived from a pose sequence (inherits its basis). */
+export function swingFingerprintFromPose(sport: SportId, seq: PoseSequence): SwingFingerprint {
+  return buildSwingFingerprint(
+    sport,
+    {
+      trackingQuality: +avgVisibility(seq).toFixed(3),
+      frames: seq.frameCount,
+      motionSpread: +landmarkSpread(seq).toFixed(3),
+    },
+    seq.basis,
+  );
+}

@@ -9,6 +9,7 @@
 // ============================================================
 
 import type { MotionEngineCapabilities, PoseEstimateInput, PoseProvider, PoseSequence } from './engine';
+import { mediapipePoseProvider } from './mediapipeProvider';
 
 // (Types live in engine.ts to keep the provider seam dependency-light;
 //  re-exported here for ergonomic imports.)
@@ -37,7 +38,10 @@ export const mockPoseProvider: PoseProvider = {
   },
 };
 
-/** The active provider. Swap this when a real model is wired behind a flag. */
+/**
+ * The active provider: the real MediaPipe provider when it's enabled and
+ * available (flag on, browser, WASM), otherwise the honest mock.
+ */
 export function getActivePoseProvider(): PoseProvider {
-  return mockPoseProvider;
+  return mediapipePoseProvider.isAvailable() ? mediapipePoseProvider : mockPoseProvider;
 }
