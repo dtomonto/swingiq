@@ -27,12 +27,12 @@ import type { SportId, AIVisualAnalysis, SwingVideoMetadata } from '@swingiq/cor
 import { extractSwingFrames } from '@/lib/frame-extraction';
 import {
   saveVideoAnalysis,
-  historyForSport,
   toPreviousSummary,
   downloadAnalysisJson,
   deleteVideoAnalysis,
   type SavedVideoAnalysis,
 } from '@/lib/video/history';
+import { useVideoHistory } from '@/lib/video/useVideoHistory';
 
 type AnalysisStep = 'upload' | 'configure' | 'analyzing' | 'results';
 
@@ -49,21 +49,19 @@ export function SportVideoAnalyzerContent() {
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [stage, setStage] = useState<AnalysisStage>('preparing');
 
-  // Returning-user history (per selected sport), compare toggle, saved record.
-  const [history, setHistory] = useState<SavedVideoAnalysis[]>([]);
+  // Returning-user history for the selected sport, compare toggle, saved record.
+  // `useVideoHistory` reads localStorage after hydration and live-updates on
+  // save/delete (no setState-in-effect needed).
+  const history = useVideoHistory(selectedSport);
   const [compareEnabled, setCompareEnabled] = useState(false);
   const [savedRecord, setSavedRecord] = useState<SavedVideoAnalysis | null>(null);
   const [comparedToPrevious, setComparedToPrevious] = useState(false);
 
-  const refreshHistory = useCallback(() => {
-    setHistory(historyForSport(selectedSport));
-  }, [selectedSport]);
-
-  // Reload history (and reset the compare toggle) whenever the sport changes.
-  useEffect(() => {
-    refreshHistory();
+  // Reset the compare toggle whenever the user switches sport.
+  const handleSelectSport = useCallback((sport: SportId) => {
+    setSelectedSport(sport);
     setCompareEnabled(false);
-  }, [refreshHistory]);
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -71,13 +69,9 @@ export function SportVideoAnalyzerContent() {
     };
   }, [videoObjectUrl]);
 
-  const handleDeleteHistory = useCallback(
-    (id: string) => {
-      deleteVideoAnalysis(id);
-      refreshHistory();
-    },
-    [refreshHistory],
-  );
+  const handleDeleteHistory = useCallback((id: string) => {
+    deleteVideoAnalysis(id);
+  }, []);
 
   const handleVideoReady = useCallback(
     (file: File, metadata: SwingVideoMetadata, objectUrl: string) => {
@@ -158,7 +152,6 @@ export function SportVideoAnalyzerContent() {
         analysis: result,
       });
       setSavedRecord(saved);
-      refreshHistory();
       setStage('plan');
       setStep('results');
     } catch (err) {
@@ -184,7 +177,7 @@ export function SportVideoAnalyzerContent() {
         <Card>
           <CardBody className="space-y-3">
             <p className="text-sm font-semibold text-foreground">Which sport are you analyzing?</p>
-            <SportCardGrid selectedSport={selectedSport} onSelect={setSelectedSport} />
+            <SportCardGrid selectedSport={selectedSport} onSelect={handleSelectSport} />
           </CardBody>
         </Card>
 
@@ -240,7 +233,7 @@ export function SportVideoAnalyzerContent() {
         <Card>
           <CardBody className="space-y-3">
             <p className="text-sm font-semibold text-foreground">Sport</p>
-            <SportCardGrid selectedSport={selectedSport} onSelect={setSelectedSport} />
+            <SportCardGrid selectedSport={selectedSport} onSelect={handleSelectSport} />
           </CardBody>
         </Card>
 

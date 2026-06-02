@@ -22,12 +22,12 @@ import { Button } from '@/components/ui/Button';
 import { extractSwingFrames } from '@/lib/frame-extraction';
 import {
   saveVideoAnalysis,
-  historyForSport,
   toPreviousSummary,
   downloadAnalysisJson,
   deleteVideoAnalysis,
   type SavedVideoAnalysis,
 } from '@/lib/video/history';
+import { useVideoHistory } from '@/lib/video/useVideoHistory';
 import { cn } from '@/lib/utils';
 import type { SwingVideoMetadata, AIVisualAnalysis } from '@swingiq/core';
 import { ChevronLeft, Loader2, AlertCircle, Zap, Download, RefreshCw } from 'lucide-react';
@@ -48,18 +48,12 @@ export function VideoAnalyzerContent() {
   const [stage, setStage] = useState<AnalysisStage>('preparing');
 
   // Returning-user history (golf), compare toggle, and the just-saved record.
-  const [history, setHistory] = useState<SavedVideoAnalysis[]>([]);
+  // `useVideoHistory` reads localStorage after hydration and live-updates on
+  // save/delete (no setState-in-effect needed).
+  const history = useVideoHistory('golf');
   const [compareEnabled, setCompareEnabled] = useState(false);
   const [savedRecord, setSavedRecord] = useState<SavedVideoAnalysis | null>(null);
   const [comparedToPrevious, setComparedToPrevious] = useState(false);
-
-  const refreshHistory = useCallback(() => {
-    setHistory(historyForSport('golf'));
-  }, []);
-
-  useEffect(() => {
-    refreshHistory();
-  }, [refreshHistory]);
 
   useEffect(() => {
     return () => {
@@ -67,13 +61,9 @@ export function VideoAnalyzerContent() {
     };
   }, [videoObjectUrl]);
 
-  const handleDeleteHistory = useCallback(
-    (id: string) => {
-      deleteVideoAnalysis(id);
-      refreshHistory();
-    },
-    [refreshHistory],
-  );
+  const handleDeleteHistory = useCallback((id: string) => {
+    deleteVideoAnalysis(id);
+  }, []);
 
   const handleVideoReady = useCallback(
     (file: File, metadata: SwingVideoMetadata, objectUrl: string) => {
@@ -158,7 +148,6 @@ export function VideoAnalyzerContent() {
         analysis: result,
       });
       setSavedRecord(saved);
-      refreshHistory();
       setStage('plan');
       setStep('results');
     } catch (err) {
