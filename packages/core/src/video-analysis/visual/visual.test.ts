@@ -35,6 +35,9 @@ function validResult(): AIVisualAnalysisResult {
       'Full shoulder turn at the top',
       'Balanced finish facing the target',
     ],
+    strengths: [
+      { strength: 'Balanced finish', evidenceFromVideo: 'Holds a stable finish in the last frames.' },
+    ],
     videoQuality: {
       cameraAngle: { quality: 'good', note: 'Roughly down the line.' },
       lighting: { quality: 'good', note: 'Even daylight.' },
@@ -115,6 +118,24 @@ describe('validateAIResult', () => {
     const res = validateAIResult(JSON.stringify(bad));
     expect(res.ok).toBe(false);
   });
+
+  test('defaults strengths to an empty array when omitted', () => {
+    const noStrengths = validResult() as Partial<AIVisualAnalysisResult>;
+    delete noStrengths.strengths;
+    const res = validateAIResult(JSON.stringify(noStrengths));
+    expect(res.ok).toBe(true);
+    if (res.ok) expect(res.data.strengths).toEqual([]);
+  });
+
+  test('accepts evidence-backed strengths', () => {
+    const withStrengths = validResult();
+    withStrengths.strengths = [
+      { strength: 'Balanced finish', evidenceFromVideo: 'Holds a stable finish in the final frames.' },
+    ];
+    const res = validateAIResult(JSON.stringify(withStrengths));
+    expect(res.ok).toBe(true);
+    if (res.ok) expect(res.data.strengths).toHaveLength(1);
+  });
 });
 
 describe('extractJsonObject', () => {
@@ -166,6 +187,12 @@ describe('buildVisionPrompt', () => {
     const p = buildVisionPrompt({ sport: 'baseball', metadata: { frameCount: 16 } });
     expect(p.userText).toContain('16');
     expect(p.system.toLowerCase()).toContain('do not invent');
+  });
+
+  test('requests evidence-backed strengths without inventing praise', () => {
+    const p = buildVisionPrompt({ sport: 'golf', metadata: { frameCount: 12 } });
+    expect(p.system).toContain('strengths');
+    expect(p.system.toLowerCase()).toContain('never invent praise');
   });
 
   test('includes previous priorities for context without assuming improvement', () => {

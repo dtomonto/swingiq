@@ -137,6 +137,13 @@ Sport-aware coach report generator. Copy a formatted summary to share with your 
 - i18n-ready architecture — content is structured for extraction into all 20 supported languages
 - Centralized content registry (`lib/tutorial/content.ts`) — adding a tutorial for a new screen takes one object
 
+### 🎨 Customizable Themes
+- **7 curated themes** — Standard, Dark Performance, Coach Mode, Heritage Club, Field & Court, Arcade Practice, and Bird Print Lifestyle
+- Themes change only the visual/emotional layer — **never** layout, navigation, coaching logic, data, or accessibility
+- Each theme redefines the same semantic tokens (`globals.css`); single source of truth in `lib/theme/themes.ts`
+- Selected theme persists per user and is included in backup/restore
+- Choose under **Settings → Appearance**
+
 ### 🌐 Multi-Language Support
 SwingIQ is available in 20 languages with full Spanish and French translations. Switch languages from Settings or the language toggle in the navigation.
 
@@ -167,7 +174,7 @@ swingiq/
 │   └── web/                    # Next.js 15 App Router — mobile-optimized
 │       ├── public/             # robots.txt, manifest
 │       └── src/
-│           ├── app/            # 80+ routes (79 static pages)
+│           ├── app/            # 90+ routes (App Router)
 │           │   ├── (app)       # dashboard, profile, sessions, video, training…
 │           │   ├── compare/    # Professional references + side-by-side comparison
 │           │   ├── settings/backup/  # Backup & Restore
@@ -296,7 +303,7 @@ Start here: **[docs/BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md)**
 | Layer | Technology |
 |---|---|
 | Web Framework | Next.js 15 (App Router), TypeScript 5 |
-| Styling | Tailwind CSS, Radix UI primitives |
+| Styling | Tailwind CSS, Radix UI primitives, 7-theme semantic-token system |
 | State | Zustand (localStorage-persisted) |
 | Server State | TanStack Query |
 | Forms | React Hook Form + Zod |
@@ -351,21 +358,30 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | `/trust` | Data privacy commitments and AI honesty |
 | `/glossary` | Searchable ~45 swing terms across all sports |
 | `/resources` | Getting started guides and quick links |
-| `/updates` | User-facing product update history (44 entries) |
+| `/updates` | User-facing product update history (plain-English changelog) |
 | `/blog` | Blog index + 8 SEO articles |
 | `/blog/[slug]` | Individual blog posts (8 statically pre-rendered) |
 | `/benchmarks` | Performance standard index for all sports |
 | `/benchmarks/[sport]` | Beginner → elite ranges: golf, tennis, baseball, softball |
-| `/drills/[sport]` | Public drill library for each sport |
 | `/golf-swing-analysis` | Golf SEO landing page |
 | `/tennis-swing-analysis` | Tennis SEO landing page |
 | `/baseball-swing-analysis` | Baseball SEO landing page |
 | `/softball-swing-analysis` | Slow + fast pitch softball SEO page |
+| `/free-swing-analysis` | Free analysis conversion landing page |
+| `/golf/*`, `/softball/*`, `/tennis/*`, `/baseball/*` | Programmatic SEO landing pages (see `content/seoPages.ts`) |
+| `/start` | Onboarding entry point ("Start Here") |
+| `/methodology` | What SwingIQ measures vs. estimates (transparency) |
+| `/report/sample` | Worked example of a swing report |
+| `/tools`, `/tools/*` | Free quizzes, drill & practice generators |
+| `/challenges`, `/challenges/*` | Free multi-sport practice challenges |
+| `/coaches`, `/creators`, `/teams`, `/partners` | Partner / audience landing pages |
 | `/pricing` | Free tier + Pro coming soon |
 | `/parents` | Youth safety, FAQ |
 | `/privacy` | Privacy policy |
 | `/terms` | Terms of service + AI disclaimer |
 | `/vulnerability-disclosure` | Responsible security disclosure policy |
+
+> The canonical, machine-readable list of indexable URLs is `apps/web/src/app/sitemap.ts`; crawler rules live in `apps/web/public/robots.txt`. The `/drills` library is part of the authenticated app, not a public SEO route.
 
 ---
 

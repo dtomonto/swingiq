@@ -129,6 +129,12 @@ const JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fences, no 
 {
   "summary": "2-4 sentence overview of what the frames show",
   "whatWasClearlyVisible": ["3 to 6 short, evidence-based observations"],
+  "strengths": [
+    {
+      "strength": "a genuine thing the athlete is doing well",
+      "evidenceFromVideo": "the specific visible evidence in the frames that supports it"
+    }
+  ],
   "videoQuality": {
     "cameraAngle":    { "quality": "excellent|good|limited|poor", "note": "short note" },
     "lighting":       { "quality": "excellent|good|limited|poor", "note": "short note" },
@@ -169,7 +175,7 @@ const JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fences, no 
   "visibilityQuality": "excellent|good|limited|poor"
 }
 
-Rules for the arrays: provide 3 entries in "topPriorities" when the evidence supports it (never more than 5), and 3 to 5 entries in "practicePlan". "overallConfidence" is a number between 0 and 1.`;
+Rules for the arrays: provide up to 3 evidence-backed "strengths" (only ones you can actually see — return an empty array if none are clearly visible, never invent praise); provide 3 entries in "topPriorities" when the evidence supports it (never more than 5), and 3 to 5 entries in "practicePlan". "overallConfidence" is a number between 0 and 1.`;
 
 // ──────────────────────────────────────────────────────────────
 // Builder

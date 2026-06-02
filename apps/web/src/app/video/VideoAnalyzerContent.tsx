@@ -15,13 +15,22 @@ import { SwingVideoPlayer } from '@/components/video/SwingVideoPlayer';
 import { AnalysisProgress, type AnalysisStage } from '@/components/video/AnalysisProgress';
 import { AIVisualAnalysisPanel } from '@/components/video/AIVisualAnalysisPanel';
 import { AINotConfiguredNotice } from '@/components/video/AINotConfiguredNotice';
+import { RecordingGuide } from '@/components/video/RecordingGuide';
+import { VideoWelcomeBack } from '@/components/video/VideoWelcomeBack';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { Button } from '@/components/ui/Button';
-import { Card, CardBody } from '@/components/ui/Card';
-import { cn } from '@/lib/utils';
 import { extractSwingFrames } from '@/lib/frame-extraction';
+import {
+  saveVideoAnalysis,
+  historyForSport,
+  toPreviousSummary,
+  downloadAnalysisJson,
+  deleteVideoAnalysis,
+  type SavedVideoAnalysis,
+} from '@/lib/video/history';
+import { cn } from '@/lib/utils';
 import type { SwingVideoMetadata, AIVisualAnalysis } from '@swingiq/core';
-import { ChevronLeft, Loader2, AlertCircle, Zap, Info } from 'lucide-react';
+import { ChevronLeft, Loader2, AlertCircle, Zap, Download, RefreshCw } from 'lucide-react';
 
 type AnalysisStep = 'upload' | 'configure' | 'analyzing' | 'results';
 type CameraAngleOption = 'down_the_line' | 'face_on' | 'unknown';
@@ -38,11 +47,33 @@ export function VideoAnalyzerContent() {
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [stage, setStage] = useState<AnalysisStage>('preparing');
 
+  // Returning-user history (golf), compare toggle, and the just-saved record.
+  const [history, setHistory] = useState<SavedVideoAnalysis[]>([]);
+  const [compareEnabled, setCompareEnabled] = useState(false);
+  const [savedRecord, setSavedRecord] = useState<SavedVideoAnalysis | null>(null);
+  const [comparedToPrevious, setComparedToPrevious] = useState(false);
+
+  const refreshHistory = useCallback(() => {
+    setHistory(historyForSport('golf'));
+  }, []);
+
+  useEffect(() => {
+    refreshHistory();
+  }, [refreshHistory]);
+
   useEffect(() => {
     return () => {
       if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);
     };
   }, [videoObjectUrl]);
+
+  const handleDeleteHistory = useCallback(
+    (id: string) => {
+      deleteVideoAnalysis(id);
+      refreshHistory();
+    },
+    [refreshHistory],
+  );
 
   const handleVideoReady = useCallback(
     (file: File, metadata: SwingVideoMetadata, objectUrl: string) => {
@@ -70,8 +101,14 @@ export function VideoAnalyzerContent() {
     setAnalyzeError(null);
     setNotConfiguredMessage(null);
     setAnalysis(null);
+    setSavedRecord(null);
     setStage('preparing');
     setStep('analyzing');
+
+    // Optionally feed the previous swing's priorities to the AI as context.
+    const latest = history[0] ?? null;
+    const previous = compareEnabled && latest ? toPreviousSummary(latest) : null;
+    setComparedToPrevious(Boolean(previous));
 
     try {
       // 1. Extract still frames from the whole clip, in the browser.
@@ -91,6 +128,7 @@ export function VideoAnalyzerContent() {
             resolution: extraction.resolution,
             declaredCameraAngle: cameraAngle,
           },
+          previous,
         }),
       });
 
@@ -109,7 +147,18 @@ export function VideoAnalyzerContent() {
       }
 
       setStage('building');
-      setAnalysis(data.analysis as AIVisualAnalysis);
+      const result = data.analysis as AIVisualAnalysis;
+      setAnalysis(result);
+      // Save to the user's local swing history for welcome-back + compare.
+      const saved = saveVideoAnalysis({
+        sport: 'golf',
+        sportLabel: 'Golf',
+        emoji: '⛳',
+        declaredCameraAngle: cameraAngle,
+        analysis: result,
+      });
+      setSavedRecord(saved);
+      refreshHistory();
       setStage('plan');
       setStep('results');
     } catch (err) {
@@ -174,30 +223,19 @@ export function VideoAnalyzerContent() {
                 your swing.
               </p>
             </div>
-            <VideoUpload onVideoReady={handleVideoReady} />
 
-            <Card>
-              <CardBody className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Info className="w-4 h-4 text-accent-secondary" />
-                  <p className="text-sm font-semibold text-foreground">Recording tips</p>
-                </div>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  {[
-                    'Use a phone or camera on a tripod at hip height',
-                    'Film from directly behind (down the line) or directly to the side (face on)',
-                    'Ensure good lighting so the club and body are clearly visible',
-                    'Keep the entire swing in frame from address to finish',
-                    'A clean, uncluttered background helps the AI see your body',
-                  ].map((tip, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="text-primary font-bold mt-0.5">·</span>
-                      {tip}
-                    </li>
-                  ))}
-                </ul>
-              </CardBody>
-            </Card>
+            <VideoWelcomeBack
+              latest={history[0] ?? null}
+              recent={history}
+              compareEnabled={compareEnabled}
+              onCompareChange={setCompareEnabled}
+              onExport={downloadAnalysisJson}
+              onDelete={handleDeleteHistory}
+            />
+
+            <RecordingGuide sport="golf" defaultOpen={history.length === 0} />
+
+            <VideoUpload onVideoReady={handleVideoReady} />
           </div>
         )}
 
@@ -249,6 +287,16 @@ export function VideoAnalyzerContent() {
               />
             ) : analysis ? (
               <>
+              {comparedToPrevious && (
+                <div className="rounded-xl border border-primary/30 bg-primary/10 p-3 flex items-start gap-2">
+                  <RefreshCw className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                  <p className="text-sm text-foreground">
+                    <span className="font-semibold">Compared to your last swing.</span> The AI had
+                    your previous focus areas as context — but it judged only this new video and did
+                    not assume you improved.
+                  </p>
+                </div>
+              )}
               <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-5 items-start">
                 {/* Left: video */}
                 <div className="space-y-3 lg:sticky lg:top-20">
@@ -257,14 +305,26 @@ export function VideoAnalyzerContent() {
                       <SwingVideoPlayer objectUrl={videoObjectUrl} />
                     </div>
                   )}
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     <Button variant="outline" onClick={() => setStep('configure')}>
                       Change settings
                     </Button>
                     <Button variant="ghost" onClick={handleRemoveVideo}>
                       New video
                     </Button>
+                    {savedRecord && (
+                      <Button variant="ghost" onClick={() => downloadAnalysisJson(savedRecord)}>
+                        <Download className="w-4 h-4" />
+                        Export
+                      </Button>
+                    )}
                   </div>
+                  {savedRecord && (
+                    <p className="text-xs text-muted-foreground">
+                      Saved to your swing history on this device. Only the text analysis is stored —
+                      never your video.
+                    </p>
+                  )}
                 </div>
 
                 {/* Right: AI analysis */}

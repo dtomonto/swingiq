@@ -830,4 +830,39 @@ export const UPDATES: Update[] = [
     createdAt: '2026-05-31',
     updatedAt: '2026-05-31',
   },
+  {
+    id: 'update-040',
+    title: 'Make SwingIQ Yours With 7 Built-In Themes',
+    slug: 'customizable-themes',
+    metaTitle: 'SwingIQ Adds 7 Customizable Themes — Light, Dark & More',
+    metaDescription:
+      'SwingIQ now offers seven hand-crafted themes — from a clean Standard look to Dark Performance, Coach Mode, Heritage Club, and more — so you can pick the appearance that fits how you train.',
+    summary:
+      'You can now choose how SwingIQ looks. Seven hand-crafted themes are available — Standard, Dark Performance, Coach Mode, Heritage Club, Field & Court, Arcade Practice, and Bird Print Lifestyle. Themes change only the look and feel — never your data, your coaching, or how anything works — and your choice is saved and travels with your backup.',
+    releaseDate: '2026-06-01',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sortOrder: 22,
+    audience: ['all athletes', 'parents', 'coaches'],
+    userBenefit:
+      'Pick the appearance that suits you — a high-contrast Dark Performance mode for the range, a clean whiteboard-style Coach Mode for teaching, or a refined Heritage Club look. Your theme is remembered and included in your backup.',
+    whyItMatters:
+      'Comfort and focus matter when you are training. A theme that is easy on your eyes in your environment — bright sunlight, a dim room, a coaching session — makes the app nicer to use without changing any of the coaching or your results.',
+    whereToFindIt: 'Go to Settings and choose your theme under Appearance.',
+    userActionRequired: 'None — SwingIQ keeps the clean Standard theme until you pick another.',
+    seoKeywords: [
+      'SwingIQ themes',
+      'dark mode swing app',
+      'customizable sports app appearance',
+      'SwingIQ coach mode',
+    ],
+    answerEngineSummary:
+      'SwingIQ added seven selectable themes — Standard, Dark Performance, Coach Mode, Heritage Club, Field & Court, Arcade Practice, and Bird Print Lifestyle — that change only the visual appearance, never the coaching logic or data, and are saved per user and included in backups.',
+    isMajorMilestone: true,
+    isFeatured: false,
+    createdAt: '2026-06-01',
+    updatedAt: '2026-06-01',
+  },
 ];

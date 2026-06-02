@@ -9,7 +9,7 @@
 // ============================================================
 
 import { useState, useCallback, useEffect } from 'react';
-import { ChevronLeft, Loader2, AlertCircle, Info, Zap } from 'lucide-react';
+import { ChevronLeft, Loader2, AlertCircle, Info, Zap, Download, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import { VideoUpload, VideoPreviewCard } from '@/components/video/VideoUpload';
@@ -17,12 +17,22 @@ import { SwingVideoPlayer } from '@/components/video/SwingVideoPlayer';
 import { AnalysisProgress, type AnalysisStage } from '@/components/video/AnalysisProgress';
 import { AIVisualAnalysisPanel } from '@/components/video/AIVisualAnalysisPanel';
 import { AINotConfiguredNotice } from '@/components/video/AINotConfiguredNotice';
+import { RecordingGuide } from '@/components/video/RecordingGuide';
+import { VideoWelcomeBack } from '@/components/video/VideoWelcomeBack';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { SportCardGrid } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
 import { getSportConfig, SPORT_CAMERA_ANGLES } from '@swingiq/core';
 import type { SportId, AIVisualAnalysis, SwingVideoMetadata } from '@swingiq/core';
 import { extractSwingFrames } from '@/lib/frame-extraction';
+import {
+  saveVideoAnalysis,
+  historyForSport,
+  toPreviousSummary,
+  downloadAnalysisJson,
+  deleteVideoAnalysis,
+  type SavedVideoAnalysis,
+} from '@/lib/video/history';
 
 type AnalysisStep = 'upload' | 'configure' | 'analyzing' | 'results';
 
@@ -39,11 +49,35 @@ export function SportVideoAnalyzerContent() {
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [stage, setStage] = useState<AnalysisStage>('preparing');
 
+  // Returning-user history (per selected sport), compare toggle, saved record.
+  const [history, setHistory] = useState<SavedVideoAnalysis[]>([]);
+  const [compareEnabled, setCompareEnabled] = useState(false);
+  const [savedRecord, setSavedRecord] = useState<SavedVideoAnalysis | null>(null);
+  const [comparedToPrevious, setComparedToPrevious] = useState(false);
+
+  const refreshHistory = useCallback(() => {
+    setHistory(historyForSport(selectedSport));
+  }, [selectedSport]);
+
+  // Reload history (and reset the compare toggle) whenever the sport changes.
+  useEffect(() => {
+    refreshHistory();
+    setCompareEnabled(false);
+  }, [refreshHistory]);
+
   useEffect(() => {
     return () => {
       if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);
     };
   }, [videoObjectUrl]);
+
+  const handleDeleteHistory = useCallback(
+    (id: string) => {
+      deleteVideoAnalysis(id);
+      refreshHistory();
+    },
+    [refreshHistory],
+  );
 
   const handleVideoReady = useCallback(
     (file: File, metadata: SwingVideoMetadata, objectUrl: string) => {
@@ -71,9 +105,15 @@ export function SportVideoAnalyzerContent() {
     setAnalyzeError(null);
     setNotConfiguredMessage(null);
     setAnalysis(null);
+    setSavedRecord(null);
     setStage('preparing');
     setStep('analyzing');
     setActiveSport(selectedSport);
+
+    const sportConfig = getSportConfig(selectedSport);
+    const latest = history[0] ?? null;
+    const previous = compareEnabled && latest ? toPreviousSummary(latest) : null;
+    setComparedToPrevious(Boolean(previous));
 
     try {
       setStage('extracting');
@@ -91,6 +131,7 @@ export function SportVideoAnalyzerContent() {
             resolution: extraction.resolution,
             declaredCameraAngle: videoMetadata.camera_angle,
           },
+          previous,
         }),
       });
 
@@ -106,7 +147,18 @@ export function SportVideoAnalyzerContent() {
       }
 
       setStage('building');
-      setAnalysis(data.analysis as AIVisualAnalysis);
+      const result = data.analysis as AIVisualAnalysis;
+      setAnalysis(result);
+      // Save to the user's local swing history for welcome-back + compare.
+      const saved = saveVideoAnalysis({
+        sport: selectedSport,
+        sportLabel: sportConfig?.name ?? 'Swing',
+        emoji: sportConfig?.emoji,
+        declaredCameraAngle: videoMetadata.camera_angle,
+        analysis: result,
+      });
+      setSavedRecord(saved);
+      refreshHistory();
       setStage('plan');
       setStep('results');
     } catch (err) {
@@ -135,6 +187,19 @@ export function SportVideoAnalyzerContent() {
             <SportCardGrid selectedSport={selectedSport} onSelect={setSelectedSport} />
           </CardBody>
         </Card>
+
+        <VideoWelcomeBack
+          latest={history[0] ?? null}
+          recent={history}
+          compareEnabled={compareEnabled}
+          onCompareChange={setCompareEnabled}
+          onExport={downloadAnalysisJson}
+          onDelete={handleDeleteHistory}
+        />
+
+        {selectedSport !== 'golf' && (
+          <RecordingGuide sport={selectedSport} defaultOpen={history.length === 0} />
+        )}
 
         <VideoUpload onVideoReady={handleVideoReady} />
 
@@ -290,6 +355,16 @@ export function SportVideoAnalyzerContent() {
         />
       ) : analysis ? (
         <>
+        {comparedToPrevious && (
+          <div className="rounded-xl border border-primary/30 bg-primary/10 p-3 flex items-start gap-2">
+            <RefreshCw className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+            <p className="text-sm text-foreground">
+              <span className="font-semibold">Compared to your last swing.</span> The AI had your
+              previous focus areas as context — but it judged only this new video and did not assume
+              you improved.
+            </p>
+          </div>
+        )}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-5 items-start">
           <div className="space-y-3 lg:sticky lg:top-20">
             {videoObjectUrl && (
@@ -322,14 +397,26 @@ export function SportVideoAnalyzerContent() {
               </details>
             )}
 
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button variant="outline" onClick={() => setStep('configure')}>
                 Change settings
               </Button>
               <Button variant="ghost" onClick={handleRemoveVideo}>
                 New video
               </Button>
+              {savedRecord && (
+                <Button variant="ghost" onClick={() => downloadAnalysisJson(savedRecord)}>
+                  <Download className="w-4 h-4" />
+                  Export
+                </Button>
+              )}
             </div>
+            {savedRecord && (
+              <p className="text-xs text-muted-foreground">
+                Saved to your swing history on this device. Only the text analysis is stored — never
+                your video.
+              </p>
+            )}
           </div>
 
           <AIVisualAnalysisPanel analysis={analysis} />

@@ -16,6 +16,8 @@ import {
   Sparkles,
   Camera,
   ChevronRight,
+  Award,
+  Film,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type {
@@ -133,6 +135,51 @@ export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis
           ))}
         </ul>
       </Section>
+
+      {/* What you're doing well (strengths) — only if the AI found evidence-backed ones */}
+      {analysis.strengths && analysis.strengths.length > 0 && (
+        <Section
+          icon={<Award className="w-4 h-4 text-golf-fairway" />}
+          title="What You're Doing Well"
+        >
+          <ul className="space-y-3">
+            {analysis.strengths.map((s, i) => (
+              <li key={i} className="rounded-xl border border-golf-fairway/20 bg-golf-fairway/5 p-3">
+                <p className="text-sm font-semibold text-foreground flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-golf-fairway shrink-0 mt-0.5" />
+                  {s.strength}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1 pl-6">{s.evidenceFromVideo}</p>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
+      {/* Key swing moments timeline — the phases the AI detected/estimated */}
+      {analysis.detectedPhases && analysis.detectedPhases.length > 0 && (
+        <Section
+          icon={<Film className="w-4 h-4 text-accent-secondary" />}
+          title="Key Swing Moments"
+        >
+          <p className="text-xs text-muted-foreground mb-3">
+            Moments the AI identified across your swing, in order. These are estimated from the
+            sampled frames — not exact, measured timestamps.
+          </p>
+          <ol className="relative border-l border-border ml-2 space-y-4">
+            {analysis.detectedPhases.map((phase, i) => (
+              <li key={i} className="ml-4">
+                <span className="absolute -left-[7px] flex items-center justify-center w-3.5 h-3.5 rounded-full bg-accent-secondary ring-4 ring-card" />
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-sm font-semibold text-foreground capitalize">{phase.phaseName}</p>
+                  <ConfidenceChip level={phase.confidence} />
+                </div>
+                <p className="text-sm text-muted-foreground mt-0.5">{phase.observation}</p>
+              </li>
+            ))}
+          </ol>
+        </Section>
+      )}
 
       {/* Video quality / visibility limits */}
       <Section

@@ -105,6 +105,18 @@ export const VideoQualityCheckSchema = z.object({
 });
 export type VideoQualityCheck = z.infer<typeof VideoQualityCheckSchema>;
 
+/**
+ * A genuine strength the model can point to in the frames. Each strength
+ * must be backed by visible evidence — never generic praise. The field is
+ * optional on the result (the model may find none) so older saved results
+ * and minor model variance still validate.
+ */
+export const SwingStrengthSchema = z.object({
+  strength: z.string(),
+  evidenceFromVideo: z.string(),
+});
+export type SwingStrength = z.infer<typeof SwingStrengthSchema>;
+
 export const MechanicalPrioritySchema = z.object({
   issue: z.string(),
   whyItMatters: z.string(),
@@ -147,6 +159,8 @@ export type DetectedPhase = z.infer<typeof DetectedPhaseSchema>;
 export const AIVisualAnalysisResultSchema = z.object({
   summary: z.string().min(1),
   whatWasClearlyVisible: z.array(z.string()).min(1).max(8),
+  /** Genuine, evidence-backed strengths. May be empty if none are clearly visible. */
+  strengths: z.array(SwingStrengthSchema).max(5).optional().default([]),
   videoQuality: VideoQualityCheckSchema,
   detectedPhases: z.array(DetectedPhaseSchema).max(12).optional().default([]),
   topPriorities: z.array(MechanicalPrioritySchema).min(1).max(5),
