@@ -377,11 +377,16 @@ export function DashboardContent() {
               ) : (
                 <div className="py-6 text-center">
                   <Target size={32} className="mx-auto text-muted-foreground mb-2" />
-                  <p className="text-muted-foreground text-sm">No diagnosis yet.</p>
-                  <p className="text-muted-foreground text-xs mt-1">Import a session and run the diagnostic engine to see your #1 fix.</p>
-                  <Link href="/diagnose" className="mt-3 inline-block">
-                    <Button size="sm" variant="outline">{FIX_CTA.showMeWhatToFix}</Button>
-                  </Link>
+                  <p className="text-foreground text-sm font-semibold">Let&apos;s find your #1 fix.</p>
+                  <p className="text-muted-foreground text-xs mt-1">Upload a swing video, or import launch-monitor data, and we&apos;ll pinpoint the one thing to work on first.</p>
+                  <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+                    <Link href="/video" className="inline-block">
+                      <Button size="sm">Upload a Swing Video</Button>
+                    </Link>
+                    <Link href="/diagnose" className="inline-block">
+                      <Button size="sm" variant="outline">{FIX_CTA.showMeWhatToFix}</Button>
+                    </Link>
+                  </div>
                 </div>
               )}
             </CardBody>

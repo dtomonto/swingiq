@@ -80,7 +80,7 @@ export default function HomePage() {
             <Link href="/start" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-4 rounded-xl text-lg transition-colors">
               Start Here — Free
             </Link>
-            <Link href="/dashboard" className="border border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 font-semibold px-8 py-4 rounded-xl text-lg transition-colors">
+            <Link href="/video" className="border border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 font-semibold px-8 py-4 rounded-xl text-lg transition-colors">
               Analyze My Swing
             </Link>
           </div>
@@ -202,7 +202,7 @@ export default function HomePage() {
               Every analysis leads with your single highest-priority issue — not an overwhelming list.
               You get the top fix, three beginner-safe drills tied to that issue, and a simple practice plan.
             </p>
-            <Link href="/dashboard" className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-xl transition-colors">
+            <Link href="/video" className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-xl transition-colors">
               Analyze My Swing Free
             </Link>
           </div>
