@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PublicFooter } from '@/components/layout/PublicFooter';
 
 export const metadata: Metadata = {
   title: 'About SwingIQ | Free AI Swing Analysis Platform',
@@ -150,7 +149,6 @@ export default function AboutPage() {
         </Link>
       </section>
 
-      <PublicFooter />
     </main>
   );
 }

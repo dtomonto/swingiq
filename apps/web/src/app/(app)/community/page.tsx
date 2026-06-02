@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { BackupHealthBanner } from '@/components/community/BackupHealthBanner';
@@ -101,7 +100,7 @@ export default function CommunityPage() {
   }
 
   return (
-    <AppShell>
+    <>
       <div className="p-4 sm:p-6 space-y-6 max-w-4xl mx-auto pb-24">
 
         {/* Header */}
@@ -363,7 +362,7 @@ export default function CommunityPage() {
           <QuickLink href="/settings" icon="⚙️" label={t('nav.settings')} />
         </div>
       </div>
-    </AppShell>
+    </>
   );
 }
 

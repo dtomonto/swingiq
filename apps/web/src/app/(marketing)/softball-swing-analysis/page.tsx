@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { PublicFooter } from '@/components/layout/PublicFooter';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
@@ -208,7 +207,6 @@ export default function SoftballSwingAnalysisPage() {
         </div>
       </section>
 
-      <PublicFooter />
     </>
   );
 }

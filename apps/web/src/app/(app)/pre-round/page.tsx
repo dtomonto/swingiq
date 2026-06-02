@@ -1,6 +1,5 @@
 'use client';
 
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody } from '@/components/ui/Card';
 import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
 import { generatePreRoundRoutine } from '@swingiq/core';
@@ -29,7 +28,7 @@ export default function PreRoundPage() {
 
   // Non-golf: sport-specific warm-up (after hooks)
   if (!isGolf) {
-    return <AppShell><NonGolfWarmUp /></AppShell>;
+    return <><NonGolfWarmUp /></>;
   }
 
   const toggle = (i: number) =>
@@ -53,7 +52,7 @@ export default function PreRoundPage() {
   };
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-3xl mx-auto space-y-6">
         <div className="flex items-start justify-between">
           <div>
@@ -173,6 +172,6 @@ export default function PreRoundPage() {
           </div>
         )}
       </div>
-    </AppShell>
+    </>
   );
 }

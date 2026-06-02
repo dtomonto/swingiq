@@ -1,6 +1,5 @@
 'use client';
 
-import { AppShell } from '@/components/layout/AppShell';
 import Link from 'next/link';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -38,7 +37,7 @@ export default function SessionsPage() {
   const ImportIcon = isGolf ? Upload : Video;
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -166,6 +165,6 @@ export default function SessionsPage() {
           </div>
         )}
       </div>
-    </AppShell>
+    </>
   );
 }

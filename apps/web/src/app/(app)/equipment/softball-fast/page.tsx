@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSwingIQStore, type SoftballBat } from '@/store';
@@ -40,7 +39,7 @@ export default function FastPitchEquipmentPage() {
   }
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         <div>
           <Link href="/equipment" className="text-sm text-accent-secondary hover:underline inline-flex items-center gap-1 mb-2">
@@ -173,6 +172,6 @@ export default function FastPitchEquipmentPage() {
           </div>
         )}
       </div>
-    </AppShell>
+    </>
   );
 }

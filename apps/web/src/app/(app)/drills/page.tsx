@@ -1,6 +1,5 @@
 'use client';
 
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useState, useMemo } from 'react';
 import { ExternalLink, Search, Sparkles } from 'lucide-react';
@@ -71,7 +70,7 @@ export default function DrillsPage() {
   const getSportEmoji = (id: string) => ALL_SPORTS_INCLUDING_GOLF.find((s) => s.id === id)?.emoji ?? '🏌️';
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-5xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground">
@@ -197,6 +196,6 @@ export default function DrillsPage() {
           </div>
         )}
       </div>
-    </AppShell>
+    </>
   );
 }

@@ -7,7 +7,6 @@
 
 import { useState, useRef, useCallback, type DragEvent, type ChangeEvent } from 'react';
 import Link from 'next/link';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardHeader, CardBody, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSport } from '@/contexts/SportContext';
@@ -291,7 +290,7 @@ export default function ImageImportPage() {
   // ── Render ────────────────────────────────────────────────
 
   return (
-    <AppShell>
+    <>
       <div className="max-w-4xl mx-auto px-4 py-6">
         {/* Back link */}
         <Link href="/sessions/import" className="inline-flex items-center gap-1 text-sm text-primary hover:underline mb-4">
@@ -686,6 +685,6 @@ export default function ImageImportPage() {
           </div>
         )}
       </div>
-    </AppShell>
+    </>
   );
 }

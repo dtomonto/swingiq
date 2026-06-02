@@ -7,7 +7,6 @@
 // ============================================================
 
 import { useMemo } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -68,7 +67,7 @@ export function NonGolfProgress() {
 
   if (sportAnalyses.length === 0) {
     return (
-      <AppShell>
+      <>
         <div className="p-6 max-w-5xl mx-auto">
           <div className="text-center py-20">
             <Activity size={48} className="mx-auto text-muted-foreground mb-4" />
@@ -81,7 +80,7 @@ export function NonGolfProgress() {
             </Link>
           </div>
         </div>
-      </AppShell>
+      </>
     );
   }
 
@@ -102,7 +101,7 @@ export function NonGolfProgress() {
     .slice(0, 3);
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-5xl mx-auto space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-foreground">
@@ -216,6 +215,6 @@ export function NonGolfProgress() {
           </Link>
         </div>
       </div>
-    </AppShell>
+    </>
   );
 }

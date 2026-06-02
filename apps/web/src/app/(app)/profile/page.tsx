@@ -1,6 +1,5 @@
 'use client';
 
-import { AppShell } from '@/components/layout/AppShell';
 import { ProfileForm } from './ProfileForm';
 import { SportProfileFormRouter } from './SportProfileForms';
 import { useSport } from '@/contexts/SportContext';
@@ -18,7 +17,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-3xl mx-auto">
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
@@ -36,6 +35,6 @@ export default function ProfilePage() {
           <SportProfileFormRouter sport={activeSport} />
         )}
       </div>
-    </AppShell>
+    </>
   );
 }

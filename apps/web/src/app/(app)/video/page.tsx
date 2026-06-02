@@ -5,7 +5,6 @@
 // ============================================================
 
 import type { Metadata } from 'next';
-import { AppShell } from '@/components/layout/AppShell';
 import { VideoPageRouter } from './VideoPageRouter';
 
 export const metadata: Metadata = {
@@ -16,8 +15,8 @@ export const metadata: Metadata = {
 
 export default function VideoPage() {
   return (
-    <AppShell>
+    <>
       <VideoPageRouter />
-    </AppShell>
+    </>
   );
 }

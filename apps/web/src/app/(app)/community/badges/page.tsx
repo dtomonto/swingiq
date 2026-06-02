@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { AchievementBadge } from '@/components/community/AchievementBadge';
 import { useSwingIQStore } from '@/store';
@@ -50,7 +49,7 @@ export default function BadgesPage() {
     });
 
   return (
-    <AppShell>
+    <>
       <div className="p-4 sm:p-6 space-y-6 max-w-4xl mx-auto pb-24">
         {/* Header */}
         <div>
@@ -157,6 +156,6 @@ export default function BadgesPage() {
           </Card>
         )}
       </div>
-    </AppShell>
+    </>
   );
 }

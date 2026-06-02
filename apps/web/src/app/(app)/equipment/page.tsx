@@ -1,6 +1,5 @@
 'use client';
 
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody } from '@/components/ui/Card';
 import Link from 'next/link';
 import { useSport } from '@/contexts/SportContext';
@@ -28,7 +27,7 @@ export default function EquipmentHubPage() {
   };
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Equipment Center</h1>
@@ -88,6 +87,6 @@ export default function EquipmentHubPage() {
           Equipment scores are estimates based on general guidelines. Always test changes before purchasing new gear.
         </p>
       </div>
-    </AppShell>
+    </>
   );
 }

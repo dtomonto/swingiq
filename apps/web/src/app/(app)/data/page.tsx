@@ -7,7 +7,6 @@
 // ============================================================
 
 import { useState, useRef } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { BackupHealthBanner } from '@/components/community/BackupHealthBanner';
@@ -159,7 +158,7 @@ export default function DataCenterPage() {
   }
 
   return (
-    <AppShell>
+    <>
       <div className="p-4 sm:p-6 space-y-6 max-w-2xl mx-auto pb-24">
 
         {/* Header */}
@@ -600,7 +599,7 @@ export default function DataCenterPage() {
         </Card>
 
       </div>
-    </AppShell>
+    </>
   );
 }
 

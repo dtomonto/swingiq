@@ -7,7 +7,6 @@
 // ============================================================
 
 import { useState } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { CheckCircle, Video } from 'lucide-react';
@@ -121,12 +120,12 @@ export default function LogSessionPage() {
   // Redirect golf users to import page
   if (isGolf) {
     return (
-      <AppShell>
+      <>
         <div className="p-6 max-w-2xl mx-auto text-center py-20">
           <p className="text-muted-foreground mb-4">Golf sessions use CSV import from your launch monitor.</p>
           <Link href="/sessions/import"><Button>Import Launch Monitor Data</Button></Link>
         </div>
-      </AppShell>
+      </>
     );
   }
 
@@ -166,7 +165,7 @@ export default function LogSessionPage() {
   };
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         <div>
           <Link href="/sessions" className="inline-flex items-center gap-1 text-sm text-primary hover:underline mb-2">
@@ -308,6 +307,6 @@ export default function LogSessionPage() {
           )}
         </div>
       </div>
-    </AppShell>
+    </>
   );
 }

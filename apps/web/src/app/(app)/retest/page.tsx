@@ -10,7 +10,6 @@
 // ============================================================
 
 import Link from 'next/link';
-import { AppShell } from '@/components/layout/AppShell';
 import { Button } from '@/components/ui/Button';
 import { RotateCcw, Video, ClipboardCheck } from 'lucide-react';
 import { useRetests } from '@/lib/retest';
@@ -22,7 +21,7 @@ export default function RetestPage() {
   const isEmpty = ready && targets.length === 0 && results.length === 0;
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-3xl mx-auto space-y-6">
         <header>
           <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
@@ -80,6 +79,6 @@ export default function RetestPage() {
           </section>
         )}
       </div>
-    </AppShell>
+    </>
   );
 }

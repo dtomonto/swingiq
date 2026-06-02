@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { Badge } from '@/components/ui/Badge';
@@ -297,7 +296,7 @@ export default function ProgressPage() {
   // ── Empty state ─────────────────────────────────────────────
   if (!sessions.length) {
     return (
-      <AppShell>
+      <>
         <div className="p-6 max-w-5xl mx-auto">
           <div className="text-center py-20">
             <Activity size={48} className="mx-auto text-muted-foreground mb-4" />
@@ -312,7 +311,7 @@ export default function ProgressPage() {
             </Link>
           </div>
         </div>
-      </AppShell>
+      </>
     );
   }
 
@@ -322,7 +321,7 @@ export default function ProgressPage() {
       : 'First session';
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-5xl mx-auto space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Progress Tracker</h1>
@@ -596,6 +595,6 @@ export default function ProgressPage() {
           </CardBody>
         </Card>
       </div>
-    </AppShell>
+    </>
   );
 }

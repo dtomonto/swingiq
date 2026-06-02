@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import {
@@ -149,7 +148,7 @@ export default function PracticePage() {
   const hasRealData = !!latestDiagnosed;
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-start justify-between flex-wrap gap-4">
@@ -284,6 +283,6 @@ export default function PracticePage() {
           </Link>
         </div>
       </div>
-    </AppShell>
+    </>
   );
 }

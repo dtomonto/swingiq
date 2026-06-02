@@ -1,6 +1,5 @@
 'use client';
 
-import { AppShell } from '@/components/layout/AppShell';
 import { ImportWizard } from './ImportWizard';
 import { useSport } from '@/contexts/SportContext';
 import { useRouter } from 'next/navigation';
@@ -19,8 +18,8 @@ export default function ImportPage() {
   if (!isGolf) return null;
 
   return (
-    <AppShell>
+    <>
       <ImportWizard />
-    </AppShell>
+    </>
   );
 }

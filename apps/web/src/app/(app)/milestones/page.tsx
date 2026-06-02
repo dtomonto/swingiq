@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { useSwingIQStore, type LocalSession, type LocalClub, type TrainingProgress, type LocalVideoAnalysis } from '@/store';
@@ -190,7 +189,7 @@ export default function MilestonesPage() {
   }, {});
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div>
@@ -286,6 +285,6 @@ export default function MilestonesPage() {
           );
         })}
       </div>
-    </AppShell>
+    </>
   );
 }

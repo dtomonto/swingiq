@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { BLOG_POSTS } from '@/data/blog-posts';
-import { PublicFooter } from '@/components/layout/PublicFooter';
 
 const SPORT_FILTERS = ['All', 'Golf', 'Tennis', 'Baseball', 'Softball'] as const;
 type SportFilter = typeof SPORT_FILTERS[number];
@@ -112,7 +111,6 @@ export default function BlogIndexPage() {
         </div>
       </section>
 
-      <PublicFooter />
     </main>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSwingIQStore } from '@/store';
@@ -155,7 +154,7 @@ export default function BackupPage() {
   const { sessions, clubs, video_analyses, community, tutorialProgress } = store;
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Backup &amp; Restore</h1>
@@ -490,6 +489,6 @@ export default function BackupPage() {
           </CardBody>
         </Card>
       </div>
-    </AppShell>
+    </>
   );
 }

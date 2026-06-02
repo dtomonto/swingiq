@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { AICoachChat } from './AICoachChat';
 import { useSwingIQStore } from '@/store';
 import { runDiagnosticEngine, buildSessionInsight } from '@swingiq/core';
@@ -114,8 +113,8 @@ export default function AICoachPage() {
   }, [latestWithShots, latestVideoAnalysis, profile, sportProfiles, activeSport, isGolf, settings.coaching_tone]);
 
   return (
-    <AppShell>
+    <>
       <AICoachChat coachContext={coachContext} sport={activeSport} sportName={sportName} />
-    </AppShell>
+    </>
   );
 }

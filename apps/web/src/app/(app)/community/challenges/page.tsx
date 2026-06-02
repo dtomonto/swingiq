@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSwingIQStore } from '@/store';
@@ -47,7 +46,7 @@ export default function ChallengesPage() {
   const completedChallenges = community.challengesCompleted;
 
   return (
-    <AppShell>
+    <>
       <div className="p-4 sm:p-6 space-y-6 max-w-3xl mx-auto pb-24">
         <div>
           <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
@@ -226,7 +225,7 @@ export default function ChallengesPage() {
           </div>
         )}
       </div>
-    </AppShell>
+    </>
   );
 }
 

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BLOG_POSTS } from '@/data/blog-posts';
-import { PublicFooter } from '@/components/layout/PublicFooter';
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({ slug: post.slug }));
@@ -160,7 +159,6 @@ export default async function BlogPostPage({
         </Link>
       </section>
 
-      <PublicFooter />
     </main>
   );
 }

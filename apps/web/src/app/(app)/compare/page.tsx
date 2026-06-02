@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -373,7 +372,7 @@ export default function ComparePage() {
   ];
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-5xl mx-auto space-y-6">
         {/* Header */}
         <div>
@@ -442,6 +441,6 @@ export default function ComparePage() {
           />
         )}
       </div>
-    </AppShell>
+    </>
   );
 }

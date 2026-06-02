@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { AppShell } from '@/components/layout/AppShell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
@@ -213,7 +212,7 @@ export default function ReportsPage() {
   };
 
   return (
-    <AppShell>
+    <>
       <style>{`
         @media print {
           nav, aside, [data-sidebar], button { display: none !important; }
@@ -414,6 +413,6 @@ export default function ReportsPage() {
           </CardBody>
         </Card>
       </div>
-    </AppShell>
+    </>
   );
 }

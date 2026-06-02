@@ -1,6 +1,5 @@
 'use client';
 
-import { AppShell } from '@/components/layout/AppShell';
 import { useSwingIQStore } from '@/store';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -109,7 +108,7 @@ export default function SessionDetailPage() {
 
   if (!session) {
     return (
-      <AppShell>
+      <>
         <div className="p-6 max-w-4xl mx-auto">
           <p className="text-muted-foreground">Session not found.</p>
           <Link href="/sessions">
@@ -118,7 +117,7 @@ export default function SessionDetailPage() {
             </Button>
           </Link>
         </div>
-      </AppShell>
+      </>
     );
   }
 
@@ -127,7 +126,7 @@ export default function SessionDetailPage() {
   const routine = topDiagnosis ? getRoutineForDiagnosis(topDiagnosis.rule.id, skillLevel) : null;
 
   return (
-    <AppShell>
+    <>
       <div className="p-6 max-w-5xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-start justify-between">
@@ -550,7 +549,7 @@ export default function SessionDetailPage() {
           </>
         )}
       </div>
-    </AppShell>
+    </>
   );
 }
 

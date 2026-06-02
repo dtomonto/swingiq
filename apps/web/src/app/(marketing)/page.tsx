@@ -10,7 +10,6 @@ import {
 } from '@/components/trust';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ThemePreviewStrip } from '@/components/theme/ThemePreviewStrip';
-import { PublicFooter } from '@/components/layout/PublicFooter';
 import {
   buildGraph,
   organizationSchema,
@@ -276,7 +275,6 @@ export default function HomePage() {
         </Link>
       </section>
 
-      <PublicFooter />
     </main>
   );
 }

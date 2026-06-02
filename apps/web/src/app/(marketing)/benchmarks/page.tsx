@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BENCHMARKS } from '@/data/benchmarks';
-import { PublicFooter } from '@/components/layout/PublicFooter';
 
 export const metadata: Metadata = {
   title: 'SwingIQ Benchmarks | Performance Standards for Golf, Tennis, Baseball & Softball',
@@ -53,7 +52,6 @@ export default function BenchmarksIndexPage() {
         </Link>
       </section>
 
-      <PublicFooter />
     </main>
   );
 }

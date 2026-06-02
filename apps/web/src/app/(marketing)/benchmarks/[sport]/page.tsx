@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BENCHMARKS } from '@/data/benchmarks';
-import { PublicFooter } from '@/components/layout/PublicFooter';
 
 export async function generateStaticParams() {
   return BENCHMARKS.map((b) => ({ sport: b.slug }));
@@ -107,7 +106,6 @@ export default async function SportBenchmarkPage({
         </Link>
       </section>
 
-      <PublicFooter />
     </main>
   );
 }
