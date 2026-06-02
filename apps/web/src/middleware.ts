@@ -42,6 +42,7 @@ const PUBLIC_PATHS = new Set([
   '/about',
   '/sports',
   '/updates',
+  '/start',
   '/free-swing-analysis',
   '/report/sample',
   // Audience landing pages
