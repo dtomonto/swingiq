@@ -155,7 +155,7 @@ Please provide a brief, encouraging coaching narrative for the golfer.`;
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: process.env.ANTHROPIC_MODEL ?? 'claude-3-haiku-20240307',
+        model: process.env.ANTHROPIC_MODEL ?? 'claude-haiku-4-5',
         max_tokens: 400,
         system: systemPrompt,
         messages: [{ role: 'user', content: userPrompt }],

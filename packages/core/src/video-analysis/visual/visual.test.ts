@@ -156,7 +156,7 @@ describe('attachMeta', () => {
       sport: 'golf',
       frameCountAnalyzed: 12,
       provider: 'anthropic',
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-sonnet-4-6',
     });
     expect(withMeta.meta.schemaVersion).toBe(VISUAL_ANALYSIS_SCHEMA_VERSION);
     expect(withMeta.meta.frameCountAnalyzed).toBe(12);

@@ -208,7 +208,7 @@ export class AnthropicVisionProvider extends BaseVisionProvider {
   readonly id = 'anthropic';
 
   constructor(apiKey: string | undefined, model?: string, imageDetail?: ImageDetail) {
-    super(apiKey, model ?? 'claude-3-5-sonnet-20241022', imageDetail);
+    super(apiKey, model ?? 'claude-sonnet-4-6', imageDetail);
   }
 
   protected async requestRaw(

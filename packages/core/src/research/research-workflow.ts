@@ -516,7 +516,7 @@ export function buildLLMConfig(): LLMConfig {
     return {
       provider: 'anthropic',
       api_key: process.env.ANTHROPIC_API_KEY ?? '',
-      model: process.env.ANTHROPIC_MODEL ?? 'claude-3-haiku-20240307',
+      model: process.env.ANTHROPIC_MODEL ?? 'claude-haiku-4-5',
     };
   }
   return { provider: 'none', api_key: '', model: '' };

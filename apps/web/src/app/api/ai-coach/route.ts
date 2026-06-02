@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
           'anthropic-version': '2023-06-01',
         },
         body: JSON.stringify({
-          model: 'claude-3-haiku-20240307',
+          model: process.env.ANTHROPIC_MODEL ?? 'claude-haiku-4-5',
           max_tokens: 600,
           system,
           messages: [{ role: 'user', content: user }],
