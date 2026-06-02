@@ -95,16 +95,24 @@ Pass `{ smart: false }` to force uniform sampling.
    biomechanics checkpoints the AI should assess (only what's visibly supported).
 3. That's it — the provider and route are sport-agnostic.
 
-## Adding pose / landmark estimation later
+## Pose / landmark estimation (implemented)
 
-The schema already includes an internal `VisualObservation` shape (phases,
-body mechanics, confidence) designed for pose data. To add real pose detection
-(MediaPipe, TensorFlow.js, a cloud vision API, etc.):
+On-device pose detection runs in the browser via **MediaPipe Pose Landmarker**
+(`apps/web/src/lib/pose/`):
 
-1. Produce `VisualObservation` data from landmarks.
-2. Feed it into the prompt as extra grounding (or add a new provider that blends
-   pose + frames). The public `AIVisualAnalysisResult` the UI renders does not
-   need to change.
+- `pose-detection.ts` lazily loads the model (dynamic import + CDN; inference is
+  local — frames are never sent anywhere for pose). Best-effort: any failure
+  returns no pose and the analysis proceeds normally.
+- `pose-metrics.ts` (pure, unit-tested) derives camera-agnostic proxies from the
+  landmarks — shoulder-rotation range, spine-tilt change, head stability, hip
+  sway — and `summarizePoseMetrics()` renders a compact summary.
+- `detectSwingPose()` (`pose/index.ts`) is the single call the analyzers use.
+
+The summary is passed to the route as `poseSummary` and injected into the prompt
+as **objective grounding** (labeled as proxies, not lab measurements). The metrics
+are also shown to the user in `PoseSignalsCard`. The public
+`AIVisualAnalysisResult` shape did not need to change. To swap models, change the
+`MODEL_URL` / delegate in `pose-detection.ts`.
 
 ## Testing without exposing fake feedback
 
