@@ -316,8 +316,9 @@ export default function ImageImportPage() {
             <CardBody className="space-y-6">
               {/* Sport selector */}
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">Sport</label>
+                <label htmlFor="img-import-sport" className="block text-sm font-medium text-foreground mb-1">Sport</label>
                 <select
+                  id="img-import-sport"
                   value={sport}
                   onChange={(e) => {
                     setSport(e.target.value as typeof activeSport);
@@ -333,8 +334,9 @@ export default function ImageImportPage() {
 
               {/* Movement type */}
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">Movement / Shot Type</label>
+                <label htmlFor="img-import-movement" className="block text-sm font-medium text-foreground mb-1">Movement / Shot Type</label>
                 <select
+                  id="img-import-movement"
                   value={movementType}
                   onChange={(e) => setMovementType(e.target.value)}
                   className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
@@ -348,8 +350,9 @@ export default function ImageImportPage() {
 
               {/* Data source */}
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">Data Source / Device</label>
+                <label htmlFor="img-import-source" className="block text-sm font-medium text-foreground mb-1">Data Source / Device</label>
                 <select
+                  id="img-import-source"
                   value={dataSource}
                   onChange={(e) => setDataSource(e.target.value as ImageExtractionSource)}
                   className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
@@ -362,7 +365,7 @@ export default function ImageImportPage() {
 
               {/* Upload area */}
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Upload Image (optional but recommended)</label>
+                <label htmlFor="img-import-file" className="block text-sm font-medium text-foreground mb-2">Upload Image (optional but recommended)</label>
                 <div
                   onClick={() => fileInputRef.current?.click()}
                   onDrop={onDrop}
@@ -396,6 +399,7 @@ export default function ImageImportPage() {
                   )}
                 </div>
                 <input
+                  id="img-import-file"
                   ref={fileInputRef}
                   type="file"
                   accept="image/jpeg,image/png,image/webp,image/heic"

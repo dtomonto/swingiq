@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
 import { ContextualHelpButton } from '@/components/tutorial/ContextualHelpButton';
 import { OfflineBanner } from './OfflineBanner';
+import { CelebrationHost } from '@/components/celebrations/CelebrationHost';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -157,6 +158,9 @@ export function AppShell({ children }: AppShellProps) {
           </button>
         </nav>
       </div>
+
+      {/* Earn-moment celebrations (fixed overlay; app-wide) */}
+      <CelebrationHost />
     </div>
   );
 }

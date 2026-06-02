@@ -154,7 +154,7 @@ export default async function BlogPostPage({
       <section className="bg-primary text-primary-foreground py-16 px-4 text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">Apply This to Your Own Swing</h2>
         <p className="text-primary-foreground/90 mb-8 text-sm">Import your data and get a personalized diagnosis based on your actual numbers — free.</p>
-        <Link href="/dashboard" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
+        <Link href="/start" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
           Analyze My Swing Free
         </Link>
       </section>

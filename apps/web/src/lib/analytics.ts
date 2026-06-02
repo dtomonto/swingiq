@@ -50,7 +50,6 @@ export function track(event: AnalyticsEventName, properties?: Props): void {
   }
 
   if (!delivered && process.env.NODE_ENV === 'development') {
-    // eslint-disable-next-line no-console
     console.log('[Analytics]', event, properties ?? {});
   }
 }

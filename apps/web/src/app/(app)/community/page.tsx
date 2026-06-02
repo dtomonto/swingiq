@@ -7,21 +7,17 @@ import { BackupHealthBanner } from '@/components/community/BackupHealthBanner';
 import { AchievementBadge } from '@/components/community/AchievementBadge';
 import { useSwingIQStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useSport } from '@/contexts/SportContext';
 import {
   Users, Trophy, Flame, Zap, Target, Download, Award,
   TrendingUp, Calendar, Shield, ChevronRight, Star,
 } from 'lucide-react';
 import { ACHIEVEMENTS, computeAchievementProgress, syncEarnedAchievements } from '@/lib/community/achievements';
 import { CHALLENGES, getActiveChallengesWithProgress } from '@/lib/community/challenges';
-import { calculateBackupHealth } from '@/lib/community/backup-health';
 import { calculateLevelFromXP, getLevelTitle } from '@/lib/community/xp';
-import { formatActivityTime } from '@/lib/community/activity-feed';
 import type { AchievementContext } from '@/lib/community/types';
 
 export default function CommunityPage() {
   const { t } = useLanguage();
-  const { activeSport } = useSport();
   const store = useSwingIQStore();
   const { sessions, video_analyses, training, community } = store;
 
@@ -73,18 +69,9 @@ export default function CommunityPage() {
   const { level, progressToNext, xpForNext } = calculateLevelFromXP(community.xpTotal);
   const levelTitle = getLevelTitle(level);
 
-  // Backup health
-  const backupHealth = calculateBackupHealth(
-    sessions, video_analyses, training, community.lastExportAt, community.exportCount
-  );
-
   // Stats
   const totalSessions = sessions.length + video_analyses.length;
   const streakDays = training.streak_days;
-
-  const profileName = community.profile.displayName
-    || (store.profile?.name)
-    || 'Athlete';
 
   function handleJoinChallenge(challengeId: string) {
     const newActive = [

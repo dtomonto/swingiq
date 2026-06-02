@@ -526,6 +526,7 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
           <NextAction href="/dashboard" cta="start_here_dashboard" primary>Go to my dashboard</NextAction>
           <NextAction href="/training" cta="start_here_training">Start my practice plan</NextAction>
           <NextAction href="/video" cta="start_here_video">Upload a swing video</NextAction>
+          <NextAction href="/ai-coach" cta="start_here_ai_coach">Ask your AI coach</NextAction>
           <NextAction href="/sessions/import" cta="start_here_import">Import my data</NextAction>
           {result.userType === 'coach' && (
             <NextAction href="/reports" cta="start_here_coach">Build a coach summary</NextAction>

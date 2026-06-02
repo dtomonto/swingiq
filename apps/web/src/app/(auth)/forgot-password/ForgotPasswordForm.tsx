@@ -37,8 +37,9 @@ export function ForgotPasswordForm() {
       </p>
 
       <div>
-        <label className="text-sm font-medium text-foreground block mb-1">Email</label>
+        <label htmlFor="forgot-email" className="text-sm font-medium text-foreground block mb-1">Email</label>
         <input
+          id="forgot-email"
           type="email"
           required
           value={email}
@@ -51,8 +52,9 @@ export function ForgotPasswordForm() {
 
       {mode === 'local' && (
         <div>
-          <label className="text-sm font-medium text-foreground block mb-1">New password</label>
+          <label htmlFor="forgot-new-password" className="text-sm font-medium text-foreground block mb-1">New password</label>
           <input
+            id="forgot-new-password"
             type="password"
             required
             minLength={8}

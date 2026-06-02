@@ -4,7 +4,7 @@
 // Uses structured translation keys instead of hardcoded strings.
 // ============================================================
 
-import type { ActivityFeedItem, ActivityItemType, ActivityVisibility } from './types';
+import type { ActivityFeedItem, ActivityVisibility } from './types';
 import type { LocalSession, LocalVideoAnalysis, TrainingProgress } from '@/store';
 import type { AchievementEarned } from './types';
 import type { ChallengeCompleted } from './types';

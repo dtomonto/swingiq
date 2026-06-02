@@ -186,12 +186,12 @@ function ClubFormModal({
         <form onSubmit={handleSubmit} className="px-6 py-4 space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-muted-foreground">Club Name *</label>
-              <input required value={form.name} onChange={(e) => set('name', e.target.value)} className={inputClass} placeholder="7-Iron" />
+              <label htmlFor="bag-name" className="text-xs font-medium text-muted-foreground">Club Name *</label>
+              <input id="bag-name" required value={form.name} onChange={(e) => set('name', e.target.value)} className={inputClass} placeholder="7-Iron" />
             </div>
             <div>
-              <label className="text-xs font-medium text-muted-foreground">Category *</label>
-              <select value={form.category} onChange={(e) => set('category', e.target.value as LocalClub['category'])} className={selectClass}>
+              <label htmlFor="bag-category" className="text-xs font-medium text-muted-foreground">Category *</label>
+              <select id="bag-category" value={form.category} onChange={(e) => set('category', e.target.value as LocalClub['category'])} className={selectClass}>
                 <option value="driver">Driver</option>
                 <option value="wood">Fairway Wood</option>
                 <option value="hybrid">Hybrid</option>
@@ -202,24 +202,25 @@ function ClubFormModal({
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-muted-foreground">Brand</label>
-              <input value={form.brand} onChange={(e) => set('brand', e.target.value)} className={inputClass} placeholder="TaylorMade" />
+              <label htmlFor="bag-brand" className="text-xs font-medium text-muted-foreground">Brand</label>
+              <input id="bag-brand" value={form.brand} onChange={(e) => set('brand', e.target.value)} className={inputClass} placeholder="TaylorMade" />
             </div>
             <div>
-              <label className="text-xs font-medium text-muted-foreground">Model</label>
-              <input value={form.model} onChange={(e) => set('model', e.target.value)} className={inputClass} placeholder="Stealth 2" />
+              <label htmlFor="bag-model" className="text-xs font-medium text-muted-foreground">Model</label>
+              <input id="bag-model" value={form.model} onChange={(e) => set('model', e.target.value)} className={inputClass} placeholder="Stealth 2" />
             </div>
 
             {/* Loft field with autofill label and reset */}
             <div className="col-span-2">
               <div className="flex items-center justify-between mb-1">
-                <label className="text-xs font-medium text-muted-foreground">Loft (°)</label>
+                <label htmlFor="bag-loft" className="text-xs font-medium text-muted-foreground">Loft (°)</label>
                 <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium', sourceBadgeClass(loftState.loftSource))}>
                   {loftState.loftLabel}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <input
+                  id="bag-loft"
                   type="number"
                   step="0.5"
                   value={form.loft ?? ''}
@@ -240,8 +241,8 @@ function ClubFormModal({
             </div>
 
             <div>
-              <label className="text-xs font-medium text-muted-foreground">Shaft Flex</label>
-              <select value={form.shaft_flex} onChange={(e) => set('shaft_flex', e.target.value)} className={selectClass}>
+              <label htmlFor="bag-shaft-flex" className="text-xs font-medium text-muted-foreground">Shaft Flex</label>
+              <select id="bag-shaft-flex" value={form.shaft_flex} onChange={(e) => set('shaft_flex', e.target.value)} className={selectClass}>
                 <option value="">Unknown</option>
                 <option value="ladies">Ladies</option>
                 <option value="senior">Senior</option>
@@ -251,16 +252,16 @@ function ClubFormModal({
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-muted-foreground">Typical Carry (yds)</label>
-              <input type="number" value={form.typical_carry ?? ''} onChange={(e) => set('typical_carry', e.target.value ? parseInt(e.target.value) : null)} className={inputClass} placeholder="160" />
+              <label htmlFor="bag-typical-carry" className="text-xs font-medium text-muted-foreground">Typical Carry (yds)</label>
+              <input id="bag-typical-carry" type="number" value={form.typical_carry ?? ''} onChange={(e) => set('typical_carry', e.target.value ? parseInt(e.target.value) : null)} className={inputClass} placeholder="160" />
             </div>
             <div>
-              <label className="text-xs font-medium text-muted-foreground">Typical Total (yds)</label>
-              <input type="number" value={form.typical_total ?? ''} onChange={(e) => set('typical_total', e.target.value ? parseInt(e.target.value) : null)} className={inputClass} placeholder="175" />
+              <label htmlFor="bag-typical-total" className="text-xs font-medium text-muted-foreground">Typical Total (yds)</label>
+              <input id="bag-typical-total" type="number" value={form.typical_total ?? ''} onChange={(e) => set('typical_total', e.target.value ? parseInt(e.target.value) : null)} className={inputClass} placeholder="175" />
             </div>
             <div className="col-span-2">
-              <label className="text-xs font-medium text-muted-foreground">Notes</label>
-              <input value={form.notes} onChange={(e) => set('notes', e.target.value)} className={inputClass} placeholder="Any notes about this club..." />
+              <label htmlFor="bag-notes" className="text-xs font-medium text-muted-foreground">Notes</label>
+              <input id="bag-notes" value={form.notes} onChange={(e) => set('notes', e.target.value)} className={inputClass} placeholder="Any notes about this club..." />
             </div>
           </div>
           <div className="flex gap-2 pt-2">

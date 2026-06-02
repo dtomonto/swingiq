@@ -101,7 +101,7 @@ export default async function SportBenchmarkPage({
       <section className="bg-primary text-primary-foreground py-16 px-4 text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">See How Your Data Compares in SwingIQ</h2>
         <p className="text-primary-foreground/90 mb-8 text-sm">Import a session and SwingIQ shows your {data.sport.toLowerCase()} numbers against these benchmarks automatically.</p>
-        <Link href="/dashboard" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
+        <Link href="/start" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
           Analyze My Swing Free
         </Link>
       </section>

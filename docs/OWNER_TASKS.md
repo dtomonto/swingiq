@@ -230,12 +230,12 @@ Use this file to track what has already been built and what you still need to se
 ### ⚪ Priority 6 — Legal Review (Before Commercial Launch)
 
 - [ ] **Privacy policy attorney review**
-  - `apps/web/src/app/privacy/page.tsx` is a practical placeholder
+  - `apps/web/src/app/(marketing)/privacy/page.tsx` is a practical placeholder
   - Get legal counsel review before collecting user data commercially
   - Especially important for GDPR (EU), CCPA (California), COPPA (under-13 users)
 
 - [ ] **Terms of service attorney review**
-  - `apps/web/src/app/terms/page.tsx` is a practical placeholder
+  - `apps/web/src/app/(marketing)/terms/page.tsx` is a practical placeholder
 
 ---
 

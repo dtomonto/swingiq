@@ -34,6 +34,8 @@ import {
   ChevronDown,
   BarChart3,
   PersonStanding,
+  Sparkles,
+  Route,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -91,6 +93,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       icon: Dumbbell,
       children: [
         { href: '/training', label: 'Training', icon: Dumbbell, showStreak: true },
+        { href: '/fix', label: 'Fix Stack', icon: Sparkles },
         { href: '/drills', label: isGolf ? 'Drill Library' : 'Drills', icon: BookOpen },
         { href: '/practice', label: 'Practice Schedule', icon: CalendarDays },
         { href: '/pre-round', label: isGolf ? 'Pre-Round' : 'Pre-Game Warm-Up', icon: Sun },
@@ -102,6 +105,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       icon: TrendingUp,
       children: [
         { href: '/progress', label: 'Progress', icon: TrendingUp },
+        { href: '/arc', label: 'Player Arc', icon: Route },
         { href: '/sessions', label: sportLabels.sessions, icon: Activity },
         { href: '/retest', label: 'Retest', icon: RotateCcw },
         { href: '/milestones', label: 'Milestones', icon: Trophy },

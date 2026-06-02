@@ -125,7 +125,6 @@ export async function captureLead(input: CaptureInput): Promise<CaptureResult> {
     if (provider === 'none') {
       // No provider configured — be honest, do not claim success.
       if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
         console.log('[EmailCapture] (not persisted — no provider configured)', input);
       }
       return {

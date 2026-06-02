@@ -185,8 +185,9 @@ export function ResearchAdminContent() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-gray-400 mb-1 block">Research scope</label>
+              <label htmlFor="research-scope" className="text-xs font-medium text-gray-400 mb-1 block">Research scope</label>
               <select
+                id="research-scope"
                 value={scope}
                 onChange={(e) => setScope(e.target.value)}
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-hidden"
@@ -224,8 +225,9 @@ export function ResearchAdminContent() {
           </div>
 
           <div>
-            <label className="text-xs font-medium text-gray-400 mb-1 block">Admin Secret</label>
+            <label htmlFor="research-admin-secret" className="text-xs font-medium text-gray-400 mb-1 block">Admin Secret</label>
             <input
+              id="research-admin-secret"
               type="password"
               value={adminSecret}
               onChange={(e) => setAdminSecret(e.target.value)}

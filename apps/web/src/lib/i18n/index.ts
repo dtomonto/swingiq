@@ -85,7 +85,7 @@ export function buildTranslator(lang: LanguageCode) {
 }
 
 // Convenience hook exported for use outside of React context (pure utility)
-export function getTranslations(lang: LanguageCode): Translations {
+export function getTranslations(_lang: LanguageCode): Translations {
   return en as Translations; // Always returns English complete set for type-safe access
 }
 

@@ -11,7 +11,7 @@
 //   - Nothing here is user-visible jargon — these are internal.
 // ============================================================
 
-import type { SportId, SkillLevel, GolferProfileInput, DiagnosisOutput } from '@swingiq/core';
+import type { SportId, SkillLevel, GolferProfileInput } from '@swingiq/core';
 import type { UsageCategory } from '@/store';
 
 // ── Identity ──────────────────────────────────────────────────

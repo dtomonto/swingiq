@@ -1,18 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSwingIQStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useSport } from '@/contexts/SportContext';
 import { GROUPS, getGroupsBySport, getPublicGroups } from '@/lib/community/groups';
 import { Users, Lock, Globe, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function GroupsPage() {
   const { t } = useLanguage();
-  const { activeSport } = useSport();
   const { community } = useSwingIQStore();
   const store = useSwingIQStore();
   const [sportFilter, setSportFilter] = useState<'all' | string>('all');

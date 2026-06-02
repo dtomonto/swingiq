@@ -23,6 +23,7 @@ import {
   type WeekDay,
 } from '@swingiq/core';
 import { useLatestDiagnosedSession } from '@/store';
+import { FixStackPanel } from '@/components/drillmatch';
 
 const INTENSITY_COLORS: Record<string, string> = {
   warmup: 'bg-accent-secondary/15 text-accent-secondary',
@@ -162,8 +163,9 @@ export default function PracticePage() {
           </div>
           <div className="flex items-center gap-3 flex-wrap">
             <div>
-              <label className="text-xs text-muted-foreground block mb-1">Frequency</label>
+              <label htmlFor="practice-frequency" className="text-xs text-muted-foreground block mb-1">Frequency</label>
               <select
+                id="practice-frequency"
                 value={frequency}
                 onChange={(e) => setFrequency(e.target.value as PracticeFrequency)}
                 className="text-sm border border-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-ring outline-hidden bg-card"
@@ -177,8 +179,9 @@ export default function PracticePage() {
               </select>
             </div>
             <div>
-              <label className="text-xs text-muted-foreground block mb-1">Session Length</label>
+              <label htmlFor="practice-session-length" className="text-xs text-muted-foreground block mb-1">Session Length</label>
               <select
+                id="practice-session-length"
                 value={sessionLength}
                 onChange={(e) => setSessionLength(e.target.value as SessionLength)}
                 className="text-sm border border-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-ring outline-hidden bg-card"
@@ -189,6 +192,17 @@ export default function PracticePage() {
               </select>
             </div>
           </div>
+        </div>
+
+        {/* One Fix First — the highest-leverage fix, before the full week */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-bold text-foreground">Start with one fix</h2>
+            <Link href="/fix" className="text-xs text-primary hover:underline">
+              Open Fix Stack →
+            </Link>
+          </div>
+          <FixStackPanel />
         </div>
 
         {/* No data banner */}

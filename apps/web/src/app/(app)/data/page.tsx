@@ -18,7 +18,7 @@ import { exportUserData, downloadBackup } from '@/lib/backup/export';
 import { parseBackupFile } from '@/lib/backup/validate';
 import { previewRestore, mergeRestore, replaceRestore, generateRestoreResult } from '@/lib/backup/restore';
 import { encryptBackup, decryptBackup, isEncryptedBackup } from '@/lib/backup/crypto';
-import { calculateBackupHealth, formatLastExport } from '@/lib/community/backup-health';
+import { formatLastExport } from '@/lib/community/backup-health';
 import { getExportableModules } from '@/lib/backup/registry';
 import type { SwingIQBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
 import {

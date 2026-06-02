@@ -115,7 +115,7 @@ export function PracticePlanTool() {
           </div>
 
           <EmailCapture source="practice_plan" heading="Email me this plan + reminders" subheading="We'll send the plan and retest reminders so you actually finish it." meta={{ sport: a.sport }} />
-          <ToolCta href="/dashboard" label="Analyze My Swing & Track Progress Free" />
+          <ToolCta href="/video" label="Analyze My Swing & Track Progress Free" />
           <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Start over</button>
         </ResultPanel>
       )}

@@ -548,8 +548,9 @@ export function ImportWizard() {
           </CardHeader>
           <CardBody className="space-y-4">
             <div>
-              <label className="text-sm font-medium text-foreground block mb-1">Session Name</label>
+              <label htmlFor="import-session-name" className="text-sm font-medium text-foreground block mb-1">Session Name</label>
               <input
+                id="import-session-name"
                 type="text"
                 value={sessionName}
                 onChange={(e) => setSessionName(e.target.value)}

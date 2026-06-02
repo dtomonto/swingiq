@@ -42,8 +42,9 @@ export default function SettingsPage() {
           <CardHeader><CardTitle>Display &amp; Units</CardTitle></CardHeader>
           <CardBody className="space-y-4">
             <div>
-              <label className="text-sm font-medium text-foreground block mb-1">Distance Units</label>
+              <label htmlFor="settings-units" className="text-sm font-medium text-foreground block mb-1">Distance Units</label>
               <select
+                id="settings-units"
                 value={settings.units}
                 onChange={(e) => updateSettings({ units: e.target.value as 'yards' | 'meters' })}
                 className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring outline-hidden bg-card text-foreground"
@@ -62,8 +63,9 @@ export default function SettingsPage() {
           <CardBody className="space-y-4">
             <CoachingToneSelector />
             <div>
-              <label className="text-sm font-medium text-foreground block mb-1">Coaching Style</label>
+              <label htmlFor="settings-coaching-style" className="text-sm font-medium text-foreground block mb-1">Coaching Style</label>
               <select
+                id="settings-coaching-style"
                 value={settings.coaching_style}
                 onChange={(e) => updateSettings({ coaching_style: e.target.value as 'detailed' | 'concise' | 'encouragement' | 'balanced' })}
                 className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ring outline-hidden bg-card text-foreground"

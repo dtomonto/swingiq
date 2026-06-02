@@ -174,8 +174,6 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
     [video_analyses, sport],
   );
 
-  const sportConfig = getSportConfig(sport);
-
   if (!latest) {
     return (
       <Card>
