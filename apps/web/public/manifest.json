@@ -1,7 +1,7 @@
 {
-  "name": "SwingIQ — Golf Performance",
+  "name": "SwingIQ — AI Swing Performance Platform",
   "short_name": "SwingIQ",
-  "description": "Turn launch-monitor data into swing diagnoses, training routines, and improvement tracking.",
+  "description": "Free AI swing analysis for golf, tennis, baseball, and softball. Upload a swing or import launch-monitor data for diagnoses, drills, and improvement tracking.",
   "start_url": "/dashboard",
   "display": "standalone",
   "background_color": "#f9fafb",
