@@ -65,12 +65,27 @@ Set these in `apps/web/.env.local` (see `apps/web/.env.example`):
 No key configured → the route returns `{ configured: false }` and the UI shows the
 honest notice. Secrets are read from the environment only; nothing is hardcoded.
 
-## Changing how many frames are sampled
+## Frame selection (motion-based)
 
-- Server cap: `MAX_VIDEO_FRAMES_ANALYZED` (route clamps to `[1, 24]`).
-- Client default: `DEFAULT_FRAME_COUNT` in
-  `apps/web/src/lib/frame-extraction.ts`. Frames are spread across ~2%–98% of the
-  clip so the full motion is covered.
+`apps/web/src/lib/frame-extraction.ts` scans the clip, measures motion via
+grayscale frame-differencing, locates the actual **swing window**, and
+concentrates the returned frames there (keeping a setup + finish frame). It falls
+back to even sampling when there's no clear motion peak. Tunables: server cap
+`MAX_VIDEO_FRAMES_ANALYZED` (route clamps to `[1, 24]`); client `DEFAULT_FRAME_COUNT`.
+Pass `{ smart: false }` to force uniform sampling.
+
+## Reliability & cost
+
+- **Self-correction retry** — if the model's JSON fails schema validation, the
+  provider makes ONE text-only follow-up call (no images re-sent) asking it to fix
+  its own draft to the schema. Eliminates most "couldn't analyze" failures cheaply.
+  HTTP errors are returned immediately (no retry).
+- **Prompt caching** — the Anthropic provider marks the large system prompt with
+  `cache_control` so it's cached across the vision call and the retry. (OpenAI and
+  Gemini cache long prompts automatically.)
+- **Image detail** — `AI_VISION_IMAGE_DETAIL` (`auto` | `low` | `high`, OpenAI)
+  trades fidelity for token cost; frames are already downscaled, so `low` is a cheap
+  option.
 
 ## Adding a new sport prompt
 

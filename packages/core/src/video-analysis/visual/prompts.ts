@@ -124,7 +124,7 @@ const SPORT_FOCUS: Record<VisualSport, SportFocus> = {
 // JSON contract shown to the model (mirrors AIVisualAnalysisResultSchema)
 // ──────────────────────────────────────────────────────────────
 
-const JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fences, no prose before or after) with EXACTLY this shape:
+export const JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fences, no prose before or after) with EXACTLY this shape:
 
 {
   "summary": "2-4 sentence overview of what the frames show",

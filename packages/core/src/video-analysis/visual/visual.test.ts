@@ -264,6 +264,64 @@ describe('DisabledVisionProvider', () => {
   });
 });
 
+describe('auto self-correction retry', () => {
+  const realFetch = global.fetch;
+  afterEach(() => {
+    global.fetch = realFetch;
+  });
+
+  // Mock OpenAI's chat-completions response, returning each content in turn.
+  function mockOpenAISequence(contents: string[]): () => number {
+    let calls = 0;
+    global.fetch = (async () => {
+      const content = contents[Math.min(calls, contents.length - 1)];
+      calls++;
+      return new Response(JSON.stringify({ choices: [{ message: { content } }] }), {
+        status: 200,
+      });
+    }) as unknown as typeof fetch;
+    return () => calls;
+  }
+
+  const req = {
+    sport: 'golf' as const,
+    frames: [{ base64: 'AAAA', mediaType: 'image/jpeg' }],
+    metadata: {},
+  };
+
+  test('repairs a malformed first response on a second text-only call', async () => {
+    const calls = mockOpenAISequence(['not json at all', JSON.stringify(validResult())]);
+    const outcome = await new OpenAIVisionProvider('sk-test').analyze(req);
+    expect(calls()).toBe(2);
+    expect(outcome).toMatchObject({ configured: true, ok: true });
+  });
+
+  test('returns a clean error (no fabrication) when the repair also fails', async () => {
+    const calls = mockOpenAISequence(['nope', 'still not json']);
+    const outcome = await new OpenAIVisionProvider('sk-test').analyze(req);
+    expect(calls()).toBe(2);
+    expect(outcome).toMatchObject({ configured: true, ok: false });
+  });
+
+  test('succeeds without a retry when the first response is valid', async () => {
+    const calls = mockOpenAISequence([JSON.stringify(validResult())]);
+    const outcome = await new OpenAIVisionProvider('sk-test').analyze(req);
+    expect(calls()).toBe(1);
+    expect(outcome).toMatchObject({ configured: true, ok: true });
+  });
+
+  test('does not retry on an HTTP error', async () => {
+    let calls = 0;
+    global.fetch = (async () => {
+      calls++;
+      return new Response('{}', { status: 500 });
+    }) as unknown as typeof fetch;
+    const outcome = await new OpenAIVisionProvider('sk-test').analyze(req);
+    expect(calls).toBe(1);
+    expect(outcome).toMatchObject({ configured: true, ok: false });
+  });
+});
+
 describe('dataUrlToFrame', () => {
   test('parses a valid data URL', () => {
     const frame = dataUrlToFrame('data:image/jpeg;base64,AAAA');
