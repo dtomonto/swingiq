@@ -2,15 +2,17 @@
 // SwingIQ — Client-side Swing Frame Extraction
 //
 // Samples still frames from an uploaded swing video entirely in the
-// browser (no network round-trip to extract). The frames span the
-// WHOLE clip so the AI vision model sees the full motion — setup
-// through finish — not just a narrow window.
+// browser (no network round-trip to extract). Rather than sampling the
+// clip uniformly (which wastes most frames on the idle setup/standstill),
+// it first measures motion across the clip, locates the actual SWING
+// WINDOW via frame-to-frame differencing, and concentrates the sampled
+// frames there — while still keeping a setup and finish frame for context.
 //
 // Only these downscaled still frames are later sent to the AI provider
 // for analysis; the original video file never leaves the device.
 // ============================================================
 
-/** Default number of frames sampled across the clip. */
+/** Default number of frames returned for analysis. */
 export const DEFAULT_FRAME_COUNT = 16;
 
 /** Hard ceiling so payloads stay reasonable even if a caller asks for more. */
@@ -21,6 +23,10 @@ const DEFAULT_MAX_EDGE = 720;
 
 /** JPEG quality for encoded frames (0–1). */
 const DEFAULT_QUALITY = 0.72;
+
+/** Tiny grayscale signature dimensions used for motion detection. */
+const SIG_W = 32;
+const SIG_H = 32;
 
 export interface ExtractedFrame {
   /** `data:image/jpeg;base64,...` */
@@ -34,10 +40,12 @@ export interface ExtractedFrame {
 }
 
 export interface FrameExtractionOptions {
-  /** How many frames to sample (clamped to [1, MAX_FRAME_COUNT]). */
+  /** How many frames to return (clamped to [1, MAX_FRAME_COUNT]). */
   count?: number;
   maxEdge?: number;
   quality?: number;
+  /** Concentrate frames on the detected swing window (default true). */
+  smart?: boolean;
 }
 
 export interface FrameExtractionResult {
@@ -45,6 +53,104 @@ export interface FrameExtractionResult {
   /** Resolution of the source video, e.g. "1920x1080". */
   resolution: string;
   durationSeconds: number;
+  /** True when motion-based selection found and targeted a swing window. */
+  swingWindowDetected: boolean;
+}
+
+// ──────────────────────────────────────────────────────────────
+// Pure helpers (unit-tested — no DOM)
+// ──────────────────────────────────────────────────────────────
+
+/** Mean absolute difference between two grayscale signatures, normalized to 0–1. */
+export function frameDifference(a: ArrayLike<number>, b: ArrayLike<number>): number {
+  const n = Math.min(a.length, b.length);
+  if (n === 0) return 0;
+  let sum = 0;
+  for (let i = 0; i < n; i++) sum += Math.abs(a[i] - b[i]);
+  return sum / n / 255;
+}
+
+/** Per-candidate motion: motion[i] = difference from candidate i-1 (motion[0] = 0). */
+export function motionProfile(signatures: ArrayLike<number>[]): number[] {
+  const motion: number[] = new Array(signatures.length).fill(0);
+  for (let i = 1; i < signatures.length; i++) {
+    motion[i] = frameDifference(signatures[i - 1], signatures[i]);
+  }
+  return motion;
+}
+
+/**
+ * Find the contiguous swing window in a motion profile. Returns candidate
+ * index bounds [start, end], or null when there is no clear motion peak
+ * (static camera / uniformly busy footage) — in which case callers should
+ * fall back to even sampling.
+ */
+export function findSwingWindow(motion: number[]): { start: number; end: number } | null {
+  const n = motion.length;
+  if (n < 5) return null;
+
+  const max = Math.max(...motion);
+  const mean = motion.reduce((a, b) => a + b, 0) / n;
+  // No meaningful peak — bail so the caller samples evenly.
+  if (max <= 1e-4 || max < mean * 1.6) return null;
+
+  const peak = motion.indexOf(max);
+  const threshold = max * 0.25;
+  let start = peak;
+  let end = peak;
+  while (start > 0 && motion[start - 1] >= threshold) start--;
+  while (end < n - 1 && motion[end + 1] >= threshold) end++;
+
+  // Pad one candidate each side to catch the transition in/out of the swing.
+  start = Math.max(0, start - 1);
+  end = Math.min(n - 1, end + 1);
+  return { start, end };
+}
+
+function pickEven(arr: number[], k: number): number[] {
+  if (k <= 0 || arr.length === 0) return [];
+  if (k >= arr.length) return arr.slice();
+  const out: number[] = [];
+  for (let i = 0; i < k; i++) {
+    out.push(arr[Math.round((i * (arr.length - 1)) / (k - 1))]);
+  }
+  return [...new Set(out)];
+}
+
+function range(start: number, end: number): number[] {
+  const out: number[] = [];
+  for (let i = start; i <= end; i++) out.push(i);
+  return out;
+}
+
+/**
+ * Choose which of `n` scanned candidates to keep for analysis. When a swing
+ * window is given, the budget concentrates inside it while always retaining a
+ * setup (first) and finish (last) frame; otherwise it samples evenly.
+ * Returns a sorted, unique list of candidate indices (length ≤ count).
+ */
+export function selectFrameIndices(
+  n: number,
+  count: number,
+  window: { start: number; end: number } | null,
+): number[] {
+  if (n <= 0) return [];
+  if (count >= n) return range(0, n - 1);
+
+  if (!window) return pickEven(range(0, n - 1), count);
+
+  const selected = new Set<number>([0, n - 1]);
+  const inWindow = range(window.start, window.end).filter((i) => !selected.has(i));
+  for (const idx of pickEven(inWindow, count - selected.size)) selected.add(idx);
+
+  // If the window was small, top up with evenly-spaced global frames.
+  if (selected.size < count) {
+    for (const idx of pickEven(range(0, n - 1), count)) {
+      if (selected.size >= count) break;
+      selected.add(idx);
+    }
+  }
+  return [...selected].sort((a, b) => a - b).slice(0, count);
 }
 
 function clampCount(count: number): number {
@@ -57,6 +163,10 @@ function positionFor(fraction: number): ExtractedFrame['position'] {
   if (fraction < 0.67) return 'middle';
   return 'late';
 }
+
+// ──────────────────────────────────────────────────────────────
+// DOM helpers
+// ──────────────────────────────────────────────────────────────
 
 /** Seek the element and resolve once the frame at that time is actually painted. */
 function seekTo(video: HTMLVideoElement, time: number): Promise<void> {
@@ -95,8 +205,23 @@ function seekTo(video: HTMLVideoElement, time: number): Promise<void> {
   });
 }
 
+interface Candidate {
+  dataUrl: string;
+  t: number;
+  fraction: number;
+  signature: number[];
+}
+
+function toGrayscale(data: Uint8ClampedArray): number[] {
+  const out: number[] = new Array(data.length >> 2);
+  for (let i = 0, j = 0; i < data.length; i += 4, j++) {
+    out[j] = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+  }
+  return out;
+}
+
 /**
- * Extract evenly-spaced frames across the entire video clip.
+ * Extract swing frames, concentrated on the detected motion (the actual swing).
  *
  * @param source A File/Blob OR an existing object URL string.
  * @throws if the video cannot be loaded or no frames can be drawn.
@@ -108,6 +233,12 @@ export async function extractSwingFrames(
   const count = clampCount(options.count ?? DEFAULT_FRAME_COUNT);
   const maxEdge = options.maxEdge ?? DEFAULT_MAX_EDGE;
   const quality = options.quality ?? DEFAULT_QUALITY;
+  const smart = options.smart ?? true;
+
+  // Scan more candidates than we keep, so motion detection has resolution.
+  const scanCount = smart
+    ? Math.min(32, Math.max(count + 12, Math.ceil(count * 1.8)))
+    : count;
 
   const ownsObjectUrl = typeof source !== 'string';
   const objectUrl = ownsObjectUrl ? URL.createObjectURL(source) : source;
@@ -163,35 +294,67 @@ export async function extractSwingFrames(
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Canvas 2D context unavailable; cannot extract frames.');
 
-    const frames: ExtractedFrame[] = [];
-    // Sample across the whole clip (2%..98%) so the full motion is covered.
+    // Tiny canvas for grayscale motion signatures.
+    const sigCanvas = document.createElement('canvas');
+    sigCanvas.width = SIG_W;
+    sigCanvas.height = SIG_H;
+    const sigCtx = sigCanvas.getContext('2d', { willReadFrequently: true });
+
+    // ── Pass 1: scan candidates across the whole clip ──────────
     const startFrac = 0.02;
     const endFrac = 0.98;
-    for (let i = 0; i < count; i++) {
-      const fraction = count === 1 ? 0.5 : startFrac + ((endFrac - startFrac) * i) / (count - 1);
+    const candidates: Candidate[] = [];
+    let signaturesUsable = Boolean(sigCtx) && smart;
+
+    for (let i = 0; i < scanCount; i++) {
+      const fraction =
+        scanCount === 1 ? 0.5 : startFrac + ((endFrac - startFrac) * i) / (scanCount - 1);
       const t = duration * fraction;
       await seekTo(video, t);
       ctx.drawImage(video, 0, 0, cw, ch);
       const dataUrl = canvas.toDataURL('image/jpeg', quality);
-      // A blank/failed draw yields a tiny data URL — skip it rather than send junk.
-      if (dataUrl.length > 1000) {
-        frames.push({
-          dataUrl,
-          timestampSeconds: Number(t.toFixed(3)),
-          position: positionFor(fraction),
-          index: i,
-        });
+      if (dataUrl.length <= 1000) continue; // blank/failed draw — skip
+
+      let signature: number[] = [];
+      if (signaturesUsable && sigCtx) {
+        try {
+          sigCtx.drawImage(video, 0, 0, SIG_W, SIG_H);
+          signature = toGrayscale(sigCtx.getImageData(0, 0, SIG_W, SIG_H).data);
+        } catch {
+          // Canvas tainted / read blocked — disable motion path, sample evenly.
+          signaturesUsable = false;
+        }
       }
+      candidates.push({ dataUrl, t, fraction, signature });
     }
 
-    if (frames.length === 0) {
+    if (candidates.length === 0) {
       throw new Error('No frames could be extracted from this video. Try a different file.');
     }
+
+    // ── Pass 2: choose which candidates to keep ────────────────
+    const window =
+      signaturesUsable && candidates.length >= 5
+        ? findSwingWindow(motionProfile(candidates.map((c) => c.signature)))
+        : null;
+
+    const keep = selectFrameIndices(candidates.length, count, window);
+
+    const frames: ExtractedFrame[] = keep.map((candIdx, i) => {
+      const c = candidates[candIdx];
+      return {
+        dataUrl: c.dataUrl,
+        timestampSeconds: Number(c.t.toFixed(3)),
+        position: positionFor(c.fraction),
+        index: i,
+      };
+    });
 
     return {
       frames,
       resolution: `${vw}x${vh}`,
       durationSeconds: Number(duration.toFixed(2)),
+      swingWindowDetected: window !== null,
     };
   } finally {
     revoke();
