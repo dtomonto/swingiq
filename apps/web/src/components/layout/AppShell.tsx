@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
 import { ContextualHelpButton } from '@/components/tutorial/ContextualHelpButton';
+import { OfflineBanner } from './OfflineBanner';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -109,6 +110,7 @@ export function AppShell({ children }: AppShellProps) {
 
         {/* Page content */}
         <main id="main-content" className="flex-1 overflow-auto pb-20 lg:pb-0">
+          <OfflineBanner />
           {children}
         </main>
 
