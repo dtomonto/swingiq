@@ -55,7 +55,7 @@ export function AppShell({ children }: AppShellProps) {
       </a>
 
       {/* ── Desktop sidebar (hidden on mobile) ── */}
-      <div className="hidden lg:flex lg:shrink-0">
+      <div className="hidden lg:flex lg:shrink-0 no-print">
         <div className="w-64 flex flex-col min-h-screen sticky top-0 h-screen">
           <Sidebar />
         </div>
@@ -86,7 +86,7 @@ export function AppShell({ children }: AppShellProps) {
       {/* ── Main content area ── */}
       <div className="flex flex-col flex-1 min-w-0">
         {/* Mobile top bar */}
-        <header className="sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-secondary border-b border-border lg:hidden shadow-xs">
+        <header className="sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-secondary border-b border-border lg:hidden shadow-xs no-print">
           <button
             onClick={() => setDrawerOpen(true)}
             aria-label="Open navigation menu"
@@ -114,7 +114,7 @@ export function AppShell({ children }: AppShellProps) {
 
         {/* ── Mobile bottom navigation bar ── */}
         <nav
-          className="fixed bottom-0 left-0 right-0 z-30 bg-card border-t border-border flex lg:hidden safe-area-inset-bottom"
+          className="fixed bottom-0 left-0 right-0 z-30 bg-card border-t border-border flex lg:hidden safe-area-inset-bottom no-print"
           aria-label="Bottom navigation"
         >
           {BOTTOM_NAV.map(({ href, label, icon: Icon }) => {

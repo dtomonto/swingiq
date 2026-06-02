@@ -31,7 +31,7 @@ export function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-secondary border-t border-border px-4 py-4">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-secondary border-t border-border px-4 py-4 no-print">
       <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <p className="text-muted-foreground text-xs leading-relaxed flex-1">
           SwingIQ uses cookies for essential app functionality. No advertising or tracking cookies are used. Your data stays on your device.

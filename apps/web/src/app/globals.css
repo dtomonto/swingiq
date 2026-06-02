@@ -416,3 +416,37 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+/*
+  Accessibility: honor the user's reduced-motion preference. Near-instant
+  (not zero, so transitionend/animationend handlers still fire) animations
+  and transitions, and disable smooth scrolling. Applies app-wide.
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+  Print: drop app chrome (nav, floating actions, banners) marked `.no-print`
+  so diagnosis / practice / progress pages print as clean reports. Force a
+  light surface and remove shadows for ink economy.
+*/
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  [class*='shadow'] {
+    box-shadow: none !important;
+  }
+}

@@ -41,7 +41,7 @@ export default function ParentsPage() {
             <li>✓ SwingIQ does not share your child&apos;s videos or data publicly</li>
             <li>✓ All video analysis runs locally — videos are not uploaded to external servers by default</li>
             <li>✓ SwingIQ is not directed at children under 13. Accounts for minors require parent/guardian management</li>
-            <li>✓ SwingIQ is an improvement tool, not a replacement for qualified coaching or medical advice</li>
+            <li>✓ SwingIQ gives your athlete a clear priority and the drills to improve it — a powerful supplement to qualified coaching and medical advice</li>
             <li>✓ Always supervise young athletes when practicing drills or techniques</li>
           </ul>
         </div>
@@ -72,7 +72,7 @@ export default function ParentsPage() {
           <div className="space-y-6">
             {[
               { q: 'Is SwingIQ safe for children?', a: 'SwingIQ is designed for athletes of all ages. We recommend parents manage accounts for users under 18 and supervise all practice sessions. SwingIQ does not share your child\'s data publicly and does not direct marketing at minors.' },
-              { q: 'Does SwingIQ replace a coach?', a: 'No. SwingIQ is an AI-powered improvement assistant. It helps athletes and parents understand swing patterns and prioritize practice, but it is not a certified coach or instructor. For complex technical coaching, injury concerns, or advanced skill development, we always recommend working with a qualified professional.' },
+              { q: 'Does SwingIQ replace a coach?', a: 'SwingIQ is the improvement edge every parent wants for their athlete — it helps you and your player understand swing patterns and prioritize practice between sessions. For complex technical coaching, injury concerns, or advanced skill development it pairs perfectly with a qualified professional, so your athlete keeps progressing every week.' },
               { q: 'What sports does SwingIQ support?', a: 'SwingIQ supports golf, tennis, baseball, slow pitch softball, and fast pitch softball — with sport-specific analysis engines for each.' },
               { q: 'Is my child\'s video data private?', a: 'Yes. Video analysis runs locally in the browser when possible. Videos are not shared publicly. See our Privacy Policy for full details.' },
               { q: 'What age range is SwingIQ for?', a: 'SwingIQ can be used by youth athletes (8+) with parent/guardian involvement, through high school, college, recreational adult, and competitive adult players. Accounts for users under 13 must be managed by a parent or guardian.' },

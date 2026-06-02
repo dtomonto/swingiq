@@ -41,9 +41,9 @@ const FAQS = [
       'Confidence is based on how much real data backs a result. Self-reported answers give low confidence (an estimate). Imported launch-monitor data, more sessions, and a clear retest raise it. SwingIQ never shows false precision.',
   },
   {
-    question: 'Should I trust SwingIQ instead of a coach?',
+    question: 'How does SwingIQ fit with coaching?',
     answer:
-      'No. SwingIQ helps you prioritise practice and track change over time. It does not replace a qualified coach, club fitter, trainer, doctor, or physical therapist. Use it to come to a coach with better questions.',
+      'SwingIQ makes every rep count — it prioritises your practice and tracks your change over time, so you arrive at any lesson already ahead and asking sharper questions. It works hand-in-hand with a qualified coach, club fitter, trainer, or physical therapist for injury concerns and advanced technique work.',
   },
   {
     question: 'Where is my data stored?',

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { PublicFooter } from '@/components/layout/PublicFooter';
 
 export const metadata: Metadata = {
   title: 'Free Golf Swing Analysis — AI-Powered Launch Monitor Data | SwingIQ',
@@ -200,18 +201,7 @@ export default function GolfSwingAnalysisPage() {
         </div>
       </section>
 
-      {/* Footer nav */}
-      <footer className="bg-muted border-t border-border py-8">
-        <div className="max-w-4xl mx-auto px-4 flex flex-wrap gap-4 justify-center text-sm">
-          <Link href="/golf-swing-analysis" className="text-primary hover:underline">Golf Analysis</Link>
-          <Link href="/tennis-swing-analysis" className="text-muted-foreground hover:text-foreground">Tennis Analysis</Link>
-          <Link href="/baseball-swing-analysis" className="text-muted-foreground hover:text-foreground">Baseball Analysis</Link>
-          <Link href="/how-it-works" className="text-muted-foreground hover:text-foreground">How It Works</Link>
-          <Link href="/login" className="text-muted-foreground hover:text-foreground">Sign In</Link>
-          <Link href="/dashboard" className="text-muted-foreground hover:text-foreground">Dashboard</Link>
-          <Link href="/updates" className="text-primary hover:underline font-medium">Updates</Link>
-        </div>
-      </footer>
+      <PublicFooter />
     </>
   );
 }

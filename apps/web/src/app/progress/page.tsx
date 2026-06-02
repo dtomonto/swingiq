@@ -92,10 +92,10 @@ function ScoreTrendChart({ snapshots }: { snapshots: SparkSnapshot[] }) {
               y1={y}
               x2={W - pad.right}
               y2={y}
-              stroke="#e5e7eb"
+              stroke="hsl(var(--border))"
               strokeWidth="1"
             />
-            <text x={pad.left - 4} y={y + 3} fontSize="9" fill="#9ca3af" textAnchor="end">
+            <text x={pad.left - 4} y={y + 3} fontSize="9" fill="hsl(var(--muted-foreground))" textAnchor="end">
               {v}
             </text>
           </g>
@@ -118,12 +118,12 @@ function ScoreTrendChart({ snapshots }: { snapshots: SparkSnapshot[] }) {
       {/* Dots + score labels */}
       {pts.map((p, i) => (
         <g key={i}>
-          <circle cx={p.x} cy={p.y} r="5" fill="white" stroke={lineColor} strokeWidth="2.5" />
+          <circle cx={p.x} cy={p.y} r="5" fill="hsl(var(--card))" stroke={lineColor} strokeWidth="2.5" />
           <text
             x={p.x}
             y={p.y - 9}
             fontSize="9.5"
-            fill="#111827"
+            fill="hsl(var(--foreground))"
             textAnchor="middle"
             fontWeight="bold"
           >
@@ -133,7 +133,7 @@ function ScoreTrendChart({ snapshots }: { snapshots: SparkSnapshot[] }) {
             x={p.x}
             y={H - 6}
             fontSize="8.5"
-            fill="#9ca3af"
+            fill="hsl(var(--muted-foreground))"
             textAnchor="middle"
           >
             {format(new Date(p.date), 'MMM d')}
@@ -519,7 +519,7 @@ export default function ProgressPage() {
                   <p className="text-xs text-accent-secondary mt-1">estimated handicap range</p>
                   <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
                     Based on your latest swing score of <strong>{newest.overall}</strong>.
-                    This is a rough heuristic — not an official WHS calculation.
+                    This is a heuristic estimate from your recent swing scores — not an official WHS calculation.
                   </p>
                 </>
               ) : (

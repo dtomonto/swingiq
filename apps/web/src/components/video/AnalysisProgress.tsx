@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 export type AnalysisStage =
   | 'preparing'
   | 'extracting'
+  | 'measuring'
   | 'inspecting'
   | 'building'
   | 'plan'
@@ -21,12 +22,21 @@ export type AnalysisStage =
 const STAGES: { id: AnalysisStage; label: string; detail: string }[] = [
   { id: 'preparing', label: 'Preparing your video', detail: 'Reading the clip in your browser' },
   { id: 'extracting', label: 'Extracting key frames', detail: 'Sampling the full motion as still images' },
+  { id: 'measuring', label: 'Measuring body positions', detail: 'On-device pose detection (stays on your device)' },
   { id: 'inspecting', label: 'Inspecting mechanics with AI', detail: 'The AI vision model reviews each frame' },
   { id: 'building', label: 'Building your diagnosis', detail: 'Identifying evidence-based priorities' },
   { id: 'plan', label: 'Creating your practice plan', detail: 'Matching drills to what was seen' },
 ];
 
-const ORDER: AnalysisStage[] = ['preparing', 'extracting', 'inspecting', 'building', 'plan', 'done'];
+const ORDER: AnalysisStage[] = [
+  'preparing',
+  'extracting',
+  'measuring',
+  'inspecting',
+  'building',
+  'plan',
+  'done',
+];
 
 export function AnalysisProgress({ stage }: { stage: AnalysisStage }) {
   const currentIndex = ORDER.indexOf(stage);
