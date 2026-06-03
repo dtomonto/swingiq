@@ -31,6 +31,7 @@ import { Button } from '@/components/ui/Button';
 import { useSwingIQStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence';
+import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
 import { format } from 'date-fns';
 import { useMemo } from 'react';
 import type { SportId } from '@swingiq/core';
@@ -383,6 +384,9 @@ export function NonGolfDashboard() {
 
       {/* Intelligent product layer: Welcome Back / next best step + insights */}
       <DashboardIntelligence />
+
+      {/* Goal-gradient: the closest badge left to earn */}
+      <NextBadgeNudge />
 
       {/* Quick actions */}
       <QuickActions sport={activeSport} />

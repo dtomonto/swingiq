@@ -27,6 +27,7 @@ import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { useSwingIQStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
 import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence';
+import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
 import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps, getRoutineForDiagnosis, type DiagnosisCategory } from '@swingiq/core';
 import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
 import { format } from 'date-fns';
@@ -227,6 +228,9 @@ export function DashboardContent() {
 
       {/* Intelligent product layer: Welcome Back / next best step + insights */}
       <DashboardIntelligence />
+
+      {/* Goal-gradient: the closest badge left to earn */}
+      <NextBadgeNudge />
 
       {/* Practice reminder */}
       {practiceReminder !== null && (
