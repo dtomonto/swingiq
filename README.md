@@ -31,6 +31,8 @@ Switching your active sport changes the **entire product experience** — dashbo
 | 🥎 Slow Pitch Softball | Video + manual entry | Arc-timing analysis, 24 issue categories, line-drive coaching |
 | 🥎 Fast Pitch Softball | Video + manual entry | Compact swing analysis, 24 issue categories, reaction timing |
 
+> **All five sports** also get **Motion Lab** (`/motion-lab`) — browser-based 3D motion analysis with a rotatable 3D viewer, sport-specific phase breakdowns, biomechanical scores, a coaching plan, and an optional two-camera "true 3D" mode.
+
 ---
 
 ## Feature Overview
@@ -54,6 +56,16 @@ Sport-aware video analyzer with phase-by-phase coaching for all five sports.
 - Sport-specific camera angle selector
 - Issue detection with severity labels (Critical / Notable / Minor / Watch)
 - All detections labeled as heuristic estimates — honest confidence labels throughout
+
+### 🧪 Motion Lab — 3D Motion Analysis (all sports)
+Browser-based 3D motion analysis at `/motion-lab` (`lib/motion-lab`, `components/motion-lab`, `lib/pose3d`). Works for golf, tennis, baseball, slow pitch, and fast pitch softball.
+- **Upload or record in-app**, optional **trim** to the rep, then pick sport + motion (driver/iron/wedge/putt, forehand/backhand/serve/volley, hitting/pitching/throwing/fielding…)
+- On-device pose → **sport-specific phase segmentation**, ~13 biomechanical proxy metrics, and six component scores (power, sequencing, rotation, balance, timing, consistency) plus an overall Motion Score
+- **Interactive 3D viewer** (pure canvas, zero new dependencies): orbit / zoom / frame-scrub / motion trails / ghost-compare / confidence shading / PNG screenshot
+- **Trained single-view 3D depth model** (`lib/pose3d`, committed weights) — a "Pro 3D depth" toggle refines per-joint depth; result stays an honest single-camera estimate
+- **Two-camera "true 3D" mode** — film the same rep from two angles and SwingIQ produces **measured** 3D via per-capture self-calibration (normalized 8-point essential matrix + RANSAC + bundle adjustment) and DLT triangulation; confidence comes from real reprojection error
+- 5-tone coaching report, 4-drill prescription + weekly plan, local session save, session compare, **JSON / CSV / PDF** export, and a developer debug panel
+- Everything runs **on-device**; the original video never leaves the browser. No medical, injury, or tour-grade claims. See `docs/motion-lab.md` and `docs/pose3d.md`.
 
 ### 🔍 Swing Diagnosis (Golf)
 - Diagnostic engine evaluates 24 issue categories against validated benchmarks
@@ -175,10 +187,11 @@ SwingIQ is available in 20 languages with full Spanish and French translations. 
 - Your work is held safely on-device; anything that needs the network is queued in an **IndexedDB outbox** and completes automatically once you reconnect
 - Nothing to set up — offline handling is always on
 
-### 🎥 Motion Engine (Pose Analysis)
-- On-device pose estimation lives in `lib/pose` (the single source of truth) feeding the motion engine in `lib/motion`
-- An optional **real MediaPipe pose provider** sits behind a feature flag, with a pose-derived swing score and signal fingerprint
-- All pose-derived output stays labeled as a heuristic/directional estimate — honest by design
+### 🎥 Pose & Motion Engine
+- On-device **MediaPipe** pose estimation lives in `lib/pose` (the single source of truth), with selectable model quality (lite / full / heavy)
+- The motion engine (`lib/motion`) and the **Motion Lab** pipeline (`lib/motion-lab`) consume it for phase, metric, scoring, and report analysis
+- The proprietary 3D engine (`lib/pose3d`) adds **multi-view triangulation** (measured 3D) and a **trained single-view depth model** (estimated), behind a clean provider seam ready for a future ONNX model
+- All single-camera pose output stays labeled as a heuristic/directional estimate — honest by design
 
 ### 🏅 Community Hub
 - **50+ Badges** across 10 categories: consistency, improvement, data protection, sport mastery, and more
@@ -208,7 +221,7 @@ swingiq/
 │       ├── public/             # robots.txt, manifest
 │       └── src/
 │           ├── app/            # 90+ routes (App Router)
-│           │   ├── (app)       # dashboard, profile, sessions, video, training…
+│           │   ├── (app)       # dashboard, profile, sessions, video, motion-lab, training…
 │           │   ├── compare/    # Professional references + side-by-side comparison
 │           │   ├── settings/backup/  # Backup & Restore
 │           │   ├── sessions/import/image/  # Screenshot/image import wizard
@@ -221,6 +234,10 @@ swingiq/
 │           ├── contexts/       # SportContext, LanguageContext
 │           ├── hooks/          # useTutorial (tutorial progress hook)
 │           ├── lib/
+│           │   ├── motion-lab/ # Motion Lab — 3D pipeline (phases, metrics, scoring, report, drills, multiview)
+│           │   ├── pose3d/     # Proprietary 3D engine (triangulation, self-calibration, trained lift model)
+│           │   ├── pose/       # On-device MediaPipe pose detection (lite/full/heavy)
+│           │   ├── motion/     # Motion engine provider seam + honest data-basis labeling
 │           │   ├── backup/     # schema, export, validate, restore, migrate,
 │           │   │               # registry, crypto — complete data portability system
 │           │   ├── tutorial/   # content registry (20+ screens), types
@@ -343,7 +360,7 @@ Start here: **[docs/BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md)**
 | Charts | Recharts + custom SVG |
 | Icons | Lucide React |
 | AI | OpenAI GPT-4o-mini or Anthropic Claude (configurable) |
-| Pose / Motion | On-device pose estimation (`lib/pose`) + motion engine (`lib/motion`); optional MediaPipe provider behind a flag |
+| Pose / Motion | On-device MediaPipe pose (`lib/pose`, lite/full/heavy) → Motion Lab 3D pipeline (`lib/motion-lab`) + proprietary 3D engine (`lib/pose3d`: multi-view triangulation + trained single-view depth model) |
 | Auth | Keyless local accounts by default; optional Supabase auth |
 | Billing | Keyless Pro waitlist; optional Stripe checkout |
 | Offline | IndexedDB outbox + offline status banner |
@@ -431,6 +448,8 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | [OWNER_TASKS.md](docs/OWNER_TASKS.md) | Full setup checklist + manual steps |
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | When something breaks |
 | [WEB_APP_GUIDE.md](docs/WEB_APP_GUIDE.md) | Using every app feature |
+| [motion-lab.md](docs/motion-lab.md) | **Motion Lab** — 3D motion analysis feature + pipeline (plain-English intro) |
+| [pose3d.md](docs/pose3d.md) | **3D pose engine** — multi-view triangulation, self-calibration, trained lift model, ONNX upgrade path |
 | [DATA_IMPORT_GUIDE.md](docs/DATA_IMPORT_GUIDE.md) | Exporting CSV from each launch monitor brand |
 | [BACKUP_SYSTEM.md](docs/BACKUP_SYSTEM.md) | **Developer guide** — backup schema, registry, migration, tutorial system |
 | [ARCHITECTURE_DECISIONS.md](docs/ARCHITECTURE_DECISIONS.md) | 13 ADRs explaining every major technology and design choice |

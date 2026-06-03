@@ -1,6 +1,6 @@
 # SwingIQ Product Roadmap
 
-_Last updated: May 2026_
+_Last updated: June 2026_
 
 ---
 
@@ -39,6 +39,15 @@ _Last updated: May 2026_
 - Sport-specific analysis: tennis strokes, baseball/softball hitting phases
 - Video analysis with swing phase definitions and visual issue detection
 - YouTube drill search URL builder per fault
+
+### 3D Motion Analysis — Motion Lab (`/motion-lab`)
+- Browser-based 3D motion analysis for all five sports (`lib/motion-lab`, `components/motion-lab`)
+- On-device MediaPipe pose (selectable lite/full/heavy) → sport-specific phase segmentation, ~13 biomechanical proxy metrics, six component scores + an overall Motion Score
+- Interactive **canvas 3D viewer** (orbit / zoom / frame-scrub / motion trails / ghost-compare / screenshot) — zero new dependencies
+- **Proprietary 3D engine** (`lib/pose3d`): a trained single-view depth model (committed weights, ~78% held-out depth variance explained) plus a two-camera "true 3D" path via per-capture self-calibration (normalized 8-point essential matrix + RANSAC + bundle adjustment) and DLT triangulation, with reprojection-error confidence
+- In-app recorder + trim, 5-tone coaching report, drill prescription + weekly plan, local session save, compare, JSON / CSV / PDF export, developer debug panel
+- On-device and privacy-first; honest estimated-vs-measured labeling; no medical, injury, or tour-grade claims
+- Provider seam left for a future ONNX model fine-tuned on real motion-capture (documented in `docs/pose3d.md`)
 
 ### Benchmarks & Training
 - Tour-calibrated benchmarks per club and skill level (golf)

@@ -597,7 +597,7 @@
     "userBenefit": "You can add SwingIQ to your home screen and open it instantly — just like a native app, without going through the browser every time.",
     "whyItMatters": "Quick access means you are more likely to open SwingIQ at the range or court. Removing even small friction from the habit makes it easier to stay consistent.",
     "whereToFindIt": "Look for the install banner when you visit SwingIQ on a supported mobile browser (Chrome on Android, Safari on iOS).",
-    "isFeatured": true,
+    "isFeatured": false,
     "isMajorMilestone": false,
     "createdAt": "2026-05-31",
     "updatedAt": "2026-05-31"
@@ -688,5 +688,34 @@
     "isMajorMilestone": false,
     "createdAt": "2026-06-01",
     "updatedAt": "2026-06-01"
+  },
+  {
+    "id": "update-053",
+    "title": "New Motion Lab — See Your Swing in 3D",
+    "slug": "motion-lab-3d-analysis",
+    "metaTitle": "SwingIQ Motion Lab — 3D Swing, Serve, Pitch & Throw Analysis",
+    "metaDescription": "SwingIQ's new Motion Lab turns a phone video into a 3D figure you can spin and step through, with phase-by-phase breakdowns, scores, and a practice plan — for golf, tennis, baseball, and softball.",
+    "summary": "Upload or record a clip and SwingIQ rebuilds your motion as a 3D figure you can spin around, slow down, and step through frame by frame. You get a phase-by-phase breakdown (setup, top, impact, finish, and more), clear scores for things like power, balance, rotation, and timing, the top three things to work on, and a simple practice plan — all created privately on your own device. It works for golf, tennis, baseball, and softball.",
+    "releaseDate": "2026-06-02",
+    "displayDate": "June 2026",
+    "category": "New Feature",
+    "status": "published",
+    "visibility": "public",
+    "sortOrder": 132,
+    "sport": "All Sports",
+    "audience": ["all athletes", "coaches", "parents"],
+    "relatedFeature": "Motion Lab",
+    "userBenefit": "You can finally see your whole motion in 3D, understand what happens in each phase, and get a clear, prioritized plan of what to fix first — with no special equipment.",
+    "whyItMatters": "A flat video only shows one angle. Seeing your motion in 3D, broken into phases with honest scores, makes it far easier to understand what is actually happening and where the biggest improvement is hiding.",
+    "whereToFindIt": "Go to Analyze > Motion Lab (3D) in the menu, choose your sport and motion, then upload or record a clip.",
+    "userActionRequired": "None — just bring a clip. For even sharper, measured 3D, film the same rep from two angles about 90 degrees apart and SwingIQ will combine them.",
+    "seoKeywords": ["3D swing analysis", "motion analysis app", "3D golf swing", "tennis serve analysis", "baseball pitching analysis", "softball swing 3D"],
+    "answerEngineSummary": "SwingIQ Motion Lab reconstructs a swing, serve, pitch, or throw from a phone video into a 3D figure with phase-by-phase breakdowns, biomechanical scores, the top fixes, and a practice plan, running privately on the user's own device for golf, tennis, baseball, and softball. Results are clearly labeled as on-device estimates from video; filming from two angles produces measured 3D.",
+    "generativeSearchSummary": "SwingIQ launched Motion Lab, a browser-based 3D motion analysis feature that turns a single phone video into a rotatable 3D reconstruction with sport-specific phase breakdowns, biomechanical scores, prioritized fixes, and a coaching plan for golf, tennis, baseball, and softball — with an optional two-camera mode for true measured 3D, all on-device and privacy-first.",
+    "internalLinkTargets": ["/motion-lab", "/video", "/diagnose"],
+    "isFeatured": true,
+    "isMajorMilestone": true,
+    "createdAt": "2026-06-02",
+    "updatedAt": "2026-06-02"
   }
 ]

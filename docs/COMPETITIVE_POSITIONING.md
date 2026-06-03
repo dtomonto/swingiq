@@ -40,6 +40,9 @@ Results come from a rules engine grounded in biomechanical research, not from a 
 ### 5. Device-Agnostic Import
 Works with data from any launch monitor, sensor, or manual entry — not locked to a single hardware ecosystem. Users aren't required to buy new equipment.
 
+### 6. 3D Motion Analysis With No Special Hardware
+**Motion Lab** turns an ordinary phone video into a rotatable 3D reconstruction with sport-specific phase breakdowns, biomechanical scores, and a coaching plan — for all five sports, entirely in the browser. Most 3D/biomechanics tools require expensive marker suits, multi-camera rigs, or a lab; SwingIQ delivers an estimated 3D view from one camera (and genuinely *measured* 3D from two phones) on-device, privacy-first. The single-view depth model and the two-camera triangulation/self-calibration engine are proprietary, and the value scales honestly with capture quality rather than over-promising.
+
 ---
 
 ## Competitive Landscape

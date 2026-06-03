@@ -184,6 +184,31 @@ All detections are heuristic estimates based on pose analysis — labeled ⚠ Es
 
 ---
 
+## 9b. Motion Lab — 3D Motion Analysis
+
+Found at **Analyze → Motion Lab (3D)** in the sidebar (or `/motion-lab`). Motion Lab turns a clip into a **3D figure of your motion** you can spin, slow down, and step through — for all five sports.
+
+**The flow:**
+1. **Pick your sport and motion** — e.g. driver, iron, wedge, or putt for golf; forehand, backhand, serve, volley, or return for tennis; hitting, pitching, throwing, or fielding for baseball/softball.
+2. **Upload or record** a clip. You can **trim** it to just the rep, and set your handedness and skill level.
+3. **Analyze.** Everything runs on your own device — your video never leaves the browser.
+
+**What you get:**
+- A **3D viewer** you can rotate (drag), zoom, scrub frame-by-frame, and screenshot, with motion trails and an optional "ghost" of an earlier session to compare against.
+- A **phase timeline** (setup → top → impact → finish, and the right phases for each sport).
+- **Scores** for overall motion, power, sequencing, rotation, balance, timing, and consistency — each with a confidence level.
+- A **coaching report** in your choice of tone (beginner, athlete, coach, youth/parent, or data), with the **top 3 fixes**, what *not* to change, and a **practice plan**.
+- A **drill plan** (an immediate fix, a feel drill, a technical drill, and a constraint drill) plus a one-week schedule.
+- **Export** your report as JSON, CSV, or a printable **PDF**, and save sessions to **compare** over time.
+
+**Single camera vs. two cameras:**
+- **One camera** (the default) gives an *estimated* 3D reconstruction. A "Pro 3D depth" option uses SwingIQ's trained model to sharpen the depth.
+- **Two cameras** ("true 3D" mode): film the *same rep* from two angles about 90° apart and SwingIQ combines them into **measured** 3D. If the two clips don't line up well, it honestly shows lower confidence instead of guessing.
+
+> Honesty by design: single-camera results are labeled estimates, two-camera results are labeled measured, and every number carries a confidence. Motion Lab makes **no** medical, injury, or tour-grade claims.
+
+---
+
 ## 10. Diagnose (Golf)
 
 The golf diagnostic engine analyzes your most recent session's launch-monitor data.

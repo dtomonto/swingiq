@@ -305,6 +305,25 @@ Each version migration is handled in `apps/web/src/lib/backup/migrate.ts`.
 
 ---
 
+## 14. Motion Lab: Canvas 3D Viewer + On-Device 3D Engine
+
+**Decision:** The Motion Lab 3D feature renders its skeleton with a dependency-free **2D-canvas 3D projection** (not Three.js / React Three Fiber), and computes 3D from the user's own clips **on-device** — a trained single-view depth model plus a two-camera triangulation path — rather than calling a cloud 3D service.
+
+**Why:**
+- Adding Three.js / R3F to a React 19 / Next 16 app is a heavy dependency with real build/peer-version risk; the canvas renderer is robust, fast, and ships **zero** new packages
+- All processing stays on-device, preserving the privacy posture (the original video never leaves the browser)
+- Two-camera triangulation is genuine **measured** 3D from classical geometry; the single-view model is honestly labeled an **estimate**
+- A clean provider seam (`lib/pose3d/providers.ts`) lets a future ONNX model fine-tuned on real motion-capture drop in without touching the UI
+
+**Trade-offs:**
+- The canvas renderer is hand-rolled rather than using a mature 3D library's materials/lighting
+- The single-view depth model is trained on synthetic projections, not real mocap — a useful prior, not lab-grade
+- Two-camera mode requires the user to film the same rep from two angles
+
+**How to change it later:** Swap the canvas viewer for a Three.js/R3F component (the pose track is the contract), and/or register an ONNX `Lift3DProvider` trained on Human3.6M/AMASS. Both paths are documented in `docs/pose3d.md`; the engine (`lib/pose3d`) and pipeline (`lib/motion-lab`) stay unchanged.
+
+---
+
 ## Key Files Quick Reference
 
 | File | Purpose |
@@ -315,6 +334,8 @@ Each version migration is handled in `apps/web/src/lib/backup/migrate.ts`.
 | `apps/web/src/lib/i18n/` | Internationalization system (20 languages) |
 | `apps/web/src/lib/community/` | Gamification, badges, XP, challenges |
 | `apps/web/src/lib/tutorial/` | Contextual help and tutorial system |
+| `apps/web/src/lib/motion-lab/` | Motion Lab 3D pipeline (phases, metrics, scoring, report, drills, multiview) |
+| `apps/web/src/lib/pose3d/` | Proprietary 3D engine (triangulation, self-calibration, trained lift model) |
 | `apps/web/src/lib/ai-coach-prompts.ts` | AI coach prompt builder (provider-independent) |
 | `apps/web/src/app/api/` | Server-side API routes (AI coach, video analysis, export/import) |
 | `server/supabase_schema.sql` | Full database schema |
@@ -322,4 +343,4 @@ Each version migration is handled in `apps/web/src/lib/backup/migrate.ts`.
 
 ---
 
-*Last updated: May 2026 | See also: `docs/BACKUP_SYSTEM.md`, `docs/IMPLEMENTATION_NOTES.md`*
+*Last updated: June 2026 | See also: `docs/BACKUP_SYSTEM.md`, `docs/IMPLEMENTATION_NOTES.md`, `docs/motion-lab.md`, `docs/pose3d.md`*
