@@ -16,6 +16,7 @@ import { Video, Circle, Square, RotateCcw, Check, SwitchCamera, AlertCircle } fr
 import { Button } from '@/components/ui/Button';
 import type { SwingVideoMetadata } from '@swingiq/core';
 import { cn } from '@/lib/utils';
+import { SetupStanceOverlay } from '@/components/guide/SetupStanceOverlay';
 
 type RecState = 'idle' | 'ready' | 'countdown' | 'recording' | 'review';
 
@@ -200,6 +201,12 @@ export function MotionRecorder({ onVideoReady }: Props) {
             playsInline controls loop
             className={cn('w-full h-full object-contain bg-black', state !== 'review' && 'hidden')}
           />
+
+          {/* "Where to stand" framing guide — shown while lining up and dimmed
+              once recording starts, hidden on the review of the captured clip. */}
+          {state !== 'review' && (
+            <SetupStanceOverlay dim={state === 'recording'} />
+          )}
 
           {state === 'countdown' && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/40">
