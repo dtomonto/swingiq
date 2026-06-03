@@ -336,6 +336,16 @@ export interface CoachShareSummary {
   nextPracticeFocus: string;
 }
 
+/** Parent-facing companion to CoachShareSummary: simpler, safety-first,
+ *  encouragement-led, with "homework" the parent can guide at home. */
+export interface ParentShareSummary {
+  parentSummary: string;
+  focusThisWeek: string;
+  homeworkDrills: string[];
+  encouragement: string;
+  safetyNote: string;
+}
+
 export interface UpgradeSuggestion {
   upgradeReason: string;
   relevantFeature: string;
