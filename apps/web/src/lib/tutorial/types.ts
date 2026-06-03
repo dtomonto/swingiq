@@ -28,9 +28,17 @@ export interface TutorialContent {
   sport?: 'golf' | 'tennis' | 'baseball' | 'softball_slow' | 'softball_fast' | 'all';
 }
 
+/** Persona a Tutorial Center track is tailored for. Mirrors onboarding USER_TYPES. */
+export type TutorialAudience = 'athlete' | 'parent' | 'coach' | 'team';
+
 /**
  * Progress state stored in the user's app settings.
- * Tracks which tutorials have been viewed and dismissed.
+ * Tracks which tutorials have been viewed and dismissed, plus
+ * the Video Tutorial Center's watched/skip/persona state.
+ *
+ * The video fields are optional so existing persisted state (which
+ * predates them) keeps working without a migration — readers default
+ * them to empty/false.
  */
 export interface TutorialProgress {
   /** IDs of tutorials the user has fully completed (step-by-step walk-through) */
@@ -39,10 +47,18 @@ export interface TutorialProgress {
   dismissed: string[];
   /** ISO timestamps for when each tutorial was last opened */
   lastViewedAt: Record<string, string>;
+  /** IDs of tutorial VIDEOS the user has watched / marked complete */
+  watchedVideos?: string[];
+  /** True once the user chooses to skip the guided tour (hides the welcome prompt) */
+  skippedTour?: boolean;
+  /** Remembered persona selection for the Tutorial Center */
+  preferredAudience?: TutorialAudience;
 }
 
 export const DEFAULT_TUTORIAL_PROGRESS: TutorialProgress = {
   completed: [],
   dismissed: [],
   lastViewedAt: {},
+  watchedVideos: [],
+  skippedTour: false,
 };

@@ -37,6 +37,7 @@ import {
   Sparkles,
   Route,
   FlaskConical,
+  GraduationCap,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -214,6 +215,12 @@ export function Sidebar({ onClose }: SidebarProps) {
         <Link href="/start" onClick={onClose} className={rowClass(isActive('/start'))}>
           <Compass size={18} className="shrink-0" aria-hidden="true" />
           <span className="flex-1">Start Here</span>
+        </Link>
+
+        {/* Video tutorials — guided learning for every kind of user */}
+        <Link href="/tutorial" onClick={onClose} className={rowClass(isActive('/tutorial'))}>
+          <GraduationCap size={18} className="shrink-0" aria-hidden="true" />
+          <span className="flex-1">Tutorials</span>
         </Link>
 
         {/* Journey */}
