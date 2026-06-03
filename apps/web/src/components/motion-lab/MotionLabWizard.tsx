@@ -10,9 +10,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   ChevronLeft, ChevronRight, Zap, AlertCircle, Loader2, FlaskConical,
-  History, Trash2, ArrowRight,
+  History, Trash2, ArrowRight, Upload, Video,
 } from 'lucide-react';
 import { VideoUpload, VideoPreviewCard } from '@/components/video/VideoUpload';
+import { MotionRecorder } from './MotionRecorder';
+import { VideoTrimmer } from './VideoTrimmer';
 import { SportMotionSelector } from './SportMotionSelector';
 import { MotionAnalysisProgress } from './MotionAnalysisProgress';
 import { MotionResultsDashboard } from './MotionResultsDashboard';
@@ -69,9 +71,11 @@ export function MotionLabWizard() {
   const [view, setView] = useState<CameraView>('unknown');
   const [handedness, setHandedness] = useState<Handedness>('right');
 
+  const [inputMode, setInputMode] = useState<'upload' | 'record'>('upload');
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [videoMeta, setVideoMeta] = useState<SwingVideoMetadata | null>(null);
   const [objectUrl, setObjectUrl] = useState<string | null>(null);
+  const [trim, setTrim] = useState<{ start: number; end: number } | null>(null);
 
   const [stage, setStage] = useState<MotionStage>('extracting');
   const [error, setError] = useState<string | null>(null);
@@ -87,6 +91,7 @@ export function MotionLabWizard() {
     setVideoFile(null);
     setVideoMeta(null);
     setObjectUrl(null);
+    setTrim(null);
     setError(null);
   }, [objectUrl]);
 
@@ -119,8 +124,13 @@ export function MotionLabWizard() {
     };
     try {
       const estimatedFps = (videoMeta as { frame_rate_estimated?: number | null } | null)?.frame_rate_estimated ?? null;
+      const dur = videoMeta?.duration_seconds ?? 0;
+      // Only pass a trim window when the user actually narrowed it.
+      const trimmed = trim && (trim.start > 0.05 || (dur > 0 && trim.end < dur - 0.05));
       const result = await runMotionAnalysis(videoFile, capture, {
         estimatedFps,
+        trimStartSeconds: trimmed ? trim!.start : null,
+        trimEndSeconds: trimmed ? trim!.end : null,
         onProgress: setStage,
       });
       const persisted = saveSession(result);
@@ -131,7 +141,7 @@ export function MotionLabWizard() {
       setError(err instanceof Error ? err.message : 'Analysis failed. Please try another clip.');
       setStep('capture');
     }
-  }, [videoFile, motionType, sport, view, handedness, videoMeta]);
+  }, [videoFile, motionType, sport, view, handedness, videoMeta, trim]);
 
   const openSession = useCallback((s: MotionSession) => {
     setSession(s);
@@ -229,12 +239,34 @@ export function MotionLabWizard() {
             </div>
 
             {!videoFile ? (
-              <VideoUpload onVideoReady={handleVideoReady} onError={setError} />
+              <>
+                <div className="flex gap-1 p-1 rounded-lg bg-muted w-fit mx-auto">
+                  {([['upload', 'Upload', Upload], ['record', 'Record', Video]] as const).map(([id, label, Icon]) => (
+                    <button
+                      key={id}
+                      onClick={() => setInputMode(id)}
+                      className={cn(
+                        'flex items-center gap-1.5 text-sm font-medium rounded-md px-4 py-1.5 transition-colors',
+                        inputMode === id ? 'bg-card text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground',
+                      )}
+                    >
+                      <Icon className="w-4 h-4" />{label}
+                    </button>
+                  ))}
+                </div>
+                {inputMode === 'upload'
+                  ? <VideoUpload onVideoReady={handleVideoReady} onError={setError} />
+                  : <MotionRecorder onVideoReady={handleVideoReady} />}
+              </>
             ) : (
               <>
                 {videoMeta && <VideoPreviewCard file={videoFile} metadata={videoMeta} onRemove={resetCapture} />}
-                {objectUrl && (
-                  <video src={objectUrl} controls playsInline className="w-full rounded-xl bg-black max-h-[320px]" />
+                {objectUrl && videoMeta && (
+                  <VideoTrimmer
+                    objectUrl={objectUrl}
+                    durationSeconds={videoMeta.duration_seconds}
+                    onChange={(start, end) => setTrim({ start, end })}
+                  />
                 )}
 
                 <Card>

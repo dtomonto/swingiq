@@ -44,6 +44,9 @@ export type MotionStage =
 export interface PipelineOptions {
   estimatedFps?: number | null;
   frameCount?: number;
+  /** Optional manual trim window (seconds) to focus analysis on the rep. */
+  trimStartSeconds?: number | null;
+  trimEndSeconds?: number | null;
   onProgress?: (stage: MotionStage) => void;
 }
 
@@ -82,7 +85,11 @@ export async function runMotionAnalysis(
 
   // 1) Extract motion-aware still frames in the browser.
   onProgress?.('extracting');
-  const extraction = await extractSwingFrames(source, { count: options.frameCount ?? 24 });
+  const extraction = await extractSwingFrames(source, {
+    count: options.frameCount ?? 24,
+    trimStartSeconds: options.trimStartSeconds ?? undefined,
+    trimEndSeconds: options.trimEndSeconds ?? undefined,
+  });
 
   // 2) On-device pose detection (real MediaPipe x/y/z). Best-effort.
   onProgress?.('detecting');
