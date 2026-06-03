@@ -20,8 +20,9 @@ import { VideoWelcomeBack } from '@/components/video/VideoWelcomeBack';
 import { VideoProgress } from '@/components/video/VideoProgress';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { Button } from '@/components/ui/Button';
-import { extractSwingFrames } from '@/lib/frame-extraction';
-import { detectSwingPose, type PoseMetrics } from '@/lib/pose';
+import { type PoseMetrics } from '@/lib/pose';
+import { prepareSwing, warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepareSwing';
+import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector';
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import {
   saveVideoAnalysis,
@@ -31,8 +32,9 @@ import {
   type SavedVideoAnalysis,
 } from '@/lib/video/history';
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
+import { useAnalysisAlerts } from '@/lib/video/useAnalysisAlerts';
 import { cn } from '@/lib/utils';
-import type { SwingVideoMetadata, AIVisualAnalysis } from '@swingiq/core';
+import type { SwingVideoMetadata, AIVisualAnalysis, VisionSpeed } from '@swingiq/core';
 import { ChevronLeft, Loader2, AlertCircle, Zap, Download, RefreshCw } from 'lucide-react';
 
 type AnalysisStep = 'upload' | 'configure' | 'analyzing' | 'results';
@@ -50,6 +52,7 @@ export function VideoAnalyzerContent() {
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [stage, setStage] = useState<AnalysisStage>('preparing');
   const [poseMetrics, setPoseMetrics] = useState<PoseMetrics | null>(null);
+  const [speed, setSpeed] = useState<VisionSpeed>('fast');
 
   // Returning-user history (golf), compare toggle, and the just-saved record.
   // `useVideoHistory` reads localStorage after hydration and live-updates on
@@ -58,6 +61,10 @@ export function VideoAnalyzerContent() {
   const [compareEnabled, setCompareEnabled] = useState(false);
   const [savedRecord, setSavedRecord] = useState<SavedVideoAnalysis | null>(null);
   const [comparedToPrevious, setComparedToPrevious] = useState(false);
+
+  // Make a backgrounded analysis impossible to forget: tab-title ping (+ a
+  // notification only if already permitted) while running / when ready.
+  useAnalysisAlerts({ analyzing: step === 'analyzing', ready: step === 'results' });
 
   useEffect(() => {
     return () => {
@@ -75,12 +82,16 @@ export function VideoAnalyzerContent() {
       setVideoMetadata({ ...metadata, camera_angle: 'unknown' });
       setVideoObjectUrl(objectUrl);
       setStep('configure');
+      // Speculatively extract frames + run pose now, while the user reads the
+      // configure screen — so clicking "Analyze" jumps almost straight to the AI.
+      warmSwingPreparation(file);
     },
     [],
   );
 
   const handleRemoveVideo = () => {
     if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);
+    forgetPreparedSwing(videoFile);
     setVideoFile(null);
     setVideoObjectUrl(null);
     setVideoMetadata(null);
@@ -106,13 +117,11 @@ export function VideoAnalyzerContent() {
     setComparedToPrevious(Boolean(previous));
 
     try {
-      // 1. Extract still frames from the whole clip, in the browser.
+      // 1–2. Frames + pose — usually already prepared during "configure", so
+      // this resolves instantly; otherwise it runs (and caches) now.
       setStage('extracting');
-      const extraction = await extractSwingFrames(videoFile);
-
-      // 2. On-device pose detection → objective body signals (best-effort).
+      const { extraction, pose } = await prepareSwing(videoFile);
       setStage('measuring');
-      const pose = await detectSwingPose(extraction.frames);
       setPoseMetrics(pose.metrics);
 
       // 3. Send only the frames + metadata (+ pose summary) to the AI route.
@@ -130,6 +139,7 @@ export function VideoAnalyzerContent() {
           },
           previous,
           poseSummary: pose.summary,
+          speed,
         }),
       });
 
@@ -237,7 +247,7 @@ export function VideoAnalyzerContent() {
 
             <RecordingGuide sport="golf" defaultOpen={history.length === 0} />
 
-            <VideoUpload onVideoReady={handleVideoReady} />
+            <VideoUpload onVideoReady={handleVideoReady} enableRecording sport="golf" />
           </div>
         )}
 
@@ -247,6 +257,8 @@ export function VideoAnalyzerContent() {
             <VideoPreviewCard file={videoFile} metadata={videoMetadata} onRemove={handleRemoveVideo} />
 
             <CameraAngleSelector value={cameraAngle} onChange={setCameraAngle} />
+
+            <AnalysisSpeedSelector value={speed} onChange={setSpeed} />
 
             {analyzeError && (
               <div className="flex items-start gap-3 rounded-lg bg-error/10 border border-error/30 p-3">

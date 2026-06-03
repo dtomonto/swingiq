@@ -24,9 +24,10 @@ import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { SportCardGrid } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
 import { getSportConfig, SPORT_CAMERA_ANGLES } from '@swingiq/core';
-import type { SportId, AIVisualAnalysis, SwingVideoMetadata } from '@swingiq/core';
-import { extractSwingFrames } from '@/lib/frame-extraction';
-import { detectSwingPose, type PoseMetrics } from '@/lib/pose';
+import type { SportId, AIVisualAnalysis, SwingVideoMetadata, VisionSpeed } from '@swingiq/core';
+import { type PoseMetrics } from '@/lib/pose';
+import { prepareSwing, warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepareSwing';
+import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector';
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import {
   saveVideoAnalysis,
@@ -36,6 +37,7 @@ import {
   type SavedVideoAnalysis,
 } from '@/lib/video/history';
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
+import { useAnalysisAlerts } from '@/lib/video/useAnalysisAlerts';
 
 type AnalysisStep = 'upload' | 'configure' | 'analyzing' | 'results';
 
@@ -52,6 +54,7 @@ export function SportVideoAnalyzerContent() {
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [stage, setStage] = useState<AnalysisStage>('preparing');
   const [poseMetrics, setPoseMetrics] = useState<PoseMetrics | null>(null);
+  const [speed, setSpeed] = useState<VisionSpeed>('fast');
 
   // Returning-user history for the selected sport, compare toggle, saved record.
   // `useVideoHistory` reads localStorage after hydration and live-updates on
@@ -60,6 +63,10 @@ export function SportVideoAnalyzerContent() {
   const [compareEnabled, setCompareEnabled] = useState(false);
   const [savedRecord, setSavedRecord] = useState<SavedVideoAnalysis | null>(null);
   const [comparedToPrevious, setComparedToPrevious] = useState(false);
+
+  // Make a backgrounded analysis impossible to forget: tab-title ping (+ a
+  // notification only if already permitted) while running / when ready.
+  useAnalysisAlerts({ analyzing: step === 'analyzing', ready: step === 'results' });
 
   // Reset the compare toggle whenever the user switches sport.
   const handleSelectSport = useCallback((sport: SportId) => {
@@ -83,12 +90,16 @@ export function SportVideoAnalyzerContent() {
       setVideoMetadata({ ...metadata, camera_angle: 'unknown' });
       setVideoObjectUrl(objectUrl);
       setStep('configure');
+      // Speculatively extract frames + run pose now, while the user configures —
+      // so clicking "Analyze" jumps almost straight to the AI call.
+      warmSwingPreparation(file);
     },
     [],
   );
 
   const handleRemoveVideo = () => {
     if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);
+    forgetPreparedSwing(videoFile);
     setVideoFile(null);
     setVideoObjectUrl(null);
     setVideoMetadata(null);
@@ -115,11 +126,11 @@ export function SportVideoAnalyzerContent() {
     setComparedToPrevious(Boolean(previous));
 
     try {
+      // Frames + pose — usually already prepared during "configure", so this
+      // resolves instantly; otherwise it runs (and caches) now.
       setStage('extracting');
-      const extraction = await extractSwingFrames(videoFile);
-
+      const { extraction, pose } = await prepareSwing(videoFile);
       setStage('measuring');
-      const pose = await detectSwingPose(extraction.frames);
       setPoseMetrics(pose.metrics);
 
       setStage('inspecting');
@@ -136,6 +147,7 @@ export function SportVideoAnalyzerContent() {
           },
           previous,
           poseSummary: pose.summary,
+          speed,
         }),
       });
 
@@ -206,7 +218,7 @@ export function SportVideoAnalyzerContent() {
           <RecordingGuide sport={selectedSport} defaultOpen={history.length === 0} />
         )}
 
-        <VideoUpload onVideoReady={handleVideoReady} />
+        <VideoUpload onVideoReady={handleVideoReady} enableRecording sport={selectedSport} />
 
         <div className="rounded-xl bg-accent-secondary/10 border border-accent-secondary/25 p-4">
           <div className="flex items-start gap-2">
@@ -294,6 +306,12 @@ export function SportVideoAnalyzerContent() {
             </CardBody>
           </Card>
         )}
+
+        <Card>
+          <CardBody>
+            <AnalysisSpeedSelector value={speed} onChange={setSpeed} />
+          </CardBody>
+        </Card>
 
         {analyzeError && (
           <div className="rounded-xl bg-error/10 border border-error/30 p-4 flex gap-2">

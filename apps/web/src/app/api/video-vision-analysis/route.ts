@@ -17,11 +17,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
   getVisionProvider,
+  resolveVisionSpeed,
   dataUrlToFrame,
   VisualSportSchema,
   type VisionFrame,
   type VisionUserProfile,
   type PreviousAnalysisSummary,
+  type VisionSpeed,
 } from '@swingiq/core';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 
@@ -47,6 +49,8 @@ interface VisionRequestBody {
   profile?: VisionUserProfile | null;
   previous?: PreviousAnalysisSummary | null;
   poseSummary?: string | null;
+  /** Speed tier requested by the client: fast | balanced | thorough. */
+  speed?: string;
 }
 
 export async function POST(req: NextRequest) {
@@ -101,8 +105,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Speed tier (fast | balanced | thorough). The client requests one; the
+  // server maps it to a concrete model — a client never names a raw model.
+  const speed: VisionSpeed = resolveVisionSpeed(body.speed);
+
   // Resolve the provider. With no key, this yields the disabled provider.
-  const provider = getVisionProvider(process.env);
+  const provider = getVisionProvider(process.env, { speed });
   if (!provider.isConfigured()) {
     const outcome = await provider.analyze({ sport, frames, metadata: {} });
     const message =
@@ -124,6 +132,8 @@ export async function POST(req: NextRequest) {
     profile: body.profile ?? null,
     previous: body.previous ?? null,
     poseSummary: typeof body.poseSummary === 'string' ? body.poseSummary : null,
+    // Fast tier asks the model for tight output — fewer tokens, quicker reply.
+    concise: speed === 'fast',
   });
 
   if (outcome.configured === false) {
