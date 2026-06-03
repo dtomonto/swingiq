@@ -206,7 +206,7 @@ export function SportVideoAnalyzerContent() {
           <RecordingGuide sport={selectedSport} defaultOpen={history.length === 0} />
         )}
 
-        <VideoUpload onVideoReady={handleVideoReady} />
+        <VideoUpload onVideoReady={handleVideoReady} enableRecording sport={selectedSport} />
 
         <div className="rounded-xl bg-accent-secondary/10 border border-accent-secondary/25 p-4">
           <div className="flex items-start gap-2">
