@@ -15,7 +15,7 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { useSwingIQStore } from '@/store';
-import { pickNextBadge } from '@/lib/community/nextBadge';
+import { pickNextBadge } from '@/lib/community/next-badge';
 import type { AchievementContext } from '@/lib/community/types';
 
 export function NextBadgeNudge() {

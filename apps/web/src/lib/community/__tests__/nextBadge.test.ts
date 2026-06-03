@@ -1,5 +1,5 @@
 import { ACHIEVEMENTS, computeAchievementProgress } from '../achievements';
-import { pickNextBadge } from '../nextBadge';
+import { pickNextBadge } from '../next-badge';
 import type { AchievementContext } from '../types';
 
 // Minimal context builder — achievements only read a handful of fields,
