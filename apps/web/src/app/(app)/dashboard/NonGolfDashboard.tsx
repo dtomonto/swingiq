@@ -392,9 +392,9 @@ export function NonGolfDashboard() {
       <QuickActions sport={activeSport} />
 
       {/* Main content grid */}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left: Primary issue + Recent analyses */}
-        <div className="col-span-2 space-y-5">
+        <div className="lg:col-span-2 space-y-5">
           <PrimaryIssueCard sport={activeSport} />
           <RecentAnalyses sport={activeSport} />
         </div>

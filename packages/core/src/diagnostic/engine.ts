@@ -72,9 +72,32 @@ export interface DiagnosticResult {
 
 export interface DiagnosisOutput {
   rule: DiagnosticRule;
+  /** Sample-size–calibrated confidence (0–100). This is what the UI shows. */
   confidence: number;
+  /** The rule's raw confidence before sample-size calibration. */
+  raw_confidence: number;
+  /** Number of shots the diagnosis was based on. */
+  sample_size: number;
   stats: SessionStats;
   supporting_data: SupportingDataPoint[];
+}
+
+/** Shots below this are treated as too small to diagnose at all. */
+export const MIN_DIAGNOSIS_SHOTS = 3;
+
+/** Shots at/above this earn full statistical confidence (no penalty). */
+export const FULL_CONFIDENCE_SHOTS = 12;
+
+/**
+ * Confidence multiplier based on sample size. Small samples are penalized so a
+ * handful of shots can't produce a high-confidence "false positive" diagnosis.
+ * Ramps linearly from 0.6 at MIN_DIAGNOSIS_SHOTS to 1.0 at FULL_CONFIDENCE_SHOTS.
+ */
+export function sampleSizeConfidenceFactor(shotCount: number): number {
+  if (shotCount >= FULL_CONFIDENCE_SHOTS) return 1;
+  if (shotCount <= MIN_DIAGNOSIS_SHOTS) return 0.6;
+  const span = FULL_CONFIDENCE_SHOTS - MIN_DIAGNOSIS_SHOTS;
+  return 0.6 + 0.4 * ((shotCount - MIN_DIAGNOSIS_SHOTS) / span);
 }
 
 export function runDiagnosticEngine(
@@ -83,21 +106,29 @@ export function runDiagnosticEngine(
   _sessionId: string,
   _userId: string,
 ): DiagnosticResult {
-  if (shots.length < 3) {
+  if (shots.length < MIN_DIAGNOSIS_SHOTS) {
     return { stats: computeSessionStats(shots, clubCategory), diagnoses: [], primary: null, secondary: [] };
   }
 
   const stats = computeSessionStats(shots, clubCategory);
 
+  // Penalize confidence on small samples so a few shots can't fabricate a
+  // high-confidence diagnosis. Borderline rules drop below the 40 floor and
+  // are filtered out entirely until enough shots back them up.
+  const sampleFactor = sampleSizeConfidenceFactor(stats.shot_count);
+
   const triggered: DiagnosisOutput[] = [];
 
   for (const rule of DIAGNOSTIC_RULES) {
     if (rule.check(stats)) {
-      const confidence = rule.confidence(stats);
+      const rawConfidence = rule.confidence(stats);
+      const confidence = Math.round(rawConfidence * sampleFactor);
       if (confidence >= 40) {
         triggered.push({
           rule,
           confidence,
+          raw_confidence: rawConfidence,
+          sample_size: stats.shot_count,
           stats,
           supporting_data: buildSupportingData(stats, rule.id),
         });

@@ -3,7 +3,12 @@
 // Run with: cd packages/core && npx jest
 // ============================================================
 
-import { runDiagnosticEngine, computeSessionStats, buildSessionInsight } from './engine';
+import {
+  runDiagnosticEngine,
+  computeSessionStats,
+  buildSessionInsight,
+  sampleSizeConfidenceFactor,
+} from './engine';
 import type { Shot } from '../types';
 
 function makeShotWith(overrides: {
@@ -177,6 +182,41 @@ describe('runDiagnosticEngine', () => {
       // (loosely — priority takes precedence)
     }
     expect(result.diagnoses.length).toBeGreaterThan(0);
+  });
+});
+
+describe('sample-size confidence calibration', () => {
+  test('factor ramps from 0.6 at the minimum to 1.0 at full sample', () => {
+    expect(sampleSizeConfidenceFactor(3)).toBeCloseTo(0.6, 5);
+    expect(sampleSizeConfidenceFactor(12)).toBe(1);
+    expect(sampleSizeConfidenceFactor(50)).toBe(1);
+    const mid = sampleSizeConfidenceFactor(7);
+    expect(mid).toBeGreaterThan(0.6);
+    expect(mid).toBeLessThan(1);
+  });
+
+  test('a borderline pattern is filtered on a tiny sample but kept on a full one', () => {
+    // Raw confidence here is exactly 40 (only the +40 face-to-path band fires),
+    // so the small-sample penalty pushes it under the 40 floor.
+    const overrides = { face_to_path: 4, lateral_offline: 5, spin_axis: 0 };
+    const small = runDiagnosticEngine(makeShots(3, overrides), 'driver', 's1', 'u1');
+    const full = runDiagnosticEngine(makeShots(15, overrides), 'driver', 's1', 'u1');
+    expect(small.diagnoses.some((d) => d.rule.id === 'slice_weak_fade')).toBe(false);
+    expect(full.diagnoses.some((d) => d.rule.id === 'slice_weak_fade')).toBe(true);
+  });
+
+  test('reports raw_confidence + sample_size; calibrated confidence <= raw on small samples', () => {
+    const res = runDiagnosticEngine(
+      makeShots(6, { face_to_path: 6.5, lateral_offline: 25, spin_axis: 10 }),
+      'driver',
+      's1',
+      'u1',
+    );
+    const slice = res.diagnoses.find((d) => d.rule.id === 'slice_weak_fade');
+    expect(slice).toBeDefined();
+    expect(slice!.sample_size).toBe(6);
+    expect(slice!.raw_confidence).toBeGreaterThanOrEqual(slice!.confidence);
+    expect(slice!.confidence).toBeLessThan(slice!.raw_confidence);
   });
 });
 

@@ -421,7 +421,7 @@ export function BagManager() {
       </div>
 
       {/* Bag stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <Card>
           <CardBody className="text-center py-4">
             <p className="text-2xl font-bold text-foreground">{clubs.length}</p>

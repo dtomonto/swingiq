@@ -234,7 +234,7 @@ export function DashboardContent() {
 
       {/* Practice reminder */}
       {practiceReminder !== null && (
-        <div className="flex items-center justify-between gap-4 p-4 bg-warning/10 border border-warning/30 rounded-xl">
+        <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-warning/10 border border-warning/30 rounded-xl">
           <div className="flex items-center gap-3">
             <span className="text-2xl">⏰</span>
             <div>
@@ -259,7 +259,7 @@ export function DashboardContent() {
 
       {/* Training improvement alert */}
       {improvementAlert && (
-        <div className="flex items-center justify-between gap-4 p-4 bg-success/10 border border-success/25 rounded-xl">
+        <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-success/10 border border-success/25 rounded-xl">
           <div className="flex items-center gap-3">
             <span className="text-2xl">🎉</span>
             <div>
@@ -297,9 +297,9 @@ export function DashboardContent() {
       </div>
 
       {/* Primary content grid */}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left: Diagnosis + Training */}
-        <div className="col-span-2 space-y-5">
+        <div className="lg:col-span-2 space-y-5">
           {/* Primary Diagnosis */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
