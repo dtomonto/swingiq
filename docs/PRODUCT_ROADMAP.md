@@ -100,7 +100,7 @@ _Last updated: June 2026_
 
 ### Image/Table Import
 - Image upload page (4-step wizard): drag-and-drop, preview, manual entry, confirm, save
-- OCR extraction stub (returns manual entry prompt; real OCR not yet wired)
+- Optional OCR auto-extraction: when an extraction provider is configured, SwingIQ pre-fills the review table (with a confidence note); without a provider it falls back to manual entry. No unreviewed OCR output is ever analyzed
 - normalizeManualEntry utility in packages/core
 
 ---

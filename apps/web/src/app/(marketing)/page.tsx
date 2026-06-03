@@ -47,7 +47,7 @@ const HOW_IT_WORKS = [
 
 const FAQS = [
   { q: 'Is SwingIQ free?', a: "Yes. SwingIQ's full analysis, drill recommendations, and progress tracking are free. No credit card required." },
-  { q: 'Do I need to create an account?', a: 'No account is required to start. Your data is saved locally in your browser. Account sync is coming soon.' },
+  { q: 'Do I need to create an account?', a: 'No — you can start instantly with no account, and your data is saved privately in your browser. You can move it to another device anytime with Backup & Restore, and optional accounts with automatic cloud sync are on the way.' },
   { q: 'What sports does SwingIQ support?', a: 'Golf, tennis, baseball, slow pitch softball, and fast pitch softball — each with its own sport-specific diagnostic engine.' },
   { q: 'Does SwingIQ replace a coach?', a: 'SwingIQ is your everyday improvement edge — it pinpoints the single highest-impact fix in your swing and hands you the drills and plan to groove it, no appointment needed. For injury concerns or advanced technique work it pairs perfectly with a qualified coach, and you will show up to those sessions already ahead.' },
   { q: 'Is my swing video private?', a: 'Yes. Video analysis runs in your browser. Videos are not shared publicly by default.' },

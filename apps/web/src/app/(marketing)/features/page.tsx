@@ -52,7 +52,7 @@ const FEATURE_GROUPS = [
         name: 'Screenshot / Image Import',
         sports: 'All 5 sports',
         desc: 'Upload a photo of a launch monitor screen, stats table, or scoreboard. SwingIQ provides a side-by-side data entry form so you can enter values while referencing the image.',
-        detail: 'Auto-extract OCR is in development. Current version requires manual data entry with image reference.',
+        detail: 'Optional OCR auto-extraction activates when an extraction provider is configured — it pre-fills the review table from your image and you confirm every value before saving. Manual entry is always the default.',
       },
       {
         name: 'Manual Session Log',

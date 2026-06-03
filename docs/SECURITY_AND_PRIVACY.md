@@ -57,7 +57,7 @@ All API routes (AI Coach, Video Analysis, Data Import/Export) have rate limiting
 - API routes do not trust `user_id` from the request body
 - User identity must be verified server-side from the authenticated session (Supabase Auth)
 - This prevents one user from modifying another user's data (IDOR attack prevention)
-- **Current status:** Auth is not yet connected. The TODO comments in route files mark where to add this check.
+- **Current status:** SwingIQ is keyless by default — accounts live privately on the user's own device. When Supabase env keys are present, session middleware activates and API routes verify identity server-side. IDOR protection is already in place on the data routes.
 
 ### Secret Management
 - API keys are stored in environment variables, never in code
@@ -244,12 +244,12 @@ These settings cannot be configured by code — a repository admin must do them 
 | Threat | Status | How It's Addressed |
 |--------|--------|-------------------|
 | Injection (SQL, XSS) | ✅ Mitigated | Supabase parameterized queries; React JSX auto-escapes |
-| Broken Authentication | ⚠️ Partial | Supabase Auth planned; rate limiting active |
+| Broken Authentication | ✅ Mitigated | Keyless local accounts by default; optional Supabase Auth + session middleware activate on env keys; rate limiting active |
 | Sensitive Data Exposure | ✅ Mitigated | No sensitive data in frontend code; env vars for secrets |
 | XML External Entities | ✅ N/A | No XML processing |
-| Broken Access Control | ⚠️ Planned | Supabase RLS defined; server-side auth check TODOs in place |
-| Security Misconfiguration | ⚠️ Partial | Headers need to be added to vercel.json |
-| XSS | ✅ Mitigated | React handles this; CSP to be added |
+| Broken Access Control | ⚠️ Partial | IDOR protection on data routes; server-side identity checks when auth is enabled; Supabase RLS SQL ready to apply |
+| Security Misconfiguration | ✅ Mitigated | Security headers set in middleware/next config (verify post-deploy); production source maps disabled |
+| XSS | ✅ Mitigated | React auto-escapes; CSP + security headers set in middleware/next config |
 | Insecure Deserialization | ✅ Mitigated | Backup validation includes prototype pollution guard |
 | Known Vulnerabilities | ✅ Active | npm audit in CI, Dependabot on GitHub |
 | Insufficient Logging | ⚠️ Planned | Error monitoring (Sentry) to be added |

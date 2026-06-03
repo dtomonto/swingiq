@@ -249,20 +249,21 @@ Each version migration is handled in `apps/web/src/lib/backup/migrate.ts`.
 
 ---
 
-## 11. Authentication: Supabase Auth (Not Yet Connected)
+## 11. Authentication: Keyless-First, with Optional Supabase Auth
 
-**Decision:** The authentication system is built to use Supabase Auth but is not yet connected.
+**Decision:** SwingIQ is keyless by default — anyone can start immediately and their data is saved privately on their own device. Supabase Auth is wired in and activates automatically when Supabase env keys are present, for users who want an account and cloud sync.
 
 **Current state:**
-- Login and signup pages exist and have forms
-- The Supabase client is initialized in `apps/web/src/lib/supabase.ts`
-- All user data currently lives in localStorage (unauthenticated mode)
+- You can open SwingIQ and use it with no account; data lives on-device (localStorage) by default
+- Login, signup, and password-reset pages are functional; the Supabase client initializes in `apps/web/src/lib/supabase.ts`
+- When Supabase env keys are set, session middleware activates and API routes verify identity server-side (IDOR protection is in place on the data routes)
+- Cross-device portability without an account is available today via Backup & Restore
 
-**Planned auth flow:**
-1. User signs up with email + password (or Google OAuth)
+**Auth flow (when enabled):**
+1. User signs up with email + password (or OAuth)
 2. Supabase creates a user record
 3. The Zustand store syncs to Supabase on login
-4. Row Level Security ensures each user only sees their own data
+4. Row Level Security (SQL ready to apply) ensures each user only sees their own data
 
 **How to connect:** Follow the steps in `docs/OWNER_TASKS.md` for Supabase setup.
 

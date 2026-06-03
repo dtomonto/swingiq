@@ -29,7 +29,7 @@ const FAQ_SECTIONS = [
       },
       {
         q: 'Do I need to create an account?',
-        a: 'No account is required to start. Your data is saved locally in your browser. Account sync across devices is coming soon.',
+        a: 'No — you can start instantly with no account, and your data is saved privately in your browser. You can move it between devices anytime with Backup & Restore, and optional accounts with automatic cloud sync are on the way.',
       },
       {
         q: 'Does SwingIQ work on a phone?',
