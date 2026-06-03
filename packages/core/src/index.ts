@@ -27,6 +27,7 @@ export * from './training/routines';
 export * from './import/normalizer';
 export * from './import/ai-mapping';
 export * from './import/image-extraction';
+export * from './import/image-data-extraction';
 export * from './scoring/engine';
 // video-analysis — export everything; buildYouTubeSearchUrl is also the primary search util
 export * from './video-analysis';
