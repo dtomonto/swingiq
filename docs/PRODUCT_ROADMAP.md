@@ -32,7 +32,7 @@ _Last updated: June 2026_
 - CSV import wizard (multi-step) for FlightScope, TrackMan, Foresight, Garmin, Rapsodo, SkyTrak
 - Universal column normalizer with brand-specific overrides
 - Shot-level data storage with BallData, ClubDeliveryData, StrikeData schemas
-- Loft comparison (OCR stub + manual entry) across brands
+- Loft comparison across brands — autofill from 30+ manufacturer model specs, generic-default fallback, and manual override
 
 ### Analysis Engines
 - Deterministic diagnostic rules engine (golf swing faults, severity scoring)
