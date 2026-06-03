@@ -14,7 +14,8 @@
 
 import { extractSwingFrames } from '@/lib/frame-extraction';
 import { detectPoses, type PoseDetectInput, type PoseModelQuality } from '@/lib/pose';
-import { liftAvailable, enrichFrameWithLift } from '@/lib/pose3d';
+import { liftAvailable, enrichFrameWithLift, rigPreset, type RigPreset } from '@/lib/pose3d';
+import type { ViewLandmarks } from './multiview';
 import type {
   MotionSession,
   CaptureContext,
@@ -27,7 +28,8 @@ import { detectPhases } from './phases';
 import { computeScoreboard } from './scoring';
 import { buildReport, keyFaultLine } from './reporting';
 import { prescribeDrills } from './drills';
-import { assessQuality } from './quality';
+import { assessQuality, type QualitySourceInput } from './quality';
+import { buildMultiViewTrack } from './multiview';
 import { newSessionId } from './persistence';
 
 export const ANALYSIS_VERSION = 'motionlab-1.0.0';
@@ -147,31 +149,120 @@ export async function runMotionAnalysis(
     depthModel += '+lift3d';
   }
 
-  // 4) Segment phases from the real motion.
+  return assembleSession(track, capture, {
+    resolution: extraction.resolution,
+    durationSeconds: extraction.durationSeconds,
+    attemptedFrames: extraction.frames.length,
+    swingWindowDetected: extraction.swingWindowDetected,
+    estimatedFps: options.estimatedFps ?? null,
+  }, depthModel, startedAt, onProgress);
+}
+
+export type { RigPreset };
+
+export interface MultiViewOptions {
+  rig?: RigPreset;
+  rigDistance?: number;
+  modelQuality?: PoseModelQuality;
+  frameCount?: number;
+  trimStartSeconds?: number | null;
+  trimEndSeconds?: number | null;
+  estimatedFps?: number | null;
+  onProgress?: (stage: MotionStage) => void;
+}
+
+/** Extract uniformly-spaced frames from a clip and detect poses (one view). */
+async function extractAndDetect(
+  source: File | Blob | string,
+  count: number,
+  quality: PoseModelQuality,
+  trim: { start?: number | null; end?: number | null },
+) {
+  const extraction = await extractSwingFrames(source, {
+    count,
+    smart: false, // uniform sampling preserves cross-view temporal correspondence
+    trimStartSeconds: trim.start ?? undefined,
+    trimEndSeconds: trim.end ?? undefined,
+  });
+  const detected = await detectPoses(
+    extraction.frames.map((f) => ({ dataUrl: f.dataUrl, timestampSeconds: f.timestampSeconds })),
+    quality,
+  );
+  const view: ViewLandmarks[] = detected.map((d) => ({
+    tMs: Math.round(d.timestampSeconds * 1000),
+    landmarks: d.landmarks.map((p) => ({ x: p.x, y: p.y, visibility: p.visibility })),
+  }));
+  return { extraction, view };
+}
+
+/**
+ * MULTI-VIEW analysis: two synchronized angles → TRUE triangulated 3D
+ * (basis 'measured'). Calibration uses a rig preset (approximate extrinsics);
+ * reprojection error drives the confidence so a bad capture reads low, not fake.
+ */
+export async function runMultiViewMotionAnalysis(
+  sourceA: File | Blob | string,
+  sourceB: File | Blob | string,
+  capture: CaptureContext,
+  options: MultiViewOptions = {},
+): Promise<MotionSession> {
+  const { onProgress } = options;
+  const quality: PoseModelQuality = options.modelQuality ?? 'full';
+  const count = options.frameCount ?? 24;
+  const startedAt = typeof performance !== 'undefined' ? performance.now() : Date.now();
+  const trim = { start: options.trimStartSeconds, end: options.trimEndSeconds };
+
+  onProgress?.('extracting');
+  const A = await extractAndDetect(sourceA, count, quality, trim);
+  const B = await extractAndDetect(sourceB, count, quality, trim);
+
+  onProgress?.('detecting');
+  const cameras = rigPreset(options.rig ?? 'face_dtl_90', options.rigDistance ?? 3);
+
+  onProgress?.('reconstructing');
+  const track = buildMultiViewTrack(A.view, B.view, cameras);
+
+  return assembleSession(
+    track,
+    capture,
+    {
+      resolution: A.extraction.resolution,
+      durationSeconds: A.extraction.durationSeconds,
+      attemptedFrames: A.extraction.frames.length,
+      swingWindowDetected: A.extraction.swingWindowDetected,
+      estimatedFps: options.estimatedFps ?? null,
+    },
+    `mediapipe-pose-${quality}-multiview-dlt`,
+    startedAt,
+    onProgress,
+  );
+}
+
+/**
+ * Shared downstream: segment phases → metrics → scores → report → drills →
+ * quality → MotionSession. Works for any track (single-view estimate OR
+ * multi-view measured), so the two capture paths stay DRY.
+ */
+function assembleSession(
+  track: MotionPoseTrack,
+  capture: CaptureContext,
+  qualitySource: QualitySourceInput,
+  modelVersion: string,
+  startedAt: number,
+  onProgress?: (stage: MotionStage) => void,
+): MotionSession {
   onProgress?.('segmenting');
   const series = computeSeries(track, capture);
   const phases = detectPhases(track, capture, series);
 
-  // 5) Metrics.
   onProgress?.('metrics');
   const metrics = computeMetrics(track, capture, series, phases);
 
-  // 6) Scores + report + drills + quality.
   onProgress?.('report');
   const scoreboard = computeScoreboard(metrics);
   const drills = prescribeDrills(metrics, capture);
   const report = buildReport(capture, metrics, phases, scoreboard, drills);
-  const quality = assessQuality(
-    track,
-    {
-      resolution: extraction.resolution,
-      durationSeconds: extraction.durationSeconds,
-      attemptedFrames: extraction.frames.length,
-      swingWindowDetected: extraction.swingWindowDetected,
-      estimatedFps: options.estimatedFps ?? null,
-    },
-    capture,
-  );
+  const quality = assessQuality(track, qualitySource, capture);
 
   onProgress?.('rendering');
 
@@ -179,7 +270,6 @@ export async function runMotionAnalysis(
   const motion = getMotion(capture.sport, capture.motionType);
   const now = new Date().toISOString();
   const endedAt = typeof performance !== 'undefined' ? performance.now() : Date.now();
-  const processingMs = Math.round(endedAt - startedAt);
 
   return {
     version: 1,
@@ -200,7 +290,7 @@ export async function runMotionAnalysis(
     keyFault: keyFaultLine(metrics),
     status: 'complete',
     analysisVersion: ANALYSIS_VERSION,
-    modelVersion: depthModel,
-    processingMs,
+    modelVersion,
+    processingMs: Math.round(endedAt - startedAt),
   };
 }

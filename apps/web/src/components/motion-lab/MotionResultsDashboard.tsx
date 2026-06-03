@@ -243,10 +243,12 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
         </div>
       )}
 
-      {/* Footer note */}
+      {/* Footer note — honest about measured (multi-view) vs estimated (single-view) */}
       <p className="text-[11px] text-muted-foreground text-center pt-2">
         {saved ? 'Saved to this device only (analysis + a compact pose track — never your video). ' : 'Not saved. '}
-        Estimated 3D analysis from a single camera — directional, not a lab measurement. No medical or injury claims.
+        {session.poseTrack.basis === 'measured'
+          ? 'Measured 3D triangulated from two calibrated views (confidence from real reprojection error). No medical or injury claims.'
+          : 'Estimated 3D analysis from a single camera — directional, not a lab measurement. No medical or injury claims.'}
       </p>
     </div>
   );

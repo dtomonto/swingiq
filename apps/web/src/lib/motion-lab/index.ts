@@ -29,12 +29,16 @@ export { assessQuality, type QualitySourceInput } from './quality';
 export { compareSessions } from './comparison';
 export {
   runMotionAnalysis,
+  runMultiViewMotionAnalysis,
   ANALYSIS_VERSION,
   MODEL_VERSION,
   type MotionStage,
   type PipelineOptions,
   type PoseModelQuality,
+  type MultiViewOptions,
+  type RigPreset,
 } from './pipeline';
+export { buildMultiViewTrack, type ViewLandmarks } from './multiview';
 export {
   loadSessions,
   saveSession,
