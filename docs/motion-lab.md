@@ -26,6 +26,11 @@ depth is a genuine model output — but a single camera can only *estimate* true
 and the app never claims medical, injury, or "tour-grade" accuracy. The video
 itself never leaves the device.
 
+You can **upload a file or record in-app**, **trim** to just the rep, pick a
+**skill level** (which sets the reference ranges you're scored against) and a
+**tracking accuracy** tier (Fast / Balanced / Accurate), and **export** the
+result as JSON, CSV, or a printable **PDF** coach report.
+
 It runs entirely in the browser. Nothing new needs to be installed.
 
 ---
@@ -117,6 +122,23 @@ comparison mode, and PNG screenshot export.
   available.
 - **Phase model** — `phases.ts` uses a deterministic warp today; a learned phase
   classifier can replace `detectPhases` behind the same signature.
+
+## Capture, accuracy & exports
+
+- **Record in-app** — `MotionRecorder.tsx` uses `getUserMedia` + `MediaRecorder`
+  (on-device, builds metadata from the measured recording to avoid the WebM
+  `Infinity`-duration quirk). **Trim** — `VideoTrimmer.tsx` marks the rep; the
+  window is passed to frame extraction (no ffmpeg re-encode).
+- **Skill level** — `referenceRanges.ts` holds every metric's 0–100 scoring,
+  segmented beginner → elite. This is the one place to swap starter heuristics
+  for validated norms. The selected level is shown per metric ("Target …").
+- **Tracking accuracy** — pose detection supports `lite` / `full` / `heavy`
+  MediaPipe tiers (`detectPoses(frames, quality)`); the wizard exposes them as
+  Fast / Balanced / Accurate. Each tier caches its own landmarker.
+- **Exports** — JSON + CSV (`export.ts`) and a dependency-free printable **PDF**
+  coach report (`printReport.ts`, opens a print-ready window). A collapsible
+  **Technical details** panel on the results page shows frames detected/attempted,
+  tracking confidence, basis, model, engine, and processing time (debug mode).
 
 ## Privacy & safety
 

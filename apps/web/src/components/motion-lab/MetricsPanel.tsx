@@ -56,6 +56,9 @@ function MetricRow({ m }: { m: MotionMetric }) {
           <p className="text-foreground">{m.explanation}</p>
           <p className="text-muted-foreground"><span className="font-semibold text-foreground">Why it matters: </span>{m.whyItMatters}</p>
           <p className="text-muted-foreground"><span className="font-semibold text-foreground">Try this: </span>{m.recommendedFix}</p>
+          {m.target && (
+            <p className="text-muted-foreground"><span className="font-semibold text-foreground">Target: </span>{m.target}</p>
+          )}
           <p className="text-[11px] text-muted-foreground/80 flex items-start gap-1 pt-1">
             <Info className="w-3 h-3 mt-0.5 shrink-0" />{m.limitations}
           </p>

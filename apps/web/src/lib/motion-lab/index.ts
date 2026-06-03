@@ -4,6 +4,13 @@
 
 export * from './types';
 export {
+  SKILL_LEVELS,
+  scoreMetric,
+  metricTarget,
+  skillLabel,
+  type MotionSkillLevel,
+} from './referenceRanges';
+export {
   MOTION_SPORTS,
   getSport,
   getMotion,
@@ -22,11 +29,16 @@ export { assessQuality, type QualitySourceInput } from './quality';
 export { compareSessions } from './comparison';
 export {
   runMotionAnalysis,
+  runMultiViewMotionAnalysis,
   ANALYSIS_VERSION,
   MODEL_VERSION,
   type MotionStage,
   type PipelineOptions,
+  type PoseModelQuality,
+  type MultiViewOptions,
+  type RigPreset,
 } from './pipeline';
+export { buildMultiViewTrack, type ViewLandmarks } from './multiview';
 export {
   loadSessions,
   saveSession,
@@ -44,4 +56,5 @@ export {
   type MotionProfile,
 } from './persistence';
 export { downloadSessionJson, downloadSessionCsv } from './export';
+export { printSessionReport } from './printReport';
 export { useMotionSessions } from './useMotionSessions';

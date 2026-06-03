@@ -10,19 +10,21 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   ChevronLeft, ChevronRight, Zap, AlertCircle, Loader2, FlaskConical,
-  History, Trash2, ArrowRight,
+  History, Trash2, ArrowRight, Upload, Video, Boxes, CheckCircle2, X,
 } from 'lucide-react';
 import { VideoUpload, VideoPreviewCard } from '@/components/video/VideoUpload';
+import { MotionRecorder } from './MotionRecorder';
+import { VideoTrimmer } from './VideoTrimmer';
 import { SportMotionSelector } from './SportMotionSelector';
 import { MotionAnalysisProgress } from './MotionAnalysisProgress';
 import { MotionResultsDashboard } from './MotionResultsDashboard';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import {
-  runMotionAnalysis, saveSession, deleteSession, useMotionSessions, sessionsFor, getMotion,
+  runMotionAnalysis, runMultiViewMotionAnalysis, saveSession, deleteSession, useMotionSessions, sessionsFor, getMotion, SKILL_LEVELS,
 } from '@/lib/motion-lab';
 import type {
-  SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext,
+  SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext, MotionSkillLevel, PoseModelQuality,
 } from '@/lib/motion-lab';
 import type { SwingVideoMetadata } from '@swingiq/core';
 import { cn } from '@/lib/utils';
@@ -39,6 +41,11 @@ const HAND_OPTIONS: Array<{ id: Handedness; label: string }> = [
   { id: 'right', label: 'Right-handed' },
   { id: 'left', label: 'Left-handed' },
   { id: 'unknown', label: 'Not sure' },
+];
+const MODEL_OPTIONS: Array<{ id: PoseModelQuality; label: string }> = [
+  { id: 'lite', label: 'Fast' },
+  { id: 'full', label: 'Balanced' },
+  { id: 'heavy', label: 'Accurate' },
 ];
 
 function Pills<T extends string>({ options, value, onChange }: {
@@ -68,10 +75,19 @@ export function MotionLabWizard() {
   const [motionType, setMotionType] = useState<MotionTypeId | null>(null);
   const [view, setView] = useState<CameraView>('unknown');
   const [handedness, setHandedness] = useState<Handedness>('right');
+  const [skillLevel, setSkillLevel] = useState<MotionSkillLevel>('intermediate');
+  const [modelQuality, setModelQuality] = useState<PoseModelQuality>('full');
+  const [proDepth, setProDepth] = useState(true);
 
+  const [captureMode, setCaptureMode] = useState<'single' | 'multi'>('single');
+  const [inputMode, setInputMode] = useState<'upload' | 'record'>('upload');
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [videoMeta, setVideoMeta] = useState<SwingVideoMetadata | null>(null);
   const [objectUrl, setObjectUrl] = useState<string | null>(null);
+  const [trim, setTrim] = useState<{ start: number; end: number } | null>(null);
+  // Second angle for true multi-view 3D.
+  const [videoFileB, setVideoFileB] = useState<File | null>(null);
+  const [objectUrlB, setObjectUrlB] = useState<string | null>(null);
 
   const [stage, setStage] = useState<MotionStage>('extracting');
   const [error, setError] = useState<string | null>(null);
@@ -81,19 +97,29 @@ export function MotionLabWizard() {
   const allSessions = useMotionSessions();
 
   useEffect(() => () => { if (objectUrl) URL.revokeObjectURL(objectUrl); }, [objectUrl]);
+  useEffect(() => () => { if (objectUrlB) URL.revokeObjectURL(objectUrlB); }, [objectUrlB]);
 
   const resetCapture = useCallback(() => {
     if (objectUrl) URL.revokeObjectURL(objectUrl);
     setVideoFile(null);
     setVideoMeta(null);
     setObjectUrl(null);
+    setTrim(null);
+    if (objectUrlB) URL.revokeObjectURL(objectUrlB);
+    setVideoFileB(null);
+    setObjectUrlB(null);
     setError(null);
-  }, [objectUrl]);
+  }, [objectUrl, objectUrlB]);
 
   const handleVideoReady = useCallback((file: File, metadata: SwingVideoMetadata, url: string) => {
     setVideoFile(file);
     setVideoMeta(metadata);
     setObjectUrl(url);
+  }, []);
+
+  const handleVideoReadyB = useCallback((file: File, _metadata: SwingVideoMetadata, url: string) => {
+    setVideoFileB(file);
+    setObjectUrlB(url);
   }, []);
 
   const startOver = useCallback(() => {
@@ -106,23 +132,42 @@ export function MotionLabWizard() {
 
   const analyze = useCallback(async () => {
     if (!videoFile || !motionType) return;
+    if (captureMode === 'multi' && !videoFileB) {
+      setError('Add the second camera angle (down-the-line) to reconstruct true 3D.');
+      return;
+    }
     setError(null);
     setStep('analyzing');
     setStage('extracting');
     const capture: CaptureContext = {
       sport,
       motionType,
-      view,
+      view: captureMode === 'multi' ? 'face_on' : view,
       handedness,
+      skillLevel,
       heightCm: null,
       implement: null,
     };
     try {
-      const estimatedFps = (videoMeta as { frame_rate_estimated?: number | null } | null)?.frame_rate_estimated ?? null;
-      const result = await runMotionAnalysis(videoFile, capture, {
-        estimatedFps,
-        onProgress: setStage,
-      });
+      const result = captureMode === 'multi' && videoFileB
+        ? await runMultiViewMotionAnalysis(videoFile, videoFileB, capture, {
+            modelQuality,
+            rig: 'face_dtl_90',
+            onProgress: setStage,
+          })
+        : await (async () => {
+            const estimatedFps = (videoMeta as { frame_rate_estimated?: number | null } | null)?.frame_rate_estimated ?? null;
+            const dur = videoMeta?.duration_seconds ?? 0;
+            const trimmed = trim && (trim.start > 0.05 || (dur > 0 && trim.end < dur - 0.05));
+            return runMotionAnalysis(videoFile, capture, {
+              estimatedFps,
+              modelQuality,
+              proDepth,
+              trimStartSeconds: trimmed ? trim!.start : null,
+              trimEndSeconds: trimmed ? trim!.end : null,
+              onProgress: setStage,
+            });
+          })();
       const persisted = saveSession(result);
       setSession(persisted ?? result);
       setSaved(Boolean(persisted));
@@ -131,7 +176,7 @@ export function MotionLabWizard() {
       setError(err instanceof Error ? err.message : 'Analysis failed. Please try another clip.');
       setStep('capture');
     }
-  }, [videoFile, motionType, sport, view, handedness, videoMeta]);
+  }, [videoFile, videoFileB, captureMode, motionType, sport, view, handedness, skillLevel, modelQuality, proDepth, videoMeta, trim]);
 
   const openSession = useCallback((s: MotionSession) => {
     setSession(s);
@@ -228,25 +273,115 @@ export function MotionLabWizard() {
               <span>{getMotion(sport, motionType).label}</span>
             </div>
 
+            {/* Capture mode: single camera (estimated 3D) vs two cameras (measured 3D) */}
+            <div className="flex flex-col items-center gap-1">
+              <div className="flex gap-1 p-1 rounded-lg bg-muted w-fit">
+                {([['single', '1 camera'], ['multi', '2 cameras · true 3D']] as const).map(([id, label]) => (
+                  <button
+                    key={id}
+                    onClick={() => setCaptureMode(id)}
+                    className={cn(
+                      'flex items-center gap-1.5 text-sm font-medium rounded-md px-4 py-1.5 transition-colors',
+                      captureMode === id ? 'bg-card text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground',
+                    )}
+                  >
+                    {id === 'multi' && <Boxes className="w-4 h-4" />}{label}
+                  </button>
+                ))}
+              </div>
+              {captureMode === 'multi' && (
+                <p className="text-[11px] text-muted-foreground text-center max-w-md">
+                  Film the SAME rep from two angles ~90° apart (one face-on, one down-the-line). SwingIQ triangulates true metric 3D — confidence comes from real reprojection error.
+                </p>
+              )}
+            </div>
+
             {!videoFile ? (
-              <VideoUpload onVideoReady={handleVideoReady} onError={setError} />
+              <>
+                <div className="flex gap-1 p-1 rounded-lg bg-muted w-fit mx-auto">
+                  {([['upload', 'Upload', Upload], ['record', 'Record', Video]] as const).map(([id, label, Icon]) => (
+                    <button
+                      key={id}
+                      onClick={() => setInputMode(id)}
+                      className={cn(
+                        'flex items-center gap-1.5 text-sm font-medium rounded-md px-4 py-1.5 transition-colors',
+                        inputMode === id ? 'bg-card text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground',
+                      )}
+                    >
+                      <Icon className="w-4 h-4" />{label}
+                    </button>
+                  ))}
+                </div>
+                {inputMode === 'upload'
+                  ? <VideoUpload onVideoReady={handleVideoReady} onError={setError} />
+                  : <MotionRecorder onVideoReady={handleVideoReady} />}
+              </>
             ) : (
               <>
                 {videoMeta && <VideoPreviewCard file={videoFile} metadata={videoMeta} onRemove={resetCapture} />}
-                {objectUrl && (
-                  <video src={objectUrl} controls playsInline className="w-full rounded-xl bg-black max-h-[320px]" />
+                {captureMode === 'single' && objectUrl && videoMeta && (
+                  <VideoTrimmer
+                    objectUrl={objectUrl}
+                    durationSeconds={videoMeta.duration_seconds}
+                    onChange={(start, end) => setTrim({ start, end })}
+                  />
+                )}
+                {captureMode === 'multi' && (
+                  <div className="space-y-2">
+                    <p className="text-xs font-semibold text-foreground">Second angle <span className="text-muted-foreground font-normal">(down-the-line, same rep)</span></p>
+                    {!videoFileB ? (
+                      <VideoUpload onVideoReady={handleVideoReadyB} onError={setError} />
+                    ) : (
+                      <div className="flex items-center gap-2 rounded-xl border border-primary/30 bg-primary/10 p-3">
+                        <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                        <span className="text-sm text-foreground flex-1 truncate">{videoFileB.name}</span>
+                        <button
+                          onClick={() => { if (objectUrlB) URL.revokeObjectURL(objectUrlB); setVideoFileB(null); setObjectUrlB(null); }}
+                          className="text-muted-foreground hover:text-error" aria-label="Remove second angle"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 )}
 
                 <Card>
                   <CardBody className="space-y-4">
-                    <div>
-                      <p className="text-xs font-semibold text-foreground mb-2">Camera angle <span className="text-muted-foreground font-normal">(optional — improves rotation reads)</span></p>
-                      <Pills options={VIEW_OPTIONS} value={view} onChange={setView} />
-                    </div>
+                    {captureMode === 'single' && (
+                      <div>
+                        <p className="text-xs font-semibold text-foreground mb-2">Camera angle <span className="text-muted-foreground font-normal">(optional — improves rotation reads)</span></p>
+                        <Pills options={VIEW_OPTIONS} value={view} onChange={setView} />
+                      </div>
+                    )}
                     <div>
                       <p className="text-xs font-semibold text-foreground mb-2">Handedness</p>
                       <Pills options={HAND_OPTIONS} value={handedness} onChange={setHandedness} />
                     </div>
+                    <div>
+                      <p className="text-xs font-semibold text-foreground mb-2">Skill level <span className="text-muted-foreground font-normal">(sets which reference range you’re scored against)</span></p>
+                      <Pills options={SKILL_LEVELS} value={skillLevel} onChange={setSkillLevel} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-foreground mb-2">Tracking accuracy <span className="text-muted-foreground font-normal">(Accurate is slower; Fast suits older phones)</span></p>
+                      <Pills options={MODEL_OPTIONS} value={modelQuality} onChange={setModelQuality} />
+                    </div>
+                    {captureMode === 'single' ? (
+                      <label className="flex items-start gap-2 cursor-pointer">
+                        <input type="checkbox" checked={proDepth} onChange={(e) => setProDepth(e.target.checked)} className="mt-0.5 rounded-sm border-border text-primary" />
+                        <span className="text-xs text-foreground">
+                          <span className="font-semibold">Pro 3D depth</span>
+                          <span className="text-muted-foreground"> — refine the depth of every joint with SwingIQ&apos;s trained 3D lift model. Still a single-camera estimate, just a smarter one.</span>
+                        </span>
+                      </label>
+                    ) : (
+                      <div className="flex items-start gap-2 rounded-lg bg-primary/5 border border-primary/20 p-2.5">
+                        <Boxes className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                        <span className="text-xs text-muted-foreground">
+                          <span className="font-semibold text-foreground">True multi-view 3D.</span> Both angles are triangulated into measured metric 3D. Best results: same rep, ~90° apart, both full-body and well-lit.
+                        </span>
+                      </div>
+                    )}
                   </CardBody>
                 </Card>
 
@@ -257,8 +392,9 @@ export function MotionLabWizard() {
                   </div>
                 )}
 
-                <Button className="w-full" onClick={analyze}>
-                  <Zap className="w-4 h-4" /> Analyze motion
+                <Button className="w-full" onClick={analyze} disabled={captureMode === 'multi' && !videoFileB}>
+                  {captureMode === 'multi' ? <Boxes className="w-4 h-4" /> : <Zap className="w-4 h-4" />}
+                  {captureMode === 'multi' ? 'Reconstruct true 3D & analyze' : 'Analyze motion'}
                 </Button>
                 <p className="text-center text-xs text-muted-foreground">
                   Pose detection and 3D reconstruction run entirely on your device. Your original video is never uploaded.

@@ -46,6 +46,10 @@ export interface FrameExtractionOptions {
   quality?: number;
   /** Concentrate frames on the detected swing window (default true). */
   smart?: boolean;
+  /** Optional manual trim: only sample frames from this start time (seconds). */
+  trimStartSeconds?: number;
+  /** Optional manual trim: only sample frames up to this end time (seconds). */
+  trimEndSeconds?: number;
 }
 
 export interface FrameExtractionResult {
@@ -300,9 +304,16 @@ export async function extractSwingFrames(
     sigCanvas.height = SIG_H;
     const sigCtx = sigCanvas.getContext('2d', { willReadFrequently: true });
 
-    // ── Pass 1: scan candidates across the whole clip ──────────
-    const startFrac = 0.02;
-    const endFrac = 0.98;
+    // ── Pass 1: scan candidates across the clip (or the trimmed window) ──
+    const clampFrac = (n: number) => Math.max(0.001, Math.min(0.999, n));
+    const ts = options.trimStartSeconds;
+    const te = options.trimEndSeconds;
+    const startFrac =
+      ts != null && Number.isFinite(ts) ? clampFrac(ts / duration) : 0.02;
+    const rawEndFrac =
+      te != null && Number.isFinite(te) ? clampFrac(te / duration) : 0.98;
+    // Guard against an inverted/too-narrow trim window.
+    const endFrac = rawEndFrac > startFrac + 0.02 ? rawEndFrac : Math.min(0.999, startFrac + 0.05);
     const candidates: Candidate[] = [];
     let signaturesUsable = Boolean(sigCtx) && smart;
 

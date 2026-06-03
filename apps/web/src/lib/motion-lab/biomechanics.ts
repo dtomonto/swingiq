@@ -18,6 +18,7 @@ import type {
   MotionPhaseSegment,
 } from './types';
 import { isRotationalMotion } from './taxonomy';
+import { scoreMetric, metricTarget, type MotionSkillLevel } from './referenceRanges';
 
 // ── MediaPipe Pose 33 landmark indices ────────────────────────
 const NOSE = 0;
@@ -182,19 +183,8 @@ export function computeSeries(track: MotionPoseTrack, capture: CaptureContext): 
 }
 
 // ── Metric scoring helpers ────────────────────────────────────
-
-/** Score where lower is better, mapped against a "bad" upper bound. */
-function lowerBetter(value: number, good: number, bad: number): number {
-  if (value <= good) return 100;
-  if (value >= bad) return 20;
-  return Math.round(100 - ((value - good) / (bad - good)) * 80);
-}
-/** Tent score peaking inside [min,max], falling off outside by `slack`. */
-function inRange(value: number, min: number, max: number, slack: number): number {
-  if (value >= min && value <= max) return 100;
-  const d = value < min ? min - value : value - max;
-  return Math.round(clamp(100 - (d / slack) * 70, 20, 100));
-}
+// Metric → 0–100 scoring lives in referenceRanges.ts (skill-segmented),
+// so the engine stays focused on geometry and the heuristics stay swappable.
 
 function argmax(v: number[]): number {
   let idx = 0;
@@ -217,6 +207,7 @@ export function computeMetrics(
   const conf = track.trackingConfidence;
   const basis = track.basis;
   const rotational = isRotationalMotion(capture.sport, capture.motionType);
+  const skill: MotionSkillLevel = capture.skillLevel ?? 'intermediate';
 
   // Not enough signal — return honest "couldn't measure" metrics.
   if (!series) {
@@ -292,7 +283,8 @@ export function computeMetrics(
       name: 'Shoulder Rotation',
       value: shoulderTurn,
       unit: '°',
-      normalizedScore: inRange(shoulderTurn, 70, 110, 60),
+      normalizedScore: scoreMetric('shoulder_turn', shoulderTurn, skill),
+      target: metricTarget('shoulder_turn', skill),
       confidence: conf,
       basis,
       phase: phaseFor(peak),
@@ -308,7 +300,8 @@ export function computeMetrics(
       name: 'Hip Rotation',
       value: hipTurn,
       unit: '°',
-      normalizedScore: inRange(hipTurn, 35, 70, 45),
+      normalizedScore: scoreMetric('hip_turn', hipTurn, skill),
+      target: metricTarget('hip_turn', skill),
       confidence: conf,
       basis,
       phase: phaseFor(peak),
@@ -324,7 +317,8 @@ export function computeMetrics(
       name: 'Hip–Shoulder Separation (X-Factor)',
       value: xFactor,
       unit: '°',
-      normalizedScore: inRange(xFactor, 20, 55, 40),
+      normalizedScore: scoreMetric('hip_shoulder_sep', xFactor, skill),
+      target: metricTarget('hip_shoulder_sep', skill),
       confidence: conf * 0.85,
       basis,
       phase: 'transition',
@@ -361,7 +355,8 @@ export function computeMetrics(
     name: 'Head Stability',
     value: headSwayPct,
     unit: '% frame',
-    normalizedScore: lowerBetter(headSwayPct, 6, 25),
+    normalizedScore: scoreMetric('head_stability', headSwayPct, skill),
+    target: metricTarget('head_stability', skill),
     confidence: conf,
     basis,
     phase: 'overall',
@@ -378,7 +373,8 @@ export function computeMetrics(
     name: 'Pelvis Sway / Slide',
     value: pelvisSwayPct,
     unit: '% frame',
-    normalizedScore: lowerBetter(pelvisSwayPct, 8, 30),
+    normalizedScore: scoreMetric('pelvis_sway', pelvisSwayPct, skill),
+    target: metricTarget('pelvis_sway', skill),
     confidence: conf,
     basis,
     phase: 'overall',
@@ -395,7 +391,8 @@ export function computeMetrics(
     name: 'Posture / Spine-Angle Change',
     value: spineChange,
     unit: '°',
-    normalizedScore: lowerBetter(spineChange, 8, 30),
+    normalizedScore: scoreMetric('spine_change', spineChange, skill),
+    target: metricTarget('spine_change', skill),
     confidence: conf,
     basis,
     phase: 'downswing',
@@ -412,7 +409,8 @@ export function computeMetrics(
     name: 'Lead-Knee Flex',
     value: kneeFlexDeg,
     unit: '°',
-    normalizedScore: inRange(kneeFlexDeg, 15, 45, 30),
+    normalizedScore: scoreMetric('knee_flex', kneeFlexDeg, skill),
+    target: metricTarget('knee_flex', skill),
     confidence: conf * 0.8,
     basis,
     phase: 'setup',
@@ -428,7 +426,8 @@ export function computeMetrics(
     name: 'Tempo Ratio (back : through)',
     value: tempoRatio,
     unit: ':1',
-    normalizedScore: inRange(tempoRatio, 2.5, 3.5, 2),
+    normalizedScore: scoreMetric('tempo_ratio', tempoRatio, skill),
+    target: metricTarget('tempo_ratio', skill),
     confidence: conf * 0.7,
     basis,
     phase: 'overall',
@@ -444,7 +443,8 @@ export function computeMetrics(
     name: 'Finish Balance',
     value: balanceDriftPct,
     unit: '% frame',
-    normalizedScore: lowerBetter(balanceDriftPct, 4, 18),
+    normalizedScore: scoreMetric('balance_finish', balanceDriftPct, skill),
+    target: metricTarget('balance_finish', skill),
     confidence: conf,
     basis,
     phase: 'finish',
@@ -460,7 +460,8 @@ export function computeMetrics(
     name: 'Peak Hand Speed (relative)',
     value: handSpeedPeak,
     unit: 'units/s',
-    normalizedScore: clamp(Math.round(handSpeedPeak * 35), 20, 100),
+    normalizedScore: scoreMetric('hand_speed_peak', handSpeedPeak, skill),
+    target: metricTarget('hand_speed_peak', skill),
     confidence: conf * 0.7,
     basis,
     phase: phaseFor(handPeak),
@@ -477,7 +478,8 @@ export function computeMetrics(
     name: 'Range of Motion',
     value: rom,
     unit: '°',
-    normalizedScore: inRange(rom, 60, 120, 60),
+    normalizedScore: scoreMetric('rom', rom, skill),
+    target: metricTarget('rom', skill),
     confidence: conf,
     basis,
     phase: 'overall',
