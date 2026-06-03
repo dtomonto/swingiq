@@ -163,6 +163,8 @@ export async function runMotionAnalysis(
   const sport = getSport(capture.sport);
   const motion = getMotion(capture.sport, capture.motionType);
   const now = new Date().toISOString();
+  const endedAt = typeof performance !== 'undefined' ? performance.now() : Date.now();
+  const processingMs = Math.round(endedAt - startedAt);
 
   return {
     version: 1,
@@ -183,6 +185,7 @@ export async function runMotionAnalysis(
     keyFault: keyFaultLine(metrics),
     status: 'complete',
     analysisVersion: ANALYSIS_VERSION,
-    modelVersion: MODEL_VERSION,
+    modelVersion: modelVersionFor(modelQuality),
+    processingMs,
   };
 }

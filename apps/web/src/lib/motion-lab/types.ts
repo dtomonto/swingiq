@@ -250,6 +250,8 @@ export interface MotionSession {
   status: ProcessingStatus;
   analysisVersion: string;
   modelVersion: string;
+  /** End-to-end client analysis time in ms (debug/transparency). */
+  processingMs?: number;
   /** Coach notes (local only). */
   coachNotes?: string;
   /** Free-form fault tags a coach can add. */

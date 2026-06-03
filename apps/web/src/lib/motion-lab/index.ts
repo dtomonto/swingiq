@@ -33,6 +33,7 @@ export {
   MODEL_VERSION,
   type MotionStage,
   type PipelineOptions,
+  type PoseModelQuality,
 } from './pipeline';
 export {
   loadSessions,

@@ -24,7 +24,7 @@ import {
   runMotionAnalysis, saveSession, deleteSession, useMotionSessions, sessionsFor, getMotion, SKILL_LEVELS,
 } from '@/lib/motion-lab';
 import type {
-  SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext, MotionSkillLevel,
+  SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext, MotionSkillLevel, PoseModelQuality,
 } from '@/lib/motion-lab';
 import type { SwingVideoMetadata } from '@swingiq/core';
 import { cn } from '@/lib/utils';
@@ -41,6 +41,11 @@ const HAND_OPTIONS: Array<{ id: Handedness; label: string }> = [
   { id: 'right', label: 'Right-handed' },
   { id: 'left', label: 'Left-handed' },
   { id: 'unknown', label: 'Not sure' },
+];
+const MODEL_OPTIONS: Array<{ id: PoseModelQuality; label: string }> = [
+  { id: 'lite', label: 'Fast' },
+  { id: 'full', label: 'Balanced' },
+  { id: 'heavy', label: 'Accurate' },
 ];
 
 function Pills<T extends string>({ options, value, onChange }: {
@@ -71,6 +76,7 @@ export function MotionLabWizard() {
   const [view, setView] = useState<CameraView>('unknown');
   const [handedness, setHandedness] = useState<Handedness>('right');
   const [skillLevel, setSkillLevel] = useState<MotionSkillLevel>('intermediate');
+  const [modelQuality, setModelQuality] = useState<PoseModelQuality>('full');
 
   const [inputMode, setInputMode] = useState<'upload' | 'record'>('upload');
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -131,6 +137,7 @@ export function MotionLabWizard() {
       const trimmed = trim && (trim.start > 0.05 || (dur > 0 && trim.end < dur - 0.05));
       const result = await runMotionAnalysis(videoFile, capture, {
         estimatedFps,
+        modelQuality,
         trimStartSeconds: trimmed ? trim!.start : null,
         trimEndSeconds: trimmed ? trim!.end : null,
         onProgress: setStage,
@@ -143,7 +150,7 @@ export function MotionLabWizard() {
       setError(err instanceof Error ? err.message : 'Analysis failed. Please try another clip.');
       setStep('capture');
     }
-  }, [videoFile, motionType, sport, view, handedness, skillLevel, videoMeta, trim]);
+  }, [videoFile, motionType, sport, view, handedness, skillLevel, modelQuality, videoMeta, trim]);
 
   const openSession = useCallback((s: MotionSession) => {
     setSession(s);
@@ -284,6 +291,10 @@ export function MotionLabWizard() {
                     <div>
                       <p className="text-xs font-semibold text-foreground mb-2">Skill level <span className="text-muted-foreground font-normal">(sets which reference range you’re scored against)</span></p>
                       <Pills options={SKILL_LEVELS} value={skillLevel} onChange={setSkillLevel} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-foreground mb-2">Tracking accuracy <span className="text-muted-foreground font-normal">(Accurate is slower; Fast suits older phones)</span></p>
+                      <Pills options={MODEL_OPTIONS} value={modelQuality} onChange={setModelQuality} />
                     </div>
                   </CardBody>
                 </Card>
