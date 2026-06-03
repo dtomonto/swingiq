@@ -14,7 +14,7 @@
 
 import { extractSwingFrames } from '@/lib/frame-extraction';
 import { detectPoses, type PoseDetectInput, type PoseModelQuality } from '@/lib/pose';
-import { liftAvailable, enrichFrameWithLift, rigPreset, type RigPreset } from '@/lib/pose3d';
+import { liftAvailable, enrichFrameWithLift, rigPreset, syncViews, selfCalibrate, type RigPreset } from '@/lib/pose3d';
 import type { ViewLandmarks } from './multiview';
 import type {
   MotionSession,
@@ -163,6 +163,8 @@ export type { RigPreset };
 export interface MultiViewOptions {
   rig?: RigPreset;
   rigDistance?: number;
+  /** Self-calibrate from the data instead of using the rig preset (default true). */
+  selfCalibrate?: boolean;
   modelQuality?: PoseModelQuality;
   frameCount?: number;
   trimStartSeconds?: number | null;
@@ -217,10 +219,22 @@ export async function runMultiViewMotionAnalysis(
   const B = await extractAndDetect(sourceB, count, quality, trim);
 
   onProgress?.('detecting');
-  const cameras = rigPreset(options.rig ?? 'face_dtl_90', options.rigDistance ?? 3);
+  // Estimate the global time offset between the two clips and align them.
+  const synced = syncViews(A.view, B.view);
+
+  // Calibrate from the data when possible; fall back to the rig preset.
+  let cameras = rigPreset(options.rig ?? 'face_dtl_90', options.rigDistance ?? 3);
+  let calibMethod = 'preset';
+  if (options.selfCalibrate !== false) {
+    const calib = selfCalibrate(synced.a, synced.b);
+    if (calib) {
+      cameras = calib.cameras;
+      calibMethod = `selfcal-in${Math.round(calib.inlierRatio * 100)}`;
+    }
+  }
 
   onProgress?.('reconstructing');
-  const track = buildMultiViewTrack(A.view, B.view, cameras);
+  const track = buildMultiViewTrack(synced.a, synced.b, cameras);
 
   return assembleSession(
     track,
@@ -232,7 +246,7 @@ export async function runMultiViewMotionAnalysis(
       swingWindowDetected: A.extraction.swingWindowDetected,
       estimatedFps: options.estimatedFps ?? null,
     },
-    `mediapipe-pose-${quality}-multiview-dlt`,
+    `mediapipe-pose-${quality}-multiview-dlt-${calibMethod}-lag${synced.lag}`,
     startedAt,
     onProgress,
   );

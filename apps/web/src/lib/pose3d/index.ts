@@ -41,3 +41,24 @@ export {
   reprojConfidence,
 } from './engine';
 export { NUM_JOINTS } from './synth';
+export {
+  type P2,
+  estimateEssential,
+  ransacEssential,
+  sampsonDistance,
+} from './eightpoint';
+export { type Pose, essentialToPoses, recoverPose } from './decompose';
+export { type SelfCalibration, selfCalibrate } from './selfcalibrate';
+export {
+  type FrameLm,
+  motionSignal,
+  bestLag,
+  alignByLag,
+  syncViews,
+} from './sync';
+export {
+  type Lift3DProvider,
+  trainedLiftProvider,
+  onnxLiftProvider,
+  getActiveLiftProvider,
+} from './providers';

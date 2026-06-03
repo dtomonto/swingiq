@@ -143,3 +143,47 @@ export function smallestEigenvector(symmetric: Mat): Vec {
   for (let i = 1; i < values.length; i++) if (values[i] < values[idx]) idx = i;
   return vectors.map((row) => row[idx]);
 }
+
+export function det3(m: Mat): number {
+  return (
+    m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) -
+    m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) +
+    m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0])
+  );
+}
+
+/**
+ * SVD of a 3×3 matrix: returns U, singular values S (descending), and V with
+ * M = U · diag(S) · Vᵀ. Built from the symmetric eigensolver of MᵀM. Rank-
+ * deficient columns of U are completed orthonormally (needed for essential-
+ * matrix work).
+ */
+export function svd3(M: Mat): { U: Mat; S: number[]; V: Mat } {
+  const MtM = matMul(transpose(M), M);
+  const { values, vectors } = jacobiEigenSymmetric(MtM);
+  const order = [0, 1, 2].sort((a, b) => values[b] - values[a]);
+  const S = order.map((i) => Math.sqrt(Math.max(0, values[i])));
+
+  const V: Mat = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) V[r][c] = vectors[r][order[c]];
+
+  const cols: Vec[] = [];
+  for (let c = 0; c < 3; c++) {
+    const vc: Vec = [V[0][c], V[1][c], V[2][c]];
+    const Mv = matVec(M, vc);
+    cols.push(S[c] > 1e-9 ? scale3(Mv, 1 / S[c]) : [NaN, NaN, NaN]);
+  }
+  for (let c = 0; c < 3; c++) {
+    if (!Number.isFinite(cols[c][0])) {
+      cols[c] = normalize3(cross3(cols[(c + 1) % 3], cols[(c + 2) % 3]));
+    }
+  }
+  const U: Mat = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) U[r][c] = cols[c][r];
+  return { U, S, V };
+}
+
+/** Diagonal 3×3 from three values. */
+export function diag3(a: number, b: number, c: number): Mat {
+  return [[a, 0, 0], [0, b, 0], [0, 0, c]];
+}

@@ -29,15 +29,20 @@ Everything runs in the browser. No new libraries were added.
 
 | File | What it is |
 | --- | --- |
-| `linalg.ts` | Matrix/vector ops + a Jacobi eigensolver (for the triangulation null-space). |
+| `linalg.ts` | Matrix/vector ops, a Jacobi eigensolver (triangulation null-space), and a **3×3 SVD**. |
 | `camera.ts` | Pinhole camera (normalized coords), projection matrices, look-at calibration, two-phone **rig presets**. |
 | `triangulate.ts` | **DLT multi-view triangulation** → true metric 3D + reprojection error. |
+| `eightpoint.ts` | Normalized **8-point essential-matrix** estimation + Sampson distance + RANSAC. |
+| `decompose.ts` | Essential matrix → (R, t) via SVD + **cheirality** disambiguation. |
+| `selfcalibrate.ts` | **Per-capture self-calibration**: 2D correspondences → recovered camera geometry. |
+| `sync.ts` | **Temporal sync**: cross-correlate per-frame motion to align two clips. |
 | `synth.ts` | Procedural 33-joint skeleton generator + projector (the training data + test ground truth). |
 | `mlp.ts` | From-scratch MLP: forward pass + **Adam backprop** + gradient clipping. |
 | `lift3d.ts` | Single-view lift **inference** (loads `weights/lift3d.json`). |
+| `providers.ts` | **Lift-provider seam** (trained MLP today; ONNX/server stub for the future). |
 | `engine.ts` | High-level API: `enrichFrameWithLift` (single view) + `reconstructMultiViewFrame` (multi). |
 | `weights/lift3d.json` | The **trained** lift-model weights (committed). |
-| `__tests__/` | Triangulation correctness, shipped-weights validation, and the gated trainer. |
+| `__tests__/` | SVD, triangulation, self-calibration, sync, shipped-weights validation, and the gated trainer. |
 
 ## How the two paths are wired into Motion Lab
 
@@ -47,17 +52,26 @@ Everything runs in the browser. No new libraries were added.
   `estimated` result (model tag `…+lift3d`).
 - **Multi view** (`runMultiViewMotionAnalysis`, the wizard's "2 cameras · true 3D"
   mode): two clips → uniform frame extraction (preserves cross-view correspondence) →
-  pose on each → `buildMultiViewTrack` triangulates each synchronized frame (with a
-  small reprojection-error search to absorb phone desync) → a `measured` track. The
-  3D viewer and results footer say "Measured 3D · multi-view".
+  pose on each → **motion-based temporal sync** aligns the clips → **self-calibration**
+  recovers the camera geometry from the data (falls back to a rig preset if the
+  estimate is weak) → `buildMultiViewTrack` triangulates each synced frame (plus a
+  small reprojection-error search for residual jitter) → a `measured` track. The model
+  version records which calibration + lag were used. The 3D viewer and results footer
+  say "Measured 3D · multi-view".
+
+The single-view lift runs through a **provider seam** (`providers.ts`): the trained
+MLP implements `Lift3DProvider` today; `getActiveLiftProvider()` will prefer a
+configured ONNX/server model automatically once one is added — no downstream changes.
 
 ## What's real vs what needs your data
 
 | Real & shipping now | Honest limitation | Production upgrade path |
 | --- | --- | --- |
-| DLT triangulation → metric 3D (tested <1 mm) | Needs 2 roughly-synced views + a rig preset (approximate extrinsics) | Per-capture **self-calibration** (essential-matrix / bundle adjustment) + hardware/audio sync |
+| DLT triangulation → metric 3D (tested <1 mm) | Needs two views with a real baseline | A larger/fixed rig + checkerboard intrinsics for absolute scale |
+| **Per-capture self-calibration** (8-point essential matrix + RANSAC + cheirality) recovers the camera geometry FROM THE DATA — no rig preset needed (tested: recovers true relative rotation) | Up-to-scale; assumes default phone intrinsics | Bundle-adjustment refinement + known-length scale (subject height) |
+| **Motion-based temporal sync** (cross-correlation of per-frame motion) aligns the two clips | Integer-frame alignment | Audio-clap or flash sync for sub-frame precision |
 | Trained lift model (~78% depth variance explained) | Trained on **synthetic** projections, not real mocap | Fine-tune on real motion-capture (below) |
-| Reprojection-error confidence | Wrong calibration → low confidence (by design) | Auto-pick the rig preset from the data |
+| Reprojection-error confidence | Wrong calibration → low confidence (by design) | — |
 
 ## Training the lift model
 

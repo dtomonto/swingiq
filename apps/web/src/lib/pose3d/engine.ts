@@ -13,24 +13,25 @@
 import { type Vec, type Mat } from './linalg';
 import { type Camera, projectionMatrix } from './camera';
 import { triangulateSkeleton } from './triangulate';
-import { predictRelativeDepths, isLiftModelTrained } from './lift3d';
+import { getActiveLiftProvider } from './providers';
 
 export interface Lm3 { x: number; y: number; z: number; v: number }
 
-// ── Single-view: learned depth refinement ────────────────────
+// ── Single-view: learned depth refinement (via the provider seam) ──
 
-/** Whether the trained single-view lift model is available. */
+/** Whether any single-view lift provider is available. */
 export function liftAvailable(): boolean {
-  return isLiftModelTrained();
+  return getActiveLiftProvider() !== null;
 }
 
 /**
- * Refine one frame's landmark depths with the trained lift model. Returns the
+ * Refine one frame's landmark depths with the active lift provider. Returns the
  * landmarks with z replaced by the learned distance-relative depth (hip ≈ 0).
- * Falls back to the original z when the model can't run.
+ * Falls back to the original z when no provider can run.
  */
 export function enrichFrameWithLift(landmarks: Lm3[]): { landmarks: Lm3[]; applied: boolean } {
-  const depths = predictRelativeDepths(landmarks);
+  const provider = getActiveLiftProvider();
+  const depths = provider ? provider.liftDepths(landmarks) : null;
   if (!depths) return { landmarks, applied: false };
   return {
     landmarks: landmarks.map((lm, i) => ({ ...lm, z: depths[i] ?? lm.z })),
