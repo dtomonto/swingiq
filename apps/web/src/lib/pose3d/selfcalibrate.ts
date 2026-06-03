@@ -11,6 +11,7 @@
 import { type Camera, type CameraIntrinsics, defaultIntrinsics } from './camera';
 import { ransacEssential, type P2 } from './eightpoint';
 import { recoverPose } from './decompose';
+import { refinePose } from './bundle';
 import type { Mat } from './linalg';
 
 const I3: Mat = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
@@ -65,6 +66,8 @@ export interface SelfCalibration {
   inlierRatio: number;
   frontRatio: number;
   correspondences: number;
+  /** Mean reprojection error after bundle refinement (lower = better). */
+  reprojError: number;
 }
 
 /**
@@ -92,9 +95,13 @@ export function selfCalibrate(
   // Reject obviously-bad geometry early (caller will use a rig preset instead).
   if (inlierRatio < 0.4 || recovered.frontRatio < 0.6) return null;
 
+  // Bundle-adjust the pose to minimize reprojection error (only accepts
+  // improvements, so it can never worsen the recovered estimate).
+  const refined = refinePose(recovered.pose.R, recovered.pose.t, in1, in2, { iterations: 30 });
+
   const cameras: Camera[] = [
     { id: 'A', K, R: I3, t: [0, 0, 0] },
-    { id: 'B', K, R: recovered.pose.R, t: recovered.pose.t },
+    { id: 'B', K, R: refined.R, t: refined.t },
   ];
 
   return {
@@ -102,5 +109,6 @@ export function selfCalibrate(
     inlierRatio: +inlierRatio.toFixed(3),
     frontRatio: +recovered.frontRatio.toFixed(3),
     correspondences: pts1.length,
+    reprojError: +refined.error.toFixed(5),
   };
 }

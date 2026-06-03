@@ -48,6 +48,7 @@ export {
   sampsonDistance,
 } from './eightpoint';
 export { type Pose, essentialToPoses, recoverPose } from './decompose';
+export { type RefinedPose, refinePose, poseReprojError } from './bundle';
 export { type SelfCalibration, selfCalibrate } from './selfcalibrate';
 export {
   type FrameLm,

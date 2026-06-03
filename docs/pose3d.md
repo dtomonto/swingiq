@@ -35,6 +35,7 @@ Everything runs in the browser. No new libraries were added.
 | `eightpoint.ts` | Normalized **8-point essential-matrix** estimation + Sampson distance + RANSAC. |
 | `decompose.ts` | Essential matrix → (R, t) via SVD + **cheirality** disambiguation. |
 | `selfcalibrate.ts` | **Per-capture self-calibration**: 2D correspondences → recovered camera geometry. |
+| `bundle.ts` | **Bundle-adjustment** refinement of (R, t) by minimizing reprojection error. |
 | `sync.ts` | **Temporal sync**: cross-correlate per-frame motion to align two clips. |
 | `synth.ts` | Procedural 33-joint skeleton generator + projector (the training data + test ground truth). |
 | `mlp.ts` | From-scratch MLP: forward pass + **Adam backprop** + gradient clipping. |
@@ -68,7 +69,7 @@ configured ONNX/server model automatically once one is added — no downstream c
 | Real & shipping now | Honest limitation | Production upgrade path |
 | --- | --- | --- |
 | DLT triangulation → metric 3D (tested <1 mm) | Needs two views with a real baseline | A larger/fixed rig + checkerboard intrinsics for absolute scale |
-| **Per-capture self-calibration** (8-point essential matrix + RANSAC + cheirality) recovers the camera geometry FROM THE DATA — no rig preset needed (tested: recovers true relative rotation) | Up-to-scale; assumes default phone intrinsics | Bundle-adjustment refinement + known-length scale (subject height) |
+| **Per-capture self-calibration** (8-point essential matrix + RANSAC + cheirality + **bundle-adjustment** polish) recovers the camera geometry FROM THE DATA — no rig preset needed (tested: recovers true relative rotation, BA reduces reprojection error) | Up-to-scale; assumes default phone intrinsics | Known-length scale (subject height) for absolute metric units |
 | **Motion-based temporal sync** (cross-correlation of per-frame motion) aligns the two clips | Integer-frame alignment | Audio-clap or flash sync for sub-frame precision |
 | Trained lift model (~78% depth variance explained) | Trained on **synthetic** projections, not real mocap | Fine-tune on real motion-capture (below) |
 | Reprojection-error confidence | Wrong calibration → low confidence (by design) | — |

@@ -187,3 +187,16 @@ export function svd3(M: Mat): { U: Mat; S: number[]; V: Mat } {
 export function diag3(a: number, b: number, c: number): Mat {
   return [[a, 0, 0], [0, b, 0], [0, 0, c]];
 }
+
+/** Rodrigues: axis-angle vector (axis·angle) → 3×3 rotation matrix. */
+export function axisAngleToR(v: Vec): Mat {
+  const theta = norm3(v);
+  if (theta < 1e-12) return identity(3);
+  const [kx, ky, kz] = scale3(v, 1 / theta);
+  const c = Math.cos(theta), s = Math.sin(theta), t = 1 - c;
+  return [
+    [t * kx * kx + c, t * kx * ky - s * kz, t * kx * kz + s * ky],
+    [t * kx * ky + s * kz, t * ky * ky + c, t * ky * kz - s * kx],
+    [t * kx * kz - s * ky, t * ky * kz + s * kx, t * kz * kz + c],
+  ];
+}
