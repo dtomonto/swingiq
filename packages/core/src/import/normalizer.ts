@@ -444,7 +444,7 @@ export function parseCSV(csvText: string): ParsedCsv {
   if (!csvText) return empty;
 
   // Strip BOM + normalise newlines, keep only non-empty lines.
-  const text = csvText.replace(/^﻿/, '');
+  const text = csvText.replace(/^\uFEFF/, '');
   const lines = text.split(/\r?\n/).filter((l) => l.trim() !== '');
   if (lines.length < 2) return empty;
 

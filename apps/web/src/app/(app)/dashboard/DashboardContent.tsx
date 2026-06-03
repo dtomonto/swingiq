@@ -25,6 +25,7 @@ import { Button } from '@/components/ui/Button';
 import { FIX_CTA } from '@/lib/coaching/fixFraming';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { useSwingIQStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
 import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence';
 import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
@@ -483,13 +484,13 @@ export function DashboardContent() {
                   </div>
                 </>
               ) : (
-                <div className="py-6 text-center">
-                  <Upload size={28} className="mx-auto text-muted-foreground mb-2" />
-                  <p className="text-muted-foreground text-sm">No sessions yet.</p>
-                  <Link href="/sessions/import" className="mt-2 inline-block">
-                    <Button size="sm" variant="outline">Import Your First Session</Button>
-                  </Link>
-                </div>
+                <EmptyState
+                  icon={Upload}
+                  title="No sessions yet."
+                  description="Import launch-monitor data to see your shots, scores, and trends here."
+                  action={{ label: 'Import Your First Session', href: '/sessions/import', variant: 'outline' }}
+                  compact
+                />
               )}
             </CardBody>
           </Card>
@@ -667,12 +668,12 @@ export function DashboardContent() {
                   )}
                 </>
               ) : (
-                <div className="py-4 text-center">
-                  <p className="text-muted-foreground text-sm">No clubs added yet.</p>
-                  <Link href="/bag" className="mt-2 inline-block">
-                    <Button size="sm" variant="outline">Add Clubs</Button>
-                  </Link>
-                </div>
+                <EmptyState
+                  title="No clubs added yet."
+                  description="Add the clubs in your bag to unlock gap analysis and per-club scores."
+                  action={{ label: 'Add Clubs', href: '/bag', variant: 'outline' }}
+                  compact
+                />
               )}
             </CardBody>
           </Card>

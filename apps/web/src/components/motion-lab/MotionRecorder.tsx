@@ -86,6 +86,11 @@ export function MotionRecorder({ onVideoReady }: Props) {
     }
   }, [stopStream]);
 
+  const stopRecording = useCallback(() => {
+    if (timerRef.current) window.clearInterval(timerRef.current);
+    try { recorderRef.current?.stop(); } catch { /* ignore */ }
+  }, []);
+
   const beginRecording = useCallback(() => {
     const stream = streamRef.current;
     if (!stream) return;
@@ -112,8 +117,7 @@ export function MotionRecorder({ onVideoReady }: Props) {
       setElapsed(secs);
       if (secs >= MAX_SECONDS) stopRecording();
     }, 100);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [stopRecording]);
 
   const startCountdown = useCallback(() => {
     setCountdown(3);
@@ -128,11 +132,6 @@ export function MotionRecorder({ onVideoReady }: Props) {
       }
     }, 1000);
   }, [beginRecording]);
-
-  const stopRecording = useCallback(() => {
-    if (timerRef.current) window.clearInterval(timerRef.current);
-    try { recorderRef.current?.stop(); } catch { /* ignore */ }
-  }, []);
 
   const retake = useCallback(() => {
     if (reviewUrlRef.current) { URL.revokeObjectURL(reviewUrlRef.current); reviewUrlRef.current = null; }

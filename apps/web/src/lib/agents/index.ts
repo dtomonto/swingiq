@@ -24,6 +24,7 @@ export { buildPreGamePlan } from './workflows/pre-game';
 export { buildReEngagement } from './workflows/retention';
 export { getContextualHelp, hasContextualHelp } from './workflows/contextual-help';
 export { buildCoachShareSummary } from './workflows/coach-sharing';
+export { buildParentSummary } from './workflows/parent-sharing';
 export { buildReport, type ReportKind } from './workflows/report';
 export { buildProUpgradeSuggestion } from './workflows/pro-upgrade';
 
