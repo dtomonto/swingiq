@@ -9,7 +9,7 @@
 // ============================================================
 
 import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
-import { subscribeSessionQueue, countPendingSessions } from './sessionQueue';
+import { subscribeSessionQueue, countPendingSessions } from './session-queue';
 
 // Online status via useSyncExternalStore (no setState-in-effect).
 function subscribeOnline(callback: () => void): () => void {

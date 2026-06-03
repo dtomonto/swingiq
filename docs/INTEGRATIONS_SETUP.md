@@ -55,7 +55,7 @@ Optional: `AI_VISION_MODEL=gpt-4o`, `MAX_VIDEO_FRAMES_ANALYZED=16`.
 
 ## 2. Supabase (accounts + cloud data)
 
-**What it unlocks:** real sign-in, saving sessions to the cloud, and syncing across devices. Until this is set, SwingIQ runs **local-first** (data lives in the browser; the offline queue in `lib/offline/sessionQueue.ts` holds sessions until a backend is connected).
+**What it unlocks:** real sign-in, saving sessions to the cloud, and syncing across devices. Until this is set, SwingIQ runs **local-first** (data lives in the browser; the offline queue in `lib/offline/session-queue.ts` holds sessions until a backend is connected).
 
 **Steps:**
 1. Create a free project at https://supabase.com.
@@ -154,7 +154,7 @@ STRIPE_PRICE_TEAM=price_...
 
 ## Bonus: practice-reminder notifications
 
-`lib/notifications/practiceReminders.ts` can show **local** reminders while the app is open (asks permission first — no setup needed). Reminders that fire when the app is **closed** need a service worker + a push service (VAPID keys or a provider); that's a future infra step, surfaced honestly via `SERVER_PUSH_NOTE`.
+`lib/notifications/practice-reminders.ts` can show **local** reminders while the app is open (asks permission first — no setup needed). Reminders that fire when the app is **closed** need a service worker + a push service (VAPID keys or a provider); that's a future infra step, surfaced honestly via `SERVER_PUSH_NOTE`.
 
 ---
 
