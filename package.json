@@ -18,6 +18,7 @@
     "clean": "turbo run clean && rimraf node_modules",
     "scan:placeholders": "node scripts/scan-placeholders.mjs",
     "check:trust": "npm run scan:placeholders",
+    "check:naming": "node scripts/check-naming.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:links": "node scripts/validate-links.mjs",
@@ -30,7 +31,7 @@
     "security:secrets": "echo 'Run: docker run --rm -v $(pwd):/repo zricethezav/gitleaks:latest detect --source=/repo'",
     "security:check": "node scripts/security-check.mjs",
     "security:all": "npm run security:deps && npm run security:check",
-    "ci": "npm run type-check && npm run security:all"
+    "ci": "npm run type-check && npm run check:naming && npm run security:all"
   },
   "devDependencies": {
     "turbo": "^2.0.0",

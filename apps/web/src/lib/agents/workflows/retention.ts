@@ -6,7 +6,7 @@
 // Never spams. Returns null when there is nothing helpful to say.
 // ============================================================
 
-import { getSportAgentProfile } from '../sportProfiles';
+import { getSportAgentProfile } from '../sport-profiles';
 import { getNextBestAction } from '../scoring';
 import type { AgentContext, AgentInsight } from '../types';
 

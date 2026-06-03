@@ -7,7 +7,7 @@ export const metadata = buildMetadata({
   title: 'Sample Swing Report',
   description:
     'See exactly what a SwingIQ report looks like: your top priority issue, three drills, and a practice plan — shareable and print-friendly.',
-  path: '/report/sample',
+  path: '/sample-report',
 });
 
 const SAMPLE: ReportData = {
@@ -23,7 +23,7 @@ export default function SampleReportPage() {
     <main className="min-h-screen bg-muted print:bg-card">
       <div className="mx-auto max-w-2xl px-4 py-10">
         <div className="print:hidden">
-          <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Sample Report', path: '/report/sample' }]} className="mb-5" />
+          <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Sample Report', path: '/sample-report' }]} className="mb-5" />
           <h1 className="text-3xl font-bold text-foreground">Sample Swing Report</h1>
           <p className="mt-2 text-muted-foreground">
             This is an example using sample data so you can see what you&apos;ll get. Your real report is built from your own swing.

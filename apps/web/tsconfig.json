@@ -19,6 +19,9 @@
       ],
       "@swingiq/core": [
         "../../packages/core/src/index.ts"
+      ],
+      "@swingiq/core/*": [
+        "../../packages/core/src/*"
       ]
     },
     "allowJs": true,

@@ -11,9 +11,9 @@
 // ============================================================
 
 import { format } from 'date-fns';
-import { getSportAgentProfile } from '../sportProfiles';
+import { getSportAgentProfile } from '../sport-profiles';
 import { getNextBestAction, buildResumeOptions } from '../scoring';
-import { computeProgressTrend } from './progressMemory';
+import { computeProgressTrend } from './progress-memory';
 import type {
   AgentConfidence,
   AgentContext,

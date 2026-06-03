@@ -8,8 +8,8 @@
 // what to ignore for now).
 // ============================================================
 
-import { getSportAgentProfile } from '../sportProfiles';
-import { findRecurringPatterns } from './progressMemory';
+import { getSportAgentProfile } from '../sport-profiles';
+import { findRecurringPatterns } from './progress-memory';
 import type { AgentConfidence, AgentContext, DiagnosisResult } from '../types';
 
 export function buildDiagnosisConfidence(ctx: AgentContext): DiagnosisResult {

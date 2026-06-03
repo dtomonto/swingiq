@@ -8,11 +8,11 @@
 // ============================================================
 
 import type { AgentContext, AgentId, AgentInsight, AgentMetadata } from './types';
-import { computeProgressTrend } from './workflows/progressMemory';
-import { buildDiagnosisConfidence } from './workflows/diagnosisConfidence';
-import { buildEquipmentFit } from './workflows/equipmentFit';
+import { computeProgressTrend } from './workflows/progress-memory';
+import { buildDiagnosisConfidence } from './workflows/diagnosis-confidence';
+import { buildEquipmentFit } from './workflows/equipment-fit';
 import { buildReEngagement } from './workflows/retention';
-import { buildProUpgradeSuggestion } from './workflows/proUpgrade';
+import { buildProUpgradeSuggestion } from './workflows/pro-upgrade';
 import { getNextBestAction } from './scoring';
 
 export interface InsightWorkflow {

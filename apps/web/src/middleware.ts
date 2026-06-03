@@ -44,7 +44,7 @@ const PUBLIC_PATHS = new Set([
   '/updates',
   '/start',
   '/free-swing-analysis',
-  '/report/sample',
+  '/sample-report',
   // Audience landing pages
   '/parents',
   '/coaches',

@@ -6,7 +6,7 @@
 // "continue anyway" whenever it is safe to do so.
 // ============================================================
 
-import { getSportAgentProfile } from '../sportProfiles';
+import { getSportAgentProfile } from '../sport-profiles';
 import type { AgentContext, IntakeQualityResult } from '../types';
 
 export interface IntakeSignal {

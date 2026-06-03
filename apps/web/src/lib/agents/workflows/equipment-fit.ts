@@ -7,7 +7,7 @@
 // for more data before recommending changes.
 // ============================================================
 
-import { getSportAgentProfile } from '../sportProfiles';
+import { getSportAgentProfile } from '../sport-profiles';
 import type { AgentConfidence, AgentContext, EquipmentFit } from '../types';
 
 export function buildEquipmentFit(ctx: AgentContext): EquipmentFit {

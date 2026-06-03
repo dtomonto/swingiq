@@ -10,7 +10,7 @@
 
 import type { SportId, SkillLevel } from '@swingiq/core';
 import type { SwingIQState } from '@/store';
-import { getSportAgentProfile } from './sportProfiles';
+import { getSportAgentProfile } from './sport-profiles';
 import type {
   AgentContext,
   EquipmentProfile,

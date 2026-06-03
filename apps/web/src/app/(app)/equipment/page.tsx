@@ -7,7 +7,7 @@ import { useSwingIQStore } from '@/store';
 import { ChevronRight, Info } from 'lucide-react';
 
 const SPORT_EQUIPMENT_ROUTES = [
-  { sportId: 'golf', label: 'Golf — Clubs', sublabel: 'Driver, irons, wedges, putter', href: '/bag', emoji: '⛳' },
+  { sportId: 'golf', label: 'Golf — Clubs', sublabel: 'Driver, irons, wedges, putter', href: '/equipment/golf', emoji: '⛳' },
   { sportId: 'tennis', label: 'Tennis — Racket', sublabel: 'Frame, strings, tension, grip size', href: '/equipment/tennis', emoji: '🎾' },
   { sportId: 'baseball', label: 'Baseball — Bat', sublabel: 'Length, weight, drop, certification', href: '/equipment/baseball', emoji: '⚾' },
   { sportId: 'softball_slow', label: 'Slow Pitch Softball — Bat', sublabel: 'End load, compression, stamps', href: '/equipment/softball-slow', emoji: '🥎' },

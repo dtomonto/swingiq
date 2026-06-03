@@ -17,6 +17,7 @@ const FOOTER_COLUMNS = [
       { label: 'Methodology', href: '/methodology' },
       { label: 'FAQ', href: '/faq' },
       { label: 'Glossary', href: '/glossary' },
+      { label: 'Benchmarks', href: '/benchmarks' },
       { label: 'Blog', href: '/blog' },
       { label: 'Updates', href: '/updates' },
     ],
@@ -47,7 +48,7 @@ const FOOTER_COLUMNS = [
       { label: 'Features', href: '/features' },
       { label: 'Pricing', href: '/pricing' },
       { label: 'Sign Up Free', href: '/signup' },
-      { label: 'Sample Report', href: '/report/sample' },
+      { label: 'Sample Report', href: '/sample-report' },
     ],
   },
   {
