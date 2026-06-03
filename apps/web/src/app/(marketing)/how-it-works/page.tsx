@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
   title: 'How SwingIQ Works — AI Swing Analysis for Golf, Tennis, Baseball & Softball',
@@ -114,10 +115,7 @@ const jsonLd = {
 export default function HowItWorksPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <header className="bg-primary text-primary-foreground">
