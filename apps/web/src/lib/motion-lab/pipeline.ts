@@ -14,6 +14,7 @@
 
 import { extractSwingFrames } from '@/lib/frame-extraction';
 import { detectPoses, type PoseDetectInput, type PoseModelQuality } from '@/lib/pose';
+import { liftAvailable, enrichFrameWithLift } from '@/lib/pose3d';
 import type {
   MotionSession,
   CaptureContext,
@@ -52,6 +53,8 @@ export interface PipelineOptions {
   trimEndSeconds?: number | null;
   /** Pose model tier: 'lite' (fast) | 'full' (balanced) | 'heavy' (accurate). */
   modelQuality?: PoseModelQuality;
+  /** Refine single-view depth with the trained 3D lift model (basis stays estimated). */
+  proDepth?: boolean;
   onProgress?: (stage: MotionStage) => void;
 }
 
@@ -132,6 +135,18 @@ export async function runMotionAnalysis(
   onProgress?.('reconstructing');
   track = smoothTrack(track);
 
+  // 3b) Optional: refine per-joint depth with the trained single-view lift
+  //     model. x/y stay MediaPipe estimates; only z is upgraded to a learned
+  //     structural prior — so the track remains an honest 'estimated' result.
+  let depthModel = modelVersionFor(modelQuality);
+  if (options.proDepth && liftAvailable() && track.frames.length > 0) {
+    track = {
+      ...track,
+      frames: track.frames.map((f) => ({ tMs: f.tMs, landmarks: enrichFrameWithLift(f.landmarks).landmarks })),
+    };
+    depthModel += '+lift3d';
+  }
+
   // 4) Segment phases from the real motion.
   onProgress?.('segmenting');
   const series = computeSeries(track, capture);
@@ -185,7 +200,7 @@ export async function runMotionAnalysis(
     keyFault: keyFaultLine(metrics),
     status: 'complete',
     analysisVersion: ANALYSIS_VERSION,
-    modelVersion: modelVersionFor(modelQuality),
+    modelVersion: depthModel,
     processingMs,
   };
 }

@@ -77,6 +77,7 @@ export function MotionLabWizard() {
   const [handedness, setHandedness] = useState<Handedness>('right');
   const [skillLevel, setSkillLevel] = useState<MotionSkillLevel>('intermediate');
   const [modelQuality, setModelQuality] = useState<PoseModelQuality>('full');
+  const [proDepth, setProDepth] = useState(true);
 
   const [inputMode, setInputMode] = useState<'upload' | 'record'>('upload');
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -138,6 +139,7 @@ export function MotionLabWizard() {
       const result = await runMotionAnalysis(videoFile, capture, {
         estimatedFps,
         modelQuality,
+        proDepth,
         trimStartSeconds: trimmed ? trim!.start : null,
         trimEndSeconds: trimmed ? trim!.end : null,
         onProgress: setStage,
@@ -150,7 +152,7 @@ export function MotionLabWizard() {
       setError(err instanceof Error ? err.message : 'Analysis failed. Please try another clip.');
       setStep('capture');
     }
-  }, [videoFile, motionType, sport, view, handedness, skillLevel, modelQuality, videoMeta, trim]);
+  }, [videoFile, motionType, sport, view, handedness, skillLevel, modelQuality, proDepth, videoMeta, trim]);
 
   const openSession = useCallback((s: MotionSession) => {
     setSession(s);
@@ -296,6 +298,13 @@ export function MotionLabWizard() {
                       <p className="text-xs font-semibold text-foreground mb-2">Tracking accuracy <span className="text-muted-foreground font-normal">(Accurate is slower; Fast suits older phones)</span></p>
                       <Pills options={MODEL_OPTIONS} value={modelQuality} onChange={setModelQuality} />
                     </div>
+                    <label className="flex items-start gap-2 cursor-pointer">
+                      <input type="checkbox" checked={proDepth} onChange={(e) => setProDepth(e.target.checked)} className="mt-0.5 rounded-sm border-border text-primary" />
+                      <span className="text-xs text-foreground">
+                        <span className="font-semibold">Pro 3D depth</span>
+                        <span className="text-muted-foreground"> — refine the depth of every joint with SwingIQ&apos;s trained 3D lift model. Still a single-camera estimate, just a smarter one.</span>
+                      </span>
+                    </label>
                   </CardBody>
                 </Card>
 
