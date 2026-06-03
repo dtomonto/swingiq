@@ -237,7 +237,7 @@ export function VideoAnalyzerContent() {
 
             <RecordingGuide sport="golf" defaultOpen={history.length === 0} />
 
-            <VideoUpload onVideoReady={handleVideoReady} />
+            <VideoUpload onVideoReady={handleVideoReady} enableRecording sport="golf" />
           </div>
         )}
 
