@@ -13,7 +13,7 @@
 // ============================================================
 
 import { extractSwingFrames } from '@/lib/frame-extraction';
-import { detectPoses, type PoseDetectInput } from '@/lib/pose';
+import { detectPoses, type PoseDetectInput, type PoseModelQuality } from '@/lib/pose';
 import type {
   MotionSession,
   CaptureContext,
@@ -32,6 +32,9 @@ import { newSessionId } from './persistence';
 export const ANALYSIS_VERSION = 'motionlab-1.0.0';
 export const MODEL_VERSION = 'mediapipe-pose-lite-0.10.35';
 
+export type { PoseModelQuality };
+const modelVersionFor = (q: PoseModelQuality) => `mediapipe-pose-${q}-0.10.35`;
+
 export type MotionStage =
   | 'extracting'
   | 'detecting'
@@ -47,6 +50,8 @@ export interface PipelineOptions {
   /** Optional manual trim window (seconds) to focus analysis on the rep. */
   trimStartSeconds?: number | null;
   trimEndSeconds?: number | null;
+  /** Pose model tier: 'lite' (fast) | 'full' (balanced) | 'heavy' (accurate). */
+  modelQuality?: PoseModelQuality;
   onProgress?: (stage: MotionStage) => void;
 }
 
@@ -82,6 +87,8 @@ export async function runMotionAnalysis(
   options: PipelineOptions = {},
 ): Promise<MotionSession> {
   const { onProgress } = options;
+  const modelQuality: PoseModelQuality = options.modelQuality ?? 'lite';
+  const startedAt = typeof performance !== 'undefined' ? performance.now() : Date.now();
 
   // 1) Extract motion-aware still frames in the browser.
   onProgress?.('extracting');
@@ -97,7 +104,7 @@ export async function runMotionAnalysis(
     dataUrl: f.dataUrl,
     timestampSeconds: f.timestampSeconds,
   }));
-  const detected = await detectPoses(detectInput);
+  const detected = await detectPoses(detectInput, modelQuality);
 
   let visSum = 0;
   let visCount = 0;

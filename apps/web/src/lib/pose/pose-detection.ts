@@ -15,8 +15,15 @@ import type { PoseLandmarker } from '@mediapipe/tasks-vision';
 
 // Pin the WASM bundle to the installed package version.
 const WASM_CDN = 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm';
-const MODEL_URL =
-  'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task';
+
+/** Pose model accuracy/speed tier. lite = fastest, heavy = most accurate. */
+export type PoseModelQuality = 'lite' | 'full' | 'heavy';
+
+const MODEL_URLS: Record<PoseModelQuality, string> = {
+  lite: 'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task',
+  full: 'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task',
+  heavy: 'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_heavy/float16/1/pose_landmarker_heavy.task',
+};
 
 export interface PoseLandmark {
   x: number; // normalized 0–1 (left→right)
@@ -35,18 +42,20 @@ export interface PoseDetectInput {
   timestampSeconds: number;
 }
 
-let landmarkerPromise: Promise<PoseLandmarker | null> | null = null;
+// Memoize one landmarker per quality tier (each downloads a different model).
+const landmarkerPromises = new Map<PoseModelQuality, Promise<PoseLandmarker | null>>();
 
-/** Lazily create (and memoize) the pose landmarker. Returns null on any failure. */
-async function getLandmarker(): Promise<PoseLandmarker | null> {
-  if (landmarkerPromise) return landmarkerPromise;
-  landmarkerPromise = (async () => {
+/** Lazily create (and memoize) the pose landmarker for a quality. Null on failure. */
+async function getLandmarker(quality: PoseModelQuality): Promise<PoseLandmarker | null> {
+  const existing = landmarkerPromises.get(quality);
+  if (existing) return existing;
+  const promise = (async () => {
     try {
       const { FilesetResolver, PoseLandmarker } = await import('@mediapipe/tasks-vision');
       const fileset = await FilesetResolver.forVisionTasks(WASM_CDN);
       const make = (delegate: 'GPU' | 'CPU') =>
         PoseLandmarker.createFromOptions(fileset, {
-          baseOptions: { modelAssetPath: MODEL_URL, delegate },
+          baseOptions: { modelAssetPath: MODEL_URLS[quality], delegate },
           runningMode: 'IMAGE',
           numPoses: 1,
         });
@@ -60,7 +69,8 @@ async function getLandmarker(): Promise<PoseLandmarker | null> {
       return null;
     }
   })();
-  return landmarkerPromise;
+  landmarkerPromises.set(quality, promise);
+  return promise;
 }
 
 function loadImage(dataUrl: string): Promise<HTMLImageElement | null> {
@@ -75,10 +85,15 @@ function loadImage(dataUrl: string): Promise<HTMLImageElement | null> {
 /**
  * Detect pose landmarks on each frame. Returns only the frames where a
  * pose was actually found (so empty ⇒ no usable pose). Never throws.
+ *
+ * @param quality model tier — 'lite' (default, fastest) | 'full' | 'heavy'.
  */
-export async function detectPoses(frames: PoseDetectInput[]): Promise<PoseFrame[]> {
+export async function detectPoses(
+  frames: PoseDetectInput[],
+  quality: PoseModelQuality = 'lite',
+): Promise<PoseFrame[]> {
   if (typeof window === 'undefined' || frames.length === 0) return [];
-  const landmarker = await getLandmarker();
+  const landmarker = await getLandmarker(quality);
   if (!landmarker) return [];
 
   const out: PoseFrame[] = [];
