@@ -7,6 +7,6 @@
 // ============================================================
 
 export * from './types';
-export { buildPlayerArc } from './playerArc';
-export { buildFlawFingerprint } from './flawFingerprint';
-export { buildTrainingReceipt } from './trainingReceipt';
+export { buildPlayerArc } from './player-arc';
+export { buildFlawFingerprint } from './flaw-fingerprint';
+export { buildTrainingReceipt } from './training-receipt';

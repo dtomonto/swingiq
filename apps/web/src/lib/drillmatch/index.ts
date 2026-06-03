@@ -23,7 +23,7 @@ export {
   normalizeMatchInput,
   type ScoredDrill,
 } from './scoring';
-export { buildFixStack } from './fixStack';
+export { buildFixStack } from './fix-stack';
 export {
   localDrillFeedbackRepo,
   recordDrillFeedback,
