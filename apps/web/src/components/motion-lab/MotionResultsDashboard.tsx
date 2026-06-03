@@ -12,7 +12,7 @@ import {
   FileText, RotateCcw, Trash2, Lightbulb, Trophy, Bug,
 } from 'lucide-react';
 import type { MotionSession, MotionPhaseSegment } from '@/lib/motion-lab';
-import { downloadSessionJson, downloadSessionCsv, getSport, skillLabel } from '@/lib/motion-lab';
+import { downloadSessionJson, downloadSessionCsv, printSessionReport, getSport, skillLabel } from '@/lib/motion-lab';
 import { Motion3DViewer } from './Motion3DViewer';
 import { PhaseTimeline } from './PhaseTimeline';
 import { MotionScoreboard } from './MotionScoreboard';
@@ -86,6 +86,9 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
           </Button>
           <Button variant="outline" size="sm" onClick={() => downloadSessionCsv(session)}>
             <Download className="w-4 h-4" /> CSV
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => printSessionReport(session)}>
+            <FileText className="w-4 h-4" /> PDF
           </Button>
           <Button variant="ghost" size="sm" onClick={onNewMotion}>
             <RotateCcw className="w-4 h-4" /> New motion

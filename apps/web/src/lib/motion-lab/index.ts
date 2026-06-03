@@ -52,4 +52,5 @@ export {
   type MotionProfile,
 } from './persistence';
 export { downloadSessionJson, downloadSessionCsv } from './export';
+export { printSessionReport } from './printReport';
 export { useMotionSessions } from './useMotionSessions';
