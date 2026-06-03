@@ -122,6 +122,14 @@ const RANGES: Record<string, Record<MotionSkillLevel, Scorer>> = {
     advanced: { kind: 'inRange', min: 70, max: 115, slack: 55, unit: '°' },
     elite: { kind: 'inRange', min: 75, max: 112, slack: 50, unit: '°' },
   },
+  // % of pelvis motion that is rotation (around the spine) vs lateral slide.
+  // Higher = more rotational; a little slide is fine, pure slide is not.
+  rotation_quality: {
+    beginner: { kind: 'inRange', min: 45, max: 95, slack: 50, unit: '%' },
+    intermediate: { kind: 'inRange', min: 55, max: 92, slack: 45, unit: '%' },
+    advanced: { kind: 'inRange', min: 60, max: 90, slack: 40, unit: '%' },
+    elite: { kind: 'inRange', min: 65, max: 90, slack: 35, unit: '%' },
+  },
 };
 
 /** Score a metric value (0–100) against the skill-level reference range. */

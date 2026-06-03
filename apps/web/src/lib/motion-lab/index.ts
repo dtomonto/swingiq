@@ -21,6 +21,13 @@ export {
   type PhaseTemplate,
 } from './taxonomy';
 export { computeSeries, computeMetrics, type MotionSeries } from './biomechanics';
+export {
+  headingDeg,
+  unwrapDeg,
+  depthReliability,
+  detectTopFrame,
+  angularVelocityDeg,
+} from './kinematics3d';
 export { detectPhases } from './phases';
 export { computeScoreboard } from './scoring';
 export { buildReport, keyFaultLine } from './reporting';

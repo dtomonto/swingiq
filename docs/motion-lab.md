@@ -26,6 +26,17 @@ depth is a genuine model output — but a single camera can only *estimate* true
 and the app never claims medical, injury, or "tour-grade" accuracy. The video
 itself never leaves the device.
 
+**What's new — depth-aware rotation (2026-06):** your turn is now read from the
+**depth** axis — the real rotation *around your spine* — instead of only the flat
+tilt the camera happens to see. A face-on phone barely shows a true shoulder turn
+in 2D (it hides in depth), so the old reads under-counted it; the depth model now
+recovers it for shoulder turn, hip turn, the stretch between them (X-Factor), the
+firing order, and a new **Rotation-vs-Slide** number. When the depth signal is
+weak, the app says so and lowers the confidence rather than guessing. The 3D
+replay gained a **live turn readout**, a **phase-coloured scrubber**, and a floor
+grid, and the phase timeline now snaps to the **top of your backswing** as well as
+impact.
+
 You can **upload a file or record in-app**, **trim** to just the rep, pick a
 **skill level** (which sets the reference ranges you're scored against) and a
 **tracking accuracy** tier (Fast / Balanced / Accurate), and **export** the
@@ -61,11 +72,19 @@ already-shipping infrastructure:
 3. **Reconstruct** — light temporal smoothing stabilises the 3D estimate
    (`smoothTrack`).
 4. **Segment phases** — `phases.ts` time-warps the sport's canonical phase
-   template onto the real motion, anchoring the impact/contact/release phase to
-   the detected peak hand-speed frame.
+   template onto the real motion using up to **two detected anchors**: the *top of
+   the backswing* (the lead-hand reversal) and the *strike* (peak hand-speed). The
+   template is warped piecewise through both, so backswing and downswing windows
+   track the athlete's real timing instead of a fixed guess (and degrade to the
+   single strike anchor when no clear top is found).
 5. **Metrics** — `biomechanics.ts` turns the pose track into per-frame signal
-   series and ~13 proxy metrics (rotation, separation, sequencing, head
-   stability, sway, posture change, tempo, balance, etc.).
+   series and ~14 proxy metrics. Rotation, X-Factor separation, kinematic
+   sequencing, and range-of-motion are read from the reconstructed **depth**
+   (transverse-plane) axis — true axial turn — with an honest **2D fallback** and
+   reduced confidence when depth is flat. The pure rotation math lives in
+   `kinematics3d.ts` (heading, unwrap, depth-reliability blend, top-of-backswing
+   detection, angular velocity). A new **Rotation-vs-Slide** metric reports how
+   much of the pelvis motion is rotation around a stable centre vs lateral slide.
 6. **Score** — `scoring.ts` composes the metrics into six weighted components +
    an overall score, carrying the weakest data basis forward so an estimate can
    never present itself as a measurement.
@@ -89,7 +108,8 @@ storage. The original video is never stored.
 | --- | --- | --- |
 | MediaPipe body landmarks (on-device) | All biomechanical metrics (single-camera proxies) | True multi-view / metric 3D |
 | Frame extraction & motion-window detection | Phase windows (template warped onto motion peak) | Trained sport-specific phase model |
-| Per-frame velocity / rotation signals | Reference ranges (starter heuristics, editable) | Validated, level-segmented norms |
+| Per-frame velocity + depth-axis (transverse-plane) rotation | Reference ranges (starter heuristics, editable) | Validated, level-segmented norms |
+| Multi-view triangulated 3D (basis `measured`) now drives the metrics, not just the replay | Single-camera depth (MediaPipe relative-z + trained lift) | ONNX mocap model via the pose-provider seam |
 | Camera-quality signals from tracking | Lighting / motion-blur (inferred from tracking) | Direct image-quality analysis |
 
 If no pose is detected (bad lighting, body out of frame), the pipeline does **not**
@@ -101,9 +121,13 @@ shows a "no pose detected" message with capture guidance.
 `components/motion-lab/Motion3DViewer.tsx` is a **dependency-free** 3D renderer on
 a 2D canvas. It projects the real MediaPipe landmarks with a rotation +
 light-perspective transform. Features: orbit (drag), zoom, front/side/top
-presets, play/pause, speed, frame stepping, scrub, hand/head motion trails,
-confidence shading (low-confidence bones are dashed/grey), a ghost-overlay
-comparison mode, and PNG screenshot export.
+presets, play/pause, speed, frame stepping, hand/head motion trails, confidence
+shading (low-confidence bones are dashed/grey), a ghost-overlay comparison mode,
+and PNG screenshot export. The replay now also shows a rotating **floor grid**
+for depth perception, a **live depth-aware turn readout** (shoulders/hips vs the
+address pose at the scrubbed frame), and a **phase-segmented scrubber** — each
+phase is a coloured block (opacity = confidence) you can drag across or click to
+jump to.
 
 > **Why not Three.js / React Three Fiber?** The prompt suggested them, but the
 > existing app has neither, and adding heavy 3D dependencies to a React 19 /

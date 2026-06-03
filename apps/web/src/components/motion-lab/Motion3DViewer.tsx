@@ -21,6 +21,7 @@ import {
   Camera, RotateCcw, Tag, Spline, Eye,
 } from 'lucide-react';
 import type { MotionPoseTrack, MotionPhaseSegment } from '@/lib/motion-lab';
+import { headingDeg } from '@/lib/motion-lab/kinematics3d';
 import { cn } from '@/lib/utils';
 
 interface V3 { x: number; y: number; z: number; v: number }
@@ -74,6 +75,8 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
   const rafRef = useRef<number>(0);
   const lastTsRef = useRef<number>(0);
   const dragRef = useRef<{ x: number; y: number } | null>(null);
+  const scrubRef = useRef<HTMLDivElement>(null);
+  const scrubbingRef = useRef(false);
 
   const frameCount = track.frames.length;
   const totalMs = useMemo(() => {
@@ -133,6 +136,7 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
     const cosP = Math.cos(pitch), sinP = Math.sin(pitch);
 
     const lm = sampleFrame(track, cursorRef.current);
+    if (lm.length < 33) return;
     // body centre (pelvis-thorax) for stable orbit
     const bcx = (lm[L_SH].x + lm[R_SH].x + lm[L_HIP].x + lm[R_HIP].x) / 4;
     const bcy = (lm[L_SH].y + lm[R_SH].y + lm[L_HIP].y + lm[R_HIP].y) / 4;
@@ -155,8 +159,28 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
       return { sx: cx + X * scale * persp, sy: cy - Y * scale * persp, depth: Z };
     };
 
-    // ground shadow ellipse
+    // floor grid for depth perception (rotates with the orbit)
     const feetY = Math.max(lm[27].y, lm[28].y);
+    ctx.strokeStyle = 'rgba(148,163,184,0.10)';
+    ctx.lineWidth = 1;
+    const gN = 4;
+    const gStep = 0.11;
+    for (let gi = -gN; gi <= gN; gi++) {
+      ctx.beginPath();
+      for (let gj = -gN; gj <= gN; gj++) {
+        const p = project({ x: bcx + gi * gStep, y: feetY, z: bcz + gj * gStep });
+        if (gj === -gN) ctx.moveTo(p.sx, p.sy); else ctx.lineTo(p.sx, p.sy);
+      }
+      ctx.stroke();
+      ctx.beginPath();
+      for (let gj = -gN; gj <= gN; gj++) {
+        const p = project({ x: bcx + gj * gStep, y: feetY, z: bcz + gi * gStep });
+        if (gj === -gN) ctx.moveTo(p.sx, p.sy); else ctx.lineTo(p.sx, p.sy);
+      }
+      ctx.stroke();
+    }
+
+    // ground shadow ellipse
     const shadow = project({ x: bcx, y: feetY, z: bcz });
     ctx.fillStyle = 'rgba(0,0,0,0.35)';
     ctx.beginPath();
@@ -297,11 +321,22 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
     cursorRef.current = c;
     setFrame(c);
   };
-  const scrub = (v: number) => {
+  const scrubToClientX = (clientX: number) => {
+    const el = scrubRef.current;
+    if (!el || frameCount < 2) return;
+    const r = el.getBoundingClientRect();
+    const frac = Math.max(0, Math.min(1, (clientX - r.left) / Math.max(1, r.width)));
     setPlaying(false);
-    cursorRef.current = v;
-    setFrame(Math.round(v));
+    cursorRef.current = frac * (frameCount - 1);
+    setFrame(Math.round(cursorRef.current));
   };
+  const onScrubDown = (e: React.PointerEvent) => {
+    scrubbingRef.current = true;
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    scrubToClientX(e.clientX);
+  };
+  const onScrubMove = (e: React.PointerEvent) => { if (scrubbingRef.current) scrubToClientX(e.clientX); };
+  const onScrubUp = () => { scrubbingRef.current = false; };
   const screenshot = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -314,6 +349,24 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
   };
 
   const activePhase = phases?.find((p) => frame >= p.startFrame && frame <= p.endFrame);
+
+  // Live, depth-aware turn readout at the scrubbed frame — visualizes the same
+  // axial rotation (transverse plane) the metric engine now reads, relative to
+  // the address pose in frame 0.
+  const turnAt = (a: number, b: number, idx: number): number | null => {
+    const f = track.frames[Math.max(0, Math.min(frameCount - 1, idx))];
+    const f0 = track.frames[0];
+    if (!f || !f0 || !f.landmarks[a] || !f.landmarks[b] || !f0.landmarks[a] || !f0.landmarks[b]) return null;
+    const h = headingDeg(f.landmarks[b].x - f.landmarks[a].x, f.landmarks[b].z - f.landmarks[a].z);
+    const h0 = headingDeg(f0.landmarks[b].x - f0.landmarks[a].x, f0.landmarks[b].z - f0.landmarks[a].z);
+    let d = h - h0;
+    while (d > 180) d -= 360;
+    while (d < -180) d += 360;
+    return Math.round(d);
+  };
+  const liveShoulder = empty ? null : turnAt(11, 12, frame);
+  const liveHip = empty ? null : turnAt(23, 24, frame);
+  const scrubTotal = phases && phases.length ? Math.max(1, phases[phases.length - 1].endFrame) : Math.max(1, frameCount - 1);
 
   const btn = 'inline-flex items-center justify-center rounded-md p-1.5 text-slate-200 hover:bg-white/10 transition-colors';
 
@@ -337,6 +390,12 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
             {activePhase.label}
           </div>
         )}
+        {!empty && (liveShoulder != null || liveHip != null) && (
+          <div className="absolute top-9 right-2 text-[10px] font-medium text-slate-200 bg-black/45 rounded px-2 py-0.5 tabular-nums flex gap-2">
+            {liveShoulder != null && <span>Shoulders <span className="text-sky-300">{liveShoulder >= 0 ? '+' : ''}{liveShoulder}°</span></span>}
+            {liveHip != null && <span>Hips <span className="text-amber-300">{liveHip >= 0 ? '+' : ''}{liveHip}°</span></span>}
+          </div>
+        )}
         {/* View presets */}
         <div className="absolute bottom-2 left-2 flex gap-1">
           {(['front', 'side', 'top'] as ViewPreset[]).map((v) => (
@@ -355,12 +414,41 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
           </button>
           <button className={btn} onClick={() => stepFrame(-1)} aria-label="Previous frame"><ChevronLeft className="w-4 h-4" /></button>
           <button className={btn} onClick={() => stepFrame(1)} aria-label="Next frame"><ChevronRight className="w-4 h-4" /></button>
-          <input
-            type="range" min={0} max={Math.max(0, frameCount - 1)} step={0.01} value={frame}
-            onChange={(e) => scrub(Number(e.target.value))}
-            className="flex-1 accent-sky-400 mx-1"
-            aria-label="Scrub frame"
-          />
+          <div
+            ref={scrubRef}
+            onPointerDown={onScrubDown}
+            onPointerMove={onScrubMove}
+            onPointerUp={onScrubUp}
+            onPointerLeave={onScrubUp}
+            className="relative flex-1 h-6 mx-1 rounded cursor-pointer select-none touch-none overflow-hidden border border-white/10"
+            role="slider"
+            aria-label="Scrub frame (phase-segmented)"
+            aria-valuemin={1}
+            aria-valuemax={frameCount}
+            aria-valuenow={frame + 1}
+          >
+            {phases && phases.length > 0 ? (
+              <div className="absolute inset-0 flex">
+                {phases.map((p, i) => {
+                  const span = Math.max(1, p.endFrame - p.startFrame + 1);
+                  return (
+                    <div
+                      key={p.key + i}
+                      title={`${p.label} · ${Math.round(p.confidence * 100)}%`}
+                      className="h-full border-r border-black/25 last:border-r-0"
+                      style={{ width: `${(span / scrubTotal) * 100}%`, background: accent, opacity: 0.22 + p.confidence * 0.4 }}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="absolute inset-0 bg-white/10" />
+            )}
+            <div
+              className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_4px_rgba(255,255,255,0.85)] pointer-events-none"
+              style={{ left: `${(frame / Math.max(1, frameCount - 1)) * 100}%` }}
+            />
+          </div>
           <span className="text-[11px] text-slate-400 tabular-nums w-14 text-right">{frame + 1}/{frameCount}</span>
         </div>
         <div className="flex items-center gap-1 flex-wrap">

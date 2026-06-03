@@ -40,8 +40,8 @@ interface ComponentSpec {
 const COMPONENTS: ComponentSpec[] = [
   { id: 'power', label: 'Power Efficiency', weight: 1.2, metricIds: ['hip_shoulder_sep', 'hand_speed_peak', 'sequencing'] },
   { id: 'sequencing', label: 'Sequencing', weight: 1.2, metricIds: ['sequencing', 'hip_shoulder_sep'] },
-  { id: 'rotation', label: 'Rotation', weight: 1.0, metricIds: ['shoulder_turn', 'hip_turn', 'rom'] },
-  { id: 'balance', label: 'Balance', weight: 1.0, metricIds: ['head_stability', 'pelvis_sway', 'balance_finish', 'knee_flex'] },
+  { id: 'rotation', label: 'Rotation', weight: 1.0, metricIds: ['shoulder_turn', 'hip_turn', 'rom', 'rotation_quality'] },
+  { id: 'balance', label: 'Balance', weight: 1.0, metricIds: ['head_stability', 'pelvis_sway', 'balance_finish', 'knee_flex', 'rotation_quality'] },
   { id: 'timing', label: 'Timing', weight: 0.9, metricIds: ['tempo_ratio', 'sequencing'] },
   { id: 'consistency', label: 'Consistency', weight: 0.8, metricIds: ['head_stability', 'spine_change'] },
 ];
