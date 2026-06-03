@@ -14,11 +14,12 @@
 // ============================================================
 
 import type { SportId } from '@swingiq/core';
+import type { MotionSkillLevel } from './referenceRanges';
 
 /** How trustworthy a value is. Mirrors the motion-engine basis ladder. */
 export type MotionBasis = 'measured' | 'estimated' | 'ai_inferred' | 'user_entered' | 'placeholder';
 
-export type { SportId };
+export type { SportId, MotionSkillLevel };
 
 /** The motion a user is analysing (sport-specific). */
 export type MotionTypeId = string;
@@ -33,6 +34,8 @@ export interface CaptureContext {
   motionType: MotionTypeId;
   view: CameraView;
   handedness: Handedness;
+  /** Skill level — drives which reference range a metric is scored against. */
+  skillLevel?: MotionSkillLevel;
   /** Optional self-reported height in cm (improves stride/scale proxies). */
   heightCm?: number | null;
   /** Optional implement label (club/bat/racket type). */
@@ -137,6 +140,8 @@ export interface MotionMetric {
   drillId: string | null;
   /** Honest caveat about the proxy. */
   limitations: string;
+  /** Skill-level target range for this metric, if defined (e.g. "70–110° (intermediate)"). */
+  target?: string | null;
   /** Per-frame series for charts / the 3D viewer (optional, compact). */
   series?: number[];
 }

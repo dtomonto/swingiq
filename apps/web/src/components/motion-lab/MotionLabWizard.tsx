@@ -21,10 +21,10 @@ import { MotionResultsDashboard } from './MotionResultsDashboard';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import {
-  runMotionAnalysis, saveSession, deleteSession, useMotionSessions, sessionsFor, getMotion,
+  runMotionAnalysis, saveSession, deleteSession, useMotionSessions, sessionsFor, getMotion, SKILL_LEVELS,
 } from '@/lib/motion-lab';
 import type {
-  SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext,
+  SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext, MotionSkillLevel,
 } from '@/lib/motion-lab';
 import type { SwingVideoMetadata } from '@swingiq/core';
 import { cn } from '@/lib/utils';
@@ -70,6 +70,7 @@ export function MotionLabWizard() {
   const [motionType, setMotionType] = useState<MotionTypeId | null>(null);
   const [view, setView] = useState<CameraView>('unknown');
   const [handedness, setHandedness] = useState<Handedness>('right');
+  const [skillLevel, setSkillLevel] = useState<MotionSkillLevel>('intermediate');
 
   const [inputMode, setInputMode] = useState<'upload' | 'record'>('upload');
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -119,6 +120,7 @@ export function MotionLabWizard() {
       motionType,
       view,
       handedness,
+      skillLevel,
       heightCm: null,
       implement: null,
     };
@@ -141,7 +143,7 @@ export function MotionLabWizard() {
       setError(err instanceof Error ? err.message : 'Analysis failed. Please try another clip.');
       setStep('capture');
     }
-  }, [videoFile, motionType, sport, view, handedness, videoMeta, trim]);
+  }, [videoFile, motionType, sport, view, handedness, skillLevel, videoMeta, trim]);
 
   const openSession = useCallback((s: MotionSession) => {
     setSession(s);
@@ -278,6 +280,10 @@ export function MotionLabWizard() {
                     <div>
                       <p className="text-xs font-semibold text-foreground mb-2">Handedness</p>
                       <Pills options={HAND_OPTIONS} value={handedness} onChange={setHandedness} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-foreground mb-2">Skill level <span className="text-muted-foreground font-normal">(sets which reference range you’re scored against)</span></p>
+                      <Pills options={SKILL_LEVELS} value={skillLevel} onChange={setSkillLevel} />
                     </div>
                   </CardBody>
                 </Card>

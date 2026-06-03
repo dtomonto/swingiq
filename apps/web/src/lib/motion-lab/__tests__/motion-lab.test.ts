@@ -18,6 +18,8 @@ import {
   getPhaseTemplate,
   getMotion,
   compactTrack,
+  scoreMetric,
+  metricTarget,
 } from '..';
 import type { MotionPoseTrack, CaptureContext, MotionSession } from '..';
 
@@ -190,6 +192,15 @@ describe('motion-lab engine (synthetic track)', () => {
     const small = compactTrack(big);
     expect(small.frames.length).toBeLessThanOrEqual(40);
     expect(small.frames[0].landmarks.length).toBe(33);
+  });
+
+  it('scores metrics more strictly as skill level rises', () => {
+    // 62° separation is elite-good but only "fine" for a beginner band shape.
+    const beginner = scoreMetric('hip_shoulder_sep', 18, 'beginner');
+    const elite = scoreMetric('hip_shoulder_sep', 18, 'elite');
+    expect(beginner).toBeGreaterThan(elite); // 18° is below the elite target band
+    expect(metricTarget('shoulder_turn', 'intermediate')).toMatch(/intermediate/);
+    expect(scoreMetric('unknown_metric', 5, 'elite')).toBe(50); // safe default
   });
 
   it('resolves taxonomy for every sport/motion without throwing', () => {

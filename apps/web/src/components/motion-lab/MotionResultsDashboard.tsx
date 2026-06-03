@@ -12,7 +12,7 @@ import {
   FileText, RotateCcw, Trash2, Lightbulb, Trophy,
 } from 'lucide-react';
 import type { MotionSession, MotionPhaseSegment } from '@/lib/motion-lab';
-import { downloadSessionJson, downloadSessionCsv, getSport } from '@/lib/motion-lab';
+import { downloadSessionJson, downloadSessionCsv, getSport, skillLabel } from '@/lib/motion-lab';
 import { Motion3DViewer } from './Motion3DViewer';
 import { PhaseTimeline } from './PhaseTimeline';
 import { MotionScoreboard } from './MotionScoreboard';
@@ -76,7 +76,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
           <div>
             <h1 className="text-lg font-bold text-foreground">{session.sportLabel} · {session.motionLabel}</h1>
             <p className="text-xs text-muted-foreground">
-              {new Date(session.createdAt).toLocaleString()} · {session.keyFault}
+              {new Date(session.createdAt).toLocaleString()} · {skillLabel(session.capture.skillLevel ?? 'intermediate')} · {session.keyFault}
             </p>
           </div>
         </div>

@@ -4,6 +4,13 @@
 
 export * from './types';
 export {
+  SKILL_LEVELS,
+  scoreMetric,
+  metricTarget,
+  skillLabel,
+  type MotionSkillLevel,
+} from './referenceRanges';
+export {
   MOTION_SPORTS,
   getSport,
   getMotion,
