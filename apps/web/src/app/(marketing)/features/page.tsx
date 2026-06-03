@@ -72,6 +72,12 @@ const FEATURE_GROUPS = [
     heading: 'Training & Drills',
     features: [
       {
+        name: 'Fix Stack — One Fix at a Time',
+        sports: 'All 5 sports',
+        desc: 'SwingIQ finds your single highest-impact issue and turns it into a three-step loop: one body cue to feel, the best-matched drill for your level and the gear you have, and an honest before/after retest.',
+        detail: 'Deterministic and local-first — it learns from what worked for you and needs no account.',
+      },
+      {
         name: 'Personalized Drill Recommendations',
         sports: 'All 5 sports',
         desc: 'Every diagnosis generates 3–5 sport-specific drills tailored to your exact fault pattern. Each drill includes a YouTube search link so you can immediately find video demonstrations.',
@@ -110,7 +116,7 @@ const FEATURE_GROUPS = [
         name: 'Swing Video Upload',
         sports: 'All 5 sports',
         desc: 'Upload a video of your swing from the face-on, down-the-line, or sport-specific angle. SwingIQ segments the video into phases and provides coaching notes for each phase.',
-        detail: 'Every video read is a heuristic estimate that sharpens as you add data — a confident starting point you can act on today, with deeper pose-tracking computer vision on the way.',
+        detail: 'Every video read is a heuristic estimate that sharpens as you add data — a confident starting point you can act on today. For full on-device pose tracking and a rotatable 3D reconstruction, see Motion Lab below.',
       },
       {
         name: 'Phase-by-Phase Timeline',
@@ -123,6 +129,17 @@ const FEATURE_GROUPS = [
         sports: 'All 5 sports',
         desc: 'Browse a curated library of professional athlete swing references filtered by sport. Use as a visual learning reference alongside your own video.',
         detail: 'References are publicly available YouTube videos. SwingIQ does not host or own the footage.',
+      },
+    ],
+  },
+  {
+    heading: '3D Motion Analysis — Motion Lab',
+    features: [
+      {
+        name: 'Motion Lab (3D)',
+        sports: 'All 5 sports',
+        desc: 'Turn a phone clip into a 3D figure of your motion you can spin, slow down, and step through — with a phase-by-phase breakdown, scores for power, rotation, balance, sequencing, timing, and consistency, your top 3 fixes, and a practice plan.',
+        detail: 'Runs privately on your own device. One camera gives an estimated 3D read; filming the same rep from two angles about 90° apart produces measured 3D. No medical, injury, or tour-grade claims.',
       },
     ],
   },
@@ -169,6 +186,24 @@ const FEATURE_GROUPS = [
         sports: 'All 5 sports',
         desc: 'Automatically tracks key milestones — sessions completed, videos analyzed, personal bests, streaks, and improvement markers.',
         detail: '',
+      },
+      {
+        name: 'Retest — Prove the Change',
+        sports: 'All 5 sports',
+        desc: 'SwingIQ reminds you when a diagnosed finding is due for a retest, then — after you re-analyze under the same conditions — shows an honest before-and-after read of whether it actually changed.',
+        detail: 'Comparisons are labeled directional reads from your data and video, not lab-measured biomechanics.',
+      },
+      {
+        name: 'Player Arc',
+        sports: 'All 5 sports',
+        desc: 'The story of your improvement over time — the faults that keep coming back, which drills actually worked for you, and honest proof of what each retest changed. It builds with every session.',
+        detail: '',
+      },
+      {
+        name: 'SwingIQ Labs',
+        sports: 'All 5 sports',
+        desc: 'An in-app home for emerging, on-device tools: a daily readiness score, a private player model, cross-sport skill transfer, your performance graph, and benchmark mirrors.',
+        detail: 'Some are early versions — each is honest about its confidence and what it does not know yet.',
       },
       {
         name: 'AI Coach Chat',

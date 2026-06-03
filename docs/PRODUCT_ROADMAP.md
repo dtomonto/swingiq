@@ -49,6 +49,12 @@ _Last updated: June 2026_
 - On-device and privacy-first; honest estimated-vs-measured labeling; no medical, injury, or tour-grade claims
 - Provider seam left for a future ONNX model fine-tuned on real motion-capture (documented in `docs/pose3d.md`)
 
+### Coaching & Progress Intelligence
+- **Fix Stack (`/fix`)** — surfaces your single highest-impact issue and turns it into one feel cue, the best-matched drill for your level and available gear, and an honest retest; learns from what worked (`lib/drillmatch`, `components/drillmatch`)
+- **Player Arc (`/arc`)** — a narrative of your improvement over time: recurring faults ("flaw fingerprint"), which drills actually helped, and honest retest outcomes (`lib/progress`, `components/progress`)
+- **SwingIQ Labs (`/labs`)** — early-stage foundations, each honest about its confidence and limits: a daily readiness score, a private player model, cross-sport skill transfer, a personal performance graph, and benchmark mirrors (`lib/readiness`, `lib/playerModel`, `lib/skillTransfer`, `lib/performanceGraph`, `lib/benchmarkMirror`; `components/foundations`)
+- All three are deterministic, local-first, and require no AI account; they sharpen as you add sessions and retests
+
 ### Benchmarks & Training
 - Tour-calibrated benchmarks per club and skill level (golf)
 - Tennis ATP/WTA technical phase benchmarks
@@ -142,9 +148,9 @@ _Last updated: June 2026_
 
 ### Mobile & PWA
 6. ~~iOS/Android install prompts with proper PWA manifest~~ **✅ Done — PWA install banner live (beforeinstallprompt)**
-7. Offline-first session logging (IndexedDB sync)
+7. ~~Offline-first session logging (IndexedDB sync)~~ **✅ Done — offline status banner + IndexedDB outbox that completes queued actions on reconnect**
 8. Push notifications for practice reminders
-9. Share card generation (Instagram-ready session summary image)
+9. ~~Share card generation (Instagram-ready session summary image)~~ **✅ Done — shareable plan/report image generated on-device (Reports + Diagnose)**
 
 ### API
 10. Public API (read-only) for third-party integrations

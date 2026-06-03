@@ -91,6 +91,12 @@ Browser-based 3D motion analysis at `/motion-lab` (`lib/motion-lab`, `components
 - Golf: interactive drill checklist based on active diagnosis, training effectiveness tracker
 - Non-golf: drill checklist sourced from sport-specific drill library, filtered to primary video issue
 
+### 🛠️ Fix Stack — One Fix at a Time (`/fix`)
+- Surfaces your single **highest-impact issue** and turns it into a 3-step loop: **feel it** (one body cue), **drill it** (the best-matched drill for your level + available gear), **retest it** (a fair before/after)
+- Learns from what worked for you so the next recommendation is sharper
+- Deterministic and local-first — no AI account required (`lib/drillmatch`, `components/drillmatch`)
+- Found at **Practice → Fix Stack**
+
 ### 📅 Practice Schedule
 Generates a personalized 7-day practice week based on diagnosis and frequency preference.
 
@@ -107,6 +113,17 @@ Generates a personalized 7-day practice week based on diagnosis and frequency pr
 ### 📈 Progress Tracker
 - Golf: score trend chart, ball data trends, personal bests, handicap estimate
 - Non-golf: video analysis score sparkline, recurring issue frequency chart
+
+### 🛣️ Player Arc — The Story of Your Improvement (`/arc`)
+- A narrative of your progress over time: the **recurring faults** that keep coming back ("flaw fingerprint"), which drills actually helped, and honest proof of what each retest changed
+- Builds automatically with every session and retest you add (`lib/progress`, `components/progress`)
+- Found at **Progress → Player Arc**
+
+### 🧪 SwingIQ Labs — Foundations (`/labs`)
+- An in-app home for emerging, on-device tools — each **honest about its confidence and limits**
+- Includes a daily **readiness score**, a private **player model**, **cross-sport skill transfer**, a personal **performance graph**, and **benchmark mirrors** (`lib/readiness`, `lib/playerModel`, `lib/skillTransfer`, `lib/performanceGraph`, `lib/benchmarkMirror`; `components/foundations`)
+- Some are early v1s; all sharpen the more you practise and retest
+- Found at **Progress → SwingIQ Labs**
 
 ### 🔁 Retest — Prove the Change
 - Dedicated **Retest** page (`/retest`) that closes the improvement loop
@@ -238,6 +255,9 @@ swingiq/
 │           │   ├── pose3d/     # Proprietary 3D engine (triangulation, self-calibration, trained lift model)
 │           │   ├── pose/       # On-device MediaPipe pose detection (lite/full/heavy)
 │           │   ├── motion/     # Motion engine provider seam + honest data-basis labeling
+│           │   ├── drillmatch/ # Fix Stack — highest-impact issue → feel cue + best-matched drill + retest
+│           │   ├── progress/   # Player Arc — improvement narrative, flaw fingerprint, retest outcomes
+│           │   ├── readiness/, playerModel/, skillTransfer/, performanceGraph/, benchmarkMirror/  # SwingIQ Labs foundations
 │           │   ├── backup/     # schema, export, validate, restore, migrate,
 │           │   │               # registry, crypto — complete data portability system
 │           │   ├── tutorial/   # content registry (20+ screens), types

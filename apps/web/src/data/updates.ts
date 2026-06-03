@@ -632,7 +632,7 @@ export const UPDATES: Update[] = [
     updatedAt: '2026-05-31',
   },
   {
-    id: 'update-034',
+    id: 'update-054',
     title: 'Complete Data Backup Now Includes Badges, XP, and Community Progress',
     slug: 'backup-includes-community-gamification',
     metaTitle: 'SwingIQ Backup Now Covers Badges, XP & Community Progress',
@@ -662,12 +662,12 @@ export const UPDATES: Update[] = [
     answerEngineSummary:
       'SwingIQ backups now include achievement badges, XP totals, challenge history, and community progress so athletes can fully restore their training identity on any device.',
     isMajorMilestone: true,
-    isFeatured: true,
+    isFeatured: false,
     createdAt: '2026-05-31',
     updatedAt: '2026-05-31',
   },
   {
-    id: 'update-035',
+    id: 'update-055',
     title: 'Smarter Restore Preview Shows Exactly What Will Be Recovered',
     slug: 'restore-preview-enhanced',
     summary:
@@ -697,7 +697,7 @@ export const UPDATES: Update[] = [
     updatedAt: '2026-05-31',
   },
   {
-    id: 'update-036',
+    id: 'update-056',
     title: 'Always-Accessible Help Guides on Every Screen',
     slug: 'contextual-help-tutorial-system',
     metaTitle: 'SwingIQ Now Has Built-In Help Guides on Every Screen',
@@ -731,7 +731,7 @@ export const UPDATES: Update[] = [
     updatedAt: '2026-05-31',
   },
   {
-    id: 'update-037',
+    id: 'update-057',
     title: 'Tutorial Progress Saved and Included in Your Backup',
     slug: 'tutorial-progress-in-backup',
     summary:
@@ -760,7 +760,7 @@ export const UPDATES: Update[] = [
     updatedAt: '2026-05-31',
   },
   {
-    id: 'update-038',
+    id: 'update-058',
     title: 'Backup Schema Version 1.2 — Built for Future Growth',
     slug: 'backup-schema-v1-2',
     summary:
@@ -790,7 +790,7 @@ export const UPDATES: Update[] = [
     updatedAt: '2026-05-31',
   },
   {
-    id: 'update-039',
+    id: 'update-059',
     title: 'SwingIQ Now Picks Up Where You Left Off',
     slug: 'pick-up-where-you-left-off',
     metaTitle: 'SwingIQ Remembers Where You Left Off — Personalized Next Steps',
@@ -826,12 +826,12 @@ export const UPDATES: Update[] = [
       'SwingIQ now provides a "pick up where you left off" experience and a clear next-best-step recommendation on every visit, plus personalized practice plans and pre-game focus guidance for all five supported sports.',
     internalLinkTargets: ['/dashboard', '/training', '/pre-round', '/reports'],
     isMajorMilestone: true,
-    isFeatured: true,
+    isFeatured: false,
     createdAt: '2026-05-31',
     updatedAt: '2026-05-31',
   },
   {
-    id: 'update-040',
+    id: 'update-060',
     title: 'Make SwingIQ Yours With 7 Built-In Themes',
     slug: 'customizable-themes',
     metaTitle: 'SwingIQ Adds 7 Customizable Themes — Light, Dark & More',
@@ -903,7 +903,7 @@ export const UPDATES: Update[] = [
       'SwingIQ now closes the improvement loop with a Retest hub: it reminds players to recheck a diagnosed fault after drilling it and shows whether it actually changed, with comparisons honestly labelled directional.',
     internalLinkTargets: ['/retest', '/video', '/diagnose'],
     isMajorMilestone: true,
-    isFeatured: true,
+    isFeatured: false,
     createdAt: '2026-06-01',
     updatedAt: '2026-06-01',
   },

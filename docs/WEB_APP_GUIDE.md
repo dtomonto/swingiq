@@ -261,6 +261,20 @@ A diagnosis is a starting point, not a verdict. The **Retest** page (in the main
 
 ---
 
+## 11c. Fix Stack — One Fix at a Time
+
+Found at **Practice → Fix Stack** in the sidebar (or `/fix`).
+
+Instead of a long list of everything that's a little off, the Fix Stack picks your **single highest-impact issue** and turns it into a simple three-step loop:
+
+1. **Feel it** — one body cue you can actually feel, not ten swing thoughts.
+2. **Drill it** — the single best-matched drill for your issue, your level, and the gear you have.
+3. **Retest it** — a fair before/after so you know the fix actually worked, not just that you practised.
+
+SwingIQ learns from what worked for you, so the next recommendation gets sharper. It runs on the data you already have — no AI account needed — and links straight to the Practice Schedule if you want to build a full week around your fix.
+
+---
+
 ## 12. Practice Schedule
 
 Auto-generates a 7-day practice week based on your active diagnosis.
@@ -320,6 +334,34 @@ Each drill card shows:
 **Golf:** Score trend chart (SVG line chart), score changes breakdown with before/after bars, ball data trend (avg carry, smash factor, face-to-path deltas), personal bests, handicap estimate, most improved/needs work summary, session history list.
 
 **Non-Golf:** Video analysis score sparkline, summary strip (latest score, best score, practice streak), recurring issues frequency chart, full analysis history.
+
+---
+
+## 15b. Player Arc — The Story of Your Improvement
+
+Found at **Progress → Player Arc** in the sidebar (or `/arc`).
+
+Where the Progress page shows the numbers, the Player Arc tells the **story** behind them:
+- The patterns that keep coming back — your "flaw fingerprint."
+- Which drills have actually worked for you (and which haven't).
+- Honest proof of what each retest changed.
+
+It builds automatically with every session and retest you add — no setup required.
+
+---
+
+## 15c. SwingIQ Labs — Foundations
+
+Found at **Progress → SwingIQ Labs** in the sidebar (or `/labs`).
+
+Labs is where SwingIQ's deeper, more personal tools grow up. Each one is **honest about its confidence and what it doesn't know yet** — some are early v1s. It currently includes:
+- A daily **readiness score** (how primed you are to practise today).
+- A private **player model** that learns your tendencies.
+- **Cross-sport skill transfer** — how your skills carry between sports.
+- Your personal **performance graph**.
+- **Benchmark mirrors** that compare you to skill-level standards.
+
+Everything is built privately on your own data and gets sharper the more you practise and retest.
 
 ---
 
