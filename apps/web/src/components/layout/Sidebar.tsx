@@ -82,6 +82,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       icon: Target,
       children: [
         { href: '/diagnose', label: isGolf ? 'Diagnose' : 'Analyze Swing', icon: Target },
+        { href: '/motion-lab', label: 'Motion Lab (3D)', icon: FlaskConical },
         { href: '/video', label: 'Video Analysis', icon: Video },
         { href: '/avatar', label: '3D Swing Avatar', icon: PersonStanding },
         { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
