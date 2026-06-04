@@ -22,6 +22,12 @@ export const metadata: Metadata = {
     'golf training',
   ],
   metadataBase: new URL('https://swingiq.app'),
+  // Google Search Console verification (meta-tag method). Set
+  // NEXT_PUBLIC_GSC_VERIFICATION to the token from GSC's "HTML tag" option,
+  // then submit /sitemap.xml. Omitted entirely when unset.
+  verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
+    : undefined,
   openGraph: {
     title: 'SwingIQ — AI Swing Performance Platform',
     description:
