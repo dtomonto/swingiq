@@ -871,6 +871,170 @@ const BASEBALL_EXIT_VELO: SeoPage = {
   publishStatus: 'published',
 };
 
+const GOLF_STOP_OVER_THE_TOP: SeoPage = {
+  slug: 'golf/stop-coming-over-the-top',
+  sport: 'golf',
+  audience: 'player',
+  keyword: 'how to stop coming over the top',
+  intent: 'informational',
+  funnelStage: 'consideration',
+  priority: 1,
+  title: 'How to Stop Coming Over the Top (Beginner-Safe Guide)',
+  metaDescription:
+    'Coming over the top means the club swings out and across the ball from the top of the backswing — the root cause behind most slices and pulls. Here is how to diagnose it, three drills to fix it, and a practice plan.',
+  directAnswer:
+    'Coming over the top is when your downswing starts with your shoulders and arms throwing the club up and outward, so it drops onto an out-to-in path that cuts across the ball. You fix it by starting the downswing from the ground up — let your weight shift and hips lead while your trail elbow drops in front of your hip — so the club falls onto an inside path instead of being thrown over it.',
+  problemExplanation: [
+    'The "top" in "over the top" is the top of your backswing. From there, the club should drop slightly down and to the inside before it swings out to the ball. When you come over the top, the first move is your upper body spinning and your arms casting the club outward, so it approaches from outside the target line and swings left through impact.',
+    'That out-to-in path is the engine behind the two most common amateur misses: a slice (face open to that path) and a pull (face square to it). Because the path itself is the problem, chasing the face alone — grip tweaks, aiming further left — usually makes it worse.',
+    'The usual causes are a sequence problem (everything fires at once from the top instead of bottom-up), a backswing that gets steep or stuck, and tension that makes you "hit from the top" rather than let the club drop.',
+  ],
+  diagnosisSteps: [
+    'Watch your ball flight: a shot that starts left of target (for a right-handed golfer) is the calling card of an out-to-in path.',
+    'Check your divots — divots pointing left of the target line indicate the club is travelling out-to-in.',
+    'Film one swing down-the-line. Pause at the top, then at the first move down: are your hands and the club moving out toward the ball, or dropping down and behind?',
+    'Feel your first move from the top. If your chest and shoulders spin open before your weight shifts to your lead foot, you are coming over the top.',
+  ],
+  whatSwingIQLooksFor: [
+    'The direction and steepness of the club path through impact',
+    'Whether the downswing sequences from the ground up or from the upper body',
+    'Early extension or a steep "throw" from the top',
+    'The face-to-path relationship that turns the same path into a slice or a pull',
+  ],
+  drills: [
+    {
+      name: 'Pump-and-drop rehearsal',
+      how: 'Swing to the top, then slowly "pump" the club halfway down twice, feeling your trail elbow drop in front of your trail hip while your hands stay back. On the third rep, swing through at half speed. This grooves the bottom-up drop instead of the over-the-top throw.',
+    },
+    {
+      name: 'Headcover-outside-the-ball drill',
+      how: 'Set a headcover a few inches outside and just behind the ball. Make swings that miss the headcover on the way down — hard if you come over the top, natural when you drop the club to the inside.',
+    },
+    {
+      name: 'Step-through drill',
+      how: 'Start with your feet together. As you start the downswing, step your lead foot toward the target, then swing. The step forces your weight and lower body to lead, so the club can no longer fire from the top.',
+    },
+  ],
+  mistakesToAvoid: [
+    'Aiming further left to cover the leftward start — it reinforces the out-to-in path.',
+    'Trying to fix the face (grip, hands) without changing the sequence and path first.',
+    'Swinging hard before the bottom-up feel is grooved — speed brings the old pattern straight back.',
+    'Yanking the club steeply inside on the backswing, which often causes an over-the-top recovery coming down.',
+  ],
+  whenToWorkWithCoach:
+    'If the over-the-top move persists after a week or two of sequencing work, if you feel any strain in your lower back or lead shoulder, or if your videos do not clearly show whether the issue is sequence or backswing shape, a qualified coach can pinpoint the cause quickly and stop you from grooving a compensation.',
+  faqs: [
+    {
+      question: 'Is coming over the top the same as slicing?',
+      answer:
+        'Not exactly — coming over the top is the out-to-in path that causes the slice. The same path with a square face produces a pull instead. Fixing the over-the-top move addresses both misses at the source.',
+    },
+    {
+      question: 'What is the number one cause of coming over the top?',
+      answer:
+        'For most amateurs it is sequence: the upper body and arms start the downswing instead of the lower body. Letting your weight shift and hips lead, with the trail elbow dropping, is the core fix.',
+    },
+    {
+      question: 'How long does it take to stop coming over the top?',
+      answer:
+        'Most golfers see the path shallow out within one to two weeks of slow, sequence-first reps. Grooving it at full speed takes longer, but ball flight usually improves quickly once the first move changes.',
+    },
+  ],
+  relatedLinks: [
+    { label: 'How to fix a golf slice', href: '/golf/fix-slice' },
+    { label: 'Golf swing analysis', href: '/golf-swing-analysis' },
+    { label: 'Golf benchmarks by skill level', href: '/benchmarks/golf' },
+    { label: 'Free swing analysis', href: '/free-swing-analysis' },
+  ],
+  cta: { label: 'Analyze My Swing Free', href: '/dashboard' },
+  schemaType: 'HowTo',
+  safetyNotes:
+    'These drills are low-intensity and suitable for most adult golfers. Stop if you feel pain. Junior golfers should practice with adult supervision.',
+  publishStatus: 'published',
+};
+
+const BASEBALL_STOP_ROLLING_OVER: SeoPage = {
+  slug: 'baseball/stop-rolling-over',
+  sport: 'baseball',
+  audience: 'player',
+  keyword: 'how to stop rolling over in baseball',
+  intent: 'informational',
+  funnelStage: 'consideration',
+  priority: 1,
+  title: 'How to Stop Rolling Over (Weak Ground Balls) in Baseball',
+  metaDescription:
+    'Rolling over is when your top hand turns the barrel over too early, producing weak ground balls to the pull side. Here is how to diagnose it, three drills to fix it, and a practice plan.',
+  directAnswer:
+    'You roll over when your wrists turn the barrel over before or at contact, so the bat face closes and you catch the top of the ball — usually a weak grounder to the pull side. The fix is to stay through the ball with a palm-up, palm-down hand position at contact and let the wrists release naturally AFTER the ball is gone, driven by a proper sequence rather than an early flip of the top hand.',
+  problemExplanation: [
+    'Rolling over is a contact-point and sequence problem, not just a "wrist" problem. When the hips and torso stall and the arms take over, the top hand rolls the barrel closed early. The face is shut at contact, so even a solid-feeling swing produces a topspin ground ball, often pulled.',
+    'It is frequently confused with "rolling your wrists," but the wrists are usually the symptom. The real causes are casting (the barrel leaving its path early), a swing that gets long and around the ball, and stalling the lower half so the hands have to rescue the swing.',
+    'The goal is not to freeze your wrists — it is to keep the barrel in the hitting zone longer and let the natural release happen past contact, where it adds bat speed instead of closing the face early.',
+  ],
+  diagnosisSteps: [
+    'Look at your results: weak ground balls pulled to the side (third base for a righty, first base for a lefty) are the classic rolling-over pattern.',
+    'Film from the open side. Freeze at contact: is your top-hand palm already turning down, or still palm-up?',
+    'Check your finish — a very wrappy, around-the-body finish often means the barrel left the zone early.',
+    'Hit a few off a tee aimed up the middle. If you still pull weak grounders off a stationary ball, the issue is your path and release, not timing.',
+  ],
+  whatSwingIQLooksFor: [
+    'Barrel path and how long it stays in the hitting zone',
+    'Contact point relative to your body (too deep often forces an early roll)',
+    'Sequence: whether the lower half leads or the hands take over',
+    'Whether the release happens at contact or after it',
+  ],
+  drills: [
+    {
+      name: 'Tee, palm-up checkpoint',
+      how: 'Set a tee at belt height. Make slow swings and stop at contact to check that your top-hand palm faces up and your bottom-hand palm faces down. Groove the feeling of arriving at the ball before the wrists release.',
+    },
+    {
+      name: 'Two-tee path drill',
+      how: 'Place a second tee about a ball-width in front of the contact tee, toward the pitcher. Try to drive both — staying through to "hit" the front tee keeps the barrel in the zone and stops the early roll.',
+    },
+    {
+      name: 'Opposite-field tee work',
+      how: 'Move the tee back slightly and hit line drives the other way for a set of reps. Going the other way is nearly impossible if you roll over, so it trains staying through the ball and releasing late.',
+    },
+  ],
+  mistakesToAvoid: [
+    'Trying to consciously freeze or stiffen your wrists — it kills bat speed and does not fix the path.',
+    'Setting the contact point too deep in the zone, which forces the barrel to close early.',
+    'Swinging harder to "drive" the grounders — more speed with the same path just hits them harder into the ground.',
+    'Only working off a tee at full speed before the staying-through feel is grooved.',
+  ],
+  whenToWorkWithCoach:
+    'If you keep rolling over after a couple of weeks of tee and path work, if it only shows up against live pitching (a timing issue), or if you cannot tell from video whether it is path or sequence, a hitting coach can confirm the cause quickly and build a plan. SwingIQ helps you target the right priority between sessions.',
+  faqs: [
+    {
+      question: 'What does "rolling over" mean in baseball?',
+      answer:
+        'It means your wrists turn the bat barrel over too early, closing the face at contact. The result is usually a weak ground ball pulled to the side. The wrists are typically the symptom of a path or sequence problem, not the root cause.',
+    },
+    {
+      question: 'Why do I keep hitting weak ground balls?',
+      answer:
+        'Most weak grounders come from catching the top half of the ball — an early barrel roll or a steep, out-of-the-zone path. Staying through the ball and releasing after contact turns those into line drives.',
+    },
+    {
+      question: 'Is rolling over a timing problem or a mechanics problem?',
+      answer:
+        'It can be either. If you roll over even off a tee, it is mechanics (path and release). If it only happens against live pitching, it is more likely timing — getting beat and rescuing the swing with your hands.',
+    },
+  ],
+  relatedLinks: [
+    { label: 'Baseball swing analysis', href: '/baseball-swing-analysis' },
+    { label: 'Baseball exit velocity drills', href: '/baseball/exit-velocity-drills' },
+    { label: 'Baseball benchmarks by age', href: '/benchmarks/baseball' },
+    { label: 'Free swing analysis', href: '/free-swing-analysis' },
+  ],
+  cta: { label: 'Analyze My Swing Free', href: '/dashboard' },
+  schemaType: 'HowTo',
+  safetyNotes:
+    'Warm up before full-speed swings and use age-appropriate equipment. Youth players should practice with adult supervision.',
+  publishStatus: 'published',
+};
+
 // ── Draft backlog (NOT routed/indexed until fully written) ──────
 const DRAFTS: SeoPage[] = [
   {
@@ -917,6 +1081,8 @@ export const SEO_PAGES: SeoPage[] = [
   SOFTBALL_STOP_POPUP,
   TENNIS_BACKHAND,
   BASEBALL_EXIT_VELO,
+  GOLF_STOP_OVER_THE_TOP,
+  BASEBALL_STOP_ROLLING_OVER,
   ...DRAFTS,
 ];
 

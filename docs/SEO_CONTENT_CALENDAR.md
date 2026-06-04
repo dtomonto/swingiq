@@ -65,7 +65,7 @@ CTA into the matching tool.
 Slice + topping are covered; the biggest remaining gaps are the *root causes* and
 the other big misses:
 
-- [ ] `golf/stop-coming-over-the-top` — "how to stop coming over the top" (the root cause behind most slices/pulls — huge volume) → CTA: Analyze / Fix Stack
+- [x] `golf/stop-coming-over-the-top` — "how to stop coming over the top" (the root cause behind most slices/pulls — huge volume) → CTA: Analyze / Fix Stack ✅ published 2026-06-03
 - [ ] `golf/how-to-fix-a-hook` — "how to fix a hook / stop hooking the ball"
 - [ ] `golf/stop-hitting-it-fat` — "how to stop hitting fat shots / chunking irons"
 - [ ] `golf/stop-thin-shots` — "how to stop hitting thin shots"
@@ -76,7 +76,7 @@ the other big misses:
 
 ## BASEBALL
 
-- [ ] `baseball/stop-rolling-over` — "how to stop rolling over / weak ground balls" (top youth search)
+- [x] `baseball/stop-rolling-over` — "how to stop rolling over / weak ground balls" (top youth search) ✅ published 2026-06-03
 - [ ] `baseball/exit-velocity-by-age` — "exit velocity by age — is my exit velo good?" (very high volume) → links /benchmarks
 - [ ] `baseball/use-your-lower-half` — "stop swinging with just your arms / hit with more power"
 - [ ] `baseball/fix-bat-drag` — "bat drag / casting fix"
