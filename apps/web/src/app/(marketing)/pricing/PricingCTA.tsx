@@ -37,9 +37,13 @@ export function PricingCTA({ tier }: { tier: BillingTier }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tier: tier.id }),
       });
-      const data = (await res.json()) as { ok?: boolean; url?: string; message?: string };
+      const data = (await res.json()) as { ok?: boolean; url?: string; message?: string; reason?: string };
       if (data.ok && data.url) {
         window.location.href = data.url;
+        return;
+      }
+      if (data.reason === 'auth_required') {
+        window.location.href = `/login?next=${encodeURIComponent('/pricing')}`;
         return;
       }
       setPhase('error');

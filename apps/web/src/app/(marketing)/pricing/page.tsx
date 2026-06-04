@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { siteConfig } from '@/config/site';
 import { BILLING_TIERS } from '@/lib/billing/tiers';
 import { PricingCTA } from './PricingCTA';
+import { BillingPortalButton } from './BillingPortalButton';
 
 export const metadata: Metadata = {
   title: 'Pricing | SwingIQ — Free AI Swing Analysis',
@@ -72,6 +73,8 @@ export default function PricingPage() {
             );
           })}
         </div>
+
+        <BillingPortalButton />
 
         <p className="text-center text-sm text-muted-foreground mt-12">
           Have questions? Contact us at{' '}

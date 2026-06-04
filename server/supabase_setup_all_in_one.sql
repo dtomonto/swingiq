@@ -420,6 +420,27 @@ create policy "Users manage own coach notes" on coach_notes for all
   using (auth.uid() = user_id or coach_id = auth.uid());
 
 -- ============================================================
+-- SUBSCRIPTIONS / ENTITLEMENTS
+-- Written ONLY by the Stripe webhook (service role). Users may read
+-- their own row to see their plan; they can never write it.
+-- ============================================================
+create table if not exists subscriptions (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  tier text not null default 'free' check (tier in ('free', 'pro', 'team')),
+  status text not null default 'inactive',
+  stripe_customer_id text,
+  stripe_subscription_id text,
+  current_period_end timestamptz,
+  updated_at timestamptz not null default now()
+);
+create index if not exists subscriptions_customer_idx on subscriptions(stripe_customer_id);
+
+alter table subscriptions enable row level security;
+drop policy if exists "Users can view own subscription" on subscriptions;
+create policy "Users can view own subscription" on subscriptions
+  for select using (auth.uid() = user_id);
+
+-- ============================================================
 -- DONE. You should see "Success. No rows returned."
 -- Seed data is intentionally omitted — rows are created by the app
 -- once a real user signs up via Supabase Auth.

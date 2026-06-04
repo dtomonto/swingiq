@@ -369,3 +369,24 @@ create trigger sessions_updated_at before update on sessions
 
 -- Seed data must be inserted AFTER a real user is created via Supabase Auth.
 -- See BEGINNER_START_HERE.md for instructions.
+
+-- ============================================================
+-- Subscriptions / entitlements
+-- Written ONLY by the Stripe webhook (service role). Users may read
+-- their own row to see their plan; they can never write it.
+-- ============================================================
+create table if not exists subscriptions (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  tier text not null default 'free' check (tier in ('free', 'pro', 'team')),
+  status text not null default 'inactive',
+  stripe_customer_id text,
+  stripe_subscription_id text,
+  current_period_end timestamptz,
+  updated_at timestamptz not null default now()
+);
+create index if not exists subscriptions_customer_idx on subscriptions(stripe_customer_id);
+
+alter table subscriptions enable row level security;
+
+create policy "Users can view own subscription"
+  on subscriptions for select using (auth.uid() = user_id);
