@@ -82,6 +82,12 @@ export {
   type MetricConsistency,
 } from './repeatability';
 export {
+  buildMotionCoachNarrative,
+  narrateMotionSession,
+  type MotionCoachNarrative,
+  type CoachNarrativeTone,
+} from './coachNarrative';
+export {
   summarizeAthlete,
   buildCoachView,
   loadCoachView,

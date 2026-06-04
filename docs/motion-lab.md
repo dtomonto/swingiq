@@ -96,7 +96,14 @@ already-shipping infrastructure:
    never present itself as a measurement.
 7. **Coach** — `reporting.ts` writes the executive summary, diagnosis, root-cause
    hypothesis, top-3 fixes, "what not to change", practice plan, and five tone
-   variants (beginner / athlete / coach / youth / data).
+   variants (beginner / athlete / coach / youth / data). `coachNarrative.ts` then
+   composes a conversational **AI coach read** in the SwingIQ 8-part format (main
+   finding → why → evidence → what it may cause → what to feel → cue → drill →
+   next upload), grounded ONLY in the analysis (report, scores, kinetic chain,
+   temporal, implement path, weakest metric). It can be OPTIONALLY rephrased by
+   the flagged LLM (`getActiveProvider`, `NEXT_PUBLIC_AGENTS_LLM=1`) which only
+   warms the wording — it never invents findings, and is OFF by default so the
+   read is fully functional with no API keys.
 8. **Drills** — `drills.ts` prescribes 4 drills (immediate / feel / technical /
    constraint) tied to the weakest metrics, plus a weekly plan.
 9. **Quality gate** — `quality.ts` assesses capture quality (subject detected,

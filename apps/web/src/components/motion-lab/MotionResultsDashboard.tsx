@@ -18,6 +18,7 @@ import { PhaseTimeline } from './PhaseTimeline';
 import { MotionScoreboard } from './MotionScoreboard';
 import { MetricsPanel } from './MetricsPanel';
 import { CoachingReport } from './CoachingReport';
+import { MotionCoachNarrativeCard } from './MotionCoachNarrativeCard';
 import { DrillPlan } from './DrillPlan';
 import { CameraQualityCheck } from './CameraQualityCheck';
 import { ImplementPathCard } from './ImplementPathCard';
@@ -201,7 +202,12 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
         </div>
       )}
       {tab === 'metrics' && <MetricsPanel metrics={session.metrics} />}
-      {tab === 'coaching' && <CoachingReport report={session.report} />}
+      {tab === 'coaching' && (
+        <div className="space-y-4">
+          <MotionCoachNarrativeCard session={session} />
+          <CoachingReport report={session.report} />
+        </div>
+      )}
       {tab === 'drills' && <DrillPlan plan={session.drills} />}
 
       {tab === 'compare' && (
