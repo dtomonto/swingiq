@@ -9,7 +9,6 @@
 // design: every value shows basis + confidence; nothing is fetched or sent.
 // ============================================================
 
-import { useMemo } from 'react';
 import Link from 'next/link';
 import {
   BrainCircuit,
@@ -22,9 +21,7 @@ import {
   CheckCircle2,
   AlertTriangle,
 } from 'lucide-react';
-import { useMotionSessions } from '@/lib/motion-lab';
-import { bundleFromMotionSessions } from '@/lib/agi/adapters/motion-lab';
-import { runAthleteGI } from '@/lib/agi';
+import { useAthleteGI } from '@/lib/agi/adapters/useAthleteGI';
 import type {
   AthleteGIResult,
   Basis,
@@ -62,6 +59,7 @@ function scoreText(score: number | null): string {
 
 const KIND_META: Record<InsightKind, { label: string; badge: Parameters<typeof Badge>[0]['variant'] }> = {
   keystone: { label: 'Keystone', badge: 'critical' },
+  goal: { label: 'Your goal', badge: 'info' },
   strength: { label: 'Strength', badge: 'success' },
   transfer: { label: 'Transfer', badge: 'info' },
   imbalance: { label: 'Transfer gap', badge: 'warning' },
@@ -251,14 +249,11 @@ function EmptyState() {
 // ── main ──────────────────────────────────────────────────────
 
 export function AthleteGIDashboard() {
-  const sessions = useMotionSessions();
-  const result = useMemo(
-    () => runAthleteGI(bundleFromMotionSessions(sessions)),
-    [sessions],
-  );
+  const result = useAthleteGI();
 
   const { model, insights, transfers } = result;
   const hasData = model.dataMap.totalSessions > 0;
+  const goal = model.identity?.primaryGoal;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 space-y-5">
@@ -289,6 +284,14 @@ export function AthleteGIDashboard() {
           claim of human-level AI. Every number comes from your own analysed sessions (single-camera
           pose is an estimate, never a lab measurement), and nothing here is medical advice.
         </p>
+
+        {goal && (
+          <p className="text-xs text-foreground flex items-center gap-1.5">
+            <Target className="w-3.5 h-3.5 text-primary shrink-0" aria-hidden="true" />
+            <span className="text-muted-foreground">Your stated goal:</span>
+            <span className="font-medium">&ldquo;{goal}&rdquo;</span>
+          </p>
+        )}
       </header>
 
       {!hasData ? (
