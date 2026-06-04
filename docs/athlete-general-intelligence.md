@@ -44,13 +44,18 @@ You'll find it in the app under **Analyze → Athlete GI** (`/agi`).
    `AthleteWorldModel`. Fusion is **confidence-weighted** (a solid measurement
    counts more than a flat-depth guess) and **basis-conservative** (a fused
    capability is never reported as more certain than its weakest input). It also
-   publishes an honest **coverage** score and a map of what's still missing.
+   carries the athlete's declared **identity** (sports trained, skill, goal),
+   publishes an honest **coverage** score, and lists what's still missing —
+   including sports the athlete says they train but hasn't analysed.
 
 3. **Reasoning** (`reasoning.ts`) — deterministic insights, each with an
    inspectable **reasoning chain** (claim + evidence), a basis, and a
    confidence. The signature output is the **Keystone**: the single weak
-   capability that limits the most sports. There are also Strength, Transfer
-   gap, Consistency, and Coverage insights.
+   capability that limits the most sports. There's also a **Goal** insight that
+   ties the athlete's own stated goal to the capability it most depends on (and
+   says whether that *is* the keystone — perfect alignment — or something to
+   work alongside it), plus Strength, Transfer gap, Consistency, and Coverage
+   insights.
 
 4. **Transfer + Plan** (`transfer.ts`, `planner.ts`) — `buildTransfers` links
    capabilities across your sports using the shared movement-principle map
@@ -60,6 +65,31 @@ You'll find it in the app under **Analyze → Athlete GI** (`/agi`).
 
 The top-level entry point is `runAthleteGI(bundle)` in `engine.ts` — pure, no
 React, no browser, no network, fully unit-tested (`__tests__/agi.test.ts`).
+
+## Where the data comes from (the adapters)
+
+The engine is source-agnostic: it consumes a normalised `SignalBundle`, and
+each data source is a thin adapter under `lib/agi/adapters/` that emits one.
+
+- `motion-lab.ts` — Motion Lab sessions → capability signals (rotation,
+  sequencing, …). The richest source.
+- `store-sessions.ts` — launch-monitor sessions + saved video analyses → session
+  refs for consistency/coverage. **Ball-flight outcomes don't become body
+  capabilities** — kept honest.
+- `profile.ts` — the declared golf profile + per-sport profiles → `AthleteIdentity`
+  (sports trained, skill, handedness, and the free-text **goal**, mapped to the
+  capabilities it depends on via `goalToCapabilities`).
+- `merge.ts` — combines bundles and de-dupes sessions by id.
+- `useAthleteGI.ts` — the one client hook that reads **all** of the above and
+  runs the pipeline. Add a new source = add one adapter; nothing else changes.
+
+## Where it shows up in the app
+
+- **`/agi`** (sidebar → Analyze → Athlete GI) — the full dashboard.
+- **Today dashboard** — a compact `<AthleteGISummary />` next to the existing
+  intelligence panel (golf + non-golf), surfacing the top conclusion + keystone
+  with a link through to `/agi`. It self-hides until there's a session or a
+  stated goal.
 
 ## Coordination note (read before editing motion-lab)
 
