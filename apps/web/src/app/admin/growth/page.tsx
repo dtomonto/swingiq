@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   robots: 'noindex, nofollow',
 };
 
-export default function GrowthOverviewPage() {
-  const snap = getOverviewSnapshot();
+export default async function GrowthOverviewPage() {
+  const snap = await getOverviewSnapshot();
   const analyticsOn = analyticsConfigured(process.env);
   const aiOn = aiConfigured(process.env);
 

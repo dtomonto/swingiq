@@ -7,8 +7,9 @@ import { crmMessagesRepo, automationsRepo } from '@/lib/growth/repository';
 
 export const metadata: Metadata = { title: 'Email / CRM | GrowthOS', robots: 'noindex, nofollow' };
 
-export default function CrmPage() {
+export default async function CrmPage() {
   const nav = GROWTH_NAV_FLAT.find((n) => n.key === 'crm');
+  const [messages, automations] = await Promise.all([crmMessagesRepo.list(), automationsRepo.list()]);
   return (
     <div className="space-y-8">
       <ModuleHeader icon={nav?.icon} title={nav?.label ?? 'Email / CRM'} description={nav?.description ?? ''} />
@@ -24,12 +25,12 @@ export default function CrmPage() {
 
       <section className="space-y-3">
         <h2 className="text-sm font-semibold text-gray-300">Messages</h2>
-        <RecordModule definitionId="crm" records={crmMessagesRepo.list()} hideNote />
+        <RecordModule definitionId="crm" records={messages} hideNote />
       </section>
 
       <section className="space-y-3">
         <h2 className="text-sm font-semibold text-gray-300">Lifecycle automations</h2>
-        <RecordModule definitionId="automations" records={automationsRepo.list()} />
+        <RecordModule definitionId="automations" records={automations} />
       </section>
     </div>
   );

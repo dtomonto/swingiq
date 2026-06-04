@@ -729,6 +729,66 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
   },
 };
 
+// ── CRUD support ──────────────────────────────────────────────
+
+/** Maps a definitionId to the repository `kind` used by /api/growth/records. */
+export const DEFINITION_KIND: Record<string, string> = {
+  strategy: 'strategy',
+  campaigns: 'campaign',
+  channels: 'channel',
+  'paid-media': 'paid-campaign',
+  content: 'content',
+  social: 'social',
+  crm: 'crm-message',
+  automations: 'automation',
+  creators: 'creator',
+  affiliates: 'affiliate',
+  referral: 'referral',
+  community: 'community',
+  pr: 'authority',
+  reputation: 'proof',
+  cro: 'cro',
+  experiments: 'experiment',
+  offers: 'offer',
+  competitors: 'competitor',
+  'customer-insights': 'customer-insight',
+  assets: 'asset',
+  recommendations: 'recommendation',
+  operations: 'task',
+};
+
+export type FormInput = 'text' | 'textarea' | 'number' | 'date' | 'tags' | 'checkbox' | 'priority';
+
+export interface FormFieldDef {
+  key: string;
+  label: string;
+  input: FormInput;
+}
+
+const NUMBER_KEY = /usd|budget|rate|size|users|count|conversions|kfactor|spend|cpc|cpm|cpa|cac|roas|ctr|cvr|roi|score|revenue/i;
+const DATE_KEY = /date|deadline/i;
+const LONG_KEY = /message|body|reasoning|content|problem|hypothesis|change|outreach|invite|evidence|action|objective|description|wording|definition|narrative|pitch|proposition|mindset|need|notes|result|learning|decision|optimization|performance/i;
+const BOOL_KEY = /^(sendEnabled|approvalRequired|approved|loadsBeforeConsent)$/;
+
+/** Derives an editable form from a module's detail fields. */
+export function deriveFormFields(def: ModuleDefinition): FormFieldDef[] {
+  const fields: FormFieldDef[] = [{ key: 'name', label: 'Name', input: 'text' }];
+  for (const f of def.detailFields) {
+    if (!f.key || f.key === 'name' || f.key === 'dataSource') continue;
+    if (fields.some((x) => x.key === f.key)) continue;
+    let input: FormInput;
+    if (BOOL_KEY.test(f.key)) input = 'checkbox';
+    else if (f.type === 'priority') input = 'priority';
+    else if (f.type === 'date' || DATE_KEY.test(f.key)) input = 'date';
+    else if (f.type === 'number' || NUMBER_KEY.test(f.key)) input = 'number';
+    else if (f.type === 'list' || f.type === 'chips') input = 'tags';
+    else if (LONG_KEY.test(f.key)) input = 'textarea';
+    else input = 'text';
+    fields.push({ key: f.key, label: f.label, input });
+  }
+  return fields;
+}
+
 // Type-only re-exports so pages can import the record shapes if needed.
 export type {
   MarketingChannel, MarketingStrategy, MarketingCampaign, PaidCampaign,

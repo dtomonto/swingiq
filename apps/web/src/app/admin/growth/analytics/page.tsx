@@ -15,9 +15,8 @@ export const metadata: Metadata = {
   robots: 'noindex, nofollow',
 };
 
-export default function AnalyticsPage() {
-  const metrics = metricsRepo.list();
-  const savedLinks = utmRepo.list();
+export default async function AnalyticsPage() {
+  const [metrics, savedLinks] = await Promise.all([metricsRepo.list(), utmRepo.list()]);
   const providers = configuredAnalyticsProviders();
 
   return (

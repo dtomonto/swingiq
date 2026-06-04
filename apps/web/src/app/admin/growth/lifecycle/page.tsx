@@ -6,9 +6,9 @@ import { lifecycleStagesRepo } from '@/lib/growth/repository';
 
 export const metadata: Metadata = { title: 'Lifecycle Journeys | GrowthOS', robots: 'noindex, nofollow' };
 
-export default function LifecyclePage() {
+export default async function LifecyclePage() {
   const nav = GROWTH_NAV_FLAT.find((n) => n.key === 'lifecycle');
-  const stages = lifecycleStagesRepo.list();
+  const stages = await lifecycleStagesRepo.list();
 
   return (
     <div className="space-y-6">

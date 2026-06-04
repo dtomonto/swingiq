@@ -13,8 +13,8 @@ export const metadata: Metadata = {
   robots: 'noindex, nofollow',
 };
 
-export default function AttributionPage() {
-  const events = attributionRepo.list();
+export default async function AttributionPage() {
+  const events = await attributionRepo.list();
 
   return (
     <div className="space-y-6">

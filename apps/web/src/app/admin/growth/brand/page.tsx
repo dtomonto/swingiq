@@ -73,8 +73,8 @@ function sortedCategories(
   return ordered;
 }
 
-export default function BrandVoicePage() {
-  const assets = brandVoiceRepo.list();
+export default async function BrandVoicePage() {
+  const assets = await brandVoiceRepo.list();
   const grouped = groupByCategory(assets);
   const categories = sortedCategories(grouped);
 

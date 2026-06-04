@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   robots: 'noindex, nofollow',
 };
 
-export default function CalendarPage() {
-  const items = calendarRepo.list();
+export default async function CalendarPage() {
+  const items = await calendarRepo.list();
 
   return (
     <div className="space-y-6">

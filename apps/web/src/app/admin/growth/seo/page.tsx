@@ -139,8 +139,8 @@ function CapabilityLegend() {
 }
 
 // ── Page ─────────────────────────────────────────────────────
-export default function SeoPage() {
-  const content = contentRepo.list();
+export default async function SeoPage() {
+  const content = await contentRepo.list();
 
   return (
     <div className="space-y-6">

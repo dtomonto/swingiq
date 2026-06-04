@@ -114,9 +114,8 @@ function RiskStatusBadge({ status }: { status: RiskStatus }) {
   return <Badge className={classes[status]}>{labels[status]}</Badge>;
 }
 
-export default function PrivacyPage() {
-  const consentRecords = consentRepo.list();
-  const pixels = pixelsRepo.list();
+export default async function PrivacyPage() {
+  const [consentRecords, pixels] = await Promise.all([consentRepo.list(), pixelsRepo.list()]);
 
   return (
     <div className="space-y-6">

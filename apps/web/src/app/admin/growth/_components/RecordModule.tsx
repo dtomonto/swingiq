@@ -12,11 +12,15 @@
 // ============================================================
 
 import { useMemo, useState } from 'react';
-import { Search, X, Inbox } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Search, X, Inbox, Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { KpiCard, StatusBadge, DataSourceBadge, PriorityBadge, EmptyState, FieldRow, MockDataNote } from './ui';
 import { formatDate } from '@/lib/growth/format';
-import { MODULE_DEFINITIONS, type ColumnDef, type FieldDef } from './definitions';
+import { MODULE_DEFINITIONS, DEFINITION_KIND, type ColumnDef, type FieldDef } from './definitions';
+import { RecordForm } from './RecordForm';
+
+const SECRET_KEY = 'growthos.adminSecret';
 
 type AnyRecord = Record<string, unknown> & { id: string };
 
@@ -71,9 +75,38 @@ export function RecordModule({
 }) {
   const records = recordsProp as unknown as AnyRecord[];
   const def = MODULE_DEFINITIONS[definitionId];
+  const kind = DEFINITION_KIND[definitionId];
+  const router = useRouter();
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState<string>('all');
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [form, setForm] = useState<{ mode: 'create' | 'edit'; record?: AnyRecord } | null>(null);
+  const [deleting, setDeleting] = useState(false);
+
+  async function deleteRecord(record: AnyRecord, retrySecret?: string): Promise<void> {
+    if (!kind) return;
+    if (!retrySecret && !window.confirm(`Delete "${String(record.name ?? 'this record')}"? This can't be undone.`)) return;
+    setDeleting(true);
+    const secret = retrySecret ?? window.sessionStorage.getItem(SECRET_KEY);
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (secret) headers['x-admin-secret'] = secret;
+    try {
+      const res = await fetch('/api/growth/records', {
+        method: 'DELETE', headers, body: JSON.stringify({ kind, id: record.id }),
+      });
+      if (res.status === 401) {
+        const entered = window.prompt('Enter ADMIN_SECRET to delete (required in production):');
+        if (entered) { window.sessionStorage.setItem(SECRET_KEY, entered); setDeleting(false); return deleteRecord(record, entered); }
+        throw new Error('unauthorized');
+      }
+      setSelectedId(null);
+      router.refresh();
+    } catch {
+      /* swallow — UI stays; user can retry */
+    } finally {
+      setDeleting(false);
+    }
+  }
 
   const filterValues = useMemo(() => {
     if (!def?.filterKey) return [];
@@ -126,7 +159,17 @@ export function RecordModule({
             className="w-full bg-gray-900 border border-gray-800 rounded-lg pl-9 pr-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-hidden focus:ring-1 focus:ring-green-500"
           />
         </div>
-        <p className="text-xs text-gray-500">{filtered.length} of {records.length} {def.itemNoun}</p>
+        <div className="flex items-center gap-3">
+          <p className="text-xs text-gray-500">{filtered.length} of {records.length} {def.itemNoun}</p>
+          {kind && (
+            <button
+              onClick={() => setForm({ mode: 'create' })}
+              className="text-xs px-3 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-white font-semibold flex items-center gap-1.5 shrink-0"
+            >
+              <Plus className="w-3.5 h-3.5" /> New
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Filter tabs */}
@@ -197,9 +240,29 @@ export function RecordModule({
                 <p className="text-sm font-semibold text-gray-100">{String(selected.name ?? 'Detail')}</p>
                 <p className="text-xs text-gray-500 mt-0.5 capitalize">{def.itemNoun.replace(/s$/, '')}</p>
               </div>
-              <button onClick={() => setSelectedId(null)} className="text-gray-500 hover:text-gray-300 shrink-0" aria-label="Close">
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex items-center gap-1 shrink-0">
+                {kind && (
+                  <>
+                    <button
+                      onClick={() => setForm({ mode: 'edit', record: selected })}
+                      className="text-xs px-2 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:border-gray-600 flex items-center gap-1"
+                    >
+                      <Pencil className="w-3.5 h-3.5" /> Edit
+                    </button>
+                    <button
+                      onClick={() => deleteRecord(selected)}
+                      disabled={deleting}
+                      className="text-xs px-2 py-1.5 rounded-lg bg-red-600/15 border border-red-600/30 text-red-400 hover:bg-red-600/25 flex items-center gap-1 disabled:opacity-50"
+                      aria-label="Delete"
+                    >
+                      {deleting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+                    </button>
+                  </>
+                )}
+                <button onClick={() => setSelectedId(null)} className="text-gray-500 hover:text-gray-300 px-1" aria-label="Close">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
             <div className="p-5">
               <dl>
@@ -210,6 +273,17 @@ export function RecordModule({
             </div>
           </div>
         </div>
+      )}
+
+      {/* Create / edit form */}
+      {form && kind && (
+        <RecordForm
+          definitionId={definitionId}
+          kind={kind}
+          record={form.mode === 'edit' ? form.record : null}
+          onClose={() => setForm(null)}
+          onSaved={() => { setSelectedId(null); router.refresh(); }}
+        />
       )}
     </div>
   );

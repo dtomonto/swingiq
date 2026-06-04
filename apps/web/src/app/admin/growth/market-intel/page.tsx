@@ -6,8 +6,9 @@ import { competitorsRepo, customerInsightsRepo } from '@/lib/growth/repository';
 
 export const metadata: Metadata = { title: 'Market Intelligence | GrowthOS', robots: 'noindex, nofollow' };
 
-export default function MarketIntelPage() {
+export default async function MarketIntelPage() {
   const nav = GROWTH_NAV_FLAT.find((n) => n.key === 'market-intel');
+  const [competitors, customerInsights] = await Promise.all([competitorsRepo.list(), customerInsightsRepo.list()]);
   return (
     <div className="space-y-8">
       <ModuleHeader icon={nav?.icon} title={nav?.label ?? 'Market Intelligence'} description={nav?.description ?? ''} />
@@ -19,12 +20,12 @@ export default function MarketIntelPage() {
 
       <section className="space-y-3">
         <h2 className="text-sm font-semibold text-gray-300">Competitor insights</h2>
-        <RecordModule definitionId="competitors" records={competitorsRepo.list()} hideNote />
+        <RecordModule definitionId="competitors" records={competitors} hideNote />
       </section>
 
       <section className="space-y-3">
         <h2 className="text-sm font-semibold text-gray-300">Voice-of-customer insights</h2>
-        <RecordModule definitionId="customer-insights" records={customerInsightsRepo.list()} />
+        <RecordModule definitionId="customer-insights" records={customerInsights} />
       </section>
     </div>
   );

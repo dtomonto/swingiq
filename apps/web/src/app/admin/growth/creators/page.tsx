@@ -6,8 +6,9 @@ import { creatorsRepo, affiliatesRepo } from '@/lib/growth/repository';
 
 export const metadata: Metadata = { title: 'Creators / Affiliates | GrowthOS', robots: 'noindex, nofollow' };
 
-export default function CreatorsPage() {
+export default async function CreatorsPage() {
   const nav = GROWTH_NAV_FLAT.find((n) => n.key === 'creators');
+  const [creators, affiliates] = await Promise.all([creatorsRepo.list(), affiliatesRepo.list()]);
   return (
     <div className="space-y-8">
       <ModuleHeader icon={nav?.icon} title={nav?.label ?? 'Creators / Affiliates'} description={nav?.description ?? ''} />
@@ -19,12 +20,12 @@ export default function CreatorsPage() {
 
       <section className="space-y-3">
         <h2 className="text-sm font-semibold text-gray-300">Creator & influencer partners</h2>
-        <RecordModule definitionId="creators" records={creatorsRepo.list()} hideNote />
+        <RecordModule definitionId="creators" records={creators} hideNote />
       </section>
 
       <section className="space-y-3">
         <h2 className="text-sm font-semibold text-gray-300">Affiliate partners</h2>
-        <RecordModule definitionId="affiliates" records={affiliatesRepo.list()} />
+        <RecordModule definitionId="affiliates" records={affiliates} />
       </section>
     </div>
   );
