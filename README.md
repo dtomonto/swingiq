@@ -466,6 +466,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | [BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md) | Non-developer owners — start here |
 | [master-audit-report.md](docs/master-audit-report.md) | **Consolidated audit roadmap** — merges every scheduled audit (SEO, security, growth) into one prioritized to-do list; see [audit-action-dashboard.md](docs/audit-action-dashboard.md) for the at-a-glance board. Feed each future scheduled-audit run back into §3. |
 | [OWNER_TASKS.md](docs/OWNER_TASKS.md) | Full setup checklist + manual steps |
+| [SUPABASE_SETUP_WALKTHROUGH.md](docs/SUPABASE_SETUP_WALKTHROUGH.md) | Click-by-click, screen-by-screen guide to connecting the free Supabase database |
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | When something breaks |
 | [WEB_APP_GUIDE.md](docs/WEB_APP_GUIDE.md) | Using every app feature |
 | [motion-lab.md](docs/motion-lab.md) | **Motion Lab** — 3D motion analysis feature + pipeline (plain-English intro) |

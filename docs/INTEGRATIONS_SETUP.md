@@ -55,6 +55,8 @@ Optional: `AI_VISION_MODEL=gpt-4o`, `MAX_VIDEO_FRAMES_ANALYZED=16`.
 
 ## 2. Supabase (accounts + cloud data) — the recommended free-tier database
 
+> 🖱️ **Non-developer? Use the click-by-click version:** [SUPABASE_SETUP_WALKTHROUGH.md](SUPABASE_SETUP_WALKTHROUGH.md) sketches every screen and tells you exactly what to click. This section is the quick reference.
+
 **Why Supabase (and not another database):** SwingIQ is *already wired* for it — the auth middleware, the `supabase.ts` clients, the login/signup/reset pages, and the database schema (whose row-level-security rules use Supabase's `auth.uid()`) are all built. Connecting it is paste-two-keys, not a coding project. Underneath it's plain PostgreSQL, so nothing here is locked in — see "Outgrowing the free tier" below.
 
 **What it unlocks:** real sign-in, saving sessions to the cloud, and syncing across devices. Until this is set, SwingIQ runs **local-first** (data lives in the browser; the offline queue in `lib/offline/session-queue.ts` holds sessions until a backend is connected).
