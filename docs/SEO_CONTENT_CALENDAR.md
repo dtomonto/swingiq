@@ -66,8 +66,8 @@ Slice + topping are covered; the biggest remaining gaps are the *root causes* an
 the other big misses:
 
 - [x] `golf/stop-coming-over-the-top` — "how to stop coming over the top" (the root cause behind most slices/pulls — huge volume) → CTA: Analyze / Fix Stack ✅ published 2026-06-03
-- [ ] `golf/how-to-fix-a-hook` — "how to fix a hook / stop hooking the ball"
-- [ ] `golf/stop-hitting-it-fat` — "how to stop hitting fat shots / chunking irons"
+- [x] `golf/how-to-fix-a-hook` — "how to fix a hook / stop hooking the ball" ✅ published 2026-06-03
+- [x] `golf/stop-hitting-it-fat` — "how to stop hitting fat shots / chunking irons" ✅ published 2026-06-03
 - [ ] `golf/stop-thin-shots` — "how to stop hitting thin shots"
 - [ ] `golf/inconsistent-driver-distance` — "why is my driver distance inconsistent / low smash factor" → links /benchmarks + launch-monitor-analysis
 - [ ] `golf/how-to-shallow-the-club` — "how to shallow the golf club"
@@ -85,14 +85,14 @@ the other big misses:
 
 ## SOFTBALL (slow + fast pitch)
 
-- [ ] `softball/how-to-hit-slow-pitch` — "how to hit a slow pitch softball" (timing: don't decelerate mid-swing)
+- [x] `softball/how-to-hit-slow-pitch` — "how to hit a slow pitch softball" (timing: don't decelerate mid-swing) ✅ published 2026-06-03
 - [ ] `softball/hit-faster-pitching` — "how to hit faster pitching / reaction time" (fast pitch)
 - [ ] `softball/stop-hitting-ground-balls` — "stop hitting ground balls / drive the ball"
 - [ ] `softball/hit-the-riseball` — "how to hit a riseball / drop ball" (fast pitch)
 
 ## TENNIS
 
-- [ ] `tennis/tennis-grips-explained` — "tennis grips: forehand, backhand & serve" (foundational, high volume)
+- [x] `tennis/tennis-grips-explained` — "tennis grips: forehand, backhand & serve" (foundational, high volume) ✅ published 2026-06-03
 - [ ] `tennis/forehand-into-the-net` — "why do I hit my forehand into the net"
 - [ ] `tennis/add-topspin-forehand` — "how to hit topspin on your forehand"
 - [ ] `tennis/serve-toss-consistency` — "consistent serve toss / why is my serve inconsistent"
