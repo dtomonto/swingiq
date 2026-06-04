@@ -90,10 +90,26 @@ export interface SportSessionRef {
   drillHints: DrillHint[];
 }
 
+/** Declared, self-reported context about the athlete (basis: user_entered). */
+export interface AthleteIdentity {
+  /** Sports the athlete says they train (may exceed sports with analysed data). */
+  declaredSports: SportId[];
+  primarySport: SportId | null;
+  skillLevel?: string;
+  handedness?: string;
+  handicap?: number | null;
+  /** Free-text goal the athlete entered (e.g. "hit my driver straighter"). */
+  primaryGoal?: string | null;
+  /** Capabilities that goal most depends on, mapped from the goal text. */
+  goalCapabilities?: CapabilityId[];
+}
+
 /** Everything the engine knows, normalized. Built by source adapters. */
 export interface SignalBundle {
   signals: CapabilitySignal[];
   sportSessions: SportSessionRef[];
+  /** Optional declared context (who the athlete is + what they want). */
+  identity?: AthleteIdentity;
 }
 
 // ── The unified athlete model ─────────────────────────────────
@@ -132,6 +148,8 @@ export interface AthleteWorldModel {
   primarySport: SportId | null;
   /** True when ≥2 sports have data — generality matters more here. */
   crossSport: boolean;
+  /** Declared context, when available (sports trained, goal, skill…). */
+  identity: AthleteIdentity | null;
   capabilities: CapabilityState[];
   /** Overall 0–1 data coverage (how much the engine actually knows). */
   coverage: number;
@@ -150,6 +168,7 @@ export interface AthleteWorldModel {
 
 export type InsightKind =
   | 'keystone' // one weak general capability limiting multiple sports
+  | 'goal' // how the athlete's stated goal maps to a capability
   | 'strength' // a transferable strength to lean on
   | 'transfer' // a cross-sport transfer opportunity
   | 'imbalance' // a capability already strong in one sport, lagging in another

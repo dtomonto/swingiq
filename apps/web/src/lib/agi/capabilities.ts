@@ -100,6 +100,33 @@ const KEYWORD_RULES: Array<{ cap: CapabilityId; re: RegExp }> = [
 ];
 
 /**
+ * Map a free-text athlete goal onto the capabilities it most depends on.
+ * Honest by design: returns [] when nothing matches rather than guessing, so
+ * the engine never invents a goal→capability link that isn't defensible.
+ */
+const GOAL_RULES: Array<{ caps: CapabilityId[]; re: RegExp }> = [
+  { caps: ['power', 'sequencing', 'rotation'], re: /distance|farther|further|longer|\blong\b|power|speed|bomb|carry|exit velo/ },
+  { caps: ['rotation', 'sequencing'], re: /slic|over.?the.?top|fade too|pull/ },
+  { caps: ['rotation', 'tempo'], re: /hook|draw|snap|wrap/ },
+  { caps: ['balance', 'tempo'], re: /contact|strike|\btop\b|thin|fat|chunk|whiff|mishit|center.?face/ },
+  { caps: ['tempo', 'sequencing'], re: /tempo|rhythm|rush|smooth|timing|early/ },
+  { caps: ['consistency', 'balance', 'tempo'], re: /consisten|accura|straight|control|repeat|fairway|reliab|dispersion|solid/ },
+  { caps: ['balance'], re: /balance|fall|off.?balance|fall.?back|stable|posture/ },
+];
+
+export function goalToCapabilities(goalText: string): CapabilityId[] {
+  if (!goalText) return [];
+  const hay = goalText.toLowerCase();
+  const out: CapabilityId[] = [];
+  for (const rule of GOAL_RULES) {
+    if (rule.re.test(hay)) {
+      for (const c of rule.caps) if (!out.includes(c)) out.push(c);
+    }
+  }
+  return out;
+}
+
+/**
  * Classify a metric to a capability, or null if it isn't capability-bearing
  * (e.g. a pure body-tracking quality metric).
  */

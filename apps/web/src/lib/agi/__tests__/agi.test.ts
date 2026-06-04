@@ -7,10 +7,15 @@
 // degradation on empty / thin input.
 // ============================================================
 
+import type { GolferProfileInput } from '@swingiq/core';
 import { runAthleteGI } from '../engine';
 import { buildWorldModel } from '../worldModel';
-import { classifyMetric } from '../capabilities';
+import { classifyMetric, goalToCapabilities } from '../capabilities';
+import { identityFromStore } from '../adapters/profile';
+import { bundleFromStore } from '../adapters/store-sessions';
+import { mergeBundles } from '../adapters/merge';
 import type {
+  AthleteIdentity,
   Basis,
   CapabilityId,
   CapabilitySignal,
@@ -233,5 +238,95 @@ describe('AGI — consistency + honest degradation', () => {
       enhanceNarrative: (r) => ({ ...r, disclaimer: r.disclaimer }),
     });
     expect(result.enhanced).toBe(true);
+  });
+});
+
+describe('AGI — goal mapping + identity', () => {
+  it('maps free-text goals to capabilities, and unknown goals to nothing', () => {
+    expect(goalToCapabilities('I want to hit my driver farther')).toContain('power');
+    expect(goalToCapabilities('be more consistent and accurate')).toContain('consistency');
+    expect(goalToCapabilities('stop slicing')).toContain('rotation');
+    expect(goalToCapabilities('xyzzy nonsense')).toEqual([]);
+    expect(goalToCapabilities('')).toEqual([]);
+  });
+
+  it('builds an identity from a golf profile', () => {
+    const profile = {
+      handedness: 'right',
+      primary_goal: 'hit it longer off the tee',
+      skill_level: 'intermediate',
+      handicap: 14,
+    } as unknown as GolferProfileInput;
+    const id = identityFromStore(profile, { tennis: {} });
+    expect(id).toBeTruthy();
+    expect(id!.declaredSports.sort()).toEqual(['golf', 'tennis']);
+    expect(id!.primarySport).toBe('golf');
+    expect(id!.primaryGoal).toMatch(/longer/);
+    expect(id!.goalCapabilities).toContain('power');
+  });
+
+  it('returns undefined identity when nothing is declared', () => {
+    expect(identityFromStore(null, {})).toBeUndefined();
+  });
+
+  it('flags declared-but-unanalysed sports in the data map', () => {
+    const identity: AthleteIdentity = { declaredSports: ['golf', 'tennis'], primarySport: 'golf' };
+    const bundle: SignalBundle = {
+      signals: [sig('rotation', 'golf', 60)],
+      sportSessions: [sessionRef('golf', 60)],
+      identity,
+    };
+    const model = buildWorldModel(bundle);
+    expect(model.identity?.declaredSports).toContain('tennis');
+    expect(model.dataMap.missing.some((m) => /tennis/i.test(m))).toBe(true);
+  });
+
+  it('produces a goal insight tied to the weakest goal-relevant capability', () => {
+    const identity: AthleteIdentity = {
+      declaredSports: ['golf'],
+      primarySport: 'golf',
+      primaryGoal: 'add distance',
+      goalCapabilities: ['power', 'sequencing', 'rotation'],
+    };
+    const bundle: SignalBundle = {
+      signals: [
+        sig('power', 'golf', 40),
+        sig('rotation', 'golf', 75),
+        sig('sequencing', 'golf', 70),
+      ],
+      sportSessions: [sessionRef('golf', 60)],
+      identity,
+    };
+    const result = runAthleteGI(bundle);
+    const goal = result.insights.find((i) => i.kind === 'goal');
+    expect(goal).toBeTruthy();
+    expect(goal!.capability).toBe('power'); // weakest of the goal capabilities
+    expect(goal!.summary).toMatch(/add distance/);
+  });
+});
+
+describe('AGI — store + merge adapters', () => {
+  it('turns launch-monitor sessions into session refs and skips unscored ones', () => {
+    const bundle = bundleFromStore(
+      [
+        { id: 'a', sport: 'golf', swing_score: 72, created_at: '2026-06-01', name: 'Range', diagnoses: [] },
+        { id: 'b', sport: 'golf', swing_score: null, created_at: '2026-06-02', name: 'Range', diagnoses: [] },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ] as any,
+      [],
+    );
+    expect(bundle.sportSessions).toHaveLength(1);
+    expect(bundle.sportSessions[0].overall).toBe(72);
+    expect(bundle.signals).toHaveLength(0); // ball data ≠ body capabilities
+  });
+
+  it('merges bundles, de-duplicates sessions by id, and carries identity', () => {
+    const identity: AthleteIdentity = { declaredSports: ['golf'], primarySport: 'golf' };
+    const a: SignalBundle = { signals: [sig('rotation', 'golf', 50)], sportSessions: [sessionRef('golf', 60, { sessionId: 'dup' })] };
+    const b: SignalBundle = { signals: [sig('power', 'golf', 55)], sportSessions: [sessionRef('golf', 65, { sessionId: 'dup' })] };
+    const merged = mergeBundles([a, b], identity);
+    expect(merged.signals).toHaveLength(2);
+    expect(merged.sportSessions).toHaveLength(1); // 'dup' collapsed
+    expect(merged.identity).toBe(identity);
   });
 });

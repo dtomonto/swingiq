@@ -109,6 +109,76 @@ function keystoneInsight(
   };
 }
 
+function weakestObserved(model: AthleteWorldModel): CapabilityState | null {
+  const observed = model.capabilities.filter((c) => c.score !== null);
+  if (observed.length === 0) return null;
+  return observed.reduce((lo, c) => (c.score! < lo.score! ? c : lo), observed[0]);
+}
+
+function goalInsight(model: AthleteWorldModel): Insight | null {
+  const goal = model.identity?.primaryGoal;
+  const goalCaps = model.identity?.goalCapabilities ?? [];
+  if (!goal || goalCaps.length === 0) return null;
+
+  const states = model.capabilities.filter((c) => goalCaps.includes(c.capability));
+  const observed = states.filter((c) => c.score !== null);
+  const goalNames = states.map((c) => c.name);
+
+  // Nothing measured yet that bears on the goal — say so honestly.
+  if (observed.length === 0) {
+    return {
+      id: 'goal-uncaptured',
+      kind: 'goal',
+      title: 'Your goal, and how to track it',
+      summary: `You said your goal is “${goal}”. That depends most on ${goalNames.join(' and ')}, but no analysed session has measured those yet. A Motion Lab capture starts tracking exactly what your goal needs.`,
+      capability: goalCaps[0],
+      sports: model.sports,
+      reasoning: [
+        { claim: `Stated goal: "${goal}".`, evidence: ['self-reported profile goal'] },
+        { claim: `It maps to ${goalNames.join(', ')}.`, evidence: ['goal → capability mapping'] },
+      ],
+      basis: 'user_entered',
+      confidence: 0.4,
+      leverage: 0.5,
+      action: `Run a Motion Lab session so the engine can score ${goalNames[0]} and track your goal.`,
+    };
+  }
+
+  // The goal-relevant capability you are weakest at is the lever.
+  const lever = observed.reduce((lo, c) => (c.score! < lo.score! ? c : lo), observed[0]);
+  const weakest = weakestObserved(model);
+  const isKeystoneAligned = !!weakest && weakest.capability === lever.capability && lever.score! < 68;
+
+  let read: string;
+  if (isKeystoneAligned) {
+    read = `It leans most on ${lever.name}, which is also your single biggest limiter right now (${lever.score}/100). The fastest path to your goal is the same as your keystone — one focus serves both.`;
+  } else if (lever.score! >= 70) {
+    read = `It leans most on ${lever.name}, and that is already a strength (${lever.score}/100) — your goal is well-supported. Protect it and spend new effort on your keystone.`;
+  } else {
+    read = `It leans most on ${lever.name} (${lever.score}/100), which is worth direct work alongside your keystone.`;
+  }
+
+  return {
+    id: `goal-${lever.capability}`,
+    kind: 'goal',
+    title: 'Your goal, tied to the data',
+    summary: `You said your goal is “${goal}”. ${read}`,
+    capability: lever.capability,
+    sports: lever.sports.length ? lever.sports : model.sports,
+    reasoning: [
+      { claim: `Stated goal: "${goal}".`, evidence: ['self-reported profile goal'] },
+      {
+        claim: `Of the capabilities that goal depends on (${goalNames.join(', ')}), ${lever.name} is your lowest at ${lever.score}/100.`,
+        evidence: observed.map((c) => `${c.name}: ${c.score}/100`),
+      },
+    ],
+    basis: lever.basis,
+    confidence: clamp01(lever.confidence * 0.9),
+    leverage: isKeystoneAligned ? 0.7 : 0.55,
+    action: `Make ${lever.name} a named part of practice — it is the capability your stated goal most depends on.`,
+  };
+}
+
 function strengthInsight(
   model: AthleteWorldModel,
   labels: Map<SportId, SportLabel>,
@@ -262,6 +332,7 @@ export function reason(model: AthleteWorldModel, bundle: SignalBundle): Insight[
   const labels = labelMap(bundle);
   const candidates: Array<Insight | null> = [
     keystoneInsight(model, labels),
+    goalInsight(model),
     imbalanceInsight(model, labels),
     consistencyInsight(model, bundle, labels),
     strengthInsight(model, labels),

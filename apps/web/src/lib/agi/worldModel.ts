@@ -114,7 +114,7 @@ export function buildWorldModel(bundle: SignalBundle): AthleteWorldModel {
   }
   const primarySport =
     allSports.length === 0
-      ? null
+      ? bundle.identity?.primarySport ?? null
       : [...allSports].sort((a, b) => {
           const sd = (sessionCountBySport.get(b) ?? 0) - (sessionCountBySport.get(a) ?? 0);
           if (sd !== 0) return sd;
@@ -138,6 +138,13 @@ export function buildWorldModel(bundle: SignalBundle): AthleteWorldModel {
   for (const c of capabilities) {
     if (c.score === null) missing.push(`${c.name}: not yet observed in any session.`);
   }
+  // Sports the athlete says they train but hasn't analysed yet.
+  const dataSports = new Set(allSports);
+  for (const s of bundle.identity?.declaredSports ?? []) {
+    if (!dataSports.has(s)) {
+      missing.push(`You train ${s} but haven't analysed it yet — capture a session to include it.`);
+    }
+  }
 
   // Coverage blends three things: capabilities observed, sports covered, and
   // sample depth. All honest, all bounded 0–1.
@@ -150,6 +157,7 @@ export function buildWorldModel(bundle: SignalBundle): AthleteWorldModel {
     sports: allSports,
     primarySport,
     crossSport: allSports.length >= 2,
+    identity: bundle.identity ?? null,
     capabilities,
     coverage: round(coverage, 2),
     dataMap: {

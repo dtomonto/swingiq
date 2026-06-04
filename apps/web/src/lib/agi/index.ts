@@ -8,7 +8,7 @@
 // ============================================================
 
 export * from './types';
-export { CAPABILITIES, getCapability, classifyMetric } from './capabilities';
+export { CAPABILITIES, getCapability, classifyMetric, goalToCapabilities } from './capabilities';
 export { buildWorldModel } from './worldModel';
 export { reason } from './reasoning';
 export { buildTransfers } from './transfer';
