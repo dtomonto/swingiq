@@ -74,11 +74,14 @@ function smoothTrack(track: MotionPoseTrack, window = 2): MotionPoseTrack {
       for (let k = lo; k <= hi; k++) {
         const lm = frames[k].landmarks[j];
         if (lm) {
-          sx += lm.x; sy += lm.y; sz += lm.z; sv = Math.max(sv, lm.v); count++;
+          sx += lm.x; sy += lm.y; sz += lm.z; sv += lm.v; count++;
         }
       }
+      // The smoothed POSITION is the window average, so its confidence is the
+      // average visibility of the contributing frames — not the single best one
+      // (max would over-state how reliable an averaged point really is).
       return count > 0
-        ? { x: sx / count, y: sy / count, z: sz / count, v: sv }
+        ? { x: sx / count, y: sy / count, z: sz / count, v: sv / count }
         : f.landmarks[j];
     });
     return { tMs: f.tMs, landmarks };

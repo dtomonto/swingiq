@@ -16,6 +16,9 @@ clip of a swing, serve, pitch, or throw and get back:
 - a **plain-language coaching report** with the top 3 things to fix and what NOT
   to change,
 - a **drill plan** and a one-week practice schedule,
+- an **estimated implement path** — the arc the club, bat, or racket head
+  traces, plus where it meets the ball (contact zone) and whether you're
+  swinging up or down through it,
 - and a **compare** tool that overlays a past session as a faint "ghost" and
   shows what got better or worse.
 
@@ -96,6 +99,16 @@ already-shipping infrastructure:
 9. **Quality gate** — `quality.ts` assesses capture quality (subject detected,
    full body in frame, tracking reliability, resolution, fps, motion window,
    camera angle) and gives "improve your capture" tips.
+10. **Implement path** — `objectTracking.ts` estimates the club/bat/racket head
+    path **without a pixel detector**: it extrapolates outward from the hands
+    along the grip forearm, scaled by a sport-specific implement length, then
+    reads the contact zone (at the strike frame) and the vertical approach
+    (ascending / level / descending). It is an **inference from arm motion**, so
+    its basis is `ai_inferred` and its confidence is capped low — it is never
+    presented as true object tracking or ball-flight measurement. A
+    `ObjectTrackingProvider` seam lets a real on-device detector (or
+    user-assisted manual tagging) drop in behind the same contract. Motions with
+    no swung implement (throws, pitches) honestly report "not available".
 
 The result is a `MotionSession` saved locally via `persistence.ts`
 (localStorage, its own key, never touches existing stores). The stored pose
@@ -111,6 +124,7 @@ storage. The original video is never stored.
 | Per-frame velocity + depth-axis (transverse-plane) rotation | Reference ranges (starter heuristics, editable) | Validated, level-segmented norms |
 | Multi-view triangulated 3D (basis `measured`) now drives the metrics, not just the replay | Single-camera depth (MediaPipe relative-z + trained lift) | ONNX mocap model via the pose-provider seam |
 | Camera-quality signals from tracking | Lighting / motion-blur (inferred from tracking) | Direct image-quality analysis |
+| — | Implement (club/bat/racket) path + contact zone (inferred from arm motion, basis `ai_inferred`) | On-device object/ball detector behind the `ObjectTrackingProvider` seam |
 
 If no pose is detected (bad lighting, body out of frame), the pipeline does **not**
 fabricate data — it returns an honest low-confidence result and the 3D viewer
@@ -146,6 +160,11 @@ jump to.
   available.
 - **Phase model** — `phases.ts` uses a deterministic warp today; a learned phase
   classifier can replace `detectPhases` behind the same signature.
+- **Object/implement detector** — `objectTracking.ts` defines an
+  `ObjectTrackingProvider` interface and ships a heuristic (forearm
+  extrapolation) provider. A trained on-device club/bat/racket/ball detector — or
+  a user-assisted manual-tagging UI — can implement the same contract and feed a
+  higher-confidence path + contact point without changing the pipeline or UI.
 
 ## Capture, accuracy & exports
 
