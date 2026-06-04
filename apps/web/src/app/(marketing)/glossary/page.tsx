@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Swing & Sports Performance Glossary | SwingIQ',
@@ -108,10 +109,7 @@ const structuredData = {
 export default function GlossaryPage() {
   return (
     <div className="min-h-screen bg-card">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd data={structuredData} />
 
       {/* Header */}
       <div className="bg-primary text-primary-foreground py-14 px-4">
