@@ -3,8 +3,17 @@
  *
  * Shared rate-limit logic for all API routes.
  *
- * For multi-instance Vercel production, replace the in-memory store with
- * Upstash Redis: https://upstash.com/docs/redis/sdks/ratelimit
+ * Two layers:
+ *   • checkRateLimit            — synchronous, in-memory (per-instance).
+ *                                 Always available; used as the fallback.
+ *   • checkRateLimitDistributed — async; uses Upstash Redis across ALL
+ *                                 serverless instances when configured,
+ *                                 else delegates to the in-memory limiter.
+ *
+ * Route handlers should call checkRateLimitDistributed so limits hold on
+ * multi-instance Vercel (the protection that actually caps AI spend under
+ * abuse). With no Upstash credentials set it behaves exactly like the
+ * in-memory limiter — zero config, zero added latency.
  */
 
 import { NextResponse } from 'next/server';
@@ -72,6 +81,91 @@ export function checkRateLimit(key: string, config: RateLimitConfig): RateLimitR
 
   entry.count++;
   return { allowed: true, remaining: config.limit - entry.count, resetAt: entry.resetAt };
+}
+
+// ──────────────────────────────────────────────────────────────
+// Distributed limiter (Upstash Redis REST) with in-memory fallback
+//
+// Serverless platforms (Vercel) run many isolated instances, so the
+// in-memory store above only limits a single instance. When Upstash REST
+// credentials are present, the limit is enforced in shared Redis so it
+// holds across ALL instances — the protection that actually caps AI spend
+// under abuse. With no credentials set this transparently falls back to
+// the in-memory limiter (zero config, zero added latency).
+//
+// Fetch-based, no SDK dependency (matches the Stripe/AI provider style).
+// Any Redis error falls back to in-memory so a flaky cache never takes the
+// API down.
+// ──────────────────────────────────────────────────────────────
+
+// Atomic fixed-window: increment the counter and, on the first hit of a
+// window, set its expiry. Returns the post-increment count.
+const UPSTASH_FIXED_WINDOW_LUA =
+  "local c = redis.call('INCR', KEYS[1]) " +
+  "if c == 1 then redis.call('PEXPIRE', KEYS[1], ARGV[1]) end " +
+  'return c';
+
+async function upstashIncr(
+  url: string,
+  token: string,
+  key: string,
+  windowMs: number,
+): Promise<number | null> {
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      // Upstash REST accepts a single command as a JSON array.
+      body: JSON.stringify([
+        'EVAL',
+        UPSTASH_FIXED_WINDOW_LUA,
+        '1',
+        `rl:${key}`,
+        String(windowMs),
+      ]),
+      // Never let a slow cache hang the request.
+      signal: AbortSignal.timeout(2_000),
+      cache: 'no-store',
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { result?: unknown };
+    const count = Number(data?.result);
+    return Number.isFinite(count) ? count : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Distributed rate-limit check. Uses Upstash Redis when
+ * UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN are set (so the limit
+ * holds across all serverless instances); otherwise falls back to the
+ * in-memory limiter. Drop-in async replacement for checkRateLimit in
+ * route handlers.
+ */
+export async function checkRateLimitDistributed(
+  key: string,
+  config: RateLimitConfig,
+): Promise<RateLimitResult> {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  if (url && token) {
+    const count = await upstashIncr(url, token, key, config.windowMs);
+    if (count !== null) {
+      return {
+        allowed: count <= config.limit,
+        remaining: Math.max(0, config.limit - count),
+        resetAt: Date.now() + config.windowMs,
+      };
+    }
+    // Redis unreachable/errored → fall back to in-memory below.
+  }
+
+  return checkRateLimit(key, config);
 }
 
 /**
