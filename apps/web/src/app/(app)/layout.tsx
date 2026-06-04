@@ -1,6 +1,8 @@
 import { AppShell } from '@/components/layout/AppShell';
 import { FloatingCoach } from '@/components/ui/FloatingCoach';
 import { UsageCategoryModal } from '@/components/ui/UsageCategoryModal';
+import { BackgroundTasksProvider } from '@/lib/background-tasks/BackgroundTasksProvider';
+import { BackgroundTaskCenter } from '@/components/background-tasks/BackgroundTaskCenter';
 
 /**
  * Shared shell for the authenticated product surface.
@@ -10,13 +12,19 @@ import { UsageCategoryModal } from '@/components/ui/UsageCategoryModal';
  * imported and wrapped manually in ~35 individual pages (audit finding AA-1) and
  * the floating widgets lived in the global Providers and leaked onto marketing
  * pages (AA-3). Both now live here, scoped to the product surface only.
+ *
+ * BackgroundTasksProvider wraps the whole surface so a long upload / analysis
+ * started on one page keeps running (and stays viewable) as the user navigates
+ * — this layout does not remount between app routes. BackgroundTaskCenter is
+ * its always-visible indicator + completion toasts.
  */
 export default function AppGroupLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <BackgroundTasksProvider>
       <AppShell>{children}</AppShell>
       <FloatingCoach />
       <UsageCategoryModal />
-    </>
+      <BackgroundTaskCenter />
+    </BackgroundTasksProvider>
   );
 }
