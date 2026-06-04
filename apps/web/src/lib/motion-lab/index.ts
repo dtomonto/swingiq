@@ -76,6 +76,12 @@ export {
   type TemporalFlag,
 } from './temporal';
 export {
+  computeRepeatability,
+  MIN_SESSIONS_FOR_REPEATABILITY,
+  type RepeatabilityResult,
+  type MetricConsistency,
+} from './repeatability';
+export {
   loadSessions,
   saveSession,
   getSession,

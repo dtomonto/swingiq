@@ -21,7 +21,9 @@ clip of a swing, serve, pitch, or throw and get back:
   swinging up or down through it,
 - and a **compare** tool that overlays a past session as a faint "ghost" and
   shows what got better or worse — including cross-session **highlights** for
-  sequencing, contact stability, and tempo.
+  sequencing, contact stability, and tempo, plus a **repeatability** score once
+  you've logged 3+ sessions of the same motion (how consistent your mechanics
+  are — the per-clip repeatability metric stays honestly blank on a single rep).
 
 **The honest part:** all of this comes from a single phone camera. The body
 tracking is real (Google's MediaPipe, running privately on the device), and the
