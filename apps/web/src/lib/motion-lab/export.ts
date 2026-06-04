@@ -60,8 +60,20 @@ export function downloadSessionCsv(session: MotionSession): boolean {
     `# overall,${session.scoreboard.overall}`,
     `# confidence,${session.scoreboard.confidence}`,
     `# created,${session.createdAt}`,
-    `# note,Estimated proxies from single-camera video — not lab-measured.`,
   ];
+  if (session.kineticChain && session.kineticChain.comparableLinks > 0) {
+    const c = session.kineticChain;
+    meta.push(`# kinetic_chain_sequence,${c.sequenceQuality}`);
+    meta.push(`# kinetic_chain_overall,${c.overall}`);
+    meta.push(`# kinetic_chain_leaks,${csvEscape(c.powerLeakFlags.map((f) => f.id).join('; '))}`);
+  }
+  if (session.objectTracking?.available) {
+    const o = session.objectTracking;
+    meta.push(`# implement_path,${o.implement}`);
+    meta.push(`# implement_approach,${o.swingPath.approach}`);
+    meta.push(`# implement_confidence,${o.confidence}`);
+  }
+  meta.push(`# note,Estimated proxies from single-camera video — not lab-measured.`);
   const csv = [...meta, header.join(','), ...rows].join('\n');
   return triggerDownload(`swingiq-motionlab-${stamp(session)}.csv`, csv, 'text/csv');
 }

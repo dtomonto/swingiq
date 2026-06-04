@@ -69,6 +69,35 @@ function buildHtml(s: MotionSession): string {
   const notNote = s.report.whatNotToChange.map((w) => `<li>${esc(w)}</li>`).join('');
   const notes = s.coachNotes ? `<div class="box"><h3>Coach notes</h3><p>${esc(s.coachNotes)}</p></div>` : '';
 
+  // Kinetic chain (firing order + power leaks), printed when we could read it.
+  const kc = s.kineticChain && s.kineticChain.comparableLinks > 0
+    ? (() => {
+        const c = s.kineticChain!;
+        const flags = c.powerLeakFlags.length
+          ? `<ul>${c.powerLeakFlags
+              .map((f) => `<li><b>${esc(f.label)}</b> (${esc(f.severity)}). ${esc(f.detail)}</li>`)
+              .join('')}</ul>`
+          : `<p>No power leaks detected — your energy fires in the right order.</p>`;
+        return `
+  <h2>Kinetic chain — energy transfer</h2>
+  <p><b>Sequence ${c.sequenceQuality}/100</b> (overall ${c.overall}/100). ${esc(c.coachingSummary)}</p>
+  ${flags}
+  <p class="muted"><b>Focus:</b> ${esc(c.recommendedFocus)}</p>`;
+      })()
+    : '';
+
+  // Estimated implement path (clearly labeled as inferred from arm motion).
+  const implement = s.objectTracking?.available
+    ? (() => {
+        const o = s.objectTracking!;
+        const deg = o.swingPath.verticalApproachDeg;
+        const appr = o.swingPath.approach.replace(/_/g, ' ');
+        return `<p class="muted"><b>Estimated ${esc(o.implement)} path:</b> ${esc(appr)}${
+          deg != null ? ` (${deg > 0 ? '+' : ''}${deg}°)` : ''
+        } through contact · confidence ${Math.round(o.confidence * 100)}% — estimated from arm motion, not object detection.</p>`;
+      })()
+    : '';
+
   return `<!doctype html><html><head><meta charset="utf-8"><title>SwingIQ Motion Lab Report</title>
 <style>
   * { box-sizing: border-box; }
@@ -122,12 +151,15 @@ function buildHtml(s: MotionSession): string {
   <h2>What NOT to change</h2>
   <ul>${notNote}</ul>
 
+  ${kc}
+
   <h2>Metrics</h2>
   <table><thead><tr><th>Metric</th><th class="num">Value</th><th class="num">Score</th><th>Target</th><th class="num">Conf.</th></tr></thead>
   <tbody>${metricsRows}</tbody></table>
 
   <h2>Phase breakdown</h2>
   <table><thead><tr><th>Phase</th><th>Read</th><th class="num">Conf.</th></tr></thead><tbody>${phases}</tbody></table>
+  ${implement}
 
   <h2>Prescribed drills</h2>
   <ul>${drills}</ul>
