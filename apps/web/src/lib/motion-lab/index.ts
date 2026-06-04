@@ -70,6 +70,12 @@ export {
   type ChainSegment,
 } from './kineticChain';
 export {
+  computeTemporal,
+  type TemporalIntelligence,
+  type PhaseDuration,
+  type TemporalFlag,
+} from './temporal';
+export {
   loadSessions,
   saveSession,
   getSession,

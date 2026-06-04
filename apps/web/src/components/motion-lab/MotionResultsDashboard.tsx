@@ -22,6 +22,7 @@ import { DrillPlan } from './DrillPlan';
 import { CameraQualityCheck } from './CameraQualityCheck';
 import { ImplementPathCard } from './ImplementPathCard';
 import { KineticChainCard } from './KineticChainCard';
+import { TemporalCard } from './TemporalCard';
 import { AnalysisDebugPanel } from './AnalysisDebugPanel';
 import { MotionComparisonPanel } from './MotionComparisonPanel';
 import { Button } from '@/components/ui/Button';
@@ -191,6 +192,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
           {session.kineticChain && session.kineticChain.comparableLinks > 0 && (
             <KineticChainCard chain={session.kineticChain} accent={accent} />
           )}
+          {session.temporal && <TemporalCard temporal={session.temporal} accent={accent} />}
         </div>
       )}
       {tab === 'metrics' && <MetricsPanel metrics={session.metrics} />}

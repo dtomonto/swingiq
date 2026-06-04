@@ -32,6 +32,7 @@ import { assessQuality, type QualitySourceInput } from './quality';
 import { buildMultiViewTrack } from './multiview';
 import { estimateImplementPath } from './objectTracking';
 import { computeKineticChain } from './kineticChain';
+import { computeTemporal } from './temporal';
 import { newSessionId } from './persistence';
 
 export const ANALYSIS_VERSION = 'motionlab-1.0.0';
@@ -286,6 +287,8 @@ function assembleSession(
   const objectTracking = estimateImplementPath({ track, capture, series, phases });
   // Kinetic chain sequencing (lower body → torso → arms → implement). Never throws.
   const kineticChain = computeKineticChain(track, capture, series, objectTracking);
+  // Temporal intelligence (durations, contact-window stability, tempo). Never throws.
+  const temporal = computeTemporal(track, capture, series, phases);
 
   onProgress?.('rendering');
 
@@ -313,6 +316,7 @@ function assembleSession(
     keyFault: keyFaultLine(metrics),
     objectTracking,
     kineticChain,
+    temporal,
     status: 'complete',
     analysisVersion: ANALYSIS_VERSION,
     modelVersion,

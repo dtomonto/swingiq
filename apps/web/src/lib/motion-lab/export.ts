@@ -73,6 +73,15 @@ export function downloadSessionCsv(session: MotionSession): boolean {
     meta.push(`# implement_approach,${o.swingPath.approach}`);
     meta.push(`# implement_confidence,${o.confidence}`);
   }
+  if (session.temporal && session.temporal.confidence > 0) {
+    const t = session.temporal;
+    meta.push(`# tempo_ratio,${t.tempoRatio ?? ''}`);
+    meta.push(`# load_ms,${t.loadDurationMs ?? ''}`);
+    meta.push(`# transition_ms,${t.transitionDurationMs ?? ''}`);
+    meta.push(`# acceleration_ms,${t.accelerationDurationMs ?? ''}`);
+    meta.push(`# contact_window_stability,${t.contactWindowStability ?? ''}`);
+    meta.push(`# deceleration_control,${t.decelerationControl ?? ''}`);
+  }
   meta.push(`# note,Estimated proxies from single-camera video — not lab-measured.`);
   const csv = [...meta, header.join(','), ...rows].join('\n');
   return triggerDownload(`swingiq-motionlab-${stamp(session)}.csv`, csv, 'text/csv');

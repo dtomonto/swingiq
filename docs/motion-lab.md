@@ -117,6 +117,14 @@ already-shipping infrastructure:
     "fires all at once", a 0–100 sequence quality + overall, a coaching summary,
     and a recommended focus). It reuses the implement timing from step 10 for the
     final link. Single-camera proxy — basis + confidence carried through.
+12. **Temporal intelligence** — `temporal.ts` reads how the motion unfolds over
+    TIME: load / transition / acceleration **durations** (anchored to the
+    detected top-of-backswing + strike), tempo ratio, where peak hand speed
+    lands, **contact-window stability**, **deceleration control**, and timing
+    flags (rushed transition, unstable contact, lashing, early peak). It owns the
+    firing DURATIONS where the kinetic chain owns the firing ORDER. Repeatability
+    is deliberately NOT computed here — it needs multiple reps and is tracked
+    across sessions. Single-camera proxy — basis + confidence carried through.
 
 The result is a `MotionSession` saved locally via `persistence.ts`
 (localStorage, its own key, never touches existing stores). The stored pose

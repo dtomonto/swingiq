@@ -86,6 +86,26 @@ function buildHtml(s: MotionSession): string {
       })()
     : '';
 
+  // Temporal intelligence (durations + timing flags), when timeable.
+  const temporal = s.temporal && s.temporal.confidence > 0
+    ? (() => {
+        const t = s.temporal!;
+        const secs = (ms: number | null) => (ms != null ? `${(ms / 1000).toFixed(2)}s` : '—');
+        const flags = t.flags.length
+          ? `<ul>${t.flags.map((f) => `<li><b>${esc(f.label)}</b> (${esc(f.severity)}). ${esc(f.detail)}</li>`).join('')}</ul>`
+          : '';
+        return `
+  <h2>Timing</h2>
+  <p>Tempo ${t.tempoRatio != null ? `${t.tempoRatio}:1` : '—'} (back:through) · load ${secs(t.loadDurationMs)} · transition ${secs(
+    t.transitionDurationMs,
+  )} · acceleration ${secs(t.accelerationDurationMs)} · contact stability ${
+    t.contactWindowStability != null ? `${t.contactWindowStability}/100` : '—'
+  } · deceleration ${t.decelerationControl != null ? `${t.decelerationControl}/100` : '—'}.</p>
+  <p>${esc(t.summary)}</p>
+  ${flags}`;
+      })()
+    : '';
+
   // Estimated implement path (clearly labeled as inferred from arm motion).
   const implement = s.objectTracking?.available
     ? (() => {
@@ -152,6 +172,8 @@ function buildHtml(s: MotionSession): string {
   <ul>${notNote}</ul>
 
   ${kc}
+
+  ${temporal}
 
   <h2>Metrics</h2>
   <table><thead><tr><th>Metric</th><th class="num">Value</th><th class="num">Score</th><th>Target</th><th class="num">Conf.</th></tr></thead>

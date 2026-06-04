@@ -257,6 +257,11 @@ export interface MotionSession {
    * power-leak flags. Optional for backward-compat. See lib/motion-lab/kineticChain.
    */
   kineticChain?: import('./kineticChain').KineticChainScore;
+  /**
+   * Temporal intelligence: phase durations, contact-window stability, tempo,
+   * deceleration. Optional for backward-compat. See lib/motion-lab/temporal.
+   */
+  temporal?: import('./temporal').TemporalIntelligence;
   status: ProcessingStatus;
   analysisVersion: string;
   modelVersion: string;

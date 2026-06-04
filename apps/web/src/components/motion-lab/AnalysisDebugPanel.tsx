@@ -70,6 +70,7 @@ export function AnalysisDebugPanel({ session }: Props) {
   const dropped = Math.max(0, track.attemptedFrames - track.frames.length);
   const ot = session.objectTracking;
   const kc = session.kineticChain;
+  const tp = session.temporal;
 
   return (
     <details className="rounded-xl border border-border bg-card group">
@@ -191,6 +192,24 @@ export function AnalysisDebugPanel({ session }: Props) {
                 ['Arms', kc.armTiming != null ? pct(kc.armTiming) : '—'],
                 ['Implement', kc.implementTiming != null ? pct(kc.implementTiming) : '—'],
                 ['Power leaks', kc.powerLeakFlags.length ? kc.powerLeakFlags.map((f) => f.id).join(', ') : 'none'],
+              ]}
+            />
+          </Section>
+        )}
+
+        {/* Temporal internals */}
+        {tp && tp.confidence > 0 && (
+          <Section title="Temporal">
+            <KV
+              items={[
+                ['Tempo', tp.tempoRatio != null ? `${tp.tempoRatio}:1` : '—'],
+                ['Load', tp.loadDurationMs != null ? `${tp.loadDurationMs} ms` : '—'],
+                ['Transition', tp.transitionDurationMs != null ? `${tp.transitionDurationMs} ms` : '—'],
+                ['Acceleration', tp.accelerationDurationMs != null ? `${tp.accelerationDurationMs} ms` : '—'],
+                ['Peak speed @', tp.peakSpeedTimePct != null ? pct(tp.peakSpeedTimePct) : '—'],
+                ['Contact stability', tp.contactWindowStability != null ? `${tp.contactWindowStability}/100` : '—'],
+                ['Deceleration', tp.decelerationControl != null ? `${tp.decelerationControl}/100` : '—'],
+                ['Flags', tp.flags.length ? tp.flags.map((f) => f.id).join(', ') : 'none'],
               ]}
             />
           </Section>
