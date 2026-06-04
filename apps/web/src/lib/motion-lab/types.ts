@@ -299,6 +299,18 @@ export interface MetricDelta {
   improved: boolean | null;
 }
 
+/** A cross-session change in a structured read (sequencing, timing, …). */
+export interface ComparisonHighlight {
+  id: string;
+  label: string;
+  before: string;
+  after: string;
+  direction: 'up' | 'down' | 'flat';
+  /** True = better, false = worse, null = neutral / ambiguous. */
+  improved: boolean | null;
+  note: string;
+}
+
 export interface MotionComparison {
   baseId: string;
   compareId: string;
@@ -306,5 +318,7 @@ export interface MotionComparison {
   metricDeltas: MetricDelta[];
   biggestImprovement: MetricDelta | null;
   biggestRegression: MetricDelta | null;
+  /** Cross-session changes in the kinetic-chain + temporal reads. */
+  highlights: ComparisonHighlight[];
   recommendation: string;
 }

@@ -20,7 +20,8 @@ clip of a swing, serve, pitch, or throw and get back:
   traces, plus where it meets the ball (contact zone) and whether you're
   swinging up or down through it,
 - and a **compare** tool that overlays a past session as a faint "ghost" and
-  shows what got better or worse.
+  shows what got better or worse — including cross-session **highlights** for
+  sequencing, contact stability, and tempo.
 
 **The honest part:** all of this comes from a single phone camera. The body
 tracking is real (Google's MediaPipe, running privately on the device), and the

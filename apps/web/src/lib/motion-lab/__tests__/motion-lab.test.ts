@@ -187,6 +187,26 @@ describe('motion-lab engine (synthetic track)', () => {
     expect(cmp.metricDeltas.length).toBeGreaterThan(0);
   });
 
+  it('surfaces cross-session highlights for sequencing + timing changes', () => {
+    const mk = (overall: number, seq: number, stability: number, tempo: number): MotionSession =>
+      ({
+        id: `s${overall}`,
+        createdAt: '2026-01-01T00:00:00Z',
+        metrics: [],
+        scoreboard: { overall },
+        kineticChain: { sequenceQuality: seq, comparableLinks: 3 },
+        temporal: { contactWindowStability: stability, decelerationControl: 70, tempoRatio: tempo, confidence: 0.7 },
+      } as unknown as MotionSession);
+
+    const cmp = compareSessions(mk(50, 60, 50, 2.0), mk(60, 92, 80, 2.8));
+    const seq = cmp.highlights.find((h) => h.id === 'sequence');
+    const stab = cmp.highlights.find((h) => h.id === 'contact_stability');
+    const tempo = cmp.highlights.find((h) => h.id === 'tempo');
+    expect(seq?.improved).toBe(true); // 60 → 92
+    expect(stab?.improved).toBe(true); // 50 → 80
+    expect(tempo?.improved).toBeNull(); // tempo change is reported neutrally
+  });
+
   it('compacts a pose track for storage without losing structure', () => {
     const big: MotionPoseTrack = { ...track, frames: [...track.frames, ...track.frames, ...track.frames] };
     const small = compactTrack(big);

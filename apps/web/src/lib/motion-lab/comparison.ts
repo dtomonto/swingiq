@@ -6,7 +6,62 @@
 // while the raw-value delta is surfaced for transparency.
 // ============================================================
 
-import type { MotionSession, MotionComparison, MetricDelta } from './types';
+import type { MotionSession, MotionComparison, MetricDelta, ComparisonHighlight } from './types';
+
+/**
+ * Cross-session changes in the structured reads (kinetic chain + temporal) that
+ * the flat metric-delta list doesn't cover. base = before, compare = after.
+ */
+function buildHighlights(base: MotionSession, compare: MotionSession): ComparisonHighlight[] {
+  const out: ComparisonHighlight[] = [];
+  const add = (
+    id: string,
+    label: string,
+    b: number | null | undefined,
+    a: number | null | undefined,
+    betterHigher: boolean,
+    fmt: (v: number) => string,
+    upNote: string,
+    downNote: string,
+  ) => {
+    if (b == null || a == null) return;
+    const direction: ComparisonHighlight['direction'] = Math.abs(a - b) < 1e-6 ? 'flat' : a > b ? 'up' : 'down';
+    const improved = direction === 'flat' ? null : betterHigher ? a > b : a < b;
+    out.push({
+      id,
+      label,
+      before: fmt(b),
+      after: fmt(a),
+      direction,
+      improved,
+      note: direction === 'flat' ? 'About the same.' : improved ? upNote : downNote,
+    });
+  };
+
+  const score = (v: number) => `${Math.round(v)}/100`;
+  add('sequence', 'Kinetic sequence', base.kineticChain?.sequenceQuality, compare.kineticChain?.sequenceQuality, true, score,
+    'Firing order is more ground-up.', 'Firing order slipped out of sequence.');
+  add('contact_stability', 'Contact stability', base.temporal?.contactWindowStability, compare.temporal?.contactWindowStability, true, score,
+    'Steadier through the strike.', 'More body drift through the strike.');
+  add('deceleration', 'Deceleration control', base.temporal?.decelerationControl, compare.temporal?.decelerationControl, true, score,
+    'More controlled finish.', 'Less controlled finish.');
+
+  // Tempo: direction isn't universally "better/worse", so report it neutrally.
+  const tb = base.temporal?.tempoRatio;
+  const ta = compare.temporal?.tempoRatio;
+  if (tb != null && ta != null && Math.abs(ta - tb) >= 0.3) {
+    out.push({
+      id: 'tempo',
+      label: 'Tempo (back:through)',
+      before: `${tb}:1`,
+      after: `${ta}:1`,
+      direction: ta > tb ? 'up' : 'down',
+      improved: null,
+      note: 'Tempo shifted — aim for a smooth, repeatable rhythm.',
+    });
+  }
+  return out;
+}
 
 export function compareSessions(base: MotionSession, compare: MotionSession): MotionComparison {
   const beforeById = new Map(base.metrics.map((m) => [m.id, m]));
@@ -68,6 +123,7 @@ export function compareSessions(base: MotionSession, compare: MotionSession): Mo
     metricDeltas,
     biggestImprovement,
     biggestRegression,
+    highlights: buildHighlights(base, compare),
     recommendation,
   };
 }
