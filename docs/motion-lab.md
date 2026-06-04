@@ -169,9 +169,16 @@ jump to.
 
 ## Extension points (future proprietary upgrade)
 
-- **Pose provider seam** — `lib/motion/` already defines a `PoseProvider`
-  interface. A trained model, server endpoint, or multi-view rig can implement
-  it and feed Motion Lab a higher-confidence `MotionPoseTrack`.
+- **Pose provider seam** — `lib/motion/` defines a `PoseProvider` interface with
+  four adapters behind it: `onDevicePoseProvider` (MediaPipe, the default),
+  `cloudPoseProvider`, `moveNetPoseProvider` (a documented placeholder), and the
+  honest `mockPoseProvider`. `selectPoseProvider()` prefers on-device (private),
+  then the cloud adapter **if** an operator sets `NEXT_PUBLIC_POSE_CLOUD_URL`
+  (off by default — enabling it means frames are POSTed to that endpoint), then
+  the mock. A cloud response is validated and stays basis `estimated` (a single
+  camera is never "measured"); any failure degrades to a placeholder, never a
+  throw. A trained model or multi-view rig can implement the same interface and
+  feed Motion Lab a higher-confidence track.
 - **Reference ranges** — the starter heuristics in `biomechanics.ts` are isolated
   in small helpers; swap them for validated, level-segmented norms when
   available.
