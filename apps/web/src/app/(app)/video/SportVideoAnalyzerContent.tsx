@@ -9,7 +9,8 @@
 //
 // The analysis runs as a BACKGROUND TASK (see lib/background-tasks), so
 // the user can leave this page while it works and gets pulled back when
-// it finishes. This component is a thin view over that task.
+// it finishes. This component is a thin view over that task; frames +
+// pose are prepared speculatively and a speed/quality tier can be chosen.
 // ============================================================
 
 import { useState, useCallback, useEffect } from 'react';
@@ -28,7 +29,9 @@ import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { SportCardGrid } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
 import { getSportConfig, SPORT_CAMERA_ANGLES } from '@swingiq/core';
-import type { SportId, SwingVideoMetadata } from '@swingiq/core';
+import type { SportId, SwingVideoMetadata, VisionSpeed } from '@swingiq/core';
+import { warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepareSwing';
+import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector';
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
@@ -47,6 +50,7 @@ export function SportVideoAnalyzerContent() {
   const [videoObjectUrl, setVideoObjectUrl] = useState<string | null>(null);
   const [videoMetadata, setVideoMetadata] = useState<SwingVideoMetadata | null>(null);
   const [selectedSport, setSelectedSport] = useState<SportId>(activeSport);
+  const [speed, setSpeed] = useState<VisionSpeed>('fast');
 
   // Returning-user history for the selected sport, compare toggle.
   // `useVideoHistory` reads localStorage after hydration and live-updates on
@@ -92,12 +96,16 @@ export function SportVideoAnalyzerContent() {
       setVideoMetadata({ ...metadata, camera_angle: 'unknown' });
       setVideoObjectUrl(objectUrl);
       setStep('configure');
+      // Speculatively extract frames + run pose now, while the user configures —
+      // so clicking "Analyze" jumps almost straight to the AI call.
+      warmSwingPreparation(file);
     },
     [],
   );
 
   const handleRemoveVideo = () => {
     if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);
+    forgetPreparedSwing(videoFile);
     setVideoFile(null);
     setVideoObjectUrl(null);
     setVideoMetadata(null);
@@ -123,6 +131,7 @@ export function SportVideoAnalyzerContent() {
         emoji: sportConfig?.emoji,
         declaredCameraAngle: videoMetadata.camera_angle,
         previous,
+        speed,
       },
       {
         title: `Analyzing your ${(sportConfig?.name ?? 'swing').toLowerCase()} swing`,
@@ -257,6 +266,12 @@ export function SportVideoAnalyzerContent() {
           </Card>
         )}
 
+        <Card>
+          <CardBody>
+            <AnalysisSpeedSelector value={speed} onChange={setSpeed} />
+          </CardBody>
+        </Card>
+
         {swing.error && (
           <div className="rounded-xl bg-error/10 border border-error/30 p-4 flex gap-2">
             <AlertCircle className="w-4 h-4 text-error shrink-0 mt-0.5" />
@@ -372,7 +387,13 @@ export function SportVideoAnalyzerContent() {
             )}
 
             <div className="flex flex-wrap gap-2">
-              <Button variant="outline" onClick={() => setStep('configure')}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setViewingResults(false);
+                  setStep('configure');
+                }}
+              >
                 Change settings
               </Button>
               <Button variant="ghost" onClick={handleRemoveVideo}>

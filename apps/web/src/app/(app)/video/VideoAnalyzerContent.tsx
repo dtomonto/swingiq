@@ -10,7 +10,9 @@
 // The analysis runs as a BACKGROUND TASK (see lib/background-tasks), so
 // the user can leave this page while it works and gets pulled back when
 // it finishes. This component is a thin view over that task: stage,
-// progress, and the final result are read straight off it.
+// progress, and the final result are read straight off it. Frames + pose
+// are prepared speculatively on the configure screen, and the user can
+// pick a speed/quality tier before analyzing.
 // ============================================================
 
 import { useState, useCallback, useEffect } from 'react';
@@ -25,12 +27,14 @@ import { VideoWelcomeBack } from '@/components/video/VideoWelcomeBack';
 import { VideoProgress } from '@/components/video/VideoProgress';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { Button } from '@/components/ui/Button';
+import { warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepareSwing';
+import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector';
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
 import { useSwingAnalysis } from '@/lib/video/useSwingAnalysis';
 import { cn } from '@/lib/utils';
-import type { SwingVideoMetadata } from '@swingiq/core';
+import type { SwingVideoMetadata, VisionSpeed } from '@swingiq/core';
 import { ChevronLeft, Loader2, AlertCircle, Zap, Download, RefreshCw } from 'lucide-react';
 
 type AnalysisStep = 'upload' | 'configure' | 'analyzing' | 'results';
@@ -47,6 +51,7 @@ export function VideoAnalyzerContent() {
   const [videoObjectUrl, setVideoObjectUrl] = useState<string | null>(null);
   const [videoMetadata, setVideoMetadata] = useState<SwingVideoMetadata | null>(null);
   const [cameraAngle, setCameraAngle] = useState<CameraAngleOption>('unknown');
+  const [speed, setSpeed] = useState<VisionSpeed>('fast');
 
   // Returning-user history (golf) + compare toggle.
   // `useVideoHistory` reads localStorage after hydration and live-updates on
@@ -87,12 +92,16 @@ export function VideoAnalyzerContent() {
       setVideoMetadata({ ...metadata, camera_angle: 'unknown' });
       setVideoObjectUrl(objectUrl);
       setStep('configure');
+      // Speculatively extract frames + run pose now, while the user reads the
+      // configure screen — so clicking "Analyze" jumps almost straight to the AI.
+      warmSwingPreparation(file);
     },
     [],
   );
 
   const handleRemoveVideo = () => {
     if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);
+    forgetPreparedSwing(videoFile);
     setVideoFile(null);
     setVideoObjectUrl(null);
     setVideoMetadata(null);
@@ -117,6 +126,7 @@ export function VideoAnalyzerContent() {
         emoji: '⛳',
         declaredCameraAngle: cameraAngle,
         previous,
+        speed,
       },
       {
         title: 'Analyzing your golf swing',
@@ -207,6 +217,8 @@ export function VideoAnalyzerContent() {
             <VideoPreviewCard file={videoFile} metadata={videoMetadata} onRemove={handleRemoveVideo} />
 
             <CameraAngleSelector value={cameraAngle} onChange={setCameraAngle} />
+
+            <AnalysisSpeedSelector value={speed} onChange={setSpeed} />
 
             {swing.error && (
               <div className="flex items-start gap-3 rounded-lg bg-error/10 border border-error/30 p-3">

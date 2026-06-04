@@ -3,23 +3,27 @@
 // ============================================================
 // SwingIQ — Swing analysis pipeline (shared)
 // ------------------------------------------------------------
-// The exact extract-frames → on-device pose → AI vision → save flow
+// The prepare (extract frames + on-device pose) → AI vision → save flow
 // that previously lived inline in both the golf and multi-sport video
 // analyzers. It is factored out here so it can run inside a background
 // task (see lib/background-tasks): the user can navigate away and the
 // work keeps going, reporting progress + stage back through `sink`.
 //
+// It reuses prepareSwing's per-File cache, so the speculative warm-up
+// kicked off on the configure screen is reused here (never re-extracts),
+// and forwards the user's chosen speed/quality tier to the AI route.
 // Privacy is unchanged: only sampled still frames are sent to the AI
 // route; the original video never leaves the device.
 // ============================================================
 
-import { extractSwingFrames } from '@/lib/frame-extraction';
-import { detectSwingPose, type PoseMetrics } from '@/lib/pose';
+import { prepareSwing } from '@/lib/video/prepareSwing';
 import { saveVideoAnalysis, type SavedVideoAnalysis } from '@/lib/video/history';
+import type { PoseMetrics } from '@/lib/pose';
 import type { AnalysisStage } from '@/components/video/AnalysisProgress';
 import type {
   AIVisualAnalysis,
   PreviousAnalysisSummary,
+  VisionSpeed,
   VisualSport,
 } from '@swingiq/core';
 
@@ -34,6 +38,8 @@ export interface SwingAnalysisInput {
   declaredCameraAngle: string;
   /** Previous-swing context fed to the AI (it judges only the new frames). */
   previous: PreviousAnalysisSummary | null;
+  /** Vision speed/quality tier the user chose. */
+  speed: VisionSpeed;
 }
 
 export interface SwingAnalysisResult {
@@ -85,14 +91,11 @@ export async function runSwingAnalysis(
   advance(sink, 'preparing');
   throwIfAborted(sink.signal);
 
-  // 1. Extract still frames from the whole clip, in the browser.
+  // 1–2. Frames + pose — usually already prepared during "configure" (the
+  // speculative warm-up), so this resolves quickly; otherwise it runs now.
   advance(sink, 'extracting');
-  const extraction = await extractSwingFrames(input.videoFile);
-  throwIfAborted(sink.signal);
-
-  // 2. On-device pose detection → objective body signals (best-effort).
+  const { extraction, pose } = await prepareSwing(input.videoFile);
   advance(sink, 'measuring');
-  const pose = await detectSwingPose(extraction.frames);
   throwIfAborted(sink.signal);
 
   // 3. Send only the frames + metadata (+ pose summary) to the AI route.
@@ -110,6 +113,7 @@ export async function runSwingAnalysis(
       },
       previous: input.previous,
       poseSummary: pose.summary,
+      speed: input.speed,
     }),
     signal: sink.signal,
   });

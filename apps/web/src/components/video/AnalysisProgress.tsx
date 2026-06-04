@@ -7,6 +7,7 @@
 // The copy never overclaims; each step maps to actual work.
 // ============================================================
 
+import { useEffect, useState } from 'react';
 import { Loader2, CheckCircle, Circle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -38,11 +39,28 @@ const ORDER: AnalysisStage[] = [
   'done',
 ];
 
+/** Counts up whole seconds from first render — a quiet sign of life. */
+function useElapsedSeconds(): number {
+  const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    const started = Date.now();
+    const id = setInterval(() => setSeconds(Math.floor((Date.now() - started) / 1000)), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return seconds;
+}
+
 export function AnalysisProgress({ stage }: { stage: AnalysisStage }) {
   const currentIndex = ORDER.indexOf(stage);
+  const elapsed = useElapsedSeconds();
 
   return (
     <div className="max-w-md mx-auto" role="status" aria-live="polite">
+      <div className="mb-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+        <span className="tabular-nums font-medium text-foreground">{elapsed}s</span>
+        <span>·</span>
+        <span>You can switch tabs — we&apos;ll keep working and ping the tab title when it&apos;s ready.</span>
+      </div>
       <ol className="space-y-3">
         {STAGES.map((s) => {
           const idx = ORDER.indexOf(s.id);

@@ -83,6 +83,21 @@ function loadImage(dataUrl: string): Promise<HTMLImageElement | null> {
 }
 
 /**
+ * Pre-load (and memoize) the pose model without running detection. Calling this
+ * early — e.g. while the user is still on the configure screen — moves the
+ * one-time WASM + model download off the critical path, so the first real
+ * detection is fast. Best-effort and never throws.
+ */
+export async function warmupPose(quality: PoseModelQuality = 'lite'): Promise<void> {
+  if (typeof window === 'undefined') return;
+  try {
+    await getLandmarker(quality);
+  } catch {
+    // Ignore — detection will simply proceed without pose data later.
+  }
+}
+
+/**
  * Detect pose landmarks on each frame. Returns only the frames where a
  * pose was actually found (so empty ⇒ no usable pose). Never throws.
  *

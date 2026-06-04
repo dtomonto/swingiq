@@ -12,14 +12,23 @@
 // for analysis; the original video file never leaves the device.
 // ============================================================
 
-/** Default number of frames returned for analysis. */
-export const DEFAULT_FRAME_COUNT = 16;
+/**
+ * Default number of frames returned for analysis. Concentrated on the detected
+ * swing window (plus a setup + finish frame), 10 keys carry the whole motion
+ * while sending far fewer image tokens than a uniform 16 — markedly faster to
+ * upload and for the AI to read, with no meaningful loss for a swing review.
+ */
+export const DEFAULT_FRAME_COUNT = 10;
 
 /** Hard ceiling so payloads stay reasonable even if a caller asks for more. */
 export const MAX_FRAME_COUNT = 24;
 
-/** Longest edge (px) each frame is downscaled to before encoding. */
-const DEFAULT_MAX_EDGE = 720;
+/**
+ * Longest edge (px) each frame is downscaled to before encoding. 512 keeps the
+ * body and club clearly legible while roughly halving pixels vs. 720 — fewer
+ * image tokens for the vision model and a smaller upload.
+ */
+const DEFAULT_MAX_EDGE = 512;
 
 /** JPEG quality for encoded frames (0–1). */
 const DEFAULT_QUALITY = 0.72;
@@ -200,7 +209,7 @@ function seekTo(video: HTMLVideoElement, time: number): Promise<void> {
       cleanup();
       // Don't hard-fail on a slow seek — resolve and let the draw proceed.
       resolve();
-    }, 3000);
+    }, 1500);
 
     video.addEventListener('seeked', onSeeked);
     video.addEventListener('error', onError);
@@ -240,8 +249,9 @@ export async function extractSwingFrames(
   const smart = options.smart ?? true;
 
   // Scan more candidates than we keep, so motion detection has resolution.
+  // Capped at 24 seeks — enough to localize the swing without a long scan.
   const scanCount = smart
-    ? Math.min(32, Math.max(count + 12, Math.ceil(count * 1.8)))
+    ? Math.min(24, Math.max(count + 10, Math.ceil(count * 1.8)))
     : count;
 
   const ownsObjectUrl = typeof source !== 'string';

@@ -58,6 +58,22 @@ export interface VisionAnalysisRequest {
   previous?: PreviousAnalysisSummary | null;
   /** Objective signals from on-device pose detection, if available. */
   poseSummary?: string | null;
+  /** Ask the model for tight, minimal output (fewer output tokens ⇒ faster). */
+  concise?: boolean;
+}
+
+/**
+ * Speed tier. Trades model size + output verbosity (the dominant cost of the
+ * vision call) against thoroughness. `fast` is the default — it picks the
+ * quickest capable model and asks for concise output.
+ */
+export type VisionSpeed = 'fast' | 'balanced' | 'thorough';
+
+export const DEFAULT_VISION_SPEED: VisionSpeed = 'fast';
+
+export function resolveVisionSpeed(value: string | undefined): VisionSpeed {
+  const v = value?.trim().toLowerCase();
+  return v === 'balanced' || v === 'thorough' ? v : 'fast';
 }
 
 export type VisionAnalysisOutcome =
@@ -172,6 +188,7 @@ abstract class BaseVisionProvider implements AIVisionProvider {
       profile: req.profile,
       previous: req.previous,
       poseSummary: req.poseSummary,
+      concise: req.concise,
     });
 
     let raw: RawResult;
@@ -374,38 +391,83 @@ function resolveImageDetail(value: string | undefined): ImageDetail {
 }
 
 /**
+ * Per-provider speed tiers. The model (and, for OpenAI, the image detail) is
+ * the single biggest driver of latency — a smaller model generates the
+ * structured report far faster. `fast` is the default. An explicit
+ * AI_VISION_MODEL / AI_VISION_IMAGE_DETAIL env override always wins over a tier.
+ */
+const SPEED_TIERS: Record<'anthropic' | 'openai' | 'google', Record<VisionSpeed, { model: string; detail: ImageDetail }>> = {
+  anthropic: {
+    fast: { model: 'claude-haiku-4-5-20251001', detail: 'auto' },
+    balanced: { model: 'claude-sonnet-4-6', detail: 'auto' },
+    thorough: { model: 'claude-sonnet-4-6', detail: 'high' },
+  },
+  openai: {
+    fast: { model: 'gpt-4o-mini', detail: 'low' },
+    balanced: { model: 'gpt-4o', detail: 'auto' },
+    thorough: { model: 'gpt-4o', detail: 'high' },
+  },
+  google: {
+    fast: { model: 'gemini-1.5-flash', detail: 'auto' },
+    balanced: { model: 'gemini-1.5-flash', detail: 'auto' },
+    thorough: { model: 'gemini-1.5-pro', detail: 'high' },
+  },
+};
+
+export interface VisionProviderOptions {
+  /** Speed tier; falls back to AI_VISION_SPEED, then 'fast'. */
+  speed?: VisionSpeed;
+}
+
+/**
  * Resolve the configured vision provider from environment variables.
  *
  *   AI_VISION_PROVIDER     anthropic | openai | google   (falls back to AI_PROVIDER)
  *   ANTHROPIC_API_KEY / OPENAI_API_KEY / GOOGLE_AI_API_KEY
- *   AI_VISION_MODEL        optional model override
- *   AI_VISION_IMAGE_DETAIL auto | low | high   (OpenAI image fidelity vs. cost)
+ *   AI_VISION_SPEED        fast | balanced | thorough     (default fast)
+ *   AI_VISION_MODEL        optional model override (wins over the tier)
+ *   AI_VISION_IMAGE_DETAIL auto | low | high   (wins over the tier; OpenAI)
  *
- * Returns a DisabledVisionProvider (which yields the no-fake "not
- * configured" state) when no usable key is present.
+ * `opts.speed` (e.g. from a per-request tier) takes precedence over the env
+ * default. Returns a DisabledVisionProvider (the no-fake "not configured"
+ * state) when no usable key is present.
  */
-export function getVisionProvider(env: ProviderEnv = process.env): AIVisionProvider {
+export function getVisionProvider(
+  env: ProviderEnv = process.env,
+  opts: VisionProviderOptions = {},
+): AIVisionProvider {
   const selected = (env.AI_VISION_PROVIDER ?? env.AI_PROVIDER ?? '').trim().toLowerCase();
+  const speed = opts.speed ?? resolveVisionSpeed(env.AI_VISION_SPEED);
   const modelOverride = env.AI_VISION_MODEL?.trim() || undefined;
-  const imageDetail = resolveImageDetail(env.AI_VISION_IMAGE_DETAIL);
+  const detailOverride = env.AI_VISION_IMAGE_DETAIL?.trim()
+    ? resolveImageDetail(env.AI_VISION_IMAGE_DETAIL)
+    : undefined;
+
+  const pick = (key: 'anthropic' | 'openai' | 'google') => {
+    const tier = SPEED_TIERS[key][speed];
+    return { model: modelOverride ?? tier.model, detail: detailOverride ?? tier.detail };
+  };
 
   switch (selected) {
     case 'anthropic':
-    case 'claude':
-      return env.ANTHROPIC_API_KEY
-        ? new AnthropicVisionProvider(env.ANTHROPIC_API_KEY, modelOverride, imageDetail)
-        : new DisabledVisionProvider(missingKeyReason('ANTHROPIC_API_KEY'));
+    case 'claude': {
+      if (!env.ANTHROPIC_API_KEY) return new DisabledVisionProvider(missingKeyReason('ANTHROPIC_API_KEY'));
+      const { model, detail } = pick('anthropic');
+      return new AnthropicVisionProvider(env.ANTHROPIC_API_KEY, model, detail);
+    }
 
-    case 'openai':
-      return env.OPENAI_API_KEY
-        ? new OpenAIVisionProvider(env.OPENAI_API_KEY, modelOverride, imageDetail)
-        : new DisabledVisionProvider(missingKeyReason('OPENAI_API_KEY'));
+    case 'openai': {
+      if (!env.OPENAI_API_KEY) return new DisabledVisionProvider(missingKeyReason('OPENAI_API_KEY'));
+      const { model, detail } = pick('openai');
+      return new OpenAIVisionProvider(env.OPENAI_API_KEY, model, detail);
+    }
 
     case 'google':
-    case 'gemini':
-      return env.GOOGLE_AI_API_KEY
-        ? new GoogleVisionProvider(env.GOOGLE_AI_API_KEY, modelOverride, imageDetail)
-        : new DisabledVisionProvider(missingKeyReason('GOOGLE_AI_API_KEY'));
+    case 'gemini': {
+      if (!env.GOOGLE_AI_API_KEY) return new DisabledVisionProvider(missingKeyReason('GOOGLE_AI_API_KEY'));
+      const { model, detail } = pick('google');
+      return new GoogleVisionProvider(env.GOOGLE_AI_API_KEY, model, detail);
+    }
 
     default:
       return new DisabledVisionProvider();
