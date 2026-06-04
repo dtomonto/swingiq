@@ -10,6 +10,7 @@ import { useState, useRef } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { BackupHealthBanner } from '@/components/community/BackupHealthBanner';
+import { AutoSyncSection } from '@/components/backup/AutoSyncSection';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
 import { useSwingIQStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -555,6 +556,9 @@ export default function DataCenterPage() {
             )}
           </CardBody>
         </Card>
+
+        {/* Automatic backups (auto-save + auto-continue) */}
+        <AutoSyncSection />
 
         {/* Schema info */}
         <Card>

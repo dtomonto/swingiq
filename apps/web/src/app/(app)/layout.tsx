@@ -4,6 +4,8 @@ import { UsageCategoryModal } from '@/components/ui/UsageCategoryModal';
 import { BackgroundTasksProvider } from '@/lib/background-tasks/BackgroundTasksProvider';
 import { BackgroundTaskCenter } from '@/components/background-tasks/BackgroundTaskCenter';
 import { GuideCompanion } from '@/components/guide/GuideCompanion';
+import { AutoSyncProvider } from '@/lib/backup/autosync/AutoSyncProvider';
+import { ContinueProgressBanner } from '@/components/backup/ContinueProgressBanner';
 
 /**
  * Shared shell for the authenticated product surface.
@@ -22,11 +24,14 @@ import { GuideCompanion } from '@/components/guide/GuideCompanion';
 export default function AppGroupLayout({ children }: { children: React.ReactNode }) {
   return (
     <BackgroundTasksProvider>
-      <AppShell>{children}</AppShell>
-      <FloatingCoach />
-      <UsageCategoryModal />
-      <BackgroundTaskCenter />
-      <GuideCompanion />
+      <AutoSyncProvider>
+        <AppShell>{children}</AppShell>
+        <FloatingCoach />
+        <UsageCategoryModal />
+        <BackgroundTaskCenter />
+        <GuideCompanion />
+        <ContinueProgressBanner />
+      </AutoSyncProvider>
     </BackgroundTasksProvider>
   );
 }
