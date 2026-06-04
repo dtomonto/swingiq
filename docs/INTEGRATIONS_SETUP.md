@@ -53,23 +53,39 @@ Optional: `AI_VISION_MODEL=gpt-4o`, `MAX_VIDEO_FRAMES_ANALYZED=16`.
 
 ---
 
-## 2. Supabase (accounts + cloud data)
+## 2. Supabase (accounts + cloud data) — the recommended free-tier database
+
+**Why Supabase (and not another database):** SwingIQ is *already wired* for it — the auth middleware, the `supabase.ts` clients, the login/signup/reset pages, and the database schema (whose row-level-security rules use Supabase's `auth.uid()`) are all built. Connecting it is paste-two-keys, not a coding project. Underneath it's plain PostgreSQL, so nothing here is locked in — see "Outgrowing the free tier" below.
 
 **What it unlocks:** real sign-in, saving sessions to the cloud, and syncing across devices. Until this is set, SwingIQ runs **local-first** (data lives in the browser; the offline queue in `lib/offline/session-queue.ts` holds sessions until a backend is connected).
 
+**Cost to start: $0.** The free tier needs no credit card. Rough free limits (check the live pricing page — they change): ~500 MB database, up to ~50,000 monthly signed-in users, 2 projects. One honest gotcha: a free project **pauses after ~1 week of no activity** — you click once in the dashboard to wake it. Fine for building and early users; plan to move up (or to self-hosting) once you have steady real traffic.
+
 **Steps:**
-1. Create a free project at https://supabase.com.
-2. In the Supabase dashboard → **SQL Editor**, paste and run the schema from `server/supabase_schema.sql`.
+1. Create a free project at https://supabase.com (no card required). Pick a region close to your users; save the database password it gives you.
+2. In the Supabase dashboard → **SQL Editor → New query**, paste and **Run** each of these, in order:
+   - `server/supabase_schema.sql` — **required.** Core tables (profiles, sessions, shots, diagnoses…) + their security rules.
+   - `apps/web/supabase-rls.sql` — **recommended.** Extra row-level-security hardening so every user can only ever see their own data.
+   - `server/supabase_schema_video.sql` — *optional*, only if you want saved video-analysis history in the cloud.
+   - `server/supabase_schema_research.sql` — *optional*, only for the admin benchmark-research workflow.
 3. In **Project Settings → API**, copy the Project URL and the keys.
 
-**Paste into `apps/web/.env.local`:**
+**Paste into `apps/web/.env.local`** (the only two that are strictly required are the URL and the anon key):
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://YOURPROJECT.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...anon key...
-SUPABASE_SERVICE_ROLE_KEY=eyJ...service role key...   # server only — keep secret
+SUPABASE_SERVICE_ROLE_KEY=eyJ...service role key...   # server only — keep secret, never commit
 ```
 
-**Verify:** sign-in middleware activates automatically once the URL + anon key are present.
+**Verify:** restart the dev server; the sign-in middleware activates automatically once the URL + anon key are present. Create a test account on `/signup` and confirm a row appears under **Table Editor → golfer_profiles** in Supabase.
+
+**Cheapest full stack:** Supabase free tier + hosting the app on Vercel's free Hobby plan = **$0/month** to run real accounts while you build (Vercel Hobby is non-commercial; you'd move to a paid plan or self-host once you start charging).
+
+### Outgrowing the free tier → self-hosting (your "option 2")
+
+Because Supabase is **open-source and standard PostgreSQL**, growing up is a clean, no-lock-in path — not a rewrite:
+- **Easiest:** stay on Supabase and upgrade to their Pro plan (~$25/mo) when the free limits or the auto-pause start to pinch.
+- **Full control (self-host):** export your database with `pg_dump` and run it on a server you own (a ~$5/mo VPS), **or** self-host the entire Supabase stack (it ships as Docker containers) to keep auth + security rules exactly as they are. It's a planned migration you do once at scale — not automatic, but straightforward precisely because there's no proprietary database to escape.
 
 ---
 
