@@ -109,6 +109,8 @@ Every backup is a JSON file with this top-level structure:
 }
 ```
 
+> **Encrypted exports (live).** The `encrypted` flag above is `false` for a plain `.json` backup. When you set a password at export time, SwingIQ writes an encrypted `.swingiqbackup` file instead — AES-256-GCM with a PBKDF2-derived key (310k iterations, Web Crypto API, no external dependencies). Import detects either format automatically and prompts for the password when needed.
+
 ---
 
 ## Schema Versioning
@@ -222,7 +224,7 @@ Planned CSV exports:
 | `migrate.ts` | Upgrades old backup files to the current schema |
 | `restore.ts` | Loads validated data into the Zustand store |
 | `registry.ts` | Centralized contract: which features participate in backup |
-| `crypto.ts` | Utilities for future encrypted backup (not yet active) |
+| `crypto.ts` | AES-256-GCM password encryption (PBKDF2, 310k iterations) — **live**; powers the optional encrypted `.swingiqbackup` export from Data Center and Settings → Backup & Restore |
 
 ---
 
@@ -234,4 +236,4 @@ Planned CSV exports:
 
 ---
 
-*Last updated: May 2026 | See also: `docs/BACKUP_SYSTEM.md`, `docs/DATA_IMPORT_GUIDE.md`, `docs/SECURITY_AND_PRIVACY.md`*
+*Last updated: June 2026 | See also: `docs/BACKUP_SYSTEM.md`, `docs/DATA_IMPORT_GUIDE.md`, `docs/SECURITY_AND_PRIVACY.md`*

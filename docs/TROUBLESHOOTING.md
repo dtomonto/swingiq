@@ -144,8 +144,8 @@ Step-by-step fixes for the most common problems.
 **Fix:**
 1. If you cleared browser history or cookies, the data is gone from that browser.
 2. Going forward: use the same browser every time.
-3. To protect your data permanently: set up Supabase (see [OWNER_TASKS.md](OWNER_TASKS.md) Task 4).
-4. To manually back up now: go to **Settings** in the app → **Export Data** → save the JSON file.
+3. To protect your data now: open **Data Center** (`/data`) or **Settings → Backup & Restore** → **Download Backup**. Save the file somewhere safe — for an extra layer, set a password to export an encrypted `.swingiqbackup`. You can restore it on any device or browser.
+4. For optional cross-device cloud sync, set up Supabase accounts later (see [OWNER_TASKS.md](OWNER_TASKS.md)).
 
 ---
 

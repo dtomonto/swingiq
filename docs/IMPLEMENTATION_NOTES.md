@@ -1,6 +1,6 @@
 # SwingIQ — Implementation Notes
 
-*Last updated: 2026-05-31. This document is maintained alongside the codebase.*
+*Last updated: 2026-06-03. This document is maintained alongside the codebase.*
 
 ---
 
@@ -78,17 +78,24 @@ SwingIQ is a **Turborepo monorepo** with the following workspaces:
 /sessions/log              Manual session log (non-golf)
 /diagnose                  Diagnostic engine UI
 /training                  Training routine generator
+/fix                       Fix Stack — highest-impact issue → feel cue + best-matched drill + retest
 /practice                  Practice schedule
 /pre-round                 Pre-round / pre-game warm-up
 /video                     Video analysis (sport-aware)
+/motion-lab                Motion Lab — browser 3D motion analysis (all sports; lib/motion-lab, lib/pose3d)
 /drills                    Drill library
+/equipment                 Equipment management (non-golf)
 /progress                  Progress tracking
+/arc                       Player Arc — improvement narrative, flaw fingerprint, retest outcomes
+/labs                      SwingIQ Labs — readiness, player model, skill transfer, performance graph, benchmark mirrors
 /retest                    Retest hub — due reminders + directional before/after reads
 /milestones                Milestones tracker
+/community                 Community hub — badges, XP, challenges, groups, leaderboards
 /compare                   Session comparison / professional references
 /ai-coach                  AI coaching chat
 /reports                   Session reports
 /avatar                    Swing avatar visualizer
+/data                      Data Center — backup, restore, export
 /settings                  App settings
 /settings/backup           Backup & Restore
 /admin/research            Admin: research benchmark viewer
@@ -204,7 +211,7 @@ Sport context is stored in `localStorage` key `swingiq_active_sport` and managed
 | Supabase not connected | Medium | App runs in local-only mode until env vars are added |
 | No sitemap submission | Medium | Sitemap exists but must be submitted to Search Console manually |
 | Privacy/Terms are placeholder | High before commercial launch | Attorney review required |
-| No real computer vision | Low | Video analysis is heuristic — labeled honestly throughout |
+| Single-camera estimates labeled as such | Low | On-device MediaPipe pose + the `lib/pose3d` engine are real (Motion Lab); single-view output and the legacy video analyzer's issue detection stay labeled "estimated/heuristic" — honest by design |
 | Equipment catalog is empty | Medium | Equipment section exists but has no manufacturer data yet |
 | No automated E2E tests | Medium | No Playwright/Cypress — routing tested manually |
 | Mobile app (React Native) | Low | `apps/mobile` directory exists but is not the focus — web-first |
@@ -223,12 +230,14 @@ Sport context is stored in `localStorage` key `swingiq_active_sport` and managed
 
 ## Deferred Items
 
-- Supabase cloud sync (schema written, needs activation)
+- Supabase cloud sync (schema written; optional auth wired, sync/storage activation pending)
 - Equipment catalog with manufacturer data
 - E2E test suite (Playwright recommended)
 - Usage category / youth safety onboarding flow
-- /equipment diagnostic center routes
-- Advanced computer vision / pose tracking
-- Professional reference video library
+- Server-side OCR provider key for image-import auto-extraction (service is live; falls back to manual entry without a provider)
+- ONNX single-view depth model fine-tuned on real motion-capture (provider seam ready in `lib/pose3d`)
+- Professional reference video **verification** (32 seeded profiles exist; YouTube IDs pending admin verification)
 - Google Search Console + Bing Webmaster setup (manual, requires production domain)
-- Analytics instrumentation (Vercel Analytics wired, custom events TBD)
+- Custom analytics event instrumentation (Vercel Analytics wired; event taxonomy in `docs/analytics-events.md`)
+
+> **Now shipped (previously deferred):** on-device pose + 3D Motion Lab (`lib/motion-lab`, `lib/pose3d`), the professional reference library, AES-256-GCM encrypted backup, and the Fix Stack / Player Arc / SwingIQ Labs coaching layer.

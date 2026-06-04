@@ -198,6 +198,28 @@ Target range: **-3° to +3°** for most golfers.
 
 ---
 
+## All Sports: Screenshot / Photo Import
+
+No CSV export? Snap a photo (or screenshot) of the numbers on your launch monitor, app, or printout and import them directly. This works for **every sport**, not just golf.
+
+### Step-by-step
+
+1. Go to **Sessions → Import from Screenshot/Photo** (`/sessions/import/image`)
+2. Upload or drag-and-drop a photo or screenshot of your performance table
+3. **Extract & Review** — if an extraction provider is configured, SwingIQ reads the numbers off the image to pre-fill the table (each value carries a confidence note); without a provider it drops straight to manual entry
+4. **Review and edit every value** — nothing is analyzed until you confirm it
+5. **Confirm** the session name and details
+6. Save → the data flows into the same diagnosis and history as a CSV import
+
+**Supported sources:** FlightScope, TrackMan, Foresight, SkyTrak, Uneekor, Garmin, Rapsodo, HitTrax, Blast Motion, Zepp, spreadsheets, and any readable table of numbers.
+
+**Important honesty notes:**
+- Manual entry is always the default, supported path — image extraction is an optional accelerator
+- No unreviewed extracted output is ever analyzed; you always review and edit before saving
+- Extraction reads numbers off an image — it does not measure your swing
+
+---
+
 ## Non-Golf: Video Upload
 
 For tennis, baseball, slow pitch softball, and fast pitch softball, video is the primary data source.

@@ -171,7 +171,7 @@ A vulnerability disclosure page lives at `/vulnerability-disclosure` in the app.
 
 The `SECURITY.md` file at the root of the repository also documents this for developers.
 
-**Before launch:** Replace the placeholder security contact email in both files with a real address (e.g., `security@swingiq.app`).
+The security contact is **security@swingiq.app** (set in both `SECURITY.md` and the in-app disclosure page). **Before launch:** confirm that inbox is monitored and reaches the owner.
 
 ---
 

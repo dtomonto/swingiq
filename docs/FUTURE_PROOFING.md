@@ -261,18 +261,18 @@ These items are future-proofing priorities that are not yet implemented:
 
 | Item | Priority | Notes |
 |------|----------|-------|
-| Supabase auth integration | High | Schema ready; client ready; needs wiring |
-| Encrypted backup option | Medium | `crypto.ts` skeleton exists |
-| CSV export | Medium | JSON export is complete; CSV is additive |
+| Supabase cloud sync + storage | High | Optional auth (login/signup/reset) is wired and keyless-first; cross-device sync + video/image storage buckets pending activation |
+| CSV export | Medium | JSON backup is the authoritative format; Motion Lab already exports CSV — session/shot CSV is additive |
 | AI coach memory | Medium | Prompt structure is ready; needs session storage |
 | Longitudinal AI tracking | Medium | Detects regression between sessions |
 | Verified parental consent | High (legal) | Required before accepting under-13 users |
-| Real pose estimation | Long-term | True computer vision on uploaded video |
-| White-label config | Long-term | Extract theme/logo into per-tenant config |
+| ONNX 3D depth model | Long-term | Provider seam ready in `lib/pose3d`; fine-tune on real motion-capture |
+| White-label config | Long-term | Extract theme/logo into per-tenant config (theme token engine already in place) |
 | Supabase database migrations | Medium | Needed before schema changes after launch |
-| Schema.org structured data | Medium | FAQ page is highest priority |
-| CSP headers in vercel.json | High | Security hardening |
+| Schema.org BreadcrumbList | Low | `WebApplication` + `FAQPage` JSON-LD already shipped |
 | Sentry error monitoring | High | Observability for production issues |
+
+> **Now shipped (previously listed here):** AES-256-GCM encrypted backup (`crypto.ts` is live, not a skeleton), real on-device pose estimation + 3D Motion Lab (`lib/pose`, `lib/motion-lab`, `lib/pose3d`), and CSP/security headers (shipped in `next.config.mjs`, not pending in `vercel.json`).
 
 ---
 
@@ -296,4 +296,4 @@ If you're joining this project and wondering "what should I do or not do?", here
 
 ---
 
-*Last updated: May 2026 | See also: `docs/ARCHITECTURE_DECISIONS.md`, `docs/DATA_PORTABILITY.md`, `docs/SECURITY_AND_PRIVACY.md`, `docs/LAUNCH_READINESS_CHECKLIST.md`*
+*Last updated: June 2026 | See also: `docs/ARCHITECTURE_DECISIONS.md`, `docs/DATA_PORTABILITY.md`, `docs/SECURITY_AND_PRIVACY.md`, `docs/LAUNCH_READINESS_CHECKLIST.md`*
