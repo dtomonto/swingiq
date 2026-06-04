@@ -151,7 +151,10 @@ export function clearSessions(): void {
   }
 }
 
-export function updateSessionMeta(id: string, patch: Partial<Pick<MotionSession, 'coachNotes' | 'tags'>>): void {
+export function updateSessionMeta(
+  id: string,
+  patch: Partial<Pick<MotionSession, 'coachNotes' | 'tags' | 'athleteId'>>,
+): void {
   const all = loadSessions();
   const next = all.map((s) => (s.id === id ? { ...s, ...patch, updatedAt: new Date().toISOString() } : s));
   writeAll(next);

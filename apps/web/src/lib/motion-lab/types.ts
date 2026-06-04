@@ -271,6 +271,8 @@ export interface MotionSession {
   coachNotes?: string;
   /** Free-form fault tags a coach can add. */
   tags?: string[];
+  /** Links this session to a roster athlete (local only). See lib/motion-lab/roster. */
+  athleteId?: string | null;
 }
 
 /** A compact list-card view of a session. */

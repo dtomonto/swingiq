@@ -82,6 +82,20 @@ export {
   type MetricConsistency,
 } from './repeatability';
 export {
+  summarizeAthlete,
+  buildCoachView,
+  loadCoachView,
+  loadAthletes,
+  addAthlete,
+  updateAthlete,
+  deleteAthlete,
+  type Athlete,
+  type AthleteSummary,
+  type TeamReport,
+  type CoachView,
+  type FaultCount,
+} from './roster';
+export {
   loadSessions,
   saveSession,
   getSession,
