@@ -20,6 +20,7 @@ import { MetricsPanel } from './MetricsPanel';
 import { CoachingReport } from './CoachingReport';
 import { DrillPlan } from './DrillPlan';
 import { CameraQualityCheck } from './CameraQualityCheck';
+import { ImplementPathCard } from './ImplementPathCard';
 import { MotionComparisonPanel } from './MotionComparisonPanel';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
@@ -172,6 +173,9 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
               </CardBody>
             </Card>
           )}
+          {session.objectTracking?.available && (
+            <ImplementPathCard tracking={session.objectTracking} accent={accent} />
+          )}
           <CameraQualityCheck report={session.quality} />
 
           {/* Developer / transparency panel */}
@@ -191,6 +195,9 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
                 ['Detected view', session.quality.estimatedView.replace(/_/g, ' ')],
                 ['Est. frame rate', session.quality.estimatedFps != null ? `${Math.round(session.quality.estimatedFps)} fps` : 'unknown'],
                 ['Skill level', skillLabel(session.capture.skillLevel ?? 'intermediate')],
+                ['Implement path', session.objectTracking
+                  ? `${session.objectTracking.implement} · ${session.objectTracking.available ? `${Math.round(session.objectTracking.confidence * 100)}% (${session.objectTracking.trace.method})` : 'n/a'}`
+                  : '—'],
               ].map(([k, v]) => (
                 <div key={k}>
                   <p className="text-muted-foreground">{k}</p>

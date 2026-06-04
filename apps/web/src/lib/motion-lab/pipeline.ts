@@ -30,6 +30,7 @@ import { buildReport, keyFaultLine } from './reporting';
 import { prescribeDrills } from './drills';
 import { assessQuality, type QualitySourceInput } from './quality';
 import { buildMultiViewTrack } from './multiview';
+import { estimateImplementPath } from './objectTracking';
 import { newSessionId } from './persistence';
 
 export const ANALYSIS_VERSION = 'motionlab-1.0.0';
@@ -277,6 +278,8 @@ function assembleSession(
   const drills = prescribeDrills(metrics, capture);
   const report = buildReport(capture, metrics, phases, scoreboard, drills);
   const quality = assessQuality(track, qualitySource, capture);
+  // Estimated implement (club/bat/racket) path + contact zone. Never throws.
+  const objectTracking = estimateImplementPath({ track, capture, series, phases });
 
   onProgress?.('rendering');
 
@@ -302,6 +305,7 @@ function assembleSession(
     report,
     drills,
     keyFault: keyFaultLine(metrics),
+    objectTracking,
     status: 'complete',
     analysisVersion: ANALYSIS_VERSION,
     modelVersion,

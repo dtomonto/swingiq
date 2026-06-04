@@ -247,6 +247,11 @@ export interface MotionSession {
   drills: DrillPlan;
   /** Key fault headline for quick lists. */
   keyFault: string;
+  /**
+   * Estimated implement (club/bat/racket) path + contact zone. Optional so
+   * older saved sessions remain valid. See lib/motion-lab/objectTracking.
+   */
+  objectTracking?: import('./objectTracking').ObjectTrackingResult;
   status: ProcessingStatus;
   analysisVersion: string;
   modelVersion: string;

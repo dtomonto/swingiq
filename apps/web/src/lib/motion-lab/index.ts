@@ -47,6 +47,22 @@ export {
 } from './pipeline';
 export { buildMultiViewTrack, type ViewLandmarks } from './multiview';
 export {
+  estimateImplementPath,
+  implementForSport,
+  getActiveObjectTrackingProvider,
+  heuristicForearmProvider,
+  mockObjectTrackingProvider,
+  type ImplementType,
+  type ImplementPathPoint,
+  type ImplementPathTrace,
+  type ContactZoneEstimate,
+  type SwingPathEstimate,
+  type ObjectTrackingResult,
+  type ObjectTrackingProvider,
+  type ObjectTrackingInput,
+  type ImplementManualHints,
+} from './objectTracking';
+export {
   loadSessions,
   saveSession,
   getSession,
