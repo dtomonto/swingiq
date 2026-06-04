@@ -3,6 +3,7 @@ import { FloatingCoach } from '@/components/ui/FloatingCoach';
 import { UsageCategoryModal } from '@/components/ui/UsageCategoryModal';
 import { BackgroundTasksProvider } from '@/lib/background-tasks/BackgroundTasksProvider';
 import { BackgroundTaskCenter } from '@/components/background-tasks/BackgroundTaskCenter';
+import { GuideCompanion } from '@/components/guide/GuideCompanion';
 
 /**
  * Shared shell for the authenticated product surface.
@@ -25,6 +26,7 @@ export default function AppGroupLayout({ children }: { children: React.ReactNode
       <FloatingCoach />
       <UsageCategoryModal />
       <BackgroundTaskCenter />
+      <GuideCompanion />
     </BackgroundTasksProvider>
   );
 }
