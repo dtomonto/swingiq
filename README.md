@@ -480,6 +480,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | [SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md) | SEO/GEO/AEO strategy with content calendar |
 | [HOW_TO_PUBLISH_UPDATES.md](docs/HOW_TO_PUBLISH_UPDATES.md) | Guide for adding entries to the /updates page |
 | [PRODUCT_ROADMAP.md](docs/PRODUCT_ROADMAP.md) | 30/60/90-day roadmap + monetization |
+| [MONETIZATION_CHECKLIST.md](docs/MONETIZATION_CHECKLIST.md) | Step-by-step, least-expensive path to your first paying user (Stripe + gates) |
 | [ANALYTICS_PLAN.md](docs/ANALYTICS_PLAN.md) | Event taxonomy, funnels, KPIs |
 | [SEO_AEO_GEO_PLAN.md](docs/SEO_AEO_GEO_PLAN.md) | Legacy SEO plan (superseded by docs/SEO_GEO_AEO.md) |
 | [COMPETITIVE_POSITIONING.md](docs/COMPETITIVE_POSITIONING.md) | Category framing + differentiation |
