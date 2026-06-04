@@ -21,6 +21,7 @@ import { CoachingReport } from './CoachingReport';
 import { DrillPlan } from './DrillPlan';
 import { CameraQualityCheck } from './CameraQualityCheck';
 import { ImplementPathCard } from './ImplementPathCard';
+import { KineticChainCard } from './KineticChainCard';
 import { MotionComparisonPanel } from './MotionComparisonPanel';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
@@ -209,7 +210,14 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
         </div>
       )}
 
-      {tab === 'scores' && <MotionScoreboard scoreboard={session.scoreboard} accent={accent} />}
+      {tab === 'scores' && (
+        <div className="space-y-4">
+          <MotionScoreboard scoreboard={session.scoreboard} accent={accent} />
+          {session.kineticChain && session.kineticChain.comparableLinks > 0 && (
+            <KineticChainCard chain={session.kineticChain} accent={accent} />
+          )}
+        </div>
+      )}
       {tab === 'metrics' && <MetricsPanel metrics={session.metrics} />}
       {tab === 'coaching' && <CoachingReport report={session.report} />}
       {tab === 'drills' && <DrillPlan plan={session.drills} />}

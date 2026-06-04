@@ -252,6 +252,11 @@ export interface MotionSession {
    * older saved sessions remain valid. See lib/motion-lab/objectTracking.
    */
   objectTracking?: import('./objectTracking').ObjectTrackingResult;
+  /**
+   * Kinetic chain sequencing (lower body → torso → arms → implement) with
+   * power-leak flags. Optional for backward-compat. See lib/motion-lab/kineticChain.
+   */
+  kineticChain?: import('./kineticChain').KineticChainScore;
   status: ProcessingStatus;
   analysisVersion: string;
   modelVersion: string;

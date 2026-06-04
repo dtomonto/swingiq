@@ -109,6 +109,14 @@ already-shipping infrastructure:
     `ObjectTrackingProvider` seam lets a real on-device detector (or
     user-assisted manual tagging) drop in behind the same contract. Motions with
     no swung implement (throws, pitches) honestly report "not available".
+11. **Kinetic chain** — `kineticChain.ts` reads the firing ORDER of the energy
+    transfer (lower body → torso → arms → implement) by timing each segment's
+    peak speed — rotational/angular velocity when depth is reliable, linear speed
+    otherwise. It produces a structured `KineticChainScore` (per-segment timing,
+    `powerLeakFlags` like "upper body leads", "arms before torso", "early cast",
+    "fires all at once", a 0–100 sequence quality + overall, a coaching summary,
+    and a recommended focus). It reuses the implement timing from step 10 for the
+    final link. Single-camera proxy — basis + confidence carried through.
 
 The result is a `MotionSession` saved locally via `persistence.ts`
 (localStorage, its own key, never touches existing stores). The stored pose

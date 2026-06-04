@@ -63,6 +63,13 @@ export {
   type ImplementManualHints,
 } from './objectTracking';
 export {
+  computeKineticChain,
+  type KineticChainScore,
+  type SegmentTiming,
+  type PowerLeakFlag,
+  type ChainSegment,
+} from './kineticChain';
+export {
   loadSessions,
   saveSession,
   getSession,

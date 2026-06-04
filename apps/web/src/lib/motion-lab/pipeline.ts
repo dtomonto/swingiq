@@ -31,6 +31,7 @@ import { prescribeDrills } from './drills';
 import { assessQuality, type QualitySourceInput } from './quality';
 import { buildMultiViewTrack } from './multiview';
 import { estimateImplementPath } from './objectTracking';
+import { computeKineticChain } from './kineticChain';
 import { newSessionId } from './persistence';
 
 export const ANALYSIS_VERSION = 'motionlab-1.0.0';
@@ -283,6 +284,8 @@ function assembleSession(
   const quality = assessQuality(track, qualitySource, capture);
   // Estimated implement (club/bat/racket) path + contact zone. Never throws.
   const objectTracking = estimateImplementPath({ track, capture, series, phases });
+  // Kinetic chain sequencing (lower body → torso → arms → implement). Never throws.
+  const kineticChain = computeKineticChain(track, capture, series, objectTracking);
 
   onProgress?.('rendering');
 
@@ -309,6 +312,7 @@ function assembleSession(
     drills,
     keyFault: keyFaultLine(metrics),
     objectTracking,
+    kineticChain,
     status: 'complete',
     analysisVersion: ANALYSIS_VERSION,
     modelVersion,
