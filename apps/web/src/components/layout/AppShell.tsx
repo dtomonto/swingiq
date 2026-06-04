@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
 import { ContextualHelpButton } from '@/components/tutorial/ContextualHelpButton';
+import { TutorialWelcomePrompt } from '@/components/tutorial/TutorialWelcomePrompt';
 import { OfflineBanner } from './OfflineBanner';
 import { CelebrationHost } from '@/components/celebrations/CelebrationHost';
 
@@ -161,6 +162,9 @@ export function AppShell({ children }: AppShellProps) {
 
       {/* Earn-moment celebrations (fixed overlay; app-wide) */}
       <CelebrationHost />
+
+      {/* First-run nudge toward the video Tutorial Center (dismissible / skippable) */}
+      <TutorialWelcomePrompt />
     </div>
   );
 }

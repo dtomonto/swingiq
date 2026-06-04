@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions | SwingIQ',
@@ -168,21 +169,18 @@ export default function FAQPage() {
         ))}
 
         {/* JSON-LD FAQ Schema for AEO/GEO */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'FAQPage',
-              mainEntity: allItems.map((item) => ({
-                '@type': 'Question',
-                name: item.q,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: item.a,
-                },
-              })),
-            }),
+        <JsonLd
+          data={{
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: allItems.map((item) => ({
+              '@type': 'Question',
+              name: item.q,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.a,
+              },
+            })),
           }}
         />
 

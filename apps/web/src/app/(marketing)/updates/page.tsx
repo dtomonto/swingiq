@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { getPublicUpdates, getFeaturedUpdate, getMilestones } from '@/data/updates';
 import { UpdatesContent } from '@/components/updates/UpdatesContent';
 
@@ -111,10 +112,7 @@ export default function UpdatesPage() {
       </section>
 
       {/* JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       {/* Dynamic content (filters, cards, FAQ, footer) */}
       <UpdatesContent updates={updates} milestones={milestones} featured={featured} />

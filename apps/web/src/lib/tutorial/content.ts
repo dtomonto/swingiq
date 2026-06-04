@@ -691,6 +691,35 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
     ],
   },
+
+  // ── Tutorial Center ───────────────────────────────────────
+  '/tutorial': {
+    id: '/tutorial',
+    pageTitle: 'Tutorials',
+    intro: 'The Tutorial Center is a collection of short videos — one for every feature — plus a guided path tailored to who you are: player, parent, coach, or team.',
+    steps: [
+      {
+        title: 'Pick who you are',
+        body: 'Choose Player, Parent, Coach, or Team. Your track is an ordered tutorial with just the videos that matter most for you. You can switch anytime.',
+      },
+      {
+        title: 'Follow your track or browse freely',
+        body: 'Press "Start tutorial" to go through your track top to bottom, or scroll down to "Browse every feature" and watch any single video on its own.',
+      },
+      {
+        title: 'Watched progress is saved',
+        body: 'Mark videos as watched and SwingIQ remembers — your track shows how far along you are. Progress is included in your backup like everything else.',
+      },
+      {
+        title: 'Videos and written steps',
+        body: 'Each video has a written step-by-step guide underneath. Those steps work even before a recording is added, so you can learn right now.',
+      },
+      {
+        title: 'Skip anytime',
+        body: 'Prefer to explore on your own? Use "Skip the tutorial" at the top. We will stop nudging you, and you can always come back from the Tutorials link in the menu.',
+      },
+    ],
+  },
 };
 
 /**

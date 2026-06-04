@@ -6,6 +6,18 @@ export interface OcrClientResult {
   headers?: string[];
   rows?: string[][];
   confidence?: 'high' | 'medium' | 'low';
+  /** Layout the model saw: a single-shot screen or a multi-row table. */
+  layout?: 'single_shot' | 'table';
+  /** Club read off the screen, if any. */
+  club?: string | null;
+  /** Units the model reported (e.g. "yards / mph"). */
+  unitsDetected?: string | null;
+  /** Universal schema fields recognised in the extracted headers. */
+  recognizedFields?: string[];
+  /** Critical fields still missing (club, carry_distance). */
+  missingCritical?: string[];
+  /** Per-extraction notes from the model (glare, cut-off columns…). */
+  warnings?: string[];
   message?: string;
 }
 
@@ -30,13 +42,13 @@ export async function isOcrLive(): Promise<boolean> {
 }
 
 /** Attempt OCR extraction for an image. Never throws. */
-export async function runOcr(file: File, source: string): Promise<OcrClientResult> {
+export async function runOcr(file: File, source: string, sport = 'golf'): Promise<OcrClientResult> {
   try {
     const imageBase64 = await fileToBase64(file);
     const res = await fetch('/api/import/ocr', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ imageBase64, source }),
+      body: JSON.stringify({ imageBase64, source, sport }),
     });
     return (await res.json()) as OcrClientResult;
   } catch {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useRef } from 'react';
-import { Video, AlertCircle, Shield, X, CheckCircle } from 'lucide-react';
+import { Video, AlertCircle, Shield, X, CheckCircle, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import {
@@ -11,15 +11,27 @@ import {
   formatDuration,
   ACCEPTED_VIDEO_TYPES,
 } from '@/lib/video-metadata';
-import type { SwingVideoMetadata } from '@swingiq/core';
+import type { SwingVideoMetadata, VisualSport } from '@swingiq/core';
+import { VideoRecorder } from './VideoRecorder';
 
 interface VideoUploadProps {
   onVideoReady: (file: File, metadata: SwingVideoMetadata, objectUrl: string) => void;
   onError?: (message: string) => void;
   disabled?: boolean;
+  /** When true, offer an in-app "Record" tab alongside file upload. */
+  enableRecording?: boolean;
+  /** Drives the recorder's framing overlay + hints. */
+  sport?: VisualSport;
 }
 
-export function VideoUpload({ onVideoReady, onError, disabled }: VideoUploadProps) {
+export function VideoUpload({
+  onVideoReady,
+  onError,
+  disabled,
+  enableRecording = false,
+  sport = 'golf',
+}: VideoUploadProps) {
+  const [mode, setMode] = useState<'upload' | 'record'>('upload');
   const [isDragging, setIsDragging] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingError, setProcessingError] = useState<string | null>(null);
@@ -81,11 +93,11 @@ export function VideoUpload({ onVideoReady, onError, disabled }: VideoUploadProp
           <div className="text-sm text-warning">
             <p className="font-semibold mb-1">Privacy notice</p>
             <p className="text-warning leading-relaxed">
-              Your video is read locally in your browser. When you run an analysis, SwingIQ sends
-              only sampled still frames — not your full video file — to the AI vision provider so it
-              can review your mechanics. Your original video is never uploaded or stored on our
-              servers, the frames are not retained after analysis, and your video is never used to
-              train a shared model.
+              Whether you upload a file or record in the app, your video is processed locally in your
+              browser. When you run an analysis, SwingIQ sends only sampled still frames — not your
+              full video file — to the AI vision provider so it can review your mechanics. Your
+              original video is never uploaded or stored on our servers, the frames are not retained
+              after analysis, and your video is never used to train a shared model.
             </p>
             <label className="flex items-center gap-2 mt-3 cursor-pointer">
               <input
@@ -100,6 +112,61 @@ export function VideoUpload({ onVideoReady, onError, disabled }: VideoUploadProp
         </div>
       </div>
 
+      {/* Upload / Record tab control */}
+      {enableRecording && (
+        <div className="flex gap-1 p-1 rounded-lg bg-muted w-fit mx-auto">
+          {(
+            [
+              ['upload', 'Upload file', Upload],
+              ['record', 'Record now', Video],
+            ] as const
+          ).map(([id, label, Icon]) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setMode(id)}
+              className={cn(
+                'flex items-center gap-1.5 text-sm font-medium rounded-md px-4 py-1.5 transition-colors',
+                mode === id
+                  ? 'bg-card text-foreground shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground',
+              )}
+            >
+              <Icon className="w-4 h-4" />
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* ── Record mode ── */}
+      {/* Only mount the recorder once privacy is accepted; un-accepting it
+          unmounts the recorder, which stops the camera via its cleanup. */}
+      {enableRecording && mode === 'record' && (
+        privacyAcknowledged ? (
+          <VideoRecorder
+            onVideoReady={onVideoReady}
+            onError={onError}
+            sport={sport}
+            disabled={disabled}
+          />
+        ) : (
+          <div className="rounded-xl border-2 border-dashed border-border bg-muted p-10 text-center space-y-3">
+            <div className="w-16 h-16 rounded-2xl bg-card mx-auto flex items-center justify-center">
+              <Video className="w-8 h-8 text-muted-foreground" />
+            </div>
+            <p className="text-base font-semibold text-foreground">Record your swing in the app</p>
+            <p className="flex items-center justify-center gap-1.5 text-xs text-warning">
+              <AlertCircle className="w-3.5 h-3.5" />
+              Accept the privacy notice above to start recording
+            </p>
+          </div>
+        )
+      )}
+
+      {/* ── Upload mode ── */}
+      {(!enableRecording || mode === 'upload') && (
+        <>
       {/* Drop zone */}
       <div
         className={cn(
@@ -201,6 +268,8 @@ export function VideoUpload({ onVideoReady, onError, disabled }: VideoUploadProp
           iPhone / Android compatible
         </span>
       </div>
+        </>
+      )}
     </div>
   );
 }

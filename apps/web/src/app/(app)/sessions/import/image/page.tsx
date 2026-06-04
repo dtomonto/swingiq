@@ -10,8 +10,37 @@ import Link from 'next/link';
 import { Card, CardHeader, CardBody, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSport } from '@/contexts/SportContext';
+import { useSwingIQStore } from '@/store';
 import type { ImageExtractionSource } from '@swingiq/core';
 import { runOcr } from '@/lib/import/ocrClient';
+import { buildSessionFromTable } from '@/lib/import/toSession';
+
+// Friendly labels for recognised universal-schema fields (for the review summary).
+const FIELD_LABELS: Record<string, string> = {
+  club: 'Club',
+  carry_distance: 'Carry',
+  total_distance: 'Total',
+  ball_speed: 'Ball Speed',
+  club_speed: 'Club Speed',
+  smash_factor: 'Smash Factor',
+  launch_angle: 'Launch Angle',
+  launch_direction: 'Launch Direction',
+  spin_rate: 'Spin Rate',
+  spin_axis: 'Spin Axis',
+  apex_height: 'Apex',
+  descent_angle: 'Descent Angle',
+  club_path: 'Club Path',
+  face_angle: 'Face Angle',
+  face_to_path: 'Face-to-Path',
+  attack_angle: 'Attack Angle',
+  dynamic_loft: 'Dynamic Loft',
+  side_carry: 'Side Carry',
+  lateral_offline: 'Offline',
+};
+
+function fieldLabel(key: string): string {
+  return FIELD_LABELS[key] ?? key.replace(/_/g, ' ');
+}
 
 // ── Sport movement types ──────────────────────────────────────
 
@@ -150,6 +179,7 @@ function ConfidenceBadge({ level }: { level: string }) {
 
 export default function ImageImportPage() {
   const { activeSport, sportName } = useSport();
+  const { addSession } = useSwingIQStore();
 
   // Wizard state
   const [step, setStep] = useState(1);
@@ -170,9 +200,13 @@ export default function ImageImportPage() {
   const [extracting, setExtracting] = useState(false);
   const [autoExtracted, setAutoExtracted] = useState(false);
   const [extractionNote, setExtractionNote] = useState<string | null>(null);
+  const [recognizedFields, setRecognizedFields] = useState<string[]>([]);
+  const [extractionWarnings, setExtractionWarnings] = useState<string[]>([]);
+  const [detectedClub, setDetectedClub] = useState<string | null>(null);
 
   // Step 4 state
   const [saved, setSaved] = useState(false);
+  const [savedShotCount, setSavedShotCount] = useState(0);
 
   const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
 
@@ -214,12 +248,15 @@ export default function ImageImportPage() {
     const defaultCols = DEFAULT_COLUMNS[dataSource] ?? ['Column 1', 'Column 2', 'Column 3'];
     setExtractionNote(null);
     setAutoExtracted(false);
+    setRecognizedFields([]);
+    setExtractionWarnings([]);
+    setDetectedClub(null);
 
     // If OCR is configured and an image was uploaded, try auto-extraction.
     // This is purely additive — any failure falls back to manual entry.
     if (imageFile) {
       setExtracting(true);
-      const result = await runOcr(imageFile, dataSource);
+      const result = await runOcr(imageFile, dataSource, sport);
       setExtracting(false);
       if (result.configured && result.headers && result.headers.length > 0) {
         setColumnHeaders(result.headers);
@@ -229,8 +266,12 @@ export default function ImageImportPage() {
             : [Array(result.headers.length).fill('')],
         );
         setAutoExtracted(true);
+        setRecognizedFields(result.recognizedFields ?? []);
+        setExtractionWarnings(result.warnings ?? []);
+        setDetectedClub(result.club ?? null);
+        const rowWord = (result.rows?.length ?? 0) === 1 ? 'shot' : 'shots';
         setExtractionNote(
-          `Auto-extracted ${result.rows?.length ?? 0} row(s) at ${result.confidence ?? 'low'} confidence — please review every value before saving.`,
+          `Read ${result.rows?.length ?? 0} ${rowWord} at ${result.confidence ?? 'low'} confidence — please check every value before saving.`,
         );
         setStep(2);
         return;
@@ -273,10 +314,21 @@ export default function ImageImportPage() {
   const hasAtLeastOneRow = tableRows.some((row) => row.some((cell) => cell.trim() !== ''));
 
   const handleSave = useCallback(() => {
-    // In a full implementation this would persist to Supabase / local store
+    // Normalize the reviewed table into a real session and persist it to the
+    // local store — the same path a CSV import takes, so the data flows
+    // straight into diagnosis and progress tracking.
+    const built = buildSessionFromTable({
+      headers: columnHeaders,
+      rows: tableRows,
+      source: dataSource,
+      sport,
+      detectedClub,
+    });
+    addSession(built.session);
+    setSavedShotCount(built.shotCount);
     setSaved(true);
     setStep(4);
-  }, []);
+  }, [columnHeaders, tableRows, dataSource, sport, detectedClub, addSession]);
 
   const movementOptions = MOVEMENT_TYPES[sport] ?? MOVEMENT_TYPES['golf']!;
   const sportOptions: Array<{ value: string; label: string }> = [
@@ -301,7 +353,8 @@ export default function ImageImportPage() {
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground">Import from Screenshot or Photo</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Upload a photo of your launch monitor screen or stats table, then enter your data manually.
+            Upload a photo of your launch monitor or stats screen and SwingIQ reads the numbers for you to review — or
+            type them in by hand. Nothing is saved until you confirm.
           </p>
         </div>
 
@@ -454,6 +507,39 @@ export default function ImageImportPage() {
                   {extractionNote ??
                     'Type your values into the table. Your uploaded image is shown for reference. (Add an OCR provider key to enable automatic extraction.)'}
                 </p>
+              </div>
+            )}
+
+            {/* Recognised-field summary — shows what will feed the diagnosis */}
+            {autoExtracted && recognizedFields.length > 0 && (
+              <div className="bg-card border border-border rounded-xl px-4 py-3">
+                <p className="text-xs font-medium text-muted-foreground mb-2">
+                  Recognized {recognizedFields.length} metric{recognizedFields.length === 1 ? '' : 's'} that feed your diagnosis:
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {recognizedFields.map((f) => (
+                    <span key={f} className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
+                      {fieldLabel(f)}
+                    </span>
+                  ))}
+                </div>
+                {detectedClub && (
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Detected club: <span className="font-medium text-foreground">{detectedClub}</span>
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* Model's own uncertainty notes */}
+            {extractionWarnings.length > 0 && (
+              <div className="bg-warning/10 border border-warning/30 rounded-xl px-4 py-2">
+                <p className="text-xs font-medium text-warning mb-1">Double-check these:</p>
+                <ul className="list-disc list-inside text-xs text-warning space-y-0.5">
+                  {extractionWarnings.map((w, i) => (
+                    <li key={i}>{w}</li>
+                  ))}
+                </ul>
               </div>
             )}
 
@@ -667,8 +753,8 @@ export default function ImageImportPage() {
                     <p className="font-semibold text-sm text-foreground">{sportName}</p>
                   </div>
                   <div className="bg-muted rounded-lg px-4 py-3">
-                    <p className="text-xs text-muted-foreground">Rows saved</p>
-                    <p className="font-semibold text-sm text-foreground">{tableRows.filter((r) => r.some((c) => c.trim())).length}</p>
+                    <p className="text-xs text-muted-foreground">Shots saved</p>
+                    <p className="font-semibold text-sm text-foreground">{savedShotCount}</p>
                   </div>
                   <div className="bg-primary/10 rounded-lg px-4 py-3 col-span-2 sm:col-span-1">
                     <p className="text-xs text-primary">Status</p>

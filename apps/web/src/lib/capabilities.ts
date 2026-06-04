@@ -56,16 +56,68 @@ export function isAiVisionConfigured(): boolean {
 }
 
 /**
- * OCR auto-extraction for image/table import. Reuses a vision-capable
- * provider key; manual review remains the keyless default.
+ * OCR auto-extraction for image/table import. To keep this "just works",
+ * it reuses ANY vision-capable provider key already configured for the
+ * product: an explicit OCR_PROVIDER first, then the AI-vision provider,
+ * then the AI-coach provider. Manual review remains the keyless default
+ * and every extraction still requires user confirmation before saving.
  */
+export type OcrProviderId = 'anthropic' | 'openai' | 'google';
+
+export interface ResolvedOcrProvider {
+  provider: OcrProviderId;
+  apiKey: string;
+  model: string;
+}
+
+/** Map a raw env value (incl. aliases) onto a canonical provider id. */
+function normalizeProvider(raw: string | undefined): OcrProviderId | null {
+  const v = (raw ?? '').trim().toLowerCase();
+  if (v === 'anthropic' || v === 'claude') return 'anthropic';
+  if (v === 'openai') return 'openai';
+  if (v === 'google' || v === 'gemini') return 'google';
+  return null;
+}
+
+function apiKeyFor(provider: OcrProviderId): string | undefined {
+  if (provider === 'anthropic') return process.env.ANTHROPIC_API_KEY;
+  if (provider === 'openai') return process.env.OPENAI_API_KEY;
+  return process.env.GOOGLE_AI_API_KEY;
+}
+
+function defaultModelFor(provider: OcrProviderId): string {
+  if (provider === 'anthropic') return 'claude-sonnet-4-6';
+  if (provider === 'openai') return 'gpt-4o';
+  return 'gemini-1.5-flash';
+}
+
+/**
+ * Resolve the provider OCR should use, or null when nothing is configured.
+ * Tries OCR_PROVIDER, then AI_VISION_PROVIDER, then AI_PROVIDER, returning
+ * the first whose matching API key is really set. SERVER-ONLY (reads secrets).
+ */
+export function resolveOcrProvider(): ResolvedOcrProvider | null {
+  const candidates = [
+    process.env.OCR_PROVIDER,
+    process.env.AI_VISION_PROVIDER,
+    process.env.AI_PROVIDER,
+  ];
+  for (const raw of candidates) {
+    const provider = normalizeProvider(raw);
+    if (!provider) continue;
+    const apiKey = apiKeyFor(provider);
+    if (!isConfigured(apiKey)) continue;
+    const model =
+      (isConfigured(process.env.OCR_MODEL) && process.env.OCR_MODEL!) ||
+      (isConfigured(process.env.AI_VISION_MODEL) && process.env.AI_VISION_MODEL!) ||
+      defaultModelFor(provider);
+    return { provider, apiKey: apiKey!.trim(), model };
+  }
+  return null;
+}
+
 export function isOcrConfigured(): boolean {
-  const provider = process.env.OCR_PROVIDER;
-  if (!isConfigured(provider)) return false;
-  if (provider === 'openai') return isConfigured(process.env.OPENAI_API_KEY);
-  if (provider === 'google') return isConfigured(process.env.GOOGLE_AI_API_KEY);
-  if (provider === 'anthropic') return isConfigured(process.env.ANTHROPIC_API_KEY);
-  return false;
+  return resolveOcrProvider() !== null;
 }
 
 /**

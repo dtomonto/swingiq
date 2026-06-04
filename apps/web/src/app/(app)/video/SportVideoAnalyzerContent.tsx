@@ -6,6 +6,11 @@
 // Real AI visual analysis: extract frames in the browser -> send only
 // still frames to the AI vision provider -> render the validated,
 // video-grounded result. No heuristic/estimated per-video feedback.
+//
+// The analysis runs as a BACKGROUND TASK (see lib/background-tasks), so
+// the user can leave this page while it works and gets pulled back when
+// it finishes. This component is a thin view over that task; frames +
+// pose are prepared speculatively and a speed/quality tier can be chosen.
 // ============================================================
 
 import { useState, useCallback, useEffect } from 'react';
@@ -14,7 +19,7 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import { VideoUpload, VideoPreviewCard } from '@/components/video/VideoUpload';
 import { SwingVideoPlayer } from '@/components/video/SwingVideoPlayer';
-import { AnalysisProgress, type AnalysisStage } from '@/components/video/AnalysisProgress';
+import { AnalysisProgress } from '@/components/video/AnalysisProgress';
 import { AIVisualAnalysisPanel } from '@/components/video/AIVisualAnalysisPanel';
 import { AINotConfiguredNotice } from '@/components/video/AINotConfiguredNotice';
 import { RecordingGuide } from '@/components/video/RecordingGuide';
@@ -24,42 +29,50 @@ import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { SportCardGrid } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
 import { getSportConfig, SPORT_CAMERA_ANGLES } from '@swingiq/core';
-import type { SportId, AIVisualAnalysis, SwingVideoMetadata } from '@swingiq/core';
-import { extractSwingFrames } from '@/lib/frame-extraction';
-import { detectSwingPose, type PoseMetrics } from '@/lib/pose';
+import type { SportId, SwingVideoMetadata, VisionSpeed } from '@swingiq/core';
+import { warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepareSwing';
+import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector';
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
-import {
-  saveVideoAnalysis,
-  toPreviousSummary,
-  downloadAnalysisJson,
-  deleteVideoAnalysis,
-  type SavedVideoAnalysis,
-} from '@/lib/video/history';
+import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
+import { useSwingAnalysis } from '@/lib/video/useSwingAnalysis';
 
 type AnalysisStep = 'upload' | 'configure' | 'analyzing' | 'results';
 
 export function SportVideoAnalyzerContent() {
   const { activeSport, setActiveSport } = useSport();
-  const [step, setStep] = useState<AnalysisStep>('upload');
+  // `step` holds only the user-driven pre-analysis phase (upload / configure);
+  // the analyzing/results phases are DERIVED from the live background task
+  // below, so we never sync view state in an effect.
+  const [step, setStep] = useState<'upload' | 'configure'>('upload');
+  const [viewingResults, setViewingResults] = useState(true);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [videoObjectUrl, setVideoObjectUrl] = useState<string | null>(null);
   const [videoMetadata, setVideoMetadata] = useState<SwingVideoMetadata | null>(null);
   const [selectedSport, setSelectedSport] = useState<SportId>(activeSport);
+  const [speed, setSpeed] = useState<VisionSpeed>('fast');
 
-  const [analysis, setAnalysis] = useState<AIVisualAnalysis | null>(null);
-  const [notConfiguredMessage, setNotConfiguredMessage] = useState<string | null>(null);
-  const [analyzeError, setAnalyzeError] = useState<string | null>(null);
-  const [stage, setStage] = useState<AnalysisStage>('preparing');
-  const [poseMetrics, setPoseMetrics] = useState<PoseMetrics | null>(null);
-
-  // Returning-user history for the selected sport, compare toggle, saved record.
+  // Returning-user history for the selected sport, compare toggle.
   // `useVideoHistory` reads localStorage after hydration and live-updates on
   // save/delete (no setState-in-effect needed).
   const history = useVideoHistory(selectedSport);
   const [compareEnabled, setCompareEnabled] = useState(false);
-  const [savedRecord, setSavedRecord] = useState<SavedVideoAnalysis | null>(null);
-  const [comparedToPrevious, setComparedToPrevious] = useState(false);
+
+  // The analysis runs in a background task; this hook bridges to it and exposes
+  // live stage/progress + the final result (and re-adopts an in-flight analysis
+  // if the user navigated away and came back).
+  const swing = useSwingAnalysis();
+
+  // The displayed phase is derived from the live background task (running →
+  // "analyzing", error → "configure", success → "results" until the user
+  // changes settings); otherwise the user-driven `step` applies.
+  const phase: AnalysisStep = swing.isRunning
+    ? 'analyzing'
+    : swing.status === 'error'
+    ? 'configure'
+    : swing.status === 'success' && viewingResults
+    ? 'results'
+    : step;
 
   // Reset the compare toggle whenever the user switches sport.
   const handleSelectSport = useCallback((sport: SportId) => {
@@ -83,97 +96,55 @@ export function SportVideoAnalyzerContent() {
       setVideoMetadata({ ...metadata, camera_angle: 'unknown' });
       setVideoObjectUrl(objectUrl);
       setStep('configure');
+      // Speculatively extract frames + run pose now, while the user configures —
+      // so clicking "Analyze" jumps almost straight to the AI call.
+      warmSwingPreparation(file);
     },
     [],
   );
 
   const handleRemoveVideo = () => {
     if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);
+    forgetPreparedSwing(videoFile);
     setVideoFile(null);
     setVideoObjectUrl(null);
     setVideoMetadata(null);
-    setAnalysis(null);
-    setPoseMetrics(null);
-    setNotConfiguredMessage(null);
-    setAnalyzeError(null);
+    swing.reset(true);
+    setViewingResults(true);
     setStep('upload');
   };
 
-  const handleAnalyze = async () => {
+  const handleAnalyze = () => {
     if (!videoFile || !videoMetadata || selectedSport === 'golf') return;
-    setAnalyzeError(null);
-    setNotConfiguredMessage(null);
-    setAnalysis(null);
-    setSavedRecord(null);
-    setStage('preparing');
-    setStep('analyzing');
     setActiveSport(selectedSport);
 
     const sportConfig = getSportConfig(selectedSport);
     const latest = history[0] ?? null;
     const previous = compareEnabled && latest ? toPreviousSummary(latest) : null;
-    setComparedToPrevious(Boolean(previous));
 
-    try {
-      setStage('extracting');
-      const extraction = await extractSwingFrames(videoFile);
-
-      setStage('measuring');
-      const pose = await detectSwingPose(extraction.frames);
-      setPoseMetrics(pose.metrics);
-
-      setStage('inspecting');
-      const res = await fetch('/api/video-vision-analysis', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sport: selectedSport,
-          frames: extraction.frames.map((f) => f.dataUrl),
-          metadata: {
-            durationSeconds: extraction.durationSeconds,
-            resolution: extraction.resolution,
-            declaredCameraAngle: videoMetadata.camera_angle,
-          },
-          previous,
-          poseSummary: pose.summary,
-        }),
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (data?.configured === false) {
-        setNotConfiguredMessage(data.message as string);
-        setStep('results');
-        return;
-      }
-      if (!res.ok || !data?.analysis) {
-        throw new Error((data?.error as string) ?? `Analysis failed (server returned ${res.status}).`);
-      }
-
-      setStage('building');
-      const result = data.analysis as AIVisualAnalysis;
-      setAnalysis(result);
-      // Save to the user's local swing history for welcome-back + compare.
-      const saved = saveVideoAnalysis({
+    setViewingResults(true);
+    swing.start(
+      {
+        videoFile,
         sport: selectedSport,
         sportLabel: sportConfig?.name ?? 'Swing',
         emoji: sportConfig?.emoji,
         declaredCameraAngle: videoMetadata.camera_angle,
-        analysis: result,
-      });
-      setSavedRecord(saved);
-      setStage('plan');
-      setStep('results');
-    } catch (err) {
-      setAnalyzeError(err instanceof Error ? err.message : 'Analysis failed.');
-      setStep('configure');
-    }
+        previous,
+        speed,
+      },
+      {
+        title: `Analyzing your ${(sportConfig?.name ?? 'swing').toLowerCase()} swing`,
+        description: videoFile.name,
+        viewHref: '/video',
+      },
+    );
   };
 
   const config = selectedSport !== 'golf' ? getSportConfig(selectedSport) : null;
 
   // ── Step 1: Upload ─────────────────────────────────────────
-  if (step === 'upload') {
+  if (phase === 'upload') {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
         <div className="text-center space-y-2">
@@ -206,7 +177,7 @@ export function SportVideoAnalyzerContent() {
           <RecordingGuide sport={selectedSport} defaultOpen={history.length === 0} />
         )}
 
-        <VideoUpload onVideoReady={handleVideoReady} />
+        <VideoUpload onVideoReady={handleVideoReady} enableRecording sport={selectedSport} />
 
         <div className="rounded-xl bg-accent-secondary/10 border border-accent-secondary/25 p-4">
           <div className="flex items-start gap-2">
@@ -223,7 +194,7 @@ export function SportVideoAnalyzerContent() {
   }
 
   // ── Step 2: Configure ──────────────────────────────────────
-  if (step === 'configure') {
+  if (phase === 'configure') {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
         <div className="flex items-center gap-3">
@@ -295,10 +266,16 @@ export function SportVideoAnalyzerContent() {
           </Card>
         )}
 
-        {analyzeError && (
+        <Card>
+          <CardBody>
+            <AnalysisSpeedSelector value={speed} onChange={setSpeed} />
+          </CardBody>
+        </Card>
+
+        {swing.error && (
           <div className="rounded-xl bg-error/10 border border-error/30 p-4 flex gap-2">
             <AlertCircle className="w-4 h-4 text-error shrink-0 mt-0.5" />
-            <p className="text-sm text-error">{analyzeError}</p>
+            <p className="text-sm text-error">{swing.error}</p>
           </div>
         )}
 
@@ -320,14 +297,18 @@ export function SportVideoAnalyzerContent() {
   }
 
   // ── Step 3: Analyzing ──────────────────────────────────────
-  if (step === 'analyzing') {
+  if (phase === 'analyzing') {
     return (
       <div className="max-w-xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
           <Loader2 className="w-8 h-8 animate-spin text-golf-fairway mx-auto mb-3" />
           <h2 className="text-lg font-semibold text-foreground">Analyzing your swing</h2>
+          <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">
+            This can take a couple of minutes. You can leave this page — SwingIQ keeps working in the
+            background and lets you know the moment it&apos;s ready.
+          </p>
         </div>
-        <AnalysisProgress stage={stage} />
+        <AnalysisProgress stage={swing.stage} />
       </div>
     );
   }
@@ -338,7 +319,10 @@ export function SportVideoAnalyzerContent() {
       <div className="flex items-center gap-3">
         <button
           type="button"
-          onClick={() => setStep('configure')}
+          onClick={() => {
+            setViewingResults(false);
+            setStep('configure');
+          }}
           className="p-2 rounded-lg hover:bg-muted transition-colors"
           aria-label="Back"
         >
@@ -352,15 +336,15 @@ export function SportVideoAnalyzerContent() {
         </div>
       </div>
 
-      {notConfiguredMessage ? (
+      {swing.notConfiguredMessage ? (
         <AINotConfiguredNotice
-          message={notConfiguredMessage}
+          message={swing.notConfiguredMessage}
           onRetry={handleAnalyze}
           onStartOver={handleRemoveVideo}
         />
-      ) : analysis ? (
+      ) : swing.analysis ? (
         <>
-        {comparedToPrevious && (
+        {swing.comparedToPrevious && (
           <div className="rounded-xl border border-primary/30 bg-primary/10 p-3 flex items-start gap-2">
             <RefreshCw className="w-4 h-4 text-primary shrink-0 mt-0.5" />
             <p className="text-sm text-foreground">
@@ -403,20 +387,26 @@ export function SportVideoAnalyzerContent() {
             )}
 
             <div className="flex flex-wrap gap-2">
-              <Button variant="outline" onClick={() => setStep('configure')}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setViewingResults(false);
+                  setStep('configure');
+                }}
+              >
                 Change settings
               </Button>
               <Button variant="ghost" onClick={handleRemoveVideo}>
                 New video
               </Button>
-              {savedRecord && (
-                <Button variant="ghost" onClick={() => downloadAnalysisJson(savedRecord)}>
+              {swing.savedRecord && (
+                <Button variant="ghost" onClick={() => downloadAnalysisJson(swing.savedRecord!)}>
                   <Download className="w-4 h-4" />
                   Export
                 </Button>
               )}
             </div>
-            {savedRecord && (
+            {swing.savedRecord && (
               <p className="text-xs text-muted-foreground">
                 Saved to your swing history on this device. Only the text analysis is stored — never
                 your video.
@@ -425,8 +415,8 @@ export function SportVideoAnalyzerContent() {
           </div>
 
           <div className="space-y-4">
-            {poseMetrics && <PoseSignalsCard metrics={poseMetrics} />}
-            <AIVisualAnalysisPanel analysis={analysis} />
+            {swing.poseMetrics && <PoseSignalsCard metrics={swing.poseMetrics} />}
+            <AIVisualAnalysisPanel analysis={swing.analysis} />
           </div>
         </div>
 

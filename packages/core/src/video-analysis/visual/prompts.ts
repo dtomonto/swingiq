@@ -39,7 +39,20 @@ export interface VisionPromptInput {
   previous?: PreviousAnalysisSummary | null;
   /** Objective signals from on-device pose detection, if available. */
   poseSummary?: string | null;
+  /** Ask for the tightest valid output — fewer output tokens ⇒ a faster response. */
+  concise?: boolean;
 }
+
+/**
+ * Brevity directive for fast mode. Output-token generation dominates the
+ * vision call's latency, so trimming verbosity (without dropping any required
+ * field or fabricating) is the cheapest real speedup.
+ */
+export const CONCISE_DIRECTIVE =
+  'BREVITY (required): keep every string tight and skimmable — "summary" ≤ 2 sentences, ' +
+  'each "note"/"observation"/"evidenceFromVideo" ≤ 14 words, and return the MINIMUM number of ' +
+  'array entries the rules allow (3 priorities, 3 drills). Do not pad. Never drop a required ' +
+  'field or invent content to fill space — brevity never overrides the honesty rules above.';
 
 // ──────────────────────────────────────────────────────────────
 // Per-sport biomechanics focus
@@ -211,6 +224,7 @@ export function buildVisionPrompt(input: VisionPromptInput): BuiltVisionPrompt {
     '- Be specific, encouraging, and actionable. This is guidance, not a substitute for an in-person coach.',
     '',
     JSON_CONTRACT,
+    ...(input.concise ? ['', CONCISE_DIRECTIVE] : []),
   ].join('\n');
 
   const userLines: string[] = [

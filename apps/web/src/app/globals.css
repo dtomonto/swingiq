@@ -73,6 +73,7 @@
   --animate-fade-in: fadeIn 0.3s ease-in-out;
   --animate-slide-up: slideUp 0.3s ease-out;
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-guide-float: guideFloat 3.5s ease-in-out infinite;
 
   @keyframes fadeIn {
     0% {
@@ -90,6 +91,16 @@
     100% {
       transform: translateY(0);
       opacity: 1;
+    }
+  }
+  /* Gentle idle bob for the floating guide companion ("genie"). The
+     app-wide reduced-motion rule below near-freezes this automatically. */
+  @keyframes guideFloat {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
     }
   }
 }
