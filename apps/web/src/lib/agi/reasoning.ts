@@ -16,7 +16,6 @@ import type {
   Insight,
   ReasoningStep,
   SignalBundle,
-  SportSessionRef,
 } from './types';
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));

@@ -1,0 +1,89 @@
+# Athlete General Intelligence (AGI)
+
+## In Plain English (start here)
+
+SwingIQ already has a lot of smart tools, but each one is a *specialist*: one
+reads your swing's biomechanics, one matches drills, one tracks progress, one
+checks readiness. Each is great at its single job and knows nothing about the
+others.
+
+**Athlete General Intelligence is the generalist.** It's one engine that looks
+at *everything you've analysed, across every sport, at the same time*, and asks
+bigger-picture questions a single specialist can't:
+
+- "What's the **one thing** holding back the most sports at once?"
+- "This athlete is good at rotation in golf — does that **carry over** to their
+  tennis?"
+- "Which weakness, if fixed, **improves three sports** instead of one?"
+
+That's what the **"general"** in the name means: *breadth* (it spans all your
+sports) and *transfer* (what it learns in one it applies to another). It is the
+opposite of a narrow, single-task tool.
+
+**What it is *not*:** it is not "artificial general intelligence" in the
+science-fiction sense — it isn't self-aware, and it doesn't think like a person.
+We chose the honest reading of the letters: **A**thlete **G**eneral
+**I**ntelligence. Like the rest of SwingIQ, it shows its work: every number
+comes from your own analysed sessions, every conclusion shows *why* it reached
+it and *how confident* it is, and single-camera analysis is always called an
+**estimate**, never a lab measurement. Nothing here is medical advice.
+
+You'll find it in the app under **Analyze → Athlete GI** (`/agi`).
+
+## How it works (the four layers)
+
+1. **Capabilities** (`capabilities.ts`) — the trick that makes it general. Every
+   sport-specific metric (golf shoulder turn, tennis unit turn, baseball
+   separation…) is mapped onto a small set of **sport-neutral athletic
+   capabilities**: Rotation & Coil, Kinetic Sequencing, Balance & Posture,
+   Tempo & Timing, Power & Speed, Consistency. These are the traits you actually
+   carry between sports, so the engine can reason about *you*, not about one
+   swing.
+
+2. **World model** (`worldModel.ts`) — fuses every signal into one
+   `AthleteWorldModel`. Fusion is **confidence-weighted** (a solid measurement
+   counts more than a flat-depth guess) and **basis-conservative** (a fused
+   capability is never reported as more certain than its weakest input). It also
+   publishes an honest **coverage** score and a map of what's still missing.
+
+3. **Reasoning** (`reasoning.ts`) — deterministic insights, each with an
+   inspectable **reasoning chain** (claim + evidence), a basis, and a
+   confidence. The signature output is the **Keystone**: the single weak
+   capability that limits the most sports. There are also Strength, Transfer
+   gap, Consistency, and Coverage insights.
+
+4. **Transfer + Plan** (`transfer.ts`, `planner.ts`) — `buildTransfers` links
+   capabilities across your sports using the shared movement-principle map
+   (`@/lib/skillTransfer`), grounded in your real per-sport scores.
+   `buildGeneralPlan` turns it into **one prioritised plan** centred on the
+   keystone, reusing whatever drills the source engines already prescribed.
+
+The top-level entry point is `runAthleteGI(bundle)` in `engine.ts` — pure, no
+React, no browser, no network, fully unit-tested (`__tests__/agi.test.ts`).
+
+## Coordination note (read before editing motion-lab)
+
+The AGI layer is a **read-only consumer of Motion Lab**. It only ever *reads*
+stored sessions, and it does so behind a **single thin adapter**
+(`lib/agi/adapters/motion-lab.ts`) that touches only long-stable, public
+motion-lab fields (`metrics`, `scoreboard`, `report.topFixes`, `capture.sport`).
+
+This is deliberate: Motion Lab is under active development by a separate
+workstream (temporal intelligence, kinetic chain, object tracking…). If its
+internals change, **only that one adapter file needs to follow** — the engine,
+reasoners, planner, and tests never import motion-lab and stay untouched. New
+metrics added to motion-lab will *auto-classify* into a capability via the
+keyword fallback in `capabilities.ts`, so the AGI layer keeps working without
+edits as Motion Lab grows.
+
+## Extending it
+
+- **New capability** → add to `CAPABILITIES` in `capabilities.ts` and (optionally)
+  link a principle id from `@/lib/skillTransfer`.
+- **New metric → capability mapping** → add to `KNOWN_METRIC_CAPABILITY`, or rely
+  on the keyword classifier.
+- **New signal source** (e.g. launch-monitor data, readiness, benchmarks) → write
+  another adapter that emits a `SignalBundle`; the engine consumes it unchanged.
+- **LLM narrative** → pass `enhanceNarrative` to `runAthleteGI`. It may only
+  re-word the text; it can never change numbers, basis, or confidence
+  (`enhanced: true` then flags that the prose was assisted).

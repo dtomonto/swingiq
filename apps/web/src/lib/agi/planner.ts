@@ -8,7 +8,6 @@
 // the drill library.
 // ============================================================
 
-import type { SportId } from '@swingiq/core';
 import type {
   AthleteWorldModel,
   Basis,
