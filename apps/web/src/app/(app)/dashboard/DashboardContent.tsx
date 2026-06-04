@@ -28,6 +28,7 @@ import { MetricCard } from '@/components/ui/MetricCard';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { useSwingIQStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
 import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence';
+import { AthleteGISummary } from '@/components/agi/AthleteGISummary';
 import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
 import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps, getRoutineForDiagnosis, type DiagnosisCategory } from '@swingiq/core';
 import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
@@ -229,6 +230,9 @@ export function DashboardContent() {
 
       {/* Intelligent product layer: Welcome Back / next best step + insights */}
       <DashboardIntelligence />
+
+      {/* Athlete General Intelligence: cross-sport keystone + goal, links to /agi */}
+      <AthleteGISummary />
 
       {/* Goal-gradient: the closest badge left to earn */}
       <NextBadgeNudge />
