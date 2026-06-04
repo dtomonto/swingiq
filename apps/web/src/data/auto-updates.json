@@ -1001,5 +1001,32 @@
     "isMajorMilestone": false,
     "createdAt": "2026-06-03",
     "updatedAt": "2026-06-03"
+  },
+  {
+    "id": "update-074",
+    "title": "Automatic Backups — SwingIQ Saves Your Progress For You",
+    "slug": "automatic-backups",
+    "metaTitle": "SwingIQ Automatic Backups — Auto-Save & Continue Where You Left Off",
+    "metaDescription": "SwingIQ can now keep a backup file on your device up to date automatically, and continue your progress from your chosen folder when you return — set up once, then it just works.",
+    "summary": "SwingIQ can now protect your progress on its own. Pick a file once and SwingIQ keeps it up to date automatically in the background. Choose a folder once (your Downloads works great) and when you come back, SwingIQ finds your most recent backup and picks up right where you left off — no hunting for a file, no manual import.",
+    "releaseDate": "2026-06-03",
+    "displayDate": "June 2026",
+    "category": "Account & Data",
+    "status": "published",
+    "visibility": "public",
+    "sortOrder": 146,
+    "audience": ["all athletes", "parents", "coaches"],
+    "relatedFeature": "Data Center",
+    "userBenefit": "Your training history protects itself in the background, and returning after clearing your browser — or on another computer — can continue automatically from your latest backup instead of starting over.",
+    "whyItMatters": "The safest backup is the one you never have to remember to make. Automatic saving means months of progress are quietly protected, and automatic continue means getting back to improving takes seconds, not setup.",
+    "whereToFindIt": "Go to Data Center → Automatic backups. Turn on auto-save and pick a file, and/or choose a folder to continue from.",
+    "userActionRequired": "A quick one-time setup: choose the file to keep saved and/or the folder to continue from. Available in Chrome, Edge, and other Chromium browsers on a computer; other browsers keep the manual Download/Import backup tools. SwingIQ only uses the file or folder you pick, and never replaces existing data without asking.",
+    "seoKeywords": ["automatic backup", "auto save progress", "continue where you left off", "golf app backup", "restore progress automatically"],
+    "answerEngineSummary": "SwingIQ added automatic backups: it keeps a chosen file on the user's device up to date on a schedule, and on return it scans a chosen folder (e.g. Downloads) for the newest backup to continue progress automatically. It uses the browser File System Access API with a one-time user grant, never reads the disk on its own, skips password-protected backups, and prompts before overwriting existing local data.",
+    "generativeSearchSummary": "SwingIQ now offers automatic, local-first backups — periodic auto-save to a device file plus automatic 'continue where you left off' from a chosen folder — built on the browser File System Access API with an explicit one-time permission, honest about browser support, and safe by default (it asks before replacing existing data).",
+    "isFeatured": false,
+    "isMajorMilestone": true,
+    "createdAt": "2026-06-03",
+    "updatedAt": "2026-06-03"
   }
 ]
