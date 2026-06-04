@@ -120,16 +120,17 @@ In the **left sidebar**, click the **SQL Editor** icon, then **+ New query**.
 └────────────┴─────────────────────────────────────────────┘
 ```
 
-Run these files **from your own project**, one at a time, in this order. For each: open the file, copy **all** of it, paste into the editor, click **Run**, wait for "Success."
+**The easy way — one paste:** open **`server/supabase_setup_all_in_one.sql`** from your project, copy **all** of it, paste into the editor, click **Run**, and wait for "Success." That single file builds every table *and* the per-user security in one go. It's safe to run twice if you're unsure.
 
-| Order | File | Needed? | What it creates |
-|---|---|---|---|
-| 1 | `server/supabase_schema.sql` | **Required** | Core tables: profiles, sessions, shots, diagnoses, drills… + per-user security |
-| 2 | `apps/web/supabase-rls.sql` | **Recommended** | Extra locks so each user can only ever see their own data |
-| 3 | `server/supabase_schema_video.sql` | Optional | Cloud history for video analyses |
-| 4 | `server/supabase_schema_research.sql` | Optional | Admin benchmark-research workflow |
+That's all you need to go live. The files below are **optional** and can be run later the same way (paste → Run):
 
-> 💡 To start cheapest and simplest, just run **#1 and #2**. You can run #3/#4 later anytime.
+| File | Needed? | What it adds |
+|---|---|---|
+| `server/supabase_setup_all_in_one.sql` | **← run this one** | Core tables + per-user security (everything required) |
+| `server/supabase_schema_video.sql` | Optional | Cloud history for video analyses |
+| `server/supabase_schema_research.sql` | Optional | Admin benchmark-research workflow |
+
+> 💡 Prefer the two-file version? You can still run `server/supabase_schema.sql` then `apps/web/supabase-rls.sql` instead — the all-in-one file is just those two merged so it's one paste.
 
 ✅ *Click "Table Editor" in the sidebar — you should now see `golfer_profiles`, `sessions`, and friends.*
 

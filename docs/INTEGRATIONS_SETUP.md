@@ -65,9 +65,8 @@ Optional: `AI_VISION_MODEL=gpt-4o`, `MAX_VIDEO_FRAMES_ANALYZED=16`.
 
 **Steps:**
 1. Create a free project at https://supabase.com (no card required). Pick a region close to your users; save the database password it gives you.
-2. In the Supabase dashboard → **SQL Editor → New query**, paste and **Run** each of these, in order:
-   - `server/supabase_schema.sql` — **required.** Core tables (profiles, sessions, shots, diagnoses…) + their security rules.
-   - `apps/web/supabase-rls.sql` — **recommended.** Extra row-level-security hardening so every user can only ever see their own data.
+2. In the Supabase dashboard → **SQL Editor → New query**, paste and **Run**:
+   - `server/supabase_setup_all_in_one.sql` — **required, and it's the only one you need to go live.** Builds every table *and* the per-user security rules in a single idempotent (safe-to-re-run) paste. (It's `server/supabase_schema.sql` + `apps/web/supabase-rls.sql` merged — run those two separately instead if you prefer.)
    - `server/supabase_schema_video.sql` — *optional*, only if you want saved video-analysis history in the cloud.
    - `server/supabase_schema_research.sql` — *optional*, only for the admin benchmark-research workflow.
 3. In **Project Settings → API**, copy the Project URL and the keys.
