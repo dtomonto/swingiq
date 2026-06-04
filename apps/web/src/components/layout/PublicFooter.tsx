@@ -20,6 +20,7 @@ const FOOTER_COLUMNS = [
       { label: 'Benchmarks', href: '/benchmarks' },
       { label: 'Blog', href: '/blog' },
       { label: 'Updates', href: '/updates' },
+      { label: 'Developer Updates', href: '/dev-updates' },
     ],
   },
   {
