@@ -9,7 +9,7 @@
 import { useMemo, useState } from 'react';
 import {
   Box, BarChart3, ClipboardList, Dumbbell, GitCompareArrows, Download,
-  FileText, RotateCcw, Trash2, Lightbulb, Trophy, Bug,
+  FileText, RotateCcw, Trash2, Lightbulb, Trophy,
 } from 'lucide-react';
 import type { MotionSession, MotionPhaseSegment } from '@/lib/motion-lab';
 import { downloadSessionJson, downloadSessionCsv, printSessionReport, getSport, skillLabel } from '@/lib/motion-lab';
@@ -22,6 +22,7 @@ import { DrillPlan } from './DrillPlan';
 import { CameraQualityCheck } from './CameraQualityCheck';
 import { ImplementPathCard } from './ImplementPathCard';
 import { KineticChainCard } from './KineticChainCard';
+import { AnalysisDebugPanel } from './AnalysisDebugPanel';
 import { MotionComparisonPanel } from './MotionComparisonPanel';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
@@ -179,34 +180,8 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
           )}
           <CameraQualityCheck report={session.quality} />
 
-          {/* Developer / transparency panel */}
-          <details className="rounded-xl border border-border bg-card group">
-            <summary className="cursor-pointer list-none px-4 py-3 text-xs font-semibold text-muted-foreground flex items-center gap-2">
-              <Bug className="w-3.5 h-3.5" /> Technical details
-              <span className="ml-auto text-[10px] group-open:hidden">show</span>
-            </summary>
-            <div className="px-4 pb-4 grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 text-[11px]">
-              {[
-                ['Frames detected', `${session.poseTrack.frames.length} / ${session.poseTrack.attemptedFrames}`],
-                ['Tracking confidence', `${Math.round(session.poseTrack.trackingConfidence * 100)}%`],
-                ['Data basis', session.poseTrack.basis],
-                ['Pose model', session.modelVersion],
-                ['Engine', session.analysisVersion],
-                ['Processing time', session.processingMs != null ? `${session.processingMs} ms` : '—'],
-                ['Detected view', session.quality.estimatedView.replace(/_/g, ' ')],
-                ['Est. frame rate', session.quality.estimatedFps != null ? `${Math.round(session.quality.estimatedFps)} fps` : 'unknown'],
-                ['Skill level', skillLabel(session.capture.skillLevel ?? 'intermediate')],
-                ['Implement path', session.objectTracking
-                  ? `${session.objectTracking.implement} · ${session.objectTracking.available ? `${Math.round(session.objectTracking.confidence * 100)}% (${session.objectTracking.trace.method})` : 'n/a'}`
-                  : '—'],
-              ].map(([k, v]) => (
-                <div key={k}>
-                  <p className="text-muted-foreground">{k}</p>
-                  <p className="text-foreground font-medium break-words">{v}</p>
-                </div>
-              ))}
-            </div>
-          </details>
+          {/* Developer / transparency / AI-validation panel */}
+          <AnalysisDebugPanel session={session} />
         </div>
       )}
 
@@ -237,8 +212,9 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
           ) : (
             <>
               <div className="flex items-center gap-2">
-                <label className="text-xs text-muted-foreground">Compare against:</label>
+                <label htmlFor="motion-compare-select" className="text-xs text-muted-foreground">Compare against:</label>
                 <select
+                  id="motion-compare-select"
                   value={compareId ?? ''}
                   onChange={(e) => setCompareId(e.target.value)}
                   className="text-sm rounded-lg border border-border bg-card px-2 py-1 text-foreground"

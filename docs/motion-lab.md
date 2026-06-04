@@ -187,9 +187,14 @@ jump to.
   MediaPipe tiers (`detectPoses(frames, quality)`); the wizard exposes them as
   Fast / Balanced / Accurate. Each tier caches its own landmarker.
 - **Exports** — JSON + CSV (`export.ts`) and a dependency-free printable **PDF**
-  coach report (`printReport.ts`, opens a print-ready window). A collapsible
-  **Technical details** panel on the results page shows frames detected/attempted,
-  tracking confidence, basis, model, engine, and processing time (debug mode).
+  coach report (`printReport.ts`, opens a print-ready window). The PDF and CSV
+  also carry the kinetic-chain summary + estimated implement path; the JSON
+  carries the full session. A collapsible **AI-validation panel**
+  (`AnalysisDebugPanel.tsx`) on the results page exposes the raw pipeline output
+  for validation: pipeline meta (model/engine/processing time/basis), per-frame
+  pose confidence (inline bar chart) + dropped frames, phase timestamps, raw
+  metric values, object-tracking + kinetic-chain internals, and this browser's
+  device capabilities (WebGPU / WebNN / OffscreenCanvas / WASM).
 
 ## Privacy & safety
 
