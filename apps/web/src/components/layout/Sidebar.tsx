@@ -38,6 +38,7 @@ import {
   Route,
   FlaskConical,
   GraduationCap,
+  BrainCircuit,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -84,6 +85,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       children: [
         { href: '/diagnose', label: isGolf ? 'Diagnose' : 'Analyze Swing', icon: Target },
         { href: '/motion-lab', label: 'Motion Lab (3D)', icon: FlaskConical },
+        { href: '/agi', label: 'Athlete GI', icon: BrainCircuit },
         { href: '/video', label: 'Video Analysis', icon: Video },
         { href: '/avatar', label: '3D Swing Avatar', icon: PersonStanding },
         { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
