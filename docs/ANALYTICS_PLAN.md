@@ -1,6 +1,6 @@
 # SwingVantage Analytics Plan
 
-_Last updated: May 2026_
+_Last updated: June 2026_
 
 ---
 

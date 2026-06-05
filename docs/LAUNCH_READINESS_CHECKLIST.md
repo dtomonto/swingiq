@@ -62,7 +62,7 @@ This checklist tells you exactly what to do before you open SwingVantage to the 
 - [ ] The 404 not-found page shows and has a link back to the dashboard
 
 ### 1.7 Contact and Support
-- [ ] Update `SECURITY.md` — replace `[Add your security contact email here]` with a real email
+- [x] `SECURITY.md` already lists a real security contact (`security@swingvantage.com`) — just confirm that inbox actually reaches you
 - [ ] Create a simple contact/support email address (e.g., support@swingvantage.com)
 - [ ] Add that email to the `/trust` page and `/privacy` page
 
@@ -254,4 +254,4 @@ This checklist tells you exactly what to do before you open SwingVantage to the 
 
 ---
 
-*Last updated: May 2026 | See also: `docs/OWNER_TASKS.md`, `docs/BEGINNER_START_HERE.md`, `docs/SECURITY_AND_PRIVACY.md`*
+*Last updated: June 2026 | See also: `docs/OWNER_TASKS.md`, `docs/BEGINNER_START_HERE.md`, `docs/SECURITY_AND_PRIVACY.md`*

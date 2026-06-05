@@ -267,4 +267,4 @@ These settings cannot be configured by code — a repository admin must do them 
 
 ---
 
-*Last updated: May 2026 | See also: `SECURITY.md`, `docs/security-automation.md`, `docs/DATA_PORTABILITY.md`*
+*Last updated: June 2026 | See also: `SECURITY.md`, `docs/security-automation.md`, `docs/DATA_PORTABILITY.md`*
