@@ -10,6 +10,7 @@
     "type-check": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
+    "eval:agi": "jest src/lib/agi/eval",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install chromium"
   },

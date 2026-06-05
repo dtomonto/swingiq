@@ -24,9 +24,11 @@ import {
   TrendingUp,
   TrendingDown,
   ShieldCheck,
+  ThumbsUp,
+  ThumbsDown,
 } from 'lucide-react';
 import { useAthleteGI } from '@/lib/agi/adapters/useAthleteGI';
-import { runAthleteGI, DEMO_BUNDLE } from '@/lib/agi';
+import { runAthleteGI, DEMO_BUNDLE, loadInsightFeedback, recordInsightFeedback, type InsightVerdict } from '@/lib/agi';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { AgiReportCard } from './AgiReportCard';
 import type {
@@ -184,7 +186,15 @@ function TrustBadge({ trust }: { trust: AthleteGIResult['trust'] }) {
   );
 }
 
-function InsightCard({ insight }: { insight: Insight }) {
+function InsightCard({
+  insight,
+  verdict,
+  onFeedback,
+}: {
+  insight: Insight;
+  verdict?: InsightVerdict;
+  onFeedback?: (v: InsightVerdict) => void;
+}) {
   const meta = KIND_META[insight.kind];
   return (
     <Card className={insight.kind === 'keystone' ? 'ring-1 ring-error/30' : undefined}>
@@ -232,6 +242,28 @@ function InsightCard({ insight }: { insight: Insight }) {
               ))}
             </ol>
           </details>
+        )}
+
+        {onFeedback && (
+          <div className="flex items-center gap-2 border-t border-border pt-2">
+            <span className="text-[10px] text-muted-foreground">Useful?</span>
+            <button
+              type="button"
+              aria-label="This is helpful"
+              onClick={() => onFeedback('up')}
+              className={cn('p-1 rounded hover:bg-muted', verdict === 'up' ? 'text-success' : 'text-muted-foreground')}
+            >
+              <ThumbsUp className="w-3.5 h-3.5" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              aria-label="Not me — hide this"
+              onClick={() => onFeedback('down')}
+              className={cn('p-1 rounded hover:bg-muted', verdict === 'down' ? 'text-error' : 'text-muted-foreground')}
+            >
+              <ThumbsDown className="w-3.5 h-3.5" aria-hidden="true" />
+            </button>
+          </div>
         )}
       </CardBody>
     </Card>
@@ -371,6 +403,15 @@ export function AthleteGIDashboard() {
     track(ANALYTICS_EVENTS.AGI_DEMO_VIEWED, {});
   }
 
+  // Insight feedback ("useful?"): hide down-voted insights; capture the signal.
+  const [feedback, setFeedback] = useState<Record<string, InsightVerdict>>(loadInsightFeedback);
+  function onInsightFeedback(id: string, kind: string, v: InsightVerdict) {
+    recordInsightFeedback(id, v);
+    setFeedback((f) => ({ ...f, [id]: v }));
+    track(ANALYTICS_EVENTS.AGI_INSIGHT_FEEDBACK, { id, kind, verdict: v });
+  }
+  const shownInsights = demo ? insights : insights.filter((i) => feedback[i.id] !== 'down');
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 space-y-5">
       {/* Header */}
@@ -455,6 +496,21 @@ export function AthleteGIDashboard() {
                   <CapabilityBar key={cap.capability} cap={cap} />
                 ))}
               </div>
+
+              {/* Plain-language glossary (R7) */}
+              <details className="border-t border-border pt-2">
+                <summary className="text-xs text-muted-foreground cursor-pointer select-none hover:text-foreground">
+                  What do these mean? (plain English)
+                </summary>
+                <dl className="mt-2 space-y-1.5">
+                  {model.capabilities.map((cap) => (
+                    <div key={cap.capability} className="text-xs">
+                      <dt className="font-medium text-foreground inline">{cap.name}: </dt>
+                      <dd className="text-muted-foreground inline">{cap.description}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </details>
             </CardBody>
           </Card>
 
@@ -464,8 +520,13 @@ export function AthleteGIDashboard() {
               <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
               What the engine concludes
             </h2>
-            {insights.map((insight) => (
-              <InsightCard key={insight.id} insight={insight} />
+            {shownInsights.map((insight) => (
+              <InsightCard
+                key={insight.id}
+                insight={insight}
+                verdict={feedback[insight.id]}
+                onFeedback={demo ? undefined : (v) => onInsightFeedback(insight.id, insight.kind, v)}
+              />
             ))}
           </section>
 

@@ -56,15 +56,24 @@ export function AgiReportCard({ result }: { result: AthleteGIResult }) {
   }
 
   function print() {
-    const w = window.open('', '_blank', 'width=820,height=920');
-    if (!w) return;
-    w.document.write(buildAgiReportHtml(result, { siteUrl: siteConfig.liveSiteUrl }));
-    w.document.close();
+    // Render the (HTML-escaped) report into a hidden iframe and print it — avoids
+    // pop-up blockers and the deprecated document.write, with no app chrome.
+    const html = buildAgiReportHtml(result, { siteUrl: siteConfig.liveSiteUrl });
+    const iframe = document.createElement('iframe');
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
+    iframe.srcdoc = html;
+    iframe.onload = () => {
+      try {
+        iframe.contentWindow?.focus();
+        iframe.contentWindow?.print();
+      } catch {
+        /* printing unavailable */
+      }
+      setTimeout(() => iframe.remove(), 1000);
+    };
+    document.body.appendChild(iframe);
     track(ANALYTICS_EVENTS.PDF_DOWNLOADED, { sport: 'multi' });
-    setTimeout(() => {
-      w.focus();
-      w.print();
-    }, 250);
   }
 
   const btn =

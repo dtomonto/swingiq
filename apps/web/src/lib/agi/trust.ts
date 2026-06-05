@@ -9,6 +9,7 @@
 // ============================================================
 
 import { CAPABILITIES } from './capabilities';
+import { AGI_THRESHOLDS } from './config/thresholds';
 import type { AthleteWorldModel, Basis, TrustGrade } from './types';
 
 const BASIS_RANK: Record<Basis, number> = {
@@ -22,16 +23,17 @@ const BASIS_RANK: Record<Basis, number> = {
 export function gradeModel(model: AthleteWorldModel): TrustGrade {
   const observed = model.capabilities.filter((c) => c.score !== null);
 
-  const coveragePts = model.coverage * 45; // breadth of what we know
+  const T = AGI_THRESHOLDS.trust;
+  const coveragePts = model.coverage * T.weights.coverage; // breadth of what we know
   const basisAvg = observed.length
     ? observed.reduce((s, c) => s + BASIS_RANK[c.basis], 0) / observed.length
     : 0;
-  const basisPts = (basisAvg / 4) * 30; // quality of the evidence
-  const depthPts = Math.min(1, model.dataMap.totalSessions / 6) * 15; // sample depth
-  const breadthPts = Math.min(1, model.sports.length / 2) * 10; // multi-sport
+  const basisPts = (basisAvg / 4) * T.weights.basis; // quality of the evidence
+  const depthPts = Math.min(1, model.dataMap.totalSessions / T.depthFullAt) * T.weights.depth;
+  const breadthPts = Math.min(1, model.sports.length / 2) * T.weights.breadth; // multi-sport
 
   const score = Math.round(coveragePts + basisPts + depthPts + breadthPts);
-  const grade = score >= 80 ? 'A' : score >= 60 ? 'B' : score >= 40 ? 'C' : 'D';
+  const grade = score >= T.grade.A ? 'A' : score >= T.grade.B ? 'B' : score >= T.grade.C ? 'C' : 'D';
 
   const reasons: string[] = [];
   if (model.dataMap.totalSessions === 0) {
@@ -44,7 +46,7 @@ export function gradeModel(model: AthleteWorldModel): TrustGrade {
       `${CAPABILITIES.length - observed.length} of ${CAPABILITIES.length} capabilities not yet observed.`,
     );
   }
-  if (basisAvg > 0 && basisAvg < 3.5) {
+  if (basisAvg > 0 && basisAvg < T.basisEstimateCutoff) {
     reasons.push('Scores are single-camera estimates — a 2-camera (true-3D) capture raises certainty.');
   }
   if (model.sports.length < 2 && model.dataMap.totalSessions > 0) {
@@ -67,7 +69,7 @@ export function gradeModel(model: AthleteWorldModel): TrustGrade {
   let nextStep: TrustGrade['nextStep'];
   if (model.dataMap.totalSessions === 0) {
     nextStep = { text: 'Run your first Motion Lab analysis to seed your model.', href: '/motion-lab' };
-  } else if (basisAvg > 0 && basisAvg < 3.5) {
+  } else if (basisAvg > 0 && basisAvg < T.basisEstimateCutoff) {
     nextStep = {
       text: 'Capture a 2-camera “true 3D” analysis — it measures depth instead of estimating it, which raises the certainty of every score.',
       href: '/motion-lab',

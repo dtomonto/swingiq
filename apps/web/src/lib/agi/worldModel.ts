@@ -11,6 +11,7 @@
 
 import type { SportId } from '@swingiq/core';
 import { CAPABILITIES } from './capabilities';
+import { AGI_THRESHOLDS } from './config/thresholds';
 import type {
   AthleteWorldModel,
   Basis,
@@ -46,9 +47,10 @@ const round = (n: number, p = 0) => {
 
 /** Honest, non-clinical band for a 0–100 score. */
 export function scoreBand(score: number): ScoreBand {
-  if (score >= 80) return 'sharp';
-  if (score >= 60) return 'solid';
-  if (score >= 40) return 'developing';
+  const b = AGI_THRESHOLDS.band;
+  if (score >= b.sharp) return 'sharp';
+  if (score >= b.solid) return 'solid';
+  if (score >= b.developing) return 'developing';
   return 'building';
 }
 

@@ -11,6 +11,7 @@
 
 import type { SportId } from '@swingiq/core';
 import { classifyMetric } from './capabilities';
+import { AGI_THRESHOLDS } from './config/thresholds';
 import type {
   AthleteWorldModel,
   CapabilityState,
@@ -52,7 +53,8 @@ function stdev(values: number[]): number {
 
 /** True when the model rests on thin data — used to soften over-confident copy. */
 export function isThinModel(model: AthleteWorldModel): boolean {
-  return model.dataMap.totalSessions < 3 || model.coverage < 0.35;
+  const t = AGI_THRESHOLDS.thin;
+  return model.dataMap.totalSessions < t.maxSessions || model.coverage < t.minCoverage;
 }
 
 function keystoneInsight(
@@ -66,14 +68,14 @@ function keystoneInsight(
 
   // Leverage = how weak it is × how many sports it spans × how sure we are.
   const scored = observed.map((c) => {
-    const weakness = clamp01((100 - c.score) / 60);
+    const weakness = clamp01((100 - c.score) / AGI_THRESHOLDS.keystone.weaknessDenominator);
     const breadthFactor = 0.6 + 0.2 * Math.min(2, c.breadth);
     return { c, leverage: clamp01(weakness * breadthFactor) };
   });
   scored.sort((a, b) => b.leverage - a.leverage);
   const top = scored[0];
   // Only call it a keystone if it is genuinely a weakness.
-  if (top.c.score >= 68) return null;
+  if (top.c.score >= AGI_THRESHOLDS.keystone.maxScore) return null;
 
   const sportsText = listSports(top.c.sports, labels);
   const thin = isThinModel(model);
@@ -114,7 +116,7 @@ function keystoneInsight(
     reasoning,
     basis: top.c.basis,
     // Thin data caps how confident the keystone can honestly be.
-    confidence: clamp01(thin ? Math.min(top.c.confidence, 0.5) : top.c.confidence),
+    confidence: clamp01(thin ? Math.min(top.c.confidence, AGI_THRESHOLDS.thin.cappedConfidence) : top.c.confidence),
     leverage: top.leverage,
     action: thin
       ? `Capture one more session, then make ${top.c.name} your primary focus and re-analyse to confirm it moved.`
@@ -227,7 +229,7 @@ function strengthInsight(
   const observed = model.capabilities.filter(
     (c): c is CapabilityState & { score: number } => c.score !== null,
   );
-  const best = observed.filter((c) => c.score >= 70).sort((a, b) => b.score - a.score)[0];
+  const best = observed.filter((c) => c.score >= AGI_THRESHOLDS.strength.minScore).sort((a, b) => b.score - a.score)[0];
   if (!best) return null;
   const sportsText = listSports(best.sports, labels);
   return {
