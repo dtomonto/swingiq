@@ -80,7 +80,8 @@ user_documents file is additive and safe.
 | `app_settings` | Units, theme, coaching prefs, onboarding (singleton). |
 | `community_state` | Badges, XP (promoted `xp_total` for leaderboards), challenges. |
 | `tutorial_progress`, `agent_state` | In-app guide + smart-recommendation continuity. |
-| `user_documents` | Per-(user, key) JSON for the smaller feature stores (retests, drill feedback, AGI, video history, Motion Lab, guide). |
+| `user_documents` | Per-(user, key) JSON for the smaller feature stores (retests, AGI, video history, Motion Lab, guide). |
+| `drill_feedback` | One row per "did this drill help?" verdict (columned, for analytics/leaderboards). |
 
 Every table has `user_id` and a Row Level Security policy so a user can only
 ever read or write their own rows.
@@ -95,6 +96,8 @@ ever read or write their own rows.
 - `apps/web/src/lib/db/syncBase.ts` + `threeWayMerge.ts` — cross-device
   delete-sync (common-ancestor 3-way merge).
 - `apps/web/src/lib/db/documentSync.ts` — cloud mirror for the secondary stores.
+- `apps/web/src/lib/db/drillFeedbackSync.ts` + `supabase-drill-feedback.sql` —
+  the promoted columned drill-feedback table + its sync.
 - `apps/web/src/lib/db/RelationalSyncProvider.tsx` — lifecycle: pull + merge
   on sign-in, migrate guest data, debounced write-through, offline retry.
 - `apps/web/src/components/sync/SaveProgressBanner.tsx` — the save-wall nudge.
@@ -135,15 +138,30 @@ and delete-sync is active from then on. Covered by
 The smaller, self-contained stores are mirrored to the `user_documents` table
 (one JSON row per feature per user) by `lib/db/documentSync.ts`, with a
 purpose-built merge per store so sign-in never loses or duplicates: retest
-reminders, drill-effectiveness feedback, AGI history / commitments / insight
-verdicts, the celebration ledger, saved video-analysis history, Motion Lab
-sessions + roster, and the guide / start-here state. The modules themselves are
-unchanged — they keep using localStorage; the mirror keeps it in step with the
-cloud.
+reminders, AGI history / commitments / insight verdicts, the celebration
+ledger, saved video-analysis history, Motion Lab sessions + roster, and the
+guide / start-here state. The modules themselves are unchanged — they keep
+using localStorage; the mirror keeps it in step with the cloud.
+
+## Drill feedback — promoted to a columned table
+
+"Did this drill help?" was promoted OUT of the document mirror into its own
+columned `drill_feedback` table (one row per verdict), so it can power
+cross-user analytics and a "most-effective drills" leaderboard. The scoring
+code is untouched — it still reads the fast local repo; `lib/db/drillFeedbackSync.ts`
+keeps the local array and the table in step (union-merge on sign-in by a stable
+content id). Apply once (additive):
+[`apps/web/supabase-drill-feedback.sql`](../apps/web/supabase-drill-feedback.sql).
+
+```sql
+-- effectiveness leaderboard, once verdicts flow in:
+select drill_id, value, count(*) AS n
+from drill_feedback group by drill_id, value order by n desc;
+```
 
 ## What's next (optional)
 
-- Promote high-value document stores (e.g. drill feedback) to columned tables
-  if you want cross-user analytics on them.
-- Surface server-side leaderboards/analytics now that data is queryable
+- Promote other document stores to columned tables if you later want
+  cross-user analytics on them (same pattern as drill_feedback).
+- Surface server-side leaderboards now that data is queryable
   (e.g. `select … from community_state order by xp_total desc`).
