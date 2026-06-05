@@ -58,6 +58,7 @@ _Last updated: June 2026_
 - **Player Arc (`/arc`)** — a narrative of your improvement over time: recurring faults ("flaw fingerprint"), which drills actually helped, and honest retest outcomes (`lib/progress`, `components/progress`)
 - **SwingIQ Labs (`/labs`)** — early-stage foundations, each honest about its confidence and limits: a daily readiness score, a private player model, cross-sport skill transfer, a personal performance graph, and benchmark mirrors (`lib/readiness`, `lib/playerModel`, `lib/skillTransfer`, `lib/performanceGraph`, `lib/benchmarkMirror`; `components/foundations`)
 - All three are deterministic, local-first, and require no AI account; they sharpen as you add sessions and retests
+- **Athlete General Intelligence (`/agi`)** — one engine that reasons across *all* your sports at once. It fuses six local signals (Motion Lab, launch-monitor, profile/goal, readiness, snapshot history, drill feedback) into one athlete model, then finds your **keystone** (the single skill limiting the most sports), shows what transfers between sports, detects recurring faults & plateaus, tracks progress over time, and builds one readiness-scaled plan that leads with drills you've personally found helpful — all under an honest **A–D trust grade**. Outputs a coach-shareable report; summarized on the Today dashboard; public explainer at `/athlete-general-intelligence` (`lib/agi`, `components/agi`). See `docs/athlete-general-intelligence.md` + `docs/ATHLETE_GI_STRATEGY.md`.
 
 ### Benchmarks & Training
 - Tour-calibrated benchmarks per club and skill level (golf)
@@ -168,16 +169,19 @@ _Last updated: June 2026_
 - Better diagnostic prompts: chain-of-thought with explicit evidence citations
 - Per-user learning profile: adapts drill difficulty and language complexity over time
 - Confidence calibration: reduce false positives by requiring minimum sample sizes
+- **Athlete General Intelligence — AI-enhanced narrative** (Pro): wire a provider behind the built `enhanceNarrative` seam so AGI can re-word its (already-computed, honest) insights conversationally; numbers/basis/confidence never change
 
 ### Medium Term
 - Pose estimation integration (MediaPipe or similar) for video-based angle extraction
 - Video frame analysis: detect swing phases from uploaded video without manual annotation
 - Multi-session pattern recognition: identify consistent faults vs. one-off errors
+- **Team-wide Athlete General Intelligence** (Team): every athlete's keystone + roster-level capability gaps ("what to train across the team"), building on the local-first Coach & Team roster
 
 ### Longer Term
 - Predictive injury risk scoring based on swing pattern + volume data
 - Personalized benchmark adjustment based on athlete's physical profile
 - LLM fine-tuning on curated sports biomechanics dataset
+- **Raise more AGI capabilities to `measured` basis** as the on-device 3D model matures (two-camera true-3D + a trained single-view lift) — directly lifts every athlete's AGI trust grade
 
 ---
 
@@ -191,3 +195,5 @@ _Last updated: June 2026_
 | Enterprise | Custom | Unlimited athletes, API access, white-label | Large facilities, collegiate programs |
 
 **Free tier strategy:** Keep diagnosis fully free. Monetize storage, history depth, and collaboration features. Never paywalled: data import, basic drill recommendations, practice schedule.
+
+**Athlete GI strategy:** the core cross-sport keystone, plan, and coach-shareable report stay **free** — they are the funnel + viral loop. **Pro** layers on AI-enhanced AGI narrative, true-3D measured capture (raises the trust grade), and deep progress history; **Team** adds roster-wide AGI (every athlete's keystone + aggregate capability gaps). Full split + rationale: `docs/ATHLETE_GI_STRATEGY.md`.

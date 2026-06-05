@@ -31,6 +31,7 @@ _Built from the master audit (`docs/master-audit-report.md`) + a read of the act
 | Stripe Checkout (hosted, subscription) | ✅ Built (SDK-free) | `apps/web/src/lib/billing/stripe.ts`, `api/billing/checkout/route.ts` |
 | "Waitlist unless keys present" safety | ✅ Built | `apps/web/src/lib/capabilities.ts` |
 | Share image + app icons (credible link previews) | ✅ Done | `apps/web/public/og-default.png`, `icon-*.png` |
+| **Athlete General Intelligence** (cross-sport keystone + coach-shareable report) | ✅ Built — keep free (growth/virality driver) | `apps/web/src/lib/agi/`, `/agi`, `/athlete-general-intelligence` |
 | **Payment confirmation webhook** | ❌ Missing | needs `api/billing/webhook/route.ts` |
 | **Remembering which user is paying** (per-user entitlement) | ❌ Missing | today the app only knows "Stripe is on," not "this user is Pro" |
 | **Linking a checkout to the logged-in user** | ❌ Missing | checkout doesn't yet attach a user id/email |
@@ -72,6 +73,7 @@ _Built from the master audit (`docs/master-audit-report.md`) + a read of the act
 - [ ] Confirm the Free tier stays genuinely useful (it does today) — that's your funnel.
 - [ ] Decide: monthly only to start? (Add annual later — annual needs a second Stripe price.)
 - [ ] Pick what Pro unlocks. The tiers file already lists it (cloud sync, video storage, OCR, pro library, unlimited AI narrative, PDF/coach sharing, priority support). Make sure each is real or clearly "rolling out."
+- [ ] **Keep the core of Athlete General Intelligence free** — the cross-sport keystone, plan, and coach-shareable report are the funnel + viral loop; do **not** paywall them. The honest Pro/Team upsells layer on top: **AI-enhanced Athlete GI narrative** (the LLM seam, fits the existing "Unlimited AI narrative" perk), **true-3D measured capture** (2-camera Motion Lab → raises the trust grade), **deep progress history**, and **team-wide Athlete GI** for coaches (roster keystones + capability gaps → a natural Team headline). Full split + rationale: `docs/ATHLETE_GI_STRATEGY.md`.
 
 ---
 
@@ -166,4 +168,4 @@ _Built from the master audit (`docs/master-audit-report.md`) + a read of the act
 
 ---
 
-*See also: `docs/master-audit-report.md` (F-27 payments, F-15 legal, F-13/F-14/F-16 security, F-18/F-19 measurement), `docs/LAUNCH_READINESS_CHECKLIST.md` (Category 2), `docs/INTEGRATIONS_SETUP.md` (Stripe + Supabase env), `docs/SUPABASE_SETUP_WALKTHROUGH.md`.*
+*See also: `docs/ATHLETE_GI_STRATEGY.md` (Athlete GI tiering + growth/virality), `docs/master-audit-report.md` (F-27 payments, F-15 legal, F-13/F-14/F-16 security, F-18/F-19 measurement), `docs/LAUNCH_READINESS_CHECKLIST.md` (Category 2), `docs/INTEGRATIONS_SETUP.md` (Stripe + Supabase env), `docs/SUPABASE_SETUP_WALKTHROUGH.md`.*

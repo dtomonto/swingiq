@@ -46,6 +46,9 @@ Works with data from any launch monitor, sensor, or manual entry — not locked 
 ### 7. A Closed, Honest Improvement Loop
 Most tools stop at a diagnosis. SwingIQ closes the loop: the **Fix Stack** turns your single highest-impact issue into one feel cue and the best-matched drill for your level and gear, **Retest** checks under the same conditions whether it actually changed, and your **Player Arc** tells the honest story of what's working over time. Comparisons are labeled as directional reads, not lab claims — improvement you can see and trust, not vanity metrics.
 
+### 8. Athlete General Intelligence — Cross-Sport Reasoning No Single-Sport Tool Can Match
+Every other tool analyzes one swing in one sport. **Athlete General Intelligence** (`/agi`) is one engine that reasons across *all* your sports at once: it fuses every signal you have — Motion Lab captures, launch-monitor data, your profile/goal, today's readiness, and your own drill feedback — into one model of you as an athlete, then finds your **keystone** (the single skill that limits the most sports), shows what **transfers** between them, tracks **progress over time**, and builds one plan — all under an honest **A–D trust grade**. This is only possible *because* SwingIQ is multi-sport, so it is structurally unavailable to single-sport competitors. It also produces a **coach-shareable report** (a built-in acquisition loop) and has a public, answer-engine-friendly explainer at `/athlete-general-intelligence`. "General" means breadth across sports, not human-level AI — and like everything else, it shows its reasoning and confidence. _(Strategy: `docs/ATHLETE_GI_STRATEGY.md`.)_
+
 ---
 
 ## Competitive Landscape
