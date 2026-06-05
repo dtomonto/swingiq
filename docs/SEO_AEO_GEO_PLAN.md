@@ -1,6 +1,6 @@
 # SwingVantage SEO / AEO / GEO Plan
 
-_Last updated: May 2026_
+_Last updated: June 2026 · **Superseded** — for the current strategy see [SEO_GEO_AEO.md](SEO_GEO_AEO.md)_
 
 SEO = Search Engine Optimization | AEO = Answer Engine Optimization | GEO = Generative Engine Optimization
 

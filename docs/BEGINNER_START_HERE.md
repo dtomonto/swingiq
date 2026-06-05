@@ -233,21 +233,29 @@ Just open your Vercel URL on any device, anywhere.
 | **Equipment** | Golf: club bag with gap analysis. Other sports: equipment notes |
 | **Sessions** | History of all sessions for the active sport |
 | **Import Data / Log Session** | Golf: CSV import wizard. Other sports: manual session log |
+| **Import from Image** | Upload a photo of a launch-monitor screen to import numbers (all sports) |
 | **Diagnose / Analyze Swing** | Golf: full diagnostic engine. Other sports: links to video analysis |
-| **Video Analysis** | Upload a video for phase-by-phase coaching (all 5 sports) |
+| **Video Analysis** | Upload a video for a quick sport-aware phase-by-phase read (all 5 sports) |
+| **Motion Lab (3D)** | Full 3D motion breakdown — rotatable viewer, biomechanical scores, kinetic chain, drills, PDF export (all 5 sports) |
+| **Coach & Team** | Group Motion Lab sessions by athlete, track each athlete's progress, see team-wide weaknesses |
+| **Athlete GI** | Reasons across all your sports at once — finds your keystone skill, cross-sport transfers, and one unified plan |
+| **3D Swing Avatar** | Quick rotatable 3D avatar view of a swing |
+| **AI Coach** | Ask questions about your game — answers grounded in your data |
+| **Fix Stack** | Surfaces your single highest-impact fix as a 3-step loop: feel it → drill it → retest it |
 | **Training** | Interactive drill checklist based on your issue |
 | **Practice Schedule** | Auto-generated 7-day practice week |
 | **Pre-Round / Pre-Game** | Sport-specific warm-up checklist |
 | **Drill Library** | 80+ drills across all sports — defaults to your active sport |
 | **Progress** | Score trends over time (golf: launch monitor; others: video scores) |
+| **Player Arc** | The story of your improvement: recurring faults, which drills worked, honest retest outcomes |
+| **SwingVantage Labs** | Personal tools (readiness score, player model, skill transfer, performance graph, benchmark mirrors) |
 | **Retest** | Reminds you when a finding is due for a recheck, then shows an honest before-and-after read once you re-analyze under the same conditions |
 | **Milestones** | Achievement badges for your active sport |
-| **Compare Sessions** | Side-by-side comparison of two sessions |
-| **AI Coach** | Ask questions about your game — answers grounded in your data |
-| **Reports** | Text summary to share with your coach |
+| **Compare & References** | Browse professional swing references; compare your video side-by-side with a pro |
+| **Reports** | Text summary (or shareable image) to send to your coach |
 | **Community** | Badges, XP, challenges, streaks, leaderboards |
 | **Data Center** | Download/restore a complete backup of your data |
-| **Settings** | Units, coaching style, language, guide resets |
+| **Settings** | Units, coaching style, language, theme, guide resets |
 | **? (Help button)** | Step-by-step guide for whatever screen you are on |
 
 ---

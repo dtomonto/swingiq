@@ -52,11 +52,20 @@ Use this file to track what has already been built and what you still need to se
 - [x] **Offline support** — offline status banner + IndexedDB outbox queues network actions and completes them automatically on reconnect (always on, nothing to configure)
 - [x] **Share report as image** — Reports → report card → Image action builds a ready-to-post square image on-device (mobile shares natively; desktop downloads)
 - [x] **"Today's Fix" engagement CTAs** translated across all 20 coaching languages
-- [x] **Motion engine scaffolding** — on-device pose estimation (`lib/pose`) + motion engine (`lib/motion`); optional MediaPipe pose provider behind a feature flag, with a pose-derived score
+- [x] **Motion Lab** (full 3D motion analysis at `/motion-lab`) — on-device pose estimation, 3D viewer, phase breakdown, 6 biomechanical scores, kinetic chain, timing, coach's read, 4-drill prescription, weekly plan, session compare, JSON/CSV/PDF export, two-camera "true 3D" mode, AI debug panel (`lib/pose`, `lib/motion`, `lib/motion-lab`, `lib/pose3d`)
+- [x] **Coach & Team** (`/coach`) — local-first athlete roster; group Motion Lab sessions by athlete; team-wide weakness detection; upload tracking
+- [x] **In-app recording** — front/back camera recording with trim and "where to stand" overlay
 - [x] Non-golf pre-game warm-up checklists (tennis, baseball, slow pitch, fast pitch)
 - [x] Non-golf session log page (manual entry)
 - [x] Sport-specific camera angle selector in video analyzer
 - [x] Sport-specific milestones (golf: clubs/shots; non-golf: videos/analyses)
+
+### Coaching & Progress Intelligence
+- [x] **Fix Stack** (`/fix`) — single highest-impact issue → one feel cue + best-matched drill + retest loop; learns from what worked (`lib/drillmatch`)
+- [x] **Player Arc** (`/arc`) — narrative of improvement: recurring faults ("flaw fingerprint"), which drills worked, honest retest outcomes (`lib/progress`)
+- [x] **SwingVantage Labs** (`/labs`) — daily readiness score, private player model, cross-sport skill transfer, performance graph, benchmark mirrors (`lib/readiness`, `lib/playerModel`, `lib/skillTransfer`, `lib/performanceGraph`, `lib/benchmarkMirror`)
+- [x] **Athlete General Intelligence** (`/agi`) — reasons across all sports at once; finds your keystone skill, cross-sport transfers, readiness-scaled plan, A–D trust grade, coach-shareable report, summarized on Today dashboard (`lib/agi`)
+- [x] **3D Swing Avatar** (`/avatar`) — lightweight rotatable 3D avatar view of a swing
 
 ### Video Analysis
 - [x] Video upload and playback with sport-specific phase timeline
@@ -275,6 +284,9 @@ Use this file to track what has already been built and what you still need to se
 - [ ] Switching sports changes the dashboard
 - [ ] Golf import wizard runs (7 steps)
 - [ ] Video analyzer works for a non-golf sport
+- [ ] **Motion Lab** (`/motion-lab`) — upload a clip, confirm 3D viewer loads and shows score
+- [ ] **Fix Stack** (`/fix`) — verify your highest-impact issue appears with a drill
+- [ ] **Athlete GI** (`/agi`) — open it and confirm cross-sport summary loads
 - [ ] AI Coach responds (placeholder or live depending on key)
 - [ ] **Data Center** (`/data`) — download a backup file; confirm the contents list shows all categories
 - [ ] **Restore backup** — upload the just-downloaded file and check the preview shows sessions/badges/XP
