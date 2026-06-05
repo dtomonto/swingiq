@@ -214,6 +214,8 @@ export default function MethodologyPage() {
 
         <nav aria-label="Related" className="mt-8 border-t border-border pt-5 text-sm">
           <span className="font-semibold text-foreground">Related: </span>
+          <Link href="/athlete-general-intelligence" className="text-primary hover:underline">Athlete General Intelligence</Link>
+          <span className="text-muted-foreground"> · </span>
           <Link href="/trust" className="text-primary hover:underline">Trust &amp; Safety</Link>
           <span className="text-muted-foreground"> · </span>
           <Link href="/privacy" className="text-primary hover:underline">Privacy</Link>

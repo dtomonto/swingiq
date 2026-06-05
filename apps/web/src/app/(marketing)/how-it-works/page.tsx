@@ -259,6 +259,20 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
+      {/* Related (internal-linking graph) */}
+      <nav aria-label="Related" className="bg-card pb-14">
+        <div className="max-w-3xl mx-auto px-4 border-t border-border pt-5 text-sm">
+          <span className="font-semibold text-foreground">Related: </span>
+          <Link href="/athlete-general-intelligence" className="text-primary hover:underline">
+            Athlete General Intelligence
+          </Link>
+          <span className="text-muted-foreground"> · </span>
+          <Link href="/methodology" className="text-primary hover:underline">Methodology</Link>
+          <span className="text-muted-foreground"> · </span>
+          <Link href="/trust" className="text-primary hover:underline">Trust &amp; Safety</Link>
+        </div>
+      </nav>
+
     </>
   );
 }
