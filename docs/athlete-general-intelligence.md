@@ -120,6 +120,10 @@ each data source is a thin adapter under `lib/agi/adapters/` that emits one.
   caution that outranks every other insight** — it never edits the structural
   capability scores. AGI adds no new readiness math; it reuses the existing
   engine's `PerformanceSignals`.
+- `feedback.ts` (+ pure `feedback-map.ts`) — the athlete's DrillMatch feedback →
+  **proven drills** (the ones they marked as helping). The plan then *leads with*
+  the drills that have personally worked, ahead of generic prescriptions. Honest:
+  it's the user's own verdict, never a universal claim.
 - `merge.ts` — combines bundles and de-dupes sessions by id.
 - `useAthleteGI.ts` — the one client hook that reads **all** of the above and
   runs the pipeline. Add a new source = add one adapter; nothing else changes.
