@@ -173,7 +173,7 @@ const FEATURE_GROUPS = [
       {
         name: 'Session History',
         sports: 'All 5 sports',
-        desc: 'Every session is stored locally with its full shot data, diagnosis, scores, and training recommendations. Filter by sport, date range, or club/movement type.',
+        desc: 'Every session is saved with its full shot data, diagnosis, scores, and training recommendations. Filter by sport, date range, or club/movement type.',
         detail: '',
       },
       {
@@ -218,9 +218,9 @@ const FEATURE_GROUPS = [
     heading: 'Data Safety',
     features: [
       {
-        name: 'Local-First Storage',
+        name: 'Private by Default',
         sports: 'All sports',
-        desc: 'All data is stored in your browser by default. No account required. Nothing leaves your device until you choose to sync.',
+        desc: 'Sign in and your data is securely saved to your own private account and synced across your devices. Prefer no account? Everything works on your device too. Either way, your data is yours.',
         detail: '',
       },
       {

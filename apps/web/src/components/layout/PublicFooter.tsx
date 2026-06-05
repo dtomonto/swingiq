@@ -116,7 +116,7 @@ export function PublicFooter({ className }: PublicFooterProps) {
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-muted-foreground">
             <span>&copy; {new Date().getFullYear()} SwingVantage. All rights reserved.</span>
-            <span>Data stays local by default. We do not sell your personal information.</span>
+            <span>Your data is private to you. We do not sell your personal information.</span>
           </div>
         </div>
       </div>

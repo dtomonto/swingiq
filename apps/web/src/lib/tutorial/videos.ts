@@ -187,7 +187,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     script: [
       'SwingVantage is your personal performance system for golf, tennis, baseball, and softball.',
       'The idea is simple: analyze your swing, learn what to work on, practice it, and watch yourself improve over time.',
-      'Everything is private and stored on your device — no account required to get started.',
+      'Everything stays private to you — and you can get started right away, no account required.',
       'This tutorial is organized by who you are. Pick Player, Parent, Coach, or Team and we’ll show you the right path.',
       'You can skip the tutorial anytime and come back to it from the menu whenever you like.',
     ],

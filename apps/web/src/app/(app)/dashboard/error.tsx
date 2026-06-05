@@ -23,7 +23,7 @@ export default function DashboardError({
     <div className="p-6 max-w-2xl mx-auto">
       <ErrorRecoveryCard
         title="We couldn't load your dashboard"
-        message="Something hiccuped while building this page. Your swings and data are safe on this device — nothing was lost. Try again, and it usually clears right up."
+        message="Something hiccuped while building this page. Your swings and data are safe — nothing was lost. Try again, and it usually clears right up."
         onRetry={reset}
         homeHref="/"
         homeLabel="Back to home"

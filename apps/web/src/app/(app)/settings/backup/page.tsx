@@ -167,7 +167,7 @@ export default function BackupPage() {
         <div className="flex gap-3 bg-primary/10 border border-primary/30 rounded-xl p-4">
           <Shield className="text-primary mt-0.5 shrink-0" size={20} />
           <div className="text-sm text-primary space-y-1">
-            <p className="font-semibold">Your data stays on your device</p>
+            <p className="font-semibold">Your backup is a private file you control</p>
             <p>This backup contains your profiles, sessions, clubs, and analysis results.</p>
             <p>Video files are not included — only metadata and analysis results.</p>
             <p>No passwords, API keys, or payment credentials are stored in SwingVantage.</p>

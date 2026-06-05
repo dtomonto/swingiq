@@ -271,7 +271,7 @@ export function StartHereFlow() {
           Get your first result in a few minutes
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          No account, no credit card. Your answers stay on this device.
+          No account, no credit card needed to start. Sign in anytime to save your progress.
         </p>
       </header>
 
@@ -393,7 +393,7 @@ export function StartHereFlow() {
             Who is this for?
           </h2>
           <p className="mb-4 text-sm text-muted-foreground">
-            This tailors the tone and safety reminders. It doesn&apos;t change your privacy — everything stays on this device.
+            This tailors the tone and safety reminders. It doesn&apos;t change your privacy — your data is always yours.
           </p>
           <div role="radiogroup" aria-label="Who is this for" className="space-y-2">
             {USER_TYPES.map((u) => {

@@ -414,7 +414,7 @@ export function SportVideoAnalyzerContent() {
             </div>
             {swing.savedRecord && (
               <p className="text-xs text-muted-foreground">
-                Saved to your swing history on this device. Only the text analysis is stored — never
+                Saved to your swing history. Only the text analysis is stored — never
                 your video.
               </p>
             )}

@@ -168,7 +168,7 @@ export function UsageCategoryModal() {
             Continue to SwingVantage
           </button>
           <p className="text-center text-xs text-muted-foreground">
-            This is stored only on your device. You can change it anytime in Settings.
+            This is a private setting. You can change it anytime in Settings.
           </p>
         </div>
       </div>

@@ -163,7 +163,7 @@ export default function SettingsPage() {
           <CardHeader><CardTitle>Usage Category</CardTitle></CardHeader>
           <CardBody className="space-y-3">
             <p className="text-xs text-muted-foreground">
-              This setting controls youth safety messaging. Stored only on your device.
+              This setting controls youth safety messaging. Saved with your private settings.
             </p>
             <select
               value={settings.usage_category ?? ''}
@@ -185,7 +185,7 @@ export default function SettingsPage() {
           <CardBody className="space-y-2 text-sm text-gray-600">
             <p><span className="font-semibold">Version:</span> 1.1.0</p>
             <p><span className="font-semibold">Sports:</span> Golf · Tennis · Baseball · Slow-Pitch Softball · Fast-Pitch Softball</p>
-            <p><span className="font-semibold">Data storage:</span> All data is stored locally in your browser.</p>
+            <p><span className="font-semibold">Data storage:</span> Signed in, your data is saved to your private account and synced across your devices. Without an account, it stays in this browser.</p>
             <p className="text-xs text-gray-400 pt-2">
               Swing analysis results are heuristic estimates — not measured from actual video pixels or sensor data. All detections are labeled accordingly.
             </p>

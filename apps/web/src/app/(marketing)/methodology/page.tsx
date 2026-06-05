@@ -48,7 +48,7 @@ const FAQS = [
   {
     question: 'Where is my data stored?',
     answer:
-      'By default your data is stored locally on your device, not in the cloud. Some optional features may require sending selected inputs for processing, and SwingVantage tells you when that is the case. You can export or delete your data at any time.',
+      'When you sign in, your data is saved to your own private account and synced across your devices so you never lose your progress. Without an account it stays on your device. Some optional features may send selected inputs for processing, and SwingVantage tells you when that is the case. You can export or delete your data at any time.',
   },
 ];
 
@@ -166,12 +166,13 @@ export default function MethodologyPage() {
           </p>
         </Section>
 
-        <Section id="local-first" title="How local-first data works">
+        <Section id="your-data" title="How your data is stored">
           <p>
-            By default, your profiles, sessions, and results are stored locally on your device — not in the
-            cloud. Some optional features may need to send selected inputs for processing, and SwingVantage tells
-            you when that happens. You own your data: you can export it, back it up, and delete it at any time
-            from the <Link href="/data" className="text-primary hover:underline">Data Center</Link>.
+            When you sign in, your profiles, sessions, and results are saved to your own private account and
+            synced across your devices, so your progress is never lost. Without an account, that same data stays
+            on your device. Some optional features may need to send selected inputs for processing, and
+            SwingVantage tells you when that happens. You own your data: you can export it, back it up, and
+            delete it at any time from the <Link href="/data" className="text-primary hover:underline">Data Center</Link>.
           </p>
         </Section>
 

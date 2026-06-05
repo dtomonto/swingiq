@@ -310,7 +310,7 @@ export function VideoAnalyzerContent() {
                   </div>
                   {swing.savedRecord && (
                     <p className="text-xs text-muted-foreground">
-                      Saved to your swing history on this device. Only the text analysis is stored —
+                      Saved to your swing history. Only the text analysis is stored —
                       never your video.
                     </p>
                   )}

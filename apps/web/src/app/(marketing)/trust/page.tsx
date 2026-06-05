@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Trust & Safety | SwingVantage',
     description:
-      'SwingVantage is local-first, privacy-focused, and built with honest AI. Learn how your data is handled and what protections are in place.',
+      'SwingVantage is privacy-focused and built with honest AI. Learn how your data is handled, kept private to your account, and what protections are in place.',
     type: 'website',
     url: 'https://swingvantage.com/trust',
   },
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
 const TRUST_SECTIONS = [
   {
     icon: Lock,
-    title: 'Your data stays on your device',
-    body: "By default, every profile, session, swing analysis, and video you create in SwingVantage is stored locally in your browser — not on a remote server. Nothing leaves your device unless you choose to sync or back up to the cloud when that feature becomes available.",
+    title: 'Your data is private to you',
+    body: "When you sign in, your profiles, sessions, and swing analyses are saved to your own private account and synced across your devices, so you never lose your progress. If you use SwingVantage without an account, that same data simply stays on your device. Either way it is yours alone — we never sell it, and you can export or delete everything at any time.",
   },
   {
     icon: Eye,
@@ -73,7 +73,7 @@ export default function TrustPage() {
       <div className="bg-primary/10 border-b border-primary/20 py-6 px-4">
         <div className="max-w-3xl mx-auto grid sm:grid-cols-3 gap-4 text-center text-sm">
           {[
-            { label: 'Local-first storage', sub: 'Data stays on your device by default' },
+            { label: 'Private to your account', sub: 'Your data is yours — synced privately or kept on-device' },
             { label: 'User-controlled deletion', sub: 'Delete anything, anytime' },
             { label: 'Honest AI labels', sub: 'Every estimate is labeled as an estimate' },
           ].map((item) => (

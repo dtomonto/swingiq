@@ -22,7 +22,7 @@ export function CoachingToneSelector({ className }: { className?: string }) {
     <fieldset className={className}>
       <legend className="text-sm font-medium text-foreground mb-1">Coaching Mode</legend>
       <p className="text-xs text-muted-foreground mb-2">
-        Changes how SwingVantage talks to you — wording, detail, and safety reminders. Saved on this device.
+        Changes how SwingVantage talks to you — wording, detail, and safety reminders. Saved with your preferences.
       </p>
       <div role="radiogroup" aria-label="Coaching mode" className="grid gap-2 sm:grid-cols-2">
         {COACHING_TONES.map((t) => {

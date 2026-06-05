@@ -98,7 +98,7 @@ const FAQ_SECTIONS = [
     items: [
       {
         q: 'Where is my data stored?',
-        a: "By default, all your SwingVantage data is stored locally in your browser — not on a remote server. Nothing leaves your device until you choose to sync or back up. You can export everything as a single downloadable file from Settings → Backup & Restore.",
+        a: "When you sign in, your SwingVantage data is saved to your own private account and synced across your devices, so you never lose your progress. Without an account, it stays on your device. Either way it is yours: you can export everything as a single downloadable file from Settings → Backup & Restore, or delete it anytime.",
       },
       {
         q: 'Is my swing video private?',

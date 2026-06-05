@@ -89,7 +89,7 @@ export default function ParentsPage() {
       {/* CTA */}
       <div className="text-center py-16 px-4">
         <h2 className="text-2xl font-bold text-foreground mb-4">Start Free Today</h2>
-        <p className="text-muted-foreground mb-6">No account required to try SwingVantage. All data saved locally in the browser.</p>
+        <p className="text-muted-foreground mb-6">No account required to try SwingVantage. Sign in anytime to save your progress and sync it privately across devices.</p>
         <Link href="/start" className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8 py-3 rounded-xl transition-colors">
           Analyze My Athlete&apos;s Swing Free
         </Link>
