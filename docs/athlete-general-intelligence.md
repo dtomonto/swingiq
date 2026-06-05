@@ -135,6 +135,12 @@ each data source is a thin adapter under `lib/agi/adapters/` that emits one.
   intelligence panel (golf + non-golf), surfacing the top conclusion + keystone
   + today's form + the progress trend, with a link through to `/agi`. It
   self-hides until there's a session, a stated goal, or a readiness signal.
+- **Shareable report** — `<AgiReportCard />` at the bottom of `/agi`: copy /
+  email-coach / web-share / print-to-PDF the cross-sport report. Mirrors the
+  app's `ShareableReportCard` pattern (privacy ack, analytics, youth-safe via
+  `usage_category`, text-only). The builders are pure (`report.ts`:
+  `buildAgiReportText` + `buildAgiReportHtml`); print opens a clean standalone
+  window with no app chrome.
 
 ## Coordination note (read before editing motion-lab)
 
