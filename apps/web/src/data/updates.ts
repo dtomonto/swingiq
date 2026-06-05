@@ -138,6 +138,48 @@ export const UPDATE_TEMPLATE: Omit<Update, 'id' | 'createdAt' | 'updatedAt'> = {
 
 export const UPDATES: Update[] = [
   {
+    id: 'update-078',
+    title: 'Meet Athlete General Intelligence — One Engine Across All Your Sports',
+    slug: 'athlete-general-intelligence',
+    metaTitle: 'Athlete General Intelligence — Find the One Thing to Train | SwingIQ',
+    metaDescription:
+      'SwingIQ now reasons across all your sports at once: it finds the single skill that limits the most of them, shows what transfers between sports, tracks your progress, and builds one plan — with a trust grade on everything.',
+    summary:
+      'SwingIQ now has one engine that looks across every sport you analyse at the same time. It finds your “keystone” — the single skill that, if you improve it, lifts the most sports at once — shows what transfers between your sports, factors in today’s readiness, tracks whether the thing you trained actually moved, and turns it into one prioritised plan you can share with a coach.',
+    releaseDate: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 150,
+    audience: ['all athletes', 'multi-sport athletes', 'coaches'],
+    relatedFeature: 'Athlete General Intelligence',
+    userBenefit:
+      'Instead of one analysis per swing, you get one cross-sport read on yourself as an athlete: the single highest-leverage thing to train (your keystone), what already transfers between your sports, how hard to train today, how your capabilities are trending, and a coach-shareable report you can copy, email, or print.',
+    whyItMatters:
+      'The same rotation that powers a golf drive powers a tennis forehand. Training one shared skill can lift several sports at once — but you can only see that with an engine that looks at all of them together. It is honest by design: every number carries its basis and confidence, and the whole picture gets a simple A–D trust grade.',
+    whereToFindIt:
+      'Open “Athlete GI” under Analyze in the sidebar (/agi), or see the summary on your Today dashboard. Read the plain-English explainer at /athlete-general-intelligence.',
+    seoKeywords: [
+      'athlete general intelligence',
+      'cross-sport training',
+      'what is the one thing to train',
+      'keystone skill',
+      'transfer between sports',
+      'AI sports analysis',
+    ],
+    answerEngineSummary:
+      'SwingIQ’s Athlete General Intelligence fuses every analysed session across golf, tennis, baseball, and softball into one athlete model, then finds the keystone — the single sport-neutral capability (rotation, sequencing, balance, tempo, power, consistency) that limits the most sports. It surfaces cross-sport transfer, readiness-scaled plans, progress over time, and a coach-shareable report, with an A–D trust grade. “General” means breadth across sports, not human-level AI; single-camera values are estimates with confidence shown.',
+    generativeSearchSummary:
+      'A cross-sport reasoning layer that finds the one skill to train to improve the most sports at once, shows what transfers between them, and builds one honest, shareable plan.',
+    internalLinkTargets: ['/agi', '/athlete-general-intelligence', '/methodology'],
+    isFeatured: true,
+    isMajorMilestone: true,
+    createdAt: '2026-06-04',
+    updatedAt: '2026-06-04',
+  },
+  {
     id: 'update-075',
     title: 'Motion Lab Now Shows Your Club, Bat, or Racket Path',
     slug: 'motion-lab-implement-path',
