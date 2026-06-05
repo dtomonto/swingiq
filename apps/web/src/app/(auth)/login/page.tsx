@@ -6,6 +6,7 @@
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { isSupabaseConfigured } from '@/lib/supabase';
 import { LoginForm } from './LoginForm';
 
 export const metadata: Metadata = {
@@ -41,7 +42,9 @@ export default function LoginPage() {
       </div>
 
       <p className="text-primary-foreground/90 text-xs mt-6 text-center max-w-xs">
-        While signing in, you can still use SwingVantage — your data is saved locally in your browser.
+        {isSupabaseConfigured
+          ? 'Signing in saves your progress to your account and keeps it synced across every device you use.'
+          : 'No internet account needed — your progress is saved right here in this browser on this device.'}
       </p>
     </div>
   );
