@@ -51,6 +51,15 @@ const REPORT_TYPES = [
     href: '/ai-coach',
     cta: 'Ask AI Coach',
   },
+  {
+    title: 'Athlete GI Report',
+    description:
+      'Your cross-sport summary: the one keystone skill to train, what transfers between your sports, and a coach-shareable report you can copy, email, or print.',
+    color: 'bg-primary/10 border-primary/30',
+    iconColor: 'text-primary',
+    href: '/agi',
+    cta: 'Open Athlete GI',
+  },
 ] as const;
 
 export default function ReportsPage() {

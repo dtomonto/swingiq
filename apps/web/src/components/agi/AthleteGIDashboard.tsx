@@ -355,7 +355,10 @@ export function AthleteGIDashboard() {
           <span className="font-medium text-foreground">What &ldquo;general&rdquo; means here:</span>{' '}
           breadth and transfer across sports — one engine instead of many narrow ones. It is not a
           claim of human-level AI. Every number comes from your own analysed sessions (single-camera
-          pose is an estimate, never a lab measurement), and nothing here is medical advice.
+          pose is an estimate, never a lab measurement), and nothing here is medical advice.{' '}
+          <Link href="/athlete-general-intelligence" className="text-primary hover:underline">
+            How it works →
+          </Link>
         </p>
 
         {goal && (

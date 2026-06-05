@@ -315,6 +315,14 @@ export function StartHereFlow() {
               Start a new quick result
             </button>
           </div>
+          <Link
+            href="/agi"
+            onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta: 'start_here_agi' })}
+            className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+          >
+            See your Athlete GI — the one thing to train across all your sports
+            <ArrowRight size={13} aria-hidden="true" />
+          </Link>
         </section>
       )}
 
