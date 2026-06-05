@@ -4,6 +4,11 @@ This guide explains how to add a new entry to the SwingVantage Updates page at `
 
 **No terminal or code editor required.** You can add updates directly from GitHub's website.
 
+> **Prefer to publish straight from your commits?** There's now an automatic path:
+> add an `Update:` line to a commit message and the entry is created for you. See
+> [AUTO_PUBLISH_UPDATES.md](AUTO_PUBLISH_UPDATES.md). This guide still applies — it's
+> the manual route and the source of truth for *how to write* a good update.
+
 ---
 
 ## How to add an update from GitHub (step by step)

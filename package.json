@@ -24,6 +24,8 @@
     "validate:links": "node scripts/validate-links.mjs",
     "generate:sitemap": "node scripts/check-sitemap.mjs",
     "generate:brand": "node scripts/generate-brand-assets.mjs",
+    "updates:generate": "node scripts/generate-updates.mjs",
+    "hooks:install": "node scripts/install-hooks.mjs",
     "growth:report": "node scripts/growth-report.mjs",
     "growth:plan": "node scripts/growth-plan.mjs",
     "audit:growth": "node scripts/audit-growth.mjs",

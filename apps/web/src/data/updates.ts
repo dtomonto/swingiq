@@ -69,6 +69,8 @@ export interface Update {
 }
 
 // ── Auto-generated entries (populated by scripts/generate-updates.mjs) ───
+// Entries here come from `Update:` commit trailers and land as DRAFTS until you
+// flip status→published / visibility→public. See docs/AUTO_PUBLISH_UPDATES.md.
 import autoUpdatesJson from './auto-updates.json';
 const AUTO_UPDATES = autoUpdatesJson as unknown as Update[];
 

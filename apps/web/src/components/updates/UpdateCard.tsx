@@ -101,20 +101,26 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
         <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{update.summary}</p>
 
         {/* User benefit + why it matters */}
-        <div className="space-y-3 mb-4">
-          <div>
-            <span className="text-xs font-semibold text-primary uppercase tracking-wide">
-              What this means for you
-            </span>
-            <p className="text-sm text-foreground mt-1">{update.userBenefit}</p>
+        {(update.userBenefit || update.whyItMatters) && (
+          <div className="space-y-3 mb-4">
+            {update.userBenefit && (
+              <div>
+                <span className="text-xs font-semibold text-primary uppercase tracking-wide">
+                  What this means for you
+                </span>
+                <p className="text-sm text-foreground mt-1">{update.userBenefit}</p>
+              </div>
+            )}
+            {update.whyItMatters && (
+              <div>
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                  Why it matters
+                </span>
+                <p className="text-sm text-muted-foreground mt-1">{update.whyItMatters}</p>
+              </div>
+            )}
           </div>
-          <div>
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-              Why it matters
-            </span>
-            <p className="text-sm text-muted-foreground mt-1">{update.whyItMatters}</p>
-          </div>
-        </div>
+        )}
 
         {/* Where to find + action required */}
         {(update.whereToFindIt || update.userActionRequired) && (

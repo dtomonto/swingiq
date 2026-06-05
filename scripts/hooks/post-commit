@@ -1,0 +1,39 @@
+#!/bin/sh
+# SwingVantage post-commit hook.
+#
+# After every commit, turn opt-in commit trailers (Update: / Dev-Update:) into
+# entries on /updates and /dev-updates, then stage + commit just the two data
+# files so they ship with your next push. Installed via `npm run hooks:install`.
+#
+# Safe by design:
+#   - Only commits the two auto-update JSON files (explicit pathspec — never -A).
+#   - Never pushes. You push manually, as always.
+#   - Never blocks a commit: any failure here exits 0.
+#   - Guards against recursion (its own commit does not re-trigger generation).
+
+set -e
+
+# Don't recurse into ourselves: our own publish commit must not re-run this.
+last_subject=$(git log -1 --pretty=%s 2>/dev/null || echo "")
+case "$last_subject" in
+  "chore(updates): publish entries from commit trailers"*) exit 0 ;;
+esac
+[ -n "$SWINGVANTAGE_UPDATES_HOOK" ] && exit 0
+export SWINGVANTAGE_UPDATES_HOOK=1
+
+root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+cd "$root" || exit 0
+
+# Generate. If node or the script is unavailable, fail open (never block commits).
+node scripts/generate-updates.mjs --quiet || exit 0
+
+files="apps/web/src/data/auto-updates.json apps/web/src/data/auto-dev-updates.json"
+
+# Only commit if the generator actually changed one of the data files.
+if ! git diff --quiet -- $files 2>/dev/null; then
+  git add -- $files
+  git commit -m "chore(updates): publish entries from commit trailers" -- $files || exit 0
+  echo "swingvantage: published update entries (see /updates draft + /dev-updates)."
+fi
+
+exit 0

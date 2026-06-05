@@ -406,16 +406,25 @@ export const DEV_UPDATES: DevUpdate[] = [
   },
 ];
 
+// ── Auto-generated entries (populated by scripts/generate-updates.mjs) ───────
+// These come from `Dev-Update:` commit trailers and publish on the next deploy.
+import autoDevUpdatesJson from './auto-dev-updates.json';
+const AUTO_DEV_UPDATES = autoDevUpdatesJson as unknown as DevUpdate[];
+
+function allDevUpdates(): DevUpdate[] {
+  return [...DEV_UPDATES, ...AUTO_DEV_UPDATES];
+}
+
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
 export function getDevUpdates(): DevUpdate[] {
-  return [...DEV_UPDATES].sort(
+  return allDevUpdates().sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 }
 
 export function getDevMilestones(): DevUpdate[] {
-  return DEV_UPDATES.filter((u) => u.isMilestone).sort(
+  return allDevUpdates().filter((u) => u.isMilestone).sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   );
 }
