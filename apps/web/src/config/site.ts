@@ -1,26 +1,28 @@
 // ============================================================
-// SwingIQ — Centralized Site Configuration
+// SwingVantage — Centralized Site Configuration
 // Single source of truth for site-wide constants: name, URL,
 // contact emails, default metadata, and social handles.
 //
 // Import from anywhere with:  import { siteConfig } from '@/config/site';
 //
-// IMPORTANT (owner setup): the email addresses below must point
-// to inboxes (or forwarding) that you actually monitor before
-// relying on them publicly. See docs/growth-implementation.md.
+// IMPORTANT (owner setup): the email addresses below are public,
+// role-based addresses. Configure them to forward to a monitored
+// inbox at your domain/email host before relying on them publicly.
+// See docs/brand/REBRAND_OWNER_CHECKLIST.md and
+// docs/growth-implementation.md.
 // ============================================================
 
 /**
- * The live, canonical origin for SwingIQ. Used for canonical URLs,
+ * The live, canonical origin for SwingVantage. Used for canonical URLs,
  * sitemap entries, Open Graph URLs, and absolute links.
  * Override per-environment with NEXT_PUBLIC_SITE_URL if needed.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://swingiq.app';
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://swingvantage.com';
 
 export const siteConfig = {
   /** Product name as shown to users. */
-  siteName: 'SwingIQ',
+  siteName: 'SwingVantage',
 
   /** Short tagline used in titles and OG metadata. */
   tagline: 'Free AI Swing Analysis for Golf, Tennis, Baseball & Softball',
@@ -30,13 +32,13 @@ export const siteConfig = {
 
   // ── Contact ────────────────────────────────────────────────
   /** General contact / questions. */
-  contactEmail: 'support@swingiq.app',
+  contactEmail: 'support@swingvantage.com',
   /** Support / help with the product. */
-  supportEmail: 'support@swingiq.app',
+  supportEmail: 'support@swingvantage.com',
   /** Privacy, data-access, and data-deletion requests. */
-  privacyEmail: 'privacy@swingiq.app',
+  privacyEmail: 'privacy@swingvantage.com',
   /** Security / vulnerability disclosure. */
-  securityEmail: 'security@swingiq.app',
+  securityEmail: 'security@swingvantage.com',
 
   // ── Default metadata ───────────────────────────────────────
   defaultMetaDescription:
@@ -48,7 +50,7 @@ export const siteConfig = {
   // Leave empty until accounts actually exist. Empty handles are
   // omitted from metadata so we never link to a non-existent page.
   social: {
-    twitter: '', // e.g. '@swingiq'
+    twitter: '', // e.g. '@swingvantage'
     instagram: '',
     youtube: '',
     tiktok: '',
