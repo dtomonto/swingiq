@@ -6,6 +6,8 @@ import { BackgroundTaskCenter } from '@/components/background-tasks/BackgroundTa
 import { GuideCompanion } from '@/components/guide/GuideCompanion';
 import { AutoSyncProvider } from '@/lib/backup/autosync/AutoSyncProvider';
 import { ContinueProgressBanner } from '@/components/backup/ContinueProgressBanner';
+import { RelationalSyncProvider } from '@/lib/db';
+import { SaveProgressBanner } from '@/components/sync/SaveProgressBanner';
 
 /**
  * Shared shell for the authenticated product surface.
@@ -24,14 +26,17 @@ import { ContinueProgressBanner } from '@/components/backup/ContinueProgressBann
 export default function AppGroupLayout({ children }: { children: React.ReactNode }) {
   return (
     <BackgroundTasksProvider>
-      <AutoSyncProvider>
-        <AppShell>{children}</AppShell>
-        <FloatingCoach />
-        <UsageCategoryModal />
-        <BackgroundTaskCenter />
-        <GuideCompanion />
-        <ContinueProgressBanner />
-      </AutoSyncProvider>
+      <RelationalSyncProvider>
+        <AutoSyncProvider>
+          <AppShell>{children}</AppShell>
+          <FloatingCoach />
+          <UsageCategoryModal />
+          <BackgroundTaskCenter />
+          <GuideCompanion />
+          <ContinueProgressBanner />
+          <SaveProgressBanner />
+        </AutoSyncProvider>
+      </RelationalSyncProvider>
     </BackgroundTasksProvider>
   );
 }
