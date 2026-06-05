@@ -17,8 +17,45 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { SwingVantageState } from '@/store';
+import {
+  DEFAULT_SETTINGS, DEFAULT_SPORT_EQUIPMENT, DEFAULT_TRAINING,
+  DEFAULT_AGENT_STATE, DEFAULT_COMMUNITY_STATE, DEFAULT_TUTORIAL_PROGRESS,
+} from '@/store';
 import * as P from './projection';
 import type { Row } from './projection';
+
+/** Every table the relational sync owns (children before parents for deletes). */
+export const ALL_TABLES = [
+  'shots', 'sessions', 'clubs', 'tennis_rackets', 'baseball_bats', 'softball_bats',
+  'video_analyses', 'sport_profiles', 'golfer_profiles', 'training_progress',
+  'app_settings', 'community_state', 'tutorial_progress', 'agent_state',
+] as const;
+
+/** Build a complete store state from a partial load, filling absent domains. */
+export function fillDefaults(partial: Partial<SwingVantageState>): SwingVantageState {
+  return {
+    profile: partial.profile ?? null,
+    sportProfiles: partial.sportProfiles ?? {},
+    clubs: partial.clubs ?? [],
+    sportEquipment: partial.sportEquipment ?? DEFAULT_SPORT_EQUIPMENT,
+    sessions: partial.sessions ?? [],
+    video_analyses: partial.video_analyses ?? [],
+    training: partial.training ?? DEFAULT_TRAINING,
+    settings: partial.settings ?? DEFAULT_SETTINGS,
+    community: partial.community ?? DEFAULT_COMMUNITY_STATE,
+    tutorialProgress: partial.tutorialProgress ?? DEFAULT_TUTORIAL_PROGRESS,
+    agent: partial.agent ?? DEFAULT_AGENT_STATE,
+    setup_step: 'complete',
+  };
+}
+
+/** Delete every row this user owns across all synced tables (for 'replace'). */
+export async function deleteAllForUser(client: SupabaseClient, userId: string): Promise<void> {
+  for (const table of ALL_TABLES) {
+    const { error } = await client.from(table).delete().eq('user_id', userId);
+    if (error) throw error;
+  }
+}
 
 // ── Sync caches: what we believe the DB currently holds, per table ──
 // Collections map id → row-hash; singletons store a single hash under '@'.

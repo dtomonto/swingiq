@@ -1,56 +1,65 @@
 // GET /api/user/export
 //
-// Server-side data export endpoint. Returns the authenticated user's data
-// in SwingVantageBackup format.
-//
-// Until Supabase is fully wired up this returns a 503 with instructions to
-// use the client-side export in Settings → Backup & Restore instead.
-// Once auth is active it will query user-owned rows from Supabase and return
-// a server-generated backup.
+// Server-side data export. Reads the authenticated user's rows from the
+// relational tables (RLS-scoped to them) and assembles a SwingVantageBackup.
+// Returns 503 only when Supabase isn't configured or the schema migration
+// hasn't been applied yet — in which case the client-side export in
+// Settings → Backup & Restore is the fallback.
 
 import { NextResponse } from 'next/server';
-import { getAuthenticatedUser } from '@/lib/supabase-server';
+import { createSupabaseServerClient, getAuthenticatedUser } from '@/lib/supabase-server';
+import { loadAll, fillDefaults, isSchemaMissing } from '@/lib/db/cloudRepo';
+import { exportUserData } from '@/lib/backup/export';
 
 export async function GET() {
+  const supabaseConfigured =
+    !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseConfigured) {
+    return NextResponse.json(
+      {
+        error:
+          'Server-side export requires Supabase to be configured. ' +
+          'Use the client-side export in Settings → Backup & Restore instead.',
+        client_export_url: '/settings/backup',
+      },
+      { status: 503 },
+    );
+  }
+
   const user = await getAuthenticatedUser();
+  if (!user) {
+    return NextResponse.json({ error: 'Authentication required.' }, { status: 401 });
+  }
 
-  // Supabase not yet configured — direct user to client-side export
-  if (user === null) {
-    const supabaseConfigured =
-      !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const client = await createSupabaseServerClient();
+  if (!client) {
+    return NextResponse.json({ error: 'Supabase client unavailable.' }, { status: 503 });
+  }
 
-    if (!supabaseConfigured) {
+  try {
+    const { state } = await loadAll(client, user.id);
+    const backup = exportUserData(fillDefaults(state));
+    return NextResponse.json(backup, {
+      status: 200,
+      headers: {
+        'Content-Disposition': `attachment; filename="swingvantage-backup-${new Date()
+          .toISOString()
+          .slice(0, 10)}.json"`,
+      },
+    });
+  } catch (err) {
+    if (isSchemaMissing(err)) {
       return NextResponse.json(
         {
           error:
-            'Server-side export requires Supabase to be configured. ' +
+            'Cloud storage is not set up yet (database migration pending). ' +
             'Use the client-side export in Settings → Backup & Restore instead.',
           client_export_url: '/settings/backup',
         },
         { status: 503 },
       );
     }
-
-    return NextResponse.json({ error: 'Authentication required.' }, { status: 401 });
+    return NextResponse.json({ error: 'Failed to export user data.' }, { status: 500 });
   }
-
-  // TODO: Query Supabase for user-owned data once tables are populated:
-  //
-  // const { data: profile } = await supabase
-  //   .from('golfer_profiles').select('*').eq('user_id', user.id).single();
-  // const { data: sessions } = await supabase
-  //   .from('sessions').select('*').eq('user_id', user.id);
-  // const { data: clubs } = await supabase
-  //   .from('clubs').select('*').eq('user_id', user.id);
-  //
-  // Then assemble into SwingVantageBackup format and return.
-
-  return NextResponse.json(
-    {
-      message: 'Server-side export endpoint is ready. Supabase data queries are pending implementation.',
-      user_id: user.id,
-      client_export_url: '/settings/backup',
-    },
-    { status: 200 },
-  );
 }

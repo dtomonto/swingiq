@@ -12,7 +12,6 @@
 // ============================================================
 
 import type {
-  SwingVantageState,
   LocalClub,
   LocalSession,
   LocalVideoAnalysis,
