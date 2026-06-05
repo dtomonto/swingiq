@@ -17,6 +17,7 @@ import { identityFromStore } from '../adapters/profile';
 import { bundleFromStore } from '../adapters/store-sessions';
 import { mergeBundles } from '../adapters/merge';
 import { readinessFromScore } from '../adapters/readiness-map';
+import { provenDrillsFrom } from '../adapters/feedback-map';
 import { buildProgress, snapshotFromModel } from '../progress';
 import type {
   AGISnapshot,
@@ -563,5 +564,44 @@ describe('AGI — v2: bands, trajectory, trust, plateau, translations, plan', ()
     expect(mon.minutes).toBe(16); // scaled down from 25 on a low-energy day
     // multi-sport keystone → the block names a sport
     expect(mon.focus).toMatch(/Golf|Tennis/);
+  });
+});
+
+describe('AGI — proven drills (what worked for you)', () => {
+  const resolve = (id: string): string | null =>
+    ({ d1: 'Towel rotation drill', d2: 'Balance hold' })[id] ?? null;
+
+  it('keeps only "helped" verdicts, groups + counts, and classifies capability', () => {
+    const proven = provenDrillsFrom(
+      [
+        { drillId: 'd1', faultId: 'over_the_top', sport: 'golf', value: 'helped' },
+        { drillId: 'd1', faultId: 'over_the_top', sport: 'tennis', value: 'helped' },
+        { drillId: 'd2', faultId: 'sway', sport: 'golf', value: 'hurt' },
+        { drillId: 'd3', faultId: 'x', sport: 'golf', value: 'no_change' },
+      ],
+      resolve,
+    );
+    expect(proven).toHaveLength(1); // only d1 helped
+    expect(proven[0].drillId).toBe('d1');
+    expect(proven[0].helpedCount).toBe(2);
+    expect(proven[0].sports.sort()).toEqual(['golf', 'tennis']);
+    expect(proven[0].capability).toBe('rotation'); // "Towel rotation drill"
+  });
+
+  it('leads the plan + result with proven drills for the keystone', () => {
+    const proven = provenDrillsFrom(
+      [{ drillId: 'd1', faultId: 'rotation', sport: 'golf', value: 'helped' }],
+      () => 'Towel rotation drill',
+    );
+    const result = runAthleteGI({
+      signals: [sig('rotation', 'golf', 45)], // rotation weakest → keystone
+      sportSessions: [sessionRef('golf', 55)],
+      provenDrills: proven,
+    });
+    expect(result.provenDrills).toHaveLength(1);
+    const ks = result.plan.keystone!;
+    expect(ks.capability).toBe('rotation');
+    expect(ks.drills[0].proven).toBe(true);
+    expect(ks.drills[0].fix).toMatch(/worked for you/i);
   });
 });

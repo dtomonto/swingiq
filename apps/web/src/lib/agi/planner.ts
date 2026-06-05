@@ -38,6 +38,17 @@ function drillsForCapability(
 ): PlanFocus['drills'] {
   const seen = new Set<string>();
   const out: PlanFocus['drills'] = [];
+
+  // Lead with drills the athlete has personally found helpful for this capability.
+  for (const p of bundle.provenDrills ?? []) {
+    if (p.capability !== cap) continue;
+    const sport = p.sports[0];
+    const key = `${sport}|${p.drillName}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({ sport, fix: `${p.drillName} — worked for you before`, drillId: p.drillId, proven: true });
+  }
+
   for (const s of bundle.sportSessions) {
     for (const h of s.drillHints) {
       if (h.capability !== cap) continue;
@@ -47,7 +58,7 @@ function drillsForCapability(
       out.push({ sport: s.sport, fix: h.fix, drillId: h.drillId });
     }
   }
-  return out.slice(0, 4);
+  return out.slice(0, 5);
 }
 
 /** What today's readiness means for how hard to train today. */

@@ -58,6 +58,7 @@ export function runAthleteGI(bundle: SignalBundle, opts: RunOptions = {}): Athle
     progress,
     trust,
     keystoneTranslations,
+    provenDrills: bundle.provenDrills ?? [],
     disclaimer: DISCLAIMER,
     version: AGI_VERSION,
     enhanced: false,

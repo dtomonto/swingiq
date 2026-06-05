@@ -23,6 +23,7 @@ import { bundleFromMotionSessions } from './motion-lab';
 import { bundleFromStore } from './store-sessions';
 import { identityFromStore } from './profile';
 import { useReadinessSnapshot } from './readiness';
+import { useProvenDrills } from './feedback';
 import { mergeBundles } from './merge';
 
 export function useAthleteGI(): AthleteGIResult {
@@ -32,6 +33,7 @@ export function useAthleteGI(): AthleteGIResult {
   const sessions = useSwingIQStore((s) => s.sessions);
   const videos = useSwingIQStore((s) => s.video_analyses);
   const readiness = useReadinessSnapshot();
+  const provenDrills = useProvenDrills();
   // Read prior snapshots once on mount (excludes today, so progress is honest).
   const [history] = useState(loadHistory);
 
@@ -41,8 +43,8 @@ export function useAthleteGI(): AthleteGIResult {
       [bundleFromMotionSessions(motionSessions), bundleFromStore(sessions, videos)],
       identity,
     );
-    return runAthleteGI({ ...bundle, readiness, history });
-  }, [motionSessions, profile, sportProfiles, sessions, videos, readiness, history]);
+    return runAthleteGI({ ...bundle, readiness, history, provenDrills });
+  }, [motionSessions, profile, sportProfiles, sessions, videos, readiness, history, provenDrills]);
 
   // Persist today's snapshot for next time (dedupes per day; no-op without data).
   useEffect(() => {

@@ -79,6 +79,17 @@ export interface DrillHint {
   drillId: string | null;
 }
 
+/** A drill the athlete has personally marked as having helped before. */
+export interface ProvenDrill {
+  drillId: string;
+  drillName: string;
+  /** Best-effort capability the drill trains (from its fault/name), or null. */
+  capability: CapabilityId | null;
+  sports: SportId[];
+  /** How many times the athlete said it helped. */
+  helpedCount: number;
+}
+
 /** A compact per-session overview, used for trend + consistency reasoning. */
 export interface SportSessionRef {
   sport: SportId;
@@ -147,6 +158,8 @@ export interface SignalBundle {
   readiness?: ReadinessSnapshot;
   /** Optional prior snapshots (oldest → newest) for progress over time. */
   history?: AGISnapshot[];
+  /** Optional drills the athlete has personally found helpful. */
+  provenDrills?: ProvenDrill[];
 }
 
 // ── The unified athlete model ─────────────────────────────────
@@ -323,7 +336,8 @@ export interface PlanFocus {
   name: string;
   why: string;
   sportsHelped: SportId[];
-  drills: Array<{ sport: SportId; fix: string; drillId: string | null }>;
+  /** `proven` marks a drill the athlete has personally found helpful before. */
+  drills: Array<{ sport: SportId; fix: string; drillId: string | null; proven?: boolean }>;
 }
 
 export interface GeneralPlan {
@@ -352,6 +366,8 @@ export interface AthleteGIResult {
   trust: TrustGrade;
   /** The keystone capability phrased for each of the athlete's sports. */
   keystoneTranslations: KeystoneTranslation[];
+  /** Drills the athlete has personally found helpful (most-helped first). */
+  provenDrills: ProvenDrill[];
   /** Honest, plain-English framing of what this is and is not. */
   disclaimer: string;
   version: string;
