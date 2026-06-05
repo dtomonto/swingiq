@@ -1,8 +1,7 @@
 // ============================================================
 // /login — Sign-in page
-// Currently shows a UI-complete form that explains Supabase
-// is not yet connected. Fully functional once .env.local
-// is populated with NEXT_PUBLIC_SUPABASE_URL and keys.
+// Renders the sign-in form. Backed by cloud accounts when
+// configured, otherwise a device-local account (lib/auth/useAuth).
 // ============================================================
 
 import type { Metadata } from 'next';

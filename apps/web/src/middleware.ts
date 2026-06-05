@@ -80,6 +80,9 @@ const PUBLIC_PREFIXES = [
   '/manifest',
   '/icons/',
   '/api/health',
+  // Email-confirmation / auth callbacks must be reachable while logged
+  // out — they are what ESTABLISH the session. See app/auth/confirm.
+  '/auth/',
 ];
 
 // A subtree prefix P matches: the index (P), nested children (P/…), and the

@@ -84,8 +84,7 @@ export function SignupForm() {
 
       {mode === 'local' && (
         <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
-          Your account is created on this device — no email confirmation needed.
-          Add Supabase keys later to enable cloud accounts and cross-device sync.
+          Your account is created right here on this device — no email confirmation needed.
         </p>
       )}
       <p className="text-xs text-muted-foreground text-center">

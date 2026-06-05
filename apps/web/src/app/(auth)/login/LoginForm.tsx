@@ -102,8 +102,7 @@ export function LoginForm() {
         </p>
         {mode === 'local' && (
           <p className="text-[11px] text-muted-foreground leading-relaxed">
-            Your account is saved on this device. No internet account is required —
-            add Supabase keys later to enable cloud sync across devices.
+            Your account is saved on this device. No internet account is required.
           </p>
         )}
         <Link href="/dashboard" className="inline-block text-xs text-muted-foreground hover:text-foreground hover:underline">

@@ -181,7 +181,7 @@ export default function SettingsPage() {
           <CardBody className="space-y-2 text-sm text-gray-600">
             <p><span className="font-semibold">Version:</span> 1.1.0</p>
             <p><span className="font-semibold">Sports:</span> Golf · Tennis · Baseball · Slow-Pitch Softball · Fast-Pitch Softball</p>
-            <p><span className="font-semibold">Data storage:</span> All data stored locally in your browser. No account required until Supabase sync is enabled.</p>
+            <p><span className="font-semibold">Data storage:</span> All data is stored locally in your browser.</p>
             <p className="text-xs text-gray-400 pt-2">
               Swing analysis results are heuristic estimates — not measured from actual video pixels or sensor data. All detections are labeled accordingly.
             </p>
