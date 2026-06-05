@@ -32,6 +32,8 @@ deliberately do **not** automate.
 | `validate:content` | seo-backlog.json enums + email frontmatter | Yes |
 | `validate:links` | Internal broken-link check (static hrefs) | Yes |
 | `generate:sitemap` | Verifies sitemap paths resolve to routes | Yes |
+| `updates:generate` | Turns `Update:` / `Dev-Update:` commit trailers into changelog entries | No |
+| `hooks:install` | One-time: installs the post-commit hook for automatic update publishing | No |
 | `audit:growth` | Runs all five growth/trust checks above | Yes |
 | `growth:report` | Writes `content/growth/reports/YYYY-MM-DD.md` | No |
 | `growth:plan` | Writes `content/growth/weekly-plans/YYYY-MM-DD.md` | No |
@@ -54,7 +56,25 @@ and tracked for incremental cleanup. New code should satisfy them.
 - **codeql.yml** (existing): code scanning.
 - **security-audit.yml** (existing): security checks.
 
-## 3. Manual workflows
+## 3. Update publishing (commit-trailer automation)
+
+The `/updates` and `/dev-updates` pages publish themselves from your commits —
+opt-in, and safe by default.
+
+- Add `Update: <plain-English line>` to a commit message → a **product** entry is
+  created on `/updates` as a **draft** (hidden until a human flips it live).
+- Add `Dev-Update: <technical line>` → an entry on the engineering log
+  `/dev-updates` that publishes on the next deploy.
+- Commits with neither trailer are ignored — refactors, dependency bumps, and CI
+  changes never reach the page.
+
+Run `npm run hooks:install` once per clone to install the `post-commit` hook. After
+that it runs `updates:generate` automatically on every commit, makes a single
+follow-up commit containing just the two data files (`apps/web/src/data/auto-updates.json`
++ `auto-dev-updates.json`), and **never pushes** — you push manually. You can also run
+`npm run updates:generate` by hand. Full guide: `docs/AUTO_PUBLISH_UPDATES.md`.
+
+## 4. Manual workflows
 
 These are intentionally human-driven:
 
@@ -69,14 +89,14 @@ These are intentionally human-driven:
   (see below) and schedule sends through that provider — SwingVantage does not send
   email itself.
 
-## 4. Email capture / sending
+## 5. Email capture / sending
 
 `/api/email-capture` stores leads via whichever provider is configured by env
 (Resend, ConvertKit, Mailchimp, or a webhook). If none is set, it honestly
 reports that the address was not stored. SwingVantage does not send marketing email
 directly — use your provider's automations with the `content/emails/` templates.
 
-## 5. What we do NOT automate (by policy)
+## 6. What we do NOT automate (by policy)
 
 - **No automated social posting** to Reddit, Facebook, TikTok, Instagram,
   Discord, forums, or any community. Scripts only generate *drafts* for a human
@@ -85,4 +105,7 @@ directly — use your provider's automations with the `content/emails/` template
 - **No scraping or mass-DMing.** Outreach is personalized and manual.
 - **No auto-publishing of SEO pages** — a human writes and reviews before a page
   is marked `published`.
+- **No auto-publishing of product `/updates`** — commit-trailer entries land as
+  drafts a human flips live (only the technical `/dev-updates` log auto-publishes),
+  and the update hook **never pushes** for you.
 - **No youth data made public**, ever, by default.

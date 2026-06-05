@@ -317,6 +317,7 @@ swingiq/
     ├── SECURITY_AND_PRIVACY.md ← OWASP, GDPR/COPPA/CCPA
     ├── SEO_GEO_AEO.md          ← SEO/GEO/AEO strategy
     ├── HOW_TO_PUBLISH_UPDATES.md ← guide for /updates page
+    ├── AUTO_PUBLISH_UPDATES.md ← auto-publish /updates + /dev-updates from commit trailers
     ├── BEGINNER_START_HERE.md
     ├── OWNER_TASKS.md
     ├── TROUBLESHOOTING.md
@@ -454,6 +455,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | `/glossary` | Searchable ~45 swing terms across all sports |
 | `/resources` | Getting started guides and quick links |
 | `/updates` | User-facing product update history (plain-English changelog) |
+| `/dev-updates` | Engineering log — the technical story behind the changelog |
 | `/blog` | Blog index + 8 SEO articles |
 | `/blog/[slug]` | Individual blog posts (8 statically pre-rendered) |
 | `/benchmarks` | Performance standard index for all sports |
@@ -503,7 +505,8 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | [DATA_PORTABILITY.md](docs/DATA_PORTABILITY.md) | Backup/export developer and owner guide |
 | [SECURITY_AND_PRIVACY.md](docs/SECURITY_AND_PRIVACY.md) | OWASP coverage, GDPR/COPPA/CCPA status, breach plan |
 | [SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md) | SEO/GEO/AEO strategy with content calendar |
-| [HOW_TO_PUBLISH_UPDATES.md](docs/HOW_TO_PUBLISH_UPDATES.md) | Guide for adding entries to the /updates page |
+| [HOW_TO_PUBLISH_UPDATES.md](docs/HOW_TO_PUBLISH_UPDATES.md) | Guide for adding entries to the /updates page (manual route) |
+| [AUTO_PUBLISH_UPDATES.md](docs/AUTO_PUBLISH_UPDATES.md) | Auto-publish /updates + /dev-updates from `Update:` / `Dev-Update:` commit trailers |
 | [PRODUCT_ROADMAP.md](docs/PRODUCT_ROADMAP.md) | 30/60/90-day roadmap + monetization |
 | [MONETIZATION_STRATEGY.md](docs/MONETIZATION_STRATEGY.md) | **The north star** — monetization order: grow free → ads → membership tiers (+ the gate between each) |
 | [MONETIZATION_CHECKLIST.md](docs/MONETIZATION_CHECKLIST.md) | The Phase 3 (subscriptions) runbook — least-expensive path to the first paying user (Stripe + gates) |

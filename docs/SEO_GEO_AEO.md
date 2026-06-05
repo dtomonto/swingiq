@@ -207,7 +207,7 @@ The `/updates` page shows a chronological history of SwingVantage improvements. 
 - Gives Google fresh content to crawl regularly
 - Shows users the app is improving
 
-Add an update entry every time you ship a meaningful improvement. See `docs/HOW_TO_PUBLISH_UPDATES.md`.
+Add an update entry every time you ship a meaningful improvement — by hand (see `docs/HOW_TO_PUBLISH_UPDATES.md`) or automatically from a commit trailer (see `docs/AUTO_PUBLISH_UPDATES.md`).
 
 ---
 
