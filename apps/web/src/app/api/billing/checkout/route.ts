@@ -9,7 +9,7 @@ const PAID_TIERS: TierId[] = ['pro', 'team'];
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-  const rl = checkRateLimit(`${ip}:billing-checkout`, { limit: 10, windowMs: 60_000 });
+  const rl = await checkRateLimit(`${ip}:billing-checkout`, { limit: 10, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
   let body: { tier?: unknown };

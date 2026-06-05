@@ -56,7 +56,7 @@ interface VisionRequestBody {
 export async function POST(req: NextRequest) {
   // Rate limiting — vision calls are comparatively expensive.
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  const rl = checkRateLimit(`${ip}:video-vision-analysis`, { limit: 12, windowMs: 60_000 });
+  const rl = await checkRateLimit(`${ip}:video-vision-analysis`, { limit: 12, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
   let body: VisionRequestBody;

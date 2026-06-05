@@ -16,7 +16,7 @@ export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-  const rl = checkRateLimit(`${ip}:billing-portal`, { limit: 10, windowMs: 60_000 });
+  const rl = await checkRateLimit(`${ip}:billing-portal`, { limit: 10, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
   const user = await getAuthenticatedUser();

@@ -12,7 +12,7 @@ const VALID_SOURCES: LeadSource[] = [
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-  const rl = checkRateLimit(`${ip}:email-capture`, { limit: 8, windowMs: 60_000 });
+  const rl = await checkRateLimit(`${ip}:email-capture`, { limit: 8, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
   let body: { email?: unknown; source?: unknown; meta?: unknown };

@@ -31,7 +31,7 @@ const SYSTEM_PROMPT =
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  const rl = checkRateLimit(`${ip}:agents-enhance`, { limit: 30, windowMs: 60_000 });
+  const rl = await checkRateLimit(`${ip}:agents-enhance`, { limit: 30, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
   let body: unknown;

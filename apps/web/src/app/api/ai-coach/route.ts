@@ -24,7 +24,7 @@ import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 export async function POST(req: NextRequest) {
   // IP-based rate limiting
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  const rl = checkRateLimit(`${ip}:ai-coach`, { limit: 20, windowMs: 60_000 });
+  const rl = await checkRateLimit(`${ip}:ai-coach`, { limit: 20, windowMs: 60_000 });
   if (!rl.allowed) {
     return rateLimitResponse();
   }

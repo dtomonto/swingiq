@@ -37,7 +37,7 @@ function sanitizeCell(v: unknown): string {
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  const rl = checkRateLimit(`${ip}:csv-map`, { limit: 20, windowMs: 60_000 });
+  const rl = await checkRateLimit(`${ip}:csv-map`, { limit: 20, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
   let body: unknown;

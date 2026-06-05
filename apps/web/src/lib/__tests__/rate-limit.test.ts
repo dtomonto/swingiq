@@ -1,21 +1,22 @@
 // Tests for the shared rate-limit abstraction (lib/rate-limit.ts).
-// Covers the allow/deny contract, window expiry, and the eviction logic
-// that keeps the in-memory store from growing unbounded.
+// The mechanics (allow/deny contract, window expiry, eviction) are tested
+// against the synchronous in-memory primitive. The async entry point is
+// tested for its fallback behaviour when Upstash isn't configured.
 
-import { checkRateLimit, __test__ } from '@/lib/rate-limit';
+import { checkRateLimit, checkRateLimitInMemory, __test__ } from '@/lib/rate-limit';
 
 beforeEach(() => {
   __test__.reset();
 });
 
-describe('checkRateLimit — core contract', () => {
+describe('checkRateLimitInMemory — core contract', () => {
   it('allows up to the limit, then denies', () => {
     const cfg = { limit: 3, windowMs: 60_000 };
 
-    const a = checkRateLimit('ip-a:endpoint', cfg);
-    const b = checkRateLimit('ip-a:endpoint', cfg);
-    const c = checkRateLimit('ip-a:endpoint', cfg);
-    const d = checkRateLimit('ip-a:endpoint', cfg);
+    const a = checkRateLimitInMemory('ip-a:endpoint', cfg);
+    const b = checkRateLimitInMemory('ip-a:endpoint', cfg);
+    const c = checkRateLimitInMemory('ip-a:endpoint', cfg);
+    const d = checkRateLimitInMemory('ip-a:endpoint', cfg);
 
     expect(a.allowed).toBe(true);
     expect(a.remaining).toBe(2);
@@ -28,9 +29,9 @@ describe('checkRateLimit — core contract', () => {
 
   it('isolates separate keys', () => {
     const cfg = { limit: 1, windowMs: 60_000 };
-    expect(checkRateLimit('ip-a:e', cfg).allowed).toBe(true);
-    expect(checkRateLimit('ip-b:e', cfg).allowed).toBe(true);
-    expect(checkRateLimit('ip-a:e', cfg).allowed).toBe(false);
+    expect(checkRateLimitInMemory('ip-a:e', cfg).allowed).toBe(true);
+    expect(checkRateLimitInMemory('ip-b:e', cfg).allowed).toBe(true);
+    expect(checkRateLimitInMemory('ip-a:e', cfg).allowed).toBe(false);
   });
 
   it('starts a fresh window once the previous one has expired', () => {
@@ -38,11 +39,11 @@ describe('checkRateLimit — core contract', () => {
     // Seed an already-expired entry for this key.
     __test__.seed('ip-a:e', Date.now() - 1_000);
     // The next call sees the expired window and resets, so it is allowed.
-    expect(checkRateLimit('ip-a:e', cfg).allowed).toBe(true);
+    expect(checkRateLimitInMemory('ip-a:e', cfg).allowed).toBe(true);
   });
 });
 
-describe('checkRateLimit — eviction (no unbounded growth)', () => {
+describe('checkRateLimitInMemory — eviction (no unbounded growth)', () => {
   it('drops expired entries on sweep but keeps live ones', () => {
     const now = Date.now();
     __test__.seed('expired-1', now - 10_000);
@@ -56,7 +57,7 @@ describe('checkRateLimit — eviction (no unbounded growth)', () => {
     // The live key survived with its prior count intact (the seed counted as
     // one request), so a second request leaves remaining = 5 - 2 = 3. If the
     // sweep had wrongly evicted it, this would reset to remaining = 4.
-    const r = checkRateLimit('live-1', { limit: 5, windowMs: 60_000 });
+    const r = checkRateLimitInMemory('live-1', { limit: 5, windowMs: 60_000 });
     expect(r.remaining).toBe(3);
   });
 
@@ -68,5 +69,35 @@ describe('checkRateLimit — eviction (no unbounded growth)', () => {
     }
     __test__.runSweep(now);
     expect(__test__.storeSize()).toBeLessThanOrEqual(10_000);
+  });
+});
+
+describe('checkRateLimit — async entry point', () => {
+  const prevUrl = process.env.UPSTASH_REDIS_REST_URL;
+  const prevToken = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  afterEach(() => {
+    process.env.UPSTASH_REDIS_REST_URL = prevUrl;
+    process.env.UPSTASH_REDIS_REST_TOKEN = prevToken;
+  });
+
+  it('falls back to the in-memory limiter when Upstash is not configured', async () => {
+    delete process.env.UPSTASH_REDIS_REST_URL;
+    delete process.env.UPSTASH_REDIS_REST_TOKEN;
+
+    const cfg = { limit: 2, windowMs: 60_000 };
+    expect((await checkRateLimit('ip-z:e', cfg)).allowed).toBe(true);
+    expect((await checkRateLimit('ip-z:e', cfg)).allowed).toBe(true);
+    expect((await checkRateLimit('ip-z:e', cfg)).allowed).toBe(false);
+  });
+
+  it('treats placeholder Upstash creds as not configured (no network call)', async () => {
+    process.env.UPSTASH_REDIS_REST_URL = 'your-db.upstash.io';
+    process.env.UPSTASH_REDIS_REST_TOKEN = 'your-rest-token-here';
+
+    // 'your-...' placeholders are rejected by isConfigured, so this must use
+    // the in-memory path and resolve without attempting a fetch.
+    const r = await checkRateLimit('ip-placeholder:e', { limit: 1, windowMs: 60_000 });
+    expect(r.allowed).toBe(true);
   });
 });

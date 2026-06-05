@@ -1,13 +1,27 @@
 /**
  * SwingVantage Rate Limiting Abstraction
  *
- * Shared rate-limit logic for all API routes.
+ * Two layers, one entry point:
  *
- * For multi-instance Vercel production, replace the in-memory store with
- * Upstash Redis: https://upstash.com/docs/redis/sdks/ratelimit
+ *   • checkRateLimitInMemory — synchronous, per-process counter. Always
+ *     available. It's the only limiter in dev/single-instance, and the
+ *     fallback everywhere else. On Vercel each serverless instance has its
+ *     OWN memory, so on its own this limit only holds per-instance.
+ *
+ *   • checkRateLimit — the async production entry point routes should call.
+ *     When Upstash Redis is configured it counts in a store SHARED across
+ *     every instance, so the limit actually holds fleet-wide — the protection
+ *     that genuinely caps AI spend if someone hammers the AI routes. If
+ *     Upstash isn't configured, or is unreachable, it degrades to the
+ *     in-memory limiter so a limit is ALWAYS applied (never fails open).
+ *
+ * Enable the distributed limiter by setting UPSTASH_REDIS_REST_URL and
+ * UPSTASH_REDIS_REST_TOKEN (free tier at https://upstash.com). No SDK is
+ * needed — we call the Upstash REST API directly.
  */
 
 import { NextResponse } from 'next/server';
+import { isConfigured } from '@/lib/capabilities';
 
 export interface RateLimitConfig {
   limit: number;
@@ -20,8 +34,9 @@ export interface RateLimitResult {
   resetAt: number;
 }
 
-// In-memory store — works for dev and single-instance deployments.
-// Resets on cold starts (acceptable for MVP).
+// ── In-memory store (dev + production fallback) ──────────────
+// Works for dev and single-instance deployments. Resets on cold starts
+// (acceptable for the fallback path).
 const store = new Map<string, { count: number; resetAt: number }>();
 
 // Opportunistic eviction so the store cannot grow unbounded on a long-lived
@@ -53,9 +68,12 @@ function sweep(now: number): void {
 }
 
 /**
- * Check whether a key (typically `${ip}:${endpoint}`) is within its rate limit.
+ * Synchronous, per-process rate-limit check (the in-memory fallback).
+ * Prefer {@link checkRateLimit} in route handlers — it adds the distributed
+ * store when configured. This is exported mainly so the limiter mechanics
+ * stay unit-testable without a network.
  */
-export function checkRateLimit(key: string, config: RateLimitConfig): RateLimitResult {
+export function checkRateLimitInMemory(key: string, config: RateLimitConfig): RateLimitResult {
   const now = Date.now();
   sweep(now);
   const entry = store.get(key);
@@ -72,6 +90,90 @@ export function checkRateLimit(key: string, config: RateLimitConfig): RateLimitR
 
   entry.count++;
   return { allowed: true, remaining: config.limit - entry.count, resetAt: entry.resetAt };
+}
+
+// ── Upstash Redis REST (distributed, multi-instance) ─────────
+
+interface UpstashCreds {
+  url: string;
+  token: string;
+}
+
+function upstashCreds(): UpstashCreds | null {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!isConfigured(url) || !isConfigured(token)) return null;
+  return { url: url!.replace(/\/+$/, ''), token: token! };
+}
+
+/**
+ * Fixed-window counter executed server-side in one round trip:
+ *   INCR <key>              → current count in this window
+ *   EXPIRE <key> <win> NX   → set the TTL only on the first hit of the window
+ *   PTTL <key>              → ms remaining, so resetAt is accurate
+ * The INCR + EXPIRE NX pair is what makes the window correct across instances.
+ */
+async function checkRateLimitUpstash(
+  creds: UpstashCreds,
+  key: string,
+  config: RateLimitConfig,
+): Promise<RateLimitResult> {
+  const windowSec = Math.max(1, Math.ceil(config.windowMs / 1000));
+
+  const res = await fetch(`${creds.url}/pipeline`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${creds.token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify([
+      ['INCR', key],
+      ['EXPIRE', key, String(windowSec), 'NX'],
+      ['PTTL', key],
+    ]),
+    // A rate limiter must never hang the request it is guarding.
+    signal: AbortSignal.timeout(2_000),
+  });
+
+  if (!res.ok) throw new Error(`Upstash REST ${res.status}`);
+
+  const data = (await res.json()) as Array<{ result?: unknown; error?: string }>;
+  if (!Array.isArray(data) || data[0]?.error) {
+    throw new Error(data?.[0]?.error ?? 'Upstash malformed response');
+  }
+
+  const count = Number(data[0]?.result ?? 0);
+  const pttl = Number(data[2]?.result ?? -1);
+  const resetAt = Date.now() + (pttl > 0 ? pttl : config.windowMs);
+
+  return {
+    // Counts 1..limit are allowed; the (limit+1)-th is denied — same contract
+    // as the in-memory limiter.
+    allowed: count <= config.limit,
+    remaining: Math.max(0, config.limit - count),
+    resetAt,
+  };
+}
+
+/**
+ * Check whether a key (typically `${ip}:${endpoint}`) is within its rate
+ * limit. Uses the distributed store when Upstash is configured, otherwise the
+ * in-memory limiter. Never fails open: any Upstash error degrades to the
+ * per-instance limiter.
+ */
+export async function checkRateLimit(
+  key: string,
+  config: RateLimitConfig,
+): Promise<RateLimitResult> {
+  const creds = upstashCreds();
+  if (creds) {
+    try {
+      return await checkRateLimitUpstash(creds, key, config);
+    } catch {
+      return checkRateLimitInMemory(key, config);
+    }
+  }
+  return checkRateLimitInMemory(key, config);
 }
 
 /**
