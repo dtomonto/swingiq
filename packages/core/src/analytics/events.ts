@@ -99,6 +99,20 @@ export const ANALYTICS_EVENTS = {
   TUTORIAL_VIDEO_ERROR: 'tutorial_video_error',
   TUTORIAL_VIDEO_DISMISSED: 'tutorial_video_dismissed',
   TUTORIAL_VIDEO_CTA_CLICKED: 'tutorial_video_cta_clicked',
+
+  // Video Studio (AI video generator placements). Each carries metadata:
+  // asset_id, placement, page, sport, journey_stage, video_version,
+  // completion, device_type — see lib/video-studio/analytics.ts.
+  VIDEO_STUDIO_IMPRESSION: 'video_studio_impression',
+  VIDEO_STUDIO_PLAY: 'video_studio_play',
+  VIDEO_STUDIO_PAUSE: 'video_studio_pause',
+  VIDEO_STUDIO_COMPLETE: 'video_studio_complete',
+  VIDEO_STUDIO_CTA_CLICK: 'video_studio_cta_click',
+  VIDEO_STUDIO_MUTE: 'video_studio_mute',
+  VIDEO_STUDIO_UNMUTE: 'video_studio_unmute',
+  VIDEO_STUDIO_CAPTION_TOGGLE: 'video_studio_caption_toggle',
+  VIDEO_STUDIO_REPLAY: 'video_studio_replay',
+  VIDEO_STUDIO_ERROR: 'video_studio_error',
 } as const;
 
 export type AnalyticsEventName =
