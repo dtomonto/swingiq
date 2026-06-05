@@ -369,8 +369,8 @@ export const DEV_UPDATES: DevUpdate[] = [
   {
     id: 'dev-multi-sport-engines',
     title: 'Five sports, five real diagnostic engines',
-    date: '2024-09-15',
-    displayDate: 'September 2024',
+    date: '2026-05-29',
+    displayDate: 'May 2026',
     category: 'Architecture',
     impact: 'foundational',
     headline: 'Treated each sport as a distinct movement model instead of golf with relabeled tips.',
