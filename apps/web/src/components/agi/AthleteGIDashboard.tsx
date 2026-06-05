@@ -26,15 +26,30 @@ import {
   ShieldCheck,
   ThumbsUp,
   ThumbsDown,
+  CalendarClock,
+  RotateCcw,
 } from 'lucide-react';
 import { useAthleteGI } from '@/lib/agi/adapters/useAthleteGI';
-import { runAthleteGI, DEMO_BUNDLE, loadInsightFeedback, recordInsightFeedback, buildAthleteSummary, type InsightVerdict } from '@/lib/agi';
+import {
+  runAthleteGI,
+  DEMO_BUNDLE,
+  loadInsightFeedback,
+  recordInsightFeedback,
+  buildAthleteSummary,
+  loadCommitment,
+  commitPlan,
+  markCommitmentDone,
+  isRetestDue,
+  type InsightVerdict,
+  type AgiCommitment,
+} from '@/lib/agi';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { AgiReportCard } from './AgiReportCard';
 import type {
   AthleteGIResult,
   Basis,
   CapabilityState,
+  GeneralPlan,
   Insight,
   InsightKind,
 } from '@/lib/agi';
@@ -270,7 +285,7 @@ function InsightCard({
   );
 }
 
-function PlanSection({ result }: { result: AthleteGIResult }) {
+function PlanSection({ result, demo }: { result: AthleteGIResult; demo: boolean }) {
   const { plan } = result;
   if (!plan.keystone) return null;
   return (
@@ -339,8 +354,98 @@ function PlanSection({ result }: { result: AthleteGIResult }) {
           <AlertTriangle className="w-3 h-3 text-warning shrink-0 mt-0.5" aria-hidden="true" />
           {plan.retestReminder}
         </p>
+
+        <CommitmentPanel plan={plan} demo={demo} />
       </CardBody>
     </Card>
+  );
+}
+
+function fmtDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  } catch {
+    return iso.slice(0, 10);
+  }
+}
+
+/** The agentic step: approve the plan → it persists + sets a retest reminder. */
+function CommitmentPanel({ plan, demo }: { plan: GeneralPlan; demo: boolean }) {
+  const [commitment, setCommitment] = useState<AgiCommitment | null>(loadCommitment);
+  const [confirming, setConfirming] = useState(false);
+
+  if (demo) {
+    return (
+      <p className="text-[11px] text-muted-foreground border-t border-border pt-2">
+        Committing to a plan is available on your own data.
+      </p>
+    );
+  }
+
+  const active = commitment && commitment.status === 'active';
+  const committedToThis = active && commitment!.capability === plan.keystone?.capability;
+
+  function doCommit() {
+    const c = commitPlan(plan);
+    setCommitment(c);
+    setConfirming(false);
+    track(ANALYTICS_EVENTS.AGI_PLAN_COMMITTED, { capability: plan.keystone?.capability ?? 'none' });
+  }
+  function doDone() {
+    markCommitmentDone();
+    setCommitment(loadCommitment());
+  }
+
+  if (committedToThis) {
+    return (
+      <div className="rounded-lg border border-success/30 bg-success/10 p-3 text-xs space-y-2">
+        <p className="flex items-start gap-1.5 text-foreground">
+          <CheckCircle2 className="w-3.5 h-3.5 text-success shrink-0 mt-0.5" aria-hidden="true" />
+          <span>
+            You committed to <span className="font-semibold">{commitment!.name}</span> on {fmtDate(commitment!.committedAt)}.
+            Retest due <span className="font-medium">{fmtDate(commitment!.retestDueAt)}</span>.
+          </span>
+        </p>
+        <button type="button" onClick={doDone} className="text-[11px] font-medium text-muted-foreground hover:text-foreground underline-offset-2 hover:underline">
+          Mark done
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="border-t border-border pt-2 space-y-1.5">
+      {!confirming ? (
+        <button
+          type="button"
+          onClick={() => setConfirming(true)}
+          className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90 transition-opacity"
+        >
+          <CalendarClock className="w-3.5 h-3.5" aria-hidden="true" />
+          Commit to this plan
+        </button>
+      ) : (
+        <div className="rounded-lg border border-primary/30 bg-primary/5 p-3 space-y-2">
+          <p className="text-xs text-foreground">
+            This sets <span className="font-semibold">{plan.keystone?.name}</span> as your focus and a retest
+            reminder in 2 weeks. It saves only on this device. Confirm?
+          </p>
+          <div className="flex gap-2">
+            <button type="button" onClick={doCommit} className="rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90">
+              Yes, commit
+            </button>
+            <button type="button" onClick={() => setConfirming(false)} className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+      {active && !committedToThis && (
+        <p className="text-[10px] text-muted-foreground">
+          Currently committed to {commitment!.name} — committing here replaces it.
+        </p>
+      )}
+    </div>
   );
 }
 
@@ -416,6 +521,13 @@ export function AthleteGIDashboard() {
   // Plain-English narrative (the grounded summarizer handed off from the engine).
   const narrative = useMemo(() => (hasData ? buildAthleteSummary(result).narrative : ''), [hasData, result]);
 
+  // Agentic loop: if a committed plan's retest date has passed, prompt it.
+  const committedFocus = useState(loadCommitment)[0];
+  const retestDue = !demo && isRetestDue(committedFocus, new Date().toISOString());
+  useEffect(() => {
+    if (retestDue && committedFocus) track(ANALYTICS_EVENTS.AGI_RETEST_DUE, { capability: committedFocus.capability });
+  }, [retestDue, committedFocus]);
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 space-y-5">
       {/* Header */}
@@ -465,6 +577,19 @@ export function AthleteGIDashboard() {
         <EmptyState onSeeDemo={seeDemo} />
       ) : (
         <>
+          {retestDue && committedFocus && (
+            <div className="flex items-center gap-2 rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-xs">
+              <RotateCcw className="w-4 h-4 text-warning shrink-0" aria-hidden="true" />
+              <span className="text-foreground">
+                <span className="font-semibold">Retest due</span> — you committed to {committedFocus.name} on{' '}
+                {fmtDate(committedFocus.committedAt)}. Re-analyse to see if it moved.
+              </span>
+              <Link href="/motion-lab" className="ml-auto shrink-0 font-medium text-warning hover:underline">
+                Re-analyse →
+              </Link>
+            </div>
+          )}
+
           {demo && (
             <div className="flex items-center gap-2 rounded-lg border border-accent-secondary/30 bg-accent-secondary/10 px-3 py-2 text-xs">
               <Sparkles className="w-4 h-4 text-accent-secondary shrink-0" aria-hidden="true" />
@@ -548,7 +673,7 @@ export function AthleteGIDashboard() {
           </section>
 
           {/* Plan */}
-          <PlanSection result={result} />
+          <PlanSection result={result} demo={demo} />
 
           {/* Keystone, phrased in each of your sports */}
           {keystoneTranslations.length > 0 && (

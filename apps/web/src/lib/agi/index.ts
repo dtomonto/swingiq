@@ -18,6 +18,15 @@ export { buildGeneralPlan } from './planner';
 export { buildProgress, progressToInsight, snapshotFromModel, focusCapability } from './progress';
 export { loadHistory, recordSnapshot, clearAgiHistory } from './history';
 export { loadInsightFeedback, recordInsightFeedback, clearInsightFeedback, type InsightVerdict } from './insightFeedback';
+export {
+  buildCommitment,
+  isRetestDue,
+  loadCommitment,
+  commitPlan,
+  markCommitmentDone,
+  clearCommitment,
+  type AgiCommitment,
+} from './commitment';
 export { buildAgiReportText, buildAgiReportHtml, type ReportOptions } from './report';
 export {
   buildAthleteSummary,

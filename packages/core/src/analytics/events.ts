@@ -82,6 +82,8 @@ export const ANALYTICS_EVENTS = {
   AGI_DEMO_VIEWED: 'agi_demo_viewed',
   AGI_INSIGHT_FEEDBACK: 'agi_insight_feedback',
   AGI_NARRATED: 'agi_narrated',
+  AGI_PLAN_COMMITTED: 'agi_plan_committed',
+  AGI_RETEST_DUE: 'agi_retest_due',
 
   // Trust & safety
   PRIVACY_PAGE_VIEWED: 'privacy_page_viewed',

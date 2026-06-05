@@ -12,6 +12,7 @@ import { runAthleteGI } from '../engine';
 import { buildWorldModel, scoreBand } from '../worldModel';
 import { isThinModel } from '../reasoning';
 import { DEMO_BUNDLE } from '../demo';
+import { buildCommitment, isRetestDue } from '../commitment';
 import { gradeModel } from '../trust';
 import { buildKeystoneTranslations } from '../transfer';
 import { classifyMetric, goalToCapabilities } from '../capabilities';
@@ -119,6 +120,34 @@ describe('AGI — Phase 1: N=1 value, demo, classifier contract', () => {
     expect(r.plan.keystone).toBeTruthy();
     expect(r.transfers.length).toBeGreaterThan(0);
     expect(r.provenDrills.length).toBeGreaterThan(0);
+  });
+});
+
+describe('AGI — Phase 4: plan commitment + retest loop', () => {
+  const plan = runAthleteGI({
+    signals: [sig('rotation', 'golf', 45)],
+    sportSessions: [sessionRef('golf', 55)],
+  }).plan;
+
+  it('builds a commitment from a plan with a 2-week retest date', () => {
+    const c = buildCommitment(plan, '2026-06-01T00:00:00.000Z')!;
+    expect(c).toBeTruthy();
+    expect(c.capability).toBe('rotation');
+    expect(c.status).toBe('active');
+    expect(c.retestDueAt.slice(0, 10)).toBe('2026-06-15'); // committedAt + 14 days
+  });
+
+  it('returns null when the plan has no keystone', () => {
+    const emptyPlan = runAthleteGI({ signals: [], sportSessions: [] }).plan;
+    expect(buildCommitment(emptyPlan, '2026-06-01T00:00:00.000Z')).toBeNull();
+  });
+
+  it('flags retest due only after the due date and only while active', () => {
+    const c = buildCommitment(plan, '2026-06-01T00:00:00.000Z')!;
+    expect(isRetestDue(c, '2026-06-10T00:00:00.000Z')).toBe(false);
+    expect(isRetestDue(c, '2026-06-20T00:00:00.000Z')).toBe(true);
+    expect(isRetestDue({ ...c, status: 'done' }, '2026-06-20T00:00:00.000Z')).toBe(false);
+    expect(isRetestDue(null, '2026-06-20T00:00:00.000Z')).toBe(false);
   });
 });
 
