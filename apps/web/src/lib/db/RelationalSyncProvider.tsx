@@ -31,11 +31,13 @@ import type { SwingVantageState, SportEquipment } from '@/store';
 import { exportUserData } from '@/lib/backup/export';
 import { mergeRestore } from '@/lib/backup/restore';
 import {
-  loadAll, reconcile, freshCaches, isSchemaMissing, type SyncCaches,
+  loadAll, reconcile, fillDefaults, freshCaches, primeCaches, isSchemaMissing, type SyncCaches,
 } from './cloudRepo';
 import {
   pullAndMergeDocuments, pushChangedDocuments, freshDocSyncState, type DocSyncState,
 } from './documentSync';
+import { loadBase, saveBase, computeBase } from './syncBase';
+import { threeWayMerge } from './threeWayMerge';
 
 export type CloudSyncStatus =
   | 'unavailable' // Supabase not configured / schema not applied → local-only
@@ -145,6 +147,8 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
         const mainChanged = await reconcile(client, uid, store.getState(), cachesRef.current);
         const docsChanged = await syncDocs();
         if (!active) return;
+        // Cloud now matches the store → record it as the new agreed base.
+        saveBase(uid, computeBase(store.getState()));
         setStatus('synced');
         if (mainChanged || docsChanged) setLastSyncedAt(new Date().toISOString());
       } catch (err) {
@@ -174,24 +178,39 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
       setStatus('syncing');
       try {
         const local = store.getState();
-        const { state: cloud, isEmpty } = await loadAll(client, uid);
+        const { state: cloud, isEmpty, presence } = await loadAll(client, uid);
         if (!active) return;
 
-        if (!isEmpty) {
-          // Union-merge the cloud into the device so nothing is ever lost,
-          // then push the union back up.
-          const cloudFull = { ...local, ...cloud } as SwingVantageState;
-          const cloudBackup = exportUserData(cloudFull);
-          const merged = mergeRestore(cloudBackup, local);
-          const mergedEquipment = mergeSportEquipment(
-            local.sportEquipment, cloudFull.sportEquipment,
-          );
-          store.setState({ ...merged, sportEquipment: mergedEquipment });
-          store.getState().computeSetupStep();
-        }
-        // Fresh caches → this first reconcile pushes everything we now hold
-        // (the migrated guest data, or the merged union). Idempotent upserts.
         cachesRef.current = freshCaches();
+
+        if (isEmpty) {
+          // Brand-new account: keep this device's data and push it all up
+          // (migrates a guest's trial data in). Empty caches → reconcile
+          // inserts everything and deletes nothing.
+        } else {
+          const cloudFull = fillDefaults(cloud);
+          const base = loadBase(uid);
+          if (base) {
+            // 3-way merge against the last agreed base → cross-device deletes
+            // propagate (no resurrection) while new items on either side stay.
+            store.setState(threeWayMerge(base, local, cloudFull, presence));
+          } else {
+            // First sign-in on this device with no base → non-destructive union
+            // so nothing is lost; a base is saved after this sync.
+            const cloudBackup = exportUserData({ ...local, ...cloud } as SwingVantageState);
+            const merged = mergeRestore(cloudBackup, local);
+            store.setState({
+              ...merged,
+              sportEquipment: mergeSportEquipment(local.sportEquipment, cloudFull.sportEquipment),
+            });
+          }
+          store.getState().computeSetupStep();
+          // Seed caches with what the cloud CURRENTLY holds so this reconcile
+          // deletes the rows the merge dropped (propagating deletes upward) and
+          // upserts the rest.
+          primeCaches(cloudFull, uid, cachesRef.current);
+        }
+
         await reconcile(client, uid, store.getState(), cachesRef.current);
         if (!active) return;
 
@@ -200,6 +219,8 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
         try { await syncDocs(); } catch { /* transient — the poll will retry */ }
         if (!active) return;
 
+        // Record the now-agreed state as the base for future delete-sync.
+        saveBase(uid, computeBase(store.getState()));
         setStatus('synced');
         setLastSyncedAt(new Date().toISOString());
 

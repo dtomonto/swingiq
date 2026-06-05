@@ -135,11 +135,22 @@ const SINGLETONS: SingletonSpec[] = [
 //  LOAD
 // ════════════════════════════════════════════════════════════
 
+/** Which singleton rows actually exist in the cloud (absent ≠ reset-to-default). */
+export interface SingletonPresence {
+  training: boolean;
+  settings: boolean;
+  community: boolean;
+  tutorial: boolean;
+  agent: boolean;
+}
+
 export interface LoadResult {
   state: Partial<SwingVantageState>;
   caches: SyncCaches;
   /** True when the account has no stored data yet (first sign-in). */
   isEmpty: boolean;
+  /** Per-singleton existence, so the 3-way merge can tell absent from default. */
+  presence: SingletonPresence;
 }
 
 async function selectAll(client: SupabaseClient, table: string, userId: string): Promise<Row[]> {
@@ -198,7 +209,15 @@ export async function loadAll(client: SupabaseClient, userId: string): Promise<L
     trainingRows.length === 0 && settingsRows.length === 0 &&
     communityRows.length === 0 && tutorialRows.length === 0 && agentRows.length === 0;
 
-  return { state, caches, isEmpty };
+  const presence: SingletonPresence = {
+    training: trainingRows.length > 0,
+    settings: settingsRows.length > 0,
+    community: communityRows.length > 0,
+    tutorial: tutorialRows.length > 0,
+    agent: agentRows.length > 0,
+  };
+
+  return { state, caches, isEmpty, presence };
 }
 
 /**
