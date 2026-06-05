@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useTutorial } from '@/hooks/useTutorial';
 import { ThemeSelector } from '@/components/theme/ThemeSelector';
 import { CoachingToneSelector } from '@/components/settings/CoachingToneSelector';
+import { AccountSyncCard } from '@/components/sync/AccountSyncCard';
 
 export default function SettingsPage() {
   const { settings, updateSettings, reset } = useSwingVantageStore();
@@ -36,6 +37,9 @@ export default function SettingsPage() {
           <h1 className="text-2xl font-bold text-foreground">Settings</h1>
           <p className="text-muted-foreground text-sm mt-1">Customize how SwingVantage works for you.</p>
         </div>
+
+        {/* Account & cloud sync */}
+        <AccountSyncCard />
 
         {/* Display */}
         <Card>
