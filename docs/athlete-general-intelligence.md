@@ -54,8 +54,10 @@ You'll find it in the app under **Analyze → Athlete GI** (`/agi`).
    capability that limits the most sports. There's also a **Goal** insight that
    ties the athlete's own stated goal to the capability it most depends on (and
    says whether that *is* the keystone — perfect alignment — or something to
-   work alongside it), plus Strength, Transfer gap, Consistency, and Coverage
-   insights.
+   work alongside it), plus a **Today / readiness** insight, and Strength,
+   Transfer gap, Consistency, and Coverage insights. A readiness **safety
+   caution** (flagged discomfort) is ranked above everything, including the
+   keystone.
 
 4. **Transfer + Plan** (`transfer.ts`, `planner.ts`) — `buildTransfers` links
    capabilities across your sports using the shared movement-principle map
@@ -79,6 +81,12 @@ each data source is a thin adapter under `lib/agi/adapters/` that emits one.
 - `profile.ts` — the declared golf profile + per-sport profiles → `AthleteIdentity`
   (sports trained, skill, handedness, and the free-text **goal**, mapped to the
   capabilities it depends on via `goalToCapabilities`).
+- `readiness.ts` (+ pure `readiness-map.ts`) — the readiness engine's score →
+  a **"today's form"** snapshot. This is a *daily-state axis, not a body
+  capability*: it changes how hard to train today and can raise a **safety
+  caution that outranks every other insight** — it never edits the structural
+  capability scores. AGI adds no new readiness math; it reuses the existing
+  engine's `PerformanceSignals`.
 - `merge.ts` — combines bundles and de-dupes sessions by id.
 - `useAthleteGI.ts` — the one client hook that reads **all** of the above and
   runs the pipeline. Add a new source = add one adapter; nothing else changes.
