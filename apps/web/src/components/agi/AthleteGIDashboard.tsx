@@ -20,6 +20,9 @@ import {
   Gauge,
   CheckCircle2,
   AlertTriangle,
+  TrendingUp,
+  TrendingDown,
+  ShieldCheck,
 } from 'lucide-react';
 import { useAthleteGI } from '@/lib/agi/adapters/useAthleteGI';
 import type {
@@ -66,6 +69,7 @@ const KIND_META: Record<InsightKind, { label: string; badge: Parameters<typeof B
   transfer: { label: 'Transfer', badge: 'info' },
   imbalance: { label: 'Transfer gap', badge: 'warning' },
   recurring: { label: 'Recurring', badge: 'high' },
+  plateau: { label: 'Plateau', badge: 'warning' },
   consistency: { label: 'Consistency', badge: 'warning' },
   coverage: { label: 'Next data', badge: 'default' },
 };
@@ -96,6 +100,8 @@ function CapabilityBar({ cap }: { cap: CapabilityState }) {
       <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
         {observed ? (
           <>
+            {cap.band && <span className="capitalize font-medium text-foreground/80">{cap.band}</span>}
+            <span>·</span>
             <span>{BASIS_LABEL[cap.basis]}</span>
             <span>·</span>
             <span>{pct(cap.confidence)} conf.</span>
@@ -105,12 +111,63 @@ function CapabilityBar({ cap }: { cap: CapabilityState }) {
                 <span className="text-accent-secondary font-medium">spans {cap.breadth} sports</span>
               </>
             )}
+            {cap.trajectory && cap.trajectory.direction !== 'flat' && cap.trajectory.deltaFromFirst !== null && (
+              <span
+                className={cn(
+                  'flex items-center gap-0.5 font-medium',
+                  cap.trajectory.direction === 'up' ? 'text-success' : 'text-error',
+                )}
+              >
+                {cap.trajectory.direction === 'up' ? (
+                  <TrendingUp className="w-2.5 h-2.5" aria-hidden="true" />
+                ) : (
+                  <TrendingDown className="w-2.5 h-2.5" aria-hidden="true" />
+                )}
+                {cap.trajectory.deltaFromFirst > 0 ? '+' : ''}
+                {cap.trajectory.deltaFromFirst}
+              </span>
+            )}
           </>
         ) : (
           <span>Not observed yet</span>
         )}
       </div>
     </div>
+  );
+}
+
+const TRUST_TONE: Record<string, string> = {
+  A: 'text-success border-success/40 bg-success/10',
+  B: 'text-success border-success/30 bg-success/5',
+  C: 'text-warning border-warning/40 bg-warning/10',
+  D: 'text-muted-foreground border-border bg-muted/40',
+};
+
+function TrustBadge({ trust }: { trust: AthleteGIResult['trust'] }) {
+  return (
+    <details className="ml-auto">
+      <summary
+        className={cn(
+          'flex items-center gap-1 text-[11px] font-semibold rounded-full border px-2 py-0.5 cursor-pointer select-none',
+          TRUST_TONE[trust.grade] ?? TRUST_TONE.D,
+        )}
+      >
+        <ShieldCheck className="w-3 h-3" aria-hidden="true" />
+        Trust {trust.grade}
+      </summary>
+      <div className="absolute right-4 mt-1 w-64 z-10 rounded-lg border border-border bg-card p-3 shadow-md text-left">
+        <p className="text-xs font-medium text-foreground">{trust.headline}</p>
+        <p className="text-[10px] text-muted-foreground mt-0.5">Meta-confidence {trust.score}/100</p>
+        <ul className="mt-1.5 space-y-1">
+          {trust.reasons.map((reason, i) => (
+            <li key={i} className="text-[10px] text-muted-foreground flex items-start gap-1">
+              <span aria-hidden="true">•</span>
+              {reason}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </details>
   );
 }
 
@@ -260,7 +317,7 @@ function EmptyState() {
 export function AthleteGIDashboard() {
   const result = useAthleteGI();
 
-  const { model, insights, transfers } = result;
+  const { model, insights, transfers, trust, keystoneTranslations } = result;
   const hasData = model.dataMap.totalSessions > 0;
   const goal = model.identity?.primaryGoal;
 
@@ -279,10 +336,13 @@ export function AthleteGIDashboard() {
             </p>
           </div>
           {hasData && (
-            <span className="ml-auto flex items-center gap-1 text-xs text-muted-foreground">
-              <Gauge className="w-3.5 h-3.5" aria-hidden="true" />
-              {pct(model.coverage)} coverage
-            </span>
+            <div className="ml-auto flex items-center gap-2 relative">
+              <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <Gauge className="w-3.5 h-3.5" aria-hidden="true" />
+                {pct(model.coverage)}
+              </span>
+              <TrustBadge trust={trust} />
+            </div>
           )}
         </div>
 
@@ -342,6 +402,26 @@ export function AthleteGIDashboard() {
 
           {/* Plan */}
           <PlanSection result={result} />
+
+          {/* Keystone, phrased in each of your sports */}
+          {keystoneTranslations.length > 0 && (
+            <Card>
+              <CardBody className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Target className="w-4 h-4 text-primary" aria-hidden="true" />
+                  <h2 className="text-sm font-semibold text-foreground">Your keystone, in each sport</h2>
+                </div>
+                <ul className="space-y-1.5">
+                  {keystoneTranslations.map((t) => (
+                    <li key={t.sport} className="text-xs text-foreground">
+                      <span className="font-medium">{t.sportLabel}:</span>{' '}
+                      <span className="text-muted-foreground">{t.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardBody>
+            </Card>
+          )}
 
           {/* Transfers */}
           {transfers.length > 0 && (

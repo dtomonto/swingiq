@@ -23,7 +23,7 @@ const BAND_DOT: Record<string, string> = {
 };
 
 export function AthleteGISummary() {
-  const { model, insights, plan, progress } = useAthleteGI();
+  const { model, insights, plan, progress, trust } = useAthleteGI();
   const hasData = model.dataMap.totalSessions > 0;
   const top = insights[0];
   const readiness = model.readiness;
@@ -41,9 +41,17 @@ export function AthleteGISummary() {
           <span className="text-sm font-semibold text-foreground">Athlete GI</span>
           <Badge variant="info">General</Badge>
           {hasData && (
-            <span className="ml-auto flex items-center gap-1 text-[11px] text-muted-foreground">
-              <Gauge className="w-3 h-3" aria-hidden="true" />
-              {Math.round(model.coverage * 100)}%
+            <span className="ml-auto flex items-center gap-2 text-[11px] text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <Gauge className="w-3 h-3" aria-hidden="true" />
+                {Math.round(model.coverage * 100)}%
+              </span>
+              <span
+                className="font-semibold text-foreground/80"
+                title={`Trust ${trust.grade}: ${trust.headline}`}
+              >
+                Trust {trust.grade}
+              </span>
             </span>
           )}
         </div>
