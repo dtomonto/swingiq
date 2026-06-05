@@ -321,7 +321,7 @@ Each version migration is handled in `apps/web/src/lib/backup/migrate.ts`.
 - The single-view depth model is trained on synthetic projections, not real mocap — a useful prior, not lab-grade
 - Two-camera mode requires the user to film the same rep from two angles
 
-**How to change it later:** Swap the canvas viewer for a Three.js/R3F component (the pose track is the contract), and/or register an ONNX `Lift3DProvider` trained on Human3.6M/AMASS. Both paths are documented in `docs/pose3d.md`; the engine (`lib/pose3d`) and pipeline (`lib/motion-lab`) stay unchanged.
+**How to change it later:** Swap the canvas viewer for a Three.js/R3F component (the pose track is the contract), and/or register an ONNX `Lift3DProvider` trained on Human3.6M/AMASS. Both paths are documented in `docs/pose3d.md`; the engine (`lib/pose3d`) and pipeline (`lib/motion-lab`) stay unchanged. An **opt-in cloud pose adapter** now exists behind the same `PoseProvider` seam (`lib/motion/adapters`, `NEXT_PUBLIC_POSE_CLOUD_URL`) — on-device stays the privacy-first default and the cloud path is off unless an operator configures it.
 
 ---
 

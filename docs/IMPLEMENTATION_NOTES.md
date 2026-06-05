@@ -83,6 +83,7 @@ SwingIQ is a **Turborepo monorepo** with the following workspaces:
 /pre-round                 Pre-round / pre-game warm-up
 /video                     Video analysis (sport-aware)
 /motion-lab                Motion Lab — browser 3D motion analysis (all sports; lib/motion-lab, lib/pose3d)
+/coach                     Coach & Team — local-first roster over Motion Lab sessions (lib/motion-lab/roster)
 /drills                    Drill library
 /equipment                 Equipment management (non-golf)
 /progress                  Progress tracking

@@ -194,12 +194,17 @@ Found at **Analyze → Motion Lab (3D)** in the sidebar (or `/motion-lab`). Moti
 3. **Analyze.** Everything runs on your own device — your video never leaves the browser.
 
 **What you get:**
-- A **3D viewer** you can rotate (drag), zoom, scrub frame-by-frame, and screenshot, with motion trails and an optional "ghost" of an earlier session to compare against.
+- A **3D viewer** you can rotate (drag), zoom, scrub frame-by-frame, and screenshot, with motion trails, an optional "ghost" of an earlier session to compare against, and an optional **estimated club/bat/racket path** overlay (the head arc + contact point).
 - A **phase timeline** (setup → top → impact → finish, and the right phases for each sport).
 - **Scores** for overall motion, power, sequencing, rotation, balance, timing, and consistency — each with a confidence level.
+- A **kinetic-chain read** (does your power fire ground-up: hips → torso → arms → implement?) with power-leak flags, and a **timing breakdown** (load, transition, acceleration, contact-window stability, tempo).
+- A conversational **coach's read** in the SwingIQ format (main finding → why → evidence → what to feel → one cue → one drill → next upload), grounded in your numbers.
 - A **coaching report** in your choice of tone (beginner, athlete, coach, youth/parent, or data), with the **top 3 fixes**, what *not* to change, and a **practice plan**.
 - A **drill plan** (an immediate fix, a feel drill, a technical drill, and a constraint drill) plus a one-week schedule.
+- A **repeatability** score once you've logged a few sessions (how consistent your mechanics are).
 - **Export** your report as JSON, CSV, or a printable **PDF**, and save sessions to **compare** over time.
+
+**Coaching a team or a child?** The **Coach & Team** page (Analyze → Coach & Team, or `/coach`) lets you group sessions by athlete, see each athlete's progress and recurring issues, and spot the weakness a whole roster shares — all kept on your device.
 
 **Single camera vs. two cameras:**
 - **One camera** (the default) gives an *estimated* 3D reconstruction. A "Pro 3D depth" option uses SwingIQ's trained model to sharpen the depth.
