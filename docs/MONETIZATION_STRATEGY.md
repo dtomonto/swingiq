@@ -100,6 +100,10 @@ ahead of it is met. Each gate is a measured fact, not a date.
   `<AdSlot>` component that renders nothing unless `ads` is configured, and place a few
   honest, non-intrusive slots. No ad code ships active until then.
 
+**Execution detail for this phase:** `docs/SEO_CONTENT_PLAN.md` ("Views → Habit → Ad
+Revenue") is the Phase 2 playbook — how SEO traffic becomes ad impressions, the rough
+revenue-per-views math, and the **ads-readiness checklist** to clear before turning ads on.
+
 **The gate to Phase 3 (do NOT launch paid tiers before this):**
 - Ads producing **stable, meaningful revenue** — proof the audience is monetizable and large
   enough that a paid layer is worth the added complexity, support load, and legal/compliance
@@ -137,6 +141,7 @@ runbook**, executed only after Phase 2 proves out.
 | Doc | Role under this strategy |
 |---|---|
 | **`docs/MONETIZATION_STRATEGY.md`** (this file) | The north star: phase order + the gates. Read first. |
+| `docs/SEO_CONTENT_PLAN.md` | The **Phase 2** playbook (views → habit → ad revenue) + ads-readiness checklist. |
 | `docs/MONETIZATION_CHECKLIST.md` | The **Phase 3** runbook (subscriptions). Deferred until ad revenue exists. |
 | `docs/ATHLETE_GI_STRATEGY.md` | What stays free vs. what becomes a Phase 3 upsell. |
 | `docs/PRODUCT_ROADMAP.md` | The Monetization Roadmap section follows this phase order. |

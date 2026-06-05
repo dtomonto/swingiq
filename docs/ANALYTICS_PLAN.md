@@ -115,9 +115,19 @@ SEO page visit (golf-swing-analysis, etc.)
 - **Session frequency:** average sessions per user per month
 
 ### Revenue (once monetized)
+
+Revenue arrives in the fixed order from `docs/MONETIZATION_STRATEGY.md`: **ads first, membership tiers later.**
+
+**Phase 2 — Ads (first revenue):**
+- **Page views / ad impressions per month** (the lever ad revenue scales with — see `docs/SEO_CONTENT_PLAN.md`)
+- **Ad revenue / mo** and **effective RPM** (revenue per 1,000 views)
+- **Returning-visitor share** (more sessions = more impressions per user)
+
+**Phase 3 — Membership tiers (after ads prove out):**
 - **Free → Pro conversion rate:** target 5% of activated free users
 - **Monthly recurring revenue (MRR)**
 - **Churn rate:** monthly % of Pro subscribers who cancel
+- _The `subscription_started` / `subscription_cancelled` events above are Phase 3._
 
 ### AI Quality
 - **Diagnosis confidence distribution:** % high / medium / low across all analyses

@@ -2,9 +2,12 @@
 // SwingIQ — Billing Tiers (data, client-safe)
 //
 // Tier definitions used by the pricing page and the checkout flow.
-// SwingIQ is fully usable on the Free tier forever. Paid tiers are
-// "waitlist" until Stripe keys are configured (see lib/billing/stripe.ts
-// and /api/billing/checkout) — no charges ever happen without keys.
+// SwingIQ is fully usable on the Free tier forever. Monetization order is
+// free → ads → membership tiers (docs/MONETIZATION_STRATEGY.md), so these
+// paid tiers are Phase 3: the pricing page shows them as "Coming Soon"
+// (optional email notify) until Stripe keys are configured (see
+// lib/billing/stripe.ts and /api/billing/checkout) — no charges ever
+// happen without keys.
 // ============================================================
 
 export type TierId = 'free' | 'pro' | 'team';
