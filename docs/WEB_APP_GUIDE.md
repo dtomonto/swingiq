@@ -2,6 +2,10 @@
 
 A plain-English guide to every feature in the app.
 
+> **Want step-by-step instructions instead of descriptions?** See the
+> [Feature How-To Guide](FEATURE_HOWTO_GUIDE.md) — it walks through *how to use*
+> each feature, click by click.
+
 ---
 
 ## 1. The Basics
