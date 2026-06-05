@@ -68,6 +68,21 @@ You'll find it in the app under **Analyze → Athlete GI** (`/agi`).
 The top-level entry point is `runAthleteGI(bundle)` in `engine.ts` — pure, no
 React, no browser, no network, fully unit-tested (`__tests__/agi.test.ts`).
 
+## Progress over time (the retest loop)
+
+The plan keeps telling people to "re-analyse in 2–3 weeks to confirm your
+keystone moved" — `progress.ts` + `history.ts` make that real:
+
+- `history.ts` persists a tiny snapshot of the model (capability scores + the
+  current focus) in its own localStorage key, **one entry per day**, capped and
+  SSR-safe. It stores only small numbers — never video or pose.
+- `buildProgress(model, history)` (pure) compares the current model to the most
+  recent snapshot **from a different day** (so "today" never compares to itself)
+  → per-capability deltas, biggest improver/decliner, and how the current focus
+  moved. It surfaces as a **Progress** insight and on `result.progress`.
+- `useAthleteGI` reads history once on mount and records today's snapshot via an
+  effect, so progress simply accrues as the athlete keeps using the app.
+
 ## Where the data comes from (the adapters)
 
 The engine is source-agnostic: it consumes a normalised `SignalBundle`, and
@@ -96,8 +111,8 @@ each data source is a thin adapter under `lib/agi/adapters/` that emits one.
 - **`/agi`** (sidebar → Analyze → Athlete GI) — the full dashboard.
 - **Today dashboard** — a compact `<AthleteGISummary />` next to the existing
   intelligence panel (golf + non-golf), surfacing the top conclusion + keystone
-  with a link through to `/agi`. It self-hides until there's a session or a
-  stated goal.
+  + today's form + the progress trend, with a link through to `/agi`. It
+  self-hides until there's a session, a stated goal, or a readiness signal.
 
 ## Coordination note (read before editing motion-lab)
 
