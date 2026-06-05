@@ -86,6 +86,10 @@ export function AthleteGISummary() {
           </p>
         )}
 
+        {plan.todayNote && (
+          <p className="text-[11px] text-foreground rounded-lg bg-muted/50 px-2.5 py-1.5">{plan.todayNote}</p>
+        )}
+
         {trend && (
           <p className="text-xs flex items-center gap-1.5">
             {trend.delta! > 0 ? (
