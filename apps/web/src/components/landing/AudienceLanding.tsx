@@ -96,7 +96,7 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
         </div>
       </section>
 
-      <JsonLd data={buildGraph(serviceSchema({ name: `SwingIQ for ${config.name}`, description: config.positioning }))} />
+      <JsonLd data={buildGraph(serviceSchema({ name: `SwingVantage for ${config.name}`, description: config.positioning }))} />
     </main>
   );
 }

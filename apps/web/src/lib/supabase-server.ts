@@ -1,5 +1,5 @@
 /**
- * SwingIQ Supabase Server Client
+ * SwingVantage Supabase Server Client
  *
  * SERVER-SIDE ONLY — for use in Server Components, Route Handlers, and
  * Server Actions. NEVER import this module from a client component.

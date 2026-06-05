@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Language Toggle Component
+// SwingVantage — Language Toggle Component
 // Accessible language selector with 20 languages.
 // Available in nav, settings, onboarding, and mobile menu.
 // ============================================================

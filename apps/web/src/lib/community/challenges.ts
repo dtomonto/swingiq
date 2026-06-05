@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Community — Challenge System
+// SwingVantage Community — Challenge System
 // Challenge definitions, progress calculation, and management.
 // ============================================================
 
@@ -10,14 +10,14 @@ export const CHALLENGES: ChallengeDefinition[] = [
   {
     id: 'backup_champion',
     title: 'Backup Champion',
-    description: 'Export your SwingIQ data after completing 5 sessions. Protect your progress.',
+    description: 'Export your SwingVantage data after completing 5 sessions. Protect your progress.',
     sport: 'all',
     type: 'data',
     difficulty: 'beginner',
     durationDays: 30,
     rules: [
       'Complete 5 sessions in any sport.',
-      'Export a SwingIQ backup file.',
+      'Export a SwingVantage backup file.',
       'Both must occur within the 30-day window.',
     ],
     rewardBadgeId: 'first_backup',
@@ -40,7 +40,7 @@ export const CHALLENGES: ChallengeDefinition[] = [
     durationDays: 14,
     rules: [
       'Complete at least one session with a diagnosis.',
-      'Export a SwingIQ backup file.',
+      'Export a SwingVantage backup file.',
     ],
     rewardBadgeId: 'progress_protector',
     rewardXP: 200,
@@ -165,7 +165,7 @@ export const CHALLENGES: ChallengeDefinition[] = [
   {
     id: 'beginner_first_session',
     title: 'First Steps',
-    description: 'Complete your very first session on SwingIQ.',
+    description: 'Complete your very first session on SwingVantage.',
     sport: 'all',
     type: 'beginner',
     difficulty: 'beginner',

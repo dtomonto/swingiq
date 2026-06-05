@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — DrillMatch + Fix Stack: Public API (barrel)
+// SwingVantage — DrillMatch + Fix Stack: Public API (barrel)
 // ------------------------------------------------------------
 // One closed improvement loop built ON TOP of existing systems:
 //   fault ontology  +  per-sport drill libraries  +  feedback

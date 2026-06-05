@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — useAgentInsights
+// SwingVantage — useAgentInsights
 // ------------------------------------------------------------
 // The single hook the UI uses to access the intelligent product
 // layer. It reads the persisted store + active sport, builds the
@@ -18,7 +18,7 @@
 // ============================================================
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 import {
   buildAgentContext,
@@ -46,9 +46,9 @@ export interface UseAgentInsights {
 }
 
 export function useAgentInsights(): UseAgentInsights {
-  const state = useSwingIQStore();
-  const setWelcomeBackDismissed = useSwingIQStore((s) => s.setWelcomeBackDismissed);
-  const dismissAgentInsight = useSwingIQStore((s) => s.dismissAgentInsight);
+  const state = useSwingVantageStore();
+  const setWelcomeBackDismissed = useSwingVantageStore((s) => s.setWelcomeBackDismissed);
+  const dismissAgentInsight = useSwingVantageStore((s) => s.dismissAgentInsight);
   const { activeSport } = useSport();
 
   const [mounted, setMounted] = useState(false);

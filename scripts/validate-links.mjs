@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SwingIQ — Internal link checker.
+ * SwingVantage — Internal link checker.
  *
  * Scans static internal links (href="/literal") in app + components and
  * verifies each resolves to a real App Router route. Conservative: only

@@ -80,7 +80,7 @@ export function PublicFooter({ className }: PublicFooterProps) {
             <span className="text-white font-black text-sm" aria-hidden="true">SQ</span>
           </div>
           <div>
-            <span className="text-white font-bold text-lg">SwingIQ</span>
+            <span className="text-white font-bold text-lg">SwingVantage</span>
             <p className="text-muted-foreground text-xs">AI Swing Analysis — Golf, Tennis, Baseball &amp; Softball</p>
           </div>
         </div>
@@ -109,13 +109,13 @@ export function PublicFooter({ className }: PublicFooterProps) {
         {/* AI disclaimer + copyright */}
         <div className="border-t border-gray-800 pt-6 space-y-3">
           <p className="text-xs text-muted-foreground leading-relaxed max-w-3xl">
-            <strong className="text-muted-foreground">AI Disclaimer:</strong> SwingIQ&apos;s AI coaching helps
+            <strong className="text-muted-foreground">AI Disclaimer:</strong> SwingVantage&apos;s AI coaching helps
             identify swing patterns and prioritize practice. It is not a substitute for a qualified
-            professional coach. SwingIQ is not a medical device — consult a sports medicine professional
+            professional coach. SwingVantage is not a medical device — consult a sports medicine professional
             if you experience pain.
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-muted-foreground">
-            <span>&copy; {new Date().getFullYear()} SwingIQ. All rights reserved.</span>
+            <span>&copy; {new Date().getFullYear()} SwingVantage. All rights reserved.</span>
             <span>Data stays local by default. We do not sell your personal information.</span>
           </div>
         </div>

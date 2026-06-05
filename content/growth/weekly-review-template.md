@@ -1,4 +1,4 @@
-# SwingIQ — Weekly Growth Review (template)
+# SwingVantage — Weekly Growth Review (template)
 
 Copy this each week. Fill in the numbers from your analytics and notes.
 Pairs with `npm run growth:report` (metrics scaffold) and `npm run growth:plan`

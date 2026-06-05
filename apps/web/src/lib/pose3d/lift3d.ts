@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Single-View 3D Lifting (inference)
+// SwingVantage — pose3d: Single-View 3D Lifting (inference)
 // ------------------------------------------------------------
 // Runs the trained MLP to infer a torso-relative DEPTH for each joint
 // from a single view's 2D landmarks. Inputs are torso-normalized

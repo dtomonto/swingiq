@@ -1,28 +1,28 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Coaching Tone (Mode) Selector
+// SwingVantage — Coaching Tone (Mode) Selector
 // ------------------------------------------------------------
 // Store-connected radiogroup for picking the audience tone:
 // Beginner / Parent / Competitive / Coach. Persists to
 // settings.coaching_tone. Reused in Settings (and anywhere the
-// user should be able to change how SwingIQ talks to them).
+// user should be able to change how SwingVantage talks to them).
 // ============================================================
 
 import { cn } from '@/lib/utils';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { COACHING_TONES, getTone } from '@/lib/coaching/tones';
 
 export function CoachingToneSelector({ className }: { className?: string }) {
-  const tone = useSwingIQStore((s) => s.settings.coaching_tone);
-  const updateSettings = useSwingIQStore((s) => s.updateSettings);
+  const tone = useSwingVantageStore((s) => s.settings.coaching_tone);
+  const updateSettings = useSwingVantageStore((s) => s.updateSettings);
   const current = getTone(tone).id;
 
   return (
     <fieldset className={className}>
       <legend className="text-sm font-medium text-foreground mb-1">Coaching Mode</legend>
       <p className="text-xs text-muted-foreground mb-2">
-        Changes how SwingIQ talks to you — wording, detail, and safety reminders. Saved on this device.
+        Changes how SwingVantage talks to you — wording, detail, and safety reminders. Saved on this device.
       </p>
       <div role="radiogroup" aria-label="Coaching mode" className="grid gap-2 sm:grid-cols-2">
         {COACHING_TONES.map((t) => {

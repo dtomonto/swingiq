@@ -16,7 +16,7 @@ export default function FixStackPage() {
       <div>
         <h1 className="text-2xl font-bold text-foreground">Your Fix Stack</h1>
         <p className="text-muted-foreground text-sm mt-1">
-          One fix at a time. SwingIQ finds your highest-impact issue and turns it into a
+          One fix at a time. SwingVantage finds your highest-impact issue and turns it into a
           feel cue, the right drill, and an honest retest — then learns from what worked.
         </p>
       </div>

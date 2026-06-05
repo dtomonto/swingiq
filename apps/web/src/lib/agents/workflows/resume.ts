@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Resume / "Pick Up Where You Left Off"
+// SwingVantage — Workflow: Resume / "Pick Up Where You Left Off"
 // ------------------------------------------------------------
 // The centerpiece returning-user experience. Builds a structured
 // ResumeState and a warm, plain-English Welcome Back summary that
@@ -72,7 +72,7 @@ function buildSummary(ctx: AgentContext, status: ResumeStatus): string {
   // Minimal / first-time states get a short, encouraging restart message.
   if (status === 'first_time' || status === 'minimal_data') {
     return (
-      `Your profile is set${name ? `, ${name}` : ''}, but SwingIQ needs one ${sp.inputNoun} to build a useful ` +
+      `Your profile is set${name ? `, ${name}` : ''}, but SwingVantage needs one ${sp.inputNoun} to build a useful ` +
       `improvement plan. Start with a quick baseline so we can find your top priority.`
     );
   }

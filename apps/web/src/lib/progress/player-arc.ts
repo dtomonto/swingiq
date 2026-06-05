@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Player Arc
+// SwingVantage — Player Arc
 // ------------------------------------------------------------
 // The story of a player's improvement: where they started, what
 // they keep running into, what they've moved past, and the single
@@ -29,7 +29,7 @@ export function buildPlayerArc(input: PlayerArcInput): PlayerArc {
   const mission = latestDiagnosed?.primaryFocus
     ? `Lock in a fix for "${latestDiagnosed.primaryFocus}" — then prove it with a retest.`
     : hasData
-      ? `Capture a clean baseline ${sportLabel.toLowerCase()} swing so SwingIQ can find your one fix.`
+      ? `Capture a clean baseline ${sportLabel.toLowerCase()} swing so SwingVantage can find your one fix.`
       : `Run your first ${sportLabel.toLowerCase()} analysis to start your arc.`;
 
   const baseline = oldest

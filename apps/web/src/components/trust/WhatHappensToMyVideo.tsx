@@ -2,7 +2,7 @@ import { Smartphone, Cpu, EyeOff } from 'lucide-react';
 
 const STEPS = [
   { icon: Smartphone, title: 'You choose a video', text: 'Pick a swing video from your device. Nothing is sent anywhere until you start an analysis.' },
-  { icon: Cpu, title: 'AI reviews still frames', text: 'When you start an analysis, SwingIQ samples still frames across your swing and sends only those frames — not your full video file — to an AI vision provider for review.' },
+  { icon: Cpu, title: 'AI reviews still frames', text: 'When you start an analysis, SwingVantage samples still frames across your swing and sends only those frames — not your full video file — to an AI vision provider for review.' },
   { icon: EyeOff, title: 'Your footage stays yours', text: 'Your original video never leaves your device, the sampled frames are not stored after analysis, and your video is never used to train a shared model.' },
 ];
 

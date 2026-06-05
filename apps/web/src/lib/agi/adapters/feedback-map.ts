@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Drill-feedback mapper (pure)
+// SwingVantage — AGI: Drill-feedback mapper (pure)
 // ------------------------------------------------------------
 // Turns the athlete's own DrillMatch feedback ("did this drill help?") into a
 // list of PROVEN drills — the ones they personally marked as helping. Pure and

@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 test.describe('public surface', () => {
   test('home page loads', async ({ page }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/SwingIQ/i);
+    await expect(page).toHaveTitle(/SwingVantage/i);
   });
 
   test('sitemap.xml lists URLs', async ({ request }) => {

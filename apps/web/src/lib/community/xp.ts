@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Community — XP / Points System
+// SwingVantage Community — XP / Points System
 // Awards XP for real training actions. Anti-gaming protected.
 // ============================================================
 

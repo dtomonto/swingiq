@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Insight feedback (local-first)
+// SwingVantage — AGI: Insight feedback (local-first)
 // ------------------------------------------------------------
 // "Helpful?" / "Not me" on each insight — the correction path the audit flagged
 // as missing, and the first real learning signal. Stored in its OWN localStorage

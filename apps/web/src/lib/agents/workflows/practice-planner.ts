@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Personal Practice Planner
+// SwingVantage — Workflow: Personal Practice Planner
 // ------------------------------------------------------------
 // Converts the latest finding into a short, concrete plan.
 // Supports 10/20/30/45-minute options, home or facility, and

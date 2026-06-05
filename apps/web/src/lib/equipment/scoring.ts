@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Equipment Fit Scoring Engine
+// SwingVantage — Equipment Fit Scoring Engine
 // Deterministic rules-based scoring. The LLM layer explains
 // findings in plain English; it is NOT the diagnostic engine.
 // All scores and evidence are computed here before the AI sees them.
@@ -108,7 +108,7 @@ export function scoreTennisRacket(inputs: TennisRacketFitInputs): EquipmentDiagn
       if (inputs.skillLevel === 'beginner' || inputs.skillLevel === 'intermediate') {
         recommendations.push('High-RA frames can aggravate elbow and wrist issues in players with developing mechanics. Consider RA 58–65 if you experience any discomfort.');
       }
-      limitations.push('Arm health assessment requires medical evaluation — SwingIQ cannot diagnose injury risk.');
+      limitations.push('Arm health assessment requires medical evaluation — SwingVantage cannot diagnose injury risk.');
     } else if (ra >= 58 && ra <= 65) {
       points += 15;
       evidence.push(`Stiffness RA ${ra} is moderate — good balance of power and arm comfort.`);
@@ -305,7 +305,7 @@ export function scoreBat(inputs: BatFitInputs): EquipmentDiagnosticResult {
 
   limitations.push('Bat fit depends on swing mechanics not yet measured — certification compliance must be verified by the player.');
   if (inputs.sport === 'softball_slow') {
-    limitations.push('Association stamp compliance (USSSA, USA/ASA, etc.) must be checked manually — SwingIQ does not verify current approval lists.');
+    limitations.push('Association stamp compliance (USSSA, USA/ASA, etc.) must be checked manually — SwingVantage does not verify current approval lists.');
   }
   if (missing.length > 0) {
     recommendations.push('Enter the missing specs to improve diagnostic confidence.');

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Athlete General Intelligence: engine tests
+// SwingVantage — Athlete General Intelligence: engine tests
 // ------------------------------------------------------------
 // Pure tests against the engine (no motion-lab / browser dependency).
 // Verifies cross-sport fusion, the keystone reasoner, transfer links,

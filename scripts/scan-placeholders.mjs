@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SwingIQ — Placeholder Scanner
+ * SwingVantage — Placeholder Scanner
  *
  * Scans user-facing source for visible placeholder / unfinished text
  * that must never ship on the live site:

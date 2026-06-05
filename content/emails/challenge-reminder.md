@@ -17,4 +17,4 @@ random swinging. Film one rep so you can compare at the end of the challenge.
 See the full challenge: {{liveSiteUrl}}/challenges/{{challengeSlug}}
 
 You've got this.
-The SwingIQ team
+The SwingVantage team

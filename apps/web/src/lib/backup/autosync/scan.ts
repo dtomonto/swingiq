@@ -1,21 +1,21 @@
 // ============================================================
-// SwingIQ — Folder scan + "continue progress" evaluation
+// SwingVantage — Folder scan + "continue progress" evaluation
 //
 // Given the user's chosen folder (e.g. Downloads), find the newest
-// valid SwingIQ backup, then decide whether it's worth offering to
+// valid SwingVantage backup, then decide whether it's worth offering to
 // continue from. We reuse the same validator and restore-preview the
 // manual Import flow uses, so auto-restore is held to the identical
 // safety bar (prototype-pollution guard, size cap, schema migration).
 // ============================================================
 
-import type { SwingIQState } from '@/store';
-import type { SwingIQBackup, RestorePreview } from '@/lib/backup/schema';
+import type { SwingVantageState } from '@/store';
+import type { SwingVantageBackup, RestorePreview } from '@/lib/backup/schema';
 import { parseBackupFile } from '@/lib/backup/validate';
 import { isEncryptedBackup } from '@/lib/backup/crypto';
 import { previewRestore } from '@/lib/backup/restore';
 
 export interface FoundBackup {
-  backup: SwingIQBackup;
+  backup: SwingVantageBackup;
   /** `name|lastModified` — identifies a file we've already applied/dismissed. */
   signature: string;
   fileName: string;
@@ -34,7 +34,7 @@ export function fileSignature(file: File): string {
 }
 
 /** Empty enough that auto-continuing is unambiguously safe (additive). */
-export function isStateEmpty(state: SwingIQState): boolean {
+export function isStateEmpty(state: SwingVantageState): boolean {
   return (
     state.sessions.length === 0 &&
     state.video_analyses.length === 0 &&
@@ -44,13 +44,13 @@ export function isStateEmpty(state: SwingIQState): boolean {
   );
 }
 
-function backupTime(backup: SwingIQBackup, file: File): number {
+function backupTime(backup: SwingVantageBackup, file: File): number {
   const t = Date.parse(backup.createdAt);
   return Number.isNaN(t) ? file.lastModified : t;
 }
 
 /**
- * Scan a list of candidate files and return the newest readable SwingIQ
+ * Scan a list of candidate files and return the newest readable SwingVantage
  * backup. Encrypted files are counted but skipped (they need a password,
  * so they can't be applied automatically).
  */
@@ -98,8 +98,8 @@ export interface ContinueEvaluation {
 }
 
 export function evaluateContinue(
-  backup: SwingIQBackup,
-  state: SwingIQState,
+  backup: SwingVantageBackup,
+  state: SwingVantageState,
 ): ContinueEvaluation {
   const preview = previewRestore(backup, state);
   const newTotal =

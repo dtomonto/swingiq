@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Contextual Tutorial Content Registry
+// SwingVantage — Contextual Tutorial Content Registry
 //
 // Every major page should have an entry here.
 // Content is written for real athletes, parents, and coaches.
@@ -20,20 +20,20 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   // ── Homepage ──────────────────────────────────────────────
   '/': {
     id: '/',
-    pageTitle: 'Welcome to SwingIQ',
-    intro: 'SwingIQ is your personal sports performance system. Whether you play golf, tennis, baseball, or softball, SwingIQ helps you understand your technique, track your progress, and improve over time.',
+    pageTitle: 'Welcome to SwingVantage',
+    intro: 'SwingVantage is your personal sports performance system. Whether you play golf, tennis, baseball, or softball, SwingVantage helps you understand your technique, track your progress, and improve over time.',
     steps: [
       {
         title: 'Choose your sport',
-        body: 'SwingIQ supports Golf, Tennis, Baseball, Slow Pitch Softball, and Fast Pitch Softball. You can switch sports at any time — your data for each sport is kept separate.',
+        body: 'SwingVantage supports Golf, Tennis, Baseball, Slow Pitch Softball, and Fast Pitch Softball. You can switch sports at any time — your data for each sport is kept separate.',
       },
       {
         title: 'Analyze your swing',
-        body: 'Upload a video or enter your launch monitor data. SwingIQ\'s AI engine identifies what\'s happening in your swing and explains what to work on.',
+        body: 'Upload a video or enter your launch monitor data. SwingVantage\'s AI engine identifies what\'s happening in your swing and explains what to work on.',
       },
       {
         title: 'Track your progress over time',
-        body: 'Every session you complete builds your performance history. SwingIQ uses this history to track trends, earn achievements, and give you better recommendations as you improve.',
+        body: 'Every session you complete builds your performance history. SwingVantage uses this history to track trends, earn achievements, and give you better recommendations as you improve.',
       },
       {
         title: 'Protect your progress',
@@ -62,7 +62,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Recommended next action',
-        body: 'SwingIQ suggests your next best action — whether that\'s completing a session, running diagnostics, or continuing a drill routine.',
+        body: 'SwingVantage suggests your next best action — whether that\'s completing a session, running diagnostics, or continuing a drill routine.',
       },
       {
         title: 'Gamification status',
@@ -75,11 +75,11 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/profile': {
     id: '/profile',
     pageTitle: 'Your Player Profile',
-    intro: 'Your profile tells SwingIQ about you as an athlete. The more you fill in, the better your coaching recommendations become.',
+    intro: 'Your profile tells SwingVantage about you as an athlete. The more you fill in, the better your coaching recommendations become.',
     steps: [
       {
         title: 'Golf profile',
-        body: 'For golf, enter your handicap, scoring average, what you tend to miss, and your skill level. This helps SwingIQ focus its feedback on what matters most for your game.',
+        body: 'For golf, enter your handicap, scoring average, what you tend to miss, and your skill level. This helps SwingVantage focus its feedback on what matters most for your game.',
       },
       {
         title: 'Non-golf profiles',
@@ -87,7 +87,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Why this matters',
-        body: 'SwingIQ uses your profile to personalize every recommendation, drill, and diagnostic. A beginner golfer needs different feedback than an advanced player.',
+        body: 'SwingVantage uses your profile to personalize every recommendation, drill, and diagnostic. A beginner golfer needs different feedback than an advanced player.',
       },
       {
         title: 'Your profile is included in backups',
@@ -100,15 +100,15 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/bag': {
     id: '/bag',
     pageTitle: 'Your Equipment Bag',
-    intro: 'This is where you manage the clubs, bats, or rackets you use. Adding your equipment helps SwingIQ give more specific recommendations.',
+    intro: 'This is where you manage the clubs, bats, or rackets you use. Adding your equipment helps SwingVantage give more specific recommendations.',
     steps: [
       {
         title: 'Adding clubs (golf)',
-        body: 'Enter each club in your bag — driver, irons, wedges, and putter. Include the loft, shaft flex, and typical carry distance if you know them. SwingIQ uses this information to analyze your gapping and equipment fit.',
+        body: 'Enter each club in your bag — driver, irons, wedges, and putter. Include the loft, shaft flex, and typical carry distance if you know them. SwingVantage uses this information to analyze your gapping and equipment fit.',
       },
       {
         title: 'Why loft matters',
-        body: 'Loft determines how high the ball flies and how much distance gap exists between clubs. SwingIQ can detect if your lofts are out of order or causing distance gaps.',
+        body: 'Loft determines how high the ball flies and how much distance gap exists between clubs. SwingVantage can detect if your lofts are out of order or causing distance gaps.',
       },
       {
         title: 'Bats and rackets',
@@ -116,7 +116,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Equipment is included in your backup',
-        body: 'All your equipment records are saved in your SwingIQ backup. If you switch devices or clear your browser, you can restore your full equipment profile.',
+        body: 'All your equipment records are saved in your SwingVantage backup. If you switch devices or clear your browser, you can restore your full equipment profile.',
       },
     ],
   },
@@ -141,7 +141,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Session history powers your progress',
-        body: 'The more sessions you record, the better SwingIQ can track your improvement over time. Your history also feeds your streaks, badges, and challenges.',
+        body: 'The more sessions you record, the better SwingVantage can track your improvement over time. Your history also feeds your streaks, badges, and challenges.',
       },
     ],
   },
@@ -154,7 +154,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
     steps: [
       {
         title: 'Select your sport and equipment',
-        body: 'Start by choosing the sport and the club or bat you used in this session. This helps SwingIQ apply sport-specific analysis.',
+        body: 'Start by choosing the sport and the club or bat you used in this session. This helps SwingVantage apply sport-specific analysis.',
       },
       {
         title: 'Entering shot data',
@@ -166,7 +166,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Save and analyze',
-        body: 'After saving, SwingIQ will analyze your session data. Head to the Diagnose screen to get a full swing breakdown and recommended drill plan.',
+        body: 'After saving, SwingVantage will analyze your session data. Head to the Diagnose screen to get a full swing breakdown and recommended drill plan.',
       },
     ],
   },
@@ -175,15 +175,15 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/sessions/import': {
     id: '/sessions/import',
     pageTitle: 'Import Session Data',
-    intro: 'Upload session data from a launch monitor or compatible tracking device. SwingIQ supports CSV and JSON formats.',
+    intro: 'Upload session data from a launch monitor or compatible tracking device. SwingVantage supports CSV and JSON formats.',
     steps: [
       {
         title: 'Supported data formats',
-        body: 'SwingIQ can import data from FlightScope, Trackman, Foresight, SkyTrak, and other launch monitors that export CSV files. You can also upload a SwingIQ session JSON file.',
+        body: 'SwingVantage can import data from FlightScope, Trackman, Foresight, SkyTrak, and other launch monitors that export CSV files. You can also upload a SwingVantage session JSON file.',
       },
       {
         title: 'Drag and drop or browse',
-        body: 'Drop your file onto the upload area or tap "Browse" to select it. SwingIQ will read the file and map the columns to the correct metrics.',
+        body: 'Drop your file onto the upload area or tap "Browse" to select it. SwingVantage will read the file and map the columns to the correct metrics.',
       },
       {
         title: 'Reviewing parsed data',
@@ -191,7 +191,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Image upload (OCR)',
-        body: 'You can also take a screenshot of a launch monitor table and upload it as an image. SwingIQ will use optical character recognition (OCR) to read the numbers from the image.',
+        body: 'You can also take a screenshot of a launch monitor table and upload it as an image. SwingVantage will use optical character recognition (OCR) to read the numbers from the image.',
       },
     ],
   },
@@ -200,7 +200,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/sessions/import/image': {
     id: '/sessions/import/image',
     pageTitle: 'Upload a Data Screenshot',
-    intro: 'Take a photo or screenshot of your launch monitor screen and upload it here. SwingIQ will read the numbers from the image and import them as session data.',
+    intro: 'Take a photo or screenshot of your launch monitor screen and upload it here. SwingVantage will read the numbers from the image and import them as session data.',
     steps: [
       {
         title: 'What to photograph',
@@ -212,7 +212,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Reviewing the results',
-        body: 'After upload, SwingIQ will show you the extracted numbers. Review them for accuracy and correct any errors before saving.',
+        body: 'After upload, SwingVantage will show you the extracted numbers. Review them for accuracy and correct any errors before saving.',
       },
     ],
   },
@@ -225,7 +225,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
     steps: [
       {
         title: 'Select a session to analyze',
-        body: 'Choose the session you want to analyze. SwingIQ will look at your shot patterns and identify the most significant issues.',
+        body: 'Choose the session you want to analyze. SwingVantage will look at your shot patterns and identify the most significant issues.',
       },
       {
         title: 'Understanding issues',
@@ -237,11 +237,11 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Recommended drills',
-        body: 'Based on your diagnosed issues, SwingIQ recommends specific drills. These are targeted to fix what the analysis found — not generic exercises.',
+        body: 'Based on your diagnosed issues, SwingVantage recommends specific drills. These are targeted to fix what the analysis found — not generic exercises.',
       },
       {
         title: 'Tracking improvement over time',
-        body: 'Every time you run diagnostics on a new session, SwingIQ compares your results to previous sessions. This shows whether your key issues are improving.',
+        body: 'Every time you run diagnostics on a new session, SwingVantage compares your results to previous sessions. This shows whether your key issues are improving.',
       },
     ],
   },
@@ -262,7 +262,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Tracking drill completion',
-        body: 'Check off each drill as you complete it. SwingIQ tracks your drill history so it can measure consistency and suggest when to retest.',
+        body: 'Check off each drill as you complete it. SwingVantage tracks your drill history so it can measure consistency and suggest when to retest.',
       },
       {
         title: 'Streaks and consistency',
@@ -292,7 +292,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/golf-swing-analysis': {
     id: '/golf-swing-analysis',
     pageTitle: 'Golf Swing Video Analysis',
-    intro: 'Upload a video of your golf swing and SwingIQ will analyze your technique, identify issues, and compare your positions to key checkpoints.',
+    intro: 'Upload a video of your golf swing and SwingVantage will analyze your technique, identify issues, and compare your positions to key checkpoints.',
     steps: [
       {
         title: 'Recording a good swing video',
@@ -300,7 +300,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'What gets analyzed',
-        body: 'SwingIQ identifies key swing phases (address, takeaway, top of backswing, downswing, impact, follow-through) and checks for common faults in each phase.',
+        body: 'SwingVantage identifies key swing phases (address, takeaway, top of backswing, downswing, impact, follow-through) and checks for common faults in each phase.',
       },
       {
         title: 'Understanding your results',
@@ -308,7 +308,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Video analysis is included in backups',
-        body: 'Your video analysis results (scores, issues, notes) are included in your SwingIQ backup. The video file itself is not included — only the analysis results.',
+        body: 'Your video analysis results (scores, issues, notes) are included in your SwingVantage backup. The video file itself is not included — only the analysis results.',
       },
     ],
   },
@@ -316,7 +316,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/tennis-swing-analysis': {
     id: '/tennis-swing-analysis',
     pageTitle: 'Tennis Swing Analysis',
-    intro: 'Upload a video of your tennis stroke and SwingIQ will analyze your technique across serve, forehand, backhand, and footwork.',
+    intro: 'Upload a video of your tennis stroke and SwingVantage will analyze your technique across serve, forehand, backhand, and footwork.',
     steps: [
       {
         title: 'Recording your stroke',
@@ -324,11 +324,11 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Stroke types',
-        body: 'Choose the stroke type before uploading — serve, forehand, backhand, or volley. This helps SwingIQ apply the right checkpoints.',
+        body: 'Choose the stroke type before uploading — serve, forehand, backhand, or volley. This helps SwingVantage apply the right checkpoints.',
       },
       {
         title: 'What gets analyzed',
-        body: 'SwingIQ identifies issues in your preparation, swing path, contact point, and follow-through. It also checks your footwork and balance.',
+        body: 'SwingVantage identifies issues in your preparation, swing path, contact point, and follow-through. It also checks your footwork and balance.',
       },
     ],
   },
@@ -336,7 +336,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/baseball-swing-analysis': {
     id: '/baseball-swing-analysis',
     pageTitle: 'Baseball Swing Analysis',
-    intro: 'Upload a video of your baseball swing and SwingIQ will analyze your bat path, contact point, hip rotation, and timing.',
+    intro: 'Upload a video of your baseball swing and SwingVantage will analyze your bat path, contact point, hip rotation, and timing.',
     steps: [
       {
         title: 'Recording your swing',
@@ -344,7 +344,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'What gets analyzed',
-        body: 'SwingIQ checks your load, stride, hip rotation, hand path, contact point, and extension. It identifies timing faults and mechanics issues.',
+        body: 'SwingVantage checks your load, stride, hip rotation, hand path, contact point, and extension. It identifies timing faults and mechanics issues.',
       },
     ],
   },
@@ -352,15 +352,15 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/softball-swing-analysis': {
     id: '/softball-swing-analysis',
     pageTitle: 'Softball Swing Analysis',
-    intro: 'Upload a video of your softball swing and SwingIQ will analyze your mechanics for both slow pitch and fast pitch.',
+    intro: 'Upload a video of your softball swing and SwingVantage will analyze your mechanics for both slow pitch and fast pitch.',
     steps: [
       {
         title: 'Slow pitch vs. fast pitch',
-        body: 'SwingIQ applies different analysis criteria depending on your softball type. Make sure your sport profile is set to the correct format before uploading.',
+        body: 'SwingVantage applies different analysis criteria depending on your softball type. Make sure your sport profile is set to the correct format before uploading.',
       },
       {
         title: 'What gets analyzed',
-        body: 'SwingIQ checks your load, stride timing, hip-to-shoulder separation, bat path, and contact zone. Different issues matter more for slow pitch vs. fast pitch.',
+        body: 'SwingVantage checks your load, stride timing, hip-to-shoulder separation, bat path, and contact zone. Different issues matter more for slow pitch vs. fast pitch.',
       },
     ],
   },
@@ -398,7 +398,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Milestones and backups',
-        body: 'All earned milestones are saved in your SwingIQ backup. If you clear your browser or switch devices, you can restore your milestone history.',
+        body: 'All earned milestones are saved in your SwingVantage backup. If you clear your browser or switch devices, you can restore your milestone history.',
       },
     ],
   },
@@ -411,7 +411,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
     steps: [
       {
         title: 'Comparing to benchmarks',
-        body: 'SwingIQ includes benchmark data from professional players and published sport science. Compare your carry distance, spin rate, and other metrics to see where you stand.',
+        body: 'SwingVantage includes benchmark data from professional players and published sport science. Compare your carry distance, spin rate, and other metrics to see where you stand.',
       },
       {
         title: 'Session-to-session comparison',
@@ -466,7 +466,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
     steps: [
       {
         title: 'Building a schedule',
-        body: 'Tell SwingIQ how many days per week you practice and how long your sessions are. SwingIQ will suggest what to work on each day based on your current diagnostic priorities.',
+        body: 'Tell SwingVantage how many days per week you practice and how long your sessions are. SwingVantage will suggest what to work on each day based on your current diagnostic priorities.',
       },
       {
         title: 'Following the schedule',
@@ -495,7 +495,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   // ── Community Hub ─────────────────────────────────────────
   '/community': {
     id: '/community',
-    pageTitle: 'SwingIQ Community',
+    pageTitle: 'SwingVantage Community',
     intro: 'The Community turns your training data into achievements, challenges, streaks, and leaderboards. It is designed to keep you accountable and motivated.',
     steps: [
       {
@@ -516,7 +516,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Protecting your community progress',
-        body: 'Your XP, badges, challenges, and streaks are all included in your SwingIQ backup. Export a backup regularly so your community progress is safe.',
+        body: 'Your XP, badges, challenges, and streaks are all included in your SwingVantage backup. Export a backup regularly so your community progress is safe.',
       },
     ],
   },
@@ -537,7 +537,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Data Protection badges',
-        body: 'A special category of badges rewards you for regularly protecting your training data. Backing up your SwingIQ data is treated as part of being a serious athlete.',
+        body: 'A special category of badges rewards you for regularly protecting your training data. Backing up your SwingVantage data is treated as part of being a serious athlete.',
       },
       {
         title: 'Locked badges',
@@ -566,7 +566,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Protecting challenge progress',
-        body: 'Your challenge history and progress are included in your SwingIQ backup. Export a backup after completing challenges to make sure your progress is saved.',
+        body: 'Your challenge history and progress are included in your SwingVantage backup. Export a backup after completing challenges to make sure your progress is saved.',
       },
     ],
   },
@@ -613,15 +613,15 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/data': {
     id: '/data',
     pageTitle: 'Data Center',
-    intro: 'The Data Center is where you download backups of your SwingIQ data, restore from a previous backup, or clear your data if needed.',
+    intro: 'The Data Center is where you download backups of your SwingVantage data, restore from a previous backup, or clear your data if needed.',
     steps: [
       {
         title: 'Why backing up matters',
-        body: 'SwingIQ saves your data in your browser. If you clear your browser history, switch devices, or update your browser, your data could be lost. A backup file keeps your progress safe.',
+        body: 'SwingVantage saves your data in your browser. If you clear your browser history, switch devices, or update your browser, your data could be lost. A backup file keeps your progress safe.',
       },
       {
         title: 'Downloading a backup',
-        body: 'Tap "Download Backup" to save a complete copy of your SwingIQ data to your device. Keep this file somewhere safe — like cloud storage or a backup folder.',
+        body: 'Tap "Download Backup" to save a complete copy of your SwingVantage data to your device. Keep this file somewhere safe — like cloud storage or a backup folder.',
       },
       {
         title: 'What the backup includes',
@@ -633,7 +633,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Restoring from backup',
-        body: 'To restore your data, tap "Select Backup File" under Restore from Backup. Choose your backup file and SwingIQ will show you a preview of what will be restored before you confirm.',
+        body: 'To restore your data, tap "Select Backup File" under Restore from Backup. Choose your backup file and SwingVantage will show you a preview of what will be restored before you confirm.',
       },
       {
         title: 'Merge vs. Replace',
@@ -646,11 +646,11 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/settings': {
     id: '/settings',
     pageTitle: 'Settings',
-    intro: 'Customize how SwingIQ works for you — including language, units, coaching style, and privacy controls.',
+    intro: 'Customize how SwingVantage works for you — including language, units, coaching style, and privacy controls.',
     steps: [
       {
         title: 'Language',
-        body: 'SwingIQ supports 20 languages. Changing the language updates all text throughout the app. Your language preference is saved and included in your backup.',
+        body: 'SwingVantage supports 20 languages. Changing the language updates all text throughout the app. Your language preference is saved and included in your backup.',
       },
       {
         title: 'Measurement units',
@@ -658,7 +658,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Coaching style',
-        body: 'Choose how SwingIQ delivers feedback — Detailed (full technical explanations), Concise (short and direct), Encouragement (motivational tone), or Balanced.',
+        body: 'Choose how SwingVantage delivers feedback — Detailed (full technical explanations), Concise (short and direct), Encouragement (motivational tone), or Balanced.',
       },
       {
         title: 'Privacy controls',
@@ -666,7 +666,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Backup & Restore',
-        body: 'The Backup & Restore section links to the Data Center where you can download or restore your SwingIQ data.',
+        body: 'The Backup & Restore section links to the Data Center where you can download or restore your SwingVantage data.',
       },
     ],
   },
@@ -675,7 +675,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   '/settings/backup': {
     id: '/settings/backup',
     pageTitle: 'Backup & Restore',
-    intro: 'Download a complete backup of your SwingIQ data, or restore from a previous backup file.',
+    intro: 'Download a complete backup of your SwingVantage data, or restore from a previous backup file.',
     steps: [
       {
         title: 'Downloading a backup',
@@ -708,7 +708,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'Watched progress is saved',
-        body: 'Mark videos as watched and SwingIQ remembers — your track shows how far along you are. Progress is included in your backup like everything else.',
+        body: 'Mark videos as watched and SwingVantage remembers — your track shows how far along you are. Progress is included in your backup like everything else.',
       },
       {
         title: 'Videos and written steps',

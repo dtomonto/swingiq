@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — DrillMatch + Fix Stack: Shared Types
+// SwingVantage — DrillMatch + Fix Stack: Shared Types
 // ------------------------------------------------------------
 // DrillMatch maps a diagnosed fault to a RANKED list of drills,
 // and a Fix Stack turns the top match into a 3-part intervention:

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Progress Intelligence: Public API (barrel)
+// SwingVantage — Progress Intelligence: Public API (barrel)
 // ------------------------------------------------------------
 // Player Arc · Flaw Fingerprint · Training Receipt — honest,
 // longitudinal summaries over the existing progress + retest +

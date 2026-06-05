@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Athlete General Intelligence: compact summary
+// SwingVantage — Athlete General Intelligence: compact summary
 // ------------------------------------------------------------
 // A small, embeddable card for the Today dashboard. Runs the same engine as
 // the full /agi page (via useAthleteGI) and surfaces just the top conclusion +

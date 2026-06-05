@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: multi-view reconstruction (end-to-end)
+// SwingVantage — Motion Lab: multi-view reconstruction (end-to-end)
 // ------------------------------------------------------------
 // Projects a synthetic motion through a calibrated two-camera rig and
 // confirms buildMultiViewTrack reconstructs a measured 3D track with

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Evaluation harness (golden athletes)
+// SwingVantage — AGI: Evaluation harness (golden athletes)
 // ------------------------------------------------------------
 // The audit's central gap: unit tests prove the code does what it says, but
 // nothing proves the CONCLUSIONS are right. This harness pins the engine's

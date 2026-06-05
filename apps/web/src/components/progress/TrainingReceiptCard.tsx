@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Training Receipt Card
+// SwingVantage — Training Receipt Card
 // ------------------------------------------------------------
 // Proof of a practice→retest cycle: diagnosed → practised →
 // what changed → drill effectiveness → next move. Honest by

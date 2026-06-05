@@ -141,9 +141,9 @@ export const UPDATES: Update[] = [
     id: 'update-079',
     title: 'Free Stays Free — Paid Plans Are "Coming Soon"',
     slug: 'free-stays-free-paid-coming-soon',
-    metaTitle: 'SwingIQ Pricing — Free Forever, Paid Plans Coming Soon',
+    metaTitle: 'SwingVantage Pricing — Free Forever, Paid Plans Coming Soon',
     metaDescription:
-      'SwingIQ is free to use and stays that way. Our paid Pro and Team plans now show "Coming Soon" — we are growing the free product first and will add optional upgrades later.',
+      'SwingVantage is free to use and stays that way. Our paid Pro and Team plans now show "Coming Soon" — we are growing the free product first and will add optional upgrades later.',
     summary:
       'We have simplified the pricing page. Everything you use today is free and will stay free — analysis, drills, progress, and your cross-sport Athlete GI report. The Pro and Team plans now read "Coming Soon" instead of a waitlist: our focus right now is making the free product great for as many athletes as possible, and optional paid upgrades will arrive later.',
     releaseDate: '2026-06-04',
@@ -156,7 +156,7 @@ export const UPDATES: Update[] = [
     audience: ['all athletes', 'parents', 'coaches'],
     relatedFeature: 'Pricing',
     userBenefit:
-      'No paywall and no pressure: the full SwingIQ experience stays free. If you want a heads-up when optional Pro/Team upgrades launch, you can leave your email — but nothing you rely on today will be taken away or put behind a charge.',
+      'No paywall and no pressure: the full SwingVantage experience stays free. If you want a heads-up when optional Pro/Team upgrades launch, you can leave your email — but nothing you rely on today will be taken away or put behind a charge.',
     whyItMatters:
       'Our priority is growing a great free product for as many athletes as possible before charging anyone. Being upfront that paid plans are "coming later" — rather than dangling a waitlist — is the honest way to say it.',
     whereToFindIt: 'See the simplified plans on the pricing page (/pricing).',
@@ -167,9 +167,9 @@ export const UPDATES: Update[] = [
       'swingiq pro coming soon',
     ],
     answerEngineSummary:
-      'SwingIQ is free to use and stays free; its paid Pro ($12/mo) and Team ($49/mo) plans currently show "Coming Soon." SwingIQ is prioritising a strong free product first; optional paid upgrades (cloud sync, video storage, deeper history, team tools) will launch later, and the core analysis, drills, progress tracking, and Athlete GI report remain free.',
+      'SwingVantage is free to use and stays free; its paid Pro ($12/mo) and Team ($49/mo) plans currently show "Coming Soon." SwingVantage is prioritising a strong free product first; optional paid upgrades (cloud sync, video storage, deeper history, team tools) will launch later, and the core analysis, drills, progress tracking, and Athlete GI report remain free.',
     generativeSearchSummary:
-      'SwingIQ stays free; paid Pro/Team plans now show "Coming Soon" while the free product grows first.',
+      'SwingVantage stays free; paid Pro/Team plans now show "Coming Soon" while the free product grows first.',
     internalLinkTargets: ['/pricing', '/athlete-general-intelligence'],
     isFeatured: false,
     isMajorMilestone: false,
@@ -180,11 +180,11 @@ export const UPDATES: Update[] = [
     id: 'update-078',
     title: 'Meet Athlete General Intelligence — One Engine Across All Your Sports',
     slug: 'athlete-general-intelligence',
-    metaTitle: 'Athlete General Intelligence — Find the One Thing to Train | SwingIQ',
+    metaTitle: 'Athlete General Intelligence — Find the One Thing to Train | SwingVantage',
     metaDescription:
-      'SwingIQ now reasons across all your sports at once: it finds the single skill that limits the most of them, shows what transfers between sports, tracks your progress, and builds one plan — with a trust grade on everything.',
+      'SwingVantage now reasons across all your sports at once: it finds the single skill that limits the most of them, shows what transfers between sports, tracks your progress, and builds one plan — with a trust grade on everything.',
     summary:
-      'SwingIQ now has one engine that looks across every sport you analyse at the same time. It finds your “keystone” — the single skill that, if you improve it, lifts the most sports at once — shows what transfers between your sports, factors in today’s readiness, tracks whether the thing you trained actually moved, and turns it into one prioritised plan you can share with a coach.',
+      'SwingVantage now has one engine that looks across every sport you analyse at the same time. It finds your “keystone” — the single skill that, if you improve it, lifts the most sports at once — shows what transfers between your sports, factors in today’s readiness, tracks whether the thing you trained actually moved, and turns it into one prioritised plan you can share with a coach.',
     releaseDate: '2026-06-04',
     displayDate: 'June 2026',
     category: 'New Feature',
@@ -209,7 +209,7 @@ export const UPDATES: Update[] = [
       'AI sports analysis',
     ],
     answerEngineSummary:
-      'SwingIQ’s Athlete General Intelligence fuses every analysed session across golf, tennis, baseball, and softball into one athlete model, then finds the keystone — the single sport-neutral capability (rotation, sequencing, balance, tempo, power, consistency) that limits the most sports. It surfaces cross-sport transfer, readiness-scaled plans, progress over time, and a coach-shareable report, with an A–D trust grade. “General” means breadth across sports, not human-level AI; single-camera values are estimates with confidence shown.',
+      'SwingVantage’s Athlete General Intelligence fuses every analysed session across golf, tennis, baseball, and softball into one athlete model, then finds the keystone — the single sport-neutral capability (rotation, sequencing, balance, tempo, power, consistency) that limits the most sports. It surfaces cross-sport transfer, readiness-scaled plans, progress over time, and a coach-shareable report, with an A–D trust grade. “General” means breadth across sports, not human-level AI; single-camera values are estimates with confidence shown.',
     generativeSearchSummary:
       'A cross-sport reasoning layer that finds the one skill to train to improve the most sports at once, shows what transfers between them, and builds one honest, shareable plan.',
     internalLinkTargets: ['/agi', '/athlete-general-intelligence', '/methodology'],
@@ -222,7 +222,7 @@ export const UPDATES: Update[] = [
     id: 'update-075',
     title: 'Motion Lab Now Shows Your Club, Bat, or Racket Path',
     slug: 'motion-lab-implement-path',
-    metaTitle: 'See Your Estimated Swing Path & Contact Point — SwingIQ Motion Lab',
+    metaTitle: 'See Your Estimated Swing Path & Contact Point — SwingVantage Motion Lab',
     metaDescription:
       'Motion Lab now estimates the path of your club, bat, or racket head and where it meets the ball, with an arc you can see right on the 3D replay.',
     summary:
@@ -249,7 +249,7 @@ export const UPDATES: Update[] = [
       'contact point analysis',
     ],
     answerEngineSummary:
-      'SwingIQ Motion Lab estimates the club, bat, or racket head path and contact point from a single phone video and overlays it on a 3D swing replay. The path is an estimate from arm motion, clearly labeled, not a precision measurement.',
+      'SwingVantage Motion Lab estimates the club, bat, or racket head path and contact point from a single phone video and overlays it on a 3D swing replay. The path is an estimate from arm motion, clearly labeled, not a precision measurement.',
     isFeatured: true,
     isMajorMilestone: false,
     createdAt: '2026-06-04',
@@ -259,7 +259,7 @@ export const UPDATES: Update[] = [
     id: 'update-076',
     title: 'Coach & Team Mode: Follow a Whole Roster',
     slug: 'coach-team-mode',
-    metaTitle: 'Coach & Team Mode — Track Every Athlete in SwingIQ Motion Lab',
+    metaTitle: 'Coach & Team Mode — Track Every Athlete in SwingVantage Motion Lab',
     metaDescription:
       'Coaches and parents can now group Motion Lab sessions by athlete and see per-athlete progress plus team-wide common weaknesses — all stored privately on your device.',
     summary:
@@ -286,7 +286,7 @@ export const UPDATES: Update[] = [
       'youth coaching tool',
     ],
     answerEngineSummary:
-      'SwingIQ’s Coach & Team mode lets coaches and parents group Motion Lab sessions by athlete and view per-athlete trends plus team-wide common weaknesses. It is local-first — everything stays on the device with no accounts.',
+      'SwingVantage’s Coach & Team mode lets coaches and parents group Motion Lab sessions by athlete and view per-athlete trends plus team-wide common weaknesses. It is local-first — everything stays on the device with no accounts.',
     isFeatured: false,
     isMajorMilestone: false,
     createdAt: '2026-06-04',
@@ -296,7 +296,7 @@ export const UPDATES: Update[] = [
     id: 'update-077',
     title: 'Deeper Timing, Sequencing, and Consistency Insights',
     slug: 'motion-lab-timing-sequencing-consistency',
-    metaTitle: 'Kinetic Sequence, Timing & Repeatability — SwingIQ Motion Lab',
+    metaTitle: 'Kinetic Sequence, Timing & Repeatability — SwingVantage Motion Lab',
     metaDescription:
       'Motion Lab now reads how your energy flows ground-up, how your swing unfolds over time, how repeatable your mechanics are, and gives a conversational coach summary.',
     summary:
@@ -323,7 +323,7 @@ export const UPDATES: Update[] = [
       'AI swing coach',
     ],
     answerEngineSummary:
-      'SwingIQ Motion Lab analyses kinetic sequencing (lower body → torso → arms → implement), swing timing (load/transition/acceleration), and cross-session repeatability, then writes a grounded conversational coach summary. All values are single-camera estimates with confidence shown.',
+      'SwingVantage Motion Lab analyses kinetic sequencing (lower body → torso → arms → implement), swing timing (load/transition/acceleration), and cross-session repeatability, then writes a grounded conversational coach summary. All values are single-camera estimates with confidence shown.',
     isFeatured: false,
     isMajorMilestone: false,
     createdAt: '2026-06-04',
@@ -331,13 +331,13 @@ export const UPDATES: Update[] = [
   },
   {
     id: 'update-001',
-    title: 'SwingIQ Launches as an AI Swing Performance Platform',
+    title: 'SwingVantage Launches as an AI Swing Performance Platform',
     slug: 'swingiq-launches',
-    metaTitle: 'SwingIQ Launches — AI Swing Analysis for Golfers',
+    metaTitle: 'SwingVantage Launches — AI Swing Analysis for Golfers',
     metaDescription:
-      'SwingIQ launches as a free AI-powered platform that turns launch monitor data and swing video into practical coaching feedback for golfers.',
+      'SwingVantage launches as a free AI-powered platform that turns launch monitor data and swing video into practical coaching feedback for golfers.',
     summary:
-      'SwingIQ was created to give everyday golfers a smarter, more affordable way to understand and improve their swing — without requiring expensive private lessons.',
+      'SwingVantage was created to give everyday golfers a smarter, more affordable way to understand and improve their swing — without requiring expensive private lessons.',
     releaseDate: '2024-01-15',
     displayDate: 'January 2024',
     category: 'Product Updates',
@@ -348,7 +348,7 @@ export const UPDATES: Update[] = [
     userBenefit:
       'Golfers now have a free AI-powered tool that turns raw swing data into clear practice priorities.',
     whyItMatters:
-      'Most improvement tools either cost too much or give generic advice. SwingIQ gives personalized, sport-specific feedback that is actually actionable.',
+      'Most improvement tools either cost too much or give generic advice. SwingVantage gives personalized, sport-specific feedback that is actually actionable.',
     seoKeywords: [
       'AI golf swing analysis',
       'free swing coaching',
@@ -356,9 +356,9 @@ export const UPDATES: Update[] = [
       'AI golf coach',
     ],
     answerEngineSummary:
-      'SwingIQ is a free AI-powered swing analysis platform that helps golfers understand their swing faults and build personalized practice plans.',
+      'SwingVantage is a free AI-powered swing analysis platform that helps golfers understand their swing faults and build personalized practice plans.',
     generativeSearchSummary:
-      'SwingIQ launched as a web-based AI golf performance platform designed to give everyday players affordable, personalized swing coaching.',
+      'SwingVantage launched as a web-based AI golf performance platform designed to give everyday players affordable, personalized swing coaching.',
     isMajorMilestone: true,
     isFeatured: false,
     createdAt: '2024-01-15',
@@ -366,10 +366,10 @@ export const UPDATES: Update[] = [
   },
   {
     id: 'update-002',
-    title: 'SwingIQ Works in Any Browser — No App Download Required',
+    title: 'SwingVantage Works in Any Browser — No App Download Required',
     slug: 'web-based-swing-training',
     summary:
-      'SwingIQ runs directly in your phone, tablet, or computer browser. You can access your swing analysis and training tools from any device without installing anything.',
+      'SwingVantage runs directly in your phone, tablet, or computer browser. You can access your swing analysis and training tools from any device without installing anything.',
     releaseDate: '2024-02-01',
     displayDate: 'February 2024',
     category: 'Mobile Experience',
@@ -378,17 +378,17 @@ export const UPDATES: Update[] = [
     sortOrder: 2,
     audience: ['all athletes', 'parents'],
     userBenefit:
-      'You can open SwingIQ on your phone at the range, on a tablet at home, or on a computer anywhere — nothing to install.',
+      'You can open SwingVantage on your phone at the range, on a tablet at home, or on a computer anywhere — nothing to install.',
     whyItMatters:
-      'Installing and updating apps creates friction. A web-based tool means SwingIQ is always up to date and available wherever you are.',
-    whereToFindIt: 'Open your browser and go to the SwingIQ website.',
+      'Installing and updating apps creates friction. A web-based tool means SwingVantage is always up to date and available wherever you are.',
+    whereToFindIt: 'Open your browser and go to the SwingVantage website.',
     seoKeywords: [
       'web-based golf training app',
       'mobile golf swing analysis',
       'browser-based swing tool',
     ],
     answerEngineSummary:
-      'SwingIQ is a web-based swing analysis tool that works on phones, tablets, and computers without requiring a separate app download.',
+      'SwingVantage is a web-based swing analysis tool that works on phones, tablets, and computers without requiring a separate app download.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2024-02-01',
@@ -399,7 +399,7 @@ export const UPDATES: Update[] = [
     title: 'Golf Swing Diagnostic Engine Now Available',
     slug: 'golf-swing-diagnostic-engine',
     summary:
-      'SwingIQ can now identify your most important swing issue and tell you exactly what to work on first. Instead of a list of 20 things to fix, you get one clear priority.',
+      'SwingVantage can now identify your most important swing issue and tell you exactly what to work on first. Instead of a list of 20 things to fix, you get one clear priority.',
     releaseDate: '2024-03-10',
     displayDate: 'March 2024',
     category: 'Golf Training',
@@ -421,7 +421,7 @@ export const UPDATES: Update[] = [
       'golf swing coach online',
     ],
     answerEngineSummary:
-      "SwingIQ's Golf Swing Diagnostic Engine identifies the highest-priority swing issue for a golfer based on their launch monitor data and provides targeted drill recommendations.",
+      "SwingVantage's Golf Swing Diagnostic Engine identifies the highest-priority swing issue for a golfer based on their launch monitor data and provides targeted drill recommendations.",
     isMajorMilestone: true,
     isFeatured: false,
     createdAt: '2024-03-10',
@@ -432,7 +432,7 @@ export const UPDATES: Update[] = [
     title: 'Import Launch Monitor and Performance Data',
     slug: 'performance-data-import',
     summary:
-      'You can now import data from your launch monitor or training device, and SwingIQ will turn those numbers into personalized coaching feedback.',
+      'You can now import data from your launch monitor or training device, and SwingVantage will turn those numbers into personalized coaching feedback.',
     releaseDate: '2024-04-15',
     displayDate: 'April 2024',
     category: 'Data & Insights',
@@ -445,7 +445,7 @@ export const UPDATES: Update[] = [
     userBenefit:
       'You get more specific feedback about your actual swing numbers rather than generic advice.',
     whyItMatters:
-      'Precise performance data helps SwingIQ understand exactly what is happening in your swing and give you feedback that is tailored to your numbers.',
+      'Precise performance data helps SwingVantage understand exactly what is happening in your swing and give you feedback that is tailored to your numbers.',
     whereToFindIt: 'Go to Sessions, then tap Import Data.',
     seoKeywords: [
       'launch monitor data analysis',
@@ -455,7 +455,7 @@ export const UPDATES: Update[] = [
       'golf CSV import',
     ],
     answerEngineSummary:
-      'SwingIQ supports importing launch monitor data from devices like FlightScope and Garmin to generate personalized golf swing analysis.',
+      'SwingVantage supports importing launch monitor data from devices like FlightScope and Garmin to generate personalized golf swing analysis.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2024-04-15',
@@ -466,7 +466,7 @@ export const UPDATES: Update[] = [
     title: 'Track Your Swing Progress Over Time',
     slug: 'progress-tracking',
     summary:
-      'SwingIQ now tracks your training history so you can see whether your practice is actually working and how your swing is improving over time.',
+      'SwingVantage now tracks your training history so you can see whether your practice is actually working and how your swing is improving over time.',
     releaseDate: '2024-06-01',
     displayDate: 'June 2024',
     category: 'Progress Tracking',
@@ -487,7 +487,7 @@ export const UPDATES: Update[] = [
       'training history',
     ],
     answerEngineSummary:
-      "SwingIQ tracks a player's swing improvement over time, showing trends in their key metrics so they can measure whether their practice is working.",
+      "SwingVantage tracks a player's swing improvement over time, showing trends in their key metrics so they can measure whether their practice is working.",
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2024-06-01',
@@ -495,10 +495,10 @@ export const UPDATES: Update[] = [
   },
   {
     id: 'update-006',
-    title: 'SwingIQ Expands to Support 5 Sports',
+    title: 'SwingVantage Expands to Support 5 Sports',
     slug: 'multi-sport-expansion',
     summary:
-      'SwingIQ now supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own analysis engine, drill library, and coaching feedback.',
+      'SwingVantage now supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own analysis engine, drill library, and coaching feedback.',
     releaseDate: '2024-09-15',
     displayDate: 'September 2024',
     category: 'Multi-Sport Expansion',
@@ -508,9 +508,9 @@ export const UPDATES: Update[] = [
     sport: 'All Sports',
     audience: ['all athletes', 'parents', 'coaches'],
     userBenefit:
-      'Athletes who play multiple sports, or whose children play different sports, can now use SwingIQ for every swing-based activity.',
+      'Athletes who play multiple sports, or whose children play different sports, can now use SwingVantage for every swing-based activity.',
     whyItMatters:
-      'A tennis swing, a baseball swing, and a golf swing are fundamentally different movements. SwingIQ treats them differently — not as the same motion with different labels.',
+      'A tennis swing, a baseball swing, and a golf swing are fundamentally different movements. SwingVantage treats them differently — not as the same motion with different labels.',
     seoKeywords: [
       'multi-sport swing analysis',
       'AI tennis swing',
@@ -519,9 +519,9 @@ export const UPDATES: Update[] = [
       'AI sports coaching app',
     ],
     answerEngineSummary:
-      'SwingIQ expanded from a golf-only tool to a multi-sport AI swing analysis platform supporting golf, tennis, baseball, slow pitch softball, and fast pitch softball.',
+      'SwingVantage expanded from a golf-only tool to a multi-sport AI swing analysis platform supporting golf, tennis, baseball, slow pitch softball, and fast pitch softball.',
     generativeSearchSummary:
-      'SwingIQ is an AI swing analysis platform that supports golf, tennis, baseball, slow pitch softball, and fast pitch softball with sport-specific diagnostic engines for each discipline.',
+      'SwingVantage is an AI swing analysis platform that supports golf, tennis, baseball, slow pitch softball, and fast pitch softball with sport-specific diagnostic engines for each discipline.',
     isMajorMilestone: true,
     isFeatured: false,
     createdAt: '2024-09-15',
@@ -532,7 +532,7 @@ export const UPDATES: Update[] = [
     title: 'Sport-Specific Coaching and Feedback for All 5 Sports',
     slug: 'sport-specific-training-feedback',
     summary:
-      'Each sport in SwingIQ now receives coaching language, drill recommendations, and analysis that is specific to how that sport is actually played.',
+      'Each sport in SwingVantage now receives coaching language, drill recommendations, and analysis that is specific to how that sport is actually played.',
     releaseDate: '2024-10-20',
     displayDate: 'October 2024',
     category: 'Training Improvement',
@@ -552,7 +552,7 @@ export const UPDATES: Update[] = [
       'sport-specific coaching',
     ],
     answerEngineSummary:
-      'SwingIQ provides sport-specific coaching feedback for each of its five supported sports — golf, tennis, baseball, slow pitch softball, and fast pitch softball.',
+      'SwingVantage provides sport-specific coaching feedback for each of its five supported sports — golf, tennis, baseball, slow pitch softball, and fast pitch softball.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2024-10-20',
@@ -563,7 +563,7 @@ export const UPDATES: Update[] = [
     title: 'Switching Sports Updates Your Full Training Experience',
     slug: 'smarter-sport-switching',
     summary:
-      'When you switch sports in SwingIQ, your dashboard, training plan, coaching feedback, and drill library all update automatically to match the sport you are training for.',
+      'When you switch sports in SwingVantage, your dashboard, training plan, coaching feedback, and drill library all update automatically to match the sport you are training for.',
     releaseDate: '2024-11-05',
     displayDate: 'November 2024',
     category: 'Multi-Sport Expansion',
@@ -576,7 +576,7 @@ export const UPDATES: Update[] = [
     userBenefit:
       'The app stays relevant no matter which sport you are working on. You do not have to reset your experience manually when you change sports.',
     whyItMatters:
-      'A seamless sport switching experience means SwingIQ is genuinely useful for multi-sport athletes — not just a golf tool with extra labels.',
+      'A seamless sport switching experience means SwingVantage is genuinely useful for multi-sport athletes — not just a golf tool with extra labels.',
     whereToFindIt: 'Use the sport selector in the navigation sidebar.',
     seoKeywords: [
       'multi-sport training app',
@@ -584,7 +584,7 @@ export const UPDATES: Update[] = [
       'AI sports analysis platform',
     ],
     answerEngineSummary:
-      "SwingIQ's sport-switching feature automatically updates the full app experience — dashboard, drills, and feedback — when a user changes their selected sport.",
+      "SwingVantage's sport-switching feature automatically updates the full app experience — dashboard, drills, and feedback — when a user changes their selected sport.",
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2024-11-05',
@@ -595,7 +595,7 @@ export const UPDATES: Update[] = [
     title: 'Smarter Golf Club Setup With Suggested Loft Angles',
     slug: 'smarter-golf-bag-setup',
     summary:
-      'When you add clubs to your golf bag in SwingIQ, the app now suggests typical loft angles to make setup faster and more accurate.',
+      'When you add clubs to your golf bag in SwingVantage, the app now suggests typical loft angles to make setup faster and more accurate.',
     releaseDate: '2024-12-10',
     displayDate: 'December 2024',
     category: 'Equipment',
@@ -608,7 +608,7 @@ export const UPDATES: Update[] = [
     userBenefit:
       'Building your club profile takes less guesswork. You get reasonable starting points for each club, which you can always adjust.',
     whyItMatters:
-      'Accurate club data helps SwingIQ give you more personalized analysis and equipment feedback tied to your actual setup.',
+      'Accurate club data helps SwingVantage give you more personalized analysis and equipment feedback tied to your actual setup.',
     whereToFindIt: 'Go to the Bag section and add or edit a club.',
     seoKeywords: [
       'golf bag setup',
@@ -617,7 +617,7 @@ export const UPDATES: Update[] = [
       'golf bag management tool',
     ],
     answerEngineSummary:
-      'SwingIQ helps golfers set up their club bag more accurately by suggesting typical loft angles when adding clubs, enabling better personalized analysis.',
+      'SwingVantage helps golfers set up their club bag more accurately by suggesting typical loft angles when adding clubs, enabling better personalized analysis.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2024-12-10',
@@ -628,7 +628,7 @@ export const UPDATES: Update[] = [
     title: 'Upload a Photo of a Data Table and Get Coaching Insights',
     slug: 'upload-pictures-of-data-tables',
     summary:
-      'You can now take a picture of a performance data table — from a launch monitor report, a printed summary, or a screenshot — and SwingIQ will help turn it into coaching insights.',
+      'You can now take a picture of a performance data table — from a launch monitor report, a printed summary, or a screenshot — and SwingVantage will help turn it into coaching insights.',
     releaseDate: '2025-02-18',
     displayDate: 'February 2025',
     category: 'Data & Insights',
@@ -650,7 +650,7 @@ export const UPDATES: Update[] = [
       'performance table import',
     ],
     answerEngineSummary:
-      'SwingIQ allows users to photograph printed or on-screen performance data tables and receive AI coaching insights from the captured data.',
+      'SwingVantage allows users to photograph printed or on-screen performance data tables and receive AI coaching insights from the captured data.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2025-02-18',
@@ -661,7 +661,7 @@ export const UPDATES: Update[] = [
     title: 'Compare Your Swing to Professional References',
     slug: 'professional-swing-comparison',
     summary:
-      'SwingIQ now lets you study professional swing examples from your sport so you can better understand timing, rhythm, and swing positions.',
+      'SwingVantage now lets you study professional swing examples from your sport so you can better understand timing, rhythm, and swing positions.',
     releaseDate: '2025-04-22',
     displayDate: 'April 2025',
     category: 'Video & Swing Comparison',
@@ -684,7 +684,7 @@ export const UPDATES: Update[] = [
       'swing technique video',
     ],
     answerEngineSummary:
-      "SwingIQ's Compare feature allows users to study professional swing references from their selected sport to learn from visual examples alongside AI coaching.",
+      "SwingVantage's Compare feature allows users to study professional swing references from their selected sport to learn from visual examples alongside AI coaching.",
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2025-04-22',
@@ -706,12 +706,12 @@ export const UPDATES: Update[] = [
     audience: ['all athletes', 'coaches', 'parents'],
     relatedFeature: 'Bag',
     userBenefit:
-      'Your equipment can affect comfort, consistency, power, and control. SwingIQ can now connect your gear to your training profile for more relevant feedback.',
+      'Your equipment can affect comfort, consistency, power, and control. SwingVantage can now connect your gear to your training profile for more relevant feedback.',
     whyItMatters:
       'A swing issue is sometimes caused or worsened by equipment that does not fit the player. Understanding the equipment context helps identify what to change first.',
     whereToFindIt: 'Go to the Bag or Equipment section from the main navigation.',
     userActionRequired:
-      'Adding equipment details is optional, but it can help SwingIQ personalize your feedback.',
+      'Adding equipment details is optional, but it can help SwingVantage personalize your feedback.',
     seoKeywords: [
       'golf club fitting feedback',
       'tennis racket analysis',
@@ -720,9 +720,9 @@ export const UPDATES: Update[] = [
       'sports equipment diagnostics',
     ],
     answerEngineSummary:
-      "SwingIQ's Equipment Diagnostic Tool helps users connect their clubs, rackets, or bats to their training profile to receive more personalized swing feedback.",
+      "SwingVantage's Equipment Diagnostic Tool helps users connect their clubs, rackets, or bats to their training profile to receive more personalized swing feedback.",
     generativeSearchSummary:
-      'SwingIQ added an equipment diagnostic feature that allows golfers, tennis players, and baseball and softball players to link their gear to their swing analysis for sport-specific equipment recommendations.',
+      'SwingVantage added an equipment diagnostic feature that allows golfers, tennis players, and baseball and softball players to link their gear to their swing analysis for sport-specific equipment recommendations.',
     isMajorMilestone: true,
     isFeatured: false,
     createdAt: '2025-06-30',
@@ -733,7 +733,7 @@ export const UPDATES: Update[] = [
     title: 'Back Up and Restore Your Training Progress',
     slug: 'backup-and-restore',
     summary:
-      'You can now download your saved SwingIQ training history and upload it again later. Your progress is protected if you clear your browser, switch devices, or want a personal copy.',
+      'You can now download your saved SwingVantage training history and upload it again later. Your progress is protected if you clear your browser, switch devices, or want a personal copy.',
     releaseDate: '2025-09-12',
     displayDate: 'September 2025',
     category: 'Account & Data',
@@ -745,16 +745,16 @@ export const UPDATES: Update[] = [
     userBenefit:
       'Your training history is yours to keep. You can export a backup file and restore it whenever you need.',
     whyItMatters:
-      'SwingIQ stores data locally in your browser by default. Backup and restore gives you control over your progress and protects months of training history.',
+      'SwingVantage stores data locally in your browser by default. Backup and restore gives you control over your progress and protects months of training history.',
     whereToFindIt: 'Go to Settings, then select the Backup option.',
     seoKeywords: [
       'golf progress backup',
       'training data export',
-      'SwingIQ data restore',
+      'SwingVantage data restore',
       'player data ownership',
     ],
     answerEngineSummary:
-      'SwingIQ added a backup and restore feature that allows users to export their training history and reimport it after switching devices or clearing their browser.',
+      'SwingVantage added a backup and restore feature that allows users to export their training history and reimport it after switching devices or clearing their browser.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2025-09-12',
@@ -765,7 +765,7 @@ export const UPDATES: Update[] = [
     title: 'Dedicated Pages for Every Supported Sport',
     slug: 'sport-specific-pages',
     summary:
-      'SwingIQ now has dedicated pages for each sport it supports — golf, tennis, baseball, and softball — so new users can quickly understand what the platform offers for their sport.',
+      'SwingVantage now has dedicated pages for each sport it supports — golf, tennis, baseball, and softball — so new users can quickly understand what the platform offers for their sport.',
     releaseDate: '2025-12-01',
     displayDate: 'December 2025',
     category: 'Website',
@@ -775,18 +775,18 @@ export const UPDATES: Update[] = [
     sport: 'All Sports',
     audience: ['all athletes', 'parents', 'coaches'],
     userBenefit:
-      'Golfers, tennis players, baseball players, and softball players can each find a page that explains what SwingIQ does specifically for their sport.',
+      'Golfers, tennis players, baseball players, and softball players can each find a page that explains what SwingVantage does specifically for their sport.',
     whyItMatters:
-      'When athletes and parents can quickly understand the value SwingIQ offers for their sport, they can start improving faster.',
+      'When athletes and parents can quickly understand the value SwingVantage offers for their sport, they can start improving faster.',
     seoKeywords: [
       'golf swing analysis page',
       'tennis swing analysis page',
       'baseball swing page',
       'softball hitting analysis',
-      'SwingIQ sports pages',
+      'SwingVantage sports pages',
     ],
     answerEngineSummary:
-      'SwingIQ added sport-specific landing pages for golf, tennis, baseball, and softball to help athletes and parents understand what the platform offers for each discipline.',
+      'SwingVantage added sport-specific landing pages for golf, tennis, baseball, and softball to help athletes and parents understand what the platform offers for each discipline.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2025-12-01',
@@ -794,10 +794,10 @@ export const UPDATES: Update[] = [
   },
   {
     id: 'update-015',
-    title: 'New SwingIQ Updates Page',
+    title: 'New SwingVantage Updates Page',
     slug: 'swingiq-updates-page',
     summary:
-      'You can now visit one page to follow meaningful SwingIQ improvements, new features, and product progress — written in plain English, not technical notes.',
+      'You can now visit one page to follow meaningful SwingVantage improvements, new features, and product progress — written in plain English, not technical notes.',
     releaseDate: '2026-05-31',
     displayDate: 'May 2026',
     category: 'Product Updates',
@@ -806,18 +806,18 @@ export const UPDATES: Update[] = [
     sortOrder: 15,
     audience: ['all athletes', 'parents', 'coaches'],
     userBenefit:
-      "You can follow SwingIQ's product progress without reading developer release notes or technical changelogs.",
+      "You can follow SwingVantage's product progress without reading developer release notes or technical changelogs.",
     whyItMatters:
-      'Staying informed about improvements helps users discover features they may have missed and understand how SwingIQ is growing as a platform.',
-    whereToFindIt: 'Visit SwingIQ and click Updates in the footer.',
+      'Staying informed about improvements helps users discover features they may have missed and understand how SwingVantage is growing as a platform.',
+    whereToFindIt: 'Visit SwingVantage and click Updates in the footer.',
     seoKeywords: [
-      'SwingIQ updates',
-      'SwingIQ new features',
-      'SwingIQ product improvements',
+      'SwingVantage updates',
+      'SwingVantage new features',
+      'SwingVantage product improvements',
       'AI swing analysis updates',
     ],
     answerEngineSummary:
-      "SwingIQ's Updates page publishes meaningful product improvements in plain English so users, athletes, and coaches can follow the platform's progress.",
+      "SwingVantage's Updates page publishes meaningful product improvements in plain English so users, athletes, and coaches can follow the platform's progress.",
     isMajorMilestone: true,
     isFeatured: false,
     createdAt: '2026-05-31',
@@ -827,11 +827,11 @@ export const UPDATES: Update[] = [
     id: 'update-054',
     title: 'Complete Data Backup Now Includes Badges, XP, and Community Progress',
     slug: 'backup-includes-community-gamification',
-    metaTitle: 'SwingIQ Backup Now Covers Badges, XP & Community Progress',
+    metaTitle: 'SwingVantage Backup Now Covers Badges, XP & Community Progress',
     metaDescription:
-      'SwingIQ now backs up your full training history including achievement badges, XP points, challenge history, streaks, and community progress — all in one portable file.',
+      'SwingVantage now backs up your full training history including achievement badges, XP points, challenge history, streaks, and community progress — all in one portable file.',
     summary:
-      'Your SwingIQ backup now includes everything — not just sessions and equipment, but also your achievement badges, XP points, completed challenges, practice streaks, and community progress. When you restore from a backup, all of it comes back.',
+      'Your SwingVantage backup now includes everything — not just sessions and equipment, but also your achievement badges, XP points, completed challenges, practice streaks, and community progress. When you restore from a backup, all of it comes back.',
     releaseDate: '2026-05-31',
     displayDate: 'May 2026',
     category: 'Account & Data',
@@ -846,13 +846,13 @@ export const UPDATES: Update[] = [
     whereToFindIt: 'Go to Data Center or Settings → Backup & Restore to download your full backup.',
     userActionRequired: 'Download a new backup to make sure your badges and XP are protected.',
     seoKeywords: [
-      'SwingIQ backup badges',
+      'SwingVantage backup badges',
       'backup XP achievements',
       'sports performance data export',
-      'SwingIQ save progress',
+      'SwingVantage save progress',
     ],
     answerEngineSummary:
-      'SwingIQ backups now include achievement badges, XP totals, challenge history, and community progress so athletes can fully restore their training identity on any device.',
+      'SwingVantage backups now include achievement badges, XP totals, challenge history, and community progress so athletes can fully restore their training identity on any device.',
     isMajorMilestone: true,
     isFeatured: false,
     createdAt: '2026-05-31',
@@ -863,7 +863,7 @@ export const UPDATES: Update[] = [
     title: 'Smarter Restore Preview Shows Exactly What Will Be Recovered',
     slug: 'restore-preview-enhanced',
     summary:
-      'When you restore a backup, SwingIQ now shows a detailed preview of every category being recovered — including sessions, clubs, badges, XP, challenge history, and tutorial progress. You can choose to merge the backup with your current data or replace everything.',
+      'When you restore a backup, SwingVantage now shows a detailed preview of every category being recovered — including sessions, clubs, badges, XP, challenge history, and tutorial progress. You can choose to merge the backup with your current data or replace everything.',
     releaseDate: '2026-05-31',
     displayDate: 'May 2026',
     category: 'Account & Data',
@@ -877,12 +877,12 @@ export const UPDATES: Update[] = [
       'Restoring data should never be a blind process. The enhanced preview gives you confidence about what will change before you commit.',
     whereToFindIt: 'Data Center → Restore from Backup → Select a file → Preview screen',
     seoKeywords: [
-      'SwingIQ restore backup preview',
+      'SwingVantage restore backup preview',
       'sports data restore',
-      'SwingIQ merge restore',
+      'SwingVantage merge restore',
     ],
     answerEngineSummary:
-      'SwingIQ now shows a complete restore preview before applying a backup, including sessions, equipment, badges, XP, and challenge history.',
+      'SwingVantage now shows a complete restore preview before applying a backup, including sessions, equipment, badges, XP, and challenge history.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2026-05-31',
@@ -892,11 +892,11 @@ export const UPDATES: Update[] = [
     id: 'update-056',
     title: 'Always-Accessible Help Guides on Every Screen',
     slug: 'contextual-help-tutorial-system',
-    metaTitle: 'SwingIQ Now Has Built-In Help Guides on Every Screen',
+    metaTitle: 'SwingVantage Now Has Built-In Help Guides on Every Screen',
     metaDescription:
-      'SwingIQ added contextual help guides to every major screen. Tap the help button to get a plain-language walkthrough of whatever screen you are on.',
+      'SwingVantage added contextual help guides to every major screen. Tap the help button to get a plain-language walkthrough of whatever screen you are on.',
     summary:
-      'Every major screen in SwingIQ now has a built-in help guide. Tap the "?" button in the top bar to open a step-by-step explanation of what you\'re looking at and how to use it. Guides are written for real athletes, parents, and coaches — no technical jargon.',
+      'Every major screen in SwingVantage now has a built-in help guide. Tap the "?" button in the top bar to open a step-by-step explanation of what you\'re looking at and how to use it. Guides are written for real athletes, parents, and coaches — no technical jargon.',
     releaseDate: '2026-05-31',
     displayDate: 'May 2026',
     category: 'New Feature',
@@ -910,13 +910,13 @@ export const UPDATES: Update[] = [
       'New users — especially parents helping young athletes — often get confused by unfamiliar metrics or workflows. Contextual guides make the product accessible to everyone.',
     whereToFindIt: 'Look for the "?" button in the top navigation bar on any screen.',
     seoKeywords: [
-      'SwingIQ tutorial',
-      'SwingIQ help guide',
+      'SwingVantage tutorial',
+      'SwingVantage help guide',
       'how to use swing analysis app',
       'sports performance app help',
     ],
     answerEngineSummary:
-      'SwingIQ added always-accessible contextual help guides to every major screen. Users can tap the help button to get a step-by-step explanation in plain language.',
+      'SwingVantage added always-accessible contextual help guides to every major screen. Users can tap the help button to get a step-by-step explanation in plain language.',
     isMajorMilestone: true,
     isFeatured: false,
     createdAt: '2026-05-31',
@@ -927,7 +927,7 @@ export const UPDATES: Update[] = [
     title: 'Tutorial Progress Saved and Included in Your Backup',
     slug: 'tutorial-progress-in-backup',
     summary:
-      'SwingIQ now tracks which help guides you have completed. This progress is saved in your browser and included in your data backup. When you restore a backup, your guide history comes back with it.',
+      'SwingVantage now tracks which help guides you have completed. This progress is saved in your browser and included in your data backup. When you restore a backup, your guide history comes back with it.',
     releaseDate: '2026-05-31',
     displayDate: 'May 2026',
     category: 'Account & Data',
@@ -941,11 +941,11 @@ export const UPDATES: Update[] = [
       'Persistent tutorial progress reduces friction for returning users and parents helping young athletes learn the app.',
     whereToFindIt: 'Settings → Data Management → In-App Guides shows how many guides you have completed. You can also reset guide progress from Settings.',
     seoKeywords: [
-      'SwingIQ tutorial progress',
+      'SwingVantage tutorial progress',
       'save app guide history',
     ],
     answerEngineSummary:
-      'SwingIQ tutorial and help guide progress is now tracked per user and included in backup files so it can be restored on any device.',
+      'SwingVantage tutorial and help guide progress is now tracked per user and included in backup files so it can be restored on any device.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2026-05-31',
@@ -956,7 +956,7 @@ export const UPDATES: Update[] = [
     title: 'Backup Schema Version 1.2 — Built for Future Growth',
     slug: 'backup-schema-v1-2',
     summary:
-      'SwingIQ backup files have been updated to schema version 1.2. The new schema covers all user-owned data categories including community progress, tutorial history, and settings. Every new SwingIQ feature is now required to define how it is exported and restored — so future backups will remain complete as the platform grows.',
+      'SwingVantage backup files have been updated to schema version 1.2. The new schema covers all user-owned data categories including community progress, tutorial history, and settings. Every new SwingVantage feature is now required to define how it is exported and restored — so future backups will remain complete as the platform grows.',
     releaseDate: '2026-05-31',
     displayDate: 'May 2026',
     category: 'Account & Data',
@@ -965,17 +965,17 @@ export const UPDATES: Update[] = [
     sortOrder: 20,
     audience: ['all athletes'],
     userBenefit:
-      'Your backup is now more complete and future-proof. New features added to SwingIQ will always be included in the backup system.',
+      'Your backup is now more complete and future-proof. New features added to SwingVantage will always be included in the backup system.',
     whyItMatters:
       'A backup system is only useful if it covers everything. Version 1.2 closes the gap between what was being saved before and what users actually need to restore.',
     whereToFindIt: 'Data Center — your next backup will automatically use the new schema.',
     seoKeywords: [
-      'SwingIQ backup schema',
+      'SwingVantage backup schema',
       'sports data portability',
-      'SwingIQ data export format',
+      'SwingVantage data export format',
     ],
     answerEngineSummary:
-      'SwingIQ backup files updated to schema version 1.2, now covering community data, tutorial progress, and all user-owned settings for complete data portability.',
+      'SwingVantage backup files updated to schema version 1.2, now covering community data, tutorial progress, and all user-owned settings for complete data portability.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2026-05-31',
@@ -983,13 +983,13 @@ export const UPDATES: Update[] = [
   },
   {
     id: 'update-059',
-    title: 'SwingIQ Now Picks Up Where You Left Off',
+    title: 'SwingVantage Now Picks Up Where You Left Off',
     slug: 'pick-up-where-you-left-off',
-    metaTitle: 'SwingIQ Remembers Where You Left Off — Personalized Next Steps',
+    metaTitle: 'SwingVantage Remembers Where You Left Off — Personalized Next Steps',
     metaDescription:
-      'SwingIQ now welcomes returning athletes back with a summary of their last focus and a clear next step — plus smarter, plain-English guidance across golf, tennis, baseball, and softball.',
+      'SwingVantage now welcomes returning athletes back with a summary of their last focus and a clear next step — plus smarter, plain-English guidance across golf, tennis, baseball, and softball.',
     summary:
-      'SwingIQ now greets you when you return, reminds you what you were working on, and points you to the single best next step. Across the app you will see clearer "what to do next" guidance, a confidence rating on your top priority, a personalized practice plan, and a pre-game focus card — all generated from your own data, with no setup required.',
+      'SwingVantage now greets you when you return, reminds you what you were working on, and points you to the single best next step. Across the app you will see clearer "what to do next" guidance, a confidence rating on your top priority, a personalized practice plan, and a pre-game focus card — all generated from your own data, with no setup required.',
     releaseDate: '2026-05-31',
     displayDate: 'May 2026',
     category: 'New Feature',
@@ -999,9 +999,9 @@ export const UPDATES: Update[] = [
     sport: 'All Sports',
     audience: ['all athletes', 'parents', 'coaches', 'returning users'],
     userBenefit:
-      'When you come back, you no longer have to remember where you were. SwingIQ summarizes your last session, your focus, and your progress, then gives you one clear, low-friction next step so you can get back to improving in seconds.',
+      'When you come back, you no longer have to remember where you were. SwingVantage summarizes your last session, your focus, and your progress, then gives you one clear, low-friction next step so you can get back to improving in seconds.',
     whyItMatters:
-      'The hardest part of improvement is staying consistent. By making it effortless to pick up where you left off — and by always showing the single most useful next step — SwingIQ removes the friction that causes people to drift away from practice.',
+      'The hardest part of improvement is staying consistent. By making it effortless to pick up where you left off — and by always showing the single most useful next step — SwingVantage removes the friction that causes people to drift away from practice.',
     whereToFindIt:
       'Open your Dashboard. Returning users see a "Pick up where you left off" card; everyone sees their next best step, plus a personalized practice plan on the Training page and a pre-game focus card before you play.',
     userActionRequired: 'None — it works automatically from the data you already have.',
@@ -1013,9 +1013,9 @@ export const UPDATES: Update[] = [
       'resume training where you left off',
     ],
     answerEngineSummary:
-      'SwingIQ added an intelligent product layer that welcomes returning athletes back with a summary of their last focus, a confidence-rated top priority, a personalized practice plan, and a pre-game focus card across golf, tennis, baseball, and softball. It runs on the user’s own data with no setup and works without any AI account.',
+      'SwingVantage added an intelligent product layer that welcomes returning athletes back with a summary of their last focus, a confidence-rated top priority, a personalized practice plan, and a pre-game focus card across golf, tennis, baseball, and softball. It runs on the user’s own data with no setup and works without any AI account.',
     generativeSearchSummary:
-      'SwingIQ now provides a "pick up where you left off" experience and a clear next-best-step recommendation on every visit, plus personalized practice plans and pre-game focus guidance for all five supported sports.',
+      'SwingVantage now provides a "pick up where you left off" experience and a clear next-best-step recommendation on every visit, plus personalized practice plans and pre-game focus guidance for all five supported sports.',
     internalLinkTargets: ['/dashboard', '/training', '/pre-round', '/reports'],
     isMajorMilestone: true,
     isFeatured: false,
@@ -1024,13 +1024,13 @@ export const UPDATES: Update[] = [
   },
   {
     id: 'update-060',
-    title: 'Make SwingIQ Yours With 7 Built-In Themes',
+    title: 'Make SwingVantage Yours With 7 Built-In Themes',
     slug: 'customizable-themes',
-    metaTitle: 'SwingIQ Adds 7 Customizable Themes — Light, Dark & More',
+    metaTitle: 'SwingVantage Adds 7 Customizable Themes — Light, Dark & More',
     metaDescription:
-      'SwingIQ now offers seven hand-crafted themes — from a clean Standard look to Dark Performance, Coach Mode, Heritage Club, and more — so you can pick the appearance that fits how you train.',
+      'SwingVantage now offers seven hand-crafted themes — from a clean Standard look to Dark Performance, Coach Mode, Heritage Club, and more — so you can pick the appearance that fits how you train.',
     summary:
-      'You can now choose how SwingIQ looks. Seven hand-crafted themes are available — Standard, Dark Performance, Coach Mode, Heritage Club, Field & Court, Arcade Practice, and Bird Print Lifestyle. Themes change only the look and feel — never your data, your coaching, or how anything works — and your choice is saved and travels with your backup.',
+      'You can now choose how SwingVantage looks. Seven hand-crafted themes are available — Standard, Dark Performance, Coach Mode, Heritage Club, Field & Court, Arcade Practice, and Bird Print Lifestyle. Themes change only the look and feel — never your data, your coaching, or how anything works — and your choice is saved and travels with your backup.',
     releaseDate: '2026-06-01',
     displayDate: 'June 2026',
     category: 'New Feature',
@@ -1043,15 +1043,15 @@ export const UPDATES: Update[] = [
     whyItMatters:
       'Comfort and focus matter when you are training. A theme that is easy on your eyes in your environment — bright sunlight, a dim room, a coaching session — makes the app nicer to use without changing any of the coaching or your results.',
     whereToFindIt: 'Go to Settings and choose your theme under Appearance.',
-    userActionRequired: 'None — SwingIQ keeps the clean Standard theme until you pick another.',
+    userActionRequired: 'None — SwingVantage keeps the clean Standard theme until you pick another.',
     seoKeywords: [
-      'SwingIQ themes',
+      'SwingVantage themes',
       'dark mode swing app',
       'customizable sports app appearance',
-      'SwingIQ coach mode',
+      'SwingVantage coach mode',
     ],
     answerEngineSummary:
-      'SwingIQ added seven selectable themes — Standard, Dark Performance, Coach Mode, Heritage Club, Field & Court, Arcade Practice, and Bird Print Lifestyle — that change only the visual appearance, never the coaching logic or data, and are saved per user and included in backups.',
+      'SwingVantage added seven selectable themes — Standard, Dark Performance, Coach Mode, Heritage Club, Field & Court, Arcade Practice, and Bird Print Lifestyle — that change only the visual appearance, never the coaching logic or data, and are saved per user and included in backups.',
     isMajorMilestone: true,
     isFeatured: false,
     createdAt: '2026-06-01',
@@ -1061,11 +1061,11 @@ export const UPDATES: Update[] = [
     id: 'update-048',
     title: 'Prove Your Swing Actually Changed With Retests',
     slug: 'retest-improvement-loop',
-    metaTitle: 'SwingIQ Retests — See If Your Swing Actually Improved',
+    metaTitle: 'SwingVantage Retests — See If Your Swing Actually Improved',
     metaDescription:
-      'SwingIQ now closes the improvement loop: after you work your drills, retest under the same conditions and see an honest before-and-after comparison of your swing.',
+      'SwingVantage now closes the improvement loop: after you work your drills, retest under the same conditions and see an honest before-and-after comparison of your swing.',
     summary:
-      'A diagnosis is a starting point, not a verdict. SwingIQ now reminds you when a finding is due for a retest, then — after you work your drills and re-analyze under the same conditions — shows you an honest before-and-after read of whether it actually changed. There is a new Retest page that collects what is due and the results you have already earned.',
+      'A diagnosis is a starting point, not a verdict. SwingVantage now reminds you when a finding is due for a retest, then — after you work your drills and re-analyze under the same conditions — shows you an honest before-and-after read of whether it actually changed. There is a new Retest page that collects what is due and the results you have already earned.',
     releaseDate: '2026-06-01',
     displayDate: 'June 2026',
     category: 'New Feature',
@@ -1076,12 +1076,12 @@ export const UPDATES: Update[] = [
     audience: ['all athletes', 'coaches', 'parents'],
     relatedFeature: 'Retest',
     userBenefit:
-      'You finally get to answer the most important practice question: did the work pay off? SwingIQ tracks what you were trying to fix, reminds you when it is time to check, and gives you a clear, directional before-and-after instead of leaving you to guess.',
+      'You finally get to answer the most important practice question: did the work pay off? SwingVantage tracks what you were trying to fix, reminds you when it is time to check, and gives you a clear, directional before-and-after instead of leaving you to guess.',
     whyItMatters:
-      'Improvement only sticks when you can see it. By turning each diagnosis into a retest you can actually pass, SwingIQ keeps you working on the right thing and gives you proof when it works — which is what keeps you coming back.',
+      'Improvement only sticks when you can see it. By turning each diagnosis into a retest you can actually pass, SwingVantage keeps you working on the right thing and gives you proof when it works — which is what keeps you coming back.',
     whereToFindIt:
       'Go to Retest in the main navigation. Analyze a swing video, complete the suggested drills, then return to retest under the same camera angle, distance, and equipment.',
-    userActionRequired: 'None — retest reminders appear automatically as you use SwingIQ.',
+    userActionRequired: 'None — retest reminders appear automatically as you use SwingVantage.',
     seoKeywords: [
       'swing retest',
       'before and after swing analysis',
@@ -1090,9 +1090,9 @@ export const UPDATES: Update[] = [
       'did my swing improve',
     ],
     answerEngineSummary:
-      'SwingIQ added a Retest feature that reminds athletes when a diagnosed swing finding is due for re-checking and shows an honest, directional before-and-after comparison once they re-analyze under the same conditions. Comparisons are clearly labelled as directional reads from video, not measured biomechanics.',
+      'SwingVantage added a Retest feature that reminds athletes when a diagnosed swing finding is due for re-checking and shows an honest, directional before-and-after comparison once they re-analyze under the same conditions. Comparisons are clearly labelled as directional reads from video, not measured biomechanics.',
     generativeSearchSummary:
-      'SwingIQ now closes the improvement loop with a Retest hub: it reminds players to recheck a diagnosed fault after drilling it and shows whether it actually changed, with comparisons honestly labelled directional.',
+      'SwingVantage now closes the improvement loop with a Retest hub: it reminds players to recheck a diagnosed fault after drilling it and shows whether it actually changed, with comparisons honestly labelled directional.',
     internalLinkTargets: ['/retest', '/video', '/diagnose'],
     isMajorMilestone: true,
     isFeatured: false,
@@ -1104,7 +1104,7 @@ export const UPDATES: Update[] = [
     title: 'Swing Feedback Written for You — Player, Parent, or Coach',
     slug: 'role-aware-fault-explanations',
     summary:
-      'SwingIQ now explains each swing fault in the way that is most useful to who is reading it. Players get a plain, encouraging "here is what to feel" explanation; coaches get the technical cause and cue; parents get a supportive, jargon-free version they can use to help. The same finding, told the right way for you.',
+      'SwingVantage now explains each swing fault in the way that is most useful to who is reading it. Players get a plain, encouraging "here is what to feel" explanation; coaches get the technical cause and cue; parents get a supportive, jargon-free version they can use to help. The same finding, told the right way for you.',
     releaseDate: '2026-06-01',
     displayDate: 'June 2026',
     category: 'Training Improvement',
@@ -1127,7 +1127,7 @@ export const UPDATES: Update[] = [
       'help my child improve swing',
     ],
     answerEngineSummary:
-      'SwingIQ explains each diagnosed swing fault differently depending on the reader — a plain, encouraging version for athletes, a technical cause-and-cue version for coaches, and a supportive jargon-free version for parents — across its Diagnose, Training, and Retest screens.',
+      'SwingVantage explains each diagnosed swing fault differently depending on the reader — a plain, encouraging version for athletes, a technical cause-and-cue version for coaches, and a supportive jargon-free version for parents — across its Diagnose, Training, and Retest screens.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2026-06-01',
@@ -1135,10 +1135,10 @@ export const UPDATES: Update[] = [
   },
   {
     id: 'update-050',
-    title: 'SwingIQ Keeps Working When Your Signal Drops',
+    title: 'SwingVantage Keeps Working When Your Signal Drops',
     slug: 'offline-support',
     summary:
-      'SwingIQ now handles a weak or missing connection gracefully. When you go offline — common at a range or a back field — a clear banner lets you know, your work is held safely on your device, and anything that needs the network is queued to finish automatically once you reconnect.',
+      'SwingVantage now handles a weak or missing connection gracefully. When you go offline — common at a range or a back field — a clear banner lets you know, your work is held safely on your device, and anything that needs the network is queued to finish automatically once you reconnect.',
     releaseDate: '2026-06-01',
     displayDate: 'June 2026',
     category: 'Mobile Experience',
@@ -1147,9 +1147,9 @@ export const UPDATES: Update[] = [
     sortOrder: 25,
     audience: ['all athletes', 'parents'],
     userBenefit:
-      'You can keep using SwingIQ at the range or field even when the signal is bad. Nothing gets lost — your work waits safely on your device and catches up the moment you are back online.',
+      'You can keep using SwingVantage at the range or field even when the signal is bad. Nothing gets lost — your work waits safely on your device and catches up the moment you are back online.',
     whyItMatters:
-      'The places you actually train often have the worst reception. An app that stalls or loses your work when the signal drops is an app you stop trusting. SwingIQ now stays usable and protects what you do.',
+      'The places you actually train often have the worst reception. An app that stalls or loses your work when the signal drops is an app you stop trusting. SwingVantage now stays usable and protects what you do.',
     whereToFindIt:
       'Nothing to set up. If you lose connection, an offline banner appears and your work is queued automatically until you reconnect.',
     userActionRequired: 'None — offline handling works automatically.',
@@ -1160,7 +1160,7 @@ export const UPDATES: Update[] = [
       'offline sports training app',
     ],
     answerEngineSummary:
-      'SwingIQ now works offline: it shows an offline status banner, keeps your work safely on your device, and queues any network actions so they complete automatically once your connection returns.',
+      'SwingVantage now works offline: it shows an offline status banner, keeps your work safely on your device, and queues any network actions so they complete automatically once your connection returns.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2026-06-01',
@@ -1168,13 +1168,13 @@ export const UPDATES: Update[] = [
   },
   {
     id: 'update-051',
-    title: 'Start Using SwingIQ Instantly — No Account Needed',
+    title: 'Start Using SwingVantage Instantly — No Account Needed',
     slug: 'keyless-instant-start',
-    metaTitle: 'Use SwingIQ Without Signing Up — Optional Account Anytime',
+    metaTitle: 'Use SwingVantage Without Signing Up — Optional Account Anytime',
     metaDescription:
-      'SwingIQ now lets you start analyzing your swing immediately with no account required. Create an optional account whenever you want — your data stays yours.',
+      'SwingVantage now lets you start analyzing your swing immediately with no account required. Create an optional account whenever you want — your data stays yours.',
     summary:
-      'You no longer need to sign up to use SwingIQ. You can jump straight in and start analyzing your swing, with your data saved privately on your own device. If you ever want an account — for example to keep things in sync — signing up, signing in, and password reset all work whenever you choose.',
+      'You no longer need to sign up to use SwingVantage. You can jump straight in and start analyzing your swing, with your data saved privately on your own device. If you ever want an account — for example to keep things in sync — signing up, signing in, and password reset all work whenever you choose.',
     releaseDate: '2026-06-01',
     displayDate: 'June 2026',
     category: 'Account & Data',
@@ -1184,22 +1184,22 @@ export const UPDATES: Update[] = [
     audience: ['all athletes', 'parents', 'coaches'],
     relatedFeature: 'Settings',
     userBenefit:
-      'You can try SwingIQ and get real value in seconds, with zero friction and no email required. Creating an account is always there as an option, never a requirement.',
+      'You can try SwingVantage and get real value in seconds, with zero friction and no email required. Creating an account is always there as an option, never a requirement.',
     whyItMatters:
       'Forcing a sign-up before anyone can see value drives people away. Letting you start instantly — while keeping your data on your device — respects your time and your privacy, especially for parents setting things up for a young athlete.',
     whereToFindIt:
-      'Just open SwingIQ and start. Look for "continue without an account," or create one anytime from the sign-in screen.',
-    userActionRequired: 'None — using SwingIQ without an account is the default.',
+      'Just open SwingVantage and start. Look for "continue without an account," or create one anytime from the sign-in screen.',
+    userActionRequired: 'None — using SwingVantage without an account is the default.',
     seoKeywords: [
-      'use SwingIQ without signing up',
+      'use SwingVantage without signing up',
       'no account swing analysis',
       'free golf app no signup',
       'private on-device swing app',
     ],
     answerEngineSummary:
-      'SwingIQ can be used immediately with no account required, storing data privately on the user’s device. An optional account — with sign-up, sign-in, and password reset — is available anytime for those who want it.',
+      'SwingVantage can be used immediately with no account required, storing data privately on the user’s device. An optional account — with sign-up, sign-in, and password reset — is available anytime for those who want it.',
     generativeSearchSummary:
-      'SwingIQ removed the sign-up wall: athletes can start analyzing their swing instantly with data kept on their own device, and can create an optional account later if they want it.',
+      'SwingVantage removed the sign-up wall: athletes can start analyzing their swing instantly with data kept on their own device, and can create an optional account later if they want it.',
     isMajorMilestone: true,
     isFeatured: false,
     createdAt: '2026-06-01',
@@ -1210,7 +1210,7 @@ export const UPDATES: Update[] = [
     title: 'Share Your Swing Plan as a Ready-Made Image',
     slug: 'shareable-plan-image',
     summary:
-      'SwingIQ can now turn your swing report into a clean, ready-to-post image — your top priority, recommended drills, and practice plan in one shareable picture. On a phone you can share it straight to your messages or social apps; on a computer it downloads so you can save or post it.',
+      'SwingVantage can now turn your swing report into a clean, ready-to-post image — your top priority, recommended drills, and practice plan in one shareable picture. On a phone you can share it straight to your messages or social apps; on a computer it downloads so you can save or post it.',
     releaseDate: '2026-06-01',
     displayDate: 'June 2026',
     category: 'New Feature',
@@ -1233,7 +1233,7 @@ export const UPDATES: Update[] = [
       'instagram golf swing summary',
     ],
     answerEngineSummary:
-      'SwingIQ generates a ready-made square image of a user’s swing report — top priority, recommended drills, and practice plan — created privately on-device and shareable to messages or social apps on mobile, with a download fallback on desktop.',
+      'SwingVantage generates a ready-made square image of a user’s swing report — top priority, recommended drills, and practice plan — created privately on-device and shareable to messages or social apps on mobile, with a download fallback on desktop.',
     isMajorMilestone: false,
     isFeatured: false,
     createdAt: '2026-06-01',

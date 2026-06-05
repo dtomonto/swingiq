@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { CHALLENGES, getActiveChallengesWithProgress } from '@/lib/community/challenges';
 import { Target, CheckCircle, Clock } from 'lucide-react';
@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 
 export default function ChallengesPage() {
   const { t } = useLanguage();
-  const store = useSwingIQStore();
+  const store = useSwingVantageStore();
   const { sessions, video_analyses, community } = store;
   const [tab, setTab] = useState<'available' | 'active' | 'completed'>('active');
 

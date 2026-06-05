@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: repeatability (cross-session) tests
+// SwingVantage — Motion Lab: repeatability (cross-session) tests
 // ============================================================
 
 import { computeRepeatability, MIN_SESSIONS_FOR_REPEATABILITY } from '../repeatability';

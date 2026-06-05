@@ -1,4 +1,4 @@
-# SwingIQ Competitive Positioning
+# SwingVantage Competitive Positioning
 
 _Last updated: June 2026_
 
@@ -6,12 +6,12 @@ _Last updated: June 2026_
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** The "how SwingIQ is different and who it's for" summary — the most useful page here when you describe the product to others, write your website copy, or post on social media. The whole page is plain English; there's no technical section to skip.
+**What this page is:** The "how SwingVantage is different and who it's for" summary — the most useful page here when you describe the product to others, write your website copy, or post on social media. The whole page is plain English; there's no technical section to skip.
 
 **What you actually need to know — the short version:**
-- **What makes SwingIQ different:** it covers five sports in one place, the core analysis is free, it never sells your data, it combines a rules engine with AI (so findings are traceable, not guesses), and it works with any device's data.
+- **What makes SwingVantage different:** it covers five sports in one place, the core analysis is free, it never sells your data, it combines a rules engine with AI (so findings are traceable, not guesses), and it works with any device's data.
 - **Who it's for:** self-coached athletes, youth athletes and their parents, coaches/facilities (the paying segment), and serious amateur golfers.
-- **What SwingIQ is NOT:** not a coach replacement, not a hardware company, not a data seller, not an entertainment toy. Use these lines to set honest expectations.
+- **What SwingVantage is NOT:** not a coach replacement, not a hardware company, not a data seller, not an entertainment toy. Use these lines to set honest expectations.
 
 **What to do next:** Borrow this language directly for your homepage, pitches, and posts. It's already written the way you'd want to say it.
 
@@ -19,20 +19,20 @@ _Last updated: June 2026_
 
 ## Category
 
-**AI Swing Development Platform** — not a launch monitor, not a coaching app, not a stats tracker. SwingIQ sits at the intersection of all three and connects them into a development workflow.
+**AI Swing Development Platform** — not a launch monitor, not a coaching app, not a stats tracker. SwingVantage sits at the intersection of all three and connects them into a development workflow.
 
 ---
 
 ## Core Differentiation
 
 ### 1. Multi-Sport in One Platform
-Most competitors are single-sport. SwingIQ supports golf, tennis, baseball, slow pitch softball, and fast pitch softball from a unified codebase with sport-specific engines. Athletes who play multiple sports — or coaches who train multiple disciplines — have no alternative.
+Most competitors are single-sport. SwingVantage supports golf, tennis, baseball, slow pitch softball, and fast pitch softball from a unified codebase with sport-specific engines. Athletes who play multiple sports — or coaches who train multiple disciplines — have no alternative.
 
 ### 2. Free Tier with Full Diagnostic Value
-The core analysis (fault diagnosis + drill recommendation) is free. Competitors either charge for any meaningful output or require hardware purchase. SwingIQ gives athletes actionable analysis before asking for payment.
+The core analysis (fault diagnosis + drill recommendation) is free. Competitors either charge for any meaningful output or require hardware purchase. SwingVantage gives athletes actionable analysis before asking for payment.
 
 ### 3. Privacy-First Architecture
-No data is sold. Analysis runs locally or in the user's own account. Competitors in this space often aggregate data for "anonymized benchmarking" programs (TrackMan, HitTrax). SwingIQ explicitly does not.
+No data is sold. Analysis runs locally or in the user's own account. Competitors in this space often aggregate data for "anonymized benchmarking" programs (TrackMan, HitTrax). SwingVantage explicitly does not.
 
 ### 4. Deterministic + AI Hybrid
 Results come from a rules engine grounded in biomechanical research, not from a language model guessing. The AI adds personalized language, drill explanations, and coaching cues — but the fault identification is traceable to specific data points. This is more trustworthy than pure LLM output and more flexible than pure rules.
@@ -41,19 +41,19 @@ Results come from a rules engine grounded in biomechanical research, not from a 
 Works with data from any launch monitor, sensor, or manual entry — not locked to a single hardware ecosystem. Users aren't required to buy new equipment.
 
 ### 6. 3D Motion Analysis With No Special Hardware
-**Motion Lab** turns an ordinary phone video into a rotatable 3D reconstruction with sport-specific phase breakdowns, biomechanical scores, and a coaching plan — for all five sports, entirely in the browser. It also estimates the **club/bat/racket path and contact point**, reads the **kinetic chain** (does power fire ground-up?) and **timing/consistency** across sessions, writes a conversational **coach's read**, and rolls everything up into a local-first **Coach & Team** roster for coaches and parents. Most 3D/biomechanics tools require expensive marker suits, multi-camera rigs, or a lab; SwingIQ delivers an estimated 3D view from one camera (and genuinely *measured* 3D from two phones) on-device, privacy-first. The single-view depth model and the two-camera triangulation/self-calibration engine are proprietary, and the value scales honestly with capture quality rather than over-promising.
+**Motion Lab** turns an ordinary phone video into a rotatable 3D reconstruction with sport-specific phase breakdowns, biomechanical scores, and a coaching plan — for all five sports, entirely in the browser. It also estimates the **club/bat/racket path and contact point**, reads the **kinetic chain** (does power fire ground-up?) and **timing/consistency** across sessions, writes a conversational **coach's read**, and rolls everything up into a local-first **Coach & Team** roster for coaches and parents. Most 3D/biomechanics tools require expensive marker suits, multi-camera rigs, or a lab; SwingVantage delivers an estimated 3D view from one camera (and genuinely *measured* 3D from two phones) on-device, privacy-first. The single-view depth model and the two-camera triangulation/self-calibration engine are proprietary, and the value scales honestly with capture quality rather than over-promising.
 
 ### 7. A Closed, Honest Improvement Loop
-Most tools stop at a diagnosis. SwingIQ closes the loop: the **Fix Stack** turns your single highest-impact issue into one feel cue and the best-matched drill for your level and gear, **Retest** checks under the same conditions whether it actually changed, and your **Player Arc** tells the honest story of what's working over time. Comparisons are labeled as directional reads, not lab claims — improvement you can see and trust, not vanity metrics.
+Most tools stop at a diagnosis. SwingVantage closes the loop: the **Fix Stack** turns your single highest-impact issue into one feel cue and the best-matched drill for your level and gear, **Retest** checks under the same conditions whether it actually changed, and your **Player Arc** tells the honest story of what's working over time. Comparisons are labeled as directional reads, not lab claims — improvement you can see and trust, not vanity metrics.
 
 ### 8. Athlete General Intelligence — Cross-Sport Reasoning No Single-Sport Tool Can Match
-Every other tool analyzes one swing in one sport. **Athlete General Intelligence** (`/agi`) is one engine that reasons across *all* your sports at once: it fuses every signal you have — Motion Lab captures, launch-monitor data, your profile/goal, today's readiness, and your own drill feedback — into one model of you as an athlete, then finds your **keystone** (the single skill that limits the most sports), shows what **transfers** between them, tracks **progress over time**, and builds one plan — all under an honest **A–D trust grade**. This is only possible *because* SwingIQ is multi-sport, so it is structurally unavailable to single-sport competitors. It also produces a **coach-shareable report** (a built-in acquisition loop) and has a public, answer-engine-friendly explainer at `/athlete-general-intelligence`. "General" means breadth across sports, not human-level AI — and like everything else, it shows its reasoning and confidence. _(Strategy: `docs/ATHLETE_GI_STRATEGY.md`.)_
+Every other tool analyzes one swing in one sport. **Athlete General Intelligence** (`/agi`) is one engine that reasons across *all* your sports at once: it fuses every signal you have — Motion Lab captures, launch-monitor data, your profile/goal, today's readiness, and your own drill feedback — into one model of you as an athlete, then finds your **keystone** (the single skill that limits the most sports), shows what **transfers** between them, tracks **progress over time**, and builds one plan — all under an honest **A–D trust grade**. This is only possible *because* SwingVantage is multi-sport, so it is structurally unavailable to single-sport competitors. It also produces a **coach-shareable report** (a built-in acquisition loop) and has a public, answer-engine-friendly explainer at `/athlete-general-intelligence`. "General" means breadth across sports, not human-level AI — and like everything else, it shows its reasoning and confidence. _(Strategy: `docs/ATHLETE_GI_STRATEGY.md`.)_
 
 ---
 
 ## Competitive Landscape
 
-| Competitor | Category | Weakness vs SwingIQ |
+| Competitor | Category | Weakness vs SwingVantage |
 |---|---|---|
 | TrackMan | Golf launch monitor + data platform | Hardware-locked ($20K+), no multi-sport, no free tier |
 | FlightScope | Golf launch monitor + data | Hardware-locked, limited analysis depth, no AI |
@@ -70,10 +70,10 @@ Every other tool analyzes one swing in one sport. **Athlete General Intelligence
 ## Target Segments
 
 ### 1. Self-Coached Athletes (primary)
-Athletes who train without a regular coach and need a structured development system. They have data (from range sessions, simulators, sensors) but no framework for interpreting it or building a practice plan around it. SwingIQ gives them the framework.
+Athletes who train without a regular coach and need a structured development system. They have data (from range sessions, simulators, sensors) but no framework for interpreting it or building a practice plan around it. SwingVantage gives them the framework.
 
 ### 2. Youth Athletes + Parents
-Parents of youth baseball, softball, and tennis players who want to track development without hiring a private coach for every session. SwingIQ gives them benchmarks, progress tracking, and targeted drills at a fraction of coaching costs.
+Parents of youth baseball, softball, and tennis players who want to track development without hiring a private coach for every session. SwingVantage gives them benchmarks, progress tracking, and targeted drills at a fraction of coaching costs.
 
 ### 3. Coaches and Facilities (secondary, monetization path)
 Instructors who want data-informed session notes, shareable analysis reports, and a way to assign homework between lessons. This segment pays more and has higher retention.
@@ -91,19 +91,19 @@ Golfers who own or have access to launch monitors and want to get more out of th
 - "Diagnosis first. Drills second. Progress always."
 
 ### Positioning Statement
-SwingIQ is the AI swing development platform for serious athletes across golf, tennis, baseball, and softball — giving every athlete access to data-driven fault diagnosis and personalized practice plans, regardless of budget or coach access.
+SwingVantage is the AI swing development platform for serious athletes across golf, tennis, baseball, and softball — giving every athlete access to data-driven fault diagnosis and personalized practice plans, regardless of budget or coach access.
 
-### What SwingIQ Is NOT
-- Not a coach replacement. SwingIQ is a tool for between-session purposeful practice.
-- Not a hardware company. SwingIQ adds value to equipment athletes already have.
-- Not a data collector. SwingIQ does not aggregate or sell user swing data.
-- Not an entertainment product. SwingIQ is a development system with measurable outcomes.
+### What SwingVantage Is NOT
+- Not a coach replacement. SwingVantage is a tool for between-session purposeful practice.
+- Not a hardware company. SwingVantage adds value to equipment athletes already have.
+- Not a data collector. SwingVantage does not aggregate or sell user swing data.
+- Not an entertainment product. SwingVantage is a development system with measurable outcomes.
 
 ---
 
 ## Positioning Risks
 
 1. **"I don't trust AI for coaching"** — Mitigated by leading with deterministic rules engine and showing the evidence behind every finding.
-2. **"I need a real coach"** — Agreed. SwingIQ is positioned as complementary to human coaching, not a replacement.
+2. **"I need a real coach"** — Agreed. SwingVantage is positioned as complementary to human coaching, not a replacement.
 3. **"My launch monitor already shows me this"** — Differentiate on the drill recommendation workflow, practice planning, and multi-session pattern recognition.
-4. **"Data privacy"** — Lean into this as a differentiator. SwingIQ never sells data. Make this prominent.
+4. **"Data privacy"** — Lean into this as a differentiator. SwingVantage never sells data. Make this prominent.

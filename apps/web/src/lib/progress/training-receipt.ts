@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Training Receipt
+// SwingVantage — Training Receipt
 // ------------------------------------------------------------
 // Proof of a practice→retest cycle: what was diagnosed, what was
 // practised, what changed, whether the drill appears to be working,
@@ -43,7 +43,7 @@ export function buildTrainingReceipt(input: TrainingReceiptInput): TrainingRecei
   } else if (helped > 0) {
     drillEffectiveness = `You felt the drill helped, but the retest didn't clearly confirm it yet. Give it another cycle before judging.`;
   } else if (hurt > 0) {
-    drillEffectiveness = `You flagged a drill as unhelpful — SwingIQ has stopped recommending it and will suggest a different approach.`;
+    drillEffectiveness = `You flagged a drill as unhelpful — SwingVantage has stopped recommending it and will suggest a different approach.`;
   } else {
     drillEffectiveness = 'No drill verdicts logged yet, so effectiveness is unconfirmed.';
   }

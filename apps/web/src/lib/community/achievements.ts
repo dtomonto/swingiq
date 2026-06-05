@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Community — Achievement System
+// SwingVantage Community — Achievement System
 // Badge definitions and progress calculation.
 // ============================================================
 
@@ -10,7 +10,7 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
   {
     id: 'first_backup',
     name: 'First Backup',
-    description: 'Export your first SwingIQ data file.',
+    description: 'Export your first SwingVantage data file.',
     category: 'data_protection',
     sport: 'all',
     xpReward: 50,

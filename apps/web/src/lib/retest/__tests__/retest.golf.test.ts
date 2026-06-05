@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Retest Engine: Golf Derivation Tests
+// SwingVantage — Retest Engine: Golf Derivation Tests
 // ------------------------------------------------------------
 // Golf uses launch-monitor sessions + each diagnosis's own
 // RetestProtocol. Because the data is statistical, the comparator

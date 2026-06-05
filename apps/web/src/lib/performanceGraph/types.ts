@@ -1,9 +1,9 @@
 // ============================================================
-// SwingIQ — Performance Graph Foundation: Types
+// SwingVantage — Performance Graph Foundation: Types
 // ------------------------------------------------------------
 // A typed, relationship-friendly model linking the entities that
 // make up a player's improvement history. This is the FOUNDATION
-// for a future SwingIQ Performance Graph — a real, queryable data
+// for a future SwingVantage Performance Graph — a real, queryable data
 // structure today, NOT a proprietary ML graph (no such claim).
 // ============================================================
 

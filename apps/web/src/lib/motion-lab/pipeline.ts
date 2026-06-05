@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Analysis Pipeline (orchestrator)
+// SwingVantage — Motion Lab: Analysis Pipeline (orchestrator)
 // ------------------------------------------------------------
 // The end-to-end browser pipeline that turns a video into a full
 // MotionSession. It REUSES the app's real infrastructure:

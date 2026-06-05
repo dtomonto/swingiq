@@ -1,4 +1,4 @@
-# SwingIQ SEO Content Plan — Views → Habit → Ad Revenue
+# SwingVantage SEO Content Plan — Views → Habit → Ad Revenue
 
 _Last updated: June 2026_
 
@@ -6,7 +6,7 @@ _Last updated: June 2026_
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** A repeatable playbook for getting lots of people to SwingIQ
+**What this page is:** A repeatable playbook for getting lots of people to SwingVantage
 from Google, turning them into people who come back often, and (later) earning ad
 revenue from all those views. It's the execution companion to the strategy doc
 [`SEO_GEO_AEO.md`](SEO_GEO_AEO.md) and the automated monthly audit
@@ -67,7 +67,7 @@ layer.
 ## 3. Keyword target backlog (problem-first)
 
 People don't search "AI swing analysis" — they search their **frustration**.
-Target those. Each becomes one page using the template in §4. SwingIQ already has
+Target those. Each becomes one page using the template in §4. SwingVantage already has
 several of these (`/golf/fix-slice`, `/golf/stop-topping-the-ball`,
 `/softball/stop-popping-up`, `/baseball/exit-velocity-drills`,
 `/tennis/backhand-basics`); keep mining the same vein.
@@ -118,7 +118,7 @@ rank in Google **and** get quoted by AI answer engines:
 1. **Direct answer** in the first 2 sentences (answer the exact question).
 2. **Short explanation** of why it happens.
 3. **Self-diagnosis** ("which of these is you?").
-4. **What SwingIQ checks** for this issue → primary conversion hook.
+4. **What SwingVantage checks** for this issue → primary conversion hook.
 5. **Drills** (2–4, with the existing drill links).
 6. **Common mistakes**.
 7. **When to see a coach** (keep the honest disclaimer).
@@ -180,7 +180,7 @@ or trashing the user experience you worked to build:
       worth it — ad networks also want this for approval).
 - [ ] **Privacy Policy reviewed** (currently a placeholder — must be real before
       AdSense approval; see `docs/SECURITY_AND_PRIVACY.md`).
-- [ ] **Use contextual (non-personalized) ads.** They fit SwingIQ's privacy-first,
+- [ ] **Use contextual (non-personalized) ads.** They fit SwingVantage's privacy-first,
       youth-safe brand and are **required** for any under-13 audience (COPPA bans
       personalized ads to children). Lower RPM, but on-brand and compliant.
 - [ ] **Consent setup** if you ever use personalized ads in the EU/UK (CMP banner).

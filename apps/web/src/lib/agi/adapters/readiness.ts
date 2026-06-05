@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — AGI: Readiness hook
+// SwingVantage — AGI: Readiness hook
 // ------------------------------------------------------------
 // Builds a "today's form" snapshot for the engine. It assembles the same
 // PerformanceSignals the Foundations board already uses (agent context,

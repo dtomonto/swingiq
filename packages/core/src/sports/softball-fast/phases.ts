@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Fast Pitch Softball Swing Phase Definitions
+// SwingVantage — Fast Pitch Softball Swing Phase Definitions
 // Fast pitch softball requires fundamentally different timing
 // than baseball or slow pitch: faster ball speed (50-75 mph),
 // shorter distance (43 ft for women's, 46 ft for men's),

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Research & Benchmark Evolution System Tests
+// SwingVantage — Research & Benchmark Evolution System Tests
 // Run with: cd packages/core && npx jest
 // ============================================================
 

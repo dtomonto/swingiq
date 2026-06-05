@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'SwingIQ Features — AI Swing Analysis, Diagnostics & Training Tools',
+  title: 'SwingVantage Features — AI Swing Analysis, Diagnostics & Training Tools',
   description:
-    'Every SwingIQ feature explained: AI swing diagnosis, launch monitor import, video analysis, drill library, practice scheduling, progress tracking, equipment diagnostics, and more — for golf, tennis, baseball, and softball.',
+    'Every SwingVantage feature explained: AI swing diagnosis, launch monitor import, video analysis, drill library, practice scheduling, progress tracking, equipment diagnostics, and more — for golf, tennis, baseball, and softball.',
   openGraph: {
-    title: 'SwingIQ Features — What You Get Free',
+    title: 'SwingVantage Features — What You Get Free',
     description:
       'AI swing diagnosis, personalized drills, practice plans, video analysis, equipment management, and progress tracking — all free, all sports.',
     type: 'website',
@@ -29,13 +29,13 @@ const FEATURE_GROUPS = [
       {
         name: 'Confidence Labels',
         sports: 'All 5 sports',
-        desc: 'Every diagnosis shows a confidence level and lists exactly what data was used. When data is limited, SwingIQ says so rather than guessing.',
+        desc: 'Every diagnosis shows a confidence level and lists exactly what data was used. When data is limited, SwingVantage says so rather than guessing.',
         detail: 'Labels include: High Confidence, Moderate Confidence, Low Confidence / Limited Data.',
       },
       {
         name: 'Competing Hypotheses',
         sports: 'Golf',
-        desc: 'For golf diagnoses, SwingIQ shows the secondary issue most likely to co-exist with the primary fault — helping you understand pattern relationships rather than treating issues in isolation.',
+        desc: 'For golf diagnoses, SwingVantage shows the secondary issue most likely to co-exist with the primary fault — helping you understand pattern relationships rather than treating issues in isolation.',
         detail: '',
       },
     ],
@@ -52,7 +52,7 @@ const FEATURE_GROUPS = [
       {
         name: 'Screenshot / Image Import',
         sports: 'All 5 sports',
-        desc: 'Upload a photo of a launch monitor screen, stats table, or scoreboard. SwingIQ provides a side-by-side data entry form so you can enter values while referencing the image.',
+        desc: 'Upload a photo of a launch monitor screen, stats table, or scoreboard. SwingVantage provides a side-by-side data entry form so you can enter values while referencing the image.',
         detail: 'Optional OCR auto-extraction activates when an extraction provider is configured — it pre-fills the review table from your image and you confirm every value before saving. Manual entry is always the default.',
       },
       {
@@ -75,7 +75,7 @@ const FEATURE_GROUPS = [
       {
         name: 'Fix Stack — One Fix at a Time',
         sports: 'All 5 sports',
-        desc: 'SwingIQ finds your single highest-impact issue and turns it into a three-step loop: one body cue to feel, the best-matched drill for your level and the gear you have, and an honest before/after retest.',
+        desc: 'SwingVantage finds your single highest-impact issue and turns it into a three-step loop: one body cue to feel, the best-matched drill for your level and the gear you have, and an honest before/after retest.',
         detail: 'Deterministic and local-first — it learns from what worked for you and needs no account.',
       },
       {
@@ -116,7 +116,7 @@ const FEATURE_GROUPS = [
       {
         name: 'Swing Video Upload',
         sports: 'All 5 sports',
-        desc: 'Upload a video of your swing from the face-on, down-the-line, or sport-specific angle. SwingIQ segments the video into phases and provides coaching notes for each phase.',
+        desc: 'Upload a video of your swing from the face-on, down-the-line, or sport-specific angle. SwingVantage segments the video into phases and provides coaching notes for each phase.',
         detail: 'Every video read is a heuristic estimate that sharpens as you add data — a confident starting point you can act on today. For full on-device pose tracking and a rotatable 3D reconstruction, see Motion Lab below.',
       },
       {
@@ -129,7 +129,7 @@ const FEATURE_GROUPS = [
         name: 'Pro Reference Comparison',
         sports: 'All 5 sports',
         desc: 'Browse a curated library of professional athlete swing references filtered by sport. Use as a visual learning reference alongside your own video.',
-        detail: 'References are publicly available YouTube videos. SwingIQ does not host or own the footage.',
+        detail: 'References are publicly available YouTube videos. SwingVantage does not host or own the footage.',
       },
     ],
   },
@@ -150,19 +150,19 @@ const FEATURE_GROUPS = [
       {
         name: 'Golf Bag Manager',
         sports: 'Golf',
-        desc: 'Log every club in your bag — brand, model, loft, shaft flex, typical carry distance. SwingIQ uses this data to add equipment context to your diagnoses.',
+        desc: 'Log every club in your bag — brand, model, loft, shaft flex, typical carry distance. SwingVantage uses this data to add equipment context to your diagnoses.',
         detail: '',
       },
       {
         name: 'Loft Gapping Analysis',
         sports: 'Golf',
-        desc: 'See the carry distance gap between every club in your bag. SwingIQ highlights clubs where the gap is too large (missing distance window) or too small (overlap).',
+        desc: 'See the carry distance gap between every club in your bag. SwingVantage highlights clubs where the gap is too large (missing distance window) or too small (overlap).',
         detail: '30+ club model specs are pre-loaded. Generic defaults fill in any gaps.',
       },
       {
         name: 'Loft Autofill',
         sports: 'Golf',
-        desc: 'Select your club brand and model and SwingIQ auto-fills the stock loft. You can override with your actual measured loft for fitted clubs.',
+        desc: 'Select your club brand and model and SwingVantage auto-fills the stock loft. You can override with your actual measured loft for fitted clubs.',
         detail: '',
       },
     ],
@@ -191,7 +191,7 @@ const FEATURE_GROUPS = [
       {
         name: 'Retest — Prove the Change',
         sports: 'All 5 sports',
-        desc: 'SwingIQ reminds you when a diagnosed finding is due for a retest, then — after you re-analyze under the same conditions — shows an honest before-and-after read of whether it actually changed.',
+        desc: 'SwingVantage reminds you when a diagnosed finding is due for a retest, then — after you re-analyze under the same conditions — shows an honest before-and-after read of whether it actually changed.',
         detail: 'Comparisons are labeled directional reads from your data and video, not lab-measured biomechanics.',
       },
       {
@@ -201,7 +201,7 @@ const FEATURE_GROUPS = [
         detail: '',
       },
       {
-        name: 'SwingIQ Labs',
+        name: 'SwingVantage Labs',
         sports: 'All 5 sports',
         desc: 'An in-app home for emerging, on-device tools: a daily readiness score, a private player model, cross-sport skill transfer, your performance graph, and benchmark mirrors.',
         detail: 'Some are early versions — each is honest about its confidence and what it does not know yet.',
@@ -226,7 +226,7 @@ const FEATURE_GROUPS = [
       {
         name: 'Backup & Restore',
         sports: 'All sports',
-        desc: 'Export all your SwingIQ data as a single downloadable JSON file. Re-import it on any device to restore your full profile, sessions, and history.',
+        desc: 'Export all your SwingVantage data as a single downloadable JSON file. Re-import it on any device to restore your full profile, sessions, and history.',
         detail: 'Optional AES-256-GCM password encryption for backup files.',
       },
       {
@@ -245,13 +245,13 @@ const structuredData = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'SwingIQ', item: 'https://swingiq.app' },
+        { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: 'https://swingiq.app' },
         { '@type': 'ListItem', position: 2, name: 'Features', item: 'https://swingiq.app/features' },
       ],
     },
     {
       '@type': 'SoftwareApplication',
-      name: 'SwingIQ',
+      name: 'SwingVantage',
       applicationCategory: 'SportsApplication',
       operatingSystem: 'Web browser',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
@@ -272,9 +272,9 @@ export default function FeaturesPage() {
             <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
               <span className="text-white font-black text-sm">SQ</span>
             </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingIQ</Link>
+            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Everything SwingIQ Does — Free</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">Everything SwingVantage Does — Free</h1>
           <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
             Every feature. Every sport. No credit card. No account required to start.
           </p>
@@ -313,19 +313,19 @@ export default function FeaturesPage() {
 
         {/* CTA */}
         <div className="bg-primary/10 border border-primary/30 rounded-xl p-6 text-center">
-          <h3 className="text-lg font-bold text-foreground mb-2">Start using SwingIQ free</h3>
+          <h3 className="text-lg font-bold text-foreground mb-2">Start using SwingVantage free</h3>
           <p className="text-muted-foreground text-sm mb-4">No account needed. Works on any device.</p>
           <Link
             href="/start"
             className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-xl transition-colors"
           >
-            Open SwingIQ Free
+            Open SwingVantage Free
           </Link>
         </div>
 
         {/* Nav */}
         <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
-          <Link href="/" className="text-primary hover:underline">← SwingIQ Home</Link>
+          <Link href="/" className="text-primary hover:underline">← SwingVantage Home</Link>
           <Link href="/how-it-works" className="text-primary hover:underline">How It Works</Link>
           <Link href="/faq" className="text-primary hover:underline">FAQ</Link>
           <Link href="/golf-swing-analysis" className="text-primary hover:underline">Golf Analysis</Link>

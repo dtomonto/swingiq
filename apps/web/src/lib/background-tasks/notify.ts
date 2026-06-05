@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Background-task notifications
+// SwingVantage — Background-task notifications
 // ------------------------------------------------------------
 // Thin wrapper over the browser Notification API used to alert the
 // user when a long-running upload / analysis finishes WHILE they have

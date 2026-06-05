@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Retest Reminder Card
+// SwingVantage — Retest Reminder Card
 // ------------------------------------------------------------
 // One open finding the user is being asked to retest. Shows the
 // dated window, the same-condition checklist, and a single CTA to

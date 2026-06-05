@@ -6,7 +6,7 @@ _Last updated: June 2026_
 
 ## 📘 In Plain English (start here)
 
-Several AI agents (and you) sometimes work on SwingIQ **at the same time**. If they
+Several AI agents (and you) sometimes work on SwingVantage **at the same time**. If they
 all edit the **same folder**, they trip over each other — one agent switching git
 branches can yank the project out from under another mid-save, and commits can
 accidentally sweep up someone else's half-finished work.

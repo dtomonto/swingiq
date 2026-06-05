@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — 90-Day Research Workflow Orchestrator
+// SwingVantage — 90-Day Research Workflow Orchestrator
 //
 // This is the main function called by the scheduled job.
 // It runs without user interaction and produces:

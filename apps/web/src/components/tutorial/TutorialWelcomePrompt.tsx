@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Tutorial Welcome Prompt
+// SwingVantage — Tutorial Welcome Prompt
 // ------------------------------------------------------------
 // A gentle, dismissible nudge toward the Tutorial Center for users
 // who haven't watched anything or skipped the tour. Mounted once in
@@ -54,7 +54,7 @@ export function TutorialWelcomePrompt() {
 
       <div className="flex items-center gap-2 text-primary">
         <GraduationCap size={18} aria-hidden="true" />
-        <p className="text-sm font-bold">New to SwingIQ?</p>
+        <p className="text-sm font-bold">New to SwingVantage?</p>
       </div>
       <p className="mt-1 text-xs text-muted-foreground">
         Take a short, guided video tour made for players, parents, coaches, and teams. Two minutes to

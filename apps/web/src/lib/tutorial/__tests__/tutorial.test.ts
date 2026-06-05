@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Tutorial System Unit Tests
+// SwingVantage — Tutorial System Unit Tests
 // Tests for the tutorial content registry and route lookup.
 // ============================================================
 

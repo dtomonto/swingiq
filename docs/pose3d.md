@@ -6,13 +6,13 @@ Single-camera "3D" can only ever *estimate* depth. This module adds two genuinel
 stronger ways to get 3D, and is honest about which one you're using:
 
 1. **Two cameras → real 3D (measured).** If you film the same rep from two angles,
-   SwingIQ uses classic camera geometry (triangulation) to compute the *actual*
+   SwingVantage uses classic camera geometry (triangulation) to compute the *actual*
    3D position of each joint. This is real measured 3D, the same math motion-capture
    studios use — just with two phones instead of a $50k rig. We prove it works with
    tests that recover a known skeleton to under a millimetre.
 
 2. **One camera → smarter depth (trained model).** For the common one-phone case,
-   SwingIQ ships a small neural network we **actually trained** to guess depth from
+   SwingVantage ships a small neural network we **actually trained** to guess depth from
    the body's 2D shape. It's trained on a procedurally-generated body simulator (no
    private data needed) and, on held-out tests, it explains ~78% of the depth it
    couldn't see. It's still an estimate — just a much smarter one than raw MediaPipe.

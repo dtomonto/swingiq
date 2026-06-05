@@ -1,15 +1,15 @@
 // ============================================================
-// SwingIQ — File System Access wrappers
+// SwingVantage — File System Access wrappers
 //
 // Thin, type-safe wrappers around the browser File System Access
 // API (showSaveFilePicker / showDirectoryPicker). This is what lets
-// SwingIQ keep a real file on your device up to date and read your
+// SwingVantage keep a real file on your device up to date and read your
 // chosen folder (e.g. Downloads) back later to continue progress.
 //
 // HONEST BROWSER LIMITS (reflected in the UI copy):
 //   - The browser will NEVER let a web app silently reach into your
 //     disk. You pick a file/folder ONCE (a real OS dialog); after
-//     that SwingIQ can write to that file / read that folder, and on
+//     that SwingVantage can write to that file / read that folder, and on
 //     return visits it re-checks permission (sometimes needing one
 //     more click).
 //   - Only Chromium browsers (Chrome, Edge, Brave, Opera) implement
@@ -94,7 +94,7 @@ export async function pickSaveFile(suggestedName: string): Promise<FsFileHandle 
   try {
     return await w.showSaveFilePicker({
       suggestedName,
-      types: [{ description: 'SwingIQ backup', accept: { 'application/json': ['.json'] } }],
+      types: [{ description: 'SwingVantage backup', accept: { 'application/json': ['.json'] } }],
     });
   } catch (err) {
     if (isAbortError(err)) return null;
@@ -153,7 +153,7 @@ export async function writeTextToFile(handle: FsFileHandle, contents: string): P
 }
 
 /**
- * Return the SwingIQ backup files (.json / .swingiqbackup) directly in a
+ * Return the SwingVantage backup files (.json / .swingiqbackup) directly in a
  * directory. We do NOT recurse — a folder like Downloads is flat enough and
  * recursing risks scanning unrelated large trees.
  */
@@ -163,7 +163,7 @@ export async function listBackupFiles(dir: FsDirHandle): Promise<File[]> {
     if (entry.kind !== 'file') continue;
     const name = entry.name.toLowerCase();
     if (!name.endsWith('.json') && !name.endsWith('.swingiqbackup')) continue;
-    // Only look at things that plausibly belong to SwingIQ to avoid
+    // Only look at things that plausibly belong to SwingVantage to avoid
     // reading every random .json in the folder.
     if (!name.includes('swingiq') && !name.endsWith('.swingiqbackup')) continue;
     try {

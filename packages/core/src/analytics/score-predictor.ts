@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Score Improvement Predictor
+// SwingVantage — Score Improvement Predictor
 // Estimates how many strokes per round a golfer could save by
 // fixing a specific swing metric, based on strokes-gained
 // relationships derived from tour research.

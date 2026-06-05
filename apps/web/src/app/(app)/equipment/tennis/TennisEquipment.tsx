@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { useSwingIQStore, type TennisRacket } from '@/store';
+import { useSwingVantageStore, type TennisRacket } from '@/store';
 import { scoreTennisRacket } from '@/lib/equipment/scoring';
 import Link from 'next/link';
 import { Plus, Trash2, ChevronDown, ChevronUp, Info, AlertTriangle } from 'lucide-react';
@@ -19,7 +19,7 @@ const EMPTY: Omit<TennisRacket, 'id' | 'created_at'> = {
 };
 
 export function TennisEquipment() {
-  const { sportEquipment, addTennisRacket, removeTennisRacket } = useSwingIQStore();
+  const { sportEquipment, addTennisRacket, removeTennisRacket } = useSwingVantageStore();
   const rackets = sportEquipment.tennis;
 
   const [form, setForm] = useState<Omit<TennisRacket, 'id' | 'created_at'>>(EMPTY);
@@ -55,7 +55,7 @@ export function TennisEquipment() {
         <div className="flex gap-3 bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl p-4">
           <Info className="text-accent-secondary mt-0.5 shrink-0" size={18} />
           <p className="text-sm text-foreground">
-            <strong>Optional.</strong> Partial specs are fine — SwingIQ will note what data is missing and lower confidence accordingly. You can skip this entirely.
+            <strong>Optional.</strong> Partial specs are fine — SwingVantage will note what data is missing and lower confidence accordingly. You can skip this entirely.
           </p>
         </div>
 
@@ -186,7 +186,7 @@ export function TennisEquipment() {
         {rackets.length === 0 && !showForm && (
           <div className="flex gap-2 text-sm text-muted-foreground bg-muted border border-border rounded-xl p-4">
             <AlertTriangle size={16} className="text-muted-foreground mt-0.5 shrink-0" />
-            No racket logged. Equipment context is optional — you can still use all SwingIQ features without it.
+            No racket logged. Equipment context is optional — you can still use all SwingVantage features without it.
           </div>
         )}
       </div>

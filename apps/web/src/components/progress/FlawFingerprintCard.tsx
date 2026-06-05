@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Flaw Fingerprint Card
+// SwingVantage — Flaw Fingerprint Card
 // ------------------------------------------------------------
 // The recurring-pattern summary: the issue that keeps returning,
 // the issues that travel with it, which drills the user actually

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — "Did this drill help?" feedback control
+// SwingVantage — "Did this drill help?" feedback control
 // ------------------------------------------------------------
 // The closing half of the improvement loop: a one-tap verdict
 // that is stored locally and feeds future DrillMatch ranking.
@@ -48,7 +48,7 @@ export function DrillFeedbackControl({
       <div className="flex items-center gap-2 text-sm text-primary">
         <Check size={15} className="shrink-0" />
         <span>
-          Saved — SwingIQ will use this to pick better drills for you next time.
+          Saved — SwingVantage will use this to pick better drills for you next time.
         </span>
       </div>
     );

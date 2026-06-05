@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | SwingIQ',
-  description: 'SwingIQ privacy policy — how we collect, use, and protect your data.',
+  title: 'Privacy Policy | SwingVantage',
+  description: 'SwingVantage privacy policy — how we collect, use, and protect your data.',
   alternates: { canonical: '/privacy' },
 };
 
@@ -14,16 +14,16 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-card">
       <div className="max-w-3xl mx-auto px-4 py-12">
-        <Link href="/dashboard" className="text-sm text-primary hover:underline mb-6 block">← Back to SwingIQ</Link>
+        <Link href="/dashboard" className="text-sm text-primary hover:underline mb-6 block">← Back to SwingVantage</Link>
 
         <h1 className="text-3xl font-bold text-foreground mb-2">Privacy Policy</h1>
-        <p className="text-sm text-muted-foreground mb-8">Effective date: {EFFECTIVE_DATE}. Written in plain English to describe how SwingIQ actually handles your data today.</p>
+        <p className="text-sm text-muted-foreground mb-8">Effective date: {EFFECTIVE_DATE}. Written in plain English to describe how SwingVantage actually handles your data today.</p>
 
         <div className="prose prose-gray max-w-none space-y-8 text-sm text-foreground leading-relaxed">
 
           <section>
             <h2 className="text-xl font-semibold text-foreground mb-3">1. Overview</h2>
-            <p>SwingIQ (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;SwingIQ&rdquo;) provides an AI-powered swing improvement platform for golf, tennis, baseball, and softball. This Privacy Policy explains how we handle information you provide when using SwingIQ.</p>
+            <p>SwingVantage (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;SwingVantage&rdquo;) provides an AI-powered swing improvement platform for golf, tennis, baseball, and softball. This Privacy Policy explains how we handle information you provide when using SwingVantage.</p>
             <p className="mt-2">We are committed to protecting your privacy. We do not sell your personal data.</p>
           </section>
 
@@ -43,7 +43,7 @@ export default function PrivacyPage() {
             <ul className="list-disc pl-5 space-y-1">
               <li>To provide swing analysis, diagnostic results, and drill recommendations</li>
               <li>To show your progress over time</li>
-              <li>To improve SwingIQ&apos;s AI models and diagnostic engines</li>
+              <li>To improve SwingVantage&apos;s AI models and diagnostic engines</li>
               <li>To communicate important product or account updates</li>
             </ul>
             <p className="mt-3">We do not use your swing data for advertising. We do not sell your data to third parties.</p>
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-xl font-semibold text-foreground mb-3">4. Children&apos;s Privacy</h2>
-            <p>SwingIQ is not directed at children under 13. We do not knowingly collect personal information from children under 13. If a parent or guardian believes their child has provided personal information, contact us immediately at the address below and we will delete it promptly.</p>
+            <p>SwingVantage is not directed at children under 13. We do not knowingly collect personal information from children under 13. If a parent or guardian believes their child has provided personal information, contact us immediately at the address below and we will delete it promptly.</p>
             <p className="mt-2">For users under 18, we recommend parental involvement and supervision when uploading videos or creating accounts.</p>
           </section>
 
@@ -63,7 +63,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-xl font-semibold text-foreground mb-3">6. Third-Party Services</h2>
-            <p>SwingIQ may use third-party services including:</p>
+            <p>SwingVantage may use third-party services including:</p>
             <ul className="list-disc pl-5 space-y-1">
               <li><strong>Supabase:</strong> database and authentication</li>
               <li><strong>Vercel:</strong> hosting and infrastructure</li>

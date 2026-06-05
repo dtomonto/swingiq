@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Usage Category Onboarding Modal
+// SwingVantage — Usage Category Onboarding Modal
 // Shows once per device to capture the minimum-necessary usage
 // category for youth safety and content appropriateness.
 //
@@ -10,7 +10,7 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
-import { useSwingIQStore, type UsageCategory } from '@/store';
+import { useSwingVantageStore, type UsageCategory } from '@/store';
 import { Shield, Users, User, GraduationCap, AlertTriangle } from 'lucide-react';
 
 const CATEGORIES: Array<{
@@ -22,25 +22,25 @@ const CATEGORIES: Array<{
   {
     value: 'adult',
     label: 'Adult athlete (18+)',
-    sublabel: "I'm using SwingIQ for my own training",
+    sublabel: "I'm using SwingVantage for my own training",
     icon: User,
   },
   {
     value: 'parent_guardian',
     label: 'Parent or guardian',
-    sublabel: "I'm helping a young athlete use SwingIQ",
+    sublabel: "I'm helping a young athlete use SwingVantage",
     icon: Users,
   },
   {
     value: 'coach',
     label: 'Coach or instructor',
-    sublabel: "I'm using SwingIQ with athletes I coach",
+    sublabel: "I'm using SwingVantage with athletes I coach",
     icon: GraduationCap,
   },
   {
     value: 'minor_13_17',
     label: 'Young athlete (13–17)',
-    sublabel: 'I am a teen athlete using SwingIQ',
+    sublabel: 'I am a teen athlete using SwingVantage',
     icon: User,
   },
   {
@@ -52,7 +52,7 @@ const CATEGORIES: Array<{
 ];
 
 export function UsageCategoryModal() {
-  const { settings, updateSettings } = useSwingIQStore();
+  const { settings, updateSettings } = useSwingVantageStore();
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState<Exclude<UsageCategory, null> | null>(null);
 
@@ -95,13 +95,13 @@ export function UsageCategoryModal() {
             </div>
             <div>
               <h2 id="usage-modal-title" className="text-lg font-bold text-foreground">
-                Welcome to SwingIQ
+                Welcome to SwingVantage
               </h2>
               <p className="text-xs text-muted-foreground">One quick question before you start</p>
             </div>
           </div>
           <p className="text-sm text-muted-foreground">
-            Who will be using SwingIQ on this device? This helps us apply the right safety settings.
+            Who will be using SwingVantage on this device? This helps us apply the right safety settings.
             No personal information is collected.
           </p>
         </div>
@@ -142,8 +142,8 @@ export function UsageCategoryModal() {
           <div className="mx-6 mb-4 bg-warning/10 border border-warning/30 rounded-xl p-4">
             <p className="text-sm font-semibold text-warning mb-1">Parent or guardian required</p>
             <p className="text-sm text-warning">
-              SwingIQ is not designed for children under 13 without a parent or guardian. Please ask
-              a parent or guardian to set up SwingIQ and select <strong>&quot;Parent or guardian&quot;</strong> on this screen.
+              SwingVantage is not designed for children under 13 without a parent or guardian. Please ask
+              a parent or guardian to set up SwingVantage and select <strong>&quot;Parent or guardian&quot;</strong> on this screen.
             </p>
           </div>
         )}
@@ -152,7 +152,7 @@ export function UsageCategoryModal() {
         {selected === 'minor_13_17' && (
           <div className="mx-6 mb-4 bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl p-3">
             <p className="text-sm text-foreground">
-              Welcome! For the best experience, let a parent, guardian, or coach know you&apos;re using SwingIQ.
+              Welcome! For the best experience, let a parent, guardian, or coach know you&apos;re using SwingVantage.
               Always practice drills with adult supervision.
             </p>
           </div>
@@ -165,7 +165,7 @@ export function UsageCategoryModal() {
             disabled={!selected || isUnder13}
             className="w-full bg-primary hover:bg-primary disabled:bg-muted disabled:text-muted-foreground text-white font-semibold py-3 rounded-xl transition-colors"
           >
-            Continue to SwingIQ
+            Continue to SwingVantage
           </button>
           <p className="text-center text-xs text-muted-foreground">
             This is stored only on your device. You can change it anytime in Settings.

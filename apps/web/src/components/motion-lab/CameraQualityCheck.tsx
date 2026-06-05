@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Camera-Quality Report panel
+// SwingVantage — Motion Lab: Camera-Quality Report panel
 // Renders the honest capture-quality gate so users know how much to
 // trust the analysis and how to film better next time.
 // ============================================================

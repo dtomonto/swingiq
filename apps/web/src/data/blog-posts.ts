@@ -18,7 +18,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'how-to-fix-a-golf-slice',
     title: 'How to Fix a Golf Slice: The 5 Most Common Causes',
-    metaTitle: 'How to Fix a Golf Slice | SwingIQ Golf Tips',
+    metaTitle: 'How to Fix a Golf Slice | SwingVantage Golf Tips',
     metaDescription: 'Learn the 5 most common causes of a golf slice and how to fix them. Understand the club path vs face angle relationship and get 3 drills to try today.',
     publishDate: '2026-05-15',
     displayDate: 'May 15, 2026',
@@ -64,12 +64,12 @@ The face tape test: place impact tape or foot spray on the face before hitting. 
 
 If you have tried these fixes and the slice persists, a few sessions with a qualified instructor who can see your swing in person is worth more than dozens of range sessions alone. A good coach can identify compensations that are hard to see without someone watching you from the right angle.
 
-SwingIQ can give you data-driven evidence of whether your path and face angle are improving between lessons — use it as a supplement to coaching, not a replacement.`,
+SwingVantage can give you data-driven evidence of whether your path and face angle are improving between lessons — use it as a supplement to coaching, not a replacement.`,
   },
   {
     slug: 'what-is-smash-factor',
     title: 'What Is Smash Factor and Why Does It Matter?',
-    metaTitle: 'What Is Smash Factor in Golf? | SwingIQ',
+    metaTitle: 'What Is Smash Factor in Golf? | SwingVantage',
     metaDescription: 'Learn what smash factor is in golf, what good numbers look like for your skill level, and how to improve it to maximize distance from your swing.',
     publishDate: '2026-05-10',
     displayDate: 'May 10, 2026',
@@ -109,12 +109,12 @@ Slower, controlled swings at 70 to 80 percent tempo often produce higher smash f
 
 After establishing a consistent strike pattern, then work on increasing club head speed with targeted training.
 
-SwingIQ tracks your smash factor across sessions so you can see whether contact quality is trending in the right direction — even if your swing speed stays the same.`,
+SwingVantage tracks your smash factor across sessions so you can see whether contact quality is trending in the right direction — even if your swing speed stays the same.`,
   },
   {
     slug: 'how-to-read-launch-monitor-data',
     title: 'How to Read Your Launch Monitor Data (And What to Do With It)',
-    metaTitle: 'How to Read Launch Monitor Data | SwingIQ Golf Guide',
+    metaTitle: 'How to Read Launch Monitor Data | SwingVantage Golf Guide',
     metaDescription: 'A plain-English guide to launch monitor metrics — what launch angle, spin rate, ball speed, and attack angle mean and what good numbers look like for recreational golfers.',
     publishDate: '2026-05-05',
     displayDate: 'May 5, 2026',
@@ -152,14 +152,14 @@ Another common mistake is optimizing one metric while ignoring others. Lowering 
 
 Finally, do not assume that the fix is always a swing change. Sometimes low launch angle is a shaft flex issue. Sometimes high spin is a ball choice issue. Equipment matters alongside technique.
 
-## Using SwingIQ With Your Launch Monitor
+## Using SwingVantage With Your Launch Monitor
 
-SwingIQ imports CSV data from FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, SkyTrak, and most other common formats. Once imported, it compares your numbers against skill-level-adjusted benchmarks and identifies which metrics are outside the optimal range for your club and ability level — starting with the one that has the most impact on your performance.`,
+SwingVantage imports CSV data from FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, SkyTrak, and most other common formats. Once imported, it compares your numbers against skill-level-adjusted benchmarks and identifies which metrics are outside the optimal range for your club and ability level — starting with the one that has the most impact on your performance.`,
   },
   {
     slug: 'tennis-forehand-technique-basics',
     title: 'Tennis Forehand Fundamentals: What the Data Shows About Consistent Hitters',
-    metaTitle: 'Tennis Forehand Fundamentals | SwingIQ Tennis Guide',
+    metaTitle: 'Tennis Forehand Fundamentals | SwingVantage Tennis Guide',
     metaDescription: 'Learn the fundamental mechanics of a consistent tennis forehand — grip, contact point, follow-through, topspin, and the most common mistakes that cause errors.',
     publishDate: '2026-04-28',
     displayDate: 'April 28, 2026',
@@ -210,7 +210,7 @@ Video analysis gives you a reference point — seeing what your swing actually l
   {
     slug: 'baseball-exit-velocity-guide',
     title: 'Exit Velocity in Baseball: What It Is and How to Improve It',
-    metaTitle: 'Baseball Exit Velocity Guide | SwingIQ',
+    metaTitle: 'Baseball Exit Velocity Guide | SwingVantage',
     metaDescription: 'Learn what exit velocity is in baseball, why it matters for batting performance, typical values by age and level, and 3 proven ways to improve it.',
     publishDate: '2026-04-20',
     displayDate: 'April 20, 2026',
@@ -248,14 +248,14 @@ If a hitter is significantly below these ranges for their age and level, bat pat
 
 **Add bat speed training.** Once contact quality is consistent, overload and underload training with heavier and lighter bats develops the neurological pathways for faster bat speed. This is most effective when combined with regular baseball-weight bat reps so the transfer carries into games.
 
-## Tracking Your Progress With SwingIQ
+## Tracking Your Progress With SwingVantage
 
-SwingIQ tracks exit velocity across your sessions and shows you the trend over time. Improvement in exit velocity following a change in mechanics or a training block tells you the change was real — not just a good day.`,
+SwingVantage tracks exit velocity across your sessions and shows you the trend over time. Improvement in exit velocity following a change in mechanics or a training block tells you the change was real — not just a good day.`,
   },
   {
     slug: 'softball-bat-path-and-launch-angle',
     title: 'Bat Path and Launch Angle in Softball: A Simple Guide',
-    metaTitle: 'Softball Bat Path and Launch Angle | SwingIQ',
+    metaTitle: 'Softball Bat Path and Launch Angle | SwingVantage',
     metaDescription: 'Learn what launch angle means in softball, ideal ranges for slow pitch vs fast pitch, how bat path affects the ball, and what attack angle tells you about your swing.',
     publishDate: '2026-04-12',
     displayDate: 'April 12, 2026',
@@ -297,12 +297,12 @@ Ideal attack angle ranges depend on your level and the pitch type you are facing
 
 The relationship between bat path, attack angle, and launch angle is direct: your bat path creates the attack angle, and the attack angle combined with where you make contact on the ball determines the launch angle. Work backward from your launch angle data to understand whether the cause is bat path, contact point, or timing.
 
-SwingIQ tracks these relationships across your sessions and flags when your launch angle trend is outside the productive range — so you can tell whether a bad result was a fluke or a pattern.`,
+SwingVantage tracks these relationships across your sessions and flags when your launch angle trend is outside the productive range — so you can tell whether a bad result was a fluke or a pattern.`,
   },
   {
     slug: 'how-ai-swing-analysis-works',
     title: 'How AI Swing Analysis Works (And What It Can and Cannot Do)',
-    metaTitle: 'How AI Swing Analysis Works | SwingIQ',
+    metaTitle: 'How AI Swing Analysis Works | SwingVantage',
     metaDescription: 'Learn how AI swing analysis actually works — what heuristic diagnostic engines do, what data they analyze, their real limitations vs professional coaching, and how to use them effectively.',
     publishDate: '2026-04-05',
     displayDate: 'April 5, 2026',
@@ -316,7 +316,7 @@ SwingIQ tracks these relationships across your sessions and flags when your laun
 
 The term "AI swing analysis" covers a range of different technologies with very different capabilities. It is worth understanding what the technology actually does before trusting its outputs.
 
-SwingIQ uses a **heuristic diagnostic engine** — a rules-based system that compares your data against a set of biomechanically-informed benchmarks. When your launch angle is outside the optimal range, when your face-to-path gap exceeds a threshold, when your bat speed is below average for your level, the engine flags these as potential issues and ranks them by severity.
+SwingVantage uses a **heuristic diagnostic engine** — a rules-based system that compares your data against a set of biomechanically-informed benchmarks. When your launch angle is outside the optimal range, when your face-to-path gap exceeds a threshold, when your bat speed is below average for your level, the engine flags these as potential issues and ranks them by severity.
 
 This is different from pure machine learning or computer vision. The engine does not learn from every user. It applies a defined set of rules — developed based on coaching principles and research — to your specific data.
 
@@ -326,7 +326,7 @@ For golf, the primary inputs are launch monitor metrics: ball speed, club head s
 
 For baseball and softball, the primary inputs are exit velocity, launch angle, bat speed, and attack angle — data that comes from devices like HitTrax, Rapsodo, and Blast Motion.
 
-For video analysis, SwingIQ extracts key frames from your swing and sends them to an AI vision model that examines the actual footage — your setup, body positions, and movement through address, the top of the backswing, and impact. Rather than reducing the swing to estimated joint angles, it reads what is visible in the video itself. It still isn't a substitute for a dedicated tracking device, so treat its feedback as informed coaching observations rather than precise measurements.
+For video analysis, SwingVantage extracts key frames from your swing and sends them to an AI vision model that examines the actual footage — your setup, body positions, and movement through address, the top of the backswing, and impact. Rather than reducing the swing to estimated joint angles, it reads what is visible in the video itself. It still isn't a substitute for a dedicated tracking device, so treat its feedback as informed coaching observations rather than precise measurements.
 
 ## Real Limitations vs. Professional Coaching
 
@@ -338,7 +338,7 @@ AI analysis has genuine limitations that are worth being honest about.
 
 **It cannot catch everything.** Heuristic engines are as good as their rules. If the engineer who built the system did not write a rule for a particular fault pattern, the engine will miss it.
 
-**Results are estimates.** Every finding from SwingIQ comes with a confidence label for exactly this reason. High confidence means the issue appears clearly and repeatedly in your data. Low confidence means it is possible but needs more data to confirm.
+**Results are estimates.** Every finding from SwingVantage comes with a confidence label for exactly this reason. High confidence means the issue appears clearly and repeatedly in your data. Low confidence means it is possible but needs more data to confirm.
 
 ## How to Use AI Analysis Effectively
 
@@ -353,8 +353,8 @@ And when the data suggests something significant — a fault pattern that appear
   {
     slug: 'practice-schedule-for-golfers',
     title: 'How to Build a Practice Schedule That Actually Improves Your Golf',
-    metaTitle: 'Golf Practice Schedule Guide | SwingIQ',
-    metaDescription: 'Learn how to build a golf practice schedule that actually produces improvement. Understand deliberate practice, how to structure a session, and how SwingIQ helps you stay consistent.',
+    metaTitle: 'Golf Practice Schedule Guide | SwingVantage',
+    metaDescription: 'Learn how to build a golf practice schedule that actually produces improvement. Understand deliberate practice, how to structure a session, and how SwingVantage helps you stay consistent.',
     publishDate: '2026-03-28',
     displayDate: 'March 28, 2026',
     sport: 'golf',
@@ -383,9 +383,9 @@ A well-structured practice session has four phases.
 
 **Short game (if time allows):** Putting and chipping contribute as much as full swing work to your score. Do not skip it because it feels less exciting than hitting drivers.
 
-## How SwingIQ's Practice Schedule Works
+## How SwingVantage's Practice Schedule Works
 
-SwingIQ generates a weekly practice schedule based on three inputs: which days and times you have available, how long each session can be, and what your active swing diagnosis is.
+SwingVantage generates a weekly practice schedule based on three inputs: which days and times you have available, how long each session can be, and what your active swing diagnosis is.
 
 The generated schedule assigns a focus theme to each day — not just "practice golf" but a specific area like contact quality, face angle control, or short game. Each session within that theme comes with recommended drills and a session structure that follows the four-phase format above.
 
@@ -395,11 +395,11 @@ The schedule updates as your diagnosis changes. If you resolve your primary faul
 
 **Set a realistic volume.** Two or three focused sessions per week will produce more improvement than seven rushed ones. Overcommitting to a schedule leads to skipping, which breaks the habit.
 
-**Log every session, even short ones.** A 20-minute putting session counts. Logging it maintains your practice streak, keeps your history complete, and gives SwingIQ more data to identify patterns.
+**Log every session, even short ones.** A 20-minute putting session counts. Logging it maintains your practice streak, keeps your history complete, and gives SwingVantage more data to identify patterns.
 
 **Track process, not just results.** A session where you worked on your face angle and hit the ball worse is still a valuable session if you were doing the right things. Swing changes often produce temporary regression before they produce improvement. Expect that and plan for it.
 
-**Review your data monthly.** Monthly trend reviews — looking at three to five sessions at a time — reveal whether your work is producing results. SwingIQ's progress charts show whether your swing scores, key metrics, and personal bests are trending in the right direction.
+**Review your data monthly.** Monthly trend reviews — looking at three to five sessions at a time — reveal whether your work is producing results. SwingVantage's progress charts show whether your swing scores, key metrics, and personal bests are trending in the right direction.
 
 The golfers who improve fastest are not the ones who hit the most balls. They are the ones who show up consistently, with a plan, and who track whether the plan is working.`,
   },

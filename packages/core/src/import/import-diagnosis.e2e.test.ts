@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — End-to-End: CSV import → diagnosis
+// SwingVantage — End-to-End: CSV import → diagnosis
 // ------------------------------------------------------------
 // Exercises the REAL pipeline a user hits when importing launch-monitor
 // data: raw CSV text → parseCSV → detectColumnMapping → normalizeRow →

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: athlete summarizer tests
+// SwingVantage — AGI: athlete summarizer tests
 // ------------------------------------------------------------
 // The narrative must be GROUNDED (no invented facts), lead with a
 // readiness caution verbatim, end with a verbatim plan action, handle

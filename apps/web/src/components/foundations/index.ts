@@ -1,4 +1,4 @@
-// SwingIQ — Moat Foundations UI (barrel)
+// SwingVantage — Moat Foundations UI (barrel)
 export { ReadinessCard } from './ReadinessCard';
 export { PlayerModelCard } from './PlayerModelCard';
 export { SkillTransferCard } from './SkillTransferCard';

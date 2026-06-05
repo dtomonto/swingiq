@@ -1,13 +1,13 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Backup Health Banner
+// SwingVantage — Backup Health Banner
 // Shows backup status on community dashboard, profile, Data Center.
 // ============================================================
 
 import Link from 'next/link';
 import { Shield, AlertTriangle, Download } from 'lucide-react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { calculateBackupHealth, getHealthColor, formatLastExport } from '@/lib/community/backup-health';
 import { cn } from '@/lib/utils';
@@ -23,7 +23,7 @@ export function BackupHealthBanner({
   showExportButton = true,
   className,
 }: BackupHealthBannerProps) {
-  const { sessions, video_analyses, training, community } = useSwingIQStore();
+  const { sessions, video_analyses, training, community } = useSwingVantageStore();
   const { t } = useLanguage();
 
   const health = calculateBackupHealth(

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Progress Over Time
+// SwingVantage — Progress Over Time
 // ------------------------------------------------------------
 // Turns the locally-saved analyses for one sport into a short
 // coaching-journey view: a confidence trend across recent sessions

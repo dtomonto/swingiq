@@ -1,7 +1,7 @@
-import type { SwingIQSlice, SwingIQStore } from '../types';
+import type { SwingVantageSlice, SwingVantageStore } from '../types';
 
-export const createProfileSlice: SwingIQSlice<
-  Pick<SwingIQStore, 'profile' | 'sportProfiles' | 'setProfile' | 'setSportProfile'>
+export const createProfileSlice: SwingVantageSlice<
+  Pick<SwingVantageStore, 'profile' | 'sportProfiles' | 'setProfile' | 'setSportProfile'>
 > = (set, get) => ({
   profile: null,
   sportProfiles: {},

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Store-sessions adapter
+// SwingVantage — AGI: Store-sessions adapter
 // ------------------------------------------------------------
 // Normalises the app's launch-monitor sessions (`LocalSession`) and saved
 // video analyses (`LocalVideoAnalysis`) into SignalBundle session refs.

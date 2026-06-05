@@ -1,5 +1,5 @@
 /**
- * SwingIQ Agent Enhancer API Route
+ * SwingVantage Agent Enhancer API Route
  *
  * POST /api/agents/enhance
  *
@@ -22,7 +22,7 @@ import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 const MAX_TEXT = 2000;
 
 const SYSTEM_PROMPT =
-  `You are a copy editor for SwingIQ, a sports-improvement app. Rewrite the provided ` +
+  `You are a copy editor for SwingVantage, a sports-improvement app. Rewrite the provided ` +
   `summary so it is warm, encouraging, and clear in plain language for a recreational athlete.\n` +
   `RULES YOU MUST FOLLOW:\n` +
   `1. Do NOT introduce any new facts, numbers, drills, diagnoses, or claims. Only rephrase what is given.\n` +

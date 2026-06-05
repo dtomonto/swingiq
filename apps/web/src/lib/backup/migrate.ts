@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Backup Migration Layer
+// SwingVantage — Backup Migration Layer
 //
 // Upgrades older backup files to the current schema before
 // they are imported. Add a new migration function whenever
@@ -17,11 +17,11 @@
 //   - Log a descriptive warning[] entry for each upgrade step.
 // ============================================================
 
-import type { SwingIQBackup } from './schema';
+import type { SwingVantageBackup } from './schema';
 import { DEFAULT_TUTORIAL_PROGRESS } from '@/lib/tutorial/types';
 
 export interface MigrationResult {
-  backup: SwingIQBackup;
+  backup: SwingVantageBackup;
   warnings: string[];
   migratedFrom: string;
   migratedTo: string;
@@ -40,7 +40,7 @@ export type SupportedVersion = (typeof SUPPORTED_VERSIONS)[number];
  * Added: preferredLanguage at root + data level, community.lastExportAt,
  * community.exportCount, community.activityFeed, community.privacy.
  */
-function migrateV100toV110(backup: SwingIQBackup): SwingIQBackup {
+function migrateV100toV110(backup: SwingVantageBackup): SwingVantageBackup {
   return {
     ...backup,
     backupVersion: '1.1.0',
@@ -74,7 +74,7 @@ function migrateV100toV110(backup: SwingIQBackup): SwingIQBackup {
  * metadata.recordCounts.challengesCompleted, metadata.recordCounts.xpTotal,
  * metadata.recordCounts.tutorialsCompleted.
  */
-function migrateV110toV120(backup: SwingIQBackup): SwingIQBackup {
+function migrateV110toV120(backup: SwingVantageBackup): SwingVantageBackup {
   const community = backup.data.community;
 
   return {
@@ -105,7 +105,7 @@ interface MigrationStep {
   from: string;
   to: string;
   label: string;
-  fn: (backup: SwingIQBackup) => SwingIQBackup;
+  fn: (backup: SwingVantageBackup) => SwingVantageBackup;
 }
 
 const MIGRATION_CHAIN: MigrationStep[] = [
@@ -132,7 +132,7 @@ const MIGRATION_CHAIN: MigrationStep[] = [
  * @returns MigrationResult with the upgraded backup and audit log.
  *          If migration is not possible, returns the original with a warning.
  */
-export function migrateBackup(backup: SwingIQBackup): MigrationResult {
+export function migrateBackup(backup: SwingVantageBackup): MigrationResult {
   const originalVersion = backup.backupVersion ?? 'unknown';
   const warnings: string[] = [];
   const stepsApplied: string[] = [];
@@ -160,7 +160,7 @@ export function migrateBackup(backup: SwingIQBackup): MigrationResult {
 
   if (stepsApplied.length > 0) {
     warnings.push(
-      `This backup was created with an older version of SwingIQ (v${originalVersion}). ` +
+      `This backup was created with an older version of SwingVantage (v${originalVersion}). ` +
         `It was automatically upgraded to v${current.backupVersion} before importing. ` +
         `Review the restored data to make sure everything looks correct.`,
     );
@@ -183,6 +183,6 @@ export function migrateBackup(backup: SwingIQBackup): MigrationResult {
 /**
  * Returns true if the backup requires migration before it can be used.
  */
-export function needsMigration(backup: SwingIQBackup): boolean {
+export function needsMigration(backup: SwingVantageBackup): boolean {
   return backup.backupVersion !== '1.2.0';
 }

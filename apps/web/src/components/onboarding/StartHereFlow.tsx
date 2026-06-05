@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Start Here Flow
+// SwingVantage — Start Here Flow
 // ------------------------------------------------------------
 // Guided, account-free, mobile-first onboarding. Gets a first-time
 // user one useful, HONESTLY-LABELLED result in under three minutes:
@@ -44,7 +44,7 @@ import { ConfidenceBadge } from '@/components/agents/ConfidenceBadge';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { useSport } from '@/contexts/SportContext';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import {
   USER_TYPES,
@@ -79,8 +79,8 @@ function formatDate(iso: string): string {
 
 export function StartHereFlow() {
   const { setActiveSport, setSelectedSports } = useSport();
-  const updateSettings = useSwingIQStore((s) => s.updateSettings);
-  const onboardingComplete = useSwingIQStore((s) => s.settings.onboarding_complete);
+  const updateSettings = useSwingVantageStore((s) => s.updateSettings);
+  const onboardingComplete = useSwingVantageStore((s) => s.settings.onboarding_complete);
 
   const [step, setStep] = useState<Step>('sport');
   // Multi-sport: the athlete can pick every sport they play. `primarySport`
@@ -257,13 +257,13 @@ export function StartHereFlow() {
             <span className="text-sm font-semibold uppercase tracking-wide">Start Here</span>
           </div>
           {/* Returning-user bypass — always available so anyone who has
-              used SwingIQ before can skip straight to their dashboard. */}
+              used SwingVantage before can skip straight to their dashboard. */}
           <Link
             href="/dashboard"
             onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta: 'start_here_skip_setup' })}
             className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-primary"
           >
-            Used SwingIQ before? Skip setup
+            Used SwingVantage before? Skip setup
             <ArrowRight size={13} aria-hidden="true" />
           </Link>
         </div>
@@ -420,7 +420,7 @@ export function StartHereFlow() {
           </div>
           {userType === 'parent' && (
             <p className="mt-3 rounded-lg bg-accent-secondary/10 p-3 text-xs text-foreground">
-              SwingIQ is built for parent-guided youth practice. We&apos;ll keep tips encouraging and safety-first.
+              SwingVantage is built for parent-guided youth practice. We&apos;ll keep tips encouraging and safety-first.
             </p>
           )}
           {error && <p role="alert" className="mt-3 text-sm font-medium text-error">{error}</p>}
@@ -500,7 +500,7 @@ export function StartHereFlow() {
             <p className="flex items-start gap-2">
               <Info size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
               <span>
-                SwingIQ labels every result with what it&apos;s based on and a confidence level. Visual or
+                SwingVantage labels every result with what it&apos;s based on and a confidence level. Visual or
                 mechanical conclusions are shown as estimates unless they come from measured data or sensor input.
               </span>
             </p>

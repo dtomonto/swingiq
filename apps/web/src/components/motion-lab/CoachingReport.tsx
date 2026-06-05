@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Coaching Report
+// SwingVantage — Motion Lab: Coaching Report
 // ============================================================
 
 import { useState } from 'react';

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Tutorial Video Player (modal)
+// SwingVantage — Tutorial Video Player (modal)
 // ------------------------------------------------------------
 // Plays one tutorial video at a time, with prev/next so a track
 // or filtered list feels like a playlist. When a video has no

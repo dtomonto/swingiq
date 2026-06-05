@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 /**
  * Tracks browser online/offline status. SSR-safe (assumes online until
- * the client hydrates). SwingIQ keeps working offline because all data
+ * the client hydrates). SwingVantage keeps working offline because all data
  * persists locally — this just lets the UI reassure the user.
  */
 export function useOnlineStatus(): boolean {

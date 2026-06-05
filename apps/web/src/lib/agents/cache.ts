@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Layer: Cache / Memoization
+// SwingVantage — Agent Layer: Cache / Memoization
 // ------------------------------------------------------------
 // Stores short, structured agent snapshots keyed by an input
 // hash so stable guidance is not recomputed every render and

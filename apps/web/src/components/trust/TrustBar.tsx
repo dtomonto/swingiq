@@ -15,7 +15,7 @@ export function TrustBar({ className = '' }: { className?: string }) {
   return (
     <ul
       className={`flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm ${className}`}
-      aria-label="SwingIQ trust signals"
+      aria-label="SwingVantage trust signals"
     >
       {ITEMS.map(({ icon: Icon, label }) => (
         <li key={label} className="flex items-center gap-2">

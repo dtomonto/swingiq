@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Biomechanics Engine
+// SwingVantage — Motion Lab: Biomechanics Engine
 // ------------------------------------------------------------
 // Turns a real MediaPipe pose track into (a) per-frame signal series
 // used by the timeline, 3D viewer, and scoring, and (b) a set of

@@ -1,6 +1,6 @@
-# How to Publish a SwingIQ Product Update
+# How to Publish a SwingVantage Product Update
 
-This guide explains how to add a new entry to the SwingIQ Updates page at `/updates`.
+This guide explains how to add a new entry to the SwingVantage Updates page at `/updates`.
 
 **No terminal or code editor required.** You can add updates directly from GitHub's website.
 
@@ -8,7 +8,7 @@ This guide explains how to add a new entry to the SwingIQ Updates page at `/upda
 
 ## How to add an update from GitHub (step by step)
 
-1. Go to your SwingIQ repository on GitHub.com
+1. Go to your SwingVantage repository on GitHub.com
 2. Navigate to: `apps/web/src/data/auto-updates.json`
 3. Click the **pencil icon** (Edit this file) in the top-right corner of the file
 4. The file contains a list of update entries inside `[ ]` square brackets
@@ -73,13 +73,13 @@ This guide explains how to add a new entry to the SwingIQ Updates page at `/upda
 Only publish an update if the answer to at least one of these questions is **Yes**:
 
 1. Would a normal user care about this?
-2. Does this help someone understand SwingIQ better?
+2. Does this help someone understand SwingVantage better?
 3. Does this make the product easier to use?
 4. Does this make training more useful, personalized, or actionable?
-5. Does this help a parent, coach, or athlete understand the value of SwingIQ?
+5. Does this help a parent, coach, or athlete understand the value of SwingVantage?
 6. Does this support search visibility?
-7. Does this help AI tools explain SwingIQ more accurately?
-8. Does this strengthen SwingIQ's public reputation?
+7. Does this help AI tools explain SwingVantage more accurately?
+8. Does this strengthen SwingVantage's public reputation?
 9. Does this create user trust without exposing technical details?
 10. Does this help users find a feature they might have missed?
 
@@ -131,8 +131,8 @@ Write as if you are explaining the change to a friend who plays golf, tennis, or
 | Refactored sport context provider | Switching sports now updates the full dashboard experience |
 | Implemented OCR pipeline with normalized extraction schema | You can upload a photo of a data table and get coaching insights from it |
 | Patched dependency vulnerability | We improved account protection behind the scenes |
-| Added API route for update records | You can now follow SwingIQ's progress on the Updates page |
-| Normalized launch monitor data extraction | SwingIQ now reads more types of performance files more accurately |
+| Added API route for update records | You can now follow SwingVantage's progress on the Updates page |
+| Normalized launch monitor data extraction | SwingVantage now reads more types of performance files more accurately |
 
 ### Avoid these words and phrases entirely:
 - API, database, schema, refactor, dependency, package
@@ -231,7 +231,7 @@ The `isFeatured` flag should be on the update you most want new visitors to see 
 
 ## How to mark a major milestone
 
-Set `isMajorMilestone: true` for platform-defining changes. These appear in the "How SwingIQ Has Improved Over Time" milestone timeline at the top of the Updates page. Only use this for changes that genuinely define a new phase of the product.
+Set `isMajorMilestone: true` for platform-defining changes. These appear in the "How SwingVantage Has Improved Over Time" milestone timeline at the top of the Updates page. Only use this for changes that genuinely define a new phase of the product.
 
 ---
 
@@ -241,9 +241,9 @@ These optional fields help search engines and AI tools understand the update:
 
 - **`seoKeywords`** — Search phrases this update should help with. Keep them natural. 3–6 per update is enough. No keyword stuffing.
 
-- **`answerEngineSummary`** — A single clear sentence written for AI answer tools (Google AI Overviews, Perplexity, ChatGPT). This is what an AI tool should say if asked "what is this SwingIQ feature?"
+- **`answerEngineSummary`** — A single clear sentence written for AI answer tools (Google AI Overviews, Perplexity, ChatGPT). This is what an AI tool should say if asked "what is this SwingVantage feature?"
 
-- **`generativeSearchSummary`** — A slightly longer version for generative search systems that need more context about SwingIQ's entity and positioning.
+- **`generativeSearchSummary`** — A slightly longer version for generative search systems that need more context about SwingVantage's entity and positioning.
 
 Not all updates need all three fields. Add them when the update supports meaningful search visibility.
 
@@ -273,7 +273,7 @@ If in doubt, leave out the security detail entirely and just write "We made impr
 
 Before publishing any update, ask yourself:
 - Is this feature actually available to users right now?
-- Can I open SwingIQ, navigate to the feature, and use it?
+- Can I open SwingVantage, navigate to the feature, and use it?
 
 If the answer is no:
 - Use `status: 'planned'` or `status: 'coming_soon'` with `visibility: 'private'`
@@ -319,7 +319,7 @@ If the answer is no:
 >
 > **Summary:** You can now add details about your clubs, racket, or bat and receive more personalized feedback based on your equipment.
 >
-> **User Benefit:** Your equipment can affect comfort, consistency, power, and control. SwingIQ can now connect your gear to your training profile.
+> **User Benefit:** Your equipment can affect comfort, consistency, power, and control. SwingVantage can now connect your gear to your training profile.
 >
 > **Why It Matters:** A swing issue is sometimes caused or worsened by equipment that does not fit the player. Understanding the equipment context helps identify what to change first.
 >
@@ -340,7 +340,7 @@ If the answer is no:
 >
 > **Summary:** We made improvements behind the scenes to keep your account better protected.
 >
-> **User Benefit:** Your SwingIQ account is more secure.
+> **User Benefit:** Your SwingVantage account is more secure.
 >
 > **Why It Matters:** Keeping your training history and account information protected is important. We take security seriously.
 
@@ -355,6 +355,6 @@ If the answer is no:
 
 If it produces a visible user improvement (faster load times, new browser features), describe that improvement only:
 
-> **Title:** SwingIQ Loads Faster on Mobile
+> **Title:** SwingVantage Loads Faster on Mobile
 >
 > (Only if that is actually true and measurable.)

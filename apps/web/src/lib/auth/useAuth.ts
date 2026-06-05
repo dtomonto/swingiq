@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Unified auth hook
+// SwingVantage — Unified auth hook
 //
 // One API for the whole app, two backends:
 //   • cloud  — real Supabase auth (when keys are configured)

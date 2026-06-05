@@ -8,20 +8,20 @@ _Consolidated: 2026-06-01 · Branch: `chore/seo-audit/2026-06` · Status: **loca
 > into this single executive document. Each source audit writes its own dated report under `docs/audits/…`;
 > the compiler reads those and overwrites this file. It commits **locally only — never pushes** (the owner reviews + pushes).
 
-> **📘 In Plain English (start here).** This single page merges every audit SwingIQ has
+> **📘 In Plain English (start here).** This single page merges every audit SwingVantage has
 > run — the monthly SEO/AEO/GEO scan, the staged-navigation review, the automated security
 > checks, and the weekly growth report — into one prioritized to-do list. It does **not**
 > invent new problems: every item points back to the file it came from. If you only read one
 > section, read **§4 Top 10 Actionable Insights** and the companion
 > [audit-action-dashboard.md](audit-action-dashboard.md). The two highest-value, lowest-effort
-> wins are: (1) add a share image + app icon (right now every shared SwingIQ link is a blank
+> wins are: (1) add a share image + app icon (right now every shared SwingVantage link is a blank
 > box), and (2) connect analytics so you can actually measure whether anything is working.
 
 ---
 
 ## 1. Executive Summary
 
-SwingIQ's audit trail tells a consistent and encouraging story: **the technical SEO/security
+SwingVantage's audit trail tells a consistent and encouraging story: **the technical SEO/security
 foundations are healthy**, and the remaining work is mostly *activation* (turning on switches,
 connecting providers, verifying claims) rather than *repair*.
 
@@ -48,7 +48,7 @@ connecting providers, verifying claims) rather than *repair*.
 - Connect an analytics provider + Google Search Console → unblocks the entire measurement loop.
 - Flip the four GitHub security switches → ~30 minutes, materially hardens the repo.
 
-**The honest framing:** SwingIQ is in good shape *as code*. The gap between "audited clean" and
+**The honest framing:** SwingVantage is in good shape *as code*. The gap between "audited clean" and
 "safely live for paying/youth users" is a checklist of activation and governance items, captured
 below with sources.
 
@@ -95,7 +95,7 @@ High / Med / Low (Low = *needs verification*).
 | F-01 | SEO / Brand / PWA | `og-default.png`, `icon-192.png`, `icon-512.png` referenced but **absent** from `apps/web/public/` (verified: only `robots.txt` + `llms.txt` exist) | Blank link previews on every share; no favicon; PWA not installable; Org logo in JSON-LD 404s | Metadata, JSON-LD `logo`, and manifest reference non-existent assets | Add real artwork **or** implement `app/opengraph-image.tsx` + `app/icon.tsx` (brand green `#1a3a2a`, "SQ" wordmark) | P1 | S–M | High | S1 |
 | F-02 | SEO / Theme / Debt | ~16 public marketing pages mid-edit (theme tokenization) were skipped by the SEO audit | Delays consistent branding + re-audit coverage | Uncommitted working tree blocks safe automated edits | Commit theme-tokenization work, then re-audit + tokenize those pages | P2 | M | High | S1, git status |
 | F-03 | SEO / Maintainability | Sport-analysis & other pages hand-roll `metadata` + JSON-LD instead of `buildMetadata()` / `jsonLd.ts` builders | Inconsistent canonicals/Twitter cards; weaker Org linkage; drift risk | Duplicated SEO logic; some pages lack explicit canonical | Migrate hand-rolled pages onto the shared helpers | P2 | M | High | S1, R5 |
-| F-04 | AEO / Accuracy / Trust | `llms.txt` claims SwingIQ "does not provide … computer vision pixel-level analysis" — may now conflict with the live AI-vision analyzer | Inaccurate claim erodes trust + AI-engine accuracy | Capability statement out of sync with shipped feature | Verify against current video analyzer; correct the claim either way | P1 | S | Med | S1, project memory |
+| F-04 | AEO / Accuracy / Trust | `llms.txt` claims SwingVantage "does not provide … computer vision pixel-level analysis" — may now conflict with the live AI-vision analyzer | Inaccurate claim erodes trust + AI-engine accuracy | Capability statement out of sync with shipped feature | Verify against current video analyzer; correct the claim either way | P1 | S | Med | S1, project memory |
 | F-05 | Accessibility | No skip-to-content link; focus rings only Tailwind default; no breadcrumb component | Harder for keyboard/screen-reader users; WCAG gap | AppShell lacks skip target; no `<Breadcrumbs>` | Add skip-link to AppShell, standardize visible focus, build breadcrumb component | P1 | S–M | High | S2 |
 | F-06 | UX / Navigation | `/sessions/import/image` and `/sessions/log` lack back links (dead-end risk) | Users can get stuck mid-workflow | Missing return navigation on deep pages | Add "back to import"/return links | P2 | S | High | S2 |
 | F-07 | SEO / Content | Content-hub coverage conflicts across audits: staged audit says `/features`, `/resources`, `/glossary` "not created"; strategy doc lists glossary/blog/features/benchmarks as built | Missed long-tail/AEO coverage if gaps remain | Routing/content state unclear | **Verify** which hub pages exist now; fill remaining gaps; run monthly content calendar | P2 | M | Low | S2, R4 |
@@ -130,7 +130,7 @@ High / Med / Low (Low = *needs verification*).
 ### 1. Ship the missing share image + app icons (F-01)
 - **What's wrong:** `og-default.png`, `icon-192.png`, `icon-512.png` are referenced everywhere but
   don't exist. Verified: `apps/web/public/` contains only `robots.txt` and `llms.txt`.
-- **Why it matters:** Every shared SwingIQ link is a blank box (kills click-through), there's no
+- **Why it matters:** Every shared SwingVantage link is a blank box (kills click-through), there's no
   favicon, the PWA can't be installed, and the Organization logo in structured data 404s.
 - **What to do:** Either drop real artwork, or — faster — implement `app/opengraph-image.tsx` +
   `app/icon.tsx` to generate branded images in code (brand green `#1a3a2a`, "SQ" wordmark).
@@ -193,7 +193,7 @@ High / Med / Low (Low = *needs verification*).
 - **Success metric:** Every public page emits a canonical + consistent OG/Twitter + Org link.
 
 ### 9. Verify and fix the llms.txt computer-vision claim (F-04)
-- **What's wrong:** `llms.txt` says SwingIQ doesn't do computer-vision analysis; the live analyzer
+- **What's wrong:** `llms.txt` says SwingVantage doesn't do computer-vision analysis; the live analyzer
   may now contradict that.
 - **Why it matters:** An inaccurate self-description erodes trust and misleads AI answer engines.
 - **What to do:** Compare the claim to the current video analyzer; correct `llms.txt` (and trust/
@@ -368,7 +368,7 @@ High / Med / Low (Low = *needs verification*).
     iMessage/Slack/Facebook.
   - *Files:* `apps/web/src/app/opengraph-image.tsx`, `apps/web/src/app/icon.tsx`, `apps/web/public/`,
     `apps/web/src/config/site.ts`.
-- **Story A2:** As a mobile user, I can install SwingIQ to my home screen with a real icon.
+- **Story A2:** As a mobile user, I can install SwingVantage to my home screen with a real icon.
   - *AC:* manifest icons resolve; Lighthouse "installable" passes.
   - *Files:* `apps/web/public/manifest*`, icon files.
 
@@ -426,7 +426,7 @@ High / Med / Low (Low = *needs verification*).
 
 ## 14. Final Strategic Recommendation
 
-**SwingIQ's code is audited-clean; the work that remains is activation and governance, not repair.**
+**SwingVantage's code is audited-clean; the work that remains is activation and governance, not repair.**
 The fastest path to a trustworthy, scalable, discoverable launch is to sequence the cheap-but-blocking
 items first, then the compliance gates, then the growth engine:
 

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — useVideoHistory hook
+// SwingVantage — useVideoHistory hook
 // A reactive, SSR-safe view of the locally-saved AI video analyses
 // for one sport. Backed by `useSyncExternalStore`, so it loads
 // client-only localStorage after hydration (no setState-in-effect),

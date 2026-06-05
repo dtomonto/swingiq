@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: linalg (SVD) correctness
+// SwingVantage — pose3d: linalg (SVD) correctness
 // ============================================================
 
 import { svd3, matMul, transpose, diag3, det3, type Mat } from '../linalg';

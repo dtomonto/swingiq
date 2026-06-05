@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Shot Dispersion Calculator
+// SwingVantage — Shot Dispersion Calculator
 // Computes statistical dispersion metrics from a set of shots.
 // Used to render dispersion charts and assess consistency.
 // ============================================================

@@ -1,4 +1,4 @@
-// SwingIQ — Performance Graph Foundation (barrel)
+// SwingVantage — Performance Graph Foundation (barrel)
 export * from './types';
 export {
   buildPerformanceGraph,

@@ -20,28 +20,28 @@ const SPORT_OPTIONS: Array<{ value: UpdateSport | 'all'; label: string; emoji: s
 
 const FAQS = [
   {
-    q: 'What is SwingIQ?',
-    a: 'SwingIQ is a free, web-based AI swing analysis platform that helps athletes understand and improve their technique. It works for golf, tennis, baseball, slow pitch softball, and fast pitch softball.',
+    q: 'What is SwingVantage?',
+    a: 'SwingVantage is a free, web-based AI swing analysis platform that helps athletes understand and improve their technique. It works for golf, tennis, baseball, slow pitch softball, and fast pitch softball.',
   },
   {
-    q: 'What sports does SwingIQ support?',
-    a: 'SwingIQ currently supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own coaching feedback, drill library, and analysis engine.',
+    q: 'What sports does SwingVantage support?',
+    a: 'SwingVantage currently supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own coaching feedback, drill library, and analysis engine.',
   },
   {
-    q: 'How does SwingIQ help with swing improvement?',
-    a: "SwingIQ analyzes your performance data or swing video and identifies your highest-priority issue. Instead of a list of 20 things to fix, you get one clear starting point with targeted drills and a practice plan.",
+    q: 'How does SwingVantage help with swing improvement?',
+    a: "SwingVantage analyzes your performance data or swing video and identifies your highest-priority issue. Instead of a list of 20 things to fix, you get one clear starting point with targeted drills and a practice plan.",
   },
   {
-    q: 'Does SwingIQ replace private coaching?',
-    a: 'No. SwingIQ is an AI-powered improvement assistant. It helps you identify patterns and prioritize your practice. For complex technique work or injury concerns, work with a qualified coach.',
+    q: 'Does SwingVantage replace private coaching?',
+    a: 'No. SwingVantage is an AI-powered improvement assistant. It helps you identify patterns and prioritize your practice. For complex technique work or injury concerns, work with a qualified coach.',
   },
   {
-    q: 'Can SwingIQ analyze my equipment?',
-    a: 'Yes. You can optionally add details about your clubs, racket, or bat. SwingIQ uses that information to give you more personalized feedback. Adding equipment details is never required.',
+    q: 'Can SwingVantage analyze my equipment?',
+    a: 'Yes. You can optionally add details about your clubs, racket, or bat. SwingVantage uses that information to give you more personalized feedback. Adding equipment details is never required.',
   },
   {
-    q: 'Can SwingIQ help me track progress over time?',
-    a: 'Yes. SwingIQ saves your training history and shows how your key metrics change over sessions. You can also back up your progress and restore it on any device.',
+    q: 'Can SwingVantage help me track progress over time?',
+    a: 'Yes. SwingVantage saves your training history and shows how your key metrics change over sessions. You can also back up your progress and restore it on any device.',
   },
 ];
 
@@ -149,9 +149,9 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
         <section className="py-14 px-4 bg-muted border-b border-border">
           <div className="max-w-4xl mx-auto">
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-foreground">How SwingIQ Has Improved Over Time</h2>
+              <h2 className="text-2xl font-bold text-foreground">How SwingVantage Has Improved Over Time</h2>
               <p className="text-muted-foreground mt-2 text-sm">
-                Key milestones in SwingIQ&apos;s journey — told from a user perspective, not a technical one.
+                Key milestones in SwingVantage&apos;s journey — told from a user perspective, not a technical one.
               </p>
             </div>
             <MilestoneTimeline milestones={milestones} />
@@ -275,7 +275,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-foreground text-center mb-2">Frequently Asked Questions</h2>
           <p className="text-center text-muted-foreground text-sm mb-10">
-            Quick answers about SwingIQ and how it can help you improve.
+            Quick answers about SwingVantage and how it can help you improve.
           </p>
           <div className="space-y-4">
             {FAQS.map((faq) => (
@@ -292,7 +292,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
       <section className="py-8 px-4 bg-warning/10 border-y border-warning/30">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs text-warning">
-            <strong>SwingIQ is your AI-powered improvement edge — confident, data-backed coaching you can use every day.</strong>{' '}
+            <strong>SwingVantage is your AI-powered improvement edge — confident, data-backed coaching you can use every day.</strong>{' '}
             Findings are heuristic estimates that sharpen with every swing you add. For injury concerns or advanced competitive development, loop in a qualified coach, and keep young athletes supervised during practice.
           </p>
         </div>
@@ -301,7 +301,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
       {/* ── Footer ─────────────────────────────────────────────────────── */}
       <footer className="bg-secondary text-muted-foreground py-8 px-4">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-between items-center gap-4 text-xs">
-          <span>&copy; {new Date().getFullYear()} SwingIQ. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} SwingVantage. All rights reserved.</span>
           <nav aria-label="Footer navigation">
             <div className="flex gap-4 flex-wrap">
               <Link href="/privacy" className="hover:text-white">Privacy</Link>

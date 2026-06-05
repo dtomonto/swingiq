@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Diagnostic Engine
+// SwingVantage Diagnostic Engine
 // Converts shot data arrays into prioritized diagnoses
 // ============================================================
 

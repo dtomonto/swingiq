@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Offline-First Session Queue (IndexedDB)
+// SwingVantage — Offline-First Session Queue (IndexedDB)
 // ------------------------------------------------------------
 // Local-first logging foundation: sessions are written to IndexedDB so
 // they survive page reloads and being offline. When a sync backend

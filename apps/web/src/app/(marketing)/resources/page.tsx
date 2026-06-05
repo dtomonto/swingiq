@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Swing Training Resources | SwingIQ',
+  title: 'Swing Training Resources | SwingVantage',
   description:
     'Guides, checklists, and reference materials to help golfers, tennis players, baseball hitters, and softball players improve their swing mechanics and training habits.',
   openGraph: {
-    title: 'Swing Training Resources | SwingIQ',
+    title: 'Swing Training Resources | SwingVantage',
     description:
       'Free guides and references for swing improvement — golf, tennis, baseball, and softball.',
     type: 'website',
@@ -32,15 +32,15 @@ const RESOURCE_SECTIONS = [
       },
       {
         title: 'Loft Gapping Basics',
-        desc: "The average golfer carries overlapping clubs that produce the same distance, creating gaps in the middle of the bag. SwingIQ's gap analysis identifies which clubs are redundant and which distances are uncovered.",
+        desc: "The average golfer carries overlapping clubs that produce the same distance, creating gaps in the middle of the bag. SwingVantage's gap analysis identifies which clubs are redundant and which distances are uncovered.",
       },
       {
         title: 'When to Trust Your Diagnosis',
-        desc: "A single session's data can be misleading. SwingIQ's diagnostic confidence is highest when the same issue appears consistently across multiple sessions. One bad day is noise; three sessions in a row is a pattern.",
+        desc: "A single session's data can be misleading. SwingVantage's diagnostic confidence is highest when the same issue appears consistently across multiple sessions. One bad day is noise; three sessions in a row is a pattern.",
       },
       {
         title: 'Driver vs. Iron Differences',
-        desc: 'Optimal attack angle, launch angle, and spin rate are different for driver and irons. SwingIQ accounts for this when setting benchmarks — a negative attack angle is correct for irons but a fault for driver.',
+        desc: 'Optimal attack angle, launch angle, and spin rate are different for driver and irons. SwingVantage accounts for this when setting benchmarks — a negative attack angle is correct for irons but a fault for driver.',
       },
     ],
   },
@@ -78,7 +78,7 @@ const RESOURCE_SECTIONS = [
       },
       {
         title: 'Hip-Shoulder Separation',
-        desc: 'The gap between hip rotation and shoulder rotation is the primary power source in a baseball swing. SwingIQ identifies athletes who rotate hips and shoulders simultaneously — the most common power leak in youth hitters.',
+        desc: 'The gap between hip rotation and shoulder rotation is the primary power source in a baseball swing. SwingVantage identifies athletes who rotate hips and shoulders simultaneously — the most common power leak in youth hitters.',
       },
       {
         title: 'Reading Tee Work Results',
@@ -101,7 +101,7 @@ const RESOURCE_SECTIONS = [
       },
       {
         title: 'Bat Association Certifications',
-        desc: 'USSSA, USA/ASA, ISA, NSA, and SSUSA (senior) each have different compression and performance standards. Using an illegal bat — even accidentally — can result in ejection. SwingIQ helps you track the certification of each bat in your profile.',
+        desc: 'USSSA, USA/ASA, ISA, NSA, and SSUSA (senior) each have different compression and performance standards. Using an illegal bat — even accidentally — can result in ejection. SwingVantage helps you track the certification of each bat in your profile.',
       },
     ],
   },
@@ -112,7 +112,7 @@ const RESOURCE_SECTIONS = [
     resources: [
       {
         title: 'Compact Swing Mechanics',
-        desc: "Fast pitch timing windows are measured in hundredths of a second. A long swing path that works in slow pitch becomes a liability against 60+ mph pitching. SwingIQ's fast pitch engine flags path length as a primary fault category.",
+        desc: "Fast pitch timing windows are measured in hundredths of a second. A long swing path that works in slow pitch becomes a liability against 60+ mph pitching. SwingVantage's fast pitch engine flags path length as a primary fault category.",
       },
       {
         title: 'Drop and Rise Ball Adjustments',
@@ -126,7 +126,7 @@ const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'SwingIQ', item: 'https://swingiq.app' },
+    { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: 'https://swingiq.app' },
     { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://swingiq.app/resources' },
   ],
 };
@@ -143,7 +143,7 @@ export default function ResourcesPage() {
             <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
               <span className="text-white font-black text-sm">SQ</span>
             </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingIQ</Link>
+            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Swing Training Resources</h1>
           <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
@@ -176,7 +176,7 @@ export default function ResourcesPage() {
 
         {/* CTA */}
         <div className="bg-primary/10 border border-primary/30 rounded-xl p-6 text-center">
-          <h3 className="text-lg font-bold text-foreground mb-2">Apply this in SwingIQ</h3>
+          <h3 className="text-lg font-bold text-foreground mb-2">Apply this in SwingVantage</h3>
           <p className="text-muted-foreground text-sm mb-4">Import your data and get a diagnosis based on your actual swing — not just general advice.</p>
           <Link
             href="/start"
@@ -188,7 +188,7 @@ export default function ResourcesPage() {
 
         {/* Nav */}
         <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
-          <Link href="/" className="text-primary hover:underline">← SwingIQ Home</Link>
+          <Link href="/" className="text-primary hover:underline">← SwingVantage Home</Link>
           <Link href="/glossary" className="text-primary hover:underline">Glossary</Link>
           <Link href="/faq" className="text-primary hover:underline">FAQ</Link>
           <Link href="/how-it-works" className="text-primary hover:underline">How It Works</Link>

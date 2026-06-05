@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { AICoachChat } from './AICoachChat';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { runDiagnosticEngine, buildSessionInsight } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
 import type { CoachContext } from '@/lib/ai-coach-prompts';
@@ -10,7 +10,7 @@ import { useSport } from '@/contexts/SportContext';
 import { getTone } from '@/lib/coaching/tones';
 
 export default function AICoachPage() {
-  const { profile, sessions, sportProfiles, video_analyses, settings } = useSwingIQStore();
+  const { profile, sessions, sportProfiles, video_analyses, settings } = useSwingVantageStore();
   const { activeSport, isGolf, sportName } = useSport();
   // Pick the most recent golf session with shots for context
   const latestWithShots = useMemo(() => {

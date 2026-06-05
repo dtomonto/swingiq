@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Stripe checkout (server-only, SDK-free)
+// SwingVantage — Stripe checkout (server-only, SDK-free)
 //
 // Talks to Stripe's REST API directly with fetch — no `stripe`
 // npm dependency. Every function returns a "not configured" result

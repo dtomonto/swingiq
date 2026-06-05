@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Client-side Swing Frame Extraction
+// SwingVantage — Client-side Swing Frame Extraction
 //
 // Samples still frames from an uploaded swing video entirely in the
 // browser (no network round-trip to extract). Rather than sampling the

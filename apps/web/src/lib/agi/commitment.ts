@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Plan commitment (the agentic "act, not just report" layer)
+// SwingVantage — AGI: Plan commitment (the agentic "act, not just report" layer)
 // ------------------------------------------------------------
 // The engine PROPOSES a plan; the athlete APPROVES it; the commitment PERSISTS
 // (own localStorage key) and later TRIGGERS a retest prompt — closing the loop

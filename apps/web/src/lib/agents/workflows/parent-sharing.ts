@@ -1,10 +1,10 @@
 // ============================================================
-// SwingIQ — Workflow: Parent Sharing
+// SwingVantage — Workflow: Parent Sharing
 // ------------------------------------------------------------
 // The parent-facing companion to Coach Sharing. Same underlying
 // data, reframed for a parent guiding a young athlete: simple
 // language, one focus, a couple of "homework" drills, an
-// encouragement cue, and a safety-first note. Positions SwingIQ
+// encouragement cue, and a safety-first note. Positions SwingVantage
 // as support — not a replacement for a qualified coach.
 // ============================================================
 

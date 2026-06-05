@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { GROUPS, getGroupsBySport, getPublicGroups } from '@/lib/community/groups';
 import { Users, Lock, Globe, Shield } from 'lucide-react';
@@ -11,8 +11,8 @@ import { cn } from '@/lib/utils';
 
 export default function GroupsPage() {
   const { t } = useLanguage();
-  const { community } = useSwingIQStore();
-  const store = useSwingIQStore();
+  const { community } = useSwingVantageStore();
+  const store = useSwingVantageStore();
   const [sportFilter, setSportFilter] = useState<'all' | string>('all');
   const [tab, setTab] = useState<'my' | 'browse'>('browse');
 

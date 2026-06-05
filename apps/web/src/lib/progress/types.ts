@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Progress Intelligence: Shared Types
+// SwingVantage — Progress Intelligence: Shared Types
 // ------------------------------------------------------------
 // Three honest, longitudinal summaries built ON TOP of existing
 // systems (agent progress memory + retest engine + drill feedback):

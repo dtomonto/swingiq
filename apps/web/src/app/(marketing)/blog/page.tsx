@@ -39,7 +39,7 @@ export default function BlogIndexPage() {
       {/* Hero */}
       <section className="bg-primary text-primary-foreground py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">SwingIQ Blog</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">SwingVantage Blog</h1>
           <p className="text-primary-foreground/90 text-xl max-w-2xl mx-auto mb-8">
             Swing tips, analysis guides, and training advice for golf, tennis, baseball, and softball.
           </p>

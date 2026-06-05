@@ -3,7 +3,7 @@
 import { Card, CardBody } from '@/components/ui/Card';
 import Link from 'next/link';
 import { useSport } from '@/contexts/SportContext';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { ChevronRight, Info } from 'lucide-react';
 
 const SPORT_EQUIPMENT_ROUTES = [
@@ -16,7 +16,7 @@ const SPORT_EQUIPMENT_ROUTES = [
 
 export default function EquipmentHubPage() {
   const { activeSport } = useSport();
-  const { clubs, sportEquipment } = useSwingIQStore();
+  const { clubs, sportEquipment } = useSwingVantageStore();
 
   const counts: Record<string, number> = {
     golf: clubs.length,
@@ -32,7 +32,7 @@ export default function EquipmentHubPage() {
         <div>
           <h1 className="text-2xl font-bold text-foreground">Equipment Center</h1>
           <p className="text-muted-foreground text-sm mt-1">
-            Log your equipment to add context to your swing diagnoses. This is optional — SwingIQ works without it.
+            Log your equipment to add context to your swing diagnoses. This is optional — SwingVantage works without it.
           </p>
         </div>
 

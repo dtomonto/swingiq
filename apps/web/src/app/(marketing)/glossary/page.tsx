@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Swing & Sports Performance Glossary | SwingIQ',
+  title: 'Swing & Sports Performance Glossary | SwingVantage',
   description:
-    'Plain-English definitions for every term SwingIQ uses — launch monitor metrics, batting statistics, tennis stroke terms, softball batting terms, and AI analysis concepts.',
+    'Plain-English definitions for every term SwingVantage uses — launch monitor metrics, batting statistics, tennis stroke terms, softball batting terms, and AI analysis concepts.',
   openGraph: {
-    title: 'SwingIQ Glossary — Swing & Sports Performance Terms Explained',
+    title: 'SwingVantage Glossary — Swing & Sports Performance Terms Explained',
     description:
-      'Definitions for ball speed, exit velocity, launch angle, spin rate, bat speed, club path, face angle, attack angle, and 40+ more terms used in SwingIQ.',
+      'Definitions for ball speed, exit velocity, launch angle, spin rate, bat speed, club path, face angle, attack angle, and 40+ more terms used in SwingVantage.',
     type: 'website',
     url: 'https://swingiq.app/glossary',
   },
@@ -32,7 +32,7 @@ const SECTIONS = [
       { term: 'Attack Angle', def: 'The vertical angle at which the clubhead approaches the ball at impact. Negative = hitting down. Positive = hitting up. For irons you want a slightly negative attack angle (-2° to -5°). For driver, a slightly positive attack angle (+1° to +3°) reduces spin and increases distance.' },
       { term: 'Dynamic Loft', def: 'The actual loft of the face at impact — affected by shaft lean, attack angle, and adjustable hosel position. Dynamic loft determines how high the ball launches. Shaft lean forward (hands ahead of ball) reduces dynamic loft; shaft lean back increases it.' },
       { term: 'Carry Distance', def: 'How far the ball travels through the air before landing. Distinguished from total distance, which includes roll. Carry distance is the primary measurement for club selection on approaches over hazards.' },
-      { term: 'Dispersion', def: 'How spread out your shots are, measured as a pattern. SwingIQ plots dispersion as a scatter chart. Tight dispersion means consistent contact; wide dispersion suggests inconsistency in face angle, strike location, or club path.' },
+      { term: 'Dispersion', def: 'How spread out your shots are, measured as a pattern. SwingVantage plots dispersion as a scatter chart. Tight dispersion means consistent contact; wide dispersion suggests inconsistency in face angle, strike location, or club path.' },
     ],
   },
   {
@@ -76,11 +76,11 @@ const SECTIONS = [
     heading: 'AI Analysis Concepts',
     sport: 'ai',
     terms: [
-      { term: 'Diagnostic Confidence', def: 'How certain SwingIQ is about a given finding, based on how much data was available and how consistently the pattern appears. High confidence means the issue appears clearly and repeatedly. Low confidence means the finding is possible but would need more data to confirm.' },
+      { term: 'Diagnostic Confidence', def: 'How certain SwingVantage is about a given finding, based on how much data was available and how consistently the pattern appears. High confidence means the issue appears clearly and repeatedly. Low confidence means the finding is possible but would need more data to confirm.' },
       { term: 'Heuristic Analysis', def: 'Smart, rules-and-pattern-based analysis that reads observable cues to surface what is most likely happening in your swing — a confident, data-backed estimate that sharpens as you add more data. Import launch-monitor or tracking data to push it to its most precise.' },
       { term: 'Primary vs. Secondary Fault', def: "The primary fault is the swing issue with the highest severity and impact on performance. The secondary fault is the most likely co-existing issue. Fixing the primary fault often improves the secondary fault automatically — they're frequently connected." },
-      { term: 'Severity', def: 'How significant a swing fault is expected to be for performance. Severity ratings in SwingIQ are labeled: Critical, High, Moderate, and Low. Critical and High faults are prioritized in training recommendations.' },
-      { term: 'Benchmark', def: 'A reference value that defines acceptable or optimal performance for a given metric. SwingIQ compares your data against sport-specific, skill-level-adjusted benchmarks. Benchmarks are derived from publicly available research and coaching literature, not proprietary databases.' },
+      { term: 'Severity', def: 'How significant a swing fault is expected to be for performance. Severity ratings in SwingVantage are labeled: Critical, High, Moderate, and Low. Critical and High faults are prioritized in training recommendations.' },
+      { term: 'Benchmark', def: 'A reference value that defines acceptable or optimal performance for a given metric. SwingVantage compares your data against sport-specific, skill-level-adjusted benchmarks. Benchmarks are derived from publicly available research and coaching literature, not proprietary databases.' },
     ],
   },
 ];
@@ -91,13 +91,13 @@ const structuredData = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'SwingIQ', item: 'https://swingiq.app' },
+        { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: 'https://swingiq.app' },
         { '@type': 'ListItem', position: 2, name: 'Glossary', item: 'https://swingiq.app/glossary' },
       ],
     },
     {
       '@type': 'DefinedTermSet',
-      name: 'SwingIQ Swing & Sports Performance Glossary',
+      name: 'SwingVantage Swing & Sports Performance Glossary',
       description: 'Plain-English definitions for launch monitor metrics, batting statistics, tennis terms, softball terms, and AI analysis concepts.',
       hasDefinedTerm: SECTIONS.flatMap((s) =>
         s.terms.map((t) => ({ '@type': 'DefinedTerm', name: t.term, description: t.def })),
@@ -118,11 +118,11 @@ export default function GlossaryPage() {
             <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
               <span className="text-white font-black text-sm">SQ</span>
             </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingIQ</Link>
+            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Swing & Performance Glossary</h1>
           <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
-            Plain-English definitions for every term SwingIQ uses — launch monitor metrics, batting stats, stroke terminology, and AI concepts.
+            Plain-English definitions for every term SwingVantage uses — launch monitor metrics, batting stats, stroke terminology, and AI concepts.
           </p>
         </div>
       </div>
@@ -158,7 +158,7 @@ export default function GlossaryPage() {
 
         {/* Nav */}
         <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
-          <Link href="/" className="text-primary hover:underline">← SwingIQ Home</Link>
+          <Link href="/" className="text-primary hover:underline">← SwingVantage Home</Link>
           <Link href="/resources" className="text-primary hover:underline">Resources</Link>
           <Link href="/faq" className="text-primary hover:underline">FAQ</Link>
           <Link href="/golf-swing-analysis" className="text-primary hover:underline">Golf Analysis</Link>

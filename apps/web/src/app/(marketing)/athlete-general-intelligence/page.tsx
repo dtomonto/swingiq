@@ -143,7 +143,7 @@ export default function AthleteGeneralIntelligencePage() {
 
         <Section id="honesty" title="How it stays honest">
           <p>
-            Like the rest of SwingIQ, it shows its work. Every conclusion carries an inspectable chain of
+            Like the rest of SwingVantage, it shows its work. Every conclusion carries an inspectable chain of
             reasoning, every capability shows its basis (measured vs estimate) and confidence, and the whole
             picture gets a single <strong>A–D trust grade</strong> that always explains what would raise it.
             Single-camera analysis is an <strong>estimate</strong>, never a lab measurement, and nothing here
@@ -154,7 +154,7 @@ export default function AthleteGeneralIntelligencePage() {
             <Link href="/methodology" className="text-primary hover:underline">
               methodology
             </Link>{' '}
-            for exactly what SwingIQ measures, estimates, and does not.
+            for exactly what SwingVantage measures, estimates, and does not.
           </p>
         </Section>
 

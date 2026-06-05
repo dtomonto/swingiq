@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Video Trimmer
+// SwingVantage — Motion Lab: Video Trimmer
 // ------------------------------------------------------------
 // Lets the user mark the start/end of the actual rep. We don't
 // re-encode the file (no heavy ffmpeg dependency) — instead the trim

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Video Analysis — Unit Tests
+// SwingVantage Video Analysis — Unit Tests
 // Run with: cd packages/core && npx jest
 // ============================================================
 

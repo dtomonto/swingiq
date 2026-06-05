@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Non-Golf Sport Dashboard
+// SwingVantage — Non-Golf Sport Dashboard
 // Renders sport-specific dashboard for tennis, baseball,
 // slow pitch softball, and fast pitch softball.
 // Golf uses DashboardContent.tsx (unchanged).
@@ -28,7 +28,7 @@ import {
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence';
 import { AthleteGISummary } from '@/components/agi/AthleteGISummary';
@@ -79,7 +79,7 @@ function QuickActions({ sport }: { sport: SportId }) {
 // ── Recent video analyses for this sport ─────────────────────
 
 function RecentAnalyses({ sport }: { sport: SportId }) {
-  const { video_analyses } = useSwingIQStore();
+  const { video_analyses } = useSwingVantageStore();
   const sportAnalyses = useMemo(
     () =>
       video_analyses
@@ -167,7 +167,7 @@ function RecentAnalyses({ sport }: { sport: SportId }) {
 // ── Primary issue from latest analysis ───────────────────────
 
 function PrimaryIssueCard({ sport }: { sport: SportId }) {
-  const { video_analyses } = useSwingIQStore();
+  const { video_analyses } = useSwingVantageStore();
   const latest = useMemo(
     () =>
       video_analyses
@@ -245,7 +245,7 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
 // ── Sport overview stats card ─────────────────────────────────
 
 function SportStatsCard({ sport }: { sport: SportId }) {
-  const { video_analyses, training, sessions } = useSwingIQStore();
+  const { video_analyses, training, sessions } = useSwingVantageStore();
   const sportAnalyses = video_analyses.filter((v) => v.sport === sport);
   const sportSessions = sessions.filter((s) => s.sport === sport);
 
@@ -293,9 +293,9 @@ function SportStatsCard({ sport }: { sport: SportId }) {
 // ── Data completeness indicator ───────────────────────────────
 
 function DataCompletenessCard({ sport }: { sport: SportId }) {
-  const { profile, sportProfiles } = useSwingIQStore();
+  const { profile, sportProfiles } = useSwingVantageStore();
   const sportProfile = (sportProfiles as Record<string, unknown>)[sport];
-  const { video_analyses } = useSwingIQStore();
+  const { video_analyses } = useSwingVantageStore();
   const hasAnalysis = video_analyses.some((v) => v.sport === sport);
 
   const checks = [
@@ -360,7 +360,7 @@ function BenchmarksDisclaimerCard({ sport }: { sport: SportId }) {
 
 export function NonGolfDashboard() {
   const { activeSport, sportEmoji, sportName } = useSport();
-  const { video_analyses, training } = useSwingIQStore();
+  const { video_analyses, training } = useSwingVantageStore();
 
   const hasVideoAnalysis = video_analyses.some((v) => v.sport === activeSport);
 

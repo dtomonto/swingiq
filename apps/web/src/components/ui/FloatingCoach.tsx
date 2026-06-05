@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Floating AI Coach Button
+// SwingVantage — Floating AI Coach Button
 // A persistent floating button that opens the AI Coach from
 // any page. Context-aware: passes current page to the coach.
 // ============================================================
@@ -9,7 +9,7 @@
 import { useState } from 'react';
 import { MessageSquare, X, Send, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
+import { useSwingVantageStore, useLatestDiagnosedSession } from '@/store';
 import { usePathname } from 'next/navigation';
 
 interface Message {
@@ -35,7 +35,7 @@ export function FloatingCoach() {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const pathname = usePathname();
-  const { profile } = useSwingIQStore();
+  const { profile } = useSwingVantageStore();
   const latestSession = useLatestDiagnosedSession();
 
   // Don't show on dedicated AI coach page or auth pages
@@ -103,7 +103,7 @@ export function FloatingCoach() {
                 <Bot size={13} className="text-white" />
               </div>
               <div>
-                <p className="text-white text-sm font-semibold">SwingIQ Coach</p>
+                <p className="text-white text-sm font-semibold">SwingVantage Coach</p>
                 <p className="text-primary-foreground/90 text-xs">Ask anything about your game</p>
               </div>
             </div>

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Player Arc Card
+// SwingVantage — Player Arc Card
 // ------------------------------------------------------------
 // The story of the player's improvement so far: mission, baseline,
 // trend, what keeps coming back, what they've moved past, and the

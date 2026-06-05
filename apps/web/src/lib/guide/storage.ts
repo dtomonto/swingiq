@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Guide: Companion State (localStorage)
+// SwingVantage — Guide: Companion State (localStorage)
 // ------------------------------------------------------------
 // Tiny, self-contained record for the floating guide ("genie"):
 //   - autoOpen:   whether tips pop open on their own (Clippy-style)

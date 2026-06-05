@@ -26,7 +26,7 @@ import { FIX_CTA } from '@/lib/coaching/fixFraming';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { EmptyState } from '@/components/ui/EmptyState';
-import { useSwingIQStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
+import { useSwingVantageStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
 import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence';
 import { AthleteGISummary } from '@/components/agi/AthleteGISummary';
 import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
@@ -61,7 +61,7 @@ function dnaLabel(val: number | null | undefined, lowLabel: string, highLabel: s
 // ─────────────────────────────────────────────────────────────
 
 export function DashboardContent() {
-  const { profile, clubs, sessions, training, recordPractice } = useSwingIQStore();
+  const { profile, clubs, sessions, training, recordPractice } = useSwingVantageStore();
   const latestSession = useLatestDiagnosedSession();
   const overallScore = useOverallScore();
   const { isGolf } = useSport();

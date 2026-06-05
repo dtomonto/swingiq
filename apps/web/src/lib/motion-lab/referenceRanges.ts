@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Reference Ranges (skill-segmented)
+// SwingVantage — Motion Lab: Reference Ranges (skill-segmented)
 // ------------------------------------------------------------
 // The single, editable home for how each proxy metric is scored, split
 // by skill level (beginner → elite). These are STARTER HEURISTICS, not

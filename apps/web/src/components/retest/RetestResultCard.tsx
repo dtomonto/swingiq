@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Retest Result Card
+// SwingVantage — Retest Result Card
 // ------------------------------------------------------------
 // The "you retested — here's what changed" card. Shows the
 // directional outcome of comparing the latest swing to the prior

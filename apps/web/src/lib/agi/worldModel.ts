@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: World Model builder
+// SwingVantage — AGI: World Model builder
 // ------------------------------------------------------------
 // Fuses a normalized SignalBundle into a single AthleteWorldModel. The fusion
 // is confidence-weighted (a high-confidence measurement counts more than a

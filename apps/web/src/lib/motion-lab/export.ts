@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Export
+// SwingVantage — Motion Lab: Export
 // ------------------------------------------------------------
 // Offline, local-first exports (no server round-trip): a full JSON
 // record and a flat CSV of metrics. The original video is never part
@@ -32,7 +32,7 @@ function stamp(session: MotionSession): string {
 
 export function downloadSessionJson(session: MotionSession): boolean {
   const payload = {
-    exportedFrom: 'SwingIQ Motion Lab',
+    exportedFrom: 'SwingVantage Motion Lab',
     exportedAt: new Date().toISOString(),
     analysisVersion: session.analysisVersion,
     modelVersion: session.modelVersion,
@@ -54,7 +54,7 @@ export function downloadSessionCsv(session: MotionSession): boolean {
     [m.id, m.name, m.value, m.unit, m.normalizedScore, m.confidence, m.basis, m.phase].map(csvEscape).join(','),
   );
   const meta = [
-    `# SwingIQ Motion Lab export`,
+    `# SwingVantage Motion Lab export`,
     `# sport,${session.capture.sport}`,
     `# motion,${session.capture.motionType}`,
     `# overall,${session.scoreboard.overall}`,

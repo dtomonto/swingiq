@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { getRoutineForDiagnosis, runDiagnosticEngine, type DrillRecommendation, type DiagnosisCategory, type SkillLevel } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
-import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
+import { useSwingVantageStore, useLatestDiagnosedSession } from '@/store';
 import { AgentPracticePlanCard } from '@/components/agents/AgentPracticePlanCard';
 import { FaultExplanation } from '@/components/faults/FaultExplanation';
 import { format } from 'date-fns';
@@ -45,7 +45,7 @@ function DrillCard({ drill }: { drill: DrillRecommendation }) {
 }
 
 export function TrainingContent() {
-  const { sessions, training, toggleDrillStep, recordPractice, profile } = useSwingIQStore();
+  const { sessions, training, toggleDrillStep, recordPractice, profile } = useSwingVantageStore();
   const latestSession = useLatestDiagnosedSession();
 
   // Use active diagnosis from store, or fall back to latest session's diagnosis

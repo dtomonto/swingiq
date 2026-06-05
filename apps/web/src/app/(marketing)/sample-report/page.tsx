@@ -6,7 +6,7 @@ import { ShareableReportCard, type ReportData } from '@/components/report/Sharea
 export const metadata = buildMetadata({
   title: 'Sample Swing Report',
   description:
-    'See exactly what a SwingIQ report looks like: your top priority issue, three drills, and a practice plan — shareable and print-friendly.',
+    'See exactly what a SwingVantage report looks like: your top priority issue, three drills, and a practice plan — shareable and print-friendly.',
   path: '/sample-report',
 });
 

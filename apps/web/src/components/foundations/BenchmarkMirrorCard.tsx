@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Benchmark Mirror Card (foundation preview)
+// SwingVantage — Benchmark Mirror Card (foundation preview)
 // ------------------------------------------------------------
 // Typical windows for the player's level — an honest "mirror to aim
 // at", never a measured percentile or a ranking against others.

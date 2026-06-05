@@ -1,12 +1,12 @@
 # Future-Proofing Guide
 
-This document explains how SwingIQ is built to stay relevant, adaptable, and trustworthy over the long term. It covers the architectural choices, design patterns, and planned evolution paths that make the platform durable.
+This document explains how SwingVantage is built to stay relevant, adaptable, and trustworthy over the long term. It covers the architectural choices, design patterns, and planned evolution paths that make the platform durable.
 
 **This is a strategic document** — it's useful for understanding where the platform is heading and why it's built the way it is.
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** The long-term thinking on how SwingIQ stays useful, flexible, and trustworthy for many years — not just today.
+**What this page is:** The long-term thinking on how SwingVantage stays useful, flexible, and trustworthy for many years — not just today.
 
 **What you actually need to know — the 5 promises this page is built around:**
 1. **New sports can be added** without rebuilding the app.
@@ -36,7 +36,7 @@ This document explains how SwingIQ is built to stay relevant, adaptable, and tru
 ## Pillar 1: Multi-Sport Architecture
 
 ### Current State
-SwingIQ supports five sports: Golf, Tennis, Baseball, Slow Pitch Softball, Fast Pitch Softball.
+SwingVantage supports five sports: Golf, Tennis, Baseball, Slow Pitch Softball, Fast Pitch Softball.
 
 Each sport has its own:
 - Phase definitions (the stages of the swing)
@@ -66,7 +66,7 @@ The architecture can accommodate: pickleball, racquetball, lacrosse, cricket, an
 ## Pillar 2: AI Provider Independence
 
 ### The Problem
-If SwingIQ was tightly coupled to OpenAI GPT-4, then:
+If SwingVantage was tightly coupled to OpenAI GPT-4, then:
 - A price increase would force an emergency refactor
 - GPT-5 requiring different prompting would break the coach
 - Switching to Anthropic Claude (more privacy-friendly) would be a major project
@@ -136,7 +136,7 @@ v1.0.0 → v1.1.0 → v1.2.0 (current)
 ## Pillar 4: Backward-Compatible Schema Design
 
 ### The Problem
-As SwingIQ adds features (community, AI coaching, gamification), the database schema and localStorage schema evolve. If old data breaks with new code, users lose their history.
+As SwingVantage adds features (community, AI coaching, gamification), the database schema and localStorage schema evolve. If old data breaks with new code, users lose their history.
 
 ### How It's Solved
 **Optional fields:** New fields are always `optional` (marked with `?`) in TypeScript. This means old data without the field doesn't crash the app.
@@ -171,12 +171,12 @@ The way people find products is changing:
 - **AI-generated answers** (ChatGPT, Google AI Overview, Perplexity) are growing rapidly
 - **Voice search** (Siri, Google Assistant) requires natural language question-answer format
 
-SwingIQ is built to be discovered by all three.
+SwingVantage is built to be discovered by all three.
 
 ### Content Architecture
 Educational content (FAQ, glossary, benchmarks, blog) serves multiple purposes:
 1. **SEO:** Brings in organic search traffic
-2. **GEO:** Gives AI systems accurate information to cite about SwingIQ
+2. **GEO:** Gives AI systems accurate information to cite about SwingVantage
 3. **AEO:** Answers specific questions in a format that voice/AI can extract
 4. **User trust:** Users who find quality educational content trust the product more
 
@@ -195,9 +195,9 @@ The usage category system (adult/parent/coach/minor) is the foundation for youth
 - Future: parent dashboard showing child's AI coaching history
 
 ### Medical and AI Disclaimers
-SwingIQ proactively shows disclaimers that set correct expectations:
+SwingVantage proactively shows disclaimers that set correct expectations:
 - AI coaching is not a substitute for professional instruction
-- SwingIQ is not a medical device
+- SwingVantage is not a medical device
 - Data analysis is based on patterns, not real-time video by a human
 
 These disclaimers protect the user (by setting honest expectations) and the company (by defining the product's scope).

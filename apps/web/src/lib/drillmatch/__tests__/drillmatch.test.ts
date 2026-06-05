@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — DrillMatch + Fix Stack: Unit Tests
+// SwingVantage — DrillMatch + Fix Stack: Unit Tests
 // ------------------------------------------------------------
 // Guarantees the catalog normalizes real library data, the scorer
 // is deterministic and explainable, the feedback loop actually

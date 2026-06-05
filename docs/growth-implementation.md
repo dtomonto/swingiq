@@ -1,6 +1,6 @@
-# SwingIQ — Growth Implementation Guide
+# SwingVantage — Growth Implementation Guide
 
-This document tracks the SwingIQ Growth Operating System: what is built, what is
+This document tracks the SwingVantage Growth Operating System: what is built, what is
 still manual, and how to operate and extend each piece.
 
 Last updated: May 31, 2026.

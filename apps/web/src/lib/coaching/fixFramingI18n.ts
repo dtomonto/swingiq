@@ -1,8 +1,8 @@
 // ============================================================
-// SwingIQ — "One Fix" Framing: Coaching-Language Translations
+// SwingVantage — "One Fix" Framing: Coaching-Language Translations
 // ------------------------------------------------------------
 // Localized copy for the Today's Fix / fix-framing layer, in all
-// 20 coaching languages SwingIQ supports. English is the source
+// 20 coaching languages SwingVantage supports. English is the source
 // of truth; `resolveFixStrings(lang)` merges a language's strings
 // over English so any missing/uncertain entry falls back cleanly
 // (the user never sees a blank or a raw key).

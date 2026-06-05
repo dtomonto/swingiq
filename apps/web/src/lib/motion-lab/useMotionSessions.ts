@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: React hook for stored sessions
+// SwingVantage — Motion Lab: React hook for stored sessions
 // ------------------------------------------------------------
 // Subscribes to the local session store and re-renders on any
 // save/delete/clear (same tab) or cross-tab storage change.

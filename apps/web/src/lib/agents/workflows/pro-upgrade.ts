@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Pro Upgrade Recommendation
+// SwingVantage — Workflow: Pro Upgrade Recommendation
 // ------------------------------------------------------------
 // Suggests upgrading ONLY when a Pro feature would clearly help.
 // Contextual, non-pushy, no dark patterns. Most of the time this

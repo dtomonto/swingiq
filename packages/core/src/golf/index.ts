@@ -1,2 +1,2 @@
-// SwingIQ Golf Module — Public API
+// SwingVantage Golf Module — Public API
 export * from './loft-autofill';

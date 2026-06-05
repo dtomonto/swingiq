@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Pre-Round / Pre-Game Strategy
+// SwingVantage — Workflow: Pre-Round / Pre-Game Strategy
 // ------------------------------------------------------------
 // A short pre-event plan: 1–2 swing thoughts max, warm-up focus,
 // a tactical reminder, a confidence cue, and what to avoid.

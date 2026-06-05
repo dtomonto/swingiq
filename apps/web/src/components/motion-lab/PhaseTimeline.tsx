@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Phase Timeline
+// SwingVantage — Motion Lab: Phase Timeline
 // ============================================================
 
 import type { MotionPhaseSegment } from '@/lib/motion-lab';

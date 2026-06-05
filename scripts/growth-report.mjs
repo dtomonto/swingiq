@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SwingIQ — Weekly growth report generator.
+ * SwingVantage — Weekly growth report generator.
  *
  * Produces a markdown snapshot of the current growth surface area
  * (published SEO pages, backlog, tools, challenges, email templates)
@@ -39,7 +39,7 @@ const challenges = count('apps/web/src/app/challenges');
 let emails = 0;
 try { emails = readdirSync(join(ROOT, 'content/emails')).filter((f) => f.endsWith('.md')).length; } catch {}
 
-const md = `# SwingIQ Growth Report — ${today}
+const md = `# SwingVantage Growth Report — ${today}
 
 ## Growth surface area (auto-counted)
 - Published SEO pages: **${publishedCount}**

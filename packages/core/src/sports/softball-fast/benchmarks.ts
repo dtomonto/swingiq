@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Fast Pitch Softball Benchmarks
+// SwingVantage — Fast Pitch Softball Benchmarks
 // Evidence-informed target windows for fast pitch swing analysis.
 //
 // Sources (consulted, summaries only stored):

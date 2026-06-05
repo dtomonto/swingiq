@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Analysis Speed Selector
+// SwingVantage — Analysis Speed Selector
 // A simple Fast / Balanced / Thorough dial. "Fast" is the default — it uses
 // a quicker AI model and asks for concise output, which is the biggest lever
 // on how long the review takes. The slower tiers trade time for depth.

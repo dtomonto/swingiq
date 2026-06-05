@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Skill Transfer Map: Types
+// SwingVantage — Skill Transfer Map: Types
 // ------------------------------------------------------------
 // A cross-sport architecture: shared movement PRINCIPLES, their
 // sport-specific EXPRESSIONS, and the TRANSFER PATTERNS that link

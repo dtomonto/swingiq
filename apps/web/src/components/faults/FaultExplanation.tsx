@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Fault Explanation (role-aware)
+// SwingVantage — Fault Explanation (role-aware)
 // ------------------------------------------------------------
 // Renders what a swing fault MEANS in the voice that fits the
 // user — parent / coach / advanced — defaulting to their chosen
@@ -13,7 +13,7 @@
 import { useState } from 'react';
 import type { SportId } from '@swingiq/core';
 import { cn } from '@/lib/utils';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { resolveFault, matchFaultId, audienceFromTone } from '@/lib/faults';
 import type { FaultAudience } from '@/lib/faults';
 
@@ -40,7 +40,7 @@ export function FaultExplanation({
   sport?: SportId;
   className?: string;
 }) {
-  const tone = useSwingIQStore((s) => s.settings.coaching_tone);
+  const tone = useSwingVantageStore((s) => s.settings.coaching_tone);
   const [override, setOverride] = useState<FaultAudience | null>(null);
   const audience = override ?? audienceFromTone(tone);
 

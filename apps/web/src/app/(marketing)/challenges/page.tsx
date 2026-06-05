@@ -6,7 +6,7 @@ import { CHALLENGES } from '@/content/challenges';
 export const metadata = buildMetadata({
   title: 'Free Swing Challenges',
   description:
-    'Free guided swing challenges: 7-day golf slice, 7-day slow-pitch line-drive, and the 30-day SwingIQ challenge. Daily focus and retests.',
+    'Free guided swing challenges: 7-day golf slice, 7-day slow-pitch line-drive, and the 30-day SwingVantage challenge. Daily focus and retests.',
   path: '/challenges',
 });
 

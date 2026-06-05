@@ -16,7 +16,7 @@ export async function generateMetadata({
   const data = BENCHMARKS.find((b) => b.slug === sport);
   if (!data) return {};
   return {
-    title: `${data.sport} Benchmarks | SwingIQ Performance Standards`,
+    title: `${data.sport} Benchmarks | SwingVantage Performance Standards`,
     description: `See performance benchmark ranges for ${data.sport} — beginner through elite levels. Includes ${data.metrics.map((m) => m.name).join(', ')}.`,
     alternates: { canonical: `/benchmarks/${sport}` },
   };
@@ -99,8 +99,8 @@ export default async function SportBenchmarkPage({
 
       {/* CTA */}
       <section className="bg-primary text-primary-foreground py-16 px-4 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">See How Your Data Compares in SwingIQ</h2>
-        <p className="text-primary-foreground/90 mb-8 text-sm">Import a session and SwingIQ shows your {data.sport.toLowerCase()} numbers against these benchmarks automatically.</p>
+        <h2 className="text-2xl md:text-3xl font-bold mb-4">See How Your Data Compares in SwingVantage</h2>
+        <p className="text-primary-foreground/90 mb-8 text-sm">Import a session and SwingVantage shows your {data.sport.toLowerCase()} numbers against these benchmarks automatically.</p>
         <Link href="/start" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
           Analyze My Swing Free
         </Link>

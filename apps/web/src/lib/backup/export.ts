@@ -1,14 +1,14 @@
-import type { SwingIQState } from '@/store';
+import type { SwingVantageState } from '@/store';
 import type { SportId } from '@swingiq/core';
 import {
   BACKUP_FORMAT,
   CURRENT_BACKUP_VERSION,
   APP_VERSION,
   SCHEMA_VERSION,
-  type SwingIQBackup,
+  type SwingVantageBackup,
 } from './schema';
 
-export function exportUserData(state: SwingIQState): SwingIQBackup {
+export function exportUserData(state: SwingVantageState): SwingVantageBackup {
   const now = new Date().toISOString();
 
   const sportIds = new Set<SportId>();
@@ -72,14 +72,14 @@ export function exportUserData(state: SwingIQState): SwingIQBackup {
   };
 }
 
-export function generateBackupFilename(backup: SwingIQBackup, encrypted = false): string {
+export function generateBackupFilename(backup: SwingVantageBackup, encrypted = false): string {
   const date = new Date(backup.createdAt).toISOString().split('T')[0];
   return encrypted
     ? `swingiq-backup-${date}.swingiqbackup`
     : `swingiq-backup-${date}.json`;
 }
 
-export function downloadBackup(backup: SwingIQBackup, encryptedBlob?: string): void {
+export function downloadBackup(backup: SwingVantageBackup, encryptedBlob?: string): void {
   const isEncrypted = typeof encryptedBlob === 'string';
   const content = isEncrypted ? encryptedBlob : JSON.stringify(backup, null, 2);
   const mimeType = isEncrypted ? 'application/octet-stream' : 'application/json';

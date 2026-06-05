@@ -19,7 +19,7 @@ export interface ReportData {
 
 function buildSummary(d: ReportData): string {
   const lines = [
-    `My SwingIQ ${d.sport} summary`,
+    `My SwingVantage ${d.sport} summary`,
     '',
     `Top priority: ${d.topIssue}`,
     d.confidence ? `Confidence: ${d.confidence}` : '',
@@ -29,7 +29,7 @@ function buildSummary(d: ReportData): string {
     '',
     `Practice plan: ${d.planSummary}`,
     '',
-    `Made with SwingIQ — free AI swing analysis: ${siteConfig.liveSiteUrl}`,
+    `Made with SwingVantage — free AI swing analysis: ${siteConfig.liveSiteUrl}`,
   ];
   return lines.filter((l) => l !== undefined).join('\n');
 }
@@ -66,7 +66,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
   }
 
   function emailCoach() {
-    const subject = encodeURIComponent(`My SwingIQ ${data.sport} summary`);
+    const subject = encodeURIComponent(`My SwingVantage ${data.sport} summary`);
     const body = encodeURIComponent(summary);
     track(ANALYTICS_EVENTS.COACH_SHARE_CLICKED, { sport: data.sport });
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
@@ -75,7 +75,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
   async function webShare() {
     if (navigator.share) {
       try {
-        await navigator.share({ title: `My SwingIQ ${data.sport} summary`, text: summary });
+        await navigator.share({ title: `My SwingVantage ${data.sport} summary`, text: summary });
         track(ANALYTICS_EVENTS.REPORT_SHARED, { sport: data.sport, method: 'web_share' });
       } catch { /* user cancelled */ }
     } else {
@@ -93,7 +93,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
       {/* Report body (printable) */}
       <div className="p-6">
         <div className="mb-4 flex items-center justify-between">
-          <span className="font-bold text-foreground">SwingIQ Report</span>
+          <span className="font-bold text-foreground">SwingVantage Report</span>
           <span className="text-xs uppercase tracking-wide text-muted-foreground">{data.sport}</span>
         </div>
 
@@ -116,7 +116,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
         </div>
 
         <p className="mt-4 text-[11px] italic text-muted-foreground">
-          AI estimate, not certified instruction. Made with SwingIQ — {siteConfig.liveSiteUrl}
+          AI estimate, not certified instruction. Made with SwingVantage — {siteConfig.liveSiteUrl}
         </p>
       </div>
 

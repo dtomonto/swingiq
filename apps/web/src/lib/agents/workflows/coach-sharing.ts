@@ -1,9 +1,9 @@
 // ============================================================
-// SwingIQ — Workflow: Coach Sharing
+// SwingVantage — Workflow: Coach Sharing
 // ------------------------------------------------------------
 // Builds a coach-ready summary: profile, goal, latest issue,
 // evidence, trend, practice focus, and good questions to ask a
-// coach. Positions SwingIQ as preparation — not a replacement
+// coach. Positions SwingVantage as preparation — not a replacement
 // for a human coach. Copy/share-friendly plain text.
 // ============================================================
 

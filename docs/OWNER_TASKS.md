@@ -1,4 +1,4 @@
-# SwingIQ — Owner Task Checklist
+# SwingVantage — Owner Task Checklist
 
 Use this file to track what has already been built and what you still need to set up manually.
 
@@ -263,9 +263,9 @@ Use this file to track what has already been built and what you still need to se
 
 ## 📱 Add to Phone Home Screen (PWA)
 
-**iPhone (Safari):** Open SwingIQ → tap Share → "Add to Home Screen" → Add
+**iPhone (Safari):** Open SwingVantage → tap Share → "Add to Home Screen" → Add
 
-**Android (Chrome):** Open SwingIQ → three-dot menu → "Add to Home Screen"
+**Android (Chrome):** Open SwingVantage → three-dot menu → "Add to Home Screen"
 
 ---
 

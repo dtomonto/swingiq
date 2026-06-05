@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Sport Selection hub
+// SwingVantage — Sport Selection hub
 // A premium entry point: pick a sport (or continue where you
 // left off). Reads real per-sport progress from the store and
 // routes into the app with that sport active. Fully theme-aware.
@@ -13,7 +13,7 @@ import { useMemo } from 'react';
 import { ArrowRight, Check, LayoutDashboard } from 'lucide-react';
 import type { SportId } from '@swingiq/core';
 import { useSport, SPORT_DISPLAY } from '@/contexts/SportContext';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 
 const SPORT_ORDER: SportId[] = ['golf', 'tennis', 'baseball', 'softball_slow', 'softball_fast'];
 
@@ -43,7 +43,7 @@ const SPORT_INFO: Record<SportId, { tagline: string; analyzes: string }> = {
 export default function SportSelectionPage() {
   const router = useRouter();
   const { activeSport, setActiveSport } = useSport();
-  const { sessions, video_analyses, profile, sportProfiles } = useSwingIQStore();
+  const { sessions, video_analyses, profile, sportProfiles } = useSwingVantageStore();
 
   const statsBySport = useMemo(() => {
     const out = {} as Record<SportId, { count: number; started: boolean; lastScore: number | null }>;
@@ -79,7 +79,7 @@ export default function SportSelectionPage() {
             <span className="w-8 h-8 bg-golf-fairway rounded-lg flex items-center justify-center shrink-0">
               <span className="text-white font-black text-sm">SQ</span>
             </span>
-            <span className="text-foreground font-bold text-lg">SwingIQ</span>
+            <span className="text-foreground font-bold text-lg">SwingVantage</span>
           </Link>
           <Link
             href="/dashboard"
@@ -94,7 +94,7 @@ export default function SportSelectionPage() {
         <div className="max-w-2xl mb-8 sm:mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">Choose your sport</h1>
           <p className="text-muted-foreground">
-            SwingIQ adapts every analysis, drill, and coaching cue to your sport. Pick one to start —
+            SwingVantage adapts every analysis, drill, and coaching cue to your sport. Pick one to start —
             or continue where you left off.
           </p>
         </div>

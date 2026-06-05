@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Fix Stack Card
+// SwingVantage — Fix Stack Card
 // ------------------------------------------------------------
 // The branded "One Fix First" view: a single highest-leverage
 // fix expressed as Feel Cue → Drill → Retest, with honest

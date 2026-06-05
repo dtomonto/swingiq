@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — AI Analysis Progress
+// SwingVantage — AI Analysis Progress
 // Honest, staged progress that mirrors the real pipeline:
 // prepare -> extract frames -> AI inspection -> diagnosis -> plan.
 // The copy never overclaims; each step maps to actual work.

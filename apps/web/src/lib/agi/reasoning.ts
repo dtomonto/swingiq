@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Reasoning engine
+// SwingVantage — AGI: Reasoning engine
 // ------------------------------------------------------------
 // Deterministic, inspectable reasoning over the unified world model. Every
 // Insight carries an explicit reasoning chain (claim + evidence), a basis, and

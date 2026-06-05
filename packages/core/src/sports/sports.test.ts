@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Multi-Sport Module Tests
+// SwingVantage — Multi-Sport Module Tests
 // ============================================================
 
 import {

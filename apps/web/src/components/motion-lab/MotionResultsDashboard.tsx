@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Results Dashboard
+// SwingVantage — Motion Lab: Results Dashboard
 // Composes the 3D viewer, phases, scoreboard, metrics, coaching
 // report, drills, and comparison into one premium results experience.
 // ============================================================

@@ -1,12 +1,12 @@
 # Security and Privacy Guide
 
-This document covers everything related to keeping SwingIQ users safe — how data is protected, what security measures are built in, what still needs to be done, and how to respond to security incidents.
+This document covers everything related to keeping SwingVantage users safe — how data is protected, what security measures are built in, what still needs to be done, and how to respond to security incidents.
 
 **Audience:** App owner (non-developer), developers, and anyone doing a security review.
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** How SwingIQ keeps users' information safe, what protection is already built in, and the few safety tasks only you can do before you open the app to the public.
+**What this page is:** How SwingVantage keeps users' information safe, what protection is already built in, and the few safety tasks only you can do before you open the app to the public.
 
 **What you actually need to know:**
 - **Already true today (good news):** swing videos stay on the user's own device, secret keys are kept out of the code, and automatic scans check every code change for problems.
@@ -24,7 +24,7 @@ This document covers everything related to keeping SwingIQ users safe — how da
 
 ## Security Philosophy
 
-SwingIQ follows these core security principles:
+SwingVantage follows these core security principles:
 
 1. **Least privilege** — each part of the system only has access to what it needs
 2. **Defense in depth** — multiple layers of protection so one failure doesn't expose everything
@@ -57,7 +57,7 @@ All API routes (AI Coach, Video Analysis, Data Import/Export) have rate limiting
 - API routes do not trust `user_id` from the request body
 - User identity must be verified server-side from the authenticated session (Supabase Auth)
 - This prevents one user from modifying another user's data (IDOR attack prevention)
-- **Current status:** SwingIQ is keyless by default — accounts live privately on the user's own device. When Supabase env keys are present, session middleware activates and API routes verify identity server-side. IDOR protection is already in place on the data routes.
+- **Current status:** SwingVantage is keyless by default — accounts live privately on the user's own device. When Supabase env keys are present, session middleware activates and API routes verify identity server-side. IDOR protection is already in place on the data routes.
 
 ### Secret Management
 - API keys are stored in environment variables, never in code
@@ -103,9 +103,9 @@ npm run type-check
 
 ### Video Data
 - Videos are processed entirely in the browser
-- No video bytes ever reach SwingIQ servers
+- No video bytes ever reach SwingVantage servers
 - Only metadata (duration, camera angle) and analysis results (scores, issues) are saved
-- Users keep their original video files — SwingIQ doesn't store them
+- Users keep their original video files — SwingVantage doesn't store them
 
 ### AI Data
 - When the AI Coach is used, the user's question and a small structured context block are sent to the AI provider (OpenAI or Anthropic)
@@ -177,11 +177,11 @@ The security contact is **security@swingiq.app** (set in both `SECURITY.md` and 
 
 ## AI and Medical Disclaimers
 
-SwingIQ provides AI-generated coaching suggestions. These disclaimers are shown to users:
+SwingVantage provides AI-generated coaching suggestions. These disclaimers are shown to users:
 
 1. **AI accuracy disclaimer:** AI coaching is based on patterns in your data. It is not a substitute for in-person instruction from a certified professional.
 
-2. **Medical disclaimer:** SwingIQ is not a medical device. Do not use this app to diagnose or treat physical injuries. If you experience pain while practicing, consult a sports medicine professional.
+2. **Medical disclaimer:** SwingVantage is not a medical device. Do not use this app to diagnose or treat physical injuries. If you experience pain while practicing, consult a sports medicine professional.
 
 3. **Youth note:** For athletes under 18, parent or guardian review of AI coaching suggestions is recommended.
 
@@ -263,7 +263,7 @@ These settings cannot be configured by code — a repository admin must do them 
 | GDPR (Europe) | ⚠️ Partial | Privacy policy needs attorney review; data deletion flow needs server-side implementation |
 | CCPA (California) | ⚠️ Partial | Privacy policy needs "Do not sell my data" section |
 | COPPA (Under 13, USA) | ❌ Not implemented | Age gate + verified parental consent needed before accepting users under 13 |
-| PCI-DSS (Payments) | ✅ N/A until Stripe added | Stripe handles card data; SwingIQ never touches raw card numbers |
+| PCI-DSS (Payments) | ✅ N/A until Stripe added | Stripe handles card data; SwingVantage never touches raw card numbers |
 
 ---
 

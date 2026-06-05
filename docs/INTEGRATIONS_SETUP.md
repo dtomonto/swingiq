@@ -1,4 +1,4 @@
-# SwingIQ — Integrations Setup Checklist
+# SwingVantage — Integrations Setup Checklist
 
 _Last updated: June 2026_
 
@@ -8,7 +8,7 @@ _Last updated: June 2026_
 
 **What this page is:** A plain-English checklist for turning on the "big" features that need an outside account or key — sign-in & cloud saving (Supabase), the AI features, paid plans (Stripe), photo import (OCR), and email.
 
-**The honest promise:** SwingIQ is built so that **everything works or fails honestly** without these. If a key isn't set, the app shows a clear "not set up yet" message instead of pretending. So you can turn these on **one at a time, in any order, whenever you're ready** — nothing breaks while they're off.
+**The honest promise:** SwingVantage is built so that **everything works or fails honestly** without these. If a key isn't set, the app shows a clear "not set up yet" message instead of pretending. So you can turn these on **one at a time, in any order, whenever you're ready** — nothing breaks while they're off.
 
 **Where the keys go:** All keys are pasted into one file on your computer: **`apps/web/.env.local`** (create it if it doesn't exist). One `NAME=value` per line. After editing it, stop and restart the app (`npm run dev:web`) so it picks up the changes. **Never commit this file** — it holds secrets and is already git-ignored.
 
@@ -57,9 +57,9 @@ Optional: `AI_VISION_MODEL=gpt-4o`, `MAX_VIDEO_FRAMES_ANALYZED=16`.
 
 > 🖱️ **Non-developer? Use the click-by-click version:** [SUPABASE_SETUP_WALKTHROUGH.md](SUPABASE_SETUP_WALKTHROUGH.md) sketches every screen and tells you exactly what to click. This section is the quick reference.
 
-**Why Supabase (and not another database):** SwingIQ is *already wired* for it — the auth middleware, the `supabase.ts` clients, the login/signup/reset pages, and the database schema (whose row-level-security rules use Supabase's `auth.uid()`) are all built. Connecting it is paste-two-keys, not a coding project. Underneath it's plain PostgreSQL, so nothing here is locked in — see "Outgrowing the free tier" below.
+**Why Supabase (and not another database):** SwingVantage is *already wired* for it — the auth middleware, the `supabase.ts` clients, the login/signup/reset pages, and the database schema (whose row-level-security rules use Supabase's `auth.uid()`) are all built. Connecting it is paste-two-keys, not a coding project. Underneath it's plain PostgreSQL, so nothing here is locked in — see "Outgrowing the free tier" below.
 
-**What it unlocks:** real sign-in, saving sessions to the cloud, and syncing across devices. Until this is set, SwingIQ runs **local-first** (data lives in the browser; the offline queue in `lib/offline/session-queue.ts` holds sessions until a backend is connected).
+**What it unlocks:** real sign-in, saving sessions to the cloud, and syncing across devices. Until this is set, SwingVantage runs **local-first** (data lives in the browser; the offline queue in `lib/offline/session-queue.ts` holds sessions until a backend is connected).
 
 **Cost to start: $0.** The free tier needs no credit card. Rough free limits (check the live pricing page — they change): ~500 MB database, up to ~50,000 monthly signed-in users, 2 projects. One honest gotcha: a free project **pauses after ~1 week of no activity** — you click once in the dashboard to wake it. Fine for building and early users; plan to move up (or to self-hosting) once you have steady real traffic.
 

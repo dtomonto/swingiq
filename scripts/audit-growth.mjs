@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SwingIQ — Growth audit orchestrator.
+ * SwingVantage — Growth audit orchestrator.
  *
  * Runs every growth/trust validation in sequence and summarizes.
  * Exit 1 if any check fails. Run: npm run audit:growth

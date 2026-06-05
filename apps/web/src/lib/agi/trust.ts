@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Trust grade (meta-confidence)
+// SwingVantage — AGI: Trust grade (meta-confidence)
 // ------------------------------------------------------------
 // One honest "how much should I trust this whole picture?" grade. It blends
 // coverage, the basis quality of the evidence (measured vs single-camera

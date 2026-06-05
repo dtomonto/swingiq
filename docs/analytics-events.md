@@ -1,10 +1,10 @@
-# SwingIQ — Analytics Events
+# SwingVantage — Analytics Events
 
-This document is the single reference for every analytics event SwingIQ tracks.
+This document is the single reference for every analytics event SwingVantage tracks.
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** The master list of the anonymous "things that happened" SwingIQ can count — for example, *a video upload started* or *a sport was selected*. This is how you'd learn which features people actually use.
+**What this page is:** The master list of the anonymous "things that happened" SwingVantage can count — for example, *a video upload started* or *a sport was selected*. This is how you'd learn which features people actually use.
 
 **What you actually need to know:**
 - **Tracking is OFF and private by default.** Until you add a Google Analytics ID, no outside analytics company receives anything — events just print to the developer console and disappear.
@@ -13,7 +13,7 @@ This document is the single reference for every analytics event SwingIQ tracks.
 
 **What to do next (optional):** If you want visitor numbers, follow "Configuring GA4 (owner steps)" at the bottom of this page — it's the same one-line setting referenced in the other growth docs. If you'd rather stay fully private, do nothing.
 
-> The big event table and "Adding a new event" steps below are a reference for a developer or an AI assistant. You don't need them to use SwingIQ.
+> The big event table and "Adding a new event" steps below are a reference for a developer or an AI assistant. You don't need them to use SwingVantage.
 
 - **Event registry (source of truth):** `packages/core/src/analytics/events.ts`
 - **Tracking abstraction:** `apps/web/src/lib/analytics.ts` (`track(event, properties)`)

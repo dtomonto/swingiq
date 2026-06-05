@@ -1,5 +1,5 @@
 /**
- * SwingIQ Rate Limiting Abstraction
+ * SwingVantage Rate Limiting Abstraction
  *
  * Shared rate-limit logic for all API routes.
  *

@@ -2,7 +2,7 @@
 
 ## In Plain English (start here)
 
-SwingIQ can now **actually look at your swing video** using AI, instead of giving
+SwingVantage can now **actually look at your swing video** using AI, instead of giving
 generic tips. Here's the whole idea in three sentences:
 
 1. When someone uploads a swing, the app quietly turns the video into a set of

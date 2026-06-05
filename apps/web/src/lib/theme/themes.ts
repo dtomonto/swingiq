@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Theme Registry
+// SwingVantage — Theme Registry
 // The single source of truth for the curated multi-theme system.
 // Themes change the visual/emotional layer ONLY — never layout,
 // navigation, coaching logic, data, or accessibility. Every theme

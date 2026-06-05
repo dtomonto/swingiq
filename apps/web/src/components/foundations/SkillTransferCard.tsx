@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Skill Transfer Map Card
+// SwingVantage — Skill Transfer Map Card
 // ------------------------------------------------------------
 // Shows cross-sport transfer patterns for a multi-sport player, or
 // the shared movement principles for a single-sport player. Honest:
@@ -56,7 +56,7 @@ export function SkillTransferCard({
           <>
             <p className="text-sm text-muted-foreground">
               The movement principles behind {primaryLabel.toLowerCase()}. Add a second sport to your
-              profile and SwingIQ will map how these skills transfer.
+              profile and SwingVantage will map how these skills transfer.
             </p>
             <div className="space-y-2">
               {principles.map((p) => (

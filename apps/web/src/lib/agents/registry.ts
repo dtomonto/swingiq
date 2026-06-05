@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Layer: Registry
+// SwingVantage — Agent Layer: Registry
 // ------------------------------------------------------------
 // Declares the insight-producing workflows and WHEN each is
 // relevant. The orchestrator reads this to run only the minimum
@@ -65,10 +65,10 @@ const progressWorkflow: InsightWorkflow = {
     return {
       id: 'progress',
       title: improving
-        ? 'SwingIQ noticed your scores are trending up'
+        ? 'SwingVantage noticed your scores are trending up'
         : declining
-          ? 'SwingIQ noticed a small dip since last time'
-          : 'SwingIQ noticed your scores have plateaued',
+          ? 'SwingVantage noticed a small dip since last time'
+          : 'SwingVantage noticed your scores have plateaued',
       body: trend.trendSummary,
       tone: improving ? 'celebrate' : declining ? 'warning' : 'info',
       whyItMatters: trend.suggestedAdjustment,
@@ -131,7 +131,7 @@ const equipmentWorkflow: InsightWorkflow = {
       title: 'Complete your equipment for better fit guidance',
       body:
         fit.dataNeeded[0] ??
-        `Add your ${ctx.activeSport === 'golf' ? 'clubs' : 'equipment'} details so SwingIQ can check your fit.`,
+        `Add your ${ctx.activeSport === 'golf' ? 'clubs' : 'equipment'} details so SwingVantage can check your fit.`,
       tone: 'info',
       confidence: fit.fitConfidence,
       primaryAction:

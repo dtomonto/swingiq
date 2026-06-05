@@ -10,8 +10,8 @@ import Link from 'next/link';
 import { LoginForm } from './LoginForm';
 
 export const metadata: Metadata = {
-  title: 'Sign In | SwingIQ',
-  description: 'Sign in to your SwingIQ account.',
+  title: 'Sign In | SwingVantage',
+  description: 'Sign in to your SwingVantage account.',
 };
 
 export default function LoginPage() {
@@ -23,7 +23,7 @@ export default function LoginPage() {
           <span className="text-white font-black text-base">SQ</span>
         </div>
         <div>
-          <p className="text-white font-bold text-xl leading-tight">SwingIQ</p>
+          <p className="text-white font-bold text-xl leading-tight">SwingVantage</p>
           <p className="text-primary-foreground/90 text-xs">Golf Performance System</p>
         </div>
       </div>
@@ -31,7 +31,7 @@ export default function LoginPage() {
       {/* Card */}
       <div className="w-full max-w-sm bg-card rounded-2xl shadow-2xl p-8">
         <h1 className="text-2xl font-bold text-foreground mb-1">Welcome back</h1>
-        <p className="text-muted-foreground text-sm mb-6">Sign in to your SwingIQ account</p>
+        <p className="text-muted-foreground text-sm mb-6">Sign in to your SwingVantage account</p>
         <LoginForm />
         <p className="text-center text-sm text-muted-foreground mt-4">
           Don&apos;t have an account?{' '}
@@ -42,7 +42,7 @@ export default function LoginPage() {
       </div>
 
       <p className="text-primary-foreground/90 text-xs mt-6 text-center max-w-xs">
-        While signing in, you can still use SwingIQ — your data is saved locally in your browser.
+        While signing in, you can still use SwingVantage — your data is saved locally in your browser.
       </p>
     </div>
   );

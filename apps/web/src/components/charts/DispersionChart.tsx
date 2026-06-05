@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Shot Dispersion Chart
+// SwingVantage — Shot Dispersion Chart
 // Renders a bird's-eye scatter plot of shot lateral vs. carry.
 // Uses SVG so it works on all browsers without canvas issues.
 // ============================================================

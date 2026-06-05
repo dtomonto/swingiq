@@ -4,7 +4,7 @@ import { ForgotPasswordForm } from './ForgotPasswordForm';
 
 export const metadata = buildMetadata({
   title: 'Reset Your Password',
-  description: 'Reset your SwingIQ password.',
+  description: 'Reset your SwingVantage password.',
   path: '/forgot-password',
   noindex: true,
 });

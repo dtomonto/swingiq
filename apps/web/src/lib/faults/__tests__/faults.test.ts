@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Fault Ontology: Unit Tests
+// SwingVantage — Fault Ontology: Unit Tests
 // ------------------------------------------------------------
 // Guarantees that every fault id (curated or not) resolves to a
 // usable entry, that fallbacks are honestly flagged, and that the

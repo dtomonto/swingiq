@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Coaching Report
+// SwingVantage — Motion Lab: Coaching Report
 // ------------------------------------------------------------
 // Turns metrics + phases + scores into a useful, grounded coaching
 // report. Every recommendation is tied to a detected metric and its

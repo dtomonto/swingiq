@@ -1,8 +1,8 @@
-import type { SwingIQSlice, SwingIQStore } from '../types';
+import type { SwingVantageSlice, SwingVantageStore } from '../types';
 import { DEFAULT_SETTINGS } from '../types';
 
-export const createSettingsSlice: SwingIQSlice<
-  Pick<SwingIQStore, 'settings' | 'updateSettings'>
+export const createSettingsSlice: SwingVantageSlice<
+  Pick<SwingVantageStore, 'settings' | 'updateSettings'>
 > = (set) => ({
   settings: DEFAULT_SETTINGS,
 

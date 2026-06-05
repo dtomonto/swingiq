@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Backup Validation + Security Parser
+// SwingVantage — Backup Validation + Security Parser
 //
 // SECURITY MODEL:
 //   - Files are parsed as plain text and JSON.parse()d — no eval.
@@ -14,7 +14,7 @@
 
 import {
   BACKUP_FORMAT,
-  type SwingIQBackup,
+  type SwingVantageBackup,
   type BackupValidationResult,
 } from './schema';
 import { migrateBackup, needsMigration } from './migrate';
@@ -98,7 +98,7 @@ export function validateBackupFile(parsed: unknown): BackupValidationResult {
   // Format check
   if (obj.backupFormat !== BACKUP_FORMAT) {
     errors.push(
-      `This does not appear to be a SwingIQ backup file. ` +
+      `This does not appear to be a SwingVantage backup file. ` +
         `Expected format "${BACKUP_FORMAT}", got "${String(obj.backupFormat ?? 'unknown')}".`,
     );
   }
@@ -144,7 +144,7 @@ export function validateBackupFile(parsed: unknown): BackupValidationResult {
 // ── File parser + auto-migration ──────────────────────────────
 
 export interface ParseBackupResult {
-  backup: SwingIQBackup | null;
+  backup: SwingVantageBackup | null;
   error: string | null;
   warnings: string[];
   migrated: boolean;
@@ -197,7 +197,7 @@ export async function parseBackupFile(file: File): Promise<ParseBackupResult> {
   if (!result.valid) {
     return {
       backup: null,
-      error: result.errors[0] ?? 'This file does not appear to be a valid SwingIQ backup.',
+      error: result.errors[0] ?? 'This file does not appear to be a valid SwingVantage backup.',
       warnings: result.warnings,
       migrated: false,
     };
@@ -206,7 +206,7 @@ export async function parseBackupFile(file: File): Promise<ParseBackupResult> {
   // Collect any soft validation warnings
   warnings.push(...result.warnings);
 
-  let backup = parsed as SwingIQBackup;
+  let backup = parsed as SwingVantageBackup;
   let migrated = false;
   let migratedFrom: string | undefined;
 

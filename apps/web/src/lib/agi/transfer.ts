@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Cross-domain transfer
+// SwingVantage — AGI: Cross-domain transfer
 // ------------------------------------------------------------
 // Generalisation is the whole point of a *general* intelligence: a thing
 // learned in one sport should inform the others. This reuses the app's

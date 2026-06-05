@@ -19,4 +19,4 @@ information too: it usually means the drill needs more slow reps, or the real
 cause is something else. Either way, you're now practicing with feedback
 instead of guessing.
 
-The SwingIQ team
+The SwingVantage team

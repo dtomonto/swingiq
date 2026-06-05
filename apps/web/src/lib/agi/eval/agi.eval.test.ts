@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: golden-athlete evaluation (CI gate)
+// SwingVantage — AGI: golden-athlete evaluation (CI gate)
 // ------------------------------------------------------------
 // Runs the engine against hand-labeled athletes and asserts the headline
 // conclusions are correct. Run via `npm run eval:agi` or as part of the suite.

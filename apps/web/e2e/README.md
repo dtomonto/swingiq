@@ -1,4 +1,4 @@
-# SwingIQ E2E tests (Playwright)
+# SwingVantage E2E tests (Playwright)
 
 End-to-end tests that drive a real browser against a production build.
 

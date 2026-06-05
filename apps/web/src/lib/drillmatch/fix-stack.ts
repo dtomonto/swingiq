@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Fix Stack Builder
+// SwingVantage — Fix Stack Builder
 // ------------------------------------------------------------
 // Turns a diagnosed fault into the branded 3-part intervention:
 //   Feel Cue  →  Drill  →  Retest.

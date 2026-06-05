@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { SignupForm } from './SignupForm';
 
 export const metadata: Metadata = {
-  title: 'Create Account | SwingIQ',
-  description: 'Create your free SwingIQ account.',
+  title: 'Create Account | SwingVantage',
+  description: 'Create your free SwingVantage account.',
 };
 
 export default function SignupPage() {
@@ -15,7 +15,7 @@ export default function SignupPage() {
           <span className="text-white font-black text-base">SQ</span>
         </div>
         <div>
-          <p className="text-white font-bold text-xl leading-tight">SwingIQ</p>
+          <p className="text-white font-bold text-xl leading-tight">SwingVantage</p>
           <p className="text-primary-foreground/90 text-xs">Golf Performance System</p>
         </div>
       </div>

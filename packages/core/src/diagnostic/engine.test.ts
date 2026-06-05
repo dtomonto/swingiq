@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Diagnostic Engine — Unit Tests
+// SwingVantage Diagnostic Engine — Unit Tests
 // Run with: cd packages/core && npx jest
 // ============================================================
 

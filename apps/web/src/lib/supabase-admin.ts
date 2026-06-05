@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Supabase Service-Role (admin) client
+// SwingVantage — Supabase Service-Role (admin) client
 //
 // SERVER-SIDE ONLY. Uses the SERVICE_ROLE key, which BYPASSES Row
 // Level Security. Only import this from trusted server code that has

@@ -1,8 +1,8 @@
 // ============================================================
-// SwingIQ — Capability Detection (keyless-first)
+// SwingVantage — Capability Detection (keyless-first)
 //
 // Single source of truth for which OPTIONAL integrations are
-// configured. SwingIQ is designed to work fully without any of
+// configured. SwingVantage is designed to work fully without any of
 // these — every feature has a local, keyless mode. Providing a
 // key simply unlocks the corresponding upgrade (real auth, real
 // AI, OCR, email delivery, paid tiers).
@@ -37,7 +37,7 @@ export const isSupabaseConfigured: boolean =
 /**
  * Ads — Phase 2 of the monetization strategy (first revenue from the free
  * audience; see docs/MONETIZATION_STRATEGY.md). Keyless-first: with no
- * ad-network id set, SwingIQ renders ZERO ads (the clean free experience).
+ * ad-network id set, SwingVantage renders ZERO ads (the clean free experience).
  * Ads only appear once a network is configured — mirroring how Stripe stays
  * a waitlist until keys exist. Client-safe (only references NEXT_PUBLIC_* vars).
  * Keep any rendered ads non-personalized / contextual for youth-safety.

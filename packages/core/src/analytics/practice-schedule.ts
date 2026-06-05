@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Practice Schedule Generator
+// SwingVantage — Practice Schedule Generator
 // Creates a personalized weekly practice plan based on:
 //   - Primary diagnosis
 //   - Practice frequency from golfer profile

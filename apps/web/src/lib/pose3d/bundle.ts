@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Bundle-Adjustment Refinement
+// SwingVantage — pose3d: Bundle-Adjustment Refinement
 // ------------------------------------------------------------
 // Polishes a self-calibrated relative pose (R, t) by minimizing total
 // reprojection error over all correspondences. The 3D points are

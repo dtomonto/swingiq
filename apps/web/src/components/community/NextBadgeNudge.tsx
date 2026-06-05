@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Next Badge Nudge ("Almost there")
+// SwingVantage — Next Badge Nudge ("Almost there")
 // ------------------------------------------------------------
 // Goal-gradient effect: surfaces the single closest-to-earned
 // achievement so the user can see what they're a step away from.
@@ -14,15 +14,15 @@
 
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { pickNextBadge } from '@/lib/community/next-badge';
 import type { AchievementContext } from '@/lib/community/types';
 
 export function NextBadgeNudge() {
-  const sessions = useSwingIQStore((s) => s.sessions);
-  const videoAnalyses = useSwingIQStore((s) => s.video_analyses);
-  const training = useSwingIQStore((s) => s.training);
-  const community = useSwingIQStore((s) => s.community);
+  const sessions = useSwingVantageStore((s) => s.sessions);
+  const videoAnalyses = useSwingVantageStore((s) => s.video_analyses);
+  const training = useSwingVantageStore((s) => s.training);
+  const community = useSwingVantageStore((s) => s.community);
 
   const ctx: AchievementContext = {
     sessions,

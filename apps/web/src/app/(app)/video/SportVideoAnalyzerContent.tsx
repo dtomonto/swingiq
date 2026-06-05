@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Multi-Sport Video Analyzer
+// SwingVantage — Multi-Sport Video Analyzer
 // Tennis, baseball, slow-pitch, and fast-pitch softball.
 // Real AI visual analysis: extract frames in the browser -> send only
 // still frames to the AI vision provider -> render the validated,
@@ -150,7 +150,7 @@ export function SportVideoAnalyzerContent() {
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-bold text-foreground">Swing Video Analyzer</h1>
           <p className="text-sm text-muted-foreground">
-            Upload a swing video and SwingIQ&apos;s AI reviews the actual frames — golf, tennis,
+            Upload a swing video and SwingVantage&apos;s AI reviews the actual frames — golf, tennis,
             baseball, and softball.
           </p>
         </div>
@@ -183,7 +183,7 @@ export function SportVideoAnalyzerContent() {
           <div className="flex items-start gap-2">
             <Info className="w-4 h-4 text-accent-secondary shrink-0 mt-0.5" />
             <p className="text-xs text-accent-secondary">
-              <strong>Real AI video review.</strong> SwingIQ samples still frames across your whole
+              <strong>Real AI video review.</strong> SwingVantage samples still frames across your whole
               swing and an AI vision model assesses what it can actually see — with an honest
               confidence level and video-quality notes.
             </p>
@@ -304,7 +304,7 @@ export function SportVideoAnalyzerContent() {
           <Loader2 className="w-8 h-8 animate-spin text-golf-fairway mx-auto mb-3" />
           <h2 className="text-lg font-semibold text-foreground">Analyzing your swing</h2>
           <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">
-            This can take a couple of minutes. You can leave this page — SwingIQ keeps working in the
+            This can take a couple of minutes. You can leave this page — SwingVantage keeps working in the
             background and lets you know the moment it&apos;s ready.
           </p>
         </div>

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Implement / Object Path Estimation
+// SwingVantage — Motion Lab: Implement / Object Path Estimation
 // ------------------------------------------------------------
 // Estimates the path of the swung implement (golf club, bat, tennis
 // racket) WITHOUT a pixel-level object detector. We don't see the

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Share Card image generator (client-only, no keys)
+// SwingVantage — Share Card image generator (client-only, no keys)
 //
 // Renders a 1080×1080 "Instagram-ready" PNG of a swing report
 // summary onto an off-screen canvas. Fully self-contained — no
@@ -95,7 +95,7 @@ export async function generateShareCard(data: ReportData): Promise<Blob | null> 
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = COLORS.accent;
   ctx.font = `800 44px ${sans}`;
-  ctx.fillText('SwingIQ', PAD, 150);
+  ctx.fillText('SwingVantage', PAD, 150);
   ctx.fillStyle = COLORS.muted;
   ctx.font = `600 30px ${sans}`;
   ctx.textAlign = 'right';
@@ -191,7 +191,7 @@ export async function shareCardImage(data: ReportData): Promise<'shared' | 'down
   const nav = navigator as Navigator & { canShare?: (d: { files: File[] }) => boolean };
   if (nav.share && nav.canShare?.({ files: [file] })) {
     try {
-      await nav.share({ files: [file], title: `My SwingIQ ${data.sport} summary` });
+      await nav.share({ files: [file], title: `My SwingVantage ${data.sport} summary` });
       return 'shared';
     } catch {
       return 'failed';

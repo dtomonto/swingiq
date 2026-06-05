@@ -21,7 +21,7 @@ export const CURRENT_BACKUP_VERSION = '1.2.0';
 export const APP_VERSION = '1.1.0';
 export const SCHEMA_VERSION = '1.2.0';
 
-export interface SwingIQBackupData {
+export interface SwingVantageBackupData {
   profile: GolferProfileInput | null;
   sportProfiles: SportProfiles;
   clubs: LocalClub[];
@@ -53,7 +53,7 @@ export interface BackupMetadata {
   warnings: string[];
 }
 
-export interface SwingIQBackup {
+export interface SwingVantageBackup {
   backupFormat: typeof BACKUP_FORMAT;
   backupVersion: string;
   appVersion: string;
@@ -67,7 +67,7 @@ export interface SwingIQBackup {
   dataScope: 'full';
   encrypted: false;
   preferredLanguage?: LanguageCode;
-  data: SwingIQBackupData;
+  data: SwingVantageBackupData;
   metadata: BackupMetadata;
 }
 

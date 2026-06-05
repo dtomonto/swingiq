@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Multi-Sport Module Barrel Export
+// SwingVantage — Multi-Sport Module Barrel Export
 // ============================================================
 
 export * from './types';

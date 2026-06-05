@@ -1,5 +1,5 @@
 /**
- * SwingIQ AI Coach — Structured Prompt Builder
+ * SwingVantage AI Coach — Structured Prompt Builder
  *
  * Separates deterministic data analysis (done in @swingiq/core) from
  * AI narrative generation. The AI receives a pre-built structured context
@@ -45,7 +45,7 @@ export interface CoachContext {
 
 // ── Sport-Specific System Prompts ─────────────────────────────
 
-const GOLF_SYSTEM_PROMPT = `You are SwingIQ AI Coach — a golf improvement assistant that helps golfers understand their launch-monitor and swing data.
+const GOLF_SYSTEM_PROMPT = `You are SwingVantage AI Coach — a golf improvement assistant that helps golfers understand their launch-monitor and swing data.
 
 RULES YOU MUST FOLLOW:
 1. Only reference data that is explicitly provided in the [DATA CONTEXT] block. Never invent numbers.
@@ -59,7 +59,7 @@ RULES YOU MUST FOLLOW:
 9. Use plain language. Explain any technical terms you use (e.g., "face-to-path — the angle between where the face points and where the club is swinging").
 10. Never output markdown tables — use plain text lists instead.`;
 
-const TENNIS_SYSTEM_PROMPT = `You are SwingIQ AI Coach — a tennis stroke development assistant that helps tennis players improve their technique.
+const TENNIS_SYSTEM_PROMPT = `You are SwingVantage AI Coach — a tennis stroke development assistant that helps tennis players improve their technique.
 
 RULES YOU MUST FOLLOW:
 1. Only reference data that is explicitly provided in the [DATA CONTEXT] block. Never invent numbers.
@@ -73,7 +73,7 @@ RULES YOU MUST FOLLOW:
 9. Use tennis-specific language (unit turn, split step, contact point, follow-through, etc.).
 10. Never output markdown tables — use plain text lists instead.`;
 
-const BASEBALL_SYSTEM_PROMPT = `You are SwingIQ AI Coach — a baseball hitting development assistant that helps hitters improve their mechanics and results at the plate.
+const BASEBALL_SYSTEM_PROMPT = `You are SwingVantage AI Coach — a baseball hitting development assistant that helps hitters improve their mechanics and results at the plate.
 
 RULES YOU MUST FOLLOW:
 1. Only reference data that is explicitly provided in the [DATA CONTEXT] block. Never invent numbers.
@@ -87,7 +87,7 @@ RULES YOU MUST FOLLOW:
 9. Use baseball hitting language (load, stride, hip-shoulder separation, bat path, contact point, extension, etc.).
 10. Never output markdown tables — use plain text lists instead.`;
 
-const SLOW_PITCH_SYSTEM_PROMPT = `You are SwingIQ AI Coach — a slow pitch softball hitting development assistant that helps players improve their timing, bat path, and power production against the arc pitch.
+const SLOW_PITCH_SYSTEM_PROMPT = `You are SwingVantage AI Coach — a slow pitch softball hitting development assistant that helps players improve their timing, bat path, and power production against the arc pitch.
 
 RULES YOU MUST FOLLOW:
 1. Only reference data that is explicitly provided in the [DATA CONTEXT] block. Never invent numbers.
@@ -101,7 +101,7 @@ RULES YOU MUST FOLLOW:
 9. Use slow pitch softball language (arc timing, hip rotation, contact height, pull/gap/opposite field, etc.).
 10. Never output markdown tables — use plain text lists instead.`;
 
-const FAST_PITCH_SYSTEM_PROMPT = `You are SwingIQ AI Coach — a fast pitch softball hitting development assistant that helps hitters improve their compact mechanics, timing, and contact against the rising pitch.
+const FAST_PITCH_SYSTEM_PROMPT = `You are SwingVantage AI Coach — a fast pitch softball hitting development assistant that helps hitters improve their compact mechanics, timing, and contact against the rising pitch.
 
 RULES YOU MUST FOLLOW:
 1. Only reference data that is explicitly provided in the [DATA CONTEXT] block. Never invent numbers.
@@ -385,7 +385,7 @@ export function buildLongitudinalContext(
 /** AI disclaimer shown to users before or alongside AI coaching responses */
 export const AI_COACHING_DISCLAIMER =
   'AI coaching reads the patterns in your data to give you confident, actionable guidance that pairs perfectly with a qualified coach for advanced work. ' +
-  'SwingIQ is not a medical device. If you experience pain, consult a sports medicine professional.';
+  'SwingVantage is not a medical device. If you experience pain, consult a sports medicine professional.';
 
 /** Short inline disclaimer shown in the AI chat UI */
 export const AI_COACHING_DISCLAIMER_SHORT =
@@ -394,4 +394,4 @@ export const AI_COACHING_DISCLAIMER_SHORT =
 /** Medical redirect — shown when the AI detects an injury/pain question */
 export const MEDICAL_REDIRECT_NOTE =
   '⚠️ For any pain or injury concerns, please consult a sports medicine professional or physiotherapist. ' +
-  'SwingIQ can help with swing mechanics, but is not a medical tool.';
+  'SwingVantage can help with swing mechanics, but is not a medical tool.';

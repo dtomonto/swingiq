@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "SwingIQ Base TypeScript Config",
+  "display": "SwingVantage Base TypeScript Config",
   "compilerOptions": {
     "strict": true,
     "strictNullChecks": true,

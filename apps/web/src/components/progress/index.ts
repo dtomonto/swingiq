@@ -1,4 +1,4 @@
-// SwingIQ — Progress Intelligence UI (barrel)
+// SwingVantage — Progress Intelligence UI (barrel)
 export { PlayerArcCard } from './PlayerArcCard';
 export { FlawFingerprintCard } from './FlawFingerprintCard';
 export { TrainingReceiptCard } from './TrainingReceiptCard';

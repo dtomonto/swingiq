@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 /**
- * A static, illustrative preview of what a SwingIQ report looks
+ * A static, illustrative preview of what a SwingVantage report looks
  * like. Uses clearly-labeled example data — not a real user's
  * results and not a guaranteed outcome. Place near CTAs so users
  * know what they'll get before they start.

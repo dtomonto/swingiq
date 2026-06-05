@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Provider: Local Rule Provider (default)
+// SwingVantage — Agent Provider: Local Rule Provider (default)
 // ------------------------------------------------------------
 // The deterministic source of truth. It NEVER calls an external
 // service, always available, and returns structured copy exactly

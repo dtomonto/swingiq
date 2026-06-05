@@ -64,7 +64,7 @@ export function SignupForm() {
         <div className="p-3 bg-warning/10 border border-warning/30 rounded-lg">
           <p className="text-xs text-warning leading-relaxed">{error}</p>
           <Link href="/dashboard" className="mt-2 inline-block text-xs font-semibold text-primary hover:underline">
-            Use SwingIQ without an account →
+            Use SwingVantage without an account →
           </Link>
         </div>
       )}
@@ -101,7 +101,7 @@ export function SignupForm() {
       </p>
       <p className="text-xs text-warning bg-warning/10 border border-warning/30 rounded-lg p-3 text-center">
         <strong>Under 13?</strong> A parent or guardian must create and manage your account.
-        SwingIQ is not directed at children under 13.
+        SwingVantage is not directed at children under 13.
       </p>
     </form>
   );

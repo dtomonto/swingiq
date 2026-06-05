@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Layer: Public API (barrel)
+// SwingVantage — Agent Layer: Public API (barrel)
 // ------------------------------------------------------------
 // The intelligent product layer. Deterministic by default,
 // optionally enhanced by an LLM behind a feature flag. Import

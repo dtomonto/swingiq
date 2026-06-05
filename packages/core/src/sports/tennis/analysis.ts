@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Tennis Analysis Engine
+// SwingVantage — Tennis Analysis Engine
 // Heuristic issue detection for tennis swing video.
 // ⚠️ All detections are ESTIMATED — no ML model is running.
 //    Confidence values are intentionally conservative (0.3–0.55).

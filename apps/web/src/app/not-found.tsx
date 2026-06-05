@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Page Not Found | SwingIQ',
+  title: 'Page Not Found | SwingVantage',
   description: 'The page you are looking for does not exist.',
   robots: 'noindex, nofollow',
 };
@@ -23,7 +23,7 @@ export default function NotFound() {
           <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
             <span className="text-white font-black text-sm">SQ</span>
           </div>
-          <span className="text-foreground font-bold text-xl">SwingIQ</span>
+          <span className="text-foreground font-bold text-xl">SwingVantage</span>
         </Link>
 
         {/* Error */}
@@ -41,7 +41,7 @@ export default function NotFound() {
             href="/"
             className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold py-3 px-6 rounded-xl transition-colors"
           >
-            Go to SwingIQ Home
+            Go to SwingVantage Home
           </Link>
           <Link
             href="/dashboard"

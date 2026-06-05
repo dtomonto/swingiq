@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { useSwingIQStore, type BaseballBat } from '@/store';
+import { useSwingVantageStore, type BaseballBat } from '@/store';
 import { scoreBat } from '@/lib/equipment/scoring';
 import Link from 'next/link';
 import { Plus, Trash2, ChevronDown, ChevronUp, Info, AlertTriangle } from 'lucide-react';
@@ -19,7 +19,7 @@ const EMPTY: Omit<BaseballBat, 'id' | 'created_at'> = {
 };
 
 export function BaseballEquipment() {
-  const { sportEquipment, addBaseballBat, removeBaseballBat } = useSwingIQStore();
+  const { sportEquipment, addBaseballBat, removeBaseballBat } = useSwingVantageStore();
   const bats = sportEquipment.baseball;
 
   const [form, setForm] = useState<Omit<BaseballBat, 'id' | 'created_at'>>(EMPTY);
@@ -55,7 +55,7 @@ export function BaseballEquipment() {
         <div className="flex gap-3 bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl p-4">
           <Info className="text-accent-secondary mt-0.5 shrink-0" size={18} />
           <p className="text-sm text-foreground">
-            <strong>Optional.</strong> You can skip this and still use all SwingIQ features. Missing specs lower confidence scores — they don&apos;t block anything.
+            <strong>Optional.</strong> You can skip this and still use all SwingVantage features. Missing specs lower confidence scores — they don&apos;t block anything.
           </p>
         </div>
 
@@ -182,7 +182,7 @@ export function BaseballEquipment() {
         {bats.length === 0 && !showForm && (
           <div className="flex gap-2 text-sm text-muted-foreground bg-muted border border-border rounded-xl p-4">
             <AlertTriangle size={16} className="text-muted-foreground mt-0.5 shrink-0" />
-            No bat logged. This is optional — you can still use all SwingIQ features without it.
+            No bat logged. This is optional — you can still use all SwingVantage features without it.
           </div>
         )}
       </div>

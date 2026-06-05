@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Dashboard Intelligence Block
+// SwingVantage — Dashboard Intelligence Block
 // ------------------------------------------------------------
 // The single embedded "intelligent product layer" for the
 // dashboard. Shows a compact mode switcher, then the right hero
@@ -17,7 +17,7 @@
 
 import { useAgentInsights } from '@/hooks/useAgentInsights';
 import { useRetests } from '@/lib/retest';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { getTone } from '@/lib/coaching/tones';
 import { WelcomeBackCard } from './WelcomeBackCard';
 import { NextBestActionCard } from './NextBestActionCard';
@@ -44,7 +44,7 @@ export function DashboardIntelligence() {
   const { topTarget, dismiss: dismissRetest } = useRetests();
 
   // The audience mode (same source of truth as the Settings selector).
-  const mode = getTone(useSwingIQStore((s) => s.settings.coaching_tone)).id;
+  const mode = getTone(useSwingVantageStore((s) => s.settings.coaching_tone)).id;
 
   if (!ready || !resume || !nextBestAction) return null;
 

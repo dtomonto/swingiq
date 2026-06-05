@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — DrillMatch: Transparent Scoring
+// SwingVantage — DrillMatch: Transparent Scoring
 // ------------------------------------------------------------
 // A rule-based, fully deterministic scoring function that ranks
 // normalized drill candidates for a diagnosed fault. Every point

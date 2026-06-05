@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Benchmark Change Proposal Engine
+// SwingVantage — Benchmark Change Proposal Engine
 // Compares current benchmarks against research evidence
 // and generates BenchmarkChangeProposal records.
 //

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Layer: Sport Profiles
+// SwingVantage — Agent Layer: Sport Profiles
 // ------------------------------------------------------------
 // Per-sport language, cues, filming tips, equipment vocabulary,
 // and pre-game guidance. Deterministic data the workflows read

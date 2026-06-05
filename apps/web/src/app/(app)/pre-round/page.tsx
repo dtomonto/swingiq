@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, CardBody } from '@/components/ui/Card';
-import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
+import { useSwingVantageStore, useLatestDiagnosedSession } from '@/store';
 import { generatePreRoundRoutine } from '@swingiq/core';
 import { useMemo, useState } from 'react';
 import { CheckCircle, Circle, Clock, ExternalLink, Zap } from 'lucide-react';
@@ -15,7 +15,7 @@ export default function PreRoundPage() {
 
   // All hooks must be called unconditionally before any early return.
   const latestSession = useLatestDiagnosedSession();
-  const { training } = useSwingIQStore();
+  const { training } = useSwingVantageStore();
   const [completed, setCompleted] = useState<Set<number>>(new Set());
 
   const diagnosisId = training.active_diagnosis_id ?? latestSession?.diagnoses[0]?.rule?.id ?? 'default';

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Engine: Public API (barrel)
+// SwingVantage — Motion Engine: Public API (barrel)
 // ------------------------------------------------------------
 // The provider seam + honest data-basis labeling over a browser-side
 // motion pipeline. Real pose estimation lives in `@/lib/pose` (the

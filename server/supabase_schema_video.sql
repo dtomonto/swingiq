@@ -1,5 +1,5 @@
 -- ============================================================
--- SwingIQ — Video Analysis Supabase Schema
+-- SwingVantage — Video Analysis Supabase Schema
 -- Run this in your Supabase SQL editor after applying
 -- the base schema (supabase_schema.sql).
 -- ============================================================

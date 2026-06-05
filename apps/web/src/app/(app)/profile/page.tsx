@@ -25,7 +25,7 @@ export default function ProfilePage() {
             <h1 className="text-2xl font-bold text-foreground">{labels.profile}</h1>
           </div>
           <p className="text-muted-foreground text-sm mt-1">
-            Your profile helps SwingIQ personalize every analysis, routine, and recommendation.
+            Your profile helps SwingVantage personalize every analysis, routine, and recommendation.
             Take 3 minutes to fill this out accurately.
           </p>
         </div>

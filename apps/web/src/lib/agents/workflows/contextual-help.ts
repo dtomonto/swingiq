@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Contextual Help
+// SwingVantage — Workflow: Contextual Help
 // ------------------------------------------------------------
 // Page-aware, plain-English help. Explains what a screen does,
 // the next action, and common mistakes. Short by design. Keyed
@@ -16,13 +16,13 @@ const HELP: Record<string, Omit<ContextualHelp, 'page'>> = {
     fastestPath: 'Follow the next-step card → practice → upload a follow-up → repeat.',
   },
   '/profile': {
-    whatThisScreenDoes: 'Tells SwingIQ who you are so every tip is tailored — sport, skill level, goal, and tendencies.',
+    whatThisScreenDoes: 'Tells SwingVantage who you are so every tip is tailored — sport, skill level, goal, and tendencies.',
     nextAction: 'Fill in your sport, skill level, and one clear goal.',
     commonMistakes: ['Leaving the goal blank — it shapes your whole plan.', 'Picking a skill level much higher than reality.'],
     fastestPath: 'Name → sport → skill level → primary goal → save.',
   },
   '/sessions/import': {
-    whatThisScreenDoes: 'Brings your launch-monitor data into SwingIQ so it can analyze your swing.',
+    whatThisScreenDoes: 'Brings your launch-monitor data into SwingVantage so it can analyze your swing.',
     nextAction: 'Upload a CSV from your launch monitor, or enter a few shots by hand.',
     commonMistakes: ['Importing fewer than 5 shots.', 'Mixing several clubs in one session.'],
     fastestPath: 'Pick one club → import 5+ shots → run diagnosis.',

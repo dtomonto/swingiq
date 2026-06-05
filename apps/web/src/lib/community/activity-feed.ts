@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Community — Activity Feed Generator
+// SwingVantage Community — Activity Feed Generator
 // Generates feed items from session/achievement data.
 // Uses structured translation keys instead of hardcoded strings.
 // ============================================================

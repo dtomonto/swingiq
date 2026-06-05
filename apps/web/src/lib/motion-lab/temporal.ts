@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Temporal Motion Intelligence
+// SwingVantage — Motion Lab: Temporal Motion Intelligence
 // ------------------------------------------------------------
 // Reads HOW THE MOTION UNFOLDS OVER TIME, not just static angles: how
 // long the load takes, how quick the transition at the top is, how long

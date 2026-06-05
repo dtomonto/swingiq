@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SwingIQ Custom Security Check Script
+ * SwingVantage Custom Security Check Script
  *
  * Scans the source directory for common security anti-patterns:
  *   1. NEXT_PUBLIC_ env vars that look like secrets
@@ -234,7 +234,7 @@ const criticals = allFindings.filter((f) => f.severity === "CRITICAL");
 const warnings = allFindings.filter((f) => f.severity === "WARNING");
 
 const lines = [
-  "SwingIQ Custom Security Check Results",
+  "SwingVantage Custom Security Check Results",
   `Run at: ${new Date().toISOString()}`,
   `Scanned directories: ${SRC_DIRS.join(", ")}`,
   "",

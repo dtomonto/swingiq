@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Video Analysis — Extended Types
+// SwingVantage Video Analysis — Extended Types
 // These extend the base types in packages/core/src/types/index.ts
 // ============================================================
 

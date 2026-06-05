@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Per-user entitlements (who is on which paid plan)
+// SwingVantage — Per-user entitlements (who is on which paid plan)
 //
 // Reads/writes the `subscriptions` table via the service-role client.
 // The Stripe webhook WRITES here; the app READS here to gate Pro/Team

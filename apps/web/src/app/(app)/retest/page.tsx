@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Retest Hub
+// SwingVantage — Retest Hub
 // ------------------------------------------------------------
 // The home of the improvement loop: findings that are due for a
 // retest, and the directional results of retests already done.
@@ -29,7 +29,7 @@ export default function RetestPage() {
           </h1>
           <p className="text-muted-foreground text-sm mt-1 leading-relaxed">
             A diagnosis is a starting point, not a verdict. Work your drills, then retest under the
-            same conditions so SwingIQ can show whether it actually changed.
+            same conditions so SwingVantage can show whether it actually changed.
           </p>
         </header>
 

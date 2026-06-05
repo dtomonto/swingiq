@@ -1,12 +1,12 @@
-import type { SwingIQState } from '@/store';
-import type { SwingIQBackup, RestorePreview, RestoreResult } from './schema';
+import type { SwingVantageState } from '@/store';
+import type { SwingVantageBackup, RestorePreview, RestoreResult } from './schema';
 import type { CommunityState, AchievementEarned } from '@/lib/community/types';
 import type { TutorialProgress } from '@/lib/tutorial/types';
 import { DEFAULT_TUTORIAL_PROGRESS } from '@/lib/tutorial/types';
 
 export function previewRestore(
-  backup: SwingIQBackup,
-  currentState: SwingIQState,
+  backup: SwingVantageBackup,
+  currentState: SwingVantageState,
 ): RestorePreview {
   const warnings: string[] = [];
   const categories: string[] = [];
@@ -134,9 +134,9 @@ export function previewRestore(
 }
 
 export function mergeRestore(
-  backup: SwingIQBackup,
-  currentState: SwingIQState,
-): Partial<SwingIQState> {
+  backup: SwingVantageBackup,
+  currentState: SwingVantageState,
+): Partial<SwingVantageState> {
   // ── Sessions ──────────────────────────────────────────────
   const existingSessionIds = new Set(currentState.sessions.map((s) => s.id));
   const existingSessionKeys = new Set(
@@ -296,9 +296,9 @@ export function mergeRestore(
 }
 
 export function replaceRestore(
-  backup: SwingIQBackup,
-  currentSettings: SwingIQState['settings'],
-): Partial<SwingIQState> {
+  backup: SwingVantageBackup,
+  currentSettings: SwingVantageState['settings'],
+): Partial<SwingVantageState> {
   return {
     profile: backup.data.profile,
     sportProfiles: backup.data.sportProfiles ?? {},

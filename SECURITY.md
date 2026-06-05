@@ -2,7 +2,7 @@
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** The official place that tells a security researcher how to privately report a problem they find in SwingIQ, plus a reference for replacing secret keys and a pre-launch safety checklist.
+**What this page is:** The official place that tells a security researcher how to privately report a problem they find in SwingVantage, plus a reference for replacing secret keys and a pre-launch safety checklist.
 
 **What you actually need to know:**
 - The public part is simple: people email **security@swingiq.app** to report an issue **privately** (not in a public post, so users aren't put at risk). Make sure that inbox actually reaches you.
@@ -17,7 +17,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in SwingIQ, please report it responsibly.
+If you discover a security vulnerability in SwingVantage, please report it responsibly.
 
 **Do not open a public GitHub issue.** Public disclosure before remediation puts users at risk.
 
@@ -79,7 +79,7 @@ If user data (swing sessions, launch monitor data, video metadata, profiles) is 
 
 ## Automated Security Checks
 
-SwingIQ uses automated CI/CD security workflows that run on every push and pull request. See [`docs/security-automation.md`](docs/security-automation.md) for the full guide.
+SwingVantage uses automated CI/CD security workflows that run on every push and pull request. See [`docs/security-automation.md`](docs/security-automation.md) for the full guide.
 
 | Workflow | What It Checks | Schedule |
 |---|---|---|

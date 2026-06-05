@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Setup / Stance Overlay ("where to stand")
+// SwingVantage — Setup / Stance Overlay ("where to stand")
 // ------------------------------------------------------------
 // A literal, on-screen framing guide drawn OVER the live camera
 // preview: a safe-area box, a body outline, and a one-line caption

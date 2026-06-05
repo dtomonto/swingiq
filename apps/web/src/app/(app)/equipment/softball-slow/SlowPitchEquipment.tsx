@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { useSwingIQStore, type SoftballBat } from '@/store';
+import { useSwingVantageStore, type SoftballBat } from '@/store';
 import { scoreBat } from '@/lib/equipment/scoring';
 import Link from 'next/link';
 import { Plus, Trash2, ChevronDown, ChevronUp, AlertTriangle } from 'lucide-react';
@@ -18,7 +18,7 @@ const EMPTY: Omit<SoftballBat, 'id' | 'created_at'> = {
 };
 
 export function SlowPitchEquipment() {
-  const { sportEquipment, addSoftballBat, removeSoftballBat } = useSwingIQStore();
+  const { sportEquipment, addSoftballBat, removeSoftballBat } = useSwingVantageStore();
   const bats = sportEquipment.softball_slow;
 
   const [form, setForm] = useState<Omit<SoftballBat, 'id' | 'created_at'>>(EMPTY);
@@ -54,7 +54,7 @@ export function SlowPitchEquipment() {
         <div className="flex gap-3 bg-warning/10 border border-warning/30 rounded-xl p-4">
           <AlertTriangle className="text-warning mt-0.5 shrink-0" size={18} />
           <p className="text-sm text-warning">
-            <strong>Association compliance reminder:</strong> USSSA, USA/ASA, ISA, NSA, and SSUSA each maintain their own approved bat lists. SwingIQ cannot verify current stamp approval — always check your association&apos;s official list before play.
+            <strong>Association compliance reminder:</strong> USSSA, USA/ASA, ISA, NSA, and SSUSA each maintain their own approved bat lists. SwingVantage cannot verify current stamp approval — always check your association&apos;s official list before play.
           </p>
         </div>
 

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: 3D kinematics unit tests
+// SwingVantage — Motion Lab: 3D kinematics unit tests
 // ------------------------------------------------------------
 // Pure-math guarantees for the depth-aware rotation helpers.
 // ============================================================

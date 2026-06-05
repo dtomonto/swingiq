@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AI Visual Analysis Schemas
+// SwingVantage — AI Visual Analysis Schemas
 //
 // These schemas define the contract for REAL AI vision analysis:
 // the model inspects actual extracted video frames and must return
@@ -20,7 +20,7 @@ export const VISUAL_ANALYSIS_SCHEMA_VERSION = '1.0.0';
 // Shared enums
 // ──────────────────────────────────────────────────────────────
 
-/** Sports SwingIQ supports — mirrors core `SportId`. */
+/** Sports SwingVantage supports — mirrors core `SportId`. */
 export const VisualSportSchema = z.enum([
   'golf',
   'tennis',

@@ -1,5 +1,5 @@
 -- ============================================================
--- SwingIQ — ALL-IN-ONE Supabase setup (paste this ONE file)
+-- SwingVantage — ALL-IN-ONE Supabase setup (paste this ONE file)
 -- ============================================================
 --
 -- WHAT THIS IS:

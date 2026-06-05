@@ -7,7 +7,7 @@ import type { Metadata } from 'next';
 import { ResearchAdminContent } from './ResearchAdminContent';
 
 export const metadata: Metadata = {
-  title: 'Research Admin | SwingIQ',
+  title: 'Research Admin | SwingVantage',
   robots: 'noindex, nofollow',
 };
 

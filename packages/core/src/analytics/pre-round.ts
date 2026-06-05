@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Pre-Round Warm-Up Generator
+// SwingVantage — Pre-Round Warm-Up Generator
 // Builds a personalised 15–20 minute warm-up routine based on
 // the golfer's current primary diagnosis and skill level.
 // ============================================================

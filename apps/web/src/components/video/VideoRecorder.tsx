@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — In-app Swing Video Recorder
+// SwingVantage — In-app Swing Video Recorder
 // ------------------------------------------------------------
 // Records a swing directly in the browser via getUserMedia +
 // MediaRecorder — no OS file picker, no upload. Works with the

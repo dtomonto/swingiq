@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { useSwingIQStore, type SoftballBat } from '@/store';
+import { useSwingVantageStore, type SoftballBat } from '@/store';
 import { scoreBat } from '@/lib/equipment/scoring';
 import Link from 'next/link';
 import { Plus, Trash2, ChevronDown, ChevronUp, Info, AlertTriangle } from 'lucide-react';
@@ -18,7 +18,7 @@ const EMPTY: Omit<SoftballBat, 'id' | 'created_at'> = {
 };
 
 export function FastPitchEquipment() {
-  const { sportEquipment, addSoftballBat, removeSoftballBat } = useSwingIQStore();
+  const { sportEquipment, addSoftballBat, removeSoftballBat } = useSwingVantageStore();
   const bats = sportEquipment.softball_fast;
 
   const [form, setForm] = useState<Omit<SoftballBat, 'id' | 'created_at'>>(EMPTY);
@@ -168,7 +168,7 @@ export function FastPitchEquipment() {
         {bats.length === 0 && !showForm && (
           <div className="flex gap-2 text-sm text-muted-foreground bg-muted border border-border rounded-xl p-4">
             <AlertTriangle size={16} className="text-muted-foreground mt-0.5 shrink-0" />
-            No bat logged. Optional — all SwingIQ features work without equipment setup.
+            No bat logged. Optional — all SwingVantage features work without equipment setup.
           </div>
         )}
       </div>

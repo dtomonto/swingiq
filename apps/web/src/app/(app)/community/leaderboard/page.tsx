@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Trophy, Shield, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -11,7 +11,7 @@ import { calculateLevelFromXP } from '@/lib/community/xp';
 
 export default function LeaderboardPage() {
   const { t } = useLanguage();
-  const { sessions, video_analyses, training, community } = useSwingIQStore();
+  const { sessions, video_analyses, training, community } = useSwingVantageStore();
   const [metric, setMetric] = useState<LeaderboardMetric>('sessions_completed');
 
   const displayName = community.profile.displayName || 'You';
@@ -55,7 +55,7 @@ export default function LeaderboardPage() {
           <div>
             <p className="font-semibold">Privacy-Safe Rankings</p>
             <p>
-              SwingIQ leaderboards rank by improvement and consistency, not just raw scores.
+              SwingVantage leaderboards rank by improvement and consistency, not just raw scores.
               Your exact metrics are never shared publicly without your consent.
               {isOptedOut ? ' You are currently displayed anonymously.' : ''}
             </p>
@@ -140,7 +140,7 @@ export default function LeaderboardPage() {
                 type="checkbox"
                 checked={!isOptedOut}
                 onChange={(e) => {
-                  useSwingIQStore.getState().updateCommunity({
+                  useSwingVantageStore.getState().updateCommunity({
                     privacy: { ...community.privacy, leaderboardOptOut: !e.target.checked },
                   });
                 }}

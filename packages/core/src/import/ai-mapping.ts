@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AI CSV Mapping Agent (framework-agnostic core)
+// SwingVantage — AI CSV Mapping Agent (framework-agnostic core)
 // ------------------------------------------------------------
 // When a launch-monitor export is too unusual for the
 // deterministic detector (odd header names, a new brand, a
@@ -67,10 +67,10 @@ export interface CsvMappingRequest {
 }
 
 export const CSV_MAPPING_SYSTEM_PROMPT =
-  `You are a data-mapping assistant for SwingIQ, a launch-monitor analysis app. ` +
+  `You are a data-mapping assistant for SwingVantage, a launch-monitor analysis app. ` +
   `You are given the column headers and a few sample rows from a golf launch-monitor CSV export ` +
   `(it may be from FlightScope, TrackMan, Foresight, SkyTrak, Garmin, Rapsodo, Uneekor, or a custom sheet). ` +
-  `Map each column to SwingIQ's universal field key when there is a clear match.\n\n` +
+  `Map each column to SwingVantage's universal field key when there is a clear match.\n\n` +
   `RULES YOU MUST FOLLOW:\n` +
   `1. Output ONLY a single JSON object: {"mapping": {"<universal_field_key>": "<exact_column_header>"}, "notes": "<one short sentence>"}.\n` +
   `2. Use ONLY the universal field keys provided. Use each header at most once. Omit fields you cannot confidently map.\n` +

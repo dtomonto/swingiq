@@ -42,7 +42,7 @@ function inferClubCategory(clubName: string): ClubCategory {
   // fall back to mid_iron as the most common default
   return 'mid_iron';
 }
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 
 type WizardStep = 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -124,7 +124,7 @@ function ParseMetaNote({ meta }: { meta: ParsedFile['meta'] }) {
 }
 
 export function ImportWizard() {
-  const { addSession } = useSwingIQStore();
+  const { addSession } = useSwingVantageStore();
   const { activeSport } = useSport();
   const [step, setStep] = useState<WizardStep>(1);
   const [brand, setBrand] = useState<LaunchMonitorBrand | null>(null);

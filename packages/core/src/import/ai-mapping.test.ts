@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AI CSV mapping: response validation
+// SwingVantage — AI CSV mapping: response validation
 // ------------------------------------------------------------
 // The model's output is never trusted directly. These tests
 // pin the guarantees: only known field keys, only real headers,

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Golf Research & Benchmark Evolution System
+// SwingVantage — Golf Research & Benchmark Evolution System
 // Core data types for the 90-day research cycle.
 //
 // Design principles:

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AI Visual Analysis unit tests
+// SwingVantage — AI Visual Analysis unit tests
 // Covers schema validation, sport prompt routing, the provider
 // factory, and the strict "not configured" behavior.
 // ============================================================

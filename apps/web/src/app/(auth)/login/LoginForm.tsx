@@ -95,7 +95,7 @@ export function LoginForm() {
 
       <div className="text-center space-y-2">
         <p className="text-xs text-muted-foreground">
-          New to SwingIQ?{' '}
+          New to SwingVantage?{' '}
           <Link href="/signup" className="font-semibold text-primary hover:underline">
             Create an account
           </Link>

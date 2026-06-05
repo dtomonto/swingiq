@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Image/Table Extraction Service
+// SwingVantage — Image/Table Extraction Service
 // OCR stub + manual fallback for screenshot/photo imports
 // ============================================================
 

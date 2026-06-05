@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Scoring Engine
+// SwingVantage Scoring Engine
 // Transparent 0–100 scores with clear improvement targets
 // ============================================================
 

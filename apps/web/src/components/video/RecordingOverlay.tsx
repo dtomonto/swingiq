@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — "Where to stand" recording overlay
+// SwingVantage — "Where to stand" recording overlay
 // ------------------------------------------------------------
 // A purely presentational guide drawn over the live camera preview
 // so the user (or whoever they're filming) knows how to frame the

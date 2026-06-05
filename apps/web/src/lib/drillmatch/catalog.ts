@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — DrillMatch: Unified Drill Catalog
+// SwingVantage — DrillMatch: Unified Drill Catalog
 // ------------------------------------------------------------
 // Normalizes the EXISTING per-sport drill libraries in
 // @swingiq/core into one `DrillCandidate[]`. No drill content is

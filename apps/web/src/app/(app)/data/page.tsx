@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ Data Center
+// SwingVantage Data Center
 // The primary export/import hub. Emphasizes data as a durable asset.
 // Includes backup health, export reminders, language-in-backup support.
 // ============================================================
@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/Button';
 import { BackupHealthBanner } from '@/components/community/BackupHealthBanner';
 import { AutoSyncSection } from '@/components/backup/AutoSyncSection';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LANGUAGE_CONFIG } from '@/lib/i18n';
 import { exportUserData, downloadBackup } from '@/lib/backup/export';
@@ -21,7 +21,7 @@ import { previewRestore, mergeRestore, replaceRestore, generateRestoreResult } f
 import { encryptBackup, decryptBackup, isEncryptedBackup } from '@/lib/backup/crypto';
 import { formatLastExport } from '@/lib/community/backup-health';
 import { getExportableModules } from '@/lib/backup/registry';
-import type { SwingIQBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
+import type { SwingVantageBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
 import {
   Download, Upload, Shield, Lock, AlertTriangle, CheckCircle,
   RefreshCw, Database, Globe, Info, Trash2, Calendar,
@@ -30,7 +30,7 @@ import {
 type ImportStep = 'idle' | 'parsing' | 'needs-password' | 'preview' | 'confirming-replace' | 'done';
 
 export default function DataCenterPage() {
-  const store = useSwingIQStore();
+  const store = useSwingVantageStore();
   const { t, language } = useLanguage();
   const { sessions, clubs, video_analyses, community } = store;
 
@@ -45,7 +45,7 @@ export default function DataCenterPage() {
   // Import state
   const [importStep, setImportStep] = useState<ImportStep>('idle');
   const [importError, setImportError] = useState<string | null>(null);
-  const [pendingBackup, setPendingBackup] = useState<SwingIQBackup | null>(null);
+  const [pendingBackup, setPendingBackup] = useState<SwingVantageBackup | null>(null);
   const [pendingEncryptedContent, setPendingEncryptedContent] = useState<string | null>(null);
   const [importPassword, setImportPassword] = useState('');
   const [preview, setPreview] = useState<RestorePreview | null>(null);
@@ -126,7 +126,7 @@ export default function DataCenterPage() {
   function handleMerge() {
     if (!pendingBackup || !preview) return;
     const delta = mergeRestore(pendingBackup, store);
-    useSwingIQStore.setState(delta);
+    useSwingVantageStore.setState(delta);
     // Restore language if user chose to
     if (restoreLanguage === 'backup' && pendingBackup.preferredLanguage) {
       store.updateSettings({ language: pendingBackup.preferredLanguage });
@@ -138,8 +138,8 @@ export default function DataCenterPage() {
   function handleReplace() {
     if (!pendingBackup || !preview) return;
     const delta = replaceRestore(pendingBackup, store.settings);
-    useSwingIQStore.setState(delta);
-    useSwingIQStore.getState().computeSetupStep();
+    useSwingVantageStore.setState(delta);
+    useSwingVantageStore.getState().computeSetupStep();
     if (restoreLanguage === 'backup' && pendingBackup.preferredLanguage) {
       store.updateSettings({ language: pendingBackup.preferredLanguage });
     }
@@ -327,7 +327,7 @@ export default function DataCenterPage() {
             {importStep === 'idle' && (
               <>
                 <p className="text-sm text-muted-foreground">
-                  Select a SwingIQ backup file (.json or .swingiqbackup) to preview what will be restored.
+                  Select a SwingVantage backup file (.json or .swingiqbackup) to preview what will be restored.
                 </p>
                 {importError && (
                   <div className="flex gap-2 bg-error/10 border border-error/30 rounded-lg p-3 text-sm text-error" role="alert">

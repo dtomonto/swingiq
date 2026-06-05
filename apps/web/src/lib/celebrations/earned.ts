@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Earn-Moment Celebration Signals
+// SwingVantage — Earn-Moment Celebration Signals
 // ------------------------------------------------------------
 // Pure helpers (no React) that turn the existing community
 // achievement system into "celebration" view models. We reuse

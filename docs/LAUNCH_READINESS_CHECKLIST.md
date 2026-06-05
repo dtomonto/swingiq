@@ -1,6 +1,6 @@
-# SwingIQ Launch Readiness Checklist
+# SwingVantage Launch Readiness Checklist
 
-This checklist tells you exactly what to do before you open SwingIQ to the public, before you charge users, and for long-term growth. Every item is written in plain English — no developer jargon without an explanation.
+This checklist tells you exactly what to do before you open SwingVantage to the public, before you charge users, and for long-term growth. Every item is written in plain English — no developer jargon without an explanation.
 
 ---
 
@@ -9,7 +9,7 @@ This checklist tells you exactly what to do before you open SwingIQ to the publi
 - **Must fix before public launch** — If these aren't done, the app will break or users will be confused. Do these first.
 - **Should fix before paid users** — If you want to charge money, these protect you legally, financially, and technically.
 - **Strategic future enhancement** — Nice-to-have improvements that will help you grow over time.
-- **Long-term moat opportunity** — Things that make SwingIQ hard for competitors to copy.
+- **Long-term moat opportunity** — Things that make SwingVantage hard for competitors to copy.
 
 ---
 
@@ -17,7 +17,7 @@ This checklist tells you exactly what to do before you open SwingIQ to the publi
 
 ### 1.1 Supabase Database Setup
 - [ ] Create a Supabase account at https://supabase.com (free plan is fine to start)
-- [ ] Create a new Supabase project (name it "SwingIQ")
+- [ ] Create a new Supabase project (name it "SwingVantage")
 - [ ] Copy the SQL from `server/supabase_schema.sql` and paste it into the Supabase SQL Editor
 - [ ] Click "Run" to create all database tables
 - [ ] Copy your Supabase URL and keys from the Supabase dashboard (Settings → API)
@@ -81,7 +81,7 @@ This checklist tells you exactly what to do before you open SwingIQ to the publi
 
 ### 2.1 Payment Processing
 - [ ] Set up Stripe (https://stripe.com) — industry standard, safe for non-developers
-- [ ] Create product plans in Stripe dashboard (e.g., "SwingIQ Pro — $9.99/month")
+- [ ] Create product plans in Stripe dashboard (e.g., "SwingVantage Pro — $9.99/month")
 - [ ] Implement Stripe Checkout or Stripe Billing portal
 - [ ] Add Stripe webhook handling to verify payments server-side
 - [ ] Test with Stripe test cards before going live
@@ -189,10 +189,10 @@ This checklist tells you exactly what to do before you open SwingIQ to the publi
 ## CATEGORY 4: Long-Term Moat Opportunities
 
 ### 4.1 Proprietary Benchmark Database
-- **What it is:** Your own database of swing metrics from thousands of SwingIQ users (aggregated, anonymous)
+- **What it is:** Your own database of swing metrics from thousands of SwingVantage users (aggregated, anonymous)
 - **Why it matters:** Commercial benchmarks (TrackMan, Arccos) cost millions. Yours grows with your user base.
 - **How to start:** Add a field to the database schema that records aggregated swing scores by skill level and sport
-- **Goal:** Replace third-party benchmark citations with "SwingIQ Community Benchmarks"
+- **Goal:** Replace third-party benchmark citations with "SwingVantage Community Benchmarks"
 
 ### 4.2 AI Coach Memory
 - **What it is:** The AI remembers what you worked on last session and references it next session
@@ -204,10 +204,10 @@ This checklist tells you exactly what to do before you open SwingIQ to the publi
 - **What it is:** A parent can track their child's swing development from ages 10–18 in one app
 - **Why it matters:** 12+ years of data creates massive switching costs
 - **How to start:** Add "family group" to the auth system — parent account with child sub-accounts
-- **Goal:** SwingIQ becomes the "baby book" of athletic development
+- **Goal:** SwingVantage becomes the "baby book" of athletic development
 
 ### 4.4 White-Label for Golf Courses / Schools
-- **What it is:** A golf course pays for branded "Pinebrook Golf Academy powered by SwingIQ"
+- **What it is:** A golf course pays for branded "Pinebrook Golf Academy powered by SwingVantage"
 - **Why it matters:** B2B revenue is higher and more predictable than B2C subscriptions
 - **How to start:** Extract the theme colors and logo into a config file (already partly done in tailwind.config.js)
 - **Goal:** 5 white-label customers at $500/month = $30K ARR
@@ -219,10 +219,10 @@ This checklist tells you exactly what to do before you open SwingIQ to the publi
 - **Goal:** Detect swing faults automatically from video, reducing the need for launch monitor data
 
 ### 4.6 Certification and Badging for Coaches
-- **What it is:** SwingIQ-certified coaches get a badge they can show students
+- **What it is:** SwingVantage-certified coaches get a badge they can show students
 - **Why it matters:** Creates a professional network effect and marketing channel
 - **How to start:** Add a "Certified Coach" flag to the coach user type and design a certification flow
-- **Goal:** 100 certified coaches who actively recommend SwingIQ to students
+- **Goal:** 100 certified coaches who actively recommend SwingVantage to students
 
 ---
 

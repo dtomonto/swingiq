@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Saved Video-Analysis History (local-first)
+// SwingVantage — Saved Video-Analysis History (local-first)
 // ------------------------------------------------------------
 // A tiny, self-contained localStorage record of past AI video
 // analyses. It powers three things:
@@ -214,7 +214,7 @@ export function downloadAnalysisJson(record: SavedVideoAnalysis): boolean {
   if (typeof window === 'undefined' || typeof document === 'undefined') return false;
   try {
     const payload = {
-      exportedFrom: 'SwingIQ',
+      exportedFrom: 'SwingVantage',
       exportedAt: new Date().toISOString(),
       ...record,
     };

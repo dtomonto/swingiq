@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — i18n Utility Functions
+// SwingVantage — i18n Utility Functions
 // Translation lookup with English fallback, template interpolation.
 // ============================================================
 

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: 3D biomechanics integration tests
+// SwingVantage — Motion Lab: 3D biomechanics integration tests
 // ------------------------------------------------------------
 // Proves the headline fix: on a FACE-ON capture the shoulder turn lives
 // almost entirely in the DEPTH axis (the image-plane tilt barely moves).

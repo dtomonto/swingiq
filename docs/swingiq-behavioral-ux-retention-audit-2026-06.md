@@ -1,4 +1,4 @@
-# SwingIQ — Behavioral Science, UX, Engagement & Retention Audit
+# SwingVantage — Behavioral Science, UX, Engagement & Retention Audit
 
 **Date:** June 2, 2026
 **Scope:** Full product — live marketing site (`swingiq-web-nine.vercel.app`) + the in-app product (`(app)` routes) read directly from source.
@@ -8,7 +8,7 @@
 
 ## In Plain English (start here)
 
-**The big picture:** SwingIQ is in much better shape than most "AI swing app" audits would assume. The hard, expensive things are already built and built *thoughtfully* — honest confidence labels, a one-fix-at-a-time coaching philosophy, a "Welcome back, here's today's fix" returning-user panel, a Swing Passport with badges and streaks, real AI video vision, and a clean Today → Analyze → Practice → Progress journey. A lot of what a generic auditor would "recommend" you already shipped.
+**The big picture:** SwingVantage is in much better shape than most "AI swing app" audits would assume. The hard, expensive things are already built and built *thoughtfully* — honest confidence labels, a one-fix-at-a-time coaching philosophy, a "Welcome back, here's today's fix" returning-user panel, a Swing Passport with badges and streaks, real AI video vision, and a clean Today → Analyze → Practice → Progress journey. A lot of what a generic auditor would "recommend" you already shipped.
 
 **So the audit is not "build more features." It's three things:**
 
@@ -32,7 +32,7 @@ If you do only three things this quarter: **(1) real accounts + cross-device sav
 
 ## 1. Executive Diagnosis
 
-**What SwingIQ already does well (don't break these):**
+**What SwingVantage already does well (don't break these):**
 - **A clear, ethical coaching philosophy.** "One fix that matters most" is the spine of the whole product (`lib/coaching/fixFraming.ts`), and it's honest: findings are labeled "heuristic estimates," confidence is shown, and the AI never overclaims. This is rare and valuable.
 - **A real returning-user experience.** The "Today's Fix" / Welcome-Back card (`WelcomeBackCard.tsx`) reframes a deterministic resume engine into "here's your one thing today, here's how you'll know it worked, here's when to retest." Comeback copy is explicitly non-shaming. This is genuinely good behavioral design.
 - **Gamification scaffolding.** Swing Passport (milestones), streaks, XP/levels, badges, challenges — all present and computed from real activity.
@@ -92,7 +92,7 @@ If you do only three things this quarter: **(1) real accounts + cross-device sav
 
 **Recommended first-time journey (and how close you are):**
 
-| Step | Ideal | SwingIQ today | Gap |
+| Step | Ideal | SwingVantage today | Gap |
 |---|---|---|---|
 | 1. Landing | One primary CTA to a guided start | ✅ "Start Here — Free" exists | Secondary CTA misroutes to dashboard |
 | 2. Sport selection | Visual, tappable | ✅ `SportCardGrid` | None |
@@ -262,7 +262,7 @@ The product adapts *tone* (`tones.ts`, user-type → coaching voice) but not *in
 | Plain-English "what I noticed" | ✅ (transparency) | Add a one-line "in plain words" summary atop technical evidence |
 | "Why this matters" | ✅ (whyItMatters) | Keep |
 | "Try this next" | ✅ | Keep |
-| "Ask SwingIQ" follow-up | ⚠️ AI Coach exists but not linked from a result | Add "Ask about this fix" button on every analysis |
+| "Ask SwingVantage" follow-up | ⚠️ AI Coach exists but not linked from a result | Add "Ask about this fix" button on every analysis |
 | Pain/injury safety | ⚠️ general notice; not symptom-triggered | If a user reports pain, branch to a "see a professional" message |
 | Coach review mode | ❌ | Let a coach annotate/confirm an AI finding |
 | Parent-friendly summary | ⚠️ tone yes, dedicated digest no | Build parent digest |
@@ -521,8 +521,8 @@ The voice is already confident-yet-honest (per your house style: keep disclaimer
 - **What makes it defensible:** Longitudinal, multi-sport, per-athlete data — which only exists if you save it. Accounts aren't a feature; they're the moat.
 - **What makes users integrate it into their lives:** It remembers them, it reaches out at the right moment with the *one* thing to do, it makes the win feel good, and it never wastes their time.
 
-**Bottom line:** Stop thinking of the next phase as "more features." You have the features. The next phase is **memory, a heartbeat, and a moment of joy.** Ship those three and SwingIQ stops being a clever one-time analyzer and becomes the weekly habit it's clearly designed to be.
+**Bottom line:** Stop thinking of the next phase as "more features." You have the features. The next phase is **memory, a heartbeat, and a moment of joy.** Ship those three and SwingVantage stops being a clever one-time analyzer and becomes the weekly habit it's clearly designed to be.
 
 ---
 
-*Prepared from direct source review of the SwingIQ web app + live site. Items marked “verify” depend on runtime configuration (email/notification provider, community peers) not determinable from source alone.*
+*Prepared from direct source review of the SwingVantage web app + live site. Items marked “verify” depend on runtime configuration (email/notification provider, community peers) not determinable from source alone.*

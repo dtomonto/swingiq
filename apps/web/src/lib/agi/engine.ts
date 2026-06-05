@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Engine orchestrator
+// SwingVantage — AGI: Engine orchestrator
 // ------------------------------------------------------------
 // The pure entry point. Give it a normalized SignalBundle (from any adapter)
 // and it returns the full Athlete General Intelligence result: the unified

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Client-side Video Metadata Extraction
+// SwingVantage — Client-side Video Metadata Extraction
 // Extracts metadata from a File/Blob before upload.
 // Runs entirely in the browser — no server round-trip needed.
 // ============================================================

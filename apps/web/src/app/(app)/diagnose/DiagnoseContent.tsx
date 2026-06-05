@@ -27,7 +27,7 @@ import {
   type SkillLevel,
 } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { format } from 'date-fns';
 import { ShareableReportCard, type ReportData } from '@/components/report/ShareableReportCard';
 import { EmailCapture } from '@/components/email/EmailCapture';
@@ -206,7 +206,7 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
 // ── Main component ───────────────────────────────────────────
 
 export function DiagnoseContent() {
-  const { sessions, profile } = useSwingIQStore();
+  const { sessions, profile } = useSwingVantageStore();
   const skillLevel: SkillLevel = (profile?.skill_level ?? 'beginner') as SkillLevel;
   const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
 

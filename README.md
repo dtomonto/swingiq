@@ -1,4 +1,4 @@
-# SwingIQ — AI Swing Performance Platform
+# SwingVantage — AI Swing Performance Platform
 
 A production-grade, web-based AI swing development platform for **golf, tennis, baseball, slow pitch softball, and fast pitch softball**.
 
@@ -6,20 +6,20 @@ Web-first. Mobile-optimized. No app store required. Works on any phone, tablet, 
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** The technical "front door" to the project — mostly for a developer or an AI assistant. It lists every feature, the folder layout, the setup commands, and the technology behind SwingIQ.
+**What this page is:** The technical "front door" to the project — mostly for a developer or an AI assistant. It lists every feature, the folder layout, the setup commands, and the technology behind SwingVantage.
 
 **What you actually need to know:**
 - **If you're the owner and just want to get the app running, don't start here.** Start with **[docs/BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md)** — it walks you through every step in plain language.
 - The app **works fully without any setup keys** — it saves your data in your browser. A database, logins, and live AI answers are optional add-ons you can turn on later.
-- The **Feature Overview** section just below is a complete, readable catalogue of what SwingIQ can do — handy to skim when you forget whether a feature exists.
+- The **Feature Overview** section just below is a complete, readable catalogue of what SwingVantage can do — handy to skim when you forget whether a feature exists.
 
 **What to do next:** Owner → open [docs/BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md). Developer or AI assistant → keep reading here.
 
-> The Quick Start, Architecture, API Routes, and Technology Stack sections further down are developer reference. You don't need to understand them to use SwingIQ — the feature list, though, is written for everyone.
+> The Quick Start, Architecture, API Routes, and Technology Stack sections further down are developer reference. You don't need to understand them to use SwingVantage — the feature list, though, is written for everyone.
 
 ---
 
-## What SwingIQ Does
+## What SwingVantage Does
 
 Switching your active sport changes the **entire product experience** — dashboard, profile, sessions, training, drills, AI coaching, warm-up, reports, milestones, comparison, and more.
 
@@ -63,7 +63,7 @@ Browser-based 3D motion analysis at `/motion-lab` (`lib/motion-lab`, `components
 - On-device pose → **sport-specific phase segmentation**, ~13 biomechanical proxy metrics, and six component scores (power, sequencing, rotation, balance, timing, consistency) plus an overall Motion Score
 - **Interactive 3D viewer** (pure canvas, zero new dependencies): orbit / zoom / frame-scrub / motion trails / ghost-compare / confidence shading / PNG screenshot
 - **Trained single-view 3D depth model** (`lib/pose3d`, committed weights) — a "Pro 3D depth" toggle refines per-joint depth; result stays an honest single-camera estimate
-- **Two-camera "true 3D" mode** — film the same rep from two angles and SwingIQ produces **measured** 3D via per-capture self-calibration (normalized 8-point essential matrix + RANSAC + bundle adjustment) and DLT triangulation; confidence comes from real reprojection error
+- **Two-camera "true 3D" mode** — film the same rep from two angles and SwingVantage produces **measured** 3D via per-capture self-calibration (normalized 8-point essential matrix + RANSAC + bundle adjustment) and DLT triangulation; confidence comes from real reprojection error
 - 5-tone coaching report, 4-drill prescription + weekly plan, local session save, session compare, **JSON / CSV / PDF** export, and a developer debug panel
 - Everything runs **on-device**; the original video never leaves the browser. No medical, injury, or tour-grade claims. See `docs/motion-lab.md` and `docs/pose3d.md`.
 
@@ -83,7 +83,7 @@ Browser-based 3D motion analysis at `/motion-lab` (`lib/motion-lab`, `components
 ### 📸 Screenshot / Image Import
 - Upload photos or screenshots of performance tables from any device
 - Supports FlightScope, TrackMan, Foresight, HitTrax, Rapsodo, Blast Motion, Zepp, spreadsheets, and more
-- **Optional OCR auto-extraction** — when an extraction provider is configured, SwingIQ reads the numbers off your image to pre-fill the review table (labeled with a confidence note); without a provider it falls back to manual entry automatically
+- **Optional OCR auto-extraction** — when an extraction provider is configured, SwingVantage reads the numbers off your image to pre-fill the review table (labeled with a confidence note); without a provider it falls back to manual entry automatically
 - Manual review and edit before any data is saved — no unreviewed OCR output is ever analyzed
 - Manual entry stays the default, supported path on every device
 
@@ -119,11 +119,11 @@ Generates a personalized 7-day practice week based on diagnosis and frequency pr
 - Builds automatically with every session and retest you add (`lib/progress`, `components/progress`)
 - Found at **Progress → Player Arc**
 
-### 🧪 SwingIQ Labs — Foundations (`/labs`)
+### 🧪 SwingVantage Labs — Foundations (`/labs`)
 - An in-app home for emerging, on-device tools — each **honest about its confidence and limits**
 - Includes a daily **readiness score**, a private **player model**, **cross-sport skill transfer**, a personal **performance graph**, and **benchmark mirrors** (`lib/readiness`, `lib/playerModel`, `lib/skillTransfer`, `lib/performanceGraph`, `lib/benchmarkMirror`; `components/foundations`)
 - Some are early v1s; all sharpen the more you practise and retest
-- Found at **Progress → SwingIQ Labs**
+- Found at **Progress → SwingVantage Labs**
 
 ### 🔁 Retest — Prove the Change
 - Dedicated **Retest** page (`/retest`) that closes the improvement loop
@@ -191,10 +191,10 @@ Sport-aware coach report generator. Copy a formatted summary to share with your 
 - Choose under **Settings → Appearance**
 
 ### 🌐 Multi-Language Support
-SwingIQ is available in 20 languages with full Spanish and French translations. Switch languages from Settings or the language toggle in the navigation. "Today's Fix" engagement CTAs are translated across all 20 coaching languages.
+SwingVantage is available in 20 languages with full Spanish and French translations. Switch languages from Settings or the language toggle in the navigation. "Today's Fix" engagement CTAs are translated across all 20 coaching languages.
 
 ### 🚪 Keyless Instant Start (No Account Required)
-- Open SwingIQ and start analyzing immediately — **no sign-up wall**
+- Open SwingVantage and start analyzing immediately — **no sign-up wall**
 - Data is saved privately on your own device by default (keyless local account)
 - An **optional account** is available anytime — sign-up, sign-in, and password reset all work when Supabase auth is configured, for users who want cloud sync
 - Monetization follows a fixed order — **grow free users → ads (first revenue) → membership tiers** (north star: `docs/MONETIZATION_STRATEGY.md`). It's keyless too: paid tiers show **"Coming Soon"** (with an optional email notify) and only become live checkout when Stripe keys are present; ads stay off until an ad-network id is set (see `lib/billing/tiers.ts`, `lib/capabilities.ts`)
@@ -257,7 +257,7 @@ swingiq/
 │           │   ├── motion/     # Motion engine provider seam + honest data-basis labeling
 │           │   ├── drillmatch/ # Fix Stack — highest-impact issue → feel cue + best-matched drill + retest
 │           │   ├── progress/   # Player Arc — improvement narrative, flaw fingerprint, retest outcomes
-│           │   ├── readiness/, playerModel/, skillTransfer/, performanceGraph/, benchmarkMirror/  # SwingIQ Labs foundations
+│           │   ├── readiness/, playerModel/, skillTransfer/, performanceGraph/, benchmarkMirror/  # SwingVantage Labs foundations
 │           │   ├── backup/     # schema, export, validate, restore, migrate,
 │           │   │               # registry, crypto — complete data portability system
 │           │   ├── tutorial/   # content registry (20+ screens), types
@@ -429,7 +429,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 |---|---|
 | `/` | Landing page with JSON-LD structured data |
 | `/how-it-works` | 4-step explainer, sport engine detail |
-| `/about` | Mission, values, who uses SwingIQ |
+| `/about` | Mission, values, who uses SwingVantage |
 | `/features` | Full feature grid with 14+ features |
 | `/faq` | Accordion FAQ with 18 Q&As + JSON-LD schema |
 | `/trust` | Data privacy commitments and AI honesty |
@@ -447,7 +447,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | `/free-swing-analysis` | Free analysis conversion landing page |
 | `/golf/*`, `/softball/*`, `/tennis/*`, `/baseball/*` | Programmatic SEO landing pages (see `content/seoPages.ts`) |
 | `/start` | Onboarding entry point ("Start Here") |
-| `/methodology` | What SwingIQ measures vs. estimates (transparency) |
+| `/methodology` | What SwingVantage measures vs. estimates (transparency) |
 | `/report/sample` | Worked example of a swing report |
 | `/tools`, `/tools/*` | Free quizzes, drill & practice generators |
 | `/challenges`, `/challenges/*` | Free multi-sport practice challenges |
@@ -496,7 +496,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 
 ## Security
 
-SwingIQ has a production-grade security posture:
+SwingVantage has a production-grade security posture:
 - All responses include CSP, HSTS, X-Frame-Options, and 5 additional security headers
 - Production source maps disabled
 - Supabase session middleware (activates on env key presence)
@@ -521,4 +521,4 @@ All development is merged directly into `master`. Feature branches are deleted a
 
 ## License
 
-Copyright © 2024–2026 SwingIQ. All rights reserved. Proprietary and confidential. See [LICENSE](LICENSE).
+Copyright © 2024–2026 SwingVantage. All rights reserved. Proprietary and confidential. See [LICENSE](LICENSE).

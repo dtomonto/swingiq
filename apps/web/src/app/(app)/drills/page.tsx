@@ -14,7 +14,7 @@ import {
 } from '@swingiq/core';
 import type { SportId } from '@swingiq/core';
 import { cn } from '@/lib/utils';
-import { useSwingIQStore, useLatestDiagnosedSession } from '@/store';
+import { useSwingVantageStore, useLatestDiagnosedSession } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 
 // Golf drills live in the training routines — we surface a curated list here
@@ -49,7 +49,7 @@ export default function DrillsPage() {
   // Default to the active sport so the page immediately shows relevant drills
   const [sportFilter, setSportFilter] = useState<SportId | 'all'>(activeSport);
   const [diffFilter, setDiffFilter] = useState<'all' | 'beginner' | 'intermediate' | 'advanced'>('all');
-  const { training } = useSwingIQStore();
+  const { training } = useSwingVantageStore();
   const latestDiagnosed = useLatestDiagnosedSession();
 
   // Recommended drills from active diagnosis

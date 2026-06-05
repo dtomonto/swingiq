@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Auto-Sync settings card (Data Center)
+// SwingVantage — Auto-Sync settings card (Data Center)
 //
 // Two device-sync controls:
 //   1. Keep a backup file on this device up to date automatically.
@@ -86,7 +86,7 @@ export function AutoSyncSection() {
               <div>
                 <p className="text-sm font-semibold text-foreground">Keep a backup saved to this device</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Pick a file once. SwingIQ keeps it up to date automatically, so your progress is
+                  Pick a file once. SwingVantage keeps it up to date automatically, so your progress is
                   always protected even if you clear your browser.
                 </p>
               </div>
@@ -167,7 +167,7 @@ export function AutoSyncSection() {
               <div>
                 <p className="text-sm font-semibold text-foreground">Continue progress automatically</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Choose a folder once (your Downloads works well). When you come back, SwingIQ checks it
+                  Choose a folder once (your Downloads works well). When you come back, SwingVantage checks it
                   for your most recent backup and picks up where you left off.
                 </p>
               </div>
@@ -226,7 +226,7 @@ export function AutoSyncSection() {
                 </Button>
               </div>
               <p className="text-[11px] text-muted-foreground">
-                SwingIQ only reads the folder you choose, only to find your backups. If you already have
+                SwingVantage only reads the folder you choose, only to find your backups. If you already have
                 data on this device, it asks before changing anything — it never overwrites without your okay.
               </p>
             </div>

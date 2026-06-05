@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 
 function FormField({
   label,
@@ -37,7 +37,7 @@ const selectClass = `${inputClass} bg-card`;
 
 export function ProfileForm() {
   const [saved, setSaved] = useState(false);
-  const { profile, setProfile } = useSwingIQStore();
+  const { profile, setProfile } = useSwingVantageStore();
 
   const {
     register,

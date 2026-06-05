@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Fault Ontology: Audience Mapping
+// SwingVantage — Fault Ontology: Audience Mapping
 // ------------------------------------------------------------
 // Bridges the app's existing audience signals (CoachingTone and
 // the store's UsageCategory) onto the ontology's three explanation

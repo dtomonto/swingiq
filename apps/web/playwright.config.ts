@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Playwright E2E configuration
+// SwingVantage — Playwright E2E configuration
 //
 // One-time setup (not installed by default to keep the main install
 // lean):

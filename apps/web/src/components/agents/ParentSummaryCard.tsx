@@ -21,7 +21,7 @@ export function ParentSummaryCard() {
   if (!ready || !ctx || !ctx.latestSession || !summary) return null;
 
   const asText = [
-    'SwingIQ — For the Parent',
+    'SwingVantage — For the Parent',
     '',
     summary.parentSummary,
     '',

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: AI Coach Narrative Card
+// SwingVantage — Motion Lab: AI Coach Narrative Card
 // ------------------------------------------------------------
 // Renders the conversational coach explanation of a session. The
 // deterministic narrative shows INSTANTLY (no keys needed); if the LLM

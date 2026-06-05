@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Speculative Swing Preparation
+// SwingVantage — Speculative Swing Preparation
 //
 // Frame extraction + on-device pose detection are the two browser-side
 // steps that must finish before the AI vision call can start. They depend

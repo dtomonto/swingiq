@@ -26,9 +26,9 @@ export const metadata = buildMetadata({
 
 const faqItems = [
   {
-    question: 'What baseball hitting metrics does SwingIQ track?',
+    question: 'What baseball hitting metrics does SwingVantage track?',
     answer:
-      'SwingIQ tracks exit velocity, launch angle, distance, bat speed, attack angle, time to contact, hand speed, spray angle, and on-plane percentage. Data can come from HitTrax, Rapsodo, Blast Motion, Diamond Kinetics, or manual entry.',
+      'SwingVantage tracks exit velocity, launch angle, distance, bat speed, attack angle, time to contact, hand speed, spray angle, and on-plane percentage. Data can come from HitTrax, Rapsodo, Blast Motion, Diamond Kinetics, or manual entry.',
   },
   {
     question: 'What is a good exit velocity for high school baseball?',
@@ -41,14 +41,14 @@ const faqItems = [
       'For maximum hard-hit authority, most coaches target a 10–20° launch angle for line drives and hard grounders. Optimal home run launch angles are 25–35°. Anything above 40° typically results in pop-ups.',
   },
   {
-    question: 'Can SwingIQ help me fix a casting or long swing?',
+    question: 'Can SwingVantage help me fix a casting or long swing?',
     answer:
-      'Yes. SwingIQ analyzes attack angle, time to contact, and hand path to identify casting, looping, and long-to-the-ball patterns. Targeted drills address each fault.',
+      'Yes. SwingVantage analyzes attack angle, time to contact, and hand path to identify casting, looping, and long-to-the-ball patterns. Targeted drills address each fault.',
   },
   {
-    question: 'Is SwingIQ useful for youth baseball players?',
+    question: 'Is SwingVantage useful for youth baseball players?',
     answer:
-      'Yes. SwingIQ adjusts benchmarks by age and skill level. Parents and coaches can track development over time and generate age-appropriate drill progressions.',
+      'Yes. SwingVantage adjusts benchmarks by age and skill level. Parents and coaches can track development over time and generate age-appropriate drill progressions.',
   },
 ];
 
@@ -141,7 +141,7 @@ export default function BaseballSwingAnalysisPage() {
       {/* Metrics */}
       <section className="bg-muted py-14">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-3">Hitting Metrics SwingIQ Analyzes</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-3">Hitting Metrics SwingVantage Analyzes</h2>
           <p className="text-muted-foreground mb-8 text-sm">
             All metrics are benchmarked by age group and competition level — from youth rec to professional.
           </p>

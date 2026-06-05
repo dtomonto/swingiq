@@ -1,7 +1,7 @@
 // ── Developer / Engineering Updates ───────────────────────────────────────
 //
 // This is the *technical* companion to the plain-English product changelog at
-// /updates. It exists to show off the engineering milestones behind SwingIQ —
+// /updates. It exists to show off the engineering milestones behind SwingVantage —
 // the architecture decisions, the AI work, and the platform foundations — in
 // language written for builders, not end users.
 //
@@ -128,7 +128,7 @@ export const DEV_UPDATES: DevUpdate[] = [
     impact: 'notable',
     headline: 'A local-first coaching layer: group sessions by athlete, and a conversational coach read that never fabricates.',
     details:
-      'Coach & Team mode is a local-first roster (its own storage key) with pure aggregation — per-athlete trend, recurring faults, and needs-attention flags, plus team-wide common weaknesses and upload tracking. The AI coach narrative composes the analysis into the SwingIQ 8-part format grounded strictly in real numbers; the existing provider seam can optionally rephrase it with an LLM behind a flag (off by default), so it stays fully functional with no API keys and never invents findings.',
+      'Coach & Team mode is a local-first roster (its own storage key) with pure aggregation — per-athlete trend, recurring faults, and needs-attention flags, plus team-wide common weaknesses and upload tracking. The AI coach narrative composes the analysis into the SwingVantage 8-part format grounded strictly in real numbers; the existing provider seam can optionally rephrase it with an LLM behind a flag (off by default), so it stays fully functional with no API keys and never invents findings.',
     highlights: [
       'Local-first roster, pure tested aggregation, no accounts',
       'Sessions link to athletes via an optional, backward-compatible field',
@@ -237,7 +237,7 @@ export const DEV_UPDATES: DevUpdate[] = [
     impact: 'notable',
     headline: 'A cluster of local-first intelligence modules that compound on a player’s own data.',
     details:
-      'Shipped readiness scoring, a longitudinal player model, a skill-transfer graph, a performance graph, and a benchmark mirror — all under /labs. Each runs on the data the athlete already has, so insight deepens the more they use SwingIQ without any external dependency.',
+      'Shipped readiness scoring, a longitudinal player model, a skill-transfer graph, a performance graph, and a benchmark mirror — all under /labs. Each runs on the data the athlete already has, so insight deepens the more they use SwingVantage without any external dependency.',
     highlights: [
       'readiness · playerModel · skillTransfer · performanceGraph · benchmarkMirror',
       'Honest-first, local-first, no account required',

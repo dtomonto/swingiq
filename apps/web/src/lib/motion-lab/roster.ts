@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Coach / Team Roster (local-first)
+// SwingVantage — Motion Lab: Coach / Team Roster (local-first)
 // ------------------------------------------------------------
 // A local-first roster so a coach or parent can group Motion Lab
 // sessions by athlete and see per-athlete progress + team-level

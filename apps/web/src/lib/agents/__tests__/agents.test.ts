@@ -1,12 +1,12 @@
 // ============================================================
-// SwingIQ Agent Layer — Unit Tests
+// SwingVantage Agent Layer — Unit Tests
 // ------------------------------------------------------------
 // Protects the deterministic decision ladder behind the
 // dashboard's "next best step", the Welcome Back experience,
 // and the orchestrator's insight assembly.
 // ============================================================
 
-import type { SwingIQState } from '@/store';
+import type { SwingVantageState } from '@/store';
 import { buildAgentContext } from '../context-builder';
 import { getNextBestAction } from '../scoring';
 import { buildResumeState } from '../workflows/resume';
@@ -16,7 +16,7 @@ import { runOrchestrator } from '../orchestrator';
 
 const daysAgo = (n: number) => new Date(Date.now() - n * 86_400_000).toISOString();
 
-function makeState(o: Partial<SwingIQState> = {}): SwingIQState {
+function makeState(o: Partial<SwingVantageState> = {}): SwingVantageState {
   return {
     profile: null,
     sportProfiles: {},
@@ -48,7 +48,7 @@ function makeState(o: Partial<SwingIQState> = {}): SwingIQState {
     tutorialProgress: {} as never,
     setup_step: 'profile',
     ...o,
-  } as unknown as SwingIQState;
+  } as unknown as SwingVantageState;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

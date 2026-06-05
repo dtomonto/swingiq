@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Swing analysis pipeline (shared)
+// SwingVantage — Swing analysis pipeline (shared)
 // ------------------------------------------------------------
 // The prepare (extract frames + on-device pose) → AI vision → save flow
 // that previously lived inline in both the golf and multi-sport video

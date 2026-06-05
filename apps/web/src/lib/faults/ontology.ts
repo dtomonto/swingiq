@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Multi-Sport Fault Ontology: Data + Resolver
+// SwingVantage — Multi-Sport Fault Ontology: Data + Resolver
 // ------------------------------------------------------------
 // A curated set of high-value faults across all five sports,
 // plus an honest generic resolver so EVERY fault id (including
@@ -391,7 +391,7 @@ function synthesizeEntry(id: string, opts: ResolveFaultOptions = {}): FaultOntol
     id,
     sports,
     name,
-    description: `An estimated movement pattern flagged from your swing video: "${name}". SwingIQ does not yet have a detailed coaching profile for this specific pattern, so treat the detail below as general guidance.`,
+    description: `An estimated movement pattern flagged from your swing video: "${name}". SwingVantage does not yet have a detailed coaching profile for this specific pattern, so treat the detail below as general guidance.`,
     likelyRootCauses: ['Often a timing or sequencing habit — confirm with a second video before committing a lot of practice to it.'],
     observableEvidence: ['Surfaced from the video analysis; not measured with validated tools.'],
     defaultSeverity: 'notable',

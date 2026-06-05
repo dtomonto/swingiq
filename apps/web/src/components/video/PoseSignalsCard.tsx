@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Measured Body Signals
+// SwingVantage — Measured Body Signals
 // Shows the objective, on-device pose-detection proxies that helped
 // ground the AI's read. Movement proxies, clearly labeled — not lab
 // measurements. Rendered only when pose detection actually succeeded.

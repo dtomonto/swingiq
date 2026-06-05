@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: lift model TRAINER (offline, gated)
+// SwingVantage — pose3d: lift model TRAINER (offline, gated)
 // ------------------------------------------------------------
 // Trains the single-view 3D lifting MLP on procedurally-generated
 // synthetic projections, validates it explains most held-out depth

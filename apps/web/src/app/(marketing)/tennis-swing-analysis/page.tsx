@@ -26,14 +26,14 @@ export const metadata = buildMetadata({
 
 const faqItems = [
   {
-    question: 'What tennis strokes can SwingIQ analyze?',
+    question: 'What tennis strokes can SwingVantage analyze?',
     answer:
-      'SwingIQ analyzes forehands, backhands (one-handed and two-handed), serves, volleys, and overhead smashes. Each stroke type has its own phase-by-phase checklist based on ATP/WTA technical models.',
+      'SwingVantage analyzes forehands, backhands (one-handed and two-handed), serves, volleys, and overhead smashes. Each stroke type has its own phase-by-phase checklist based on ATP/WTA technical models.',
   },
   {
     question: 'Do I need a tennis sensor or Hawk-Eye data?',
     answer:
-      'No sensor is required. SwingIQ can analyze a simple phone video. If you have data from a tennis sensor (racquet speed, spin rate, efficiency), you can also import that for more detailed analysis.',
+      'No sensor is required. SwingVantage can analyze a simple phone video. If you have data from a tennis sensor (racquet speed, spin rate, efficiency), you can also import that for more detailed analysis.',
   },
   {
     question: 'What does the AI look for in a tennis swing?',
@@ -41,21 +41,21 @@ const faqItems = [
       'The system checks shoulder unit turn, hip-to-shoulder separation, contact point depth and height, racquet path angle, follow-through position, grip pressure patterns, and footwork sequencing.',
   },
   {
-    question: 'Can SwingIQ help me fix my double faults?',
+    question: 'Can SwingVantage help me fix my double faults?',
     answer:
-      'Yes. SwingIQ identifies serve mechanics issues — toss placement, trophy position, pronation timing, and contact point — that are the most common causes of double faults.',
+      'Yes. SwingVantage identifies serve mechanics issues — toss placement, trophy position, pronation timing, and contact point — that are the most common causes of double faults.',
   },
   {
-    question: 'Is SwingIQ suitable for junior tennis players?',
+    question: 'Is SwingVantage suitable for junior tennis players?',
     answer:
-      'Absolutely. SwingIQ scales benchmarks by skill level (beginner through elite) and age group. Parents and coaches can use it alongside in-person coaching.',
+      'Absolutely. SwingVantage scales benchmarks by skill level (beginner through elite) and age group. Parents and coaches can use it alongside in-person coaching.',
   },
 ];
 
 // Single source of truth for the visible "How it works" steps AND the HowTo
 // JSON-LD, so the page and structured data never drift.
 const howSteps = [
-  { name: 'Upload Your Video', text: 'Film from the side or behind. Any phone camera works. Upload directly to SwingIQ.' },
+  { name: 'Upload Your Video', text: 'Film from the side or behind. Any phone camera works. Upload directly to SwingVantage.' },
   { name: 'AI Diagnoses Each Phase', text: 'The system checks preparation, backswing, forward swing, contact, and follow-through against technical benchmarks.' },
   { name: 'Train With Purpose', text: 'Get targeted drills, a weekly practice schedule, and progress tracking for each stroke.' },
 ];
@@ -139,7 +139,7 @@ export default function TennisSwingAnalysisPage() {
       {/* Strokes */}
       <section className="bg-muted py-14">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-3">Tennis Strokes SwingIQ Covers</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-3">Tennis Strokes SwingVantage Covers</h2>
           <p className="text-muted-foreground mb-8 text-sm">
             Each stroke has a dedicated phase checklist aligned with ATP/WTA technical models.
           </p>

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Analysis Debug / Validation Panel
+// SwingVantage — Motion Lab: Analysis Debug / Validation Panel
 // ------------------------------------------------------------
 // A collapsible, transparency-first view of the raw pipeline output so
 // the AI can be VALIDATED (spec Feature 22): pipeline meta, per-frame

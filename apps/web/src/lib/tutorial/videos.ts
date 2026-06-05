@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Video Tutorial Library
+// SwingVantage — Video Tutorial Library
 // ------------------------------------------------------------
 // The catalogue behind the Tutorial Center (/tutorial): one video
 // per relevant feature, tagged by who it helps most, plus curated
@@ -82,7 +82,7 @@ export const AUDIENCES: Record<TutorialAudience, { label: string; blurb: string;
   athlete: { label: 'Player', blurb: "You're working on your own game", emoji: '🏌️' },
   parent: { label: 'Parent', blurb: "You're helping a young athlete", emoji: '👪' },
   coach: { label: 'Coach', blurb: 'You work with athletes you coach', emoji: '📋' },
-  team: { label: 'Team / Program', blurb: "You're exploring SwingIQ for a group", emoji: '🏟️' },
+  team: { label: 'Team / Program', blurb: "You're exploring SwingVantage for a group", emoji: '🏟️' },
 };
 
 // ── Category metadata (section headers in the library) ──
@@ -93,7 +93,7 @@ export const CATEGORIES: Record<TutorialCategory, { label: string; blurb: string
   practice: { label: 'Practice & Improve', blurb: 'Know what to work on, and actually do it.' },
   progress: { label: 'Track Your Progress', blurb: 'See improvement over time and prove it.' },
   share: { label: 'Share & Coach', blurb: 'Summaries for coaches, parents, and programs.' },
-  account: { label: 'Profile & Equipment', blurb: 'Tell SwingIQ about you and your gear.' },
+  account: { label: 'Profile & Equipment', blurb: 'Tell SwingVantage about you and your gear.' },
   community: { label: 'Community & Motivation', blurb: 'Streaks, badges, challenges, and groups.' },
   data: { label: 'Your Data & Settings', blurb: 'Back up your progress and make it yours.' },
 };
@@ -115,14 +115,14 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
   // ── Getting Started ───────────────────────────────────────
   {
     id: 'welcome',
-    title: 'Welcome to SwingIQ',
-    description: 'A 2-minute tour of what SwingIQ is and how it helps you improve.',
+    title: 'Welcome to SwingVantage',
+    description: 'A 2-minute tour of what SwingVantage is and how it helps you improve.',
     audiences: 'all',
     category: 'getting-started',
     duration: '2:00',
     route: '/dashboard',
     script: [
-      'SwingIQ is your personal performance system for golf, tennis, baseball, and softball.',
+      'SwingVantage is your personal performance system for golf, tennis, baseball, and softball.',
       'The idea is simple: analyze your swing, learn what to work on, practice it, and watch yourself improve over time.',
       'Everything is private and stored on your device — no account required to get started.',
       'This tutorial is organized by who you are. Pick Player, Parent, Coach, or Team and we’ll show you the right path.',
@@ -142,7 +142,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
       'Tell us who this is for: a player, a parent helping a young athlete, a coach, or a team. This tailors the tone and safety reminders.',
       'Choose how to begin: answer a couple of questions, upload a video, or import data. The quiz is the fastest route to a first result.',
       'You’ll get a top thing to work on, a confidence level, three beginner-safe drills, and a 7-day plan.',
-      'Used SwingIQ before? Use “Skip setup” to jump straight to your dashboard.',
+      'Used SwingVantage before? Use “Skip setup” to jump straight to your dashboard.',
     ],
   },
   {
@@ -157,7 +157,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
       'The dashboard is “Today.” Everything here is filtered to your active sport.',
       'Up top you’ll see your recommended next action — the single best thing to do right now.',
       'Below that: recent sessions, how your key metrics are trending, and your streak and achievements.',
-      'Tap any card to dive deeper. The dashboard is always your home base — the SwingIQ logo brings you back here.',
+      'Tap any card to dive deeper. The dashboard is always your home base — the SwingVantage logo brings you back here.',
     ],
   },
   {
@@ -169,7 +169,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     duration: '1:30',
     route: '/dashboard',
     script: [
-      'SwingIQ supports golf, tennis, baseball, slow-pitch and fast-pitch softball.',
+      'SwingVantage supports golf, tennis, baseball, slow-pitch and fast-pitch softball.',
       'Use the sport switcher near the bottom of the side menu to change your active sport.',
       'Each sport keeps its own profile, sessions, drills, and progress — nothing gets mixed together.',
       'Switching sport instantly re-tailors the whole app: labels, metrics, drills, and coaching all follow the sport you choose.',
@@ -203,7 +203,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     route: '/video',
     script: [
       'Film from a steady position — down-the-line (behind you, toward the target) or face-on. Keep the whole body in frame.',
-      'Upload the clip on the Video Analysis screen. SwingIQ breaks the swing into phases and looks for common faults in each.',
+      'Upload the clip on the Video Analysis screen. SwingVantage breaks the swing into phases and looks for common faults in each.',
       'Every finding comes with a plain-language explanation and how strongly we believe it — shown as a confidence level.',
       'Visual conclusions are labeled as estimates, not measurements. Use them as a smart starting point, not the final word.',
       'Your results are saved so you can compare future swings against this one.',
@@ -218,7 +218,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     duration: '3:00',
     route: '/diagnose',
     script: [
-      'Pick a session and SwingIQ finds the most significant patterns in your shots.',
+      'Pick a session and SwingVantage finds the most significant patterns in your shots.',
       'Each issue gets a severity (Critical, High, Medium, Low) and a confidence score, so you know what to fix first.',
       'Your swing score rates the session’s consistency. It’s built to track trends, not to define your ability.',
       'From here, jump straight to the recommended drills that target what the analysis found.',
@@ -234,7 +234,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     route: '/motion-lab',
     script: [
       'Motion Lab estimates your body’s motion in 3D, right in the browser, from a normal video.',
-      'Record or upload a swing and SwingIQ tracks key body points through the movement.',
+      'Record or upload a swing and SwingVantage tracks key body points through the movement.',
       'Use it to see rotation, sequence, and timing that are hard to judge with the naked eye.',
       'Like all visual analysis, it’s an estimate — great for spotting patterns and comparing before/after.',
     ],
@@ -279,7 +279,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     route: '/sessions/import',
     script: [
       'Export a CSV from your launch monitor and drop it onto the import screen.',
-      'SwingIQ reads the columns and maps them to the right metrics — carry, ball speed, launch, spin, and more.',
+      'SwingVantage reads the columns and maps them to the right metrics — carry, ball speed, launch, spin, and more.',
       'Review the preview to make sure everything mapped correctly, then save it as a session.',
       'Imported sessions feed your diagnosis, progress charts, and benchmarks — the more data, the sharper the picture.',
     ],
@@ -287,14 +287,14 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
   {
     id: 'import-image',
     title: 'Snap a photo of your numbers',
-    description: 'No CSV? Photograph the launch-monitor screen and let SwingIQ read it.',
+    description: 'No CSV? Photograph the launch-monitor screen and let SwingVantage read it.',
     audiences: ['athlete', 'coach'],
     category: 'analyze',
     duration: '2:00',
     route: '/sessions/import/image',
     script: [
       'Take a clear, well-lit photo of the data table on your launch monitor screen.',
-      'Upload it and SwingIQ reads the numbers from the image automatically.',
+      'Upload it and SwingVantage reads the numbers from the image automatically.',
       'Always check the extracted values for accuracy and fix any misreads before saving.',
       'It’s the fastest way to capture a session when you can’t export a file.',
     ],
@@ -312,7 +312,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     script: [
       'Your plan highlights the highest-priority issue first, so practice time goes where it counts.',
       'Each focus area has specific drills. Work through them in order — they build on each other.',
-      'Check off drills as you go. SwingIQ tracks your consistency and suggests when to retest.',
+      'Check off drills as you go. SwingVantage tracks your consistency and suggests when to retest.',
       'Practicing on consecutive days builds your streak, which earns XP and badges.',
     ],
   },
@@ -355,7 +355,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     duration: '2:00',
     route: '/practice',
     script: [
-      'Tell SwingIQ how many days a week you practice and how long sessions run.',
+      'Tell SwingVantage how many days a week you practice and how long sessions run.',
       'You’ll get a day-by-day plan, each with a single clear focus.',
       'Sticking to the focus for each session is what drives real change.',
       'Adjust anytime — the schedule flexes around your week, not the other way around.',
@@ -433,7 +433,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     route: '/retest',
     script: [
       'A retest repeats an earlier check so you can compare apples to apples.',
-      'SwingIQ shows the before and after side by side, with what moved.',
+      'SwingVantage shows the before and after side by side, with what moved.',
       'It’s the honest way to know whether a swing change helped — not just felt good.',
       'Set a retest reminder so you actually circle back at the right time.',
     ],
@@ -455,7 +455,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
   },
   {
     id: 'labs',
-    title: 'SwingIQ Labs',
+    title: 'SwingVantage Labs',
     description: 'Early foundations: readiness, a private player model, and more.',
     audiences: ['athlete'],
     category: 'progress',
@@ -465,7 +465,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
       'Labs is where new, forward-looking features live — readiness scores, a private player model, skill transfer, and benchmark mirrors.',
       'Some are early v1s, and each is honest about what it does and doesn’t yet know.',
       'They build on your Player Arc and practice history.',
-      'Explore them to get a peek at where your SwingIQ is heading.',
+      'Explore them to get a peek at where your SwingVantage is heading.',
     ],
   },
   {
@@ -539,7 +539,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     duration: '2:00',
     route: '/dashboard',
     script: [
-      'SwingIQ is built for parent-guided youth practice — encouraging and safety-first.',
+      'SwingVantage is built for parent-guided youth practice — encouraging and safety-first.',
       'Your dashboard and Player Arc give a simple read on effort and progress, no jargon required.',
       'Focus on the streak and the single “Today’s Fix” — consistency matters more than intensity for young athletes.',
       'Generate a report to share with a coach, or just to celebrate how far your athlete has come.',
@@ -550,7 +550,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
   {
     id: 'profile',
     title: 'Your player profile',
-    description: 'Tell SwingIQ about you so coaching fits your game.',
+    description: 'Tell SwingVantage about you so coaching fits your game.',
     audiences: 'all',
     category: 'account',
     duration: '2:00',
@@ -559,7 +559,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
       'Your profile tunes every recommendation to you — the more you add, the better the fit.',
       'For golf: handicap, scoring average, typical miss, and skill level.',
       'For tennis, baseball, and softball: position, swing side, level, and gear.',
-      'A beginner needs different feedback than an advanced player — your profile is how SwingIQ knows the difference.',
+      'A beginner needs different feedback than an advanced player — your profile is how SwingVantage knows the difference.',
     ],
   },
   {
@@ -572,7 +572,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     route: '/equipment',
     script: [
       'Add the gear you actually use — clubs, a bat, or a racket and string setup.',
-      'For golf, lofts and carry distances let SwingIQ spot gapping issues between clubs.',
+      'For golf, lofts and carry distances let SwingVantage spot gapping issues between clubs.',
       'For bats and rackets, the specs help tailor advice to your equipment.',
       'It all saves to your backup, so you only enter it once.',
     ],
@@ -665,7 +665,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     duration: '2:30',
     route: '/data',
     script: [
-      'SwingIQ saves your data in your browser — so a backup keeps it safe if you switch devices or clear history.',
+      'SwingVantage saves your data in your browser — so a backup keeps it safe if you switch devices or clear history.',
       'Tap Download Backup to save a complete copy: sessions, profiles, equipment, progress, and badges.',
       'You can password-protect the file. Keep that password safe — without it, an encrypted backup can’t be recovered.',
       'To restore, upload the file and preview what comes back. Use Merge to add without deleting, or Replace for a full reset.',
@@ -674,7 +674,7 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
   {
     id: 'settings',
     title: 'Settings: language, units & tone',
-    description: 'Make SwingIQ yours — language, units, coaching style, privacy.',
+    description: 'Make SwingVantage yours — language, units, coaching style, privacy.',
     audiences: 'all',
     category: 'data',
     duration: '2:00',
@@ -760,7 +760,7 @@ export const TUTORIAL_TRACKS: Record<TutorialAudience, TutorialTrack> = {
   team: {
     audience: 'team',
     label: AUDIENCES.team.label,
-    blurb: 'See how SwingIQ works for a group: shared reports, groups, and benchmarks.',
+    blurb: 'See how SwingVantage works for a group: shared reports, groups, and benchmarks.',
     emoji: AUDIENCES.team.emoji,
     videoIds: [
       'welcome',

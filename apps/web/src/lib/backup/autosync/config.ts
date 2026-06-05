@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Auto-Sync config shapes + defaults
+// SwingVantage — Auto-Sync config shapes + defaults
 //
 // These are intentionally kept OUT of the main zustand store and the
 // backup schema: they describe a *device-specific* relationship to a

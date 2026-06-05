@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Guide Mascot ("the genie")
+// SwingVantage — Guide Mascot ("the genie")
 // ------------------------------------------------------------
 // A small, friendly SVG character for the floating guide. Pure
 // inline SVG (no image assets), themed with the brand green and a

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Community — Unit Tests
+// SwingVantage Community — Unit Tests
 // Tests for achievement calculation, streak logic, XP, backup health.
 // ============================================================
 

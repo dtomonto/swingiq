@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 
 // ============================================================
-// SwingIQ — EmptyState
+// SwingVantage — EmptyState
 // ------------------------------------------------------------
 // One shared, accessible empty-state primitive so every screen
 // answers the same three questions: what's here (title), why it

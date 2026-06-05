@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Temporal Sync (motion cross-correlation)
+// SwingVantage — pose3d: Temporal Sync (motion cross-correlation)
 // ------------------------------------------------------------
 // Two phones don't start recording at the same instant. Before
 // triangulating, we estimate the global frame offset between the views

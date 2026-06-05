@@ -1,4 +1,4 @@
-# SwingIQ — Troubleshooting Guide
+# SwingVantage — Troubleshooting Guide
 
 Step-by-step fixes for the most common problems.
 
@@ -87,7 +87,7 @@ Step-by-step fixes for the most common problems.
 2. Different brands use different column names. Selecting the wrong brand causes mismatches.
 
 **Fix 3 — Manual column mapping:**
-1. In Step 3 of the import wizard, manually match your file's columns to SwingIQ's fields.
+1. In Step 3 of the import wizard, manually match your file's columns to SwingVantage's fields.
 2. Check your CSV file in Excel to see exactly what each column is named.
 
 ---
@@ -139,7 +139,7 @@ Step-by-step fixes for the most common problems.
 
 ## Problem 9: My data disappeared after refreshing the page
 
-**Why:** SwingIQ saves data in your browser's localStorage. Clearing browser data or switching browsers erases it.
+**Why:** SwingVantage saves data in your browser's localStorage. Clearing browser data or switching browsers erases it.
 
 **Fix:**
 1. If you cleared browser history or cookies, the data is gone from that browser.

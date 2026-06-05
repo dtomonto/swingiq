@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: AI coach narrative tests
+// SwingVantage — Motion Lab: AI coach narrative tests
 // ------------------------------------------------------------
 // The narrative must be GROUNDED (real numbers, no invention), follow
 // the 8-part format, degrade gracefully, and stay deterministic when

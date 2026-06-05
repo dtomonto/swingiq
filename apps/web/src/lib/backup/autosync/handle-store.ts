@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Auto-Sync persistence (IndexedDB, no deps)
+// SwingVantage — Auto-Sync persistence (IndexedDB, no deps)
 //
 // File System Access handles are structured-clonable but NOT
 // JSON-serializable, so they can't live in localStorage / the zustand

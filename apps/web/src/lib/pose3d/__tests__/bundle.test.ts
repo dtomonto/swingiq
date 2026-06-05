@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: bundle-adjustment refinement
+// SwingVantage — pose3d: bundle-adjustment refinement
 // ------------------------------------------------------------
 // Starts from a PERTURBED relative pose and confirms refinePose drives
 // the reprojection error back down (and never worsens it).

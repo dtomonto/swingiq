@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Team intelligence (the moat engine)
+// SwingVantage — AGI: Team intelligence (the moat engine)
 // ------------------------------------------------------------
 // Aggregates each athlete's cross-sport model into ONE team read: every
 // athlete's keystone, and — the coach payload — the capability the MOST of the

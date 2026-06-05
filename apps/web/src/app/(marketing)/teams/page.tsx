@@ -2,7 +2,7 @@ import { buildMetadata } from '@/lib/seo/metadata';
 import { AudienceLanding, type AudienceConfig } from '@/components/landing/AudienceLanding';
 
 export const metadata = buildMetadata({
-  title: 'SwingIQ for Teams — Affordable Swing Development',
+  title: 'SwingVantage for Teams — Affordable Swing Development',
   description:
     'Affordable, web-based swing-development support for teams, parents, and coaches. Give every player a clear priority and a plan. Start a team pilot.',
   path: '/teams',
@@ -15,7 +15,7 @@ const config: AudienceConfig = {
   leadSource: 'team',
   headline: 'Affordable swing development for your whole team',
   positioning:
-    'SwingIQ gives every player on your team a clear top priority, beginner-safe drills, and a simple plan — supporting your coaches and parents between practices, at no cost to start.',
+    'SwingVantage gives every player on your team a clear top priority, beginner-safe drills, and a simple plan — supporting your coaches and parents between practices, at no cost to start.',
   benefits: [
     { title: 'Every player, one priority', desc: 'Each athlete gets their own focus instead of generic team drills.' },
     { title: 'Parents in the loop', desc: 'Parents can support practice with youth-safe, private-by-default tools.' },

@@ -1,4 +1,4 @@
-# SwingIQ Product Roadmap
+# SwingVantage Product Roadmap
 
 _Last updated: June 2026_
 
@@ -6,7 +6,7 @@ _Last updated: June 2026_
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** The plan for where SwingIQ is heading — what's already built, what's hoped for in the next 30, 60, and 90 days, and ideas for charging money later.
+**What this page is:** The plan for where SwingVantage is heading — what's already built, what's hoped for in the next 30, 60, and 90 days, and ideas for charging money later.
 
 **What you actually need to know:**
 - This is a **planning and wish-list document**, not a list of things that are broken or things you must do today.
@@ -56,7 +56,7 @@ _Last updated: June 2026_
 ### Coaching & Progress Intelligence
 - **Fix Stack (`/fix`)** — surfaces your single highest-impact issue and turns it into one feel cue, the best-matched drill for your level and available gear, and an honest retest; learns from what worked (`lib/drillmatch`, `components/drillmatch`)
 - **Player Arc (`/arc`)** — a narrative of your improvement over time: recurring faults ("flaw fingerprint"), which drills actually helped, and honest retest outcomes (`lib/progress`, `components/progress`)
-- **SwingIQ Labs (`/labs`)** — early-stage foundations, each honest about its confidence and limits: a daily readiness score, a private player model, cross-sport skill transfer, a personal performance graph, and benchmark mirrors (`lib/readiness`, `lib/playerModel`, `lib/skillTransfer`, `lib/performanceGraph`, `lib/benchmarkMirror`; `components/foundations`)
+- **SwingVantage Labs (`/labs`)** — early-stage foundations, each honest about its confidence and limits: a daily readiness score, a private player model, cross-sport skill transfer, a personal performance graph, and benchmark mirrors (`lib/readiness`, `lib/playerModel`, `lib/skillTransfer`, `lib/performanceGraph`, `lib/benchmarkMirror`; `components/foundations`)
 - All three are deterministic, local-first, and require no AI account; they sharpen as you add sessions and retests
 - **Athlete General Intelligence (`/agi`)** — one engine that reasons across *all* your sports at once. It fuses six local signals (Motion Lab, launch-monitor, profile/goal, readiness, snapshot history, drill feedback) into one athlete model, then finds your **keystone** (the single skill limiting the most sports), shows what transfers between sports, detects recurring faults & plateaus, tracks progress over time, and builds one readiness-scaled plan that leads with drills you've personally found helpful — all under an honest **A–D trust grade**. Outputs a coach-shareable report; summarized on the Today dashboard; public explainer at `/athlete-general-intelligence` (`lib/agi`, `components/agi`). See `docs/athlete-general-intelligence.md` + `docs/ATHLETE_GI_STRATEGY.md`.
 
@@ -105,7 +105,7 @@ _Last updated: June 2026_
 
 ### Image/Table Import
 - Image upload page (4-step wizard): drag-and-drop, preview, manual entry, confirm, save
-- Optional OCR auto-extraction: when an extraction provider is configured, SwingIQ pre-fills the review table (with a confidence note); without a provider it falls back to manual entry. No unreviewed OCR output is ever analyzed
+- Optional OCR auto-extraction: when an extraction provider is configured, SwingVantage pre-fills the review table (with a confidence note); without a provider it falls back to manual entry. No unreviewed OCR output is ever analyzed
 - normalizeManualEntry utility in packages/core
 
 ---

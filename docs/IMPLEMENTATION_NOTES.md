@@ -1,4 +1,4 @@
-# SwingIQ — Implementation Notes
+# SwingVantage — Implementation Notes
 
 *Last updated: 2026-06-03. This document is maintained alongside the codebase.*
 
@@ -15,13 +15,13 @@
 
 **What to do next:** Nothing. If you bring in a developer or ask an AI assistant for help, hand them this page and they'll understand the whole project in a few minutes.
 
-> Everything below this point is a technical reference for a developer or an AI assistant. You don't need to read it to use or run SwingIQ.
+> Everything below this point is a technical reference for a developer or an AI assistant. You don't need to read it to use or run SwingVantage.
 
 ---
 
 ## Architecture Summary
 
-SwingIQ is a **Turborepo monorepo** with the following workspaces:
+SwingVantage is a **Turborepo monorepo** with the following workspaces:
 
 | Workspace | Path | Purpose |
 |-----------|------|---------|
@@ -67,7 +67,7 @@ SwingIQ is a **Turborepo monorepo** with the following workspaces:
 ```
 
 ### App routes (keyless by default; require auth only when Supabase is connected)
-> SwingIQ uses keyless local accounts by default — these routes work with no sign-in, storing data on-device. They become auth-gated only when Supabase auth keys are present.
+> SwingVantage uses keyless local accounts by default — these routes work with no sign-in, storing data on-device. They become auth-gated only when Supabase auth keys are present.
 ```
 /dashboard                 Sport-aware dashboard (golf vs non-golf)
 /profile                   Sport-specific profile form
@@ -88,7 +88,7 @@ SwingIQ is a **Turborepo monorepo** with the following workspaces:
 /equipment                 Equipment management (non-golf)
 /progress                  Progress tracking
 /arc                       Player Arc — improvement narrative, flaw fingerprint, retest outcomes
-/labs                      SwingIQ Labs — readiness, player model, skill transfer, performance graph, benchmark mirrors
+/labs                      SwingVantage Labs — readiness, player model, skill transfer, performance graph, benchmark mirrors
 /retest                    Retest hub — due reminders + directional before/after reads
 /milestones                Milestones tracker
 /community                 Community hub — badges, XP, challenges, groups, leaderboards
@@ -241,4 +241,4 @@ Sport context is stored in `localStorage` key `swingiq_active_sport` and managed
 - Google Search Console + Bing Webmaster setup (manual, requires production domain)
 - Custom analytics event instrumentation (Vercel Analytics wired; event taxonomy in `docs/analytics-events.md`)
 
-> **Now shipped (previously deferred):** on-device pose + 3D Motion Lab (`lib/motion-lab`, `lib/pose3d`), the professional reference library, AES-256-GCM encrypted backup, and the Fix Stack / Player Arc / SwingIQ Labs coaching layer.
+> **Now shipped (previously deferred):** on-device pose + 3D Motion Lab (`lib/motion-lab`, `lib/pose3d`), the professional reference library, AES-256-GCM encrypted backup, and the Fix Stack / Player Arc / SwingVantage Labs coaching layer.

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Guide Companion ("the genie")
+// SwingVantage — Guide Companion ("the genie")
 // ------------------------------------------------------------
 // A persistent, friendly floating guide that overlays the whole
 // app. Proactive (Clippy-style): on a page you haven't seen, its
@@ -98,7 +98,7 @@ export function GuideCompanion() {
       {open && (
         <div
           role="dialog"
-          aria-label="Your SwingIQ guide"
+          aria-label="Your SwingVantage guide"
           className="fixed z-50 no-print bottom-40 right-3 left-3 sm:left-auto sm:right-4 lg:right-6 sm:w-80 bg-card text-foreground rounded-2xl shadow-2xl border border-border overflow-hidden animate-slide-up"
         >
           {/* Header */}

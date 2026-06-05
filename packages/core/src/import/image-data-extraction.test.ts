@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Image → data extraction tests
+// SwingVantage — Image → data extraction tests
 // ------------------------------------------------------------
 // Proves the pure half of the "photo of your launch monitor" feature
 // is bullet-proof: the prompt teaches the right contract, and the

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Sport Selector
+// SwingVantage — Sport Selector
 // Dropdown/grid component to pick the active sport.
 // Used in the sidebar and the video analyzer step.
 // ============================================================

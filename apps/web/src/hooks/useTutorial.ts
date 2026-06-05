@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import type { TutorialContent, TutorialAudience } from '@/lib/tutorial/types';
 
 /**
@@ -10,8 +10,8 @@ import type { TutorialContent, TutorialAudience } from '@/lib/tutorial/types';
  * and to mark it as completed or dismissed.
  */
 export function useTutorial() {
-  const tutorialProgress = useSwingIQStore((s) => s.tutorialProgress);
-  const updateTutorialProgress = useSwingIQStore((s) => s.updateTutorialProgress);
+  const tutorialProgress = useSwingVantageStore((s) => s.tutorialProgress);
+  const updateTutorialProgress = useSwingVantageStore((s) => s.updateTutorialProgress);
 
   const isCompleted = useCallback(
     (tutorialId: string) => tutorialProgress.completed.includes(tutorialId),

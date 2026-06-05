@@ -1,5 +1,5 @@
 -- ============================================================
--- SwingIQ — Research & Benchmark Evolution Schema
+-- SwingVantage — Research & Benchmark Evolution Schema
 -- Apply after: supabase_schema.sql, supabase_schema_video.sql
 -- ============================================================
 
@@ -283,14 +283,14 @@ INSERT INTO public.benchmark_versions (
 ) VALUES (
   'v1_baseline',
   '1.0.0',
-  'SwingIQ Baseline Benchmarks',
-  'Initial benchmark standards for SwingIQ v1. Values derived from TrackMan education, '
+  'SwingVantage Baseline Benchmarks',
+  'Initial benchmark standards for SwingVantage v1. Values derived from TrackMan education, '
     'USGA equipment standards, PGA teaching resources, and established biomechanics literature. '
     'All values manually reviewed.',
   'active',
   '2024-01-01',
   ARRAY[
-    'Initial release of SwingIQ benchmark standards',
+    'Initial release of SwingVantage benchmark standards',
     'Covers driver, 7-iron, and wedge metrics',
     'Segmented by handicap range and biological sex',
     'Includes launch angle, ball speed, carry distance, spin rate, smash factor, club path, face angle'

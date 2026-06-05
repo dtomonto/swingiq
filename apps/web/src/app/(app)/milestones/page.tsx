@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { useSwingIQStore, type LocalSession, type LocalClub, type TrainingProgress, type LocalVideoAnalysis } from '@/store';
+import { useSwingVantageStore, type LocalSession, type LocalClub, type TrainingProgress, type LocalVideoAnalysis } from '@/store';
 import type { GolferProfileInput } from '@swingiq/core';
 import { cn } from '@/lib/utils';
 import { useSport } from '@/contexts/SportContext';
@@ -157,7 +157,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 export default function MilestonesPage() {
-  const { sessions, training, clubs, profile, sportProfiles, video_analyses } = useSwingIQStore();
+  const { sessions, training, clubs, profile, sportProfiles, video_analyses } = useSwingVantageStore();
   const { isGolf, sportName, sportEmoji, activeSport } = useSport();
 
   // Filter sessions and videos by active sport

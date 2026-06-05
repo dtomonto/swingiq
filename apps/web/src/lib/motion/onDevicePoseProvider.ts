@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Engine: On-device Pose Provider
+// SwingVantage — Motion Engine: On-device Pose Provider
 // ------------------------------------------------------------
 // Adapts the real on-device pose engine (`@/lib/pose`) to the motion
 // seam's PoseProvider interface. This makes `lib/pose` the SINGLE

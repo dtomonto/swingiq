@@ -7,7 +7,7 @@ import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { cn } from '@/lib/utils';
-import { useSwingIQStore, type LocalClub } from '@/store';
+import { useSwingVantageStore, type LocalClub } from '@/store';
 import { analyzeClubGaps, type ClubGapInput, lookupLoft, analyzeLoftGapping } from '@swingiq/core';
 import type { LoftSource, LoftConfidence } from '@swingiq/core';
 import Link from 'next/link';
@@ -367,7 +367,7 @@ function LoftGappingView({ clubs }: { clubs: LocalClub[] }) {
 // ── Main BagManager component ─────────────────────────────────
 
 export function BagManager() {
-  const { clubs, addClub, updateClub, removeClub } = useSwingIQStore();
+  const { clubs, addClub, updateClub, removeClub } = useSwingVantageStore();
   const [showModal, setShowModal] = useState(false);
   const [editingClub, setEditingClub] = useState<LocalClub | null>(null);
   const [showGapAnalysis, setShowGapAnalysis] = useState(false);

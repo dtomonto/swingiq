@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Foundations Board (smart wrapper)
+// SwingVantage — Foundations Board (smart wrapper)
 // ------------------------------------------------------------
 // Wires the existing client data (agent context, retests, progress
 // memory, the DrillMatch feedback loop) into the five moat

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Diagnosis Confidence + Evidence
+// SwingVantage — Workflow: Diagnosis Confidence + Evidence
 // ------------------------------------------------------------
 // Sits ON TOP of the deterministic diagnosis engine (which
 // remains the source of truth). It does not invent findings —
@@ -24,14 +24,14 @@ export function buildDiagnosisConfidence(ctx: AgentContext): DiagnosisResult {
       missingData: [
         ctx.activeSport === 'golf'
           ? 'Import a session and run the diagnostic engine.'
-          : 'Upload a video so SwingIQ can analyze your swing.',
+          : 'Upload a video so SwingVantage can analyze your swing.',
       ],
       recommendedNextStep:
         ctx.activeSport === 'golf'
           ? 'Import your first session to find your top priority.'
           : 'Upload your first video to find your top priority.',
       avoidForNow: [],
-      plainEnglishSummary: 'SwingIQ has not found a priority yet — add some data to get started.',
+      plainEnglishSummary: 'SwingVantage has not found a priority yet — add some data to get started.',
       sportSpecificCue: sp.defaultCue,
     };
   }

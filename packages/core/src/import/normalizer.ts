@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Universal Launch-Monitor Data Normalizer
+// SwingVantage Universal Launch-Monitor Data Normalizer
 // Converts CSV rows from any brand into the universal schema.
 //
 // Built to survive REAL exports, which are messy:

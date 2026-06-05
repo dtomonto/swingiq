@@ -2,7 +2,7 @@
 
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useState } from 'react';
 import { CheckCircle, Trash2, HardDrive, HelpCircle, Database } from 'lucide-react';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ import { ThemeSelector } from '@/components/theme/ThemeSelector';
 import { CoachingToneSelector } from '@/components/settings/CoachingToneSelector';
 
 export default function SettingsPage() {
-  const { settings, updateSettings, reset } = useSwingIQStore();
+  const { settings, updateSettings, reset } = useSwingVantageStore();
   const { resetAll: resetTutorials, tutorialProgress } = useTutorial();
   const [saved, setSaved] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
@@ -34,7 +34,7 @@ export default function SettingsPage() {
       <div className="p-6 max-w-2xl mx-auto space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Settings</h1>
-          <p className="text-muted-foreground text-sm mt-1">Customize how SwingIQ works for you.</p>
+          <p className="text-muted-foreground text-sm mt-1">Customize how SwingVantage works for you.</p>
         </div>
 
         {/* Display */}
@@ -98,7 +98,7 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between py-2">
               <div>
                 <p className="text-sm font-medium text-foreground">Data Center</p>
-                <p className="text-xs text-muted-foreground">Export, import, and restore your full SwingIQ data</p>
+                <p className="text-xs text-muted-foreground">Export, import, and restore your full SwingVantage data</p>
               </div>
               <Link href="/data">
                 <Button variant="outline" size="sm">
@@ -177,7 +177,7 @@ export default function SettingsPage() {
 
         {/* About */}
         <Card>
-          <CardHeader><CardTitle>About SwingIQ</CardTitle></CardHeader>
+          <CardHeader><CardTitle>About SwingVantage</CardTitle></CardHeader>
           <CardBody className="space-y-2 text-sm text-gray-600">
             <p><span className="font-semibold">Version:</span> 1.1.0</p>
             <p><span className="font-semibold">Sports:</span> Golf · Tennis · Baseball · Slow-Pitch Softball · Fast-Pitch Softball</p>

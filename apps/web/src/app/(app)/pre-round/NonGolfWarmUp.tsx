@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Non-Golf Pre-Game Warm-Up
+// SwingVantage — Non-Golf Pre-Game Warm-Up
 // Sport-specific warm-up checklists for tennis, baseball,
 // and softball. Golf uses the existing PreRoundPage.
 // ============================================================

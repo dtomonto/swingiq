@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Coaching Tone Modes
+// SwingVantage — Coaching Tone Modes
 // ------------------------------------------------------------
 // A small, audience-oriented "tone" the user can pick once and
 // have the app speak to them appropriately: Beginner, Parent,

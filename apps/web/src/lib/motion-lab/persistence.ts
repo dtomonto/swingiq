@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Local-first Persistence
+// SwingVantage — Motion Lab: Local-first Persistence
 // ------------------------------------------------------------
 // Self-contained localStorage store for Motion Lab sessions. Lives in
 // its OWN key — it does not touch the Zustand store, backup schema, or

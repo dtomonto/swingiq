@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Layer: Shared Types
+// SwingVantage — Agent Layer: Shared Types
 // ------------------------------------------------------------
 // The "intelligent product layer" is built on deterministic
 // workflows that read structured app data and return UI-ready
@@ -113,7 +113,7 @@ export type InsightTone = 'info' | 'success' | 'warning' | 'celebrate' | 'safety
 
 /**
  * The unified user-facing card model. Everything the product shows from the
- * agent layer is an AgentInsight — "SwingIQ noticed…", a next step, a nudge.
+ * agent layer is an AgentInsight — "SwingVantage noticed…", a next step, a nudge.
  * One model keeps the UX from feeling like 15 separate bots.
  */
 export interface AgentInsight {

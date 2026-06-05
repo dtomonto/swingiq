@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Guide: Per-Page Script ("where to stand")
+// SwingVantage — Guide: Per-Page Script ("where to stand")
 // ------------------------------------------------------------
 // Turns the current route into a short, friendly script for the
 // floating guide ("genie"): a title, 1–3 plain-English lines about
@@ -126,7 +126,7 @@ const GUIDE_OVERRIDES: Record<string, Override> = {
   '/practice': {
     title: 'Plan your week',
     lines: [
-      'Tell SwingIQ your days and time; it suggests what to work on each day.',
+      'Tell SwingVantage your days and time; it suggests what to work on each day.',
       'Each session gets one clear focus.',
     ],
   },
@@ -166,7 +166,7 @@ const GUIDE_OVERRIDES: Record<string, Override> = {
     ],
   },
   '/labs': {
-    title: 'SwingIQ Labs',
+    title: 'SwingVantage Labs',
     lines: [
       'Experimental views: readiness, player model, skill transfer, and more.',
       'They sharpen as you add sessions — treat them as directional.',
@@ -194,7 +194,7 @@ const GUIDE_OVERRIDES: Record<string, Override> = {
     ],
   },
   '/profile': {
-    title: 'Tell SwingIQ about you',
+    title: 'Tell SwingVantage about you',
     lines: [
       'Set your sport, skill level, and one clear goal — it shapes every tip.',
       'The more you fill in, the more tailored your coaching gets.',
@@ -204,14 +204,14 @@ const GUIDE_OVERRIDES: Record<string, Override> = {
     title: 'Your gear',
     lines: [
       'Add the bat, racquet, or clubs you use.',
-      'Knowing your gear lets SwingIQ spot gaps and fit issues.',
+      'Knowing your gear lets SwingVantage spot gaps and fit issues.',
     ],
   },
   '/equipment/golf': {
     title: 'Your bag',
     lines: [
       'Add each club with its loft and typical carry if you know them.',
-      'SwingIQ uses this to check your gapping and equipment fit.',
+      'SwingVantage uses this to check your gapping and equipment fit.',
     ],
   },
   '/community': {

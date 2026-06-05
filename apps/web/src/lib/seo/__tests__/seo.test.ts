@@ -22,8 +22,8 @@ describe('buildMetadata', () => {
   });
 
   it('does not double-append the brand when already present', () => {
-    const m = buildMetadata({ title: `SwingIQ — Home` });
-    expect(m.title).toBe('SwingIQ — Home');
+    const m = buildMetadata({ title: `SwingVantage — Home` });
+    expect(m.title).toBe('SwingVantage — Home');
   });
 
   it('falls back to the default branded title when none is given', () => {

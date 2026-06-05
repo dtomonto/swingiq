@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Professional Swing Reference Library
+// SwingVantage — Professional Swing Reference Library
 // IMPORTANT: All video IDs are PLACEHOLDER — admin must verify
 // before they are shown to users. Never make up YouTube IDs.
 // ============================================================

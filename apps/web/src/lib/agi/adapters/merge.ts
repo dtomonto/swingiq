@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Bundle merge
+// SwingVantage — AGI: Bundle merge
 // ------------------------------------------------------------
 // Combines SignalBundles from several sources (motion, store sessions, …) into
 // one. Session refs are de-duplicated by sessionId so the same session can't be

@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Frequently Asked Questions | SwingIQ',
+  title: 'Frequently Asked Questions | SwingVantage',
   description:
-    'Answers to the most common questions about SwingIQ — how AI swing analysis works, what sports are supported, how your data is protected, and what the platform can and cannot do.',
+    'Answers to the most common questions about SwingVantage — how AI swing analysis works, what sports are supported, how your data is protected, and what the platform can and cannot do.',
   openGraph: {
-    title: 'SwingIQ FAQ — AI Swing Analysis Questions Answered',
+    title: 'SwingVantage FAQ — AI Swing Analysis Questions Answered',
     description:
-      'Everything you need to know about SwingIQ: supported sports, how the AI works, privacy, data import, and more.',
+      'Everything you need to know about SwingVantage: supported sports, how the AI works, privacy, data import, and more.',
     type: 'website',
     url: 'https://swingiq.app/faq',
   },
@@ -21,20 +21,20 @@ const FAQ_SECTIONS = [
     heading: 'Getting Started',
     items: [
       {
-        q: 'What is SwingIQ?',
-        a: 'SwingIQ is a free, web-based AI swing performance platform. You upload a swing video or import launch monitor data, and SwingIQ identifies your highest-priority swing issue, explains why it matters, and recommends specific drills and a practice plan.',
+        q: 'What is SwingVantage?',
+        a: 'SwingVantage is a free, web-based AI swing performance platform. You upload a swing video or import launch monitor data, and SwingVantage identifies your highest-priority swing issue, explains why it matters, and recommends specific drills and a practice plan.',
       },
       {
-        q: 'Is SwingIQ free?',
-        a: "Yes. SwingIQ's full swing analysis, diagnostic engine, drill recommendations, and progress tracking are free. No credit card is required.",
+        q: 'Is SwingVantage free?',
+        a: "Yes. SwingVantage's full swing analysis, diagnostic engine, drill recommendations, and progress tracking are free. No credit card is required.",
       },
       {
         q: 'Do I need to create an account?',
         a: 'No — you can start instantly with no account, and your data is saved privately in your browser. You can move it between devices anytime with Backup & Restore, and optional accounts with automatic cloud sync are on the way.',
       },
       {
-        q: 'Does SwingIQ work on a phone?',
-        a: 'Yes. SwingIQ is a mobile-optimized web app. It works on any modern phone, tablet, or desktop browser — no app download required.',
+        q: 'Does SwingVantage work on a phone?',
+        a: 'Yes. SwingVantage is a mobile-optimized web app. It works on any modern phone, tablet, or desktop browser — no app download required.',
       },
     ],
   },
@@ -42,15 +42,15 @@ const FAQ_SECTIONS = [
     heading: 'Supported Sports',
     items: [
       {
-        q: 'What sports does SwingIQ support?',
-        a: 'SwingIQ supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own diagnostic engine, drill library, and coaching logic.',
+        q: 'What sports does SwingVantage support?',
+        a: 'SwingVantage supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own diagnostic engine, drill library, and coaching logic.',
       },
       {
         q: 'Can I switch between sports in the same account?',
-        a: 'Yes. SwingIQ remembers your selected sport across sessions. You can switch sports at any time from the sidebar or sport selector — the entire interface adapts to the sport you are using.',
+        a: 'Yes. SwingVantage remembers your selected sport across sessions. You can switch sports at any time from the sidebar or sport selector — the entire interface adapts to the sport you are using.',
       },
       {
-        q: 'Does SwingIQ analyze slow pitch softball separately from fast pitch?',
+        q: 'Does SwingVantage analyze slow pitch softball separately from fast pitch?',
         a: 'Yes. Slow pitch and fast pitch softball have separate diagnostic engines because the swing mechanics, timing demands, and equipment are different. Slow pitch analysis focuses on arc timing, line-drive bat path, and directional hitting. Fast pitch analysis focuses on compact launch, quick load, and adapting to pitch speed.',
       },
     ],
@@ -59,20 +59,20 @@ const FAQ_SECTIONS = [
     heading: 'How the AI Works',
     items: [
       {
-        q: 'How does SwingIQ analyze a swing?',
-        a: 'SwingIQ uses two layers. First, a rules-based diagnostic engine compares your data against sport-specific benchmarks to identify your highest-priority swing fault — similar to how a coach would read a shot pattern. Second, an AI language model generates a plain-English explanation, personalized drill recommendations, and a practice plan based on your specific pattern.',
+        q: 'How does SwingVantage analyze a swing?',
+        a: 'SwingVantage uses two layers. First, a rules-based diagnostic engine compares your data against sport-specific benchmarks to identify your highest-priority swing fault — similar to how a coach would read a shot pattern. Second, an AI language model generates a plain-English explanation, personalized drill recommendations, and a practice plan based on your specific pattern.',
       },
       {
-        q: 'Can SwingIQ see what my swing looks like from a video?',
-        a: "Yes — upload a swing video and SwingIQ breaks it into phases with coaching notes for each one. Video reads are heuristic estimates: confident, data-backed starting points that sharpen the more you add. Import data from a launch monitor or tracking device and SwingIQ folds those exact numbers straight in for the sharpest read.",
+        q: 'Can SwingVantage see what my swing looks like from a video?',
+        a: "Yes — upload a swing video and SwingVantage breaks it into phases with coaching notes for each one. Video reads are heuristic estimates: confident, data-backed starting points that sharpen the more you add. Import data from a launch monitor or tracking device and SwingVantage folds those exact numbers straight in for the sharpest read.",
       },
       {
-        q: 'Does SwingIQ replace a private coach?',
-        a: "SwingIQ is your everyday improvement edge — it spots your recurring patterns, prioritizes your practice, and keeps you sharp between lessons, no appointment needed. For complex technique corrections, injury concerns, or advanced competitive development it pairs perfectly with a qualified coach, and you'll arrive already ahead.",
+        q: 'Does SwingVantage replace a private coach?',
+        a: "SwingVantage is your everyday improvement edge — it spots your recurring patterns, prioritizes your practice, and keeps you sharp between lessons, no appointment needed. For complex technique corrections, injury concerns, or advanced competitive development it pairs perfectly with a qualified coach, and you'll arrive already ahead.",
       },
       {
         q: 'How accurate is the swing diagnosis?',
-        a: "Diagnostic confidence depends on how much data is available. SwingIQ labels every finding with a confidence level and lists the evidence it used to reach its conclusion. When data is limited, the diagnosis will say so. Don't rely on a single analysis as a definitive verdict — look for patterns that repeat across multiple sessions.",
+        a: "Diagnostic confidence depends on how much data is available. SwingVantage labels every finding with a confidence level and lists the evidence it used to reach its conclusion. When data is limited, the diagnosis will say so. Don't rely on a single analysis as a definitive verdict — look for patterns that repeat across multiple sessions.",
       },
     ],
   },
@@ -80,16 +80,16 @@ const FAQ_SECTIONS = [
     heading: 'Data Import',
     items: [
       {
-        q: 'What launch monitor brands does SwingIQ support for golf?',
-        a: 'SwingIQ imports CSV data from FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, SkyTrak, and other common formats. You can also enter data manually.',
+        q: 'What launch monitor brands does SwingVantage support for golf?',
+        a: 'SwingVantage imports CSV data from FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, SkyTrak, and other common formats. You can also enter data manually.',
       },
       {
-        q: 'What tracking devices does SwingIQ support for baseball and softball?',
-        a: 'SwingIQ supports data from HitTrax, Rapsodo, Blast Motion, Diamond Kinetics, and similar devices. Manual session entry is also available.',
+        q: 'What tracking devices does SwingVantage support for baseball and softball?',
+        a: 'SwingVantage supports data from HitTrax, Rapsodo, Blast Motion, Diamond Kinetics, and similar devices. Manual session entry is also available.',
       },
       {
         q: 'Can I import a screenshot of my performance data?',
-        a: 'SwingIQ includes an image upload flow for performance data tables. You can upload a screenshot and manually confirm the extracted values. Automated OCR extraction is a best effort and may need manual correction.',
+        a: 'SwingVantage includes an image upload flow for performance data tables. You can upload a screenshot and manually confirm the extracted values. Automated OCR extraction is a best effort and may need manual correction.',
       },
     ],
   },
@@ -98,7 +98,7 @@ const FAQ_SECTIONS = [
     items: [
       {
         q: 'Where is my data stored?',
-        a: "By default, all your SwingIQ data is stored locally in your browser — not on a remote server. Nothing leaves your device until you choose to sync or back up. You can export everything as a single downloadable file from Settings → Backup & Restore.",
+        a: "By default, all your SwingVantage data is stored locally in your browser — not on a remote server. Nothing leaves your device until you choose to sync or back up. You can export everything as a single downloadable file from Settings → Backup & Restore.",
       },
       {
         q: 'Is my swing video private?',
@@ -109,8 +109,8 @@ const FAQ_SECTIONS = [
         a: 'Yes. You can delete individual records, specific data categories, or everything at once from Settings → Data Management. Deletion takes effect immediately.',
       },
       {
-        q: 'Is SwingIQ safe for kids and young athletes?',
-        a: 'SwingIQ is not directed at children under 13. For users under 18, we recommend parental involvement and supervision when uploading videos. See our Parents page and Trust & Safety page for more detail.',
+        q: 'Is SwingVantage safe for kids and young athletes?',
+        a: 'SwingVantage is not directed at children under 13. For users under 18, we recommend parental involvement and supervision when uploading videos. See our Parents page and Trust & Safety page for more detail.',
       },
     ],
   },
@@ -118,12 +118,12 @@ const FAQ_SECTIONS = [
     heading: 'Equipment',
     items: [
       {
-        q: 'Does SwingIQ analyze my golf clubs or equipment?',
-        a: 'SwingIQ includes an Equipment section where you can log your golf clubs, review loft gapping between clubs, and get suggestions about whether your equipment setup may be contributing to your swing patterns. Equipment analysis is an optional layer — it is not required to use SwingIQ.',
+        q: 'Does SwingVantage analyze my golf clubs or equipment?',
+        a: 'SwingVantage includes an Equipment section where you can log your golf clubs, review loft gapping between clubs, and get suggestions about whether your equipment setup may be contributing to your swing patterns. Equipment analysis is an optional layer — it is not required to use SwingVantage.',
       },
       {
-        q: 'Will SwingIQ tell me to buy new equipment?',
-        a: 'SwingIQ recommends adjustments before upgrades. Most equipment recommendations in SwingIQ suggest testing changes — like adjusting loft, grip size, or setup — before buying new gear. Equipment upgrades are only flagged when there is a meaningful mismatch between your data and your current setup.',
+        q: 'Will SwingVantage tell me to buy new equipment?',
+        a: 'SwingVantage recommends adjustments before upgrades. Most equipment recommendations in SwingVantage suggest testing changes — like adjusting loft, grip size, or setup — before buying new gear. Equipment upgrades are only flagged when there is a meaningful mismatch between your data and your current setup.',
       },
     ],
   },
@@ -141,11 +141,11 @@ export default function FAQPage() {
             <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
               <span className="text-white font-black text-sm">SQ</span>
             </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingIQ</Link>
+            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h1>
           <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
-            Common questions about SwingIQ — what it does, how it works, and what it honestly cannot do.
+            Common questions about SwingVantage — what it does, how it works, and what it honestly cannot do.
           </p>
         </div>
       </div>
@@ -198,7 +198,7 @@ export default function FAQPage() {
 
         {/* Navigation */}
         <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
-          <Link href="/" className="text-primary hover:underline">← SwingIQ Home</Link>
+          <Link href="/" className="text-primary hover:underline">← SwingVantage Home</Link>
           <Link href="/how-it-works" className="text-primary hover:underline">How It Works</Link>
           <Link href="/trust" className="text-primary hover:underline">Trust & Safety</Link>
           <Link href="/parents" className="text-primary hover:underline">For Parents</Link>

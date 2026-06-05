@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Multi-Sport Fault Ontology: Types
+// SwingVantage — Multi-Sport Fault Ontology: Types
 // ------------------------------------------------------------
 // A single structured layer that sits ON TOP of the per-sport
 // detection engines in @swingiq/core. Those engines decide WHAT

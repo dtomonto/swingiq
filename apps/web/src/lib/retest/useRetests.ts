@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — useRetests hook
+// SwingVantage — useRetests hook
 // ------------------------------------------------------------
 // A reactive, SSR-safe view of the user's open retests and
 // completed results across BOTH data sources:
@@ -18,7 +18,7 @@ import {
   subscribeVideoHistory,
   getVideoHistoryVersion,
 } from '@/lib/video/history';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import {
   loadRetestStore,
   subscribeRetestStore,
@@ -58,7 +58,7 @@ let cache: { key: string; value: RetestView } | null = null;
 
 /** Cheap signature of the golf sessions that affect retests. */
 function golfSignature(): string {
-  const sessions = useSwingIQStore.getState().sessions;
+  const sessions = useSwingVantageStore.getState().sessions;
   const golf = sessions.filter((s) => s.sport === 'golf');
   const latest = golf[0];
   return `${golf.length}:${latest?.id ?? ''}:${latest?.diagnoses?.length ?? 0}:${latest?.swing_score ?? ''}`;
@@ -74,7 +74,7 @@ function getSnapshot(): RetestView {
 
   const history = loadVideoHistory();
   const store = loadRetestStore();
-  const sessions = useSwingIQStore.getState().sessions;
+  const sessions = useSwingVantageStore.getState().sessions;
   const now = new Date();
 
   const targets = sortRetestTargets([
@@ -101,7 +101,7 @@ function getSnapshot(): RetestView {
 function subscribe(callback: () => void): () => void {
   const unsubA = subscribeVideoHistory(callback);
   const unsubB = subscribeRetestStore(callback);
-  const unsubC = useSwingIQStore.subscribe(callback);
+  const unsubC = useSwingVantageStore.subscribe(callback);
   return () => {
     unsubA();
     unsubB();

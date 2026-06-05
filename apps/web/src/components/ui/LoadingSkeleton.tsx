@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 
 // ============================================================
-// SwingIQ — Loading Skeletons
+// SwingVantage — Loading Skeletons
 // ------------------------------------------------------------
 // Shared shimmer primitives so loading states look consistent
 // everywhere (route-level loading.tsx, lazy panels, hydration

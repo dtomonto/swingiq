@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { AchievementBadge } from '@/components/community/AchievementBadge';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ACHIEVEMENTS, computeAchievementProgress, syncEarnedAchievements } from '@/lib/community/achievements';
 import { Award } from 'lucide-react';
@@ -23,7 +23,7 @@ const CATEGORIES: { id: AchievementCategory | 'all'; label: string }[] = [
 
 export default function BadgesPage() {
   const { t } = useLanguage();
-  const { sessions, video_analyses, training, community } = useSwingIQStore();
+  const { sessions, video_analyses, training, community } = useSwingVantageStore();
   const [activeCategory, setActiveCategory] = useState<AchievementCategory | 'all'>('all');
   const [tab, setTab] = useState<'all' | 'earned' | 'locked'>('all');
 

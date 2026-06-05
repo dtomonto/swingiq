@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Sport-Specific Profile Forms
+// SwingVantage — Sport-Specific Profile Forms
 // Each non-golf sport has its own profile form.
 // Golf uses the existing ProfileForm.tsx.
 // ============================================================
@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import type { SportId } from '@swingiq/core';
 
 const inputClass =
@@ -38,7 +38,7 @@ function FormField({
 // ── Tennis Profile Form ───────────────────────────────────────
 
 export function TennisProfileForm() {
-  const { sportProfiles, setSportProfile } = useSwingIQStore();
+  const { sportProfiles, setSportProfile } = useSwingVantageStore();
   const existing = (sportProfiles?.tennis ?? {}) as Record<string, string>;
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
@@ -184,7 +184,7 @@ export function TennisProfileForm() {
 // ── Baseball Profile Form ─────────────────────────────────────
 
 export function BaseballProfileForm() {
-  const { sportProfiles, setSportProfile } = useSwingIQStore();
+  const { sportProfiles, setSportProfile } = useSwingVantageStore();
   const existing = (sportProfiles?.baseball ?? {}) as Record<string, string>;
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
@@ -331,7 +331,7 @@ export function BaseballProfileForm() {
 // ── Slow Pitch Softball Profile Form ─────────────────────────
 
 export function SlowPitchProfileForm() {
-  const { sportProfiles, setSportProfile } = useSwingIQStore();
+  const { sportProfiles, setSportProfile } = useSwingVantageStore();
   const existing = (sportProfiles?.softball_slow ?? {}) as Record<string, string>;
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
@@ -486,7 +486,7 @@ export function SlowPitchProfileForm() {
 // ── Fast Pitch Softball Profile Form ─────────────────────────
 
 export function FastPitchProfileForm() {
-  const { sportProfiles, setSportProfile } = useSwingIQStore();
+  const { sportProfiles, setSportProfile } = useSwingVantageStore();
   const existing = (sportProfiles?.softball_fast ?? {}) as Record<string, string>;
   const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: 3D Rotational Kinematics (pure)
+// SwingVantage — Motion Lab: 3D Rotational Kinematics (pure)
 // ------------------------------------------------------------
 // Small, dependency-free helpers that turn the depth (z) axis of the
 // pose track into TRUE axial rotation — the turn of the body about the

@@ -2,7 +2,7 @@
   "name": "swingiq",
   "version": "1.0.0",
   "private": true,
-  "description": "SwingIQ — Web-based AI golf performance platform (mobile-optimized)",
+  "description": "SwingVantage — Web-based AI golf performance platform (mobile-optimized)",
   "workspaces": [
     "apps/*",
     "packages/*",

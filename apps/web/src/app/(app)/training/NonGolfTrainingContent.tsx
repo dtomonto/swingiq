@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Non-Golf Training Content
+// SwingVantage — Non-Golf Training Content
 // Sport-specific training for tennis, baseball, and softball.
 // Shows drills from the latest video analysis, a drill checklist,
 // and a retest CTA. Golf uses TrainingContent.tsx (unchanged).
@@ -25,7 +25,7 @@ import {
   getSportConfig,
 } from '@swingiq/core';
 import type { SportId, SportDrillRecommendation } from '@swingiq/core';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 import Link from 'next/link';
 import { format } from 'date-fns';
@@ -131,7 +131,7 @@ function SportDrillCard({
 
 export function NonGolfTrainingContent() {
   const { activeSport, isGolf, sportEmoji, sportName } = useSport();
-  const { video_analyses, training, recordPractice } = useSwingIQStore();
+  const { video_analyses, training, recordPractice } = useSwingVantageStore();
   const [completedDrills, setCompletedDrills] = useState<Set<string>>(new Set());
 
   // Derive sport before hooks that depend on it — default to 'tennis' when isGolf to

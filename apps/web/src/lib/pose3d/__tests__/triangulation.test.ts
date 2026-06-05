@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: triangulation correctness (ground-truth)
+// SwingVantage — pose3d: triangulation correctness (ground-truth)
 // ------------------------------------------------------------
 // Generates a known 3D skeleton, projects it through two calibrated
 // cameras, triangulates, and asserts the original 3D is recovered.

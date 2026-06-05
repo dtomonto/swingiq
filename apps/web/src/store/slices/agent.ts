@@ -1,9 +1,9 @@
-import type { SwingIQSlice, SwingIQStore } from '../types';
+import type { SwingVantageSlice, SwingVantageStore } from '../types';
 import { DEFAULT_AGENT_STATE } from '../types';
 
-export const createAgentSlice: SwingIQSlice<
+export const createAgentSlice: SwingVantageSlice<
   Pick<
-    SwingIQStore,
+    SwingVantageStore,
     'agent' | 'dismissAgentInsight' | 'setWelcomeBackDismissed' | 'resetAgentDismissals'
   >
 > = (set) => ({

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { isDarkTheme, normalizeThemeId } from '@/lib/theme/themes';
 
 /**
@@ -13,7 +13,7 @@ import { isDarkTheme, normalizeThemeId } from '@/lib/theme/themes';
  * theme.
  */
 export function ThemeApplicator() {
-  const colorTheme = useSwingIQStore((s) => normalizeThemeId(s.settings.colorTheme));
+  const colorTheme = useSwingVantageStore((s) => normalizeThemeId(s.settings.colorTheme));
 
   useEffect(() => {
     const root = document.documentElement;
