@@ -79,6 +79,26 @@ export const DEV_STATS: DevStat[] = [
 
 export const DEV_UPDATES: DevUpdate[] = [
   {
+    id: 'dev-monetization-free-ads-tiers',
+    version: 'Strategy',
+    title: 'Monetization re-sequenced: free → ads → membership tiers',
+    date: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'Platform',
+    impact: 'foundational',
+    headline: 'One canonical monetization order across the whole codebase: grow the free base, monetize via ads for first revenue, then roll out paid tiers.',
+    details:
+      'The project was implicitly subscription-first (the checklist, roadmap, and live Pro/Team tiers all treated paid plans as the next step). We made the order explicit and fixed: Phase 1 grow free users → Phase 2 ads (first revenue from the free audience) → Phase 3 membership tiers, each advancing only when the gate ahead is met. A new north-star doc (docs/MONETIZATION_STRATEGY.md) governs the subordinate docs. In code, ads get a keyless-first capability seam (isAdsConfigured + the /api/capabilities summary) that renders zero ads until an ad-network id is set — mirroring how Stripe stays dormant until keys exist — and the pricing CTA now reads "Coming Soon" (with an optional email notify) instead of a waitlist, since subscriptions are Phase 3.',
+    highlights: [
+      'docs/MONETIZATION_STRATEGY.md as the single source of truth (3 phases + the gate between each)',
+      'Ads wired keyless-first/off by default; non-personalized/contextual for youth-safety',
+      'Stripe/Pro/Team rails kept pre-built but explicitly deferred to Phase 3',
+      'Pricing page tiers now show "Coming Soon"',
+    ],
+    stack: ['TypeScript', 'Next.js', 'Capability seam', 'Docs-as-code'],
+    isMilestone: false,
+  },
+  {
     id: 'dev-implement-kinetic-temporal',
     version: 'Motion Lab',
     title: 'Implement path, kinetic chain, and temporal intelligence',

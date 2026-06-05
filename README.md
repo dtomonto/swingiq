@@ -197,7 +197,7 @@ SwingIQ is available in 20 languages with full Spanish and French translations. 
 - Open SwingIQ and start analyzing immediately — **no sign-up wall**
 - Data is saved privately on your own device by default (keyless local account)
 - An **optional account** is available anytime — sign-up, sign-in, and password reset all work when Supabase auth is configured, for users who want cloud sync
-- Monetization is keyless too: a **Pro waitlist** runs without any payment provider; optional Stripe checkout activates only when keys are present (see `lib/billing/tiers.ts`)
+- Monetization follows a fixed order — **grow free users → ads (first revenue) → membership tiers** (north star: `docs/MONETIZATION_STRATEGY.md`). It's keyless too: paid tiers show **"Coming Soon"** (with an optional email notify) and only become live checkout when Stripe keys are present; ads stay off until an ad-network id is set (see `lib/billing/tiers.ts`, `lib/capabilities.ts`)
 
 ### 📶 Offline Support
 - A clear **offline status banner** appears when the connection drops (common at a range or back field)
@@ -385,7 +385,7 @@ Start here: **[docs/BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md)**
 | AI | OpenAI GPT-4o-mini or Anthropic Claude (configurable) |
 | Pose / Motion | On-device MediaPipe pose (`lib/pose`, lite/full/heavy) → Motion Lab 3D pipeline (`lib/motion-lab`) + proprietary 3D engine (`lib/pose3d`: multi-view triangulation + trained single-view depth model) |
 | Auth | Keyless local accounts by default; optional Supabase auth |
-| Billing | Keyless Pro waitlist; optional Stripe checkout |
+| Billing | Tiers show "Coming Soon" (free→ads→tiers); optional Stripe checkout when keys present |
 | Offline | IndexedDB outbox + offline status banner |
 | Encryption | Web Crypto API — AES-256-GCM (backup encryption, no external deps) |
 | Database (optional) | Supabase (PostgreSQL + Auth + RLS) |
@@ -452,7 +452,7 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | `/tools`, `/tools/*` | Free quizzes, drill & practice generators |
 | `/challenges`, `/challenges/*` | Free multi-sport practice challenges |
 | `/coaches`, `/creators`, `/teams`, `/partners` | Partner / audience landing pages |
-| `/pricing` | Free tier + Pro waitlist (keyless; optional Stripe checkout) |
+| `/pricing` | Free tier + paid tiers as "Coming Soon" (keyless; optional Stripe checkout) |
 | `/parents` | Youth safety, FAQ |
 | `/privacy` | Privacy policy |
 | `/terms` | Terms of service + AI disclaimer |
@@ -483,7 +483,8 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | [SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md) | SEO/GEO/AEO strategy with content calendar |
 | [HOW_TO_PUBLISH_UPDATES.md](docs/HOW_TO_PUBLISH_UPDATES.md) | Guide for adding entries to the /updates page |
 | [PRODUCT_ROADMAP.md](docs/PRODUCT_ROADMAP.md) | 30/60/90-day roadmap + monetization |
-| [MONETIZATION_CHECKLIST.md](docs/MONETIZATION_CHECKLIST.md) | Step-by-step, least-expensive path to your first paying user (Stripe + gates) |
+| [MONETIZATION_STRATEGY.md](docs/MONETIZATION_STRATEGY.md) | **The north star** — monetization order: grow free → ads → membership tiers (+ the gate between each) |
+| [MONETIZATION_CHECKLIST.md](docs/MONETIZATION_CHECKLIST.md) | The Phase 3 (subscriptions) runbook — least-expensive path to the first paying user (Stripe + gates) |
 | [ANALYTICS_PLAN.md](docs/ANALYTICS_PLAN.md) | Event taxonomy, funnels, KPIs |
 | [SEO_AEO_GEO_PLAN.md](docs/SEO_AEO_GEO_PLAN.md) | Legacy SEO plan (superseded by docs/SEO_GEO_AEO.md) |
 | [COMPETITIVE_POSITIONING.md](docs/COMPETITIVE_POSITIONING.md) | Category framing + differentiation |

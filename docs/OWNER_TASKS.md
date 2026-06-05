@@ -48,7 +48,7 @@ Use this file to track what has already been built and what you still need to se
 - [x] **Retest page** (`/retest`) — reminds you when a finding is due for a retest and shows an honest, directional before-and-after read once you re-analyze under the same conditions (golf matches curated faults to fresh launch-monitor data; video sports compare analyses). Reminders + results also surface on the dashboard.
 - [x] **Role-aware fault explanations** — every fault is explained for the reader (player / coach / parent) on the Diagnose, Training, and Retest screens
 - [x] **Keyless instant start** — no sign-up required; data is saved privately on-device by default. Optional account (sign-up / sign-in / password reset) activates when Supabase auth keys are present.
-- [x] **Keyless monetization** — Pro waitlist works with no payment provider; optional Stripe checkout activates when keys are present (`lib/billing/tiers.ts`)
+- [x] **Keyless monetization** — order is free → ads → tiers (`docs/MONETIZATION_STRATEGY.md`). Paid tiers show "Coming Soon" (optional email notify) with no payment provider; optional Stripe checkout activates when keys are present (`lib/billing/tiers.ts`). Ads off until an ad-network id is set (`lib/capabilities.ts`)
 - [x] **Offline support** — offline status banner + IndexedDB outbox queues network actions and completes them automatically on reconnect (always on, nothing to configure)
 - [x] **Share report as image** — Reports → report card → Image action builds a ready-to-post square image on-device (mobile shares natively; desktop downloads)
 - [x] **"Today's Fix" engagement CTAs** translated across all 20 coaching languages
@@ -113,7 +113,7 @@ Use this file to track what has already been built and what you still need to se
 - [x] Homepage (`/`) with JSON-LD structured data (WebApplication + FAQPage)
 - [x] How It Works page (`/how-it-works`)
 - [x] Sport-specific SEO pages: `/golf-swing-analysis`, `/tennis-swing-analysis`, `/baseball-swing-analysis`, `/softball-swing-analysis`
-- [x] Pricing page (`/pricing`) — free tier + Pro **waitlist** (keyless; works with no payment provider, optional Stripe checkout activates when keys are present)
+- [x] Pricing page (`/pricing`) — free tier + paid tiers as **"Coming Soon"** (keyless; optional email notify, optional Stripe checkout activates when keys are present)
 - [x] Parents/youth safety page (`/parents`)
 - [x] Privacy policy (`/privacy`)
 - [x] Terms of service (`/terms`)

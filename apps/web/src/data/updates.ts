@@ -138,6 +138,45 @@ export const UPDATE_TEMPLATE: Omit<Update, 'id' | 'createdAt' | 'updatedAt'> = {
 
 export const UPDATES: Update[] = [
   {
+    id: 'update-079',
+    title: 'Free Stays Free — Paid Plans Are "Coming Soon"',
+    slug: 'free-stays-free-paid-coming-soon',
+    metaTitle: 'SwingIQ Pricing — Free Forever, Paid Plans Coming Soon',
+    metaDescription:
+      'SwingIQ is free to use and stays that way. Our paid Pro and Team plans now show "Coming Soon" — we are growing the free product first and will add optional upgrades later.',
+    summary:
+      'We have simplified the pricing page. Everything you use today is free and will stay free — analysis, drills, progress, and your cross-sport Athlete GI report. The Pro and Team plans now read "Coming Soon" instead of a waitlist: our focus right now is making the free product great for as many athletes as possible, and optional paid upgrades will arrive later.',
+    releaseDate: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'Product Updates',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 151,
+    audience: ['all athletes', 'parents', 'coaches'],
+    relatedFeature: 'Pricing',
+    userBenefit:
+      'No paywall and no pressure: the full SwingIQ experience stays free. If you want a heads-up when optional Pro/Team upgrades launch, you can leave your email — but nothing you rely on today will be taken away or put behind a charge.',
+    whyItMatters:
+      'Our priority is growing a great free product for as many athletes as possible before charging anyone. Being upfront that paid plans are "coming later" — rather than dangling a waitlist — is the honest way to say it.',
+    whereToFindIt: 'See the simplified plans on the pricing page (/pricing).',
+    seoKeywords: [
+      'swingiq pricing',
+      'free swing analysis',
+      'is swingiq free',
+      'swingiq pro coming soon',
+    ],
+    answerEngineSummary:
+      'SwingIQ is free to use and stays free; its paid Pro ($12/mo) and Team ($49/mo) plans currently show "Coming Soon." SwingIQ is prioritising a strong free product first; optional paid upgrades (cloud sync, video storage, deeper history, team tools) will launch later, and the core analysis, drills, progress tracking, and Athlete GI report remain free.',
+    generativeSearchSummary:
+      'SwingIQ stays free; paid Pro/Team plans now show "Coming Soon" while the free product grows first.',
+    internalLinkTargets: ['/pricing', '/athlete-general-intelligence'],
+    isFeatured: false,
+    isMajorMilestone: false,
+    createdAt: '2026-06-04',
+    updatedAt: '2026-06-04',
+  },
+  {
     id: 'update-078',
     title: 'Meet Athlete General Intelligence — One Engine Across All Your Sports',
     slug: 'athlete-general-intelligence',
