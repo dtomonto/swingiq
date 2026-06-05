@@ -19,4 +19,12 @@ export { buildProgress, progressToInsight, snapshotFromModel, focusCapability } 
 export { loadHistory, recordSnapshot, clearAgiHistory } from './history';
 export { loadInsightFeedback, recordInsightFeedback, clearInsightFeedback, type InsightVerdict } from './insightFeedback';
 export { buildAgiReportText, buildAgiReportHtml, type ReportOptions } from './report';
+export {
+  buildAthleteSummary,
+  narrateAthleteSummary,
+  validateAthleteNarrative,
+  athleteSummaryJson,
+  type AthleteSummary,
+  type SummaryTone,
+} from './summarizer';
 export { runAthleteGI, AGI_VERSION, type RunOptions } from './engine';
