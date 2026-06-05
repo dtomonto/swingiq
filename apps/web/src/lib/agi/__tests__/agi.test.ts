@@ -10,6 +10,8 @@
 import type { GolferProfileInput } from '@swingiq/core';
 import { runAthleteGI } from '../engine';
 import { buildWorldModel, scoreBand } from '../worldModel';
+import { isThinModel } from '../reasoning';
+import { DEMO_BUNDLE } from '../demo';
 import { gradeModel } from '../trust';
 import { buildKeystoneTranslations } from '../transfer';
 import { classifyMetric, goalToCapabilities } from '../capabilities';
@@ -80,6 +82,45 @@ function sessionRef(
     drillHints: extra.drillHints ?? [],
   };
 }
+
+describe('AGI — Phase 1: N=1 value, demo, classifier contract', () => {
+  // R4: this list MUST stay in sync with the metric ids in motion-lab/biomechanics.ts.
+  // If Motion Lab adds/renames a metric, update both — this test guards the mapping.
+  const MOTION_LAB_METRIC_IDS = [
+    'shoulder_turn', 'hip_turn', 'hip_shoulder_sep', 'sequencing', 'head_stability',
+    'pelvis_sway', 'rotation_quality', 'spine_change', 'knee_flex', 'tempo_ratio',
+    'balance_finish', 'hand_speed_peak', 'rom', 'repeatability',
+  ];
+
+  it('classifies every known Motion Lab metric id to a capability (contract)', () => {
+    for (const id of MOTION_LAB_METRIC_IDS) {
+      expect(classifyMetric(id)).not.toBeNull();
+    }
+  });
+
+  it('flags a thin (single-session) model and softens the keystone copy', () => {
+    const thinBundle: SignalBundle = {
+      signals: [sig('rotation', 'golf', 45)],
+      sportSessions: [sessionRef('golf', 55)],
+    };
+    expect(isThinModel(buildWorldModel(thinBundle))).toBe(true);
+    const ks = runAthleteGI(thinBundle).insights.find((i) => i.kind === 'keystone')!;
+    expect(ks).toBeTruthy(); // N=1 still produces a keystone (value at N=1)
+    expect(ks.summary).toMatch(/early read/i);
+    expect(ks.confidence).toBeLessThanOrEqual(0.5);
+  });
+
+  it('the demo bundle produces a rich, cross-sport result', () => {
+    const r = runAthleteGI(DEMO_BUNDLE);
+    expect(r.model.dataMap.totalSessions).toBeGreaterThan(0);
+    expect(r.model.crossSport).toBe(true);
+    expect(isThinModel(r.model)).toBe(false); // demo is intentionally not thin
+    expect(r.insights.find((i) => i.kind === 'keystone')).toBeTruthy();
+    expect(r.plan.keystone).toBeTruthy();
+    expect(r.transfers.length).toBeGreaterThan(0);
+    expect(r.provenDrills.length).toBeGreaterThan(0);
+  });
+});
 
 describe('AGI — metric classifier', () => {
   it('maps known motion-lab metric ids to capabilities', () => {

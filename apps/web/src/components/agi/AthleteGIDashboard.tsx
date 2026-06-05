@@ -9,6 +9,7 @@
 // design: every value shows basis + confidence; nothing is fetched or sent.
 // ============================================================
 
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import {
   BrainCircuit,
@@ -25,6 +26,8 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { useAthleteGI } from '@/lib/agi/adapters/useAthleteGI';
+import { runAthleteGI, DEMO_BUNDLE } from '@/lib/agi';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { AgiReportCard } from './AgiReportCard';
 import type {
   AthleteGIResult,
@@ -170,6 +173,7 @@ function TrustBadge({ trust }: { trust: AthleteGIResult['trust'] }) {
         {trust.nextStep && (
           <Link
             href={trust.nextStep.href}
+            onClick={() => track(ANALYTICS_EVENTS.AGI_NEXTSTEP_CLICKED, { grade: trust.grade })}
             className="mt-2 block rounded-md bg-primary/10 px-2 py-1.5 text-[10px] font-medium text-primary hover:bg-primary/15"
           >
             → {trust.nextStep.text}
@@ -203,7 +207,14 @@ function InsightCard({ insight }: { insight: Insight }) {
         </div>
 
         {insight.reasoning.length > 0 && (
-          <details className="group">
+          <details
+            className="group"
+            onToggle={(e) => {
+              if ((e.currentTarget as HTMLDetailsElement).open) {
+                track(ANALYTICS_EVENTS.AGI_INSIGHT_EXPANDED, { kind: insight.kind, capability: insight.capability ?? 'none' });
+              }
+            }}
+          >
             <summary className="flex items-center gap-1 text-xs text-muted-foreground cursor-pointer select-none hover:text-foreground">
               <ChevronRight className="w-3 h-3 transition-transform group-open:rotate-90" aria-hidden="true" />
               Show the reasoning ({insight.reasoning.length} steps)
@@ -301,7 +312,7 @@ function PlanSection({ result }: { result: AthleteGIResult }) {
   );
 }
 
-function EmptyState() {
+function EmptyState({ onSeeDemo }: { onSeeDemo: () => void }) {
   return (
     <Card>
       <CardBody className="text-center py-10 space-y-3">
@@ -312,13 +323,24 @@ function EmptyState() {
           analysis and it instantly builds your cross-sport model. Analyse a second sport and it
           starts finding what transfers between them.
         </p>
-        <Link
-          href="/motion-lab"
-          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
-        >
-          <FlaskConical className="w-4 h-4" aria-hidden="true" />
-          Open Motion Lab
-        </Link>
+        <div className="flex flex-col sm:flex-row gap-2 justify-center pt-1">
+          <Link
+            href="/motion-lab"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
+          >
+            <FlaskConical className="w-4 h-4" aria-hidden="true" />
+            Open Motion Lab
+          </Link>
+          <button
+            type="button"
+            onClick={onSeeDemo}
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+          >
+            <Sparkles className="w-4 h-4" aria-hidden="true" />
+            See a sample athlete
+          </button>
+        </div>
+        <p className="text-[11px] text-muted-foreground">No data needed — preview the full analysis on an example athlete.</p>
       </CardBody>
     </Card>
   );
@@ -327,11 +349,27 @@ function EmptyState() {
 // ── main ──────────────────────────────────────────────────────
 
 export function AthleteGIDashboard() {
-  const result = useAthleteGI();
+  const live = useAthleteGI();
+  const [demo, setDemo] = useState(false);
+  const demoResult = useMemo(() => runAthleteGI(DEMO_BUNDLE), []);
+  const result = demo ? demoResult : live;
 
   const { model, insights, transfers, trust, keystoneTranslations, provenDrills } = result;
   const hasData = model.dataMap.totalSessions > 0;
   const goal = model.identity?.primaryGoal;
+
+  // Engine-usage analytics: fire once per populated view (live or demo).
+  const keystoneCap = insights.find((i) => i.kind === 'keystone')?.capability;
+  useEffect(() => {
+    if (!hasData) return;
+    track(ANALYTICS_EVENTS.AGI_VIEWED, { demo, coverage: Math.round(model.coverage * 100), trust: trust.grade });
+    if (keystoneCap) track(ANALYTICS_EVENTS.AGI_KEYSTONE_SHOWN, { capability: keystoneCap, demo });
+  }, [hasData, demo, keystoneCap, model.coverage, trust.grade]);
+
+  function seeDemo() {
+    setDemo(true);
+    track(ANALYTICS_EVENTS.AGI_DEMO_VIEWED, {});
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 space-y-5">
@@ -379,9 +417,25 @@ export function AthleteGIDashboard() {
       </header>
 
       {!hasData ? (
-        <EmptyState />
+        <EmptyState onSeeDemo={seeDemo} />
       ) : (
         <>
+          {demo && (
+            <div className="flex items-center gap-2 rounded-lg border border-accent-secondary/30 bg-accent-secondary/10 px-3 py-2 text-xs">
+              <Sparkles className="w-4 h-4 text-accent-secondary shrink-0" aria-hidden="true" />
+              <span className="text-foreground">
+                <span className="font-semibold">Sample athlete</span> — this is example data so you can see what the engine produces. Your own analysis appears here once you capture a session.
+              </span>
+              <button
+                type="button"
+                onClick={() => setDemo(false)}
+                className="ml-auto shrink-0 font-medium text-accent-secondary hover:underline"
+              >
+                Exit sample
+              </button>
+            </div>
+          )}
+
           {/* World model */}
           <Card>
             <CardBody className="space-y-4">

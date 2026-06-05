@@ -74,6 +74,15 @@ export const ANALYTICS_EVENTS = {
   COACH_SHARE_CLICKED: 'coach_share_clicked',
   PDF_DOWNLOADED: 'pdf_downloaded',
 
+  // Athlete General Intelligence
+  AGI_VIEWED: 'agi_viewed',
+  AGI_KEYSTONE_SHOWN: 'agi_keystone_shown',
+  AGI_INSIGHT_EXPANDED: 'agi_insight_expanded',
+  AGI_NEXTSTEP_CLICKED: 'agi_nextstep_clicked',
+  AGI_DEMO_VIEWED: 'agi_demo_viewed',
+  AGI_INSIGHT_FEEDBACK: 'agi_insight_feedback',
+  AGI_NARRATED: 'agi_narrated',
+
   // Trust & safety
   PRIVACY_PAGE_VIEWED: 'privacy_page_viewed',
   PARENT_SAFETY_VIEWED: 'parent_safety_viewed',

@@ -50,6 +50,11 @@ function stdev(values: number[]): number {
 
 // ── Individual reasoners ──────────────────────────────────────
 
+/** True when the model rests on thin data — used to soften over-confident copy. */
+export function isThinModel(model: AthleteWorldModel): boolean {
+  return model.dataMap.totalSessions < 3 || model.coverage < 0.35;
+}
+
 function keystoneInsight(
   model: AthleteWorldModel,
   labels: Map<SportId, SportLabel>,
@@ -71,6 +76,11 @@ function keystoneInsight(
   if (top.c.score >= 68) return null;
 
   const sportsText = listSports(top.c.sports, labels);
+  const thin = isThinModel(model);
+  const baseSummary =
+    top.c.breadth >= 2
+      ? `${top.c.name} is your most limiting general skill and it underlies ${sportsText}. Train this one trait and you lift every sport that uses it at once — that is the leverage a cross-sport view gives you.`
+      : `${top.c.name} is your most limiting general skill right now (seen in ${sportsText}). It is the first thing worth a dedicated block of practice.`;
   const reasoning: ReasoningStep[] = [
     {
       claim: `${top.c.name} is your lowest general capability at ${top.c.score}/100.`,
@@ -96,17 +106,19 @@ function keystoneInsight(
     id: `keystone-${top.c.capability}`,
     kind: 'keystone',
     title: `Keystone: ${top.c.name}`,
-    summary:
-      top.c.breadth >= 2
-        ? `${top.c.name} is your most limiting general skill and it underlies ${sportsText}. Train this one trait and you lift every sport that uses it at once — that is the leverage a cross-sport view gives you.`
-        : `${top.c.name} is your most limiting general skill right now (seen in ${sportsText}). It is the first thing worth a dedicated block of practice.`,
+    summary: thin
+      ? `Early read from limited data — ${baseSummary} Capture another session or two to firm this up before committing.`
+      : baseSummary,
     capability: top.c.capability,
     sports: top.c.sports,
     reasoning,
     basis: top.c.basis,
-    confidence: clamp01(top.c.confidence),
+    // Thin data caps how confident the keystone can honestly be.
+    confidence: clamp01(thin ? Math.min(top.c.confidence, 0.5) : top.c.confidence),
     leverage: top.leverage,
-    action: `Make ${top.c.name} your primary focus for the next 2–3 weeks, then re-analyse to confirm it moved.`,
+    action: thin
+      ? `Capture one more session, then make ${top.c.name} your primary focus and re-analyse to confirm it moved.`
+      : `Make ${top.c.name} your primary focus for the next 2–3 weeks, then re-analyse to confirm it moved.`,
   };
 }
 
