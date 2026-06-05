@@ -108,12 +108,26 @@ export async function middleware(request: NextRequest) {
   }
 
   // ── Supabase auth check ────────────────────────────────────────
-  // If Supabase is not configured (env vars missing), pass through — dev mode.
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+  if (!supabaseUrl && !supabaseAnonKey) {
+    // Neither var is set → intentional local-first mode: the app runs
+    // device-only with no accounts, so protected app routes are usable
+    // anonymously. Allow through.
+    return NextResponse.next();
+  }
+
   if (!supabaseUrl || !supabaseAnonKey) {
-    // Dev mode without Supabase — allow all traffic through
+    // Exactly one var is set → a broken / half-configured deploy. Auth can
+    // never work correctly in this state. Fail CLOSED in production so a
+    // missing env var can't silently disable route protection; allow in dev
+    // so local iteration isn't blocked while wiring things up.
+    if (process.env.NODE_ENV === 'production') {
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('next', pathname);
+      return NextResponse.redirect(loginUrl);
+    }
     return NextResponse.next();
   }
 

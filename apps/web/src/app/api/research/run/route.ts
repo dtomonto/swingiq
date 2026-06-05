@@ -20,18 +20,19 @@ import {
   buildLLMConfig,
   computeNextScheduled,
 } from '@swingiq/core';
+import { safeEqual } from '@/lib/security/constant-time';
 
 const CRON_SECRET = process.env.CRON_SECRET;
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 
 function isAuthorized(req: NextRequest): boolean {
-  // Vercel Cron auth
+  // Vercel Cron auth (constant-time compare — no timing oracle on the secret)
   const authHeader = req.headers.get('authorization');
-  if (CRON_SECRET && authHeader === `Bearer ${CRON_SECRET}`) return true;
+  if (CRON_SECRET && safeEqual(authHeader, `Bearer ${CRON_SECRET}`)) return true;
 
   // Admin manual trigger
   const adminHeader = req.headers.get('x-admin-secret');
-  if (ADMIN_SECRET && adminHeader === ADMIN_SECRET) return true;
+  if (ADMIN_SECRET && safeEqual(adminHeader, ADMIN_SECRET)) return true;
 
   // Development mode — allow if neither secret is configured
   if (!CRON_SECRET && !ADMIN_SECRET && process.env.NODE_ENV === 'development') return true;

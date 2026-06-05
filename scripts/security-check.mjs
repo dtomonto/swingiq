@@ -70,11 +70,19 @@ function rel(p) {
  * Check 1 — NEXT_PUBLIC_ vars that look like secrets.
  * These are embedded in the browser bundle and are NOT secret.
  */
-// Supabase anon key is explicitly designed to be public — it is safe in NEXT_PUBLIC_.
-// Supabase Row Level Security protects data, not the anon key itself.
+// Some keys are designed to live in the browser bundle and are NOT secrets.
+// Allowlisting them keeps this gate meaningful: a gate that fails on
+// known-public keys produces only noise and gets ignored.
+//   • Supabase anon key — Row Level Security protects data, not the key.
+//   • Stripe PUBLISHABLE key (pk_...) — the secret key is STRIPE_SECRET_KEY.
+//   • PostHog project key (phc_...) — a write-only ingestion key, public by design.
+// The secret-bearing counterparts (SUPABASE_SERVICE_ROLE_KEY, STRIPE_SECRET_KEY,
+// STRIPE_WEBHOOK_SECRET, etc.) are deliberately NOT NEXT_PUBLIC_ and stay caught.
 const PUBLIC_KEY_ALLOWLIST = new Set([
   "NEXT_PUBLIC_SUPABASE_ANON_KEY",
   "NEXT_PUBLIC_SUPABASE_URL",
+  "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+  "NEXT_PUBLIC_POSTHOG_KEY",
 ]);
 
 function checkPublicSecrets(filePath, lines, findings) {

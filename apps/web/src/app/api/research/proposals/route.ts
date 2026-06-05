@@ -4,12 +4,13 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { safeEqual } from '@/lib/security/constant-time';
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 
 function isAuthorized(req: NextRequest): boolean {
   const adminHeader = req.headers.get('x-admin-secret');
-  if (ADMIN_SECRET && adminHeader === ADMIN_SECRET) return true;
+  if (ADMIN_SECRET && safeEqual(adminHeader, ADMIN_SECRET)) return true;
   if (!ADMIN_SECRET && process.env.NODE_ENV === 'development') return true;
   return false;
 }

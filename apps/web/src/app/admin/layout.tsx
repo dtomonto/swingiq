@@ -11,6 +11,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
+import { safeEqual } from '@/lib/security/constant-time';
 
 export const metadata: Metadata = {
   title: 'Admin | SwingVantage',
@@ -28,7 +29,7 @@ async function isAdminAuthorized(): Promise<boolean> {
 
   const requestHeaders = await headers();
   const provided = requestHeaders.get('x-admin-secret');
-  return provided === adminSecret;
+  return safeEqual(provided, adminSecret);
 }
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
