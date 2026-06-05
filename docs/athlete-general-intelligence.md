@@ -68,6 +68,24 @@ You'll find it in the app under **Analyze → Athlete GI** (`/agi`).
 The top-level entry point is `runAthleteGI(bundle)` in `engine.ts` — pure, no
 React, no browser, no network, fully unit-tested (`__tests__/agi.test.ts`).
 
+### Engine v2 additions
+
+- **Score bands** — every capability gets an honest `band` (building / developing
+  / solid / sharp), the same friendly scale as readiness.
+- **Trajectories** — each capability carries a trend (up / down / flat + Δ) built
+  from snapshot history, so the whole profile shows movement, not just the keystone.
+- **Trust grade** (`trust.ts`) — one A–D meta-confidence for the whole picture
+  from coverage + basis quality + sample depth + cross-sport breadth, always with
+  the reasons holding it up and what would raise it. On `result.trust`.
+- **Plateau insight** — when the focus capability stalls across ≥3 check-ins, the
+  engine says so and prescribes a *new* approach instead of more of the same.
+- **Keystone translation** (`buildKeystoneTranslations`) — phrases the keystone in
+  each of the athlete's sports via the shared principle expressions
+  (`result.keystoneTranslations`).
+- **Readiness-scaled, sport-interleaved plan** — weekly minutes scale with today's
+  readiness (rest on a safety caution); for multi-sport athletes the keystone block
+  rotates its sport context (one trait, trained across sports).
+
 ## Progress over time (the retest loop)
 
 The plan keeps telling people to "re-analyse in 2–3 weeks to confirm your
