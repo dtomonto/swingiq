@@ -70,7 +70,7 @@ export function PricingCTA({ tier }: { tier: BillingTier }) {
         setPhase('done');
         setMessage(
           data.persisted
-            ? `You're on the ${tier.name} waitlist — we'll email you when it launches.`
+            ? `Thanks! We'll email you when ${tier.name} launches.`
             : `Thanks! We noted your interest in ${tier.name}. (Email storage isn't connected yet, so nothing was saved.)`,
         );
       } else {
@@ -103,23 +103,31 @@ export function PricingCTA({ tier }: { tier: BillingTier }) {
   }
 
   return (
-    <form onSubmit={joinWaitlist} className="space-y-2">
-      <input
-        type="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="you@example.com"
-        autoComplete="email"
-        className="w-full border border-border rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-ring focus:border-transparent outline-hidden"
-      />
-      <Button type="submit" loading={phase === 'loading'} variant="outline" className="w-full" size="lg">
-        Join the {tier.name} waitlist
-      </Button>
-      {message && <p className="text-xs text-warning">{message}</p>}
-      <p className="text-[11px] text-muted-foreground leading-relaxed">
-        Free stays free. No charge today — we&apos;ll email you when {tier.name} launches.
-      </p>
-    </form>
+    <div className="space-y-2">
+      <div
+        className="w-full rounded-xl border border-border bg-muted py-3 text-center text-sm font-semibold text-muted-foreground"
+        aria-label={`${tier.name} coming soon`}
+      >
+        Coming Soon
+      </div>
+      <form onSubmit={joinWaitlist} className="space-y-2">
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@example.com"
+          autoComplete="email"
+          className="w-full border border-border rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-ring focus:border-transparent outline-hidden"
+        />
+        <Button type="submit" loading={phase === 'loading'} variant="outline" className="w-full" size="lg">
+          Notify me when {tier.name} launches
+        </Button>
+        {message && <p className="text-xs text-warning">{message}</p>}
+        <p className="text-[11px] text-muted-foreground leading-relaxed">
+          Free stays free. {tier.name} is coming later — leave your email and we&apos;ll let you know.
+        </p>
+      </form>
+    </div>
   );
 }
