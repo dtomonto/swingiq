@@ -44,6 +44,18 @@ function write(records: DrillFeedbackRecord[]): void {
   }
 }
 
+/**
+ * Read / replace the whole local feedback array. Used by the cloud-sync layer
+ * (lib/db/drillFeedbackSync) to merge in records pulled from the account,
+ * without the scoring code knowing storage exists.
+ */
+export function readAllDrillFeedback(): DrillFeedbackRecord[] {
+  return read();
+}
+export function replaceAllDrillFeedback(records: DrillFeedbackRecord[]): void {
+  write(records);
+}
+
 /** Local-first repository backed by localStorage. SSR-safe. */
 export const localDrillFeedbackRepo: DrillFeedbackRepository = {
   record(input) {

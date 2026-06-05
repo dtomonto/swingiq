@@ -36,6 +36,9 @@ import {
 import {
   pullAndMergeDocuments, pushChangedDocuments, freshDocSyncState, type DocSyncState,
 } from './documentSync';
+import {
+  syncDrillFeedback, freshDrillFeedbackSync, type DrillFeedbackSyncState,
+} from './drillFeedbackSync';
 import { loadBase, saveBase, computeBase } from './syncBase';
 import { threeWayMerge } from './threeWayMerge';
 
@@ -86,6 +89,7 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
 
   const cachesRef = useRef<SyncCaches>(freshCaches());
   const docSyncRef = useRef<DocSyncState>(freshDocSyncState());
+  const drillFbRef = useRef<DrillFeedbackSyncState>(freshDrillFeedbackSync());
   const userIdRef = useRef<string | null>(null);
   const runningRef = useRef(false);
   const pendingRef = useRef(false);
@@ -116,6 +120,7 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
     docsAvailableRef.current = true;
     docsPrimedRef.current = false;
     docSyncRef.current = freshDocSyncState();
+    drillFbRef.current = freshDrillFeedbackSync();
 
     const store = useSwingVantageStore;
 
@@ -138,6 +143,14 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
       }
     };
 
+    // All out-of-store mirrors (feature documents + the columned drill_feedback
+    // table). Each tolerates its own table being absent.
+    const syncExternal = async (): Promise<boolean> => {
+      const docs = await syncDocs();
+      const drills = await syncDrillFeedback(client, uid, drillFbRef.current);
+      return docs || drills;
+    };
+
     const runReconcile = async () => {
       if (!active || !userIdRef.current) return;
       if (runningRef.current) { pendingRef.current = true; return; }
@@ -145,7 +158,7 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
       setStatus('syncing');
       try {
         const mainChanged = await reconcile(client, uid, store.getState(), cachesRef.current);
-        const docsChanged = await syncDocs();
+        const docsChanged = await syncExternal();
         if (!active) return;
         // Cloud now matches the store → record it as the new agreed base.
         saveBase(uid, computeBase(store.getState()));
@@ -214,9 +227,9 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
         await reconcile(client, uid, store.getState(), cachesRef.current);
         if (!active) return;
 
-        // Pull + merge the secondary feature stores too (independent of the
-        // main sync; a missing user_documents table just no-ops).
-        try { await syncDocs(); } catch { /* transient — the poll will retry */ }
+        // Pull + merge the out-of-store mirrors too (feature documents +
+        // drill_feedback; each tolerates its own table being absent).
+        try { await syncExternal(); } catch { /* transient — the poll will retry */ }
         if (!active) return;
 
         // Record the now-agreed state as the base for future delete-sync.
@@ -233,7 +246,7 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
           if (runningRef.current) return;
           void (async () => {
             try {
-              const wrote = await syncDocs();
+              const wrote = await syncExternal();
               if (wrote && active) setLastSyncedAt(new Date().toISOString());
             } catch {
               /* transient — a later poll or edit retries; don't disturb status */

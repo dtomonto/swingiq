@@ -50,21 +50,6 @@ function unionById(a: Json, b: Json, idKey = 'id', cap?: number): Record<string,
   return cap ? merged.slice(-cap) : merged;
 }
 
-/** Dedup records by a derived key, keeping newest `cap`. */
-function unionByDerivedKey(
-  a: Json, b: Json, keyOf: (r: Record<string, unknown>) => string, cap?: number,
-): Record<string, unknown>[] {
-  const seen = new Set<string>();
-  const out: Record<string, unknown>[] = [];
-  for (const r of [...asArr(a), ...asArr(b)]) {
-    const k = keyOf(r);
-    if (seen.has(k)) continue;
-    seen.add(k);
-    out.push(r);
-  }
-  return cap ? out.slice(-cap) : out;
-}
-
 /** For singletons: keep whichever has the later timestamp field. */
 function preferRecent(a: Json, b: Json, tsKey: string): Json {
   const ta = asObj(a)[tsKey];
@@ -86,16 +71,8 @@ const DOC_SPECS: DocSpec[] = [
       acknowledgedResultIds: unionStrings(asObj(l).acknowledgedResultIds, asObj(c).acknowledgedResultIds, 50),
     }),
   },
-  // drill-effectiveness feedback — dedup records, keep 200 newest
-  {
-    key: 'swingiq-drill-feedback-v1',
-    merge: (l, c) =>
-      unionByDerivedKey(
-        l, c,
-        (r) => `${r.drillId}|${r.faultId}|${r.recordedAt}|${r.value}`,
-        200,
-      ),
-  },
+  // (drill-effectiveness feedback is now promoted to its own columned
+  //  drill_feedback table — see lib/db/drillFeedbackSync.ts.)
   // AGI keystone commitment (single) — keep the most recently committed
   { key: 'swingiq-agi-commitment-v1', merge: (l, c) => preferRecent(l, c, 'committedAt') },
   // AGI daily snapshot history — one per day, latest wins, cap 90
