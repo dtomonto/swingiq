@@ -10,6 +10,7 @@
 // ============================================================
 
 import type { SportId } from '@swingiq/core';
+import { classifyMetric } from './capabilities';
 import type {
   AthleteWorldModel,
   CapabilityState,
@@ -292,6 +293,64 @@ function consistencyInsight(
   };
 }
 
+function recurringFaultInsight(
+  model: AthleteWorldModel,
+  bundle: SignalBundle,
+  labels: Map<SportId, SportLabel>,
+): Insight | null {
+  // Group non-empty key faults by a normalized label.
+  const groups = new Map<string, { label: string; sessions: number; sports: Set<SportId> }>();
+  for (const s of bundle.sportSessions) {
+    const raw = (s.keyFault || '').trim();
+    if (!raw || /^(none|no )/i.test(raw)) continue;
+    const norm = raw.toLowerCase().replace(/[.!?]+$/, '').replace(/\s+/g, ' ');
+    const g = groups.get(norm) ?? { label: raw, sessions: 0, sports: new Set<SportId>() };
+    g.sessions += 1;
+    g.sports.add(s.sport);
+    groups.set(norm, g);
+  }
+
+  // Pick the most recurrent fault (needs ≥2); tiebreak by how many sports it spans.
+  let best: { label: string; sessions: number; sports: SportId[] } | null = null;
+  for (const g of groups.values()) {
+    if (g.sessions < 2) continue;
+    const sports = Array.from(g.sports);
+    if (
+      !best ||
+      g.sessions > best.sessions ||
+      (g.sessions === best.sessions && sports.length > best.sports.length)
+    ) {
+      best = { label: g.label, sessions: g.sessions, sports };
+    }
+  }
+  if (!best) return null;
+
+  const crossSport = best.sports.length >= 2;
+  const cap = classifyMetric(best.label, best.label);
+  const sportsText = listSports(best.sports, labels);
+
+  return {
+    id: 'recurring',
+    kind: 'recurring',
+    title: `Recurring issue: ${best.label}`,
+    summary: crossSport
+      ? `“${best.label}” has shown up in ${best.sessions} of your sessions, across ${sportsText}. The same root appearing in more than one sport means it is a habit, not a one-off — a dedicated block on it pays off more than chasing new issues.`
+      : `“${best.label}” has shown up in ${best.sessions} of your ${sportsText} sessions. A fault that keeps returning is a habit worth a dedicated fix, not a one-time patch.`,
+    capability: cap,
+    sports: best.sports,
+    reasoning: [
+      {
+        claim: `“${best.label}” recurs in ${best.sessions} sessions${crossSport ? ` across ${best.sports.length} sports` : ''}.`,
+        evidence: best.sports.map((s) => labels.get(s)?.label ?? s),
+      },
+    ],
+    basis: 'estimated',
+    confidence: clamp01(0.5 + Math.min(0.3, best.sessions * 0.08)),
+    leverage: clamp01((crossSport ? 0.65 : 0.5) + Math.min(0.2, (best.sessions - 2) * 0.05)),
+    action: `Make “${best.label}” the named target of your next few sessions, then re-check whether it stops recurring.`,
+  };
+}
+
 function coverageInsight(model: AthleteWorldModel): Insight | null {
   if (model.coverage >= 0.5) return null;
   const missingCaps = model.capabilities.filter((c) => c.score === null).map((c) => c.name);
@@ -390,6 +449,7 @@ export function reason(
     keystoneInsight(model, labels),
     goalInsight(model),
     imbalanceInsight(model, labels),
+    recurringFaultInsight(model, bundle, labels),
     consistencyInsight(model, bundle, labels),
     strengthInsight(model, labels),
     coverageInsight(model),

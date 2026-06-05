@@ -65,6 +65,7 @@ const KIND_META: Record<InsightKind, { label: string; badge: Parameters<typeof B
   strength: { label: 'Strength', badge: 'success' },
   transfer: { label: 'Transfer', badge: 'info' },
   imbalance: { label: 'Transfer gap', badge: 'warning' },
+  recurring: { label: 'Recurring', badge: 'high' },
   consistency: { label: 'Consistency', badge: 'warning' },
   coverage: { label: 'Next data', badge: 'default' },
 };

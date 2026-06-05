@@ -210,6 +210,7 @@ export type InsightKind =
   | 'strength' // a transferable strength to lean on
   | 'transfer' // a cross-sport transfer opportunity
   | 'imbalance' // a capability already strong in one sport, lagging in another
+  | 'recurring' // the same fault keeps coming back across sessions/sports
   | 'consistency' // repeatability concern
   | 'coverage'; // not enough data — what to capture next
 

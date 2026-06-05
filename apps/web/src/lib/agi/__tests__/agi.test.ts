@@ -445,3 +445,46 @@ describe('AGI — progress over time', () => {
     expect(result.insights.find((i) => i.kind === 'progress')).toBeTruthy();
   });
 });
+
+describe('AGI — recurring faults', () => {
+  it('flags a fault that recurs within a sport', () => {
+    const bundle: SignalBundle = {
+      signals: [sig('rotation', 'golf', 55)],
+      sportSessions: [
+        sessionRef('golf', 60, { keyFault: 'Over the top' }),
+        sessionRef('golf', 58, { keyFault: 'Over the top' }),
+        sessionRef('golf', 62, { keyFault: 'Early extension' }),
+      ],
+    };
+    const rec = runAthleteGI(bundle).insights.find((i) => i.kind === 'recurring')!;
+    expect(rec).toBeTruthy();
+    expect(rec.title).toMatch(/over the top/i);
+  });
+
+  it('highlights a fault recurring across sports', () => {
+    const bundle: SignalBundle = {
+      signals: [sig('rotation', 'golf', 55), sig('rotation', 'tennis', 50)],
+      sportSessions: [
+        sessionRef('golf', 60, { keyFault: 'Early shoulder rotation' }),
+        sessionRef('tennis', 55, { keyFault: 'Early shoulder rotation' }),
+      ],
+    };
+    const rec = runAthleteGI(bundle).insights.find((i) => i.kind === 'recurring')!;
+    expect(rec).toBeTruthy();
+    expect(rec.sports.sort()).toEqual(['golf', 'tennis']);
+    expect(rec.summary).toMatch(/across/i);
+    expect(rec.capability).toBe('rotation'); // classified from the fault text
+  });
+
+  it('does not flag distinct or empty faults', () => {
+    const bundle: SignalBundle = {
+      signals: [sig('rotation', 'golf', 55)],
+      sportSessions: [
+        sessionRef('golf', 60, { keyFault: 'Over the top' }),
+        sessionRef('golf', 58, { keyFault: 'Sway' }),
+        sessionRef('golf', 62, { keyFault: 'none detected' }),
+      ],
+    };
+    expect(runAthleteGI(bundle).insights.find((i) => i.kind === 'recurring')).toBeUndefined();
+  });
+});
