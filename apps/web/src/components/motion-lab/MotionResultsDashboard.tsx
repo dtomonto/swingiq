@@ -167,7 +167,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
       {/* Tab content */}
       {tab === 'viewer' && (
         <div className="space-y-4">
-          <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} />
+          <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} implement={session.objectTracking ?? null} />
           <PhaseTimeline phases={session.phases} accent={accent} activeKey={activePhase} onSelect={onPhaseSelect} />
           {activePhase && (
             <Card>

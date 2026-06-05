@@ -163,7 +163,9 @@ a 2D canvas. It projects the real MediaPipe landmarks with a rotation +
 light-perspective transform. Features: orbit (drag), zoom, front/side/top
 presets, play/pause, speed, frame stepping, hand/head motion trails, confidence
 shading (low-confidence bones are dashed/grey), a ghost-overlay comparison mode,
-and PNG screenshot export. The replay now also shows a rotating **floor grid**
+an optional **estimated implement-path overlay** (the club/bat/racket head arc +
+contact-zone marker from `objectTracking`, toggled with the crosshair button and
+drawn at the wrists' depth), and PNG screenshot export. The replay now also shows a rotating **floor grid**
 for depth perception, a **live depth-aware turn readout** (shoulders/hips vs the
 address pose at the scrubbed frame), and a **phase-segmented scrubber** — each
 phase is a coloured block (opacity = confidence) you can drag across or click to
