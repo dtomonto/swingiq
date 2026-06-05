@@ -56,7 +56,7 @@ export const THEMES: ThemeDef[] = [
   {
     id: 'standard',
     name: 'Standard',
-    tagline: 'The timeless default — clean, trustworthy, easy to read.',
+    tagline: 'Clean, timeless, and professional — the trustworthy default.',
     category: 'light',
     swatches: {
       bg: 'hsl(210 20% 98%)',
@@ -69,7 +69,7 @@ export const THEMES: ThemeDef[] = [
   {
     id: 'dark-performance',
     name: 'Dark Performance',
-    tagline: 'Training mode for serious athletes — focused, high-contrast.',
+    tagline: 'High-intensity analytics for serious training.',
     category: 'dark',
     swatches: {
       bg: 'hsl(222 24% 7%)',
@@ -82,7 +82,7 @@ export const THEMES: ThemeDef[] = [
   {
     id: 'coach-mode',
     name: 'Coach Mode',
-    tagline: 'Whiteboard clarity for coaches, parents, and teams.',
+    tagline: 'Clear, structured, and instruction-first.',
     category: 'light',
     swatches: {
       bg: 'hsl(210 30% 99%)',
@@ -95,7 +95,7 @@ export const THEMES: ThemeDef[] = [
   {
     id: 'heritage-club',
     name: 'Heritage Club',
-    tagline: 'Refined clubhouse feel — cream, navy, forest, and brass.',
+    tagline: 'Classic club elegance with premium tradition.',
     category: 'light',
     swatches: {
       bg: 'hsl(42 33% 95%)',
@@ -108,7 +108,7 @@ export const THEMES: ThemeDef[] = [
   {
     id: 'field-court',
     name: 'Field & Court',
-    tagline: 'Multi-sport energy — chalk, turf, and clay accents.',
+    tagline: 'Outdoor athletic energy across every sport.',
     category: 'light',
     swatches: {
       bg: 'hsl(80 18% 96%)',
@@ -121,20 +121,21 @@ export const THEMES: ThemeDef[] = [
   {
     id: 'arcade-practice',
     name: 'Arcade Practice',
-    tagline: 'Gamified practice — badges, streaks, and challenges.',
-    category: 'light',
+    tagline: 'Gamified training with neon momentum.',
+    category: 'dark',
+    hasPattern: true,
     swatches: {
-      bg: 'hsl(240 30% 98%)',
-      surface: 'hsl(0 0% 100%)',
-      text: 'hsl(240 30% 14%)',
-      primary: 'hsl(256 68% 50%)',
-      accent: 'hsl(330 75% 46%)',
+      bg: 'hsl(256 44% 8%)',
+      surface: 'hsl(256 36% 13%)',
+      text: 'hsl(250 36% 95%)',
+      primary: 'hsl(280 72% 56%)',
+      accent: 'hsl(322 85% 64%)',
     },
   },
   {
     id: 'bird-print',
     name: 'Bird Print Lifestyle',
-    tagline: 'Fashion-forward sport-lifestyle look with a subtle pattern.',
+    tagline: 'Original golf-streetwear bird-print energy.',
     category: 'light',
     hasPattern: true,
     swatches: {

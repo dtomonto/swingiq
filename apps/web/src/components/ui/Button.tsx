@@ -10,12 +10,20 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
 }
 
+// Variants consume theme tokens so each theme restyles them automatically.
+// `btn-theme-primary` paints solid `--primary` with an optional per-theme
+// gradient overlay; `brightness` hovers work on both solid and gradient fills,
+// and the slight active depress gives a tactile, premium feel everywhere.
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-ring',
-  secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 focus:ring-ring',
-  ghost: 'bg-transparent text-foreground hover:bg-muted focus:ring-ring',
-  danger: 'bg-error text-error-foreground hover:bg-error/90 focus:ring-error',
-  outline: 'bg-card text-foreground border border-border hover:bg-muted focus:ring-ring',
+  primary:
+    'btn-theme-primary text-primary-foreground shadow-sm hover:brightness-[1.08] hover:shadow-md active:translate-y-px active:brightness-95 focus:ring-ring',
+  secondary:
+    'bg-secondary text-secondary-foreground hover:bg-secondary/80 active:translate-y-px focus:ring-ring',
+  ghost: 'bg-transparent text-foreground hover:bg-muted active:bg-muted/80 focus:ring-ring',
+  danger:
+    'bg-error text-error-foreground shadow-sm hover:brightness-[1.08] hover:shadow-md active:translate-y-px focus:ring-error',
+  outline:
+    'bg-card text-foreground border border-border hover:bg-muted hover:border-border/80 active:translate-y-px focus:ring-ring',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -32,9 +40,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         className={cn(
           'inline-flex items-center justify-center gap-2 rounded-lg font-medium',
-          'focus:outline-hidden focus:ring-2 focus:ring-offset-2',
+          'focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-background',
           'disabled:opacity-50 disabled:cursor-not-allowed',
-          'transition-colors duration-150',
+          'transition-[color,background-color,filter,box-shadow,transform] duration-150',
           variantClasses[variant],
           sizeClasses[size],
           className,

@@ -37,7 +37,7 @@ export function MetricCard({
   return (
     <div
       className={cn(
-        'rounded-xl border p-4 transition-colors',
+        'rounded-theme border p-4 shadow-theme transition-colors',
         statusColors[status],
         className,
       )}

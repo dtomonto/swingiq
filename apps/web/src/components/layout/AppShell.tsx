@@ -52,7 +52,7 @@ export function AppShell({ children }: AppShellProps) {
   const closeDrawer = useCallback(() => setDrawerOpen(false), []);
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex min-h-screen app-canvas">
       {/* ── Skip-to-content link (screen readers / keyboard users) ── */}
       <a
         href="#main-content"

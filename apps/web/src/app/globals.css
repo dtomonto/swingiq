@@ -74,6 +74,11 @@
   --animate-slide-up: slideUp 0.3s ease-out;
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-guide-float: guideFloat 3.5s ease-in-out infinite;
+  /* Theme motion language. Each is subtle, GPU-cheap, and auto-tamed by the
+     app-wide prefers-reduced-motion rule below. */
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-glow-pulse: glowPulse 2.4s ease-in-out infinite;
+  --animate-reward-pop: rewardPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   @keyframes fadeIn {
     0% {
@@ -101,6 +106,41 @@
     }
     50% {
       transform: translateY(-5px);
+    }
+  }
+  /* Loading sweep for skeletons / "analyzing" placeholders. */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  /* Breathing accent glow for active "processing" states (Dark / Arcade). */
+  @keyframes glowPulse {
+    0%, 100% {
+      box-shadow: var(--glow, 0 0 0 0 transparent);
+      opacity: 0.92;
+    }
+    50% {
+      box-shadow: var(--glow-strong, var(--glow, 0 0 0 0 transparent));
+      opacity: 1;
+    }
+  }
+  /* Springy pop for earned badges / rewards. */
+  @keyframes rewardPop {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.06);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
     }
   }
 }
@@ -144,6 +184,71 @@
 @utility bg-theme-pattern {
   background-image: var(--pattern-overlay, none);
   background-repeat: repeat;
+}
+
+/* ── Art-direction utilities ───────────────────────────────────────────
+   Each theme sets the custom properties these read (in the data-theme
+   palettes below). Components opt in via these classes so a single theme
+   switch restyles surfaces, depth, motion, and atmosphere app-wide —
+   never layout. All have safe fallbacks so an undefined token is a no-op. */
+
+/* Full-viewport themed atmosphere: base color + per-theme gradients/texture.
+   Applied once on the app shell so every in-app screen inherits the mood. */
+@utility app-canvas {
+  background-color: hsl(var(--background));
+  background-image: var(--app-bg-image, none);
+  background-repeat: var(--app-bg-repeat, no-repeat);
+  background-size: var(--app-bg-size, cover);
+  background-position: var(--app-bg-position, top center);
+  background-attachment: var(--app-bg-attachment, fixed);
+}
+
+/* Themed elevation. Replaces flat Tailwind shadows on surfaces so depth
+   reads correctly on both light and dark palettes. */
+@utility shadow-theme {
+  box-shadow: var(--shadow-card, 0 1px 2px 0 hsl(0 0% 0% / 0.05));
+}
+@utility shadow-theme-lg {
+  box-shadow: var(--shadow-elevated, 0 12px 32px -12px hsl(0 0% 0% / 0.2));
+}
+
+/* Theme radius personality (sharp plaque ↔ soft boutique). */
+@utility rounded-theme {
+  border-radius: var(--card-radius, 0.75rem);
+}
+
+/* Decorative hero/section wash. Safe behind large headings, not body copy. */
+@utility bg-theme-hero {
+  background-image: var(--gradient-hero, none);
+}
+
+/* CTA surface: solid primary with an optional per-theme gradient overlay. */
+@utility btn-theme-primary {
+  background-color: hsl(var(--primary));
+  background-image: var(--gradient-primary, none);
+}
+
+/* Accent glow for active / focused / "processing" elements (neon on dark
+   themes, a soft tinted ring on light themes). */
+@utility ring-glow {
+  box-shadow: var(--glow, none);
+}
+
+/* Themed heading typeface (serif on Heritage, sans elsewhere). */
+@utility font-heading {
+  font-family: var(--font-heading, inherit);
+}
+
+/* Skeleton / analyzing shimmer surface. */
+@utility shimmer-surface {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--foreground) / 0.06) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
 }
 
 @layer base {
@@ -190,7 +295,25 @@
     --chart-3: 217 79% 52%;
     --chart-4: 38 92% 48%;
     --chart-5: 280 55% 55%;
-    --pattern-overlay: none;
+    /* ── Art direction: clean, premium, airy ── */
+    --card-radius: 0.75rem;
+    --shadow-card:
+      0 1px 2px hsl(222 24% 24% / 0.06),
+      0 4px 12px -6px hsl(222 24% 24% / 0.07);
+    --shadow-elevated:
+      0 18px 40px -18px hsl(222 30% 18% / 0.20),
+      0 4px 12px -6px hsl(222 24% 24% / 0.10);
+    --glow: 0 0 0 4px hsl(var(--primary) / 0.14);
+    --glow-strong: 0 0 0 5px hsl(var(--primary) / 0.22);
+    --gradient-primary: linear-gradient(135deg, hsl(150 60% 34%), hsl(160 64% 26%));
+    --gradient-hero: radial-gradient(1100px 540px at 50% -12%, hsl(142 64% 30% / 0.10), transparent 62%);
+    --font-heading: var(--font-sans);
+    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='28'%3E%3Ccircle%20cx='2'%20cy='2'%20r='1'%20fill='%231b4332'%20fill-opacity='0.10'/%3E%3C/svg%3E");
+    --app-bg-image:
+      radial-gradient(900px 460px at 88% -8%, hsl(188 72% 32% / 0.06), transparent 60%),
+      radial-gradient(1000px 520px at 6% 2%, hsl(142 64% 30% / 0.05), transparent 60%);
+    --app-bg-size: cover, cover;
+    --app-bg-repeat: no-repeat, no-repeat;
     --radius: 0.5rem;
     color-scheme: light;
   }
@@ -231,7 +354,27 @@
     --chart-3: 217 80% 66%;
     --chart-4: 38 92% 62%;
     --chart-5: 280 65% 68%;
-    --pattern-overlay: none;
+    /* ── Art direction: performance lab, carbon + neon grid ── */
+    --card-radius: 0.625rem;
+    --shadow-card:
+      0 1px 2px hsl(0 0% 0% / 0.55),
+      0 8px 24px -12px hsl(0 0% 0% / 0.55);
+    --shadow-elevated:
+      0 24px 56px -20px hsl(0 0% 0% / 0.75),
+      0 0 0 1px hsl(160 64% 44% / 0.10);
+    --glow: 0 0 0 1px hsl(160 64% 44% / 0.45), 0 0 18px -2px hsl(160 64% 44% / 0.45);
+    --glow-strong: 0 0 0 1px hsl(160 64% 50% / 0.6), 0 0 28px 0 hsl(160 64% 50% / 0.55);
+    --gradient-primary: linear-gradient(135deg, hsl(160 70% 50%), hsl(174 68% 42%));
+    --gradient-hero: radial-gradient(1100px 560px at 50% -10%, hsl(160 64% 44% / 0.18), transparent 60%);
+    --font-heading: var(--font-sans);
+    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%3E%3Cpath%20d='M40%200H0V40'%20fill='none'%20stroke='%237dd3c0'%20stroke-opacity='0.12'%20stroke-width='1'/%3E%3C/svg%3E");
+    --app-bg-image:
+      radial-gradient(900px 520px at 86% -6%, hsl(199 80% 54% / 0.12), transparent 58%),
+      radial-gradient(1000px 560px at 8% 6%, hsl(160 64% 44% / 0.12), transparent 58%),
+      repeating-linear-gradient(0deg, hsl(210 16% 92% / 0.035) 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(90deg, hsl(210 16% 92% / 0.035) 0 1px, transparent 1px 40px);
+    --app-bg-size: cover, cover, auto, auto;
+    --app-bg-repeat: no-repeat, no-repeat, repeat, repeat;
   }
 
   /* Coach Mode — whiteboard clarity, confident blue, stronger borders. */
@@ -268,7 +411,24 @@
     --chart-3: 152 60% 38%;
     --chart-4: 32 90% 48%;
     --chart-5: 268 55% 56%;
-    --pattern-overlay: none;
+    /* ── Art direction: clean whiteboard, graph-paper ── */
+    --card-radius: 0.5rem;
+    --shadow-card:
+      0 1px 2px hsl(217 33% 17% / 0.07),
+      0 4px 12px -6px hsl(217 33% 17% / 0.07);
+    --shadow-elevated:
+      0 18px 40px -18px hsl(217 33% 17% / 0.22);
+    --glow: 0 0 0 4px hsl(var(--primary) / 0.16);
+    --glow-strong: 0 0 0 5px hsl(var(--primary) / 0.24);
+    --gradient-primary: linear-gradient(135deg, hsl(217 79% 48%), hsl(222 80% 38%));
+    --gradient-hero: radial-gradient(1100px 540px at 50% -12%, hsl(217 79% 42% / 0.10), transparent 62%);
+    --font-heading: var(--font-sans);
+    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%3E%3Ccircle%20cx='2'%20cy='2'%20r='1'%20fill='%231e3a8a'%20fill-opacity='0.12'/%3E%3C/svg%3E");
+    --app-bg-image:
+      radial-gradient(hsl(217 79% 42% / 0.06) 1px, transparent 1.6px),
+      radial-gradient(1100px 520px at 50% -10%, hsl(217 79% 42% / 0.05), transparent 60%);
+    --app-bg-size: 22px 22px, cover;
+    --app-bg-repeat: repeat, no-repeat;
   }
 
   /* Heritage Club — cream, navy, forest green, brass. */
@@ -305,7 +465,25 @@
     --chart-3: 38 54% 44%;
     --chart-4: 4 50% 46%;
     --chart-5: 200 30% 40%;
-    --pattern-overlay: none;
+    /* ── Art direction: clubhouse, parchment grain, brass, serif ── */
+    --card-radius: 0.375rem;
+    --shadow-card:
+      0 1px 2px hsl(38 40% 18% / 0.10),
+      0 6px 16px -8px hsl(38 40% 18% / 0.14);
+    --shadow-elevated:
+      0 20px 44px -18px hsl(38 40% 16% / 0.28);
+    --glow: 0 0 0 3px hsl(38 54% 38% / 0.30);
+    --glow-strong: 0 0 0 4px hsl(38 54% 38% / 0.42);
+    --gradient-primary: linear-gradient(135deg, hsl(150 34% 30%), hsl(150 40% 20%));
+    --gradient-hero: radial-gradient(1100px 560px at 50% -12%, hsl(38 54% 38% / 0.12), transparent 60%);
+    --font-heading: ui-serif, Georgia, 'Times New Roman', serif;
+    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='180'%20height='180'%3E%3Cfilter%20id='g'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='180'%20height='180'%20filter='url(%23g)'%20opacity='0.05'/%3E%3C/svg%3E");
+    --app-bg-image:
+      var(--pattern-overlay),
+      radial-gradient(1200px 680px at 50% -6%, hsl(38 54% 38% / 0.08), transparent 55%),
+      linear-gradient(180deg, hsl(150 34% 25% / 0.05), transparent 220px);
+    --app-bg-size: 180px 180px, cover, cover;
+    --app-bg-repeat: repeat, no-repeat, no-repeat;
   }
 
   /* Field & Court — chalk background, turf green, clay accent. */
@@ -342,44 +520,83 @@
     --chart-3: 200 55% 42%;
     --chart-4: 45 80% 46%;
     --chart-5: 280 40% 52%;
-    --pattern-overlay: none;
+    /* ── Art direction: chalk lines, turf, clay ── */
+    --card-radius: 0.625rem;
+    --shadow-card:
+      0 1px 2px hsl(150 18% 15% / 0.07),
+      0 5px 14px -7px hsl(150 18% 15% / 0.10);
+    --shadow-elevated:
+      0 18px 40px -18px hsl(150 18% 15% / 0.22);
+    --glow: 0 0 0 4px hsl(var(--primary) / 0.16);
+    --glow-strong: 0 0 0 5px hsl(var(--primary) / 0.24);
+    --gradient-primary: linear-gradient(135deg, hsl(135 48% 32%), hsl(135 52% 22%));
+    --gradient-hero: radial-gradient(1100px 560px at 50% -12%, hsl(135 45% 28% / 0.10), transparent 60%);
+    --font-heading: var(--font-sans);
+    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='64'%20height='64'%3E%3Cg%20fill='none'%20stroke='%23166534'%20stroke-opacity='0.10'%20stroke-width='1.4'%3E%3Cpath%20d='M0%2032H64M32%200V64'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='9'/%3E%3C/g%3E%3C/svg%3E");
+    --app-bg-image:
+      repeating-linear-gradient(90deg, hsl(135 45% 28% / 0.05) 0 1.5px, transparent 1.5px 96px),
+      linear-gradient(180deg, hsl(135 45% 28% / 0.07), transparent 260px),
+      radial-gradient(1000px 520px at 92% 0%, hsl(18 68% 42% / 0.06), transparent 58%);
+    --app-bg-size: auto, cover, cover;
+    --app-bg-repeat: repeat, no-repeat, no-repeat;
   }
 
-  /* Arcade Practice — energetic indigo + magenta, still premium. */
+  /* Arcade Practice — dark neon cabinet: deep purple base, magenta + cyan. */
   [data-theme='arcade-practice'] {
-    --background: 240 30% 98%;
-    --foreground: 240 30% 14%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 30% 14%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 30% 14%;
-    --primary: 256 68% 50%;
+    color-scheme: dark;
+    --background: 256 44% 8%;
+    --foreground: 250 36% 95%;
+    --card: 256 36% 13%;
+    --card-foreground: 250 36% 95%;
+    --popover: 256 34% 16%;
+    --popover-foreground: 250 36% 95%;
+    --primary: 280 72% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 250 30% 95%;
-    --secondary-foreground: 240 30% 20%;
-    --muted: 250 30% 95%;
-    --muted-foreground: 248 14% 42%;
-    --accent: 250 30% 95%;
-    --accent-foreground: 240 30% 20%;
-    --accent-secondary: 330 75% 46%;
-    --accent-secondary-foreground: 0 0% 100%;
-    --success: 150 62% 34%;
-    --success-foreground: 0 0% 100%;
-    --warning: 38 92% 44%;
-    --warning-foreground: 30 45% 12%;
-    --error: 350 72% 50%;
+    --secondary: 256 28% 20%;
+    --secondary-foreground: 250 30% 92%;
+    --muted: 256 26% 18%;
+    --muted-foreground: 252 24% 74%;
+    --accent: 256 28% 20%;
+    --accent-foreground: 250 30% 92%;
+    --accent-secondary: 190 90% 56%;
+    --accent-secondary-foreground: 222 50% 8%;
+    --success: 152 72% 50%;
+    --success-foreground: 222 50% 8%;
+    --warning: 45 95% 58%;
+    --warning-foreground: 30 60% 10%;
+    --error: 352 80% 48%;
     --error-foreground: 0 0% 100%;
-    --destructive: 350 72% 50%;
+    --destructive: 352 80% 48%;
     --destructive-foreground: 0 0% 100%;
-    --border: 250 24% 88%;
-    --input: 250 24% 88%;
-    --ring: 256 68% 50%;
-    --chart-1: 256 68% 56%;
-    --chart-2: 330 75% 56%;
-    --chart-3: 190 80% 44%;
-    --chart-4: 40 95% 52%;
-    --chart-5: 150 62% 42%;
-    --pattern-overlay: none;
+    --border: 266 30% 26%;
+    --input: 266 30% 26%;
+    --ring: 322 90% 66%;
+    --chart-1: 322 85% 66%;
+    --chart-2: 190 90% 60%;
+    --chart-3: 152 75% 56%;
+    --chart-4: 45 95% 62%;
+    --chart-5: 268 85% 72%;
+    /* ── Art direction: neon arcade, pixel grid + glow ── */
+    --card-radius: 0.875rem;
+    --shadow-card:
+      0 1px 2px hsl(0 0% 0% / 0.5),
+      0 10px 28px -14px hsl(0 0% 0% / 0.6);
+    --shadow-elevated:
+      0 26px 60px -22px hsl(0 0% 0% / 0.78),
+      0 0 0 1px hsl(322 80% 56% / 0.18);
+    --glow: 0 0 0 1px hsl(322 90% 66% / 0.5), 0 0 22px -2px hsl(322 90% 60% / 0.5);
+    --glow-strong: 0 0 0 1px hsl(322 90% 70% / 0.7), 0 0 30px 0 hsl(322 90% 64% / 0.6);
+    --gradient-primary: linear-gradient(135deg, hsl(280 72% 50%), hsl(286 78% 40%));
+    --gradient-hero: radial-gradient(1000px 520px at 50% -8%, hsl(322 80% 56% / 0.22), transparent 60%);
+    --font-heading: var(--font-sans);
+    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='32'%20height='32'%3E%3Cg%20fill='%23e879f9'%20fill-opacity='0.12'%3E%3Crect%20x='4'%20y='4'%20width='2'%20height='2'/%3E%3Crect%20x='16'%20y='16'%20width='2'%20height='2'/%3E%3Crect%20x='26'%20y='8'%20width='2'%20height='2'/%3E%3Crect%20x='10'%20y='24'%20width='2'%20height='2'/%3E%3C/g%3E%3C/svg%3E");
+    --app-bg-image:
+      radial-gradient(820px 460px at 88% -6%, hsl(190 90% 56% / 0.14), transparent 58%),
+      radial-gradient(900px 500px at 4% 102%, hsl(322 80% 56% / 0.16), transparent 56%),
+      linear-gradient(hsl(266 60% 64% / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(266 60% 64% / 0.05) 1px, transparent 1px);
+    --app-bg-size: cover, cover, 30px 30px, 30px 30px;
+    --app-bg-repeat: no-repeat, no-repeat, repeat, repeat;
   }
 
   /* Bird Print Lifestyle — sky-teal + coral, with subtle pattern overlay. */
@@ -416,7 +633,27 @@
     --chart-3: 168 50% 38%;
     --chart-4: 40 88% 50%;
     --chart-5: 268 50% 56%;
-    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='64'%20height='64'%20viewBox='0%200%2064%2064'%3E%3Cg%20fill='none'%20stroke='%230e7490'%20stroke-opacity='0.10'%20stroke-width='1.6'%20stroke-linecap='round'%3E%3Cpath%20d='M8%2018%20Q12%2012%2016%2018%20Q20%2012%2024%2018'/%3E%3Cpath%20d='M36%2030%20Q40%2024%2044%2030%20Q48%2024%2052%2030'/%3E%3Cpath%20d='M14%2046%20Q18%2040%2022%2046%20Q26%2040%2030%2046'/%3E%3C/g%3E%3C/svg%3E");
+    /* ── Art direction: golf-streetwear, original bird-flight motif ──
+       Pattern is an ORIGINAL abstract gull/feather motif (simple two-arc
+       silhouettes + seed dots) — no third-party marks or trade dress. */
+    --card-radius: 1rem;
+    --shadow-card:
+      0 1px 2px hsl(205 32% 16% / 0.06),
+      0 10px 28px -14px hsl(205 32% 16% / 0.12);
+    --shadow-elevated:
+      0 22px 50px -20px hsl(205 32% 16% / 0.24);
+    --glow: 0 0 0 4px hsl(8 72% 54% / 0.16);
+    --glow-strong: 0 0 0 5px hsl(8 72% 54% / 0.24);
+    --gradient-primary: linear-gradient(135deg, hsl(192 60% 36%), hsl(196 66% 27%));
+    --gradient-hero: radial-gradient(1100px 560px at 50% -12%, hsl(8 72% 54% / 0.10), transparent 60%);
+    --font-heading: var(--font-sans);
+    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='132'%20height='132'%20viewBox='0%200%20132%20132'%3E%3Cg%20fill='none'%20stroke='%230e7490'%20stroke-opacity='0.10'%20stroke-width='1.6'%20stroke-linecap='round'%3E%3Cpath%20d='M14%2030%20q7%20-8%2014%200%20q7%20-8%2014%200'/%3E%3Cpath%20d='M74%2022%20q7%20-8%2014%200%20q7%20-8%2014%200'/%3E%3Cpath%20d='M42%2070%20q7%20-8%2014%200%20q7%20-8%2014%200'/%3E%3Cpath%20d='M96%2084%20q6%20-7%2012%200%20q6%20-7%2012%200'/%3E%3Cpath%20d='M20%20104%20q6%20-7%2012%200%20q6%20-7%2012%200'/%3E%3C/g%3E%3Cg%20fill='%23e2613f'%20fill-opacity='0.10'%3E%3Ccircle%20cx='58'%20cy='52'%20r='1.8'/%3E%3Ccircle%20cx='112'%20cy='40'%20r='1.8'/%3E%3Ccircle%20cx='30'%20cy='126'%20r='1.8'/%3E%3C/g%3E%3C/svg%3E");
+    --app-bg-image:
+      var(--pattern-overlay),
+      radial-gradient(1000px 520px at 86% -8%, hsl(8 72% 54% / 0.07), transparent 58%),
+      radial-gradient(1100px 560px at 6% 2%, hsl(168 50% 38% / 0.07), transparent 58%);
+    --app-bg-size: 132px 132px, cover, cover;
+    --app-bg-repeat: repeat, no-repeat, no-repeat;
   }
 }
 
@@ -427,6 +664,16 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  /*
+    Themed heading typeface. Defaults to the body sans on every theme, so this
+    is a no-op except where a theme opts into an accent face (Heritage Club
+    uses a classic serif). Element-level selector keeps specificity low, so any
+    component that sets its own `font-*` utility still wins. Body copy is never
+    affected — only display headings.
+  */
+  h1, h2, h3 {
+    font-family: var(--font-heading, inherit);
   }
   /*
     Accessibility (WCAG 2.4.7): a consistent, visible keyboard-focus indicator
@@ -469,6 +716,11 @@
   body {
     background: #fff !important;
     color: #111 !important;
+  }
+  /* Drop the themed atmospheric background + textures so reports print clean. */
+  .app-canvas {
+    background-image: none !important;
+    background-color: #fff !important;
   }
   [class*='shadow'] {
     box-shadow: none !important;
