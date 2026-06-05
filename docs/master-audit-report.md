@@ -7,6 +7,10 @@ _Consolidated: 2026-06-01 · Branch: `chore/seo-audit/2026-06` · Status: **loca
 > AI-features (S7), engagement/retention (S9), build/CI health (S8), security (S3/S4), and growth (S5/S6) —
 > into this single executive document. Each source audit writes its own dated report under `docs/audits/…`;
 > the compiler reads those and overwrites this file. It commits **locally only — never pushes** (the owner reviews + pushes).
+>
+> 📋 **For the full schedule** — every audit/automation, how often it runs, and what it does — see the
+> [Scheduled Audits & Automations Registry](scheduled-audits-registry.md). This report is the *findings*;
+> that registry is the *schedule*.
 
 > **📘 In Plain English (start here).** This single page merges every audit SwingVantage has
 > run — the monthly SEO/AEO/GEO scan, the staged-navigation review, the automated security
@@ -82,6 +86,12 @@ below with sources.
 > here. R1–R7 are reference docs that
 > contain backlog/recommendations and supply evidence; they are not themselves "scheduled audit
 > runs," and are labeled as such so findings stay honest.
+>
+> **Complete schedule (incl. non-audit automations).** The table above lists only the sources that feed
+> *findings*. The full catalog of every scheduled job — including the weekly **SEO content production**
+> task (`seo-content-production-weekly`, Wed ~9:15 AM, which produces pages rather than auditing) and the
+> CI/hook automations — with each one's frequency and description, lives in the
+> [Scheduled Audits & Automations Registry](scheduled-audits-registry.md).
 
 ---
 
@@ -448,4 +458,6 @@ top and §2).
 ---
 
 _See the companion [audit-action-dashboard.md](audit-action-dashboard.md) for an at-a-glance status
-board, and [master-audit-report.json](master-audit-report.json) for the machine-readable version._
+board, [master-audit-report.json](master-audit-report.json) for the machine-readable version, and the
+[Scheduled Audits & Automations Registry](scheduled-audits-registry.md) for the full schedule (what runs,
+how often, and what each audit does)._
