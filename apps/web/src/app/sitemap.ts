@@ -100,6 +100,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      // Explainer: Athlete General Intelligence (cross-sport reasoning).
+      url: `${BASE_URL}/athlete-general-intelligence`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
       // Public worked example of a swing report.
       url: `${BASE_URL}/sample-report`,
       lastModified: now,
