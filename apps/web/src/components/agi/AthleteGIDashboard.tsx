@@ -28,7 +28,7 @@ import {
   ThumbsDown,
 } from 'lucide-react';
 import { useAthleteGI } from '@/lib/agi/adapters/useAthleteGI';
-import { runAthleteGI, DEMO_BUNDLE, loadInsightFeedback, recordInsightFeedback, type InsightVerdict } from '@/lib/agi';
+import { runAthleteGI, DEMO_BUNDLE, loadInsightFeedback, recordInsightFeedback, buildAthleteSummary, type InsightVerdict } from '@/lib/agi';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { AgiReportCard } from './AgiReportCard';
 import type {
@@ -396,6 +396,7 @@ export function AthleteGIDashboard() {
     if (!hasData) return;
     track(ANALYTICS_EVENTS.AGI_VIEWED, { demo, coverage: Math.round(model.coverage * 100), trust: trust.grade });
     if (keystoneCap) track(ANALYTICS_EVENTS.AGI_KEYSTONE_SHOWN, { capability: keystoneCap, demo });
+    track(ANALYTICS_EVENTS.AGI_NARRATED, { demo, source: 'local' });
   }, [hasData, demo, keystoneCap, model.coverage, trust.grade]);
 
   function seeDemo() {
@@ -411,6 +412,9 @@ export function AthleteGIDashboard() {
     track(ANALYTICS_EVENTS.AGI_INSIGHT_FEEDBACK, { id, kind, verdict: v });
   }
   const shownInsights = demo ? insights : insights.filter((i) => feedback[i.id] !== 'down');
+
+  // Plain-English narrative (the grounded summarizer handed off from the engine).
+  const narrative = useMemo(() => (hasData ? buildAthleteSummary(result).narrative : ''), [hasData, result]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 space-y-5">
@@ -475,6 +479,19 @@ export function AthleteGIDashboard() {
                 Exit sample
               </button>
             </div>
+          )}
+
+          {/* Your read — the plain-English narrative (grounded, deterministic) */}
+          {narrative && (
+            <Card className="bg-primary/5 border-primary/20">
+              <CardBody className="space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
+                  <h2 className="text-sm font-semibold text-foreground">Your read</h2>
+                </div>
+                <p className="text-sm text-foreground leading-relaxed">{narrative}</p>
+              </CardBody>
+            </Card>
           )}
 
           {/* World model */}
