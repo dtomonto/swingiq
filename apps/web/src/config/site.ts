@@ -16,7 +16,7 @@
  * Override per-environment with NEXT_PUBLIC_SITE_URL if needed.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://swingiq.app';
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://swingvantage.com';
 
 export const siteConfig = {
   /** Product name as shown to users. */

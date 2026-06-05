@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/layout/Providers';
 import { Analytics } from '@/components/analytics/Analytics';
+import { siteConfig } from '@/config/site';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     'swing improvement',
     'golf training',
   ],
-  metadataBase: new URL('https://swingiq.app'),
+  metadataBase: new URL(siteConfig.liveSiteUrl),
   // Google Search Console verification (meta-tag method). Set
   // NEXT_PUBLIC_GSC_VERIFICATION to the token from GSC's "HTML tag" option,
   // then submit /sitemap.xml. Omitted entirely when unset.
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
     description:
       'Upload a swing video or import launch monitor data. Get a free AI diagnosis, personalized drills, and a practice plan — golf, tennis, baseball, and softball.',
     type: 'website',
-    url: 'https://swingiq.app',
+    url: siteConfig.liveSiteUrl,
     siteName: 'SwingIQ',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'SwingIQ — Free AI Swing Analysis' }],
   },

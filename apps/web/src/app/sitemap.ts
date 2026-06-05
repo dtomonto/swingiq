@@ -1,7 +1,12 @@
 import type { MetadataRoute } from 'next';
 import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
+import { SITE_URL } from '@/config/site';
 
-const BASE_URL = 'https://swingvantage.com';
+// Sitemap URLs MUST be on the same host the sitemap is served from, or
+// Google rejects them ("URL not allowed for a Sitemap at this location").
+// Always derive the host from the central site config (overridable via
+// NEXT_PUBLIC_SITE_URL) — never hardcode a domain here.
+const BASE_URL = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();

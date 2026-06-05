@@ -207,7 +207,7 @@ sends through your provider's automations.
 
 | Variable | Required? | Purpose |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Optional | Overrides the canonical site URL (defaults to `https://swingiq.app`). |
+| `NEXT_PUBLIC_SITE_URL` | Optional | Overrides the canonical site URL (defaults to `https://swingvantage.com`). |
 | `NEXT_PUBLIC_GA_ID` | Optional | Enables Google Analytics 4. Unset = private, console-only. |
 
 (Existing Supabase / AI-provider variables are documented in the project's other
