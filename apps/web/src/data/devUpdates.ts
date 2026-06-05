@@ -79,6 +79,63 @@ export const DEV_STATS: DevStat[] = [
 
 export const DEV_UPDATES: DevUpdate[] = [
   {
+    id: 'dev-implement-kinetic-temporal',
+    version: 'Motion Lab',
+    title: 'Implement path, kinetic chain, and temporal intelligence',
+    date: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'Motion Intelligence',
+    impact: 'major',
+    headline: 'The motion engine now reads the implement path, the firing order of the kinetic chain, and how the swing unfolds over time.',
+    details:
+      'Three new analysis layers sit on top of the existing pose pipeline. Object tracking estimates the club/bat/racket head path by extrapolating along the grip forearm — no pixel detector, so it is honestly labeled ai_inferred with capped confidence and a provider seam for a future ML detector. The kinetic-chain engine times when each link (lower body → torso → arms → implement) peaks and flags power leaks. Temporal intelligence anchors load/transition/acceleration durations to the detected top-of-backswing and strike, and scores contact-window stability and deceleration. Every output is an optional, backward-compatible field on the session, basis + confidence carried through.',
+    highlights: [
+      'Markerless implement path + contact zone (forearm extrapolation, provider seam)',
+      'Kinetic sequencing with power-leak detection, depth-aware',
+      'Phase durations, contact-window stability, and cross-session repeatability',
+      'An AR-style implement-path overlay rendered in the 3D viewer',
+    ],
+    stack: ['TypeScript', 'Canvas 2D', 'Pure functions', 'Jest'],
+    isMilestone: true,
+  },
+  {
+    id: 'dev-coach-team-narrative',
+    version: 'Motion Lab',
+    title: 'Coach & Team roster + a grounded, LLM-optional coach narrative',
+    date: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'Platform',
+    impact: 'notable',
+    headline: 'A local-first coaching layer: group sessions by athlete, and a conversational coach read that never fabricates.',
+    details:
+      'Coach & Team mode is a local-first roster (its own storage key) with pure aggregation — per-athlete trend, recurring faults, and needs-attention flags, plus team-wide common weaknesses and upload tracking. The AI coach narrative composes the analysis into the SwingIQ 8-part format grounded strictly in real numbers; the existing provider seam can optionally rephrase it with an LLM behind a flag (off by default), so it stays fully functional with no API keys and never invents findings.',
+    highlights: [
+      'Local-first roster, pure tested aggregation, no accounts',
+      'Sessions link to athletes via an optional, backward-compatible field',
+      'Deterministic 8-part coach read, LLM only warms the wording',
+    ],
+    stack: ['TypeScript', 'React', 'Provider seam', 'localStorage'],
+    isMilestone: false,
+  },
+  {
+    id: 'dev-pose-adapters-debug',
+    title: 'Pose-provider adapter set + an AI-validation debug panel',
+    date: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'Architecture',
+    impact: 'foundational',
+    headline: 'The pose seam now has cloud + MoveNet adapters, and the analysis exposes its full internals for validation.',
+    details:
+      'Completed the PoseProvider adapter set: a cloud adapter (opt-in via env, validates the untrusted response, stays basis estimated, never throws) and a documented MoveNet placeholder, with a selector that prefers on-device for privacy and falls back honestly. A new AI-validation panel surfaces the raw pipeline output — per-frame pose confidence, dropped frames, phase timestamps, raw metrics, object-tracking and kinetic-chain internals, and device capabilities (WebGPU/WebNN/WASM) — so model output can actually be inspected, not trusted blindly.',
+    highlights: [
+      'Cloud + MoveNet adapters behind one interface; on-device stays the default',
+      'Per-frame confidence, dropped frames, and raw internals in one panel',
+      'Everything additive — no change to the working pipeline’s shape',
+    ],
+    stack: ['TypeScript', 'MediaPipe', 'useSyncExternalStore'],
+    isMilestone: false,
+  },
+  {
     id: 'dev-motion-lab-3d',
     version: 'Motion Lab',
     title: 'Depth-aware 3D biomechanics — rotation that finally reads the z-axis',

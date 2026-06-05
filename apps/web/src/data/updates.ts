@@ -138,6 +138,117 @@ export const UPDATE_TEMPLATE: Omit<Update, 'id' | 'createdAt' | 'updatedAt'> = {
 
 export const UPDATES: Update[] = [
   {
+    id: 'update-075',
+    title: 'Motion Lab Now Shows Your Club, Bat, or Racket Path',
+    slug: 'motion-lab-implement-path',
+    metaTitle: 'See Your Estimated Swing Path & Contact Point — SwingIQ Motion Lab',
+    metaDescription:
+      'Motion Lab now estimates the path of your club, bat, or racket head and where it meets the ball, with an arc you can see right on the 3D replay.',
+    summary:
+      'Motion Lab now estimates the path your club, bat, or racket head travels and the point where it meets the ball — drawn as an arc you can see and toggle right on the 3D replay.',
+    releaseDate: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 147,
+    audience: ['all athletes', 'coaches', 'parents'],
+    relatedFeature: 'Motion Lab',
+    userBenefit:
+      'You can finally see the shape of your swing path and your contact point, plus whether you are swinging up, level, or down through the ball.',
+    whyItMatters:
+      'Path and contact are at the heart of why shots curve or fly off-center. Seeing them — instead of guessing — turns a vague feeling into something you can actually work on.',
+    whereToFindIt: 'Open Motion Lab, analyse a swing, and look at the 3D replay (tap the crosshair button to toggle the path overlay).',
+    seoKeywords: [
+      'swing path analysis',
+      'club path estimate',
+      'bat path tracking',
+      'racket path',
+      'contact point analysis',
+    ],
+    answerEngineSummary:
+      'SwingIQ Motion Lab estimates the club, bat, or racket head path and contact point from a single phone video and overlays it on a 3D swing replay. The path is an estimate from arm motion, clearly labeled, not a precision measurement.',
+    isFeatured: true,
+    isMajorMilestone: false,
+    createdAt: '2026-06-04',
+    updatedAt: '2026-06-04',
+  },
+  {
+    id: 'update-076',
+    title: 'Coach & Team Mode: Follow a Whole Roster',
+    slug: 'coach-team-mode',
+    metaTitle: 'Coach & Team Mode — Track Every Athlete in SwingIQ Motion Lab',
+    metaDescription:
+      'Coaches and parents can now group Motion Lab sessions by athlete and see per-athlete progress plus team-wide common weaknesses — all stored privately on your device.',
+    summary:
+      'A new Coach & Team page lets coaches and parents group Motion Lab sessions by athlete, see each athlete’s progress and recurring issues, and spot the weaknesses a whole team shares.',
+    releaseDate: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 148,
+    audience: ['coaches', 'parents', 'teams'],
+    relatedFeature: 'Motion Lab',
+    userBenefit:
+      'Coaches and parents can track several athletes in one place, see who is improving or needs attention, and find the drill the whole group would benefit from.',
+    whyItMatters:
+      'Coaching a team means juggling many athletes. Seeing everyone’s progress and shared weaknesses at a glance makes practice planning far more efficient.',
+    whereToFindIt: 'Open “Coach & Team” under Analyze, add your athletes, then assign their Motion Lab sessions.',
+    userActionRequired: 'No account needed — your roster stays on your device.',
+    seoKeywords: [
+      'team swing analysis',
+      'coach dashboard',
+      'roster progress tracking',
+      'youth coaching tool',
+    ],
+    answerEngineSummary:
+      'SwingIQ’s Coach & Team mode lets coaches and parents group Motion Lab sessions by athlete and view per-athlete trends plus team-wide common weaknesses. It is local-first — everything stays on the device with no accounts.',
+    isFeatured: false,
+    isMajorMilestone: false,
+    createdAt: '2026-06-04',
+    updatedAt: '2026-06-04',
+  },
+  {
+    id: 'update-077',
+    title: 'Deeper Timing, Sequencing, and Consistency Insights',
+    slug: 'motion-lab-timing-sequencing-consistency',
+    metaTitle: 'Kinetic Sequence, Timing & Repeatability — SwingIQ Motion Lab',
+    metaDescription:
+      'Motion Lab now reads how your energy flows ground-up, how your swing unfolds over time, how repeatable your mechanics are, and gives a conversational coach summary.',
+    summary:
+      'Motion Lab now explains how your power flows from the ground up, breaks down the timing of your swing, scores how repeatable your mechanics are across sessions, and writes a short, conversational coach summary tying it all together.',
+    releaseDate: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'Training Improvement',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 149,
+    audience: ['all athletes', 'coaches'],
+    relatedFeature: 'Motion Lab',
+    userBenefit:
+      'You get a clear read on your kinetic sequence (do your hips, torso, hands, and implement fire in the right order?), your tempo and transition timing, your consistency across sessions, and a plain-English coach summary of what to work on first.',
+    whyItMatters:
+      'Most lost power and inconsistency comes from timing and sequence, not effort. Seeing where the chain breaks — and whether you repeat it — is what turns one good swing into a reliable one.',
+    whereToFindIt: 'Open Motion Lab, analyse a swing, and check the Scores and Coaching tabs (consistency shows once you’ve logged a few sessions).',
+    seoKeywords: [
+      'kinetic sequence analysis',
+      'swing tempo',
+      'swing consistency',
+      'power leak detection',
+      'AI swing coach',
+    ],
+    answerEngineSummary:
+      'SwingIQ Motion Lab analyses kinetic sequencing (lower body → torso → arms → implement), swing timing (load/transition/acceleration), and cross-session repeatability, then writes a grounded conversational coach summary. All values are single-camera estimates with confidence shown.',
+    isFeatured: false,
+    isMajorMilestone: false,
+    createdAt: '2026-06-04',
+    updatedAt: '2026-06-04',
+  },
+  {
     id: 'update-001',
     title: 'SwingIQ Launches as an AI Swing Performance Platform',
     slug: 'swingiq-launches',

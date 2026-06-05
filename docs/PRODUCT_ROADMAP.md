@@ -43,11 +43,15 @@ _Last updated: June 2026_
 ### 3D Motion Analysis — Motion Lab (`/motion-lab`)
 - Browser-based 3D motion analysis for all five sports (`lib/motion-lab`, `components/motion-lab`)
 - On-device MediaPipe pose (selectable lite/full/heavy) → sport-specific phase segmentation, ~13 biomechanical proxy metrics, six component scores + an overall Motion Score
-- Interactive **canvas 3D viewer** (orbit / zoom / frame-scrub / motion trails / ghost-compare / screenshot) — zero new dependencies
+- Interactive **canvas 3D viewer** (orbit / zoom / frame-scrub / motion trails / ghost-compare / screenshot) with an **estimated implement-path overlay** (club/bat/racket head arc + contact zone) — zero new dependencies
+- **Estimated implement/object path** (`objectTracking`): markerless club/bat/racket head path + contact zone + vertical approach, inferred from arm motion (basis `ai_inferred`, capped confidence, provider seam for a future detector)
+- **Kinetic chain** (`kineticChain`): per-segment firing order (lower body → torso → arms → implement) with power-leak flags; **temporal intelligence** (`temporal`): load/transition/acceleration durations, contact-window stability, deceleration, tempo; **cross-session repeatability** (`repeatability`)
+- **Conversational AI coach read** (`coachNarrative`): grounded 8-part summary, optionally LLM-rephrased behind a flag (off by default — never invents findings)
+- **Coach & Team mode** (`/coach`, `roster`): local-first athlete roster, per-athlete progress, team aggregate weaknesses + upload tracking
 - **Proprietary 3D engine** (`lib/pose3d`): a trained single-view depth model (committed weights, ~78% held-out depth variance explained) plus a two-camera "true 3D" path via per-capture self-calibration (normalized 8-point essential matrix + RANSAC + bundle adjustment) and DLT triangulation, with reprojection-error confidence
-- In-app recorder + trim, 5-tone coaching report, drill prescription + weekly plan, local session save, compare, JSON / CSV / PDF export, developer debug panel
+- In-app recorder + trim, 5-tone coaching report, drill prescription + weekly plan, local session save, compare, JSON / CSV / PDF export, **AI-validation debug panel** (per-frame confidence, dropped frames, phase timestamps, raw internals, device capabilities)
 - On-device and privacy-first; honest estimated-vs-measured labeling; no medical, injury, or tour-grade claims
-- Provider seam left for a future ONNX model fine-tuned on real motion-capture (documented in `docs/pose3d.md`)
+- **Pose provider adapters** (`lib/motion/adapters`): MediaPipe on-device (default) + an opt-in cloud adapter + a documented MoveNet placeholder behind one interface; ONNX model path documented in `docs/pose3d.md`
 
 ### Coaching & Progress Intelligence
 - **Fix Stack (`/fix`)** — surfaces your single highest-impact issue and turns it into one feel cue, the best-matched drill for your level and available gear, and an honest retest; learns from what worked (`lib/drillmatch`, `components/drillmatch`)
