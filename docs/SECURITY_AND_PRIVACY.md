@@ -22,6 +22,28 @@ This document covers everything related to keeping SwingVantage users safe — h
 
 ---
 
+## 🚦 Go-Live Security Verdict (June 2026 source-code audit)
+
+**Bottom line: yes, you're safe to launch as-is — *if* you launch in one of the two configurations below and set the short list of environment variables.** This is a thorough source-code and configuration review, not a live penetration test, so it can't prove zero bugs — but for a pre-revenue launch you're in genuinely good shape.
+
+Because SwingVantage is keyless-first, your security posture depends on **what you switch on** in production:
+
+| If you launch with… | Safe to go live? | What you must do |
+|---|---|---|
+| **No keys** (local-first, device-only) | ✅ Yes, now | Nothing. Smallest possible attack surface. |
+| **AI features on** (AI vision / coach / OCR) | ✅ Yes | Set `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (see Rate Limiting below). Without them, the limits that cap your AI bill only hold per-server. |
+| **User accounts on** (Supabase) | ⚠️ Not yet | Only after you apply the Row Level Security SQL. Until then, keep accounts off. |
+| **Stripe billing on** | ⚠️ Not yet | Phase 3. Checkout isn't user-bound yet — keep the keyless waitlist. |
+
+**Pre-flight environment variables (set in Vercel before launch):**
+- `ADMIN_SECRET` and `CRON_SECRET` — long random strings (`openssl rand -hex 32`). The app already fails closed without them, but set them if you use the admin/research tools.
+- `NEXT_PUBLIC_SITE_URL` / `NEXT_PUBLIC_APP_URL` — your real domain (`https://swingvantage.com`).
+- If AI is on → the two `UPSTASH_REDIS_REST_*` variables above.
+
+**Hardening shipped in this audit (June 2026):** constant-time comparison of all admin/cron secrets (no timing leak); middleware now fails *closed* if the login system is half-configured; a fleet-wide rate limiter (Upstash) so AI cost limits actually hold on Vercel; and the automated security scanner was repaired (it had been failing on false alarms). All changes have tests and are on `master`.
+
+---
+
 ## Security Philosophy
 
 SwingVantage follows these core security principles:
@@ -36,10 +58,13 @@ SwingVantage follows these core security principles:
 ## What Security is Built In
 
 ### Rate Limiting
-All API routes (AI Coach, Video Analysis, Data Import/Export) have rate limiting:
-- **What it does:** Blocks someone from making thousands of requests per minute to the API
+All API routes (AI Coach, Video Analysis, OCR, Data Import/Export, billing) have rate limiting:
+- **What it does:** Blocks someone from making thousands of requests per minute to the API — this is what stops a malicious user from running up your AI bill.
 - **Where it lives:** `apps/web/src/lib/rate-limit.ts`
-- **Current limits:** 30 requests per minute per IP address for video analysis; 20/minute for AI coach
+- **Current limits (per minute, per IP):** video analysis 30, AI coach 20, agents/csv-map 20, billing 10, email capture 8, OCR 6, video vision 12.
+- **Two modes:**
+  - *Default (in-memory):* fine for local/single-server. **Caveat:** on Vercel each serverless instance has its own memory, so on its own a limit only holds per-instance — a determined attacker could spread requests across instances.
+  - *Distributed (recommended for production with AI keys on):* set `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (free tier at https://upstash.com) and the limiter counts in a store shared across **every** instance, so the limit truly holds fleet-wide. It falls back to in-memory if Upstash is ever unreachable — it never stops limiting entirely.
 
 ### Input Validation
 - JSON bodies are validated before being processed
@@ -65,14 +90,18 @@ All API routes (AI Coach, Video Analysis, Data Import/Export) have rate limiting
 - Supabase Row Level Security (RLS) means even if a client sends a bad request, the database rejects it
 
 ### Security Headers
-The following HTTP headers should be configured in `vercel.json` or `next.config.ts`:
+These HTTP security headers are **already configured** in `apps/web/next.config.mjs` (applied to every response):
 ```
 X-Frame-Options: DENY
 X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
 Referrer-Policy: strict-origin-when-cross-origin
-Permissions-Policy: camera=(), microphone=(), geolocation=()
+Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+Content-Security-Policy: (default-src 'self' + scoped allowances for Supabase, fonts, Vercel)
 ```
-These headers are not harmful to add today. Add them before public launch.
+API responses also send `Cache-Control: no-store`. **After deploying, verify them** at https://securityheaders.com (enter your domain). One known follow-up: the CSP still allows `script-src 'unsafe-inline'` (needed by the theme bootstrap + analytics) — tightening this to a nonce is a low-risk future improvement, not a launch blocker.
 
 ---
 

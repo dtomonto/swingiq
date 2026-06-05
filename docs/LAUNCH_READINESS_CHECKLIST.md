@@ -48,6 +48,8 @@ This checklist tells you exactly what to do before you open SwingVantage to the 
 - [ ] Add all `.env.local` variables to Vercel (Project → Settings → Environment Variables)
 - [ ] Never put your API keys in the code itself — only in environment variables
 - [ ] Enable "Encrypt sensitive variables" in Vercel
+- [ ] Set `ADMIN_SECRET` and `CRON_SECRET` to long random strings — run `openssl rand -hex 32` for each (protects the admin and research tools)
+- [ ] **If you turn on any AI key (vision/coach/OCR): add `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`** (free database at https://upstash.com). This is what actually caps your AI bill if someone hammers the API — without it the limit only holds per-server on Vercel. See "Rate Limiting" in `docs/SECURITY_AND_PRIVACY.md`.
 
 ### 1.5 Basic Legal Pages
 - [ ] Review and update `apps/web/src/app/privacy/page.tsx` — replace placeholder text with your actual policy
