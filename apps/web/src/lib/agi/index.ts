@@ -17,4 +17,12 @@ export { buildGeneralPlan } from './planner';
 export { buildProgress, progressToInsight, snapshotFromModel, focusCapability } from './progress';
 export { loadHistory, recordSnapshot, clearAgiHistory } from './history';
 export { buildAgiReportText, buildAgiReportHtml, type ReportOptions } from './report';
+export {
+  buildAthleteSummary,
+  narrateAthleteSummary,
+  validateAthleteNarrative,
+  athleteSummaryJson,
+  type AthleteSummary,
+  type SummaryTone,
+} from './summarizer';
 export { runAthleteGI, AGI_VERSION, type RunOptions } from './engine';
