@@ -63,9 +63,12 @@ report** — all under a single **A–D trust grade** that tells you exactly wha
 
 ## 3. Monetization positioning (Free / Pro / Team)
 
-**Guiding rule (from GTM priority): grow free users first.** The *core* AGI experience is
-free forever — it is the funnel, the retention hook, and the viral loop. Paid tiers add
-depth and team scale, never gate the core insight.
+**Guiding rule (from the monetization north star, `docs/MONETIZATION_STRATEGY.md`):**
+the order is **grow free users → ads (first revenue) → membership tiers**. The *core* AGI
+experience is free forever — it is the funnel, the retention hook, and the viral loop. The
+Pro/Team AGI items below are **Phase 3** upsells (gated behind ad revenue, dormant until
+then), never a Phase 1/2 paywall on the core insight. In an ad-supported product, "remove
+ads" also becomes a natural Pro perk alongside these depth upgrades.
 
 | Capability | Tier | Status | Why this split |
 |---|---|---|---|
