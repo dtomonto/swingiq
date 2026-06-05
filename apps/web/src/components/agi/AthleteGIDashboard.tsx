@@ -25,6 +25,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { useAthleteGI } from '@/lib/agi/adapters/useAthleteGI';
+import { AgiReportCard } from './AgiReportCard';
 import type {
   AthleteGIResult,
   Basis,
@@ -481,6 +482,9 @@ export function AthleteGIDashboard() {
               </CardBody>
             </Card>
           )}
+
+          {/* Share / export */}
+          <AgiReportCard result={result} />
 
           {/* Footer disclaimer */}
           <p className="text-[10px] text-muted-foreground/70 leading-relaxed">{result.disclaimer}</p>
