@@ -12,7 +12,7 @@ Last updated: May 31, 2026.
 **What this page is:** A progress log of the "growth" features — the trust badges, search-friendly pages, free tools, email sign-up forms, and usage analytics — listing what's finished and what still needs you.
 
 **What you actually need to know — the only four things on your plate:**
-1. **Set up your email inboxes.** Make sure `support@swingiq.app`, `privacy@swingiq.app`, and `security@swingiq.app` actually receive mail (set up forwarding at your domain/email host). The site now shows these addresses publicly, so they need to work.
+1. **Set up your email inboxes.** Make sure `support@swingvantage.com`, `privacy@swingvantage.com`, and `security@swingvantage.com` actually receive mail (set up forwarding at your domain/email host). The site now shows these addresses publicly, so they need to work.
 2. **(Optional) Turn on analytics.** Add a Google Analytics ID to see your visitor numbers. Leave it off and the site stays private. (Steps in section 5 below.)
 3. **(Optional) Turn on email capture.** Connect one email provider (Resend, ConvertKit, or Mailchimp) so sign-up forms actually save addresses. Until you do, the forms honestly tell people their address was not stored. (Steps in section 6.)
 4. **Get legal review** of your Privacy Policy and Terms before charging money or scaling up.
@@ -194,8 +194,8 @@ sends through your provider's automations.
 
 - The privacy, terms, and trust pages now use real contact emails and honest
   language. **You must make sure these inboxes actually receive mail before
-  relying on them:** `support@swingiq.app`, `privacy@swingiq.app`,
-  `security@swingiq.app` (set up forwarding at your domain registrar / email host).
+  relying on them:** `support@swingvantage.com`, `privacy@swingvantage.com`,
+  `security@swingvantage.com` (set up forwarding at your domain registrar / email host).
 - Run `npm run scan:placeholders` any time you edit a public page to confirm no
   placeholder text slipped back in.
 - The legal copy is plain-English and MVP-safe. Have it reviewed by a lawyer
@@ -207,7 +207,7 @@ sends through your provider's automations.
 
 | Variable | Required? | Purpose |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Optional | Overrides the canonical site URL (defaults to `https://swingiq.app`). |
+| `NEXT_PUBLIC_SITE_URL` | Optional | Overrides the canonical site URL (defaults to `https://swingvantage.com`). |
 | `NEXT_PUBLIC_GA_ID` | Optional | Enables Google Analytics 4. Unset = private, console-only. |
 
 (Existing Supabase / AI-provider variables are documented in the project's other

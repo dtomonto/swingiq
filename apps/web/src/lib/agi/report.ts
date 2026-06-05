@@ -41,7 +41,7 @@ export interface ReportOptions {
 /** A coach-friendly plain-text report. */
 export function buildAgiReportText(result: AthleteGIResult, opts: ReportOptions = {}): string {
   const { model, insights, plan, progress, trust, keystoneTranslations, provenDrills } = result;
-  const url = opts.siteUrl ?? 'swingiq.app';
+  const url = opts.siteUrl ?? 'swingvantage.com';
   const date = new Date().toLocaleDateString();
   const L: string[] = [];
 
@@ -111,7 +111,7 @@ const esc = (s: string): string =>
 /** A self-contained printable HTML document (open in a window and print → PDF). */
 export function buildAgiReportHtml(result: AthleteGIResult, opts: ReportOptions = {}): string {
   const { model, insights, plan, trust, keystoneTranslations, provenDrills } = result;
-  const url = opts.siteUrl ?? 'swingiq.app';
+  const url = opts.siteUrl ?? 'swingvantage.com';
   const date = new Date().toLocaleDateString();
   const keystone = insights.find((i) => i.kind === 'keystone');
 

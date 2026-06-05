@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description:
       'AI swing diagnosis, personalized drills, practice plans, video analysis, equipment management, and progress tracking — all free, all sports.',
     type: 'website',
-    url: 'https://swingiq.app/features',
+    url: 'https://swingvantage.com/features',
   },
   alternates: { canonical: '/features' },
 };
@@ -245,8 +245,8 @@ const structuredData = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: 'https://swingiq.app' },
-        { '@type': 'ListItem', position: 2, name: 'Features', item: 'https://swingiq.app/features' },
+        { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: 'https://swingvantage.com' },
+        { '@type': 'ListItem', position: 2, name: 'Features', item: 'https://swingvantage.com/features' },
       ],
     },
     {

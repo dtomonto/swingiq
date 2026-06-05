@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description:
       'Four steps to better technique: select your sport, upload data or video, get AI diagnosis, follow your practice plan.',
     type: 'website',
-    url: 'https://swingiq.app/how-it-works',
+    url: 'https://swingvantage.com/how-it-works',
   },
   alternates: {
     canonical: '/how-it-works',

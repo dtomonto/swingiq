@@ -87,4 +87,4 @@ Allow: /partners
 Allow: /challenges/
 
 # Sitemap location
-Sitemap: https://swingiq.app/sitemap.xml
+Sitemap: https://swingvantage.com/sitemap.xml

@@ -121,4 +121,4 @@ SwingVantage is local-first. By default, all user data is stored in the browser.
 
 ## Sitemap
 
-https://swingiq.app/sitemap.xml
+https://swingvantage.com/sitemap.xml

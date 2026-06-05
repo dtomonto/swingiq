@@ -17,7 +17,7 @@ Last updated: May 31, 2026.
 - **Honest claims only.** SwingVantage does **not** claim to be certified under any privacy law (COPPA, GDPR, CCPA), does not give medical advice, and does not promise guaranteed results or show fake reviews/ratings.
 
 **What to do next (your steps):**
-1. Make sure the three contact inboxes work: `privacy@swingiq.app`, `support@swingiq.app`, `security@swingiq.app`.
+1. Make sure the three contact inboxes work: `privacy@swingvantage.com`, `support@swingvantage.com`, `security@swingvantage.com`.
 2. Get a lawyer to review your Privacy Policy and Terms before you charge money or grow into regulated areas.
 
 ---
@@ -70,9 +70,9 @@ is set**, keeping the site private by default.
 
 ## 5. Contacts
 
-- Privacy / data requests: `privacy@swingiq.app`
-- Support: `support@swingiq.app`
-- Security: `security@swingiq.app`
+- Privacy / data requests: `privacy@swingvantage.com`
+- Support: `support@swingvantage.com`
+- Security: `security@swingvantage.com`
 
 > **Owner action:** ensure these inboxes (or forwarding) actually exist and are
 > monitored before relying on them publicly.

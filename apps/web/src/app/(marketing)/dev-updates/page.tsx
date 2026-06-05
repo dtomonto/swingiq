@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description:
       'The technical story behind SwingVantage — 3D motion intelligence, real AI vision, multi-sport engines, and a local-first architecture.',
     type: 'website',
-    url: 'https://swingiq.app/dev-updates',
+    url: 'https://swingvantage.com/dev-updates',
   },
   alternates: {
     canonical: '/dev-updates',
@@ -45,8 +45,8 @@ export default function DevUpdatesPage() {
         name: 'SwingVantage Developer Updates',
         description:
           'A technical log of SwingVantage engineering milestones and developer updates.',
-        url: 'https://swingiq.app/dev-updates',
-        isPartOf: { '@type': 'WebSite', name: 'SwingVantage', url: 'https://swingiq.app' },
+        url: 'https://swingvantage.com/dev-updates',
+        isPartOf: { '@type': 'WebSite', name: 'SwingVantage', url: 'https://swingvantage.com' },
       },
       {
         '@type': 'ItemList',

@@ -245,7 +245,7 @@ For each new page you create:
 - [ ] `<meta description>`: 150–160 characters, includes primary keyword, clear value proposition
 - [ ] H1: One per page, matches the topic clearly
 - [ ] H2/H3: Logical heading structure, descriptive (not just "Section 1")
-- [ ] Canonical URL: `<link rel="canonical" href="https://swingiq.app/your-page" />`
+- [ ] Canonical URL: `<link rel="canonical" href="https://swingvantage.com/your-page" />`
 - [ ] Open Graph: title, description, type, URL
 - [ ] Internal links: at least 2–3 links to related pages on SwingVantage
 - [ ] Image alt text: every image has a descriptive alt attribute
@@ -299,7 +299,7 @@ After your site is live:
 1. Go to https://search.google.com/search-console
 2. Add your property (your domain)
 3. Verify ownership (Vercel makes this easy with a DNS TXT record)
-4. Submit your sitemap: `https://swingiq.app/sitemap.xml`
+4. Submit your sitemap: `https://swingvantage.com/sitemap.xml`
 5. Check the "Coverage" report for any pages with errors
 6. Check the "Search results" report to see which queries you appear for
 

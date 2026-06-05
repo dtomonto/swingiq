@@ -140,7 +140,7 @@ EMAIL_CAPTURE_WEBHOOK_URL=https://...
 **What it unlocks:** real usage measurement. Without it, events log to the browser console only.
 ```
 NEXT_PUBLIC_GA_ID=G-XXXXXXX            # Google Analytics 4
-# (or) NEXT_PUBLIC_PLAUSIBLE_DOMAIN=swingiq.app
+# (or) NEXT_PUBLIC_PLAUSIBLE_DOMAIN=swingvantage.com
 # (or) NEXT_PUBLIC_POSTHOG_KEY=phc_...
 ```
 

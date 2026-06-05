@@ -38,7 +38,7 @@ This checklist tells you exactly what to do before you open SwingVantage to the 
 - [ ] Test the AI Coach page — type a question and verify it responds
 
 ### 1.3 Domain and Deployment
-- [ ] Purchase a domain name (e.g., swingiq.app) at Namecheap, Cloudflare, or Google Domains
+- [ ] Purchase a domain name (e.g., swingvantage.com) at Namecheap, Cloudflare, or Google Domains
 - [ ] Deploy to Vercel (free tier): https://vercel.com — connect your GitHub repository
 - [ ] Add your custom domain in Vercel dashboard (Project → Settings → Domains)
 - [ ] Verify SSL certificate is active (the padlock icon shows in the browser)
@@ -63,7 +63,7 @@ This checklist tells you exactly what to do before you open SwingVantage to the 
 
 ### 1.7 Contact and Support
 - [ ] Update `SECURITY.md` — replace `[Add your security contact email here]` with a real email
-- [ ] Create a simple contact/support email address (e.g., support@swingiq.app)
+- [ ] Create a simple contact/support email address (e.g., support@swingvantage.com)
 - [ ] Add that email to the `/trust` page and `/privacy` page
 
 ### 1.8 Core Feature Smoke Test

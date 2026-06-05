@@ -331,7 +331,7 @@ can complete. The code is ready and waiting. (Full list: `docs/OWNER_TASKS.md`.)
 | Paid tiers | 🔑 | Pro/Team are **waitlist**; no charges without `STRIPE_PRICE_*` keys. |
 | Email capture | 🔑 | No provider connected — needs a Resend/ConvertKit/Mailchimp env var. |
 | Analytics | 🔑 | Events drop in prod until `NEXT_PUBLIC_GA_ID` is set. |
-| Support inboxes | 🔑 | `support@` / `privacy@` / `security@swingiq.app` must actually exist. |
+| Support inboxes | 🔑 | `support@` / `privacy@` / `security@swingvantage.com` must actually exist. |
 | Legal | 🔑 | Privacy/terms are honest MVP language; attorney review recommended before scale. |
 
 **The product is fully usable, free, and honest today without any of these.**

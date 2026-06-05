@@ -731,7 +731,7 @@ describe('AGI — shareable report', () => {
   });
 
   it('builds a coach-friendly text report with the key sections', () => {
-    const txt = buildAgiReportText(result, { siteUrl: 'swingiq.app' });
+    const txt = buildAgiReportText(result, { siteUrl: 'swingvantage.com' });
     expect(txt).toMatch(/Athlete General Intelligence/);
     expect(txt).toMatch(/Trust grade [A-D]/);
     expect(txt).toMatch(/KEYSTONE/);
@@ -742,7 +742,7 @@ describe('AGI — shareable report', () => {
   });
 
   it('builds a self-contained printable HTML doc', () => {
-    const html = buildAgiReportHtml(result, { siteUrl: 'swingiq.app' });
+    const html = buildAgiReportHtml(result, { siteUrl: 'swingvantage.com' });
     expect(html.startsWith('<!doctype html>')).toBe(true);
     expect(html).toMatch(/Trust/);
     expect(html).toMatch(/Rotation/);

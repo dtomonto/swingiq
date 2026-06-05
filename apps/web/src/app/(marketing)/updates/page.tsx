@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description:
       'Follow meaningful SwingVantage improvements, new training features, and product progress in plain English. Golf, tennis, baseball, and softball.',
     type: 'website',
-    url: 'https://swingiq.app/updates',
+    url: 'https://swingvantage.com/updates',
   },
   alternates: {
     canonical: '/updates',
@@ -67,8 +67,8 @@ const jsonLd = {
       name: 'SwingVantage Updates',
       description:
         'Follow meaningful SwingVantage product improvements in plain English — new training features, multi-sport support, equipment tools, and more.',
-      url: 'https://swingiq.app/updates',
-      isPartOf: { '@type': 'WebSite', name: 'SwingVantage', url: 'https://swingiq.app' },
+      url: 'https://swingvantage.com/updates',
+      isPartOf: { '@type': 'WebSite', name: 'SwingVantage', url: 'https://swingvantage.com' },
     },
     {
       '@type': 'FAQPage',

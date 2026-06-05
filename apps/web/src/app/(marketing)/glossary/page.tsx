@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description:
       'Definitions for ball speed, exit velocity, launch angle, spin rate, bat speed, club path, face angle, attack angle, and 40+ more terms used in SwingVantage.',
     type: 'website',
-    url: 'https://swingiq.app/glossary',
+    url: 'https://swingvantage.com/glossary',
   },
   alternates: { canonical: '/glossary' },
 };
@@ -91,8 +91,8 @@ const structuredData = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: 'https://swingiq.app' },
-        { '@type': 'ListItem', position: 2, name: 'Glossary', item: 'https://swingiq.app/glossary' },
+        { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: 'https://swingvantage.com' },
+        { '@type': 'ListItem', position: 2, name: 'Glossary', item: 'https://swingvantage.com/glossary' },
       ],
     },
     {

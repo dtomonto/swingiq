@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description:
       'SwingVantage is local-first, privacy-focused, and built with honest AI. Learn how your data is handled and what protections are in place.',
     type: 'website',
-    url: 'https://swingiq.app/trust',
+    url: 'https://swingvantage.com/trust',
   },
   alternates: { canonical: '/trust' },
 };

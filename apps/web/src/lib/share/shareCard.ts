@@ -152,7 +152,7 @@ export async function generateShareCard(data: ReportData): Promise<Blob | null> 
   // Footer
   ctx.fillStyle = COLORS.muted;
   ctx.font = `500 24px ${sans}`;
-  ctx.fillText('Free AI swing analysis · swingiq.app', PAD, SIZE - 70);
+  ctx.fillText('Free AI swing analysis · swingvantage.com', PAD, SIZE - 70);
   ctx.fillStyle = COLORS.warn;
   ctx.font = `400 20px ${sans}`;
   ctx.fillText('AI estimate — not certified instruction.', PAD, SIZE - 40);

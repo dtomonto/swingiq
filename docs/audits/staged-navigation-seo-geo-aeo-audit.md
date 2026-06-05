@@ -61,7 +61,7 @@
 
 **Problem:** robots.txt only listed `Allow: /`, `Allow: /login`, `Allow: /signup`. All other public pages were in an ambiguous state. No sitemap reference.
 
-**Fix:** Added explicit `Allow:` directives for all 20+ public pages. Added `Sitemap: https://swingiq.app/sitemap.xml`.
+**Fix:** Added explicit `Allow:` directives for all 20+ public pages. Added `Sitemap: https://swingvantage.com/sitemap.xml`.
 
 ---
 

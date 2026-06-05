@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description:
       'Everything you need to know about SwingVantage: supported sports, how the AI works, privacy, data import, and more.',
     type: 'website',
-    url: 'https://swingiq.app/faq',
+    url: 'https://swingvantage.com/faq',
   },
   alternates: { canonical: '/faq' },
 };

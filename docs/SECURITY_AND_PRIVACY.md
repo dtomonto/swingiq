@@ -11,7 +11,7 @@ This document covers everything related to keeping SwingVantage users safe — h
 **What you actually need to know:**
 - **Already true today (good news):** swing videos stay on the user's own device, secret keys are kept out of the code, and automatic scans check every code change for problems.
 - **Your to-do items before launch** (these also appear in [OWNER_TASKS.md](OWNER_TASKS.md)):
-  1. Make sure a real security email (`security@swingiq.app`) exists and reaches you.
+  1. Make sure a real security email (`security@swingvantage.com`) exists and reaches you.
   2. Turn on the GitHub security switches (secret scanning, Dependabot, branch protection).
   3. Have a lawyer review your Privacy Policy and Terms before you collect real users' data.
 - **If data is ever exposed,** there's a step-by-step "Data Breach Response Plan" lower down — find it and follow it in order.
@@ -171,7 +171,7 @@ A vulnerability disclosure page lives at `/vulnerability-disclosure` in the app.
 
 The `SECURITY.md` file at the root of the repository also documents this for developers.
 
-The security contact is **security@swingiq.app** (set in both `SECURITY.md` and the in-app disclosure page). **Before launch:** confirm that inbox is monitored and reaches the owner.
+The security contact is **security@swingvantage.com** (set in both `SECURITY.md` and the in-app disclosure page). **Before launch:** confirm that inbox is monitored and reaches the owner.
 
 ---
 

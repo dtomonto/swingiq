@@ -5,11 +5,11 @@
 **What this page is:** The official place that tells a security researcher how to privately report a problem they find in SwingVantage, plus a reference for replacing secret keys and a pre-launch safety checklist.
 
 **What you actually need to know:**
-- The public part is simple: people email **security@swingiq.app** to report an issue **privately** (not in a public post, so users aren't put at risk). Make sure that inbox actually reaches you.
+- The public part is simple: people email **security@swingvantage.com** to report an issue **privately** (not in a public post, so users aren't put at risk). Make sure that inbox actually reaches you.
 - The **Production Hardening Checklist** at the bottom is real to-do list before you go live (set a strong `ADMIN_SECRET`, turn on Supabase's per-user data protection, keep secrets out of the code). These same items appear in [OWNER_TASKS.md](docs/OWNER_TASKS.md).
 - A "secret" here means a private password/key the app uses to talk to other services. If one ever leaks, the tables below tell whoever helps you exactly where to replace it.
 
-**What to do next:** Make sure `security@swingiq.app` works, and work through the hardening checklist (it's mirrored in [OWNER_TASKS.md](docs/OWNER_TASKS.md)).
+**What to do next:** Make sure `security@swingvantage.com` works, and work through the hardening checklist (it's mirrored in [OWNER_TASKS.md](docs/OWNER_TASKS.md)).
 
 > The rotation tables and environment-variable rules below are for a developer or an AI assistant responding to a security issue. You don't need them for day-to-day use.
 
@@ -21,7 +21,7 @@ If you discover a security vulnerability in SwingVantage, please report it respo
 
 **Do not open a public GitHub issue.** Public disclosure before remediation puts users at risk.
 
-**Contact:** security@swingiq.app
+**Contact:** security@swingvantage.com
 
 Please include:
 - A clear description of the vulnerability

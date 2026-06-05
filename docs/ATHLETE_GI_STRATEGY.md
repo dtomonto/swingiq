@@ -89,7 +89,7 @@ items above are *roadmap* — surface them as "rolling out," never as shipped, u
 ## 4. Growth & virality
 
 - **The viral artifact:** the coach-shareable AGI report. Every share is a branded,
-  honest, text-only summary ending in "Made with SwingVantage — swingiq.app." Track
+  honest, text-only summary ending in "Made with SwingVantage — swingvantage.com." Track
   `REPORT_COPIED` / `COACH_SHARE_CLICKED` / `REPORT_SHARED` to measure the loop.
 - **The retention hook:** the Today dashboard summary surfaces the keystone + today's
   action every visit; progress-over-time gives a reason to come back ("did it move?").

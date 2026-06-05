@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description:
       'Free guides and references for swing improvement — golf, tennis, baseball, and softball.',
     type: 'website',
-    url: 'https://swingiq.app/resources',
+    url: 'https://swingvantage.com/resources',
   },
   alternates: { canonical: '/resources' },
 };
@@ -126,8 +126,8 @@ const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: 'https://swingiq.app' },
-    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://swingiq.app/resources' },
+    { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: 'https://swingvantage.com' },
+    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://swingvantage.com/resources' },
   ],
 };
 

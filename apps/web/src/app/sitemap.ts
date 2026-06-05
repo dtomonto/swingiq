@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
 
-const BASE_URL = 'https://swingiq.app';
+const BASE_URL = 'https://swingvantage.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
