@@ -15,7 +15,9 @@ import { identityFromStore } from '../adapters/profile';
 import { bundleFromStore } from '../adapters/store-sessions';
 import { mergeBundles } from '../adapters/merge';
 import { readinessFromScore } from '../adapters/readiness-map';
+import { buildProgress, snapshotFromModel } from '../progress';
 import type {
+  AGISnapshot,
   AthleteIdentity,
   Basis,
   CapabilityId,
@@ -385,5 +387,61 @@ describe('AGI — readiness ("today\'s form")', () => {
     const result = runAthleteGI(bundle);
     expect(result.insights[0].kind).toBe('readiness'); // outranks the keystone
     expect(result.plan.todayNote).toMatch(/take care|discomfort/i);
+  });
+});
+
+describe('AGI — progress over time', () => {
+  const bundleNow: SignalBundle = {
+    signals: [sig('rotation', 'golf', 55), sig('balance', 'golf', 70)],
+    sportSessions: [sessionRef('golf', 62)],
+  };
+
+  it('returns null without a prior-day baseline', () => {
+    const model = buildWorldModel(bundleNow);
+    expect(buildProgress(model, [])).toBeNull();
+    // a snapshot from today alone is not a baseline
+    expect(buildProgress(model, [snapshotFromModel(model)])).toBeNull();
+  });
+
+  it('snapshots the model with the weakest capability as the keystone', () => {
+    const snap = snapshotFromModel(buildWorldModel(bundleNow));
+    expect(snap.keystone).toBe('rotation'); // 55 < 70
+    expect(snap.capabilities.find((c) => c.id === 'balance')!.score).toBe(70);
+  });
+
+  it('computes capability deltas vs a prior snapshot', () => {
+    const model = buildWorldModel(bundleNow);
+    const baseline: AGISnapshot = {
+      at: '2026-05-01T08:00:00.000Z',
+      coverage: 0.3,
+      capabilities: [
+        { id: 'rotation', score: 40, basis: 'estimated' },
+        { id: 'balance', score: 72, basis: 'estimated' },
+      ],
+      keystone: 'rotation',
+      sports: ['golf'],
+    };
+    const report = buildProgress(model, [baseline])!;
+    expect(report).toBeTruthy();
+    const rot = report.deltas.find((d) => d.capability === 'rotation')!;
+    expect(rot.before).toBe(40);
+    expect(rot.after).toBe(55);
+    expect(rot.delta).toBe(15);
+    expect(report.biggestImprover?.capability).toBe('rotation');
+    expect(report.keystoneMoved?.capability).toBe('rotation'); // current weakest = focus
+    expect(report.summary).toMatch(/Since 2026-05-01/);
+  });
+
+  it('surfaces progress as an insight and on result.progress', () => {
+    const baseline: AGISnapshot = {
+      at: '2026-05-01T08:00:00.000Z',
+      coverage: 0.3,
+      capabilities: [{ id: 'rotation', score: 40, basis: 'estimated' }],
+      keystone: 'rotation',
+      sports: ['golf'],
+    };
+    const result = runAthleteGI({ ...bundleNow, history: [baseline] });
+    expect(result.progress).toBeTruthy();
+    expect(result.insights.find((i) => i.kind === 'progress')).toBeTruthy();
   });
 });

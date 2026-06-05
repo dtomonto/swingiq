@@ -11,6 +11,7 @@ import { buildWorldModel } from './worldModel';
 import { reason } from './reasoning';
 import { buildTransfers } from './transfer';
 import { buildGeneralPlan } from './planner';
+import { buildProgress, progressToInsight } from './progress';
 import type { AthleteGIResult, SignalBundle } from './types';
 
 export const AGI_VERSION = 'agi-1.0.0';
@@ -35,7 +36,9 @@ export interface RunOptions {
 /** Run the full Athlete General Intelligence pipeline over a signal bundle. */
 export function runAthleteGI(bundle: SignalBundle, opts: RunOptions = {}): AthleteGIResult {
   const model = buildWorldModel(bundle);
-  const insights = reason(model, bundle);
+  const progress = buildProgress(model, bundle.history ?? []);
+  const progressInsight = progress ? progressToInsight(progress) : null;
+  const insights = reason(model, bundle, progressInsight ? [progressInsight] : []);
   const transfers = buildTransfers(model);
   const plan = buildGeneralPlan(model, insights, bundle);
 
@@ -44,6 +47,7 @@ export function runAthleteGI(bundle: SignalBundle, opts: RunOptions = {}): Athle
     insights,
     transfers,
     plan,
+    progress,
     disclaimer: DISCLAIMER,
     version: AGI_VERSION,
     enhanced: false,

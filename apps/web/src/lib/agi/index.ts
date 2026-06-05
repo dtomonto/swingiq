@@ -13,4 +13,6 @@ export { buildWorldModel } from './worldModel';
 export { reason } from './reasoning';
 export { buildTransfers } from './transfer';
 export { buildGeneralPlan } from './planner';
+export { buildProgress, progressToInsight, snapshotFromModel, focusCapability } from './progress';
+export { loadHistory, recordSnapshot, clearAgiHistory } from './history';
 export { runAthleteGI, AGI_VERSION, type RunOptions } from './engine';

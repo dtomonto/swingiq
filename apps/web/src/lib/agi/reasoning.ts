@@ -374,8 +374,16 @@ function leadsAll(i: Insight): boolean {
   return i.kind === 'readiness' && i.leverage >= 0.95;
 }
 
-/** Produce the ranked list of insights for an athlete. Never throws. */
-export function reason(model: AthleteWorldModel, bundle: SignalBundle): Insight[] {
+/**
+ * Produce the ranked list of insights for an athlete. Never throws. `extra`
+ * lets the engine inject already-built insights (e.g. progress) into the same
+ * ranking pass.
+ */
+export function reason(
+  model: AthleteWorldModel,
+  bundle: SignalBundle,
+  extra: Insight[] = [],
+): Insight[] {
   const labels = labelMap(bundle);
   const candidates: Array<Insight | null> = [
     readinessInsight(model),
@@ -386,7 +394,7 @@ export function reason(model: AthleteWorldModel, bundle: SignalBundle): Insight[
     strengthInsight(model, labels),
     coverageInsight(model),
   ];
-  const insights = candidates.filter((x): x is Insight => x !== null);
+  const insights = [...candidates.filter((x): x is Insight => x !== null), ...extra];
 
   // Safety-caution readiness leads; otherwise a keystone leads; then leverage.
   insights.sort((a, b) => {

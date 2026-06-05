@@ -122,6 +122,18 @@ export interface ReadinessSnapshot {
   basis: string;
 }
 
+/**
+ * A compact point-in-time record of the athlete model, persisted locally so the
+ * engine can show how capabilities move over time (the honest retest loop).
+ */
+export interface AGISnapshot {
+  at: string; // ISO timestamp
+  coverage: number;
+  capabilities: Array<{ id: CapabilityId; score: number | null; basis: Basis }>;
+  keystone: CapabilityId | null;
+  sports: SportId[];
+}
+
 /** Everything the engine knows, normalized. Built by source adapters. */
 export interface SignalBundle {
   signals: CapabilitySignal[];
@@ -130,6 +142,8 @@ export interface SignalBundle {
   identity?: AthleteIdentity;
   /** Optional "today's form" snapshot. */
   readiness?: ReadinessSnapshot;
+  /** Optional prior snapshots (oldest → newest) for progress over time. */
+  history?: AGISnapshot[];
 }
 
 // ── The unified athlete model ─────────────────────────────────
@@ -192,6 +206,7 @@ export type InsightKind =
   | 'readiness' // today's form — how to train right now (safety can lead)
   | 'keystone' // one weak general capability limiting multiple sports
   | 'goal' // how the athlete's stated goal maps to a capability
+  | 'progress' // how capabilities have moved since a prior snapshot
   | 'strength' // a transferable strength to lean on
   | 'transfer' // a cross-sport transfer opportunity
   | 'imbalance' // a capability already strong in one sport, lagging in another
@@ -224,6 +239,29 @@ export interface Insight {
   leverage: number;
   /** The single recommended action. */
   action: string;
+}
+
+// ── Progress over time ────────────────────────────────────────
+
+export interface CapabilityProgress {
+  capability: CapabilityId;
+  name: string;
+  before: number | null;
+  after: number | null;
+  delta: number | null;
+}
+
+export interface ProgressReport {
+  /** Date of the baseline snapshot we compared against (ISO). */
+  sinceDate: string;
+  /** How many snapshots are stored. */
+  snapshots: number;
+  deltas: CapabilityProgress[];
+  biggestImprover: CapabilityProgress | null;
+  biggestDecliner: CapabilityProgress | null;
+  /** Movement of whatever is the current keystone, if it was tracked before. */
+  keystoneMoved: CapabilityProgress | null;
+  summary: string;
 }
 
 // ── Cross-domain transfer ─────────────────────────────────────
@@ -272,6 +310,8 @@ export interface AthleteGIResult {
   insights: Insight[];
   transfers: TransferLink[];
   plan: GeneralPlan;
+  /** How capabilities have moved since a prior snapshot (null if no history). */
+  progress: ProgressReport | null;
   /** Honest, plain-English framing of what this is and is not. */
   disclaimer: string;
   version: string;
