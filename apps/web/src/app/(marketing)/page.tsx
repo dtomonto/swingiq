@@ -10,6 +10,7 @@ import {
 } from '@/components/trust';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ThemePreviewStrip } from '@/components/theme/ThemePreviewStrip';
+import { TutorialVideo } from '@/components/tutorial/TutorialVideo';
 import {
   buildGraph,
   organizationSchema,
@@ -98,7 +99,14 @@ export default function HomePage() {
       {/* How it works */}
       <section className="py-16 px-4 bg-muted">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-12">How SwingVantage Works</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">How SwingVantage Works</h2>
+
+          {/* Optional "see how it works" explainer — poster-first, click-to-play,
+              never autoplays, and shows the written steps if the recording isn't up. */}
+          <div className="mx-auto mb-12 max-w-2xl">
+            <TutorialVideo placement="home-hero" page="/" />
+          </div>
+
           <div className="grid md:grid-cols-4 gap-6">
             {HOW_IT_WORKS.map((item) => (
               <div key={item.step} className="text-center">

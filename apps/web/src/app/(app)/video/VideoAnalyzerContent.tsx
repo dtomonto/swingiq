@@ -25,6 +25,7 @@ import { AINotConfiguredNotice } from '@/components/video/AINotConfiguredNotice'
 import { RecordingGuide } from '@/components/video/RecordingGuide';
 import { VideoWelcomeBack } from '@/components/video/VideoWelcomeBack';
 import { VideoProgress } from '@/components/video/VideoProgress';
+import { TutorialVideo } from '@/components/tutorial/TutorialVideo';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { Button } from '@/components/ui/Button';
 import { warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepareSwing';
@@ -205,6 +206,10 @@ export function VideoAnalyzerContent() {
 
             <VideoProgress history={history} />
 
+            {/* New here? A short "how to record" tutorial, right where it helps —
+                poster-first, click-to-play, with written steps as a fallback. */}
+            {history.length === 0 && <TutorialVideo placement="upload-record" sport="golf" page="/video" />}
+
             <RecordingGuide sport="golf" defaultOpen={history.length === 0} />
 
             <VideoUpload onVideoReady={handleVideoReady} enableRecording sport="golf" />
@@ -317,6 +322,11 @@ export function VideoAnalyzerContent() {
                   <AIVisualAnalysisPanel analysis={swing.analysis} />
                 </div>
               </div>
+
+              {/* First results? Show "how to read your analysis" once, then let it go. */}
+              {history.length <= 1 && (
+                <TutorialVideo placement="results-read" sport="golf" page="/video" />
+              )}
 
               {/* How this video review was produced */}
               <AnalysisTransparency

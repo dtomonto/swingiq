@@ -37,6 +37,30 @@ export type TutorialCategory =
   | 'community'
   | 'data';
 
+/**
+ * Where a video sits in the first-use → repeat-use journey. Used by the
+ * inline placements (homepage, upload, results …) and tagged onto every
+ * analytics event so we can see which moment a tutorial helped at.
+ */
+export type TutorialJourneyStage =
+  | 'discover' // what is this / why care (marketing, hero)
+  | 'onboard' // first run, find your way around
+  | 'capture' // record / upload a swing
+  | 'understand' // read the AI analysis
+  | 'improve' // turn analysis into practice
+  | 'track' // measure progress over time
+  | 'recover'; // something went wrong — get unstuck
+
+export const JOURNEY_STAGE_ORDER: TutorialJourneyStage[] = [
+  'discover',
+  'onboard',
+  'capture',
+  'understand',
+  'improve',
+  'track',
+  'recover',
+];
+
 export interface TutorialVideo {
   /** Stable unique id — also the key used for "watched" progress. */
   id: string;
@@ -61,6 +85,42 @@ export interface TutorialVideo {
   poster?: string;
   /** Plain-language walkthrough. Recording script + text fallback. */
   script: string[];
+
+  // ── Inline placement metadata (all optional, backward-compatible) ──
+  // These light up the in-context inline player (TutorialVideo.tsx). Until
+  // file sources are set, placements render the honest "coming soon" card
+  // plus the written script above — so they are useful today.
+
+  /** Where this sits in the first-use → repeat-use journey. */
+  journeyStage?: TutorialJourneyStage;
+  /** WebM source (smaller/efficient where supported), e.g. /tutorials/sources/welcome.webm */
+  webmSrc?: string;
+  /** MP4/H.264 source (broad compatibility), e.g. /tutorials/sources/welcome.mp4 */
+  mp4Src?: string;
+  /** Mobile-optimized MP4 served via a max-width media query (saves bytes on phones). */
+  mobileSrc?: string;
+  /** WebVTT captions track, e.g. /tutorials/captions/welcome.vtt */
+  captionsSrc?: string;
+  /** List/grid thumbnail (distinct from the in-player poster). */
+  thumbnail?: string;
+  /** 'high' => preload metadata when on screen; otherwise preload nothing until play. */
+  priority?: 'high' | 'low';
+  /** Allow muted autoplay ONLY when on screen and motion is allowed. Default false. */
+  autoplayAllowed?: boolean;
+  /** Start muted (required for any autoplay). Default true. */
+  mutedDefault?: boolean;
+  /** Loop playback (short ambient clips only). Default false. */
+  loop?: boolean;
+  /** One-line fallback shown if the recording fails to load (before the script). */
+  fallbackText?: string;
+}
+
+/** A single `<source>` for the inline player. */
+export interface InlineVideoSource {
+  src: string;
+  type: 'video/webm' | 'video/mp4';
+  /** Optional media query — e.g. mobile-only source. */
+  media?: string;
 }
 
 /** A curated, ordered tutorial for one kind of user. */
@@ -121,6 +181,9 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     category: 'getting-started',
     duration: '2:00',
     route: '/dashboard',
+    journeyStage: 'discover',
+    priority: 'high',
+    fallbackText: 'Here’s the 60-second version of how SwingVantage works.',
     script: [
       'SwingVantage is your personal performance system for golf, tennis, baseball, and softball.',
       'The idea is simple: analyze your swing, learn what to work on, practice it, and watch yourself improve over time.',
@@ -153,6 +216,8 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     category: 'getting-started',
     duration: '2:00',
     route: '/dashboard',
+    journeyStage: 'onboard',
+    fallbackText: 'A quick tour of your Today dashboard and where everything lives.',
     script: [
       'The dashboard is “Today.” Everything here is filtered to your active sport.',
       'Up top you’ll see your recommended next action — the single best thing to do right now.',
@@ -201,6 +266,9 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     category: 'analyze',
     duration: '3:30',
     route: '/video',
+    journeyStage: 'capture',
+    priority: 'high',
+    fallbackText: 'How to film and upload a swing the AI can read confidently.',
     script: [
       'Film from a steady position — down-the-line (behind you, toward the target) or face-on. Keep the whole body in frame.',
       'Upload the clip on the Video Analysis screen. SwingVantage breaks the swing into phases and looks for common faults in each.',
@@ -217,6 +285,8 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     category: 'analyze',
     duration: '3:00',
     route: '/diagnose',
+    journeyStage: 'understand',
+    fallbackText: 'How to read your AI analysis: scores, issues, and what to do next.',
     script: [
       'Pick a session and SwingVantage finds the most significant patterns in your shots.',
       'Each issue gets a severity (Critical, High, Medium, Low) and a confidence score, so you know what to fix first.',
@@ -339,6 +409,8 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     category: 'practice',
     duration: '2:00',
     route: '/drills',
+    journeyStage: 'improve',
+    fallbackText: 'Turn your top fix into a focused, doable practice plan.',
     script: [
       'Filter drills by your sport, skill level, and the issue you want to fix.',
       'Drills are grouped by what they target — path, face, timing, contact, and more.',
@@ -386,6 +458,8 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     category: 'progress',
     duration: '2:30',
     route: '/progress',
+    journeyStage: 'track',
+    fallbackText: 'How progress tracking works: trends, comparisons, and streaks.',
     script: [
       'Progress charts each key metric over time — carry, swing score, contact, and more.',
       'An upward trend on a positive metric means it’s working. Flat or down tells you where to look.',
@@ -828,6 +902,37 @@ export function getVideoSourceKind(url?: string): 'youtube' | 'vimeo' | 'file' |
   if (/youtube\.com|youtu\.be/i.test(url)) return 'youtube';
   if (/vimeo\.com/i.test(url)) return 'vimeo';
   return 'file';
+}
+
+/**
+ * Ordered <source> list for the inline player. Mobile-specific source is
+ * listed first (behind a max-width media query), then WebM, then MP4 — the
+ * browser picks the first it can play. Falls back to a direct-file `videoUrl`
+ * when no explicit mp4/webm is set. Returns [] when nothing is inline-playable
+ * (e.g. only a YouTube/Vimeo link, or no recording yet).
+ */
+export function getInlineSources(video: TutorialVideo): InlineVideoSource[] {
+  const sources: InlineVideoSource[] = [];
+  if (video.mobileSrc) {
+    sources.push({ src: video.mobileSrc, type: 'video/mp4', media: '(max-width: 640px)' });
+  }
+  if (video.webmSrc) {
+    sources.push({ src: video.webmSrc, type: 'video/webm' });
+  }
+  if (video.mp4Src) {
+    sources.push({ src: video.mp4Src, type: 'video/mp4' });
+  }
+  // Back-compat: a direct .mp4/.webm in `videoUrl` (not YouTube/Vimeo) plays inline too.
+  if (sources.length === 0 && getVideoSourceKind(video.videoUrl) === 'file') {
+    const url = video.videoUrl as string;
+    sources.push({ src: url, type: /\.webm($|\?)/i.test(url) ? 'video/webm' : 'video/mp4' });
+  }
+  return sources;
+}
+
+/** True once a video has any playable recording (inline file or YouTube/Vimeo link). */
+export function hasRecording(video: TutorialVideo): boolean {
+  return getInlineSources(video).length > 0 || Boolean(getVideoSourceKind(video.videoUrl));
 }
 
 /** Convert a YouTube/Vimeo URL to its embeddable form. Files pass through. */

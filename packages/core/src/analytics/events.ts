@@ -88,6 +88,17 @@ export const ANALYTICS_EVENTS = {
   // Trust & safety
   PRIVACY_PAGE_VIEWED: 'privacy_page_viewed',
   PARENT_SAFETY_VIEWED: 'parent_safety_viewed',
+
+  // Tutorial videos (inline placements + Tutorial Center)
+  // Each carries metadata: video_id, placement, page, sport,
+  // user_journey_stage, device_type — see lib/tutorial/analytics.ts.
+  TUTORIAL_VIDEO_IMPRESSION: 'tutorial_video_impression',
+  TUTORIAL_VIDEO_PLAY: 'tutorial_video_play',
+  TUTORIAL_VIDEO_PAUSE: 'tutorial_video_pause',
+  TUTORIAL_VIDEO_COMPLETE: 'tutorial_video_complete',
+  TUTORIAL_VIDEO_ERROR: 'tutorial_video_error',
+  TUTORIAL_VIDEO_DISMISSED: 'tutorial_video_dismissed',
+  TUTORIAL_VIDEO_CTA_CLICKED: 'tutorial_video_cta_clicked',
 } as const;
 
 export type AnalyticsEventName =

@@ -25,6 +25,7 @@ import { AINotConfiguredNotice } from '@/components/video/AINotConfiguredNotice'
 import { RecordingGuide } from '@/components/video/RecordingGuide';
 import { VideoWelcomeBack } from '@/components/video/VideoWelcomeBack';
 import { VideoProgress } from '@/components/video/VideoProgress';
+import { TutorialVideo } from '@/components/tutorial/TutorialVideo';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { SportCardGrid } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
@@ -172,6 +173,11 @@ export function SportVideoAnalyzerContent() {
         />
 
         <VideoProgress history={history} />
+
+        {/* New here? A short "how to record" tutorial, right where it helps. */}
+        {history.length === 0 && (
+          <TutorialVideo placement="upload-record" sport={selectedSport} page="/video" />
+        )}
 
         {selectedSport !== 'golf' && (
           <RecordingGuide sport={selectedSport} defaultOpen={history.length === 0} />
@@ -419,6 +425,11 @@ export function SportVideoAnalyzerContent() {
             <AIVisualAnalysisPanel analysis={swing.analysis} />
           </div>
         </div>
+
+        {/* First results? Show "how to read your analysis" once, then let it go. */}
+        {history.length <= 1 && (
+          <TutorialVideo placement="results-read" sport={selectedSport} page="/video" />
+        )}
 
         {/* How this video review was produced */}
         <AnalysisTransparency

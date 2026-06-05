@@ -1,0 +1,22 @@
+WEBVTT
+
+NOTE
+Sample WebVTT captions for the "Welcome to SwingVantage" tutorial (id: welcome).
+This is a template — replace the cues with the final voiceover transcript and
+rename to welcome.vtt, then set captionsSrc: '/tutorials/captions/welcome.vtt'
+on the matching entry in lib/tutorial/videos.ts.
+
+00:00:00.000 --> 00:00:04.000
+SwingVantage turns a swing video into clear, useful feedback.
+
+00:00:04.000 --> 00:00:09.000
+Upload or record a swing — golf, tennis, baseball, or softball.
+
+00:00:09.000 --> 00:00:14.000
+The AI reviews the actual frames and finds your top thing to work on.
+
+00:00:14.000 --> 00:00:19.000
+You get beginner-safe drills and a simple plan to groove it.
+
+00:00:19.000 --> 00:00:24.000
+Everything stays private on your device. No account needed to start.
