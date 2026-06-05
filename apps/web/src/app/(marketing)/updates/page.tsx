@@ -96,7 +96,7 @@ export default function UpdatesPage() {
           <div className="flex items-center gap-3 mb-6">
             <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity" aria-label="SwingVantage home">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-black text-sm">SQ</span>
+                <span className="text-white font-black text-sm">SV</span>
               </div>
               <span className="text-white font-bold text-lg">SwingVantage</span>
             </Link>

@@ -32,7 +32,7 @@ export function MarketingHeader() {
         {/* Logo → home */}
         <Link href="/" className="flex items-center gap-2" aria-label="SwingVantage home">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-golf-fairway shrink-0">
-            <span className="text-sm font-black text-white">SQ</span>
+            <span className="text-sm font-black text-white">SV</span>
           </div>
           <span className="text-lg font-bold text-foreground">SwingVantage</span>
         </Link>

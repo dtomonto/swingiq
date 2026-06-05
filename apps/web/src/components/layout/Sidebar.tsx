@@ -191,7 +191,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       <div className="px-6 py-5 border-b border-border flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-golf-fairway rounded-lg flex items-center justify-center shrink-0">
-            <span className="text-white font-black text-sm">SQ</span>
+            <span className="text-white font-black text-sm">SV</span>
           </div>
           <div>
             <span className="text-foreground font-bold text-lg">SwingVantage</span>

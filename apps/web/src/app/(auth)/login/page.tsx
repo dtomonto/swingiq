@@ -20,7 +20,7 @@ export default function LoginPage() {
       {/* Logo */}
       <div className="flex items-center gap-3 mb-8">
         <div className="w-10 h-10 bg-golf-fairway rounded-xl flex items-center justify-center">
-          <span className="text-white font-black text-base">SQ</span>
+          <span className="text-white font-black text-base">SV</span>
         </div>
         <div>
           <p className="text-white font-bold text-xl leading-tight">SwingVantage</p>

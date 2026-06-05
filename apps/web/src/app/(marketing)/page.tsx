@@ -46,10 +46,12 @@ const HOW_IT_WORKS = [
 ];
 
 const FAQS = [
+  { q: 'What is SwingVantage?', a: 'SwingVantage is a free, AI-powered swing analysis platform for golf, tennis, baseball, and softball. Upload a swing video or import launch-monitor data and it gives you a clear read on your highest-impact swing fault, sport-specific drills, and a practice plan — a smarter vantage point on your swing, without expensive private coaching.' },
   { q: 'Is SwingVantage free?', a: "Yes. SwingVantage's full analysis, drill recommendations, and progress tracking are free. No credit card required." },
   { q: 'Do I need to create an account?', a: 'No — you can start instantly with no account, and your data is saved privately in your browser. You can move it to another device anytime with Backup & Restore, and optional accounts with automatic cloud sync are on the way.' },
   { q: 'What sports does SwingVantage support?', a: 'Golf, tennis, baseball, slow pitch softball, and fast pitch softball — each with its own sport-specific diagnostic engine.' },
   { q: 'Does SwingVantage replace a coach?', a: 'SwingVantage is your everyday improvement edge — it pinpoints the single highest-impact fix in your swing and hands you the drills and plan to groove it, no appointment needed. For injury concerns or advanced technique work it pairs perfectly with a qualified coach, and you will show up to those sessions already ahead.' },
+  { q: 'Can parents use SwingVantage for youth athletes?', a: 'Yes. Parents and coaches use SwingVantage to give young athletes clear, encouraging feedback in plain language. It is built with youth safety in mind — and it pairs with, rather than replaces, a qualified coach for injury or advanced-technique concerns.' },
   { q: 'Is my swing video private?', a: 'Yes. Video analysis runs in your browser. Videos are not shared publicly by default.' },
 ];
 
@@ -61,7 +63,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-10 h-10 bg-golf-fairway rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-base">SQ</span>
+              <span className="text-white font-black text-base">SV</span>
             </div>
             <span className="text-primary-foreground font-bold text-2xl">SwingVantage</span>
           </div>
@@ -69,11 +71,11 @@ export default function HomePage() {
             <LiveAndFreeBadge />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            The Swing Coach in Your Pocket for<br />
+            See your swing from a smarter vantage.<br />
             <span className="text-primary-foreground/80">Golf, Tennis, Baseball &amp; Softball</span>
           </h1>
           <p className="text-primary-foreground/90 text-xl mb-10 max-w-2xl mx-auto">
-            The improvement edge every athlete — and every parent of an athlete — has wished for.
+            SwingVantage is the improvement edge every athlete — and every parent of an athlete — has wished for.
             Upload a swing and get the one fix that matters most, the drills to groove it, and a plan that gets you there.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

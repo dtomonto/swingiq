@@ -77,7 +77,7 @@ export default function SportSelectionPage() {
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <span className="w-8 h-8 bg-golf-fairway rounded-lg flex items-center justify-center shrink-0">
-              <span className="text-white font-black text-sm">SQ</span>
+              <span className="text-white font-black text-sm">SV</span>
             </span>
             <span className="text-foreground font-bold text-lg">SwingVantage</span>
           </Link>

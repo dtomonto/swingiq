@@ -21,7 +21,7 @@ export default function NotFound() {
         {/* Logo */}
         <Link href="/" className="inline-flex items-center gap-2 mb-8">
           <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-            <span className="text-white font-black text-sm">SQ</span>
+            <span className="text-white font-black text-sm">SV</span>
           </div>
           <span className="text-foreground font-bold text-xl">SwingVantage</span>
         </Link>

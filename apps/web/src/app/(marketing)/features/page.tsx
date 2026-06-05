@@ -270,7 +270,7 @@ export default function FeaturesPage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-sm">SQ</span>
+              <span className="text-white font-black text-sm">SV</span>
             </div>
             <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
           </div>
