@@ -61,6 +61,7 @@ const KIND_META: Record<InsightKind, { label: string; badge: Parameters<typeof B
   readiness: { label: 'Today', badge: 'warning' },
   keystone: { label: 'Keystone', badge: 'critical' },
   goal: { label: 'Your goal', badge: 'info' },
+  progress: { label: 'Progress', badge: 'success' },
   strength: { label: 'Strength', badge: 'success' },
   transfer: { label: 'Transfer', badge: 'info' },
   imbalance: { label: 'Transfer gap', badge: 'warning' },

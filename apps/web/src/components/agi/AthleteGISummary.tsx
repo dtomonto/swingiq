@@ -10,7 +10,7 @@
 // ============================================================
 
 import Link from 'next/link';
-import { BrainCircuit, ArrowRight, Target, Gauge } from 'lucide-react';
+import { BrainCircuit, ArrowRight, Target, Gauge, TrendingUp, TrendingDown } from 'lucide-react';
 import { useAthleteGI } from '@/lib/agi/adapters/useAthleteGI';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -23,10 +23,12 @@ const BAND_DOT: Record<string, string> = {
 };
 
 export function AthleteGISummary() {
-  const { model, insights, plan } = useAthleteGI();
+  const { model, insights, plan, progress } = useAthleteGI();
   const hasData = model.dataMap.totalSessions > 0;
   const top = insights[0];
   const readiness = model.readiness;
+  const moved = progress?.keystoneMoved;
+  const trend = moved && moved.delta !== null && moved.delta !== 0 ? moved : null;
 
   // Nothing honest to show yet — stay out of the way.
   if (!hasData && !model.identity?.primaryGoal && !readiness) return null;
@@ -73,6 +75,21 @@ export function AthleteGISummary() {
             <Target className="w-3.5 h-3.5 text-primary shrink-0" aria-hidden="true" />
             <span className="text-muted-foreground">Focus:</span>
             <span className="font-medium">{plan.keystone.name}</span>
+          </p>
+        )}
+
+        {trend && (
+          <p className="text-xs flex items-center gap-1.5">
+            {trend.delta! > 0 ? (
+              <TrendingUp className="w-3.5 h-3.5 text-success shrink-0" aria-hidden="true" />
+            ) : (
+              <TrendingDown className="w-3.5 h-3.5 text-error shrink-0" aria-hidden="true" />
+            )}
+            <span className="text-muted-foreground">Trend:</span>
+            <span className={`font-medium ${trend.delta! > 0 ? 'text-success' : 'text-error'}`}>
+              {trend.name} {trend.delta! > 0 ? '+' : ''}
+              {trend.delta}
+            </span>
           </p>
         )}
 
