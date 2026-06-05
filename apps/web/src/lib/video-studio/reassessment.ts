@@ -32,6 +32,14 @@ export interface ReassessInput {
   contentChanged?: boolean;
   /** A higher-quality provider became available. */
   betterProviderAvailable?: boolean;
+  /**
+   * Whether there's enough traffic to trust the performance scores. When
+   * false, we skip engagement/education/conversion-driven recommendations
+   * (a brand-new video with no views isn't "underperforming" — it's untested).
+   * Structural checks (captions, transcript, placeholder, staleness) still run.
+   * Defaults to true.
+   */
+  hasEnoughData?: boolean;
   now?: Date;
 }
 
@@ -85,21 +93,23 @@ export function reassess(input: ReassessInput): VideoReassessment {
     signals.push(`low freshness (${score.freshness})`);
   }
 
-  // Engagement problems.
-  if (score.engagement < 45) {
+  const hasEnoughData = input.hasEnoughData !== false;
+
+  // Engagement problems (only judge once there's real traffic).
+  if (hasEnoughData && score.engagement < 45) {
     push(recs, 'new_thumbnail', 64, 'Low engagement — a stronger thumbnail can lift play rate.');
     push(recs, 'improve_script', 60, 'Low engagement — tighten the hook in the first 5 seconds.');
     signals.push(`low engagement (${score.engagement})`);
   }
 
   // Education problems (low completion / likely confusion).
-  if (score.education < 45) {
+  if (hasEnoughData && score.education < 45) {
     push(recs, 'shorten', 58, 'Viewers are not finishing — shorten to the essential steps.');
     signals.push(`low education score (${score.education})`);
   }
 
   // Conversion problems on decision-stage content.
-  if (score.conversionContribution < 30) {
+  if (hasEnoughData && score.conversionContribution < 30) {
     push(recs, 'move_placement', 48, 'Weak conversion contribution — try a higher-intent placement or stronger CTA.');
     signals.push(`low conversion contribution (${score.conversionContribution})`);
   }
@@ -117,7 +127,7 @@ export function reassess(input: ReassessInput): VideoReassessment {
   }
 
   // High need-attention + low engagement → escalate to a human.
-  if (score.recommendationPriority > 70 && score.engagement < 50) {
+  if (hasEnoughData && score.recommendationPriority > 70 && score.engagement < 50) {
     push(recs, 'human_review', 55, 'High attention score with poor engagement — a person should decide next steps.');
     signals.push('escalated for human review');
   }
