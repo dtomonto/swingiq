@@ -518,11 +518,24 @@ describe('AGI — v2: bands, trajectory, trust, plateau, translations, plan', ()
     expect(rot.trajectory!.deltaFromFirst).toBe(15);
   });
 
-  it('grades trust low on an empty model and explains why', () => {
+  it('grades trust low on an empty model and nudges the first capture', () => {
     const t = gradeModel(buildWorldModel({ signals: [], sportSessions: [] }));
     expect(t.grade).toBe('D');
     expect(t.score).toBeLessThan(40);
     expect(t.reasons.join(' ')).toMatch(/blank slate|not yet observed/i);
+    expect(t.nextStep?.text).toMatch(/first Motion Lab/i);
+    expect(t.nextStep?.href).toBe('/motion-lab');
+  });
+
+  it('nudges a 2-camera "true 3D" capture when scores are single-camera estimates', () => {
+    const t = gradeModel(
+      buildWorldModel({
+        signals: [sig('rotation', 'golf', 55, { basis: 'estimated' as Basis })],
+        sportSessions: [sessionRef('golf', 60)],
+      }),
+    );
+    expect(t.nextStep?.text).toMatch(/2-camera|true 3D/i);
+    expect(t.nextStep?.href).toBe('/motion-lab');
   });
 
   it('flags a plateau when the focus capability stalls', () => {

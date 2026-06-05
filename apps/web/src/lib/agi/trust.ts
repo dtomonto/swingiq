@@ -63,5 +63,26 @@ export function gradeModel(model: AthleteWorldModel): TrustGrade {
           ? 'Early picture — directional, not definitive.'
           : 'Thin picture — treat it as a first sketch.';
 
-  return { grade, score, headline, reasons: reasons.slice(0, 4) };
+  // The single highest-impact action to raise the grade, with a deep link.
+  let nextStep: TrustGrade['nextStep'];
+  if (model.dataMap.totalSessions === 0) {
+    nextStep = { text: 'Run your first Motion Lab analysis to seed your model.', href: '/motion-lab' };
+  } else if (basisAvg > 0 && basisAvg < 3.5) {
+    nextStep = {
+      text: 'Capture a 2-camera “true 3D” analysis — it measures depth instead of estimating it, which raises the certainty of every score.',
+      href: '/motion-lab',
+    };
+  } else if (model.sports.length < 2) {
+    nextStep = {
+      text: 'Analyse a second sport so the engine can find what transfers between them.',
+      href: '/motion-lab',
+    };
+  } else if (observed.length < CAPABILITIES.length) {
+    nextStep = {
+      text: 'A few more captures will fill in the capabilities not yet observed.',
+      href: '/motion-lab',
+    };
+  }
+
+  return { grade, score, headline, reasons: reasons.slice(0, 4), nextStep };
 }

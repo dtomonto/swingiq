@@ -304,6 +304,8 @@ export interface TrustGrade {
   headline: string;
   /** What is holding it up / what would raise it. */
   reasons: string[];
+  /** The single highest-impact action to raise the grade (with a deep link). */
+  nextStep?: { text: string; href: string };
 }
 
 /** The keystone capability phrased in each of the athlete's sports. */

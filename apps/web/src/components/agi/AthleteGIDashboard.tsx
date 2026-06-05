@@ -167,6 +167,14 @@ function TrustBadge({ trust }: { trust: AthleteGIResult['trust'] }) {
             </li>
           ))}
         </ul>
+        {trust.nextStep && (
+          <Link
+            href={trust.nextStep.href}
+            className="mt-2 block rounded-md bg-primary/10 px-2 py-1.5 text-[10px] font-medium text-primary hover:bg-primary/15"
+          >
+            → {trust.nextStep.text}
+          </Link>
+        )}
       </div>
     </details>
   );
