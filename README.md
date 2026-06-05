@@ -251,7 +251,7 @@ SwingVantage is available in 20 languages with full Spanish and French translati
 ```
 swingiq/
 ├── apps/
-│   └── web/                    # Next.js 15 App Router — mobile-optimized
+│   └── web/                    # Next.js 16 App Router — mobile-optimized
 │       ├── public/             # robots.txt, manifest
 │       └── src/
 │           ├── app/            # 90+ routes (App Router)
@@ -394,7 +394,7 @@ Start here: **[docs/BEGINNER_START_HERE.md](docs/BEGINNER_START_HERE.md)**
 
 | Layer | Technology |
 |---|---|
-| Web Framework | Next.js 15 (App Router), TypeScript 5 |
+| Web Framework | Next.js 16 (App Router), TypeScript 6 |
 | Styling | Tailwind CSS, Radix UI primitives, 7-theme semantic-token system |
 | State | Zustand (localStorage-persisted) |
 | Server State | TanStack Query |
@@ -526,7 +526,7 @@ SwingVantage has a production-grade security posture:
 - Production source maps disabled
 - Supabase session middleware (activates on env key presence)
 - ADMIN_SECRET protects all `/admin` routes and `/api/research/*` endpoints
-- Rate limiting on all AI/video endpoints (in-memory; Upstash Redis upgrade path documented)
+- Rate limiting on all AI/video endpoints — distributed (Upstash Redis REST) when configured, with an in-memory per-IP fallback that never fails open (`lib/rate-limit.ts`)
 - Automated CI: Gitleaks secret scan, npm audit, GitHub CodeQL, custom scanner
 - Supabase RLS SQL ready to apply (`apps/web/supabase-rls.sql`)
 

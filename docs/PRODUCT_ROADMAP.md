@@ -22,7 +22,7 @@ _Last updated: June 2026_
 ## Current State (Built)
 
 ### Core Platform
-- Next.js 15 App Router with TypeScript, Tailwind CSS, Zustand, Radix UI
+- Next.js 16 App Router with TypeScript, Tailwind CSS, Zustand, Radix UI
 - Multi-sport support: golf, tennis, baseball, slow pitch softball, fast pitch softball
 - Sport context with persistent localStorage selection
 - Authenticated app shell with mobile bottom nav + desktop sidebar
@@ -97,7 +97,7 @@ _Last updated: June 2026_
 
 ### Infrastructure
 - Auth middleware (Supabase-ready, activates on env key presence)
-- Rate limiter (in-memory, per-IP)
+- Rate limiter — distributed (Upstash Redis) when configured, in-memory per-IP fallback
 - CI security scan pipeline
 - Admin guard middleware
 - IDOR protection on data routes

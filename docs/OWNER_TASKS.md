@@ -9,7 +9,7 @@ Use this file to track what has already been built and what you still need to se
 ### Core Platform
 - [x] Multi-sport platform: golf, tennis, baseball, slow pitch softball, fast pitch softball
 - [x] Sport context — switching sport changes the entire app experience
-- [x] Turborepo monorepo with `@swingiq/core` package and `apps/web` Next.js 15 app
+- [x] Turborepo monorepo with `@swingiq/core` package and `apps/web` Next.js 16 app
 - [x] Zustand state management with localStorage persistence (works offline, no Supabase required)
 - [x] Mobile-optimized responsive layout — works on any phone, tablet, or desktop
 

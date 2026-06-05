@@ -25,16 +25,15 @@ SwingVantage is a **Turborepo monorepo** with the following workspaces:
 
 | Workspace | Path | Purpose |
 |-----------|------|---------|
-| `@swingiq/web` | `apps/web` | Next.js 15 web app — primary product |
+| `@swingiq/web` | `apps/web` | Next.js 16 web app — primary product |
 | `@swingiq/core` | `packages/core` | Shared TypeScript: types, diagnostic engine, training routines, CSV normalizer, scoring |
-| `@swingiq/config` | `packages/config` | Shared ESLint/TS config |
 | `server` | `server/` | Supabase PostgreSQL schema (not yet applied) |
 
 ---
 
 ## Framework & Routing
 
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **React version:** React 19
 - **TypeScript:** Yes, strict mode across all packages
 - **Routing:** App Router (`apps/web/src/app/`) — file-based routing

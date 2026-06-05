@@ -27,9 +27,9 @@ Each section follows this format:
 
 ---
 
-## 1. Framework: Next.js 14 (App Router)
+## 1. Framework: Next.js 16 (App Router)
 
-**Decision:** The web app is built with Next.js 14 using the App Router.
+**Decision:** The web app is built with Next.js 16 using the App Router.
 
 **Why:**
 - Next.js is the most popular React framework for production apps
