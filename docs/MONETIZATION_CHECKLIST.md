@@ -2,6 +2,14 @@
 
 _Built from the master audit (`docs/master-audit-report.md`) + a read of the actual billing code. Last updated: June 2026._
 
+> ## ⛳ This is the **Phase 3** runbook — not the next step
+> SwingIQ's monetization order is fixed (see **`docs/MONETIZATION_STRATEGY.md`**, the north star):
+> **Phase 1 grow free users → Phase 2 ads (first revenue) → Phase 3 membership tiers.**
+> Paid subscriptions are **Phase 3**, and the gate to start them is *ads already producing
+> stable revenue*. The Stripe/Pro/Team code is pre-built and **deliberately dormant** (waitlist
+> until keys exist) — that's intentional pre-building, **not** a signal to charge now. Use this
+> checklist as the step-by-step playbook **when Phase 3 begins**, not before.
+
 ---
 
 ## 📘 In Plain English (start here)

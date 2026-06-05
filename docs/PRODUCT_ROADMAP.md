@@ -187,6 +187,20 @@ _Last updated: June 2026_
 
 ## Monetization Roadmap
 
+**Order is fixed (see `docs/MONETIZATION_STRATEGY.md`, the north star):**
+**Phase 1 — grow the free user base (now) → Phase 2 — monetize via ads (first revenue) →
+Phase 3 — roll out membership tiers.** Each phase advances only when the gate ahead of it is
+met (a returning audience → stable ad revenue), not on a date. The tiers below are **Phase 3**
+— the Stripe rails are pre-built but deliberately dormant until ad revenue proves the model.
+
+**Phase 2 (ads) note:** ads are the *first* revenue, earned from the free audience without
+charging anyone. They stay non-intrusive and **youth-safe (contextual / non-personalized)**
+given junior athletes. Wired keyless-first: the `ads` capability is off until an ad-network
+id is set (`apps/web/src/lib/capabilities.ts`, `.env.example` → "Ads"). "Remove ads" then
+becomes a natural Pro perk in Phase 3.
+
+### Phase 3 tiers (dormant until ad revenue proves out)
+
 | Tier | Price | Key Limits | Target Segment |
 |---|---|---|---|
 | Free | $0 | 30-day history, 3 routines, basic diagnosis | Self-coached athletes, trial users |

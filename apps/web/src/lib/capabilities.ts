@@ -34,6 +34,18 @@ export const isSupabaseConfigured: boolean =
   isConfigured(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
   isConfigured(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
+/**
+ * Ads — Phase 2 of the monetization strategy (first revenue from the free
+ * audience; see docs/MONETIZATION_STRATEGY.md). Keyless-first: with no
+ * ad-network id set, SwingIQ renders ZERO ads (the clean free experience).
+ * Ads only appear once a network is configured — mirroring how Stripe stays
+ * a waitlist until keys exist. Client-safe (only references NEXT_PUBLIC_* vars).
+ * Keep any rendered ads non-personalized / contextual for youth-safety.
+ */
+export const isAdsConfigured: boolean =
+  isConfigured(process.env.NEXT_PUBLIC_ADS_PROVIDER) &&
+  isConfigured(process.env.NEXT_PUBLIC_ADS_CLIENT_ID);
+
 // ── Server-only capability checks ───────────────────────────
 // Call these from Server Components, Route Handlers, or Server
 // Actions only — they read secret env vars.
@@ -166,6 +178,8 @@ export interface CapabilitySummary {
   email: boolean;
   /** Live paid checkout (else: waitlist). */
   billing: boolean;
+  /** Ads enabled (Phase 2; else: clean ad-free free experience). */
+  ads: boolean;
 }
 
 export function getServerCapabilities(): CapabilitySummary {
@@ -176,5 +190,6 @@ export function getServerCapabilities(): CapabilitySummary {
     ocr: isOcrConfigured(),
     email: isEmailConfigured(),
     billing: isStripeConfigured(),
+    ads: isAdsConfigured,
   };
 }
