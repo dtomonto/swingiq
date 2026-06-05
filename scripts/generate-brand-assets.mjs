@@ -9,7 +9,7 @@
 //   - apple-icon.png  (180x180)   iOS home-screen icon
 //
 // Pure code, no design files: the mark is the brand green (#1a3a2a)
-// with the "SQ" wordmark, matching the in-app header badge.
+// with the "SV" monogram, matching the in-app header badge.
 //
 // Run:  node scripts/generate-brand-assets.mjs
 // Safe to re-run; it overwrites the generated files deterministically.
@@ -42,7 +42,7 @@ function iconSvg(size) {
   <rect width="${size}" height="${size}" rx="${radius}" ry="${radius}" fill="url(#g)"/>
   <text x="50%" y="50%" dy="0.06em" text-anchor="middle" dominant-baseline="middle"
         font-family="${FONT}" font-size="${fontSize}" font-weight="900" fill="${WHITE}"
-        letter-spacing="-2">SQ</text>
+        letter-spacing="-2">SV</text>
 </svg>`;
 }
 
@@ -58,10 +58,10 @@ function ogSvg() {
     </linearGradient>
   </defs>
   <rect width="${W}" height="${H}" fill="url(#bg)"/>
-  <!-- SQ badge -->
+  <!-- SV badge -->
   <rect x="96" y="120" width="150" height="150" rx="34" fill="${WHITE}"/>
   <text x="171" y="210" text-anchor="middle" dominant-baseline="middle"
-        font-family="${FONT}" font-size="78" font-weight="900" fill="${GREEN}" letter-spacing="-3">SQ</text>
+        font-family="${FONT}" font-size="78" font-weight="900" fill="${GREEN}" letter-spacing="-3">SV</text>
   <!-- Wordmark -->
   <text x="288" y="212" font-family="${FONT}" font-size="92" font-weight="900" fill="${WHITE}" letter-spacing="-2">SwingVantage</text>
   <!-- Tagline -->
