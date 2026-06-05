@@ -58,6 +58,7 @@ function scoreText(score: number | null): string {
 }
 
 const KIND_META: Record<InsightKind, { label: string; badge: Parameters<typeof Badge>[0]['variant'] }> = {
+  readiness: { label: 'Today', badge: 'warning' },
   keystone: { label: 'Keystone', badge: 'critical' },
   goal: { label: 'Your goal', badge: 'info' },
   strength: { label: 'Strength', badge: 'success' },
@@ -171,6 +172,12 @@ function PlanSection({ result }: { result: AthleteGIResult }) {
             {BASIS_LABEL[plan.basis]} · {pct(plan.confidence)} conf.
           </span>
         </div>
+
+        {plan.todayNote && (
+          <p className="text-xs text-foreground rounded-lg bg-warning/10 border border-warning/30 px-3 py-2">
+            {plan.todayNote}
+          </p>
+        )}
 
         <div className="rounded-lg border border-primary/30 bg-primary/5 p-3 space-y-1.5">
           <div className="flex items-center gap-2">

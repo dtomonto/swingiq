@@ -15,13 +15,21 @@ import { useAthleteGI } from '@/lib/agi/adapters/useAthleteGI';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 
+const BAND_DOT: Record<string, string> = {
+  sharp: 'bg-success',
+  solid: 'bg-success',
+  developing: 'bg-warning',
+  building: 'bg-warning',
+};
+
 export function AthleteGISummary() {
   const { model, insights, plan } = useAthleteGI();
   const hasData = model.dataMap.totalSessions > 0;
   const top = insights[0];
+  const readiness = model.readiness;
 
   // Nothing honest to show yet — stay out of the way.
-  if (!hasData && !model.identity?.primaryGoal) return null;
+  if (!hasData && !model.identity?.primaryGoal && !readiness) return null;
 
   return (
     <Card>
@@ -46,6 +54,17 @@ export function AthleteGISummary() {
         ) : (
           <p className="text-xs text-muted-foreground">
             Analyse a session and the engine ties cross-sport insights to your stated goal.
+          </p>
+        )}
+
+        {readiness && (
+          <p className="text-xs text-foreground flex items-center gap-1.5">
+            <span
+              className={`w-2 h-2 rounded-full shrink-0 ${readiness.caution ? 'bg-error' : BAND_DOT[readiness.band] ?? 'bg-muted'}`}
+              aria-hidden="true"
+            />
+            <span className="text-muted-foreground">Today:</span>
+            <span className="font-medium capitalize">{readiness.caution ? 'take care' : readiness.band}</span>
           </p>
         )}
 
