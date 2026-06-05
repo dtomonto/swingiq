@@ -218,6 +218,30 @@ Found at **Analyze → Motion Lab (3D)** in the sidebar (or `/motion-lab`). Moti
 
 ---
 
+## 9c. Athlete GI — Your Cross-Sport Read
+
+Found at **Analyze → Athlete GI** in the sidebar (or `/agi`). Where every other tool is a *specialist* (one reads biomechanics, one matches drills, one tracks progress), **Athlete GI is the generalist** — it looks at everything you've analyzed, across every sport, at once.
+
+**What it tells you:**
+- Your **keystone** — the single skill that, once it improves, helps the most sports at the same time.
+- What **transfers** between your sports (e.g. the rotation you've built in golf showing up in your tennis).
+- **Recurring faults and plateaus**, and how your whole profile is trending over time — not just one number.
+- **One plan**, scaled to how ready you are today, that leads with the drills *you* have already marked as helpful.
+
+**How honest it is:** every conclusion shows *why* it reached it and *how confident* it is, and the whole picture carries a single **A–D trust grade** (with what would raise it). Single-camera inputs are always called estimates, never lab measurements. Nothing here is medical advice.
+
+**Commit and prove it:** you can **commit to your plan** — Athlete GI sets a 2-week retest date and reminds you when it's due, so the loop actually closes. You can also copy, email, web-share, or print your cross-sport report to give to a coach. A compact summary shows up on your Today dashboard once you have a session, a stated goal, or a readiness signal.
+
+It builds on the data you already have and gets sharper the more you analyze. No AI account required.
+
+---
+
+## 9d. 3D Swing Avatar
+
+Found at **Analyze → 3D Swing Avatar** in the sidebar (or `/avatar`). A lightweight, rotatable **3D avatar view** of a swing for a quick visual read. For the full biomechanical breakdown — phases, metrics, scores, and a drill plan — use **Motion Lab** instead.
+
+---
+
 ## 10. Diagnose (Golf)
 
 The golf diagnostic engine analyzes your most recent session's launch-monitor data.

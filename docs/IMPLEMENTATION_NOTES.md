@@ -1,6 +1,6 @@
 # SwingIQ — Implementation Notes
 
-*Last updated: 2026-06-03. This document is maintained alongside the codebase.*
+*Last updated: 2026-06-05. This document is maintained alongside the codebase.*
 
 ---
 
@@ -71,7 +71,7 @@ SwingIQ is a **Turborepo monorepo** with the following workspaces:
 ```
 /dashboard                 Sport-aware dashboard (golf vs non-golf)
 /profile                   Sport-specific profile form
-/bag                       Golf bag / equipment management
+/equipment/[sport]         Per-sport equipment (golf bag + loft gapping); old /bag → /equipment/golf
 /sessions                  Session history
 /sessions/import           CSV import wizard (golf) / session log (other sports)
 /sessions/import/image     Image/screenshot import
@@ -83,9 +83,10 @@ SwingIQ is a **Turborepo monorepo** with the following workspaces:
 /pre-round                 Pre-round / pre-game warm-up
 /video                     Video analysis (sport-aware)
 /motion-lab                Motion Lab — browser 3D motion analysis (all sports; lib/motion-lab, lib/pose3d)
+/agi                       Athlete GI — cross-sport keystone reasoning + plan (lib/agi, components/agi)
 /coach                     Coach & Team — local-first roster over Motion Lab sessions (lib/motion-lab/roster)
 /drills                    Drill library
-/equipment                 Equipment management (non-golf)
+/equipment                 Equipment hub (all sports)
 /progress                  Progress tracking
 /arc                       Player Arc — improvement narrative, flaw fingerprint, retest outcomes
 /labs                      SwingIQ Labs — readiness, player model, skill transfer, performance graph, benchmark mirrors

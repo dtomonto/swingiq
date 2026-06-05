@@ -125,6 +125,23 @@ Generates a personalized 7-day practice week based on diagnosis and frequency pr
 - Some are early v1s; all sharpen the more you practise and retest
 - Found at **Progress → SwingIQ Labs**
 
+### 🧠 Athlete General Intelligence (`/agi`)
+- One engine that reasons across **all your sports at once** — the generalist on top of every specialist tool
+- Fuses six local signals (Motion Lab, launch-monitor, profile/goal, readiness, snapshot history, drill feedback) into one athlete model, then finds your **keystone**: the single capability limiting the most sports
+- Shows what **transfers** between sports, detects recurring faults & plateaus, tracks progress over time, and builds **one readiness-scaled plan** that leads with the drills you've personally found helpful
+- Every conclusion shows its **reasoning chain, basis, and confidence**, all under an honest **A–D trust grade**; single-camera inputs stay labeled estimates
+- **Commit-to-plan** with an approval gate sets a 2-week retest date and closes the loop; outputs a coach-shareable report; summarized on the Today dashboard
+- Deterministic and local-first (optional LLM may only re-word, never change numbers). Found at **Analyze → Athlete GI** (`lib/agi`, `components/agi`). See `docs/athlete-general-intelligence.md` + `docs/ATHLETE_GI_STRATEGY.md`
+
+### 🧑‍🏫 Coach & Team Mode (`/coach`)
+- A local-first roster for coaches and parents: group sessions by athlete, track each athlete's progress and recurring issues
+- Surfaces the **shared weakness a whole roster has in common** plus per-athlete upload tracking
+- Everything stays on your device. Found at **Analyze → Coach & Team**
+
+### 🕺 3D Swing Avatar (`/avatar`)
+- A lightweight, rotatable **3D avatar view** of a swing for a quick visual read
+- For the full biomechanical breakdown (phases, metrics, scores, drills), use **Motion Lab**. Found at **Analyze → 3D Swing Avatar**
+
 ### 🔁 Retest — Prove the Change
 - Dedicated **Retest** page (`/retest`) that closes the improvement loop
 - Reminds you when a diagnosed finding is **due for a retest** after you've drilled it
@@ -238,7 +255,7 @@ swingiq/
 │       ├── public/             # robots.txt, manifest
 │       └── src/
 │           ├── app/            # 90+ routes (App Router)
-│           │   ├── (app)       # dashboard, profile, sessions, video, motion-lab, training…
+│           │   ├── (app)       # dashboard, profile, sessions, video, motion-lab, agi, coach, avatar, training…
 │           │   ├── compare/    # Professional references + side-by-side comparison
 │           │   ├── settings/backup/  # Backup & Restore
 │           │   ├── sessions/import/image/  # Screenshot/image import wizard
@@ -251,6 +268,7 @@ swingiq/
 │           ├── contexts/       # SportContext, LanguageContext
 │           ├── hooks/          # useTutorial (tutorial progress hook)
 │           ├── lib/
+│           │   ├── agi/        # Athlete General Intelligence — cross-sport reasoning (capabilities, world model, keystone, transfer, plan, team)
 │           │   ├── motion-lab/ # Motion Lab — 3D pipeline (phases, metrics, scoring, report, drills, multiview)
 │           │   ├── pose3d/     # Proprietary 3D engine (triangulation, self-calibration, trained lift model)
 │           │   ├── pose/       # On-device MediaPipe pose detection (lite/full/heavy)
@@ -448,7 +466,9 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | `/golf/*`, `/softball/*`, `/tennis/*`, `/baseball/*` | Programmatic SEO landing pages (see `content/seoPages.ts`) |
 | `/start` | Onboarding entry point ("Start Here") |
 | `/methodology` | What SwingIQ measures vs. estimates (transparency) |
-| `/report/sample` | Worked example of a swing report |
+| `/athlete-general-intelligence` | Public explainer for Athlete GI (cross-sport keystone reasoning) |
+| `/sports` | Multi-sport hub linking the per-sport analysis pages |
+| `/sample-report` | Worked example of a swing report (old `/report/sample` redirects here) |
 | `/tools`, `/tools/*` | Free quizzes, drill & practice generators |
 | `/challenges`, `/challenges/*` | Free multi-sport practice challenges |
 | `/coaches`, `/creators`, `/teams`, `/partners` | Partner / audience landing pages |
@@ -473,6 +493,8 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | When something breaks |
 | [WEB_APP_GUIDE.md](docs/WEB_APP_GUIDE.md) | Using every app feature |
 | [motion-lab.md](docs/motion-lab.md) | **Motion Lab** — 3D motion analysis feature + pipeline (plain-English intro) |
+| [athlete-general-intelligence.md](docs/athlete-general-intelligence.md) | **Athlete GI** — the cross-sport reasoning engine (plain-English intro + architecture) |
+| [ATHLETE_GI_STRATEGY.md](docs/ATHLETE_GI_STRATEGY.md) | Athlete GI product strategy + free/Pro/Team split |
 | [pose3d.md](docs/pose3d.md) | **3D pose engine** — multi-view triangulation, self-calibration, trained lift model, ONNX upgrade path |
 | [DATA_IMPORT_GUIDE.md](docs/DATA_IMPORT_GUIDE.md) | Exporting CSV from each launch monitor brand |
 | [BACKUP_SYSTEM.md](docs/BACKUP_SYSTEM.md) | **Developer guide** — backup schema, registry, migration, tutorial system |
