@@ -247,9 +247,12 @@ function PlanSection({ result }: { result: AthleteGIResult }) {
           {plan.keystone.drills.length > 0 && (
             <ul className="mt-1 space-y-1">
               {plan.keystone.drills.map((d, i) => (
-                <li key={i} className="text-xs text-foreground flex items-start gap-1.5">
-                  <CheckCircle2 className="w-3 h-3 text-success shrink-0 mt-0.5" aria-hidden="true" />
-                  <span>{d.fix}</span>
+                <li key={i} className="text-xs flex items-start gap-1.5">
+                  <CheckCircle2
+                    className={cn('w-3 h-3 shrink-0 mt-0.5', d.proven ? 'text-success' : 'text-muted-foreground')}
+                    aria-hidden="true"
+                  />
+                  <span className={d.proven ? 'text-success font-medium' : 'text-foreground'}>{d.fix}</span>
                 </li>
               ))}
             </ul>
@@ -317,7 +320,7 @@ function EmptyState() {
 export function AthleteGIDashboard() {
   const result = useAthleteGI();
 
-  const { model, insights, transfers, trust, keystoneTranslations } = result;
+  const { model, insights, transfers, trust, keystoneTranslations, provenDrills } = result;
   const hasData = model.dataMap.totalSessions > 0;
   const goal = model.identity?.primaryGoal;
 
@@ -419,6 +422,33 @@ export function AthleteGIDashboard() {
                     </li>
                   ))}
                 </ul>
+              </CardBody>
+            </Card>
+          )}
+
+          {/* What's worked for you */}
+          {provenDrills.length > 0 && (
+            <Card>
+              <CardBody className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-success" aria-hidden="true" />
+                  <h2 className="text-sm font-semibold text-foreground">What&apos;s worked for you</h2>
+                  <span className="ml-auto text-[10px] text-muted-foreground">your own drill feedback</span>
+                </div>
+                <ul className="space-y-1.5">
+                  {provenDrills.slice(0, 6).map((d) => (
+                    <li key={d.drillId} className="text-xs text-foreground flex items-center gap-2">
+                      <CheckCircle2 className="w-3 h-3 text-success shrink-0" aria-hidden="true" />
+                      <span className="font-medium">{d.drillName}</span>
+                      <span className="text-[10px] text-muted-foreground">
+                        helped {d.helpedCount}×{d.capability ? ` · ${d.capability}` : ''}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[10px] text-muted-foreground/80 border-t border-border pt-2">
+                  These are the drills you marked as helping — the plan above leads with them.
+                </p>
               </CardBody>
             </Card>
           )}
