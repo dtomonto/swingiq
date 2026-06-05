@@ -65,7 +65,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold text-foreground mb-3">6. Third-Party Services</h2>
             <p>SwingVantage may use third-party services including:</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li><strong>Supabase:</strong> database and authentication</li>
+              <li><strong>Cloud database &amp; authentication:</strong> securely stores your account, profile, and training data</li>
               <li><strong>Vercel:</strong> hosting and infrastructure</li>
               <li><strong>OpenAI or Anthropic:</strong> AI coaching narrative generation (only pre-computed stats are sent — no raw personal data)</li>
               <li><strong>Analytics:</strong> aggregate usage analytics to improve the product</li>

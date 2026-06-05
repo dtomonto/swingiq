@@ -31,6 +31,7 @@ const PUBLIC_PATHS = new Set([
   '/login',
   '/signup',
   '/forgot-password',
+  '/reset-password',
   // Marketing & product
   '/how-it-works',
   '/methodology',
