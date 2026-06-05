@@ -31,6 +31,7 @@ export const BILLING_TIERS: BillingTier[] = [
     features: [
       'All 5 sports (golf, tennis, baseball, softball)',
       'AI swing analysis & priority-issue diagnosis',
+      'Athlete General Intelligence — your cross-sport priority + coach-shareable report',
       'Drill recommendations + practice plans',
       'Session history & progress tracking',
       'Data backup & restore',
