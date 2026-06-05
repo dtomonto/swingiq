@@ -29,6 +29,13 @@ export {
 } from './commitment';
 export { buildAgiReportText, buildAgiReportHtml, type ReportOptions } from './report';
 export {
+  buildTeamSummary,
+  type TeamMember,
+  type TeamSummary,
+  type TeamCapabilityGap,
+  type TeamMemberKeystone,
+} from './team';
+export {
   buildAthleteSummary,
   narrateAthleteSummary,
   validateAthleteNarrative,

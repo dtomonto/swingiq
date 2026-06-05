@@ -168,3 +168,28 @@ edits as Motion Lab grows.
 - **LLM narrative** → pass `enhanceNarrative` to `runAthleteGI`. It may only
   re-word the text; it can never change numbers, basis, or confidence
   (`enhanced: true` then flags that the prose was assisted).
+
+## Audit roadmap status (June 2026)
+
+An expert audit drove a 5-phase hardening roadmap. Status:
+
+- **Phase 1 — value & instrumentation (done):** `isThinModel` softens the keystone
+  to an honest "early read" + caps its confidence on thin data; a fully-populated
+  **demo athlete** (`demo.ts`) so first-timers see the wow; a classifier contract
+  test; engine analytics (`AGI_*` events).
+- **Phase 2 — trust & UX (done):** **golden-athlete eval harness** (`eval/`,
+  `npm run eval:agi`) that pins output *quality*; centralized `config/thresholds.ts`;
+  **insight feedback** ("useful?/not me", `insightFeedback.ts`); plain-language
+  glossary; safe iframe-srcdoc print.
+- **Phase 3 — grounded narrative (done, tandem):** the **athlete summarizer**
+  (`summarizer.ts`, grounded ~120-word narrative + a validator that rejects invented
+  numbers / out-of-roster sports / medical terms; optional LLM re-word behind the
+  provider) — surfaced in the `/agi` UI as the "Your read" card.
+- **Phase 4 — agentic loop (done):** **commit-to-plan** with an approval gate
+  (`commitment.ts`) → persists the focus + a 2-week retest date (audit trail) →
+  a **"retest due"** prompt closes the loop.
+- **Phase 5 — moat (engine done; wiring/infra pending):** **team intelligence**
+  (`team.ts`, `buildTeamSummary`) aggregates a roster's keystones + the top shared
+  capability gap — pure + tested; **wiring it into `/coach` and cloud-syncing
+  history (Supabase + RLS) and validating the capability ontology against outcome
+  data are owner-infra/data-gated follow-ups** (`docs/ATHLETE_GI_STRATEGY.md`).

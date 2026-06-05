@@ -13,6 +13,7 @@ import { buildWorldModel, scoreBand } from '../worldModel';
 import { isThinModel } from '../reasoning';
 import { DEMO_BUNDLE } from '../demo';
 import { buildCommitment, isRetestDue } from '../commitment';
+import { buildTeamSummary, type TeamMember } from '../team';
 import { gradeModel } from '../trust';
 import { buildKeystoneTranslations } from '../transfer';
 import { classifyMetric, goalToCapabilities } from '../capabilities';
@@ -148,6 +149,33 @@ describe('AGI — Phase 4: plan commitment + retest loop', () => {
     expect(isRetestDue(c, '2026-06-20T00:00:00.000Z')).toBe(true);
     expect(isRetestDue({ ...c, status: 'done' }, '2026-06-20T00:00:00.000Z')).toBe(false);
     expect(isRetestDue(null, '2026-06-20T00:00:00.000Z')).toBe(false);
+  });
+});
+
+describe('AGI — Phase 5: team intelligence (moat engine)', () => {
+  function member(id: string, bundle: SignalBundle): TeamMember {
+    return { athleteId: id, name: id, result: runAthleteGI(bundle) };
+  }
+  const threeSessions = (sport: SportId) => [sessionRef(sport, 60), sessionRef(sport, 61), sessionRef(sport, 62)];
+
+  it('aggregates roster keystones and the top shared gap', () => {
+    const team = buildTeamSummary([
+      member('a', { signals: [sig('rotation', 'golf', 42), sig('balance', 'golf', 80)], sportSessions: threeSessions('golf') }),
+      member('b', { signals: [sig('rotation', 'golf', 45), sig('balance', 'golf', 78)], sportSessions: threeSessions('golf') }),
+      member('c', { signals: [sig('rotation', 'golf', 75), sig('balance', 'golf', 50)], sportSessions: threeSessions('golf') }),
+    ]);
+    expect(team.memberCount).toBe(3);
+    expect(team.rosterKeystones).toHaveLength(3);
+    expect(team.topSharedGap?.capability).toBe('rotation'); // 2 of 3 weak in rotation
+    expect(team.topSharedGap?.athletesAffected).toBe(2);
+    expect(team.summary).toMatch(/rotation/i);
+  });
+
+  it('handles an empty roster honestly', () => {
+    const team = buildTeamSummary([]);
+    expect(team.memberCount).toBe(0);
+    expect(team.topSharedGap).toBeNull();
+    expect(team.summary).toMatch(/no athletes/i);
   });
 });
 
