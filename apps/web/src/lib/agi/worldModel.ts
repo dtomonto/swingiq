@@ -14,9 +14,13 @@ import { CAPABILITIES } from './capabilities';
 import type {
   AthleteWorldModel,
   Basis,
+  AGISnapshot,
+  CapabilityId,
   CapabilitySignal,
   CapabilityState,
   CapabilityPerSport,
+  CapabilityTrajectory,
+  ScoreBand,
   SignalBundle,
 } from './types';
 
@@ -40,6 +44,32 @@ const round = (n: number, p = 0) => {
   return Math.round(n * f) / f;
 };
 
+/** Honest, non-clinical band for a 0–100 score. */
+export function scoreBand(score: number): ScoreBand {
+  if (score >= 80) return 'sharp';
+  if (score >= 60) return 'solid';
+  if (score >= 40) return 'developing';
+  return 'building';
+}
+
+/** Trend of a capability across snapshots (oldest → newest) + the current value. */
+function computeTrajectory(
+  capId: CapabilityId,
+  currentScore: number | null,
+  history: AGISnapshot[],
+): CapabilityTrajectory | null {
+  const points: number[] = [];
+  for (const snap of history) {
+    const s = snap.capabilities.find((c) => c.id === capId)?.score;
+    if (typeof s === 'number') points.push(s);
+  }
+  if (currentScore !== null) points.push(currentScore);
+  if (points.length < 2) return null;
+  const deltaFromFirst = round(points[points.length - 1] - points[0]);
+  const direction = deltaFromFirst > 3 ? 'up' : deltaFromFirst < -3 ? 'down' : 'flat';
+  return { direction, deltaFromFirst, points };
+}
+
 /** Confidence-weighted mean of {score, confidence} rows. Returns null if empty. */
 function weightedScore(rows: Array<{ score: number; confidence: number }>): number | null {
   if (rows.length === 0) return null;
@@ -58,8 +88,10 @@ function buildCapabilityState(
   name: string,
   description: string,
   signals: CapabilitySignal[],
+  history: AGISnapshot[],
 ): CapabilityState {
   const score = weightedScore(signals);
+  const roundedScore = score === null ? null : round(score);
   // Aggregate confidence: mean confidence, lightly damped when only 1 sample.
   const meanConf =
     signals.length === 0 ? 0 : signals.reduce((s, x) => s + x.confidence, 0) / signals.length;
@@ -83,7 +115,9 @@ function buildCapabilityState(
     capability: capId,
     name,
     description,
-    score: score === null ? null : round(score),
+    score: roundedScore,
+    band: roundedScore === null ? null : scoreBand(roundedScore),
+    trajectory: computeTrajectory(capId, roundedScore, history),
     confidence: round(confidence, 2),
     basis: weakestBasis(signals.map((s) => s.basis)),
     sports,
@@ -121,12 +155,14 @@ export function buildWorldModel(bundle: SignalBundle): AthleteWorldModel {
           return (signalCountBySport.get(b) ?? 0) - (signalCountBySport.get(a) ?? 0);
         })[0];
 
+  const history = bundle.history ?? [];
   const capabilities = CAPABILITIES.map((def) =>
     buildCapabilityState(
       def.id,
       def.name,
       def.description,
       bundle.signals.filter((s) => s.capability === def.id),
+      history,
     ),
   );
 

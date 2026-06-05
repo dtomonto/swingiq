@@ -9,7 +9,9 @@
 
 import type { GolferProfileInput } from '@swingiq/core';
 import { runAthleteGI } from '../engine';
-import { buildWorldModel } from '../worldModel';
+import { buildWorldModel, scoreBand } from '../worldModel';
+import { gradeModel } from '../trust';
+import { buildKeystoneTranslations } from '../transfer';
 import { classifyMetric, goalToCapabilities } from '../capabilities';
 import { identityFromStore } from '../adapters/profile';
 import { bundleFromStore } from '../adapters/store-sessions';
@@ -486,5 +488,80 @@ describe('AGI — recurring faults', () => {
       ],
     };
     expect(runAthleteGI(bundle).insights.find((i) => i.kind === 'recurring')).toBeUndefined();
+  });
+});
+
+describe('AGI — v2: bands, trajectory, trust, plateau, translations, plan', () => {
+  it('assigns honest score bands', () => {
+    expect(scoreBand(30)).toBe('building');
+    expect(scoreBand(50)).toBe('developing');
+    expect(scoreBand(70)).toBe('solid');
+    expect(scoreBand(85)).toBe('sharp');
+  });
+
+  it('attaches a band + trajectory from history', () => {
+    const history: AGISnapshot[] = [
+      { at: '2026-05-01T00:00:00.000Z', coverage: 0.3, keystone: 'rotation', sports: ['golf'], capabilities: [{ id: 'rotation', score: 40, basis: 'estimated' }] },
+      { at: '2026-05-15T00:00:00.000Z', coverage: 0.4, keystone: 'rotation', sports: ['golf'], capabilities: [{ id: 'rotation', score: 48, basis: 'estimated' }] },
+    ];
+    const model = buildWorldModel({
+      signals: [sig('rotation', 'golf', 55)],
+      sportSessions: [sessionRef('golf', 60)],
+      history,
+    });
+    const rot = model.capabilities.find((c) => c.capability === 'rotation')!;
+    expect(rot.band).toBe('developing');
+    expect(rot.trajectory).toBeTruthy();
+    expect(rot.trajectory!.direction).toBe('up'); // 40 → 48 → 55
+    expect(rot.trajectory!.deltaFromFirst).toBe(15);
+  });
+
+  it('grades trust low on an empty model and explains why', () => {
+    const t = gradeModel(buildWorldModel({ signals: [], sportSessions: [] }));
+    expect(t.grade).toBe('D');
+    expect(t.score).toBeLessThan(40);
+    expect(t.reasons.join(' ')).toMatch(/blank slate|not yet observed/i);
+  });
+
+  it('flags a plateau when the focus capability stalls', () => {
+    const history: AGISnapshot[] = [
+      { at: '2026-05-01T00:00:00.000Z', coverage: 0.3, keystone: 'rotation', sports: ['golf'], capabilities: [{ id: 'rotation', score: 45, basis: 'estimated' }] },
+      { at: '2026-05-15T00:00:00.000Z', coverage: 0.3, keystone: 'rotation', sports: ['golf'], capabilities: [{ id: 'rotation', score: 46, basis: 'estimated' }] },
+    ];
+    const result = runAthleteGI({
+      signals: [sig('rotation', 'golf', 45), sig('balance', 'golf', 72)],
+      sportSessions: [sessionRef('golf', 58)],
+      history,
+    });
+    const plateau = result.insights.find((i) => i.kind === 'plateau');
+    expect(plateau).toBeTruthy();
+    expect(plateau!.capability).toBe('rotation');
+  });
+
+  it('phrases the keystone in each of the athlete sports', () => {
+    const model = buildWorldModel({
+      signals: [sig('rotation', 'golf', 45), sig('rotation', 'tennis', 48)],
+      sportSessions: [sessionRef('golf', 55), sessionRef('tennis', 52)],
+    });
+    const labels = new Map<SportId, string>([
+      ['golf', 'Golf'],
+      ['tennis', 'Tennis'],
+    ]);
+    const trans = buildKeystoneTranslations('rotation', model, labels);
+    expect(trans.length).toBe(2);
+    expect(trans.map((t) => t.sport).sort()).toEqual(['golf', 'tennis']);
+    expect(trans[0].text.length).toBeGreaterThan(0);
+  });
+
+  it('scales the weekly plan by readiness and interleaves sports', () => {
+    const lowForm = runAthleteGI({
+      signals: [sig('rotation', 'golf', 45), sig('rotation', 'tennis', 48)],
+      sportSessions: [sessionRef('golf', 55), sessionRef('tennis', 52)],
+      readiness: readiness('building'),
+    });
+    const mon = lowForm.plan.week.find((d) => d.day === 'Mon')!;
+    expect(mon.minutes).toBe(16); // scaled down from 25 on a low-energy day
+    // multi-sport keystone → the block names a sport
+    expect(mon.focus).toMatch(/Golf|Tennis/);
   });
 });

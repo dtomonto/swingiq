@@ -8,6 +8,7 @@
 // the drill library.
 // ============================================================
 
+import type { SportId } from '@swingiq/core';
 import type {
   AthleteWorldModel,
   Basis,
@@ -120,15 +121,25 @@ export function buildGeneralPlan(
     .slice(0, 2)
     .map((c) => focusFor(c, bundle));
 
-  // A simple, honest weekly structure: keystone 3×, supporting woven in.
+  // A weekly structure: keystone 3×, supporting woven in. Minutes scale with
+  // today's readiness, and when the athlete trains multiple sports the keystone
+  // block rotates its sport context (one trait, trained across sports).
   const supportNames = supporting.map((s) => s.name);
+  const r = model.readiness;
+  const heavy = r?.caution ? 0 : r && (r.band === 'building' || r.band === 'developing') ? 16 : 25;
+  const light = r?.caution ? 0 : 14;
+  const sat = r?.caution ? 0 : 30;
+  const labelOf = (s: SportId) => bundle.sportSessions.find((x) => x.sport === s)?.sportLabel ?? s;
+  const sportsH = keystone.sportsHelped;
+  const ctx = (i: number) => (sportsH.length >= 2 ? ` — ${labelOf(sportsH[i % sportsH.length])}` : '');
+
   const week: GeneralPlan['week'] = [
-    { day: 'Mon', focus: `${keystone.name} — primary block`, minutes: 25 },
-    { day: 'Tue', focus: supportNames[0] ? `${supportNames[0]} — light` : 'Easy reps / feel', minutes: 15 },
-    { day: 'Wed', focus: `${keystone.name} — primary block`, minutes: 25 },
+    { day: 'Mon', focus: `${keystone.name}${ctx(0)} — primary block`, minutes: heavy },
+    { day: 'Tue', focus: supportNames[0] ? `${supportNames[0]} — light` : 'Easy reps / feel', minutes: light },
+    { day: 'Wed', focus: `${keystone.name}${ctx(1)} — primary block`, minutes: heavy },
     { day: 'Thu', focus: 'Rest or easy movement', minutes: 0 },
-    { day: 'Fri', focus: supportNames[1] ? `${supportNames[1]} — light` : `${keystone.name} — feel only`, minutes: 15 },
-    { day: 'Sat', focus: `${keystone.name} + play / on-field transfer`, minutes: 30 },
+    { day: 'Fri', focus: supportNames[1] ? `${supportNames[1]} — light` : `${keystone.name} — feel only`, minutes: light },
+    { day: 'Sat', focus: `${keystone.name}${ctx(2)} + play / on-field transfer`, minutes: sat },
     { day: 'Sun', focus: 'Rest', minutes: 0 },
   ];
 

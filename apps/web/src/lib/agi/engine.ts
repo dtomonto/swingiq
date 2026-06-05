@@ -9,10 +9,11 @@
 
 import { buildWorldModel } from './worldModel';
 import { reason } from './reasoning';
-import { buildTransfers } from './transfer';
+import { buildTransfers, buildKeystoneTranslations } from './transfer';
 import { buildGeneralPlan } from './planner';
 import { buildProgress, progressToInsight } from './progress';
-import type { AthleteGIResult, SignalBundle } from './types';
+import { gradeModel } from './trust';
+import type { AthleteGIResult, SignalBundle, SportId } from './types';
 
 export const AGI_VERSION = 'agi-1.0.0';
 
@@ -41,6 +42,13 @@ export function runAthleteGI(bundle: SignalBundle, opts: RunOptions = {}): Athle
   const insights = reason(model, bundle, progressInsight ? [progressInsight] : []);
   const transfers = buildTransfers(model);
   const plan = buildGeneralPlan(model, insights, bundle);
+  const trust = gradeModel(model);
+
+  const keystoneCap = insights.find((i) => i.kind === 'keystone')?.capability ?? null;
+  const sportLabels = new Map<SportId, string>(
+    bundle.sportSessions.map((s) => [s.sport, s.sportLabel]),
+  );
+  const keystoneTranslations = buildKeystoneTranslations(keystoneCap, model, sportLabels);
 
   const base: AthleteGIResult = {
     model,
@@ -48,6 +56,8 @@ export function runAthleteGI(bundle: SignalBundle, opts: RunOptions = {}): Athle
     transfers,
     plan,
     progress,
+    trust,
+    keystoneTranslations,
     disclaimer: DISCLAIMER,
     version: AGI_VERSION,
     enhanced: false,

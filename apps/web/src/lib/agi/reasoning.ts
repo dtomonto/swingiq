@@ -116,6 +116,34 @@ function weakestObserved(model: AthleteWorldModel): CapabilityState | null {
   return observed.reduce((lo, c) => (c.score! < lo.score! ? c : lo), observed[0]);
 }
 
+function plateauInsight(model: AthleteWorldModel): Insight | null {
+  const focus = weakestObserved(model);
+  if (!focus || !focus.trajectory || focus.score === null) return null;
+  const traj = focus.trajectory;
+  if (traj.points.length < 3) return null; // need a few check-ins to call it
+  if (traj.direction !== 'flat') return null; // only when genuinely stalled
+  if (focus.score >= 68) return null; // only worth flagging while it's a weakness
+
+  return {
+    id: `plateau-${focus.capability}`,
+    kind: 'plateau',
+    title: `Plateau: ${focus.name}`,
+    summary: `${focus.name} has barely moved across your last ${traj.points.length} check-ins (still ${focus.score}/100). When a capability stalls, the fix is usually a NEW approach — a constraint drill or a different feel — not more of the same reps.`,
+    capability: focus.capability,
+    sports: focus.sports,
+    reasoning: [
+      {
+        claim: `${focus.name} over time: ${traj.points.join(' → ')}.`,
+        evidence: [`net ${traj.deltaFromFirst! >= 0 ? '+' : ''}${traj.deltaFromFirst} from the first tracked value`],
+      },
+    ],
+    basis: 'estimated',
+    confidence: 0.6,
+    leverage: 0.62,
+    action: `Swap your ${focus.name} drill for a different style (constraint- or feel-based) and re-check in a week.`,
+  };
+}
+
 function goalInsight(model: AthleteWorldModel): Insight | null {
   const goal = model.identity?.primaryGoal;
   const goalCaps = model.identity?.goalCapabilities ?? [];
@@ -447,6 +475,7 @@ export function reason(
   const candidates: Array<Insight | null> = [
     readinessInsight(model),
     keystoneInsight(model, labels),
+    plateauInsight(model),
     goalInsight(model),
     imbalanceInsight(model, labels),
     recurringFaultInsight(model, bundle, labels),

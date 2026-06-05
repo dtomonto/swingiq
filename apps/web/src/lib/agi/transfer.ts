@@ -11,10 +11,41 @@
 import type { SportId } from '@swingiq/core';
 import { getPrinciple } from '@/lib/skillTransfer';
 import { getCapability } from './capabilities';
-import type { AthleteWorldModel, CapabilityState, TransferLink } from './types';
+import type {
+  AthleteWorldModel,
+  CapabilityId,
+  CapabilityState,
+  KeystoneTranslation,
+  TransferLink,
+} from './types';
 
 const TRANSFER_NOTE =
   'Related ideas — a pattern that helps one motion often helps the other, but it may transfer differently. Treat it as a hint, not a guarantee.';
+
+/**
+ * Phrase a capability (e.g. the keystone) in each of the athlete's sports, using
+ * the shared principle's sport-specific expression. Makes an abstract capability
+ * concrete and actionable per sport.
+ */
+export function buildKeystoneTranslations(
+  capId: CapabilityId | null,
+  model: AthleteWorldModel,
+  sportLabels: Map<SportId, string>,
+): KeystoneTranslation[] {
+  if (!capId) return [];
+  const def = getCapability(capId);
+  if (!def.principleId) return [];
+  const principle = getPrinciple(def.principleId);
+  if (!principle) return [];
+
+  const out: KeystoneTranslation[] = [];
+  for (const sport of model.sports) {
+    const text = principle.expressions[sport];
+    if (!text) continue;
+    out.push({ sport, sportLabel: sportLabels.get(sport) ?? sport, text });
+  }
+  return out;
+}
 
 function rationaleFor(cap: CapabilityState, from: SportId, to: SportId): string {
   const fromScore = cap.perSport.find((p) => p.sport === from)?.score;

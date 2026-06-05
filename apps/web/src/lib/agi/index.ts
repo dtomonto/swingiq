@@ -9,9 +9,10 @@
 
 export * from './types';
 export { CAPABILITIES, getCapability, classifyMetric, goalToCapabilities } from './capabilities';
-export { buildWorldModel } from './worldModel';
+export { buildWorldModel, scoreBand } from './worldModel';
 export { reason } from './reasoning';
-export { buildTransfers } from './transfer';
+export { gradeModel } from './trust';
+export { buildTransfers, buildKeystoneTranslations } from './transfer';
 export { buildGeneralPlan } from './planner';
 export { buildProgress, progressToInsight, snapshotFromModel, focusCapability } from './progress';
 export { loadHistory, recordSnapshot, clearAgiHistory } from './history';

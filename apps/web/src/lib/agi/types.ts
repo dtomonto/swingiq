@@ -22,6 +22,9 @@ import type { SportId } from '@swingiq/core';
 /** How trustworthy a value is. Mirrors the app-wide basis ladder. */
 export type Basis = 'measured' | 'estimated' | 'ai_inferred' | 'user_entered' | 'placeholder';
 
+/** Honest, non-clinical score bands (shared with the readiness engine's bands). */
+export type ScoreBand = 'building' | 'developing' | 'solid' | 'sharp';
+
 export type { SportId };
 
 // ── The sport-neutral capabilities the engine reasons over ────
@@ -112,7 +115,7 @@ export interface AthleteIdentity {
 export interface ReadinessSnapshot {
   /** 0–100 guidance score. */
   score: number;
-  band: 'building' | 'developing' | 'solid' | 'sharp';
+  band: ScoreBand;
   headline: string;
   /** The biggest signed contributors, for transparency. */
   drivers: Array<{ label: string; contribution: number }>;
@@ -155,12 +158,25 @@ export interface CapabilityPerSport {
   sampleCount: number;
 }
 
+/** How a capability has trended across stored snapshots. */
+export interface CapabilityTrajectory {
+  direction: 'up' | 'down' | 'flat';
+  /** Change from the earliest tracked score to now (null if <2 points). */
+  deltaFromFirst: number | null;
+  /** Score points over time (oldest → newest, includes the current value). */
+  points: number[];
+}
+
 export interface CapabilityState {
   capability: CapabilityId;
   name: string;
   description: string;
   /** Confidence-weighted score 0–100 across all sports, or null if unobserved. */
   score: number | null;
+  /** Honest band for the score (null if unobserved). */
+  band: ScoreBand | null;
+  /** Trend of this capability across snapshots (null if no/!enough history). */
+  trajectory: CapabilityTrajectory | null;
   /** 0–1 aggregate confidence. */
   confidence: number;
   /** Most conservative (lowest) basis among the contributing evidence. */
@@ -211,6 +227,7 @@ export type InsightKind =
   | 'transfer' // a cross-sport transfer opportunity
   | 'imbalance' // a capability already strong in one sport, lagging in another
   | 'recurring' // the same fault keeps coming back across sessions/sports
+  | 'plateau' // the focus capability has stalled across snapshots
   | 'consistency' // repeatability concern
   | 'coverage'; // not enough data — what to capture next
 
@@ -265,6 +282,24 @@ export interface ProgressReport {
   summary: string;
 }
 
+// ── Trust grade (meta-confidence) ─────────────────────────────
+
+export interface TrustGrade {
+  grade: 'A' | 'B' | 'C' | 'D';
+  /** 0–100 meta-confidence in the whole picture. */
+  score: number;
+  headline: string;
+  /** What is holding it up / what would raise it. */
+  reasons: string[];
+}
+
+/** The keystone capability phrased in each of the athlete's sports. */
+export interface KeystoneTranslation {
+  sport: SportId;
+  sportLabel: string;
+  text: string;
+}
+
 // ── Cross-domain transfer ─────────────────────────────────────
 
 export interface TransferLink {
@@ -313,6 +348,10 @@ export interface AthleteGIResult {
   plan: GeneralPlan;
   /** How capabilities have moved since a prior snapshot (null if no history). */
   progress: ProgressReport | null;
+  /** Overall "how much to trust this picture" meta-grade. */
+  trust: TrustGrade;
+  /** The keystone capability phrased for each of the athlete's sports. */
+  keystoneTranslations: KeystoneTranslation[];
   /** Honest, plain-English framing of what this is and is not. */
   disclaimer: string;
   version: string;
