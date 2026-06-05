@@ -49,6 +49,19 @@ function drillsForCapability(
   return out.slice(0, 4);
 }
 
+/** What today's readiness means for how hard to train today. */
+function todayNoteFor(model: AthleteWorldModel): string | null {
+  const r = model.readiness;
+  if (!r) return null;
+  if (r.caution) {
+    return `Today — take care: ${r.caution} Skip hard reps; gentle movement only.`;
+  }
+  if (r.band === 'building' || r.band === 'developing') {
+    return `Today is a lower-energy day (readiness ${r.score}/100) — keep it light: feel work and technique, not a max block.`;
+  }
+  return `Today you are primed (readiness ${r.score}/100) — a good day for a full keystone block.`;
+}
+
 function focusFor(
   cap: CapabilityState,
   bundle: SignalBundle,
@@ -80,6 +93,7 @@ export function buildGeneralPlan(
       keystone: null,
       supporting: [],
       week: [],
+      todayNote: todayNoteFor(model),
       retestReminder:
         'Once you have an analysed session, this plan fills in automatically and tells you the one thing to train first.',
       confidence: 0.2,
@@ -128,6 +142,7 @@ export function buildGeneralPlan(
     keystone,
     supporting,
     week,
+    todayNote: todayNoteFor(model),
     retestReminder: `Re-run Motion Lab on ${keystone.sportsHelped[0] ?? 'your main sport'} in ~2–3 weeks to confirm ${keystone.name} actually moved before changing focus.`,
     confidence: Math.round(confidence * 100) / 100,
     basis: weakestBasis(focusCaps.map((c) => c.basis)),

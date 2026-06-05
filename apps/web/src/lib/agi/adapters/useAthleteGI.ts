@@ -21,6 +21,7 @@ import type { AthleteGIResult } from '../types';
 import { bundleFromMotionSessions } from './motion-lab';
 import { bundleFromStore } from './store-sessions';
 import { identityFromStore } from './profile';
+import { useReadinessSnapshot } from './readiness';
 import { mergeBundles } from './merge';
 
 export function useAthleteGI(): AthleteGIResult {
@@ -29,6 +30,7 @@ export function useAthleteGI(): AthleteGIResult {
   const sportProfiles = useSwingIQStore((s) => s.sportProfiles);
   const sessions = useSwingIQStore((s) => s.sessions);
   const videos = useSwingIQStore((s) => s.video_analyses);
+  const readiness = useReadinessSnapshot();
 
   return useMemo(() => {
     const identity = identityFromStore(profile, sportProfiles);
@@ -36,6 +38,6 @@ export function useAthleteGI(): AthleteGIResult {
       [bundleFromMotionSessions(motionSessions), bundleFromStore(sessions, videos)],
       identity,
     );
-    return runAthleteGI(bundle);
-  }, [motionSessions, profile, sportProfiles, sessions, videos]);
+    return runAthleteGI({ ...bundle, readiness });
+  }, [motionSessions, profile, sportProfiles, sessions, videos, readiness]);
 }

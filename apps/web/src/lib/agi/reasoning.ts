@@ -325,12 +325,60 @@ function coverageInsight(model: AthleteWorldModel): Insight | null {
   };
 }
 
+function readinessInsight(model: AthleteWorldModel): Insight | null {
+  const r = model.readiness;
+  if (!r) return null;
+  const hasCaution = !!r.caution;
+  const lowForm = r.band === 'building' || r.band === 'developing';
+
+  let advice: string;
+  if (hasCaution) {
+    advice =
+      'Safety comes before any score — skip hard reps today, keep movement gentle, and rest if anything hurts.';
+  } else if (lowForm) {
+    advice = 'A lower-energy day: favour feel and technique over intensity — short, quality reps beat grinding.';
+  } else {
+    advice = 'You are primed — a good day to attack your keystone with a full, focused block.';
+  }
+
+  const drivers = r.drivers
+    .slice(0, 3)
+    .map((d) => `${d.label} (${d.contribution >= 0 ? '+' : ''}${Math.round(d.contribution)})`);
+
+  return {
+    id: 'readiness',
+    kind: 'readiness',
+    title: hasCaution ? 'Today: take care' : `Today's form: ${r.band}`,
+    summary: `${r.headline} ${advice}`,
+    capability: null,
+    sports: model.sports,
+    reasoning: [
+      { claim: `Readiness ${r.score}/100 (${r.band}).`, evidence: drivers.length ? drivers : ['from your recent activity'] },
+      ...(hasCaution ? [{ claim: 'A safety flag overrides the number.', evidence: [r.caution!] }] : []),
+    ],
+    basis: 'estimated',
+    confidence: 0.6,
+    leverage: hasCaution ? 0.98 : lowForm ? 0.5 : 0.45,
+    action: hasCaution
+      ? 'Rest or move gently today; re-check before training hard.'
+      : lowForm
+        ? 'Keep today light — feel work, about 15 minutes.'
+        : 'Use today for a full keystone block.',
+  };
+}
+
 // ── Orchestration ─────────────────────────────────────────────
+
+/** A readiness safety caution outranks everything else. */
+function leadsAll(i: Insight): boolean {
+  return i.kind === 'readiness' && i.leverage >= 0.95;
+}
 
 /** Produce the ranked list of insights for an athlete. Never throws. */
 export function reason(model: AthleteWorldModel, bundle: SignalBundle): Insight[] {
   const labels = labelMap(bundle);
   const candidates: Array<Insight | null> = [
+    readinessInsight(model),
     keystoneInsight(model, labels),
     goalInsight(model),
     imbalanceInsight(model, labels),
@@ -340,8 +388,11 @@ export function reason(model: AthleteWorldModel, bundle: SignalBundle): Insight[
   ];
   const insights = candidates.filter((x): x is Insight => x !== null);
 
-  // Rank by leverage, then confidence — but a keystone always leads.
+  // Safety-caution readiness leads; otherwise a keystone leads; then leverage.
   insights.sort((a, b) => {
+    const al = leadsAll(a);
+    const bl = leadsAll(b);
+    if (al !== bl) return al ? -1 : 1;
     if (a.kind === 'keystone' && b.kind !== 'keystone') return -1;
     if (b.kind === 'keystone' && a.kind !== 'keystone') return 1;
     const av = a.leverage * 0.65 + a.confidence * 0.35;

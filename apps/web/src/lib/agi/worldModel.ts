@@ -158,6 +158,7 @@ export function buildWorldModel(bundle: SignalBundle): AthleteWorldModel {
     primarySport,
     crossSport: allSports.length >= 2,
     identity: bundle.identity ?? null,
+    readiness: bundle.readiness ?? null,
     capabilities,
     coverage: round(coverage, 2),
     dataMap: {

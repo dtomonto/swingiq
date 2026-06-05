@@ -14,15 +14,25 @@ import { classifyMetric, goalToCapabilities } from '../capabilities';
 import { identityFromStore } from '../adapters/profile';
 import { bundleFromStore } from '../adapters/store-sessions';
 import { mergeBundles } from '../adapters/merge';
+import { readinessFromScore } from '../adapters/readiness-map';
 import type {
   AthleteIdentity,
   Basis,
   CapabilityId,
   CapabilitySignal,
+  ReadinessSnapshot,
   SignalBundle,
   SportId,
   SportSessionRef,
 } from '../types';
+
+function readiness(
+  band: ReadinessSnapshot['band'],
+  caution: string | null = null,
+): ReadinessSnapshot {
+  const score = { building: 30, developing: 50, solid: 70, sharp: 90 }[band];
+  return { score, band, headline: `Form: ${band}.`, drivers: [], caution, basis: 'guidance' };
+}
 
 let seq = 0;
 function sig(
@@ -328,5 +338,52 @@ describe('AGI — store + merge adapters', () => {
     expect(merged.signals).toHaveLength(2);
     expect(merged.sportSessions).toHaveLength(1); // 'dup' collapsed
     expect(merged.identity).toBe(identity);
+  });
+});
+
+describe('AGI — readiness ("today\'s form")', () => {
+  it('maps a TransparentScore to a snapshot with top-3 drivers by magnitude', () => {
+    const snap = readinessFromScore({
+      score: 72,
+      band: 'solid',
+      headline: 'Set up to train well.',
+      factors: [
+        { label: 'streak', contribution: 5 },
+        { label: 'rest', contribution: -18 },
+        { label: 'trend', contribution: 9 },
+        { label: 'tiny', contribution: 1 },
+      ],
+      caution: null,
+      basis: 'guidance',
+    });
+    expect(snap.score).toBe(72);
+    expect(snap.band).toBe('solid');
+    expect(snap.drivers).toHaveLength(3);
+    expect(snap.drivers[0].label).toBe('rest'); // largest magnitude first
+  });
+
+  it('adds a readiness insight + today note without touching capabilities', () => {
+    const bundle: SignalBundle = {
+      signals: [sig('rotation', 'golf', 55)],
+      sportSessions: [sessionRef('golf', 60)],
+      readiness: readiness('sharp'),
+    };
+    const result = runAthleteGI(bundle);
+    expect(result.model.readiness?.band).toBe('sharp');
+    expect(result.insights.find((i) => i.kind === 'readiness')).toBeTruthy();
+    expect(result.plan.todayNote).toMatch(/primed|full keystone/i);
+    // capabilities are unchanged by readiness
+    expect(result.model.capabilities.find((c) => c.capability === 'rotation')!.score).toBe(55);
+  });
+
+  it('lets a safety caution lead every other insight', () => {
+    const bundle: SignalBundle = {
+      signals: [sig('rotation', 'golf', 40), sig('rotation', 'tennis', 38)], // would be a keystone
+      sportSessions: [sessionRef('golf', 55), sessionRef('tennis', 52)],
+      readiness: readiness('developing', 'You flagged discomfort.'),
+    };
+    const result = runAthleteGI(bundle);
+    expect(result.insights[0].kind).toBe('readiness'); // outranks the keystone
+    expect(result.plan.todayNote).toMatch(/take care|discomfort/i);
   });
 });

@@ -104,12 +104,32 @@ export interface AthleteIdentity {
   goalCapabilities?: CapabilityId[];
 }
 
+/**
+ * "Today's form" — a daily-state axis, NOT a body capability. Comes from the
+ * readiness engine (recovery, streak, soreness, recent trend). It modulates HOW
+ * to train today; it never changes the structural capability scores.
+ */
+export interface ReadinessSnapshot {
+  /** 0–100 guidance score. */
+  score: number;
+  band: 'building' | 'developing' | 'solid' | 'sharp';
+  headline: string;
+  /** The biggest signed contributors, for transparency. */
+  drivers: Array<{ label: string; contribution: number }>;
+  /** A safety note that overrides the number (e.g. flagged discomfort). */
+  caution: string | null;
+  /** Plain-language basis reminder (guidance, not measurement). */
+  basis: string;
+}
+
 /** Everything the engine knows, normalized. Built by source adapters. */
 export interface SignalBundle {
   signals: CapabilitySignal[];
   sportSessions: SportSessionRef[];
   /** Optional declared context (who the athlete is + what they want). */
   identity?: AthleteIdentity;
+  /** Optional "today's form" snapshot. */
+  readiness?: ReadinessSnapshot;
 }
 
 // ── The unified athlete model ─────────────────────────────────
@@ -150,6 +170,8 @@ export interface AthleteWorldModel {
   crossSport: boolean;
   /** Declared context, when available (sports trained, goal, skill…). */
   identity: AthleteIdentity | null;
+  /** "Today's form" snapshot, when available. */
+  readiness: ReadinessSnapshot | null;
   capabilities: CapabilityState[];
   /** Overall 0–1 data coverage (how much the engine actually knows). */
   coverage: number;
@@ -167,6 +189,7 @@ export interface AthleteWorldModel {
 // ── Reasoning output ──────────────────────────────────────────
 
 export type InsightKind =
+  | 'readiness' // today's form — how to train right now (safety can lead)
   | 'keystone' // one weak general capability limiting multiple sports
   | 'goal' // how the athlete's stated goal maps to a capability
   | 'strength' // a transferable strength to lean on
@@ -235,6 +258,8 @@ export interface GeneralPlan {
   supporting: PlanFocus[];
   /** A simple weekly structure. */
   week: Array<{ day: string; focus: string; minutes: number }>;
+  /** What today's readiness means for how hard to train today (null if unknown). */
+  todayNote: string | null;
   retestReminder: string;
   confidence: number;
   basis: Basis;
