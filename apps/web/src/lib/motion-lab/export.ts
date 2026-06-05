@@ -40,7 +40,7 @@ export function downloadSessionJson(session: MotionSession): boolean {
       'Estimated 3D motion analysis from a single-camera video. Directional, not a lab measurement. No medical or injury claims.',
     session,
   };
-  return triggerDownload(`swingiq-motionlab-${stamp(session)}.json`, JSON.stringify(payload, null, 2), 'application/json');
+  return triggerDownload(`swingvantage-motionlab-${stamp(session)}.json`, JSON.stringify(payload, null, 2), 'application/json');
 }
 
 function csvEscape(v: string | number | null): string {
@@ -84,5 +84,5 @@ export function downloadSessionCsv(session: MotionSession): boolean {
   }
   meta.push(`# note,Estimated proxies from single-camera video — not lab-measured.`);
   const csv = [...meta, header.join(','), ...rows].join('\n');
-  return triggerDownload(`swingiq-motionlab-${stamp(session)}.csv`, csv, 'text/csv');
+  return triggerDownload(`swingvantage-motionlab-${stamp(session)}.csv`, csv, 'text/csv');
 }

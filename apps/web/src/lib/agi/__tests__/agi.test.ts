@@ -737,7 +737,7 @@ describe('AGI — shareable report', () => {
     expect(txt).toMatch(/KEYSTONE/);
     expect(txt).toMatch(/YOUR PROFILE/);
     expect(txt).toMatch(/PLAN/);
-    expect(txt).toMatch(/swingiq\.app/);
+    expect(txt).toMatch(/swingvantage\.com/);
     expect(txt).toMatch(/medical/i);
   });
 

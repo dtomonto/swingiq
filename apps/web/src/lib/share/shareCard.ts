@@ -162,7 +162,7 @@ export async function generateShareCard(data: ReportData): Promise<Blob | null> 
 
 function filename(data: ReportData): string {
   const date = new Date().toISOString().slice(0, 10);
-  return `swingiq-${data.sport.toLowerCase().replace(/\s+/g, '-')}-${date}.png`;
+  return `swingvantage-${data.sport.toLowerCase().replace(/\s+/g, '-')}-${date}.png`;
 }
 
 /** Trigger a browser download of the share card. */

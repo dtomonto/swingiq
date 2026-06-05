@@ -184,7 +184,7 @@ export async function generateShareCardPng(data: ReportData): Promise<Blob | nul
 
 function fileName(data: ReportData): string {
   const slug = data.sport.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  return `swingiq-${slug}-summary.png`;
+  return `swingvantage-${slug}-summary.png`;
 }
 
 /** Generate + download the share card. Returns false on failure. */

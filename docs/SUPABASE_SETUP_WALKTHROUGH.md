@@ -76,7 +76,7 @@ The first time, Supabase asks you to create an "organization" (just a container 
 ┌──────────────────────────────────────────────────────────┐
 │  New project                                               │
 │  ─────────────────────────────────────────────            │
-│  Project name:      [ swingiq-prod              ]          │
+│  Project name:      [ swingvantage-prod              ]          │
 │                                                            │
 │  Database Password:  [ ••••••••••••••• ] [ Generate ]     │
 │        ⚠ COPY THIS NOW and save it. You'll need it for     │
@@ -89,7 +89,7 @@ The first time, Supabase asks you to create an "organization" (just a container 
 └──────────────────────────────────────────────────────────┘
 ```
 
-- **Project name:** something like `swingiq-prod`.
+- **Project name:** something like `swingvantage-prod`.
 - **Database Password:** click **Generate**, then **copy it into your password manager immediately.** 🔐
 - **Region:** closest to your users (US East is a safe default).
 - Click **Create new project**.

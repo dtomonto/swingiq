@@ -161,10 +161,10 @@ export const UPDATES: Update[] = [
       'Our priority is growing a great free product for as many athletes as possible before charging anyone. Being upfront that paid plans are "coming later" — rather than dangling a waitlist — is the honest way to say it.',
     whereToFindIt: 'See the simplified plans on the pricing page (/pricing).',
     seoKeywords: [
-      'swingiq pricing',
+      'swingvantage pricing',
       'free swing analysis',
-      'is swingiq free',
-      'swingiq pro coming soon',
+      'is swingvantage free',
+      'swingvantage pro coming soon',
     ],
     answerEngineSummary:
       'SwingVantage is free to use and stays free; its paid Pro ($12/mo) and Team ($49/mo) plans currently show "Coming Soon." SwingVantage is prioritising a strong free product first; optional paid upgrades (cloud sync, video storage, deeper history, team tools) will launch later, and the core analysis, drills, progress tracking, and Athlete GI report remain free.',

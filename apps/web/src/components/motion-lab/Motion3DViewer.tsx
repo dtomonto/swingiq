@@ -392,7 +392,7 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
     try {
       const a = document.createElement('a');
       a.href = canvas.toDataURL('image/png');
-      a.download = `swingiq-motionlab-3d-frame-${frame}.png`;
+      a.download = `swingvantage-motionlab-3d-frame-${frame}.png`;
       a.click();
     } catch { /* ignore */ }
   };

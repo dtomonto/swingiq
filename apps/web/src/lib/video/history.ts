@@ -223,7 +223,7 @@ export function downloadAnalysisJson(record: SavedVideoAnalysis): boolean {
     const a = document.createElement('a');
     const stamp = record.createdAt.slice(0, 10);
     a.href = url;
-    a.download = `swingiq-${record.sport}-analysis-${stamp}.json`;
+    a.download = `swingvantage-${record.sport}-analysis-${stamp}.json`;
     document.body.appendChild(a);
     a.click();
     a.remove();
