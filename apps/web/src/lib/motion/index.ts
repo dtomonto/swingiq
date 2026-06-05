@@ -22,3 +22,10 @@ export {
 } from './engine';
 export { mockPoseProvider, getActivePoseProvider } from './providers';
 export { onDevicePoseProvider } from './onDevicePoseProvider';
+export {
+  cloudPoseProvider,
+  moveNetPoseProvider,
+  cloudPoseEndpoint,
+  listPoseProviders,
+  selectPoseProvider,
+} from './adapters';

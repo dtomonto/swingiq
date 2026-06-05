@@ -9,15 +9,16 @@
 import { useMemo, useState } from 'react';
 import {
   Box, BarChart3, ClipboardList, Dumbbell, GitCompareArrows, Download,
-  FileText, RotateCcw, Trash2, Lightbulb, Trophy,
+  FileText, RotateCcw, Trash2, Lightbulb, Trophy, Repeat,
 } from 'lucide-react';
 import type { MotionSession, MotionPhaseSegment } from '@/lib/motion-lab';
-import { downloadSessionJson, downloadSessionCsv, printSessionReport, getSport, skillLabel } from '@/lib/motion-lab';
+import { downloadSessionJson, downloadSessionCsv, printSessionReport, getSport, skillLabel, computeRepeatability } from '@/lib/motion-lab';
 import { Motion3DViewer } from './Motion3DViewer';
 import { PhaseTimeline } from './PhaseTimeline';
 import { MotionScoreboard } from './MotionScoreboard';
 import { MetricsPanel } from './MetricsPanel';
 import { CoachingReport } from './CoachingReport';
+import { MotionCoachNarrativeCard } from './MotionCoachNarrativeCard';
 import { DrillPlan } from './DrillPlan';
 import { CameraQualityCheck } from './CameraQualityCheck';
 import { ImplementPathCard } from './ImplementPathCard';
@@ -66,6 +67,11 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
   const strongest = useMemo(
     () => session.metrics.filter((m) => m.normalizedScore != null).sort((a, b) => (b.normalizedScore ?? 0) - (a.normalizedScore ?? 0))[0],
     [session],
+  );
+
+  const repeatability = useMemo(
+    () => computeRepeatability([session, ...priorSessions]),
+    [session, priorSessions],
   );
 
   const ghostTrack = tab === 'compare' && compareSession ? compareSession.poseTrack : null;
@@ -161,7 +167,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
       {/* Tab content */}
       {tab === 'viewer' && (
         <div className="space-y-4">
-          <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} />
+          <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} implement={session.objectTracking ?? null} />
           <PhaseTimeline phases={session.phases} accent={accent} activeKey={activePhase} onSelect={onPhaseSelect} />
           {activePhase && (
             <Card>
@@ -196,11 +202,43 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
         </div>
       )}
       {tab === 'metrics' && <MetricsPanel metrics={session.metrics} />}
-      {tab === 'coaching' && <CoachingReport report={session.report} />}
+      {tab === 'coaching' && (
+        <div className="space-y-4">
+          <MotionCoachNarrativeCard session={session} />
+          <CoachingReport report={session.report} />
+        </div>
+      )}
       {tab === 'drills' && <DrillPlan plan={session.drills} />}
 
       {tab === 'compare' && (
         <div className="space-y-4">
+          {repeatability.available && repeatability.score != null && (
+            <Card>
+              <CardBody className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Repeat className="w-4 h-4" style={{ color: accent }} />
+                  <p className="text-sm font-semibold text-foreground">
+                    Repeatability — consistency across {repeatability.sessionCount} sessions
+                  </p>
+                  <span className="ml-auto text-sm font-bold tabular-nums" style={{ color: accent }}>
+                    {repeatability.score}/100
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground">{repeatability.summary}</p>
+                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
+                  {repeatability.mostConsistent && (
+                    <span>Most repeatable: <b className="text-foreground">{repeatability.mostConsistent.name}</b> ({repeatability.mostConsistent.consistency}/100)</span>
+                  )}
+                  {repeatability.leastConsistent && repeatability.leastConsistent.id !== repeatability.mostConsistent?.id && (
+                    <span>Least: <b className="text-foreground">{repeatability.leastConsistent.name}</b> ({repeatability.leastConsistent.consistency}/100)</span>
+                  )}
+                </div>
+                {repeatability.basis !== 'measured' && (
+                  <p className="text-[10px] text-muted-foreground/80">Estimated from single-camera sessions — directional, not a lab measurement.</p>
+                )}
+              </CardBody>
+            </Card>
+          )}
           {priorSessions.length === 0 ? (
             <Card>
               <CardBody className="text-center py-8">

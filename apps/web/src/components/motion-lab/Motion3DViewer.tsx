@@ -18,9 +18,9 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import {
   Play, Pause, ChevronLeft, ChevronRight, ZoomIn, ZoomOut,
-  Camera, RotateCcw, Tag, Spline, Eye,
+  Camera, RotateCcw, Tag, Spline, Eye, Crosshair,
 } from 'lucide-react';
-import type { MotionPoseTrack, MotionPhaseSegment } from '@/lib/motion-lab';
+import type { MotionPoseTrack, MotionPhaseSegment, ObjectTrackingResult } from '@/lib/motion-lab';
 import { headingDeg } from '@/lib/motion-lab/kinematics3d';
 import { cn } from '@/lib/utils';
 
@@ -65,10 +65,12 @@ interface Motion3DViewerProps {
   phases?: MotionPhaseSegment[];
   accent?: string;
   ghost?: MotionPoseTrack | null;
+  /** Estimated implement (club/bat/racket) path overlay. */
+  implement?: ObjectTrackingResult | null;
   className?: string;
 }
 
-export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null, className }: Motion3DViewerProps) {
+export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null, implement = null, className }: Motion3DViewerProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef(0);
@@ -92,8 +94,10 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
   const [zoom, setZoom] = useState(1);
   const [showLabels, setShowLabels] = useState(false);
   const [showTrails, setShowTrails] = useState(true);
+  const [showImplement, setShowImplement] = useState(true);
 
   const empty = frameCount === 0;
+  const hasImplement = !!implement?.available && (implement?.trace.points.length ?? 0) >= 2;
 
   // ── Drawing ───────────────────────────────────────────────
   const draw = useCallback(() => {
@@ -259,6 +263,51 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
       ctx.beginPath(); ctx.arc(p.sx, p.sy, 3.2, 0, Math.PI * 2); ctx.fill();
     }
 
+    // estimated implement (club/bat/racket) path overlay — drawn at the wrists'
+    // depth (we only estimate head x/y), so it sits coherently in the 3D scene.
+    if (showImplement && hasImplement && implement) {
+      const pts = implement.trace.points;
+      const wristZ = (f: number): number => {
+        const fr = track.frames[f];
+        if (!fr) return 0;
+        return ((fr.landmarks[L_WR]?.z ?? 0) + (fr.landmarks[R_WR]?.z ?? 0)) / 2;
+      };
+      const upto = Math.min(frameCount - 1, Math.floor(cursorRef.current));
+      // head arc up to the current frame
+      ctx.strokeStyle = 'rgba(249,115,22,0.85)';
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      let started = false;
+      for (const p of pts) {
+        if (p.frame > upto) break;
+        const pr = project({ x: p.head.x, y: p.head.y, z: wristZ(p.frame) });
+        if (!started) { ctx.moveTo(pr.sx, pr.sy); started = true; } else ctx.lineTo(pr.sx, pr.sy);
+      }
+      ctx.stroke();
+      // the implement itself (grip → head) at the current frame
+      const cf = Math.round(cursorRef.current);
+      const cur = pts.find((p) => p.frame === cf) ?? [...pts].reverse().find((p) => p.frame <= cf) ?? pts[0];
+      if (cur) {
+        const z = wristZ(cur.frame);
+        const g = project({ x: cur.grip.x, y: cur.grip.y, z });
+        const h = project({ x: cur.head.x, y: cur.head.y, z });
+        ctx.strokeStyle = 'rgba(249,115,22,0.95)';
+        ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(g.sx, g.sy); ctx.lineTo(h.sx, h.sy); ctx.stroke();
+        ctx.fillStyle = '#f97316';
+        ctx.beginPath(); ctx.arc(h.sx, h.sy, 4, 0, Math.PI * 2); ctx.fill();
+      }
+      // contact zone marker
+      if (implement.contactZone) {
+        const cz = implement.contactZone;
+        const c = project({ x: cz.x, y: cz.y, z: wristZ(cz.frame) });
+        ctx.strokeStyle = '#f97316';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(c.sx, c.sy, 7, 0, Math.PI * 2); ctx.stroke();
+      }
+    }
+
     if (showLabels) {
       ctx.fillStyle = 'rgba(255,255,255,0.8)';
       ctx.font = '10px system-ui, sans-serif';
@@ -272,7 +321,7 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
         ctx.fillText(name, p.sx + 5, p.sy - 5);
       }
     }
-  }, [track, ghost, frameCount, yaw, pitch, zoom, showLabels, showTrails, accent, empty]);
+  }, [track, ghost, frameCount, yaw, pitch, zoom, showLabels, showTrails, showImplement, hasImplement, implement, accent, empty]);
 
   // ── Animation loop ────────────────────────────────────────
   useEffect(() => {
@@ -461,6 +510,9 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
           <button className={btn} onClick={() => setZoom((z) => Math.min(2.4, z + 0.2))} aria-label="Zoom in"><ZoomIn className="w-4 h-4" /></button>
           <button className={btn} onClick={() => setZoom((z) => Math.max(0.5, z - 0.2))} aria-label="Zoom out"><ZoomOut className="w-4 h-4" /></button>
           <button className={cn(btn, showTrails && 'text-sky-400')} onClick={() => setShowTrails((t) => !t)} aria-label="Toggle trails"><Spline className="w-4 h-4" /></button>
+          {hasImplement && (
+            <button className={cn(btn, showImplement && 'text-orange-400')} onClick={() => setShowImplement((t) => !t)} aria-label="Toggle estimated implement path" title="Estimated club/bat/racket path"><Crosshair className="w-4 h-4" /></button>
+          )}
           <button className={cn(btn, showLabels && 'text-sky-400')} onClick={() => setShowLabels((t) => !t)} aria-label="Toggle labels"><Tag className="w-4 h-4" /></button>
           <button className={btn} onClick={() => setView('front')} aria-label="Reset view"><RotateCcw className="w-4 h-4" /></button>
           <button className={btn} onClick={screenshot} aria-label="Screenshot"><Camera className="w-4 h-4" /></button>

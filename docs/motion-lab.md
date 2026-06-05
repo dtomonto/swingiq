@@ -20,7 +20,10 @@ clip of a swing, serve, pitch, or throw and get back:
   traces, plus where it meets the ball (contact zone) and whether you're
   swinging up or down through it,
 - and a **compare** tool that overlays a past session as a faint "ghost" and
-  shows what got better or worse.
+  shows what got better or worse — including cross-session **highlights** for
+  sequencing, contact stability, and tempo, plus a **repeatability** score once
+  you've logged 3+ sessions of the same motion (how consistent your mechanics
+  are — the per-clip repeatability metric stays honestly blank on a single rep).
 
 **The honest part:** all of this comes from a single phone camera. The body
 tracking is real (Google's MediaPipe, running privately on the device), and the
@@ -93,7 +96,14 @@ already-shipping infrastructure:
    never present itself as a measurement.
 7. **Coach** — `reporting.ts` writes the executive summary, diagnosis, root-cause
    hypothesis, top-3 fixes, "what not to change", practice plan, and five tone
-   variants (beginner / athlete / coach / youth / data).
+   variants (beginner / athlete / coach / youth / data). `coachNarrative.ts` then
+   composes a conversational **AI coach read** in the SwingIQ 8-part format (main
+   finding → why → evidence → what it may cause → what to feel → cue → drill →
+   next upload), grounded ONLY in the analysis (report, scores, kinetic chain,
+   temporal, implement path, weakest metric). It can be OPTIONALLY rephrased by
+   the flagged LLM (`getActiveProvider`, `NEXT_PUBLIC_AGENTS_LLM=1`) which only
+   warms the wording — it never invents findings, and is OFF by default so the
+   read is fully functional with no API keys.
 8. **Drills** — `drills.ts` prescribes 4 drills (immediate / feel / technical /
    constraint) tied to the weakest metrics, plus a weekly plan.
 9. **Quality gate** — `quality.ts` assesses capture quality (subject detected,
@@ -153,7 +163,9 @@ a 2D canvas. It projects the real MediaPipe landmarks with a rotation +
 light-perspective transform. Features: orbit (drag), zoom, front/side/top
 presets, play/pause, speed, frame stepping, hand/head motion trails, confidence
 shading (low-confidence bones are dashed/grey), a ghost-overlay comparison mode,
-and PNG screenshot export. The replay now also shows a rotating **floor grid**
+an optional **estimated implement-path overlay** (the club/bat/racket head arc +
+contact-zone marker from `objectTracking`, toggled with the crosshair button and
+drawn at the wrists' depth), and PNG screenshot export. The replay now also shows a rotating **floor grid**
 for depth perception, a **live depth-aware turn readout** (shoulders/hips vs the
 address pose at the scrubbed frame), and a **phase-segmented scrubber** — each
 phase is a coloured block (opacity = confidence) you can drag across or click to
@@ -168,9 +180,16 @@ jump to.
 
 ## Extension points (future proprietary upgrade)
 
-- **Pose provider seam** — `lib/motion/` already defines a `PoseProvider`
-  interface. A trained model, server endpoint, or multi-view rig can implement
-  it and feed Motion Lab a higher-confidence `MotionPoseTrack`.
+- **Pose provider seam** — `lib/motion/` defines a `PoseProvider` interface with
+  four adapters behind it: `onDevicePoseProvider` (MediaPipe, the default),
+  `cloudPoseProvider`, `moveNetPoseProvider` (a documented placeholder), and the
+  honest `mockPoseProvider`. `selectPoseProvider()` prefers on-device (private),
+  then the cloud adapter **if** an operator sets `NEXT_PUBLIC_POSE_CLOUD_URL`
+  (off by default — enabling it means frames are POSTed to that endpoint), then
+  the mock. A cloud response is validated and stays basis `estimated` (a single
+  camera is never "measured"); any failure degrades to a placeholder, never a
+  throw. A trained model or multi-view rig can implement the same interface and
+  feed Motion Lab a higher-confidence track.
 - **Reference ranges** — the starter heuristics in `biomechanics.ts` are isolated
   in small helpers; swap them for validated, level-segmented norms when
   available.

@@ -76,6 +76,32 @@ export {
   type TemporalFlag,
 } from './temporal';
 export {
+  computeRepeatability,
+  MIN_SESSIONS_FOR_REPEATABILITY,
+  type RepeatabilityResult,
+  type MetricConsistency,
+} from './repeatability';
+export {
+  buildMotionCoachNarrative,
+  narrateMotionSession,
+  type MotionCoachNarrative,
+  type CoachNarrativeTone,
+} from './coachNarrative';
+export {
+  summarizeAthlete,
+  buildCoachView,
+  loadCoachView,
+  loadAthletes,
+  addAthlete,
+  updateAthlete,
+  deleteAthlete,
+  type Athlete,
+  type AthleteSummary,
+  type TeamReport,
+  type CoachView,
+  type FaultCount,
+} from './roster';
+export {
   loadSessions,
   saveSession,
   getSession,
