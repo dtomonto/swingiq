@@ -18,6 +18,7 @@ import { bundleFromStore } from '../adapters/store-sessions';
 import { mergeBundles } from '../adapters/merge';
 import { readinessFromScore } from '../adapters/readiness-map';
 import { provenDrillsFrom } from '../adapters/feedback-map';
+import { buildAgiReportText, buildAgiReportHtml } from '../report';
 import { buildProgress, snapshotFromModel } from '../progress';
 import type {
   AGISnapshot,
@@ -603,5 +604,53 @@ describe('AGI — proven drills (what worked for you)', () => {
     expect(ks.capability).toBe('rotation');
     expect(ks.drills[0].proven).toBe(true);
     expect(ks.drills[0].fix).toMatch(/worked for you/i);
+  });
+});
+
+describe('AGI — shareable report', () => {
+  const result = runAthleteGI({
+    signals: [sig('rotation', 'golf', 45), sig('rotation', 'tennis', 48), sig('balance', 'golf', 72)],
+    sportSessions: [sessionRef('golf', 55, { keyFault: 'Over the top' }), sessionRef('tennis', 52)],
+    identity: {
+      declaredSports: ['golf', 'tennis'],
+      primarySport: 'golf',
+      primaryGoal: 'add distance',
+      goalCapabilities: ['power', 'rotation'],
+    },
+  });
+
+  it('builds a coach-friendly text report with the key sections', () => {
+    const txt = buildAgiReportText(result, { siteUrl: 'swingiq.app' });
+    expect(txt).toMatch(/Athlete General Intelligence/);
+    expect(txt).toMatch(/Trust grade [A-D]/);
+    expect(txt).toMatch(/KEYSTONE/);
+    expect(txt).toMatch(/YOUR PROFILE/);
+    expect(txt).toMatch(/PLAN/);
+    expect(txt).toMatch(/swingiq\.app/);
+    expect(txt).toMatch(/medical/i);
+  });
+
+  it('builds a self-contained printable HTML doc', () => {
+    const html = buildAgiReportHtml(result, { siteUrl: 'swingiq.app' });
+    expect(html.startsWith('<!doctype html>')).toBe(true);
+    expect(html).toMatch(/Trust/);
+    expect(html).toMatch(/Rotation/);
+    expect(html).toMatch(/<\/html>/);
+  });
+
+  it('escapes HTML in user-provided text', () => {
+    const r = runAthleteGI({
+      signals: [sig('rotation', 'golf', 45)],
+      sportSessions: [sessionRef('golf', 55)],
+      identity: {
+        declaredSports: ['golf'],
+        primarySport: 'golf',
+        primaryGoal: '<script>x</script>',
+        goalCapabilities: [],
+      },
+    });
+    const html = buildAgiReportHtml(r);
+    expect(html).not.toMatch(/<script>x<\/script>/);
+    expect(html).toMatch(/&lt;script&gt;/);
   });
 });
