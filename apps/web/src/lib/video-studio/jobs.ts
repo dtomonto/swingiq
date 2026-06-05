@@ -23,6 +23,7 @@ import {
   resolveProvider,
   globalMaxCostCents,
   type ProviderAssetParts,
+  type VideoProvider,
 } from './providers';
 
 type Env = Record<string, string | undefined>;
@@ -44,6 +45,8 @@ export interface RunJobInput {
   env?: Env;
   now?: Date;
   maxAttempts?: number;
+  /** Test seam: inject a provider instead of resolving from env. */
+  provider?: VideoProvider;
 }
 
 /** Map provider parts → a draft VideoAsset record. */
@@ -97,7 +100,7 @@ export async function runGenerationJob(
   const env = input.env ?? process.env;
   const now = input.now ?? new Date();
   const maxAttempts = input.maxAttempts ?? 2;
-  const provider = resolveProvider(env, input.providerId);
+  const provider = input.provider ?? resolveProvider(env, input.providerId);
 
   const id = jobId(now);
   const job: VideoGenerationJob = {

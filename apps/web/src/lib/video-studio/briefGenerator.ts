@@ -149,7 +149,7 @@ function scriptFor(opp: VideoOpportunity): string[] {
       return [
         'The core swing analysis is free — always.',
         'Upgrading adds deeper tools for players who want more.',
-        'No guarantees of scores — just sharper, more specific guidance.',
+        'We never promise a specific score — just sharper, more specific guidance.',
         'Try the free version first and upgrade only if it earns it.',
         opp.suggestedCta,
       ];
