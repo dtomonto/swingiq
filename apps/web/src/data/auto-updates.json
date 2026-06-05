@@ -672,7 +672,7 @@
     "answerEngineSummary": "SwingVantage Motion Lab reconstructs a swing, serve, pitch, or throw from a phone video into a 3D figure with phase-by-phase breakdowns, biomechanical scores, the top fixes, and a practice plan, running privately on the user's own device for golf, tennis, baseball, and softball. Results are clearly labeled as on-device estimates from video; filming from two angles produces measured 3D.",
     "generativeSearchSummary": "SwingVantage launched Motion Lab, a browser-based 3D motion analysis feature that turns a single phone video into a rotatable 3D reconstruction with sport-specific phase breakdowns, biomechanical scores, prioritized fixes, and a coaching plan for golf, tennis, baseball, and softball — with an optional two-camera mode for true measured 3D, all on-device and privacy-first.",
     "internalLinkTargets": ["/motion-lab", "/video", "/diagnose"],
-    "isFeatured": true,
+    "isFeatured": false,
     "isMajorMilestone": true,
     "createdAt": "2026-06-02",
     "updatedAt": "2026-06-02"

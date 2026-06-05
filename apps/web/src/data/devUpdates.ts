@@ -79,6 +79,26 @@ export const DEV_STATS: DevStat[] = [
 
 export const DEV_UPDATES: DevUpdate[] = [
   {
+    id: 'dev-rebrand-swingvantage',
+    version: 'Brand',
+    title: 'Full identity migration: SwingIQ → SwingVantage',
+    date: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'Platform',
+    impact: 'notable',
+    headline: 'A whole-codebase rename to SwingVantage that touched 650+ files without wiping a single byte of anyone’s saved data.',
+    details:
+      'The product was renamed from SwingIQ to SwingVantage (swingvantage.com) as a real identity migration, not a blind find-and-replace. A cased sweep moved every visible “SwingIQ” to “SwingVantage” across UI copy, page metadata, OpenGraph/Twitter cards, the PWA manifest, all i18n locales, JSON-LD, docs, and TypeScript identifiers — while a deliberately protected set of lowercase, data-contract identifiers was left untouched: the localStorage persistence key, the @swingiq/* workspace scope, and the backup format (swingiq-backup-v1, the .swingiqbackup extension, and the encryption marker). That boundary is exactly what lets existing users keep every saved swing, session, and setting straight through the rename. The domain and role-based contact emails moved to swingvantage.com, the SQ monogram became SV across the app and the code-generated app icons / OG image, and the homepage now leads with the brand promise.',
+    highlights: [
+      'Cased sweep: 2,174 lines across 655 files, zero “SwingIQ” left',
+      'Protected data-contract identifiers so no local user data was lost',
+      'Regenerated the SV app icons + OG share image from code (no design files)',
+      'Verified end-to-end: type-check, 410 tests, production build, live homepage',
+    ],
+    stack: ['TypeScript', 'Next.js', 'Codemod', 'sharp'],
+    isMilestone: false,
+  },
+  {
     id: 'dev-monetization-free-ads-tiers',
     version: 'Strategy',
     title: 'Monetization re-sequenced: free → ads → membership tiers',

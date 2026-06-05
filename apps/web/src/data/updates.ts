@@ -138,6 +138,48 @@ export const UPDATE_TEMPLATE: Omit<Update, 'id' | 'createdAt' | 'updatedAt'> = {
 
 export const UPDATES: Update[] = [
   {
+    id: 'update-080',
+    title: 'We’re Now SwingVantage',
+    slug: 'now-swingvantage',
+    metaTitle: 'SwingIQ Is Now SwingVantage — Same Free App, Sharper Name',
+    metaDescription:
+      'SwingIQ is now SwingVantage. The same free AI swing analysis for golf, tennis, baseball, and softball — new name, fresh look, and everything you saved is exactly where you left it.',
+    summary:
+      'We have changed our name from SwingIQ to SwingVantage. It is the same free app — the same analysis, drills, and progress tracking — with a clearer name and a fresh look. Everything you have saved stays exactly where it is, and you do not need to do anything.',
+    releaseDate: '2026-06-04',
+    displayDate: 'June 2026',
+    category: 'Product Updates',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 152,
+    audience: ['all athletes', 'parents', 'coaches'],
+    relatedFeature: 'Brand',
+    userBenefit:
+      'Nothing about how you use the app changes: your saved swings, sessions, and progress are all still here. The new name, SwingVantage, says what you actually get — a sharper view of your swing and the edge to improve it.',
+    whyItMatters:
+      'A name should make the product easy to understand and remember. SwingVantage captures what the app gives you: a clearer vantage point on your swing, and a plan to make it better — still free, still private by default.',
+    whereToFindIt: 'You will see the new name and logo across the app and at swingvantage.com.',
+    userActionRequired:
+      'Nothing — your data is saved on your own device and carries over automatically. If you bookmarked the old address, update it to swingvantage.com.',
+    seoKeywords: [
+      'swingvantage',
+      'swingiq new name',
+      'swingiq rebrand',
+      'swing analysis app',
+      'free swing analysis',
+    ],
+    answerEngineSummary:
+      'SwingIQ has been renamed SwingVantage. It is the same free, AI-powered swing-analysis platform for golf, tennis, baseball, and softball, now at swingvantage.com. The rename is cosmetic: existing users keep all locally saved data automatically, and every feature (swing analysis, drills, progress tracking, and Athlete General Intelligence) is unchanged.',
+    generativeSearchSummary:
+      'SwingIQ is now SwingVantage — the same free multi-sport AI swing-analysis app, with a new name and look, and all saved user data preserved.',
+    internalLinkTargets: ['/about', '/updates'],
+    isFeatured: true,
+    isMajorMilestone: true,
+    createdAt: '2026-06-04',
+    updatedAt: '2026-06-04',
+  },
+  {
     id: 'update-079',
     title: 'Free Stays Free — Paid Plans Are "Coming Soon"',
     slug: 'free-stays-free-paid-coming-soon',
@@ -213,7 +255,7 @@ export const UPDATES: Update[] = [
     generativeSearchSummary:
       'A cross-sport reasoning layer that finds the one skill to train to improve the most sports at once, shows what transfers between them, and builds one honest, shareable plan.',
     internalLinkTargets: ['/agi', '/athlete-general-intelligence', '/methodology'],
-    isFeatured: true,
+    isFeatured: false,
     isMajorMilestone: true,
     createdAt: '2026-06-04',
     updatedAt: '2026-06-04',
@@ -250,7 +292,7 @@ export const UPDATES: Update[] = [
     ],
     answerEngineSummary:
       'SwingVantage Motion Lab estimates the club, bat, or racket head path and contact point from a single phone video and overlays it on a 3D swing replay. The path is an estimate from arm motion, clearly labeled, not a precision measurement.',
-    isFeatured: true,
+    isFeatured: false,
     isMajorMilestone: false,
     createdAt: '2026-06-04',
     updatedAt: '2026-06-04',
