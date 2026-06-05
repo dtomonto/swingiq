@@ -94,7 +94,7 @@ export function VideoUpload({
             <p className="font-semibold mb-1">Privacy notice</p>
             <p className="text-warning leading-relaxed">
               Whether you upload a file or record in the app, your video is processed locally in your
-              browser. When you run an analysis, SwingIQ sends only sampled still frames — not your
+              browser. When you run an analysis, SwingVantage sends only sampled still frames — not your
               full video file — to the AI vision provider so it can review your mechanics. Your
               original video is never uploaded or stored on our servers, the frames are not retained
               after analysis, and your video is never used to train a shared model.

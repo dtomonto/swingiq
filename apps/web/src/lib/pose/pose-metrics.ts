@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Pose-derived Swing Metrics (pure, unit-tested)
+// SwingVantage — Pose-derived Swing Metrics (pure, unit-tested)
 //
 // Turns per-frame MediaPipe pose landmarks into a few robust, camera-
 // agnostic descriptors that give the AI OBJECTIVE grounding (real

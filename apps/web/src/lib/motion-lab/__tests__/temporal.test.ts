@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: temporal intelligence tests
+// SwingVantage — Motion Lab: temporal intelligence tests
 // ------------------------------------------------------------
 // Verifies anchored durations, contact-window stability, tempo, the
 // timing flags, and honest degradation on thin input.

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Implement Path Card
+// SwingVantage — Motion Lab: Implement Path Card
 // ------------------------------------------------------------
 // Visualizes the ESTIMATED implement (club/bat/racket) head path and
 // contact zone from lib/motion-lab/objectTracking. An auto-framed inline

@@ -8,7 +8,7 @@ import { ScoreRing } from '@/components/ui/ScoreRing';
 import { TrendingUp, TrendingDown, Minus, Activity, Upload } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { useSwingIQStore, type LocalSession } from '@/store';
+import { useSwingVantageStore, type LocalSession } from '@/store';
 import { runDiagnosticEngine, computeSwingScores } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
 import type { ProfessionalSwingReference } from '@swingiq/core';
@@ -168,7 +168,7 @@ function MetricRow({ label, a, b, unit = '', higherIsBetter = true, format: fmt 
 // ──────────────────────────────────────────────────────────────
 
 function SessionComparisonTab() {
-  const { sessions } = useSwingIQStore();
+  const { sessions } = useSwingVantageStore();
 
   const sorted = useMemo(() =>
     [...sessions].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()),

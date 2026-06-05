@@ -1,6 +1,6 @@
-# SwingIQ — Monetization Strategy (the north star)
+# SwingVantage — Monetization Strategy (the north star)
 
-_The single source of truth for **how and in what order** SwingIQ makes money.
+_The single source of truth for **how and in what order** SwingVantage makes money.
 Every other monetization doc is subordinate to this sequence. Last updated: June 2026._
 
 ---
@@ -12,7 +12,7 @@ earn the first revenue, and **only after ads are actually making money** do we s
 roll out paid membership tiers.
 
 **Why this order (and not the reverse):**
-- **Free first** is the cheapest, fastest way to prove people actually want SwingIQ. The app
+- **Free first** is the cheapest, fastest way to prove people actually want SwingVantage. The app
   runs at ~$0 with zero users (it's local-first), so growth costs almost nothing.
 - **Ads before subscriptions** because ads earn money from people who would *never* pay —
   you monetize the whole audience without asking anyone for a credit card. That requires
@@ -21,7 +21,7 @@ roll out paid membership tiers.
   (b) proof that audience is monetizable. By then you'll know who your power users are and
   what they'd actually pay for — so the tiers can be designed from evidence, not guesses.
 
-**What stays true at every phase:** the core SwingIQ experience stays **free and genuinely
+**What stays true at every phase:** the core SwingVantage experience stays **free and genuinely
 useful forever**. We never cripple the free product to force money out of it. Ads stay
 non-intrusive and youth-safe; paid tiers only ever *add* depth on top.
 
@@ -80,13 +80,13 @@ ahead of it is met. Each gate is a measured fact, not a date.
 1. **Free experience stays intact.** Ads are non-intrusive — no interstitials over a
    diagnosis, no blocking the result a user came for. Think tasteful placements around
    content, not in the middle of the coaching loop.
-2. **Youth-safe by default.** SwingIQ has youth/junior athletes, which means potential
+2. **Youth-safe by default.** SwingVantage has youth/junior athletes, which means potential
    under-13 users and COPPA/GDPR-K exposure. Ads must be **non-personalized / contextual
    only** unless and until age-gating + consent are in place. This is the one place to get a
    real legal/compliance read before flipping anything on (see `docs/MONETIZATION_CHECKLIST.md`
    legal notes and `docs/privacy-and-youth-safety-notes.md`).
 3. **Privacy-first.** Prefer contextual ad networks over behavioral/tracking-heavy ones —
-   it fits SwingIQ's existing cookieless, local-first positioning and avoids a heavy
+   it fits SwingVantage's existing cookieless, local-first positioning and avoids a heavy
    consent-banner burden.
 
 **How it's wired in code (keyless-first, like everything else):**

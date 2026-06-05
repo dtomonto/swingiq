@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: High-level Reconstruction Engine
+// SwingVantage — pose3d: High-level Reconstruction Engine
 // ------------------------------------------------------------
 // Two honest paths to 3D:
 //   • SINGLE VIEW  → the trained lift model refines per-joint depth

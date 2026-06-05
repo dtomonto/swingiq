@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Comparison Engine
+// SwingVantage — Motion Lab: Comparison Engine
 // ------------------------------------------------------------
 // Compares two analysed sessions metric-by-metric. "Improvement" is
 // judged by each metric's normalized quality score (direction-aware),

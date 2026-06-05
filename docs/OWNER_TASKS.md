@@ -1,4 +1,4 @@
-# SwingIQ — Owner Task Checklist
+# SwingVantage — Owner Task Checklist
 
 Use this file to track what has already been built and what you still need to set up manually.
 
@@ -218,7 +218,7 @@ Use this file to track what has already been built and what you still need to se
   - Add to `.env.local` and Vercel as `CRON_SECRET=<result>`
   - Update Vercel cron job configuration to use this secret
 
-- [x] **Replace `[Add contact email]` placeholders** — Done. `hello@swingiq.app` in pricing/privacy/terms; `security@swingiq.app` in SECURITY.md
+- [x] **Replace `[Add contact email]` placeholders** — Done. `hello@swingvantage.com` in pricing/privacy/terms; `security@swingvantage.com` in SECURITY.md
 
 - [ ] **Verify professional swing references**
   - Open `packages/core/src/sports/professional-references.ts`
@@ -263,9 +263,9 @@ Use this file to track what has already been built and what you still need to se
 
 ## 📱 Add to Phone Home Screen (PWA)
 
-**iPhone (Safari):** Open SwingIQ → tap Share → "Add to Home Screen" → Add
+**iPhone (Safari):** Open SwingVantage → tap Share → "Add to Home Screen" → Add
 
-**Android (Chrome):** Open SwingIQ → three-dot menu → "Add to Home Screen"
+**Android (Chrome):** Open SwingVantage → three-dot menu → "Add to Home Screen"
 
 ---
 

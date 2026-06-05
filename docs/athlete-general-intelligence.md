@@ -2,7 +2,7 @@
 
 ## In Plain English (start here)
 
-SwingIQ already has a lot of smart tools, but each one is a *specialist*: one
+SwingVantage already has a lot of smart tools, but each one is a *specialist*: one
 reads your swing's biomechanics, one matches drills, one tracks progress, one
 checks readiness. Each is great at its single job and knows nothing about the
 others.
@@ -23,7 +23,7 @@ opposite of a narrow, single-task tool.
 **What it is *not*:** it is not "artificial general intelligence" in the
 science-fiction sense — it isn't self-aware, and it doesn't think like a person.
 We chose the honest reading of the letters: **A**thlete **G**eneral
-**I**ntelligence. Like the rest of SwingIQ, it shows its work: every number
+**I**ntelligence. Like the rest of SwingVantage, it shows its work: every number
 comes from your own analysed sessions, every conclusion shows *why* it reached
 it and *how confident* it is, and single-camera analysis is always called an
 **estimate**, never a lab measurement. Nothing here is medical advice.

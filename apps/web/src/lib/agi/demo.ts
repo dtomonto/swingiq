@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Demo athlete
+// SwingVantage — AGI: Demo athlete
 // ------------------------------------------------------------
 // A realistic, fully-populated SignalBundle for a two-sport athlete, so a
 // first-time user with no data can see exactly what Athlete General Intelligence

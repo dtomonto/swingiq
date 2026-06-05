@@ -56,7 +56,7 @@ export function PWAInstallBanner() {
     <div className="fixed top-0 left-0 right-0 z-50 bg-primary border-b border-primary px-4 py-3 no-print">
       <div className="max-w-4xl mx-auto flex items-center gap-4">
         <p className="text-white text-xs leading-relaxed flex-1">
-          Add SwingIQ to your home screen for quick access.
+          Add SwingVantage to your home screen for quick access.
         </p>
         <div className="flex gap-2 shrink-0">
           <button

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Phase Detection
+// SwingVantage — Motion Lab: Phase Detection
 // ------------------------------------------------------------
 // Segments the clip into the canonical phases for the motion by
 // time-warping the phase template onto the REAL motion using up to TWO

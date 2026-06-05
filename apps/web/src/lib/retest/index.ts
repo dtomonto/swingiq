@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Retest Engine: Public API (barrel)
+// SwingVantage — Retest Engine: Public API (barrel)
 // ------------------------------------------------------------
 // Turns one-time findings into an improvement loop: dated retest
 // windows, same-condition guidance, and honest, directional

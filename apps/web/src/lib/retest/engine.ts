@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Retest Engine: Pure Logic
+// SwingVantage — Retest Engine: Pure Logic
 // ------------------------------------------------------------
 // No storage, no React — just deterministic functions over
 // plain inputs so the rules are fully unit-testable. Storage and

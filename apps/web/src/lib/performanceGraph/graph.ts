@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Performance Graph Foundation: Builder + Queries
+// SwingVantage — Performance Graph Foundation: Builder + Queries
 // ------------------------------------------------------------
 // Assembles a relationship graph from existing client data and
 // offers small query utilities. Deterministic and dependency-free
@@ -17,7 +17,7 @@ import type {
 } from './types';
 
 export const PERFORMANCE_GRAPH_DISCLAIMER =
-  'This is the foundation for the SwingIQ Performance Graph — a real map of how your sessions, faults, drills and retests connect. It is a transparent data model, not a proprietary AI graph (yet). It grows richer the more you use SwingIQ.';
+  'This is the foundation for the SwingVantage Performance Graph — a real map of how your sessions, faults, drills and retests connect. It is a transparent data model, not a proprietary AI graph (yet). It grows richer the more you use SwingVantage.';
 
 function faultNodeId(sport: SportId, faultId: string): string {
   return `fault:${sport}:${faultId}`;

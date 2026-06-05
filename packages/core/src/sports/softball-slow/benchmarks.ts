@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Slow Pitch Softball Benchmarks
+// SwingVantage — Slow Pitch Softball Benchmarks
 // Evidence-informed target windows for slow pitch swing analysis.
 // Segmented by skill level.
 //

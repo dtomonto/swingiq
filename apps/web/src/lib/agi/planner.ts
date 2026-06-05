@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Goal-directed general plan
+// SwingVantage — AGI: Goal-directed general plan
 // ------------------------------------------------------------
 // Turns the model + insights into ONE prioritised plan whose top focus is the
 // capability that improves the most sports at once (the keystone). Drills are

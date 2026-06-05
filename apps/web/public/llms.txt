@@ -1,14 +1,14 @@
-# SwingIQ — llms.txt
-# This file provides a plain-text summary of SwingIQ for AI systems,
+# SwingVantage — llms.txt
+# This file provides a plain-text summary of SwingVantage for AI systems,
 # search assistants, and generative engines that read structured text.
 
-## What is SwingIQ?
+## What is SwingVantage?
 
-SwingIQ is a free, web-based AI swing performance platform for golf, tennis, baseball, slow pitch softball, and fast pitch softball.
+SwingVantage is a free, web-based AI swing performance platform for golf, tennis, baseball, slow pitch softball, and fast pitch softball.
 
-Users upload a swing video or import launch monitor / tracking device data. SwingIQ's diagnostic engine identifies the user's highest-priority swing fault, explains the evidence behind the finding, and generates personalized drill recommendations and a practice plan.
+Users upload a swing video or import launch monitor / tracking device data. SwingVantage's diagnostic engine identifies the user's highest-priority swing fault, explains the evidence behind the finding, and generates personalized drill recommendations and a practice plan.
 
-## Who is SwingIQ for?
+## Who is SwingVantage for?
 
 - Golfers who want to understand their shot pattern data from devices like FlightScope, TrackMan, Garmin, or Rapsodo
 - Tennis players who want stroke analysis and drill guidance
@@ -17,13 +17,13 @@ Users upload a swing video or import launch monitor / tracking device data. Swin
 - Parents and coaches supporting youth athletes
 - Recreational and competitive athletes at all skill levels
 
-## What SwingIQ does NOT claim to do
+## What SwingVantage does NOT claim to do
 
-- SwingIQ does not perform real-time pose tracking or skeletal/landmark motion capture. Its optional AI video analysis reviews a small set of downscaled still frames with an AI vision model — it is qualitative frame review, not frame-by-frame biomechanical measurement
-- SwingIQ does not replace a qualified coach, trainer, or sports medicine professional
-- SwingIQ does not guarantee performance improvement
-- SwingIQ does not provide medical or injury advice
-- SwingIQ does not fabricate equipment specifications, professional athlete comparisons, or testimonials
+- SwingVantage does not perform real-time pose tracking or skeletal/landmark motion capture. Its optional AI video analysis reviews a small set of downscaled still frames with an AI vision model — it is qualitative frame review, not frame-by-frame biomechanical measurement
+- SwingVantage does not replace a qualified coach, trainer, or sports medicine professional
+- SwingVantage does not guarantee performance improvement
+- SwingVantage does not provide medical or injury advice
+- SwingVantage does not fabricate equipment specifications, professional athlete comparisons, or testimonials
 
 ## Key features
 
@@ -41,7 +41,7 @@ Users upload a swing video or import launch monitor / tracking device data. Swin
 
 ## Privacy
 
-SwingIQ is local-first. By default, all user data is stored in the browser. No data is transmitted to servers without the user's knowledge. The original swing video never leaves the device; the heuristic phase analysis runs in the browser. The optional AI vision feature sends only a small set of downscaled still frames to the configured AI provider for that analysis — those frames are not persisted server-side. Users can export all their data or delete it at any time.
+SwingVantage is local-first. By default, all user data is stored in the browser. No data is transmitted to servers without the user's knowledge. The original swing video never leaves the device; the heuristic phase analysis runs in the browser. The optional AI vision feature sends only a small set of downscaled still frames to the configured AI provider for that analysis — those frames are not persisted server-side. Users can export all their data or delete it at any time.
 
 ## Sport swing-analysis pages
 
@@ -83,7 +83,7 @@ SwingIQ is local-first. By default, all user data is stored in the browser. No d
 - All challenges: /challenges
 - 7-day golf slice fix: /challenges/7-day-golf-slice
 - 7-day slow-pitch line drive: /challenges/7-day-slow-pitch-line-drive
-- 30-day SwingIQ challenge: /challenges/30-day-swingiq
+- 30-day SwingVantage challenge: /challenges/30-day-swingiq
 
 ## Benchmarks (reference data)
 
@@ -121,4 +121,4 @@ SwingIQ is local-first. By default, all user data is stored in the browser. No d
 
 ## Sitemap
 
-https://swingiq.app/sitemap.xml
+https://swingvantage.com/sitemap.xml

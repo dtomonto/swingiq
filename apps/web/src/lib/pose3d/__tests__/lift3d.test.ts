@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: lift model inference (committed weights)
+// SwingVantage — pose3d: lift model inference (committed weights)
 // ------------------------------------------------------------
 // Loads the SHIPPED weights and confirms the trained single-view lift
 // model meaningfully beats a zero-depth baseline on a fresh synthetic

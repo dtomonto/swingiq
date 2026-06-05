@@ -1,4 +1,4 @@
-# SwingIQ — Creator Outreach Templates
+# SwingVantage — Creator Outreach Templates
 
 Personalize and **send manually**. Target creators whose audience genuinely fits.
 No mass DMs. Replace {{...}} placeholders.
@@ -6,7 +6,7 @@ No mass DMs. Replace {{...}} placeholders.
 ---
 
 ## Creator DM (short)
-> Hi {{name}} — really like your {{sport}} breakdowns. I built SwingIQ, a free
+> Hi {{name}} — really like your {{sport}} breakdowns. I built SwingVantage, a free
 > swing-analysis tool (golf/tennis/baseball/softball). Thought it might be handy
 > for illustrating priorities + drills in your content — no fake claims, just a
 > clear "top issue + drills" output. Happy to give you free access. Worth a look?
@@ -16,7 +16,7 @@ No mass DMs. Replace {{...}} placeholders.
 
 Hi {{name}},
 
-I make SwingIQ, a free web tool that breaks a swing down into one priority issue
+I make SwingVantage, a free web tool that breaks a swing down into one priority issue
 plus drills. It's built to be honest — no fabricated ratings or
 guaranteed-results claims — which I think fits educational creators well.
 

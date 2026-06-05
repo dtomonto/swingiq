@@ -30,11 +30,11 @@ export function MarketingHeader() {
     <header className="sticky top-0 z-40 border-b border-border bg-secondary/95 backdrop-blur supports-[backdrop-filter]:bg-secondary/80 no-print">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         {/* Logo → home */}
-        <Link href="/" className="flex items-center gap-2" aria-label="SwingIQ home">
+        <Link href="/" className="flex items-center gap-2" aria-label="SwingVantage home">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-golf-fairway shrink-0">
-            <span className="text-sm font-black text-white">SQ</span>
+            <span className="text-sm font-black text-white">SV</span>
           </div>
-          <span className="text-lg font-bold text-foreground">SwingIQ</span>
+          <span className="text-lg font-bold text-foreground">SwingVantage</span>
         </Link>
 
         {/* Desktop nav */}

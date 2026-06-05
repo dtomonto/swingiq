@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Layer: Next-Best-Action Scoring
+// SwingVantage — Agent Layer: Next-Best-Action Scoring
 // ------------------------------------------------------------
 // Deterministic ranking of "the one thing to do next". This is
 // the brain behind the dashboard's next step and the Welcome
@@ -52,7 +52,7 @@ export function buildActionLibrary(ctx: AgentContext): Record<string, AgentActio
       href: '/profile',
       intent: 'finish_profile',
       priority: 1,
-      helperText: 'Tell SwingIQ your sport, skill level, and goal so every tip is tailored to you.',
+      helperText: 'Tell SwingVantage your sport, skill level, and goal so every tip is tailored to you.',
     },
     uploadBaseline: {
       id: 'upload_baseline',
@@ -60,7 +60,7 @@ export function buildActionLibrary(ctx: AgentContext): Record<string, AgentActio
       href: upload,
       intent: 'upload_session',
       priority: 2,
-      helperText: `A quick baseline ${sp.inputNoun} is all SwingIQ needs to build your first plan.`,
+      helperText: `A quick baseline ${sp.inputNoun} is all SwingVantage needs to build your first plan.`,
     },
     runDiagnosis: {
       id: 'run_diagnosis',
@@ -92,7 +92,7 @@ export function buildActionLibrary(ctx: AgentContext): Record<string, AgentActio
       href: upload,
       intent: 'upload_session',
       priority: 6,
-      helperText: 'Re-test with the same setup so SwingIQ can measure your progress.',
+      helperText: 'Re-test with the same setup so SwingVantage can measure your progress.',
     },
     viewProgress: {
       id: 'view_progress',
@@ -140,7 +140,7 @@ export function buildActionLibrary(ctx: AgentContext): Record<string, AgentActio
       href: ctx.activeSport === 'golf' ? '/sessions' : '/sessions',
       intent: 'review_session',
       priority: 12,
-      helperText: 'See what SwingIQ found last time.',
+      helperText: 'See what SwingVantage found last time.',
     },
   };
 }

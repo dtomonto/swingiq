@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Baseball Drill Library
+// SwingVantage — Baseball Drill Library
 // Drills mapped to visual swing issues and phases.
 // All YouTube links are SEARCH LINKS only — never hardcoded video IDs.
 // ============================================================

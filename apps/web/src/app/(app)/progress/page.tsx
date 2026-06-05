@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { TrendingUp, TrendingDown, Minus, Upload, Activity } from 'lucide-react';
 import Link from 'next/link';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 import { NonGolfProgress } from './NonGolfProgress';
 import { computeSwingScores, runDiagnosticEngine } from '@swingiq/core';
@@ -168,7 +168,7 @@ function TrendBadge({ change }: { change: number }) {
 
 export default function ProgressPage() {
   const { isGolf } = useSport();
-  const { sessions } = useSwingIQStore();
+  const { sessions } = useSwingVantageStore();
 
   // Build snapshots from scored sessions (newest-first)
   const snapshots = useMemo<SessionSnapshot[]>(() => {

@@ -1,6 +1,6 @@
 name: Growth CI
 
-# Quality + growth gates for SwingIQ. Complements codeql.yml and
+# Quality + growth gates for SwingVantage. Complements codeql.yml and
 # security-audit.yml (which handle security scanning).
 
 on:

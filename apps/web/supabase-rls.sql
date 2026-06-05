@@ -1,5 +1,5 @@
 -- ============================================================
--- SwingIQ — Supabase Row Level Security (RLS) Migrations
+-- SwingVantage — Supabase Row Level Security (RLS) Migrations
 --
 -- Run this file in the Supabase SQL Editor (or via CLI:
 --   supabase db push) to enforce per-user data isolation.

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Backup Data Registry
+// SwingVantage — Backup Data Registry
 //
 // PURPOSE:
 //   Every feature that stores user data must register here.
@@ -21,8 +21,8 @@
 //   - getSummaryLine: returns a user-readable summary string
 // ============================================================
 
-import type { SwingIQState } from '@/store';
-import type { SwingIQBackup } from './schema';
+import type { SwingVantageState } from '@/store';
+import type { SwingVantageBackup } from './schema';
 
 // ── Type definitions ──────────────────────────────────────────
 
@@ -49,19 +49,19 @@ export interface BackupDataModule {
    * Returns the count of records this module has in the current state.
    * Used to populate the "Your backup includes X sessions" summary.
    */
-  getCount: (state: SwingIQState) => number;
+  getCount: (state: SwingVantageState) => number;
 
   /**
    * Returns a plain-English summary line shown in the export/restore preview.
    * Example: "38 practice sessions across 3 sports"
    */
-  getSummaryLine: (state: SwingIQState) => string;
+  getSummaryLine: (state: SwingVantageState) => string;
 
   /**
    * Returns the count from a backup file (used in restore preview).
    * Return null if this module's data is not present in the backup.
    */
-  getBackupCount: (backup: SwingIQBackup) => number | null;
+  getBackupCount: (backup: SwingVantageBackup) => number | null;
 }
 
 // ── Registry ──────────────────────────────────────────────────

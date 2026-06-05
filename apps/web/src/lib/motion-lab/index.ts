@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: public API (barrel)
+// SwingVantage — Motion Lab: public API (barrel)
 // ============================================================
 
 export * from './types';

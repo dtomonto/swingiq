@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Community — Data Types
+// SwingVantage Community — Data Types
 // All types for the gamified community layer.
 // ============================================================
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { Check, Info } from 'lucide-react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { cn } from '@/lib/utils';
 import { THEMES, normalizeThemeId, type ThemeId } from '@/lib/theme/themes';
 
@@ -12,8 +12,8 @@ import { THEMES, normalizeThemeId, type ThemeId } from '@/lib/theme/themes';
  * Switching is instant and only changes appearance, never data or coaching.
  */
 export function ThemeSelector() {
-  const active = useSwingIQStore((s) => normalizeThemeId(s.settings.colorTheme));
-  const updateSettings = useSwingIQStore((s) => s.updateSettings);
+  const active = useSwingVantageStore((s) => normalizeThemeId(s.settings.colorTheme));
+  const updateSettings = useSwingVantageStore((s) => s.updateSettings);
 
   const select = (id: ThemeId) => updateSettings({ colorTheme: id });
 

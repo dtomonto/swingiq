@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: engine smoke tests
+// SwingVantage — Motion Lab: engine smoke tests
 // ------------------------------------------------------------
 // Exercises the pure (non-DOM) engine end-to-end on a synthetic pose
 // track: series → phases → metrics → scores → report → drills →

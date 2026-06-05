@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Auto-Sync provider
+// SwingVantage — Auto-Sync provider
 //
 // Owns the two device-sync features and exposes them via context:
 //
@@ -10,7 +10,7 @@
 //      after changes). Unchanged data is never re-written.
 //
 //   2. Auto "continue progress" — on load, scans the chosen folder
-//      (e.g. Downloads) for the newest SwingIQ backup. If the device is
+//      (e.g. Downloads) for the newest SwingVantage backup. If the device is
 //      empty it continues automatically (safe, additive merge); if there
 //      is already local data it raises a prompt instead of overwriting.
 //
@@ -21,8 +21,8 @@
 import {
   createContext, useCallback, useContext, useEffect, useMemo, useRef, useState,
 } from 'react';
-import { useSwingIQStore } from '@/store';
-import type { SwingIQBackup, RestorePreview } from '@/lib/backup/schema';
+import { useSwingVantageStore } from '@/store';
+import type { SwingVantageBackup, RestorePreview } from '@/lib/backup/schema';
 import { mergeRestore, replaceRestore } from '@/lib/backup/restore';
 import {
   isFileSystemAccessSupported, ensurePermission, pickSaveFile, pickDirectory,
@@ -43,7 +43,7 @@ type SaveStatus = 'idle' | 'saving' | 'saved' | 'error' | 'permission';
 type RestoreStatus = 'idle' | 'scanning' | 'found' | 'applied' | 'error' | 'permission';
 
 export interface ContinuePrompt {
-  backup: SwingIQBackup;
+  backup: SwingVantageBackup;
   preview: RestorePreview;
   signature: string;
   fileName: string;
@@ -130,7 +130,7 @@ export function AutoSyncProvider({ children }: { children: React.ReactNode }) {
   const doSave = useCallback(async (force = false): Promise<void> => {
     const handle = fileHandleRef.current;
     if (!handle || writingRef.current) return;
-    const snap = buildSnapshot(useSwingIQStore.getState());
+    const snap = buildSnapshot(useSwingVantageStore.getState());
     if (!force && snap.hash === saveCfgRef.current.lastSavedHash) return;
 
     writingRef.current = true;
@@ -179,15 +179,15 @@ export function AutoSyncProvider({ children }: { children: React.ReactNode }) {
       if (latest.signature === cfg.appliedSignature) { setRestoreStatus('idle'); return; }
 
       const { preview, hasNewData, currentIsEmpty } = evaluateContinue(
-        latest.backup, useSwingIQStore.getState(),
+        latest.backup, useSwingVantageStore.getState(),
       );
       if (!hasNewData) { setRestoreStatus('idle'); return; }
 
       if (currentIsEmpty) {
         // Safe to continue automatically — merge is purely additive here.
-        const delta = mergeRestore(latest.backup, useSwingIQStore.getState());
-        useSwingIQStore.setState(delta);
-        useSwingIQStore.getState().computeSetupStep();
+        const delta = mergeRestore(latest.backup, useSwingVantageStore.getState());
+        useSwingVantageStore.setState(delta);
+        useSwingVantageStore.getState().computeSetupStep();
         updateRestoreCfg({ appliedSignature: latest.signature });
         setRestoreStatus('applied');
       } else {
@@ -257,7 +257,7 @@ export function AutoSyncProvider({ children }: { children: React.ReactNode }) {
     };
     document.addEventListener('visibilitychange', onHidden);
 
-    const unsub = useSwingIQStore.subscribe(() => {
+    const unsub = useSwingVantageStore.subscribe(() => {
       if (!saveCfgRef.current.enabled || !fileHandleRef.current) return;
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => { void doSave(); }, DEBOUNCE_MS);
@@ -277,7 +277,7 @@ export function AutoSyncProvider({ children }: { children: React.ReactNode }) {
   const enableAutoSave = useCallback(async () => {
     if (!supported) return;
     try {
-      const snap = buildSnapshot(useSwingIQStore.getState());
+      const snap = buildSnapshot(useSwingVantageStore.getState());
       const handle = await pickSaveFile(snap.filename);
       if (!handle) return; // user cancelled
       fileHandleRef.current = handle;
@@ -355,12 +355,12 @@ export function AutoSyncProvider({ children }: { children: React.ReactNode }) {
   const applyContinue = useCallback((mode: 'merge' | 'replace') => {
     setContinuePrompt((prompt) => {
       if (!prompt) return null;
-      const state = useSwingIQStore.getState();
+      const state = useSwingVantageStore.getState();
       const delta = mode === 'replace'
         ? replaceRestore(prompt.backup, state.settings)
         : mergeRestore(prompt.backup, state);
-      useSwingIQStore.setState(delta);
-      useSwingIQStore.getState().computeSetupStep();
+      useSwingVantageStore.setState(delta);
+      useSwingVantageStore.getState().computeSetupStep();
       updateRestoreCfg({ appliedSignature: prompt.signature });
       setRestoreStatus('applied');
       return null;

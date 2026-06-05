@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Guide: The Journey Map
+// SwingVantage — Guide: The Journey Map
 // ------------------------------------------------------------
 // One clear path through the product, mirrored from the sidebar's
 // "Your Journey": Today → Analyze → Practice → Progress → Share.

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Athlete General Intelligence (AGI): public API (barrel)
+// SwingVantage — Athlete General Intelligence (AGI): public API (barrel)
 // ------------------------------------------------------------
 // One general reasoning layer across all sports + all signals.
 // Import from '@/lib/agi'. The motion-lab adapter is a sub-path import

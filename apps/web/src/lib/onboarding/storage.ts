@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Start Here: Returning-User Record
+// SwingVantage — Start Here: Returning-User Record
 // ------------------------------------------------------------
 // A tiny, self-contained localStorage record used ONLY by the
 // /start flow to power the "Welcome back" state for a returning

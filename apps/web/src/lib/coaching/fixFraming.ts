@@ -1,7 +1,7 @@
 // ============================================================
-// SwingIQ — "One Fix" Framing Layer
+// SwingVantage — "One Fix" Framing Layer
 // ------------------------------------------------------------
-// The emotional, progress-focused language SwingIQ uses to turn a
+// The emotional, progress-focused language SwingVantage uses to turn a
 // one-time analyzer into a personal improvement companion:
 //   Upload → one priority fix → drill → log → retest → see change.
 //

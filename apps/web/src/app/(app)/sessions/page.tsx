@@ -6,13 +6,13 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { Upload, ChevronRight, Trash2, Calendar, Activity, Video } from 'lucide-react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 import { format } from 'date-fns';
 import { useState, useMemo } from 'react';
 
 export default function SessionsPage() {
-  const { sessions, removeSession } = useSwingIQStore();
+  const { sessions, removeSession } = useSwingVantageStore();
   const { activeSport, isGolf, sportEmoji, sportLabels, sportName } = useSport();
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [showAllSports, setShowAllSports] = useState(false);

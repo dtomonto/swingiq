@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Per-Capture Self-Calibration
+// SwingVantage — pose3d: Per-Capture Self-Calibration
 // ------------------------------------------------------------
 // Estimates the relative camera pose between two views DIRECTLY FROM
 // THE DATA (no rig preset): the 33 landmarks across many frames give

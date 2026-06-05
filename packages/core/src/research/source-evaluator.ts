@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Source Credibility Evaluator
+// SwingVantage — Source Credibility Evaluator
 // Scores incoming research sources before they can influence
 // benchmark proposals.
 //

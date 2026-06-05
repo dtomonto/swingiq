@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Analytics Abstraction Layer
+// SwingVantage — Analytics Abstraction Layer
 //
 // Provider resolution (graceful fallback, no hard dependency):
 //   1. GA4 — active when NEXT_PUBLIC_GA_ID is set AND gtag is loaded

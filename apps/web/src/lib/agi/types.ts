@@ -1,7 +1,7 @@
 // ============================================================
-// SwingIQ — Athlete General Intelligence (AGI): Domain Types
+// SwingVantage — Athlete General Intelligence (AGI): Domain Types
 // ------------------------------------------------------------
-// "AGI" here = **Athlete General Intelligence**. SwingIQ already has many
+// "AGI" here = **Athlete General Intelligence**. SwingVantage already has many
 // *narrow* engines — each is brilliant at exactly one task (motion metrics,
 // drill matching, readiness, benchmarks). This module is the *general* one:
 // a single reasoning system that works across ALL five sports and ALL of

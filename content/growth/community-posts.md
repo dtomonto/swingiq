@@ -1,4 +1,4 @@
-# SwingIQ — Community Post Drafts
+# SwingVantage — Community Post Drafts
 
 **Drafts only. Do NOT auto-post to Reddit, Facebook, Discord, forums, or any
 community.** These are starting points for a human to adapt to each community's
@@ -33,6 +33,6 @@ rules and culture, post manually, and engage authentically. Never spam.
 
 ### Rules for using these
 1. Read the community's self-promotion rules first.
-2. Lead with genuine help; mention SwingIQ only if it actually adds value.
+2. Lead with genuine help; mention SwingVantage only if it actually adds value.
 3. One authentic post > ten copy-pasted ones. Never mass-post.
 4. Disclose affiliation if the community requires it.

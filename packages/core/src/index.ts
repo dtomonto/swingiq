@@ -1,5 +1,5 @@
 // ============================================================================
-// SwingIQ Core — Public API (the package barrel)
+// SwingVantage Core — Public API (the package barrel)
 // ============================================================================
 //
 // BOUNDARY RULE (audit finding AA-4):

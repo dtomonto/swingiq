@@ -34,7 +34,7 @@ const SPORT_DISPLAY: Record<SportId, {
     avatarBg: 'bg-primary',
     placeholder: 'Ask about your swing, launch data, drills, or practice plan…',
     greeting:
-      'Hello! I\'m your SwingIQ Golf Coach. I have access to your launch-monitor data, swing scores, and diagnosis history.\n\nAsk me anything about your game — carry distance, face-to-path, spin rate, your training routine, or what to work on next. I\'ll always ground my answers in your actual numbers.',
+      'Hello! I\'m your SwingVantage Golf Coach. I have access to your launch-monitor data, swing scores, and diagnosis history.\n\nAsk me anything about your game — carry distance, face-to-path, spin rate, your training routine, or what to work on next. I\'ll always ground my answers in your actual numbers.',
   },
   tennis: {
     emoji: '🎾',
@@ -44,7 +44,7 @@ const SPORT_DISPLAY: Record<SportId, {
     avatarBg: 'bg-warning',
     placeholder: 'Ask about your forehand, serve, drills, or next practice focus…',
     greeting:
-      'Hello! I\'m your SwingIQ Tennis Coach. I have access to your video analysis results and tennis profile.\n\nAsk me about your stroke technique, phase-by-phase observations, drill recommendations, or what to focus on in your next practice session.',
+      'Hello! I\'m your SwingVantage Tennis Coach. I have access to your video analysis results and tennis profile.\n\nAsk me about your stroke technique, phase-by-phase observations, drill recommendations, or what to focus on in your next practice session.',
   },
   baseball: {
     emoji: '⚾',
@@ -54,7 +54,7 @@ const SPORT_DISPLAY: Record<SportId, {
     avatarBg: 'bg-red-600',
     placeholder: 'Ask about your swing, bat path, timing, drills, or next session focus…',
     greeting:
-      'Hello! I\'m your SwingIQ Baseball Hitting Coach. I have access to your swing analysis and hitter profile.\n\nAsk me about your bat path, load and stride timing, hip-shoulder separation, contact point, or what drills to work on in your next cage session.',
+      'Hello! I\'m your SwingVantage Baseball Hitting Coach. I have access to your swing analysis and hitter profile.\n\nAsk me about your bat path, load and stride timing, hip-shoulder separation, contact point, or what drills to work on in your next cage session.',
   },
   softball_slow: {
     emoji: '🥎',
@@ -64,7 +64,7 @@ const SPORT_DISPLAY: Record<SportId, {
     avatarBg: 'bg-warning',
     placeholder: 'Ask about your swing, arc timing, bat path, or next practice focus…',
     greeting:
-      'Hello! I\'m your SwingIQ Slow Pitch Coach. I have access to your swing analysis and player profile.\n\nAsk me about timing the arc pitch, hip rotation, contact height, bat path, or what drills to work on before your next game.',
+      'Hello! I\'m your SwingVantage Slow Pitch Coach. I have access to your swing analysis and player profile.\n\nAsk me about timing the arc pitch, hip rotation, contact height, bat path, or what drills to work on before your next game.',
   },
   softball_fast: {
     emoji: '🥎',
@@ -74,7 +74,7 @@ const SPORT_DISPLAY: Record<SportId, {
     avatarBg: 'bg-pink-500',
     placeholder: 'Ask about your swing, rise ball timing, bat path, or next practice focus…',
     greeting:
-      'Hello! I\'m your SwingIQ Fast Pitch Coach. I have access to your swing analysis and hitter profile.\n\nAsk me about reacting to the rise ball, keeping your path compact, load and stride timing, or what drills to prioritize before your next game.',
+      'Hello! I\'m your SwingVantage Fast Pitch Coach. I have access to your swing analysis and hitter profile.\n\nAsk me about reacting to the rise ball, keeping your path compact, load and stride timing, or what drills to prioritize before your next game.',
   },
 };
 

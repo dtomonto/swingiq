@@ -1,4 +1,4 @@
-# SwingIQ Admin & Operations Roadmap
+# SwingVantage Admin & Operations Roadmap
 
 _Last updated: May 2026_
 
@@ -10,12 +10,12 @@ _Last updated: May 2026_
 
 **What you actually need to know:**
 - **Most of this is not built yet.** It's a roadmap for when you have real users — not a list of things broken today.
-- A few useful nuggets for you right now: your support email is **support@swingiq.app**; there's a ready-made "what to say" script for the most common questions (like *"I can't import my CSV"* or *"my diagnosis seems wrong"*); and the **Compliance Checklist** at the bottom lists the legal must-dos before you scale up.
-- "GDPR" and "CCPA" are privacy laws (Europe and California) that give people the right to download or delete their data. This page sketches how SwingIQ would honor those requests.
+- A few useful nuggets for you right now: your support email is **support@swingvantage.com**; there's a ready-made "what to say" script for the most common questions (like *"I can't import my CSV"* or *"my diagnosis seems wrong"*); and the **Compliance Checklist** at the bottom lists the legal must-dos before you scale up.
+- "GDPR" and "CCPA" are privacy laws (Europe and California) that give people the right to download or delete their data. This page sketches how SwingVantage would honor those requests.
 
 **What to do next:** Nothing now. Revisit this when you start getting real users and support emails — then it becomes your operations playbook.
 
-> The step-by-step workflows, table names, and admin-screen paths below are reference for a developer or an AI assistant building these tools. You don't need them to use SwingIQ.
+> The step-by-step workflows, table names, and admin-screen paths below are reference for a developer or an AI assistant building these tools. You don't need them to use SwingVantage.
 
 ---
 
@@ -160,7 +160,7 @@ Catch systematic AI errors before they erode user trust.
 - Email auto-responder with common answers
 
 **Tier 1 — Email Support**
-- Inbox: support@swingiq.app
+- Inbox: support@swingvantage.com
 - Target response time: 48 hours (free tier), 24 hours (Pro tier)
 - Categories: billing, data issues, technical bugs, feature requests
 - Use Linear or Notion for ticket tracking

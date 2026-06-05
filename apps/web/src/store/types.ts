@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ store — shared types, defaults, and the slice helper.
+// SwingVantage store — shared types, defaults, and the slice helper.
 // The store is split into per-domain slices (audit finding AA-5);
 // this module is the single source of truth for the state/action
 // shapes so the slices and consumers never drift. The persisted
@@ -186,7 +186,7 @@ export interface AgentClientState {
   welcomeBackDismissedHash: string | null;
 }
 
-export interface SwingIQState {
+export interface SwingVantageState {
   profile: GolferProfileInput | null;
   sportProfiles: SportProfiles;
   clubs: LocalClub[];
@@ -201,7 +201,7 @@ export interface SwingIQState {
   setup_step: 'profile' | 'bag' | 'session' | 'diagnose' | 'complete';
 }
 
-export interface SwingIQActions {
+export interface SwingVantageActions {
   // Golf profile
   setProfile: (profile: GolferProfileInput) => void;
   // Sport-specific profiles (non-golf)
@@ -248,15 +248,15 @@ export interface SwingIQActions {
 }
 
 /** The full combined store (state + actions). */
-export type SwingIQStore = SwingIQState & SwingIQActions;
+export type SwingVantageStore = SwingVantageState & SwingVantageActions;
 
 /**
  * Slice creator type for the persisted store. Each slice receives `set`/`get`
  * typed against the WHOLE store, so cross-slice calls (e.g. computeSetupStep)
  * are type-safe. `T` is the subset of the store the slice owns.
  */
-export type SwingIQSlice<T> = StateCreator<
-  SwingIQStore,
+export type SwingVantageSlice<T> = StateCreator<
+  SwingVantageStore,
   [['zustand/persist', unknown]],
   [],
   T

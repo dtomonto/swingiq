@@ -1,6 +1,6 @@
 // ============================================================
-// SwingIQ — Sport Registry
-// Single source of truth for all sports supported by SwingIQ.
+// SwingVantage — Sport Registry
+// Single source of truth for all sports supported by SwingVantage.
 // Each sport's config, phases, drills, benchmarks, and analysis
 // function are registered here.
 // ============================================================
@@ -51,7 +51,7 @@ const TENNIS_CONFIG: SportConfig = {
     rear: 'Good for seeing shoulder turn and backswing loop.',
   },
   evidence_note:
-    'SwingIQ tennis benchmarks are evidence-informed and segmented by skill level. ' +
+    'SwingVantage tennis benchmarks are evidence-informed and segmented by skill level. ' +
     'Values are based on published coaching and biomechanics literature. ' +
     'Periodically reviewed and updated as new research is available.',
   benchmark_version: '1.0.0',
@@ -78,7 +78,7 @@ const BASEBALL_CONFIG: SportConfig = {
     rear: 'Useful for viewing hand path and load position.',
   },
   evidence_note:
-    'SwingIQ baseball benchmarks are evidence-informed using publicly available MLB Statcast data, ' +
+    'SwingVantage baseball benchmarks are evidence-informed using publicly available MLB Statcast data, ' +
     'published biomechanics research, and USA Baseball coaching resources. ' +
     'Segmented by skill level from youth to professional reference.',
   benchmark_version: '1.0.0',
@@ -105,7 +105,7 @@ const SOFTBALL_SLOW_CONFIG: SportConfig = {
     rear: 'Useful for viewing load position and shoulder rotation.',
   },
   evidence_note:
-    'SwingIQ slow pitch benchmarks are evidence-informed using ASA/USA Softball coaching resources, ' +
+    'SwingVantage slow pitch benchmarks are evidence-informed using ASA/USA Softball coaching resources, ' +
     'published recreational player research, and competitive slow pitch coaching literature. ' +
     'Confidence is medium — more data is available for baseball.',
   benchmark_version: '1.0.0',
@@ -132,7 +132,7 @@ const SOFTBALL_FAST_CONFIG: SportConfig = {
     rear: 'Useful for load position and hand path into the zone.',
   },
   evidence_note:
-    'SwingIQ fast pitch benchmarks are evidence-informed using USA Softball, NFCA, and NCAA research. ' +
+    'SwingVantage fast pitch benchmarks are evidence-informed using USA Softball, NFCA, and NCAA research. ' +
     'Reaction time benchmarks are based on published sports science literature. ' +
     'Confidence: medium — collegiate and international data available; recreational ranges estimated.',
   benchmark_version: '1.0.0',

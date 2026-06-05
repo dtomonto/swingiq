@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — JSON-LD Schema Builders
+// SwingVantage — JSON-LD Schema Builders
 // Type-safe helpers that produce schema.org structured data.
 //
 // RULES:

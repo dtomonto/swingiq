@@ -6,7 +6,7 @@
 /**
  * Serialize structured data for safe inline embedding inside a <script> tag.
  *
- * SwingIQ's JSON-LD is built from internal schema builders, but those builders
+ * SwingVantage's JSON-LD is built from internal schema builders, but those builders
  * include page titles, FAQ answers, and other copy. A raw JSON.stringify would
  * let a "</script>" sequence in any such string break out of the script
  * context — a classic stored-XSS sink. We escape the HTML-significant

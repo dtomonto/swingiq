@@ -103,9 +103,9 @@ export function AppShell({ children }: AppShellProps) {
           </button>
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 bg-golf-fairway rounded-md flex items-center justify-center">
-              <span className="text-white font-black text-xs">SQ</span>
+              <span className="text-white font-black text-xs">SV</span>
             </div>
-            <span className="text-foreground font-bold text-base">SwingIQ</span>
+            <span className="text-foreground font-bold text-base">SwingVantage</span>
           </div>
           {/* Help + Language toggles on right */}
           <div className="flex items-center gap-1">

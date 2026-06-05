@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Club Gapping Analyzer
+// SwingVantage — Club Gapping Analyzer
 // Analyzes the carry-distance gaps between clubs in the bag,
 // identifies problem areas, and recommends actions.
 // All calculations are based on user-entered typical carry values.

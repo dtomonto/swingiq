@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — useOfflineQueue
+// SwingVantage — useOfflineQueue
 // ------------------------------------------------------------
 // React hook exposing the offline session queue's pending count and
 // the browser's online/offline status. SSR-safe (server snapshot =

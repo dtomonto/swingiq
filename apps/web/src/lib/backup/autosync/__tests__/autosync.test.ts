@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Auto-Sync unit tests (pure logic)
+// SwingVantage — Auto-Sync unit tests (pure logic)
 //
 // Covers the snapshot signature, folder scan (newest-wins, encrypted
 // skipped, invalid skipped), and the continue-progress evaluation.
@@ -10,8 +10,8 @@
 import { buildSnapshot } from '../snapshot';
 import { findLatestBackup, evaluateContinue, isStateEmpty, fileSignature } from '../scan';
 import { BACKUP_FORMAT, CURRENT_BACKUP_VERSION } from '../../schema';
-import type { SwingIQBackup } from '../../schema';
-import type { SwingIQState, LocalSession } from '@/store';
+import type { SwingVantageBackup } from '../../schema';
+import type { SwingVantageState, LocalSession } from '@/store';
 import { DEFAULT_COMMUNITY_STATE } from '@/lib/community/types';
 import { DEFAULT_TUTORIAL_PROGRESS } from '@/lib/tutorial/types';
 
@@ -27,7 +27,7 @@ function makeSession(over: Partial<LocalSession> = {}): LocalSession {
   } as LocalSession;
 }
 
-function makeState(over: Partial<SwingIQState> = {}): SwingIQState {
+function makeState(over: Partial<SwingVantageState> = {}): SwingVantageState {
   return {
     profile: null,
     sportProfiles: {},
@@ -50,10 +50,10 @@ function makeState(over: Partial<SwingIQState> = {}): SwingIQState {
     agent: { dismissedKeys: [], welcomeBackDismissedHash: null },
     setup_step: 'profile',
     ...over,
-  } as unknown as SwingIQState;
+  } as unknown as SwingVantageState;
 }
 
-function makeBackup(createdAt: string, sessions: LocalSession[] = []): SwingIQBackup {
+function makeBackup(createdAt: string, sessions: LocalSession[] = []): SwingVantageBackup {
   return {
     backupFormat: BACKUP_FORMAT,
     backupVersion: CURRENT_BACKUP_VERSION,

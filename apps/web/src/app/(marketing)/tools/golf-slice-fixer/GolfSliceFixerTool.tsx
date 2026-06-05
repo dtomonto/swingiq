@@ -161,7 +161,7 @@ export function GolfSliceFixerTool() {
             <p className="mt-1 text-foreground">{result.priority}</p>
           </div>
           <div>
-            <p className="font-semibold text-foreground">What SwingIQ would analyze</p>
+            <p className="font-semibold text-foreground">What SwingVantage would analyze</p>
             <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
               {result.analyzes.map((x) => <li key={x} className="flex gap-2"><span className="text-primary">•</span>{x}</li>)}
             </ul>

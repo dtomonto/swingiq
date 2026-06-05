@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Camera Model
+// SwingVantage — pose3d: Camera Model
 // ------------------------------------------------------------
 // A pinhole camera in NORMALIZED image coordinates (u,v ∈ [0,1]), so
 // it composes directly with MediaPipe's normalized landmarks. Provides

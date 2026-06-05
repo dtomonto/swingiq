@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Coach & Team Dashboard
+// SwingVantage — Motion Lab: Coach & Team Dashboard
 // ------------------------------------------------------------
 // Local-first roster view for coaches, parents, and teams. Group Motion
 // Lab sessions by athlete and see per-athlete progress + team-level

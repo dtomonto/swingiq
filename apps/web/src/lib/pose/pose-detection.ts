@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — On-device Pose Detection (MediaPipe)
+// SwingVantage — On-device Pose Detection (MediaPipe)
 //
 // Runs Google's MediaPipe Pose Landmarker entirely in the browser to
 // detect real body landmarks on the extracted swing frames. The model

@@ -27,7 +27,7 @@ export async function GET() {
     metrics_count: metricCount,
     club_types_covered: Object.keys(allWindows),
     evidence_note:
-      'SwingIQ benchmarks are periodically reviewed and updated based on current golf performance research. ' +
+      'SwingVantage benchmarks are periodically reviewed and updated based on current golf performance research. ' +
       'Values are evidence-informed and segmented by club type. ' +
       'Confidence ratings reflect the quality and quantity of supporting sources.',
     last_research_run: null, // TODO: fetch from DB

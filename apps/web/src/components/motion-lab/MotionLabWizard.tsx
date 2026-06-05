@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Wizard (top-level flow)
+// SwingVantage — Motion Lab: Wizard (top-level flow)
 // select sport/motion → capture/upload → analyze → results
 // Everything runs in the browser; the original video never leaves
 // the device. Sessions persist locally (analysis + compact pose track).
@@ -291,7 +291,7 @@ export function MotionLabWizard() {
               </div>
               {captureMode === 'multi' && (
                 <p className="text-[11px] text-muted-foreground text-center max-w-md">
-                  Film the SAME rep from two angles ~90° apart (one face-on, one down-the-line). SwingIQ triangulates true metric 3D — confidence comes from real reprojection error.
+                  Film the SAME rep from two angles ~90° apart (one face-on, one down-the-line). SwingVantage triangulates true metric 3D — confidence comes from real reprojection error.
                 </p>
               )}
             </div>
@@ -371,7 +371,7 @@ export function MotionLabWizard() {
                         <input type="checkbox" checked={proDepth} onChange={(e) => setProDepth(e.target.checked)} className="mt-0.5 rounded-sm border-border text-primary" />
                         <span className="text-xs text-foreground">
                           <span className="font-semibold">Pro 3D depth</span>
-                          <span className="text-muted-foreground"> — refine the depth of every joint with SwingIQ&apos;s trained 3D lift model. Still a single-camera estimate, just a smarter one.</span>
+                          <span className="text-muted-foreground"> — refine the depth of every joint with SwingVantage&apos;s trained 3D lift model. Still a single-camera estimate, just a smarter one.</span>
                         </span>
                       </label>
                     ) : (

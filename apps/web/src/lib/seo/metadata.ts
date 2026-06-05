@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Reusable Metadata Helper
+// SwingVantage — Reusable Metadata Helper
 // Build a complete Next.js Metadata object for any public page
 // with sensible, config-driven defaults.
 //

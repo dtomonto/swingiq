@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Profile / identity adapter
+// SwingVantage — AGI: Profile / identity adapter
 // ------------------------------------------------------------
 // Turns the user's declared profile (golf `GolferProfileInput` + the per-sport
 // `sportProfiles` map from the store) into an AthleteIdentity. This is what

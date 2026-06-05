@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Multi-View Triangulation
+// SwingVantage — pose3d: Multi-View Triangulation
 // ------------------------------------------------------------
 // Recovers TRUE metric 3D joint positions from two or more calibrated
 // camera views via the Direct Linear Transform (DLT): each view that

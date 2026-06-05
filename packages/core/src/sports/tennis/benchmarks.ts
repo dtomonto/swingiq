@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Tennis Benchmarks
+// SwingVantage — Tennis Benchmarks
 // Evidence-informed target windows for tennis swing analysis.
 // Segmented by skill level.
 //

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Integration Status (single source of truth)
+// SwingVantage — Integration Status (single source of truth)
 // ------------------------------------------------------------
 // Reports which optional integrations are configured, based purely on
 // environment variables. Used to drive HONEST UI ("connect this to

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Flaw Fingerprint
+// SwingVantage — Flaw Fingerprint
 // ------------------------------------------------------------
 // The recurring-pattern summary: the one issue that keeps coming
 // back, the issues that travel with it, which drills the user
@@ -82,7 +82,7 @@ export function buildFlawFingerprint(input: FlawFingerprintInput): FlawFingerpri
   if (drillsThatHelped.length > 0) {
     nextIntervention = `Keep leaning on "${drillsThatHelped[0].name}" — it's working for you. Retest to confirm the gain holds.`;
   } else if (mostCommonFlaw) {
-    nextIntervention = `Open your Fix Stack for "${mostCommonFlaw}", run the drill, and mark whether it helped so SwingIQ learns what works for you.`;
+    nextIntervention = `Open your Fix Stack for "${mostCommonFlaw}", run the drill, and mark whether it helped so SwingVantage learns what works for you.`;
   } else {
     nextIntervention = 'Run an analysis and your fingerprint will start to take shape.';
   }

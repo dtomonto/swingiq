@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Moat Foundations: Unit Tests
+// SwingVantage — Moat Foundations: Unit Tests
 // ------------------------------------------------------------
 // Readiness/Game-Ready scoring · Player Model (Training Twin) ·
 // Skill Transfer Map · Performance Graph · Benchmark Mirror.

@@ -1,8 +1,8 @@
-import type { SwingIQSlice, SwingIQStore, LocalSession } from '../types';
+import type { SwingVantageSlice, SwingVantageStore, LocalSession } from '../types';
 import { newId } from '../types';
 
-export const createSessionsSlice: SwingIQSlice<
-  Pick<SwingIQStore, 'sessions' | 'addSession' | 'updateSession' | 'removeSession' | 'getSessionById'>
+export const createSessionsSlice: SwingVantageSlice<
+  Pick<SwingVantageStore, 'sessions' | 'addSession' | 'updateSession' | 'removeSession' | 'getSessionById'>
 > = (set, get) => ({
   sessions: [],
 

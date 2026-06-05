@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Temporal Intelligence Card
+// SwingVantage — Motion Lab: Temporal Intelligence Card
 // ------------------------------------------------------------
 // Shows HOW the motion unfolds over time: load / transition /
 // acceleration durations, where speed peaks, contact-window stability,

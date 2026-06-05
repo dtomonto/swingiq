@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Tuning thresholds (single source of truth)
+// SwingVantage — AGI: Tuning thresholds (single source of truth)
 // ------------------------------------------------------------
 // Every "magic number" the engine reasons with, named and documented in ONE
 // place so it can be tuned (eventually from outcome data — see docs/audit R13)

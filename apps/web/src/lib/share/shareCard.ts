@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Share Card image generator (client-only, no keys)
+// SwingVantage — Share Card image generator (client-only, no keys)
 //
 // Renders a 1080×1080 "Instagram-ready" PNG of a swing report
 // summary onto an off-screen canvas. Fully self-contained — no
@@ -95,7 +95,7 @@ export async function generateShareCard(data: ReportData): Promise<Blob | null> 
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = COLORS.accent;
   ctx.font = `800 44px ${sans}`;
-  ctx.fillText('SwingIQ', PAD, 150);
+  ctx.fillText('SwingVantage', PAD, 150);
   ctx.fillStyle = COLORS.muted;
   ctx.font = `600 30px ${sans}`;
   ctx.textAlign = 'right';
@@ -152,7 +152,7 @@ export async function generateShareCard(data: ReportData): Promise<Blob | null> 
   // Footer
   ctx.fillStyle = COLORS.muted;
   ctx.font = `500 24px ${sans}`;
-  ctx.fillText('Free AI swing analysis · swingiq.app', PAD, SIZE - 70);
+  ctx.fillText('Free AI swing analysis · swingvantage.com', PAD, SIZE - 70);
   ctx.fillStyle = COLORS.warn;
   ctx.font = `400 20px ${sans}`;
   ctx.fillText('AI estimate — not certified instruction.', PAD, SIZE - 40);
@@ -162,7 +162,7 @@ export async function generateShareCard(data: ReportData): Promise<Blob | null> 
 
 function filename(data: ReportData): string {
   const date = new Date().toISOString().slice(0, 10);
-  return `swingiq-${data.sport.toLowerCase().replace(/\s+/g, '-')}-${date}.png`;
+  return `swingvantage-${data.sport.toLowerCase().replace(/\s+/g, '-')}-${date}.png`;
 }
 
 /** Trigger a browser download of the share card. */
@@ -191,7 +191,7 @@ export async function shareCardImage(data: ReportData): Promise<'shared' | 'down
   const nav = navigator as Navigator & { canShare?: (d: { files: File[] }) => boolean };
   if (nav.share && nav.canShare?.({ files: [file] })) {
     try {
-      await nav.share({ files: [file], title: `My SwingIQ ${data.sport} summary` });
+      await nav.share({ files: [file], title: `My SwingVantage ${data.sport} summary` });
       return 'shared';
     } catch {
       return 'failed';

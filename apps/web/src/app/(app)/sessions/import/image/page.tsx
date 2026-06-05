@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Import from Screenshot or Photo
+// SwingVantage — Import from Screenshot or Photo
 // 4-step wizard: Upload → Extract & Review → Confirm → Analysis
 // ============================================================
 
@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { Card, CardHeader, CardBody, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useSport } from '@/contexts/SportContext';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import type { ImageExtractionSource } from '@swingiq/core';
 import { runOcr } from '@/lib/import/ocrClient';
 import { buildSessionFromTable } from '@/lib/import/toSession';
@@ -179,7 +179,7 @@ function ConfidenceBadge({ level }: { level: string }) {
 
 export default function ImageImportPage() {
   const { activeSport, sportName } = useSport();
-  const { addSession } = useSwingIQStore();
+  const { addSession } = useSwingVantageStore();
 
   // Wizard state
   const [step, setStep] = useState(1);
@@ -353,7 +353,7 @@ export default function ImageImportPage() {
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground">Import from Screenshot or Photo</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Upload a photo of your launch monitor or stats screen and SwingIQ reads the numbers for you to review — or
+            Upload a photo of your launch monitor or stats screen and SwingVantage reads the numbers for you to review — or
             type them in by hand. Nothing is saved until you confirm.
           </p>
         </div>

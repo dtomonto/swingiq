@@ -1,6 +1,6 @@
-# SwingIQ — Athlete General Intelligence: Product & Monetization Strategy
+# SwingVantage — Athlete General Intelligence: Product & Monetization Strategy
 
-_The single source of truth for how Athlete General Intelligence (AGI) fits SwingIQ's
+_The single source of truth for how Athlete General Intelligence (AGI) fits SwingVantage's
 growth, positioning, and monetization. Built from the shipped feature (`lib/agi`,
 `/agi`, `/athlete-general-intelligence`) and the existing strategy docs
 (`MONETIZATION_CHECKLIST.md`, `COMPETITIVE_POSITIONING.md`, `PRODUCT_ROADMAP.md`).
@@ -10,7 +10,7 @@ Last updated: June 2026._
 
 ## 📘 In Plain English (start here)
 
-**What this is:** SwingIQ now has one engine — **Athlete General Intelligence** — that
+**What this is:** SwingVantage now has one engine — **Athlete General Intelligence** — that
 looks across *all* your sports at once and finds the single skill that, if you improve
 it, lifts the most of them. This page explains why that matters for the business: how it
 grows free users, how it can make money later, and why no competitor can easily copy it.
@@ -49,7 +49,7 @@ report** — all under a single **A–D trust grade** that tells you exactly wha
 ## 2. Why it matters strategically (the moat)
 
 - **It deepens our #1 differentiator (multi-sport).** Competitors are single-sport, so they
-  *cannot* reason across sports at all. AGI is only possible *because* SwingIQ is one
+  *cannot* reason across sports at all. AGI is only possible *because* SwingVantage is one
   multi-sport platform — it turns a feature into a structural advantage rivals can't copy
   without rebuilding as multi-sport first.
 - **It extends our "honest, closed loop" differentiator.** Diagnosis → keystone → plan →
@@ -89,7 +89,7 @@ items above are *roadmap* — surface them as "rolling out," never as shipped, u
 ## 4. Growth & virality
 
 - **The viral artifact:** the coach-shareable AGI report. Every share is a branded,
-  honest, text-only summary ending in "Made with SwingIQ — swingiq.app." Track
+  honest, text-only summary ending in "Made with SwingVantage — swingvantage.com." Track
   `REPORT_COPIED` / `COACH_SHARE_CLICKED` / `REPORT_SHARED` to measure the loop.
 - **The retention hook:** the Today dashboard summary surfaces the keystone + today's
   action every visit; progress-over-time gives a reason to come back ("did it move?").

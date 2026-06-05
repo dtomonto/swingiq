@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Readiness Engine: Types
+// SwingVantage — Readiness Engine: Types
 // ------------------------------------------------------------
 // Two transparent, deterministic guidance scores:
 //   - ReadinessScore: are you set up to train well right now?

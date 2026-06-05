@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Returning-User "Welcome Back" + Swing History
+// SwingVantage — Returning-User "Welcome Back" + Swing History
 // ------------------------------------------------------------
 // Surfaces the user's most recent saved analysis for the current
 // sport, lets them turn on "compare to my last swing" (which feeds

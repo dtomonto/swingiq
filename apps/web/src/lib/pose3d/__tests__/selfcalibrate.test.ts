@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: self-calibration correctness
+// SwingVantage — pose3d: self-calibration correctness
 // ------------------------------------------------------------
 // Projects a motion through a KNOWN two-camera rig, then recovers the
 // relative pose purely from the 2D correspondences and confirms (a) the

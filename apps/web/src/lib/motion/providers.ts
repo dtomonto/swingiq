@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Engine: Provider Seam
+// SwingVantage — Motion Engine: Provider Seam
 // ------------------------------------------------------------
 // The interchangeable boundary between the app and a pose model.
 // A real provider (MediaPipe / MoveNet / a server endpoint) just

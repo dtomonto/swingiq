@@ -1,6 +1,6 @@
-# SwingIQ — Data Import Guide
+# SwingVantage — Data Import Guide
 
-How to get your performance data into SwingIQ for every sport.
+How to get your performance data into SwingVantage for every sport.
 
 ---
 
@@ -112,7 +112,7 @@ Target range: **-3° to +3°** for most golfers.
 3. Select your session from the history.
 4. Click Export → choose CSV format.
 
-**Note:** Foresight sometimes exports distances in meters. SwingIQ detects this and converts automatically.
+**Note:** Foresight sometimes exports distances in meters. SwingVantage detects this and converts automatically.
 
 **What Foresight provides:**
 - All ball data ✓
@@ -206,7 +206,7 @@ No CSV export? Snap a photo (or screenshot) of the numbers on your launch monito
 
 1. Go to **Sessions → Import from Screenshot/Photo** (`/sessions/import/image`)
 2. Upload or drag-and-drop a photo or screenshot of your performance table
-3. **Extract & Review** — if an extraction provider is configured, SwingIQ reads the numbers off the image to pre-fill the table (each value carries a confidence note); without a provider it drops straight to manual entry
+3. **Extract & Review** — if an extraction provider is configured, SwingVantage reads the numbers off the image to pre-fill the table (each value carries a confidence note); without a provider it drops straight to manual entry
 4. **Review and edit every value** — nothing is analyzed until you confirm it
 5. **Confirm** the session name and details
 6. Save → the data flows into the same diagnosis and history as a CSV import

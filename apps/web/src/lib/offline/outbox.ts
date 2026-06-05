@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Offline Outbox (IndexedDB, no deps)
+// SwingVantage — Offline Outbox (IndexedDB, no deps)
 //
 // A small durable queue for writes that should sync to a backend
 // when one exists. In keyless mode there is no backend, so the

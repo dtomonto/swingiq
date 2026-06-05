@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Metrics Panel
+// SwingVantage — Motion Lab: Metrics Panel
 // Honest, expandable metric cards. Every metric shows its value,
 // a normalized quality bar, confidence, basis, and a "why it matters"
 // + limitations section on expand.

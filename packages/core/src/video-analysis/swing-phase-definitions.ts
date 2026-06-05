@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Swing Phase Definitions
+// SwingVantage — Swing Phase Definitions
 // Static coaching content for each phase of the golf swing.
 // ============================================================
 

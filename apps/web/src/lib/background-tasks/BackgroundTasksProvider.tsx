@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Background Tasks Provider
+// SwingVantage — Background Tasks Provider
 // ------------------------------------------------------------
 // Lets a long-running upload / analysis keep working after the user
 // navigates away, and notifies them when it finishes. The provider is
@@ -181,7 +181,7 @@ export function BackgroundTasksProvider({ children }: { children: React.ReactNod
           if (wantsNotify && isDocumentHidden()) {
             showBackgroundTaskNotification(
               task.title,
-              completionMessage ?? 'Finished — open SwingIQ to view it.',
+              completionMessage ?? 'Finished — open SwingVantage to view it.',
               `swingiq-${opts.kind}`,
             );
           }

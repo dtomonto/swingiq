@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Central Zustand Store
+// SwingVantage — Central Zustand Store
 // localStorage-persisted app state, composed from per-domain
 // slices (audit finding AA-5). Type shapes + defaults live in
 // ./types; each domain's state+actions live in ./slices/*.
@@ -13,7 +13,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { SportId } from '@swingiq/core';
 
-import type { SwingIQState, SwingIQStore } from './types';
+import type { SwingVantageState, SwingVantageStore } from './types';
 import {
   DEFAULT_SETTINGS,
   DEFAULT_SPORT_EQUIPMENT,
@@ -36,7 +36,7 @@ import { createAgentSlice } from './slices/agent';
 // Re-export all store types/defaults so consumers keep importing from '@/store'.
 export * from './types';
 
-export const useSwingIQStore = create<SwingIQStore>()(
+export const useSwingVantageStore = create<SwingVantageStore>()(
   persist(
     (set, get, store) => ({
       // ── Per-domain slices ──
@@ -67,7 +67,7 @@ export const useSwingIQStore = create<SwingIQStore>()(
           sessions.some((s) => s.diagnoses.length > 0) ||
           video_analyses.some((v) => !!v.primary_issue);
 
-        let step: SwingIQState['setup_step'] = 'profile';
+        let step: SwingVantageState['setup_step'] = 'profile';
         if (anyProfile) step = 'bag';
         if (anyProfile && hasBagOrSportProfile) step = 'session';
         if (anyProfile && hasBagOrSportProfile && anyContent) step = 'diagnose';
@@ -114,7 +114,7 @@ export const useSwingIQStore = create<SwingIQStore>()(
 
 /** Latest session with diagnoses (sorted newest-first) */
 export function useLatestDiagnosedSession() {
-  return useSwingIQStore((s) =>
+  return useSwingVantageStore((s) =>
     [...s.sessions]
       .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
       .find((sess) => sess.diagnoses.length > 0),
@@ -123,12 +123,12 @@ export function useLatestDiagnosedSession() {
 
 /** All sessions for current sport */
 export function useSportSessions(sport: SportId) {
-  return useSwingIQStore((s) => s.sessions.filter((sess) => sess.sport === sport));
+  return useSwingVantageStore((s) => s.sessions.filter((sess) => sess.sport === sport));
 }
 
 /** Overall swing score: average of last 3 scored sessions */
 export function useOverallScore() {
-  return useSwingIQStore((s) => {
+  return useSwingVantageStore((s) => {
     const scored = s.sessions.filter((sess) => sess.swing_score !== null).slice(0, 3);
     if (!scored.length) return null;
     return Math.round(scored.reduce((sum, sess) => sum + (sess.swing_score ?? 0), 0) / scored.length);

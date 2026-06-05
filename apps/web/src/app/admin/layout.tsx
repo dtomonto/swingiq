@@ -13,7 +13,7 @@ import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Admin | SwingIQ',
+  title: 'Admin | SwingVantage',
   robots: 'noindex, nofollow',
 };
 
@@ -45,7 +45,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <span className="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-2 py-0.5 rounded-sm">
             ADMIN
           </span>
-          <span className="text-sm font-semibold text-gray-200">SwingIQ Internal</span>
+          <span className="text-sm font-semibold text-gray-200">SwingVantage Internal</span>
         </div>
         <a href="/dashboard" className="text-xs text-gray-400 hover:text-gray-200 transition-colors">
           ← Back to app

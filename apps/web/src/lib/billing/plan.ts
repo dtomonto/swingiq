@@ -1,8 +1,8 @@
 // ============================================================
-// SwingIQ — Pure billing/plan helpers (no I/O, easy to unit-test)
+// SwingVantage — Pure billing/plan helpers (no I/O, easy to unit-test)
 //
 // These functions translate between Stripe concepts (price ids,
-// subscription statuses) and SwingIQ tiers. They take all inputs
+// subscription statuses) and SwingVantage tiers. They take all inputs
 // explicitly so they can be tested without a database or network.
 // ============================================================
 
@@ -26,7 +26,7 @@ export function effectiveTier(
 }
 
 /**
- * Map a Stripe price id back to a SwingIQ tier using the configured env.
+ * Map a Stripe price id back to a SwingVantage tier using the configured env.
  * Returns null when the price doesn't match a known tier price.
  */
 export function priceIdToTier(

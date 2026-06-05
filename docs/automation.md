@@ -1,4 +1,4 @@
-# SwingIQ — Automation
+# SwingVantage — Automation
 
 What runs automatically, what you run manually, and — importantly — what we
 deliberately do **not** automate.
@@ -7,15 +7,15 @@ deliberately do **not** automate.
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** A list of what the project does by itself, what a human still has to do by hand, and — most importantly — the things SwingIQ **refuses** to automate on purpose.
+**What this page is:** A list of what the project does by itself, what a human still has to do by hand, and — most importantly — the things SwingVantage **refuses** to automate on purpose.
 
 **What you actually need to know:**
-- The one section worth reading even as a non-developer is **"What we do NOT automate (by policy)"** near the bottom. It's a values and safety statement: no fake reviews or ratings, no spam or mass-messaging, no auto-posting to social media, and **youth data is never made public by default.** These are promises about how SwingIQ behaves.
+- The one section worth reading even as a non-developer is **"What we do NOT automate (by policy)"** near the bottom. It's a values and safety statement: no fake reviews or ratings, no spam or mass-messaging, no auto-posting to social media, and **youth data is never made public by default.** These are promises about how SwingVantage behaves.
 - The table of `npm run` commands is for a developer or an AI assistant — those are typed into a terminal, not something you click in the app.
 
-**What to do next:** Nothing required. If you ever wonder "does SwingIQ secretly spam people or fake reviews?", the answer is in the "What we do NOT automate" section — and it's no.
+**What to do next:** Nothing required. If you ever wonder "does SwingVantage secretly spam people or fake reviews?", the answer is in the "What we do NOT automate" section — and it's no.
 
-> The command tables and CI/workflow sections below are a developer/AI reference. You don't need them to use or run SwingIQ.
+> The command tables and CI/workflow sections below are a developer/AI reference. You don't need them to use or run SwingVantage.
 
 ---
 
@@ -66,14 +66,14 @@ These are intentionally human-driven:
 - **Content:** write SEO drafts and short-form scripts, review for accuracy and
   honesty, then publish.
 - **Email lifecycle:** templates live in `content/emails/`; connect a provider
-  (see below) and schedule sends through that provider — SwingIQ does not send
+  (see below) and schedule sends through that provider — SwingVantage does not send
   email itself.
 
 ## 4. Email capture / sending
 
 `/api/email-capture` stores leads via whichever provider is configured by env
 (Resend, ConvertKit, Mailchimp, or a webhook). If none is set, it honestly
-reports that the address was not stored. SwingIQ does not send marketing email
+reports that the address was not stored. SwingVantage does not send marketing email
 directly — use your provider's automations with the `content/emails/` templates.
 
 ## 5. What we do NOT automate (by policy)

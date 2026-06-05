@@ -1,3 +1,3 @@
-// SwingIQ — Readiness Engine (barrel)
+// SwingVantage — Readiness Engine (barrel)
 export * from './types';
 export { computeReadiness, computeGameReady } from './engine';

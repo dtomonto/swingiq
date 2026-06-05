@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Multi-Sport Fault Ontology: Public API (barrel)
+// SwingVantage — Multi-Sport Fault Ontology: Public API (barrel)
 // ------------------------------------------------------------
 // One structured vocabulary for what each swing fault means,
 // how to retest it, and how to explain it to a parent, coach,

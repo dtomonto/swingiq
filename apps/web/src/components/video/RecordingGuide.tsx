@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — "How to record the best video" guide
+// SwingVantage — "How to record the best video" guide
 // ------------------------------------------------------------
 // Sport-aware capture tips shown near the upload area BEFORE the
 // user picks a file. Better footage = a more confident, more useful
@@ -127,7 +127,7 @@ export function RecordingGuide({
 
         <p className="text-xs text-muted-foreground">
           The clearer your footage, the more confident the AI review can be. If the angle or lighting
-          is limited, SwingIQ will tell you honestly and lower its confidence rather than guess.
+          is limited, SwingVantage will tell you honestly and lower its confidence rather than guess.
         </p>
       </div>
     </details>

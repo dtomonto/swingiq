@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Golf Swing Video Analyzer
+// SwingVantage — Golf Swing Video Analyzer
 // Real AI visual analysis: extract frames in the browser -> send only
 // still frames to the AI vision provider -> render the validated,
 // video-grounded result. If no provider is configured, show the strict
@@ -189,7 +189,7 @@ export function VideoAnalyzerContent() {
             <div className="text-center">
               <h2 className="text-xl font-bold text-foreground">Upload your swing video</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                Record from down the line or face on. SwingIQ&apos;s AI reviews the actual frames of
+                Record from down the line or face on. SwingVantage&apos;s AI reviews the actual frames of
                 your swing.
               </p>
             </div>
@@ -246,7 +246,7 @@ export function VideoAnalyzerContent() {
               <Loader2 className="w-8 h-8 animate-spin text-golf-fairway mx-auto mb-3" />
               <h2 className="text-lg font-semibold text-foreground">Analyzing your swing</h2>
               <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">
-                This can take a couple of minutes. You can leave this page — SwingIQ keeps working in
+                This can take a couple of minutes. You can leave this page — SwingVantage keeps working in
                 the background and lets you know the moment it&apos;s ready.
               </p>
             </div>

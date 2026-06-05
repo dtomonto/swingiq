@@ -1,11 +1,11 @@
 /**
- * SwingIQ Backup Encryption
+ * SwingVantage Backup Encryption
  *
  * Uses the browser Web Crypto API (window.crypto.subtle) — no external dependencies.
  * AES-256-GCM with PBKDF2 key derivation (OWASP 2023 recommended iterations).
  */
 
-import type { SwingIQBackup } from './schema';
+import type { SwingVantageBackup } from './schema';
 
 const MARKER = 'swingiq_encrypted';
 const VERSION = 1;
@@ -59,11 +59,11 @@ async function deriveKey(password: string, salt: Uint8Array): Promise<CryptoKey>
 }
 
 /**
- * Encrypts a SwingIQBackup with a password using AES-256-GCM.
+ * Encrypts a SwingVantageBackup with a password using AES-256-GCM.
  * Returns a base64-encoded JSON blob string.
  */
 export async function encryptBackup(
-  backup: SwingIQBackup,
+  backup: SwingVantageBackup,
   password: string,
 ): Promise<string> {
   const enc = new TextEncoder();
@@ -90,13 +90,13 @@ export async function encryptBackup(
 }
 
 /**
- * Decrypts an encrypted blob string back to a SwingIQBackup.
+ * Decrypts an encrypted blob string back to a SwingVantageBackup.
  * Throws if the password is wrong or the data is corrupted.
  */
 export async function decryptBackup(
   encryptedBlob: string,
   password: string,
-): Promise<SwingIQBackup> {
+): Promise<SwingVantageBackup> {
   let blob: EncryptedBlob;
   try {
     blob = JSON.parse(atob(encryptedBlob)) as EncryptedBlob;
@@ -121,14 +121,14 @@ export async function decryptBackup(
     );
 
     const dec = new TextDecoder();
-    return JSON.parse(dec.decode(plaintext)) as SwingIQBackup;
+    return JSON.parse(dec.decode(plaintext)) as SwingVantageBackup;
   } catch {
     throw new Error('Incorrect password or corrupted backup.');
   }
 }
 
 /**
- * Returns true if the string is an encrypted SwingIQ backup blob.
+ * Returns true if the string is an encrypted SwingVantage backup blob.
  */
 export function isEncryptedBackup(content: string): boolean {
   try {

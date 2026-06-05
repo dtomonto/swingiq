@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: kinetic chain sequencing tests
+// SwingVantage — Motion Lab: kinetic chain sequencing tests
 // ------------------------------------------------------------
 // Guarantees the firing-order read + power-leak flags are correct and
 // that the engine degrades honestly on thin input.

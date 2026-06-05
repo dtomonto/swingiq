@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Tiny MLP (forward + Adam backprop)
+// SwingVantage — pose3d: Tiny MLP (forward + Adam backprop)
 // ------------------------------------------------------------
 // A dependency-free 2-layer perceptron (in → ReLU hidden → out) used
 // for the single-view 3D lifting model. The same forward pass runs in

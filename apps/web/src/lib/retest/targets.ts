@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Retest Engine: Derivation
+// SwingVantage — Retest Engine: Derivation
 // ------------------------------------------------------------
 // Builds OPEN retest targets and COMPLETED results purely from
 // saved video history + the fault ontology's retest rules + the

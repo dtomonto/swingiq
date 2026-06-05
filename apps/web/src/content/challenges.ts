@@ -65,11 +65,11 @@ export const CHALLENGES: Record<string, Challenge> = {
     slug: '30-day-swingiq',
     sport: 'Any sport',
     leadSource: 'general',
-    title: '30-Day SwingIQ Challenge',
+    title: '30-Day SwingVantage Challenge',
     metaDescription:
       'A free 30-day plan to build one real, lasting swing improvement — week by week, with retests. Works for golf, tennis, baseball, and softball.',
     intro:
-      'Real change takes more than a week. This 30-day challenge builds one priority into a habit, adds game speed and pressure, then locks it in — for any sport SwingIQ supports.',
+      'Real change takes more than a week. This 30-day challenge builds one priority into a habit, adds game speed and pressure, then locks it in — for any sport SwingVantage supports.',
     promise: 'By day 30 you should have one priority genuinely improved and measured against your starting baseline.',
     days: [
       { day: 1, focus: 'Week 1 — Groove', detail: 'Establish a baseline and groove your single highest-priority change at slow/half speed.' },

@@ -1,14 +1,14 @@
-# SwingIQ — Beginner Start Here
+# SwingVantage — Beginner Start Here
 
 **Read this first. Every step is numbered. Do not skip steps.**
 
 ---
 
-## What Is SwingIQ?
+## What Is SwingVantage?
 
-SwingIQ is a web-based swing performance platform. It runs in your browser — no app to install from any app store. It works on your phone, tablet, or computer.
+SwingVantage is a web-based swing performance platform. It runs in your browser — no app to install from any app store. It works on your phone, tablet, or computer.
 
-SwingIQ supports five sports:
+SwingVantage supports five sports:
 
 | Sport | How it analyzes your swing |
 |---|---|
@@ -18,7 +18,7 @@ SwingIQ supports five sports:
 | 🥎 Slow Pitch Softball | Upload a video of your swing |
 | 🥎 Fast Pitch Softball | Upload a video of your swing |
 
-For every sport, SwingIQ tells you:
+For every sport, SwingVantage tells you:
 1. What your primary issue is
 2. Why it happens
 3. What to practice
@@ -43,7 +43,7 @@ You do NOT need to know anything about programming, coding, or software developm
 
 ### Step 1: Install Node.js
 
-Node.js is a program that lets your computer run the SwingIQ code.
+Node.js is a program that lets your computer run the SwingVantage code.
 
 1. Open your web browser and go to: **https://nodejs.org**
 2. Click the big button labeled **"LTS"** (Long-Term Support).
@@ -66,9 +66,9 @@ VS Code is a free program for viewing and editing project files.
 
 ---
 
-### Step 3: Confirm the SwingIQ folder is on your computer
+### Step 3: Confirm the SwingVantage folder is on your computer
 
-The SwingIQ project should be at:
+The SwingVantage project should be at:
 `C:\Users\YourName\OneDrive\Desktop\swingiq`
 
 If it is there, continue to Part 2.
@@ -144,7 +144,7 @@ Press Enter. Wait about 10 seconds. You will see:
 
 1. Open Chrome, Edge, Firefox, or Safari.
 2. Go to: `http://localhost:3000`
-3. You should see the SwingIQ dashboard.
+3. You should see the SwingVantage dashboard.
 
 **The app is running.**
 
@@ -207,9 +207,9 @@ Click **Log Session** (non-golf) or use **Manual Entry** (golf) to record a sess
 
 ---
 
-## Using SwingIQ on Your Phone
+## Using SwingVantage on Your Phone
 
-SwingIQ is a web app. There is nothing to install from any app store. Just open a browser on your phone.
+SwingVantage is a web app. There is nothing to install from any app store. Just open a browser on your phone.
 
 **While running locally (on your home computer):**
 
@@ -261,7 +261,7 @@ A: Only for golf data-driven analysis. Golf video analysis works too. For tennis
 A: The app itself is free to run locally. Supabase (cloud storage) has a free tier. Vercel (deployment) has a free tier. An AI key (for live AI Coach answers) costs a few dollars per month at most.
 
 **Q: Do I have to create an account?**
-A: No. SwingIQ starts keyless — open it and jump straight in, with your data saved privately on your own device. An account is optional and only matters if you turn on cloud sync (Supabase); then sign-up, sign-in, and password reset are available whenever you choose.
+A: No. SwingVantage starts keyless — open it and jump straight in, with your data saved privately on your own device. An account is optional and only matters if you turn on cloud sync (Supabase); then sign-up, sign-in, and password reset are available whenever you choose.
 
 **Q: Does it work without internet?**
 A: Yes for the on-device parts. If your connection drops (common at a range), a banner lets you know, your work is held safely on your device, and anything that needs the network is queued to finish automatically once you reconnect.

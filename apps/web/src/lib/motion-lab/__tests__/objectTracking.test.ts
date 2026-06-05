@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: implement/object path estimation tests
+// SwingVantage — Motion Lab: implement/object path estimation tests
 // ------------------------------------------------------------
 // Guarantees the heuristic stays HONEST: it extrapolates the head
 // along the forearm, caps its confidence, labels its basis, and never

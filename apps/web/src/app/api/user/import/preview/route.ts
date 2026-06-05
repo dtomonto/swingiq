@@ -1,14 +1,14 @@
 // POST /api/user/import/preview
 //
-// Validates an uploaded SwingIQBackup and returns a restore preview —
+// Validates an uploaded SwingVantageBackup and returns a restore preview —
 // counts of new, duplicate, and conflicting records — without applying anything.
 //
-// Body: { backup: SwingIQBackup }  (max 10 MB)
+// Body: { backup: SwingVantageBackup }  (max 10 MB)
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { validateBackupFile } from '@/lib/backup/validate';
-import type { SwingIQBackup } from '@/lib/backup/schema';
+import type { SwingVantageBackup } from '@/lib/backup/schema';
 
 export const maxDuration = 10; // seconds
 
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const backup = body.backup as SwingIQBackup;
+  const backup = body.backup as SwingVantageBackup;
 
   // Build a server-side preview summary
   // Full duplicate detection requires querying the user's Supabase data.

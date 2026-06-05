@@ -1,7 +1,7 @@
 // ============================================================
-// SwingIQ — Local Account Store (keyless auth fallback)
+// SwingVantage — Local Account Store (keyless auth fallback)
 //
-// When Supabase is NOT configured, SwingIQ still offers a real
+// When Supabase is NOT configured, SwingVantage still offers a real
 // sign-up / sign-in experience backed entirely by this browser.
 // Accounts live in localStorage on THIS device only. Passwords are
 // never stored in plain text — they are PBKDF2-SHA-256 hashed with a

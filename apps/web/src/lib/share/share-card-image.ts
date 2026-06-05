@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Share-Card Image Generator (client-only)
+// SwingVantage — Share-Card Image Generator (client-only)
 // ------------------------------------------------------------
 // Renders an Instagram-ready 1080×1080 PNG of a swing summary on a
 // canvas, entirely on-device. No video, no network, no PII beyond what
@@ -107,7 +107,7 @@ export async function generateShareCardPng(data: ReportData): Promise<Blob | nul
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = COLORS.brand;
   ctx.font = '700 46px Arial, sans-serif';
-  ctx.fillText('SwingIQ', PAD, PAD + 30);
+  ctx.fillText('SwingVantage', PAD, PAD + 30);
 
   ctx.fillStyle = COLORS.muted;
   ctx.font = '600 28px Arial, sans-serif';
@@ -184,7 +184,7 @@ export async function generateShareCardPng(data: ReportData): Promise<Blob | nul
 
 function fileName(data: ReportData): string {
   const slug = data.sport.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  return `swingiq-${slug}-summary.png`;
+  return `swingvantage-${slug}-summary.png`;
 }
 
 /** Generate + download the share card. Returns false on failure. */
@@ -218,7 +218,7 @@ export async function shareCardImage(data: ReportData): Promise<boolean> {
   const nav = typeof navigator !== 'undefined' ? navigator : undefined;
   if (nav?.canShare && nav.canShare({ files: [file] }) && nav.share) {
     try {
-      await nav.share({ files: [file], title: `My SwingIQ ${data.sport} summary` });
+      await nav.share({ files: [file], title: `My SwingVantage ${data.sport} summary` });
       return true;
     } catch {
       return false; // user cancelled or share failed

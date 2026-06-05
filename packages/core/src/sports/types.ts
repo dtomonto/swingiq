@@ -1,6 +1,6 @@
 // ============================================================
-// SwingIQ — Multi-Sport Types
-// Foundation types shared across all sports supported by SwingIQ.
+// SwingVantage — Multi-Sport Types
+// Foundation types shared across all sports supported by SwingVantage.
 // Golf types remain in video-analysis/types.ts and types/index.ts.
 // ============================================================
 

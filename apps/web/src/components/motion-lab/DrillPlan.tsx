@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Drill Plan
+// SwingVantage — Motion Lab: Drill Plan
 // ============================================================
 
 import { useState } from 'react';

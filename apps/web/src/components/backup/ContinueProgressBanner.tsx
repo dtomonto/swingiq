@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Continue Progress banner
+// SwingVantage — Continue Progress banner
 //
 // Shown when auto-restore found a newer backup in the user's chosen
 // folder AND there is already local data (so we must NOT overwrite

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Layer: Context Builder
+// SwingVantage — Agent Layer: Context Builder
 // ------------------------------------------------------------
 // Turns the persisted app store into the single normalized
 // AgentContext that every deterministic workflow reads. Cheap,
@@ -9,7 +9,7 @@
 // ============================================================
 
 import type { SportId, SkillLevel } from '@swingiq/core';
-import type { SwingIQState } from '@/store';
+import type { SwingVantageState } from '@/store';
 import { getSportAgentProfile } from './sport-profiles';
 import type {
   AgentContext,
@@ -65,7 +65,7 @@ const EQUIPMENT_FIELDS: Record<Exclude<SportId, 'golf'>, string[]> = {
   softball_fast: ['length_in', 'weight_oz', 'material', 'certification_stamps', 'end_load_oz'],
 };
 
-function buildEquipmentProfile(state: SwingIQState, sport: SportId): EquipmentProfile {
+function buildEquipmentProfile(state: SwingVantageState, sport: SportId): EquipmentProfile {
   if (sport === 'golf') {
     const count = state.clubs.length;
     let completeness = 0;
@@ -102,7 +102,7 @@ function buildEquipmentProfile(state: SwingIQState, sport: SportId): EquipmentPr
 
 // ── Session normalization ─────────────────────────────────────
 
-function normalizeSessions(state: SwingIQState): SessionSummary[] {
+function normalizeSessions(state: SwingVantageState): SessionSummary[] {
   const fromSessions: SessionSummary[] = state.sessions.map((s) => {
     const top = s.diagnoses[0];
     return {
@@ -139,7 +139,7 @@ function normalizeSessions(state: SwingIQState): SessionSummary[] {
 
 // ── Plan status heuristic ─────────────────────────────────────
 
-function derivePlanStatus(state: SwingIQState): PlanStatus {
+function derivePlanStatus(state: SwingVantageState): PlanStatus {
   const t = state.training;
   if (!t.active_diagnosis_id) return 'none';
   // If a session was logged after the plan started, the loop closed.
@@ -156,7 +156,7 @@ function derivePlanStatus(state: SwingIQState): PlanStatus {
 // ── Main builder ──────────────────────────────────────────────
 
 export function buildAgentContext(
-  state: SwingIQState,
+  state: SwingVantageState,
   activeSport: SportId,
   now: Date = new Date(),
 ): AgentContext {

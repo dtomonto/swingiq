@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Athlete Summarizer (the ~120-word athlete narrative)
+// SwingVantage — AGI: Athlete Summarizer (the ~120-word athlete narrative)
 // ------------------------------------------------------------
 // Turns an AthleteGIResult into a warm, plain-English, ~120-word summary
 // for a NON-technical athlete — the friendly counterpart to the coach
@@ -84,7 +84,7 @@ export function buildAthleteSummary(result: AthleteGIResult): AthleteSummary {
       sentences.push('Improving this one thing carries across your training rather than fixing just one swing.');
     }
   } else {
-    sentences.push(`Your keystone — the one skill to train first — is ${NOT_MEASURED}; analyse a few more sessions so SwingIQ can find it.`);
+    sentences.push(`Your keystone — the one skill to train first — is ${NOT_MEASURED}; analyse a few more sessions so SwingVantage can find it.`);
   }
 
   // 3) Today's recommended effort (readiness-scaled).

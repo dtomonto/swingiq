@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Readiness Engine v1
+// SwingVantage — Readiness Engine v1
 // ------------------------------------------------------------
 // Deterministic, transparent guidance scores. A safety flag always
 // beats the number. Nothing here is a fitness, medical, or official

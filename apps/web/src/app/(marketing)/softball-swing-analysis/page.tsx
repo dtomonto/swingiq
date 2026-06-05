@@ -26,9 +26,9 @@ export const metadata = buildMetadata({
 
 const faqItems = [
   {
-    question: 'Does SwingIQ support both slow pitch and fast pitch softball?',
+    question: 'Does SwingVantage support both slow pitch and fast pitch softball?',
     answer:
-      'Yes. SwingIQ has separate analysis profiles for slow pitch and fast pitch softball. Each uses sport-specific benchmarks — slow pitch focuses on arc timing, gap hitting, and power angles, while fast pitch emphasizes timing against faster pitches, attack angle, and contact point.',
+      'Yes. SwingVantage has separate analysis profiles for slow pitch and fast pitch softball. Each uses sport-specific benchmarks — slow pitch focuses on arc timing, gap hitting, and power angles, while fast pitch emphasizes timing against faster pitches, attack angle, and contact point.',
   },
   {
     question: 'What metrics are most important in slow pitch softball?',
@@ -41,21 +41,21 @@ const faqItems = [
       'Time to contact, attack angle, launch angle, bat speed, and contact point depth are key in fast pitch. The faster pitch speeds (50–75 mph) demand a much shorter, more efficient swing path.',
   },
   {
-    question: 'How do I import my hitting data into SwingIQ?',
+    question: 'How do I import my hitting data into SwingVantage?',
     answer:
       'You can upload a CSV from Rapsodo, Blast Motion, or Diamond Kinetics. You can also take a screenshot of any device screen and manually enter your data using the image import tool.',
   },
   {
-    question: 'Can coaches use SwingIQ for a whole team?',
+    question: 'Can coaches use SwingVantage for a whole team?',
     answer:
-      'Team and facility accounts are on the roadmap. Currently, each athlete has their own account. Coaches can guide athletes through SwingIQ and review progress together.',
+      'Team and facility accounts are on the roadmap. Currently, each athlete has their own account. Coaches can guide athletes through SwingVantage and review progress together.',
   },
 ];
 
 // Single source of truth for the visible "How it works" steps AND the HowTo
 // JSON-LD, so the page and structured data never drift.
 const howSteps = [
-  { name: 'Select Your Sport Mode', text: 'Choose slow pitch or fast pitch. SwingIQ loads the right benchmarks and drill library for your discipline.' },
+  { name: 'Select Your Sport Mode', text: 'Choose slow pitch or fast pitch. SwingVantage loads the right benchmarks and drill library for your discipline.' },
   { name: 'Import or Enter Data', text: 'Upload a Blast Motion session, Rapsodo data, or use the photo import to manually enter stats from any device.' },
   { name: 'Get Your Drill Plan', text: 'Receive targeted drills, a weekly training schedule, and benchmarks tailored to your competition level.' },
 ];

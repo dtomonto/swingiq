@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Slow Pitch Softball Drill Library
+// SwingVantage — Slow Pitch Softball Drill Library
 // All YouTube links are SEARCH LINKS only — never hardcoded.
 // ============================================================
 

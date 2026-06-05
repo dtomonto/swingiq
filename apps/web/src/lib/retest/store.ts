@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Retest Engine: Local-First Store
+// SwingVantage — Retest Engine: Local-First Store
 // ------------------------------------------------------------
 // Mirrors lib/video/history.ts: a tiny, self-contained
 // localStorage record in its OWN key. It does NOT touch the

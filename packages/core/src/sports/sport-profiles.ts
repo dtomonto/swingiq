@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Sport-Specific Profile Schemas
+// SwingVantage — Sport-Specific Profile Schemas
 // Each sport has its own profile fields. Shared athlete fields
 // (name, handedness) live in the base GolferProfileInput.
 // ============================================================

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Essential Matrix (normalized 8-point + RANSAC)
+// SwingVantage — pose3d: Essential Matrix (normalized 8-point + RANSAC)
 // ------------------------------------------------------------
 // Estimates the essential matrix between two calibrated views from 2D
 // point correspondences — the heart of per-capture SELF-CALIBRATION

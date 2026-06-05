@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Engine: Unit Tests (scaffolding)
+// SwingVantage — Motion Engine: Unit Tests (scaffolding)
 // ------------------------------------------------------------
 // Confirms the readiness layer is SSR-safe, refuses to fake
 // precision, and produces deterministic fingerprints.

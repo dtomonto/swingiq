@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Sport + Motion Type Selector
+// SwingVantage — Motion Lab: Sport + Motion Type Selector
 // ============================================================
 
 import { useState } from 'react';

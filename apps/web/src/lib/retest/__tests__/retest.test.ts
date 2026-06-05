@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Retest Engine: Unit Tests
+// SwingVantage — Retest Engine: Unit Tests
 // ------------------------------------------------------------
 // Protects the window math, the conservative comparison logic
 // (it must NOT claim improvement under mismatched conditions),

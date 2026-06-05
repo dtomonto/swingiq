@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Video Tutorial Library Tests
+// SwingVantage — Video Tutorial Library Tests
 // Guards the integrity of the video registry, persona tracks,
 // category coverage, and the URL helpers.
 // ============================================================

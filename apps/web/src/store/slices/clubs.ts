@@ -1,8 +1,8 @@
-import type { SwingIQSlice, SwingIQStore, LocalClub } from '../types';
+import type { SwingVantageSlice, SwingVantageStore, LocalClub } from '../types';
 import { newId } from '../types';
 
-export const createClubsSlice: SwingIQSlice<
-  Pick<SwingIQStore, 'clubs' | 'addClub' | 'updateClub' | 'removeClub' | 'reorderClubs'>
+export const createClubsSlice: SwingVantageSlice<
+  Pick<SwingVantageStore, 'clubs' | 'addClub' | 'updateClub' | 'removeClub' | 'reorderClubs'>
 > = (set, get) => ({
   clubs: [],
 

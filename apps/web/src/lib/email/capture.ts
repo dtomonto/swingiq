@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Provider-Agnostic Email Capture (server-only)
+// SwingVantage — Provider-Agnostic Email Capture (server-only)
 //
 // Resolves an email provider from environment variables and stores
 // a lead. Supports (in priority order):

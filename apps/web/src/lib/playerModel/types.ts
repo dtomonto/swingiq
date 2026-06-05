@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Training Twin Foundation (Player Model): Types
+// SwingVantage — Training Twin Foundation (Player Model): Types
 // ------------------------------------------------------------
 // A structured, user-owned summary of "who this player is right
 // now", assembled from their OWN saved data. It is the foundation

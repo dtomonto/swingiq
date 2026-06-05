@@ -1,14 +1,14 @@
 // ============================================================
-// SwingIQ — Backup Registry Tests
+// SwingVantage — Backup Registry Tests
 // Tests that the registry is populated and all modules are valid.
 // ============================================================
 
 import { getBackupRegistry, getExportableModules, getSensitiveModules } from '../registry';
-import type { SwingIQState } from '@/store';
+import type { SwingVantageState } from '@/store';
 import { DEFAULT_COMMUNITY_STATE } from '@/lib/community/types';
 import { DEFAULT_TUTORIAL_PROGRESS } from '@/lib/tutorial/types';
 
-function makeMinimalState(): SwingIQState {
+function makeMinimalState(): SwingVantageState {
   return {
     profile: null,
     sportProfiles: {},
@@ -59,7 +59,7 @@ function makeMinimalState(): SwingIQState {
     updateTutorialProgress: jest.fn(),
     computeSetupStep: jest.fn(),
     reset: jest.fn(),
-  } as unknown as SwingIQState;
+  } as unknown as SwingVantageState;
 }
 
 describe('Backup Registry', () => {

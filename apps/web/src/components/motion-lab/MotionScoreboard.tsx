@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Scoreboard
+// SwingVantage — Motion Lab: Scoreboard
 // Overall Motion Score + transparent component scores + confidence.
 // ============================================================
 

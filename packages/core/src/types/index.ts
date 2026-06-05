@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Core Types — Universal Golf Swing Data Schema
+// SwingVantage Core Types — Universal Golf Swing Data Schema
 // ============================================================
 
 export type Handedness = 'right' | 'left';

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Skill Transfer Map: Data + Selector
+// SwingVantage — Skill Transfer Map: Data + Selector
 // ------------------------------------------------------------
 // A small, honest catalog of movement principles shared across the
 // five sports, plus a selector that surfaces transfer patterns for

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Progress over time (pure)
+// SwingVantage — AGI: Progress over time (pure)
 // ------------------------------------------------------------
 // Compares the current world model against a prior stored snapshot so the
 // engine can honestly answer "did the thing I told you to train actually move?"

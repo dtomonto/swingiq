@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Tennis Swing Phase Definitions
+// SwingVantage — Tennis Swing Phase Definitions
 // Based on established tennis coaching methodology:
 // groundstroke mechanics (forehands/backhands) and serve phases.
 // Evidence sources: USTA coaching resources, sports biomechanics

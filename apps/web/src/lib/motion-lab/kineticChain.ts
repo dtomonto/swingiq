@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Kinetic Chain Sequencing
+// SwingVantage — Motion Lab: Kinetic Chain Sequencing
 // ------------------------------------------------------------
 // Estimates the ORDER and TIMING of the energy transfer through the
 // body: lower body → torso → arms → implement. A good athletic motion

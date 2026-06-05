@@ -1,15 +1,15 @@
 import type {
-  SwingIQSlice,
-  SwingIQStore,
+  SwingVantageSlice,
+  SwingVantageStore,
   TennisRacket,
   BaseballBat,
   SoftballBat,
 } from '../types';
 import { DEFAULT_SPORT_EQUIPMENT, newId } from '../types';
 
-export const createEquipmentSlice: SwingIQSlice<
+export const createEquipmentSlice: SwingVantageSlice<
   Pick<
-    SwingIQStore,
+    SwingVantageStore,
     | 'sportEquipment'
     | 'addTennisRacket'
     | 'removeTennisRacket'

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Community — Groups / Clubs
+// SwingVantage Community — Groups / Clubs
 // Static group definitions and helpers.
 // ============================================================
 
@@ -75,7 +75,7 @@ export const GROUPS: GroupDefinition[] = [
   {
     id: 'weekend_warriors',
     name: 'Weekend Warriors',
-    description: 'Recreational athletes who train on weekends and use SwingIQ to maximize limited practice time.',
+    description: 'Recreational athletes who train on weekends and use SwingVantage to maximize limited practice time.',
     sport: 'all',
     privacy: 'public',
     icon: '🎯',
@@ -97,7 +97,7 @@ export const GROUPS: GroupDefinition[] = [
   {
     id: 'multi_sport_athletes',
     name: 'Multi-Sport Athletes',
-    description: 'Athletes competing across golf, tennis, baseball, and softball who use SwingIQ to track all their sports in one place.',
+    description: 'Athletes competing across golf, tennis, baseball, and softball who use SwingVantage to track all their sports in one place.',
     sport: 'all',
     privacy: 'public',
     icon: '🏟️',

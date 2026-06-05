@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Stripe webhook signature verification (SDK-free)
+// SwingVantage — Stripe webhook signature verification (SDK-free)
 //
 // Reimplements Stripe's `Webhook.constructEvent` signature check with
 // Node's crypto so we don't need the `stripe` npm dependency. Verifies

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Sport / Motion Taxonomy
+// SwingVantage — Motion Lab: Sport / Motion Taxonomy
 // ------------------------------------------------------------
 // The single source of truth for which motions each sport supports
 // and the canonical phase template for each motion. Phase templates

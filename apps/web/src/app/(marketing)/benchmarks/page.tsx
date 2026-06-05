@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { BENCHMARKS } from '@/data/benchmarks';
 
 export const metadata: Metadata = {
-  title: 'SwingIQ Benchmarks | Performance Standards for Golf, Tennis, Baseball & Softball',
+  title: 'SwingVantage Benchmarks | Performance Standards for Golf, Tennis, Baseball & Softball',
   description:
-    'See what good looks like. SwingIQ benchmark ranges show performance standards for beginner through elite athletes across golf, tennis, baseball, and softball.',
+    'See what good looks like. SwingVantage benchmark ranges show performance standards for beginner through elite athletes across golf, tennis, baseball, and softball.',
   alternates: { canonical: '/benchmarks' },
 };
 
@@ -46,7 +46,7 @@ export default function BenchmarksIndexPage() {
       {/* CTA */}
       <section className="bg-primary text-primary-foreground py-16 px-4 text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">See How Your Data Compares</h2>
-        <p className="text-primary-foreground/90 mb-8 text-sm">Import a session and SwingIQ shows your numbers against these benchmarks in real time.</p>
+        <p className="text-primary-foreground/90 mb-8 text-sm">Import a session and SwingVantage shows your numbers against these benchmarks in real time.</p>
         <Link href="/start" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
           Analyze My Swing Free
         </Link>

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Baseball Analysis Engine
+// SwingVantage — Baseball Analysis Engine
 // Heuristic issue detection for baseball swing video.
 // ⚠️ All detections are ESTIMATED — no ML model is running.
 //    Confidence values intentionally conservative (0.30–0.55).

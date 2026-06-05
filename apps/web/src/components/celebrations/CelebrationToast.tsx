@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Celebration Toast
+// SwingVantage — Celebration Toast
 // ------------------------------------------------------------
 // The "you did it!" moment. A small, accessible card that slides in
 // when a milestone is earned, then auto-dismisses. All motion is

@@ -1,7 +1,7 @@
-# SwingIQ "10x Upgrade" Master-Prompt Audit — June 2026
+# SwingVantage "10x Upgrade" Master-Prompt Audit — June 2026
 
 > **Audit only. No code was changed.** This document maps the 34-section
-> "SwingIQ 10x Product, AI, UX, and Architecture Upgrade" prompt against the
+> "SwingVantage 10x Product, AI, UX, and Architecture Upgrade" prompt against the
 > **actual code in the repository today**, section by section, with exact
 > file/route locations and an honest list of what is real vs. waiting on you.
 
@@ -9,10 +9,10 @@
 
 ## In Plain English (start here)
 
-You pasted a big, well-written prompt asking Claude Code to turn SwingIQ into a
+You pasted a big, well-written prompt asking Claude Code to turn SwingVantage into a
 complete "AI Swing Improvement Operating System." Here is the honest bottom line:
 
-**SwingIQ is already ~90% of that app.** Almost everything the prompt asks for
+**SwingVantage is already ~90% of that app.** Almost everything the prompt asks for
 was already built across many earlier sprints — all 5 sports, the guided upload
 flow, real (frames-only) AI vision with honest fallback, the diagnosis report,
 practice plans, drills, the dashboard with "what to do next," progress and
@@ -331,7 +331,7 @@ can complete. The code is ready and waiting. (Full list: `docs/OWNER_TASKS.md`.)
 | Paid tiers | 🔑 | Pro/Team are **waitlist**; no charges without `STRIPE_PRICE_*` keys. |
 | Email capture | 🔑 | No provider connected — needs a Resend/ConvertKit/Mailchimp env var. |
 | Analytics | 🔑 | Events drop in prod until `NEXT_PUBLIC_GA_ID` is set. |
-| Support inboxes | 🔑 | `support@` / `privacy@` / `security@swingiq.app` must actually exist. |
+| Support inboxes | 🔑 | `support@` / `privacy@` / `security@swingvantage.com` must actually exist. |
 | Legal | 🔑 | Privacy/terms are honest MVP language; attorney review recommended before scale. |
 
 **The product is fully usable, free, and honest today without any of these.**

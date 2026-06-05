@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Backup/Restore Unit Tests
+// SwingVantage — Backup/Restore Unit Tests
 // Tests for export, import validation, restore (merge + replace),
 // community data handling, and tutorial progress.
 // ============================================================
@@ -8,14 +8,14 @@ import { validateBackupFile } from '../validate';
 import { mergeRestore, replaceRestore, previewRestore } from '../restore';
 import { migrateBackup, needsMigration } from '../migrate';
 import { BACKUP_FORMAT, CURRENT_BACKUP_VERSION } from '../schema';
-import type { SwingIQBackup, SwingIQBackupData } from '../schema';
-import type { SwingIQState } from '@/store';
+import type { SwingVantageBackup, SwingVantageBackupData } from '../schema';
+import type { SwingVantageState } from '@/store';
 import { DEFAULT_TUTORIAL_PROGRESS } from '@/lib/tutorial/types';
 import { DEFAULT_COMMUNITY_STATE } from '@/lib/community/types';
 
 // ── Fixtures ──────────────────────────────────────────────────
 
-function makeMinimalBackup(overrides: Partial<SwingIQBackupData> = {}): SwingIQBackup {
+function makeMinimalBackup(overrides: Partial<SwingVantageBackupData> = {}): SwingVantageBackup {
   return {
     backupFormat: BACKUP_FORMAT,
     backupVersion: CURRENT_BACKUP_VERSION,
@@ -66,7 +66,7 @@ function makeMinimalBackup(overrides: Partial<SwingIQBackupData> = {}): SwingIQB
   };
 }
 
-function makeCurrentState(overrides: Partial<SwingIQState> = {}): SwingIQState {
+function makeCurrentState(overrides: Partial<SwingVantageState> = {}): SwingVantageState {
   return {
     profile: null,
     sportProfiles: {},
@@ -118,7 +118,7 @@ function makeCurrentState(overrides: Partial<SwingIQState> = {}): SwingIQState {
     computeSetupStep: jest.fn(),
     reset: jest.fn(),
     ...overrides,
-  } as unknown as SwingIQState;
+  } as unknown as SwingVantageState;
 }
 
 // ── validateBackupFile ─────────────────────────────────────────
@@ -134,7 +134,7 @@ describe('validateBackupFile', () => {
   it('returns invalid for wrong backupFormat', () => {
     const result = validateBackupFile({ ...makeMinimalBackup(), backupFormat: 'wrong-format' as never });
     expect(result.valid).toBe(false);
-    // New message says "does not appear to be a SwingIQ backup file"
+    // New message says "does not appear to be a SwingVantage backup file"
     expect(result.errors.length).toBeGreaterThan(0);
   });
 
@@ -386,7 +386,7 @@ describe('replaceRestore', () => {
 // ── migrateBackup ─────────────────────────────────────────────
 
 describe('migrateBackup', () => {
-  function makeV100Backup(): SwingIQBackup {
+  function makeV100Backup(): SwingVantageBackup {
     return {
       backupFormat: BACKUP_FORMAT,
       backupVersion: '1.0.0',

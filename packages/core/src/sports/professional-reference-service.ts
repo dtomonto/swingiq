@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Professional Swing Reference Service
+// SwingVantage — Professional Swing Reference Service
 // Query and utility functions for professional reference library.
 // ============================================================
 

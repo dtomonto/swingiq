@@ -1,12 +1,12 @@
 # Data Portability Guide
 
-This document explains how SwingIQ handles your data — what you can export, how to import it back, what the backup file contains, and how the system protects your privacy.
+This document explains how SwingVantage handles your data — what you can export, how to import it back, what the backup file contains, and how the system protects your privacy.
 
 **Written for:** App owners and developers who need to understand the data portability system. For a user-facing guide, see `docs/DATA_IMPORT_GUIDE.md`.
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** A deeper look at how your data gets in and out of SwingIQ, and the privacy promises behind it.
+**What this page is:** A deeper look at how your data gets in and out of SwingVantage, and the privacy promises behind it.
 
 **What you actually need to know:**
 - **You own your data.** You can export everything as one file and load it back on any phone, tablet, or computer.
@@ -22,7 +22,7 @@ This document explains how SwingIQ handles your data — what you can export, ho
 
 ## Core Philosophy
 
-SwingIQ is built on the principle that **you own your data**. This means:
+SwingVantage is built on the principle that **you own your data**. This means:
 
 1. You can export everything — profiles, sessions, equipment, progress, settings — as a single JSON file
 2. You can import that file on any device or browser and restore your full history
@@ -109,7 +109,7 @@ Every backup is a JSON file with this top-level structure:
 }
 ```
 
-> **Encrypted exports (live).** The `encrypted` flag above is `false` for a plain `.json` backup. When you set a password at export time, SwingIQ writes an encrypted `.swingiqbackup` file instead — AES-256-GCM with a PBKDF2-derived key (310k iterations, Web Crypto API, no external dependencies). Import detects either format automatically and prompts for the password when needed.
+> **Encrypted exports (live).** The `encrypted` flag above is `false` for a plain `.json` backup. When you set a password at export time, SwingVantage writes an encrypted `.swingiqbackup` file instead — AES-256-GCM with a PBKDF2-derived key (310k iterations, Web Crypto API, no external dependencies). Import detects either format automatically and prompts for the password when needed.
 
 ---
 
@@ -143,7 +143,7 @@ You select your `.json` backup file. The app reads it in the browser — it is n
 
 ### Step 2: Validation
 The validator checks:
-- Is this a SwingIQ backup file? (checks `backupFormat`)
+- Is this a SwingVantage backup file? (checks `backupFormat`)
 - Is the JSON structure valid?
 - Are the data types correct? (e.g., dates are strings, numbers are numbers)
 - **Security:** Prototype pollution guard — the file cannot inject harmful properties into the app
@@ -165,7 +165,7 @@ Your selected data is loaded into the Zustand store and immediately persisted to
 
 ## Video Privacy
 
-SwingIQ processes videos **entirely in your browser**. This means:
+SwingVantage processes videos **entirely in your browser**. This means:
 - The actual video file is never uploaded to our servers
 - Only the metadata (camera angle, video duration, analyzed frame count) is saved
 - Only the analysis results (detected phases, issues found, scores) are saved
@@ -206,7 +206,7 @@ Planned CSV exports:
 ### Adding a new data type to the backup
 
 1. Add the TypeScript type to the relevant store interface in `apps/web/src/store/index.ts`
-2. Add the field to `SwingIQBackupData` in `apps/web/src/lib/backup/schema.ts`
+2. Add the field to `SwingVantageBackupData` in `apps/web/src/lib/backup/schema.ts`
 3. Add a registry entry in `apps/web/src/lib/backup/registry.ts` — this declares what gets exported and imported
 4. Add migration code in `apps/web/src/lib/backup/migrate.ts` to handle old backup files that don't have this field
 5. Bump `CURRENT_BACKUP_VERSION` in `schema.ts`

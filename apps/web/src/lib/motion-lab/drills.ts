@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Drill Prescription Engine
+// SwingVantage — Motion Lab: Drill Prescription Engine
 // ------------------------------------------------------------
 // Maps the weakest detected metrics to a prescription of four drills
 // (immediate fix, feel, technical, constraint) plus a weekly plan.

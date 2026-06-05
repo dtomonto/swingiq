@@ -1,8 +1,8 @@
-import type { SwingIQSlice, SwingIQStore } from '../types';
+import type { SwingVantageSlice, SwingVantageStore } from '../types';
 import { DEFAULT_TUTORIAL_PROGRESS } from '../types';
 
-export const createTutorialSlice: SwingIQSlice<
-  Pick<SwingIQStore, 'tutorialProgress' | 'updateTutorialProgress'>
+export const createTutorialSlice: SwingVantageSlice<
+  Pick<SwingVantageStore, 'tutorialProgress' | 'updateTutorialProgress'>
 > = (set) => ({
   tutorialProgress: DEFAULT_TUTORIAL_PROGRESS,
 

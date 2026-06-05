@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Lift Provider Seam
+// SwingVantage — pose3d: Lift Provider Seam
 // ------------------------------------------------------------
 // The interchangeable boundary between Motion Lab and whatever produces
 // single-view 3D depth. Today the trained MLP implements it; a future
@@ -22,7 +22,7 @@ export interface Lift3DProvider {
 /** The shipping provider: our from-scratch MLP trained on synthetic projections. */
 export const trainedLiftProvider: Lift3DProvider = {
   id: 'mlp-synth',
-  label: 'SwingIQ lift (trained, synthetic)',
+  label: 'SwingVantage lift (trained, synthetic)',
   isAvailable: () => isLiftModelTrained(),
   liftDepths: (lm) => predictRelativeDepths(lm),
 };

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: public API (barrel)
+// SwingVantage — pose3d: public API (barrel)
 // ------------------------------------------------------------
 // Proprietary 3D pose reconstruction:
 //   • Multi-view DLT triangulation  → TRUE metric 3D (basis 'measured')

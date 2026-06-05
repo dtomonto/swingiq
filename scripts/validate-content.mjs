@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SwingIQ — Growth content validation.
+ * SwingVantage — Growth content validation.
  *   - content/growth/seo-backlog.json: required fields + valid enums.
  *   - content/emails/*.md: must have frontmatter id + subject.
  *

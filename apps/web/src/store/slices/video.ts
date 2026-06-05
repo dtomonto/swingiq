@@ -1,8 +1,8 @@
-import type { SwingIQSlice, SwingIQStore, LocalVideoAnalysis } from '../types';
+import type { SwingVantageSlice, SwingVantageStore, LocalVideoAnalysis } from '../types';
 import { newId } from '../types';
 
-export const createVideoSlice: SwingIQSlice<
-  Pick<SwingIQStore, 'video_analyses' | 'addVideoAnalysis'>
+export const createVideoSlice: SwingVantageSlice<
+  Pick<SwingVantageStore, 'video_analyses' | 'addVideoAnalysis'>
 > = (set) => ({
   video_analyses: [],
 

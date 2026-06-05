@@ -14,7 +14,7 @@ import { GA_ID } from '@/lib/analytics';
  *   • GA4        — NEXT_PUBLIC_GA_ID
  *   • PostHog    — NEXT_PUBLIC_POSTHOG_KEY (+ optional NEXT_PUBLIC_POSTHOG_HOST)
  *
- * All three also receive SwingIQ's custom events through lib/analytics.ts.
+ * All three also receive SwingVantage's custom events through lib/analytics.ts.
  */
 
 const PLAUSIBLE_DOMAIN = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || '';

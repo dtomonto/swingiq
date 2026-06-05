@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Camera-Quality Gate
+// SwingVantage — Motion Lab: Camera-Quality Gate
 // ------------------------------------------------------------
 // A pre-/post-extraction quality assessment so the user knows how much
 // to trust the analysis and how to capture better next time. Signals

@@ -1,6 +1,6 @@
-# SwingIQ — Privacy & Youth Safety Notes
+# SwingVantage — Privacy & Youth Safety Notes
 
-Plain-English notes on SwingIQ's privacy posture, how youth use is handled, the
+Plain-English notes on SwingVantage's privacy posture, how youth use is handled, the
 claims we deliberately avoid, and what needs legal review before scale.
 
 Last updated: May 31, 2026.
@@ -9,15 +9,15 @@ Last updated: May 31, 2026.
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** Short, plain notes on how SwingIQ protects privacy, how it treats young athletes, and the claims it is careful **not** to make. This whole page is written for you — there's no developer-only section to skip.
+**What this page is:** Short, plain notes on how SwingVantage protects privacy, how it treats young athletes, and the claims it is careful **not** to make. This whole page is written for you — there's no developer-only section to skip.
 
 **What you actually need to know:**
 - **Private by default.** Before anyone makes an account, their data stays in their own browser. Videos are analyzed on the device, not uploaded. Nothing is shared publicly unless the user chooses to — and even then it's a text summary, never the raw video.
-- **Young athletes are handled carefully.** SwingIQ is not aimed at children under 13, and for anyone under 18 it asks a parent or guardian to manage uploads and review results. Youth data is never made public by default.
-- **Honest claims only.** SwingIQ does **not** claim to be certified under any privacy law (COPPA, GDPR, CCPA), does not give medical advice, and does not promise guaranteed results or show fake reviews/ratings.
+- **Young athletes are handled carefully.** SwingVantage is not aimed at children under 13, and for anyone under 18 it asks a parent or guardian to manage uploads and review results. Youth data is never made public by default.
+- **Honest claims only.** SwingVantage does **not** claim to be certified under any privacy law (COPPA, GDPR, CCPA), does not give medical advice, and does not promise guaranteed results or show fake reviews/ratings.
 
 **What to do next (your steps):**
-1. Make sure the three contact inboxes work: `privacy@swingiq.app`, `support@swingiq.app`, `security@swingiq.app`.
+1. Make sure the three contact inboxes work: `privacy@swingvantage.com`, `support@swingvantage.com`, `security@swingvantage.com`.
 2. Get a lawyer to review your Privacy Policy and Terms before you charge money or grow into regulated areas.
 
 ---
@@ -39,7 +39,7 @@ Last updated: May 31, 2026.
 
 ## 2. Parent / guardian handling
 
-- SwingIQ is **not directed at children under 13**.
+- SwingVantage is **not directed at children under 13**.
 - For athletes under 18 we recommend a **parent or guardian manages uploads and
   reviews results**. This is stated on `/parents`, the youth SEO page, the
   `YouthSafetyNotice` component, and youth-related tools.
@@ -70,9 +70,9 @@ is set**, keeping the site private by default.
 
 ## 5. Contacts
 
-- Privacy / data requests: `privacy@swingiq.app`
-- Support: `support@swingiq.app`
-- Security: `security@swingiq.app`
+- Privacy / data requests: `privacy@swingvantage.com`
+- Support: `support@swingvantage.com`
+- Security: `security@swingvantage.com`
 
 > **Owner action:** ensure these inboxes (or forwarding) actually exist and are
 > monitored before relying on them publicly.

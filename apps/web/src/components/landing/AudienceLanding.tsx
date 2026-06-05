@@ -91,12 +91,12 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
             <EmailCapture source={config.leadSource} heading={config.captureHeading} subheading="We'll be in touch. No spam." />
           </div>
           <p className="mt-4 text-sm text-primary-foreground/90">
-            Prefer email? <a href="mailto:support@swingiq.app" className="underline">support@swingiq.app</a>
+            Prefer email? <a href="mailto:support@swingvantage.com" className="underline">support@swingvantage.com</a>
           </p>
         </div>
       </section>
 
-      <JsonLd data={buildGraph(serviceSchema({ name: `SwingIQ for ${config.name}`, description: config.positioning }))} />
+      <JsonLd data={buildGraph(serviceSchema({ name: `SwingVantage for ${config.name}`, description: config.positioning }))} />
     </main>
   );
 }

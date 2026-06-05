@@ -1,4 +1,4 @@
-# SwingIQ Backup & Data Portability System
+# SwingVantage Backup & Data Portability System
 
 **Schema Version:** 1.2.0  
 **App Version:** 1.1.0  
@@ -23,7 +23,7 @@
 
 ## Overview
 
-SwingIQ stores all user data in the browser's `localStorage` via Zustand. Because there is no cloud sync yet (Supabase is schema-ready but not activated), data portability depends entirely on the backup/restore system.
+SwingVantage stores all user data in the browser's `localStorage` via Zustand. Because there is no cloud sync yet (Supabase is schema-ready but not activated), data portability depends entirely on the backup/restore system.
 
 The backup system lets users:
 - Download a complete `.json` backup of all their data
@@ -51,7 +51,7 @@ apps/web/src/lib/backup/
 ## Backup Schema (v1.2.0)
 
 ```typescript
-interface SwingIQBackup {
+interface SwingVantageBackup {
   backupFormat:   'swingiq-backup-v1'
   backupVersion:  string          // semver e.g. '1.2.0'
   appVersion:     string
@@ -138,7 +138,7 @@ v1.0.0  →  v1.1.0  →  v1.2.0 (current)
 
 **Adding a new migration:**
 
-1. Define a function `migrateVX_to_VY(backup: SwingIQBackup): SwingIQBackup`
+1. Define a function `migrateVX_to_VY(backup: SwingVantageBackup): SwingVantageBackup`
 2. Add an entry to `MIGRATION_CHAIN` in `migrate.ts`
 3. Update `CURRENT_BACKUP_VERSION` in `schema.ts`
 4. Update `SUPPORTED_VERSIONS` in `migrate.ts`
@@ -268,7 +268,7 @@ npx turbo run build --filter=@swingiq/web
 ## How to Add a New Feature to the Backup
 
 1. **Define your data** in the Zustand store (`store/index.ts`)
-2. **Add to `SwingIQBackupData`** in `backup/schema.ts`
+2. **Add to `SwingVantageBackupData`** in `backup/schema.ts`
 3. **Register a module** in `backup/registry.ts` using `registerBackupModule()`
 4. **Update `exportUserData()`** in `backup/export.ts` to include your field
 5. **Update `mergeRestore()` and `replaceRestore()`** in `backup/restore.ts`

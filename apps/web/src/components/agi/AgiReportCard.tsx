@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — AGI: Shareable report card
+// SwingVantage — AGI: Shareable report card
 // ------------------------------------------------------------
 // Copy / email-coach / web-share / print the Athlete General Intelligence
 // report. Mirrors the app's ShareableReportCard pattern (privacy ack, analytics,
@@ -13,12 +13,12 @@ import { useState } from 'react';
 import { Copy, Mail, Share2, Printer, Check, ShieldAlert } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { buildAgiReportText, buildAgiReportHtml, type AthleteGIResult } from '@/lib/agi';
 import { Card, CardBody } from '@/components/ui/Card';
 
 export function AgiReportCard({ result }: { result: AthleteGIResult }) {
-  const usage = useSwingIQStore((s) => s.settings.usage_category);
+  const usage = useSwingVantageStore((s) => s.settings.usage_category);
   const isYouth = usage === 'minor_13_17' || usage === 'minor_under_13';
   const [copied, setCopied] = useState(false);
   const [ack, setAck] = useState(false);
@@ -37,7 +37,7 @@ export function AgiReportCard({ result }: { result: AthleteGIResult }) {
   }
 
   function emailCoach() {
-    const subject = encodeURIComponent('My SwingIQ — Athlete General Intelligence');
+    const subject = encodeURIComponent('My SwingVantage — Athlete General Intelligence');
     track(ANALYTICS_EVENTS.COACH_SHARE_CLICKED, { sport: 'multi' });
     window.location.href = `mailto:?subject=${subject}&body=${encodeURIComponent(text)}`;
   }
@@ -45,7 +45,7 @@ export function AgiReportCard({ result }: { result: AthleteGIResult }) {
   async function webShare() {
     if (navigator.share) {
       try {
-        await navigator.share({ title: 'My SwingIQ Athlete GI', text });
+        await navigator.share({ title: 'My SwingVantage Athlete GI', text });
         track(ANALYTICS_EVENTS.REPORT_SHARED, { sport: 'multi', method: 'web_share' });
       } catch {
         /* user cancelled */

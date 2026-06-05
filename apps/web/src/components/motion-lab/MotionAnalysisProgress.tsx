@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Analysis Progress
+// SwingVantage — Motion Lab: Analysis Progress
 // ============================================================
 
 import { Check, Loader2 } from 'lucide-react';

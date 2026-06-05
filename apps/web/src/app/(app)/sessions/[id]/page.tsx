@@ -1,6 +1,6 @@
 'use client';
 
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
@@ -29,7 +29,7 @@ import { DispersionChart } from '@/components/charts/DispersionChart';
 export default function SessionDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const { sessions, updateSession, setActiveDiagnosis, profile } = useSwingIQStore();
+  const { sessions, updateSession, setActiveDiagnosis, profile } = useSwingVantageStore();
 
   const session = sessions.find((s) => s.id === id);
 

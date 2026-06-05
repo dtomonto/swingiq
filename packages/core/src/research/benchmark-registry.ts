@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Benchmark Registry
+// SwingVantage — Benchmark Registry
 // Versioned benchmark access layer.
 //
 // The static TARGET_WINDOWS in rules.ts are the v1.0.0 baseline.
@@ -26,11 +26,11 @@ import { TARGET_WINDOWS, type ClubTargetWindows, type TargetWindow } from '../di
 export const BASELINE_VERSION: BenchmarkVersion = {
   id: 'v1_baseline',
   version: '1.0.0',
-  title: 'SwingIQ Baseline Benchmarks',
+  title: 'SwingVantage Baseline Benchmarks',
   description:
     'Initial benchmark values derived from published launch-monitor standards, ' +
     'TrackMan education materials, and established golf instruction principles. ' +
-    'These are the founding values for the SwingIQ benchmark evolution system.',
+    'These are the founding values for the SwingVantage benchmark evolution system.',
   effective_date: '2024-01-01',
   created_at: '2024-01-01T00:00:00Z',
   created_by: 'system',

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Diagnostic Rules Engine
+// SwingVantage Diagnostic Rules Engine
 // Configuration-driven rules that turn launch-monitor data
 // into prioritized swing diagnoses.
 // ============================================================

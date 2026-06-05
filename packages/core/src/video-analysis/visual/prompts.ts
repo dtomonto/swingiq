@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Sport-Specific AI Vision Prompts
+// SwingVantage — Sport-Specific AI Vision Prompts
 //
 // These prompts instruct an AI vision model to analyze the ACTUAL
 // frames extracted from an uploaded swing video. The guardrails are

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Shareable report builders (pure)
+// SwingVantage — AGI: Shareable report builders (pure)
 // ------------------------------------------------------------
 // Turns an AthleteGIResult into (a) a coach-friendly plain-text summary for
 // copy / email / web-share, and (b) a self-contained printable HTML document.
@@ -41,11 +41,11 @@ export interface ReportOptions {
 /** A coach-friendly plain-text report. */
 export function buildAgiReportText(result: AthleteGIResult, opts: ReportOptions = {}): string {
   const { model, insights, plan, progress, trust, keystoneTranslations, provenDrills } = result;
-  const url = opts.siteUrl ?? 'swingiq.app';
+  const url = opts.siteUrl ?? 'swingvantage.com';
   const date = new Date().toLocaleDateString();
   const L: string[] = [];
 
-  L.push('SwingIQ — Athlete General Intelligence');
+  L.push('SwingVantage — Athlete General Intelligence');
   L.push(`Generated ${date} · Trust grade ${trust.grade} (${trust.score}/100) — ${trust.headline}`);
   L.push('');
 
@@ -99,7 +99,7 @@ export function buildAgiReportText(result: AthleteGIResult, opts: ReportOptions 
 
   L.push('— — —');
   L.push(result.disclaimer);
-  L.push(`Made with SwingIQ — ${url}`);
+  L.push(`Made with SwingVantage — ${url}`);
   return L.join('\n');
 }
 
@@ -111,7 +111,7 @@ const esc = (s: string): string =>
 /** A self-contained printable HTML document (open in a window and print → PDF). */
 export function buildAgiReportHtml(result: AthleteGIResult, opts: ReportOptions = {}): string {
   const { model, insights, plan, trust, keystoneTranslations, provenDrills } = result;
-  const url = opts.siteUrl ?? 'swingiq.app';
+  const url = opts.siteUrl ?? 'swingvantage.com';
   const date = new Date().toLocaleDateString();
   const keystone = insights.find((i) => i.kind === 'keystone');
 
@@ -149,7 +149,7 @@ export function buildAgiReportHtml(result: AthleteGIResult, opts: ReportOptions 
         .join('')}</ul>`
     : '';
 
-  return `<!doctype html><html><head><meta charset="utf-8"><title>SwingIQ — Athlete General Intelligence</title>
+  return `<!doctype html><html><head><meta charset="utf-8"><title>SwingVantage — Athlete General Intelligence</title>
 <style>
   :root { color-scheme: light; }
   body { font: 13px/1.5 -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: #1a1a1a; max-width: 720px; margin: 28px auto; padding: 0 20px; }
@@ -183,6 +183,6 @@ export function buildAgiReportHtml(result: AthleteGIResult, opts: ReportOptions 
 
   ${proven}
 
-  <p class="foot">${esc(result.disclaimer)}<br>Made with SwingIQ — ${esc(url)}</p>
+  <p class="foot">${esc(result.disclaimer)}<br>Made with SwingVantage — ${esc(url)}</p>
 </body></html>`;
 }

@@ -1,8 +1,8 @@
-import type { SwingIQSlice, SwingIQStore } from '../types';
+import type { SwingVantageSlice, SwingVantageStore } from '../types';
 import { DEFAULT_COMMUNITY_STATE } from '../types';
 
-export const createCommunitySlice: SwingIQSlice<
-  Pick<SwingIQStore, 'community' | 'updateCommunity' | 'recordExport'>
+export const createCommunitySlice: SwingVantageSlice<
+  Pick<SwingVantageStore, 'community' | 'updateCommunity' | 'recordExport'>
 > = (set) => ({
   community: DEFAULT_COMMUNITY_STATE,
 

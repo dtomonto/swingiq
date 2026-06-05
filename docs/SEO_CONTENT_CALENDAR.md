@@ -1,4 +1,4 @@
-# SwingIQ SEO Content Calendar — Researched Cluster Backlog
+# SwingVantage SEO Content Calendar — Researched Cluster Backlog
 
 _Last updated: June 2026 · Companion to [`SEO_CONTENT_PLAN.md`](SEO_CONTENT_PLAN.md) (the how) and `apps/web/src/content/seoPages.ts` (the registry)._
 
@@ -13,7 +13,7 @@ list, writes full pages, and commits them locally for you to review and push.
 
 **Why these:** people search their *frustration*, not "AI swing analysis." Each
 page below answers one painful, high-volume question and routes the reader into
-the matching SwingIQ tool — which is how views turn into habit, and habit turns
+the matching SwingVantage tool — which is how views turn into habit, and habit turns
 into ad impressions (see `SEO_CONTENT_PLAN.md`).
 
 **Status legend:** `[ ]` not built · `[x] ` live · `[~]` draft in registry.
@@ -27,7 +27,7 @@ Every published page is **two files**:
 1. **Registry entry** — a `SeoPage` object appended to the `SEO_PAGES` array in
    `apps/web/src/content/seoPages.ts`, `publishStatus: 'published'`, filling every
    field of the `SeoPage` interface using the AEO/GEO format (direct answer →
-   explanation → self-diagnosis → what SwingIQ checks → drills → mistakes → when
+   explanation → self-diagnosis → what SwingVantage checks → drills → mistakes → when
    to see a coach → 3–6 FAQs → related links → CTA → schema → safety notes).
 2. **Route file** — `apps/web/src/app/(marketing)/<slug>/page.tsx`, copying the
    proven 18-line pattern (see `golf/fix-slice/page.tsx`):
@@ -43,7 +43,7 @@ Every published page is **two files**:
 3. **Sitemap** — confirm the new slug is emitted by `apps/web/src/app/sitemap.ts`
    (add it if the sitemap doesn't auto-derive from `PUBLISHED_SEO_PAGES`).
 
-**Quality gate (non-negotiable):** no thin pages; keep SwingIQ's honest
+**Quality gate (non-negotiable):** no thin pages; keep SwingVantage's honest
 "heuristic estimate" framing and disclaimers; keep youth-safety notes; plain
 English; every page links to 2–3 related pages + 1 benchmark page and ends with a
 CTA into the matching tool.

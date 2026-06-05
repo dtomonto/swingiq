@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Capability registry + metric classifier
+// SwingVantage — AGI: Capability registry + metric classifier
 // ------------------------------------------------------------
 // The single place that defines the sport-neutral capabilities and maps
 // raw, sport-specific metric ids onto them. Known motion-lab metric ids are

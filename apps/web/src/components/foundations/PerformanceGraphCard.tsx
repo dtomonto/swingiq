@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Performance Graph Card (foundation preview)
+// SwingVantage — Performance Graph Card (foundation preview)
 // ------------------------------------------------------------
 // Shows the live shape of the user's improvement graph (real counts
 // from their data) plus the most-connected fault, with an honest

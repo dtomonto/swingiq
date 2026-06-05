@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Progress Intelligence (smart wrapper)
+// SwingVantage — Progress Intelligence (smart wrapper)
 // ------------------------------------------------------------
 // Wires the existing data sources — agent context, progress-memory
 // workflow, the retest engine, and the DrillMatch feedback loop —

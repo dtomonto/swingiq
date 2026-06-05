@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Reviewed table → saved session
+// SwingVantage — Reviewed table → saved session
 //
 // Turns a confirmed headers/rows table (from the photo importer or any
 // manual table) into a LocalSession ready for the store, reusing the

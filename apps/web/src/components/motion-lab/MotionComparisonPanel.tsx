@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Comparison Panel
+// SwingVantage — Motion Lab: Comparison Panel
 // Metric-by-metric deltas between two sessions, with an honest,
 // variation-aware recommendation. The 3D ghost overlay is driven
 // separately by the dashboard's viewer.

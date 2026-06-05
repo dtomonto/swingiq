@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — i18n Type Definitions
+// SwingVantage — i18n Type Definitions
 // All translation keys and language configuration.
 // ============================================================
 

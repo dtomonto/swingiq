@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Layer: Guardrails
+// SwingVantage — Agent Layer: Guardrails
 // ------------------------------------------------------------
 // Runs before user-facing recommendations are shown. Detects
 // pain/injury language, youth context, medical claims, and
@@ -56,7 +56,7 @@ export function evaluateSafety(ctx: AgentContext): SafetyFlag[] {
       type: 'pain_injury',
       severity: 'stop',
       message:
-        'You mentioned pain or an injury. If anything hurts, stop and check with a sports-medicine professional before training. SwingIQ helps with technique, not injuries.',
+        'You mentioned pain or an injury. If anything hurts, stop and check with a sports-medicine professional before training. SwingVantage helps with technique, not injuries.',
       recommendProfessional: true,
     });
   }
@@ -67,7 +67,7 @@ export function evaluateSafety(ctx: AgentContext): SafetyFlag[] {
       type: 'medical_claim',
       severity: 'caution',
       message:
-        'SwingIQ is not a medical tool and cannot diagnose or treat injuries. For anything health-related, please consult a qualified professional.',
+        'SwingVantage is not a medical tool and cannot diagnose or treat injuries. For anything health-related, please consult a qualified professional.',
       recommendProfessional: true,
     });
   }

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Deterministic Video Analysis Engine
+// SwingVantage — Deterministic Video Analysis Engine
 // Rule-based heuristic detection of visual swing issues.
 // ⚠️  All detections are ESTIMATED — no ML model is running.
 //     Confidence values are intentionally conservative (0.3–0.65).

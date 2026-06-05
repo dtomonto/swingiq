@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'About SwingIQ | Free AI Swing Analysis Platform',
+  title: 'About SwingVantage | Free AI Swing Analysis Platform',
   description:
-    'SwingIQ is a free AI-powered swing analysis platform for golf, tennis, baseball, and softball. Learn about our mission to make professional-quality coaching accessible to every athlete.',
+    'SwingVantage is a free AI-powered swing analysis platform for golf, tennis, baseball, and softball. Learn about our mission to make professional-quality coaching accessible to every athlete.',
   alternates: { canonical: '/about' },
 };
 
@@ -54,11 +54,11 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-base">SQ</span>
+              <span className="text-white font-black text-base">SV</span>
             </div>
-            <span className="text-white font-bold text-2xl">SwingIQ</span>
+            <span className="text-white font-bold text-2xl">SwingVantage</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">About SwingIQ</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">About SwingVantage</h1>
           <p className="text-primary-foreground/90 text-xl max-w-2xl mx-auto">
             Making professional-quality swing coaching accessible to every athlete, at every level, for free.
           </p>
@@ -71,13 +71,13 @@ export default function AboutPage() {
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Our Mission</h2>
           <div className="text-muted-foreground text-sm leading-relaxed space-y-4 max-w-3xl">
             <p>
-              SwingIQ was built because private coaching is expensive and inaccessible for most players. A single hour with a certified golf instructor can cost more than many people spend on a month of range balls. For tennis, baseball, and softball players, video analysis and data-driven coaching have historically been reserved for those at the highest levels of the sport.
+              SwingVantage was built because private coaching is expensive and inaccessible for most players. A single hour with a certified golf instructor can cost more than many people spend on a month of range balls. For tennis, baseball, and softball players, video analysis and data-driven coaching have historically been reserved for those at the highest levels of the sport.
             </p>
             <p>
               Our goal is to give any athlete — beginner or advanced, 8 years old or 80 — access to the same quality of feedback that professionals get. Not watered-down advice, but real diagnostic analysis: what is happening in your swing, why it matters, and exactly what to work on next.
             </p>
             <p>
-              SwingIQ uses a hybrid approach: a deterministic rules engine that applies biomechanical research to your real data, combined with an AI layer that generates personalized coaching language around those findings. The result is specific, actionable, and free.
+              SwingVantage uses a hybrid approach: a deterministic rules engine that applies biomechanical research to your real data, combined with an AI layer that generates personalized coaching language around those findings. The result is specific, actionable, and free.
             </p>
           </div>
         </div>
@@ -115,10 +115,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Who uses SwingIQ */}
+      {/* Who uses SwingVantage */}
       <section className="py-16 px-4 bg-muted">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">Who Uses SwingIQ</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">Who Uses SwingVantage</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {WHO_USES.map((w) => (
               <div key={w.title} className="bg-card rounded-xl border border-border shadow-xs p-5 sm:p-6">
@@ -134,7 +134,7 @@ export default function AboutPage() {
       <section className="py-8 px-4 bg-warning/10 border-y border-warning/30">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs text-warning leading-relaxed">
-            <strong>SwingIQ is your AI-powered improvement edge — confident, data-backed coaching you can use every day.</strong>{' '}
+            <strong>SwingVantage is your AI-powered improvement edge — confident, data-backed coaching you can use every day.</strong>{' '}
             Findings are heuristic estimates that sharpen with every swing you add. For injury concerns or advanced competitive development, loop in a qualified coach, and keep young athletes supervised during practice.
           </p>
         </div>

@@ -8,7 +8,7 @@ import { siteConfig } from '@/config/site';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'SwingIQ — AI Swing Performance Platform',
+  title: 'SwingVantage — AI Swing Performance Platform',
   description:
     'AI-powered swing analysis for golf, tennis, baseball, and softball. Upload a video or import launch monitor data to identify your top swing fault, get personalized drills, and track improvement.',
   keywords: [
@@ -30,17 +30,17 @@ export const metadata: Metadata = {
     ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
     : undefined,
   openGraph: {
-    title: 'SwingIQ — AI Swing Performance Platform',
+    title: 'SwingVantage — AI Swing Performance Platform',
     description:
       'Upload a swing video or import launch monitor data. Get a free AI diagnosis, personalized drills, and a practice plan — golf, tennis, baseball, and softball.',
     type: 'website',
     url: siteConfig.liveSiteUrl,
-    siteName: 'SwingIQ',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'SwingIQ — Free AI Swing Analysis' }],
+    siteName: 'SwingVantage',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'SwingVantage — Free AI Swing Analysis' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SwingIQ — AI Swing Performance Platform',
+    title: 'SwingVantage — AI Swing Performance Platform',
     description:
       'Free AI swing analysis for golf, tennis, baseball, and softball. Upload a swing, get your top fault, drills, and a practice plan.',
     images: ['/og-default.png'],
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    title: 'SwingIQ',
+    title: 'SwingVantage',
     statusBarStyle: 'black-translucent',
   },
 };

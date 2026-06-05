@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — AGI: combined React hook
+// SwingVantage — AGI: combined React hook
 // ------------------------------------------------------------
 // The one-call integration point for the app. Reads every available local
 // signal — Motion Lab sessions, launch-monitor sessions, saved video analyses,
@@ -15,7 +15,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useMotionSessions } from '@/lib/motion-lab';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { runAthleteGI } from '../engine';
 import { loadHistory, recordSnapshot } from '../history';
 import type { AthleteGIResult } from '../types';
@@ -28,10 +28,10 @@ import { mergeBundles } from './merge';
 
 export function useAthleteGI(): AthleteGIResult {
   const motionSessions = useMotionSessions();
-  const profile = useSwingIQStore((s) => s.profile);
-  const sportProfiles = useSwingIQStore((s) => s.sportProfiles);
-  const sessions = useSwingIQStore((s) => s.sessions);
-  const videos = useSwingIQStore((s) => s.video_analyses);
+  const profile = useSwingVantageStore((s) => s.profile);
+  const sportProfiles = useSwingVantageStore((s) => s.sportProfiles);
+  const sessions = useSwingVantageStore((s) => s.sessions);
+  const videos = useSwingVantageStore((s) => s.video_analyses);
   const readiness = useReadinessSnapshot();
   const provenDrills = useProvenDrills();
   // Read prior snapshots once on mount (excludes today, so progress is honest).

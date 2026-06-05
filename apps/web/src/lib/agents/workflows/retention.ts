@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Retention / Re-Engagement
+// SwingVantage — Workflow: Retention / Re-Engagement
 // ------------------------------------------------------------
 // Helps users return without guilt or friction. Detects
 // inactivity from local data and proposes ONE simple restart.

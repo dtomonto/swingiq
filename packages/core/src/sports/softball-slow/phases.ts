@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Slow Pitch Softball Swing Phase Definitions
+// SwingVantage — Slow Pitch Softball Swing Phase Definitions
 // Slow pitch softball has a fundamentally different hitting
 // situation than baseball: the ball is arcing downward at
 // contact, comes in slower, and the strike zone is larger.

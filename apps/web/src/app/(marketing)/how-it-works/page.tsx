@@ -3,15 +3,15 @@ import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'How SwingIQ Works — AI Swing Analysis for Golf, Tennis, Baseball & Softball',
+  title: 'How SwingVantage Works — AI Swing Analysis for Golf, Tennis, Baseball & Softball',
   description:
-    'Learn how SwingIQ analyzes your swing in 4 steps: select your sport, upload data or video, get AI analysis, and follow your personalized practice plan.',
+    'Learn how SwingVantage analyzes your swing in 4 steps: select your sport, upload data or video, get AI analysis, and follow your personalized practice plan.',
   openGraph: {
-    title: 'How SwingIQ Works — AI Swing Analysis',
+    title: 'How SwingVantage Works — AI Swing Analysis',
     description:
       'Four steps to better technique: select your sport, upload data or video, get AI diagnosis, follow your practice plan.',
     type: 'website',
-    url: 'https://swingiq.app/how-it-works',
+    url: 'https://swingvantage.com/how-it-works',
   },
   alternates: {
     canonical: '/how-it-works',
@@ -22,13 +22,13 @@ const steps = [
   {
     number: '1',
     title: 'Select Your Sport',
-    desc: 'SwingIQ supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own analysis engine, drill library, and benchmarks calibrated for that discipline.',
+    desc: 'SwingVantage supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own analysis engine, drill library, and benchmarks calibrated for that discipline.',
     color: 'bg-primary',
   },
   {
     number: '2',
     title: 'Upload or Enter Your Data',
-    desc: 'Import a CSV from your launch monitor, upload a swing video, take a screenshot and enter your stats manually, or connect a Bluetooth sensor. SwingIQ meets you where your data already lives.',
+    desc: 'Import a CSV from your launch monitor, upload a swing video, take a screenshot and enter your stats manually, or connect a Bluetooth sensor. SwingVantage meets you where your data already lives.',
     color: 'bg-accent-secondary',
   },
   {
@@ -85,7 +85,7 @@ const sports = [
 
 const faqs = [
   {
-    q: 'Is SwingIQ free to use?',
+    q: 'Is SwingVantage free to use?',
     a: 'The core analysis tools are free. Advanced features like unlimited session history, team accounts, and professional video review are on the paid roadmap.',
   },
   {
@@ -93,12 +93,12 @@ const faqs = [
     a: 'No. A smartphone camera is enough to get started with video analysis. If you have launch monitor or sensor data, you can import it for deeper analysis.',
   },
   {
-    q: 'Who is SwingIQ for?',
-    a: 'SwingIQ is designed for self-coached athletes, athletes working with coaches who want data-informed instruction, parents tracking youth player development, and facility owners who want a scalable coaching tool.',
+    q: 'Who is SwingVantage for?',
+    a: 'SwingVantage is designed for self-coached athletes, athletes working with coaches who want data-informed instruction, parents tracking youth player development, and facility owners who want a scalable coaching tool.',
   },
   {
-    q: 'Is SwingIQ a replacement for a human coach?',
-    a: 'No. SwingIQ is a development tool that helps athletes practice more purposefully between coaching sessions. Human coaches provide context, feel-based feedback, and relationships that software cannot replicate.',
+    q: 'Is SwingVantage a replacement for a human coach?',
+    a: 'No. SwingVantage is a development tool that helps athletes practice more purposefully between coaching sessions. Human coaches provide context, feel-based feedback, and relationships that software cannot replicate.',
   },
 ];
 
@@ -125,7 +125,7 @@ export default function HowItWorksPage() {
             Better Technique in 4 Steps
           </h1>
           <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto mb-8">
-            SwingIQ combines a deterministic analysis engine with AI to give every athlete a
+            SwingVantage combines a deterministic analysis engine with AI to give every athlete a
             personalized, data-driven development path — across 5 sports.
           </p>
           <Link
@@ -141,7 +141,7 @@ export default function HowItWorksPage() {
       <section className="bg-card py-16">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-2xl font-bold text-foreground text-center mb-12">
-            The SwingIQ Process
+            The SwingVantage Process
           </h2>
           <div className="space-y-10">
             {steps.map(({ number, title, desc, color }) => (

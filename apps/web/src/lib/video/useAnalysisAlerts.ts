@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Background analysis alerts
+// SwingVantage — Background analysis alerts
 //
 // The analyzer can take a little while, and it's easy to switch tabs and
 // forget it's running. This hook makes a finished (or in-progress) analysis
@@ -29,8 +29,8 @@ interface Options {
 export function useAnalysisAlerts({
   analyzing,
   ready,
-  readyTitle = '✅ Swing analysis ready · SwingIQ',
-  workingTitle = '⏳ Analyzing your swing… · SwingIQ',
+  readyTitle = '✅ Swing analysis ready · SwingVantage',
+  workingTitle = '⏳ Analyzing your swing… · SwingVantage',
   notificationBody = 'Your swing analysis is ready to view.',
 }: Options) {
   const originalTitle = useRef<string | null>(null);
@@ -79,7 +79,7 @@ export function useAnalysisAlerts({
       Notification.permission === 'granted'
     ) {
       try {
-        const n = new Notification('SwingIQ', { body: notificationBody });
+        const n = new Notification('SwingVantage', { body: notificationBody });
         n.onclick = () => {
           window.focus();
           n.close();

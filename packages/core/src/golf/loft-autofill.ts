@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Golf Club Loft Autofill Service
+// SwingVantage — Golf Club Loft Autofill Service
 // Provides loft lookup and gapping analysis for the golf bag.
 // Sources: manufacturer specs, generic industry defaults.
 // ============================================================

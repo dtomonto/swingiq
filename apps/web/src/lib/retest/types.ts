@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Retest Engine: Types
+// SwingVantage — Retest Engine: Types
 // ------------------------------------------------------------
 // Turns a one-time diagnosis into an improvement loop. Every
 // finding gets an "active until / retest by" window; once the

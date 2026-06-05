@@ -5,7 +5,7 @@ export { isSupabaseConfigured };
 
 /**
  * Browser Supabase client, or `null` when Supabase env vars are not
- * configured. Callers MUST handle the null case — SwingIQ runs fully
+ * configured. Callers MUST handle the null case — SwingVantage runs fully
  * on a local device-only profile when this is null (see lib/auth).
  */
 export const supabase = isSupabaseConfigured

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Next Badge selection (pure, testable)
+// SwingVantage — Next Badge selection (pure, testable)
 // ------------------------------------------------------------
 // Picks the single closest-to-earned achievement (highest progress
 // percent that is started but not yet complete) so the dashboard

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: 3D Motion Viewer
+// SwingVantage — Motion Lab: 3D Motion Viewer
 // ------------------------------------------------------------
 // A dependency-free 3D skeleton player rendered on a 2D canvas. It
 // projects the REAL MediaPipe landmarks (x, y, and model depth z) with
@@ -392,7 +392,7 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
     try {
       const a = document.createElement('a');
       a.href = canvas.toDataURL('image/png');
-      a.download = `swingiq-motionlab-3d-frame-${frame}.png`;
+      a.download = `swingvantage-motionlab-3d-frame-${frame}.png`;
       a.click();
     } catch { /* ignore */ }
   };

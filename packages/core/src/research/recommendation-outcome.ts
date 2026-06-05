@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Responsible Learning Layer
+// SwingVantage — Responsible Learning Layer
 // Tracks recommendation effectiveness WITHOUT exposing
 // private user data or training global models on user videos.
 //

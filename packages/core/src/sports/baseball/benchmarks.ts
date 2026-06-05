@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Baseball Hitting Benchmarks
+// SwingVantage — Baseball Hitting Benchmarks
 // Evidence-informed target windows for baseball swing analysis.
 // Segmented by skill level.
 //

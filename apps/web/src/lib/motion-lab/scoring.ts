@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Scoring
+// SwingVantage — Motion Lab: Scoring
 // ------------------------------------------------------------
 // Composes the proxy metrics into transparent component scores
 // (Power, Sequencing, Balance, Rotation, Timing, Consistency) and an

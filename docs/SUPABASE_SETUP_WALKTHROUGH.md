@@ -1,6 +1,6 @@
 # Connect a Database — Supabase Setup Walkthrough (one page)
 
-A click-by-click guide to giving SwingIQ a free cloud database, so people can make real accounts and sync across devices. **Cost: $0. Time: about 15 minutes. No credit card.**
+A click-by-click guide to giving SwingVantage a free cloud database, so people can make real accounts and sync across devices. **Cost: $0. Time: about 15 minutes. No credit card.**
 
 ---
 
@@ -9,7 +9,7 @@ A click-by-click guide to giving SwingIQ a free cloud database, so people can ma
 **What this page is:** The hand-holding version of "create your Supabase project." Each step below shows a little **sketch of the screen** you'll see and tells you exactly what to click or copy. (The boxes are drawings, not real photos — your screen will look a bit fancier, but the buttons are named the same.)
 
 **What you actually need to know:**
-- You only do this **once**. After it's done, SwingIQ quietly switches from "saves in this browser" to "real accounts + cloud sync."
+- You only do this **once**. After it's done, SwingVantage quietly switches from "saves in this browser" to "real accounts + cloud sync."
 - Two values (a web address and a key) get pasted into one settings file. That's the whole connection.
 - Nothing here exposes your proprietary technology — a database only holds your *users'* swing data, never your engines or algorithms.
 
@@ -57,7 +57,7 @@ The first time, Supabase asks you to create an "organization" (just a container 
 ┌──────────────────────────────────────────────────────────┐
 │  Create a new organization                                 │
 │  ─────────────────────────────────────────────            │
-│  Name:        [ SwingIQ                      ]             │
+│  Name:        [ SwingVantage                      ]             │
 │  Type:        [ Personal           ▾ ]                     │
 │  Plan:        ( ● Free   $0 )  ( ○ Pro  $25 )             │
 │                                                            │
@@ -65,7 +65,7 @@ The first time, Supabase asks you to create an "organization" (just a container 
 └──────────────────────────────────────────────────────────┘
 ```
 
-- Name it anything (e.g. **SwingIQ**).
+- Name it anything (e.g. **SwingVantage**).
 - **Plan: choose Free.** No card required.
 
 ---
@@ -76,7 +76,7 @@ The first time, Supabase asks you to create an "organization" (just a container 
 ┌──────────────────────────────────────────────────────────┐
 │  New project                                               │
 │  ─────────────────────────────────────────────            │
-│  Project name:      [ swingiq-prod              ]          │
+│  Project name:      [ swingvantage-prod              ]          │
 │                                                            │
 │  Database Password:  [ ••••••••••••••• ] [ Generate ]     │
 │        ⚠ COPY THIS NOW and save it. You'll need it for     │
@@ -89,7 +89,7 @@ The first time, Supabase asks you to create an "organization" (just a container 
 └──────────────────────────────────────────────────────────┘
 ```
 
-- **Project name:** something like `swingiq-prod`.
+- **Project name:** something like `swingvantage-prod`.
 - **Database Password:** click **Generate**, then **copy it into your password manager immediately.** 🔐
 - **Region:** closest to your users (US East is a safe default).
 - Click **Create new project**.

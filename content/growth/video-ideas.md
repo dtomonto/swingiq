@@ -1,4 +1,4 @@
-# SwingIQ — Short-Form Video Bank
+# SwingVantage — Short-Form Video Bank
 
 Draft scripts only. **Do not auto-post.** A human reviews, films, and posts.
 Fields: hook · sport · audience · platform fit · CTA · status · repurposing notes.

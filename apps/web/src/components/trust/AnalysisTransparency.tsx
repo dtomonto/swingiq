@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Analysis Transparency Panel
+// SwingVantage — Analysis Transparency Panel
 // ------------------------------------------------------------
 // One reusable, honest "what is this result based on?" panel to
 // place under ANY generated result: a diagnosis, a practice plan,
@@ -9,7 +9,7 @@
 //   2. whether raw video was actually analysed,
 //   3. the confidence level and why,
 //   4. what would raise the confidence,
-//   5. that SwingIQ does not replace a qualified professional,
+//   5. that SwingVantage does not replace a qualified professional,
 //   6. (optional) the single next best action.
 //
 // Presentational only — callers pass already-computed values, so

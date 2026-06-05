@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Tutorial Center
+// SwingVantage — Tutorial Center
 // ------------------------------------------------------------
 // The /tutorial hub. Two ways in:
 //   1) A persona track — the right ordered tutorial for a Player,
@@ -110,7 +110,7 @@ export function TutorialCenter() {
           <span className="text-sm font-semibold uppercase tracking-wide">Tutorials</span>
         </div>
         <h1 className="mt-1 text-2xl font-bold text-foreground sm:text-3xl">
-          Learn SwingIQ in short videos
+          Learn SwingVantage in short videos
         </h1>
         <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
           One quick video for every feature, plus a guided path made for you. Watch in any order, or

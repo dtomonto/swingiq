@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Launch-Monitor Image → Data Extraction (pure layer)
+// SwingVantage — Launch-Monitor Image → Data Extraction (pure layer)
 //
 // The accurate, domain-aware half of the "upload a photo of your data
 // and we read the numbers" feature. This module owns everything that
@@ -131,7 +131,7 @@ export function buildImageExtractionPrompt(
 ): { system: string; userText: string } {
   const sport = (opts.sport ?? 'golf').replace(/_/g, ' ');
   const system =
-    'You are SwingIQ\'s launch-monitor data-extraction engine. You read a single photo or ' +
+    'You are SwingVantage\'s launch-monitor data-extraction engine. You read a single photo or ' +
     'screenshot of a sports launch monitor / performance screen (or a stats table) and ' +
     'transcribe the numbers into structured data with perfect fidelity.\n\n' +
     'You understand how these screens are laid out: a big primary distance, a cluster of ' +
@@ -157,7 +157,7 @@ export function buildExtractionRepairPrompt(
   error: string,
 ): { system: string; userText: string } {
   const system =
-    'You repair a draft JSON object so it EXACTLY matches the required SwingIQ extraction schema. ' +
+    'You repair a draft JSON object so it EXACTLY matches the required SwingVantage extraction schema. ' +
     'Output ONLY the corrected JSON object — no prose, no markdown fences. Preserve the original ' +
     'values; do NOT invent new numbers. Fix structure, row lengths, types and enum values.\n\n' +
     IMAGE_EXTRACTION_JSON_CONTRACT;

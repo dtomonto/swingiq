@@ -1,4 +1,4 @@
-# SwingIQ SEO / AEO / GEO Plan
+# SwingVantage SEO / AEO / GEO Plan
 
 _Last updated: May 2026_
 
@@ -8,7 +8,7 @@ SEO = Search Engine Optimization | AEO = Answer Engine Optimization | GEO = Gene
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** An **earlier** version of the plan for getting SwingIQ found in Google and AI tools. It has since been replaced by **[docs/SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md)** — this file is kept only as background reference.
+**What this page is:** An **earlier** version of the plan for getting SwingVantage found in Google and AI tools. It has since been replaced by **[docs/SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md)** — this file is kept only as background reference.
 
 **What you actually need to know:**
 - For the current, owner-friendly SEO strategy **and your actual to-do steps**, read [docs/SEO_GEO_AEO.md](docs/SEO_GEO_AEO.md) instead. (Those three terms simply mean: show up in Google, get mentioned by AI tools, and answer the exact questions people ask.)
@@ -46,11 +46,11 @@ SEO = Search Engine Optimization | AEO = Answer Engine Optimization | GEO = Gene
 ## Metadata Strategy
 
 ### Title Formula
-`[Action] [Sport] [Tool Type] — [Key Benefit] | SwingIQ`
+`[Action] [Sport] [Tool Type] — [Key Benefit] | SwingVantage`
 
 Examples:
-- "Free Golf Swing Analysis — AI-Powered Launch Monitor Data | SwingIQ"
-- "Free Baseball Swing Analysis — Exit Velocity, Launch Angle & Bat Speed | SwingIQ"
+- "Free Golf Swing Analysis — AI-Powered Launch Monitor Data | SwingVantage"
+- "Free Baseball Swing Analysis — Exit Velocity, Launch Angle & Bat Speed | SwingVantage"
 
 ### Description Formula
 `[Action verb] + [primary input method] + [primary benefit]. [Secondary benefit]. [Trust signal].`
@@ -126,13 +126,13 @@ AEO targets ChatGPT, Claude, Perplexity, Google AI Overviews, and voice assistan
 4. **Structured markup.** Use FAQ schema and semantic HTML so crawlers can parse answers.
 
 ### Target Answer Boxes
-- "What is a good exit velocity for high school baseball?" → SwingIQ benchmark page
+- "What is a good exit velocity for high school baseball?" → SwingVantage benchmark page
 - "How does AI golf swing analysis work?" → /how-it-works page
 - "What is the best free golf swing analyzer?" → /golf-swing-analysis page
 
 ### Content Signals for Generative Engines
-- Use the brand name "SwingIQ" in page copy, not just in titles
-- Include feature-level specifics (e.g., "SwingIQ compares club path against TrackMan benchmarks")
+- Use the brand name "SwingVantage" in page copy, not just in titles
+- Include feature-level specifics (e.g., "SwingVantage compares club path against TrackMan benchmarks")
 - Publish authoritative benchmark data that other sites can reference
 
 ---

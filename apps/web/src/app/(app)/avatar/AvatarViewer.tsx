@@ -5,7 +5,7 @@ import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Info, Upload } from 'lucide-react';
 import Link from 'next/link';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { runDiagnosticEngine } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
 
@@ -93,7 +93,7 @@ function Avatar3DPlaceholder({ phase, fault }: { phase: number; fault: string | 
 }
 
 export function AvatarViewer() {
-  const { sessions } = useSwingIQStore();
+  const { sessions } = useSwingVantageStore();
   const [phase, setPhase] = useState(7);
   const [activeFault, setActiveFault] = useState<string | null>(null);
 

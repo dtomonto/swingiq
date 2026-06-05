@@ -1,4 +1,4 @@
-// SwingIQ — reusable trust & conversion components.
+// SwingVantage — reusable trust & conversion components.
 // Place near CTAs, upload/analyze flows, sport/parent/coach/team pages, and footer.
 export { TrustBar } from './TrustBar';
 export { LiveAndFreeBadge } from './LiveAndFreeBadge';

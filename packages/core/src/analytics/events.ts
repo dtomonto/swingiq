@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Analytics Event Definitions
+// SwingVantage — Analytics Event Definitions
 // Central registry of all trackable analytics events.
 // Connect to PostHog, GA4, Segment, or Mixpanel via analytics.ts
 // in the web app.

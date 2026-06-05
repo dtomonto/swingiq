@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // ============================================================
-// SwingIQ — Agent Worktree Helper (worktree-per-agent convention)
+// SwingVantage — Agent Worktree Helper (worktree-per-agent convention)
 //
 // Several agents (interactive + scheduled) work on this repo at once. If they
 // all edit the SAME working tree they collide: the shared git index races, and

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — useAgentContext
+// SwingVantage — useAgentContext
 // ------------------------------------------------------------
 // Lightweight hook that gives any page the normalized
 // AgentContext so it can call a specific workflow directly
@@ -10,12 +10,12 @@
 // ============================================================
 
 import { useEffect, useMemo, useState } from 'react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 import { buildAgentContext, type AgentContext } from '@/lib/agents';
 
 export function useAgentContext(): { ready: boolean; ctx: AgentContext | null } {
-  const state = useSwingIQStore();
+  const state = useSwingVantageStore();
   const { activeSport } = useSport();
   const [mounted, setMounted] = useState(false);
 

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Achievement Badge Component
+// SwingVantage — Achievement Badge Component
 // Displays earned/locked badges with progress indicators.
 // ============================================================
 

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Progress Memory
+// SwingVantage — Workflow: Progress Memory
 // ------------------------------------------------------------
 // Helps returning users understand what is improving, stalling,
 // or sliding. Compares the active sport's sessions over time.
@@ -25,7 +25,7 @@ export function computeProgressTrend(ctx: AgentContext): ProgressMemory {
       trendSummary:
         scored.length === 1
           ? 'You have one scored session — add another to start tracking your trend.'
-          : 'Add a couple of sessions and SwingIQ will start tracking what is improving.',
+          : 'Add a couple of sessions and SwingVantage will start tracking what is improving.',
       direction: 'unknown',
       improvedAreas: [],
       stalledAreas: [],

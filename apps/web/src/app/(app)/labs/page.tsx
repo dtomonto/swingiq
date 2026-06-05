@@ -10,7 +10,7 @@ export default function LabsPage() {
       <div>
         <div className="flex items-center gap-2">
           <FlaskConical size={20} className="text-primary" />
-          <h1 className="text-2xl font-bold text-foreground">SwingIQ Labs</h1>
+          <h1 className="text-2xl font-bold text-foreground">SwingVantage Labs</h1>
         </div>
         <p className="text-muted-foreground text-sm mt-1">
           The foundations we&apos;re building the future on — your readiness scores, a private

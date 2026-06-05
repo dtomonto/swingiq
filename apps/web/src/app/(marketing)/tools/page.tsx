@@ -5,7 +5,7 @@ import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 export const metadata = buildMetadata({
   title: 'Free Swing Tools — Quizzes, Drill & Practice Generators',
   description:
-    'Free SwingIQ tools: slice fixer, multi-sport swing mistake quiz, at-home drill generator, practice plan builder, lesson savings calculator, and more.',
+    'Free SwingVantage tools: slice fixer, multi-sport swing mistake quiz, at-home drill generator, practice plan builder, lesson savings calculator, and more.',
   path: '/tools',
 });
 
@@ -14,7 +14,7 @@ const TOOLS = [
   { href: '/tools/swing-mistake-quiz', emoji: '🏏', name: 'Swing Mistake Quiz', desc: 'Find your likely top issue across 5 sports.' },
   { href: '/tools/at-home-swing-drill-generator', emoji: '🏠', name: 'At-Home Drill Generator', desc: 'Drills tailored to your space, gear, and time.' },
   { href: '/tools/practice-plan-generator', emoji: '📅', name: 'Practice Plan Generator', desc: 'A focused 7-day (and 30-day) plan with retests.' },
-  { href: '/tools/private-lesson-savings-calculator', emoji: '💰', name: 'Lesson Savings Calculator', desc: 'Estimate lesson spend and where SwingIQ can help.' },
+  { href: '/tools/private-lesson-savings-calculator', emoji: '💰', name: 'Lesson Savings Calculator', desc: 'Estimate lesson spend and where SwingVantage can help.' },
   { href: '/tools/slow-pitch-line-drive-guide', emoji: '🥎', name: 'Slow-Pitch Line-Drive Guide', desc: 'Fix pop-ups and grounders in slow-pitch softball.' },
   { href: '/tools/equipment-diagnostic', emoji: '🔧', name: 'Equipment Diagnostic', desc: 'Spot possible equipment fit-risk flags to validate.' },
 ];

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Athlete General Intelligence: engine tests
+// SwingVantage — Athlete General Intelligence: engine tests
 // ------------------------------------------------------------
 // Pure tests against the engine (no motion-lab / browser dependency).
 // Verifies cross-sport fusion, the keystone reasoner, transfer links,
@@ -731,18 +731,18 @@ describe('AGI — shareable report', () => {
   });
 
   it('builds a coach-friendly text report with the key sections', () => {
-    const txt = buildAgiReportText(result, { siteUrl: 'swingiq.app' });
+    const txt = buildAgiReportText(result, { siteUrl: 'swingvantage.com' });
     expect(txt).toMatch(/Athlete General Intelligence/);
     expect(txt).toMatch(/Trust grade [A-D]/);
     expect(txt).toMatch(/KEYSTONE/);
     expect(txt).toMatch(/YOUR PROFILE/);
     expect(txt).toMatch(/PLAN/);
-    expect(txt).toMatch(/swingiq\.app/);
+    expect(txt).toMatch(/swingvantage\.com/);
     expect(txt).toMatch(/medical/i);
   });
 
   it('builds a self-contained printable HTML doc', () => {
-    const html = buildAgiReportHtml(result, { siteUrl: 'swingiq.app' });
+    const html = buildAgiReportHtml(result, { siteUrl: 'swingvantage.com' });
     expect(html.startsWith('<!doctype html>')).toBe(true);
     expect(html).toMatch(/Trust/);
     expect(html).toMatch(/Rotation/);

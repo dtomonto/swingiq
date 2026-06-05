@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Normalizer robustness tests
+// SwingVantage — Normalizer robustness tests
 // ------------------------------------------------------------
 // Proves the parser survives REAL-WORLD messy launch-monitor
 // exports: preamble/metadata rows, alternate delimiters, a units

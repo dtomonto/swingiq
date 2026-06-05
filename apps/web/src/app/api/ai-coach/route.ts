@@ -1,5 +1,5 @@
 /**
- * SwingIQ AI Coach API Route
+ * SwingVantage AI Coach API Route
  *
  * POST /api/ai-coach
  *
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
   const { system, user } = buildCoachPrompt(ctx);
 
   // ── Call the AI provider ──────────────────────────────────
-  // SwingIQ supports OpenAI or Anthropic. Configure via environment variables:
+  // SwingVantage supports OpenAI or Anthropic. Configure via environment variables:
   //   AI_PROVIDER=openai  → uses OPENAI_API_KEY
   //   AI_PROVIDER=anthropic → uses ANTHROPIC_API_KEY (default)
   //

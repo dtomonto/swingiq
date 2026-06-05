@@ -1,10 +1,10 @@
 // ============================================================
-// SwingIQ — Benchmark Mirror (schema + honest builder)
+// SwingVantage — Benchmark Mirror (schema + honest builder)
 // ------------------------------------------------------------
 // Surfaces the EXISTING per-sport benchmark windows (segmented by
 // skill level) as a "mirror to aim at". Deliberately honest: these
 // are typical ranges for a level, NOT your measured percentile, and
-// SwingIQ does not rank you against other players.
+// SwingVantage does not rank you against other players.
 // ============================================================
 
 import {
@@ -52,7 +52,7 @@ function toSegment(skill: SkillLevel): SportSkillSegment {
 }
 
 const FRAMING =
-  'A mirror to aim at — typical windows for your level, not your measured percentile. SwingIQ does not rank you against other players.';
+  'A mirror to aim at — typical windows for your level, not your measured percentile. SwingVantage does not rank you against other players.';
 
 export function buildBenchmarkMirror(sport: SportId, skill: SkillLevel): BenchmarkMirror {
   const benchmarks = BENCHMARKS_BY_SPORT[sport];

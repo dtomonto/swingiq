@@ -1,14 +1,14 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Language Context
+// SwingVantage — Language Context
 // Provides t() translation function throughout the app.
 // Reads/writes language from the Zustand store.
 // Applies document direction and lang attribute for RTL support.
 // ============================================================
 
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { buildTranslator, detectBrowserLanguage, LANGUAGE_CONFIG, RTL_LANGUAGES } from '@/lib/i18n';
 import type { LanguageCode } from '@/lib/i18n';
 
@@ -23,7 +23,7 @@ interface LanguageContextValue {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const { settings, updateSettings } = useSwingIQStore();
+  const { settings, updateSettings } = useSwingVantageStore();
   const language: LanguageCode = (settings.language as LanguageCode) ?? 'en';
 
   // Initialize language from browser on first load if no preference set

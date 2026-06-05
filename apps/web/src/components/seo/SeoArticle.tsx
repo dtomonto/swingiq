@@ -50,7 +50,7 @@ function buildSchema(page: SeoPage): Record<string, unknown> {
 /**
  * Renders a registry SeoPage in the AEO/GEO format:
  * breadcrumbs → direct answer → explanation → diagnosis → what
- * SwingIQ looks for → drills → mistakes → coach → FAQ → CTA → schema.
+ * SwingVantage looks for → drills → mistakes → coach → FAQ → CTA → schema.
  */
 export function SeoArticle({ page }: { page: SeoPage }) {
   const sportPath =
@@ -106,11 +106,11 @@ export function SeoArticle({ page }: { page: SeoPage }) {
           </ul>
         </section>
 
-        {/* What SwingIQ looks for */}
+        {/* What SwingVantage looks for */}
         <section className="mb-8 rounded-2xl bg-muted p-5">
-          <h2 className="mb-3 text-xl font-bold text-foreground">What SwingIQ looks for</h2>
+          <h2 className="mb-3 text-xl font-bold text-foreground">What SwingVantage looks for</h2>
           <ul className="grid gap-2 sm:grid-cols-2">
-            {page.whatSwingIQLooksFor.map((s) => (
+            {page.whatSwingVantageLooksFor.map((s) => (
               <li key={s.slice(0, 24)} className="flex items-start gap-2 text-sm text-foreground">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
                 <span>{s}</span>

@@ -20,7 +20,7 @@ export function CoachSummaryCard() {
   if (!ready || !ctx || !ctx.latestSession || !summary) return null;
 
   const asText = [
-    'SwingIQ — Coach Prep',
+    'SwingVantage — Coach Prep',
     '',
     summary.coachSummary,
     '',
@@ -82,7 +82,7 @@ export function CoachSummaryCard() {
         </div>
 
         <p className="text-xs text-muted-foreground">
-          SwingIQ helps you prepare — it doesn&apos;t replace a qualified coach.
+          SwingVantage helps you prepare — it doesn&apos;t replace a qualified coach.
         </p>
       </CardBody>
     </Card>

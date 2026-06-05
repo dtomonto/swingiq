@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Repeatability (cross-session consistency)
+// SwingVantage — Motion Lab: Repeatability (cross-session consistency)
 // ------------------------------------------------------------
 // The per-clip `repeatability` metric is honestly NULL on a single
 // motion — consistency can only be judged across reps. This engine

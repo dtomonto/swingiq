@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Export Prompt Component
+// SwingVantage — Export Prompt Component
 // Contextual export reminder shown after key moments:
 // - After completing a session
 // - After unlocking a milestone
@@ -13,7 +13,7 @@
 import { useState } from 'react';
 import { Download, X, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { exportUserData, downloadBackup } from '@/lib/backup/export';
 
@@ -50,7 +50,7 @@ export function ExportPrompt({
   compact = false,
 }: ExportPromptProps) {
   const { t } = useLanguage();
-  const store = useSwingIQStore();
+  const store = useSwingVantageStore();
   const [exported, setExported] = useState(false);
   const [loading, setLoading] = useState(false);
   const [dismissed, setDismissed] = useState(false);

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — LLM Research Prompt Templates (Versioned)
+// SwingVantage — LLM Research Prompt Templates (Versioned)
 //
 // Prompt design principles:
 //  • LLM is a summarizer and extractor, NOT an authority
@@ -16,7 +16,7 @@ export const PROMPT_VERSION = '1.0.0';
 // System prompt — applies to all research calls
 // ──────────────────────────────────────────────────────────────
 
-export const RESEARCH_SYSTEM_PROMPT = `You are a golf performance research assistant for SwingIQ.
+export const RESEARCH_SYSTEM_PROMPT = `You are a golf performance research assistant for SwingVantage.
 Your role is to summarize evidence and extract benchmark-relevant claims from provided source text.
 
 Rules you must follow without exception:
@@ -206,7 +206,7 @@ export function buildDrillRefreshPrompt(input: DrillRefreshInput): {
 } {
   return {
     system: RESEARCH_SYSTEM_PROMPT,
-    user: `Review and suggest updates to the SwingIQ drill library for this swing issue.
+    user: `Review and suggest updates to the SwingVantage drill library for this swing issue.
 
 SWING ISSUE: ${input.swing_issue}
 SWING PHASE: ${input.swing_phase}
@@ -253,7 +253,7 @@ export function buildRunSummaryPrompt(input: RunSummaryInput): {
 } {
   return {
     system: RESEARCH_SYSTEM_PROMPT,
-    user: `Write a concise research run summary for SwingIQ administrators.
+    user: `Write a concise research run summary for SwingVantage administrators.
 
 RESEARCH SCOPE: ${input.scope.join(', ')}
 SOURCES REVIEWED: ${input.sources_reviewed}

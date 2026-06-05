@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { Upload, X, Search, ExternalLink, Info, ChevronRight, Video } from 'lucide-react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { isPlaceholderVideo, buildAthleteYouTubeSearchUrl, getSportConfig } from '@swingiq/core';
 import type { ProfessionalSwingReference } from '@swingiq/core';
 
@@ -97,7 +97,7 @@ function PhaseChecklist({ sportId }: { sportId: string }) {
 // ──────────────────────────────────────────────────────────────
 
 function UserSwingPanel() {
-  const { video_analyses } = useSwingIQStore();
+  const { video_analyses } = useSwingVantageStore();
   const [selectedAnalysisId, setSelectedAnalysisId] = useState<string>('');
   const [localVideoUrl, setLocalVideoUrl] = useState<string | null>(null);
   const [localVideoName, setLocalVideoName] = useState<string | null>(null);
@@ -418,7 +418,7 @@ export function SwingComparison({
       <div className="flex items-start gap-3 bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl p-4">
         <Info size={18} className="text-accent-secondary shrink-0 mt-0.5" />
         <p className="text-sm text-accent-secondary">
-          <span className="font-semibold">Visual comparison only.</span> This tool lets you watch your swing and a professional reference side by side. SwingIQ has not analyzed the professional video frames — AI analysis applies only to videos you upload.
+          <span className="font-semibold">Visual comparison only.</span> This tool lets you watch your swing and a professional reference side by side. SwingVantage has not analyzed the professional video frames — AI analysis applies only to videos you upload.
         </p>
       </div>
 

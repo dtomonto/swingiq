@@ -1,9 +1,9 @@
-import type { SwingIQSlice, SwingIQStore } from '../types';
+import type { SwingVantageSlice, SwingVantageStore } from '../types';
 import { DEFAULT_TRAINING } from '../types';
 
-export const createTrainingSlice: SwingIQSlice<
+export const createTrainingSlice: SwingVantageSlice<
   Pick<
-    SwingIQStore,
+    SwingVantageStore,
     | 'training'
     | 'setActiveDiagnosis'
     | 'toggleDrillStep'

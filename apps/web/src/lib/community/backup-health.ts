@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ Community — Backup Health
+// SwingVantage Community — Backup Health
 // Calculates backup status and provides messaging.
 // ============================================================
 

@@ -1,7 +1,7 @@
 // GET /api/user/export
 //
 // Server-side data export endpoint. Returns the authenticated user's data
-// in SwingIQBackup format.
+// in SwingVantageBackup format.
 //
 // Until Supabase is fully wired up this returns a 503 with instructions to
 // use the client-side export in Settings → Backup & Restore instead.
@@ -43,7 +43,7 @@ export async function GET() {
   // const { data: clubs } = await supabase
   //   .from('clubs').select('*').eq('user_id', user.id);
   //
-  // Then assemble into SwingIQBackup format and return.
+  // Then assemble into SwingVantageBackup format and return.
 
   return NextResponse.json(
     {

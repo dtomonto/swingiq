@@ -22,7 +22,7 @@ export async function generateMetadata({
       title: post.title,
       description: post.excerpt,
       type: 'article',
-      url: `https://swingiq.app/blog/${post.slug}`,
+      url: `https://swingvantage.com/blog/${post.slug}`,
       publishedTime: post.publishDate,
     },
     alternates: { canonical: `/blog/${post.slug}` },

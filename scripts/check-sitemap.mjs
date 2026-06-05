@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SwingIQ — Sitemap route check.
+ * SwingVantage — Sitemap route check.
  *
  * Extracts the paths referenced by app/sitemap.ts (both `${BASE_URL}/x`
  * template paths and `/x` string literals in the route arrays) and

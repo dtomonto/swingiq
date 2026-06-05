@@ -3,18 +3,18 @@
 import { useState, useRef } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { Download, Upload, CheckCircle, AlertTriangle, RefreshCw, Shield, Lock } from 'lucide-react';
 import { exportUserData, downloadBackup } from '@/lib/backup/export';
 import { parseBackupFile } from '@/lib/backup/validate';
 import { previewRestore, mergeRestore, replaceRestore, generateRestoreResult } from '@/lib/backup/restore';
 import { encryptBackup, decryptBackup, isEncryptedBackup } from '@/lib/backup/crypto';
-import type { SwingIQBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
+import type { SwingVantageBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
 
 type ImportStep = 'idle' | 'parsing' | 'needs-password' | 'preview' | 'confirming-replace' | 'done';
 
 export default function BackupPage() {
-  const store = useSwingIQStore();
+  const store = useSwingVantageStore();
 
   // Export state
   const [exported, setExported] = useState(false);
@@ -27,7 +27,7 @@ export default function BackupPage() {
   // Import state
   const [importStep, setImportStep] = useState<ImportStep>('idle');
   const [importError, setImportError] = useState<string | null>(null);
-  const [pendingBackup, setPendingBackup] = useState<SwingIQBackup | null>(null);
+  const [pendingBackup, setPendingBackup] = useState<SwingVantageBackup | null>(null);
   const [pendingEncryptedContent, setPendingEncryptedContent] = useState<string | null>(null);
   const [importPassword, setImportPassword] = useState('');
   const [preview, setPreview] = useState<RestorePreview | null>(null);
@@ -126,7 +126,7 @@ export default function BackupPage() {
   function handleMerge() {
     if (!pendingBackup || !preview) return;
     const delta = mergeRestore(pendingBackup, store);
-    useSwingIQStore.setState(delta);
+    useSwingVantageStore.setState(delta);
     setRestoreResult(generateRestoreResult(preview, true));
     setImportStep('done');
   }
@@ -134,8 +134,8 @@ export default function BackupPage() {
   function handleReplace() {
     if (!pendingBackup || !preview) return;
     const delta = replaceRestore(pendingBackup, store.settings);
-    useSwingIQStore.setState(delta);
-    useSwingIQStore.getState().computeSetupStep();
+    useSwingVantageStore.setState(delta);
+    useSwingVantageStore.getState().computeSetupStep();
     setRestoreResult(generateRestoreResult(preview, true));
     setImportStep('done');
   }
@@ -159,7 +159,7 @@ export default function BackupPage() {
         <div>
           <h1 className="text-2xl font-bold text-foreground">Backup &amp; Restore</h1>
           <p className="text-muted-foreground text-sm mt-1">
-            Download a complete copy of your SwingIQ data, or restore from a previous backup.
+            Download a complete copy of your SwingVantage data, or restore from a previous backup.
           </p>
         </div>
 
@@ -170,7 +170,7 @@ export default function BackupPage() {
             <p className="font-semibold">Your data stays on your device</p>
             <p>This backup contains your profiles, sessions, clubs, and analysis results.</p>
             <p>Video files are not included — only metadata and analysis results.</p>
-            <p>No passwords, API keys, or payment credentials are stored in SwingIQ.</p>
+            <p>No passwords, API keys, or payment credentials are stored in SwingVantage.</p>
             <p className="font-medium">Store the file somewhere safe.</p>
           </div>
         </div>
@@ -180,7 +180,7 @@ export default function BackupPage() {
           <CardHeader><CardTitle>Download My Data Backup</CardTitle></CardHeader>
           <CardBody className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Creates a complete file with everything SwingIQ knows about you.
+              Creates a complete file with everything SwingVantage knows about you.
             </p>
 
             <div className="grid grid-cols-3 gap-3 text-center">
@@ -287,7 +287,7 @@ export default function BackupPage() {
             {importStep === 'idle' && (
               <>
                 <p className="text-sm text-muted-foreground">
-                  Select a SwingIQ backup file (.json or .swingiqbackup) to preview what will be restored.
+                  Select a SwingVantage backup file (.json or .swingiqbackup) to preview what will be restored.
                 </p>
                 {importError && (
                   <div className="flex gap-2 bg-error/10 border border-error/30 rounded-lg p-3 text-sm text-error">

@@ -1,4 +1,4 @@
-# SwingIQ — robots.txt
+# SwingVantage — robots.txt
 # Public marketing pages are crawlable and indexable.
 # Authenticated app routes are blocked from crawlers.
 

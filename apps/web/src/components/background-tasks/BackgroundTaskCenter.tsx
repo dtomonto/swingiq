@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Background Task Center
+// SwingVantage — Background Task Center
 // ------------------------------------------------------------
 // The always-visible surface for work that outlives the page that
 // started it. Mounted once in the app shell, so it follows the user
@@ -45,7 +45,7 @@ export function BackgroundTaskCenter() {
     const sync = () => {
       if (document.hidden) {
         if (saved === null) saved = document.title;
-        document.title = runningCount > 0 ? '⏳ Working… · SwingIQ' : '✅ Ready · SwingIQ';
+        document.title = runningCount > 0 ? '⏳ Working… · SwingVantage' : '✅ Ready · SwingVantage';
       } else if (saved !== null) {
         document.title = saved;
         saved = null;
@@ -115,7 +115,7 @@ function RunningChip({
         >
           <p className="truncate text-sm font-semibold text-foreground">{task.title}</p>
           <p className="truncate text-xs text-muted-foreground">
-            Working in the background{pct != null ? ` · ${pct}%` : '…'} — you can keep using SwingIQ
+            Working in the background{pct != null ? ` · ${pct}%` : '…'} — you can keep using SwingVantage
           </p>
         </button>
         <button

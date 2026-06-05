@@ -1,9 +1,9 @@
 // ============================================================
-// SwingIQ — Start Here: Quick-Start Engine
+// SwingVantage — Start Here: Quick-Start Engine
 // ------------------------------------------------------------
 // Powers the guided first-user onboarding flow (/start).
 //
-// HONESTY RULES (match the rest of SwingIQ):
+// HONESTY RULES (match the rest of SwingVantage):
 //   - The quick result is built from the user's SELF-REPORTED
 //     answers, not from measured swing data or video pixels.
 //   - We therefore label its confidence "low" and always say
@@ -298,7 +298,7 @@ export const USER_TYPES: Array<{
   { value: 'athlete', label: 'Athlete', sublabel: "I'm working on my own swing" },
   { value: 'parent', label: 'Parent or guardian', sublabel: "I'm helping a young athlete" },
   { value: 'coach', label: 'Coach or instructor', sublabel: "I'm working with athletes I coach" },
-  { value: 'team', label: 'Team / program', sublabel: "I'm exploring SwingIQ for a group" },
+  { value: 'team', label: 'Team / program', sublabel: "I'm exploring SwingVantage for a group" },
 ];
 
 export const SKILL_LEVELS: Array<{ value: StartSkillLevel; label: string }> = [
@@ -349,7 +349,7 @@ export const INPUT_METHODS: InputMethodOption[] = [
   {
     value: 'sample',
     label: 'See a sample report first',
-    description: 'Preview exactly what SwingIQ produces before you put anything in.',
+    description: 'Preview exactly what SwingVantage produces before you put anything in.',
     href: '/sample-report',
     timeHint: 'about 1 minute',
   },

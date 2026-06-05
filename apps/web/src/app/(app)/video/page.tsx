@@ -8,7 +8,7 @@ import type { Metadata } from 'next';
 import { VideoPageRouter } from './VideoPageRouter';
 
 export const metadata: Metadata = {
-  title: 'Swing Video Analyzer | SwingIQ',
+  title: 'Swing Video Analyzer | SwingVantage',
   description:
     'Upload your swing video for phase-by-phase coaching, drill recommendations, and optional AI narrative — for golf, tennis, baseball, and softball.',
 };

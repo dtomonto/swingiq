@@ -4,15 +4,15 @@ import { Shield, Lock, Eye, Trash2, AlertTriangle, Users, CheckCircle } from 'lu
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Trust & Safety | SwingIQ',
+  title: 'Trust & Safety | SwingVantage',
   description:
-    'How SwingIQ protects your privacy, keeps your swing data safe, and sets honest expectations about what AI can and cannot do.',
+    'How SwingVantage protects your privacy, keeps your swing data safe, and sets honest expectations about what AI can and cannot do.',
   openGraph: {
-    title: 'Trust & Safety | SwingIQ',
+    title: 'Trust & Safety | SwingVantage',
     description:
-      'SwingIQ is local-first, privacy-focused, and built with honest AI. Learn how your data is handled and what protections are in place.',
+      'SwingVantage is local-first, privacy-focused, and built with honest AI. Learn how your data is handled and what protections are in place.',
     type: 'website',
-    url: 'https://swingiq.app/trust',
+    url: 'https://swingvantage.com/trust',
   },
   alternates: { canonical: '/trust' },
 };
@@ -21,7 +21,7 @@ const TRUST_SECTIONS = [
   {
     icon: Lock,
     title: 'Your data stays on your device',
-    body: "By default, every profile, session, swing analysis, and video you create in SwingIQ is stored locally in your browser — not on a remote server. Nothing leaves your device unless you choose to sync or back up to the cloud when that feature becomes available.",
+    body: "By default, every profile, session, swing analysis, and video you create in SwingVantage is stored locally in your browser — not on a remote server. Nothing leaves your device unless you choose to sync or back up to the cloud when that feature becomes available.",
   },
   {
     icon: Eye,
@@ -31,7 +31,7 @@ const TRUST_SECTIONS = [
   {
     icon: Shield,
     title: 'Export and portability',
-    body: "You own your data. You can export everything SwingIQ knows about you as a single downloadable file at any time from Settings → Backup & Restore. You can take that file to another device, restore it later, or simply keep it as a personal archive.",
+    body: "You own your data. You can export everything SwingVantage knows about you as a single downloadable file at any time from Settings → Backup & Restore. You can take that file to another device, restore it later, or simply keep it as a personal archive.",
   },
   {
     icon: Trash2,
@@ -41,12 +41,12 @@ const TRUST_SECTIONS = [
   {
     icon: Users,
     title: 'Youth and minor safety',
-    body: "SwingIQ is not directed at children under 13. We do not knowingly collect information from children under 13 without parental consent. For users under 18, we encourage parental involvement and supervision, especially when uploading videos. If a parent or guardian believes their child has provided personal data, contact us and we will delete it promptly.",
+    body: "SwingVantage is not directed at children under 13. We do not knowingly collect information from children under 13 without parental consent. For users under 18, we encourage parental involvement and supervision, especially when uploading videos. If a parent or guardian believes their child has provided personal data, contact us and we will delete it promptly.",
   },
   {
     icon: AlertTriangle,
     title: 'Honest AI — confident, data-backed, and clearly labelled',
-    body: "SwingIQ pairs a precise rules-based diagnostic engine with an AI language model to pinpoint your swing patterns and prescribe the drills that fix them. Outputs are confident, data-backed estimates that sharpen as you add data, and every finding is labelled with the data behind it and a confidence level. SwingIQ pairs perfectly with a qualified coach, trainer, or medical professional for injury concerns and advanced technique work — so you bring them sharper questions and progress faster.",
+    body: "SwingVantage pairs a precise rules-based diagnostic engine with an AI language model to pinpoint your swing patterns and prescribe the drills that fix them. Outputs are confident, data-backed estimates that sharpen as you add data, and every finding is labelled with the data behind it and a confidence level. SwingVantage pairs perfectly with a qualified coach, trainer, or medical professional for injury concerns and advanced technique work — so you bring them sharper questions and progress faster.",
   },
 ];
 
@@ -58,13 +58,13 @@ export default function TrustPage() {
         <div className="max-w-3xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-sm">SQ</span>
+              <span className="text-white font-black text-sm">SV</span>
             </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingIQ</Link>
+            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Trust &amp; Safety</h1>
           <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
-            SwingIQ is built on a simple principle: your data is yours, the AI is honest about its limits, and nothing happens without your knowledge.
+            SwingVantage is built on a simple principle: your data is yours, the AI is honest about its limits, and nothing happens without your knowledge.
           </p>
         </div>
       </div>
@@ -104,7 +104,7 @@ export default function TrustPage() {
         <section className="bg-muted border border-border rounded-xl p-6">
           <h2 className="text-lg font-bold text-foreground mb-3">Security posture</h2>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li className="flex gap-2"><CheckCircle size={15} className="text-primary mt-0.5 shrink-0" /><span>All SwingIQ pages are served over HTTPS with security headers including Content-Security-Policy, X-Frame-Options, and HSTS.</span></li>
+            <li className="flex gap-2"><CheckCircle size={15} className="text-primary mt-0.5 shrink-0" /><span>All SwingVantage pages are served over HTTPS with security headers including Content-Security-Policy, X-Frame-Options, and HSTS.</span></li>
             <li className="flex gap-2"><CheckCircle size={15} className="text-primary mt-0.5 shrink-0" /><span>API keys and secrets are never included in pages delivered to your browser.</span></li>
             <li className="flex gap-2"><CheckCircle size={15} className="text-primary mt-0.5 shrink-0" /><span>Automated security audits run on every code change using CodeQL, dependency scanning, and secret scanning.</span></li>
             <li className="flex gap-2"><CheckCircle size={15} className="text-primary mt-0.5 shrink-0" /><span>User-generated content is sanitized before being rendered in the interface.</span></li>
@@ -128,11 +128,11 @@ export default function TrustPage() {
 
         {/* Navigation */}
         <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
-          <Link href="/" className="text-primary hover:underline">← SwingIQ Home</Link>
+          <Link href="/" className="text-primary hover:underline">← SwingVantage Home</Link>
           <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
           <Link href="/terms" className="text-primary hover:underline">Terms of Service</Link>
           <Link href="/faq" className="text-primary hover:underline">FAQ</Link>
-          <Link href="/parents" className="text-primary hover:underline">SwingIQ for Parents</Link>
+          <Link href="/parents" className="text-primary hover:underline">SwingVantage for Parents</Link>
           <Link href="/vulnerability-disclosure" className="text-primary hover:underline">Vulnerability Disclosure</Link>
         </nav>
       </div>

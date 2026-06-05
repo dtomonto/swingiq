@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: In-app Camera Recorder
+// SwingVantage — Motion Lab: In-app Camera Recorder
 // ------------------------------------------------------------
 // Records a clip directly in the browser via getUserMedia +
 // MediaRecorder — no OS file picker, no upload. Builds metadata from

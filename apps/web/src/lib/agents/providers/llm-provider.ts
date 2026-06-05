@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Provider: LLM Provider (optional, flagged)
+// SwingVantage — Agent Provider: LLM Provider (optional, flagged)
 // ------------------------------------------------------------
 // An OPTIONAL enhancer that can rewrite deterministic copy into
 // warmer language. It is OFF by default and gated behind a

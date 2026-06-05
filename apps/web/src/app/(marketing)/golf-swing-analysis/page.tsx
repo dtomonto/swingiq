@@ -26,27 +26,27 @@ export const metadata = buildMetadata({
 
 const faqItems = [
   {
-    question: 'What launch monitor data does SwingIQ accept?',
+    question: 'What launch monitor data does SwingVantage accept?',
     answer:
-      'SwingIQ accepts CSV exports from FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, and SkyTrak. You can also upload a screenshot and enter data manually.',
+      'SwingVantage accepts CSV exports from FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, and SkyTrak. You can also upload a screenshot and enter data manually.',
   },
   {
     question: 'How does the AI golf swing analysis work?',
     answer:
-      'SwingIQ uses a hybrid approach: a deterministic rules engine identifies swing faults based on proven biomechanical benchmarks, then an AI layer generates personalized drill recommendations and practice plans based on your specific pattern.',
+      'SwingVantage uses a hybrid approach: a deterministic rules engine identifies swing faults based on proven biomechanical benchmarks, then an AI layer generates personalized drill recommendations and practice plans based on your specific pattern.',
   },
   {
-    question: 'What golf metrics does SwingIQ analyze?',
+    question: 'What golf metrics does SwingVantage analyze?',
     answer:
-      'SwingIQ analyzes ball speed, club speed, launch angle, spin rate, club path, face angle, face-to-path, attack angle, dynamic loft, smash factor, carry distance, and impact location.',
+      'SwingVantage analyzes ball speed, club speed, launch angle, spin rate, club path, face angle, face-to-path, attack angle, dynamic loft, smash factor, carry distance, and impact location.',
   },
   {
     question: 'Is my swing data private?',
     answer:
-      'Yes. SwingIQ is privacy-first. Your data is processed locally in your browser when possible. We never sell your data, and you can delete your account and all associated data at any time.',
+      'Yes. SwingVantage is privacy-first. Your data is processed locally in your browser when possible. We never sell your data, and you can delete your account and all associated data at any time.',
   },
   {
-    question: 'Do I need a launch monitor to use SwingIQ?',
+    question: 'Do I need a launch monitor to use SwingVantage?',
     answer:
       'No. You can upload a swing video for video-based analysis, or use the manual entry tools to log sessions from any source — even a simple radar gun or range session.',
   },
@@ -143,7 +143,7 @@ export default function GolfSwingAnalysisPage() {
       {/* Metrics analyzed */}
       <section className="bg-muted py-14">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-3">Golf Metrics SwingIQ Analyzes</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-3">Golf Metrics SwingVantage Analyzes</h2>
           <p className="text-muted-foreground mb-8 text-sm">
             Every metric is compared to tour-calibrated benchmarks for your club and skill level.
           </p>

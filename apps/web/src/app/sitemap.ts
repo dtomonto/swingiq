@@ -98,7 +98,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      // Transparency page: what SwingIQ measures vs. estimates.
+      // Transparency page: what SwingVantage measures vs. estimates.
       url: `${BASE_URL}/methodology`,
       lastModified: now,
       changeFrequency: 'monthly',

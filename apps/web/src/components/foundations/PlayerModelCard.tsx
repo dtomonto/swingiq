@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Player Model Card (Training Twin foundation)
+// SwingVantage — Player Model Card (Training Twin foundation)
 // ------------------------------------------------------------
 // A structured, user-owned summary of who the player is right now,
 // plus a one-tap "copy summary" — the seed a future AI twin could

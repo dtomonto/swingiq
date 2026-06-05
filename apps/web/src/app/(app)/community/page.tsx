@@ -5,7 +5,7 @@ import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { BackupHealthBanner } from '@/components/community/BackupHealthBanner';
 import { AchievementBadge } from '@/components/community/AchievementBadge';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useLanguage } from '@/contexts/LanguageContext';
 import {
   Users, Trophy, Flame, Zap, Target, Download, Award,
@@ -18,7 +18,7 @@ import type { AchievementContext } from '@/lib/community/types';
 
 export default function CommunityPage() {
   const { t } = useLanguage();
-  const store = useSwingIQStore();
+  const store = useSwingVantageStore();
   const { sessions, video_analyses, training, community } = store;
 
   // Build achievement context

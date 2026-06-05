@@ -2,7 +2,7 @@
 
 ## In Plain English (start here)
 
-Motion Lab is a new page in SwingIQ where someone can upload (or record) a short
+Motion Lab is a new page in SwingVantage where someone can upload (or record) a short
 clip of a swing, serve, pitch, or throw and get back:
 
 - a **3D stick-figure replay** they can spin around, zoom, slow down, and step
@@ -97,7 +97,7 @@ already-shipping infrastructure:
 7. **Coach** — `reporting.ts` writes the executive summary, diagnosis, root-cause
    hypothesis, top-3 fixes, "what not to change", practice plan, and five tone
    variants (beginner / athlete / coach / youth / data). `coachNarrative.ts` then
-   composes a conversational **AI coach read** in the SwingIQ 8-part format (main
+   composes a conversational **AI coach read** in the SwingVantage 8-part format (main
    finding → why → evidence → what it may cause → what to feel → cue → drill →
    next upload), grounded ONLY in the analysis (report, scores, kinetic chain,
    temporal, implement path, weakest metric). It can be OPTIONALLY rephrased by

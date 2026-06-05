@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Fix Stack Panel
+// SwingVantage — Fix Stack Panel
 // ------------------------------------------------------------
 // The drop-in "One Fix First" block. It reads the normalized
 // AgentContext, finds the user's most recent diagnosed issue for
@@ -44,7 +44,7 @@ function EmptyState() {
           <Sparkles size={13} /> Your One Fix
         </div>
         <p className="text-sm text-foreground">
-          Once SwingIQ has looked at a swing, this is where your single highest-impact fix
+          Once SwingVantage has looked at a swing, this is where your single highest-impact fix
           will live — a feel cue, the right drill, and exactly how to retest it.
         </p>
         <p className="text-xs text-muted-foreground">

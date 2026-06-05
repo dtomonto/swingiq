@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'SwingIQ Blog | Swing Tips, Analysis Guides & Training Advice',
+  title: 'SwingVantage Blog | Swing Tips, Analysis Guides & Training Advice',
   description:
-    'Free guides and tips on golf swing analysis, tennis technique, baseball hitting, and softball swing mechanics. Powered by SwingIQ\'s AI coaching platform.',
+    'Free guides and tips on golf swing analysis, tennis technique, baseball hitting, and softball swing mechanics. Powered by SwingVantage\'s AI coaching platform.',
   alternates: { canonical: '/blog' },
 };
 

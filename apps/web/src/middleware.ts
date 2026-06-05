@@ -1,5 +1,5 @@
 /**
- * SwingIQ Route Protection Middleware
+ * SwingVantage Route Protection Middleware
  *
  * Protects all app routes from unauthenticated access.
  * Public routes (login, signup, landing) are explicitly allowed through.

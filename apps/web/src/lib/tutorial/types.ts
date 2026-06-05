@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Contextual Tutorial Types
+// SwingVantage — Contextual Tutorial Types
 // Defines the shape of tutorial content, progress tracking,
 // and the registry that maps routes to help content.
 // ============================================================

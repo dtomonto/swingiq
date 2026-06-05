@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Agent Layer: Orchestrator
+// SwingVantage — Agent Layer: Orchestrator
 // ------------------------------------------------------------
 // The single entry point the UI calls. It:
 //   - runs guardrails first (safety gates everything),

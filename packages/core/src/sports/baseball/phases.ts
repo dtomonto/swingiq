@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Baseball Swing Phase Definitions
+// SwingVantage — Baseball Swing Phase Definitions
 // Based on established baseball hitting mechanics and biomechanics.
 // Sources: ABCA coaching resources, published hitting biomechanics
 // research, USA Baseball coach education materials.

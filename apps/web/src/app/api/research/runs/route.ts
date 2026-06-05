@@ -46,7 +46,7 @@ export async function GET(req: NextRequest) {
       model_used: null,
       prompt_version: '1.0.0',
       errors: [],
-      summary: 'Baseline research run establishing SwingIQ v1.0.0 benchmark standards. ' +
+      summary: 'Baseline research run establishing SwingVantage v1.0.0 benchmark standards. ' +
         'Values derived from TrackMan education resources, USGA standards, and established ' +
         'golf instruction principles. No AI model used for baseline — values are manually verified.',
       triggered_by: 'manual',

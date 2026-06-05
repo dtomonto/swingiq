@@ -1,5 +1,5 @@
 -- ============================================================
--- SwingIQ — Supabase PostgreSQL Schema
+-- SwingVantage — Supabase PostgreSQL Schema
 -- Run this entire file in the Supabase SQL Editor
 -- ============================================================
 

@@ -1,8 +1,8 @@
-# Gitleaks configuration for SwingIQ
+# Gitleaks configuration for SwingVantage
 # Docs: https://github.com/gitleaks/gitleaks
 # Compatible with Gitleaks v8.x (allowlist is a single map, not an array)
 
-title = "SwingIQ Gitleaks Config"
+title = "SwingVantage Gitleaks Config"
 
 [extend]
 # Extend the default gitleaks ruleset

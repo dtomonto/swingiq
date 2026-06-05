@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Synthetic Skeleton Generator
+// SwingVantage — pose3d: Synthetic Skeleton Generator
 // ------------------------------------------------------------
 // Procedurally generates anthropometrically-plausible 33-joint 3D
 // skeletons (a canonical T-pose articulated by random, range-limited

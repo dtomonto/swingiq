@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Equipment Fit
+// SwingVantage — Workflow: Equipment Fit
 // ------------------------------------------------------------
 // Modest, non-pushy equipment guidance for all 5 sports. Never
 // forces product links and never over-claims. Recommends fit
@@ -25,7 +25,7 @@ export function buildEquipmentFit(ctx: AgentContext): EquipmentFit {
       testSuggestions: [],
       noChangeNeededReason: null,
       dataNeeded: [
-        `Add your ${sp.equipmentNoun} details so SwingIQ can check fit.`,
+        `Add your ${sp.equipmentNoun} details so SwingVantage can check fit.`,
         ctx.sessionCount === 0
           ? `Log a ${sp.inputNoun} so fit can be tied to how you actually ${sp.motion}.`
           : 'Keep logging sessions to tie fit to real performance.',
@@ -59,7 +59,7 @@ export function buildEquipmentFit(ctx: AgentContext): EquipmentFit {
     tests.push('If control is the goal, a setup that favors stability over raw power may be worth a test.');
   }
   if (!wantsDistance && !wantsControl) {
-    tests.push(`Once you have a clear goal, SwingIQ can suggest a ${sp.equipmentNoun} profile worth testing.`);
+    tests.push(`Once you have a clear goal, SwingVantage can suggest a ${sp.equipmentNoun} profile worth testing.`);
   }
 
   if (eq.completeness < 70) {

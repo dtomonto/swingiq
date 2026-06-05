@@ -5,7 +5,7 @@ import { Sparkles, ChevronRight, Video } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
 // ============================================================
-// SwingIQ — FirstSwingJourneyCard
+// SwingVantage — FirstSwingJourneyCard
 // ------------------------------------------------------------
 // The dashboard "hero" for a brand-new athlete (no sessions yet).
 // Instead of the generic next-best-action, it surfaces the rich
@@ -43,7 +43,7 @@ export function FirstSwingJourneyCard({
             Let&apos;s find your first fix{firstName ? `, ${firstName}` : ''}.
           </h2>
           <p className="text-primary-foreground/90 text-sm leading-relaxed mt-1">
-            Answer two quick questions and SwingIQ gives you your top priority and a
+            Answer two quick questions and SwingVantage gives you your top priority and a
             simple plan — free, and you don&apos;t need a video to start.
           </p>
         </div>

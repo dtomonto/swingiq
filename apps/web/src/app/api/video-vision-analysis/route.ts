@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AI Visual Analysis API Route
+// SwingVantage — AI Visual Analysis API Route
 // POST /api/video-vision-analysis
 //
 // Accepts still frames extracted from the user's swing video (in the
@@ -147,7 +147,7 @@ export async function POST(req: NextRequest) {
       {
         configured: true,
         error:
-          'SwingIQ could not complete the AI analysis of your video. Please try again in a moment.',
+          'SwingVantage could not complete the AI analysis of your video. Please try again in a moment.',
       },
       { status: 502 },
     );

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Training Twin Foundation (Player Model): Builder
+// SwingVantage — Training Twin Foundation (Player Model): Builder
 // ------------------------------------------------------------
 // Pure summarization over the user's own saved data. Produces both
 // a structured model and a compact `summaryText` that a future AI

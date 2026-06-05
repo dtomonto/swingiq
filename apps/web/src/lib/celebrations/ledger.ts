@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Earn-Moment Celebration Ledger
+// SwingVantage — Earn-Moment Celebration Ledger
 // ------------------------------------------------------------
 // A tiny localStorage record of which achievements we've already
 // celebrated, plus an `initialized` flag. The flag matters: the

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Engine: Readiness Types (scaffolding)
+// SwingVantage — Motion Engine: Readiness Types (scaffolding)
 // ------------------------------------------------------------
 // Interfaces for a FUTURE browser-side motion pipeline (pose
 // estimation → phase detection → metrics → motion score). No

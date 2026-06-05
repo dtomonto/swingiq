@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Readiness mapper (pure)
+// SwingVantage — AGI: Readiness mapper (pure)
 // ------------------------------------------------------------
 // Pure conversion from the readiness engine's TransparentScore into the AGI
 // ReadinessSnapshot. Kept free of any React/hook imports so it stays unit-

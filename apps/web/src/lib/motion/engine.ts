@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Engine: Core (scaffolding)
+// SwingVantage — Motion Engine: Core (scaffolding)
 // ------------------------------------------------------------
 // The provider seam, browser-capability detection, and two
 // transparent, deterministic primitives (Motion Score + Swing

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — useSwingAnalysis
+// SwingVantage — useSwingAnalysis
 // ------------------------------------------------------------
 // Bridges the swing-analysis pipeline (runAnalysis) and the global
 // background-task manager so the video analyzers can:

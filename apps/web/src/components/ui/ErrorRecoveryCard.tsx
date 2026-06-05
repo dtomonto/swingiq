@@ -7,7 +7,7 @@ import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 
 // ============================================================
-// SwingIQ — ErrorRecoveryCard
+// SwingVantage — ErrorRecoveryCard
 // ------------------------------------------------------------
 // One shared, calm error state. Answers the same three questions
 // as EmptyState — what happened, why it's okay, what to do next —

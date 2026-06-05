@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — SEO Content Registry
+// SwingVantage — SEO Content Registry
 //
 // Single source of truth for programmatic SEO landing pages.
 // Each entry is rendered by components/seo/SeoArticle.tsx using
@@ -52,8 +52,8 @@ export interface SeoPage {
   problemExplanation: string[];
   /** Self-check / diagnosis checklist. */
   diagnosisSteps: string[];
-  /** What SwingIQ specifically looks for / measures. */
-  whatSwingIQLooksFor: string[];
+  /** What SwingVantage specifically looks for / measures. */
+  whatSwingVantageLooksFor: string[];
   drills: SeoDrill[];
   mistakesToAvoid: string[];
   whenToWorkWithCoach: string;
@@ -90,7 +90,7 @@ const GOLF_FIX_SLICE: SeoPage = {
     'Film one swing face-on and one down-the-line; compare the club at the top and at impact.',
     'Try a few easy swings at 70% — if the slice shrinks, tempo and casting are involved.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Club path direction and steepness through impact',
     'Face-to-path relationship (the real driver of curve)',
     'Early-extension or over-the-top move in the downswing',
@@ -171,7 +171,7 @@ const GOLF_WHY_SLICE_DRIVER: SeoPage = {
     'Look at tee height — half the ball above the crown encourages an upward, in-to-out strike.',
     'Film down-the-line: is the club coming over the top in transition?',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Angle of attack (up vs. down on the ball)',
     'Club path and face-to-path at impact',
     'Setup tilt and ball-position cues visible in your video',
@@ -220,7 +220,7 @@ const GOLF_LAUNCH_MONITOR: SeoPage = {
     'Launch monitor data describes two things: how you struck the ball (speed, smash factor, spin, launch) and how the club delivered it (path, face, attack angle). The fastest way to improve is to read the club-delivery numbers first, fix the biggest gap, then watch the ball numbers follow.',
   problemExplanation: [
     'Most golfers stare at carry distance and ignore the numbers that explain it. Smash factor, spin, and launch angle tell you whether you are striking efficiently; path and face tell you why the ball curves.',
-    'SwingIQ imports data from FlightScope, TrackMan, Garmin, and other monitors, normalizes the columns, and highlights your single highest-priority gap instead of leaving you with a wall of numbers.',
+    'SwingVantage imports data from FlightScope, TrackMan, Garmin, and other monitors, normalizes the columns, and highlights your single highest-priority gap instead of leaving you with a wall of numbers.',
   ],
   diagnosisSteps: [
     'Find your smash factor (ball speed ÷ club speed). Driver near 1.50 is efficient; low values mean off-center strikes.',
@@ -228,7 +228,7 @@ const GOLF_LAUNCH_MONITOR: SeoPage = {
     'Compare launch angle to your spin — they work together for optimal carry.',
     'Read club path and face-to-path to explain your shot shape.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Smash factor and strike efficiency',
     'Spin/launch window for your club speed',
     'Club path and face-to-path patterns across a session',
@@ -246,10 +246,10 @@ const GOLF_LAUNCH_MONITOR: SeoPage = {
     'Comparing your numbers to tour pros instead of your own baseline.',
   ],
   whenToWorkWithCoach:
-    'A coach or fitter with a monitor is invaluable when your numbers suggest an equipment mismatch, or when strike and path both need work and you cannot prioritize. SwingIQ helps you arrive with a clear question instead of guesswork.',
+    'A coach or fitter with a monitor is invaluable when your numbers suggest an equipment mismatch, or when strike and path both need work and you cannot prioritize. SwingVantage helps you arrive with a clear question instead of guesswork.',
   faqs: [
     { question: 'What is a good smash factor?', answer: 'For a driver, around 1.48–1.50 is efficient. Irons are progressively lower. Low smash usually means off-center contact.' },
-    { question: 'Do I need an expensive launch monitor?', answer: 'No. SwingIQ works with data exported from many consumer and pro monitors, and you can also analyze video without one.' },
+    { question: 'Do I need an expensive launch monitor?', answer: 'No. SwingVantage works with data exported from many consumer and pro monitors, and you can also analyze video without one.' },
   ],
   relatedLinks: [
     { label: 'Golf swing analysis', href: '/golf-swing-analysis' },
@@ -280,12 +280,12 @@ const GOLF_PRACTICE_AT_HOME: SeoPage = {
     'A mirror, a phone camera, and a few feet of space are enough to groove transition, posture, and release, while a hallway is plenty for putting touch.',
   ],
   diagnosisSteps: [
-    'Identify your top swing priority (SwingIQ can do this from one video).',
+    'Identify your top swing priority (SwingVantage can do this from one video).',
     'Pick the one position that priority depends on (e.g., transition for a slice).',
     'Set up a mirror or phone so you can see that position.',
     'Decide your daily rep count and a weekly retest.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Your highest-priority fault so home reps target the right thing',
     'Positions that are checkable without a ball',
     'Tempo and sequencing from your video',
@@ -342,7 +342,7 @@ const SOFTBALL_SLOW_PITCH_POWER: SeoPage = {
     'Note your timing: are you early (rolling over) or late (weak opposite-field contact)?',
     'Film from the side to see your bat path relative to the incoming arc.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Bat path angle relative to the descending pitch',
     'Hip rotation and sequencing (hips before hands)',
     'Contact point depth and timing',
@@ -399,7 +399,7 @@ const SOFTBALL_LINE_DRIVES: SeoPage = {
     'Look at your top-hand release through contact.',
     'Film from the side to see bat path versus pitch plane.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Bat path relative to the pitch',
     'Contact depth (out front vs. deep)',
     'Top-hand timing and roll-over',
@@ -456,7 +456,7 @@ const BASEBALL_YOUTH_HITTING: SeoPage = {
     'Is the bat path level to slightly up, or chopping down/under?',
     'Is contact happening out front, or deep and jammed?',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Balance and posture through the swing',
     'Simple, on-time load and stride',
     'Level-to-slightly-up bat path',
@@ -474,20 +474,20 @@ const BASEBALL_YOUTH_HITTING: SeoPage = {
     'Turning practice into pressure — keep it fun.',
   ],
   whenToWorkWithCoach:
-    'A youth hitting coach is helpful for confirming bat fit, keeping cues age-appropriate, and ensuring practice stays positive. SwingIQ is a between-session tool, not a replacement for coaching or for a parent’s judgment.',
+    'A youth hitting coach is helpful for confirming bat fit, keeping cues age-appropriate, and ensuring practice stays positive. SwingVantage is a between-session tool, not a replacement for coaching or for a parent’s judgment.',
   faqs: [
     { question: 'What bat size for my child?', answer: 'Fit matters more than power. A bat the child can control through the zone with good balance is right — when in doubt, go lighter and get fitted.' },
     { question: 'How often should a young player practice?', answer: 'Short, frequent, fun sessions beat long ones. Watch for fatigue and keep it positive.' },
   ],
   relatedLinks: [
     { label: 'Baseball swing analysis', href: '/baseball-swing-analysis' },
-    { label: 'SwingIQ for parents', href: '/parents' },
+    { label: 'SwingVantage for parents', href: '/parents' },
     { label: 'At-home drill generator', href: '/tools/at-home-swing-drill-generator' },
   ],
-  cta: { label: 'See How SwingIQ Helps Parents', href: '/parents' },
+  cta: { label: 'See How SwingVantage Helps Parents', href: '/parents' },
   schemaType: 'Article',
   safetyNotes:
-    'This guidance is for youth athletes practicing with parent or guardian supervision. Use age-appropriate equipment, warm up, and stop if anything hurts. SwingIQ does not make youth data public by default.',
+    'This guidance is for youth athletes practicing with parent or guardian supervision. Use age-appropriate equipment, warm up, and stop if anything hurts. SwingVantage does not make youth data public by default.',
   publishStatus: 'published',
 };
 
@@ -514,7 +514,7 @@ const TENNIS_FOREHAND: SeoPage = {
     'Is contact out in front, or even with/behind your body?',
     'Film from behind to see your turn, path, and contact point.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Timing and completeness of the unit turn',
     'Low-to-high swing path and topspin generation',
     'Contact point relative to the body',
@@ -532,7 +532,7 @@ const TENNIS_FOREHAND: SeoPage = {
     'Gripping too tightly, which kills racket-head speed.',
   ],
   whenToWorkWithCoach:
-    'A coach is valuable for grip and footwork details that are hard to self-diagnose, and for managing any wrist or shoulder discomfort. SwingIQ helps you practice the right priority between lessons.',
+    'A coach is valuable for grip and footwork details that are hard to self-diagnose, and for managing any wrist or shoulder discomfort. SwingVantage helps you practice the right priority between lessons.',
   faqs: [
     { question: 'Why does my forehand spray long?', answer: 'Often a flat, tense swing with too little topspin, or late contact. Add low-to-high brush and meet the ball further out front.' },
     { question: 'How important is the grip?', answer: 'Very — most modern forehands use a semi-western grip that supports topspin. A coach can confirm the right grip for your style.' },
@@ -560,10 +560,10 @@ const FREE_SWING_ANALYSIS: SeoPage = {
   metaDescription:
     'Get a free AI swing analysis — upload a video or import data and receive your top issue, beginner-safe drills, and a practice plan. No account, no credit card.',
   directAnswer:
-    'SwingIQ gives you a genuinely free swing analysis for golf, tennis, baseball, and softball. Upload a swing video or import launch monitor data and you get your single highest-priority issue, three beginner-safe drills, and a simple practice plan — with no account, no credit card, and your data private by default.',
+    'SwingVantage gives you a genuinely free swing analysis for golf, tennis, baseball, and softball. Upload a swing video or import launch monitor data and you get your single highest-priority issue, three beginner-safe drills, and a simple practice plan — with no account, no credit card, and your data private by default.',
   problemExplanation: [
-    'Most "free" analysis tools are demos that gate the useful part behind a paywall, or they bury you in numbers without telling you what to fix first. SwingIQ leads with one priority and a plan.',
-    'Because SwingIQ keeps your full swing video on your device and your data local by default, you can try it with confidence before deciding to save anything. When you choose AI video analysis, only a few selected still frames are sent for review — never your whole video.',
+    'Most "free" analysis tools are demos that gate the useful part behind a paywall, or they bury you in numbers without telling you what to fix first. SwingVantage leads with one priority and a plan.',
+    'Because SwingVantage keeps your full swing video on your device and your data local by default, you can try it with confidence before deciding to save anything. When you choose AI video analysis, only a few selected still frames are sent for review — never your whole video.',
   ],
   diagnosisSteps: [
     'Pick your sport.',
@@ -571,7 +571,7 @@ const FREE_SWING_ANALYSIS: SeoPage = {
     'Review your top priority issue and the evidence behind it.',
     'Follow the three drills and the practice plan, then retest.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Your highest-priority fault across sport-specific checkpoints',
     'Evidence and severity, not just a label',
     'Drills tied to your specific issue',
@@ -589,7 +589,7 @@ const FREE_SWING_ANALYSIS: SeoPage = {
     'Comparing yourself to pros instead of your own baseline.',
   ],
   whenToWorkWithCoach:
-    'SwingIQ is built to make your practice and your coaching more effective — not to replace a coach. For injury concerns or advanced technique work, bring your SwingIQ priority to a qualified coach.',
+    'SwingVantage is built to make your practice and your coaching more effective — not to replace a coach. For injury concerns or advanced technique work, bring your SwingVantage priority to a qualified coach.',
   faqs: [
     { question: 'Is it really free?', answer: 'Yes. The core analysis, drills, and practice plan are free, with no account or credit card required.' },
     { question: 'Do you keep my video?', answer: 'Analysis runs in your browser and your data is stored locally by default. Videos are not shared publicly by default.' },
@@ -603,7 +603,7 @@ const FREE_SWING_ANALYSIS: SeoPage = {
   cta: { label: 'Analyze My Swing Free', href: '/dashboard' },
   schemaType: 'FAQPage',
   safetyNotes:
-    'Drills suggested in your analysis are beginner-safe. Youth athletes should use SwingIQ with a parent or guardian. SwingIQ does not make youth data public by default.',
+    'Drills suggested in your analysis are beginner-safe. Youth athletes should use SwingVantage with a parent or guardian. SwingVantage does not make youth data public by default.',
   publishStatus: 'published',
 };
 
@@ -626,7 +626,7 @@ const GOLF_HIGH_HANDICAP: SeoPage = {
     'Check setup basics: grip, alignment, ball position, posture.',
     'Film one swing face-on and one down-the-line to see contact and path.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Strike quality and centeredness of contact',
     'Your single highest-priority fault (not a list of 20)',
     'The dominant miss pattern and its likely cause',
@@ -644,7 +644,7 @@ const GOLF_HIGH_HANDICAP: SeoPage = {
     'Buying new clubs to fix a contact or path problem.',
   ],
   whenToWorkWithCoach:
-    'A coach is hugely valuable early — a few lessons on setup and your one priority will save you months of guessing. SwingIQ helps you arrive knowing your priority and practice it between lessons.',
+    'A coach is hugely valuable early — a few lessons on setup and your one priority will save you months of guessing. SwingVantage helps you arrive knowing your priority and practice it between lessons.',
   faqs: [
     { question: 'What should a high handicapper fix first?', answer: 'Solid contact and your one big miss. Those two account for most lost strokes; positions can wait.' },
     { question: 'Do I need lessons or just practice?', answer: 'Both help. A few lessons on the basics plus focused, single-priority practice between them is the fastest combination.' },
@@ -679,7 +679,7 @@ const GOLF_STOP_TOPPING: SeoPage = {
     'Look at your divots — no divot or one behind the ball points to a back low point.',
     'Notice if it happens more with longer clubs (often a weight-shift issue).',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Low-point location relative to the ball',
     'Weight transfer to the lead side through impact',
     'Early extension (loss of posture) in the downswing',
@@ -732,7 +732,7 @@ const SOFTBALL_STOP_POPUP: SeoPage = {
     'Are you trying to lift or "launch" the ball on purpose?',
     'Film from the side to see your bat path versus the pitch.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Bat path relative to the incoming pitch',
     'Back-shoulder height and posture through the swing',
     'Contact point on the ball (under vs. through the middle)',
@@ -785,7 +785,7 @@ const TENNIS_BACKHAND: SeoPage = {
     'Is contact out in front, or cramped near your body?',
     'Film from behind to see turn, spacing, and path.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Timing of the shoulder turn / preparation',
     'Contact point relative to the body',
     'Low-to-high path and topspin',
@@ -803,7 +803,7 @@ const TENNIS_BACKHAND: SeoPage = {
     'Gripping too tightly and decelerating at contact.',
   ],
   whenToWorkWithCoach:
-    'A coach can confirm whether a one- or two-handed backhand suits you and fix grip/footwork details that are hard to self-diagnose. SwingIQ helps you groove the right priority between lessons.',
+    'A coach can confirm whether a one- or two-handed backhand suits you and fix grip/footwork details that are hard to self-diagnose. SwingVantage helps you groove the right priority between lessons.',
   faqs: [
     { question: 'One-handed or two-handed backhand?', answer: 'Both work — two-handed is often easier to control for beginners. A coach can help you choose based on your strength and style.' },
     { question: 'Why is my backhand weaker than my forehand?', answer: 'Usually less preparation and leg drive. Turn earlier, set a stable base, and drive low-to-high.' },
@@ -837,7 +837,7 @@ const BASEBALL_EXIT_VELO: SeoPage = {
     'Is your contact point out in front where the bat is at full speed?',
     'Film from the side to see sequence and contact.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Kinematic sequence (hips → torso → hands)',
     'Barrel accuracy and centered contact',
     'Contact point depth and timing',
@@ -855,7 +855,7 @@ const BASEBALL_EXIT_VELO: SeoPage = {
     'Chasing exit-velo numbers with poor mechanics.',
   ],
   whenToWorkWithCoach:
-    'A hitting coach can confirm your sequence and barrel path and build a strength/mechanics plan. SwingIQ helps you target the right priority between sessions.',
+    'A hitting coach can confirm your sequence and barrel path and build a strength/mechanics plan. SwingVantage helps you target the right priority between sessions.',
   faqs: [
     { question: 'Is exit velocity just strength?', answer: 'No. Strength helps, but sequence and centered contact matter more for most hitters. Fix those first, then build strength.' },
     { question: 'How do I measure exit velocity?', answer: 'A radar or hitting sensor measures it, but you can improve the inputs (sequence, contact) without one — and confirm with video.' },
@@ -895,7 +895,7 @@ const GOLF_STOP_OVER_THE_TOP: SeoPage = {
     'Film one swing down-the-line. Pause at the top, then at the first move down: are your hands and the club moving out toward the ball, or dropping down and behind?',
     'Feel your first move from the top. If your chest and shoulders spin open before your weight shifts to your lead foot, you are coming over the top.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'The direction and steepness of the club path through impact',
     'Whether the downswing sequences from the ground up or from the upper body',
     'Early extension or a steep "throw" from the top',
@@ -977,7 +977,7 @@ const BASEBALL_STOP_ROLLING_OVER: SeoPage = {
     'Check your finish — a very wrappy, around-the-body finish often means the barrel left the zone early.',
     'Hit a few off a tee aimed up the middle. If you still pull weak grounders off a stationary ball, the issue is your path and release, not timing.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Barrel path and how long it stays in the hitting zone',
     'Contact point relative to your body (too deep often forces an early roll)',
     'Sequence: whether the lower half leads or the hands take over',
@@ -1004,7 +1004,7 @@ const BASEBALL_STOP_ROLLING_OVER: SeoPage = {
     'Only working off a tee at full speed before the staying-through feel is grooved.',
   ],
   whenToWorkWithCoach:
-    'If you keep rolling over after a couple of weeks of tee and path work, if it only shows up against live pitching (a timing issue), or if you cannot tell from video whether it is path or sequence, a hitting coach can confirm the cause quickly and build a plan. SwingIQ helps you target the right priority between sessions.',
+    'If you keep rolling over after a couple of weeks of tee and path work, if it only shows up against live pitching (a timing issue), or if you cannot tell from video whether it is path or sequence, a hitting coach can confirm the cause quickly and build a plan. SwingVantage helps you target the right priority between sessions.',
   faqs: [
     {
       question: 'What does "rolling over" mean in baseball?',
@@ -1059,7 +1059,7 @@ const GOLF_FIX_HOOK: SeoPage = {
     'Film one swing down-the-line and watch the club face after impact: is the toe flipping past the heel quickly?',
     'Hit a few easy shots at 70%. If the hook shrinks, overactive hands and timing are involved.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Face-to-path relationship at impact (the real driver of the curve)',
     'How fast the face is rotating (closing) through impact',
     'Whether the path is excessively in-to-out',
@@ -1141,7 +1141,7 @@ const GOLF_STOP_FAT: SeoPage = {
     'Film face-on: at impact, is your weight still on your trail foot or has it shifted to your lead side?',
     'Do a step-and-hit rehearsal; if striking improves when your weight clearly moves forward, pressure shift is the issue.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Where the low point of the swing falls relative to the ball',
     'Weight/pressure shift to the lead side through impact',
     'Early extension or backward upper-body lean at impact',
@@ -1223,7 +1223,7 @@ const TENNIS_GRIPS: SeoPage = {
     'Check your serve and volleys: if you cannot slice the serve or punch a volley, you are likely using a forehand grip instead of continental.',
     'Note grip changes: do you re-grip between forehand, backhand, and serve? Beginners often forget to, which limits every stroke.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Contact point relative to the body for each stroke',
     'Whether spin and trajectory match the grip you are using',
     'Consistency of the grip change between strokes',
@@ -1305,7 +1305,7 @@ const SOFTBALL_HIT_SLOW_PITCH: SeoPage = {
     'Film from the side: is your swing still accelerating at contact, or slowing down?',
     'Try letting one pitch travel an extra beat before you swing — if contact improves, your timing was early.',
   ],
-  whatSwingIQLooksFor: [
+  whatSwingVantageLooksFor: [
     'Timing of the load and stride relative to the pitch',
     'Contact point relative to the body (too far out front loses power)',
     'Whether the swing is accelerating or decelerating through contact',
@@ -1332,7 +1332,7 @@ const SOFTBALL_HIT_SLOW_PITCH: SeoPage = {
     'Swinging level under a steeply descending ball, which produces pop-ups.',
   ],
   whenToWorkWithCoach:
-    'If you keep getting under the ball or feel stuck lunging after a couple of weeks of timing work, a hitting coach can read your load and contact point quickly. SwingIQ helps you target the right priority between sessions.',
+    'If you keep getting under the ball or feel stuck lunging after a couple of weeks of timing work, a hitting coach can read your load and contact point quickly. SwingVantage helps you target the right priority between sessions.',
   faqs: [
     {
       question: 'Why do I keep popping up slow pitches?',
@@ -1370,26 +1370,26 @@ const DRAFTS: SeoPage[] = [
     sport: 'baseball', audience: 'parent', keyword: 'youth baseball hitting for parents', intent: 'informational',
     funnelStage: 'consideration', priority: 3,
     title: 'Youth Baseball Hitting for Parents', metaDescription: 'Draft — see /baseball/youth-hitting for the published version.',
-    directAnswer: '', problemExplanation: [], diagnosisSteps: [], whatSwingIQLooksFor: [], drills: [], mistakesToAvoid: [],
-    whenToWorkWithCoach: '', faqs: [], relatedLinks: [], cta: { label: 'See how SwingIQ helps parents', href: '/parents' },
+    directAnswer: '', problemExplanation: [], diagnosisSteps: [], whatSwingVantageLooksFor: [], drills: [], mistakesToAvoid: [],
+    whenToWorkWithCoach: '', faqs: [], relatedLinks: [], cta: { label: 'See how SwingVantage helps parents', href: '/parents' },
     schemaType: 'Article', safetyNotes: '', publishStatus: 'draft',
   },
   {
     slug: 'compare/private-lessons',
     sport: 'multi', audience: 'player', keyword: 'swing app vs private lessons', intent: 'commercial',
     funnelStage: 'consideration', priority: 3,
-    title: 'SwingIQ vs Private Lessons', metaDescription: 'Draft — needs a dedicated comparison template (not the problem/HowTo format).',
-    directAnswer: '', problemExplanation: [], diagnosisSteps: [], whatSwingIQLooksFor: [], drills: [], mistakesToAvoid: [],
-    whenToWorkWithCoach: '', faqs: [], relatedLinks: [], cta: { label: 'Try SwingIQ free', href: '/dashboard' },
+    title: 'SwingVantage vs Private Lessons', metaDescription: 'Draft — needs a dedicated comparison template (not the problem/HowTo format).',
+    directAnswer: '', problemExplanation: [], diagnosisSteps: [], whatSwingVantageLooksFor: [], drills: [], mistakesToAvoid: [],
+    whenToWorkWithCoach: '', faqs: [], relatedLinks: [], cta: { label: 'Try SwingVantage free', href: '/dashboard' },
     schemaType: 'Article', safetyNotes: '', publishStatus: 'draft',
   },
   {
     slug: 'compare/youtube-swing-tips',
     sport: 'multi', audience: 'player', keyword: 'youtube swing tips vs analysis', intent: 'commercial',
     funnelStage: 'consideration', priority: 3,
-    title: 'SwingIQ vs YouTube Swing Tips', metaDescription: 'Draft — pending full content.',
-    directAnswer: '', problemExplanation: [], diagnosisSteps: [], whatSwingIQLooksFor: [], drills: [], mistakesToAvoid: [],
-    whenToWorkWithCoach: '', faqs: [], relatedLinks: [], cta: { label: 'Try SwingIQ free', href: '/dashboard' },
+    title: 'SwingVantage vs YouTube Swing Tips', metaDescription: 'Draft — pending full content.',
+    directAnswer: '', problemExplanation: [], diagnosisSteps: [], whatSwingVantageLooksFor: [], drills: [], mistakesToAvoid: [],
+    whenToWorkWithCoach: '', faqs: [], relatedLinks: [], cta: { label: 'Try SwingVantage free', href: '/dashboard' },
     schemaType: 'Article', safetyNotes: '', publishStatus: 'draft',
   },
 ];

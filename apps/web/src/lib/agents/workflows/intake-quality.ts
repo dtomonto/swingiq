@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Swing Intake Quality
+// SwingVantage — Workflow: Swing Intake Quality
 // ------------------------------------------------------------
 // A friendly pre-analysis quality check. Improves upload/data
 // quality BEFORE analysis without blocking the user. Offers
@@ -39,8 +39,8 @@ export function assessIntakeQuality(
   if (signal.hasMedia === false) {
     improvements.push(
       ctx.activeSport === 'golf'
-        ? 'Add at least a few shots so SwingIQ can find a pattern.'
-        : 'Attach a video so SwingIQ has something to analyze.',
+        ? 'Add at least a few shots so SwingVantage can find a pattern.'
+        : 'Attach a video so SwingVantage has something to analyze.',
     );
   }
   if (typeof signal.dataPoints === 'number' && signal.dataPoints > 0 && signal.dataPoints < 5 && ctx.activeSport === 'golf') {

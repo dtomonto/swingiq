@@ -1,12 +1,12 @@
 # SEO, GEO, and AEO Strategy
 
-This document explains SwingIQ's strategy for being found by search engines (SEO), AI knowledge systems (GEO — Generative Engine Optimization), and voice/AI answer systems (AEO — Answer Engine Optimization).
+This document explains SwingVantage's strategy for being found by search engines (SEO), AI knowledge systems (GEO — Generative Engine Optimization), and voice/AI answer systems (AEO — Answer Engine Optimization).
 
 **Written for:** App owners who want to understand how the app gets discovered, and developers implementing content improvements.
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** How people — and AI tools like ChatGPT — find SwingIQ on the internet, and how to grow that traffic steadily over time.
+**What this page is:** How people — and AI tools like ChatGPT — find SwingVantage on the internet, and how to grow that traffic steadily over time.
 
 **What you actually need to know:**
 - The three letter-soup terms simply mean: **SEO** = show up in Google searches. **GEO** = get mentioned when someone asks an AI tool (ChatGPT, Perplexity). **AEO** = directly answer the exact question someone asks out loud or types.
@@ -26,17 +26,17 @@ This document explains SwingIQ's strategy for being found by search engines (SEO
 ### SEO — Search Engine Optimization
 Getting your pages to show up in Google, Bing, DuckDuckGo results when someone types a search query.
 
-*Example:* When someone searches "free AI golf swing analyzer", you want SwingIQ to appear on the first page.
+*Example:* When someone searches "free AI golf swing analyzer", you want SwingVantage to appear on the first page.
 
 ### GEO — Generative Engine Optimization
 Getting your content cited when AI systems like ChatGPT, Claude, Perplexity, or Google AI Overview answer questions.
 
-*Example:* When someone asks ChatGPT "what's the best free swing analysis app", you want SwingIQ mentioned.
+*Example:* When someone asks ChatGPT "what's the best free swing analysis app", you want SwingVantage mentioned.
 
 ### AEO — Answer Engine Optimization
 Structuring your content so it directly answers the questions people ask, making it more likely to appear as a featured snippet or voice search result.
 
-*Example:* When someone asks their phone "how do I fix my golf slice", you want SwingIQ's glossary or FAQ to provide the direct answer.
+*Example:* When someone asks their phone "how do I fix my golf slice", you want SwingVantage's glossary or FAQ to provide the direct answer.
 
 ---
 
@@ -66,7 +66,7 @@ These pages target high-value search queries for each sport:
 | `/glossary` | Defines sports terms — targets long-tail searches like "what is bat path" |
 | `/blog` | Educational articles — builds topical authority over time |
 | `/benchmarks/[sport]` | Data-rich benchmark pages — earns backlinks from coaches and sports sites |
-| `/how-it-works` | Explains SwingIQ for people doing research before signing up |
+| `/how-it-works` | Explains SwingVantage for people doing research before signing up |
 | `/features` | Full feature list — useful for AI systems comparing apps |
 | `/updates` | Changelog/update history — shows the app is actively maintained |
 | `/trust` | Trust page — addresses concerns about privacy, AI accuracy, and data ownership |
@@ -179,7 +179,7 @@ Structured data (also called "rich results" or "schema markup") tells search eng
       "name": "How does AI swing analysis work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "SwingIQ's AI analyzes..."
+        "text": "SwingVantage's AI analyzes..."
       }
     }
   ]
@@ -193,7 +193,7 @@ Structured data (also called "rich results" or "schema markup") tells search eng
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "SwingIQ Golf Swing Analyzer",
+  "name": "SwingVantage Golf Swing Analyzer",
   "applicationCategory": "SportsApplication",
   "operatingSystem": "Web",
   "offers": { "@type": "Offer", "price": "0" }
@@ -202,7 +202,7 @@ Structured data (also called "rich results" or "schema markup") tells search eng
 ```
 
 ### 4. Maintain the Updates Page
-The `/updates` page shows a chronological history of SwingIQ improvements. This:
+The `/updates` page shows a chronological history of SwingVantage improvements. This:
 - Signals to AI systems that the app is actively maintained
 - Gives Google fresh content to crawl regularly
 - Shows users the app is improving
@@ -221,7 +221,7 @@ Each FAQ item should:
 - Answer it in the first 1–2 sentences
 - Then expand with detail
 
-*Good:* "How does AI swing analysis work? SwingIQ's AI compares your swing data to evidence-based benchmarks for your skill level, identifies your top pattern fault, and recommends a specific drill."
+*Good:* "How does AI swing analysis work? SwingVantage's AI compares your swing data to evidence-based benchmarks for your skill level, identifies your top pattern fault, and recommends a specific drill."
 
 *Bad:* "Our AI utilizes advanced machine learning algorithms to process biomechanical data and generate coaching insights based on performance patterns."
 
@@ -230,7 +230,7 @@ Use plain language throughout. AI systems and voice search surface content that 
 
 ### 3. Feature the Most Common Questions First
 In the FAQ, put the questions people actually ask first:
-- "Is SwingIQ free?"
+- "Is SwingVantage free?"
 - "Do I need special equipment?"
 - "How accurate is the AI coaching?"
 - "Can I use this for my kid?"
@@ -241,13 +241,13 @@ In the FAQ, put the questions people actually ask first:
 
 For each new page you create:
 
-- [ ] `<title>` tag: includes target keyword + brand name (e.g., "Golf Swing Analysis App | SwingIQ")
+- [ ] `<title>` tag: includes target keyword + brand name (e.g., "Golf Swing Analysis App | SwingVantage")
 - [ ] `<meta description>`: 150–160 characters, includes primary keyword, clear value proposition
 - [ ] H1: One per page, matches the topic clearly
 - [ ] H2/H3: Logical heading structure, descriptive (not just "Section 1")
-- [ ] Canonical URL: `<link rel="canonical" href="https://swingiq.app/your-page" />`
+- [ ] Canonical URL: `<link rel="canonical" href="https://swingvantage.com/your-page" />`
 - [ ] Open Graph: title, description, type, URL
-- [ ] Internal links: at least 2–3 links to related pages on SwingIQ
+- [ ] Internal links: at least 2–3 links to related pages on SwingVantage
 - [ ] Image alt text: every image has a descriptive alt attribute
 - [ ] Mobile-friendly: page reads well on a phone (text size, tap targets)
 - [ ] Page speed: no blocking scripts, images are optimized
@@ -299,7 +299,7 @@ After your site is live:
 1. Go to https://search.google.com/search-console
 2. Add your property (your domain)
 3. Verify ownership (Vercel makes this easy with a DNS TXT record)
-4. Submit your sitemap: `https://swingiq.app/sitemap.xml`
+4. Submit your sitemap: `https://swingvantage.com/sitemap.xml`
 5. Check the "Coverage" report for any pages with errors
 6. Check the "Search results" report to see which queries you appear for
 
@@ -309,11 +309,11 @@ This is free and essential. Check it monthly.
 
 ## Backlink Strategy
 
-Backlinks (other websites linking to SwingIQ) are a major Google ranking factor. Ways to earn them:
+Backlinks (other websites linking to SwingVantage) are a major Google ranking factor. Ways to earn them:
 
 1. **Golf instruction communities:** Reddit (r/golf, r/golfswing), Golf WRX forum, MyGolfSpy forum
-2. **YouTube:** Create short "how to read your swing data" videos that link to SwingIQ
-3. **Coach partnerships:** Offer golf instructors free SwingIQ Pro access in exchange for recommending it to students
+2. **YouTube:** Create short "how to read your swing data" videos that link to SwingVantage
+3. **Coach partnerships:** Offer golf instructors free SwingVantage Pro access in exchange for recommending it to students
 4. **Press/media:** Create a "New App" story for golf/tennis/baseball publications
 5. **Data sharing:** Create shareable benchmark infographics that naturally link back to the benchmarks page
 

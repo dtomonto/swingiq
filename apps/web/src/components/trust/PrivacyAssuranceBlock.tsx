@@ -4,7 +4,7 @@ import { Lock, Trash2, Download, EyeOff } from 'lucide-react';
 const POINTS = [
   { icon: Lock, text: 'Your data is stored locally in your browser by default — not on a remote server.' },
   { icon: EyeOff, text: 'Swing videos are analyzed in your browser and are not shared publicly by default.' },
-  { icon: Download, text: 'You can export everything SwingIQ knows about you at any time.' },
+  { icon: Download, text: 'You can export everything SwingVantage knows about you at any time.' },
   { icon: Trash2, text: 'You can delete any record — or everything — instantly from Settings.' },
 ];
 
@@ -27,7 +27,7 @@ export function PrivacyAssuranceBlock({ className = '' }: { className?: string }
         ))}
       </ul>
       <Link href="/trust" className="mt-4 inline-block text-sm font-semibold text-primary hover:underline">
-        Read how SwingIQ protects you →
+        Read how SwingVantage protects you →
       </Link>
     </div>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Sport Context
+// SwingVantage — Sport Context
 // Tracks the user's sports across the app:
 //   • selectedSports — every sport the athlete plays (multi-sport).
 //   • activeSport    — the one currently in view (always one of

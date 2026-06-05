@@ -1,6 +1,6 @@
 # Security Automation Guide
 
-This document explains the automated security systems that run on every push and pull request to the SwingIQ repository.
+This document explains the automated security systems that run on every push and pull request to the SwingVantage repository.
 
 ---
 
@@ -15,7 +15,7 @@ This document explains the automated security systems that run on every push and
 
 **What to do next:** Do the GitHub security switches in [OWNER_TASKS.md](OWNER_TASKS.md). You can ignore the command-line examples on this page unless a developer or AI assistant is helping you.
 
-> The rest of this page (workflow names, commands, `git filter-repo`, etc.) is for a developer or an AI assistant maintaining the project. None of it is required to run SwingIQ.
+> The rest of this page (workflow names, commands, `git filter-repo`, etc.) is for a developer or an AI assistant maintaining the project. None of it is required to run SwingVantage.
 
 ---
 
@@ -134,7 +134,7 @@ If Gitleaks finds a secret in your code, the workflow will fail immediately.
 2. Run `npm audit fix` to auto-apply safe patches
 3. For breaking changes: `npm audit fix --force` (review the diff carefully)
 4. If no fix is available, assess the risk:
-   - Is the vulnerable code path reachable in SwingIQ?
+   - Is the vulnerable code path reachable in SwingVantage?
    - Can you add a temporary `npm audit` exception in the workflow until a fix ships?
 
 **From CodeQL (code scanning alert):**

@@ -1,4 +1,4 @@
-# SwingIQ — Feature How-To Guide
+# SwingVantage — Feature How-To Guide
 
 **The do-this-then-that companion to every feature.** Where
 [`WEB_APP_GUIDE.md`](WEB_APP_GUIDE.md) *describes* what each feature is, this guide
@@ -6,7 +6,7 @@ walks you through *how to actually use it*, step by step.
 
 ## In Plain English (start here)
 
-SwingIQ is a free web app for golf, tennis, baseball, slow-pitch softball, and
+SwingVantage is a free web app for golf, tennis, baseball, slow-pitch softball, and
 fast-pitch softball. You open it in a browser — nothing to install, no account
 needed — pick your sport, and start. Everything below is written as plain
 numbered steps so anyone (player, parent, coach) can follow along.
@@ -21,14 +21,14 @@ Three things that are true everywhere in the app:
    **Guide** (desktop) for a step-by-step walkthrough of the screen you're on.
 
 > **Honesty note you'll see throughout:** results from a single phone camera are
-> labeled **estimated** with a confidence level; SwingIQ makes no medical,
+> labeled **estimated** with a confidence level; SwingVantage makes no medical,
 > injury, or tour-grade claims. That's by design.
 
 ---
 
 ## Quick start — your first 5 minutes
 
-1. **Open SwingIQ** in your browser (phone, tablet, or computer).
+1. **Open SwingVantage** in your browser (phone, tablet, or computer).
 2. **Choose who you are** if asked (athlete / parent / coach) — this sets safe
    defaults. You can change it later in Settings.
 3. **Pick your sport** from **Active Sport** (bottom-left).
@@ -148,7 +148,7 @@ a coach's read, and drills — all on your device.
    contact-window stability, and tempo.
 
 ### D. Read the Coaching tab
-1. Start with **Your coach's read** — a short, plain summary in the SwingIQ
+1. Start with **Your coach's read** — a short, plain summary in the SwingVantage
    format: main finding → why → evidence → what to feel → one cue → one drill →
    next upload.
 2. Below it, the full **coaching report** lets you switch tone (beginner,
@@ -164,7 +164,7 @@ a coach's read, and drills — all on your device.
 
 ### F. Two-camera "true 3D" (optional)
 1. Film the **same rep** from two angles about 90° apart.
-2. Choose the two-camera mode and upload both clips. SwingIQ triangulates them
+2. Choose the two-camera mode and upload both clips. SwingVantage triangulates them
    into **measured** 3D — and if they don't line up, it honestly lowers the
    confidence instead of guessing.
 
@@ -241,7 +241,7 @@ data-grounded summaries from your own analysis (never invented advice).
 
 ## Import Data (Golf) / Log Session (non-golf)
 
-**What it's for:** get a practice session into SwingIQ.
+**What it's for:** get a practice session into SwingVantage.
 
 **Where:** `/sessions/import` (Analyze → Import Data / Log Session).
 
@@ -305,7 +305,7 @@ the safe default.
 2. **Drill it** — do the single best-matched drill for your level and gear.
 3. **Retest it** — run the fair before/after.
 
-**Tip:** SwingIQ learns from what worked for you, so the next pick gets sharper.
+**Tip:** SwingVantage learns from what worked for you, so the next pick gets sharper.
 
 ## Drill Library
 
@@ -398,13 +398,13 @@ automatically.
 **How to use it:** open it to see unlocked/locked badges and a hint for how to
 earn each one. They unlock as you build profiles, analyze, and practice.
 
-## SwingIQ Labs — foundations
+## SwingVantage Labs — foundations
 
 **What it's for:** deeper, personal tools (daily readiness, a private player
 model, cross-sport skill transfer, a performance graph, benchmark mirrors) — each
 honest about its confidence.
 
-**Where:** `/labs` (Progress → SwingIQ Labs).
+**Where:** `/labs` (Progress → SwingVantage Labs).
 
 **How to use it:** browse the cards; each gets sharper the more you practice and
 retest. Everything is built privately on your own data.
@@ -423,7 +423,7 @@ retest. Everything is built privately on your own data.
    analysis) on the left and the pro on the right; use the **phase checklist**
    below to compare positions.
 
-**Tip:** SwingIQ hasn't analyzed the pro's frames — the comparison is
+**Tip:** SwingVantage hasn't analyzed the pro's frames — the comparison is
 observational only.
 
 ## Benchmarks
@@ -510,7 +510,7 @@ you've earned and what's next.
 
 ## Data Center — Backup & Restore
 
-**What it's for:** save everything SwingIQ knows about you into one file, and move
+**What it's for:** save everything SwingVantage knows about you into one file, and move
 it between devices.
 
 **Where:** `/data` (Community → Data Center), or **Settings → Backup & Restore**.

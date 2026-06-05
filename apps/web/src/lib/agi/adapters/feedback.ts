@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — AGI: Proven-drills hook
+// SwingVantage — AGI: Proven-drills hook
 // ------------------------------------------------------------
 // Reads the athlete's DrillMatch feedback (local-first) and resolves the drills
 // they marked as helping into ProvenDrill[]. The only drillmatch coupling in

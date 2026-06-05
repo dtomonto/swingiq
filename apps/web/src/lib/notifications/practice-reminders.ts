@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Practice Reminders (local notifications)
+// SwingVantage — Practice Reminders (local notifications)
 // ------------------------------------------------------------
 // Uses the browser Notification API to show LOCAL practice reminders
 // while the app is open. This is honest about its limits: true
@@ -14,7 +14,7 @@ export type NotificationPermissionState = 'granted' | 'denied' | 'default' | 'un
 
 /** What background scheduled push additionally needs — surfaced honestly in the UI. */
 export const SERVER_PUSH_NOTE =
-  'Reminders that fire when SwingIQ is closed need a service worker plus a push service ' +
+  'Reminders that fire when SwingVantage is closed need a service worker plus a push service ' +
   '(VAPID keys or a provider). Until that is set up, reminders only show while the app is open.';
 
 function supported(): boolean {
@@ -54,7 +54,7 @@ export interface PracticeReminderOptions {
 export function showPracticeReminder(opts: PracticeReminderOptions): boolean {
   if (!supported() || Notification.permission !== 'granted') return false;
   try {
-    new Notification(opts.title ?? 'SwingIQ practice reminder', {
+    new Notification(opts.title ?? 'SwingVantage practice reminder', {
       body: opts.body,
       tag: opts.tag ?? 'swingiq-practice',
       icon: '/icon-192.png',

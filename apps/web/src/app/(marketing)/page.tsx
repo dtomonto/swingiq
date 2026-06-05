@@ -19,12 +19,12 @@ import {
 } from '@/lib/seo/jsonLd';
 
 export const metadata: Metadata = {
-  title: 'SwingIQ — Free AI Swing Analysis for Golf, Tennis, Baseball & Softball',
+  title: 'SwingVantage — Free AI Swing Analysis for Golf, Tennis, Baseball & Softball',
   description:
     'Upload a swing video or import launch monitor data. Get a free AI-powered breakdown of your top swing fault, personalized drills, and a practice plan. Supports golf, tennis, baseball, and softball.',
   keywords: ['swing analysis', 'golf swing', 'tennis swing', 'baseball swing', 'softball hitting', 'AI coaching', 'launch monitor', 'swing improvement'],
   openGraph: {
-    title: 'SwingIQ — Free AI Swing Analysis',
+    title: 'SwingVantage — Free AI Swing Analysis',
     description: 'Upload your swing video and get an AI diagnosis, drills, and practice plan — free for golf, tennis, baseball, and softball.',
     type: 'website',
   },
@@ -39,17 +39,19 @@ const SPORTS = [
 ];
 
 const HOW_IT_WORKS = [
-  { step: '1', title: 'Choose Your Sport', desc: 'Select golf, tennis, baseball, or softball. SwingIQ adapts every analysis, drill, and coaching cue to your sport.' },
+  { step: '1', title: 'Choose Your Sport', desc: 'Select golf, tennis, baseball, or softball. SwingVantage adapts every analysis, drill, and coaching cue to your sport.' },
   { step: '2', title: 'Upload or Enter Data', desc: 'Upload a swing video, import launch monitor CSV data, or snap a photo of your performance table.' },
-  { step: '3', title: 'Get Your Diagnosis', desc: "SwingIQ's diagnostic engine identifies your highest-priority swing issue with severity, evidence, and likely causes." },
+  { step: '3', title: 'Get Your Diagnosis', desc: "SwingVantage's diagnostic engine identifies your highest-priority swing issue with severity, evidence, and likely causes." },
   { step: '4', title: 'Follow Your Practice Plan', desc: 'Receive targeted drills, YouTube search links, and a next-session focus based on your actual swing data.' },
 ];
 
 const FAQS = [
-  { q: 'Is SwingIQ free?', a: "Yes. SwingIQ's full analysis, drill recommendations, and progress tracking are free. No credit card required." },
+  { q: 'What is SwingVantage?', a: 'SwingVantage is a free, AI-powered swing analysis platform for golf, tennis, baseball, and softball. Upload a swing video or import launch-monitor data and it gives you a clear read on your highest-impact swing fault, sport-specific drills, and a practice plan — a smarter vantage point on your swing, without expensive private coaching.' },
+  { q: 'Is SwingVantage free?', a: "Yes. SwingVantage's full analysis, drill recommendations, and progress tracking are free. No credit card required." },
   { q: 'Do I need to create an account?', a: 'No — you can start instantly with no account, and your data is saved privately in your browser. You can move it to another device anytime with Backup & Restore, and optional accounts with automatic cloud sync are on the way.' },
-  { q: 'What sports does SwingIQ support?', a: 'Golf, tennis, baseball, slow pitch softball, and fast pitch softball — each with its own sport-specific diagnostic engine.' },
-  { q: 'Does SwingIQ replace a coach?', a: 'SwingIQ is your everyday improvement edge — it pinpoints the single highest-impact fix in your swing and hands you the drills and plan to groove it, no appointment needed. For injury concerns or advanced technique work it pairs perfectly with a qualified coach, and you will show up to those sessions already ahead.' },
+  { q: 'What sports does SwingVantage support?', a: 'Golf, tennis, baseball, slow pitch softball, and fast pitch softball — each with its own sport-specific diagnostic engine.' },
+  { q: 'Does SwingVantage replace a coach?', a: 'SwingVantage is your everyday improvement edge — it pinpoints the single highest-impact fix in your swing and hands you the drills and plan to groove it, no appointment needed. For injury concerns or advanced technique work it pairs perfectly with a qualified coach, and you will show up to those sessions already ahead.' },
+  { q: 'Can parents use SwingVantage for youth athletes?', a: 'Yes. Parents and coaches use SwingVantage to give young athletes clear, encouraging feedback in plain language. It is built with youth safety in mind — and it pairs with, rather than replaces, a qualified coach for injury or advanced-technique concerns.' },
   { q: 'Is my swing video private?', a: 'Yes. Video analysis runs in your browser. Videos are not shared publicly by default.' },
 ];
 
@@ -61,19 +63,19 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-10 h-10 bg-golf-fairway rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-base">SQ</span>
+              <span className="text-white font-black text-base">SV</span>
             </div>
-            <span className="text-primary-foreground font-bold text-2xl">SwingIQ</span>
+            <span className="text-primary-foreground font-bold text-2xl">SwingVantage</span>
           </div>
           <div className="mb-4 flex justify-center">
             <LiveAndFreeBadge />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            The Swing Coach in Your Pocket for<br />
+            See your swing from a smarter vantage.<br />
             <span className="text-primary-foreground/80">Golf, Tennis, Baseball &amp; Softball</span>
           </h1>
           <p className="text-primary-foreground/90 text-xl mb-10 max-w-2xl mx-auto">
-            The improvement edge every athlete — and every parent of an athlete — has wished for.
+            SwingVantage is the improvement edge every athlete — and every parent of an athlete — has wished for.
             Upload a swing and get the one fix that matters most, the drills to groove it, and a plan that gets you there.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -96,7 +98,7 @@ export default function HomePage() {
       {/* How it works */}
       <section className="py-16 px-4 bg-muted">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-12">How SwingIQ Works</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-12">How SwingVantage Works</h2>
           <div className="grid md:grid-cols-4 gap-6">
             {HOW_IT_WORKS.map((item) => (
               <div key={item.step} className="text-center">
@@ -148,13 +150,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why SwingIQ */}
+      {/* Why SwingVantage */}
       <section className="py-16 px-4 bg-muted">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-center text-foreground mb-10">Why Athletes Choose SwingIQ</h2>
+          <h2 className="text-2xl font-bold text-center text-foreground mb-10">Why Athletes Choose SwingVantage</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: 'Priority-First Coaching', desc: 'Instead of a list of 20 things to fix, SwingIQ identifies the single highest-impact issue to work on first.' },
+              { title: 'Priority-First Coaching', desc: 'Instead of a list of 20 things to fix, SwingVantage identifies the single highest-impact issue to work on first.' },
               { title: 'Evidence-Based Drills', desc: 'Every recommended drill is tied to the specific issue detected — not generic advice.' },
               { title: 'Privacy-First Design', desc: 'Video analysis runs locally when possible. Your swing data is never shared publicly by default.' },
             ].map((item) => (
@@ -215,7 +217,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-3">Built for confident, private practice</h2>
           <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Parents, coaches, and players can trust how SwingIQ handles data and sets honest expectations.
+            Parents, coaches, and players can trust how SwingVantage handles data and sets honest expectations.
           </p>
           <div className="grid md:grid-cols-2 gap-6 items-start">
             <PrivacyAssuranceBlock />
@@ -231,7 +233,7 @@ export default function HomePage() {
       <section className="py-8 px-4 bg-warning/10 border-y border-warning/30">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs text-foreground">
-            <strong>SwingIQ is your AI-powered improvement edge — confident, data-backed coaching you can use every day.</strong>{' '}
+            <strong>SwingVantage is your AI-powered improvement edge — confident, data-backed coaching you can use every day.</strong>{' '}
             Findings are heuristic estimates — smart reads that sharpen with every swing you add. For injury concerns or advanced competitive development, loop in a qualified coach,
             and keep young athletes supervised during practice.
           </p>

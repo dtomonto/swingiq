@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Video Analysis API Route
+// SwingVantage — Video Analysis API Route
 // POST /api/video-analysis
 //
 // Accepts video metadata + estimated landmark data,

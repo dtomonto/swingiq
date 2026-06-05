@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Printable PDF Report
+// SwingVantage — Motion Lab: Printable PDF Report
 // ------------------------------------------------------------
 // Builds a clean, branded, self-contained HTML report and opens it in
 // a new window for the browser's native "Save as PDF" / print. No PDF
@@ -118,7 +118,7 @@ function buildHtml(s: MotionSession): string {
       })()
     : '';
 
-  return `<!doctype html><html><head><meta charset="utf-8"><title>SwingIQ Motion Lab Report</title>
+  return `<!doctype html><html><head><meta charset="utf-8"><title>SwingVantage Motion Lab Report</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; color: #0f172a; margin: 0; padding: 32px; }
@@ -149,7 +149,7 @@ function buildHtml(s: MotionSession): string {
       <h1>${esc(s.emoji)} ${esc(s.sportLabel)} · ${esc(s.motionLabel)}</h1>
       <div class="muted">${esc(date)} · ${esc(skill)} · ${esc(s.keyFault)}</div>
     </div>
-    <div class="brand">SwingIQ · Motion Lab</div>
+    <div class="brand">SwingVantage · Motion Lab</div>
   </div>
 
   <div class="hero">

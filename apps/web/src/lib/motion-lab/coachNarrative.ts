@@ -1,8 +1,8 @@
 // ============================================================
-// SwingIQ — Motion Lab: AI Coach Narrative
+// SwingVantage — Motion Lab: AI Coach Narrative
 // ------------------------------------------------------------
 // Turns a MotionSession into a conversational coach explanation in the
-// SwingIQ output format: Main finding → Why it matters → Evidence →
+// SwingVantage output format: Main finding → Why it matters → Evidence →
 // What it may cause → What to feel → One cue → One drill → Next upload.
 //
 // HONESTY: the narrative is built DETERMINISTICALLY from the grounded

@@ -1,4 +1,4 @@
-// Shared helpers for SwingIQ growth/validation scripts.
+// Shared helpers for SwingVantage growth/validation scripts.
 import { readdirSync, statSync } from 'fs';
 import { join, sep } from 'path';
 

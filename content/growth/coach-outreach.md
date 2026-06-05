@@ -1,4 +1,4 @@
-# SwingIQ — Coach & Facility Outreach Templates
+# SwingVantage — Coach & Facility Outreach Templates
 
 Personalize every message. **Send manually**, one at a time, to real contacts
 who would genuinely benefit. No bulk/spam sending. Replace {{...}} placeholders.
@@ -10,7 +10,7 @@ who would genuinely benefit. No bulk/spam sending. Replace {{...}} placeholders.
 
 Hi {{name}},
 
-I built SwingIQ, a free web tool that gives golfers their single highest-priority
+I built SwingVantage, a free web tool that gives golfers their single highest-priority
 swing issue plus a couple of drills — designed to help them practice the *right*
 thing between lessons, not to replace coaching.
 
@@ -30,7 +30,7 @@ Thanks,
 
 Hi {{name}},
 
-I run SwingIQ, a free swing-analysis tool. For tennis it focuses players on one
+I run SwingVantage, a free swing-analysis tool. For tennis it focuses players on one
 priority (often the unit turn or contact point) with simple drills so practice
 between lessons actually sticks.
 
@@ -47,7 +47,7 @@ Best,
 
 Hi {{name}},
 
-SwingIQ is a free tool that gives each hitter a clear top priority and drills —
+SwingVantage is a free tool that gives each hitter a clear top priority and drills —
 useful for keeping a team improving between practices, and youth-safe with
 parental oversight by default.
 
@@ -63,7 +63,7 @@ Thanks,
 
 Hi {{name}},
 
-SwingIQ is a free, web-based swing-analysis tool. Facilities like {{facility}}
+SwingVantage is a free, web-based swing-analysis tool. Facilities like {{facility}}
 can offer it as a member benefit and a lead magnet for lessons — members get a
 clear priority and a plan, and bring it to your instructors.
 
@@ -79,7 +79,7 @@ Best,
 
 Hi {{name}},
 
-I'd love to support {{league}} with SwingIQ — a free swing tool that's
+I'd love to support {{league}} with SwingVantage — a free swing tool that's
 privacy-first and youth-safe (parent-managed, nothing public by default). It
 gives young athletes one simple priority and drills for practice at home.
 

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Celebration Host
+// SwingVantage — Celebration Host
 // ------------------------------------------------------------
 // Mounted once in the app shell. Watches the user's earned
 // achievements (the same set powering the Swing Passport / badges)
@@ -14,7 +14,7 @@
 // ============================================================
 
 import { useCallback, useEffect, useState } from 'react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { earnedAchievementIds, celebrationFor, type Celebration } from '@/lib/celebrations/earned';
 import { loadLedger, saveLedger } from '@/lib/celebrations/ledger';
 import { CelebrationToast } from './CelebrationToast';
@@ -22,10 +22,10 @@ import { CelebrationToast } from './CelebrationToast';
 let nextKey = 0;
 
 export function CelebrationHost() {
-  const sessions = useSwingIQStore((s) => s.sessions);
-  const videoAnalyses = useSwingIQStore((s) => s.video_analyses);
-  const training = useSwingIQStore((s) => s.training);
-  const community = useSwingIQStore((s) => s.community);
+  const sessions = useSwingVantageStore((s) => s.sessions);
+  const videoAnalyses = useSwingVantageStore((s) => s.video_analyses);
+  const training = useSwingVantageStore((s) => s.training);
+  const community = useSwingVantageStore((s) => s.community);
 
   const [queue, setQueue] = useState<{ key: number; celebration: Celebration }[]>([]);
 

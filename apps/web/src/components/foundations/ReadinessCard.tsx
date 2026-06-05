@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Readiness + Game-Ready Card
+// SwingVantage — Readiness + Game-Ready Card
 // ------------------------------------------------------------
 // Two transparent guidance scores side by side, each with its
 // factors visible and an honest basis line. A safety caution, if

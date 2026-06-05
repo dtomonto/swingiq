@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Retest Engine: Golf Derivation
+// SwingVantage — Retest Engine: Golf Derivation
 // ------------------------------------------------------------
 // Golf data comes from launch-monitor SESSIONS (Zustand store),
 // not video history. Each golf diagnosis already carries a

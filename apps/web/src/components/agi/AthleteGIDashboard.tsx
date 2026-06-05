@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Athlete General Intelligence: Dashboard
+// SwingVantage — Athlete General Intelligence: Dashboard
 // ------------------------------------------------------------
 // Reads the locally-stored Motion Lab sessions, runs the AGI engine, and
 // renders the unified athlete model, ranked insights (with their reasoning

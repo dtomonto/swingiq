@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: temporal sync correctness
+// SwingVantage — pose3d: temporal sync correctness
 // ============================================================
 
 import { bestLag, syncViews, motionSignal } from '../sync';

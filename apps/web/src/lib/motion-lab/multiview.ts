@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Multi-View Track Builder
+// SwingVantage — Motion Lab: Multi-View Track Builder
 // ------------------------------------------------------------
 // Turns two (roughly time-aligned) single-camera pose tracks into a
 // single MULTI-VIEW track of TRUE triangulated 3D, using the pose3d

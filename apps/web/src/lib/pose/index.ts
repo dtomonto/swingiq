@@ -1,4 +1,4 @@
-// SwingIQ — Pose module public API
+// SwingVantage — Pose module public API
 //
 // detectSwingPose() is the one call the analyzers use: run on-device pose
 // detection over the extracted frames and return both the metrics (for the

@@ -151,7 +151,7 @@ export function EquipmentDiagnosticTool() {
           </div>
           <p className="rounded-xl bg-warning/10 p-4 text-sm text-foreground">
             <strong>This is not a professional fitting.</strong> These flags are starting points based on your answers, not
-            measurements. For anything that affects performance or comfort, see a qualified fitter or coach. SwingIQ does not
+            measurements. For anything that affects performance or comfort, see a qualified fitter or coach. SwingVantage does not
             use a live manufacturer database.
           </p>
 

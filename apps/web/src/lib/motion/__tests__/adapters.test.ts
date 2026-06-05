@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Engine: pose adapter tests
+// SwingVantage — Motion Engine: pose adapter tests
 // ------------------------------------------------------------
 // The cloud adapter must be OFF by default, validate untrusted
 // responses, and NEVER throw — degrading to an honest placeholder.

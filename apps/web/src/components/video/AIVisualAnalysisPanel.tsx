@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — AI Visual Analysis Panel
+// SwingVantage — AI Visual Analysis Panel
 // Renders the validated, video-grounded result from the AI vision
 // model: summary, what was clearly visible, video-quality limits,
 // mechanical priorities (with evidence + confidence), a practice plan,
@@ -124,7 +124,7 @@ export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis
       {/* What was clearly visible */}
       <Section
         icon={<CheckCircle className="w-4 h-4 text-primary" />}
-        title="What SwingIQ Could Clearly See"
+        title="What SwingVantage Could Clearly See"
       >
         <ul className="space-y-2">
           {analysis.whatWasClearlyVisible.map((item, i) => (

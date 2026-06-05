@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Motion Lab: Kinetic Chain Card
+// SwingVantage — Motion Lab: Kinetic Chain Card
 // ------------------------------------------------------------
 // Visualizes the firing ORDER of the energy transfer (lower body →
 // torso → arms → implement) as a timeline of when each segment peaks,

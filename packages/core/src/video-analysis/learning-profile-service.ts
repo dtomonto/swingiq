@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Learning Profile Service
+// SwingVantage — Learning Profile Service
 // Tracks how a user responds to drills and recommendations
 // to personalise future analysis results.
 // ============================================================

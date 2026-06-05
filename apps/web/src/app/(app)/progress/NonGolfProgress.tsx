@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Non-Golf Progress Tracker
+// SwingVantage — Non-Golf Progress Tracker
 // Shows video analysis score trends, issue history, and
 // drill completion for tennis, baseball, and softball.
 // ============================================================
@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { TrendingUp, TrendingDown, Minus, Video, Activity } from 'lucide-react';
 import Link from 'next/link';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 import { format } from 'date-fns';
 
@@ -55,7 +55,7 @@ function VideoScoreChart({ analyses }: { analyses: Array<{ overall_score: number
 
 export function NonGolfProgress() {
   const { activeSport, sportEmoji, sportName } = useSport();
-  const { video_analyses, training } = useSwingIQStore();
+  const { video_analyses, training } = useSwingVantageStore();
 
   const sportAnalyses = useMemo(
     () =>

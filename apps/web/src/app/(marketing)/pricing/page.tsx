@@ -6,9 +6,9 @@ import { PricingCTA } from './PricingCTA';
 import { BillingPortalButton } from './BillingPortalButton';
 
 export const metadata: Metadata = {
-  title: 'Pricing | SwingIQ — Free AI Swing Analysis',
+  title: 'Pricing | SwingVantage — Free AI Swing Analysis',
   description:
-    'SwingIQ is free to use — analyze your swing, get personalized drills, and track progress at no cost. Pro and Team plans add cloud sync, video storage, and coach tools.',
+    'SwingVantage is free to use — analyze your swing, get personalized drills, and track progress at no cost. Pro and Team plans add cloud sync, video storage, and coach tools.',
 };
 
 export default function PricingPage() {

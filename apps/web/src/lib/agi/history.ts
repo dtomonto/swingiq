@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: local snapshot history
+// SwingVantage — AGI: local snapshot history
 // ------------------------------------------------------------
 // Self-contained localStorage store for AGI snapshots, in its OWN key. It does
 // not touch the Zustand store, the backup schema, or Motion Lab's store — so it

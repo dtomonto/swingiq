@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Workflow: Report Generation
+// SwingVantage — Workflow: Report Generation
 // ------------------------------------------------------------
 // Turns local data into a lightweight, structured report:
 // session, 30-day progress, coach, or equipment. Uses templates

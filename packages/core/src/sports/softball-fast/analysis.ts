@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Fast Pitch Softball Analysis Engine
+// SwingVantage — Fast Pitch Softball Analysis Engine
 // Heuristic issue detection for fast pitch swing video.
 // ⚠️ All detections are ESTIMATED — no ML model is running.
 // ============================================================

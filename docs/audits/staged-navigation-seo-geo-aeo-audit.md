@@ -1,4 +1,4 @@
-# SwingIQ — Staged Navigation, SEO, GEO & AEO Audit
+# SwingVantage — Staged Navigation, SEO, GEO & AEO Audit
 
 *Audit date: 2026-05-31. Based on code inspection of `master` branch + `feature/swingiq-production-master-system`.*  
 *This is a staged-environment audit — the site is not yet publicly live. Findings are based on code, not live crawl data.*
@@ -34,7 +34,7 @@
 
 **Fix:** Created `apps/web/src/app/not-found.tsx` with:
 - Logo linking to Home
-- "Go to SwingIQ Home" primary CTA
+- "Go to SwingVantage Home" primary CTA
 - "Open My Dashboard" secondary CTA
 - Sport-specific analysis links
 - Footer nav (How It Works, FAQ, Updates, Privacy, Terms)
@@ -61,7 +61,7 @@
 
 **Problem:** robots.txt only listed `Allow: /`, `Allow: /login`, `Allow: /signup`. All other public pages were in an ambiguous state. No sitemap reference.
 
-**Fix:** Added explicit `Allow:` directives for all 20+ public pages. Added `Sitemap: https://swingiq.app/sitemap.xml`.
+**Fix:** Added explicit `Allow:` directives for all 20+ public pages. Added `Sitemap: https://swingvantage.com/sitemap.xml`.
 
 ---
 
@@ -69,7 +69,7 @@
 
 ### 4. No sitemap.xml (FIXED)
 
-**Problem:** No sitemap existed. Search engines and AI crawlers had no structured list of SwingIQ's indexable pages.
+**Problem:** No sitemap existed. Search engines and AI crawlers had no structured list of SwingVantage's indexable pages.
 
 **Fix:** Created `apps/web/src/app/sitemap.ts` — Next.js App Router dynamic sitemap. Served at `/sitemap.xml`. Includes all public pages with priority and changeFrequency. Excludes all app/dashboard/admin routes.
 
@@ -77,9 +77,9 @@
 
 ### 5. Root layout title says "Golf Performance System" (FIXED)
 
-**Problem:** `apps/web/src/app/layout.tsx` metadata title was "SwingIQ — Golf Performance System" — omitting tennis, baseball, softball. Incorrectly positioned the product as golf-only.
+**Problem:** `apps/web/src/app/layout.tsx` metadata title was "SwingVantage — Golf Performance System" — omitting tennis, baseball, softball. Incorrectly positioned the product as golf-only.
 
-**Fix:** Changed to "SwingIQ — AI Swing Performance Platform". Updated description and keywords to include all 5 sports. Added `metadataBase` and complete `openGraph` block.
+**Fix:** Changed to "SwingVantage — AI Swing Performance Platform". Updated description and keywords to include all 5 sports. Added `metadataBase` and complete `openGraph` block.
 
 ---
 
@@ -97,7 +97,7 @@
 
 ### 8. Missing /trust page (FIXED)
 
-**Problem:** No Trust & Safety page existed. Users had no place to understand SwingIQ's data handling, AI honesty commitments, or security posture in plain English.
+**Problem:** No Trust & Safety page existed. Users had no place to understand SwingVantage's data handling, AI honesty commitments, or security posture in plain English.
 
 **Fix:** Created `apps/web/src/app/trust/page.tsx` — comprehensive trust page covering local-first data, video privacy, export/deletion, youth safety, honest AI labels, security posture, and contact info.
 
@@ -113,7 +113,7 @@
 
 ### 10. Missing llms.txt (FIXED)
 
-**Problem:** No `llms.txt` file. AI crawlers (ChatGPT, Perplexity, Claude, etc.) had no structured summary of what SwingIQ is, what it does, and what it does not claim.
+**Problem:** No `llms.txt` file. AI crawlers (ChatGPT, Perplexity, Claude, etc.) had no structured summary of what SwingVantage is, what it does, and what it does not claim.
 
 **Fix:** Created `apps/web/public/llms.txt` with plain-text summary of the product, supported sports, key features, privacy posture, and honest limitations.
 

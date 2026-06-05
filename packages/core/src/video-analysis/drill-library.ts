@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Video Drill Library
+// SwingVantage — Video Drill Library
 // Curated drills per visual swing issue.
 // YouTube URLs are SEARCH LINKS only — never hardcoded video IDs.
 // ============================================================

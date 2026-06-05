@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AGI: Motion Lab adapter
+// SwingVantage — AGI: Motion Lab adapter
 // ------------------------------------------------------------
 // The ONLY file in the AGI layer that imports from @/lib/motion-lab. It reads
 // motion-lab sessions (read-only) and normalises them into a sport-neutral

@@ -1,9 +1,9 @@
 // POST /api/user/import/restore
 //
-// Applies a SwingIQBackup to the authenticated user's server-side data.
+// Applies a SwingVantageBackup to the authenticated user's server-side data.
 // Supports merge and replace modes.
 //
-// Body: { backup: SwingIQBackup, mode: 'merge' | 'replace' }
+// Body: { backup: SwingVantageBackup, mode: 'merge' | 'replace' }
 //
 // NOTE: Until Supabase tables are populated this returns a 503 directing
 // users to the client-side restore in Settings → Backup & Restore.
@@ -11,7 +11,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { validateBackupFile } from '@/lib/backup/validate';
-import type { SwingIQBackup } from '@/lib/backup/schema';
+import type { SwingVantageBackup } from '@/lib/backup/schema';
 
 export const maxDuration = 30; // seconds — restore may take time for large datasets
 
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const backup = body.backup as SwingIQBackup;
+  const backup = body.backup as SwingVantageBackup;
 
   // TODO: Implement Supabase upsert logic once tables are populated.
   //

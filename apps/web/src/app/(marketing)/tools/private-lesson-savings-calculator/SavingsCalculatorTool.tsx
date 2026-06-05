@@ -68,12 +68,12 @@ export function SavingsCalculatorTool() {
           </p>
           <p className="rounded-xl bg-warning/10 p-4 text-sm text-foreground">
             <strong>Lessons are still valuable.</strong> A good coach is often the fastest path to real improvement. This
-            calculator is an illustration, not a promise — SwingIQ is designed to make your lessons and your practice more
+            calculator is an illustration, not a promise — SwingVantage is designed to make your lessons and your practice more
             effective, not to replace your coach.
           </p>
 
           <EmailCapture source="general" heading="Send me a smarter practice plan" subheading="See how to get more from each lesson with focused practice between sessions." />
-          <ToolCta href="/start" label="Try SwingIQ Free Before Your Next Lesson" />
+          <ToolCta href="/start" label="Try SwingVantage Free Before Your Next Lesson" />
           <button onClick={reset} className="w-full rounded-xl border border-border py-2.5 text-sm font-medium text-foreground hover:bg-muted">Recalculate</button>
         </ResultPanel>
       )}

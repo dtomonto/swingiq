@@ -1,12 +1,12 @@
 // ============================================================
-// SwingIQ — Auto-save snapshot builder
+// SwingVantage — Auto-save snapshot builder
 //
 // Turns the current store into the exact bytes we write to the user's
 // chosen file, plus a cheap content signature so an unchanged store
 // is never re-written (saves disk churn and keeps "last saved" honest).
 // ============================================================
 
-import type { SwingIQState } from '@/store';
+import type { SwingVantageState } from '@/store';
 import { exportUserData, generateBackupFilename } from '@/lib/backup/export';
 
 export interface Snapshot {
@@ -27,7 +27,7 @@ function djb2(str: string): string {
   return (h >>> 0).toString(36);
 }
 
-export function buildSnapshot(state: SwingIQState): Snapshot {
+export function buildSnapshot(state: SwingVantageState): Snapshot {
   const backup = exportUserData(state);
   const contents = JSON.stringify(backup, null, 2);
   const counts = backup.metadata.recordCounts;

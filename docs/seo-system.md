@@ -1,21 +1,21 @@
-# SwingIQ — SEO / AEO / GEO System
+# SwingVantage — SEO / AEO / GEO System
 
-How SwingIQ's organic-visibility system is built and how to extend it safely.
+How SwingVantage's organic-visibility system is built and how to extend it safely.
 
 ---
 
 ## 📘 In Plain English (start here)
 
-**What this page is:** The technical how-to for adding new search-friendly pages (the ones that help SwingIQ show up in Google and AI answers) to the website.
+**What this page is:** The technical how-to for adding new search-friendly pages (the ones that help SwingVantage show up in Google and AI answers) to the website.
 
 **What you actually need to know:**
 - There's a safe, repeatable system for creating these pages, with an automatic quality check that **blocks weak, low-effort ("thin") pages** from going live. That protects your reputation with Google.
 - This is a builder's guide. You don't operate it directly — a developer, a content writer, or an AI assistant uses it when adding pages.
-- If you want the bigger-picture strategy of how SwingIQ gets discovered (and your own owner steps), read [SEO_GEO_AEO.md](SEO_GEO_AEO.md) instead — that one is written for you.
+- If you want the bigger-picture strategy of how SwingVantage gets discovered (and your own owner steps), read [SEO_GEO_AEO.md](SEO_GEO_AEO.md) instead — that one is written for you.
 
 **What to do next:** Nothing here is a task for you. For your SEO to-dos, see [SEO_GEO_AEO.md](SEO_GEO_AEO.md).
 
-> Everything below is a step-by-step reference for whoever codes new pages — a developer or an AI assistant. You don't need it to run SwingIQ.
+> Everything below is a step-by-step reference for whoever codes new pages — a developer or an AI assistant. You don't need it to run SwingVantage.
 
 ---
 
@@ -92,7 +92,7 @@ Every SEO page follows this order so answer engines and humans both win:
 1. **Direct answer** (a concise paragraph at the very top)
 2. What is happening (explanation)
 3. Diagnose it yourself (checklist)
-4. What SwingIQ looks for
+4. What SwingVantage looks for
 5. Beginner-safe drills
 6. Common mistakes to avoid
 7. When to work with a coach

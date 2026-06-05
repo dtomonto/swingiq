@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Linear Algebra Core
+// SwingVantage — pose3d: Linear Algebra Core
 // ------------------------------------------------------------
 // Small, dependency-free matrix/vector primitives used by the camera
 // model and multi-view triangulation. Includes a Jacobi eigensolver

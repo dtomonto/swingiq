@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — DrillMatch: Drill Effectiveness Feedback Loop
+// SwingVantage — DrillMatch: Drill Effectiveness Feedback Loop
 // ------------------------------------------------------------
 // "Did this drill help?" — the signal that makes DrillMatch get
 // smarter every time the user returns. Stored LOCAL-FIRST in its

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: Domain Types
+// SwingVantage — Motion Lab: Domain Types
 // ------------------------------------------------------------
 // The Motion Lab is a browser-side 3D motion-analysis pipeline that
 // builds ON TOP of the app's real infrastructure:

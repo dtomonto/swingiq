@@ -1,9 +1,9 @@
-# SwingIQ — Monetization Checklist (the least-expensive path to your first paying user)
+# SwingVantage — Monetization Checklist (the least-expensive path to your first paying user)
 
 _Built from the master audit (`docs/master-audit-report.md`) + a read of the actual billing code. Last updated: June 2026._
 
 > ## ⛳ This is the **Phase 3** runbook — not the next step
-> SwingIQ's monetization order is fixed (see **`docs/MONETIZATION_STRATEGY.md`**, the north star):
+> SwingVantage's monetization order is fixed (see **`docs/MONETIZATION_STRATEGY.md`**, the north star):
 > **Phase 1 grow free users → Phase 2 ads (first revenue) → Phase 3 membership tiers.**
 > Paid subscriptions are **Phase 3**, and the gate to start them is *ads already producing
 > stable revenue*. The Stripe/Pro/Team code is pre-built and **deliberately dormant** (waitlist
@@ -17,7 +17,7 @@ _Built from the master audit (`docs/master-audit-report.md`) + a read of the act
 **What this page is:** The exact, ordered list of everything you need to do to start charging money — sequenced so you spend the least possible while doing it safely.
 
 **The three things to know before you start:**
-1. **Good news — most of the payment code already exists.** SwingIQ already has a working Stripe checkout built in (no expensive "build payments" project needed). You are mostly *turning it on*, not building it.
+1. **Good news — most of the payment code already exists.** SwingVantage already has a working Stripe checkout built in (no expensive "build payments" project needed). You are mostly *turning it on*, not building it.
 2. **The real money cost of running a paid app is tiny** — roughly **$5–$20/month + about 3% of what you collect + ~$12/year for a domain.** Everything else can run on free tiers to start.
 3. **There is real work left**, but it's specific and small: a payment "confirmation" webhook, remembering *which* user paid, a cancel button, and the legal/compliance gates. This page lists every piece.
 
@@ -108,8 +108,8 @@ _Built from the master audit (`docs/master-audit-report.md`) + a read of the act
 
 ## Phase 3 — Set up Stripe (dashboard, ~30–45 min) **[You]**
 
-- [ ] In Stripe → **Products** → create **"SwingIQ Pro"** with a **$12/month recurring price**. Copy its **Price ID** (looks like `price_...`).
-- [ ] (Optional, later) create **"SwingIQ Team" — $49/month** and copy that Price ID.
+- [ ] In Stripe → **Products** → create **"SwingVantage Pro"** with a **$12/month recurring price**. Copy its **Price ID** (looks like `price_...`).
+- [ ] (Optional, later) create **"SwingVantage Team" — $49/month** and copy that Price ID.
 - [ ] In Stripe → **Developers → API keys**, copy your **Secret key** and **Publishable key**. Start in **Test mode** (toggle top-right) so no real money moves yet.
 - [ ] In Stripe → **Developers → Webhooks**, you'll add an endpoint in Phase 4 and copy its **Signing secret**.
 - [ ] Keep these 5 values handy for Phase 5:

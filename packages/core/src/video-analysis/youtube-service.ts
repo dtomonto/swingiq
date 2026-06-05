@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — YouTube Search Service
+// SwingVantage — YouTube Search Service
 // Generates YouTube SEARCH links (never hardcoded video IDs).
 // Privacy-safe: no YouTube API keys, no tracking beyond standard
 // Google search referrals.

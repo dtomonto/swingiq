@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Lab: coach/team roster aggregation tests
+// SwingVantage — Motion Lab: coach/team roster aggregation tests
 // ------------------------------------------------------------
 // Pure logic only (no localStorage): summarizeAthlete + buildCoachView.
 // ============================================================

@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// SwingIQ — Non-Golf Session Log
+// SwingVantage — Non-Golf Session Log
 // Manual session entry for tennis, baseball, and softball
 // players who don't have launch monitor CSV data.
 // ============================================================
@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { CheckCircle, Video } from 'lucide-react';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -100,7 +100,7 @@ const SPORT_SESSION_LABELS: Record<Exclude<SportId, 'golf'>, {
 
 export default function LogSessionPage() {
   const { activeSport, isGolf, sportEmoji, sportName } = useSport();
-  const { addSession, recordPractice } = useSwingIQStore();
+  const { addSession, recordPractice } = useSwingVantageStore();
   const router = useRouter();
   const [saved, setSaved] = useState(false);
 

@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Motion Engine: Pose Provider Adapters (Cloud + MoveNet)
+// SwingVantage — Motion Engine: Pose Provider Adapters (Cloud + MoveNet)
 // ------------------------------------------------------------
 // Completes the named adapter set behind the `PoseProvider` seam so a
 // different model can be swapped in WITHOUT touching the app:

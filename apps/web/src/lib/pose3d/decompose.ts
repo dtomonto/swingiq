@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — pose3d: Essential Matrix Decomposition
+// SwingVantage — pose3d: Essential Matrix Decomposition
 // ------------------------------------------------------------
 // Recovers the relative camera pose (R, t up to scale) from the
 // essential matrix, then disambiguates the 4 mathematical solutions by

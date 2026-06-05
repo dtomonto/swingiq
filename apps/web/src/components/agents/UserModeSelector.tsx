@@ -1,9 +1,9 @@
 'use client';
 
 // ============================================================
-// SwingIQ — UserModeSelector (compact)
+// SwingVantage — UserModeSelector (compact)
 // ------------------------------------------------------------
-// A small, inline "who's using SwingIQ" switcher for prominent
+// A small, inline "who's using SwingVantage" switcher for prominent
 // surfaces like the dashboard. It is intentionally a COMPACT
 // companion to the full CoachingToneSelector in Settings — both
 // read and write the SAME store field (settings.coaching_tone),
@@ -13,18 +13,18 @@
 // ============================================================
 
 import { cn } from '@/lib/utils';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { COACHING_TONES, getTone } from '@/lib/coaching/tones';
 
 export function UserModeSelector({ className }: { className?: string }) {
-  const tone = useSwingIQStore((s) => s.settings.coaching_tone);
-  const updateSettings = useSwingIQStore((s) => s.updateSettings);
+  const tone = useSwingVantageStore((s) => s.settings.coaching_tone);
+  const updateSettings = useSwingVantageStore((s) => s.updateSettings);
   const current = getTone(tone).id;
 
   return (
     <div className={cn('flex flex-wrap items-center gap-2', className)}>
-      <span className="text-xs font-medium text-muted-foreground">Using SwingIQ as:</span>
-      <div role="radiogroup" aria-label="Who's using SwingIQ" className="flex flex-wrap gap-1.5">
+      <span className="text-xs font-medium text-muted-foreground">Using SwingVantage as:</span>
+      <div role="radiogroup" aria-label="Who's using SwingVantage" className="flex flex-wrap gap-1.5">
         {COACHING_TONES.map((t) => {
           const selected = current === t.id;
           return (

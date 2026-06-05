@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — Progress Intelligence: Unit Tests
+// SwingVantage — Progress Intelligence: Unit Tests
 // ------------------------------------------------------------
 // Guarantees Player Arc / Flaw Fingerprint / Training Receipt are
 // honest: they summarize only what the data supports, surface real

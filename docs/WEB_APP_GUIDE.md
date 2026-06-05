@@ -1,4 +1,4 @@
-# SwingIQ — Web App Guide
+# SwingVantage — Web App Guide
 
 A plain-English guide to every feature in the app.
 
@@ -10,13 +10,13 @@ A plain-English guide to every feature in the app.
 
 ## 1. The Basics
 
-SwingIQ is a web app. There is no separate mobile app to install — everything runs in your browser at either:
+SwingVantage is a web app. There is no separate mobile app to install — everything runs in your browser at either:
 - `http://localhost:3000` (when running on your own computer)
 - Your Vercel URL (when deployed — accessible anywhere)
 
 It works on phones, tablets, and computers. The layout adjusts automatically.
 
-**No account needed to start.** You can open SwingIQ and jump straight in — your data is saved privately on your own device. If you ever want an account (for example, to sync across devices), you can create one anytime from the sign-in screen; sign-up, sign-in, and password reset all work when cloud sync is turned on.
+**No account needed to start.** You can open SwingVantage and jump straight in — your data is saved privately on your own device. If you ever want an account (for example, to sync across devices), you can create one anytime from the sign-in screen; sign-up, sign-in, and password reset all work when cloud sync is turned on.
 
 **Works offline.** If your connection drops — common at a range or a back field — a clear banner lets you know, your work is held safely on your device, and anything that needs the internet is queued to finish automatically once you reconnect. Nothing to set up.
 
@@ -202,7 +202,7 @@ Found at **Analyze → Motion Lab (3D)** in the sidebar (or `/motion-lab`). Moti
 - A **phase timeline** (setup → top → impact → finish, and the right phases for each sport).
 - **Scores** for overall motion, power, sequencing, rotation, balance, timing, and consistency — each with a confidence level.
 - A **kinetic-chain read** (does your power fire ground-up: hips → torso → arms → implement?) with power-leak flags, and a **timing breakdown** (load, transition, acceleration, contact-window stability, tempo).
-- A conversational **coach's read** in the SwingIQ format (main finding → why → evidence → what to feel → one cue → one drill → next upload), grounded in your numbers.
+- A conversational **coach's read** in the SwingVantage format (main finding → why → evidence → what to feel → one cue → one drill → next upload), grounded in your numbers.
 - A **coaching report** in your choice of tone (beginner, athlete, coach, youth/parent, or data), with the **top 3 fixes**, what *not* to change, and a **practice plan**.
 - A **drill plan** (an immediate fix, a feel drill, a technical drill, and a constraint drill) plus a one-week schedule.
 - A **repeatability** score once you've logged a few sessions (how consistent your mechanics are).
@@ -211,8 +211,8 @@ Found at **Analyze → Motion Lab (3D)** in the sidebar (or `/motion-lab`). Moti
 **Coaching a team or a child?** The **Coach & Team** page (Analyze → Coach & Team, or `/coach`) lets you group sessions by athlete, see each athlete's progress and recurring issues, and spot the weakness a whole roster shares — all kept on your device.
 
 **Single camera vs. two cameras:**
-- **One camera** (the default) gives an *estimated* 3D reconstruction. A "Pro 3D depth" option uses SwingIQ's trained model to sharpen the depth.
-- **Two cameras** ("true 3D" mode): film the *same rep* from two angles about 90° apart and SwingIQ combines them into **measured** 3D. If the two clips don't line up well, it honestly shows lower confidence instead of guessing.
+- **One camera** (the default) gives an *estimated* 3D reconstruction. A "Pro 3D depth" option uses SwingVantage's trained model to sharpen the depth.
+- **Two cameras** ("true 3D" mode): film the *same rep* from two angles about 90° apart and SwingVantage combines them into **measured** 3D. If the two clips don't line up well, it honestly shows lower confidence instead of guessing.
 
 > Honesty by design: single-camera results are labeled estimates, two-camera results are labeled measured, and every number carries a confidence. Motion Lab makes **no** medical, injury, or tour-grade claims.
 
@@ -285,7 +285,7 @@ A diagnosis is a starting point, not a verdict. The **Retest** page (in the main
 
 - It reminds you when a diagnosed finding is **due for a retest** — after you've had time to work the drills.
 - Re-analyze under the **same conditions** (same camera angle, distance, and equipment) so the comparison is fair.
-- SwingIQ then shows an honest **before-and-after read** of whether the finding actually changed.
+- SwingVantage then shows an honest **before-and-after read** of whether the finding actually changed.
 - **Golf:** retests match curated faults against your fresh launch-monitor data.
 - **Video sports:** retests compare a new video analysis to the earlier one.
 - Reminders for what's due and the results you've already earned also appear on your dashboard.
@@ -304,7 +304,7 @@ Instead of a long list of everything that's a little off, the Fix Stack picks yo
 2. **Drill it** — the single best-matched drill for your issue, your level, and the gear you have.
 3. **Retest it** — a fair before/after so you know the fix actually worked, not just that you practised.
 
-SwingIQ learns from what worked for you, so the next recommendation gets sharper. It runs on the data you already have — no AI account needed — and links straight to the Practice Schedule if you want to build a full week around your fix.
+SwingVantage learns from what worked for you, so the next recommendation gets sharper. It runs on the data you already have — no AI account needed — and links straight to the Practice Schedule if you want to build a full week around your fix.
 
 ---
 
@@ -383,11 +383,11 @@ It builds automatically with every session and retest you add — no setup requi
 
 ---
 
-## 15c. SwingIQ Labs — Foundations
+## 15c. SwingVantage Labs — Foundations
 
-Found at **Progress → SwingIQ Labs** in the sidebar (or `/labs`).
+Found at **Progress → SwingVantage Labs** in the sidebar (or `/labs`).
 
-Labs is where SwingIQ's deeper, more personal tools grow up. Each one is **honest about its confidence and what it doesn't know yet** — some are early v1s. It currently includes:
+Labs is where SwingVantage's deeper, more personal tools grow up. Each one is **honest about its confidence and what it doesn't know yet** — some are early v1s. It currently includes:
 - A daily **readiness score** (how primed you are to practise today).
 - A private **player model** that learns your tendencies.
 - **Cross-sport skill transfer** — how your skills carry between sports.
@@ -426,7 +426,7 @@ Two-tab page: **Browse References** and **Side-by-Side Comparison**.
 - **Your Swing (left):** Upload a new video or select a saved video analysis from your history
 - **Professional Reference (right):** Shows the selected athlete reference; use "Browse References →" if none selected
 - **Phase Checklist:** Sport-specific swing phase labels below both panels
-- **Limitation notice:** SwingIQ has not analyzed the professional video frames — comparisons are observational only
+- **Limitation notice:** SwingVantage has not analyzed the professional video frames — comparisons are observational only
 - Mobile: panels stack vertically
 
 > Note: YouTube video embeds are privacy-enhanced (youtube-nocookie.com) for any verified references.
@@ -509,7 +509,7 @@ There are two ways to access backup and restore:
 
 ### What your backup includes (v1.2.0)
 
-Everything SwingIQ knows about you is in one file:
+Everything SwingVantage knows about you is in one file:
 
 | Category | Examples |
 |---|---|
@@ -557,7 +557,7 @@ Everything SwingIQ knows about you is in one file:
 
 1. Download a backup on your old device
 2. Email it to yourself or save it to cloud storage
-3. Open SwingIQ on the new device
+3. Open SwingVantage on the new device
 4. Go to Data Center → Restore → select the backup file → Merge
 
 ---
@@ -597,10 +597,10 @@ Click the **Loft Gapping** button on the Equipment page to see:
 
 Found at **Sessions → Import from Image** (or the image icon on the Import page).
 
-Use this to get data into SwingIQ from a screenshot or photo of a performance table.
+Use this to get data into SwingVantage from a screenshot or photo of a performance table.
 
 1. **Upload:** Select your sport and movement type, choose the data source (FlightScope, TrackMan, HitTrax, etc.), and upload your image (jpg, png, webp — max 10 MB)
-2. **Extract & Review:** If auto-extraction is available, SwingIQ reads the numbers off your image and pre-fills the table with a confidence note (e.g. "Auto-extracted 6 rows at medium confidence — please review every value"). Otherwise the table starts blank. Either way, you enter or correct values into the editable table. Columns are pre-populated based on the source you selected. Add or delete rows as needed.
+2. **Extract & Review:** If auto-extraction is available, SwingVantage reads the numbers off your image and pre-fills the table with a confidence note (e.g. "Auto-extracted 6 rows at medium confidence — please review every value"). Otherwise the table starts blank. Either way, you enter or correct values into the editable table. Columns are pre-populated based on the source you selected. Add or delete rows as needed.
 3. **Confirm:** Review your final data before saving. A privacy notice confirms your data stays local.
 4. **Analyze:** Your confirmed data is saved and routed to the diagnostic engine.
 

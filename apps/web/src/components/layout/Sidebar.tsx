@@ -43,7 +43,7 @@ import {
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
-import { useSwingIQStore } from '@/store';
+import { useSwingVantageStore } from '@/store';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
 import { ContextualHelpButton } from '@/components/tutorial/ContextualHelpButton';
 
@@ -68,7 +68,7 @@ interface NavSection extends NavLeaf {
 
 export function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
-  const { training } = useSwingIQStore();
+  const { training } = useSwingVantageStore();
   const { activeSport, sportEmoji, sportTagline, sportLabels, isGolf } = useSport();
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
@@ -115,7 +115,7 @@ export function Sidebar({ onClose }: SidebarProps) {
         { href: '/sessions', label: sportLabels.sessions, icon: Activity },
         { href: '/retest', label: 'Retest', icon: RotateCcw },
         { href: '/milestones', label: 'Milestones', icon: Trophy },
-        { href: '/labs', label: 'SwingIQ Labs', icon: FlaskConical },
+        { href: '/labs', label: 'SwingVantage Labs', icon: FlaskConical },
         { href: '/compare', label: 'Compare & References', icon: GitCompareArrows },
         { href: '/benchmarks', label: 'Benchmarks', icon: BarChart3 },
       ],
@@ -191,10 +191,10 @@ export function Sidebar({ onClose }: SidebarProps) {
       <div className="px-6 py-5 border-b border-border flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-golf-fairway rounded-lg flex items-center justify-center shrink-0">
-            <span className="text-white font-black text-sm">SQ</span>
+            <span className="text-white font-black text-sm">SV</span>
           </div>
           <div>
-            <span className="text-foreground font-bold text-lg">SwingIQ</span>
+            <span className="text-foreground font-bold text-lg">SwingVantage</span>
             <p className="text-primary text-xs flex items-center gap-1">
               <span>{sportEmoji}</span>
               <span>{sportTagline}</span>

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SwingIQ — SEO content validation.
+ * SwingVantage — SEO content validation.
  *
  * Guards against thin pages and broken SEO routing:
  *   - Every 'published' page in seoPages.ts must have a route file.

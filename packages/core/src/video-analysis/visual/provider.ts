@@ -1,5 +1,5 @@
 // ============================================================
-// SwingIQ — AI Vision Provider Abstraction
+// SwingVantage — AI Vision Provider Abstraction
 //
 // A provider takes extracted swing frames + a sport prompt and returns
 // a validated, structured analysis from a REAL AI vision model.
@@ -93,7 +93,7 @@ export interface AIVisionProvider {
 
 /** The strict, no-fake message shown when AI vision is unavailable. */
 export const NOT_CONFIGURED_MESSAGE =
-  'AI visual analysis is not currently configured. Your video was uploaded, but SwingIQ could not visually inspect it yet. ' +
+  'AI visual analysis is not currently configured. Your video was uploaded, but SwingVantage could not visually inspect it yet. ' +
   'Add a valid AI vision provider key or enable the visual-analysis service to receive AI-powered mechanical feedback.';
 
 // ──────────────────────────────────────────────────────────────
@@ -140,7 +140,7 @@ function networkError(err: unknown): string {
 /** The system + user text for the text-only self-correction pass (no images). */
 function buildRepairPrompt(priorText: string, error: string): { system: string; userText: string } {
   const system =
-    'You repair a draft JSON object so it EXACTLY matches the required SwingIQ analysis schema. ' +
+    'You repair a draft JSON object so it EXACTLY matches the required SwingVantage analysis schema. ' +
     'Output ONLY the corrected JSON object — no prose, no markdown fences. Preserve the original ' +
     'observations; do not fabricate new analysis. Fix structure, missing required fields (infer ' +
     'sensibly from the existing content), value types, and enum values.\n\n' +
