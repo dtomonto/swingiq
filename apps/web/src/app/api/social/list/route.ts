@@ -5,7 +5,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { isAdminRequest } from '@/lib/social/admin-guard';
+import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { listGenerations, persistenceAvailable } from '@/lib/social/store';
 
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   const rl = await checkRateLimit(`${ip}:social-list`, { limit: 60, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
-  if (!isAdminRequest(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!(await isAuthorizedAdmin(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const slug = req.nextUrl.searchParams.get('slug');
   if (!slug) return NextResponse.json({ error: 'Missing slug.' }, { status: 400 });

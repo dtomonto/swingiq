@@ -11,7 +11,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { isAdminRequest } from '@/lib/social/admin-guard';
+import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { BLOG_POSTS } from '@/data/blog-posts';
 import { generateSocial } from '@/lib/social/generate';
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
   const rl = await checkRateLimit(`${ip}:social-generate`, { limit: 10, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
-  if (!isAdminRequest(req)) {
+  if (!(await isAuthorizedAdmin(req))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

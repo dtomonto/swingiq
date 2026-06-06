@@ -4,7 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { isAdminRequest } from '@/lib/social/admin-guard';
+import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { persistenceAvailable, updatePost } from '@/lib/social/store';
 import type { PostStatus } from '@/lib/social/types';
@@ -18,7 +18,7 @@ export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: strin
   const rl = await checkRateLimit(`${ip}:social-patch`, { limit: 60, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
-  if (!isAdminRequest(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!(await isAuthorizedAdmin(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   if (!persistenceAvailable()) {
     return NextResponse.json({ error: 'Persistence not configured.' }, { status: 503 });
   }

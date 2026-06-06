@@ -4,7 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { isAdminRequest } from '@/lib/social/admin-guard';
+import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { BLOG_POSTS } from '@/data/blog-posts';
 import { persistenceAvailable, saveGeneration } from '@/lib/social/store';
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   const rl = await checkRateLimit(`${ip}:social-save`, { limit: 30, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
-  if (!isAdminRequest(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!(await isAuthorizedAdmin(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   if (!persistenceAvailable()) {
     return NextResponse.json(

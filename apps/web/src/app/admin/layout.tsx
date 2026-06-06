@@ -12,6 +12,7 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { safeEqual } from '@/lib/security/constant-time';
+import { isAdminUser } from '@/lib/auth/admin';
 
 export const metadata: Metadata = {
   title: 'Admin | SwingVantage',
@@ -33,7 +34,10 @@ async function isAdminAuthorized(): Promise<boolean> {
 }
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  if (!(await isAdminAuthorized())) {
+  // Authorized via EITHER the x-admin-secret header (legacy/proxy) OR a
+  // logged-in user whose email is allowlisted in ADMIN_EMAILS.
+  const authorized = (await isAdminAuthorized()) || (await isAdminUser());
+  if (!authorized) {
     // Redirect rather than show a 403 to avoid confirming the route exists.
     redirect('/dashboard');
   }
