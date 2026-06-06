@@ -8,10 +8,12 @@ import type { Shot } from '@swingiq/core';
 import type { CoachContext } from '@/lib/ai-coach-prompts';
 import { useSport } from '@/contexts/SportContext';
 import { getTone } from '@/lib/coaching/tones';
+import { useBodySync } from '@/lib/bodysync';
 
 export default function AICoachPage() {
   const { profile, sessions, sportProfiles, video_analyses, settings } = useSwingVantageStore();
   const { activeSport, isGolf, sportName } = useSport();
+  const { assessment, recommendation } = useBodySync();
   // Pick the most recent golf session with shots for context
   const latestWithShots = useMemo(() => {
     return [...sessions]
@@ -109,8 +111,22 @@ export default function AICoachPage() {
       }
     }
 
+    // ── BodySync: let the coach adapt to today's readiness (never medical) ──
+    if (assessment && recommendation) {
+      const sess = recommendation.sessionType.replace(/_/g, ' ');
+      ctx.coaching_tone_hint = [
+        ctx.coaching_tone_hint ?? '',
+        `Health context (use it to shape today's advice; never give medical advice — SwingVantage is not a medical device): ` +
+          `the athlete's readiness today is ${assessment.readiness.score}/100 (${assessment.zone}). ` +
+          `Suggested session: ${sess}, ~${recommendation.durationMinutes} min, intensity cap ${recommendation.intensityCap}%. ` +
+          `If readiness is low, steer toward lighter technical work, mobility and recovery rather than max-effort speed/power; ` +
+          `if high, a speed/power or performance focus is appropriate. ` +
+          (recommendation.injuryNote ? `Caution: ${recommendation.injuryNote}` : ''),
+      ].join('\n').trim();
+    }
+
     return ctx;
-  }, [latestWithShots, latestVideoAnalysis, profile, sportProfiles, activeSport, isGolf, settings.coaching_tone]);
+  }, [latestWithShots, latestVideoAnalysis, profile, sportProfiles, activeSport, isGolf, settings.coaching_tone, assessment, recommendation]);
 
   return (
     <>

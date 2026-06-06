@@ -34,6 +34,7 @@ import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence
 import { AthleteGISummary } from '@/components/agi/AthleteGISummary';
 import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
 import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
+import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
 import { format } from 'date-fns';
 import { useMemo } from 'react';
 import type { SportId } from '@swingiq/core';
@@ -383,6 +384,9 @@ export function NonGolfDashboard() {
           </div>
         )}
       </div>
+
+      {/* BodySync: today's readiness + recommended session (only when enabled) */}
+      <ReadinessSummaryCard />
 
       {/* Intelligent product layer: Welcome Back / next best step + insights */}
       <DashboardIntelligence />

@@ -17,6 +17,7 @@ import { FatigueRiskBanner } from '@/components/bodysync/FatigueRiskBanner';
 import { WellnessCheckInForm } from '@/components/bodysync/WellnessCheckInForm';
 import { BodySyncInsightFeed } from '@/components/bodysync/BodySyncInsightFeed';
 import { HealthConnectionCenter } from '@/components/bodysync/HealthConnectionCenter';
+import { AppleHealthImport } from '@/components/bodysync/AppleHealthImport';
 import { NonMedicalDisclaimer } from '@/components/bodysync/NonMedicalDisclaimer';
 
 const CATEGORY_ORDER: HealthCategory[] = ['wellness', 'recovery', 'cardio', 'activity', 'mobility'];
@@ -88,6 +89,7 @@ export default function BodySyncPage() {
       </div>
 
       {/* Connect a device */}
+      <AppleHealthImport />
       <HealthConnectionCenter />
 
       {/* Privacy & data controls */}

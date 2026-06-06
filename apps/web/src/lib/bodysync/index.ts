@@ -17,6 +17,8 @@ export {
 export {
   read, subscribe, todayKey, saveCheckin, deleteCheckin, setPermissions,
   setSettings, consent, setBaselines, upsertConnection, disconnectProvider,
-  clearAllHealthData, exportBodySync, BODYSYNC_KEY,
+  clearAllHealthData, exportBodySync, importDailySummaries, samplesFromSummaries,
+  BODYSYNC_KEY,
 } from './store';
 export { useBodySync, type UseBodySync } from './useBodySync';
+export { parseAppleHealthExport, type AppleHealthImportResult } from './import/appleHealth';

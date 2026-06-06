@@ -21,7 +21,7 @@ import { generateInsights, type PerformancePoint } from './insights';
 import {
   read, subscribe, todayKey, saveCheckin, deleteCheckin, setPermissions,
   setSettings, consent, setBaselines, upsertConnection, disconnectProvider,
-  clearAllHealthData, exportBodySync,
+  clearAllHealthData, exportBodySync, samplesFromSummaries,
 } from './store';
 
 export interface UseBodySync {
@@ -58,11 +58,13 @@ export function useBodySync(performance: PerformancePoint[] = []): UseBodySync {
     [state.checkins],
   );
 
+  const samples = useMemo(() => samplesFromSummaries(state.summaries), [state.summaries]);
+
   const assessment = useMemo<ReadinessAssessment | null>(() => {
     if (!state.settings.enabled) return null;
-    if (!today && history.length === 0) return null;
-    return assessReadiness({ today, history, samples: [], baselines: state.baselines }, todayKey());
-  }, [state.settings.enabled, today, history, state.baselines]);
+    if (!today && history.length === 0 && samples.length === 0) return null;
+    return assessReadiness({ today, history, samples, baselines: state.baselines }, todayKey());
+  }, [state.settings.enabled, today, history, samples, state.baselines]);
 
   const recommendation = useMemo<CoachingRecommendation | null>(
     () => (assessment ? buildRecommendation(assessment, activeSport, today) : null),

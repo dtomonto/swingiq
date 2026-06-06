@@ -133,6 +133,20 @@ export interface HealthBaselines {
   updatedAt: string | null;
 }
 
+/**
+ * A normalized daily value for one metric (the data-minimized rollup we keep
+ * from device imports — one number per metric per day, never raw payloads).
+ */
+export interface HealthDailySummary {
+  date: string; // YYYY-MM-DD
+  category: HealthCategory;
+  metricType: MetricType;
+  value: number;
+  unit: string;
+  confidence: Confidence;
+  provider: HealthProviderId;
+}
+
 // ── Derived scores ───────────────────────────────────────────
 export interface ScoreResult {
   /** 0–100. Higher = better (more ready / more recovered / more opportunity). */
@@ -237,6 +251,8 @@ export interface BodySyncState {
   connections: HealthConnection[];
   checkins: ManualCheckin[];
   baselines: HealthBaselines;
+  /** Normalized daily device metrics (data-minimized rollups; no raw payloads). */
+  summaries: HealthDailySummary[];
 }
 
 export type { SportId };

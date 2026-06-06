@@ -4,8 +4,9 @@
 
 import {
   saveCheckin, deleteCheckin, consent, setPermissions, clearAllHealthData,
-  exportBodySync, todayKey,
+  exportBodySync, todayKey, importDailySummaries,
 } from '../store';
+import type { HealthDailySummary } from '../types';
 
 // ── minimal window + localStorage polyfill ──
 const mem: Record<string, string> = {};
@@ -74,6 +75,31 @@ it('setPermissions merges granular consent', () => {
   setPermissions({ recovery: true });
   expect(exportBodySync().permissions.recovery).toBe(true);
   expect(exportBodySync().permissions.wellness).toBe(true);
+});
+
+it('importDailySummaries learns baselines, connects the provider, grants categories', () => {
+  const s = (date: string, metricType: HealthDailySummary['metricType'], value: number,
+    category: HealthDailySummary['category'], unit: string): HealthDailySummary =>
+    ({ date, metricType, value, category, unit, confidence: 'high', provider: 'apple_health' });
+
+  importDailySummaries([
+    s('2026-06-03', 'resting_hr', 58, 'cardio', 'bpm'),
+    s('2026-06-04', 'resting_hr', 60, 'cardio', 'bpm'),
+    s('2026-06-05', 'resting_hr', 62, 'cardio', 'bpm'),
+    s('2026-06-04', 'hrv', 40, 'recovery', 'ms'),
+    s('2026-06-05', 'hrv', 50, 'recovery', 'ms'),
+    s('2026-06-04', 'sleep_duration', 7, 'recovery', 'h'),
+    s('2026-06-05', 'sleep_duration', 8, 'recovery', 'h'),
+  ], 'apple_health');
+
+  const out = exportBodySync();
+  expect(out.baselines.restingHr).toBe(60);   // median(58,60,62)
+  expect(out.baselines.hrv).toBe(45);          // median(40,50)
+  expect(out.baselines.sleepHours).toBe(7.5);  // median(7,8)
+  expect(out.summaries).toHaveLength(7);
+  expect(out.connections.find((c) => c.provider === 'apple_health')?.status).toBe('connected');
+  expect(out.permissions.cardio).toBe(true);
+  expect(out.permissions.recovery).toBe(true);
 });
 
 it('clearAllHealthData erases everything (the deletion workflow)', () => {

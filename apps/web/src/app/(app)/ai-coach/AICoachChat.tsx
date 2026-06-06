@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, AlertCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
 import type { CoachContext } from '@/lib/ai-coach-prompts';
 import type { SportId } from '@swingiq/core';
 
@@ -253,6 +254,9 @@ export function AICoachChat({
 
   return (
     <div className="flex flex-col h-[calc(100dvh-4rem)] lg:h-screen max-h-screen p-4 lg:p-6 max-w-4xl mx-auto">
+
+      {/* BodySync readiness — only renders when the user has it enabled */}
+      <div className="shrink-0 mb-3 empty:hidden"><ReadinessSummaryCard compact /></div>
 
       {/* ── Header ──────────────────────────────────────────── */}
       <div className={`mb-4 shrink-0 pb-4 border-b-2 ${display.borderColor}`}>

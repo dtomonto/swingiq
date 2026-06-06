@@ -24,6 +24,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { FIX_CTA } from '@/lib/coaching/fixFraming';
 import { ScoreRing } from '@/components/ui/ScoreRing';
+import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { useSwingVantageStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
@@ -228,6 +229,9 @@ export function DashboardContent() {
           </div>
         </div>
       </div>
+
+      {/* BodySync: today's readiness + recommended session (only when enabled) */}
+      <ReadinessSummaryCard />
 
       {/* Intelligent product layer: Welcome Back / next best step + insights */}
       <DashboardIntelligence />

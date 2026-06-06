@@ -95,6 +95,7 @@ export const DEFAULT_BODYSYNC_STATE: BodySyncState = {
   connections: [],
   checkins: [],
   baselines: { restingHr: null, hrv: null, sleepHours: null, updatedAt: null },
+  summaries: [],
 };
 
 /** Zone → user-facing presentation. */
