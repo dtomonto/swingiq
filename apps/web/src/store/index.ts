@@ -27,6 +27,7 @@ import { createClubsSlice } from './slices/clubs';
 import { createEquipmentSlice } from './slices/equipment';
 import { createSessionsSlice } from './slices/sessions';
 import { createVideoSlice } from './slices/video';
+import { createDailyNotesSlice } from './slices/dailyNotes';
 import { createTrainingSlice } from './slices/training';
 import { createSettingsSlice } from './slices/settings';
 import { createCommunitySlice } from './slices/community';
@@ -45,6 +46,7 @@ export const useSwingVantageStore = create<SwingVantageStore>()(
       ...createEquipmentSlice(set, get, store),
       ...createSessionsSlice(set, get, store),
       ...createVideoSlice(set, get, store),
+      ...createDailyNotesSlice(set, get, store),
       ...createTrainingSlice(set, get, store),
       ...createSettingsSlice(set, get, store),
       ...createCommunitySlice(set, get, store),
@@ -85,6 +87,7 @@ export const useSwingVantageStore = create<SwingVantageStore>()(
           sportEquipment: DEFAULT_SPORT_EQUIPMENT,
           sessions: [],
           video_analyses: [],
+          dailyNotes: [],
           training: DEFAULT_TRAINING,
           settings: DEFAULT_SETTINGS,
           community: DEFAULT_COMMUNITY_STATE,

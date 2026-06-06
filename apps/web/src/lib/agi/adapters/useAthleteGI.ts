@@ -21,6 +21,7 @@ import { loadHistory, recordSnapshot } from '../history';
 import type { AthleteGIResult } from '../types';
 import { bundleFromMotionSessions } from './motion-lab';
 import { bundleFromStore } from './store-sessions';
+import { bundleFromDailyNotes } from './daily-notes';
 import { identityFromStore } from './profile';
 import { useReadinessSnapshot } from './readiness';
 import { useProvenDrills } from './feedback';
@@ -32,6 +33,7 @@ export function useAthleteGI(): AthleteGIResult {
   const sportProfiles = useSwingVantageStore((s) => s.sportProfiles);
   const sessions = useSwingVantageStore((s) => s.sessions);
   const videos = useSwingVantageStore((s) => s.video_analyses);
+  const dailyNotes = useSwingVantageStore((s) => s.dailyNotes);
   const readiness = useReadinessSnapshot();
   const provenDrills = useProvenDrills();
   // Read prior snapshots once on mount (excludes today, so progress is honest).
@@ -40,11 +42,15 @@ export function useAthleteGI(): AthleteGIResult {
   const result = useMemo(() => {
     const identity = identityFromStore(profile, sportProfiles);
     const bundle = mergeBundles(
-      [bundleFromMotionSessions(motionSessions), bundleFromStore(sessions, videos)],
+      [
+        bundleFromMotionSessions(motionSessions),
+        bundleFromStore(sessions, videos),
+        bundleFromDailyNotes(dailyNotes),
+      ],
       identity,
     );
     return runAthleteGI({ ...bundle, readiness, history, provenDrills });
-  }, [motionSessions, profile, sportProfiles, sessions, videos, readiness, history, provenDrills]);
+  }, [motionSessions, profile, sportProfiles, sessions, videos, dailyNotes, readiness, history, provenDrills]);
 
   // Persist today's snapshot for next time (dedupes per day; no-op without data).
   useEffect(() => {

@@ -48,6 +48,7 @@ export function exportUserData(state: SwingVantageState): SwingVantageBackup {
       community: state.community,
       tutorialProgress: state.tutorialProgress,
       agentState: state.agent,
+      dailyNotes: state.dailyNotes,
       preferredLanguage: state.settings.language,
     },
     metadata: {

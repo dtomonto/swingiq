@@ -15,6 +15,7 @@ function makeMinimalState(): SwingVantageState {
     clubs: [],
     sessions: [],
     video_analyses: [],
+    dailyNotes: [],
     training: {
       active_diagnosis_id: null,
       active_session_id: null,

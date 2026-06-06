@@ -224,6 +224,20 @@ registerBackupModule({
 });
 
 registerBackupModule({
+  id: 'daily_notes',
+  label: 'Daily Notes',
+  description: '"How did you play today?" notes, self-ratings, and the faults detected from them.',
+  sensitive: false,
+  exportable: true,
+  getCount: (s) => s.dailyNotes.length,
+  getSummaryLine: (s) => {
+    const n = s.dailyNotes.length;
+    return n > 0 ? `${n} daily note${n !== 1 ? 's' : ''}` : 'No daily notes yet';
+  },
+  getBackupCount: (b) => b.data.dailyNotes?.length ?? 0,
+});
+
+registerBackupModule({
   id: 'settings',
   label: 'App Settings',
   description: 'Language preference, measurement units, coaching style, and display options.',

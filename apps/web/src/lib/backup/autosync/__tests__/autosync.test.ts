@@ -34,6 +34,7 @@ function makeState(over: Partial<SwingVantageState> = {}): SwingVantageState {
     clubs: [],
     sessions: [],
     video_analyses: [],
+    dailyNotes: [],
     sportEquipment: { tennis: [], baseball: [], softball_slow: [], softball_fast: [] },
     training: {
       active_diagnosis_id: null, active_session_id: null, completed_steps: [],

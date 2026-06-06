@@ -39,6 +39,7 @@ import {
   FlaskConical,
   GraduationCap,
   BrainCircuit,
+  NotebookPen,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -112,6 +113,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       children: [
         { href: '/progress', label: 'Progress', icon: TrendingUp },
         { href: '/arc', label: 'Player Arc', icon: Route },
+        { href: '/notes', label: 'Daily Notes', icon: NotebookPen },
         { href: '/sessions', label: sportLabels.sessions, icon: Activity },
         { href: '/retest', label: 'Retest', icon: RotateCcw },
         { href: '/milestones', label: 'Milestones', icon: Trophy },

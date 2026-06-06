@@ -16,6 +16,7 @@ import type { CommunityState } from '@/lib/community/types';
 import { DEFAULT_COMMUNITY_STATE } from '@/lib/community/types';
 import type { TutorialProgress } from '@/lib/tutorial/types';
 import { DEFAULT_TUTORIAL_PROGRESS } from '@/lib/tutorial/types';
+import type { DailyNote } from '@/lib/dailyNotes/types';
 
 export { DEFAULT_COMMUNITY_STATE, DEFAULT_TUTORIAL_PROGRESS };
 
@@ -193,6 +194,8 @@ export interface SwingVantageState {
   sportEquipment: SportEquipment;
   sessions: LocalSession[];
   video_analyses: LocalVideoAnalysis[];
+  /** "How did you play today?" daily notes — feed the AI player profile. */
+  dailyNotes: DailyNote[];
   training: TrainingProgress;
   settings: AppSettings;
   community: CommunityState;
@@ -225,6 +228,10 @@ export interface SwingVantageActions {
   getSessionById: (id: string) => LocalSession | undefined;
   // Video analyses
   addVideoAnalysis: (analysis: Omit<LocalVideoAnalysis, 'id' | 'created_at'>) => void;
+  // Daily notes ("How did you play today?")
+  addDailyNote: (note: Omit<DailyNote, 'id' | 'created_at'>) => void;
+  updateDailyNote: (id: string, updates: Partial<DailyNote>) => void;
+  removeDailyNote: (id: string) => void;
   // Training
   setActiveDiagnosis: (diagnosisId: string | null, sessionId: string | null) => void;
   toggleDrillStep: (stepIndex: number) => void;

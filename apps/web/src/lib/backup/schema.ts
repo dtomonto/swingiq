@@ -15,6 +15,7 @@ import type {
 import type { CommunityState } from '@/lib/community/types';
 import type { LanguageCode } from '@/lib/i18n';
 import type { TutorialProgress } from '@/lib/tutorial/types';
+import type { DailyNote } from '@/lib/dailyNotes';
 
 export const BACKUP_FORMAT = 'swingiq-backup-v1';
 export const CURRENT_BACKUP_VERSION = '1.2.0';
@@ -33,6 +34,8 @@ export interface SwingVantageBackupData {
   community?: CommunityState;
   tutorialProgress?: TutorialProgress;
   agentState?: AgentClientState;
+  /** "How did you play today?" daily notes (optional; older backups omit it). */
+  dailyNotes?: DailyNote[];
   preferredLanguage?: LanguageCode;
 }
 

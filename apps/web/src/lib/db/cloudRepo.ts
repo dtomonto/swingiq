@@ -40,6 +40,10 @@ export function fillDefaults(partial: Partial<SwingVantageState>): SwingVantageS
     sportEquipment: partial.sportEquipment ?? DEFAULT_SPORT_EQUIPMENT,
     sessions: partial.sessions ?? [],
     video_analyses: partial.video_analyses ?? [],
+    // Daily notes are a local-first slice (not a synced table); default to [] so
+    // a cloud-reconstructed state is complete. Local notes are preserved by the
+    // shallow store.setState merge during sync.
+    dailyNotes: partial.dailyNotes ?? [],
     training: partial.training ?? DEFAULT_TRAINING,
     settings: partial.settings ?? DEFAULT_SETTINGS,
     community: partial.community ?? DEFAULT_COMMUNITY_STATE,

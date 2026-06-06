@@ -267,6 +267,10 @@ export function mergeRestore(
     },
   };
 
+  // ── Daily notes (union by id; this device's copies win on conflict) ──
+  const existingNoteIds = new Set(currentState.dailyNotes.map((n) => n.id));
+  const newNotes = (backup.data.dailyNotes ?? []).filter((n) => !existingNoteIds.has(n.id));
+
   // ── Agent layer continuity (dismissals) ──────────────────
   const currentAgent = currentState.agent ?? { dismissedKeys: [], welcomeBackDismissedHash: null };
   const backupAgent = backup.data.agentState;
@@ -286,6 +290,7 @@ export function mergeRestore(
     clubs: [...currentState.clubs, ...newClubs],
     sessions: [...newSessions, ...currentState.sessions],
     video_analyses: [...newVideos, ...currentState.video_analyses],
+    dailyNotes: [...newNotes, ...currentState.dailyNotes],
     training,
     community: mergedCommunity,
     tutorialProgress: mergedTutorialProgress,
@@ -305,6 +310,7 @@ export function replaceRestore(
     clubs: backup.data.clubs ?? [],
     sessions: backup.data.sessions ?? [],
     video_analyses: backup.data.videoAnalyses ?? [],
+    dailyNotes: backup.data.dailyNotes ?? [],
     training: backup.data.training,
     community: backup.data.community,
     tutorialProgress: backup.data.tutorialProgress ?? DEFAULT_TUTORIAL_PROGRESS,

@@ -26,6 +26,7 @@ function state(over: Partial<SwingVantageState>): SwingVantageState {
     sportEquipment: DEFAULT_SPORT_EQUIPMENT,
     sessions: [],
     video_analyses: [],
+    dailyNotes: [],
     training: DEFAULT_TRAINING,
     settings: DEFAULT_SETTINGS,
     community: DEFAULT_COMMUNITY_STATE,
