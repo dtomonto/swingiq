@@ -21,7 +21,7 @@
     "durationSec": 24
   },
   "sessions": {
-    "durationSec": 31
+    "durationSec": 24
   },
   "compare": {
     "durationSec": 32
@@ -30,7 +30,7 @@
     "durationSec": 30
   },
   "training": {
-    "durationSec": 31
+    "durationSec": 23
   },
   "fix-stack": {
     "durationSec": 31
