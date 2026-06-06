@@ -176,13 +176,19 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
   {
     id: 'welcome',
     title: 'Welcome to SwingVantage',
-    description: 'A 2-minute tour of what SwingVantage is and how it helps you improve.',
+    description: 'A quick guided tour of what SwingVantage is and how it helps you improve.',
     audiences: 'all',
     category: 'getting-started',
-    duration: '2:00',
+    duration: '1:05',
     route: '/dashboard',
     journeyStage: 'discover',
     priority: 'high',
+    // Real screen-recorded tour (public asset). videoUrl serves the modal
+    // player; mp4Src/thumbnail light up the inline SmartVideoSlot placements.
+    videoUrl: '/tutorials/sources/welcome.mp4',
+    poster: '/tutorials/sources/welcome-poster.jpg',
+    mp4Src: '/tutorials/sources/welcome.mp4',
+    thumbnail: '/tutorials/sources/welcome-poster.jpg',
     fallbackText: 'Here’s the 60-second version of how SwingVantage works.',
     script: [
       'SwingVantage is your personal performance system for golf, tennis, baseball, and softball.',
