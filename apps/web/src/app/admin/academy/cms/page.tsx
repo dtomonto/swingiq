@@ -46,6 +46,7 @@ export default function CmsDashboard() {
         <div className="flex gap-2">
           <Link href="/admin/academy/cms/lesson/new"><Button>+ New lesson</Button></Link>
           <Link href="/admin/academy/cms/course/new"><Button variant="outline">+ New course</Button></Link>
+          <Link href="/admin/academy/cms/generate"><Button variant="outline">⚡ From release note</Button></Link>
         </div>
       </div>
 

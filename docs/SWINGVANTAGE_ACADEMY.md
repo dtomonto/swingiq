@@ -137,7 +137,7 @@ refresh. Mirrors the product's own honesty standard (see `feedback_no_misleading
 | **1** | Foundation: types, engine, seed content, store; Home / Catalog / Path / Course / Lesson / Quiz / Dashboard / Badges / Certifications | **done** |
 | **2** | Gamification (learning streaks + momentum, earned-achievement toaster), full certification flow (printable certificate pages + recertification), quiz question shuffle, content expansion (AI Coaching Engine + Product QA paths/courses/certs) | **done** |
 | **3** | Admin CMS at `/admin/academy/cms`: author/edit courses & lessons, workflow (draft→review→approved→published→deprecated→archived), review queue, audit log; published items overlay the seed via `overlay.ts` and appear in the catalog/course/lesson pages | **done** |
-| 4 | AI Learning Advisor + AI tutor + release-note→draft-course generation | planned |
+| **4** | AI Learning Advisor (`/advisor`, ranked deterministic plan), grounded AI tutor (answers only from approved lessons, with citations — `tutor.ts`), release-note→draft-course generation (`generate.ts` → CMS drafts at `/cms/generate`). Keyless-first; LLM reword is an optional later upgrade | **done** |
 | 5 | Analytics + manager/exec dashboards + assignments + notifications | planned |
 | 6 | Advanced simulations (support tickets, sales roleplay, AI-reviewed responses) | planned |
 

@@ -13,6 +13,9 @@ import { DEFAULT_ACADEMY_PROGRESS, type AcademyProgress } from '../types';
 import { useAcademyStore } from '../store';
 import { useAcademyCmsStore, type CmsLesson, type CmsCourse } from '../cms';
 import { resolveLesson, resolveCourseBySlug, mergedCourses } from '../overlay';
+import { askTutor } from '../tutor';
+import { advisorPlan } from '../advisor';
+import { generateFromRelease } from '../generate';
 
 // Build a progress object with the given lessons complete + quizzes passed.
 function progressWith(opts: {
@@ -223,5 +226,33 @@ describe('Academy CMS + overlay (Phase 3)', () => {
     const audit = useAcademyCmsStore.getState().audit;
     expect(audit.length).toBeGreaterThanOrEqual(2);
     expect(audit[0].action).toContain('review');
+  });
+});
+
+describe('Academy AI layer (Phase 4)', () => {
+  it('tutor answers from approved content with citations', () => {
+    const a = askTutor('how do I upload a swing video');
+    expect(a.grounded).toBe(true);
+    expect(a.citations.some((c) => c.lessonId === 'l-upload')).toBe(true);
+  });
+
+  it('tutor refuses to guess outside approved content', () => {
+    const a = askTutor('zzxq nonsense quux');
+    expect(a.grounded).toBe(false);
+    expect(a.citations.length).toBe(0);
+  });
+
+  it('advisor recommends next steps for a fresh learner', () => {
+    const plan = advisorPlan({ ...DEFAULT_ACADEMY_PROGRESS, roleId: 'support' });
+    expect(plan.length).toBeGreaterThan(0);
+    expect(plan.some((i) => i.kind === 'continue' || i.kind === 'cert-gap')).toBe(true);
+  });
+
+  it('generate produces draft training from a release note', () => {
+    const g = generateFromRelease({ title: 'New thing', body: '- does X\n- does Y\n\nIt works well.' });
+    expect(g.lesson.status).toBe('draft');
+    expect(g.course.status).toBe('draft');
+    expect(g.lesson.objectives.length).toBeGreaterThanOrEqual(2);
+    expect(g.checklists.qa.length).toBeGreaterThan(0);
   });
 });
