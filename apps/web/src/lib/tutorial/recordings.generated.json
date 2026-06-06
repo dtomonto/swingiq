@@ -37,5 +37,26 @@
   },
   "ai-coach": {
     "durationSec": 31
+  },
+  "video-analysis": {
+    "durationSec": 28
+  },
+  "motion-lab": {
+    "durationSec": 25
+  },
+  "avatar": {
+    "durationSec": 24
+  },
+  "import-data": {
+    "durationSec": 24
+  },
+  "import-image": {
+    "durationSec": 25
+  },
+  "practice-schedule": {
+    "durationSec": 25
+  },
+  "pre-round": {
+    "durationSec": 23
   }
 }

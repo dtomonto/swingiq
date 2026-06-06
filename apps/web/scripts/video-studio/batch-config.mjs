@@ -10,19 +10,22 @@
 export const GROUPS = {
   'getting-started': ['start-here', 'dashboard', 'switch-sport', 'navigation'],
   core: ['diagnose', 'progress', 'sessions', 'compare', 'drills', 'training', 'fix-stack', 'ai-coach'],
+  analyze: ['video-analysis', 'motion-lab', 'avatar', 'import-data', 'import-image', 'practice-schedule', 'pre-round'],
+  'progress-share': ['player-arc', 'retest', 'milestones', 'labs', 'benchmarks', 'reports', 'coach-summary', 'parent-summary'],
+  'account-community': ['profile', 'equipment', 'community', 'badges', 'challenges', 'leaderboard', 'groups', 'data-center', 'settings'],
 };
 
 // Shared "tour a page" scene: settle, slow-scroll down to reveal content,
-// pause, then ease back to the top. ~26s to roughly match a 4-line narration.
+// pause, then ease back to the top. ~22s to roughly match a 4-line narration.
 async function tourPage(h, route) {
   await h.go(route);
-  await h.dwell(3000);
-  await h.gentleScroll(9000, 0.55);
-  await h.dwell(2500);
-  await h.gentleScroll(7000, 0.95);
-  await h.dwell(2500);
-  await h.scrollTop(2000);
+  await h.dwell(2400);
+  await h.gentleScroll(6500, 0.55);
+  await h.dwell(2000);
+  await h.gentleScroll(5500, 0.95);
   await h.dwell(1800);
+  await h.scrollTop(1600);
+  await h.dwell(1200);
 }
 
 export const VIDEO_CONFIG = {
@@ -174,5 +177,227 @@ export const VIDEO_CONFIG = {
       'One limit to know: it does not watch your swing live. For that, use Video Analysis or Motion Lab.',
     ].join(' '),
     scenes: (h) => tourPage(h, '/ai-coach'),
+  },
+
+  // ── Analyze + Practice ────────────────────────────────────
+  'video-analysis': {
+    narration: [
+      'Film from a steady position — down-the-line or face-on. Keep the whole body in frame.',
+      'Upload the clip on the Video Analysis screen. SwingVantage breaks the swing into phases and looks for common faults in each.',
+      'Every finding comes with a plain-language explanation and how strongly we believe it — shown as a confidence level.',
+      'Visual conclusions are labeled as estimates, not measurements. Use them as a smart starting point, not the final word.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/video'),
+  },
+  'motion-lab': {
+    narration: [
+      'Motion Lab estimates your body motion in 3D, right in the browser, from a normal video.',
+      'Record or upload a swing and SwingVantage tracks key body points through the movement.',
+      'Use it to see rotation, sequence, and timing that are hard to judge with the naked eye.',
+      'Like all visual analysis, it is an estimate — great for spotting patterns and comparing before and after.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/motion-lab'),
+  },
+  avatar: {
+    narration: [
+      'The Swing Avatar turns your motion into a simple 3D figure you can orbit and replay.',
+      'Stripping away the background makes positions and sequence much easier to see.',
+      'Scrub through the phases to check positions at takeaway, top, and impact.',
+      'It is a visualization aid — pair it with Diagnose or Video Analysis for the what-to-fix part.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/avatar'),
+  },
+  'import-data': {
+    narration: [
+      'Export a CSV from your launch monitor and drop it onto the import screen.',
+      'SwingVantage reads the columns and maps them to the right metrics — carry, ball speed, launch, spin, and more.',
+      'Review the preview to make sure everything mapped correctly, then save it as a session.',
+      'Imported sessions feed your diagnosis, progress charts, and benchmarks — the more data, the sharper the picture.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/sessions/import'),
+  },
+  'import-image': {
+    narration: [
+      'Take a clear, well-lit photo of the data table on your launch monitor screen.',
+      'Upload it and SwingVantage reads the numbers from the image automatically.',
+      'Always check the extracted values for accuracy and fix any misreads before saving.',
+      'It is the fastest way to capture a session when you cannot export a file.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/sessions/import/image'),
+  },
+  'practice-schedule': {
+    narration: [
+      'Tell SwingVantage how many days a week you practice and how long sessions run.',
+      'You will get a day-by-day plan, each with a single clear focus.',
+      'Sticking to the focus for each session is what drives real change.',
+      'Adjust anytime — the schedule flexes around your week, not the other way around.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/practice'),
+  },
+  'pre-round': {
+    narration: [
+      'Before a round or game, get a quick warm-up tuned to your current focus.',
+      'It activates the movements you have been practicing so they show up when it counts.',
+      'It also surfaces early if your timing or contact is off, before the first shot matters.',
+      'A few focused minutes here beats a generic warm-up every time.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/pre-round'),
+  },
+
+  // ── Progress + Share ──────────────────────────────────────
+  'player-arc': {
+    narration: [
+      'Player Arc stitches your sessions into a narrative of how far you have come.',
+      'It highlights breakthroughs, plateaus, and what changed around them.',
+      'It is a motivating way to look back — especially for young athletes and the parents cheering them on.',
+      'The more you practice and retest, the richer your arc becomes.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/arc'),
+  },
+  retest: {
+    narration: [
+      'A retest repeats an earlier check so you can compare apples to apples.',
+      'SwingVantage shows the before and after side by side, with what moved.',
+      'It is the honest way to know whether a swing change helped — not just felt good.',
+      'Set a retest reminder so you actually circle back at the right time.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/retest'),
+  },
+  milestones: {
+    narration: [
+      'Milestones celebrate real progress — your tenth session, a seven-day streak, a new personal best.',
+      'They are awarded automatically as you train, no setup needed.',
+      'They are a great motivator for kids and a simple way for parents to see effort paying off.',
+      'All milestones are saved in your backup, so your history is safe.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/milestones'),
+  },
+  labs: {
+    narration: [
+      'Labs is where new, forward-looking features live — readiness scores, a private player model, skill transfer, and benchmark mirrors.',
+      'Some are early first versions, and each is honest about what it does and does not yet know.',
+      'They build on your Player Arc and practice history.',
+      'Explore them to get a peek at where your SwingVantage is heading.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/labs'),
+  },
+  benchmarks: {
+    narration: [
+      'Benchmarks show typical numbers by skill level and sport.',
+      'They turn your data into context — not just my carry is two-thirty, but how that compares.',
+      'Use them to set realistic targets for the next few weeks.',
+      'Pair benchmarks with your progress charts to aim at the right next step.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/benchmarks'),
+  },
+  reports: {
+    narration: [
+      'Select one or more sessions and generate a report with metrics, issues, trends, and drills.',
+      'Download it as a PDF or copy a summary to send to a coach.',
+      'It gives whoever helps you the full context of what you have been working on.',
+      'Reports are a simple bridge between solo practice and real coaching.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/reports'),
+  },
+  'coach-summary': {
+    narration: [
+      'As a coach, use reports to build a clear summary for each athlete you work with.',
+      'Each summary captures the priorities, the data behind them, and the recommended drills.',
+      'Share it before or after a lesson so everyone is on the same page.',
+      'It is a lightweight way to keep a whole group moving in the same direction.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/reports'),
+  },
+  'parent-summary': {
+    narration: [
+      'SwingVantage is built for parent-guided youth practice — encouraging and safety-first.',
+      'Your dashboard and Player Arc give a simple read on effort and progress, no jargon required.',
+      'Focus on the streak and the single Today’s Fix — consistency matters more than intensity for young athletes.',
+      'Generate a report to share with a coach, or just to celebrate how far your athlete has come.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/dashboard'),
+  },
+
+  // ── Account + Community + Data ────────────────────────────
+  profile: {
+    narration: [
+      'Your profile tunes every recommendation to you — the more you add, the better the fit.',
+      'For golf: handicap, scoring average, typical miss, and skill level.',
+      'For tennis, baseball, and softball: position, swing side, level, and gear.',
+      'A beginner needs different feedback than an advanced player — your profile is how SwingVantage knows the difference.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/profile'),
+  },
+  equipment: {
+    narration: [
+      'Add the gear you actually use — clubs, a bat, or a racket and string setup.',
+      'For golf, lofts and carry distances let SwingVantage spot gapping issues between clubs.',
+      'For bats and rackets, the specs help tailor advice to your equipment.',
+      'It all saves to your backup, so you only enter it once.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/equipment'),
+  },
+  community: {
+    narration: [
+      'Community turns real training into momentum: experience points for sessions, streaks for showing up, badges for progress.',
+      'Everything is tied to genuine effort — there are no shortcuts that skip the work.',
+      'Your profile is private by default, and you choose what, if anything, to share.',
+      'Youth athletes get extra privacy protections automatically.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/community'),
+  },
+  badges: {
+    narration: [
+      'Badges are earned automatically when you hit a goal — first session, week-long streak, a personal best.',
+      'They are grouped by theme: consistency, improvement, sport mastery, even data protection.',
+      'Locked badges show a progress bar so you can see what to chase next.',
+      'They are a fun nudge to keep the good habits going.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/community/badges'),
+  },
+  challenges: {
+    narration: [
+      'Challenges are short goals powered by your real sessions — like five sessions in seven days.',
+      'Tap Join and your sessions start counting automatically.',
+      'Finishing earns experience points and often a badge.',
+      'They are a great way to add a little structure and fun to a practice week.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/community/challenges'),
+  },
+  leaderboard: {
+    narration: [
+      'Rankings reward improvement and consistency, so beginners and pros can compete fairly.',
+      'Your real name is never shown unless you choose to — you appear anonymous by default.',
+      'You can opt out of leaderboards entirely in privacy settings.',
+      'Youth athletes are never ranked against adults.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/community/leaderboard'),
+  },
+  groups: {
+    narration: [
+      'Join a group to train alongside athletes who share your sport.',
+      'Public groups you can join instantly; private ones need an invite.',
+      'Many groups run their own challenges with exclusive badges.',
+      'For coaches and programs, groups are a simple home base for a roster.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/community/groups'),
+  },
+  'data-center': {
+    narration: [
+      'SwingVantage saves your data on your device and syncs it to your account, so your progress is safe across devices.',
+      'Tap Download Backup to save a complete copy: sessions, profiles, equipment, progress, and badges.',
+      'You can password-protect the file. Keep that password safe — without it, an encrypted backup cannot be recovered.',
+      'To restore, upload the file and preview what comes back. Use Merge to add without deleting, or Replace for a full reset.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/data'),
+  },
+  settings: {
+    narration: [
+      'Switch between twenty languages — the whole app updates instantly.',
+      'Choose yards and feet or meters for every distance.',
+      'Pick a coaching style: detailed, concise, encouraging, or balanced.',
+      'Set privacy controls for what, if anything, the community can see. Your preferences travel in your backup.',
+    ].join(' '),
+    scenes: (h) => tourPage(h, '/settings'),
   },
 };

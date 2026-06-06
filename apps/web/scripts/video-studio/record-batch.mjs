@@ -131,14 +131,24 @@ function ttsTo(mp3Path, narration) {
   if (!key) throw new Error('OPENAI_API_KEY not found');
   const body = join(WORK, 'body.json');
   writeFileSync(body, JSON.stringify({ model: 'tts-1', voice: 'nova', input: narration, response_format: 'mp3' }));
-  rmSync(mp3Path, { force: true });
-  execFileSync('curl', [
-    '-s', '--fail-with-body', '--max-time', '120',
-    'https://api.openai.com/v1/audio/speech',
-    '-H', `Authorization: Bearer ${key}`, '-H', 'Content-Type: application/json',
-    '--data', `@${body}`, '-o', mp3Path,
-  ], { stdio: ['ignore', 'ignore', 'inherit'] });
-  if (!existsSync(mp3Path) || statSync(mp3Path).size < 1000) throw new Error('TTS produced empty audio');
+  // Keep the API key in a curl config file (-K), NEVER in argv, so it can't
+  // leak into error messages or logs. The .work dir is gitignored.
+  const cfgFile = join(WORK, 'curl.cfg');
+  writeFileSync(cfgFile,
+    `url = "https://api.openai.com/v1/audio/speech"\n` +
+    `header = "Authorization: Bearer ${key}"\n` +
+    `header = "Content-Type: application/json"\n` +
+    `data = "@${body.replace(/\\/g, '/')}"\n` +
+    `silent\nfail-with-body\nmax-time = 120\n`);
+  let ok = false;
+  for (let attempt = 1; attempt <= 3 && !ok; attempt++) {
+    rmSync(mp3Path, { force: true });
+    try { execFileSync('curl', ['-K', cfgFile, '-o', mp3Path], { stdio: ['ignore', 'ignore', 'ignore'] }); } catch { /* transient — retry */ }
+    ok = existsSync(mp3Path) && statSync(mp3Path).size >= 1000;
+    if (!ok && attempt < 3) console.log(`  tts retry ${attempt}…`);
+  }
+  rmSync(cfgFile, { force: true });
+  if (!ok) throw new Error('TTS failed after 3 attempts (no audio)');
 }
 
 async function recordOne(id) {
@@ -216,5 +226,10 @@ for (const a of args) {
 if (!ids.length) { console.error('usage: record-batch.mjs <id|group:name> ...'); process.exit(1); }
 
 await ensureState();
-for (const id of ids) await recordOne(id);
-console.log('\nDONE:', ids.join(', '));
+const done = [], failed = [];
+for (const id of ids) {
+  try { await recordOne(id); done.push(id); }
+  catch (e) { failed.push(id); console.log(`  !! ${id} failed: ${e.message.split('\n')[0]}`); }
+}
+console.log('\nDONE:', done.join(', '));
+if (failed.length) console.log('FAILED:', failed.join(', '));

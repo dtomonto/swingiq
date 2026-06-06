@@ -58,18 +58,16 @@ const bodyPath = join(WORK, 'body.json');
 fs.writeFileSync(bodyPath, JSON.stringify({ model: 'tts-1', voice: 'nova', input: NARRATION, response_format: 'mp3' }));
 rmSync(VO, { force: true });
 console.log('Requesting OpenAI TTS via curl…');
-execFileSync(
-  'curl',
-  [
-    '-s', '--fail-with-body', '--max-time', '120',
-    'https://api.openai.com/v1/audio/speech',
-    '-H', `Authorization: Bearer ${KEY}`,
-    '-H', 'Content-Type: application/json',
-    '--data', `@${bodyPath}`,
-    '-o', VO,
-  ],
-  { stdio: ['ignore', 'ignore', 'inherit'] },
-);
+// Key goes in a curl config file (-K), never argv, so it can't leak into logs.
+const cfgFile = join(WORK, 'curl.cfg');
+fs.writeFileSync(cfgFile,
+  `url = "https://api.openai.com/v1/audio/speech"\n` +
+  `header = "Authorization: Bearer ${KEY}"\n` +
+  `header = "Content-Type: application/json"\n` +
+  `data = "@${bodyPath.replace(/\\/g, '/')}"\n` +
+  `silent\nfail-with-body\nmax-time = 120\n`);
+try { execFileSync('curl', ['-K', cfgFile, '-o', VO], { stdio: ['ignore', 'ignore', 'ignore'] }); } catch { /* checked below */ }
+rmSync(cfgFile, { force: true });
 if (!existsSync(VO) || fs.statSync(VO).size < 1000) throw new Error('TTS produced no/empty audio at ' + VO);
 console.log('voiceover written:', VO, `(${fs.statSync(VO).size} bytes)`);
 
