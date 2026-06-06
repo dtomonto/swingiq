@@ -25,6 +25,8 @@ interface Props {
   posts: PostLite[];
   choices: Choices;
   defaultPlatforms: string[];
+  /** Blog posts the commit hook flagged for social (newest first). */
+  pending?: { slug: string; title: string }[];
 }
 
 // Shape of /api/social/list rows (kept local so we don't import the
@@ -68,7 +70,7 @@ function scoreColor(score: number): string {
   return 'bg-red-500/15 text-red-300 border-red-500/30';
 }
 
-export function SocialStudio({ posts, choices, defaultPlatforms }: Props) {
+export function SocialStudio({ posts, choices, defaultPlatforms, pending = [] }: Props) {
   const [slug, setSlug] = useState(posts[0]?.slug ?? '');
   const [platforms, setPlatforms] = useState<Set<string>>(new Set(defaultPlatforms));
   const [brandVoice, setBrandVoice] = useState('coach');
@@ -91,6 +93,7 @@ export function SocialStudio({ posts, choices, defaultPlatforms }: Props) {
   const [library, setLibrary] = useState<SnapshotLite[]>([]);
   const [savingLib, setSavingLib] = useState(false);
   const [persistOff, setPersistOff] = useState(false);
+  const [dismissed, setDismissed] = useState<Set<string>>(new Set());
 
   const buildOptions = (override?: string[]) => ({
     platforms: override ?? Array.from(platforms),
@@ -319,6 +322,36 @@ export function SocialStudio({ posts, choices, defaultPlatforms }: Props) {
               </option>
             ))}
           </select>
+
+          {pending.filter((p) => !dismissed.has(p.slug)).length > 0 && (
+            <div className="rounded-md border border-amber-500/30 bg-amber-500/10 p-2.5">
+              <p className="text-[11px] font-semibold text-amber-300 mb-1.5">
+                Flagged for social (new posts)
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {pending
+                  .filter((p) => !dismissed.has(p.slug))
+                  .map((p) => (
+                    <span key={p.slug} className="inline-flex items-center gap-1 rounded bg-amber-500/15 border border-amber-500/30 px-1.5 py-0.5">
+                      <button
+                        onClick={() => setSlug(p.slug)}
+                        title={p.title}
+                        className="text-[11px] text-amber-200 hover:text-white max-w-[150px] truncate"
+                      >
+                        {p.title}
+                      </button>
+                      <button
+                        onClick={() => setDismissed((d) => new Set(d).add(p.slug))}
+                        title="Dismiss"
+                        className="text-amber-400/70 hover:text-amber-200 text-[11px] leading-none"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+              </div>
+            </div>
+          )}
 
           <div>
             <span className="block text-xs font-semibold text-gray-300 mb-1.5">Platforms</span>

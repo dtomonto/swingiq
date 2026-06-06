@@ -10,6 +10,7 @@ import type { Metadata } from 'next';
 import { BLOG_POSTS } from '@/data/blog-posts';
 import { OPTION_CHOICES } from '@/lib/social/options';
 import { DEFAULT_PLATFORMS } from '@/lib/social/platforms';
+import socialPending from '@/data/social-pending.json';
 import { SocialStudio } from './SocialStudio';
 
 export const metadata: Metadata = {
@@ -26,6 +27,13 @@ export default function SocialAdminPage() {
     publishDate: p.publishDate,
   }));
 
+  // Posts the commit hook flagged for social, newest first, still-existing only.
+  const pending = (socialPending as Array<{ slug: string }>)
+    .map((q) => BLOG_POSTS.find((b) => b.slug === q.slug))
+    .filter((b): b is (typeof BLOG_POSTS)[number] => Boolean(b))
+    .map((b) => ({ slug: b.slug, title: b.title }))
+    .reverse();
+
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <header className="mb-6">
@@ -35,7 +43,12 @@ export default function SocialAdminPage() {
           export. Nothing is ever auto-published.
         </p>
       </header>
-      <SocialStudio posts={posts} choices={OPTION_CHOICES} defaultPlatforms={DEFAULT_PLATFORMS} />
+      <SocialStudio
+        posts={posts}
+        choices={OPTION_CHOICES}
+        defaultPlatforms={DEFAULT_PLATFORMS}
+        pending={pending}
+      />
     </div>
   );
 }

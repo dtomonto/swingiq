@@ -17,6 +17,7 @@ set -e
 last_subject=$(git log -1 --pretty=%s 2>/dev/null || echo "")
 case "$last_subject" in
   "chore(updates): publish entries from commit trailers"*) exit 0 ;;
+  "chore(social): flag new blog posts for social"*) exit 0 ;;
 esac
 [ -n "$SWINGVANTAGE_UPDATES_HOOK" ] && exit 0
 export SWINGVANTAGE_UPDATES_HOOK=1
@@ -34,6 +35,15 @@ if ! git diff --quiet -- $files 2>/dev/null; then
   git add -- $files
   git commit -m "chore(updates): publish entries from commit trailers" -- $files || exit 0
   echo "swingvantage: published update entries (see /updates draft + /dev-updates)."
+fi
+
+# ── Blog → Social: flag newly-published posts for social generation ──
+node scripts/generate-social-queue.mjs --quiet || exit 0
+social_file="apps/web/src/data/social-pending.json"
+if ! git diff --quiet -- "$social_file" 2>/dev/null; then
+  git add -- "$social_file"
+  git commit -m "chore(social): flag new blog posts for social" -- "$social_file" || exit 0
+  echo "swingvantage: flagged new blog post(s) for social (see /admin/social)."
 fi
 
 exit 0
