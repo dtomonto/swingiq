@@ -1,0 +1,116 @@
+// SwingVantage Academy — Roles + Badges (seed content).
+import type { AcademyRole, Badge } from '../types';
+
+export const ROLES: AcademyRole[] = [
+  {
+    id: 'new-hire', label: 'New Hire', emoji: '🌱',
+    blurb: 'Just joined — start here for a guided 30-day ramp.',
+    recommendedPathSlugs: ['new-hire-onboarding', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-foundations',
+  },
+  {
+    id: 'support', label: 'Customer Support', emoji: '🎧',
+    blurb: 'Solve user problems fast and consistently.',
+    recommendedPathSlugs: ['customer-support-readiness', 'video-analysis-mastery', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-support',
+  },
+  {
+    id: 'sales', label: 'Sales & Partnerships', emoji: '📈',
+    blurb: 'Position and demo SwingVantage with confidence.',
+    recommendedPathSlugs: ['sales-demo-readiness', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-sales',
+  },
+  {
+    id: 'coach', label: 'Coach', emoji: '📋',
+    blurb: 'Run a high-quality coaching workflow in the product.',
+    recommendedPathSlugs: ['coach-mode-certification', 'video-analysis-mastery'],
+    targetCertificationId: 'cert-coach',
+  },
+  {
+    id: 'product', label: 'Product', emoji: '🧭',
+    blurb: 'Know every feature, its value, and its limits.',
+    recommendedPathSlugs: ['video-analysis-mastery', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-foundations',
+  },
+  {
+    id: 'qa', label: 'QA', emoji: '🔍',
+    blurb: 'Validate the platform like an expert user.',
+    recommendedPathSlugs: ['video-analysis-mastery', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-foundations',
+  },
+  {
+    id: 'marketing', label: 'Marketing', emoji: '📣',
+    blurb: 'Explain and promote SwingVantage accurately.',
+    recommendedPathSlugs: ['swingvantage-foundations'],
+    targetCertificationId: 'cert-foundations',
+  },
+  {
+    id: 'admin', label: 'Admin & Ops', emoji: '⚙️',
+    blurb: 'Operate and safeguard the platform.',
+    recommendedPathSlugs: ['admin-operations-mastery', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-admin',
+  },
+  {
+    id: 'executive', label: 'Executive', emoji: '🏆',
+    blurb: 'Strategic fluency across capability, risk, and growth.',
+    recommendedPathSlugs: ['swingvantage-foundations'],
+    targetCertificationId: 'cert-foundations',
+  },
+  {
+    id: 'engineering', label: 'Engineering', emoji: '🛠️',
+    blurb: 'Understand the product you build, end to end.',
+    recommendedPathSlugs: ['swingvantage-foundations', 'video-analysis-mastery'],
+    targetCertificationId: 'cert-foundations',
+  },
+  {
+    id: 'ai-ml', label: 'AI / ML', emoji: '🤖',
+    blurb: 'Own the responsible-AI workflows and quality bar.',
+    recommendedPathSlugs: ['video-analysis-mastery', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-foundations',
+  },
+  {
+    id: 'content', label: 'Content', emoji: '✍️',
+    blurb: 'Produce accurate, on-brand learning and marketing content.',
+    recommendedPathSlugs: ['swingvantage-foundations'],
+    targetCertificationId: 'cert-foundations',
+  },
+  {
+    id: 'partner', label: 'Partner', emoji: '🤝',
+    blurb: 'External organizations enabling SwingVantage.',
+    recommendedPathSlugs: ['sales-demo-readiness', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-sales',
+  },
+  {
+    id: 'power-user', label: 'Power User', emoji: '⚡',
+    blurb: 'Go deep on advanced workflows across the product.',
+    recommendedPathSlugs: ['video-analysis-mastery', 'coach-mode-certification'],
+    targetCertificationId: 'cert-coach',
+  },
+];
+
+export const BADGES: Badge[] = [
+  { id: 'b-foundations', name: 'Foundations', tier: 'bronze', emoji: '🎓',
+    description: 'Completed the SwingVantage Foundations path.',
+    criteria: 'Finish every course in SwingVantage Foundations.' },
+  { id: 'b-product-tour', name: 'Product Tour', tier: 'bronze', emoji: '🧭',
+    description: 'Knows what SwingVantage is and who it serves.',
+    criteria: 'Complete the "What SwingVantage Is" course.' },
+  { id: 'b-video-pro', name: 'Video Analysis Pro', tier: 'silver', emoji: '🎥',
+    description: 'Fluent in the upload → analysis → explain pipeline.',
+    criteria: 'Complete the Video Analysis Mastery path.' },
+  { id: 'b-responsible-ai', name: 'Responsible AI', tier: 'silver', emoji: '🛡️',
+    description: 'Explains AI honestly and within guardrails.',
+    criteria: 'Complete "Responsible AI & User Trust".' },
+  { id: 'b-coach', name: 'Certified Coach', tier: 'gold', emoji: '📋',
+    description: 'Runs a high-quality coaching workflow.',
+    criteria: 'Earn the SwingVantage Certified Coach certification.' },
+  { id: 'b-support', name: 'Support Specialist', tier: 'gold', emoji: '🎧',
+    description: 'Resolves the top user issues confidently.',
+    criteria: 'Earn the SwingVantage Certified Support Specialist certification.' },
+  { id: 'b-sales', name: 'Demo Ready', tier: 'gold', emoji: '📈',
+    description: 'Demos and positions SwingVantage with confidence.',
+    criteria: 'Earn the SwingVantage Certified Sales Demo certification.' },
+  { id: 'b-admin', name: 'Platform Operator', tier: 'gold', emoji: '⚙️',
+    description: 'Operates the platform safely.',
+    criteria: 'Earn the SwingVantage Certified Admin certification.' },
+];

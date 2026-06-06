@@ -1,0 +1,57 @@
+// SwingVantage Academy — Certifications (seed content).
+import type { Certification } from '../types';
+
+export const CERTIFICATIONS: Certification[] = [
+  {
+    id: 'cert-foundations', emoji: '🎓',
+    name: 'SwingVantage Foundations Certified',
+    description: 'Proves a shared, accurate understanding of the product, its sports, personas, and responsible-AI guardrails.',
+    requiredCourseIds: ['c-what-is', 'c-sports', 'c-personas', 'c-journey', 'c-responsible-ai'],
+    passingScore: 80,
+    expiresMonths: 12,
+    badgeId: 'b-foundations',
+  },
+  {
+    id: 'cert-coach', emoji: '📋',
+    name: 'SwingVantage Certified Coach',
+    description: 'Certifies a high-quality coaching workflow: manage athletes, assign one fix at a time, and prove change.',
+    requiredCourseIds: ['c-coach-dash', 'c-coach-workflow', 'c-results', 'c-3d'],
+    requiredChallengeIds: ['ch-coach-demo'],
+    finalAssessmentQuizId: 'q-coach-final',
+    passingScore: 80,
+    expiresMonths: 12,
+    badgeId: 'b-coach',
+  },
+  {
+    id: 'cert-support', emoji: '🎧',
+    name: 'SwingVantage Certified Support Specialist',
+    description: 'Certifies fast, consistent resolution of the top user issues within our trust and escalation rules.',
+    requiredCourseIds: ['c-support-console', 'c-top-issues', 'c-upload', 'c-responsible-ai'],
+    requiredChallengeIds: ['ch-support-ticket'],
+    finalAssessmentQuizId: 'q-support-final',
+    passingScore: 80,
+    expiresMonths: 12,
+    badgeId: 'b-support',
+  },
+  {
+    id: 'cert-sales', emoji: '📈',
+    name: 'SwingVantage Certified Sales Demo',
+    description: 'Certifies confident, honest positioning and persona-tailored demos.',
+    requiredCourseIds: ['c-positioning', 'c-demos', 'c-what-is'],
+    requiredChallengeIds: ['ch-coach-demo'],
+    finalAssessmentQuizId: 'q-sales-final',
+    passingScore: 80,
+    expiresMonths: 12,
+    badgeId: 'b-sales',
+  },
+  {
+    id: 'cert-admin', emoji: '⚙️',
+    name: 'SwingVantage Certified Admin',
+    description: 'Certifies safe platform operation: admin tools, secrets hygiene, and privacy posture.',
+    requiredCourseIds: ['c-admin', 'c-responsible-ai'],
+    requiredChallengeIds: ['ch-admin-path'],
+    passingScore: 80,
+    expiresMonths: 12,
+    badgeId: 'b-admin',
+  },
+];

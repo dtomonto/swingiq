@@ -1,0 +1,60 @@
+// SwingVantage Academy — Vantage Paths (seed content).
+import type { VantagePath } from '../types';
+
+export const PATHS: VantagePath[] = [
+  {
+    id: 'path-foundations', slug: 'swingvantage-foundations', emoji: '🎓', accent: 'primary',
+    title: 'SwingVantage Foundations',
+    purpose: 'Teach every internal user what SwingVantage is, who it serves, and how the whole product works — honestly and consistently.',
+    roleIds: 'all', difficulty: 'foundational',
+    courseIds: ['c-what-is', 'c-sports', 'c-personas', 'c-journey', 'c-responsible-ai'],
+    certificationId: 'cert-foundations',
+  },
+  {
+    id: 'path-onboarding', slug: 'new-hire-onboarding', emoji: '🌱', accent: 'accent-secondary',
+    title: 'New-Hire Onboarding (30 Days)',
+    purpose: 'A guided first month: learn the product, the journey, and your role — ending in your first certification.',
+    roleIds: ['new-hire'], difficulty: 'foundational',
+    courseIds: ['c-what-is', 'c-personas', 'c-journey', 'c-upload', 'c-results', 'c-responsible-ai'],
+    certificationId: 'cert-foundations',
+  },
+  {
+    id: 'path-video', slug: 'video-analysis-mastery', emoji: '🎥', accent: 'primary',
+    title: 'Video Analysis Mastery',
+    purpose: 'Master the upload → analysis → explain pipeline, including 3D motion mapping, so you can demo, troubleshoot, and explain it to anyone.',
+    roleIds: ['product', 'support', 'coach', 'qa', 'ai-ml', 'power-user'], difficulty: 'intermediate',
+    courseIds: ['c-upload', 'c-analysis', 'c-results', 'c-3d'],
+  },
+  {
+    id: 'path-coach', slug: 'coach-mode-certification', emoji: '📋', accent: 'primary',
+    title: 'Coach Mode Certification',
+    purpose: 'Train coaches and staff to run a high-quality, honest coaching workflow in the product.',
+    roleIds: ['coach', 'partner', 'power-user'], difficulty: 'intermediate',
+    courseIds: ['c-coach-dash', 'c-coach-workflow', 'c-results', 'c-3d'],
+    certificationId: 'cert-coach',
+  },
+  {
+    id: 'path-support', slug: 'customer-support-readiness', emoji: '🎧', accent: 'accent-secondary',
+    title: 'Customer Support Readiness',
+    purpose: 'Train support staff to resolve the top user problems quickly, consistently, and within our trust rules.',
+    roleIds: ['support', 'admin'], difficulty: 'intermediate',
+    courseIds: ['c-support-console', 'c-top-issues', 'c-upload', 'c-responsible-ai'],
+    certificationId: 'cert-support',
+  },
+  {
+    id: 'path-sales', slug: 'sales-demo-readiness', emoji: '📈', accent: 'primary',
+    title: 'Sales & Demo Readiness',
+    purpose: 'Train sales and partnership teams to position SwingVantage clearly and demo it persuasively and honestly.',
+    roleIds: ['sales', 'partner'], difficulty: 'advanced',
+    courseIds: ['c-positioning', 'c-demos', 'c-what-is'],
+    certificationId: 'cert-sales',
+  },
+  {
+    id: 'path-admin', slug: 'admin-operations-mastery', emoji: '⚙️', accent: 'accent-secondary',
+    title: 'Admin & Operations Mastery',
+    purpose: 'Train internal operators to run and safeguard the platform — tools, security, and privacy.',
+    roleIds: ['admin', 'engineering'], difficulty: 'advanced',
+    courseIds: ['c-admin', 'c-responsible-ai'],
+    certificationId: 'cert-admin',
+  },
+];
