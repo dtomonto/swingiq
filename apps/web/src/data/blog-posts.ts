@@ -403,4 +403,216 @@ The schedule updates as your diagnosis changes. If you resolve your primary faul
 
 The golfers who improve fastest are not the ones who hit the most balls. They are the ones who show up consistently, with a plan, and who track whether the plan is working.`,
   },
+  {
+    slug: 'how-to-stop-topping-the-golf-ball',
+    title: 'How to Stop Topping the Golf Ball',
+    metaTitle: 'How to Stop Topping the Golf Ball | SwingVantage',
+    metaDescription: 'Topping the ball is a low-point problem, not a lifting problem. Learn the 5 real causes and 3 drills to start making ball-first contact.',
+    publishDate: '2026-06-06',
+    displayDate: 'June 6, 2026',
+    sport: 'golf',
+    category: 'Swing Fixes',
+    readingTime: '6 min read',
+    excerpt: 'Topping the ball comes from where the club bottoms out, not from failing to lift it. Here are the 5 real causes and the drills that fix them.',
+    tags: ['golf', 'topping', 'thin shots', 'low point', 'ball striking', 'swing fix'],
+    relatedSlugs: ['how-to-fix-a-golf-slice', 'what-is-smash-factor', 'practice-schedule-for-golfers'],
+    content: `## What Topping Actually Is
+
+A topped shot happens when the leading edge of the club strikes the middle or top of the ball instead of the bottom. The ball squirts low along the ground with almost no carry. It feels like you "came up" off the ball — and that feeling sends most golfers down the wrong path.
+
+Here is the key idea: topping is a **low-point problem**. Every swing has a point where the clubhead reaches the bottom of its arc. With an iron off the ground, that low point should be slightly in front of the ball, so the club is still descending at impact and catches the ball first, then the turf. When the low point moves behind the ball or upward, the club is already rising by the time it reaches the ball — and it catches it high. That is a top.
+
+## Why You Top It — the 5 Common Causes
+
+**1. Early extension (standing up).** If your hips push toward the ball and you lose your posture on the downswing, your whole swing center rises — and the clubhead rises with it. This is the most common cause of topping among recreational players.
+
+**2. Hanging back on your trail foot.** If your weight stays on your back foot through impact, the low point shifts behind the ball. The club bottoms out too early and is climbing by the time it reaches the ball.
+
+**3. Trying to "lift" or scoop the ball into the air.** The loft on the club is what gets the ball up — you do not have to help it. When you flip your hands and try to scoop, you raise the low point and add the very topping you are trying to avoid.
+
+**4. Ball position too far forward.** If the ball sits too far up in your stance, the club may already be past its low point and traveling upward when it arrives.
+
+**5. Lifting your head or losing posture early.** Pulling up to see the result before you have hit it changes your spine angle and pulls the club up with you.
+
+## A Quick Self-Check
+
+Hit a few shots off a low tee or a clean lie and watch your divots. Solid iron contact leaves a shallow divot **after** the ball. If you take no divot and the ball comes off low, your low point is behind the ball. If your misses are mostly thin and low, this article is for you.
+
+## 3 Drills to Fix It
+
+**The line drill.** Spray a short line of foot spray or draw a chalk line on the mat or turf. Place the ball just behind the line and try to make your divot start on or just in front of the line. This trains your low point to move forward, ahead of the ball.
+
+**The step-through drill.** Hit small, slow shots where you step your trail foot toward the target just after impact. You cannot step through while hanging back, so this drill forces your weight forward and moves your low point ahead of the ball.
+
+**The posture-hold drill.** Make practice swings with your back against a wall or a chair behind your hips. The goal is to keep your trail hip from drifting back into the wall on the downswing — that keeps your spine angle and stops you from standing up out of the shot.
+
+## Mistakes to Avoid
+
+Do not try to fix topping by hitting down harder or swinging easier in isolation — those treat the symptom. Do not move the ball way back in your stance as a permanent fix; that masks the real cause and creates new problems. And do not consciously try to keep your head down so hard that you block your rotation — the goal is to keep your posture, not freeze your body.
+
+## When to Work With a Coach
+
+If you have worked on weight shift and posture and still top the ball regularly, a couple of lessons with a qualified instructor who can watch you in person is worth far more than another bucket alone. Early extension in particular is hard to feel and easy for a coach to spot.
+
+SwingVantage can show you whether your contact and low-point tendencies are improving between sessions — use it as a supplement that tracks your progress, not a replacement for hands-on coaching. Remember that single-camera findings are heuristic estimates that get more reliable as you add data.`,
+  },
+  {
+    slug: 'how-to-fix-a-late-forehand',
+    title: 'How to Fix a Late Forehand in Tennis',
+    metaTitle: 'How to Fix a Late Forehand | SwingVantage Tennis',
+    metaDescription: 'A late forehand robs you of power and control. Learn why you contact the ball behind your body and how to prepare earlier and hit out in front.',
+    publishDate: '2026-06-06',
+    displayDate: 'June 6, 2026',
+    sport: 'tennis',
+    category: 'Technique',
+    readingTime: '6 min read',
+    excerpt: 'Late contact is usually a preparation and footwork problem, not a swing-speed problem. Here is how to meet the ball out in front again.',
+    tags: ['tennis', 'forehand', 'late contact', 'timing', 'footwork', 'technique'],
+    relatedSlugs: ['tennis-forehand-technique-basics', 'how-ai-swing-analysis-works'],
+    content: `## What a "Late" Forehand Means
+
+A forehand is late when you make contact with the ball behind your ideal contact point — too close to your body, and too far back in your stance. The ideal contact point on a forehand is out in front of your body and to the side, where your arm can extend and your body can rotate into the shot.
+
+When you are late, you lose two things at once: power, because you can no longer use your body rotation and your arm is cramped; and control, because you end up steering the ball with your wrist and arm instead of swinging through it. Late forehands tend to spray, float long, or get jammed into the net.
+
+## Why You Are Hitting It Late
+
+**1. Slow preparation.** The single biggest cause. If your racket takeback does not start until the ball has already bounced on your side, you simply run out of time. Good players begin their unit turn as the ball leaves the opponent's racket.
+
+**2. Watching instead of moving.** Standing flat-footed and admiring the incoming ball costs you the split second you need. Without a split step and first move, you arrive late to the ball.
+
+**3. Poor spacing.** If you let the ball get too close to your body, there is no room to swing out in front — you are forced to make contact late and cramped. Good footwork sets your distance from the ball, not just your position on court.
+
+**4. An oversized backswing.** A loop that is too big or too low takes too long to complete against a fast ball, so the racket is still on its way back when it should be coming forward.
+
+**5. Decision delay.** Hesitating about where to hit eats the same time you need to prepare. Commit early.
+
+## A Quick Self-Check
+
+Have a partner feed you medium-paced balls and freeze at contact. Look at where your racket meets the ball: is it level with or behind your front hip, close to your body? That is late. It should be clearly out in front, with your arm extending. If you feel jammed or "handsy," you are likely late.
+
+## 3 Drills to Fix It
+
+**Racket-back-by-the-bounce.** As you rally, give yourself one cue: complete your turn and takeback before the ball bounces on your side. Saying "bounce... hit" out loud helps you feel how early the preparation needs to be.
+
+**Shadow split-step and turn.** Without a ball, practice the rhythm: split step as the imaginary ball is struck, then immediately turn your shoulders and take the racket back as a unit. Build the habit of moving first, before you think about the swing.
+
+**Contact-point-out-front feed.** Have a partner drop-feed balls and place a target cone where your ideal contact point is — out in front and to the side. Make it a game to strike every ball at that cone, not behind it.
+
+## Mistakes to Avoid
+
+Do not try to fix late contact by swinging faster — that usually makes you later and wilder. Do not take the racket back further; take it back **earlier**. And do not stand still waiting for the ball to come to you; move your feet to set your spacing so the contact point comes to the right place.
+
+## When to Work With a Coach
+
+If you prepare early and still feel late, a coach can check your footwork patterns and recovery between shots, which are hard to self-diagnose. A few sessions of fed-ball work with someone watching your timing can rebuild the habit quickly.
+
+SwingVantage can help you see whether your contact point and preparation are improving over time. Treat its feedback as an honest supplement — single-camera analysis gives heuristic estimates that sharpen as you add more swings — not a substitute for on-court coaching.`,
+  },
+  {
+    slug: 'how-to-stop-rolling-over-in-baseball',
+    title: 'How to Stop Rolling Over Pitches in Baseball',
+    metaTitle: 'How to Stop Rolling Over Pitches | SwingVantage',
+    metaDescription: 'Rolling over leads to weak ground balls to the pull side. Learn why your barrel exits the zone early and the drills that keep you through the ball.',
+    publishDate: '2026-06-06',
+    displayDate: 'June 6, 2026',
+    sport: 'baseball',
+    category: 'Swing Fixes',
+    readingTime: '6 min read',
+    excerpt: 'Rolling over is a bat-path and direction problem, not a sign you should swing down. Here is what causes those weak grounders and how to fix them.',
+    tags: ['baseball', 'rolling over', 'ground balls', 'bat path', 'hitting', 'swing fix'],
+    relatedSlugs: ['baseball-exit-velocity-guide', 'how-ai-swing-analysis-works'],
+    content: `## What "Rolling Over" Is
+
+Rolling over is when your top hand turns the barrel over too early, so the bat cuts across the ball and you hit a weak ground ball, usually to the pull side. You will see a lot of topspin choppers and rollover grounders to the shortstop or second baseman. It is one of the most common patterns in amateur hitting.
+
+The instinct is to blame your hands or to "stay on top of the ball." But rolling over is really a **bat-path and direction problem**: your barrel is leaving the hitting zone too soon, and your body is pulling off the ball so the barrel never works through it toward your target.
+
+## Why You Roll Over
+
+**1. Pulling off the ball (flying open).** When your front shoulder and head pull toward the pull side early, your barrel follows and exits the zone fast. You end up swinging across the ball instead of through it.
+
+**2. A long, casting path.** If your hands push the barrel away from your body at the start of the swing, the barrel takes a long route and arrives late and across — leading to rollover contact, especially on outer pitches.
+
+**3. Lunging at the ball.** Drifting forward onto a soft front side moves your contact point too far out front, where the barrel is already turning over.
+
+**4. Top-hand dominance.** Letting the top hand take over and roll early closes the barrel before contact. The hands should stay in a palm-up, palm-down relationship through contact, not roll over until well after.
+
+**5. Contact too far out front.** On the pitches you roll over, contact is usually happening too early in front of the plate, where the barrel is on its way back around your body.
+
+## A Quick Self-Check
+
+Track where your outs go for a few games or rounds of batting practice. If most of your weak contact is topspin ground balls to the pull side, you are rolling over. Tee work tells the same story: if your line off the tee dives to the pull side and rolls, your barrel is exiting early.
+
+## 3 Drills to Fix It
+
+**Opposite-field tee.** Set the tee slightly deeper in your stance and hit line drives to the opposite field. You cannot hit the ball the other way while rolling over, so this drill forces you to stay through the ball with the barrel working toward the middle.
+
+**Stay-through-it / hold-the-finish.** Hit soft-toss or tee balls and consciously keep both palms in the palm-up, palm-down position a beat longer through contact, finishing high and extended toward the pitcher rather than wrapping fast around your body.
+
+**Two-tee path drill.** Place a second tee (or a foam roller) just outside and in front of the contact tee. If your barrel is casting or rolling early, you will clip the outer tee. Grooving a path that misses it trains a tighter swing that stays in the zone longer.
+
+## Mistakes to Avoid
+
+Do not try to fix rolling over by "swinging down" or chopping — that steepens your path and kills your power. Do not muscle up to hit it harder; tension makes the top hand roll sooner. And do not move your contact point even further forward — that is where the rollover lives.
+
+## When to Work With a Coach
+
+If you have worked on direction and path and still roll over, a hitting coach can check your lower-half timing and whether you are pulling off the ball — both are hard to feel on your own. In-person eyes on your sequence will speed things up.
+
+SwingVantage can help you see whether your contact and swing direction are trending the right way between sessions. Use it as an honest supplement — single-camera findings are heuristic estimates that improve as you log more swings — not a replacement for a coach.`,
+  },
+  {
+    slug: 'slow-pitch-softball-stop-popping-up',
+    title: 'Slow-Pitch Softball: How to Stop Popping Up',
+    metaTitle: 'Slow-Pitch Softball: Stop Popping Up | SwingVantage',
+    metaDescription: 'Pop-ups in slow-pitch come from a swing too steep for the descending arc. Learn to match your bat path to the pitch and drive line drives instead.',
+    publishDate: '2026-06-06',
+    displayDate: 'June 6, 2026',
+    sport: 'softball',
+    category: 'Swing Fixes',
+    readingTime: '5 min read',
+    excerpt: 'In slow-pitch, pop-ups usually mean your bat path does not match the high, descending arc of the pitch. Here is how to fix it and hit line drives.',
+    tags: ['softball', 'slow pitch', 'pop ups', 'bat path', 'hitting', 'swing fix'],
+    relatedSlugs: ['softball-bat-path-and-launch-angle', 'how-ai-swing-analysis-works'],
+    content: `## Why Slow-Pitch Pop-Ups Happen
+
+In slow-pitch softball the ball arrives on a high, looping arc and is **descending steeply** as it crosses the plate. That changes everything about your swing path. A pop-up happens when the bat meets the bottom half of the ball — the barrel slides under it and sends it straight up instead of out.
+
+Most pop-ups are not bad luck. They come from a swing whose path does not match the steep downward angle of the incoming pitch. Get the match right and those same swings turn into line drives.
+
+## The Common Causes
+
+**1. Too much uppercut.** A big upswing made for a flat, fast pitch will go right under a steeply dropping slow-pitch ball. The steeper the pitch comes down, the more an uppercut misses under it.
+
+**2. Dropping the back shoulder.** Letting your back shoulder dip tilts your swing up and gets the barrel beneath the ball.
+
+**3. Trying to crush it.** Swinging for the fence makes hitters lengthen and lift, which exaggerates the under-the-ball miss. Driving the ball on a line travels farther than popping it up anyway.
+
+**4. Mistiming the arc.** Because the pitch hangs in the air, timing is everything. Starting your swing too early or too late changes where in the descending arc you make contact.
+
+**5. Eyes and head pulling up.** Lifting your head to watch the ball fly tilts your shoulders and pulls the barrel up with it.
+
+## A Quick Self-Check
+
+Watch your contact and your misses. If you are catching the bottom of the ball and sending lazy fly balls and infield pop-ups, your path is too steep for the pitch. Tee work at the height where you actually make contact will show whether your barrel is level through the zone or climbing.
+
+## 3 Drills to Fix It
+
+**Level-through-the-zone tee.** Set the tee at your real contact height and focus on driving the barrel through the back-middle of the ball on a flat, level path. Try to hit hard line drives, not high ones.
+
+**Hit the top half.** Picture striking the top-inside quarter of the ball. Aiming slightly higher on the ball offsets the tendency to slide under it and produces line drives.
+
+**Match the arc in soft toss.** Have a partner toss on a higher, descending arc that mimics slow-pitch, and practice timing your swing so contact happens out front with a level barrel. This rehearses the exact timing the game demands.
+
+## Mistakes to Avoid
+
+Do not swing harder to fix pop-ups — effort usually adds uppercut and lift. Do not consciously chop down on the ball either; the goal is a level path that matches the pitch, not a steep one. And do not change your whole swing for one bad game; check your path and timing first.
+
+## When to Work With a Coach
+
+If you have leveled your path and still pop up, a coach can check your timing against live arc and whether your shoulders are tilting. Slow-pitch timing is subtle and benefits from a second set of eyes. (Fast-pitch hitters pop up for different reasons — often the rise ball and late loading — so make sure the advice matches your game.)
+
+SwingVantage can track whether your bat path and contact are trending toward line drives over time. Treat it as an honest supplement — its single-camera findings are heuristic estimates that improve as you add swings — alongside, not instead of, hands-on coaching.`,
+  },
 ];
