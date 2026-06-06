@@ -162,7 +162,7 @@ export default function BaseballSwingAnalysisPage() {
           <h2 className="text-2xl font-bold text-primary-foreground mb-3">Start tracking your development</h2>
           <p className="text-primary-foreground/90 mb-6 text-sm">Free. No subscription required. Your data stays private.</p>
           <Link
-            href="/login"
+            href="/start"
             className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-10 py-3 rounded-xl transition-colors inline-block"
           >
             Analyze My Baseball Swing Free

@@ -166,7 +166,7 @@ export default function GolfSwingAnalysisPage() {
             Free. No subscription required. Your data stays private.
           </p>
           <Link
-            href="/login"
+            href="/start"
             className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-10 py-3 rounded-xl transition-colors inline-block"
           >
             Analyze My Golf Swing Free

@@ -107,7 +107,7 @@ export default function TennisSwingAnalysisPage() {
               Analyze My Strokes
             </Link>
             <Link
-              href="/login"
+              href="/signup"
               className="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3 rounded-xl transition-colors border border-white/20"
             >
               Create Free Account
@@ -160,7 +160,7 @@ export default function TennisSwingAnalysisPage() {
           <h2 className="text-2xl font-bold text-primary-foreground mb-3">Start improving your game today</h2>
           <p className="text-primary-foreground/90 mb-6 text-sm">Free. No subscription required. Cancel anytime.</p>
           <Link
-            href="/login"
+            href="/start"
             className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-10 py-3 rounded-xl transition-colors inline-block"
           >
             Analyze My Tennis Swing Free

@@ -18,6 +18,7 @@ import {
   softwareApplicationSchema,
   faqPageSchema,
 } from '@/lib/seo/jsonLd';
+import { PersonaPathCards } from '@/components/persona/PersonaPathCards';
 
 export const metadata: Metadata = {
   title: 'SwingVantage — Free AI Swing Analysis for Golf, Tennis, Baseball & Softball',
@@ -30,14 +31,6 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
-
-const SPORTS = [
-  { emoji: '⛳', name: 'Golf', desc: 'Launch monitor analysis, club path, face angle, shot shape diagnosis', href: '/golf-swing-analysis' },
-  { emoji: '🎾', name: 'Tennis', desc: 'Forehand, backhand, serve mechanics and phase-by-phase coaching', href: '/tennis-swing-analysis' },
-  { emoji: '⚾', name: 'Baseball', desc: 'Full swing analysis from load through extension and follow-through', href: '/baseball-swing-analysis' },
-  { emoji: '🥎', name: 'Slow Pitch Softball', desc: 'Arc timing, line-drive bat path, directional hitting coaching', href: '/softball-swing-analysis' },
-  { emoji: '🥎', name: 'Fast Pitch Softball', desc: 'Compact launch, quick timing, pitch-speed adaptation drills', href: '/softball-swing-analysis' },
-];
 
 const HOW_IT_WORKS = [
   { step: '1', title: 'Choose Your Sport', desc: 'Select golf, tennis, baseball, or softball. SwingVantage adapts every analysis, drill, and coaching cue to your sport.' },
@@ -72,12 +65,12 @@ export default function HomePage() {
             <LiveAndFreeBadge />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            See your swing from a smarter vantage.<br />
-            <span className="text-primary-foreground/80">Golf, Tennis, Baseball &amp; Softball</span>
+            One fix. One plan. One retest.<br />
+            <span className="text-primary-foreground/80">Free swing improvement for golf, baseball &amp; softball</span>
           </h1>
           <p className="text-primary-foreground/90 text-xl mb-10 max-w-2xl mx-auto">
-            SwingVantage is the improvement edge every athlete — and every parent of an athlete — has wished for.
-            Upload a swing and get the one fix that matters most, the drills to groove it, and a plan that gets you there.
+            SwingVantage is the everyday improvement edge for athletes — and parents of athletes.
+            Upload a swing and get the single fix that matters most, the drills to groove it, and a plan that gets you there.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/start" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-4 rounded-xl text-lg transition-colors">
@@ -95,6 +88,11 @@ export default function HomePage() {
           <TrustBar className="mt-6 text-primary-foreground/80" />
         </div>
       </section>
+
+      {/* Persona router — intent-first entry point ("What are you trying to fix?").
+          Cards are driven by content/personas.ts + the developer-only
+          content/sportStrategy.ts toggle. */}
+      <PersonaPathCards />
 
       {/* How it works */}
       <section className="py-16 px-4 bg-muted">
@@ -118,31 +116,6 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Sports */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-4">5 Sports, 1 Platform</h2>
-          <p className="text-center text-muted-foreground mb-10">Each sport has its own AI diagnostic engine, issue categories, and drill library.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {SPORTS.map((sport) => (
-              <Link key={sport.name} href={sport.href} className="block p-5 border border-border rounded-xl hover:border-primary hover:bg-primary/5 transition-colors">
-                <div className="text-2xl mb-2">{sport.emoji}</div>
-                <h3 className="font-semibold text-foreground mb-1">{sport.name}</h3>
-                <p className="text-xs text-muted-foreground">{sport.desc}</p>
-              </Link>
-            ))}
-          </div>
-          <p className="text-center mt-8">
-            <Link
-              href="/sports"
-              className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-xl transition-colors"
-            >
-              Choose My Sport
-            </Link>
-          </p>
         </div>
       </section>
 

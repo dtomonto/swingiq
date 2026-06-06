@@ -129,7 +129,7 @@ export default function HowItWorksPage() {
             personalized, data-driven development path — across 5 sports.
           </p>
           <Link
-            href="/login"
+            href="/start"
             className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors inline-block"
           >
             Start My Free Swing Check
@@ -229,7 +229,7 @@ export default function HowItWorksPage() {
           <p className="text-primary-foreground/90 mb-6 text-sm">Free. No subscription required. Works on any device.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              href="/login"
+              href="/signup"
               className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors"
             >
               Create Free Account
