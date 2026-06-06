@@ -123,6 +123,49 @@ const DOC_SPECS: DocSpec[] = [
       };
     },
   },
+  // BodySync (health-performance) — union check-ins by date (latest createdAt
+  // wins), union connections by provider, keep earliest consent, prefer this
+  // device's permission/baseline choices.
+  {
+    key: 'swingiq-bodysync-v1',
+    merge: (l, c) => {
+      const lo = asObj(l); const co = asObj(c);
+      const checkinsById = new Map<string, Record<string, unknown>>();
+      for (const ck of [...asArr(co.checkins), ...asArr(lo.checkins)]) {
+        const date = String(ck.date);
+        const prev = checkinsById.get(date);
+        if (!prev || String(ck.createdAt ?? '') >= String(prev.createdAt ?? '')) {
+          checkinsById.set(date, ck);
+        }
+      }
+      const checkins = [...checkinsById.values()]
+        .sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 400);
+
+      const connById = new Map<string, Record<string, unknown>>();
+      for (const cn of [...asArr(co.connections), ...asArr(lo.connections)]) {
+        const p = String(cn.provider);
+        const prev = connById.get(p);
+        if (!prev || String(cn.lastSyncAt ?? '') >= String(prev.lastSyncAt ?? '')) connById.set(p, cn);
+      }
+
+      const ls = asObj(lo.settings); const cs = asObj(co.settings);
+      const consentDates = [ls.consentedAt, cs.consentedAt].filter(Boolean) as string[];
+      return {
+        version: 1,
+        settings: {
+          ...cs, ...ls, // prefer this device's settings…
+          enabled: ls.enabled === true || cs.enabled === true, // …but never lose "enabled"
+          consentedAt: consentDates.length ? consentDates.sort()[0] : null, // earliest consent
+        },
+        permissions: { ...asObj(co.permissions), ...asObj(lo.permissions) }, // prefer local
+        connections: [...connById.values()],
+        checkins,
+        baselines:
+          String(asObj(lo.baselines).updatedAt ?? '') >= String(asObj(co.baselines).updatedAt ?? '')
+            ? lo.baselines : co.baselines,
+      };
+    },
+  },
 ];
 
 // ── localStorage helpers ─────────────────────────────────────

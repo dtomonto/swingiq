@@ -41,6 +41,7 @@ import {
   BrainCircuit,
   NotebookPen,
   Film,
+  HeartPulse,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -113,6 +114,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       icon: TrendingUp,
       children: [
         { href: '/progress', label: 'Progress', icon: TrendingUp },
+        { href: '/bodysync', label: 'BodySync', icon: HeartPulse },
         { href: '/arc', label: 'Player Arc', icon: Route },
         { href: '/notes', label: 'Daily Notes', icon: NotebookPen },
         { href: '/sessions', label: sportLabels.sessions, icon: Activity },
