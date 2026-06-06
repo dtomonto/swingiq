@@ -1,6 +1,7 @@
 import { buildMetadata } from '@/lib/seo/metadata';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { StartHereFlow } from '@/components/onboarding/StartHereFlow';
+import { ReferralCapture } from '@/components/referral/ReferralCapture';
 
 export const metadata = buildMetadata({
   title: 'Start Here — Your First Swing Result in Minutes',
@@ -18,6 +19,7 @@ export const metadata = buildMetadata({
 export default function StartHerePage() {
   return (
     <main className="min-h-screen bg-muted">
+      <ReferralCapture />
       <div className="mx-auto max-w-2xl px-4 pt-8">
         <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Start Here', path: '/start' }]} />
       </div>

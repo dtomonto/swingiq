@@ -42,6 +42,7 @@ import {
   NotebookPen,
   Film,
   HeartPulse,
+  Gift,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -139,6 +140,7 @@ export function Sidebar({ onClose }: SidebarProps) {
 
   const communityItems: NavLeaf[] = [
     { href: '/community', label: 'Community', icon: Users },
+    { href: '/refer', label: 'Invite Friends', icon: Gift },
     { href: '/community/badges', label: 'Badges', icon: Award },
     { href: '/data', label: 'Data Center', icon: Database },
   ];
