@@ -136,4 +136,22 @@ export const COURSES: Course[] = [
     objectives: ['Use admin tools', 'Apply secrets/privacy basics'],
     modules: [mod('m-admin', 'Operate Safely', ['l-admin-users', 'l-security-privacy'])],
   },
+
+  // ── AI Coaching Engine ─────────────────────────────────────
+  {
+    id: 'c-ai-coaching', slug: 'ai-coaching-engine', title: 'AI Coaching Engine',
+    summary: 'How SwingVantage’s AI interprets performance and recommends action — honestly.',
+    roleIds: 'all', difficulty: 'intermediate', estMinutes: 22, emoji: '🤖',
+    objectives: ['State the coaching philosophy', 'Explain drill recommendations and confidence'],
+    modules: [mod('m-ai', 'The Engine', ['l-ai-philosophy', 'l-ai-drills', 'l-ai-personalization'])],
+  },
+
+  // ── Product QA ─────────────────────────────────────────────
+  {
+    id: 'c-qa', slug: 'product-qa', title: 'Product QA',
+    summary: 'Validate the platform like an expert user — including AI output and edge cases.',
+    roleIds: ['qa', 'product', 'engineering', 'support'], difficulty: 'intermediate', estMinutes: 23, emoji: '🔍',
+    objectives: ['Test like an expert user', 'Validate AI output against guardrails'],
+    modules: [mod('m-qa', 'Validate', ['l-qa-philosophy', 'l-qa-video-testing', 'l-qa-ai-validation'])],
+  },
 ];

@@ -1,7 +1,7 @@
 'use client';
 
 // SwingVantage Academy — knowledge-check quiz runner.
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Quiz } from '@/lib/academy/types';
 import { Button } from '@/components/ui/Button';
 import { useAcademyStore } from '@/lib/academy/store';
@@ -19,6 +19,19 @@ export function QuizRunner({ quiz }: { quiz: Quiz }) {
   const [answers, setAnswers] = useState<Record<string, number[]>>({});
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
+  // Question order — shuffled client-side after mount (avoids SSR mismatch).
+  const [order, setOrder] = useState<number[]>(() => quiz.questions.map((_, i) => i));
+  useEffect(() => {
+    if (!quiz.shuffle) return;
+    setOrder(() => {
+      const a = quiz.questions.map((_, i) => i);
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    });
+  }, [quiz.id, quiz.shuffle, quiz.questions]);
 
   const toggle = (qid: string, idx: number, multi: boolean) =>
     setAnswers((a) => {
@@ -50,7 +63,8 @@ export function QuizRunner({ quiz }: { quiz: Quiz }) {
       </div>
 
       <ol className="space-y-5">
-        {quiz.questions.map((q, qi) => {
+        {order.map((qIndex, qi) => {
+          const q = quiz.questions[qIndex];
           const multi = q.kind === 'multi-select';
           const chosen = answers[q.id] ?? [];
           return (

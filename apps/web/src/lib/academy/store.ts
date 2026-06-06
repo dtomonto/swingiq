@@ -10,9 +10,9 @@
 // retest, DrillMatch) and keeps employee learning data out of
 // the cloud-synced athlete state.
 //
-// Mutations award points, auto-claim eligible certifications,
-// and award earned badges via the pure engine, so the UI stays
-// presentational.
+// Mutations award points, track activity days (streaks), auto-
+// claim eligible certifications, and award earned badges via the
+// pure engine, so the UI stays presentational.
 // ============================================================
 
 import { create } from 'zustand';
@@ -24,6 +24,25 @@ import {
 import { CERTIFICATIONS, getCertification } from './content';
 import { earnedBadgeIds, isCertificationEligible } from './engine';
 
+const todayKey = () => new Date().toISOString().slice(0, 10);
+
+/** Stamp activity: startedAt, lastActivityAt, and today in activityDays. */
+function touch(p: AcademyProgress): AcademyProgress {
+  const now = new Date().toISOString();
+  const day = todayKey();
+  const activityDays = p.activityDays ?? [];
+  return {
+    ...p,
+    startedAt: p.startedAt ?? now,
+    lastActivityAt: now,
+    activityDays: activityDays.includes(day) ? activityDays : [...activityDays, day],
+  };
+}
+
+function expiryFor(months: number | null): string | null {
+  return months ? new Date(Date.now() + months * 30 * 24 * 3600 * 1000).toISOString() : null;
+}
+
 /** Auto-claim newly-eligible certifications and award newly-earned badges. */
 function reconcileRewards(progress: AcademyProgress): AcademyProgress {
   const now = new Date().toISOString();
@@ -32,10 +51,7 @@ function reconcileRewards(progress: AcademyProgress): AcademyProgress {
 
   for (const cert of CERTIFICATIONS) {
     if (!certifications[cert.id] && isCertificationEligible(progress, cert)) {
-      const expiresAt = cert.expiresMonths
-        ? new Date(Date.now() + cert.expiresMonths * 30 * 24 * 3600 * 1000).toISOString()
-        : null;
-      certifications[cert.id] = { earnedAt: now, expiresAt };
+      certifications[cert.id] = { earnedAt: now, expiresAt: expiryFor(cert.expiresMonths) };
       points += POINTS.certification;
     }
   }
@@ -53,10 +69,12 @@ function reconcileRewards(progress: AcademyProgress): AcademyProgress {
 export interface AcademyStore {
   progress: AcademyProgress;
   setRole: (roleId: AcademyRoleId | null) => void;
+  setLearnerName: (name: string) => void;
   completeLesson: (lessonId: string) => void;
   recordQuizAttempt: (quizId: string, score: number, passed: boolean) => void;
   submitChallenge: (challengeId: string) => void;
   claimCertification: (certId: string) => void;
+  recertify: (certId: string) => void;
   reset: () => void;
 }
 
@@ -66,47 +84,38 @@ export const useAcademyStore = create<AcademyStore>()(
       progress: DEFAULT_ACADEMY_PROGRESS,
 
       setRole: (roleId) =>
-        set((s) => ({
-          progress: {
-            ...s.progress,
-            roleId,
-            startedAt: s.progress.startedAt ?? new Date().toISOString(),
-          },
-        })),
+        set((s) => ({ progress: touch({ ...s.progress, roleId }) })),
+
+      setLearnerName: (name) =>
+        set((s) => ({ progress: { ...s.progress, learnerName: name.trim() || undefined } })),
 
       completeLesson: (lessonId) =>
         set((s) => {
           if (s.progress.completedLessonIds.includes(lessonId)) return s;
-          const now = new Date().toISOString();
           const next: AcademyProgress = {
-            ...s.progress,
+            ...touch(s.progress),
             completedLessonIds: [...s.progress.completedLessonIds, lessonId],
             points: s.progress.points + POINTS.lesson,
-            startedAt: s.progress.startedAt ?? now,
-            lastActivityAt: now,
           };
           return { progress: reconcileRewards(next) };
         }),
 
       recordQuizAttempt: (quizId, score, passed) =>
         set((s) => {
-          const now = new Date().toISOString();
           const prev = s.progress.quizAttempts[quizId];
           const wasPassed = prev?.passed ?? false;
           const next: AcademyProgress = {
-            ...s.progress,
+            ...touch(s.progress),
             quizAttempts: {
               ...s.progress.quizAttempts,
               [quizId]: {
                 attempts: (prev?.attempts ?? 0) + 1,
                 bestScore: Math.max(prev?.bestScore ?? 0, score),
                 passed: wasPassed || passed,
-                lastAttemptAt: now,
+                lastAttemptAt: new Date().toISOString(),
               },
             },
             points: s.progress.points + (!wasPassed && passed ? POINTS.quizPass : 0),
-            startedAt: s.progress.startedAt ?? now,
-            lastActivityAt: now,
           };
           return { progress: reconcileRewards(next) };
         }),
@@ -114,13 +123,10 @@ export const useAcademyStore = create<AcademyStore>()(
       submitChallenge: (challengeId) =>
         set((s) => {
           if (s.progress.challengeSubmissions[challengeId]) return s;
-          const now = new Date().toISOString();
           const next: AcademyProgress = {
-            ...s.progress,
-            challengeSubmissions: { ...s.progress.challengeSubmissions, [challengeId]: now },
+            ...touch(s.progress),
+            challengeSubmissions: { ...s.progress.challengeSubmissions, [challengeId]: new Date().toISOString() },
             points: s.progress.points + POINTS.challenge,
-            startedAt: s.progress.startedAt ?? now,
-            lastActivityAt: now,
           };
           return { progress: reconcileRewards(next) };
         }),
@@ -130,7 +136,24 @@ export const useAcademyStore = create<AcademyStore>()(
           const cert = getCertification(certId);
           if (!cert || s.progress.certifications[certId]) return s;
           if (!isCertificationEligible(s.progress, cert)) return s;
-          return { progress: reconcileRewards(s.progress) };
+          return { progress: reconcileRewards(touch(s.progress)) };
+        }),
+
+      recertify: (certId) =>
+        set((s) => {
+          const cert = getCertification(certId);
+          const rec = s.progress.certifications[certId];
+          if (!cert || !rec) return s;
+          if (!isCertificationEligible(s.progress, cert)) return s;
+          return {
+            progress: touch({
+              ...s.progress,
+              certifications: {
+                ...s.progress.certifications,
+                [certId]: { earnedAt: new Date().toISOString(), expiresAt: expiryFor(cert.expiresMonths) },
+              },
+            }),
+          };
         }),
 
       reset: () => set({ progress: DEFAULT_ACADEMY_PROGRESS }),
@@ -143,6 +166,13 @@ export const useAcademyStore = create<AcademyStore>()(
         }
         return localStorage;
       }),
+      // Older persisted state may predate activityDays — backfill so engine guards hold.
+      migrate: (persisted) => {
+        const p = persisted as { progress?: Partial<AcademyProgress> } | undefined;
+        if (p?.progress && !p.progress.activityDays) p.progress.activityDays = [];
+        return p as never;
+      },
+      version: 2,
     },
   ),
 );

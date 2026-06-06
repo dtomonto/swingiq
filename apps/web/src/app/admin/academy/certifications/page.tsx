@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { CERTIFICATIONS, getCourse, getChallenge, getQuiz } from '@/lib/academy/content';
 import { useAcademyStore } from '@/lib/academy/store';
 import {
-  certificationReadiness, isCertificationEligible, isCertified, isCourseComplete, hasPassedQuiz,
+  certificationReadiness, isCertificationEligible, isCertified, isCertificationExpired,
+  isCourseComplete, hasPassedQuiz,
 } from '@/lib/academy/engine';
 import { useMounted, ProgressBar } from '@/components/academy/parts';
 import { Button } from '@/components/ui/Button';
@@ -22,6 +23,7 @@ export default function CertificationsPage() {
   const mounted = useMounted();
   const progress = useAcademyStore((s) => s.progress);
   const claim = useAcademyStore((s) => s.claimCertification);
+  const recertify = useAcademyStore((s) => s.recertify);
 
   return (
     <div className="space-y-6">
@@ -32,10 +34,12 @@ export default function CertificationsPage() {
 
       <div className="space-y-5">
         {CERTIFICATIONS.map((cert) => {
-          const earned = mounted && isCertified(progress, cert.id);
+          const rec = progress.certifications[cert.id];
+          const certified = mounted && isCertified(progress, cert.id);
+          const expired = mounted && isCertificationExpired(progress, cert.id);
           const eligible = mounted && isCertificationEligible(progress, cert);
           const ready = mounted ? certificationReadiness(progress, cert) : 0;
-          const rec = progress.certifications[cert.id];
+          const earned = certified; // earned & current
           return (
             <section key={cert.id} className="rounded-theme border border-border bg-card p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
@@ -46,13 +50,23 @@ export default function CertificationsPage() {
                     <p className="max-w-xl text-sm text-muted-foreground">{cert.description}</p>
                   </div>
                 </div>
-                {earned ? (
-                  <span className="rounded-full bg-success/15 px-3 py-1 text-sm font-semibold text-success">✓ Certified</span>
-                ) : eligible ? (
-                  <Button onClick={() => claim(cert.id)}>Claim certification</Button>
-                ) : (
-                  <span className="rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">{ready}% ready</span>
-                )}
+                <div className="flex flex-col items-end gap-2">
+                  {certified ? (
+                    <span className="rounded-full bg-success/15 px-3 py-1 text-sm font-semibold text-success">✓ Certified</span>
+                  ) : rec && expired ? (
+                    <>
+                      <span className="rounded-full bg-warning/15 px-3 py-1 text-sm font-semibold text-warning">Expired</span>
+                      <Button size="sm" disabled={!eligible} onClick={() => recertify(cert.id)}>Recertify</Button>
+                    </>
+                  ) : eligible ? (
+                    <Button onClick={() => claim(cert.id)}>Claim certification</Button>
+                  ) : (
+                    <span className="rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">{ready}% ready</span>
+                  )}
+                  {(certified || (rec && expired)) && (
+                    <Link href={`/admin/academy/certifications/${cert.id}`} className="text-xs text-primary hover:underline">View certificate →</Link>
+                  )}
+                </div>
               </div>
 
               {!earned && <div className="mt-4 max-w-md"><ProgressBar value={ready} /></div>}

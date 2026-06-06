@@ -6,7 +6,7 @@ import { PATHS, BADGES, CERTIFICATIONS, getBadge } from '@/lib/academy/content';
 import {
   masteryLevel, nextMastery, featureFluency, demoReadiness, supportReadiness,
   pathProgress, recommendedPaths, nextRecommendedCourse, advisorMessage,
-  certificationReadiness, isCertified,
+  certificationReadiness, isCertified, currentStreak, momentumScore,
 } from '@/lib/academy/engine';
 import { useMounted, ProgressBar, ScoreStat, RoleSelect } from '@/components/academy/parts';
 import { Button } from '@/components/ui/Button';
@@ -32,8 +32,26 @@ export default function DashboardPage() {
           <h1 className="text-2xl font-bold text-foreground">My Learning</h1>
           <p className="text-muted-foreground">Your progress, readiness scores, and what to do next.</p>
         </div>
-        <RoleSelect />
+        <div className="flex items-center gap-2">
+          <input
+            value={progress.learnerName ?? ''}
+            onChange={(e) => useAcademyStore.getState().setLearnerName(e.target.value)}
+            placeholder="Your name (for certificates)"
+            className="rounded-theme border border-border bg-card px-3 py-1.5 text-sm text-foreground"
+          />
+          <RoleSelect />
+        </div>
       </div>
+
+      {/* Streak + momentum */}
+      <section className="flex flex-wrap items-center gap-4 rounded-theme border border-border bg-card p-4">
+        <span className="text-2xl" aria-hidden>🔥</span>
+        <div>
+          <p className="text-xl font-bold text-foreground">{currentStreak(progress)}-day streak</p>
+          <p className="text-xs text-muted-foreground">Learning momentum {momentumScore(progress)}% over the last 7 days</p>
+        </div>
+        <div className="ml-auto w-40"><ProgressBar value={momentumScore(progress)} /></div>
+      </section>
 
       {/* Scores */}
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

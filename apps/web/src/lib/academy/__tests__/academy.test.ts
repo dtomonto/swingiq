@@ -7,6 +7,7 @@ import {
 import {
   isCourseComplete, earnedBadgeIds, isCertificationEligible,
   certificationReadiness, featureFluency, masteryLevel, nextRecommendedCourse,
+  currentStreak, momentumScore, isCertificationExpired,
 } from '../engine';
 import { DEFAULT_ACADEMY_PROGRESS, type AcademyProgress } from '../types';
 import { useAcademyStore } from '../store';
@@ -82,11 +83,33 @@ describe('Academy content integrity', () => {
   });
 
   it('seed meets the minimum content bar', () => {
-    expect(PATHS.length).toBeGreaterThanOrEqual(5);
-    expect(COURSES.length).toBeGreaterThanOrEqual(15);
-    expect(LESSONS.length).toBeGreaterThanOrEqual(20);
-    expect(CERTIFICATIONS.length).toBeGreaterThanOrEqual(3);
-    expect(CHALLENGES.length).toBeGreaterThanOrEqual(5);
+    expect(PATHS.length).toBeGreaterThanOrEqual(9);
+    expect(COURSES.length).toBeGreaterThanOrEqual(18);
+    expect(LESSONS.length).toBeGreaterThanOrEqual(29);
+    expect(CERTIFICATIONS.length).toBeGreaterThanOrEqual(7);
+    expect(CHALLENGES.length).toBeGreaterThanOrEqual(7);
+  });
+});
+
+describe('Academy gamification (Phase 2)', () => {
+  const today = new Date().toISOString().slice(0, 10);
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+
+  it('currentStreak counts consecutive active days', () => {
+    expect(currentStreak({ ...DEFAULT_ACADEMY_PROGRESS, activityDays: [] })).toBe(0);
+    expect(currentStreak({ ...DEFAULT_ACADEMY_PROGRESS, activityDays: [yesterday, today] })).toBe(2);
+  });
+
+  it('momentumScore reflects last-7-day activity', () => {
+    expect(momentumScore({ ...DEFAULT_ACADEMY_PROGRESS, activityDays: [] })).toBe(0);
+    expect(momentumScore({ ...DEFAULT_ACADEMY_PROGRESS, activityDays: [today] })).toBeGreaterThan(0);
+  });
+
+  it('isCertificationExpired respects the expiry date', () => {
+    const past = { ...DEFAULT_ACADEMY_PROGRESS, certifications: { 'cert-foundations': { earnedAt: 'x', expiresAt: '2000-01-01T00:00:00.000Z' } } };
+    const future = { ...DEFAULT_ACADEMY_PROGRESS, certifications: { 'cert-foundations': { earnedAt: 'x', expiresAt: '2999-01-01T00:00:00.000Z' } } };
+    expect(isCertificationExpired(past, 'cert-foundations')).toBe(true);
+    expect(isCertificationExpired(future, 'cert-foundations')).toBe(false);
   });
 });
 
@@ -130,11 +153,17 @@ describe('Academy engine', () => {
 describe('Academy store', () => {
   beforeEach(() => useAcademyStore.getState().reset());
 
-  it('completeLesson adds the lesson and awards points', () => {
+  it('completeLesson adds the lesson, awards points, and records activity', () => {
     useAcademyStore.getState().completeLesson('l-sports-overview');
     const p = useAcademyStore.getState().progress;
     expect(p.completedLessonIds).toContain('l-sports-overview');
     expect(p.points).toBe(10);
+    expect(p.activityDays).toContain(new Date().toISOString().slice(0, 10));
+  });
+
+  it('setLearnerName stores a trimmed name', () => {
+    useAcademyStore.getState().setLearnerName('  Jordan Rivera  ');
+    expect(useAcademyStore.getState().progress.learnerName).toBe('Jordan Rivera');
   });
 
   it('passing a quiz awards points once', () => {

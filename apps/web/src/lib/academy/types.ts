@@ -252,6 +252,10 @@ export interface AcademyProgress {
   points: number;
   startedAt: string | null;
   lastActivityAt: string | null;
+  /** Distinct yyyy-mm-dd days the learner was active — powers streaks/momentum. */
+  activityDays: string[];
+  /** Optional display name printed on certificates. */
+  learnerName?: string;
 }
 
 export const DEFAULT_ACADEMY_PROGRESS: AcademyProgress = {
@@ -264,6 +268,7 @@ export const DEFAULT_ACADEMY_PROGRESS: AcademyProgress = {
   points: 0,
   startedAt: null,
   lastActivityAt: null,
+  activityDays: [],
 };
 
 // ── Points economy (premium, restrained) ─────────────────────

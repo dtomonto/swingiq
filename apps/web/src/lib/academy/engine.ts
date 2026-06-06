@@ -98,6 +98,41 @@ export function nextMastery(progress: AcademyProgress): { next: MasteryLevel | n
   return { next, toNext: next ? Math.max(0, next.minPoints - progress.points) : 0 };
 }
 
+const dayKey = (d: Date) => d.toISOString().slice(0, 10);
+
+/** Consecutive-day learning streak ending today (or yesterday if today is idle). */
+export function currentStreak(progress: AcademyProgress): number {
+  const days = new Set(progress.activityDays ?? []);
+  if (days.size === 0) return 0;
+  const cursor = new Date();
+  if (!days.has(dayKey(cursor))) cursor.setDate(cursor.getDate() - 1); // grace: still counts through yesterday
+  let streak = 0;
+  while (days.has(dayKey(cursor))) {
+    streak += 1;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return streak;
+}
+
+/** Learning momentum: % of the last 7 days with any activity. */
+export function momentumScore(progress: AcademyProgress): number {
+  const days = new Set(progress.activityDays ?? []);
+  let active = 0;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    if (days.has(dayKey(d))) active += 1;
+  }
+  return Math.round((active / 7) * 100);
+}
+
+/** Certifications the learner can claim right now but hasn't yet. */
+export function claimableCertifications(progress: AcademyProgress): Certification[] {
+  return CERTIFICATIONS.filter(
+    (c) => !progress.certifications[c.id] && isCertificationEligible(progress, c),
+  );
+}
+
 /** Readiness score toward the certification a cert id names (0–100). */
 export const readinessFor = (progress: AcademyProgress, certId: string): number => {
   const cert = CERTIFICATIONS.find((c) => c.id === certId);

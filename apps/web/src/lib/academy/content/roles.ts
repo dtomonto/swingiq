@@ -35,8 +35,8 @@ export const ROLES: AcademyRole[] = [
   {
     id: 'qa', label: 'QA', emoji: '🔍',
     blurb: 'Validate the platform like an expert user.',
-    recommendedPathSlugs: ['video-analysis-mastery', 'swingvantage-foundations'],
-    targetCertificationId: 'cert-foundations',
+    recommendedPathSlugs: ['product-qa-academy', 'video-analysis-mastery', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-qa',
   },
   {
     id: 'marketing', label: 'Marketing', emoji: '📣',
@@ -65,8 +65,8 @@ export const ROLES: AcademyRole[] = [
   {
     id: 'ai-ml', label: 'AI / ML', emoji: '🤖',
     blurb: 'Own the responsible-AI workflows and quality bar.',
-    recommendedPathSlugs: ['video-analysis-mastery', 'swingvantage-foundations'],
-    targetCertificationId: 'cert-foundations',
+    recommendedPathSlugs: ['ai-coaching-engine-mastery', 'video-analysis-mastery', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-ai',
   },
   {
     id: 'content', label: 'Content', emoji: '✍️',
@@ -113,4 +113,10 @@ export const BADGES: Badge[] = [
   { id: 'b-admin', name: 'Platform Operator', tier: 'gold', emoji: '⚙️',
     description: 'Operates the platform safely.',
     criteria: 'Earn the SwingVantage Certified Admin certification.' },
+  { id: 'b-ai-workflow', name: 'AI Workflow Specialist', tier: 'gold', emoji: '🤖',
+    description: 'Uses and explains the AI coaching engine responsibly.',
+    criteria: 'Earn the SwingVantage Certified AI Workflow Specialist certification.' },
+  { id: 'b-qa', name: 'QA Specialist', tier: 'gold', emoji: '🔍',
+    description: 'Validates the platform like an expert user.',
+    criteria: 'Earn the SwingVantage Certified QA certification.' },
 ];

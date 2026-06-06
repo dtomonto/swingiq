@@ -134,8 +134,8 @@ refresh. Mirrors the product's own honesty standard (see `feedback_no_misleading
 
 | Phase | Scope | State |
 |---|---|---|
-| **1** | Foundation: types, engine, seed content, store slice; Home / Catalog / Path / Course / Lesson / Quiz / Dashboard / Badges / Certifications | **in progress** |
-| 2 | Gamification polish, full certification flow, more assessments | planned |
+| **1** | Foundation: types, engine, seed content, store; Home / Catalog / Path / Course / Lesson / Quiz / Dashboard / Badges / Certifications | **done** |
+| **2** | Gamification (learning streaks + momentum, earned-achievement toaster), full certification flow (printable certificate pages + recertification), quiz question shuffle, content expansion (AI Coaching Engine + Product QA paths/courses/certs) | **done** |
 | 3 | Admin CMS (authoring, draft→review→published→archived, versioning) | planned |
 | 4 | AI Learning Advisor + AI tutor + release-note→draft-course generation | planned |
 | 5 | Analytics + manager/exec dashboards + assignments + notifications | planned |

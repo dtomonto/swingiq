@@ -57,4 +57,20 @@ export const PATHS: VantagePath[] = [
     courseIds: ['c-admin', 'c-responsible-ai'],
     certificationId: 'cert-admin',
   },
+  {
+    id: 'path-ai', slug: 'ai-coaching-engine-mastery', emoji: '🤖', accent: 'primary',
+    title: 'AI Coaching Engine Mastery',
+    purpose: 'Understand how SwingVantage’s AI interprets performance and recommends action — and how to explain it honestly and within guardrails.',
+    roleIds: ['ai-ml', 'product', 'support', 'coach', 'power-user'], difficulty: 'intermediate',
+    courseIds: ['c-ai-coaching', 'c-responsible-ai', 'c-results'],
+    certificationId: 'cert-ai',
+  },
+  {
+    id: 'path-qa', slug: 'product-qa-academy', emoji: '🔍', accent: 'accent-secondary',
+    title: 'Product QA Academy',
+    purpose: 'Train QA testers to validate the platform like expert users — across sports, video, edge cases, and AI output.',
+    roleIds: ['qa', 'product', 'engineering'], difficulty: 'intermediate',
+    courseIds: ['c-qa', 'c-upload', 'c-3d'],
+    certificationId: 'cert-qa',
+  },
 ];

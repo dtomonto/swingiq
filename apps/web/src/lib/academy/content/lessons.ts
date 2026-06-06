@@ -435,4 +435,82 @@ export const LESSONS: Lesson[] = [
     completionCriteria: 'State the secrets rule and the accurate storage framing.',
     docLinks: [{ label: 'Trust & Safety', href: '/trust' }, { label: 'Privacy', href: '/privacy' }],
   },
+
+  // ── AI Coaching Engine Mastery ─────────────────────────────
+  {
+    id: 'l-ai-philosophy', title: 'AI Coaching Philosophy', estMinutes: 8, roleIds: 'all',
+    difficulty: 'intermediate', version: V,
+    objectives: ['State the coaching philosophy', 'Explain the feedback hierarchy'],
+    whyItMatters: 'The AI’s job is to prioritize, not to overwhelm — understanding that shapes how we build, test, sell, and support it.',
+    walkthrough: [
+      'The engine surfaces the single highest-priority fix, gives one drill, frames confidence honestly, and pairs with — never replaces — a human coach.',
+      'It escalates to a human for pain/injury or anything beyond its confidence, and never makes medical or guaranteed-outcome claims.',
+    ],
+    bestPractices: ['One priority, one drill, honest confidence.'],
+    quizId: 'q-ai-coaching',
+    completionCriteria: 'Pass the knowledge check (80%).',
+    relatedFeatures: [{ label: 'AI Coach', route: '/coach' }],
+  },
+  {
+    id: 'l-ai-drills', title: 'How Drill Recommendations Are Created', estMinutes: 7, roleIds: 'all',
+    difficulty: 'intermediate', version: V,
+    objectives: ['Describe how a diagnosis maps to a drill', 'Explain sport-specific differences'],
+    whyItMatters: 'Recommendations are explainable, not magic — knowing the mapping lets you justify and troubleshoot them.',
+    walkthrough: [
+      'A diagnosed priority issue maps to a sport-specific drill chosen to address that exact pattern, with a retest to prove change.',
+      'The same issue can map to different drills across golf, tennis, baseball, and softball.',
+    ],
+    completionCriteria: 'Explain the diagnosis→drill→retest loop.',
+    relatedFeatures: [{ label: 'Drills / Fix', route: '/fix' }],
+  },
+  {
+    id: 'l-ai-personalization', title: 'Personalization & Confidence Logic', estMinutes: 7, roleIds: 'all',
+    difficulty: 'intermediate', version: V,
+    objectives: ['Explain what personalizes output', 'Connect data richness to confidence'],
+    whyItMatters: 'Personalization and confidence are driven by data — this is the honest core of the product.',
+    walkthrough: [
+      'Profile, equipment, session history, and any measured data personalize the analysis and raise confidence.',
+      'Thin input yields lower-confidence estimates; richer input sharpens both usefulness and confidence.',
+    ],
+    completionCriteria: 'Explain how confidence rises with data.',
+  },
+
+  // ── Product QA Academy ─────────────────────────────────────
+  {
+    id: 'l-qa-philosophy', title: 'QA Testing Philosophy', estMinutes: 7, roleIds: ['qa', 'product', 'engineering'],
+    difficulty: 'intermediate', version: V,
+    objectives: ['Test like an expert user', 'Prioritize realistic edge cases'],
+    whyItMatters: 'QA protects trust: catching a bad analysis or a broken upload before users do is high-leverage.',
+    walkthrough: [
+      'Test the real journey across sports, not just the happy path; cover the failure modes users actually hit.',
+      'Validate honesty too: outputs must lead with one priority, label confidence, and avoid medical/guarantee claims.',
+    ],
+    quizId: 'q-qa',
+    completionCriteria: 'Pass the QA knowledge check.',
+  },
+  {
+    id: 'l-qa-video-testing', title: 'Video Upload & Analysis Testing', estMinutes: 8, roleIds: ['qa', 'product', 'engineering'],
+    difficulty: 'intermediate', version: V,
+    objectives: ['Write video test cases', 'Cover capture failure modes'],
+    whyItMatters: 'Video is the highest-traffic, highest-risk path; thorough tests here prevent the most support tickets.',
+    walkthrough: [
+      'Test formats, angles, lighting, and partial-frame/backlit/shaky inputs, plus the in-app recorder and file upload.',
+      'Confirm the privacy behavior: only sampled frames are sent; the full video stays on device.',
+    ],
+    commonMistakes: ['Only testing one clean swing.'],
+    completionCriteria: 'List five video test cases including edge cases.',
+    relatedFeatures: [{ label: 'Video Analyzer', route: '/video' }],
+  },
+  {
+    id: 'l-qa-ai-validation', title: 'AI Output Validation', estMinutes: 8, roleIds: ['qa', 'product', 'engineering', 'ai-ml'],
+    difficulty: 'advanced', version: V,
+    objectives: ['Validate AI responses against guardrails', 'Flag non-compliant output'],
+    whyItMatters: 'Catching an overclaiming or unsafe AI response in QA prevents a trust-damaging incident.',
+    walkthrough: [
+      'Check that output leads with one priority, labels confidence, and contains no medical or guaranteed-outcome claims.',
+      'When output violates a guardrail, flag and route it per the responsible-AI process.',
+    ],
+    completionCriteria: 'Correctly judge whether a sample AI output is compliant.',
+    docLinks: [{ label: 'Trust & Safety', href: '/trust' }],
+  },
 ];
