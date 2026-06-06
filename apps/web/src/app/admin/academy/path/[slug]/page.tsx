@@ -5,7 +5,7 @@ import { useParams, notFound } from 'next/navigation';
 import { getPathBySlug, getCourse, getCertification } from '@/lib/academy/content';
 import { useAcademyStore } from '@/lib/academy/store';
 import { courseProgress, pathProgress, certificationReadiness, isCertified } from '@/lib/academy/engine';
-import { useMounted, ProgressBar, DifficultyPill } from '@/components/academy/parts';
+import { useMounted, ProgressBar, DifficultyPill, AssignControl } from '@/components/academy/parts';
 
 export default function PathPage() {
   const mounted = useMounted();
@@ -31,6 +31,7 @@ export default function PathPage() {
         </div>
         <p className="mt-3 max-w-2xl text-muted-foreground">{path.purpose}</p>
         <div className="mt-4 max-w-md"><ProgressBar value={pp.percent} /><p className="mt-1 text-xs text-muted-foreground">{pp.percent}% complete</p></div>
+        <div className="mt-3"><AssignControl targetType="path" targetId={path.id} /></div>
         {cert && (
           <div className="mt-4 rounded-theme border border-primary/20 bg-primary/5 p-4">
             <p className="text-sm font-semibold text-foreground">{cert.emoji} Grants: {cert.name}</p>

@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useAcademyStore } from '@/lib/academy/store';
-import { PATHS, BADGES, CERTIFICATIONS, getBadge } from '@/lib/academy/content';
+import { PATHS, BADGES, CERTIFICATIONS, getBadge, getCourse, getPath } from '@/lib/academy/content';
+import { academyNotifications } from '@/lib/academy/notifications';
 import {
   masteryLevel, nextMastery, featureFluency, demoReadiness, supportReadiness,
   pathProgress, recommendedPaths, nextRecommendedCourse, advisorMessage,
@@ -52,6 +53,48 @@ export default function DashboardPage() {
         </div>
         <div className="ml-auto w-40"><ProgressBar value={momentumScore(progress)} /></div>
       </section>
+
+      {/* Notifications */}
+      {(() => {
+        const notifs = academyNotifications(progress);
+        if (notifs.length === 0) return null;
+        return (
+          <section>
+            <h2 className="mb-2 text-lg font-bold text-foreground">Notifications</h2>
+            <ul className="space-y-2">
+              {notifs.map((n) => (
+                <li key={n.id}>
+                  <Link href={n.href} className={`flex items-center justify-between gap-3 rounded-theme border p-3 text-sm transition-colors hover:opacity-90 ${n.severity === 'warn' ? 'border-warning/30 bg-warning/5' : n.severity === 'success' ? 'border-success/30 bg-success/5' : 'border-border bg-card'}`}>
+                    <span><span className="font-medium text-foreground">{n.title}</span> <span className="text-muted-foreground">— {n.detail}</span></span>
+                    <span className="text-xs text-primary">View →</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })()}
+
+      {/* Assigned to you */}
+      {(progress.assignments ?? []).length > 0 && (
+        <section>
+          <h2 className="mb-2 text-lg font-bold text-foreground">Assigned to you</h2>
+          <ul className="space-y-2">
+            {(progress.assignments ?? []).map((a) => {
+              const target = a.targetType === 'course' ? getCourse(a.targetId) : getPath(a.targetId);
+              if (!target) return null;
+              return (
+                <li key={a.id} className="flex items-center justify-between gap-3 rounded-theme border border-border bg-card p-3 text-sm">
+                  <Link href={`/admin/academy/${a.targetType}/${target.slug}`} className="font-medium text-foreground hover:text-primary">
+                    {a.targetType === 'course' ? '📘' : '🧭'} {target.title}
+                  </Link>
+                  <span className="text-xs text-muted-foreground">{a.dueAt ? `due ${new Date(a.dueAt).toLocaleDateString()}` : 'no due date'}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       {/* Scores */}
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

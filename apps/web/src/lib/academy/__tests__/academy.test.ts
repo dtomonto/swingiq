@@ -16,6 +16,8 @@ import { resolveLesson, resolveCourseBySlug, mergedCourses } from '../overlay';
 import { askTutor } from '../tutor';
 import { advisorPlan } from '../advisor';
 import { generateFromRelease } from '../generate';
+import { academyNotifications } from '../notifications';
+import { catalogCoverage, certReadinessSummary, progressExport } from '../analytics';
 
 // Build a progress object with the given lessons complete + quizzes passed.
 function progressWith(opts: {
@@ -254,5 +256,40 @@ describe('Academy AI layer (Phase 4)', () => {
     expect(g.course.status).toBe('draft');
     expect(g.lesson.objectives.length).toBeGreaterThanOrEqual(2);
     expect(g.checklists.qa.length).toBeGreaterThan(0);
+  });
+});
+
+describe('Academy analytics + assignments (Phase 5)', () => {
+  beforeEach(() => useAcademyStore.getState().reset());
+
+  it('assign/unassign manages assignments and dedupes by target', () => {
+    useAcademyStore.getState().assign('course', 'c-what-is');
+    useAcademyStore.getState().assign('course', 'c-what-is');
+    expect(useAcademyStore.getState().progress.assignments.length).toBe(1);
+    const id = useAcademyStore.getState().progress.assignments[0].id;
+    useAcademyStore.getState().unassign(id);
+    expect(useAcademyStore.getState().progress.assignments.length).toBe(0);
+  });
+
+  it('catalogCoverage and cert summary compute from state', () => {
+    const cov = catalogCoverage(DEFAULT_ACADEMY_PROGRESS);
+    expect(cov.lessonsTotal).toBeGreaterThan(0);
+    expect(cov.lessonsDone).toBe(0);
+    expect(certReadinessSummary(DEFAULT_ACADEMY_PROGRESS).length).toBe(CERTIFICATIONS.length);
+  });
+
+  it('notifications surface an overdue assignment', () => {
+    const past = new Date(Date.now() - 86400000).toISOString();
+    const p = {
+      ...DEFAULT_ACADEMY_PROGRESS,
+      assignments: [{ id: 'a1', targetType: 'course' as const, targetId: 'c-what-is', dueAt: past, createdAt: 'x' }],
+    };
+    expect(academyNotifications(p).some((n) => n.kind === 'assignment-overdue')).toBe(true);
+  });
+
+  it('progressExport produces a report object', () => {
+    const r = progressExport(DEFAULT_ACADEMY_PROGRESS);
+    expect(r.coverage).toBeDefined();
+    expect(r.masteryLevel).toBeTruthy();
   });
 });

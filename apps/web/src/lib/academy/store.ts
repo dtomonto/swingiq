@@ -19,7 +19,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import {
   DEFAULT_ACADEMY_PROGRESS, POINTS,
-  type AcademyProgress, type AcademyRoleId,
+  type AcademyProgress, type AcademyRoleId, type Assignment,
 } from './types';
 import { CERTIFICATIONS, getCertification } from './content';
 import { earnedBadgeIds, isCertificationEligible } from './engine';
@@ -75,6 +75,8 @@ export interface AcademyStore {
   submitChallenge: (challengeId: string) => void;
   claimCertification: (certId: string) => void;
   recertify: (certId: string) => void;
+  assign: (targetType: 'course' | 'path', targetId: string, dueAt?: string, assignedBy?: string) => void;
+  unassign: (id: string) => void;
   reset: () => void;
 }
 
@@ -156,6 +158,23 @@ export const useAcademyStore = create<AcademyStore>()(
           };
         }),
 
+      assign: (targetType, targetId, dueAt, assignedBy) =>
+        set((s) => {
+          const existing = (s.progress.assignments ?? []).filter(
+            (a) => !(a.targetType === targetType && a.targetId === targetId),
+          );
+          const assignment: Assignment = {
+            id: `as-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+            targetType, targetId, dueAt, assignedBy, createdAt: new Date().toISOString(),
+          };
+          return { progress: { ...s.progress, assignments: [...existing, assignment] } };
+        }),
+
+      unassign: (id) =>
+        set((s) => ({
+          progress: { ...s.progress, assignments: (s.progress.assignments ?? []).filter((a) => a.id !== id) },
+        })),
+
       reset: () => set({ progress: DEFAULT_ACADEMY_PROGRESS }),
     }),
     {
@@ -170,9 +189,10 @@ export const useAcademyStore = create<AcademyStore>()(
       migrate: (persisted) => {
         const p = persisted as { progress?: Partial<AcademyProgress> } | undefined;
         if (p?.progress && !p.progress.activityDays) p.progress.activityDays = [];
+        if (p?.progress && !p.progress.assignments) p.progress.assignments = [];
         return p as never;
       },
-      version: 2,
+      version: 3,
     },
   ),
 );

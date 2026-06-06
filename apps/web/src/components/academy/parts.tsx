@@ -40,6 +40,38 @@ export function DifficultyPill({ level }: { level: 'foundational' | 'intermediat
   return <span className={cn('rounded-full px-2 py-0.5 text-[11px] font-medium capitalize', map[level])}>{level}</span>;
 }
 
+/** Assign a course/path to yourself with an optional due date (manager-style). */
+export function AssignControl({ targetType, targetId }: { targetType: 'course' | 'path'; targetId: string }) {
+  const mounted = useMounted();
+  const assignments = useAcademyStore((s) => s.progress.assignments);
+  const assign = useAcademyStore((s) => s.assign);
+  const unassign = useAcademyStore((s) => s.unassign);
+  const [due, setDue] = useState('');
+  if (!mounted) return null;
+  const existing = (assignments ?? []).find((a) => a.targetType === targetType && a.targetId === targetId);
+  if (existing) {
+    return (
+      <div className="flex items-center gap-2 text-xs">
+        <span className="rounded-full bg-accent-secondary/15 px-2 py-0.5 text-accent-secondary">
+          Assigned{existing.dueAt ? ` · due ${new Date(existing.dueAt).toLocaleDateString()}` : ''}
+        </span>
+        <button onClick={() => unassign(existing.id)} className="text-muted-foreground hover:text-error">Remove</button>
+      </div>
+    );
+  }
+  return (
+    <div className="flex items-center gap-2">
+      <input type="date" value={due} onChange={(e) => setDue(e.target.value)}
+        className="rounded-theme border border-border bg-card px-2 py-1 text-xs text-foreground" />
+      <button
+        onClick={() => assign(targetType, targetId, due ? new Date(due).toISOString() : undefined)}
+        className="rounded-lg border border-border px-2 py-1 text-xs text-primary hover:underline">
+        Assign{due ? ' with due date' : ''}
+      </button>
+    </div>
+  );
+}
+
 /** Role selector bound to the academy store. */
 export function RoleSelect({ className }: { className?: string }) {
   const roleId = useAcademyStore((s) => s.progress.roleId);

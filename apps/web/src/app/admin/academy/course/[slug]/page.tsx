@@ -7,7 +7,7 @@ import { useAcademyStore } from '@/lib/academy/store';
 import { useAcademyCmsStore } from '@/lib/academy/cms';
 import { resolveCourseBySlug, resolveLesson } from '@/lib/academy/overlay';
 import { courseProgress } from '@/lib/academy/engine';
-import { useMounted, ProgressBar, DifficultyPill } from '@/components/academy/parts';
+import { useMounted, ProgressBar, DifficultyPill, AssignControl } from '@/components/academy/parts';
 
 export default function CoursePage() {
   const mounted = useMounted();
@@ -39,6 +39,7 @@ export default function CoursePage() {
           <ul className="mt-1 list-disc space-y-0.5 pl-5 text-sm text-foreground">{course.objectives.map((o, i) => <li key={i}>{o}</li>)}</ul>
         </div>
         <div className="mt-4 max-w-md"><ProgressBar value={cp.percent} /><p className="mt-1 text-xs text-muted-foreground">{cp.done}/{cp.total} lessons · {cp.percent}%</p></div>
+        <div className="mt-3"><AssignControl targetType="course" targetId={course.id} /></div>
         {badge && (
           <p className="mt-3 text-sm text-muted-foreground">{badge.emoji} Earn the <strong className="text-foreground">{badge.name}</strong> badge by completing this course.</p>
         )}

@@ -235,6 +235,17 @@ export interface CertificationRecord {
   expiresAt: string | null;
 }
 
+/** A learning assignment (self- or manager-assigned). */
+export interface Assignment {
+  id: string;
+  targetType: 'course' | 'path';
+  targetId: string;
+  assignedBy?: string;
+  /** ISO due date, optional. */
+  dueAt?: string;
+  createdAt: string;
+}
+
 export interface AcademyProgress {
   /** Selected role; null until the learner picks one. */
   roleId: AcademyRoleId | null;
@@ -256,6 +267,8 @@ export interface AcademyProgress {
   activityDays: string[];
   /** Optional display name printed on certificates. */
   learnerName?: string;
+  /** Assigned courses/paths (self- or manager-assigned). */
+  assignments: Assignment[];
 }
 
 export const DEFAULT_ACADEMY_PROGRESS: AcademyProgress = {
@@ -269,6 +282,7 @@ export const DEFAULT_ACADEMY_PROGRESS: AcademyProgress = {
   startedAt: null,
   lastActivityAt: null,
   activityDays: [],
+  assignments: [],
 };
 
 // ── Points economy (premium, restrained) ─────────────────────
