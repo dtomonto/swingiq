@@ -58,5 +58,29 @@
   },
   "pre-round": {
     "durationSec": 23
+  },
+  "player-arc": {
+    "durationSec": 26
+  },
+  "retest": {
+    "durationSec": 25
+  },
+  "milestones": {
+    "durationSec": 25
+  },
+  "labs": {
+    "durationSec": 25
+  },
+  "benchmarks": {
+    "durationSec": 25
+  },
+  "reports": {
+    "durationSec": 26
+  },
+  "coach-summary": {
+    "durationSec": 24
+  },
+  "parent-summary": {
+    "durationSec": 24
   }
 }
