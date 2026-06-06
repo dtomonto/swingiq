@@ -1,0 +1,22 @@
+// Player Recruiting Hub — component barrel.
+export { DataSourceLabel, VerificationBadge, ConfidenceBadge } from './DataSourceLabel';
+export { ProfileStrengthMeter } from './ProfileStrengthMeter';
+export { RecruitingNav } from './RecruitingNav';
+export { RecruitingProfileCard } from './RecruitingProfileCard';
+export { ProfileBuilderForm } from './ProfileBuilderForm';
+export { FilmLibrary } from './FilmLibrary';
+export { DataDashboard } from './DataDashboard';
+export { DataMetricCard } from './DataMetricCard';
+export { SportBenchmarkChart } from './SportBenchmarkChart';
+export { HighlightReelBuilder } from './HighlightReelBuilder';
+export { AIPlayerSummaryPanel } from './AIPlayerSummaryPanel';
+export { ShareLinkManager } from './ShareLinkManager';
+export { PrivacyControls } from './PrivacyControls';
+export { GuardianConsentPanel } from './GuardianConsentPanel';
+export { OutreachAssistant } from './OutreachAssistant';
+export { EngagementAnalyticsPanel } from './EngagementAnalyticsPanel';
+export { CoachNotesPanel } from './CoachNotesPanel';
+export { ImprovementTimeline } from './ImprovementTimeline';
+export { PacketGeneratorButton } from './PacketGeneratorButton';
+export { CoachProfileView } from './CoachProfileView';
+export { RecruiterContactForm } from './RecruiterContactForm';

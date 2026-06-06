@@ -53,6 +53,21 @@ export function shareUrl(slug: string): string {
   return `${origin}/player/${slug}`;
 }
 
+/**
+ * Lightweight, non-reversible hash for the password "soft gate" on the public
+ * coach view. This is a deterrent against casual access on a shared link — NOT
+ * a security boundary (a determined viewer with the snapshot could bypass it).
+ * A real access control belongs server-side; the cloud schema is ready for it.
+ */
+export function hashPassword(pw: string): string {
+  let h = 2166136261;
+  for (let i = 0; i < pw.length; i++) {
+    h ^= pw.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return (h >>> 0).toString(36);
+}
+
 // ── Permission presets ───────────────────────────────────────
 
 export function permissionPresetFor(kind: ShareLinkKind): ShareLinkPermissions {
@@ -103,6 +118,8 @@ export interface CoachViewSnapshot {
   generatedAt: string;
   watermark: boolean;
   passwordProtected: boolean;
+  /** Soft-gate hash of the link password (see hashPassword). Never the plaintext. */
+  passwordHash?: string;
   permissions: ShareLinkPermissions;
   sport: SportId;
   athlete: {
@@ -185,6 +202,7 @@ export function buildCoachSnapshot(state: RecruitingState, link: ShareLink): Coa
     generatedAt: new Date().toISOString(),
     watermark: link.watermark,
     passwordProtected: link.kind === 'password' && !!link.password,
+    passwordHash: link.kind === 'password' && link.password ? hashPassword(link.password) : undefined,
     permissions: perms,
     sport,
     athlete: {

@@ -40,7 +40,6 @@ export interface MetricDef {
 }
 
 const BASEBALL_SOFTBALL: SportId[] = ['baseball', 'softball_fast', 'softball_slow'];
-const ALL_SOFTBALL: SportId[] = ['softball_fast', 'softball_slow'];
 
 export const METRIC_CATALOG: MetricDef[] = [
   // ── Baseball / Softball — hitting ──

@@ -73,4 +73,19 @@ export const PATHS: VantagePath[] = [
     courseIds: ['c-qa', 'c-upload', 'c-3d'],
     certificationId: 'cert-qa',
   },
+  {
+    id: 'path-marketing', slug: 'marketing-enablement', emoji: '📣', accent: 'primary',
+    title: 'Marketing Enablement',
+    purpose: 'Train marketing and content teams to explain and promote SwingVantage accurately, on-brand, and within the performance-claim guardrails.',
+    roleIds: ['marketing', 'content'], difficulty: 'intermediate',
+    courseIds: ['c-marketing', 'c-what-is', 'c-responsible-ai'],
+    certificationId: 'cert-marketing',
+  },
+  {
+    id: 'path-exec', slug: 'executive-product-fluency', emoji: '🏆', accent: 'accent-secondary',
+    title: 'Executive Product Fluency',
+    purpose: 'Give leadership a strategic overview of product capability, AI, growth levers, monetization sequencing, and risk.',
+    roleIds: ['executive', 'product'], difficulty: 'advanced',
+    courseIds: ['c-exec', 'c-what-is'],
+  },
 ];

@@ -154,4 +154,41 @@ export const COURSES: Course[] = [
     objectives: ['Test like an expert user', 'Validate AI output against guardrails'],
     modules: [mod('m-qa', 'Validate', ['l-qa-philosophy', 'l-qa-video-testing', 'l-qa-ai-validation'])],
   },
+
+  // ── Marketing Enablement ───────────────────────────────────
+  {
+    id: 'c-marketing', slug: 'marketing-fundamentals', title: 'Marketing Enablement',
+    summary: 'Explain and promote SwingVantage accurately — voice, messaging, claims, and discovery.',
+    roleIds: ['marketing', 'content', 'sales'], difficulty: 'intermediate', estMinutes: 27, emoji: '📣',
+    objectives: ['Apply the brand voice', 'Keep performance claims honest'],
+    modules: [mod('m-marketing', 'Enablement', ['l-brand-voice', 'l-feature-messaging', 'l-claims-guidelines', 'l-seo-aeo-geo'])],
+  },
+
+  // ── Executive Product Fluency ──────────────────────────────
+  {
+    id: 'c-exec', slug: 'executive-fluency', title: 'Executive Product Fluency',
+    summary: 'A strategic overview of capability, AI, growth levers, and risk for leadership.',
+    roleIds: ['executive', 'product'], difficulty: 'advanced', estMinutes: 23, emoji: '🏆',
+    objectives: ['State strategy + GTM order', 'Map AI capability and risk'],
+    modules: [mod('m-exec', 'Strategy', ['l-exec-strategy', 'l-exec-ai-map', 'l-exec-growth-risk'])],
+  },
+
+  // ── Support Deep Dives ─────────────────────────────────────
+  {
+    id: 'c-support-deep', slug: 'support-deep-dives', title: 'Support Deep Dives',
+    summary: 'Account access, billing, and a warm, consistent macro-driven tone.',
+    roleIds: ['support', 'admin'], difficulty: 'intermediate', estMinutes: 19, emoji: '🎧',
+    prerequisiteCourseIds: ['c-support-console'],
+    objectives: ['Resolve access/billing issues', 'Use macros with a human tone'],
+    modules: [mod('m-support-deep', 'Deep Dives', ['l-support-account-access', 'l-support-billing', 'l-support-macros'])],
+  },
+
+  // ── Product Deep Dives ─────────────────────────────────────
+  {
+    id: 'c-deep-dives', slug: 'product-deep-dives', title: 'Product Deep Dives',
+    summary: 'Equipment, health/wearable data, multi-sport switching, and practice plans.',
+    roleIds: 'all', difficulty: 'intermediate', estMinutes: 26, emoji: '🧩',
+    objectives: ['Explain equipment, health data, multi-sport, and practice plans honestly'],
+    modules: [mod('m-deep', 'Deep Dives', ['l-equipment', 'l-health-integrations', 'l-multisport-switch', 'l-practice-plans'])],
+  },
 ];

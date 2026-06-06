@@ -2,8 +2,10 @@
 
 import Link from 'next/link';
 import { useParams, notFound } from 'next/navigation';
-import { getCourseBySlug, getLesson, getBadge } from '@/lib/academy/content';
+import { getBadge } from '@/lib/academy/content';
 import { useAcademyStore } from '@/lib/academy/store';
+import { useAcademyCmsStore } from '@/lib/academy/cms';
+import { resolveCourseBySlug, resolveLesson } from '@/lib/academy/overlay';
 import { courseProgress } from '@/lib/academy/engine';
 import { useMounted, ProgressBar, DifficultyPill } from '@/components/academy/parts';
 
@@ -11,8 +13,10 @@ export default function CoursePage() {
   const mounted = useMounted();
   const { slug } = useParams<{ slug: string }>();
   const progress = useAcademyStore((s) => s.progress);
+  const cmsCourses = useAcademyCmsStore((s) => s.courses);
+  const cmsLessons = useAcademyCmsStore((s) => s.lessons);
   const completed = progress.completedLessonIds;
-  const course = getCourseBySlug(slug);
+  const course = resolveCourseBySlug(slug, cmsCourses);
   if (!course) return notFound();
 
   const cp = mounted ? courseProgress(progress, course) : { percent: 0, done: 0, total: 0 };
@@ -45,7 +49,7 @@ export default function CoursePage() {
           <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-primary">{m.title}</h2>
           <ol className="space-y-2">
             {m.lessonIds.map((lid, i) => {
-              const l = getLesson(lid);
+              const l = resolveLesson(lid, cmsLessons);
               if (!l) return null;
               const done = mounted && completed.includes(lid);
               return (

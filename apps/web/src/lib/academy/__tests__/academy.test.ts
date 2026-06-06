@@ -11,6 +11,8 @@ import {
 } from '../engine';
 import { DEFAULT_ACADEMY_PROGRESS, type AcademyProgress } from '../types';
 import { useAcademyStore } from '../store';
+import { useAcademyCmsStore, type CmsLesson, type CmsCourse } from '../cms';
+import { resolveLesson, resolveCourseBySlug, mergedCourses } from '../overlay';
 
 // Build a progress object with the given lessons complete + quizzes passed.
 function progressWith(opts: {
@@ -83,10 +85,10 @@ describe('Academy content integrity', () => {
   });
 
   it('seed meets the minimum content bar', () => {
-    expect(PATHS.length).toBeGreaterThanOrEqual(9);
-    expect(COURSES.length).toBeGreaterThanOrEqual(18);
-    expect(LESSONS.length).toBeGreaterThanOrEqual(29);
-    expect(CERTIFICATIONS.length).toBeGreaterThanOrEqual(7);
+    expect(PATHS.length).toBeGreaterThanOrEqual(11);
+    expect(COURSES.length).toBeGreaterThanOrEqual(22);
+    expect(LESSONS.length).toBeGreaterThanOrEqual(40);
+    expect(CERTIFICATIONS.length).toBeGreaterThanOrEqual(8);
     expect(CHALLENGES.length).toBeGreaterThanOrEqual(7);
   });
 });
@@ -183,5 +185,43 @@ describe('Academy store', () => {
     const p = useAcademyStore.getState().progress;
     expect(p.certifications['cert-admin']).toBeDefined();
     expect(p.earnedBadges[cert.badgeId]).toBeDefined();
+  });
+});
+
+describe('Academy CMS + overlay (Phase 3)', () => {
+  beforeEach(() => useAcademyCmsStore.getState().reset());
+
+  const draftLesson: CmsLesson = {
+    id: 'cms-l-test', title: 'Test Lesson', estMinutes: 5, roleIds: 'all',
+    difficulty: 'foundational', objectives: ['o'], whyItMatters: 'w', walkthrough: ['p'],
+    version: '1.0-cms', status: 'draft', updatedAt: 'now',
+  };
+  const draftCourse: CmsCourse = {
+    id: 'cms-c-test', slug: 'cms-test', title: 'CMS Course', summary: 's', roleIds: 'all',
+    difficulty: 'foundational', estMinutes: 10, objectives: [],
+    modules: [{ id: 'm', title: 'L', lessonIds: [] }], status: 'draft', updatedAt: 'now',
+  };
+
+  it('an authored lesson is only resolvable once published', () => {
+    useAcademyCmsStore.getState().saveLesson(draftLesson);
+    expect(resolveLesson('cms-l-test', useAcademyCmsStore.getState().lessons)).toBeUndefined();
+    useAcademyCmsStore.getState().setLessonStatus('cms-l-test', 'published');
+    expect(resolveLesson('cms-l-test', useAcademyCmsStore.getState().lessons)?.title).toBe('Test Lesson');
+  });
+
+  it('a published CMS course joins the merged catalog; drafts do not', () => {
+    useAcademyCmsStore.getState().saveCourse(draftCourse);
+    expect(mergedCourses(useAcademyCmsStore.getState().courses).some((c) => c.id === 'cms-c-test')).toBe(false);
+    useAcademyCmsStore.getState().setCourseStatus('cms-c-test', 'published');
+    expect(mergedCourses(useAcademyCmsStore.getState().courses).some((c) => c.id === 'cms-c-test')).toBe(true);
+    expect(resolveCourseBySlug('cms-test', useAcademyCmsStore.getState().courses)?.title).toBe('CMS Course');
+  });
+
+  it('records an audit trail of authoring actions', () => {
+    useAcademyCmsStore.getState().saveLesson(draftLesson);
+    useAcademyCmsStore.getState().setLessonStatus('cms-l-test', 'review');
+    const audit = useAcademyCmsStore.getState().audit;
+    expect(audit.length).toBeGreaterThanOrEqual(2);
+    expect(audit[0].action).toContain('review');
   });
 });

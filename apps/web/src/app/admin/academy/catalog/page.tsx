@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { PATHS, COURSES } from '@/lib/academy/content';
+import { PATHS } from '@/lib/academy/content';
 import { useAcademyStore } from '@/lib/academy/store';
+import { useAcademyCmsStore } from '@/lib/academy/cms';
+import { mergedCourses } from '@/lib/academy/overlay';
 import { courseProgress, pathProgress } from '@/lib/academy/engine';
 import { useMounted, ProgressBar, DifficultyPill } from '@/components/academy/parts';
 import type { Difficulty } from '@/lib/academy/types';
@@ -13,14 +15,16 @@ const DIFFS: (Difficulty | 'all')[] = ['all', 'foundational', 'intermediate', 'a
 export default function CatalogPage() {
   const mounted = useMounted();
   const progress = useAcademyStore((s) => s.progress);
+  const cmsCourses = useAcademyCmsStore((s) => s.courses);
   const [q, setQ] = useState('');
   const [diff, setDiff] = useState<Difficulty | 'all'>('all');
 
   const ql = q.trim().toLowerCase();
   const matchPath = (t: string, p: string) => !ql || t.toLowerCase().includes(ql) || p.toLowerCase().includes(ql);
 
+  const allCourses = mounted ? mergedCourses(cmsCourses) : mergedCourses({});
   const paths = PATHS.filter((p) => (diff === 'all' || p.difficulty === diff) && matchPath(p.title, p.purpose));
-  const courses = COURSES.filter((c) => (diff === 'all' || c.difficulty === diff) && matchPath(c.title, c.summary));
+  const courses = allCourses.filter((c) => (diff === 'all' || c.difficulty === diff) && matchPath(c.title, c.summary));
 
   return (
     <div className="space-y-8">

@@ -8,7 +8,7 @@ import type { Shot } from '@swingiq/core';
 import type { CoachContext } from '@/lib/ai-coach-prompts';
 import { useSport } from '@/contexts/SportContext';
 import { getTone } from '@/lib/coaching/tones';
-import { useBodySync } from '@/lib/bodysync';
+import { useBodySync, isKnownMinor } from '@/lib/bodysync';
 
 export default function AICoachPage() {
   const { profile, sessions, sportProfiles, video_analyses, settings } = useSwingVantageStore();
@@ -112,7 +112,8 @@ export default function AICoachPage() {
     }
 
     // ── BodySync: let the coach adapt to today's readiness (never medical) ──
-    if (assessment && recommendation) {
+    // Adults-only (18+): never feed health context for accounts flagged as a minor.
+    if (assessment && recommendation && !isKnownMinor(settings.usage_category)) {
       const sess = recommendation.sessionType.replace(/_/g, ' ');
       ctx.coaching_tone_hint = [
         ctx.coaching_tone_hint ?? '',
@@ -126,7 +127,7 @@ export default function AICoachPage() {
     }
 
     return ctx;
-  }, [latestWithShots, latestVideoAnalysis, profile, sportProfiles, activeSport, isGolf, settings.coaching_tone, assessment, recommendation]);
+  }, [latestWithShots, latestVideoAnalysis, profile, sportProfiles, activeSport, isGolf, settings.coaching_tone, settings.usage_category, assessment, recommendation]);
 
   return (
     <>

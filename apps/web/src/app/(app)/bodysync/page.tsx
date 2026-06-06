@@ -6,10 +6,11 @@
 // ============================================================
 
 import { useState } from 'react';
-import { HeartPulse, Download, Trash2, Settings2, Check } from 'lucide-react';
+import { HeartPulse, Download, Trash2, Settings2, Check, ShieldAlert } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { useBodySync, CATEGORY_META } from '@/lib/bodysync';
+import { useBodySync, CATEGORY_META, isKnownMinor, AGE_GATE_COPY } from '@/lib/bodysync';
 import type { HealthCategory } from '@/lib/bodysync';
+import { useSwingVantageStore } from '@/store';
 import { HealthConsentGate } from '@/components/bodysync/HealthConsentGate';
 import { ReadinessScoreCard } from '@/components/bodysync/ReadinessScoreCard';
 import { PracticeAdjustmentCard } from '@/components/bodysync/PracticeAdjustmentCard';
@@ -24,17 +25,31 @@ const CATEGORY_ORDER: HealthCategory[] = ['wellness', 'recovery', 'cardio', 'act
 
 export default function BodySyncPage() {
   const bs = useBodySync();
+  const usageCategory = useSwingVantageStore((s) => s.settings.usage_category);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [showData, setShowData] = useState(false);
 
-  // ── Consent gate ──
+  // ── Age gate: hard-block accounts classified as a minor (18+ only) ──
+  if (isKnownMinor(usageCategory)) {
+    return (
+      <div className="mx-auto max-w-md p-6 text-center">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
+          <ShieldAlert size={28} aria-hidden="true" />
+        </div>
+        <h1 className="mt-3 text-xl font-bold text-foreground">BodySync is for adults 18+</h1>
+        <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{AGE_GATE_COPY}</p>
+      </div>
+    );
+  }
+
+  // ── Consent gate (requires explicit 18+ attestation inside) ──
   if (!bs.consented || !bs.enabled) {
     return (
       <div className="p-6">
         <HealthConsentGate
           permissions={bs.state.permissions}
           onSetPermissions={bs.setPermissions}
-          onConsent={bs.consent}
+          onConsent={() => { bs.setSettings({ ageConfirmed18: true }); bs.consent(); }}
         />
       </div>
     );

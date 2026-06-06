@@ -41,8 +41,8 @@ export const ROLES: AcademyRole[] = [
   {
     id: 'marketing', label: 'Marketing', emoji: '📣',
     blurb: 'Explain and promote SwingVantage accurately.',
-    recommendedPathSlugs: ['swingvantage-foundations'],
-    targetCertificationId: 'cert-foundations',
+    recommendedPathSlugs: ['marketing-enablement', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-marketing',
   },
   {
     id: 'admin', label: 'Admin & Ops', emoji: '⚙️',
@@ -53,7 +53,7 @@ export const ROLES: AcademyRole[] = [
   {
     id: 'executive', label: 'Executive', emoji: '🏆',
     blurb: 'Strategic fluency across capability, risk, and growth.',
-    recommendedPathSlugs: ['swingvantage-foundations'],
+    recommendedPathSlugs: ['executive-product-fluency', 'swingvantage-foundations'],
     targetCertificationId: 'cert-foundations',
   },
   {
@@ -71,8 +71,8 @@ export const ROLES: AcademyRole[] = [
   {
     id: 'content', label: 'Content', emoji: '✍️',
     blurb: 'Produce accurate, on-brand learning and marketing content.',
-    recommendedPathSlugs: ['swingvantage-foundations'],
-    targetCertificationId: 'cert-foundations',
+    recommendedPathSlugs: ['marketing-enablement', 'swingvantage-foundations'],
+    targetCertificationId: 'cert-marketing',
   },
   {
     id: 'partner', label: 'Partner', emoji: '🤝',
@@ -119,4 +119,7 @@ export const BADGES: Badge[] = [
   { id: 'b-qa', name: 'QA Specialist', tier: 'gold', emoji: '🔍',
     description: 'Validates the platform like an expert user.',
     criteria: 'Earn the SwingVantage Certified QA certification.' },
+  { id: 'b-marketing', name: 'Marketing Certified', tier: 'gold', emoji: '📣',
+    description: 'Promotes SwingVantage accurately and on-brand.',
+    criteria: 'Earn the SwingVantage Certified Marketing certification.' },
 ];

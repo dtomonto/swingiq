@@ -6,6 +6,23 @@ import type {
   BodySyncState, HealthPermissions, HealthCategory, BodyRegion,
 } from './types';
 
+// ── Age gating (adults only until validated for minors) ─────
+export const BODYSYNC_MIN_AGE = 18;
+
+export const AGE_GATE_COPY =
+  'BodySync is available to adults 18 and older. We haven’t yet validated health ' +
+  'and wearable features for younger athletes, so it’s turned off for accounts set ' +
+  'up as a minor. The rest of SwingVantage works exactly the same.';
+
+/**
+ * True when the account is classified as a minor (13–17 or under 13). Such
+ * accounts are hard-blocked from BodySync — no health data is collected.
+ * Takes the raw usage_category string so this stays decoupled from the store.
+ */
+export function isKnownMinor(usageCategory: string | null | undefined): boolean {
+  return usageCategory === 'minor_13_17' || usageCategory === 'minor_under_13';
+}
+
 // ── Non-medical disclaimer (shown wherever health context appears) ──
 export const NON_MEDICAL_DISCLAIMER =
   'SwingVantage uses wellness and performance data to personalize training ' +
@@ -88,6 +105,7 @@ export const DEFAULT_BODYSYNC_STATE: BodySyncState = {
   settings: {
     enabled: false,
     consentedAt: null,
+    ageConfirmed18: false,
     cycleTrackingEnabled: false,
     shareReadinessWithCoach: false,
   },

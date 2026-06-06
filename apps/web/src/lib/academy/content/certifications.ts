@@ -74,4 +74,14 @@ export const CERTIFICATIONS: Certification[] = [
     expiresMonths: 12,
     badgeId: 'b-qa',
   },
+  {
+    id: 'cert-marketing', emoji: '📣',
+    name: 'SwingVantage Certified Marketing',
+    description: 'Certifies accurate, on-brand promotion of SwingVantage within the performance-claim guardrails.',
+    requiredCourseIds: ['c-marketing', 'c-responsible-ai'],
+    finalAssessmentQuizId: 'q-marketing',
+    passingScore: 80,
+    expiresMonths: 12,
+    badgeId: 'b-marketing',
+  },
 ];

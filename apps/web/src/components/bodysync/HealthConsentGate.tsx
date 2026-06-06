@@ -20,6 +20,7 @@ const ORDER: HealthCategory[] = ['wellness', 'recovery', 'cardio', 'activity', '
  */
 export function HealthConsentGate({ permissions, onSetPermissions, onConsent }: Props) {
   const [agreed, setAgreed] = useState(false);
+  const [age18, setAge18] = useState(false);
 
   return (
     <div className="mx-auto max-w-xl space-y-5">
@@ -85,6 +86,19 @@ export function HealthConsentGate({ permissions, onSetPermissions, onConsent }: 
       <label className="flex items-start gap-2.5 rounded-xl border border-border bg-card p-3">
         <input
           type="checkbox"
+          checked={age18}
+          onChange={(e) => setAge18(e.target.checked)}
+          className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
+        />
+        <span className="text-[11px] text-muted-foreground leading-relaxed">
+          I confirm I am <strong className="text-foreground">18 years or older</strong>. BodySync is
+          for adults only.
+        </span>
+      </label>
+
+      <label className="flex items-start gap-2.5 rounded-xl border border-border bg-card p-3">
+        <input
+          type="checkbox"
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
           className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
@@ -94,7 +108,7 @@ export function HealthConsentGate({ permissions, onSetPermissions, onConsent }: 
         </span>
       </label>
 
-      <Button onClick={onConsent} disabled={!agreed} className="w-full" size="lg">
+      <Button onClick={onConsent} disabled={!agreed || !age18} className="w-full" size="lg">
         Turn on BodySync
       </Button>
       <p className="text-center text-[11px] text-muted-foreground">

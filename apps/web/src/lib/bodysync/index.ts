@@ -3,6 +3,7 @@ export * from './types';
 export {
   NON_MEDICAL_DISCLAIMER, SHORT_DISCLAIMER, SAFE_LANGUAGE, CATEGORY_META,
   BODY_REGIONS, ZONE_META, DEFAULT_BODYSYNC_STATE, DEFAULT_PERMISSIONS,
+  BODYSYNC_MIN_AGE, AGE_GATE_COPY, isKnownMinor,
 } from './constants';
 export {
   assessReadiness, recoveryScore, readinessScore, trainingLoadScore,

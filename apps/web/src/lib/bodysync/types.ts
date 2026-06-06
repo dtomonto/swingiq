@@ -238,6 +238,12 @@ export interface BodySyncSettings {
   enabled: boolean;
   /** User accepted the consent + non-medical disclaimer. */
   consentedAt: string | null;
+  /**
+   * Explicit 18+ attestation. BodySync handles sensitive health data and is
+   * NOT yet validated for minors, so it is adults-only: known minors are hard-
+   * blocked and everyone else must confirm they are 18 or older.
+   */
+  ageConfirmed18: boolean;
   /** Optional cycle tracking, off by default, enhanced-privacy. */
   cycleTrackingEnabled: boolean;
   /** Let a parent/coach see high-level readiness only. */

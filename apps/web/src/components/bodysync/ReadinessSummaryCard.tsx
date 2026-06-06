@@ -9,7 +9,8 @@
 
 import Link from 'next/link';
 import { HeartPulse, ChevronRight, PlusCircle } from 'lucide-react';
-import { useBodySync, ZONE_META } from '@/lib/bodysync';
+import { useBodySync, ZONE_META, isKnownMinor } from '@/lib/bodysync';
+import { useSwingVantageStore } from '@/store';
 
 const TONE: Record<string, string> = {
   success: 'border-success/40 bg-success/5',
@@ -28,6 +29,10 @@ const SESSION_LABEL: Record<string, string> = {
 
 export function ReadinessSummaryCard({ compact = false }: { compact?: boolean }) {
   const { enabled, consented, assessment, recommendation } = useBodySync();
+  const usageCategory = useSwingVantageStore((s) => s.settings.usage_category);
+
+  // Adults-only (18+): never surface BodySync to accounts classified as a minor.
+  if (isKnownMinor(usageCategory)) return null;
 
   // Not using BodySync yet → a gentle, dismissible-by-absence nudge only on the
   // full (dashboard) variant; the compact AI-coach variant stays silent.

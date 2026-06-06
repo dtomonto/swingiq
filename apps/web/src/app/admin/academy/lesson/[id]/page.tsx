@@ -2,21 +2,25 @@
 
 import Link from 'next/link';
 import { useParams, notFound } from 'next/navigation';
-import { getLesson, COURSES, courseLessonIds } from '@/lib/academy/content';
+import { courseLessonIds } from '@/lib/academy/content';
+import { useAcademyCmsStore } from '@/lib/academy/cms';
+import { resolveLesson, mergedCourses } from '@/lib/academy/overlay';
 import { LessonContent } from '@/components/academy/LessonContent';
 import { Button } from '@/components/ui/Button';
 
 export default function LessonPage() {
   const { id } = useParams<{ id: string }>();
-  const lesson = getLesson(id);
+  const cmsLessons = useAcademyCmsStore((s) => s.lessons);
+  const cmsCourses = useAcademyCmsStore((s) => s.courses);
+  const lesson = resolveLesson(id, cmsLessons);
   if (!lesson) return notFound();
 
   // Locate the course that contains this lesson (for breadcrumb + next lesson).
-  const course = COURSES.find((c) => courseLessonIds(c).includes(id));
+  const course = mergedCourses(cmsCourses).find((c) => courseLessonIds(c).includes(id));
   const lessonIds = course ? courseLessonIds(course) : [id];
   const idx = lessonIds.indexOf(id);
   const nextId = idx >= 0 && idx < lessonIds.length - 1 ? lessonIds[idx + 1] : null;
-  const nextLesson = nextId ? getLesson(nextId) : null;
+  const nextLesson = nextId ? resolveLesson(nextId, cmsLessons) : null;
 
   return (
     <div className="mx-auto max-w-3xl">

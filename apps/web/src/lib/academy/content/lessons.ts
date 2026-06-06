@@ -513,4 +513,185 @@ export const LESSONS: Lesson[] = [
     completionCriteria: 'Correctly judge whether a sample AI output is compliant.',
     docLinks: [{ label: 'Trust & Safety', href: '/trust' }],
   },
+
+  // ── Marketing Enablement ───────────────────────────────────
+  {
+    id: 'l-brand-voice', title: 'Brand Voice', estMinutes: 6, roleIds: ['marketing', 'content', 'sales'],
+    difficulty: 'foundational', version: V,
+    objectives: ['Apply the SwingVantage voice', 'Avoid hype'],
+    whyItMatters: 'Consistent, honest voice is a brand asset and protects trust.',
+    walkthrough: [
+      'Confident, warm, plain-language; lead with the user’s benefit. We are honest about limits and never overpromise.',
+      'Avoid jargon, hype, fear, and competitor bashing.',
+    ],
+    bestPractices: ['Confident but honest; benefit-first; plain words.'],
+    completionCriteria: 'Rewrite a hypey sentence in brand voice.',
+    docLinks: [{ label: 'Methodology', href: '/methodology' }],
+  },
+  {
+    id: 'l-feature-messaging', title: 'Feature Messaging', estMinutes: 6, roleIds: ['marketing', 'content'],
+    difficulty: 'intermediate', version: V,
+    objectives: ['Translate features into value', 'Message by sport and persona'],
+    whyItMatters: 'Messaging that leads with value (not features) converts and stays honest.',
+    walkthrough: [
+      'For each feature, finish "…so that the user can ___" and tailor to the persona and sport.',
+      'Keep claims data-backed; mark estimates as estimates.',
+    ],
+    completionCriteria: 'Write a value-first message for one feature.',
+  },
+  {
+    id: 'l-claims-guidelines', title: 'Responsible Performance Claims', estMinutes: 8, roleIds: ['marketing', 'content', 'sales'],
+    difficulty: 'intermediate', version: V,
+    objectives: ['Apply claim guardrails', 'Spot non-compliant claims'],
+    whyItMatters: 'A single overclaim (medical or guaranteed result) is a legal and trust risk.',
+    walkthrough: [
+      'Allowed: data-backed estimates, confidence framing, pairs-with-a-coach. Not allowed: guaranteed outcomes, medical/injury claims.',
+      'When unsure, soften to an estimate and add the honest qualifier.',
+    ],
+    commonMistakes: ['"Guaranteed +10 mph", "fixes your injury".'],
+    quizId: 'q-marketing',
+    completionCriteria: 'Pass the marketing knowledge check (80%).',
+    docLinks: [{ label: 'Trust & Safety', href: '/trust' }],
+  },
+  {
+    id: 'l-seo-aeo-geo', title: 'SEO / AEO / GEO Strategy', estMinutes: 7, roleIds: ['marketing', 'content'],
+    difficulty: 'intermediate', version: V,
+    objectives: ['Explain SEO/AEO/GEO at a high level', 'Keep content honest + answer-shaped'],
+    whyItMatters: 'Discoverability across search and answer engines drives free growth — the company’s #1 priority.',
+    walkthrough: [
+      'Write clear, answer-shaped content for people and AI answer engines; keep claims accurate (answer engines penalize and mistrust overclaiming).',
+      'Drafts stay drafts until substantive — an anti-thin-content gate enforces quality.',
+    ],
+    completionCriteria: 'Describe the difference between SEO and AEO/GEO.',
+    docLinks: [{ label: 'Updates', href: '/updates' }],
+  },
+
+  // ── Executive Product Fluency ──────────────────────────────
+  {
+    id: 'l-exec-strategy', title: 'Platform Strategy & Positioning', estMinutes: 8, roleIds: ['executive', 'product'],
+    difficulty: 'advanced', version: V,
+    objectives: ['State the strategy and GTM order', 'Explain the moat'],
+    whyItMatters: 'Leadership needs a shared, accurate strategic frame to make consistent calls.',
+    walkthrough: [
+      'GTM order: grow free users → ads (first revenue) → membership tiers. Subscriptions are a later phase, not next.',
+      'Moat: honest, prioritized AI coaching across five sports, privacy, and a growing base of each athlete’s own progress data.',
+    ],
+    quizId: 'q-exec',
+    completionCriteria: 'Pass the executive knowledge check.',
+    docLinks: [{ label: 'Monetization strategy', href: '/pricing' }],
+  },
+  {
+    id: 'l-exec-ai-map', title: 'AI Capability Map', estMinutes: 7, roleIds: ['executive', 'product'],
+    difficulty: 'advanced', version: V,
+    objectives: ['Map the AI capabilities and their limits', 'Speak to AI risk honestly'],
+    whyItMatters: 'Executives must represent AI capability accurately to partners, press, and the team.',
+    walkthrough: [
+      'Capabilities: AI swing-video analysis (frames), AI coach/agents, 3D motion estimation, recommendations. Each is an estimate with confidence, not certified measurement.',
+      'Risk posture: no medical claims, human review of AI content, guardrails enforced.',
+    ],
+    completionCriteria: 'List three AI capabilities and one limit of each.',
+  },
+  {
+    id: 'l-exec-growth-risk', title: 'Growth Loops, Monetization & Risk', estMinutes: 8, roleIds: ['executive', 'product'],
+    difficulty: 'advanced', version: V,
+    objectives: ['Describe the growth loops', 'Name the top risks'],
+    whyItMatters: 'Sequencing growth, revenue, and risk correctly is the core executive job.',
+    walkthrough: [
+      'Growth: free value → content/SEO discovery → retention via progress + coaching → ads → tiers.',
+      'Risks: measurement gaps, compliance/legal before paid/youth scale, AI overclaim — all tracked in the master audit report.',
+    ],
+    completionCriteria: 'Name two growth loops and two risks.',
+    docLinks: [{ label: 'Master audit report', href: '/admin' }],
+  },
+
+  // ── Support Deep Dives ─────────────────────────────────────
+  {
+    id: 'l-support-account-access', title: 'Account Access & Sign-in Issues', estMinutes: 7, roleIds: ['support', 'admin'],
+    difficulty: 'intermediate', version: V,
+    objectives: ['Resolve sign-in/access problems', 'Explain the auth + sync model'],
+    whyItMatters: 'Access issues block everything; resolving them fast retains users.',
+    walkthrough: [
+      'Confirm the user is signing in to the right account; password reset uses a branded email link. Signed-in data syncs across devices.',
+      'If a user "lost data" after a device switch, the fix is usually signing into the same account (cloud sync) or Backup & Restore.',
+    ],
+    commonMistakes: ['Assuming data is gone before checking account sign-in.'],
+    completionCriteria: 'Walk through resolving a "can’t sign in / lost data" ticket.',
+    relatedFeatures: [{ label: 'Backup & Restore', route: '/settings/backup' }],
+  },
+  {
+    id: 'l-support-billing', title: 'Subscription & Billing Questions', estMinutes: 6, roleIds: ['support', 'admin'],
+    difficulty: 'intermediate', version: V,
+    objectives: ['Answer billing questions accurately', 'Set correct expectations'],
+    whyItMatters: 'Money questions must be answered precisely and honestly.',
+    walkthrough: [
+      'SwingVantage is currently free-first; paid tiers may be waitlist/early. Never promise a price, date, or feature that isn’t live.',
+      'For any real charge/refund, follow the documented guidelines and escalate when unsure.',
+    ],
+    commonMistakes: ['Quoting a price or launch date that isn’t confirmed.'],
+    completionCriteria: 'Answer a billing question without overpromising.',
+  },
+  {
+    id: 'l-support-macros', title: 'Support Macros & Tone', estMinutes: 6, roleIds: ['support'],
+    difficulty: 'foundational', version: V,
+    objectives: ['Use macros without sounding robotic', 'Keep tone warm + honest'],
+    whyItMatters: 'Consistent, human tone at scale is what great support feels like.',
+    walkthrough: [
+      'Macros are starting points — personalize them. Acknowledge, guide to the fix, set a clear next step.',
+      'Never use a macro that overpromises AI accuracy or makes a medical claim.',
+    ],
+    bestPractices: ['Empathize → guide → next step.'],
+    completionCriteria: 'Adapt a macro for a frustrated user.',
+  },
+
+  // ── Product Deep Dives ─────────────────────────────────────
+  {
+    id: 'l-equipment', title: 'Equipment Profiles & Recommendations', estMinutes: 7, roleIds: 'all',
+    difficulty: 'intermediate', version: V,
+    objectives: ['Explain equipment context per sport', 'Frame recommendations honestly'],
+    whyItMatters: 'Equipment context improves personalization; recommendations must stay suggestions, not guarantees.',
+    walkthrough: [
+      'Each sport captures relevant gear (clubs, racket, bats). It is optional — the app works without it — but it sharpens context.',
+      'Recommendations are informational, never guaranteed performance promises.',
+    ],
+    commonMistakes: ['Implying a gear change guarantees results.'],
+    completionCriteria: 'Explain why equipment context helps and its limits.',
+    relatedFeatures: [{ label: 'Equipment', route: '/equipment' }],
+  },
+  {
+    id: 'l-health-integrations', title: 'Smartwatch & Health Data', estMinutes: 8, roleIds: 'all',
+    difficulty: 'intermediate', version: V,
+    objectives: ['Explain health/wearable context honestly', 'Apply privacy + no-medical-claims rules'],
+    whyItMatters: 'Health data is sensitive and easy to over-interpret; we use it for readiness context, never diagnosis.',
+    walkthrough: [
+      'Optional wellness/wearable inputs inform a readiness/coaching context (the BodySync layer). It is performance context, not medical advice.',
+      'Be privacy-careful and never imply injury detection or medical diagnosis.',
+    ],
+    commonMistakes: ['Treating readiness as a medical assessment.'],
+    completionCriteria: 'State what health data is (and is not) used for.',
+    relatedFeatures: [{ label: 'BodySync', route: '/bodysync' }],
+    docLinks: [{ label: 'Privacy', href: '/privacy' }],
+  },
+  {
+    id: 'l-multisport-switch', title: 'Multi-Sport Switching', estMinutes: 5, roleIds: 'all',
+    difficulty: 'foundational', version: V,
+    objectives: ['Switch sports', 'Explain how context adapts'],
+    whyItMatters: 'Multi-sport is a core differentiator; staff should demo switching smoothly.',
+    walkthrough: [
+      'A user can switch the active sport; analysis, drills, equipment, and guidance adapt to that sport.',
+      'Progress is tracked per sport.',
+    ],
+    completionCriteria: 'Demonstrate switching sports and what changes.',
+  },
+  {
+    id: 'l-practice-plans', title: 'Practice Plans', estMinutes: 6, roleIds: 'all',
+    difficulty: 'intermediate', version: V,
+    objectives: ['Explain how practice plans are built', 'Tie plans to the priority fix'],
+    whyItMatters: 'Plans turn an analysis into action — the bridge from insight to improvement.',
+    walkthrough: [
+      'A plan organizes the recommended drill(s) for the current priority into a simple, repeatable routine, with a retest to prove change.',
+      'Keep it focused — one priority at a time.',
+    ],
+    completionCriteria: 'Describe how a practice plan follows from a diagnosis.',
+    relatedFeatures: [{ label: 'Training', route: '/fix' }],
+  },
 ];
