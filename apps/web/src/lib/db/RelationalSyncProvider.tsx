@@ -39,6 +39,9 @@ import {
 import {
   syncDrillFeedback, freshDrillFeedbackSync, type DrillFeedbackSyncState,
 } from './drillFeedbackSync';
+import {
+  syncCommunityAnalytics, freshCommunityAnalyticsSync, type CommunityAnalyticsSyncState,
+} from './communityAnalyticsSync';
 import { loadBase, saveBase, computeBase } from './syncBase';
 import { threeWayMerge } from './threeWayMerge';
 
@@ -90,6 +93,7 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
   const cachesRef = useRef<SyncCaches>(freshCaches());
   const docSyncRef = useRef<DocSyncState>(freshDocSyncState());
   const drillFbRef = useRef<DrillFeedbackSyncState>(freshDrillFeedbackSync());
+  const commAnalyticsRef = useRef<CommunityAnalyticsSyncState>(freshCommunityAnalyticsSync());
   const userIdRef = useRef<string | null>(null);
   const runningRef = useRef(false);
   const pendingRef = useRef(false);
@@ -121,6 +125,7 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
     docsPrimedRef.current = false;
     docSyncRef.current = freshDocSyncState();
     drillFbRef.current = freshDrillFeedbackSync();
+    commAnalyticsRef.current = freshCommunityAnalyticsSync();
 
     const store = useSwingVantageStore;
 
@@ -148,7 +153,10 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
     const syncExternal = async (): Promise<boolean> => {
       const docs = await syncDocs();
       const drills = await syncDrillFeedback(client, uid, drillFbRef.current);
-      return docs || drills;
+      const community = await syncCommunityAnalytics(
+        client, uid, store.getState().community, commAnalyticsRef.current,
+      );
+      return docs || drills || community;
     };
 
     const runReconcile = async () => {
