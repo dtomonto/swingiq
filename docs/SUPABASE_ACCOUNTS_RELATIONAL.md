@@ -82,6 +82,8 @@ user_documents file is additive and safe.
 | `tutorial_progress`, `agent_state` | In-app guide + smart-recommendation continuity. |
 | `user_documents` | Per-(user, key) JSON for the smaller feature stores (retests, AGI, video history, Motion Lab, guide). |
 | `drill_feedback` | One row per "did this drill help?" verdict (columned, for analytics/leaderboards). |
+| `badge_unlocks` | One row per earned badge (columned, for badge-rarity analytics). |
+| `challenge_progress` | One row per (user, challenge) with active/completed status (columned, for completion-rate analytics). |
 
 Every table has `user_id` and a Row Level Security policy so a user can only
 ever read or write their own rows.
@@ -98,6 +100,8 @@ ever read or write their own rows.
 - `apps/web/src/lib/db/documentSync.ts` — cloud mirror for the secondary stores.
 - `apps/web/src/lib/db/drillFeedbackSync.ts` + `supabase-drill-feedback.sql` —
   the promoted columned drill-feedback table + its sync.
+- `apps/web/src/lib/db/communityAnalyticsSync.ts` + `supabase-community-analytics.sql` —
+  promoted columned badge_unlocks + challenge_progress tables + their sync.
 - `apps/web/src/lib/db/RelationalSyncProvider.tsx` — lifecycle: pull + merge
   on sign-in, migrate guest data, debounced write-through, offline retry.
 - `apps/web/src/components/sync/SaveProgressBanner.tsx` — the save-wall nudge.
@@ -159,9 +163,30 @@ select drill_id, value, count(*) AS n
 from drill_feedback group by drill_id, value order by n desc;
 ```
 
+## Community / gamification analytics — promoted to columned tables
+
+The full community state (badges, XP, challenges, streaks, privacy…) syncs as
+the source of truth on `community_state` (with `xp_total` promoted for XP
+leaderboards). On top of that, `lib/db/communityAnalyticsSync.ts` projects the
+individual **badge unlocks** and **per-challenge progress** into their own
+columned tables (`badge_unlocks`, `challenge_progress`) — write-only derived
+mirrors — so cross-user analytics are fast. Apply once (additive):
+[`apps/web/supabase-community-analytics.sql`](../apps/web/supabase-community-analytics.sql).
+
+```sql
+-- rarest badges first:
+select badge_id, count(*) as unlocked_by
+from badge_unlocks group by badge_id order by unlocked_by asc;
+-- challenge completion rate:
+select challenge_id,
+  count(*) filter (where status = 'completed')::float / nullif(count(*),0) as rate
+from challenge_progress group by challenge_id;
+```
+
+Cross-user aggregates run server-side with the service role (RLS scopes each
+user to their own rows).
+
 ## What's next (optional)
 
-- Promote other document stores to columned tables if you later want
-  cross-user analytics on them (same pattern as drill_feedback).
-- Surface server-side leaderboards now that data is queryable
-  (e.g. `select … from community_state order by xp_total desc`).
+- Surface these analytics in an admin dashboard / scheduled report.
+- Promote any other document store to a columned table the same way.
