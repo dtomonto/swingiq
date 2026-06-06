@@ -94,6 +94,8 @@ export function SocialStudio({ posts, choices, defaultPlatforms, pending = [] }:
   const [savingLib, setSavingLib] = useState(false);
   const [persistOff, setPersistOff] = useState(false);
   const [dismissed, setDismissed] = useState<Set<string>>(new Set());
+  const [versions, setVersions] = useState<Record<string, { id: string; text: string; createdAt: string }[]>>({});
+  const [openHistory, setOpenHistory] = useState<string | null>(null);
 
   const buildOptions = (override?: string[]) => ({
     platforms: override ?? Array.from(platforms),
@@ -261,6 +263,38 @@ export function SocialStudio({ posts, choices, defaultPlatforms, pending = [] }:
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ finalText: txt }),
     }).catch(() => {});
+  }
+
+  async function toggleHistory(post: GeneratedPost) {
+    const key = postKey(post);
+    if (openHistory === key) {
+      setOpenHistory(null);
+      return;
+    }
+    setOpenHistory(key);
+    const id = savedInfo?.postIds[key];
+    if (!id || versions[key]) return;
+    try {
+      const res = await fetch(`/api/social/posts/${id}`);
+      if (!res.ok) return;
+      const data = (await res.json()) as { versions?: { id: string; text: string; createdAt: string }[] };
+      setVersions((v) => ({ ...v, [key]: data.versions ?? [] }));
+    } catch {
+      /* non-fatal */
+    }
+  }
+
+  function restoreVersion(post: GeneratedPost, text: string) {
+    const key = postKey(post);
+    setEdits((p) => ({ ...p, [key]: text }));
+    const id = savedInfo?.postIds[key];
+    if (id) {
+      fetch(`/api/social/posts/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ finalText: text }),
+      }).catch(() => {});
+    }
   }
 
   const finalText = (post: GeneratedPost) => edits[postKey(post)] ?? post.text;
@@ -549,7 +583,45 @@ export function SocialStudio({ posts, choices, defaultPlatforms, pending = [] }:
                       >
                         {status === 'rejected' ? '✕ Rejected' : 'Reject'}
                       </button>
+                      {savedInfo?.postIds[key] && (
+                        <button
+                          onClick={() => toggleHistory(post)}
+                          className={`${btn} text-xs bg-gray-800 text-gray-300 hover:bg-gray-700`}
+                        >
+                          {openHistory === key ? 'Hide history' : 'History'}
+                        </button>
+                      )}
                     </div>
+
+                    {openHistory === key && (
+                      <div className="mt-2 border-t border-gray-800 pt-2">
+                        {!versions[key] ? (
+                          <p className="text-xs text-gray-500">Loading history…</p>
+                        ) : versions[key].length === 0 ? (
+                          <p className="text-xs text-gray-500">No saved edits yet — edits are recorded once you save to the library.</p>
+                        ) : (
+                          <ul className="space-y-1.5">
+                            {versions[key].map((v) => (
+                              <li key={v.id} className="text-xs text-gray-400 flex items-start justify-between gap-2">
+                                <span className="min-w-0">
+                                  <span className="text-gray-500">{new Date(v.createdAt).toLocaleString()}:</span>{' '}
+                                  <span className="text-gray-300">
+                                    {v.text.slice(0, 120)}
+                                    {v.text.length > 120 ? '…' : ''}
+                                  </span>
+                                </span>
+                                <button
+                                  onClick={() => restoreVersion(post, v.text)}
+                                  className="shrink-0 text-emerald-400 hover:text-emerald-300"
+                                >
+                                  Restore
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
               })}

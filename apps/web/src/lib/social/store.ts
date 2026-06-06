@@ -207,6 +207,33 @@ export async function listGenerations(slug: string, limit = 10): Promise<SavedGe
   }
 }
 
+export interface PostVersion {
+  id: string;
+  text: string;
+  note: string | null;
+  createdAt: string;
+}
+
+/** Load a post's edit history (newest first). */
+export async function getPostVersions(postId: string): Promise<PostVersion[]> {
+  const sb = createSupabaseAdminClient();
+  if (!sb) return [];
+  try {
+    const { data, error } = await sb
+      .from('social_post_versions')
+      .select('id, text, note, created_at')
+      .eq('post_id', postId)
+      .order('created_at', { ascending: false })
+      .limit(50);
+    if (error || !data) return [];
+    return (data as Array<{ id: string; text: string; note: string | null; created_at: string }>).map(
+      (r) => ({ id: r.id, text: r.text, note: r.note, createdAt: r.created_at }),
+    );
+  } catch {
+    return [];
+  }
+}
+
 /** Update one post's final text and/or status; records an edit version. */
 export async function updatePost(
   id: string,

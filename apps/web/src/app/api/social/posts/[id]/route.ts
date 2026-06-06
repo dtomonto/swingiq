@@ -6,12 +6,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
-import { persistenceAvailable, updatePost } from '@/lib/social/store';
+import { getPostVersions, persistenceAvailable, updatePost } from '@/lib/social/store';
 import type { PostStatus } from '@/lib/social/types';
 
 const STATUSES: PostStatus[] = [
   'draft', 'pending_review', 'approved', 'rejected', 'scheduled', 'published',
 ];
+
+export async function GET(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const rl = await checkRateLimit(`${ip}:social-versions`, { limit: 60, windowMs: 60_000 });
+  if (!rl.allowed) return rateLimitResponse();
+
+  if (!(await isAuthorizedAdmin(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!persistenceAvailable()) return NextResponse.json({ versions: [] });
+
+  const { id } = await ctx.params;
+  if (!id) return NextResponse.json({ error: 'Missing id.' }, { status: 400 });
+
+  const versions = await getPostVersions(id);
+  return NextResponse.json({ versions });
+}
 
 export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
