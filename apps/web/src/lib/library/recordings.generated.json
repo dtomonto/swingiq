@@ -1,1 +1,8 @@
-{}
+{
+  "swing-path": {
+    "durationSec": 60
+  },
+  "launch-monitor-workflow": {
+    "durationSec": 54
+  }
+}
