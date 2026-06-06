@@ -2,20 +2,17 @@
 
 ## In Plain English (start here)
 
-This is the to-do list of blog post ideas for SwingVantage. A scheduled task
-(`blog-content-production-weekly`) runs **every Wednesday** and drafts **one new
+This is the to-do list of blog post ideas for SwingVantage. The scheduled task
+`blog-content-production-weekly` runs **every Wednesday** and drafts **one new
 blog post per sport** (golf, tennis, baseball, softball) by taking the next
-unchecked idea below. The drafts are **committed to your computer only — never
-published automatically.** You review them and push when you're happy.
+unchecked idea under each sport — the **"Up next"** items first, top to bottom.
+Drafts are committed to your computer only — **never published automatically.**
+You review and push when ready.
 
-- **You don't have to touch this file.** The task works without it. But if you
-  want to steer what gets written, add/reorder ideas under each sport and the
-  task will prefer the top unchecked one.
-- **Softball covers both slow- and fast-pitch** (the blog groups them as one
-  "softball" category). Note the pitch type in the idea text when it matters.
-- A `[x]` means it's been drafted (the task checks these off so it doesn't
-  repeat itself). The task also skips any idea whose slug already exists.
-- To publish a week's drafts after review:
+- A `[x]` under **Done** means it has already been drafted (the task skips it).
+- **"Up next"** lists are in the exact order they'll be written.
+- **Softball is one blog bucket** covering BOTH slow- and fast-pitch.
+- Publish a reviewed batch (this also publishes this calendar):
   `git -C "C:\Users\dtomo\Desktop\swingiq" push origin agent/blog-content:master`
 
 Keep the SwingVantage voice: honest (findings are heuristic estimates that
@@ -25,33 +22,52 @@ coach" note, no fake stats. ~700–1200 words each.
 ---
 
 ## Golf (priority — keep the most golf posts)
-- [ ] How to stop topping the golf ball (clean contact)
+**Up next (your queued order):**
+- [ ] What is a good golf swing speed (by age and skill)
+- [ ] How to break 90: a realistic plan
+- [ ] Chipping basics: how to make clean contact around the green
+- [ ] How to hit your driver straighter
+
+More ideas:
 - [ ] What is launch angle and why it matters for distance
 - [ ] How to fix an over-the-top downswing
 - [ ] Understanding spin rate (and how to lower it on the driver)
-- [ ] Chipping basics: how to make clean contact around the green
-- [ ] Why your irons and driver contact feel different
+
+Done:
+- [x] How to stop topping the golf ball
 
 ## Tennis
-- [ ] How to fix a late forehand (timing your contact point)
-- [ ] Topspin basics for groundstrokes
-- [ ] The split step, explained
+**Up next (your queued order):**
 - [ ] Serve toss consistency: drills that actually help
+- [ ] The split step, explained
 - [ ] Why you keep hitting into the net (and how to fix it)
+- [ ] Topspin basics for groundstrokes
+
+More ideas:
 - [ ] Footwork patterns every baseliner should own
 
+Done:
+- [x] How to fix a late forehand (timing your contact point)
+
 ## Baseball
-- [ ] How to stop rolling over pitches
-- [ ] What exit velocity tells you (and what it doesn't)
-- [ ] Fixing a long swing path
-- [ ] Hip–shoulder separation, explained simply
-- [ ] Why you keep popping up
+**Up next (your queued order):**
+- [ ] Plate discipline: how to stop chasing pitches
 - [ ] Timing the fastball
+- [ ] Why you keep popping up
+- [ ] Hip–shoulder separation, explained simply
+
+More ideas:
+- [ ] Fixing a long swing path
+
+Done:
+- [x] How to stop rolling over pitches
 
 ## Softball (slow- and fast-pitch)
-- [ ] Slow-pitch: how to stop popping up under the arc
-- [ ] Fast-pitch: timing the rise ball
-- [ ] Bat path for line drives (both pitch types)
-- [ ] Slap-hitting basics for fast-pitch
-- [ ] Weight transfer for more power
+**Up next (your queued order):**
 - [ ] Reading the slow-pitch arc for better contact
+- [ ] Weight transfer for more power
+- [ ] Slap-hitting basics for fast-pitch
+- [ ] Fast-pitch: timing the rise ball
+
+Done:
+- [x] Slow-pitch: how to stop popping up under the arc
