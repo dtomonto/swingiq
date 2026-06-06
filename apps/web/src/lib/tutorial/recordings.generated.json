@@ -13,5 +13,29 @@
   },
   "navigation": {
     "durationSec": 27
+  },
+  "diagnose": {
+    "durationSec": 30
+  },
+  "progress": {
+    "durationSec": 31
+  },
+  "sessions": {
+    "durationSec": 31
+  },
+  "compare": {
+    "durationSec": 32
+  },
+  "drills": {
+    "durationSec": 30
+  },
+  "training": {
+    "durationSec": 31
+  },
+  "fix-stack": {
+    "durationSec": 31
+  },
+  "ai-coach": {
+    "durationSec": 31
   }
 }
