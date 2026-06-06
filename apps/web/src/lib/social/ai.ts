@@ -32,8 +32,8 @@ export function isSocialAiConfigured(): boolean {
   return false;
 }
 
-/** Pull the first balanced JSON object out of a model response. */
-function extractJson(raw: string): unknown {
+/** Pull the first balanced JSON object out of a model response. Exported for tests. */
+export function extractJson(raw: string): unknown {
   const start = raw.indexOf('{');
   const end = raw.lastIndexOf('}');
   if (start === -1 || end === -1 || end <= start) return null;
@@ -44,7 +44,8 @@ function extractJson(raw: string): unknown {
   }
 }
 
-function coerceResult(parsed: unknown): AiResult | null {
+/** Validate/shape a parsed object into an AiResult, or null. Exported for tests. */
+export function coerceResult(parsed: unknown): AiResult | null {
   if (!parsed || typeof parsed !== 'object') return null;
   const obj = parsed as Record<string, unknown>;
   if (!Array.isArray(obj.posts)) return null;
