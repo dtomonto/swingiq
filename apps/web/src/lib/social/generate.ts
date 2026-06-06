@@ -59,13 +59,16 @@ export function buildSchedule(
   const best = priority[0] ?? options.platforms[0] ?? 'linkedin';
   const pick = (i: number): Platform => priority[i % priority.length] ?? best;
 
-  const cadence: ScheduleStep[] = [
+  const steps: ScheduleStep[] = [
     { dayOffset: 0, label: 'Launch post', platform: best, variationType: 'primary' },
     { dayOffset: 2, label: 'Alternate angle', platform: pick(1), variationType: 'alternative_a' },
     { dayOffset: 7, label: 'Practical tip from the post', platform: pick(2), variationType: 'short' },
     { dayOffset: 21, label: 'Evergreen repost', platform: best, variationType: 'alternative_b' },
     { dayOffset: 45, label: 'Refreshed angle', platform: pick(1), variationType: 'conversational' },
-  ].filter((s) => getPlatformRule(s.platform).variationTypes.includes(s.variationType));
+  ];
+  const cadence = steps.filter((s) =>
+    getPlatformRule(s.platform).variationTypes.includes(s.variationType),
+  );
 
   const bestTimeNote =
     a.targetAudience === 'business' || best === 'linkedin'
