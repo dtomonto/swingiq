@@ -14,7 +14,10 @@ import type { BlogPost } from '@/data/blog-posts';
 import type {
   BlogAnalysis,
   CreativeSuggestions,
+  CtaType,
+  GeneratedPost,
   GenerationOptions,
+  HookType,
   Platform,
   ScheduleRecommendation,
   ScheduleStep,
@@ -22,8 +25,13 @@ import type {
 } from './types';
 import { DEFAULT_OPTIONS, PROMPT_VERSION } from './types';
 import { analyzeBlogPost } from './analyze';
-import { buildFallbackPosts } from './fallback';
+import { buildFallbackPost, buildFallbackPosts } from './fallback';
 import { getPlatformRule } from './platforms';
+import { socialUtmUrl } from './utm';
+import { buildHashtags } from './hashtags';
+import { scorePost } from './quality';
+import { buildSystemPrompt, buildUserPrompt } from './prompt';
+import { generateSocialWithAI, isSocialAiConfigured, type AiResult } from './ai';
 
 /** Deterministic creative direction grounded in the post (text only). */
 export function buildCreative(a: BlogAnalysis): CreativeSuggestions {
@@ -111,4 +119,129 @@ function truncate(s: string, n: number): string {
 
 function titleCaseTopic(s: string): string {
   return s.replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+// ============================================================
+// AI path — layered on top of the keyless engine.
+// ============================================================
+
+const HOOK_TYPES = new Set<HookType>([
+  'question', 'contrarian', 'pain_point', 'curiosity', 'benefit', 'data',
+  'mistake', 'before_after', 'authority', 'tactical', 'emotional',
+]);
+const CTA_TYPES = new Set<CtaType>([
+  'read_guide', 'see_breakdown', 'get_strategy', 'learn_framework', 'compare_options',
+  'view_analysis', 'use_checklist', 'explore_article', 'see_how', 'start_post',
+]);
+
+/** Hard safety net so output never EXCEEDS a platform ceiling. */
+function enforceMax(text: string, max: number): string {
+  if (text.length <= max) return text;
+  return text.slice(0, max - 1).replace(/\s+\S*$/, '') + '…';
+}
+
+/** Keep only non-empty string fields from AI-proposed creative. */
+function sanitizeCreative(c?: Partial<CreativeSuggestions>): Partial<CreativeSuggestions> {
+  if (!c) return {};
+  const out: Partial<CreativeSuggestions> = {};
+  for (const [k, v] of Object.entries(c)) {
+    if (typeof v === 'string' && v.trim()) {
+      (out as Record<string, string>)[k] = v.trim();
+    }
+  }
+  return out;
+}
+
+/**
+ * Map AI creative text into fully-formed posts under OUR guardrails:
+ * tracked UTM, clean hashtags, char ceiling, and authoritative scoring.
+ * Any platform/variation the AI skipped is filled deterministically, so
+ * the result is always complete.
+ */
+export function assembleFromAi(
+  post: { slug: string },
+  analysis: BlogAnalysis,
+  options: GenerationOptions,
+  ai: AiResult,
+): { posts: GeneratedPost[]; creative: CreativeSuggestions } {
+  const byKey = new Map<string, AiResult['posts'][number]>();
+  for (const p of ai.posts) byKey.set(`${p.platform}:${p.variation}`, p);
+
+  const posts: GeneratedPost[] = [];
+  for (const platform of options.platforms) {
+    const rule = getPlatformRule(platform);
+    for (const variation of rule.variationTypes) {
+      const aiPost = byKey.get(`${platform}:${variation}`);
+      if (!aiPost) {
+        posts.push(buildFallbackPost(analysis, platform, variation, options)); // gap-fill
+        continue;
+      }
+      const url = socialUtmUrl(analysis.slug, platform, variation, options.campaign);
+      let text = aiPost.text.replace(/\{\{LINK\}\}/g, url).trim();
+      // Guarantee an inline link where the platform expects one.
+      if (rule.linkRule === 'inline' && platform !== 'reddit' && !/https?:\/\//.test(text)) {
+        text = `${text}\n\n${url}`;
+      }
+      text = enforceMax(text, rule.maxChars);
+      const hashtags = buildHashtags(analysis, platform);
+      const { score, warnings } = scorePost(
+        { platform, variationType: variation, text, hashtags, utmUrl: url },
+        analysis,
+      );
+      posts.push({
+        platform,
+        variationType: variation,
+        text,
+        charCount: text.length,
+        utmUrl: url,
+        hashtags,
+        hookType: aiPost.hookType && HOOK_TYPES.has(aiPost.hookType) ? aiPost.hookType : 'tactical',
+        ctaType: aiPost.ctaType && CTA_TYPES.has(aiPost.ctaType) ? aiPost.ctaType : 'see_breakdown',
+        rationale: aiPost.rationale?.trim() || `AI draft for ${rule.label}, grounded in the post.`,
+        qualityScore: score,
+        warnings,
+      });
+    }
+  }
+
+  const creative: CreativeSuggestions = { ...buildCreative(analysis), ...sanitizeCreative(ai.creative) };
+  return { posts, creative };
+}
+
+/**
+ * Public entry point. Uses AI when configured (with our guardrails), and
+ * transparently falls back to the deterministic engine on any miss — same
+ * SocialGeneration shape either way. SERVER-ONLY when AI is configured.
+ */
+export async function generateSocial(
+  post: import('@/data/blog-posts').BlogPost,
+  options: GenerationOptions = DEFAULT_OPTIONS,
+): Promise<SocialGeneration> {
+  if (!isSocialAiConfigured()) return generateSocialFallback(post, options);
+
+  try {
+    const analysis = analyzeBlogPost(post);
+    const ai = await generateSocialWithAI(buildSystemPrompt(), buildUserPrompt(post, analysis, options));
+    if (!ai) return generateSocialFallback(post, options);
+
+    const { posts, creative } = assembleFromAi(post, analysis, options, ai);
+    if (posts.length === 0) return generateSocialFallback(post, options);
+
+    return {
+      blogSlug: post.slug,
+      blogUrl: analysis.url,
+      source: 'ai',
+      model: `${process.env.AI_PROVIDER}:${process.env.OPENAI_MODEL ?? process.env.ANTHROPIC_MODEL ?? 'default'}`,
+      promptVersion: PROMPT_VERSION,
+      generatedAt: new Date().toISOString(),
+      options,
+      analysis,
+      posts,
+      creative,
+      schedule: buildSchedule(analysis, options),
+      warnings: [],
+    };
+  } catch {
+    return generateSocialFallback(post, options);
+  }
 }
