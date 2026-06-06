@@ -82,5 +82,32 @@
   },
   "parent-summary": {
     "durationSec": 24
+  },
+  "profile": {
+    "durationSec": 26
+  },
+  "equipment": {
+    "durationSec": 25
+  },
+  "community": {
+    "durationSec": 26
+  },
+  "badges": {
+    "durationSec": 25
+  },
+  "challenges": {
+    "durationSec": 25
+  },
+  "leaderboard": {
+    "durationSec": 25
+  },
+  "groups": {
+    "durationSec": 25
+  },
+  "data-center": {
+    "durationSec": 28
+  },
+  "settings": {
+    "durationSec": 26
   }
 }
