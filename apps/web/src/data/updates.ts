@@ -140,6 +140,51 @@ export const UPDATE_TEMPLATE: Omit<Update, 'id' | 'createdAt' | 'updatedAt'> = {
 
 export const UPDATES: Update[] = [
   {
+    id: 'update-080',
+    title: 'Daily Notes — Tell Us How You Played, in Your Own Words',
+    slug: 'daily-notes',
+    metaTitle: 'Daily Notes — Log How You Played, Feed Your AI Profile | SwingVantage',
+    metaDescription:
+      'After any round, match, game, or practice, jot how it went. SwingVantage reads the faults from your own words and adds them to your cross-sport Athlete GI profile — no launch monitor or video needed.',
+    summary:
+      'A quick new place to capture how a round, match, game, or practice actually went — in plain language. Pick how you played, jot a few words (“sliced it off the tee and topped a couple”), and SwingVantage pulls the faults out of your own notes and adds them to your Athlete GI player profile. When the same issue keeps showing up across your days, it gets flagged as a pattern worth a dedicated fix. No launch monitor or video required.',
+    releaseDate: '2026-06-06',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 152,
+    audience: ['all athletes', 'parents', 'coaches'],
+    relatedFeature: 'Daily Notes',
+    userBenefit:
+      'You can finally feed the app on the days you just play. In a few seconds you answer “How did you play today?”, optionally type what happened, and the faults you mention become part of your profile — so your cross-sport read keeps sharpening even without a launch monitor or video. There is even a one-tap “How did you play today?” card right on your Today dashboard.',
+    whyItMatters:
+      'Most of your reps happen out on the course or field, not in front of a camera. Daily Notes captures that everyday signal honestly: your rating is a self-report (clearly low-confidence, never posing as a measurement), and the faults are read straight from your own words. Over time those notes are exactly what turns “a bad day” into a recurring pattern your plan can target.',
+    whereToFindIt:
+      'Open “Daily Notes” under Progress in the sidebar (/notes), or tap how you played on the “How did you play today?” card on your Today dashboard. Everything is yours — export or delete it anytime from the Data Center.',
+    userActionRequired:
+      'None — just tap how you played whenever you finish, and add a note if you want.',
+    seoKeywords: [
+      'golf round notes',
+      'how did i play today',
+      'swing journal app',
+      'log practice notes',
+      'track swing faults',
+      'tennis match notes',
+      'baseball hitting notes',
+    ],
+    answerEngineSummary:
+      'SwingVantage Daily Notes lets athletes log how a round, match, game, or practice went using a 1–5 self-rating plus free text. A deterministic text parser maps everyday phrasing (e.g. “sliced it”, “rolled over”, “double fault”) to honest fault tags and feeds them into the Athlete General Intelligence player profile, where faults that recur across days are flagged as patterns. It works across golf, tennis, baseball, and softball, needs no launch monitor or video, and all notes are exportable and deletable. Self-ratings are labelled low-confidence self-reports, not measurements.',
+    generativeSearchSummary:
+      'Log how you played in plain words after any round or practice; SwingVantage reads the faults from your notes and adds them to your cross-sport AI profile.',
+    internalLinkTargets: ['/notes', '/agi', '/athlete-general-intelligence'],
+    isFeatured: false,
+    isMajorMilestone: false,
+    createdAt: '2026-06-06',
+    updatedAt: '2026-06-06',
+  },
+  {
     id: 'update-079',
     title: 'Free Stays Free — Paid Plans Are "Coming Soon"',
     slug: 'free-stays-free-paid-coming-soon',
