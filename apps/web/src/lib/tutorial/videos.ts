@@ -23,6 +23,8 @@
 // short, plain-spoken, and useful on its own.
 // ============================================================
 
+import RECORDINGS from './recordings.generated.json';
+
 /** Who a video is written for. Mirrors the onboarding USER_TYPES. */
 export type TutorialAudience = 'athlete' | 'parent' | 'coach' | 'team';
 
@@ -171,7 +173,7 @@ export const CATEGORY_ORDER: TutorialCategory[] = [
 
 // ── The video library: one entry per relevant feature ──
 
-export const TUTORIAL_VIDEOS: TutorialVideo[] = [
+const RAW_TUTORIAL_VIDEOS: TutorialVideo[] = [
   // ── Getting Started ───────────────────────────────────────
   {
     id: 'welcome',
@@ -183,12 +185,6 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     route: '/dashboard',
     journeyStage: 'discover',
     priority: 'high',
-    // Real screen-recorded tour (public asset). videoUrl serves the modal
-    // player; mp4Src/thumbnail light up the inline SmartVideoSlot placements.
-    videoUrl: '/tutorials/sources/welcome.mp4',
-    poster: '/tutorials/sources/welcome-poster.jpg',
-    mp4Src: '/tutorials/sources/welcome.mp4',
-    thumbnail: '/tutorials/sources/welcome-poster.jpg',
     fallbackText: 'Here’s the 60-second version of how SwingVantage works.',
     script: [
       'SwingVantage is your personal performance system for golf, tennis, baseball, and softball.',
@@ -767,6 +763,39 @@ export const TUTORIAL_VIDEOS: TutorialVideo[] = [
     ],
   },
 ];
+
+// ── Recorded media (generated) ────────────────────────────
+// recordings.generated.json is written by scripts/video-studio. Any id
+// listed there auto-resolves its media by convention, so adding a new
+// recording never requires hand-editing entries above. Ids NOT listed
+// fall back to the honest "coming soon" + written walkthrough.
+
+function fmtDuration(totalSec: number): string {
+  const m = Math.floor(totalSec / 60);
+  const s = Math.round(totalSec % 60);
+  return `${m}:${String(s).padStart(2, '0')}`;
+}
+
+/** Merge generated recordings into the catalogue by id (convention-based paths). */
+function applyRecordings(list: TutorialVideo[]): TutorialVideo[] {
+  const rec = RECORDINGS as Record<string, { durationSec: number }>;
+  return list.map((v) => {
+    const r = rec[v.id];
+    if (!r) return v;
+    const base = `/tutorials/sources/${v.id}`;
+    return {
+      ...v,
+      videoUrl: `${base}.mp4`,
+      mp4Src: `${base}.mp4`,
+      poster: `${base}-poster.jpg`,
+      thumbnail: `${base}-poster.jpg`,
+      duration: fmtDuration(r.durationSec),
+    };
+  });
+}
+
+/** The catalogue, with generated recordings merged in. */
+export const TUTORIAL_VIDEOS: TutorialVideo[] = applyRecordings(RAW_TUTORIAL_VIDEOS);
 
 // ── Persona tracks: the right tutorial for each kind of user ──
 

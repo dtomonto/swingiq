@@ -1,0 +1,17 @@
+{
+  "welcome": {
+    "durationSec": 66
+  },
+  "dashboard": {
+    "durationSec": 23
+  },
+  "start-here": {
+    "durationSec": 33
+  },
+  "switch-sport": {
+    "durationSec": 24
+  },
+  "navigation": {
+    "durationSec": 27
+  }
+}
