@@ -1,0 +1,2 @@
+# Transient recording work dir (raw webm, tts mp3, curl cfg). Never commit.
+.work/

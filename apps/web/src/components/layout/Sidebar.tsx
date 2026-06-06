@@ -40,6 +40,7 @@ import {
   GraduationCap,
   BrainCircuit,
   NotebookPen,
+  Film,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -226,6 +227,12 @@ export function Sidebar({ onClose }: SidebarProps) {
         <Link href="/tutorial" onClick={onClose} className={rowClass(isActive('/tutorial'))}>
           <GraduationCap size={18} className="shrink-0" aria-hidden="true" />
           <span className="flex-1">Tutorials</span>
+        </Link>
+
+        {/* Video Library — every walkthrough + training videos in one place */}
+        <Link href="/library" onClick={onClose} className={rowClass(isActive('/library'))}>
+          <Film size={18} className="shrink-0" aria-hidden="true" />
+          <span className="flex-1">Video Library</span>
         </Link>
 
         {/* Journey */}
