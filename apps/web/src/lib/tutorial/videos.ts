@@ -741,7 +741,7 @@ const RAW_TUTORIAL_VIDEOS: TutorialVideo[] = [
     duration: '2:30',
     route: '/data',
     script: [
-      'SwingVantage saves your data in your browser — so a backup keeps it safe if you switch devices or clear history.',
+      'SwingVantage saves your data on your device and syncs it to your account, so your progress is safe across devices.',
       'Tap Download Backup to save a complete copy: sessions, profiles, equipment, progress, and badges.',
       'You can password-protect the file. Keep that password safe — without it, an encrypted backup can’t be recovered.',
       'To restore, upload the file and preview what comes back. Use Merge to add without deleting, or Replace for a full reset.',
