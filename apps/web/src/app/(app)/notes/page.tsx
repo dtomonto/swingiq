@@ -10,7 +10,7 @@
 // no launch monitor or video required.
 // ============================================================
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import {
   NotebookPen,
@@ -31,6 +31,7 @@ import {
   extractFaultsFromText,
   feelEmoji,
   summarizeNote,
+  takePendingFeel,
   todayISODate,
   FEEL_LABELS,
   FEEL_HINTS,
@@ -55,6 +56,12 @@ export default function DailyNotesPage() {
   const [text, setText] = useState('');
   const [removedFaultIds, setRemovedFaultIds] = useState<Set<string>>(new Set());
   const [justSaved, setJustSaved] = useState(false);
+
+  // One-tap handoff from the dashboard prompt: prefill the feel they picked.
+  useEffect(() => {
+    const pending = takePendingFeel();
+    if (pending) setFeel(pending);
+  }, []);
 
   // Live, honest fault detection from the user's own words.
   const detected = useMemo(() => extractFaultsFromText(text, sport), [text, sport]);

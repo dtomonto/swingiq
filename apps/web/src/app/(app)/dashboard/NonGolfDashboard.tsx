@@ -33,6 +33,7 @@ import { useSport } from '@/contexts/SportContext';
 import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence';
 import { AthleteGISummary } from '@/components/agi/AthleteGISummary';
 import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
+import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
 import { format } from 'date-fns';
 import { useMemo } from 'react';
 import type { SportId } from '@swingiq/core';
@@ -391,6 +392,9 @@ export function NonGolfDashboard() {
 
       {/* Goal-gradient: the closest badge left to earn */}
       <NextBadgeNudge />
+
+      {/* Daily check-in: "How did you play today?" → feeds the AI player profile */}
+      <DailyNotePrompt />
 
       {/* Quick actions */}
       <QuickActions sport={activeSport} />

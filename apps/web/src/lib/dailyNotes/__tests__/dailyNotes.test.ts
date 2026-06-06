@@ -56,6 +56,20 @@ describe('daily notes — fault extraction', () => {
     expect(soft.map((f) => f.id)).toEqual(expect.arrayContaining(['tempo_off', 'inconsistent']));
   });
 
+  it('reads expanded everyday phrases per sport', () => {
+    expect(extractFaultsFromText('skied it off the tee', 'golf').map((f) => f.id)).toContain('sky_tee');
+    expect(extractFaultsFromText('three jacked the 9th', 'golf').map((f) => f.id)).toContain('three_putt');
+    expect(extractFaultsFromText('kept stepping in the bucket', 'baseball').map((f) => f.id)).toContain('pull_off_early');
+    expect(extractFaultsFromText('was way out front all game', 'softball_fast').map((f) => f.id)).toContain('timing_contact');
+    expect(extractFaultsFromText('framed a bunch of forehands', 'tennis').map((f) => f.id)).toContain('framed_contact');
+  });
+
+  it('maps the same word to the right fault per sport (topped)', () => {
+    // "topped" = thin contact in golf, but rolling over in bat sports.
+    expect(extractFaultsFromText('topped it', 'golf').map((f) => f.id)).toContain('thin_contact');
+    expect(extractFaultsFromText('topped it', 'baseball').map((f) => f.id)).toContain('rolled_over');
+  });
+
   it('flags curated matches so retests can light up', () => {
     const faults = extractFaultsFromText('came over the top and stood up through impact', 'golf');
     const otp = faults.find((f) => f.id === 'over_the_top');

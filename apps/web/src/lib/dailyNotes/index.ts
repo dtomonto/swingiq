@@ -49,6 +49,33 @@ export function feelToScore(feel: PlayFeel): number {
   return { 1: 25, 2: 42, 3: 60, 4: 75, 5: 90 }[feel];
 }
 
+// ── One-tap handoff (dashboard prompt → /notes prefill) ───────
+// Lets the dashboard "How did you play today?" emoji buttons carry the chosen
+// feel into the full /notes form WITHOUT a query param, so /notes stays a
+// static route (no useSearchParams / Suspense bailout). SSR-guarded.
+const PENDING_FEEL_KEY = 'swingvantage-pending-feel';
+
+export function setPendingFeel(feel: PlayFeel): void {
+  try {
+    localStorage.setItem(PENDING_FEEL_KEY, String(feel));
+  } catch {
+    /* storage unavailable — the prompt just won't prefill */
+  }
+}
+
+/** Read and CLEAR the pending feel (one-shot). Returns null if none/invalid. */
+export function takePendingFeel(): PlayFeel | null {
+  try {
+    const v = localStorage.getItem(PENDING_FEEL_KEY);
+    if (!v) return null;
+    localStorage.removeItem(PENDING_FEEL_KEY);
+    const n = Number(v);
+    return n >= 1 && n <= 5 ? (n as PlayFeel) : null;
+  } catch {
+    return null;
+  }
+}
+
 /** Today's date as YYYY-MM-DD in the user's local timezone. */
 export function todayISODate(): string {
   const d = new Date();
