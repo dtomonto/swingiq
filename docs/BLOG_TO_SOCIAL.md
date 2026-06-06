@@ -114,24 +114,21 @@ The following were intentionally **not** built because they require external
 infrastructure that doesn't exist yet. The architecture leaves clean seams for
 each. Wire them in this order as you grow.
 
-### 1. Saving generations to the database (persistence)
+### 1. The library / persistence — ✅ BUILT (just run the schema)
 
-Today the Studio is in-session (generate → edit → copy/export). To persist
-drafts, approvals, and version history:
+This is done and wired. To turn it on:
 
 1. Run **`server/supabase_schema_social.sql`** in the Supabase SQL Editor.
-2. Add two server routes that use the **service-role** client
-   (`lib/supabase-admin.ts` → `createSupabaseAdminClient()`):
-   - `POST /api/social/save` — insert a `social_generations` row + its
-     `social_posts` rows (map fields straight from `SocialGeneration`).
-   - `PATCH /api/social/posts/[id]` — update `edited_text`/`final_text`/`status`
-     and append a `social_post_versions` row on each edit.
-3. In `SocialStudio.tsx`, call `/api/social/save` after generate, and
-   `/api/social/posts/[id]` on edit/approve/reject. Load saved generations with a
-   `GET /api/social?slug=` route.
+2. Make sure Supabase env vars are set (they already are in this project).
 
-The tables already model everything the UI needs (status, scheduled_at,
-versions, metrics), so this is wiring only — no schema changes.
+Then in `/admin/social`: **Save to library** persists the generation + your
+edits + approvals; the **Library** dropdown reloads saved snapshots; once saved,
+approve/reject and edits auto-save (PATCH) live. Until the schema is run, the
+Studio shows a "library off" hint and Copy/Export still work.
+
+Implemented by `lib/social/store.ts` + `app/api/social/{save,list,posts/[id]}`.
+Edit history rows are recorded in `social_post_versions` on every edit — the only
+remaining nicety is a UI to *browse* that version history.
 
 ### 2. Live auto-publishing to platforms (Automation Mode 3)
 
