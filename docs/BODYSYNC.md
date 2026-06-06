@@ -123,10 +123,23 @@ like Stripe/ads/AI elsewhere in SwingVantage. Manual entry works today.
   *pointer* only and stays null unless a provider genuinely requires it. No
   health data is sold or used for ad targeting.
 
+## Apple Health import (shipped — the honest web path)
+
+HealthKit has no web API, so we use the user's own export. `Health app → your
+photo → Export All Health Data`, unzip, upload `export.xml`. `lib/bodysync/import/appleHealth.ts`
+scans it (no full DOM of a huge file), rolls each metric up to **one value per
+day** (sums steps/sleep, medians vitals), and `importDailySummaries()` stores
+only those summaries, learns objective **baselines** (median resting HR / HRV /
+sleep), and marks the provider connected. Readiness then uses real HRV /
+resting-HR / sleep-vs-baseline — not just the subjective check-in.
+
 ## Phases
 - **P1 (shipped):** manual wellness + scoring + health-aware coaching + insights
   + dashboard + consent/privacy + connector framework + account sync + tests.
-- **P2:** Apple Health export-import + Health Connect + the relational schema.
+- **P2 (in progress):** ✅ Apple Health export-import + objective data into
+  scoring + readiness surfaced on the Dashboard and AI Coach (the coach's
+  answers now adapt to readiness). Next: Health Connect + wiring the relational
+  schema for server-side ingestion.
 - **P3:** wearable OAuth adapters (Garmin/WHOOP/Oura/Fitbit/Polar).
 - **P4:** correlation engine over real device history.
 - **P5:** premium modules — Best Time to Train, Tournament Readiness, Burnout
