@@ -239,6 +239,12 @@ export function Sidebar({ onClose }: SidebarProps) {
           <span className="flex-1">Video Library</span>
         </Link>
 
+        {/* Recruiting Hub — verified, shareable recruiting profile */}
+        <Link href="/recruiting" onClick={onClose} className={rowClass(isActive('/recruiting'))}>
+          <Trophy size={18} className="shrink-0" aria-hidden="true" />
+          <span className="flex-1">Recruiting Hub</span>
+        </Link>
+
         {/* Journey */}
         <p className="text-xs text-muted-foreground font-medium px-3 pt-3 pb-1 uppercase tracking-wide">
           Your Journey
