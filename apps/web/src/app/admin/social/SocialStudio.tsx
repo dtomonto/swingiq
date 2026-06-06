@@ -27,6 +27,36 @@ interface Props {
   defaultPlatforms: string[];
 }
 
+// Shape of /api/social/list rows (kept local so we don't import the
+// server-only store module into the client bundle).
+interface SavedPostLite {
+  id: string;
+  platform: string;
+  variationType: string;
+  text: string;
+  generatedText: string;
+  utmUrl: string;
+  hashtags: string[];
+  hookType: string;
+  ctaType: string;
+  status: string;
+  qualityScore: number | null;
+  warnings: string[];
+  rationale: string | null;
+}
+interface SnapshotLite {
+  id: string;
+  blogSlug: string;
+  blogUrl: string;
+  source: 'ai' | 'fallback';
+  model: string;
+  createdAt: string;
+  analysis: SocialGeneration['analysis'];
+  creative: SocialGeneration['creative'];
+  schedule: SocialGeneration['schedule'];
+  posts: SavedPostLite[];
+}
+
 type Status = 'approved' | 'rejected' | undefined;
 
 const title = (s: string) => s.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
@@ -55,6 +85,12 @@ export function SocialStudio({ posts, choices, defaultPlatforms }: Props) {
   const [edits, setEdits] = useState<Record<string, string>>({});
   const [statuses, setStatuses] = useState<Record<string, Status>>({});
   const [copied, setCopied] = useState<string | null>(null);
+
+  // Persistence (optional — only active once the schema is run + Supabase set).
+  const [savedInfo, setSavedInfo] = useState<{ genId: string; postIds: Record<string, string> } | null>(null);
+  const [library, setLibrary] = useState<SnapshotLite[]>([]);
+  const [savingLib, setSavingLib] = useState(false);
+  const [persistOff, setPersistOff] = useState(false);
 
   const buildOptions = (override?: string[]) => ({
     platforms: override ?? Array.from(platforms),
@@ -87,6 +123,7 @@ export function SocialStudio({ posts, choices, defaultPlatforms }: Props) {
       setResult(data);
       setEdits({});
       setStatuses({});
+      setSavedInfo(null);
       setActive((data.posts[0]?.platform as Platform) ?? null);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Generation failed.');
@@ -115,6 +152,112 @@ export function SocialStudio({ posts, choices, defaultPlatforms }: Props) {
     } finally {
       setRegenPlatform(null);
     }
+  }
+
+  async function saveToLibrary() {
+    if (!result) return;
+    setSavingLib(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/social/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ generation: result, edits, statuses }),
+      });
+      if (res.status === 503) {
+        setPersistOff(true);
+        setError('Saving isn’t set up yet — run server/supabase_schema_social.sql to enable the library. Copy & CSV export still work.');
+        return;
+      }
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Save failed');
+      const data = (await res.json()) as { id: string; postIds: Record<string, string> };
+      setSavedInfo({ genId: data.id, postIds: data.postIds ?? {} });
+      refreshLibrary();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Save failed.');
+    } finally {
+      setSavingLib(false);
+    }
+  }
+
+  async function refreshLibrary() {
+    if (!slug) return;
+    try {
+      const res = await fetch(`/api/social/list?slug=${encodeURIComponent(slug)}`);
+      if (!res.ok) return;
+      const data = (await res.json()) as { generations?: SnapshotLite[]; persistence?: boolean };
+      setLibrary(data.generations ?? []);
+      setPersistOff(data.persistence === false);
+    } catch {
+      /* non-fatal */
+    }
+  }
+
+  function loadSnapshot(snap: SnapshotLite) {
+    const posts: GeneratedPost[] = snap.posts.map((sp) => ({
+      platform: sp.platform as Platform,
+      variationType: sp.variationType as GeneratedPost['variationType'],
+      text: sp.generatedText,
+      charCount: sp.generatedText.length,
+      utmUrl: sp.utmUrl,
+      hashtags: sp.hashtags,
+      hookType: (sp.hookType || 'tactical') as GeneratedPost['hookType'],
+      ctaType: (sp.ctaType || 'see_breakdown') as GeneratedPost['ctaType'],
+      rationale: sp.rationale || '',
+      qualityScore: sp.qualityScore ?? 0,
+      warnings: sp.warnings,
+    }));
+    const nextEdits: Record<string, string> = {};
+    const nextStatuses: Record<string, Status> = {};
+    const postIds: Record<string, string> = {};
+    for (const sp of snap.posts) {
+      const key = `${sp.platform}:${sp.variationType}`;
+      postIds[key] = sp.id;
+      if (sp.text && sp.text !== sp.generatedText) nextEdits[key] = sp.text;
+      if (sp.status === 'approved' || sp.status === 'rejected') nextStatuses[key] = sp.status;
+    }
+    setResult({
+      blogSlug: snap.blogSlug,
+      blogUrl: snap.blogUrl,
+      source: snap.source,
+      model: snap.model,
+      promptVersion: 'social-v1',
+      generatedAt: snap.createdAt,
+      options: buildOptions() as SocialGeneration['options'],
+      analysis: snap.analysis,
+      posts,
+      creative: snap.creative,
+      schedule: snap.schedule,
+      warnings: [],
+    });
+    setEdits(nextEdits);
+    setStatuses(nextStatuses);
+    setSavedInfo({ genId: snap.id, postIds });
+    setActive((posts[0]?.platform as Platform) ?? null);
+  }
+
+  function setStatusAndPersist(key: string, next: Status) {
+    setStatuses((p) => ({ ...p, [key]: next }));
+    const id = savedInfo?.postIds[key];
+    if (id) {
+      fetch(`/api/social/posts/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: next ?? 'draft' }),
+      }).catch(() => {});
+    }
+  }
+
+  function persistEdit(post: GeneratedPost) {
+    const key = postKey(post);
+    const id = savedInfo?.postIds[key];
+    const txt = edits[key];
+    if (!id || txt === undefined) return;
+    fetch(`/api/social/posts/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ finalText: txt }),
+    }).catch(() => {});
   }
 
   const finalText = (post: GeneratedPost) => edits[postKey(post)] ?? post.text;
@@ -233,13 +376,42 @@ export function SocialStudio({ posts, choices, defaultPlatforms }: Props) {
                   </span>
                   <span className="text-xs text-gray-500">{result.posts.length} posts</span>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-center flex-wrap">
                   <button onClick={generate} disabled={loading} className={`${btn} bg-gray-700 hover:bg-gray-600 text-gray-100`}>
                     {loading ? 'Regenerating…' : 'Regenerate all'}
                   </button>
+                  <button
+                    onClick={saveToLibrary}
+                    disabled={savingLib || !!savedInfo}
+                    title="Saves this generation, your edits, and approvals. Further edits/approvals then save automatically."
+                    className={`${btn} ${savedInfo ? 'bg-emerald-700 text-white' : 'bg-emerald-600 hover:bg-emerald-500 text-white'}`}
+                  >
+                    {savingLib ? 'Saving…' : savedInfo ? 'Saved ✓' : 'Save to library'}
+                  </button>
+                  <select
+                    onFocus={refreshLibrary}
+                    onChange={(e) => {
+                      const s = library.find((g) => g.id === e.target.value);
+                      if (s) loadSnapshot(s);
+                    }}
+                    value={savedInfo?.genId ?? ''}
+                    className="bg-gray-800 border border-gray-700 rounded-md px-2 py-1.5 text-xs text-gray-200"
+                  >
+                    <option value="">Library{library.length ? ` (${library.length})` : ''}…</option>
+                    {library.map((g) => (
+                      <option key={g.id} value={g.id}>
+                        {new Date(g.createdAt).toLocaleString()} · {g.source}
+                      </option>
+                    ))}
+                  </select>
                   <button onClick={exportCsv} className={`${btn} bg-gray-700 hover:bg-gray-600 text-gray-100`}>
                     Export CSV
                   </button>
+                  {persistOff && (
+                    <span className="text-xs text-amber-400/80">
+                      Library off — run server/supabase_schema_social.sql to enable saving
+                    </span>
+                  )}
                 </div>
               </div>
               <p className="text-sm text-gray-300 mt-3">
@@ -305,6 +477,7 @@ export function SocialStudio({ posts, choices, defaultPlatforms }: Props) {
                     <textarea
                       value={text}
                       onChange={(e) => setEdits((prev) => ({ ...prev, [key]: e.target.value }))}
+                      onBlur={() => persistEdit(post)}
                       rows={Math.min(8, Math.max(3, Math.ceil(text.length / 60)))}
                       className="w-full bg-gray-950 border border-gray-700 rounded-md p-2.5 text-sm text-gray-100 font-mono leading-relaxed focus:border-emerald-500 outline-none"
                     />
@@ -332,13 +505,13 @@ export function SocialStudio({ posts, choices, defaultPlatforms }: Props) {
                         {copied === key ? 'Copied!' : 'Copy'}
                       </button>
                       <button
-                        onClick={() => setStatuses((p) => ({ ...p, [key]: status === 'approved' ? undefined : 'approved' }))}
+                        onClick={() => setStatusAndPersist(key, status === 'approved' ? undefined : 'approved')}
                         className={`${btn} text-xs ${status === 'approved' ? 'bg-emerald-700 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
                       >
                         {status === 'approved' ? '✓ Approved' : 'Approve'}
                       </button>
                       <button
-                        onClick={() => setStatuses((p) => ({ ...p, [key]: status === 'rejected' ? undefined : 'rejected' }))}
+                        onClick={() => setStatusAndPersist(key, status === 'rejected' ? undefined : 'rejected')}
                         className={`${btn} text-xs ${status === 'rejected' ? 'bg-red-700 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
                       >
                         {status === 'rejected' ? '✕ Rejected' : 'Reject'}

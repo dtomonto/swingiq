@@ -9,7 +9,14 @@
 // ============================================================
 
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
-import type { GeneratedPost, PostStatus, SocialGeneration } from './types';
+import type {
+  BlogAnalysis,
+  CreativeSuggestions,
+  GeneratedPost,
+  PostStatus,
+  ScheduleRecommendation,
+  SocialGeneration,
+} from './types';
 
 export interface SaveOverrides {
   edits?: Record<string, string>; // key = `${platform}:${variationType}`
@@ -39,6 +46,9 @@ export interface SavedGeneration {
   source: string;
   model: string;
   createdAt: string;
+  analysis: BlogAnalysis;
+  creative: CreativeSuggestions;
+  schedule: ScheduleRecommendation;
   posts: SavedPost[];
 }
 
@@ -144,7 +154,7 @@ export async function listGenerations(slug: string, limit = 10): Promise<SavedGe
   try {
     const { data: gens, error } = await sb
       .from('social_generations')
-      .select('id, blog_slug, blog_url, source, model, created_at')
+      .select('id, blog_slug, blog_url, source, model, created_at, analysis, creative, schedule')
       .eq('blog_slug', slug)
       .order('created_at', { ascending: false })
       .limit(limit);
@@ -152,6 +162,7 @@ export async function listGenerations(slug: string, limit = 10): Promise<SavedGe
 
     const genRows = gens as Array<{
       id: string; blog_slug: string; blog_url: string; source: string; model: string; created_at: string;
+      analysis: BlogAnalysis; creative: CreativeSuggestions; schedule: ScheduleRecommendation;
     }>;
     const ids = genRows.map((g) => g.id);
     if (ids.length === 0) return [];
@@ -186,6 +197,9 @@ export async function listGenerations(slug: string, limit = 10): Promise<SavedGe
       source: g.source,
       model: g.model,
       createdAt: g.created_at,
+      analysis: g.analysis,
+      creative: g.creative,
+      schedule: g.schedule,
       posts: byGen.get(g.id) ?? [],
     }));
   } catch {
