@@ -72,6 +72,10 @@ const PUBLIC_SUBTREES = [
   '/tennis',
   '/baseball',
   '/softball',
+  // Public recruiting profiles shared by link. Coaches/scouts open these
+  // WITHOUT an account — the page itself enforces the link's password,
+  // revocation, expiry, and per-item visibility, and is noindex.
+  '/player',
 ];
 
 // Prefixes that are always public (static assets, Next.js internals, health).
