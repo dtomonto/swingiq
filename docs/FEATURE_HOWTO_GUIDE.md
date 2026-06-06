@@ -547,6 +547,37 @@ automatically when you reconnect. Nothing to set up.
 
 ---
 
+# NEWER FEATURES & ADMIN TOOLS
+
+Quick pointers to features added recently — each links to its own full how-to.
+
+## For athletes / parents / coaches
+
+- **BodySync** — log how you feel (sleep, soreness, energy) for a daily
+  **readiness** score and health-aware coaching. **Where:** `/bodysync`.
+  Full how-to: [`BODYSYNC.md`](BODYSYNC.md).
+- **Recruiting Hub** — build a **verified, shareable** recruiting profile a coach
+  or scout can open by link (password/expiry controlled). **Where:** `/recruiting`
+  (the public view is `/player/[slug]`). Full how-to: [`recruiting-hub.md`](recruiting-hub.md).
+- **Daily Notes** — a quick "How did you play today?" capture that turns your own
+  words into honest fault tags feeding your coaching. **Where:** `/notes` (also a
+  one-tap dashboard prompt). Use the in-app **Guide** on the page.
+
+## Owner / admin tools (not shown to athletes)
+
+These live under `/admin/*` and need admin access (see each doc).
+
+- **Blog → Social Studio** — turn each blog post into platform-native social posts
+  with tracked links. **Where:** `/admin/social`. Full how-to:
+  [`BLOG_TO_SOCIAL.md`](BLOG_TO_SOCIAL.md).
+- **Video Studio** — the AI "video department": finds video gaps, briefs,
+  generates, places, and measures. **Where:** `/admin/video-studio`. Full how-to:
+  [`VIDEO_STUDIO.md`](VIDEO_STUDIO.md).
+- **SwingVantage Academy** — internal enablement / training library. **Where:**
+  `/admin/academy`. Full how-to: [`SWINGVANTAGE_ACADEMY.md`](SWINGVANTAGE_ACADEMY.md).
+
+---
+
 ## One-page honesty & privacy recap
 
 - **Estimated vs measured:** single-camera results are **estimates** with a

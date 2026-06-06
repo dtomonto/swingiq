@@ -22,15 +22,48 @@ Two things to know up front:
 
 ## Quick start
 
-1. Go to **`/admin/social`**.
+1. Go to **`/admin/social`**. New posts you've committed show as **"Flagged for
+   social"** chips up top — click one to jump to it (see *New-post trigger*).
 2. Pick a blog post and the platforms you want.
 3. (Optional) set brand voice, audience, objective, CTA intensity, campaign.
 4. Click **Generate**. You'll get per-platform tabs with multiple variations.
 5. Review each: edit inline, check the **quality score** and any **warnings**,
    then **Copy** it or **Export CSV** for all of them.
 6. **Regenerate all** or **Regenerate <platform>** to get fresh angles.
+7. *(Optional — needs the schema)* **Save to library** to persist the generation
+   with your edits + approvals; reload past ones from the **Library** dropdown;
+   open a post's **History** to view/restore earlier edits.
 
 No AI key? You'll see a "Keyless draft" badge and still get usable posts.
+
+---
+
+## New-post trigger (commit hook)
+
+So you never forget to promote a new article, a post-commit hook flags it for you:
+
+- **Install once:** `npm run hooks:install` (the same hook that powers /updates).
+- On each commit, `scripts/generate-social-queue.mjs` detects blog slugs **added**
+  to `data/blog-posts.ts` (or named in a `Social: <slug>` commit trailer) and
+  records them in `data/social-pending.json` — committed automatically, **never
+  pushed**.
+- Those slugs appear as **"Flagged for social"** chips in the Studio. Run it
+  manually anytime with `npm run social:queue`.
+
+The hook only *flags* — it never generates posts or calls AI (hooks stay
+fast/offline, and Vercel's FS is read-only at runtime). You still click Generate.
+
+## Library, history & persistence
+
+Optional — turn on by running `server/supabase_schema_social.sql` once:
+
+- **Save to library** persists a generation with your edits + approvals.
+- The **Library** dropdown reloads any past saved generation.
+- Once saved, **approve/reject and edits auto-save**, and each post's **History**
+  button shows the edit timeline with one-click **Restore**.
+
+Without the schema it stays in-session (a "library off" hint shows); Copy and CSV
+export always work.
 
 ---
 
@@ -76,9 +109,13 @@ code, so AI output can never break a platform rule or ship an untracked link.
 | `lib/social/prompt.ts` | AI master prompt (strict JSON, injection-safe) |
 | `lib/social/ai.ts` | OpenAI/Anthropic call + defensive parsing |
 | `lib/social/options.ts` | Safe option validation |
+| `lib/social/store.ts` | Persistence (save / list / update / versions) — service-role |
+| `lib/social/admin-guard.ts` | Shared admin check (header **or** allowlisted user) |
 | `lib/social/generate.ts` | Orchestrator (`generateSocial`, `generateSocialFallback`) |
-| `app/api/social/generate/route.ts` | Admin API |
+| `app/api/social/{generate,save,list,posts/[id]}` | Admin APIs (generate / persist / load / patch + versions) |
 | `app/admin/social/*` | Studio UI |
+| `lib/auth/admin.ts` + `admin-allowlist.ts` | ADMIN_EMAILS-based admin authorization |
+| `scripts/generate-social-queue.mjs` | New-post commit-hook trigger → `data/social-pending.json` |
 | `server/supabase_schema_social.sql` | Optional persistence schema |
 
 ### Configuration
@@ -88,13 +125,14 @@ code, so AI output can never break a platform rule or ship an untracked link.
 | `AI_PROVIDER` = `openai` \| `anthropic` \| `none` | Enables AI mode (else keyless) |
 | `OPENAI_API_KEY` / `OPENAI_MODEL` | OpenAI (default `gpt-4o-mini`) |
 | `ANTHROPIC_API_KEY` / `ANTHROPIC_MODEL` | Anthropic (default `claude-haiku-4-5`) |
-| `ADMIN_SECRET` | Required in prod to reach `/admin/*` and the API (see below) |
+| `ADMIN_SECRET` | Header-based admin (legacy/proxy) for `/admin/*` + the API |
+| `ADMIN_EMAILS` | Comma-separated allowlist — logged-in users who get admin (the easy prod path) |
 
 ### Testing
 
 ```bash
-cd apps/web && npx jest src/lib/social     # 40 tests
-npx tsc --noEmit                            # type-check
+cd apps/web && npx jest src/lib/social src/lib/auth   # 44 tests
+npx tsc --noEmit                                       # type-check
 ```
 
 ### Extending
