@@ -1,6 +1,5 @@
 import type { GolferProfileInput } from '@swingiq/core';
 import type { LocalSession, LocalVideoAnalysis, SportProfiles, TrainingProgress } from '@/store';
-import type { DailyNote } from '@/lib/dailyNotes/types';
 import { buildSignalsFromStore, type StoreInputs } from '../adapters/from-store';
 
 const emptyTraining = (): TrainingProgress => ({

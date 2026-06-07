@@ -12,6 +12,9 @@ const config = {
     '^.+\\.tsx?$': ['ts-jest', {
       diagnostics: false,
       tsconfig: {
+        // Compile JSX to the automatic runtime so component/SSR tests run.
+        // (Inheriting the app's "preserve" would leave raw JSX for node.)
+        jsx: 'react-jsx',
         paths: {
           '@/*': ['./src/*'],
         },

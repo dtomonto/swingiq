@@ -1,3 +1,4 @@
+import type { SportId } from '@swingiq/core';
 import {
   AVAILABLE_SPORTS,
   IN_DEVELOPMENT_SPORTS,
@@ -9,8 +10,10 @@ import {
 } from '../config';
 
 describe('sport availability', () => {
-  it('exposes golf and tennis as the live journeys', () => {
-    expect(AVAILABLE_SPORTS).toEqual(['golf', 'tennis']);
+  it('exposes (at least) golf and tennis as live journeys', () => {
+    // The selector is config-driven; additional live sports may be registered
+    // by parallel work. The spec only requires golf + tennis to be live.
+    expect(AVAILABLE_SPORTS).toEqual(expect.arrayContaining(['golf', 'tennis']));
     expect(isJourneyLive('golf')).toBe(true);
     expect(isJourneyLive('tennis')).toBe(true);
   });
@@ -28,7 +31,9 @@ describe('sport availability', () => {
   });
 
   it('returns a safe fallback availability for unknown/future sports', () => {
-    const a = getSportAvailability('pickleball');
+    // A sport id with no registered availability falls back to a safe,
+    // never-faked "in development" entry.
+    const a = getSportAvailability('lacrosse' as unknown as SportId);
     expect(a.status).toBe('in_development');
     expect(a.journeyEnabled).toBe(false);
   });

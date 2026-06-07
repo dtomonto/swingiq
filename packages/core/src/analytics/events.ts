@@ -113,6 +113,24 @@ export const ANALYTICS_EVENTS = {
   VIDEO_STUDIO_CAPTION_TOGGLE: 'video_studio_caption_toggle',
   VIDEO_STUDIO_REPLAY: 'video_studio_replay',
   VIDEO_STUDIO_ERROR: 'video_studio_error',
+
+  // Athletic Journey (player-development pathway). Each carries metadata:
+  // sport, stage_code, confidence, momentum_band — see lib/athletic-journey.
+  ATHLETIC_JOURNEY_VIEWED: 'athletic_journey_viewed',
+  JOURNEY_SPORT_SELECTED: 'journey_sport_selected',
+  JOURNEY_STAGE_VIEWED: 'journey_stage_viewed',
+  JOURNEY_STAGE_CALCULATED: 'journey_stage_calculated',
+  JOURNEY_CONFIDENCE_CHANGED: 'journey_confidence_changed',
+  JOURNEY_MOMENTUM_CHANGED: 'journey_momentum_changed',
+  JOURNEY_RATING_ADDED: 'journey_rating_added',
+  JOURNEY_HANDICAP_ADDED: 'journey_handicap_added',
+  JOURNEY_MISSING_DATA_CLICKED: 'journey_missing_data_clicked',
+  JOURNEY_PRACTICE_VIEWED: 'journey_practice_viewed',
+  JOURNEY_MILESTONE_COMPLETED: 'journey_milestone_completed',
+  JOURNEY_IN_DEVELOPMENT_VIEWED: 'journey_in_development_viewed',
+  JOURNEY_WAITLIST_JOINED: 'journey_waitlist_joined',
+  JOURNEY_BASIC_PROFILE_CREATED: 'journey_basic_profile_created',
+  JOURNEY_RECALCULATED: 'journey_recalculated',
 } as const;
 
 export type AnalyticsEventName =
