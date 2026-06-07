@@ -305,6 +305,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.7,
     },
+    {
+      url: `${BASE_URL}/blog/how-to-stop-topping-the-golf-ball`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/how-to-fix-a-late-forehand`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/how-to-stop-rolling-over-in-baseball`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/slow-pitch-softball-stop-popping-up`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
 
     // ── Benchmarks ──────────────────────────────────────────────
     {

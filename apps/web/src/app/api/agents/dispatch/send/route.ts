@@ -18,7 +18,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { isValidEmail } from '@/lib/email/capture';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
-import { sendDispatchEmail } from '@/lib/agents/dispatch/sendEmail';
+import { sendDispatchEmail } from '@/lib/agents/dispatch/send-email';
 
 const MAX = { subject: 200, title: 200, body: 2000, label: 80, href: 500, preheader: 200 };
 

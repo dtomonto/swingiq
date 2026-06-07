@@ -2,7 +2,7 @@
 // SwingVantage — Contact form email (SERVER-ONLY)
 // ------------------------------------------------------------
 // Sends a contact-form submission to the owner's inbox. Mirrors
-// lib/email/capture's HONESTY RULE and lib/agents/dispatch/sendEmail's
+// lib/email/capture's HONESTY RULE and lib/agents/dispatch/send-email's
 // provider pattern:
 //
 //   • With RESEND_API_KEY set, it sends a real email via the Resend

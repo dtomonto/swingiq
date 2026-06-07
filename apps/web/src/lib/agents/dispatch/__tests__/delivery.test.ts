@@ -7,7 +7,7 @@ import {
   buildDispatchEmailHtml,
   buildDispatchEmailText,
   sendDispatchEmail,
-} from '../sendEmail';
+} from '../send-email';
 import { createEmailAdapter, buildDispatchAdapters, webPushAdapter } from '../adapters';
 import { lintCopy, hasBlockingIssues } from '../../trust-linter';
 import type { DispatchMessage } from '../types';
