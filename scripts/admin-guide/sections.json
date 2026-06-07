@@ -1,0 +1,96 @@
+{
+  "_comment": "Single source of truth for the SwingVantage Admin Dashboard How-To Guide PDF. Edit this file, then re-run capture + build (see README.md). Strings may contain <b>/<i> inline markup.",
+  "meta": {
+    "wordmark": "SWINGVANTAGE",
+    "tagline": "Admin Control Center",
+    "title1": "Admin Dashboard",
+    "title2": "How-To Guide",
+    "subtitle": [
+      "A complete, illustrated walkthrough of every section of the",
+      "SwingVantage admin — written for non-developers."
+    ],
+    "runningHeader": "SwingVantage — Admin Dashboard How-To Guide",
+    "footerRight": "swingvantage.com",
+    "baseUrl": "http://localhost:3000"
+  },
+  "intro": [
+    {
+      "heading": "What this dashboard is",
+      "paras": [
+        "This is the control center for running SwingVantage — one place to see what is happening, manage content, review AI output, configure each sport, watch system health and keep the platform safe. Think of it like the WordPress or Shopify admin, but built for an AI sports-analysis product.",
+        "Three things make it different:"
+      ],
+      "bullets": [
+        "<b>Privacy-first &amp; local-first.</b> Each user’s data lives in their own account, and swing videos are processed on the device and never uploaded. The admin shows <i>metadata</i> about analyses, never the video files.",
+        "<b>Cross-user numbers need one key.</b> To count users and sessions across everyone, the dashboard uses a server-side key (the service-role key). Without it you see honest ‘Local mode’ prompts instead of invented numbers.",
+        "<b>Keyless-first.</b> Ads, billing, AI and email all work in a safe fallback with no keys, and ‘upgrade’ when you add one. The Integrations page shows what is connected."
+      ],
+      "after": "New here? Open the Command Center, read the alert cards, then use the sidebar. The Admin Academy has guided walkthroughs."
+    },
+    {
+      "heading": "How to get in",
+      "paras": ["The whole admin area is protected. You get in one of two ways:"],
+      "bullets": [
+        "<b>Allowlisted email (recommended).</b> Log in normally; if your email is on the admin allowlist, you are an admin.",
+        "<b>Secret header.</b> Trusted tools or proxies can pass a matching secret header."
+      ],
+      "after": "In local development with neither set, the admin is open so you can build. In production with neither set, nobody gets in (secure by default). Non-admins are quietly sent to the dashboard and never told the route exists."
+    },
+    {
+      "heading": "Roles &amp; permissions",
+      "paras": [
+        "Anyone who clears the front door is a <b>Super Admin</b> by default. You can narrow this with finer roles — Content Manager, SEO Manager, Support Agent, AI Review Specialist, Sports Content Editor, Monetization Manager, Analyst or Read-Only Viewer. Roles are set on the server, and narrowing only ever <i>removes</i> capability — the browser can never grant itself access. Every change is written to the Audit Log."
+      ],
+      "bullets": [],
+      "after": ""
+    }
+  ],
+  "sections": [
+    { "id": "01-command-center", "title": "1. Command Center", "route": "/admin", "blurb": "Your home base. A live executive overview: smart alert cards surface anything that needs attention, key metrics summarize the platform at a glance, and a recent-activity feed shows the latest admin actions. Start here every time — read the alerts, then jump into a section from the sidebar." },
+    { "id": "02-users", "title": "2. Users", "route": "/admin/users", "blurb": "Every account in one searchable table. Click any user to open their full journey — profile, sports, activity and history — and from there export their data or suspend/restore the account. Swing videos never appear here: they are processed on the device and never uploaded." },
+    { "id": "03-athletes", "title": "3. Athletes", "route": "/admin/athletes", "blurb": "A directory of every (user + sport) profile across all 7 sports. One person can be several athletes — for example golf and tennis — so this is the fastest way to see who is active in each sport and open a profile for detail." },
+    { "id": "04-uploads", "title": "4. Uploads & Media", "route": "/admin/uploads", "blurb": "Analysis metadata only — sport, score and timing. By privacy design the actual swing videos are never uploaded to our servers, so there are no video files to browse. This page honours that promise rather than hiding it." },
+    { "id": "05-ai-analyses", "title": "5. AI Analyses", "route": "/admin/ai-analyses", "blurb": "Review queues built from analysis scores, plus a per-analysis detail view. Use it to spot-check the quality of AI output and catch anything that looks off before it can erode user trust." },
+    { "id": "06-content", "title": "6. Content", "route": "/admin/content", "blurb": "The content hub: counts and quick links for your blog posts, SEO pages and sport content. It is the jumping-off point for everything you publish." },
+    { "id": "07-generated-fixes", "title": "7. Generated Fixes", "route": "/admin/content/generated-fixes", "blurb": "A review queue for AI-drafted ‘fix’ content. Nothing here is ever auto-published — items pass a relevance gate and then wait for your explicit approval. Review, then publish or discard." },
+    { "id": "08-seo", "title": "8. SEO / AEO / GEO", "route": "/admin/seo", "blurb": "Your live SEO catalog. Every page is scored for structure and ‘answer-readiness’ (how well it can be quoted by AI search and answer engines), so you can see which pages are strong and which need work." },
+    { "id": "09-sports", "title": "9. Sports", "route": "/admin/sports", "blurb": "Per-sport analysis configuration pulled from the core sport registry. See how each of the 7 sports is set up, and click a sport to open its detailed configuration." },
+    { "id": "10-sports-golf", "title": "10. Sports — detail (Golf)", "route": "/admin/sports/golf", "blurb": "An example of a single sport’s configuration. Each sport — golf, tennis, pickleball, padel, baseball, softball and slow-pitch — has its own page describing how its analysis behaves." },
+    { "id": "11-monetization", "title": "11. Monetization", "route": "/admin/monetization", "blurb": "Ad surfaces and the UX safety rules that protect the free experience. SwingVantage grows the free audience first, so this page keeps advertising honest and non-intrusive." },
+    { "id": "12-analytics", "title": "12. Analytics", "route": "/admin/analytics", "blurb": "The catalog of tracked events and key funnels. Live counts appear once an analytics provider is connected; until then the catalog shows exactly what is measured — never invented numbers." },
+    { "id": "13-support", "title": "13. Support", "route": "/admin/support", "blurb": "A ticket queue with the user and sport context attached, so you can answer questions quickly with the full picture in front of you." },
+    { "id": "14-feedback", "title": "14. Feedback", "route": "/admin/feedback", "blurb": "Typed user feedback flowing into a roadmap pipeline — a simple way to turn what users say into prioritized product decisions." },
+    { "id": "15-notifications", "title": "15. Notifications", "route": "/admin/notifications", "blurb": "A derived alert center and activity feed: the important signals from across the admin, gathered into one place so nothing slips by." },
+    { "id": "16-system-health", "title": "16. System Health", "route": "/admin/system-health", "blurb": "Plain-English status for every service the platform depends on. Green means good; anything else is explained in everyday language so you know what to do." },
+    { "id": "17-integrations", "title": "17. Integrations", "route": "/admin/integrations", "blurb": "What is connected and what is not — Supabase, AI, email, billing, ads and more. It shows only whether a key is present, never the secret itself. After adding a key, press Re-check." },
+    { "id": "18-feature-flags", "title": "18. Feature Flags", "route": "/admin/feature-flags", "blurb": "Turn features on or off, roll them out to a percentage of users or to specific segments, and roll back instantly. High-risk toggles ask for confirmation first." },
+    { "id": "19-audit-log", "title": "19. Audit Log", "route": "/admin/audit-log", "blurb": "The searchable, exportable history of every meaningful admin change — who did what, the before and after, and when. This is your accountability record." },
+    { "id": "20-security", "title": "20. Security & Roles", "route": "/admin/security", "blurb": "Your security posture at a glance, the permission matrix for each role, and an email-to-role overlay for assigning finer permissions. The server always enforces roles; this overlay can only narrow access, never grant it." },
+    { "id": "21-legal", "title": "21. Legal & Privacy", "route": "/admin/legal", "blurb": "Links to your policies plus data-rights workflows (export and delete) for handling user privacy requests responsibly." },
+    { "id": "22-settings", "title": "22. Settings", "route": "/admin/settings", "blurb": "An honest map of how the platform is configured — which settings come from environment variables and which are set in code. No hidden surprises." },
+    { "id": "23-learning", "title": "23. Admin Academy", "route": "/admin/learning", "blurb": "Your onboarding checklist, step-by-step playbooks and a glossary. New to the admin? Start here for guided walkthroughs." },
+    { "id": "24-growth", "title": "24. Growth & built-in products", "route": "/admin/growth", "blurb": "The gateway to the larger built-in tools: GrowthOS (omnichannel marketing), AdsOS, Video Studio, Social, Insights, Re-engage and the Staff Academy. Each is a product in its own right with its own screens — and its own documentation in the /docs folder." }
+  ],
+  "security": {
+    "heading": "Security best practices",
+    "bullets": [
+      "The UI is never trusted alone — every admin action is re-checked on the server.",
+      "The service-role key (which can bypass row-level security) is used only in server code that has already verified you.",
+      "Secrets are never shown in the browser — integration pages reveal only whether a key is present.",
+      "Dangerous actions (deleting a user or media, publishing AI content, toggling a core flag, editing legal pages, bulk operations) require a confirmation dialog and write an audit entry."
+    ]
+  },
+  "troubleshooting": {
+    "heading": "Troubleshooting",
+    "bullets": [
+      "<b>‘Local mode’ or blank counts on the Command Center</b> → add the service-role key (plus the public Supabase keys) and press Re-check on Integrations.",
+      "<b>A section says ‘Soon’</b> → it is planned for a later wave, not broken.",
+      "<b>Redirected to the dashboard when opening the admin</b> → your email is not on the admin allowlist (or you are not logged in). Add it and log in again.",
+      "<b>An integration shows ‘Off’ but you set the key</b> → the app reads settings at startup; restart or redeploy, then Re-check."
+    ]
+  },
+  "about": {
+    "heading": "About this guide",
+    "text": "Screenshots were captured from a live build on {date}. Some data-driven pages may look sparse because the build had little sample data — in production, with the service-role key set, those pages populate with your real numbers. For the larger built-in products linked from the sidebar (GrowthOS, AdsOS, Video Studio, Social, Insights, Re-engage, Staff Academy), see their dedicated documents in the /docs folder. This guide regenerates itself: see scripts/admin-guide/README.md."
+  }
+}
