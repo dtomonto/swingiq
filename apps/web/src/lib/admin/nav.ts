@@ -216,13 +216,13 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     id: 'feature-flags', label: 'Feature Flags', href: '/admin/feature-flags', icon: Flag,
-    group: 'operations', built: false, permission: 'flags.manage',
+    group: 'operations', built: true, permission: 'flags.manage',
     blurb: 'Turn features on/off, roll out by segment, and roll back safely.',
     keywords: ['flags', 'rollout', 'beta', 'experiments'],
   },
   {
     id: 'audit-log', label: 'Audit Log', href: '/admin/audit-log', icon: ScrollText,
-    group: 'operations', built: false, permission: 'logs.view',
+    group: 'operations', built: true, permission: 'logs.view',
     blurb: 'Every admin action: who changed what, when, before and after.',
     keywords: ['audit', 'log', 'history', 'activity'],
   },
