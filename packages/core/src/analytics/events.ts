@@ -131,6 +131,16 @@ export const ANALYTICS_EVENTS = {
   JOURNEY_WAITLIST_JOINED: 'journey_waitlist_joined',
   JOURNEY_BASIC_PROFILE_CREATED: 'journey_basic_profile_created',
   JOURNEY_RECALCULATED: 'journey_recalculated',
+
+  // Five-persona plan (intent-first acquisition + retention funnel).
+  // Standardize two props everywhere: `sport` and `persona`. Per-event
+  // extras noted below. See docs/FIVE_PERSONA_MASTER_PLAN.md §15.
+  PERSONA_CARD_CLICKED: 'persona_card_clicked', // + intent, position, surface
+  PERSONA_PATH_VIEWED: 'persona_path_viewed', // persona landing/path surfaced
+  SPORT_PAGE_ENGAGED: 'sport_page_engaged', // 50% scroll / 20s on a sport hub
+  UPGRADE_PROMPT_VIEWED: 'upgrade_prompt_viewed', // + feature, tier, surface
+  UPGRADE_CLICKED: 'upgrade_clicked', // + feature, tier, surface
+  RETEST_PLAN_CLICKED: 'retest_plan_clicked', // + days
 } as const;
 
 export type AnalyticsEventName =

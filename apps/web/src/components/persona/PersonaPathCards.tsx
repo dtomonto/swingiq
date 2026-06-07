@@ -21,9 +21,8 @@ import {
 } from '@/content/sportStrategy';
 
 function trackClick(id: PersonaId, sport: string) {
-  // Phase 1 reuses the existing CTA event with persona props; a
-  // dedicated `persona_card_clicked` event lands in Phase 6.
-  track(ANALYTICS_EVENTS.CTA_CLICKED, {
+  // Dedicated persona-router event (§15). Standardized props: sport, persona.
+  track(ANALYTICS_EVENTS.PERSONA_CARD_CLICKED, {
     persona: id,
     sport,
     surface: 'homepage_persona',

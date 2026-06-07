@@ -2,6 +2,7 @@ import { buildMetadata } from '@/lib/seo/metadata';
 import { SeoArticle } from '@/components/seo/SeoArticle';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { getPublishedSeoPage } from '@/content/seoPages';
+import { SportPageEngagement } from '@/components/persona/SportPageEngagement';
 
 const SLUG = 'padel';
 const page = getPublishedSeoPage(SLUG)!;
@@ -16,6 +17,7 @@ export const metadata = buildMetadata({
 export default function Page() {
   return (
     <>
+      <SportPageEngagement sport="padel" persona="padel" />
       <SeoArticle page={page} />
       <RelatedGuides sport="padel" heading="Padel guides" />
     </>

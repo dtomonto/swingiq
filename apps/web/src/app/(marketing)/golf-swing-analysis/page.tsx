@@ -4,6 +4,7 @@ import { SportProofBlock } from '@/components/proof/SportProofBlock';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { SportPageEngagement } from '@/components/persona/SportPageEngagement';
 import {
   buildGraph,
   organizationSchema,
@@ -90,6 +91,7 @@ const metrics = [
 export default function GolfSwingAnalysisPage() {
   return (
     <>
+      <SportPageEngagement sport="golf" persona="golf" />
       <JsonLd data={pageGraph} />
       <Breadcrumbs items={crumbs} className="max-w-4xl mx-auto px-4 pt-4" />
 

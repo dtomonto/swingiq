@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { ChevronDown, ChevronRight, RotateCcw, Video, X, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { FaultExplanation } from '@/components/faults/FaultExplanation';
@@ -112,7 +113,15 @@ export function RetestReminderCard({
           )}
 
           <div className="mt-3">
-            <Link href={recordHref(target.sport)}>
+            <Link
+              href={recordHref(target.sport)}
+              onClick={() =>
+                track(ANALYTICS_EVENTS.RETEST_PLAN_CLICKED, {
+                  sport: target.sport,
+                  days: target.window.activeWindowDays,
+                })
+              }
+            >
               <Button size="sm">
                 <Video size={14} /> Record a retest
               </Button>

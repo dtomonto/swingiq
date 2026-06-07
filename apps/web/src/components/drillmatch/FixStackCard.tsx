@@ -28,7 +28,7 @@ import {
 import { Card, CardBody } from '@/components/ui/Card';
 import { ConfidenceBadge } from '@/components/agents/ConfidenceBadge';
 import { cn } from '@/lib/utils';
-import { track } from '@/lib/analytics';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import type { FixStack, RankedDrill } from '@/lib/drillmatch';
 import { DrillFeedbackControl } from './DrillFeedbackControl';
 
@@ -194,7 +194,16 @@ export function FixStackCard({
               </details>
               <div className="flex items-center gap-3 mt-3 flex-wrap">
                 <span className="text-xs font-semibold text-foreground">Retest {retest.dueLabel}</span>
-                <Link href="/retest" className="inline-flex items-center gap-1 text-xs text-primary hover:underline">
+                <Link
+                  href="/retest"
+                  onClick={() =>
+                    track(ANALYTICS_EVENTS.RETEST_PLAN_CLICKED, {
+                      sport: fixStack.sport,
+                      days: retest.activeWindowDays,
+                    })
+                  }
+                  className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                >
                   Go to Retest →
                 </Link>
               </div>
