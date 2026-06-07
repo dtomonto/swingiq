@@ -101,6 +101,23 @@
       "item3Title": "Privacy-First Design",
       "item3Desc": "Video analysis runs locally when possible. Your swing data is never shared publicly by default."
     },
+    "freeTools": {
+      "heading": "Free tools to get started",
+      "subtitle": "No account needed — try a quick diagnosis or build a plan.",
+      "t1Name": "Golf Slice Fixer",
+      "t1Desc": "Diagnose your slice + 7-day plan",
+      "t2Name": "Swing Mistake Quiz",
+      "t2Desc": "Find your top issue across 5 sports",
+      "t3Name": "Practice Plan Generator",
+      "t3Desc": "7-day & 30-day plans with retests",
+      "t4Name": "At-Home Drill Generator",
+      "t4Desc": "Drills for your space, gear & time",
+      "t5Name": "Lesson Savings Calculator",
+      "t5Desc": "Estimate spend & smarter practice",
+      "t6Name": "Swing Challenges",
+      "t6Desc": "7-day & 30-day guided challenges",
+      "seeAll": "See all free tools →"
+    },
     "disclaimer": "SwingVantage is your AI-powered improvement edge — confident, data-backed coaching you can use every day. Findings are heuristic estimates — smart reads that sharpen with every swing you add. For injury concerns or advanced competitive development, loop in a qualified coach, and keep young athletes supervised during practice.",
     "faq": {
       "heading": "Frequently Asked Questions",
@@ -115,7 +132,9 @@
       "q5": "Does SwingVantage replace a coach?",
       "a5": "SwingVantage is your everyday improvement edge — it pinpoints the single highest-impact fix in your swing and hands you the drills and plan to groove it, no appointment needed. For injury concerns or advanced technique work it pairs perfectly with a qualified coach, and you will show up to those sessions already ahead.",
       "q6": "Is my swing video private?",
-      "a6": "Yes. Video analysis runs in your browser. Videos are not shared publicly by default."
+      "a6": "Yes. Video analysis runs in your browser. Videos are not shared publicly by default.",
+      "q7": "Can parents use SwingVantage for youth athletes?",
+      "a7": "Yes. Parents and coaches use SwingVantage to give young athletes clear, encouraging feedback in plain language. It is built with youth safety in mind — and it pairs with, rather than replaces, a qualified coach for injury or advanced-technique concerns."
     },
     "finalCta": {
       "heading": "Start Improving Your Swing Today",

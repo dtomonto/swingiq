@@ -101,6 +101,23 @@
       "item3Title": "Diseño que Prioriza la Privacidad",
       "item3Desc": "El análisis de video se ejecuta localmente cuando es posible. Tus datos de swing nunca se comparten públicamente por defecto."
     },
+    "freeTools": {
+      "heading": "Herramientas gratuitas para empezar",
+      "subtitle": "Sin necesidad de cuenta: prueba un diagnóstico rápido o crea un plan.",
+      "t1Name": "Corrector de Slice de Golf",
+      "t1Desc": "Diagnostica tu slice + plan de 7 días",
+      "t2Name": "Test de Errores de Swing",
+      "t2Desc": "Encuentra tu problema principal en 5 deportes",
+      "t3Name": "Generador de Plan de Práctica",
+      "t3Desc": "Planes de 7 y 30 días con nuevas pruebas",
+      "t4Name": "Generador de Ejercicios en Casa",
+      "t4Desc": "Ejercicios para tu espacio, equipo y tiempo",
+      "t5Name": "Calculadora de Ahorro en Clases",
+      "t5Desc": "Estima el gasto y practica de forma más inteligente",
+      "t6Name": "Retos de Swing",
+      "t6Desc": "Retos guiados de 7 y 30 días",
+      "seeAll": "Ver todas las herramientas gratuitas →"
+    },
     "disclaimer": "SwingVantage es tu ventaja de mejora con IA: un entrenamiento seguro y respaldado por datos que puedes usar todos los días. Los hallazgos son estimaciones heurísticas — lecturas inteligentes que se afinan con cada swing que añades. Para lesiones o desarrollo competitivo avanzado, cuenta con un entrenador cualificado, y mantén a los atletas jóvenes supervisados durante la práctica.",
     "faq": {
       "heading": "Preguntas Frecuentes",
@@ -115,7 +132,9 @@
       "q5": "¿SwingVantage reemplaza a un entrenador?",
       "a5": "SwingVantage es tu ventaja diaria de mejora — identifica la corrección de mayor impacto en tu swing y te da los ejercicios y el plan para dominarla, sin necesidad de cita. Para lesiones o trabajo técnico avanzado, se combina perfectamente con un entrenador cualificado, y llegarás a esas sesiones ya con ventaja.",
       "q6": "¿Mi video de swing es privado?",
-      "a6": "Sí. El análisis de video se ejecuta en tu navegador. Los videos no se comparten públicamente por defecto."
+      "a6": "Sí. El análisis de video se ejecuta en tu navegador. Los videos no se comparten públicamente por defecto.",
+      "q7": "¿Pueden los padres usar SwingVantage para atletas jóvenes?",
+      "a7": "Sí. Padres y entrenadores usan SwingVantage para dar a los jóvenes atletas comentarios claros y alentadores en lenguaje sencillo. Está diseñado pensando en la seguridad de los menores — y se combina con un entrenador cualificado, sin reemplazarlo, para temas de lesiones o de técnica avanzada."
     },
     "finalCta": {
       "heading": "Empieza a Mejorar Tu Swing Hoy",
