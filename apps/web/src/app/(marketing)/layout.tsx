@@ -1,5 +1,6 @@
 import { MarketingHeader } from '@/components/layout/MarketingHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
+import { MarketingAutoLocale } from '@/components/marketing/MarketingAutoLocale';
 
 /**
  * Shared chrome for the public marketing / SEO surface.
@@ -11,6 +12,7 @@ import { PublicFooter } from '@/components/layout/PublicFooter';
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <MarketingAutoLocale />
       <MarketingHeader />
       <div className="flex-1">{children}</div>
       <PublicFooter />

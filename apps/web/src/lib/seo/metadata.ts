@@ -13,6 +13,9 @@
 
 import type { Metadata } from 'next';
 import { siteConfig, absoluteUrl } from '@/config/site';
+import type { LanguageCode } from '@/lib/i18n';
+import { currentLocalesFor } from '@/lib/marketing-i18n/expose';
+import { localizedHref } from '@/lib/marketing-i18n/href';
 
 export interface BuildMetadataOptions {
   /** Page title (without the site-name suffix — added automatically). */
@@ -21,6 +24,13 @@ export interface BuildMetadataOptions {
   description?: string;
   /** Site-relative path, e.g. '/golf/fix-slice'. Used for canonical + OG URL. */
   path?: string;
+  /**
+   * Which language this page is being rendered in. English ('en', default)
+   * keeps the root URL canonical; a localized page (e.g. 'es') gets the
+   * prefixed URL as its canonical. Either way, hreflang alternates linking the
+   * language versions are emitted automatically for translated pages.
+   */
+  locale?: LanguageCode;
   /** Absolute or site-relative OG image. Falls back to the site default. */
   ogImage?: string;
   /** Open Graph type. */
@@ -29,6 +39,21 @@ export interface BuildMetadataOptions {
   noindex?: boolean;
   /** Optional keywords. */
   keywords?: string[];
+}
+
+/**
+ * Build the hreflang alternates map for a path: English at the root plus every
+ * locale the page is currently fully translated into, with an x-default. Returns
+ * undefined when the page has no translations (so we never emit hreflang to a
+ * URL that doesn't exist).
+ */
+function buildLanguageAlternates(path: string): Record<string, string> | undefined {
+  const locales = currentLocalesFor(path);
+  if (locales.length === 0) return undefined;
+  const languages: Record<string, string> = { en: absoluteUrl(path) };
+  for (const loc of locales) languages[loc] = absoluteUrl(localizedHref(path, loc));
+  languages['x-default'] = absoluteUrl(path);
+  return languages;
 }
 
 /** Compose the visible <title>, appending the brand unless it's the home title. */
@@ -43,6 +68,7 @@ export function buildMetadata(options: BuildMetadataOptions = {}): Metadata {
     title,
     description = siteConfig.defaultMetaDescription,
     path = '/',
+    locale = 'en',
     ogImage = siteConfig.defaultOgImage,
     ogType = 'website',
     noindex = false,
@@ -50,7 +76,9 @@ export function buildMetadata(options: BuildMetadataOptions = {}): Metadata {
   } = options;
 
   const fullTitle = composeTitle(title);
-  const canonical = path;
+  // The canonical for a localized page is its prefixed URL; English stays at root.
+  const canonical = locale === 'en' ? path : localizedHref(path, locale);
+  const languages = buildLanguageAlternates(path);
   const imageUrl = ogImage.startsWith('http') ? ogImage : absoluteUrl(ogImage);
 
   return {
@@ -58,7 +86,7 @@ export function buildMetadata(options: BuildMetadataOptions = {}): Metadata {
     description,
     ...(keywords?.length ? { keywords } : {}),
     metadataBase: new URL(siteConfig.liveSiteUrl),
-    alternates: { canonical },
+    alternates: { canonical, ...(languages ? { languages } : {}) },
     robots: noindex
       ? { index: false, follow: false }
       : { index: true, follow: true },
@@ -66,7 +94,7 @@ export function buildMetadata(options: BuildMetadataOptions = {}): Metadata {
       title: fullTitle,
       description,
       type: ogType,
-      url: absoluteUrl(path),
+      url: absoluteUrl(canonical),
       siteName: siteConfig.siteName,
       images: [{ url: imageUrl }],
     },

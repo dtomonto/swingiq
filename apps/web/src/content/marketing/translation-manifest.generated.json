@@ -1,0 +1,942 @@
+{
+  "version": 1,
+  "generatedAt": "2026-06-07T03:31:33.402Z",
+  "keys": {
+    "nav.howItWorks": {
+      "locales": {
+        "es": {
+          "srcHash": "d6f7d110",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.features": {
+      "locales": {
+        "es": {
+          "srcHash": "6c4737ea",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.pricing": {
+      "locales": {
+        "es": {
+          "srcHash": "b4d17ded",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.freeTools": {
+      "locales": {
+        "es": {
+          "srcHash": "c3836e70",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.blog": {
+      "locales": {
+        "es": {
+          "srcHash": "c79c4311",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.logIn": {
+      "locales": {
+        "es": {
+          "srcHash": "423b6110",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.startFree": {
+      "locales": {
+        "es": {
+          "srcHash": "9fa5b6c3",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.homeAria": {
+      "locales": {
+        "es": {
+          "srcHash": "c8a19340",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.openMenu": {
+      "locales": {
+        "es": {
+          "srcHash": "b79c01dc",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.closeMenu": {
+      "locales": {
+        "es": {
+          "srcHash": "58ee52ce",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.primaryNavAria": {
+      "locales": {
+        "es": {
+          "srcHash": "c7827f79",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "nav.mobileNavAria": {
+      "locales": {
+        "es": {
+          "srcHash": "3e0ba797",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.sportsHeading": {
+      "locales": {
+        "es": {
+          "srcHash": "92ee90da",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.learnHeading": {
+      "locales": {
+        "es": {
+          "srcHash": "2524e8b5",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.freeToolsHeading": {
+      "locales": {
+        "es": {
+          "srcHash": "c3836e70",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.forYouHeading": {
+      "locales": {
+        "es": {
+          "srcHash": "1ac6489b",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.productHeading": {
+      "locales": {
+        "es": {
+          "srcHash": "529c60cc",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.trustHeading": {
+      "locales": {
+        "es": {
+          "srcHash": "8a26b715",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.golf": {
+      "locales": {
+        "es": {
+          "srcHash": "6e94b9d9",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.tennis": {
+      "locales": {
+        "es": {
+          "srcHash": "622705c2",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.pickleball": {
+      "locales": {
+        "es": {
+          "srcHash": "6bec3ede",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.padel": {
+      "locales": {
+        "es": {
+          "srcHash": "fd4c6643",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.baseball": {
+      "locales": {
+        "es": {
+          "srcHash": "aae4e89d",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.softball": {
+      "locales": {
+        "es": {
+          "srcHash": "3d1c7bf4",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.howItWorks": {
+      "locales": {
+        "es": {
+          "srcHash": "d6f7d110",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.methodology": {
+      "locales": {
+        "es": {
+          "srcHash": "7a2321b0",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.faq": {
+      "locales": {
+        "es": {
+          "srcHash": "3ed2943b",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.glossary": {
+      "locales": {
+        "es": {
+          "srcHash": "50793575",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.benchmarks": {
+      "locales": {
+        "es": {
+          "srcHash": "1720366d",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.blog": {
+      "locales": {
+        "es": {
+          "srcHash": "c79c4311",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.updates": {
+      "locales": {
+        "es": {
+          "srcHash": "483075a5",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.devUpdates": {
+      "locales": {
+        "es": {
+          "srcHash": "06e06e2f",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.allFreeTools": {
+      "locales": {
+        "es": {
+          "srcHash": "127ee439",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.golfSliceFixer": {
+      "locales": {
+        "es": {
+          "srcHash": "a6733b7b",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.swingMistakeQuiz": {
+      "locales": {
+        "es": {
+          "srcHash": "84ea638a",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.practicePlanGenerator": {
+      "locales": {
+        "es": {
+          "srcHash": "b302a0de",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.challenges": {
+      "locales": {
+        "es": {
+          "srcHash": "a324b657",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.parents": {
+      "locales": {
+        "es": {
+          "srcHash": "c9d9572a",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.coaches": {
+      "locales": {
+        "es": {
+          "srcHash": "320c4b1d",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.teams": {
+      "locales": {
+        "es": {
+          "srcHash": "b9c8008d",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.creators": {
+      "locales": {
+        "es": {
+          "srcHash": "68b00e8c",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.partners": {
+      "locales": {
+        "es": {
+          "srcHash": "5ef26ffd",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.features": {
+      "locales": {
+        "es": {
+          "srcHash": "6c4737ea",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.pricing": {
+      "locales": {
+        "es": {
+          "srcHash": "b4d17ded",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.signUpFree": {
+      "locales": {
+        "es": {
+          "srcHash": "6f3cd3c9",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.sampleReport": {
+      "locales": {
+        "es": {
+          "srcHash": "9e3714ab",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.contactUs": {
+      "locales": {
+        "es": {
+          "srcHash": "91dd0cb5",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.privacyPolicy": {
+      "locales": {
+        "es": {
+          "srcHash": "2526541f",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.termsOfService": {
+      "locales": {
+        "es": {
+          "srcHash": "a96add92",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.trustSafety": {
+      "locales": {
+        "es": {
+          "srcHash": "c54eddfb",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.links.vulnerabilityDisclosure": {
+      "locales": {
+        "es": {
+          "srcHash": "d2ce0af2",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.tagline": {
+      "locales": {
+        "es": {
+          "srcHash": "20c931fb",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.buildingTitle": {
+      "locales": {
+        "es": {
+          "srcHash": "e70abf5d",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.buildingBody": {
+      "locales": {
+        "es": {
+          "srcHash": "ef128449",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.contactUsInline": {
+      "locales": {
+        "es": {
+          "srcHash": "922cbe95",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.buildingCtaSuffix": {
+      "locales": {
+        "es": {
+          "srcHash": "60138f53",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.aiDisclaimerLabel": {
+      "locales": {
+        "es": {
+          "srcHash": "5e15eb60",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.aiDisclaimerBody": {
+      "locales": {
+        "es": {
+          "srcHash": "74298d5f",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.copyright": {
+      "locales": {
+        "es": {
+          "srcHash": "9150478f",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.privacyLine": {
+      "locales": {
+        "es": {
+          "srcHash": "f6ae2c56",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "footer.footerAria": {
+      "locales": {
+        "es": {
+          "srcHash": "2822ee5d",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.meta.title": {
+      "locales": {
+        "es": {
+          "srcHash": "abd6fe8e",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.meta.description": {
+      "locales": {
+        "es": {
+          "srcHash": "4dfbabee",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.hero.badge": {
+      "locales": {
+        "es": {
+          "srcHash": "c23e81b9",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.hero.titleLine1": {
+      "locales": {
+        "es": {
+          "srcHash": "bb141e88",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.hero.titleLine2": {
+      "locales": {
+        "es": {
+          "srcHash": "49ee3041",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.hero.subtitle": {
+      "locales": {
+        "es": {
+          "srcHash": "e33bfe9a",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.hero.ctaStart": {
+      "locales": {
+        "es": {
+          "srcHash": "ec86ca0b",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.hero.ctaAnalyze": {
+      "locales": {
+        "es": {
+          "srcHash": "6e870691",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.hero.note": {
+      "locales": {
+        "es": {
+          "srcHash": "18c1cd85",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.hero.noteLine2": {
+      "locales": {
+        "es": {
+          "srcHash": "e4ed1aa5",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.how.heading": {
+      "locales": {
+        "es": {
+          "srcHash": "e58d7b31",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.how.step1Title": {
+      "locales": {
+        "es": {
+          "srcHash": "92f7f441",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.how.step1Desc": {
+      "locales": {
+        "es": {
+          "srcHash": "48396a35",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.how.step2Title": {
+      "locales": {
+        "es": {
+          "srcHash": "3b6f8f2d",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.how.step2Desc": {
+      "locales": {
+        "es": {
+          "srcHash": "f16d9608",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.how.step3Title": {
+      "locales": {
+        "es": {
+          "srcHash": "c46ca5c3",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.how.step3Desc": {
+      "locales": {
+        "es": {
+          "srcHash": "d28690c4",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.how.step4Title": {
+      "locales": {
+        "es": {
+          "srcHash": "950730f7",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.how.step4Desc": {
+      "locales": {
+        "es": {
+          "srcHash": "9265b53f",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.why.heading": {
+      "locales": {
+        "es": {
+          "srcHash": "cfa0e774",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.why.item1Title": {
+      "locales": {
+        "es": {
+          "srcHash": "5561e710",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.why.item1Desc": {
+      "locales": {
+        "es": {
+          "srcHash": "89d1312d",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.why.item2Title": {
+      "locales": {
+        "es": {
+          "srcHash": "e80e0928",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.why.item2Desc": {
+      "locales": {
+        "es": {
+          "srcHash": "21a85707",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.why.item3Title": {
+      "locales": {
+        "es": {
+          "srcHash": "e4dc784a",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.why.item3Desc": {
+      "locales": {
+        "es": {
+          "srcHash": "5d7495a1",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.disclaimer": {
+      "locales": {
+        "es": {
+          "srcHash": "c06f2896",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.heading": {
+      "locales": {
+        "es": {
+          "srcHash": "019bfce9",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.q1": {
+      "locales": {
+        "es": {
+          "srcHash": "c1642080",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.a1": {
+      "locales": {
+        "es": {
+          "srcHash": "71ae6823",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.q2": {
+      "locales": {
+        "es": {
+          "srcHash": "6538fb7c",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.a2": {
+      "locales": {
+        "es": {
+          "srcHash": "ef42e9bc",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.q3": {
+      "locales": {
+        "es": {
+          "srcHash": "42554953",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.a3": {
+      "locales": {
+        "es": {
+          "srcHash": "c9f7f680",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.q4": {
+      "locales": {
+        "es": {
+          "srcHash": "fecc6777",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.a4": {
+      "locales": {
+        "es": {
+          "srcHash": "7201ef13",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.q5": {
+      "locales": {
+        "es": {
+          "srcHash": "1236263e",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.a5": {
+      "locales": {
+        "es": {
+          "srcHash": "52ccdc82",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.q6": {
+      "locales": {
+        "es": {
+          "srcHash": "aeeb03a8",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.faq.a6": {
+      "locales": {
+        "es": {
+          "srcHash": "188eff15",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.finalCta.heading": {
+      "locales": {
+        "es": {
+          "srcHash": "c1363904",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.finalCta.subtitle": {
+      "locales": {
+        "es": {
+          "srcHash": "25512276",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    },
+    "home.finalCta.button": {
+      "locales": {
+        "es": {
+          "srcHash": "ec86ca0b",
+          "translatedAt": "2026-06-07T03:31:33.402Z",
+          "source": "human"
+        }
+      }
+    }
+  }
+}

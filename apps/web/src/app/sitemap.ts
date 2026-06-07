@@ -3,6 +3,8 @@ import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
 import { SITE_URL } from '@/config/site';
 import { getLibraryItems } from '@/lib/library';
 import { learnPath } from '@/lib/library/seo';
+import { localizedRoutes, currentLocalesFor } from '@/lib/marketing-i18n/expose';
+import { localizedHref } from '@/lib/marketing-i18n/href';
 
 // Sitemap URLs MUST be on the same host the sitemap is served from, or
 // Google rejects them ("URL not allowed for a Sitemap at this location").
@@ -25,8 +27,29 @@ function xmlEscape(value: string): string {
     .replace(/'/g, '&apos;');
 }
 
+// hreflang alternates for a base path: English (root) + every locale the page
+// is currently fully translated into, plus x-default. Undefined when the page
+// has no translations, so untranslated pages stay single-language in the sitemap.
+function languagesFor(path: string): Record<string, string> | undefined {
+  const locales = currentLocalesFor(path);
+  if (locales.length === 0) return undefined;
+  const enUrl = `${BASE_URL}${path === '/' ? '' : path}`;
+  const languages: Record<string, string> = { en: enUrl, 'x-default': enUrl };
+  for (const loc of locales) languages[loc] = `${BASE_URL}${localizedHref(path, loc)}`;
+  return languages;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
+
+  // One entry per localized (e.g. /es) page, each carrying its hreflang group.
+  const localizedPages: MetadataRoute.Sitemap = localizedRoutes().map(({ locale, path }) => ({
+    url: `${BASE_URL}${localizedHref(path, locale)}`,
+    lastModified: now,
+    changeFrequency: 'weekly' as const,
+    priority: path === '/' ? 0.9 : 0.6,
+    alternates: { languages: languagesFor(path) },
+  }));
 
   // Programmatic SEO landing pages (only those marked 'published').
   const seoPages: MetadataRoute.Sitemap = PUBLISHED_SEO_PAGES.map((p) => ({
@@ -91,12 +114,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...partnerPages,
     ...challengePages,
     ...learnPages,
+    ...localizedPages,
     // ── Homepage ────────────────────────────────────────────────
     {
       url: BASE_URL,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 1.0,
+      ...(languagesFor('/') ? { alternates: { languages: languagesFor('/') } } : {}),
     },
 
     // ── Sport swing analysis pages ──────────────────────────────

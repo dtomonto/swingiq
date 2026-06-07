@@ -1,80 +1,90 @@
 import Link from 'next/link';
+import type { LanguageCode } from '@/lib/i18n';
+import { getMarketingDict } from '@/lib/marketing-i18n/dict';
+import { localizedHref } from '@/lib/marketing-i18n/href';
 
-const FOOTER_COLUMNS = [
+// Column structure: stable href + the dictionary key for the visible label.
+// Labels are translated per locale; hrefs are English base paths and get
+// localized by localizedHref() when the target page is available in the locale.
+const COLUMN_DEFS = [
   {
-    heading: 'Sports',
+    headingKey: 'sportsHeading',
     links: [
-      { label: 'Golf', href: '/golf-swing-analysis' },
-      { label: 'Tennis', href: '/tennis-swing-analysis' },
-      { label: 'Pickleball', href: '/pickleball' },
-      { label: 'Padel', href: '/padel' },
-      { label: 'Baseball', href: '/baseball-swing-analysis' },
-      { label: 'Softball', href: '/softball-swing-analysis' },
+      { k: 'golf', href: '/golf-swing-analysis' },
+      { k: 'tennis', href: '/tennis-swing-analysis' },
+      { k: 'pickleball', href: '/pickleball' },
+      { k: 'padel', href: '/padel' },
+      { k: 'baseball', href: '/baseball-swing-analysis' },
+      { k: 'softball', href: '/softball-swing-analysis' },
     ],
   },
   {
-    heading: 'Learn',
+    headingKey: 'learnHeading',
     links: [
-      { label: 'How It Works', href: '/how-it-works' },
-      { label: 'Methodology', href: '/methodology' },
-      { label: 'FAQ', href: '/faq' },
-      { label: 'Glossary', href: '/glossary' },
-      { label: 'Benchmarks', href: '/benchmarks' },
-      { label: 'Blog', href: '/blog' },
-      { label: 'Updates', href: '/updates' },
-      { label: 'Developer Updates', href: '/dev-updates' },
+      { k: 'howItWorks', href: '/how-it-works' },
+      { k: 'methodology', href: '/methodology' },
+      { k: 'faq', href: '/faq' },
+      { k: 'glossary', href: '/glossary' },
+      { k: 'benchmarks', href: '/benchmarks' },
+      { k: 'blog', href: '/blog' },
+      { k: 'updates', href: '/updates' },
+      { k: 'devUpdates', href: '/dev-updates' },
     ],
   },
   {
-    heading: 'Free Tools',
+    headingKey: 'freeToolsHeading',
     links: [
-      { label: 'All Free Tools', href: '/tools' },
-      { label: 'Golf Slice Fixer', href: '/tools/golf-slice-fixer' },
-      { label: 'Swing Mistake Quiz', href: '/tools/swing-mistake-quiz' },
-      { label: 'Practice Plan Generator', href: '/tools/practice-plan-generator' },
-      { label: 'Challenges', href: '/challenges' },
+      { k: 'allFreeTools', href: '/tools' },
+      { k: 'golfSliceFixer', href: '/tools/golf-slice-fixer' },
+      { k: 'swingMistakeQuiz', href: '/tools/swing-mistake-quiz' },
+      { k: 'practicePlanGenerator', href: '/tools/practice-plan-generator' },
+      { k: 'challenges', href: '/challenges' },
     ],
   },
   {
-    heading: 'For You',
+    headingKey: 'forYouHeading',
     links: [
-      { label: 'Parents', href: '/parents' },
-      { label: 'Coaches', href: '/coaches' },
-      { label: 'Teams', href: '/teams' },
-      { label: 'Creators', href: '/creators' },
-      { label: 'Facilities & Partners', href: '/partners' },
+      { k: 'parents', href: '/parents' },
+      { k: 'coaches', href: '/coaches' },
+      { k: 'teams', href: '/teams' },
+      { k: 'creators', href: '/creators' },
+      { k: 'partners', href: '/partners' },
     ],
   },
   {
-    heading: 'Product',
+    headingKey: 'productHeading',
     links: [
-      { label: 'Features', href: '/features' },
-      { label: 'Pricing', href: '/pricing' },
-      { label: 'Sign Up Free', href: '/signup' },
-      { label: 'Sample Report', href: '/sample-report' },
+      { k: 'features', href: '/features' },
+      { k: 'pricing', href: '/pricing' },
+      { k: 'signUpFree', href: '/signup' },
+      { k: 'sampleReport', href: '/sample-report' },
     ],
   },
   {
-    heading: 'Trust',
+    headingKey: 'trustHeading',
     links: [
-      { label: 'Contact Us', href: '/contact' },
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Service', href: '/terms' },
-      { label: 'Trust & Safety', href: '/trust' },
-      { label: 'Vulnerability Disclosure', href: '/vulnerability-disclosure' },
+      { k: 'contactUs', href: '/contact' },
+      { k: 'privacyPolicy', href: '/privacy' },
+      { k: 'termsOfService', href: '/terms' },
+      { k: 'trustSafety', href: '/trust' },
+      { k: 'vulnerabilityDisclosure', href: '/vulnerability-disclosure' },
     ],
   },
-];
+] as const;
 
 interface PublicFooterProps {
   className?: string;
+  locale?: LanguageCode;
 }
 
-export function PublicFooter({ className }: PublicFooterProps) {
+export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
+  const dict = getMarketingDict(locale);
+  const f = dict.footer;
+
   return (
     <footer
       className={`bg-secondary text-muted-foreground pt-12 pb-8 px-4 ${className ?? ''}`}
-      aria-label="Site footer"
+      aria-label={f.footerAria}
     >
       <div className="max-w-5xl mx-auto">
         {/* Logo + tagline */}
@@ -84,23 +94,23 @@ export function PublicFooter({ className }: PublicFooterProps) {
           </div>
           <div>
             <span className="text-white font-bold text-lg">SwingVantage</span>
-            <p className="text-muted-foreground text-xs">AI Swing Analysis — Golf, Tennis, Baseball &amp; Softball</p>
+            <p className="text-muted-foreground text-xs">{f.tagline}</p>
           </div>
         </div>
 
         {/* Link columns */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 mb-10">
-          {FOOTER_COLUMNS.map((col) => (
-            <div key={col.heading}>
-              <h3 className="text-white text-sm font-semibold mb-3">{col.heading}</h3>
+          {COLUMN_DEFS.map((col) => (
+            <div key={col.headingKey}>
+              <h3 className="text-white text-sm font-semibold mb-3">{f[col.headingKey]}</h3>
               <ul className="space-y-2">
                 {col.links.map((link) => (
                   <li key={link.href}>
                     <Link
-                      href={link.href}
+                      href={localizedHref(link.href, locale)}
                       className="text-sm text-muted-foreground hover:text-white transition-colors"
                     >
-                      {link.label}
+                      {f.links[link.k]}
                     </Link>
                   </li>
                 ))}
@@ -112,26 +122,22 @@ export function PublicFooter({ className }: PublicFooterProps) {
         {/* In-development disclaimer — invites feedback site-wide */}
         <div className="border-t border-gray-800 pt-6">
           <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
-            <strong className="text-white">Heads up — we&apos;re still building.</strong> SwingVantage is in active
-            development. If there&apos;s anything you can tell us so we can improve, we&apos;d love to hear it.{' '}
-            <Link href="/contact" className="font-semibold text-white underline hover:text-primary">
-              Contact us
+            <strong className="text-white">{f.buildingTitle}</strong> {f.buildingBody}{' '}
+            <Link href={localizedHref('/contact', locale)} className="font-semibold text-white underline hover:text-primary">
+              {f.contactUsInline}
             </Link>{' '}
-            and help shape what we build next.
+            {f.buildingCtaSuffix}
           </p>
         </div>
 
         {/* AI disclaimer + copyright */}
         <div className="border-t border-gray-800 pt-6 mt-6 space-y-3">
           <p className="text-xs text-muted-foreground leading-relaxed max-w-3xl">
-            <strong className="text-muted-foreground">AI Disclaimer:</strong> SwingVantage&apos;s AI coaching helps
-            identify swing patterns and prioritize practice. It is not a substitute for a qualified
-            professional coach. SwingVantage is not a medical device — consult a sports medicine professional
-            if you experience pain.
+            <strong className="text-muted-foreground">{f.aiDisclaimerLabel}</strong> {f.aiDisclaimerBody}
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-muted-foreground">
-            <span>&copy; {new Date().getFullYear()} SwingVantage. All rights reserved.</span>
-            <span>Your data is private to you. We do not sell your personal information.</span>
+            <span>{f.copyright.replace('{year}', String(new Date().getFullYear()))}</span>
+            <span>{f.privacyLine}</span>
           </div>
         </div>
       </div>

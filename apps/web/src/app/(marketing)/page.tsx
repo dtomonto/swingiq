@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   TrustBar,
@@ -20,18 +19,17 @@ import {
 } from '@/lib/seo/jsonLd';
 import { PersonaPathCards } from '@/components/persona/PersonaPathCards';
 import { SportProofBlock } from '@/components/proof/SportProofBlock';
+import { buildMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+// buildMetadata also emits hreflang alternates linking this page to its
+// translated versions (e.g. /es) when they exist — see lib/seo/metadata.
+export const metadata = buildMetadata({
   title: 'SwingVantage — Free AI Swing Analysis for Golf, Tennis, Baseball & Softball',
   description:
     'Upload a swing video or import launch monitor data. Get a free AI-powered breakdown of your top swing fault, personalized drills, and a practice plan. Supports golf, tennis, baseball, and softball.',
+  path: '/',
   keywords: ['swing analysis', 'golf swing', 'tennis swing', 'baseball swing', 'softball hitting', 'AI coaching', 'launch monitor', 'swing improvement'],
-  openGraph: {
-    title: 'SwingVantage — Free AI Swing Analysis',
-    description: 'Upload your swing video and get an AI diagnosis, drills, and practice plan — free for golf, tennis, baseball, and softball.',
-    type: 'website',
-  },
-};
+});
 
 const HOW_IT_WORKS = [
   { step: '1', title: 'Choose Your Sport', desc: 'Select golf, tennis, baseball, or softball. SwingVantage adapts every analysis, drill, and coaching cue to your sport.' },

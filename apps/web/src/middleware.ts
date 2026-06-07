@@ -15,6 +15,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
+import { MARKETING_LOCALE_CODES } from '@/lib/marketing-i18n/constants';
 
 // Posture: protect app routes by default; allow public routes explicitly.
 // Public routes are expressed two ways so the list does not drift as new
@@ -118,6 +119,17 @@ function matchesSubtree(pathname: string, prefix: string): boolean {
   );
 }
 
+// Strip a leading marketing-locale prefix (e.g. '/es/how-it-works' →
+// '/how-it-works', '/es' → '/'). Localized routes only ever mirror public
+// marketing pages, so the underlying English path determines publicness.
+function stripLocalePrefix(pathname: string): string {
+  for (const loc of MARKETING_LOCALE_CODES) {
+    if (pathname === `/${loc}`) return '/';
+    if (pathname.startsWith(`/${loc}/`)) return pathname.slice(loc.length + 1);
+  }
+  return pathname;
+}
+
 function isPublicPath(pathname: string): boolean {
   // Crawler/SEO files and static assets — any path that ends in a file
   // extension (.xml, .txt, .png, .json, .mp4, …) — are always public. Search
@@ -127,9 +139,11 @@ function isPublicPath(pathname: string): boolean {
   // the matcher below already skips these, but the gate stays correct on its
   // own. (A missing guard here is what made Google see /sitemap.xml as HTML.)
   if (/\.[a-z0-9]+$/i.test(pathname)) return true;
-  if (PUBLIC_PATHS.has(pathname)) return true;
-  if (PUBLIC_SUBTREES.some((prefix) => matchesSubtree(pathname, prefix))) return true;
-  return PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+  if (PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(prefix))) return true;
+  // Localized marketing URLs (/es, /es/…) are public iff their English path is.
+  const p = stripLocalePrefix(pathname);
+  if (PUBLIC_PATHS.has(p)) return true;
+  return PUBLIC_SUBTREES.some((prefix) => matchesSubtree(p, prefix));
 }
 
 export async function middleware(request: NextRequest) {
@@ -145,10 +159,23 @@ export async function middleware(request: NextRequest) {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl && !supabaseAnonKey) {
-    // Neither var is set → intentional local-first mode: the app runs
-    // device-only with no accounts, so protected app routes are usable
-    // anonymously. Allow through.
-    return NextResponse.next();
+    // Neither var is set. Two cases:
+    //   • Local-first by design (dev, or a deliberately account-less deploy):
+    //     the app runs device-only with no accounts, so protected app routes
+    //     are meant to be usable anonymously.
+    //   • Misconfiguration in production (both vars accidentally dropped): a
+    //     deploy that SHOULD have accounts silently loses route protection.
+    // We cannot tell these apart from the vars alone, so we fail CLOSED in
+    // production unless the operator has explicitly opted into anonymous mode
+    // with ALLOW_ANONYMOUS_APP=1. Dev always passes through for local iteration.
+    const anonymousAllowed =
+      process.env.NODE_ENV !== 'production' || process.env.ALLOW_ANONYMOUS_APP === '1';
+    if (anonymousAllowed) {
+      return NextResponse.next();
+    }
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('next', pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
   if (!supabaseUrl || !supabaseAnonKey) {
