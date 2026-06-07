@@ -19,6 +19,7 @@ case "$last_subject" in
   "chore(updates): publish entries from commit trailers"*) exit 0 ;;
   "chore(social): flag new blog posts for social"*) exit 0 ;;
   "chore(features): refresh feature registry"*) exit 0 ;;
+  "chore(setup): refresh setup registry"*) exit 0 ;;
 esac
 [ -n "$SWINGVANTAGE_UPDATES_HOOK" ] && exit 0
 export SWINGVANTAGE_UPDATES_HOOK=1
@@ -57,6 +58,17 @@ if ! git diff --quiet -- "$registry_file" 2>/dev/null; then
   git add -- "$registry_file"
   git commit -m "chore(features): refresh feature registry" -- "$registry_file" || exit 0
   echo "swingvantage: refreshed feature registry (see /admin/feature-education)."
+fi
+
+# ── Setup hub: auto-discover new database files + `Setup:` trailers ──
+# Keeps /admin/setup current so new manual steps appear for the owner without
+# anyone remembering to add them. Reviewed (and ticked off) in /admin/setup.
+node scripts/scan-setup.mjs --quiet || exit 0
+setup_file="apps/web/src/data/setup-registry.json"
+if ! git diff --quiet -- "$setup_file" 2>/dev/null; then
+  git add -- "$setup_file"
+  git commit -m "chore(setup): refresh setup registry" -- "$setup_file" || exit 0
+  echo "swingvantage: refreshed setup registry (see /admin/setup)."
 fi
 
 exit 0

@@ -21,6 +21,7 @@ import { RecentActivity } from '@/components/admin/RecentActivity';
 import { getSystemStatus } from '@/lib/admin/data/system';
 import { getPlatformMetrics } from '@/lib/admin/data/metrics';
 import { deriveAlerts, type AdminAlert } from '@/lib/admin/alerts';
+import { getSetupNudge } from '@/lib/admin/setup/nudge';
 import { loadAlertCounts } from '@/lib/feature-education/server/data';
 import { NAV_ITEMS, isHrefBuilt } from '@/lib/admin/nav';
 import { formatNumber, formatRelativeTime } from '@/lib/admin/format';
@@ -50,7 +51,26 @@ export default async function AdminCommandCenter() {
           },
         ]
       : [];
-  const alerts = [...deriveAlerts(system, metrics), ...feeAlerts];
+  // Setup nudge — only counts auto-detectable (live) steps, so it never nags
+  // about manual tasks the owner already did on another surface.
+  const nudge = getSetupNudge();
+  const setupAlerts: AdminAlert[] =
+    nudge.essentialsOutstanding > 0
+      ? [
+          {
+            id: 'setup-outstanding',
+            severity: nudge.requiredOutstanding > 0 ? 'warning' : 'info',
+            title:
+              nudge.requiredOutstanding > 0
+                ? `${nudge.requiredOutstanding} required setup step${nudge.requiredOutstanding === 1 ? '' : 's'} before launch`
+                : `${nudge.essentialsOutstanding} recommended setup step${nudge.essentialsOutstanding === 1 ? '' : 's'} available`,
+            detail: `${nudge.examples.join(', ')}${nudge.essentialsOutstanding > nudge.examples.length ? ', …' : ''}. Each has plain-English steps and the exact values to copy.`,
+            href: '/admin/setup',
+            cta: 'Open Setup & Next Steps',
+          },
+        ]
+      : [];
+  const alerts = [...setupAlerts, ...deriveAlerts(system, metrics), ...feeAlerts];
 
   const tools = NAV_ITEMS.filter((i) => i.external && i.built);
   const muted = !metrics.connected;

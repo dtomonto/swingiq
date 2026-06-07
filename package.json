@@ -26,6 +26,7 @@
     "generate:brand": "node scripts/generate-brand-assets.mjs",
     "updates:generate": "node scripts/generate-updates.mjs",
     "features:scan": "node scripts/scan-features.mjs",
+    "setup:scan": "node scripts/scan-setup.mjs",
     "social:queue": "node scripts/generate-social-queue.mjs",
     "hooks:install": "node scripts/install-hooks.mjs",
     "growth:report": "node scripts/growth-report.mjs",

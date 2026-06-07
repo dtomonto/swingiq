@@ -17,7 +17,7 @@ import {
   LayoutDashboard, Users, Activity, Upload, Brain, FileText, Search, Trophy,
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
-  ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen,
+  ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -75,6 +75,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'overview', built: true,
     blurb: 'Your daily operating room — platform health, alerts and what to do next.',
     keywords: ['home', 'dashboard', 'overview', 'kpi'],
+  },
+  {
+    id: 'setup', label: 'Setup & Next Steps', href: '/admin/setup', icon: Rocket,
+    group: 'overview', built: true,
+    blurb: 'Beginner-friendly checklist of every key, database file and manual step — with copy-paste values.',
+    keywords: ['setup', 'getting started', 'next steps', 'onboarding', 'install', 'configure', 'keys', 'env', 'checklist', 'to-do', 'instructions', 'how to'],
   },
 
   // ── People ─────────────────────────────────────────────────
