@@ -64,6 +64,8 @@ export interface Update {
   sortOrder: number;
   isFeatured?: boolean;
   isMajorMilestone?: boolean;
+  /** Pinned updates are forced to the top of the public list, ahead of newest-first ordering. */
+  isPinned?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -89,9 +91,11 @@ function allUpdates(): Update[] {
 }
 
 export function getPublicUpdates(): Update[] {
-  return allUpdates().filter(isPublicUpdate).sort(
-    (a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime(),
-  );
+  return allUpdates().filter(isPublicUpdate).sort((a, b) => {
+    // Pinned updates float to the very top, ahead of newest-first ordering.
+    if (!!a.isPinned !== !!b.isPinned) return a.isPinned ? -1 : 1;
+    return new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime();
+  });
 }
 
 export function getFeaturedUpdate(): Update | undefined {
@@ -408,6 +412,7 @@ export const UPDATES: Update[] = [
       'SwingVantage launched as a web-based AI golf performance platform designed to give everyday players affordable, personalized swing coaching.',
     isMajorMilestone: true,
     isFeatured: false,
+    isPinned: true,
     createdAt: '2026-05-28',
     updatedAt: '2026-05-28',
   },
