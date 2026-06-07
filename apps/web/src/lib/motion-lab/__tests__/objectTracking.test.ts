@@ -11,7 +11,7 @@ import {
   implementForSport,
   heuristicForearmProvider,
   type ObjectTrackingInput,
-} from '../objectTracking';
+} from '../object-tracking';
 import type { MotionPoseTrack, CaptureContext, MotionPoseFrame } from '../types';
 
 const L_ELBOW = 13;

@@ -9,7 +9,7 @@ export {
   metricTarget,
   skillLabel,
   type MotionSkillLevel,
-} from './referenceRanges';
+} from './reference-ranges';
 export {
   MOTION_SPORTS,
   getSport,
@@ -61,14 +61,14 @@ export {
   type ObjectTrackingProvider,
   type ObjectTrackingInput,
   type ImplementManualHints,
-} from './objectTracking';
+} from './object-tracking';
 export {
   computeKineticChain,
   type KineticChainScore,
   type SegmentTiming,
   type PowerLeakFlag,
   type ChainSegment,
-} from './kineticChain';
+} from './kinetic-chain';
 export {
   computeTemporal,
   type TemporalIntelligence,
@@ -86,7 +86,7 @@ export {
   narrateMotionSession,
   type MotionCoachNarrative,
   type CoachNarrativeTone,
-} from './coachNarrative';
+} from './coach-narrative';
 export {
   summarizeAthlete,
   buildCoachView,
@@ -118,5 +118,5 @@ export {
   type MotionProfile,
 } from './persistence';
 export { downloadSessionJson, downloadSessionCsv } from './export';
-export { printSessionReport } from './printReport';
+export { printSessionReport } from './print-report';
 export { useMotionSessions } from './useMotionSessions';

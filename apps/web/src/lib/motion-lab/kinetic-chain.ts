@@ -22,7 +22,7 @@
 
 import type { MotionPoseTrack, CaptureContext, MotionBasis } from './types';
 import type { MotionSeries } from './biomechanics';
-import type { ObjectTrackingResult } from './objectTracking';
+import type { ObjectTrackingResult } from './object-tracking';
 import { argmax } from './kinematics3d';
 
 export type ChainSegment = 'lower_body' | 'torso' | 'arms' | 'implement';
