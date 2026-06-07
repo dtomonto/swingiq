@@ -8,3 +8,11 @@
 export * from './types';
 export { runGrowthAgents } from './orchestrator';
 export { useGrowthAgents, type UseGrowthAgents } from './useGrowthAgents';
+export {
+  selectChurnAwareNudge,
+  toActivitySignal,
+  isComebackTrigger,
+  type ChurnAwareOptions,
+  type ChurnAwareResult,
+  type ActivitySignalOverrides,
+} from './reengageBridge';
