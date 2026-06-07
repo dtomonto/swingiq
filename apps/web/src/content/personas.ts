@@ -6,10 +6,9 @@
 // a destination. Prominence (card vs. secondary link vs. hidden)
 // is controlled separately by sportStrategy.ts.
 //
-// NOTE (Phase 1): slow-pitch / fast-pitch route to the existing
-// softball hub with an ?intent= param so nothing 404s. Phase 2
-// repoints them to dedicated /softball-swing-analysis/{slow,fast}-pitch
-// hubs. See docs/FIVE_PERSONA_MASTER_PLAN.md §4–§6.
+// Slow-pitch / fast-pitch route to their dedicated hubs (added in
+// Phase 2); the generic softball card routes to the chooser.
+// See docs/FIVE_PERSONA_MASTER_PLAN.md §4–§6.
 // ============================================================
 
 import type { PersonaId } from './sportStrategy';
@@ -59,7 +58,7 @@ export const PERSONA_PATHS: Record<PersonaId, PersonaPath> = {
     title: 'Slow Pitch Softball',
     painLine: 'Stop popping up and hit line drives',
     ctaLabel: 'Stop popping up — free',
-    href: '/softball-swing-analysis?intent=slow-pitch',
+    href: '/softball-swing-analysis/slow-pitch',
     startHref: '/start?sport=softball_slow',
   },
   'fast-pitch': {
@@ -69,7 +68,7 @@ export const PERSONA_PATHS: Record<PersonaId, PersonaPath> = {
     title: 'Fast Pitch Softball',
     painLine: 'Catch up to speed and improve contact point',
     ctaLabel: 'Catch up to speed — free',
-    href: '/softball-swing-analysis?intent=fast-pitch',
+    href: '/softball-swing-analysis/fast-pitch',
     startHref: '/start?sport=softball_fast',
   },
   softball: {

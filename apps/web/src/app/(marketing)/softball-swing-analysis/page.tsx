@@ -87,8 +87,8 @@ export default function SoftballSwingAnalysisPage() {
             AI Softball Swing Analysis<br className="sm:hidden" /> — Slow Pitch &amp; Fast Pitch
           </h1>
           <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto mb-8">
-            Import your hitting data or upload a swing video. Get AI analysis of your swing faults
-            with drills designed for softball mechanics — free.
+            Slow pitch and fast pitch need almost opposite swings. Pick your discipline below for a
+            diagnosis, drills, and benchmarks built for it — free, no account required.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
@@ -107,16 +107,21 @@ export default function SoftballSwingAnalysisPage() {
         </div>
       </header>
 
-      {/* Two modes */}
+      {/* Choose your path */}
       <section className="bg-card py-14">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground text-center mb-10">
-            Two Separate Analysis Modes
+          <h2 className="text-2xl font-bold text-foreground text-center mb-3">
+            Choose your softball path
           </h2>
+          <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
+            Pick the discipline you play to get a diagnosis, drills, and benchmarks built for it.
+            Not sure? <Link href="/sample-report/softball" className="text-primary font-semibold hover:underline">See how the same hitter differs in each →</Link>
+          </p>
           <div className="grid sm:grid-cols-2 gap-6">
             {[
               {
                 title: 'Slow Pitch Softball',
+                href: '/softball-swing-analysis/slow-pitch',
                 color: 'border-warning/50',
                 badge: 'bg-warning/15 text-warning',
                 points: [
@@ -129,6 +134,7 @@ export default function SoftballSwingAnalysisPage() {
               },
               {
                 title: 'Fast Pitch Softball',
+                href: '/softball-swing-analysis/fast-pitch',
                 color: 'border-primary/50',
                 badge: 'bg-primary/15 text-primary',
                 points: [
@@ -139,8 +145,12 @@ export default function SoftballSwingAnalysisPage() {
                   'Competition-level benchmarks (youth through college)',
                 ],
               },
-            ].map(({ title, color, badge, points }) => (
-              <div key={title} className={`rounded-xl border-2 ${color} bg-card p-6`}>
+            ].map(({ title, href, color, badge, points }) => (
+              <Link
+                key={title}
+                href={href}
+                className={`group block rounded-xl border-2 ${color} bg-card p-6 transition-colors hover:bg-muted`}
+              >
                 <span className={`text-xs font-bold px-2 py-1 rounded-sm ${badge} mb-3 inline-block`}>
                   {title}
                 </span>
@@ -153,7 +163,10 @@ export default function SoftballSwingAnalysisPage() {
                     </li>
                   ))}
                 </ul>
-              </div>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                  Analyze {title.replace(' Softball', '')} →
+                </span>
+              </Link>
             ))}
           </div>
         </div>

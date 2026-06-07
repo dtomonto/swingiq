@@ -11,12 +11,20 @@ import { PUBLISHED_SEO_PAGES, type Sport } from '@/content/seoPages';
  */
 export function RelatedGuides({
   sport,
+  discipline,
   heading = 'Guides for your game',
 }: {
   sport: Sport;
+  /** Optional softball discipline filter (slow-pitch / fast-pitch hubs).
+   *  When set, shows discipline-specific guides plus general (untagged) ones. */
+  discipline?: 'slow_pitch' | 'fast_pitch';
   heading?: string;
 }) {
-  const guides = PUBLISHED_SEO_PAGES.filter((p) => p.sport === sport);
+  const guides = PUBLISHED_SEO_PAGES.filter(
+    (p) =>
+      p.sport === sport &&
+      (discipline ? p.discipline === discipline || !p.discipline : true),
+  );
   if (guides.length === 0) return null;
 
   return (

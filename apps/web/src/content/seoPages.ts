@@ -38,6 +38,12 @@ export interface SeoPage {
   /** URL path WITHOUT leading slash, e.g. 'golf/fix-slice'. */
   slug: string;
   sport: Sport;
+  /**
+   * Optional softball discipline. Lets the slow-pitch / fast-pitch hubs
+   * filter their guide silo (RelatedGuides). Pages with no discipline are
+   * treated as general softball and show on both hubs.
+   */
+  discipline?: 'slow_pitch' | 'fast_pitch';
   audience: Audience;
   keyword: string;
   intent: Intent;
@@ -322,6 +328,7 @@ const GOLF_PRACTICE_AT_HOME: SeoPage = {
 const SOFTBALL_SLOW_PITCH_POWER: SeoPage = {
   slug: 'softball/slow-pitch-power',
   sport: 'softball',
+  discipline: 'slow_pitch',
   audience: 'player',
   keyword: 'slow pitch softball power',
   intent: 'informational',
@@ -715,7 +722,7 @@ const GOLF_STOP_TOPPING: SeoPage = {
 
 const SOFTBALL_STOP_POPUP: SeoPage = {
   slug: 'softball/stop-popping-up',
-  sport: 'softball', audience: 'player', keyword: 'stop popping up softball', intent: 'informational',
+  sport: 'softball', discipline: 'slow_pitch', audience: 'player', keyword: 'stop popping up softball', intent: 'informational',
   funnelStage: 'consideration', priority: 3,
   title: 'How to Stop Popping Up in Softball',
   metaDescription:
@@ -1284,6 +1291,7 @@ const TENNIS_GRIPS: SeoPage = {
 const SOFTBALL_HIT_SLOW_PITCH: SeoPage = {
   slug: 'softball/how-to-hit-slow-pitch',
   sport: 'softball',
+  discipline: 'slow_pitch',
   audience: 'player',
   keyword: 'how to hit a slow pitch softball',
   intent: 'informational',

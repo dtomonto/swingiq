@@ -106,6 +106,24 @@ export function StartHereFlow() {
     setReturning(loadStartHere());
   }, []);
 
+  // Deep-link preselect: /start?sport=<id> from the homepage persona
+  // cards / sport hubs. Client-only (reads window) so no Suspense
+  // boundary is required. Jumps straight to the "about you" step with
+  // the chosen sport already selected.
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('sport');
+    if (!param) return;
+    const id = param as OnboardingSportId;
+    if (!getSport(id)) return;
+    setSportIds([id]);
+    setPrimarySport(id);
+    setSelectedSports([id] as SportId[]);
+    setActiveSport(id as SportId);
+    setStep('about');
+    track(ANALYTICS_EVENTS.SPORT_SELECTED, { sport: id, context: 'start_here_deeplink' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // A returning user is anyone who has finished setup before or has a
   // saved quick-start record — they can skip intake.
   const isReturningUser = onboardingComplete || returning !== null;
