@@ -9,6 +9,7 @@
 // When Supabase is connected, swap the persist storage adapter.
 // ============================================================
 
+import { useMemo } from 'react';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { SportId } from '@swingiq/core';
@@ -126,7 +127,8 @@ export function useLatestDiagnosedSession() {
 
 /** All sessions for current sport */
 export function useSportSessions(sport: SportId) {
-  return useSwingVantageStore((s) => s.sessions.filter((sess) => sess.sport === sport));
+  const sessions = useSwingVantageStore((s) => s.sessions);
+  return useMemo(() => sessions.filter((sess) => sess.sport === sport), [sessions, sport]);
 }
 
 /** Overall swing score: average of last 3 scored sessions */
