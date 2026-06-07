@@ -3,6 +3,11 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/layout/Providers';
 import { Analytics } from '@/components/analytics/Analytics';
+// Vercel's first-party metrics — separate from the local Analytics component
+// above (Plausible/GA4/PostHog). Both are cookieless and only beacon when
+// deployed on Vercel with the feature enabled, so they no-op locally.
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { siteConfig } from '@/config/site';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -87,6 +92,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.variable} font-sans antialiased bg-background min-h-screen`}>
         <Providers>{children}</Providers>
         <Analytics />
+        <VercelAnalytics />
+        <SpeedInsights />
       </body>
     </html>
   );
