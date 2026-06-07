@@ -27,6 +27,7 @@ import {
 } from '@swingiq/core';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
+import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -121,6 +122,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ configured: false, message }, { status: 200 });
   }
 
+  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set).
+  // When today's estimated budget is spent, pause paid vision calls instead of
+  // running up the bill — surfaced honestly to the client as a temporary pause.
+  if (await aiBudgetExceeded()) {
+    return NextResponse.json(
+      {
+        configured: false,
+        message:
+          'AI swing analysis has paused for today — the daily AI budget cap was reached. Please try again tomorrow.',
+      },
+      { status: 200 },
+    );
+  }
+
   const outcome = await provider.analyze({
     sport,
     frames,
@@ -154,5 +169,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  await recordAiSpend('video-vision');
   return NextResponse.json({ configured: true, analysis: outcome.analysis }, { status: 200 });
 }

@@ -16,6 +16,7 @@ import { runVideoAnalysis } from '@swingiq/core';
 import type { SwingVideoMetadata } from '@swingiq/core';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
+import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 
 interface VideoAnalysisRequest {
   video_id: string;
@@ -79,12 +80,14 @@ export async function POST(req: NextRequest) {
     landmarks_by_frame: new Map(),
   });
 
-  // Optionally augment with AI narrative
+  // Optionally augment with AI narrative — skipped when the global daily AI
+  // budget is spent (off unless AI_DAILY_BUDGET_CENTS is set).
   const aiProvider = process.env.AI_PROVIDER;
-  if (aiProvider && analysis.detected_issues.length > 0) {
+  if (aiProvider && !(await aiBudgetExceeded()) && analysis.detected_issues.length > 0) {
     try {
       const narrative = await generateAINarrative(analysis, aiProvider);
       analysis.ai_narrative = narrative;
+      await recordAiSpend('video-analysis');
     } catch (err) {
       // AI failure is non-fatal — return analysis without narrative
       console.error('[video-analysis] AI narrative failed:', err instanceof Error ? err.message : err);

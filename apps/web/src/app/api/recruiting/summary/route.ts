@@ -12,6 +12,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
+import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { validateSummaryBody } from '@/lib/recruiting/summary';
 
 const SYSTEM = [
@@ -103,8 +104,15 @@ export async function POST(req: NextRequest) {
     .filter(Boolean)
     .join('\n\n');
 
+  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set):
+  // when spent, skip the optional re-word and return the grounded original.
+  if (await aiBudgetExceeded()) {
+    return NextResponse.json({ body: original, usedAi: false });
+  }
+
   const raw = await callProvider(SYSTEM, user);
   if (!raw) return NextResponse.json({ body: original, usedAi: false });
+  await recordAiSpend('recruiting-summary');
 
   const parsed = extractJson(raw) as { body?: unknown } | null;
   const reworded = parsed && typeof parsed.body === 'string' ? parsed.body.trim() : '';

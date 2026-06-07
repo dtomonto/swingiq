@@ -19,6 +19,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { buildCoachPrompt, validateUserQuestion, type CoachContext } from '@/lib/ai-coach-prompts';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
+import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 
 // ── Handler ───────────────────────────────────────────────────
 
@@ -53,6 +54,11 @@ export async function POST(req: NextRequest) {
   // Build the structured prompt — AI only gets pre-computed stats
   const { system, user } = buildCoachPrompt(ctx);
 
+  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set).
+  // When the day's estimated AI budget is spent, skip the paid call and fall
+  // through to the data-grounded placeholder below.
+  const overBudget = await aiBudgetExceeded();
+
   // ── Call the AI provider ──────────────────────────────────
   // SwingVantage supports OpenAI or Anthropic. Configure via environment variables:
   //   AI_PROVIDER=openai  → uses OPENAI_API_KEY
@@ -65,7 +71,7 @@ export async function POST(req: NextRequest) {
   const openAiKey = process.env.OPENAI_API_KEY;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
 
-  if (aiProvider === 'openai' && openAiKey) {
+  if (!overBudget && aiProvider === 'openai' && openAiKey) {
     try {
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
@@ -97,6 +103,7 @@ export async function POST(req: NextRequest) {
         choices: Array<{ message: { content: string } }>;
       };
       const message = data.choices[0]?.message?.content?.trim() ?? '';
+      await recordAiSpend('ai-coach');
       return NextResponse.json({ message });
     } catch (err) {
       console.error('[AI Coach] OpenAI fetch failed:', err);
@@ -107,7 +114,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  if (aiProvider === 'anthropic' && anthropicKey) {
+  if (!overBudget && aiProvider === 'anthropic' && anthropicKey) {
     try {
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
@@ -137,6 +144,7 @@ export async function POST(req: NextRequest) {
         content: Array<{ type: string; text: string }>;
       };
       const message = data.content.find((c) => c.type === 'text')?.text?.trim() ?? '';
+      await recordAiSpend('ai-coach');
       return NextResponse.json({ message });
     } catch (err) {
       console.error('[AI Coach] Anthropic fetch failed:', err);

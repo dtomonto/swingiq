@@ -13,6 +13,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
+import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { validateNarrative, type JourneyNarrative } from '@/lib/athletic-journey';
 
 const SYSTEM = [
@@ -104,11 +105,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing or malformed narrative.' }, { status: 400 });
   }
 
+  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set):
+  // when spent, echo the deterministic narrative unchanged.
+  if (await aiBudgetExceeded()) {
+    return NextResponse.json({ narrative: { ...base, enhanced: false } });
+  }
+
   // Keyless / provider error → echo the deterministic narrative unchanged.
   const raw = await callProvider(SYSTEM, JSON.stringify(base));
   if (!raw) {
     return NextResponse.json({ narrative: { ...base, enhanced: false } });
   }
+  await recordAiSpend('narrative');
 
   const parsed = extractJson(raw);
   const safe = validateNarrative(base, parsed); // falls back to base on any violation

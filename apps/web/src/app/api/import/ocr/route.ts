@@ -18,6 +18,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
+import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { resolveOcrProvider, type ResolvedOcrProvider } from '@/lib/capabilities';
 import {
   buildImageExtractionPrompt,
@@ -80,8 +81,20 @@ export async function POST(req: NextRequest): Promise<NextResponse<OcrResponse>>
   const source = typeof body.source === 'string' && body.source ? body.source : 'launch monitor';
   const sport = typeof body.sport === 'string' && body.sport ? body.sport : 'golf';
 
+  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set).
+  // When today's budget is spent, skip the paid vision call — the importer
+  // falls back to manual entry, which always works.
+  if (await aiBudgetExceeded()) {
+    return NextResponse.json({
+      configured: true,
+      message: 'Auto-extraction is paused for today (daily AI budget reached). Please enter your data manually.',
+    });
+  }
+
   try {
-    return NextResponse.json(await extract(resolved, imageBase64, source, sport));
+    const result = await extract(resolved, imageBase64, source, sport);
+    await recordAiSpend('ocr');
+    return NextResponse.json(result);
   } catch {
     // Never break the importer — fall back to manual entry.
     return NextResponse.json({

@@ -7,7 +7,7 @@
 // ============================================================
 
 import type { Metadata } from 'next';
-import { Activity, ServerCog } from 'lucide-react';
+import { Activity, ServerCog, Wallet } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';
@@ -15,12 +15,14 @@ import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecheckButton } from '@/components/admin/RecheckButton';
 import { getSystemStatus, type IntegrationCategory } from '@/lib/admin/data/system';
+import { getAiBudgetStatus } from '@/lib/ai-budget';
 
 export const metadata: Metadata = { title: 'System Health | Admin', robots: 'noindex, nofollow' };
 export const dynamic = 'force-dynamic';
 
-export default function SystemHealthPage() {
+export default async function SystemHealthPage() {
   const system = getSystemStatus();
+  const aiBudget = await getAiBudgetStatus();
   const byCategory = system.integrations.reduce<Record<string, typeof system.integrations>>((acc, i) => {
     (acc[i.category] ??= []).push(i);
     return acc;
@@ -63,6 +65,52 @@ export default function SystemHealthPage() {
           </ul>
         </SectionCard>
       ))}
+
+      <SectionCard
+        title="AI Cost Guard"
+        description="Global daily ceiling on estimated AI spend — the kill-switch that protects the API bill from distributed abuse."
+      >
+        {aiBudget.configured ? (
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <MetricStat
+                label="Status"
+                value={aiBudget.exceeded ? 'Paused' : 'Armed'}
+                tone={aiBudget.exceeded ? 'warning' : 'success'}
+              />
+              <MetricStat label="Daily cap" value={`$${(aiBudget.limitCents / 100).toFixed(2)}`} tone="muted" />
+              <MetricStat
+                label="Used today (est.)"
+                value={`$${(aiBudget.usedCents / 100).toFixed(2)}`}
+                tone={aiBudget.exceeded ? 'warning' : 'muted'}
+              />
+              <MetricStat
+                label="Remaining (est.)"
+                value={`$${(aiBudget.remainingCents / 100).toFixed(2)}`}
+                tone={aiBudget.remainingCents > 0 ? 'success' : 'warning'}
+              />
+            </div>
+            <p className="text-xs text-gray-500">
+              Spend is a rough upper-bound estimate (not billed amounts), reset daily at 00:00 UTC. Counter:{' '}
+              {aiBudget.source === 'upstash'
+                ? 'shared across all instances (Upstash).'
+                : 'per-instance memory — set Upstash for a true fleet-wide cap.'}{' '}
+              When the cap is reached, paid AI calls pause and the app serves its keyless fallback until the next day.
+            </p>
+          </div>
+        ) : (
+          <div className="flex items-start gap-3 rounded-lg border border-gray-800 bg-gray-950 p-3 text-sm text-gray-400">
+            <Wallet className="mt-0.5 h-4 w-4 shrink-0 text-gray-500" />
+            <p>
+              No global daily AI budget is set, so total AI spend is uncapped (per-IP rate limits still apply). To arm
+              the kill-switch, set{' '}
+              <code className="rounded bg-gray-800 px-1 text-gray-300">AI_DAILY_BUDGET_CENTS</code> (e.g.{' '}
+              <code className="rounded bg-gray-800 px-1 text-gray-300">500</code> = $5.00/day). Pair with Upstash so the
+              cap holds across every instance.
+            </p>
+          </div>
+        )}
+      </SectionCard>
 
       <SectionCard title="Background jobs & queues" description="What runs behind the scenes.">
         <div className="flex items-start gap-3 rounded-lg border border-gray-800 bg-gray-950 p-3 text-sm text-gray-400">
