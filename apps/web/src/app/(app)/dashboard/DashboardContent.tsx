@@ -32,6 +32,7 @@ import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence
 import { AthleteGISummary } from '@/components/agi/AthleteGISummary';
 import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
 import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
+import { GrowthAgentsPanel } from '@/components/growth';
 import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps, getRoutineForDiagnosis, type DiagnosisCategory } from '@swingiq/core';
 import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
 import { format } from 'date-fns';
@@ -244,6 +245,9 @@ export function DashboardContent() {
 
       {/* Daily check-in: "How did you play today?" → feeds the AI player profile */}
       <DailyNotePrompt />
+
+      {/* Growth agents: churn-aware next step + activation progress + earn-moments */}
+      <GrowthAgentsPanel />
 
       {/* Practice reminder */}
       {practiceReminder !== null && (

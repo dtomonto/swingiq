@@ -34,6 +34,7 @@ import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence
 import { AthleteGISummary } from '@/components/agi/AthleteGISummary';
 import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
 import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
+import { GrowthAgentsPanel } from '@/components/growth';
 import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
 import { format } from 'date-fns';
 import { useMemo } from 'react';
@@ -399,6 +400,9 @@ export function NonGolfDashboard() {
 
       {/* Daily check-in: "How did you play today?" → feeds the AI player profile */}
       <DailyNotePrompt />
+
+      {/* Growth agents: churn-aware next step + activation progress + earn-moments */}
+      <GrowthAgentsPanel />
 
       {/* Quick actions */}
       <QuickActions sport={activeSport} />
