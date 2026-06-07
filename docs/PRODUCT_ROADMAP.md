@@ -23,7 +23,7 @@ _Last updated: June 2026_
 
 ### Core Platform
 - Next.js 16 App Router with TypeScript, Tailwind CSS, Zustand, Radix UI
-- Multi-sport support: golf, tennis, baseball, slow pitch softball, fast pitch softball
+- Multi-sport support: **seven sports** — golf, tennis, pickleball, padel, baseball, slow pitch softball, fast pitch softball. Pickleball and padel are first-class engines (their own analysis, phases, drills, paddle equipment, benchmarks, and Athletic Journey), driven by one canonical `SPORT_TAXONOMY` in `@swingiq/core`
 - Sport context with persistent localStorage selection
 - Authenticated app shell with mobile bottom nav + desktop sidebar
 - Progressive Web App (manifest, service worker hooks, install prompt)
@@ -41,7 +41,7 @@ _Last updated: June 2026_
 - YouTube drill search URL builder per fault
 
 ### 3D Motion Analysis — Motion Lab (`/motion-lab`)
-- Browser-based 3D motion analysis for all five sports (`lib/motion-lab`, `components/motion-lab`)
+- Browser-based 3D motion analysis for all seven sports (`lib/motion-lab`, `components/motion-lab`)
 - On-device MediaPipe pose (selectable lite/full/heavy) → sport-specific phase segmentation, ~13 biomechanical proxy metrics, six component scores + an overall Motion Score
 - Interactive **canvas 3D viewer** (orbit / zoom / frame-scrub / motion trails / ghost-compare / screenshot) with an **estimated implement-path overlay** (club/bat/racket head arc + contact zone) — zero new dependencies
 - **Estimated implement/object path** (`objectTracking`): markerless club/bat/racket head path + contact zone + vertical approach, inferred from arm motion (basis `ai_inferred`, capped confidence, provider seam for a future detector)
@@ -59,6 +59,13 @@ _Last updated: June 2026_
 - **SwingVantage Labs (`/labs`)** — early-stage foundations, each honest about its confidence and limits: a daily readiness score, a private player model, cross-sport skill transfer, a personal performance graph, and benchmark mirrors (`lib/readiness`, `lib/playerModel`, `lib/skillTransfer`, `lib/performanceGraph`, `lib/benchmarkMirror`; `components/foundations`)
 - All three are deterministic, local-first, and require no AI account; they sharpen as you add sessions and retests
 - **Athlete General Intelligence (`/agi`)** — one engine that reasons across *all* your sports at once. It fuses six local signals (Motion Lab, launch-monitor, profile/goal, readiness, snapshot history, drill feedback) into one athlete model, then finds your **keystone** (the single skill limiting the most sports), shows what transfers between sports, detects recurring faults & plateaus, tracks progress over time, and builds one readiness-scaled plan that leads with drills you've personally found helpful — all under an honest **A–D trust grade**. Outputs a coach-shareable report; summarized on the Today dashboard; public explainer at `/athlete-general-intelligence` (`lib/agi`, `components/agi`). See `docs/athlete-general-intelligence.md` + `docs/ATHLETE_GI_STRATEGY.md`.
+
+### Athlete Development, Recruiting & Health (shipped)
+- **Athletic Journey (`/journey`)** — config-driven, multi-signal stage classifier (profile + optional ratings + video + logged play + practice) on a sport-specific ladder (e.g. G0–G10, T0–T10) with evidence for/against, momentum, prescriptions, and a weekly plan. Live for golf, tennis, pickleball, padel; baseball/softball shown honestly as in development with no faked scoring (`lib/athletic-journey`)
+- **Daily Notes (`/notes`)** — "How did you play today?" capture (1–5 self-rating + free text) → deterministic fault-tagging that feeds the cross-sport Athlete GI profile; recurring faults flagged as patterns. Self-ratings labeled low-confidence self-reports, never measurements
+- **Player Recruiting Hub (`/recruiting`, public coach view `/player/[slug]`)** — verified vs. self-reported source labeling, profile-strength meter, film library, highlight-reel builder, downloadable recruiting packet, coach outreach, analytics, and per-coach visibility controls; honest-first AI; local-first with an optional (currently unapplied) cloud schema (`lib/recruiting`)
+- **BodySync — Health & Readiness (`/bodysync`)** — opt-in, consent-gated (adults 18+) wellness check-in → readiness score + fatigue-risk read + practice-plan adjustment, with a connector framework (e.g. Apple Health import); explicitly non-medical; data exportable/deletable (`lib/bodysync`)
+- **Video Library (`/library`)** — one hub unifying every feature walkthrough with a growing training catalogue (swing path, launch monitors, drills, coaching, film study) (`lib/library`)
 
 ### Benchmarks & Training
 - Tour-calibrated benchmarks per club and skill level (golf)
@@ -96,7 +103,9 @@ _Last updated: June 2026_
 - Developer documentation: `docs/BACKUP_SYSTEM.md`
 
 ### Infrastructure
-- Auth middleware (Supabase-ready, activates on env key presence)
+- **Real Supabase accounts connected (dev)** — relational schema (14 tables) + a sync engine (`lib/db`: projection, three-way merge, relational sync provider) cloud-sync the whole main store, with the account as the source of truth; local-first preserved. Middleware enforces login on protected routes in real-accounts mode
+- **White-label auth email** — every auth message sends from the product domain via Resend SMTP, with branded templates and on-domain `/auth/confirm` + `/reset-password` (no third-party branding shown to users)
+- Auth middleware fails closed (deny by default) on protected routes; constant-time secret/token comparison
 - Rate limiter — distributed (Upstash Redis) when configured, in-memory per-IP fallback
 - CI security scan pipeline
 - Admin guard middleware
@@ -113,10 +122,10 @@ _Last updated: June 2026_
 ## 30-Day Priorities
 
 ### Must Ship
-1. **Supabase auth** — replace stub middleware with real Supabase session management (sign up, sign in, magic link, Google OAuth)
-2. **Loft autofill live** — wire loft comparison tool to actual Supabase persisted user data
-3. **Session persistence** — save imported sessions to Supabase `sessions` table; show in sessions list
-4. **OCR integration (basic)** — wire extractTableFromImage to OpenAI Vision API or Google Cloud Vision; show extracted results for user review before saving
+1. ~~**Supabase auth**~~ **✅ Done — real Supabase auth connected (dev); white-label branded email via Resend; middleware enforces login on protected routes in real-accounts mode**
+2. **Loft autofill live** — loft autofill ships with source/confidence badges; relational cloud sync now persists it per account when signed in
+3. ~~**Session persistence**~~ **✅ Done — relational schema + sync engine (`lib/db`) cloud-sync the whole store; the account is the source of truth, local-first preserved**
+4. **OCR integration (basic)** — ✅ shipped for all sports as an optional, review-first head start (no unreviewed OCR output is ever analyzed); a production confidence/column-mapping pass remains future work
 
 ### Quality
 5. Fix all remaining TypeScript strict-mode errors

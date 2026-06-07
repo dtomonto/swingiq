@@ -26,9 +26,11 @@ It works on phones, tablets, and computers. The layout adjusts automatically.
 
 **This is the most important control in the app.**
 
-The Sport Switcher is at the bottom of the left sidebar, labeled **Active Sport**. Clicking it opens a dropdown of all five sports:
+The Sport Switcher is at the bottom of the left sidebar, labeled **Active Sport**. Clicking it opens a dropdown of all seven sports:
 - ⛳ Golf
 - 🎾 Tennis
+- 🏓 Pickleball
+- 🎾 Padel
 - ⚾ Baseball
 - 🥎 Slow Pitch Softball
 - 🥎 Fast Pitch Softball
@@ -166,7 +168,7 @@ Both pages also have a blue "Analyze Video" CTA card linking to the video analyz
 
 ## 9. Video Analysis
 
-The video analyzer supports all five sports with sport-specific phase timing and coaching.
+The video analyzer supports all seven sports with sport-specific phase timing and coaching.
 
 **Step 1 — Upload:**
 Choose your sport and upload a video file. Supported formats: MP4, MOV, WebM. Side view (face-on) gives the best results.
@@ -190,7 +192,7 @@ All detections are heuristic estimates based on pose analysis — labeled ⚠ Es
 
 ## 9b. Motion Lab — 3D Motion Analysis
 
-Found at **Analyze → Motion Lab (3D)** in the sidebar (or `/motion-lab`). Motion Lab turns a clip into a **3D figure of your motion** you can spin, slow down, and step through — for all five sports.
+Found at **Analyze → Motion Lab (3D)** in the sidebar (or `/motion-lab`). Motion Lab turns a clip into a **3D figure of your motion** you can spin, slow down, and step through — for all seven sports.
 
 **The flow:**
 1. **Pick your sport and motion** — e.g. driver, iron, wedge, or putt for golf; forehand, backhand, serve, volley, or return for tennis; hitting, pitching, throwing, or fielding for baseball/softball.
@@ -239,6 +241,19 @@ It builds on the data you already have and gets sharper the more you analyze. No
 ## 9d. 3D Swing Avatar
 
 Found at **Analyze → 3D Swing Avatar** in the sidebar (or `/avatar`). A lightweight, rotatable **3D avatar view** of a swing for a quick visual read. For the full biomechanical breakdown — phases, metrics, scores, and a drill plan — use **Motion Lab** instead.
+
+---
+
+## 9e. Athletic Journey — Your Development Roadmap
+
+Found at **Athletic Journey** in the sidebar (or `/journey`). Where Diagnose answers "what's wrong with this swing?", the Athletic Journey answers "where am I on the path, and what gets me to the next level?"
+
+**What it does:**
+- Places you on a sport-specific stage ladder (e.g. G0–G10 for golf, T0–T10 for tennis) from a **blend of signals** — your profile, any ratings, your videos, logged play, and practice.
+- Shows the **evidence for and against** your stage, so it explains the call instead of just labeling you.
+- Lays out **what to improve next** and builds a **weekly plan** to get there.
+
+**Sport availability:** live now for **golf, tennis, pickleball, and padel**. Baseball, fast-pitch, and slow-pitch softball are shown honestly as **in development** (a real waitlist, never a faked score). Optional handicap, UTR/NTRP, or DUPR sharpen the read but are never required.
 
 ---
 
@@ -343,7 +358,7 @@ Each exercise has a category badge, duration, reps, and a coaching cue. Check ea
 
 ## 14. Drill Library
 
-80+ drills across all five sports, defaulting to your active sport.
+80+ drills across all seven sports, defaulting to your active sport.
 
 Filters:
 - **Sport:** All sports or specific sport
@@ -514,7 +529,7 @@ Everything SwingVantage knows about you is in one file:
 | Category | Examples |
 |---|---|
 | Golf profile | Handicap, goals, skill level, miss tendency |
-| Sport profiles | Tennis, baseball, slow/fast softball profiles |
+| Sport profiles | Tennis, pickleball, padel, baseball, slow/fast softball profiles |
 | All sessions | Every session with shot data, scores, diagnoses, notes |
 | Equipment | All clubs, bats, rackets with specs |
 | Video analyses | All analysis results, scores, identified issues |
@@ -605,3 +620,17 @@ Use this to get data into SwingVantage from a screenshot or photo of a performan
 4. **Analyze:** Your confirmed data is saved and routed to the diagnostic engine.
 
 > Auto-extraction (OCR) runs only when an extraction provider is configured, and it's purely a head start — every value lands in the review table for you to check before anything is saved. Manual entry is always the default, fully supported workflow, and no unreviewed OCR output is ever analyzed.
+
+---
+
+## 24. Newer Features
+
+These shipped recently and each has a fuller how-to of its own.
+
+- **Athletic Journey** (`/journey`) — your stage-by-stage development roadmap (see section 9e). Live for golf, tennis, pickleball, and padel. Full doc: [`ATHLETIC_JOURNEY.md`](ATHLETIC_JOURNEY.md).
+- **Daily Notes** (`/notes`) — a quick "How did you play today?" capture (a 1–5 self-rating plus free text). SwingVantage reads honest fault tags from your own words and feeds them into your cross-sport profile; recurring issues get flagged as patterns. Self-ratings are clearly labeled low-confidence self-reports, never measurements.
+- **BodySync** (`/bodysync`) — an opt-in, consent-gated health-and-readiness layer for **adults 18+**. A daily wellness check-in becomes a readiness score that scales how hard to train today, with a fatigue heads-up and health-aware practice adjustments. Not medical advice; data is yours to export or delete. Full doc: [`BODYSYNC.md`](BODYSYNC.md).
+- **Recruiting Hub** (`/recruiting`, public coach view at `/player/[slug]`) — build a recruiting profile where every stat is labeled **verified vs. self-reported**, with a film library, highlight-reel builder, downloadable recruiting packet, coach outreach, and analytics. You control exactly what each coach can see. Full doc: [`recruiting-hub.md`](recruiting-hub.md).
+- **Video Library** (`/library`) — one hub for every feature walkthrough plus a growing catalogue of training videos (swing path, launch monitors, drills, coaching, film study). Full doc: [`VIDEO_LIBRARY.md`](VIDEO_LIBRARY.md).
+
+Pickleball and padel are now first-class sports across the whole app — pick them from **Active Sport** and every tool (Diagnose, Drills, Equipment, Athletic Journey) retargets to them.

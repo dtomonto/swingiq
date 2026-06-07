@@ -36,7 +36,7 @@ This document explains how SwingVantage is built to stay relevant, adaptable, an
 ## Pillar 1: Multi-Sport Architecture
 
 ### Current State
-SwingVantage supports five sports: Golf, Tennis, Baseball, Slow Pitch Softball, Fast Pitch Softball.
+SwingVantage supports seven sports: Golf, Tennis, Pickleball, Padel, Baseball, Slow Pitch Softball, Fast Pitch Softball.
 
 Each sport has its own:
 - Phase definitions (the stages of the swing)

@@ -6,8 +6,8 @@ walks you through *how to actually use it*, step by step.
 
 ## In Plain English (start here)
 
-SwingVantage is a free web app for golf, tennis, baseball, slow-pitch softball, and
-fast-pitch softball. You open it in a browser — nothing to install, no account
+SwingVantage is a free web app for golf, tennis, pickleball, padel, baseball,
+slow-pitch softball, and fast-pitch softball. You open it in a browser — nothing to install, no account
 needed — pick your sport, and start. Everything below is written as plain
 numbered steps so anyone (player, parent, coach) can follow along.
 
@@ -123,7 +123,8 @@ a coach's read, and drills — all on your device.
 
 ### A. Run an analysis
 1. **Pick your sport and motion** (e.g. driver / iron / wedge / putt for golf;
-   forehand / serve for tennis; hitting / pitching for baseball/softball).
+   forehand / serve for tennis; dink / drive / serve for pickleball; bandeja /
+   smash for padel; hitting / pitching for baseball/softball).
 2. **Upload or record** a clip. Use **Trim** to keep just the rep, and set your
    **handedness** and **skill level** (skill level sets the targets you're scored
    against).
@@ -553,15 +554,24 @@ Quick pointers to features added recently — each links to its own full how-to.
 
 ## For athletes / parents / coaches
 
+- **Athletic Journey** — your stage-by-stage roadmap from beginner to the next
+  level. It reads your current stage from a blend of your profile, ratings,
+  videos, logged play, and practice, then builds a weekly plan. Live for golf,
+  tennis, pickleball, and padel; baseball and softball are honestly shown as in
+  development. **Where:** `/journey`. Full how-to:
+  [`ATHLETIC_JOURNEY.md`](ATHLETIC_JOURNEY.md).
+- **Video Library** — one hub for every feature walkthrough plus a growing set of
+  training videos (swing path, launch monitors, drills, coaching, film study).
+  **Where:** `/library`. Full how-to: [`VIDEO_LIBRARY.md`](VIDEO_LIBRARY.md).
 - **BodySync** — log how you feel (sleep, soreness, energy) for a daily
-  **readiness** score and health-aware coaching. **Where:** `/bodysync`.
-  Full how-to: [`BODYSYNC.md`](BODYSYNC.md).
+  **readiness** score and health-aware coaching (adults 18+, opt-in, never
+  medical advice). **Where:** `/bodysync`. Full how-to: [`BODYSYNC.md`](BODYSYNC.md).
 - **Recruiting Hub** — build a **verified, shareable** recruiting profile a coach
   or scout can open by link (password/expiry controlled). **Where:** `/recruiting`
   (the public view is `/player/[slug]`). Full how-to: [`recruiting-hub.md`](recruiting-hub.md).
 - **Daily Notes** — a quick "How did you play today?" capture that turns your own
   words into honest fault tags feeding your coaching. **Where:** `/notes` (also a
-  one-tap dashboard prompt). Use the in-app **Guide** on the page.
+  one-tap dashboard prompt). Full how-to: [`DAILY_NOTES.md`](DAILY_NOTES.md).
 
 ## Owner / admin tools (not shown to athletes)
 

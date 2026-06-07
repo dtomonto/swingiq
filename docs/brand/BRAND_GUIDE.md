@@ -18,8 +18,8 @@ point on their swing — a clear view of what to fix, and a plan to fix it.*
 
 ## What SwingVantage is
 
-An AI-powered swing-improvement platform for **golf, tennis, baseball, slow-pitch softball,
-and fast-pitch softball**. An athlete uploads a swing video (or imports launch-monitor data),
+An AI-powered swing-improvement platform for **golf, tennis, pickleball, padel, baseball,
+slow-pitch softball, and fast-pitch softball**. An athlete uploads a swing video (or imports launch-monitor data),
 and SwingVantage returns the single highest-impact thing to fix, sport-specific drills, and a
 practice plan — free, private by default, no account required to start.
 
@@ -70,6 +70,8 @@ heuristic-estimate / youth-safety / not-a-coach-replacement notices (reword, don
 
 - **Golf** — swing path, face control, tempo, sequencing, contact tendencies.
 - **Tennis** — stroke mechanics, timing, racket path, body rotation, repeatability.
+- **Pickleball** — compact paddle mechanics, dinks and resets, third-shot drops, kitchen footwork.
+- **Padel** — wall play, the bandeja and víbora, volley control, doubles court positioning.
 - **Baseball** — bat path, load, timing, hip-shoulder separation, contact position.
 - **Slow-pitch softball** — timing, barrel control, launch direction, power transfer.
 - **Fast-pitch softball** — bat speed, swing sequence, contact quality, consistency.

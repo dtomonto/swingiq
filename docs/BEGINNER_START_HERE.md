@@ -8,12 +8,14 @@
 
 SwingVantage is a web-based swing performance platform. It runs in your browser — no app to install from any app store. It works on your phone, tablet, or computer.
 
-SwingVantage supports five sports:
+SwingVantage supports seven sports:
 
 | Sport | How it analyzes your swing |
 |---|---|
 | ⛳ Golf | Import CSV data from your launch monitor |
 | 🎾 Tennis | Upload a video of your strokes |
+| 🏓 Pickleball | Upload a video of your strokes |
+| 🎾 Padel | Upload a video of your strokes |
 | ⚾ Baseball | Upload a video of your swing |
 | 🥎 Slow Pitch Softball | Upload a video of your swing |
 | 🥎 Fast Pitch Softball | Upload a video of your swing |
@@ -235,10 +237,12 @@ Just open your Vercel URL on any device, anywhere.
 | **Import Data / Log Session** | Golf: CSV import wizard. Other sports: manual session log |
 | **Import from Image** | Upload a photo of a launch-monitor screen to import numbers (all sports) |
 | **Diagnose / Analyze Swing** | Golf: full diagnostic engine. Other sports: links to video analysis |
-| **Video Analysis** | Upload a video for a quick sport-aware phase-by-phase read (all 5 sports) |
-| **Motion Lab (3D)** | Full 3D motion breakdown — rotatable viewer, biomechanical scores, kinetic chain, drills, PDF export (all 5 sports) |
+| **Video Analysis** | Upload a video for a quick sport-aware phase-by-phase read (all 7 sports) |
+| **Motion Lab (3D)** | Full 3D motion breakdown — rotatable viewer, biomechanical scores, kinetic chain, drills, PDF export (all 7 sports) |
 | **Coach & Team** | Group Motion Lab sessions by athlete, track each athlete's progress, see team-wide weaknesses |
 | **Athlete GI** | Reasons across all your sports at once — finds your keystone skill, cross-sport transfers, and one unified plan |
+| **Athletic Journey** | Stage-by-stage roadmap from beginner to the next level (golf, tennis, pickleball, padel live; baseball/softball in development) |
+| **Daily Notes** | "How did you play today?" — turns your own words into honest fault tags that feed your coaching |
 | **3D Swing Avatar** | Quick rotatable 3D avatar view of a swing |
 | **AI Coach** | Ask questions about your game — answers grounded in your data |
 | **Fix Stack** | Surfaces your single highest-impact fix as a 3-step loop: feel it → drill it → retest it |
@@ -249,10 +253,13 @@ Just open your Vercel URL on any device, anywhere.
 | **Progress** | Score trends over time (golf: launch monitor; others: video scores) |
 | **Player Arc** | The story of your improvement: recurring faults, which drills worked, honest retest outcomes |
 | **SwingVantage Labs** | Personal tools (readiness score, player model, skill transfer, performance graph, benchmark mirrors) |
+| **BodySync** | Daily readiness from a quick wellness check-in, plus health-aware coaching (adults 18+, opt-in, never medical advice) |
+| **Video Library** | Every feature walkthrough plus a growing set of training videos, in one place |
 | **Retest** | Reminds you when a finding is due for a recheck, then shows an honest before-and-after read once you re-analyze under the same conditions |
 | **Milestones** | Achievement badges for your active sport |
 | **Compare & References** | Browse professional swing references; compare your video side-by-side with a pro |
 | **Reports** | Text summary (or shareable image) to send to your coach |
+| **Recruiting Hub** | Build a verified, shareable recruiting profile coaches can trust (public coach view at `/player/[slug]`) |
 | **Community** | Badges, XP, challenges, streaks, leaderboards |
 | **Data Center** | Download/restore a complete backup of your data |
 | **Settings** | Units, coaching style, language, theme, guide resets |

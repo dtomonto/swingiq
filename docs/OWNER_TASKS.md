@@ -7,7 +7,7 @@ Use this file to track what has already been built and what you still need to se
 ## ✅ Already Built — No Action Required
 
 ### Core Platform
-- [x] Multi-sport platform: golf, tennis, baseball, slow pitch softball, fast pitch softball
+- [x] Multi-sport platform: golf, tennis, pickleball, padel, baseball, slow pitch softball, fast pitch softball
 - [x] Sport context — switching sport changes the entire app experience
 - [x] Turborepo monorepo with `@swingiq/core` package and `apps/web` Next.js 16 app
 - [x] Zustand state management with localStorage persistence (works offline, no Supabase required)
@@ -37,8 +37,8 @@ Use this file to track what has already been built and what you still need to se
 - [x] All engines return sport-specific severity, confidence, evidence, and drill recommendations
 
 ### Multi-Sport Features
-- [x] Sport-specific profile forms (golf, tennis, baseball, slow pitch, fast pitch)
-- [x] Sport-specific dashboard for all 5 sports
+- [x] Sport-specific profile forms (golf, tennis, pickleball, padel, baseball, slow pitch, fast pitch)
+- [x] Sport-specific dashboard for all 7 sports
 - [x] Sport-aware sessions page (filtered by active sport, toggle to view all)
 - [x] Sport-specific empty states and CTAs throughout
 - [x] Non-golf training page with sport-specific drill checklist
@@ -69,7 +69,7 @@ Use this file to track what has already been built and what you still need to se
 
 ### Video Analysis
 - [x] Video upload and playback with sport-specific phase timeline
-- [x] Heuristic swing analysis for all 5 sports
+- [x] Heuristic swing analysis for all 7 sports
 - [x] Phase-by-phase coaching panels (issues, phase tips, drills)
 - [x] Sport-specific issue detection with confidence labels
 - [x] Drill recommendations from video analysis
@@ -104,7 +104,7 @@ Use this file to track what has already been built and what you still need to se
 - [x] Found at: **Data Center** (`/data`) or **Settings → Backup & Restore**
 
 ### Professional Swing Reference Library
-- [x] 32 seeded professional athlete profiles across all 5 sports
+- [x] 32 seeded professional athlete profiles across the core sports (pickleball & padel references expanding)
 - [x] Filter by sport, sex, movement type, handedness, and style tags
 - [x] "Pending Admin Verification" overlay on unverified entries
 - [x] YouTube search fallback for all entries (no fake video IDs)
