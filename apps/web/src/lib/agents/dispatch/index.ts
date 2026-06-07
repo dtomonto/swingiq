@@ -7,3 +7,6 @@
 
 export * from './types';
 export { buildDispatch, executeDispatch } from './engine';
+// Delivery adapters (client-safe). The server-only email sender lives in
+// ./sendEmail and is imported directly by the API route, never via this barrel.
+export { buildDispatchAdapters, webPushAdapter, createEmailAdapter } from './adapters';
