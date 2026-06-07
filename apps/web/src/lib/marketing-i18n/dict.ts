@@ -12,6 +12,7 @@
 import type { LanguageCode } from '@/lib/i18n';
 import en from '@/content/marketing/i18n/en.json';
 import es from '@/content/marketing/i18n/es.json';
+import fr from '@/content/marketing/i18n/fr.json';
 import { MARKETING_LOCALE_CODES } from './constants';
 
 /** The full English shape is the canonical type for every locale. */
@@ -24,7 +25,7 @@ export const MARKETING_DEFAULT_LOCALE: LanguageCode = 'en';
 /** Every locale the marketing surface knows how to render (en + translated). */
 export const MARKETING_ALL_LOCALES: LanguageCode[] = ['en', ...MARKETING_LOCALES];
 
-const DICTS: Partial<Record<LanguageCode, MarketingDict>> = { en, es };
+const DICTS: Partial<Record<LanguageCode, MarketingDict>> = { en, es, fr };
 
 type Json = string | number | boolean | null | Json[] | { [k: string]: Json };
 

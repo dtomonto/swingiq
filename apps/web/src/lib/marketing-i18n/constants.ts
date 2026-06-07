@@ -12,4 +12,4 @@ export const LANG_COOKIE = 'sv_lang';
  * source of truth, kept here (dependency-free) so middleware can import the
  * locale prefixes without pulling in the full i18n bundle.
  */
-export const MARKETING_LOCALE_CODES = ['es'] as const;
+export const MARKETING_LOCALE_CODES = ['es', 'fr'] as const;

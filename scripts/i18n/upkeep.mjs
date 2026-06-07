@@ -30,7 +30,7 @@ const MANIFEST_PATH = join(
 );
 const REPORT_PATH = join(REPO_ROOT, 'docs', 'i18n-upkeep-report.md');
 
-const LOCALES = ['es']; // non-English locales we ship dictionaries for
+const LOCALES = ['es', 'fr']; // non-English locales we ship dictionaries for
 
 // ── Hashing — MUST stay byte-identical to apps/web/src/lib/i18n-upkeep/hash.ts
 function normalize(input) {
