@@ -48,10 +48,11 @@ export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: strin
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
   }
 
-  const { finalText, status, note } = (body ?? {}) as {
+  const { finalText, status, note, scheduledAt } = (body ?? {}) as {
     finalText?: unknown;
     status?: unknown;
     note?: unknown;
+    scheduledAt?: unknown;
   };
 
   if (status !== undefined && !(STATUSES as string[]).includes(status as string)) {
@@ -62,6 +63,8 @@ export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: strin
     finalText: typeof finalText === 'string' ? finalText : undefined,
     status: status as PostStatus | undefined,
     note: typeof note === 'string' ? note : undefined,
+    scheduledAt:
+      typeof scheduledAt === 'string' ? scheduledAt : scheduledAt === null ? null : undefined,
   });
   if (!ok) return NextResponse.json({ error: 'Update failed.' }, { status: 500 });
   return NextResponse.json({ ok: true });

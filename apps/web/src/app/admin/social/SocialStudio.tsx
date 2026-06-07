@@ -105,6 +105,8 @@ export function SocialStudio({
   const [versions, setVersions] = useState<Record<string, { id: string; text: string; createdAt: string }[]>>({});
   const [openHistory, setOpenHistory] = useState<string | null>(null);
   const [publishState, setPublishState] = useState<Record<string, { outcome: string; detail?: string } | 'publishing'>>({});
+  const [scheduleInput, setScheduleInput] = useState<Record<string, string>>({});
+  const [scheduledAt, setScheduledAt] = useState<Record<string, string>>({});
 
   const buildOptions = (override?: string[]) => ({
     platforms: override ?? Array.from(platforms),
@@ -336,6 +338,24 @@ export function SocialStudio({
       }));
     } catch (e) {
       setPublishState((s) => ({ ...s, [key]: { outcome: 'error', detail: e instanceof Error ? e.message : 'Failed' } }));
+    }
+  }
+
+  async function scheduleOne(post: GeneratedPost) {
+    const key = postKey(post);
+    const id = savedInfo?.postIds[key];
+    const local = scheduleInput[key];
+    if (!id || !local) return;
+    const iso = new Date(local).toISOString();
+    try {
+      const res = await fetch(`/api/social/posts/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'scheduled', scheduledAt: iso }),
+      });
+      if (res.ok) setScheduledAt((s) => ({ ...s, [key]: iso }));
+    } catch {
+      /* non-fatal */
     }
   }
 
@@ -656,6 +676,28 @@ export function SocialStudio({
                           </span>
                         );
                       })()}
+                      {savedInfo?.postIds[key] && status === 'approved' && (
+                        <span className="inline-flex items-center gap-1">
+                          <input
+                            type="datetime-local"
+                            value={scheduleInput[key] ?? ''}
+                            onChange={(e) => setScheduleInput((s) => ({ ...s, [key]: e.target.value }))}
+                            className="bg-gray-950 border border-gray-700 rounded px-1.5 py-1 text-xs text-gray-200"
+                          />
+                          <button
+                            onClick={() => scheduleOne(post)}
+                            disabled={!scheduleInput[key]}
+                            className={`${btn} text-xs bg-gray-800 text-gray-300 hover:bg-gray-700`}
+                          >
+                            Schedule
+                          </button>
+                        </span>
+                      )}
+                      {scheduledAt[key] && (
+                        <span className="text-xs text-sky-300">
+                          ⏰ {new Date(scheduledAt[key]).toLocaleString()}
+                        </span>
+                      )}
                     </div>
 
                     {openHistory === key && (

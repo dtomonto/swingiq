@@ -102,6 +102,9 @@ const PUBLIC_PREFIXES = [
   // Email-confirmation / auth callbacks must be reachable while logged
   // out — they are what ESTABLISH the session. See app/auth/confirm.
   '/auth/',
+  // Cron entry for scheduled social publishing — Vercel Cron has no Supabase
+  // session; the route self-protects with CRON_SECRET. See api/social/run-scheduled.
+  '/api/social/run-scheduled',
 ];
 
 // A subtree prefix P matches: the index (P), nested children (P/…), and the

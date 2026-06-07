@@ -234,10 +234,10 @@ export async function getPostVersions(postId: string): Promise<PostVersion[]> {
   }
 }
 
-/** Update one post's final text and/or status; records an edit version. */
+/** Update one post's final text, status, and/or schedule; records an edit version. */
 export async function updatePost(
   id: string,
-  patch: { finalText?: string; status?: PostStatus; note?: string },
+  patch: { finalText?: string; status?: PostStatus; note?: string; scheduledAt?: string | null },
 ): Promise<boolean> {
   const sb = createSupabaseAdminClient();
   if (!sb) return false;
@@ -246,6 +246,9 @@ export async function updatePost(
     if (typeof patch.finalText === 'string') {
       upd.final_text = patch.finalText;
       upd.edited_text = patch.finalText;
+    }
+    if (patch.scheduledAt !== undefined) {
+      upd.scheduled_at = patch.scheduledAt;
     }
     if (patch.status) {
       upd.status = patch.status;
@@ -261,5 +264,41 @@ export async function updatePost(
     return true;
   } catch {
     return false;
+  }
+}
+
+export interface DuePost extends GeneratedPost {
+  id: string;
+}
+
+/** Scheduled posts whose time has arrived (status 'scheduled', scheduled_at <= now). */
+export async function listDuePosts(nowIso: string, limit = 50): Promise<DuePost[]> {
+  const sb = createSupabaseAdminClient();
+  if (!sb) return [];
+  try {
+    const { data, error } = await sb
+      .from('social_posts')
+      .select('*')
+      .eq('status', 'scheduled')
+      .lte('scheduled_at', nowIso)
+      .order('scheduled_at', { ascending: true })
+      .limit(limit);
+    if (error || !data) return [];
+    return (data as PostRow[]).map((r) => ({
+      id: r.id,
+      platform: r.platform as GeneratedPost['platform'],
+      variationType: r.variation_type as GeneratedPost['variationType'],
+      text: r.final_text ?? r.generated_text,
+      charCount: (r.final_text ?? r.generated_text).length,
+      utmUrl: r.utm_url,
+      hashtags: r.hashtags ?? [],
+      hookType: (r.hook_type ?? 'tactical') as GeneratedPost['hookType'],
+      ctaType: (r.cta_type ?? 'see_breakdown') as GeneratedPost['ctaType'],
+      rationale: r.rationale ?? '',
+      qualityScore: r.quality_score ?? 0,
+      warnings: r.warnings ?? [],
+    }));
+  } catch {
+    return [];
   }
 }
