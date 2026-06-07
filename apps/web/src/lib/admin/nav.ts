@@ -108,13 +108,13 @@ export const NAV_ITEMS: NavItem[] = [
   // ── Content ────────────────────────────────────────────────
   {
     id: 'content', label: 'Content', href: '/admin/content', icon: FileText,
-    group: 'content', built: false, permission: 'content.edit',
+    group: 'content', built: true, permission: 'content.edit',
     blurb: 'All pages, blog, tutorials, manuals and generated fix pages.',
     keywords: ['cms', 'pages', 'articles'],
   },
   {
     id: 'generated-fixes', label: 'Generated Fixes', href: '/admin/content/generated-fixes', icon: Wand2,
-    group: 'content', built: false, permission: 'content.publish',
+    group: 'content', built: true, permission: 'content.publish',
     blurb: 'Review queue for AI-generated repair/fix pages before they go live.',
     keywords: ['generated', 'fix', 'repair', 'queue', 'relevance'],
   },
