@@ -6,6 +6,7 @@
 // Compact identity + at-a-glance stats card for the hub overview.
 // ============================================================
 
+import { useMemo } from 'react';
 import Link from 'next/link';
 import { Film, BarChart3, Link2, UserCog } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
@@ -21,9 +22,13 @@ import { SPORT_META } from '@/lib/recruiting/sports';
 
 export function RecruitingProfileCard() {
   const profile = useRecruitingStore((s) => s.profile);
-  const film = useRecruitingStore((s) => s.film.filter((f) => !f.deletedAt));
+  // Select the stable array; derive the filtered view in useMemo. A selector
+  // that returns `s.film.filter(...)` builds a new array every call, which in
+  // zustand v5 (Object.is snapshot equality) loops forever → React #185.
+  const allFilm = useRecruitingStore((s) => s.film);
   const metrics = useRecruitingStore((s) => s.metrics);
   const links = useRecruitingStore((s) => s.shareLinks);
+  const film = useMemo(() => allFilm.filter((f) => !f.deletedAt), [allFilm]);
 
   if (!profile) {
     return (

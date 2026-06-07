@@ -29,13 +29,16 @@ const inputCls = 'w-full rounded-lg border border-border bg-card px-3 py-2 text-
 function ReelCard({ reelId }: { reelId: string }) {
   const reel = useRecruitingStore((s) => s.reels.find((r) => r.id === reelId))!;
   const allClips = useRecruitingStore((s) => s.clips);
-  const film = useRecruitingStore((s) => s.film.filter((f) => !f.deletedAt));
+  // Stable selector + useMemo: returning `s.film.filter(...)` from the selector
+  // creates a new array every call → zustand v5 infinite render loop (React #185).
+  const allFilm = useRecruitingStore((s) => s.film);
   const addClip = useRecruitingStore((s) => s.addClip);
   const removeClip = useRecruitingStore((s) => s.removeClip);
   const updateReel = useRecruitingStore((s) => s.updateReel);
   const setFeatured = useRecruitingStore((s) => s.setFeaturedReel);
   const removeReel = useRecruitingStore((s) => s.removeReel);
 
+  const film = useMemo(() => allFilm.filter((f) => !f.deletedAt), [allFilm]);
   const reelClips = reel.clipIds.map((id) => allClips.find((c) => c.id === id)).filter(Boolean);
   const analysis = useMemo(() => analyzeReel(reel, allClips, film), [reel, allClips, film]);
 
@@ -124,9 +127,12 @@ function ReelCard({ reelId }: { reelId: string }) {
 }
 
 export function HighlightReelBuilder({ sport }: { sport: SportId }) {
-  const reels = useRecruitingStore((s) => s.reels.filter((r) => r.sport === sport));
+  // Stable selector + useMemo (see ReelCard): a filtering selector returns a
+  // fresh array each call and loops forever under zustand v5 (React #185).
+  const allReels = useRecruitingStore((s) => s.reels);
   const addReel = useRecruitingStore((s) => s.addReel);
   const styles = reelStylesForSport(sport);
+  const reels = useMemo(() => allReels.filter((r) => r.sport === sport), [allReels, sport]);
 
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
