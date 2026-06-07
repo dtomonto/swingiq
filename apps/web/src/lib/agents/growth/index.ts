@@ -15,4 +15,4 @@ export {
   type ChurnAwareOptions,
   type ChurnAwareResult,
   type ActivitySignalOverrides,
-} from './reengageBridge';
+} from './reengage-bridge';

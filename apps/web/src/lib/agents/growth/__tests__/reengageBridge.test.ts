@@ -5,7 +5,7 @@
 import type { SwingVantageState } from '@/store';
 import { DEFAULT_STATE } from '@/lib/reengage/store';
 import { buildAgentContext } from '../../context-builder';
-import { selectChurnAwareNudge, toActivitySignal } from '../reengageBridge';
+import { selectChurnAwareNudge, toActivitySignal } from '../reengage-bridge';
 
 const DAY = 86_400_000;
 
