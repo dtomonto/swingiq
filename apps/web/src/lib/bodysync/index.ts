@@ -22,4 +22,4 @@ export {
   BODYSYNC_KEY,
 } from './store';
 export { useBodySync, type UseBodySync } from './useBodySync';
-export { parseAppleHealthExport, type AppleHealthImportResult } from './import/appleHealth';
+export { parseAppleHealthExport, type AppleHealthImportResult } from './import/apple-health';

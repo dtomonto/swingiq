@@ -1,5 +1,5 @@
 // BodySync — Apple Health export parser tests
-import { parseAppleHealthExport } from '../import/appleHealth';
+import { parseAppleHealthExport } from '../import/apple-health';
 
 const XML = `<?xml version="1.0" encoding="UTF-8"?>
 <HealthData locale="en_US">
