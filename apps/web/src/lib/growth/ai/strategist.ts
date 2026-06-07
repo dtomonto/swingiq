@@ -23,7 +23,8 @@ export type StrategistTaskId =
   | 'referral-mechanic'
   | 'cro-ideas'
   | 'pricing-test'
-  | 'positioning';
+  | 'positioning'
+  | 'link-outreach';
 
 export interface StrategistTask {
   id: StrategistTaskId;
@@ -47,6 +48,7 @@ export const STRATEGIST_TASKS: StrategistTask[] = [
   { id: 'cro-ideas', label: 'CRO ideas', description: 'Conversion hypotheses for a page/flow with expected impact.', category: 'convert' },
   { id: 'pricing-test', label: 'Pricing test', description: 'Offer/pricing experiment ideas with margin awareness.', category: 'convert' },
   { id: 'positioning', label: 'Positioning', description: 'Differentiated positioning + messaging pillars.', category: 'brand' },
+  { id: 'link-outreach', label: 'Backlink outreach', description: 'Short, white-hat outreach email + follow-ups for a backlink opportunity.', category: 'expand' },
 ];
 
 export interface StrategistContext {
@@ -168,6 +170,14 @@ export function strategistFallback(taskId: StrategistTaskId, ctx: StrategistCont
     'positioning':
       `Positioning draft for ${product}:\n- Category: <define it>.\n- For ${audience} who <need>.\n` +
       `- Unlike <alternative>, ${product} <differentiator>.\n- 3 messaging pillars.`,
+    'link-outreach':
+      `Backlink outreach (white-hat, draft — personalize before sending):\n` +
+      `Subject options:\n1. A free resource for your readers\n2. Quick idea for <outlet>\n\n` +
+      `Hi <name>,\n\nI run ${product}, a free AI swing-analysis tool. <one specific, honest reason it fits their audience>. ` +
+      `If useful, here's the most relevant page: <url>. No payment or signup required to try it.\n\n` +
+      `Either way, thanks for the work you put out.\n\nBest,\n${product} team\n\n` +
+      `Follow-up 1 (day 4): float it back up, no pressure.\nFollow-up 2 (day 9): share the link once more, then close the loop.\n\n` +
+      `Rules: short, honest, value-first. No fabricated stats, no false urgency, never sent automatically.`,
   };
 
   return header + (bodies[taskId] ?? 'No template available.') + footer;

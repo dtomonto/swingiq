@@ -727,6 +727,73 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
       { label: 'Done', value: countWhere(r, (x) => x.status === 'done'), accent: 'text-green-400' },
     ],
   },
+
+  // ── Link Intelligence: internal-link recommendations ────────
+  'internal-links': {
+    itemNoun: 'recommendations',
+    filterKey: 'status',
+    columns: [
+      { key: 'name', label: 'Recommendation' },
+      { key: 'anchorKind', label: 'Anchor', type: 'text' },
+      { key: 'score', label: 'Score', type: 'number' },
+      { key: 'autoSafe', label: 'Auto-safe', accessor: (r) => (r.autoSafe ? 'Yes' : 'review') },
+      { key: 'status', label: 'Status', type: 'status' },
+    ],
+    detailFields: [
+      { key: 'sourceUrl', label: 'From page' },
+      { key: 'destinationUrl', label: 'To page' },
+      { key: 'anchorText', label: 'Suggested anchor' },
+      { key: 'anchorKind', label: 'Anchor type' },
+      { key: 'contextSentence', label: 'Context' },
+      { key: 'placement', label: 'Placement' },
+      { key: 'purpose', label: 'Purpose' },
+      { key: 'targetKeyword', label: 'Target keyword' },
+      { key: 'userBenefit', label: 'User benefit' },
+      { key: 'cluster', label: 'Cluster' },
+      { key: 'riskLevel', label: 'Risk', type: 'status' },
+      { key: 'score', label: 'Opportunity score', type: 'number' },
+      { key: 'scoreFactors', label: 'Why this score', type: 'list' },
+      { key: 'autoSafe', label: 'Safe to auto-apply', accessor: (r) => (r.autoSafe ? 'Yes' : 'Needs review') },
+      { key: 'status', label: 'Status', type: 'status' },
+      ...META_FIELDS,
+    ],
+    kpis: (r) => [
+      { label: 'Recommendations', value: r.length },
+      { label: 'Pending', value: countWhere(r, (x) => x.status === 'pending'), accent: 'text-amber-400' },
+      { label: 'Safe to auto-apply', value: countWhere(r, (x) => x.autoSafe === true), sublabel: 'one-click', accent: 'text-green-400' },
+      { label: 'Applied', value: countWhere(r, (x) => x.status === 'applied' || x.status === 'auto-applied'), accent: 'text-blue-400' },
+    ],
+  },
+
+  // ── Link Intelligence: link audit findings ──────────────────
+  'link-audit': {
+    itemNoun: 'findings',
+    filterKey: 'findingType',
+    columns: [
+      { key: 'name', label: 'Finding' },
+      { key: 'findingType', label: 'Type', type: 'text' },
+      { key: 'severity', label: 'Severity', type: 'status' },
+      { key: 'pageUrl', label: 'Page', type: 'text' },
+      { key: 'status', label: 'Status', type: 'status' },
+    ],
+    detailFields: [
+      { key: 'findingType', label: 'Finding type' },
+      { key: 'pageUrl', label: 'Page' },
+      { key: 'sport', label: 'Sport' },
+      { key: 'severity', label: 'Severity', type: 'status' },
+      { key: 'detail', label: 'Detail' },
+      { key: 'recommendedAction', label: 'Recommended action' },
+      { key: 'metric', label: 'Metric', type: 'number' },
+      { key: 'status', label: 'Status', type: 'status' },
+      ...META_FIELDS,
+    ],
+    kpis: (r) => [
+      { label: 'Findings', value: r.length },
+      { label: 'Orphans', value: countWhere(r, (x) => x.findingType === 'orphan'), accent: 'text-red-400' },
+      { label: 'Broken links', value: countWhere(r, (x) => x.findingType === 'broken-internal'), accent: 'text-red-400' },
+      { label: 'High severity', value: countWhere(r, (x) => x.severity === 'high' || x.severity === 'critical'), accent: 'text-amber-400' },
+    ],
+  },
 };
 
 // ── CRUD support ──────────────────────────────────────────────
@@ -755,6 +822,8 @@ export const DEFINITION_KIND: Record<string, string> = {
   assets: 'asset',
   recommendations: 'recommendation',
   operations: 'task',
+  'internal-links': 'internal-link-rec',
+  'link-audit': 'link-finding',
 };
 
 export type FormInput = 'text' | 'textarea' | 'number' | 'date' | 'tags' | 'checkbox' | 'priority';

@@ -684,6 +684,85 @@ export interface AIAgentDefinition extends BaseRecord {
 }
 
 // ──────────────────────────────────────────────────────────────
+// 13. Link Intelligence (internal linking + link-audit + agent runs)
+// ------------------------------------------------------------
+// The Link Intelligence Agent is GrowthOS-native: it DISCOVERS backlink
+// opportunities (as AuthorityOpportunity, kind `authority`) and competitor
+// link gaps (as CompetitorInsight, kind `competitor`), and adds the three
+// record types below for the one thing GrowthOS lacked — a real internal
+// link engine. All carry `dataSource` so the UI stays honest.
+// ──────────────────────────────────────────────────────────────
+
+/** How an anchor relates to its destination (over-optimization guardrail input). */
+export type AnchorKind =
+  | 'exact-match' | 'partial-match' | 'branded' | 'natural'
+  | 'descriptive' | 'navigational' | 'generic' | 'image-alt' | 'cta';
+
+/** Lifecycle of an internal-link recommendation through human review. */
+export type InternalLinkStatus =
+  | 'pending' | 'approved' | 'applied' | 'auto-applied' | 'rejected' | 'snoozed';
+
+export interface InternalLinkRecommendation extends BaseRecord {
+  sourceUrl: string;
+  destinationUrl: string;
+  anchorText: string;
+  anchorKind: AnchorKind;
+  contextSentence: string;
+  placement: string;
+  purpose: string;
+  targetKeyword: string;
+  userBenefit: string;
+  cluster: string;
+  riskLevel: Scale;
+  /** 0..100 explainable internal-link opportunity score. */
+  score: number;
+  /** Human-readable factor lines explaining the score (no black boxes). */
+  scoreFactors: string[];
+  /** True only when the guardrails deem it safe to auto-apply. */
+  autoSafe: boolean;
+  status: InternalLinkStatus;
+}
+
+export type LinkFindingType =
+  | 'orphan' | 'broken-internal' | 'over-linked' | 'deep-page'
+  | 'weak-inlinks' | 'anchor-over-optimized' | 'cannibalization';
+
+export type LinkFindingSeverity = 'critical' | 'high' | 'medium' | 'low';
+export type LinkFindingStatus = 'open' | 'in-progress' | 'resolved' | 'ignored';
+
+export interface LinkFinding extends BaseRecord {
+  findingType: LinkFindingType;
+  pageUrl: string;
+  sport: string;
+  severity: LinkFindingSeverity;
+  detail: string;
+  recommendedAction: string;
+  /** A supporting number where one applies (depth, inbound count, …). */
+  metric: number | null;
+  status: LinkFindingStatus;
+}
+
+export type LinkRunCadence = 'daily' | 'weekly' | 'monthly' | 'manual';
+
+export interface LinkAgentRun extends BaseRecord {
+  cadence: LinkRunCadence;
+  ranAt: string;
+  pagesAnalyzed: number;
+  internalLinksMapped: number;
+  orphansFound: number;
+  brokenFound: number;
+  recommendationsGenerated: number;
+  backlinkOppsDiscovered: number;
+  competitorGapsFound: number;
+  /** 0..100 health scores surfaced on the hub. */
+  internalLinkHealth: number;
+  backlinkOpportunityScore: number;
+  aeoReadiness: number;
+  summary: string;
+  highlights: string[];
+}
+
+// ──────────────────────────────────────────────────────────────
 // Union of every record type — handy for generic utilities.
 // ──────────────────────────────────────────────────────────────
 
@@ -694,4 +773,5 @@ export type GrowthRecord =
   | LifecycleStage | LifecycleAutomation | CRMMessage | CROOpportunity
   | GrowthExperiment | OfferTest | CompetitorInsight | CustomerInsight
   | BrandVoiceAsset | MarketingAsset | MarketingCalendarItem | UTMLink
-  | MarketingMetric | MarketingTask | AIRecommendation | AIAgentDefinition;
+  | MarketingMetric | MarketingTask | AIRecommendation | AIAgentDefinition
+  | InternalLinkRecommendation | LinkFinding | LinkAgentRun;
