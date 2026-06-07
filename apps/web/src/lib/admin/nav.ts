@@ -184,13 +184,13 @@ export const NAV_ITEMS: NavItem[] = [
   // ── Support ────────────────────────────────────────────────
   {
     id: 'support', label: 'Support', href: '/admin/support', icon: LifeBuoy,
-    group: 'support', built: false, permission: 'support.manage',
+    group: 'support', built: true, permission: 'support.manage',
     blurb: 'Support tickets with user context, assignment and status.',
     keywords: ['tickets', 'help', 'inbox'],
   },
   {
     id: 'feedback', label: 'Feedback', href: '/admin/feedback', icon: MessageSquare,
-    group: 'support', built: false, permission: 'support.manage',
+    group: 'support', built: true, permission: 'support.manage',
     blurb: 'AI/page/tutorial feedback and the feedback-to-roadmap workflow.',
     keywords: ['feedback', 'bugs', 'feature requests', 'roadmap'],
   },
