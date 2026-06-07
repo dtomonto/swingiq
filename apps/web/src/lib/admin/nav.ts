@@ -230,19 +230,19 @@ export const NAV_ITEMS: NavItem[] = [
   // ── Governance ─────────────────────────────────────────────
   {
     id: 'security', label: 'Security & Roles', href: '/admin/security', icon: ShieldCheck,
-    group: 'governance', built: false, permission: 'admins.manage',
+    group: 'governance', built: true, permission: 'admins.manage',
     blurb: 'Admin roles, permission matrix and security posture.',
     keywords: ['roles', 'permissions', 'rbac', '2fa', 'security'],
   },
   {
     id: 'legal', label: 'Legal & Privacy', href: '/admin/legal', icon: Scale,
-    group: 'governance', built: false, permission: 'legal.manage',
+    group: 'governance', built: true, permission: 'legal.manage',
     blurb: 'Policies, disclaimers, consent and data export/deletion requests.',
     keywords: ['legal', 'privacy', 'gdpr', 'consent', 'compliance'],
   },
   {
     id: 'settings', label: 'Settings', href: '/admin/settings', icon: Settings,
-    group: 'governance', built: false, permission: 'settings.manage',
+    group: 'governance', built: true, permission: 'settings.manage',
     blurb: 'General, brand, upload, AI, SEO, email and notification settings.',
     keywords: ['settings', 'config', 'brand', 'preferences'],
   },
