@@ -86,7 +86,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     id: 'athletes', label: 'Athletes', href: '/admin/athletes', icon: Activity,
-    group: 'people', built: false, permission: 'users.view',
+    group: 'people', built: true, permission: 'users.view',
     blurb: 'Per-sport athlete profiles, skill levels, goals and equipment.',
     keywords: ['profiles', 'players', 'golf', 'tennis', 'baseball'],
   },
