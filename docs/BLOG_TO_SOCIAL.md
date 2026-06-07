@@ -12,9 +12,9 @@ Two things to know up front:
    then run through our own quality guardrails. With no key, it still produces
    real, specific posts from a deterministic engine ("keyless mode"). Either way
    you get the same review experience.
-2. **It never posts anything by itself.** You review, edit, approve, and then
-   **copy** or **export** the posts to publish them (or paste into a scheduler).
-   Live auto-posting is intentionally not built — see *What's stubbed* below.
+2. **It never posts anything by itself unless you turn that on.** You review,
+   edit, approve, then **copy/export** — or enable **auto-publish + scheduling**
+   (both off by default; see *Deferred pieces — now built* below).
 
 **Where to use it:** `/admin/social` (admin-only).
 
@@ -146,11 +146,11 @@ npx tsc --noEmit                                       # type-check
 
 ---
 
-## What's stubbed & how to integrate it
+## Deferred pieces — now built (turn on with credentials)
 
-The following were intentionally **not** built because they require external
-infrastructure that doesn't exist yet. The architecture leaves clean seams for
-each. Wire them in this order as you grow.
+These were initially deferred (they need external infrastructure). They are now
+built **keyless-first**: real code that's dormant until you add credentials —
+exactly like AI/email/Stripe. Each degrades to a safe no-op until configured.
 
 ### 1. The library / persistence — ✅ BUILT (just run the schema)
 
@@ -168,83 +168,52 @@ Implemented by `lib/social/store.ts` + `app/api/social/{save,list,posts/[id]}`.
 Edit history rows are recorded in `social_post_versions` on every edit — the only
 remaining nicety is a UI to *browse* that version history.
 
-### 2. Live auto-publishing to platforms (Automation Mode 3)
+### 2. Auto-publishing — ✅ BUILT (off by default)
 
-Currently the workflow is copy/export. To publish automatically you need a
-per-platform **publisher** behind one interface:
+`lib/social/publishers/`. The Studio shows a **Publish** button on approved posts.
+Turn it on with the master switch **`SOCIAL_AUTOPUBLISH=on`**, then choose a path:
 
-```ts
-// lib/social/publishers/index.ts (to add)
-export interface Publisher {
-  platform: Platform;
-  publish(post: GeneratedPost): Promise<{ id: string; url: string }>;
-}
-```
+- **Webhook (works today, no OAuth):** set `SOCIAL_PUBLISH_WEBHOOK_URL` to a
+  Zapier / Make / n8n / Buffer hook that posts for you. Easiest path.
+- **Direct platform APIs (dormant until tokens set):**
+  - LinkedIn: `LINKEDIN_ACCESS_TOKEN` + `LINKEDIN_AUTHOR_URN`
+  - X: `X_ACCESS_TOKEN` (**paid X API plan required**)
+  - Facebook Page: `FACEBOOK_PAGE_ID` + `FACEBOOK_PAGE_TOKEN`
+  - Reddit: `REDDIT_ACCESS_TOKEN` + `REDDIT_SUBREDDIT`
+  - Instagram / TikTok / YouTube / Threads / Pinterest → route via the webhook.
 
-Then implement one per network and call it from a `POST /api/social/publish`
-route **only for `status === 'approved'` posts**. What each network requires:
+Routing per post: kill-switch → direct (if configured) → webhook → no-op. It
+never throws and never half-posts; only **approved** posts are published.
+**Youth-safety:** SwingVantage serves juniors — get a compliance read before
+enabling, and keep posts non-personalized. (X/Meta/etc. need their own app review.)
 
-| Platform | API | Auth | Notes |
-|---|---|---|---|
-| LinkedIn | Marketing/Share API | OAuth 2.0 + app review | Org vs personal posting differ |
-| X / Twitter | API v2 `POST /2/tweets` | OAuth 2.0 | **Paid tier required** |
-| Facebook / Instagram | Meta Graph API | OAuth + Business/Page tokens; **app review** | IG needs a Business account + Content Publishing API; Stories/links limited |
-| Threads | Threads API (Meta) | OAuth | Newer; check current limits |
-| YouTube Community | No official write API | — | Manual only for now |
-| Pinterest | Pinterest API v5 | OAuth + app review | Create Pin with destination URL |
-| TikTok | Content Posting API | OAuth + app review | Video required |
-| Reddit | Reddit API | OAuth (script app) | **Respect subreddit rules; never astroturf** |
+### 3. Scheduling — ✅ BUILT
 
-Practical guidance:
-- Store tokens **server-side only** (new env vars, never `NEXT_PUBLIC_`).
-- Keep a kill-switch env (e.g. `SOCIAL_AUTOPUBLISH=off`) and default it off.
-- **Youth-safety:** SwingVantage serves juniors — get a compliance read before
-  enabling any automated posting, and keep posts non-personalized.
-- Most networks require app review (days–weeks). Start with one platform.
+Set a post's time in the Studio (**Schedule** control) → `status=scheduled` +
+`scheduled_at`. `vercel.json` runs **`/api/social/run-scheduled`** on a cron (daily
+by default — raise the frequency on a Vercel Pro plan), which publishes due posts
+through the publisher engine and retries failures on the next run. The cron route
+self-protects with `CRON_SECRET` and is allow-listed in `middleware.ts` (Vercel
+Cron has no Supabase session). `lib/social/schedule-runner.ts`.
 
-### 3. Scheduling
+### 4. Performance metrics + the learning loop — ✅ BUILT
 
-`buildSchedule()` already returns a recommended cadence, and `social_posts` has a
-`scheduled_at` column. To act on it:
+Record metrics three ways: the Studio **Metrics** form (manual, works today),
+`POST /api/social/metrics` with `source='utm_analytics'` (point a Plausible/GA
+sync job at it, matching `utm_content = '{platform}_{variation}'`), or
+`source='platform_api'` later. `lib/social/learning.ts` ranks the best hooks,
+CTAs, and platforms by CTR and **feeds them back into generation**: the keyless
+writer leads strong variations with the proven hook, the schedule orders
+platforms by measured performance, and the AI prompt gets a "historical signal"
+hint — all only once data exists (never a fabricated signal). See it in the
+Studio's **What's working** panel (`GET /api/social/learning`). Per-variation UTM
+links also let Plausible/GA measure click-through with zero setup.
 
-1. Set `scheduled_at` + `status = 'scheduled'` when approving.
-2. Add a cron (this repo already uses Vercel Cron — see `vercel.json`) hitting
-   `POST /api/social/run-scheduled` on an interval.
-3. That route selects due posts (`scheduled_at <= now() and status='scheduled'`)
-   and calls the publisher from step 2, then sets `published_at`/`status`.
+### 5. Production admin access — ✅ BUILT
 
-Until publishers exist, "scheduling" = the recommended cadence + CSV export to a
-tool like Buffer/Later.
-
-### 4. Performance metrics + the learning loop
-
-The schema (`social_post_metrics`) and the per-variation UTM links are the
-foundation. Three ways to get data in, easiest first:
-
-1. **UTM via your existing analytics (available NOW).** Every post already has a
-   unique `utm_source`/`utm_content`. Open Plausible/GA and you can already see
-   which platform + variation drives blog clicks — no code needed.
-2. **Ingest UTM clicks** into `social_post_metrics` (`source='utm_analytics'`) via
-   a scheduled job hitting your analytics provider's API, matching on
-   `utm_content = '{platform}_{variation}'`.
-3. **Platform APIs** for impressions/engagement (`source='platform_api'`) — only
-   available once the publisher OAuth from step 2 exists.
-
-**Closing the loop:** once metrics exist, add `lib/social/learning.ts` that
-aggregates `social_post_metrics` by `hook_type`, `cta_type`, `platform`, and
-posting time, and biases `pickHookType`/`pickCtaType`/`recommendPlatforms` toward
-the historical winners. Until there's real data, the engine uses sensible
-heuristics — do **not** fabricate a learning signal with no inputs.
-
-### 5. Production admin access
-
-`/admin/*` and the API require `x-admin-secret` to match `ADMIN_SECRET` in
-production (browsers don't send that header by default — this is an existing
-app-wide limitation, see `app/admin/layout.tsx`). To make admin usable in prod,
-move admin auth to a **Supabase role check** (e.g. an `is_admin` flag on the
-user), then:
-- replace the `isAdmin()` checks in the layout + `api/social/generate/route.ts`
-  with the role check, and
-- add RLS policies to the four `social_*` tables for that admin role (the schema
-  currently grants access to the service role only).
-```
+`/admin/*` now authorizes a logged-in user whose email is in **`ADMIN_EMAILS`**
+(comma-separated), in addition to the legacy `ADMIN_SECRET` header. Set
+`ADMIN_EMAILS` in Vercel and log in with that email — secure by default (empty =
+nobody). `lib/auth/admin.ts` + `lib/auth/admin-allowlist.ts`. (RLS on the four
+`social_*` tables still grants the service role only; tighten to a Supabase admin
+role if you ever move off the email allowlist.)
