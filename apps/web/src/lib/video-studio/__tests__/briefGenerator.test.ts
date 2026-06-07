@@ -1,6 +1,6 @@
-import { buildBrief } from '../briefGenerator';
+import { buildBrief } from '../brief-generator';
 import { isOnBrand, MAX_DURATION_BY_TYPE } from '../brand';
-import { scanForOpportunities } from '../opportunityEngine';
+import { scanForOpportunities } from '../opportunity-engine';
 import { sampleOpp } from './_factories';
 
 describe('buildBrief', () => {

@@ -17,7 +17,7 @@
 
 import type { VideoProviderConfig, ProviderCapability } from '../types';
 import type { VideoProvider } from './types';
-import { mockProvider } from './mockProvider';
+import { mockProvider } from './mock-provider';
 
 type Env = Record<string, string | undefined>;
 

@@ -1,4 +1,4 @@
-import { mockProvider, buildVtt, buildPoster } from '../providers/mockProvider';
+import { mockProvider, buildVtt, buildPoster } from '../providers/mock-provider';
 import { getProviderConfigs, resolveProvider, globalMaxCostCents } from '../providers/registry';
 import { sampleBrief } from './_factories';
 

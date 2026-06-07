@@ -1,5 +1,5 @@
 import { runGenerationJob, assembleAsset } from '../jobs';
-import { mockProvider } from '../providers/mockProvider';
+import { mockProvider } from '../providers/mock-provider';
 import type { VideoProvider, ProviderGenerateResult } from '../providers';
 import { sampleBrief } from './_factories';
 

@@ -1,4 +1,4 @@
-import { scanForOpportunities, topGap, assessSurface } from '../opportunityEngine';
+import { scanForOpportunities, topGap, assessSurface } from '../opportunity-engine';
 import { getSurface } from '../surfaces';
 import { VIDEO_TYPES, RISK_LEVELS } from '../types';
 

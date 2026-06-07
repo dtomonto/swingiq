@@ -1,7 +1,7 @@
 // Shared test factories (not a *.test.ts, so jest won't run it as a suite).
-import { assessSurface } from '../opportunityEngine';
+import { assessSurface } from '../opportunity-engine';
 import { getSurface } from '../surfaces';
-import { buildBrief } from '../briefGenerator';
+import { buildBrief } from '../brief-generator';
 import type {
   VideoAsset,
   VideoCreativeBrief,

@@ -5,7 +5,7 @@ export type {
   ProviderGenerateResult,
   ProviderJobStatus,
 } from './types';
-export { mockProvider, buildPoster, buildVtt } from './mockProvider';
+export { mockProvider, buildPoster, buildVtt } from './mock-provider';
 export {
   getProviderConfigs,
   resolveProvider,

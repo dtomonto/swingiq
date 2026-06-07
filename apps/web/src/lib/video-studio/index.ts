@@ -22,8 +22,8 @@ export {
   assessSurface,
   topGap,
   type ScanOptions,
-} from './opportunityEngine';
-export { buildBrief, enhanceBrief, type BriefOverrides } from './briefGenerator';
+} from './opportunity-engine';
+export { buildBrief, enhanceBrief, type BriefOverrides } from './brief-generator';
 export { runGenerationJob, pollGenerationJob, assembleAsset } from './jobs';
 export { reassess, type ReassessInput } from './reassessment';
 export {

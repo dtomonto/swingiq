@@ -6,7 +6,7 @@
 // yet (in-memory repo): we transparently run a scan and match by id.
 // ============================================================
 
-import { scanForOpportunities } from '../opportunityEngine';
+import { scanForOpportunities } from '../opportunity-engine';
 import type { VideoOpportunity, VideoAsset } from '../types';
 import type { VideoStudioRepo } from '../repo';
 
