@@ -267,6 +267,89 @@ export async function updatePost(
   }
 }
 
+export interface MetricInput {
+  impressions?: number;
+  clicks?: number;
+  engagements?: number;
+  shares?: number;
+  saves?: number;
+  comments?: number;
+  conversions?: number;
+  source?: string; // 'manual' | 'utm_analytics' | 'platform_api'
+}
+
+/** Record a metrics snapshot for a post (denormalizes platform + computes CTR). */
+export async function recordMetric(postId: string, m: MetricInput): Promise<boolean> {
+  const sb = createSupabaseAdminClient();
+  if (!sb) return false;
+  try {
+    const { data: post } = await sb.from('social_posts').select('platform').eq('id', postId).single();
+    const platform = (post as { platform?: string } | null)?.platform ?? 'unknown';
+    const impressions = m.impressions ?? 0;
+    const clicks = m.clicks ?? 0;
+    const ctr = impressions > 0 ? Number((clicks / impressions).toFixed(4)) : null;
+    const { error } = await sb.from('social_post_metrics').insert({
+      post_id: postId,
+      platform,
+      impressions,
+      clicks,
+      ctr,
+      engagements: m.engagements ?? 0,
+      shares: m.shares ?? 0,
+      saves: m.saves ?? 0,
+      comments: m.comments ?? 0,
+      conversions: m.conversions ?? 0,
+      source: m.source ?? 'manual',
+    });
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+export interface LearningRow {
+  platform: string;
+  hookType: string | null;
+  ctaType: string | null;
+  impressions: number;
+  clicks: number;
+  engagements: number;
+}
+
+/** Join metrics with their posts' hook/cta/platform for the learning layer. */
+export async function getLearningRows(): Promise<LearningRow[]> {
+  const sb = createSupabaseAdminClient();
+  if (!sb) return [];
+  try {
+    const { data: metrics } = await sb
+      .from('social_post_metrics')
+      .select('post_id, impressions, clicks, engagements');
+    if (!metrics || metrics.length === 0) return [];
+    const ids = Array.from(new Set((metrics as Array<{ post_id: string }>).map((m) => m.post_id)));
+    const { data: posts } = await sb
+      .from('social_posts')
+      .select('id, platform, hook_type, cta_type')
+      .in('id', ids);
+    const byId = new Map<string, { platform: string; hook_type: string | null; cta_type: string | null }>();
+    for (const p of (posts ?? []) as Array<{ id: string; platform: string; hook_type: string | null; cta_type: string | null }>) {
+      byId.set(p.id, p);
+    }
+    return (metrics as Array<{ post_id: string; impressions: number; clicks: number; engagements: number }>).map((m) => {
+      const p = byId.get(m.post_id);
+      return {
+        platform: p?.platform ?? 'unknown',
+        hookType: p?.hook_type ?? null,
+        ctaType: p?.cta_type ?? null,
+        impressions: m.impressions ?? 0,
+        clicks: m.clicks ?? 0,
+        engagements: m.engagements ?? 0,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
 export interface DuePost extends GeneratedPost {
   id: string;
 }

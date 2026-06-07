@@ -107,6 +107,9 @@ export function SocialStudio({
   const [publishState, setPublishState] = useState<Record<string, { outcome: string; detail?: string } | 'publishing'>>({});
   const [scheduleInput, setScheduleInput] = useState<Record<string, string>>({});
   const [scheduledAt, setScheduledAt] = useState<Record<string, string>>({});
+  const [openMetrics, setOpenMetrics] = useState<string | null>(null);
+  const [metricsInput, setMetricsInput] = useState<Record<string, { impressions: string; clicks: string; engagements: string }>>({});
+  const [metricsMsg, setMetricsMsg] = useState<Record<string, string>>({});
 
   const buildOptions = (override?: string[]) => ({
     platforms: override ?? Array.from(platforms),
@@ -356,6 +359,31 @@ export function SocialStudio({
       if (res.ok) setScheduledAt((s) => ({ ...s, [key]: iso }));
     } catch {
       /* non-fatal */
+    }
+  }
+
+  async function saveMetrics(post: GeneratedPost) {
+    const key = postKey(post);
+    const id = savedInfo?.postIds[key];
+    if (!id) return;
+    const m = metricsInput[key] ?? { impressions: '', clicks: '', engagements: '' };
+    try {
+      const res = await fetch('/api/social/metrics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          postId: id,
+          metrics: {
+            impressions: Number(m.impressions) || 0,
+            clicks: Number(m.clicks) || 0,
+            engagements: Number(m.engagements) || 0,
+            source: 'manual',
+          },
+        }),
+      });
+      setMetricsMsg((s) => ({ ...s, [key]: res.ok ? 'Saved ✓' : 'Failed' }));
+    } catch {
+      setMetricsMsg((s) => ({ ...s, [key]: 'Failed' }));
     }
   }
 
@@ -651,6 +679,14 @@ export function SocialStudio({
                           {openHistory === key ? 'Hide history' : 'History'}
                         </button>
                       )}
+                      {savedInfo?.postIds[key] && (
+                        <button
+                          onClick={() => setOpenMetrics(openMetrics === key ? null : key)}
+                          className={`${btn} text-xs bg-gray-800 text-gray-300 hover:bg-gray-700`}
+                        >
+                          {openMetrics === key ? 'Hide metrics' : 'Metrics'}
+                        </button>
+                      )}
                       {publishCaps.autopublish &&
                         publishCaps.channels[post.platform] !== 'none' &&
                         status === 'approved' && (
@@ -727,6 +763,40 @@ export function SocialStudio({
                             ))}
                           </ul>
                         )}
+                      </div>
+                    )}
+
+                    {openMetrics === key && (
+                      <div className="mt-2 border-t border-gray-800 pt-2">
+                        <p className="text-xs text-gray-500 mb-1.5">
+                          Enter numbers from your analytics (Plausible/GA) to feed the learning loop.
+                        </p>
+                        <div className="flex flex-wrap items-end gap-2">
+                          {(['impressions', 'clicks', 'engagements'] as const).map((f) => (
+                            <label key={f} className="text-[11px] text-gray-400">
+                              <span className="block mb-0.5 capitalize">{f}</span>
+                              <input
+                                type="number"
+                                min={0}
+                                value={metricsInput[key]?.[f] ?? ''}
+                                onChange={(e) =>
+                                  setMetricsInput((s) => {
+                                    const cur = s[key] ?? { impressions: '', clicks: '', engagements: '' };
+                                    return { ...s, [key]: { ...cur, [f]: e.target.value } };
+                                  })
+                                }
+                                className="w-20 bg-gray-950 border border-gray-700 rounded px-1.5 py-1 text-xs text-gray-100"
+                              />
+                            </label>
+                          ))}
+                          <button
+                            onClick={() => saveMetrics(post)}
+                            className={`${btn} text-xs bg-emerald-700 text-white hover:bg-emerald-600`}
+                          >
+                            Save metrics
+                          </button>
+                          {metricsMsg[key] && <span className="text-xs text-emerald-400">{metricsMsg[key]}</span>}
+                        </div>
                       </div>
                     )}
                   </div>
