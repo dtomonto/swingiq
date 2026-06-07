@@ -139,7 +139,7 @@ refresh. Mirrors the product's own honesty standard (see `feedback_no_misleading
 | **3** | Admin CMS at `/admin/academy/cms`: author/edit courses & lessons, workflow (draft→review→approved→published→deprecated→archived), review queue, audit log; published items overlay the seed via `overlay.ts` and appear in the catalog/course/lesson pages | **done** |
 | **4** | AI Learning Advisor (`/advisor`, ranked deterministic plan), grounded AI tutor (answers only from approved lessons, with citations — `tutor.ts`), release-note→draft-course generation (`generate.ts` → CMS drafts at `/cms/generate`). Keyless-first; LLM reword is an optional later upgrade | **done** |
 | **5** | Analytics (`/analytics`: coverage, completion-by-difficulty, cert readiness, knowledge gaps), manager/exec view (honest single-learner scope + JSON export; cross-learner rollup noted as backend-dependent), assignments (`assign`/`unassign` + due dates on course/path pages, "Assigned to you" on dashboard), notifications (`notifications.ts`, derived: claimable/expiring/expired certs, due/overdue assignments, streak) | **done** |
-| 6 | Advanced simulations (support tickets, sales roleplay, AI-reviewed responses) | planned |
+| **6** | Advanced simulations at `/simulations`: support-ticket, sales-objection, coach-demo, explain-feedback. Free-text responses scored by an honest deterministic **rubric evaluator** (`simulations.ts`) with guardrail-violation detection (medical/guarantee/overpromise) — the "AI-reviewed written response" without hallucination; upgradeable to an LLM reviewer | **done** |
 
 ---
 

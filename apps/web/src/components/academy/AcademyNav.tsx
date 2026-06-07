@@ -11,6 +11,7 @@ const LINKS = [
   { href: '/admin/academy/catalog', label: 'Catalog' },
   { href: '/admin/academy/badges', label: 'Badges' },
   { href: '/admin/academy/certifications', label: 'Certifications' },
+  { href: '/admin/academy/simulations', label: 'Simulations' },
   { href: '/admin/academy/advisor', label: 'Advisor' },
   { href: '/admin/academy/analytics', label: 'Analytics' },
   { href: '/admin/academy/cms', label: 'CMS' },

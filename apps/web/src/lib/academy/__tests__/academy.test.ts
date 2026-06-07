@@ -18,6 +18,7 @@ import { advisorPlan } from '../advisor';
 import { generateFromRelease } from '../generate';
 import { academyNotifications } from '../notifications';
 import { catalogCoverage, certReadinessSummary, progressExport } from '../analytics';
+import { evaluateResponse, getSimulation } from '../simulations';
 
 // Build a progress object with the given lessons complete + quizzes passed.
 function progressWith(opts: {
@@ -291,5 +292,34 @@ describe('Academy analytics + assignments (Phase 5)', () => {
     const r = progressExport(DEFAULT_ACADEMY_PROGRESS);
     expect(r.coverage).toBeDefined();
     expect(r.masteryLevel).toBeTruthy();
+  });
+});
+
+describe('Academy simulations (Phase 6)', () => {
+  beforeEach(() => useAcademyStore.getState().reset());
+
+  it('scores a strong, compliant response as passing', () => {
+    const sim = getSimulation('sim-support-ticket')!;
+    const good = "Sorry for the frustration! Nine times out of ten this is the camera angle — could you re-record side-on with the whole body in frame and good lighting? Only sampled frames are sent; your full video stays on your device. If it still looks off, reply here and I'll escalate.";
+    const ev = evaluateResponse(sim, good);
+    expect(ev.passed).toBe(true);
+    expect(ev.redFlags.length).toBe(0);
+  });
+
+  it('flags guardrail violations and fails the response', () => {
+    const sim = getSimulation('sim-support-ticket')!;
+    const bad = 'I guarantee these drills will cure your torn shoulder.';
+    const ev = evaluateResponse(sim, bad);
+    expect(ev.redFlags.length).toBeGreaterThan(0);
+    expect(ev.passed).toBe(false);
+  });
+
+  it('records a simulation pass once (points awarded a single time)', () => {
+    useAcademyStore.getState().recordSimulation('sim-sales-objection', 100, true);
+    useAcademyStore.getState().recordSimulation('sim-sales-objection', 100, true);
+    const p = useAcademyStore.getState().progress;
+    expect(p.simulationAttempts['sim-sales-objection'].attempts).toBe(2);
+    expect(p.simulationAttempts['sim-sales-objection'].passed).toBe(true);
+    expect(p.points).toBe(35);
   });
 });

@@ -72,6 +72,7 @@ export interface AcademyStore {
   setLearnerName: (name: string) => void;
   completeLesson: (lessonId: string) => void;
   recordQuizAttempt: (quizId: string, score: number, passed: boolean) => void;
+  recordSimulation: (simId: string, score: number, passed: boolean) => void;
   submitChallenge: (challengeId: string) => void;
   claimCertification: (certId: string) => void;
   recertify: (certId: string) => void;
@@ -118,6 +119,26 @@ export const useAcademyStore = create<AcademyStore>()(
               },
             },
             points: s.progress.points + (!wasPassed && passed ? POINTS.quizPass : 0),
+          };
+          return { progress: reconcileRewards(next) };
+        }),
+
+      recordSimulation: (simId, score, passed) =>
+        set((s) => {
+          const prev = s.progress.simulationAttempts?.[simId];
+          const wasPassed = prev?.passed ?? false;
+          const next: AcademyProgress = {
+            ...touch(s.progress),
+            simulationAttempts: {
+              ...(s.progress.simulationAttempts ?? {}),
+              [simId]: {
+                attempts: (prev?.attempts ?? 0) + 1,
+                bestScore: Math.max(prev?.bestScore ?? 0, score),
+                passed: wasPassed || passed,
+                lastAttemptAt: new Date().toISOString(),
+              },
+            },
+            points: s.progress.points + (!wasPassed && passed ? POINTS.simulation : 0),
           };
           return { progress: reconcileRewards(next) };
         }),
@@ -190,9 +211,10 @@ export const useAcademyStore = create<AcademyStore>()(
         const p = persisted as { progress?: Partial<AcademyProgress> } | undefined;
         if (p?.progress && !p.progress.activityDays) p.progress.activityDays = [];
         if (p?.progress && !p.progress.assignments) p.progress.assignments = [];
+        if (p?.progress && !p.progress.simulationAttempts) p.progress.simulationAttempts = {};
         return p as never;
       },
-      version: 3,
+      version: 4,
     },
   ),
 );

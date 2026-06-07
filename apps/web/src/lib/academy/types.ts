@@ -253,6 +253,8 @@ export interface AcademyProgress {
   completedLessonIds: string[];
   /** Quiz results keyed by quiz id. */
   quizAttempts: Record<string, QuizAttemptRecord>;
+  /** Simulation results keyed by simulation id (Phase 6). */
+  simulationAttempts: Record<string, QuizAttemptRecord>;
   /** Challenge submissions keyed by challenge id → ISO submittedAt. */
   challengeSubmissions: Record<string, string>;
   /** Earned badges keyed by badge id → ISO earnedAt. */
@@ -275,6 +277,7 @@ export const DEFAULT_ACADEMY_PROGRESS: AcademyProgress = {
   roleId: null,
   completedLessonIds: [],
   quizAttempts: {},
+  simulationAttempts: {},
   challengeSubmissions: {},
   earnedBadges: {},
   certifications: {},
@@ -290,6 +293,7 @@ export const POINTS = {
   lesson: 10,
   quizPass: 25,
   challenge: 30,
+  simulation: 35,
   certification: 150,
 } as const;
 
