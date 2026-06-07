@@ -57,6 +57,7 @@ const FOOTER_COLUMNS = [
   {
     heading: 'Trust',
     links: [
+      { label: 'Contact Us', href: '/contact' },
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms of Service', href: '/terms' },
       { label: 'Trust & Safety', href: '/trust' },
@@ -108,8 +109,20 @@ export function PublicFooter({ className }: PublicFooterProps) {
           ))}
         </div>
 
+        {/* In-development disclaimer — invites feedback site-wide */}
+        <div className="border-t border-gray-800 pt-6">
+          <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
+            <strong className="text-white">Heads up — we&apos;re still building.</strong> SwingVantage is in active
+            development. If there&apos;s anything you can tell us so we can improve, we&apos;d love to hear it.{' '}
+            <Link href="/contact" className="font-semibold text-white underline hover:text-primary">
+              Contact us
+            </Link>{' '}
+            and help shape what we build next.
+          </p>
+        </div>
+
         {/* AI disclaimer + copyright */}
-        <div className="border-t border-gray-800 pt-6 space-y-3">
+        <div className="border-t border-gray-800 pt-6 mt-6 space-y-3">
           <p className="text-xs text-muted-foreground leading-relaxed max-w-3xl">
             <strong className="text-muted-foreground">AI Disclaimer:</strong> SwingVantage&apos;s AI coaching helps
             identify swing patterns and prioritize practice. It is not a substitute for a qualified

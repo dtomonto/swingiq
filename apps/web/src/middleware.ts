@@ -43,6 +43,7 @@ const PUBLIC_PATHS = new Set([
   '/about',
   '/sports',
   '/updates',
+  '/dev-updates',
   '/start',
   '/free-swing-analysis',
   // Audience landing pages
@@ -52,6 +53,7 @@ const PUBLIC_PATHS = new Set([
   '/creators',
   '/partners',
   // Trust & legal
+  '/contact',
   '/privacy',
   '/terms',
   '/trust',
@@ -89,6 +91,12 @@ const PUBLIC_PREFIXES = [
   '/manifest',
   '/icons/',
   '/api/health',
+  // Public form endpoints — anonymous visitors on public pages must be able
+  // to POST these. Each self-rate-limits by IP and stores/sends nothing
+  // sensitive. Without these, a logged-out visitor's submission is redirected
+  // to /login and the form silently fails (the lead/feedback never arrives).
+  '/api/contact',
+  '/api/email-capture',
   // Email-confirmation / auth callbacks must be reachable while logged
   // out — they are what ESTABLISH the session. See app/auth/confirm.
   '/auth/',
