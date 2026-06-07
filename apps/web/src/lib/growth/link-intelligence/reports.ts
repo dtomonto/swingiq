@@ -42,7 +42,7 @@ const titleFor: Record<LinkRunCadence, string> = {
 };
 
 export function buildReport(cadence: LinkRunCadence, input: ReportInput): LinkReport {
-  const { run, findings, recommendations, opportunities, competitorGaps, aiSearch, clusters } = input;
+  const { run, recommendations, opportunities, competitorGaps, aiSearch, clusters } = input;
 
   const autoSafe = recommendations.filter((r) => r.autoSafe).length;
   const topClusters = [...clusters].filter((c) => c.pageCount > 0).sort((a, b) => b.authorityScore - a.authorityScore);

@@ -23,6 +23,10 @@ interface CapabilityItem {
   label: string;
   /** If set, this capability is already achievable via the AI Strategist using this task key. */
   aiTask?: string;
+  /** If set, this capability is LIVE in a dedicated tool — links there. */
+  href?: string;
+  /** Short label for the live link (e.g. "Link Intelligence"). */
+  liveLabel?: string;
 }
 
 // ── Capability definitions ────────────────────────────────────
@@ -43,10 +47,16 @@ const SEO_ITEMS: CapabilityItem[] = [
   { label: 'Schema recommendations' },
 ];
 
-// Mark items that map to AI Strategist tasks
+// Mark items that map to AI Strategist tasks OR are now LIVE in a dedicated tool.
 const SEO_ITEMS_FINAL: CapabilityItem[] = SEO_ITEMS.map((item) => {
   if (item.label === 'Keyword cluster planner' || item.label === 'Blog topic generator') {
     return { ...item, aiTask: 'seo-topics' };
+  }
+  if (item.label === 'Internal linking suggestions') {
+    return { ...item, href: '/admin/growth/internal-links', liveLabel: 'Internal Links' };
+  }
+  if (item.label === 'Competitor content gap tracker') {
+    return { ...item, href: '/admin/growth/market-intel', liveLabel: 'Market Intel' };
   }
   return item;
 });
@@ -92,32 +102,40 @@ function AiStratBadge({ taskKey }: { taskKey: string }) {
   );
 }
 
+// ── Live-tool badge (capability shipped in a dedicated tool) ──
+function LiveToolBadge({ href, label }: { href: string; label: string }) {
+  return (
+    <Link href={href} className="shrink-0" title={`Open ${label}`}>
+      <Badge className="bg-green-500/15 border-green-500/30 text-green-400 hover:bg-green-500/25 transition-colors gap-1">
+        <CheckCircle2 className="w-2.5 h-2.5" />
+        Live · {label}
+      </Badge>
+    </Link>
+  );
+}
+
 // ── Capability checklist ──────────────────────────────────────
 function CapabilityList({ items }: { items: CapabilityItem[] }) {
   return (
     <ul className="space-y-2">
-      {items.map((item) => (
-        <li key={item.label} className="flex items-center gap-2.5">
-          {item.aiTask ? (
-            <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
-          ) : (
-            <Circle className="w-4 h-4 text-gray-700 shrink-0" />
-          )}
-          <span
-            className={
-              item.aiTask
-                ? 'text-sm text-gray-200 flex-1'
-                : 'text-sm text-gray-400 flex-1'
-            }
-          >
-            {item.label}
-          </span>
-          {item.aiTask && <AiStratBadge taskKey={item.aiTask} />}
-          {!item.aiTask && (
-            <Badge className="bg-gray-800 border-gray-700 text-gray-600">planned</Badge>
-          )}
-        </li>
-      ))}
+      {items.map((item) => {
+        const shipped = Boolean(item.aiTask || item.href);
+        return (
+          <li key={item.label} className="flex items-center gap-2.5">
+            {shipped ? (
+              <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
+            ) : (
+              <Circle className="w-4 h-4 text-gray-700 shrink-0" />
+            )}
+            <span className={shipped ? 'text-sm text-gray-200 flex-1' : 'text-sm text-gray-400 flex-1'}>
+              {item.label}
+            </span>
+            {item.href && item.liveLabel && <LiveToolBadge href={item.href} label={item.liveLabel} />}
+            {item.aiTask && <AiStratBadge taskKey={item.aiTask} />}
+            {!shipped && <Badge className="bg-gray-800 border-gray-700 text-gray-600">planned</Badge>}
+          </li>
+        );
+      })}
     </ul>
   );
 }

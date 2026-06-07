@@ -10,9 +10,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Gauge, Layers, Megaphone, FlaskConical, FileText, Lightbulb, ClipboardList,
-  TrendingUp, ArrowRight, Sparkles, CalendarDays,
+  TrendingUp, ArrowRight, Sparkles, CalendarDays, Network,
 } from 'lucide-react';
 import { getOverviewSnapshot } from '@/lib/growth/repository';
+import { runLinkAgent } from '@/lib/growth/link-intelligence';
 import { aiConfigured, analyticsConfigured } from '@/lib/config/integrations';
 import { ModuleHeader, KpiCard, SectionCard, PriorityBadge } from './_components/ui';
 import { formatDate, humanize } from '@/lib/growth/format';
@@ -27,6 +28,10 @@ export default async function GrowthOverviewPage() {
   const analyticsOn = analyticsConfigured(process.env);
   const aiOn = aiConfigured(process.env);
 
+  // Live internal-link health from the Link Intelligence Agent (in-memory).
+  const link = runLinkAgent({ cadence: 'manual' });
+  const linkAccent = link.run.internalLinkHealth >= 70 ? 'text-green-400' : link.run.internalLinkHealth >= 45 ? 'text-amber-400' : 'text-red-400';
+
   const portfolio = [
     { label: 'Channels', value: snap.counts.channels, icon: Layers, href: '/admin/growth/channels', accent: 'text-blue-400' },
     { label: 'Active campaigns', value: snap.counts.activeCampaigns, icon: Megaphone, href: '/admin/growth/campaigns', accent: 'text-green-400' },
@@ -34,6 +39,7 @@ export default async function GrowthOverviewPage() {
     { label: 'Content in pipeline', value: snap.counts.contentInProgress, icon: FileText, href: '/admin/growth/content', accent: 'text-amber-400' },
     { label: 'Open recommendations', value: snap.counts.openRecommendations, icon: Lightbulb, href: '/admin/growth/recommendations', accent: 'text-green-400' },
     { label: 'Open tasks', value: snap.counts.openTasks, icon: ClipboardList, href: '/admin/growth/operations', accent: 'text-blue-400' },
+    { label: 'Internal-link health', value: `${link.run.internalLinkHealth}/100`, icon: Network, href: '/admin/growth/link-intelligence', accent: linkAccent },
   ];
 
   return (
@@ -51,7 +57,7 @@ export default async function GrowthOverviewPage() {
           <div className="text-sm text-amber-200/90">
             <p className="font-semibold text-amber-300">Reading the numbers</p>
             <p className="mt-1 text-xs leading-relaxed">
-              Portfolio counts below are <strong>real counts of items you've planned in GrowthOS</strong> (seeded with demo data today).
+              Portfolio counts below are <strong>real counts of items you&apos;ve planned in GrowthOS</strong> (seeded with demo data today).
               Funnel performance KPIs are <strong>placeholders</strong> until you connect an analytics provider —
               GrowthOS never shows invented metrics as real.{' '}
               {analyticsOn

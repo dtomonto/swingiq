@@ -106,6 +106,9 @@ const PUBLIC_PREFIXES = [
   // Cron entry for scheduled social publishing — Vercel Cron has no Supabase
   // session; the route self-protects with CRON_SECRET. See api/social/run-scheduled.
   '/api/social/run-scheduled',
+  // Cron entry for the Link Intelligence Agent — same rationale; the route
+  // self-protects with CRON_SECRET. See api/growth/link-intelligence/cron.
+  '/api/growth/link-intelligence/cron',
 ];
 
 // A subtree prefix P matches: the index (P), nested children (P/…), and the

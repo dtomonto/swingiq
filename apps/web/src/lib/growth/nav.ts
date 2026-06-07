@@ -15,6 +15,7 @@ import {
   Palette, FolderOpen,
   ShieldCheck,
   Sparkles, Lightbulb, ClipboardList,
+  Network, Link2,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -57,6 +58,13 @@ export const GROWTH_NAV: NavGroup[] = [
       { key: 'seo', label: 'SEO / AEO / GEO', href: `${BASE}/seo`, icon: Search, description: 'Organic + answer-engine + generative-search visibility.' },
       { key: 'content', label: 'Content Studio', href: `${BASE}/content`, icon: FileText, description: 'Central content pipeline with a repurposing engine.' },
       { key: 'social', label: 'Organic Social', href: `${BASE}/social`, icon: Share2, description: 'Social calendar, pillars, hooks, and post drafts.' },
+    ],
+  },
+  {
+    label: 'Authority & Links',
+    items: [
+      { key: 'link-intelligence', label: 'Link Intelligence', href: `${BASE}/link-intelligence`, icon: Network, description: 'The links brain: internal-link health, backlink opportunities, competitor gaps, AEO readiness.' },
+      { key: 'internal-links', label: 'Internal Links', href: `${BASE}/internal-links`, icon: Link2, description: 'Internal-link recommendations + site audit (orphans, broken, anchors).' },
     ],
   },
   {

@@ -3,5 +3,9 @@
   "buildCommand": "cd ../.. && npx turbo run build --filter=@swingiq/web",
   "outputDirectory": ".next",
   "installCommand": "cd ../.. && npm install",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "crons": [
+    { "path": "/api/growth/link-intelligence/cron?cadence=weekly", "schedule": "0 8 * * 1" },
+    { "path": "/api/growth/link-intelligence/cron?cadence=monthly", "schedule": "0 9 1 * *" }
+  ]
 }
