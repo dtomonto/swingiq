@@ -46,13 +46,19 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <div className="min-h-screen bg-gray-950 text-gray-100">
       {/* Admin top bar */}
       <div className="bg-gray-900 border-b border-gray-800 px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-2 py-0.5 rounded-sm">
+        <div className="flex items-center gap-3 overflow-x-auto">
+          <span className="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-2 py-0.5 rounded-sm shrink-0">
             ADMIN
           </span>
-          <span className="text-sm font-semibold text-gray-200">SwingVantage Internal</span>
+          <nav className="flex items-center gap-3 text-xs text-gray-400">
+            <a href="/admin/growth" className="hover:text-gray-100 transition-colors whitespace-nowrap">GrowthOS</a>
+            <a href="/admin/insights" className="hover:text-gray-100 transition-colors whitespace-nowrap">Insights</a>
+            <a href="/admin/reengage" className="hover:text-gray-100 transition-colors whitespace-nowrap">Re-engage</a>
+            <a href="/admin/ads" className="hover:text-gray-100 transition-colors whitespace-nowrap">AdsOS</a>
+            <a href="/admin/video-studio" className="hover:text-gray-100 transition-colors whitespace-nowrap">Video Studio</a>
+          </nav>
         </div>
-        <a href="/dashboard" className="text-xs text-gray-400 hover:text-gray-200 transition-colors">
+        <a href="/dashboard" className="text-xs text-gray-400 hover:text-gray-200 transition-colors whitespace-nowrap shrink-0">
           ← Back to app
         </a>
       </div>
