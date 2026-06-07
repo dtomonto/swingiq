@@ -45,7 +45,7 @@ const quickActions = [
   { label: 'Import CSV', href: '/sessions/import', icon: Upload, color: 'bg-accent-secondary/10 text-accent-secondary hover:bg-accent-secondary/15' },
   { label: 'Diagnose', href: '/diagnose', icon: Target, color: 'bg-success/10 text-success hover:bg-success/15' },
   { label: 'Schedule', href: '/practice', icon: CalendarDays, color: 'bg-primary/10 text-primary hover:bg-primary/15' },
-  { label: 'Add Club', href: '/bag', icon: Plus, color: 'bg-accent-secondary/10 text-accent-secondary hover:bg-accent-secondary/15' },
+  { label: 'Add Club', href: '/equipment/golf', icon: Plus, color: 'bg-accent-secondary/10 text-accent-secondary hover:bg-accent-secondary/15' },
   { label: 'Upload Video', href: '/video', icon: Video, color: 'bg-warning/10 text-warning hover:bg-warning/15' },
   { label: 'Pre-Round', href: '/pre-round', icon: Sun, color: 'bg-primary/10 text-primary hover:bg-primary/15' },
   { label: 'Training', href: '/training', icon: Dumbbell, color: 'bg-warning/10 text-warning hover:bg-warning/15' },
@@ -678,7 +678,7 @@ export function DashboardContent() {
                     );
                   })}
                   {clubs.length > 3 && (
-                    <Link href="/bag" className="text-xs text-success hover:underline block text-center mt-1">
+                    <Link href="/equipment/golf" className="text-xs text-success hover:underline block text-center mt-1">
                       +{clubs.length - 3} more clubs →
                     </Link>
                   )}
@@ -687,7 +687,7 @@ export function DashboardContent() {
                 <EmptyState
                   title="No clubs added yet."
                   description="Add the clubs in your bag to unlock gap analysis and per-club scores."
-                  action={{ label: 'Add Clubs', href: '/bag', variant: 'outline' }}
+                  action={{ label: 'Add Clubs', href: '/equipment/golf', variant: 'outline' }}
                   compact
                 />
               )}
@@ -735,7 +735,7 @@ export function DashboardContent() {
                 {gapAnalysis.largest_gap && gapAnalysis.largest_gap.gap_status === 'too_large' && (
                   <p className="text-xs text-error mt-2">⚠ Largest gap: {gapAnalysis.largest_gap.club_name} — consider adding a club</p>
                 )}
-                <Link href="/bag" className="block mt-3">
+                <Link href="/equipment/golf" className="block mt-3">
                   <Button variant="outline" size="sm" className="w-full">Manage Bag →</Button>
                 </Link>
               </CardBody>
