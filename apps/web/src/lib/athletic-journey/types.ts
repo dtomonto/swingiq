@@ -468,3 +468,22 @@ export interface SportInterest {
   interestType: SportInterestType;
   createdAt: string;
 }
+
+// ── Persistence (self-contained journey store) ────────────────
+
+/** Athlete-entered inputs the main store doesn't already track. */
+export interface JourneyProfileExtra {
+  /** Golf: typical 18-hole score. */
+  typicalScore?: number | null;
+  /** Logged competitive outings the athlete recorded in the journey. */
+  loggedCompetitions?: number;
+}
+
+/** A dated point in the athlete's journey, for the history timeline. */
+export interface JourneySnapshot {
+  date: string; // YYYY-MM-DD
+  stageCode: string;
+  stageOrder: number;
+  momentum: number;
+  confidence: ConfidenceLevel;
+}
