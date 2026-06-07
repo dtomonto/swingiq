@@ -9,6 +9,7 @@ import { Analytics } from '@/components/analytics/Analytics';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { siteConfig } from '@/config/site';
+import { ServiceWorkerRegistrar } from '@/components/pwa/ServiceWorkerRegistrar';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Analytics />
         <VercelAnalytics />
         <SpeedInsights />
+        <ServiceWorkerRegistrar />
       </body>
     </html>
   );

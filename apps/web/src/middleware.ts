@@ -47,6 +47,10 @@ const PUBLIC_PATHS = new Set([
   '/dev-updates',
   '/start',
   '/free-swing-analysis',
+  // PWA offline fallback — served by the service worker when a navigation
+  // fails offline. Must be reachable without a session so the worker can
+  // precache it regardless of auth state. See public/sw.js.
+  '/offline',
   // Audience landing pages
   '/parents',
   '/coaches',

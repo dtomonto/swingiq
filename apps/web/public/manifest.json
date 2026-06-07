@@ -1,9 +1,14 @@
 {
+  "id": "/",
+  "scope": "/",
   "name": "SwingVantage — AI Swing Performance Platform",
   "short_name": "SwingVantage",
   "description": "Free AI swing analysis for golf, tennis, baseball, and softball. Upload a swing or import launch-monitor data for diagnoses, drills, and improvement tracking.",
   "start_url": "/dashboard",
   "display": "standalone",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["sports", "health", "fitness", "education"],
   "background_color": "#f9fafb",
   "theme_color": "#1a3a2a",
   "orientation": "portrait-primary",
@@ -19,6 +24,26 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Analyze a swing",
+      "short_name": "Analyze",
+      "description": "Diagnose your latest swing",
+      "url": "/diagnose"
+    },
+    {
+      "name": "Practice",
+      "short_name": "Practice",
+      "description": "Open your training plan",
+      "url": "/training"
+    },
+    {
+      "name": "Today",
+      "short_name": "Today",
+      "description": "Your dashboard",
+      "url": "/dashboard"
     }
   ]
 }
