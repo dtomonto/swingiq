@@ -187,12 +187,18 @@
   [tabindex] {
     -webkit-tap-highlight-color: transparent;
   }
-  @media (max-width: 640px) {
-    input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']),
-    select,
-    textarea {
-      font-size: 16px;
-    }
+}
+
+/* Unlayered on purpose: CSS cascade layers rank unlayered rules ABOVE every
+   @layer, so this overrides Tailwind's text-* utilities (e.g. an input that
+   carries `text-sm` = 14px). Phones only (≤640px). Without it a small input
+   still triggers iOS Safari's focus auto-zoom — the whole reason we can keep
+   pinch-zoom enabled in app/layout.tsx. */
+@media (max-width: 640px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']),
+  select,
+  textarea {
+    font-size: 16px;
   }
 }
 
