@@ -7,7 +7,7 @@
 // ============================================================
 
 import { getPlacement } from './placements';
-import { HOUSE_ADS } from './houseAds';
+import { HOUSE_ADS } from './house-ads';
 import type { AdContext, AdDecision, AdState, HouseAd } from './types';
 
 /**
