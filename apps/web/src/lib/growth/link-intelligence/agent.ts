@@ -128,33 +128,42 @@ export function runLinkAgent(opts: { cadence?: LinkRunCadence; env?: NodeJS.Proc
 }
 
 /**
- * Persist a run's records into GrowthOS repositories (server-only). Upserts by
- * id. Existing statuses on internal-link recs are PRESERVED so a re-run never
- * clobbers a human's approve/reject decision.
+ * Persist a run into GrowthOS repositories (server-only). Upserts by id.
+ *
+ * IMPORTANT: internal-link recommendations + audit findings are NOT bulk-saved
+ * here — they're recomputable and rendered LIVE on their pages, and a single
+ * rec persists on demand when a human acts on it (the apply API). We only
+ * persist the records OTHER modules consume (backlink opps → Digital PR,
+ * competitor gaps → Market Intel, content ideas → Recommendations) plus the
+ * run log. This keeps a DB-backed run to ~30 fast upserts (no function-timeout
+ * risk) instead of ~150 sequential round-trips.
  */
 export async function persistLinkAgentResult(result: LinkAgentResult): Promise<{ persisted: number }> {
-  const {
-    internalLinkRecsRepo, linkFindingsRepo, linkRunsRepo,
-    authorityRepo, competitorsRepo, recommendationsRepo,
-  } = await import('../repository');
+  const now = new Date().toISOString();
+  const rows = [
+    ...result.backlinkOpportunities.map((d) => ({ id: d.id, kind: 'authority', data: d, created_at: now, updated_at: now })),
+    ...result.competitorGaps.map((d) => ({ id: d.id, kind: 'competitor', data: d, created_at: now, updated_at: now })),
+    ...result.contentGaps.map((d) => ({ id: d.id, kind: 'recommendation', data: d, created_at: now, updated_at: now })),
+    { id: result.run.id, kind: 'link-run', data: result.run, created_at: now, updated_at: now },
+  ];
 
-  let persisted = 0;
-
-  // Internal-link recs — preserve any human decision already recorded.
-  const existingRecs = await internalLinkRecsRepo.list();
-  const statusById = new Map(existingRecs.map((r) => [r.id, r.status]));
-  for (const rec of result.recommendations) {
-    const keepStatus = statusById.get(rec.id);
-    await internalLinkRecsRepo.create(keepStatus && keepStatus !== 'pending' ? { ...rec, status: keepStatus } : rec);
-    persisted += 1;
+  // Fast path: ONE bulk upsert when Supabase is configured (avoids ~N slow
+  // round-trips → function timeouts). Matches the growth_records shape.
+  const { createSupabaseAdminClient } = await import('@/lib/supabase-admin');
+  const client = createSupabaseAdminClient();
+  if (client) {
+    const { error } = await client.from('growth_records').upsert(rows, { onConflict: 'id' });
+    if (!error) return { persisted: rows.length };
+    // fall through to the in-process store on error (e.g. table missing)
   }
 
-  for (const f of result.findings) { await linkFindingsRepo.create(f); persisted += 1; }
-  for (const o of result.backlinkOpportunities) { await authorityRepo.create(o); persisted += 1; }
-  for (const g of result.competitorGaps) { await competitorsRepo.create(g); persisted += 1; }
-  for (const c of result.contentGaps) { await recommendationsRepo.create(c); persisted += 1; }
-  await linkRunsRepo.create(result.run);
-  persisted += 1;
-
-  return { persisted };
+  // Keyless / error fallback: in-process memory store (instant).
+  const { authorityRepo, competitorsRepo, recommendationsRepo, linkRunsRepo } = await import('../repository');
+  await Promise.all([
+    ...result.backlinkOpportunities.map((d) => authorityRepo.create(d)),
+    ...result.competitorGaps.map((d) => competitorsRepo.create(d)),
+    ...result.contentGaps.map((d) => recommendationsRepo.create(d)),
+    linkRunsRepo.create(result.run),
+  ]);
+  return { persisted: rows.length };
 }

@@ -12,6 +12,9 @@ import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { runLinkAgent, persistLinkAgentResult } from '@/lib/growth/link-intelligence';
 import type { LinkRunCadence } from '@/lib/growth/types';
 
+// Generous ceiling for cold starts + Supabase latency (handler itself ~2s).
+export const maxDuration = 60;
+
 const CADENCES: LinkRunCadence[] = ['daily', 'weekly', 'monthly'];
 
 async function authorized(req: NextRequest): Promise<boolean> {
