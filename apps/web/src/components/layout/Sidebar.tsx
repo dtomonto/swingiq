@@ -43,11 +43,14 @@ import {
   Film,
   HeartPulse,
   Gift,
+  Bell,
+  Footprints,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
 import { useSwingVantageStore } from '@/store';
+import { isKnownMinor } from '@/lib/bodysync';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
 import { ContextualHelpButton } from '@/components/tutorial/ContextualHelpButton';
 
@@ -72,8 +75,10 @@ interface NavSection extends NavLeaf {
 
 export function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
-  const { training } = useSwingVantageStore();
+  const { training, settings } = useSwingVantageStore();
   const { activeSport, sportEmoji, sportTagline, sportLabels, isGolf } = useSport();
+  // BodySync (health data) is adults-only until validated for minors.
+  const hideBodySync = isKnownMinor(settings.usage_category);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
@@ -91,6 +96,7 @@ export function Sidebar({ onClose }: SidebarProps) {
         { href: '/motion-lab', label: 'Motion Lab (3D)', icon: FlaskConical },
         { href: '/agi', label: 'Athlete GI', icon: BrainCircuit },
         { href: '/coach', label: 'Coach & Team', icon: Users },
+        { href: '/team', label: 'Team Intelligence', icon: BarChart3 },
         { href: '/video', label: 'Video Analysis', icon: Video },
         { href: '/avatar', label: '3D Swing Avatar', icon: PersonStanding },
         { href: '/ai-coach', label: 'AI Coach', icon: MessageSquare },
@@ -115,7 +121,7 @@ export function Sidebar({ onClose }: SidebarProps) {
       icon: TrendingUp,
       children: [
         { href: '/progress', label: 'Progress', icon: TrendingUp },
-        { href: '/bodysync', label: 'BodySync', icon: HeartPulse },
+        ...(hideBodySync ? [] : [{ href: '/bodysync', label: 'BodySync', icon: HeartPulse }]),
         { href: '/arc', label: 'Player Arc', icon: Route },
         { href: '/notes', label: 'Daily Notes', icon: NotebookPen },
         { href: '/sessions', label: sportLabels.sessions, icon: Activity },
@@ -131,6 +137,7 @@ export function Sidebar({ onClose }: SidebarProps) {
 
   const accountItems: NavLeaf[] = [
     { href: '/profile', label: sportLabels.profile_short, icon: User },
+    { href: '/reminders', label: 'Reminders', icon: Bell },
     {
       href: isGolf ? '/equipment/golf' : '/equipment',
       label: isGolf ? 'Equipment' : sportLabels.equipment_short,
@@ -243,6 +250,12 @@ export function Sidebar({ onClose }: SidebarProps) {
         <Link href="/recruiting" onClick={onClose} className={rowClass(isActive('/recruiting'))}>
           <Trophy size={18} className="shrink-0" aria-hidden="true" />
           <span className="flex-1">Recruiting Hub</span>
+        </Link>
+
+        {/* Athletic Journey — beginner→pro development pathway */}
+        <Link href="/journey" onClick={onClose} className={rowClass(isActive('/journey'))}>
+          <Footprints size={18} className="shrink-0" aria-hidden="true" />
+          <span className="flex-1">Athletic Journey</span>
         </Link>
 
         {/* Journey */}
