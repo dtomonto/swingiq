@@ -120,7 +120,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     id: 'seo', label: 'SEO / AEO / GEO', href: '/admin/seo', icon: Search,
-    group: 'content', built: false, permission: 'seo.edit',
+    group: 'content', built: true, permission: 'seo.edit',
     blurb: 'Manage how SwingVantage appears in Google and AI answer engines.',
     keywords: ['search', 'keywords', 'rankings', 'schema', 'aeo', 'geo'],
   },
