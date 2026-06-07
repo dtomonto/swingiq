@@ -148,6 +148,14 @@ const DOC_SPECS: DocSpec[] = [
         if (!prev || String(cn.lastSyncAt ?? '') >= String(prev.lastSyncAt ?? '')) connById.set(p, cn);
       }
 
+      // Daily device summaries — union by date+metric (import/newer wins).
+      const summByKey = new Map<string, Record<string, unknown>>();
+      for (const sm of [...asArr(co.summaries), ...asArr(lo.summaries)]) {
+        summByKey.set(`${sm.date}|${sm.metricType}`, sm);
+      }
+      const summaries = [...summByKey.values()]
+        .sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(-2000);
+
       const ls = asObj(lo.settings); const cs = asObj(co.settings);
       const consentDates = [ls.consentedAt, cs.consentedAt].filter(Boolean) as string[];
       return {
@@ -155,14 +163,36 @@ const DOC_SPECS: DocSpec[] = [
         settings: {
           ...cs, ...ls, // prefer this device's settings…
           enabled: ls.enabled === true || cs.enabled === true, // …but never lose "enabled"
+          ageConfirmed18: ls.ageConfirmed18 === true || cs.ageConfirmed18 === true, // …or the 18+ attestation
           consentedAt: consentDates.length ? consentDates.sort()[0] : null, // earliest consent
         },
         permissions: { ...asObj(co.permissions), ...asObj(lo.permissions) }, // prefer local
         connections: [...connById.values()],
         checkins,
+        summaries,
         baselines:
           String(asObj(lo.baselines).updatedAt ?? '') >= String(asObj(co.baselines).updatedAt ?? '')
             ? lo.baselines : co.baselines,
+      };
+    },
+  },
+  // ReferralOS — keep one stable invite code (earliest createdAt wins),
+  // union shares + credited signups by id, union acknowledged tiers.
+  {
+    key: 'swingiq-referral-v1',
+    merge: (l, c) => {
+      const lo = asObj(l); const co = asObj(c);
+      const lCreated = String(lo.createdAt ?? '');
+      const cCreated = String(co.createdAt ?? '');
+      const earlierIsLocal = !cCreated || (lCreated && lCreated <= cCreated);
+      return {
+        version: 1,
+        code: (earlierIsLocal ? lo.code : co.code) ?? lo.code ?? co.code,
+        shares: unionById(lo.shares, co.shares, 'id', 500),
+        credited: unionById(lo.credited, co.credited, 'id', 1000),
+        acknowledgedTiers: unionStrings(lo.acknowledgedTiers, co.acknowledgedTiers, 50),
+        settings: { ...asObj(co.settings), ...asObj(lo.settings) },
+        createdAt: earlierIsLocal ? (lo.createdAt ?? co.createdAt) : (co.createdAt ?? lo.createdAt),
       };
     },
   },
