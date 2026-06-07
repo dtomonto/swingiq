@@ -12,13 +12,14 @@ import { MARKETING_LOCALES, EN_FLAT, flatDict } from './dict';
 import { CHROME_KEYS, keysForPath } from './registry';
 
 describe('marketing localization exposure (real data)', () => {
-  it('exposes the homepage in Spanish', () => {
+  it('exposes localized pages in Spanish', () => {
     expect(currentLocalesFor('/')).toContain('es');
+    expect(currentLocalesFor('/how-it-works')).toContain('es');
   });
 
   it('does not expose unregistered pages in any locale', () => {
     // Not registered as localizable → must never get a /es URL or hreflang.
-    expect(currentLocalesFor('/how-it-works')).toEqual([]);
+    expect(currentLocalesFor('/pricing')).toEqual([]);
     expect(currentLocalesFor('/totally-unknown')).toEqual([]);
   });
 

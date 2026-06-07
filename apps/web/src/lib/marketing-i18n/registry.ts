@@ -20,6 +20,7 @@ export const CHROME_KEYS: string[] = Object.keys(EN_FLAT).filter(
  */
 export const PAGE_CONTENT_KEYS: Record<string, string[]> = {
   '/': Object.keys(EN_FLAT).filter((k) => k.startsWith('home.')),
+  '/how-it-works': Object.keys(EN_FLAT).filter((k) => k.startsWith('howItWorks.')),
 };
 
 /** Paths that have localizable body content (candidates for /[lang]/...). */

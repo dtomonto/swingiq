@@ -1,22 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { buildMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+// buildMetadata adds canonical + hreflang alternates linking to localized
+// versions (e.g. /es/how-it-works) when they exist — see lib/seo/metadata.
+export const metadata = buildMetadata({
   title: 'How SwingVantage Works — AI Swing Analysis for Golf, Tennis, Baseball & Softball',
   description:
     'Learn how SwingVantage analyzes your swing in 4 steps: select your sport, upload data or video, get AI analysis, and follow your personalized practice plan.',
-  openGraph: {
-    title: 'How SwingVantage Works — AI Swing Analysis',
-    description:
-      'Four steps to better technique: select your sport, upload data or video, get AI diagnosis, follow your practice plan.',
-    type: 'website',
-    url: 'https://swingvantage.com/how-it-works',
-  },
-  alternates: {
-    canonical: '/how-it-works',
-  },
-};
+  path: '/how-it-works',
+});
 
 const steps = [
   {

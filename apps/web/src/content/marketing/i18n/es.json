@@ -122,5 +122,79 @@
       "subtitle": "Análisis con IA gratis para golf, tenis, béisbol y softball. Sin necesidad de cuenta.",
       "button": "Empieza Aquí — Gratis"
     }
+  },
+  "howItWorks": {
+    "meta": {
+      "title": "Cómo Funciona SwingVantage — Análisis de Swing con IA para Golf, Tenis, Béisbol y Softball",
+      "description": "Descubre cómo SwingVantage analiza tu swing en 4 pasos: elige tu deporte, sube datos o video, recibe el análisis con IA y sigue tu plan de práctica personalizado."
+    },
+    "hero": {
+      "eyebrow": "Cómo Funciona",
+      "title": "Mejor Técnica en 4 Pasos",
+      "subtitle": "SwingVantage combina un motor de análisis determinista con IA para ofrecer a cada atleta un camino de desarrollo personalizado y basado en datos — en 5 deportes.",
+      "cta": "Empieza Mi Análisis Gratis"
+    },
+    "process": {
+      "heading": "El Proceso de SwingVantage",
+      "step1Title": "Elige Tu Deporte",
+      "step1Desc": "SwingVantage es compatible con golf, tenis, béisbol, softball de lanzamiento lento y softball de lanzamiento rápido. Cada deporte tiene su propio motor de análisis, biblioteca de ejercicios y referencias calibradas para esa disciplina.",
+      "step2Title": "Sube o Introduce Tus Datos",
+      "step2Desc": "Importa un CSV de tu monitor de lanzamiento, sube un video de tu swing, toma una captura e introduce tus estadísticas a mano, o conecta un sensor Bluetooth. SwingVantage se adapta a donde ya están tus datos.",
+      "step3Title": "Recibe Tu Análisis con IA",
+      "step3Desc": "Un motor de reglas determinista compara tus números con referencias biomecánicas comprobadas. Luego una capa de IA genera una lista priorizada de tus principales fallos de swing e identifica la corrección de mayor impacto.",
+      "step4Title": "Sigue Tu Plan de Práctica",
+      "step4Desc": "Recibe ejercicios específicos para tu patrón exacto de fallos, un calendario de práctica semanal según tu disponibilidad y referencias de progreso para que veas una mejora medible."
+    },
+    "sports": {
+      "heading": "5 Deportes, Una Plataforma",
+      "subtitle": "Cada deporte tiene un motor de análisis dedicado. Puedes cambiar de deporte en cualquier momento.",
+      "learnMore": "Saber más →",
+      "golfName": "Golf",
+      "golfDesc": "Análisis de datos del monitor de lanzamiento. Trayectoria del palo, ángulo de cara, ángulo de ataque, efecto y referencias de distancia alineadas con estadísticas del tour.",
+      "tennisName": "Tenis",
+      "tennisDesc": "Análisis de golpes basado en video. Derecha, revés, saque y volea desglosados fase por fase frente a modelos técnicos de la ATP/WTA.",
+      "pickleballName": "Pickleball",
+      "pickleballDesc": "Análisis de golpes de pala basado en video. Dinks, third-shot drops, drives, resets y voleas desglosados en torno al control de la cara de la pala y el juego en la cocina.",
+      "padelName": "Pádel",
+      "padelDesc": "Análisis de golpes consciente de las paredes. La bandeja, la víbora y la familia del smash, voleas, globos y juego de cristal desglosados en torno al control de la red y la posición en dobles.",
+      "baseballName": "Béisbol",
+      "baseballDesc": "Seguimiento de velocidad de salida, ángulo de lanzamiento, velocidad del bate y ángulo de ataque. Integra datos de HitTrax, Rapsodo y Blast Motion.",
+      "slowPitchName": "Softball de Lanzamiento Lento",
+      "slowPitchDesc": "Sincronización del arco, optimización del ángulo de lanzamiento y métricas de potencia calibradas específicamente para la mecánica y las certificaciones de bate del lanzamiento lento.",
+      "fastPitchName": "Softball de Lanzamiento Rápido",
+      "fastPitchDesc": "Análisis de swing corto a la bola. Profundidad del punto de contacto, ángulo de ataque y referencias de sincronización para niveles competitivos de lanzamiento rápido."
+    },
+    "privacy": {
+      "heading": "Prioriza la Privacidad. Híbrido Determinista + IA.",
+      "card1Title": "Tus Datos Siguen Siendo Tuyos",
+      "card1Desc": "Los datos se procesan localmente cuando es posible. Nunca vendemos tus datos. Elimina tu cuenta y todos tus datos cuando quieras.",
+      "card2Title": "Motor de Reglas + IA",
+      "card2Desc": "Primero se ejecutan reglas deterministas basadas en investigación biomecánica. La IA añade personalización y lenguaje — nunca un diagnóstico inventado.",
+      "card3Title": "Diseño para Móvil Primero",
+      "card3Desc": "Creada como una Progressive Web App. Funciona sin conexión para las funciones básicas. Instalable en cualquier teléfono sin tienda de aplicaciones."
+    },
+    "cta": {
+      "heading": "¿Listo para empezar?",
+      "subtitle": "Gratis. Sin suscripción. Funciona en cualquier dispositivo.",
+      "createAccount": "Crear Cuenta Gratis",
+      "goToDashboard": "Ir al Panel"
+    },
+    "faq": {
+      "heading": "Preguntas Comunes",
+      "q1": "¿SwingVantage es gratis?",
+      "a1": "Las herramientas de análisis principales son gratuitas. Funciones avanzadas como el historial de sesiones ilimitado, las cuentas de equipo y la revisión profesional de video están en la hoja de ruta de pago.",
+      "q2": "¿Necesito equipo especial?",
+      "a2": "No. La cámara de un smartphone basta para empezar con el análisis de video. Si tienes datos de un monitor de lanzamiento o un sensor, puedes importarlos para un análisis más profundo.",
+      "q3": "¿Para quién es SwingVantage?",
+      "a3": "SwingVantage está diseñado para atletas autodidactas, atletas que trabajan con entrenadores y quieren instrucción basada en datos, padres que siguen el desarrollo de jóvenes jugadores y propietarios de instalaciones que quieren una herramienta de entrenamiento escalable.",
+      "q4": "¿SwingVantage reemplaza a un entrenador humano?",
+      "a4": "No. SwingVantage es una herramienta de desarrollo que ayuda a los atletas a practicar con más propósito entre sesiones de entrenamiento. Los entrenadores humanos aportan contexto, retroalimentación basada en la sensación y una relación que el software no puede replicar."
+    },
+    "related": {
+      "label": "Relacionado: ",
+      "agi": "Inteligencia General del Atleta",
+      "methodology": "Metodología",
+      "trust": "Confianza y Seguridad"
+    }
   }
 }

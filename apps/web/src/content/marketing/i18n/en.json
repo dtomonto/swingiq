@@ -122,5 +122,79 @@
       "subtitle": "Free AI analysis for golf, tennis, baseball, and softball. No account needed.",
       "button": "Start Here — Free"
     }
+  },
+  "howItWorks": {
+    "meta": {
+      "title": "How SwingVantage Works — AI Swing Analysis for Golf, Tennis, Baseball & Softball",
+      "description": "Learn how SwingVantage analyzes your swing in 4 steps: select your sport, upload data or video, get AI analysis, and follow your personalized practice plan."
+    },
+    "hero": {
+      "eyebrow": "How It Works",
+      "title": "Better Technique in 4 Steps",
+      "subtitle": "SwingVantage combines a deterministic analysis engine with AI to give every athlete a personalized, data-driven development path — across 5 sports.",
+      "cta": "Start My Free Swing Check"
+    },
+    "process": {
+      "heading": "The SwingVantage Process",
+      "step1Title": "Select Your Sport",
+      "step1Desc": "SwingVantage supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own analysis engine, drill library, and benchmarks calibrated for that discipline.",
+      "step2Title": "Upload or Enter Your Data",
+      "step2Desc": "Import a CSV from your launch monitor, upload a swing video, take a screenshot and enter your stats manually, or connect a Bluetooth sensor. SwingVantage meets you where your data already lives.",
+      "step3Title": "Get Your AI Analysis",
+      "step3Desc": "A deterministic rules engine cross-references your numbers against proven biomechanical benchmarks. Then an AI layer generates a ranked list of your top swing faults and identifies your highest-leverage fix.",
+      "step4Title": "Follow Your Practice Plan",
+      "step4Desc": "Receive targeted drills matched to your exact fault pattern, a weekly practice schedule based on your availability, and progress benchmarks so you can see measurable improvement."
+    },
+    "sports": {
+      "heading": "5 Sports, One Platform",
+      "subtitle": "Every sport has a dedicated analysis engine. You can switch sports at any time.",
+      "learnMore": "Learn more →",
+      "golfName": "Golf",
+      "golfDesc": "Launch monitor data analysis. Club path, face angle, attack angle, spin, and distance benchmarks aligned with tour stats.",
+      "tennisName": "Tennis",
+      "tennisDesc": "Video-based stroke analysis. Forehand, backhand, serve, and volley phase-by-phase breakdown against ATP/WTA technical models.",
+      "pickleballName": "Pickleball",
+      "pickleballDesc": "Video-based paddle-stroke analysis. Dinks, third-shot drops, drives, resets, and volleys broken down around paddle-face control and the kitchen game.",
+      "padelName": "Padel",
+      "padelDesc": "Wall-aware stroke analysis. The bandeja, víbora and smash family, volleys, lobs, and glass play broken down around net control and doubles positioning.",
+      "baseballName": "Baseball",
+      "baseballDesc": "Exit velocity, launch angle, bat speed, and attack angle tracking. Integrates HitTrax, Rapsodo, and Blast Motion data.",
+      "slowPitchName": "Slow Pitch Softball",
+      "slowPitchDesc": "Arc timing, launch angle optimization, and power metrics calibrated specifically for slow pitch mechanics and bat certifications.",
+      "fastPitchName": "Fast Pitch Softball",
+      "fastPitchDesc": "Short-to-the-ball swing analysis. Contact point depth, attack angle, and timing benchmarks for competitive fast pitch levels."
+    },
+    "privacy": {
+      "heading": "Privacy-First. Deterministic + AI Hybrid.",
+      "card1Title": "Your Data Stays Yours",
+      "card1Desc": "Data is processed locally when possible. We never sell your data. Delete your account and all data at any time.",
+      "card2Title": "Rules Engine + AI",
+      "card2Desc": "Deterministic rules based on biomechanical research run first. AI adds personalization and language — never hallucinated diagnosis.",
+      "card3Title": "Mobile-First",
+      "card3Desc": "Built as a Progressive Web App. Works offline for basic features. Installable on any phone without an app store."
+    },
+    "cta": {
+      "heading": "Ready to get started?",
+      "subtitle": "Free. No subscription required. Works on any device.",
+      "createAccount": "Create Free Account",
+      "goToDashboard": "Go to Dashboard"
+    },
+    "faq": {
+      "heading": "Common Questions",
+      "q1": "Is SwingVantage free to use?",
+      "a1": "The core analysis tools are free. Advanced features like unlimited session history, team accounts, and professional video review are on the paid roadmap.",
+      "q2": "Do I need special equipment?",
+      "a2": "No. A smartphone camera is enough to get started with video analysis. If you have launch monitor or sensor data, you can import it for deeper analysis.",
+      "q3": "Who is SwingVantage for?",
+      "a3": "SwingVantage is designed for self-coached athletes, athletes working with coaches who want data-informed instruction, parents tracking youth player development, and facility owners who want a scalable coaching tool.",
+      "q4": "Is SwingVantage a replacement for a human coach?",
+      "a4": "No. SwingVantage is a development tool that helps athletes practice more purposefully between coaching sessions. Human coaches provide context, feel-based feedback, and relationships that software cannot replicate."
+    },
+    "related": {
+      "label": "Related: ",
+      "agi": "Athlete General Intelligence",
+      "methodology": "Methodology",
+      "trust": "Trust & Safety"
+    }
   }
 }
