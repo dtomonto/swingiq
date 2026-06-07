@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
+import { SportProofBlock } from '@/components/proof/SportProofBlock';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
@@ -188,6 +189,8 @@ export default function GolfSwingAnalysisPage() {
           </dl>
         </div>
       </section>
+
+      <SportProofBlock reportSlug="golf" />
 
       <RelatedGuides sport="golf" />
 
