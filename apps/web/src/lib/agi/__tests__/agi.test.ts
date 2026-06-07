@@ -9,7 +9,7 @@
 
 import type { GolferProfileInput } from '@swingiq/core';
 import { runAthleteGI } from '../engine';
-import { buildWorldModel, scoreBand } from '../worldModel';
+import { buildWorldModel, scoreBand } from '../world-model';
 import { isThinModel } from '../reasoning';
 import { DEMO_BUNDLE } from '../demo';
 import { buildCommitment, isRetestDue } from '../commitment';

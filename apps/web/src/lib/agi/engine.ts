@@ -7,7 +7,7 @@
 // and a prioritised plan. No React, no browser, no network — fully testable.
 // ============================================================
 
-import { buildWorldModel } from './worldModel';
+import { buildWorldModel } from './world-model';
 import { reason } from './reasoning';
 import { buildTransfers, buildKeystoneTranslations } from './transfer';
 import { buildGeneralPlan } from './planner';

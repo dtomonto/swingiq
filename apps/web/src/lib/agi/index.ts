@@ -9,7 +9,7 @@
 
 export * from './types';
 export { CAPABILITIES, getCapability, classifyMetric, goalToCapabilities } from './capabilities';
-export { buildWorldModel, scoreBand } from './worldModel';
+export { buildWorldModel, scoreBand } from './world-model';
 export { reason, isThinModel } from './reasoning';
 export { DEMO_BUNDLE } from './demo';
 export { gradeModel } from './trust';
@@ -17,7 +17,7 @@ export { buildTransfers, buildKeystoneTranslations } from './transfer';
 export { buildGeneralPlan } from './planner';
 export { buildProgress, progressToInsight, snapshotFromModel, focusCapability } from './progress';
 export { loadHistory, recordSnapshot, clearAgiHistory } from './history';
-export { loadInsightFeedback, recordInsightFeedback, clearInsightFeedback, type InsightVerdict } from './insightFeedback';
+export { loadInsightFeedback, recordInsightFeedback, clearInsightFeedback, type InsightVerdict } from './insight-feedback';
 export {
   buildCommitment,
   isRetestDue,
