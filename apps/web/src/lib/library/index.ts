@@ -5,7 +5,7 @@
 //   Combines the two video sources into ONE library:
 //     1. Feature Walkthroughs — read (not duplicated) from the Tutorial
 //        Center catalogue (lib/tutorial/videos.ts).
-//     2. Training & Instruction — the growing catalogue in trainingVideos.ts.
+//     2. Training & Instruction — the growing catalogue in training-videos.ts.
 //   Plus the search/filter/group helpers the hub UI uses.
 //
 //   It only READS the tutorial catalogue, so the two systems never collide.
@@ -16,7 +16,7 @@ import {
   hasRecording as tutorialHasRecording,
   getVideoSourceKind,
 } from '@/lib/tutorial/videos';
-import { getTrainingItems } from './trainingVideos';
+import { getTrainingItems } from './training-videos';
 import {
   type LibraryItem,
   type LibraryCategory,
@@ -26,7 +26,7 @@ import {
 } from './types';
 
 export * from './types';
-export { TRAINING_VIDEOS } from './trainingVideos';
+export { TRAINING_VIDEOS } from './training-videos';
 
 /** Parse an "m:ss" label to seconds (best-effort). */
 function labelToSeconds(label: string): number | undefined {

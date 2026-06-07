@@ -2,7 +2,7 @@
 // SwingVantage — Library training-video config
 // ------------------------------------------------------------
 // One entry per training video id: `lines` (spoken/caption track,
-// mirrors src/lib/library/trainingVideos.ts) + `scenes` (what to show).
+// mirrors src/lib/library/training-videos.ts) + `scenes` (what to show).
 // Scenes use the same best-effort helper API as the tutorial recorder
 // (go / dwell / gentleScroll / scrollTop / clickText / tryClick).
 //

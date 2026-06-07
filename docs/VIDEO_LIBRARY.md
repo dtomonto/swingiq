@@ -29,12 +29,12 @@ and **"Using SwingVantage with your launch monitor."**
    └─ LibraryBrowser  (search / category rails / sport filter / cards → modal)
         └─ getLibraryItems()   ← lib/library/index.ts
              ├─ featureWalkthroughs()  ← reads lib/tutorial/videos.ts (no edits)
-             └─ getTrainingItems()     ← lib/library/trainingVideos.ts
+             └─ getTrainingItems()     ← lib/library/training-videos.ts
                                           + recordings.generated.json (by convention)
 ```
 
 - `lib/library/types.ts` — the shared `LibraryItem` shape + categories.
-- `lib/library/trainingVideos.ts` — the training catalogue you grow.
+- `lib/library/training-videos.ts` — the training catalogue you grow.
 - `lib/library/index.ts` — combines both sources + search/filter/group helpers.
 - `components/library/*` — the hub UI + accessible player modal.
 
@@ -42,7 +42,7 @@ Nothing here edits the tutorial system — it only reads it, so the two never co
 
 ## Adding a training video
 
-1. **Add an entry** in `apps/web/src/lib/library/trainingVideos.ts`
+1. **Add an entry** in `apps/web/src/lib/library/training-videos.ts`
    (`id`, `title`, `description`, `category`, `sport`, `route`, `durationHint`,
    `script`). The written `script` is usable immediately as the transcript/fallback.
 2. **Add narration + on-screen scenes** for the same `id` in
