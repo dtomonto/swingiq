@@ -18,6 +18,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { isAdminUser } from '@/lib/auth/admin';
+import { safeEqual } from '@/lib/security/constant-time';
 import {
   STRATEGIST_TASKS,
   buildStrategistPrompt,
@@ -27,6 +29,19 @@ import {
 } from '@/lib/growth/ai/strategist';
 import { generateMarketingDraft } from '@/lib/growth/ai/provider';
 
+/**
+ * GrowthOS is an admin-only surface, so this AI endpoint must be admin-gated
+ * too (middleware only proves a session exists, not that it's an admin).
+ * Authorize via an allowlisted Supabase session (ADMIN_EMAILS) OR the
+ * x-admin-secret header (server/ops). Dev with no secret stays open.
+ */
+async function isGrowthAiAuthorized(req: NextRequest): Promise<boolean> {
+  const secret = process.env.ADMIN_SECRET;
+  if (secret && safeEqual(req.headers.get('x-admin-secret'), secret)) return true;
+  if (!secret && process.env.NODE_ENV === 'development') return true;
+  return isAdminUser();
+}
+
 // ── Handler ───────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
@@ -35,6 +50,12 @@ export async function POST(req: NextRequest) {
   const rl = await checkRateLimit(`${ip}:growth-ai`, { limit: 15, windowMs: 60_000 });
   if (!rl.allowed) {
     return rateLimitResponse();
+  }
+
+  // Admin-only (GrowthOS): a logged-in non-admin must NOT be able to invoke
+  // the paid AI strategist. Mirrors the rest of the GrowthOS API surface.
+  if (!(await isGrowthAiAuthorized(req))) {
+    return NextResponse.json({ error: 'Admin authorization required.' }, { status: 401 });
   }
 
   // Parse request body

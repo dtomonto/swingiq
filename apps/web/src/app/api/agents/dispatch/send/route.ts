@@ -7,14 +7,17 @@
  * decision (consent + caps + quiet hours); this route only delivers it.
  *
  * Honesty: with no RESEND_API_KEY it DRY-RUNS (returns { sent:false,
- * dryRun:true }) — it never pretends to have sent. Security mirrors the
- * other agent routes: server-side key, validated + length-capped input,
- * per-IP rate limiting.
+ * dryRun:true }) — it never pretends to have sent. Security: server-side key,
+ * validated + length-capped input, per-IP rate limiting, AND the recipient is
+ * forced to the authenticated user's own email — a client can never address
+ * an arbitrary recipient (no open relay). Batch re-engagement runs server-side
+ * via sendDispatchEmail() directly, not through this client-facing route.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { isValidEmail } from '@/lib/email/capture';
+import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { sendDispatchEmail } from '@/lib/agents/dispatch/sendEmail';
 
 const MAX = { subject: 200, title: 200, body: 2000, label: 80, href: 500, preheader: 200 };
@@ -38,8 +41,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing fields.' }, { status: 400 });
   }
 
+  // Recipient is ALWAYS the authenticated user's own email — never a
+  // client-supplied address. Prevents using this route as an open relay to
+  // send SwingVantage-branded mail to arbitrary people.
+  const user = await getAuthenticatedUser();
+  if (!user?.email) {
+    return NextResponse.json({ error: 'Sign in required.' }, { status: 401 });
+  }
+  const to = user.email;
+
   const b = body as Record<string, unknown>;
-  const to = str(b.to, 254).trim();
   const subject = str(b.subject, MAX.subject).trim();
   const title = str(b.title, MAX.title).trim() || subject;
   const text = str(b.body, MAX.body).trim();
