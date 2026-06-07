@@ -68,10 +68,14 @@ describe('nav model', () => {
     expect(readOnly.some((i) => i.id === 'home')).toBe(true); // no permission required
   });
 
-  it('isHrefBuilt reflects the built flag', () => {
-    expect(isHrefBuilt('/admin')).toBe(true);
-    expect(isHrefBuilt('/admin/integrations')).toBe(true);
-    expect(isHrefBuilt('/admin/users')).toBe(false); // Soon (Wave 2)
+  it('isHrefBuilt reflects each nav item\'s built flag', () => {
+    // Data-driven so this never goes stale as sections flip built status
+    // (it previously hard-coded /admin/users as unbuilt; that section shipped).
+    for (const item of NAV_ITEMS) {
+      expect(isHrefBuilt(item.href)).toBe(item.built);
+    }
+    // Unknown hrefs are assumed routable so CTAs never gate on a phantom 404.
+    expect(isHrefBuilt('/admin/not-a-real-section')).toBe(true);
   });
 
   it('activeNavItem picks the longest matching prefix', () => {
