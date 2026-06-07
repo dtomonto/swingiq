@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { useRecruitingStore, PLAYER_TYPE_LABEL, type PlayerType } from '@/lib/recruiting';
 import { SPORT_META } from '@/lib/recruiting/sports';
+import { ImportFromPlatform } from '@/components/recruiting';
 
 const SPORTS: SportId[] = ['golf', 'tennis', 'baseball', 'softball_fast', 'softball_slow'];
 const inputCls = 'w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground focus:outline-hidden focus:ring-2 focus:ring-ring';
@@ -101,6 +102,7 @@ export default function OnboardingPage() {
           <CardHeader><CardTitle>You&apos;re set — now build it out</CardTitle></CardHeader>
           <CardBody className="space-y-3">
             <p className="text-sm text-muted-foreground">Your private profile is created. Add evidence in any order — the strongest profiles have game film + verified data.</p>
+            <ImportFromPlatform compact />
             {[
               { href: '/recruiting/film-library', label: 'Upload your first film', icon: Film },
               { href: '/recruiting/data-dashboard', label: 'Add performance data', icon: BarChart3 },

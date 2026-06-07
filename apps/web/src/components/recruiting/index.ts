@@ -3,6 +3,7 @@ export { DataSourceLabel, VerificationBadge, ConfidenceBadge } from './DataSourc
 export { ProfileStrengthMeter } from './ProfileStrengthMeter';
 export { RecruitingNav } from './RecruitingNav';
 export { RecruitingProfileCard } from './RecruitingProfileCard';
+export { ImportFromPlatform } from './ImportFromPlatform';
 export { ProfileBuilderForm } from './ProfileBuilderForm';
 export { FilmLibrary } from './FilmLibrary';
 export { DataDashboard } from './DataDashboard';

@@ -20,6 +20,7 @@ import {
   isMinor,
 } from '../share';
 import { summarizeEngagement, engagementInsights } from '../analytics';
+import { buildPlatformImport, type PlatformImportData } from '../platformImport';
 
 const TS = '2026-01-01T00:00:00.000Z';
 
@@ -256,6 +257,43 @@ describe('coach-view snapshot', () => {
     const athleteEmailShown = (snap.contact ?? []).some((c) => c.value.includes('minor@x.com'));
     expect(athleteEmailShown).toBe(false);
     expect(snap.disclosures.some((d) => /minor/i.test(d))).toBe(true);
+  });
+});
+
+describe('platform import bridge', () => {
+  it('imports launch-monitor driver data as device-verified golf metrics', () => {
+    const data: PlatformImportData = {
+      name: 'Casey Lin',
+      handedness: 'right',
+      handicap: 4,
+      sessions: [
+        {
+          sport: 'golf',
+          shots: [
+            { clubCategory: 'driver', ballSpeed: 162, carryDistance: 268, clubSpeed: 110, smashFactor: 1.47, launchAngle: 13, spinRate: 2600 },
+            { clubCategory: 'driver', ballSpeed: 165, carryDistance: 275, clubSpeed: 112, smashFactor: 1.48, launchAngle: 12, spinRate: 2500 },
+            { clubCategory: 'mid_iron', ballSpeed: 120, carryDistance: 170, clubSpeed: 88, smashFactor: 1.36, launchAngle: 18, spinRate: 5200 },
+          ],
+        },
+      ],
+      analysisCount: 3,
+    };
+    const r = buildPlatformImport(data);
+    expect(r.available).toBe(true);
+    expect(r.profilePatch).toMatchObject({ athleteName: 'Casey Lin', primarySport: 'golf', dominantHand: 'right' });
+    const carry = r.metrics.find((m) => m.metricKey === 'driver_carry');
+    expect(carry).toBeTruthy();
+    expect(carry!.value).toBe(275); // max of driver carries, irons excluded
+    expect(carry!.source).toBe('device_imported');
+    // Self-reported handicap is labeled honestly, not as verified.
+    const handicap = r.metrics.find((m) => m.metricKey === 'handicap');
+    expect(handicap!.source).toBe('self_reported');
+  });
+
+  it('is unavailable when there is nothing to import', () => {
+    const r = buildPlatformImport({ sessions: [] });
+    expect(r.available).toBe(false);
+    expect(r.metrics).toHaveLength(0);
   });
 });
 

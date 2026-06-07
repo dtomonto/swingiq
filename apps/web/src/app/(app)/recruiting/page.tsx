@@ -12,6 +12,7 @@ import {
   RecruitingProfileCard,
   ProfileStrengthMeter,
   AIPlayerSummaryPanel,
+  ImportFromPlatform,
 } from '@/components/recruiting';
 
 const QUICK = [
@@ -45,6 +46,8 @@ export default function RecruitingOverviewPage() {
           </CardBody>
         </Card>
       )}
+
+      <ImportFromPlatform compact />
 
       {state.profile && (
         <>

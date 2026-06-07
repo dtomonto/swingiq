@@ -14,5 +14,6 @@ export * from './outreach';
 export * from './analytics';
 export * from './share';
 export * from './packet';
+export * from './platformImport';
 export { useRecruitingStore } from './store';
 export type { RecruitingStore } from './store';
