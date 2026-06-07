@@ -5,10 +5,10 @@
 // that the engine degrades honestly on thin input.
 // ============================================================
 
-import { computeKineticChain } from '../kineticChain';
+import { computeKineticChain } from '../kinetic-chain';
 import type { MotionPoseTrack, CaptureContext } from '../types';
 import type { MotionSeries } from '../biomechanics';
-import type { ObjectTrackingResult } from '../objectTracking';
+import type { ObjectTrackingResult } from '../object-tracking';
 
 const CAPTURE: CaptureContext = {
   sport: 'golf',

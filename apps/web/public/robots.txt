@@ -38,10 +38,8 @@ Allow: /golf-swing-analysis
 Allow: /tennis-swing-analysis
 Allow: /baseball-swing-analysis
 Allow: /softball-swing-analysis
-Allow: /golf
-Allow: /tennis
-Allow: /baseball
-Allow: /softball
+# Note: bare /golf, /tennis, /baseball, /softball have no page and 301-redirect
+# to their *-swing-analysis hubs (see next.config.mjs). Do not advertise them here.
 Allow: /features
 Allow: /faq
 Allow: /pricing

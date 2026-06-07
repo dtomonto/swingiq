@@ -10,6 +10,21 @@ import { learnPath } from '@/lib/library/seo';
 // NEXT_PUBLIC_SITE_URL) — never hardcode a domain here.
 const BASE_URL = SITE_URL;
 
+// Next.js writes sitemap field values verbatim — its serializer does NOT
+// XML-escape them (see node_modules/next/dist/build/webpack/loaders/metadata/
+// resolve-route-data.js). So a '&', '<' or '>' in a free-text field — e.g. a
+// video title like "Upload & analyze a swing video" — produces invalid XML and
+// Google reports a parsing error. Escape the five XML metacharacters here.
+// There is no risk of double-escaping because Next escapes nothing itself.
+function xmlEscape(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
 
@@ -59,9 +74,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ? {
             videos: [
               {
-                title: item.title,
+                title: xmlEscape(item.title),
                 thumbnail_loc: `${BASE_URL}${item.poster}`,
-                description: item.description,
+                description: xmlEscape(item.description),
                 content_loc: `${BASE_URL}${item.mp4Src}`,
               },
             ],

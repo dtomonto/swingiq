@@ -24,7 +24,7 @@ import type {
   MotionPhaseSegment,
 } from './types';
 import { isRotationalMotion } from './taxonomy';
-import { scoreMetric, metricTarget, type MotionSkillLevel } from './referenceRanges';
+import { scoreMetric, metricTarget, type MotionSkillLevel } from './reference-ranges';
 import {
   headingDeg,
   unwrapDeg,

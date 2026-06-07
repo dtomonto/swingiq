@@ -76,6 +76,8 @@ const PUBLIC_SUBTREES = [
   '/sample-report',
   '/golf',
   '/tennis',
+  '/pickleball',
+  '/padel',
   '/baseball',
   '/softball',
   // Public recruiting profiles shared by link. Coaches/scouts open these

@@ -14,7 +14,7 @@
 // ============================================================
 
 import type { SportId } from '@swingiq/core';
-import type { MotionSkillLevel } from './referenceRanges';
+import type { MotionSkillLevel } from './reference-ranges';
 
 /** How trustworthy a value is. Mirrors the motion-engine basis ladder. */
 export type MotionBasis = 'measured' | 'estimated' | 'ai_inferred' | 'user_entered' | 'placeholder';
@@ -249,14 +249,14 @@ export interface MotionSession {
   keyFault: string;
   /**
    * Estimated implement (club/bat/racket) path + contact zone. Optional so
-   * older saved sessions remain valid. See lib/motion-lab/objectTracking.
+   * older saved sessions remain valid. See lib/motion-lab/object-tracking.
    */
-  objectTracking?: import('./objectTracking').ObjectTrackingResult;
+  objectTracking?: import('./object-tracking').ObjectTrackingResult;
   /**
    * Kinetic chain sequencing (lower body → torso → arms → implement) with
-   * power-leak flags. Optional for backward-compat. See lib/motion-lab/kineticChain.
+   * power-leak flags. Optional for backward-compat. See lib/motion-lab/kinetic-chain.
    */
-  kineticChain?: import('./kineticChain').KineticChainScore;
+  kineticChain?: import('./kinetic-chain').KineticChainScore;
   /**
    * Temporal intelligence: phase durations, contact-window stability, tempo,
    * deceleration. Optional for backward-compat. See lib/motion-lab/temporal.

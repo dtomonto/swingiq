@@ -30,8 +30,8 @@ import { buildReport, keyFaultLine } from './reporting';
 import { prescribeDrills } from './drills';
 import { assessQuality, type QualitySourceInput } from './quality';
 import { buildMultiViewTrack } from './multiview';
-import { estimateImplementPath } from './objectTracking';
-import { computeKineticChain } from './kineticChain';
+import { estimateImplementPath } from './object-tracking';
+import { computeKineticChain } from './kinetic-chain';
 import { computeTemporal } from './temporal';
 import { newSessionId } from './persistence';
 

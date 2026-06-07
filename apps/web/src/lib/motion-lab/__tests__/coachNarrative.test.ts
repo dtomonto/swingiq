@@ -6,7 +6,7 @@
 // the LLM enhancer is off (the default).
 // ============================================================
 
-import { buildMotionCoachNarrative, narrateMotionSession } from '../coachNarrative';
+import { buildMotionCoachNarrative, narrateMotionSession } from '../coach-narrative';
 import type { MotionSession } from '../types';
 
 function fullSession(): MotionSession {

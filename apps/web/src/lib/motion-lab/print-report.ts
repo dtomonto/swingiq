@@ -8,7 +8,7 @@
 // ============================================================
 
 import type { MotionSession } from './types';
-import { skillLabel } from './referenceRanges';
+import { skillLabel } from './reference-ranges';
 
 function esc(s: string): string {
   return s

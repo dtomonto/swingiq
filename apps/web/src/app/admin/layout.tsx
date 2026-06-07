@@ -13,6 +13,9 @@ import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { safeEqual } from '@/lib/security/constant-time';
 import { isAdminUser } from '@/lib/auth/admin';
+import { getAuthenticatedUser } from '@/lib/supabase-server';
+import { getServerAdminRole } from '@/lib/admin/context';
+import { AdminShell } from '@/components/admin/AdminShell';
 
 export const metadata: Metadata = {
   title: 'Admin | SwingVantage',
@@ -42,27 +45,16 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     redirect('/dashboard');
   }
 
+  // Resolve identity + RBAC role for the unified shell. When authorized
+  // purely by the secret header there is no user/email — default role
+  // (Super Admin) applies, which is correct for that trusted path.
+  const user = await getAuthenticatedUser();
+  const email = user?.email ?? null;
+  const role = getServerAdminRole(email);
+
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100">
-      {/* Admin top bar */}
-      <div className="bg-gray-900 border-b border-gray-800 px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3 overflow-x-auto">
-          <span className="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-2 py-0.5 rounded-sm shrink-0">
-            ADMIN
-          </span>
-          <nav className="flex items-center gap-3 text-xs text-gray-400">
-            <a href="/admin/growth" className="hover:text-gray-100 transition-colors whitespace-nowrap">GrowthOS</a>
-            <a href="/admin/insights" className="hover:text-gray-100 transition-colors whitespace-nowrap">Insights</a>
-            <a href="/admin/reengage" className="hover:text-gray-100 transition-colors whitespace-nowrap">Re-engage</a>
-            <a href="/admin/ads" className="hover:text-gray-100 transition-colors whitespace-nowrap">AdsOS</a>
-            <a href="/admin/video-studio" className="hover:text-gray-100 transition-colors whitespace-nowrap">Video Studio</a>
-          </nav>
-        </div>
-        <a href="/dashboard" className="text-xs text-gray-400 hover:text-gray-200 transition-colors whitespace-nowrap shrink-0">
-          ← Back to app
-        </a>
-      </div>
-      <main>{children}</main>
-    </div>
+    <AdminShell email={email} role={role}>
+      {children}
+    </AdminShell>
   );
 }
