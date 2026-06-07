@@ -39,7 +39,7 @@ export function CookieBanner() {
         <div className="flex gap-3 shrink-0">
           <Link
             href="/privacy"
-            className="text-muted-foreground hover:text-white text-xs underline transition-colors"
+            className="text-muted-foreground hover:text-foreground text-xs underline transition-colors"
           >
             Learn More
           </Link>

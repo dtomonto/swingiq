@@ -100,14 +100,14 @@ export function FloatingCoach() {
           <div className="flex items-center justify-between px-4 py-3 bg-golf-dark rounded-t-2xl">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
-                <Bot size={13} className="text-white" />
+                <Bot size={13} className="text-primary-foreground" />
               </div>
               <div>
                 <p className="text-white text-sm font-semibold">SwingVantage Coach</p>
-                <p className="text-primary-foreground/90 text-xs">Ask anything about your game</p>
+                <p className="text-white/90 text-xs">Ask anything about your game</p>
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="text-primary-foreground/80 hover:text-white">
+            <button onClick={() => setOpen(false)} className="text-white/80 hover:text-white">
               <X size={16} />
             </button>
           </div>
@@ -121,7 +121,7 @@ export function FloatingCoach() {
                   <button
                     key={s}
                     onClick={() => sendMessage(s)}
-                    className="w-full text-left text-xs px-3 py-2 bg-primary/10 hover:bg-primary/15 text-primary rounded-lg border border-primary/30 transition-colors"
+                    className="w-full text-left text-xs px-3 py-2 bg-primary/10 hover:bg-primary/15 text-link rounded-lg border border-primary/30 transition-colors"
                   >
                     {s}
                   </button>
@@ -132,7 +132,7 @@ export function FloatingCoach() {
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={cn(
                   'max-w-[90%] px-3 py-2 rounded-xl text-xs leading-relaxed',
-                  msg.role === 'user' ? 'bg-primary text-white' :
+                  msg.role === 'user' ? 'bg-primary text-primary-foreground' :
                   msg.isError ? 'bg-error/10 border border-error/30 text-error' :
                   'bg-muted text-foreground'
                 )}>
@@ -170,7 +170,7 @@ export function FloatingCoach() {
               disabled={!input.trim() || loading}
               className="w-8 h-8 bg-primary hover:bg-primary disabled:opacity-40 rounded-xl flex items-center justify-center transition-colors"
             >
-              <Send size={13} className="text-white" />
+              <Send size={13} className="text-primary-foreground" />
             </button>
           </div>
         </div>
@@ -185,9 +185,9 @@ export function FloatingCoach() {
         )}
         aria-label="Open AI Coach"
       >
-        {open ? <X size={20} className="text-white" /> : <MessageSquare size={20} className="text-white" />}
+        {open ? <X size={20} className="text-foreground" /> : <MessageSquare size={20} className="text-white" />}
         {!open && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full text-white text-xs flex items-center justify-center font-bold">
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full text-primary-foreground text-xs flex items-center justify-center font-bold">
             AI
           </span>
         )}

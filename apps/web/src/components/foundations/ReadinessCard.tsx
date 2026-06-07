@@ -17,7 +17,7 @@ import type { TransparentScore, ScoreBand } from '@/lib/readiness';
 const BAND_RING: Record<ScoreBand, string> = {
   building: 'text-muted-foreground',
   developing: 'text-warning',
-  solid: 'text-primary',
+  solid: 'text-link',
   sharp: 'text-success',
 };
 
@@ -48,7 +48,7 @@ function ScoreBlock({ title, s }: { title: string; s: TransparentScore }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1 text-xs text-primary mt-2 hover:underline"
+        className="inline-flex items-center gap-1 text-xs text-link mt-2 hover:underline"
         aria-expanded={open}
       >
         <ChevronDown size={12} className={cn('transition-transform', open && 'rotate-180')} />
@@ -75,7 +75,7 @@ export function ReadinessCard({ readiness, gameReady }: { readiness: Transparent
   return (
     <Card className="border-primary/30">
       <CardBody className="space-y-4">
-        <div className="flex items-center gap-1.5 text-xs font-semibold text-primary uppercase tracking-wide">
+        <div className="flex items-center gap-1.5 text-xs font-semibold text-link uppercase tracking-wide">
           <Gauge size={13} /> Readiness Engine
         </div>
         <div className="flex flex-col sm:flex-row gap-5">

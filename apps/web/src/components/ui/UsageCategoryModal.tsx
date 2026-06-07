@@ -91,7 +91,7 @@ export function UsageCategoryModal() {
         <div className="px-6 pt-6 pb-4">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shrink-0">
-              <Shield className="text-white" size={20} />
+              <Shield className="text-primary-foreground" size={20} />
             </div>
             <div>
               <h2 id="usage-modal-title" className="text-lg font-bold text-foreground">
@@ -120,10 +120,10 @@ export function UsageCategoryModal() {
             >
               <Icon
                 size={18}
-                className={selected === value ? 'text-primary' : 'text-muted-foreground'}
+                className={selected === value ? 'text-link' : 'text-muted-foreground'}
               />
               <div className="flex-1 min-w-0">
-                <p className={`text-sm font-medium ${selected === value ? 'text-primary' : 'text-foreground'}`}>
+                <p className={`text-sm font-medium ${selected === value ? 'text-link' : 'text-foreground'}`}>
                   {label}
                 </p>
                 <p className="text-xs text-muted-foreground">{sublabel}</p>
@@ -163,7 +163,7 @@ export function UsageCategoryModal() {
           <button
             onClick={handleConfirm}
             disabled={!selected || isUnder13}
-            className="w-full bg-primary hover:bg-primary disabled:bg-muted disabled:text-muted-foreground text-white font-semibold py-3 rounded-xl transition-colors"
+            className="w-full bg-primary hover:bg-primary disabled:bg-muted disabled:text-muted-foreground text-primary-foreground font-semibold py-3 rounded-xl transition-colors"
           >
             Continue to SwingVantage
           </button>

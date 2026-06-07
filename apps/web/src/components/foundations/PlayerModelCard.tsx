@@ -30,13 +30,13 @@ export function PlayerModelCard({ model }: { model: PlayerModel }) {
     <Card className="border-border">
       <CardBody className="space-y-4">
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-primary uppercase tracking-wide">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-link uppercase tracking-wide">
             <BrainCircuit size={13} /> Player Model · Training Twin foundation
           </div>
           <button
             type="button"
             onClick={copy}
-            className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+            className="inline-flex items-center gap-1 text-xs text-link hover:underline"
           >
             {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? 'Copied' : 'Copy summary'}
           </button>
@@ -50,7 +50,7 @@ export function PlayerModelCard({ model }: { model: PlayerModel }) {
                 <ul className="space-y-1">
                   {model.tendencies.map((t, i) => (
                     <li key={i} className="text-sm text-foreground/90 flex gap-2">
-                      <span className="text-primary">·</span> {t}
+                      <span className="text-link">·</span> {t}
                     </li>
                   ))}
                 </ul>
