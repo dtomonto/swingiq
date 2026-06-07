@@ -15,10 +15,16 @@ import { join } from 'path';
 
 const ROOT = process.cwd();
 const REGISTRY = join(ROOT, 'apps/web/src/content/seoPages.ts');
+// SEO pages also live in a sibling wedge file (Phase 3 growth silos),
+// spread into SEO_PAGES. Validate those too.
+const WEDGES = join(ROOT, 'apps/web/src/content/seoPagesWedges.ts');
 const APP_DIR = join(ROOT, 'apps/web/src/app');
 const ROBOTS = join(ROOT, 'apps/web/public/robots.txt');
 
-const src = readFileSync(REGISTRY, 'utf8');
+const src =
+  readFileSync(REGISTRY, 'utf8') +
+  '\n' +
+  (existsSync(WEDGES) ? readFileSync(WEDGES, 'utf8') : '');
 const robots = readFileSync(ROBOTS, 'utf8');
 
 // Split into per-const page objects by matching slug→publishStatus blocks.
@@ -31,9 +37,14 @@ while ((m = blockRe.exec(src)) !== null) {
   if (status !== 'published') continue;
   published.push(slug);
 
-  // Route file exists?
-  const routeFile = join(APP_DIR, ...slug.split('/'), 'page.tsx');
-  if (!existsSync(routeFile)) errors.push(`Published "${slug}" has no route file at app/${slug}/page.tsx`);
+  // Route file exists? Public SEO pages live under the (marketing) route
+  // group, so accept either app/<slug> or app/(marketing)/<slug>.
+  const rel = [...slug.split('/'), 'page.tsx'];
+  const routeFile = join(APP_DIR, ...rel);
+  const routeFileMkt = join(APP_DIR, '(marketing)', ...rel);
+  if (!existsSync(routeFile) && !existsSync(routeFileMkt)) {
+    errors.push(`Published "${slug}" has no route file at app/(marketing)/${slug}/page.tsx`);
+  }
 
   // robots allows it?
   if (!robots.includes(`/${slug}`) && !robots.includes(`/${slug.split('/')[0]}/`)) {

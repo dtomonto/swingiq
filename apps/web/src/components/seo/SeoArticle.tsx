@@ -119,6 +119,14 @@ export function SeoArticle({ page }: { page: SeoPage }) {
           </ul>
         </section>
 
+        {/* Example diagnosis (optional worked example / proof) */}
+        {page.exampleDiagnosis && (
+          <section className="mb-8 rounded-2xl border border-primary/30 bg-primary/5 p-5">
+            <h2 className="mb-1 text-sm font-bold text-primary">Example SwingVantage diagnosis</h2>
+            <p className="text-foreground">{page.exampleDiagnosis}</p>
+          </section>
+        )}
+
         {/* Drills */}
         <section className="mb-8">
           <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-foreground">

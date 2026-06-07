@@ -11,6 +11,8 @@
 // NOT yet good enough to ship — never publish thin pages.
 // ============================================================
 
+import { WEDGE_PAGES } from './seoPagesWedges';
+
 export type Sport = 'golf' | 'tennis' | 'baseball' | 'softball' | 'multi';
 export type Audience = 'player' | 'parent' | 'coach' | 'creator' | 'team';
 export type Intent = 'informational' | 'commercial' | 'transactional';
@@ -60,6 +62,8 @@ export interface SeoPage {
   diagnosisSteps: string[];
   /** What SwingVantage specifically looks for / measures. */
   whatSwingVantageLooksFor: string[];
+  /** Optional one-line worked example of a diagnosis SwingVantage might give. */
+  exampleDiagnosis?: string;
   drills: SeoDrill[];
   mistakesToAvoid: string[];
   whenToWorkWithCoach: string;
@@ -1423,6 +1427,9 @@ export const SEO_PAGES: SeoPage[] = [
   GOLF_STOP_FAT,
   TENNIS_GRIPS,
   SOFTBALL_HIT_SLOW_PITCH,
+  // Phase 3 SEO growth wedges (slow-pitch + fast-pitch + baseball) —
+  // kept in a sibling file to keep this registry edit minimal.
+  ...WEDGE_PAGES,
   ...DRAFTS,
 ];
 
