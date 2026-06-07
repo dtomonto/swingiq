@@ -17,7 +17,7 @@ import {
   LayoutDashboard, Users, Activity, Upload, Brain, FileText, Search, Trophy,
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
-  ShieldCheck, Scale, Settings, GraduationCap, Newspaper,
+  ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -141,6 +141,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'content', built: true, external: true, permission: 'content.edit',
     blurb: 'AI video department: briefs, generation, placement and measurement.',
     keywords: ['video', 'generation', 'render'],
+  },
+  {
+    id: 'feature-education', label: 'Feature Education', href: '/admin/feature-education', icon: BookOpen,
+    group: 'content', built: true, permission: 'content.edit',
+    blurb: 'Auto-generate tutorials, how-tos, videos & docs for every feature you ship.',
+    keywords: ['docs', 'tutorials', 'manuals', 'how-to', 'guides', 'help center', 'registry', 'coverage', 'drift', 'education'],
   },
 
   // ── Growth & Money ─────────────────────────────────────────

@@ -25,6 +25,7 @@
     "generate:sitemap": "node scripts/check-sitemap.mjs",
     "generate:brand": "node scripts/generate-brand-assets.mjs",
     "updates:generate": "node scripts/generate-updates.mjs",
+    "features:scan": "node scripts/scan-features.mjs",
     "social:queue": "node scripts/generate-social-queue.mjs",
     "hooks:install": "node scripts/install-hooks.mjs",
     "growth:report": "node scripts/growth-report.mjs",

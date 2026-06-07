@@ -18,6 +18,7 @@ last_subject=$(git log -1 --pretty=%s 2>/dev/null || echo "")
 case "$last_subject" in
   "chore(updates): publish entries from commit trailers"*) exit 0 ;;
   "chore(social): flag new blog posts for social"*) exit 0 ;;
+  "chore(features): refresh feature registry"*) exit 0 ;;
 esac
 [ -n "$SWINGVANTAGE_UPDATES_HOOK" ] && exit 0
 export SWINGVANTAGE_UPDATES_HOOK=1
@@ -44,6 +45,18 @@ if ! git diff --quiet -- "$social_file" 2>/dev/null; then
   git add -- "$social_file"
   git commit -m "chore(social): flag new blog posts for social" -- "$social_file" || exit 0
   echo "swingvantage: flagged new blog post(s) for social (see /admin/social)."
+fi
+
+# ── Feature Education: detect features and refresh the registry ──
+# Keeps the Feature Registry in sync with what shipped so the engine knows
+# which features need tutorials / how-tos / videos. Review + generate in
+# /admin/feature-education (nothing is published without your approval).
+node scripts/scan-features.mjs --quiet || exit 0
+registry_file="apps/web/src/data/feature-registry.json"
+if ! git diff --quiet -- "$registry_file" 2>/dev/null; then
+  git add -- "$registry_file"
+  git commit -m "chore(features): refresh feature registry" -- "$registry_file" || exit 0
+  echo "swingvantage: refreshed feature registry (see /admin/feature-education)."
 fi
 
 exit 0

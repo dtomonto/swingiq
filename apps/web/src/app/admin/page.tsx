@@ -20,7 +20,8 @@ import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecentActivity } from '@/components/admin/RecentActivity';
 import { getSystemStatus } from '@/lib/admin/data/system';
 import { getPlatformMetrics } from '@/lib/admin/data/metrics';
-import { deriveAlerts } from '@/lib/admin/alerts';
+import { deriveAlerts, type AdminAlert } from '@/lib/admin/alerts';
+import { loadAlertCounts } from '@/lib/feature-education/server/data';
 import { NAV_ITEMS, isHrefBuilt } from '@/lib/admin/nav';
 import { formatNumber, formatRelativeTime } from '@/lib/admin/format';
 
@@ -35,7 +36,21 @@ const SPORT_LABELS: Record<string, string> = {
 export default async function AdminCommandCenter() {
   const system = getSystemStatus();
   const metrics = await getPlatformMetrics();
-  const alerts = deriveAlerts(system, metrics);
+  const fee = await loadAlertCounts();
+  const feeAlerts: AdminAlert[] =
+    fee.gaps > 0 || fee.needsReview > 0 || fee.drift > 0
+      ? [
+          {
+            id: 'fee-coverage',
+            severity: 'info',
+            title: `${fee.gaps} feature${fee.gaps === 1 ? '' : 's'} need learning content`,
+            detail: `${fee.needsReview} draft${fee.needsReview === 1 ? '' : 's'} await review · ${fee.drift} drift finding${fee.drift === 1 ? '' : 's'}. New features are auto-detected as you ship.`,
+            href: '/admin/feature-education',
+            cta: 'Open Feature Education',
+          },
+        ]
+      : [];
+  const alerts = [...deriveAlerts(system, metrics), ...feeAlerts];
 
   const tools = NAV_ITEMS.filter((i) => i.external && i.built);
   const muted = !metrics.connected;
