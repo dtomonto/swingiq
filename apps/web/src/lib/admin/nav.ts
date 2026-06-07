@@ -126,7 +126,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     id: 'sports', label: 'Sports', href: '/admin/sports', icon: Trophy,
-    group: 'content', built: false, permission: 'sports.manage',
+    group: 'content', built: true, permission: 'sports.manage',
     blurb: 'Configure each sport: faults, drills, fields, templates and journeys.',
     keywords: ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball'],
   },
