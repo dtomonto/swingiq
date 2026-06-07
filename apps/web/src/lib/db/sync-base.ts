@@ -13,7 +13,7 @@
 // ============================================================
 
 import type { SwingVantageState } from '@/store';
-import { djb2 } from './cloudRepo';
+import { djb2 } from './cloud-repo';
 
 export interface SyncBase {
   v: 1;

@@ -32,18 +32,18 @@ import { exportUserData } from '@/lib/backup/export';
 import { mergeRestore } from '@/lib/backup/restore';
 import {
   loadAll, reconcile, fillDefaults, freshCaches, primeCaches, isSchemaMissing, type SyncCaches,
-} from './cloudRepo';
+} from './cloud-repo';
 import {
   pullAndMergeDocuments, pushChangedDocuments, freshDocSyncState, type DocSyncState,
-} from './documentSync';
+} from './document-sync';
 import {
   syncDrillFeedback, freshDrillFeedbackSync, type DrillFeedbackSyncState,
-} from './drillFeedbackSync';
+} from './drill-feedback-sync';
 import {
   syncCommunityAnalytics, freshCommunityAnalyticsSync, type CommunityAnalyticsSyncState,
-} from './communityAnalyticsSync';
-import { loadBase, saveBase, computeBase } from './syncBase';
-import { threeWayMerge } from './threeWayMerge';
+} from './community-analytics-sync';
+import { loadBase, saveBase, computeBase } from './sync-base';
+import { threeWayMerge } from './three-way-merge';
 
 export type CloudSyncStatus =
   | 'unavailable' // Supabase not configured / schema not applied → local-only

@@ -4,4 +4,4 @@ export {
   useCloudSync,
   type CloudSyncStatus,
   type CloudSyncContextValue,
-} from './RelationalSyncProvider';
+} from './relational-sync-provider';

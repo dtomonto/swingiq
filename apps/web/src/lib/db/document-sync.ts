@@ -15,7 +15,7 @@
 // ============================================================
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { djb2 } from './cloudRepo';
+import { djb2 } from './cloud-repo';
 
 const TABLE = 'user_documents';
 

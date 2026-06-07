@@ -5,8 +5,8 @@
 // don't clobber local ones.
 // ============================================================
 
-import { threeWayMerge } from '../threeWayMerge';
-import { computeBase } from '../syncBase';
+import { threeWayMerge } from '../three-way-merge';
+import { computeBase } from '../sync-base';
 import {
   DEFAULT_SETTINGS, DEFAULT_TRAINING, DEFAULT_COMMUNITY_STATE,
   DEFAULT_TUTORIAL_PROGRESS, DEFAULT_AGENT_STATE, DEFAULT_SPORT_EQUIPMENT,

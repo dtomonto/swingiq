@@ -2,7 +2,7 @@
 // SwingVantage — drill_feedback cloud merge unit tests
 // ============================================================
 
-import { mergeDrillFeedback, recordId } from '../drillFeedbackSync';
+import { mergeDrillFeedback, recordId } from '../drill-feedback-sync';
 import type { DrillFeedbackRecord } from '@/lib/drillmatch/types';
 
 const rec = (

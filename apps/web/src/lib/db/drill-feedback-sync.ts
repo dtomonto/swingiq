@@ -13,7 +13,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { SportId } from '@swingiq/core';
-import { djb2, isSchemaMissing } from './cloudRepo';
+import { djb2, isSchemaMissing } from './cloud-repo';
 import { readAllDrillFeedback, replaceAllDrillFeedback } from '@/lib/drillmatch/feedback';
 import type { DrillFeedbackRecord, DrillFeedbackValue } from '@/lib/drillmatch/types';
 

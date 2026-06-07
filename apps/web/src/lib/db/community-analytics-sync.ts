@@ -15,7 +15,7 @@
 // ============================================================
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { djb2, isSchemaMissing } from './cloudRepo';
+import { djb2, isSchemaMissing } from './cloud-repo';
 import type { CommunityState } from '@/lib/community/types';
 
 type Row = Record<string, unknown> & { id: string };

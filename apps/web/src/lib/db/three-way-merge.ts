@@ -13,9 +13,9 @@
 // ============================================================
 
 import type { SwingVantageState, SportProfiles } from '@/store';
-import type { SyncBase } from './syncBase';
-import { hashOf } from './syncBase';
-import type { SingletonPresence } from './cloudRepo';
+import type { SyncBase } from './sync-base';
+import { hashOf } from './sync-base';
+import type { SingletonPresence } from './cloud-repo';
 
 // ── Lists keyed by `id` ──────────────────────────────────────
 function mergeList<T extends { id: string }>(

@@ -17,7 +17,7 @@ import type { SwingVantageBackup } from '@/lib/backup/schema';
 import { mergeRestore } from '@/lib/backup/restore';
 import {
   loadAll, fillDefaults, reconcile, deleteAllForUser, freshCaches, isSchemaMissing,
-} from '@/lib/db/cloudRepo';
+} from '@/lib/db/cloud-repo';
 import type { SwingVantageState, SportEquipment } from '@/store';
 import { DEFAULT_SPORT_EQUIPMENT } from '@/store';
 

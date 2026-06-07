@@ -8,7 +8,7 @@
 
 import { NextResponse } from 'next/server';
 import { createSupabaseServerClient, getAuthenticatedUser } from '@/lib/supabase-server';
-import { loadAll, fillDefaults, isSchemaMissing } from '@/lib/db/cloudRepo';
+import { loadAll, fillDefaults, isSchemaMissing } from '@/lib/db/cloud-repo';
 import { exportUserData } from '@/lib/backup/export';
 
 export async function GET() {

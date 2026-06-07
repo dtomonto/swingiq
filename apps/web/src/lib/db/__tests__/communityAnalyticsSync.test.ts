@@ -2,7 +2,7 @@
 // SwingVantage — community analytics projection tests
 // ============================================================
 
-import { badgeUnlockRows, challengeProgressRows } from '../communityAnalyticsSync';
+import { badgeUnlockRows, challengeProgressRows } from '../community-analytics-sync';
 import { DEFAULT_COMMUNITY_STATE } from '@/store';
 import type { CommunityState } from '@/lib/community/types';
 
