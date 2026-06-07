@@ -173,22 +173,26 @@ export function Sidebar({ onClose }: SidebarProps) {
       return next;
     });
 
-  // Sport accent colors for active state
+  // Sport accent for the active row. Each class pair maps to a semantic
+  // sport token whose foreground is contrast-tuned (validated by
+  // theme-contrast.test.ts), so the active row is never a raw, untested
+  // color and never white-text-on-a-light-accent.
   const accentColors: Record<string, string> = {
-    golf: 'bg-green-700',
-    tennis: 'bg-yellow-600',
-    pickleball: 'bg-lime-600',
-    padel: 'bg-sky-600',
-    baseball: 'bg-red-700',
-    softball_slow: 'bg-orange-600',
-    softball_fast: 'bg-pink-600',
+    golf: 'bg-sport-golf text-sport-golf-foreground',
+    tennis: 'bg-sport-tennis text-sport-tennis-foreground',
+    pickleball: 'bg-sport-pickleball text-sport-pickleball-foreground',
+    padel: 'bg-sport-padel text-sport-padel-foreground',
+    baseball: 'bg-sport-baseball text-sport-baseball-foreground',
+    softball_slow: 'bg-sport-softball-slow text-sport-softball-slow-foreground',
+    softball_fast: 'bg-sport-softball-fast text-sport-softball-fast-foreground',
   };
-  const activeClass = accentColors[activeSport] ?? 'bg-green-700';
+  const activeClass =
+    accentColors[activeSport] ?? 'bg-sport-golf text-sport-golf-foreground';
 
   const rowClass = (active: boolean) =>
     cn(
       'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
-      active ? `${activeClass} text-white` : 'text-foreground/75 hover:bg-muted hover:text-foreground',
+      active ? activeClass : 'text-drawer-foreground/80 hover:bg-muted hover:text-foreground',
     );
 
   const streakBadge = (
@@ -202,7 +206,7 @@ export function Sidebar({ onClose }: SidebarProps) {
   );
 
   return (
-    <aside className="w-64 bg-secondary text-secondary-foreground border-r border-border flex flex-col h-full">
+    <aside className="w-64 bg-drawer text-drawer-foreground border-r border-border flex flex-col h-full">
       {/* Logo + close button (close only visible on mobile) */}
       <div className="px-6 py-5 border-b border-border flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -211,7 +215,7 @@ export function Sidebar({ onClose }: SidebarProps) {
           </div>
           <div>
             <span className="text-foreground font-bold text-lg">SwingVantage</span>
-            <p className="text-primary text-xs flex items-center gap-1">
+            <p className="text-link text-xs flex items-center gap-1">
               <span>{sportEmoji}</span>
               <span>{sportTagline}</span>
             </p>
@@ -351,7 +355,7 @@ export function Sidebar({ onClose }: SidebarProps) {
         <Link
           href="/sports"
           onClick={onClose}
-          className="mt-1.5 block px-1 text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
+          className="mt-1.5 block px-1 text-xs font-medium text-muted-foreground hover:text-link transition-colors"
         >
           View all sports →
         </Link>

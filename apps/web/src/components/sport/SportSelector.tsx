@@ -57,7 +57,7 @@ export function SportCardGrid({
             className={cn(
               'relative flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all text-center',
               isActive
-                ? 'border-golf-fairway bg-golf-fairway/10 shadow-xs'
+                ? 'border-primary bg-primary/10 shadow-xs'
                 : 'border-border hover:border-border hover:bg-muted',
             )}
           >
@@ -65,7 +65,7 @@ export function SportCardGrid({
             <span
               className={cn(
                 'text-xs font-semibold leading-tight',
-                isActive ? 'text-golf-fairway' : 'text-foreground',
+                isActive ? 'text-primary' : 'text-foreground',
               )}
             >
               {sport.short_name}
@@ -73,7 +73,7 @@ export function SportCardGrid({
             {isActive && (
               <Check
                 className={cn(
-                  'w-3 h-3 text-golf-fairway',
+                  'w-3 h-3 text-primary',
                   multiple && 'absolute top-1.5 right-1.5',
                 )}
               />
@@ -120,16 +120,20 @@ export function SportPillDropdown({ className, onClose }: SportPillDropdownProps
         type="button"
         onClick={() => handleSelect(sport.id as SportId)}
         className={cn(
+          // Resting rows sit on the popover surface (popover-foreground);
+          // the active/hover row flips to the primary fill, so the row text —
+          // and, via inheritance, the tagline — flip to primary-foreground.
+          // No state can leave near-white text on the light panel.
           'w-full flex items-center gap-3 px-3 py-2.5 text-sm transition-colors text-left',
           isActive
-            ? 'bg-primary text-white font-semibold'
-            : 'text-primary-foreground/90 hover:bg-primary hover:text-white',
+            ? 'bg-primary text-primary-foreground font-semibold'
+            : 'text-popover-foreground hover:bg-primary hover:text-primary-foreground',
         )}
       >
         <span className="text-base">{sport.emoji}</span>
         <div className="flex-1 min-w-0">
           <div className="font-medium">{sport.name}</div>
-          <div className="text-xs text-primary-foreground/90 truncate">{sport.tagline}</div>
+          <div className="text-xs opacity-80 truncate">{sport.tagline}</div>
         </div>
         {isActive && <Check size={14} className="text-primary-foreground/80 shrink-0" />}
       </button>
@@ -141,7 +145,7 @@ export function SportPillDropdown({ className, onClose }: SportPillDropdownProps
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/50 hover:bg-primary transition-colors text-sm font-medium text-primary-foreground/90"
+        className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-primary hover:bg-primary/90 transition-colors text-sm font-medium text-primary-foreground"
       >
         <span className="text-base leading-none">{current?.emoji}</span>
         <span className="flex-1 text-left truncate">{current?.name}</span>
@@ -160,9 +164,9 @@ export function SportPillDropdown({ className, onClose }: SportPillDropdownProps
             aria-hidden="true"
           />
           {/* Dropdown */}
-          <div className="absolute bottom-full left-0 right-0 mb-1 z-20 bg-secondary border border-border rounded-xl shadow-xl overflow-hidden">
+          <div className="absolute bottom-full left-0 right-0 mb-1 z-20 bg-popover text-popover-foreground border border-border rounded-xl shadow-xl overflow-hidden">
             {selectedSports.length > 0 && (
-              <p className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wide text-primary-foreground/70">
+              <p className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
                 Your sports
               </p>
             )}
@@ -170,7 +174,7 @@ export function SportPillDropdown({ className, onClose }: SportPillDropdownProps
 
             {otherSports.length > 0 && (
               <>
-                <p className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wide text-primary-foreground/70 border-t border-border/50">
+                <p className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground border-t border-border/50">
                   Add a sport
                 </p>
                 {otherSports.map(renderRow)}
@@ -178,7 +182,7 @@ export function SportPillDropdown({ className, onClose }: SportPillDropdownProps
             )}
 
             <div className="px-3 py-2 border-t border-border/50">
-              <p className="text-xs text-primary">
+              <p className="text-xs text-muted-foreground">
                 Tap any sport to switch. Add as many as you play — your data is kept per sport.
               </p>
             </div>
