@@ -94,13 +94,13 @@ export const NAV_ITEMS: NavItem[] = [
   // ── Media & AI ─────────────────────────────────────────────
   {
     id: 'uploads', label: 'Uploads & Media', href: '/admin/uploads', icon: Upload,
-    group: 'media-ai', built: false, permission: 'media.view',
+    group: 'media-ai', built: true, permission: 'media.view',
     blurb: 'Analyzed swing videos & photos (metadata) — review, re-run, retention.',
     keywords: ['videos', 'media', 'photos', 'storage'],
   },
   {
     id: 'ai-analyses', label: 'AI Analyses', href: '/admin/ai-analyses', icon: Brain,
-    group: 'media-ai', built: false, permission: 'ai.review',
+    group: 'media-ai', built: true, permission: 'ai.review',
     blurb: 'Review AI swing outputs, confidence and quality queues.',
     keywords: ['analysis', 'model', 'confidence', 'review'],
   },
