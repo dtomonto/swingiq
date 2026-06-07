@@ -106,6 +106,14 @@ function matchesSubtree(pathname: string, prefix: string): boolean {
 }
 
 function isPublicPath(pathname: string): boolean {
+  // Crawler/SEO files and static assets — any path that ends in a file
+  // extension (.xml, .txt, .png, .json, .mp4, …) — are always public. Search
+  // engines and social scrapers fetch them WITHOUT a session, so they must
+  // never be auth-gated. This covers the generated /sitemap.xml, /robots.txt
+  // and /llms.txt routes as well as everything in /public. Defense-in-depth:
+  // the matcher below already skips these, but the gate stays correct on its
+  // own. (A missing guard here is what made Google see /sitemap.xml as HTML.)
+  if (/\.[a-z0-9]+$/i.test(pathname)) return true;
   if (PUBLIC_PATHS.has(pathname)) return true;
   if (PUBLIC_SUBTREES.some((prefix) => matchesSubtree(pathname, prefix))) return true;
   return PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(prefix));
@@ -174,6 +182,17 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Run on all routes except Next.js static files and image optimisation
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  // Run middleware on all routes EXCEPT:
+  //   • _next/static, _next/image — Next.js build output
+  //   • any path containing a "." — these are files, not app routes. This
+  //     covers every static asset in /public (og-default.png, the PWA icons,
+  //     and the /library + /tutorials videos) AND the generated crawler files
+  //     /sitemap.xml, /robots.txt, /llms.txt and /favicon.ico.
+  //
+  // Crawler/SEO files MUST be excluded: in production the auth check above
+  // redirects unauthenticated requests to /login (an HTML page). When that hit
+  // /sitemap.xml, Googlebot received HTML and Search Console reported
+  // "Sitemap is HTML". Skipping middleware for file paths serves their real
+  // content to crawlers.
+  matcher: ['/((?!_next/static|_next/image|.*\\..*).*)'],
 };
