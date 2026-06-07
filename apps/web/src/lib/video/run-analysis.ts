@@ -16,7 +16,7 @@
 // route; the original video never leaves the device.
 // ============================================================
 
-import { prepareSwing } from '@/lib/video/prepareSwing';
+import { prepareSwing } from '@/lib/video/prepare-swing';
 import { saveVideoAnalysis, type SavedVideoAnalysis } from '@/lib/video/history';
 import type { PoseMetrics } from '@/lib/pose';
 import type { AnalysisStage } from '@/components/video/AnalysisProgress';

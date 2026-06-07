@@ -24,7 +24,7 @@ import {
   runSwingAnalysis,
   type SwingAnalysisInput,
   type SwingAnalysisResult,
-} from '@/lib/video/runAnalysis';
+} from '@/lib/video/run-analysis';
 import type { AnalysisStage } from '@/components/video/AnalysisProgress';
 
 const KIND = 'video-analysis';

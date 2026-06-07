@@ -31,7 +31,7 @@ import { SportCardGrid } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
 import { getSportConfig, SPORT_CAMERA_ANGLES } from '@swingiq/core';
 import type { SportId, SwingVideoMetadata, VisionSpeed } from '@swingiq/core';
-import { warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepareSwing';
+import { warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepare-swing';
 import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector';
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';

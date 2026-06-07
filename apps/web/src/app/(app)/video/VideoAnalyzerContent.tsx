@@ -28,7 +28,7 @@ import { VideoProgress } from '@/components/video/VideoProgress';
 import { TutorialVideo } from '@/components/tutorial/TutorialVideo';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { Button } from '@/components/ui/Button';
-import { warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepareSwing';
+import { warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepare-swing';
 import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector';
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';
