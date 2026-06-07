@@ -70,7 +70,15 @@ function ctaPhrase(cta: CtaType, intensity: CtaIntensity): string {
 }
 
 // ---- Hooks (grounded in the analysis) ----
-function pickHookType(variation: VariationType, analysis: BlogAnalysis): HookType {
+function pickHookType(
+  variation: VariationType,
+  analysis: BlogAnalysis,
+  learnedTopHook?: HookType,
+): HookType {
+  // Lead the strongest variations with the historically best hook, when known.
+  if (learnedTopHook && (variation === 'primary' || variation === 'alternative_a')) {
+    return learnedTopHook;
+  }
   switch (variation) {
     case 'contrarian':
       return 'contrarian';
@@ -143,8 +151,9 @@ function compose(
   variation: VariationType,
   options: GenerationOptions,
   url: string,
+  learnedTopHook?: HookType,
 ): Composed {
-  const hookType = pickHookType(variation, a);
+  const hookType = pickHookType(variation, a, learnedTopHook);
   const ctaType = pickCtaType(options.objective, a);
   const hook = buildHook(hookType, a);
   const cta = ctaPhrase(ctaType, options.ctaIntensity);
@@ -229,9 +238,10 @@ export function buildFallbackPost(
   platform: Platform,
   variation: VariationType,
   options: GenerationOptions,
+  learnedTopHook?: HookType,
 ): GeneratedPost {
   const url = socialUtmUrl(a.slug, platform, variation, options.campaign);
-  const { text, hookType, ctaType } = compose(a, platform, variation, options, url);
+  const { text, hookType, ctaType } = compose(a, platform, variation, options, url, learnedTopHook);
   const hashtags = buildHashtags(a, platform);
   const { score, warnings } = scorePost(
     { platform, variationType: variation, text, hashtags, utmUrl: url },
@@ -257,11 +267,12 @@ export function buildFallbackPost(
 export function buildFallbackPosts(
   a: BlogAnalysis,
   options: GenerationOptions,
+  learnedTopHook?: HookType,
 ): GeneratedPost[] {
   const out: GeneratedPost[] = [];
   for (const platform of options.platforms) {
     for (const variation of getPlatformRule(platform).variationTypes) {
-      out.push(buildFallbackPost(a, platform, variation, options));
+      out.push(buildFallbackPost(a, platform, variation, options, learnedTopHook));
     }
   }
   return out;

@@ -32,6 +32,7 @@ import { buildHashtags } from './hashtags';
 import { scorePost } from './quality';
 import { buildSystemPrompt, buildUserPrompt } from './prompt';
 import { generateSocialWithAI, isSocialAiConfigured, type AiResult } from './ai';
+import { loadLearnedPreferences, topHook, rankedPlatforms, type LearnedPreferences } from './learning';
 
 /** Deterministic creative direction grounded in the post (text only). */
 export function buildCreative(a: BlogAnalysis): CreativeSuggestions {
@@ -54,8 +55,13 @@ export function buildCreative(a: BlogAnalysis): CreativeSuggestions {
 export function buildSchedule(
   a: BlogAnalysis,
   options: GenerationOptions,
+  learned?: LearnedPreferences,
 ): ScheduleRecommendation {
-  const priority = orderByPriority(a.recommendedPlatforms, options.platforms);
+  const priority = orderByPriority(
+    a.recommendedPlatforms,
+    options.platforms,
+    learned ? rankedPlatforms(learned) : [],
+  );
   const best = priority[0] ?? options.platforms[0] ?? 'linkedin';
   const pick = (i: number): Platform => priority[i % priority.length] ?? best;
 
@@ -86,9 +92,10 @@ export function buildSchedule(
 export function generateSocialFallback(
   post: BlogPost,
   options: GenerationOptions = DEFAULT_OPTIONS,
+  learned?: LearnedPreferences,
 ): SocialGeneration {
   const analysis = analyzeBlogPost(post);
-  const posts = buildFallbackPosts(analysis, options);
+  const posts = buildFallbackPosts(analysis, options, learned ? topHook(learned) : undefined);
   const warnings: string[] = [];
   if (posts.length === 0) warnings.push('No platforms selected.');
 
@@ -103,16 +110,21 @@ export function generateSocialFallback(
     analysis,
     posts,
     creative: buildCreative(analysis),
-    schedule: buildSchedule(analysis, options),
+    schedule: buildSchedule(analysis, options, learned),
     warnings,
   };
 }
 
 // ---- helpers ----
-function orderByPriority(recommended: Platform[], selected: Platform[]): Platform[] {
-  const inBoth = recommended.filter((p) => selected.includes(p));
-  const rest = selected.filter((p) => !inBoth.includes(p));
-  return [...inBoth, ...rest];
+function orderByPriority(
+  recommended: Platform[],
+  selected: Platform[],
+  learnedOrder: Platform[] = [],
+): Platform[] {
+  const learnedFirst = learnedOrder.filter((p) => selected.includes(p));
+  const inBoth = recommended.filter((p) => selected.includes(p) && !learnedFirst.includes(p));
+  const rest = selected.filter((p) => !learnedFirst.includes(p) && !inBoth.includes(p));
+  return Array.from(new Set([...learnedFirst, ...inBoth, ...rest]));
 }
 
 function truncate(s: string, n: number): string {
@@ -220,15 +232,23 @@ export async function generateSocial(
   post: import('@/data/blog-posts').BlogPost,
   options: GenerationOptions = DEFAULT_OPTIONS,
 ): Promise<SocialGeneration> {
-  if (!isSocialAiConfigured()) return generateSocialFallback(post, options);
+  // Learn from past performance (empty until metrics exist → pure heuristics).
+  const learned = await loadLearnedPreferences();
+  if (!isSocialAiConfigured()) return generateSocialFallback(post, options, learned);
 
   try {
     const analysis = analyzeBlogPost(post);
-    const ai = await generateSocialWithAI(buildSystemPrompt(), buildUserPrompt(post, analysis, options));
-    if (!ai) return generateSocialFallback(post, options);
+    let user = buildUserPrompt(post, analysis, options);
+    if (learned.hasData) {
+      const th = topHook(learned);
+      const tp = rankedPlatforms(learned).slice(0, 3);
+      user += `\n\nHISTORICAL SIGNAL (lean this way when natural): best-performing hook = ${th ?? 'n/a'}; best platforms = ${tp.join(', ') || 'n/a'}.`;
+    }
+    const ai = await generateSocialWithAI(buildSystemPrompt(), user);
+    if (!ai) return generateSocialFallback(post, options, learned);
 
     const { posts, creative } = assembleFromAi(post, analysis, options, ai);
-    if (posts.length === 0) return generateSocialFallback(post, options);
+    if (posts.length === 0) return generateSocialFallback(post, options, learned);
 
     return {
       blogSlug: post.slug,
@@ -241,10 +261,10 @@ export async function generateSocial(
       analysis,
       posts,
       creative,
-      schedule: buildSchedule(analysis, options),
+      schedule: buildSchedule(analysis, options, learned),
       warnings: [],
     };
   } catch {
-    return generateSocialFallback(post, options);
+    return generateSocialFallback(post, options, learned);
   }
 }

@@ -110,6 +110,8 @@ export function SocialStudio({
   const [openMetrics, setOpenMetrics] = useState<string | null>(null);
   const [metricsInput, setMetricsInput] = useState<Record<string, { impressions: string; clicks: string; engagements: string }>>({});
   const [metricsMsg, setMetricsMsg] = useState<Record<string, string>>({});
+  type Ranked = { key: string; ctr: number; clicks: number; samples: number };
+  const [learning, setLearning] = useState<{ hasData: boolean; hooks: Ranked[]; platforms: Ranked[]; ctas: Ranked[] } | null>(null);
 
   const buildOptions = (override?: string[]) => ({
     platforms: override ?? Array.from(platforms),
@@ -387,6 +389,16 @@ export function SocialStudio({
     }
   }
 
+  async function loadLearning() {
+    try {
+      const res = await fetch('/api/social/learning');
+      if (!res.ok) return;
+      setLearning(await res.json());
+    } catch {
+      /* non-fatal */
+    }
+  }
+
   async function copyPost(post: GeneratedPost) {
     const tags = post.hashtags.length ? `\n\n${post.hashtags.join(' ')}` : '';
     await navigator.clipboard.writeText(finalText(post) + tags);
@@ -562,6 +574,9 @@ export function SocialStudio({
                   <button onClick={exportCsv} className={`${btn} bg-gray-700 hover:bg-gray-600 text-gray-100`}>
                     Export CSV
                   </button>
+                  <button onClick={loadLearning} className={`${btn} bg-gray-700 hover:bg-gray-600 text-gray-100`}>
+                    What&apos;s working
+                  </button>
                   {persistOff && (
                     <span className="text-xs text-amber-400/80">
                       Library off — run server/supabase_schema_social.sql to enable saving
@@ -576,6 +591,41 @@ export function SocialStudio({
               </p>
               <p className="text-xs text-gray-500 mt-1">Insight: {result.analysis.strongestInsight}</p>
             </div>
+
+            {learning && (
+              <div className="bg-gray-900 border border-gray-800 rounded-lg p-4">
+                <h3 className="text-sm font-semibold text-gray-100 mb-2">What&apos;s working</h3>
+                {!learning.hasData ? (
+                  <p className="text-xs text-gray-500">
+                    No performance data yet. Record metrics on published posts (the Metrics button),
+                    then this shows your best hooks, CTAs, and platforms — and the generator leans into them.
+                  </p>
+                ) : (
+                  <div className="grid sm:grid-cols-3 gap-3 text-xs">
+                    {(
+                      [
+                        ['Hooks', 'hooks'],
+                        ['Platforms', 'platforms'],
+                        ['CTAs', 'ctas'],
+                      ] as const
+                    ).map(([label, field]) => (
+                      <div key={field}>
+                        <p className="text-gray-500 mb-1">{label}</p>
+                        {learning[field].slice(0, 3).map((r) => (
+                          <p key={r.key} className="text-gray-300">
+                            {title(r.key)}{' '}
+                            <span className="text-gray-500">
+                              · {(r.ctr * 100).toFixed(1)}% CTR ({r.samples})
+                            </span>
+                          </p>
+                        ))}
+                        {learning[field].length === 0 && <p className="text-gray-600">—</p>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Platform tabs */}
             <div className="flex gap-1 flex-wrap">
