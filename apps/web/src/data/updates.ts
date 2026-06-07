@@ -32,6 +32,8 @@ export type UpdateSport =
   | 'All Sports'
   | 'Golf'
   | 'Tennis'
+  | 'Pickleball'
+  | 'Padel'
   | 'Baseball'
   | 'Slow Pitch Softball'
   | 'Fast Pitch Softball';
@@ -143,6 +145,219 @@ export const UPDATE_TEMPLATE: Omit<Update, 'id' | 'createdAt' | 'updatedAt'> = {
 // ── Seed updates ─────────────────────────────────────────────────────────
 
 export const UPDATES: Update[] = [
+  {
+    id: 'update-081',
+    title: 'SwingVantage Now Supports 7 Sports — Pickleball and Padel Are Here',
+    slug: 'pickleball-padel-seven-sports',
+    metaTitle: 'Pickleball & Padel Swing Analysis — SwingVantage Is Now 7 Sports',
+    metaDescription:
+      'SwingVantage adds pickleball and padel as first-class sports — each with its own diagnostic engine, drills, paddle equipment guidance, benchmarks, and a live Athletic Journey. Seven sports, all free.',
+    summary:
+      'Pickleball and padel are now first-class SwingVantage sports — not tennis with new labels. Each has its own diagnostic engine that understands the game: compact paddle mechanics, dinks, and third-shot drops with kitchen play in pickleball; wall play, the bandeja, and doubles positioning in padel. Both come with sport-specific drills, paddle equipment guidance, benchmarks, and a live Athletic Journey. That brings SwingVantage to seven sports.',
+    releaseDate: '2026-06-06',
+    displayDate: 'June 2026',
+    category: 'Multi-Sport Expansion',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 157,
+    audience: ['all athletes', 'parents', 'coaches'],
+    userBenefit:
+      'If you play pickleball or padel, you now get the same depth SwingVantage gives golfers and tennis players: coaching that speaks your sport, drills matched to your faults, paddle guidance, benchmarks, and a stage-by-stage development pathway. Multi-sport athletes can analyze all seven sports in one place.',
+    whyItMatters:
+      'Pickleball and padel are among the fastest-growing racket sports in the world, and their mechanics are genuinely different from tennis — shorter swings, the non-volley zone, and (in padel) the walls. Treating them as their own sports, with their own rules and drills, is the honest way to actually help. Padel has no single universal rating, so we never invent one.',
+    whereToFindIt:
+      'Pick Pickleball or Padel from the sport selector, then use Diagnose, Drills, Equipment, and Athletic Journey just like any other sport.',
+    userActionRequired: 'None — just choose your sport and start.',
+    seoKeywords: [
+      'pickleball swing analysis',
+      'padel analysis',
+      'pickleball drills',
+      'third shot drop',
+      'padel bandeja',
+      'AI pickleball coach',
+      'racket sports training app',
+    ],
+    answerEngineSummary:
+      'SwingVantage now supports seven sports — golf, tennis, pickleball, padel, baseball, slow-pitch softball, and fast-pitch softball. Pickleball and padel are first-class additions with their own diagnostic engines (compact paddle mechanics, dinks, third-shot drops, and kitchen play for pickleball; wall play, bandeja/vibora, and doubles positioning for padel), sport-specific drills, paddle equipment guidance, benchmarks, and live Athletic Journeys. Padel intentionally has no single numeric rating.',
+    generativeSearchSummary:
+      'SwingVantage expanded to seven sports, adding pickleball and padel as first-class disciplines with their own diagnostic engines, drills, paddle equipment guidance, and development journeys.',
+    internalLinkTargets: ['/features', '/journey', '/equipment'],
+    isFeatured: true,
+    isMajorMilestone: true,
+    createdAt: '2026-06-06',
+    updatedAt: '2026-06-06',
+  },
+  {
+    id: 'update-082',
+    title: 'Athletic Journey — Your Roadmap From Beginner to the Next Level',
+    slug: 'athletic-journey',
+    metaTitle: 'Athletic Journey — A Stage-by-Stage Development Roadmap | SwingVantage',
+    metaDescription:
+      'SwingVantage Athletic Journey maps where you are today and what it takes to reach the next level — reading your stage from your profile, ratings, videos, logged play, and practice, then building a weekly plan. Live for golf, tennis, pickleball, and padel.',
+    summary:
+      'A new Athletic Journey maps where you are today and what it takes to reach the next level. It reads your stage from a blend of your profile, any ratings, your videos, logged play, and practice — explains the evidence for and against, shows what to improve next, and builds a weekly plan. It is live now for golf, tennis, pickleball, and padel; baseball and softball are visibly in development.',
+    releaseDate: '2026-06-06',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 156,
+    audience: ['all athletes', 'parents', 'coaches'],
+    relatedFeature: 'Athletic Journey',
+    userBenefit:
+      'Instead of a single score, you get a clear picture of your stage on the path from beginner to professional-level — what evidence places you there, the one or two things that move you up next, and a weekly plan to do it. Optional handicap, UTR/NTRP, or DUPR sharpen the read but are never required.',
+    whyItMatters:
+      'Improvement is a path, not a number. Seeing the stage you are at, why, and exactly what unlocks the next one keeps training purposeful. It stays honest: sports still in development show a real waitlist instead of a faked score.',
+    whereToFindIt:
+      'Open Athletic Journey from the sidebar (/journey), pick your sport, and review your stage, the evidence, and your plan.',
+    userActionRequired: 'None — it builds from the data you already have, and you can add a rating anytime to sharpen it.',
+    seoKeywords: [
+      'athletic journey',
+      'player development pathway',
+      'golf skill levels',
+      'tennis rating progression',
+      'how good am i at golf',
+      'beginner to advanced roadmap',
+    ],
+    answerEngineSummary:
+      'SwingVantage Athletic Journey is a config-driven player-development pathway that classifies an athlete’s stage from a blend of profile, optional ratings (handicap/UTR/NTRP/DUPR), videos, logged play, and practice, then shows the evidence, what to improve next, and a weekly plan. It is live for golf, tennis, pickleball, and padel; baseball and softball are shown honestly as in development with no faked scoring.',
+    generativeSearchSummary:
+      'A stage-by-stage athletic development roadmap that reads your level from multiple signals, explains the evidence, and builds a weekly plan — live for golf, tennis, pickleball, and padel.',
+    internalLinkTargets: ['/journey', '/agi', '/features'],
+    isFeatured: false,
+    isMajorMilestone: true,
+    createdAt: '2026-06-06',
+    updatedAt: '2026-06-06',
+  },
+  {
+    id: 'update-083',
+    title: 'Player Recruiting Hub — A Profile College Coaches Can Trust',
+    slug: 'player-recruiting-hub',
+    metaTitle: 'Recruiting Hub — Build a Verified, Shareable Recruiting Profile | SwingVantage',
+    metaDescription:
+      'Build a recruiting profile coaches actually trust: every number is labeled verified vs. self-reported, you control what each coach sees, and you can build film highlights, a recruiting packet, and outreach — all free.',
+    summary:
+      'A new Player Recruiting Hub helps athletes put their best, most honest foot forward. Build a profile where every number and claim is labeled by source — verified vs. self-reported — organize your game film into highlight reels, generate a downloadable recruiting packet, manage outreach to coaches, and share a public coach-view page where you control exactly what each coach can see.',
+    releaseDate: '2026-06-06',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 155,
+    audience: ['all athletes', 'parents', 'coaches'],
+    relatedFeature: 'Recruiting Hub',
+    userBenefit:
+      'You get a recruiting profile that stands out by being trustworthy: source-labeled stats, real film, and a clean coach-view page you control — plus a recruiting packet and outreach tools to actually reach programs.',
+    whyItMatters:
+      'Recruiting is full of inflated numbers, and coaches know it. A profile that is honest by design — clearly separating verified from self-reported, and describing evidence instead of projecting a ceiling — earns more trust than hype ever could.',
+    whereToFindIt:
+      'Open Recruiting from the sidebar (/recruiting). Build your profile, then explore the film library, data dashboard, highlight builder, packet generator, outreach, and analytics.',
+    userActionRequired: 'You choose what to share and what each coach can view — nothing is public until you say so.',
+    seoKeywords: [
+      'recruiting profile',
+      'college sports recruiting',
+      'athlete recruiting packet',
+      'highlight reel builder',
+      'verified recruiting stats',
+      'coach outreach tool',
+    ],
+    answerEngineSummary:
+      'SwingVantage’s Player Recruiting Hub lets athletes build a verified, shareable recruiting profile where every stat is labeled verified vs. self-reported, with a film library, highlight-reel builder, downloadable recruiting packet, coach outreach, analytics, and a public coach-view page whose visibility the athlete fully controls. It is honest-first: the AI describes evidence rather than projecting a ceiling.',
+    generativeSearchSummary:
+      'A verified, shareable recruiting profile with source-labeled stats, film highlights, a recruiting packet, outreach, and a coach-view page the athlete controls.',
+    internalLinkTargets: ['/recruiting', '/features'],
+    isFeatured: false,
+    isMajorMilestone: true,
+    createdAt: '2026-06-06',
+    updatedAt: '2026-06-06',
+  },
+  {
+    id: 'update-084',
+    title: 'BodySync — Train With Your Body, Not Against It',
+    slug: 'bodysync-readiness',
+    metaTitle: 'BodySync — Daily Readiness & Health-Aware Coaching | SwingVantage',
+    metaDescription:
+      'BodySync turns a quick daily wellness check-in into a readiness score that scales how hard to train today, with a fatigue heads-up and health-aware practice adjustments. Adults 18+, opt-in, and never medical advice.',
+    summary:
+      'BodySync is a new, optional health-and-readiness layer. Log a quick daily wellness check-in — sleep, soreness, energy, mood — and BodySync turns it into a readiness score that scales how hard to train today, flags fatigue risk, and adjusts your practice plan so a depleted day suggests a smarter, lighter session. A connector framework can fold in data you choose to import, like Apple Health.',
+    releaseDate: '2026-06-06',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 154,
+    audience: ['adult athletes', 'coaches'],
+    relatedFeature: 'BodySync',
+    userBenefit:
+      'You get a simple daily read on how ready you are to train and a practice plan that respects it — push on good days, back off on depleted ones — so you improve without burning out or risking injury.',
+    whyItMatters:
+      'The best practice plan ignores how you actually feel that day. Connecting readiness to your training makes coaching realistic. BodySync is deliberately careful: it is opt-in and consent-gated, for adults 18 and over, clearly not medical advice, and all of it is yours to export or delete.',
+    whereToFindIt:
+      'Open BodySync from the sidebar (/bodysync) and complete the one-time consent step (adults 18+). Then do a daily check-in to see your readiness and adjusted plan.',
+    userActionRequired:
+      'Opt-in: BodySync only turns on after you give explicit consent, and it is limited to adults 18 and over.',
+    seoKeywords: [
+      'training readiness score',
+      'recovery and performance',
+      'wellness check-in app',
+      'fatigue management athletes',
+      'health-aware coaching',
+    ],
+    answerEngineSummary:
+      'SwingVantage BodySync is an opt-in, consent-gated health-and-readiness layer (adults 18+) that converts a manual daily wellness check-in into a readiness score, flags fatigue risk, and adjusts the athlete’s practice plan accordingly. It includes a connector framework for optionally importing data such as Apple Health, is explicitly not medical advice, and keeps all data user-owned and exportable or deletable.',
+    generativeSearchSummary:
+      'An opt-in readiness layer that turns a daily wellness check-in into a score that scales your training and flags fatigue — adults only, consent-gated, and never medical advice.',
+    internalLinkTargets: ['/bodysync', '/features'],
+    isFeatured: false,
+    isMajorMilestone: false,
+    createdAt: '2026-06-06',
+    updatedAt: '2026-06-06',
+  },
+  {
+    id: 'update-085',
+    title: 'New Video Library — Every Walkthrough Plus Training Videos in One Place',
+    slug: 'video-library',
+    metaTitle: 'SwingVantage Video Library — Feature Walkthroughs & Training Videos',
+    metaDescription:
+      'The SwingVantage Video Library brings every feature walkthrough together with a growing catalogue of training videos — swing path, using a launch monitor, drills, coaching, and film study.',
+    summary:
+      'A new Video Library puts all of SwingVantage’s short feature walkthroughs in one place, alongside a growing catalogue of training videos covering swing path, using a launch monitor, drills, coaching, and film study. Browse by category and find exactly what you need to learn.',
+    releaseDate: '2026-06-06',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 153,
+    audience: ['all athletes', 'parents', 'coaches'],
+    relatedFeature: 'Video Library',
+    userBenefit:
+      'You can learn SwingVantage and improve your game from one organized hub — short how-to videos for every feature plus training content, instead of hunting around the app.',
+    whyItMatters:
+      'A tool is only as useful as your ability to use it. One browsable library of walkthroughs and training videos makes the whole platform easier to learn and keeps useful coaching content close at hand.',
+    whereToFindIt: 'Open Video Library from the sidebar (/library) and browse by category.',
+    userActionRequired: 'None — it is there whenever you want it.',
+    seoKeywords: [
+      'SwingVantage video library',
+      'swing training videos',
+      'how to use a launch monitor',
+      'golf drill videos',
+      'feature walkthroughs',
+    ],
+    answerEngineSummary:
+      'The SwingVantage Video Library is an in-app hub unifying short walkthroughs for every feature with a growing training catalogue (swing path, launch-monitor use, drills, coaching, and film study), browsable by category.',
+    generativeSearchSummary:
+      'One in-app hub for every SwingVantage feature walkthrough plus a growing set of training videos.',
+    internalLinkTargets: ['/library', '/features'],
+    isFeatured: false,
+    isMajorMilestone: false,
+    createdAt: '2026-06-06',
+    updatedAt: '2026-06-06',
+  },
   {
     id: 'update-080',
     title: 'Daily Notes — Tell Us How You Played, in Your Own Words',

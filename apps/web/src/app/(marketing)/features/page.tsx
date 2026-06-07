@@ -17,13 +17,13 @@ const FEATURE_GROUPS = [
     features: [
       {
         name: 'AI Diagnostic Engine',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'A rules-based engine compares your data against sport-specific benchmarks and identifies your highest-priority swing fault — ranked by severity, confidence, and impact on performance.',
         detail: 'Each finding includes the evidence used to reach the conclusion, likely causes, and what to expect if the issue is corrected.',
       },
       {
         name: 'Confidence Labels',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Every diagnosis shows a confidence level and lists exactly what data was used. When data is limited, SwingVantage says so rather than guessing.',
         detail: 'Labels include: High Confidence, Moderate Confidence, Low Confidence / Limited Data.',
       },
@@ -46,13 +46,13 @@ const FEATURE_GROUPS = [
       },
       {
         name: 'Screenshot / Image Import',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Upload a photo of a launch monitor screen, stats table, or scoreboard. SwingVantage provides a side-by-side data entry form so you can enter values while referencing the image.',
         detail: 'Optional OCR auto-extraction activates when an extraction provider is configured — it pre-fills the review table from your image and you confirm every value before saving. Manual entry is always the default.',
       },
       {
         name: 'Manual Session Log',
-        sports: 'Tennis, Baseball, Softball',
+        sports: 'Tennis, Pickleball, Padel, Baseball, Softball',
         desc: 'Log a session manually — session type, duration, perceived effort, key metrics, and what you worked on. No tracking device required.',
         detail: '',
       },
@@ -69,37 +69,37 @@ const FEATURE_GROUPS = [
     features: [
       {
         name: 'Fix Stack — One Fix at a Time',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'SwingVantage finds your single highest-impact issue and turns it into a three-step loop: one body cue to feel, the best-matched drill for your level and the gear you have, and an honest before/after retest.',
         detail: 'Deterministic and local-first — it learns from what worked for you and needs no account.',
       },
       {
         name: 'Personalized Drill Recommendations',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Every diagnosis generates 3–5 sport-specific drills tailored to your exact fault pattern. Each drill includes a YouTube search link so you can immediately find video demonstrations.',
         detail: 'Drills are ranked by expected impact on your primary fault.',
       },
       {
         name: 'Training Routine Generator',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Generates a structured training routine based on your active diagnosis and skill level. Includes warm-up, focused drill work, and feedback checkpoints.',
         detail: '',
       },
       {
         name: 'Practice Schedule',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Creates a 7-day practice schedule based on your available days and session length. Each day has a focused theme tied to your current training priorities.',
         detail: '',
       },
       {
         name: 'Drill Library',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Browse the full drill library filtered by sport, issue category, and difficulty. Each drill entry explains what it corrects and how to perform it.',
         detail: '',
       },
       {
         name: 'Pre-Round / Pre-Game Warm-Up',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Generates a personalized pre-round warm-up sequence for golf, or a sport-specific pre-game activation checklist for tennis, baseball, and softball.',
         detail: 'Warm-ups are adapted to your active diagnosis and how much time you have before play.',
       },
@@ -110,19 +110,19 @@ const FEATURE_GROUPS = [
     features: [
       {
         name: 'Swing Video Upload',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Upload a video of your swing from the face-on, down-the-line, or sport-specific angle. SwingVantage segments the video into phases and provides coaching notes for each phase.',
         detail: 'Every video read is a heuristic estimate that sharpens as you add data — a confident starting point you can act on today. For full on-device pose tracking and a rotatable 3D reconstruction, see Motion Lab below.',
       },
       {
         name: 'Phase-by-Phase Timeline',
-        sports: 'All 5 sports',
-        desc: 'Each sport has its own swing phases. Golf: address, backswing, transition, downswing, impact, follow-through. Tennis, baseball, and softball have sport-appropriate phases.',
+        sports: 'All 7 sports',
+        desc: 'Each sport has its own swing phases. Golf: address, backswing, transition, downswing, impact, follow-through. Tennis, pickleball, padel, baseball, and softball have sport-appropriate phases.',
         detail: '',
       },
       {
         name: 'Pro Reference Comparison',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Browse a curated library of professional athlete swing references filtered by sport. Use as a visual learning reference alongside your own video.',
         detail: 'References are publicly available YouTube videos. SwingVantage does not host or own the footage.',
       },
@@ -133,7 +133,7 @@ const FEATURE_GROUPS = [
     features: [
       {
         name: 'Motion Lab (3D)',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Turn a phone clip into a 3D figure of your motion you can spin, slow down, and step through — with a phase-by-phase breakdown, scores for power, rotation, balance, sequencing, timing, and consistency, your top 3 fixes, and a practice plan.',
         detail: 'Runs privately on your own device. One camera gives an estimated 3D read; filming the same rep from two angles about 90° apart produces measured 3D. No medical, injury, or tour-grade claims.',
       },
@@ -167,7 +167,7 @@ const FEATURE_GROUPS = [
     features: [
       {
         name: 'Session History',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Every session is saved with its full shot data, diagnosis, scores, and training recommendations. Filter by sport, date range, or club/movement type.',
         detail: '',
       },
@@ -179,33 +179,113 @@ const FEATURE_GROUPS = [
       },
       {
         name: 'Milestones',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Automatically tracks key milestones — sessions completed, videos analyzed, personal bests, streaks, and improvement markers.',
         detail: '',
       },
       {
         name: 'Retest — Prove the Change',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'SwingVantage reminds you when a diagnosed finding is due for a retest, then — after you re-analyze under the same conditions — shows an honest before-and-after read of whether it actually changed.',
         detail: 'Comparisons are labeled directional reads from your data and video, not lab-measured biomechanics.',
       },
       {
         name: 'Player Arc',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'The story of your improvement over time — the faults that keep coming back, which drills actually worked for you, and honest proof of what each retest changed. It builds with every session.',
         detail: '',
       },
       {
         name: 'SwingVantage Labs',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'An in-app home for emerging, on-device tools: a daily readiness score, a private player model, cross-sport skill transfer, your performance graph, and benchmark mirrors.',
         detail: 'Some are early versions — each is honest about its confidence and what it does not know yet.',
       },
       {
         name: 'AI Coach Chat',
-        sports: 'All 5 sports',
+        sports: 'All 7 sports',
         desc: 'Ask the AI coach questions about your swing, drills, or practice strategy. The AI coach uses your actual session data and active diagnosis as context.',
         detail: 'Powered by a large language model. Responses are coaching suggestions, not professional instruction.',
+      },
+    ],
+  },
+  {
+    heading: 'Cross-Sport Intelligence',
+    features: [
+      {
+        name: 'Athlete General Intelligence (AGI)',
+        sports: 'All 7 sports',
+        desc: 'One engine looks across every sport you analyze at once and finds your “keystone” — the single skill that, if you improve it, lifts the most sports together. It shows what transfers between your sports, factors in today’s readiness, and turns it all into one prioritized plan you can share with a coach.',
+        detail: 'Every number carries its basis and confidence, and the whole read gets a simple A–D trust grade. “General” means breadth across your sports, not human-level AI; single-camera values are estimates.',
+      },
+      {
+        name: 'Athletic Journey',
+        sports: 'Golf, Tennis, Pickleball, Padel live · Baseball & Softball in development',
+        desc: 'Your personalized roadmap from beginner to professional-level performance. It classifies your current stage from a blend of your profile, any ratings, your videos, logged play, and practice — then shows what to work on next and builds a weekly plan.',
+        detail: 'It explains the evidence for and against each stage instead of just labeling you. Optional handicap, UTR/NTRP, or DUPR sharpen the read. In-development sports show an honest waitlist — never a faked score.',
+      },
+      {
+        name: 'Daily Notes',
+        sports: 'All 7 sports',
+        desc: 'After any round, match, game, or practice, rate how you played and jot a few words. SwingVantage reads the faults out of your own language and adds them to your cross-sport profile — no launch monitor or video needed.',
+        detail: 'Self-ratings are clearly labeled low-confidence self-reports, never measurements. When the same issue keeps appearing across your days, it gets flagged as a pattern worth a dedicated fix.',
+      },
+    ],
+  },
+  {
+    heading: 'Recruiting',
+    features: [
+      {
+        name: 'Verified Recruiting Profile',
+        sports: 'All 7 sports',
+        desc: 'Build a recruiting profile coaches actually trust: every number and claim is labeled by source — verified vs. self-reported — and you control exactly what each coach can see. Share it as a public coach-view page.',
+        detail: 'Honest-first by design: the AI describes the evidence instead of projecting a ceiling. A profile-strength meter shows what to add next.',
+      },
+      {
+        name: 'Film Library & Highlight Reels',
+        sports: 'All 7 sports',
+        desc: 'Organize your game film, then build highlight reels and a downloadable recruiting packet from it. A data dashboard keeps your key metrics in one place for coaches to scan.',
+        detail: '',
+      },
+      {
+        name: 'Coach Outreach & Analytics',
+        sports: 'All 7 sports',
+        desc: 'Manage your outreach to coaches and see analytics on your recruiting profile — what is complete, what coaches can view, and where to focus next.',
+        detail: '',
+      },
+    ],
+  },
+  {
+    heading: 'Health & Readiness — BodySync',
+    features: [
+      {
+        name: 'Readiness & Recovery',
+        sports: 'All 7 sports',
+        desc: 'Log a quick daily wellness check-in — sleep, soreness, energy, mood — and BodySync turns it into a readiness score that scales how hard to train today, with a fatigue-risk heads-up when you are running low.',
+        detail: 'Adults 18+ only, opt-in and consent-gated. Not medical advice. Everything is yours — export or delete it anytime.',
+      },
+      {
+        name: 'Health-Aware Coaching',
+        sports: 'All 7 sports',
+        desc: 'Your readiness feeds back into your practice plan, so a heavy-fatigue day suggests a lighter, smarter session instead of pushing through.',
+        detail: 'A connector framework can fold in data you choose to import (e.g. Apple Health). You decide what to share.',
+      },
+    ],
+  },
+  {
+    heading: 'Learn & Reference',
+    features: [
+      {
+        name: 'Video Library',
+        sports: 'All 7 sports',
+        desc: 'One hub for short walkthroughs of every feature, plus a growing training catalogue — swing path, using a launch monitor, drills, coaching, and film study.',
+        detail: '',
+      },
+      {
+        name: 'Tutorial Center',
+        sports: 'All 7 sports',
+        desc: 'Short, role-specific walkthrough videos organized into tracks for players, parents, and coaches, so each person learns the parts that matter to them. Your progress is saved.',
+        detail: '',
       },
     ],
   },

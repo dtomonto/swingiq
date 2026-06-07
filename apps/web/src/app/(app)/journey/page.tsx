@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Your personalized athletic roadmap from beginner to professional-level performance. The ' +
     'Athletic Journey Engine classifies your stage from a blend of your profile, ratings, videos, ' +
     'logged play, and practice — explains the evidence for and against, shows what to improve next, ' +
-    'and builds a weekly plan. Golf and Tennis are live now; Baseball and Softball are in development.',
+    'and builds a weekly plan. Golf, Tennis, Pickleball, and Padel are live now; Baseball and Softball are in development.',
 };
 
 export default function AthleticJourneyPage() {

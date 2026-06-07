@@ -39,11 +39,11 @@ export const metadata: Metadata = {
 const FAQS_SCHEMA = [
   {
     q: 'What is SwingVantage?',
-    a: 'SwingVantage is a free, web-based AI swing analysis platform that helps athletes understand and improve their technique for golf, tennis, baseball, slow pitch softball, and fast pitch softball.',
+    a: 'SwingVantage is a free, web-based AI swing analysis platform that helps athletes understand and improve their technique for golf, tennis, pickleball, padel, baseball, slow pitch softball, and fast pitch softball.',
   },
   {
     q: 'What sports does SwingVantage support?',
-    a: 'SwingVantage supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own coaching feedback, drill library, and diagnostic engine.',
+    a: 'SwingVantage supports seven sports: golf, tennis, pickleball, padel, baseball, slow pitch softball, and fast pitch softball. Each sport has its own coaching feedback, drill library, and diagnostic engine.',
   },
   {
     q: 'Does SwingVantage replace private coaching?',
