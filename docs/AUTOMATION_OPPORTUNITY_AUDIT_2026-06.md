@@ -89,13 +89,18 @@ safety, and orchestration."** The five structural gaps:
    is the master gap — it blocks an entire *class* of "watch the live app" automations.
 2. **Your safety net exists but is unplugged.** Four Playwright specs (`apps/web/e2e/*.spec.ts`)
    cover smoke, keyless-auth, CSV-import-diagnosis, and floating-help overlap — but
-   `@playwright/test` isn't installed by default and **no CI workflow runs them**. The
-   auto-deploy to production is gated only by type-check/lint/build/unit tests, never by a
-   real user journey.
+   `@playwright/test` isn't installed by default and **no CI workflow runs them**. Worse:
+   **none of the 3 CI workflows run Jest either** (`growth-ci.yml` runs type-check/lint/build/
+   `audit:growth`; `security-audit.yml` runs the security tools; `codeql.yml` runs CodeQL —
+   none invoke `npm run test` or `test:e2e`). So all **121 unit test files run locally only**,
+   and the production auto-deploy is gated solely by type-check/lint/build. No automated test —
+   unit or journey — stands between a bad commit and swingvantage.com.
 3. **No accessibility / contrast / visual / performance gate in CI.** You did the hard work —
-   335 Jest contrast-regression tests exist — but on a **local, unpushed branch**
-   (`fix/theme-contrast-mobile`), and 7 `jsx-a11y` rules are still at `warn`. There is no
-   automated axe / Lighthouse / Core-Web-Vitals check on pull requests or previews.
+   335 Jest contrast-regression tests exist (recently cherry-picked toward `origin/master` as
+   `48f10ca`) — but because **CI never runs Jest** (gap #2), they don't gate anything, and the
+   local `master` checkout is diverged enough that it doesn't even contain them yet. 7
+   `jsx-a11y` rules are still at `warn`, and there is no automated axe / Lighthouse /
+   Core-Web-Vitals check on pull requests or previews.
 4. **The audit robots build reports, but nothing closes the loop.** Findings land in dated
    markdown the owner must read and act on by hand. There is no living backlog with status,
    no "finding → ticket → fix → verified" tracking, and no single dashboard of robot health.
@@ -125,7 +130,7 @@ Timing: **Now** (1–2 wks) · **Near** (30–60 d) · **Strategic** (3–6 mo) 
 | A1 | **Critical-Journey Safety Gate** (Playwright in CI + Vercel preview) | QA / CD | E2E specs exist but run by hand, rarely; prod gated only by build | L | High | Low | **18** | Now |
 | A2 | **Production Observability** (Sentry + uptime + release health) | Reliability | Zero error/outage visibility in prod | L–M | Transformational | Low | **19** | Now |
 | A3 | **Analytics Activation + Event QA** (turn on Plausible/PostHog, assert events) | Analytics | Provider unset → all events dropped; KPI tables empty | L | Transformational | Low | **18** | Now |
-| A4 | **Accessibility + Contrast CI Gate** (axe + push the 335 contrast tests) | A11y / QA | Contrast tests stuck on a local branch; 7 a11y rules at warn | L–M | High | Low | **17** | Now |
+| A4 | **Accessibility + Contrast CI Gate** (run Jest in CI + axe + the 335 contrast tests) | A11y / QA | CI never runs Jest, so 121 unit tests + contrast tests gate nothing; 7 a11y rules at warn | L–M | High | Low | **17** | Now |
 | A5 | **Live-Site Synthetic Monitor** (scheduled crawl: broken pages/links/console/overlap) | Reliability / SEO | `validate:links` is static-only; nothing watches the deployed site | M | High | Low | **16** | Near |
 | A6 | **Automation Control Plane** (admin: every robot's status/findings/health) | Admin Ops | ~12 robots + 4 CI + hooks with no unified live view | M | Transformational | Med | **16** | Near |
 | A7 | **Lighthouse CI / Core Web Vitals budgets** (on preview URLs) | Performance | No CWV/perf budget; "check after deploy" is manual | L–M | High | Low | **15** | Near |
@@ -313,16 +318,20 @@ video is generated without an explicit human action and a non-zero budget.
 ## 8. QA, Regression, and Accessibility Automation Audit
 
 **Current state:** 121 Jest files (strong unit coverage of `lib/` engines); 4 Playwright E2E
-specs; `eslint-plugin-jsx-a11y/recommended` mostly at error, 7 rules at `warn`; **335 contrast
-regression tests written but stranded on local branch `fix/theme-contrast-mobile`**.
+specs; `eslint-plugin-jsx-a11y/recommended` mostly at error, 7 rules at `warn`; 335 contrast
+regression tests (recently cherry-picked toward `origin/master` as `48f10ca`). **The critical
+catch: no CI workflow runs Jest *or* Playwright** — so none of these tests gate a push, a PR, or
+the production deploy. They run only when someone runs them locally.
 
-**This is the highest-ROI cleanup area because most of the work is already done but disconnected.**
+**This is the highest-ROI cleanup area because most of the work is already done but disconnected
+from CI.** The single highest-impact line of YAML in the whole audit is "run `npm run test` in CI."
 
 | Layer | Today | Recommendation |
 |---|---|---|
 | **Critical journeys (A1)** | Specs exist, never run in CI | Install `@playwright/test`; run on PR + against Vercel preview. Cover: sign-in (keyless + real), upload→diagnose→result, CSV/photo import, sport switch, dashboard load, admin gate. |
 | **Visual regression** | None | Add Playwright `toHaveScreenshot()` snapshots for the dashboard, a marketing page, and one sport page across **light/dark + 1 mobile + 1 desktop**; this catches layout overlap & theme regressions automatically (you've fought both — see the floating-dock/contrast memories). |
-| **Accessibility (A4)** | 7 a11y rules at `warn`; no runtime axe | Land the 335 contrast tests off the local branch; add `@axe-core/playwright` assertions to the journey specs; ratchet the 7 `warn` rules to `error` one at a time as surfaces are cleaned. |
+| **Unit tests not in CI** | 121 Jest files run locally only | Add a `npm run test` job to `growth-ci.yml` (or a `test.yml`) so unit + contrast tests gate every push/PR. This is the cheapest single fix in §8. |
+| **Accessibility (A4)** | 7 a11y rules at `warn`; no runtime axe | Run the contrast suite in CI (once Jest runs there); add `@axe-core/playwright` assertions to the journey specs; ratchet the 7 `warn` rules to `error` one at a time as surfaces are cleaned. |
 | **Performance (A7)** | "Check CWV after deploy" (manual) | `@lhci/cli` (Lighthouse CI) against preview URLs with a budget (LCP/CLS/TBT, a11y ≥ 95, SEO ≥ 95). Fail PR on regression. |
 | **Forms/uploads/media** | Unit-tested in parts | Add journey coverage for the upload + import + contact/email-capture forms (happy path + one validation failure each). |
 | **Responsiveness** | Manual | Run the journey + visual suite at mobile and desktop viewports (Playwright `devices`). |
@@ -622,18 +631,22 @@ stated policy — the model just makes them enforceable as code, not just conven
 - **Testing/validation:** unit test the schema with present/absent/malformed envs.
 - **Priority:** P1. **Complexity:** Low. **Eng risk:** Low.
 
-### TICKET A4 — Accessibility + Contrast CI Gate
-- **Title:** Land the contrast regression tests in CI and add runtime axe checks to journeys.
-- **Objective:** Make WCAG contrast + a11y regressions impossible to merge; protect the 7-theme tokens.
-- **User/business value:** Locks in accessibility work already done; prevents the recurring
+### TICKET A4 — Run Jest in CI + Accessibility/Contrast Gate
+- **Title:** Make CI run the Jest suite (incl. the 335 contrast tests) and add runtime axe to journeys.
+- **Objective:** Make WCAG contrast + a11y + unit regressions impossible to merge; protect the
+  7-theme tokens. **Root cause first:** no workflow currently runs Jest at all.
+- **User/business value:** Locks in accessibility + unit work already done; prevents the recurring
   white-on-white / dark-on-dark theme regressions from returning.
-- **Technical scope:** Bring the **335 contrast tests** from `fix/theme-contrast-mobile` onto `master`
-  (cherry-pick into a tandem-safe worktree; explicit pathspec); run them in `growth-ci.yml`. Add
-  `@axe-core/playwright` assertions to the journey specs (A1). Begin ratcheting the 7 `jsx-a11y`
-  `warn` rules to `error` as surfaces are cleaned.
-- **Files/systems:** `apps/web/src/lib/theme/*` + contrast test files, `.github/workflows/growth-ci.yml`,
-  `apps/web/.eslintrc.json`, journey specs.
-- **Acceptance criteria:** contrast suite runs in CI and fails on a token regression; axe finds no
+- **Technical scope:** **(1)** Add a `test` job (`npm run test`) to `growth-ci.yml` (or a new
+  `test.yml`) so all 121 Jest files — including the contrast suite — gate every push/PR. **(2)**
+  Reconcile the contrast tests into local `master` (they were cherry-picked toward `origin/master`
+  as `48f10ca` but the diverged local checkout lacks them — verify they're present before relying on
+  them; do this in a tandem-safe worktree, explicit pathspec). **(3)** Add `@axe-core/playwright`
+  assertions to the journey specs (A1). **(4)** Begin ratcheting the 7 `jsx-a11y` `warn` rules to
+  `error` as surfaces are cleaned.
+- **Files/systems:** `.github/workflows/growth-ci.yml`, `apps/web/src/lib/theme/*` + contrast test
+  files, `apps/web/.eslintrc.json`, journey specs.
+- **Acceptance criteria:** CI runs Jest and fails on a contrast/token regression; axe finds no
   serious violations on covered journeys; no net-new `warn` rules.
 - **Testing/validation:** nudge a token below AA → CI red; restore → green.
 - **Priority:** P1. **Complexity:** Low–Med. **Eng risk:** Low.
