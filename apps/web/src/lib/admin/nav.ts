@@ -146,7 +146,7 @@ export const NAV_ITEMS: NavItem[] = [
   // ── Growth & Money ─────────────────────────────────────────
   {
     id: 'monetization', label: 'Monetization', href: '/admin/monetization', icon: DollarSign,
-    group: 'growth', built: false, permission: 'monetization.manage',
+    group: 'growth', built: true, permission: 'monetization.manage',
     blurb: 'Ad placements, affiliate, revenue surfaces and UX safety rules.',
     keywords: ['revenue', 'money', 'affiliate', 'rpm'],
   },
@@ -164,7 +164,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     id: 'analytics', label: 'Analytics', href: '/admin/analytics', icon: BarChart3,
-    group: 'growth', built: false, permission: 'analytics.view',
+    group: 'growth', built: true, permission: 'analytics.view',
     blurb: 'Growth, retention, funnels and content performance reporting.',
     keywords: ['metrics', 'funnels', 'reports', 'retention'],
   },
@@ -196,7 +196,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     id: 'notifications', label: 'Notifications', href: '/admin/notifications', icon: Bell,
-    group: 'support', built: false,
+    group: 'support', built: true,
     blurb: 'Admin notification center: failures, reviews, opportunities, incidents.',
     keywords: ['alerts', 'notifications'],
   },
@@ -250,7 +250,7 @@ export const NAV_ITEMS: NavItem[] = [
   // ── Learn ──────────────────────────────────────────────────
   {
     id: 'learning', label: 'Admin Academy', href: '/admin/learning', icon: GraduationCap,
-    group: 'learn', built: false,
+    group: 'learn', built: true,
     blurb: 'New here? Guided onboarding, playbooks and a glossary for operators.',
     keywords: ['learn', 'help', 'onboarding', 'academy', 'docs', 'tutorial'],
   },
