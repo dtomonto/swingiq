@@ -11,6 +11,7 @@ import {
 import { deriveAlerts } from '../alerts';
 import { FLAG_DEFS, evalFlag, findFlagDef } from '../flags';
 import { makeAuditEntry } from '../audit';
+import { scoreFixCandidate, classifyFixQuery, recommendFix } from '../generated-fixes';
 import { formatNumber, formatRelativeTime, titleize } from '../format';
 import type { SystemStatus } from '../data/system';
 import type { PlatformMetrics } from '../data/metrics';
@@ -133,6 +134,37 @@ describe('feature flags', () => {
     const def = findFlagDef('ai.autopublish_fixes')!;
     expect(def.defaultEnabled).toBe(false);
     expect(evalFlag(def, { enabled: true, rolloutPct: 100, segments: [], updatedAt: '', updatedBy: 't' })).toBe(true);
+  });
+});
+
+describe('generated-fix relevance gate', () => {
+  it('classifies a sport + fix-intent query', () => {
+    const c = classifyFixQuery('how to fix a golf slice');
+    expect(c.sport).toBe('golf');
+    expect(c.hasFixIntent).toBe(true);
+    expect(c.isUnsafe).toBe(false);
+  });
+
+  it('rejects unsafe medical queries', () => {
+    const s = scoreFixCandidate('my elbow pain after golf surgery');
+    expect(s.safetyRisk).toBeGreaterThanOrEqual(70);
+    expect(recommendFix(s).action).toBe('reject');
+  });
+
+  it('rejects off-topic queries', () => {
+    expect(recommendFix(scoreFixCandidate('best pizza near me')).action).toBe('reject');
+  });
+
+  it('approves a strong, distinct fix opportunity', () => {
+    const s = scoreFixCandidate('how to stop topping the golf ball', { existingKeywords: [] });
+    expect(s.relevance).toBeGreaterThanOrEqual(70);
+    expect(recommendFix(s).action).toBe('approve');
+  });
+
+  it('flags near-duplicates for review', () => {
+    const s = scoreFixCandidate('how to fix a golf slice', { existingKeywords: ['how to fix a golf slice'] });
+    expect(s.duplication).toBeGreaterThanOrEqual(70);
+    expect(recommendFix(s).action).toBe('review');
   });
 });
 

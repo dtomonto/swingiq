@@ -62,33 +62,45 @@ server-side re-check on every mutating API call.
 ## Audit log
 
 Every meaningful admin change is recorded — who did it, what changed, before/after,
-and when. Wave 1 records to a local-first store
+and when. It records to a local-first store
 ([`lib/admin/stores/audit-log.ts`](../apps/web/src/lib/admin/stores/audit-log.ts));
 an optional Supabase mirror can be added later. The Command Center shows recent
-activity; the full **Audit Log** page (later wave) is the searchable history.
+activity; the full **Audit Log** page (`/admin/audit-log`) is the searchable,
+exportable history.
 
 ---
 
 ## Sections
 
 The sidebar is generated from a single source of truth
-([`lib/admin/nav.ts`](../apps/web/src/lib/admin/nav.ts)). Sections marked **"Soon"**
-are planned and ship wave-by-wave; they render disabled rather than 404.
+([`lib/admin/nav.ts`](../apps/web/src/lib/admin/nav.ts)). The `built` flag controls
+whether a section is active or renders disabled with a "Soon" chip (no 404s). **All
+sections below are now live.**
 
-| Section | What it does | Status |
-| --- | --- | --- |
-| **Command Center** (`/admin`) | Executive overview, smart alerts, recent activity | ✅ Live |
-| **System Health** (`/admin/system-health`) | Plain-English status of every service | ✅ Live |
-| **Integrations** (`/admin/integrations`) | What's connected; safe configuration (no secrets shown) | ✅ Live |
-| **Users / Athletes** | Accounts and per-sport athlete profiles | 🔜 |
-| **Uploads & AI Analyses** | Swing media metadata + AI output review queues | 🔜 |
-| **Content / SEO / Sports** | CMS, SEO/AEO/GEO, per-sport config | 🔜 |
-| **Generated Fixes** | Review queue for AI-generated fix pages (no auto-publish) | 🔜 |
-| **Monetization / Analytics** | Ads & revenue surfaces, funnels & reports | 🔜 |
-| **Support / Feedback / Notifications** | Tickets, feedback→roadmap, alert center | 🔜 |
-| **Feature Flags / Audit Log** | Toggle features by segment; full change history | 🔜 |
-| **Security / Legal / Settings** | Roles, compliance, site configuration | 🔜 |
-| **Admin Academy** (`/admin/learning`) | Onboarding & playbooks for new operators | 🔜 |
+| Section | What it does |
+| --- | --- |
+| **Command Center** (`/admin`) | Executive overview, smart alerts, recent activity |
+| **Users** (`/admin/users`, `/[id]`) | Accounts: search, full-journey detail, export, suspend/restore |
+| **Athletes** (`/admin/athletes`) | Per-(user, sport) profile directory across all 7 sports |
+| **Uploads & Media** (`/admin/uploads`) | Analysis metadata (videos never uploaded — privacy by design) |
+| **AI Analyses** (`/admin/ai-analyses`, `/[id]`) | Score-derived review queues + per-analysis detail |
+| **Content** (`/admin/content`) | Hub: blog/SEO/sports counts + links |
+| **Generated Fixes** (`/admin/content/generated-fixes`) | Relevance-gate review queue; never auto-publishes |
+| **SEO / AEO / GEO** (`/admin/seo`) | Live SEO catalog with structure/answer-readiness scoring |
+| **Sports** (`/admin/sports`, `/[sport]`) | Per-sport analysis config from the core registry |
+| **Monetization** (`/admin/monetization`) | Ad surfaces + UX safety rules (free-audience-first) |
+| **Analytics** (`/admin/analytics`) | Event catalog + key funnels (live counts need a provider) |
+| **Support** (`/admin/support`) | Ticket queue with user/sport context |
+| **Feedback** (`/admin/feedback`) | Typed feedback → roadmap pipeline |
+| **Notifications** (`/admin/notifications`) | Derived alert center + activity feed |
+| **System Health** (`/admin/system-health`) | Plain-English status of every service |
+| **Integrations** (`/admin/integrations`) | What's connected; safe config (no secrets shown) |
+| **Feature Flags** (`/admin/feature-flags`) | Toggle, rollout %, segments, rollback; high-risk confirm |
+| **Audit Log** (`/admin/audit-log`) | Searchable change history; export; guarded clear |
+| **Security & Roles** (`/admin/security`) | Posture, permission matrix, email→role overlay |
+| **Legal & Privacy** (`/admin/legal`) | Policy links + data-rights workflows |
+| **Settings** (`/admin/settings`) | Honest map of env/code-driven config |
+| **Admin Academy** (`/admin/learning`) | Onboarding checklist, playbooks, glossary |
 
 Pre-existing tools (GrowthOS, AdsOS, Video Studio, Social, Insights, Re-engage, Staff
 Academy) are linked from the sidebar and the Command Center; they keep their own URLs.
