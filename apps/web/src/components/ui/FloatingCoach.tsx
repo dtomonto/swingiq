@@ -4,6 +4,11 @@
 // SwingVantage — Floating AI Coach Button
 // A persistent floating button that opens the AI Coach from
 // any page. Context-aware: passes current page to the coach.
+//
+// Positioning is NOT owned here — this tool is a child of
+// <FloatingDock>, which owns the bottom-right corner (offset,
+// spacing, z-index, safe-area) and guarantees only one floating
+// panel is open at a time. See components/layout/FloatingDock.tsx.
 // ============================================================
 
 import { useState } from 'react';
@@ -11,6 +16,7 @@ import { MessageSquare, X, Send, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useSwingVantageStore, useLatestDiagnosedSession } from '@/store';
 import { usePathname } from 'next/navigation';
+import { useFloatingDock } from '@/components/layout/FloatingDock';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -30,7 +36,9 @@ const PAGE_SUGGESTIONS: Record<string, string[]> = {
 };
 
 export function FloatingCoach() {
-  const [open, setOpen] = useState(false);
+  // Open state is owned by the dock so opening the coach collapses any other
+  // floating tool (and vice-versa) — two panels can never coexist.
+  const { isOpen: open, toggle, close } = useFloatingDock('coach');
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -93,9 +101,15 @@ export function FloatingCoach() {
 
   return (
     <>
-      {/* Chat panel */}
+      {/* Chat panel — positioned by the shared `.floating-panel` anchor
+          (bottom-right, lifted above the dock cluster). */}
       {open && (
-        <div className="fixed bottom-24 right-4 lg:right-6 z-50 w-80 bg-card rounded-2xl shadow-2xl border border-border flex flex-col max-h-96 no-print">
+        <div
+          data-testid="help-panel-primary"
+          role="dialog"
+          aria-label="SwingVantage Coach"
+          className="floating-panel w-[min(20rem,calc(100vw-2rem))] bg-card rounded-2xl shadow-2xl border border-border flex flex-col max-h-96 no-print"
+        >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-golf-dark rounded-t-2xl">
             <div className="flex items-center gap-2">
@@ -107,7 +121,11 @@ export function FloatingCoach() {
                 <p className="text-primary-foreground/90 text-xs">Ask anything about your game</p>
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="text-primary-foreground/80 hover:text-white">
+            <button
+              onClick={close}
+              aria-label="Close AI Coach"
+              className="text-primary-foreground/80 hover:text-white focus-visible:ring-2 focus-visible:ring-white/70 rounded"
+            >
               <X size={16} />
             </button>
           </div>
@@ -176,14 +194,17 @@ export function FloatingCoach() {
         </div>
       )}
 
-      {/* Floating button */}
+      {/* Launcher — the dock owns its position/spacing/z-index. */}
       <button
-        onClick={() => setOpen(!open)}
+        onClick={toggle}
+        data-testid="help-tool-primary"
         className={cn(
-          'fixed bottom-6 right-4 lg:right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all no-print',
+          'w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all no-print',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
           open ? 'bg-secondary hover:bg-muted' : 'bg-golf-dark hover:bg-primary',
         )}
-        aria-label="Open AI Coach"
+        aria-label={open ? 'Close AI Coach' : 'Open AI Coach'}
+        aria-expanded={open}
       >
         {open ? <X size={20} className="text-white" /> : <MessageSquare size={20} className="text-white" />}
         {!open && (

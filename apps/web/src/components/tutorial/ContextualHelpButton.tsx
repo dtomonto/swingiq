@@ -48,6 +48,12 @@ export function ContextualHelpButton({
   const alreadyCompleted = isCompleted(tutorial.id);
 
   if (variant === 'floating') {
+    // ⚠️ DEPRECATED / unused: this self-positioned floating variant predates the
+    // FloatingDock and hard-codes its own bottom-right `fixed` offset, which
+    // would collide with the dock. Do NOT mount it standalone. If a global
+    // floating help button is ever wanted again, add it as a <FloatingDock>
+    // child instead (see docs/FLOATING_UTILITY_DOCK.md). Kept only for the
+    // existing `inline`/`compact` variants below.
     return (
       <>
         <button

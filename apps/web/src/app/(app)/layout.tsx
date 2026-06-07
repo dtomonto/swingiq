@@ -1,4 +1,5 @@
 import { AppShell } from '@/components/layout/AppShell';
+import { FloatingDock } from '@/components/layout/FloatingDock';
 import { FloatingCoach } from '@/components/ui/FloatingCoach';
 import { UsageCategoryModal } from '@/components/ui/UsageCategoryModal';
 import { BackgroundTasksProvider } from '@/lib/background-tasks/background-tasks-provider';
@@ -29,10 +30,18 @@ export default function AppGroupLayout({ children }: { children: React.ReactNode
       <RelationalSyncProvider>
         <AutoSyncProvider>
           <AppShell>{children}</AppShell>
-          <FloatingCoach />
+          {/* All persistent bottom-right help tools live in ONE dock that owns
+              their layout (offset, spacing, z-index, safe-area) and guarantees
+              only one panel opens at a time — so they can never overlap. Order
+              here is top→bottom: Guide stacks above the AI Coach launcher.
+              Do not add new `fixed bottom-… right-…` widgets outside this dock;
+              see docs/FLOATING_UTILITY_DOCK.md. */}
+          <FloatingDock>
+            <GuideCompanion />
+            <FloatingCoach />
+          </FloatingDock>
           <UsageCategoryModal />
           <BackgroundTaskCenter />
-          <GuideCompanion />
           <ContinueProgressBanner />
           <SaveProgressBanner />
         </AutoSyncProvider>

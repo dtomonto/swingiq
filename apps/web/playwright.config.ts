@@ -33,6 +33,12 @@ export default defineConfig({
     url: BASE_URL,
     timeout: 180_000,
     reuseExistingServer: !process.env.CI,
+    // E2E runs keyless (no Supabase env in CI). In a production build the auth
+    // middleware fails CLOSED on protected app routes (e.g. /dashboard) when
+    // Supabase is absent, redirecting to /login. Opt into anonymous app access
+    // so tests can exercise the authenticated surface (the dock, etc.).
+    // See apps/web/src/middleware.ts and e2e/floating-help-overlap.spec.ts.
+    env: { ALLOW_ANONYMOUS_APP: '1' },
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 });

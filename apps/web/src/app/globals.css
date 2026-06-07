@@ -688,6 +688,88 @@
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   FLOATING UTILITY DOCK — the single source of truth for the bottom-right
+   corner. Every persistent floating help/support tool (AI Coach, Guide,
+   future widgets) is a child of <FloatingDock>; the dock — not the tools —
+   owns position, spacing, z-index, and safe-area handling. This kills the
+   class of bug where two independent `fixed bottom-… right-…` widgets pick
+   the same corner and overlap. See docs/FLOATING_UTILITY_DOCK.md.
+
+   Theme-independent, so it lives in :root (not per-theme palettes).
+   ───────────────────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --fab-size: 3.5rem;             /* launcher button diameter (w-14 h-14) */
+    --floating-dock-gap: 0.875rem;  /* vertical space between stacked tools */
+    --floating-dock-bottom: 1.5rem; /* gap from the bottom edge (desktop)   */
+    --floating-dock-right: 1rem;    /* gap from the right edge (mobile)      */
+    --mobile-nav-height: 4rem;      /* AppShell mobile bottom nav (lg:hidden)*/
+    /* Live launcher-cluster height, republished by <FloatingDock> via a
+       ResizeObserver so panels anchor cleanly ABOVE the dock without magic
+       numbers. The 8rem fallback covers two stacked launchers + gap. */
+    --floating-dock-height: 8rem;
+    --z-floating-dock: 50;          /* launcher cluster                      */
+    --z-floating-panel: 55;         /* expanded panels (above launchers)     */
+  }
+  @media (min-width: 1024px) {
+    :root {
+      --floating-dock-right: 1.5rem; /* lg: a touch more breathing room */
+    }
+  }
+}
+
+/* The dock container: one fixed, bottom-right, vertical stack. Sits clear of
+   the mobile bottom nav and respects iOS safe-area insets. It never blocks the
+   page (pointer-events:none); only its children are interactive. Unlayered so
+   it reliably wins over Tailwind utility layers for the properties it owns. */
+.floating-dock {
+  position: fixed;
+  right: calc(var(--floating-dock-right) + env(safe-area-inset-right, 0px));
+  bottom: calc(
+    var(--mobile-nav-height) + var(--floating-dock-bottom) +
+    env(safe-area-inset-bottom, 0px)
+  );
+  z-index: var(--z-floating-dock);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--floating-dock-gap);
+  pointer-events: none;
+}
+@media (min-width: 1024px) {
+  /* No bottom nav on desktop — drop the nav-height reservation. */
+  .floating-dock {
+    bottom: calc(var(--floating-dock-bottom) + env(safe-area-inset-bottom, 0px));
+  }
+}
+.floating-dock > * {
+  pointer-events: auto;
+}
+
+/* A tool's expanded panel/bubble. Fixed to the bottom-right and lifted ABOVE
+   the launcher cluster so it never covers a launcher button. Only ONE panel is
+   ever open at a time (enforced by the dock), so panels can't overlap either.
+   Each panel still sets its own width / mobile left-inset via utilities. */
+.floating-panel {
+  position: fixed;
+  right: calc(var(--floating-dock-right) + env(safe-area-inset-right, 0px));
+  bottom: calc(
+    var(--mobile-nav-height) + var(--floating-dock-bottom) +
+    var(--floating-dock-height) + var(--floating-dock-gap) +
+    env(safe-area-inset-bottom, 0px)
+  );
+  z-index: var(--z-floating-panel);
+}
+@media (min-width: 1024px) {
+  .floating-panel {
+    bottom: calc(
+      var(--floating-dock-bottom) + var(--floating-dock-height) +
+      var(--floating-dock-gap) + env(safe-area-inset-bottom, 0px)
+    );
+  }
+}
+
 /*
   Accessibility: honor the user's reduced-motion preference. Near-instant
   (not zero, so transitionend/animationend handlers still fire) animations

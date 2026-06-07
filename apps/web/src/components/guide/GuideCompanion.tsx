@@ -15,11 +15,14 @@
 // "turn off auto-tips" switch. All preferences live in their own
 // localStorage key — they never touch the store or backups.
 //
-// Lives bottom-LEFT so it never collides with the bottom-right
-// AI Coach button, and rides above the mobile bottom nav.
+// Positioning is owned by <FloatingDock>: this guide is a dock child,
+// stacked in the shared bottom-right corner ABOVE the AI Coach, with
+// spacing/z-index/safe-area handled centrally. The dock also enforces
+// "one floating panel open at a time", so the guide bubble and the
+// coach chat can never overlap. See components/layout/FloatingDock.tsx.
 // ============================================================
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useEffect, useCallback, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { X, ChevronRight, Lightbulb, BellOff } from 'lucide-react';
@@ -28,14 +31,18 @@ import { useAgentInsights } from '@/hooks/useAgentInsights';
 import { getGuideScript } from '@/lib/guide/script';
 import { JOURNEY_STEPS, stageIndex } from '@/lib/guide/journey';
 import { loadGuideState, patchGuideState, markPageSeen } from '@/lib/guide/storage';
+import { useFloatingDock } from '@/components/layout/FloatingDock';
 import { GuideMascot } from './GuideMascot';
 
 export function GuideCompanion() {
   const pathname = usePathname();
   const { nextBestAction, ready } = useAgentInsights();
 
+  // Open state is owned by the dock (so the guide bubble and the AI Coach
+  // chat are mutually exclusive — only one floating panel shows at a time).
+  const { isOpen: open, open: openDock, close: closeDock, toggle: toggleDock } =
+    useFloatingDock('guide');
   const [mounted, setMounted] = useState(false);
-  const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [pageSeen, setPageSeen] = useState(true);
 
@@ -52,8 +59,9 @@ export function GuideCompanion() {
     const seen = s.seenPages.includes(pathname);
     setHidden(s.hidden);
     setPageSeen(seen);
-    setOpen(!s.hidden && s.autoOpen && !seen);
-  }, [pathname, mounted]);
+    if (!s.hidden && s.autoOpen && !seen) openDock();
+    else closeDock();
+  }, [pathname, mounted, openDock, closeDock]);
 
   const remember = useCallback(() => {
     markPageSeen(pathname);
@@ -61,16 +69,14 @@ export function GuideCompanion() {
   }, [pathname]);
 
   const closeAndRemember = useCallback(() => {
-    setOpen(false);
+    closeDock();
     remember();
-  }, [remember]);
+  }, [closeDock, remember]);
 
   const toggle = useCallback(() => {
-    setOpen((o) => {
-      if (o) remember();
-      return !o;
-    });
-  }, [remember]);
+    if (open) remember();
+    toggleDock();
+  }, [open, remember, toggleDock]);
 
   const turnOffTips = useCallback(() => {
     patchGuideState({ autoOpen: false });
@@ -93,13 +99,14 @@ export function GuideCompanion() {
 
   return (
     <>
-      {/* Speech bubble — pinned above the launcher. Full-width on phones,
-          a tidy card on the right from sm up. */}
+      {/* Speech bubble — anchored above the dock cluster by `.floating-panel`.
+          Full-width on phones, a tidy card on the right from sm up. */}
       {open && (
         <div
           role="dialog"
           aria-label="Your SwingVantage guide"
-          className="fixed z-50 no-print bottom-40 right-3 left-3 sm:left-auto sm:right-4 lg:right-6 sm:w-80 bg-card text-foreground rounded-2xl shadow-2xl border border-border overflow-hidden animate-slide-up"
+          data-testid="help-panel-secondary"
+          className="floating-panel no-print left-4 sm:left-auto sm:w-80 bg-card text-foreground rounded-2xl shadow-2xl border border-border overflow-hidden animate-slide-up"
         >
           {/* Header */}
           <div className="flex items-center justify-between gap-2 px-4 py-3 bg-golf-dark">
@@ -209,14 +216,14 @@ export function GuideCompanion() {
         </div>
       )}
 
-      {/* Mascot button — always available to re-summon the guide. Stacked
-          just above the bottom-right AI Coach button, clear of the
-          bottom-left background-task center. */}
+      {/* Mascot launcher — the dock owns its position/spacing/z-index; it sits
+          stacked just above the AI Coach launcher in the shared dock. */}
       <button
         onClick={toggle}
+        data-testid="help-tool-secondary"
         aria-label={open ? 'Close your guide' : 'Open your guide'}
         aria-expanded={open}
-        className="fixed z-50 no-print right-4 lg:right-6 bottom-24 flex items-center justify-center rounded-full bg-card border border-border shadow-lg w-14 h-14 hover:shadow-xl transition-shadow motion-safe:animate-guide-float"
+        className="no-print flex items-center justify-center rounded-full bg-card border border-border shadow-lg w-14 h-14 hover:shadow-xl transition-shadow motion-safe:animate-guide-float focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <GuideMascot size={40} />
         {/* "I have a tip" dot — shown when collapsed on a page you haven't seen. */}
