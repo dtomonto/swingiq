@@ -161,10 +161,51 @@ function CurrentStageCard({ d }: { d: JourneyDashboard }) {
 
 // ── AI coach summary ──────────────────────────────────────────
 
+// Optional LLM re-word is OFF by default (no AI spend). Enable by setting
+// NEXT_PUBLIC_JOURNEY_AI_REWORD=1 and configuring a provider server-side.
+const AI_REWORD_ENABLED = process.env.NEXT_PUBLIC_JOURNEY_AI_REWORD === '1';
+
 function AICoachSummary({ d }: { d: JourneyDashboard }) {
-  const n = d.narrative;
+  const [n, setN] = useState(d.narrative);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => setN(d.narrative), [d.narrative]);
+
+  async function refine() {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/athletic-journey/narrative', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ narrative: d.narrative }),
+      });
+      if (res.ok) {
+        const data = (await res.json()) as { narrative?: typeof d.narrative };
+        if (data?.narrative) setN(data.narrative);
+      }
+    } catch {
+      /* keep the deterministic narrative on any failure */
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
-    <Section title="Your AI coach read" icon={Sparkles}>
+    <Section
+      title="Your AI coach read"
+      icon={Sparkles}
+      action={
+        AI_REWORD_ENABLED ? (
+          <button
+            type="button"
+            onClick={refine}
+            disabled={loading}
+            className="text-xs font-medium text-primary hover:underline disabled:opacity-50"
+          >
+            {loading ? 'Refining…' : n.enhanced ? 'Refined ✓' : 'Refine wording'}
+          </button>
+        ) : undefined
+      }
+    >
       <p className="text-sm text-foreground leading-relaxed">{n.coachNote}</p>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
