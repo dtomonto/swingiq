@@ -633,6 +633,177 @@ function fastPitchMalePlaceholder(index: number): ProfessionalSwingReference {
 const SOFTBALL_FAST_MALE: ProfessionalSwingReference[] = [1, 2].map(fastPitchMalePlaceholder);
 
 // ──────────────────────────────────────────────────────────────
+// PICKLEBALL — 3 Male, 2 Female (placeholder videos; admin must verify)
+// ──────────────────────────────────────────────────────────────
+
+const PICKLEBALL_MALE: ProfessionalSwingReference[] = [
+  {
+    id: 'pb_m_ben_johns',
+    sport: 'pickleball',
+    sex: 'male',
+    athleteName: 'Ben Johns',
+    activeStatus: 'current',
+    movementTypes: ['third_shot_drop', 'dink', 'drive', 'serve', 'reset'],
+    handedness: 'right',
+    styleTags: ['control', 'all_court', 'patience', 'spin'],
+    bio: 'Ben Johns is widely regarded as the most dominant men\'s pickleball player, known for his control, third-shot drop, and shot selection.',
+    requiresVerification: true,
+    referenceVideos: [
+      placeholderVideo('pb_m_benjohns_v1', 'Ben Johns Third-Shot Drop — Side View', 'third_shot_drop', 'side', ['third_shot_drop', 'control']),
+      placeholderVideo('pb_m_benjohns_v2', 'Ben Johns Dinking & Resets — Kitchen', 'dink', 'side', ['dink', 'reset', 'soft_game']),
+    ],
+  },
+  {
+    id: 'pb_m_tyson_mcguffin',
+    sport: 'pickleball',
+    sex: 'male',
+    athleteName: 'Tyson McGuffin',
+    activeStatus: 'current',
+    movementTypes: ['drive', 'serve', 'volley'],
+    handedness: 'right',
+    styleTags: ['power', 'aggressive_net', 'athleticism'],
+    bio: 'Tyson McGuffin is a top men\'s pro known for an aggressive, athletic, power-oriented style.',
+    requiresVerification: true,
+    referenceVideos: [
+      placeholderVideo('pb_m_mcguffin_v1', 'Tyson McGuffin Drive & Speed-Up — Side View', 'drive', 'side', ['drive', 'power']),
+    ],
+  },
+  {
+    id: 'pb_m_jw_johnson',
+    sport: 'pickleball',
+    sex: 'male',
+    athleteName: 'JW Johnson',
+    activeStatus: 'current',
+    movementTypes: ['dink', 'roll_volley', 'third_shot_drop'],
+    handedness: 'right',
+    styleTags: ['hands', 'touch', 'all_court'],
+    bio: 'JW Johnson is a top-ranked pro known for soft hands, touch, and a versatile all-court game.',
+    requiresVerification: true,
+    referenceVideos: [
+      placeholderVideo('pb_m_jwjohnson_v1', 'JW Johnson Hands & Roll Volleys — Kitchen', 'volley', 'side', ['volley', 'hands']),
+    ],
+  },
+];
+
+const PICKLEBALL_FEMALE: ProfessionalSwingReference[] = [
+  {
+    id: 'pb_f_anna_leigh_waters',
+    sport: 'pickleball',
+    sex: 'female',
+    athleteName: 'Anna Leigh Waters',
+    activeStatus: 'current',
+    movementTypes: ['drive', 'speed_up', 'third_shot_drop', 'serve'],
+    handedness: 'right',
+    styleTags: ['power', 'aggressive_net', 'speed'],
+    bio: 'Anna Leigh Waters is the dominant women\'s and mixed pro, known for aggressive speed-ups and an attacking all-court game.',
+    requiresVerification: true,
+    referenceVideos: [
+      placeholderVideo('pb_f_alw_v1', 'Anna Leigh Waters Speed-Ups & Hands — Side View', 'speed_up', 'side', ['speed_up', 'power']),
+    ],
+  },
+  {
+    id: 'pb_f_catherine_parenteau',
+    sport: 'pickleball',
+    sex: 'female',
+    athleteName: 'Catherine Parenteau',
+    activeStatus: 'current',
+    movementTypes: ['dink', 'third_shot_drop', 'reset'],
+    handedness: 'right',
+    styleTags: ['control', 'consistency', 'soft_game'],
+    bio: 'Catherine Parenteau is a top women\'s pro known for consistency, control, and a strong soft game.',
+    requiresVerification: true,
+    referenceVideos: [
+      placeholderVideo('pb_f_parenteau_v1', 'Catherine Parenteau Dinking & Drops — Kitchen', 'dink', 'side', ['dink', 'control']),
+    ],
+  },
+];
+
+// ──────────────────────────────────────────────────────────────
+// PADEL — 3 Male, 2 Female (placeholder videos; admin must verify)
+// ──────────────────────────────────────────────────────────────
+
+const PADEL_MALE: ProfessionalSwingReference[] = [
+  {
+    id: 'pd_m_alejandro_galan',
+    sport: 'padel',
+    sex: 'male',
+    athleteName: 'Alejandro Galán',
+    activeStatus: 'current',
+    movementTypes: ['bandeja', 'smash', 'volley', 'vibora'],
+    handedness: 'right',
+    styleTags: ['power', 'net_attacker', 'overheads'],
+    bio: 'Alejandro Galán is a world No. 1 padel player known for his powerful overheads and aggressive net game.',
+    requiresVerification: true,
+    referenceVideos: [
+      placeholderVideo('pd_m_galan_v1', 'Alejandro Galán Bandeja & Smash — Side View', 'bandeja', 'side', ['bandeja', 'smash', 'overheads']),
+    ],
+  },
+  {
+    id: 'pd_m_arturo_coello',
+    sport: 'padel',
+    sex: 'male',
+    athleteName: 'Arturo Coello',
+    activeStatus: 'current',
+    movementTypes: ['smash', 'bandeja', 'volley'],
+    handedness: 'right',
+    styleTags: ['power', 'athleticism', 'net_attacker'],
+    bio: 'Arturo Coello is a world No. 1 padel player known for his athleticism and powerful finishing from the net.',
+    requiresVerification: true,
+    referenceVideos: [
+      placeholderVideo('pd_m_coello_v1', 'Arturo Coello Smash & Net Play — Side View', 'smash', 'side', ['smash', 'power']),
+    ],
+  },
+  {
+    id: 'pd_m_juan_lebron',
+    sport: 'padel',
+    sex: 'male',
+    athleteName: 'Juan Lebrón',
+    activeStatus: 'current',
+    movementTypes: ['vibora', 'bandeja', 'volley', 'wall_play'],
+    handedness: 'right',
+    styleTags: ['vibora', 'aggression', 'net_attacker'],
+    bio: 'Juan Lebrón is a former world No. 1 padel player known for his víbora and aggressive net control.',
+    requiresVerification: true,
+    referenceVideos: [
+      placeholderVideo('pd_m_lebron_v1', 'Juan Lebrón Víbora — Side View', 'vibora', 'side', ['vibora', 'aggression']),
+    ],
+  },
+];
+
+const PADEL_FEMALE: ProfessionalSwingReference[] = [
+  {
+    id: 'pd_f_ariana_sanchez',
+    sport: 'padel',
+    sex: 'female',
+    athleteName: 'Ariana Sánchez',
+    activeStatus: 'current',
+    movementTypes: ['bandeja', 'volley', 'wall_play', 'lob'],
+    handedness: 'right',
+    styleTags: ['control', 'consistency', 'all_court'],
+    bio: 'Ariana Sánchez is a world No. 1 women\'s padel player known for her control, consistency, and all-court game.',
+    requiresVerification: true,
+    referenceVideos: [
+      placeholderVideo('pd_f_sanchez_v1', 'Ariana Sánchez Bandeja & Wall Play — Side View', 'bandeja', 'side', ['bandeja', 'wall_play']),
+    ],
+  },
+  {
+    id: 'pd_f_paula_josemaria',
+    sport: 'padel',
+    sex: 'female',
+    athleteName: 'Paula Josemaría',
+    activeStatus: 'current',
+    movementTypes: ['smash', 'bandeja', 'volley'],
+    handedness: 'right',
+    styleTags: ['power', 'net_attacker', 'overheads'],
+    bio: 'Paula Josemaría is a world No. 1 women\'s padel player known for her power and attacking overheads.',
+    requiresVerification: true,
+    referenceVideos: [
+      placeholderVideo('pd_f_josemaria_v1', 'Paula Josemaría Smash & Net Play — Side View', 'smash', 'side', ['smash', 'power']),
+    ],
+  },
+];
+
+// ──────────────────────────────────────────────────────────────
 // Combined export
 // ──────────────────────────────────────────────────────────────
 
@@ -641,6 +812,10 @@ export const ALL_PROFESSIONAL_REFERENCES: ProfessionalSwingReference[] = [
   ...GOLF_FEMALE,
   ...TENNIS_MALE,
   ...TENNIS_FEMALE,
+  ...PICKLEBALL_MALE,
+  ...PICKLEBALL_FEMALE,
+  ...PADEL_MALE,
+  ...PADEL_FEMALE,
   ...BASEBALL_MALE,
   ...BASEBALL_FEMALE,
   ...SOFTBALL_SLOW_ENTRIES,

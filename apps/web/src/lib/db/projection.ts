@@ -349,6 +349,10 @@ export function rowsToSportEquipment(
 ): SportEquipment {
   return {
     tennis: tennis.map(rowToTennisRacket),
+    // Pickleball/padel paddle equipment is not in the relational schema yet —
+    // it is doc-mirrored, so projection returns empty lists here.
+    pickleball: [],
+    padel: [],
     baseball: baseball.map(rowToBaseballBat),
     softball_slow: softball.filter((r) => str(r.discipline, 'slow') === 'slow').map(rowToSoftballBat),
     softball_fast: softball.filter((r) => str(r.discipline) === 'fast').map(rowToSoftballBat),

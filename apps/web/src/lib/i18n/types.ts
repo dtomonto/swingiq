@@ -96,6 +96,8 @@ export interface Translations {
   sports: {
     golf: string;
     tennis: string;
+    pickleball: string;
+    padel: string;
     baseball: string;
     softball_slow: string;
     softball_fast: string;

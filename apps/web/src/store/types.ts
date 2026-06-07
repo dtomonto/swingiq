@@ -136,6 +136,38 @@ export interface TennisRacket {
   created_at: string;
 }
 
+export interface PicklePaddle {
+  id: string;
+  brand: string;
+  model: string;
+  year: string;
+  shape: 'elongated' | 'standard' | 'widebody' | '';
+  core_thickness_mm: number | null;
+  weight_oz: number | null;
+  face_material: 'graphite' | 'carbon_fiber' | 'fiberglass' | 'composite' | '';
+  grip_size: string;
+  handle_length_in: number | null;
+  condition: 'new' | 'good' | 'fair' | 'worn';
+  notes: string;
+  created_at: string;
+}
+
+export interface PadelRacket {
+  id: string;
+  brand: string;
+  model: string;
+  year: string;
+  shape: 'round' | 'teardrop' | 'diamond' | '';
+  weight_g: number | null;
+  balance: 'low' | 'medium' | 'high' | '';
+  core_foam: 'soft_eva' | 'medium_eva' | 'hard_eva' | 'foam' | '';
+  face_material: 'carbon' | 'fiberglass' | 'composite' | '';
+  grip_size: string;
+  condition: 'new' | 'good' | 'fair' | 'worn';
+  notes: string;
+  created_at: string;
+}
+
 export interface BaseballBat {
   id: string;
   brand: string;
@@ -176,6 +208,8 @@ export interface SoftballBat {
 
 export interface SportEquipment {
   tennis: TennisRacket[];
+  pickleball: PicklePaddle[];
+  padel: PadelRacket[];
   baseball: BaseballBat[];
   softball_slow: SoftballBat[];
   softball_fast: SoftballBat[];
@@ -219,6 +253,10 @@ export interface SwingVantageActions {
   // Non-golf equipment
   addTennisRacket: (racket: Omit<TennisRacket, 'id' | 'created_at'>) => void;
   removeTennisRacket: (id: string) => void;
+  addPicklePaddle: (paddle: Omit<PicklePaddle, 'id' | 'created_at'>) => void;
+  removePicklePaddle: (id: string) => void;
+  addPadelRacket: (racket: Omit<PadelRacket, 'id' | 'created_at'>) => void;
+  removePadelRacket: (id: string) => void;
   addBaseballBat: (bat: Omit<BaseballBat, 'id' | 'created_at'>) => void;
   removeBaseballBat: (id: string) => void;
   addSoftballBat: (sport: 'softball_slow' | 'softball_fast', bat: Omit<SoftballBat, 'id' | 'created_at'>) => void;
@@ -288,6 +326,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
 
 export const DEFAULT_SPORT_EQUIPMENT: SportEquipment = {
   tennis: [],
+  pickleball: [],
+  padel: [],
   baseball: [],
   softball_slow: [],
   softball_fast: [],

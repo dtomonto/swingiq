@@ -53,6 +53,8 @@ export const en: Translations = {
   sports: {
     golf: 'Golf',
     tennis: 'Tennis',
+    pickleball: 'Pickleball',
+    padel: 'Padel',
     baseball: 'Baseball',
     softball_slow: 'Slow Pitch Softball',
     softball_fast: 'Fast Pitch Softball',

@@ -52,6 +52,8 @@ export const fr: PartialTranslations = {
   sports: {
     golf: 'Golf',
     tennis: 'Tennis',
+    pickleball: 'Pickleball',
+    padel: 'Padel',
     baseball: 'Baseball',
     softball_slow: 'Softball Lent',
     softball_fast: 'Softball Rapide',

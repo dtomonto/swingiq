@@ -29,6 +29,8 @@ describe('sportStrategy (current shipped config)', () => {
       'slow-pitch',
       'fast-pitch',
       'softball',
+      'pickleball',
+      'padel',
     ]);
   });
 

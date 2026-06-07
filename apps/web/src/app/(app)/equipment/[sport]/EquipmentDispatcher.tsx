@@ -3,6 +3,8 @@
 import { BagManager } from '../../bag/BagManager';
 import { BaseballEquipment } from '../baseball/BaseballEquipment';
 import { TennisEquipment } from '../tennis/TennisEquipment';
+import { PickleballEquipment } from '../pickleball/PickleballEquipment';
+import { PadelEquipment } from '../padel/PadelEquipment';
 import { SlowPitchEquipment } from '../softball-slow/SlowPitchEquipment';
 import { FastPitchEquipment } from '../softball-fast/FastPitchEquipment';
 
@@ -17,6 +19,10 @@ export function EquipmentDispatcher({ sport }: { sport: string }) {
       return <BagManager />;
     case 'tennis':
       return <TennisEquipment />;
+    case 'pickleball':
+      return <PickleballEquipment />;
+    case 'padel':
+      return <PadelEquipment />;
     case 'baseball':
       return <BaseballEquipment />;
     case 'softball-slow':
