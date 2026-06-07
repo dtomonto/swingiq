@@ -45,6 +45,36 @@ export const SPORT_AVAILABILITY: Partial<Record<SportId, SportAvailability>> = {
     basicProfileEnabled: true,
     journeyEnabled: true,
   },
+  pickleball: {
+    sport: 'pickleball',
+    status: 'available',
+    displayName: 'Pickleball',
+    emoji: '🏓',
+    accentColor: '#84CC16',
+    tagline: 'New player to professional-caliber',
+    userFacingMessage: 'Your full Pickleball Athletic Journey is available now.',
+    futurePromise:
+      'Stages from New Player through Professional-Caliber, with optional DUPR and self-rating ' +
+      'alignment, third-shot/dink/reset intelligence, and a stage-by-stage development pathway.',
+    waitlistEnabled: false,
+    basicProfileEnabled: true,
+    journeyEnabled: true,
+  },
+  padel: {
+    sport: 'padel',
+    status: 'available',
+    displayName: 'Padel',
+    emoji: '🎾',
+    accentColor: '#0EA5E9',
+    tagline: 'New player to professional-caliber',
+    userFacingMessage: 'Your full Padel Athletic Journey is available now.',
+    futurePromise:
+      'Stages from New Player through Professional-Caliber, with optional club/league rating ' +
+      'context, bandeja and wall-play intelligence, and a stage-by-stage development pathway.',
+    waitlistEnabled: false,
+    basicProfileEnabled: true,
+    journeyEnabled: true,
+  },
   baseball: {
     sport: 'baseball',
     status: 'in_development',
@@ -101,8 +131,8 @@ export const SPORT_AVAILABILITY: Partial<Record<SportId, SportAvailability>> = {
   },
 };
 
-/** Sports with a live journey, in display order (Golf, Tennis). */
-export const AVAILABLE_SPORTS: SportId[] = ['golf', 'tennis'];
+/** Sports with a live journey, in display order (Golf, Tennis, Pickleball, Padel). */
+export const AVAILABLE_SPORTS: SportId[] = ['golf', 'tennis', 'pickleball', 'padel'];
 
 /** Sports shown as "In Development", in display order. */
 export const IN_DEVELOPMENT_SPORTS: SportId[] = ['baseball', 'softball_fast', 'softball_slow'];
@@ -140,6 +170,6 @@ export function isJourneyLive(sport: SportId): boolean {
 
 /** The cross-sport message the spec mandates near the selector. */
 export const SPORT_AVAILABILITY_MESSAGE =
-  'Golf and Tennis Athletic Journeys are available now. Baseball, Fast-Pitch Softball, ' +
-  'and Slow-Pitch Softball journeys are currently in development and will be added as ' +
-  'SwingVantage expands its sport-specific performance intelligence.';
+  'Golf, Tennis, Pickleball, and Padel Athletic Journeys are available now. Baseball, ' +
+  'Fast-Pitch Softball, and Slow-Pitch Softball journeys are currently in development and ' +
+  'will be added as SwingVantage expands its sport-specific performance intelligence.';

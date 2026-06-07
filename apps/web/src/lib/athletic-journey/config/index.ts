@@ -9,6 +9,8 @@ import type { SportId } from '@swingiq/core';
 import type { SportJourneyConfig, StageDefinition } from '../types';
 import { GOLF_CONFIG } from './golf';
 import { TENNIS_CONFIG } from './tennis';
+import { PICKLEBALL_CONFIG } from './pickleball';
+import { PADEL_CONFIG } from './padel';
 
 export { JOURNEY_THRESHOLDS, JOURNEY_VERSION, JOURNEY_DISCLAIMER } from './thresholds';
 export {
@@ -22,11 +24,15 @@ export {
 } from './sports';
 export { GOLF_CONFIG } from './golf';
 export { TENNIS_CONFIG } from './tennis';
+export { PICKLEBALL_CONFIG } from './pickleball';
+export { PADEL_CONFIG } from './padel';
 
 /** Live journey configs keyed by sport. Future sports register here. */
 const SPORT_CONFIGS: Partial<Record<SportId, SportJourneyConfig>> = {
   golf: GOLF_CONFIG,
   tennis: TENNIS_CONFIG,
+  pickleball: PICKLEBALL_CONFIG,
+  padel: PADEL_CONFIG,
 };
 
 /** Returns the journey config for a sport, or null if its journey isn't live. */

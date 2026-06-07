@@ -19,7 +19,7 @@ import type {
   ResolveFaultOptions,
 } from './types';
 
-const ALL_SPORTS: SportId[] = ['golf', 'tennis', 'baseball', 'softball_slow', 'softball_fast'];
+const ALL_SPORTS: SportId[] = ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'];
 
 /** Sensible same-condition defaults reused by most retest criteria. */
 function sameConditions(extra: string[] = []): string[] {

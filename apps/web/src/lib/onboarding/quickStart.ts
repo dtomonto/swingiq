@@ -26,6 +26,8 @@ import type { LeadSource } from '@/lib/email/capture';
 export type OnboardingSportId =
   | 'golf'
   | 'tennis'
+  | 'pickleball'
+  | 'padel'
   | 'baseball'
   | 'softball_slow'
   | 'softball_fast';
@@ -160,6 +162,88 @@ export const ONBOARDING_SPORTS: OnboardingSport[] = [
         whyItMatters: 'Driving from the ground up sequences the legs, then core, then arm for free power.',
         drills: ['Load-and-explode reps', 'Hip-lead rotation', 'Light medicine-ball throws'],
         plan: ['Days 1–3: sequence', 'Days 4–6: add power', 'Day 7: retest pace'],
+      },
+    ],
+  },
+  {
+    id: 'pickleball',
+    label: 'Pickleball',
+    emoji: '🏓',
+    leadSource: 'pickleball',
+    missQuestion: 'What goes wrong most often in your game?',
+    outcomes: [
+      {
+        value: 'popping_dinks',
+        label: 'Popping up dinks',
+        issue: 'An open paddle face and a wristy, lifting dink',
+        whyItMatters: 'A stable, slightly open face with the lift coming from your legs keeps dinks low and unattackable.',
+        drills: ['Net-skimmer dink gate', 'Paddle-face wall drill', 'Soft-hands dink rally'],
+        plan: ['Days 1–3: paddle-face control', 'Days 4–6: cross-court dink rally', 'Day 7: retest dink height'],
+      },
+      {
+        value: 'netting_drops',
+        label: 'Netting the third-shot drop',
+        issue: 'Decelerating with no leg lift on the drop',
+        whyItMatters: 'Lifting with the legs on a soft arc that peaks before the net gets the ball into the kitchen.',
+        drills: ['Third-shot drop arc drill', 'Drop-and-advance reps', 'Target-cone drops'],
+        plan: ['Days 1–3: drop arc', 'Days 4–6: drop and advance', 'Day 7: retest drop success'],
+      },
+      {
+        value: 'speed_up_errors',
+        label: 'Speed-up errors',
+        issue: 'Attacking balls that are below net height',
+        whyItMatters: 'Only speeding up balls above the net (and staying patient on low ones) cuts unforced errors fast.',
+        drills: ['Attackable-ball recognition', 'Dink-and-attack game', 'Patience count drill'],
+        plan: ['Days 1–3: recognition', 'Days 4–6: dink-and-attack', 'Day 7: retest error count'],
+      },
+      {
+        value: 'late_kitchen',
+        label: 'Slow to the kitchen / late volleys',
+        issue: 'No split step and a long backswing',
+        whyItMatters: 'A timed split step and a compact, paddle-up ready position let you meet fast balls out front.',
+        drills: ['Kitchen-line footwork drill', 'Fence compact-backswing', 'Hands-battle volleys'],
+        plan: ['Days 1–3: footwork + split', 'Days 4–6: compact volleys', 'Day 7: retest reaction'],
+      },
+    ],
+  },
+  {
+    id: 'padel',
+    label: 'Padel',
+    emoji: '🎾',
+    leadSource: 'padel',
+    missQuestion: 'What goes wrong most often in your game?',
+    outcomes: [
+      {
+        value: 'weak_bandeja',
+        label: 'Weak / sitting bandeja',
+        issue: 'A flat, square-stance overhead with no slice control',
+        whyItMatters: 'Turning side-on and brushing slice on the bandeja keeps it deep and lets you hold the net.',
+        drills: ['Bandeja control & depth drill', 'Shadow bandeja reps', 'Deep cross-court targets'],
+        plan: ['Days 1–3: bandeja technique', 'Days 4–6: depth targets', 'Day 7: retest net hold'],
+      },
+      {
+        value: 'wall_read',
+        label: 'Trouble off the glass',
+        issue: 'Crowding the ball against the back wall',
+        whyItMatters: 'Giving the rebound space and contacting out of the corner turns defense off the glass into offense.',
+        drills: ['Back-glass spacing drill', 'Early-turn off-the-glass', 'Double-wall reps'],
+        plan: ['Days 1–3: spacing + read', 'Days 4–6: double-wall', 'Day 7: retest wall play'],
+      },
+      {
+        value: 'overhit_smash',
+        label: 'Overhitting smashes',
+        issue: 'Going for power when control would hold the net',
+        whyItMatters: 'Choosing the bandeja or víbora on awkward balls (and finishing only the easy ones) wins more points.',
+        drills: ['Smash-or-bandeja decision game', 'Controlled overhead reps', 'Shot-selection points'],
+        plan: ['Days 1–3: shot selection', 'Days 4–6: decision game', 'Day 7: retest error rate'],
+      },
+      {
+        value: 'positioning',
+        label: 'Caught out of position',
+        issue: 'Stuck in mid-court and poor partner spacing',
+        whyItMatters: 'Committing to the net or the back with your partner — never the middle — closes the gaps opponents attack.',
+        drills: ['Attack/defense zone drill', 'Connected-pair spacing', 'Lob-and-advance transition'],
+        plan: ['Days 1–3: zone discipline', 'Days 4–6: spacing', 'Day 7: retest positioning'],
       },
     ],
   },

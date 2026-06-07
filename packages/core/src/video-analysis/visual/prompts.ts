@@ -94,6 +94,32 @@ const SPORT_FOCUS: Record<VisualSport, SportFocus> = {
       'likely stroke issue — only if visibly supported',
     ],
   },
+  pickleball: {
+    label: 'pickleball stroke',
+    phases: 'ready position, split step, compact preparation, forward swing, contact, follow-through, recovery',
+    evaluate: [
+      'compactness of the backswing (pickleball is NOT a tennis loop)',
+      'paddle-face angle and stability at contact',
+      'contact height and contact point relative to the body (out front)',
+      'low-to-high lift for dinks/drops vs. level path for drives/volleys',
+      'split-step timing and footwork to/at the kitchen (non-volley zone) line',
+      'balance and quiet hands on resets in the transition zone',
+      'likely stroke issue (popped dink, netted drop, late volley) — only if visibly supported',
+    ],
+  },
+  padel: {
+    label: 'padel stroke',
+    phases: 'ready position, split step, wall read, preparation, contact, follow-through, recovery',
+    evaluate: [
+      'reading and giving space to balls off the back/side glass (only if visible)',
+      'overhead family mechanics — bandeja/víbora control vs. an over-hit smash',
+      'paddle-face angle and contact point (out front, controlled height)',
+      'side-on preparation and footwork around the ball',
+      'lob depth and net-transition positioning',
+      'partner spacing and court position (net vs. back) when visible',
+      'likely stroke issue (weak bandeja, late after glass) — only if visibly supported',
+    ],
+  },
   baseball: {
     label: 'baseball swing',
     phases: 'stance, load, stride, hip/shoulder separation, swing, contact, extension, finish',

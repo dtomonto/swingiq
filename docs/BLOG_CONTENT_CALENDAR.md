@@ -4,8 +4,10 @@
 
 This is the to-do list of blog post ideas for SwingVantage. The scheduled task
 `blog-content-production-weekly` runs **every Wednesday** and drafts **one new
-blog post per sport** (golf, tennis, baseball, softball) by taking the next
-unchecked idea under each sport — the **"Up next"** items first, top to bottom.
+blog post per sport** (golf, tennis, pickleball, padel, baseball, softball) by
+taking the next unchecked idea under each sport — the **"Up next"** items first,
+top to bottom. (To include pickleball & padel in the weekly run, add them to the
+scheduled task's sport list — see the Pickleball/Padel sections below.)
 Drafts are committed to your computer only — **never published automatically.**
 You review and push when ready.
 
@@ -71,3 +73,33 @@ Done:
 
 Done:
 - [x] Slow-pitch: how to stop popping up under the arc
+
+## Pickleball
+> **Weekly-task note:** add `pickleball` to the `blog-content-production-weekly` sport list to include this bucket in the Wednesday run. Pickleball is its own sport — keep advice compact-stroke and kitchen-focused, never tennis-loop.
+
+**Up next (your queued order):**
+- [ ] Pickleball serve mechanics: deep, legal, repeatable
+- [ ] How to stop popping up your dinks
+- [ ] Pickleball return strategy: deep and to the middle
+- [ ] The reset: neutralizing speed-ups from the transition zone
+- [ ] Pickleball footwork: getting to (and holding) the kitchen line
+- [ ] When to speed up: reading the attackable ball
+- [ ] A beginner's DUPR improvement plan
+
+Done:
+- [x] The Pickleball Third-Shot Drop: A Beginner-to-3.5 Guide
+
+## Padel
+> **Weekly-task note:** add `padel` to the `blog-content-production-weekly` sport list to include this bucket. Padel is its own sport — glass play and the overhead family, never "tennis with walls".
+
+**Up next (your queued order):**
+- [ ] How to hit a víbora in padel
+- [ ] Reading the glass: back-wall and double-wall recovery
+- [ ] Padel serve and return fundamentals
+- [ ] Padel lob strategy: depth that flips the point
+- [ ] Padel doubles positioning for beginners
+- [ ] Smash vs. bandeja: when to finish and when to hold
+- [ ] Difference between padel and tennis technique
+
+Done:
+- [x] The Padel Bandeja Explained: How to Hold the Net

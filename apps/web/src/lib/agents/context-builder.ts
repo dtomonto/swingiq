@@ -60,6 +60,8 @@ function daysBetween(fromISO: string | null, now: Date): number | null {
 
 const EQUIPMENT_FIELDS: Record<Exclude<SportId, 'golf'>, string[]> = {
   tennis: ['head_size_sq_in', 'weight_strung_oz', 'string_tension_mains', 'grip_size', 'string_brand', 'string_pattern'],
+  pickleball: ['paddle_shape', 'core_thickness_mm', 'face_material', 'weight_oz', 'grip_size', 'handle_length_in'],
+  padel: ['paddle_shape', 'weight_g', 'balance', 'core_foam', 'face_material', 'grip_size'],
   baseball: ['length_in', 'weight_oz', 'material', 'certification', 'barrel_diameter_in'],
   softball_slow: ['length_in', 'weight_oz', 'material', 'certification_stamps', 'compression_rating'],
   softball_fast: ['length_in', 'weight_oz', 'material', 'certification_stamps', 'end_load_oz'],

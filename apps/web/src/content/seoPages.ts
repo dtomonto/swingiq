@@ -12,8 +12,9 @@
 // ============================================================
 
 import { WEDGE_PAGES } from './seoPagesWedges';
+import { RACKET_PAGES } from './seoPagesRacket';
 
-export type Sport = 'golf' | 'tennis' | 'baseball' | 'softball' | 'multi';
+export type Sport = 'golf' | 'tennis' | 'pickleball' | 'padel' | 'baseball' | 'softball' | 'multi';
 export type Audience = 'player' | 'parent' | 'coach' | 'creator' | 'team';
 export type Intent = 'informational' | 'commercial' | 'transactional';
 export type FunnelStage = 'awareness' | 'consideration' | 'conversion';
@@ -604,7 +605,7 @@ const FREE_SWING_ANALYSIS: SeoPage = {
   faqs: [
     { question: 'Is it really free?', answer: 'Yes. The core analysis, drills, and practice plan are free, with no account or credit card required.' },
     { question: 'Do you keep my video?', answer: 'Your full swing video stays on your device — analysis runs in your browser and only optional still frames are ever sent for AI review. Your data is private to you and never shared publicly.' },
-    { question: 'Which sports are supported?', answer: 'Golf, tennis, baseball, slow-pitch softball, and fast-pitch softball — each with its own diagnostic engine.' },
+    { question: 'Which sports are supported?', answer: 'Golf, tennis, pickleball, padel, baseball, slow-pitch softball, and fast-pitch softball — each with its own diagnostic engine.' },
   ],
   relatedLinks: [
     { label: 'How it works', href: '/how-it-works' },
@@ -1430,6 +1431,7 @@ export const SEO_PAGES: SeoPage[] = [
   // Phase 3 SEO growth wedges (slow-pitch + fast-pitch + baseball) —
   // kept in a sibling file to keep this registry edit minimal.
   ...WEDGE_PAGES,
+  ...RACKET_PAGES,
   ...DRAFTS,
 ];
 

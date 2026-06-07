@@ -24,6 +24,7 @@ export const RATING_TYPE_LABEL: Record<RatingType, string> = {
   golf_handicap: 'handicap',
   utr: 'UTR',
   ntrp: 'USTA/NTRP rating',
+  dupr: 'DUPR',
 };
 
 export const RATING_SOURCE_LABEL: Record<RatingSource, string> = {
@@ -57,6 +58,9 @@ export function normalizeRatingValue(type: RatingType, value: number): number | 
       return value >= 1 && value <= 16.5 ? value : null;
     case 'ntrp':
       return value >= 1.5 && value <= 7 ? value : null;
+    case 'dupr':
+      // DUPR: roughly 1.0 (new) to 8.0 (pro). Pickleball.
+      return value >= 1 && value <= 8 ? value : null;
   }
 }
 
@@ -68,7 +72,16 @@ export function compareRatingAlignment(
 ): RatingAlignmentResult {
   const sportNoun = config.sport === 'golf' ? 'golf' : 'tennis';
 
+  // Sport-aware label for the optional rating, used only in copy.
+  const noRatingPhrase: Record<typeof config.sport | string, string> = {
+    golf: 'a handicap',
+    tennis: 'a UTR or USTA/NTRP rating',
+    pickleball: 'a DUPR or self-rating',
+    padel: 'a club or league rating',
+  };
+
   if (!rating) {
+    const ratingPhrase = noRatingPhrase[config.sport] ?? 'a rating';
     return {
       alignment: 'unknown',
       ratingType: null,
@@ -79,7 +92,7 @@ export function compareRatingAlignment(
       explanation:
         config.sport === 'golf'
           ? 'You don\'t have a handicap on file yet. SwingVantage estimates your stage from scoring, swing, and practice data — add a handicap any time to sharpen it.'
-          : 'You don\'t have a UTR or USTA/NTRP rating on file yet. SwingVantage estimates your stage from match logs, video analysis, and practice data — add a rating any time to sharpen it.',
+          : `You don't have ${ratingPhrase} on file yet. SwingVantage estimates your stage from match logs, video analysis, and practice data — add one any time to sharpen it.`,
     };
   }
 

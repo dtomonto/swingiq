@@ -52,6 +52,38 @@ const SPORT_SESSION_LABELS: Record<Exclude<SportId, 'golf'>, {
     primary_issue_label: 'Main Focus / Issue Worked On',
     primary_issue_hint: 'What were you working on or what kept going wrong?',
   },
+  pickleball: {
+    session_type_label: 'Practice Type',
+    session_types: [
+      { value: 'dinking', label: 'Dinking & Resets' },
+      { value: 'third_shot', label: 'Third-Shot Drops & Drives' },
+      { value: 'serve_return', label: 'Serve & Return' },
+      { value: 'volleys', label: 'Volleys & Hands Battles' },
+      { value: 'match_play', label: 'Game / Match Play' },
+      { value: 'drills', label: 'Drills & Technique' },
+      { value: 'video_review', label: 'Video Review Session' },
+    ],
+    metrics_label: 'Approximate Balls Hit',
+    metrics_hint: 'Optional. How many balls did you hit in this session?',
+    primary_issue_label: 'Main Focus / Issue Worked On',
+    primary_issue_hint: 'What were you working on or what kept going wrong?',
+  },
+  padel: {
+    session_type_label: 'Practice Type',
+    session_types: [
+      { value: 'overheads', label: 'Bandeja / Víbora / Smash' },
+      { value: 'volleys', label: 'Net Volleys' },
+      { value: 'wall_play', label: 'Glass / Wall Play' },
+      { value: 'lobs', label: 'Lobs & Transitions' },
+      { value: 'match_play', label: 'Game / Match Play' },
+      { value: 'drills', label: 'Drills & Technique' },
+      { value: 'video_review', label: 'Video Review Session' },
+    ],
+    metrics_label: 'Approximate Balls Hit',
+    metrics_hint: 'Optional. How many balls did you hit in this session?',
+    primary_issue_label: 'Main Focus / Issue Worked On',
+    primary_issue_hint: 'What were you working on or what kept going wrong?',
+  },
   baseball: {
     session_type_label: 'Session Type',
     session_types: [

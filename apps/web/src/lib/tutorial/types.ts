@@ -25,7 +25,7 @@ export interface TutorialContent {
    * If provided, this tutorial only appears when the active sport matches.
    * Use 'all' for sport-agnostic screens.
    */
-  sport?: 'golf' | 'tennis' | 'baseball' | 'softball_slow' | 'softball_fast' | 'all';
+  sport?: 'golf' | 'tennis' | 'pickleball' | 'padel' | 'baseball' | 'softball_slow' | 'softball_fast' | 'all';
 }
 
 /** Persona a Tutorial Center track is tailored for. Mirrors onboarding USER_TYPES. */

@@ -9,21 +9,30 @@ import {
   runSportAnalysis,
 } from './sport-registry';
 import { runTennisAnalysis } from './tennis/analysis';
+import { runPickleballAnalysis } from './pickleball/analysis';
+import { runPadelAnalysis } from './padel/analysis';
 import { runBaseballAnalysis } from './baseball/analysis';
 import { runSlowPitchAnalysis } from './softball-slow/analysis';
 import { runFastPitchAnalysis } from './softball-fast/analysis';
 import { TENNIS_PHASE_SEQUENCE, TENNIS_PHASE_DEFINITIONS } from './tennis/phases';
+import { PICKLEBALL_PHASE_SEQUENCE, PICKLEBALL_PHASE_DEFINITIONS } from './pickleball/phases';
+import { PADEL_PHASE_SEQUENCE, PADEL_PHASE_DEFINITIONS } from './padel/phases';
 import { BASEBALL_PHASE_SEQUENCE, BASEBALL_PHASE_DEFINITIONS } from './baseball/phases';
 import { SLOW_PITCH_PHASE_SEQUENCE, SLOW_PITCH_PHASE_DEFINITIONS } from './softball-slow/phases';
 import { FAST_PITCH_PHASE_SEQUENCE, FAST_PITCH_PHASE_DEFINITIONS } from './softball-fast/phases';
 import { TENNIS_DRILLS, getTennisDrillsForIssue } from './tennis/drills';
+import { PICKLEBALL_DRILLS, getPickleballDrillsForIssue } from './pickleball/drills';
+import { PADEL_DRILLS, getPadelDrillsForIssue } from './padel/drills';
 import { BASEBALL_DRILLS, getBaseballDrillsForIssue } from './baseball/drills';
 import { SLOW_PITCH_DRILLS } from './softball-slow/drills';
 import { FAST_PITCH_DRILLS } from './softball-fast/drills';
 import { TENNIS_BENCHMARKS } from './tennis/benchmarks';
+import { PICKLEBALL_BENCHMARKS } from './pickleball/benchmarks';
+import { PADEL_BENCHMARKS } from './padel/benchmarks';
 import { BASEBALL_BENCHMARKS } from './baseball/benchmarks';
 import { SLOW_PITCH_BENCHMARKS } from './softball-slow/benchmarks';
 import { FAST_PITCH_BENCHMARKS } from './softball-fast/benchmarks';
+import { SPORT_TAXONOMY, getSportsByCategory } from './types';
 import type { SportAnalysisInput } from './types';
 
 // ──────────────────────────────────────────────────────────────
@@ -52,22 +61,32 @@ function mockInput(sportId: SportAnalysisInput['sport_id']): SportAnalysisInput 
 // ──────────────────────────────────────────────────────────────
 
 describe('Sport Registry', () => {
-  test('ALL_SPORTS contains exactly 4 non-golf sports', () => {
-    expect(ALL_SPORTS).toHaveLength(4);
+  test('ALL_SPORTS contains exactly 6 non-golf sports', () => {
+    expect(ALL_SPORTS).toHaveLength(6);
     const ids = ALL_SPORTS.map((s) => s.id);
     expect(ids).toContain('tennis');
+    expect(ids).toContain('pickleball');
+    expect(ids).toContain('padel');
     expect(ids).toContain('baseball');
     expect(ids).toContain('softball_slow');
     expect(ids).toContain('softball_fast');
   });
 
-  test('ALL_SPORTS_INCLUDING_GOLF contains 5 sports with golf first', () => {
-    expect(ALL_SPORTS_INCLUDING_GOLF).toHaveLength(5);
+  test('ALL_SPORTS_INCLUDING_GOLF contains 7 sports with golf first', () => {
+    expect(ALL_SPORTS_INCLUDING_GOLF).toHaveLength(7);
     expect(ALL_SPORTS_INCLUDING_GOLF[0].id).toBe('golf');
+  });
+
+  test('racket sports appear in display order: tennis, pickleball, padel', () => {
+    const ids = ALL_SPORTS.map((s) => s.id);
+    expect(ids.indexOf('tennis')).toBeLessThan(ids.indexOf('pickleball'));
+    expect(ids.indexOf('pickleball')).toBeLessThan(ids.indexOf('padel'));
   });
 
   test('getSportConfig returns config for all non-golf sports', () => {
     expect(getSportConfig('tennis')).not.toBeNull();
+    expect(getSportConfig('pickleball')).not.toBeNull();
+    expect(getSportConfig('padel')).not.toBeNull();
     expect(getSportConfig('baseball')).not.toBeNull();
     expect(getSportConfig('softball_slow')).not.toBeNull();
     expect(getSportConfig('softball_fast')).not.toBeNull();
@@ -90,6 +109,34 @@ describe('Sport Registry', () => {
 
   test('runSportAnalysis throws for golf', () => {
     expect(() => runSportAnalysis(mockInput('golf'))).toThrow();
+  });
+});
+
+// ──────────────────────────────────────────────────────────────
+// Sport taxonomy tests
+// ──────────────────────────────────────────────────────────────
+
+describe('Sport Taxonomy', () => {
+  test('contains all 7 sports', () => {
+    expect(SPORT_TAXONOMY).toHaveLength(7);
+  });
+
+  test('pickleball and padel are supported racket sports', () => {
+    const pb = SPORT_TAXONOMY.find((s) => s.id === 'pickleball');
+    const pd = SPORT_TAXONOMY.find((s) => s.id === 'padel');
+    expect(pb?.category).toBe('racket_sport');
+    expect(pb?.status).toBe('supported');
+    expect(pd?.category).toBe('racket_sport');
+    expect(pd?.status).toBe('supported');
+  });
+
+  test('racket sports group is tennis, pickleball, padel in order', () => {
+    const racket = getSportsByCategory('racket_sport').map((s) => s.id);
+    expect(racket).toEqual(['tennis', 'pickleball', 'padel']);
+  });
+
+  test('every sport has a non-empty name', () => {
+    for (const s of SPORT_TAXONOMY) expect(s.name).toBeTruthy();
   });
 });
 
@@ -120,6 +167,51 @@ describe('Tennis Phases', () => {
     for (let i = 1; i < pcts.length; i++) {
       expect(pcts[i]).toBeGreaterThanOrEqual(pcts[i - 1]);
     }
+  });
+});
+
+describe('Pickleball Phases', () => {
+  test('7 phases in sequence', () => {
+    expect(PICKLEBALL_PHASE_SEQUENCE).toHaveLength(7);
+  });
+
+  test('all phases have required fields', () => {
+    for (const phase of PICKLEBALL_PHASE_SEQUENCE) {
+      const def = PICKLEBALL_PHASE_DEFINITIONS[phase];
+      expect(def.label).toBeTruthy();
+      expect(def.key_checkpoints.length).toBeGreaterThan(0);
+      expect(def.common_errors.length).toBeGreaterThan(0);
+      expect(def.coaching_cue).toBeTruthy();
+      expect(def.technical_cue).toBeTruthy();
+    }
+  });
+
+  test('phase percentages are in ascending order', () => {
+    const pcts = PICKLEBALL_PHASE_SEQUENCE.map((p) => PICKLEBALL_PHASE_DEFINITIONS[p].estimated_pct_of_swing);
+    for (let i = 1; i < pcts.length; i++) {
+      expect(pcts[i]).toBeGreaterThanOrEqual(pcts[i - 1]);
+    }
+  });
+});
+
+describe('Padel Phases', () => {
+  test('7 phases in sequence', () => {
+    expect(PADEL_PHASE_SEQUENCE).toHaveLength(7);
+  });
+
+  test('all phases have required fields', () => {
+    for (const phase of PADEL_PHASE_SEQUENCE) {
+      const def = PADEL_PHASE_DEFINITIONS[phase];
+      expect(def.label).toBeTruthy();
+      expect(def.key_checkpoints.length).toBeGreaterThan(0);
+      expect(def.common_errors.length).toBeGreaterThan(0);
+      expect(def.coaching_cue).toBeTruthy();
+      expect(def.technical_cue).toBeTruthy();
+    }
+  });
+
+  test('includes a wall_read phase unique to padel', () => {
+    expect(PADEL_PHASE_SEQUENCE).toContain('wall_read');
   });
 });
 
@@ -194,6 +286,52 @@ describe('Tennis Drills', () => {
   });
 });
 
+describe('Pickleball Drills', () => {
+  test('at least 8 drills defined', () => {
+    expect(PICKLEBALL_DRILLS.length).toBeGreaterThanOrEqual(8);
+  });
+
+  test('all drills have valid YouTube search URLs', () => {
+    for (const drill of PICKLEBALL_DRILLS) {
+      expect(drill.youtube_search_url).toMatch(/youtube\.com\/results\?search_query=/);
+      expect(drill.youtube_search_url).not.toMatch(/watch\?v=/);
+    }
+  });
+
+  test('all drills tagged with sport_id pickleball', () => {
+    PICKLEBALL_DRILLS.forEach((d) => expect(d.sport_id).toBe('pickleball'));
+  });
+
+  test('getPickleballDrillsForIssue returns relevant drills', () => {
+    const drills = getPickleballDrillsForIssue('pb_popping_up_dinks');
+    expect(drills.length).toBeGreaterThan(0);
+    drills.forEach((d) => expect(d.issue_id).toBe('pb_popping_up_dinks'));
+  });
+});
+
+describe('Padel Drills', () => {
+  test('at least 8 drills defined', () => {
+    expect(PADEL_DRILLS.length).toBeGreaterThanOrEqual(8);
+  });
+
+  test('all drills have valid YouTube search URLs', () => {
+    for (const drill of PADEL_DRILLS) {
+      expect(drill.youtube_search_url).toMatch(/youtube\.com\/results\?search_query=/);
+      expect(drill.youtube_search_url).not.toMatch(/watch\?v=/);
+    }
+  });
+
+  test('all drills tagged with sport_id padel', () => {
+    PADEL_DRILLS.forEach((d) => expect(d.sport_id).toBe('padel'));
+  });
+
+  test('getPadelDrillsForIssue returns relevant drills', () => {
+    const drills = getPadelDrillsForIssue('pd_weak_bandeja');
+    expect(drills.length).toBeGreaterThan(0);
+    drills.forEach((d) => expect(d.issue_id).toBe('pd_weak_bandeja'));
+  });
+});
+
 describe('Baseball Drills', () => {
   test('at least 6 drills defined', () => {
     expect(BASEBALL_DRILLS.length).toBeGreaterThanOrEqual(6);
@@ -249,6 +387,8 @@ describe('Fast Pitch Drills', () => {
 describe('Benchmarks', () => {
   const allBenchmarks = [
     TENNIS_BENCHMARKS,
+    PICKLEBALL_BENCHMARKS,
+    PADEL_BENCHMARKS,
     BASEBALL_BENCHMARKS,
     SLOW_PITCH_BENCHMARKS,
     FAST_PITCH_BENCHMARKS,
@@ -333,6 +473,46 @@ describe('Tennis Analysis Engine', () => {
   });
 });
 
+describe('Pickleball Analysis Engine', () => {
+  const result = runPickleballAnalysis(mockInput('pickleball'));
+
+  test('returns sport_id pickleball', () => {
+    expect(result.sport_id).toBe('pickleball');
+  });
+
+  test('returns 7 phase segments tagged pickleball', () => {
+    expect(result.phase_segments).toHaveLength(7);
+    result.phase_segments.forEach((seg) => expect(seg.sport_id).toBe('pickleball'));
+  });
+
+  test('overall score in valid range', () => {
+    expect(result.overall_visual_score).toBeGreaterThanOrEqual(0);
+    expect(result.overall_visual_score).toBeLessThanOrEqual(100);
+  });
+
+  test('is_fully_estimated is always true', () => {
+    expect(result.is_fully_estimated).toBe(true);
+    result.detected_issues.forEach((issue) => expect(issue.is_estimated).toBe(true));
+  });
+});
+
+describe('Padel Analysis Engine', () => {
+  const result = runPadelAnalysis(mockInput('padel'));
+
+  test('returns sport_id padel', () => {
+    expect(result.sport_id).toBe('padel');
+  });
+
+  test('returns 7 phase segments tagged padel', () => {
+    expect(result.phase_segments).toHaveLength(7);
+    result.phase_segments.forEach((seg) => expect(seg.sport_id).toBe('padel'));
+  });
+
+  test('analysis version is semver', () => {
+    expect(result.analysis_version).toMatch(/^\d+\.\d+\.\d+$/);
+  });
+});
+
 describe('Baseball Analysis Engine', () => {
   const result = runBaseballAnalysis(mockInput('baseball'));
 
@@ -391,7 +571,7 @@ describe('Fast Pitch Analysis Engine', () => {
 describe('runSportAnalysis dispatcher', () => {
   test('dispatches correctly to each sport', () => {
     const sports: Array<Exclude<SportAnalysisInput['sport_id'], 'golf'>> = [
-      'tennis', 'baseball', 'softball_slow', 'softball_fast',
+      'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast',
     ];
     for (const sport of sports) {
       const result = runSportAnalysis(mockInput(sport));

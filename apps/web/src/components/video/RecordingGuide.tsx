@@ -36,6 +36,22 @@ const SPORT_TIPS: Record<VisualSport, SportRecordingTips> = {
       'Include the prep, the contact point, and the full follow-through.',
     ],
   },
+  pickleball: {
+    headline: 'Pickleball reads best from a clean side angle at the kitchen line.',
+    angle: [
+      'Film side-on so the paddle face, contact height, and dink/drop arc are visible.',
+      'Capture a few reps of the same shot (dink, drop, or drive) rather than mixing.',
+      'Keep your full body, the paddle, and the non-volley-zone line in frame.',
+    ],
+  },
+  padel: {
+    headline: 'Padel reads best from the side — show the overhead and the wall play.',
+    angle: [
+      'Film side-on so the overhead (bandeja/víbora) and contact height are visible.',
+      'Include back-glass reps so the wall read and recovery are in frame.',
+      'Keep your full body and the racket in frame through the whole stroke.',
+    ],
+  },
   baseball: {
     headline: 'Hitting reads best from the side or a slightly open front angle.',
     angle: [

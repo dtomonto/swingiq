@@ -293,6 +293,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.7,
     },
+    {
+      url: `${BASE_URL}/blog/pickleball-third-shot-drop-guide`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/blog/padel-bandeja-explained`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
 
     // ── Benchmarks ──────────────────────────────────────────────
     {
@@ -309,6 +321,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${BASE_URL}/benchmarks/tennis`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/benchmarks/pickleball`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/benchmarks/padel`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,

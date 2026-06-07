@@ -169,18 +169,23 @@ describe('attachMeta', () => {
 // ──────────────────────────────────────────────────────────────
 
 describe('buildVisionPrompt', () => {
-  test('supports all five sports', () => {
+  test('supports all seven sports', () => {
     expect(SUPPORTED_VISION_SPORTS.sort()).toEqual(
-      ['baseball', 'golf', 'softball_fast', 'softball_slow', 'tennis'],
+      ['baseball', 'golf', 'padel', 'pickleball', 'softball_fast', 'softball_slow', 'tennis'],
     );
   });
 
   test('routes per sport with distinct, sport-specific prompts', () => {
     const golf = buildVisionPrompt({ sport: 'golf', metadata: { frameCount: 12 } });
     const tennis = buildVisionPrompt({ sport: 'tennis', metadata: { frameCount: 12 } });
+    const pickleball = buildVisionPrompt({ sport: 'pickleball', metadata: { frameCount: 12 } });
+    const padel = buildVisionPrompt({ sport: 'padel', metadata: { frameCount: 12 } });
     expect(golf.system).toContain('golf swing');
     expect(tennis.system).toContain('tennis stroke');
+    expect(pickleball.system).toContain('pickleball stroke');
+    expect(padel.system).toContain('padel stroke');
     expect(golf.system).not.toEqual(tennis.system);
+    expect(pickleball.system).not.toEqual(padel.system);
   });
 
   test('user text reflects frame count and forbids fabrication in system rules', () => {

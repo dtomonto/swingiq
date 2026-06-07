@@ -13,9 +13,56 @@ import type { SkillLevel } from '../types';
 export type SportId =
   | 'golf'
   | 'tennis'
+  | 'pickleball'
+  | 'padel'
   | 'baseball'
   | 'softball_slow'
   | 'softball_fast';
+
+// ──────────────────────────────────────────────────────────────
+// Sport taxonomy (category grouping — single source of truth)
+// ──────────────────────────────────────────────────────────────
+
+export type SportCategory = 'club_sport' | 'racket_sport' | 'bat_sport';
+
+export type SportStatus = 'supported' | 'in_development';
+
+export interface SportTaxonomyEntry {
+  id: SportId;
+  name: string;
+  category: SportCategory;
+  status: SportStatus;
+}
+
+/**
+ * Canonical, ordered taxonomy of every sport SwingVantage supports.
+ * Display order: Golf → Tennis → Pickleball → Padel → Baseball →
+ * Slow-Pitch Softball → Fast-Pitch Softball. Categories group the
+ * marketing surface, filters, and internal-linking strategy.
+ */
+export const SPORT_TAXONOMY: SportTaxonomyEntry[] = [
+  { id: 'golf', name: 'Golf', category: 'club_sport', status: 'supported' },
+  { id: 'tennis', name: 'Tennis', category: 'racket_sport', status: 'supported' },
+  { id: 'pickleball', name: 'Pickleball', category: 'racket_sport', status: 'supported' },
+  { id: 'padel', name: 'Padel', category: 'racket_sport', status: 'supported' },
+  { id: 'baseball', name: 'Baseball', category: 'bat_sport', status: 'supported' },
+  { id: 'softball_slow', name: 'Slow-Pitch Softball', category: 'bat_sport', status: 'supported' },
+  { id: 'softball_fast', name: 'Fast-Pitch Softball', category: 'bat_sport', status: 'supported' },
+];
+
+export const SPORT_CATEGORY_LABELS: Record<SportCategory, string> = {
+  club_sport: 'Club Sport',
+  racket_sport: 'Racket Sports',
+  bat_sport: 'Bat Sports',
+};
+
+export function getSportsByCategory(category: SportCategory): SportTaxonomyEntry[] {
+  return SPORT_TAXONOMY.filter((s) => s.category === category);
+}
+
+export function getSportTaxonomy(id: SportId): SportTaxonomyEntry | undefined {
+  return SPORT_TAXONOMY.find((s) => s.id === id);
+}
 
 export type SportIssueId =
   // Tennis — original
@@ -110,6 +157,37 @@ export type SportIssueId =
   | 'fp_contact_too_deep'
   | 'fp_contact_too_forward'
   | 'fp_poor_extension_contact'
+  // Pickleball — compact paddle mechanics + non-volley-zone strategy
+  | 'pb_long_backswing'
+  | 'pb_open_paddle_face'
+  | 'pb_popping_up_dinks'
+  | 'pb_netting_third_drop'
+  | 'pb_driving_long'
+  | 'pb_wristy_contact'
+  | 'pb_contact_too_low'
+  | 'pb_late_volley'
+  | 'pb_poor_reset'
+  | 'pb_speed_up_error'
+  | 'pb_no_split_step'
+  | 'pb_kitchen_footwork'
+  | 'pb_off_balance_contact'
+  | 'pb_poor_transition_zone'
+  | 'pb_attackable_ball_misread'
+  // Padel — wall-based racket mechanics + doubles court positioning
+  | 'pd_late_after_wall'
+  | 'pd_open_racket_face'
+  | 'pd_weak_bandeja'
+  | 'pd_overhit_smash'
+  | 'pd_poor_lob_depth'
+  | 'pd_volley_error'
+  | 'pd_poor_net_transition'
+  | 'pd_bad_court_position'
+  | 'pd_partner_spacing'
+  | 'pd_poor_wall_read'
+  | 'pd_no_split_step'
+  | 'pd_flat_vibora_path'
+  | 'pd_off_balance_contact'
+  | 'pd_rushing_points'
   // Generic fallback for new issues not yet in the union
   | string;
 

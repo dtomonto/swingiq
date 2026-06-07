@@ -45,6 +45,8 @@ const DISCLAIMER =
 const SPORT_IMPACT: Record<SportId, string> = {
   golf: 'a cut/slice pattern or an inconsistent strike',
   tennis: 'reduced pace and control, or late contact',
+  pickleball: 'popped-up dinks, netted drops, or late volleys',
+  padel: 'a weak bandeja, mis-timed glass play, or lost net control',
   baseball: 'weaker contact and lost carry',
   softball_slow: 'weaker contact and pop-ups',
   softball_fast: 'weaker contact and lost carry',

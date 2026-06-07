@@ -122,6 +122,52 @@ analytics + GSC are live — measured demand beats this initial research.
 
 ---
 
+## Racket-sport clusters: Pickleball & Padel (added June 2026)
+
+Pickleball and padel are **first-class sports** (see
+[`PICKLEBALL_PADEL_EXPANSION.md`](PICKLEBALL_PADEL_EXPANSION.md)). The weekly SEO
+build cycle should balance across **all seven sports** rather than over-indexing
+on golf — target mix per cycle:
+
+| Golf | Tennis | Pickleball | Padel | Baseball | Slow-Pitch | Fast-Pitch |
+|---|---|---|---|---|---|---|
+| ~20% | ~15% | ~15% | ~15% | ~15% | ~10% | ~10% |
+
+**Status legend:** `[x]` live · `[~]` draft in `content/seoPagesRacket.ts` · `[ ]` not built.
+
+### Pickleball
+- [x] pickleball — pillar / AI swing-analysis hub
+- [x] pickleball-third-shot-drop
+- [x] pickleball-dinking
+- [~] pickleball-video-analysis
+- [~] pickleball-practice-plan
+- [~] pickleball-drills
+- [~] pickleball-serve-analysis
+- [~] pickleball-dupr-improvement
+- [ ] pickleball-doubles-strategy
+- [ ] pickleball-transition-zone-explained
+- [ ] pickleball-paddle-face-control
+
+### Padel
+- [x] padel — pillar / AI swing-analysis hub
+- [x] padel-bandeja
+- [x] padel-wall-rebound-technique
+- [~] padel-vibora
+- [~] padel-serve-analysis
+- [~] padel-video-analysis
+- [~] padel-practice-plan
+- [~] padel-drills
+- [~] padel-doubles-strategy
+- [ ] padel-lob-strategy
+- [ ] difference-between-padel-and-tennis
+
+Generate by sport × intent: skill level, shot type, common mistake, practice
+goal, equipment, rating goal (DUPR for pickleball), and persona (player / parent
+/ coach). Promote a `[~]` draft to live by setting `publishStatus: 'published'`
+in `content/seoPagesRacket.ts` and adding a matching `page.tsx`.
+
+---
+
 ## Research sources (June 2026)
 
 - **Golf:** [HackMotion — 11 common swing mistakes](https://hackmotion.com/common-golf-swing-mistakes/), [MyGolfSpy — 10 common mistakes](https://mygolfspy.com/news-opinion/instruction/the-10-most-common-golf-swing-mistakes-and-how-to-fix-them/), [Golf.com — high-handicap mistakes](https://golf.com/instruction/10-bad-golf-swing-mistakes-high-handicappers-make/), [The Left Rough — amateur faults](https://theleftrough.com/common-amateur-golf-swing-faults/)

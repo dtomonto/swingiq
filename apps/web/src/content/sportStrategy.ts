@@ -30,7 +30,9 @@ export type PersonaId =
   | 'slow-pitch'
   | 'fast-pitch'
   | 'softball'
-  | 'tennis';
+  | 'tennis'
+  | 'pickleball'
+  | 'padel';
 
 export interface SportStrategyEntry {
   personaId: PersonaId;
@@ -49,6 +51,8 @@ export const SPORT_STRATEGY: SportStrategyEntry[] = [
   { personaId: 'fast-pitch', tier: 'primary', order: 4 },
   { personaId: 'softball', tier: 'primary', order: 5 },
   { personaId: 'tennis', tier: 'secondary', order: 6 }, // ← middle ground
+  { personaId: 'pickleball', tier: 'secondary', order: 7 }, // racket sport — indexed, nav/footer link
+  { personaId: 'padel', tier: 'secondary', order: 8 }, // racket sport — indexed, nav/footer link
 ];
 
 function entry(id: PersonaId): SportStrategyEntry | undefined {

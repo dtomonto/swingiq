@@ -5,7 +5,7 @@ export interface BlogPost {
   metaDescription: string;
   publishDate: string; // YYYY-MM-DD
   displayDate: string; // "Month DD, YYYY"
-  sport: 'golf' | 'tennis' | 'baseball' | 'softball' | 'all';
+  sport: 'golf' | 'tennis' | 'pickleball' | 'padel' | 'baseball' | 'softball' | 'all';
   category: string;
   readingTime: string;
   excerpt: string;
@@ -402,5 +402,105 @@ The schedule updates as your diagnosis changes. If you resolve your primary faul
 **Review your data monthly.** Monthly trend reviews — looking at three to five sessions at a time — reveal whether your work is producing results. SwingVantage's progress charts show whether your swing scores, key metrics, and personal bests are trending in the right direction.
 
 The golfers who improve fastest are not the ones who hit the most balls. They are the ones who show up consistently, with a plan, and who track whether the plan is working.`,
+  },
+  {
+    slug: 'pickleball-third-shot-drop-guide',
+    title: 'The Pickleball Third-Shot Drop: A Beginner-to-3.5 Guide',
+    metaTitle: 'Pickleball Third-Shot Drop Guide | SwingVantage',
+    metaDescription: 'The third-shot drop gets you to the kitchen line. Learn the mechanics, the three reasons drops fail, and a practice progression to make it reliable.',
+    publishDate: '2026-06-06',
+    displayDate: 'June 6, 2026',
+    sport: 'pickleball',
+    category: 'Technique',
+    readingTime: '6 min read',
+    excerpt: 'The third-shot drop is the most important — and most missed — shot in pickleball. Here is how it works and how to make it reliable.',
+    tags: ['pickleball', 'third shot drop', 'kitchen', 'soft game', 'technique'],
+    relatedSlugs: ['padel-bandeja-explained'],
+    content: `## Why the Third Shot Decides the Point
+
+In doubles pickleball, the serving team starts at a disadvantage: the returning team gets to the kitchen line first. The third shot — the serving team's shot after the return — is how you erase that disadvantage. A good drop lands soft in the non-volley zone, can't be attacked, and buys you time to move up to the line. Miss it, and you stay pinned at the baseline trading drives you'll usually lose.
+
+This is the single biggest skill gap between 3.0 and 3.5+ players, and it is NOT a tennis shot. There is no long backswing. The power comes from your legs, not a swing.
+
+## The Mechanics
+
+A third-shot drop is a soft, lofted shot that arcs up, peaks on YOUR side of the net, and falls into the kitchen. Four checkpoints:
+
+**1. Compact preparation.** The paddle barely goes back past your hip. A long, tennis-style backswing is the number-one cause of inconsistent drops.
+
+**2. Lift with the legs.** Bend your knees and extend them through the shot. The legs provide the upward lift; the arm stays calm and along for the ride.
+
+**3. Stable, slightly open paddle face.** Set the angle early and keep your wrist quiet through contact. A flicking wrist sprays the height.
+
+**4. Contact out in front.** Meet the ball ahead of your body, never beside or behind your hip.
+
+## The Three Reasons Drops Fail
+
+**Netting it.** You decelerated into the ball, used no leg lift, or contacted it behind your body. Fix: drive the lift from your legs and commit to the upward arc.
+
+**Floating it (it gets attacked).** Your paddle face was too open or you added too much pace, so the ball sat up above net height. Fix: a calmer face and softer hands.
+
+**Rushing forward.** You sprinted to the line before the drop was actually unattackable. Fix: drop, take two steps, split-step, and only advance behind a good ball.
+
+## A Practice Progression
+
+1. **Stationary drops** from the baseline to a cone target in the kitchen — 3 sets of 15. Track makes.
+2. **Drop and advance** — hit a drop, take two controlled steps, split-step; only move up behind an unattackable ball.
+3. **Live drop rallies** — drop against a partner feeding drives, working all the way to the line.
+
+Film yourself from the side. SwingVantage's pickleball analysis reads your paddle-face angle, leg lift, and the arc relative to the net, then gives you the one thing to fix first.
+
+The drop is hard, and that's exactly why it's worth the reps. It is the shot that lets you play the soft game where points are actually won.`,
+  },
+  {
+    slug: 'padel-bandeja-explained',
+    title: 'The Padel Bandeja Explained: How to Hold the Net',
+    metaTitle: 'Padel Bandeja Explained | SwingVantage',
+    metaDescription: 'The bandeja is the controlled overhead that keeps you at the net in padel. Learn what it is, when to use it instead of a smash, and how to groove it.',
+    publishDate: '2026-06-06',
+    displayDate: 'June 6, 2026',
+    sport: 'padel',
+    category: 'Technique',
+    readingTime: '6 min read',
+    excerpt: 'The bandeja is the shot that separates padel from tennis — and the one that lets your team keep the net. Here is how it works.',
+    tags: ['padel', 'bandeja', 'overhead', 'net control', 'technique'],
+    relatedSlugs: ['pickleball-third-shot-drop-guide'],
+    content: `## The Most Important Shot You've Never Heard Of
+
+In padel, whoever controls the net controls the point. When your opponents lob you — and they will, constantly — you have a choice: try to smash the ball (risky, and if you miss you lose the net), or play a bandeja, the controlled overhead that keeps you forward and keeps the pressure on.
+
+The bandeja ("tray" in Spanish, named for the serving-tray motion) is what makes padel padel. It is not a smash, and it is definitely not a tennis serve.
+
+## What the Bandeja Is
+
+It's a slow, sliced, controlled overhead hit at roughly shoulder-to-head height, placed deep and usually cross-court. The goal is not to win the point outright — it's to keep your team at the net while pushing your opponents back and pinning them to the glass.
+
+Four checkpoints:
+
+**1. Turn side-on early.** As soon as you read the lob, turn sideways and point your non-paddle hand at the ball to track it.
+
+**2. Contact out front and above the shoulder.** Not behind your head. Reach up and slightly in front.
+
+**3. Brush with slice.** A little high-to-low slice gives you control and depth, and makes the ball skid low after the bounce.
+
+**4. Finish low and out toward the target** — not over your shoulder like a smash. Stay balanced and forward; do not fall backward off the net.
+
+## Bandeja vs. Víbora vs. Smash
+
+- **Bandeja** — the safe, controlled default to hold the net on most lobs.
+- **Víbora** — a more aggressive, side-spin overhead (a "snake") for when you want to attack without fully committing to a smash.
+- **Smash** — only for short, high, comfortable balls you can finish. If the lob is deep or awkward, a smash is a low-percentage gamble that surrenders the net when it misses.
+
+The discipline to choose the bandeja over the smash is one of the biggest markers of a developing padel player.
+
+## How to Groove It
+
+1. **Shadow reps** — slow side-on overhead motions grooving the turn, the out-front contact, and the low finish.
+2. **Bandeja control & depth** — a partner lobs; you hit bandejas deep cross-court to a target near the side glass. 3 sets of 12.
+3. **Smash-or-bandeja decision game** — mix deep lobs and short sit-ups, and only smash the easy ones.
+
+Film yourself from the side. SwingVantage's padel analysis reads your preparation, contact point, slice, and finish, and tells you the one adjustment that will hold the net more often.
+
+Power wins highlight reels. Control wins matches — and in padel, control starts with the bandeja.`,
   },
 ];

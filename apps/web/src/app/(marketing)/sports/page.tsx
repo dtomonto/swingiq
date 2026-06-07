@@ -15,7 +15,7 @@ import type { SportId } from '@swingiq/core';
 import { useSport, SPORT_DISPLAY } from '@/contexts/SportContext';
 import { useSwingVantageStore } from '@/store';
 
-const SPORT_ORDER: SportId[] = ['golf', 'tennis', 'baseball', 'softball_slow', 'softball_fast'];
+const SPORT_ORDER: SportId[] = ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'];
 
 const SPORT_INFO: Record<SportId, { tagline: string; analyzes: string }> = {
   golf: {
@@ -25,6 +25,14 @@ const SPORT_INFO: Record<SportId, { tagline: string; analyzes: string }> = {
   tennis: {
     tagline: 'Sharpen every stroke',
     analyzes: 'Forehand, backhand, and serve mechanics, phase-by-phase.',
+  },
+  pickleball: {
+    tagline: 'Win the kitchen',
+    analyzes: 'Compact paddle mechanics — dinks, third-shot drops, drives, resets, and volleys.',
+  },
+  padel: {
+    tagline: 'Read the glass, hold the net',
+    analyzes: 'Overheads (bandeja/víbora), volleys, lobs, and wall play, phase-by-phase.',
   },
   baseball: {
     tagline: 'Build a repeatable swing',

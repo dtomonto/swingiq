@@ -1,6 +1,6 @@
 # SwingVantage — AI Swing Performance Platform
 
-A production-grade, web-based AI swing development platform for **golf, tennis, baseball, slow pitch softball, and fast pitch softball**.
+A production-grade, web-based AI swing, motion, and performance platform for **golf, tennis, pickleball, padel, baseball, slow pitch softball, and fast pitch softball** — a multi-sport platform organized around three sport families: **Club** (golf), **Racket** (tennis, pickleball, padel), and **Bat** (baseball, slow-pitch & fast-pitch softball).
 
 Web-first. Mobile-optimized. No app store required. Works on any phone, tablet, or desktop browser.
 
@@ -27,11 +27,13 @@ Switching your active sport changes the **entire product experience** — dashbo
 |---|---|---|
 | ⛳ Golf | Launch-monitor CSV or image screenshot | Diagnosis, scores, club gapping, loft autofill, stroke savings, training routines |
 | 🎾 Tennis | Video analysis | Stroke phase breakdown, 24 issue categories, drill plan |
+| 🏓 Pickleball | Video analysis | Compact-stroke breakdown (dink, third-shot drop, drive, reset, volley), paddle-face & kitchen analysis, drill plan |
+| 🎾 Padel | Video analysis | Overhead family (bandeja/víbora/smash), glass/wall-read analysis, net-control & doubles positioning, drill plan |
 | ⚾ Baseball | Video + manual entry | Swing phase analysis, 24 issue categories, drill plan |
 | 🥎 Slow Pitch Softball | Video + manual entry | Arc-timing analysis, 24 issue categories, line-drive coaching |
 | 🥎 Fast Pitch Softball | Video + manual entry | Compact swing analysis, 24 issue categories, reaction timing |
 
-> **All five sports** also get **Motion Lab** (`/motion-lab`) — browser-based 3D motion analysis with a rotatable 3D viewer, sport-specific phase breakdowns, biomechanical scores, a coaching plan, and an optional two-camera "true 3D" mode.
+> **All seven sports** also get **Motion Lab** (`/motion-lab`) — browser-based 3D motion analysis with a rotatable 3D viewer, sport-specific phase breakdowns, biomechanical scores, a coaching plan, and an optional two-camera "true 3D" mode.
 
 ---
 
@@ -43,7 +45,7 @@ Sport-specific dashboard that changes completely when you switch sports.
 - **Non-golf:** Primary issue from video analysis, recent analyses, setup progress, AI Coach CTA
 
 ### 👤 Profile
-Five distinct profile forms — one per sport. No golf fields appear when analyzing a baseball swing.
+Seven distinct profile forms — one per sport (golf, tennis, pickleball, padel, baseball, slow-pitch & fast-pitch softball). No golf fields appear when analyzing a baseball swing; pickleball shows DUPR/paddle fields, padel shows court-side/wall-play fields.
 
 ### 📊 Sessions
 - Filtered by active sport by default with "All Sports" toggle
@@ -52,7 +54,7 @@ Five distinct profile forms — one per sport. No golf fields appear when analyz
 - Non-golf: manual session logging or video upload
 
 ### 🎬 Video Analysis
-Sport-aware video analyzer with phase-by-phase coaching for all five sports.
+Sport-aware video analyzer with phase-by-phase coaching for all seven sports.
 - Sport-specific camera angle selector
 - Issue detection with severity labels (Critical / Notable / Minor / Watch)
 - All detections labeled as heuristic estimates — honest confidence labels throughout
@@ -301,6 +303,8 @@ swingiq/
 │           ├── professional-references.ts   # 32 pro athlete seed data
 │           ├── professional-reference-service.ts
 │           ├── tennis/         # Phases, 24 issue categories, drills, benchmarks
+│           ├── pickleball/     # Compact-stroke phases, drills, benchmarks, analysis
+│           ├── padel/          # Wall-aware phases, drills, benchmarks, analysis
 │           ├── baseball/       # Phases, 24 issue categories, drills, benchmarks
 │           ├── softball-slow/  # Phases, 24 issue categories, drills, benchmarks
 │           └── softball-fast/  # Phases, 24 issue categories, drills, benchmarks
@@ -462,6 +466,8 @@ FlightScope · TrackMan · Foresight/Bushnell · SkyTrak · Uneekor · Garmin R1
 | `/benchmarks/[sport]` | Beginner → elite ranges: golf, tennis, baseball, softball |
 | `/golf-swing-analysis` | Golf SEO landing page |
 | `/tennis-swing-analysis` | Tennis SEO landing page |
+| `/pickleball` | Pickleball pillar + AI swing-analysis hub (`/pickleball-third-shot-drop`, `/pickleball-dinking`) |
+| `/padel` | Padel pillar + AI swing-analysis hub (`/padel-bandeja`, `/padel-wall-rebound-technique`) |
 | `/baseball-swing-analysis` | Baseball SEO landing page |
 | `/softball-swing-analysis` | Slow + fast pitch softball SEO page |
 | `/free-swing-analysis` | Free analysis conversion landing page |

@@ -11,6 +11,18 @@ export * from './tennis/drills';
 export * from './tennis/benchmarks';
 export * from './tennis/analysis';
 
+// Pickleball
+export * from './pickleball/phases';
+export * from './pickleball/drills';
+export * from './pickleball/benchmarks';
+export * from './pickleball/analysis';
+
+// Padel
+export * from './padel/phases';
+export * from './padel/drills';
+export * from './padel/benchmarks';
+export * from './padel/analysis';
+
 // Baseball
 export * from './baseball/phases';
 export * from './baseball/drills';

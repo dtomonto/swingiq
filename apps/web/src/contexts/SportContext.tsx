@@ -24,7 +24,7 @@ import { SPORT_NAV_LABELS } from '@swingiq/core';
 const STORAGE_KEY = 'swingiq_active_sport';
 const SELECTED_KEY = 'swingiq_selected_sports';
 
-const VALID_SPORTS: SportId[] = ['golf', 'tennis', 'baseball', 'softball_slow', 'softball_fast'];
+const VALID_SPORTS: SportId[] = ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'];
 
 function sanitizeSports(ids: SportId[]): SportId[] {
   // de-dupe + keep only valid sports, preserving order
@@ -43,6 +43,8 @@ function sanitizeSports(ids: SportId[]): SportId[] {
 export const SPORT_DISPLAY: Record<SportId, { emoji: string; accentColor: string; name: string }> = {
   golf: { emoji: '⛳', accentColor: '#22C55E', name: 'Golf' },
   tennis: { emoji: '🎾', accentColor: '#EAB308', name: 'Tennis' },
+  pickleball: { emoji: '🏓', accentColor: '#84CC16', name: 'Pickleball' },
+  padel: { emoji: '🎾', accentColor: '#0EA5E9', name: 'Padel' },
   baseball: { emoji: '⚾', accentColor: '#EF4444', name: 'Baseball' },
   softball_slow: { emoji: '🥎', accentColor: '#F97316', name: 'Slow Pitch Softball' },
   softball_fast: { emoji: '🥎', accentColor: '#EC4899', name: 'Fast Pitch Softball' },

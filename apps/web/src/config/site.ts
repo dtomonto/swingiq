@@ -25,7 +25,7 @@ export const siteConfig = {
   siteName: 'SwingVantage',
 
   /** Short tagline used in titles and OG metadata. */
-  tagline: 'Free AI Swing Analysis for Golf, Tennis, Baseball & Softball',
+  tagline: 'Free AI Swing Analysis for Golf, Tennis, Pickleball, Padel, Baseball & Softball',
 
   /** Live, canonical site origin (no trailing slash). */
   liveSiteUrl: SITE_URL,
@@ -42,7 +42,7 @@ export const siteConfig = {
 
   // ── Default metadata ───────────────────────────────────────
   defaultMetaDescription:
-    'Upload a swing video or import launch monitor data. Get a free AI breakdown of your top swing fault, beginner-safe drills, and a practice plan — golf, tennis, baseball, and softball. No account required.',
+    'Upload a swing video or import launch monitor data. Get a free AI breakdown of your top swing fault, beginner-safe drills, and a practice plan — golf, tennis, pickleball, padel, baseball, and softball. No account required.',
   defaultOgImage: '/og-default.png',
   twitterCard: 'summary_large_image' as const,
 
@@ -56,8 +56,9 @@ export const siteConfig = {
     tiktok: '',
   },
 
-  /** Supported sports, used across nav, schema, and SEO surfaces. */
-  sports: ['golf', 'tennis', 'baseball', 'slow-pitch softball', 'fast-pitch softball'] as const,
+  /** Supported sports, used across nav, schema, and SEO surfaces.
+   *  Display order: club → racket (tennis, pickleball, padel) → bat. */
+  sports: ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'slow-pitch softball', 'fast-pitch softball'] as const,
 } as const;
 
 export type SiteConfig = typeof siteConfig;

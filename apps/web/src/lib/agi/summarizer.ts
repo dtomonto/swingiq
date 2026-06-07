@@ -42,6 +42,8 @@ const NOT_MEASURED = 'not yet measured';
 const SPORT_WORD: Record<SportId, string> = {
   golf: 'golf',
   tennis: 'tennis',
+  pickleball: 'pickleball',
+  padel: 'padel',
   baseball: 'baseball',
   softball_slow: 'softball',
   softball_fast: 'softball',

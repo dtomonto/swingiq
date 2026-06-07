@@ -29,6 +29,90 @@ export const TennisProfileSchema = z.object({
 
 export type TennisProfileInput = z.infer<typeof TennisProfileSchema>;
 
+// ── Pickleball Profile ────────────────────────────────────────
+// Pickleball is its own sport, not small-court tennis: paddle-face
+// control, the kitchen (non-volley zone), and the third-shot drop
+// drive the profile fields.
+
+export const PickleballProfileSchema = z.object({
+  dominant_hand: z.enum(['right', 'left']).default('right'),
+  paddle_hand: z.enum(['right', 'left', 'two_handed_backhand']).default('right'),
+  /** Optional DUPR rating (1.0–8.0 scale; left blank if unknown). */
+  dupr_rating: z.number().nullable().default(null),
+  /** Optional self-rated level on the common 2.0–5.0+ ladder. */
+  self_rating: z
+    .enum(['2.0', '2.5', '3.0', '3.5', '4.0', '4.5', '5.0+'])
+    .nullable()
+    .default(null),
+  format_preference: z.enum(['singles', 'doubles', 'both']).default('doubles'),
+  doubles_court_side: z.enum(['left', 'right', 'flexible']).default('flexible'),
+  preferred_style: z
+    .enum(['control', 'power', 'counterpuncher', 'all_court', 'dinker_reset', 'aggressive_net'])
+    .default('all_court'),
+  common_miss: z
+    .enum([
+      'popping_up_dinks',
+      'netting_third_drops',
+      'driving_long',
+      'missing_returns',
+      'late_volleys',
+      'poor_resets',
+      'speed_up_errors',
+      'kitchen_foot_faults',
+      'other',
+    ])
+    .default('other'),
+  paddle_brand: z.string().default(''),
+  paddle_model: z.string().default(''),
+  primary_goal: z.string().default(''),
+  play_frequency: z.enum(['daily', '4-6x/week', '2-3x/week', 'weekly', 'occasional']).default('2-3x/week'),
+  skill_level: z.enum(['beginner', 'intermediate', 'advanced', 'elite']).default('intermediate'),
+  injury_notes: z.string().default(''),
+  coaching_style: z.enum(['data_first', 'feel_first', 'balanced']).default('balanced'),
+});
+
+export type PickleballProfileInput = z.infer<typeof PickleballProfileSchema>;
+
+// ── Padel Profile ─────────────────────────────────────────────
+// Padel is its own sport, not tennis with walls: glass play, the
+// bandeja/víbora overhead family, and doubles positioning drive
+// the profile fields.
+
+export const PadelProfileSchema = z.object({
+  dominant_hand: z.enum(['right', 'left']).default('right'),
+  racket_hand: z.enum(['right', 'left']).default('right'),
+  /** Optional local/club/federation rating (free text — scales vary by country). */
+  club_rating: z.string().default(''),
+  playing_level: z.enum(['beginner', 'intermediate', 'advanced', 'competitive']).default('intermediate'),
+  court_side: z.enum(['right_deuce', 'left_advantage', 'flexible']).default('flexible'),
+  preferred_style: z
+    .enum(['defensive_wall', 'net_attacker', 'lob_strategist', 'power_smasher', 'bandeja_specialist', 'all_court'])
+    .default('all_court'),
+  common_miss: z
+    .enum([
+      'poor_wall_read',
+      'late_after_glass',
+      'weak_bandeja',
+      'overhitting_smashes',
+      'poor_lob_depth',
+      'volley_errors',
+      'poor_net_transition',
+      'bad_court_position',
+      'partner_spacing',
+      'other',
+    ])
+    .default('other'),
+  racket_brand: z.string().default(''),
+  racket_model: z.string().default(''),
+  primary_goal: z.string().default(''),
+  play_frequency: z.enum(['daily', '4-6x/week', '2-3x/week', 'weekly', 'occasional']).default('2-3x/week'),
+  skill_level: z.enum(['beginner', 'intermediate', 'advanced', 'elite']).default('intermediate'),
+  injury_notes: z.string().default(''),
+  coaching_style: z.enum(['data_first', 'feel_first', 'balanced']).default('balanced'),
+});
+
+export type PadelProfileInput = z.infer<typeof PadelProfileSchema>;
+
 // ── Baseball Profile ──────────────────────────────────────────
 
 export const BaseballProfileSchema = z.object({
@@ -110,6 +194,8 @@ export type FastPitchProfileInput = z.infer<typeof FastPitchProfileSchema>;
 
 export type SportSpecificProfile =
   | { sport: 'tennis'; data: TennisProfileInput }
+  | { sport: 'pickleball'; data: PickleballProfileInput }
+  | { sport: 'padel'; data: PadelProfileInput }
   | { sport: 'baseball'; data: BaseballProfileInput }
   | { sport: 'softball_slow'; data: SlowPitchProfileInput }
   | { sport: 'softball_fast'; data: FastPitchProfileInput };
@@ -120,7 +206,9 @@ export const SharedAthleteProfileSchema = z.object({
   /** Display name — shared across all sports */
   name: z.string().min(1, 'Name is required'),
   /** Primary sport for onboarding flow */
-  primary_sport: z.enum(['golf', 'tennis', 'baseball', 'softball_slow', 'softball_fast']).default('golf'),
+  primary_sport: z
+    .enum(['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'])
+    .default('golf'),
   /** Practice availability (shared) */
   practice_days_per_week: z.number().min(0).max(7).default(3),
   /** General mobility notes — optional and voluntary */
@@ -142,6 +230,18 @@ export const SPORT_CAMERA_ANGLES: Record<string, Array<{ value: string; label: s
     { value: 'face_on', label: 'Side View (Open)', description: 'Best for groundstroke phase analysis — captures hip rotation and follow-through' },
     { value: 'down_the_line', label: 'Behind Player', description: 'Useful for tracking racquet plane and contact point depth' },
     { value: 'rear', label: 'Court-Level / Front', description: 'Good for seeing shoulder turn and contact height' },
+    { value: 'unknown', label: 'Unknown / Other', description: 'Camera angle not specified' },
+  ],
+  pickleball: [
+    { value: 'face_on', label: 'Side View', description: 'Best for paddle-face angle, contact height, and dink/drop arc' },
+    { value: 'down_the_line', label: 'Behind Player', description: 'Best for backswing compactness and contact point' },
+    { value: 'rear', label: 'Court-Level / Front', description: 'Good for kitchen footwork and split-step timing' },
+    { value: 'unknown', label: 'Unknown / Other', description: 'Camera angle not specified' },
+  ],
+  padel: [
+    { value: 'face_on', label: 'Side View', description: 'Best for overhead (bandeja/víbora) mechanics and contact height' },
+    { value: 'down_the_line', label: 'Behind Player', description: 'Best for the wall read and contact off the back glass' },
+    { value: 'rear', label: 'Court-Level / Front', description: 'Good for partner spacing and net transition' },
     { value: 'unknown', label: 'Unknown / Other', description: 'Camera angle not specified' },
   ],
   baseball: [
@@ -204,6 +304,30 @@ export const SPORT_NAV_LABELS: Record<string, {
     diagnose: 'Stroke Analysis',
     tagline: 'Tennis Performance',
     empty_sessions: 'Upload a video of your strokes or log a training session to start building your development profile.',
+  },
+  pickleball: {
+    equipment: 'My Paddles',
+    equipment_short: 'Paddles',
+    profile: 'My Pickleball Profile',
+    profile_short: 'Profile',
+    sessions: 'Training Sessions',
+    import: 'Log Training Session',
+    pre_round: 'Pre-Match Warm-Up',
+    diagnose: 'Stroke Analysis',
+    tagline: 'Pickleball Performance',
+    empty_sessions: 'Upload a video of your dinks, drops, or drives to start building your development profile.',
+  },
+  padel: {
+    equipment: 'My Rackets',
+    equipment_short: 'Rackets',
+    profile: 'My Padel Profile',
+    profile_short: 'Profile',
+    sessions: 'Training Sessions',
+    import: 'Log Training Session',
+    pre_round: 'Pre-Match Warm-Up',
+    diagnose: 'Stroke Analysis',
+    tagline: 'Padel Performance',
+    empty_sessions: 'Upload a video of your bandeja, volleys, or glass play to start building your development profile.',
   },
   baseball: {
     equipment: 'My Bats',
@@ -268,6 +392,26 @@ export const SPORT_QUICK_ACTIONS: Record<string, SportQuickAction[]> = {
   tennis: [
     { id: 'video', label: 'Analyze Video', href: '/video', color: 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100', icon_name: 'Video', primary: true },
     { id: 'drills', label: 'Stroke Drills', href: '/drills', color: 'bg-teal-50 text-teal-700 hover:bg-teal-100', icon_name: 'BookOpen' },
+    { id: 'training', label: 'Training', href: '/training', color: 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100', icon_name: 'Dumbbell' },
+    { id: 'pre_round', label: 'Pre-Match', href: '/pre-round', color: 'bg-pink-50 text-pink-700 hover:bg-pink-100', icon_name: 'Sun' },
+    { id: 'schedule', label: 'Schedule', href: '/practice', color: 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100', icon_name: 'CalendarDays' },
+    { id: 'progress', label: 'Progress', href: '/progress', color: 'bg-green-50 text-green-700 hover:bg-green-100', icon_name: 'TrendingUp' },
+    { id: 'ai_coach', label: 'AI Coach', href: '/ai-coach', color: 'bg-purple-50 text-purple-700 hover:bg-purple-100', icon_name: 'MessageSquare' },
+    { id: 'profile', label: 'My Profile', href: '/profile', color: 'bg-blue-50 text-blue-700 hover:bg-blue-100', icon_name: 'User' },
+  ],
+  pickleball: [
+    { id: 'video', label: 'Analyze Video', href: '/video', color: 'bg-lime-50 text-lime-700 hover:bg-lime-100', icon_name: 'Video', primary: true },
+    { id: 'drills', label: 'Paddle Drills', href: '/drills', color: 'bg-teal-50 text-teal-700 hover:bg-teal-100', icon_name: 'BookOpen' },
+    { id: 'training', label: 'Training', href: '/training', color: 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100', icon_name: 'Dumbbell' },
+    { id: 'pre_round', label: 'Pre-Match', href: '/pre-round', color: 'bg-pink-50 text-pink-700 hover:bg-pink-100', icon_name: 'Sun' },
+    { id: 'schedule', label: 'Schedule', href: '/practice', color: 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100', icon_name: 'CalendarDays' },
+    { id: 'progress', label: 'Progress', href: '/progress', color: 'bg-green-50 text-green-700 hover:bg-green-100', icon_name: 'TrendingUp' },
+    { id: 'ai_coach', label: 'AI Coach', href: '/ai-coach', color: 'bg-purple-50 text-purple-700 hover:bg-purple-100', icon_name: 'MessageSquare' },
+    { id: 'profile', label: 'My Profile', href: '/profile', color: 'bg-blue-50 text-blue-700 hover:bg-blue-100', icon_name: 'User' },
+  ],
+  padel: [
+    { id: 'video', label: 'Analyze Video', href: '/video', color: 'bg-sky-50 text-sky-700 hover:bg-sky-100', icon_name: 'Video', primary: true },
+    { id: 'drills', label: 'Padel Drills', href: '/drills', color: 'bg-teal-50 text-teal-700 hover:bg-teal-100', icon_name: 'BookOpen' },
     { id: 'training', label: 'Training', href: '/training', color: 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100', icon_name: 'Dumbbell' },
     { id: 'pre_round', label: 'Pre-Match', href: '/pre-round', color: 'bg-pink-50 text-pink-700 hover:bg-pink-100', icon_name: 'Sun' },
     { id: 'schedule', label: 'Schedule', href: '/practice', color: 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100', icon_name: 'CalendarDays' },

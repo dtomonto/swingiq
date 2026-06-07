@@ -16,6 +16,8 @@ import { YouthSafetyNotice } from '@/components/trust/YouthSafetyNotice';
 const SPORT_LABEL: Record<SeoPage['sport'], string> = {
   golf: 'Golf',
   tennis: 'Tennis',
+  pickleball: 'Pickleball',
+  padel: 'Padel',
   baseball: 'Baseball',
   softball: 'Softball',
   multi: 'All Sports',

@@ -4,12 +4,14 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { BLOG_POSTS } from '@/data/blog-posts';
 
-const SPORT_FILTERS = ['All', 'Golf', 'Tennis', 'Baseball', 'Softball'] as const;
+const SPORT_FILTERS = ['All', 'Golf', 'Tennis', 'Pickleball', 'Padel', 'Baseball', 'Softball'] as const;
 type SportFilter = typeof SPORT_FILTERS[number];
 
 const SPORT_BADGE_COLORS: Record<string, string> = {
   golf: 'bg-primary/15 text-primary',
   tennis: 'bg-warning/15 text-warning',
+  pickleball: 'bg-lime-500/15 text-lime-700',
+  padel: 'bg-sky-500/15 text-sky-700',
   baseball: 'bg-error/15 text-error',
   softball: 'bg-accent-secondary/15 text-accent-secondary',
   all: 'bg-muted text-muted-foreground',

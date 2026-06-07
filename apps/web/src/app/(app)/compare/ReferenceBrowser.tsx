@@ -32,6 +32,8 @@ type HandednessFilter = 'any' | 'right' | 'left' | 'switch';
 const MOVEMENT_TYPES_BY_SPORT: Record<SportId, string[]> = {
   golf: ['full_swing', 'driver', 'iron', 'wedge', 'putting'],
   tennis: ['forehand', 'backhand', 'serve', 'volley', 'drop_shot'],
+  pickleball: ['dink', 'third_shot_drop', 'drive', 'serve', 'return', 'volley', 'reset'],
+  padel: ['bandeja', 'vibora', 'smash', 'volley', 'lob', 'serve', 'return', 'wall_play'],
   baseball: ['batting_swing', 'pitching'],
   softball_slow: ['batting_swing'],
   softball_fast: ['batting_swing', 'pitching'],

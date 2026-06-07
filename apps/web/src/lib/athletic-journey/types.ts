@@ -37,7 +37,7 @@ export interface SportAvailability {
 
 // ── Ratings (all optional) ────────────────────────────────────
 
-export type RatingType = 'golf_handicap' | 'utr' | 'ntrp';
+export type RatingType = 'golf_handicap' | 'utr' | 'ntrp' | 'dupr';
 
 /** Provenance of a rating value — drives how much trust the engine gives it. */
 export type RatingSource =

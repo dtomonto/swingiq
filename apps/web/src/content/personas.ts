@@ -90,6 +90,26 @@ export const PERSONA_PATHS: Record<PersonaId, PersonaPath> = {
     href: '/tennis-swing-analysis',
     startHref: '/start?sport=tennis',
   },
+  pickleball: {
+    id: 'pickleball',
+    sport: 'pickleball',
+    emoji: '🏓',
+    title: 'Pickleball',
+    painLine: 'Fix your third-shot drop, dinks & resets',
+    ctaLabel: 'Analyze my game',
+    href: '/pickleball',
+    startHref: '/start?sport=pickleball',
+  },
+  padel: {
+    id: 'padel',
+    sport: 'padel',
+    emoji: '🎾',
+    title: 'Padel',
+    painLine: 'Master the bandeja, wall play & net control',
+    ctaLabel: 'Analyze my game',
+    href: '/padel',
+    startHref: '/start?sport=padel',
+  },
 };
 
 export function getPersona(id: PersonaId): PersonaPath {

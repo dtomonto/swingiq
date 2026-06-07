@@ -19,6 +19,8 @@ import { AgentPracticePlanCard } from '@/components/agents/AgentPracticePlanCard
 import { FaultExplanation } from '@/components/faults/FaultExplanation';
 import {
   TENNIS_DRILLS,
+  PICKLEBALL_DRILLS,
+  PADEL_DRILLS,
   BASEBALL_DRILLS,
   SLOW_PITCH_DRILLS,
   FAST_PITCH_DRILLS,
@@ -33,6 +35,8 @@ import { format } from 'date-fns';
 // Map sport id → drill list
 const SPORT_DRILL_MAP: Record<Exclude<SportId, 'golf'>, SportDrillRecommendation[]> = {
   tennis: TENNIS_DRILLS,
+  pickleball: PICKLEBALL_DRILLS,
+  padel: PADEL_DRILLS,
   baseball: BASEBALL_DRILLS,
   softball_slow: SLOW_PITCH_DRILLS,
   softball_fast: FAST_PITCH_DRILLS,

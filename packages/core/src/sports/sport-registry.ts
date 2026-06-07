@@ -10,18 +10,24 @@ import type { SportAnalysisInput, SportSwingAnalysis } from './types';
 
 // Phase definitions
 import { TENNIS_PHASE_DEFINITIONS, TENNIS_PHASE_SEQUENCE } from './tennis/phases';
+import { PICKLEBALL_PHASE_DEFINITIONS, PICKLEBALL_PHASE_SEQUENCE } from './pickleball/phases';
+import { PADEL_PHASE_DEFINITIONS, PADEL_PHASE_SEQUENCE } from './padel/phases';
 import { BASEBALL_PHASE_DEFINITIONS, BASEBALL_PHASE_SEQUENCE } from './baseball/phases';
 import { SLOW_PITCH_PHASE_DEFINITIONS, SLOW_PITCH_PHASE_SEQUENCE } from './softball-slow/phases';
 import { FAST_PITCH_PHASE_DEFINITIONS, FAST_PITCH_PHASE_SEQUENCE } from './softball-fast/phases';
 
 // Benchmarks
 import { TENNIS_BENCHMARKS } from './tennis/benchmarks';
+import { PICKLEBALL_BENCHMARKS } from './pickleball/benchmarks';
+import { PADEL_BENCHMARKS } from './padel/benchmarks';
 import { BASEBALL_BENCHMARKS } from './baseball/benchmarks';
 import { SLOW_PITCH_BENCHMARKS } from './softball-slow/benchmarks';
 import { FAST_PITCH_BENCHMARKS } from './softball-fast/benchmarks';
 
 // Analysis engines
 import { runTennisAnalysis } from './tennis/analysis';
+import { runPickleballAnalysis } from './pickleball/analysis';
+import { runPadelAnalysis } from './padel/analysis';
 import { runBaseballAnalysis } from './baseball/analysis';
 import { runSlowPitchAnalysis } from './softball-slow/analysis';
 import { runFastPitchAnalysis } from './softball-fast/analysis';
@@ -54,6 +60,62 @@ const TENNIS_CONFIG: SportConfig = {
     'SwingVantage tennis benchmarks are evidence-informed and segmented by skill level. ' +
     'Values are based on published coaching and biomechanics literature. ' +
     'Periodically reviewed and updated as new research is available.',
+  benchmark_version: '1.0.0',
+};
+
+const PICKLEBALL_CONFIG: SportConfig = {
+  id: 'pickleball',
+  name: 'Pickleball',
+  short_name: 'Pickleball',
+  emoji: '🏓',
+  description:
+    'Compact paddle-stroke analysis for pickleball — dinks, third-shot drops, drives, resets, and volleys. ' +
+    'Phase-by-phase coaching built around paddle-face control and the non-volley-zone (kitchen) game.',
+  tagline: 'Dink, drop, drive, win the kitchen.',
+  color_class: 'text-lime-500',
+  accent_hex: '#84CC16',
+  phases: Object.fromEntries(
+    Object.entries(PICKLEBALL_PHASE_DEFINITIONS).map(([k, v]) => [k, v]),
+  ),
+  phase_sequence: PICKLEBALL_PHASE_SEQUENCE,
+  benchmarks: PICKLEBALL_BENCHMARKS,
+  camera_angle_guidance: {
+    face_on: 'Best for paddle-face angle, contact height, and dink/drop arc.',
+    down_the_line: 'Useful for compactness of the backswing and contact point relative to the body.',
+    rear: 'Good for footwork to the kitchen line, split-step timing, and transition-zone movement.',
+  },
+  evidence_note:
+    'SwingVantage pickleball benchmarks are evidence-informed using USA Pickleball and PPR coaching ' +
+    'resources and DUPR rating-band descriptions. Many values are video quality scores, not radar ' +
+    'measurements. Confidence: medium-low — pickleball biomechanics data is sparsely published.',
+  benchmark_version: '1.0.0',
+};
+
+const PADEL_CONFIG: SportConfig = {
+  id: 'padel',
+  name: 'Padel',
+  short_name: 'Padel',
+  emoji: '🎾',
+  description:
+    'Wall-aware stroke analysis for padel — the bandeja, víbora and smash overhead family, volleys, lobs, ' +
+    'and glass play. Phase-by-phase coaching built around net control and doubles court positioning.',
+  tagline: 'Read the glass, hold the net.',
+  color_class: 'text-sky-500',
+  accent_hex: '#0EA5E9',
+  phases: Object.fromEntries(
+    Object.entries(PADEL_PHASE_DEFINITIONS).map(([k, v]) => [k, v]),
+  ),
+  phase_sequence: PADEL_PHASE_SEQUENCE,
+  benchmarks: PADEL_BENCHMARKS,
+  camera_angle_guidance: {
+    face_on: 'Best for overhead (bandeja/víbora) mechanics, contact height, and net positioning.',
+    down_the_line: 'Useful for the wall read and contact point off the back glass.',
+    rear: 'Good for partner spacing, net transition, and reading rebounds off the glass.',
+  },
+  evidence_note:
+    'SwingVantage padel benchmarks are evidence-informed using FIP/FEP coaching education and published ' +
+    'padel coaching methodology on glass play and net control. Many values are video quality scores, ' +
+    'not measurements. Confidence: medium-low — padel biomechanics data is sparsely published.',
   benchmark_version: '1.0.0',
 };
 
@@ -144,6 +206,8 @@ const SOFTBALL_FAST_CONFIG: SportConfig = {
 
 export const SPORT_CONFIGS: Record<Exclude<SportId, 'golf'>, SportConfig> = {
   tennis: TENNIS_CONFIG,
+  pickleball: PICKLEBALL_CONFIG,
+  padel: PADEL_CONFIG,
   baseball: BASEBALL_CONFIG,
   softball_slow: SOFTBALL_SLOW_CONFIG,
   softball_fast: SOFTBALL_FAST_CONFIG,
@@ -152,6 +216,8 @@ export const SPORT_CONFIGS: Record<Exclude<SportId, 'golf'>, SportConfig> = {
 /** All non-golf sports in display order */
 export const ALL_SPORTS: SportConfig[] = [
   TENNIS_CONFIG,
+  PICKLEBALL_CONFIG,
+  PADEL_CONFIG,
   BASEBALL_CONFIG,
   SOFTBALL_SLOW_CONFIG,
   SOFTBALL_FAST_CONFIG,
@@ -192,6 +258,8 @@ type AnalysisRunner = (input: SportAnalysisInput) => SportSwingAnalysis;
 
 const ANALYSIS_RUNNERS: Record<Exclude<SportId, 'golf'>, AnalysisRunner> = {
   tennis: runTennisAnalysis,
+  pickleball: runPickleballAnalysis,
+  padel: runPadelAnalysis,
   baseball: runBaseballAnalysis,
   softball_slow: runSlowPitchAnalysis,
   softball_fast: runFastPitchAnalysis,

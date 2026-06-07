@@ -21,6 +21,8 @@ export type LeadSource =
   | 'youth_baseball'
   | 'youth_softball'
   | 'tennis_forehand'
+  | 'pickleball'
+  | 'padel'
   | 'coach'
   | 'creator'
   | 'team'

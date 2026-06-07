@@ -47,6 +47,26 @@ const SPORT_DISPLAY: Record<SportId, {
     greeting:
       'Hello! I\'m your SwingVantage Tennis Coach. I have access to your video analysis results and tennis profile.\n\nAsk me about your stroke technique, phase-by-phase observations, drill recommendations, or what to focus on in your next practice session.',
   },
+  pickleball: {
+    emoji: '🏓',
+    color: 'bg-lime-500/15',
+    textColor: 'text-lime-700',
+    borderColor: 'border-lime-500/30',
+    avatarBg: 'bg-lime-600',
+    placeholder: 'Ask about your dink, third-shot drop, reset, or next practice focus…',
+    greeting:
+      'Hello! I\'m your SwingVantage Pickleball Coach. I have access to your video analysis results and pickleball profile.\n\nAsk me about your compact stroke, paddle-face control, the third-shot drop, dinking, resets, kitchen-line footwork, or what to focus on in your next session.',
+  },
+  padel: {
+    emoji: '🎾',
+    color: 'bg-sky-500/15',
+    textColor: 'text-sky-700',
+    borderColor: 'border-sky-500/30',
+    avatarBg: 'bg-sky-600',
+    placeholder: 'Ask about your bandeja, wall play, volleys, lobs, or next practice focus…',
+    greeting:
+      'Hello! I\'m your SwingVantage Padel Coach. I have access to your video analysis results and padel profile.\n\nAsk me about your bandeja and overheads, reading the ball off the glass, volleys, lobs, net control, or doubles positioning with your partner.',
+  },
   baseball: {
     emoji: '⚾',
     color: 'bg-error/15',
@@ -101,6 +121,26 @@ const SUGGESTED_QUESTIONS_BY_SPORT: Record<SportId, string[]> = {
     'Am I improving session to session?',
     'How do I get more topspin on my forehand?',
     'What should I focus on in my next practice?',
+  ],
+  pickleball: [
+    'Why do my dinks keep popping up?',
+    'How do I stop netting my third-shot drop?',
+    'When should I speed up a ball?',
+    'How do I reset a hard drive from the transition zone?',
+    'What drills should I work on today?',
+    'How do I get to the kitchen line faster?',
+    'How do I improve my DUPR rating?',
+    'What should I focus on in my next session?',
+  ],
+  padel: [
+    'How do I hit a better bandeja?',
+    'How do I read the ball off the back glass?',
+    'When should I smash vs. play a bandeja?',
+    'How do I lob deep enough to push them back?',
+    'What drills should I work on today?',
+    'How do I and my partner cover the court better?',
+    'How do I transition to the net after a lob?',
+    'What should I focus on in my next session?',
   ],
   baseball: [
     'Why do I keep rolling over to the pull side?',

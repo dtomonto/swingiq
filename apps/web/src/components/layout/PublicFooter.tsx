@@ -6,6 +6,8 @@ const FOOTER_COLUMNS = [
     links: [
       { label: 'Golf', href: '/golf-swing-analysis' },
       { label: 'Tennis', href: '/tennis-swing-analysis' },
+      { label: 'Pickleball', href: '/pickleball' },
+      { label: 'Padel', href: '/padel' },
       { label: 'Baseball', href: '/baseball-swing-analysis' },
       { label: 'Softball', href: '/softball-swing-analysis' },
     ],

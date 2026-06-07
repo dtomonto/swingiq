@@ -58,6 +58,16 @@ const SPORT_EMPHASIS: Record<SportId, string[]> = {
     'Shoulder and elbow take serving/overhead stress — scale serve volume to readiness.',
     'Reaction time dips when tired — quality over chaotic, high-volume rallying.',
   ],
+  pickleball: [
+    'Quick first steps to the kitchen tax the calves and knees — warm them up before fast exchanges.',
+    'Repetitive overheads and speed-ups load the shoulder — scale volume to readiness.',
+    'Soft-hands touch (dinks, resets) fades when tired — favor control work over hard drives on low days.',
+  ],
+  padel: [
+    'Constant change of direction and back-pedaling for lobs loads the legs — warm up movement first.',
+    'Overheads (bandeja/víbora/smash) stress the shoulder — manage volume across long sessions.',
+    'Reaction and wall-read sharpness dip when tired — prioritize quality points over marathon rallies.',
+  ],
   baseball: [
     'Rotational power leans on hips and core — warm up rotation before max-effort swings/throws.',
     'Shoulder and elbow carry throwing load — respect any arm discomfort.',

@@ -24,6 +24,8 @@ export const VISUAL_ANALYSIS_SCHEMA_VERSION = '1.0.0';
 export const VisualSportSchema = z.enum([
   'golf',
   'tennis',
+  'pickleball',
+  'padel',
   'baseball',
   'softball_slow',
   'softball_fast',

@@ -24,6 +24,8 @@ export { DEFAULT_COMMUNITY_STATE, DEFAULT_TUTORIAL_PROGRESS };
 // Intentionally loose so the store doesn't couple to schema types.
 export type SportProfiles = {
   tennis?: Record<string, unknown>;
+  pickleball?: Record<string, unknown>;
+  padel?: Record<string, unknown>;
   baseball?: Record<string, unknown>;
   softball_slow?: Record<string, unknown>;
   softball_fast?: Record<string, unknown>;
