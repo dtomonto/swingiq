@@ -27,6 +27,8 @@ interface Props {
   defaultPlatforms: string[];
   /** Blog posts the commit hook flagged for social (newest first). */
   pending?: { slug: string; title: string }[];
+  /** Server-computed publish capability per channel (no creds exposed). */
+  publishCaps?: { autopublish: boolean; channels: Record<string, 'direct' | 'webhook' | 'none'> };
 }
 
 // Shape of /api/social/list rows (kept local so we don't import the
@@ -70,7 +72,13 @@ function scoreColor(score: number): string {
   return 'bg-red-500/15 text-red-300 border-red-500/30';
 }
 
-export function SocialStudio({ posts, choices, defaultPlatforms, pending = [] }: Props) {
+export function SocialStudio({
+  posts,
+  choices,
+  defaultPlatforms,
+  pending = [],
+  publishCaps = { autopublish: false, channels: {} },
+}: Props) {
   const [slug, setSlug] = useState(posts[0]?.slug ?? '');
   const [platforms, setPlatforms] = useState<Set<string>>(new Set(defaultPlatforms));
   const [brandVoice, setBrandVoice] = useState('coach');
@@ -96,6 +104,7 @@ export function SocialStudio({ posts, choices, defaultPlatforms, pending = [] }:
   const [dismissed, setDismissed] = useState<Set<string>>(new Set());
   const [versions, setVersions] = useState<Record<string, { id: string; text: string; createdAt: string }[]>>({});
   const [openHistory, setOpenHistory] = useState<string | null>(null);
+  const [publishState, setPublishState] = useState<Record<string, { outcome: string; detail?: string } | 'publishing'>>({});
 
   const buildOptions = (override?: string[]) => ({
     platforms: override ?? Array.from(platforms),
@@ -298,6 +307,37 @@ export function SocialStudio({ posts, choices, defaultPlatforms, pending = [] }:
   }
 
   const finalText = (post: GeneratedPost) => edits[postKey(post)] ?? post.text;
+
+  async function publishOne(post: GeneratedPost) {
+    const key = postKey(post);
+    setPublishState((s) => ({ ...s, [key]: 'publishing' }));
+    try {
+      const res = await fetch('/api/social/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          post: {
+            platform: post.platform,
+            variationType: post.variationType,
+            text: finalText(post),
+            utmUrl: post.utmUrl,
+            hashtags: post.hashtags,
+            hookType: post.hookType,
+            ctaType: post.ctaType,
+            qualityScore: post.qualityScore,
+          },
+          postId: savedInfo?.postIds[key],
+        }),
+      });
+      const data = (await res.json()) as { outcome?: string; detail?: string; error?: string };
+      setPublishState((s) => ({
+        ...s,
+        [key]: { outcome: data.outcome ?? (res.ok ? 'published' : 'error'), detail: data.detail ?? data.error },
+      }));
+    } catch (e) {
+      setPublishState((s) => ({ ...s, [key]: { outcome: 'error', detail: e instanceof Error ? e.message : 'Failed' } }));
+    }
+  }
 
   async function copyPost(post: GeneratedPost) {
     const tags = post.hashtags.length ? `\n\n${post.hashtags.join(' ')}` : '';
@@ -591,6 +631,31 @@ export function SocialStudio({ posts, choices, defaultPlatforms, pending = [] }:
                           {openHistory === key ? 'Hide history' : 'History'}
                         </button>
                       )}
+                      {publishCaps.autopublish &&
+                        publishCaps.channels[post.platform] !== 'none' &&
+                        status === 'approved' && (
+                          <button
+                            onClick={() => publishOne(post)}
+                            disabled={publishState[key] === 'publishing'}
+                            title={`Publish via ${publishCaps.channels[post.platform]}`}
+                            className={`${btn} text-xs bg-sky-700 text-white hover:bg-sky-600`}
+                          >
+                            {publishState[key] === 'publishing'
+                              ? 'Publishing…'
+                              : `Publish (${publishCaps.channels[post.platform]})`}
+                          </button>
+                        )}
+                      {(() => {
+                        const ps = publishState[key];
+                        if (!ps || ps === 'publishing') return null;
+                        const ok = ps.outcome === 'published' || ps.outcome === 'queued';
+                        return (
+                          <span className={`text-xs ${ok ? 'text-emerald-400' : 'text-red-400'}`}>
+                            {ps.outcome}
+                            {ps.detail ? ` — ${ps.detail}` : ''}
+                          </span>
+                        );
+                      })()}
                     </div>
 
                     {openHistory === key && (

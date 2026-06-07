@@ -9,7 +9,8 @@
 import type { Metadata } from 'next';
 import { BLOG_POSTS } from '@/data/blog-posts';
 import { OPTION_CHOICES } from '@/lib/social/options';
-import { DEFAULT_PLATFORMS } from '@/lib/social/platforms';
+import { DEFAULT_PLATFORMS, ALL_PLATFORMS } from '@/lib/social/platforms';
+import { isAutopublishEnabled, channelPublishMode } from '@/lib/social/publishers';
 import socialPending from '@/data/social-pending.json';
 import { SocialStudio } from './SocialStudio';
 
@@ -34,6 +35,14 @@ export default function SocialAdminPage() {
     .map((b) => ({ slug: b.slug, title: b.title }))
     .reverse();
 
+  // Computed server-side so the client never sees credentials — just the mode.
+  const publishCaps = {
+    autopublish: isAutopublishEnabled(),
+    channels: Object.fromEntries(
+      ALL_PLATFORMS.map((p) => [p, channelPublishMode(p)]),
+    ) as Record<string, 'direct' | 'webhook' | 'none'>,
+  };
+
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <header className="mb-6">
@@ -48,6 +57,7 @@ export default function SocialAdminPage() {
         choices={OPTION_CHOICES}
         defaultPlatforms={DEFAULT_PLATFORMS}
         pending={pending}
+        publishCaps={publishCaps}
       />
     </div>
   );
