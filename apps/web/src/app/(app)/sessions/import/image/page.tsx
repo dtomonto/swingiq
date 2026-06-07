@@ -13,7 +13,7 @@ import { useSport } from '@/contexts/SportContext';
 import { useSwingVantageStore } from '@/store';
 import type { ImageExtractionSource } from '@swingiq/core';
 import { runOcr } from '@/lib/import/ocrClient';
-import { buildSessionFromTable } from '@/lib/import/toSession';
+import { buildSessionFromTable } from '@/lib/import/to-session';
 
 // Friendly labels for recognised universal-schema fields (for the review summary).
 const FIELD_LABELS: Record<string, string> = {
