@@ -18,6 +18,7 @@
 
 import { NextResponse, type NextRequest } from 'next/server';
 import { safeEqual } from '@/lib/security/constant-time';
+import { clientIp } from '@/lib/security/client-ip';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 
 /** Returns null when authorized as admin, else a NextResponse to return. */
@@ -45,11 +46,6 @@ export function requireCronOrAdmin(req: NextRequest): NextResponse | null {
     if (safeEqual(provided, cronSecret)) return null;
   }
   return requireAdmin(req);
-}
-
-/** Client IP for rate-limit keys (best-effort behind proxies). */
-export function clientIp(req: NextRequest): string {
-  return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
 }
 
 /** Returns a 429 response when the caller is over the limit, else null. */

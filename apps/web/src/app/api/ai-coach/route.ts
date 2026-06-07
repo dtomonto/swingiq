@@ -18,12 +18,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { buildCoachPrompt, validateUserQuestion, type CoachContext } from '@/lib/ai-coach-prompts';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 
 // ── Handler ───────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   // IP-based rate limiting
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:ai-coach`, { limit: 20, windowMs: 60_000 });
   if (!rl.allowed) {
     return rateLimitResponse();

@@ -7,10 +7,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import { listGenerations, persistenceAvailable } from '@/lib/social/store';
 
 export async function GET(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:social-list`, { limit: 60, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

@@ -11,6 +11,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import { validateSummaryBody } from '@/lib/recruiting/summary';
 
 const SYSTEM = [
@@ -77,7 +78,7 @@ async function callProvider(system: string, user: string): Promise<string | null
 }
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:recruiting-summary`, { limit: 15, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

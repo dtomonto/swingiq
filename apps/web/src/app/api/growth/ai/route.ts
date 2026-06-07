@@ -18,6 +18,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import { isAdminUser } from '@/lib/auth/admin';
 import { safeEqual } from '@/lib/security/constant-time';
 import {
@@ -46,7 +47,7 @@ async function isGrowthAiAuthorized(req: NextRequest): Promise<boolean> {
 
 export async function POST(req: NextRequest) {
   // IP-based rate limiting (distributed when Upstash is configured)
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:growth-ai`, { limit: 15, windowMs: 60_000 });
   if (!rl.allowed) {
     return rateLimitResponse();

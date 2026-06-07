@@ -16,6 +16,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import { isValidEmail } from '@/lib/email/capture';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { sendDispatchEmail } from '@/lib/agents/dispatch/send-email';
@@ -27,7 +28,7 @@ function str(v: unknown, max: number): string {
 }
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:dispatch-send`, { limit: 10, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

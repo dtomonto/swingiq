@@ -21,6 +21,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import {
   CSV_MAPPING_SYSTEM_PROMPT,
   buildCsvMappingUserMessage,
@@ -36,7 +37,7 @@ function sanitizeCell(v: unknown): string {
 }
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:csv-map`, { limit: 20, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

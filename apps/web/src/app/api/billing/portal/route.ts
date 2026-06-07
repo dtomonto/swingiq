@@ -8,6 +8,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { getUserEntitlement } from '@/lib/billing/entitlements';
 import { createPortalSession } from '@/lib/billing/stripe';
@@ -15,7 +16,7 @@ import { createPortalSession } from '@/lib/billing/stripe';
 export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:billing-portal`, { limit: 10, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

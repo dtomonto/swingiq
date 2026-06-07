@@ -10,7 +10,7 @@ import { clientIp } from '@/lib/security/client-ip';
 import { loadLearnedPreferences } from '@/lib/social/learning';
 
 export async function GET(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:social-learning`, { limit: 60, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

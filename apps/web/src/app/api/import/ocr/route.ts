@@ -17,6 +17,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import { resolveOcrProvider, type ResolvedOcrProvider } from '@/lib/capabilities';
 import {
   buildImageExtractionPrompt,
@@ -52,7 +53,7 @@ const MAX_IMAGE_CHARS = 12_000_000; // ~9 MB base64
 const MAX_OUTPUT_TOKENS = 4096;
 
 export async function POST(req: NextRequest): Promise<NextResponse<OcrResponse>> {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:import-ocr`, { limit: 6, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse() as NextResponse<OcrResponse>;
 

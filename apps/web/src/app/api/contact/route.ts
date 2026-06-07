@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import { validateContact, sendContactMessage } from '@/lib/email/contact';
 
 export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  const ip = clientIp(req);
   // Tighter than email-capture: a contact message is a heavier action.
   const rl = await checkRateLimit(`${ip}:contact`, { limit: 4, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();

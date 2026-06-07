@@ -6,6 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import { getPostVersions, persistenceAvailable, updatePost } from '@/lib/social/store';
 import type { PostStatus } from '@/lib/social/types';
 
@@ -14,7 +15,7 @@ const STATUSES: PostStatus[] = [
 ];
 
 export async function GET(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:social-versions`, { limit: 60, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 
@@ -29,7 +30,7 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ id: string 
 }
 
 export async function PATCH(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:social-patch`, { limit: 60, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

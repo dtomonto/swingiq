@@ -26,6 +26,7 @@ import {
   type VisionSpeed,
 } from '@swingiq/core';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -55,7 +56,7 @@ interface VisionRequestBody {
 
 export async function POST(req: NextRequest) {
   // Rate limiting — vision calls are comparatively expensive.
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:video-vision-analysis`, { limit: 12, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

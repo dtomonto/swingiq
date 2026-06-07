@@ -6,12 +6,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import { BLOG_POSTS } from '@/data/blog-posts';
 import { persistenceAvailable, saveGeneration } from '@/lib/social/store';
 import type { SocialGeneration } from '@/lib/social/types';
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:social-save`, { limit: 30, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getDevUpdates, getDevMilestones, DEV_STATS } from '@/data/devUpdates';
 import { DevUpdatesContent } from '@/components/dev-updates/DevUpdatesContent';
+import { serializeJsonLd } from '@/lib/seo/serialize-json-ld';
 
 // ── SEO Metadata ──────────────────────────────────────────────────────────
 
@@ -85,7 +86,7 @@ export default function DevUpdatesPage() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
 
       <DevUpdatesContent updates={updates} milestones={milestones} stats={DEV_STATS} />

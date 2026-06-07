@@ -18,6 +18,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 
 const MAX_TEXT = 2000;
 
@@ -30,7 +31,7 @@ const SYSTEM_PROMPT =
   `3. Keep it about the same length or shorter. No preamble, no markdown — return only the rewritten text.`;
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:agents-enhance`, { limit: 30, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

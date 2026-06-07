@@ -7,6 +7,7 @@
 // ============================================================
 
 import { videoObjectSchema } from '@/lib/video-studio/seo';
+import { serializeJsonLd } from '@/lib/seo/serialize-json-ld';
 import type { VideoAsset, VideoCreativeBrief } from '@/lib/video-studio/types';
 
 interface VideoObjectSchemaProps {
@@ -22,8 +23,9 @@ export function VideoObjectSchema({ asset, path, brief }: VideoObjectSchemaProps
   return (
     <script
       type="application/ld+json"
-      // JSON is serialized by us from typed inputs — safe.
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
+      // Escaped via the shared serializer so an AI-generated title/description
+      // containing "</script>" cannot break out of the tag.
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(graph) }}
     />
   );
 }

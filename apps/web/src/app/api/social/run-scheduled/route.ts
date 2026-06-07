@@ -10,10 +10,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { runScheduledPublish } from '@/lib/social/schedule-runner';
+import { safeEqual } from '@/lib/security/constant-time';
 
 async function authorized(req: NextRequest): Promise<boolean> {
   const secret = process.env.CRON_SECRET;
-  if (secret && req.headers.get('authorization') === `Bearer ${secret}`) return true;
+  // Constant-time compare — a plain === leaks the secret's matching prefix
+  // through response timing. Mirrors api/research/run.
+  if (secret && safeEqual(req.headers.get('authorization'), `Bearer ${secret}`)) return true;
   if (await isAuthorizedAdmin(req)) return true;
   // Dev convenience: no secret set + not production → allow.
   if (!secret && process.env.NODE_ENV !== 'production') return true;

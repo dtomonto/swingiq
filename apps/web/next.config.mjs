@@ -76,6 +76,11 @@ const nextConfig = {
               "worker-src 'self' blob:",
               // No plugins
               "object-src 'none'",
+              // Lock the document base URL so an injected <base> tag can't
+              // re-root every relative URL (script/style/link) to an attacker host.
+              "base-uri 'self'",
+              // Forms may only submit to same-origin endpoints.
+              "form-action 'self'",
               // Prevent framing by any origin
               "frame-ancestors 'none'",
               // Only load from HTTPS

@@ -12,6 +12,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 import { validateNarrative, type JourneyNarrative } from '@/lib/athletic-journey';
 
 const SYSTEM = [
@@ -87,7 +88,7 @@ function isNarrativeShape(v: unknown): v is JourneyNarrative {
 }
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:journey-narrative`, { limit: 12, windowMs: 60_000 });
   if (!rl.allowed) return rateLimitResponse();
 

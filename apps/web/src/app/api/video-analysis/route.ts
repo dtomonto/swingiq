@@ -15,6 +15,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { runVideoAnalysis } from '@swingiq/core';
 import type { SwingVideoMetadata } from '@swingiq/core';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { clientIp } from '@/lib/security/client-ip';
 
 interface VideoAnalysisRequest {
   video_id: string;
@@ -29,7 +30,7 @@ interface VideoAnalysisRequest {
 
 export async function POST(req: NextRequest) {
   // Rate limiting
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIp(req);
   const rl = await checkRateLimit(`${ip}:video-analysis`, { limit: 30, windowMs: 60_000 });
   if (!rl.allowed) {
     return rateLimitResponse();
