@@ -39,6 +39,9 @@ export const RULES: LintRule[] = [
     category: 'guarantee',
     severity: 'error',
     pattern: /\bguarantee(d|s)?\b/i,
+    // Skip honest, NON-overclaiming uses: a negated guarantee ("no guarantees",
+    // "we don't guarantee") or "guarantee-free" copy is the opposite of hype.
+    skipIf: /\b(no|without|never|not|n['’]?t)\b[^.?!]{0,25}guarantee|guarantee[-\s]?free/i,
     message: 'Guarantees overpromise — results vary by player and effort.',
     suggestion: 'Reframe as a confident expectation: "designed to help you…" or "most players see…".',
   },
