@@ -5,6 +5,8 @@ import { getLibraryItems } from '@/lib/library';
 import { learnPath } from '@/lib/library/seo';
 import { localizedRoutes, currentLocalesFor } from '@/lib/marketing-i18n/expose';
 import { localizedHref } from '@/lib/marketing-i18n/href';
+import { BLOG_POSTS } from '@/data/blog-posts';
+import { CHALLENGES } from '@/content/challenges';
 
 // Sitemap URLs MUST be on the same host the sitemap is served from, or
 // Google rejects them ("URL not allowed for a Sitemap at this location").
@@ -76,13 +78,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     (path) => ({ url: `${BASE_URL}${path}`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.6 }),
   );
 
-  // Challenge pages (index + individual challenges).
+  // Challenge pages: the index + one entry per challenge, derived from the
+  // CHALLENGES registry so a new challenge appears here automatically.
   const challengePages: MetadataRoute.Sitemap = [
-    '/challenges',
-    '/challenges/7-day-golf-slice',
-    '/challenges/7-day-slow-pitch-line-drive',
-    '/challenges/30-day-swingiq',
-  ].map((path) => ({ url: `${BASE_URL}${path}`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.5 }));
+    { url: `${BASE_URL}/challenges`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.5 },
+    ...Object.values(CHALLENGES).map((c) => ({
+      url: `${BASE_URL}/challenges/${c.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    })),
+  ];
+
+  // Blog: the index + one entry per post, derived from the BLOG_POSTS registry
+  // so a new post appears here automatically. lastModified uses each post's own
+  // publishDate (a real signal) rather than the build time.
+  const blogPages: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    ...BLOG_POSTS.map((post) => ({
+      url: `${BASE_URL}/blog/${post.slug}`,
+      lastModified: post.publishDate ? new Date(post.publishDate).toISOString() : now,
+      changeFrequency: 'yearly' as const,
+      priority: 0.7,
+    })),
+  ];
 
   // Public video library: the index + one crawlable page per video, with
   // video-sitemap metadata for recorded videos (SEO/AEO/GEO discovery).
@@ -234,6 +253,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      // Engineering changelog (transparency / active-development signal).
+      url: `${BASE_URL}/dev-updates`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.5,
+    },
+    {
       url: `${BASE_URL}/parents`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -252,6 +278,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      // Contact page (E-E-A-T / reachability trust signal; sets index:true).
+      url: `${BASE_URL}/contact`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
     },
     {
       url: `${BASE_URL}/trust`,
@@ -278,97 +311,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.4,
     },
 
-    // ── Blog ────────────────────────────────────────────────────
-    {
-      url: `${BASE_URL}/blog`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/blog/how-to-fix-a-golf-slice`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/what-is-smash-factor`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/how-to-read-launch-monitor-data`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/tennis-forehand-technique-basics`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/baseball-exit-velocity-guide`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/softball-bat-path-and-launch-angle`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/how-ai-swing-analysis-works`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/practice-schedule-for-golfers`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/pickleball-third-shot-drop-guide`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/padel-bandeja-explained`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/how-to-stop-topping-the-golf-ball`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/how-to-fix-a-late-forehand`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/how-to-stop-rolling-over-in-baseball`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/slow-pitch-softball-stop-popping-up`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
+    // ── Blog (index + one entry per post, derived from BLOG_POSTS) ──
+    ...blogPages,
 
     // ── Benchmarks ──────────────────────────────────────────────
     {

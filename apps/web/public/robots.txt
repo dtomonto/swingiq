@@ -45,11 +45,13 @@ Allow: /faq
 Allow: /pricing
 Allow: /parents
 Allow: /updates
+Allow: /dev-updates
 Allow: /resources
 Allow: /glossary
 Allow: /methodology
 Allow: /report/sample
 Allow: /about
+Allow: /contact
 Allow: /benchmarks
 Allow: /blog
 Allow: /trust

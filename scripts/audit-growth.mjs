@@ -13,6 +13,7 @@ const checks = [
   ['Growth content', 'scripts/validate-content.mjs'],
   ['Internal links', 'scripts/validate-links.mjs'],
   ['Sitemap routes', 'scripts/check-sitemap.mjs'],
+  ['Sitemap coverage', 'scripts/check-sitemap-coverage.mjs'],
 ];
 
 let failed = 0;
