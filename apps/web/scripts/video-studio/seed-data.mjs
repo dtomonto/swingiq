@@ -90,6 +90,23 @@ for (let i = 0; i < CSVS.length; i++) {
   console.log(`import ${i + 1}/${CSVS.length}: sessions=${await sessions()}`);
 }
 
+// Persist diagnoses + swing scores: opening a session detail computes and
+// saves them (exactly what a real user does), so /fix, the dashboard primary
+// diagnosis, and /training light up honestly instead of showing empty states.
+const ids = await page.evaluate(() => {
+  try { return (JSON.parse(localStorage.getItem('swingiq-store')).state.sessions || []).map((s) => s.id); }
+  catch { return []; }
+});
+for (let k = 0; k < ids.length; k++) {
+  await page.goto(BASE + `/sessions/${ids[k]}`, { waitUntil: 'domcontentloaded' });
+  await dwell(k === 0 ? 6000 : 3000); // first visit compiles the [id] route; let the persist effect run
+}
+const diagnosed = await page.evaluate(() => {
+  try { return (JSON.parse(localStorage.getItem('swingiq-store')).state.sessions || []).filter((s) => (s.diagnoses || []).length).length; }
+  catch { return 0; }
+});
+console.log(`persisted diagnoses for ${diagnosed}/${ids.length} sessions`);
+
 // Backdate sessions: oldest import (worst) → furthest back, newest (best) → today.
 await page.goto(BASE + '/dashboard', { waitUntil: 'domcontentloaded' });
 await dwell(800);
