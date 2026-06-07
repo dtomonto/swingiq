@@ -97,7 +97,7 @@ export function AppShell({ children }: AppShellProps) {
           <button
             onClick={() => setDrawerOpen(true)}
             aria-label="Open navigation menu"
-            className="p-2 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="tap-target rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
           >
             <Menu size={22} />
           </button>

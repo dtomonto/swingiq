@@ -322,7 +322,7 @@ export function DataTable<T>({
             <button
               onClick={() => setPage((p) => Math.max(0, p - 1))}
               disabled={safePage === 0}
-              className="rounded p-1 hover:bg-gray-800 disabled:opacity-30"
+              className="tap-target rounded hover:bg-gray-800 disabled:opacity-30"
               aria-label="Previous page"
             >
               <ChevronLeft className="h-4 w-4" />
@@ -333,7 +333,7 @@ export function DataTable<T>({
             <button
               onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
               disabled={safePage >= pageCount - 1}
-              className="rounded p-1 hover:bg-gray-800 disabled:opacity-30"
+              className="tap-target rounded hover:bg-gray-800 disabled:opacity-30"
               aria-label="Next page"
             >
               <ChevronRight className="h-4 w-4" />

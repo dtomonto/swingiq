@@ -23,7 +23,7 @@ export function AdminTopbar({ email, role, onOpenSidebar, onOpenSearch }: AdminT
     <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-gray-800 bg-gray-900/95 px-4 py-2.5 backdrop-blur">
       <button
         onClick={onOpenSidebar}
-        className="rounded-md p-1.5 text-gray-400 hover:bg-gray-800 lg:hidden"
+        className="tap-target rounded-md text-gray-400 hover:bg-gray-800 lg:hidden"
         aria-label="Open navigation"
       >
         <Menu className="h-5 w-5" />

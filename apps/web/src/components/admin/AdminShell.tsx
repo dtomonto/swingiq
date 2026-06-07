@@ -77,7 +77,7 @@ export function AdminShell({ email, role, children }: AdminShellProps) {
               <Brand />
               <button
                 onClick={() => setDrawerOpen(false)}
-                className="mr-3 rounded-md p-1.5 text-gray-400 hover:bg-gray-800"
+                className="tap-target mr-3 rounded-md text-gray-400 hover:bg-gray-800"
                 aria-label="Close navigation"
               >
                 <X className="h-5 w-5" />
