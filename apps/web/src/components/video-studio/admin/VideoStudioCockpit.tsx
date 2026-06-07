@@ -492,7 +492,7 @@ function AdminPreview({
       <div className="overflow-hidden rounded-lg border border-gray-800">
         {asset.poster ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={asset.poster} alt={asset.title} className="aspect-video w-full object-cover" />
+          <img src={asset.poster} alt={asset.title} loading="lazy" className="aspect-video w-full object-cover" />
         ) : (
           <div className="aspect-video w-full bg-gray-800" />
         )}
@@ -560,7 +560,7 @@ function LibraryPanel({
           <div key={a.id} className="rounded-xl border border-gray-800 bg-gray-900/60 p-3">
             {a.poster ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={a.poster} alt={a.title} className="aspect-video w-full rounded-lg object-cover" />
+              <img src={a.poster} alt={a.title} loading="lazy" className="aspect-video w-full rounded-lg object-cover" />
             ) : (
               <div className="aspect-video w-full rounded-lg bg-gray-800" />
             )}
