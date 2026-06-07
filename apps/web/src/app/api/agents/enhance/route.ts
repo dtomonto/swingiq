@@ -19,6 +19,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
+import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 
 const MAX_TEXT = 2000;
 
@@ -59,6 +60,10 @@ export async function POST(req: NextRequest) {
 
   const user = `Sport: ${sportLabel}\n\nSummary to rewrite:\n${input}`;
 
+  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set):
+  // when spent, skip the paid re-word and return the grounded text unchanged.
+  if (await aiBudgetExceeded()) return NextResponse.json({ text: input });
+
   // No provider configured → graceful no-op (return original text).
   try {
     if (aiProvider === 'openai' && openAiKey) {
@@ -78,6 +83,7 @@ export async function POST(req: NextRequest) {
       if (!res.ok) return NextResponse.json({ text: input });
       const data = (await res.json()) as { choices: Array<{ message: { content: string } }> };
       const out = data.choices[0]?.message?.content?.trim();
+      await recordAiSpend('agents');
       return NextResponse.json({ text: out || input });
     }
 
@@ -99,6 +105,7 @@ export async function POST(req: NextRequest) {
       if (!res.ok) return NextResponse.json({ text: input });
       const data = (await res.json()) as { content: Array<{ type: string; text: string }> };
       const out = data.content.find((c) => c.type === 'text')?.text?.trim();
+      await recordAiSpend('agents');
       return NextResponse.json({ text: out || input });
     }
   } catch {

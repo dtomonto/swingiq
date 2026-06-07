@@ -22,6 +22,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
+import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import {
   CSV_MAPPING_SYSTEM_PROMPT,
   buildCsvMappingUserMessage,
@@ -70,6 +71,10 @@ export async function POST(req: NextRequest) {
 
   const userMessage = buildCsvMappingUserMessage({ headers: cleanHeaders, sampleRows: cleanRows });
 
+  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set):
+  // when spent, skip the paid mapping — the wizard keeps its deterministic map.
+  if (await aiBudgetExceeded()) return NextResponse.json({ mapping: {} });
+
   try {
     if (aiProvider === 'openai' && openAiKey) {
       const res = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -89,6 +94,7 @@ export async function POST(req: NextRequest) {
       if (!res.ok) return NextResponse.json({ mapping: {} });
       const data = (await res.json()) as { choices: Array<{ message: { content: string } }> };
       const out = data.choices[0]?.message?.content ?? '';
+      await recordAiSpend('agents');
       return NextResponse.json({ mapping: parseCsvMappingResponse(out, cleanHeaders) });
     }
 
@@ -110,6 +116,7 @@ export async function POST(req: NextRequest) {
       if (!res.ok) return NextResponse.json({ mapping: {} });
       const data = (await res.json()) as { content: Array<{ type: string; text: string }> };
       const out = data.content.find((c) => c.type === 'text')?.text ?? '';
+      await recordAiSpend('agents');
       return NextResponse.json({ mapping: parseCsvMappingResponse(out, cleanHeaders) });
     }
   } catch {

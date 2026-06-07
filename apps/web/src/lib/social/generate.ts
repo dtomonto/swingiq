@@ -33,6 +33,7 @@ import { scorePost } from './quality';
 import { buildSystemPrompt, buildUserPrompt } from './prompt';
 import { generateSocialWithAI, isSocialAiConfigured, type AiResult } from './ai';
 import { loadLearnedPreferences, topHook, rankedPlatforms, type LearnedPreferences } from './learning';
+import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 
 /** Deterministic creative direction grounded in the post (text only). */
 export function buildCreative(a: BlogAnalysis): CreativeSuggestions {
@@ -236,6 +237,10 @@ export async function generateSocial(
   const learned = await loadLearnedPreferences();
   if (!isSocialAiConfigured()) return generateSocialFallback(post, options, learned);
 
+  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set):
+  // when spent, use the free deterministic generator instead of a paid call.
+  if (await aiBudgetExceeded()) return generateSocialFallback(post, options, learned);
+
   try {
     const analysis = analyzeBlogPost(post);
     let user = buildUserPrompt(post, analysis, options);
@@ -246,6 +251,7 @@ export async function generateSocial(
     }
     const ai = await generateSocialWithAI(buildSystemPrompt(), user);
     if (!ai) return generateSocialFallback(post, options, learned);
+    await recordAiSpend('social-generate');
 
     const { posts, creative } = assembleFromAi(post, analysis, options, ai);
     if (posts.length === 0) return generateSocialFallback(post, options, learned);

@@ -19,6 +19,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
+import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { isAdminUser } from '@/lib/auth/admin';
 import { safeEqual } from '@/lib/security/constant-time';
 import {
@@ -91,12 +92,17 @@ export async function POST(req: NextRequest) {
 
   // Build the structured prompt (context is sanitized inside buildStrategistPrompt)
   const { system, user } = buildStrategistPrompt(taskId as StrategistTaskId, ctx);
+  const fallback = strategistFallback(taskId as StrategistTaskId, ctx);
+
+  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set):
+  // when spent, return the deterministic template instead of a paid generation.
+  if (await aiBudgetExceeded()) {
+    return NextResponse.json({ text: fallback, provider: 'budget-cap', isFallback: true });
+  }
 
   // Call the AI provider (degrades gracefully to a template fallback when no key is set)
-  const result = await generateMarketingDraft(
-    { system, user, maxTokens: 900 },
-    strategistFallback(taskId as StrategistTaskId, ctx),
-  );
+  const result = await generateMarketingDraft({ system, user, maxTokens: 900 }, fallback);
+  if (!result.isFallback) await recordAiSpend('growth-ai');
 
   return NextResponse.json({
     text: result.text,
