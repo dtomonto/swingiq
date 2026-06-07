@@ -1,20 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { buildMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+// buildMetadata adds canonical + hreflang alternates to localized versions
+// (e.g. /es/faq) when they exist — see lib/seo/metadata.
+export const metadata = buildMetadata({
   title: 'Frequently Asked Questions | SwingVantage',
   description:
     'Answers to the most common questions about SwingVantage — how AI swing analysis works, what sports are supported, how your data is protected, and what the platform can and cannot do.',
-  openGraph: {
-    title: 'SwingVantage FAQ — AI Swing Analysis Questions Answered',
-    description:
-      'Everything you need to know about SwingVantage: supported sports, how the AI works, privacy, data import, and more.',
-    type: 'website',
-    url: 'https://swingvantage.com/faq',
-  },
-  alternates: { canonical: '/faq' },
-};
+  path: '/faq',
+});
 
 const FAQ_SECTIONS = [
   {

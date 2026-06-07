@@ -352,5 +352,83 @@
         "f3Desc": "Delete sessions, video analyses, equipment data, or everything — individually or all at once. Deletion is immediate and permanent."
       }
     }
+  },
+  "faqPage": {
+    "meta": {
+      "title": "Frequently Asked Questions | SwingVantage",
+      "description": "Answers to the most common questions about SwingVantage — how AI swing analysis works, what sports are supported, how your data is protected, and what the platform can and cannot do."
+    },
+    "hero": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Common questions about SwingVantage — what it does, how it works, and what it honestly cannot do."
+    },
+    "sections": {
+      "gettingStarted": {
+        "heading": "Getting Started",
+        "q1": "What is SwingVantage?",
+        "a1": "SwingVantage is a free, web-based AI swing performance platform. You upload a swing video or import launch monitor data, and SwingVantage identifies your highest-priority swing issue, explains why it matters, and recommends specific drills and a practice plan.",
+        "q2": "Is SwingVantage free?",
+        "a2": "Yes. SwingVantage's full swing analysis, diagnostic engine, drill recommendations, and progress tracking are free. No credit card is required.",
+        "q3": "Do I need to create an account?",
+        "a3": "No — you can start instantly with no account, and your data is saved privately in your browser. You can move it between devices anytime with Backup & Restore, and optional accounts with automatic cloud sync are on the way.",
+        "q4": "Does SwingVantage work on a phone?",
+        "a4": "Yes. SwingVantage is a mobile-optimized web app. It works on any modern phone, tablet, or desktop browser — no app download required."
+      },
+      "sports": {
+        "heading": "Supported Sports",
+        "q1": "What sports does SwingVantage support?",
+        "a1": "SwingVantage supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own diagnostic engine, drill library, and coaching logic.",
+        "q2": "Can I switch between sports in the same account?",
+        "a2": "Yes. SwingVantage remembers your selected sport across sessions. You can switch sports at any time from the sidebar or sport selector — the entire interface adapts to the sport you are using.",
+        "q3": "Does SwingVantage analyze slow pitch softball separately from fast pitch?",
+        "a3": "Yes. Slow pitch and fast pitch softball have separate diagnostic engines because the swing mechanics, timing demands, and equipment are different. Slow pitch analysis focuses on arc timing, line-drive bat path, and directional hitting. Fast pitch analysis focuses on compact launch, quick load, and adapting to pitch speed."
+      },
+      "ai": {
+        "heading": "How the AI Works",
+        "q1": "How does SwingVantage analyze a swing?",
+        "a1": "SwingVantage uses two layers. First, a rules-based diagnostic engine compares your data against sport-specific benchmarks to identify your highest-priority swing fault — similar to how a coach would read a shot pattern. Second, an AI language model generates a plain-English explanation, personalized drill recommendations, and a practice plan based on your specific pattern.",
+        "q2": "Can SwingVantage see what my swing looks like from a video?",
+        "a2": "Yes — upload a swing video and SwingVantage breaks it into phases with coaching notes for each one. Video reads are heuristic estimates: confident, data-backed starting points that sharpen the more you add. Import data from a launch monitor or tracking device and SwingVantage folds those exact numbers straight in for the sharpest read.",
+        "q3": "Does SwingVantage replace a private coach?",
+        "a3": "SwingVantage is your everyday improvement edge — it spots your recurring patterns, prioritizes your practice, and keeps you sharp between lessons, no appointment needed. For complex technique corrections, injury concerns, or advanced competitive development it pairs perfectly with a qualified coach, and you'll arrive already ahead.",
+        "q4": "How accurate is the swing diagnosis?",
+        "a4": "Diagnostic confidence depends on how much data is available. SwingVantage labels every finding with a confidence level and lists the evidence it used to reach its conclusion. When data is limited, the diagnosis will say so. Don't rely on a single analysis as a definitive verdict — look for patterns that repeat across multiple sessions."
+      },
+      "dataImport": {
+        "heading": "Data Import",
+        "q1": "What launch monitor brands does SwingVantage support for golf?",
+        "a1": "SwingVantage imports CSV data from FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, SkyTrak, and other common formats. You can also enter data manually.",
+        "q2": "What tracking devices does SwingVantage support for baseball and softball?",
+        "a2": "SwingVantage supports data from HitTrax, Rapsodo, Blast Motion, Diamond Kinetics, and similar devices. Manual session entry is also available.",
+        "q3": "Can I import a screenshot of my performance data?",
+        "a3": "SwingVantage includes an image upload flow for performance data tables. You can upload a screenshot and manually confirm the extracted values. Automated OCR extraction is a best effort and may need manual correction."
+      },
+      "privacy": {
+        "heading": "Privacy & Data",
+        "q1": "Where is my data stored?",
+        "a1": "When you sign in, your SwingVantage data is saved to your own private account and synced across your devices, so you never lose your progress. Without an account, it stays on your device. Either way it is yours: you can export everything as a single downloadable file from Settings → Backup & Restore, or delete it anytime.",
+        "q2": "Is my swing video private?",
+        "a2": "Yes. Videos are analyzed in your browser. They are not uploaded to external servers by default and are not shared publicly.",
+        "q3": "Can I delete my data?",
+        "a3": "Yes. You can delete individual records, specific data categories, or everything at once from Settings → Data Management. Deletion takes effect immediately.",
+        "q4": "Is SwingVantage safe for kids and young athletes?",
+        "a4": "SwingVantage is not directed at children under 13. For users under 18, we recommend parental involvement and supervision when uploading videos. See our Parents page and Trust & Safety page for more detail."
+      },
+      "equipment": {
+        "heading": "Equipment",
+        "q1": "Does SwingVantage analyze my golf clubs or equipment?",
+        "a1": "SwingVantage includes an Equipment section where you can log your golf clubs, review loft gapping between clubs, and get suggestions about whether your equipment setup may be contributing to your swing patterns. Equipment analysis is an optional layer — it is not required to use SwingVantage.",
+        "q2": "Will SwingVantage tell me to buy new equipment?",
+        "a2": "SwingVantage recommends adjustments before upgrades. Most equipment recommendations in SwingVantage suggest testing changes — like adjusting loft, grip size, or setup — before buying new gear. Equipment upgrades are only flagged when there is a meaningful mismatch between your data and your current setup."
+      }
+    },
+    "ctaHeading": "Ready to analyze your swing?",
+    "ctaSubtitle": "Free. No account required. Works on any device.",
+    "ctaButton": "Start Free Analysis",
+    "navHome": "← SwingVantage Home",
+    "navHowItWorks": "How It Works",
+    "navTrust": "Trust & Safety",
+    "navParents": "For Parents",
+    "navUpdates": "Updates"
   }
 }

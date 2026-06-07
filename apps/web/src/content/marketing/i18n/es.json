@@ -352,5 +352,83 @@
         "f3Desc": "Elimina sesiones, análisis de video, datos de equipo o todo — de forma individual o todo a la vez. La eliminación es inmediata y permanente."
       }
     }
+  },
+  "faqPage": {
+    "meta": {
+      "title": "Preguntas Frecuentes | SwingVantage",
+      "description": "Respuestas a las preguntas más comunes sobre SwingVantage — cómo funciona el análisis de swing con IA, qué deportes admite, cómo se protegen tus datos y qué puede y qué no puede hacer la plataforma."
+    },
+    "hero": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "Preguntas comunes sobre SwingVantage — qué hace, cómo funciona y qué, honestamente, no puede hacer."
+    },
+    "sections": {
+      "gettingStarted": {
+        "heading": "Primeros Pasos",
+        "q1": "¿Qué es SwingVantage?",
+        "a1": "SwingVantage es una plataforma gratuita de rendimiento de swing con IA basada en web. Subes un video de tu swing o importas los datos de tu monitor de lanzamiento, y SwingVantage identifica tu problema de swing prioritario, explica por qué importa y recomienda ejercicios específicos y un plan de práctica.",
+        "q2": "¿SwingVantage es gratis?",
+        "a2": "Sí. El análisis completo de swing de SwingVantage, el motor de diagnóstico, las recomendaciones de ejercicios y el seguimiento del progreso son gratuitos. No se requiere tarjeta de crédito.",
+        "q3": "¿Necesito crear una cuenta?",
+        "a3": "No — puedes empezar al instante sin cuenta, y tus datos se guardan de forma privada en tu navegador. Puedes moverlos entre dispositivos cuando quieras con Copia de Seguridad y Restauración, y las cuentas opcionales con sincronización automática en la nube están en camino.",
+        "q4": "¿SwingVantage funciona en el teléfono?",
+        "a4": "Sí. SwingVantage es una app web optimizada para móvil. Funciona en cualquier teléfono, tableta o navegador de escritorio moderno — sin necesidad de descargar una aplicación."
+      },
+      "sports": {
+        "heading": "Deportes Admitidos",
+        "q1": "¿Qué deportes admite SwingVantage?",
+        "a1": "SwingVantage admite golf, tenis, béisbol, softball de lanzamiento lento y softball de lanzamiento rápido. Cada deporte tiene su propio motor de diagnóstico, biblioteca de ejercicios y lógica de entrenamiento.",
+        "q2": "¿Puedo cambiar de deporte en la misma cuenta?",
+        "a2": "Sí. SwingVantage recuerda tu deporte seleccionado entre sesiones. Puedes cambiar de deporte en cualquier momento desde la barra lateral o el selector de deporte — toda la interfaz se adapta al deporte que estés usando.",
+        "q3": "¿SwingVantage analiza el softball de lanzamiento lento por separado del rápido?",
+        "a3": "Sí. El softball de lanzamiento lento y el rápido tienen motores de diagnóstico separados porque la mecánica del swing, las exigencias de sincronización y el equipo son diferentes. El análisis de lanzamiento lento se centra en la sincronización del arco, la trayectoria del bate para líneas y el bateo direccional. El de lanzamiento rápido se centra en un lanzamiento compacto, una carga rápida y la adaptación a la velocidad del lanzamiento."
+      },
+      "ai": {
+        "heading": "Cómo Funciona la IA",
+        "q1": "¿Cómo analiza SwingVantage un swing?",
+        "a1": "SwingVantage usa dos capas. Primero, un motor de diagnóstico basado en reglas compara tus datos con referencias específicas de cada deporte para identificar tu fallo de swing prioritario — parecido a cómo un entrenador leería un patrón de golpes. Segundo, un modelo de lenguaje de IA genera una explicación en lenguaje claro, recomendaciones de ejercicios personalizadas y un plan de práctica basado en tu patrón específico.",
+        "q2": "¿SwingVantage puede ver cómo es mi swing a partir de un video?",
+        "a2": "Sí — sube un video de tu swing y SwingVantage lo divide en fases con notas de entrenamiento para cada una. Las lecturas de video son estimaciones heurísticas: puntos de partida seguros y respaldados por datos que se afinan cuanto más añades. Importa datos de un monitor de lanzamiento o un dispositivo de seguimiento y SwingVantage incorpora esos números exactos para la lectura más precisa.",
+        "q3": "¿SwingVantage reemplaza a un entrenador particular?",
+        "a3": "SwingVantage es tu ventaja diaria de mejora — detecta tus patrones recurrentes, prioriza tu práctica y te mantiene afilado entre clases, sin necesidad de cita. Para correcciones técnicas complejas, lesiones o desarrollo competitivo avanzado se combina perfectamente con un entrenador cualificado, y llegarás ya con ventaja.",
+        "q4": "¿Qué tan preciso es el diagnóstico de swing?",
+        "a4": "La confianza del diagnóstico depende de cuántos datos haya disponibles. SwingVantage etiqueta cada hallazgo con un nivel de confianza y enumera la evidencia que usó para llegar a su conclusión. Cuando los datos son limitados, el diagnóstico lo dice. No te bases en un solo análisis como veredicto definitivo — busca patrones que se repitan en varias sesiones."
+      },
+      "dataImport": {
+        "heading": "Importación de Datos",
+        "q1": "¿Qué marcas de monitor de lanzamiento admite SwingVantage para golf?",
+        "a1": "SwingVantage importa datos CSV de FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, SkyTrak y otros formatos comunes. También puedes introducir los datos manualmente.",
+        "q2": "¿Qué dispositivos de seguimiento admite SwingVantage para béisbol y softball?",
+        "a2": "SwingVantage admite datos de HitTrax, Rapsodo, Blast Motion, Diamond Kinetics y dispositivos similares. También está disponible la entrada manual de sesiones.",
+        "q3": "¿Puedo importar una captura de pantalla de mis datos de rendimiento?",
+        "a3": "SwingVantage incluye un flujo de subida de imágenes para tablas de datos de rendimiento. Puedes subir una captura y confirmar manualmente los valores extraídos. La extracción automática por OCR es un mejor esfuerzo y puede necesitar corrección manual."
+      },
+      "privacy": {
+        "heading": "Privacidad y Datos",
+        "q1": "¿Dónde se almacenan mis datos?",
+        "a1": "Cuando inicias sesión, tus datos de SwingVantage se guardan en tu propia cuenta privada y se sincronizan entre tus dispositivos, para que nunca pierdas tu progreso. Sin cuenta, permanecen en tu dispositivo. En cualquier caso son tuyos: puedes exportarlo todo como un único archivo descargable desde Configuración → Copia de Seguridad y Restauración, o eliminarlo cuando quieras.",
+        "q2": "¿Mi video de swing es privado?",
+        "a2": "Sí. Los videos se analizan en tu navegador. No se suben a servidores externos por defecto y no se comparten públicamente.",
+        "q3": "¿Puedo eliminar mis datos?",
+        "a3": "Sí. Puedes eliminar registros individuales, categorías de datos específicas o todo a la vez desde Configuración → Gestión de Datos. La eliminación surte efecto de inmediato.",
+        "q4": "¿SwingVantage es seguro para niños y atletas jóvenes?",
+        "a4": "SwingVantage no está dirigido a menores de 13 años. Para usuarios menores de 18, recomendamos la participación y supervisión de los padres al subir videos. Consulta nuestra página para Padres y la página de Confianza y Seguridad para más detalles."
+      },
+      "equipment": {
+        "heading": "Equipo",
+        "q1": "¿SwingVantage analiza mis palos de golf o mi equipo?",
+        "a1": "SwingVantage incluye una sección de Equipo donde puedes registrar tus palos de golf, revisar la separación de lofts entre palos y obtener sugerencias sobre si la configuración de tu equipo podría estar contribuyendo a tus patrones de swing. El análisis de equipo es una capa opcional — no es necesario para usar SwingVantage.",
+        "q2": "¿SwingVantage me dirá que compre equipo nuevo?",
+        "a2": "SwingVantage recomienda ajustes antes que compras. La mayoría de las recomendaciones de equipo en SwingVantage sugieren probar cambios — como ajustar el loft, el grosor del grip o la postura — antes de comprar equipo nuevo. Las mejoras de equipo solo se señalan cuando hay un desajuste significativo entre tus datos y tu configuración actual."
+      }
+    },
+    "ctaHeading": "¿Listo para analizar tu swing?",
+    "ctaSubtitle": "Gratis. Sin necesidad de cuenta. Funciona en cualquier dispositivo.",
+    "ctaButton": "Empezar Análisis Gratis",
+    "navHome": "← Inicio de SwingVantage",
+    "navHowItWorks": "Cómo Funciona",
+    "navTrust": "Confianza y Seguridad",
+    "navParents": "Para Padres",
+    "navUpdates": "Novedades"
   }
 }
