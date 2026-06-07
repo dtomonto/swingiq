@@ -16,6 +16,7 @@ import { ThemePreviewStrip } from '@/components/theme/ThemePreviewStrip';
 import { TutorialVideo } from '@/components/tutorial/TutorialVideo';
 import { PersonaPathCards } from '@/components/persona/PersonaPathCards';
 import { SportProofBlock } from '@/components/proof/SportProofBlock';
+import { ReturningUserRedirect } from '@/components/marketing/ReturningUserRedirect';
 
 /**
  * The single marketing homepage, parameterized by locale — used by the English
@@ -62,6 +63,11 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
 
   return (
     <main className="min-h-screen bg-background">
+      {/* Returning visitors skip the marketing splash (→ /login, or /dashboard
+          if signed in). New visitors see the full page. Client-only; renders
+          nothing and leaves the server-rendered HTML (and SEO) intact. */}
+      <ReturningUserRedirect />
+
       {/* Hero */}
       <section className="bg-primary text-primary-foreground py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">

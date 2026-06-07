@@ -22,6 +22,7 @@ import {
   onLocalAuthChange,
   LocalAuthError,
 } from './localAuth';
+import { markReturningUser } from './returning';
 
 export type AuthMode = 'cloud' | 'local';
 export type AuthStatus = 'loading' | 'authenticated' | 'anonymous';
@@ -113,9 +114,11 @@ export function useAuth() {
         if (mode === 'cloud' && supabase) {
           const { error } = await supabase.auth.signInWithPassword({ email, password });
           if (error) return { ok: false, message: error.message };
+          markReturningUser();
           return { ok: true };
         }
         await signInLocal(email, password);
+        markReturningUser();
         return { ok: true };
       } catch (err) {
         return { ok: false, message: errorMessage(err, 'Could not sign in.') };
@@ -134,6 +137,7 @@ export function useAuth() {
             options: { data: { name } },
           });
           if (error) return { ok: false, message: error.message };
+          markReturningUser();
           // No active session → email confirmation is required.
           if (!data.session) {
             return {
@@ -145,6 +149,7 @@ export function useAuth() {
           return { ok: true };
         }
         await signUpLocal(email, password, name);
+        markReturningUser();
         return { ok: true };
       } catch (err) {
         return { ok: false, message: errorMessage(err, 'Could not create account.') };
