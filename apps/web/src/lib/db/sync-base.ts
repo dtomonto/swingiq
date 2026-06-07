@@ -21,6 +21,8 @@ export interface SyncBase {
   sessions: Record<string, string>;
   video: Record<string, string>;
   tennis: Record<string, string>;
+  pickleball: Record<string, string>;
+  padel: Record<string, string>;
   baseball: Record<string, string>;
   softball_slow: Record<string, string>;
   softball_fast: Record<string, string>;
@@ -46,6 +48,8 @@ export function computeBase(s: SwingVantageState): SyncBase {
     sessions: byId(s.sessions),
     video: byId(s.video_analyses),
     tennis: byId(s.sportEquipment.tennis),
+    pickleball: byId(s.sportEquipment.pickleball),
+    padel: byId(s.sportEquipment.padel),
     baseball: byId(s.sportEquipment.baseball),
     softball_slow: byId(s.sportEquipment.softball_slow),
     softball_fast: byId(s.sportEquipment.softball_fast),

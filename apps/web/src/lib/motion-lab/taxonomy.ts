@@ -65,6 +65,35 @@ export const MOTION_SPORTS: SportConfigLite[] = [
     ],
   },
   {
+    id: 'pickleball',
+    name: 'Pickleball',
+    emoji: '🏓',
+    accent: '#84CC16',
+    motions: [
+      { id: 'dink', label: 'Dink', hint: 'Soft kitchen shot' },
+      { id: 'third_shot_drop', label: 'Third-Shot Drop', hint: 'Soft drop to the kitchen' },
+      { id: 'drive', label: 'Drive', hint: 'Topspin groundstroke' },
+      { id: 'serve', label: 'Serve', hint: 'Underhand serve' },
+      { id: 'volley', label: 'Volley', hint: 'Net / kitchen-line shot' },
+      { id: 'reset', label: 'Reset', hint: 'Soft block from transition' },
+    ],
+  },
+  {
+    id: 'padel',
+    name: 'Padel',
+    emoji: '🎾',
+    accent: '#0EA5E9',
+    motions: [
+      { id: 'bandeja', label: 'Bandeja', hint: 'Controlled overhead' },
+      { id: 'vibora', label: 'Víbora', hint: 'Side-spin overhead' },
+      { id: 'smash', label: 'Smash', hint: 'Finishing overhead' },
+      { id: 'volley', label: 'Volley', hint: 'Net shot' },
+      { id: 'groundstroke', label: 'Groundstroke / Wall', hint: 'Off the glass or direct' },
+      { id: 'lob', label: 'Lob', hint: 'Defensive / offensive lift' },
+      { id: 'serve', label: 'Serve', hint: 'Underhand serve' },
+    ],
+  },
+  {
     id: 'baseball',
     name: 'Baseball',
     emoji: '⚾',
@@ -198,6 +227,37 @@ const VOLLEY: PhaseTemplate[] = [
   { key: 'finish', label: 'Finish', short: 'Finish', cumEnd: 1.0, read: 'Short, controlled finish.' },
 ];
 
+// Pickleball: a compact paddle stroke (dink / drop / drive / reset).
+const PICKLEBALL_STROKE: PhaseTemplate[] = [
+  { key: 'ready', label: 'Ready Position', short: 'Ready', cumEnd: 0.12, read: 'Paddle up, athletic base at the kitchen line.' },
+  { key: 'split', label: 'Split Step', short: 'Split', cumEnd: 0.24, read: 'Loaded hop timed to the opponent\'s contact.' },
+  { key: 'prep', label: 'Compact Prep', short: 'Prep', cumEnd: 0.4, read: 'Short, quiet take-back — no tennis loop.' },
+  { key: 'forward', label: 'Forward Swing', short: 'Forward', cumEnd: 0.6, read: 'Low-to-high for soft shots, level for drives — legs lift.' },
+  { key: 'contact', label: 'Contact', short: 'Contact', cumEnd: 0.72, read: 'Out front with a stable paddle face.' },
+  { key: 'follow', label: 'Follow-Through', short: 'Follow', cumEnd: 0.86, read: 'Short, controlled finish.' },
+  { key: 'recovery', label: 'Recovery', short: 'Recovery', cumEnd: 1.0, read: 'Re-set the paddle and hold the line.' },
+];
+
+// Padel: the overhead family (bandeja / víbora / smash).
+const PADEL_OVERHEAD: PhaseTemplate[] = [
+  { key: 'ready', label: 'Ready', short: 'Ready', cumEnd: 0.12, read: 'Athletic base with the partner.' },
+  { key: 'turn', label: 'Side-On Turn', short: 'Turn', cumEnd: 0.3, read: 'Turn sideways and track the ball up.' },
+  { key: 'prep', label: 'Preparation', short: 'Prep', cumEnd: 0.48, read: 'Controlled overhead set — not a full serve.' },
+  { key: 'contact', label: 'Contact', short: 'Contact', cumEnd: 0.64, read: 'Out front, above the shoulder, with slice/side-spin.' },
+  { key: 'follow', label: 'Follow-Through', short: 'Follow', cumEnd: 0.82, read: 'Low, controlled finish toward the target.' },
+  { key: 'recovery', label: 'Recovery', short: 'Recovery', cumEnd: 1.0, read: 'Stay forward and hold the net.' },
+];
+
+// Padel: groundstroke / wall play / lob.
+const PADEL_GROUND: PhaseTemplate[] = [
+  { key: 'ready', label: 'Ready', short: 'Ready', cumEnd: 0.12, read: 'Athletic base; read the ball and the glass.' },
+  { key: 'wall_read', label: 'Wall Read', short: 'Wall', cumEnd: 0.32, read: 'Decide air vs. glass; give the rebound space.' },
+  { key: 'prep', label: 'Preparation', short: 'Prep', cumEnd: 0.5, read: 'Turn and set early after the read.' },
+  { key: 'contact', label: 'Contact', short: 'Contact', cumEnd: 0.66, read: 'Out of the corner, on balance, out front.' },
+  { key: 'follow', label: 'Follow-Through', short: 'Follow', cumEnd: 0.84, read: 'Shape depth or a deep lob.' },
+  { key: 'recovery', label: 'Recovery', short: 'Recovery', cumEnd: 1.0, read: 'Recover position with the partner.' },
+];
+
 /** Resolve the canonical phase template for a (sport, motion) pair. */
 export function getPhaseTemplate(sport: SportId, motionType: MotionTypeId): PhaseTemplate[] {
   if (sport === 'golf') {
@@ -209,6 +269,15 @@ export function getPhaseTemplate(sport: SportId, motionType: MotionTypeId): Phas
     if (motionType === 'serve') return TENNIS_SERVE;
     if (motionType === 'volley') return VOLLEY;
     return TENNIS_GROUND; // forehand, backhand, return
+  }
+  if (sport === 'pickleball') {
+    if (motionType === 'volley') return VOLLEY;
+    return PICKLEBALL_STROKE; // dink, third_shot_drop, drive, serve, reset
+  }
+  if (sport === 'padel') {
+    if (motionType === 'volley') return VOLLEY;
+    if (motionType === 'bandeja' || motionType === 'vibora' || motionType === 'smash') return PADEL_OVERHEAD;
+    return PADEL_GROUND; // groundstroke, wall play, lob, serve
   }
   // baseball / softball
   if (motionType === 'hitting') return HITTING;
@@ -222,5 +291,7 @@ export function getPhaseTemplate(sport: SportId, motionType: MotionTypeId): Phas
 export function isRotationalMotion(sport: SportId, motionType: MotionTypeId): boolean {
   if (sport === 'golf') return true;
   if (sport === 'tennis') return motionType !== 'volley';
+  if (sport === 'pickleball') return motionType === 'drive';
+  if (sport === 'padel') return motionType === 'bandeja' || motionType === 'vibora' || motionType === 'smash';
   return motionType === 'hitting';
 }

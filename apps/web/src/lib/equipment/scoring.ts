@@ -324,6 +324,268 @@ export function scoreBat(inputs: BatFitInputs): EquipmentDiagnosticResult {
   };
 }
 
+// ── Pickleball paddle fit ─────────────────────────────────────
+
+export interface PicklePaddleFitInputs {
+  shape: string;            // elongated | standard | widebody | ''
+  coreThicknessMm: number | null;
+  weightOz: number | null;
+  faceMaterial: string;     // graphite | carbon_fiber | fiberglass | composite | ''
+  gripSize: string;
+  /** beginner | intermediate | advanced | competitive */
+  skillLevel: string;
+  /** control | power | all_court */
+  playStyle: string;
+}
+
+export function scorePicklePaddle(inputs: PicklePaddleFitInputs): EquipmentDiagnosticResult {
+  const evidence: string[] = [];
+  const missing: string[] = [];
+  const recommendations: string[] = [];
+  const limitations: string[] = [];
+  let points = 0;
+  let maxPoints = 0;
+
+  // Weight (most impactful spec) — typical 7.3–8.4 oz
+  if (inputs.weightOz !== null) {
+    maxPoints += 25;
+    const w = inputs.weightOz;
+    if (w >= 7.6 && w <= 8.3) {
+      points += 25;
+      evidence.push(`Paddle weight ${w} oz is in the balanced midweight range most players control well.`);
+    } else if (w < 7.4) {
+      points += 14;
+      evidence.push(`Paddle weight ${w} oz is light — quick hands at the kitchen, but less drive power and stability.`);
+      if (inputs.playStyle === 'power') recommendations.push('For more drive power, a midweight (7.8–8.3 oz) paddle suits a power style better.');
+    } else if (w > 8.5) {
+      points += 12;
+      evidence.push(`Paddle weight ${w} oz is heavy — more power and stability, but can slow hands battles and stress the arm.`);
+      limitations.push('Arm-comfort risk requires medical evaluation — SwingVantage cannot diagnose injury risk.');
+    } else {
+      points += 19;
+      evidence.push(`Paddle weight ${w} oz is acceptable.`);
+    }
+  } else {
+    missing.push('Paddle weight — the single most important spec for control vs. power');
+  }
+
+  // Core thickness — typical 13mm (control) to 16mm (control/soft)
+  if (inputs.coreThicknessMm !== null) {
+    maxPoints += 20;
+    const t = inputs.coreThicknessMm;
+    if (t >= 14 && t <= 16) {
+      points += 20;
+      evidence.push(`Core thickness ${t}mm favors control and a soft touch for the dink/reset game.`);
+    } else if (t < 13) {
+      points += 13;
+      evidence.push(`Core thickness ${t}mm is thin — more pop/power but a smaller margin on touch shots.`);
+      if (inputs.playStyle === 'control') recommendations.push('A 14–16mm core gives more control for a dink/reset style.');
+    } else {
+      points += 17;
+      evidence.push(`Core thickness ${t}mm is on the thicker, control-oriented side.`);
+    }
+  } else {
+    missing.push('Core thickness (mm) — drives the control vs. power balance');
+  }
+
+  // Face material
+  if (inputs.faceMaterial) {
+    maxPoints += 15;
+    if (inputs.faceMaterial === 'carbon_fiber' || inputs.faceMaterial === 'graphite') {
+      points += 15;
+      evidence.push(`A ${inputs.faceMaterial.replace('_', ' ')} face offers a good blend of control and spin for most players.`);
+    } else if (inputs.faceMaterial === 'fiberglass') {
+      points += 12;
+      evidence.push('A fiberglass face is more powerful but offers slightly less touch and spin than carbon.');
+    } else {
+      points += 12;
+      evidence.push(`Face material: ${inputs.faceMaterial}.`);
+    }
+  } else {
+    missing.push('Face material — affects spin and control');
+  }
+
+  // Shape
+  if (inputs.shape) {
+    maxPoints += 10;
+    if (inputs.shape === 'elongated') {
+      points += 9;
+      evidence.push('Elongated shape adds reach and power but has a narrower sweet spot — better for experienced players.');
+      if (inputs.skillLevel === 'beginner') recommendations.push('A standard shape has a more forgiving sweet spot while you develop consistency.');
+    } else if (inputs.shape === 'widebody' || inputs.shape === 'standard') {
+      points += 10;
+      evidence.push(`A ${inputs.shape} shape offers a forgiving, wide sweet spot.`);
+    } else {
+      points += 8;
+      evidence.push(`Shape: ${inputs.shape}.`);
+    }
+  } else {
+    missing.push('Paddle shape — affects sweet spot and reach');
+  }
+
+  // Grip size
+  if (inputs.gripSize) {
+    maxPoints += 10;
+    points += 10;
+    evidence.push(`Grip size ${inputs.gripSize} recorded — a grip that is too large reduces wrist action on dinks.`);
+  } else {
+    missing.push('Grip size — too large limits touch and wrist action');
+  }
+
+  const dataFieldCount = [inputs.weightOz, inputs.coreThicknessMm, inputs.faceMaterial || null, inputs.shape || null, inputs.gripSize || null]
+    .filter((v) => v !== null && v !== '').length;
+  const confidenceScore = maxPoints > 0 ? Math.min(1, (dataFieldCount / 5) * 0.7 + (points / Math.max(maxPoints, 1)) * 0.3) : 0;
+  const rawScore = maxPoints > 0 ? Math.round((points / maxPoints) * 100) : 0;
+  const penalizedScore = Math.round(rawScore * (0.4 + 0.6 * (dataFieldCount / 5)));
+
+  limitations.push('This assessment is based on general guidelines, not biomechanical measurement.');
+  if (missing.length > 0) recommendations.push('Enter the missing specs above to improve diagnostic confidence.');
+
+  return {
+    overallScore: penalizedScore,
+    fitRating: ratingFromScore(penalizedScore, dataFieldCount),
+    confidenceScore: Math.round(confidenceScore * 100) / 100,
+    upgradeUrgency: urgencyFromScore(penalizedScore),
+    adjustmentFirst: penalizedScore >= 45,
+    evidence,
+    missingData: missing,
+    recommendations,
+    limitations,
+  };
+}
+
+// ── Padel racket fit ──────────────────────────────────────────
+
+export interface PadelRacketFitInputs {
+  shape: string;            // round | teardrop | diamond | ''
+  weightG: number | null;
+  balance: string;          // low | medium | high | ''
+  coreFoam: string;         // soft_eva | medium_eva | hard_eva | foam | ''
+  faceMaterial: string;     // carbon | fiberglass | composite | ''
+  gripSize: string;
+  /** beginner | intermediate | advanced | competitive */
+  skillLevel: string;
+}
+
+export function scorePadelRacket(inputs: PadelRacketFitInputs): EquipmentDiagnosticResult {
+  const evidence: string[] = [];
+  const missing: string[] = [];
+  const recommendations: string[] = [];
+  const limitations: string[] = [];
+  let points = 0;
+  let maxPoints = 0;
+
+  const isDev = inputs.skillLevel === 'beginner' || inputs.skillLevel === 'intermediate';
+
+  // Shape (defines control vs. power in padel)
+  if (inputs.shape) {
+    maxPoints += 25;
+    if (inputs.shape === 'round') {
+      points += 25;
+      evidence.push('Round shape centers the sweet spot — the most control-oriented and forgiving, ideal while developing.');
+    } else if (inputs.shape === 'teardrop') {
+      points += isDev ? 20 : 25;
+      evidence.push('Teardrop shape balances control and power — a versatile all-court choice.');
+    } else if (inputs.shape === 'diamond') {
+      points += isDev ? 12 : 22;
+      evidence.push('Diamond shape is power-oriented with a high sweet spot — demanding and best for advanced players.');
+      if (isDev) recommendations.push('A round or teardrop shape is more forgiving while you build consistency and net control.');
+    } else {
+      points += 16;
+      evidence.push(`Shape: ${inputs.shape}.`);
+    }
+  } else {
+    missing.push('Racket shape — the biggest driver of control vs. power in padel');
+  }
+
+  // Weight — typical 350–375 g
+  if (inputs.weightG !== null) {
+    maxPoints += 20;
+    const w = inputs.weightG;
+    if (w >= 355 && w <= 370) {
+      points += 20;
+      evidence.push(`Weight ${w} g is in the standard range most players handle well.`);
+    } else if (w < 350) {
+      points += 14;
+      evidence.push(`Weight ${w} g is light — fast handling, but less stability on smashes.`);
+    } else if (w > 375) {
+      points += 12;
+      evidence.push(`Weight ${w} g is heavy — more power but harder on the arm in long matches.`);
+      limitations.push('Arm-comfort risk requires medical evaluation — SwingVantage cannot diagnose injury risk.');
+    } else {
+      points += 17;
+      evidence.push(`Weight ${w} g is acceptable.`);
+    }
+  } else {
+    missing.push('Weight (g) — affects handling and arm comfort');
+  }
+
+  // Balance
+  if (inputs.balance) {
+    maxPoints += 15;
+    if (inputs.balance === 'low') {
+      points += 15;
+      evidence.push('Low balance (head-light) aids control and quick hands at the net.');
+    } else if (inputs.balance === 'high') {
+      points += isDev ? 9 : 13;
+      evidence.push('High balance (head-heavy) boosts smash power but is harder to control.');
+      if (isDev) recommendations.push('A low or medium balance is easier to control while developing.');
+    } else {
+      points += 13;
+      evidence.push('Medium balance offers a control/power compromise.');
+    }
+  } else {
+    missing.push('Balance — head-light vs. head-heavy changes control and power');
+  }
+
+  // Core foam softness
+  if (inputs.coreFoam) {
+    maxPoints += 15;
+    if (inputs.coreFoam === 'soft_eva' || inputs.coreFoam === 'foam') {
+      points += 15;
+      evidence.push(`A ${inputs.coreFoam.replace('_', ' ')} core is softer — more comfort and control, arm-friendlier.`);
+    } else if (inputs.coreFoam === 'hard_eva') {
+      points += isDev ? 10 : 14;
+      evidence.push('A hard EVA core is more powerful but firmer and less forgiving.');
+    } else {
+      points += 13;
+      evidence.push('A medium EVA core balances comfort and power.');
+    }
+  } else {
+    missing.push('Core foam (EVA softness) — affects comfort and power');
+  }
+
+  // Face material
+  if (inputs.faceMaterial) {
+    maxPoints += 10;
+    points += inputs.faceMaterial === 'carbon' ? 10 : 8;
+    evidence.push(`A ${inputs.faceMaterial} face ${inputs.faceMaterial === 'carbon' ? 'adds grip for spin and durability' : 'is softer and more comfortable'}.`);
+  } else {
+    missing.push('Face material — affects spin and feel');
+  }
+
+  const dataFieldCount = [inputs.shape || null, inputs.weightG, inputs.balance || null, inputs.coreFoam || null, inputs.faceMaterial || null]
+    .filter((v) => v !== null && v !== '').length;
+  const confidenceScore = maxPoints > 0 ? Math.min(1, (dataFieldCount / 5) * 0.7 + (points / Math.max(maxPoints, 1)) * 0.3) : 0;
+  const rawScore = maxPoints > 0 ? Math.round((points / maxPoints) * 100) : 0;
+  const penalizedScore = Math.round(rawScore * (0.4 + 0.6 * (dataFieldCount / 5)));
+
+  limitations.push('This assessment is based on general guidelines, not biomechanical measurement.');
+  if (missing.length > 0) recommendations.push('Enter the missing specs above to improve diagnostic confidence.');
+
+  return {
+    overallScore: penalizedScore,
+    fitRating: ratingFromScore(penalizedScore, dataFieldCount),
+    confidenceScore: Math.round(confidenceScore * 100) / 100,
+    upgradeUrgency: urgencyFromScore(penalizedScore),
+    adjustmentFirst: penalizedScore >= 45,
+    evidence,
+    missingData: missing,
+    recommendations,
+    limitations,
+  };
+}
+
 // ── Helpers ───────────────────────────────────────────────────
 
 function ratingFromScore(score: number, dataCount: number): EquipmentFitRating {

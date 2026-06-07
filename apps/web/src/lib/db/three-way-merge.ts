@@ -117,6 +117,8 @@ export function threeWayMerge(
     video_analyses: mergeList(base.video, local.video_analyses, cloud.video_analyses),
     sportEquipment: {
       tennis: mergeList(base.tennis, local.sportEquipment.tennis, cloud.sportEquipment.tennis),
+      pickleball: mergeList(base.pickleball ?? {}, local.sportEquipment.pickleball, cloud.sportEquipment.pickleball),
+      padel: mergeList(base.padel ?? {}, local.sportEquipment.padel, cloud.sportEquipment.padel),
       baseball: mergeList(base.baseball, local.sportEquipment.baseball, cloud.sportEquipment.baseball),
       softball_slow: mergeList(base.softball_slow, local.sportEquipment.softball_slow, cloud.sportEquipment.softball_slow),
       softball_fast: mergeList(base.softball_fast, local.sportEquipment.softball_fast, cloud.sportEquipment.softball_fast),

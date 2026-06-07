@@ -762,6 +762,44 @@ const RAW_TUTORIAL_VIDEOS: TutorialVideo[] = [
       'Set privacy controls for what (if anything) the community can see. Your preferences travel in your backup.',
     ],
   },
+
+  // ── Racket sports: Pickleball & Padel ─────────────────────
+  {
+    id: 'analyze-pickleball',
+    title: 'Analyze your pickleball stroke',
+    description: 'How to film and analyze a dink, third-shot drop, or drive — built for pickleball, not tennis.',
+    audiences: 'all',
+    category: 'analyze',
+    duration: '2:10',
+    route: '/video',
+    journeyStage: 'capture',
+    fallbackText: 'A written walkthrough for analyzing your pickleball stroke.',
+    script: [
+      'Pick Pickleball as your sport, then choose the shot you want to analyze (dink, third-shot drop, drive, reset, or volley).',
+      'Film side-on so your paddle face, contact height, and the arc over the net are all visible — keep your full body and the kitchen line in frame.',
+      'Capture a few reps of the same shot rather than mixing shots, so SwingVantage can read a consistent pattern.',
+      'Upload the clip. SwingVantage checks pickleball-specific things: backswing compactness (no tennis loop), paddle-face angle, contact out front, and your footwork to the kitchen line.',
+      'Read your top priority and the evidence, follow the three drills, then retest in a week.',
+    ],
+  },
+  {
+    id: 'analyze-padel',
+    title: 'Analyze your padel stroke',
+    description: 'How to film and analyze a bandeja, volley, or ball off the glass — built for padel, not tennis.',
+    audiences: 'all',
+    category: 'analyze',
+    duration: '2:15',
+    route: '/video',
+    journeyStage: 'capture',
+    fallbackText: 'A written walkthrough for analyzing your padel stroke.',
+    script: [
+      'Pick Padel as your sport, then choose the shot you want to analyze (bandeja, víbora, smash, volley, lob, or wall play).',
+      'Film side-on so your overhead motion and contact height are visible — include a few back-glass reps so your wall read and recovery are in frame.',
+      'Capture a few reps of the same shot so the pattern is clear.',
+      'Upload the clip. SwingVantage checks padel-specific things: overhead control (bandeja vs. an over-hit smash), giving the ball space off the glass, contact point, lob depth, and net positioning.',
+      'Read your top priority and the evidence, follow the drills, then retest in a week.',
+    ],
+  },
 ];
 
 // ── Recorded media (generated) ────────────────────────────

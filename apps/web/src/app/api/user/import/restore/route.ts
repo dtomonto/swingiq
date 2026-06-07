@@ -31,6 +31,8 @@ function mergeById<T extends { id: string }>(a: T[], b: T[]): T[] {
 function mergeSportEquipment(a: SportEquipment, b: SportEquipment): SportEquipment {
   return {
     tennis: mergeById(a.tennis, b.tennis),
+    pickleball: mergeById(a.pickleball, b.pickleball),
+    padel: mergeById(a.padel, b.padel),
     baseball: mergeById(a.baseball, b.baseball),
     softball_slow: mergeById(a.softball_slow, b.softball_slow),
     softball_fast: mergeById(a.softball_fast, b.softball_fast),

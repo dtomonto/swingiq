@@ -2,6 +2,8 @@ import type {
   SwingVantageSlice,
   SwingVantageStore,
   TennisRacket,
+  PicklePaddle,
+  PadelRacket,
   BaseballBat,
   SoftballBat,
 } from '../types';
@@ -13,6 +15,10 @@ export const createEquipmentSlice: SwingVantageSlice<
     | 'sportEquipment'
     | 'addTennisRacket'
     | 'removeTennisRacket'
+    | 'addPicklePaddle'
+    | 'removePicklePaddle'
+    | 'addPadelRacket'
+    | 'removePadelRacket'
     | 'addBaseballBat'
     | 'removeBaseballBat'
     | 'addSoftballBat'
@@ -27,6 +33,20 @@ export const createEquipmentSlice: SwingVantageSlice<
   },
   removeTennisRacket: (id) =>
     set((s) => ({ sportEquipment: { ...s.sportEquipment, tennis: s.sportEquipment.tennis.filter((r) => r.id !== id) } })),
+
+  addPicklePaddle: (paddle) => {
+    const item: PicklePaddle = { ...paddle, id: newId('paddle'), created_at: new Date().toISOString() };
+    set((s) => ({ sportEquipment: { ...s.sportEquipment, pickleball: [...s.sportEquipment.pickleball, item] } }));
+  },
+  removePicklePaddle: (id) =>
+    set((s) => ({ sportEquipment: { ...s.sportEquipment, pickleball: s.sportEquipment.pickleball.filter((p) => p.id !== id) } })),
+
+  addPadelRacket: (racket) => {
+    const item: PadelRacket = { ...racket, id: newId('padel'), created_at: new Date().toISOString() };
+    set((s) => ({ sportEquipment: { ...s.sportEquipment, padel: [...s.sportEquipment.padel, item] } }));
+  },
+  removePadelRacket: (id) =>
+    set((s) => ({ sportEquipment: { ...s.sportEquipment, padel: s.sportEquipment.padel.filter((r) => r.id !== id) } })),
 
   addBaseballBat: (bat) => {
     const item: BaseballBat = { ...bat, id: newId('bat'), created_at: new Date().toISOString() };
