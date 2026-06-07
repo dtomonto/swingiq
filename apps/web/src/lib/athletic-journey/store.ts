@@ -185,6 +185,22 @@ export function getHistory(sport: SportId): JourneySnapshot[] {
 
 /** Record today's snapshot (dedupes per calendar day; keeps last 180). */
 export function recordSnapshot(sport: SportId, snap: JourneySnapshot): void {
+  // Idempotent: if today's snapshot is already stored with identical values,
+  // do nothing. A write here creates a NEW store reference and notifies every
+  // subscriber. Because useAthleticJourney records the snapshot from an effect
+  // that also reads this store, a needless write re-triggers that effect and
+  // spins an infinite render loop (React error #185). Skipping the no-op write
+  // keeps the store reference stable when nothing has changed.
+  const today = (read().history[sport] ?? []).find((s) => s.date === snap.date);
+  if (
+    today &&
+    today.stageCode === snap.stageCode &&
+    today.stageOrder === snap.stageOrder &&
+    today.momentum === snap.momentum &&
+    today.confidence === snap.confidence
+  ) {
+    return;
+  }
   write((d) => {
     const current = d.history[sport] ?? [];
     const withoutToday = current.filter((s) => s.date !== snap.date);

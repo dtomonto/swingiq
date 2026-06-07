@@ -31,6 +31,13 @@ export function useAthleticJourney(sport: SportId): JourneyDashboard | null {
   const training = useSwingVantageStore((s) => s.training);
 
   const journey = useJourneyStoreData();
+  // Depend only on the slices the dashboard is actually built from — NOT the
+  // whole `journey` object. recordSnapshot (below) writes to journey.history,
+  // which produces a new top-level store reference but leaves these slices
+  // referentially stable (write() spreads the rest). Memoizing on the whole
+  // object would recompute `dashboard` on every history write, re-firing the
+  // snapshot effect → infinite render loop (React #185).
+  const { ratings, selfAssessments, profileExtras, completedMilestones } = journey;
 
   const live = isJourneyLive(sport);
 
@@ -44,13 +51,16 @@ export function useAthleticJourney(sport: SportId): JourneyDashboard | null {
       videos,
       dailyNotes,
       training,
-      ratings: journey.ratings,
-      selfAssessments: journey.selfAssessments[sport] ?? [],
-      profileExtra: journey.profileExtras[sport] ?? {},
+      ratings,
+      selfAssessments: selfAssessments[sport] ?? [],
+      profileExtra: profileExtras[sport] ?? {},
     });
-    const completedMilestoneIds = new Set(journey.completedMilestones[sport] ?? []);
+    const completedMilestoneIds = new Set(completedMilestones[sport] ?? []);
     return buildJourneyDashboard(signals, { completedMilestoneIds });
-  }, [live, sport, golfProfile, sportProfiles, sessions, videos, dailyNotes, training, journey]);
+  }, [
+    live, sport, golfProfile, sportProfiles, sessions, videos, dailyNotes, training,
+    ratings, selfAssessments, profileExtras, completedMilestones,
+  ]);
 
   // Persist today's snapshot for the history timeline (dedupes per day).
   useEffect(() => {
