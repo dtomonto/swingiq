@@ -20,7 +20,7 @@ import {
 import { SPORT_META } from '@/lib/recruiting/sports';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 
-const SPORTS: SportId[] = ['golf', 'tennis', 'baseball', 'softball_fast', 'softball_slow'];
+const SPORTS: SportId[] = ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_fast', 'softball_slow'];
 
 function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
   return (

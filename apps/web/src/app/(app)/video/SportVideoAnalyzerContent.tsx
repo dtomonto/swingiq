@@ -152,7 +152,7 @@ export function SportVideoAnalyzerContent() {
           <h1 className="text-2xl font-bold text-foreground">Swing Video Analyzer</h1>
           <p className="text-sm text-muted-foreground">
             Upload a swing video and SwingVantage&apos;s AI reviews the actual frames — golf, tennis,
-            baseball, and softball.
+            pickleball, padel, baseball, and softball.
           </p>
         </div>
 

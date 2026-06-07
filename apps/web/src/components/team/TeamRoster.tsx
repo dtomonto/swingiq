@@ -18,6 +18,8 @@ import type { AthleteFocus, TeamAthlete } from '@/lib/team';
 const SPORTS: { id: SportId; label: string }[] = [
   { id: 'golf', label: 'Golf' },
   { id: 'tennis', label: 'Tennis' },
+  { id: 'pickleball', label: 'Pickleball' },
+  { id: 'padel', label: 'Padel' },
   { id: 'baseball', label: 'Baseball' },
   { id: 'softball_slow', label: 'Softball (slow)' },
   { id: 'softball_fast', label: 'Softball (fast)' },

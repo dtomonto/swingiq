@@ -279,7 +279,7 @@ export default function FeaturesPage() {
             Every feature. Every sport. No credit card. No account required to start.
           </p>
           <div className="flex flex-wrap justify-center gap-3 mt-6 text-sm">
-            {['Golf', 'Tennis', 'Baseball', 'Slow Pitch Softball', 'Fast Pitch Softball'].map((s) => (
+            {['Golf', 'Tennis', 'Pickleball', 'Padel', 'Baseball', 'Slow Pitch Softball', 'Fast Pitch Softball'].map((s) => (
               <span key={s} className="bg-primary/50 text-primary-foreground/90 px-3 py-1 rounded-full">{s}</span>
             ))}
           </div>

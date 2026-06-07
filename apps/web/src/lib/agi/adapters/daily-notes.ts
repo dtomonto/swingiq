@@ -17,6 +17,8 @@ import type { SignalBundle, SportSessionRef } from '../types';
 const SPORT_META: Record<string, { label: string; emoji: string }> = {
   golf: { label: 'Golf', emoji: '⛳' },
   tennis: { label: 'Tennis', emoji: '🎾' },
+  pickleball: { label: 'Pickleball', emoji: '🏓' },
+  padel: { label: 'Padel', emoji: '🎾' },
   baseball: { label: 'Baseball', emoji: '⚾' },
   softball_slow: { label: 'Softball (slow pitch)', emoji: '🥎' },
   softball_fast: { label: 'Softball (fast pitch)', emoji: '🥎' },

@@ -32,6 +32,8 @@ export async function generateMetadata({
 const SPORT_BADGE_COLORS: Record<string, string> = {
   golf: 'bg-primary/15 text-primary',
   tennis: 'bg-warning/15 text-warning',
+  pickleball: 'bg-success/15 text-success',
+  padel: 'bg-info/15 text-info',
   baseball: 'bg-error/15 text-error',
   softball: 'bg-accent-secondary/15 text-accent-secondary',
   all: 'bg-muted text-muted-foreground',

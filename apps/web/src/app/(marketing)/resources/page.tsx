@@ -64,6 +64,44 @@ const RESOURCE_SECTIONS = [
     ],
   },
   {
+    sport: 'Pickleball',
+    emoji: '🏓',
+    href: '/pickleball',
+    resources: [
+      {
+        title: 'Why the Third-Shot Drop Matters Most',
+        desc: 'The third shot is the most important shot in pickleball. A soft drop from the baseline into the kitchen lets the serving team move up to the net and neutralize the returner’s advantage. Arc, depth control, and a relaxed paddle face matter far more than power.',
+      },
+      {
+        title: 'Dinking and the Non-Volley Zone (Kitchen)',
+        desc: 'Dinks are soft shots that land in the kitchen and can’t be volleyed. Patient dinking forces an attackable ball. The most common fault is popping the ball up off a stiff wrist or trying to end the point too early.',
+      },
+      {
+        title: 'Paddle-Face Control on Resets',
+        desc: 'When you get pushed back, resetting a hard drive softly into the kitchen buys time to recover net position. A loose grip and a quiet, slightly open paddle face absorb pace instead of redirecting it back fast.',
+      },
+    ],
+  },
+  {
+    sport: 'Padel',
+    emoji: '🎾',
+    href: '/padel',
+    resources: [
+      {
+        title: 'The Bandeja — Padel’s Defensive Overhead',
+        desc: 'The bandeja is a controlled overhead that keeps you at the net without overhitting. It trades raw power for placement and spin so you hold court position rather than gambling on a winner from a defensive ball.',
+      },
+      {
+        title: 'Playing Off the Glass (Walls)',
+        desc: 'In padel the ball rebounds off the back and side glass. Letting the ball come off the wall — instead of rushing it — gives you a cleaner, more controlled contact. Patience and footwork off the glass are what separate levels.',
+      },
+      {
+        title: 'Net Control and Doubles Positioning',
+        desc: 'Padel is a doubles game won at the net. The team that holds the net and moves as a unit controls the point. Knowing when to lob to push opponents off the net is central to the strategy.',
+      },
+    ],
+  },
+  {
     sport: 'Baseball',
     emoji: '⚾',
     href: '/baseball-swing-analysis',

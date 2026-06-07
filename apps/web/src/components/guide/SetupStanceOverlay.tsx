@@ -29,7 +29,10 @@ function equipmentWord(sport: SportId): string {
     case 'golf':
       return 'club';
     case 'tennis':
+    case 'padel':
       return 'racquet';
+    case 'pickleball':
+      return 'paddle';
     case 'baseball':
     case 'softball_slow':
     case 'softball_fast':

@@ -10,6 +10,8 @@ export const metadata: Metadata = {
 const SPORT_LINKS = [
   { href: '/golf-swing-analysis', label: '⛳ Golf Swing Analysis' },
   { href: '/tennis-swing-analysis', label: '🎾 Tennis Swing Analysis' },
+  { href: '/pickleball', label: '🏓 Pickleball Analysis' },
+  { href: '/padel', label: '🎾 Padel Analysis' },
   { href: '/baseball-swing-analysis', label: '⚾ Baseball Swing Analysis' },
   { href: '/softball-swing-analysis', label: '🥎 Softball Swing Analysis' },
 ];

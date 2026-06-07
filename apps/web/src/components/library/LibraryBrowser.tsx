@@ -49,7 +49,7 @@ const ICONS: Record<string, typeof PlayCircle> = {
   Clapperboard,
 };
 
-const SPORTS: LibrarySport[] = ['all', 'golf', 'tennis', 'baseball', 'softball_slow', 'softball_fast'];
+const SPORTS: LibrarySport[] = ['all', 'golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'];
 
 export function LibraryBrowser({ items, stats }: { items: LibraryItem[]; stats: LibraryStats }) {
   const [query, setQuery] = useState('');

@@ -27,6 +27,10 @@ function equipmentHref(sport: SportId): string {
       return '/bag';
     case 'tennis':
       return '/equipment/tennis';
+    case 'pickleball':
+      return '/equipment/pickleball';
+    case 'padel':
+      return '/equipment/padel';
     case 'baseball':
       return '/equipment/baseball';
     case 'softball_slow':

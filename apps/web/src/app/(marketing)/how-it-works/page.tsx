@@ -61,6 +61,20 @@ const sports = [
     accentClass: 'border-warning/50 bg-warning/10',
   },
   {
+    emoji: '🏓',
+    name: 'Pickleball',
+    href: '/pickleball',
+    description: 'Video-based paddle-stroke analysis. Dinks, third-shot drops, drives, resets, and volleys broken down around paddle-face control and the kitchen game.',
+    accentClass: 'border-success/50 bg-success/10',
+  },
+  {
+    emoji: '🎾',
+    name: 'Padel',
+    href: '/padel',
+    description: 'Wall-aware stroke analysis. The bandeja, víbora and smash family, volleys, lobs, and glass play broken down around net control and doubles positioning.',
+    accentClass: 'border-info/50 bg-info/10',
+  },
+  {
     emoji: '⚾',
     name: 'Baseball',
     href: '/baseball-swing-analysis',

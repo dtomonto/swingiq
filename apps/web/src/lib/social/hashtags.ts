@@ -17,6 +17,8 @@ const BRAND_TAG = '#SwingVantage';
 const SPORT_TAGS: Record<string, string[]> = {
   golf: ['#golf', '#golftips', '#golfswing'],
   tennis: ['#tennis', '#tennistips'],
+  pickleball: ['#pickleball', '#pickleballtips'],
+  padel: ['#padel', '#padeltips'],
   baseball: ['#baseball', '#hitting'],
   softball: ['#softball', '#fastpitch'],
   all: ['#sports', '#training'],

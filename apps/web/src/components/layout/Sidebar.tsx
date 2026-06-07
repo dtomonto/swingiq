@@ -177,6 +177,8 @@ export function Sidebar({ onClose }: SidebarProps) {
   const accentColors: Record<string, string> = {
     golf: 'bg-green-700',
     tennis: 'bg-yellow-600',
+    pickleball: 'bg-lime-600',
+    padel: 'bg-sky-600',
     baseball: 'bg-red-700',
     softball_slow: 'bg-orange-600',
     softball_fast: 'bg-pink-600',

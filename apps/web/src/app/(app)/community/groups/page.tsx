@@ -63,7 +63,7 @@ export default function GroupsPage() {
         {/* Sport filter */}
         {tab === 'browse' && (
           <div className="flex gap-2 flex-wrap" role="group" aria-label="Filter by sport">
-            {['all', 'golf', 'tennis', 'baseball', 'softball_slow', 'softball_fast'].map(sport => (
+            {['all', 'golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'].map(sport => (
               <button
                 key={sport}
                 onClick={() => setSportFilter(sport)}

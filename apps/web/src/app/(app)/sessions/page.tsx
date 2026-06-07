@@ -90,6 +90,8 @@ export default function SessionsPage() {
               const sportBadgeEmojis: Record<string, string> = {
                 golf: '⛳',
                 tennis: '🎾',
+                pickleball: '🏓',
+                padel: '🎾',
                 baseball: '⚾',
                 softball_slow: '🥎',
                 softball_fast: '🥎',

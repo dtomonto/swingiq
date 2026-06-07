@@ -59,6 +59,22 @@ const MOVEMENT_TYPES: Record<string, Array<{ value: string; label: string }>> = 
     { value: 'volley', label: 'Volley' },
     { value: 'overhead', label: 'Overhead / Smash' },
   ],
+  pickleball: [
+    { value: 'dink', label: 'Dink' },
+    { value: 'third_shot_drop', label: 'Third-Shot Drop' },
+    { value: 'drive', label: 'Drive' },
+    { value: 'serve', label: 'Serve' },
+    { value: 'return', label: 'Return' },
+    { value: 'volley', label: 'Volley / Reset' },
+  ],
+  padel: [
+    { value: 'bandeja', label: 'Bandeja' },
+    { value: 'vibora', label: 'Víbora' },
+    { value: 'smash', label: 'Smash' },
+    { value: 'volley', label: 'Volley' },
+    { value: 'lob', label: 'Lob' },
+    { value: 'wall_play', label: 'Wall Play' },
+  ],
   baseball: [
     { value: 'batting', label: 'Batting / Full Swing' },
     { value: 'tee_work', label: 'Tee Work' },
@@ -334,6 +350,8 @@ export default function ImageImportPage() {
   const sportOptions: Array<{ value: string; label: string }> = [
     { value: 'golf', label: 'Golf' },
     { value: 'tennis', label: 'Tennis' },
+    { value: 'pickleball', label: 'Pickleball' },
+    { value: 'padel', label: 'Padel' },
     { value: 'baseball', label: 'Baseball' },
     { value: 'softball_slow', label: 'Slow Pitch Softball' },
     { value: 'softball_fast', label: 'Fast Pitch Softball' },

@@ -26,6 +26,8 @@ const BELIEFS = [
 const SPORTS = [
   { emoji: '⛳', name: 'Golf', desc: 'Launch monitor analysis, club path, face angle, attack angle, spin, and distance benchmarks.' },
   { emoji: '🎾', name: 'Tennis', desc: 'Forehand, backhand, and serve mechanics with phase-by-phase coaching feedback.' },
+  { emoji: '🏓', name: 'Pickleball', desc: 'Dinks, third-shot drops, drives, and resets with paddle-face and kitchen-game coaching.' },
+  { emoji: '🎾', name: 'Padel', desc: 'Bandeja, víbora, smash, and wall play with net-control and doubles-positioning coaching.' },
   { emoji: '⚾', name: 'Baseball', desc: 'Exit velocity, launch angle, bat speed, and attack angle with full swing analysis.' },
   { emoji: '🥎', name: 'Slow Pitch Softball', desc: 'Arc timing, line-drive bat path, and directional hitting coaching.' },
   { emoji: '🥎', name: 'Fast Pitch Softball', desc: 'Compact launch, quick timing, and pitch-speed adaptation drills.' },

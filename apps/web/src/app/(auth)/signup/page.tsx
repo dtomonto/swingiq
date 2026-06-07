@@ -31,7 +31,7 @@ export default function SignupPage() {
       </div>
 
       <div className="mt-6 text-center text-primary-foreground/80 text-xs max-w-xs space-y-1">
-        <p>⛳ Golf · 🎾 Tennis · ⚾ Baseball · 🥎 Softball</p>
+        <p>⛳ Golf · 🎾 Tennis · 🏓 Pickleball · 🎾 Padel · ⚾ Baseball · 🥎 Softball</p>
         <p>All swing sports. One genie.</p>
       </div>
     </div>

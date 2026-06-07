@@ -11,6 +11,8 @@ export default function ProfilePage() {
   const sportEmojis: Record<string, string> = {
     golf: '⛳',
     tennis: '🎾',
+    pickleball: '🏓',
+    padel: '🎾',
     baseball: '⚾',
     softball_slow: '🥎',
     softball_fast: '🥎',

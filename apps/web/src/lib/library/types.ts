@@ -32,6 +32,8 @@ export type LibrarySport =
   | 'all'
   | 'golf'
   | 'tennis'
+  | 'pickleball'
+  | 'padel'
   | 'baseball'
   | 'softball_slow'
   | 'softball_fast';
@@ -128,6 +130,8 @@ export const SPORT_LABELS: Record<LibrarySport, string> = {
   all: 'All sports',
   golf: 'Golf',
   tennis: 'Tennis',
+  pickleball: 'Pickleball',
+  padel: 'Padel',
   baseball: 'Baseball',
   softball_slow: 'Softball (slow-pitch)',
   softball_fast: 'Softball (fast-pitch)',
