@@ -156,26 +156,27 @@ test('every theme renders the mobile nav + sport selector readably', async ({ pa
   // Clear any remaining first-run overlay (tutorial nudge, etc.).
   await page.keyboard.press('Escape').catch(() => {});
 
+  // Open the mobile drawer + sport switcher ONCE. Switching themes below only
+  // sets data-theme on <html> (no React re-render), so the drawer stays open —
+  // keeping the per-theme loop fast and click-free.
+  const menu = page.getByRole('button', { name: /open navigation menu/i });
+  if (await menu.count()) {
+    await menu.first().click();
+    await page.waitForTimeout(250);
+    const sportBtn = page
+      .getByRole('button')
+      .filter({ hasText: /golf|tennis|pickleball|padel|baseball|softball/i });
+    if (await sportBtn.count()) {
+      await sportBtn.first().click().catch(() => {});
+      await page.waitForTimeout(150);
+    }
+  }
+
   const worstByTheme: Record<string, number> = {};
 
   for (const theme of THEMES) {
     await test.step(theme, async () => {
       await applyTheme(page, theme);
-
-      // Open the mobile drawer if the shell is present (best-effort).
-      const menu = page.getByRole('button', { name: /open navigation menu/i });
-      if (await menu.count()) {
-        await menu.first().click();
-        await page.waitForTimeout(200);
-        // Open the sport switcher inside the drawer if present.
-        const sportBtn = page
-          .getByRole('button')
-          .filter({ hasText: /golf|tennis|pickleball|padel|baseball|softball/i });
-        if (await sportBtn.count()) {
-          await sportBtn.first().click().catch(() => {});
-          await page.waitForTimeout(150);
-        }
-      }
 
       // Visual snapshot artifact for this theme.
       await page.screenshot({ path: `e2e/__screenshots__/theme-${theme}.png` });
@@ -201,10 +202,6 @@ test('every theme renders the mobile nav + sport selector readably', async ({ pa
         `[${theme}] unreadable text (contrast < ${HARD_FAIL}): ` +
           invisible.map((r) => `"${r.text}" @ ${r.ratio}`).join(', '),
       ).toEqual([]);
-
-      // Close the drawer for the next theme.
-      await page.keyboard.press('Escape').catch(() => {});
-      await page.waitForTimeout(100);
     });
   }
 
