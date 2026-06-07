@@ -80,7 +80,7 @@ export const NAV_ITEMS: NavItem[] = [
   // ── People ─────────────────────────────────────────────────
   {
     id: 'users', label: 'Users', href: '/admin/users', icon: Users,
-    group: 'people', built: false, permission: 'users.view',
+    group: 'people', built: true, permission: 'users.view',
     blurb: 'Every account: search, inspect their full journey, suspend or export.',
     keywords: ['accounts', 'members', 'people', 'signups'],
   },

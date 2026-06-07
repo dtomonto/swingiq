@@ -127,6 +127,7 @@ export interface AdminUserDetail {
     lastSignInAt: string | null;
     confirmed: boolean;
     provider: string | null;
+    suspended: boolean;
   } | null;
   golfProfile: Record<string, unknown> | null;
   sportProfiles: { sport: string; data: Record<string, unknown>; updatedAt: string }[];
@@ -156,6 +157,7 @@ export async function getAdminUser(id: string): Promise<AdminUserDetail> {
   try {
     const { data } = await client.auth.admin.getUserById(id);
     if (data?.user) {
+      const bannedUntil = (data.user as { banned_until?: string | null }).banned_until ?? null;
       authUser = {
         id: data.user.id,
         email: data.user.email ?? null,
@@ -163,6 +165,7 @@ export async function getAdminUser(id: string): Promise<AdminUserDetail> {
         lastSignInAt: data.user.last_sign_in_at ?? null,
         confirmed: Boolean(data.user.email_confirmed_at),
         provider: (data.user.app_metadata?.provider as string) ?? null,
+        suspended: Boolean(bannedUntil && new Date(bannedUntil).getTime() > Date.now()),
       };
     }
   } catch {
