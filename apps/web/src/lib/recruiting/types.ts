@@ -5,7 +5,7 @@
 // data lives in its OWN local-first store (`swingvantage-recruiting`,
 // see store.ts), mirroring the Academy / Motion-Lab secondary stores.
 // All derivation (profile strength, summaries, reel checks, analytics)
-// is pure (see strength.ts / summary.ts / filmQuality.ts / analytics.ts).
+// is pure (see strength.ts / summary.ts / film-quality.ts / analytics.ts).
 //
 // Honest-first is structural here: every metric and AI claim carries a
 // source + verification label and a confidence level. The engine never

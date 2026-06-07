@@ -40,7 +40,7 @@ import {
   DEFAULT_RECRUITING_STATE,
 } from './types';
 import { buildSummary } from './summary';
-import { scoreFilmQuality } from './filmQuality';
+import { scoreFilmQuality } from './film-quality';
 import {
   generateSlug,
   permissionPresetFor,

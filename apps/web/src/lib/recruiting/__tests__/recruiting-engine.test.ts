@@ -10,7 +10,7 @@ import { computeProfileStrength } from '../strength';
 import { buildSummary, validateSummaryBody, FORBIDDEN_CLAIM_PATTERNS } from '../summary';
 import { buildOutreach, validateOutreachBody } from '../outreach';
 import { benchmarkPosition } from '../benchmarks';
-import { analyzeReel, scoreFilmQuality, findDuplicateFilm } from '../filmQuality';
+import { analyzeReel, scoreFilmQuality, findDuplicateFilm } from '../film-quality';
 import {
   generateSlug,
   permissionPresetFor,
@@ -20,7 +20,7 @@ import {
   isMinor,
 } from '../share';
 import { summarizeEngagement, engagementInsights } from '../analytics';
-import { buildPlatformImport, type PlatformImportData } from '../platformImport';
+import { buildPlatformImport, type PlatformImportData } from '../platform-import';
 
 const TS = '2026-01-01T00:00:00.000Z';
 
