@@ -1,10 +1,10 @@
 import { AppShell } from '@/components/layout/AppShell';
 import { FloatingCoach } from '@/components/ui/FloatingCoach';
 import { UsageCategoryModal } from '@/components/ui/UsageCategoryModal';
-import { BackgroundTasksProvider } from '@/lib/background-tasks/BackgroundTasksProvider';
+import { BackgroundTasksProvider } from '@/lib/background-tasks/background-tasks-provider';
 import { BackgroundTaskCenter } from '@/components/background-tasks/BackgroundTaskCenter';
 import { GuideCompanion } from '@/components/guide/GuideCompanion';
-import { AutoSyncProvider } from '@/lib/backup/autosync/AutoSyncProvider';
+import { AutoSyncProvider } from '@/lib/backup/autosync/auto-sync-provider';
 import { ContinueProgressBanner } from '@/components/backup/ContinueProgressBanner';
 import { RelationalSyncProvider } from '@/lib/db';
 import { SaveProgressBanner } from '@/components/sync/SaveProgressBanner';

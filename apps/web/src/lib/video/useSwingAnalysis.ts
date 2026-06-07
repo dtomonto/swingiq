@@ -19,7 +19,7 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   useBackgroundTasks,
   type BackgroundTask,
-} from '@/lib/background-tasks/BackgroundTasksProvider';
+} from '@/lib/background-tasks/background-tasks-provider';
 import {
   runSwingAnalysis,
   type SwingAnalysisInput,

@@ -22,7 +22,7 @@ import { Loader2, X, CheckCircle, AlertCircle, ArrowRight } from 'lucide-react';
 import {
   useBackgroundTasks,
   type BackgroundTask,
-} from '@/lib/background-tasks/BackgroundTasksProvider';
+} from '@/lib/background-tasks/background-tasks-provider';
 import { cn } from '@/lib/utils';
 
 export function BackgroundTaskCenter() {

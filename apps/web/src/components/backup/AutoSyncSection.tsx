@@ -15,7 +15,7 @@
 
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { useAutoSync } from '@/lib/backup/autosync/AutoSyncProvider';
+import { useAutoSync } from '@/lib/backup/autosync/auto-sync-provider';
 import { AUTOSAVE_INTERVALS } from '@/lib/backup/autosync/config';
 import {
   HardDriveDownload, FolderSync, CheckCircle, AlertTriangle, RefreshCw,

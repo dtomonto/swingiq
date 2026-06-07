@@ -9,7 +9,7 @@
 // automatically and this banner never appears.
 // ============================================================
 
-import { useAutoSync } from '@/lib/backup/autosync/AutoSyncProvider';
+import { useAutoSync } from '@/lib/backup/autosync/auto-sync-provider';
 import { Button } from '@/components/ui/Button';
 import { History, X, Layers, RotateCcw } from 'lucide-react';
 
