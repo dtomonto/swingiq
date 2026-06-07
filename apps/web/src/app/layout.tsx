@@ -70,8 +70,11 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  // Pinch-zoom is intentionally left enabled (no `maximumScale` / `userScalable`):
+  // disabling it fails WCAG 2.1 SC 1.4.4 (Resize Text) and 1.4.10 (Reflow) and
+  // hurts low-vision users on phones. The companion rule in globals.css renders
+  // form controls at ≥16px on small screens so allowing zoom does not trigger
+  // iOS Safari's focus auto-zoom (the usual reason teams disable scaling).
   viewportFit: 'cover',
   themeColor: '#1a3a2a',
 };

@@ -163,6 +163,50 @@
   }
 }
 
+/* ──────────────────────────────────────────────────────────────────────
+   Mobile + touch base hardening (applies app-wide).
+   1. Stop iOS Safari from auto-zooming the page when a small <input> gains
+      focus: render text form controls at ≥16px on phones. Scoped to ≤640px
+      so desktop dense tables keep their compact sizing. This is the safe
+      companion to re-enabling pinch-zoom in app/layout.tsx's viewport.
+   2. Prevent iOS text auto-inflation on orientation change.
+   3. Remove the grey tap-flash on touch; interactive elements supply their
+      own :active / :focus-visible affordances.
+   ────────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  [role='button'],
+  [tabindex] {
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (max-width: 640px) {
+    input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']),
+    select,
+    textarea {
+      font-size: 16px;
+    }
+  }
+}
+
+/* Minimum 44×44px touch target (WCAG 2.5.5 Target Size). Apply to icon-only
+   buttons and other small tappable controls so they are comfortable on a
+   phone; the inline-flex centering keeps the visible glyph in place. */
+@utility tap-target {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+
 @utility text-balance {
   text-wrap: balance;
 }
