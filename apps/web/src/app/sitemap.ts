@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
 import { SITE_URL } from '@/config/site';
+import { getLibraryItems } from '@/lib/library';
+import { learnPath } from '@/lib/library/seo';
 
 // Sitemap URLs MUST be on the same host the sitemap is served from, or
 // Google rejects them ("URL not allowed for a Sitemap at this location").
@@ -44,11 +46,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/challenges/30-day-swingiq',
   ].map((path) => ({ url: `${BASE_URL}${path}`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.5 }));
 
+  // Public video library: the index + one crawlable page per video, with
+  // video-sitemap metadata for recorded videos (SEO/AEO/GEO discovery).
+  const learnPages: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/learn`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    ...getLibraryItems().map((item) => ({
+      url: `${BASE_URL}${learnPath(item)}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+      ...(item.hasRecording && item.poster && item.mp4Src
+        ? {
+            videos: [
+              {
+                title: item.title,
+                thumbnail_loc: `${BASE_URL}${item.poster}`,
+                description: item.description,
+                content_loc: `${BASE_URL}${item.mp4Src}`,
+              },
+            ],
+          }
+        : {}),
+    })),
+  ];
+
   return [
     ...seoPages,
     ...toolPages,
     ...partnerPages,
     ...challengePages,
+    ...learnPages,
     // ── Homepage ────────────────────────────────────────────────
     {
       url: BASE_URL,
@@ -78,6 +105,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${BASE_URL}/softball-swing-analysis`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/softball-swing-analysis/slow-pitch`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/softball-swing-analysis/fast-pitch`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.9,
@@ -112,12 +151,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      // Public worked example of a swing report.
+      // Public worked example of a swing report (index of the five).
       url: `${BASE_URL}/sample-report`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    ...['golf', 'baseball', 'slow-pitch', 'fast-pitch', 'softball'].map((s) => ({
+      url: `${BASE_URL}/sample-report/${s}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
     {
       url: `${BASE_URL}/features`,
       lastModified: now,

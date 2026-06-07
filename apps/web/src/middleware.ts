@@ -45,7 +45,6 @@ const PUBLIC_PATHS = new Set([
   '/updates',
   '/start',
   '/free-swing-analysis',
-  '/sample-report',
   // Audience landing pages
   '/parents',
   '/coaches',
@@ -68,6 +67,11 @@ const PUBLIC_SUBTREES = [
   '/challenges',
   '/blog',
   '/benchmarks',
+  // Public video library (/learn + /learn/<slug>) — crawlable for SEO/AEO/GEO.
+  '/learn',
+  // Sample reports: the index AND the per-sport children
+  // (/sample-report/golf, /baseball, /slow-pitch, /fast-pitch, /softball).
+  '/sample-report',
   '/golf',
   '/tennis',
   '/baseball',
