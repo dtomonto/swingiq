@@ -15,6 +15,14 @@ const nextConfig = {
       { source: '/report/sample', destination: '/sample-report', permanent: true },
       // Equipment unified under /equipment/[sport]; golf was the odd-one-out at /bag (IA-5)
       { source: '/bag', destination: '/equipment/golf', permanent: true },
+      // Bare sport hubs have no index page (only children like /golf/fix-slice exist),
+      // but robots.txt historically advertised them, so Googlebot fetched them and got a
+      // hard 404 ("Not found" in Search Console). 301 each to its real analysis hub so the
+      // URL resolves and any link equity is preserved. These run before the middleware.
+      { source: '/golf', destination: '/golf-swing-analysis', permanent: true },
+      { source: '/tennis', destination: '/tennis-swing-analysis', permanent: true },
+      { source: '/baseball', destination: '/baseball-swing-analysis', permanent: true },
+      { source: '/softball', destination: '/softball-swing-analysis', permanent: true },
     ];
   },
 
