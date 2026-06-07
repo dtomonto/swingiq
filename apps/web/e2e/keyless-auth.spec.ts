@@ -10,7 +10,7 @@ test.describe('keyless accounts', () => {
     await page.getByPlaceholder('Tiger Woods').fill('E2E Tester');
     await page.getByPlaceholder('you@example.com').fill(email);
     await page.getByPlaceholder('At least 8 characters').fill('test-password-123');
-    await page.getByRole('button', { name: /create account/i }).click();
+    await page.getByRole('button', { name: /create.*account/i }).click();
     await expect(page).toHaveURL(/\/start/, { timeout: 10_000 });
   });
 
