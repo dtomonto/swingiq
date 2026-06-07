@@ -5,6 +5,7 @@
 // empty / loading states. Generic over the row type.
 
 import { useMemo, useState, type ReactNode } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   ArrowUpDown, ArrowUp, ArrowDown, Search, ChevronLeft, ChevronRight,
@@ -158,8 +159,9 @@ export function DataTable<T>({
         </div>
       )}
 
-      {/* Table */}
-      <div className="overflow-x-auto rounded-xl border border-gray-800">
+      {/* Table — tablet / desktop (≥640px). On phones the card list below
+          replaces it so columns never crush or force horizontal scrolling. */}
+      <div className="hidden overflow-x-auto rounded-xl border border-gray-800 sm:block">
         <table className="w-full text-left text-sm">
           <thead className="bg-gray-900/80 text-[11px] uppercase tracking-wide text-gray-500">
             <tr>
@@ -242,6 +244,72 @@ export function DataTable<T>({
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Cards — phones (<640px). Same rows, sort, search and pagination as
+          the table; each row becomes a stacked card with the first column as
+          the title and the rest as label/value pairs (reusing each column's
+          render fn). The whole card is a real link when rowHref is set. */}
+      <div className="space-y-2 sm:hidden">
+        {loading ? (
+          Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="rounded-xl border border-gray-800 p-3">
+              <div className="h-4 w-2/3 animate-pulse rounded bg-gray-800" />
+              <div className="mt-2 h-3 w-full animate-pulse rounded bg-gray-800/70" />
+            </div>
+          ))
+        ) : pageRows.length === 0 ? (
+          <div className="rounded-xl border border-gray-800 px-3 py-10 text-center text-gray-500">
+            {emptyState ?? 'No records found.'}
+          </div>
+        ) : (
+          pageRows.map((row) => {
+            const id = getRowId(row);
+            const href = rowHref?.(row);
+            const [primary, ...rest] = columns;
+            const renderCell = (c: Column<T>): ReactNode =>
+              c.render ? c.render(row) : String((row as Record<string, unknown>)[c.key] ?? '');
+            return (
+              <div key={id} className="rounded-xl border border-gray-800 bg-gray-900/40 p-3">
+                <div className="flex items-start gap-2">
+                  {hasBulk && (
+                    <input
+                      type="checkbox"
+                      checked={selected.has(id)}
+                      onChange={() => toggleRow(id)}
+                      className="mt-1 accent-amber-500"
+                      aria-label="Select row"
+                    />
+                  )}
+                  <div className="min-w-0 flex-1">
+                    {href ? (
+                      <Link
+                        href={href}
+                        className="block rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                      >
+                        {renderCell(primary)}
+                      </Link>
+                    ) : (
+                      renderCell(primary)
+                    )}
+                  </div>
+                </div>
+                {rest.length > 0 && (
+                  <div className="mt-2.5 space-y-1.5 border-t border-gray-800/70 pt-2.5">
+                    {rest.map((c) => (
+                      <div key={c.key} className="flex items-start justify-between gap-3 text-sm">
+                        <span className="shrink-0 text-[11px] font-medium uppercase tracking-wide text-gray-500">
+                          {c.header}
+                        </span>
+                        <span className="min-w-0 text-right text-gray-300">{renderCell(c)}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })
+        )}
       </div>
 
       {/* Pagination */}
