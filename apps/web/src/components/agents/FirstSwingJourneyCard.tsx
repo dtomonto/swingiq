@@ -33,16 +33,16 @@ export function FirstSwingJourneyCard({
     >
       <div className="flex items-start gap-3">
         <span className="shrink-0 mt-0.5">
-          <Sparkles size={22} className="text-primary-foreground/80" aria-hidden="true" />
+          <Sparkles size={22} className="text-white/80" aria-hidden="true" />
         </span>
         <div className="min-w-0">
-          <p className="font-semibold text-primary-foreground/80 text-sm">
+          <p className="font-semibold text-white/80 text-sm">
             New here? Start in about 2 minutes
           </p>
           <h2 className="font-bold text-lg sm:text-xl mt-0.5">
             Let&apos;s find your first fix{firstName ? `, ${firstName}` : ''}.
           </h2>
-          <p className="text-primary-foreground/90 text-sm leading-relaxed mt-1">
+          <p className="text-white/90 text-sm leading-relaxed mt-1">
             Answer two quick questions and SwingVantage gives you your top priority and a
             simple plan — free, and you don&apos;t need a video to start.
           </p>

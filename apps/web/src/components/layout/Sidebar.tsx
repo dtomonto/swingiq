@@ -49,6 +49,7 @@ import {
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
 import { useSport } from '@/contexts/SportContext';
+import { ALL_SPORTS_INCLUDING_GOLF } from '@swingiq/core';
 import { useSwingVantageStore } from '@/store';
 import { isKnownMinor } from '@/lib/bodysync';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
@@ -173,22 +174,20 @@ export function Sidebar({ onClose }: SidebarProps) {
       return next;
     });
 
-  // Sport accent colors for active state
-  const accentColors: Record<string, string> = {
-    golf: 'bg-green-700',
-    tennis: 'bg-yellow-600',
-    pickleball: 'bg-lime-600',
-    padel: 'bg-sky-600',
-    baseball: 'bg-red-700',
-    softball_slow: 'bg-orange-600',
-    softball_fast: 'bg-pink-600',
-  };
-  const activeClass = accentColors[activeSport] ?? 'bg-green-700';
+  // Active rows use the theme's tuned primary surface (always contrast-safe in
+  // every theme) and carry sport identity via a slim inset accent bar painted in
+  // the sport's canonical accent color (set as --sport-accent on <aside> below).
+  // Using an inset box-shadow keeps the accent decorative (no text) and avoids
+  // any layout shift between active/inactive rows.
+  const activeAccentHex =
+    ALL_SPORTS_INCLUDING_GOLF.find((s) => s.id === activeSport)?.accent_hex ?? '#22c55e';
 
   const rowClass = (active: boolean) =>
     cn(
       'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
-      active ? `${activeClass} text-white` : 'text-foreground/75 hover:bg-muted hover:text-foreground',
+      active
+        ? 'bg-primary text-primary-foreground shadow-[inset_3px_0_0_0_var(--sport-accent)]'
+        : 'text-foreground/75 hover:bg-muted hover:text-foreground',
     );
 
   const streakBadge = (
@@ -202,7 +201,10 @@ export function Sidebar({ onClose }: SidebarProps) {
   );
 
   return (
-    <aside className="w-64 bg-secondary text-secondary-foreground border-r border-border flex flex-col h-full">
+    <aside
+      className="w-64 bg-secondary text-secondary-foreground border-r border-border flex flex-col h-full"
+      style={{ '--sport-accent': activeAccentHex } as React.CSSProperties}
+    >
       {/* Logo + close button (close only visible on mobile) */}
       <div className="px-6 py-5 border-b border-border flex items-center justify-between">
         <div className="flex items-center gap-2">

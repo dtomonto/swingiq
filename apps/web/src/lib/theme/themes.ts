@@ -102,7 +102,7 @@ export const THEMES: ThemeDef[] = [
       surface: 'hsl(40 36% 98%)',
       text: 'hsl(218 38% 18%)',
       primary: 'hsl(150 34% 25%)',
-      accent: 'hsl(38 54% 38%)',
+      accent: 'hsl(38 54% 36%)',
     },
   },
   {
@@ -143,7 +143,7 @@ export const THEMES: ThemeDef[] = [
       surface: 'hsl(0 0% 100%)',
       text: 'hsl(205 32% 16%)',
       primary: 'hsl(192 62% 34%)',
-      accent: 'hsl(8 72% 54%)',
+      accent: 'hsl(8 72% 49%)',
     },
   },
 ];

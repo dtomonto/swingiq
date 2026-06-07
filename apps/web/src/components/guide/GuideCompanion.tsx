@@ -107,13 +107,13 @@ export function GuideCompanion() {
               <GuideMascot size={26} />
               <div className="min-w-0">
                 <p className="text-white text-sm font-semibold leading-tight">Your guide</p>
-                <p className="text-primary-foreground/80 text-[11px] leading-tight">Here to show you the way</p>
+                <p className="text-white/80 text-[11px] leading-tight">Here to show you the way</p>
               </div>
             </div>
             <button
               onClick={closeAndRemember}
               aria-label="Close guide"
-              className="text-primary-foreground/80 hover:text-white shrink-0 p-1 -m-1"
+              className="text-white/80 hover:text-white shrink-0 p-1 -m-1"
             >
               <X size={16} />
             </button>
@@ -182,7 +182,7 @@ export function GuideCompanion() {
                 className="mt-0.5 flex items-center justify-between gap-2 rounded-xl bg-golf-dark text-white px-3.5 py-2.5 hover:bg-primary transition-colors"
               >
                 <span className="min-w-0">
-                  <span className="block text-[11px] text-primary-foreground/80 font-medium">Your next best step</span>
+                  <span className="block text-[11px] text-white/80 font-medium">Your next best step</span>
                   <span className="block text-sm font-semibold truncate">{nextBestAction.label}</span>
                 </span>
                 <ChevronRight size={16} className="shrink-0" aria-hidden="true" />
