@@ -22,8 +22,12 @@ import type {
   BrandVoiceAsset, MarketingAsset, MarketingCalendarItem, UTMLink,
   MarketingMetric, MarketingTask, AIRecommendation, ConsentRecord, TrackingPixel,
   AttributionEvent,
+  InternalLinkRecommendation, LinkFinding, LinkAgentRun,
 } from './types';
 import * as seed from './mock-data';
+import {
+  INTERNAL_LINK_RECS_SEED, LINK_FINDINGS_SEED, LINK_RUNS_SEED,
+} from './link-intelligence/seed';
 
 const TABLE = 'growth_records';
 
@@ -182,6 +186,11 @@ export const consentRepo = makeRepo<ConsentRecord>('consent', seed.CONSENT_RECOR
 export const pixelsRepo = makeRepo<TrackingPixel>('pixel', seed.TRACKING_PIXELS);
 export const attributionRepo = makeRepo<AttributionEvent>('attribution', seed.ATTRIBUTION_EVENTS);
 
+// ── Link Intelligence Agent (GrowthOS-native) ─────────────────
+export const internalLinkRecsRepo = makeRepo<InternalLinkRecommendation>('internal-link-rec', INTERNAL_LINK_RECS_SEED);
+export const linkFindingsRepo = makeRepo<LinkFinding>('link-finding', LINK_FINDINGS_SEED);
+export const linkRunsRepo = makeRepo<LinkAgentRun>('link-run', LINK_RUNS_SEED);
+
 /** Registry of writable record repositories, keyed by the API `kind`. */
 export const RECORD_REPOS: Record<string, Repository<{ id: string }>> = {
   channel: channelsRepo as Repository<{ id: string }>,
@@ -206,6 +215,9 @@ export const RECORD_REPOS: Record<string, Repository<{ id: string }>> = {
   asset: assetsRepo as Repository<{ id: string }>,
   task: tasksRepo as Repository<{ id: string }>,
   recommendation: recommendationsRepo as Repository<{ id: string }>,
+  'internal-link-rec': internalLinkRecsRepo as Repository<{ id: string }>,
+  'link-finding': linkFindingsRepo as Repository<{ id: string }>,
+  'link-run': linkRunsRepo as Repository<{ id: string }>,
 };
 
 /** True when any repo is DB-backed (Supabase configured). */
@@ -246,6 +258,9 @@ const ALL_SEEDS: Array<{ repo: Repository<{ id: string }>; items: Array<{ id: st
   { repo: consentRepo as Repository<{ id: string }>, items: seed.CONSENT_RECORDS },
   { repo: pixelsRepo as Repository<{ id: string }>, items: seed.TRACKING_PIXELS },
   { repo: attributionRepo as Repository<{ id: string }>, items: seed.ATTRIBUTION_EVENTS },
+  { repo: internalLinkRecsRepo as Repository<{ id: string }>, items: INTERNAL_LINK_RECS_SEED },
+  { repo: linkFindingsRepo as Repository<{ id: string }>, items: LINK_FINDINGS_SEED },
+  { repo: linkRunsRepo as Repository<{ id: string }>, items: LINK_RUNS_SEED },
 ];
 
 /** Upsert all seed records into the DB. Idempotent (upsert by id). */
