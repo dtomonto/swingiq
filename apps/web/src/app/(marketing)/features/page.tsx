@@ -1,20 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { buildMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+// buildMetadata adds canonical + hreflang alternates to localized versions
+// (e.g. /es/features) when they exist — see lib/seo/metadata.
+export const metadata = buildMetadata({
   title: 'SwingVantage Features — AI Swing Analysis, Diagnostics & Training Tools',
   description:
     'Every SwingVantage feature explained: AI swing diagnosis, launch monitor import, video analysis, drill library, practice scheduling, progress tracking, equipment diagnostics, and more — for golf, tennis, baseball, and softball.',
-  openGraph: {
-    title: 'SwingVantage Features — What You Get Free',
-    description:
-      'AI swing diagnosis, personalized drills, practice plans, video analysis, equipment management, and progress tracking — all free, all sports.',
-    type: 'website',
-    url: 'https://swingvantage.com/features',
-  },
-  alternates: { canonical: '/features' },
-};
+  path: '/features',
+});
 
 const FEATURE_GROUPS = [
   {

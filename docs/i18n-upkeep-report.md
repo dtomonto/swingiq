@@ -5,9 +5,9 @@ marketing pages still match the English they were translated from. Anything
 listed as *stale* or *missing* is automatically hidden from that language
 (no broken half-Spanish pages get shown) until it's re-translated.
 
-_Generated 2026-06-07T04:10:06.459Z._
+_Generated 2026-06-07T04:19:50.027Z._
 
-- ✅ current: **160**
+- ✅ current: **292**
 - ⚠️ stale: **0**
 - ❌ missing: **0**
 

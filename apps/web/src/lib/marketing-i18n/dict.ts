@@ -73,3 +73,14 @@ export function flatDict(locale: LanguageCode): Record<string, string> {
   const d = DICTS[locale];
   return d ? flatten(d as Json) : {};
 }
+
+/**
+ * Flat translator with English fallback — convenient for key-dense pages.
+ * `t('features.groups.diagnosis.f1Name')` returns the locale string, falling
+ * back to English, then '' (so a missing/omitted key renders as empty, never
+ * a raw key). Pair with `{detail && ...}` to hide intentionally-absent fields.
+ */
+export function getMarketingT(locale: LanguageCode): (key: string) => string {
+  const loc = flatDict(locale);
+  return (key: string) => loc[key] ?? EN_FLAT[key] ?? '';
+}
