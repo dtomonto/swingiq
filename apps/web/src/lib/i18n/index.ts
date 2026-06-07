@@ -52,14 +52,42 @@ function interpolate(template: string, vars?: Record<string, string | number>): 
   });
 }
 
-// Detect browser language on first visit.
+// Legacy / alternate ISO codes some browsers still report, mapped to the
+// matching supported language. Only includes codes that resolve to a language
+// we actually ship — anything else falls through to the default.
+const LANGUAGE_ALIASES: Record<string, LanguageCode> = {
+  tl: 'fil', // some browsers report Tagalog as 'tl' instead of 'fil'
+  in: 'id', // legacy ISO-639 code for Indonesian
+  iw: 'en', // legacy Hebrew code — not supported, keep English
+};
+
+// Resolve a single BCP-47 language tag (e.g. "pt-BR") to a supported code.
+function resolveLanguageTag(tag: string | undefined | null): LanguageCode | undefined {
+  if (!tag) return undefined;
+  const base = tag.split('-')[0].toLowerCase();
+  const aliased = LANGUAGE_ALIASES[base];
+  if (aliased) return aliased === 'en' ? undefined : aliased;
+  return base in TRANSLATION_MAP ? (base as LanguageCode) : undefined;
+}
+
+// Detect the user's preferred language on first visit. Walks the browser's full
+// ordered preference list (navigator.languages) so a user whose top choice we
+// don't support still gets their next-best supported language, falling back to
+// the single primary language, then English.
 export function detectBrowserLanguage(): LanguageCode {
   if (typeof navigator === 'undefined') return 'en';
-  const browserLang = navigator.language.split('-')[0].toLowerCase();
-  const supported = Object.keys(TRANSLATION_MAP) as LanguageCode[];
-  // Filipino browsers may report 'tl' for Tagalog
-  if (browserLang === 'tl') return 'fil';
-  return supported.includes(browserLang as LanguageCode) ? (browserLang as LanguageCode) : 'en';
+
+  const candidates: Array<string | undefined | null> =
+    Array.isArray(navigator.languages) && navigator.languages.length > 0
+      ? [...navigator.languages]
+      : [navigator.language];
+
+  for (const tag of candidates) {
+    const match = resolveLanguageTag(tag);
+    if (match) return match;
+  }
+
+  return 'en';
 }
 
 // Build a translator function for the given language code.
