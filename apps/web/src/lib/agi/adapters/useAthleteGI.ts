@@ -36,6 +36,9 @@ export function useAthleteGI(): AthleteGIResult {
   const dailyNotes = useSwingVantageStore((s) => s.dailyNotes);
   const readiness = useReadinessSnapshot();
   const provenDrills = useProvenDrills();
+  // Cross-sport recommendations are opt-in (Phase 9) — default off keeps Athlete
+  // GI inside the active sport.
+  const allowCrossSport = useSwingVantageStore((s) => s.settings.allow_cross_sport === true);
   // Read prior snapshots once on mount (excludes today, so progress is honest).
   const [history] = useState(loadHistory);
 
@@ -49,8 +52,8 @@ export function useAthleteGI(): AthleteGIResult {
       ],
       identity,
     );
-    return runAthleteGI({ ...bundle, readiness, history, provenDrills });
-  }, [motionSessions, profile, sportProfiles, sessions, videos, dailyNotes, readiness, history, provenDrills]);
+    return runAthleteGI({ ...bundle, readiness, history, provenDrills, allowCrossSport });
+  }, [motionSessions, profile, sportProfiles, sessions, videos, dailyNotes, readiness, history, provenDrills, allowCrossSport]);
 
   // Persist today's snapshot for next time (dedupes per day; no-op without data).
   useEffect(() => {

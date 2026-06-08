@@ -97,6 +97,24 @@ export default function SettingsPage() {
                 <div className={`w-4 h-4 rounded-full bg-white shadow-sm mx-1 transition-transform ${settings.show_estimated_warnings ? 'translate-x-5' : 'translate-x-0'}`} />
               </button>
             </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-foreground">Allow cross-sport recommendations</p>
+                <p className="text-xs text-muted-foreground">
+                  Off by default — Athlete GI stays focused on your active sport. Turn on to let it
+                  point out skills that carry over between your sports.
+                </p>
+              </div>
+              <button
+                onClick={() => updateSettings({ allow_cross_sport: !settings.allow_cross_sport })}
+                role="switch"
+                aria-checked={!!settings.allow_cross_sport}
+                aria-label="Allow cross-sport recommendations"
+                className={`w-11 h-6 rounded-full transition-colors ${settings.allow_cross_sport ? 'bg-success' : 'bg-muted'}`}
+              >
+                <div className={`w-4 h-4 rounded-full bg-white shadow-sm mx-1 transition-transform ${settings.allow_cross_sport ? 'translate-x-5' : 'translate-x-0'}`} />
+              </button>
+            </div>
           </CardBody>
         </Card>
 

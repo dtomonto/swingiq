@@ -81,6 +81,31 @@ describe('computeAthletePriorities', () => {
       .toMatch(/Still your #1/);
   });
 
+  it('surfaces a physical-readiness priority when readiness is limiting (Phase 8)', () => {
+    const r = computeAthletePriorities({
+      now: NOW, hasClubFaceData: true,
+      sessions: [{ id: 's', date: '2026-02-28T00:00:00Z', diagnoses: [diag('slice', 'Slice', 'medium', 55)] }],
+      readiness: { zone: 'red', score: 28, summary: 'Poor sleep + high soreness.', regions: ['lower back'] },
+    });
+    const readiness = r.all.find((p) => p.id === 'physical_readiness');
+    expect(readiness).toBeDefined();
+    expect(readiness!.source).toBe('readiness');
+    expect(readiness!.severity).toBe('high');
+    expect(readiness!.recommendedPlanHref).toBe('/bodysync');
+    // A low-readiness day annotates the top swing fault as possibly mobility-driven.
+    const swing = r.all.find((p) => p.id === 'slice');
+    expect(swing!.evidence.some((e) => /mobility-driven/i.test(e.detail))).toBe(true);
+  });
+
+  it('does NOT add a readiness priority when readiness is green', () => {
+    const r = computeAthletePriorities({
+      now: NOW, hasClubFaceData: true,
+      sessions: [{ id: 's', date: '2026-02-28T00:00:00Z', diagnoses: [diag('slice', 'Slice', 'high', 70)] }],
+      readiness: { zone: 'green', score: 88 },
+    });
+    expect(r.all.find((p) => p.id === 'physical_readiness')).toBeUndefined();
+  });
+
   it('snapshotFromResult captures top + secondary ids', () => {
     const r = computeAthletePriorities({
       now: NOW, hasClubFaceData: true,

@@ -7,7 +7,7 @@ export type PrioritySeverity = 'critical' | 'high' | 'medium' | 'low';
 /** How a priority is moving across the athlete's history. */
 export type PriorityTrend = 'new' | 'persisting' | 'improving' | 'worsening';
 
-export type PrioritySource = 'launch_monitor' | 'video' | 'gapping';
+export type PrioritySource = 'launch_monitor' | 'video' | 'gapping' | 'readiness';
 
 export interface PriorityEvidence {
   label: string;

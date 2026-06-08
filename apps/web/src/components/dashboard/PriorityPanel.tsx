@@ -11,9 +11,9 @@
 // to synthesize. Records a snapshot so "what changed" works next visit.
 // ============================================================
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Target, ChevronRight, Sparkles, TrendingUp, TrendingDown, Minus, Info } from 'lucide-react';
+import { Target, ChevronRight, ChevronDown, Sparkles, TrendingUp, TrendingDown, Minus, Info, HeartPulse } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -21,6 +21,8 @@ import { useSwingVantageStore } from '@/store';
 import { analyzeClubGaps, type ClubGapInput } from '@swingiq/core';
 import { computeAthletePriorities, snapshotFromResult, type PrioritySessionInput } from '@/lib/priority/engine';
 import type { AthletePriority, PrioritySeverity, PriorityTrend } from '@/lib/priority/types';
+import { useBodySync } from '@/lib/bodysync/useBodySync';
+import { READINESS_SAFETY, GOLF_DYNAMIC_WARMUP } from '@/lib/readiness/golf-mobility';
 
 const SEVERITY_BADGE: Record<PrioritySeverity, 'critical' | 'warning' | 'info' | 'default'> = {
   critical: 'critical', high: 'warning', medium: 'info', low: 'default',
@@ -49,6 +51,8 @@ export function PriorityPanel() {
   const videoAnalyses = useSwingVantageStore((s) => s.video_analyses);
   const snapshots = useSwingVantageStore((s) => s.prioritySnapshots);
   const record = useSwingVantageStore((s) => s.recordPrioritySnapshot);
+  const { assessment } = useBodySync();
+  const [showWarmup, setShowWarmup] = useState(false);
 
   // Capture the previous snapshot ONCE at mount so "what changed" compares to
   // last visit (not to the snapshot we're about to record this render).
@@ -72,14 +76,24 @@ export function PriorityPanel() {
       .filter((v) => !!v.primary_issue)
       .map((v) => ({ issue: v.primary_issue as string, date: v.created_at }));
 
+    const readiness = assessment
+      ? {
+          zone: assessment.zone,
+          score: assessment.readiness.score,
+          summary: assessment.summary,
+          regions: assessment.injuryRisk.regions,
+        }
+      : null;
+
     return computeAthletePriorities({
       sessions: prioritySessions,
       videoIssues,
       gapping: gap ? { grade: gap.overall_grade, summary: gap.summary } : null,
       hasClubFaceData,
+      readiness,
       previous: previousRef.current,
     });
-  }, [sessions, clubs, videoAnalyses]);
+  }, [sessions, clubs, videoAnalyses, assessment]);
 
   // Persist the snapshot when the top priority changes (slice dedups).
   const topId = result.top?.id ?? null;
@@ -91,6 +105,7 @@ export function PriorityPanel() {
   if (result.insufficientData || !result.top) return null;
 
   const top = result.top;
+  const readinessPriority = result.all.find((p) => p.source === 'readiness');
 
   return (
     <Card className="border-primary/30">
@@ -154,6 +169,35 @@ export function PriorityPanel() {
                 <li key={i} className="text-xs text-muted-foreground">• {m}</li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {/* Phase 8: when readiness is limiting, offer a quick warm-up + safety. */}
+        {readinessPriority && (
+          <div className="rounded-lg border border-warning/30 bg-warning/10 p-3">
+            <div className="flex items-center justify-between gap-2">
+              <p className="flex items-center gap-1.5 text-xs font-semibold text-warning">
+                <HeartPulse size={13} aria-hidden="true" /> Warm up before you swing
+              </p>
+              <button
+                onClick={() => setShowWarmup((v) => !v)}
+                aria-expanded={showWarmup}
+                className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground"
+              >
+                {showWarmup ? 'Hide' : 'Show warm-up'}
+                <ChevronDown size={14} className={showWarmup ? 'rotate-180 transition-transform' : 'transition-transform'} aria-hidden="true" />
+              </button>
+            </div>
+            {showWarmup && (
+              <ul className="mt-2 space-y-1">
+                {GOLF_DYNAMIC_WARMUP.map((m) => (
+                  <li key={m.name} className="text-xs text-muted-foreground">
+                    <span className="font-medium text-foreground">{m.name}</span> — {m.detail}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p className="mt-2 text-[11px] text-muted-foreground">{READINESS_SAFETY}</p>
           </div>
         )}
 
