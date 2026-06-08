@@ -22,6 +22,7 @@ import {
 import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
+import { assessVisualUncertainty, formatUncertaintyReasons } from '@/lib/video/visual-uncertainty';
 import type {
   AIVisualAnalysis,
   VisibilityQuality,
@@ -105,7 +106,8 @@ const QUALITY_ROWS: { key: keyof VideoQualityCheck; label: string }[] = [
 
 export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis }) {
   const vq = analysis.videoQuality;
-  const confidencePct = Math.round(analysis.overallConfidence * 100);
+  const uncertainty = assessVisualUncertainty(analysis);
+  const confidencePct = uncertainty.confidencePct;
 
   // Funnel: the user is now looking at their #1 fix — the core value moment of
   // the whole product. This panel only renders for a real result, and a fresh
@@ -123,6 +125,32 @@ export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis
 
   return (
     <div className="space-y-4">
+      {/* Uncertainty notice — prominent, honest, and welcoming. When the model's
+          own confidence/visibility is limited, say so up front and give the one
+          concrete next step (e.g. a down-the-line view) rather than burying it
+          in the quality section below. We keep the result fully visible. */}
+      {uncertainty.show && (
+        <div className="rounded-xl border border-warning/40 bg-warning/10 p-4">
+          <div className="flex gap-3">
+            <Camera className="w-5 h-5 text-warning shrink-0 mt-0.5" />
+            <div className="text-sm">
+              <p className="font-semibold text-warning mb-1">
+                Useful first read — your next upload can be even sharper
+              </p>
+              <p className="text-warning leading-relaxed">
+                SwingVantage analyzed what it could see clearly
+                {uncertainty.reasons.length > 0
+                  ? `, but ${formatUncertaintyReasons(uncertainty.reasons)}`
+                  : ''}
+                . That&apos;s part of why the overall confidence below is{' '}
+                <span className="font-semibold">{confidencePct}%</span>. For a sharper next read:{' '}
+                {uncertainty.recommendation}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Summary */}
       <Section
         icon={<Sparkles className="w-4 h-4 text-golf-fairway" />}
