@@ -33,6 +33,7 @@ import { AthleteGISummary } from '@/components/agi/AthleteGISummary';
 import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
 import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
 import { GrowthAgentsPanel } from '@/components/growth';
+import { SecondaryPanels } from '@/components/dashboard/SecondaryPanels';
 import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps, getRoutineForDiagnosis, type DiagnosisCategory } from '@swingiq/core';
 import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
 import { format } from 'date-fns';
@@ -234,20 +235,26 @@ export function DashboardContent() {
       {/* BodySync: today's readiness + recommended session (only when enabled) */}
       <ReadinessSummaryCard />
 
-      {/* Intelligent product layer: Welcome Back / next best step + insights */}
+      {/* Intelligent product layer: Welcome Back / next best step + insights.
+          This is the ONE hero action; the supporting panels below collapse
+          behind "More for you" so the dashboard stays focused (Phase 1). */}
       <DashboardIntelligence />
 
-      {/* Athlete General Intelligence: cross-sport keystone + goal, links to /agi */}
-      <AthleteGISummary />
+      {/* Secondary panels — progressive disclosure (collapsed by default).
+          Each still self-hides when it has no data. */}
+      <SecondaryPanels>
+        {/* Athlete General Intelligence: cross-sport keystone + goal, links to /agi */}
+        <AthleteGISummary />
 
-      {/* Goal-gradient: the closest badge left to earn */}
-      <NextBadgeNudge />
+        {/* Goal-gradient: the closest badge left to earn */}
+        <NextBadgeNudge />
 
-      {/* Daily check-in: "How did you play today?" → feeds the AI player profile */}
-      <DailyNotePrompt />
+        {/* Daily check-in: "How did you play today?" → feeds the AI player profile */}
+        <DailyNotePrompt />
 
-      {/* Growth agents: churn-aware next step + activation progress + earn-moments */}
-      <GrowthAgentsPanel />
+        {/* Growth agents: churn-aware next step + activation progress + earn-moments */}
+        <GrowthAgentsPanel />
+      </SecondaryPanels>
 
       {/* Practice reminder */}
       {practiceReminder !== null && (

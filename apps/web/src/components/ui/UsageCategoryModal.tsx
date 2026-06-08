@@ -12,6 +12,18 @@
 import { useState, useEffect } from 'react';
 import { useSwingVantageStore, type UsageCategory } from '@/store';
 import { Shield, Users, User, GraduationCap, AlertTriangle } from 'lucide-react';
+import type { OnboardingRole } from '@/lib/onboarding/state';
+
+// Map the safety usage-category to the onboarding role so the onboarding
+// state machine (the single source of truth) records who the athlete is and
+// advances past "new_user" — the same identity is never asked for again.
+const CATEGORY_TO_ROLE: Record<Exclude<UsageCategory, null>, OnboardingRole> = {
+  adult: 'athlete',
+  parent_guardian: 'parent',
+  coach: 'coach',
+  minor_13_17: 'athlete',
+  minor_under_13: 'parent',
+};
 
 const CATEGORIES: Array<{
   value: Exclude<UsageCategory, null>;
@@ -52,7 +64,7 @@ const CATEGORIES: Array<{
 ];
 
 export function UsageCategoryModal() {
-  const { settings, updateSettings } = useSwingVantageStore();
+  const { settings, updateSettings, advanceOnboarding, setOnboardingRole } = useSwingVantageStore();
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState<Exclude<UsageCategory, null> | null>(null);
 
@@ -72,6 +84,11 @@ export function UsageCategoryModal() {
       usage_category: selected,
       usage_category_set_at: new Date().toISOString(),
     });
+    // Feed the canonical onboarding machine: record the role and advance past
+    // new_user so identity is never re-asked (never regresses — see
+    // lib/onboarding/state.ts).
+    setOnboardingRole(CATEGORY_TO_ROLE[selected]);
+    advanceOnboarding('identity_completed');
     setVisible(false);
   }
 

@@ -17,6 +17,7 @@ import { DEFAULT_COMMUNITY_STATE } from '@/lib/community/types';
 import type { TutorialProgress } from '@/lib/tutorial/types';
 import { DEFAULT_TUTORIAL_PROGRESS } from '@/lib/tutorial/types';
 import type { DailyNote } from '@/lib/dailyNotes/types';
+import type { OnboardingStateId, OnboardingRole } from '@/lib/onboarding/state';
 
 export { DEFAULT_COMMUNITY_STATE, DEFAULT_TUTORIAL_PROGRESS };
 
@@ -215,6 +216,20 @@ export interface SportEquipment {
   softball_fast: SoftballBat[];
 }
 
+// ── Onboarding progress (durable, never-regressing) ───────────
+// The canonical record of how far the athlete has come through setup.
+// `furthest` is monotonic (see store/slices/onboarding.ts); the LIVE state
+// shown to the UI is the furthest of this value and what the user's data
+// implies (see lib/onboarding/state.ts → resolveOnboardingState).
+export interface OnboardingClientState {
+  /** Furthest onboarding state ever reached on this device. Never regresses. */
+  furthest: OnboardingStateId;
+  /** Who the athlete told us they are (athlete/parent/coach/team), if asked. */
+  role: OnboardingRole | null;
+  /** ISO timestamp when guided setup first completed (first session imported). */
+  completedAt: string | null;
+}
+
 // ── Agent layer client state (dismissals + continuity) ────────
 export interface AgentClientState {
   /** Keys of dismissed insight cards, formatted `${contextHash}:${insightId}`. */
@@ -237,6 +252,7 @@ export interface SwingVantageState {
   community: CommunityState;
   tutorialProgress: TutorialProgress;
   agent: AgentClientState;
+  onboarding: OnboardingClientState;
   setup_step: 'profile' | 'bag' | 'session' | 'diagnose' | 'complete';
 }
 
@@ -289,6 +305,10 @@ export interface SwingVantageActions {
   dismissAgentInsight: (key: string) => void;
   setWelcomeBackDismissed: (hash: string) => void;
   resetAgentDismissals: () => void;
+  // Onboarding (durable, never-regressing — see lib/onboarding/state.ts)
+  advanceOnboarding: (state: OnboardingStateId) => void;
+  setOnboardingRole: (role: OnboardingRole) => void;
+  resetOnboarding: () => void;
   // Computed
   computeSetupStep: () => void;
   reset: () => void;
@@ -347,6 +367,12 @@ export const DEFAULT_TRAINING: TrainingProgress = {
 export const DEFAULT_AGENT_STATE: AgentClientState = {
   dismissedKeys: [],
   welcomeBackDismissedHash: null,
+};
+
+export const DEFAULT_ONBOARDING: OnboardingClientState = {
+  furthest: 'new_user',
+  role: null,
+  completedAt: null,
 };
 
 // Helper for id generation, shared across slices.

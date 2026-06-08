@@ -19,6 +19,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { GraduationCap, X, ArrowRight } from 'lucide-react';
 import { useTutorial } from '@/hooks/useTutorial';
+import { useNudgeSlot, NudgeRegion, NUDGE_PRIORITY } from '@/lib/floating/nudge-manager';
 
 const HIDDEN_ON = ['/tutorial', '/start'];
 
@@ -33,17 +34,16 @@ export function TutorialWelcomePrompt() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted || dismissed) return null;
-  if (skippedTour) return null;
-  if (watchedVideos.length > 0) return null;
-  if (HIDDEN_ON.some((p) => pathname === p || pathname.startsWith(p + '/'))) return null;
+  const hidden = HIDDEN_ON.some((p) => pathname === p || pathname.startsWith(p + '/'));
+  // Lowest-priority nudge: it yields the slot to Continue / Save banners so the
+  // bottom edge never shows two cards at once.
+  const eligible = mounted && !dismissed && !skippedTour && watchedVideos.length === 0 && !hidden;
+  const { active } = useNudgeSlot('tutorialWelcome', NUDGE_PRIORITY.tutorialWelcome, eligible);
+  if (!active) return null;
 
   return (
-    <div
-      role="region"
-      aria-label="New here? Watch a quick tutorial"
-      className="fixed bottom-24 left-4 z-30 w-[calc(100%-2rem)] max-w-xs rounded-2xl border border-primary/30 bg-card p-4 shadow-xl lg:bottom-6 lg:left-6"
-    >
+    <NudgeRegion role="region" aria-label="New here? Watch a quick tutorial">
+      <div className="relative w-full max-w-xs rounded-2xl border border-primary/30 bg-card p-4 shadow-xl">
       <button
         onClick={() => setDismissed(true)}
         aria-label="Dismiss for now"
@@ -77,6 +77,7 @@ export function TutorialWelcomePrompt() {
           Skip
         </button>
       </div>
-    </div>
+      </div>
+    </NudgeRegion>
   );
 }

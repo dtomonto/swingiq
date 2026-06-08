@@ -761,6 +761,10 @@
     --floating-dock-height: 8rem;
     --z-floating-dock: 50;          /* launcher cluster                      */
     --z-floating-panel: 55;         /* expanded panels (above launchers)     */
+    --z-app-nudge: 45;              /* bottom-edge nudge banner (below dock) */
+    /* Height of the single active bottom nudge (0 when none). Published by
+       <NudgeRegion> so the floating dock lifts above it — see nudge-manager. */
+    --app-nudge-height: 0px;
   }
   @media (min-width: 1024px) {
     :root {
@@ -778,7 +782,7 @@
   right: calc(var(--floating-dock-right) + env(safe-area-inset-right, 0px));
   bottom: calc(
     var(--mobile-nav-height) + var(--floating-dock-bottom) +
-    env(safe-area-inset-bottom, 0px)
+    var(--app-nudge-height, 0px) + env(safe-area-inset-bottom, 0px)
   );
   z-index: var(--z-floating-dock);
   display: flex;
@@ -790,7 +794,10 @@
 @media (min-width: 1024px) {
   /* No bottom nav on desktop — drop the nav-height reservation. */
   .floating-dock {
-    bottom: calc(var(--floating-dock-bottom) + env(safe-area-inset-bottom, 0px));
+    bottom: calc(
+      var(--floating-dock-bottom) + var(--app-nudge-height, 0px) +
+      env(safe-area-inset-bottom, 0px)
+    );
   }
 }
 .floating-dock > * {
@@ -807,7 +814,7 @@
   bottom: calc(
     var(--mobile-nav-height) + var(--floating-dock-bottom) +
     var(--floating-dock-height) + var(--floating-dock-gap) +
-    env(safe-area-inset-bottom, 0px)
+    var(--app-nudge-height, 0px) + env(safe-area-inset-bottom, 0px)
   );
   z-index: var(--z-floating-panel);
 }
@@ -815,9 +822,38 @@
   .floating-panel {
     bottom: calc(
       var(--floating-dock-bottom) + var(--floating-dock-height) +
-      var(--floating-dock-gap) + env(safe-area-inset-bottom, 0px)
+      var(--floating-dock-gap) + var(--app-nudge-height, 0px) +
+      env(safe-area-inset-bottom, 0px)
     );
   }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   APP NUDGE SLOT — the single owner of the bottom EDGE (full-width transient
+   banners: Continue-Progress, Save-Progress, Tutorial-Welcome). Companion to
+   the FloatingDock (bottom-right). Only ONE nudge renders at a time (enforced
+   by lib/floating/nudge-manager), so these can no longer stack on each other
+   or sit on top of the mobile bottom nav. The active nudge publishes its
+   height to --app-nudge-height (above) so the dock floats clear of it.
+   ───────────────────────────────────────────────────────────────────────── */
+.app-nudge {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--mobile-nav-height) + 0.5rem + env(safe-area-inset-bottom, 0px));
+  z-index: var(--z-app-nudge);
+  padding: 0 1rem;
+  pointer-events: none;
+}
+@media (min-width: 1024px) {
+  /* No bottom nav on desktop — anchor to the bottom edge. */
+  .app-nudge {
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    padding: 0 1.5rem;
+  }
+}
+.app-nudge > * {
+  pointer-events: auto;
 }
 
 /*

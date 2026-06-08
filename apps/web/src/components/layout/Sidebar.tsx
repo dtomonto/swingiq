@@ -54,6 +54,7 @@ import { useSwingVantageStore } from '@/store';
 import { isKnownMinor } from '@/lib/bodysync';
 import { LanguageToggle } from '@/components/language/LanguageToggle';
 import { ContextualHelpButton } from '@/components/tutorial/ContextualHelpButton';
+import { useSignOut } from '@/lib/auth/useSignOut';
 
 interface SidebarProps {
   onClose?: () => void;
@@ -78,6 +79,9 @@ export function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
   const { training, settings } = useSwingVantageStore();
   const { activeSport, sportEmoji, sportTagline, sportLabels, isGolf } = useSport();
+  // Reusable, correct sign-out: end session → /login. Closes the mobile
+  // drawer first so the user isn't left staring at a stale menu mid-redirect.
+  const { signOut, pending: signingOut } = useSignOut({ onBeforeRedirect: onClose });
   // BodySync (health data) is adults-only until validated for minors.
   const hideBodySync = isKnownMinor(settings.usage_category);
 
@@ -380,9 +384,14 @@ export function Sidebar({ onClose }: SidebarProps) {
           <Settings size={18} aria-hidden="true" />
           Settings
         </Link>
-        <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground/75 hover:bg-error/15 hover:text-error transition-colors">
+        <button
+          type="button"
+          onClick={signOut}
+          disabled={signingOut}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground/75 hover:bg-error/15 hover:text-error transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        >
           <LogOut size={18} aria-hidden="true" />
-          Sign Out
+          {signingOut ? 'Signing out…' : 'Sign Out'}
         </button>
       </div>
     </aside>

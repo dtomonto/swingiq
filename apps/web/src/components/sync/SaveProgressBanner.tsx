@@ -17,6 +17,7 @@ import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth/useAuth';
 import { useSwingVantageStore } from '@/store';
 import { CloudUpload, X } from 'lucide-react';
+import { useNudgeSlot, NudgeRegion, NUDGE_PRIORITY } from '@/lib/floating/nudge-manager';
 
 const DISMISS_KEY = 'swingiq.saveProgressPrompt.dismissed';
 
@@ -46,7 +47,11 @@ export function SaveProgressBanner() {
 
   // Only when real accounts are available, the visitor is signed out, they
   // have something worth saving, and they haven't dismissed it this session.
-  if (!mounted || mode !== 'cloud' || status !== 'anonymous' || !hasProgress || dismissed) {
+  const eligible =
+    mounted && mode === 'cloud' && status === 'anonymous' && hasProgress && !dismissed;
+  // Share the single bottom-edge nudge slot (Continue-Progress outranks this).
+  const { active } = useNudgeSlot('saveProgress', NUDGE_PRIORITY.saveProgress, eligible);
+  if (!active) {
     return null;
   }
 
@@ -58,11 +63,7 @@ export function SaveProgressBanner() {
   };
 
   return (
-    <div
-      className="fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pointer-events-none"
-      role="region"
-      aria-label="Save your progress"
-    >
+    <NudgeRegion role="region" aria-label="Save your progress">
       <div className="pointer-events-auto mx-auto max-w-xl rounded-2xl border border-primary/30 bg-card shadow-lg p-4">
         <div className="flex items-start gap-3">
           <div className="mt-0.5 shrink-0 rounded-full bg-primary/10 p-2 text-primary">
@@ -104,6 +105,6 @@ export function SaveProgressBanner() {
           </button>
         </div>
       </div>
-    </div>
+    </NudgeRegion>
   );
 }

@@ -9,6 +9,7 @@ import { AutoSyncProvider } from '@/lib/backup/autosync/auto-sync-provider';
 import { ContinueProgressBanner } from '@/components/backup/ContinueProgressBanner';
 import { RelationalSyncProvider } from '@/lib/db';
 import { SaveProgressBanner } from '@/components/sync/SaveProgressBanner';
+import { NudgeProvider } from '@/lib/floating/nudge-manager';
 
 /**
  * Shared shell for the authenticated product surface.
@@ -29,21 +30,28 @@ export default function AppGroupLayout({ children }: { children: React.ReactNode
     <BackgroundTasksProvider>
       <RelationalSyncProvider>
         <AutoSyncProvider>
-          <AppShell>{children}</AppShell>
-          {/* All persistent bottom-right help tools live in ONE dock that owns
-              their layout (offset, spacing, z-index, safe-area) and guarantees
-              only one panel opens at a time — so they can never overlap. Order
-              here is top→bottom: Guide stacks above the AI Coach launcher.
-              Do not add new `fixed bottom-… right-…` widgets outside this dock;
-              see docs/FLOATING_UTILITY_DOCK.md. */}
-          <FloatingDock>
-            <GuideCompanion />
-            <FloatingCoach />
-          </FloatingDock>
-          <UsageCategoryModal />
-          <BackgroundTaskCenter />
-          <ContinueProgressBanner />
-          <SaveProgressBanner />
+          {/* NudgeProvider coordinates the bottom-EDGE banners (Continue /
+              Save / Tutorial-Welcome) so only the single highest-priority one
+              shows at a time and the dock floats above it. The FloatingDock
+              (below) owns the bottom-RIGHT corner. Together they guarantee no
+              floating element overlaps another. See nudge-manager.tsx. */}
+          <NudgeProvider>
+            <AppShell>{children}</AppShell>
+            {/* All persistent bottom-right help tools live in ONE dock that owns
+                their layout (offset, spacing, z-index, safe-area) and guarantees
+                only one panel opens at a time — so they can never overlap. Order
+                here is top→bottom: Guide stacks above the AI Coach launcher.
+                Do not add new `fixed bottom-… right-…` widgets outside this dock;
+                see docs/FLOATING_UTILITY_DOCK.md. */}
+            <FloatingDock>
+              <GuideCompanion />
+              <FloatingCoach />
+            </FloatingDock>
+            <UsageCategoryModal />
+            <BackgroundTaskCenter />
+            <ContinueProgressBanner />
+            <SaveProgressBanner />
+          </NudgeProvider>
         </AutoSyncProvider>
       </RelationalSyncProvider>
     </BackgroundTasksProvider>

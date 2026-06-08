@@ -12,19 +12,22 @@
 import { useAutoSync } from '@/lib/backup/autosync/auto-sync-provider';
 import { Button } from '@/components/ui/Button';
 import { History, X, Layers, RotateCcw } from 'lucide-react';
+import { useNudgeSlot, NudgeRegion, NUDGE_PRIORITY } from '@/lib/floating/nudge-manager';
 
 export function ContinueProgressBanner() {
   const { continuePrompt, applyContinue, dismissContinue } = useAutoSync();
-  if (!continuePrompt) return null;
+  // Share the one bottom-edge nudge slot; this is the highest-priority nudge.
+  const { active } = useNudgeSlot(
+    'continueProgress',
+    NUDGE_PRIORITY.continueProgress,
+    !!continuePrompt,
+  );
+  if (!continuePrompt || !active) return null;
 
   const { preview, fileName } = continuePrompt;
 
   return (
-    <div
-      className="fixed inset-x-0 bottom-0 z-50 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pointer-events-none"
-      role="dialog"
-      aria-label="Continue your progress"
-    >
+    <NudgeRegion role="dialog" aria-label="Continue your progress">
       <div className="pointer-events-auto mx-auto max-w-lg rounded-2xl border border-border bg-card shadow-lg p-4 space-y-3">
         <div className="flex items-start gap-3">
           <div className="mt-0.5 shrink-0 rounded-full bg-primary/10 p-2 text-primary">
@@ -68,6 +71,6 @@ export function ContinueProgressBanner() {
           backup. Nothing changes until you choose.
         </p>
       </div>
-    </div>
+    </NudgeRegion>
   );
 }

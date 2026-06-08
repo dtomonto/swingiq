@@ -20,6 +20,7 @@ import type { SwingVantageState } from '@/store';
 import {
   DEFAULT_SETTINGS, DEFAULT_SPORT_EQUIPMENT, DEFAULT_TRAINING,
   DEFAULT_AGENT_STATE, DEFAULT_COMMUNITY_STATE, DEFAULT_TUTORIAL_PROGRESS,
+  DEFAULT_ONBOARDING,
 } from '@/store';
 import * as P from './projection';
 import type { Row } from './projection';
@@ -49,6 +50,12 @@ export function fillDefaults(partial: Partial<SwingVantageState>): SwingVantageS
     community: partial.community ?? DEFAULT_COMMUNITY_STATE,
     tutorialProgress: partial.tutorialProgress ?? DEFAULT_TUTORIAL_PROGRESS,
     agent: partial.agent ?? DEFAULT_AGENT_STATE,
+    // Onboarding progress is a local-first slice (not a synced table); it is
+    // re-derived from the user's synced data on each device (see
+    // lib/onboarding/state.ts), so a cloud-reconstructed state starts at the
+    // default and immediately advances. Local progress is preserved by the
+    // shallow store.setState merge during sync.
+    onboarding: partial.onboarding ?? DEFAULT_ONBOARDING,
     setup_step: 'complete',
   };
 }
