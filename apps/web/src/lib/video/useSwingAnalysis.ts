@@ -15,7 +15,8 @@
 // nothing is lost when its component unmounts during navigation.
 // ============================================================
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import {
   useBackgroundTasks,
   type BackgroundTask,
@@ -42,6 +43,13 @@ export function useSwingAnalysis() {
   const { tasks, startTask, dismissTask, markSeen, consumeViewRequest } = useBackgroundTasks();
   const [taskId, setTaskId] = useState<string | null>(null);
 
+  // Funnel instrumentation. We only emit the terminal (completed/failed) event
+  // for an analysis THIS hook started, so it fires exactly once and never
+  // re-fires when the hook re-adopts an already-finished task on a later visit.
+  const startedSportRef = useRef<string>('unknown');
+  const pendingTaskIdRef = useRef<string | null>(null);
+  const firedTerminalRef = useRef<string | null>(null);
+
   // On mount, re-adopt an analysis that is already in flight (or one the user
   // asked to view from a completion toast on another page). A one-time effect
   // is the right tool here: we're bridging to the external task manager's
@@ -64,6 +72,31 @@ export function useSwingAnalysis() {
   const result =
     task?.status === 'success' ? (task.result as SwingAnalysisResult | undefined) : undefined;
 
+  // Emit ANALYSIS_COMPLETED / ANALYSIS_FAILED once, on the terminal transition
+  // of the analysis this hook started. Guarded by pendingTaskIdRef (only our
+  // task) + firedTerminalRef (only once) so re-renders and re-adoption can't
+  // double-count — keeping the funnel's completed ≤ started invariant honest.
+  useEffect(() => {
+    if (!task || task.id !== pendingTaskIdRef.current) return;
+    if (task.status !== 'success' && task.status !== 'error') return;
+    if (firedTerminalRef.current === task.id) return;
+    firedTerminalRef.current = task.id;
+
+    const sport = startedSportRef.current;
+    if (task.status === 'error') {
+      track(ANALYTICS_EVENTS.ANALYSIS_FAILED, { sport, reason: task.error ?? 'unknown' });
+      return;
+    }
+    const r = task.result as SwingAnalysisResult | undefined;
+    track(ANALYTICS_EVENTS.ANALYSIS_COMPLETED, {
+      sport,
+      // A run can succeed yet return no analysis when no AI provider is set;
+      // capturing that shows how many people reach the value moment but hit
+      // the "AI not configured" wall.
+      configured: Boolean(r?.analysis) && !r?.notConfiguredMessage,
+    });
+  }, [task]);
+
   const start = (input: SwingAnalysisInput, meta: StartAnalysisMeta): string => {
     // Acknowledge any previous finished task so its toast doesn't linger.
     if (task && task.status !== 'running') markSeen(task.id);
@@ -78,6 +111,16 @@ export function useSwingAnalysis() {
         r.notConfiguredMessage
           ? 'AI review needs setup — open to see details.'
           : 'Your swing analysis is ready to view.',
+    });
+    // Funnel: the value moment begins. Remember this task so its terminal event
+    // pairs with this start (see the effect above).
+    startedSportRef.current = input.sport;
+    pendingTaskIdRef.current = id;
+    firedTerminalRef.current = null;
+    track(ANALYTICS_EVENTS.ANALYSIS_STARTED, {
+      sport: input.sport,
+      speed: input.speed,
+      compared: Boolean(input.previous),
     });
     setTaskId(id);
     return id;

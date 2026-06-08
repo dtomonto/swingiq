@@ -11,7 +11,9 @@ This document is the single reference for every analytics event SwingVantage tra
 - Nothing recorded here is personal or identifying — it's counts and categories (which sport, which page), not names or emails.
 - Your only optional step is connecting Google Analytics, which turns these counts into charts you can read.
 
-**What to do next (optional):** If you want visitor numbers, follow "Configuring GA4 (owner steps)" at the bottom of this page — it's the same one-line setting referenced in the other growth docs. If you'd rather stay fully private, do nothing.
+**What to do next (optional):** If you want real numbers, pick ONE provider and paste a single line into `apps/web/.env.local` — see "Turning analytics on (owner steps)" at the bottom. The easiest, most private choice is **Plausible**: it's cookieless, so it needs no cookie-consent banner and fits our youth-safe positioning. If you'd rather stay fully private, do nothing.
+
+**Good to know:** the whole core journey now reports itself — uploading a swing, running the analysis, seeing your #1 fix, and creating an account all count automatically. So the moment you connect a provider, you'll be able to see your most important number: how many people complete a full improvement loop (not just how many visit).
 
 > The big event table and "Adding a new event" steps below are a reference for a developer or an AI assistant. You don't need them to use SwingVantage.
 
@@ -32,16 +34,22 @@ If no provider is configured, events are logged in development and dropped in pr
 
 ## Event catalogue
 
+> **Core funnel is wired end-to-end** (as of 2026-06-07). Upload → analysis →
+> #1 fix → account all emit from shared code (`VideoUpload`, `useSwingAnalysis`,
+> `AIVisualAnalysisPanel`, `SignupForm`), so a configured provider measures the
+> real improvement loop — not just peripheral tools/quizzes.
+
 | Event | Trigger | Suggested properties | Funnel stage | KPI supported |
 |---|---|---|---|---|
 | `page_view` | Any public page load | `path` | Awareness | Qualified organic traffic |
 | `sport_selected` | User picks a sport | `sport` | Activation | Completed analyses |
-| `video_upload_started` | Upload begins | `sport` | Activation | Completed analyses |
-| `video_upload_completed` | Upload finishes | `sport` | Activation | Completed analyses |
-| `video_upload_failed` | Upload errors | `sport`, `reason` | Activation | Upload confidence |
-| `analysis_started` | Diagnosis begins | `sport` | Activation | Completed analyses |
-| `analysis_completed` | Diagnosis returns a result | `sport`, `top_issue` | Activation | Completed analyses |
-| `analysis_failed` | Diagnosis errors | `sport`, `reason` | Activation | Trust |
+| `video_upload_started` | A valid file begins processing (shared `VideoUpload`) | `sport`, `source` | Activation | Completed analyses |
+| `video_upload_completed` | Metadata read; video handed to the analyzer | `sport`, `source`, `duration_seconds` | Activation | Completed analyses |
+| `video_upload_failed` | Upload validation/read error | `sport`, `source`, `reason` | Activation | Upload confidence |
+| `analysis_started` | `useSwingAnalysis.start()` is called | `sport`, `speed`, `compared` | Activation | Completed analyses |
+| `analysis_completed` | Analysis task reaches terminal success | `sport`, `configured` | Activation | Completed analyses |
+| `analysis_failed` | Analysis task errors | `sport`, `reason` | Activation | Trust |
+| `priority_fix_viewed` | The #1 fix result panel renders (the value moment) | `sport`, `confidence`, `overall_confidence`, `priority_count` | Activation | Completed analyses |
 | `sample_report_viewed` | Sample report preview shown/opened | `source` | Consideration | Upload confidence |
 | `quiz_started` | A growth-tool quiz begins | `tool`, `sport` | Consideration | Completed analyses |
 | `quiz_completed` | A quiz produces a result | `tool`, `sport` | Consideration | Email capture |
@@ -58,8 +66,9 @@ If no provider is configured, events are logged in development and dropped in pr
 | `privacy_page_viewed` | Privacy/trust page viewed | `page` | Trust | Upload confidence |
 | `parent_safety_viewed` | Parent/youth safety content viewed | `page` | Trust | Coach/parent adoption |
 | `pricing_viewed` | Pricing page viewed | — | Consideration | Conversion |
+| `account_created` | Signup succeeds (`SignupForm`) | `mode`, `needs_confirmation` | Capture | Registered users |
 
-> Additional existing events (`profile_started`, `profile_completed`, `camera_angle_selected`, `priority_fix_viewed`, `drill_clicked`, `practice_plan_saved`, `professional_reference_*`, `swing_comparison_started`, `image_table_*`, `imported_data_confirmed`, `account_created`, `data_export_requested`, `data_delete_requested`) remain defined in the registry and are documented inline there.
+> Additional existing events (`profile_started`, `profile_completed`, `camera_angle_selected`, `drill_clicked`, `practice_plan_saved`, `professional_reference_*`, `swing_comparison_started`, `image_table_*`, `imported_data_confirmed`, `data_export_requested`, `data_delete_requested`) remain defined in the registry and are documented inline there.
 
 ## Adding a new event
 
@@ -67,12 +76,36 @@ If no provider is configured, events are logged in development and dropped in pr
 2. Call it from the web app: `track(ANALYTICS_EVENTS.MY_EVENT, { ... })`.
 3. Add a row to the table above with trigger, properties, funnel stage, and KPI.
 
-## Configuring GA4 (owner steps)
+## Turning analytics on (owner steps)
 
-1. Create a Google Analytics 4 property and copy its Measurement ID (looks like `G-XXXXXXXXXX`).
-2. Open `apps/web/.env.local` (create it if it does not exist).
-3. Add this line, replacing the value with your ID:
+Pick **one** provider and paste a single line into `apps/web/.env.local` (create
+the file if it doesn't exist), then redeploy. Leave them all unset to stay fully
+private — events only print to the developer console and disappear.
+
+### Option A — Plausible (recommended: cookieless, no consent banner)
+
+1. Create a Plausible account and add your site (`swingvantage.com`).
+2. Add this line to `apps/web/.env.local`:
+   `NEXT_PUBLIC_PLAUSIBLE_DOMAIN=swingvantage.com`
+3. Save and redeploy. Page views and every event above start flowing — no
+   cookie-consent banner required, which keeps the youth-safe positioning clean.
+
+### Option B — Google Analytics 4 (most familiar; sets cookies)
+
+1. Create a GA4 property and copy its Measurement ID (looks like `G-XXXXXXXXXX`).
+2. Add to `apps/web/.env.local`:
    `NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX`
-4. Save, then restart the dev server (or redeploy). Events will start flowing to GA4.
+3. Save and redeploy. Pair with a cookie-consent banner if you have EU visitors.
 
-If you leave `NEXT_PUBLIC_GA_ID` unset, the site stays analytics-free and private — events only print to the developer console.
+### Option C — PostHog (product analytics: funnels, retention)
+
+1. Create a PostHog project and copy its Project API Key (`phc_…`).
+2. Add to `apps/web/.env.local`:
+   `NEXT_PUBLIC_POSTHOG_KEY=phc_your-key-here`
+3. Save and redeploy. Best if you want to build the improvement-loop funnel chart
+   directly from the events above.
+
+> You can set more than one — each is independent. After deploying, confirm it
+> works by uploading a test swing and watching the events arrive in the
+> provider's live view. The admin **Setup** page also shows Analytics as
+> "configured" once any of these keys is present.

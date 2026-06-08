@@ -4,6 +4,7 @@ import { useState, useCallback, useRef } from 'react';
 import { Video, AlertCircle, Shield, X, CheckCircle, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import {
   validateVideoFile,
   extractVideoMetadata,
@@ -45,25 +46,36 @@ export function VideoUpload({
       const validation = validateVideoFile(file);
       if (!validation.valid) {
         const msg = validation.errors[0];
+        track(ANALYTICS_EVENTS.VIDEO_UPLOAD_FAILED, { sport, source: 'file', reason: 'validation' });
         setProcessingError(msg);
         onError?.(msg);
         return;
       }
 
+      // Funnel: a valid file has been chosen and processing begins. The main
+      // upload path for every sport routes through here, so this is the single
+      // place the upload step is measured (the compare flow has its own input).
+      track(ANALYTICS_EVENTS.VIDEO_UPLOAD_STARTED, { sport, source: 'file' });
       setIsProcessing(true);
       try {
         const result = await extractVideoMetadata(file);
         const { objectUrl, ...metadata } = result;
+        track(ANALYTICS_EVENTS.VIDEO_UPLOAD_COMPLETED, {
+          sport,
+          source: 'file',
+          duration_seconds: Math.round(metadata.duration_seconds ?? 0),
+        });
         onVideoReady(file, metadata, objectUrl);
       } catch (err) {
         const msg = err instanceof Error ? err.message : 'Failed to read video file.';
+        track(ANALYTICS_EVENTS.VIDEO_UPLOAD_FAILED, { sport, source: 'file', reason: 'metadata' });
         setProcessingError(msg);
         onError?.(msg);
       } finally {
         setIsProcessing(false);
       }
     },
-    [onVideoReady, onError],
+    [onVideoReady, onError, sport],
   );
 
   const handleDrop = useCallback(

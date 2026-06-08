@@ -19,7 +19,9 @@ import {
   Award,
   Film,
 } from 'lucide-react';
+import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import type {
   AIVisualAnalysis,
   VisibilityQuality,
@@ -104,6 +106,20 @@ const QUALITY_ROWS: { key: keyof VideoQualityCheck; label: string }[] = [
 export function AIVisualAnalysisPanel({ analysis }: { analysis: AIVisualAnalysis }) {
   const vq = analysis.videoQuality;
   const confidencePct = Math.round(analysis.overallConfidence * 100);
+
+  // Funnel: the user is now looking at their #1 fix — the core value moment of
+  // the whole product. This panel only renders for a real result, and a fresh
+  // analysis is a new mount, so one event per result viewed is exactly right.
+  useEffect(() => {
+    const top = analysis.topPriorities[0];
+    track(ANALYTICS_EVENTS.PRIORITY_FIX_VIEWED, {
+      sport: analysis.meta.sport,
+      confidence: top?.confidence ?? 'unknown',
+      overall_confidence: confidencePct,
+      priority_count: analysis.topPriorities.length,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- one view event per mounted result
+  }, []);
 
   return (
     <div className="space-y-4">

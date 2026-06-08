@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { Eye, EyeOff, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/useAuth';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 
 export function SignupForm() {
   const router = useRouter();
@@ -33,6 +34,14 @@ export function SignupForm() {
       setError(result.message ?? 'Could not create account.');
       return;
     }
+
+    // Funnel: bottom-of-funnel conversion. Fires for both an instant local
+    // account and a cloud account still pending email confirmation.
+    track(ANALYTICS_EVENTS.ACCOUNT_CREATED, {
+      mode,
+      needs_confirmation: Boolean(result.needsConfirmation),
+    });
+
     if (result.needsConfirmation) {
       setNotice(result.message ?? 'Check your email to confirm your account.');
       return;
