@@ -15,7 +15,7 @@
 import { useMemo, useState } from 'react';
 import {
   Blend, Users, ListChecks, FlaskConical, ShieldCheck, AlertTriangle,
-  Check, X, Lock, BookOpen, Plus, Trash2, Star, Save, Download,
+  Check, X, Lock, BookOpen, Plus, Trash2, Star, Save, Download, TrendingUp, Film,
 } from 'lucide-react';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';
@@ -31,7 +31,11 @@ import {
   reviewQueueStats,
   approvedInfluencingConcepts,
   buildCuratedRecommendation,
+  analyzeTrends,
+  sampleTrendInput,
+  buildVideoConcept,
   type CoachMix,
+  type LearnedConcept,
   type LearningSource,
   type SourceType,
   type UserLabelMode,
@@ -48,15 +52,20 @@ import {
   saveMix,
   deleteMix,
   setActiveMixId,
+  addVideoConcept,
+  setVideoConceptStatus,
+  removeVideoConcept,
 } from '@/lib/central-intelligence/coach-mix/store';
 
-type TabId = 'profiles' | 'sources' | 'builder' | 'queue' | 'test';
+type TabId = 'profiles' | 'sources' | 'builder' | 'queue' | 'videos' | 'trends' | 'test';
 
 const TABS: Array<{ id: TabId; label: string; icon: typeof Blend }> = [
   { id: 'profiles', label: 'Profiles', icon: Users },
   { id: 'sources', label: 'Sources', icon: BookOpen },
   { id: 'builder', label: 'Mix Builder', icon: Blend },
   { id: 'queue', label: 'Review Queue', icon: ListChecks },
+  { id: 'videos', label: 'Video Concepts', icon: Film },
+  { id: 'trends', label: 'Trends', icon: TrendingUp },
   { id: 'test', label: 'Test Drive', icon: FlaskConical },
 ];
 
@@ -170,6 +179,18 @@ export function CoachMixDashboard() {
   }, [faultId, strategy]);
 
   const profileName = (id: string) => profiles.find((p) => p.id === id)?.name ?? id;
+
+  // ── Trends (sample aggregates until real data is wired) ──
+  const trends = useMemo(() => analyzeTrends(sampleTrendInput()), []);
+
+  const makeVideoConcept = (c: LearnedConcept) => {
+    const target = c.suggestedDrillConnection || c.suggestedFaultId || c.type.replace(/_/g, ' ');
+    const v = buildVideoConcept({ sport: 'golf', targetProblem: target, strategy, drills: strategy.movementCues, sourceConcept: c });
+    if (v) {
+      addVideoConcept(v);
+      setTab('videos');
+    }
+  };
 
   return (
     <div className="space-y-4">
@@ -496,11 +517,127 @@ export function CoachMixDashboard() {
                       </button>
                     </div>
                   )}
+                  {c.reviewStatus === 'approved' && (
+                    <div className="mt-2">
+                      <button onClick={() => makeVideoConcept(c)} className="inline-flex items-center gap-1 rounded-md border border-sky-500/40 bg-sky-500/10 px-2.5 py-1 text-xs font-medium text-sky-300 hover:bg-sky-500/20">
+                        <Film className="h-3.5 w-3.5" /> Make video concept
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
             <p className="mt-3 text-xs text-gray-500">{influencing.length} approved concept{influencing.length === 1 ? '' : 's'} would influence recommendations.</p>
           </SectionCard>
+        </div>
+      )}
+
+      {tab === 'videos' && (
+        <div className="space-y-4">
+          <div className="flex items-start gap-2 rounded-lg border border-sky-500/30 bg-sky-500/10 px-3 py-2 text-xs text-sky-300">
+            <Film className="mt-0.5 h-4 w-4 shrink-0" />
+            <p>
+              Original SwingVantage video concepts built from <strong>approved</strong> learned concepts + your active
+              blend. They're <strong>drafts</strong> — approve one, then hand it to <strong>Video Studio</strong> to
+              produce. SwingVantage never copies or recreates a coach's video.
+            </p>
+          </div>
+          {data.videoConcepts.length === 0 && (
+            <SectionCard>
+              <p className="text-sm text-gray-500">
+                No video concepts yet. In the{' '}
+                <button onClick={() => setTab('queue')} className="text-violet-300 underline">Review Queue</button>, approve a
+                concept and click “Make video concept”.
+              </p>
+            </SectionCard>
+          )}
+          {data.videoConcepts.map((v) => (
+            <SectionCard
+              key={v.id}
+              title={
+                <span className="flex flex-wrap items-center gap-2">
+                  {v.title}
+                  <StatusBadge tone={v.approvalStatus === 'approved' ? 'success' : v.approvalStatus === 'rejected' ? 'danger' : 'warning'}>
+                    {v.approvalStatus}
+                  </StatusBadge>
+                </span>
+              }
+              description={v.coachMixInfluence}
+            >
+              <div className="space-y-2 text-sm">
+                <p className="text-xs text-gray-400">
+                  <span className="text-gray-500">Target:</span> {v.targetProblem} · <span className="text-gray-500">Objective:</span> {v.swingModelObjective}
+                </p>
+                <div>
+                  <p className="mb-1 text-xs uppercase tracking-wide text-gray-500">Script outline</p>
+                  <ol className="list-inside list-decimal space-y-0.5 text-xs text-gray-300">
+                    {v.scriptOutline.map((s, i) => <li key={i}>{s}</li>)}
+                  </ol>
+                </div>
+                <div>
+                  <p className="mb-1 text-xs uppercase tracking-wide text-gray-500">Shot list</p>
+                  <ul className="list-inside list-disc space-y-0.5 text-xs text-gray-300">
+                    {v.shotList.map((s, i) => <li key={i}>{s}</li>)}
+                  </ul>
+                </div>
+                <p className="text-xs text-gray-400"><span className="text-gray-500">Retest:</span> {v.retestInstructions}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {v.seoKeywords.slice(0, 6).map((k) => <StatusBadge key={k} tone="neutral">{k}</StatusBadge>)}
+                </div>
+                <div className="flex flex-wrap gap-2 border-t border-gray-800 pt-2">
+                  {v.approvalStatus !== 'approved' && (
+                    <button onClick={() => setVideoConceptStatus(v.id, 'approved')} className="inline-flex items-center gap-1 rounded-md border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-300 hover:bg-emerald-500/20">
+                      <Check className="h-3.5 w-3.5" /> Approve
+                    </button>
+                  )}
+                  {v.approvalStatus !== 'rejected' && (
+                    <button onClick={() => setVideoConceptStatus(v.id, 'rejected')} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 bg-red-500/10 px-2.5 py-1 text-xs font-medium text-red-300 hover:bg-red-500/20">
+                      <X className="h-3.5 w-3.5" /> Reject
+                    </button>
+                  )}
+                  <button onClick={() => removeVideoConcept(v.id)} className="inline-flex items-center gap-1 rounded-md border border-gray-700 px-2.5 py-1 text-xs font-medium text-gray-300 hover:bg-gray-800">
+                    <Trash2 className="h-3.5 w-3.5" /> Remove
+                  </button>
+                </div>
+                <p className="text-[11px] italic text-gray-500">Approved concepts are ready to hand to Video Studio (Admin → Video Studio) for production.</p>
+              </div>
+            </SectionCard>
+          ))}
+        </div>
+      )}
+
+      {tab === 'trends' && (
+        <div className="space-y-4">
+          <div className="flex items-start gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+            <p>
+              Showing <strong>illustrative sample data</strong>. Once privacy-safe aggregates are wired in, this reads
+              which swing problems are most common, which drills get abandoned, and which styles complete more practice —
+              then recommends what to build and how to adjust the mix. Cohorts below the privacy threshold are never shown.
+            </p>
+          </div>
+          {([
+            ['Videos to produce', trends.videosToProduce],
+            ['Drills to create', trends.drillsToCreate],
+            ['Drills to promote', trends.drillsToPromote],
+            ['Mix adjustments', trends.mixAdjustments],
+            ['Dashboard improvements', trends.dashboardImprovements],
+          ] as const).map(([title, items]) => (
+            <SectionCard key={title} title={title}>
+              {items.length === 0 ? (
+                <p className="text-sm text-gray-500">—</p>
+              ) : (
+                <ul className="space-y-2">
+                  {items.map((s, i) => (
+                    <li key={i} className="rounded-lg border border-gray-800 bg-gray-950 p-2.5 text-sm">
+                      <p className="text-gray-200">{s.suggestion}</p>
+                      <p className="text-xs text-gray-500">{s.reason} · cohort {s.cohort}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </SectionCard>
+          ))}
         </div>
       )}
 

@@ -29,3 +29,5 @@ export * from './mixing';
 export * from './recommendations';
 export * from './extraction';
 export * from './review-queue';
+export * from './trends';
+export * from './video';

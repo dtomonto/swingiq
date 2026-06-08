@@ -31,6 +31,7 @@ import type {
   LearningSource,
   Visibility,
 } from './types';
+import type { CoachMixVideoConcept } from './video';
 
 const STORAGE_KEY = 'swingvantage_coach_mix_v1';
 
@@ -50,6 +51,7 @@ interface CoachMixStoreData {
   concepts: LearnedConcept[];
   mixes: CoachMix[];
   activeMixId: string | null;
+  videoConcepts: CoachMixVideoConcept[];
 }
 
 const EMPTY: CoachMixStoreData = {
@@ -59,6 +61,7 @@ const EMPTY: CoachMixStoreData = {
   concepts: [],
   mixes: [],
   activeMixId: null,
+  videoConcepts: [],
 };
 
 let cache: CoachMixStoreData | null = null;
@@ -255,6 +258,27 @@ export function setActiveMixId(id: string | null): void {
 export function getActiveMix(): CoachMix | null {
   const d = read();
   return d.mixes.find((m) => m.id === d.activeMixId) ?? null;
+}
+
+// ── Video concepts ──────────────────────────────────────────
+
+export function getVideoConcepts(): CoachMixVideoConcept[] {
+  return read().videoConcepts;
+}
+
+export function addVideoConcept(concept: CoachMixVideoConcept): void {
+  write((d) => ({ ...d, videoConcepts: [concept, ...d.videoConcepts] }));
+}
+
+export function setVideoConceptStatus(id: string, status: CoachMixVideoConcept['approvalStatus']): void {
+  write((d) => ({
+    ...d,
+    videoConcepts: d.videoConcepts.map((v) => (v.id === id ? { ...v, approvalStatus: status } : v)),
+  }));
+}
+
+export function removeVideoConcept(id: string): void {
+  write((d) => ({ ...d, videoConcepts: d.videoConcepts.filter((v) => v.id !== id) }));
 }
 
 /** Test/maintenance helper — clears all Coach Mix local data. */

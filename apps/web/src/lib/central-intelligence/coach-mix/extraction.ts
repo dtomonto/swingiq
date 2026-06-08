@@ -146,3 +146,38 @@ export function extractConcepts(source: LearningSource): LearnedConcept[] {
 export function extractConceptsForSources(sources: LearningSource[]): LearnedConcept[] {
   return sources.flatMap(extractConcepts);
 }
+
+// ── Optional AI enhancement seam (OFF by default) ───────────
+
+/**
+ * A pluggable re-wording provider. It may ONLY rephrase the suggested
+ * rewrite in original SwingVantage voice — it must never copy source
+ * phrasing, change a concept's meaning, or alter its type/confidence/risk.
+ */
+export interface ConceptRewriter {
+  rewrite(summary: string, draftRewrite: string): Promise<string>;
+}
+
+/**
+ * Optionally improve the wording of PENDING concepts via a provided rewriter.
+ * No rewriter → returns the concepts unchanged (the keyless default). Only the
+ * `suggestedRewrite` text can change; everything else (type, confidence, IP
+ * risk, status) is preserved, and a failing rewriter falls back to the draft.
+ */
+export async function enhanceConceptRewrites(
+  concepts: LearnedConcept[],
+  rewriter?: ConceptRewriter,
+): Promise<LearnedConcept[]> {
+  if (!rewriter) return concepts;
+  return Promise.all(
+    concepts.map(async (c) => {
+      if (c.reviewStatus !== 'pending') return c;
+      try {
+        const rewrite = await rewriter.rewrite(c.summary, c.suggestedRewrite);
+        return rewrite && rewrite.trim() ? { ...c, suggestedRewrite: rewrite.trim() } : c;
+      } catch {
+        return c;
+      }
+    }),
+  );
+}
