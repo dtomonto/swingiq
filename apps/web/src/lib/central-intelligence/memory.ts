@@ -317,7 +317,7 @@ export function generateNextBestAction(input: {
     return {
       title: 'Record your first session',
       detail: 'Upload a swing or import launch-monitor data to get your first diagnosis.',
-      cta: { label: 'Record a session', href: '/analyze' },
+      cta: { label: 'Record a session', href: '/sessions' },
       rationale: 'No sessions yet — the product learns nothing until the first one.',
     };
   }
@@ -334,7 +334,7 @@ export function generateNextBestAction(input: {
     return {
       title: 'Build your session history',
       detail: `${input.validSessionCount} of ${input.requiredSessions} sessions recorded — ${left} to go.`,
-      cta: { label: 'Record a session', href: '/analyze' },
+      cta: { label: 'Record a session', href: '/sessions' },
       rationale: 'More sessions unlock trend detection and Founding Member status.',
     };
   }

@@ -141,6 +141,21 @@ export const ANALYTICS_EVENTS = {
   UPGRADE_PROMPT_VIEWED: 'upgrade_prompt_viewed', // + feature, tier, surface
   UPGRADE_CLICKED: 'upgrade_clicked', // + feature, tier, surface
   RETEST_PLAN_CLICKED: 'retest_plan_clicked', // + days
+
+  // CentralIntelligenceOS + Founding Fathers campaign. Props never carry
+  // private data — only campaign state and anonymized counts. See
+  // lib/central-intelligence and docs/CENTRAL_INTELLIGENCE_OS.md.
+  FOUNDING_BANNER_VIEWED: 'founding_banner_viewed', // + banner_state
+  FOUNDING_CTA_CLICKED: 'founding_cta_clicked', // + banner_state, cta
+  PROFILE_COMPLETION_STARTED: 'profile_completion_started', // + sport
+  PROFILE_COMPLETION_UPDATED: 'profile_completion_updated', // + sport, percent
+  SESSION_RECORDED: 'session_recorded', // + sport, source
+  VALID_SESSION_RECORDED: 'valid_session_recorded', // + sport, source, count
+  FOUNDING_PROGRESS_UPDATED: 'founding_progress_updated', // + valid_sessions, profile_complete
+  FOUNDING_MEMBER_QUALIFIED: 'founding_member_qualified', // + sport
+  FOUNDING_MEMBER_NUMBER_ASSIGNED: 'founding_member_number_assigned', // + member_number
+  MEMBERSHIP_TIERS_UNLOCKED: 'membership_tiers_unlocked',
+  CENTRAL_INTELLIGENCE_VIEWED: 'central_intelligence_viewed', // admin command center
 } as const;
 
 export type AnalyticsEventName =

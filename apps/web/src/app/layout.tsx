@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/layout/Providers';
+import { FoundingFathersCounterBanner } from '@/components/founding/FoundingFathersCounterBanner';
 import { Analytics } from '@/components/analytics/Analytics';
 // Vercel's first-party metrics — separate from the local Analytics component
 // above (Plausible/GA4/PostHog). Both are cookieless and only beacon when
@@ -85,7 +86,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
       </head>
       <body className={`${inter.variable} font-sans antialiased bg-background min-h-screen`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {/* Global Founding Members counter — slim, normal-flow bar at the very
+              top of every public/app page (self-hides on /admin + auth). */}
+          <FoundingFathersCounterBanner />
+          {children}
+        </Providers>
         <Analytics />
         <VercelAnalytics />
         <SpeedInsights />
