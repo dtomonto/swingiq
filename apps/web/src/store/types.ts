@@ -46,6 +46,15 @@ export interface LocalClub {
   notes: string;
   sort_order: number;
   created_at: string;
+  // ── Phase 4: bag auto-detection provenance (all optional, back-compat) ──
+  /** Where the carry baseline came from. User-confirmed wins the hierarchy. */
+  source_of_truth?: 'user' | 'imported' | 'inferred';
+  /** Carry average computed from imported shots (yds), if any. */
+  imported_carry_avg?: number | null;
+  /** Number of imported shots backing imported_carry_avg. */
+  imported_shot_count?: number;
+  /** Whether the club is currently in the active bag (defaults to true). */
+  active?: boolean;
 }
 
 export interface LocalSession {

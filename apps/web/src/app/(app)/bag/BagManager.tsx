@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { useSwingVantageStore, type LocalClub } from '@/store';
 import { analyzeClubGaps, type ClubGapInput, lookupLoft, analyzeLoftGapping } from '@swingiq/core';
 import type { LoftSource, LoftConfidence } from '@swingiq/core';
+import { BagAutoDetectCard } from './BagAutoDetectCard';
 import Link from 'next/link';
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -374,10 +375,12 @@ export function BagManager() {
   const [viewMode, setViewMode] = useState<ViewMode>('clubs');
 
   const handleSave = (data: ClubFormData) => {
+    // A hand-entered/edited club is user-confirmed — it wins the
+    // source-of-truth hierarchy over imported/inferred values (Phase 4).
     if (editingClub) {
-      updateClub(editingClub.id, data);
+      updateClub(editingClub.id, { ...data, source_of_truth: 'user' });
     } else {
-      addClub({ ...data, sort_order: clubs.length });
+      addClub({ ...data, sort_order: clubs.length, source_of_truth: 'user' });
     }
   };
 
@@ -419,6 +422,9 @@ export function BagManager() {
           </Button>
         </div>
       </div>
+
+      {/* Phase 4: clubs + carry baselines inferred from imported sessions */}
+      <BagAutoDetectCard />
 
       {/* Bag stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">

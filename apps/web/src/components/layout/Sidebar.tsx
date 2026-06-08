@@ -45,6 +45,7 @@ import {
   Gift,
   Bell,
   Footprints,
+  Clock,
   type LucideIcon,
 } from 'lucide-react';
 import { SportPillDropdown } from '@/components/sport/SportSelector';
@@ -128,6 +129,7 @@ export function Sidebar({ onClose }: SidebarProps) {
         { href: '/progress', label: 'Progress', icon: TrendingUp },
         ...(hideBodySync ? [] : [{ href: '/bodysync', label: 'BodySync', icon: HeartPulse }]),
         { href: '/arc', label: 'Player Arc', icon: Route },
+        { href: '/timeline', label: 'Timeline', icon: Clock },
         { href: '/notes', label: 'Daily Notes', icon: NotebookPen },
         { href: '/sessions', label: sportLabels.sessions, icon: Activity },
         { href: '/retest', label: 'Retest', icon: RotateCcw },
