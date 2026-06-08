@@ -72,6 +72,44 @@ export const FLAG_DEFS: FlagDef[] = [
     description: 'Browser-side 3D motion analysis lab. Live today at /motion-lab — default reflects that.',
     group: 'Experimental', owner: 'Product', defaultEnabled: true, risk: 'medium', status: 'registry',
   },
+
+  // ── Coaching Intelligence initiative (see /admin/development) ──
+  {
+    key: 'coaching_intelligence_enabled',
+    label: 'Coaching Intelligence',
+    description: 'Master switch for the coaching-strategy initiative. Today the engine (Coach Mix) is admin-gated by route; this flag is reserved for the staged rollout.',
+    group: 'Coaching Intelligence', owner: 'Product', defaultEnabled: false, risk: 'medium', status: 'registry',
+  },
+  {
+    key: 'admin_coach_strategy_lab_enabled',
+    label: 'Coach Strategy Lab (admin)',
+    description: 'Gate for the admin Coach Mix / Coach Strategy Lab console. The console is reachable via admin nav today; this flag is reserved for future per-operator gating.',
+    group: 'Coaching Intelligence', owner: 'Product', defaultEnabled: false, risk: 'low', status: 'registry',
+  },
+  {
+    key: 'curated_drills_widget_enabled',
+    label: 'Curated Swing Drills widget',
+    description: 'Athlete-facing "Curated Swing Drills for Your Current Game" module. The live switch today is the NEXT_PUBLIC_COACH_MIX_USER_MODULE env var; this operator flag is reserved for the in-app rollout.',
+    group: 'Coaching Intelligence', owner: 'Product', defaultEnabled: false, risk: 'medium', status: 'registry',
+  },
+  {
+    key: 'ai_video_learning_pipeline_enabled',
+    label: 'AI drill & video learning pipeline',
+    description: 'Enable the AI video-concept generation pipeline once built. Planned — nothing reads this yet.',
+    group: 'Coaching Intelligence', owner: 'AI Review', defaultEnabled: false, risk: 'medium', status: 'registry',
+  },
+  {
+    key: 'development_roadmap_visible_to_admin',
+    label: 'Development Roadmap (admin)',
+    description: 'The /admin/development roadmap is admin-only via the route guard today; this flag is reserved for hiding it from non-owner admins later.',
+    group: 'Coaching Intelligence', owner: 'Product', defaultEnabled: true, risk: 'low', status: 'registry',
+  },
+  {
+    key: 'development_roadmap_visible_to_public',
+    label: 'Development Roadmap (public)',
+    description: 'Expose a public version of the development roadmap. OFF — no public route consumes this yet.',
+    group: 'Coaching Intelligence', owner: 'Product', defaultEnabled: false, risk: 'medium', status: 'registry',
+  },
 ];
 
 export const findFlagDef = (key: string): FlagDef | undefined =>

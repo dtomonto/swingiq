@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -100,6 +100,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'overview', built: true,
     blurb: 'The platform intelligence brain: ethical user memory, profile & session intelligence, the Founding Members campaign, recommendations and data governance.',
     keywords: ['central intelligence', 'centralintelligenceos', 'intelligence', 'memory', 'founding', 'founding fathers', 'founding members', 'campaign', 'profile completion', 'sessions', 'recommendations', 'governance', 'brain', 'os'],
+  },
+  {
+    id: 'development', label: 'Development Roadmap', href: '/admin/development', icon: Telescope,
+    group: 'overview', built: true,
+    blurb: 'Features & technologies in development, in plain product language — what is live, in development, and planned across the coaching-intelligence initiative, with its ethics guarantees and feature flags.',
+    keywords: ['development', 'roadmap', 'innovation', 'innovation lab', 'features in development', 'technology', 'coaching intelligence', 'coach mix', 'curated drills', 'trend intelligence', 'whats next', 'planned', 'vision'],
   },
 
   // ── People ─────────────────────────────────────────────────
