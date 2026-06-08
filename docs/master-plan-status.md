@@ -59,8 +59,9 @@ The Tier 1–4 hierarchy the plan asks for already exists *as features*, but not
 - Built: [`/methodology`](../apps/web/src/app/(marketing)/methodology/page.tsx), [`/trust`](../apps/web/src/app/(marketing)/trust/page.tsx), `/privacy`, `/terms`, `/vulnerability-disclosure`, coach-friendly positioning, and a standing rule to *keep* disclaimers (reworded confident, not deleted).
 - **Gaps (nice-to-have):** "Coach-reviewed drill" label and anonymized before/after examples (§7.2–7.3).
 
-### §6 AI confidence & uncertainty — ✅ (surface it more)
-Already built (see §3). **The remaining gap is UX, not logic:** consistently *show* the confidence number on the user-facing result, and add the "I can't see your lower body — upload a down-the-line view" uncertainty prompt the plan describes in §6. Check whether the result UI renders `confidence` from the engine; if not, that's a small, high-trust win.
+### §6 AI confidence & uncertainty — ✅ (closed 2026-06-07)
+Already built (see §3), and on closer inspection the confidence **number is already shown in both paths**: the visual panel renders overall `%` + per-priority/per-phase confidence chips ([`AIVisualAnalysisPanel.tsx`](../apps/web/src/components/video/AIVisualAnalysisPanel.tsx)); the data-driven `/diagnose` shows per-issue `%` + a transparency panel with a computed level/score. So the "surface the number" half was already met (audit was pessimistic).
+- **The one real sub-gap — now fixed (local `e29f064`):** the plan's §6 "AI uncertainty" prompt (e.g. *"your lower body wasn't fully visible — upload a down-the-line view"*) existed only as a quiet box at the bottom of the visual result. Added [`lib/video/visual-uncertainty.ts`](../apps/web/src/lib/video/visual-uncertainty.ts) (pure, tested) + a prominent, welcoming banner atop the visual result that triggers only when the model's own confidence (<50%) or overall visibility (limited/poor) is weak, names the specific limitation, and surfaces the model's next-capture tip.
 
 ### §7 Practice & retest loop — ✅
 [`lib/retest`](../apps/web/src/lib/retest) (engine/store/targets/useRetests) + `/retest`, `/practice`, `/progress`, `/drills`, `/arc`. The loop the plan calls the north star ("diagnose → practice → retest → adjust") is the product's spine, not a gap.
@@ -91,7 +92,7 @@ Privacy/terms/disclaimers + data export & delete exist; "guardian/consent/minor"
 Ordered by value-per-effort, filtered to **only genuine gaps** and **excluding** anything that violates your free-users-first sequencing or duplicates existing code. All are tandem-safe (new/isolated files).
 
 1. ~~**Turn analytics on (§13).**~~ **Code DONE — local `bbef981`.** The core funnel now fires end-to-end (was defined-but-dark). Only step left: the owner pastes one provider key into `apps/web/.env.local` (Plausible recommended — cookieless, no consent banner). See [`docs/analytics-events.md`](analytics-events.md) → "Turning analytics on". Until then you still can't read the north-star metric, so this owner step is the highest-ROI 5-minute task remaining.
-2. **Surface the confidence score in the result UI (§6).** The number already exists; show it + add the "upload a better angle" uncertainty prompt. Pure trust win, small.
+2. ~~**Surface the confidence score in the result UI (§6).**~~ **DONE — local `e29f064`.** The number was already shown in both paths; added the missing prominent "limited read — here's how to sharpen it" uncertainty prompt to the visual result.
 3. **First-screen intent picker (§2/§5.1).** One low-cognition "What do you want to improve today?" entry that routes into the existing analysis flow. Reuses sport selector + persona router.
 4. **Issue → drill → outcome record (§11 — the moat).** Define one linked record that ties a diagnosis to the drills assigned to the retest result. This is the durable data advantage; everything else is catch-up.
 5. **Guardian-consent workflow for minors (§12/§15).** A real signup branch, not just copy. Matters disproportionately because youth athletes use this.
