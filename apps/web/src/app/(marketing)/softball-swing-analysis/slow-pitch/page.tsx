@@ -14,7 +14,7 @@ import {
 } from '@/lib/seo/jsonLd';
 
 export const metadata = buildMetadata({
-  title: 'Slow-Pitch Softball Swing Analysis — Stop Popping Up, Hit Line Drives',
+  title: 'Slow-Pitch Softball Swing Analysis — Hit Line Drives',
   description:
     'Free AI slow-pitch softball swing analysis. Match your bat path to the arc, stop popping up, and drive line drives. Get your top fix, drills, and a 7-day plan.',
   path: '/softball-swing-analysis/slow-pitch',

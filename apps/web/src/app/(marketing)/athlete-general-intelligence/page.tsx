@@ -11,9 +11,9 @@ import {
 } from '@/lib/seo/jsonLd';
 
 export const metadata = buildMetadata({
-  title: 'Athlete General Intelligence — One Engine Across All Your Sports',
+  title: 'Athlete General Intelligence — Cross-Sport AI Engine',
   description:
-    'What Athlete General Intelligence is, honestly: one reasoning engine that looks across all your sports at once, finds the single skill that limits the most of them, shows what transfers between sports, and builds one plan — with a trust grade on everything.',
+    'One reasoning engine across all your sports — it finds the single skill limiting the most of them, shows what transfers between sports, and builds one plan you can trust.',
   path: '/athlete-general-intelligence',
   keywords: [
     'athlete general intelligence',

@@ -7,7 +7,7 @@ import { SAMPLE_REPORTS } from '@/content/sampleReports';
 export const metadata = buildMetadata({
   title: 'Sample Swing Reports',
   description:
-    'See exactly what a SwingVantage report looks like for your sport — the top priority fix, evidence, drills, a 7-day plan, and how to retest. Golf, baseball, slow pitch, and fast pitch.',
+    'See exactly what a SwingVantage report looks like — the top priority fix, evidence, drills, a 7-day plan, and how to retest. Golf, baseball, slow pitch, and fast pitch.',
   path: '/sample-report',
 });
 

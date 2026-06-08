@@ -10,6 +10,7 @@ import { spawnSync } from 'child_process';
 const checks = [
   ['Placeholders', 'scripts/scan-placeholders.mjs'],
   ['SEO content', 'scripts/validate-seo.mjs'],
+  ['Duplicate content', 'scripts/check-duplicate-content.mjs'],
   ['Growth content', 'scripts/validate-content.mjs'],
   ['Internal links', 'scripts/validate-links.mjs'],
   ['Sitemap routes', 'scripts/check-sitemap.mjs'],

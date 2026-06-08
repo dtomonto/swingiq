@@ -10,7 +10,7 @@ import { LocalizedHome } from '@/components/marketing/LocalizedHome';
 export const metadata = buildMetadata({
   title: 'SwingVantage — Free AI Swing Analysis for Golf, Tennis, Baseball & Softball',
   description:
-    'Upload a swing video or import launch monitor data. Get a free AI-powered breakdown of your top swing fault, personalized drills, and a practice plan. Supports golf, tennis, baseball, and softball.',
+    'Upload a swing video or import launch monitor data for a free AI breakdown of your top fault, personalized drills, and a practice plan — golf, tennis, baseball & softball.',
   path: '/',
   keywords: ['swing analysis', 'golf swing', 'tennis swing', 'baseball swing', 'softball hitting', 'AI coaching', 'launch monitor', 'swing improvement'],
 });

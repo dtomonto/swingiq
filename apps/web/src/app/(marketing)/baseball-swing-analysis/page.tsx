@@ -14,7 +14,7 @@ import {
 } from '@/lib/seo/jsonLd';
 
 export const metadata = buildMetadata({
-  title: 'Free Baseball Swing Analysis — Exit Velocity, Launch Angle & Bat Speed',
+  title: 'Free Baseball Swing Analysis — Exit Velo & Bat Speed',
   description:
     'Analyze your baseball swing with AI. Track exit velocity, launch angle, bat speed, and attack angle. Get drill recommendations to fix your swing faults.',
   path: '/baseball-swing-analysis',

@@ -828,7 +828,7 @@ const BB_TIME_A_PITCH: SeoPage = {
   intent: 'informational',
   funnelStage: 'consideration',
   priority: 1,
-  title: 'How to Time a Pitch in Baseball (Load, Stride & Trigger)',
+  title: 'How to Time a Pitch in Baseball (Load & Stride)',
   metaDescription:
     'Good timing is a consistent load and stride that gets your foot down early, plus a trigger tied to the pitcher. Here is a simple timing system and drills.',
   directAnswer:
@@ -888,7 +888,7 @@ const BB_TWO_STRIKE: SeoPage = {
   intent: 'informational',
   funnelStage: 'consideration',
   priority: 2,
-  title: 'Two-Strike Approach in Baseball: Battle and Put It in Play',
+  title: 'Two-Strike Approach in Baseball: Put It in Play',
   metaDescription:
     'A good two-strike approach: choke up a hair, widen your stance, shorten your swing, and battle to put the ball in play. Here is how to build it and drills.',
   directAnswer:

@@ -28,7 +28,7 @@ const PICKLEBALL_PILLAR: SeoPage = {
   priority: 1,
   title: 'Pickleball Swing & Video Analysis (AI Coaching)',
   metaDescription:
-    'SwingVantage analyzes your pickleball strokes — dinks, third-shot drops, drives, resets, and volleys — and gives you your top priority, beginner-safe drills, and a plan. Free to start.',
+    'SwingVantage analyzes your pickleball strokes — dinks, third-shot drops, drives, and volleys — and gives your top priority, beginner-safe drills, and a plan. Free to start.',
   directAnswer:
     'SwingVantage is an AI swing and video analysis platform built specifically for pickleball — not adapted from tennis. Upload a video of your dink, third-shot drop, or drive and you get your single highest-priority issue, the visible evidence behind it, beginner-safe drills, and a simple practice plan. Pickleball rewards a compact stroke, paddle-face control, and the non-volley-zone (kitchen) game, and the analysis is tuned for exactly that.',
   problemExplanation: [

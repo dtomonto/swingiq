@@ -1,15 +1,16 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
+import { buildMetadata } from '@/lib/seo/metadata';
 import { BILLING_TIERS } from '@/lib/billing/tiers';
 import { PricingCTA } from './PricingCTA';
 import { BillingPortalButton } from './BillingPortalButton';
 
-export const metadata: Metadata = {
-  title: 'Pricing | SwingVantage — Free AI Swing Analysis',
+export const metadata = buildMetadata({
+  title: 'Pricing — Free AI Swing Analysis',
   description:
-    'SwingVantage is free to use — analyze your swing, get personalized drills, and track progress at no cost. Pro and Team plans add cloud sync, video storage, and coach tools.',
-};
+    'SwingVantage is free — analyze your swing, get personalized drills, and track progress at no cost. Pro and Team plans add cloud sync, video storage, and coach tools.',
+  path: '/pricing',
+});
 
 export default function PricingPage() {
   return (

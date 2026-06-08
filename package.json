@@ -20,6 +20,7 @@
     "check:trust": "npm run scan:placeholders",
     "check:naming": "node scripts/check-naming.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
+    "check:duplicate-content": "node scripts/check-duplicate-content.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:links": "node scripts/validate-links.mjs",
     "generate:sitemap": "node scripts/check-sitemap.mjs && node scripts/check-sitemap-coverage.mjs",

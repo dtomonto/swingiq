@@ -8,7 +8,7 @@ import { learnItemListSchema, breadcrumbSchema, learnPath } from '@/lib/library/
 export const metadata: Metadata = {
   title: 'Video Library — Learn SwingVantage',
   description:
-    'Free video walkthroughs and training for SwingVantage: how to analyze your swing, read swing path, use a launch monitor, run drills, track progress, and more — across golf, tennis, baseball, and softball.',
+    'Free video walkthroughs for SwingVantage: analyze your swing, read swing path, use a launch monitor, run drills, and track progress — golf, tennis, baseball & softball.',
   alternates: { canonical: '/learn' },
   openGraph: {
     title: 'SwingVantage Video Library',
