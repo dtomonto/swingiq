@@ -49,7 +49,8 @@ Allow: /dev-updates
 Allow: /resources
 Allow: /glossary
 Allow: /methodology
-Allow: /report/sample
+Allow: /sample-report
+Allow: /sitemap
 Allow: /about
 Allow: /contact
 Allow: /benchmarks
@@ -60,21 +61,16 @@ Allow: /terms
 Allow: /login
 Allow: /signup
 
-# ── Programmatic SEO landing pages ─────────────────────────────
+# ── Programmatic SEO landing pages (silos + racket-sport guides) ──
+# Directory-level so newly published guides are covered without editing this
+# file. The sitemap (PUBLISHED_SEO_PAGES) is the authoritative indexable list.
 Allow: /free-swing-analysis
-Allow: /golf/fix-slice
-Allow: /golf/why-do-i-slice-my-driver
-Allow: /golf/launch-monitor-analysis
-Allow: /golf/practice-at-home
-Allow: /golf/high-handicap-swing-analysis
-Allow: /golf/stop-topping-the-ball
-Allow: /softball/slow-pitch-power
-Allow: /softball/how-to-hit-line-drives
-Allow: /softball/stop-popping-up
-Allow: /baseball/youth-hitting
-Allow: /baseball/exit-velocity-drills
-Allow: /tennis/forehand-analysis
-Allow: /tennis/backhand-basics
+Allow: /golf/
+Allow: /tennis/
+Allow: /baseball/
+Allow: /softball/
+Allow: /pickleball
+Allow: /padel
 
 # ── Free growth tools ──────────────────────────────────────────
 Allow: /tools/

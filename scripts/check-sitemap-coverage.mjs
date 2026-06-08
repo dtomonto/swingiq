@@ -36,6 +36,9 @@ const ROOT = process.cwd();
 const APP_DIR = join(ROOT, 'apps/web/src/app');
 const MARKETING_DIR = join(APP_DIR, '(marketing)');
 const SITEMAP = join(APP_DIR, 'sitemap.ts');
+// Curated static URLs now live in this registry (shared with the HTML sitemap),
+// so the literals below are read from BOTH it and sitemap.ts.
+const SITE_SECTIONS = join(ROOT, 'apps/web/src/lib/seo/site-sections.ts');
 
 // ── Intentionally NOT in the sitemap (each needs a reason) ─────────────────
 // Public pages that exist but are deliberately kept out of the index because
@@ -67,9 +70,13 @@ function marketingRoutes() {
 
 // ── What the sitemap already covers ────────────────────────────────────────
 const sitemapSrc = readFileSync(SITEMAP, 'utf8');
+const registrySrc = readFileSync(SITE_SECTIONS, 'utf8');
 const literalPaths = new Set(['/']);
-for (const m of sitemapSrc.matchAll(/\$\{BASE_URL\}(\/[A-Za-z0-9/_-]*)/g)) literalPaths.add(m[1] || '/');
-for (const m of sitemapSrc.matchAll(/'(\/[A-Za-z0-9/_-]+)'/g)) literalPaths.add(m[1]);
+for (const src of [sitemapSrc, registrySrc]) {
+  // `${BASE_URL}/some/path` (sitemap route) and `path: '/some/path'` (registry).
+  for (const m of src.matchAll(/\$\{BASE_URL\}(\/[A-Za-z0-9/_-]*)/g)) literalPaths.add(m[1] || '/');
+  for (const m of src.matchAll(/'(\/[A-Za-z0-9/_-]+)'/g)) literalPaths.add(m[1]);
+}
 
 // Sections enumerated via a template variable, e.g. `${BASE_URL}/sample-report/${s}`.
 // The static prefix before `/${` is a covered section (children come from a list).

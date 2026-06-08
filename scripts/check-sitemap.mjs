@@ -16,15 +16,21 @@ import { collectAppRoutes } from './lib/fsutil.mjs';
 const ROOT = process.cwd();
 const APP_DIR = join(ROOT, 'apps/web/src/app');
 const SITEMAP = join(ROOT, 'apps/web/src/app/sitemap.ts');
+// Curated static URLs moved to this registry (shared with the HTML sitemap);
+// scan it too so every curated path is verified to resolve to a real route.
+const SITE_SECTIONS = join(ROOT, 'apps/web/src/lib/seo/site-sections.ts');
 
 const { staticRoutes, dynamicBases } = collectAppRoutes(APP_DIR);
 const src = readFileSync(SITEMAP, 'utf8');
+const registrySrc = readFileSync(SITE_SECTIONS, 'utf8');
 
 const paths = new Set();
-// `${BASE_URL}/some/path`
-for (const m of src.matchAll(/\$\{BASE_URL\}(\/[A-Za-z0-9/_-]*)/g)) paths.add(m[1] || '/');
-// array string literals like '/tools/golf-slice-fixer'
-for (const m of src.matchAll(/'(\/[A-Za-z0-9/_-]+)'/g)) paths.add(m[1]);
+for (const s of [src, registrySrc]) {
+  // `${BASE_URL}/some/path`
+  for (const m of s.matchAll(/\$\{BASE_URL\}(\/[A-Za-z0-9/_-]*)/g)) paths.add(m[1] || '/');
+  // string literals like '/tools/golf-slice-fixer' and registry `path: '/x'`.
+  for (const m of s.matchAll(/'(\/[A-Za-z0-9/_-]+)'/g)) paths.add(m[1]);
+}
 
 // Registry-driven SEO slugs are validated by validate-seo.mjs; here we
 // only check the literal paths present in sitemap.ts.

@@ -137,7 +137,18 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-muted-foreground">
             <span>{f.copyright.replace('{year}', String(new Date().getFullYear()))}</span>
-            <span>{f.privacyLine}</span>
+            <div className="flex items-center gap-4">
+              {/* Crawlable link to the HTML sitemap (every public page). Label is
+                  intentionally un-dicted to avoid adding a shared footer key that
+                  would gate localized-page visibility. */}
+              <Link
+                href={localizedHref('/sitemap', locale)}
+                className="text-muted-foreground transition-colors hover:text-white"
+              >
+                Sitemap
+              </Link>
+              <span>{f.privacyLine}</span>
+            </div>
           </div>
         </div>
       </div>
