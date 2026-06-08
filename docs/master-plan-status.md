@@ -34,7 +34,7 @@ That's the whole point of auditing before building: it stops the concurrent agen
 | 9 | Monetization | ⏸️ | 3 tiers + Stripe scaffold built but "Coming Soon" **by design** (free-users-first). |
 | 10 | Coach/team/family | 🟡 | `lib/team` engine + Team tier + `/coaches`/`/teams` marketing. Gap: no Family plan; in-app coach dashboard is thin. |
 | 11 | Data strategy / moat | ✅ | Profiles + history + benchmarks exist; the issue→drill→**outcome** record is now assembled (`lib/improvement-loops`, local `9f12760`). |
-| 12 | Privacy, safety, liability | 🟡 | Privacy/terms/disclaimers + export/delete. Gap: a **formal guardian-consent workflow for minors**. |
+| 12 | Privacy, safety, liability | ✅ | Privacy/terms/disclaimers + export/delete; guardian-consent **workflow** now records dated, versioned consent (`lib/guardian-consent`, local `f424767`). |
 | 13 | Analytics & experimentation | 🟡 | Rich event catalog + abstraction layer built. Gap: **no provider configured**, so events drop in prod; no A/B harness. |
 | 14 | Technical scalability / automation | ✅ | Modular sport architecture, AI guardrails, content automation, offline/PWA. |
 
@@ -77,8 +77,8 @@ Already built (see §3), and on closer inspection the confidence **number is alr
 ### §11 Data moat — ✅ (closed 2026-06-07, local `9f12760`)
 Profiles, history, and benchmarks existed, but the moat piece — **issue → drill → outcome** as one linked record — wasn't assembled; the signals lived in separate stores. Now joined in [`lib/improvement-loops`](../apps/web/src/lib/improvement-loops): a pure derivation (no new write path, no fabrication) that groups drill feedback by `(sport, faultId)`, attaches the matching retest outcome, and produces both the per-fault loop and an anonymized `(sport, fault, drill)` help-rate table — the benchmark seed the plan calls the durable advantage. Surfaced read-only on `/labs`. Honest-first: outcome stays null until a real retest matches; help % only shows at ≥3 verdicts.
 
-### §12 Privacy / youth safety — 🟡
-Privacy/terms/disclaimers + data export & delete exist; "guardian/consent/minor" language appears across `/parents`, `/privacy`, `/terms`, signup. **Real gap:** a *workflow* (not just copy) for **guardian consent when a minor signs up** — the plan's §15 asks for this explicitly and it matters most given youth athletes.
+### §12 Privacy / youth safety — ✅ (closed 2026-06-07, local `f424767`)
+Privacy/terms/disclaimers + data export & delete existed, and `settings.usage_category` already identified minors — but it only toggled *messaging*; no consent was captured, recorded, or gated, and under-13 was handled by signup copy alone. Now there's a real workflow: [`lib/guardian-consent`](../apps/web/src/lib/guardian-consent) classifies the athlete's age band (seeded from `usage_category`), defines per-band requirements (under-13 also needs a guardian email), and records a **dated, versioned** consent record (its own localStorage key; re-consent on a terms-version bump). The `GuardianConsentPanel` on `/settings` lets a guardian affirm they're the parent/guardian, acknowledge this is practice guidance (not medical advice), agree to supervise, note injury limitations, and **withdraw** anytime. Honest-first: it's an affirmation flow, not a claim of legally-verified identity — the right first step for a free, low-data app (heavier verifiable-consent can layer on if data collection grows).
 
 ### §13 Analytics & experimentation — 🟡 (biggest quick win)
 - [`packages/core/src/analytics/events.ts`](../packages/core/src/analytics/events.ts) is a rich catalog covering the **entire** §16 funnel (page_view → sport_selected → upload_started/completed → analysis_started/completed → priority_fix_viewed → drill_started/completed → retest_plan_clicked → pricing_viewed → upgrade_clicked → account_created). The abstraction layer [`lib/analytics.ts`](../apps/web/src/lib/analytics.ts) supports GA4/Plausible/PostHog with graceful fallback.
@@ -91,11 +91,13 @@ Privacy/terms/disclaimers + data export & delete exist; "guardian/consent/minor"
 
 Ordered by value-per-effort, filtered to **only genuine gaps** and **excluding** anything that violates your free-users-first sequencing or duplicates existing code. All are tandem-safe (new/isolated files).
 
+> **Status (2026-06-07): 4 of 5 shipped locally** (`bbef981`, `e29f064`, `9f12760`, `f424767`). Only **#3 (intent picker)** remains, plus the owner's one-line analytics key for #1. All commits are local/unpushed for owner review.
+
 1. ~~**Turn analytics on (§13).**~~ **Code DONE — local `bbef981`.** The core funnel now fires end-to-end (was defined-but-dark). Only step left: the owner pastes one provider key into `apps/web/.env.local` (Plausible recommended — cookieless, no consent banner). See [`docs/analytics-events.md`](analytics-events.md) → "Turning analytics on". Until then you still can't read the north-star metric, so this owner step is the highest-ROI 5-minute task remaining.
 2. ~~**Surface the confidence score in the result UI (§6).**~~ **DONE — local `e29f064`.** The number was already shown in both paths; added the missing prominent "limited read — here's how to sharpen it" uncertainty prompt to the visual result.
 3. **First-screen intent picker (§2/§5.1).** One low-cognition "What do you want to improve today?" entry that routes into the existing analysis flow. Reuses sport selector + persona router.
 4. ~~**Issue → drill → outcome record (§11 — the moat).**~~ **DONE — local `9f12760`.** Assembled in `lib/improvement-loops` (pure join of drill feedback + retests) + an effectiveness aggregate (the benchmark seed) + a read-only `/labs` surface.
-5. **Guardian-consent workflow for minors (§12/§15).** A real signup branch, not just copy. Matters disproportionately because youth athletes use this.
+5. ~~**Guardian-consent workflow for minors (§12/§15).**~~ **DONE — local `f424767`.** Real consent workflow + dated/versioned record + withdraw, in `lib/guardian-consent`, surfaced on `/settings`.
 
 **Explicitly NOT recommended now** (deferred on purpose, would fight your north star): premium one-time report, Family/Coach paid plans, hard paywalls, more sport breadth (you already ship 7), 3D motion expansion.
 
