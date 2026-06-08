@@ -8,6 +8,8 @@ interface ScoreRingProps {
   strokeWidth?: number;
   label?: string;
   className?: string;
+  /** When true, render a neutral "no data yet" state instead of a failing grade. */
+  noData?: boolean;
 }
 
 function getScoreColor(score: number): string {
@@ -26,11 +28,11 @@ function getGrade(score: number): string {
   return 'F';
 }
 
-export function ScoreRing({ score, size = 80, strokeWidth = 6, label, className }: ScoreRingProps) {
+export function ScoreRing({ score, size = 80, strokeWidth = 6, label, className, noData = false }: ScoreRingProps) {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
-  const offset = circumference - (score / 100) * circumference;
-  const color = getScoreColor(score);
+  const offset = noData ? circumference : circumference - (score / 100) * circumference;
+  const color = noData ? 'hsl(var(--muted-foreground))' : getScoreColor(score);
 
   return (
     <div className={cn('flex flex-col items-center gap-1', className)}>
@@ -58,8 +60,8 @@ export function ScoreRing({ score, size = 80, strokeWidth = 6, label, className 
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-lg font-bold" style={{ color }}>{getGrade(score)}</span>
-          <span className="text-xs text-muted-foreground">{score}</span>
+          <span className="text-lg font-bold" style={{ color }}>{noData ? '–' : getGrade(score)}</span>
+          <span className="text-xs text-muted-foreground">{noData ? '' : score}</span>
         </div>
       </div>
       {label && <p className="text-xs text-muted-foreground text-center">{label}</p>}

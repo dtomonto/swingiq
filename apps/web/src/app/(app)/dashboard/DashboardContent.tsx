@@ -65,6 +65,21 @@ function dnaLabel(val: number | null | undefined, lowLabel: string, highLabel: s
   return midLabel;
 }
 
+// ── Per-club score explanation ────────────────────────────────
+// Generates an honest, data-derived sentence for the dashboard's
+// "Clubs in Bag" card so the letter grade isn't shown without context.
+function explainClubScore(score: number, sessionCount: number): string {
+  if (sessionCount === 0) {
+    return 'No swings logged yet — record a session with this club to earn a real grade.';
+  }
+  const span = sessionCount === 1 ? 'your latest session' : `latest of ${sessionCount} sessions`;
+  if (score >= 85) return `Dialed in — ${span} graded A. Tour-level consistency here.`;
+  if (score >= 70) return `Solid — ${span} graded B. Reliable contact, room to sharpen.`;
+  if (score >= 55) return `Developing — ${span} graded C. Workable but inconsistent.`;
+  if (score >= 40) return `Needs work — ${span} graded D. Frequent mishits to clean up.`;
+  return `Struggling — ${span} graded F. This club is costing you strokes.`;
+}
+
 // ─────────────────────────────────────────────────────────────
 
 export function DashboardContent() {
@@ -685,17 +700,22 @@ export function DashboardContent() {
                 <>
                   {clubs3.map((c) => {
                     const clubSessions = sessions.filter((s) => s.club_name === c.name);
+                    const clubScore = clubSessions[0]?.swing_score ?? 0;
                     return (
-                      <div key={c.id} className="flex items-center justify-between py-1.5 border-b last:border-0">
-                        <div>
+                      <div key={c.id} className="flex items-center justify-between gap-3 py-1.5 border-b last:border-0">
+                        <div className="min-w-0 flex-1">
                           <p className="text-sm font-medium text-foreground">{c.name}</p>
                           <p className="text-xs text-muted-foreground">
                             {c.typical_carry ? `~${c.typical_carry} yds` : c.brand ?? c.category}
                             {clubSessions.length > 0 ? ` · ${clubSessions.length} sessions` : ''}
                           </p>
+                          <p className="text-xs text-muted-foreground leading-snug mt-0.5">
+                            {explainClubScore(clubScore, clubSessions.length)}
+                          </p>
                         </div>
                         <ScoreRing
-                          score={clubSessions[0]?.swing_score ?? 0}
+                          score={clubScore}
+                          noData={clubSessions.length === 0}
                           size={40}
                           strokeWidth={4}
                         />
