@@ -1,8 +1,32 @@
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@swingiq/core'],
+  // Pin the workspace root to the monorepo root (apps/web → ../..). Without this,
+  // Next auto-detected a stray lockfile in the home directory and traced the
+  // entire project into the serverless output, bloating function size and
+  // slowing cold starts. Resolved relative to this file so it works in CI too.
+  turbopack: {
+    root: path.join(__dirname, '..', '..'),
+  },
   experimental: {
-    optimizePackageImports: ['lucide-react'],
+    // Barrel-import packages used across the app. optimizePackageImports rewrites
+    // `import { X } from 'pkg'` to deep per-export imports so unused members are
+    // tree-shaken out of the shared first-load JS (faster FCP/LCP on every page).
+    optimizePackageImports: [
+      'lucide-react',
+      'date-fns',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-select',
+      '@radix-ui/react-tabs',
+      '@radix-ui/react-toast',
+      '@radix-ui/react-tooltip',
+    ],
   },
 
   // Never ship source maps to production browsers
