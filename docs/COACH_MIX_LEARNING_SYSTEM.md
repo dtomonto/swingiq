@@ -94,20 +94,27 @@ Coach Mix only *biases and explains* — it never fabricates drills.
   (Beginner-Friendly, Technical Precision, Athletic Rotation, etc.).
 - **User-facing module** — `components/coach-mix/CuratedSwingDrills.tsx`: "Curated Swing
   Drills for Your Current Game", neutral style tags, Start/Save/Complete/Not-relevant/Retest.
-  **Built and flag-gated OFF** (`NEXT_PUBLIC_COACH_MIX_USER_MODULE`). One step remains:
-  dropping `<CuratedSwingDrills />` onto a user page (deferred to avoid clashing with other
-  in-flight dashboard work; it's invisible until the flag is on regardless).
+  **Built and flag-gated OFF** (`NEXT_PUBLIC_COACH_MIX_USER_MODULE`). **Placed** on the Fix
+  Stack page (`/fix`), under the fix panel — invisible until you enable the flag.
 
-**Phase 3 (not yet built):**
+**Phase 3 (done):**
+- **Video pipeline** — `video.ts` turns an **approved** learned concept + the active blend
+  into an **original** video concept (title, script outline, shot list, drill progression,
+  retest, SEO/AEO/GEO keywords), using Video Studio's vocabulary so it hands off to the brief
+  pipeline. Surfaced as a **Video Concepts** tab + a "Make video concept" button on approved
+  concepts. Drafts only; never copies or recreates a coach's video.
+- **Trend intelligence** — `trends.ts` turns privacy-safe aggregates (common faults,
+  abandoned drills, completion-by-style) into recommendations (videos/drills to create,
+  drills to promote, mix adjustments, dashboard tweaks). Small cohorts are suppressed
+  (k-anonymity). Surfaced as a **Trends** tab (sample data until real aggregates are wired).
+- **Optional AI extraction** — an off-by-default `ConceptRewriter` seam: it may only re-word
+  a pending concept's rewrite, never change its meaning, type, confidence, or risk.
 
-- **Video pipeline** — generate **original** SwingVantage video concepts from approved
-  learned concepts, via the existing Video Studio brief pipeline.
-- **Trend intelligence** — use privacy-safe aggregate data (which faults are most common,
-  which drills get abandoned) to recommend what to create and which mix adjustments help.
-- **Optional AI extraction** — an off-by-default provider seam to expand concept extraction
-  (it may only re-word, never invent claims or copy phrasing).
-- **More sports** — the data model already supports all seven sports; seeds beyond golf
-  come as you add and approve sources.
+**Phase 4 (later):**
+- **More sports** — the data model already supports all seven; seeds beyond golf come as you
+  add and approve sources.
+- **Wire real data** — connect the user module to each athlete's live diagnosis, and the
+  Trends tab to real privacy-safe aggregates.
 
 ---
 
@@ -122,11 +129,13 @@ apps/web/src/lib/central-intelligence/coach-mix/
   recommendations.ts biases DrillMatch output + builds the 7-part user recommendation
   extraction.ts      approved source → reviewable concepts (nothing auto-published)
   review-queue.ts    the admin approval gate (only approved concepts influence)
-  store.ts           local-first persistence (profiles/sources/concepts/mixes/active mix)
-  __tests__/         ethics, blend math, extraction/approval gate, store, flag (31 tests)
+  store.ts           local-first persistence (profiles/sources/concepts/mixes/videos)
+  trends.ts          privacy-safe aggregates → recommendations (k-anonymity)
+  video.ts           approved concept → original video concept (Video Studio vocab)
+  __tests__/         ethics, blend, gate, store, flag, trends, video, AI seam (39 tests)
 apps/web/src/app/admin/coach-mix/
   page.tsx           server page (admin-guarded, noindex)
-  CoachMixDashboard.tsx  the five-tab admin console (persistent)
+  CoachMixDashboard.tsx  the seven-tab admin console (persistent)
 apps/web/src/components/coach-mix/
-  CuratedSwingDrills.tsx  the user-facing module (flag-gated off)
+  CuratedSwingDrills.tsx  the user-facing module (flag-gated off, placed on /fix)
 ```
