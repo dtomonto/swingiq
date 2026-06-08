@@ -403,6 +403,28 @@ export const CATALOG: SetupTask[] = [
 
   // ── Shipping & deploys (reference) ─────────────────────────
   {
+    id: 'mental-performance',
+    title: 'Mental Performance is live — optional tuning',
+    plainEnglish:
+      'The Mental Performance pillar (emotion management & mistake recovery) is already live and works with no setup — it is keyless and costs nothing. This card just lists the optional knobs and the developer follow-ups, so nothing is hidden.',
+    category: 'ai',
+    priority: 'optional',
+    detect: { kind: 'info' },
+    steps: [
+      'Nothing is required — the section ships ON for every athlete (golf, baseball, softball, tennis, pickleball, padel).',
+      'Optional kill-switch: set NEXT_PUBLIC_MENTAL_PERFORMANCE=false in Vercel to hide the section instantly.',
+      'Optional AI polish (costs money, OFF by default): set MENTAL_AI_ENABLED=true to let an AI rewrite the keyless coach output. Leave it off to stay free.',
+      'Developer follow-ups (no owner action): wire a consented telemetry pipe into aggregateMentalSignals() for real cross-user intelligence, and render the generated meditation scripts/briefs through Video Studio. See docs/MENTAL_PERFORMANCE.md.',
+    ],
+    inputs: [
+      { kind: 'env', value: 'NEXT_PUBLIC_MENTAL_PERFORMANCE', example: 'false (to hide the section; default is on)', where: 'Vercel → Settings → Environment Variables' },
+      { kind: 'env', value: 'MENTAL_AI_ENABLED', example: 'true (optional AI polish; default off, costs money)', where: 'Vercel → Settings → Environment Variables' },
+      { kind: 'file', value: 'docs/MENTAL_PERFORMANCE.md', label: 'Feature doc + roadmap' },
+    ],
+    learnMoreHref: '/admin/mental-performance',
+    learnMoreLabel: 'Mental Performance console',
+  },
+  {
     id: 'deploy-how',
     title: 'How your changes go live',
     plainEnglish:

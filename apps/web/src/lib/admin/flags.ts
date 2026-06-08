@@ -110,6 +110,20 @@ export const FLAG_DEFS: FlagDef[] = [
     description: 'Expose a public version of the development roadmap. OFF — no public route consumes this yet.',
     group: 'Coaching Intelligence', owner: 'Product', defaultEnabled: false, risk: 'medium', status: 'registry',
   },
+
+  // ── Mental Performance pillar ──────────────────────────────
+  {
+    key: 'mental_performance.enabled',
+    label: 'Mental Performance',
+    description: 'Master switch for the emotion-management & mistake-recovery pillar (landing, /mental coach, journal, plans, dashboard card). Content is keyless and safe, so it ships ON; this is the kill-switch. Mirrors NEXT_PUBLIC_MENTAL_PERFORMANCE.',
+    group: 'Experimental', owner: 'Product', defaultEnabled: true, risk: 'low', status: 'registry',
+  },
+  {
+    key: 'mental_performance.ai_enabled',
+    label: 'Mental Performance AI polish',
+    description: 'Optional AI-rewrite of the deterministic coach output. OFF by default and cost-capped; the keyless coach is always complete on its own. Mirrors MENTAL_AI_ENABLED.',
+    group: 'Experimental', owner: 'AI Review', defaultEnabled: false, risk: 'medium', status: 'registry',
+  },
 ];
 
 export const findFlagDef = (key: string): FlagDef | undefined =>

@@ -14,6 +14,7 @@ import type {
 } from './types';
 import { buildDistribution, buildFunnel, biggestDropOff, type FunnelStep } from './aggregate';
 import { generateRecommendations } from './recommendations';
+import { generateMentalRecommendations, getMentalSignals } from '@/lib/mental-performance/intelligence';
 import {
   getFoundingCampaignProgress,
   getFoundingConfig,
@@ -96,7 +97,13 @@ export async function getCentralIntelligenceDashboard(): Promise<CIDashboard> {
 
   // Signals = sample aggregates + the REAL founding progress.
   const signals = { ...SAMPLE_SIGNALS, founding: progress };
-  const recommendations = generateRecommendations(signals);
+  // Mental Performance is a first-class intelligence domain: its recommendations
+  // join the CIOS feed. Uses the same sample seam as the rest of this dashboard
+  // (dataSource: 'sample') until a real aggregate backend is wired.
+  const recommendations = [
+    ...generateRecommendations(signals),
+    ...generateMentalRecommendations(getMentalSignals()),
+  ];
 
   const distributions = [
     buildDistribution('Primary sport', SAMPLE_SPORT_VALUES),

@@ -8,6 +8,7 @@ import { localizedHref } from '@/lib/marketing-i18n/href';
 import { getPublishedBlogPosts } from '@/data/blog-posts';
 import { CHALLENGES } from '@/content/challenges';
 import { CURATED_URLS } from '@/lib/seo/site-sections';
+import { getAllSituationParams } from '@/lib/mental-performance/routines';
 
 // Sitemap URLs MUST be on the same host the sitemap is served from, or
 // Google rejects them ("URL not allowed for a Sitemap at this location").
@@ -129,6 +130,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
+  // Mental Performance pillar: the hub + one page per sport + one page per
+  // seeded routine, derived from the routine library so new routines appear
+  // here automatically (self-maintaining, like the guide/blog registries).
+  const mentalParams = getAllSituationParams();
+  const mentalSports = Array.from(new Set(mentalParams.map((p) => p.sport)));
+  const mentalPages: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/mental-performance`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    ...mentalSports.map((s) => ({
+      url: `${BASE_URL}/mental-performance/${s}`,
+      lastModified: now, changeFrequency: 'monthly' as const, priority: 0.6,
+    })),
+    ...mentalParams.map((p) => ({
+      url: `${BASE_URL}/mental-performance/${p.sport}/${p.situation}`,
+      lastModified: now, changeFrequency: 'monthly' as const, priority: 0.5,
+    })),
+  ];
+
   // ── Assembly ────────────────────────────────────────────────────────────
   // Curated static pages first, then each dynamic registry. Every group is
   // deduplicated by construction: curated literals live ONLY in site-sections.ts
@@ -142,6 +160,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...curatedPages,
     ...seoPages,
+    ...mentalPages,
     ...challengePages,
     ...blogPages,
     ...learnPages,

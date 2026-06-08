@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Hand, Dumbbell, RefreshCw } from 'lucide-react';
 import { FixStackPanel } from '@/components/drillmatch';
 import { CuratedSwingDrills } from '@/components/coach-mix/CuratedSwingDrills';
+import { MentalResetForFix } from '@/components/mental-performance/MentalResetForFix';
 
 const LOOP_STEPS = [
   { icon: Hand, title: 'Feel it', body: 'One simple body cue you can actually feel — not a checklist of ten swing thoughts.' },
@@ -23,6 +24,9 @@ export default function FixStackPage() {
       </div>
 
       <FixStackPanel />
+
+      {/* Mental reset matched to the diagnosed fault (mechanical fix + mindset). */}
+      <MentalResetForFix />
 
       {/* Coach Mix — curated, coach-influenced drills. Flag-gated OFF
           (NEXT_PUBLIC_COACH_MIX_USER_MODULE): renders nothing until the owner

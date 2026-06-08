@@ -62,6 +62,36 @@ function preferRecent(a: Json, b: Json, tsKey: string): Json {
 
 // ── what to mirror, and how to merge each ────────────────────
 const DOC_SPECS: DocSpec[] = [
+  // Mental Performance — union journal logs by id (newest date first, cap 500)
+  // and plan assignments by id; prefer this device's profile (latest
+  // updatedAt) and settings, but never lose "enabled"/"storeLogs" or the
+  // earliest consent date.
+  {
+    key: 'swingiq-mental-performance-v1',
+    merge: (l, c) => {
+      const lo = asObj(l); const co = asObj(c);
+      const logs = unionById(lo.logs, co.logs, 'id')
+        .sort((a, b) => String(b.date).localeCompare(String(a.date)))
+        .slice(0, 500);
+      const planAssignments = unionById(lo.planAssignments, co.planAssignments, 'id', 20);
+      const ls = asObj(lo.settings); const cs = asObj(co.settings);
+      const consentDates = [ls.consentedAt, cs.consentedAt].filter(Boolean) as string[];
+      const lp = asObj(lo.profile); const cp = asObj(co.profile);
+      const profile = String(lp.updatedAt ?? '') >= String(cp.updatedAt ?? '') ? lp : cp;
+      return {
+        version: 1,
+        settings: {
+          ...cs, ...ls,
+          enabled: ls.enabled === true || cs.enabled === true,
+          storeLogs: ls.storeLogs === true || cs.storeLogs === true,
+          consentedAt: consentDates.length ? consentDates.sort()[0] : null,
+        },
+        profile,
+        logs,
+        planAssignments,
+      };
+    },
+  },
   // retest dismissals/acknowledgments — union both id lists
   {
     key: 'swingiq-retests-v1',

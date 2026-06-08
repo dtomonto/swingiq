@@ -107,6 +107,12 @@ export const NAV_ITEMS: NavItem[] = [
     blurb: 'Features & technologies in development, in plain product language — what is live, in development, and planned across the coaching-intelligence initiative, with its ethics guarantees and feature flags.',
     keywords: ['development', 'roadmap', 'innovation', 'innovation lab', 'features in development', 'technology', 'coaching intelligence', 'coach mix', 'curated drills', 'trend intelligence', 'whats next', 'planned', 'vision'],
   },
+  {
+    id: 'mental-performance', label: 'Mental Performance', href: '/admin/mental-performance', icon: Brain,
+    group: 'overview', built: true,
+    blurb: 'Manage the emotion-management & mistake-recovery pillar: routine library, training plans, coach vocabularies, the Mental Performance Intelligence layer (CentralIntelligenceOS), GrowthOS opportunities and the safety/crisis configuration. Performance coaching only — never therapy.',
+    keywords: ['mental', 'mental performance', 'mindset', 'emotion', 'composure', 'confidence', 'reset', 'recovery', 'routine', 'sport psychology', 'meditation', 'pressure', 'journal', 'intelligence', 'crisis', 'safety'],
+  },
 
   // ── People ─────────────────────────────────────────────────
   {

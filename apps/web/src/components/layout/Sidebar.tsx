@@ -45,6 +45,7 @@ import {
   Gift,
   Bell,
   Footprints,
+  Brain,
   Clock,
   type LucideIcon,
 } from 'lucide-react';
@@ -266,6 +267,12 @@ export function Sidebar({ onClose }: SidebarProps) {
         <Link href="/journey" onClick={onClose} className={rowClass(isActive('/journey'))}>
           <Footprints size={18} className="shrink-0" aria-hidden="true" />
           <span className="flex-1">Athletic Journey</span>
+        </Link>
+
+        {/* Mental Performance — emotion management & mistake recovery */}
+        <Link href="/mental" onClick={onClose} className={rowClass(isActive('/mental'))}>
+          <Brain size={18} className="shrink-0" aria-hidden="true" />
+          <span className="flex-1">Mental Performance</span>
         </Link>
 
         {/* Journey */}

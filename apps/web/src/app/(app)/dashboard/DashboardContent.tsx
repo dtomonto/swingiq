@@ -25,6 +25,7 @@ import { Button } from '@/components/ui/Button';
 import { FIX_CTA } from '@/lib/coaching/fixFraming';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
+import { MentalPerformanceCard } from '@/components/mental-performance/MentalPerformanceCard';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { useSwingVantageStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
@@ -236,6 +237,9 @@ export function DashboardContent() {
 
       {/* BodySync: today's readiness + recommended session (only when enabled) */}
       <ReadinessSummaryCard />
+
+      {/* Mental Performance: quick resets + suggested routine */}
+      <MentalPerformanceCard />
 
       {/* Intelligent product layer: Welcome Back / next best step + insights.
           This is the ONE hero action; the supporting panels below collapse

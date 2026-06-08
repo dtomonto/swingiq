@@ -178,7 +178,8 @@ export type RecommendationArea =
   | 'growth'
   | 'content'
   | 'product'
-  | 'data_governance';
+  | 'data_governance'
+  | 'mental_performance';
 
 export type RecommendationStatus = 'open' | 'in_progress' | 'done' | 'dismissed';
 
