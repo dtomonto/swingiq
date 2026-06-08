@@ -13,6 +13,11 @@
 
 import { WEDGE_PAGES } from './seoPagesWedges';
 import { RACKET_PAGES } from './seoPagesRacket';
+// Admin publish overrides (slug → status), set from /admin/updates. Committed,
+// merged at read time so a published page can be pulled — or a draft pushed
+// live — without hand-editing this registry. Empty `{}` = use each page's own
+// publishStatus. See lib/admin/content-publish-store.ts.
+import seoPublishOverrides from '@/data/seo-publish-overrides.json';
 
 export type Sport = 'golf' | 'tennis' | 'pickleball' | 'padel' | 'baseball' | 'softball' | 'multi';
 export type Audience = 'player' | 'parent' | 'coach' | 'creator' | 'team';
@@ -1435,9 +1440,16 @@ export const SEO_PAGES: SeoPage[] = [
   ...DRAFTS,
 ];
 
-/** All published pages (routed + indexed + in sitemap). */
+const SEO_PUBLISH_OVERRIDES = seoPublishOverrides as Record<string, PublishStatus>;
+
+/** A page's effective status, applying any admin publish override by slug. */
+export function effectiveSeoStatus(p: SeoPage): PublishStatus {
+  return SEO_PUBLISH_OVERRIDES[p.slug] ?? p.publishStatus;
+}
+
+/** All published pages (routed + indexed + in sitemap), overrides applied. */
 export const PUBLISHED_SEO_PAGES: SeoPage[] = SEO_PAGES.filter(
-  (p) => p.publishStatus === 'published',
+  (p) => effectiveSeoStatus(p) === 'published',
 );
 
 /** Look up a published page by slug (without leading slash). */

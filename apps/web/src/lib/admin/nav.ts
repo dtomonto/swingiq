@@ -132,6 +132,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['cms', 'pages', 'articles'],
   },
   {
+    id: 'updates', label: 'Publishing', href: '/admin/updates', icon: Newspaper,
+    group: 'content', built: true, permission: 'content.publish',
+    blurb: 'Review and publish auto-generated changelog entries (Updates & Developer Updates) before they go live.',
+    keywords: ['updates', 'changelog', 'dev-updates', 'publish', 'draft', 'release notes', 'announcements'],
+  },
+  {
     id: 'generated-fixes', label: 'Generated Fixes', href: '/admin/content/generated-fixes', icon: Wand2,
     group: 'content', built: true, permission: 'content.publish',
     blurb: 'Review queue for AI-generated repair/fix pages before they go live.',

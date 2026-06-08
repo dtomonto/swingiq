@@ -20,8 +20,18 @@ export type DevUpdateCategory =
 
 export type DevUpdateImpact = 'major' | 'notable' | 'foundational';
 
+/**
+ * Publication state. Hand-written seed entries omit this and are treated as
+ * published (they're already live). Auto-generated entries from commit trailers
+ * land as 'draft' and stay hidden from the public page until flipped to
+ * 'published' — by hand here or from /admin/updates. See isPublicDevUpdate().
+ */
+export type DevUpdateStatus = 'draft' | 'published';
+
 export interface DevUpdate {
   id: string;
+  /** Draft entries are hidden from the public /dev-updates page. Default: published. */
+  status?: DevUpdateStatus;
   /** Optional human tag, e.g. "v1.2" or "Motion Lab". */
   version?: string;
   title: string;
@@ -565,24 +575,34 @@ export const DEV_UPDATES: DevUpdate[] = [
 ];
 
 // ── Auto-generated entries (populated by scripts/generate-updates.mjs) ───────
-// These come from `Dev-Update:` commit trailers and publish on the next deploy.
+// These come from `Dev-Update:` commit trailers and land as DRAFTS (hidden)
+// until flipped to published — by hand here or from /admin/updates.
 import autoDevUpdatesJson from './auto-dev-updates.json';
 const AUTO_DEV_UPDATES = autoDevUpdatesJson as unknown as DevUpdate[];
 
-function allDevUpdates(): DevUpdate[] {
+/** Every dev update, draft or live — for the admin Publishing screen only. */
+export function getAllDevUpdates(): DevUpdate[] {
   return [...DEV_UPDATES, ...AUTO_DEV_UPDATES];
+}
+
+/**
+ * Whether a dev update may appear on the public /dev-updates page. Drafts are
+ * hidden; a missing status means "published" so hand-written seeds stay live.
+ */
+export function isPublicDevUpdate(u: DevUpdate): boolean {
+  return u.status !== 'draft';
 }
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
 export function getDevUpdates(): DevUpdate[] {
-  return allDevUpdates().sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+  return getAllDevUpdates()
+    .filter(isPublicDevUpdate)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getDevMilestones(): DevUpdate[] {
-  return allDevUpdates().filter((u) => u.isMilestone).sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-  );
+  return getAllDevUpdates()
+    .filter((u) => isPublicDevUpdate(u) && u.isMilestone)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }

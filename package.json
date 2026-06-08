@@ -26,6 +26,7 @@
     "check:sitemap:coverage": "node scripts/check-sitemap-coverage.mjs",
     "generate:brand": "node scripts/generate-brand-assets.mjs",
     "updates:generate": "node scripts/generate-updates.mjs",
+    "test:scripts": "node --test \"scripts/__tests__/**/*.test.mjs\"",
     "features:scan": "node scripts/scan-features.mjs",
     "setup:scan": "node scripts/scan-setup.mjs",
     "social:queue": "node scripts/generate-social-queue.mjs",

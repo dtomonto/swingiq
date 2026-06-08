@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { BLOG_POSTS } from '@/data/blog-posts';
+import { getPublishedBlogPosts } from '@/data/blog-posts';
 
 const SPORT_FILTERS = ['All', 'Golf', 'Tennis', 'Pickleball', 'Padel', 'Baseball', 'Softball'] as const;
 type SportFilter = typeof SPORT_FILTERS[number];
@@ -21,7 +21,7 @@ export default function BlogIndexPage() {
   const [sportFilter, setSportFilter] = useState<SportFilter>('All');
   const [query, setQuery] = useState('');
 
-  const sorted = [...BLOG_POSTS].sort((a, b) => b.publishDate.localeCompare(a.publishDate));
+  const sorted = [...getPublishedBlogPosts()].sort((a, b) => b.publishDate.localeCompare(a.publishDate));
 
   const filtered = sorted.filter((post) => {
     const matchesSport =

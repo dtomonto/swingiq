@@ -69,8 +69,8 @@ export const FLAG_DEFS: FlagDef[] = [
   {
     key: 'motion_lab.enabled',
     label: 'Motion Lab (3D)',
-    description: 'Browser-side 3D motion analysis lab.',
-    group: 'Experimental', owner: 'Product', defaultEnabled: false, risk: 'medium', status: 'registry',
+    description: 'Browser-side 3D motion analysis lab. Live today at /motion-lab — default reflects that.',
+    group: 'Experimental', owner: 'Product', defaultEnabled: true, risk: 'medium', status: 'registry',
   },
 ];
 

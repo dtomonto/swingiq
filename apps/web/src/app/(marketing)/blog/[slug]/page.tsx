@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { BLOG_POSTS } from '@/data/blog-posts';
+import { getPublishedBlogPosts, getPublishedBlogPost } from '@/data/blog-posts';
 
 export async function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
+  return getPublishedBlogPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -13,7 +13,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = getPublishedBlogPost(slug);
   if (!post) return {};
   return {
     title: post.metaTitle,
@@ -78,11 +78,11 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = getPublishedBlogPost(slug);
   if (!post) notFound();
 
   const relatedPosts = post.relatedSlugs
-    ? BLOG_POSTS.filter((p) => post.relatedSlugs!.includes(p.slug))
+    ? getPublishedBlogPosts().filter((p) => post.relatedSlugs!.includes(p.slug))
     : [];
 
   return (

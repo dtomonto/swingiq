@@ -12,9 +12,13 @@
  * trailer are ignored — so refactors, dependency bumps, CI tweaks, and minor
  * fixes never reach the public page unless you explicitly opt them in.
  *
- * Product entries land as DRAFTS (status: draft / visibility: private) so they
- * stay hidden until you flip them live. Developer entries publish immediately
- * because /dev-updates is the engineering log.
+ * BOTH product and developer entries land as DRAFTS (hidden) so nothing reaches
+ * the public /updates or /dev-updates pages until you flip it live — either by
+ * hand in the data file, or from the admin Publishing screen at /admin/updates.
+ *
+ * A leak guard also refuses to emit any entry whose text looks like it contains
+ * a secret, an API key, a source-file path, or a scratch marker (TODO/FIXME),
+ * so a stray trailer can never publish something that would degrade trust.
  *
  * Optional, finer-grained trailers (all single-line):
  *   Product:  Update-Title, Update-Summary, Update-Category, Update-Sport,
@@ -163,6 +167,44 @@ function readCommits() {
     });
 }
 
+// ── Safety guard: never let a secret or internal detail reach a public page ──
+//
+// /updates and /dev-updates are public, search-indexed pages. Everything that
+// publishes here is opt-in trailer prose YOU write — but a slip (pasting a key,
+// a file path, or a scratch note into a trailer) would still become a public
+// URL. These patterns are a last line of defence: an entry that trips one is
+// skipped with a warning. The commit still lands; reword the trailer and re-run.
+const LEAK_PATTERNS = [
+  // Vendor API keys / tokens: OpenAI, Stripe, Resend, AWS, GitHub, Supabase, Slack.
+  { name: 'API key or token', re: /\b(?:sk-[A-Za-z0-9_-]{16,}|(?:sk|pk|rk)_(?:live|test)_[A-Za-z0-9]{12,}|whsec_[A-Za-z0-9]{16,}|re_[A-Za-z0-9]{12,}|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{20,}|sb(?:p|_secret)_[A-Za-z0-9_-]{12,}|xox[baprs]-[A-Za-z0-9-]{10,})/ },
+  // JSON Web Tokens (e.g. a Supabase anon/service key).
+  { name: 'JWT', re: /\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{6,}/ },
+  // Authorization: Bearer <token>.
+  { name: 'bearer token', re: /\bBearer\s+[A-Za-z0-9._~+/-]{20,}/i },
+  // KEY=secret / SECRET: value style assignments (env leaks).
+  { name: 'secret assignment', re: /\b[A-Z][A-Z0-9_]*(?:KEY|SECRET|TOKEN|PASSWORD|PASSWD|PWD|CREDENTIALS?)\s*[:=]\s*\S{6,}/ },
+  // Repo-relative source paths (apps/web/..., src/lib/..., or any file with a code ext).
+  { name: 'source file path', re: /\b(?:apps|packages|server|scripts|node_modules)\/[\w./-]+|(?:^|[\s("'])src\/[\w./-]+|(?:[\w-]+\/)+[\w-]+\.(?:tsx?|jsx?|mjs|cjs|sql|env|py)\b/ },
+  // Absolute OS paths that should never appear in user-facing copy.
+  { name: 'filesystem path', re: /[A-Za-z]:\\[\\\w .-]{3,}|\/(?:home|Users|root|var|etc)\/[\w./-]+/ },
+  // Developer scratch markers left in by mistake.
+  { name: 'TODO/FIXME marker', re: /\b(?:TODO|FIXME|HACK|XXX|WIP)\b/ },
+];
+
+/**
+ * Scan publishable strings for anything that looks like a secret or an internal
+ * detail. Returns `{ name, sample }` for the first match, or null when clean.
+ * Exported for tests.
+ */
+function findLeak(...parts) {
+  const text = parts.filter((p) => typeof p === 'string' && p).join('\n');
+  for (const { name, re } of LEAK_PATTERNS) {
+    const m = text.match(re);
+    if (m) return { name, sample: m[0].slice(0, 48) };
+  }
+  return null;
+}
+
 // ── Build entries ───────────────────────────────────────────────────────────
 
 function buildProductEntry(commit, t, nextSortOrder) {
@@ -225,6 +267,9 @@ function buildDevEntry(commit, t) {
 
   const entry = {
     id: `dev-c-${commit.shortHash}`,
+    // Draft by default — hidden from the public /dev-updates page until you flip
+    // it live (in the data file or from /admin/updates). Mirrors product updates.
+    status: 'draft',
     title: t['dev-title'] || headline,
     date: isoDate(commit.date),
     displayDate: displayDate(commit.date),
@@ -267,21 +312,38 @@ function main() {
     const t = parseTrailers(commit.body);
 
     if (t['update'] && !productIds.has(`update-c-${commit.shortHash}`)) {
-      const entry = buildProductEntry(commit, t, nextSortOrder++);
+      const entry = buildProductEntry(commit, t, nextSortOrder);
       if (entry) {
-        // Guarantee a unique slug.
-        if (usedSlugs.has(entry.slug)) entry.slug = `${entry.slug}-${commit.shortHash}`;
-        usedSlugs.add(entry.slug);
-        productIds.add(entry.id);
-        newProduct.push(entry);
+        const leak = findLeak(
+          entry.title, entry.summary, entry.userBenefit, entry.whyItMatters,
+          entry.whereToFindIt, entry.userActionRequired, ...(entry.audience || []),
+        );
+        if (leak) {
+          warn(`  ✗ ${commit.shortHash}: SKIPPED product update — text looks like it contains a ${leak.name} ("${leak.sample}…"). Reword the Update: trailer and re-run; nothing was published.`);
+        } else {
+          nextSortOrder++;
+          // Guarantee a unique slug.
+          if (usedSlugs.has(entry.slug)) entry.slug = `${entry.slug}-${commit.shortHash}`;
+          usedSlugs.add(entry.slug);
+          productIds.add(entry.id);
+          newProduct.push(entry);
+        }
       }
     }
 
     if (t['dev-update'] && !devIds.has(`dev-c-${commit.shortHash}`)) {
       const entry = buildDevEntry(commit, t);
       if (entry) {
-        devIds.add(entry.id);
-        newDev.push(entry);
+        const leak = findLeak(
+          entry.title, entry.headline, entry.details,
+          ...(entry.highlights || []), ...(entry.stack || []),
+        );
+        if (leak) {
+          warn(`  ✗ ${commit.shortHash}: SKIPPED dev update — text looks like it contains a ${leak.name} ("${leak.sample}…"). Reword the Dev-Update: trailer and re-run; nothing was published.`);
+        } else {
+          devIds.add(entry.id);
+          newDev.push(entry);
+        }
       }
     }
   }
@@ -318,7 +380,7 @@ function main() {
 }
 
 // Exported for tests; main() only runs when invoked directly.
-export { slugify, displayDate, parseTrailers, splitList, buildProductEntry, buildDevEntry };
+export { slugify, displayDate, parseTrailers, splitList, buildProductEntry, buildDevEntry, findLeak };
 
 const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (invokedDirectly) {

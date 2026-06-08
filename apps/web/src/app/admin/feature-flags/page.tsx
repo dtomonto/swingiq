@@ -27,7 +27,7 @@ export default async function AdminFeatureFlagsPage() {
 
       <SectionCard
         title="Honest note"
-        description="Flags marked “registry” persist and are ready to be consumed, but no feature reads them yet — so toggling them won't change behaviour until a feature is wired to the flag. “wired” flags affect the app today."
+        description="These toggles are saved on THIS device (operator overrides) — they are not global product switches, so they don't change what other users see. Flags marked “registry” aren't read by any feature yet, so toggling one changes nothing until it's wired; “wired” flags affect this browser today. Global, all-user availability lives in code/env — see Settings and Integrations."
       >
         <FeatureFlagsClient actor={actor} />
       </SectionCard>

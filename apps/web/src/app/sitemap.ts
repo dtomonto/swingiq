@@ -5,7 +5,7 @@ import { getLibraryItems } from '@/lib/library';
 import { learnPath } from '@/lib/library/seo';
 import { localizedRoutes, currentLocalesFor } from '@/lib/marketing-i18n/expose';
 import { localizedHref } from '@/lib/marketing-i18n/href';
-import { BLOG_POSTS } from '@/data/blog-posts';
+import { getPublishedBlogPosts } from '@/data/blog-posts';
 import { CHALLENGES } from '@/content/challenges';
 
 // Sitemap URLs MUST be on the same host the sitemap is served from, or
@@ -95,7 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // publishDate (a real signal) rather than the build time.
   const blogPages: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
-    ...BLOG_POSTS.map((post) => ({
+    ...getPublishedBlogPosts().map((post) => ({
       url: `${BASE_URL}/blog/${post.slug}`,
       lastModified: post.publishDate ? new Date(post.publishDate).toISOString() : now,
       changeFrequency: 'yearly' as const,

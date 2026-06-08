@@ -1,3 +1,10 @@
+// Admin publish overrides (slug → status), set from /admin/updates. Committed,
+// merged at read time so a post can be unpublished — or a draft published —
+// without editing this file. Empty `{}` = every post uses its own status.
+import blogPublishOverrides from './blog-publish-overrides.json';
+
+export type BlogPublishStatus = 'published' | 'draft';
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -12,6 +19,31 @@ export interface BlogPost {
   content: string; // \n\n for paragraphs, ## for h2 headers
   tags: string[];
   relatedSlugs?: string[];
+  /** Hidden from the public blog when 'draft'. Missing = published. */
+  status?: BlogPublishStatus;
+}
+
+const BLOG_PUBLISH_OVERRIDES = blogPublishOverrides as Record<string, BlogPublishStatus>;
+
+/** A post's effective status, applying any admin publish override by slug. */
+export function effectiveBlogStatus(p: BlogPost): BlogPublishStatus {
+  return BLOG_PUBLISH_OVERRIDES[p.slug] ?? p.status ?? 'published';
+}
+
+/** True when a post may appear on the public blog (list, route, sitemap). */
+export function isPublishedBlogPost(p: BlogPost): boolean {
+  return effectiveBlogStatus(p) === 'published';
+}
+
+/** Public posts only — use for the blog list, [slug] route, and sitemap. */
+export function getPublishedBlogPosts(): BlogPost[] {
+  return BLOG_POSTS.filter(isPublishedBlogPost);
+}
+
+/** Look up a single public post by slug (drafts return undefined → 404). */
+export function getPublishedBlogPost(slug: string): BlogPost | undefined {
+  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  return post && isPublishedBlogPost(post) ? post : undefined;
 }
 
 export const BLOG_POSTS: BlogPost[] = [

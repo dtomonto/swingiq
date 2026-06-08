@@ -9,7 +9,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  FileText, Search, Trophy, Wand2, Share2, Clapperboard, ExternalLink, ArrowUpRight,
+  FileText, Search, Trophy, Wand2, Share2, Clapperboard, ExternalLink, ArrowUpRight, Newspaper,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { BLOG_POSTS } from '@/data/blog-posts';
@@ -30,6 +30,7 @@ interface Surface {
 
 export default function AdminContentPage() {
   const surfaces: Surface[] = [
+    { label: 'Publishing', href: '/admin/updates', icon: Newspaper, desc: 'Publish changelog drafts (Updates & Dev Updates)' },
     { label: 'SEO / AEO / GEO', href: '/admin/seo', icon: Search, desc: 'Search & answer-engine pages', count: SEO_PAGES.length },
     { label: 'Generated Fixes', href: '/admin/content/generated-fixes', icon: Wand2, desc: 'AI fix-page review queue' },
     { label: 'Sports', href: '/admin/sports', icon: Trophy, desc: 'Per-sport analysis config', count: ALL_SPORTS_INCLUDING_GOLF.length },
