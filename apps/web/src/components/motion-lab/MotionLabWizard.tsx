@@ -436,7 +436,11 @@ function SessionLibrary({ sessions, onOpen, onDelete }: {
   onOpen: (s: MotionSession) => void;
   onDelete: (id: string) => void;
 }) {
-  const latest = sessions[0];
+  // Newest by createdAt rather than trusting array order — keeps "Welcome back"
+  // pointing at the most recent session regardless of save/storage ordering.
+  const latest = [...sessions].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  )[0];
   return (
     <Card className="border-primary/30 bg-primary/5">
       <CardBody>

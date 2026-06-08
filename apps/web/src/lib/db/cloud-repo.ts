@@ -168,8 +168,15 @@ export interface LoadResult {
   presence: SingletonPresence;
 }
 
-async function selectAll(client: SupabaseClient, table: string, userId: string): Promise<Row[]> {
-  const { data, error } = await client.from(table).select('*').eq('user_id', userId);
+async function selectAll(
+  client: SupabaseClient,
+  table: string,
+  userId: string,
+  orderBy?: { column: string; ascending: boolean },
+): Promise<Row[]> {
+  let query = client.from(table).select('*').eq('user_id', userId);
+  if (orderBy) query = query.order(orderBy.column, { ascending: orderBy.ascending });
+  const { data, error } = await query;
   if (error) throw error;
   return (data ?? []) as Row[];
 }
@@ -186,7 +193,7 @@ export async function loadAll(client: SupabaseClient, userId: string): Promise<L
     selectAll(client, 'tennis_rackets', userId),
     selectAll(client, 'baseball_bats', userId),
     selectAll(client, 'softball_bats', userId),
-    selectAll(client, 'sessions', userId),
+    selectAll(client, 'sessions', userId, { column: 'created_at', ascending: false }),
     selectAll(client, 'shots', userId),
     selectAll(client, 'video_analyses', userId),
     selectAll(client, 'training_progress', userId),

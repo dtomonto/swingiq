@@ -74,7 +74,16 @@ export function DashboardContent() {
   const { isGolf } = useSport();
 
   const topDiagnosis = latestSession?.diagnoses[0];
-  const mostRecentSession = sessions[0];
+  // Newest session by created_at. Don't trust array order: after a cloud
+  // rehydrate/three-way-merge, cloud-only sessions are appended at the end,
+  // so sessions[0] is not reliably the most recent one.
+  const mostRecentSession = useMemo(
+    () =>
+      [...sessions].sort(
+        (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      )[0] ?? null,
+    [sessions],
+  );
 
   // Build real diagnosis display object
   const typedDiagnosis = topDiagnosis as DiagnosisOutput | undefined;
