@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Hand, Dumbbell, RefreshCw } from 'lucide-react';
 import { FixStackPanel } from '@/components/drillmatch';
+import { CuratedSwingDrills } from '@/components/coach-mix/CuratedSwingDrills';
 
 const LOOP_STEPS = [
   { icon: Hand, title: 'Feel it', body: 'One simple body cue you can actually feel — not a checklist of ten swing thoughts.' },
@@ -22,6 +23,12 @@ export default function FixStackPage() {
       </div>
 
       <FixStackPanel />
+
+      {/* Coach Mix — curated, coach-influenced drills. Flag-gated OFF
+          (NEXT_PUBLIC_COACH_MIX_USER_MODULE): renders nothing until the owner
+          enables it. Before turning it on in production, pass the user's live
+          sport + diagnosed faultId so it reflects their actual top issue. */}
+      <CuratedSwingDrills />
 
       {/* The loop, explained */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
