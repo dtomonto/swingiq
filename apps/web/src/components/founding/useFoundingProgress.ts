@@ -34,13 +34,9 @@ import {
   hasAchievement,
 } from '@/lib/central-intelligence/store';
 import { FOUNDING_MEMBER_ACHIEVEMENT } from '@/lib/central-intelligence/achievements';
+import type { FoundingBannerState } from './banner-content';
 
-export type FoundingBannerState =
-  | 'logged_out'
-  | 'profile_incomplete'
-  | 'sessions_needed'
-  | 'qualified'
-  | 'full';
+export type { FoundingBannerState };
 
 export interface FoundingProgressView {
   mounted: boolean;

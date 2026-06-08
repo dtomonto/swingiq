@@ -20,59 +20,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
-import { FOUNDING_REQUIRED_COUNT, FOUNDING_REQUIRED_SESSIONS, formatMemberNumber } from '@/lib/central-intelligence';
-import { useFoundingProgress, type FoundingBannerState } from './useFoundingProgress';
-
-/** Routes where the campaign bar would be noise rather than signal. */
-const HIDDEN_PREFIXES = ['/admin', '/login', '/signup', '/forgot-password', '/reset-password', '/auth'];
-
-interface BannerContent {
-  message: string;
-  /** Extra context shown on ≥sm screens only (kept off mobile to stay slim). */
-  detail?: string;
-  cta: { label: string; href: string } | null;
-}
-
-function buildContent(
-  state: FoundingBannerState,
-  opts: { profilePercent: number; validSessions: number; memberNumber: number | null },
-): BannerContent {
-  switch (state) {
-    case 'qualified':
-      return {
-        message: opts.memberNumber != null
-          ? `🏛️ You're Founding Member ${formatMemberNumber(opts.memberNumber)}!`
-          : `🏛️ You qualified — claiming your Founding Member number…`,
-        detail: 'Thank you for being one of the first. Your spot is locked in.',
-        cta: { label: 'View your badge', href: '/profile' },
-      };
-    case 'sessions_needed':
-      return {
-        message: `Profile complete · ${opts.validSessions}/${FOUNDING_REQUIRED_SESSIONS} sessions`,
-        detail: `Record ${FOUNDING_REQUIRED_SESSIONS - opts.validSessions} more valid session(s) to claim Founding Member status.`,
-        cta: { label: 'Record a session', href: '/sessions' },
-      };
-    case 'profile_incomplete':
-      return {
-        message: `Your progress: Profile ${opts.profilePercent}% · ${opts.validSessions}/${FOUNDING_REQUIRED_SESSIONS} sessions`,
-        detail: 'Complete your profile + record 10 sessions to qualify.',
-        cta: { label: 'Complete profile', href: '/profile' },
-      };
-    case 'full':
-      return {
-        message: 'All 1,000 Founding Member spots are claimed.',
-        detail: 'Thank you to our founding community — more is coming.',
-        cta: null,
-      };
-    case 'logged_out':
-    default:
-      return {
-        message: 'Claim your place in the first 1,000.',
-        detail: 'Create your account, complete your profile, and record 10 sessions to qualify.',
-        cta: { label: 'Get started', href: '/signup' },
-      };
-  }
-}
+import { FOUNDING_REQUIRED_COUNT } from '@/lib/central-intelligence';
+import { useFoundingProgress } from './useFoundingProgress';
+import {
+  buildFoundingBannerContent,
+  isFoundingBannerHidden,
+  type FoundingBannerState,
+} from './banner-content';
 
 export function FoundingFathersCounterBanner() {
   const pathname = usePathname();
@@ -86,14 +40,14 @@ export function FoundingFathersCounterBanner() {
     track(ANALYTICS_EVENTS.FOUNDING_BANNER_VIEWED, { banner_state: bannerState });
   }, [mounted, bannerState]);
 
-  if (pathname && HIDDEN_PREFIXES.some((p) => pathname.startsWith(p))) return null;
+  if (isFoundingBannerHidden(pathname)) return null;
 
   const required = campaign?.requiredCount ?? FOUNDING_REQUIRED_COUNT;
   const qualified = campaign?.qualifiedCount;
   // Before mount/hydration, render the neutral logged-out shell so server and
   // client markup match; personalized state fills in after mount.
   const effectiveState: FoundingBannerState = mounted ? bannerState : 'logged_out';
-  const content = buildContent(effectiveState, {
+  const content = buildFoundingBannerContent(effectiveState, {
     profilePercent: completion.completionPercent,
     validSessions: user.validSessionCount,
     memberNumber,
