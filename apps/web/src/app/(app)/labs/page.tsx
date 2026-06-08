@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { FlaskConical } from 'lucide-react';
 import { FoundationsBoard } from '@/components/foundations';
+import { ImprovementLoopsCard } from '@/components/improvement-loops/ImprovementLoopsCard';
 
 export default function LabsPage() {
   return (
@@ -20,6 +21,8 @@ export default function LabsPage() {
       </div>
 
       <FoundationsBoard />
+
+      <ImprovementLoopsCard />
 
       <p className="text-xs text-muted-foreground text-center">
         These build on your{' '}
