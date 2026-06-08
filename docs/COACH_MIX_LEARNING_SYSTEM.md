@@ -122,8 +122,9 @@ Coach Mix only *biases and explains* — it never fabricates drills.
 **Remaining (needs a backend / your call):**
 - **A real aggregate source** — point `TrendAggregateSource.load()` at an actual analytics /
   aggregate backend. Cross-user trend data can't come from the local-first app by itself.
-- **Sport-specific coach seeds** — any sport already works through the admin Sources + mix
-  workflow; add ready-made seed coach profiles for other sports only if you want them.
+- **More sport-specific seeds** — baseball (Rotational Power) and tennis (Modern Technical)
+  house-authored models now ship alongside the golf seeds; add more for any sport as desired
+  (any sport already works through the admin Sources + mix workflow regardless).
 
 ---
 
