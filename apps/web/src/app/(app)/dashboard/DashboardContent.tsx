@@ -35,6 +35,7 @@ import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
 import { GrowthAgentsPanel } from '@/components/growth';
 import { SecondaryPanels } from '@/components/dashboard/SecondaryPanels';
 import { PriorityPanel } from '@/components/dashboard/PriorityPanel';
+import { DashboardCuratedDrills } from '@/components/coach-mix/DashboardCuratedDrills';
 import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps, getRoutineForDiagnosis, type DiagnosisCategory } from '@swingiq/core';
 import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
 import { format } from 'date-fns';
@@ -324,6 +325,14 @@ export function DashboardContent() {
           </Link>
         ))}
       </div>
+
+      {/* Coach Mix — Preferred Coaching Style + curated, style-matched drills for
+          the current diagnosis. Visible only to admins (preview) until launched. */}
+      <DashboardCuratedDrills
+        sport="golf"
+        faultId={typedDiagnosis?.rule.id}
+        faultLabel={typedDiagnosis?.rule.name}
+      />
 
       {/* Primary content grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
