@@ -55,7 +55,6 @@ const COLUMN_DEFS = [
     headingKey: 'productHeading',
     links: [
       { k: 'features', href: '/features' },
-      { k: 'swinglab', href: '/swinglab' },
       { k: 'pricing', href: '/pricing' },
       { k: 'signUpFree', href: '/signup' },
       { k: 'sampleReport', href: '/sample-report' },

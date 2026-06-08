@@ -16,6 +16,7 @@
 // ============================================================
 
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { ArrowRight, Compass, FlaskConical, Map as MapIcon, Rocket, Sparkles, Waypoints } from 'lucide-react';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -32,12 +33,13 @@ import { LabMap } from '@/components/swinglab/LabMap';
 import { RoadmapTimeline } from '@/components/swinglab/RoadmapTimeline';
 import { isAdminUser } from '@/lib/auth/admin';
 
-// Public marketing vision page for everyone — indexable, honest "in
-// development" content. Admins additionally see a link into /lab.
+// Admin-only while in development — noindex, and non-admins are redirected
+// away (see SwingLabPage below). Not yet a public marketing surface.
 export const metadata = buildMetadata({
   title: SWINGLAB_COPY.metaTitle,
   description: SWINGLAB_COPY.metaDescription,
   path: '/swinglab',
+  noindex: true,
   keywords: [
     'SwingLab 2.0',
     'virtual sports performance lab',
@@ -340,5 +342,9 @@ function SwingLabVision({ isAdmin }: { isAdmin: boolean }) {
  */
 export default async function SwingLabPage() {
   const isAdmin = await isAdminUser();
+  // Admin-only while in development. Dev stays open for local iteration; in
+  // production, non-admins (and logged-out visitors) are sent home so SwingLab
+  // 2.0 is not yet a public surface. Mirrors the /lab gate.
+  if (process.env.NODE_ENV === 'production' && !isAdmin) redirect('/');
   return <SwingLabVision isAdmin={isAdmin} />;
 }
