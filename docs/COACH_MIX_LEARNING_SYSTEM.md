@@ -110,11 +110,20 @@ Coach Mix only *biases and explains* — it never fabricates drills.
 - **Optional AI extraction** — an off-by-default `ConceptRewriter` seam: it may only re-word
   a pending concept's rewrite, never change its meaning, type, confidence, or risk.
 
-**Phase 4 (later):**
-- **More sports** — the data model already supports all seven; seeds beyond golf come as you
-  add and approve sources.
-- **Wire real data** — connect the user module to each athlete's live diagnosis, and the
-  Trends tab to real privacy-safe aggregates.
+**Phase 4 (done):**
+- **Live diagnosis** — the user module now reads each athlete's **real** active sport + latest
+  diagnosed issue (the same context the Fix Stack uses), with skill level. With no diagnosis
+  yet it shows nothing — it never fabricates a fix. **Multi-sport works automatically**: the
+  drills come from the correct sport's library.
+- **Trends adapter** — a `TrendAggregateSource` seam (`resolveTrendInput`): the Trends tab
+  uses real privacy-safe aggregates when one is wired, and the labelled sample otherwise (the
+  "sample data" banner disappears once real data flows).
+
+**Remaining (needs a backend / your call):**
+- **A real aggregate source** — point `TrendAggregateSource.load()` at an actual analytics /
+  aggregate backend. Cross-user trend data can't come from the local-first app by itself.
+- **Sport-specific coach seeds** — any sport already works through the admin Sources + mix
+  workflow; add ready-made seed coach profiles for other sports only if you want them.
 
 ---
 
