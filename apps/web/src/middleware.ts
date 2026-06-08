@@ -80,6 +80,10 @@ const PUBLIC_SUBTREES = [
   // Sample reports: the index AND the per-sport children
   // (/sample-report/golf, /baseball, /slow-pitch, /fast-pitch, /softball).
   '/sample-report',
+  // Mental Performance pillar: the public hub + every /[sport] and
+  // /[sport]/[situation] routine page. The in-app /mental tools stay protected
+  // (prefix '/mental-performance' does not match '/mental').
+  '/mental-performance',
   '/golf',
   '/tennis',
   '/pickleball',
