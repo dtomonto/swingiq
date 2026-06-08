@@ -81,7 +81,8 @@ Privacy/terms/disclaimers + data export & delete exist; "guardian/consent/minor"
 
 ### §13 Analytics & experimentation — 🟡 (biggest quick win)
 - [`packages/core/src/analytics/events.ts`](../packages/core/src/analytics/events.ts) is a rich catalog covering the **entire** §16 funnel (page_view → sport_selected → upload_started/completed → analysis_started/completed → priority_fix_viewed → drill_started/completed → retest_plan_clicked → pricing_viewed → upgrade_clicked → account_created). The abstraction layer [`lib/analytics.ts`](../apps/web/src/lib/analytics.ts) supports GA4/Plausible/PostHog with graceful fallback.
-- **Gap:** `isAnalyticsEnabled` is `false` unless `NEXT_PUBLIC_GA_ID` is set — so **in production, events are dropped.** You have a fully-wired funnel that currently measures nothing. There's also no A/B harness for the §16 experiments.
+- **UPDATE (2026-06-07, local `bbef981`):** the catalog covered the funnel but the *core value moment* fired nothing — upload-completed, analysis-started/completed/failed, priority-fix-viewed and account-created were defined-but-never-emitted. Those are now wired at the shared chokepoints (`VideoUpload`, `useSwingAnalysis`, `AIVisualAnalysisPanel`, `SignupForm`) with a guard test. So the funnel now genuinely measures the improvement loop.
+- **Remaining gap:** `isAnalyticsEnabled` is still `false` until the owner pastes **one** provider key — the only outstanding step. There's also no A/B harness for the §16 experiments.
 
 ---
 
@@ -89,7 +90,7 @@ Privacy/terms/disclaimers + data export & delete exist; "guardian/consent/minor"
 
 Ordered by value-per-effort, filtered to **only genuine gaps** and **excluding** anything that violates your free-users-first sequencing or duplicates existing code. All are tandem-safe (new/isolated files).
 
-1. **Turn analytics on (§13).** Configure a provider (PostHog or GA4) and confirm the catalog events actually fire at each funnel step. Highest ROI: you can't run any 30/90-day experiment or read the north-star metric ("Weekly Completed Improvement Loops") until events land somewhere. **Mostly config + audit, not new code.**
+1. ~~**Turn analytics on (§13).**~~ **Code DONE — local `bbef981`.** The core funnel now fires end-to-end (was defined-but-dark). Only step left: the owner pastes one provider key into `apps/web/.env.local` (Plausible recommended — cookieless, no consent banner). See [`docs/analytics-events.md`](analytics-events.md) → "Turning analytics on". Until then you still can't read the north-star metric, so this owner step is the highest-ROI 5-minute task remaining.
 2. **Surface the confidence score in the result UI (§6).** The number already exists; show it + add the "upload a better angle" uncertainty prompt. Pure trust win, small.
 3. **First-screen intent picker (§2/§5.1).** One low-cognition "What do you want to improve today?" entry that routes into the existing analysis flow. Reuses sport selector + persona router.
 4. **Issue → drill → outcome record (§11 — the moat).** Define one linked record that ties a diagnosis to the drills assigned to the retest result. This is the durable data advantage; everything else is catch-up.
