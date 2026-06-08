@@ -53,7 +53,7 @@ export function CoachSummaryCard() {
     <Card className="border-warning/30 bg-warning/10">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="flex items-center gap-2">
-          <MessageSquareQuote size={18} className="text-warning" />
+          <MessageSquareQuote size={18} className="text-warning-text" />
           <CardTitle className="text-foreground">Prep for your coach</CardTitle>
         </div>
         <Button
@@ -74,7 +74,7 @@ export function CoachSummaryCard() {
           <ul className="space-y-1">
             {summary.suggestedCoachQuestions.map((q, i) => (
               <li key={i} className="text-sm text-foreground flex items-start gap-2">
-                <span className="text-warning">?</span>
+                <span className="text-warning-text">?</span>
                 {q}
               </li>
             ))}

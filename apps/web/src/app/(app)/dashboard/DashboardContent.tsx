@@ -43,13 +43,13 @@ import { useMemo, useState } from 'react';
 
 const quickActions = [
   { label: 'Import CSV', href: '/sessions/import', icon: Upload, color: 'bg-accent-secondary/10 text-accent-secondary hover:bg-accent-secondary/15' },
-  { label: 'Diagnose', href: '/diagnose', icon: Target, color: 'bg-success/10 text-success hover:bg-success/15' },
-  { label: 'Schedule', href: '/practice', icon: CalendarDays, color: 'bg-primary/10 text-primary hover:bg-primary/15' },
+  { label: 'Diagnose', href: '/diagnose', icon: Target, color: 'bg-success/10 text-success-text hover:bg-success/15' },
+  { label: 'Schedule', href: '/practice', icon: CalendarDays, color: 'bg-primary/10 text-link hover:bg-primary/15' },
   { label: 'Add Club', href: '/equipment/golf', icon: Plus, color: 'bg-accent-secondary/10 text-accent-secondary hover:bg-accent-secondary/15' },
-  { label: 'Upload Video', href: '/video', icon: Video, color: 'bg-warning/10 text-warning hover:bg-warning/15' },
-  { label: 'Pre-Round', href: '/pre-round', icon: Sun, color: 'bg-primary/10 text-primary hover:bg-primary/15' },
-  { label: 'Training', href: '/training', icon: Dumbbell, color: 'bg-warning/10 text-warning hover:bg-warning/15' },
-  { label: 'Drills', href: '/drills', icon: BookOpen, color: 'bg-success/10 text-success hover:bg-success/15' },
+  { label: 'Upload Video', href: '/video', icon: Video, color: 'bg-warning/10 text-warning-text hover:bg-warning/15' },
+  { label: 'Pre-Round', href: '/pre-round', icon: Sun, color: 'bg-primary/10 text-link hover:bg-primary/15' },
+  { label: 'Training', href: '/training', icon: Dumbbell, color: 'bg-warning/10 text-warning-text hover:bg-warning/15' },
+  { label: 'Drills', href: '/drills', icon: BookOpen, color: 'bg-success/10 text-success-text hover:bg-success/15' },
 ];
 
 // ── Player DNA helpers ────────────────────────────────────────
@@ -218,7 +218,7 @@ export function DashboardContent() {
         </div>
         <div className="flex items-center gap-3">
           {training.streak_days > 1 && (
-            <div className="flex items-center gap-1 text-warning font-bold text-sm">
+            <div className="flex items-center gap-1 text-warning-text font-bold text-sm">
               <Flame size={16} /> {training.streak_days}-day streak
             </div>
           )}
@@ -258,7 +258,7 @@ export function DashboardContent() {
               <p className="font-semibold text-foreground text-sm">
                 {practiceReminder === 2 ? "It's been 2 days since your last practice." : `${practiceReminder} days since your last practice.`}
               </p>
-              <p className="text-xs text-warning">Consistent practice builds muscle memory faster. Even 15 minutes counts.</p>
+              <p className="text-xs text-warning-text">Consistent practice builds muscle memory faster. Even 15 minutes counts.</p>
             </div>
           </div>
           <div className="flex gap-2 shrink-0">
@@ -267,7 +267,7 @@ export function DashboardContent() {
                 Start Training
               </Button>
             </Link>
-            <Button size="sm" variant="outline" onClick={recordPractice} className="border-warning/40 text-warning whitespace-nowrap">
+            <Button size="sm" variant="outline" onClick={recordPractice} className="border-warning/40 text-warning-text whitespace-nowrap">
               Log Today
             </Button>
           </div>
@@ -283,7 +283,7 @@ export function DashboardContent() {
               <p className="font-semibold text-foreground text-sm">
                 Your training is working — score up {improvementAlert.delta} points!
               </p>
-              <p className="text-xs text-success">
+              <p className="text-xs text-success-text">
                 From {improvementAlert.fromScore} when you started training
                 {improvementAlert.diagnosisId ? ` on ${improvementAlert.diagnosisId.replace(/_/g, ' ')}` : ''}
                 {' '}→ now {improvementAlert.toScore}.
@@ -321,7 +321,7 @@ export function DashboardContent() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div className="flex items-center gap-2">
-                <AlertCircle size={18} className="text-error" />
+                <AlertCircle size={18} className="text-error-text" />
                 <CardTitle>Primary Diagnosis</CardTitle>
               </div>
               {activeDiagnosis && (
@@ -351,7 +351,7 @@ export function DashboardContent() {
                             }`}
                           >
                             <p className="text-xs text-muted-foreground capitalize">{dp.label}</p>
-                            <p className={`font-bold ${dp.status === 'danger' ? 'text-error' : 'text-warning'}`}>
+                            <p className={`font-bold ${dp.status === 'danger' ? 'text-error-text' : 'text-warning-text'}`}>
                               {dp.value}
                             </p>
                           </div>
@@ -363,9 +363,9 @@ export function DashboardContent() {
                   {/* Stroke savings */}
                   {strokeSavings && strokeSavings.total_potential_savings > 0 && (
                     <div className="p-3 bg-success/10 border border-success/25 rounded-lg">
-                      <p className="text-xs font-semibold text-success mb-0.5">Stroke Savings Potential</p>
-                      <p className="text-sm text-success">{strokeSavings.prioritized_action}</p>
-                      <p className="text-xs text-success mt-1 font-medium">
+                      <p className="text-xs font-semibold text-success-text mb-0.5">Stroke Savings Potential</p>
+                      <p className="text-sm text-success-text">{strokeSavings.prioritized_action}</p>
+                      <p className="text-xs text-success-text mt-1 font-medium">
                         ~{strokeSavings.total_potential_savings} strokes/round if fixed
                       </p>
                     </div>
@@ -384,7 +384,7 @@ export function DashboardContent() {
                         href={activeDiagnosis.youtube_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-xs text-error hover:underline"
+                        className="flex items-center gap-1 text-xs text-error-text hover:underline"
                       >
                         <ExternalLink size={12} />
                         YouTube Drill
@@ -418,15 +418,15 @@ export function DashboardContent() {
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 size={18} className="text-success" />
+                  <CheckCircle2 size={18} className="text-success-text" />
                   <CardTitle>Retest Protocol</CardTitle>
                 </div>
               </CardHeader>
               <CardBody>
                 <p className="text-sm text-foreground leading-relaxed">{activeDiagnosis.retest}</p>
                 <div className="mt-3 p-3 bg-success/10 rounded-lg border border-success/25">
-                  <p className="text-xs font-semibold text-success mb-1">How to retest</p>
-                  <p className="text-xs text-success">
+                  <p className="text-xs font-semibold text-success-text mb-1">How to retest</p>
+                  <p className="text-xs text-success-text">
                     Import a new session using the same club after completing your training routine.
                     Compare your diagnosis confidence to see if the pattern has improved.
                   </p>
@@ -449,7 +449,7 @@ export function DashboardContent() {
                 <p className="font-bold text-foreground text-sm">{dailyFocus.drill.name}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">{dailyFocus.drill.why_this_matches}</p>
                 {dailyFocus.drill.warning && (
-                  <p className="text-xs text-warning mt-1">⚠ {dailyFocus.drill.warning}</p>
+                  <p className="text-xs text-warning-text mt-1">⚠ {dailyFocus.drill.warning}</p>
                 )}
                 <div className="flex items-center gap-2 mt-3">
                   <a
@@ -472,7 +472,7 @@ export function DashboardContent() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Recent Session</CardTitle>
-              <Link href="/sessions" className="text-xs text-success hover:underline flex items-center gap-1">
+              <Link href="/sessions" className="text-xs text-success-text hover:underline flex items-center gap-1">
                 View all <ChevronRight size={12} />
               </Link>
             </CardHeader>
@@ -615,7 +615,7 @@ export function DashboardContent() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div className="flex items-center gap-2">
-                <TrendingUp size={16} className="text-success" />
+                <TrendingUp size={16} className="text-success-text" />
                 <CardTitle>Progress</CardTitle>
               </div>
             </CardHeader>
@@ -624,17 +624,17 @@ export function DashboardContent() {
                 <>
                   <div className="flex items-center justify-between py-1">
                     <span className="text-sm text-muted-foreground">Sessions logged</span>
-                    <span className="text-sm font-semibold text-success">{sessions.length}</span>
+                    <span className="text-sm font-semibold text-success-text">{sessions.length}</span>
                   </div>
                   <div className="flex items-center justify-between py-1">
                     <span className="text-sm text-muted-foreground">Practice streak</span>
-                    <span className="text-sm font-semibold text-warning">
+                    <span className="text-sm font-semibold text-warning-text">
                       {training.streak_days > 0 ? `🔥 ${training.streak_days} days` : '0 days'}
                     </span>
                   </div>
                   <div className="flex items-center justify-between py-1">
                     <span className="text-sm text-muted-foreground">Drills completed</span>
-                    <span className="text-sm font-semibold text-success">{Object.keys(training.drills_completed).length}</span>
+                    <span className="text-sm font-semibold text-success-text">{Object.keys(training.drills_completed).length}</span>
                   </div>
                 </>
               ) : (
@@ -678,7 +678,7 @@ export function DashboardContent() {
                     );
                   })}
                   {clubs.length > 3 && (
-                    <Link href="/equipment/golf" className="text-xs text-success hover:underline block text-center mt-1">
+                    <Link href="/equipment/golf" className="text-xs text-success-text hover:underline block text-center mt-1">
                       +{clubs.length - 3} more clubs →
                     </Link>
                   )}
@@ -703,10 +703,10 @@ export function DashboardContent() {
                     <CardTitle>Club Gaps</CardTitle>
                   </div>
                   <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                    gapAnalysis.overall_grade === 'A' ? 'bg-success/15 text-success'
+                    gapAnalysis.overall_grade === 'A' ? 'bg-success/15 text-success-text'
                     : gapAnalysis.overall_grade === 'B' ? 'bg-accent-secondary/15 text-accent-secondary'
-                    : gapAnalysis.overall_grade === 'C' ? 'bg-warning/15 text-warning'
-                    : 'bg-error/15 text-error'
+                    : gapAnalysis.overall_grade === 'C' ? 'bg-warning/15 text-warning-text'
+                    : 'bg-error/15 text-error-text'
                   }`}>Grade {gapAnalysis.overall_grade}</span>
                 </div>
               </CardHeader>
@@ -722,9 +722,9 @@ export function DashboardContent() {
                         )}
                         {r.gap_to_next !== null && (
                           <span className={`font-semibold ${
-                            r.gap_status === 'ideal' ? 'text-success'
-                            : r.gap_status === 'too_large' ? 'text-error'
-                            : r.gap_status === 'too_small' ? 'text-warning'
+                            r.gap_status === 'ideal' ? 'text-success-text'
+                            : r.gap_status === 'too_large' ? 'text-error-text'
+                            : r.gap_status === 'too_small' ? 'text-warning-text'
                             : 'text-muted-foreground'
                           }`}>↕ {r.gap_to_next} yds</span>
                         )}
@@ -733,7 +733,7 @@ export function DashboardContent() {
                   ))}
                 </div>
                 {gapAnalysis.largest_gap && gapAnalysis.largest_gap.gap_status === 'too_large' && (
-                  <p className="text-xs text-error mt-2">⚠ Largest gap: {gapAnalysis.largest_gap.club_name} — consider adding a club</p>
+                  <p className="text-xs text-error-text mt-2">⚠ Largest gap: {gapAnalysis.largest_gap.club_name} — consider adding a club</p>
                 )}
                 <Link href="/equipment/golf" className="block mt-3">
                   <Button variant="outline" size="sm" className="w-full">Manage Bag →</Button>

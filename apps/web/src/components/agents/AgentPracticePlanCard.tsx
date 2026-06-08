@@ -82,18 +82,18 @@ export function AgentPracticePlanCard() {
                 <span className="text-xs text-muted-foreground whitespace-nowrap">{d.repsOrTime}</span>
               </div>
               <p className="text-xs text-muted-foreground mt-1">{d.why}</p>
-              <p className="text-xs text-primary mt-1">✓ {d.successMetric}</p>
+              <p className="text-xs text-link mt-1">✓ {d.successMetric}</p>
             </div>
           ))}
         </div>
 
         {/* Pressure test + success */}
         <div className="rounded-lg bg-warning/10 border border-warning/30 p-3">
-          <p className="text-xs font-semibold text-warning flex items-center gap-1.5">
+          <p className="text-xs font-semibold text-warning-text flex items-center gap-1.5">
             <Flag size={13} /> Pressure test
           </p>
-          <p className="text-xs text-warning mt-1">{plan.pressureTest}</p>
-          <p className="text-xs text-warning mt-1.5 font-medium">Goal: {plan.successMetric}</p>
+          <p className="text-xs text-warning-text mt-1">{plan.pressureTest}</p>
+          <p className="text-xs text-warning-text mt-1.5 font-medium">Goal: {plan.successMetric}</p>
         </div>
 
         <p className="text-xs text-muted-foreground">{plan.nextSessionPrompt}</p>

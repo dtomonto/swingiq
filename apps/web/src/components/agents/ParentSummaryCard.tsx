@@ -54,7 +54,7 @@ export function ParentSummaryCard() {
     <Card className="border-success/30 bg-success/10">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="flex items-center gap-2">
-          <Sprout size={18} className="text-success" />
+          <Sprout size={18} className="text-success-text" />
           <CardTitle className="text-foreground">For the parent</CardTitle>
         </div>
         <Button
@@ -69,7 +69,7 @@ export function ParentSummaryCard() {
         <p className="text-sm text-foreground leading-relaxed">{summary.parentSummary}</p>
 
         <div className="rounded-lg bg-success/10 border border-success/25 px-3 py-2">
-          <p className="text-xs font-semibold text-success uppercase tracking-wide">This week&apos;s focus</p>
+          <p className="text-xs font-semibold text-success-text uppercase tracking-wide">This week&apos;s focus</p>
           <p className="text-sm text-foreground capitalize">{summary.focusThisWeek}</p>
         </div>
 
@@ -81,7 +81,7 @@ export function ParentSummaryCard() {
             <ul className="space-y-1">
               {summary.homeworkDrills.map((d, i) => (
                 <li key={i} className="text-sm text-foreground flex items-start gap-2">
-                  <span className="text-success">•</span>
+                  <span className="text-success-text">•</span>
                   {d}
                 </li>
               ))}

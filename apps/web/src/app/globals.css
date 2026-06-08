@@ -56,6 +56,19 @@
   --color-link: hsl(var(--link));
   --color-link-hover: hsl(var(--link-hover));
 
+  /* ── Status text-safe accents ──────────────────────────────────────────
+     `--warning` / `--success` / `--error` are FILL colors — they carry a
+     paired `*-foreground` LABEL (e.g. `bg-warning text-warning-foreground`).
+     Used directly AS text on a neutral surface they fall below AA on some
+     themes (amber/green ≈ 3:1 on near-white; a saturated red ≈ 3:1 on a dark
+     card). These `*-text` variants are the SAME hue, tuned per theme to clear
+     WCAG AA as a foreground on both `--background` and `--card` — the status
+     analogue of `--link`. Rule: fills pair with `*-foreground`; on-surface
+     status TEXT uses these (`text-warning-text` / `text-success-text` / …). */
+  --color-warning-text: hsl(var(--warning-text));
+  --color-success-text: hsl(var(--success-text));
+  --color-error-text: hsl(var(--error-text));
+
   /* ── Per-sport accent tokens ───────────────────────────────────────────
      One identity color per sport, each paired with a foreground tuned to
      clear WCAG AA on that color. Used for active sport states in nav, chips,
@@ -343,6 +356,9 @@
     --chart-5: 280 55% 55%;
     --link: 142 64% 30%;
     --link-hover: 142 66% 24%;
+    --warning-text: 38 92% 31%;
+    --success-text: 142 64% 30%;
+    --error-text: 0 72% 40%;
     /* ── Art direction: clean, premium, airy ── */
     --card-radius: 0.75rem;
     --shadow-card:
@@ -404,6 +420,9 @@
     --chart-5: 280 65% 68%;
     --link: 160 64% 60%;
     --link-hover: 160 64% 70%;
+    --warning-text: 38 92% 58%;
+    --success-text: 152 58% 55%;
+    --error-text: 0 80% 70%;
     /* ── Art direction: performance lab, carbon + neon grid ── */
     --card-radius: 0.625rem;
     --shadow-card:
@@ -463,6 +482,9 @@
     --chart-5: 268 55% 56%;
     --link: 217 79% 42%;
     --link-hover: 217 80% 34%;
+    --warning-text: 32 90% 32%;
+    --success-text: 152 60% 30%;
+    --error-text: 0 70% 40%;
     /* ── Art direction: clean whiteboard, graph-paper ── */
     --card-radius: 0.5rem;
     --shadow-card:
@@ -519,6 +541,9 @@
     --chart-5: 200 30% 40%;
     --link: 150 34% 25%;
     --link-hover: 150 38% 19%;
+    --warning-text: 36 74% 29%;
+    --success-text: 150 40% 27%;
+    --error-text: 4 60% 38%;
     /* ── Art direction: clubhouse, parchment grain, brass, serif ── */
     --card-radius: 0.375rem;
     --shadow-card:
@@ -576,6 +601,9 @@
     --chart-5: 280 40% 52%;
     --link: 135 45% 28%;
     --link-hover: 135 48% 22%;
+    --warning-text: 36 84% 32%;
+    --success-text: 135 45% 28%;
+    --error-text: 6 66% 38%;
     /* ── Art direction: chalk lines, turf, clay ── */
     --card-radius: 0.625rem;
     --shadow-card:
@@ -634,6 +662,9 @@
     --chart-5: 268 85% 72%;
     --link: 280 95% 80%;
     --link-hover: 280 95% 88%;
+    --warning-text: 45 95% 60%;
+    --success-text: 152 72% 55%;
+    --error-text: 352 90% 72%;
     /* ── Art direction: neon arcade, pixel grid + glow ── */
     --card-radius: 0.875rem;
     --shadow-card:
@@ -693,6 +724,9 @@
     --chart-5: 268 50% 56%;
     --link: 192 64% 30%;
     --link-hover: 192 66% 24%;
+    --warning-text: 36 86% 32%;
+    --success-text: 162 54% 30%;
+    --error-text: 4 70% 40%;
     /* ── Art direction: golf-streetwear, original bird-flight motif ──
        Pattern is an ORIGINAL abstract gull/feather motif (simple two-arc
        silhouettes + seed dots) — no third-party marks or trade dress. */

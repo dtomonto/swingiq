@@ -13,10 +13,10 @@ import type { AgentInsight, InsightTone } from '@/lib/agents';
 
 const TONE: Record<InsightTone, { ring: string; icon: typeof Sparkles; iconColor: string }> = {
   info: { ring: 'border-l-blue-400', icon: Sparkles, iconColor: 'text-accent-secondary' },
-  success: { ring: 'border-l-primary', icon: TrendingUp, iconColor: 'text-primary' },
-  celebrate: { ring: 'border-l-primary', icon: PartyPopper, iconColor: 'text-primary' },
-  warning: { ring: 'border-l-amber-400', icon: AlertTriangle, iconColor: 'text-warning' },
-  safety: { ring: 'border-l-error', icon: ShieldCheck, iconColor: 'text-error' },
+  success: { ring: 'border-l-primary', icon: TrendingUp, iconColor: 'text-link' },
+  celebrate: { ring: 'border-l-primary', icon: PartyPopper, iconColor: 'text-link' },
+  warning: { ring: 'border-l-amber-400', icon: AlertTriangle, iconColor: 'text-warning-text' },
+  safety: { ring: 'border-l-error', icon: ShieldCheck, iconColor: 'text-error-text' },
 };
 
 export function AgentInsightCard({

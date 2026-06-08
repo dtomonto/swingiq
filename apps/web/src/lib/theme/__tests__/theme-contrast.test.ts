@@ -59,6 +59,20 @@ const LINK_PAIRS: Pair[] = [
   ['link', 'secondary', 'link on sidebar/secondary surface'],
 ];
 
+// `--warning-text` / `--success-text` / `--error-text` are the text-safe
+// status accents. Unlike the FILL tokens above (which carry a `*-foreground`
+// LABEL), these are used directly AS text on a neutral surface — so they must
+// clear AA on both the page and a card, in every theme. This is what stops a
+// status color (amber/green/red) from doubling as sub-AA body text again.
+const STATUS_TEXT_PAIRS: Pair[] = [
+  ['warning-text', 'background', 'warning text on page'],
+  ['warning-text', 'card', 'warning text on card'],
+  ['success-text', 'background', 'success text on page'],
+  ['success-text', 'card', 'success text on card'],
+  ['error-text', 'background', 'error text on page'],
+  ['error-text', 'card', 'error text on card'],
+];
+
 // Real cross-surface usages: muted text and body text land on more than
 // just their "home" surface.
 const CROSS_PAIRS: Pair[] = [
@@ -142,6 +156,10 @@ describe('theme token contrast (WCAG AA)', () => {
     );
 
     it.each(LINK_PAIRS)('AA: %s on %s (%s)', (fg, bg) => {
+      expect(ratioFor(tokens, fg, bg)).toBeGreaterThanOrEqual(WCAG_AA);
+    });
+
+    it.each(STATUS_TEXT_PAIRS)('AA: %s on %s (%s)', (fg, bg) => {
       expect(ratioFor(tokens, fg, bg)).toBeGreaterThanOrEqual(WCAG_AA);
     });
 

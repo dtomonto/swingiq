@@ -39,7 +39,7 @@ export function UserModeSelector({ className }: { className?: string }) {
                 'rounded-full border px-2.5 py-1 text-xs font-medium transition-colors',
                 'focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
                 selected
-                  ? 'border-primary bg-primary/10 text-primary'
+                  ? 'border-primary bg-primary/10 text-link'
                   : 'border-border text-muted-foreground hover:text-foreground hover:border-foreground/30',
               )}
             >
