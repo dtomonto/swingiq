@@ -20,6 +20,7 @@ case "$last_subject" in
   "chore(social): flag new blog posts for social"*) exit 0 ;;
   "chore(features): refresh feature registry"*) exit 0 ;;
   "chore(setup): refresh setup registry"*) exit 0 ;;
+  "chore(audits): refresh audit reports"*) exit 0 ;;
 esac
 [ -n "$SWINGVANTAGE_UPDATES_HOOK" ] && exit 0
 export SWINGVANTAGE_UPDATES_HOOK=1
@@ -69,6 +70,17 @@ if ! git diff --quiet -- "$setup_file" 2>/dev/null; then
   git add -- "$setup_file"
   git commit -m "chore(setup): refresh setup registry" -- "$setup_file" || exit 0
   echo "swingvantage: refreshed setup registry (see /admin/setup)."
+fi
+
+# ── Audit Reports: mirror the audit robots' reports into the dashboard ──
+# Keeps /admin/audits showing the latest findings from docs/master-audit-report.json
+# + docs/audits/* without anyone remembering to sync. Review at /admin/audits.
+node scripts/sync-audit-reports.mjs --quiet || exit 0
+audits_file="apps/web/src/data/audit-reports.json"
+if ! git diff --quiet -- "$audits_file" 2>/dev/null; then
+  git add -- "$audits_file"
+  git commit -m "chore(audits): refresh audit reports" -- "$audits_file" || exit 0
+  echo "swingvantage: refreshed audit reports (see /admin/audits)."
 fi
 
 exit 0

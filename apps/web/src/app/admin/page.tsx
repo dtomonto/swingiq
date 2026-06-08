@@ -23,6 +23,7 @@ import { getPlatformMetrics } from '@/lib/admin/data/metrics';
 import { deriveAlerts, type AdminAlert } from '@/lib/admin/alerts';
 import { getSetupNudge } from '@/lib/admin/setup/nudge';
 import { loadAlertCounts } from '@/lib/feature-education/server/data';
+import { collectServerActions, summarizeActions } from '@/lib/admin/action-center';
 import { NAV_ITEMS, isHrefBuilt } from '@/lib/admin/nav';
 import { formatNumber, formatRelativeTime } from '@/lib/admin/format';
 
@@ -70,7 +71,28 @@ export default async function AdminCommandCenter() {
           },
         ]
       : [];
-  const alerts = [...setupAlerts, ...deriveAlerts(system, metrics), ...feeAlerts];
+  // Action Center roll-up — the single "what needs me" alert that gathers
+  // every review/approve/implement queue (incl. open audit findings).
+  const actions = await collectServerActions();
+  const actionSummary = summarizeActions(actions);
+  const actionAlerts: AdminAlert[] =
+    actions.length > 0
+      ? [
+          {
+            id: 'action-center',
+            severity: actionSummary.hasCritical ? 'critical' : 'warning',
+            title: `${actionSummary.total} item${actionSummary.total === 1 ? '' : 's'} need your review`,
+            detail: `Across ${actionSummary.items} source${actionSummary.items === 1 ? '' : 's'}: ${actions
+              .slice(0, 3)
+              .map((i) => i.sourceLabel)
+              .join(', ')}${actions.length > 3 ? ', …' : ''}. One inbox for approvals, opportunities and audit findings.`,
+            href: '/admin/approvals',
+            cta: 'Open Action Center',
+          },
+        ]
+      : [];
+
+  const alerts = [...actionAlerts, ...setupAlerts, ...deriveAlerts(system, metrics), ...feeAlerts];
 
   const tools = NAV_ITEMS.filter((i) => i.external && i.built);
   const muted = !metrics.connected;

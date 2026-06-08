@@ -14,7 +14,8 @@ import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecentActivity } from '@/components/admin/RecentActivity';
 import { getSystemStatus } from '@/lib/admin/data/system';
 import { getPlatformMetrics } from '@/lib/admin/data/metrics';
-import { deriveAlerts } from '@/lib/admin/alerts';
+import { deriveAlerts, type AdminAlert } from '@/lib/admin/alerts';
+import { collectServerActions, summarizeActions } from '@/lib/admin/action-center';
 import { isHrefBuilt } from '@/lib/admin/nav';
 
 export const metadata: Metadata = { title: 'Notifications | Admin', robots: 'noindex, nofollow' };
@@ -23,7 +24,22 @@ export const dynamic = 'force-dynamic';
 export default async function AdminNotificationsPage() {
   const system = getSystemStatus();
   const metrics = await getPlatformMetrics();
-  const alerts = deriveAlerts(system, metrics);
+  const actions = await collectServerActions();
+  const actionSummary = summarizeActions(actions);
+  const actionAlerts: AdminAlert[] =
+    actions.length > 0
+      ? [
+          {
+            id: 'action-center',
+            severity: actionSummary.hasCritical ? 'critical' : 'warning',
+            title: `${actionSummary.total} item${actionSummary.total === 1 ? '' : 's'} need your review`,
+            detail: `One inbox for approvals, opportunities and audit findings across ${actionSummary.items} source${actionSummary.items === 1 ? '' : 's'}.`,
+            href: '/admin/approvals',
+            cta: 'Open Action Center',
+          },
+        ]
+      : [];
+  const alerts = [...actionAlerts, ...deriveAlerts(system, metrics)];
 
   return (
     <div className="mx-auto max-w-3xl space-y-6 p-4 sm:p-6">
