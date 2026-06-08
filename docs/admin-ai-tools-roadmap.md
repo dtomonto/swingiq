@@ -16,6 +16,9 @@ Legend: ✅ implemented · 🟡 partial · ⬜ recommended (not built)
 | ✅ **AI Agent Registry** | `/admin/agents`, `lib/admin/agent-registry.ts` | Unified, honest inventory of ~30 real agents across 4 families with runtime/control/safety metadata + live AI-provider annotation + inspect deep-links. |
 | ✅ **Data Quality auditor** | `/admin/data-quality`, `lib/admin/data-quality/*` | Keyless deterministic checks over the SEO content registry (dup slugs/titles/meta/keywords, length, thin content, slug↔sport mismatch, missing CTA); shows passing checks too. |
 | ✅ **Drill Library** | `/admin/drills`, `lib/admin/drill-library/*` | Read-only unified drill inventory across the content + DrillMatch catalogs, with coverage stats and cross-catalog duplicate detection. |
+| ✅ **Practice Plans** | `/admin/practice-plans`, `lib/admin/practice-plans/*` | Previews the real practice-planner across sports × skill levels (+ youth variant) — deterministic sample plans for review. |
+| ✅ **QA & Testing** | `/admin/qa`, `lib/admin/qa/*` | Generated manual-QA checklist (P0/P1/P2) derived from the admin sections, agent registry and sports + cross-cutting a11y/mobile/theme/SEO checks. |
+| ✅ **Theme & Accessibility** | `/admin/accessibility`, `lib/admin/accessibility/*` | Live WCAG contrast audit over the theme registry; grades text/background pairs AA/AAA and flags failures (the white-on-white guard). |
 | ✅ Coach Mix learning engine | `/admin/coach-mix`, `lib/central-intelligence/coach-mix` | Ethical coaching-influence layer; learns principles, biases drills/explanations; admin-gated. |
 | ✅ Feature Education generator | `/admin/feature-education` | Auto-detects shipped features → drafts tutorials/manuals/FAQs, quality-scored, review-gated. |
 | ✅ Social generator | `/admin/social` | Blog → platform-native social posts; keyless-first + optional AI. |
@@ -35,24 +38,17 @@ Legend: ✅ implemented · 🟡 partial · ⬜ recommended (not built)
 
 ---
 
-## Recommended next (priority order)
+All seven originally-identified admin gaps are now shipped (see Implemented).
+Remaining are deeper follow-ups on top of those foundations:
 
-1. ⬜ **Practice Plan Management** (`/admin/practice-plans`) — surface the
-   practice-planner agent's plan templates (warmup, drills, pressure test,
-   progression) as a browsable inventory like the Drill Library. *Required
-   data: the practice-planner workflow + drill catalogs.*
-2. ⬜ **QA / Testing board** (`/admin/qa`) — in-app test-scenario checklist per
-   sport/feature, regression list, theme-contrast results.
-3. ⬜ **Theme / Accessibility auditor** (`/admin/accessibility`) — surface the
-   existing CI a11y/contrast checks in-app.
-4. ⬜ **In-UI drill/practice editing** — promote the read-only Drill Library to
-   create/edit backed by the local-first + optional-Supabase-mirror pattern.
-5. ⬜ **AI analysis quality auditor** — extend `/admin/ai-analyses` with
-   hallucination/consistency/safety-language/clarity scoring. *Required data:
-   analysis outputs (needs AI vision connected).*
-4. ⬜ **Accessibility/contrast auditor** (`/admin/accessibility`) — surface the
-   existing CI a11y/contrast checks in-app. *Required data: CI artifacts.*
-5. ⬜ **Copilot AI adapter** — wire a budget-capped model behind the existing
+1. 🟡 **AI output quality auditor** (`/admin/ai-quality`) — keyless deterministic
+   scorer over the product's coaching/AI outputs for safety language, honesty
+   (no overpromising), confidence calibration, clarity and actionability. *In
+   progress — keyless-first, no AI vision required to score.*
+2. ⬜ **In-UI drill/practice editing** — promote the read-only Drill Library &
+   Practice Plans to create/edit, backed by the local-first + optional-Supabase-
+   mirror pattern, with review/approval gates.
+3. ⬜ **Copilot AI adapter** — wire a budget-capped model behind the existing
    `ai-seam.ts` once a provider key is allocated; keep the deterministic engine
    as the always-on default and label AI answers.
 

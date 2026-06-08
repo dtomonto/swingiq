@@ -154,6 +154,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['analysis', 'model', 'confidence', 'review'],
   },
   {
+    id: 'ai-quality', label: 'AI Output Quality', href: '/admin/ai-quality', icon: Brain,
+    group: 'media-ai', built: true, permission: 'ai.review',
+    blurb: 'Keyless audit of the coaching/AI prose the product ships — safety language (no medical claims), honesty (no overpromising), confidence calibration and clarity — flagging copy that needs a human edit.',
+    keywords: ['ai quality', 'output quality', 'coaching quality', 'safety language', 'hallucination', 'overpromising', 'clarity', 'readability', 'confidence calibration', 'content qa', 'trust'],
+  },
+  {
     id: 'agents', label: 'Agent Registry', href: '/admin/agents', icon: Bot,
     group: 'media-ai', built: true,
     blurb: 'One honest inventory of every agent & automation — what each does, what it reads/produces, keyless vs optional-AI, how it is turned on/off, its safety guardrails, and where to inspect it.',
