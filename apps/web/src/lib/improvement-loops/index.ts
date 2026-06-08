@@ -5,5 +5,11 @@
 // local signals. Import from '@/lib/improvement-loops'.
 // ============================================================
 export * from './types';
-export { buildImprovementLoops, aggregateDrillEffectiveness, type BuildLoopsInput } from './build';
+export {
+  buildImprovementLoops,
+  aggregateDrillEffectiveness,
+  drillFaultTrackRecord,
+  type BuildLoopsInput,
+  type DrillFaultRecord,
+} from './build';
 export { useImprovementLoops, type ImprovementLoopsView } from './useImprovementLoops';

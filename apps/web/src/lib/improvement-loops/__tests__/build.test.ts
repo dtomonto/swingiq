@@ -1,4 +1,4 @@
-import { buildImprovementLoops, aggregateDrillEffectiveness } from '../build';
+import { buildImprovementLoops, aggregateDrillEffectiveness, drillFaultTrackRecord } from '../build';
 import type { DrillFeedbackRecord, DrillFeedbackValue } from '@/lib/drillmatch';
 import type { RetestResult, RetestOutcome } from '@/lib/retest';
 import type { SportId } from '@swingiq/core';
@@ -137,5 +137,46 @@ describe('aggregateDrillEffectiveness', () => {
     expect(d1.faultName).toBe('Slicing');
     // Most-tried drill sorts first.
     expect(rows[0].drillId).toBe('d1');
+  });
+});
+
+describe('drillFaultTrackRecord', () => {
+  it('returns null when there is no history with this drill+fault', () => {
+    expect(drillFaultTrackRecord([], 'golf', 'fault_a', 'd1')).toBeNull();
+    expect(
+      drillFaultTrackRecord([fb({ drillId: 'd1', faultId: 'fault_a', value: 'helped' })], 'golf', 'fault_a', 'd2'),
+    ).toBeNull();
+  });
+
+  it("summarizes the athlete's verdicts for a drill+fault, newest verdict last", () => {
+    const rec = drillFaultTrackRecord(
+      [
+        fb({ drillId: 'd1', faultId: 'fault_a', value: 'helped', recordedAt: '2026-06-01T00:00:00.000Z' }),
+        fb({ drillId: 'd1', faultId: 'fault_a', value: 'no_change', recordedAt: '2026-06-02T00:00:00.000Z' }),
+        fb({ drillId: 'd1', faultId: 'fault_a', value: 'helped', recordedAt: '2026-06-03T00:00:00.000Z' }),
+      ],
+      'golf',
+      'fault_a',
+      'd1',
+    );
+    expect(rec).not.toBeNull();
+    expect(rec!.total).toBe(3);
+    expect(rec!.helped).toBe(2);
+    expect(rec!.noChange).toBe(1);
+    expect(rec!.helpRate).toBeCloseTo(2 / 3);
+    expect(rec!.latestVerdict).toBe('helped');
+  });
+
+  it('does not mix other sports, faults, or drills', () => {
+    const feedback = [
+      fb({ drillId: 'd1', faultId: 'fault_a', sport: 'golf', value: 'helped' }),
+      fb({ drillId: 'd1', faultId: 'fault_a', sport: 'tennis', value: 'hurt' }),
+      fb({ drillId: 'd1', faultId: 'fault_b', sport: 'golf', value: 'hurt' }),
+      fb({ drillId: 'd2', faultId: 'fault_a', sport: 'golf', value: 'hurt' }),
+    ];
+    const rec = drillFaultTrackRecord(feedback, 'golf', 'fault_a', 'd1');
+    expect(rec!.total).toBe(1);
+    expect(rec!.helped).toBe(1);
+    expect(rec!.hurt).toBe(0);
   });
 });

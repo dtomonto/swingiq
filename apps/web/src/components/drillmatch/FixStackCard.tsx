@@ -31,6 +31,7 @@ import { cn } from '@/lib/utils';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import type { FixStack, RankedDrill } from '@/lib/drillmatch';
 import { DrillFeedbackControl } from './DrillFeedbackControl';
+import { DrillTrackRecord } from '@/components/improvement-loops/DrillTrackRecord';
 
 function StepLabel({ n, title }: { n: number; title: string }) {
   return (
@@ -130,6 +131,11 @@ export function FixStackCard({
                   <MetaChip icon={Wrench}>{drill.equipment.join(', ')}</MetaChip>
                 )}
               </div>
+
+              {/* The athlete's own track record with this drill (self-hides until
+                  there's real feedback history) — turns the captured moat data
+                  into a trust signal right at the moment of choosing to practise. */}
+              <DrillTrackRecord drillId={drill.id} faultId={fixStack.faultId} sport={fixStack.sport} />
 
               <button
                 type="button"

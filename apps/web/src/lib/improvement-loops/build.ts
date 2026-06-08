@@ -6,7 +6,7 @@
 // aggregate. Pure and dependency-injectable so it is fully unit-testable; the
 // hook layer feeds it the live data.
 // ============================================================
-import { getDrillCandidateById, type DrillFeedbackRecord } from '@/lib/drillmatch';
+import { getDrillCandidateById, type DrillFeedbackRecord, type DrillFeedbackValue } from '@/lib/drillmatch';
 import { resolveFault } from '@/lib/faults';
 import type { RetestResult, RetestOutcome } from '@/lib/retest';
 import type { SkillLevel, SportId } from '@swingiq/core';
@@ -158,4 +158,51 @@ export function aggregateDrillEffectiveness(
   const rows = [...map.values()];
   for (const row of rows) row.helpRate = row.total > 0 ? row.helped / row.total : 0;
   return rows.sort((a, b) => b.total - a.total || b.helpRate - a.helpRate);
+}
+
+// ── Per-drill track record (for a single fault) ───────────────
+
+export interface DrillFaultRecord {
+  helped: number;
+  noChange: number;
+  hurt: number;
+  total: number;
+  /** helped / total, 0–1. */
+  helpRate: number;
+  /** The athlete's most recent verdict for this drill + fault. */
+  latestVerdict: DrillFeedbackValue;
+}
+
+/**
+ * The athlete's own history with ONE drill for ONE fault — for surfacing a
+ * trust signal at the decision point (the Fix Stack). Returns null when there's
+ * no history yet, so we never fabricate a track record.
+ */
+export function drillFaultTrackRecord(
+  feedback: DrillFeedbackRecord[],
+  sport: SportId,
+  faultId: string,
+  drillId: string,
+): DrillFaultRecord | null {
+  const rows = feedback
+    .filter((r) => r.sport === sport && r.faultId === faultId && r.drillId === drillId)
+    .sort((a, b) => a.recordedAt.localeCompare(b.recordedAt));
+  if (rows.length === 0) return null;
+
+  let helped = 0;
+  let noChange = 0;
+  let hurt = 0;
+  for (const r of rows) {
+    if (r.value === 'helped') helped += 1;
+    else if (r.value === 'no_change') noChange += 1;
+    else hurt += 1;
+  }
+  return {
+    helped,
+    noChange,
+    hurt,
+    total: rows.length,
+    helpRate: helped / rows.length,
+    latestVerdict: rows[rows.length - 1].value,
+  };
 }
