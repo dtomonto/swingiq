@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -294,6 +294,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['health', 'status', 'uptime', 'queue', 'jobs'],
   },
   {
+    id: 'qa', label: 'QA & Testing', href: '/admin/qa', icon: ClipboardCheck,
+    group: 'operations', built: true, permission: 'logs.view',
+    blurb: 'A generated manual-QA checklist that tracks the app as it grows — per admin section, AI agent and sport, plus accessibility, mobile, theming and SEO checks. Work P0 first.',
+    keywords: ['qa', 'testing', 'test', 'quality assurance', 'checklist', 'regression', 'scenarios', 'accessibility', 'contrast', 'release checklist', 'smoke test'],
+  },
+  {
     id: 'data-quality', label: 'Data Quality', href: '/admin/data-quality', icon: Search,
     group: 'operations', built: true, permission: 'logs.view',
     blurb: 'Keyless hygiene checks over your content registry — duplicate slugs/titles/meta/keywords, length problems, thin content, mis-tagged sports, missing CTAs — each linking to the fix.',
@@ -336,6 +342,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'governance', built: true, permission: 'legal.manage',
     blurb: 'Policies, disclaimers, consent and data export/deletion requests.',
     keywords: ['legal', 'privacy', 'gdpr', 'consent', 'compliance'],
+  },
+  {
+    id: 'accessibility', label: 'Theme & Accessibility', href: '/admin/accessibility', icon: Contrast,
+    group: 'governance', built: true, permission: 'logs.view',
+    blurb: 'Live WCAG contrast audit of every theme — scores the readability-critical text/background pairs and flags anything below AA, preventing unreadable (white-on-white) themes.',
+    keywords: ['accessibility', 'a11y', 'theme', 'themes', 'contrast', 'wcag', 'readability', 'color', 'white on white', 'dark mode', 'aa', 'aaa'],
   },
   {
     id: 'settings', label: 'Settings', href: '/admin/settings', icon: Settings,
