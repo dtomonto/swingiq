@@ -97,9 +97,9 @@ describe('Coach Mix — ethical invariants', () => {
     }
   });
 
-  it('every coach-INSPIRED seed starts admin-only and needs review', () => {
+  it('every non-default seed starts admin-only and needs review', () => {
     const inspired = SEED_COACH_PROFILES.filter((p) => p.id !== SWINGVANTAGE_DEFAULT_COACH_ID);
-    expect(inspired.length).toBe(4);
+    expect(inspired.length).toBe(6); // 4 golf coach-inspired + 2 house-authored (baseball, tennis)
     for (const p of inspired) {
       expect(p.visibility).toBe('admin_only');
       expect(p.needsReview).toBe(true);

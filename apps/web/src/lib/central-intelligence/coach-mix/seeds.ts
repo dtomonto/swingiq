@@ -241,6 +241,88 @@ export const GANKAS_INSPIRED_PROFILE: CoachProfile = defineProfile({
     'Seed profile. Do not use the coach name in user-facing outputs unless admin explicitly enables coach-visible labeling. Do not imply endorsement.',
 });
 
+// ── 5. Baseball: athletic rotational power (house-authored) ─
+
+const BASEBALL_POWER_TARGET: SwingModelTarget = {
+  name: 'Rotational Power Model',
+  primaryMovementPattern: 'Ground-up rotational hitting that turns the lower body into bat speed',
+  setupPriorities: ['Athletic, balanced stance', 'Quiet, repeatable load'],
+  backswingPriorities: ['Controlled load', 'Hip–shoulder separation'],
+  transitionPriorities: ['Lead with the lower half', 'Stay connected'],
+  downswingPriorities: ['Fire the hips', 'On-plane bat path', 'Stay through the ball'],
+  impactPriorities: ['Square, on-time contact', 'Full extension'],
+  finishPriorities: ['Balanced, complete rotation'],
+  addressesFaults: ['no_hip_shoulder_separation', 'casting_the_bat', 'poor_weight_shift', 'long_swing'],
+  fitsPlayerTypes: ['Athletic hitters', 'Players chasing exit velocity'],
+  mayNotFitPlayerTypes: ['Contact-first players who slap the ball'],
+  mobilityRequirements: 'Moderate — rotation and separation reward mobility',
+  skillSuitability: ['intermediate', 'advanced'],
+  practiceDiscipline: 'Tee + soft-toss reps that groove the sequence, then live timing',
+  recommendedLaunchMonitorMetrics: ['Exit velocity', 'Launch angle', 'Bat speed'],
+  recommendedVideoCheckpoints: ['Stance', 'Load', 'Contact', 'Extension'],
+};
+
+export const BASEBALL_POWER_PROFILE: CoachProfile = defineProfile({
+  id: 'house-baseball-rotational-power',
+  name: 'Rotational Power (Baseball, house model)',
+  reference: 'House-authored SwingVantage style model — not based on any named coach',
+  sports: ['baseball'],
+  teachingStyleSummary:
+    'An original, generalized baseball influence: ground-up rotation, hip–shoulder separation, an on-plane bat path, and staying through the ball for power.',
+  styleTags: ['Athletic Rotation'],
+  swingModelTraits: ['athletic_rotation', 'pivot_driven', 'sequencing_focused', 'ground_force_emphasis'],
+  swingModelTarget: BASEBALL_POWER_TARGET,
+  drillCategories: ['rotation & sequencing', 'separation', 'bat path', 'lower-half power'],
+  techniqueCategories: ['hip-shoulder separation', 'rotational sequencing', 'bat path', 'weight shift'],
+  skillLevels: ['intermediate', 'advanced'],
+  technicalDepth: 'balanced',
+  visibility: 'admin_only',
+  defaultInfluenceWeight: 25,
+  needsReview: true,
+  adminNote: 'House-authored multi-sport seed. Review before it influences user-facing recommendations.',
+});
+
+// ── 6. Tennis: modern technical groundstrokes (house-authored) ─
+
+const TENNIS_MODERN_TARGET: SwingModelTarget = {
+  name: 'Modern Technical Model',
+  primaryMovementPattern: 'Compact unit turn into a relaxed, fast, topspin-friendly swing',
+  setupPriorities: ['Athletic ready position', 'Early split step'],
+  backswingPriorities: ['Unit turn', 'Compact, early preparation'],
+  transitionPriorities: ['Drop and lag the racquet', 'Stay relaxed'],
+  downswingPriorities: ['Swing low-to-high', 'Accelerate through contact'],
+  impactPriorities: ['Out in front', 'Stable wrist, clean strike'],
+  finishPriorities: ['Full, balanced follow-through'],
+  addressesFaults: ['late_preparation', 'arm_only_swing', 'no_unit_turn', 'poor_split_step'],
+  fitsPlayerTypes: ['Developing players building modern technique', 'Topspin-oriented players'],
+  mayNotFitPlayerTypes: ['Classic flat-hitting styles by preference'],
+  mobilityRequirements: 'Low–moderate',
+  skillSuitability: ['beginner', 'intermediate', 'advanced'],
+  practiceDiscipline: 'Shadow swings + fed-ball reps grooving prep and low-to-high path',
+  recommendedLaunchMonitorMetrics: ['Spin (where available)', 'Consistency / depth'],
+  recommendedVideoCheckpoints: ['Split step', 'Unit turn', 'Contact', 'Finish'],
+};
+
+export const TENNIS_MODERN_PROFILE: CoachProfile = defineProfile({
+  id: 'house-tennis-modern-technical',
+  name: 'Modern Technical (Tennis, house model)',
+  reference: 'House-authored SwingVantage style model — not based on any named coach',
+  sports: ['tennis'],
+  teachingStyleSummary:
+    'An original, generalized tennis influence: early unit turn, a compact relaxed swing, low-to-high path, and clean out-front contact.',
+  styleTags: ['Technical Precision'],
+  swingModelTraits: ['technical_precision', 'sequencing_focused', 'compact_movement'],
+  swingModelTarget: TENNIS_MODERN_TARGET,
+  drillCategories: ['unit turn', 'preparation timing', 'low-to-high path', 'contact point'],
+  techniqueCategories: ['unit turn', 'compact preparation', 'swing path', 'contact point'],
+  skillLevels: ['beginner', 'intermediate', 'advanced'],
+  technicalDepth: 'balanced',
+  visibility: 'admin_only',
+  defaultInfluenceWeight: 25,
+  needsReview: true,
+  adminNote: 'House-authored multi-sport seed. Review before it influences user-facing recommendations.',
+});
+
 /** All seed profiles, house model first. */
 export const SEED_COACH_PROFILES: CoachProfile[] = [
   SWINGVANTAGE_DEFAULT_PROFILE,
@@ -248,6 +330,8 @@ export const SEED_COACH_PROFILES: CoachProfile[] = [
   KAWAMURA_INSPIRED_PROFILE,
   RUBYSTAR_INSPIRED_PROFILE,
   GANKAS_INSPIRED_PROFILE,
+  BASEBALL_POWER_PROFILE,
+  TENNIS_MODERN_PROFILE,
 ];
 
 export function getSeedProfile(id: string): CoachProfile | undefined {
