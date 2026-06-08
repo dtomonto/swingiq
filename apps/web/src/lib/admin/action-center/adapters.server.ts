@@ -15,8 +15,12 @@ import type { ActionItem, ActionSourceAdapter } from './types';
 import { loadFindings } from '@/lib/admin/audits/data';
 import { loadAlertCounts } from '@/lib/feature-education/server/data';
 import { scanForOpportunities } from '@/lib/video-studio';
-import { readPublishSnapshot } from '@/lib/admin/updates-store';
 import { runLinkAgent } from '@/lib/growth/link-intelligence';
+
+// NOTE: A "Publishing / changelog drafts" adapter (wrapping updates-store's
+// readPublishSnapshot) is intentionally NOT wired here yet — that module is a
+// concurrent, not-yet-on-origin feature. Re-add it as one more entry in
+// SERVER_ADAPTERS once @/lib/admin/updates-store ships to master.
 
 // ── Audit findings → the high-priority open items ────────────────────────────
 const auditAdapter: ActionSourceAdapter = {
@@ -108,30 +112,6 @@ const videoStudioAdapter: ActionSourceAdapter = {
   },
 };
 
-// ── Updates → changelog drafts awaiting publish ──────────────────────────────
-const updatesAdapter: ActionSourceAdapter = {
-  id: 'updates',
-  label: 'Publishing',
-  collect() {
-    const snap = readPublishSnapshot();
-    const drafts = [...snap.product, ...snap.dev].filter((r) => !r.published);
-    if (drafts.length === 0) return [];
-    return [
-      {
-        id: 'updates:drafts',
-        source: 'updates',
-        sourceLabel: 'Publishing',
-        title: `${drafts.length} changelog draft${drafts.length === 1 ? '' : 's'} to publish`,
-        detail: 'Auto-generated Updates / Developer Updates waiting for you to publish them live.',
-        severity: 'info',
-        count: drafts.length,
-        href: '/admin/updates',
-        cta: 'Open Publishing',
-      },
-    ];
-  },
-};
-
 // ── Link Intelligence (SEO) → internal-link recommendations to review ────────
 const linkIntelligenceAdapter: ActionSourceAdapter = {
   id: 'link-intelligence',
@@ -176,5 +156,4 @@ export const SERVER_ADAPTERS: ActionSourceAdapter[] = [
   featureEducationAdapter,
   linkIntelligenceAdapter,
   videoStudioAdapter,
-  updatesAdapter,
 ];
