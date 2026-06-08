@@ -46,13 +46,14 @@ Every coach profile carries this disclaimer, everywhere it appears:
 The engine lives at `apps/web/src/lib/central-intelligence/coach-mix/` and the admin
 console at `apps/web/src/app/admin/coach-mix/`.
 
-**The admin console has four tabs:**
+**The admin console has five tabs** (everything you do here is **saved** in your browser):
 
 | Tab | What it does |
 |---|---|
-| **Profiles** | The coach-inspired teaching frameworks (all admin-only, all "needs review"), each with its style tags, swing-model target, and the disclaimer. |
-| **Mix Builder** | Drag weight sliders to blend coaches. See the **resolved coaching strategy** update live — the influence summary, which faults get prioritized, which drill families get favored, how technical the voice sounds. The SwingVantage house model always fills the remainder, so it's never zeroed out. |
-| **Review Queue** | The concepts the engine extracted from approved sources, each graded by **IP-risk** and **confidence**. Approve or reject. *Only approved concepts can ever influence the product.* |
+| **Profiles** | The coach-inspired teaching frameworks (all admin-only, all "needs review"), each with its style tags, swing-model target, and the disclaimer. Set each profile's visibility (admin-only / beta / user-visible) or archive it. |
+| **Sources** | Add a permission-cleared learning source (title, type, sport, topic, permission & copyright status, "approved for learning"), then **Extract** its concepts into the review queue. |
+| **Mix Builder** | Drag weight sliders to blend coaches. See the **resolved coaching strategy** update live. **Save** the mix (name it), load a saved mix, set the **active** mix, or delete one. The SwingVantage house model always fills the remainder, so it's never zeroed out. |
+| **Review Queue** | The concepts extracted from approved sources, each graded by **IP-risk** and **confidence**. Approve or reject (decisions are saved). *Only approved concepts can ever influence the product.* |
 | **Test Drive** | Pick a sample fault (e.g. early extension) and see the focused, 7-part recommendation the current mix produces — the drills come from the **real DrillMatch engine**, re-weighted by your blend. |
 
 **Seed profiles included (all admin-only, all need your review):**
@@ -72,8 +73,8 @@ Coach Mix only *biases and explains* — it never fabricates drills.
 ## How to use it (when you're ready)
 
 1. Open **`/admin/coach-mix` → Profiles** and review the seed frameworks.
-2. For a profile you want to use, add **approved source material** and review what's learned
-   (Phase 2 wires the full add-source form; today the Review Queue demonstrates the gate).
+2. Under **Sources**, add approved source material, click **Extract**, then review what's
+   learned under **Review Queue** (approve/reject — only approved concepts can influence anything).
 3. Open **Mix Builder**, set your blend (e.g. 30% structure / 25% precision / 30% athletic /
    15% house), and confirm the resolved strategy reads the way you want.
 4. Use **Test Drive** to sanity-check the recommendation against a few faults.
@@ -81,19 +82,24 @@ Coach Mix only *biases and explains* — it never fabricates drills.
 
 ---
 
-## Phased plan — what's next (not yet built)
+## Phased plan
 
-Phase 1 delivered the engine, the ethics layer, the seeds, and the admin console. The
-following are deliberately deferred so the foundation could land clean and tested:
+**Phase 1 (done):** the engine, ethics layer, seeds, and admin console.
 
-- **Store persistence** — today the console is a live preview; Phase 2 saves profiles,
-  sources, mixes, and approvals to a store (local-first, mirroring the rest of CIOS).
-- **Full source-add workflow** — the per-source metadata form (URL/upload, permission &
-  copyright status, attribution) and the "extract from this source" action.
-- **Multiple saved mixes** — Beginner-Friendly, Technical Precision, Athletic Rotation,
-  Data-Driven Ball-Striking, Competitive, Junior, Senior Mobility-Friendly.
-- **User-facing module** — "Curated Swing Drills for Your Current Game" behind the flag,
-  with the neutral style tags and Start/Save/Complete/Not-relevant/Retest actions.
+**Phase 2 (done):**
+- **Store persistence** — local-first store (mirrors CIOS); profiles, overrides, sources,
+  concepts, mixes, and approvals all save in the browser.
+- **Full source-add workflow** — the Sources tab (metadata form + Extract action).
+- **Saved & active mixes** — name/save/load/activate/delete; build as many as you like
+  (Beginner-Friendly, Technical Precision, Athletic Rotation, etc.).
+- **User-facing module** — `components/coach-mix/CuratedSwingDrills.tsx`: "Curated Swing
+  Drills for Your Current Game", neutral style tags, Start/Save/Complete/Not-relevant/Retest.
+  **Built and flag-gated OFF** (`NEXT_PUBLIC_COACH_MIX_USER_MODULE`). One step remains:
+  dropping `<CuratedSwingDrills />` onto a user page (deferred to avoid clashing with other
+  in-flight dashboard work; it's invisible until the flag is on regardless).
+
+**Phase 3 (not yet built):**
+
 - **Video pipeline** — generate **original** SwingVantage video concepts from approved
   learned concepts, via the existing Video Studio brief pipeline.
 - **Trend intelligence** — use privacy-safe aggregate data (which faults are most common,
@@ -116,8 +122,11 @@ apps/web/src/lib/central-intelligence/coach-mix/
   recommendations.ts biases DrillMatch output + builds the 7-part user recommendation
   extraction.ts      approved source → reviewable concepts (nothing auto-published)
   review-queue.ts    the admin approval gate (only approved concepts influence)
-  __tests__/         ethics invariants + blend math + extraction/approval gate (18 tests)
+  store.ts           local-first persistence (profiles/sources/concepts/mixes/active mix)
+  __tests__/         ethics, blend math, extraction/approval gate, store, flag (31 tests)
 apps/web/src/app/admin/coach-mix/
   page.tsx           server page (admin-guarded, noindex)
-  CoachMixDashboard.tsx  the four-tab admin console
+  CoachMixDashboard.tsx  the five-tab admin console (persistent)
+apps/web/src/components/coach-mix/
+  CuratedSwingDrills.tsx  the user-facing module (flag-gated off)
 ```
