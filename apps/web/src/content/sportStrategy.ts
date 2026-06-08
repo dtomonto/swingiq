@@ -50,9 +50,9 @@ export const SPORT_STRATEGY: SportStrategyEntry[] = [
   { personaId: 'slow-pitch', tier: 'primary', order: 3 },
   { personaId: 'fast-pitch', tier: 'primary', order: 4 },
   { personaId: 'softball', tier: 'primary', order: 5 },
-  { personaId: 'tennis', tier: 'secondary', order: 6 }, // ← middle ground
-  { personaId: 'pickleball', tier: 'primary', order: 7 }, // racket sport — homepage card
-  { personaId: 'padel', tier: 'primary', order: 8 }, // racket sport — homepage card
+  { personaId: 'tennis', tier: 'primary', order: 6 }, // headline racket sport — homepage card (owner choice)
+  { personaId: 'pickleball', tier: 'secondary', order: 7 }, // secondary — "Also analyze" link
+  { personaId: 'padel', tier: 'secondary', order: 8 }, // secondary — "Also analyze" link
 ];
 
 function entry(id: PersonaId): SportStrategyEntry | undefined {

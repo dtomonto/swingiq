@@ -29,14 +29,19 @@ describe('sportStrategy (current shipped config)', () => {
       'slow-pitch',
       'fast-pitch',
       'softball',
-      'pickleball',
-      'padel',
+      'tennis',
     ]);
   });
 
-  it('treats tennis as secondary (the middle ground)', () => {
-    expect(effectiveTier('tennis')).toBe('secondary');
-    expect(secondaryPersonaIds()).toContain('tennis');
+  it('treats tennis as a primary headline sport', () => {
+    expect(effectiveTier('tennis')).toBe('primary');
+    expect(primaryPersonaIds()).toContain('tennis');
+  });
+
+  it('treats pickleball and padel as secondary', () => {
+    expect(effectiveTier('pickleball')).toBe('secondary');
+    expect(effectiveTier('padel')).toBe('secondary');
+    expect(secondaryPersonaIds()).toEqual(['pickleball', 'padel']);
   });
 
   it('produces no duplicate destinations across visible personas', () => {
@@ -76,6 +81,8 @@ describe('indexing', () => {
       'fast-pitch',
       'softball',
       'tennis',
+      'pickleball',
+      'padel',
     ];
     for (const id of ids) expect(isIndexable(id)).toBe(true);
   });
