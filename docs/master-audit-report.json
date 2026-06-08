@@ -118,6 +118,15 @@
       "date": null,
       "scheduled": false,
       "contribution": "Workflow detail, branch-protection settings, Dependabot, custom rule table"
+    },
+    {
+      "id": "S7",
+      "path": "docs/audits/seo-aeo-geo/2026-06-08.md",
+      "type": "Technical SEO sitemap/canonical/schema upgrade",
+      "date": "2026-06-08",
+      "scheduled": false,
+      "schedule": "one-time implementation (sitemap registry + HTML sitemap + GSC docs)",
+      "contribution": "Shipped HTML sitemap at /sitemap + curated URL registry (shared XML/HTML source of truth); docs/seo/* (GSC checklist, top-20 priority URLs, tiered indexation, weekly monitoring, cannibalization report). Opened F-30..F-36 (6 blog/guide cannibalization decisions + GSC submission)."
     }
   ],
   "consolidatedFindings": [
@@ -149,7 +158,14 @@
     { "id": "F-26", "category": "Growth/Retention", "finding": "Email templates exist but no provider connected; no welcome sequence", "businessImpact": "Lost re-engagement; leads not nurtured", "technicalImpact": "/api/email-capture honest no-op without provider", "recommendation": "Connect provider; build welcome series", "priority": "P2", "effort": "S-M", "confidence": "High", "sources": ["R6", "R1"], "status": "open" },
     { "id": "F-27", "category": "Business/Product", "finding": "No payment processing (Stripe) implemented", "businessImpact": "Cannot monetize", "technicalImpact": "none", "recommendation": "Implement Stripe Checkout + webhooks before paid tier", "priority": "P1", "effort": "L", "confidence": "High", "sources": ["R1"], "status": "open" },
     { "id": "F-28", "category": "Security", "finding": "Production HTTP security headers need post-deploy verification", "businessImpact": "Misconfig could weaken CSP/clickjacking defense", "technicalImpact": "Headers reportedly set in middleware/next config", "recommendation": "Verify at securityheaders.com after deploy", "priority": "P2", "effort": "S", "confidence": "Med", "sources": ["R1", "R2"], "status": "open" },
-    { "id": "F-29", "category": "Debt/Verify", "finding": "Parse error seen in video/SportVideoAnalyzerContent.tsx during audit dev run; tsc now clean", "businessImpact": "Possible transient/already-fixed", "technicalImpact": "none", "recommendation": "Confirm builds clean on the committed tree", "priority": "P3", "effort": "S", "confidence": "Low", "sources": ["S1"], "status": "needs-verification" }
+    { "id": "F-29", "category": "Debt/Verify", "finding": "Parse error seen in video/SportVideoAnalyzerContent.tsx during audit dev run; tsc now clean", "businessImpact": "Possible transient/already-fixed", "technicalImpact": "none", "recommendation": "Confirm builds clean on the committed tree", "priority": "P3", "effort": "S", "confidence": "Low", "sources": ["S1"], "status": "needs-verification" },
+    { "id": "F-30", "category": "SEO/Cannibalization", "finding": "Blog /blog/how-to-stop-topping-the-golf-ball has an IDENTICAL title to guide /golf/stop-topping-the-ball (same intent)", "businessImpact": "Two pages compete for the same query; split ranking signals", "technicalImpact": "Editorial blog post + programmatic guide target identical keyword", "recommendation": "OWNER DECISION: guide is the canonical target - differentiate blog + cross-link, OR canonicalize blog->guide, OR noindex/merge. See docs/seo/duplicate-cannibalization-report.md", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S7"], "status": "open" },
+    { "id": "F-31", "category": "SEO/Cannibalization", "finding": "Blog /blog/how-to-fix-a-golf-slice near-duplicates guide /golf/fix-slice (same 'how to fix a slice' intent)", "businessImpact": "Keyword cannibalization on a primary term", "technicalImpact": "Editorial post overlaps programmatic guide", "recommendation": "OWNER DECISION: differentiate (blog = '5 causes' explainer linking to the fix) OR canonicalize/merge. See docs/seo/duplicate-cannibalization-report.md", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S7"], "status": "open" },
+    { "id": "F-32", "category": "SEO/Cannibalization", "finding": "Blog /blog/slow-pitch-softball-stop-popping-up overlaps guide /softball/stop-popping-up (same intent)", "businessImpact": "Split ranking signals on a softball query", "technicalImpact": "Blog + guide same sport+problem", "recommendation": "OWNER DECISION: pick one primary, cross-link the other (or canonicalize/merge). See docs/seo/duplicate-cannibalization-report.md", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S7"], "status": "open" },
+    { "id": "F-33", "category": "SEO/Cannibalization", "finding": "Blog /blog/how-to-stop-rolling-over-in-baseball overlaps guide /baseball/stop-rolling-over (same intent)", "businessImpact": "Keyword cannibalization on a baseball query", "technicalImpact": "Blog + guide same sport+problem", "recommendation": "OWNER DECISION: pick one primary, cross-link/canonicalize/merge. See docs/seo/duplicate-cannibalization-report.md", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S7"], "status": "open" },
+    { "id": "F-34", "category": "SEO/Cannibalization", "finding": "Blog /blog/pickleball-third-shot-drop-guide duplicates the topic of guide /pickleball-third-shot-drop", "businessImpact": "Two pages on the same pickleball topic compete", "technicalImpact": "Blog + programmatic guide same topic", "recommendation": "OWNER DECISION: guide is the silo page - differentiate/cross-link OR canonicalize/merge. See docs/seo/duplicate-cannibalization-report.md", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S7"], "status": "open" },
+    { "id": "F-35", "category": "SEO/Cannibalization", "finding": "Blog /blog/padel-bandeja-explained duplicates the topic of guide /padel-bandeja", "businessImpact": "Two pages on the same padel topic compete", "technicalImpact": "Blog + programmatic guide same topic", "recommendation": "OWNER DECISION: guide is the silo page - differentiate/cross-link OR canonicalize/merge. See docs/seo/duplicate-cannibalization-report.md", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S7"], "status": "open" },
+    { "id": "F-36", "category": "SEO/Indexing", "finding": "New sitemap.xml + HTML sitemap (/sitemap) + top-20 priority URLs need Google Search Console submission (extends F-21)", "businessImpact": "Faster discovery/indexing of the refreshed URL set", "technicalImpact": "none (external GSC action)", "recommendation": "OWNER: submit sitemap.xml, then inspect/request-index the first 20. Runbook: docs/seo/gsc-submission-checklist.md + docs/seo/priority-submit-urls.md (provisional list, pending approval)", "priority": "P2", "effort": "S", "confidence": "High", "sources": ["S7"], "status": "open" }
   ],
   "topInsights": [
     { "rank": 1, "id": "F-01", "title": "Ship missing share image + app icons", "expectedImpact": "Higher share CTR, installable PWA, complete brand/knowledge signals", "successMetric": "Non-blank link preview; favicon visible; Lighthouse PWA installable passes" },
@@ -165,8 +181,8 @@
   ],
   "roadmap": {
     "immediate_0_7_days": ["F-12", "F-11", "F-01", "F-04", "F-29"],
-    "shortTerm_8_30_days": ["F-19", "F-21", "F-18", "F-13", "F-05", "F-08", "F-06", "F-03", "F-09", "F-20"],
-    "strategic_31_90_days": ["F-15", "F-14", "F-16", "F-27", "F-26", "F-17", "F-07", "F-23", "F-22", "F-24", "F-25"],
+    "shortTerm_8_30_days": ["F-19", "F-21", "F-36", "F-18", "F-13", "F-05", "F-08", "F-06", "F-03", "F-09", "F-20"],
+    "strategic_31_90_days": ["F-15", "F-14", "F-16", "F-27", "F-26", "F-17", "F-07", "F-23", "F-22", "F-24", "F-25", "F-30", "F-31", "F-32", "F-33", "F-34", "F-35"],
     "longTerm_90_plus_days": [
       "AI Coach memory as retention moat (F-25 extension)",
       "Proprietary community benchmark database",
