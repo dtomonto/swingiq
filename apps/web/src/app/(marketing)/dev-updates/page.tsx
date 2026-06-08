@@ -10,16 +10,6 @@ export const metadata: Metadata = {
   title: 'Developer Updates | The Engineering Behind SwingVantage',
   description:
     'A technical log of SwingVantage engineering milestones — browser-native 3D motion analysis, real AI vision, a multi-sport diagnostic engine, a token-based theme system, local-first architecture, and the CI quality gates behind it all.',
-  keywords: [
-    'SwingVantage engineering',
-    'developer updates',
-    'browser 3D motion analysis',
-    'AI swing analysis architecture',
-    'pose estimation MediaPipe',
-    'local-first app',
-    'Turborepo',
-    'changelog',
-  ],
   openGraph: {
     title: 'Developer Updates | The Engineering Behind SwingVantage',
     description:

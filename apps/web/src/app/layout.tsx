@@ -17,17 +17,8 @@ export const metadata: Metadata = {
   title: 'SwingVantage — AI Swing Performance Platform',
   description:
     'AI-powered swing analysis for golf, tennis, baseball, and softball. Upload a video or import launch monitor data to identify your top swing fault, get personalized drills, and track improvement.',
-  keywords: [
-    'swing analysis',
-    'AI swing coach',
-    'golf swing analysis',
-    'tennis swing analysis',
-    'baseball swing analysis',
-    'softball swing analysis',
-    'launch monitor',
-    'swing improvement',
-    'golf training',
-  ],
+  // No `keywords` meta tag on purpose — Google ignores it and Bing can read a
+  // stuffed list as a spam signal. See docs/SEO_CONTENT_PLAN.md.
   metadataBase: new URL(siteConfig.liveSiteUrl),
   // Google Search Console verification (meta-tag method). Set
   // NEXT_PUBLIC_GSC_VERIFICATION to the token from GSC's "HTML tag" option,

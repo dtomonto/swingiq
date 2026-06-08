@@ -37,7 +37,13 @@ export interface BuildMetadataOptions {
   ogType?: 'website' | 'article';
   /** Set true to keep this page out of search indexes (private/thin/draft). */
   noindex?: boolean;
-  /** Optional keywords. */
+  /**
+   * @deprecated Ignored on purpose. We do NOT emit a `<meta name="keywords">`
+   * tag: Google ignores it and Bing can read a stuffed list as a negative
+   * (spammy) signal, so it is pure downside. The field is kept only so the many
+   * existing call sites that still pass `keywords` keep type-checking — nothing
+   * is rendered. See docs/SEO_CONTENT_PLAN.md "Conservative SEO policy".
+   */
   keywords?: string[];
 }
 
@@ -72,7 +78,6 @@ export function buildMetadata(options: BuildMetadataOptions = {}): Metadata {
     ogImage = siteConfig.defaultOgImage,
     ogType = 'website',
     noindex = false,
-    keywords,
   } = options;
 
   const fullTitle = composeTitle(title);
@@ -84,7 +89,7 @@ export function buildMetadata(options: BuildMetadataOptions = {}): Metadata {
   return {
     title: fullTitle,
     description,
-    ...(keywords?.length ? { keywords } : {}),
+    // No `keywords` meta tag — see BuildMetadataOptions.keywords (deprecated).
     metadataBase: new URL(siteConfig.liveSiteUrl),
     alternates: { canonical, ...(languages ? { languages } : {}) },
     robots: noindex

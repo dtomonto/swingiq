@@ -10,18 +10,6 @@ export const metadata: Metadata = {
   title: 'SwingVantage Updates | AI Swing Analysis Product Improvements',
   description:
     'See the latest SwingVantage updates, including AI swing analysis improvements, golf training tools, multi-sport features, equipment diagnostics, data insights, progress tracking, and user experience upgrades.',
-  keywords: [
-    'SwingVantage updates',
-    'AI swing analysis',
-    'golf training updates',
-    'tennis swing updates',
-    'baseball swing analysis',
-    'softball swing training',
-    'swing improvement platform',
-    'equipment diagnostics',
-    'progress tracking',
-    'multi-sport swing analysis',
-  ],
   openGraph: {
     title: 'SwingVantage Updates | AI Swing Analysis Product Improvements',
     description:

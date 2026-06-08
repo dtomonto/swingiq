@@ -12,13 +12,53 @@ revenue from all those views. It's the execution companion to the strategy doc
 [`SEO_GEO_AEO.md`](SEO_GEO_AEO.md) and the automated monthly audit
 (`seo-aeo-geo-monthly-audit`).
 
-**The whole strategy in one line:** publish lots of pages that answer the exact
-problems athletes search for → hook each visitor into a tool they'll come back to
-→ once traffic is steady, run privacy-safe ads against all those views.
+**The whole strategy in one line:** publish a steady, modest number of genuinely
+useful pages that answer the exact problems athletes search for → hook each visitor
+into a tool they'll come back to → once traffic is steady, run privacy-safe ads
+against all those views. **Quality and trust beat volume — we deliberately grow
+slowly so the site never looks spammy.**
 
-**What you actually do each month:** publish ~4 new problem pages, refresh 1–2 old
-ones, and check the numbers (now that analytics + Search Console are wired up).
-That's it. The rest of this doc is the detail behind those three moves.
+**What you actually do each month:** publish ~2 new problem pages + ~4 blog posts
+(roughly one a week, one sport at a time), refresh 1–2 old ones, and check the
+numbers (analytics + Search Console are wired up). That's it. The rest of this doc
+is the detail behind those moves.
+
+---
+
+## 0. Conservative SEO policy (READ FIRST — applies to every content task)
+
+We optimise for **trust, not tricks.** A brand-new domain with little authority
+gets penalised for looking auto-generated, so our posture is deliberately cautious:
+"would a careful human reviewer call this spammy?" — if there's *any* doubt, don't
+ship it.
+
+**Hard rules (all automated content tasks must follow these):**
+
+1. **Quality over volume, always.** One excellent page beats ten mediocre ones.
+   Shipping nothing in a given run is a perfectly good, healthy outcome.
+2. **Slow, human cadence.** Net-new pages are capped: ~1 blog post per week (single
+   rotating sport) and ~1 new landing page every *other* week (~2/month). No bursts,
+   no batches. Off-weeks are for *refreshing* existing pages, not adding new ones.
+3. **No near-duplicates / doorway pages.** Never publish a page that substantially
+   overlaps an existing one's angle. A fan of near-identical "fix X" pages is the
+   #1 thing that reads as a programmatic spam cluster.
+4. **No keyword stuffing and no `<meta name="keywords">` tag.** Google ignores it
+   and Bing can treat a stuffed list as a negative signal. Write naturally for the
+   reader; never repeat a phrase to "rank" for it. (`buildMetadata()` no longer
+   emits keywords — don't re-add them.)
+5. **No fake anything.** No invented stats, studies, quotes, reviews, ratings,
+   awards, or credentials. The JSON-LD helpers intentionally omit `AggregateRating`
+   / `Review` — keep it that way.
+6. **Honest, useful framing.** Keep the heuristic-estimate language, the "when to
+   see a coach" note, and youth-safety reminders. Helpfulness earns rankings;
+   manipulation risks penalties.
+7. **Curated, not blanket, linking.** Internal links are relevant and modest
+   (2–3 per page), with natural anchor text — never exact-match-stuffed. The sitemap
+   stays a curated trust surface, not a dump of every URL.
+
+When these rules conflict with "more traffic faster," the rules win. We would
+rather grow slowly and keep a clean reputation than risk a manual action or a
+helpful-content demotion that's expensive to recover from.
 
 ---
 
@@ -51,10 +91,12 @@ Do this every month. It pairs with the automated `seo-aeo-geo-monthly-audit`
 task, which handles technical SEO and drafts; this is the human "what to publish"
 layer.
 
-1. **Publish ~4 new problem pages** from the backlog in §3 (one per sport when
-   possible — golf has the most search volume, so weight it 2:1).
+1. **Publish ~2 new landing pages** from the backlog in §3 (golf has the most
+   search volume, so weight it 2:1) — at a slow, ~every-other-week pace, never in a
+   batch. See §0 for why we cap velocity. (Blog posts run separately, ~1/week.)
 2. **Refresh 1–2 existing pages** that are ranking on page 2 of Google (small
-   wins: add a section, a FAQ, an internal link, a fresher date).
+   wins: add a section, a FAQ, an internal link, a fresher date). On weeks we're
+   *not* publishing a new page, refreshing is the default activity.
 3. **Add 3–5 glossary terms** (cheap long-tail wins; feeds answer engines).
 4. **Check the numbers** (§6) and pick next month's targets from what's gaining
    impressions.
