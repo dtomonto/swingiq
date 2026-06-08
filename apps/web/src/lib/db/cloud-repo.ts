@@ -20,7 +20,7 @@ import type { SwingVantageState } from '@/store';
 import {
   DEFAULT_SETTINGS, DEFAULT_SPORT_EQUIPMENT, DEFAULT_TRAINING,
   DEFAULT_AGENT_STATE, DEFAULT_COMMUNITY_STATE, DEFAULT_TUTORIAL_PROGRESS,
-  DEFAULT_ONBOARDING,
+  DEFAULT_ONBOARDING, DEFAULT_IMPORT_MAPPINGS,
 } from '@/store';
 import * as P from './projection';
 import type { Row } from './projection';
@@ -56,6 +56,8 @@ export function fillDefaults(partial: Partial<SwingVantageState>): SwingVantageS
     // default and immediately advances. Local progress is preserved by the
     // shallow store.setState merge during sync.
     onboarding: partial.onboarding ?? DEFAULT_ONBOARDING,
+    // Learned import mappings are local-first (re-learned per device).
+    importMappings: partial.importMappings ?? DEFAULT_IMPORT_MAPPINGS,
     setup_step: 'complete',
   };
 }

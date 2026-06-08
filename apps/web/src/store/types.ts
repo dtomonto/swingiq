@@ -18,6 +18,7 @@ import type { TutorialProgress } from '@/lib/tutorial/types';
 import { DEFAULT_TUTORIAL_PROGRESS } from '@/lib/tutorial/types';
 import type { DailyNote } from '@/lib/dailyNotes/types';
 import type { OnboardingStateId, OnboardingRole } from '@/lib/onboarding/state';
+import type { SavedMapping } from '@/lib/import/mapping-memory';
 
 export { DEFAULT_COMMUNITY_STATE, DEFAULT_TUTORIAL_PROGRESS };
 
@@ -253,6 +254,8 @@ export interface SwingVantageState {
   tutorialProgress: TutorialProgress;
   agent: AgentClientState;
   onboarding: OnboardingClientState;
+  /** Learned column-mapping memory, keyed by schema fingerprint (Phase 3). */
+  importMappings: Record<string, SavedMapping>;
   setup_step: 'profile' | 'bag' | 'session' | 'diagnose' | 'complete';
 }
 
@@ -309,6 +312,15 @@ export interface SwingVantageActions {
   advanceOnboarding: (state: OnboardingStateId) => void;
   setOnboardingRole: (role: OnboardingRole) => void;
   resetOnboarding: () => void;
+  // Learned import mapping memory (Phase 3 — see store/slices/importMappings.ts)
+  rememberImportMapping: (input: {
+    fingerprint: string;
+    sourceId: string;
+    mapping: Record<string, string>;
+    headers: string[];
+    corrected?: boolean;
+  }) => void;
+  clearImportMappings: () => void;
   // Computed
   computeSetupStep: () => void;
   reset: () => void;
@@ -374,6 +386,8 @@ export const DEFAULT_ONBOARDING: OnboardingClientState = {
   role: null,
   completedAt: null,
 };
+
+export const DEFAULT_IMPORT_MAPPINGS: Record<string, SavedMapping> = {};
 
 // Helper for id generation, shared across slices.
 export const newId = (prefix: string) =>

@@ -44,6 +44,8 @@ function inferClubCategory(clubName: string): ClubCategory {
 }
 import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
+import { schemaFingerprint, mappingConfidence } from '@/lib/import/mapping-memory';
+import { detectSource, getSource } from '@/lib/import/sources';
 
 type WizardStep = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
@@ -124,12 +126,18 @@ function ParseMetaNote({ meta }: { meta: ParsedFile['meta'] }) {
 }
 
 export function ImportWizard() {
-  const { addSession } = useSwingVantageStore();
+  const { addSession, importMappings, rememberImportMapping } = useSwingVantageStore();
   const { activeSport } = useSport();
   const [step, setStep] = useState<WizardStep>(1);
   const [brand, setBrand] = useState<LaunchMonitorBrand | null>(null);
   const [file, setFile] = useState<ParsedFile | null>(null);
   const [columnMapping, setColumnMapping] = useState<Record<string, string>>({});
+  // Learned-mapping memory (Phase 3): fingerprint this file's layout, detect its
+  // source, reuse a remembered mapping, and remember/learn on import.
+  const [fingerprint, setFingerprint] = useState('');
+  const [detectedSourceId, setDetectedSourceId] = useState<string | null>(null);
+  const [reusedSaved, setReusedSaved] = useState(false);
+  const [corrected, setCorrected] = useState(false);
   // Derived from the mapping — recompute whenever the file or mapping changes,
   // so manual remapping (step 3) and AI re-reads (step 5) reflect immediately
   // in the preview and warnings.
@@ -176,8 +184,6 @@ export function ImportWizard() {
         return;
       }
 
-      let mapping = detectColumnMapping(parsed.headers, brand ?? 'manual');
-
       setFile({
         headers: parsed.headers,
         rows: parsed.rows,
@@ -190,8 +196,28 @@ export function ImportWizard() {
           unitsRowSkipped: parsed.unitsRow !== null,
         },
       });
-      setSessionName(f.name.replace(/\.(csv|xlsx?)$/i, '').replace(/_/g, ' '));
+      setSessionName(f.name.replace(/\.(csv|xlsx?|json)$/i, '').replace(/_/g, ' '));
       setAiUsed(false);
+
+      // Fingerprint the layout + auto-detect the source (Phase 2/3).
+      const fp = schemaFingerprint(parsed.headers);
+      const detection = detectSource(parsed.headers, f.name);
+      setFingerprint(fp);
+      setDetectedSourceId(detection?.sourceId ?? null);
+      setCorrected(false);
+
+      // Reuse a remembered mapping for this exact layout — no remapping needed.
+      const saved = importMappings[fp];
+      if (saved && Object.keys(saved.mapping).length > 0) {
+        setReusedSaved(true);
+        setColumnMapping(saved.mapping);
+        // High confidence → skip the mapping screen, jump straight to preview.
+        setStep(mappingConfidence(saved.mapping) === 'high' ? 5 : 3);
+        return;
+      }
+      setReusedSaved(false);
+
+      let mapping = detectColumnMapping(parsed.headers, brand ?? 'manual');
 
       // Auto AI-assist: if the deterministic detector can't even find the
       // critical fields, let the AI agent read the headers + sample rows and
@@ -366,6 +392,18 @@ export function ImportWizard() {
       swing_score: null,
     });
 
+    // Remember the mapping for this layout so a future upload of the same
+    // export skips remapping (Phase 3). A manual edit (corrected) is sticky.
+    if (fingerprint && Object.keys(columnMapping).length > 0) {
+      rememberImportMapping({
+        fingerprint,
+        sourceId: detectedSourceId ?? brand ?? 'manual',
+        mapping: columnMapping,
+        headers: file?.headers ?? [],
+        corrected,
+      });
+    }
+
     setImporting(false);
     setImportDone(true);
     setStep(7);
@@ -525,9 +563,20 @@ export function ImportWizard() {
             <p className="text-sm text-muted-foreground mt-1">
               The app detected {file.rows.length} shots and auto-mapped your columns. Adjust any mappings that look wrong.
             </p>
+            {reusedSaved && (
+              <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-success/10 px-2.5 py-1 text-xs font-medium text-success">
+                <CheckCircle size={13} aria-hidden="true" /> Reused the mapping you saved for this file layout — no remapping needed.
+              </p>
+            )}
             {aiUsed && (
               <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
                 <Wand2 size={13} aria-hidden="true" /> AI helped map unfamiliar columns — double-check the matches below.
+              </p>
+            )}
+            {detectedSourceId && (
+              <p className="mt-2 text-xs text-muted-foreground">
+                Detected source:{' '}
+                <strong className="text-foreground">{getSource(detectedSourceId)?.name ?? detectedSourceId}</strong>
               </p>
             )}
             <ParseMetaNote meta={file.meta} />
@@ -542,7 +591,10 @@ export function ImportWizard() {
                   </div>
                   <select
                     value={columnMapping[key] ?? ''}
-                    onChange={(e) => setColumnMapping((m) => ({ ...m, [key]: e.target.value }))}
+                    onChange={(e) => {
+                      setCorrected(true);
+                      setColumnMapping((m) => ({ ...m, [key]: e.target.value }));
+                    }}
                     className="flex-1 text-sm border border-border rounded-md px-2 py-1.5 bg-card"
                   >
                     <option value="">(not in file)</option>
