@@ -56,6 +56,9 @@ export interface Update {
   relatedFeature?: string;
   userBenefit: string;
   whyItMatters: string;
+  /** Optional honest "previous experience → improved experience" comparison,
+   *  rendered as the Before vs After section on the dedicated update page. */
+  beforeAfter?: { before: string; after: string };
   whereToFindIt?: string;
   userActionRequired?: string;
   seoKeywords?: string[];
@@ -166,6 +169,12 @@ export const UPDATES: Update[] = [
       'If you play pickleball or padel, you now get the same depth SwingVantage gives golfers and tennis players: coaching that speaks your sport, drills matched to your faults, paddle guidance, benchmarks, and a stage-by-stage development pathway. Multi-sport athletes can analyze all seven sports in one place.',
     whyItMatters:
       'Pickleball and padel are among the fastest-growing racket sports in the world, and their mechanics are genuinely different from tennis — shorter swings, the non-volley zone, and (in padel) the walls. Treating them as their own sports, with their own rules and drills, is the honest way to actually help. Padel has no single universal rating, so we never invent one.',
+    beforeAfter: {
+      before:
+        'Pickleball and padel players had to make do with tennis tools and terminology that did not fit their game — the same engine with relabeled tips.',
+      after:
+        'Each sport has its own diagnostic engine, sport-specific drills, paddle equipment guidance, benchmarks, and a live Athletic Journey — coaching that speaks pickleball and padel natively.',
+    },
     whereToFindIt:
       'Pick Pickleball or Padel from the sport selector, then use Diagnose, Drills, Equipment, and Athletic Journey just like any other sport.',
     userActionRequired: 'None — just choose your sport and start.',
@@ -464,6 +473,12 @@ export const UPDATES: Update[] = [
       'Instead of one analysis per swing, you get one cross-sport read on yourself as an athlete: the single highest-leverage thing to train (your keystone), what already transfers between your sports, how hard to train today, how your capabilities are trending, and a coach-shareable report you can copy, email, or print.',
     whyItMatters:
       'The same rotation that powers a golf drive powers a tennis forehand. Training one shared skill can lift several sports at once — but you can only see that with an engine that looks at all of them together. It is honest by design: every number carries its basis and confidence, and the whole picture gets a simple A–D trust grade.',
+    beforeAfter: {
+      before:
+        'You got one analysis per swing, per sport, with no way to see what connected them or which single thing to train first.',
+      after:
+        'One engine reasons across every sport you analyze at once, finds the single keystone skill that lifts the most sports, and turns it into one prioritized, coach-shareable plan.',
+    },
     whereToFindIt:
       'Open “Athlete GI” under Analyze in the sidebar (/agi), or see the summary on your Today dashboard. Read the plain-English explainer at /athlete-general-intelligence.',
     seoKeywords: [

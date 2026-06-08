@@ -12,13 +12,44 @@
 
 import { NextResponse } from 'next/server';
 import { requireAdmin, contextCan } from '@/lib/admin/context';
-import { setPublishState, type PublishKind } from '@/lib/admin/updates-store';
+import {
+  setPublishState,
+  readProductCandidate,
+  readProductCandidates,
+  type PublishKind,
+} from '@/lib/admin/updates-store';
 import { setContentPublishState } from '@/lib/admin/content-publish-store';
+import { validateUpdate, scoreUpdateQuality } from '@/lib/updates/validation';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const KINDS: PublishKind[] = ['product', 'dev', 'seo', 'blog'];
+
+/**
+ * GET /api/admin/updates — per-row quality scores for the Publishing table.
+ * Lets the admin see each PRODUCT entry's validation status + quality score
+ * BEFORE publishing (not just after). Read-only; admin-gated.
+ */
+export async function GET() {
+  const admin = await requireAdmin();
+  if (!admin.ok) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+
+  const product = readProductCandidates().map((candidate) => {
+    const validation = validateUpdate(candidate);
+    const quality = scoreUpdateQuality(candidate);
+    return {
+      id: candidate.id,
+      score: quality.score,
+      needsHumanReview: quality.needsHumanReview,
+      valid: validation.ok,
+      errorCount: validation.errors.length,
+      warningCount: validation.warnings.length,
+    };
+  });
+
+  return NextResponse.json({ ok: true, product });
+}
 
 export async function POST(req: Request) {
   const admin = await requireAdmin();
@@ -49,6 +80,33 @@ export async function POST(req: Request) {
   }
 
   const publish = action === 'publish';
+
+  // Quality gate: a PRODUCT update may only go live if it passes validation
+  // (title, unique URL-safe slug, summary, SEO metadata). This is what stops a
+  // published card from existing without a valid, indexable detail page.
+  // Unpublishing is never gated. Dev/seo/blog keep their existing flow.
+  let quality: ReturnType<typeof scoreUpdateQuality> | undefined;
+  let validationWarnings: string[] = [];
+  if (publish && kind === 'product') {
+    const candidate = readProductCandidate(id);
+    if (!candidate) {
+      return NextResponse.json({ error: 'not found' }, { status: 404 });
+    }
+    const validation = validateUpdate(candidate);
+    if (!validation.ok) {
+      return NextResponse.json(
+        {
+          error: 'validation-failed',
+          message: `Cannot publish — fix: ${validation.errors.map((e) => e.message).join(' ')}`,
+          errors: validation.errors,
+        },
+        { status: 422 },
+      );
+    }
+    validationWarnings = validation.warnings.map((w) => w.message);
+    quality = scoreUpdateQuality(candidate);
+  }
+
   const result =
     kind === 'product' || kind === 'dev'
       ? setPublishState(kind, id, publish)
@@ -76,5 +134,7 @@ export async function POST(req: Request) {
     id,
     published: result.published,
     actor: admin.email ?? 'header-admin',
+    ...(quality ? { qualityScore: quality.score, needsHumanReview: quality.needsHumanReview } : {}),
+    ...(validationWarnings.length > 0 ? { warnings: validationWarnings } : {}),
   });
 }

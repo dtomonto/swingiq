@@ -4,12 +4,21 @@
 // state from props (server-read from the data files), toggles via the guarded
 // API route, and records every change in the local-first audit log.
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ExternalLink, Lock, AlertTriangle } from 'lucide-react';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { recordAudit } from '@/lib/admin/stores/audit-log';
 import type { PublishRow, PublishKind } from '@/lib/admin/updates-store';
+
+/** Per-row quality info fetched from GET /api/admin/updates. */
+interface QualityInfo {
+  score: number;
+  needsHumanReview: boolean;
+  valid: boolean;
+  errorCount: number;
+  warningCount: number;
+}
 
 const PUBLIC_HREF: Partial<Record<PublishKind, string>> = {
   product: '/updates',
@@ -35,12 +44,32 @@ export function UpdatesPublishingClient({
   const [rows, setRows] = useState<Record<PublishKind, PublishRow[]>>({ product, dev, seo, blog });
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [quality, setQuality] = useState<Record<string, QualityInfo>>({});
+
+  // Pull per-row quality scores so the table shows them BEFORE publishing.
+  useEffect(() => {
+    let active = true;
+    fetch('/api/admin/updates')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!active || !data?.product) return;
+        const map: Record<string, QualityInfo> = {};
+        for (const q of data.product as Array<QualityInfo & { id: string }>) map[q.id] = q;
+        setQuality(map);
+      })
+      .catch(() => {/* scores are advisory — ignore fetch failures */});
+    return () => {
+      active = false;
+    };
+  }, []);
 
   async function toggle(row: PublishRow) {
     if (!writable || busy) return;
     const next = !row.published;
     setBusy(row.id);
     setError(null);
+    setNotice(null);
     try {
       const res = await fetch('/api/admin/updates', {
         method: 'POST',
@@ -56,6 +85,14 @@ export function UpdatesPublishingClient({
         ...s,
         [row.kind]: s[row.kind].map((r) => (r.id === row.id ? { ...r, published: next } : r)),
       }));
+      if (next && typeof data?.qualityScore === 'number') {
+        const parts = [`Quality score ${data.qualityScore}/100`];
+        if (data.needsHumanReview) parts.push('flagged for human review');
+        if (Array.isArray(data.warnings) && data.warnings.length > 0) {
+          parts.push(data.warnings.join(' '));
+        }
+        setNotice(`Published “${row.title}” — ${parts.join(' · ')}.`);
+      }
       recordAudit({
         actor,
         action: 'update.publish',
@@ -91,6 +128,13 @@ export function UpdatesPublishingClient({
         </div>
       )}
 
+      {notice && (
+        <div className="flex items-start gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-200">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+          <p>{notice}</p>
+        </div>
+      )}
+
       <PublishSection
         kind="product"
         label="Product updates"
@@ -99,6 +143,7 @@ export function UpdatesPublishingClient({
         writable={writable}
         busy={busy}
         onToggle={toggle}
+        quality={quality}
       />
       <PublishSection
         kind="dev"
@@ -131,6 +176,22 @@ export function UpdatesPublishingClient({
   );
 }
 
+function QualityChip({ info }: { info: QualityInfo }) {
+  if (!info.valid) {
+    return (
+      <StatusBadge tone="danger">
+        Won&apos;t publish · {info.errorCount} error{info.errorCount === 1 ? '' : 's'}
+      </StatusBadge>
+    );
+  }
+  const tone = info.needsHumanReview ? 'warning' : 'success';
+  return (
+    <StatusBadge tone={tone}>
+      Quality {info.score}/100{info.needsHumanReview ? ' · review' : ''}
+    </StatusBadge>
+  );
+}
+
 function PublishSection({
   kind,
   label,
@@ -139,6 +200,7 @@ function PublishSection({
   writable,
   busy,
   onToggle,
+  quality,
 }: {
   kind: PublishKind;
   label: string;
@@ -147,6 +209,7 @@ function PublishSection({
   writable: boolean;
   busy: string | null;
   onToggle: (row: PublishRow) => void;
+  quality?: Record<string, QualityInfo>;
 }) {
   const live = rows.filter((r) => r.published).length;
   const drafts = rows.length - live;
@@ -190,6 +253,7 @@ function PublishSection({
                   <StatusBadge tone={row.published ? 'success' : 'neutral'}>
                     {row.published ? 'Live' : 'Draft'}
                   </StatusBadge>
+                  {quality?.[row.id] && <QualityChip info={quality[row.id]} />}
                 </div>
                 <p className="mt-0.5 font-mono text-[11px] text-gray-600">
                   {[row.date, row.category, row.sourceCommit].filter(Boolean).join(' · ')}

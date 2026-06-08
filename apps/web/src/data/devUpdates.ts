@@ -49,6 +49,12 @@ export interface DevUpdate {
   highlights?: string[];
   /** Tech / stack tags. */
   stack?: string[];
+  /** How the change was validated — unit/integration tests, build, type, SEO,
+   *  a11y checks. Rendered as the Testing / Validation section on the detail page. */
+  testing?: string[];
+  /** Practical rollback / risk note, rendered on the detail page when present.
+   *  Keep it safe: no secrets, infra detail, or exploit paths. */
+  rollback?: string;
   /** Surface in the milestone timeline at the top of the page. */
   isMilestone?: boolean;
 }
@@ -106,6 +112,12 @@ export const DEV_UPDATES: DevUpdate[] = [
       'Live Athletic Journeys for all four racket/club sports',
     ],
     stack: ['TypeScript', 'Monorepo', 'Rules engine'],
+    testing: [
+      'Unit tests for the new pb_*/pd_* fault ids and per-sport rules',
+      'Type-check across the monorepo (one canonical SPORT_TAXONOMY)',
+      'Production build + sport-selector and filter smoke checks',
+    ],
+    rollback: 'Additive and config-driven — sports are gated by the taxonomy, so a sport can be disabled without touching the shared engine.',
     isMilestone: true,
   },
   {
@@ -205,6 +217,12 @@ export const DEV_UPDATES: DevUpdate[] = [
       'Remaining items deferred on purpose, not silently dropped',
     ],
     stack: ['TypeScript', 'Next.js middleware', 'Upstash Redis'],
+    testing: [
+      'Unit tests for constant-time comparison and fail-closed middleware paths',
+      'Rate-limiter verified against the shared store across instances',
+      'Dependency + secret-scan security checks in CI',
+    ],
+    rollback: 'The rate limiter degrades safely if its store is unreachable; middleware stays fail-closed, so a rollback never opens a protected route.',
     isMilestone: false,
   },
   {

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getDevUpdates, getDevMilestones, DEV_STATS } from '@/data/devUpdates';
 import { DevUpdatesContent } from '@/components/dev-updates/DevUpdatesContent';
 import { serializeJsonLd } from '@/lib/seo/serialize-json-ld';
+import { devUpdateUrl } from '@/lib/updates/dev-detail';
 
 // ── SEO Metadata ──────────────────────────────────────────────────────────
 
@@ -46,6 +47,7 @@ export default function DevUpdatesPage() {
           position: i + 1,
           name: u.title,
           description: u.headline,
+          url: devUpdateUrl(u),
         })),
       },
     ],

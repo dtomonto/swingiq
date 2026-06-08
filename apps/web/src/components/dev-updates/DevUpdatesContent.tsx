@@ -1,8 +1,10 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/Badge';
+import { devUpdatePath } from '@/lib/updates/dev-detail';
 import type {
   DevUpdate,
   DevUpdateCategory,
@@ -121,7 +123,9 @@ function DevUpdateCard({ update }: { update: DevUpdate }) {
         </div>
 
         <h3 className="mb-2 text-base font-bold leading-snug text-foreground sm:text-lg">
-          {update.title}
+          <Link href={devUpdatePath(update)} className="hover:text-primary transition-colors">
+            {update.title}
+          </Link>
         </h3>
 
         <p className="mb-3 text-sm font-medium text-foreground">{update.headline}</p>
@@ -158,6 +162,17 @@ function DevUpdateCard({ update }: { update: DevUpdate }) {
             ))}
           </div>
         )}
+
+        {/* Read full developer report → dedicated page */}
+        <div className="mt-4 border-t border-border pt-3">
+          <Link
+            href={devUpdatePath(update)}
+            className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+            aria-label={`Read the full developer report: ${update.title}`}
+          >
+            Read full developer report →
+          </Link>
+        </div>
       </div>
     </article>
   );

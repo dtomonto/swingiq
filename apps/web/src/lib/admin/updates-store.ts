@@ -123,6 +123,27 @@ function toDevRow(u: DevUpdate): PublishRow {
 
 const byDateDesc = (a: PublishRow, b: PublishRow) => b.date.localeCompare(a.date);
 
+/**
+ * Every auto-generated product update entry as a would-be PUBLISHED + PUBLIC
+ * candidate (status/visibility forced). Lets the validation + quality gate
+ * score what each entry *would* look like live, regardless of its current state.
+ */
+export function readProductCandidates(): Update[] {
+  return readArray<Update>(FILES.product).map((e) => ({
+    ...e,
+    status: 'published',
+    visibility: 'public',
+  }));
+}
+
+/**
+ * A single auto-generated product update entry by id, as the would-be
+ * PUBLISHED + PUBLIC candidate. Returns undefined when the id is unknown.
+ */
+export function readProductCandidate(id: string): Update | undefined {
+  return readProductCandidates().find((e) => e.id === id);
+}
+
 /** Read both auto-update files for the admin Publishing screen. */
 export function readPublishSnapshot(): PublishSnapshot {
   const product = readArray<Update>(FILES.product).map(toProductRow).sort(byDateDesc);

@@ -9,6 +9,10 @@ import { getPublishedBlogPosts } from '@/data/blog-posts';
 import { CHALLENGES } from '@/content/challenges';
 import { CURATED_URLS } from '@/lib/seo/site-sections';
 import { getAllSituationParams } from '@/lib/mental-performance/routines';
+import { getPublicUpdates } from '@/data/updates';
+import { getDevUpdates } from '@/data/devUpdates';
+import { updatePath } from '@/lib/updates/product-detail';
+import { devUpdatePath } from '@/lib/updates/dev-detail';
 
 // Sitemap URLs MUST be on the same host the sitemap is served from, or
 // Google rejects them ("URL not allowed for a Sitemap at this location").
@@ -147,6 +151,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
+  // Product updates: the /updates index lives in CURATED_URLS; here we add one
+  // entry per PUBLISHED, PUBLIC update detail page. getPublicUpdates() already
+  // excludes drafts, private, hidden, and not-yet-public items, so draft/private
+  // pages can never reach the sitemap. lastmod uses each update's own updatedAt.
+  const updatePages: MetadataRoute.Sitemap = getPublicUpdates().map((u) => ({
+    url: `${BASE_URL}${updatePath(u)}`,
+    lastModified: u.updatedAt ? new Date(u.updatedAt).toISOString() : now,
+    changeFrequency: 'monthly' as const,
+    priority: u.isMajorMilestone ? 0.6 : 0.5,
+  }));
+
+  // Developer updates: one entry per published (non-draft) developer update
+  // detail page. getDevUpdates() filters out drafts.
+  const devUpdatePages: MetadataRoute.Sitemap = getDevUpdates().map((u) => ({
+    url: `${BASE_URL}${devUpdatePath(u)}`,
+    lastModified: u.date ? new Date(u.date).toISOString() : now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.4,
+  }));
+
   // ── Assembly ────────────────────────────────────────────────────────────
   // Curated static pages first, then each dynamic registry. Every group is
   // deduplicated by construction: curated literals live ONLY in site-sections.ts
@@ -164,6 +188,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...challengePages,
     ...blogPages,
     ...learnPages,
+    ...updatePages,
+    ...devUpdatePages,
     ...localizedPages,
   ];
 }

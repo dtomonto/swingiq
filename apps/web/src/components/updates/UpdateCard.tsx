@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/Badge';
+import { updatePath } from '@/lib/updates/product-detail';
 import type { Update } from '@/data/updates';
 
 // ── Category → badge color mapping ───────────────────────────────────────
@@ -87,14 +89,16 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
           </time>
         </div>
 
-        {/* Title */}
+        {/* Title — links to the dedicated update report page */}
         <h3
           className={cn(
             'font-bold text-foreground mb-2 leading-snug',
             featured ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg',
           )}
         >
-          {update.title}
+          <Link href={updatePath(update)} className="hover:text-primary transition-colors">
+            {update.title}
+          </Link>
         </h3>
 
         {/* Summary */}
@@ -138,6 +142,17 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
             )}
           </div>
         )}
+
+        {/* Read full update → dedicated report page */}
+        <div className="mt-4 pt-3 border-t border-border">
+          <Link
+            href={updatePath(update)}
+            className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+            aria-label={`Read the full update: ${update.title}`}
+          >
+            Read full update →
+          </Link>
+        </div>
       </div>
     </article>
   );
