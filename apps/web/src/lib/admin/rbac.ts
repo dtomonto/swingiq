@@ -41,6 +41,7 @@ export const PERMISSIONS = [
   'legal.manage',
   'logs.view',
   'settings.manage',
+  'security.manage',
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];

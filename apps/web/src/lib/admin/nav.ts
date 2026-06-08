@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -348,6 +348,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'governance', built: true, permission: 'admins.manage',
     blurb: 'Admin roles, permission matrix and security posture.',
     keywords: ['roles', 'permissions', 'rbac', '2fa', 'security'],
+  },
+  {
+    id: 'security-os', label: 'securityOS', href: '/admin/security-os', icon: ShieldAlert,
+    group: 'governance', built: true, permission: 'security.manage',
+    blurb: 'The security operating system: a live Security Health Score, prioritized findings & recommendations, AI/data/API risk posture, audit logging and incident runbooks — what’s wrong, why it matters, and exactly what to do today.',
+    keywords: ['securityos', 'security os', 'security', 'vulnerability', 'vulnerabilities', 'findings', 'risk', 'posture', 'health score', 'owasp', 'threat', 'ai security', 'prompt injection', 'audit', 'compliance', 'hardening', 'remediation', 'incident', 'runbook'],
   },
   {
     id: 'legal', label: 'Legal & Privacy', href: '/admin/legal', icon: Scale,
