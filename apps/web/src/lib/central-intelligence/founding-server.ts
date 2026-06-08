@@ -72,6 +72,12 @@ function admin() {
   return createSupabaseAdminClient();
 }
 
+/** Test-only: clear the in-process store (keyless mode) between cases. */
+export function __resetFoundingStoreForTests(): void {
+  const g = globalThis as unknown as Record<string, unknown>;
+  g[GLOBAL_KEY] = { members: new Map(), config: null };
+}
+
 /** Whether real Supabase persistence is active. */
 export function isFoundingPersistent(): boolean {
   return admin() !== null;
