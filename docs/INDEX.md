@@ -2,7 +2,7 @@
 
 # SwingVantage docs index
 
-_71 documents · regenerated 2026-06-07. This file lists everything in `docs/` so it stays current as docs are added._
+_85 documents · regenerated 2026-06-08. This file lists everything in `docs/` so it stays current as docs are added._
 
 ## docs/
 
@@ -17,18 +17,29 @@ _71 documents · regenerated 2026-06-07. This file lists everything in `docs/` s
 - [Blog → Social Studio](BLOG_TO_SOCIAL.md) — When you publish a blog post, this turns it into ready-to-post social content for
 - [Blog Content Calendar](BLOG_CONTENT_CALENDAR.md) — This is the to-do list of blog post ideas for SwingVantage. The scheduled task
 - [BodySync — Health-Performance Intelligence](BODYSYNC.md) — BodySync makes SwingVantage understand the athlete behind the swing. Each
+- [CentralIntelligenceOS + Founding Members Campaign](CENTRAL_INTELLIGENCE_OS.md) — SwingVantage now has an ethical "brain" that quietly remembers each athlete —
+- [Coach Mix — Ethical Coaching Influence Engine](COACH_MIX_LEARNING_SYSTEM.md) — What this is: A new admin-only system inside CentralIntelligenceOS that lets you
 - [Connect a Database — Supabase Setup Walkthrough (one page)](SUPABASE_SETUP_WALKTHROUGH.md) — A click-by-click guide to giving SwingVantage a free cloud database, so people can make real accounts and sync across devices. Cost: $0. Time:…
 - [Daily Notes — Tell Us How You Played, in Your Own Words](DAILY_NOTES.md) — Most of your reps happen out on the course, court, or field — not in front of a
 - [Data Portability Guide](DATA_PORTABILITY.md) — This document explains how SwingVantage handles your data — what you can export, how to import it back, what the backup file contains, and how the…
+- [Duplicate-Content & Originality Audit](SEO_DUPLICATE_CONTENT_AUDIT.md) — You asked: "make sure 0% of the pages could be questioned as being a duplicate,
 - [Feature Education Engine (FEE)](FEATURE_EDUCATION_ENGINE.md) — Every time you ship a feature, this system makes sure that feature gets taught —
+- [Floating Utility Dock](FLOATING_UTILITY_DOCK.md) — The app has small round helper buttons that float in the bottom-right corner
 - [Future-Proofing Guide](FUTURE_PROOFING.md) — This document explains how SwingVantage is built to stay relevant, adaptable, and trustworthy over the long term. It covers the architectural…
 - [How to Publish a SwingVantage Product Update](HOW_TO_PUBLISH_UPDATES.md) — This guide explains how to add a new entry to the SwingVantage Updates page at /updates.
 - [i18n Upkeep Report](i18n-upkeep-report.md) — In Plain English (start here): this checks whether the translated
 - [Link Intelligence Agent](LINK_INTELLIGENCE_AGENT.md) — The Link Intelligence Agent is GrowthOS's "links brain." It reads your real
+- [Master Improvement Plan — Status vs. Reality](master-plan-status.md) — Audit date: 2026-06-07 • Source: the "SwingVantage Master Improvement Plan" (14 workstreams, 30/90/180-day plans).
 - [Master Scheduled Audit Report](master-audit-report.md) — Consolidated: 2026-06-01 · Branch: chore/seo-audit/2026-06 · Status: local working document — nothing pushed
 - [Monetization Ethics & No-Dark-Pattern Rules](MONETIZATION_ETHICS.md) — This is the standard for §10 of FIVEPERSONAMASTERPLAN.md. It is policy + a map of what already enforces it — most of it is already implemented.
 - [Motion Lab — 3D Motion Analysis](motion-lab.md) — Motion Lab is a new page in SwingVantage where someone can upload (or record) a short
 - [Multilingual Marketing — Self-Maintaining Localization](I18N_LOCALIZATION.md) — SwingVantage's public pages used to be English-only. This system lets them appear
+- [Phase 1 — UX Foundations (clutter, onboarding memory, sign-out)](PHASE_1_UX_FOUNDATIONS.md) — After signing in, the app felt busy: several cards and pop-ups competed for
+- [Phase 10 — Golf Grading, Player Profiles & Benchmarks](PHASE_10_GRADING.md) — SwingVantage now grades your golf against your own level, not against tour
+- [Phase 2 + 3 — Universal Import & Learned Column Mapping](PHASE_2_3_IMPORT.md) — Getting your launch-monitor / simulator data into SwingVantage used to be a
+- [Phase 4 + 5 — Auto Golf-Bag Intelligence & Athlete Timeline](PHASE_4_5_BAG_HISTORY.md) — Phase 4 — your bag builds itself. Once you've imported some sessions,
+- [Phase 6 + 7 — Shot-Intent Classifier & Athlete Priority Engine](PHASE_6_7_INTENT_PRIORITY.md) — Phase 6 — SwingVantage figures out what kind of shot you hit. You no longer
+- [Phase 8 + 9 — Physical Readiness in the AI & Sport-Context Isolation](PHASE_8_9_READINESS_SPORT.md) — Phase 8 — your body is part of the plan. SwingVantage's priority now factors
 - [Pickleball & Padel Expansion](PICKLEBALL_PADEL_EXPANSION.md) — What this is: SwingVantage now supports two new racket sports — Pickleball and Padel — as first-class sports, alongside golf, tennis, baseball,…
 - [Player Recruiting Hub](recruiting-hub.md) — This is the feature that turns everything an athlete already does in SwingVantage —
 - [pose3d — Proprietary 3D Pose Reconstruction](pose3d.md) — Single-camera "3D" can only ever estimate depth. This module adds two genuinely
@@ -36,9 +47,11 @@ _71 documents · regenerated 2026-06-07. This file lists everything in `docs/` s
 - [Security and Privacy Guide](SECURITY_AND_PRIVACY.md) — This document covers everything related to keeping SwingVantage users safe — how data is protected, what security measures are built in, what…
 - [Security Automation Guide](security-automation.md) — This document explains the automated security systems that run on every push and pull request to the SwingVantage repository.
 - [SEO, GEO, and AEO Strategy](SEO_GEO_AEO.md) — This document explains SwingVantage's strategy for being found by search engines (SEO), AI knowledge systems (GEO — Generative Engine…
+- [SwingLab 2.0 — Phase 2 Scope: The Interactive Lab Map](SWINGLAB_2_PHASE_2_SCOPE.md) — ---
 - [SwingVantage — Analytics Events](analytics-events.md) — This document is the single reference for every analytics event SwingVantage tracks.
 - [SwingVantage — Athlete General Intelligence: Product & Monetization Strategy](ATHLETE_GI_STRATEGY.md) — The single source of truth for how Athlete General Intelligence (AGI) fits SwingVantage's
 - [SwingVantage — Automation](automation.md) — What runs automatically, what you run manually, and — importantly — what we
+- [SwingVantage — Automation Opportunity Audit](AUTOMATION_OPPORTUNITY_AUDIT_2026-06.md) — Date: 2026-06-07 · Status: strategic audit — nothing implemented yet · Author: automation-architecture review
 - [SwingVantage — Beginner Start Here](BEGINNER_START_HERE.md) — Read this first. Every step is numbered. Do not skip steps.
 - [SwingVantage — Behavioral Science, UX, Engagement & Retention Audit](swingiq-behavioral-ux-retention-audit-2026-06.md) — Date: June 2, 2026
 - [SwingVantage — Data Import Guide](DATA_IMPORT_GUIDE.md) — How to get your performance data into SwingVantage for every sport.
@@ -49,6 +62,7 @@ _71 documents · regenerated 2026-06-07. This file lists everything in `docs/` s
 - [SwingVantage — Integrations Setup Checklist](INTEGRATIONS_SETUP.md) — Last updated: June 2026
 - [SwingVantage — Monetization Checklist (the least-expensive path to your first paying user)](MONETIZATION_CHECKLIST.md) — Built from the master audit (docs/master-audit-report.md) + a read of the actual billing code. Last updated: June 2026.
 - [SwingVantage — Monetization Strategy (the north star)](MONETIZATION_STRATEGY.md) — The single source of truth for how and in what order SwingVantage makes money.
+- [SwingVantage — Observability, Analytics & Test Gates](OBSERVABILITY.md) — Companion to AUTOMATIONOPPORTUNITYAUDIT2026-06.md. Covers the foundation automations A1, A2, A3, A4, A10.
 - [SwingVantage — Owner Task Checklist](OWNER_TASKS.md) — Use this file to track what has already been built and what you still need to set up manually.
 - [SwingVantage — Privacy & Youth Safety Notes](privacy-and-youth-safety-notes.md) — Plain-English notes on SwingVantage's privacy posture, how youth use is handled, the
 - [SwingVantage — Scheduled Audits & Automations Registry](scheduled-audits-registry.md) — Last updated: 2026-06-05 · Source of truth for what automated audits exist, how often they run, and what they do.
