@@ -5,6 +5,7 @@ import { Sparkles, NotebookPen, Dumbbell, Eye, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { useMentalPerformance } from '@/lib/mental-performance/useMentalPerformance';
 import { buildCoachResponse } from '@/lib/mental-performance/coach';
+import { emitMentalEvent, mentalEvent } from '@/lib/mental-performance/telemetry';
 import {
   MISTAKE_CATEGORIES, EMOTIONAL_STATES, sportFamilyFor,
 } from '@/lib/mental-performance/constants';
@@ -51,6 +52,16 @@ export function MentalCoach({ seed }: { seed?: CoachSeed }) {
     setResponse(r);
     setSaved(false);
     if (mistake) mp.setSettings({ lastSituation: mistake });
+    if (r.kind === 'coaching') {
+      // Anonymized, opt-in only (no-ops without consent/provider).
+      emitMentalEvent(
+        mentalEvent.coachReset({
+          sport, emotion: emotion || null, mistake: mistake || null,
+          errorClass: r.errorClass, routineId: r.routine?.id ?? null,
+        }),
+        mp.state.settings,
+      );
+    }
   };
 
   const reset = () => { setResponse(null); setSaved(false); };
@@ -103,7 +114,9 @@ export function MentalCoach({ seed }: { seed?: CoachSeed }) {
         {response.routine && (
           <RoutinePlayer
             routine={response.routine}
-            onComplete={() => { /* completion is local; journaling is explicit */ }}
+            onComplete={(routineId) =>
+              emitMentalEvent(mentalEvent.routineCompleted({ sport, routineId }), mp.state.settings)
+            }
           />
         )}
 

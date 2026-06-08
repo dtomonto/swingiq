@@ -1,13 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-import { Wind, RotateCcw, Check, ChevronRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Wind, RotateCcw, Check, ChevronRight, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import type { MentalRoutine } from '@/lib/mental-performance/types';
 
 /**
  * Guided step-by-step routine player. Big tap targets so it's usable quickly
  * between a shot, pitch, or point. Calls onComplete when finished.
+ *
+ * Optional spoken narration uses the browser's Web Speech API
+ * (speechSynthesis) — keyless, free, on-device, and gracefully hidden when the
+ * browser doesn't support it. No audio files, no TTS API, no cost.
  */
 export function RoutinePlayer({
   routine,
@@ -17,7 +21,12 @@ export function RoutinePlayer({
   onComplete?: (routineId: string) => void;
 }) {
   const [step, setStep] = useState(0);
+  const [narrate, setNarrate] = useState(false);
   const last = step >= routine.steps.length - 1;
+  const done = step >= routine.steps.length;
+
+  const speechSupported =
+    typeof window !== 'undefined' && 'speechSynthesis' in window;
 
   const next = () => {
     if (last) {
@@ -28,18 +37,69 @@ export function RoutinePlayer({
     }
   };
 
-  const done = step >= routine.steps.length;
+  // Narrate the active step (or the breath cue at the start / the cue at the
+  // end) whenever the step changes while narration is on.
+  useEffect(() => {
+    if (!narrate || !speechSupported) return;
+    const text = done
+      ? `Reset complete. ${routine.selfTalkCue}`
+      : step === 0
+        ? `Breathe. ${routine.breathPattern}. ${routine.steps[0]}`
+        : routine.steps[step];
+    try {
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.92;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    } catch {
+      /* speech is best-effort */
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, narrate, done]);
+
+  // Always stop any speech when the player unmounts.
+  useEffect(
+    () => () => {
+      if (speechSupported) {
+        try { window.speechSynthesis.cancel(); } catch { /* ignore */ }
+      }
+    },
+    [speechSupported],
+  );
+
+  const toggleNarrate = () => {
+    if (narrate && speechSupported) {
+      try { window.speechSynthesis.cancel(); } catch { /* ignore */ }
+    }
+    setNarrate((n) => !n);
+  };
 
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <div>
           <h3 className="text-lg font-bold text-foreground">{routine.title}</h3>
           <p className="text-sm text-muted-foreground">{routine.situation}</p>
         </div>
-        <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
-          {routine.durationSeconds}s
-        </span>
+        <div className="flex items-center gap-2">
+          {speechSupported && (
+            <button
+              type="button"
+              onClick={toggleNarrate}
+              aria-pressed={narrate}
+              aria-label={narrate ? 'Turn narration off' : 'Narrate this routine'}
+              title={narrate ? 'Narration on' : 'Narrate'}
+              className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors ${
+                narrate ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-foreground hover:border-primary'
+              }`}
+            >
+              {narrate ? <Volume2 size={16} aria-hidden="true" /> : <VolumeX size={16} aria-hidden="true" />}
+            </button>
+          )}
+          <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
+            {routine.durationSeconds}s
+          </span>
+        </div>
       </div>
 
       <div className="mt-4 rounded-xl bg-primary/5 p-3 text-sm">

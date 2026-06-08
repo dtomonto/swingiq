@@ -10,10 +10,11 @@
 
 import { useMemo, useState } from 'react';
 import {
-  BookOpen, CalendarRange, Brain, Sparkles, TrendingUp, ShieldCheck, Copy, AlertTriangle,
+  BookOpen, CalendarRange, Brain, Sparkles, TrendingUp, ShieldCheck, Copy, AlertTriangle, Film,
 } from 'lucide-react';
 import { MENTAL_ROUTINES } from '@/lib/mental-performance/routines';
 import { planCatalog } from '@/lib/mental-performance/plans';
+import { generateMeditationScript, generateRoutineVideoBrief } from '@/lib/mental-performance/scripts';
 import {
   EMOTIONAL_STATES, MISTAKE_CATEGORIES, CRISIS_RESOURCES,
   NON_MEDICAL_DISCLAIMER, CRISIS_NOTE, PROFESSIONAL_NOTE,
@@ -25,7 +26,7 @@ import {
 import { generateMentalOpportunities, routineCoverageGaps } from '@/lib/mental-performance/growth';
 import { read as readMentalStore } from '@/lib/mental-performance/store';
 
-type Tab = 'library' | 'plans' | 'config' | 'intelligence' | 'growth' | 'safety';
+type Tab = 'library' | 'plans' | 'config' | 'intelligence' | 'growth' | 'media' | 'safety';
 
 const TABS: Array<{ id: Tab; label: string; icon: typeof Brain }> = [
   { id: 'library', label: 'Routine Library', icon: BookOpen },
@@ -33,6 +34,7 @@ const TABS: Array<{ id: Tab; label: string; icon: typeof Brain }> = [
   { id: 'config', label: 'Coach Config', icon: Brain },
   { id: 'intelligence', label: 'Intelligence', icon: Sparkles },
   { id: 'growth', label: 'Growth', icon: TrendingUp },
+  { id: 'media', label: 'Guided Media', icon: Film },
   { id: 'safety', label: 'Safety', icon: ShieldCheck },
 ];
 
@@ -264,6 +266,42 @@ export function MentalPerformanceDashboard() {
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Guided Media (Phase 4) */}
+      {tab === 'media' && (
+        <div className="space-y-3">
+          <div className="flex items-start gap-2 rounded-xl border border-border bg-muted/40 p-3 text-sm text-foreground">
+            <Film size={16} className="mt-0.5 shrink-0 text-primary" aria-hidden="true" />
+            <span>
+              Every routine deterministically generates a narrated <strong>meditation script</strong> and a
+              Video Studio <strong>brief</strong> (keyless). Athletes already hear routines via on-device
+              speech in the player; these scripts/briefs are the hand-off for rendered audio/video through the
+              existing Video Studio pipeline. Copy a brief to seed a video job.
+            </span>
+          </div>
+          {MENTAL_ROUTINES.map((r) => {
+            const script = generateMeditationScript(r);
+            const brief = generateRoutineVideoBrief(r);
+            return (
+              <div key={r.id} className="rounded-xl border border-border bg-card p-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <div className="font-medium text-foreground">{r.title}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {r.sports.join(', ')} · {script.durationSeconds}s · {script.wordCount} words
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <CopyButton data={script.voiceover} label="Copy script" />
+                    <CopyButton data={brief} label="Copy brief" />
+                  </div>
+                </div>
+                <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{script.intro}</p>
+              </div>
+            );
+          })}
         </div>
       )}
 

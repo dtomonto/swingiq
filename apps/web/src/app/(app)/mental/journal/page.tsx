@@ -58,6 +58,27 @@ export default function MentalJournalPage() {
             <span className={`absolute top-1 h-5 w-5 rounded-full bg-card shadow transition-transform ${mp.storeLogs ? 'translate-x-6' : 'translate-x-1'}`} />
           </button>
         </div>
+
+        {/* Anonymized insights opt-in (separate, explicit consent) */}
+        <div className="mt-4 flex items-start justify-between gap-4 border-t border-border pt-4">
+          <div>
+            <div className="font-semibold text-foreground">Help improve routines for everyone</div>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Off by default. When on, SwingVantage learns from <span className="font-medium">anonymized</span> signals
+              only — your sport, the emotion and mistake type, and which routine helped. Never your words, never your
+              identity. Helps us build better resets for athletes like you.
+            </p>
+          </div>
+          <button
+            role="switch"
+            aria-checked={mp.shareInsights}
+            onClick={() => mp.setShareInsights(!mp.shareInsights)}
+            aria-label="Share anonymized insights"
+            className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${mp.shareInsights ? 'bg-primary' : 'bg-muted'}`}
+          >
+            <span className={`absolute top-1 h-5 w-5 rounded-full bg-card shadow transition-transform ${mp.shareInsights ? 'translate-x-6' : 'translate-x-1'}`} />
+          </button>
+        </div>
       </div>
 
       {/* Insights */}

@@ -185,6 +185,7 @@ export const DEFAULT_SETTINGS: MentalSettings = {
   enabled: false,
   consentedAt: null,
   storeLogs: false,
+  shareAnonymousInsights: false,
   preferredTone: null,
   lastSituation: null,
 };

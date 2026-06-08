@@ -15,6 +15,7 @@ import type {
   MentalState, MentalLog, MentalProfile, MentalSettings, PlanAssignment, TrainingPlan,
 } from './types';
 import { DEFAULT_MENTAL_STATE } from './constants';
+import { emitMentalEvent, mentalEvent } from './telemetry';
 
 export const MENTAL_KEY = 'swingiq-mental-performance-v1';
 const KEY = MENTAL_KEY;
@@ -91,6 +92,11 @@ export function setStoreLogs(on: boolean): void {
   setSettings({ storeLogs: on });
 }
 
+/** Toggle the explicit opt-in to contribute ANONYMIZED aggregate insights. */
+export function setShareInsights(on: boolean): void {
+  setSettings({ shareAnonymousInsights: on });
+}
+
 // ── profile ──────────────────────────────────────────────────
 export function setProfile(patch: Partial<MentalProfile>): void {
   const state = read();
@@ -114,6 +120,14 @@ export function saveLog(input: Omit<MentalLog, 'id' | 'date'> & { id?: string; d
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 500); // bounded history
   write({ ...state, logs });
+  // Anonymized, opt-in only (no-ops without consent/provider).
+  emitMentalEvent(
+    mentalEvent.journalLogged({
+      sport: record.sport, emotion: record.emotion, mistake: record.mistake,
+      routineId: record.routineUsed, effectiveness: record.effectiveness,
+    }),
+    state.settings,
+  );
   return true;
 }
 

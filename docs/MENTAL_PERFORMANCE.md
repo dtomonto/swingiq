@@ -108,12 +108,21 @@ CIOS k-anonymity, GrowthOS opportunities, and consent-gated store. Run:
   pipeline renders the actual audio/video.
 - **Parent/Coach mode** — `coach.ts` reframes guidance for a supporting adult when `mode: 'parent_coach'`
   (still crisis-safe). Pairs with the existing Parent/Coach training plan.
+- **Telemetry pipe (Phase 3)** — `telemetry.ts`: anonymized, **opt-in** events (`settings.shareAnonymousInsights`,
+  OFF by default) emitted from the coach, routine player, and journal via the existing analytics providers
+  (sport + emotion + mistake + routine + effectiveness only — never free text or identity). `eventsToLogs()`
+  normalizes a collected event pool back into logs for `aggregateMentalSignals()`, closing the read loop.
+  Only remaining infra: a backend that collects the events (PostHog export / a Supabase events table).
+- **Phase-4 audio** — the routine player narrates routines on-device via the **Web Speech API**
+  (keyless, free, graceful fallback). The admin **Guided Media** tab exposes each routine's generated
+  meditation script + Video Studio brief for rendered audio/video hand-off.
 
 ## Remaining (intentionally deferred)
 
-- A real privacy-protected **telemetry pipe** to feed `aggregateMentalSignals` a consented multi-user pool
-  (the aggregator logic is done; only the consented collection/transport is a deployment decision).
-- Actual **audio/video rendering** of the generated scripts/briefs through the Video Studio pipeline.
+- A backend to **collect the anonymized telemetry events** (PostHog query / Supabase table), then
+  `setMentalSource(() => aggregateMentalSignals(eventsToLogs(pool)))` — a deployment/infra decision.
+- **Rendered** audio/video via the Video Studio + TTS pipeline (briefs/scripts are generated; on-device
+  speech already ships).
 - **i18n** of the marketing pages — deferred deliberately: the locale-manifest workflow is fragile
   (silent /es+/fr 404s until re-blessed) and concurrent agents churn locale files. English-first for now.
 - Full **team** multi-user module (parent/coach guidance ships; shared team dashboards are larger).

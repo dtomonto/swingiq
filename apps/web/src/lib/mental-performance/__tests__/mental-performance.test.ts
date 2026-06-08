@@ -19,6 +19,9 @@ import {
 } from '../intelligence';
 import { generateMentalOpportunities, routineCoverageGaps } from '../growth';
 import { generateMeditationScript, generateRoutineVideoBrief } from '../scripts';
+import {
+  canShareInsights, eventProps, emitMentalEvent, eventsToLogs, mentalEvent,
+} from '../telemetry';
 import type { MentalSport, MentalLog, MentalIntelligenceSignals } from '../types';
 
 const SPORTS: MentalSport[] = [
@@ -460,5 +463,60 @@ describe('coach parent/coach mode', () => {
     const r = buildCoachResponse({ sport: 'golf', mode: 'parent_coach', freeText: 'I want to kill myself' });
     expect(r.kind).toBe('crisis');
     expect(r.routine).toBeNull();
+  });
+});
+
+// ── Telemetry pipe (Phase 3, consented + anonymized) ─────────
+describe('telemetry', () => {
+  const consented = { enabled: true, shareAnonymousInsights: true };
+  const noConsent = { enabled: true, shareAnonymousInsights: false };
+
+  it('canShareInsights requires BOTH enabled and the explicit opt-in', () => {
+    expect(canShareInsights(consented)).toBe(true);
+    expect(canShareInsights(noConsent)).toBe(false);
+    expect(canShareInsights({ enabled: false, shareAnonymousInsights: true })).toBe(false);
+  });
+
+  it('eventProps is anonymized — sport + provided fields only, never PII', () => {
+    const p = eventProps(mentalEvent.coachReset({
+      sport: 'golf', emotion: 'angry', mistake: 'shank', errorClass: 'emotional', routineId: 'shank-reset',
+    }));
+    expect(p.sport).toBe('golf');
+    expect(p.emotion).toBe('angry');
+    expect(p.routineId).toBe('shank-reset');
+    for (const k of ['reflection', 'freeText', 'userId', 'id', 'whatWorked', 'nextTimeCue']) {
+      expect(Object.keys(p)).not.toContain(k);
+    }
+  });
+
+  it('emitMentalEvent fires to the provider ONLY with consent, and never throws', () => {
+    const calls: Array<{ name: string; props: Record<string, unknown> }> = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const g = globalThis as any;
+    g.window = { posthog: { capture: (name: string, props: Record<string, unknown>) => calls.push({ name, props }) } };
+    const ev = mentalEvent.journalLogged({ sport: 'tennis', emotion: 'overthinking', routineId: 'between-point-reset', effectiveness: 4 });
+
+    emitMentalEvent(ev, noConsent);
+    expect(calls).toHaveLength(0); // gated off
+
+    emitMentalEvent(ev, consented);
+    expect(calls).toHaveLength(1);
+    expect(calls[0].name).toBe('mp_journal_logged');
+    expect(calls[0].props.sport).toBe('tennis');
+    expect(calls[0].props.effectiveness).toBe(4);
+
+    delete g.window;
+    expect(() => emitMentalEvent(ev, consented)).not.toThrow(); // no window → no-op
+  });
+
+  it('eventsToLogs feeds the real aggregator with genuine counts', () => {
+    const events = [
+      mentalEvent.journalLogged({ sport: 'golf', emotion: 'frustrated', mistake: 'three_putt', routineId: 'three-putt-recovery', effectiveness: 4 }),
+      mentalEvent.journalLogged({ sport: 'golf', emotion: 'frustrated', mistake: 'three_putt', routineId: 'three-putt-recovery', effectiveness: 5 }),
+    ];
+    const signals = aggregateMentalSignals(eventsToLogs(events), 12);
+    const trig = signals.triggersBySport.find((t) => t.emotion === 'frustrated' && t.sport === 'golf');
+    expect(trig?.count).toBe(2);
+    expect(signals.activeUsers).toBe(12);
   });
 });

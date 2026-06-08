@@ -48,12 +48,16 @@ export { generateMeditationScript, generateRoutineVideoBrief } from './scripts';
 export type { MeditationScript, ScriptLine, RoutineVideoBrief } from './scripts';
 export { generateMentalOpportunities, routineCoverageGaps } from './growth';
 export {
+  canShareInsights, emitMentalEvent, eventProps, eventsToLogs, mentalEvent,
+} from './telemetry';
+export type { MentalTelemetryEvent, MentalEventKind } from './telemetry';
+export {
   isMentalAiEnabled, registerMentalAiEnhancer, maybeEnhance,
 } from './ai';
 export type { MentalAiEnhancer } from './ai';
 export {
-  MENTAL_KEY, read, subscribe, setSettings, consent, setStoreLogs, setProfile,
-  saveLog, deleteLog, clearAllLogs, assignPlan, advancePlanDay, abandonPlan,
+  MENTAL_KEY, read, subscribe, setSettings, consent, setStoreLogs, setShareInsights,
+  setProfile, saveLog, deleteLog, clearAllLogs, assignPlan, advancePlanDay, abandonPlan,
   exportMental, clearAllMentalData,
 } from './store';
 export { useMentalPerformance, type UseMentalPerformance } from './useMentalPerformance';

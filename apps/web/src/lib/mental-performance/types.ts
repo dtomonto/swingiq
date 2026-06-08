@@ -346,6 +346,13 @@ export interface MentalSettings {
   consentedAt: string | null;
   /** Separate, explicit consent to STORE journal logs (data minimization). */
   storeLogs: boolean;
+  /**
+   * Separate, explicit opt-in to contribute ANONYMIZED, aggregate-only signals
+   * (sport, emotion, mistake category, routine used + effectiveness — never
+   * free text, never identity) so the platform can improve routines for
+   * everyone. OFF by default. Gates the telemetry pipe (telemetry.ts).
+   */
+  shareAnonymousInsights: boolean;
   preferredTone: CoachTone | null;
   /** Last situation the coach answered, to resume context. */
   lastSituation: string | null;

@@ -18,7 +18,7 @@ import { DEFAULT_MENTAL_STATE } from './constants';
 import { routineForContext, getRoutinesForSport } from './routines';
 import { generateJournalInsights } from './journal';
 import {
-  read, subscribe, setSettings, consent, setStoreLogs, setProfile,
+  read, subscribe, setSettings, consent, setStoreLogs, setShareInsights, setProfile,
   saveLog, deleteLog, clearAllLogs, assignPlan, advancePlanDay, abandonPlan,
   exportMental, clearAllMentalData,
 } from './store';
@@ -28,6 +28,7 @@ export interface UseMentalPerformance {
   enabled: boolean;
   consented: boolean;
   storeLogs: boolean;
+  shareInsights: boolean;
   activeSport: MentalSport;
   /** A sensible suggested reset for the active sport. */
   suggestedRoutine: MentalRoutine;
@@ -39,6 +40,7 @@ export interface UseMentalPerformance {
   setSettings: typeof setSettings;
   consent: typeof consent;
   setStoreLogs: typeof setStoreLogs;
+  setShareInsights: typeof setShareInsights;
   setProfile: typeof setProfile;
   saveLog: typeof saveLog;
   deleteLog: typeof deleteLog;
@@ -73,6 +75,7 @@ export function useMentalPerformance(): UseMentalPerformance {
     enabled: state.settings.enabled,
     consented: !!state.settings.consentedAt,
     storeLogs: state.settings.storeLogs,
+    shareInsights: state.settings.shareAnonymousInsights,
     activeSport,
     suggestedRoutine,
     sportRoutines,
@@ -81,6 +84,7 @@ export function useMentalPerformance(): UseMentalPerformance {
     setSettings: useCallback(setSettings, []),
     consent: useCallback(consent, []),
     setStoreLogs: useCallback(setStoreLogs, []),
+    setShareInsights: useCallback(setShareInsights, []),
     setProfile: useCallback(setProfile, []),
     saveLog: useCallback(saveLog, []),
     deleteLog: useCallback(deleteLog, []),
