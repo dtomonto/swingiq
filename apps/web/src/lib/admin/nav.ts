@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -190,6 +190,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'content', built: true, permission: 'content.edit',
     blurb: 'Unified, read-only inventory of every drill across catalogs — sport, category, difficulty, target fault, equipment and source — to see coverage and spot gaps or duplicates.',
     keywords: ['drills', 'drill library', 'practice', 'catalog', 'exercises', 'drillmatch', 'fix stack', 'coverage', 'training'],
+  },
+  {
+    id: 'drill-editor', label: 'Drill Editor', href: '/admin/drills/manage', icon: SquarePen,
+    group: 'content', built: true, permission: 'content.edit',
+    blurb: 'Create, edit and retire drills as a local-first preview overlay on the code catalogs, then export the overlay as JSON to commit globally. No writes to live data from the browser.',
+    keywords: ['drill editor', 'edit drills', 'create drill', 'custom drill', 'manage drills', 'drill overrides', 'retire drill', 'content editing'],
   },
   {
     id: 'practice-plans', label: 'Practice Plans', href: '/admin/practice-plans', icon: ClipboardCheck,
