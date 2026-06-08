@@ -1,13 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BENCHMARKS } from '@/data/benchmarks';
+import { buildMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'SwingVantage Benchmarks | Performance Standards for Golf, Tennis, Baseball & Softball',
+export const metadata = buildMetadata({
+  title: 'SwingVantage Benchmarks — Performance Standards by Sport',
   description:
-    'See what good looks like. SwingVantage benchmark ranges show performance standards for beginner through elite athletes across golf, tennis, baseball, and softball.',
-  alternates: { canonical: '/benchmarks' },
-};
+    'See what good looks like. Benchmark ranges show performance standards for beginner through elite athletes across golf, tennis, baseball, and softball.',
+  path: '/benchmarks',
+});
 
 export default function BenchmarksIndexPage() {
   return (

@@ -13,7 +13,7 @@ import {
 } from '@/lib/seo/jsonLd';
 
 export const metadata = buildMetadata({
-  title: 'Free Softball Swing Analysis — Slow Pitch & Fast Pitch AI Tool',
+  title: 'Free Softball Swing Analysis — Slow & Fast Pitch',
   description:
     'Analyze your softball swing with AI — for both slow pitch and fast pitch. Track exit velocity, launch angle, bat speed, and get personalized drill recommendations.',
   path: '/softball-swing-analysis',

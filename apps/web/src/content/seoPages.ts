@@ -229,7 +229,7 @@ const GOLF_LAUNCH_MONITOR: SeoPage = {
   intent: 'commercial',
   funnelStage: 'consideration',
   priority: 1,
-  title: 'Launch Monitor Analysis: What Your Numbers Actually Mean',
+  title: 'Launch Monitor Analysis: What Your Numbers Mean',
   metaDescription:
     'Confused by your launch monitor data? Learn what club speed, smash factor, spin, launch angle, and club path tell you — and how to turn them into a practice plan.',
   directAnswer:
@@ -573,7 +573,7 @@ const FREE_SWING_ANALYSIS: SeoPage = {
   intent: 'transactional',
   funnelStage: 'conversion',
   priority: 1,
-  title: 'Free Swing Analysis for Golf, Tennis, Baseball & Softball',
+  title: 'Free Swing Analysis — Golf, Tennis, Baseball & Softball',
   metaDescription:
     'Get a free AI swing analysis — upload a video or import data and receive your top issue, beginner-safe drills, and a practice plan. No account, no credit card.',
   directAnswer:
@@ -898,7 +898,7 @@ const GOLF_STOP_OVER_THE_TOP: SeoPage = {
   priority: 1,
   title: 'How to Stop Coming Over the Top (Beginner-Safe Guide)',
   metaDescription:
-    'Coming over the top means the club swings out and across the ball from the top of the backswing — the root cause behind most slices and pulls. Here is how to diagnose it, three drills to fix it, and a practice plan.',
+    'Coming over the top means the club swings out and across the ball from the top — the cause behind most slices and pulls. Here is how to diagnose and fix it with drills.',
   directAnswer:
     'Coming over the top is when your downswing starts with your shoulders and arms throwing the club up and outward, so it drops onto an out-to-in path that cuts across the ball. You fix it by starting the downswing from the ground up — let your weight shift and hips lead while your trail elbow drops in front of your hip — so the club falls onto an inside path instead of being thrown over it.',
   problemExplanation: [
@@ -978,9 +978,9 @@ const BASEBALL_STOP_ROLLING_OVER: SeoPage = {
   intent: 'informational',
   funnelStage: 'consideration',
   priority: 1,
-  title: 'How to Stop Rolling Over (Weak Ground Balls) in Baseball',
+  title: 'How to Stop Rolling Over in Baseball (Weak Grounders)',
   metaDescription:
-    'Rolling over is when your top hand turns the barrel over too early, producing weak ground balls to the pull side. Here is how to diagnose it, three drills to fix it, and a practice plan.',
+    'Rolling over is when your top hand turns the barrel over too early, producing weak ground balls to the pull side. Here is how to diagnose and fix it with drills.',
   directAnswer:
     'You roll over when your wrists turn the barrel over before or at contact, so the bat face closes and you catch the top of the ball — usually a weak grounder to the pull side. The fix is to stay through the ball with a palm-up, palm-down hand position at contact and let the wrists release naturally AFTER the ball is gone, driven by a proper sequence rather than an early flip of the top hand.',
   problemExplanation: [
@@ -1062,7 +1062,7 @@ const GOLF_FIX_HOOK: SeoPage = {
   priority: 1,
   title: 'How to Fix a Hook in Golf (Beginner-Safe Guide)',
   metaDescription:
-    'A hook happens when the club face is closed relative to your swing path at impact, so the ball curves hard left. Here is how to diagnose it, three drills to fix it, and a practice plan.',
+    'A hook happens when the club face is closed relative to your path at impact, so the ball curves hard left. Here is how to diagnose and fix it with three drills.',
   directAnswer:
     'A hook is the mirror image of a slice: the club face is closed relative to your path at impact (for a right-handed golfer the ball starts right of target and curves hard left). You fix it by neutralizing an overly strong grip and calming overactive hands so the face stops closing too fast — and by checking that your path is not excessively in-to-out, which exaggerates the curve.',
   problemExplanation: [
@@ -1144,7 +1144,7 @@ const GOLF_STOP_FAT: SeoPage = {
   priority: 1,
   title: 'How to Stop Hitting It Fat (Chunked Irons) in Golf',
   metaDescription:
-    'A fat shot happens when the club hits the ground before the ball, usually because your low point is behind the ball. Here is how to diagnose it, three drills, and a practice plan.',
+    'A fat shot happens when the club hits the ground before the ball — usually a low point behind the ball. Here is how to diagnose and fix it with three drills.',
   directAnswer:
     'You hit it fat when the lowest point of your swing arc falls behind the ball, so the club digs into the turf before contact and loses speed and distance. The fix is to move your low point forward — get your weight onto your lead side by impact and keep your chest turning through — so the club bottoms out just in front of the ball.',
   problemExplanation: [

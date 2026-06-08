@@ -9,7 +9,7 @@ import { UpdatesContent } from '@/components/updates/UpdatesContent';
 export const metadata: Metadata = {
   title: 'SwingVantage Updates | AI Swing Analysis Product Improvements',
   description:
-    'See the latest SwingVantage updates, including AI swing analysis improvements, golf training tools, multi-sport features, equipment diagnostics, data insights, progress tracking, and user experience upgrades.',
+    'See the latest SwingVantage updates — AI swing-analysis improvements, multi-sport features, equipment diagnostics, data insights, and progress tracking.',
   openGraph: {
     title: 'SwingVantage Updates | AI Swing Analysis Product Improvements',
     description:

@@ -1,15 +1,12 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'SwingVantage for Parents — Safe AI Swing Analysis for Young Athletes',
-  description: 'SwingVantage helps parents and coaches support young athletes in golf, tennis, baseball, and softball with AI-powered swing analysis, drill recommendations, and progress tracking.',
-  openGraph: {
-    title: 'SwingVantage for Parents — Safe AI Swing Analysis for Young Athletes',
-    description: 'Help your young athlete improve with AI-powered swing analysis. Safe, private, and designed for athletes of all ages.',
-    type: 'website',
-  },
-};
+export const metadata = buildMetadata({
+  title: 'SwingVantage for Parents — Safe AI Swing Analysis',
+  description:
+    'Help your young athlete improve with age-appropriate AI swing analysis — honest fault feedback, beginner-safe drills, and progress tracking for every sport.',
+  path: '/parents',
+});
 
 export default function ParentsPage() {
   return (

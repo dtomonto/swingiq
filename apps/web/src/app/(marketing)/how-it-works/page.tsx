@@ -6,7 +6,7 @@ import { LocalizedHowItWorks } from '@/components/marketing/LocalizedHowItWorks'
 // its translations can never drift. Edit the copy in
 // content/marketing/i18n/en.json (then `npm run i18n:bless`).
 export const metadata = buildMetadata({
-  title: 'How SwingVantage Works — AI Swing Analysis for Golf, Tennis, Baseball & Softball',
+  title: 'How SwingVantage Works — AI Swing Analysis in 4 Steps',
   description:
     'Learn how SwingVantage analyzes your swing in 4 steps: select your sport, upload data or video, get AI analysis, and follow your personalized practice plan.',
   path: '/how-it-works',

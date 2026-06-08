@@ -8,7 +8,7 @@ import { LocalizedFaq } from '@/components/marketing/LocalizedFaq';
 export const metadata = buildMetadata({
   title: 'Frequently Asked Questions | SwingVantage',
   description:
-    'Answers to the most common questions about SwingVantage — how AI swing analysis works, what sports are supported, how your data is protected, and what the platform can and cannot do.',
+    'Answers to common questions about SwingVantage — how AI swing analysis works, which sports are supported, how your data is protected, and what it can and cannot do.',
   path: '/faq',
 });
 

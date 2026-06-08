@@ -5,9 +5,9 @@ import { buildMetadata } from '@/lib/seo/metadata';
 // buildMetadata adds canonical + hreflang alternates to localized versions
 // (e.g. /es/features) when they exist — see lib/seo/metadata.
 export const metadata = buildMetadata({
-  title: 'SwingVantage Features — AI Swing Analysis, Diagnostics & Training Tools',
+  title: 'SwingVantage Features — AI Diagnosis, Drills & Tracking',
   description:
-    'Every SwingVantage feature explained: AI swing diagnosis, launch monitor import, video analysis, drill library, practice scheduling, progress tracking, equipment diagnostics, and more — for golf, tennis, baseball, and softball.',
+    'Every SwingVantage feature: AI swing diagnosis, launch-monitor import, video analysis, a drill library, practice scheduling, and progress tracking — for all sports.',
   path: '/features',
 });
 

@@ -13,7 +13,7 @@ import {
 export const metadata = buildMetadata({
   title: 'Methodology — What SwingVantage Measures, Estimates, and Does Not',
   description:
-    'An honest explanation of how SwingVantage produces results: what it analyses, what it estimates, what it does not measure, how confidence is decided, how input quality matters, and why a qualified coach should validate.',
+    'An honest explanation of how SwingVantage works: what it analyses, what it estimates, what it does not measure, how confidence is decided, and why a coach should validate.',
   path: '/methodology',
   keywords: [
     'SwingVantage methodology',

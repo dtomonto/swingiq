@@ -14,7 +14,7 @@ import {
 } from '@/lib/seo/jsonLd';
 
 export const metadata = buildMetadata({
-  title: 'Free Golf Swing Analysis — AI-Powered Launch Monitor Data',
+  title: 'Free Golf Swing Analysis — AI Launch Monitor Data',
   description:
     'Upload your launch monitor data or swing video for a free AI golf swing analysis. Identify your top swing fault, get personalized drills, and track improvement.',
   path: '/golf-swing-analysis',

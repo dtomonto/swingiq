@@ -14,7 +14,7 @@ import {
 } from '@/lib/seo/jsonLd';
 
 export const metadata = buildMetadata({
-  title: 'Fast-Pitch Softball Swing Analysis — Catch Up to Speed, Improve Contact',
+  title: 'Fast-Pitch Softball Swing Analysis — Catch Up to Speed',
   description:
     'Free AI fast-pitch softball swing analysis. Shorten your path, start earlier, and stop getting jammed. Get your top fix, drills, and a 7-day plan — no account needed.',
   path: '/softball-swing-analysis/fast-pitch',

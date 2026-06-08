@@ -13,7 +13,7 @@ import {
 } from '@/lib/seo/jsonLd';
 
 export const metadata = buildMetadata({
-  title: 'Free Tennis Swing Analysis — AI Stroke Analysis & Drill Recommendations',
+  title: 'Free Tennis Swing Analysis — AI Stroke Breakdown',
   description:
     'Get a free AI tennis swing analysis. Upload a video of your groundstrokes, serve, or volleys and receive instant fault diagnosis and personalized drills.',
   path: '/tennis-swing-analysis',

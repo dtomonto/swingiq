@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'About SwingVantage | Free AI Swing Analysis Platform',
   description:
-    'SwingVantage is a free AI-powered swing analysis platform for golf, tennis, baseball, and softball. Learn about our mission to make professional-quality coaching accessible to every athlete.',
+    'SwingVantage is a free AI swing-analysis platform for golf, tennis, baseball, and softball — on a mission to make pro-quality coaching accessible to every athlete.',
   alternates: { canonical: '/about' },
 };
 
