@@ -10,10 +10,11 @@
 // from lib/intent. The full dashboard renders right below it.
 // ============================================================
 import Link from 'next/link';
-import { Video, Upload, TrendingUp, ArrowRight } from 'lucide-react';
+import { Video, Upload, TrendingUp, ArrowRight, Target } from 'lucide-react';
 import { useSport, SPORT_DISPLAY } from '@/contexts/SportContext';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { IMPROVE_INTENTS, type ImproveIntent } from '@/lib/intent/intents';
+import { usePriorityResult } from '@/lib/priority/usePriorityResult';
 import { cn } from '@/lib/utils';
 import type { SportId } from '@swingiq/core';
 
@@ -23,6 +24,20 @@ const ALL_SPORTS = Object.keys(SPORT_DISPLAY) as SportId[];
 export function IntentPicker() {
   const { activeSport, setActiveSport, selectedSports, addSport, sportName } = useSport();
   const addable = ALL_SPORTS.filter((s) => !selectedSports.includes(s));
+
+  // Answer the question for them when we can: the priority engine synthesizes a
+  // golf #1 from the whole record. Surfaced only when it has enough to be honest
+  // (self-hides otherwise) and only for golf, where it's computed.
+  const priority = usePriorityResult();
+  const topPriority = activeSport === 'golf' && !priority.insufficientData ? priority.top : null;
+
+  const onPriority = () => {
+    track(ANALYTICS_EVENTS.CTA_CLICKED, {
+      label: 'intent_priority',
+      location: 'intent_picker',
+      sport: activeSport,
+    });
+  };
 
   const pickSport = (id: SportId) => {
     if (id === activeSport) return;
@@ -97,6 +112,25 @@ export function IntentPicker() {
             </details>
           )}
         </div>
+
+        {/* Smart default: the athlete's synthesized #1 priority, when we have one */}
+        {topPriority && (
+          <Link
+            href={topPriority.recommendedPlanHref}
+            onClick={onPriority}
+            className="group mt-4 flex items-center gap-3 rounded-xl border border-primary/40 bg-primary/5 p-3 transition-colors hover:bg-primary/10 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <Target className="w-5 h-5 text-primary shrink-0" aria-hidden="true" />
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Your #1 priority right now</p>
+              <p className="text-sm font-semibold text-foreground truncate">{topPriority.label}</p>
+            </div>
+            <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary shrink-0">
+              Work on it
+              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+            </span>
+          </Link>
+        )}
 
         {/* Intent actions — route into the existing flow for the active sport */}
         <div className="grid gap-2 sm:grid-cols-3 mt-4">
