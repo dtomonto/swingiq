@@ -53,9 +53,11 @@ describe('buildMetadata', () => {
     expect((m.twitter as { card?: string }).card).toBe('summary_large_image');
   });
 
-  it('includes keywords only when provided', () => {
+  it('never emits a keywords meta tag (deprecated, ignored on purpose)', () => {
+    // Google ignores meta keywords and Bing can read a stuffed list as spam, so
+    // buildMetadata drops them entirely — even when call sites still pass them.
     expect(buildMetadata({}).keywords).toBeUndefined();
-    expect(buildMetadata({ keywords: ['a', 'b'] }).keywords).toEqual(['a', 'b']);
+    expect(buildMetadata({ keywords: ['a', 'b'] }).keywords).toBeUndefined();
   });
 });
 
