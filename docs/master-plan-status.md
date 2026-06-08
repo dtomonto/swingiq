@@ -24,7 +24,7 @@ That's the whole point of auditing before building: it stops the concurrent agen
 | # | Workstream | Status | Where it lives / what's missing |
 |--:|------------|:------:|---------------------------------|
 | 1 | Product strategy / hierarchy | 🟡 | Core flow + tiers exist; the Tier-1→4 hierarchy is implicit, not a single source of truth. See §1. |
-| 2 | User experience | ✅ | Mobile pass shipped, themes, "One Fix Today" framing. Gap: first-screen "what to improve today?" intent picker. |
+| 2 | User experience | ✅ | Mobile pass, themes, "One Fix Today" framing, **+ first-screen intent picker** (`components/intent`, local `43de122`). |
 | 3 | AI analysis quality | ✅ | Deterministic diagnostic engine + visual AI schema, both structured. |
 | 4 | Trust & credibility | ✅ | `/methodology`, `/trust`, disclaimers, honest-first framing. Gap: "coach-reviewed" labels, before/after examples. |
 | 5 | Sport-specific depth | ✅ | 7 sports with per-sport analysis/benchmarks in `packages/core/src/sports/*`. |
@@ -49,7 +49,7 @@ The Tier 1–4 hierarchy the plan asks for already exists *as features*, but not
 
 ### §2 User experience — ✅ with one real gap
 - Mobile/a11y/PWA pass shipped (live). 7-theme token system. Centralized "Today's Fix" copy in [`lib/coaching/fixFraming.ts`](../apps/web/src/lib/coaching/fixFraming.ts).
-- **Gap (worth doing):** the plan's §5.1 "first screen asks one question — *what do you want to improve today?*" intent picker. The pieces exist (sport selector, persona router) but there's no single low-cognition entry screen that funnels straight into the analysis flow.
+- **Gap — now closed (local `43de122`):** the plan's §5.1 "first screen asks one question — *what do you want to improve today?*" intent picker. The marketing homepage had this (`PersonaPathCards`) but the in-app entry opened on a dense quick-action grid. Added a focused `IntentPicker` atop the dashboard that reuses `SportContext` (one-tap sport switch) and the canonical routes (analyze → `/video`, import → `/sessions/import`, progress → `/progress`); the full dashboard still renders below.
 
 ### §3 AI analysis quality — ✅
 - **Data path:** [`packages/core/src/diagnostic/engine.ts`](../packages/core/src/diagnostic/engine.ts) detects issues, ranks by `score_impact` then `confidence`, separates raw vs sample-calibrated confidence, and applies a small-sample penalty so "a few shots can't fabricate a high-confidence diagnosis." This *is* the structured framework §6 asks for.
@@ -91,11 +91,11 @@ Privacy/terms/disclaimers + data export & delete existed, and `settings.usage_ca
 
 Ordered by value-per-effort, filtered to **only genuine gaps** and **excluding** anything that violates your free-users-first sequencing or duplicates existing code. All are tandem-safe (new/isolated files).
 
-> **Status (2026-06-07): 4 of 5 shipped locally** (`bbef981`, `e29f064`, `9f12760`, `f424767`). Only **#3 (intent picker)** remains, plus the owner's one-line analytics key for #1. All commits are local/unpushed for owner review.
+> **Status (2026-06-07): ALL 5 shipped locally** (`bbef981`, `e29f064`, `9f12760`, `f424767`, `43de122`). The only thing left is the owner pasting one analytics provider key to turn on measurement (#1). All commits are local/unpushed for owner review.
 
 1. ~~**Turn analytics on (§13).**~~ **Code DONE — local `bbef981`.** The core funnel now fires end-to-end (was defined-but-dark). Only step left: the owner pastes one provider key into `apps/web/.env.local` (Plausible recommended — cookieless, no consent banner). See [`docs/analytics-events.md`](analytics-events.md) → "Turning analytics on". Until then you still can't read the north-star metric, so this owner step is the highest-ROI 5-minute task remaining.
 2. ~~**Surface the confidence score in the result UI (§6).**~~ **DONE — local `e29f064`.** The number was already shown in both paths; added the missing prominent "limited read — here's how to sharpen it" uncertainty prompt to the visual result.
-3. **First-screen intent picker (§2/§5.1).** One low-cognition "What do you want to improve today?" entry that routes into the existing analysis flow. Reuses sport selector + persona router.
+3. ~~**First-screen intent picker (§2/§5.1).**~~ **DONE — local `43de122`.** Focused "What do you want to improve today?" picker atop the dashboard (`components/intent` + pure `lib/intent`), reusing `SportContext` + canonical routes.
 4. ~~**Issue → drill → outcome record (§11 — the moat).**~~ **DONE — local `9f12760`.** Assembled in `lib/improvement-loops` (pure join of drill feedback + retests) + an effectiveness aggregate (the benchmark seed) + a read-only `/labs` surface.
 5. ~~**Guardian-consent workflow for minors (§12/§15).**~~ **DONE — local `f424767`.** Real consent workflow + dated/versioned record + withdraw, in `lib/guardian-consent`, surfaced on `/settings`.
 
