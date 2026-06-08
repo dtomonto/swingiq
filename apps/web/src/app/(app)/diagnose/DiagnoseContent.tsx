@@ -20,6 +20,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
+import { GradeCard } from '@/components/grading/GradeCard';
 import { cn, priorityToColor } from '@/lib/utils';
 import {
   runDiagnosticEngine,
@@ -417,6 +418,9 @@ export function DiagnoseContent() {
           description="Ball speed vs. club speed — how cleanly you struck it."
         />
       </div>
+
+      {/* Profile-aware grade (Phase 10) — graded against the player's level. */}
+      <GradeCard scores={scores} />
 
       {/* Diagnoses */}
       <div className="space-y-4">

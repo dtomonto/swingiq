@@ -20,6 +20,7 @@ import type { DailyNote } from '@/lib/dailyNotes/types';
 import type { OnboardingStateId, OnboardingRole } from '@/lib/onboarding/state';
 import type { SavedMapping } from '@/lib/import/mapping-memory';
 import type { PrioritySnapshot } from '@/lib/priority/types';
+import type { GolfProfileId } from '@/lib/grading/profiles';
 
 export { DEFAULT_COMMUNITY_STATE, DEFAULT_TUTORIAL_PROGRESS };
 
@@ -129,6 +130,9 @@ export interface AppSettings {
    *  so recommendations stay within the active sport (Phase 9). Optional for
    *  back-compat with older saved state. */
   allow_cross_sport?: boolean;
+  /** User-confirmed golf profile (Phase 10). When unset, it's inferred from
+   *  handicap/skill/data. Stored here so it syncs with the rest of settings. */
+  golf_profile?: GolfProfileId | null;
 }
 
 // ── Sport equipment types (non-golf) ──────────────────────────

@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -114,6 +114,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'people', built: true, permission: 'users.view',
     blurb: 'Per-sport athlete profiles, skill levels, goals and equipment.',
     keywords: ['profiles', 'players', 'golf', 'tennis', 'baseball'],
+  },
+  {
+    id: 'benchmarks', label: 'Grading Benchmarks', href: '/admin/benchmarks', icon: Gauge,
+    group: 'people', built: true, permission: 'users.view',
+    blurb: 'Tune the per-profile, per-dimension scores golf sessions are graded against.',
+    keywords: ['grading', 'benchmark', 'profile', 'beginner', 'professional', 'score'],
   },
 
   // ── Media & AI ─────────────────────────────────────────────
