@@ -233,22 +233,23 @@ export const CATALOG: SetupTask[] = [
   // ── Growth & money ─────────────────────────────────────────
   {
     id: 'analytics',
-    title: 'Measure your traffic (analytics)',
+    title: 'Turn on analytics (see your improvement-loop funnel)',
     plainEnglish:
-      'See how many people visit and what they do. Plausible is recommended because it is privacy-friendly and needs no cookie banner — a good fit since SwingVantage has junior athletes. Any one provider is enough.',
+      'See how many people visit AND how many complete the full loop — upload → #1 fix → drills → retest. Every step is already wired; it just needs ONE provider connected. PostHog is the best pick for you: the free tier is generous and it\'s the only one that charts funnels out of the box, so you can watch your north-star metric (completed improvement loops). Google Analytics is also free but uses cookies (needs a consent banner). Plausible is the cleanest privacy story but is paid (~$9/mo). Pick ONE.',
     category: 'growth',
     priority: 'recommended',
     detect: { kind: 'derived', key: 'analytics-any' },
     steps: [
-      'Recommended: create a site at plausible.io and set NEXT_PUBLIC_PLAUSIBLE_DOMAIN to your domain.',
-      'Or use Google Analytics (NEXT_PUBLIC_GA_ID) — pair with a cookie banner in the EU.',
-      'Or PostHog product analytics (NEXT_PUBLIC_POSTHOG_KEY).',
-      'Add one in Vercel → Settings → Environment Variables and redeploy.',
+      'Recommended (free, best for the funnel): create a project at posthog.com, open Settings → Project API Key, copy the key (starts with phc_), and set NEXT_PUBLIC_POSTHOG_KEY to it.',
+      'Or Google Analytics (free): create a GA4 property and set NEXT_PUBLIC_GA_ID to its Measurement ID (G-…). Pair with a cookie banner in the EU.',
+      'Or Plausible (paid, cookieless, no banner): create a site at plausible.io and set NEXT_PUBLIC_PLAUSIBLE_DOMAIN to your domain.',
+      'Add just ONE of these in Vercel → Settings → Environment Variables, then redeploy. These are NEXT_PUBLIC_ values — publishable IDs that are safe to expose in the browser, not secrets.',
     ],
     inputs: [
+      { kind: 'url', value: 'https://posthog.com', label: 'Open PostHog (recommended)' },
+      { kind: 'env', value: 'NEXT_PUBLIC_POSTHOG_KEY', example: 'phc_xxxxxxxxxxxxxxxx (publishable)', where: 'PostHog → Settings → Project API Key' },
+      { kind: 'env', value: 'NEXT_PUBLIC_GA_ID', example: 'G-XXXXXXXXXX', where: 'Google Analytics → Admin → Data Streams' },
       { kind: 'env', value: 'NEXT_PUBLIC_PLAUSIBLE_DOMAIN', example: 'swingvantage.com', where: 'Vercel → Settings → Environment Variables' },
-      { kind: 'env', value: 'NEXT_PUBLIC_GA_ID', example: 'G-XXXXXXXXXX', where: 'Vercel → Settings → Environment Variables' },
-      { kind: 'env', value: 'NEXT_PUBLIC_POSTHOG_KEY', secret: true, where: 'Vercel → Settings → Environment Variables' },
     ],
     learnMoreHref: '/admin/analytics',
     learnMoreLabel: 'Analytics',
