@@ -106,9 +106,11 @@ export function MentalPerformanceDashboard() {
         </div>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-muted-foreground">
           <li>Live for all 7 sports + universal — coach, journal, plans and routines work with no AI cost.</li>
-          <li><span className="text-foreground">Done:</span> real log aggregator, CIOS recommendation feed, /fix reset surface, parent/coach mode, meditation-script generator.</li>
           <li>
-            <span className="text-foreground">Next (optional):</span> enable AI polish (<code className="rounded bg-muted px-1">MENTAL_AI_ENABLED</code>, off by default), wire a consented telemetry pipe into the aggregate seam, and render scripts/briefs via Video Studio. Owner steps live in{' '}
+            <span className="text-foreground">Done:</span> real log aggregator, CIOS recommendation feed, /fix reset surface, parent/coach mode, meditation-script generator, on-device spoken routines (Web Speech), Guided Media briefs, and an opt-in anonymized telemetry pipe (off by default).
+          </li>
+          <li>
+            <span className="text-foreground">Next (optional):</span> enable AI polish (<code className="rounded bg-muted px-1">MENTAL_AI_ENABLED</code>, off by default); connect an events-collection backend (PostHog / Supabase) so the telemetry becomes real cross-user intelligence; render audio/video via Video Studio. Owner steps live in{' '}
             <a href="/admin/setup" className="text-primary hover:underline">Setup &amp; Next Steps</a>.
           </li>
         </ul>

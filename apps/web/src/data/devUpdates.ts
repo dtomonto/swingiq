@@ -95,6 +95,36 @@ export const DEV_STATS: DevStat[] = [
 
 export const DEV_UPDATES: DevUpdate[] = [
   {
+    id: 'dev-mental-performance',
+    version: 'Mental Performance',
+    title: 'A local-first Mental Performance pillar — keyless coach, anonymized telemetry, on-device audio',
+    date: '2026-06-08',
+    displayDate: 'June 2026',
+    category: 'Architecture',
+    impact: 'major',
+    headline:
+      'An emotion-management & mistake-recovery engine built the SwingVantage way: pure, local-first, consent-gated, keyless — with a deterministic coach and a privacy-first telemetry pipe.',
+    details:
+      'lib/mental-performance is a self-contained, local-first module (its own localStorage key, mirrored to the account by the document-sync layer — it never touches the main store). A deterministic, keyless coach maps sport × mistake × emotion to one of 27 seeded reset routines plus a self-talk cue, breath pattern, and practice drill, with a safety screen that routes crisis/medical free text to real help instead of ever attempting therapy. The same data drives a public SEO surface (a hub plus dynamic per-sport and per-routine pages with schema), the in-app coach/journal/plans, and an admin console. It plugs into CentralIntelligenceOS as a first-class recommendation domain and into GrowthOS as an opportunity source. Phase 3 added a privacy-first telemetry pipe: anonymized, opt-in-only events (sport, emotion, mistake category, routine, effectiveness — never free text or identity) that normalize back into the real aggregator. Phase 4 ships on-device guided audio via the Web Speech API — keyless, free, no TTS bill — plus generated meditation scripts and Video Studio briefs.',
+    highlights: [
+      'Deterministic, keyless coach (no API cost) with a crisis/medical safety screen',
+      '27 multi-sport reset routines + plans + a consent-gated journal, all local-first',
+      'Anonymized, opt-in telemetry → real aggregator (no PII, off by default)',
+      'On-device spoken routines via the Web Speech API — zero TTS cost',
+      'First-class CentralIntelligenceOS + GrowthOS integration',
+      'Public SEO pillar fixed to be crawlable (middleware allowlist)',
+    ],
+    stack: ['TypeScript', 'Next.js App Router', 'Local-first', 'Web Speech API', 'useSyncExternalStore'],
+    testing: [
+      '40 unit tests (routines, coach, crisis screen, plans, journal, intelligence k-anonymity, telemetry consent + anonymization, store consent-gating)',
+      'Whole-app type-check on the production base before each ship',
+      'Live verification of the public pages after the crawlability fix',
+    ],
+    rollback:
+      'Additive and flag-gated (NEXT_PUBLIC_MENTAL_PERFORMANCE, default on; MENTAL_AI_ENABLED, default off). The whole section can be hidden with one env var; telemetry stays off until a user explicitly opts in.',
+    isMilestone: true,
+  },
+  {
     id: 'dev-seven-sports',
     version: 'Sports',
     title: 'Seven sports from one taxonomy — pickleball and padel as first-class engines',

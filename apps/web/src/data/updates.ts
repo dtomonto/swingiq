@@ -149,6 +149,57 @@ export const UPDATE_TEMPLATE: Omit<Update, 'id' | 'createdAt' | 'updatedAt'> = {
 
 export const UPDATES: Update[] = [
   {
+    id: 'update-086',
+    title: 'New: Mental Performance — Train How You Respond After the Mistake',
+    slug: 'mental-performance',
+    metaTitle: 'Mental Performance — Recover After Mistakes & Compete With Composure | SwingVantage',
+    metaDescription:
+      'SwingVantage now coaches the mental game: short reset routines, a keyless coach, on-course/field/court meditations, training plans and a private journal across golf, baseball, softball, tennis, pickleball and padel. Performance coaching, not therapy.',
+    summary:
+      'Your mechanics matter — your response after the mistake matters just as much. Mental Performance is a new section that helps you manage emotions, recover after errors, and build repeatable reset routines: a keyless coach that maps your sport, what happened, and how you feel to the right reset; 27 short routines you can run between a shot, pitch, or point (now with optional on-device spoken narration); training plans; and a private, consent-based journal. It is performance coaching — not medical or mental-health treatment — and it screens for crisis language to point you to real help.',
+    releaseDate: '2026-06-08',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 200,
+    audience: ['all athletes', 'parents', 'coaches'],
+    relatedFeature: 'Mental Performance',
+    userBenefit:
+      'When you make a mistake or feel the pressure, you get an instant, sport-specific reset — accept it, take one lesson, breathe, and commit to the next play — so one bad shot does not become three bad holes. Over time it learns your common triggers and what helps you recover fastest.',
+    whyItMatters:
+      'The athletes who compete best are not the ones who never make mistakes — they are the ones who recover fastest, and that is a trainable skill. Most analysis tools only fix the mechanics; this trains the response. It is deliberately framed as sport coaching, never therapy, with calm, non-alarming safety language and crisis referrals built in.',
+    beforeAfter: {
+      before:
+        'SwingVantage analyzed your mechanics, but the moment after a bad shot, a fielding error, or a missed return — the part that decides your next three plays — was on you alone.',
+      after:
+        'A dedicated Mental Performance section gives you an instant reset, a guided routine you can hear out loud, a journal that surfaces your patterns, and training plans to make composure a habit — across all seven sports.',
+    },
+    whereToFindIt:
+      'Open "Mental Performance" in the sidebar (or the quick-reset card on your dashboard), or visit /mental-performance to explore the public routines for your sport.',
+    userActionRequired: 'None — it is on by default and free. Nothing is stored unless you choose to save it.',
+    seoKeywords: [
+      'mental performance',
+      'sport psychology app',
+      'how to recover after a mistake',
+      'golf mental game',
+      'between point reset',
+      'softball error recovery',
+      'pre-game routine',
+      'composure under pressure',
+    ],
+    answerEngineSummary:
+      'SwingVantage Mental Performance is a sport-psychology section across golf, baseball, slow- and fast-pitch softball, tennis, pickleball and padel. It offers a keyless coach that maps sport, mistake and emotion to a reset routine; 27 short reset/pre-performance/meditation routines (with optional on-device spoken narration via the Web Speech API); deterministic training plans; and a consent-based journal that surfaces triggers and composure trends. It is performance coaching, not medical or mental-health treatment, and screens free text for crisis/medical language to route users to real help.',
+    generativeSearchSummary:
+      'SwingVantage added Mental Performance — emotion management and mistake recovery for all seven sports, with a keyless coach, short reset routines (now narrated on-device), training plans, and a private journal. Performance coaching, not therapy.',
+    internalLinkTargets: ['/mental-performance', '/features', '/methodology'],
+    isFeatured: true,
+    isMajorMilestone: true,
+    createdAt: '2026-06-08',
+    updatedAt: '2026-06-08',
+  },
+  {
     id: 'update-081',
     title: 'SwingVantage Now Supports 7 Sports — Pickleball and Padel Are Here',
     slug: 'pickleball-padel-seven-sports',

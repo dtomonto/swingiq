@@ -414,7 +414,8 @@ export const CATALOG: SetupTask[] = [
       'Nothing is required — the section ships ON for every athlete (golf, baseball, softball, tennis, pickleball, padel).',
       'Optional kill-switch: set NEXT_PUBLIC_MENTAL_PERFORMANCE=false in Vercel to hide the section instantly.',
       'Optional AI polish (costs money, OFF by default): set MENTAL_AI_ENABLED=true to let an AI rewrite the keyless coach output. Leave it off to stay free.',
-      'Developer follow-ups (no owner action): wire a consented telemetry pipe into aggregateMentalSignals() for real cross-user intelligence, and render the generated meditation scripts/briefs through Video Studio. See docs/MENTAL_PERFORMANCE.md.',
+      'Already shipped & live: the deterministic coach, crisis-safe screening, journal, training plans, on-device spoken routines (Web Speech — keyless), CIOS + GrowthOS intelligence, and an opt-in anonymized telemetry pipe (off by default; users enable it in the journal).',
+      'Only remaining (optional infra, no code change): connect an events-collection backend (e.g. PostHog query or a Supabase events table) so the anonymized telemetry becomes real cross-user intelligence, and render audio/video through Video Studio. See docs/MENTAL_PERFORMANCE.md.',
     ],
     inputs: [
       { kind: 'env', value: 'NEXT_PUBLIC_MENTAL_PERFORMANCE', example: 'false (to hide the section; default is on)', where: 'Vercel → Settings → Environment Variables' },
