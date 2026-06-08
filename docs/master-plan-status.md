@@ -33,7 +33,7 @@ That's the whole point of auditing before building: it stops the concurrent agen
 | 8 | SEO/AEO/GEO | ✅ | ~30 marketing pages, self-maintaining sitemap, JSON-LD, i18n (es/fr). |
 | 9 | Monetization | ⏸️ | 3 tiers + Stripe scaffold built but "Coming Soon" **by design** (free-users-first). |
 | 10 | Coach/team/family | 🟡 | `lib/team` engine + Team tier + `/coaches`/`/teams` marketing. Gap: no Family plan; in-app coach dashboard is thin. |
-| 11 | Data strategy / moat | 🟡 | Profiles + history + benchmarks exist. Gap: the issue→drill→**outcome** dataset isn't explicitly captured as a unit. |
+| 11 | Data strategy / moat | ✅ | Profiles + history + benchmarks exist; the issue→drill→**outcome** record is now assembled (`lib/improvement-loops`, local `9f12760`). |
 | 12 | Privacy, safety, liability | 🟡 | Privacy/terms/disclaimers + export/delete. Gap: a **formal guardian-consent workflow for minors**. |
 | 13 | Analytics & experimentation | 🟡 | Rich event catalog + abstraction layer built. Gap: **no provider configured**, so events drop in prod; no A/B harness. |
 | 14 | Technical scalability / automation | ✅ | Modular sport architecture, AI guardrails, content automation, offline/PWA. |
@@ -74,8 +74,8 @@ Already built (see §3), and on closer inspection the confidence **number is alr
 - Built: [`lib/team`](../apps/web/src/lib/team) (engine/store/types/useTeam), the **Team** tier, marketing `/coaches` + `/teams`, and a coach-shareable recruiting hub + public `/player/[slug]` view.
 - **Gaps:** no **Family** plan/profiles (multi-athlete under one parent), and the in-app coach dashboard (roster → assign drills → review) is thinner than the marketing pages imply. Both are §90–180-day items — fine to leave.
 
-### §11 Data moat — 🟡
-Profiles, history, and benchmarks exist. **The missing piece the plan correctly identifies as the moat:** capturing **issue → drill → outcome** as one linked record (so you can later say "for this athlete type + this issue, this drill sequence produced this improvement"). Today those live in separate stores. This is the single most strategically valuable *new* thing in the whole plan.
+### §11 Data moat — ✅ (closed 2026-06-07, local `9f12760`)
+Profiles, history, and benchmarks existed, but the moat piece — **issue → drill → outcome** as one linked record — wasn't assembled; the signals lived in separate stores. Now joined in [`lib/improvement-loops`](../apps/web/src/lib/improvement-loops): a pure derivation (no new write path, no fabrication) that groups drill feedback by `(sport, faultId)`, attaches the matching retest outcome, and produces both the per-fault loop and an anonymized `(sport, fault, drill)` help-rate table — the benchmark seed the plan calls the durable advantage. Surfaced read-only on `/labs`. Honest-first: outcome stays null until a real retest matches; help % only shows at ≥3 verdicts.
 
 ### §12 Privacy / youth safety — 🟡
 Privacy/terms/disclaimers + data export & delete exist; "guardian/consent/minor" language appears across `/parents`, `/privacy`, `/terms`, signup. **Real gap:** a *workflow* (not just copy) for **guardian consent when a minor signs up** — the plan's §15 asks for this explicitly and it matters most given youth athletes.
@@ -94,7 +94,7 @@ Ordered by value-per-effort, filtered to **only genuine gaps** and **excluding**
 1. ~~**Turn analytics on (§13).**~~ **Code DONE — local `bbef981`.** The core funnel now fires end-to-end (was defined-but-dark). Only step left: the owner pastes one provider key into `apps/web/.env.local` (Plausible recommended — cookieless, no consent banner). See [`docs/analytics-events.md`](analytics-events.md) → "Turning analytics on". Until then you still can't read the north-star metric, so this owner step is the highest-ROI 5-minute task remaining.
 2. ~~**Surface the confidence score in the result UI (§6).**~~ **DONE — local `e29f064`.** The number was already shown in both paths; added the missing prominent "limited read — here's how to sharpen it" uncertainty prompt to the visual result.
 3. **First-screen intent picker (§2/§5.1).** One low-cognition "What do you want to improve today?" entry that routes into the existing analysis flow. Reuses sport selector + persona router.
-4. **Issue → drill → outcome record (§11 — the moat).** Define one linked record that ties a diagnosis to the drills assigned to the retest result. This is the durable data advantage; everything else is catch-up.
+4. ~~**Issue → drill → outcome record (§11 — the moat).**~~ **DONE — local `9f12760`.** Assembled in `lib/improvement-loops` (pure join of drill feedback + retests) + an effectiveness aggregate (the benchmark seed) + a read-only `/labs` surface.
 5. **Guardian-consent workflow for minors (§12/§15).** A real signup branch, not just copy. Matters disproportionately because youth athletes use this.
 
 **Explicitly NOT recommended now** (deferred on purpose, would fight your north star): premium one-time report, Family/Coach paid plans, hard paywalls, more sport breadth (you already ship 7), 3D motion expansion.
