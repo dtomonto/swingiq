@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -134,6 +134,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'media-ai', built: true, permission: 'ai.review',
     blurb: 'Review AI swing outputs, confidence and quality queues.',
     keywords: ['analysis', 'model', 'confidence', 'review'],
+  },
+  {
+    id: 'coach-mix', label: 'Coach Mix', href: '/admin/coach-mix', icon: Blend,
+    group: 'media-ai', built: true,
+    blurb: 'Ethical coaching-influence engine (CentralIntelligenceOS): blend coach-inspired teaching models, review what’s learned, and bias SwingVantage’s drills & explanations — original content only, admin-gated.',
+    keywords: ['coach', 'coaching', 'coach mix', 'influence', 'teaching', 'swing model', 'drills', 'learning', 'central intelligence', 'style', 'blend', 'gankas', 'bender'],
   },
 
   // ── Content ────────────────────────────────────────────────
