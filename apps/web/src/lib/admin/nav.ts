@@ -212,10 +212,10 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['marketing', 'campaigns', 'growth'],
   },
   {
-    id: 'analytics', label: 'Analytics', href: '/admin/analytics', icon: BarChart3,
+    id: 'analytics', label: 'Analytics OS', href: '/admin/analytics', icon: BarChart3,
     group: 'growth', built: true, permission: 'analytics.view',
-    blurb: 'Growth, retention, funnels and content performance reporting.',
-    keywords: ['metrics', 'funnels', 'reports', 'retention'],
+    blurb: 'Unified PostHog control center: product & web analytics, session replay, funnels, feature flags, experiments, surveys, cohorts and SQL — all in one place.',
+    keywords: ['metrics', 'funnels', 'reports', 'retention', 'posthog', 'analytics os', 'web analytics', 'product analytics', 'session replay', 'feature flags', 'experiments', 'ab test', 'surveys', 'cohorts', 'hogql', 'sql', 'events'],
   },
   {
     id: 'insights', label: 'Insights', href: '/admin/insights', icon: Lightbulb,

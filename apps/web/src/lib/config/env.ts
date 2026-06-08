@@ -55,6 +55,10 @@ export const envSchema = z
     NEXT_PUBLIC_PLAUSIBLE_DOMAIN: z.string().optional(),
     NEXT_PUBLIC_POSTHOG_KEY: z.string().optional(),
     NEXT_PUBLIC_POSTHOG_HOST: urlish.optional(),
+    // PostHog read/management (Analytics OS) — server-side only, optional.
+    // Lets the admin read analytics back and manage flags inside the app.
+    POSTHOG_PERSONAL_API_KEY: z.string().min(10).optional(),
+    POSTHOG_PROJECT_ID: intString.optional(),
 
     // Observability (Sentry) — see docs/OBSERVABILITY.md
     SENTRY_DSN: urlish.optional(),
@@ -121,6 +125,16 @@ function crossChecks(env: Env): EnvIssue[] {
       level: 'warn',
       message:
         'only one of STRIPE_SECRET_KEY / NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is set — checkout needs both',
+    });
+  }
+
+  // PostHog read/management needs BOTH the personal key and the project id.
+  if (present(env.POSTHOG_PERSONAL_API_KEY) !== present(env.POSTHOG_PROJECT_ID)) {
+    issues.push({
+      path: 'POSTHOG_*',
+      level: 'warn',
+      message:
+        'only one of POSTHOG_PERSONAL_API_KEY / POSTHOG_PROJECT_ID is set — the Analytics OS needs both to read data',
     });
   }
 

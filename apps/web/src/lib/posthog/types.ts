@@ -115,7 +115,6 @@ export interface LiveSnapshot {
   topReferrers: NamedCount[];
   featureFlags: FeatureFlagSummary[];
   counts: {
-    recordings: number | null;
     surveys: number | null;
     experiments: number | null;
     cohorts: number | null;
