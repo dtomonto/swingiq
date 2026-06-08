@@ -17,6 +17,9 @@ import type {
   AthletePriority, PriorityEvidence, PriorityResult, PrioritySeverity,
   PrioritySnapshot, PriorityTrend,
 } from './types';
+import {
+  readinessSeverity, readinessHeadline, mayBeReadinessDriven, type ReadinessZone,
+} from '@/lib/readiness/golf-mobility';
 
 /** Minimal diagnosis shape (DiagnosisOutput is structurally assignable). */
 export interface DiagnosisLike {
@@ -40,6 +43,8 @@ export interface PriorityInput {
   gapping?: { grade: string; summary: string } | null;
   /** Whether any session carried club/face data (for the "missing" hints). */
   hasClubFaceData?: boolean;
+  /** Today's physical readiness (BodySync), if available (Phase 8). */
+  readiness?: { zone: ReadinessZone; score: number; summary?: string; regions?: string[] } | null;
   /** Previous snapshot for the "what changed" line. */
   previous?: PrioritySnapshot | null;
   now?: string;
@@ -184,6 +189,49 @@ export function computeAthletePriorities(input: PriorityInput): PriorityResult {
       source: 'video', recommendedPlanHref: planHref(),
       evidence: [{ label: 'Seen in', detail: `${info.count} video${info.count === 1 ? '' : 's'}` }],
     });
+  }
+
+  // Physical readiness (Phase 8): when today's readiness is limiting, surface it
+  // as a priority and flag that a swing fault may be partly mobility-driven.
+  if (input.readiness) {
+    const sev = readinessSeverity(input.readiness.zone);
+    if (sev) {
+      const conf = Math.max(40, Math.min(95, 100 - input.readiness.score));
+      const ev: PriorityEvidence[] = [
+        { label: 'Readiness', detail: `${input.readiness.zone} zone` },
+        { label: 'Score', detail: `${input.readiness.score}/100` },
+      ];
+      if (input.readiness.regions && input.readiness.regions.length > 0) {
+        ev.push({ label: 'Watch', detail: input.readiness.regions.join(', ') });
+      }
+      priorities.push({
+        id: 'physical_readiness',
+        label: 'Physical readiness',
+        summary: input.readiness.summary || readinessHeadline(input.readiness.zone),
+        severity: sev,
+        confidence: conf,
+        score: SEVERITY_WEIGHT[sev]! * (conf / 100),
+        occurrences: 1,
+        sampleSize: 0,
+        trend: 'persisting',
+        source: 'readiness',
+        recommendedPlanHref: '/bodysync',
+        evidence: ev,
+      });
+
+      // Hint that a mechanics fault could be readiness/mobility-driven today.
+      if (mayBeReadinessDriven(input.readiness.zone)) {
+        const topSwing = priorities
+          .filter((p) => p.source === 'launch_monitor')
+          .sort((a, b) => b.score - a.score)[0];
+        if (topSwing) {
+          topSwing.evidence = [
+            ...topSwing.evidence,
+            { label: 'Note', detail: 'Readiness is low today — this may be partly mobility-driven; warm up first.' },
+          ];
+        }
+      }
+    }
   }
 
   priorities.sort((a, b) => b.score - a.score || SEVERITY_RANK[b.severity] - SEVERITY_RANK[a.severity]);

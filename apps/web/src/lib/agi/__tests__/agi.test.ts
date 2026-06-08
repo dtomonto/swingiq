@@ -209,6 +209,7 @@ describe('AGI — world model fusion', () => {
         sig('balance', 'golf', 80),
       ],
       sportSessions: [sessionRef('golf', 60), sessionRef('tennis', 55)],
+      allowCrossSport: true, // Phase 9: cross-sport is opt-in
     };
     const model = buildWorldModel(bundle);
     expect(model.crossSport).toBe(true);
@@ -292,6 +293,7 @@ describe('AGI — transfer + imbalance', () => {
         sig('sequencing', 'tennis', 52),
       ],
       sportSessions: [sessionRef('golf', 60), sessionRef('tennis', 58)],
+      allowCrossSport: true, // Phase 9: cross-sport transfers are opt-in
     };
     const result = runAthleteGI(bundle);
     expect(result.transfers.length).toBeGreaterThan(0);
@@ -309,6 +311,7 @@ describe('AGI — transfer + imbalance', () => {
         sig('rotation', 'tennis', 45), // 37-pt gap
       ],
       sportSessions: [sessionRef('golf', 70), sessionRef('tennis', 50)],
+      allowCrossSport: true, // Phase 9: cross-sport imbalance is opt-in
     };
     const result = runAthleteGI(bundle);
     const imbalance = result.insights.find((i) => i.kind === 'imbalance');

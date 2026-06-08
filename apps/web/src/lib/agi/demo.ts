@@ -128,4 +128,7 @@ export const DEMO_BUNDLE: SignalBundle = {
   },
   history,
   provenDrills,
+  // The demo showcases the full engine, including cross-sport transfer (Phase 9
+  // made this opt-in; production defaults it off until the user enables it).
+  allowCrossSport: true,
 };

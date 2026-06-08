@@ -125,6 +125,10 @@ export interface AppSettings {
   language?: LanguageCode;
   usage_category: UsageCategory;
   usage_category_set_at: string | null;
+  /** Opt-in: let Athlete GI suggest cross-sport transfers/insights. Default off
+   *  so recommendations stay within the active sport (Phase 9). Optional for
+   *  back-compat with older saved state. */
+  allow_cross_sport?: boolean;
 }
 
 // ── Sport equipment types (non-golf) ──────────────────────────
@@ -369,6 +373,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   onboarding_complete: false,
   usage_category: null,
   usage_category_set_at: null,
+  allow_cross_sport: false,
 };
 
 export const DEFAULT_SPORT_EQUIPMENT: SportEquipment = {

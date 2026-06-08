@@ -194,7 +194,10 @@ export function buildWorldModel(bundle: SignalBundle): AthleteWorldModel {
   return {
     sports: allSports,
     primarySport,
-    crossSport: allSports.length >= 2,
+    // Cross-sport reasoning is OPT-IN (Phase 9): even a multi-sport athlete only
+    // gets cross-sport transfers/insights when they've enabled it. reasoning.ts +
+    // transfer.ts already gate on this flag, so this one switch isolates by sport.
+    crossSport: allSports.length >= 2 && bundle.allowCrossSport === true,
     identity: bundle.identity ?? null,
     readiness: bundle.readiness ?? null,
     capabilities,

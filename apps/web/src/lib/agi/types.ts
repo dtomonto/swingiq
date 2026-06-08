@@ -160,6 +160,10 @@ export interface SignalBundle {
   history?: AGISnapshot[];
   /** Optional drills the athlete has personally found helpful. */
   provenDrills?: ProvenDrill[];
+  /** Opt-in (Phase 9): allow cross-sport transfers/insights. When false (the
+   *  default), Athlete GI keeps recommendations within the active sport even if
+   *  the athlete has data in several sports. */
+  allowCrossSport?: boolean;
 }
 
 // ── The unified athlete model ─────────────────────────────────

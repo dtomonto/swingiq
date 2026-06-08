@@ -64,9 +64,15 @@ export const EVAL_CASES: EvalCase[] = [
   },
   {
     id: 'cross-sport-shared-weakness',
-    description: 'Golf + tennis, rotation weak in both → cross-sport keystone on rotation.',
-    bundle: { signals: [sig('rotation', G, 42), sig('rotation', T, 45), sig('balance', G, 80), sig('balance', T, 78)], sportSessions: [ref(G, 60), ref(T, 58), ref(G, 62)] },
+    description: 'Golf + tennis, rotation weak in both, cross-sport ENABLED → cross-sport keystone on rotation.',
+    bundle: { signals: [sig('rotation', G, 42), sig('rotation', T, 45), sig('balance', G, 80), sig('balance', T, 78)], sportSessions: [ref(G, 60), ref(T, 58), ref(G, 62)], allowCrossSport: true },
     expect: { hasKeystone: true, keystoneCapability: 'rotation', crossSport: true, mustInclude: ['keystone'] },
+  },
+  {
+    id: 'cross-sport-disabled-stays-isolated',
+    description: 'Golf + tennis but cross-sport DISABLED (the default) → stays within sport, no cross-sport keystone (Phase 9).',
+    bundle: { signals: [sig('rotation', G, 42), sig('rotation', T, 45), sig('balance', G, 80), sig('balance', T, 78)], sportSessions: [ref(G, 60), ref(T, 58), ref(G, 62)] },
+    expect: { crossSport: false },
   },
   {
     id: 'all-strong-no-keystone',
