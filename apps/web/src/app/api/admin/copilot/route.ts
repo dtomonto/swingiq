@@ -19,6 +19,7 @@ import { requireAdmin, contextCan } from '@/lib/admin/context';
 import { buildCopilotSnapshot } from '@/lib/admin/copilot/snapshot';
 import { answerCopilotQuestion, answerCopilotIntent } from '@/lib/admin/copilot/engine';
 import { runCopilotAi } from '@/lib/admin/copilot/ai-seam';
+import { ensureCopilotAiAdapter } from '@/lib/admin/copilot/ai-adapter';
 import { COPILOT_INTENTS, type CopilotIntent } from '@/lib/admin/copilot/questions';
 
 export const runtime = 'nodejs';
@@ -51,6 +52,8 @@ export async function POST(req: Request) {
   const computed = intent ? answerCopilotIntent(snapshot, intent) : answerCopilotQuestion(snapshot, query);
 
   // Optional AI refinement — off by default; falls back to the computed answer.
+  // Registers the real model adapter once; it self-gates on provider + budget.
+  ensureCopilotAiAdapter();
   const enhanced = await runCopilotAi({ query: query || intent || '', snapshot, computed });
   const answer = enhanced ?? computed;
 
