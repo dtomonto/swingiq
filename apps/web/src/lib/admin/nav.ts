@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck,
+  Inbox, ClipboardCheck, BrainCircuit,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -94,6 +94,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'overview', built: true,
     blurb: 'Every internal audit robot’s findings (SEO, AI, Engagement, Build-health) surfaced in-app, with open → in-progress → done tracking.',
     keywords: ['audit', 'audits', 'reports', 'findings', 'seo audit', 'ai audit', 'security audit', 'master report', 'opportunities', 'recommendations'],
+  },
+  {
+    id: 'central-intelligence', label: 'Central Intelligence', href: '/admin/central-intelligence', icon: BrainCircuit,
+    group: 'overview', built: true,
+    blurb: 'The platform intelligence brain: ethical user memory, profile & session intelligence, the Founding Members campaign, recommendations and data governance.',
+    keywords: ['central intelligence', 'centralintelligenceos', 'intelligence', 'memory', 'founding', 'founding fathers', 'founding members', 'campaign', 'profile completion', 'sessions', 'recommendations', 'governance', 'brain', 'os'],
   },
 
   // ── People ─────────────────────────────────────────────────

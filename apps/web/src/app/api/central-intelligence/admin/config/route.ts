@@ -8,13 +8,17 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { setFoundingConfig, getFoundingCampaignProgress } from '@/lib/central-intelligence/founding-server';
+import { isAdminUser } from '@/lib/auth/admin';
 
 export const runtime = 'nodejs';
 
-function isAdmin(req: NextRequest): boolean {
+/** Mirrors the /admin layout: a matching secret header OR an allowlisted session. */
+async function isAdmin(req: NextRequest): Promise<boolean> {
   const secret = process.env.ADMIN_SECRET;
+  if (secret && req.headers.get('x-admin-secret') === secret) return true;
+  if (await isAdminUser()) return true;
   if (!secret) return process.env.NODE_ENV === 'development';
-  return req.headers.get('x-admin-secret') === secret;
+  return false;
 }
 
 interface ConfigBody {
@@ -24,7 +28,7 @@ interface ConfigBody {
 }
 
 export async function POST(req: NextRequest) {
-  if (!isAdmin(req)) {
+  if (!(await isAdmin(req))) {
     return NextResponse.json({ error: 'Admin authorization required.' }, { status: 401 });
   }
 
