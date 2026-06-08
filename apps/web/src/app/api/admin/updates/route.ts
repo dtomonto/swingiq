@@ -34,8 +34,11 @@ export async function POST(req: Request) {
     /* empty body */
   }
 
-  const { kind, id, action } = body;
-  if (!kind || !KINDS.includes(kind as PublishKind)) {
+  const { id, action } = body;
+  // Type as the PublishKind union (validated below) so the dispatch narrows:
+  // the else-branch becomes 'seo' | 'blog' (OverrideKind) for setContentPublishState.
+  const kind = body.kind as PublishKind | undefined;
+  if (!kind || !KINDS.includes(kind)) {
     return NextResponse.json({ error: 'invalid kind' }, { status: 400 });
   }
   if (!id || typeof id !== 'string') {
