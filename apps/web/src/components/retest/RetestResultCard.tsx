@@ -9,9 +9,10 @@
 // video comparison is directional, not measured.
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronRight, TrendingUp, Minus, HelpCircle, AlertTriangle, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { Badge } from '@/components/ui/Badge';
 import { format } from 'date-fns';
 import type { RetestResult, RetestOutcome } from '@/lib/retest';
@@ -39,6 +40,18 @@ export function RetestResultCard({
   const { comparison } = result;
   const meta = OUTCOME_META[comparison.outcome] ?? OUTCOME_META.inconclusive;
   const Icon = meta.icon;
+
+  // Funnel: the improvement loop has CLOSED — a completed retest result is on
+  // screen. This is the north-star "Weekly Completed Improvement Loops" signal.
+  // One event per surfaced result (a new result is a new mount via its key).
+  useEffect(() => {
+    track(ANALYTICS_EVENTS.RETEST_COMPLETED, {
+      sport: result.sport,
+      outcome: comparison.outcome,
+      same_conditions: comparison.sameConditionsMet,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- one event per surfaced result
+  }, []);
 
   return (
     <div

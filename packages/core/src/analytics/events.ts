@@ -36,6 +36,10 @@ export const ANALYTICS_EVENTS = {
   DRILL_STARTED: 'drill_started',
   DRILL_COMPLETED: 'drill_completed',
   DRILL_FEEDBACK_RECORDED: 'drill_feedback_recorded',
+  // The loop CLOSES: a completed retest result is surfaced (the north-star
+  // "Weekly Completed Improvement Loops" event). Distinct from the intent
+  // signal RETEST_PLAN_CLICKED.
+  RETEST_COMPLETED: 'retest_completed',
 
   // Professional comparison
   PROFESSIONAL_REFERENCE_PREVIEWED: 'professional_reference_previewed',

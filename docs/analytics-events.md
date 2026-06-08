@@ -50,6 +50,7 @@ If no provider is configured, events are logged in development and dropped in pr
 | `analysis_completed` | Analysis task reaches terminal success | `sport`, `configured` | Activation | Completed analyses |
 | `analysis_failed` | Analysis task errors | `sport`, `reason` | Activation | Trust |
 | `priority_fix_viewed` | The #1 fix result panel renders (the value moment) | `sport`, `confidence`, `overall_confidence`, `priority_count` | Activation | Completed analyses |
+| `retest_completed` | A completed retest result is surfaced — the loop closes | `sport`, `outcome`, `same_conditions` | Retention | **Weekly Completed Improvement Loops** (north star) |
 | `sample_report_viewed` | Sample report preview shown/opened | `source` | Consideration | Upload confidence |
 | `quiz_started` | A growth-tool quiz begins | `tool`, `sport` | Consideration | Completed analyses |
 | `quiz_completed` | A quiz produces a result | `tool`, `sport` | Consideration | Email capture |

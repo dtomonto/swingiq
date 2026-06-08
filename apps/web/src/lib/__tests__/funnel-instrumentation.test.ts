@@ -38,6 +38,11 @@ const FUNNEL_WIRING: Array<{ file: string; events: EventKey[] }> = [
     file: '../../app/(auth)/signup/SignupForm.tsx',
     events: ['ACCOUNT_CREATED'],
   },
+  {
+    // The loop CLOSES — a completed retest result is surfaced (north-star).
+    file: '../../components/retest/RetestResultCard.tsx',
+    events: ['RETEST_COMPLETED'],
+  },
 ];
 
 const read = (rel: string) => readFileSync(join(__dirname, rel), 'utf8');
