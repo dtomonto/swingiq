@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -316,6 +316,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'operations', built: true, permission: 'logs.view',
     blurb: 'Integrations, queues, jobs and incidents — in plain English.',
     keywords: ['health', 'status', 'uptime', 'queue', 'jobs'],
+  },
+  {
+    id: 'ai-usage', label: 'AI Usage & Billing', href: '/admin/ai-usage', icon: Coins,
+    group: 'operations', built: true, permission: 'logs.view',
+    blurb: 'Track what AI is costing — by feature and by day — and top up provider capacity (pay for more usage) without leaving the dashboard.',
+    keywords: ['ai usage', 'ai cost', 'ai spend', 'billing', 'pay', 'top up', 'credits', 'budget', 'tokens', 'metering', 'openai', 'anthropic', 'claude', 'gemini', 'add capacity', 'cost guard', 'wallet'],
   },
   {
     id: 'qa', label: 'QA & Testing', href: '/admin/qa', icon: ClipboardCheck,

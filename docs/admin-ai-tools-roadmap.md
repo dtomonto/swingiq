@@ -25,6 +25,7 @@ Legend: ✅ implemented · 🟡 partial · ⬜ recommended (not built)
 | ✅ Video Studio | `/admin/video-studio` | Video-gap detection → briefs → generation; spend off by default. |
 | ✅ Growth agents | `/admin/growth-agents`, `lib/agents/*` | 7 deterministic growth agents + coordinator. |
 | ✅ Analytics OS | `/admin/analytics`, `/api/admin/analytics-os` | PostHog control center; read key stays server-side. |
+| ✅ **AI Usage & Billing** | `/admin/ai-usage`, `lib/ai-budget.ts` | Tracks paid AI spend by feature and by UTC day (exact call counts + upper-bound cost estimates), shows the kill-switch cap status, and links straight to each provider's billing console to top up capacity without leaving the dashboard. Metering auto-captures via the existing `recordAiSpend` calls; off only in the fully-keyless case. |
 
 ---
 

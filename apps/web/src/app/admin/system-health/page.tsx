@@ -69,6 +69,11 @@ export default async function SystemHealthPage() {
       <SectionCard
         title="AI Cost Guard"
         description="Global daily ceiling on estimated AI spend — the kill-switch that protects the API bill from distributed abuse."
+        actions={
+          <a href="/admin/ai-usage" className="text-xs font-medium text-emerald-400 hover:underline">
+            Usage &amp; billing →
+          </a>
+        }
       >
         {aiBudget.configured ? (
           <div className="space-y-3">
