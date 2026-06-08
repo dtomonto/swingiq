@@ -145,6 +145,28 @@ export function analyzeTrends(input: TrendInput): TrendRecommendations {
   };
 }
 
+/**
+ * A pluggable source of REAL privacy-safe aggregates. Wire this to an
+ * analytics/aggregate backend later; `load()` returns `null` until then.
+ */
+export interface TrendAggregateSource {
+  load(): TrendInput | null;
+}
+
+/**
+ * Resolve the aggregates to analyze: the real source when it has data,
+ * otherwise the clearly-labelled sample. `isSample` lets the UI stay honest
+ * about which it's showing.
+ */
+export function resolveTrendInput(source?: TrendAggregateSource | null): {
+  input: TrendInput;
+  isSample: boolean;
+} {
+  const real = source?.load() ?? null;
+  if (real) return { input: real, isSample: false };
+  return { input: sampleTrendInput(), isSample: true };
+}
+
 /** Clearly-labelled SAMPLE aggregate so the admin panel works before real data is wired. */
 export function sampleTrendInput(): TrendInput {
   return {

@@ -32,7 +32,7 @@ import {
   approvedInfluencingConcepts,
   buildCuratedRecommendation,
   analyzeTrends,
-  sampleTrendInput,
+  resolveTrendInput,
   buildVideoConcept,
   type CoachMix,
   type LearnedConcept,
@@ -180,8 +180,9 @@ export function CoachMixDashboard() {
 
   const profileName = (id: string) => profiles.find((p) => p.id === id)?.name ?? id;
 
-  // ── Trends (sample aggregates until real data is wired) ──
-  const trends = useMemo(() => analyzeTrends(sampleTrendInput()), []);
+  // ── Trends (real aggregates when wired; labelled sample until then) ──
+  const trendData = useMemo(() => resolveTrendInput(), []);
+  const trends = useMemo(() => analyzeTrends(trendData.input), [trendData]);
 
   const makeVideoConcept = (c: LearnedConcept) => {
     const target = c.suggestedDrillConnection || c.suggestedFaultId || c.type.replace(/_/g, ' ');
@@ -608,14 +609,16 @@ export function CoachMixDashboard() {
 
       {tab === 'trends' && (
         <div className="space-y-4">
-          <div className="flex items-start gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
-            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
-            <p>
-              Showing <strong>illustrative sample data</strong>. Once privacy-safe aggregates are wired in, this reads
-              which swing problems are most common, which drills get abandoned, and which styles complete more practice —
-              then recommends what to build and how to adjust the mix. Cohorts below the privacy threshold are never shown.
-            </p>
-          </div>
+          {trendData.isSample && (
+            <div className="flex items-start gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+              <p>
+                Showing <strong>illustrative sample data</strong>. Once privacy-safe aggregates are wired in, this reads
+                which swing problems are most common, which drills get abandoned, and which styles complete more practice —
+                then recommends what to build and how to adjust the mix. Cohorts below the privacy threshold are never shown.
+              </p>
+            </div>
+          )}
           {([
             ['Videos to produce', trends.videosToProduce],
             ['Drills to create', trends.drillsToCreate],

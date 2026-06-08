@@ -17,6 +17,7 @@ import { useMemo, useState } from 'react';
 import { Play, Bookmark, CheckCircle2, XCircle, RefreshCw, Sparkles } from 'lucide-react';
 import type { SportId } from '@swingiq/core';
 import { rankDrills } from '@/lib/drillmatch';
+import { useAgentContext } from '@/hooks/useAgentContext';
 import {
   isCoachMixUserModuleEnabled,
   resolveCoachMix,
@@ -26,11 +27,11 @@ import {
 import { useCoachMixData, mergeProfiles } from '@/lib/central-intelligence/coach-mix/store';
 
 export interface CuratedSwingDrillsProps {
-  /** The user's current sport. */
+  /** Override the active sport (else: the athlete's active sport). */
   sport?: SportId;
-  /** The diagnosed top issue id (fault ontology / core issue id). */
+  /** Override the issue id (else: the athlete's latest diagnosed focus). */
   faultId?: string;
-  /** Plain-language label for the issue (falls back to the id). */
+  /** Override the plain-language issue label. */
   faultLabel?: string;
   /** Optional plain-language "why it matters". */
   whyItMatters?: string;
@@ -38,27 +39,24 @@ export interface CuratedSwingDrillsProps {
 
 type DrillAction = 'saved' | 'completed' | 'dismissed';
 
-export function CuratedSwingDrills({
-  sport = 'golf',
-  faultId = 'early_extension',
-  faultLabel,
-  whyItMatters,
-}: CuratedSwingDrillsProps) {
+export function CuratedSwingDrills(props: CuratedSwingDrillsProps) {
   // Hard gate — invisible until the owner turns the module on.
   if (!isCoachMixUserModuleEnabled()) return null;
-  return (
-    <CuratedSwingDrillsInner
-      sport={sport}
-      faultId={faultId}
-      faultLabel={faultLabel}
-      whyItMatters={whyItMatters}
-    />
-  );
+  return <CuratedSwingDrillsInner {...props} />;
 }
 
-function CuratedSwingDrillsInner({ sport = 'golf', faultId = 'early_extension', faultLabel, whyItMatters }: CuratedSwingDrillsProps) {
+function CuratedSwingDrillsInner({ sport: sportProp, faultId, faultLabel, whyItMatters }: CuratedSwingDrillsProps) {
   const data = useCoachMixData();
+  const { ctx } = useAgentContext();
   const [actions, setActions] = useState<Record<string, DrillAction>>({});
+
+  // Live by default: the athlete's active sport + most-recent diagnosed focus,
+  // with explicit props as overrides. No diagnosis → no fabricated fix (null).
+  const sport: SportId = sportProp ?? ctx?.activeSport ?? 'golf';
+  const faultName =
+    faultLabel ?? ctx?.latestDiagnosedSession?.primaryFocus ?? ctx?.latestSession?.primaryFocus ?? undefined;
+  const topIssue = faultName ?? (faultId ? faultId.replace(/_/g, ' ') : null);
+  const skillLevel = ctx?.profile.skillLevel ?? undefined;
 
   const strategy = useMemo(() => {
     const profiles = mergeProfiles(data.customProfiles, data.profileOverrides);
@@ -78,15 +76,13 @@ function CuratedSwingDrillsInner({ sport = 'golf', faultId = 'early_extension', 
   }, [data, sport]);
 
   const rec = useMemo(() => {
-    const ranked = rankDrills({ sport, faultId });
-    return buildCuratedRecommendation(
-      { topIssue: faultLabel ?? faultId.replace(/_/g, ' '), whyItMatters },
-      strategy,
-      ranked,
-    );
-  }, [sport, faultId, faultLabel, whyItMatters, strategy]);
+    if (!topIssue) return null;
+    const ranked = rankDrills({ sport, faultId, faultName, skillLevel });
+    return buildCuratedRecommendation({ topIssue, whyItMatters }, strategy, ranked);
+  }, [sport, faultId, faultName, topIssue, skillLevel, whyItMatters, strategy]);
 
-  if (!rec.firstDrill) return null;
+  // Honest: with no diagnosis yet, show nothing rather than a placeholder fix.
+  if (!rec || !rec.firstDrill) return null;
 
   const setAction = (id: string, action: DrillAction) =>
     setActions((a) => ({ ...a, [id]: a[id] === action ? undefined : action } as Record<string, DrillAction>));

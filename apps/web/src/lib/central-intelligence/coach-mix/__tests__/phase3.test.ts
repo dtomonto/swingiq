@@ -8,6 +8,7 @@ import {
   resolveCoachMix,
   analyzeTrends,
   sampleTrendInput,
+  resolveTrendInput,
   buildVideoConcept,
   extractConcepts,
   approveConcept,
@@ -64,6 +65,25 @@ describe('Coach Mix — trend intelligence', () => {
     expect(out.suppressedForPrivacy).toBe(true);
     expect(out.videosToProduce).toHaveLength(0);
     expect(out.drillsToPromote).toHaveLength(0);
+  });
+});
+
+describe('Coach Mix — trend aggregate seam', () => {
+  it('falls back to the labelled sample when no real source is wired', () => {
+    const r = resolveTrendInput();
+    expect(r.isSample).toBe(true);
+    expect(r.input.faultFrequency.early_extension).toBeGreaterThan(0);
+  });
+
+  it('uses real aggregates when the source returns data', () => {
+    const real: TrendInput = { faultFrequency: { slice: 99 }, repeatedAfterRetest: {}, drillEngagement: {}, completionByStyle: {} };
+    const r = resolveTrendInput({ load: () => real });
+    expect(r.isSample).toBe(false);
+    expect(r.input).toBe(real);
+  });
+
+  it('falls back to the sample when the source returns null', () => {
+    expect(resolveTrendInput({ load: () => null }).isSample).toBe(true);
   });
 });
 
