@@ -20,9 +20,12 @@ import {
   type LaunchMonitorBrand,
   type Shot,
   type ClubCategory,
+  type SwingType,
 } from '@swingiq/core';
 import { detectSource } from './sources';
 import { schemaFingerprint, mappingConfidence, type MappingConfidence, type SavedMapping } from './mapping-memory';
+import { buildBaselineResolver, type BaselineSession } from '@/lib/shot-intent/baselines';
+import { classifyShotIntent, type ShotIntent } from '@/lib/shot-intent/classify';
 
 /** Best-effort mapping from a club name string to a typed ClubCategory. */
 export function inferClubCategory(clubName: string): ClubCategory {
@@ -38,8 +41,15 @@ export function inferClubCategory(clubName: string): ClubCategory {
   return 'mid_iron';
 }
 
-/** Convert a NormalizedShot into a full Shot record for the store. */
-export function normalizedToShot(ns: NormalizedShot, index: number, sessionId = 'pending'): Shot {
+/** Convert a NormalizedShot into a full Shot record for the store. The optional
+ *  classification (from the shot-intent classifier) sets a real swing_type +
+ *  outlier flag instead of assuming every shot was a full swing. */
+export function normalizedToShot(
+  ns: NormalizedShot,
+  index: number,
+  sessionId = 'pending',
+  classification?: { swingType: SwingType; isOutlier: boolean },
+): Shot {
   const now = new Date().toISOString();
   return {
     id: `shot_${Date.now()}_${index}_${Math.random().toString(36).slice(2, 6)}`,
@@ -50,10 +60,10 @@ export function normalizedToShot(ns: NormalizedShot, index: number, sessionId = 
     club_category: inferClubCategory(ns.club_name || ''),
     shot_number: index + 1,
     date_time: now,
-    swing_type: 'full',
+    swing_type: classification?.swingType ?? 'full',
     intended_shot_shape: null,
     actual_shot_shape: ns.ball_data.shot_shape ?? null,
-    is_outlier: false,
+    is_outlier: classification?.isOutlier ?? false,
     user_notes: '',
     ball_data: {
       carry_distance: ns.ball_data.carry_distance,
@@ -288,4 +298,59 @@ export function analyzeFile(
     normalizedShots,
     signature: shotsSignature(normalizedShots),
   };
+}
+
+// ── Shot-intent classification (Phase 6) ──────────────────────
+
+export interface IntentOptions {
+  /** Prior sessions to learn per-club baselines from (the athlete's history). */
+  priorSessions?: BaselineSession[];
+  /** Bag carry by club name, used as a baseline fallback. */
+  bagCarryByName?: Record<string, number | null>;
+}
+
+/**
+ * Classify each normalized shot's intent against per-club baselines learned from
+ * the athlete's history PLUS this file's own shots, so a single-club range file
+ * still gets a sensible baseline.
+ */
+export function classifyNormalizedShots(
+  normalizedShots: NormalizedShot[],
+  opts: IntentOptions = {},
+): { swingType: SwingType; isOutlier: boolean; intent: ShotIntent }[] {
+  const thisFileAsSession: BaselineSession = {
+    shots: normalizedShots.map((ns) => ({
+      club_name: ns.club_name,
+      club_category: inferClubCategory(ns.club_name || ''),
+      ball_data: { carry_distance: ns.ball_data.carry_distance },
+    })),
+  };
+  const resolve = buildBaselineResolver([...(opts.priorSessions ?? []), thisFileAsSession], opts.bagCarryByName);
+  return normalizedShots.map((ns) => {
+    const category = inferClubCategory(ns.club_name || '');
+    const r = classifyShotIntent(
+      {
+        carry: ns.ball_data.carry_distance,
+        clubSpeed: ns.club_data.club_speed,
+        ballSpeed: ns.ball_data.ball_speed,
+        launchAngle: ns.ball_data.launch_angle_vertical,
+        category,
+      },
+      resolve(ns.club_name || '', category),
+    );
+    return { swingType: r.swingType, isOutlier: r.isOutlier, intent: r.intent };
+  });
+}
+
+/** Build full Shot[] from normalized shots WITH intent classification applied. */
+export function buildShotsWithIntent(normalizedShots: NormalizedShot[], opts: IntentOptions = {}): Shot[] {
+  const cls = classifyNormalizedShots(normalizedShots, opts);
+  return normalizedShots.map((ns, i) => normalizedToShot(ns, i, 'pending', cls[i]));
+}
+
+/** Count shots by intent for a quick "shot mix" summary. */
+export function summarizeShotMix(classifications: { intent: ShotIntent }[]): Record<ShotIntent, number> {
+  const mix = { chip: 0, pitch: 0, half: 0, three_quarter: 0, full: 0, punch: 0, mishit: 0 } as Record<ShotIntent, number>;
+  for (const c of classifications) mix[c.intent]++;
+  return mix;
 }

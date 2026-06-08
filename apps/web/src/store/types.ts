@@ -19,6 +19,7 @@ import { DEFAULT_TUTORIAL_PROGRESS } from '@/lib/tutorial/types';
 import type { DailyNote } from '@/lib/dailyNotes/types';
 import type { OnboardingStateId, OnboardingRole } from '@/lib/onboarding/state';
 import type { SavedMapping } from '@/lib/import/mapping-memory';
+import type { PrioritySnapshot } from '@/lib/priority/types';
 
 export { DEFAULT_COMMUNITY_STATE, DEFAULT_TUTORIAL_PROGRESS };
 
@@ -265,6 +266,8 @@ export interface SwingVantageState {
   onboarding: OnboardingClientState;
   /** Learned column-mapping memory, keyed by schema fingerprint (Phase 3). */
   importMappings: Record<string, SavedMapping>;
+  /** History of top-priority over time, for "what changed" (Phase 7). */
+  prioritySnapshots: PrioritySnapshot[];
   setup_step: 'profile' | 'bag' | 'session' | 'diagnose' | 'complete';
 }
 
@@ -330,6 +333,9 @@ export interface SwingVantageActions {
     corrected?: boolean;
   }) => void;
   clearImportMappings: () => void;
+  // Priority snapshots (Phase 7 — see store/slices/prioritySnapshots.ts)
+  recordPrioritySnapshot: (snap: PrioritySnapshot) => void;
+  clearPrioritySnapshots: () => void;
   // Computed
   computeSetupStep: () => void;
   reset: () => void;
@@ -397,6 +403,8 @@ export const DEFAULT_ONBOARDING: OnboardingClientState = {
 };
 
 export const DEFAULT_IMPORT_MAPPINGS: Record<string, SavedMapping> = {};
+
+export const DEFAULT_PRIORITY_SNAPSHOTS: PrioritySnapshot[] = [];
 
 // Helper for id generation, shared across slices.
 export const newId = (prefix: string) =>

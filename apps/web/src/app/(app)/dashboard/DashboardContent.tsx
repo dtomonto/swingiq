@@ -34,6 +34,7 @@ import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
 import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
 import { GrowthAgentsPanel } from '@/components/growth';
 import { SecondaryPanels } from '@/components/dashboard/SecondaryPanels';
+import { PriorityPanel } from '@/components/dashboard/PriorityPanel';
 import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps, getRoutineForDiagnosis, type DiagnosisCategory } from '@swingiq/core';
 import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
 import { format } from 'date-fns';
@@ -239,6 +240,10 @@ export function DashboardContent() {
           This is the ONE hero action; the supporting panels below collapse
           behind "More for you" so the dashboard stays focused (Phase 1). */}
       <DashboardIntelligence />
+
+      {/* Phase 7: the synthesized #1 priority across ALL sessions (self-hides
+          until there's enough to synthesize). */}
+      <PriorityPanel />
 
       {/* Secondary panels — progressive disclosure (collapsed by default).
           Each still self-hides when it has no data. */}

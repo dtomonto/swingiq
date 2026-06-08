@@ -46,8 +46,14 @@ import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 import { schemaFingerprint, mappingConfidence } from '@/lib/import/mapping-memory';
 import { detectSource, getSource } from '@/lib/import/sources';
+import { buildShotsWithIntent, primaryClubOf, classifyNormalizedShots, summarizeShotMix } from '@/lib/import/process';
+import type { ShotIntent } from '@/lib/shot-intent/classify';
 
 type WizardStep = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
+const INTENT_LABEL: Record<ShotIntent, string> = {
+  chip: 'chip', pitch: 'pitch', half: 'half', three_quarter: '¾', full: 'full', punch: 'punch', mishit: 'mishit',
+};
 
 const LAUNCH_MONITORS: { value: LaunchMonitorBrand; label: string; notes: string }[] = [
   { value: 'flightscope', label: 'FlightScope (Mevo, Mevo+, X3)', notes: 'Export from FS Golf app → Sessions → Export CSV' },
@@ -126,8 +132,12 @@ function ParseMetaNote({ meta }: { meta: ParsedFile['meta'] }) {
 }
 
 export function ImportWizard() {
-  const { addSession, importMappings, rememberImportMapping } = useSwingVantageStore();
+  const { addSession, sessions, clubs, importMappings, rememberImportMapping } = useSwingVantageStore();
   const { activeSport } = useSport();
+  const bagCarryByName = useMemo(
+    () => Object.fromEntries(clubs.map((c) => [c.name, c.typical_carry])),
+    [clubs],
+  );
   const [step, setStep] = useState<WizardStep>(1);
   const [brand, setBrand] = useState<LaunchMonitorBrand | null>(null);
   const [file, setFile] = useState<ParsedFile | null>(null);
@@ -147,6 +157,11 @@ export function ImportWizard() {
   );
   const missingCritical = useMemo(() => getMissingCriticalFields(columnMapping), [columnMapping]);
   const missingRecommended = useMemo(() => getMissingRecommendedFields(columnMapping), [columnMapping]);
+  // Shot-intent mix for the preview (Phase 6): chip/half/¾/full/punch/mishit.
+  const shotMix = useMemo(() => {
+    if (normalizedShots.length === 0) return null;
+    return summarizeShotMix(classifyNormalizedShots(normalizedShots, { priorSessions: sessions, bagCarryByName }));
+  }, [normalizedShots, sessions, bagCarryByName]);
   const [sessionName, setSessionName] = useState('');
   const [importing, setImporting] = useState(false);
   const [importDone, setImportDone] = useState(false);
@@ -315,66 +330,10 @@ export function ImportWizard() {
     setImporting(true);
     await new Promise((r) => setTimeout(r, 600));
 
-    // Convert NormalizedShots to Shot objects (NormalizedShot nests data under ball_data/club_data/strike_data)
-    const shots = normalizedShots.map((ns, i) => ({
-      id: `shot_${Date.now()}_${i}`,
-      session_id: 'pending',
-      user_id: 'local',
-      club_id: null,
-      club_name: ns.club_name || 'Unknown',
-      club_category: inferClubCategory(ns.club_name || ''),
-      shot_number: i + 1,
-      date_time: new Date().toISOString(),
-      swing_type: 'full' as const,
-      intended_shot_shape: null,
-      actual_shot_shape: ns.ball_data.shot_shape ?? null,
-      is_outlier: false,
-      user_notes: '',
-      ball_data: {
-        carry_distance: ns.ball_data.carry_distance,
-        total_distance: ns.ball_data.total_distance,
-        ball_speed: ns.ball_data.ball_speed,
-        launch_angle_vertical: ns.ball_data.launch_angle_vertical,
-        spin_rate: ns.ball_data.spin_rate,
-        spin_axis: ns.ball_data.spin_axis,
-        side_carry: ns.ball_data.side_carry,
-        lateral_offline: ns.ball_data.lateral_offline ?? ns.ball_data.side_carry,
-        apex_height: ns.ball_data.apex_height,
-        smash_factor: ns.ball_data.smash_factor,
-        roll_distance: ns.ball_data.roll_distance,
-        descent_angle: ns.ball_data.descent_angle,
-        launch_direction_horizontal: ns.ball_data.launch_direction_horizontal,
-        flight_time: ns.ball_data.flight_time,
-        curve: ns.ball_data.curve,
-        shot_shape: ns.ball_data.shot_shape,
-      },
-      club_data: {
-        club_speed: ns.club_data.club_speed,
-        attack_angle: ns.club_data.attack_angle,
-        club_path: ns.club_data.club_path,
-        face_angle_to_target: ns.club_data.face_angle_to_target,
-        face_to_path: ns.club_data.face_to_path,
-        dynamic_loft: ns.club_data.dynamic_loft,
-        spin_loft: ns.club_data.spin_loft,
-        swing_plane_horizontal: ns.club_data.swing_plane_horizontal,
-        swing_plane_vertical: ns.club_data.swing_plane_vertical,
-        low_point_position: ns.club_data.low_point_position,
-        low_point_height: ns.club_data.low_point_height,
-        closure_rate: ns.club_data.closure_rate,
-        swing_direction: ns.club_data.swing_direction,
-        lie_angle_dynamic: ns.club_data.lie_angle_dynamic,
-      },
-      strike_data: {
-        impact_location_lateral: ns.strike_data.impact_location_lateral,
-        impact_location_vertical: ns.strike_data.impact_location_vertical,
-      },
-      created_at: new Date().toISOString(),
-    }));
-
-    // Detect primary club
-    const clubCounts: Record<string, number> = {};
-    shots.forEach((s) => { clubCounts[s.club_name] = (clubCounts[s.club_name] ?? 0) + 1; });
-    const primaryClub = Object.entries(clubCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'Mixed';
+    // Build Shot[] with per-shot intent classification (Phase 6), learning
+    // baselines from the athlete's history + this file. Shared with bulk import.
+    const shots = buildShotsWithIntent(normalizedShots, { priorSessions: sessions, bagCarryByName });
+    const primaryClub = primaryClubOf(shots);
 
     addSession({
       name: sessionName || `Session ${new Date().toLocaleDateString()}`,
@@ -686,6 +645,20 @@ export function ImportWizard() {
           <CardHeader>
             <CardTitle>Step 5: Preview Shots</CardTitle>
             <p className="text-sm text-muted-foreground mt-1">First 10 shots shown. Verify the data looks correct before importing.</p>
+            {shotMix && (
+              <div className="mt-2">
+                <p className="text-xs text-muted-foreground mb-1">Shot types inferred from your distances:</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {(Object.entries(shotMix) as [ShotIntent, number][])
+                    .filter(([, n]) => n > 0)
+                    .map(([intent, n]) => (
+                      <span key={intent} className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                        {n} {INTENT_LABEL[intent]}
+                      </span>
+                    ))}
+                </div>
+              </div>
+            )}
           </CardHeader>
           <CardBody>
             <div className="overflow-x-auto">

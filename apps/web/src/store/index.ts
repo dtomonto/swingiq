@@ -24,6 +24,7 @@ import {
   DEFAULT_TUTORIAL_PROGRESS,
   DEFAULT_ONBOARDING,
   DEFAULT_IMPORT_MAPPINGS,
+  DEFAULT_PRIORITY_SNAPSHOTS,
 } from './types';
 import { createProfileSlice } from './slices/profile';
 import { createClubsSlice } from './slices/clubs';
@@ -38,6 +39,7 @@ import { createTutorialSlice } from './slices/tutorial';
 import { createAgentSlice } from './slices/agent';
 import { createOnboardingSlice } from './slices/onboarding';
 import { createImportMappingsSlice } from './slices/importMappings';
+import { createPrioritySnapshotsSlice } from './slices/prioritySnapshots';
 
 // Re-export all store types/defaults so consumers keep importing from '@/store'.
 export * from './types';
@@ -59,6 +61,7 @@ export const useSwingVantageStore = create<SwingVantageStore>()(
       ...createAgentSlice(set, get, store),
       ...createOnboardingSlice(set, get, store),
       ...createImportMappingsSlice(set, get, store),
+      ...createPrioritySnapshotsSlice(set, get, store),
 
       // ── Onboarding step (cross-slice; derived from profile/bag/sessions) ──
       setup_step: 'profile',
@@ -102,6 +105,7 @@ export const useSwingVantageStore = create<SwingVantageStore>()(
           agent: DEFAULT_AGENT_STATE,
           onboarding: DEFAULT_ONBOARDING,
           importMappings: DEFAULT_IMPORT_MAPPINGS,
+          prioritySnapshots: DEFAULT_PRIORITY_SNAPSHOTS,
           setup_step: 'profile',
         }),
     }),

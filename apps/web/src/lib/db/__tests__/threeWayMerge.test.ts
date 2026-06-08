@@ -10,7 +10,7 @@ import { computeBase } from '../sync-base';
 import {
   DEFAULT_SETTINGS, DEFAULT_TRAINING, DEFAULT_COMMUNITY_STATE,
   DEFAULT_TUTORIAL_PROGRESS, DEFAULT_AGENT_STATE, DEFAULT_SPORT_EQUIPMENT,
-  DEFAULT_ONBOARDING, DEFAULT_IMPORT_MAPPINGS,
+  DEFAULT_ONBOARDING, DEFAULT_IMPORT_MAPPINGS, DEFAULT_PRIORITY_SNAPSHOTS,
   type SwingVantageState, type LocalClub,
 } from '@/store';
 
@@ -35,6 +35,7 @@ function state(over: Partial<SwingVantageState>): SwingVantageState {
     agent: DEFAULT_AGENT_STATE,
     onboarding: DEFAULT_ONBOARDING,
     importMappings: DEFAULT_IMPORT_MAPPINGS,
+    prioritySnapshots: DEFAULT_PRIORITY_SNAPSHOTS,
     setup_step: 'profile',
     ...over,
   };

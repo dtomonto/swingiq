@@ -23,7 +23,7 @@ import { Badge } from '@/components/ui/Badge';
 import { cn } from '@/lib/utils';
 import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
-import { analyzeFile, normalizedToShot, primaryClubOf, inferClubCategory, shotsSignature, type AnalyzedFile } from '@/lib/import/process';
+import { analyzeFile, buildShotsWithIntent, primaryClubOf, inferClubCategory, shotsSignature, type AnalyzedFile } from '@/lib/import/process';
 import { getSource } from '@/lib/import/sources';
 import type { MappingConfidence } from '@/lib/import/mapping-memory';
 
@@ -55,8 +55,12 @@ const CONF_BADGE: Record<MappingConfidence, { variant: 'success' | 'warning' | '
 };
 
 export function BulkImport() {
-  const { addSession, sessions, importMappings, rememberImportMapping } = useSwingVantageStore();
+  const { addSession, sessions, clubs, importMappings, rememberImportMapping } = useSwingVantageStore();
   const { activeSport } = useSport();
+  const bagCarryByName = useMemo(
+    () => Object.fromEntries(clubs.map((c) => [c.name, c.typical_carry])),
+    [clubs],
+  );
   const [rows, setRows] = useState<FileRow[]>([]);
   const [reading, setReading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
@@ -137,7 +141,8 @@ export function BulkImport() {
     let count = 0;
     for (const r of selected) {
       const a = r.analyzed;
-      const shots = a.normalizedShots.map((ns, i) => normalizedToShot(ns, i));
+      // Classify each shot's intent against the athlete's history + this file.
+      const shots = buildShotsWithIntent(a.normalizedShots, { priorSessions: sessions, bagCarryByName });
       const primaryClub = primaryClubOf(shots);
       addSession({
         name: r.sessionName || `Session ${new Date().toLocaleDateString()}`,

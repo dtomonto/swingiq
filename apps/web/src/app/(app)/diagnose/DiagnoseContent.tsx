@@ -10,6 +10,9 @@ import {
   ChevronUp,
   Upload,
   Activity,
+  Dumbbell,
+  Sparkles,
+  FileText,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardBody, CardHeader } from '@/components/ui/Card';
@@ -441,6 +444,33 @@ export function DiagnoseContent() {
         {result.diagnoses.map((d, i) => (
           <DiagnosisCard key={d.rule.id} diagnosis={d} rank={i + 1} skillLevel={skillLevel} />
         ))}
+      </div>
+
+      {/* Next steps (Phase 6) — clear, low-friction actions after a diagnosis. */}
+      <div className="rounded-xl border border-border bg-card p-4">
+        <p className="mb-3 text-sm font-semibold text-foreground">What next?</p>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <Link href="/training">
+            <Button variant="outline" size="sm" className="w-full justify-start gap-1.5">
+              <Dumbbell size={15} /> Practice plan
+            </Button>
+          </Link>
+          <Link href="/sessions/import">
+            <Button variant="outline" size="sm" className="w-full justify-start gap-1.5">
+              <Upload size={15} /> Import another
+            </Button>
+          </Link>
+          <Link href="/fix">
+            <Button variant="outline" size="sm" className="w-full justify-start gap-1.5">
+              <Sparkles size={15} /> Quick fix
+            </Button>
+          </Link>
+          <Link href="/reports">
+            <Button variant="outline" size="sm" className="w-full justify-start gap-1.5">
+              <FileText size={15} /> Full report
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* How this diagnosis was produced */}

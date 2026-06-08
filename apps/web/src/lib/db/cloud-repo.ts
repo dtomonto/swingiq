@@ -20,7 +20,7 @@ import type { SwingVantageState } from '@/store';
 import {
   DEFAULT_SETTINGS, DEFAULT_SPORT_EQUIPMENT, DEFAULT_TRAINING,
   DEFAULT_AGENT_STATE, DEFAULT_COMMUNITY_STATE, DEFAULT_TUTORIAL_PROGRESS,
-  DEFAULT_ONBOARDING, DEFAULT_IMPORT_MAPPINGS,
+  DEFAULT_ONBOARDING, DEFAULT_IMPORT_MAPPINGS, DEFAULT_PRIORITY_SNAPSHOTS,
 } from '@/store';
 import * as P from './projection';
 import type { Row } from './projection';
@@ -58,6 +58,8 @@ export function fillDefaults(partial: Partial<SwingVantageState>): SwingVantageS
     onboarding: partial.onboarding ?? DEFAULT_ONBOARDING,
     // Learned import mappings are local-first (re-learned per device).
     importMappings: partial.importMappings ?? DEFAULT_IMPORT_MAPPINGS,
+    // Priority snapshots are local-first (re-derived from the synced record).
+    prioritySnapshots: partial.prioritySnapshots ?? DEFAULT_PRIORITY_SNAPSHOTS,
     setup_step: 'complete',
   };
 }
