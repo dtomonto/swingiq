@@ -138,6 +138,15 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-muted-foreground">
             <span>{f.copyright.replace('{year}', String(new Date().getFullYear()))}</span>
             <div className="flex items-center gap-4">
+              {/* Site-wide crawlable link to the Mental Performance pillar.
+                  Un-dicted (like the Sitemap link below) so it never gates
+                  localized-page visibility. */}
+              <Link
+                href={localizedHref('/mental-performance', locale)}
+                className="text-muted-foreground transition-colors hover:text-white"
+              >
+                Mental Performance
+              </Link>
               {/* Crawlable link to the HTML sitemap (every public page). Label is
                   intentionally un-dicted to avoid adding a shared footer key that
                   would gate localized-page visibility. */}
