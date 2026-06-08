@@ -2,6 +2,7 @@
 
 import { ProfileForm } from './ProfileForm';
 import { SportProfileFormRouter } from './SportProfileForms';
+import { FoundingProfileCard } from '@/components/founding/FoundingProfileCard';
 import { useSport } from '@/contexts/SportContext';
 import { SPORT_NAV_LABELS } from '@swingiq/core';
 
@@ -31,6 +32,7 @@ export default function ProfilePage() {
             Take 3 minutes to fill this out accurately.
           </p>
         </div>
+        <FoundingProfileCard />
         {activeSport === 'golf' ? (
           <ProfileForm />
         ) : (

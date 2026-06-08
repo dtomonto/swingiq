@@ -10,6 +10,7 @@ import { useTutorial } from '@/hooks/useTutorial';
 import { ThemeSelector } from '@/components/theme/ThemeSelector';
 import { CoachingToneSelector } from '@/components/settings/CoachingToneSelector';
 import { AccountSyncCard } from '@/components/sync/AccountSyncCard';
+import { PrivacyControls } from '@/components/founding/PrivacyControls';
 
 export default function SettingsPage() {
   const { settings, updateSettings, reset } = useSwingVantageStore();
@@ -40,6 +41,9 @@ export default function SettingsPage() {
 
         {/* Account & cloud sync */}
         <AccountSyncCard />
+
+        {/* Privacy, personalization & your data (CentralIntelligenceOS) */}
+        <PrivacyControls />
 
         {/* Display */}
         <Card>
