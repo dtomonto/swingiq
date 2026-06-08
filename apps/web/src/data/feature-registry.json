@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-07T04:41:51.123Z",
-  "commitRange": "ee8c229",
+  "generatedAt": "2026-06-08T22:22:10.561Z",
+  "commitRange": "c704aa4",
   "features": [
     {
       "id": "feat_about",
       "slug": "about",
       "name": "About",
-      "description": "surface pickleball + padel in every sport list/filter/badge",
+      "description": "About — detected from /about.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -30,10 +30,6 @@
         {
           "kind": "route",
           "ref": "/about"
-        },
-        {
-          "kind": "commit",
-          "ref": "0a1652b"
         }
       ],
       "confidence": 75,
@@ -41,7 +37,7 @@
       "coverage": {},
       "fingerprint": "00e27df7",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-academy",
@@ -179,7 +175,7 @@
       "coverage": {},
       "fingerprint": "4ca37374",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-ads",
@@ -217,29 +213,72 @@
       "coverage": {},
       "fingerprint": "704246b0",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
-      "id": "feat_admin-ai-analyses",
-      "slug": "admin-ai-analyses",
-      "name": "AI Analyses",
-      "description": "Uploads (media) + AI Analyses review sections",
+      "id": "feat_admin-agents",
+      "slug": "admin-agents",
+      "name": "Agents",
+      "description": "Copilot, Agent Registry, Data Quality, Drill Library & Practice Plans",
       "category": "admin-capability",
       "audiences": [
         "admin"
       ],
       "status": "active",
       "routes": [
-        "/admin/ai-analyses/:id",
-        "/admin/ai-analyses"
+        "/admin/agents"
       ],
       "components": [],
       "apiEndpoints": [],
       "dbTables": [],
       "permissions": [],
       "adminControls": [
-        "/admin/ai-analyses/:id",
-        "/admin/ai-analyses"
+        "/admin/agents"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "9d87a9d"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/agents"
+        },
+        {
+          "kind": "commit",
+          "ref": "9d87a9d"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "42959b30",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-ai-analyses",
+      "slug": "admin-ai-analyses",
+      "name": "AI Analyses",
+      "description": "AI Analyses — detected from /admin/ai-analyses.",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/ai-analyses",
+        "/admin/ai-analyses/:id"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/ai-analyses",
+        "/admin/ai-analyses/:id"
       ],
       "featureFlags": [],
       "owner": "unassigned",
@@ -250,15 +289,11 @@
       "evidence": [
         {
           "kind": "route",
-          "ref": "/admin/ai-analyses/:id"
-        },
-        {
-          "kind": "route",
           "ref": "/admin/ai-analyses"
         },
         {
-          "kind": "commit",
-          "ref": "7b79184"
+          "kind": "route",
+          "ref": "/admin/ai-analyses/:id"
         }
       ],
       "confidence": 70,
@@ -266,13 +301,13 @@
       "coverage": {},
       "fingerprint": "305642c7",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-analytics",
       "slug": "admin-analytics",
       "name": "Analytics",
-      "description": "Admin Academy, Notifications, Analytics, Monetization",
+      "description": "admin control center UI + live/management API + wiring",
       "category": "analytics-reporting",
       "audiences": [
         "admin"
@@ -292,7 +327,8 @@
       "owner": "unassigned",
       "detectedFrom": [
         "route-scan",
-        "afdb237"
+        "afdb237",
+        "9f87c24"
       ],
       "evidence": [
         {
@@ -301,7 +337,7 @@
         },
         {
           "kind": "commit",
-          "ref": "afdb237"
+          "ref": "9f87c24"
         }
       ],
       "confidence": 70,
@@ -309,13 +345,51 @@
       "coverage": {},
       "fingerprint": "2008f1be",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-approvals",
+      "slug": "admin-approvals",
+      "name": "Approvals",
+      "description": "Approvals — detected from /admin/approvals.",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/approvals"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/approvals"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/approvals"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "ad76f87a",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-athletes",
       "slug": "admin-athletes",
       "name": "Athletes",
-      "description": "Athletes directory (per-sport profiles)",
+      "description": "Athletes — detected from /admin/athletes.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -341,10 +415,6 @@
         {
           "kind": "route",
           "ref": "/admin/athletes"
-        },
-        {
-          "kind": "commit",
-          "ref": "8c58b89"
         }
       ],
       "confidence": 70,
@@ -352,13 +422,56 @@
       "coverage": {},
       "fingerprint": "4e436ffe",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-audit-access",
+      "slug": "admin-audit-access",
+      "name": "Audit Access",
+      "description": "external auditor access — token-gated /api/audit packet + /admin/audit-access",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/audit-access"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/audit-access"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "098a0b6"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/audit-access"
+        },
+        {
+          "kind": "commit",
+          "ref": "098a0b6"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "33952b0e",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-audit-log",
       "slug": "admin-audit-log",
       "name": "Audit Log",
-      "description": "Feature Flags manager + Audit Log viewer",
+      "description": "Audit Log — detected from /admin/audit-log.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -384,10 +497,6 @@
         {
           "kind": "route",
           "ref": "/admin/audit-log"
-        },
-        {
-          "kind": "commit",
-          "ref": "2c8af9b"
         }
       ],
       "confidence": 70,
@@ -395,13 +504,181 @@
       "coverage": {},
       "fingerprint": "393392e6",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-audits",
+      "slug": "admin-audits",
+      "name": "Audits",
+      "description": "Audits — detected from /admin/audits.",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/audits"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/audits"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/audits"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "6681e606",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-benchmarks",
+      "slug": "admin-benchmarks",
+      "name": "Benchmarks",
+      "description": "profile-aware golf grading + 7 player profiles + admin benchmark table (Phase 10)",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/benchmarks"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/benchmarks"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "7a48416"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/benchmarks"
+        },
+        {
+          "kind": "commit",
+          "ref": "7a48416"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "f7613d8a",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-central-intelligence",
+      "slug": "admin-central-intelligence",
+      "name": "Central Intelligence",
+      "description": "admin command center at /admin/central-intelligence",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/central-intelligence"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/central-intelligence"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "50573e8"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/central-intelligence"
+        },
+        {
+          "kind": "commit",
+          "ref": "50573e8"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "89ca8c55",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-coach-mix",
+      "slug": "admin-coach-mix",
+      "name": "Coach Mix",
+      "description": "wire admin console to the persistence store (Phase 2b)",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/coach-mix"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/coach-mix"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "2c88722",
+        "c865e59"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/coach-mix"
+        },
+        {
+          "kind": "commit",
+          "ref": "c865e59"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "af247a4f",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-content",
       "slug": "admin-content",
       "name": "Content",
-      "description": "Content hub + Generated-Fix review queue",
+      "description": "Content — detected from /admin/content/generated-fixes.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -433,10 +710,6 @@
         {
           "kind": "route",
           "ref": "/admin/content"
-        },
-        {
-          "kind": "commit",
-          "ref": "aaca826"
         }
       ],
       "confidence": 70,
@@ -444,7 +717,179 @@
       "coverage": {},
       "fingerprint": "74772a5b",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-copilot",
+      "slug": "admin-copilot",
+      "name": "Copilot",
+      "description": "Copilot, Agent Registry, Data Quality, Drill Library & Practice Plans",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/copilot"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/copilot"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "9d87a9d"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/copilot"
+        },
+        {
+          "kind": "commit",
+          "ref": "9d87a9d"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "110138ee",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-data-quality",
+      "slug": "admin-data-quality",
+      "name": "Data Quality",
+      "description": "Copilot, Agent Registry, Data Quality, Drill Library & Practice Plans",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/data-quality"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/data-quality"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "9d87a9d"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/data-quality"
+        },
+        {
+          "kind": "commit",
+          "ref": "9d87a9d"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "0ca32832",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-development",
+      "slug": "admin-development",
+      "name": "Development",
+      "description": "Development Roadmap page + coaching-intelligence feature flags",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/development"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/development"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "bc0af8a"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/development"
+        },
+        {
+          "kind": "commit",
+          "ref": "bc0af8a"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "7918febf",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-drills",
+      "slug": "admin-drills",
+      "name": "Drills",
+      "description": "Copilot, Agent Registry, Data Quality, Drill Library & Practice Plans",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/drills"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/drills"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "9d87a9d"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/drills"
+        },
+        {
+          "kind": "commit",
+          "ref": "9d87a9d"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "30c0aac4",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-feature-education",
@@ -488,13 +933,13 @@
       "coverage": {},
       "fingerprint": "2b756edf",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-feature-flags",
       "slug": "admin-feature-flags",
       "name": "Feature Flags",
-      "description": "Feature Flags manager + Audit Log viewer",
+      "description": "Feature Flags — detected from /admin/feature-flags.",
       "category": "analytics-reporting",
       "audiences": [
         "admin"
@@ -520,10 +965,6 @@
         {
           "kind": "route",
           "ref": "/admin/feature-flags"
-        },
-        {
-          "kind": "commit",
-          "ref": "2c8af9b"
         }
       ],
       "confidence": 70,
@@ -531,13 +972,13 @@
       "coverage": {},
       "fingerprint": "981ed2f6",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-feedback",
       "slug": "admin-feedback",
       "name": "Feedback",
-      "description": "Support tickets + Feedback-to-roadmap (Wave 5 complete)",
+      "description": "Feedback — detected from /admin/feedback.",
       "category": "support-troubleshooting",
       "audiences": [
         "admin"
@@ -563,10 +1004,6 @@
         {
           "kind": "route",
           "ref": "/admin/feedback"
-        },
-        {
-          "kind": "commit",
-          "ref": "0035e0e"
         }
       ],
       "confidence": 70,
@@ -574,35 +1011,85 @@
       "coverage": {},
       "fingerprint": "adf1e84d",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-growth",
       "slug": "admin-growth",
       "name": "Growth",
-      "description": "Link Intelligence UI, APIs + cron (GrowthOS-native)",
+      "description": "Growth — detected from /admin/growth/ai-strategist.",
       "category": "admin-capability",
       "audiences": [
         "admin"
       ],
       "status": "active",
       "routes": [
+        "/admin/growth/ai-strategist",
+        "/admin/growth/analytics",
+        "/admin/growth/assets",
+        "/admin/growth/attribution",
+        "/admin/growth/brand",
+        "/admin/growth/calendar",
+        "/admin/growth/campaigns",
+        "/admin/growth/channels",
+        "/admin/growth/community",
+        "/admin/growth/content",
+        "/admin/growth/creators",
+        "/admin/growth/crm",
+        "/admin/growth/cro",
+        "/admin/growth/experiments",
         "/admin/growth/internal-links",
-        "/admin/growth/link-intelligence",
         "/admin/growth",
+        "/admin/growth/lifecycle",
+        "/admin/growth/link-intelligence",
+        "/admin/growth/market-intel",
+        "/admin/growth/offers",
+        "/admin/growth/operations",
+        "/admin/growth/paid-media",
         "/admin/growth/pr",
-        "/admin/growth/seo"
+        "/admin/growth/privacy",
+        "/admin/growth/recommendations",
+        "/admin/growth/referral",
+        "/admin/growth/reputation",
+        "/admin/growth/seo",
+        "/admin/growth/social",
+        "/admin/growth/strategy"
       ],
       "components": [],
       "apiEndpoints": [],
       "dbTables": [],
       "permissions": [],
       "adminControls": [
+        "/admin/growth/ai-strategist",
+        "/admin/growth/analytics",
+        "/admin/growth/assets",
+        "/admin/growth/attribution",
+        "/admin/growth/brand",
+        "/admin/growth/calendar",
+        "/admin/growth/campaigns",
+        "/admin/growth/channels",
+        "/admin/growth/community",
+        "/admin/growth/content",
+        "/admin/growth/creators",
+        "/admin/growth/crm",
+        "/admin/growth/cro",
+        "/admin/growth/experiments",
         "/admin/growth/internal-links",
-        "/admin/growth/link-intelligence",
         "/admin/growth",
+        "/admin/growth/lifecycle",
+        "/admin/growth/link-intelligence",
+        "/admin/growth/market-intel",
+        "/admin/growth/offers",
+        "/admin/growth/operations",
+        "/admin/growth/paid-media",
         "/admin/growth/pr",
-        "/admin/growth/seo"
+        "/admin/growth/privacy",
+        "/admin/growth/recommendations",
+        "/admin/growth/referral",
+        "/admin/growth/reputation",
+        "/admin/growth/seo",
+        "/admin/growth/social",
+        "/admin/growth/strategy"
       ],
       "featureFlags": [],
       "owner": "unassigned",
@@ -613,11 +1100,63 @@
       "evidence": [
         {
           "kind": "route",
-          "ref": "/admin/growth/internal-links"
+          "ref": "/admin/growth/ai-strategist"
         },
         {
           "kind": "route",
-          "ref": "/admin/growth/link-intelligence"
+          "ref": "/admin/growth/analytics"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/assets"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/attribution"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/brand"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/calendar"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/campaigns"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/channels"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/community"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/content"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/creators"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/crm"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/cro"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/experiments"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/internal-links"
         },
         {
           "kind": "route",
@@ -625,29 +1164,77 @@
         },
         {
           "kind": "route",
+          "ref": "/admin/growth/lifecycle"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/link-intelligence"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/market-intel"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/offers"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/operations"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/paid-media"
+        },
+        {
+          "kind": "route",
           "ref": "/admin/growth/pr"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/privacy"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/recommendations"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/referral"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/reputation"
         },
         {
           "kind": "route",
           "ref": "/admin/growth/seo"
         },
         {
-          "kind": "commit",
-          "ref": "1bd8c7f"
+          "kind": "route",
+          "ref": "/admin/growth/social"
+        },
+        {
+          "kind": "route",
+          "ref": "/admin/growth/strategy"
         }
       ],
       "confidence": 70,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "36453c75",
+      "fingerprint": "b8cffceb",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-growth-agents",
       "slug": "admin-growth-agents",
       "name": "Growth Agents",
-      "description": "move growth-agents debug page to admin-only",
+      "description": "Growth Agents — detected from /admin/growth-agents.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -673,10 +1260,6 @@
         {
           "kind": "route",
           "ref": "/admin/growth-agents"
-        },
-        {
-          "kind": "commit",
-          "ref": "15802c2"
         }
       ],
       "confidence": 70,
@@ -684,13 +1267,13 @@
       "coverage": {},
       "fingerprint": "d6171ae6",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-home",
       "slug": "admin-home",
       "name": "Home",
-      "description": "unified admin shell, Command Center, System Health & Integrations",
+      "description": "Home — detected from /admin.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -720,10 +1303,6 @@
         {
           "kind": "route",
           "ref": "/admin"
-        },
-        {
-          "kind": "commit",
-          "ref": "1cf6440"
         }
       ],
       "confidence": 70,
@@ -731,7 +1310,7 @@
       "coverage": {},
       "fingerprint": "e09deabd",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-insights",
@@ -769,13 +1348,13 @@
       "coverage": {},
       "fingerprint": "ca9c591b",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-integrations",
       "slug": "admin-integrations",
       "name": "Integrations",
-      "description": "unified admin shell, Command Center, System Health & Integrations",
+      "description": "Integrations — detected from /admin/integrations.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -801,10 +1380,6 @@
         {
           "kind": "route",
           "ref": "/admin/integrations"
-        },
-        {
-          "kind": "commit",
-          "ref": "1cf6440"
         }
       ],
       "confidence": 70,
@@ -812,13 +1387,13 @@
       "coverage": {},
       "fingerprint": "75f6c7d1",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-learning",
       "slug": "admin-learning",
       "name": "Learning",
-      "description": "Admin Academy, Notifications, Analytics, Monetization",
+      "description": "Learning — detected from /admin/learning.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -844,10 +1419,6 @@
         {
           "kind": "route",
           "ref": "/admin/learning"
-        },
-        {
-          "kind": "commit",
-          "ref": "afdb237"
         }
       ],
       "confidence": 70,
@@ -855,13 +1426,13 @@
       "coverage": {},
       "fingerprint": "ab3c8870",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-legal",
       "slug": "admin-legal",
       "name": "Legal",
-      "description": "Security & Roles, Settings, Legal & Privacy",
+      "description": "Legal — detected from /admin/legal.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -887,10 +1458,6 @@
         {
           "kind": "route",
           "ref": "/admin/legal"
-        },
-        {
-          "kind": "commit",
-          "ref": "f1c00de"
         }
       ],
       "confidence": 70,
@@ -898,13 +1465,56 @@
       "coverage": {},
       "fingerprint": "d97a364f",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-mental-performance",
+      "slug": "admin-mental-performance",
+      "name": "Mental Performance",
+      "description": "emotion & mistake-recovery pillar",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/mental-performance"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/mental-performance"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "83bb901"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/mental-performance"
+        },
+        {
+          "kind": "commit",
+          "ref": "83bb901"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "6077ab24",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-monetization",
       "slug": "admin-monetization",
       "name": "Monetization",
-      "description": "Admin Academy, Notifications, Analytics, Monetization",
+      "description": "Monetization — detected from /admin/monetization.",
       "category": "monetization",
       "audiences": [
         "admin"
@@ -930,10 +1540,6 @@
         {
           "kind": "route",
           "ref": "/admin/monetization"
-        },
-        {
-          "kind": "commit",
-          "ref": "afdb237"
         }
       ],
       "confidence": 70,
@@ -941,13 +1547,13 @@
       "coverage": {},
       "fingerprint": "a01f5973",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-notifications",
       "slug": "admin-notifications",
       "name": "Notifications",
-      "description": "Admin Academy, Notifications, Analytics, Monetization",
+      "description": "Notifications — detected from /admin/notifications.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -973,10 +1579,6 @@
         {
           "kind": "route",
           "ref": "/admin/notifications"
-        },
-        {
-          "kind": "commit",
-          "ref": "afdb237"
         }
       ],
       "confidence": 70,
@@ -984,7 +1586,50 @@
       "coverage": {},
       "fingerprint": "a02c334a",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-practice-plans",
+      "slug": "admin-practice-plans",
+      "name": "Practice Plans",
+      "description": "Copilot, Agent Registry, Data Quality, Drill Library & Practice Plans",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/practice-plans"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/practice-plans"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "9d87a9d"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/practice-plans"
+        },
+        {
+          "kind": "commit",
+          "ref": "9d87a9d"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "bf389e66",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-reengage",
@@ -1022,7 +1667,7 @@
       "coverage": {},
       "fingerprint": "f69c4590",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-research",
@@ -1060,13 +1705,13 @@
       "coverage": {},
       "fingerprint": "192af173",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-security",
       "slug": "admin-security",
       "name": "Security",
-      "description": "Security & Roles, Settings, Legal & Privacy",
+      "description": "Security — detected from /admin/security.",
       "category": "security-privacy",
       "audiences": [
         "admin"
@@ -1092,10 +1737,6 @@
         {
           "kind": "route",
           "ref": "/admin/security"
-        },
-        {
-          "kind": "commit",
-          "ref": "f1c00de"
         }
       ],
       "confidence": 70,
@@ -1103,13 +1744,13 @@
       "coverage": {},
       "fingerprint": "f0e78288",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-seo",
       "slug": "admin-seo",
       "name": "SEO",
-      "description": "SEO/AEO/GEO command center",
+      "description": "SEO — detected from /admin/seo.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -1135,10 +1776,6 @@
         {
           "kind": "route",
           "ref": "/admin/seo"
-        },
-        {
-          "kind": "commit",
-          "ref": "06bf41c"
         }
       ],
       "confidence": 70,
@@ -1146,13 +1783,13 @@
       "coverage": {},
       "fingerprint": "c3693753",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-settings",
       "slug": "admin-settings",
       "name": "Settings",
-      "description": "Security & Roles, Settings, Legal & Privacy",
+      "description": "Settings — detected from /admin/settings.",
       "category": "user-setting",
       "audiences": [
         "admin"
@@ -1178,10 +1815,6 @@
         {
           "kind": "route",
           "ref": "/admin/settings"
-        },
-        {
-          "kind": "commit",
-          "ref": "f1c00de"
         }
       ],
       "confidence": 70,
@@ -1189,13 +1822,51 @@
       "coverage": {},
       "fingerprint": "3806dac3",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-setup",
+      "slug": "admin-setup",
+      "name": "Setup",
+      "description": "Setup — detected from /admin/setup.",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/setup"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/setup"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/setup"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "ce222ca3",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-social",
       "slug": "admin-social",
       "name": "Social",
-      "description": "publish API + Studio publish button + env docs",
+      "description": "Social — detected from /admin/social.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -1221,10 +1892,6 @@
         {
           "kind": "route",
           "ref": "/admin/social"
-        },
-        {
-          "kind": "commit",
-          "ref": "e6c0211"
         }
       ],
       "confidence": 70,
@@ -1232,29 +1899,29 @@
       "coverage": {},
       "fingerprint": "9080f68d",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-sports",
       "slug": "admin-sports",
       "name": "Sports",
-      "description": "Sports Configuration Center",
+      "description": "Sports — detected from /admin/sports.",
       "category": "admin-capability",
       "audiences": [
         "admin"
       ],
       "status": "active",
       "routes": [
-        "/admin/sports/:sport",
-        "/admin/sports"
+        "/admin/sports",
+        "/admin/sports/:sport"
       ],
       "components": [],
       "apiEndpoints": [],
       "dbTables": [],
       "permissions": [],
       "adminControls": [
-        "/admin/sports/:sport",
-        "/admin/sports"
+        "/admin/sports",
+        "/admin/sports/:sport"
       ],
       "featureFlags": [],
       "owner": "unassigned",
@@ -1265,15 +1932,11 @@
       "evidence": [
         {
           "kind": "route",
-          "ref": "/admin/sports/:sport"
-        },
-        {
-          "kind": "route",
           "ref": "/admin/sports"
         },
         {
-          "kind": "commit",
-          "ref": "b96628b"
+          "kind": "route",
+          "ref": "/admin/sports/:sport"
         }
       ],
       "confidence": 70,
@@ -1281,13 +1944,13 @@
       "coverage": {},
       "fingerprint": "66b5018c",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-support",
       "slug": "admin-support",
       "name": "Support",
-      "description": "Support tickets + Feedback-to-roadmap (Wave 5 complete)",
+      "description": "Support — detected from /admin/support.",
       "category": "support-troubleshooting",
       "audiences": [
         "admin"
@@ -1313,10 +1976,6 @@
         {
           "kind": "route",
           "ref": "/admin/support"
-        },
-        {
-          "kind": "commit",
-          "ref": "0035e0e"
         }
       ],
       "confidence": 70,
@@ -1324,13 +1983,13 @@
       "coverage": {},
       "fingerprint": "c42f0665",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-system-health",
       "slug": "admin-system-health",
       "name": "System Health",
-      "description": "unified admin shell, Command Center, System Health & Integrations",
+      "description": "System Health — detected from /admin/system-health.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -1356,10 +2015,6 @@
         {
           "kind": "route",
           "ref": "/admin/system-health"
-        },
-        {
-          "kind": "commit",
-          "ref": "1cf6440"
         }
       ],
       "confidence": 70,
@@ -1367,13 +2022,51 @@
       "coverage": {},
       "fingerprint": "e11d0a0c",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_admin-updates",
+      "slug": "admin-updates",
+      "name": "Updates",
+      "description": "Updates — detected from /admin/updates.",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/updates"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/updates"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/updates"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "445f0884",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-uploads",
       "slug": "admin-uploads",
       "name": "Uploads",
-      "description": "Uploads (media) + AI Analyses review sections",
+      "description": "Uploads — detected from /admin/uploads.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -1399,10 +2092,6 @@
         {
           "kind": "route",
           "ref": "/admin/uploads"
-        },
-        {
-          "kind": "commit",
-          "ref": "7b79184"
         }
       ],
       "confidence": 70,
@@ -1410,29 +2099,29 @@
       "coverage": {},
       "fingerprint": "29f5dca8",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-users",
       "slug": "admin-users",
       "name": "Users",
-      "description": "Users section (list, full-journey detail, suspend/restore)",
+      "description": "Users — detected from /admin/users.",
       "category": "admin-capability",
       "audiences": [
         "admin"
       ],
       "status": "active",
       "routes": [
-        "/admin/users/:id",
-        "/admin/users"
+        "/admin/users",
+        "/admin/users/:id"
       ],
       "components": [],
       "apiEndpoints": [],
       "dbTables": [],
       "permissions": [],
       "adminControls": [
-        "/admin/users/:id",
-        "/admin/users"
+        "/admin/users",
+        "/admin/users/:id"
       ],
       "featureFlags": [],
       "owner": "unassigned",
@@ -1443,15 +2132,11 @@
       "evidence": [
         {
           "kind": "route",
-          "ref": "/admin/users/:id"
-        },
-        {
-          "kind": "route",
           "ref": "/admin/users"
         },
         {
-          "kind": "commit",
-          "ref": "b479d3b"
+          "kind": "route",
+          "ref": "/admin/users/:id"
         }
       ],
       "confidence": 70,
@@ -1459,7 +2144,7 @@
       "coverage": {},
       "fingerprint": "609a4dd9",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_admin-video-studio",
@@ -1497,7 +2182,7 @@
       "coverage": {},
       "fingerprint": "15a77a9e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_agi",
@@ -1534,7 +2219,7 @@
       "coverage": {},
       "fingerprint": "2b529835",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_ai-coach",
@@ -1571,13 +2256,13 @@
       "coverage": {},
       "fingerprint": "48588437",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-admin",
       "slug": "api-admin",
       "name": "Admin",
-      "description": "Users section (list, full-journey detail, suspend/restore)",
+      "description": "Copilot, Agent Registry, Data Quality, Drill Library & Practice Plans",
       "category": "backend-api",
       "audiences": [
         "developer",
@@ -1587,7 +2272,7 @@
       "routes": [],
       "components": [],
       "apiEndpoints": [
-        "/api/admin/users/:id"
+        "/api/admin/copilot"
       ],
       "dbTables": [],
       "permissions": [],
@@ -1596,30 +2281,32 @@
       "owner": "unassigned",
       "detectedFrom": [
         "route-scan",
-        "b479d3b"
+        "b479d3b",
+        "9f87c24",
+        "9d87a9d"
       ],
       "evidence": [
         {
           "kind": "api",
-          "ref": "/api/admin/users/:id"
+          "ref": "/api/admin/copilot"
         },
         {
           "kind": "commit",
-          "ref": "b479d3b"
+          "ref": "9d87a9d"
         }
       ],
       "confidence": 70,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "e6490355",
+      "fingerprint": "721aeba9",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-agents",
       "slug": "api-agents",
       "name": "Agents",
-      "description": "admin-gate /api/growth/ai + lock dispatch/send to the caller",
+      "description": "Agents — detected from /api/agents/csv-map.",
       "category": "backend-api",
       "audiences": [
         "developer",
@@ -1629,7 +2316,9 @@
       "routes": [],
       "components": [],
       "apiEndpoints": [
-        "/api/agents/dispatch/send"
+        "/api/agents/csv-map",
+        "/api/agents/dispatch/send",
+        "/api/agents/enhance"
       ],
       "dbTables": [],
       "permissions": [],
@@ -1643,19 +2332,23 @@
       "evidence": [
         {
           "kind": "api",
+          "ref": "/api/agents/csv-map"
+        },
+        {
+          "kind": "api",
           "ref": "/api/agents/dispatch/send"
         },
         {
-          "kind": "commit",
-          "ref": "1823d2a"
+          "kind": "api",
+          "ref": "/api/agents/enhance"
         }
       ],
       "confidence": 70,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "912586df",
+      "fingerprint": "d38b9eae",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-ai-coach",
@@ -1692,7 +2385,7 @@
       "coverage": {},
       "fingerprint": "8025e15e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-athletic-journey",
@@ -1729,7 +2422,49 @@
       "coverage": {},
       "fingerprint": "d3837fe3",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_api-audit",
+      "slug": "api-audit",
+      "name": "Audit",
+      "description": "external auditor access — token-gated /api/audit packet + /admin/audit-access",
+      "category": "backend-api",
+      "audiences": [
+        "developer",
+        "admin"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [],
+      "apiEndpoints": [
+        "/api/audit"
+      ],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "098a0b6"
+      ],
+      "evidence": [
+        {
+          "kind": "api",
+          "ref": "/api/audit"
+        },
+        {
+          "kind": "commit",
+          "ref": "098a0b6"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "cd67b786",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-billing",
@@ -1781,7 +2516,7 @@
       "coverage": {},
       "fingerprint": "44fd4348",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-capabilities",
@@ -1818,13 +2553,98 @@
       "coverage": {},
       "fingerprint": "f36eca45",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_api-central-intelligence",
+      "slug": "api-central-intelligence",
+      "name": "Central Intelligence",
+      "description": "admin command center at /admin/central-intelligence",
+      "category": "user-setting",
+      "audiences": [
+        "developer",
+        "admin"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [],
+      "apiEndpoints": [
+        "/api/central-intelligence/admin/config"
+      ],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "a51df61",
+        "50573e8"
+      ],
+      "evidence": [
+        {
+          "kind": "api",
+          "ref": "/api/central-intelligence/admin/config"
+        },
+        {
+          "kind": "commit",
+          "ref": "50573e8"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "84166593",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_api-coach-mix",
+      "slug": "api-coach-mix",
+      "name": "Coach Mix",
+      "description": "Preferred Coaching Style selector + dashboard module (admin preview)",
+      "category": "backend-api",
+      "audiences": [
+        "developer",
+        "admin"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [],
+      "apiEndpoints": [
+        "/api/coach-mix/preview-access"
+      ],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "4028fba"
+      ],
+      "evidence": [
+        {
+          "kind": "api",
+          "ref": "/api/coach-mix/preview-access"
+        },
+        {
+          "kind": "commit",
+          "ref": "4028fba"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "c2e18184",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-contact",
       "slug": "api-contact",
       "name": "Contact",
-      "description": "add Contact Us page + email delivery and site-wide in-development disclaimer",
+      "description": "Contact — detected from /api/contact.",
       "category": "backend-api",
       "audiences": [
         "developer",
@@ -1849,10 +2669,6 @@
         {
           "kind": "api",
           "ref": "/api/contact"
-        },
-        {
-          "kind": "commit",
-          "ref": "3848b06"
         }
       ],
       "confidence": 70,
@@ -1860,7 +2676,7 @@
       "coverage": {},
       "fingerprint": "c68b4249",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-email-capture",
@@ -1897,7 +2713,7 @@
       "coverage": {},
       "fingerprint": "b83520c2",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-feature-education",
@@ -1974,13 +2790,13 @@
       "coverage": {},
       "fingerprint": "d231c618",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-growth",
       "slug": "api-growth",
       "name": "Growth",
-      "description": "Link Intelligence tests + docs + bulk-persist perf fix",
+      "description": "Growth — detected from /api/growth/ai.",
       "category": "backend-api",
       "audiences": [
         "developer",
@@ -1990,8 +2806,12 @@
       "routes": [],
       "components": [],
       "apiEndpoints": [
+        "/api/growth/ai",
+        "/api/growth/link-intelligence/apply",
         "/api/growth/link-intelligence/cron",
-        "/api/growth/link-intelligence/run"
+        "/api/growth/link-intelligence/run",
+        "/api/growth/records",
+        "/api/growth/seed"
       ],
       "dbTables": [],
       "permissions": [],
@@ -2007,6 +2827,14 @@
       "evidence": [
         {
           "kind": "api",
+          "ref": "/api/growth/ai"
+        },
+        {
+          "kind": "api",
+          "ref": "/api/growth/link-intelligence/apply"
+        },
+        {
+          "kind": "api",
           "ref": "/api/growth/link-intelligence/cron"
         },
         {
@@ -2014,16 +2842,20 @@
           "ref": "/api/growth/link-intelligence/run"
         },
         {
-          "kind": "commit",
-          "ref": "8b171fb"
+          "kind": "api",
+          "ref": "/api/growth/records"
+        },
+        {
+          "kind": "api",
+          "ref": "/api/growth/seed"
         }
       ],
       "confidence": 70,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "cb11c8da",
+      "fingerprint": "dd360712",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-import",
@@ -2060,7 +2892,7 @@
       "coverage": {},
       "fingerprint": "90a9b745",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-recruiting",
@@ -2097,7 +2929,7 @@
       "coverage": {},
       "fingerprint": "5434dff2",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-research",
@@ -2149,13 +2981,13 @@
       "coverage": {},
       "fingerprint": "77b38127",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-social",
       "slug": "api-social",
       "name": "Social",
-      "description": "learning loop (deferred #4) — metrics bias generation",
+      "description": "Social — detected from /api/social/generate.",
       "category": "backend-api",
       "audiences": [
         "developer",
@@ -2165,7 +2997,14 @@
       "routes": [],
       "components": [],
       "apiEndpoints": [
-        "/api/social/learning"
+        "/api/social/generate",
+        "/api/social/learning",
+        "/api/social/list",
+        "/api/social/metrics",
+        "/api/social/posts/:id",
+        "/api/social/publish",
+        "/api/social/run-scheduled",
+        "/api/social/save"
       ],
       "dbTables": [],
       "permissions": [],
@@ -2182,25 +3021,49 @@
       "evidence": [
         {
           "kind": "api",
+          "ref": "/api/social/generate"
+        },
+        {
+          "kind": "api",
           "ref": "/api/social/learning"
         },
         {
-          "kind": "commit",
-          "ref": "59429c2"
+          "kind": "api",
+          "ref": "/api/social/list"
+        },
+        {
+          "kind": "api",
+          "ref": "/api/social/metrics"
+        },
+        {
+          "kind": "api",
+          "ref": "/api/social/posts/:id"
+        },
+        {
+          "kind": "api",
+          "ref": "/api/social/publish"
+        },
+        {
+          "kind": "api",
+          "ref": "/api/social/run-scheduled"
+        },
+        {
+          "kind": "api",
+          "ref": "/api/social/save"
         }
       ],
       "confidence": 70,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "de4c6e7b",
+      "fingerprint": "3512ef2b",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-user",
       "slug": "api-user",
       "name": "User",
-      "description": "kebab-case sync module filenames (audit AA-6)",
+      "description": "User — detected from /api/user/export.",
       "category": "backend-api",
       "audiences": [
         "developer",
@@ -2211,6 +3074,7 @@
       "components": [],
       "apiEndpoints": [
         "/api/user/export",
+        "/api/user/import/preview",
         "/api/user/import/restore"
       ],
       "dbTables": [],
@@ -2229,19 +3093,19 @@
         },
         {
           "kind": "api",
-          "ref": "/api/user/import/restore"
+          "ref": "/api/user/import/preview"
         },
         {
-          "kind": "commit",
-          "ref": "3f246d1"
+          "kind": "api",
+          "ref": "/api/user/import/restore"
         }
       ],
       "confidence": 70,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "315fa525",
+      "fingerprint": "34f33679",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-video-analysis",
@@ -2278,7 +3142,7 @@
       "coverage": {},
       "fingerprint": "7441333b",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-video-studio",
@@ -2365,7 +3229,7 @@
       "coverage": {},
       "fingerprint": "28b0b591",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_api-video-vision-analysis",
@@ -2402,7 +3266,7 @@
       "coverage": {},
       "fingerprint": "5ad256a6",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_arc",
@@ -2439,7 +3303,7 @@
       "coverage": {},
       "fingerprint": "1187ddaa",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_athlete-general-intelligence",
@@ -2475,7 +3339,7 @@
       "coverage": {},
       "fingerprint": "066740a0",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_auth",
@@ -2512,7 +3376,7 @@
       "coverage": {},
       "fingerprint": "c8ad2053",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_avatar",
@@ -2549,7 +3413,7 @@
       "coverage": {},
       "fingerprint": "0b0a4a4f",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_baseball",
@@ -2615,13 +3479,13 @@
       "coverage": {},
       "fingerprint": "32ec308b",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_baseball-swing-analysis",
       "slug": "baseball-swing-analysis",
       "name": "Baseball Swing Analysis",
-      "description": "add five-persona event names (§15) + wire instrumentation",
+      "description": "Baseball Swing Analysis — detected from /baseball-swing-analysis.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -2645,10 +3509,6 @@
         {
           "kind": "route",
           "ref": "/baseball-swing-analysis"
-        },
-        {
-          "kind": "commit",
-          "ref": "d3eff1f"
         }
       ],
       "confidence": 75,
@@ -2656,7 +3516,7 @@
       "coverage": {},
       "fingerprint": "5f337eba",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_benchmarks",
@@ -2697,19 +3557,20 @@
       "coverage": {},
       "fingerprint": "50f219a8",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_blog",
       "slug": "blog",
       "name": "Blog",
-      "description": "surface pickleball + padel in every sport list/filter/badge",
+      "description": "Blog — detected from /blog.",
       "category": "ui-change",
       "audiences": [
         "all"
       ],
       "status": "active",
       "routes": [
+        "/blog",
         "/blog/:slug"
       ],
       "components": [],
@@ -2727,19 +3588,23 @@
       "evidence": [
         {
           "kind": "route",
-          "ref": "/blog/:slug"
+          "ref": "/blog"
         },
         {
-          "kind": "commit",
-          "ref": "0a1652b"
+          "kind": "route",
+          "ref": "/blog"
+        },
+        {
+          "kind": "route",
+          "ref": "/blog/:slug"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "9f5a825c",
+      "fingerprint": "e61da975",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_bodysync",
@@ -2776,7 +3641,7 @@
       "coverage": {},
       "fingerprint": "b7bf1689",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_challenges",
@@ -2827,7 +3692,7 @@
       "coverage": {},
       "fingerprint": "9bc79274",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_coach",
@@ -2864,7 +3729,7 @@
       "coverage": {},
       "fingerprint": "bfbaf500",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_coaches",
@@ -2900,13 +3765,13 @@
       "coverage": {},
       "fingerprint": "326a1364",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_community",
       "slug": "community",
       "name": "Community",
-      "description": "surface pickleball + padel in every sport list/filter/badge",
+      "description": "Community — detected from /community/badges.",
       "category": "new-feature",
       "audiences": [
         "new-user",
@@ -2914,7 +3779,11 @@
       ],
       "status": "active",
       "routes": [
-        "/community/groups"
+        "/community/badges",
+        "/community/challenges",
+        "/community/groups",
+        "/community",
+        "/community/leaderboard"
       ],
       "components": [],
       "apiEndpoints": [],
@@ -2930,19 +3799,35 @@
       "evidence": [
         {
           "kind": "route",
+          "ref": "/community/badges"
+        },
+        {
+          "kind": "route",
+          "ref": "/community/challenges"
+        },
+        {
+          "kind": "route",
           "ref": "/community/groups"
         },
         {
-          "kind": "commit",
-          "ref": "0a1652b"
+          "kind": "route",
+          "ref": "/community"
+        },
+        {
+          "kind": "route",
+          "ref": "/community/leaderboard"
+        },
+        {
+          "kind": "route",
+          "ref": "/community"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "73ae40c4",
+      "fingerprint": "93e1755c",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_compare",
@@ -2979,13 +3864,13 @@
       "coverage": {},
       "fingerprint": "a6206985",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_contact",
       "slug": "contact",
       "name": "Contact",
-      "description": "add Contact Us page + email delivery and site-wide in-development disclaimer",
+      "description": "Contact — detected from /contact.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -3009,10 +3894,6 @@
         {
           "kind": "route",
           "ref": "/contact"
-        },
-        {
-          "kind": "commit",
-          "ref": "3848b06"
         }
       ],
       "confidence": 75,
@@ -3020,7 +3901,7 @@
       "coverage": {},
       "fingerprint": "1fcf056e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_creators",
@@ -3056,13 +3937,13 @@
       "coverage": {},
       "fingerprint": "ecc6b13b",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_dashboard",
       "slug": "dashboard",
       "name": "Dashboard",
-      "description": "Dashboard — detected from /dashboard.",
+      "description": "low-cognition intent picker at the app entry",
       "category": "analytics-reporting",
       "audiences": [
         "new-user",
@@ -3080,12 +3961,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "7ead3b9"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/dashboard"
+        },
+        {
+          "kind": "commit",
+          "ref": "7ead3b9"
         }
       ],
       "confidence": 75,
@@ -3093,7 +3979,7 @@
       "coverage": {},
       "fingerprint": "dfa3bc9e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_data",
@@ -3130,7 +4016,7 @@
       "coverage": {},
       "fingerprint": "49f653fe",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_dev-updates",
@@ -3166,7 +4052,7 @@
       "coverage": {},
       "fingerprint": "23c80d9e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_diagnose",
@@ -3203,7 +4089,7 @@
       "coverage": {},
       "fingerprint": "24f5c1be",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_drills",
@@ -3240,7 +4126,7 @@
       "coverage": {},
       "fingerprint": "f21a4fdc",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_equipment",
@@ -3282,13 +4168,13 @@
       "coverage": {},
       "fingerprint": "a876c0e6",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_faq",
       "slug": "faq",
       "name": "Faq",
-      "description": "localize /faq to Spanish (wave 1, page 4)",
+      "description": "Faq — detected from /faq.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -3312,10 +4198,6 @@
         {
           "kind": "route",
           "ref": "/faq"
-        },
-        {
-          "kind": "commit",
-          "ref": "ccc913f"
         }
       ],
       "confidence": 75,
@@ -3323,13 +4205,13 @@
       "coverage": {},
       "fingerprint": "210dbd6e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_features",
       "slug": "features",
       "name": "Features",
-      "description": "refresh updates/features/dev-updates for 7 sports + new features",
+      "description": "Features — detected from /features.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -3355,10 +4237,6 @@
         {
           "kind": "route",
           "ref": "/features"
-        },
-        {
-          "kind": "commit",
-          "ref": "d0d6476"
         }
       ],
       "confidence": 75,
@@ -3366,13 +4244,13 @@
       "coverage": {},
       "fingerprint": "28f547a9",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_fix",
       "slug": "fix",
       "name": "Fix",
-      "description": "Fix — detected from /fix.",
+      "description": "emotion & mistake-recovery pillar",
       "category": "new-feature",
       "audiences": [
         "new-user",
@@ -3390,12 +4268,18 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "4a535fe",
+        "83bb901"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/fix"
+        },
+        {
+          "kind": "commit",
+          "ref": "83bb901"
         }
       ],
       "confidence": 75,
@@ -3403,7 +4287,7 @@
       "coverage": {},
       "fingerprint": "19fa2ab1",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_forgot-password",
@@ -3440,7 +4324,7 @@
       "coverage": {},
       "fingerprint": "daf00939",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_free-swing-analysis",
@@ -3476,7 +4360,7 @@
       "coverage": {},
       "fingerprint": "0bb65a40",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_glossary",
@@ -3512,7 +4396,7 @@
       "coverage": {},
       "fingerprint": "32e995c2",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_golf",
@@ -3588,13 +4472,13 @@
       "coverage": {},
       "fingerprint": "6f24bcf4",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_golf-swing-analysis",
       "slug": "golf-swing-analysis",
       "name": "Golf Swing Analysis",
-      "description": "add five-persona event names (§15) + wire instrumentation",
+      "description": "Golf Swing Analysis — detected from /golf-swing-analysis.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -3618,10 +4502,6 @@
         {
           "kind": "route",
           "ref": "/golf-swing-analysis"
-        },
-        {
-          "kind": "commit",
-          "ref": "d3eff1f"
         }
       ],
       "confidence": 75,
@@ -3629,7 +4509,7 @@
       "coverage": {},
       "fingerprint": "ea048596",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_growth-agents",
@@ -3676,7 +4556,7 @@
       "id": "feat_home",
       "slug": "home",
       "name": "Home",
-      "description": "self-maintaining multilingual SEO for marketing (Spanish wave 1)",
+      "description": "Phase 1 — onboarding state machine, floating nudge coordinator, dashboard declutter, sign-out fix",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -3695,7 +4575,8 @@
       "detectedFrom": [
         "route-scan",
         "52bddef",
-        "c780e19"
+        "c780e19",
+        "5ca5afb"
       ],
       "evidence": [
         {
@@ -3703,12 +4584,8 @@
           "ref": "/"
         },
         {
-          "kind": "route",
-          "ref": "/"
-        },
-        {
           "kind": "commit",
-          "ref": "c780e19"
+          "ref": "5ca5afb"
         }
       ],
       "confidence": 75,
@@ -3716,13 +4593,13 @@
       "coverage": {},
       "fingerprint": "2a0c975e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_how-it-works",
       "slug": "how-it-works",
       "name": "How It Works",
-      "description": "localize /how-it-works to Spanish (wave 1, page 2)",
+      "description": "How It Works — detected from /how-it-works.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -3747,10 +4624,6 @@
         {
           "kind": "route",
           "ref": "/how-it-works"
-        },
-        {
-          "kind": "commit",
-          "ref": "9a26192"
         }
       ],
       "confidence": 75,
@@ -3758,13 +4631,13 @@
       "coverage": {},
       "fingerprint": "a4e6fec9",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_journey",
       "slug": "journey",
       "name": "Journey",
-      "description": "refresh updates/features/dev-updates for 7 sports + new features",
+      "description": "Journey — detected from /journey.",
       "category": "new-feature",
       "audiences": [
         "new-user",
@@ -3789,10 +4662,6 @@
         {
           "kind": "route",
           "ref": "/journey"
-        },
-        {
-          "kind": "commit",
-          "ref": "d0d6476"
         }
       ],
       "confidence": 75,
@@ -3800,13 +4669,55 @@
       "coverage": {},
       "fingerprint": "761244ee",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lab",
+      "slug": "lab",
+      "name": "Lab",
+      "description": "SwingLab 2.0 — public vision page + admin-gated interactive lab",
+      "category": "new-feature",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [
+        "/lab"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "82a969a"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/lab"
+        },
+        {
+          "kind": "commit",
+          "ref": "82a969a"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "9aa57535",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_labs",
       "slug": "labs",
       "name": "Labs",
-      "description": "Labs — detected from /labs.",
+      "description": "assemble the issue -> drill -> outcome improvement record",
       "category": "new-feature",
       "audiences": [
         "new-user",
@@ -3824,12 +4735,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "6daf287"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/labs"
+        },
+        {
+          "kind": "commit",
+          "ref": "6daf287"
         }
       ],
       "confidence": 75,
@@ -3837,13 +4753,13 @@
       "coverage": {},
       "fingerprint": "b8779d32",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lang",
       "slug": "lang",
       "name": ":Lang",
-      "description": "localize /faq to Spanish (wave 1, page 4)",
+      "description": ":Lang — detected from /:lang/faq.",
       "category": "new-feature",
       "audiences": [
         "new-user",
@@ -3851,7 +4767,10 @@
       ],
       "status": "active",
       "routes": [
-        "/:lang/faq"
+        "/:lang/faq",
+        "/:lang/features",
+        "/:lang/how-it-works",
+        "/:lang"
       ],
       "components": [],
       "apiEndpoints": [],
@@ -3873,16 +4792,28 @@
           "ref": "/:lang/faq"
         },
         {
-          "kind": "commit",
-          "ref": "ccc913f"
+          "kind": "route",
+          "ref": "/:lang/features"
+        },
+        {
+          "kind": "route",
+          "ref": "/:lang/how-it-works"
+        },
+        {
+          "kind": "route",
+          "ref": "/:lang"
+        },
+        {
+          "kind": "route",
+          "ref": "/:lang"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "2b6a4803",
+      "fingerprint": "875d91f6",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_learn",
@@ -3923,22 +4854,30 @@
       "coverage": {},
       "fingerprint": "eb0d7b6b",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-admin",
       "slug": "lib-admin",
       "name": "Admin",
-      "description": "Support tickets + Feedback-to-roadmap (Wave 5 complete)",
-      "category": "support-troubleshooting",
+      "description": "Copilot, Agent Registry, Data Quality, Drill Library & Practice Plans",
+      "category": "enhancement",
       "audiences": [
         "developer"
       ],
       "status": "active",
       "routes": [],
       "components": [
+        "lib/admin/agent-registry.ts",
+        "lib/admin/copilot/ai-seam.ts",
+        "lib/admin/copilot/engine.ts",
+        "lib/admin/copilot/questions.ts",
+        "lib/admin/copilot/snapshot.ts",
+        "lib/admin/copilot/types.ts",
+        "lib/admin/data-quality/checks.ts",
+        "lib/admin/drill-library/aggregate.ts",
         "lib/admin/nav.ts",
-        "lib/admin/stores/support.ts"
+        "lib/admin/practice-plans/samples.ts"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -3947,38 +4886,71 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "010091e",
-        "b479d3b",
-        "8c58b89",
-        "7b79184",
-        "b96628b",
-        "06bf41c",
-        "aaca826",
-        "2c8af9b",
         "f1c00de",
         "afdb237",
-        "0035e0e"
+        "0035e0e",
+        "50573e8",
+        "23e76a2",
+        "7a48416",
+        "2c88722",
+        "9f87c24",
+        "bc0af8a",
+        "098a0b6",
+        "83bb901",
+        "9d87a9d"
       ],
       "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/admin/agent-registry.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/admin/copilot/ai-seam.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/admin/copilot/engine.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/admin/copilot/questions.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/admin/copilot/snapshot.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/admin/copilot/types.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/admin/data-quality/checks.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/admin/drill-library/aggregate.ts"
+        },
         {
           "kind": "component",
           "ref": "lib/admin/nav.ts"
         },
         {
           "kind": "component",
-          "ref": "lib/admin/stores/support.ts"
+          "ref": "lib/admin/practice-plans/samples.ts"
         },
         {
           "kind": "commit",
-          "ref": "0035e0e"
+          "ref": "9d87a9d"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "a5fa6410",
+      "fingerprint": "23779e4e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-ads",
@@ -4081,16 +5053,19 @@
       "id": "feat_lib-agi",
       "slug": "lib-agi",
       "name": "Agi",
-      "description": "surface pickleball + padel in every sport list/filter/badge",
-      "category": "account-auth",
+      "description": "physical readiness in priority + sport-context isolation (Phase 8+9)",
+      "category": "enhancement",
       "audiences": [
         "developer"
       ],
       "status": "active",
       "routes": [],
       "components": [
-        "lib/agi/adapters/daily-notes.ts",
-        "lib/agi/adapters/store-sessions.ts"
+        "lib/agi/adapters/useAthleteGI.ts",
+        "lib/agi/demo.ts",
+        "lib/agi/eval/harness.ts",
+        "lib/agi/types.ts",
+        "lib/agi/world-model.ts"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -4101,28 +5076,41 @@
       "detectedFrom": [
         "3f7108b",
         "c7dda36",
-        "0a1652b"
+        "0a1652b",
+        "ce48f37"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "lib/agi/adapters/daily-notes.ts"
+          "ref": "lib/agi/adapters/useAthleteGI.ts"
         },
         {
           "kind": "component",
-          "ref": "lib/agi/adapters/store-sessions.ts"
+          "ref": "lib/agi/demo.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/agi/eval/harness.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/agi/types.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/agi/world-model.ts"
         },
         {
           "kind": "commit",
-          "ref": "0a1652b"
+          "ref": "ce48f37"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "51a764cd",
+      "fingerprint": "980cbc3a",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-athletic-journey",
@@ -4188,6 +5176,106 @@
       "fingerprint": "b0745d71",
       "createdAt": "2026-06-07T04:41:51.123Z",
       "updatedAt": "2026-06-07T04:41:51.123Z"
+    },
+    {
+      "id": "feat_lib-audit-access",
+      "slug": "lib-audit-access",
+      "name": "Audit Access",
+      "description": "external auditor access — token-gated /api/audit packet + /admin/audit-access",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/audit-access/barriers.ts",
+        "lib/audit-access/bundle.ts",
+        "lib/audit-access/index.ts",
+        "lib/audit-access/token.ts",
+        "lib/audit-access/types.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "098a0b6"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/audit-access/barriers.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/audit-access/bundle.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/audit-access/index.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/audit-access/token.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/audit-access/types.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "098a0b6"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "82274951",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-auth",
+      "slug": "lib-auth",
+      "name": "Auth",
+      "description": "Phase 1 — onboarding state machine, floating nudge coordinator, dashboard declutter, sign-out fix",
+      "category": "account-auth",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/auth/useSignOut.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "5ca5afb"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/auth/useSignOut.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "5ca5afb"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "7a91a19d",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-background-tasks",
@@ -4331,10 +5419,10 @@
       "updatedAt": "2026-06-07T04:41:51.123Z"
     },
     {
-      "id": "feat_lib-db",
-      "slug": "lib-db",
-      "name": "Db",
-      "description": "kebab-case sync module filenames (audit AA-6)",
+      "id": "feat_lib-central-intelligence",
+      "slug": "lib-central-intelligence",
+      "name": "Central Intelligence",
+      "description": "emotion & mistake-recovery pillar",
       "category": "analytics-reporting",
       "audiences": [
         "developer"
@@ -4342,21 +5430,8 @@
       "status": "active",
       "routes": [],
       "components": [
-        "lib/db/RelationalSyncProvider.tsx",
-        "lib/db/cloud-repo.ts",
-        "lib/db/cloudRepo.ts",
-        "lib/db/community-analytics-sync.ts",
-        "lib/db/communityAnalyticsSync.ts",
-        "lib/db/document-sync.ts",
-        "lib/db/documentSync.ts",
-        "lib/db/drill-feedback-sync.ts",
-        "lib/db/drillFeedbackSync.ts",
-        "lib/db/index.ts",
-        "lib/db/relational-sync-provider.tsx",
-        "lib/db/sync-base.ts",
-        "lib/db/syncBase.ts",
-        "lib/db/three-way-merge.ts",
-        "lib/db/threeWayMerge.ts"
+        "lib/central-intelligence/dashboard.ts",
+        "lib/central-intelligence/types.ts"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -4365,80 +5440,123 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "3f246d1"
+        "a51df61",
+        "7111faa",
+        "50573e8",
+        "060acd9",
+        "42d6ee6",
+        "25d6e47",
+        "890542d",
+        "6f3c037",
+        "272435f",
+        "8c5e903",
+        "4028fba",
+        "83bb901"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "lib/db/RelationalSyncProvider.tsx"
+          "ref": "lib/central-intelligence/dashboard.ts"
         },
         {
           "kind": "component",
-          "ref": "lib/db/cloud-repo.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/cloudRepo.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/community-analytics-sync.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/communityAnalyticsSync.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/document-sync.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/documentSync.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/drill-feedback-sync.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/drillFeedbackSync.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/index.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/relational-sync-provider.tsx"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/sync-base.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/syncBase.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/three-way-merge.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/db/threeWayMerge.ts"
+          "ref": "lib/central-intelligence/types.ts"
         },
         {
           "kind": "commit",
-          "ref": "3f246d1"
+          "ref": "83bb901"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "c6bc739c",
+      "fingerprint": "a0f8cef4",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-config",
+      "slug": "lib-config",
+      "name": "Config",
+      "description": "admin control center UI + live/management API + wiring",
+      "category": "user-setting",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/config/env.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "9f87c24"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/config/env.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "9f87c24"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "8739ce26",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-db",
+      "slug": "lib-db",
+      "name": "Db",
+      "description": "emotion & mistake-recovery pillar",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/db/document-sync.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "3f246d1",
+        "5ca5afb",
+        "f498f01",
+        "06d8ca9",
+        "83bb901"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/db/document-sync.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "83bb901"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "a96305f2",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-email",
@@ -4482,6 +5600,46 @@
       "updatedAt": "2026-06-07T04:41:51.123Z"
     },
     {
+      "id": "feat_lib-equipment",
+      "slug": "lib-equipment",
+      "name": "Equipment",
+      "description": "auto golf-bag detection + athlete timeline (Phase 4+5)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/equipment/bag-detection.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "cccef20"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/equipment/bag-detection.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "cccef20"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "6c9420df",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
       "id": "feat_lib-faults",
       "slug": "lib-faults",
       "name": "Faults",
@@ -4520,6 +5678,111 @@
       "fingerprint": "b983bc27",
       "createdAt": "2026-06-07T04:41:51.123Z",
       "updatedAt": "2026-06-07T04:41:51.123Z"
+    },
+    {
+      "id": "feat_lib-floating",
+      "slug": "lib-floating",
+      "name": "Floating",
+      "description": "Phase 1 — onboarding state machine, floating nudge coordinator, dashboard declutter, sign-out fix",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/floating/nudge-manager.tsx",
+        "lib/floating/nudge-priority.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "5ca5afb"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/floating/nudge-manager.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/floating/nudge-priority.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "5ca5afb"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "971f121c",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-grading",
+      "slug": "lib-grading",
+      "name": "Grading",
+      "description": "profile-aware golf grading + 7 player profiles + admin benchmark table (Phase 10)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/grading/benchmark-store.ts",
+        "lib/grading/classify.ts",
+        "lib/grading/grade.ts",
+        "lib/grading/profiles.ts",
+        "lib/grading/useGolfProfile.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "7a48416"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/grading/benchmark-store.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/grading/classify.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/grading/grade.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/grading/profiles.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/grading/useGolfProfile.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "7a48416"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "c57e275d",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-growth",
@@ -4562,6 +5825,66 @@
       "fingerprint": "de137c8a",
       "createdAt": "2026-06-07T04:41:51.123Z",
       "updatedAt": "2026-06-07T04:41:51.123Z"
+    },
+    {
+      "id": "feat_lib-guardian-consent",
+      "slug": "lib-guardian-consent",
+      "name": "Guardian Consent",
+      "description": "guardian-consent workflow for young athletes",
+      "category": "security-privacy",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/guardian-consent/index.ts",
+        "lib/guardian-consent/policy.ts",
+        "lib/guardian-consent/store.ts",
+        "lib/guardian-consent/types.ts",
+        "lib/guardian-consent/useGuardianConsent.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "2478fd0"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/guardian-consent/index.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/guardian-consent/policy.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/guardian-consent/store.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/guardian-consent/types.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/guardian-consent/useGuardianConsent.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "2478fd0"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "d61541b1",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-i18n",
@@ -4657,16 +5980,15 @@
       "id": "feat_lib-import",
       "slug": "lib-import",
       "name": "Import",
-      "description": "kebab-case toSession module filename (audit AA-6)",
-      "category": "account-auth",
+      "description": "shot-intent classifier + athlete priority engine (Phase 6+7)",
+      "category": "enhancement",
       "audiences": [
         "developer"
       ],
       "status": "active",
       "routes": [],
       "components": [
-        "lib/import/to-session.ts",
-        "lib/import/toSession.ts"
+        "lib/import/process.ts"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -4675,28 +5997,112 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "8c3c4d0"
+        "8c3c4d0",
+        "f498f01",
+        "06d8ca9"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "lib/import/to-session.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/import/toSession.ts"
+          "ref": "lib/import/process.ts"
         },
         {
           "kind": "commit",
-          "ref": "8c3c4d0"
+          "ref": "06d8ca9"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "f79d29b4",
+      "fingerprint": "4ccc2269",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-improvement-loops",
+      "slug": "lib-improvement-loops",
+      "name": "Improvement Loops",
+      "description": "show the athlete's own drill track-record on the Fix Stack",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/improvement-loops/build.ts",
+        "lib/improvement-loops/index.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "6daf287",
+        "f3c6dea"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/improvement-loops/build.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/improvement-loops/index.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "f3c6dea"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "4c8febfb",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-intent",
+      "slug": "lib-intent",
+      "name": "Intent",
+      "description": "low-cognition intent picker at the app entry",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/intent/intents.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "7ead3b9"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/intent/intents.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "7ead3b9"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "2289e5ba",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-library",
@@ -4787,6 +6193,111 @@
       "fingerprint": "b339c65a",
       "createdAt": "2026-06-07T04:41:51.123Z",
       "updatedAt": "2026-06-07T04:41:51.123Z"
+    },
+    {
+      "id": "feat_lib-mental-performance",
+      "slug": "lib-mental-performance",
+      "name": "Mental Performance",
+      "description": "emotion & mistake-recovery pillar",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/mental-performance/ai.ts",
+        "lib/mental-performance/coach.ts",
+        "lib/mental-performance/constants.ts",
+        "lib/mental-performance/crisis.ts",
+        "lib/mental-performance/growth.ts",
+        "lib/mental-performance/index.ts",
+        "lib/mental-performance/intelligence.ts",
+        "lib/mental-performance/journal.ts",
+        "lib/mental-performance/plans.ts",
+        "lib/mental-performance/routines.ts",
+        "lib/mental-performance/scripts.ts",
+        "lib/mental-performance/store.ts",
+        "lib/mental-performance/types.ts",
+        "lib/mental-performance/useMentalPerformance.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "83bb901"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/ai.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/coach.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/constants.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/crisis.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/growth.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/index.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/intelligence.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/journal.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/plans.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/routines.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/scripts.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/store.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/types.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/mental-performance/useMentalPerformance.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "83bb901"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "a71ce9db",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-motion-lab",
@@ -4898,7 +6409,7 @@
       "id": "feat_lib-onboarding",
       "slug": "lib-onboarding",
       "name": "Onboarding",
-      "description": "add Pickleball & Padel as first-class sports",
+      "description": "Phase 1 — onboarding state machine, floating nudge coordinator, dashboard declutter, sign-out fix",
       "category": "enhancement",
       "audiences": [
         "developer"
@@ -4906,7 +6417,8 @@
       "status": "active",
       "routes": [],
       "components": [
-        "lib/onboarding/quickStart.ts"
+        "lib/onboarding/state.ts",
+        "lib/onboarding/useOnboarding.ts"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -4915,24 +6427,162 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "3f7108b"
+        "3f7108b",
+        "5ca5afb"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "lib/onboarding/quickStart.ts"
+          "ref": "lib/onboarding/state.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/onboarding/useOnboarding.ts"
         },
         {
           "kind": "commit",
-          "ref": "3f7108b"
+          "ref": "5ca5afb"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "db7a79df",
+      "fingerprint": "6f8efeee",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-posthog",
+      "slug": "lib-posthog",
+      "name": "Posthog",
+      "description": "admin control center UI + live/management API + wiring",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/posthog/capabilities.ts",
+        "lib/posthog/types.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "870abf1",
+        "9f87c24"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/posthog/capabilities.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/posthog/types.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "9f87c24"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "3b2938fe",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-priority",
+      "slug": "lib-priority",
+      "name": "Priority",
+      "description": "physical readiness in priority + sport-context isolation (Phase 8+9)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/priority/engine.ts",
+        "lib/priority/types.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "06d8ca9",
+        "727d92b",
+        "ce48f37"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/priority/engine.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/priority/types.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "ce48f37"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "50816a4e",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-readiness",
+      "slug": "lib-readiness",
+      "name": "Readiness",
+      "description": "physical readiness in priority + sport-context isolation (Phase 8+9)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/readiness/golf-mobility.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "ce48f37"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/readiness/golf-mobility.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "ce48f37"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "5726acc9",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-recruiting",
@@ -4979,7 +6629,7 @@
       "id": "feat_lib-seo",
       "slug": "lib-seo",
       "name": "SEO",
-      "description": "self-maintaining multilingual SEO for marketing (Spanish wave 1)",
+      "description": "HTML sitemap + curated URL registry + GSC docs",
       "category": "enhancement",
       "audiences": [
         "developer"
@@ -4987,7 +6637,7 @@
       "status": "active",
       "routes": [],
       "components": [
-        "lib/seo/metadata.ts"
+        "lib/seo/site-sections.ts"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -4996,24 +6646,70 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "c780e19"
+        "c780e19",
+        "d28d61b"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "lib/seo/metadata.ts"
+          "ref": "lib/seo/site-sections.ts"
         },
         {
           "kind": "commit",
-          "ref": "c780e19"
+          "ref": "d28d61b"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "7130d6f9",
+      "fingerprint": "94b45d9a",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-shot-intent",
+      "slug": "lib-shot-intent",
+      "name": "Shot Intent",
+      "description": "shot-intent classifier + athlete priority engine (Phase 6+7)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/shot-intent/baselines.ts",
+        "lib/shot-intent/classify.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "06d8ca9"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/shot-intent/baselines.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/shot-intent/classify.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "06d8ca9"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "2666ce67",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-social",
@@ -5070,6 +6766,106 @@
       "updatedAt": "2026-06-07T04:41:51.123Z"
     },
     {
+      "id": "feat_lib-swinglab",
+      "slug": "lib-swinglab",
+      "name": "Swinglab",
+      "description": "SwingLab 2.0 — public vision page + admin-gated interactive lab",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/swinglab/labState.ts",
+        "lib/swinglab/labSystems.ts",
+        "lib/swinglab/types.ts",
+        "lib/swinglab/useLabPersonalization.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "82a969a"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/swinglab/labState.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/swinglab/labSystems.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/swinglab/types.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/swinglab/useLabPersonalization.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "82a969a"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "389b755d",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_lib-timeline",
+      "slug": "lib-timeline",
+      "name": "Timeline",
+      "description": "auto golf-bag detection + athlete timeline (Phase 4+5)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/timeline/build.ts",
+        "lib/timeline/types.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "cccef20"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/timeline/build.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/timeline/types.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "cccef20"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "d47aba04",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
       "id": "feat_lib-tutorial",
       "slug": "lib-tutorial",
       "name": "Tutorial",
@@ -5113,7 +6909,7 @@
       "id": "feat_lib-video",
       "slug": "lib-video",
       "name": "Video",
-      "description": "kebab-case prepareSwing + runAnalysis filenames (audit AA-6)",
+      "description": "surface an honest uncertainty prompt on limited visual reads",
       "category": "enhancement",
       "audiences": [
         "developer"
@@ -5121,11 +6917,7 @@
       "status": "active",
       "routes": [],
       "components": [
-        "lib/video/prepare-swing.ts",
-        "lib/video/prepareSwing.ts",
-        "lib/video/run-analysis.ts",
-        "lib/video/runAnalysis.ts",
-        "lib/video/useSwingAnalysis.ts"
+        "lib/video/visual-uncertainty.ts"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -5135,40 +6927,26 @@
       "owner": "unassigned",
       "detectedFrom": [
         "52bddef",
-        "5f7c7f0"
+        "5f7c7f0",
+        "feba760",
+        "905b252"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "lib/video/prepare-swing.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/video/prepareSwing.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/video/run-analysis.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/video/runAnalysis.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/video/useSwingAnalysis.ts"
+          "ref": "lib/video/visual-uncertainty.ts"
         },
         {
           "kind": "commit",
-          "ref": "5f7c7f0"
+          "ref": "905b252"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "cd40f171",
+      "fingerprint": "63b75387",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_lib-video-studio",
@@ -5290,7 +7068,7 @@
       "coverage": {},
       "fingerprint": "5d647cd1",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_login",
@@ -5327,7 +7105,153 @@
       "coverage": {},
       "fingerprint": "56ff9eab",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_mental",
+      "slug": "mental",
+      "name": "Mental",
+      "description": "emotion & mistake-recovery pillar",
+      "category": "new-feature",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [
+        "/mental/journal",
+        "/mental",
+        "/mental/plans"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "83bb901"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/mental/journal"
+        },
+        {
+          "kind": "route",
+          "ref": "/mental"
+        },
+        {
+          "kind": "route",
+          "ref": "/mental/plans"
+        },
+        {
+          "kind": "commit",
+          "ref": "83bb901"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "b7b301fc",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_mental-performance",
+      "slug": "mental-performance",
+      "name": "Mental Performance",
+      "description": "emotion & mistake-recovery pillar",
+      "category": "ui-change",
+      "audiences": [
+        "all"
+      ],
+      "status": "active",
+      "routes": [
+        "/mental-performance/:sport/:situation",
+        "/mental-performance/:sport",
+        "/mental-performance"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "83bb901"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/mental-performance/:sport/:situation"
+        },
+        {
+          "kind": "route",
+          "ref": "/mental-performance/:sport"
+        },
+        {
+          "kind": "route",
+          "ref": "/mental-performance"
+        },
+        {
+          "kind": "commit",
+          "ref": "83bb901"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "33a73253",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_mental-performance-emotion-mistake-recovery-coaching",
+      "slug": "mental-performance-emotion-mistake-recovery-coaching",
+      "name": "Mental Performance — emotion & mistake-recovery coaching",
+      "description": "feat(mental-performance): emotion & mistake-recovery pillar",
+      "category": "new-feature",
+      "audiences": [
+        "all"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "83bb901"
+      ],
+      "evidence": [
+        {
+          "kind": "trailer",
+          "ref": "mental-performance-emotion-mistake-recovery-coaching"
+        },
+        {
+          "kind": "commit",
+          "ref": "83bb901"
+        },
+        {
+          "kind": "trailer",
+          "ref": "83bb901",
+          "detail": "Feature: Mental Performance — emotion & mistake-recovery coaching"
+        }
+      ],
+      "confidence": 90,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "811c9dc5",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_methodology",
@@ -5363,7 +7287,7 @@
       "coverage": {},
       "fingerprint": "4f6931ed",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_milestones",
@@ -5400,7 +7324,7 @@
       "coverage": {},
       "fingerprint": "eeb95de9",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_motion-lab",
@@ -5437,7 +7361,7 @@
       "coverage": {},
       "fingerprint": "3147f232",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_notes",
@@ -5474,13 +7398,50 @@
       "coverage": {},
       "fingerprint": "660a9bcb",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_offline",
+      "slug": "offline",
+      "name": "Offline",
+      "description": "Offline — detected from /offline.",
+      "category": "new-feature",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [
+        "/offline"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/offline"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "86c90ab1",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_padel",
       "slug": "padel",
       "name": "Padel",
-      "description": "add five-persona event names (§15) + wire instrumentation",
+      "description": "Padel — detected from /padel.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -5505,10 +7466,6 @@
         {
           "kind": "route",
           "ref": "/padel"
-        },
-        {
-          "kind": "commit",
-          "ref": "d3eff1f"
         }
       ],
       "confidence": 75,
@@ -5516,13 +7473,13 @@
       "coverage": {},
       "fingerprint": "2be5ba96",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_padel-bandeja",
       "slug": "padel-bandeja",
       "name": "Padel Bandeja",
-      "description": "add Pickleball & Padel as first-class sports",
+      "description": "Padel Bandeja — detected from /padel-bandeja.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -5546,10 +7503,6 @@
         {
           "kind": "route",
           "ref": "/padel-bandeja"
-        },
-        {
-          "kind": "commit",
-          "ref": "3f7108b"
         }
       ],
       "confidence": 75,
@@ -5557,13 +7510,13 @@
       "coverage": {},
       "fingerprint": "2a5fe3b4",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_padel-wall-rebound-technique",
       "slug": "padel-wall-rebound-technique",
       "name": "Padel Wall Rebound Technique",
-      "description": "add Pickleball & Padel as first-class sports",
+      "description": "Padel Wall Rebound Technique — detected from /padel-wall-rebound-technique.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -5587,10 +7540,6 @@
         {
           "kind": "route",
           "ref": "/padel-wall-rebound-technique"
-        },
-        {
-          "kind": "commit",
-          "ref": "3f7108b"
         }
       ],
       "confidence": 75,
@@ -5598,7 +7547,7 @@
       "coverage": {},
       "fingerprint": "6ab3a644",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_parents",
@@ -5634,7 +7583,7 @@
       "coverage": {},
       "fingerprint": "03c52c67",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_partners",
@@ -5670,13 +7619,13 @@
       "coverage": {},
       "fingerprint": "402e7831",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_pickleball",
       "slug": "pickleball",
       "name": "Pickleball",
-      "description": "add five-persona event names (§15) + wire instrumentation",
+      "description": "Pickleball — detected from /pickleball.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -5701,10 +7650,6 @@
         {
           "kind": "route",
           "ref": "/pickleball"
-        },
-        {
-          "kind": "commit",
-          "ref": "d3eff1f"
         }
       ],
       "confidence": 75,
@@ -5712,13 +7657,13 @@
       "coverage": {},
       "fingerprint": "9d498d69",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_pickleball-dinking",
       "slug": "pickleball-dinking",
       "name": "Pickleball Dinking",
-      "description": "add Pickleball & Padel as first-class sports",
+      "description": "Pickleball Dinking — detected from /pickleball-dinking.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -5742,10 +7687,6 @@
         {
           "kind": "route",
           "ref": "/pickleball-dinking"
-        },
-        {
-          "kind": "commit",
-          "ref": "3f7108b"
         }
       ],
       "confidence": 75,
@@ -5753,13 +7694,13 @@
       "coverage": {},
       "fingerprint": "6180a424",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_pickleball-third-shot-drop",
       "slug": "pickleball-third-shot-drop",
       "name": "Pickleball Third Shot Drop",
-      "description": "add Pickleball & Padel as first-class sports",
+      "description": "Pickleball Third Shot Drop — detected from /pickleball-third-shot-drop.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -5783,10 +7724,6 @@
         {
           "kind": "route",
           "ref": "/pickleball-third-shot-drop"
-        },
-        {
-          "kind": "commit",
-          "ref": "3f7108b"
         }
       ],
       "confidence": 75,
@@ -5794,7 +7731,7 @@
       "coverage": {},
       "fingerprint": "db9e8cce",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_player",
@@ -5835,7 +7772,7 @@
       "coverage": {},
       "fingerprint": "f5eb38b6",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_practice",
@@ -5872,7 +7809,7 @@
       "coverage": {},
       "fingerprint": "30db811b",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_pre-round",
@@ -5909,7 +7846,7 @@
       "coverage": {},
       "fingerprint": "20550e16",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_pricing",
@@ -5945,7 +7882,7 @@
       "coverage": {},
       "fingerprint": "3ba2e958",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_privacy",
@@ -5981,13 +7918,13 @@
       "coverage": {},
       "fingerprint": "c717de26",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_profile",
       "slug": "profile",
       "name": "Profile",
-      "description": "surface pickleball + padel in every sport list/filter/badge",
+      "description": "Founding Member achievement + trust & privacy UI",
       "category": "new-feature",
       "audiences": [
         "new-user",
@@ -6006,7 +7943,8 @@
       "owner": "unassigned",
       "detectedFrom": [
         "route-scan",
-        "0a1652b"
+        "0a1652b",
+        "a04ce6b"
       ],
       "evidence": [
         {
@@ -6015,7 +7953,7 @@
         },
         {
           "kind": "commit",
-          "ref": "0a1652b"
+          "ref": "a04ce6b"
         }
       ],
       "confidence": 75,
@@ -6023,7 +7961,7 @@
       "coverage": {},
       "fingerprint": "35d37363",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_progress",
@@ -6060,7 +7998,7 @@
       "coverage": {},
       "fingerprint": "82dea311",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_recruiting",
@@ -6146,7 +8084,7 @@
       "coverage": {},
       "fingerprint": "4a41a60d",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_refer",
@@ -6183,7 +8121,7 @@
       "coverage": {},
       "fingerprint": "6d571a44",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_reminders",
@@ -6220,7 +8158,7 @@
       "coverage": {},
       "fingerprint": "9a7590b9",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_reports",
@@ -6257,7 +8195,7 @@
       "coverage": {},
       "fingerprint": "d3a7b7ed",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_reset-password",
@@ -6294,13 +8232,13 @@
       "coverage": {},
       "fingerprint": "76278a55",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_resources",
       "slug": "resources",
       "name": "Resources",
-      "description": "surface pickleball + padel in every sport list/filter/badge",
+      "description": "Resources — detected from /resources.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -6324,10 +8262,6 @@
         {
           "kind": "route",
           "ref": "/resources"
-        },
-        {
-          "kind": "commit",
-          "ref": "0a1652b"
         }
       ],
       "confidence": 75,
@@ -6335,7 +8269,7 @@
       "coverage": {},
       "fingerprint": "97d0842f",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_retest",
@@ -6372,7 +8306,7 @@
       "coverage": {},
       "fingerprint": "34ad8367",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_sample-report",
@@ -6433,13 +8367,13 @@
       "coverage": {},
       "fingerprint": "057b4c5e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_sessions",
       "slug": "sessions",
       "name": "Sessions",
-      "description": "surface pickleball + padel in every sport list/filter/badge",
+      "description": "universal source registry, learned column mapping, bulk import (Phase 2+3)",
       "category": "account-auth",
       "audiences": [
         "new-user",
@@ -6447,8 +8381,7 @@
       ],
       "status": "active",
       "routes": [
-        "/sessions/import/image",
-        "/sessions"
+        "/sessions/import"
       ],
       "components": [],
       "apiEndpoints": [],
@@ -6461,34 +8394,31 @@
         "route-scan",
         "3f7108b",
         "8c3c4d0",
-        "0a1652b"
+        "0a1652b",
+        "f498f01"
       ],
       "evidence": [
         {
           "kind": "route",
-          "ref": "/sessions/import/image"
-        },
-        {
-          "kind": "route",
-          "ref": "/sessions"
+          "ref": "/sessions/import"
         },
         {
           "kind": "commit",
-          "ref": "0a1652b"
+          "ref": "f498f01"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "bb19620f",
+      "fingerprint": "de61b3b9",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_settings",
       "slug": "settings",
       "name": "Settings",
-      "description": "Settings — detected from /settings/backup.",
+      "description": "physical readiness in priority + sport-context isolation (Phase 8+9)",
       "category": "user-setting",
       "audiences": [
         "new-user",
@@ -6496,7 +8426,6 @@
       ],
       "status": "active",
       "routes": [
-        "/settings/backup",
         "/settings"
       ],
       "components": [],
@@ -6507,30 +8436,33 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "a04ce6b",
+        "2478fd0",
+        "ce48f37"
       ],
       "evidence": [
         {
           "kind": "route",
-          "ref": "/settings/backup"
+          "ref": "/settings"
         },
         {
-          "kind": "route",
-          "ref": "/settings"
+          "kind": "commit",
+          "ref": "ce48f37"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "6169c002",
+      "fingerprint": "8d8c256b",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_signup",
       "slug": "signup",
       "name": "Signup",
-      "description": "surface pickleball + padel in every sport list/filter/badge",
+      "description": "Signup — detected from /signup.",
       "category": "account-auth",
       "audiences": [
         "new-user",
@@ -6555,10 +8487,6 @@
         {
           "kind": "route",
           "ref": "/signup"
-        },
-        {
-          "kind": "commit",
-          "ref": "0a1652b"
         }
       ],
       "confidence": 75,
@@ -6566,7 +8494,48 @@
       "coverage": {},
       "fingerprint": "28e6861e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_sitemap",
+      "slug": "sitemap",
+      "name": "Sitemap",
+      "description": "HTML sitemap + curated URL registry + GSC docs",
+      "category": "ui-change",
+      "audiences": [
+        "all"
+      ],
+      "status": "active",
+      "routes": [
+        "/sitemap"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "d28d61b"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/sitemap"
+        },
+        {
+          "kind": "commit",
+          "ref": "d28d61b"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "3fe336e9",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_softball",
@@ -6677,13 +8646,13 @@
       "coverage": {},
       "fingerprint": "56791aec",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_softball-swing-analysis",
       "slug": "softball-swing-analysis",
       "name": "Softball Swing Analysis",
-      "description": "add five-persona event names (§15) + wire instrumentation",
+      "description": "Softball Swing Analysis — detected from /softball-swing-analysis/fast-pitch.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -6717,10 +8686,6 @@
         {
           "kind": "route",
           "ref": "/softball-swing-analysis/slow-pitch"
-        },
-        {
-          "kind": "commit",
-          "ref": "d3eff1f"
         }
       ],
       "confidence": 75,
@@ -6728,13 +8693,13 @@
       "coverage": {},
       "fingerprint": "8105e16e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_sports",
       "slug": "sports",
       "name": "Sports",
-      "description": "add Pickleball & Padel as first-class sports",
+      "description": "Sports — detected from /sports.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -6760,8 +8725,8 @@
           "ref": "/sports"
         },
         {
-          "kind": "commit",
-          "ref": "3f7108b"
+          "kind": "route",
+          "ref": "/sports"
         }
       ],
       "confidence": 75,
@@ -6769,7 +8734,7 @@
       "coverage": {},
       "fingerprint": "56fec2b9",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_start",
@@ -6805,7 +8770,49 @@
       "coverage": {},
       "fingerprint": "97bd8b6e",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_swinglab",
+      "slug": "swinglab",
+      "name": "Swinglab",
+      "description": "gate /swinglab to admins only (not yet public)",
+      "category": "ui-change",
+      "audiences": [
+        "all"
+      ],
+      "status": "active",
+      "routes": [
+        "/swinglab"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "82a969a",
+        "719ec7c"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/swinglab"
+        },
+        {
+          "kind": "commit",
+          "ref": "719ec7c"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "772c156f",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_team",
@@ -6842,7 +8849,7 @@
       "coverage": {},
       "fingerprint": "605d36d7",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_teams",
@@ -6878,7 +8885,7 @@
       "coverage": {},
       "fingerprint": "56bd042c",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_tennis",
@@ -6924,13 +8931,13 @@
       "coverage": {},
       "fingerprint": "15f2313c",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_tennis-swing-analysis",
       "slug": "tennis-swing-analysis",
       "name": "Tennis Swing Analysis",
-      "description": "add five-persona event names (§15) + wire instrumentation",
+      "description": "Tennis Swing Analysis — detected from /tennis-swing-analysis.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -6954,10 +8961,6 @@
         {
           "kind": "route",
           "ref": "/tennis-swing-analysis"
-        },
-        {
-          "kind": "commit",
-          "ref": "d3eff1f"
         }
       ],
       "confidence": 75,
@@ -6965,7 +8968,7 @@
       "coverage": {},
       "fingerprint": "8f4d8e7b",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_terms",
@@ -7001,7 +9004,49 @@
       "coverage": {},
       "fingerprint": "7c4f56ed",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_timeline",
+      "slug": "timeline",
+      "name": "Timeline",
+      "description": "auto golf-bag detection + athlete timeline (Phase 4+5)",
+      "category": "new-feature",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [
+        "/timeline"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "cccef20"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/timeline"
+        },
+        {
+          "kind": "commit",
+          "ref": "cccef20"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "2c7e67c5",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_tools",
@@ -7072,7 +9117,7 @@
       "coverage": {},
       "fingerprint": "aa78a958",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_training",
@@ -7109,7 +9154,7 @@
       "coverage": {},
       "fingerprint": "dc24d7b4",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_trust",
@@ -7145,7 +9190,7 @@
       "coverage": {},
       "fingerprint": "94d1c88c",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_tutorial",
@@ -7182,7 +9227,7 @@
       "coverage": {},
       "fingerprint": "f5d69368",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_ui-admin",
@@ -7350,7 +9395,7 @@
       "id": "feat_ui-backup",
       "slug": "ui-backup",
       "name": "Backup",
-      "description": "kebab-case BackgroundTasksProvider + AutoSyncProvider filenames (audit AA-6)",
+      "description": "Phase 1 — onboarding state machine, floating nudge coordinator, dashboard declutter, sign-out fix",
       "category": "ui-change",
       "audiences": [
         "new-user",
@@ -7359,7 +9404,6 @@
       "status": "active",
       "routes": [],
       "components": [
-        "components/backup/AutoSyncSection.tsx",
         "components/backup/ContinueProgressBanner.tsx"
       ],
       "apiEndpoints": [],
@@ -7369,28 +9413,78 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "52bddef"
+        "52bddef",
+        "5ca5afb"
       ],
       "evidence": [
-        {
-          "kind": "component",
-          "ref": "components/backup/AutoSyncSection.tsx"
-        },
         {
           "kind": "component",
           "ref": "components/backup/ContinueProgressBanner.tsx"
         },
         {
           "kind": "commit",
-          "ref": "52bddef"
+          "ref": "5ca5afb"
         }
       ],
       "confidence": 45,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "5039bd52",
+      "fingerprint": "b43ad914",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_ui-coach-mix",
+      "slug": "ui-coach-mix",
+      "name": "Coach Mix",
+      "description": "Preferred Coaching Style selector + dashboard module (admin preview)",
+      "category": "analytics-reporting",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/coach-mix/CoachingStylePreference.tsx",
+        "components/coach-mix/DashboardCuratedDrills.tsx",
+        "components/coach-mix/useCoachMixPreviewAccess.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "890542d",
+        "272435f",
+        "4028fba"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/coach-mix/CoachingStylePreference.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/coach-mix/DashboardCuratedDrills.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/coach-mix/useCoachMixPreviewAccess.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "4028fba"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "5be5b6b4",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_ui-contact",
@@ -7434,10 +9528,53 @@
       "updatedAt": "2026-06-07T04:41:51.123Z"
     },
     {
+      "id": "feat_ui-dashboard",
+      "slug": "ui-dashboard",
+      "name": "Dashboard",
+      "description": "physical readiness in priority + sport-context isolation (Phase 8+9)",
+      "category": "analytics-reporting",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/dashboard/PriorityPanel.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "5ca5afb",
+        "06d8ca9",
+        "ce48f37"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/dashboard/PriorityPanel.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "ce48f37"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "7b9ba826",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
       "id": "feat_ui-drillmatch",
       "slug": "ui-drillmatch",
       "name": "Drillmatch",
-      "description": "add five-persona event names (§15) + wire instrumentation",
+      "description": "show the athlete's own drill track-record on the Fix Stack",
       "category": "ui-change",
       "audiences": [
         "new-user",
@@ -7455,7 +9592,8 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "d3eff1f"
+        "d3eff1f",
+        "f3c6dea"
       ],
       "evidence": [
         {
@@ -7464,7 +9602,7 @@
         },
         {
           "kind": "commit",
-          "ref": "d3eff1f"
+          "ref": "f3c6dea"
         }
       ],
       "confidence": 45,
@@ -7472,7 +9610,183 @@
       "coverage": {},
       "fingerprint": "2d3f7ffb",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_ui-email",
+      "slug": "ui-email",
+      "name": "Email",
+      "description": "SwingLab 2.0 — public vision page + admin-gated interactive lab",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/email/EmailCapture.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "82a969a"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/email/EmailCapture.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "82a969a"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "fefe71ec",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_ui-founding",
+      "slug": "ui-founding",
+      "name": "Founding",
+      "description": "Founding Member achievement + trust & privacy UI",
+      "category": "security-privacy",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/founding/DataTrustNote.tsx",
+        "components/founding/FoundingProfileCard.tsx",
+        "components/founding/PrivacyControls.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "7111faa",
+        "69c78b8",
+        "a04ce6b"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/founding/DataTrustNote.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/founding/FoundingProfileCard.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/founding/PrivacyControls.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "a04ce6b"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "b0d11933",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_ui-grading",
+      "slug": "ui-grading",
+      "name": "Grading",
+      "description": "profile-aware golf grading + 7 player profiles + admin benchmark table (Phase 10)",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/grading/GradeCard.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "7a48416"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/grading/GradeCard.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "7a48416"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "13738b15",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_ui-guardian-consent",
+      "slug": "ui-guardian-consent",
+      "name": "Guardian Consent",
+      "description": "guardian-consent workflow for young athletes",
+      "category": "security-privacy",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/guardian-consent/GuardianConsentPanel.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "2478fd0"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/guardian-consent/GuardianConsentPanel.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "2478fd0"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "e1f505b1",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_ui-guide",
@@ -7516,10 +9830,10 @@
       "updatedAt": "2026-06-07T04:41:51.123Z"
     },
     {
-      "id": "feat_ui-layout",
-      "slug": "ui-layout",
-      "name": "Layout",
-      "description": "self-maintaining multilingual SEO for marketing (Spanish wave 1)",
+      "id": "feat_ui-improvement-loops",
+      "slug": "ui-improvement-loops",
+      "name": "Improvement Loops",
+      "description": "show the athlete's own drill track-record on the Fix Stack",
       "category": "ui-change",
       "audiences": [
         "new-user",
@@ -7528,8 +9842,91 @@
       "status": "active",
       "routes": [],
       "components": [
-        "components/layout/MarketingHeader.tsx",
-        "components/layout/PublicFooter.tsx"
+        "components/improvement-loops/DrillTrackRecord.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "6daf287",
+        "f3c6dea"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/improvement-loops/DrillTrackRecord.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "f3c6dea"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "80c1cb4d",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_ui-intent",
+      "slug": "ui-intent",
+      "name": "Intent",
+      "description": "make the intent picker smart — surface the athlete's #1 priority",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/intent/IntentPicker.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "7ead3b9",
+        "727d92b"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/intent/IntentPicker.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "727d92b"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "8bf24558",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_ui-layout",
+      "slug": "ui-layout",
+      "name": "Layout",
+      "description": "emotion & mistake-recovery pillar",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/layout/Sidebar.tsx"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -7542,28 +9939,30 @@
         "3f7108b",
         "3848b06",
         "0a1652b",
-        "c780e19"
+        "c780e19",
+        "5ca5afb",
+        "82a969a",
+        "719ec7c",
+        "cccef20",
+        "d28d61b",
+        "83bb901"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "components/layout/MarketingHeader.tsx"
-        },
-        {
-          "kind": "component",
-          "ref": "components/layout/PublicFooter.tsx"
+          "ref": "components/layout/Sidebar.tsx"
         },
         {
           "kind": "commit",
-          "ref": "c780e19"
+          "ref": "83bb901"
         }
       ],
       "confidence": 45,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "a75dca46",
+      "fingerprint": "cbf2e8b2",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_ui-library",
@@ -7649,6 +10048,82 @@
       "fingerprint": "c871c6f1",
       "createdAt": "2026-06-07T04:41:51.123Z",
       "updatedAt": "2026-06-07T04:41:51.123Z"
+    },
+    {
+      "id": "feat_ui-mental-performance",
+      "slug": "ui-mental-performance",
+      "name": "Mental Performance",
+      "description": "emotion & mistake-recovery pillar",
+      "category": "support-troubleshooting",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/mental-performance/CrisisSupportNotice.tsx",
+        "components/mental-performance/JournalEntryForm.tsx",
+        "components/mental-performance/MentalCoach.tsx",
+        "components/mental-performance/MentalPerformanceCard.tsx",
+        "components/mental-performance/MentalProfileCard.tsx",
+        "components/mental-performance/MentalResetForFix.tsx",
+        "components/mental-performance/RoutinePlayer.tsx",
+        "components/mental-performance/SafetyDisclaimer.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "83bb901"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/mental-performance/CrisisSupportNotice.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/mental-performance/JournalEntryForm.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/mental-performance/MentalCoach.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/mental-performance/MentalPerformanceCard.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/mental-performance/MentalProfileCard.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/mental-performance/MentalResetForFix.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/mental-performance/RoutinePlayer.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/mental-performance/SafetyDisclaimer.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "83bb901"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "a3694694",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_ui-persona",
@@ -7741,7 +10216,7 @@
       "id": "feat_ui-retest",
       "slug": "ui-retest",
       "name": "Retest",
-      "description": "add five-persona event names (§15) + wire instrumentation",
+      "description": "fire retest_completed — close the north-star funnel",
       "category": "ui-change",
       "audiences": [
         "new-user",
@@ -7750,7 +10225,7 @@
       "status": "active",
       "routes": [],
       "components": [
-        "components/retest/RetestReminderCard.tsx"
+        "components/retest/RetestResultCard.tsx"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -7759,24 +10234,25 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "d3eff1f"
+        "d3eff1f",
+        "6e84e8a"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "components/retest/RetestReminderCard.tsx"
+          "ref": "components/retest/RetestResultCard.tsx"
         },
         {
           "kind": "commit",
-          "ref": "d3eff1f"
+          "ref": "6e84e8a"
         }
       ],
       "confidence": 45,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "88ffb6d0",
+      "fingerprint": "01020923",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_ui-seo",
@@ -7820,6 +10296,158 @@
       "updatedAt": "2026-06-07T04:41:51.123Z"
     },
     {
+      "id": "feat_ui-swinglab",
+      "slug": "ui-swinglab",
+      "name": "Swinglab",
+      "description": "SwingLab 2.0 — public vision page + admin-gated interactive lab",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/swinglab/FirstPersonLab.tsx",
+        "components/swinglab/GuidedFlow.tsx",
+        "components/swinglab/InteractiveLabMap.tsx",
+        "components/swinglab/LabExperience.tsx",
+        "components/swinglab/LabMap.tsx",
+        "components/swinglab/LabStationPanel.tsx",
+        "components/swinglab/LabSystems.tsx",
+        "components/swinglab/RoadmapTimeline.tsx",
+        "components/swinglab/StationCard.tsx",
+        "components/swinglab/WebGLLab.tsx",
+        "components/swinglab/labLayout.ts",
+        "components/swinglab/labScene3d.ts",
+        "components/swinglab/labStatusStyles.ts",
+        "components/swinglab/stationVisuals.ts",
+        "components/swinglab/walkParts.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "82a969a"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/swinglab/FirstPersonLab.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/GuidedFlow.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/InteractiveLabMap.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/LabExperience.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/LabMap.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/LabStationPanel.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/LabSystems.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/RoadmapTimeline.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/StationCard.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/WebGLLab.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/labLayout.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/labScene3d.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/labStatusStyles.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/stationVisuals.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "components/swinglab/walkParts.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "82a969a"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "c570b67f",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_ui-sync",
+      "slug": "ui-sync",
+      "name": "Sync",
+      "description": "Phase 1 — onboarding state machine, floating nudge coordinator, dashboard declutter, sign-out fix",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/sync/SaveProgressBanner.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "5ca5afb"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/sync/SaveProgressBanner.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "5ca5afb"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "713e956f",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
       "id": "feat_ui-team",
       "slug": "ui-team",
       "name": "Team",
@@ -7861,10 +10489,10 @@
       "updatedAt": "2026-06-07T04:41:51.123Z"
     },
     {
-      "id": "feat_ui-video",
-      "slug": "ui-video",
-      "name": "Video",
-      "description": "add Pickleball & Padel as first-class sports",
+      "id": "feat_ui-tutorial",
+      "slug": "ui-tutorial",
+      "name": "Tutorial",
+      "description": "Phase 1 — onboarding state machine, floating nudge coordinator, dashboard declutter, sign-out fix",
       "category": "ui-change",
       "audiences": [
         "new-user",
@@ -7873,7 +10501,7 @@
       "status": "active",
       "routes": [],
       "components": [
-        "components/video/RecordingGuide.tsx"
+        "components/tutorial/TutorialWelcomePrompt.tsx"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -7882,30 +10510,114 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "3f7108b"
+        "5ca5afb"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "components/video/RecordingGuide.tsx"
+          "ref": "components/tutorial/TutorialWelcomePrompt.tsx"
         },
         {
           "kind": "commit",
-          "ref": "3f7108b"
+          "ref": "5ca5afb"
         }
       ],
       "confidence": 45,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "018d714e",
+      "fingerprint": "5009937e",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_ui-ui",
+      "slug": "ui-ui",
+      "name": "Ui",
+      "description": "Phase 1 — onboarding state machine, floating nudge coordinator, dashboard declutter, sign-out fix",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/ui/UsageCategoryModal.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "5ca5afb"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/ui/UsageCategoryModal.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "5ca5afb"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "c5fd8aec",
+      "createdAt": "2026-06-08T22:22:10.561Z",
+      "updatedAt": "2026-06-08T22:22:10.561Z"
+    },
+    {
+      "id": "feat_ui-video",
+      "slug": "ui-video",
+      "name": "Video",
+      "description": "surface an honest uncertainty prompt on limited visual reads",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/video/AIVisualAnalysisPanel.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "3f7108b",
+        "feba760",
+        "905b252"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/video/AIVisualAnalysisPanel.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "905b252"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "4b1556e5",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_updates",
       "slug": "updates",
       "name": "Updates",
-      "description": "refresh updates/features/dev-updates for 7 sports + new features",
+      "description": "Updates — detected from /updates.",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -7929,10 +10641,6 @@
         {
           "kind": "route",
           "ref": "/updates"
-        },
-        {
-          "kind": "commit",
-          "ref": "d0d6476"
         }
       ],
       "confidence": 75,
@@ -7940,7 +10648,7 @@
       "coverage": {},
       "fingerprint": "514a217c",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_video",
@@ -7977,7 +10685,7 @@
       "coverage": {},
       "fingerprint": "5d98a2bd",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     },
     {
       "id": "feat_vulnerability-disclosure",
@@ -8013,7 +10721,7 @@
       "coverage": {},
       "fingerprint": "a416ccb2",
       "createdAt": "2026-06-07T04:41:51.123Z",
-      "updatedAt": "2026-06-07T04:41:51.123Z"
+      "updatedAt": "2026-06-08T22:22:10.561Z"
     }
   ]
 }
