@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -76,6 +76,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'overview', built: true,
     blurb: 'Your daily operating room — platform health, alerts and what to do next.',
     keywords: ['home', 'dashboard', 'overview', 'kpi'],
+  },
+  {
+    id: 'copilot', label: 'Admin Copilot', href: '/admin/copilot', icon: Sparkles,
+    group: 'overview', built: true, permission: 'analytics.view',
+    blurb: 'Ask plain-English questions about your platform and get answers computed from your live admin data — what to improve next, which sport is most active, what needs review. Read-only, never destructive.',
+    keywords: ['copilot', 'assistant', 'ai', 'ask', 'help me', 'what should i do', 'next best action', 'chat', 'advisor', 'recommend', 'questions'],
   },
   {
     id: 'setup', label: 'Setup & Next Steps', href: '/admin/setup', icon: Rocket,
@@ -148,6 +154,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['analysis', 'model', 'confidence', 'review'],
   },
   {
+    id: 'agents', label: 'Agent Registry', href: '/admin/agents', icon: Bot,
+    group: 'media-ai', built: true,
+    blurb: 'One honest inventory of every agent & automation — what each does, what it reads/produces, keyless vs optional-AI, how it is turned on/off, its safety guardrails, and where to inspect it.',
+    keywords: ['agents', 'agent registry', 'ai agents', 'automations', 'workflows', 'bots', 'growth agents', 'guardrails', 'inventory', 'orchestrator'],
+  },
+  {
     id: 'coach-mix', label: 'Coach Mix', href: '/admin/coach-mix', icon: Blend,
     group: 'media-ai', built: true,
     blurb: 'Ethical coaching-influence engine (CentralIntelligenceOS): blend coach-inspired teaching models, review what’s learned, and bias SwingVantage’s drills & explanations — original content only, admin-gated.',
@@ -160,6 +172,18 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'content', built: true, permission: 'content.edit',
     blurb: 'All pages, blog, tutorials, manuals and generated fix pages.',
     keywords: ['cms', 'pages', 'articles'],
+  },
+  {
+    id: 'drills', label: 'Drill Library', href: '/admin/drills', icon: Dumbbell,
+    group: 'content', built: true, permission: 'content.edit',
+    blurb: 'Unified, read-only inventory of every drill across catalogs — sport, category, difficulty, target fault, equipment and source — to see coverage and spot gaps or duplicates.',
+    keywords: ['drills', 'drill library', 'practice', 'catalog', 'exercises', 'drillmatch', 'fix stack', 'coverage', 'training'],
+  },
+  {
+    id: 'practice-plans', label: 'Practice Plans', href: '/admin/practice-plans', icon: ClipboardCheck,
+    group: 'content', built: true, permission: 'content.edit',
+    blurb: 'Preview the practice-planner across sports & skill levels (plus a youth variant) — focus, warm-up, drills, pressure test and success metric. Read-only; plans are generated per athlete.',
+    keywords: ['practice plans', 'practice', 'planner', 'training plan', 'routine', 'session plan', 'drills', 'warmup', 'plan templates'],
   },
   {
     id: 'updates', label: 'Publishing', href: '/admin/updates', icon: Newspaper,
@@ -268,6 +292,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'operations', built: true, permission: 'logs.view',
     blurb: 'Integrations, queues, jobs and incidents — in plain English.',
     keywords: ['health', 'status', 'uptime', 'queue', 'jobs'],
+  },
+  {
+    id: 'data-quality', label: 'Data Quality', href: '/admin/data-quality', icon: Search,
+    group: 'operations', built: true, permission: 'logs.view',
+    blurb: 'Keyless hygiene checks over your content registry — duplicate slugs/titles/meta/keywords, length problems, thin content, mis-tagged sports, missing CTAs — each linking to the fix.',
+    keywords: ['data quality', 'hygiene', 'duplicates', 'duplicate content', 'cannibalization', 'orphaned', 'broken links', 'thin content', 'mistagged', 'stale', 'cleanup', 'integrity'],
   },
   {
     id: 'integrations', label: 'Integrations', href: '/admin/integrations', icon: Plug,
