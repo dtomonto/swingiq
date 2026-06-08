@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -202,6 +202,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'content', built: true, permission: 'content.edit',
     blurb: 'Preview the practice-planner across sports & skill levels (plus a youth variant) — focus, warm-up, drills, pressure test and success metric. Read-only; plans are generated per athlete.',
     keywords: ['practice plans', 'practice', 'planner', 'training plan', 'routine', 'session plan', 'drills', 'warmup', 'plan templates'],
+  },
+  {
+    id: 'plan-editor', label: 'Plan Template Editor', href: '/admin/practice-plans/manage', icon: ClipboardList,
+    group: 'content', built: true, permission: 'content.edit',
+    blurb: 'Create, edit and retire practice-plan templates seeded from the real planner, as a local-first overlay you export to commit globally. No writes to live data from the browser.',
+    keywords: ['plan editor', 'practice plan templates', 'edit plans', 'create plan', 'custom plan', 'plan templates', 'manage plans', 'plan overrides'],
   },
   {
     id: 'updates', label: 'Publishing', href: '/admin/updates', icon: Newspaper,
