@@ -15,7 +15,6 @@
 import type { Metadata } from 'next';
 import { Blend } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
-import { SEED_COACH_PROFILES } from '@/lib/central-intelligence/coach-mix';
 import { CoachMixDashboard } from './CoachMixDashboard';
 
 export const metadata: Metadata = {
@@ -32,7 +31,7 @@ export default function CoachMixPage() {
         icon={Blend}
         description="Study admin-approved coaching sources and turn them into ORIGINAL SwingVantage teaching frameworks. Blend coach-inspired influences, preview how the blend changes SwingVantage's coaching, and approve what's learned — never copying, cloning, or implying endorsement."
       />
-      <CoachMixDashboard profiles={SEED_COACH_PROFILES} />
+      <CoachMixDashboard />
     </div>
   );
 }
