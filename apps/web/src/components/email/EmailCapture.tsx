@@ -17,12 +17,15 @@ export function EmailCapture({
   source,
   heading = 'Get your plan and progress reminders',
   subheading = 'We’ll email your plan and a retest reminder. No spam, unsubscribe anytime.',
+  submitLabel = 'Email it to me',
   meta,
   className = '',
 }: {
   source: LeadSource;
   heading?: string;
   subheading?: string;
+  /** Override the submit-button text (e.g. "Notify me"). Defaults to "Email it to me". */
+  submitLabel?: string;
   meta?: Record<string, string>;
   className?: string;
 }) {
@@ -103,7 +106,7 @@ export function EmailCapture({
           disabled={status === 'submitting'}
           className="rounded-xl bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary disabled:opacity-60 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
         >
-          {status === 'submitting' ? 'Sending…' : 'Email it to me'}
+          {status === 'submitting' ? 'Sending…' : submitLabel}
         </button>
       </div>
       {status === 'error' && <p role="alert" className="mt-2 text-xs font-medium text-error">{message}</p>}

@@ -37,6 +37,7 @@ const PUBLIC_PATHS = new Set([
   '/how-it-works',
   '/methodology',
   '/features',
+  '/swinglab',
   '/pricing',
   '/faq',
   '/glossary',

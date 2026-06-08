@@ -228,6 +228,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    // Note: /swinglab is intentionally NOT in the sitemap. It is admin-only
+    // while in development (the public sees a noindex "in development" page),
+    // so it is not a public, indexable surface. See its page.tsx + the
+    // documented EXCLUDE entry in scripts/check-sitemap-coverage.mjs.
     {
       url: `${BASE_URL}/faq`,
       lastModified: now,

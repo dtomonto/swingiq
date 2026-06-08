@@ -42,6 +42,7 @@ const SITEMAP = join(APP_DIR, 'sitemap.ts');
 // listing them would not help — or could hurt — SEO / brand trust.
 const EXCLUDE = new Map([
   ['/sports', 'Client-side sport launcher that reads the store and routes into the app — no indexable content; the per-sport *-swing-analysis pages are the SEO entries.'],
+  ['/swinglab', 'Admin-only while in development — the public sees a noindex "in development" placeholder, so it is not a public indexable surface yet.'],
 ]);
 
 // Sections the sitemap emits one entry per child from a list/registry (blog ←
