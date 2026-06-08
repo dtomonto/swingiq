@@ -163,7 +163,10 @@ export const MIN_INFLUENCE_WEIGHT = 5;
 export const COACH_MIX_USER_MODULE_FLAG = 'NEXT_PUBLIC_COACH_MIX_USER_MODULE';
 
 export function isCoachMixUserModuleEnabled(): boolean {
-  const v = (process.env[COACH_MIX_USER_MODULE_FLAG] ?? '').trim().toLowerCase();
+  // Static reference (not process.env[VAR]) so Next.js inlines it into the
+  // client bundle — a dynamic key read would never be replaced and the flag
+  // would be stuck off in the browser. Mirrors lib/capabilities.ts.
+  const v = (process.env.NEXT_PUBLIC_COACH_MIX_USER_MODULE ?? '').trim().toLowerCase();
   return v === '1' || v === 'true' || v === 'on';
 }
 
