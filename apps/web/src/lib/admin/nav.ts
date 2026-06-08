@@ -78,6 +78,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['home', 'dashboard', 'overview', 'kpi'],
   },
   {
+    id: 'today-command-center', label: "Today's Command Center", href: '/admin/command-center', icon: Gauge,
+    group: 'overview', built: true,
+    blurb: 'DailyActionIntelligenceOS — a prioritized, transparently-scored "to do today" list computed from live signals (drill coverage, audit findings, doc gaps, setup, analytics). Each item explains why it matters, what data is missing, the exact steps, the impact, and how completion is detected.',
+    keywords: ['command center', 'today', 'daily', 'cockpit', 'recommendations', 'priorities', 'to do today', 'data gaps', 'feature readiness', 'intelligence scan', 'daily action', 'what should i do', 'operating system', 'briefing'],
+  },
+  {
     id: 'copilot', label: 'Admin Copilot', href: '/admin/copilot', icon: Sparkles,
     group: 'overview', built: true, permission: 'analytics.view',
     blurb: 'Ask plain-English questions about your platform and get answers computed from your live admin data — what to improve next, which sport is most active, what needs review. Read-only, never destructive.',
