@@ -10,6 +10,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Users, Activity, Brain, Trophy, Sparkles, Database, ArrowUpRight,
+  CalendarCheck, ArrowRight,
 } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { SectionCard } from '@/components/admin/SectionCard';
@@ -109,6 +110,26 @@ export default async function AdminCommandCenter() {
           </StatusBadge>
         }
       />
+
+      {/* Today's Command Center — the daily starting point */}
+      <Link
+        href="/admin/command-center"
+        className="group flex items-center justify-between gap-3 rounded-xl border border-amber-500/30 bg-amber-500/[0.06] p-4 hover:border-amber-500/50"
+      >
+        <span className="flex items-start gap-3">
+          <span className="mt-0.5 shrink-0 rounded-lg bg-amber-500/15 p-2 text-amber-400">
+            <CalendarCheck className="h-5 w-5" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-semibold text-gray-100">Today&apos;s Command Center</span>
+            <span className="mt-0.5 block text-sm text-gray-400">
+              Your prioritized to-do for today — what to set up, which features need more data (and exactly
+              how to feed them), and what to review. Each item is scored, fully laid out, step by step.
+            </span>
+          </span>
+        </span>
+        <ArrowRight className="h-4 w-4 shrink-0 text-amber-400 group-hover:translate-x-0.5 transition-transform" />
+      </Link>
 
       {/* Smart alerts */}
       {alerts.length > 0 && (
