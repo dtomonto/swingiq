@@ -114,6 +114,11 @@ const PUBLIC_PREFIXES = [
   // Cron entry for the Link Intelligence Agent — same rationale; the route
   // self-protects with CRON_SECRET. See api/growth/link-intelligence/cron.
   '/api/growth/link-intelligence/cron',
+  // External-auditor packet — an unauthenticated auditor (e.g. ChatGPT) must
+  // reach it without a Supabase session; the route self-protects with
+  // AUDIT_ACCESS_TOKEN and returns 404 when that token is unset (fully off
+  // by default). See api/audit and /admin/audit-access.
+  '/api/audit',
 ];
 
 // A subtree prefix P matches: the index (P), nested children (P/…), and the

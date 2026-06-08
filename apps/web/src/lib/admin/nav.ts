@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -268,6 +268,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'operations', built: true, permission: 'integrations.manage',
     blurb: 'Every connected service, its state, and a safe test-connection.',
     keywords: ['api', 'providers', 'connections', 'keys'],
+  },
+  {
+    id: 'audit-access', label: 'External Auditor Access', href: '/admin/audit-access', icon: ScanSearch,
+    group: 'operations', built: true, permission: 'integrations.manage',
+    blurb: 'Give an external auditor (e.g. ChatGPT) read-only access to a single JSON packet — verbatim sitemap & robots, the logged-in app surface, analytics overview — so it can audit the whole app on request.',
+    keywords: ['audit', 'auditor', 'chatgpt', 'external', 'analysis', 'review', 'read-only', 'sitemap', 'robots', 'api/audit', 'token', 'inspect', 'crawl'],
   },
   {
     id: 'feature-flags', label: 'Feature Flags', href: '/admin/feature-flags', icon: Flag,

@@ -180,6 +180,8 @@ export interface CapabilitySummary {
   billing: boolean;
   /** Ads enabled (Phase 2; else: clean ad-free free experience). */
   ads: boolean;
+  /** External auditor access enabled (AUDIT_ACCESS_TOKEN set; else: off/404). */
+  auditAccess: boolean;
 }
 
 export function getServerCapabilities(): CapabilitySummary {
@@ -191,5 +193,6 @@ export function getServerCapabilities(): CapabilitySummary {
     email: isEmailConfigured(),
     billing: isStripeConfigured(),
     ads: isAdsConfigured,
+    auditAccess: isConfigured(process.env.AUDIT_ACCESS_TOKEN),
   };
 }
