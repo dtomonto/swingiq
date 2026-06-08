@@ -11,6 +11,7 @@ import { ThemeSelector } from '@/components/theme/ThemeSelector';
 import { CoachingToneSelector } from '@/components/settings/CoachingToneSelector';
 import { AccountSyncCard } from '@/components/sync/AccountSyncCard';
 import { PrivacyControls } from '@/components/founding/PrivacyControls';
+import { GuardianConsentPanel } from '@/components/guardian-consent/GuardianConsentPanel';
 
 export default function SettingsPage() {
   const { settings, updateSettings, reset } = useSwingVantageStore();
@@ -182,6 +183,9 @@ export default function SettingsPage() {
             </select>
           </CardBody>
         </Card>
+
+        {/* Youth athlete & guardian consent */}
+        <GuardianConsentPanel />
 
         {/* About */}
         <Card>
