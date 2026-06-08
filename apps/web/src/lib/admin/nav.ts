@@ -18,6 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
+  Inbox, ClipboardCheck,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -81,6 +82,18 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'overview', built: true,
     blurb: 'Beginner-friendly checklist of every key, database file and manual step — with copy-paste values.',
     keywords: ['setup', 'getting started', 'next steps', 'onboarding', 'install', 'configure', 'keys', 'env', 'checklist', 'to-do', 'instructions', 'how to'],
+  },
+  {
+    id: 'action-center', label: 'Action Center', href: '/admin/approvals', icon: Inbox,
+    group: 'overview', built: true,
+    blurb: 'One inbox for everything that needs you — drafts to approve, SEO & video opportunities, audit findings — each linking to the tool that handles it.',
+    keywords: ['approvals', 'approve', 'review', 'inbox', 'queue', 'todo', 'tasks', 'pending', 'opportunities', 'needs attention', 'implement'],
+  },
+  {
+    id: 'audits', label: 'Audit Reports', href: '/admin/audits', icon: ClipboardCheck,
+    group: 'overview', built: true,
+    blurb: 'Every internal audit robot’s findings (SEO, AI, Engagement, Build-health) surfaced in-app, with open → in-progress → done tracking.',
+    keywords: ['audit', 'audits', 'reports', 'findings', 'seo audit', 'ai audit', 'security audit', 'master report', 'opportunities', 'recommendations'],
   },
 
   // ── People ─────────────────────────────────────────────────
