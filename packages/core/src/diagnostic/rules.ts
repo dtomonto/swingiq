@@ -62,6 +62,49 @@ export const TARGET_WINDOWS: Record<string, ClubTargetWindows> = {
     spin_rate: { min: 7000, max: 11000, ideal: 9000, unit: 'rpm', description: 'Wedge spin target' },
     launch_angle: { min: 20, max: 36, ideal: 28, unit: '°', description: 'Wedge launch angle' },
   },
+  // ── Added club categories (recommendation #14). Previously these fell back to
+  // the mid_iron window; real per-club windows interpolate the driver→wedge
+  // gradient so the diagnostic/benchmark layer judges each club appropriately.
+  fairway_wood: {
+    face_to_path: { min: -3, max: 3, ideal: 0, unit: '°', description: 'Face-to-path for fairway wood' },
+    club_path: { min: -2, max: 4, ideal: 1, unit: '°', description: 'Slight in-to-out for fairway wood' },
+    attack_angle: { min: -3, max: 2, ideal: -1, unit: '°', description: 'Slightly down/level off the deck' },
+    dynamic_loft: { min: 12, max: 22, ideal: 17, unit: '°', description: 'Delivered loft fairway wood' },
+    spin_loft: { min: 12, max: 22, ideal: 16, unit: '°', description: 'Spin loft fairway wood' },
+    smash_factor: { min: 1.42, max: 1.50, ideal: 1.48, unit: '', description: 'Fairway wood smash factor' },
+    spin_rate: { min: 2800, max: 4500, ideal: 3500, unit: 'rpm', description: 'Fairway wood spin target' },
+    launch_angle: { min: 9, max: 17, ideal: 13, unit: '°', description: 'Fairway wood launch angle' },
+  },
+  hybrid: {
+    face_to_path: { min: -3, max: 3, ideal: 0, unit: '°', description: 'Face-to-path for hybrid' },
+    club_path: { min: -3, max: 3, ideal: 0, unit: '°', description: 'Neutral path for hybrid' },
+    attack_angle: { min: -4, max: 1, ideal: -2, unit: '°', description: 'Slight downward strike for hybrid' },
+    dynamic_loft: { min: 14, max: 24, ideal: 19, unit: '°', description: 'Delivered loft hybrid' },
+    spin_loft: { min: 14, max: 24, ideal: 19, unit: '°', description: 'Spin loft hybrid' },
+    smash_factor: { min: 1.38, max: 1.46, ideal: 1.43, unit: '', description: 'Hybrid smash factor' },
+    spin_rate: { min: 3500, max: 5500, ideal: 4500, unit: 'rpm', description: 'Hybrid spin target' },
+    launch_angle: { min: 11, max: 19, ideal: 15, unit: '°', description: 'Hybrid launch angle' },
+  },
+  long_iron: {
+    face_to_path: { min: -3, max: 3, ideal: 0, unit: '°', description: 'Face-to-path for long iron' },
+    club_path: { min: -3, max: 3, ideal: -1, unit: '°', description: 'Slight out-to-in for long iron' },
+    attack_angle: { min: -5, max: -1, ideal: -3, unit: '°', description: 'Downward strike for long iron' },
+    dynamic_loft: { min: 14, max: 24, ideal: 19, unit: '°', description: 'Delivered loft long iron' },
+    spin_loft: { min: 14, max: 24, ideal: 19, unit: '°', description: 'Spin loft long iron' },
+    smash_factor: { min: 1.33, max: 1.43, ideal: 1.39, unit: '', description: 'Long iron smash factor' },
+    spin_rate: { min: 4500, max: 6500, ideal: 5500, unit: 'rpm', description: 'Long iron spin target' },
+    launch_angle: { min: 12, max: 19, ideal: 15, unit: '°', description: 'Long iron launch angle' },
+  },
+  short_iron: {
+    face_to_path: { min: -3, max: 3, ideal: 0, unit: '°', description: 'Face-to-path for short iron' },
+    club_path: { min: -4, max: 2, ideal: -1, unit: '°', description: 'Slight out-to-in for short iron' },
+    attack_angle: { min: -7, max: -2, ideal: -4.5, unit: '°', description: 'Steeper downward strike for short iron' },
+    dynamic_loft: { min: 20, max: 34, ideal: 27, unit: '°', description: 'Delivered loft short iron' },
+    spin_loft: { min: 20, max: 32, ideal: 26, unit: '°', description: 'Spin loft short iron' },
+    smash_factor: { min: 1.25, max: 1.38, ideal: 1.33, unit: '', description: 'Short iron smash factor' },
+    spin_rate: { min: 6500, max: 9500, ideal: 8000, unit: 'rpm', description: 'Short iron spin target' },
+    launch_angle: { min: 17, max: 28, ideal: 23, unit: '°', description: 'Short iron launch angle' },
+  },
 };
 
 // ── Diagnostic Rule Definition ────────────────────────────────
