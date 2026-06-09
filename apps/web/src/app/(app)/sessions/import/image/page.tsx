@@ -437,6 +437,9 @@ export default function ImageImportPage() {
               {/* Upload area */}
               <div>
                 <label htmlFor="img-import-file" className="block text-sm font-medium text-foreground mb-2">Upload Image (optional but recommended)</label>
+                {/* Click/drag is a pointer convenience; the keyboard-accessible path is
+                    the labelled <input type="file" id="img-import-file"> this opens. */}
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
                 <div
                   onClick={() => fileInputRef.current?.click()}
                   onDrop={onDrop}

@@ -87,6 +87,9 @@ export function SwingVideoPlayer({
     <div className={cn('bg-black rounded-xl overflow-hidden select-none', className)}>
       {/* Video element */}
       <div className="relative aspect-video bg-black">
+        {/* User-recorded swing clip — silent footage with no narration, so there
+            is no caption/subtitle track to provide. */}
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <video
           ref={videoRef}
           src={objectUrl}
@@ -116,10 +119,17 @@ export function SwingVideoPlayer({
         {/* Seek bar */}
         <div
           ref={seekBarRef}
-          className="relative h-2 bg-gray-700 rounded-full cursor-pointer group"
+          className="relative h-2 bg-gray-700 rounded-full cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
           onMouseDown={(e) => { setIsDragging(true); seekFromPointer(e); }}
           onClick={seekFromPointer}
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowLeft') { e.preventDefault(); seek(currentTime - 1); }
+            else if (e.key === 'ArrowRight') { e.preventDefault(); seek(currentTime + 1); }
+            else if (e.key === 'Home') { e.preventDefault(); seek(0); }
+            else if (e.key === 'End') { e.preventDefault(); seek(duration); }
+          }}
           role="slider"
+          tabIndex={0}
           aria-label="Video progress"
           aria-valuemin={0}
           aria-valuemax={Math.round(duration)}

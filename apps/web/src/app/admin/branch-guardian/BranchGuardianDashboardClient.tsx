@@ -450,15 +450,15 @@ function SettingsTab({ bg, detectedMain }: { bg: ReturnType<typeof useBranchGuar
         <NumField label="Behind-main threshold (commits)" value={s.behindMainThreshold} onChange={(v) => bg.updateSettings({ behindMainThreshold: v })} />
         <NumField label="Audit log retention (entries)" value={s.auditLogRetention} onChange={(v) => bg.updateSettings({ auditLogRetention: v })} />
         <div>
-          <label className="block text-xs text-gray-400">Main branch override</label>
-          <input value={s.mainBranchOverride} onChange={(e) => bg.updateSettings({ mainBranchOverride: e.target.value })}
+          <label htmlFor="bg-main-branch" className="block text-xs text-gray-400">Main branch override</label>
+          <input id="bg-main-branch" value={s.mainBranchOverride} onChange={(e) => bg.updateSettings({ mainBranchOverride: e.target.value })}
             placeholder={detectedMain ?? 'detected automatically'}
             className="mt-1 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-1.5 text-sm text-gray-200" />
           <p className="mt-0.5 text-[10px] text-gray-600">Detected: {detectedMain ?? 'unknown'}. Leave blank to use it.</p>
         </div>
         <div className="sm:col-span-2">
-          <label className="block text-xs text-gray-400">Extra protected branch patterns (comma-separated, supports trailing /*)</label>
-          <input value={s.protectedPatterns.join(', ')} onChange={(e) => bg.updateSettings({ protectedPatterns: e.target.value.split(',').map((x) => x.trim()).filter(Boolean) })}
+          <label htmlFor="bg-protected-patterns" className="block text-xs text-gray-400">Extra protected branch patterns (comma-separated, supports trailing /*)</label>
+          <input id="bg-protected-patterns" value={s.protectedPatterns.join(', ')} onChange={(e) => bg.updateSettings({ protectedPatterns: e.target.value.split(',').map((x) => x.trim()).filter(Boolean) })}
             placeholder="e.g. integration/*, demo"
             className="mt-1 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-1.5 text-sm text-gray-200" />
           <p className="mt-0.5 text-[10px] text-gray-600">Always protected: main, master, production, staging, develop, release/*, hotfix/*.</p>

@@ -115,8 +115,8 @@ export default function DailyNotesPage() {
           <div className="flex flex-wrap items-end gap-4">
             {selectedSports.length > 1 && (
               <div>
-                <label className="block text-xs font-medium text-muted-foreground mb-1.5">Sport</label>
-                <div className="flex flex-wrap gap-1.5">
+                <span className="block text-xs font-medium text-muted-foreground mb-1.5">Sport</span>
+                <div role="group" aria-label="Sport" className="flex flex-wrap gap-1.5">
                   {selectedSports.map((s) => (
                     <button
                       key={s}
@@ -153,10 +153,10 @@ export default function DailyNotesPage() {
 
           {/* Feel — the "how did you play today?" answer */}
           <div>
-            <label className="block text-sm font-medium text-foreground mb-2">
+            <span className="block text-sm font-medium text-foreground mb-2">
               How did you play today? <span className="text-error">*</span>
-            </label>
-            <div className="grid grid-cols-5 gap-2">
+            </span>
+            <div role="group" aria-label="How did you play today?" className="grid grid-cols-5 gap-2">
               {FEELS.map((f) => {
                 const selected = feel === f;
                 return (

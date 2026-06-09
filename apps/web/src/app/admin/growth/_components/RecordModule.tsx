@@ -233,7 +233,7 @@ export function RecordModule({
       {/* Detail slide-over */}
       {selected && (
         <div className="fixed inset-0 z-50 flex justify-end" role="dialog" aria-modal="true">
-          <div className="absolute inset-0 bg-black/60" onClick={() => setSelectedId(null)} />
+          <button type="button" aria-label="Close" tabIndex={-1} className="absolute inset-0 bg-black/60 cursor-default" onClick={() => setSelectedId(null)} />
           <div className="relative w-full max-w-md bg-gray-950 border-l border-gray-800 h-full overflow-y-auto">
             <div className="sticky top-0 bg-gray-950/95 backdrop-blur border-b border-gray-800 px-5 py-4 flex items-start justify-between gap-3">
               <div className="min-w-0">

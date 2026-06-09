@@ -448,8 +448,8 @@ export function SocialStudio({
       {/* ---- Controls ---- */}
       <aside className="space-y-4">
         <div className="bg-gray-900 border border-gray-800 rounded-lg p-4 space-y-3">
-          <label className="block text-xs font-semibold text-gray-300">Blog post</label>
-          <select className={field} value={slug} onChange={(e) => setSlug(e.target.value)}>
+          <label htmlFor="ss-blog-post" className="block text-xs font-semibold text-gray-300">Blog post</label>
+          <select id="ss-blog-post" className={field} value={slug} onChange={(e) => setSlug(e.target.value)}>
             {posts.map((p) => (
               <option key={p.slug} value={p.slug}>
                 {p.title}
@@ -515,8 +515,8 @@ export function SocialStudio({
           <Select label="CTA intensity" value={ctaIntensity} onChange={setCtaIntensity} opts={choices.ctaIntensities} cls={field} />
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">Campaign (optional)</label>
-            <input className={field} value={campaign} onChange={(e) => setCampaign(e.target.value)} placeholder="blog_distribution" />
+            <label htmlFor="ss-campaign" className="block text-xs font-semibold text-gray-300 mb-1">Campaign (optional)</label>
+            <input id="ss-campaign" className={field} value={campaign} onChange={(e) => setCampaign(e.target.value)} placeholder="blog_distribution" />
           </div>
 
           <button onClick={generate} disabled={loading || !slug} className={`${btn} w-full bg-emerald-600 hover:bg-emerald-500 text-white`}>

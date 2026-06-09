@@ -388,12 +388,12 @@ export function CoachMixDashboard() {
               ))}
               <div className="grid grid-cols-2 gap-2 border-t border-gray-800 pt-3">
                 <div>
-                  <label className="mb-1 block text-xs text-gray-500">Mix name</label>
-                  <input value={mixName} onChange={(e) => setMixName(e.target.value)} className="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200" />
+                  <label htmlFor="cm-mix-name" className="mb-1 block text-xs text-gray-500">Mix name</label>
+                  <input id="cm-mix-name" value={mixName} onChange={(e) => setMixName(e.target.value)} className="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200" />
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs text-gray-500">User label mode</label>
-                  <select value={labelMode} onChange={(e) => setLabelMode(e.target.value as UserLabelMode)} className="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200">
+                  <label htmlFor="cm-label-mode" className="mb-1 block text-xs text-gray-500">User label mode</label>
+                  <select id="cm-label-mode" value={labelMode} onChange={(e) => setLabelMode(e.target.value as UserLabelMode)} className="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200">
                     {LABEL_MODES.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
                   </select>
                 </div>

@@ -274,7 +274,9 @@ export function VideoRecorder({ onVideoReady, onError, sport = 'golf', disabled 
             className={cn('w-full h-full object-cover', state === 'review' && 'hidden')}
             style={mirrored ? { transform: 'scaleX(-1)' } : undefined}
           />
-          {/* recorded review (always shown un-mirrored — this is what gets analyzed) */}
+          {/* recorded review (always shown un-mirrored — this is what gets analyzed).
+              Silent swing clip, no caption track to provide. */}
+          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
           <video
             ref={reviewRef}
             playsInline

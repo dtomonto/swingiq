@@ -382,6 +382,8 @@ export default function DataCenterPage() {
                   onChange={(e) => setImportPassword(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') handleDecrypt(); }}
                   className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-ring"
+                  // Intentional: focus the password field when the decrypt form appears.
+                  // eslint-disable-next-line jsx-a11y/no-autofocus
                   autoFocus
                   aria-label="Backup decryption password"
                 />

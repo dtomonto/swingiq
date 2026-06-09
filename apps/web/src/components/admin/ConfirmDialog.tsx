@@ -77,6 +77,9 @@ export function ConfirmDialog({
               Type <code className="rounded bg-gray-800 px-1 text-gray-300">{requirePhrase}</code> to confirm
             </label>
             <input
+              // Intentional: move focus to the confirm-phrase input when this
+              // destructive-action dialog opens (WCAG focus management).
+              // eslint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
               value={phrase}
               onChange={(e) => setPhrase(e.target.value)}

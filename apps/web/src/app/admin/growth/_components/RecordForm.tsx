@@ -95,7 +95,7 @@ export function RecordForm({
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4" role="dialog" aria-modal="true">
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <button type="button" aria-label="Close" tabIndex={-1} className="absolute inset-0 bg-black/60 cursor-default" onClick={onClose} />
       <div className="relative w-full max-w-lg max-h-[88vh] overflow-y-auto bg-gray-950 border border-gray-800 rounded-2xl shadow-2xl">
         <div className="sticky top-0 bg-gray-950/95 backdrop-blur border-b border-gray-800 px-5 py-4 flex items-center justify-between">
           <p className="text-sm font-semibold text-gray-100">{isEdit ? 'Edit' : 'New'} {def.itemNoun.replace(/s$/, '')}</p>

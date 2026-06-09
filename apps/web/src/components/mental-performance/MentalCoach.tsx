@@ -173,8 +173,8 @@ export function MentalCoach({ seed }: { seed?: CoachSeed }) {
   return (
     <div className="space-y-5">
       <div>
-        <label className="text-sm font-semibold text-foreground">What happened?</label>
-        <div className="mt-2 flex flex-wrap gap-2">
+        <span className="block text-sm font-semibold text-foreground">What happened?</span>
+        <div role="group" aria-label="What happened?" className="mt-2 flex flex-wrap gap-2">
           {mistakes.map((m) => (
             <button
               key={m.id}
@@ -193,8 +193,8 @@ export function MentalCoach({ seed }: { seed?: CoachSeed }) {
       </div>
 
       <div>
-        <label className="text-sm font-semibold text-foreground">How are you feeling?</label>
-        <div className="mt-2 flex flex-wrap gap-2">
+        <span className="block text-sm font-semibold text-foreground">How are you feeling?</span>
+        <div role="group" aria-label="How are you feeling?" className="mt-2 flex flex-wrap gap-2">
           {EMOTIONAL_STATES.map((e) => (
             <button
               key={e.id}

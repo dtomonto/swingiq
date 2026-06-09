@@ -464,6 +464,9 @@ export function ImportWizard() {
             </p>
           </CardHeader>
           <CardBody>
+            {/* Drag-and-drop is a pointer-only progressive enhancement; the
+                keyboard-accessible path is the "Browse for file" <input type="file"> below. */}
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <div
               onDrop={onDrop}
               onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}

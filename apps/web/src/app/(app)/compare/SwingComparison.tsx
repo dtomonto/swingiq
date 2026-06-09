@@ -210,6 +210,8 @@ function UserSwingPanel() {
         {/* Video player */}
         {localVideoUrl && (
           <div className="aspect-video bg-black rounded-xl overflow-hidden">
+            {/* User-recorded swing clip — silent footage, no caption track to provide. */}
+            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
             <video
               src={localVideoUrl}
               controls

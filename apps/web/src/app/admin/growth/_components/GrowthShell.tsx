@@ -39,7 +39,7 @@ export function GrowthShell({ children }: { children: React.ReactNode }) {
       {/* Sidebar — mobile drawer */}
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
-          <div className="absolute inset-0 bg-black/60" onClick={() => setMobileOpen(false)} />
+          <button type="button" aria-label="Close menu" tabIndex={-1} className="absolute inset-0 bg-black/60 cursor-default" onClick={() => setMobileOpen(false)} />
           <aside className="relative w-72 max-w-[85vw] bg-gray-950 border-r border-gray-800 flex flex-col">
             <SidebarContent
               groups={groups}

@@ -201,8 +201,8 @@ export function ResearchAdminContent() {
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-gray-400 mb-1 block">Mode</label>
-              <div className="flex gap-2">
+              <span className="text-xs font-medium text-gray-400 mb-1 block">Mode</span>
+              <div role="group" aria-label="Mode" className="flex gap-2">
                 {[
                   { value: true, label: 'Dry Run (no persist)' },
                   { value: false, label: 'Live Run (persist)' },

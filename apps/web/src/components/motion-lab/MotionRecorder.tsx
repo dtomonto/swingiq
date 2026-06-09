@@ -195,7 +195,8 @@ export function MotionRecorder({ onVideoReady }: Props) {
             playsInline muted
             className={cn('w-full h-full object-cover', state === 'review' && 'hidden')}
           />
-          {/* recorded review */}
+          {/* recorded review — silent swing clip, no caption track to provide. */}
+          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
           <video
             ref={reviewRef}
             playsInline controls loop

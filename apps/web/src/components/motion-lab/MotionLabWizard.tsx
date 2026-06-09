@@ -367,8 +367,11 @@ export function MotionLabWizard() {
                       <Pills options={MODEL_OPTIONS} value={modelQuality} onChange={setModelQuality} />
                     </div>
                     {captureMode === 'single' ? (
-                      <label className="flex items-start gap-2 cursor-pointer">
-                        <input type="checkbox" checked={proDepth} onChange={(e) => setProDepth(e.target.checked)} className="mt-0.5 rounded-sm border-border text-primary" />
+                      // Associated via htmlFor + visible text; jsx-a11y's depth
+                      // heuristic can't see the label text nested in styled spans.
+                      // eslint-disable-next-line jsx-a11y/label-has-associated-control
+                      <label htmlFor="ml-pro-depth" className="flex items-start gap-2 cursor-pointer">
+                        <input id="ml-pro-depth" type="checkbox" checked={proDepth} onChange={(e) => setProDepth(e.target.checked)} className="mt-0.5 rounded-sm border-border text-primary" />
                         <span className="text-xs text-foreground">
                           <span className="font-semibold">Pro 3D depth</span>
                           <span className="text-muted-foreground"> — refine the depth of every joint with SwingVantage&apos;s trained 3D lift model. Still a single-camera estimate, just a smarter one.</span>

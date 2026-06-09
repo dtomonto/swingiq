@@ -99,8 +99,9 @@ function ConsentForm({
   return (
     <div className="space-y-4">
       <div>
-        <label className="text-sm font-medium text-foreground block mb-1">Who is the athlete using this account?</label>
+        <label htmlFor="gc-age-band" className="text-sm font-medium text-foreground block mb-1">Who is the athlete using this account?</label>
         <select
+          id="gc-age-band"
           value={ageBand}
           onChange={(e) => setAgeBand(e.target.value as AgeBand)}
           className={inputClass}
@@ -124,8 +125,9 @@ function ConsentForm({
           </div>
 
           <div>
-            <label className="text-sm font-medium text-foreground block mb-1">Parent / guardian name</label>
+            <label htmlFor="gc-guardian-name" className="text-sm font-medium text-foreground block mb-1">Parent / guardian name</label>
             <input
+              id="gc-guardian-name"
               type="text"
               value={guardianName}
               onChange={(e) => setGuardianName(e.target.value)}
@@ -136,10 +138,11 @@ function ConsentForm({
           </div>
 
           <div>
-            <label className="text-sm font-medium text-foreground block mb-1">
+            <label htmlFor="gc-guardian-email" className="text-sm font-medium text-foreground block mb-1">
               Parent / guardian email{req.needsGuardianEmail ? '' : ' (optional)'}
             </label>
             <input
+              id="gc-guardian-email"
               type="email"
               value={guardianEmail}
               onChange={(e) => setGuardianEmail(e.target.value)}
@@ -163,10 +166,11 @@ function ConsentForm({
           </div>
 
           <div>
-            <label className="text-sm font-medium text-foreground block mb-1">
+            <label htmlFor="gc-injury" className="text-sm font-medium text-foreground block mb-1">
               Any injuries or physical limitations to keep in mind? (optional)
             </label>
             <textarea
+              id="gc-injury"
               value={injuryLimitations}
               onChange={(e) => setInjuryLimitations(e.target.value)}
               className={`${inputClass} min-h-[64px]`}

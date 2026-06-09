@@ -26,7 +26,7 @@ function Toggle({
   label, description, checked, onChange,
 }: { label: string; description: string; checked: boolean; onChange: (v: boolean) => void }) {
   return (
-    <label className="flex cursor-pointer items-start justify-between gap-3 rounded-lg border border-border bg-background p-3">
+    <div className="flex items-start justify-between gap-3 rounded-lg border border-border bg-background p-3">
       <span>
         <span className="block text-sm font-medium text-foreground">{label}</span>
         <span className="block text-xs text-muted-foreground">{description}</span>
@@ -41,7 +41,7 @@ function Toggle({
       >
         <span className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition ${checked ? 'left-4' : 'left-0.5'}`} />
       </button>
-    </label>
+    </div>
   );
 }
 
