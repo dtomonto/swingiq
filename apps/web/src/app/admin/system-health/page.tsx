@@ -7,6 +7,7 @@
 // ============================================================
 
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Activity, ServerCog, Wallet } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { SectionCard } from '@/components/admin/SectionCard';
@@ -70,9 +71,9 @@ export default async function SystemHealthPage() {
         title="AI Cost Guard"
         description="Global daily ceiling on estimated AI spend — the kill-switch that protects the API bill from distributed abuse."
         actions={
-          <a href="/admin/ai-usage" className="text-xs font-medium text-emerald-400 hover:underline">
+          <Link href="/admin/ai-usage" className="text-xs font-medium text-emerald-400 hover:underline">
             Usage &amp; billing →
-          </a>
+          </Link>
         }
       >
         {aiBudget.configured ? (
@@ -142,7 +143,7 @@ export default async function SystemHealthPage() {
         </p>
         <p>
           <strong className="text-gray-300">What to do.</strong> To change a state, set the matching keys on
-          the <a href="/admin/integrations">Integrations</a> page, then press <em>Re-check</em>.
+          the <Link href="/admin/integrations">Integrations</Link> page, then press <em>Re-check</em>.
         </p>
       </HelpPanel>
     </div>

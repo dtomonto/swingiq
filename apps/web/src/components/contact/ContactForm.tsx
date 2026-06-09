@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Send, CheckCircle2, Info } from 'lucide-react';
 import { CONTACT_TOPICS, type ContactTopic } from '@/lib/email/contact';
@@ -176,9 +177,9 @@ export function ContactForm({ supportEmail }: { supportEmail: string }) {
 
       <p className="text-xs text-muted-foreground">
         We only use your email to reply to you. See our{' '}
-        <a href="/privacy" className="underline">
+        <Link href="/privacy" className="underline">
           privacy policy
-        </a>
+        </Link>
         .
       </p>
     </form>

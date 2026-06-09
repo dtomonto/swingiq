@@ -13,7 +13,7 @@ export default function RecommendationsPage() {
       intro={
         <div className="rounded-lg bg-gray-900 border border-gray-800 p-3 text-xs text-gray-400">
           Prioritized growth actions across every lever. Items are labeled <strong className="text-gray-300">Data-backed</strong> (from real analytics)
-          or <strong className="text-gray-300">Strategic</strong> (from product context) — today they're strategic until analytics is connected.
+          or <strong className="text-gray-300">Strategic</strong> (from product context) — today they&apos;re strategic until analytics is connected.
         </div>
       }
     />

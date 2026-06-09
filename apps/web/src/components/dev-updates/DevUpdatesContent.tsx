@@ -270,9 +270,9 @@ export function DevUpdatesContent({ updates, milestones, stats }: DevUpdatesCont
           <p className="text-xs text-warning">
             <strong>This is the engineering log.</strong> For the plain-English, athlete-facing version of
             what shipped, see the{' '}
-            <a href="/updates" className="underline">
+            <Link href="/updates" className="underline">
               product updates page
-            </a>
+            </Link>
             . Movement findings are directional reads from video, sharpened by every swing you add — not
             measured lab biomechanics.
           </p>

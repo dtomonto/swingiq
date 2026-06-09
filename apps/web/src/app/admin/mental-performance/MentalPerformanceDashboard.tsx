@@ -8,6 +8,7 @@
 // pass — honestly labelled). Editing source = editing the lib data files.
 // ============================================================
 
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import {
   BookOpen, CalendarRange, Brain, Sparkles, TrendingUp, ShieldCheck, Copy, AlertTriangle, Film,
@@ -111,7 +112,7 @@ export function MentalPerformanceDashboard() {
           </li>
           <li>
             <span className="text-foreground">Next (optional):</span> enable AI polish (<code className="rounded bg-muted px-1">MENTAL_AI_ENABLED</code>, off by default); connect an events-collection backend (PostHog / Supabase) so the telemetry becomes real cross-user intelligence; render audio/video via Video Studio. Owner steps live in{' '}
-            <a href="/admin/setup" className="text-primary hover:underline">Setup &amp; Next Steps</a>.
+            <Link href="/admin/setup" className="text-primary hover:underline">Setup &amp; Next Steps</Link>.
           </li>
         </ul>
       </div>

@@ -58,12 +58,6 @@ export default [
       'react-hooks/use-memo': 'warn',
       'react-hooks/immutability': 'warn',
       'react-hooks/static-components': 'warn',
-
-      // Pre-existing next/react violations in the older app surface (legacy <a>
-      // links to in-app pages, unescaped entities in copy), tracked for
-      // incremental cleanup. New code should satisfy these.
-      '@next/next/no-html-link-for-pages': 'warn',
-      'react/no-unescaped-entities': 'warn',
     },
   },
   {

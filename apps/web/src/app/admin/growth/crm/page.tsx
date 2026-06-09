@@ -19,7 +19,7 @@ export default async function CrmPage() {
         <span>
           <strong>Draft-first by default.</strong> GrowthOS never sends a real email, SMS, or push. Messages stay in
           draft until a provider is securely configured <em>and</em> a human explicitly enables sending. The
-          "Send-enabled" count on each message starts at zero.
+          &quot;Send-enabled&quot; count on each message starts at zero.
         </span>
       </div>
 

@@ -15,7 +15,7 @@ export default async function LifecyclePage() {
       <ModuleHeader icon={nav?.icon} title={nav?.label ?? 'Lifecycle Journeys'} description={nav?.description ?? ''} />
 
       <div className="rounded-lg bg-gray-900 border border-gray-800 p-3 text-xs text-gray-400">
-        The user journey from anonymous visitor to advocate. Each stage pairs the user's mindset with a business objective,
+        The user journey from anonymous visitor to advocate. Each stage pairs the user&apos;s mindset with a business objective,
         a recommended message + channel, and an AI next-best-action. These are <strong className="text-gray-300">templates</strong> — wire the
         triggers in Email / CRM once a provider is connected.
       </div>

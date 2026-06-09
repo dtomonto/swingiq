@@ -161,7 +161,7 @@ function OverviewPanel({ data, progress }: { data: CIDashboard; progress: Foundi
         </ul>
       </SectionCard>
       <HelpPanel>
-        <p>This is the platform's intelligence brain. It saves a user's profile, equipment, sessions and
+        <p>This is the platform&apos;s intelligence brain. It saves a user&apos;s profile, equipment, sessions and
           coaching history (ethically and per-user) so SwingVantage gets smarter over time — and surfaces
           what to do next for both athletes and you.</p>
       </HelpPanel>

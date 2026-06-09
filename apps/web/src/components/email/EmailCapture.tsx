@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { Mail, CheckCircle2, Info } from 'lucide-react';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import type { LeadSource } from '@/lib/email/capture';
@@ -112,7 +113,7 @@ export function EmailCapture({
       {status === 'error' && <p role="alert" className="mt-2 text-xs font-medium text-error">{message}</p>}
       <p className="mt-2 text-[11px] text-muted-foreground">
         We only use your email to send what you asked for. See our{' '}
-        <a href="/privacy" className="underline">privacy policy</a>.
+        <Link href="/privacy" className="underline">privacy policy</Link>.
       </p>
     </form>
   );

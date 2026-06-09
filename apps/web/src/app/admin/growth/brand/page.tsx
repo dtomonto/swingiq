@@ -91,7 +91,7 @@ export default async function BrandVoicePage() {
         <div className="flex items-start gap-3">
           <Palette className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
           <div className="text-sm text-blue-200/90">
-            <p className="font-semibold text-blue-300">This is the AI Strategist's source of truth</p>
+            <p className="font-semibold text-blue-300">This is the AI Strategist&apos;s source of truth</p>
             <p className="mt-1 text-xs leading-relaxed">
               The AI Strategist reads this library before generating any copy, campaign briefs, or recommendations.
               It will <strong className="text-blue-200">only use approved claims</strong> and will

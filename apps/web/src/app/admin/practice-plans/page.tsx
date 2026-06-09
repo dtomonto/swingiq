@@ -105,7 +105,7 @@ export default function AdminPracticePlansPage() {
         </p>
         <p>
           <strong className="text-gray-300">Youth scaling.</strong> The youth variant demonstrates the
-          planner's safety behavior: shorter sessions and gentler success metrics for younger athletes.
+          planner&apos;s safety behavior: shorter sessions and gentler success metrics for younger athletes.
           Coaching is performance-only — never medical.
         </p>
         <p>

@@ -9,6 +9,7 @@
 // ============================================================
 
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Coins, ExternalLink, Wallet, CreditCard, BarChart3 } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { SectionCard } from '@/components/admin/SectionCard';
@@ -79,7 +80,7 @@ export default async function AiUsagePage() {
           <p>
             No AI provider is configured yet, so there are no paid calls to meter — usage will start
             appearing here automatically once you connect a provider on the{' '}
-            <a className="text-emerald-400 hover:underline" href="/admin/integrations">Integrations</a> page.
+            <Link className="text-emerald-400 hover:underline" href="/admin/integrations">Integrations</Link> page.
           </p>
         </div>
       )}
@@ -119,7 +120,7 @@ export default async function AiUsagePage() {
           <code className="rounded bg-gray-800 px-1 text-gray-300">AI_DAILY_BUDGET_CENTS</code> (e.g.{' '}
           <code className="rounded bg-gray-800 px-1 text-gray-300">500</code> = $5.00/day). When reached, paid
           calls pause and the app serves its keyless fallback until the next UTC day. See{' '}
-          <a className="text-emerald-400 hover:underline" href="/admin/system-health">System Health</a>.
+          <Link className="text-emerald-400 hover:underline" href="/admin/system-health">System Health</Link>.
         </p>
       </SectionCard>
 

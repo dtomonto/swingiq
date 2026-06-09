@@ -539,8 +539,8 @@ export function CoachMixDashboard() {
             <Film className="mt-0.5 h-4 w-4 shrink-0" />
             <p>
               Original SwingVantage video concepts built from <strong>approved</strong> learned concepts + your active
-              blend. They're <strong>drafts</strong> — approve one, then hand it to <strong>Video Studio</strong> to
-              produce. SwingVantage never copies or recreates a coach's video.
+              blend. They&apos;re <strong>drafts</strong> — approve one, then hand it to <strong>Video Studio</strong> to
+              produce. SwingVantage never copies or recreates a coach&apos;s video.
             </p>
           </div>
           {data.videoConcepts.length === 0 && (

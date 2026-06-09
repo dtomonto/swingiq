@@ -12,7 +12,7 @@ export default function ReputationPage() {
       records={proofRepo.list()}
       intro={
         <div className="rounded-lg bg-amber-500/10 border border-amber-500/30 p-3 text-xs text-amber-300">
-          <strong>Safeguard:</strong> proof is only usable when permission is <em>granted</em> and risk isn't <em>unusable</em>.
+          <strong>Safeguard:</strong> proof is only usable when permission is <em>granted</em> and risk isn&apos;t <em>unusable</em>.
           Never invent testimonials, exaggerate outcomes, or imply endorsement without permission.
         </div>
       }

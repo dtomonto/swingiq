@@ -30,8 +30,8 @@ export default function AdminBenchmarksPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">How grading uses this.</strong> A session's 0–100 dimension
-          scores are compared to the row for the player's profile. Meeting the benchmark is a B; clearing
+          <strong className="text-gray-300">How grading uses this.</strong> A session&apos;s 0–100 dimension
+          scores are compared to the row for the player&apos;s profile. Meeting the benchmark is a B; clearing
           it by ~10 is an A; falling short drops to C/D/F — all relative to their level.
         </p>
         <p>
