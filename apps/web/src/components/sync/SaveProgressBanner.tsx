@@ -36,6 +36,12 @@ export function SaveProgressBanner() {
       Object.keys(s.sportProfiles).length > 0,
   );
 
+  // The "aha" moment: a completed swing analysis is the highest-intent point to
+  // ask someone to save — they've just seen real value. Tune the copy for it.
+  const hasAnalysis = useSwingVantageStore(
+    (s) => s.video_analyses.length > 0 || s.sessions.length > 0,
+  );
+
   useEffect(() => {
     setMounted(true);
     try {
@@ -70,10 +76,13 @@ export function SaveProgressBanner() {
             <CloudUpload size={18} aria-hidden="true" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-foreground">Save your progress</p>
+            <p className="text-sm font-semibold text-foreground">
+              {hasAnalysis ? 'Save your results before they’re gone' : 'Save your progress'}
+            </p>
             <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-              Create a free account to keep your sessions, streaks, and history safe — and
-              pick up right where you left off on any device. Everything on this device comes with you.
+              {hasAnalysis
+                ? 'Your analysis lives only on this device right now. Create a free account to keep your results, scores, and history safe — and pick up on any device. Everything here comes with you.'
+                : 'Create a free account to keep your sessions, streaks, and history safe — and pick up right where you left off on any device. Everything on this device comes with you.'}
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-2">
               <Link
