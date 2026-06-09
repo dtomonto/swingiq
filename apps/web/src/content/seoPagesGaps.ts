@@ -392,6 +392,192 @@ const PADEL_SERVE: SeoPage = {
   publishStatus: 'published',
 };
 
+// ── Golf: how to hit a driver ───────────────────────────────────
+const GOLF_DRIVER: SeoPage = {
+  slug: 'golf/how-to-hit-a-driver',
+  sport: 'golf',
+  audience: 'player',
+  keyword: 'how to hit a driver',
+  intent: 'informational',
+  funnelStage: 'consideration',
+  priority: 1,
+  title: 'How to Hit a Driver: Tee It High and Hit Up',
+  metaDescription:
+    'The driver is the one club you hit UP on: tee it high, play it forward, and catch it on the upswing for distance with low spin. Here is how to groove it.',
+  directAnswer:
+    'A good driver swing is built for an upward strike. Tee the ball high (about half the ball above the crown), play it forward off your lead heel, widen your stance, and add a slight tilt away from the target so you catch the ball on the upswing. Unlike irons (ball-first, hitting down), the driver wants a positive attack angle — hit up on it and you gain distance with less spin and a straighter ball.',
+  problemExplanation: [
+    'The driver is your longest, lowest-loft club and it sits on a tee, so it rewards an ascending strike and a wide, sweeping arc. Hitting up launches the ball higher with less backspin — the recipe for carry.',
+    'Most driver problems come from treating it like an iron: ball too far back, a narrow stance, and a downward, steep strike that adds spin and produces pop-ups, slices, and short, ballooning shots.',
+  ],
+  diagnosisSteps: [
+    'Where is the ball teed and positioned — high and off the lead heel, or low and centered?',
+    'Film from behind: are you hitting down on it (steep) or sweeping up?',
+    'Is your stance wide enough to create a shallow, wide arc?',
+    'Do you have a slight tilt away from the target at address and impact?',
+  ],
+  whatSwingVantageLooksFor: [
+    'Angle of attack (should be positive/upward with a driver)',
+    'Ball position and tee height',
+    'Width of the swing arc and shallowness',
+    'Spine tilt away from the target through impact',
+  ],
+  exampleDiagnosis:
+    'Example: "You hit down on the driver from a centered ball position, so your shots balloon with spin and leak right. Moving the ball forward and feeling an upward strike added carry and straightened the flight."',
+  drills: [
+    { name: 'High-tee sweep', how: 'Tee the ball high and try to sweep it off the tee without taking any grass — catch it slightly on the upswing. If you keep clipping the tee down, you’re still hitting down. 3 sets of 8.' },
+    { name: 'Ball-forward + tilt', how: 'Set the ball off your lead heel and tilt your trail shoulder slightly down at address. Hold that tilt through impact so the low point is behind the ball (good for driver). 2 sets of 8.' },
+    { name: 'Wide-and-slow takeaway', how: 'Make slow swings feeling a wide, low takeaway and a full turn, building the sweeping arc the driver needs. Then add speed. 2 sets of 10.' },
+  ],
+  mistakesToAvoid: [
+    'Playing the ball back/centered and hitting down (high spin, pop-ups).',
+    'Teeing the ball too low.',
+    'A narrow stance that steepens the swing.',
+    'Swinging out of your shoes — tempo and an upward strike beat raw effort.',
+  ],
+  whenToWorkWithCoach:
+    'If you keep hitting down on the driver or slicing it despite ball-position and tee changes, a coach can check your attack angle and path — driver faults often trace back to setup and an out-to-in path.',
+  faqs: [
+    { question: 'Should you hit up or down on a driver?', answer: 'Up. The driver is the one club you want to strike on the upswing (a positive attack angle) for more carry and less spin. Irons are the opposite — you hit down on those.' },
+    { question: 'Where should I tee the ball for a driver?', answer: 'High — about half the ball above the crown of the driver — and forward, off your lead heel. That setup makes the upward strike natural.' },
+    { question: 'Why do I pop up or slice my driver?', answer: 'Usually hitting down on it from a ball that’s too far back, often with an out-to-in path. Move the ball forward, tee it higher, and feel an upward sweep.' },
+  ],
+  relatedLinks: [
+    { label: 'Golf swing analysis', href: '/golf-swing-analysis' },
+    { label: 'Why do I slice my driver?', href: '/golf/why-do-i-slice-my-driver' },
+    { label: 'How to fix a slice', href: '/golf/fix-slice' },
+    { label: 'Break 90 practice plan', href: '/golf/practice-plan-to-break-90' },
+  ],
+  cta: { label: 'Analyze My Golf Swing Free', href: '/start?sport=golf' },
+  schemaType: 'HowTo',
+  safetyNotes: 'Warm up before full-speed swings, build speed gradually, and use a properly fitted driver. Stop if anything hurts.',
+  publishStatus: 'published',
+};
+
+// ── Pickleball: drive ───────────────────────────────────────────
+const PICKLEBALL_DRIVE: SeoPage = {
+  slug: 'pickleball-drive',
+  sport: 'pickleball',
+  audience: 'player',
+  keyword: 'pickleball drive shot',
+  intent: 'informational',
+  funnelStage: 'consideration',
+  priority: 3,
+  title: 'The Pickleball Drive: Pace With Topspin (Not a Blast)',
+  metaDescription:
+    'A good pickleball drive is a controlled low-to-high groundstroke with topspin — pace plus net clearance and dip, not a flat blast that sails out. Here is how.',
+  directAnswer:
+    'A pickleball drive is a controlled groundstroke off the bounce that you hit with pace and topspin to pressure opponents or set up your third shot. Brush low-to-high up the back of the ball for net clearance and downward dip, keep the swing compact, and contact out in front. The mistake is a flat, all-out blast — without topspin it sails long, and without control it’s easy to counter.',
+  problemExplanation: [
+    'The drive is most useful as a pressure shot off a higher/shorter ball or as a fourth/fifth-shot option — pace that forces a pop-up you can attack. Topspin is what lets you swing hard and still land it in.',
+    'Players hit it flat and as hard as possible, so it either sails out or comes back fast. A low-to-high brush adds the spin that brings the ball down inside the lines and makes it dip at your opponent’s feet.',
+  ],
+  diagnosisSteps: [
+    'Do your drives sail long, or land in with margin over the net?',
+    'Are you brushing up the back of the ball (topspin) or hitting flat?',
+    'Is contact out in front, or beside/behind you?',
+    'Is the swing compact and controlled, or a big flat blast?',
+  ],
+  whatSwingVantageLooksFor: [
+    'Low-to-high swing path and topspin',
+    'Contact point out in front',
+    'Compactness and control vs. over-swinging',
+    'Net clearance and depth of the drive',
+  ],
+  exampleDiagnosis:
+    'Example: "You drive flat and as hard as you can, so it sails out. Brushing low-to-high for topspin let you keep the pace but bring the ball down inside the baseline."',
+  drills: [
+    { name: 'Topspin brush', how: 'Feed yourself balls off the bounce and focus only on brushing low-to-high so the ball dips. Aim deep but inside the baseline. Score landings in. 3 sets of 10.' },
+    { name: 'Compact-swing drive', how: 'Drive at 80% with a shorter backswing and follow-through, prioritizing control and contact out front over raw pace. 2 sets of 10.' },
+    { name: 'Drive-then-recover', how: 'After each drive, split-step and prepare for the counter so the drive becomes part of a sequence, not a one-off swing. 2 sets of 8.' },
+  ],
+  mistakesToAvoid: [
+    'Hitting flat and as hard as possible — it sails out.',
+    'No topspin, so you can’t create margin or dip.',
+    'Letting the ball get beside or behind you.',
+    'Driving from a low/defensive ball you should reset instead.',
+  ],
+  whenToWorkWithCoach:
+    'If your drive keeps sailing out even with a brush motion, a coach can check your paddle face angle and contact point — an open face plus flat path is the usual culprit.',
+  faqs: [
+    { question: 'How do you hit a drive in pickleball?', answer: 'Take a compact low-to-high swing and brush up the back of the ball for topspin, contacting it out in front. The spin lets you add pace while still bringing the ball down inside the lines.' },
+    { question: 'When should I drive in pickleball?', answer: 'Off a higher or shorter ball, or as a fourth/fifth-shot pressure option — to force a pop-up you can attack. Don’t drive a low, defensive ball; reset it instead.' },
+    { question: 'Why do my drives go out?', answer: 'Usually a flat, hard swing with no topspin and/or an open paddle face. Brush low-to-high to add spin and dip, and contact the ball in front.' },
+  ],
+  relatedLinks: [
+    { label: 'Pickleball analysis', href: '/pickleball' },
+    { label: 'Serve technique', href: '/pickleball-serve' },
+    { label: 'Third-shot drop', href: '/pickleball-third-shot-drop' },
+    { label: 'Dinking', href: '/pickleball-dinking' },
+  ],
+  cta: PICKLEBALL_CTA,
+  schemaType: 'HowTo',
+  safetyNotes: RACKET_SAFETY,
+  publishStatus: 'published',
+};
+
+// ── Padel: vibora ───────────────────────────────────────────────
+const PADEL_VIBORA: SeoPage = {
+  slug: 'padel-vibora',
+  sport: 'padel',
+  audience: 'player',
+  keyword: 'padel vibora technique',
+  intent: 'informational',
+  funnelStage: 'consideration',
+  priority: 3,
+  title: 'Padel Vibora: The Attacking Slice Overhead',
+  metaDescription:
+    'The padel vibora is an aggressive sliced overhead with side-spin that skids low and keeps you at the net — more attacking than a bandeja. Here is how to hit it.',
+  directAnswer:
+    'The vibora is an aggressive, sliced overhead hit with the racket face slightly open and a brushing, side-spin action — more attacking than a bandeja but more controlled than a smash. You contact the ball slightly in front with a compact, downward-and-across brush so it skids low and stays awkward, letting you hold the net. It’s a control-and-pressure shot, not an all-out winner.',
+  problemExplanation: [
+    'The vibora lives between the safe bandeja and the go-for-it smash: it carries more pace and a wicked side-spin skid that pressures opponents while still letting you keep your net position.',
+    'The shot is defined by the brushing slice. Hitting it flat turns it into a risky smash; not brushing enough makes it sit up. The cut (side and under) is what makes the ball skid low and kick off the side wall.',
+  ],
+  diagnosisSteps: [
+    'Are you brushing the ball (side-spin slice) or hitting it flat?',
+    'Is contact slightly in front and at a comfortable height, or behind/too high?',
+    'Does the ball skid low after the bounce, or sit up?',
+    'Do you keep your net position after the shot, or get pushed back?',
+  ],
+  whatSwingVantageLooksFor: [
+    'Brushing slice action (side + under spin)',
+    'Contact point in front and to the side',
+    'Compact, controlled swing vs. an all-out smash',
+    'Body position and recovery to hold the net',
+  ],
+  exampleDiagnosis:
+    'Example: "You flatten the vibora into a half-smash that pops up off the back glass. Adding a true brushing slice with contact more in front produced a low, skidding ball that kept you at the net."',
+  drills: [
+    { name: 'Shadow the brush', how: 'Without a ball, rehearse the high-to-low-and-across brushing motion with a slightly open face until it’s smooth and repeatable. 3 sets of 15.' },
+    { name: 'Feed-and-cut', how: 'Have a partner feed easy lobs; focus only on brushing side-spin and placing the ball low and wide, not on power. Score low-skidding placements. 3 sets of 10.' },
+    { name: 'Vibora-and-hold', how: 'Hit the vibora and immediately re-set your net position so the shot and recovery become one habit. 2 sets of 8.' },
+  ],
+  mistakesToAvoid: [
+    'Flattening it into a risky smash instead of brushing a slice.',
+    'Contact too high or behind you (loss of control).',
+    'Going for an outright winner and sacrificing your net position.',
+    'No side-spin, so the ball sits up off the glass.',
+  ],
+  whenToWorkWithCoach:
+    'If your vibora sits up or sails, a padel coach can check your contact point and the brushing action — the side-and-under cut is subtle and easiest to learn with eyes on it.',
+  faqs: [
+    { question: 'What is a vibora in padel?', answer: 'An aggressive sliced overhead with side-spin, hit between a bandeja (safe, controlled) and a smash (all-out). It skids low and keeps opponents pinned while you hold the net.' },
+    { question: 'How is the vibora different from the bandeja?', answer: 'The bandeja is a safe, controlled overhead to maintain position; the vibora carries more pace and side-spin to pressure opponents. Both let you keep the net, but the vibora is the more attacking of the two.' },
+    { question: 'How do I hit a vibora?', answer: 'Open the face slightly and brush the ball high-to-low and across (side-spin), contacting it a little in front with a compact swing. Place it low and wide so it skids — control over power.' },
+  ],
+  relatedLinks: [
+    { label: 'Padel analysis', href: '/padel' },
+    { label: 'Bandeja technique', href: '/padel-bandeja' },
+    { label: 'Serve technique', href: '/padel-serve' },
+    { label: 'Wall rebound technique', href: '/padel-wall-rebound-technique' },
+  ],
+  cta: PADEL_CTA,
+  schemaType: 'HowTo',
+  safetyNotes: RACKET_SAFETY,
+  publishStatus: 'published',
+};
+
 /** Cross-sport technique gap pages, spread into SEO_PAGES in seoPages.ts. */
 export const MULTI_SPORT_GAP_PAGES: SeoPage[] = [
   TENNIS_SERVE,
@@ -400,4 +586,7 @@ export const MULTI_SPORT_GAP_PAGES: SeoPage[] = [
   BASEBALL_INSIDE_BALL,
   PICKLEBALL_SERVE,
   PADEL_SERVE,
+  GOLF_DRIVER,
+  PICKLEBALL_DRIVE,
+  PADEL_VIBORA,
 ];
