@@ -39,6 +39,23 @@ export function isFoundingBannerHidden(pathname: string | null | undefined): boo
   return FOUNDING_BANNER_HIDDEN_PREFIXES.some((p) => pathname.startsWith(p));
 }
 
+/**
+ * Minimum real qualified-member count before we surface a numeric "X / 1,000"
+ * counter publicly. Below this, a bare "— / 1,000" (or "0 / 1,000") reads as
+ * *negative* proof — it advertises a lack of traction to cold visitors. Until
+ * the campaign has visible momentum we frame it as an achievement to earn
+ * ("Join the Founding 1,000") rather than a tally to judge.
+ */
+export const FOUNDING_COUNTER_MIN_TO_SHOW = 25;
+
+/** Whether the numeric counter has enough real members to motivate rather than deter. */
+export function shouldShowFoundingCount(
+  qualified: number | null | undefined,
+  minToShow: number = FOUNDING_COUNTER_MIN_TO_SHOW,
+): boolean {
+  return typeof qualified === 'number' && Number.isFinite(qualified) && qualified >= minToShow;
+}
+
 export function buildFoundingBannerContent(
   state: FoundingBannerState,
   opts: FoundingBannerOpts,

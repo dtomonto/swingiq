@@ -24,7 +24,7 @@ export default function LoginPage() {
         </div>
         <div>
           <p className="text-white font-bold text-xl leading-tight">SwingVantage</p>
-          <p className="text-primary-foreground/90 text-xs">Golf Performance System</p>
+          <p className="text-primary-foreground/90 text-xs">AI Swing Analysis</p>
         </div>
       </div>
 

@@ -5,6 +5,8 @@
 import {
   buildFoundingBannerContent,
   isFoundingBannerHidden,
+  shouldShowFoundingCount,
+  FOUNDING_COUNTER_MIN_TO_SHOW,
 } from '../banner-content';
 import { FOUNDING_REQUIRED_SESSIONS } from '@/lib/central-intelligence';
 
@@ -51,6 +53,25 @@ describe('founding banner content', () => {
     const c = buildFoundingBannerContent('full', opts());
     expect(c.message).toMatch(/claimed/i);
     expect(c.cta).toBeNull();
+  });
+});
+
+describe('founding numeric counter visibility (no negative proof)', () => {
+  it('hides the count when unknown (null/undefined) — avoids "— / 1,000"', () => {
+    expect(shouldShowFoundingCount(null)).toBe(false);
+    expect(shouldShowFoundingCount(undefined)).toBe(false);
+  });
+  it('hides the count for a small, deterring number of members', () => {
+    expect(shouldShowFoundingCount(0)).toBe(false);
+    expect(shouldShowFoundingCount(FOUNDING_COUNTER_MIN_TO_SHOW - 1)).toBe(false);
+  });
+  it('shows the count once it reads as real momentum', () => {
+    expect(shouldShowFoundingCount(FOUNDING_COUNTER_MIN_TO_SHOW)).toBe(true);
+    expect(shouldShowFoundingCount(500)).toBe(true);
+  });
+  it('respects a custom threshold', () => {
+    expect(shouldShowFoundingCount(5, 5)).toBe(true);
+    expect(shouldShowFoundingCount(4, 5)).toBe(false);
   });
 });
 

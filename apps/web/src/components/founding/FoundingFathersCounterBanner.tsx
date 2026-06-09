@@ -25,6 +25,7 @@ import { useFoundingProgress } from './useFoundingProgress';
 import {
   buildFoundingBannerContent,
   isFoundingBannerHidden,
+  shouldShowFoundingCount,
   type FoundingBannerState,
 } from './banner-content';
 
@@ -44,6 +45,7 @@ export function FoundingFathersCounterBanner() {
 
   const required = campaign?.requiredCount ?? FOUNDING_REQUIRED_COUNT;
   const qualified = campaign?.qualifiedCount;
+  const showCount = shouldShowFoundingCount(qualified);
   // Before mount/hydration, render the neutral logged-out shell so server and
   // client markup match; personalized state fills in after mount.
   const effectiveState: FoundingBannerState = mounted ? bannerState : 'logged_out';
@@ -64,14 +66,20 @@ export function FoundingFathersCounterBanner() {
       className="w-full bg-primary text-primary-foreground"
     >
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-3 gap-y-1 px-3 py-1.5 text-xs sm:text-sm">
-        {/* Count — announced to screen readers when it changes. */}
+        {/* Lead label. We only show the numeric "X / 1,000" tally once enough
+            real members have qualified to read as momentum; until then a bare
+            "— / 1,000" is negative proof, so we frame it as a goal to join. */}
         <span className="inline-flex items-center gap-1.5 font-semibold whitespace-nowrap" aria-live="polite">
           <span aria-hidden="true">🏛️</span>
-          <span>
-            Founding Members:{' '}
-            <span className="tabular-nums">{qualified ?? '—'}</span>
-            <span className="opacity-80"> / {required.toLocaleString()}</span>
-          </span>
+          {showCount ? (
+            <span>
+              Founding Members:{' '}
+              <span className="tabular-nums">{qualified}</span>
+              <span className="opacity-80"> / {required.toLocaleString()}</span>
+            </span>
+          ) : (
+            <span>Join the Founding {required.toLocaleString()}</span>
+          )}
         </span>
 
         <span className="hidden h-3 w-px bg-current opacity-30 sm:inline-block" aria-hidden="true" />

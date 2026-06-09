@@ -16,7 +16,7 @@ export default function SignupPage() {
         </div>
         <div>
           <p className="text-white font-bold text-xl leading-tight">SwingVantage</p>
-          <p className="text-primary-foreground/90 text-xs">Golf Performance System</p>
+          <p className="text-primary-foreground/90 text-xs">AI Swing Analysis</p>
         </div>
       </div>
 
@@ -32,7 +32,7 @@ export default function SignupPage() {
 
       <div className="mt-6 text-center text-primary-foreground/80 text-xs max-w-xs space-y-1">
         <p>⛳ Golf · 🎾 Tennis · 🏓 Pickleball · 🎾 Padel · ⚾ Baseball · 🥎 Softball</p>
-        <p>All swing sports. One genie.</p>
+        <p>Your top fix, three drills, and a 7-day retest plan — free.</p>
       </div>
     </div>
   );

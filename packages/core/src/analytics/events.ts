@@ -13,6 +13,10 @@ export const ANALYTICS_EVENTS = {
   // Onboarding
   PROFILE_STARTED: 'profile_started',
   PROFILE_COMPLETED: 'profile_completed',
+  // Which start method a visitor chooses on /start (video | import | quiz).
+  // Fires at the moment of choice so the funnel shows the video-vs-import-vs-
+  // quiz split — the key drop-off signal before a first result. + sport, context.
+  INPUT_METHOD_SELECTED: 'input_method_selected',
 
   // Video
   VIDEO_UPLOAD_STARTED: 'video_upload_started',

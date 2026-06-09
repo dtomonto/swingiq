@@ -205,6 +205,11 @@ export function StartHereFlow() {
       return;
     }
     setError('');
+    track(ANALYTICS_EVENTS.INPUT_METHOD_SELECTED, {
+      method,
+      sport: primarySport,
+      context: 'start_here',
+    });
     if (method === 'quiz') {
       track(ANALYTICS_EVENTS.QUIZ_STARTED, { tool: 'start_here', sport: primarySport });
       setStep('questions');
