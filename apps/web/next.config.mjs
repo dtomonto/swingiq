@@ -132,4 +132,17 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// ── Bundle analyzer (opt-in, zero overhead unless ANALYZE=true) ──────────────
+// `ANALYZE=true npm run build` (or `$env:ANALYZE='true'; npm run build` on
+// Windows) opens an interactive treemap of every route's JS so we can see what
+// is inflating first-load. Kept as a CONDITIONAL dynamic import so a normal
+// build never loads — or even needs — the @next/bundle-analyzer package.
+// The companion CI gate (scripts/check-bundle-budget.mjs) fails the build if a
+// route's first-load JS exceeds apps/web/bundle-budget.json. See docs/PERFORMANCE.md.
+export default async function config() {
+  if (process.env.ANALYZE === 'true') {
+    const { default: withBundleAnalyzer } = await import('@next/bundle-analyzer');
+    return withBundleAnalyzer({ enabled: true })(nextConfig);
+  }
+  return nextConfig;
+}

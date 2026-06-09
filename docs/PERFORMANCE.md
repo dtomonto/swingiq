@@ -47,10 +47,23 @@ npx lighthouse https://<preview-url>/ --view
 ANALYZE=1 npm run build -w @swingiq/web               # see per-route JS treemap
 ```
 
-To enable the bundle treemap, add `@next/bundle-analyzer` and gate it in
-`next.config.mjs` behind `process.env.ANALYZE` (keep it off by default so normal
-builds are unaffected). `next.config.mjs` is CODEOWNERS-protected — make that change
-deliberately.
+**Bundle treemap (shipped).** `@next/bundle-analyzer` is wired in `next.config.mjs`
+behind `process.env.ANALYZE` as a *conditional dynamic import*, so a normal build
+never loads it. Open the treemap with:
+
+```bash
+ANALYZE=true npm run build           # macOS/Linux/CI
+$env:ANALYZE='true'; npm run build   # Windows PowerShell
+# or from apps/web:  npm run analyze
+```
+
+**Bundle budget gate (shipped).** `scripts/check-bundle-budget.mjs` runs after the
+build in Growth CI (`npm run check:bundle`) and **fails CI** if any App-Router route
+ships more first-load JS than its limit in **`apps/web/bundle-budget.json`**. Limits
+start generous; capture a baseline with `ANALYZE=true npm run build` and tighten them.
+The gate is skip-safe (no build / manifest-format change → it skips rather than
+false-fails), and its size math is unit-tested (`scripts/__tests__/check-bundle-budget.test.mjs`).
+To intentionally allow a heavier route, raise its entry in `bundle-budget.json` with a note.
 
 ## Performance budget (targets)
 

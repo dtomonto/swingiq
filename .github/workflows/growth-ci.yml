@@ -30,6 +30,8 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
+      - name: Bundle budget — fail if a route's first-load JS exceeds its limit
+        run: npm run check:bundle
 
   growth-audit:
     name: Placeholder, SEO, content, link & sitemap checks

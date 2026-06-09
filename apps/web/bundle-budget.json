@@ -1,0 +1,9 @@
+{
+  "_comment": "First-load JS budget per App-Router route, in KB. The CI gate (scripts/check-bundle-budget.mjs, run after `npm run build`) FAILS Growth CI if a route exceeds its limit, so a bundle regression can't silently land. Limits are deliberately generous to start — capture a real baseline with `ANALYZE=true npm run build` and tighten them. Heavy interactive routes (3D motion) get explicit overrides; everything else uses maxFirstLoadKb.",
+  "maxFirstLoadKb": 350,
+  "routeOverridesKb": {
+    "/motion-lab": 700,
+    "/swing-lab": 700,
+    "/diagnose": 500
+  }
+}
