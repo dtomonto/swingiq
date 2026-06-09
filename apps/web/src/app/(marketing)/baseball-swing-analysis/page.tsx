@@ -3,6 +3,7 @@ import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { SportProofBlock } from '@/components/proof/SportProofBlock';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { ogCardUrl } from '@/lib/og/card';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { SportPageEngagement } from '@/components/persona/SportPageEngagement';
@@ -16,6 +17,11 @@ import {
 
 export const metadata = buildMetadata({
   title: 'Free Baseball Swing Analysis — Exit Velo & Bat Speed',
+  ogImage: ogCardUrl({
+    eyebrow: 'Baseball',
+    title: 'Free Baseball Swing Analysis',
+    subtitle: 'Exit velo, bat speed & mechanics — your top fix, ranked.',
+  }),
   description:
     'Analyze your baseball swing with AI. Track exit velocity, launch angle, bat speed, and attack angle. Get drill recommendations to fix your swing faults.',
   path: '/baseball-swing-analysis',

@@ -3,6 +3,7 @@ import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { SportProofBlock } from '@/components/proof/SportProofBlock';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { ogCardUrl } from '@/lib/og/card';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { SportPageEngagement } from '@/components/persona/SportPageEngagement';
@@ -19,6 +20,11 @@ export const metadata = buildMetadata({
   description:
     'Upload your launch monitor data or swing video for a free AI golf swing analysis. Identify your top swing fault, get personalized drills, and track improvement.',
   path: '/golf-swing-analysis',
+  ogImage: ogCardUrl({
+    eyebrow: 'Golf',
+    title: 'Free Golf Swing Analysis',
+    subtitle: 'AI launch-monitor + video analysis — find your top fault and fix it.',
+  }),
   keywords: [
     'golf swing analysis',
     'free golf swing analyzer',

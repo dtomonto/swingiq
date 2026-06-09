@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { ogCardUrl } from '@/lib/og/card';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { SportPageEngagement } from '@/components/persona/SportPageEngagement';
@@ -15,6 +16,11 @@ import {
 
 export const metadata = buildMetadata({
   title: 'Free Tennis Swing Analysis — AI Stroke Breakdown',
+  ogImage: ogCardUrl({
+    eyebrow: 'Tennis',
+    title: 'Free Tennis Swing Analysis',
+    subtitle: 'AI stroke breakdown by phase — your top fix and a drill plan.',
+  }),
   description:
     'Get a free AI tennis swing analysis. Upload a video of your groundstrokes, serve, or volleys and receive instant fault diagnosis and personalized drills.',
   path: '/tennis-swing-analysis',

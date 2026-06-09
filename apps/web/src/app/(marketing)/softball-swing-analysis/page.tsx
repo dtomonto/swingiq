@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { ogCardUrl } from '@/lib/og/card';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { SportPageEngagement } from '@/components/persona/SportPageEngagement';
@@ -15,6 +16,11 @@ import {
 
 export const metadata = buildMetadata({
   title: 'Free Softball Swing Analysis — Slow & Fast Pitch',
+  ogImage: ogCardUrl({
+    eyebrow: 'Softball',
+    title: 'Free Softball Swing Analysis',
+    subtitle: 'Slow-pitch & fast-pitch — your top fix with personalized drills.',
+  }),
   description:
     'Analyze your softball swing with AI — for both slow pitch and fast pitch. Track exit velocity, launch angle, bat speed, and get personalized drill recommendations.',
   path: '/softball-swing-analysis',
