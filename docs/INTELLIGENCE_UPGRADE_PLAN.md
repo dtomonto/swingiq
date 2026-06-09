@@ -36,7 +36,7 @@ keyless-safe; only the live model call is provider-gated.
 |---|------|--------|-------|
 | 1 | Structured `AICoachResponse` via Anthropic structured outputs (`output_config.format` / `messages.parse()`) | 🔑 | Type already defined+unused; populate it. Falls back to free-text parse when keyless. |
 | 2 | Output-grounding validator (numeric claims must trace to `[DATA CONTEXT]`) | 🟢 | SHIPPED `9bf52215`. `validateGrounding` (°/yards/mph/rpm vs context, rounding tolerance); wired into /api/ai-coach as additive `grounding` field. 7 tests. |
-| 3 | Migrate hand-rolled `fetch` → official `@anthropic-ai/sdk` | 🔑 | Typed errors, auto-retry, `.parse()`, `.stream()`. Removes drift across ~10 AI routes. |
+| 3 | Migrate hand-rolled `fetch` → centralized AI gateway | 🟢 | SHIPPED `79a5e5b4`. Owner chose a provider-agnostic gateway (both OpenAI+Anthropic) over a single-provider SDK — same centralization (retry/budget/tiering/structured-output), no SDK dep. Coach route migrated. |
 | 6 | App-level response cache keyed on hash(context, question) | 🟢 | SHIPPED `f819dd59`. Pure TtlLruCache + stable cacheKey; wired into /api/ai-coach (returns `cached:true`). 8 tests. |
 | 5 | Longitudinal + conversation memory wired into the prompt | 🟢 | SHIPPED `e8611727`. `recent_history` ctx field → `[RECENT HISTORY]` block in buildCoachPrompt; folded into cache key. (Conversation/multi-turn memory = thin follow-up.) |
 
@@ -49,8 +49,8 @@ A single typed AI gateway underpins tiering, batching, logging, eval. Mostly own
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| — | Unified AI gateway (provider abstraction, like the vision provider) | 🔑 | Shared retry/cache/budget/logging/structured-output; foundation for 3/4/9. |
-| 4 | Model tiering by difficulty/segment (haiku→sonnet→opus) | 🔑 | Route low-confidence/multi-fault/founding-member calls to a stronger model. Current IDs: `claude-haiku-4-5` ($1/$5), `claude-sonnet-4-6` ($3/$15), `claude-opus-4-8` ($5/$25). |
+| — | Unified AI gateway (provider abstraction, like the vision provider) | 🟢 | SHIPPED `79a5e5b4`. `lib/ai/gateway.ts` complete() over both providers; retry+budget+spend+tiering+structured-output. |
+| 4 | Model tiering by difficulty/segment (haiku→sonnet→opus) | 🟡 | Mechanism SHIPPED in the gateway (`selectModel` tiers). Remaining: route low-confidence/multi-fault/founding-member calls to a higher tier (small follow-up). IDs: `claude-haiku-4-5`/`claude-sonnet-4-6`/`claude-opus-4-8`. |
 | 7 | Interaction logging (opt-in, anonymized) → coach-mix trends seam | 🔑 | Closes the coach learning loop. Privacy-gated. |
 | 8 | AI eval / golden-set harness + `count_tokens` cost accounting | ✅ | Extends the prompt-injection suite; regression-tests grounding/refusals/structure. Token counting via API, not tiktoken. |
 | 9 | Batches API (50% cost) for non-interactive generation | 🔑 | AGI narrative, social, feature-education drafting. |
