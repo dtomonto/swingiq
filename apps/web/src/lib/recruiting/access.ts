@@ -21,6 +21,7 @@
 // ============================================================
 
 import { isLinkActive, hashPassword, type CoachViewSnapshot } from './share';
+import { safeEqual } from '@/lib/security/constant-time';
 import type { ShareLink } from './types';
 
 export type CoachViewDenial =
@@ -62,9 +63,11 @@ export function authorizeCoachView(input: AuthorizeCoachViewInput): CoachViewAcc
   }
 
   // Password — verified server-side; data is withheld until it matches.
+  // Compared in CONSTANT TIME (safeEqual) so the route handler does not leak,
+  // via response timing, how much of the hash a guess got right.
   if (snapshot.passwordProtected) {
     if (!providedPassword) return { ok: false, denial: 'password_required' };
-    if (!snapshot.passwordHash || hashPassword(providedPassword) !== snapshot.passwordHash) {
+    if (!snapshot.passwordHash || !safeEqual(hashPassword(providedPassword), snapshot.passwordHash)) {
       return { ok: false, denial: 'password_incorrect' };
     }
   }
