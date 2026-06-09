@@ -218,6 +218,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['updates', 'changelog', 'dev-updates', 'publish', 'draft', 'release notes', 'announcements'],
   },
   {
+    id: 'library-publishing', label: 'Library Publishing', href: '/admin/library', icon: Clapperboard,
+    group: 'content', built: true, permission: 'content.publish',
+    blurb: 'Choose which training videos appear on the public /learn pages. Every video is already in the in-app library; flip a few to public per week to roll them out to search gradually.',
+    keywords: ['library', 'video library', 'learn', 'publish', 'videos', 'training videos', 'rollout', 'seo'],
+  },
+  {
     id: 'generated-fixes', label: 'Generated Fixes', href: '/admin/content/generated-fixes', icon: Wand2,
     group: 'content', built: true, permission: 'content.publish',
     blurb: 'Review queue for AI-generated repair/fix pages before they go live.',
