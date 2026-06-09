@@ -82,6 +82,24 @@ export interface PlatformDataSignal {
   activeSports: number;
 }
 
+/**
+ * Git hygiene roll-up from the BranchGuardianOS snapshot (no git is run here —
+ * the counts come from the committed snapshot). Drives the branch-hygiene rule.
+ */
+export interface BranchHygieneSignal {
+  /** Whether a usable git snapshot exists. */
+  available: boolean;
+  staleBranches: number;
+  mergedEligible: number;
+  worktreesNeedingReview: number;
+  /** Worst "commits behind main" among working branches. */
+  maxBehindMain: number;
+  /** Name of the branch that is furthest behind (for the copy). */
+  worstBehindBranch: string | null;
+  riskyUntracked: number;
+  cleanliness: number;
+}
+
 /** Everything the engine needs, gathered once per scan. */
 export interface SignalBundle {
   /** ISO date-time of the scan. */
@@ -94,6 +112,8 @@ export interface SignalBundle {
   platformData: PlatformDataSignal;
   /** Whether a product-analytics provider key is configured. */
   analyticsConfigured: boolean;
+  /** Git/worktree hygiene roll-up from BranchGuardianOS. */
+  branchHygiene: BranchHygieneSignal;
   totals: { features: number; sports: number; drills: number };
 }
 
@@ -771,6 +791,115 @@ export function ruleDataReadiness(bundle: SignalBundle): Recommendation[] {
   return out;
 }
 
+/**
+ * Git/worktree hygiene → developer-operations recommendations (REAL: from the
+ * committed BranchGuardianOS snapshot). Surfaces the highest-leverage cleanup
+ * items in the daily "to do today" list, each linking back to BranchGuardianOS
+ * where the safe, non-destructive commands live.
+ */
+export function ruleBranchHygiene(bundle: SignalBundle): Recommendation[] {
+  const h = bundle.branchHygiene;
+  if (!h.available) return [];
+  const out: Recommendation[] = [];
+
+  if (h.riskyUntracked > 0) {
+    out.push(
+      build(bundle.now, {
+        id: 'branch-guardian:risky-untracked',
+        title: `${h.riskyUntracked} risky untracked file(s) sit in git worktrees`,
+        summary:
+          'BranchGuardianOS found untracked files that look like secrets (.env, keys, dumps) in your worktrees. They are one stray commit away from leaking.',
+        recommendationType: 'security',
+        category: 'Security',
+        relatedSystem: 'BranchGuardianOS',
+        effort: 'S',
+        confidence: 90,
+        factors: { impact: 18, urgency: 13, confidence: 14, affectedUsers: 8, strategic: 9, risk: 16 },
+        dueInDays: 1,
+        evidence: [`${h.riskyUntracked} risky untracked file(s) across worktrees (shown by path in BranchGuardianOS)`],
+        reason: 'Untracked secret-like files can be committed by accident and harvested within minutes of a push.',
+        howToComplete: 'Open BranchGuardianOS, review the flagged paths, add them to .gitignore (or remove them), and rotate anything exposed.',
+        stepByStepActions: [
+          'Open BranchGuardianOS → Recommendations.',
+          'Review each flagged untracked file (shown by path only).',
+          'Add to .gitignore or move out of the repo; rotate any exposed credential.',
+        ],
+        expectedOutcome: 'No secret-like untracked files remain in any worktree.',
+        riskIfIgnored: 'A secret is committed and scraped, compromising an integration or user data.',
+        completionCriteria: 'BranchGuardianOS shows zero risky untracked files and securityOS marks the check Pass.',
+        sourceEngine: 'branch-guardian',
+        relatedLinks: [
+          { label: 'BranchGuardianOS', href: '/admin/branch-guardian' },
+          { label: 'securityOS', href: '/admin/security-os' },
+        ],
+      }),
+    );
+  }
+
+  if (h.worktreesNeedingReview > 0 || h.staleBranches > 0 || h.mergedEligible > 0) {
+    const bits: string[] = [];
+    if (h.staleBranches > 0) bits.push(`${h.staleBranches} stale branch(es)`);
+    if (h.mergedEligible > 0) bits.push(`${h.mergedEligible} merged branch(es) eligible for deletion`);
+    if (h.worktreesNeedingReview > 0) bits.push(`${h.worktreesNeedingReview} worktree(s) needing review`);
+    out.push(
+      build(bundle.now, {
+        id: 'branch-guardian:hygiene',
+        title: `Git hygiene: ${bits.join(', ')}`,
+        summary: `BranchGuardianOS flagged ${bits.join(', ')}. Cleaning these up reduces clutter and merge risk. All actions are non-destructive and require your confirmation.`,
+        recommendationType: 'system_health',
+        category: 'Engineering',
+        relatedSystem: 'BranchGuardianOS',
+        effort: 'S',
+        confidence: 88,
+        factors: { impact: 10, urgency: 6, confidence: 13, affectedUsers: 4, strategic: 8, risk: 7 },
+        dueInDays: 7,
+        evidence: [
+          ...bits,
+          `Current Git cleanliness score: ${h.cleanliness}/100`,
+        ],
+        reason: 'Stale, merged and orphaned branches/worktrees obscure what is actually in flight and accumulate merge debt.',
+        howToComplete: 'Open BranchGuardianOS, work the ranked recommendations, and copy the safe commands it generates (nothing runs automatically).',
+        stepByStepActions: [
+          'Open BranchGuardianOS → Recommendations.',
+          'Back up before any deletion (the tool generates the backup command).',
+          'Copy and run the suggested commands in your terminal after confirming.',
+        ],
+        expectedOutcome: 'Merged/stale branches are cleaned up and worktrees are consolidated; the cleanliness score rises.',
+        riskIfIgnored: 'Branch sprawl grows, making releases and reviews harder and increasing the chance of losing work.',
+        completionCriteria: 'BranchGuardianOS shows no merged-eligible branches and no worktrees needing review.',
+        sourceEngine: 'branch-guardian',
+        relatedLinks: [{ label: 'BranchGuardianOS', href: '/admin/branch-guardian' }],
+      }),
+    );
+  } else if (h.maxBehindMain > 30 && h.worstBehindBranch) {
+    out.push(
+      build(bundle.now, {
+        id: 'branch-guardian:behind-main',
+        title: `"${h.worstBehindBranch}" is ${h.maxBehindMain} commits behind main`,
+        summary: `A working branch has drifted ${h.maxBehindMain} commits behind main and may need rebasing before further work.`,
+        recommendationType: 'system_health',
+        category: 'Engineering',
+        relatedSystem: 'BranchGuardianOS',
+        effort: 'S',
+        confidence: 85,
+        factors: { impact: 8, urgency: 6, confidence: 12, affectedUsers: 3, strategic: 7, risk: 8 },
+        dueInDays: 7,
+        evidence: [`${h.worstBehindBranch}: ${h.maxBehindMain} commits behind main`],
+        reason: 'A branch far behind main accumulates conflict risk; rebasing now is cheaper than at merge time.',
+        howToComplete: 'Open BranchGuardianOS and use the generated rebase commands (back up first).',
+        stepByStepActions: ['Open BranchGuardianOS → Recommendations.', 'Back up the branch.', 'Rebase onto main with the suggested command.'],
+        expectedOutcome: 'The branch is current with main and merges cleanly.',
+        riskIfIgnored: 'The eventual merge becomes a large, error-prone conflict resolution.',
+        completionCriteria: 'No working branch is more than ~30 commits behind main.',
+        sourceEngine: 'branch-guardian',
+        relatedLinks: [{ label: 'BranchGuardianOS', href: '/admin/branch-guardian' }],
+      }),
+    );
+  }
+
+  return out;
+}
+
 const RULES: Array<(b: SignalBundle) => Recommendation[]> = [
   ruleDataReadiness,
   ruleAnalytics,
@@ -778,6 +907,7 @@ const RULES: Array<(b: SignalBundle) => Recommendation[]> = [
   ruleSportCoverage,
   ruleFeatureEducation,
   ruleSetup,
+  ruleBranchHygiene,
   ruleBaseline,
 ];
 

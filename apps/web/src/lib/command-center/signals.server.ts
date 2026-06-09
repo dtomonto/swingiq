@@ -27,6 +27,7 @@ import {
 import { loadFindings } from '@/lib/admin/audits/data';
 import { loadAlertCounts } from '@/lib/feature-education/server/data';
 import { getPlatformMetrics } from '@/lib/admin/data/metrics';
+import { runBranchGuardianScan } from '@/lib/branch-guardian/generate.server';
 import setupRegistry from '@/data/setup-registry.json';
 import type {
   SignalBundle,
@@ -35,6 +36,7 @@ import type {
   SetupSignal,
   FeatureEducationSignal,
   PlatformDataSignal,
+  BranchHygieneSignal,
 } from './engine';
 
 function safeSportCoverage(): { coverage: SportCoverageSignal[]; drills: number } {
@@ -125,6 +127,38 @@ async function safePlatformData(): Promise<PlatformDataSignal> {
   }
 }
 
+/** Git/worktree hygiene roll-up from BranchGuardianOS. Defensive. */
+function safeBranchHygiene(now: Date): BranchHygieneSignal {
+  try {
+    const scan = runBranchGuardianScan(undefined, now);
+    if (!scan.isGitRepo) {
+      return { available: false, staleBranches: 0, mergedEligible: 0, worktreesNeedingReview: 0, maxBehindMain: 0, worstBehindBranch: null, riskyUntracked: 0, cleanliness: 0 };
+    }
+    let maxBehindMain = 0;
+    let worstBehindBranch: string | null = null;
+    for (const b of scan.branches) {
+      if (b.isProtected || b.type === 'main') continue;
+      const behind = b.behindMain ?? 0;
+      if (behind > maxBehindMain) {
+        maxBehindMain = behind;
+        worstBehindBranch = b.name;
+      }
+    }
+    return {
+      available: true,
+      staleBranches: scan.cleanliness.counts.staleBranches,
+      mergedEligible: scan.cleanliness.counts.mergedEligible,
+      worktreesNeedingReview: scan.cleanliness.counts.worktreesNeedingReview,
+      maxBehindMain,
+      worstBehindBranch,
+      riskyUntracked: scan.cleanliness.counts.riskyUntracked,
+      cleanliness: scan.cleanliness.value,
+    };
+  } catch {
+    return { available: false, staleBranches: 0, mergedEligible: 0, worktreesNeedingReview: 0, maxBehindMain: 0, worstBehindBranch: null, riskyUntracked: 0, cleanliness: 0 };
+  }
+}
+
 function analyticsConfigured(): boolean {
   return Boolean(
     process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ||
@@ -151,6 +185,7 @@ export async function gatherSignals(now: Date = new Date()): Promise<SignalBundl
     featureEducation,
     platformData,
     analyticsConfigured: analyticsConfigured(),
+    branchHygiene: safeBranchHygiene(now),
     totals: {
       features: 0, // reserved — feature totals can feed future readiness rules
       sports: SPORT_TAXONOMY.length,

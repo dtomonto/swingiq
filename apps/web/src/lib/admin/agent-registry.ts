@@ -455,6 +455,20 @@ export const AGENT_REGISTRY: RegisteredAgent[] = [
     module: 'lib/agents/trust-linter/engine.ts',
     safety: 'Honest-first: flags overpromises before copy ships.',
   },
+  {
+    id: 'branch_guardian',
+    name: 'BranchGuardianOS',
+    family: 'safety',
+    purpose: 'Git/worktree governance: scores branch & worktree health and prepares non-destructive cleanup so work is never lost and the repo stays release-ready.',
+    inputs: ['committed git snapshot (scripts/scan-branches.mjs)', 'branches', 'worktrees', 'stashes'],
+    outputs: ['Git Cleanliness Score', 'branch/worktree health', 'ranked cleanup recommendations', 'safe command text'],
+    runtime: 'deterministic',
+    control: 'Snapshot via `npm run scan:branches` (monthly); dashboard always on (keyless)',
+    surface: { label: 'BranchGuardianOS', href: '/admin/branch-guardian' },
+    module: 'lib/branch-guardian/*',
+    permission: 'devops.manage',
+    safety: 'Never runs git from the app; all cleanup is copy-paste only and destructive commands sit behind explicit approval. Protected branches are never deletion candidates.',
+  },
 ];
 
 // ── Helpers (pure) ─────────────────────────────────────────────

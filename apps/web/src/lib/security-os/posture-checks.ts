@@ -261,6 +261,36 @@ export const POSTURE_CHECKS: PostureCheck[] = [
       ),
   },
 
+  {
+    id: 'data-untracked-secrets',
+    category: 'data_protection',
+    riskDomain: 'Secrets',
+    title: 'No risky untracked files (.env / keys / dumps) in the working trees',
+    description:
+      'BranchGuardianOS scans every git worktree for untracked files that look like secrets (.env, *.key/*.pem, DB dumps, logs). Such files are one stray `git add` away from being committed and harvested.',
+    severity: 'high',
+    weight: 2,
+    frameworks: { owaspTop10: 'A05: Security Misconfiguration', nistSsdf: 'PW.4 / RV.1' },
+    businessImpact: 'A committed secret (key, token, DB dump) can compromise integrations and incur cost or data loss.',
+    whatCouldHappen: 'An uncommitted .env or private key is accidentally added and pushed, then scraped by a bot within minutes.',
+    recommendedFix: 'Confirm risky files are .gitignored; remove or relocate any that should not live in the repo, and rotate anything that may have leaked.',
+    stepByStepActions: [
+      'Open BranchGuardianOS → Recommendations and review the flagged untracked files (shown by path only).',
+      'Add each to .gitignore (or move it out of the repo).',
+      'Rotate any credential that may have been exposed.',
+    ],
+    effort: 'S',
+    canClaudeFix: true,
+    needsCredentials: false,
+    evaluate: (i) =>
+      triState(
+        i.untrackedSecretsClean,
+        'No risky untracked files detected across git worktrees.',
+        'Risky untracked file(s) detected — review them in BranchGuardianOS.',
+        'Could not read the BranchGuardianOS snapshot (run `npm run scan:branches`).',
+      ),
+  },
+
   // ── AI Security ─────────────────────────────────────────────────────────────
   {
     id: 'ai-budget-killswitch',

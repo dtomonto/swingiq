@@ -42,6 +42,7 @@ export const PERMISSIONS = [
   'logs.view',
   'settings.manage',
   'security.manage',
+  'devops.manage',
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];

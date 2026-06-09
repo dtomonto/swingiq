@@ -384,6 +384,30 @@ export const CATALOG: SetupTask[] = [
     ],
   },
   {
+    id: 'branch-guardian-scan',
+    title: 'Refresh the BranchGuardianOS git snapshot (monthly)',
+    plainEnglish:
+      'BranchGuardianOS keeps your branches and worktrees tidy, but it reads a saved snapshot of git rather than running git itself (the live site has no access to git). Run one command to refresh that snapshot, commit it, and the BranchGuardianOS dashboard shows current data. Do this about once a month, or whenever you want a fresh cleanup review. It is read-only — it never deletes, pushes, or changes any branch.',
+    category: 'local-setup',
+    priority: 'recommended',
+    detect: { kind: 'manual' },
+    steps: [
+      'Open a terminal in the project folder.',
+      'Run: npm run scan:branches  (this rewrites apps/web/src/data/branch-guardian-snapshot.json — read-only, safe to run anytime).',
+      'Commit the updated snapshot file so the dashboard shows fresh data (the live site reads the committed snapshot).',
+      'Open BranchGuardianOS and work the ranked recommendations. Each generates copy-paste commands — nothing runs automatically, and deletions sit behind an explicit "Approve cleanup" step.',
+      'Tip: to preview without writing the file, run: node scripts/scan-branches.mjs --print --no-write',
+    ],
+    inputs: [
+      { kind: 'command', value: 'npm run scan:branches', label: 'Refresh the git snapshot' },
+      { kind: 'command', value: 'node scripts/scan-branches.mjs --print --no-write', label: 'Preview only (no write)' },
+      { kind: 'file', value: 'apps/web/src/data/branch-guardian-snapshot.json', label: 'The committed snapshot it writes' },
+      { kind: 'file', value: 'docs/BRANCH_GUARDIAN_OS.md', label: 'How it works + safety rules' },
+    ],
+    learnMoreHref: '/admin/branch-guardian',
+    learnMoreLabel: 'Open BranchGuardianOS',
+  },
+  {
     id: 'install-hooks',
     title: 'Install the auto-publish git hooks (one-time)',
     plainEnglish:

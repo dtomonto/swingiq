@@ -38,6 +38,7 @@ function baseInput(overrides: Partial<PostureInput> = {}): PostureInput {
     securityTests: true,
     productionEnv: false,
     auditAccessToken: false,
+    untrackedSecretsClean: true,
     openAuditFindings: 0,
     ...overrides,
   };

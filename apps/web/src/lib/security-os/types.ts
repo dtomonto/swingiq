@@ -144,6 +144,11 @@ export interface PostureInput {
   securityTests: boolean | null;
   productionEnv: boolean;
   auditAccessToken: boolean;
+  /**
+   * No risky untracked files (.env / keys / dumps) in any git worktree, per the
+   * BranchGuardianOS snapshot. null = the snapshot couldn't be read.
+   */
+  untrackedSecretsClean: boolean | null;
   /** Open audit-robot findings (P0/P1/P2) joined in as findings. */
   openAuditFindings: number;
 }
