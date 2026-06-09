@@ -21,7 +21,7 @@ import { validateGrounding } from '@/lib/ai-coach/grounding';
 import { getCachedResponse, setCachedResponse } from '@/lib/ai-coach/response-cache';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
-import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
+import { complete } from '@/lib/ai/gateway';
 
 // ── Handler ───────────────────────────────────────────────────
 
@@ -63,112 +63,35 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: cached, grounding: validateGrounding(cached, ctx), cached: true });
   }
 
-  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set).
-  // When the day's estimated AI budget is spent, skip the paid call and fall
-  // through to the data-grounded placeholder below.
-  const overBudget = await aiBudgetExceeded();
+  // ── Generate via the provider-agnostic AI gateway ─────────
+  // The gateway centralizes provider/key resolution, model tiering, the daily
+  // AI-budget kill-switch + spend recording, and a single transient-error
+  // retry. It returns a `fallback` (no_provider / over_budget / error) instead
+  // of throwing, so keyless installs and over-budget days serve the same
+  // data-grounded placeholder the route always has.
+  const result = await complete({
+    system,
+    messages: [{ role: 'user', content: user }],
+    tier: 'fast',
+    spendLabel: 'ai-coach',
+  });
 
-  // ── Call the AI provider ──────────────────────────────────
-  // SwingVantage supports OpenAI or Anthropic. Configure via environment variables:
-  //   AI_PROVIDER=openai  → uses OPENAI_API_KEY
-  //   AI_PROVIDER=anthropic → uses ANTHROPIC_API_KEY (default)
-  //
-  // If no key is configured, the route returns a helpful placeholder so
-  // the app still works without an AI key during development.
-
-  const aiProvider = process.env.AI_PROVIDER ?? 'none';
-  const openAiKey = process.env.OPENAI_API_KEY;
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
-
-  if (!overBudget && aiProvider === 'openai' && openAiKey) {
-    try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${openAiKey}`,
-        },
-        body: JSON.stringify({
-          model: 'gpt-4o-mini',
-          messages: [
-            { role: 'system', content: system },
-            { role: 'user', content: user },
-          ],
-          max_tokens: 600,
-          temperature: 0.4,
-        }),
-      });
-
-      if (!response.ok) {
-        const text = await response.text();
-        console.error('[AI Coach] OpenAI error:', response.status, text);
-        return NextResponse.json(
-          { error: 'AI service error. Please try again in a moment.' },
-          { status: 502 },
-        );
-      }
-
-      const data = await response.json() as {
-        choices: Array<{ message: { content: string } }>;
-      };
-      const message = data.choices[0]?.message?.content?.trim() ?? '';
-      await recordAiSpend('ai-coach');
-      setCachedResponse(ctx, message);
-      // #2 grounding: surface whether the response's measurement claims trace
-      // to the player's data (clients may flag/regenerate ungrounded answers).
-      return NextResponse.json({ message, grounding: validateGrounding(message, ctx) });
-    } catch (err) {
-      console.error('[AI Coach] OpenAI fetch failed:', err);
-      return NextResponse.json(
-        { error: 'Could not reach AI service. Check your connection.' },
-        { status: 502 },
-      );
-    }
+  if (result.fallback === 'error') {
+    return NextResponse.json(
+      { error: 'AI service error. Please try again in a moment.' },
+      { status: 502 },
+    );
   }
 
-  if (!overBudget && aiProvider === 'anthropic' && anthropicKey) {
-    try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': anthropicKey,
-          'anthropic-version': '2023-06-01',
-        },
-        body: JSON.stringify({
-          model: process.env.ANTHROPIC_MODEL ?? 'claude-haiku-4-5',
-          max_tokens: 600,
-          system,
-          messages: [{ role: 'user', content: user }],
-        }),
-      });
-
-      if (!response.ok) {
-        const text = await response.text();
-        console.error('[AI Coach] Anthropic error:', response.status, text);
-        return NextResponse.json(
-          { error: 'AI service error. Please try again in a moment.' },
-          { status: 502 },
-        );
-      }
-
-      const data = await response.json() as {
-        content: Array<{ type: string; text: string }>;
-      };
-      const message = data.content.find((c) => c.type === 'text')?.text?.trim() ?? '';
-      await recordAiSpend('ai-coach');
-      setCachedResponse(ctx, message);
-      return NextResponse.json({ message, grounding: validateGrounding(message, ctx) });
-    } catch (err) {
-      console.error('[AI Coach] Anthropic fetch failed:', err);
-      return NextResponse.json(
-        { error: 'Could not reach AI service. Check your connection.' },
-        { status: 502 },
-      );
-    }
+  if (!result.fallback) {
+    const message = result.text;
+    setCachedResponse(ctx, message);
+    // #2 grounding: surface whether the response's measurement claims trace to
+    // the player's data so clients can flag/regenerate ungrounded answers.
+    return NextResponse.json({ message, grounding: validateGrounding(message, ctx) });
   }
 
-  // No AI key configured — return a helpful placeholder for development
+  // no_provider (keyless) or over_budget → data-grounded placeholder.
   const placeholder = buildDevPlaceholderResponse(ctx);
   return NextResponse.json({ message: placeholder, grounding: validateGrounding(placeholder, ctx) });
 }
