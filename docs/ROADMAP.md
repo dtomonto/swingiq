@@ -43,14 +43,19 @@ reports `aiVision:true`, analytics detected.
 ## Track B — Engineering phases
 
 ### Phase 1 — Foundation & stop-the-churn  *(do first; unblocks safe iteration)*
-| Rec | Deliverable | Effort | Acceptance |
-|---|---|---|---|
-| **5** Concurrency/hook | Change the pre-commit hook to stage **only its own generated files** (not `git add -A`); document worktree-first in CONTRIBUTING | M | A staged unrelated file is never swept into a commit; registry JSONs stop getting conflict markers |
-| **22** Registry refresh → CI | Move feature/setup/audit registry refresh off per-commit hook to a scheduled/pre-merge CI job (or debounce) | M | Commits no longer spawn 3 chore commits; no JSON races |
-| **16** RLS CI gate | CI script asserting every `public.` table in `supabase-*.sql` has `ENABLE ROW LEVEL SECURITY`; add CODEOWNERS on `lib/security/*`, `middleware.ts`, SQL | S | CI fails if a new table ships without RLS |
-| **4** Error monitoring | Wire `@sentry/nextjs` (client+server+edge), gated on `SENTRY_DSN` (inert when unset) + a rate-limit/budget breach alert | S–M | Errors appear in Sentry once DSN is set; zero overhead when unset |
-| **23** Deps hygiene | `npm rm framer-motion`; add Dependabot/Renovate config + keep `npm audit` failing CI on high+ | S | framer-motion gone; weekly dependency PRs |
-| **25** ARCHITECTURE.md | Concise map: the OS surfaces, keyless-first capability model, RLS data flow, "audit-don't-rebuild" rule, worktree workflow | S–M | A new contributor/agent can orient in 10 min |
+> **✅ Phase 1 COMPLETE (2026-06-09).** All six items shipped to `master`. Agent-doable
+> portion of #4 done — the Sentry seam was already wired; activation is now a guided
+> `/admin/setup` card (owner pastes a DSN). #23 dependabot config already existed; the
+> dead `framer-motion` dep was removed.
+
+| Rec | Deliverable | Effort | Acceptance | Status |
+|---|---|---|---|---|
+| **5** Concurrency/hook | Change the pre-commit hook to stage **only its own generated files** (not `git add -A`); document worktree-first in CONTRIBUTING | M | A staged unrelated file is never swept into a commit; registry JSONs stop getting conflict markers | ✅ shipped (`94984077`) — hook was already pathspec-safe; hardened staging guidance in CLAUDE.md |
+| **22** Registry refresh → CI | Move feature/setup/audit registry refresh off per-commit hook to a scheduled/pre-merge CI job (or debounce) | M | Commits no longer spawn 3 chore commits; no JSON races | ✅ shipped (`94984077`) — registry auto-commits now opt-in behind `SWINGVANTAGE_REGISTRY_AUTOCOMMIT` |
+| **16** RLS CI gate | CI script asserting every `public.` table in `supabase-*.sql` has `ENABLE ROW LEVEL SECURITY`; add CODEOWNERS on `lib/security/*`, `middleware.ts`, SQL | S | CI fails if a new table ships without RLS | ✅ shipped (`e136fbd7`) — `scripts/check-rls.mjs` + Security Audit step + CODEOWNERS |
+| **4** Error monitoring | Wire `@sentry/nextjs` (client+server+edge), gated on `SENTRY_DSN` (inert when unset) + a rate-limit/budget breach alert | S–M | Errors appear in Sentry once DSN is set; zero overhead when unset | ✅ seam already wired (instrumentation + `lib/observability/report.ts`); activation card shipped (`5f91cb5e`) — owner pastes DSN per docs/OBSERVABILITY.md |
+| **23** Deps hygiene | `npm rm framer-motion`; add Dependabot/Renovate config + keep `npm audit` failing CI on high+ | S | framer-motion gone; weekly dependency PRs | ✅ shipped (`f5d44a12`) — unused framer-motion removed; `.github/dependabot.yml` already present |
+| **25** ARCHITECTURE.md | Concise map: the OS surfaces, keyless-first capability model, RLS data flow, "audit-don't-rebuild" rule, worktree workflow | S–M | A new contributor/agent can orient in 10 min | ✅ shipped (`e1c4cd59`) — top-level `ARCHITECTURE.md` |
 
 ### Phase 2 — Activation & measurement  *(needs Track A #1 analytics)*
 | Rec | Deliverable | Effort | Acceptance |
