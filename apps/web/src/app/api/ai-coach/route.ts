@@ -22,6 +22,11 @@ import { getCachedResponse, setCachedResponse } from '@/lib/ai-coach/response-ca
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { complete } from '@/lib/ai/gateway';
+import {
+  COACH_RESPONSE_JSON_SCHEMA,
+  coerceStructuredCoachResponse,
+  coachMessageFrom,
+} from '@/lib/ai-coach/structured';
 
 // ── Handler ───────────────────────────────────────────────────
 
@@ -74,6 +79,9 @@ export async function POST(req: NextRequest) {
     messages: [{ role: 'user', content: user }],
     tier: 'fast',
     spendLabel: 'ai-coach',
+    // #1 structured output: the model fills a JSON schema (coaching_text +
+    // evidence/fix/drill/safety) so the app can parse + trust-check the pieces.
+    jsonSchema: COACH_RESPONSE_JSON_SCHEMA,
   });
 
   if (result.fallback === 'error') {
@@ -84,11 +92,15 @@ export async function POST(req: NextRequest) {
   }
 
   if (!result.fallback) {
-    const message = result.text;
+    // Prefer the structured coaching_text; fall back to raw text if the model
+    // returned prose / parsing failed. `structured` is additive — the UI keeps
+    // rendering `message`.
+    const structured = coerceStructuredCoachResponse(result.parsed);
+    const message = coachMessageFrom(structured, result.text);
     setCachedResponse(ctx, message);
     // #2 grounding: surface whether the response's measurement claims trace to
     // the player's data so clients can flag/regenerate ungrounded answers.
-    return NextResponse.json({ message, grounding: validateGrounding(message, ctx) });
+    return NextResponse.json({ message, structured, grounding: validateGrounding(message, ctx) });
   }
 
   // no_provider (keyless) or over_budget → data-grounded placeholder.
