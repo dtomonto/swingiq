@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { CheckCircle2, AlertTriangle, Target, Dumbbell, HelpCircle } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Target, Dumbbell, HelpCircle, ArrowRight } from 'lucide-react';
 import type { SeoPage } from '@/content/seoPages';
+import { getFeature, featureHref } from '@/content/features';
 import { Breadcrumbs } from './Breadcrumbs';
 import { JsonLd } from './JsonLd';
 import {
@@ -21,6 +22,24 @@ const SPORT_LABEL: Record<SeoPage['sport'], string> = {
   baseball: 'Baseball',
   softball: 'Softball',
   multi: 'All Sports',
+};
+
+// Inbound links into the per-feature guides, keyed by the article's sport. This
+// gives every SEO content page a contextual link block to the relevant feature
+// pages (the reciprocal of the relatedLinks the features point back with) —
+// strengthening the internal-link graph from high-authority content pages.
+// Slugs are resolved through getFeature, so a renamed feature simply drops out
+// (never a broken link); the registry test guards the slugs exist.
+const RACKET = ['ai-diagnostic-engine', 'swing-video-upload', 'phase-by-phase-timeline', 'fix-stack', 'motion-lab-3d'];
+const BAT = ['ai-diagnostic-engine', 'swing-video-upload', 'tracking-device-support', 'fix-stack', 'motion-lab-3d'];
+const SPORT_FEATURES: Record<SeoPage['sport'], string[]> = {
+  golf: ['ai-diagnostic-engine', 'swing-video-upload', 'launch-monitor-csv-import', 'fix-stack', 'motion-lab-3d'],
+  tennis: RACKET,
+  pickleball: RACKET,
+  padel: RACKET,
+  baseball: BAT,
+  softball: BAT,
+  multi: ['ai-diagnostic-engine', 'swing-video-upload', 'fix-stack', 'motion-lab-3d', 'athletic-journey'],
 };
 
 function buildSchema(page: SeoPage): Record<string, unknown> {
@@ -203,6 +222,31 @@ export function SeoArticle({ page }: { page: SeoPage }) {
           </Link>
           <p className="mt-3 text-xs text-primary-foreground/80">No account required · Free · Private by default</p>
         </section>
+
+        {/* Features behind this analysis — inbound links to the feature guides */}
+        {(() => {
+          const features = (SPORT_FEATURES[page.sport] ?? [])
+            .map(getFeature)
+            .filter((f): f is NonNullable<typeof f> => Boolean(f));
+          if (features.length === 0) return null;
+          return (
+            <section aria-label="Related features" className="border-t border-border pt-6">
+              <p className="mb-3 text-sm font-semibold text-foreground">The SwingVantage features behind this</p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {features.map((f) => (
+                  <Link
+                    key={f.slug}
+                    href={featureHref(f)}
+                    className="group flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-2 text-sm hover:border-primary/50 hover:bg-primary/5"
+                  >
+                    <span className="font-medium text-foreground group-hover:text-primary">{f.name}</span>
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
 
         {/* Related links */}
         {page.relatedLinks.length > 0 && (
