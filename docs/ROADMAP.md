@@ -58,6 +58,15 @@ reports `aiVision:true`, analytics detected.
 | **25** ARCHITECTURE.md | Concise map: the OS surfaces, keyless-first capability model, RLS data flow, "audit-don't-rebuild" rule, worktree workflow | S–M | A new contributor/agent can orient in 10 min | ✅ shipped (`e1c4cd59`) — top-level `ARCHITECTURE.md` |
 
 ### Phase 2 — Activation & measurement  *(needs Track A #1 analytics)*
+> **Keyless engineering SHIPPED (2026-06-09)** — the code is fully instrumented;
+> only the dashboards light up once an analytics key is set:
+> **#8** wired the three defined-but-unfired funnel events (DRILL_CLICKED, and
+> DATA_EXPORT/DELETE_REQUESTED on the main Data Center + deletion card) (`12eceb8f`).
+> **#9** SaveProgressBanner already bridged local→cloud; tuned its copy to the
+> first-analysis *aha* moment (`dbb51219`). **#10** completed-loops north-star tile
+> + definition (`8e699c38`). **#11** export/delete endpoint security E2E (`f1c5c3a2`).
+> The PostHog *funnel view* itself is the only piece that needs Track A #1 (a key).
+
 | Rec | Deliverable | Effort | Acceptance |
 |---|---|---|---|
 | **8** Activation funnel | Confirm every funnel step emits an event; build a funnel view (PostHog) for upload→#1 fix→drills→retest | M | Drop-off per step visible |
