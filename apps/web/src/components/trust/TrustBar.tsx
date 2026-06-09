@@ -1,9 +1,12 @@
-import { Lock, ShieldCheck, Zap, UserX } from 'lucide-react';
+import { Lock, ShieldCheck, Zap, UserX, EyeOff } from 'lucide-react';
 
 const ITEMS = [
   { icon: UserX, label: 'No account required' },
   { icon: Zap, label: '100% free' },
   { icon: Lock, label: 'Private by default' },
+  // True by default and with the recommended cookieless analytics (Plausible):
+  // no third-party tracking cookies, so no consent banner is needed.
+  { icon: EyeOff, label: 'No tracking cookies' },
   { icon: ShieldCheck, label: 'No credit card' },
 ];
 
