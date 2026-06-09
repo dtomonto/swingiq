@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import Link from 'next/link';
-import { Film, BarChart3, Clapperboard, Mail, FileDown, LineChart, Sparkles, ShieldCheck } from 'lucide-react';
+import { Film, BarChart3, Clapperboard, Mail, FileDown, LineChart, Sparkles, ShieldCheck, Trophy } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import {
   useRecruitingStore,
@@ -16,6 +16,7 @@ import {
 } from '@/components/recruiting';
 
 const QUICK = [
+  { href: '/recruiting/recommendations', label: 'Find your fit', icon: Trophy },
   { href: '/recruiting/film-library', label: 'Film library', icon: Film },
   { href: '/recruiting/data-dashboard', label: 'Data dashboard', icon: BarChart3 },
   { href: '/recruiting/highlight-builder', label: 'Highlight reels', icon: Clapperboard },
