@@ -2,6 +2,8 @@
 // SwingVantage — Athlete Priority Engine types (Phase 7)
 // ============================================================
 
+import type { FaultPattern } from './consistency';
+
 export type PrioritySeverity = 'critical' | 'high' | 'medium' | 'low';
 
 /** How a priority is moving across the athlete's history. */
@@ -28,6 +30,8 @@ export interface AthletePriority {
   occurrences: number;
   /** Total shots backing it across sessions. */
   sampleSize: number;
+  /** Multi-session consistency class (recurring pattern vs one-off blip). */
+  pattern?: FaultPattern;
   trend: PriorityTrend;
   source: PrioritySource;
   recommendedPlanHref: string;
