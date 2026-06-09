@@ -35,30 +35,39 @@ export function CookieBanner() {
         : `${tools.slice(0, -1).join(', ')} and ${tools[tools.length - 1]}`;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-secondary border-t border-border px-4 py-4 no-print">
-      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <p className="text-muted-foreground text-xs leading-relaxed flex-1">
-          SwingVantage uses optional, privacy-respecting analytics{tools.length > 0 ? ` (${toolList})` : ''} that set
-          cookies to help us improve the product. <strong className="text-foreground">Accept all</strong> turns them on;
-          decline and the app works exactly the same, just without them. We don&apos;t use advertising cookies and never
-          sell your data.
+    // Compact, non-intrusive consent card anchored bottom-left. Previously a
+    // full-width bottom bar that overlapped page content (and hero CTAs); a
+    // contained card keeps the choice visible without covering the page. On
+    // mobile it spans the width minus side margins; on ≥sm it caps at ~22rem
+    // and clears the bottom-right help dock. Logic (consentRequired gating,
+    // dynamic tool naming, accept-all/decline-all) is unchanged.
+    <div
+      role="dialog"
+      aria-label="Cookie consent"
+      className="fixed bottom-4 left-4 right-4 z-50 sm:right-auto sm:max-w-sm no-print"
+    >
+      <div className="rounded-2xl border border-border bg-popover text-popover-foreground p-4 shadow-theme-lg">
+        <p className="text-sm font-semibold">Optional analytics</p>
+        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+          We use privacy-respecting analytics{tools.length > 0 ? ` (${toolList})` : ''} that load only if you accept.
+          Decline and the app works exactly the same. No ad cookies; we never sell your data.
         </p>
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="mt-3 flex items-center gap-2">
           <Link
             href="/privacy"
-            className="text-muted-foreground hover:text-foreground text-xs underline transition-colors"
+            className="mr-auto text-xs text-muted-foreground underline underline-offset-2 transition-colors hover:text-foreground"
           >
             Learn More
           </Link>
           <button
             onClick={declineAll}
-            className="text-muted-foreground hover:text-foreground border border-border text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
+            className="rounded-lg border border-border px-3 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-muted"
           >
             Decline
           </button>
           <button
             onClick={acceptAll}
-            className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
+            className="rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition hover:brightness-[1.08]"
           >
             Accept all
           </button>
