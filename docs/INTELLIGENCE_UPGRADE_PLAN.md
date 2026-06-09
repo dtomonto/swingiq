@@ -64,8 +64,8 @@ A single typed AI gateway underpins tiering, batching, logging, eval. Mostly own
 | # | Item | Status | Notes |
 |---|------|--------|-------|
 | 17 | Fuse objective pose metrics (kinetic-chain, hip-shoulder sep) into the vision prompt as ground truth | 🔑 | LLM interprets measured motion instead of guessing from frames. Numbers are keyless (motion-lab); the vision call is gated. |
-| 18 | Swing-repeatability score as a first-class output | ✅ | `motion-lab/repeatability.ts` exists; headline consistency (the #1 amateur differentiator). |
-| 19 | Quality-gate AI-vision spend (`motion-lab/quality.ts`) | ✅ | Reject low-quality clips before the paid call; tell user to re-record. |
+| 18 | Swing-repeatability score as a first-class output | 🟢 | ALREADY DONE — `computeRepeatability` computed + surfaced in `MotionResultsDashboard`. Audit-first win, no rebuild. |
+| 19 | Quality-gate AI-vision spend (`motion-lab/quality.ts`) | 🟢 | SHIPPED `8f97d1ea`. `assessVisionGate` blocks un-analyzable/'poor' clips before the paid call. 5 tests. |
 
 ---
 
