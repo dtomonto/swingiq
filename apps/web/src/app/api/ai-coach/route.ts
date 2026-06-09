@@ -17,6 +17,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { buildCoachPrompt, validateUserQuestion, type CoachContext } from '@/lib/ai-coach-prompts';
+import { validateGrounding } from '@/lib/ai-coach/grounding';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
@@ -104,7 +105,9 @@ export async function POST(req: NextRequest) {
       };
       const message = data.choices[0]?.message?.content?.trim() ?? '';
       await recordAiSpend('ai-coach');
-      return NextResponse.json({ message });
+      // #2 grounding: surface whether the response's measurement claims trace
+      // to the player's data (clients may flag/regenerate ungrounded answers).
+      return NextResponse.json({ message, grounding: validateGrounding(message, ctx) });
     } catch (err) {
       console.error('[AI Coach] OpenAI fetch failed:', err);
       return NextResponse.json(
@@ -145,7 +148,7 @@ export async function POST(req: NextRequest) {
       };
       const message = data.content.find((c) => c.type === 'text')?.text?.trim() ?? '';
       await recordAiSpend('ai-coach');
-      return NextResponse.json({ message });
+      return NextResponse.json({ message, grounding: validateGrounding(message, ctx) });
     } catch (err) {
       console.error('[AI Coach] Anthropic fetch failed:', err);
       return NextResponse.json(
@@ -156,9 +159,8 @@ export async function POST(req: NextRequest) {
   }
 
   // No AI key configured — return a helpful placeholder for development
-  return NextResponse.json({
-    message: buildDevPlaceholderResponse(ctx),
-  });
+  const placeholder = buildDevPlaceholderResponse(ctx);
+  return NextResponse.json({ message: placeholder, grounding: validateGrounding(placeholder, ctx) });
 }
 
 /** Returns a data-grounded placeholder when no AI key is configured. */
