@@ -2,12 +2,21 @@
 // Replaces the old .eslintrc.json — Next 16 removed `next lint`, so linting now
 // runs via the ESLint CLI (`npm run lint`).
 //
-// `eslint-config-next/core-web-vitals` already registers the @next/next, react,
-// react-hooks, import, @typescript-eslint and jsx-a11y plugins, so we only layer
-// rule overrides on top (re-registering those plugins would error in flat config).
+// `eslint-config-next/core-web-vitals` registers the @next/next, react,
+// react-hooks, import and jsx-a11y plugins globally, so we layer rule overrides
+// for those on top (re-registering them would error in flat config).
+//
+// IMPORTANT: it registers the @typescript-eslint plugin ONLY inside a config
+// object scoped to `files: ['**/*.ts','**/*.tsx']`. A flat-config object can only
+// reference rules from a plugin registered in an object that matches the same
+// files. So our @typescript-eslint/* rule overrides must live in a TS-scoped
+// object that re-registers the plugin — otherwise ESLint tries to apply them to
+// .js/.mjs files where the plugin was never registered and fails config
+// validation ("could not find plugin @typescript-eslint").
 
 import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
 
 export default [
   {
@@ -29,9 +38,6 @@ export default [
       'no-eval': 'error',
       'no-implied-eval': 'error',
 
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-
       // Pre-existing a11y violations in the older app surface, tracked for
       // incremental cleanup. New code should satisfy these.
       'jsx-a11y/label-has-associated-control': 'warn',
@@ -49,6 +55,27 @@ export default [
       'react-hooks/set-state-in-effect': 'warn',
       'react-hooks/refs': 'warn',
       'react-hooks/purity': 'warn',
+      'react-hooks/use-memo': 'warn',
+      'react-hooks/immutability': 'warn',
+      'react-hooks/static-components': 'warn',
+
+      // Pre-existing next/react violations in the older app surface (legacy <a>
+      // links to in-app pages, unescaped entities in copy), tracked for
+      // incremental cleanup. New code should satisfy these.
+      '@next/next/no-html-link-for-pages': 'warn',
+      'react/no-unescaped-entities': 'warn',
+    },
+  },
+  {
+    // @typescript-eslint rules must be scoped to the files where the plugin is
+    // registered. We re-register the plugin here so these overrides resolve.
+    files: ['**/*.ts', '**/*.tsx'],
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     },
   },
 ];
