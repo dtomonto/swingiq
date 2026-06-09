@@ -59,6 +59,8 @@ export interface NavItem {
   href: string;
   icon: LucideIcon;
   group: NavGroupId;
+  /** Optional sub-header within a group, to make large groups scannable. */
+  subgroup?: string;
   /** One-line "what this section does" — shown as a tooltip and on cards. */
   blurb: string;
   /** RBAC permission required to see/use the section (undefined = any admin). */
@@ -80,7 +82,7 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['home', 'dashboard', 'overview', 'kpi'],
   },
   {
-    id: 'today-command-center', label: "Today's Command Center", href: '/admin/command-center', icon: Gauge,
+    id: 'today-command-center', label: "Today's Tasks", href: '/admin/command-center', icon: Gauge,
     group: 'overview', built: true,
     blurb: 'DailyActionIntelligenceOS — a prioritized, transparently-scored "to do today" list computed from live signals (drill coverage, audit findings, doc gaps, setup, analytics). Each item explains why it matters, what data is missing, the exact steps, the impact, and how completion is detected.',
     keywords: ['command center', 'today', 'daily', 'cockpit', 'recommendations', 'priorities', 'to do today', 'data gaps', 'feature readiness', 'intelligence scan', 'daily action', 'what should i do', 'operating system', 'briefing'],
@@ -183,91 +185,91 @@ export const NAV_ITEMS: NavItem[] = [
   // ── Content ────────────────────────────────────────────────
   {
     id: 'content', label: 'Content', href: '/admin/content', icon: FileText,
-    group: 'content', built: true, permission: 'content.edit',
+    group: 'content', subgroup: 'Pages & Docs', built: true, permission: 'content.edit',
     blurb: 'All pages, blog, tutorials, manuals and generated fix pages.',
     keywords: ['cms', 'pages', 'articles'],
   },
   {
     id: 'drills', label: 'Drill Library', href: '/admin/drills', icon: Dumbbell,
-    group: 'content', built: true, permission: 'content.edit',
+    group: 'content', subgroup: 'Drills & Plans', built: true, permission: 'content.edit',
     blurb: 'Unified, read-only inventory of every drill across catalogs — sport, category, difficulty, target fault, equipment and source — to see coverage and spot gaps or duplicates.',
     keywords: ['drills', 'drill library', 'practice', 'catalog', 'exercises', 'drillmatch', 'fix stack', 'coverage', 'training'],
   },
   {
     id: 'drill-editor', label: 'Drill Editor', href: '/admin/drills/manage', icon: SquarePen,
-    group: 'content', built: true, permission: 'content.edit',
+    group: 'content', subgroup: 'Drills & Plans', built: true, permission: 'content.edit',
     blurb: 'Create, edit and retire drills as a local-first preview overlay on the code catalogs, then export the overlay as JSON to commit globally. No writes to live data from the browser.',
     keywords: ['drill editor', 'edit drills', 'create drill', 'custom drill', 'manage drills', 'drill overrides', 'retire drill', 'content editing'],
   },
   {
     id: 'practice-plans', label: 'Practice Plans', href: '/admin/practice-plans', icon: ClipboardCheck,
-    group: 'content', built: true, permission: 'content.edit',
+    group: 'content', subgroup: 'Drills & Plans', built: true, permission: 'content.edit',
     blurb: 'Preview the practice-planner across sports & skill levels (plus a youth variant) — focus, warm-up, drills, pressure test and success metric. Read-only; plans are generated per athlete.',
     keywords: ['practice plans', 'practice', 'planner', 'training plan', 'routine', 'session plan', 'drills', 'warmup', 'plan templates'],
   },
   {
     id: 'plan-editor', label: 'Plan Template Editor', href: '/admin/practice-plans/manage', icon: ClipboardList,
-    group: 'content', built: true, permission: 'content.edit',
+    group: 'content', subgroup: 'Drills & Plans', built: true, permission: 'content.edit',
     blurb: 'Create, edit and retire practice-plan templates seeded from the real planner, as a local-first overlay you export to commit globally. No writes to live data from the browser.',
     keywords: ['plan editor', 'practice plan templates', 'edit plans', 'create plan', 'custom plan', 'plan templates', 'manage plans', 'plan overrides'],
   },
   {
     id: 'updates', label: 'Publishing', href: '/admin/updates', icon: Newspaper,
-    group: 'content', built: true, permission: 'content.publish',
+    group: 'content', subgroup: 'Publishing & Media', built: true, permission: 'content.publish',
     blurb: 'Review and publish auto-generated changelog entries (Updates & Developer Updates) before they go live.',
     keywords: ['updates', 'changelog', 'dev-updates', 'publish', 'draft', 'release notes', 'announcements'],
   },
   {
     id: 'library-publishing', label: 'Library Publishing', href: '/admin/library', icon: Clapperboard,
-    group: 'content', built: true, permission: 'content.publish',
+    group: 'content', subgroup: 'Publishing & Media', built: true, permission: 'content.publish',
     blurb: 'Choose which training videos appear on the public /learn pages. Every video is already in the in-app library; flip a few to public per week to roll them out to search gradually.',
     keywords: ['library', 'video library', 'learn', 'publish', 'videos', 'training videos', 'rollout', 'seo'],
   },
   {
     id: 'assets', label: 'Asset Library', href: '/admin/assets', icon: Images,
-    group: 'content', built: true, permission: 'content.edit',
+    group: 'content', subgroup: 'Publishing & Media', built: true, permission: 'content.edit',
     blurb: 'One internal catalog of every generated media asset — training videos, feature walkthroughs, and Video Studio assets — with previews, files, and where each is used. Read-only and self-maintaining.',
     keywords: ['assets', 'digital asset library', 'dam', 'media library', 'generated media', 'videos', 'posters', 'captions', 'catalog'],
   },
   {
     id: 'generated-fixes', label: 'Generated Fixes', href: '/admin/content/generated-fixes', icon: Wand2,
-    group: 'content', built: true, permission: 'content.publish',
+    group: 'content', subgroup: 'Publishing & Media', built: true, permission: 'content.publish',
     blurb: 'Review queue for AI-generated repair/fix pages before they go live.',
     keywords: ['generated', 'fix', 'repair', 'queue', 'relevance'],
   },
   {
     id: 'seo', label: 'SEO / AEO / GEO', href: '/admin/seo', icon: Search,
-    group: 'content', built: true, permission: 'seo.edit',
+    group: 'content', subgroup: 'Pages & Docs', built: true, permission: 'seo.edit',
     blurb: 'Manage how SwingVantage appears in Google and AI answer engines.',
     keywords: ['search', 'keywords', 'rankings', 'schema', 'aeo', 'geo'],
   },
   {
     id: 'sports', label: 'Sports', href: '/admin/sports', icon: Trophy,
-    group: 'content', built: true, permission: 'sports.manage',
+    group: 'content', subgroup: 'Sports config', built: true, permission: 'sports.manage',
     blurb: 'Configure each sport: faults, drills, fields, templates and journeys.',
     keywords: ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball'],
   },
   {
     id: 'social', label: 'Social Generator', href: '/admin/social', icon: Share2,
-    group: 'content', built: true, external: true, permission: 'content.publish',
+    group: 'content', subgroup: 'Publishing & Media', built: true, external: true, permission: 'content.publish',
     blurb: 'Turn published content into platform-native social posts.',
     keywords: ['instagram', 'tiktok', 'x', 'linkedin', 'posts'],
   },
   {
     id: 'video-studio', label: 'Video Studio', href: '/admin/video-studio', icon: Clapperboard,
-    group: 'content', built: true, external: true, permission: 'content.edit',
+    group: 'content', subgroup: 'Publishing & Media', built: true, external: true, permission: 'content.edit',
     blurb: 'AI video department: briefs, generation, placement and measurement.',
     keywords: ['video', 'generation', 'render'],
   },
   {
     id: 'feature-education', label: 'Feature Education', href: '/admin/feature-education', icon: BookOpen,
-    group: 'content', built: true, permission: 'content.edit',
+    group: 'content', subgroup: 'Pages & Docs', built: true, permission: 'content.edit',
     blurb: 'The Feature Registry + education engine: every shipped feature, its coverage/drift, and auto-generated tutorials, how-tos, videos & docs.',
     keywords: ['docs', 'tutorials', 'manuals', 'how-to', 'guides', 'help center', 'feature registry', 'registry', 'coverage', 'drift', 'education'],
   },
   {
     id: 'feature-pages', label: 'Feature Pages (public)', href: '/features', icon: ClipboardList,
-    group: 'content', built: true, external: true, permission: 'content.edit',
+    group: 'content', subgroup: 'Pages & Docs', built: true, external: true, permission: 'content.edit',
     blurb: 'The live, public per-feature guide pages — each feature’s comprehensive description, how-to guide, FAQs and schema. Content lives in @/content/features.',
     keywords: ['features', 'public', 'marketing', 'feature pages', 'guides', 'how-to', 'registry'],
   },

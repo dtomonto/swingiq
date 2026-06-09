@@ -12,10 +12,14 @@ import { AdminSidebar } from './AdminSidebar';
 import { AdminTopbar } from './AdminTopbar';
 import { GlobalSearch } from './GlobalSearch';
 import { roleHasPermission, type RoleId, type Permission } from '@/lib/admin/rbac';
+import { activeNavItem } from '@/lib/admin/nav';
+import { pushRecent } from '@/lib/admin/nav-prefs';
 
 export interface AdminShellProps {
   email: string | null;
   role: RoleId;
+  /** Count of items awaiting review (Action Center) — shows a topbar badge. */
+  actionCount?: number;
   children: React.ReactNode;
 }
 
@@ -30,7 +34,7 @@ function Brand() {
   );
 }
 
-export function AdminShell({ email, role, children }: AdminShellProps) {
+export function AdminShell({ email, role, actionCount = 0, children }: AdminShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const pathname = usePathname();
@@ -38,12 +42,22 @@ export function AdminShell({ email, role, children }: AdminShellProps) {
   // Close the mobile drawer on route change.
   useEffect(() => setDrawerOpen(false), [pathname]);
 
-  // "/" opens global search (unless typing in a field).
+  // Record the visited section for the sidebar "Recent" shortcuts.
+  useEffect(() => {
+    const item = activeNavItem(pathname || '/admin');
+    if (item) pushRecent(item.id);
+  }, [pathname]);
+
+  // ⌘K / Ctrl+K (and "/") open global search, unless typing in a field.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
       const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable);
-      if (e.key === '/' && !typing) {
+      const cmdK = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k';
+      if (cmdK) {
+        e.preventDefault();
+        setSearchOpen((o) => !o);
+      } else if (e.key === '/' && !typing) {
         e.preventDefault();
         setSearchOpen(true);
       }
@@ -95,6 +109,7 @@ export function AdminShell({ email, role, children }: AdminShellProps) {
         <AdminTopbar
           email={email}
           role={role}
+          actionCount={actionCount}
           onOpenSidebar={() => setDrawerOpen(true)}
           onOpenSearch={() => setSearchOpen(true)}
         />

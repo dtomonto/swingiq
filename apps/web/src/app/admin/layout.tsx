@@ -15,6 +15,7 @@ import { safeEqual } from '@/lib/security/constant-time';
 import { isAdminUser } from '@/lib/auth/admin';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { getServerAdminRole } from '@/lib/admin/context';
+import { collectServerActions } from '@/lib/admin/action-center';
 import { AdminShell } from '@/components/admin/AdminShell';
 
 export const metadata: Metadata = {
@@ -52,8 +53,17 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const email = user?.email ?? null;
   const role = getServerAdminRole(email);
 
+  // Action Center count for the persistent topbar badge. Best-effort: never
+  // let it break the shell (defaults to 0 if the roll-up is unavailable).
+  let actionCount = 0;
+  try {
+    actionCount = (await collectServerActions()).length;
+  } catch {
+    actionCount = 0;
+  }
+
   return (
-    <AdminShell email={email} role={role}>
+    <AdminShell email={email} role={role} actionCount={actionCount}>
       {children}
     </AdminShell>
   );

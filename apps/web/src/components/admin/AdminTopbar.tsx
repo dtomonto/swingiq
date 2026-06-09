@@ -5,19 +5,25 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, Search, HelpCircle, ChevronDown, LogOut, UserCircle2 } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Menu, Search, HelpCircle, ChevronDown, LogOut, UserCircle2, Bell } from 'lucide-react';
 import { Breadcrumbs } from './Breadcrumbs';
 import { ROLES, type RoleId } from '@/lib/admin/rbac';
+import { activeNavItem } from '@/lib/admin/nav';
 
 export interface AdminTopbarProps {
   email: string | null;
   role: RoleId;
+  /** Items awaiting review (Action Center) — renders a badge when > 0. */
+  actionCount?: number;
   onOpenSidebar: () => void;
   onOpenSearch: () => void;
 }
 
-export function AdminTopbar({ email, role, onOpenSidebar, onOpenSearch }: AdminTopbarProps) {
+export function AdminTopbar({ email, role, actionCount = 0, onOpenSidebar, onOpenSearch }: AdminTopbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname() || '/admin';
+  const sectionLabel = activeNavItem(pathname)?.label ?? 'Admin';
 
   return (
     <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-gray-800 bg-gray-900/95 px-4 py-2.5 backdrop-blur">
@@ -32,6 +38,10 @@ export function AdminTopbar({ email, role, onOpenSidebar, onOpenSearch }: AdminT
       <div className="hidden min-w-0 flex-1 lg:block">
         <Breadcrumbs />
       </div>
+      {/* Mobile: show the current section so users always know where they are. */}
+      <span className="min-w-0 flex-1 truncate text-sm font-semibold text-gray-200 lg:hidden">
+        {sectionLabel}
+      </span>
 
       <button
         onClick={onOpenSearch}
@@ -39,8 +49,23 @@ export function AdminTopbar({ email, role, onOpenSidebar, onOpenSearch }: AdminT
       >
         <Search className="h-3.5 w-3.5" />
         <span className="hidden sm:inline">Search admin…</span>
-        <kbd className="hidden rounded bg-gray-800 px-1 text-[10px] sm:inline">/</kbd>
+        <kbd className="hidden rounded bg-gray-800 px-1 text-[10px] sm:inline">⌘K</kbd>
       </button>
+
+      {/* Action Center alert badge — visible from every page. */}
+      <Link
+        href="/admin/approvals"
+        className="relative rounded-md p-1.5 text-gray-400 hover:bg-gray-800"
+        title={actionCount > 0 ? `${actionCount} item${actionCount === 1 ? '' : 's'} need review` : 'Action Center — nothing pending'}
+        aria-label={actionCount > 0 ? `${actionCount} items need review` : 'Action Center'}
+      >
+        <Bell className="h-5 w-5" />
+        {actionCount > 0 && (
+          <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amber-500 px-1 text-[9px] font-bold text-gray-950">
+            {actionCount > 99 ? '99+' : actionCount}
+          </span>
+        )}
+      </Link>
 
       <Link
         href="/admin/learning"
