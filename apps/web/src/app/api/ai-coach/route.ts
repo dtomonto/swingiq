@@ -18,6 +18,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { buildCoachPrompt, validateUserQuestion, type CoachContext } from '@/lib/ai-coach-prompts';
 import { validateGrounding } from '@/lib/ai-coach/grounding';
+import { getCachedResponse, setCachedResponse } from '@/lib/ai-coach/response-cache';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
@@ -54,6 +55,13 @@ export async function POST(req: NextRequest) {
 
   // Build the structured prompt — AI only gets pre-computed stats
   const { system, user } = buildCoachPrompt(ctx);
+
+  // #6 response cache: an identical (context, question) request skips the paid
+  // API call entirely. App-level, keyed on a stable hash of the structured ctx.
+  const cached = getCachedResponse(ctx);
+  if (cached) {
+    return NextResponse.json({ message: cached, grounding: validateGrounding(cached, ctx), cached: true });
+  }
 
   // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set).
   // When the day's estimated AI budget is spent, skip the paid call and fall
@@ -105,6 +113,7 @@ export async function POST(req: NextRequest) {
       };
       const message = data.choices[0]?.message?.content?.trim() ?? '';
       await recordAiSpend('ai-coach');
+      setCachedResponse(ctx, message);
       // #2 grounding: surface whether the response's measurement claims trace
       // to the player's data (clients may flag/regenerate ungrounded answers).
       return NextResponse.json({ message, grounding: validateGrounding(message, ctx) });
@@ -148,6 +157,7 @@ export async function POST(req: NextRequest) {
       };
       const message = data.content.find((c) => c.type === 'text')?.text?.trim() ?? '';
       await recordAiSpend('ai-coach');
+      setCachedResponse(ctx, message);
       return NextResponse.json({ message, grounding: validateGrounding(message, ctx) });
     } catch (err) {
       console.error('[AI Coach] Anthropic fetch failed:', err);
