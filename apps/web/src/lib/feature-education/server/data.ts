@@ -31,6 +31,7 @@ import {
   gapForFeature,
 } from '../coverage';
 import { detectDrift } from '../drift';
+import { SEEDED_IN_APP_HELP } from './seed-help';
 import {
   makeFeeAudit,
   type FeatureRecord,
@@ -202,8 +203,13 @@ export async function loadAlertCounts(now: Date = new Date()): Promise<{
 /** Published in-app help, queryable by route (the in-app reader uses this). */
 export async function publishedInAppHelpForRoute(route: string): Promise<EducationAsset[]> {
   const repo = getRepo();
-  const assets = await repo.listAssets();
-  return assets.filter(
+  const stored = await repo.listAssets();
+  // Union committed/curated seed cards with repo assets so published help shows
+  // out of the box regardless of backend. A repo asset with the same id wins
+  // (set last), so the admin pipeline can override or retire a seeded card.
+  const byId = new Map<string, EducationAsset>();
+  for (const a of [...SEEDED_IN_APP_HELP, ...stored]) byId.set(a.id, a);
+  return [...byId.values()].filter(
     (a) => a.type === 'in-app-help' && a.status === 'published' && a.inAppHelp?.route === route,
   );
 }

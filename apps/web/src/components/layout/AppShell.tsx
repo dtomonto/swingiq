@@ -11,6 +11,7 @@ import { ContextualHelpButton } from '@/components/tutorial/ContextualHelpButton
 import { TutorialWelcomePrompt } from '@/components/tutorial/TutorialWelcomePrompt';
 import { OfflineBanner } from './OfflineBanner';
 import { CelebrationHost } from '@/components/celebrations/CelebrationHost';
+import { FeatureHelp } from '@/components/feature-education/FeatureHelp';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -117,6 +118,12 @@ export function AppShell({ children }: AppShellProps) {
         {/* Page content */}
         <main id="main-content" className="flex-1 overflow-auto pb-20 lg:pb-0">
           <OfflineBanner />
+          {/* Contextual in-app help published by the Feature Education Engine
+              for the current route. Renders nothing until an admin publishes
+              help for this exact path, so it's safe to mount app-wide. The
+              wrapper classes only apply when a banner is actually shown
+              (FeatureHelp returns null otherwise), so no empty gutter appears. */}
+          <FeatureHelp route={pathname} className="mx-auto w-full max-w-5xl space-y-2 px-4 pt-4 sm:px-6" />
           {children}
         </main>
 
