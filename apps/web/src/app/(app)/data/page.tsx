@@ -22,6 +22,7 @@ import { encryptBackup, decryptBackup, isEncryptedBackup } from '@/lib/backup/cr
 import { formatLastExport } from '@/lib/community/backup-health';
 import { getExportableModules } from '@/lib/backup/registry';
 import { wipeAllDeviceData } from '@/lib/storage/device-data';
+import { DeleteAccountCard } from '@/components/data/DeleteAccountCard';
 import type { SwingVantageBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
 import {
   Download, Upload, Shield, Lock, AlertTriangle, CheckCircle,
@@ -577,7 +578,10 @@ export default function DataCenterPage() {
           </CardBody>
         </Card>
 
-        {/* Danger zone */}
+        {/* Danger zone — account deletion (cloud) shows only for signed-in cloud users */}
+        <DeleteAccountCard />
+
+        {/* Danger zone — clear data on THIS device (always available, keyless-first) */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-error">

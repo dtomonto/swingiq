@@ -31,8 +31,13 @@ Last updated: May 31, 2026.
   chooses to. Sharing is text-summary only — never raw video — and a privacy
   acknowledgement gates every share action (see
   `components/report/ShareableReportCard.tsx`).
-- **User-controlled deletion + export.** Users can export everything and delete
-  any record or everything from Settings.
+- **User-controlled deletion + export.** Users can export everything (optionally
+  encrypted) and erase their data from the **Data Center** (`/data`). Two paths:
+  *Clear Data* wipes everything on the device (always available, keyless-first);
+  *Delete account & all cloud data* (signed-in cloud users) deletes the Supabase
+  auth account, which cascades to every owned row immediately — routine encrypted
+  backups roll off within 30 days, with no shadow copy retained. Server route:
+  `POST /api/user/delete` (deletes only the caller's own id).
 - **Honest AI.** Outputs are labeled estimates, not certified instruction, and
   we never guarantee a result. Trust components and notices repeat this near
   conversion points.
