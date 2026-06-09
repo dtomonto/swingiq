@@ -178,7 +178,7 @@ function MasterSwitchCard({ connection }: { connection: Dashboard['connection'] 
         </div>
         <p className="mt-1 max-w-xl text-xs text-gray-500">
           {provisioned
-            ? 'Master kill-switch for the heatmap / session-recording tag. Takes effect on the next page load. Device-local like all operator flags — the durable, all-visitor control is the NEXT_PUBLIC_CLARITY_PROJECT_ID env var.'
+            ? 'Master kill-switch for the heatmap / session-recording tag. The tag also only loads for visitors who accept cookies (consent-gated). Device-local like all operator flags — the durable, all-visitor control is the NEXT_PUBLIC_CLARITY_PROJECT_ID env var.'
             : 'Set NEXT_PUBLIC_CLARITY_PROJECT_ID first (Connect tab). With no project id the tag can’t load, so this switch has nothing to control yet.'}
         </p>
       </div>
@@ -612,7 +612,9 @@ CLARITY_DATA_EXPORT_TOKEN=your_data_export_token`}</pre>
           The export token is read server-side only and never sent to the browser.
         </p>
         <p className="mt-2 text-xs text-amber-400/90">
-          Privacy: Clarity records sessions and sets cookies (unlike the cookieless Plausible default), so pair it with a cookie-consent banner in the EU and keep masking on for youth safety.
+          Privacy: Clarity records sessions and sets cookies (unlike the cookieless Plausible default). The tag is
+          consent-gated — it loads only for visitors who accept cookies in the banner; everyone else uses the app
+          normally without it. Keep masking on for youth safety.
         </p>
       </SectionCard>
 

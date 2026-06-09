@@ -17,6 +17,7 @@
 import Script from 'next/script';
 import { useSyncExternalStore } from 'react';
 import { isFlagEnabled, useFeatureFlags } from '@/lib/admin/stores/feature-flags';
+import { hasAnalyticsConsent, subscribeConsent } from '@/lib/consent';
 
 const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || '';
 
@@ -25,13 +26,19 @@ export function ClarityScript() {
   // snapshot is `false`, so nothing renders during SSR (the tag is a
   // client-only, afterInteractive script anyway) — this avoids any hydration
   // mismatch and makes the toggle reactive without a setState-in-effect.
-  const enabled = useSyncExternalStore(
+  const flagEnabled = useSyncExternalStore(
     (cb) => useFeatureFlags.subscribe(cb),
     () => isFlagEnabled('clarity.enabled'),
     () => false,
   );
 
-  if (!CLARITY_PROJECT_ID || !enabled) return null;
+  // Clarity sets cookies and records sessions, so it loads ONLY after the
+  // visitor accepts cookies. No consent (declined or not-yet-chosen) → the tag
+  // never loads, and the app works normally without it. Subscribing here means
+  // accepting in the banner starts Clarity immediately, with no page reload.
+  const consented = useSyncExternalStore(subscribeConsent, hasAnalyticsConsent, () => false);
+
+  if (!CLARITY_PROJECT_ID || !flagEnabled || !consented) return null;
 
   return (
     <Script id="clarity-init" strategy="afterInteractive">
