@@ -23,6 +23,7 @@ export * from './schemas/shot.schema';
 export * from './schemas/profile.schema';
 export * from './diagnostic/rules';
 export * from './diagnostic/engine';
+export * from './diagnostic/persistence';
 export * from './training/routines';
 export * from './import/normalizer';
 export * from './import/ai-mapping';
