@@ -43,6 +43,8 @@ export async function generateMetadata({
     title: metaTitle(f),
     description: metaDescription(f),
     path: featureHref(f),
+    // Per-feature social share card (1200×630) — see app/api/og/feature/[slug].
+    ogImage: `/api/og/feature/${f.slug}`,
   });
 }
 

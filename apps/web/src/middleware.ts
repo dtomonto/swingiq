@@ -105,6 +105,9 @@ const PUBLIC_PREFIXES = [
   '/favicon',
   '/manifest',
   '/icons/',
+  // Dynamically-generated social share images (Open Graph). Must be public so
+  // Facebook/X/LinkedIn crawlers can fetch them without a session.
+  '/api/og/',
   '/api/health',
   // Public form endpoints — anonymous visitors on public pages must be able
   // to POST these. Each self-rate-limits by IP and stores/sends nothing
