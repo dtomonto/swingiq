@@ -34,17 +34,37 @@ done
 root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
 cd "$root" || exit 0
 
-# Fail open if we can't run the gate at all (tooling gap, not a content problem).
+# Fail open if we can't run the gates at all (tooling gap, not a code problem).
 command -v node >/dev/null 2>&1 || exit 0
-[ -f scripts/check-sitemap-coverage.mjs ] || exit 0
 
-echo "pre-push: verifying sitemap coverage before pushing to master…"
-if ! node scripts/check-sitemap-coverage.mjs; then
+fail() {
   echo ""
-  echo "✗ pre-push BLOCKED: sitemap coverage gate failed (see above)."
-  echo "  Fix app/sitemap.ts (or EXCLUDE the path) so every public page is covered,"
-  echo "  then push again. To bypass for a one-off: git push --no-verify"
+  echo "✗ pre-push BLOCKED: $1"
+  echo "  Fix it and push again. To bypass for a one-off: git push --no-verify"
   exit 1
+}
+
+# 1) Sitemap coverage — every public page is in the sitemap or excluded.
+if [ -f scripts/check-sitemap-coverage.mjs ]; then
+  echo "pre-push (1/3): sitemap coverage…"
+  node scripts/check-sitemap-coverage.mjs || fail "sitemap coverage gate failed (see above)."
 fi
 
+# 2) Naming convention — no new camelCase lib modules (keeps the gate green).
+if [ -f scripts/check-naming.mjs ]; then
+  echo "pre-push (2/3): naming convention…"
+  node scripts/check-naming.mjs || fail "naming gate failed — rename to kebab-case (see above)."
+fi
+
+# 3) TypeScript — master must compile. This is the guard against shipping a
+#    tsc-red master from in-flight work. Slower (~30-60s) but a push is rare.
+#    Skip for an emergency with SKIP_TSC=1 git push (use sparingly).
+if [ "${SKIP_TSC:-0}" != "1" ] && command -v npm >/dev/null 2>&1; then
+  echo "pre-push (3/3): type-check (set SKIP_TSC=1 to skip)…"
+  npm run --silent type-check || fail "type-check failed — master must compile."
+else
+  echo "pre-push (3/3): type-check SKIPPED."
+fi
+
+echo "pre-push: all gates passed ✓"
 exit 0

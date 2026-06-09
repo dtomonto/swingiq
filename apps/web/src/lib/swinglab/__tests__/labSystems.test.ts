@@ -1,5 +1,5 @@
-import { buildLabSystems } from '../labSystems';
-import type { LabSignals } from '../labState';
+import { buildLabSystems } from '../lab-systems';
+import type { LabSignals } from '../lab-state';
 
 const empty: LabSignals = { hasProfile: false, captures: 0, planStatus: 'none', clubCount: 0, lastActivityAt: null };
 const active: LabSignals = { hasProfile: true, captures: 3, planStatus: 'in_progress', clubCount: 10, lastActivityAt: 'x' };

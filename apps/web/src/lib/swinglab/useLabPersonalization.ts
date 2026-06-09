@@ -20,8 +20,8 @@ import {
   buildLabPersonalization,
   type GuidedStep,
   type LabSignals,
-} from './labState';
-import { buildLabSystems, type LabSystemsModel } from './labSystems';
+} from './lab-state';
+import { buildLabSystems, type LabSystemsModel } from './lab-systems';
 
 export function useLabPersonalization(): {
   ready: boolean;

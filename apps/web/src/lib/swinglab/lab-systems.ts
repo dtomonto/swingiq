@@ -13,7 +13,7 @@
 // ============================================================
 
 import { LAB_STATIONS } from '@/content/swinglab';
-import type { LabSignals } from './labState';
+import type { LabSignals } from './lab-state';
 
 /** A directed data-flow link in the improvement loop. */
 export interface LabConnection {
