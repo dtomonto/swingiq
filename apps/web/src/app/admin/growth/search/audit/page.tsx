@@ -13,6 +13,8 @@ import { runSearchIntel } from '@/lib/growth/search-intelligence';
 import { humanize } from '@/lib/growth/format';
 import { ModuleHeader, SectionCard, KpiCard, Badge } from '../../_components/ui';
 import { SeverityBadge, Pill } from '../_ui';
+import { ExportCsvButton } from '../ExportCsvButton';
+import type { CsvValue } from '@/lib/growth/search-intelligence';
 
 export const metadata: Metadata = { title: 'Site Audit | GrowthOS', robots: 'noindex, nofollow' };
 export const dynamic = 'force-dynamic';
@@ -33,10 +35,30 @@ export default function SiteAuditPage() {
     .map(([cat, items]) => ({ cat, items: items.sort((a, b) => b.priorityScore - a.priorityScore) }))
     .sort((a, b) => (b.items[0]?.priorityScore ?? 0) - (a.items[0]?.priorityScore ?? 0));
 
+  const exportRows: Record<string, CsvValue>[] = r.issues.map((i) => ({
+    severity: i.severity,
+    category: i.category,
+    issue_type: i.issueType,
+    title: i.title,
+    url: i.url,
+    affected_urls: i.affectedUrls.join(' | '),
+    evidence: i.evidence,
+    recommended_fix: i.recommendedFix,
+    expected_impact: i.expectedImpact,
+    fix_complexity: i.fixComplexity,
+    confidence: i.confidence,
+    priority: i.priorityScore,
+    auto_fix_available: i.autoFixAvailable,
+    requires_approval: i.requiresApproval,
+  }));
+
   return (
     <div className="space-y-6">
       <ModuleHeader icon={AlertTriangle} title="Site Audit" description="Technical SEO issues with severity, evidence, and a recommended fix.">
-        <Link href="/admin/growth/search" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-200"><ArrowLeft className="w-4 h-4" /> Command Center</Link>
+        <div className="flex items-center gap-2">
+          <ExportCsvButton rows={exportRows} filename="swingvantage-site-audit.csv" />
+          <Link href="/admin/growth/search" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-200"><ArrowLeft className="w-4 h-4" /> Command Center</Link>
+        </div>
       </ModuleHeader>
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">

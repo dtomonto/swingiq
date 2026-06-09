@@ -13,6 +13,8 @@ import { runSearchIntel } from '@/lib/growth/search-intelligence';
 import { humanize } from '@/lib/growth/format';
 import { ModuleHeader, SectionCard, KpiCard, Badge, DataSourceBadge } from '../../_components/ui';
 import { accent, Pill } from '../_ui';
+import { ExportCsvButton } from '../ExportCsvButton';
+import type { CsvValue } from '@/lib/growth/search-intelligence';
 
 export const metadata: Metadata = { title: 'Content Opportunities | GrowthOS', robots: 'noindex, nofollow' };
 export const dynamic = 'force-dynamic';
@@ -23,10 +25,29 @@ export default function OpportunitiesPage() {
   const golf = opps.filter((o) => o.sport === 'golf').length;
   const softball = opps.filter((o) => o.sport === 'softball').length;
 
+  const exportRows: Record<string, CsvValue>[] = opps.map((o) => ({
+    title: o.title,
+    proposed_slug: o.proposedSlug,
+    content_type: o.contentType,
+    target_keyword: o.targetKeyword,
+    intent: o.searchIntent,
+    cluster: o.topicCluster,
+    sport: o.sport,
+    schema: o.schemaRecommendation,
+    internal_links: o.internalLinksToAdd.join(' | '),
+    priority: o.priorityScore,
+    confidence: o.confidenceScore,
+    status: o.status,
+    data_source: o.dataSource,
+  }));
+
   return (
     <div className="space-y-6">
       <ModuleHeader icon={Lightbulb} title="Content Opportunities" description="What to create next — scored by business impact, with a ready-to-use frame.">
-        <Link href="/admin/growth/search" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-200"><ArrowLeft className="w-4 h-4" /> Command Center</Link>
+        <div className="flex items-center gap-2">
+          <ExportCsvButton rows={exportRows} filename="swingvantage-content-opportunities.csv" />
+          <Link href="/admin/growth/search" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-200"><ArrowLeft className="w-4 h-4" /> Command Center</Link>
+        </div>
       </ModuleHeader>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">

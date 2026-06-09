@@ -14,7 +14,8 @@ import { Search, ExternalLink } from 'lucide-react';
 import { humanize } from '@/lib/growth/format';
 import { DataSourceBadge } from '../../_components/ui';
 import { accent } from '../_ui';
-import type { DataSource } from '@/lib/growth/search-intelligence';
+import { ExportCsvButton } from '../ExportCsvButton';
+import type { DataSource, CsvValue } from '@/lib/growth/search-intelligence';
 
 export interface ExplorerRow {
   url: string;
@@ -76,6 +77,7 @@ export function SiteExplorerTable({ rows }: { rows: ExplorerRow[] }) {
         <Select value={source} onChange={setSource} options={sources} label="Source" />
         <Select value={sort} onChange={(v) => setSort(v as SortKey)} options={['priorityScore', 'qualityScore', 'internalLinksIn', 'wordCount']} label="Sort" />
         <span className="text-[11px] text-gray-500 ml-auto">{filtered.length} / {rows.length} pages</span>
+        <ExportCsvButton rows={filtered as unknown as Record<string, CsvValue>[]} filename="swingvantage-site-explorer.csv" />
       </div>
 
       {/* Table */}

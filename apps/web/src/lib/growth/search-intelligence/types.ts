@@ -177,6 +177,36 @@ export interface KeywordRow {
 }
 
 // ──────────────────────────────────────────────────────────────
+// Imported rank + backlink rows (§2.5, §2.9) — from CSV import.
+// These carry verified, user-provided values (DataSource 'imported').
+// ──────────────────────────────────────────────────────────────
+
+export interface RankingSnapshot {
+  id: string;
+  keyword: string;
+  url: string;
+  position: number;
+  searchEngine: string;
+  device: string;
+  checkedAt: string;
+  source: string;
+  dataSource: DataSource;
+}
+
+export interface BacklinkRecord {
+  id: string;
+  sourceUrl: string;
+  sourceDomain: string;
+  targetUrl: string;
+  anchorText: string;
+  linkType: string;
+  nofollow: boolean;
+  firstSeen: string;
+  authorityEstimate: number | null;
+  dataSource: DataSource;
+}
+
+// ──────────────────────────────────────────────────────────────
 // Content opportunities (§1, §2.6) — what to create next.
 // ──────────────────────────────────────────────────────────────
 

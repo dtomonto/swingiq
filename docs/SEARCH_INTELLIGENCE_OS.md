@@ -84,11 +84,25 @@ Reuses the Link Intelligence provider adapters + `providerStatuses()` (Ahrefs / 
 DataForSEO / Search Console). None are required for the MVP. Env vars are the same ones those
 adapters already read — see `lib/growth/link-intelligence/adapters/`.
 
-## Import / export (roadmap)
+## Import / export (shipped)
 
-CSV import/export for keywords, backlinks, and rankings is a planned adapter (the `KeywordRow`
-`source` field already supports `imported`/`gsc`). A row promoted to `imported`/`gsc` carries
-verified numbers instead of relative estimates.
+**CSV export** is available on every table (Keyword Explorer, Site Explorer, Site Audit, Content
+Opportunities, Sitemap Intelligence) via the reusable `ExportCsvButton` + the pure `toCsv`
+serializer.
+
+**CSV import** (Keyword Explorer → *Import / export*) supports three kinds via `importByKind`:
+- **keywords** — `keyword,volume,difficulty,intent,sport,url`. Rows with real `volume`/`difficulty`
+  are labeled `imported` (verified); rows without are scored with relative estimates and labeled
+  `estimated`. Headers are alias/case/spacing-insensitive.
+- **rankings** — `keyword,url,position,device,checked_at`.
+- **backlinks** — `source_url,target_url,anchor,nofollow,authority` (domain is derived if absent).
+
+Parsing is RFC-4180-ish (quoted fields, escaped `""`, embedded commas/newlines, CRLF, BOM). Imports
+persist in the local-first store (`store.ts`, localStorage) so they survive a live re-scan, and each
+imported set can be cleared or re-exported. Engine + UI: `csv.ts`, `ExportCsvButton.tsx`,
+`keywords/KeywordTools.tsx`.
+
+> Next step: a GSC/GA4 adapter can promote these `imported` rows to live `gsc` data automatically.
 
 ## Tests
 
@@ -115,7 +129,7 @@ cd apps/web && npx jest search-intelligence --runInBand --cacheDirectory ./.jest
 
 1. Live-HTTP crawler adapter (HTTP status, redirects, rendered meta/H1, broken external links).
 2. Google Search Console + GA4 ingestion → real ranks, impressions, CTR, and true decay.
-3. Full rank-tracker history + SERP-feature tracking.
-4. CSV import/export wiring (keywords / backlinks / rankings).
+3. Full rank-tracker history + SERP-feature tracking (CSV import already feeds it).
+4. ~~CSV import/export wiring~~ — **shipped** (see Import / export above).
 5. Multi-project switching UI (the `Project` model is already in place).
 6. First-run setup wizard (add project → confirm sitemap → run scan → add competitors/topics).

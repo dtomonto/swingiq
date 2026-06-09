@@ -24,12 +24,13 @@ const INTENT_VALUE: Record<LinkIntent, number> = {
   transactional: 95, commercial: 80, informational: 55, navigational: 40,
 };
 
-function normalize(keyword: string): string {
+export function normalizeKeyword(keyword: string): string {
   return keyword.toLowerCase().replace(/\s+/g, ' ').trim();
 }
+const normalize = normalizeKeyword;
 
 /** Relative keyword business value (0..100) from intent + sport + funnel. */
-function keywordBusinessValue(intent: LinkIntent, sport: LinkSport, funnel: LinkFunnel): number {
+export function keywordBusinessValue(intent: LinkIntent, sport: LinkSport, funnel: LinkFunnel): number {
   const sportBoost = sport === 'golf' ? 10 : sport === 'softball' ? 6 : 0;
   const funnelBoost = funnel === 'conversion' ? 12 : funnel === 'consideration' ? 6 : 0;
   return clamp(INTENT_VALUE[intent] * 0.8 + sportBoost + funnelBoost);
@@ -40,7 +41,7 @@ function keywordBusinessValue(intent: LinkIntent, sport: LinkSport, funnel: Link
  * short head terms are harder; long-tail + specific modifiers are easier.
  * This is a heuristic estimate, NEVER presented as a measured KD.
  */
-function difficultyEstimate(keyword: string): number {
+export function difficultyEstimate(keyword: string): number {
   const words = keyword.split(' ').length;
   let d = 70 - (words - 1) * 8; // each extra word -> easier
   if (/\b(best|review|vs|near me|app|analyzer|software)\b/.test(keyword)) d += 10; // commercial competition
@@ -49,7 +50,7 @@ function difficultyEstimate(keyword: string): number {
 }
 
 /** Relative volume proxy (0..100). Broader/head terms imply more demand. */
-function volumeEstimate(keyword: string): number {
+export function volumeEstimate(keyword: string): number {
   const words = keyword.split(' ').length;
   let v = 75 - (words - 1) * 9;
   if (/\b(golf|swing|softball)\b/.test(keyword)) v += 6;

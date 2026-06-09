@@ -23,6 +23,10 @@ export { buildOpportunities } from './opportunities';
 export { analyzeSitemap, buildSitemapPathSet, isInSitemap, isUtilityUrl, type SitemapAnalysis } from './sitemap-intel';
 export { detectDecay } from './decay';
 export { generateBrief } from './briefs';
+export {
+  parseCsv, parseCsvRows, toCsv, importKeywords, importRankings, importBacklinks, importByKind,
+  type CsvValue, type ImportResult, type ImportKind,
+} from './csv';
 export { computeScores } from './scores';
 export { synthesizeActions } from './actions';
 export {

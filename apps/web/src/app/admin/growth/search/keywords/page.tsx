@@ -14,6 +14,8 @@ import { runSearchIntel } from '@/lib/growth/search-intelligence';
 import { humanize } from '@/lib/growth/format';
 import { ModuleHeader, SectionCard, KpiCard, Badge, DataSourceBadge } from '../../_components/ui';
 import { accent } from '../_ui';
+import { KeywordTools } from './KeywordTools';
+import type { CsvValue } from '@/lib/growth/search-intelligence';
 
 export const metadata: Metadata = { title: 'Keyword Explorer | GrowthOS', robots: 'noindex, nofollow' };
 export const dynamic = 'force-dynamic';
@@ -23,6 +25,21 @@ export default function KeywordExplorerPage() {
   const keywords = r.keywords;
   const gaps = keywords.filter((k) => !k.hasOwnedPage).length;
   const owned = keywords.length - gaps;
+
+  const exportRows: Record<string, CsvValue>[] = keywords.map((k) => ({
+    keyword: k.keyword,
+    intent: k.intent,
+    funnel: k.funnelStage,
+    cluster: k.topicCluster,
+    sport: k.sport,
+    volume: k.volumeEstimate,
+    difficulty: k.difficultyEstimate,
+    opportunity: k.opportunityScore,
+    business_value: k.businessValueScore,
+    source: k.source,
+    url: k.targetUrl,
+    data_source: k.dataSource,
+  }));
 
   return (
     <div className="space-y-6">
@@ -41,6 +58,10 @@ export default function KeywordExplorerPage() {
         <KpiCard label="Content gaps" value={gaps} accent={gaps ? 'text-amber-400' : 'text-green-400'} source="estimated" sublabel="no owned page" />
         <KpiCard label="Avg opportunity" value={keywords.length ? Math.round(keywords.reduce((a, k) => a + k.opportunityScore, 0) / keywords.length) : 0} source="estimated" />
       </div>
+
+      <SectionCard title="Import / export" icon={KeyRound}>
+        <KeywordTools exportRows={exportRows} />
+      </SectionCard>
 
       <SectionCard title="Keywords by opportunity" icon={KeyRound}>
         <div className="overflow-x-auto rounded-lg border border-gray-800">

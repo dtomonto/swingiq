@@ -25,6 +25,9 @@ import { computeScores } from '../scores';
 import { runSearchIntel } from '../engine';
 import { analyzeFindings } from '../../link-intelligence/internal-links';
 import { computeClusterHealth } from '../../link-intelligence/clusters';
+import {
+  parseCsv, parseCsvRows, toCsv, importKeywords, importRankings, importBacklinks, importByKind,
+} from '../csv';
 
 const FIXED_NOW = Date.parse('2026-06-09T00:00:00Z');
 
@@ -234,5 +237,69 @@ describe('score battery + full scan', () => {
     expect(r.run.pagesAnalyzed).toBe(r.pages.length);
     expect(Array.isArray(r.actions)).toBe(true);
     expect(r.run.dataSource).toBe('real');
+  });
+});
+
+describe('CSV core', () => {
+  it('parses quoted fields, embedded commas, escaped quotes, CRLF + BOM', () => {
+    const csv = '﻿keyword,note\r\n"fix, slice","he said ""hi"""\r\ngolf grip,plain';
+    const { headers, rows } = parseCsv(csv);
+    expect(headers).toEqual(['keyword', 'note']);
+    expect(rows[0]).toEqual({ keyword: 'fix, slice', note: 'he said "hi"' });
+    expect(rows[1]).toEqual({ keyword: 'golf grip', note: 'plain' });
+  });
+  it('normalizes headers (case/space/hyphen → underscore)', () => {
+    const { headers } = parseCsv('Target URL,Search Volume\n/x,100');
+    expect(headers).toEqual(['target_url', 'search_volume']);
+  });
+  it('toCsv quotes risky values and round-trips through parseCsv', () => {
+    const rows = [{ a: 'x,y', b: 'line\nbreak', c: 3 }];
+    const back = parseCsv(toCsv(rows as never));
+    expect(back.rows[0].a).toBe('x,y');
+    expect(back.rows[0].b).toBe('line\nbreak');
+    expect(back.rows[0].c).toBe('3');
+  });
+  it('ignores fully blank lines', () => {
+    expect(parseCsvRows('a,b\n\n1,2\n').filter((r) => r.some((c) => c)).length).toBe(2);
+  });
+});
+
+describe('CSV importers', () => {
+  it('imports keywords, labeling verified vs estimated by supplied numbers', () => {
+    const csv = 'keyword,volume,difficulty,intent,sport,url\nfix slice,1200,40,informational,golf,/golf/fix-slice\nbare keyword,,,,,';
+    const { rows, errors, total } = importKeywords(csv);
+    expect(total).toBe(2);
+    expect(errors).toHaveLength(0);
+    const verified = rows.find((r) => r.keyword === 'fix slice')!;
+    expect(verified.source).toBe('imported');
+    expect(verified.dataSource).toBe('imported'); // had real numbers
+    expect(verified.hasOwnedPage).toBe(true);
+    expect(in0to100(verified.opportunityScore)).toBe(true);
+    const bare = rows.find((r) => r.keyword === 'bare keyword')!;
+    expect(bare.dataSource).toBe('estimated'); // no numbers supplied
+  });
+  it('flags keyword rows missing the required column', () => {
+    const { rows, errors } = importKeywords('keyword,volume\n,500');
+    expect(rows).toHaveLength(0);
+    expect(errors.length).toBe(1);
+  });
+  it('imports rankings and requires keyword+url+position', () => {
+    const { rows, errors } = importRankings('keyword,url,position\nfix slice,/golf/fix-slice,3\nbad,,');
+    expect(rows).toHaveLength(1);
+    expect(rows[0].position).toBe(3);
+    expect(rows[0].dataSource).toBe('imported');
+    expect(errors.length).toBe(1);
+  });
+  it('imports backlinks, deriving domain + parsing nofollow', () => {
+    const { rows } = importBacklinks('source_url,target_url,nofollow,authority\nhttps://www.golfdigest.com/x,https://swingvantage.com/,true,72');
+    expect(rows).toHaveLength(1);
+    expect(rows[0].sourceDomain).toBe('golfdigest.com');
+    expect(rows[0].nofollow).toBe(true);
+    expect(rows[0].authorityEstimate).toBe(72);
+  });
+  it('importByKind dispatches to the right importer', () => {
+    expect(importByKind('keywords', 'keyword\nx').kind).toBe('keywords');
+    expect(importByKind('rankings', 'keyword,url,position\nx,/y,1').kind).toBe('rankings');
+    expect(importByKind('backlinks', 'source_url,target_url\na,b').kind).toBe('backlinks');
   });
 });

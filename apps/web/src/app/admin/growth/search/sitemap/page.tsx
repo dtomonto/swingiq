@@ -12,6 +12,8 @@ import { Map, ArrowLeft } from 'lucide-react';
 import { runSearchIntel } from '@/lib/growth/search-intelligence';
 import { humanize } from '@/lib/growth/format';
 import { ModuleHeader, SectionCard, KpiCard, Badge } from '../../_components/ui';
+import { ExportCsvButton } from '../ExportCsvButton';
+import type { CsvValue } from '@/lib/growth/search-intelligence';
 
 export const metadata: Metadata = { title: 'Sitemap Intelligence | GrowthOS', robots: 'noindex, nofollow' };
 export const dynamic = 'force-dynamic';
@@ -22,10 +24,22 @@ export default function SitemapIntelligencePage() {
   const risks = entries.filter((e) => e.flag !== 'ok');
   const submitFirst = entries.slice(0, 25); // already sorted by indexingPriority
 
+  const exportRows: Record<string, CsvValue>[] = entries.map((e) => ({
+    indexing_priority: e.indexingPriority,
+    url: e.url,
+    in_sitemap: e.inSitemap,
+    indexable: e.indexable,
+    flag: e.flag,
+    note: e.note,
+  }));
+
   return (
     <div className="space-y-6">
       <ModuleHeader icon={Map} title="Sitemap & Indexing Intelligence" description="What belongs in the sitemap, what's missing, and what to submit first.">
-        <Link href="/admin/growth/search" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-200"><ArrowLeft className="w-4 h-4" /> Command Center</Link>
+        <div className="flex items-center gap-2">
+          <ExportCsvButton rows={exportRows} filename="swingvantage-sitemap-intelligence.csv" />
+          <Link href="/admin/growth/search" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-200"><ArrowLeft className="w-4 h-4" /> Command Center</Link>
+        </div>
       </ModuleHeader>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
