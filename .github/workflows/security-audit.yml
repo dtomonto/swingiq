@@ -149,6 +149,9 @@ jobs:
         with:
           node-version: "20"
 
+      - name: RLS gate — every public table must enable row-level security
+        run: node scripts/check-rls.mjs
+
       - name: Run custom security check script
         run: node scripts/security-check.mjs
 

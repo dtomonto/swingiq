@@ -12,9 +12,17 @@
 # ─── API Routes (server-side secrets live here) ─────────────────────────────
 apps/web/src/app/api/*                      @dtomonto
 
-# ─── Auth & Middleware ───────────────────────────────────────────────────────
+# ─── Auth, Middleware & Security ─────────────────────────────────────────────
 apps/web/src/lib/supabase.ts                @dtomonto
 apps/web/src/middleware.ts                  @dtomonto
+apps/web/src/lib/security/*                 @dtomonto
+apps/web/src/lib/admin/context.ts           @dtomonto
+apps/web/next.config.mjs                    @dtomonto
+
+# ─── Database schema + RLS (the crown jewel) ─────────────────────────────────
+apps/web/*.sql                              @dtomonto
+server/*.sql                                @dtomonto
+scripts/check-rls.mjs                       @dtomonto
 
 # ─── Admin Routes ────────────────────────────────────────────────────────────
 apps/web/src/app/admin/*                    @dtomonto
