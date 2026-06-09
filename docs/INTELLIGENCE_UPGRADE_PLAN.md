@@ -75,7 +75,7 @@ A single typed AI gateway underpins tiering, batching, logging, eval. Mostly own
 |---|------|--------|-------|
 | 20 | Surface the keystone/cross-sport-transfer insight prominently; smarter gating | ✅ | The genuine moat; currently buried behind an off-by-default flag. |
 | 21 | Insight → action → outcome reinforcement loop | ✅ | Rerank insights by whether acting on them measurably helped (`commitment.ts`+`progress.ts`). |
-| 22 | Unified "next best action" ranker | ✅ | Consolidate priority + readiness + keystone + drill-match + funnel into one ranked feed. |
+| 22 | Unified "next best action" ranker | 🟢 | SHIPPED `6eb53cf1`. `lib/next-action/rank.ts` — ActionCandidate model + rankNextActions (severity×confidence×source-weight×recency, tunable weights, de-dupe). Engine adapters = thin wiring follow-up. 7 tests. |
 | 23 | Privacy-safe cohort intelligence ("players like you") | ✅ | Anonymized cohort similarity over `aggregate.ts`/coach-mix trends. |
 | 24 | Drill recommendations learn from retest outcomes | ✅ | Wire `drillmatch/feedback.ts` to real outcome deltas. |
 
