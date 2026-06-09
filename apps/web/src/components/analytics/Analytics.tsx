@@ -1,6 +1,6 @@
 import Script from 'next/script';
-import { GA_ID } from '@/lib/analytics';
 import { ClarityScript } from './ClarityScript';
+import { ConsentGatedAnalytics } from './ConsentGatedAnalytics';
 
 /**
  * Loads whichever analytics provider(s) are configured via env — and nothing
@@ -8,45 +8,24 @@ import { ClarityScript } from './ClarityScript';
  * analytics calls fall back to the dev console (see lib/analytics.ts), keeping
  * the site fast and private by default.
  *
- * Supported (any combination; each is independently env-gated):
- *   • Plausible  — NEXT_PUBLIC_PLAUSIBLE_DOMAIN  (RECOMMENDED: cookieless &
- *     privacy-first, so it needs no cookie-consent banner and fits the
- *     youth-safe positioning). Auto-tracks page views incl. in-app navigation.
- *   • GA4        — NEXT_PUBLIC_GA_ID
- *   • PostHog    — NEXT_PUBLIC_POSTHOG_KEY (+ optional NEXT_PUBLIC_POSTHOG_HOST)
- *   • Clarity    — NEXT_PUBLIC_CLARITY_PROJECT_ID (Microsoft Clarity: heatmaps &
- *     session replay. NOTE: sets cookies & records sessions, so pair with a
- *     cookie-consent banner in the EU and keep masking on for youth safety.)
+ * Consent posture (see lib/consent.ts):
+ *   • Plausible — NEXT_PUBLIC_PLAUSIBLE_DOMAIN. Cookieless & privacy-first, so
+ *     it needs NO consent and loads unconditionally here (server-rendered).
+ *   • GA4 / PostHog / Clarity — set cookies, so they are CONSENT-GATED: they
+ *     load only after the visitor accepts cookies (one umbrella choice in the
+ *     banner). GA4 + PostHog live in <ConsentGatedAnalytics/>; Clarity adds an
+ *     operator kill-switch on top in <ClarityScript/>.
  *
- * All four also receive SwingVantage's custom events through lib/analytics.ts.
+ * Every provider also receives SwingVantage's custom events through
+ * lib/analytics.ts (which itself only forwards to whatever has actually loaded).
  */
 
 const PLAUSIBLE_DOMAIN = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || '';
-const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY || '';
-const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com';
 
 export function Analytics() {
   return (
     <>
-      {/* Google Analytics 4 — loads only when NEXT_PUBLIC_GA_ID is set. */}
-      {GA_ID && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-            strategy="afterInteractive"
-          />
-          <Script id="ga4-init" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GA_ID}', { anonymize_ip: true });
-            `}
-          </Script>
-        </>
-      )}
-
-      {/* Plausible — cookieless, privacy-first, no consent banner required.
+      {/* Plausible — cookieless, privacy-first, no consent required.
           script.js auto-tracks page views including SPA navigations; the shim
           exposes window.plausible so lib/analytics.ts can send custom events. */}
       {PLAUSIBLE_DOMAIN && (
@@ -63,17 +42,8 @@ export function Analytics() {
         </>
       )}
 
-      {/* PostHog — product analytics. Loads only when NEXT_PUBLIC_POSTHOG_KEY is set. */}
-      {POSTHOG_KEY && (
-        <Script id="posthog-init" strategy="afterInteractive">
-          {`!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);posthog.init('${POSTHOG_KEY}',{api_host:'${POSTHOG_HOST}'});`}
-        </Script>
-      )}
-
-      {/* Microsoft Clarity — heatmaps & session replay. Loads only when
-          NEXT_PUBLIC_CLARITY_PROJECT_ID is set AND the `clarity.enabled`
-          operator flag is on (the in-app kill-switch). Installs window.clarity
-          so lib/analytics.ts can forward custom events. */}
+      {/* Cookie-setting analytics — load only after the visitor accepts cookies. */}
+      <ConsentGatedAnalytics />
       <ClarityScript />
     </>
   );

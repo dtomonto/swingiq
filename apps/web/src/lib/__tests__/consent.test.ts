@@ -6,6 +6,12 @@ import {
   setConsent,
   hasAnalyticsConsent,
   subscribeConsent,
+  acceptAll,
+  declineAll,
+  clearConsent,
+  consentItems,
+  provisionedConsentItems,
+  consentRequired,
   CONSENT_KEY,
 } from '../consent';
 
@@ -85,5 +91,48 @@ describe('consent gate', () => {
     expect(() => setConsent('accepted')).not.toThrow();
     expect(getConsent()).toBeNull();
     expect(hasAnalyticsConsent()).toBe(false);
+  });
+
+  it('acceptAll / declineAll set the umbrella decision in one call', () => {
+    acceptAll();
+    expect(hasAnalyticsConsent()).toBe(true);
+    declineAll();
+    expect(getConsent()).toBe('declined');
+    expect(hasAnalyticsConsent()).toBe(false);
+  });
+
+  it('clearConsent re-prompts (back to undecided)', () => {
+    acceptAll();
+    clearConsent();
+    expect(getConsent()).toBeNull();
+  });
+});
+
+describe('consent registry', () => {
+  const ENV_KEYS = ['NEXT_PUBLIC_CLARITY_PROJECT_ID', 'NEXT_PUBLIC_GA_ID', 'NEXT_PUBLIC_POSTHOG_KEY'];
+  const saved: Record<string, string | undefined> = {};
+
+  beforeEach(() => ENV_KEYS.forEach((k) => { saved[k] = process.env[k]; delete process.env[k]; }));
+  afterEach(() => ENV_KEYS.forEach((k) => {
+    if (saved[k] === undefined) delete process.env[k];
+    else process.env[k] = saved[k];
+  }));
+
+  it('enumerates the cookie-setting providers (and excludes cookieless Plausible)', () => {
+    const ids = consentItems().map((i) => i.id);
+    expect(ids).toEqual(expect.arrayContaining(['clarity', 'ga4', 'posthog']));
+    expect(ids).not.toContain('plausible');
+  });
+
+  it('nothing requires consent when no provider is configured', () => {
+    expect(provisionedConsentItems()).toHaveLength(0);
+    expect(consentRequired()).toBe(false);
+  });
+
+  it('only configured providers require consent', () => {
+    process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID = 'abc123';
+    expect(consentRequired()).toBe(true);
+    const provisioned = provisionedConsentItems().map((i) => i.id);
+    expect(provisioned).toEqual(['clarity']);
   });
 });
