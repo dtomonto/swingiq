@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Send, CheckCircle2, Info } from 'lucide-react';
-import { CONTACT_TOPICS, type ContactTopic } from '@/lib/email/contact';
+import { type ContactTopic } from '@/lib/email/contact';
 
 type Status = 'idle' | 'submitting' | 'done' | 'error';
 

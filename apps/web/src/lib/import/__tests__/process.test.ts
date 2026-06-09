@@ -1,7 +1,6 @@
 import {
   parseAnyFile,
   analyzeFile,
-  shotsSignature,
   normalizedToShot,
   primaryClubOf,
 } from '../process';

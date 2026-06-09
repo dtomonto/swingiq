@@ -132,11 +132,6 @@ export function useSecurityOS(): SecurityOSState {
     [actor, settings.auditLogRetention],
   );
 
-  const persistOverrides = useCallback((next: FindingOverrideMap) => {
-    setOverrides(next);
-    writeJson(OVERRIDES_KEY, next);
-  }, []);
-
   const setFindingStatus = useCallback(
     (id: string, status: FindingStatus, opts?: { note?: string; justification?: string; title?: string }) => {
       setOverrides((prev) => {

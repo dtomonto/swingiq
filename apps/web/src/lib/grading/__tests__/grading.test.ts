@@ -1,5 +1,5 @@
 import {
-  GOLF_PROFILES, getProfile, nextProfile, defaultBenchmarks, GRADE_DIMENSIONS,
+  GOLF_PROFILES, nextProfile, defaultBenchmarks, GRADE_DIMENSIONS,
 } from '../profiles';
 import { gradeFromDelta, gradeSession } from '../grade';
 import { inferGolfProfile, profileFromHandicap, profileFromSwingScore } from '../classify';

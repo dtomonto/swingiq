@@ -18,7 +18,7 @@ import {
   Lock, ChevronRight,
 } from 'lucide-react';
 import { MetricStat } from '@/components/admin/MetricStat';
-import { ScoreDial, ScoreBar, SeverityPill, Panel, Sparkline } from '@/components/security-os/SecurityUI';
+import { ScoreDial, ScoreBar, Panel, Sparkline } from '@/components/security-os/SecurityUI';
 import { useSecurityOS } from '@/lib/security-os/useSecurityOS';
 import { applyFindingOverrides, summarizeFindings } from '@/lib/security-os/findings';
 import { generateRecommendations, bucketRecommendations } from '@/lib/security-os/recommendations';

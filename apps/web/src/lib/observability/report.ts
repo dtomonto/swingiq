@@ -47,7 +47,6 @@ export function reportError(error: unknown, context?: Ctx): void {
     }
 
     if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
       console.error('[observability] error (no sink configured):', error, context ?? '');
     }
   } catch {

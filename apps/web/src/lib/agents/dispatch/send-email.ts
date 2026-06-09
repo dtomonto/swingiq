@@ -101,7 +101,6 @@ export async function sendDispatchEmail(i: DispatchEmailInput, env: Env = proces
   const plan = planEmailSend(i, env);
   if (plan.mode === 'dry_run') {
     if (env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
       console.log('[dispatch:email] dry-run (no RESEND_API_KEY):', { to: plan.to, subject: plan.subject });
     }
     return { sent: false, dryRun: true, provider: 'none' };

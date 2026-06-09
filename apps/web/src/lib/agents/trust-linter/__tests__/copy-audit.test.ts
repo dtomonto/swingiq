@@ -60,7 +60,6 @@ describe('trust linter — CI copy gate', () => {
     const report = auditSources(entries);
     if (report.hasBlocking) {
       // Surface exactly where, so the failure is actionable.
-      // eslint-disable-next-line no-console
       console.error(formatAuditReport(report));
     }
     expect(report.hasBlocking).toBe(false);

@@ -18,7 +18,6 @@ import {
   getDataPointsByCategory,
   resolveRelatedPages,
   resolveRelatedFaults,
-  resolveRelatedCoachStyles,
   learnPageForFault,
   conceptPath,
   dataPointPath,

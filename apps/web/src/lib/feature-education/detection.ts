@@ -318,7 +318,6 @@ export function buildFeatureFromChanges(
   const permissions = uniq(classes.map((c) => c.permission).filter(Boolean) as string[]);
   const adminControls = uniq(classes.map((c) => c.adminControl).filter(Boolean) as string[]);
   const audiences = uniq(classes.flatMap((c) => c.audiences));
-  const isPublic = classes.some((c) => c.isPublic);
 
   const shas = uniq(changes.map((c) => c.sha).filter(Boolean) as string[]);
   const evidence: FeatureEvidence[] = [

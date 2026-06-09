@@ -199,7 +199,6 @@ export function assertEnv(opts: { strict?: boolean; env?: Env } = {}): EnvResult
       throw new Error(`Invalid environment configuration:\n${text}`);
     }
     if (env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
       console.warn(`[env] configuration notes:\n${text}`);
     }
   }

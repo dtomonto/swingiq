@@ -8,7 +8,7 @@
 // ============================================================
 
 import type { Metadata } from 'next';
-import { Dumbbell, Database, Layers, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Dumbbell, Layers, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';

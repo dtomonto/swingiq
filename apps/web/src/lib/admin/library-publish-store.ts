@@ -53,17 +53,6 @@ function resolveDataFile(name: string): string {
   return candidates.find((c) => existsSync(c)) ?? candidates[0];
 }
 
-function readOverrides(): Record<string, boolean> {
-  try {
-    const raw = readFileSync(resolveDataFile(OVERRIDES_FILE), 'utf8').trim();
-    if (!raw) return {};
-    const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
-  } catch {
-    return {};
-  }
-}
-
 /** Read every training video + its effective publish state for the admin table. */
 export function readLibraryPublishSnapshot(): LibraryPublishSnapshot {
   const rows = getTrainingItems()

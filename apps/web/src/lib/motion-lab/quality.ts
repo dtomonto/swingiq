@@ -23,7 +23,6 @@ const L_HIP = 23;
 const R_HIP = 24;
 const L_ANKLE = 27;
 const R_ANKLE = 28;
-const NOSE = 0;
 
 export interface QualitySourceInput {
   resolution: string;
@@ -88,7 +87,6 @@ export function assessQuality(
   const subjectVisiblePct = attempted > 0 ? Math.round((posed / attempted) * 100) : 0;
 
   const ankleVis = (avgVis(track, L_ANKLE) + avgVis(track, R_ANKLE)) / 2;
-  const headVis = avgVis(track, NOSE);
   const hipVis = (avgVis(track, L_HIP) + avgVis(track, R_HIP)) / 2;
   const fullBodyVisible = ankleVis > 0.45 && hipVis > 0.5;
 

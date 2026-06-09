@@ -10,7 +10,7 @@
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Coins, ExternalLink, Wallet, CreditCard, BarChart3 } from 'lucide-react';
+import { Coins, ExternalLink, CreditCard, BarChart3 } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';

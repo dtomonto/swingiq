@@ -185,7 +185,6 @@ export async function sendContactMessage(
 
   if (!hasKey) {
     if (env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
       console.log('[contact] dry-run (no RESEND_API_KEY):', {
         to: contactRecipient(env),
         subject: buildContactSubject(input),

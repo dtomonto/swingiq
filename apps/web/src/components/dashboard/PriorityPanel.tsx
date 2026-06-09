@@ -20,7 +20,7 @@ import { Button } from '@/components/ui/Button';
 import { useSwingVantageStore } from '@/store';
 import { analyzeClubGaps, type ClubGapInput } from '@swingiq/core';
 import { computeAthletePriorities, snapshotFromResult, type PrioritySessionInput } from '@/lib/priority/engine';
-import type { AthletePriority, PrioritySeverity, PriorityTrend } from '@/lib/priority/types';
+import type { PrioritySeverity, PriorityTrend } from '@/lib/priority/types';
 import { useBodySync } from '@/lib/bodysync/useBodySync';
 import { READINESS_SAFETY, GOLF_DYNAMIC_WARMUP } from '@/lib/readiness/golf-mobility';
 

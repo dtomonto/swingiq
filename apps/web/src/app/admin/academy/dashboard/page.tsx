@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useAcademyStore } from '@/lib/academy/store';
-import { PATHS, BADGES, CERTIFICATIONS, getBadge, getCourse, getPath } from '@/lib/academy/content';
+import { BADGES, CERTIFICATIONS, getCourse, getPath } from '@/lib/academy/content';
 import { academyNotifications } from '@/lib/academy/notifications';
 import {
   masteryLevel, nextMastery, featureFluency, demoReadiness, supportReadiness,

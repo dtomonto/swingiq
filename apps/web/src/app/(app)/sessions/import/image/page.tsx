@@ -449,6 +449,10 @@ export default function ImageImportPage() {
                 >
                   {imagePreviewUrl ? (
                     <div className="space-y-3">
+                      {/* User-uploaded blob/object URL with unknown intrinsic
+                          dimensions — next/image needs fixed dims or fill+unoptimized
+                          and would regress this responsive preview. Plain <img> is correct. */}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={imagePreviewUrl}
                         alt="Uploaded preview"
@@ -570,6 +574,9 @@ export default function ImageImportPage() {
                       <CardTitle className="text-sm">Reference Image</CardTitle>
                     </CardHeader>
                     <CardBody>
+                      {/* User-uploaded blob/object URL with unknown intrinsic
+                          dimensions — see note above; plain <img> is correct here. */}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={imagePreviewUrl}
                         alt="Reference"

@@ -308,7 +308,6 @@ describe('store', () => {
     clear: () => { for (const k of Object.keys(mem)) delete mem[k]; },
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-explicit-any
   let store: typeof import('../store');
 
   beforeAll(() => {
@@ -323,7 +322,6 @@ describe('store', () => {
     g.localStorage = localStorageMock;
     g.Event = class { type: string; constructor(t: string) { this.type = t; } };
     g.StorageEvent = class { type: string; constructor(t: string) { this.type = t; } };
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     store = require('../store');
   });
 

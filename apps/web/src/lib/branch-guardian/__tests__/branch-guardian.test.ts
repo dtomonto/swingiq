@@ -10,7 +10,7 @@
 
 import { classifyBranchType, validateBranchName } from '../naming';
 import { isProtectedBranch } from '../protected';
-import { daysSince, healthBand, scoreBranch, scoreWorktree, computeRepoCleanliness, type ScoreContext } from '../scoring';
+import { daysSince, healthBand, scoreBranch, scoreWorktree, type ScoreContext } from '../scoring';
 import { deriveRecommendations, rankRecommendations, summarizeRecommendations } from '../recommendations';
 import { mergedCleanupCommands, inspectionCommands, remotePruneCommands } from '../commands';
 import { scanSnapshot, snapshotFreshness } from '../scan';

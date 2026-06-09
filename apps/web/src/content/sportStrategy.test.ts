@@ -47,7 +47,6 @@ describe('sportStrategy (current shipped config)', () => {
   it('produces no duplicate destinations across visible personas', () => {
     // Mirrors the homepage acceptance criterion (no two cards collide).
     // Imported lazily to avoid a hard dependency in the strategy unit.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { PERSONA_PATHS } = require('./personas');
     const visible = [...primaryPersonaIds(), ...secondaryPersonaIds()];
     const hrefs = visible.map((id: PersonaId) => PERSONA_PATHS[id].href);

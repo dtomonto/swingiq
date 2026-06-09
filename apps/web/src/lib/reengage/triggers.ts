@@ -26,7 +26,7 @@ export const TRIGGERS: TriggerDef[] = [
     priority: 100,
     cooldownDays: 10,
     applies: (s) => (s.daysSinceLastActivity ?? 0) >= 14 && s.sessionCount > 0,
-    build: (s) => ({
+    build: (_s) => ({
       triggerId: 'comeback_14',
       priority: 100,
       tone: 'encouraging',

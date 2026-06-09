@@ -8,7 +8,7 @@
 // ============================================================
 
 import type { Metadata } from 'next';
-import { ClipboardCheck, Layers, Dumbbell, Clock, ShieldCheck } from 'lucide-react';
+import { ClipboardCheck, Layers, Dumbbell, Clock } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';

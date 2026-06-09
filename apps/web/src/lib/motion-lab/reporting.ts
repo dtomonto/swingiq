@@ -17,7 +17,7 @@ import type {
   CoachingFix,
   CoachingTone,
 } from './types';
-import { getSport, getMotion } from './taxonomy';
+import { getMotion } from './taxonomy';
 
 function pct(n: number): string {
   return `${Math.round(n)}%`;
@@ -62,7 +62,6 @@ export function buildReport(
   scoreboard: MotionScoreboard,
   _drills: DrillPlan,
 ): CoachingReport {
-  const sport = getSport(capture.sport);
   const motion = getMotion(capture.sport, capture.motionType).label.toLowerCase();
 
   const scored = metrics.filter((m) => m.normalizedScore != null);

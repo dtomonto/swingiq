@@ -7,7 +7,6 @@
 
 import {
   SEED_COACH_PROFILES,
-  SWINGVANTAGE_DEFAULT_COACH_ID,
 } from '..';
 import {
   applyOverride,

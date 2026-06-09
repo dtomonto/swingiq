@@ -123,7 +123,7 @@ function primaryPool(opts: AdGenerationOptions): string[] {
   return pool;
 }
 
-function descriptionPool(opts: AdGenerationOptions): string[] {
+function descriptionPool(_opts: AdGenerationOptions): string[] {
   return [
     `Free analysis. One clear fix.`,
     `One fix at a time. Start free.`,

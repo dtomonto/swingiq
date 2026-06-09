@@ -76,7 +76,6 @@ export function emitMentalEvent(ev: MentalTelemetryEvent, settings: ConsentView)
     w.posthog?.capture(name, props);
     if (typeof w.plausible === 'function') w.plausible(name, { props });
     if (!w.posthog && typeof w.plausible !== 'function' && process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
       console.log('[MentalTelemetry]', name, props);
     }
   } catch {
