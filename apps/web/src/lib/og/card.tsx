@@ -8,35 +8,21 @@
 // ============================================================
 
 import type { ReactElement } from 'react';
+import type { OgCardInput } from './url';
+
+// Re-exported so existing `import { ogCardUrl } from '@/lib/og/card'` keep
+// working; the pure URL helper itself lives in ./url (no JSX) so the metadata
+// builder can use it without bundling the Satori renderer.
+export { ogCardUrl } from './url';
+export type { OgCardInput } from './url';
 
 export const OG_SIZE = { width: 1200, height: 630 } as const;
 
 const BG = '#0b1220';
 const ACCENT = '#22c55e';
 
-export interface OgCardInput {
-  /** Small accent line above the title (e.g. the group or sport). */
-  eyebrow?: string;
-  /** The headline. */
-  title: string;
-  /** One-line supporting text under the title. */
-  subtitle?: string;
-}
-
 function clamp(s: string, n: number): string {
   return s.length > n ? s.slice(0, n - 1) + '…' : s;
-}
-
-/**
- * Site-relative URL for the generic OG card route, for
- * `buildMetadata({ ogImage: ogCardUrl({ ... }) })`. Params are URL-encoded.
- */
-export function ogCardUrl(input: OgCardInput): string {
-  const p = new URLSearchParams();
-  p.set('title', input.title);
-  if (input.eyebrow) p.set('eyebrow', input.eyebrow);
-  if (input.subtitle) p.set('subtitle', input.subtitle);
-  return `/api/og/card?${p.toString()}`;
 }
 
 /** Build the card element for `new ImageResponse(renderOgCard(...), OG_SIZE)`. */

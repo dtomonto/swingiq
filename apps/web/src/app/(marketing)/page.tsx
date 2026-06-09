@@ -1,4 +1,5 @@
 import { buildMetadata } from '@/lib/seo/metadata';
+import { ogCardUrl } from '@/lib/og/url';
 import { LocalizedHome } from '@/components/marketing/LocalizedHome';
 
 // Single source of truth: the English homepage renders from the marketing
@@ -13,6 +14,11 @@ export const metadata = buildMetadata({
     'Upload a swing video or import launch monitor data for a free AI breakdown of your top fault, personalized drills, and a practice plan — golf, tennis, baseball & softball.',
   path: '/',
   keywords: ['swing analysis', 'golf swing', 'tennis swing', 'baseball swing', 'softball hitting', 'AI coaching', 'launch monitor', 'swing improvement'],
+  ogImage: ogCardUrl({
+    eyebrow: 'Free AI swing analysis',
+    title: 'Find the one fix holding your swing back',
+    subtitle: 'Upload a video or launch-monitor data — golf, tennis, baseball, softball & more.',
+  }),
 });
 
 export default function HomePage() {

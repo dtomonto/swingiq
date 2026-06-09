@@ -41,11 +41,20 @@ describe('buildMetadata', () => {
     expect(buildMetadata({ noindex: true }).robots).toMatchObject({ index: false, follow: false });
   });
 
-  it('uses the default OG image as an absolute URL when none is provided', () => {
-    const m = buildMetadata({ path: '/x' });
+  it('auto-generates an absolute dynamic OG card when none is provided', () => {
+    const m = buildMetadata({ title: 'Fix Your Slice', path: '/x' });
     const images = (m.openGraph as { images?: Array<{ url: string }> }).images;
-    expect(images?.[0]?.url).toBe(absoluteUrl(siteConfig.defaultOgImage));
+    // Default is now a per-page branded card (not a single static image),
+    // built from the page's own title — better social CTR / authority.
     expect(images?.[0]?.url.startsWith('http')).toBe(true);
+    expect(images?.[0]?.url).toContain('/api/og/card?');
+    expect(images?.[0]?.url).toContain('title=Fix');
+  });
+
+  it('uses an explicit ogImage when provided', () => {
+    const m = buildMetadata({ path: '/x', ogImage: '/custom.png' });
+    const images = (m.openGraph as { images?: Array<{ url: string }> }).images;
+    expect(images?.[0]?.url).toBe(absoluteUrl('/custom.png'));
   });
 
   it('emits a summary_large_image twitter card', () => {

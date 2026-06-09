@@ -16,6 +16,7 @@ import { siteConfig, absoluteUrl } from '@/config/site';
 import type { LanguageCode } from '@/lib/i18n';
 import { currentLocalesFor } from '@/lib/marketing-i18n/expose';
 import { localizedHref } from '@/lib/marketing-i18n/href';
+import { ogCardUrl } from '@/lib/og/url';
 
 export interface BuildMetadataOptions {
   /** Page title (without the site-name suffix — added automatically). */
@@ -75,7 +76,7 @@ export function buildMetadata(options: BuildMetadataOptions = {}): Metadata {
     description = siteConfig.defaultMetaDescription,
     path = '/',
     locale = 'en',
-    ogImage = siteConfig.defaultOgImage,
+    ogImage,
     ogType = 'website',
     noindex = false,
   } = options;
@@ -84,7 +85,16 @@ export function buildMetadata(options: BuildMetadataOptions = {}): Metadata {
   // The canonical for a localized page is its prefixed URL; English stays at root.
   const canonical = locale === 'en' ? path : localizedHref(path, locale);
   const languages = buildLanguageAlternates(path);
-  const imageUrl = ogImage.startsWith('http') ? ogImage : absoluteUrl(ogImage);
+  // When the caller doesn't pass an explicit ogImage, generate a per-page
+  // branded share card from the page's own title + description (far better for
+  // social CTR / authority than one shared static image). Pages that want a
+  // specific image still pass `ogImage`. Uses the page's raw title (the card
+  // already shows the SwingVantage brand), not the "… | SwingVantage" suffix.
+  const resolvedOgImage =
+    ogImage ?? ogCardUrl({ title: title ?? siteConfig.siteName, subtitle: description });
+  const imageUrl = resolvedOgImage.startsWith('http')
+    ? resolvedOgImage
+    : absoluteUrl(resolvedOgImage);
 
   return {
     title: fullTitle,
