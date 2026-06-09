@@ -16,17 +16,63 @@ import { CAPABILITY_GROUPS, POSTHOG_CAPABILITIES } from './capabilities';
 import type {
   AnalyticsOsDashboard,
   CapabilityState,
+  KeyFunnel,
   PostHogConnection,
   PostHogCapability,
   ResolvedCapability,
 } from './types';
 
-/** The conversion funnels worth watching (also seeds PostHog funnel links). */
-export const KEY_FUNNELS: { name: string; steps: string[] }[] = [
-  { name: 'Acquisition', steps: ['Visitor', 'Signup', 'First upload', 'Completed analysis'] },
-  { name: 'Activation', steps: ['Analysis', 'Tutorial click', 'Drill started', 'Repeat visit'] },
-  { name: 'Content → tool', steps: ['Blog/SEO visit', 'Tool usage', 'Upload'] },
-  { name: 'Improvement loop', steps: ['Fix page', 'Drill started', 'Retest completed'] },
+const E = ANALYTICS_EVENTS;
+
+/**
+ * The conversion funnels worth watching. Each step names the EXACT instrumented
+ * event to use when building the funnel in PostHog, so it's copy-and-build with
+ * no guessing — and because every event is an ANALYTICS_EVENTS value, a step can
+ * never point at an event that doesn't exist. (`event: null` = a PostHog-native
+ * step, e.g. returning users, not a custom event.) All referenced events are
+ * verified to fire in the app; see the funnel-integrity test.
+ */
+export const KEY_FUNNELS: KeyFunnel[] = [
+  {
+    name: 'Acquisition',
+    description: 'Cold visitor → first completed analysis. The top-of-funnel growth path.',
+    steps: [
+      { label: 'Visited the site', event: E.PAGE_VIEW },
+      { label: 'Created an account', event: E.ACCOUNT_CREATED },
+      { label: 'Started first upload', event: E.VIDEO_UPLOAD_STARTED },
+      { label: 'Completed an analysis', event: E.ANALYSIS_COMPLETED },
+    ],
+  },
+  {
+    name: 'Activation',
+    description:
+      'First analysis → engaged with the fix → started a drill → came back. The "aha + return" path that gates Phase 2.',
+    steps: [
+      { label: 'Completed an analysis', event: E.ANALYSIS_COMPLETED },
+      { label: 'Saw their top fix', event: E.PRIORITY_FIX_VIEWED },
+      { label: 'Started a drill', event: E.DRILL_STARTED },
+      { label: 'Returning user', event: null }, // PostHog-native retention, not a custom event
+    ],
+  },
+  {
+    name: 'Content → tool',
+    description:
+      'SEO/blog visitor → free tool → first upload. Measures whether content acquisition converts to product use.',
+    steps: [
+      { label: 'Content / SEO visit', event: E.PAGE_VIEW },
+      { label: 'Used a free tool', event: E.TOOL_RESULT_GENERATED },
+      { label: 'Started an upload', event: E.VIDEO_UPLOAD_STARTED },
+    ],
+  },
+  {
+    name: 'Improvement loop',
+    description: 'Built a fix → started a drill → completed a retest. The north-star retention loop.',
+    steps: [
+      { label: 'Built a Fix Stack', event: E.FIX_STACK_CREATED },
+      { label: 'Started a drill', event: E.DRILL_STARTED },
+      { label: 'Completed a retest', event: E.RETEST_COMPLETED },
+    ],
+  },
 ];
 
 /** What the OS can actually do for a capability given the live connection. */

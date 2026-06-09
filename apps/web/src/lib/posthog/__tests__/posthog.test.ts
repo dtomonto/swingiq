@@ -21,6 +21,7 @@ import {
   validateHogQL,
 } from '../queries';
 import { phFetch, shapeFlag, type RawFlag } from '../client';
+import { ANALYTICS_EVENTS } from '@swingiq/core';
 
 const INGEST_ONLY: Env = { NEXT_PUBLIC_POSTHOG_KEY: 'phc_abc12345678' };
 const FULL: Env = {
@@ -278,5 +279,42 @@ describe('client — defensive fetch & shaping', () => {
       rolloutPercentage: 25,
     });
     expect(shapeFlag({ id: 1, key: 'k', active: false }).rolloutPercentage).toBeNull();
+  });
+});
+
+describe('KEY_FUNNELS — integrity (every step maps to a real, buildable event)', () => {
+  const EVENT_VALUES = new Set<string>(Object.values(ANALYTICS_EVENTS));
+
+  test('there are funnels and each has at least two steps', () => {
+    expect(KEY_FUNNELS.length).toBeGreaterThan(0);
+    for (const f of KEY_FUNNELS) {
+      expect(f.name).toBeTruthy();
+      expect(f.description).toBeTruthy();
+      expect(f.steps.length).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  test('every step event is null (PostHog-native) or a real ANALYTICS_EVENTS value', () => {
+    for (const f of KEY_FUNNELS) {
+      for (const step of f.steps) {
+        expect(step.label).toBeTruthy();
+        if (step.event !== null) {
+          expect(EVENT_VALUES.has(step.event)).toBe(true);
+        }
+      }
+    }
+  });
+
+  test('funnel names are unique', () => {
+    const names = KEY_FUNNELS.map((f) => f.name);
+    expect(new Set(names).size).toBe(names.length);
+  });
+
+  test('the activation funnel covers analysis → fix → drill (the aha+return path)', () => {
+    const activation = KEY_FUNNELS.find((f) => f.name === 'Activation');
+    expect(activation).toBeDefined();
+    const events = activation!.steps.map((s) => s.event);
+    expect(events).toContain(ANALYTICS_EVENTS.ANALYSIS_COMPLETED);
+    expect(events).toContain(ANALYTICS_EVENTS.DRILL_STARTED);
   });
 });

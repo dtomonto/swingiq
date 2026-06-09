@@ -360,15 +360,21 @@ function ProductPanel({ dashboard, live, loading, isFull }: { dashboard: Dashboa
         <NeedsKeyPanel what="live event volumes" />
       )}
 
-      <SectionCard title="Key funnels" description="The conversions worth watching (build these in PostHog Funnels).">
-        <div className="space-y-3">
+      <SectionCard title="Key funnels" description="The conversions worth watching. Each step shows the exact event to add when building the funnel in PostHog — copy-and-build, no guessing.">
+        <div className="space-y-4">
           {dashboard.funnels.map((f) => (
             <div key={f.name}>
-              <p className="mb-1 text-sm font-medium text-amber-300">{f.name}</p>
+              <p className="text-sm font-medium text-amber-300">{f.name}</p>
+              <p className="mb-1.5 text-xs text-gray-500">{f.description}</p>
               <div className="flex flex-wrap items-center gap-1.5 text-xs text-gray-400">
                 {f.steps.map((s, i) => (
-                  <span key={s} className="flex items-center gap-1.5">
-                    <span className="rounded bg-gray-800 px-2 py-1">{s}</span>
+                  <span key={s.label} className="flex items-center gap-1.5">
+                    <span className="flex flex-col rounded bg-gray-800 px-2 py-1 leading-tight">
+                      <span className="text-gray-300">{s.label}</span>
+                      <code className="text-[10px] text-emerald-400/80">
+                        {s.event ?? 'PostHog-native (returning users)'}
+                      </code>
+                    </span>
                     {i < f.steps.length - 1 && <span className="text-gray-600">→</span>}
                   </span>
                 ))}

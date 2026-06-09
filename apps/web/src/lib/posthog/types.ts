@@ -7,8 +7,29 @@
 // object is the sanitized view that IS sent to the browser.
 // ============================================================
 
+import type { AnalyticsEventName } from '@swingiq/core';
+
 /** Which PostHog cloud (or self-hosted) the keys point at. */
 export type PostHogRegion = 'us' | 'eu' | 'custom';
+
+/**
+ * One step of a conversion funnel. `event` is the exact analytics event to use
+ * when building the funnel in PostHog; `null` means the step is derived from
+ * PostHog natively (e.g. a returning-user / repeat-visit step) rather than a
+ * custom event. Using AnalyticsEventName keeps every step tied to a real,
+ * instrumented event at compile time.
+ */
+export interface FunnelStep {
+  label: string;
+  event: AnalyticsEventName | null;
+}
+
+/** A named conversion funnel: an ordered list of steps to watch. */
+export interface KeyFunnel {
+  name: string;
+  description: string;
+  steps: FunnelStep[];
+}
 
 /**
  * How fully PostHog is wired:
@@ -79,8 +100,8 @@ export interface AnalyticsOsDashboard {
   coverageStats: { live: number; manage: number; linked: number; needsKey: number; total: number };
   /** The events SwingVantage is instrumented to send (from @swingiq/core). */
   trackedEvents: string[];
-  /** Key conversion funnels worth watching. */
-  funnels: { name: string; steps: string[] }[];
+  /** Key conversion funnels worth watching (each step tied to a real event). */
+  funnels: KeyFunnel[];
   /** ISO timestamp the dashboard was assembled (for "as of"). */
   generatedAt: string;
 }
