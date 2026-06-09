@@ -103,6 +103,7 @@ export const TRAINING_VIDEOS: TrainingVideoSeed[] = [
     sport: 'all',
     route: '/fix',
     durationHint: '2:40',
+    public: true, // rollout week 1
     tags: ['drills', 'drillmatch', 'fix', 'practice', 'technique', 'fault', 'routine'],
     script: [
       'Knowing your fault is only half the job — the part that changes your swing is practising the right drill for it.',
@@ -126,6 +127,7 @@ export const TRAINING_VIDEOS: TrainingVideoSeed[] = [
     sport: 'all',
     route: '/coach',
     durationHint: '2:50',
+    public: true, // rollout week 1
     tags: ['coach', 'coaching', 'parents', 'team', 'youth', 'junior', 'guide', 'progress'],
     script: [
       'Whether you are a coach with a roster or a parent supporting one player, SwingVantage is built to keep your feedback honest.',
@@ -149,6 +151,7 @@ export const TRAINING_VIDEOS: TrainingVideoSeed[] = [
     sport: 'all',
     route: '/motion-lab',
     durationHint: '2:45',
+    public: true, // rollout week 1
     tags: ['film study', 'motion lab', 'compare', 'video', 'pro swing', 'breakdown', 'frame'],
     script: [
       'Film study is how you learn to see a swing — and SwingVantage gives you the tools to do it without a coach in the room.',
@@ -291,6 +294,113 @@ export const TRAINING_VIDEOS: TrainingVideoSeed[] = [
       'Keep in mind the 3D read is an estimate from your video, so use it to spot the pattern, not to chase exact angles.',
       'Pick one early checkpoint to work on — the takeaway or the first move down — and leave the rest alone for now.',
       'Re-film after some reps and look again; training your eye on the early move pays off across every swing you make.',
+    ],
+  },
+
+  // ── Drills & Technique (sport coverage) ───────────────────────
+  {
+    id: 'tennis-topspin-drills',
+    title: 'Drills for heavier topspin',
+    description:
+      'Tennis drills to brush up the back of the ball — more net clearance and a heavier, safer ball.',
+    category: 'drills-technique',
+    sport: 'tennis',
+    route: '/drills',
+    durationHint: '2:20',
+    tags: ['tennis', 'topspin', 'forehand', 'low to high', 'drills', 'racquet path', 'spin'],
+    script: [
+      'Heavy topspin is not about swinging harder — it is about brushing up the back of the ball with a low-to-high path.',
+      'Start with the shadow-swing drill: feel the racquet drop below the ball and finish high over the shoulder, with no ball at all.',
+      'Add the drop-feed drill — feed yourself a ball low and brush up through it, listening for a clean, quiet contact.',
+      'Keep the racquet face slightly closed through the brush; an open face turns topspin into a flat, risky ball.',
+      'Aim well over the net on purpose — topspin is what brings the ball back down inside the line.',
+      'Filter the Drill Library to tennis and the spin area so the drills you see match this exact goal.',
+      'Track net clearance and depth, not just whether it went in; a heavier ball clears the net higher and still lands deep.',
+      'Re-check after a few sessions — more margin over the net with the same depth means the topspin is doing its job.',
+    ],
+  },
+  {
+    id: 'pickleball-dink-drills',
+    title: 'Drills to sharpen your dink',
+    description:
+      'Pickleball soft-game drills for control at the kitchen — keep the ball low and unattackable.',
+    category: 'drills-technique',
+    sport: 'pickleball',
+    route: '/drills',
+    durationHint: '2:20',
+    tags: ['pickleball', 'dink', 'kitchen', 'soft game', 'control', 'drills', 'net'],
+    script: [
+      'The dink wins kitchen battles — the goal is a soft, low ball your opponent cannot attack, not a winner.',
+      'Start with the cross-court dink drill; the longer diagonal gives you more margin and is the safest target to groove.',
+      'Use a quiet push from the shoulder, not a wrist flick — a stable wrist keeps the ball low and repeatable.',
+      'Keep your paddle out in front and your knees bent so you are lifting the ball gently, not slapping down at it.',
+      'Aim to land the ball in the kitchen so it cannot be volleyed; height over the net is what gets you attacked.',
+      'Filter the Drill Library to pickleball and the soft-game area to find drills that fit the dink.',
+      'Count how many dinks in a row you keep below net-cord height rather than chasing outright winners.',
+      'Re-check after a few sessions; a longer unattackable streak means your touch is getting more reliable.',
+    ],
+  },
+  {
+    id: 'padel-wall-drills',
+    title: 'Drills for the back-wall rebound',
+    description:
+      'Padel drills for reading the back glass and turning a defensive rebound into a controlled reset.',
+    category: 'drills-technique',
+    sport: 'padel',
+    route: '/drills',
+    durationHint: '2:25',
+    tags: ['padel', 'wall', 'back glass', 'rebound', 'defence', 'reset', 'drills'],
+    script: [
+      'In padel the wall is your friend — most points are lost by panicking off the glass, not by the shot itself.',
+      'Start with the let-it-come drill: feed a ball into the back glass and just track it, learning how high and far it kicks before you swing.',
+      'Wait for the ball to drop off the wall into your strike zone; the most common mistake is hitting it too early and too high.',
+      'Use a compact, controlled swing to reset deep or lob, rather than trying to crush a ball that is moving away from you.',
+      'Keep your body turned and your eyes on the rebound, not on your opponents — the wall changes the timing every time.',
+      'Filter the Drill Library to padel and the defence area so the drills match the back-wall situation.',
+      'Track how often you reset the point calmly versus going for too much off the glass.',
+      'Re-check after a few sessions; staying in more rallies off the wall is the honest sign it is working.',
+    ],
+  },
+  {
+    id: 'fastpitch-timing-drills',
+    title: 'Fastpitch timing drills',
+    description:
+      'Fast-pitch softball drills to get your load started early so the barrel is on time for rise and drop.',
+    category: 'drills-technique',
+    sport: 'softball_fast',
+    route: '/drills',
+    durationHint: '2:25',
+    tags: ['softball', 'fast pitch', 'timing', 'load', 'rise ball', 'drills', 'contact'],
+    script: [
+      'In fast-pitch the pitch gets on you quickly, so timing — when you start your load — matters as much as the swing itself.',
+      'Start with the early-load drill: begin your hands and hip load as the pitcher separates, not when the ball is already coming.',
+      'Use front-toss at game speed to rehearse getting the foot down on time; late timing is what turns a rise ball into a pop-up.',
+      'Stay through the middle of the field in practice so your timing is honest, not pull-happy.',
+      'For the rise ball, train to lay off the high one rather than chasing it — discipline is a timing skill too.',
+      'Filter the Drill Library to fast-pitch softball and the timing area to find drills built for this.',
+      'Track solid contact and how often you are on time, not just hits, so practice reflects the real skill.',
+      'Re-check after a few sessions; being on time more often is the sign the load is starting early enough.',
+    ],
+  },
+  {
+    id: 'slowpitch-line-drive-drills',
+    title: 'Slow-pitch line-drive drills',
+    description:
+      'Slow-pitch softball drills for a level, slightly-up swing that turns big arcs into hard line drives.',
+    category: 'drills-technique',
+    sport: 'softball_slow',
+    route: '/drills',
+    durationHint: '2:25',
+    tags: ['softball', 'slow pitch', 'line drive', 'launch angle', 'level swing', 'drills', 'contact'],
+    script: [
+      'Slow-pitch comes in on a high arc, so the trick is matching it with a slightly upward, level swing — not chopping down or scooping up.',
+      'Start with tee work set at the height where the arc drops into your zone, so your reps match the pitch you actually see.',
+      'Use the back-to-middle drill: drive the ball hard up the middle on a line before you ever think about pulling for distance.',
+      'Let the ball travel and get your hands inside it; lunging at the high arc is what produces lazy pop-ups.',
+      'Think line drive, not home run — solid contact on a line outproduces big swings that mostly fly out.',
+      'Filter the Drill Library to slow-pitch softball and the contact area for drills that target this.',
+      'Track your hard-hit line drives out of ten rather than chasing the occasional bomb.',
+      'Re-check after a few sessions; more balls on a line means your swing is matching the arc.',
     ],
   },
 ];

@@ -18,17 +18,21 @@ describe('getLearnItems (public /learn gate)', () => {
     expect(learn.every((i) => allIds.has(i.id))).toBe(true);
   });
 
-  it('keeps the originally-published training videos public', () => {
+  it('keeps the originally-published + week-1 training videos public', () => {
     const ids = new Set(getLearnItems().map((i) => i.id));
     expect(ids.has('swing-path')).toBe(true);
     expect(ids.has('launch-monitor-workflow')).toBe(true);
+    // Week-1 of the gradual rollout (flipped public:true).
+    expect(ids.has('drill-library-tour')).toBe(true);
+    expect(ids.has('coaching-and-parents')).toBe(true);
+    expect(ids.has('film-study-motion-lab')).toBe(true);
   });
 
-  it('keeps newly-added training videos in-app only until flipped public', () => {
+  it('keeps not-yet-flipped training videos in-app only until published', () => {
     const all = getLibraryItems();
     const learnIds = new Set(getLearnItems().map((i) => i.id));
-    // These are recorded + visible in /library, but not yet on /learn.
-    for (const id of ['drill-library-tour', 'coaching-and-parents', 'film-study-motion-lab']) {
+    // Recorded + visible in /library, but still private (public:false).
+    for (const id of ['slice-fix-drills', 'compare-to-a-reference', 'tennis-topspin-drills']) {
       expect(all.some((i) => i.id === id)).toBe(true);
       expect(learnIds.has(id)).toBe(false);
     }
