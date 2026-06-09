@@ -19,37 +19,34 @@ describe('getLearnItems (public /learn gate)', () => {
     expect(learn.every((i) => allIds.has(i.id))).toBe(true);
   });
 
-  it('keeps the originally-published + week-1 training videos public', () => {
+  it('keeps the originally-published videos public (stable anchors)', () => {
     const ids = new Set(getLearnItems().map((i) => i.id));
+    // Seed-default public; these are the always-live anchors of the rollout.
     expect(ids.has('swing-path')).toBe(true);
     expect(ids.has('launch-monitor-workflow')).toBe(true);
-    // Week-1 of the gradual rollout (flipped public:true).
-    expect(ids.has('drill-library-tour')).toBe(true);
-    expect(ids.has('coaching-and-parents')).toBe(true);
-    expect(ids.has('film-study-motion-lab')).toBe(true);
   });
 
-  it('keeps not-yet-flipped training videos in-app only until published', () => {
-    const all = getLibraryItems();
-    const learnIds = new Set(getLearnItems().map((i) => i.id));
-    // Recorded + visible in /library, but still private (public:false).
-    for (const id of ['slice-fix-drills', 'compare-to-a-reference', 'tennis-topspin-drills']) {
-      expect(all.some((i) => i.id === id)).toBe(true);
-      expect(learnIds.has(id)).toBe(false);
-    }
+  it('rolls out gradually — some training videos stay in-app only', () => {
+    const trainingTotal = getLibraryItems().filter((i) => i.source === 'training').length;
+    const trainingPublic = getLearnItems().filter((i) => i.source === 'training').length;
+    expect(trainingPublic).toBeGreaterThan(0);
+    expect(trainingPublic).toBeLessThan(trainingTotal); // not everything published yet
   });
 
-  it('resolves publish state from the admin overrides file, falling back to seed defaults', () => {
-    // With an empty overrides file, effective state equals the seed default and
-    // matches what getLearnItems exposes — the admin toggle only writes deviations.
-    expect(isTrainingPublic('swing-path')).toBe(true);
-    expect(trainingPublishDefault('swing-path')).toBe(true);
-    expect(isTrainingPublic('slice-fix-drills')).toBe(false);
-    expect(trainingPublishDefault('slice-fix-drills')).toBe(false);
-
+  it('invariant: a training video is on /learn iff isTrainingPublic(id) (overrides win)', () => {
     const learnIds = new Set(getLearnItems().map((i) => i.id));
     for (const i of getLibraryItems().filter((x) => x.source === 'training')) {
       expect(learnIds.has(i.id)).toBe(isTrainingPublic(i.id));
     }
+  });
+
+  it('an admin override publishes a video whose seed default is private', () => {
+    // The rollout is driven by the overrides file deviating from seed defaults:
+    // some on-/learn videos default to private but are published via override.
+    const overriddenPublic = getLearnItems().filter(
+      (i) => i.source === 'training' && !trainingPublishDefault(i.id),
+    );
+    expect(overriddenPublic.length).toBeGreaterThan(0);
+    expect(overriddenPublic.every((i) => isTrainingPublic(i.id))).toBe(true);
   });
 });

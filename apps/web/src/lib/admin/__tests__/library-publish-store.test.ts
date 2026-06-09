@@ -3,7 +3,7 @@
 // pure resolution in training-videos cover behavior.
 import { readLibraryPublishSnapshot } from '../library-publish-store';
 import { getLibraryItems } from '@/lib/library';
-import { isTrainingPublic } from '@/lib/library/training-videos';
+import { isTrainingPublic, trainingPublishDefault } from '@/lib/library/training-videos';
 
 describe('readLibraryPublishSnapshot', () => {
   const snap = readLibraryPublishSnapshot();
@@ -20,9 +20,10 @@ describe('readLibraryPublishSnapshot', () => {
     }
   });
 
-  it('flags rows whose state deviates from the seed default as overridden', () => {
-    // With the committed (empty) overrides file there are no deviations.
-    expect(snap.rows.every((r) => r.overridden === false)).toBe(true);
+  it('flags a row as overridden exactly when its state deviates from the seed default', () => {
+    for (const row of snap.rows) {
+      expect(row.overridden).toBe(row.published !== trainingPublishDefault(row.id));
+    }
   });
 
   it('exposes a writable flag (false on a production read-only FS)', () => {
