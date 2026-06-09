@@ -58,6 +58,9 @@ describe('integration status', () => {
 
   test('analytics recognizes any provider', () => {
     expect(analyticsConfigured({ NEXT_PUBLIC_GA_ID: 'G-1' })).toBe(true);
+    expect(analyticsConfigured({ NEXT_PUBLIC_PLAUSIBLE_DOMAIN: 'x.com' })).toBe(true);
+    expect(analyticsConfigured({ NEXT_PUBLIC_POSTHOG_KEY: 'phc_1' })).toBe(true);
+    expect(analyticsConfigured({ NEXT_PUBLIC_CLARITY_PROJECT_ID: 'abc123' })).toBe(true);
     expect(analyticsConfigured({})).toBe(false);
   });
 

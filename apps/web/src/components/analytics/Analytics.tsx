@@ -1,5 +1,6 @@
 import Script from 'next/script';
 import { GA_ID } from '@/lib/analytics';
+import { ClarityScript } from './ClarityScript';
 
 /**
  * Loads whichever analytics provider(s) are configured via env — and nothing
@@ -13,8 +14,11 @@ import { GA_ID } from '@/lib/analytics';
  *     youth-safe positioning). Auto-tracks page views incl. in-app navigation.
  *   • GA4        — NEXT_PUBLIC_GA_ID
  *   • PostHog    — NEXT_PUBLIC_POSTHOG_KEY (+ optional NEXT_PUBLIC_POSTHOG_HOST)
+ *   • Clarity    — NEXT_PUBLIC_CLARITY_PROJECT_ID (Microsoft Clarity: heatmaps &
+ *     session replay. NOTE: sets cookies & records sessions, so pair with a
+ *     cookie-consent banner in the EU and keep masking on for youth safety.)
  *
- * All three also receive SwingVantage's custom events through lib/analytics.ts.
+ * All four also receive SwingVantage's custom events through lib/analytics.ts.
  */
 
 const PLAUSIBLE_DOMAIN = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || '';
@@ -65,6 +69,12 @@ export function Analytics() {
           {`!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);posthog.init('${POSTHOG_KEY}',{api_host:'${POSTHOG_HOST}'});`}
         </Script>
       )}
+
+      {/* Microsoft Clarity — heatmaps & session replay. Loads only when
+          NEXT_PUBLIC_CLARITY_PROJECT_ID is set AND the `clarity.enabled`
+          operator flag is on (the in-app kill-switch). Installs window.clarity
+          so lib/analytics.ts can forward custom events. */}
+      <ClarityScript />
     </>
   );
 }

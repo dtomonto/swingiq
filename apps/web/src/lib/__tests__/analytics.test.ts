@@ -26,13 +26,24 @@ describe('analytics track() (A3 event-QA)', () => {
     expect(capture).toHaveBeenCalledWith('cta_clicked', { id: 'hero' });
   });
 
+  it('routes events to Microsoft Clarity when present', () => {
+    const clarity = jest.fn();
+    (global as { window?: unknown }).window = { clarity };
+    track(ANALYTICS_EVENTS.CTA_CLICKED, { id: 'hero' });
+    expect(clarity).toHaveBeenCalledWith('event', 'cta_clicked');
+    // properties are forwarded as stringified smart tags
+    expect(clarity).toHaveBeenCalledWith('set', 'id', 'hero');
+  });
+
   it('delivers to multiple providers at once', () => {
     const plausible = jest.fn();
     const capture = jest.fn();
-    (global as { window?: unknown }).window = { plausible, posthog: { capture } };
+    const clarity = jest.fn();
+    (global as { window?: unknown }).window = { plausible, posthog: { capture }, clarity };
     track(ANALYTICS_EVENTS.PAGE_VIEW, { path: '/' });
     expect(plausible).toHaveBeenCalled();
     expect(capture).toHaveBeenCalled();
+    expect(clarity).toHaveBeenCalledWith('event', 'page_view');
   });
 
   it('never throws when no provider is configured', () => {

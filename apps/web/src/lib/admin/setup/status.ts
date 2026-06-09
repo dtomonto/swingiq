@@ -44,7 +44,8 @@ function computeDerived(): Record<string, boolean> {
     'analytics-any':
       isConfigured(process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN) ||
       isConfigured(process.env.NEXT_PUBLIC_GA_ID) ||
-      isConfigured(process.env.NEXT_PUBLIC_POSTHOG_KEY),
+      isConfigured(process.env.NEXT_PUBLIC_POSTHOG_KEY) ||
+      isConfigured(process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID),
     // Daily AI spend kill-switch configured (lib/ai-budget.ts).
     'ai-budget': isConfigured(process.env.AI_DAILY_BUDGET_CENTS),
     // Distributed rate limiter (Upstash) — both halves required.

@@ -119,6 +119,15 @@ export const FLAG_DEFS: FlagDef[] = [
     group: 'Search Intelligence', owner: 'Growth', defaultEnabled: true, risk: 'low', status: 'registry',
   },
 
+  // ── Analytics ──────────────────────────────────────────────
+  {
+    key: 'clarity.enabled',
+    label: 'Microsoft Clarity',
+    description:
+      'Kill-switch for the Microsoft Clarity tag (heatmaps + session recording). ON by default when NEXT_PUBLIC_CLARITY_PROJECT_ID is set; flip OFF to stop loading it. Like all operator flags this is device-local (it gates the tag in your browser/session and the Clarity OS) — for a permanent, all-visitor change, set or unset the env var. Takes effect on the next page load. Toggle it in Clarity OS or here.',
+    group: 'Analytics', owner: 'Growth', defaultEnabled: true, risk: 'low', status: 'wired',
+  },
+
   // ── Mental Performance pillar ──────────────────────────────
   {
     key: 'mental_performance.enabled',

@@ -6,7 +6,8 @@
 //      (see components/analytics/Analytics.tsx).
 //   2. Plausible — used if window.plausible exists.
 //   3. PostHog — used if window.posthog exists.
-//   4. Console — development fallback so events are always visible.
+//   4. Microsoft Clarity — used if window.clarity exists.
+//   5. Console — development fallback so events are always visible.
 //
 // Nothing here throws if a provider is missing; events are simply
 // logged in development and dropped in production until a provider
@@ -22,6 +23,7 @@ interface WindowWithProviders extends Window {
   gtag?: (command: string, ...args: unknown[]) => void;
   plausible?: (event: string, options?: { props?: Props }) => void;
   posthog?: { capture: (event: string, props?: Props) => void };
+  clarity?: (command: string, ...args: unknown[]) => void;
 }
 
 /** The GA4 measurement ID, if configured. */
@@ -46,6 +48,17 @@ export function track(event: AnalyticsEventName, properties?: Props): void {
   }
   if (w.posthog?.capture) {
     w.posthog.capture(event, properties);
+    delivered = true;
+  }
+  if (typeof w.clarity === 'function') {
+    // Clarity tracks a named custom event; properties become smart tags
+    // (string values only) so they stay filterable in the Clarity dashboard.
+    w.clarity('event', event);
+    if (properties) {
+      for (const [key, value] of Object.entries(properties)) {
+        if (value != null) w.clarity('set', key, String(value));
+      }
+    }
     delivered = true;
   }
 

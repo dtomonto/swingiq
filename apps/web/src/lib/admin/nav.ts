@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -298,6 +298,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'growth', built: true, permission: 'analytics.view',
     blurb: 'Unified PostHog control center: product & web analytics, session replay, funnels, feature flags, experiments, surveys, cohorts and SQL — all in one place.',
     keywords: ['metrics', 'funnels', 'reports', 'retention', 'posthog', 'analytics os', 'web analytics', 'product analytics', 'session replay', 'feature flags', 'experiments', 'ab test', 'surveys', 'cohorts', 'hogql', 'sql', 'events'],
+  },
+  {
+    id: 'clarity', label: 'Clarity OS', href: '/admin/clarity', icon: Eye,
+    group: 'growth', built: true, permission: 'analytics.view',
+    blurb: 'Microsoft Clarity control center: session recordings, heatmaps, traffic, engagement and the behavioral quality signals (rage clicks, dead clicks, script errors) — live from the Data Export API plus deep links into Clarity.',
+    keywords: ['clarity', 'microsoft clarity', 'heatmaps', 'session replay', 'recordings', 'rage clicks', 'dead clicks', 'scroll depth', 'engagement', 'quality signals', 'data export', 'behavioral analytics'],
   },
   {
     id: 'insights', label: 'Insights', href: '/admin/insights', icon: Lightbulb,

@@ -79,6 +79,7 @@ export function analyticsConfigured(env: Env): boolean {
     'NEXT_PUBLIC_GA_ID',
     'NEXT_PUBLIC_PLAUSIBLE_DOMAIN',
     'NEXT_PUBLIC_POSTHOG_KEY',
+    'NEXT_PUBLIC_CLARITY_PROJECT_ID',
   );
 }
 
@@ -134,7 +135,9 @@ export function getIntegrationStatus(env: Env = process.env): IntegrationStatus[
       id: 'analytics',
       label: 'Analytics',
       configured: analyticsConfigured(env),
-      requiredEnv: ['NEXT_PUBLIC_GA_ID | NEXT_PUBLIC_PLAUSIBLE_DOMAIN | NEXT_PUBLIC_POSTHOG_KEY'],
+      requiredEnv: [
+        'NEXT_PUBLIC_GA_ID | NEXT_PUBLIC_PLAUSIBLE_DOMAIN | NEXT_PUBLIC_POSTHOG_KEY | NEXT_PUBLIC_CLARITY_PROJECT_ID',
+      ],
       note: 'Usage measurement (otherwise events log to the console only).',
       category: 'growth',
     },
