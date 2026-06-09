@@ -73,7 +73,7 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-10 h-10 bg-golf-fairway rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-base">SV</span>
+              <span className="text-golf-dark font-black text-base">SV</span>
             </div>
             <span className="text-primary-foreground font-bold text-2xl">SwingVantage</span>
           </div>

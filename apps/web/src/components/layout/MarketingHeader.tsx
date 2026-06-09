@@ -42,7 +42,7 @@ export function MarketingHeader({ locale = 'en' }: { locale?: LanguageCode }) {
         {/* Logo → home */}
         <Link href={localizedHref('/', locale)} className="flex items-center gap-2" aria-label={nav.homeAria}>
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-golf-fairway shrink-0">
-            <span className="text-sm font-black text-white">SV</span>
+            <span className="text-sm font-black text-golf-dark">SV</span>
           </div>
           <span className="text-lg font-bold text-foreground">SwingVantage</span>
         </Link>

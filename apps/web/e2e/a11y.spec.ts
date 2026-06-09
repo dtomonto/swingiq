@@ -32,13 +32,14 @@ for (const path of PAGES) {
       contentType: 'application/json',
     });
 
-    // Block on serious/critical STRUCTURAL issues (missing labels/names/roles,
-    // ARIA, etc.). `color-contrast` is temporarily NON-blocking: a baseline run
-    // found the only serious findings are contrast on brand elements (the green
-    // logo badge, hero text), which need a deliberate, visually-verified design
-    // pass to fix without changing the brand — tracked separately. Re-enable by
-    // removing color-contrast from CONTRAST_DEBT once that pass lands.
-    const CONTRAST_DEBT = new Set(['color-contrast']);
+    // Block on ALL serious/critical violations, including `color-contrast`.
+    // The brand-element contrast debt (green logo badge, hero text, footer
+    // headings) was fixed in a visually-verified design pass: the SV badge uses
+    // dark-green glyphs on the fairway-green chip, the standard-theme primary was
+    // darkened to 26% so white/80–/90 hero text clears AA, and the light footer's
+    // headings use text-foreground. CONTRAST_DEBT is now empty (kept as the seam
+    // to re-park a finding if one ever regresses, rather than re-disabling the rule).
+    const CONTRAST_DEBT = new Set<string>([]);
     const blocking = results.violations.filter(
       (v) => (v.impact === 'serious' || v.impact === 'critical') && !CONTRAST_DEBT.has(v.id),
     );

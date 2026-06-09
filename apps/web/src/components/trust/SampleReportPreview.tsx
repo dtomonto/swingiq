@@ -25,7 +25,7 @@ export function SampleReportPreview({
       <div className="space-y-4 p-5">
         {/* Top priority issue */}
         <div className="rounded-xl border border-warning/30 bg-warning/10 p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Top priority</p>
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-warning-text">Top priority</p>
           <p className="mt-1 font-bold text-foreground">Out-to-in club path</p>
           <p className="mt-1 text-sm text-muted-foreground">
             Your path is producing a left-to-right ball flight (a slice). Fixing this first unlocks the

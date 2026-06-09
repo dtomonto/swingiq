@@ -93,7 +93,7 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
             <span className="text-white font-black text-sm" aria-hidden="true">SV</span>
           </div>
           <div>
-            <span className="text-white font-bold text-lg">SwingVantage</span>
+            <span className="text-foreground font-bold text-lg">SwingVantage</span>
             <p className="text-muted-foreground text-xs">{f.tagline}</p>
           </div>
         </div>
@@ -102,13 +102,13 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 mb-10">
           {COLUMN_DEFS.map((col) => (
             <div key={col.headingKey}>
-              <h3 className="text-white text-sm font-semibold mb-3">{f[col.headingKey]}</h3>
+              <h3 className="text-foreground text-sm font-semibold mb-3">{f[col.headingKey]}</h3>
               <ul className="space-y-2">
                 {col.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={localizedHref(link.href, locale)}
-                      className="text-sm text-muted-foreground hover:text-white transition-colors"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {f.links[link.k]}
                     </Link>
@@ -122,8 +122,8 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
         {/* In-development disclaimer — invites feedback site-wide */}
         <div className="border-t border-gray-800 pt-6">
           <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
-            <strong className="text-white">{f.buildingTitle}</strong> {f.buildingBody}{' '}
-            <Link href={localizedHref('/contact', locale)} className="font-semibold text-white underline hover:text-primary">
+            <strong className="text-foreground">{f.buildingTitle}</strong> {f.buildingBody}{' '}
+            <Link href={localizedHref('/contact', locale)} className="font-semibold text-foreground underline hover:text-primary">
               {f.contactUsInline}
             </Link>{' '}
             {f.buildingCtaSuffix}
@@ -143,7 +143,7 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
                   localized-page visibility. */}
               <Link
                 href={localizedHref('/mental-performance', locale)}
-                className="text-muted-foreground transition-colors hover:text-white"
+                className="text-muted-foreground transition-colors hover:text-foreground"
               >
                 Mental Performance
               </Link>
@@ -152,7 +152,7 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
                   would gate localized-page visibility. */}
               <Link
                 href={localizedHref('/sitemap', locale)}
-                className="text-muted-foreground transition-colors hover:text-white"
+                className="text-muted-foreground transition-colors hover:text-foreground"
               >
                 Sitemap
               </Link>
