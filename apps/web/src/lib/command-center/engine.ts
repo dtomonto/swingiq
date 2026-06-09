@@ -100,6 +100,24 @@ export interface BranchHygieneSignal {
   cleanliness: number;
 }
 
+/** Security posture roll-up from securityOS (overall score + open findings). */
+export interface SecurityPostureSignal {
+  /** Whether a usable scan was produced. */
+  available: boolean;
+  /** Overall 0–100 weighted security score. */
+  score: number;
+  /** 0–100 — share of checks that produced a real (non-unknown) signal. */
+  confidence: number;
+  /** Count of open critical-severity findings. */
+  critical: number;
+  /** Count of open high-severity findings. */
+  high: number;
+  /** Title of the most severe open finding, for the recommendation copy. */
+  topFinding: string | null;
+  /** True when at least one check could not be read (lowers confidence). */
+  hasUnknowns: boolean;
+}
+
 /** Everything the engine needs, gathered once per scan. */
 export interface SignalBundle {
   /** ISO date-time of the scan. */
@@ -114,6 +132,11 @@ export interface SignalBundle {
   analyticsConfigured: boolean;
   /** Git/worktree hygiene roll-up from BranchGuardianOS. */
   branchHygiene: BranchHygieneSignal;
+  /**
+   * Security posture roll-up from securityOS. Optional so existing bundle
+   * builders/tests stay valid; the rule no-ops when it is absent/unavailable.
+   */
+  securityPosture?: SecurityPostureSignal;
   totals: { features: number; sports: number; drills: number };
 }
 
@@ -900,6 +923,96 @@ export function ruleBranchHygiene(bundle: SignalBundle): Recommendation[] {
   return out;
 }
 
+/**
+ * securityOS posture → Command Center. Surfaces the single most important
+ * security signal on the owner's one screen: open critical/high findings get
+ * an urgent recommendation; otherwise a sub-"good" overall score gets a nudge
+ * to raise posture. No-ops when securityOS produced no usable scan.
+ */
+export function ruleSecurityPosture(bundle: SignalBundle): Recommendation[] {
+  const s = bundle.securityPosture;
+  if (!s?.available) return [];
+  const out: Recommendation[] = [];
+
+  if (s.critical > 0 || s.high > 0) {
+    const bits: string[] = [];
+    if (s.critical > 0) bits.push(`${s.critical} critical`);
+    if (s.high > 0) bits.push(`${s.high} high`);
+    const urgent = s.critical > 0;
+    out.push(
+      build(bundle.now, {
+        id: 'security-os:open-findings',
+        title: `securityOS: ${bits.join(' + ')} open security finding(s)`,
+        summary: `securityOS found ${bits.join(' and ')}-severity finding(s) in the current posture${s.topFinding ? ` — most severe: "${s.topFinding}"` : ''}. These are the highest-leverage fixes for protecting user data.`,
+        recommendationType: 'security',
+        category: 'Security',
+        relatedSystem: 'securityOS',
+        effort: 'M',
+        confidence: Math.max(60, Math.min(95, s.confidence)),
+        factors: {
+          impact: urgent ? 20 : 15,
+          urgency: urgent ? 16 : 11,
+          confidence: 13,
+          affectedUsers: 9,
+          strategic: 9,
+          risk: urgent ? 18 : 13,
+        },
+        dueInDays: urgent ? 2 : 7,
+        evidence: [
+          `${bits.join(', ')} open finding(s)`,
+          `Overall security score: ${s.score}/100 (confidence ${s.confidence}%)`,
+          ...(s.topFinding ? [`Most severe: ${s.topFinding}`] : []),
+        ],
+        reason: 'Open critical/high findings are the most direct path to a breach or data-exposure incident; fixing them retires the most risk per hour.',
+        howToComplete: 'Open securityOS, work the ranked recommendations top-down, and mark each finding resolved as you verify the fix.',
+        stepByStepActions: [
+          'Open securityOS → Findings, filter to Critical + High.',
+          'Work each finding using its recommendation + runbook.',
+          'Re-run the scan and confirm the finding flips to Pass.',
+        ],
+        expectedOutcome: 'No open critical/high findings remain and the overall security score rises.',
+        riskIfIgnored: 'An unaddressed critical/high finding is exploited, exposing user data or an integration secret.',
+        completionCriteria: 'securityOS shows zero open critical and high findings.',
+        sourceEngine: 'security-os',
+        relatedLinks: [{ label: 'securityOS', href: '/admin/security-os' }],
+      }),
+    );
+  } else if (s.score < 70) {
+    out.push(
+      build(bundle.now, {
+        id: 'security-os:raise-posture',
+        title: `Security score is ${s.score}/100 — raise it above 70`,
+        summary: `No critical/high findings are open, but the overall securityOS score is ${s.score}/100${s.hasUnknowns ? ' (some checks could not be read, which lowers confidence)' : ''}. Closing medium findings and resolving unknowns hardens the baseline.`,
+        recommendationType: 'security',
+        category: 'Security',
+        relatedSystem: 'securityOS',
+        effort: 'M',
+        confidence: Math.max(55, Math.min(90, s.confidence)),
+        factors: { impact: 11, urgency: 7, confidence: 11, affectedUsers: 6, strategic: 9, risk: 10 },
+        dueInDays: 14,
+        evidence: [
+          `Overall security score: ${s.score}/100 (confidence ${s.confidence}%)`,
+          ...(s.hasUnknowns ? ['Some posture checks returned "unknown" — resolving them raises confidence'] : []),
+        ],
+        reason: 'A sub-"good" posture score signals accumulated medium findings or unread checks; addressing them now is cheaper than after an incident.',
+        howToComplete: 'Open securityOS, resolve medium findings and any "unknown" checks, then re-score.',
+        stepByStepActions: [
+          'Open securityOS → review medium findings and unknown checks.',
+          'Apply the recommended fix / provide the missing signal.',
+          'Re-run the scan and confirm the score climbs above 70.',
+        ],
+        expectedOutcome: 'Overall security score is in the "good" band (≥70) with higher confidence.',
+        riskIfIgnored: 'A drifting baseline accumulates risk and makes the next real finding harder to spot.',
+        completionCriteria: 'securityOS overall score ≥ 70 with no open high/critical findings.',
+        sourceEngine: 'security-os',
+        relatedLinks: [{ label: 'securityOS', href: '/admin/security-os' }],
+      }),
+    );
+  }
+
+  return out;
+}
+
 const RULES: Array<(b: SignalBundle) => Recommendation[]> = [
   ruleDataReadiness,
   ruleAnalytics,
@@ -908,6 +1021,7 @@ const RULES: Array<(b: SignalBundle) => Recommendation[]> = [
   ruleFeatureEducation,
   ruleSetup,
   ruleBranchHygiene,
+  ruleSecurityPosture,
   ruleBaseline,
 ];
 

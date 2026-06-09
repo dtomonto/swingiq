@@ -28,6 +28,7 @@ import { loadFindings } from '@/lib/admin/audits/data';
 import { loadAlertCounts } from '@/lib/feature-education/server/data';
 import { getPlatformMetrics } from '@/lib/admin/data/metrics';
 import { runBranchGuardianScan } from '@/lib/branch-guardian/generate.server';
+import { runSecurityScan } from '@/lib/security-os/generate.server';
 import setupRegistry from '@/data/setup-registry.json';
 import type {
   SignalBundle,
@@ -37,6 +38,7 @@ import type {
   FeatureEducationSignal,
   PlatformDataSignal,
   BranchHygieneSignal,
+  SecurityPostureSignal,
 } from './engine';
 
 function safeSportCoverage(): { coverage: SportCoverageSignal[]; drills: number } {
@@ -159,6 +161,28 @@ function safeBranchHygiene(now: Date): BranchHygieneSignal {
   }
 }
 
+/** Security posture roll-up from securityOS. Defensive — never throws. */
+function safeSecurityPosture(now: Date): SecurityPostureSignal {
+  try {
+    const scan = runSecurityScan(now);
+    const sorted = [...scan.findings].sort((a, b) => {
+      const order = { critical: 0, high: 1, medium: 2, low: 3, informational: 4 } as const;
+      return (order[a.severity] ?? 9) - (order[b.severity] ?? 9);
+    });
+    return {
+      available: true,
+      score: scan.score.overall,
+      confidence: scan.score.confidence,
+      critical: scan.score.counts.critical ?? 0,
+      high: scan.score.counts.high ?? 0,
+      topFinding: sorted[0]?.title ?? null,
+      hasUnknowns: scan.hasUnknowns,
+    };
+  } catch {
+    return { available: false, score: 0, confidence: 0, critical: 0, high: 0, topFinding: null, hasUnknowns: false };
+  }
+}
+
 function analyticsConfigured(): boolean {
   return Boolean(
     process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ||
@@ -186,6 +210,7 @@ export async function gatherSignals(now: Date = new Date()): Promise<SignalBundl
     platformData,
     analyticsConfigured: analyticsConfigured(),
     branchHygiene: safeBranchHygiene(now),
+    securityPosture: safeSecurityPosture(now),
     totals: {
       features: 0, // reserved — feature totals can feed future readiness rules
       sports: SPORT_TAXONOMY.length,

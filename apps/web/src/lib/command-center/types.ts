@@ -82,6 +82,7 @@ export type SourceEngine =
   | 'central-intelligence'
   | 'growth-os'
   | 'branch-guardian'
+  | 'security-os'
   | 'baseline';
 
 /** Priority band derived from the numeric score. */

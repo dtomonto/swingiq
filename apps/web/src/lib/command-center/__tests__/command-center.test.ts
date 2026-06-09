@@ -10,9 +10,11 @@ import {
   ruleAnalytics,
   ruleAuditFindings,
   ruleDataReadiness,
+  ruleSecurityPosture,
   DATA_THRESHOLDS,
   type SignalBundle,
   type PlatformDataSignal,
+  type SecurityPostureSignal,
 } from '../engine';
 import {
   applyOverrides,
@@ -49,6 +51,61 @@ function bundle(partial: Partial<SignalBundle> = {}): SignalBundle {
     ...partial,
   };
 }
+
+const security = (partial: Partial<SecurityPostureSignal> = {}): SecurityPostureSignal => ({
+  available: true,
+  score: 85,
+  confidence: 80,
+  critical: 0,
+  high: 0,
+  topFinding: null,
+  hasUnknowns: false,
+  ...partial,
+});
+
+describe('ruleSecurityPosture', () => {
+  it('no-ops when securityOS produced no usable scan', () => {
+    expect(ruleSecurityPosture(bundle())).toHaveLength(0); // securityPosture undefined
+    expect(ruleSecurityPosture(bundle({ securityPosture: security({ available: false }) }))).toHaveLength(0);
+  });
+
+  it('stays silent on a healthy posture (good score, no open findings)', () => {
+    expect(ruleSecurityPosture(bundle({ securityPosture: security({ score: 88 }) }))).toHaveLength(0);
+  });
+
+  it('raises an urgent finding recommendation when criticals are open', () => {
+    const recs = ruleSecurityPosture(
+      bundle({ securityPosture: security({ critical: 2, high: 1, score: 40, topFinding: 'RLS disabled on a public table' }) }),
+    );
+    expect(recs).toHaveLength(1);
+    expect(recs[0].id).toBe('security-os:open-findings');
+    expect(recs[0].sourceEngine).toBe('security-os');
+    expect(recs[0].category).toBe('Security');
+    expect(recs[0].recommendationType).toBe('security');
+    expect(recs[0].evidence.some((e) => e.includes('RLS disabled'))).toBe(true);
+  });
+
+  it('makes a critical finding more urgent (sooner due date) than a high-only one', () => {
+    const crit = ruleSecurityPosture(bundle({ securityPosture: security({ critical: 1, score: 40 }) }))[0];
+    const high = ruleSecurityPosture(bundle({ securityPosture: security({ high: 3, score: 55 }) }))[0];
+    expect(high.id).toBe('security-os:open-findings');
+    // Critical is due before high-only (2 days vs 7 days from the same NOW).
+    expect(crit.dueDate < high.dueDate).toBe(true);
+  });
+
+  it('nudges to raise a sub-70 score even with no open high/critical findings', () => {
+    const recs = ruleSecurityPosture(bundle({ securityPosture: security({ score: 62, hasUnknowns: true }) }));
+    expect(recs).toHaveLength(1);
+    expect(recs[0].id).toBe('security-os:raise-posture');
+    expect(recs[0].sourceEngine).toBe('security-os');
+  });
+
+  it('open findings take priority over the score-nudge (no double recommendation)', () => {
+    const recs = ruleSecurityPosture(bundle({ securityPosture: security({ critical: 1, score: 50 }) }));
+    expect(recs).toHaveLength(1);
+    expect(recs[0].id).toBe('security-os:open-findings');
+  });
+});
 
 describe('scoring', () => {
   it('clamps factors and produces a 1–100 score', () => {
