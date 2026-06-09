@@ -20,9 +20,11 @@ engine is the source of truth the LLM only narrates — hardening it lifts every
 | 14 | Expand club target windows + per-loft interpolation | 🟢 | SHIPPED `ca5508df`. All 7 club categories now in TARGET_WINDOWS (was 3; rest fell back to mid_iron). |
 | 13 | Profile-relative diagnostic thresholds | 🟢 | SHIPPED `ca5508df`. `relativizeDiagnoses` + PROFILE_TOLERANCES (beginner ±6° → pro ±1.5°); annotates/re-ranks, doesn't rewrite rules. |
 | 15 | Cross-session diagnosis awareness (persistence) | 🟢 | SHIPPED `d5519076`. `assessFaultPersistence` (new/intermittent/persistent/chronic) + persistence confidence factor. |
-| 16 | Confidence-calibration logging scaffold | ✅ | Record predicted-confidence vs retest-outcome (local-first) to measure calibration over time. |
+| 16 | Confidence-calibration logging scaffold | 🟢 | SHIPPED `4b5d43f7`. `lib/calibration` — recordPrediction/resolveOutcome + computeCalibration (per-band predicted-vs-observed, over/under-confidence). |
 
 **Acceptance:** new unit tests for each; existing `diagnostic/engine.test.ts` green; full suite green.
+
+> ✅ **SPRINT 1 COMPLETE** (#10 #11 #13 #14 #15 #16) — commits 57e18991, d5519076, ca5508df, 4b5d43f7. ~55 new tests; core jest 228 + tsc clean + full turbo build green throughout.
 
 ---
 
