@@ -34,13 +34,15 @@ keyless-safe; only the live model call is provider-gated.
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| 1 | Structured `AICoachResponse` via Anthropic structured outputs (`output_config.format` / `messages.parse()`) | 🔑 | Type already defined+unused; populate it. Falls back to free-text parse when keyless. |
+| 1 | Structured `AICoachResponse` via the gateway's jsonSchema mode | 🟢 | SHIPPED `c984a1ce`. Cross-provider-strict schema; `message`=coaching_text (raw-text fallback) + additive `structured` field (no UI break). 6 tests. |
 | 2 | Output-grounding validator (numeric claims must trace to `[DATA CONTEXT]`) | 🟢 | SHIPPED `9bf52215`. `validateGrounding` (°/yards/mph/rpm vs context, rounding tolerance); wired into /api/ai-coach as additive `grounding` field. 7 tests. |
 | 3 | Migrate hand-rolled `fetch` → centralized AI gateway | 🟢 | SHIPPED `79a5e5b4`. Owner chose a provider-agnostic gateway (both OpenAI+Anthropic) over a single-provider SDK — same centralization (retry/budget/tiering/structured-output), no SDK dep. Coach route migrated. |
 | 6 | App-level response cache keyed on hash(context, question) | 🟢 | SHIPPED `f819dd59`. Pure TtlLruCache + stable cacheKey; wired into /api/ai-coach (returns `cached:true`). 8 tests. |
 | 5 | Longitudinal + conversation memory wired into the prompt | 🟢 | SHIPPED `e8611727`. `recent_history` ctx field → `[RECENT HISTORY]` block in buildCoachPrompt; folded into cache key. (Conversation/multi-turn memory = thin follow-up.) |
 
 **Acceptance:** grounding rejects fabricated numbers in tests; structured parse round-trips; cache hit on repeat; keyless path unchanged.
+
+> ✅ **SPRINT 2 COMPLETE** (#1 #2 #3 #5 #6) — commits 9bf52215, f819dd59, e8611727, 79a5e5b4, c984a1ce.
 
 ---
 
