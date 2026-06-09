@@ -200,3 +200,64 @@ export function assessQuality(
         : ['Capture looks good — no changes needed. Re-film from the same spot next time for clean comparisons.'],
   };
 }
+
+// ── Vision spend gate (recommendation #19) ───────────────────
+
+export type VisionGateSeverity = 'ok' | 'caveat' | 'blocked';
+
+export interface VisionGateDecision {
+  /** Whether to proceed with the paid AI-vision analysis. */
+  proceed: boolean;
+  severity: VisionGateSeverity;
+  title: string;
+  guidance: string;
+  /** Concrete re-capture tips from the quality report. */
+  recommendations: string[];
+}
+
+/**
+ * Decide whether a clip is worth a paid AI-vision analysis (recommendation #19).
+ * An un-analyzable clip (no reliable pose) or a 'poor' verdict is BLOCKED with
+ * re-record guidance BEFORE the paid call — we never spend budget analysing
+ * footage that can't yield a trustworthy read, and the user gets a far better
+ * result from a 10-second re-shoot. A 'fair' clip proceeds with a low-confidence
+ * caveat; a 'good' clip proceeds clean. Pure + deterministic.
+ */
+export function assessVisionGate(report: CameraQualityReport): VisionGateDecision {
+  if (!report.analyzable) {
+    return {
+      proceed: false,
+      severity: 'blocked',
+      title: 'No swing detected',
+      guidance:
+        'We couldn’t reliably find a body pose in this clip, so an AI analysis wouldn’t be trustworthy. Re-record with the athlete fully in frame.',
+      recommendations: report.recommendations,
+    };
+  }
+  if (report.verdict === 'poor') {
+    return {
+      proceed: false,
+      severity: 'blocked',
+      title: 'Clip quality too low to analyse',
+      guidance:
+        'This clip is low quality, so an AI analysis would be unreliable — a quick re-record will give you a far better read. No analysis is spent on a clip we can’t trust.',
+      recommendations: report.recommendations,
+    };
+  }
+  if (report.verdict === 'fair') {
+    return {
+      proceed: true,
+      severity: 'caveat',
+      title: 'Analysing — but capture could be sharper',
+      guidance: 'We’ll analyse this clip, but a few capture issues mean some reads will be lower confidence.',
+      recommendations: report.recommendations,
+    };
+  }
+  return {
+    proceed: true,
+    severity: 'ok',
+    title: 'Good capture',
+    guidance: 'Capture looks good — analysing now.',
+    recommendations: report.recommendations,
+  };
+}

@@ -32,7 +32,13 @@ export { detectPhases } from './phases';
 export { computeScoreboard } from './scoring';
 export { buildReport, keyFaultLine } from './reporting';
 export { prescribeDrills, getCatalogDrill } from './drills';
-export { assessQuality, type QualitySourceInput } from './quality';
+export {
+  assessQuality,
+  assessVisionGate,
+  type QualitySourceInput,
+  type VisionGateDecision,
+  type VisionGateSeverity,
+} from './quality';
 export { compareSessions } from './comparison';
 export {
   runMotionAnalysis,
