@@ -8,6 +8,7 @@
 import { Bell } from 'lucide-react';
 import { ReengageNudgeCard } from '@/components/reengage/ReengageNudgeCard';
 import { NudgePreferences } from '@/components/reengage/NudgePreferences';
+import { PushToggle } from '@/components/notifications/PushToggle';
 import { useReengage } from '@/lib/reengage';
 
 export default function RemindersPage() {
@@ -35,6 +36,9 @@ export default function RemindersPage() {
           </p>
         </div>
       )}
+
+      {/* Browser push toggle — self-hides until the deployment configures VAPID. */}
+      <PushToggle />
 
       <NudgePreferences />
     </div>
