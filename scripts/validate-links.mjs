@@ -45,6 +45,27 @@ for (const rel of SCAN_DIRS) {
   }
 }
 
+// Registry-style links: content modules store links as object props
+// (`href: '/path'`) rather than JSX `href="/path"`, so the JSX regex misses
+// them. The feature registry's relatedLinks + CTAs are real internal links
+// rendered on /features/[slug] — validate them too so a stale slug (e.g. a
+// renamed SEO page) is caught in CI, not by a 404 on a live authority page.
+const PROP_SCAN_DIRS = ['apps/web/src/content/features'];
+const hrefPropRe = /href:\s*'(\/[^'#?]*)(?:[#?][^']*)?'/g;
+for (const rel of PROP_SCAN_DIRS) {
+  for (const file of walk(join(ROOT, rel), ['.ts', '.tsx'])) {
+    const txt = readFileSync(file, 'utf8');
+    let m;
+    while ((m = hrefPropRe.exec(txt)) !== null) {
+      const path = m[1].replace(/\/$/, '') || '/';
+      if (path.startsWith('//')) continue;
+      if (!resolves(path)) {
+        broken.push({ file: file.slice(ROOT.length + 1), path });
+      }
+    }
+  }
+}
+
 if (broken.length) {
   console.error(`❌ Found ${broken.length} internal link(s) with no matching route:\n`);
   broken.forEach((b) => console.error(`  • ${b.path}   (${b.file})`));

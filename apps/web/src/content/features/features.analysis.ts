@@ -234,7 +234,7 @@ export const ANALYSIS_FEATURES: Feature[] = [
       },
     ],
     relatedSlugs: ['screenshot-image-import', 'ai-diagnostic-engine', 'swing-score-trends', 'loft-gapping-analysis'],
-    relatedLinks: [{ label: 'Reading a launch monitor', href: '/golf/launch-monitor' }],
+    relatedLinks: [{ label: 'Reading a launch monitor', href: '/golf/launch-monitor-analysis' }],
   },
   {
     slug: 'screenshot-image-import',
