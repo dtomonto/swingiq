@@ -66,6 +66,15 @@ reports `aiVision:true`, analytics detected.
 | **11** E2E money paths | 3–5 Playwright journeys: upload→analysis→save, signup, pricing→checkout | M | Journeys run in the Tests workflow; a broken funnel fails CI |
 
 ### Phase 3 — Security, trust & youth-safety
+> **Keyless-doable items SHIPPED (2026-06-09):** **#13** constant-time coach-view
+> password compare (`8d508abe`); **#14** self-serve account + cloud-data deletion
+> (`12f8083d` — local wipe already existed; added `POST /api/user/delete` cascade +
+> DeleteAccountCard + 30-day SLA copy); **#15** youth-safety posture already strong
+> (no media upload, house-ads-only, gated upload consent) → codified as committed
+> policy incl. the mandatory EXIF-strip chokepoint (`1052d07f`). **#16** shipped in
+> Phase 1. **Still owner-gated:** **#12** F6 nonce-CSP (needs a preview deploy to
+> validate), **#17** Admin MFA (needs Supabase auth configured).
+
 | Rec | Deliverable | Effort | Acceptance |
 |---|---|---|---|
 | **12** F6 nonce CSP | Apply the turnkey guide (`docs/security/F6-nonce-csp.md`), env-gated `CSP_NONCE`; you validate on a preview | S (+owner preview) | No CSP violations on preview; `'unsafe-inline'` droppable |
@@ -76,6 +85,16 @@ reports `aiVision:true`, analytics detected.
 | **17** Admin MFA | TOTP enrollment + enforcement for `ADMIN_EMAILS` accounts | M | Admin login requires a second factor |
 
 ### Phase 4 — Performance & architecture
+> **SHIPPED (2026-06-09):** **#19** bundle analyzer + CI first-load JS budget gate
+> (`b6053ad5`). **#21** Unified Command Center already exists (`/admin/command-center`
+> aggregates 10 source engines into one scored screen) — acceptance already met.
+> **Deferred (not blocked on keys, but deliberately held):** **#20** split the hot
+> data files (`seoPages.ts`/`updates.ts`/`tutorial/videos.ts`) — these are edited by
+> concurrent agents constantly, so a big reshuffle now would *maximize* the merge
+> conflicts it aims to reduce; do it in a quiet window / dedicated worktree. **#18**
+> RSC reduction touches 400+ `'use client'` files with real behavior risk — needs a
+> careful measured pass, not a bulk sweep.
+
 | Rec | Deliverable | Effort | Acceptance |
 |---|---|---|---|
 | **18** RSC reduction | Audit the 402 `'use client'` files; convert provably-server ones to RSC; measure JS delta | M | Public-route initial JS drops; no behavior change |
@@ -84,6 +103,12 @@ reports `aiVision:true`, analytics detected.
 | **21** Unified Command Center | One admin dashboard surfacing each OS's top signal/action (reuse `command-center/engine.ts`) | M | Owner sees everything important on one screen |
 
 ### Phase 5 — Growth ops & focus  *(ongoing discipline)*
+> **#24 content cannibalization pass SHIPPED (2026-06-09, `192b507f`):** tightened
+> over-long titles/descriptions and differentiated the one near-duplicate
+> meta-description pair; the dedupe audit passes with only intentional
+> distinct-sibling title warnings left. **#7** is an ongoing discipline (not a code
+> deliverable).
+
 | Rec | Deliverable | Effort | Acceptance |
 |---|---|---|---|
 | **7** Public-funnel focus | Freeze new admin-OS features one cycle; redirect effort to the public conversion path | discipline | Next cycle's commits skew public/funnel, not admin |
@@ -121,8 +146,11 @@ reports `aiVision:true`, analytics detected.
 | 24 | Content cannibalization review | Eng | 5 | S–M |
 | 25 | ARCHITECTURE.md | Eng | 1 | S–M |
 
-**Agent can fully execute now:** 5, 16, 22, 23, 25 (Phase 1), 20 (Phase 4), 24 (Phase 5).
-**Agent executes, you provide a key/DSN/preview:** 4, 12, plus everything in Phase 2 (after analytics).
+**✅ Agent-executed & shipped (no keys):** 5, 16, 22, 23, 25 (Phase 1) · 13, 14, 15
+(Phase 3) · 19, 21-already-built (Phase 4) · 24 (Phase 5). #4 seam wired + activation
+card (owner pastes DSN). #10/#11 already substantially built.
+**Held for a quiet window (no keys, but high merge-collision / behavior risk):** 20, 18.
+**Agent executes, you provide a key/DSN/preview:** 12, 17, plus everything in Phase 2 (after analytics).
 **Owner only:** 1, 2, 3, 6.
 
 ## Suggested cadence
