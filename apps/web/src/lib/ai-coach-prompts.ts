@@ -288,6 +288,39 @@ export function buildCoachPrompt(ctx: CoachContext): { system: string; user: str
 // ── Guardrails ────────────────────────────────────────────────
 
 /**
+ * Prompt-injection / jailbreak / system-prompt-exfiltration patterns.
+ *
+ * First line of defence (LLM01 / LLM02): a crafted question shouldn't be
+ * able to make the coach reveal its system prompt, drop its guardrails, or
+ * adopt a new persona. These are intentionally HIGH-SIGNAL phrases that are
+ * extremely unlikely in a genuine swing question — deliberately avoiding
+ * broad single words ("act as", "show me", "rules") that legitimate coaching
+ * questions use (e.g. "act as if your front foot is planted", "what are the
+ * rules of golf?"). The model's system prompt is the real backstop; this
+ * just stops the obvious attempts before they ever reach the API.
+ */
+export const PROMPT_INJECTION_PATTERNS: RegExp[] = [
+  // "ignore / disregard / forget ... (your|previous|above) ... instructions/prompt/rules"
+  /\b(ignore|disregard|forget)\b[^.?!]{0,40}\b(previous|prior|earlier|above|all|your)\b[^.?!]{0,24}\b(instruction|instructions|prompt|prompts|rule|rules|message|messages|context|direction|directions)\b/i,
+  /\b(ignore|disregard|forget)\s+(everything|all)\b/i,
+  // References to the system/developer prompt itself
+  /\b(system|developer|initial|original)\s+(prompt|message|instruction|instructions)\b/i,
+  /\byour\s+(system\s+)?(prompt|instructions|guidelines|directives|system\s+message)\b/i,
+  // Asking the model to expose its prompt/instructions
+  /\b(reveal|repeat|print|show|output|disclose|share|tell\s+me|give\s+me)\b[^.?!]{0,40}\b(prompt|instructions|system\s+message|system\s+prompt|your\s+rules|verbatim)\b/i,
+  // Classic jailbreak handles
+  /\b(developer\s+mode|dan\s+mode|do\s+anything\s+now|jailbreak|jail[-\s]?break)\b/i,
+  // Overriding safety / guardrails
+  /\boverride\b[^.?!]{0,24}\b(instruction|instructions|rule|rules|prompt|safety|guardrail|guardrails|filter|filters)\b/i,
+  /\bprompt\s+injection\b/i,
+];
+
+/** True when the text looks like an attempt to manipulate the assistant. */
+export function looksLikePromptInjection(text: string): boolean {
+  return PROMPT_INJECTION_PATTERNS.some((re) => re.test(text));
+}
+
+/**
  * Validates a user question before sending to AI.
  * Returns an error string if the question should be blocked, or null if safe.
  */
@@ -306,8 +339,13 @@ export function validateUserQuestion(question: string, sport?: SportId): string 
     }
   }
 
-  // Security/abuse hard block
-  if (/\b(password|login|hack|bypass|exploit|jailbreak|ignore previous)\b/i.test(trimmed)) {
+  // Security/abuse hard block (single-word concerns).
+  if (/\b(password|login|hack|bypass|exploit)\b/i.test(trimmed)) {
+    return 'That question is outside what I can help with here.';
+  }
+
+  // Prompt-injection / jailbreak hard block (multi-token attack phrases).
+  if (looksLikePromptInjection(trimmed)) {
     return 'That question is outside what I can help with here.';
   }
 
