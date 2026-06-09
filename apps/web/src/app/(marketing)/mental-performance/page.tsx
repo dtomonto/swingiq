@@ -10,9 +10,9 @@ import { NON_MEDICAL_DISCLAIMER, CRISIS_NOTE } from '@/lib/mental-performance/co
 import { MENTAL_SPORT_CARDS } from './shared';
 
 export const metadata = buildMetadata({
-  title: 'Mental Performance — Recover After Mistakes & Compete With Composure',
+  title: 'Mental Performance — Recover & Reset Under Pressure',
   description:
-    'Your mechanics matter. Your response after the mistake matters just as much. SwingVantage Mental Performance helps athletes manage emotions, recover after errors, and build repeatable reset routines across golf, baseball, softball, tennis, pickleball and padel.',
+    'Your mechanics matter — so does your response after a mistake. SwingVantage Mental Performance helps athletes manage emotions, recover from errors, and build reset routines.',
   path: '/mental-performance',
   keywords: [
     'mental performance', 'sport psychology', 'how to recover after a mistake',

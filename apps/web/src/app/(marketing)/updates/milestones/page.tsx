@@ -6,7 +6,7 @@ import { PUBLISHED_MILESTONES } from '@/content/milestones/published';
 import { getPublicMilestone, milestonePath } from '@/lib/milestones/page-detail';
 
 export const metadata: Metadata = {
-  title: 'SwingVantage Milestones — Our Progress Building Honest AI Swing Coaching',
+  title: 'SwingVantage Milestones — Building Honest AI Swing Coaching',
   description:
     'Verifiable SwingVantage milestones — sports launched, education published, trust controls shipped — each explained in plain English. No vanity numbers, only what we can prove.',
   alternates: { canonical: '/updates/milestones' },

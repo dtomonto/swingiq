@@ -950,7 +950,7 @@ const BB_OTHER_WAY: SeoPage = {
   priority: 2,
   title: 'How to Hit the Ball the Other Way in Baseball',
   metaDescription:
-    'Hitting the other way means letting the ball travel, staying inside it, and driving the opposite-field gap. Here is how to do it and drills to groove it.',
+    'Going oppo in baseball: recognize the outer-half pitch, stay back on velocity, and let it get deep before driving it to right-center. Cues and drills inside.',
   directAnswer:
     'To hit the ball the other way, let it travel a little deeper, keep your hands inside the ball, and drive through it to the opposite-field gap instead of pulling and rolling over. It beats the shift, handles outside pitches, and is built on the same staying-through skill that fixes weak pull-side grounders.',
   problemExplanation: [

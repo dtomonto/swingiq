@@ -22,7 +22,7 @@ import { learnPath } from '@/lib/library/seo';
 export const metadata: Metadata = buildMetadata({
   title: 'Sitemap',
   description:
-    'Browse every public SwingVantage page in one place — sport hubs, free tools, sample reports, guides, benchmarks, and articles for golf, tennis, pickleball, padel, baseball, and softball.',
+    'Browse every public SwingVantage page — sport hubs, free tools, sample reports, guides, benchmarks, and articles for golf, tennis, pickleball, padel, baseball, and softball.',
   path: '/sitemap',
 });
 
