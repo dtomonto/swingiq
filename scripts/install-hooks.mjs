@@ -26,14 +26,18 @@ try {
 
 execSync('git config core.hooksPath scripts/hooks', { cwd: ROOT });
 
-// Make the hook executable (matters on macOS/Linux; harmless on Windows).
-const hook = path.join(ROOT, 'scripts/hooks/post-commit');
-if (existsSync(hook)) {
-  try { chmodSync(hook, 0o755); } catch { /* non-fatal */ }
+// Make the hooks executable (matters on macOS/Linux; harmless on Windows).
+for (const name of ['post-commit', 'pre-push']) {
+  const hook = path.join(ROOT, 'scripts/hooks', name);
+  if (existsSync(hook)) {
+    try { chmodSync(hook, 0o755); } catch { /* non-fatal */ }
+  }
 }
 
 console.log('✓ Git hooks installed: core.hooksPath = scripts/hooks');
 console.log('  After each commit, "Update:" / "Dev-Update:" trailers auto-publish to');
 console.log('  /updates (draft) and /dev-updates (live). Nothing is ever pushed for you.');
+console.log('  Before each push to master, the sitemap-coverage gate runs and blocks');
+console.log('  the push if a public page is missing from the sitemap.');
 console.log('');
 console.log('  To disable: git config --unset core.hooksPath');

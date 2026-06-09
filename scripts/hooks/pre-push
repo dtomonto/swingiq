@@ -1,0 +1,50 @@
+#!/bin/sh
+# SwingVantage pre-push hook — sitemap-coverage guard for master.
+#
+# Why: the sitemap-coverage gate (scripts/check-sitemap-coverage.mjs) is the
+# honesty check that every public page is in the XML sitemap or explicitly
+# excluded. CI runs it, but master is not a protected branch, so a direct push
+# can land a regression (e.g. the /learn concept pages reverting to the
+# runtime-only `learnEntryPath(e)` form the static gate can't see). This hook
+# re-runs that single gate locally and ABORTS a push to master if it fails, so
+# the regression can never leave this machine — covering every worktree that
+# shares this repo's core.hooksPath. Installed via `npm run hooks:install`.
+#
+# Scope is deliberately narrow:
+#   - Only the sitemap-coverage gate runs (fast, ~1s) — NOT the full audit:growth
+#     (lint/build), so an unrelated red check never blocks an unrelated push.
+#   - Only enforced when a ref being pushed is refs/heads/master.
+#   - Fails OPEN if node or the script is missing (never block on tooling gaps);
+#     fails CLOSED on an actual coverage failure (that is the whole point).
+#
+# To bypass for a one-off (use sparingly): git push --no-verify
+
+remote="$1"
+
+pushing_master=0
+# git feeds "<local ref> <local sha> <remote ref> <remote sha>" on stdin per ref.
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/heads/master) pushing_master=1 ;;
+  esac
+done
+
+[ "$pushing_master" -eq 1 ] || exit 0
+
+root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+cd "$root" || exit 0
+
+# Fail open if we can't run the gate at all (tooling gap, not a content problem).
+command -v node >/dev/null 2>&1 || exit 0
+[ -f scripts/check-sitemap-coverage.mjs ] || exit 0
+
+echo "pre-push: verifying sitemap coverage before pushing to master…"
+if ! node scripts/check-sitemap-coverage.mjs; then
+  echo ""
+  echo "✗ pre-push BLOCKED: sitemap coverage gate failed (see above)."
+  echo "  Fix app/sitemap.ts (or EXCLUDE the path) so every public page is covered,"
+  echo "  then push again. To bypass for a one-off: git push --no-verify"
+  exit 1
+fi
+
+exit 0
