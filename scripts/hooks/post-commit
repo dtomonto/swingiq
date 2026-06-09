@@ -49,6 +49,16 @@ if ! git diff --quiet -- "$social_file" 2>/dev/null; then
   echo "swingvantage: flagged new blog post(s) for social (see /admin/social)."
 fi
 
+# ── Registry refreshes (features / setup / audits) — OFF by default ──
+# These keep the admin dashboards' committed snapshots current, but they
+# regenerated + committed on EVERY commit, which (a) is noisy — up to three
+# extra chore commits per commit — and (b) races the JSON files when several
+# agents commit at once (leaving merge-conflict markers). They are now opt-in.
+# Refresh on demand instead:  npm run features:scan ; npm run setup:scan
+# (audits sync via scripts/sync-audit-reports.mjs). A scheduled CI job is the
+# recommended long-term home — see docs/ROADMAP.md (#22).
+if [ -n "$SWINGVANTAGE_REGISTRY_AUTOCOMMIT" ]; then
+
 # ── Feature Education: detect features and refresh the registry ──
 # Keeps the Feature Registry in sync with what shipped so the engine knows
 # which features need tutorials / how-tos / videos. Review + generate in
@@ -82,5 +92,7 @@ if ! git diff --quiet -- "$audits_file" 2>/dev/null; then
   git commit -m "chore(audits): refresh audit reports" -- "$audits_file" || exit 0
   echo "swingvantage: refreshed audit reports (see /admin/audits)."
 fi
+
+fi  # end SWINGVANTAGE_REGISTRY_AUTOCOMMIT guard
 
 exit 0

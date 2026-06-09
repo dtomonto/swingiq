@@ -36,6 +36,21 @@ directly as a break-glass (this is how interactive + scheduled tasks publish tod
 - **Never** use `--force`, never skip hooks (`--no-verify`), never disable branch
   protection to land code. Emergency only: `gh api -X DELETE repos/dtomonto/swingiq/branches/master/protection`.
 
+### Staging on the shared checkout — the #1 way commits go wrong here
+
+Multiple agents share one git index, so **`git add -A` / `git add .` / a bare
+`git commit -a` will sweep another agent's in-flight files into your commit.**
+This has caused real incidents (22 unrelated files in one commit).
+
+- **Always stage explicit paths**, then **commit with a pathspec**:
+  `git commit -m "…" -- path/to/file1 path/to/file2`. A pathspec commit records
+  ONLY those paths even if something else is staged — it cannot sweep.
+- After committing, **verify**: `git show --stat HEAD` (or `HEAD~1` if the
+  post-commit hook moved HEAD) should list only your files.
+- Better still: **work in a worktree** (§1) so you have your own index entirely.
+- The post-commit hook itself is safe (it stages only its own JSON via pathspec);
+  the risk is *your* broad `git add`, not the hook.
+
 ## 3. Verify before you land
 
 ```bash
