@@ -37,6 +37,36 @@ Last updated: May 31, 2026.
   we never guarantee a result. Trust components and notices repeat this near
   conversion points.
 
+## 1a. Media metadata (EXIF), upload consent & advertising — committed stance
+
+These are true today and are **committed policy** going forward (recorded here so
+they survive the move to cloud media storage):
+
+- **No EXIF/GPS is persisted — and a strip is mandatory the moment media is
+  stored.** Today raw photos/video are never uploaded (analysis is on-device;
+  only sampled still frames go to the AI vision provider, and they are not
+  retained), so no embedded location/metadata reaches a server. **Requirement:**
+  if/when swing media is ever persisted to cloud storage (Supabase) or attached to
+  a shared/recruiting artifact, EXIF/GPS metadata MUST be stripped at the ingest
+  chokepoint *before* the bytes are stored or leave the device — for images by
+  re-encoding (canvas → clean blob), for video by transcoding/remux that drops
+  metadata atoms. This belongs next to the upload handler
+  (`components/video/VideoUpload.tsx` → `handleFile`) and any future storage route,
+  so it cannot be bypassed. No EXIF-strip code ships before there is a real
+  persistence call site (it would be dead code) — it lands *with* that feature.
+- **Upload consent is shown and affirmatively gated.** `VideoUpload.tsx` blocks
+  both file upload and in-app recording behind an explicit "I understand and want
+  to continue" checkbox, alongside a plain-English notice (local processing,
+  frames-only transmission, no retention, never used to train a shared model).
+  `recruiting/FilmLibrary.tsx` likewise states footage "stays on this device until
+  cloud storage is connected."
+- **Advertising defaults to non-personalized.** The ad layer (`lib/ads`) serves
+  only first-party **house ads** chosen by placement/context — there is no
+  behavioral profile, no cross-site tracking, and no third-party personalization.
+  Ads render only once an ad network is configured (keyless-first; zero ads by
+  default). **Requirement:** if a network is ever enabled, non-personalized /
+  contextual is the committed default for youth-safety, never interest-based.
+
 ## 2. Parent / guardian handling
 
 - SwingVantage is **not directed at children under 13**.
