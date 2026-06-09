@@ -49,6 +49,9 @@ yarn-error.log*
 coverage
 .nyc_output
 
+# Jest cache (project-local cacheDirectory + ad-hoc --cacheDirectory runs)
+.jest-cache*/
+
 # Expo
 *.jks
 *.p8
