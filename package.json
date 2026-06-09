@@ -21,6 +21,7 @@
     "check:trust": "npm run scan:placeholders",
     "check:naming": "node scripts/check-naming.mjs",
     "check:admin-consistency": "node scripts/check-admin-page-consistency.mjs",
+    "branches:prune": "node scripts/prune-merged-branches.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
     "check:duplicate-content": "node scripts/check-duplicate-content.mjs",
     "validate:content": "node scripts/validate-content.mjs",

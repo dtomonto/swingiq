@@ -26,8 +26,8 @@
 import RECORDINGS from './recordings.generated.json';
 // The video catalogue is size-sharded into siblings (roadmap #20) so no single
 // file exceeds ~600 lines. Spread back into RAW_TUTORIAL_VIDEOS in order below.
-import { RAW_VIDEOS_1 } from './videosRaw1';
-import { RAW_VIDEOS_2 } from './videosRaw2';
+import { RAW_VIDEOS_1 } from './videos-raw-1';
+import { RAW_VIDEOS_2 } from './videos-raw-2';
 
 /** Who a video is written for. Mirrors the onboarding USER_TYPES. */
 export type TutorialAudience = 'athlete' | 'parent' | 'coach' | 'team';

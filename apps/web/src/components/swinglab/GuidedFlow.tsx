@@ -10,7 +10,7 @@
 import Link from 'next/link';
 import { ArrowRight, Check } from 'lucide-react';
 import { LAB_STATIONS } from '@/content/swinglab';
-import type { GuidedStep } from '@/lib/swinglab/labState';
+import type { GuidedStep } from '@/lib/swinglab/lab-state';
 
 const STATION_BY_ID = Object.fromEntries(LAB_STATIONS.map((s) => [s.id, s]));
 

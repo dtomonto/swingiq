@@ -9,7 +9,7 @@
 
 import { ArrowRight, Cpu } from 'lucide-react';
 import { LAB_STATIONS, type LabStation } from '@/content/swinglab';
-import type { LabSystemsModel } from '@/lib/swinglab/labSystems';
+import type { LabSystemsModel } from '@/lib/swinglab/lab-systems';
 import { STATION_ACCENTS, STATION_ICONS } from './stationVisuals';
 
 const STATION_BY_ID: Record<string, LabStation> = Object.fromEntries(LAB_STATIONS.map((s) => [s.id, s]));

@@ -1,4 +1,4 @@
-import { actionToStation, buildGuidedPath, buildLabPersonalization, hrefToStation, type LabSignals } from '../labState';
+import { actionToStation, buildGuidedPath, buildLabPersonalization, hrefToStation, type LabSignals } from '../lab-state';
 
 describe('actionToStation', () => {
   it('maps known Next-Best-Action ids to their station', () => {
