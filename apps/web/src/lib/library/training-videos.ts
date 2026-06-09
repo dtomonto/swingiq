@@ -403,6 +403,94 @@ export const TRAINING_VIDEOS: TrainingVideoSeed[] = [
       'Re-check after a few sessions; more balls on a line means your swing is matching the arc.',
     ],
   },
+
+  // ── Feature Deep-Dives (batch 2) ──────────────────────────────
+  {
+    id: 'progress-tracking-deepdive',
+    title: 'How progress tracking actually works',
+    description:
+      'What the Progress trends are really telling you — and how an honest retest proves a change stuck.',
+    category: 'feature-deepdive',
+    sport: 'all',
+    route: '/progress',
+    durationHint: '2:35',
+    tags: ['progress', 'trends', 'retest', 'consistency', 'baseline', 'tracking', 'improvement'],
+    script: [
+      'Progress is where SwingVantage answers the only question that matters: are you actually getting better?',
+      'Open Progress and you will see your key metrics trend over time, not just your latest session in isolation.',
+      'One session is noise; a trend is signal. SwingVantage leans on the trend so a single good or bad day does not fool you.',
+      'Watch consistency, not just your best number — a tighter spread usually means more than one flushed shot.',
+      'When you change something, set a baseline first, then retest after a few sessions to see if the line really moved.',
+      'The honest retest is the whole point: it tells you whether a fix worked or whether you just had a good warm-up.',
+      'If a trend is flat, that is information too — it means it is time to try a different fix, not to try harder at the same one.',
+      'Come back to Progress on a steady cadence; improvement you can see is what keeps you practising the right things.',
+    ],
+  },
+  {
+    id: 'readiness-and-bodysync',
+    title: 'Train with your readiness (BodySync)',
+    description:
+      'How BodySync turns sleep, energy, and soreness into a readiness read that adjusts the day’s coaching.',
+    category: 'feature-deepdive',
+    sport: 'all',
+    route: '/bodysync',
+    durationHint: '2:30',
+    tags: ['bodysync', 'readiness', 'recovery', 'wellness', 'health', 'load', 'training'],
+    script: [
+      'How your body feels on a given day changes what a smart practice looks like — BodySync is where that gets accounted for.',
+      'Open BodySync and log a few honest signals: sleep, energy, and any soreness. It takes seconds and it is private to you.',
+      'SwingVantage turns those into a readiness read, so a low-energy day suggests technique and feel over max-effort reps.',
+      'On a green day, that is your cue to push speed or work something demanding while your body can handle it.',
+      'This is not medical advice and never a diagnosis — it is a simple, honest nudge to train in tune with your body.',
+      'Pair readiness with the warm-up suggestions so you start ready instead of grinding cold.',
+      'Over time you will see how rest and recovery line up with your better sessions in Progress.',
+      'Used consistently, BodySync keeps you training hard on the right days and training smart on the rest.',
+    ],
+  },
+
+  // ── Launch Monitor & Data (batch 2) ───────────────────────────
+  {
+    id: 'photo-import-deepdive',
+    title: 'Import your numbers from a photo',
+    description:
+      'No CSV? Snap a photo of your launch monitor screen and SwingVantage reads the numbers — here’s how to do it well.',
+    category: 'launch-monitor-data',
+    sport: 'golf',
+    route: '/sessions/import/image',
+    durationHint: '2:30',
+    tags: ['photo', 'import', 'launch monitor', 'ocr', 'screenshot', 'data', 'verify'],
+    script: [
+      'Not every launch monitor exports a file — so SwingVantage lets you snap a photo of the screen and pull the numbers from it.',
+      'Open the photo import and add a clear, straight-on shot of the monitor display, with the metrics in focus.',
+      'Good light and no glare make a big difference; a crisp photo reads far more accurately than a blurry, angled one.',
+      'SwingVantage extracts the values and shows them back to you — always review them against the screen before you save.',
+      'Fix any misread number right there; a quick check now keeps your history clean and your trends honest.',
+      'This is a reading aid, not a measurement device — the truth is the monitor, the photo just saves you typing.',
+      'Save it as a session and from there it powers Diagnose and Progress exactly like a CSV import would.',
+      'When in doubt about a value, re-shoot rather than guess — clean data in is what makes everything downstream trustworthy.',
+    ],
+  },
+  {
+    id: 'reading-your-numbers',
+    title: 'What your launch monitor numbers mean',
+    description:
+      'A plain-English tour of carry, ball speed, launch, spin, and smash factor — and which ones to actually act on.',
+    category: 'launch-monitor-data',
+    sport: 'golf',
+    route: '/diagnose',
+    durationHint: '2:45',
+    tags: ['carry', 'ball speed', 'launch', 'spin', 'smash factor', 'data', 'metrics', 'launch monitor'],
+    script: [
+      'A launch monitor throws a lot of numbers at you — the skill is knowing which few actually explain your shot.',
+      'Ball speed is your power; it is the single biggest driver of how far the ball can go.',
+      'Smash factor is ball speed divided by club speed — it tells you how efficiently you struck it, with center contact the goal.',
+      'Launch angle and spin work together to set your carry and how the ball holds or releases when it lands.',
+      'Too much spin balloons the ball and costs distance; too little can make it dive — the right window depends on your speed.',
+      'Carry is the honest distance number to track, because total roll depends on the ground, not your swing.',
+      'In Diagnose, SwingVantage reads these patterns for you and ranks what to address first, each with a confidence level.',
+      'Do not chase every number at once — fix the one that explains the most, retest, and let the rest follow.',
+    ],
+  },
 ];
 
 function fmtDuration(totalSec: number): string {

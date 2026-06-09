@@ -46,5 +46,17 @@
   },
   "slowpitch-line-drive-drills": {
     "durationSec": 54
+  },
+  "readiness-and-bodysync": {
+    "durationSec": 53
+  },
+  "progress-tracking-deepdive": {
+    "durationSec": 57
+  },
+  "photo-import-deepdive": {
+    "durationSec": 55
+  },
+  "reading-your-numbers": {
+    "durationSec": 55
   }
 }
