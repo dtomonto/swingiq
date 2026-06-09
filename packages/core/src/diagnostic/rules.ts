@@ -100,6 +100,9 @@ export interface SessionStats {
   // Club delivery averages
   avg_face_to_path?: number;
   avg_club_path?: number;
+  // Shot-to-shot consistency (std dev) of the primary diagnostic drivers.
+  face_to_path_std_dev?: number;
+  club_path_std_dev?: number;
   avg_face_angle?: number;
   avg_attack_angle?: number;
   avg_dynamic_loft?: number;

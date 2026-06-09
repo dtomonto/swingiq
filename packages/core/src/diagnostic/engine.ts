@@ -6,10 +6,25 @@
 import type { Shot, SupportingDataPoint } from '../types';
 import { DIAGNOSTIC_RULES, type SessionStats, type DiagnosticRule } from './rules';
 
+/**
+ * Robust mean (recommendation #10). With ≥5 valid shots, drops any value more
+ * than 2σ from the mean so a single mishit — a shank, a fat strike, a gust —
+ * can't skew the session average that the diagnostic rules read. For clean data
+ * (nothing beyond 2σ) this is byte-identical to a plain arithmetic mean, so it
+ * never surprises a tidy session. Below 5 shots there isn't enough signal to
+ * call anything an outlier, so it's a plain mean.
+ */
 function average(values: (number | null | undefined)[]): number | undefined {
   const valid = values.filter((v): v is number => v !== null && v !== undefined);
   if (valid.length === 0) return undefined;
-  return valid.reduce((sum, v) => sum + v, 0) / valid.length;
+  const mean = valid.reduce((sum, v) => sum + v, 0) / valid.length;
+  if (valid.length < 5) return mean;
+  const variance = valid.reduce((s, v) => s + (v - mean) ** 2, 0) / valid.length;
+  const sd = Math.sqrt(variance);
+  if (sd === 0) return mean;
+  const kept = valid.filter((v) => Math.abs(v - mean) <= 2 * sd);
+  if (kept.length === 0 || kept.length === valid.length) return mean;
+  return kept.reduce((s, v) => s + v, 0) / kept.length;
 }
 
 function stdDev(values: (number | null | undefined)[]): number | undefined {
@@ -47,6 +62,11 @@ export function computeSessionStats(shots: Shot[], clubCategory: string): Sessio
     // Club delivery
     avg_face_to_path: average(club.map((c) => c.face_to_path)),
     avg_club_path: average(club.map((c) => c.club_path)),
+    // Shot-to-shot consistency of the two metrics that drive most diagnoses —
+    // used to calibrate confidence (recommendation #11) so a noisy, inconsistent
+    // delivery doesn't earn a high-confidence "your path is X" verdict.
+    face_to_path_std_dev: stdDev(club.map((c) => c.face_to_path)),
+    club_path_std_dev: stdDev(club.map((c) => c.club_path)),
     avg_face_angle: average(club.map((c) => c.face_angle_to_target)),
     avg_attack_angle: average(club.map((c) => c.attack_angle)),
     avg_dynamic_loft: average(club.map((c) => c.dynamic_loft)),
@@ -100,6 +120,39 @@ export function sampleSizeConfidenceFactor(shotCount: number): number {
   return 0.6 + 0.4 * ((shotCount - MIN_DIAGNOSIS_SHOTS) / span);
 }
 
+// Dispersion bands (°) for the two primary diagnostic drivers. At/under "tight"
+// the delivery is repeatable (no penalty); at/over "noisy" it's scattered.
+const FACE_TO_PATH_TIGHT = 2.5;
+const FACE_TO_PATH_NOISY = 7;
+const CLUB_PATH_TIGHT = 2.5;
+const CLUB_PATH_NOISY = 7;
+/** Lowest multiplier applied to a maximally-scattered delivery. */
+const MIN_DISPERSION_FACTOR = 0.7;
+
+function rampDown(value: number, tight: number, noisy: number): number {
+  if (value <= tight) return 1;
+  if (value >= noisy) return MIN_DISPERSION_FACTOR;
+  return 1 - (1 - MIN_DISPERSION_FACTOR) * ((value - tight) / (noisy - tight));
+}
+
+/**
+ * Confidence multiplier based on shot-to-shot consistency (recommendation #11).
+ * The same average face-to-path is far more trustworthy from a tight, repeatable
+ * delivery than from wildly scattered shots — so a noisy swing earns a lower
+ * confidence even at full sample size. Returns 0.7–1.0; the noisiest of the two
+ * primary drivers governs. Missing dispersion data ⇒ no penalty (1.0).
+ */
+export function dispersionConfidenceFactor(stats: SessionStats): number {
+  const factors: number[] = [];
+  if (stats.face_to_path_std_dev !== undefined) {
+    factors.push(rampDown(stats.face_to_path_std_dev, FACE_TO_PATH_TIGHT, FACE_TO_PATH_NOISY));
+  }
+  if (stats.club_path_std_dev !== undefined) {
+    factors.push(rampDown(stats.club_path_std_dev, CLUB_PATH_TIGHT, CLUB_PATH_NOISY));
+  }
+  return factors.length === 0 ? 1 : Math.min(...factors);
+}
+
 export function runDiagnosticEngine(
   shots: Shot[],
   clubCategory: string,
@@ -116,13 +169,16 @@ export function runDiagnosticEngine(
   // high-confidence diagnosis. Borderline rules drop below the 40 floor and
   // are filtered out entirely until enough shots back them up.
   const sampleFactor = sampleSizeConfidenceFactor(stats.shot_count);
+  // Recommendation #11: a scattered, inconsistent delivery should not earn a
+  // high-confidence verdict even with plenty of shots.
+  const dispersionFactor = dispersionConfidenceFactor(stats);
 
   const triggered: DiagnosisOutput[] = [];
 
   for (const rule of DIAGNOSTIC_RULES) {
     if (rule.check(stats)) {
       const rawConfidence = rule.confidence(stats);
-      const confidence = Math.round(rawConfidence * sampleFactor);
+      const confidence = Math.round(rawConfidence * sampleFactor * dispersionFactor);
       if (confidence >= 40) {
         triggered.push({
           rule,
