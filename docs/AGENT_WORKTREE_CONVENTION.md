@@ -2,6 +2,15 @@
 
 _Last updated: June 2026_
 
+> **Branch protection (June 2026).** `master` is now protected: **force-pushes and
+> branch deletion are blocked**, and the standard contributor path is a **PR that
+> passes the required CI checks** (type-check/lint/build, growth audit, Jest, security
+> lint/typecheck, custom security checks, dependency audit). The repo **admin/owner
+> token can still fast-forward-push `master` directly** (admin bypass / `enforce_admins`
+> off), so the ff-push publish flow below keeps working for interactive and scheduled
+> tasks. If a plain ff-push is ever rejected, rebase on `origin/master` and retry, or
+> open a PR. Emergency disable: `gh api -X DELETE repos/dtomonto/swingiq/branches/master/protection`.
+
 ---
 
 ## 📘 In Plain English (start here)

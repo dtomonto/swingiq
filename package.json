@@ -16,6 +16,7 @@
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "clean": "turbo run clean && rimraf node_modules",
+    "wt": "node scripts/agent-worktree.mjs",
     "scan:placeholders": "node scripts/scan-placeholders.mjs",
     "check:trust": "npm run scan:placeholders",
     "check:naming": "node scripts/check-naming.mjs",
