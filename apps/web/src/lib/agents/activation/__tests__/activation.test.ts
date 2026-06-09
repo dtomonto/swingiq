@@ -118,4 +118,21 @@ describe('buildActivation', () => {
     expect(stalled.stalledDays).toBe(5);
     expect(stalled.currentStepId).toBe('first_upload');
   });
+
+  it('softens the nudge with reassuring, friction-reduced copy when stalled', () => {
+    const ctx = buildAgentContext(makeState({ profile }), 'golf'); // profiled, no uploads
+    const normal = buildActivation(ctx);
+    const stalled = buildActivation(ctx, { accountAgeDays: 5 });
+
+    // Same step + same concrete action — only the framing changes.
+    expect(stalled.currentStepId).toBe(normal.currentStepId);
+    expect(stalled.nudge?.action.intent).toBe(normal.nudge?.action.intent);
+    expect(normal.stalled).toBe(false);
+    expect(stalled.stalled).toBe(true);
+
+    // Reassuring headline + body that foregrounds the single smallest step.
+    expect(stalled.nudge?.headline).toMatch(/no rush/i);
+    expect(stalled.nudge?.body).toContain(stalled.nudge!.microStep);
+    expect(stalled.nudge?.body).not.toBe(normal.nudge?.body);
+  });
 });

@@ -111,6 +111,21 @@ function nudgeFor(id: ActivationStepId, ctx: AgentContext, action: AgentAction):
   }
 }
 
+/**
+ * When a new user has STALLED on a step, soften the nudge instead of repeating
+ * the same first-time push: acknowledge the gap and reduce the ask to the single
+ * smallest step. Re-engagement copy converts stuck users better than a louder
+ * version of the message they already ignored. Shape is unchanged (additive).
+ */
+function applyStallTone(nudge: ActivationNudge, stalled: boolean): ActivationNudge {
+  if (!stalled) return nudge;
+  return {
+    ...nudge,
+    headline: 'No rush — let’s make this easy',
+    body: `It’s been a few days, and that’s completely okay. The smallest step to pick back up: ${nudge.microStep}`,
+  };
+}
+
 /** Map a step to its concrete action from the shared action library. */
 function actionFor(id: ActivationStepId, ctx: AgentContext): AgentAction {
   const lib = buildActionLibrary(ctx);
@@ -171,7 +186,8 @@ export function buildActivation(ctx: AgentContext, opts: ActivationOptions = {})
   let currentStepId: ActivationStepId | null = null;
   if (!activated) {
     currentStepId = defs[currentIndex].id;
-    nudge = nudgeFor(currentStepId, ctx, actionFor(currentStepId, ctx));
+    // Stalled users get reassuring, friction-reduced copy (same action/step).
+    nudge = applyStallTone(nudgeFor(currentStepId, ctx, actionFor(currentStepId, ctx)), stalled);
   }
 
   return {
