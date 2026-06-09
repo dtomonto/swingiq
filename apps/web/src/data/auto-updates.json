@@ -1028,5 +1028,42 @@
     "isMajorMilestone": true,
     "createdAt": "2026-06-03",
     "updatedAt": "2026-06-03"
+  },
+  {
+    "id": "update-075",
+    "title": "Three New Training Walkthroughs in the Video Library",
+    "slug": "new-training-walkthroughs",
+    "metaTitle": "SwingVantage Video Library — New Drill, Coaching & Film-Study Walkthroughs",
+    "metaDescription": "Three new narrated walkthroughs in the SwingVantage Video Library: turning your top fault into the right drills, coaching and guiding young athletes, and frame-by-frame film study in Motion Lab.",
+    "summary": "The Video Library has three new narrated walkthroughs. One shows how SwingVantage turns your number-one fault into focused, ranked drills you can actually practise. One is for coaches and parents — honest reads, shared progress, and age-appropriate guidance. And one walks you through film study in Motion Lab: breaking a swing down frame by frame and comparing it against a reference to train your eye.",
+    "releaseDate": "2026-06-08",
+    "displayDate": "June 2026",
+    "category": "Training Improvement",
+    "status": "draft",
+    "visibility": "private",
+    "sortOrder": 147,
+    "sport": "All Sports",
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
+    "relatedFeature": "Video Library",
+    "userBenefit": "Short, narrated guides that show you how to turn a diagnosis into the right practice, how to support a young athlete without over-coaching, and how to read a swing frame by frame — so the features pay off faster.",
+    "whyItMatters": "Knowing a feature exists is not the same as knowing how to get the most from it. These walkthroughs close that gap with plain-English, step-by-step guidance you can watch in a couple of minutes.",
+    "whereToFindIt": "Open the Video Library and look under Drills & Technique, Coaching & Parent Guides, and Pro Swing & Film Study.",
+    "seoKeywords": [
+      "swing drills video",
+      "golf coaching for parents",
+      "film study motion lab",
+      "swing analysis tutorial",
+      "training walkthrough"
+    ],
+    "answerEngineSummary": "SwingVantage added three narrated training walkthroughs to its Video Library: turning your top diagnosed fault into ranked drills (DrillMatch), coaching and guiding young athletes using the Coach and Parents views with confidence-rated reads, and frame-by-frame film study in Motion Lab with side-by-side comparison.",
+    "generativeSearchSummary": "Three new how-to walkthroughs in the SwingVantage Video Library cover drill selection from your top fault, coaching and parenting young athletes honestly, and frame-by-frame film study in Motion Lab — each a short narrated screen recording.",
+    "isFeatured": false,
+    "isMajorMilestone": false,
+    "createdAt": "2026-06-08",
+    "updatedAt": "2026-06-08"
   }
 ]
