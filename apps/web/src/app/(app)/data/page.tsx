@@ -21,6 +21,7 @@ import { previewRestore, mergeRestore, replaceRestore, generateRestoreResult } f
 import { encryptBackup, decryptBackup, isEncryptedBackup } from '@/lib/backup/crypto';
 import { formatLastExport } from '@/lib/community/backup-health';
 import { getExportableModules } from '@/lib/backup/registry';
+import { wipeAllDeviceData } from '@/lib/storage/device-data';
 import type { SwingVantageBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
 import {
   Download, Upload, Shield, Lock, AlertTriangle, CheckCircle,
@@ -593,6 +594,10 @@ export default function DataCenterPage() {
               onClick={() => {
                 if (window.confirm(t('data.promptBeforeClear'))) {
                   store.reset();
+                  // Clear EVERY device store (recruiting/academy/etc.), not just the
+                  // main one, then reload to drop all in-memory state (F15).
+                  wipeAllDeviceData();
+                  if (typeof window !== 'undefined') window.location.reload();
                 }
               }}
             >

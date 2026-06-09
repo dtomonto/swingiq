@@ -14,16 +14,20 @@
 //      a signed-out user off any protected page anyway);
 //   3. expose `pending` so callers can disable the control.
 //
-// We deliberately DO NOT wipe the persisted app store on sign-out.
-// In cloud mode that data is the user's account data (synced) and is
-// restored on next sign-in; clearing it would be silent data loss.
-// The "returning user" marker is likewise kept (signing out doesn't
-// make you a new person) — see lib/auth/returning.ts.
+// Shared-device privacy (F15): in CLOUD mode the persisted main store is synced
+// to the account (source of truth) and restored on next sign-in, so we clear it
+// here — a public/shared computer must not leave the previous user's data in
+// localStorage. In LOCAL (keyless) mode it's the ONLY copy, so we never auto-wipe
+// (that would be silent data loss); the Data Center "Clear data" control is the
+// explicit, warned path that clears everything. The "returning user" marker is
+// kept either way (signing out doesn't make you a new person) — see
+// lib/auth/returning.ts.
 // ============================================================
 
 import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from './useAuth';
+import { wipeSyncedUserData } from '@/lib/storage/device-data';
 
 export interface UseSignOutOptions {
   /** Where to land after signing out. Defaults to the login page. */
@@ -34,7 +38,7 @@ export interface UseSignOutOptions {
 
 export function useSignOut(options: UseSignOutOptions = {}) {
   const { redirectTo = '/login', onBeforeRedirect } = options;
-  const { signOut } = useAuth();
+  const { signOut, mode } = useAuth();
   const router = useRouter();
   const [pending, setPending] = useState(false);
 
@@ -43,6 +47,9 @@ export function useSignOut(options: UseSignOutOptions = {}) {
     setPending(true);
     try {
       await signOut();
+      // Cloud mode only: the synced store is restored on next sign-in, so
+      // clearing it here protects shared devices without data loss.
+      if (mode === 'cloud') wipeSyncedUserData();
     } catch {
       // Even if the backend call fails, fall through to the redirect:
       // the local session state is cleared by signOut() in keyless mode,
@@ -52,7 +59,7 @@ export function useSignOut(options: UseSignOutOptions = {}) {
       router.replace(redirectTo);
       // `pending` intentionally left true — the route is unmounting.
     }
-  }, [pending, signOut, onBeforeRedirect, router, redirectTo]);
+  }, [pending, signOut, mode, onBeforeRedirect, router, redirectTo]);
 
   return { signOut: handleSignOut, pending };
 }
