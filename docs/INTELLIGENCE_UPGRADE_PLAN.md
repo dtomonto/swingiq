@@ -54,7 +54,7 @@ A single typed AI gateway underpins tiering, batching, logging, eval. Mostly own
 | — | Unified AI gateway (provider abstraction, like the vision provider) | 🟢 | SHIPPED `79a5e5b4`. `lib/ai/gateway.ts` complete() over both providers; retry+budget+spend+tiering+structured-output. |
 | 4 | Model tiering by difficulty/segment (haiku→sonnet→opus) | 🟢 | SHIPPED `79a5e5b4` (gateway tiers) + `447849fe` (`selectCoachTier`: low-confidence/complex → `balanced`, routine → `fast`; wired into coach route). |
 | 7 | Interaction logging (opt-in, anonymized) → coach-mix trends seam | 🔑 | Closes the coach learning loop. Privacy-gated. |
-| 8 | AI eval / golden-set harness + `count_tokens` cost accounting | ✅ | Extends the prompt-injection suite; regression-tests grounding/refusals/structure. Token counting via API, not tiktoken. |
+| 8 | AI eval / golden-set harness | 🟢 | SHIPPED `f2cee3d9`. `runCoachEval` over GOLDEN_COACH_CASES (guardrail + tier + grounding contracts); 2 negative controls. (`count_tokens` cost accounting folds into #9.) |
 | 9 | Batches API (50% cost) for non-interactive generation | 🔑 | AGI narrative, social, feature-education drafting. |
 
 ---
