@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
+import { ALL_FEATURES, featureHref } from '@/content/features';
 import { SITE_URL } from '@/config/site';
 import { getLearnItems } from '@/lib/library';
 import { learnPath } from '@/lib/library/seo';
@@ -207,6 +208,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: u.date ? new Date(u.date).toISOString() : now,
     changeFrequency: 'monthly' as const,
     priority: 0.4,
+  }));
+
+  // Feature detail pages: one comprehensive guide per public feature, derived
+  // from the @/content/features registry so a new feature appears automatically.
+  // The /features hub itself lives in CURATED_URLS (it is localized).
+  const featurePages: MetadataRoute.Sitemap = ALL_FEATURES.map((f) => ({
+    url: `${BASE_URL}${featureHref(f)}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
   }));
 
   // ── Assembly ────────────────────────────────────────────────────────────

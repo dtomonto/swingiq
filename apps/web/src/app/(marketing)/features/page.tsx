@@ -1,318 +1,19 @@
 import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { FEATURE_GROUPS, ALL_FEATURES, featureHref } from '@/content/features';
 
 // buildMetadata adds canonical + hreflang alternates to localized versions
 // (e.g. /es/features) when they exist — see lib/seo/metadata.
 export const metadata = buildMetadata({
   title: 'SwingVantage Features — AI Diagnosis, Drills & Tracking',
   description:
-    'Every SwingVantage feature: AI swing diagnosis, launch-monitor import, video analysis, a drill library, practice scheduling, and progress tracking — for all sports.',
+    'Every SwingVantage feature with a full how-to guide: AI diagnosis, launch-monitor import, video analysis, drills, practice scheduling and progress tracking — all sports.',
   path: '/features',
 });
 
-const FEATURE_GROUPS = [
-  {
-    heading: 'Swing Diagnosis',
-    features: [
-      {
-        name: 'AI Diagnostic Engine',
-        sports: 'All 7 sports',
-        desc: 'A rules-based engine compares your data against sport-specific benchmarks and identifies your highest-priority swing fault — ranked by severity, confidence, and impact on performance.',
-        detail: 'Each finding includes the evidence used to reach the conclusion, likely causes, and what to expect if the issue is corrected.',
-      },
-      {
-        name: 'Confidence Labels',
-        sports: 'All 7 sports',
-        desc: 'Every diagnosis shows a confidence level and lists exactly what data was used. When data is limited, SwingVantage says so rather than guessing.',
-        detail: 'Labels include: High Confidence, Moderate Confidence, Low Confidence / Limited Data.',
-      },
-      {
-        name: 'Competing Hypotheses',
-        sports: 'Golf',
-        desc: 'For golf diagnoses, SwingVantage shows the secondary issue most likely to co-exist with the primary fault — helping you understand pattern relationships rather than treating issues in isolation.',
-        detail: '',
-      },
-    ],
-  },
-  {
-    heading: 'Data Import',
-    features: [
-      {
-        name: 'Launch Monitor CSV Import',
-        sports: 'Golf',
-        desc: 'Import CSV exports from FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, SkyTrak, and other common formats. A 7-step wizard walks you through column mapping and session setup.',
-        detail: 'The normalizer handles different column name formats and unit conversions automatically.',
-      },
-      {
-        name: 'Screenshot / Image Import',
-        sports: 'All 7 sports',
-        desc: 'Upload a photo of a launch monitor screen, stats table, or scoreboard. SwingVantage provides a side-by-side data entry form so you can enter values while referencing the image.',
-        detail: 'Optional OCR auto-extraction activates when an extraction provider is configured — it pre-fills the review table from your image and you confirm every value before saving. Manual entry is always the default.',
-      },
-      {
-        name: 'Manual Session Log',
-        sports: 'Tennis, Pickleball, Padel, Baseball, Softball',
-        desc: 'Log a session manually — session type, duration, perceived effort, key metrics, and what you worked on. No tracking device required.',
-        detail: '',
-      },
-      {
-        name: 'Tracking Device Support',
-        sports: 'Baseball & Softball',
-        desc: 'Accepts data from HitTrax, Rapsodo, Blast Motion, Diamond Kinetics, and similar hitting trackers.',
-        detail: '',
-      },
-    ],
-  },
-  {
-    heading: 'Training & Drills',
-    features: [
-      {
-        name: 'Fix Stack — One Fix at a Time',
-        sports: 'All 7 sports',
-        desc: 'SwingVantage finds your single highest-impact issue and turns it into a three-step loop: one body cue to feel, the best-matched drill for your level and the gear you have, and an honest before/after retest.',
-        detail: 'Deterministic and local-first — it learns from what worked for you and needs no account.',
-      },
-      {
-        name: 'Personalized Drill Recommendations',
-        sports: 'All 7 sports',
-        desc: 'Every diagnosis generates 3–5 sport-specific drills tailored to your exact fault pattern. Each drill includes a YouTube search link so you can immediately find video demonstrations.',
-        detail: 'Drills are ranked by expected impact on your primary fault.',
-      },
-      {
-        name: 'Training Routine Generator',
-        sports: 'All 7 sports',
-        desc: 'Generates a structured training routine based on your active diagnosis and skill level. Includes warm-up, focused drill work, and feedback checkpoints.',
-        detail: '',
-      },
-      {
-        name: 'Practice Schedule',
-        sports: 'All 7 sports',
-        desc: 'Creates a 7-day practice schedule based on your available days and session length. Each day has a focused theme tied to your current training priorities.',
-        detail: '',
-      },
-      {
-        name: 'Drill Library',
-        sports: 'All 7 sports',
-        desc: 'Browse the full drill library filtered by sport, issue category, and difficulty. Each drill entry explains what it corrects and how to perform it.',
-        detail: '',
-      },
-      {
-        name: 'Pre-Round / Pre-Game Warm-Up',
-        sports: 'All 7 sports',
-        desc: 'Generates a personalized pre-round warm-up sequence for golf, or a sport-specific pre-game activation checklist for tennis, baseball, and softball.',
-        detail: 'Warm-ups are adapted to your active diagnosis and how much time you have before play.',
-      },
-    ],
-  },
-  {
-    heading: 'Video Analysis',
-    features: [
-      {
-        name: 'Swing Video Upload',
-        sports: 'All 7 sports',
-        desc: 'Upload a video of your swing from the face-on, down-the-line, or sport-specific angle. SwingVantage segments the video into phases and provides coaching notes for each phase.',
-        detail: 'Every video read is a heuristic estimate that sharpens as you add data — a confident starting point you can act on today. For full on-device pose tracking and a rotatable 3D reconstruction, see Motion Lab below.',
-      },
-      {
-        name: 'Phase-by-Phase Timeline',
-        sports: 'All 7 sports',
-        desc: 'Each sport has its own swing phases. Golf: address, backswing, transition, downswing, impact, follow-through. Tennis, pickleball, padel, baseball, and softball have sport-appropriate phases.',
-        detail: '',
-      },
-      {
-        name: 'Pro Reference Comparison',
-        sports: 'All 7 sports',
-        desc: 'Browse a curated library of professional athlete swing references filtered by sport. Use as a visual learning reference alongside your own video.',
-        detail: 'References are publicly available YouTube videos. SwingVantage does not host or own the footage.',
-      },
-    ],
-  },
-  {
-    heading: '3D Motion Analysis — Motion Lab',
-    features: [
-      {
-        name: 'Motion Lab (3D)',
-        sports: 'All 7 sports',
-        desc: 'Turn a phone clip into a 3D figure of your motion you can spin, slow down, and step through — with a phase-by-phase breakdown, scores for power, rotation, balance, sequencing, timing, and consistency, your top 3 fixes, and a practice plan.',
-        detail: 'Runs privately on your own device. One camera gives an estimated 3D read; filming the same rep from two angles about 90° apart produces measured 3D. No medical, injury, or tour-grade claims.',
-      },
-    ],
-  },
-  {
-    heading: 'Equipment',
-    features: [
-      {
-        name: 'Golf Bag Manager',
-        sports: 'Golf',
-        desc: 'Log every club in your bag — brand, model, loft, shaft flex, typical carry distance. SwingVantage uses this data to add equipment context to your diagnoses.',
-        detail: '',
-      },
-      {
-        name: 'Loft Gapping Analysis',
-        sports: 'Golf',
-        desc: 'See the carry distance gap between every club in your bag. SwingVantage highlights clubs where the gap is too large (missing distance window) or too small (overlap).',
-        detail: '30+ club model specs are pre-loaded. Generic defaults fill in any gaps.',
-      },
-      {
-        name: 'Loft Autofill',
-        sports: 'Golf',
-        desc: 'Select your club brand and model and SwingVantage auto-fills the stock loft. You can override with your actual measured loft for fitted clubs.',
-        detail: '',
-      },
-    ],
-  },
-  {
-    heading: 'Progress & AI Coach',
-    features: [
-      {
-        name: 'Session History',
-        sports: 'All 7 sports',
-        desc: 'Every session is saved with its full shot data, diagnosis, scores, and training recommendations. Filter by sport, date range, or club/movement type.',
-        detail: '',
-      },
-      {
-        name: 'Swing Score Trends',
-        sports: 'Golf',
-        desc: 'Track your overall swing score, face control, path control, strike quality, consistency, and dispersion across sessions on a time-series chart.',
-        detail: '',
-      },
-      {
-        name: 'Milestones',
-        sports: 'All 7 sports',
-        desc: 'Automatically tracks key milestones — sessions completed, videos analyzed, personal bests, streaks, and improvement markers.',
-        detail: '',
-      },
-      {
-        name: 'Retest — Prove the Change',
-        sports: 'All 7 sports',
-        desc: 'SwingVantage reminds you when a diagnosed finding is due for a retest, then — after you re-analyze under the same conditions — shows an honest before-and-after read of whether it actually changed.',
-        detail: 'Comparisons are labeled directional reads from your data and video, not lab-measured biomechanics.',
-      },
-      {
-        name: 'Player Arc',
-        sports: 'All 7 sports',
-        desc: 'The story of your improvement over time — the faults that keep coming back, which drills actually worked for you, and honest proof of what each retest changed. It builds with every session.',
-        detail: '',
-      },
-      {
-        name: 'SwingVantage Labs',
-        sports: 'All 7 sports',
-        desc: 'An in-app home for emerging, on-device tools: a daily readiness score, a private player model, cross-sport skill transfer, your performance graph, and benchmark mirrors.',
-        detail: 'Some are early versions — each is honest about its confidence and what it does not know yet.',
-      },
-      {
-        name: 'AI Coach Chat',
-        sports: 'All 7 sports',
-        desc: 'Ask the AI coach questions about your swing, drills, or practice strategy. The AI coach uses your actual session data and active diagnosis as context.',
-        detail: 'Powered by a large language model. Responses are coaching suggestions, not professional instruction.',
-      },
-    ],
-  },
-  {
-    heading: 'Cross-Sport Intelligence',
-    features: [
-      {
-        name: 'Athlete General Intelligence (AGI)',
-        sports: 'All 7 sports',
-        desc: 'One engine looks across every sport you analyze at once and finds your “keystone” — the single skill that, if you improve it, lifts the most sports together. It shows what transfers between your sports, factors in today’s readiness, and turns it all into one prioritized plan you can share with a coach.',
-        detail: 'Every number carries its basis and confidence, and the whole read gets a simple A–D trust grade. “General” means breadth across your sports, not human-level AI; single-camera values are estimates.',
-      },
-      {
-        name: 'Athletic Journey',
-        sports: 'Golf, Tennis, Pickleball, Padel live · Baseball & Softball in development',
-        desc: 'Your personalized roadmap from beginner to professional-level performance. It classifies your current stage from a blend of your profile, any ratings, your videos, logged play, and practice — then shows what to work on next and builds a weekly plan.',
-        detail: 'It explains the evidence for and against each stage instead of just labeling you. Optional handicap, UTR/NTRP, or DUPR sharpen the read. In-development sports show an honest waitlist — never a faked score.',
-      },
-      {
-        name: 'Daily Notes',
-        sports: 'All 7 sports',
-        desc: 'After any round, match, game, or practice, rate how you played and jot a few words. SwingVantage reads the faults out of your own language and adds them to your cross-sport profile — no launch monitor or video needed.',
-        detail: 'Self-ratings are clearly labeled low-confidence self-reports, never measurements. When the same issue keeps appearing across your days, it gets flagged as a pattern worth a dedicated fix.',
-      },
-    ],
-  },
-  {
-    heading: 'Recruiting',
-    features: [
-      {
-        name: 'Verified Recruiting Profile',
-        sports: 'All 7 sports',
-        desc: 'Build a recruiting profile coaches actually trust: every number and claim is labeled by source — verified vs. self-reported — and you control exactly what each coach can see. Share it as a public coach-view page.',
-        detail: 'Honest-first by design: the AI describes the evidence instead of projecting a ceiling. A profile-strength meter shows what to add next.',
-      },
-      {
-        name: 'Film Library & Highlight Reels',
-        sports: 'All 7 sports',
-        desc: 'Organize your game film, then build highlight reels and a downloadable recruiting packet from it. A data dashboard keeps your key metrics in one place for coaches to scan.',
-        detail: '',
-      },
-      {
-        name: 'Coach Outreach & Analytics',
-        sports: 'All 7 sports',
-        desc: 'Manage your outreach to coaches and see analytics on your recruiting profile — what is complete, what coaches can view, and where to focus next.',
-        detail: '',
-      },
-    ],
-  },
-  {
-    heading: 'Health & Readiness — BodySync',
-    features: [
-      {
-        name: 'Readiness & Recovery',
-        sports: 'All 7 sports',
-        desc: 'Log a quick daily wellness check-in — sleep, soreness, energy, mood — and BodySync turns it into a readiness score that scales how hard to train today, with a fatigue-risk heads-up when you are running low.',
-        detail: 'Adults 18+ only, opt-in and consent-gated. Not medical advice. Everything is yours — export or delete it anytime.',
-      },
-      {
-        name: 'Health-Aware Coaching',
-        sports: 'All 7 sports',
-        desc: 'Your readiness feeds back into your practice plan, so a heavy-fatigue day suggests a lighter, smarter session instead of pushing through.',
-        detail: 'A connector framework can fold in data you choose to import (e.g. Apple Health). You decide what to share.',
-      },
-    ],
-  },
-  {
-    heading: 'Learn & Reference',
-    features: [
-      {
-        name: 'Video Library',
-        sports: 'All 7 sports',
-        desc: 'One hub for short walkthroughs of every feature, plus a growing training catalogue — swing path, using a launch monitor, drills, coaching, and film study.',
-        detail: '',
-      },
-      {
-        name: 'Tutorial Center',
-        sports: 'All 7 sports',
-        desc: 'Short, role-specific walkthrough videos organized into tracks for players, parents, and coaches, so each person learns the parts that matter to them. Your progress is saved.',
-        detail: '',
-      },
-    ],
-  },
-  {
-    heading: 'Data Safety',
-    features: [
-      {
-        name: 'Private by Default',
-        sports: 'All sports',
-        desc: 'Sign in and your data is securely saved to your own private account and synced across your devices. Prefer no account? Everything works on your device too. Either way, your data is yours.',
-        detail: '',
-      },
-      {
-        name: 'Backup & Restore',
-        sports: 'All sports',
-        desc: 'Export all your SwingVantage data as a single downloadable JSON file. Re-import it on any device to restore your full profile, sessions, and history.',
-        detail: 'Optional AES-256-GCM password encryption for backup files.',
-      },
-      {
-        name: 'Deletion Controls',
-        sports: 'All sports',
-        desc: 'Delete sessions, video analyses, equipment data, or everything — individually or all at once. Deletion is immediate and permanent.',
-        detail: '',
-      },
-    ],
-  },
-];
+const SITE = 'https://swingvantage.com';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -320,8 +21,8 @@ const structuredData = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: 'https://swingvantage.com' },
-        { '@type': 'ListItem', position: 2, name: 'Features', item: 'https://swingvantage.com/features' },
+        { '@type': 'ListItem', position: 1, name: 'SwingVantage', item: SITE },
+        { '@type': 'ListItem', position: 2, name: 'Features', item: `${SITE}/features` },
       ],
     },
     {
@@ -330,7 +31,19 @@ const structuredData = {
       applicationCategory: 'SportsApplication',
       operatingSystem: 'Web browser',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-      featureList: FEATURE_GROUPS.flatMap((g) => g.features.map((f) => f.name)).join(', '),
+      featureList: ALL_FEATURES.map((f) => f.name).join(', '),
+    },
+    // An ItemList of every feature page strengthens the hub→detail relationship
+    // for search engines (each feature is a discrete, linkable entity).
+    {
+      '@type': 'ItemList',
+      name: 'SwingVantage features',
+      itemListElement: ALL_FEATURES.map((f, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: f.name,
+        url: `${SITE}${featureHref(f)}`,
+      })),
     },
   ],
 };
@@ -352,6 +65,7 @@ export default function FeaturesPage() {
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Everything SwingVantage Does — Free</h1>
           <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
             Every feature. Every sport. No credit card. No account required to start.
+            <span className="block text-primary-foreground/80 text-base mt-1">Tap any feature for a full guide on how to use it.</span>
           </p>
           <div className="flex flex-wrap justify-center gap-3 mt-6 text-sm">
             {['Golf', 'Tennis', 'Pickleball', 'Padel', 'Baseball', 'Slow Pitch Softball', 'Fast Pitch Softball'].map((s) => (
@@ -366,21 +80,26 @@ export default function FeaturesPage() {
         {FEATURE_GROUPS.map((group) => (
           <section key={group.heading}>
             <h2 className="text-xl font-bold text-foreground mb-6 pb-2 border-b border-border">{group.heading}</h2>
-            <div className="space-y-6">
+            <div className="grid sm:grid-cols-2 gap-3">
               {group.features.map((f) => (
-                <div key={f.name} className="flex gap-4">
+                <Link
+                  key={f.slug}
+                  href={featureHref(f)}
+                  className="group flex gap-3 rounded-xl border border-border bg-background p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                >
                   <div className="shrink-0 w-2 h-2 rounded-full bg-primary mt-2" />
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <h3 className="font-semibold text-foreground">{f.name}</h3>
+                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">{f.name}</h3>
                       <span className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-full">{f.sports}</span>
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-                    {f.detail && (
-                      <p className="text-xs text-muted-foreground mt-1 italic">{f.detail}</p>
-                    )}
+                    <p className="text-sm text-muted-foreground leading-relaxed">{f.summary}</p>
+                    <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary">
+                      Read the full guide
+                      <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                    </span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </section>

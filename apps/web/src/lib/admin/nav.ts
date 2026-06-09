@@ -262,8 +262,14 @@ export const NAV_ITEMS: NavItem[] = [
   {
     id: 'feature-education', label: 'Feature Education', href: '/admin/feature-education', icon: BookOpen,
     group: 'content', built: true, permission: 'content.edit',
-    blurb: 'Auto-generate tutorials, how-tos, videos & docs for every feature you ship.',
-    keywords: ['docs', 'tutorials', 'manuals', 'how-to', 'guides', 'help center', 'registry', 'coverage', 'drift', 'education'],
+    blurb: 'The Feature Registry + education engine: every shipped feature, its coverage/drift, and auto-generated tutorials, how-tos, videos & docs.',
+    keywords: ['docs', 'tutorials', 'manuals', 'how-to', 'guides', 'help center', 'feature registry', 'registry', 'coverage', 'drift', 'education'],
+  },
+  {
+    id: 'feature-pages', label: 'Feature Pages (public)', href: '/features', icon: ClipboardList,
+    group: 'content', built: true, external: true, permission: 'content.edit',
+    blurb: 'The live, public per-feature guide pages — each feature’s comprehensive description, how-to guide, FAQs and schema. Content lives in @/content/features.',
+    keywords: ['features', 'public', 'marketing', 'feature pages', 'guides', 'how-to', 'registry'],
   },
 
   // ── Growth & Money ─────────────────────────────────────────
