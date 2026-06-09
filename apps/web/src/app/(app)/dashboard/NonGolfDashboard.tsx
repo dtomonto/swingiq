@@ -118,7 +118,7 @@ function RecentAnalyses({ sport }: { sport: SportId }) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Recent Analyses</CardTitle>
-          <Link href="/sessions" className="text-xs text-success hover:underline flex items-center gap-1">
+          <Link href="/sessions" className="text-xs text-success-text hover:underline flex items-center gap-1">
             View all <ChevronRight size={12} />
           </Link>
         </div>
@@ -209,7 +209,7 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <AlertCircle size={18} className="text-error" />
+            <AlertCircle size={18} className="text-error-text" />
             <CardTitle>Primary Issue</CardTitle>
           </div>
           <Badge variant="warning" className="text-xs">Latest Analysis</Badge>
@@ -272,7 +272,7 @@ function SportStatsCard({ sport }: { sport: SportId }) {
           </div>
           {latestScore !== null && (
             <div className="text-center p-3 bg-success/10 rounded-lg col-span-2">
-              <p className="text-3xl font-bold text-success">{latestScore}</p>
+              <p className="text-3xl font-bold text-success-text">{latestScore}</p>
               <p className="text-xs text-muted-foreground mt-0.5">Latest Analysis Score</p>
             </div>
           )}
@@ -280,7 +280,7 @@ function SportStatsCard({ sport }: { sport: SportId }) {
         {training.streak_days > 0 && (
           <div className="flex items-center justify-between py-2 border-t">
             <span className="text-sm text-muted-foreground">Practice streak</span>
-            <span className="text-sm font-semibold text-warning flex items-center gap-1">
+            <span className="text-sm font-semibold text-warning-text flex items-center gap-1">
               <Flame size={14} /> {training.streak_days} days
             </span>
           </div>
@@ -315,7 +315,7 @@ function DataCompletenessCard({ sport }: { sport: SportId }) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Setup Progress</CardTitle>
-          <span className="text-sm font-bold text-success">{pct}%</span>
+          <span className="text-sm font-bold text-success-text">{pct}%</span>
         </div>
       </CardHeader>
       <CardBody>
@@ -329,7 +329,7 @@ function DataCompletenessCard({ sport }: { sport: SportId }) {
           {checks.map((check) => (
             <div key={check.label} className="flex items-center gap-2 text-sm">
               {check.done ? (
-                <CheckCircle2 size={15} className="text-success shrink-0" />
+                <CheckCircle2 size={15} className="text-success-text shrink-0" />
               ) : (
                 <div className="w-4 h-4 rounded-full border-2 border-border shrink-0" />
               )}
@@ -380,7 +380,7 @@ export function NonGolfDashboard() {
           </p>
         </div>
         {training.streak_days > 1 && (
-          <div className="flex items-center gap-1 text-warning font-bold text-sm">
+          <div className="flex items-center gap-1 text-warning-text font-bold text-sm">
             <Flame size={16} /> {training.streak_days}-day streak
           </div>
         )}
@@ -424,10 +424,10 @@ export function NonGolfDashboard() {
           {training.streak_days === 0 && hasVideoAnalysis && (
             <Card className="border-warning/30 bg-warning/10">
               <CardBody>
-                <p className="text-sm font-medium text-warning mb-1">
+                <p className="text-sm font-medium text-warning-text mb-1">
                   No practice logged yet
                 </p>
-                <p className="text-xs text-warning mb-3">
+                <p className="text-xs text-warning-text mb-3">
                   Log a practice session to start your streak and track consistency.
                 </p>
                 <Link href="/training">

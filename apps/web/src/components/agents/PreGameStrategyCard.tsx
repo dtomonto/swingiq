@@ -49,9 +49,9 @@ export function PreGameStrategyCard() {
         </div>
 
         <div className="rounded-lg bg-primary/10 border border-primary/30 p-2.5">
-          <p className="text-xs text-primary">{plan.confidenceCue}</p>
+          <p className="text-xs text-link">{plan.confidenceCue}</p>
         </div>
-        <p className="text-xs text-warning">Avoid: {plan.whatToAvoid}</p>
+        <p className="text-xs text-warning-text">Avoid: {plan.whatToAvoid}</p>
       </CardBody>
     </Card>
   );

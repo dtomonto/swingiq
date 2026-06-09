@@ -76,6 +76,7 @@ firebase-adminsdk*.json
 # Test output
 playwright-report
 test-results
+**/e2e/__screenshots__/
 
 # Vercel
 .vercel

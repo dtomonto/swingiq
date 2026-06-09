@@ -115,7 +115,7 @@ export function WelcomeBackCard({
         {/* Continue / Retest / Rebuild */}
         <div className="flex flex-wrap items-center gap-3">
           <Link href={fix.primary.href}>
-            <Button className="bg-card text-primary hover:bg-primary/10 font-semibold">
+            <Button className="bg-card text-link hover:bg-primary/10 font-semibold">
               {fix.primary.label}
               <ChevronRight size={16} />
             </Button>

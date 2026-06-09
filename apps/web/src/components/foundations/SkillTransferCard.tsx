@@ -25,7 +25,7 @@ export function SkillTransferCard({
   return (
     <Card className="border-border">
       <CardBody className="space-y-4">
-        <div className="flex items-center gap-1.5 text-xs font-semibold text-primary uppercase tracking-wide">
+        <div className="flex items-center gap-1.5 text-xs font-semibold text-link uppercase tracking-wide">
           <Shuffle size={13} /> Skill Transfer Map
         </div>
 
@@ -42,7 +42,7 @@ export function SkillTransferCard({
                     <span className="flex-1 text-muted-foreground">
                       {SPORT_EMOJI[t.fromSport]} {t.fromExpression}
                     </span>
-                    <ArrowRight size={13} className="text-primary shrink-0 hidden sm:block" />
+                    <ArrowRight size={13} className="text-link shrink-0 hidden sm:block" />
                     <span className="flex-1 text-muted-foreground">
                       {SPORT_EMOJI[t.toSport]} {t.toExpression}
                     </span>

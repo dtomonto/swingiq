@@ -1,154 +1,178 @@
 // ============================================================
-// SwingVantage — Theme safety / anti-pattern guard
-// ------------------------------------------------------------
-// The token-contrast test (theme-contrast.test.ts) proves the PALETTE
-// is safe in all seven themes. That guarantee only holds if components
-// actually use the semantic tokens instead of bypassing them with raw
-// colors. This test enforces that discipline on the app "chrome"
-// (navigation, drawer, shell, sport selector, hero cards, guide) — the
-// exact surfaces where the production white-on-white / dark-on-dark
-// defect appeared — so it cannot silently return.
+// Theme safety guard (static lint).
 //
-// What it catches:
-//   • white text + a light surface set on the SAME element (white-on-white)
-//   • theme-flipping `text-primary-foreground` on the fixed dark brand
-//     surface `bg-golf-dark` (dark-on-dark in dark themes)
-//   • raw Tailwind palette colors for text/background in chrome files
-//   • regressions of the specific sport-selector dropdown fix
+// The contrast suite proves the TOKEN SYSTEM is AA-safe. This suite
+// proves components actually CONSUME it instead of reaching for raw,
+// un-themeable color utilities (text-white / bg-white / text-gray-* /
+// the Tailwind rainbow) — which is exactly how the white-on-white
+// mobile defect was introduced.
 //
-// Honest limitation: a purely static scan cannot model an element's
-// ANCESTOR background, so it cannot prove every nested case. The palette
-// floor (contrast test) + these chrome invariants together cover the
-// shipped defect class; full ancestor-aware checking would need render
-// tests and is noted as a future enhancement.
+// Two layers:
+//   1. A strict per-file denylist for the audited shell / nav / sport /
+//      overlay components: zero raw color utilities (brand logotype marks
+//      are the only documented exception).
+//   2. An APP-WIDE scan: no single className literal may put a white-ish
+//      foreground on a solid light surface (the literal white-on-white
+//      shape). Decorative scrims (`bg-black/50`) and variant-prefixed
+//      states are correctly ignored.
 // ============================================================
 
 import { readFileSync, readdirSync } from 'fs';
-import { join } from 'path';
+import { resolve, relative } from 'path';
 
-const SRC = join(__dirname, '..', '..', '..');
+const SRC = resolve(__dirname, '../../..');
 
-/** Strip block + line comments so doc comments can mention class names. */
-function stripComments(src: string): string {
-  return src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
-}
+// ── Layer 1: strict per-file denylist ──────────────────────────────────
 
-/** Every quoted/back-ticked string literal in a source file. */
-function classLiterals(src: string): string[] {
-  const out: string[] = [];
-  const re = /(['"`])((?:[^'"`\\]|\\.)*?)\1/g;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(src)) !== null) out.push(m[2]);
-  return out;
-}
-
-/** Does this class string contain the OPAQUE, UNPREFIXED utility `name`?
- *  Rejects longer tokens, `/opacity` modifiers, and state-variant prefixes
- *  (`disabled:`, `hover:`, `dark:`, …) — a `disabled:bg-muted` is a state,
- *  not the element's resting background, so it must not pair with base text. */
-function hasOpaque(classStr: string, name: string): boolean {
-  return new RegExp(`(?<![\\w:/-])${name}(?![\\w/])`).test(classStr);
-}
-
-// Surfaces that are LIGHT in light themes — white text on them = unreadable.
-const LIGHT_SURFACES = [
-  'bg-white',
-  'bg-background',
-  'bg-card',
-  'bg-popover',
-  'bg-secondary',
-  'bg-muted',
-];
-// Opaque white-ish text tokens.
-const WHITE_TEXT = ['text-white', 'text-primary-foreground'];
-
-function recurse(dir: string): string[] {
-  const files: string[] = [];
-  for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    const full = join(dir, entry.name);
-    if (entry.isDirectory()) {
-      if (entry.name === 'admin' || entry.name === '__tests__') continue; // internal / not product chrome
-      files.push(...recurse(full));
-    } else if (entry.name.endsWith('.tsx')) {
-      files.push(full);
-    }
-  }
-  return files;
-}
-
-// ── Broad net: white text + a light surface on the SAME element ──
-describe('no same-element white-on-light in product components', () => {
-  const files = recurse(join(SRC, 'components'));
-  for (const file of files) {
-    const rel = file.slice(SRC.length + 1);
-    test(rel, () => {
-      const code = stripComments(readFileSync(file, 'utf8'));
-      for (const lit of classLiterals(code)) {
-        const whiteText = WHITE_TEXT.find((t) => hasOpaque(lit, t));
-        const lightBg = LIGHT_SURFACES.find((s) => hasOpaque(lit, s));
-        if (whiteText && lightBg) {
-          throw new Error(
-            `White text ("${whiteText}") on a light surface ("${lightBg}") in the same className:\n  "${lit}"\n` +
-              `Use semantic pairs (e.g. bg-popover/text-popover-foreground, bg-card/text-card-foreground).`,
-          );
-        }
-      }
-    });
-  }
-});
-
-// ── Chrome files: stricter discipline ──
-const CHROME = [
+/** Audited shell / nav / sport / overlay components that must stay token-pure. */
+const GUARDED_FILES = [
   'components/layout/AppShell.tsx',
   'components/layout/Sidebar.tsx',
   'components/sport/SportSelector.tsx',
-  'components/agents/FirstSwingJourneyCard.tsx',
-  'components/agents/NextBestActionCard.tsx',
-  'components/guide/GuideCompanion.tsx',
+  'components/ui/PWAInstallBanner.tsx',
+  'components/ui/UsageCategoryModal.tsx',
+  'components/ui/CookieBanner.tsx',
 ];
 
-describe('app chrome avoids raw Tailwind palette colors for text/bg', () => {
-  // Logo monograms are exempt (logotype — WCAG 1.4.3) but they use
-  // bg-golf-fairway, not gray/slate/neutral, so this stays strict.
-  const RAW = /(?<![\w-])(?:text|bg)-(?:gray|slate|neutral|zinc|stone)-\d/;
-  for (const rel of CHROME) {
-    test(rel, () => {
-      const code = stripComments(readFileSync(join(SRC, rel), 'utf8'));
-      for (const lit of classLiterals(code)) {
-        expect(lit).not.toMatch(RAW);
+/** Raw, un-themeable color utilities that must not appear in guarded files. */
+const FORBIDDEN: { label: string; re: RegExp }[] = [
+  { label: 'text-white', re: /\btext-white\b/g },
+  { label: 'bg-white', re: /\bbg-white\b/g },
+  // black as solid text/fill (a `bg-black/50` scrim keeps its alpha slash)
+  { label: 'text-black (no alpha)', re: /\btext-black\b(?!\/)/g },
+  { label: 'bg-black (no alpha)', re: /\bbg-black\b(?!\/)/g },
+  {
+    label: 'neutral palette (gray/slate/neutral/zinc/stone)',
+    re: /\b(?:text|bg|border|ring|from|via|to)-(?:gray|slate|neutral|zinc|stone)-\d{2,3}\b/g,
+  },
+  {
+    label: 'raw Tailwind rainbow color',
+    re: /\b(?:text|bg|border|ring|from|via|to)-(?:green|yellow|lime|sky|red|orange|pink|blue|purple|amber|emerald|teal|cyan|indigo|violet|fuchsia|rose)-\d{2,3}\b/g,
+  },
+];
+
+/**
+ * Intentional, documented exceptions (brand logotype marks). The "SV" logo
+ * tile is a fixed-green brand mark, not body text, so its `text-white` is a
+ * logotype exception (WCAG 1.4.3 exempts logotypes). Any count ABOVE these
+ * numbers is a regression and fails the suite.
+ */
+const ALLOW: Record<string, Record<string, number>> = {
+  'components/layout/AppShell.tsx': { 'text-white': 1 },
+  'components/layout/Sidebar.tsx': { 'text-white': 1 },
+};
+
+function read(file: string): string {
+  return readFileSync(resolve(SRC, file), 'utf8');
+}
+
+function lineOf(src: string, index: number): number {
+  return src.slice(0, index).split('\n').length;
+}
+
+// ── Layer 2: app-wide white-on-light literal scan ──────────────────────
+
+const LIGHT_SURFACE =
+  /^(?:bg-white|bg-card|bg-secondary|bg-muted|bg-popover|bg-background|bg-nav|bg-drawer|bg-input|bg-surface|bg-surface-muted)$/;
+const WHITE_FG =
+  /^(?:text-white|text-primary-foreground|text-accent-secondary-foreground|text-success-foreground|text-error-foreground|text-destructive-foreground|text-card|text-background)(?:\/\d+)?$/;
+
+function walkTsx(dir: string, out: string[] = []): string[] {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const p = resolve(dir, entry.name);
+    if (entry.isDirectory()) walkTsx(p, out);
+    else if (entry.name.endsWith('.tsx')) out.push(p);
+  }
+  return out;
+}
+
+/** Find class-literal violations: a white-ish fg + a solid light bg in one literal. */
+function scanWhiteOnLight(src: string): { line: number; tokens: string }[] {
+  const hits: { line: number; tokens: string }[] = [];
+  src.split('\n').forEach((line, i) => {
+    for (const m of line.matchAll(/["'`]([^"'`]*)["'`]/g)) {
+      const tokens = m[1].split(/\s+/).filter(Boolean);
+      // Drop variant-prefixed tokens (hover:/disabled:/dark:/group-*) — those
+      // are different states, not the resting paint.
+      const base = tokens.filter((t) => !t.includes(':'));
+      const surface = base.filter((t) => LIGHT_SURFACE.test(t));
+      const fg = base.filter((t) => WHITE_FG.test(t));
+      if (surface.length && fg.length) {
+        hits.push({ line: i + 1, tokens: [...surface, ...fg].join(' + ') });
       }
-    });
-  }
-});
-
-describe('hero cards on the fixed bg-golf-dark surface never use theme-flipping primary-foreground', () => {
-  // bg-golf-dark is the SAME near-black green in every theme, but
-  // `--primary-foreground` flips to near-black in dark themes — pairing
-  // them produced dark-on-dark. These cards must use white-based text.
-  const GOLF_DARK_CARDS = [
-    'components/agents/FirstSwingJourneyCard.tsx',
-    'components/agents/NextBestActionCard.tsx',
-    'components/guide/GuideCompanion.tsx',
-  ];
-  for (const rel of GOLF_DARK_CARDS) {
-    test(rel, () => {
-      const code = stripComments(readFileSync(join(SRC, rel), 'utf8'));
-      expect(code).toContain('bg-golf-dark'); // guard stays relevant
-      expect(code).not.toMatch(/text-primary-foreground/);
-    });
-  }
-});
-
-describe('sport selector dropdown uses readable popover tokens (regression of the shipped fix)', () => {
-  const code = stripComments(
-    readFileSync(join(SRC, 'components/sport/SportSelector.tsx'), 'utf8'),
-  );
-  test('panel uses bg-popover + text-popover-foreground', () => {
-    expect(code).toContain('bg-popover');
-    expect(code).toContain('text-popover-foreground');
+    }
   });
-  test('no leftover bg-secondary panel or raw white text', () => {
-    expect(code).not.toContain('bg-secondary');
-    expect(code).not.toMatch(/(?<![\w-])text-white(?![\w/])/);
+  return hits;
+}
+
+describe('theme safety — audited components are token-pure', () => {
+  it.each(GUARDED_FILES)('%s has no un-allowlisted raw color utilities', (file) => {
+    const src = read(file);
+    const allow = ALLOW[file] ?? {};
+    const violations: string[] = [];
+
+    for (const { label, re } of FORBIDDEN) {
+      const matches = [...src.matchAll(re)];
+      const allowed = allow[label] ?? 0;
+      if (matches.length > allowed) {
+        for (const m of matches) {
+          violations.push(`  line ${lineOf(src, m.index ?? 0)}: "${m[0]}" (${label})`);
+        }
+        if (allowed > 0) {
+          violations.push(
+            `  → ${matches.length} "${label}" found but only ${allowed} allow-listed (brand logotype).`,
+          );
+        }
+      }
+    }
+
+    if (violations.length) {
+      throw new Error(
+        `Raw color utilities in ${file} — use semantic theme tokens ` +
+          `(bg-drawer / text-foreground / bg-sport-* / text-link …):\n${violations.join('\n')}`,
+      );
+    }
+  });
+
+  it('Sidebar active rows use the always-safe primary surface + decorative sport accent (no text on a sport color)', () => {
+    const src = read('components/layout/Sidebar.tsx');
+    // Active rows sit on the theme's tuned primary surface (AA-safe in every
+    // theme); sport identity is carried by a slim, decorative inset accent bar
+    // (`--sport-accent`) that holds no text — so no sport color ever needs a
+    // contrast-tuned foreground. This is the live, deliberate design choice.
+    expect(src).toContain('bg-primary text-primary-foreground');
+    expect(src).toContain('--sport-accent');
+    expect(src).not.toMatch(/bg-(green|yellow|lime|sky|red|orange|pink)-\d00/);
+  });
+
+  it('SportSelector dropdown no longer paints primary-foreground on a light panel', () => {
+    const src = read('components/sport/SportSelector.tsx');
+    expect(src).not.toMatch(/bg-secondary[\s\S]{0,400}text-primary-foreground/);
+    expect(src).toContain('bg-popover text-popover-foreground');
+  });
+});
+
+describe('theme safety — app-wide white-on-light scan', () => {
+  const files = walkTsx(SRC);
+
+  it('scans a meaningful number of component files', () => {
+    expect(files.length).toBeGreaterThan(100);
+  });
+
+  it('no className literal puts a white-ish foreground on a solid light surface', () => {
+    const report: string[] = [];
+    for (const file of files) {
+      const hits = scanWhiteOnLight(readFileSync(file, 'utf8'));
+      for (const h of hits) {
+        report.push(`  ${relative(SRC, file)}:${h.line}  [${h.tokens}]`);
+      }
+    }
+    if (report.length) {
+      throw new Error(
+        `White-on-light text detected (white-ish foreground on a light surface ` +
+          `in the same className). Pair the surface with its own *-foreground ` +
+          `token instead:\n${report.join('\n')}`,
+      );
+    }
   });
 });

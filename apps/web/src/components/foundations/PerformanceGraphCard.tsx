@@ -24,7 +24,7 @@ export function PerformanceGraphCard({ summary }: { summary: GraphSummary }) {
   return (
     <Card className="border-border">
       <CardBody className="space-y-4">
-        <div className="flex items-center gap-1.5 text-xs font-semibold text-primary uppercase tracking-wide">
+        <div className="flex items-center gap-1.5 text-xs font-semibold text-link uppercase tracking-wide">
           <Share2 size={13} /> Performance Graph
         </div>
 

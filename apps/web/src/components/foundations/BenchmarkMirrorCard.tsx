@@ -16,7 +16,7 @@ export function BenchmarkMirrorCard({ mirror }: { mirror: BenchmarkMirror }) {
     <Card className="border-border">
       <CardBody className="space-y-4">
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-primary uppercase tracking-wide">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-link uppercase tracking-wide">
             <Crosshair size={13} /> Benchmark Mirror
           </div>
           <span className="text-xs text-muted-foreground capitalize">{mirror.skill} level</span>

@@ -55,19 +55,19 @@ export function PWAInstallBanner() {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-primary border-b border-primary px-4 py-3 no-print">
       <div className="max-w-4xl mx-auto flex items-center gap-4">
-        <p className="text-white text-xs leading-relaxed flex-1">
+        <p className="text-primary-foreground text-xs leading-relaxed flex-1">
           Add SwingVantage to your home screen for quick access.
         </p>
         <div className="flex gap-2 shrink-0">
           <button
             onClick={handleInstall}
-            className="bg-card text-primary text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-colors"
+            className="bg-card text-link text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-colors"
           >
             Add to Home Screen
           </button>
           <button
             onClick={handleDismiss}
-            className="text-primary-foreground/90 hover:text-white text-sm font-bold leading-none"
+            className="text-primary-foreground/90 hover:text-primary-foreground text-sm font-bold leading-none"
             aria-label="Dismiss"
           >
             ×

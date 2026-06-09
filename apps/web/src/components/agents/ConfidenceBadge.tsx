@@ -5,8 +5,8 @@ import type { AgentConfidence } from '@/lib/agents';
 // trust — never raw model/technical metadata.
 
 const STYLES: Record<AgentConfidence['level'], string> = {
-  high: 'bg-primary/15 text-primary',
-  medium: 'bg-warning/15 text-warning',
+  high: 'bg-primary/15 text-link',
+  medium: 'bg-warning/15 text-warning-text',
   low: 'bg-muted text-muted-foreground',
 };
 

@@ -48,6 +48,65 @@
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
 
+  /* ── Link / text-safe accent ──────────────────────────────────────────
+     `--primary` is a FILL color (white text sits on it). On dark themes a
+     mid-tone primary that carries white text is too dark to ALSO be readable
+     when used as text on a dark surface. `--link` is the text-safe accent —
+     tuned per theme to clear WCAG AA as a foreground on background/card/nav. */
+  --color-link: hsl(var(--link));
+  --color-link-hover: hsl(var(--link-hover));
+
+  /* ── Status text-safe accents ──────────────────────────────────────────
+     `--warning` / `--success` / `--error` are FILL colors — they carry a
+     paired `*-foreground` LABEL (e.g. `bg-warning text-warning-foreground`).
+     Used directly AS text on a neutral surface they fall below AA on some
+     themes (amber/green ≈ 3:1 on near-white; a saturated red ≈ 3:1 on a dark
+     card). These `*-text` variants are the SAME hue, tuned per theme to clear
+     WCAG AA as a foreground on both `--background` and `--card` — the status
+     analogue of `--link`. Rule: fills pair with `*-foreground`; on-surface
+     status TEXT uses these (`text-warning-text` / `text-success-text` / …). */
+  --color-warning-text: hsl(var(--warning-text));
+  --color-success-text: hsl(var(--success-text));
+  --color-error-text: hsl(var(--error-text));
+
+  /* ── Per-sport accent tokens ───────────────────────────────────────────
+     One identity color per sport, each paired with a foreground tuned to
+     clear WCAG AA on that color. Used for active sport states in nav, chips,
+     and badges so they never fall back to a raw, untestable Tailwind color. */
+  --color-sport-golf: hsl(var(--sport-golf));
+  --color-sport-golf-foreground: hsl(var(--sport-golf-foreground));
+  --color-sport-tennis: hsl(var(--sport-tennis));
+  --color-sport-tennis-foreground: hsl(var(--sport-tennis-foreground));
+  --color-sport-pickleball: hsl(var(--sport-pickleball));
+  --color-sport-pickleball-foreground: hsl(var(--sport-pickleball-foreground));
+  --color-sport-padel: hsl(var(--sport-padel));
+  --color-sport-padel-foreground: hsl(var(--sport-padel-foreground));
+  --color-sport-baseball: hsl(var(--sport-baseball));
+  --color-sport-baseball-foreground: hsl(var(--sport-baseball-foreground));
+  --color-sport-softball-slow: hsl(var(--sport-softball-slow));
+  --color-sport-softball-slow-foreground: hsl(var(--sport-softball-slow-foreground));
+  --color-sport-softball-fast: hsl(var(--sport-softball-fast));
+  --color-sport-softball-fast-foreground: hsl(var(--sport-softball-fast-foreground));
+
+  /* ── Component-surface utilities (nav / drawer / bottom-nav) ────────────
+     These map 1:1 onto the semantic component vocabulary defined in the base
+     layer below. They give the navigation surfaces — the exact place the
+     white-on-white defect lived — their own named, theme-aware, AA-validated
+     utilities so a shared component never reaches for a raw color. */
+  --color-nav: hsl(var(--nav-bg));
+  --color-nav-foreground: hsl(var(--nav-fg));
+  --color-nav-muted: hsl(var(--nav-muted));
+  --color-drawer: hsl(var(--drawer-bg));
+  --color-drawer-foreground: hsl(var(--drawer-fg));
+  --color-drawer-muted: hsl(var(--drawer-muted));
+  --color-drawer-selected: hsl(var(--drawer-selected-bg));
+  --color-drawer-selected-foreground: hsl(var(--drawer-selected-fg));
+  --color-bottom-nav: hsl(var(--bottom-nav-bg));
+  --color-bottom-nav-foreground: hsl(var(--bottom-nav-fg));
+  --color-bottom-nav-active: hsl(var(--bottom-nav-active-fg));
+  --color-surface-muted: hsl(var(--surface-muted));
+  --color-surface-inset: hsl(var(--surface-inset));
+
   --color-brand-50: #f0fdf4;
   --color-brand-100: #dcfce7;
   --color-brand-200: #bbf7d0;
@@ -345,6 +404,11 @@
     --chart-3: 217 79% 52%;
     --chart-4: 38 92% 48%;
     --chart-5: 280 55% 55%;
+    --link: 142 64% 30%;
+    --link-hover: 142 66% 24%;
+    --warning-text: 38 92% 31%;
+    --success-text: 142 64% 30%;
+    --error-text: 0 72% 40%;
     /* ── Art direction: clean, premium, airy ── */
     --card-radius: 0.75rem;
     --shadow-card:
@@ -392,9 +456,9 @@
     --success-foreground: 222 40% 8%;
     --warning: 38 92% 58%;
     --warning-foreground: 30 45% 10%;
-    --error: 0 72% 53%;
+    --error: 0 70% 48%;
     --error-foreground: 0 0% 100%;
-    --destructive: 0 72% 53%;
+    --destructive: 0 70% 48%;
     --destructive-foreground: 0 0% 100%;
     --border: 222 14% 20%;
     --input: 222 14% 20%;
@@ -404,6 +468,11 @@
     --chart-3: 217 80% 66%;
     --chart-4: 38 92% 62%;
     --chart-5: 280 65% 68%;
+    --link: 160 64% 60%;
+    --link-hover: 160 64% 70%;
+    --warning-text: 38 92% 58%;
+    --success-text: 152 58% 55%;
+    --error-text: 0 80% 70%;
     /* ── Art direction: performance lab, carbon + neon grid ── */
     --card-radius: 0.625rem;
     --shadow-card:
@@ -448,7 +517,7 @@
     --success: 152 60% 30%;
     --success-foreground: 0 0% 100%;
     --warning: 32 90% 40%;
-    --warning-foreground: 30 45% 9%;
+    --warning-foreground: 30 60% 8%;
     --error: 0 70% 42%;
     --error-foreground: 0 0% 100%;
     --destructive: 0 70% 42%;
@@ -461,6 +530,11 @@
     --chart-3: 152 60% 38%;
     --chart-4: 32 90% 48%;
     --chart-5: 268 55% 56%;
+    --link: 217 79% 42%;
+    --link-hover: 217 80% 34%;
+    --warning-text: 32 90% 32%;
+    --success-text: 152 60% 30%;
+    --error-text: 0 70% 40%;
     /* ── Art direction: clean whiteboard, graph-paper ── */
     --card-radius: 0.5rem;
     --shadow-card:
@@ -497,11 +571,11 @@
     --muted-foreground: 218 16% 38%;
     --accent: 40 25% 90%;
     --accent-foreground: 218 38% 22%;
-    --accent-secondary: 38 54% 36%;
+    --accent-secondary: 38 56% 33%;
     --accent-secondary-foreground: 42 40% 96%;
     --success: 150 40% 27%;
     --success-foreground: 42 40% 96%;
-    --warning: 36 70% 34%;
+    --warning: 36 74% 29%;
     --warning-foreground: 40 45% 95%;
     --error: 4 60% 40%;
     --error-foreground: 42 40% 96%;
@@ -515,6 +589,11 @@
     --chart-3: 38 54% 44%;
     --chart-4: 4 50% 46%;
     --chart-5: 200 30% 40%;
+    --link: 150 34% 25%;
+    --link-hover: 150 38% 19%;
+    --warning-text: 36 74% 29%;
+    --success-text: 150 40% 27%;
+    --error-text: 4 60% 38%;
     /* ── Art direction: clubhouse, parchment grain, brass, serif ── */
     --card-radius: 0.375rem;
     --shadow-card:
@@ -557,7 +636,7 @@
     --success: 135 45% 28%;
     --success-foreground: 80 20% 97%;
     --warning: 36 84% 38%;
-    --warning-foreground: 30 45% 8%;
+    --warning-foreground: 30 60% 8%;
     --error: 6 66% 42%;
     --error-foreground: 0 0% 100%;
     --destructive: 6 66% 42%;
@@ -570,6 +649,11 @@
     --chart-3: 200 55% 42%;
     --chart-4: 45 80% 46%;
     --chart-5: 280 40% 52%;
+    --link: 135 45% 28%;
+    --link-hover: 135 48% 22%;
+    --warning-text: 36 84% 32%;
+    --success-text: 135 45% 28%;
+    --error-text: 6 66% 38%;
     /* ── Art direction: chalk lines, turf, clay ── */
     --card-radius: 0.625rem;
     --shadow-card:
@@ -626,6 +710,11 @@
     --chart-3: 152 75% 56%;
     --chart-4: 45 95% 62%;
     --chart-5: 268 85% 72%;
+    --link: 280 95% 80%;
+    --link-hover: 280 95% 88%;
+    --warning-text: 45 95% 60%;
+    --success-text: 152 72% 55%;
+    --error-text: 352 90% 72%;
     /* ── Art direction: neon arcade, pixel grid + glow ── */
     --card-radius: 0.875rem;
     --shadow-card:
@@ -665,7 +754,7 @@
     --muted-foreground: 202 16% 39%;
     --accent: 196 28% 92%;
     --accent-foreground: 205 32% 20%;
-    --accent-secondary: 8 72% 49%;
+    --accent-secondary: 8 72% 47%;
     --accent-secondary-foreground: 0 0% 100%;
     --success: 162 54% 30%;
     --success-foreground: 0 0% 100%;
@@ -683,6 +772,11 @@
     --chart-3: 168 50% 38%;
     --chart-4: 40 88% 50%;
     --chart-5: 268 50% 56%;
+    --link: 192 64% 30%;
+    --link-hover: 192 66% 24%;
+    --warning-text: 36 86% 32%;
+    --success-text: 162 54% 30%;
+    --error-text: 4 70% 40%;
     /* ── Art direction: golf-streetwear, original bird-flight motif ──
        Pattern is an ORIGINAL abstract gull/feather motif (simple two-arc
        silhouettes + seed dots) — no third-party marks or trade dress. */
@@ -704,6 +798,143 @@
       radial-gradient(1100px 560px at 6% 2%, hsl(168 50% 38% / 0.07), transparent 58%);
     --app-bg-size: 132px 132px, cover, cover;
     --app-bg-repeat: repeat, no-repeat, no-repeat;
+  }
+
+  /* ════════════════════════════════════════════════════════════════════
+     PER-SPORT ACCENT TOKENS  (theme-agnostic sport identity colors)
+     Each sport keeps ONE identity color across every theme; the paired
+     `-foreground` is chosen so a label/icon on the accent always clears
+     WCAG AA. These are validated for every sport by theme-contrast.test.ts,
+     and replace the old hardcoded `bg-green-700 / bg-yellow-600 …` map.
+     ════════════════════════════════════════════════════════════════════ */
+  :root {
+    --sport-golf: 142 64% 30%;
+    --sport-golf-foreground: 0 0% 100%;
+    --sport-tennis: 52 96% 54%;
+    --sport-tennis-foreground: 52 95% 12%;
+    --sport-pickleball: 84 58% 30%;
+    --sport-pickleball-foreground: 0 0% 100%;
+    --sport-padel: 205 75% 40%;
+    --sport-padel-foreground: 0 0% 100%;
+    --sport-baseball: 0 68% 44%;
+    --sport-baseball-foreground: 0 0% 100%;
+    --sport-softball-slow: 26 80% 38%;
+    --sport-softball-slow-foreground: 0 0% 100%;
+    --sport-softball-fast: 330 66% 44%;
+    --sport-softball-fast-foreground: 0 0% 100%;
+  }
+
+  /* ════════════════════════════════════════════════════════════════════
+     SEMANTIC COMPONENT-SURFACE VOCABULARY  (single, DRY source of truth)
+     Every value DERIVES from a base palette token that each theme already
+     redefines — and that theme-contrast.test.ts proves clears WCAG AA.
+     Declaring them once in :root means they cascade to every [data-theme]
+     automatically and stay contrast-safe BY CONSTRUCTION: a component that
+     puts hsl(var(--drawer-fg)) on hsl(var(--drawer-bg)) can never become
+     white-on-white, because that pair is the (AA-tested) secondary pair.
+     ════════════════════════════════════════════════════════════════════ */
+  :root {
+    /* Generic surfaces */
+    --surface: var(--card);
+    --surface-foreground: var(--card-foreground);
+    --surface-muted: var(--muted);
+    --surface-elevated: var(--popover);
+    --surface-elevated-foreground: var(--popover-foreground);
+    --surface-inset: var(--secondary);
+    --surface-overlay: var(--popover);
+    --surface-scrim: 0 0% 0%; /* use as hsl(var(--surface-scrim) / 0.5) */
+
+    /* Text roles */
+    --text-primary: var(--foreground);
+    --text-secondary: var(--secondary-foreground);
+    --text-muted: var(--muted-foreground);
+    --text-subtle: var(--muted-foreground);
+    --text-inverse: var(--background);
+
+    /* Borders / focus */
+    --border-muted: var(--border);
+    --border-strong: var(--foreground);
+    --divider: var(--border);
+    --focus-ring: var(--ring);
+
+    /* Top nav / sidebar */
+    --nav-bg: var(--secondary);
+    --nav-fg: var(--secondary-foreground);
+    --nav-muted: var(--muted-foreground);
+    --nav-border: var(--border);
+    --nav-active-bg: var(--primary);
+    --nav-active-fg: var(--primary-foreground);
+
+    /* Mobile slide-out drawer */
+    --drawer-bg: var(--secondary);
+    --drawer-fg: var(--secondary-foreground);
+    --drawer-muted: var(--muted-foreground);
+    --drawer-border: var(--border);
+    --drawer-selected-bg: var(--primary);
+    --drawer-selected-fg: var(--primary-foreground);
+    --drawer-selected-muted: var(--primary-foreground);
+
+    /* Bottom tab bar */
+    --bottom-nav-bg: var(--card);
+    --bottom-nav-fg: var(--muted-foreground);
+    --bottom-nav-muted: var(--muted-foreground);
+    --bottom-nav-active-bg: var(--primary);
+    /* Active tab label is TEXT on the card surface, not a fill — so it uses the
+       text-safe `--link` accent (a mid-tone primary fails on dark themes). */
+    --bottom-nav-active-fg: var(--link);
+    --bottom-nav-border: var(--border);
+
+    /* Cards / modals / popovers / tooltips / toasts / tables */
+    --card-bg: var(--card);
+    --card-fg: var(--card-foreground);
+    --card-muted: var(--muted-foreground);
+    --card-border: var(--border);
+    --modal-bg: var(--popover);
+    --modal-fg: var(--popover-foreground);
+    --modal-muted: var(--muted-foreground);
+    --modal-border: var(--border);
+    --popover-bg: var(--popover);
+    --popover-fg: var(--popover-foreground);
+    --tooltip-bg: var(--foreground);
+    --tooltip-fg: var(--background);
+    --toast-bg: var(--popover);
+    --toast-fg: var(--popover-foreground);
+    --table-bg: var(--card);
+    --table-fg: var(--card-foreground);
+    --table-header-bg: var(--muted);
+    --table-header-fg: var(--foreground);
+    --table-border: var(--border);
+
+    /* Inputs */
+    --input-bg: var(--card);
+    --input-fg: var(--foreground);
+    --input-placeholder: var(--muted-foreground);
+    --input-border: var(--input);
+    --input-focus-border: var(--ring);
+
+    /* Buttons */
+    --button-bg: var(--primary);
+    --button-fg: var(--primary-foreground);
+    --button-hover-bg: var(--primary);
+    --button-active-bg: var(--primary);
+    --button-disabled-bg: var(--muted);
+    --button-disabled-fg: var(--muted-foreground);
+
+    /* Chips / badges */
+    --chip-bg: var(--secondary);
+    --chip-fg: var(--secondary-foreground);
+    --chip-selected-bg: var(--primary);
+    --chip-selected-fg: var(--primary-foreground);
+
+    /* Status surfaces */
+    --success-bg: var(--success);
+    --warning-bg: var(--warning);
+    --danger: var(--error);
+    --danger-foreground: var(--error-foreground);
+    --danger-bg: var(--error);
+    --info: var(--accent-secondary);
+    --info-foreground: var(--accent-secondary-foreground);
+    --info-bg: var(--accent-secondary);
   }
 }
 

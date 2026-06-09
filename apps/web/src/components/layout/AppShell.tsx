@@ -93,7 +93,7 @@ export function AppShell({ children }: AppShellProps) {
       {/* ── Main content area ── */}
       <div className="flex flex-col flex-1 min-w-0">
         {/* Mobile top bar */}
-        <header className="sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-secondary border-b border-border lg:hidden shadow-xs no-print">
+        <header className="sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-nav border-b border-border lg:hidden shadow-xs no-print">
           <button
             onClick={() => setDrawerOpen(true)}
             aria-label="Open navigation menu"
@@ -122,7 +122,7 @@ export function AppShell({ children }: AppShellProps) {
 
         {/* ── Mobile bottom navigation bar ── */}
         <nav
-          className="fixed bottom-0 left-0 right-0 z-30 bg-card border-t border-border flex lg:hidden safe-area-inset-bottom no-print"
+          className="fixed bottom-0 left-0 right-0 z-30 bg-bottom-nav border-t border-border flex lg:hidden safe-area-inset-bottom no-print"
           aria-label="Bottom navigation"
         >
           {BOTTOM_NAV.map(({ href, label, icon: Icon }) => {
@@ -134,14 +134,14 @@ export function AppShell({ children }: AppShellProps) {
                 className={cn(
                   'flex-1 flex flex-col items-center justify-center py-2 gap-0.5 text-xs font-medium transition-colors',
                   isActive
-                    ? 'text-primary'
+                    ? 'text-bottom-nav-active'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >
                 <Icon
                   size={20}
                   className={cn(
-                    isActive ? 'text-primary' : 'text-muted-foreground',
+                    isActive ? 'text-bottom-nav-active' : 'text-muted-foreground',
                   )}
                 />
                 <span className="leading-tight">{label}</span>
