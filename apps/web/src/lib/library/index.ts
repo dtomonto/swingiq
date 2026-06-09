@@ -58,6 +58,8 @@ function featureWalkthroughs(): LibraryItem[] {
       route: v.route,
       hasRecording: recorded,
       source: 'tutorial',
+      // Feature walkthroughs are already public on /learn — keep them listed.
+      public: true,
       tags: [v.category, ...v.title.toLowerCase().split(/\s+/)],
     };
   });
@@ -66,6 +68,16 @@ function featureWalkthroughs(): LibraryItem[] {
 /** Every library item: feature walkthroughs first, then training. */
 export function getLibraryItems(): LibraryItem[] {
   return [...featureWalkthroughs(), ...getTrainingItems()];
+}
+
+/**
+ * Items exposed on the PUBLIC /learn pages + sitemaps. The in-app /library
+ * always shows everything (getLibraryItems); this filter lets new training
+ * videos land in the app immediately but roll out to search gradually
+ * (flip a seed's `public` to true to publish its /learn page).
+ */
+export function getLearnItems(items: LibraryItem[] = getLibraryItems()): LibraryItem[] {
+  return items.filter((i) => i.public);
 }
 
 export interface LibrarySection {

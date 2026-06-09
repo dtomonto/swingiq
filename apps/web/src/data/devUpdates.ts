@@ -95,6 +95,36 @@ export const DEV_STATS: DevStat[] = [
 
 export const DEV_UPDATES: DevUpdate[] = [
   {
+    id: 'dev-branch-guardian',
+    status: 'draft',
+    version: 'BranchGuardianOS',
+    title: 'BranchGuardianOS — a non-destructive Git and worktree governance OS for the admin',
+    date: '2026-06-08',
+    displayDate: 'June 2026',
+    category: 'Developer Experience',
+    impact: 'major',
+    headline:
+      'A read-only Git Cleanliness engine that scores branch and worktree health, ranks safe cleanup work, and prepares copy-paste commands you approve — it never runs git for you.',
+    details:
+      'BranchGuardianOS reads a committed snapshot of repository state (the live site has no shell access to git) and turns it into a live Git Cleanliness Score across branches and worktrees. A pure scoring engine grades staleness, merged-but-undeleted branches, how far each branch trails main, risky untracked files, and naming-convention drift; a recommendation engine then ranks non-destructive cleanup actions and emits copy-paste-safe commands. Nothing is ever executed, and every deletion sits behind an explicit approval step. Protected-branch and naming rules are first-class. It feeds two existing operating systems: a branch-hygiene signal into the admin Command Center, and an untracked-secrets posture check into securityOS. A snapshot-refresh script lets the owner regenerate the data on demand, and an audit log records what was recommended.',
+    highlights: [
+      'Read-only by design — prepares commands, never runs git; deletions gated behind explicit approval',
+      'Weighted Git Cleanliness Score over branches and worktrees (staleness, merged, behind-main, risky untracked, naming)',
+      'Ranked, copy-paste-safe cleanup recommendations, each with a plain reason',
+      'Feeds Command Center (branch-hygiene signal) and securityOS (untracked-secrets posture)',
+      'Protected-branch and naming-convention rules as first-class config',
+      'Snapshot-based, so it works on the live site with no shell access to git',
+    ],
+    stack: ['TypeScript', 'Next.js App Router', 'Local-first', 'Git plumbing (read-only)'],
+    testing: [
+      'Unit tests across scan, scoring, recommendations, naming, and protected-branch rules',
+      'Whole-app type-check clean; Command Center and securityOS suites green with the new signals',
+    ],
+    rollback:
+      'Purely additive and admin-only, behind a new devops.manage permission. It reads a committed snapshot and executes nothing, so there is nothing to roll back operationally; the section can be hidden by removing its nav entry.',
+    isMilestone: true,
+  },
+  {
     id: 'dev-mental-performance',
     version: 'Mental Performance',
     title: 'A local-first Mental Performance pillar — keyless coach, anonymized telemetry, on-device audio',

@@ -74,6 +74,12 @@ export interface LibraryItem {
   hasRecording: boolean;
   /** Where the item came from. */
   source: 'tutorial' | 'training';
+  /**
+   * Listed on the PUBLIC /learn pages + sitemaps (the SEO/AEO/GEO surface).
+   * The in-app /library shows every item regardless; this only gates public
+   * exposure, so new training videos can be rolled out gradually.
+   */
+  public: boolean;
   /** Free-text tags for search. */
   tags: string[];
 }

@@ -34,6 +34,7 @@ const comingSoon: LibraryItem = {
   script: ['Line one.', 'Line two.'],
   hasRecording: false,
   source: 'training',
+  public: true,
   tags: ['drill'],
 };
 

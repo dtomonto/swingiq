@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Clock, PlayCircle } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { getLibraryItems, getLibrarySections } from '@/lib/library';
+import { getLearnItems, getLibrarySections } from '@/lib/library';
 import { learnItemListSchema, breadcrumbSchema, learnPath } from '@/lib/library/seo';
 import { getConceptEntries, learnPath as conceptHref } from '@/lib/learn';
 
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default function LearnIndexPage() {
-  const items = getLibraryItems();
+  const items = getLearnItems();
   const recorded = items.filter((i) => i.hasRecording);
   const sections = getLibrarySections(items).filter((s) => s.items.length > 0);
   const concepts = getConceptEntries();

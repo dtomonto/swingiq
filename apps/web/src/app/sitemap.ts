@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
 import { SITE_URL } from '@/config/site';
-import { getLibraryItems } from '@/lib/library';
+import { getLearnItems } from '@/lib/library';
 import { learnPath } from '@/lib/library/seo';
 import { getConceptEntries, getDataPointEntries, learnPath as learnEntryPath } from '@/lib/learn';
 import { localizedRoutes, currentLocalesFor } from '@/lib/marketing-i18n/expose';
@@ -117,7 +117,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // video-sitemap metadata for recorded videos (SEO/AEO/GEO discovery).
   const learnPages: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/learn`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    ...getLibraryItems().map((item) => ({
+    ...getLearnItems().map((item) => ({
       url: `${BASE_URL}${learnPath(item)}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
@@ -186,8 +186,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Milestone authority pages: one entry per APPROVED + indexable published
   // milestone (committed in content/milestones/published.ts). Unapproved /
-  // noindex milestones are excluded, so a draft can never reach the sitemap.
-  // The /updates/milestones index lives in CURATED_URLS.
+  // noindex milestones are excluded by indexablePublishedMilestones(), so a
+  // draft milestone can never reach the sitemap. The /updates/milestones index
+  // lives in CURATED_URLS.
   const milestonePages: MetadataRoute.Sitemap = indexablePublishedMilestones().map((mItem) => ({
     url: `${BASE_URL}${milestonePath(mItem.slug)}`,
     lastModified: mItem.achievedAt ? new Date(mItem.achievedAt).toISOString() : now,

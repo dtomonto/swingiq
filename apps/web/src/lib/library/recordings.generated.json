@@ -4,5 +4,47 @@
   },
   "launch-monitor-workflow": {
     "durationSec": 54
+  },
+  "drill-library-tour": {
+    "durationSec": 56
+  },
+  "coaching-and-parents": {
+    "durationSec": 57
+  },
+  "film-study-motion-lab": {
+    "durationSec": 57
+  },
+  "slice-fix-drills": {
+    "durationSec": 55
+  },
+  "contact-consistency-drills": {
+    "durationSec": 54
+  },
+  "read-report-with-your-athlete": {
+    "durationSec": 53
+  },
+  "setting-honest-goals": {
+    "durationSec": 52
+  },
+  "compare-to-a-reference": {
+    "durationSec": 54
+  },
+  "reading-takeaway-sequence": {
+    "durationSec": 58
+  },
+  "tennis-topspin-drills": {
+    "durationSec": 55
+  },
+  "pickleball-dink-drills": {
+    "durationSec": 52
+  },
+  "padel-wall-drills": {
+    "durationSec": 55
+  },
+  "fastpitch-timing-drills": {
+    "durationSec": 54
+  },
+  "slowpitch-line-drive-drills": {
+    "durationSec": 54
   }
 }
