@@ -118,6 +118,10 @@ const PUBLIC_PREFIXES = [
   // Cron entry for the Link Intelligence Agent — same rationale; the route
   // self-protects with CRON_SECRET. See api/growth/link-intelligence/cron.
   '/api/growth/link-intelligence/cron',
+  // Research cron (registered in vercel.json) — Vercel Cron has no Supabase
+  // session, so without this the middleware redirects it to /login and the
+  // workflow never runs. The route self-protects with CRON_SECRET (safeEqual).
+  '/api/research/run',
   // External-auditor packet — an unauthenticated auditor (e.g. ChatGPT) must
   // reach it without a Supabase session; the route self-protects with
   // AUDIT_ACCESS_TOKEN and returns 404 when that token is unset (fully off

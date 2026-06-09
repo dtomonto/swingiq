@@ -8,7 +8,11 @@
 // ============================================================
 
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { requireAdmin } from '@/lib/admin/context';
 import type { SupabaseClient } from '@supabase/supabase-js';
+
+// Defense-in-depth (F4): re-assert admin authz before any service-role read.
+const UNAUTHORIZED_REASON = 'Unauthorized — admin authorization required.';
 
 export interface AthleteRow {
   userId: string;
@@ -62,6 +66,9 @@ async function emailMap(client: SupabaseClient): Promise<Map<string, string | nu
 }
 
 export async function listAthletes(): Promise<AthletesResult> {
+  if (!(await requireAdmin()).ok) {
+    return { connected: false, reason: UNAUTHORIZED_REASON, rows: [], bySport: {} };
+  }
   const client = createSupabaseAdminClient();
   if (!client) return { connected: false, reason: REASON, rows: [], bySport: {} };
 

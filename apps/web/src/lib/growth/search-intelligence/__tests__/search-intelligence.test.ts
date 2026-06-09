@@ -321,7 +321,7 @@ describe('Google Search Console adapter', () => {
     expect(off.connected).toBe(false);
     expect(off.missing).toContain(GSC_TOKEN_ENV);
     expect(off.missing).toContain(GSC_SITE_ENV);
-    const on = gscStatus({ [GSC_TOKEN_ENV]: 'tok', [GSC_SITE_ENV]: 'sc-domain:swingvantage.com' } as NodeJS.ProcessEnv);
+    const on = gscStatus({ [GSC_TOKEN_ENV]: 'tok', [GSC_SITE_ENV]: 'sc-domain:swingvantage.com' } as unknown as NodeJS.ProcessEnv);
     expect(on.connected).toBe(true);
     expect(on.siteUrl).toBe('sc-domain:swingvantage.com');
   });

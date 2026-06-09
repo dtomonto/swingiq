@@ -11,7 +11,11 @@
 // ============================================================
 
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { requireAdmin } from '@/lib/admin/context';
 import type { SupabaseClient } from '@supabase/supabase-js';
+
+// Defense-in-depth (F4): re-assert admin authz before any service-role read.
+const UNAUTHORIZED_REASON = 'Unauthorized — admin authorization required.';
 
 const SPORTS = [
   'golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast',
@@ -86,6 +90,9 @@ const EMPTY: PlatformMetrics = {
 };
 
 export async function getPlatformMetrics(): Promise<PlatformMetrics> {
+  if (!(await requireAdmin()).ok) {
+    return { ...EMPTY, reason: UNAUTHORIZED_REASON };
+  }
   const client = createSupabaseAdminClient();
   if (!client) {
     return {

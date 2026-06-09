@@ -8,7 +8,14 @@
 // ============================================================
 
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { requireAdmin } from '@/lib/admin/context';
 import type { SupabaseClient } from '@supabase/supabase-js';
+
+// Defense-in-depth (F4): the service-role client below bypasses RLS, so every
+// entry point re-asserts admin authz at the DATA boundary rather than trusting
+// the layout guard alone (RSC pages run concurrently with the layout, so a
+// layout redirect is not a hard data-fetch boundary).
+const UNAUTHORIZED_REASON = 'Unauthorized — admin authorization required.';
 
 export interface AdminUserRow {
   id: string;
@@ -58,6 +65,9 @@ export function sportLabel(id: string): string {
 }
 
 export async function listAdminUsers(): Promise<AdminUsersResult> {
+  if (!(await requireAdmin()).ok) {
+    return { connected: false, reason: UNAUTHORIZED_REASON, users: [], total: 0, capped: false };
+  }
   const client = createSupabaseAdminClient();
   if (!client) {
     return { connected: false, reason: NOT_CONNECTED_REASON, users: [], total: 0, capped: false };
@@ -137,11 +147,12 @@ export interface AdminUserDetail {
 }
 
 export async function getAdminUser(id: string): Promise<AdminUserDetail> {
-  const client = createSupabaseAdminClient();
   const empty: AdminUserDetail = {
     connected: false, reason: NOT_CONNECTED_REASON, user: null,
     golfProfile: null, sportProfiles: [], sessions: [], analyses: [], community: null,
   };
+  if (!(await requireAdmin()).ok) return { ...empty, reason: UNAUTHORIZED_REASON };
+  const client = createSupabaseAdminClient();
   if (!client) return empty;
 
   const safe = async <T>(p: PromiseLike<{ data: T | null; error: unknown }>, fallback: T): Promise<T> => {
