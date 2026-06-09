@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -222,6 +222,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'content', built: true, permission: 'content.publish',
     blurb: 'Choose which training videos appear on the public /learn pages. Every video is already in the in-app library; flip a few to public per week to roll them out to search gradually.',
     keywords: ['library', 'video library', 'learn', 'publish', 'videos', 'training videos', 'rollout', 'seo'],
+  },
+  {
+    id: 'assets', label: 'Asset Library', href: '/admin/assets', icon: Images,
+    group: 'content', built: true, permission: 'content.edit',
+    blurb: 'One internal catalog of every generated media asset — training videos, feature walkthroughs, and Video Studio assets — with previews, files, and where each is used. Read-only and self-maintaining.',
+    keywords: ['assets', 'digital asset library', 'dam', 'media library', 'generated media', 'videos', 'posters', 'captions', 'catalog'],
   },
   {
     id: 'generated-fixes', label: 'Generated Fixes', href: '/admin/content/generated-fixes', icon: Wand2,
