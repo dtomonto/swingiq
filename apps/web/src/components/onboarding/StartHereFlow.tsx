@@ -640,13 +640,36 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
         />
       )}
 
-      {/* Next actions */}
+      {/* Primary next step — lead with the single highest-value action: turn
+          this self-reported estimate into a real, MEASURED analysis. One clear
+          step beats a wall of equal options at the activation moment. */}
+      <div className="rounded-2xl border-2 border-primary/40 bg-primary/5 p-5">
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Recommended next step</p>
+        <h3 className="mt-1 text-lg font-bold text-foreground">Now make it measured</h3>
+        <p className="mt-1 text-sm text-muted-foreground">
+          That read came from your answers. Let SwingVantage watch a real swing in 3D — Motion Lab gives you a
+          measured breakdown with phase-by-phase detail, not an estimate.
+        </p>
+        <Link
+          href="/motion-lab"
+          onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta: 'start_here_motion_lab', context: 'start_here_result' })}
+          className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition-colors hover:opacity-90 sm:w-auto"
+        >
+          Analyze a real swing in Motion Lab
+          <ArrowRight size={16} aria-hidden="true" />
+        </Link>
+        <p className="mt-2 text-xs text-muted-foreground">
+          A free account unlocks the full measured analysis and saves your progress — it takes a few seconds.
+        </p>
+      </div>
+
+      {/* Secondary actions — demoted so they don't compete with the recommended step */}
       <div className="rounded-2xl border border-border bg-card p-5">
-        <h3 className="mb-3 text-sm font-bold text-foreground">What next?</h3>
+        <h3 className="mb-3 text-sm font-bold text-foreground">Or keep going another way</h3>
         <div className="grid gap-2 sm:grid-cols-2">
-          <NextAction href="/dashboard" cta="start_here_dashboard" primary>Go to my dashboard</NextAction>
-          <NextAction href="/training" cta="start_here_training">Start my practice plan</NextAction>
           <NextAction href="/video" cta="start_here_video">Upload a swing video</NextAction>
+          <NextAction href="/training" cta="start_here_training">Start my practice plan</NextAction>
+          <NextAction href="/dashboard" cta="start_here_dashboard">Go to my dashboard</NextAction>
           <NextAction href="/ai-coach" cta="start_here_ai_coach">Ask your AI coach</NextAction>
           <NextAction href="/sessions/import" cta="start_here_import">Import my data</NextAction>
           {result.userType === 'coach' && (
