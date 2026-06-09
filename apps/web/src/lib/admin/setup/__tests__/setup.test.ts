@@ -20,7 +20,7 @@ const CAP_KEYS: CapabilityKey[] = ['auth', 'aiCoach', 'aiVision', 'ocr', 'email'
 // the catalog-integrity test below (a typo'd `derived` key would never resolve).
 const DERIVED_KEYS = new Set([
   'prod-urls', 'admin-protected', 'analytics-any', 'ai-budget',
-  'rate-limit-redis', 'cron-secret', 'gsc-verify',
+  'rate-limit-redis', 'cron-secret', 'gsc-verify', 'gsc-search-analytics',
 ]);
 
 function signal(over: Partial<SetupSignal> = {}): SetupSignal {

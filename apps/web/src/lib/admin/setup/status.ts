@@ -55,6 +55,9 @@ function computeDerived(): Record<string, boolean> {
     'cron-secret': isConfigured(process.env.CRON_SECRET),
     // Search Console verification token present.
     'gsc-verify': isConfigured(process.env.NEXT_PUBLIC_GSC_VERIFICATION),
+    // Search Console DATA connected (SearchIntelligenceOS) — both halves required.
+    'gsc-search-analytics':
+      isConfigured(process.env.GSC_ACCESS_TOKEN) && isConfigured(process.env.GSC_SITE_URL),
   };
 }
 

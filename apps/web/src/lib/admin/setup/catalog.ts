@@ -279,6 +279,27 @@ export const CATALOG: SetupTask[] = [
     learnMoreLabel: 'SEO / AEO / GEO',
   },
   {
+    id: 'gsc-search-analytics',
+    title: 'Feed real Search Console data into Search Intelligence',
+    plainEnglish:
+      'Different from verifying the site (above): this connects Google Search Console\'s DATA so SearchIntelligenceOS (/admin/growth/search) shows your REAL keyword rankings, impressions and clicks instead of relative estimates. It flips the Keyword Explorer from "estimated" to real with one Sync.',
+    category: 'growth',
+    priority: 'optional',
+    detect: { kind: 'derived', key: 'gsc-search-analytics' },
+    steps: [
+      'Verify the site in Search Console first (see the card above).',
+      'Create an OAuth access token with the Search Console scope (webmasters.readonly) — e.g. via a Google Cloud OAuth client or a service account exchanged for a token.',
+      'In Vercel → Settings → Environment Variables, add GSC_ACCESS_TOKEN (the bearer token) and GSC_SITE_URL (your property, e.g. sc-domain:swingvantage.com).',
+      'Redeploy, then open /admin/growth/search → Keyword Explorer → "Sync now". Rank, impressions and clicks become real data.',
+    ],
+    inputs: [
+      { kind: 'env', value: 'GSC_ACCESS_TOKEN', secret: true, example: 'OAuth bearer token (webmasters.readonly scope)', where: 'Google Cloud OAuth / service account' },
+      { kind: 'env', value: 'GSC_SITE_URL', example: 'sc-domain:swingvantage.com', where: 'your Search Console property name' },
+    ],
+    learnMoreHref: '/admin/growth/search',
+    learnMoreLabel: 'Search Intelligence',
+  },
+  {
     id: 'ads',
     title: 'Turn on ads (Phase 2 — first revenue)',
     plainEnglish:
@@ -363,6 +384,27 @@ export const CATALOG: SetupTask[] = [
       { kind: 'env', value: 'CRON_SECRET', secret: true, where: 'Vercel → Settings → Environment Variables' },
     ],
   },
+  {
+    id: 'csp-nonce',
+    title: 'Harden the Content-Security-Policy (nonce-based CSP)',
+    plainEnglish:
+      'The last security hardening (F6): replace the script "unsafe-inline" allowance with a per-request nonce so an injected inline script can\'t run. A full, ready-to-apply implementation is written up — it ships OFF by default and you validate it on a PREVIEW deploy before enabling in production (a wrong setup can blank the site, so it is deliberately owner-validated).',
+    category: 'reliability',
+    priority: 'optional',
+    detect: { kind: 'env', anyOf: ['CSP_NONCE'] },
+    steps: [
+      'Open docs/security/F6-nonce-csp.md — it has the exact middleware / next.config / layout changes (only one inline script to wire) plus a validation checklist.',
+      'Apply the changes on a branch and deploy a PREVIEW with CSP_NONCE=1 (use a production build — dev mode needs eval, which the strict CSP forbids).',
+      'On the preview, open the public homepage with DevTools open and confirm there are NO CSP violation errors and the page works normally.',
+      'If clean, set CSP_NONCE=1 in production. To roll back, just unset it — the default path is unchanged.',
+    ],
+    inputs: [
+      { kind: 'file', value: 'docs/security/F6-nonce-csp.md', label: 'The turnkey implementation + checklist' },
+      { kind: 'env', value: 'CSP_NONCE', example: '1 (enables the nonce CSP; unset = today\'s policy)', where: 'Vercel → preview first, then production' },
+    ],
+    learnMoreHref: '/admin/security-os',
+    learnMoreLabel: 'SecurityOS',
+  },
 
   // ── On your computer (one-time) ────────────────────────────
   {
@@ -444,6 +486,24 @@ export const CATALOG: SetupTask[] = [
     ],
     inputs: [
       { kind: 'command', value: 'npm run hooks:install', label: 'Install git hooks' },
+    ],
+  },
+  {
+    id: 'remove-framer-motion',
+    title: 'Remove the unused framer-motion dependency (cleanup)',
+    plainEnglish:
+      'A code audit found framer-motion listed as a dependency but never imported anywhere in the app — it bloats install time and adds supply-chain surface for nothing. One command removes it. Safe: nothing uses it, so the build is unaffected.',
+    category: 'local-setup',
+    priority: 'optional',
+    detect: { kind: 'manual' },
+    steps: [
+      'Open a terminal in the project folder.',
+      'Run: npm rm framer-motion -w @swingiq/web',
+      'Commit the updated package.json + package-lock.json, then push.',
+    ],
+    inputs: [
+      { kind: 'command', value: 'npm rm framer-motion -w @swingiq/web', label: 'Remove the dead dependency' },
+      { kind: 'file', value: 'docs/PERFORMANCE.md', label: 'Performance audit (where this was found)' },
     ],
   },
 

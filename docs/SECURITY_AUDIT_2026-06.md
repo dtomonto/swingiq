@@ -23,6 +23,32 @@ Supabase schema, deployment config · Method: full source review + dependency au
 
 ---
 
+## Update — 2026-06-09: post-audit remediation shipped
+
+Since this report, the following deferred items have been **shipped to
+origin/master** (this banner keeps the register below from going stale):
+
+- **F4 — admin defense-in-depth** ✅ — the 6 service-role admin data adapters
+  (`lib/admin/data/*`) now re-assert `requireAdmin()` before any cross-user read.
+- **F12 — research cron gating** ✅ — `/api/research/run` allow-listed in
+  middleware (self-protected by `CRON_SECRET`).
+- **F13 — checkout binding** ✅ — `billing/checkout` now binds
+  `client_reference_id = user.id` and requires sign-in once Stripe is live.
+- **F15 — shared-device privacy** ✅ — device-local data is wiped on cloud
+  sign-out (data-loss-safe) + a complete "Clear this device" action.
+- **F6 — nonce CSP** — turnkey, env-gated implementation written up in
+  `docs/security/F6-nonce-csp.md` (apply + validate on a preview; not yet live).
+- **DevSecOps** ✅ — branch protection on `master` (required CI checks), the
+  Security-Audit ESLint job fixed, and the conflicting advanced CodeQL workflow
+  removed (GitHub default CodeQL setup still scans).
+
+Still deferred on purpose: **F3** (server-side recruiting auth — before cloud
+sharing ships) and the nonce-CSP go-live (**F6**, owner-validated on preview).
+The register and checklists below predate these fixes; treat this banner as the
+current source of truth.
+
+---
+
 ## 1. Executive Summary
 
 SwingVantage is a local-first, multi-sport AI performance app on Next.js 16 +
