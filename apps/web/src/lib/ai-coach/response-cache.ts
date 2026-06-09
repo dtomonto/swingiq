@@ -39,6 +39,7 @@ export function cacheKey(ctx: CoachContext): string {
     videoConfidence: ctx.primary_video_issue_confidence ?? null,
     engineSummary: ctx.engine_summary ?? null,
     stats: ctx.current_session_stats ?? null,
+    history: ctx.recent_history ?? null,
   });
 }
 

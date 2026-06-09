@@ -39,8 +39,21 @@ export interface CoachContext {
   sport_profile_summary?: string;
   /** Optional audience-tone instruction (Beginner/Parent/Competitive/Coach). */
   coaching_tone_hint?: string;
+  /**
+   * Recent prior sessions for longitudinal context (#5). When present, the
+   * coach can reference change over time (regression/improvement) instead of
+   * treating every question as a cold start. Newest-first.
+   */
+  recent_history?: PriorSessionSummary[];
   /** The specific question the athlete is asking */
   user_question: string;
+}
+
+/** A compact prior-session summary for longitudinal AI context. */
+export interface PriorSessionSummary {
+  date: string;
+  primary_issue: string | null;
+  swing_score: number | null;
 }
 
 // ── Sport-Specific System Prompts ─────────────────────────────
@@ -277,11 +290,15 @@ export function buildCoachPrompt(ctx: CoachContext): { system: string; user: str
   const contextBlock = buildContextBlock(ctx);
   const questionLabel = SPORT_QUESTION_LABELS[sport] ?? 'Question';
   const baseSystem = `${systemPrompt}\n\n${EVIDENCE_CITATION_RULE}`;
+  // #5 longitudinal memory: prepend recent-session history so the coach can
+  // reference change over time. Empty when no history is supplied.
+  const longitudinal =
+    ctx.recent_history && ctx.recent_history.length > 0 ? buildLongitudinalContext(ctx.recent_history) : '';
   return {
     system: ctx.coaching_tone_hint
       ? `${baseSystem}\n\nTONE — match this audience: ${ctx.coaching_tone_hint}`
       : baseSystem,
-    user: `${contextBlock}\n\n${questionLabel}: ${ctx.user_question}`,
+    user: `${contextBlock}${longitudinal}\n\n${questionLabel}: ${ctx.user_question}`,
   };
 }
 
@@ -431,11 +448,7 @@ export interface CoachInteractionMetadata {
  * what was worked on last time and detect regression or improvement.
  */
 export function buildLongitudinalContext(
-  priorSessions: Array<{
-    date: string;
-    primary_issue: string | null;
-    swing_score: number | null;
-  }>,
+  priorSessions: PriorSessionSummary[],
   maxSessions = 3,
 ): string {
   const recent = priorSessions.slice(0, maxSessions);
