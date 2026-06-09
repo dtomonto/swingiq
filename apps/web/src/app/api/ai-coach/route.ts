@@ -27,6 +27,7 @@ import {
   coerceStructuredCoachResponse,
   coachMessageFrom,
 } from '@/lib/ai-coach/structured';
+import { selectCoachTier } from '@/lib/ai-coach/tiering';
 
 // ── Handler ───────────────────────────────────────────────────
 
@@ -77,7 +78,8 @@ export async function POST(req: NextRequest) {
   const result = await complete({
     system,
     messages: [{ role: 'user', content: user }],
-    tier: 'fast',
+    // #4 difficulty routing: low-confidence/complex questions get a stronger tier.
+    tier: selectCoachTier(ctx),
     spendLabel: 'ai-coach',
     // #1 structured output: the model fills a JSON schema (coaching_text +
     // evidence/fix/drill/safety) so the app can parse + trust-check the pieces.
