@@ -97,12 +97,15 @@ reports `aiVision:true`, analytics detected.
 > **SHIPPED (2026-06-09):** **#19** bundle analyzer + CI first-load JS budget gate
 > (`b6053ad5`). **#21** Unified Command Center already exists (`/admin/command-center`
 > aggregates 10 source engines into one scored screen) — acceptance already met.
-> **Deferred (not blocked on keys, but deliberately held):** **#20** split the hot
-> data files (`seoPages.ts`/`updates.ts`/`tutorial/videos.ts`) — these are edited by
-> concurrent agents constantly, so a big reshuffle now would *maximize* the merge
-> conflicts it aims to reduce; do it in a quiet window / dedicated worktree. **#18**
-> RSC reduction touches 400+ `'use client'` files with real behavior risk — needs a
-> careful measured pass, not a bulk sweep.
+> **#20 SHIPPED (2026-06-09)** — sharded the three biggest files via verbatim,
+> order-preserving slices (byte-equivalent registries; audits + tsc + tests green):
+> `seoPages.ts` 1469→161 (+seoPagesCoreA/B/C, `a85b85f6`), `updates.ts` 1575→162
+> (+updatesPart1/2/3, `625f1b21`), `tutorial/videos.ts` 1027→409 (+videosRaw1/2,
+> `818b83e5`). Every registry/data file is now <600 lines. The two static parsers
+> that hardcode SEO filenames were updated to read the new shards.
+> **Still deferred:** **#18** RSC reduction touches 400+ `'use client'` files with
+> real behavior risk + needs a build to measure the JS delta — a careful measured
+> pass, not a bulk sweep.
 
 | Rec | Deliverable | Effort | Acceptance |
 |---|---|---|---|
