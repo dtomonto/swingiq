@@ -14,6 +14,8 @@ import { getPublicUpdates } from '@/data/updates';
 import { getDevUpdates } from '@/data/devUpdates';
 import { updatePath } from '@/lib/updates/product-detail';
 import { devUpdatePath } from '@/lib/updates/dev-detail';
+import { indexablePublishedMilestones } from '@/content/milestones/published';
+import { milestonePath } from '@/lib/milestones/page-detail';
 
 // Sitemap URLs MUST be on the same host the sitemap is served from, or
 // Google rejects them ("URL not allowed for a Sitemap at this location").
@@ -182,6 +184,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: u.isMajorMilestone ? 0.6 : 0.5,
   }));
 
+  // Milestone authority pages: one entry per APPROVED + indexable published
+  // milestone (committed in content/milestones/published.ts). Unapproved /
+  // noindex milestones are excluded, so a draft can never reach the sitemap.
+  // The /updates/milestones index lives in CURATED_URLS.
+  const milestonePages: MetadataRoute.Sitemap = indexablePublishedMilestones().map((mItem) => ({
+    url: `${BASE_URL}${milestonePath(mItem.slug)}`,
+    lastModified: mItem.achievedAt ? new Date(mItem.achievedAt).toISOString() : now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.5,
+  }));
+
   // Developer updates: one entry per published (non-draft) developer update
   // detail page. getDevUpdates() filters out drafts.
   const devUpdatePages: MetadataRoute.Sitemap = getDevUpdates().map((u) => ({
@@ -210,6 +223,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...learnPages,
     ...learnConceptPages,
     ...updatePages,
+    ...milestonePages,
     ...devUpdatePages,
     ...localizedPages,
   ];

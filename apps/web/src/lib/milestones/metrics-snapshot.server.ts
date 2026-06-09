@@ -16,7 +16,7 @@ import { getPlatformMetrics } from '@/lib/admin/data/metrics';
 import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
 import { getPublicUpdates } from '@/data/updates';
 import { getPublishedBlogPosts } from '@/data/blog-posts';
-import { getLearnItems } from '@/lib/library';
+import { getLibraryItems } from '@/lib/library';
 import { localizedRoutes } from '@/lib/marketing-i18n/expose';
 import { isConfigured } from '@/lib/capabilities';
 import type { MetricSnapshot } from './types';
@@ -63,7 +63,7 @@ function gatherRegistry() {
   );
   const updates = safe(() => getPublicUpdates().length, 0);
   const blog = safe(() => getPublishedBlogPosts().length, 0);
-  const videos = safe(() => getLearnItems().length, 0);
+  const videos = safe(() => getLibraryItems().length, 0);
   const locales = safe(() => localizedRoutes().length, 0);
   const sports = safe(() => SPORT_TAXONOMY.length, 0);
   return {
