@@ -20,6 +20,7 @@ import type {
 import {
   readinessSeverity, readinessHeadline, mayBeReadinessDriven, type ReadinessZone,
 } from '@/lib/readiness/golf-mobility';
+import { classifyFaultConsistency, adjustConfidence, patternLabel } from './consistency';
 
 /** Minimal diagnosis shape (DiagnosisOutput is structurally assignable). */
 export interface DiagnosisLike {
@@ -142,16 +143,28 @@ export function computeAthletePriorities(input: PriorityInput): PriorityResult {
 
   const priorities: AthletePriority[] = [];
   for (const a of aggs.values()) {
-    const confidence = a.confWeight > 0 ? Math.round(a.confSum / a.confWeight) : 0;
+    const rawConfidence = a.confWeight > 0 ? Math.round(a.confSum / a.confWeight) : 0;
+    // Multi-session consistency: boost a fault that recurs (esp. in the latest
+    // session), dampen a stale one-off so it can't top the list (the
+    // false-positive guard). Applied to BOTH shown confidence and ranking score.
+    const inLatest = sessions[0]?.diagnoses.some((d) => d.rule.id === a.id) ?? false;
+    const consistency = classifyFaultConsistency({
+      occurrences: a.occurrences,
+      totalSessions: sessions.length,
+      inLatest,
+    });
+    const confidence = adjustConfidence(rawConfidence, consistency.factor);
     const trend = trendOf(a, sessions);
     const evidence: PriorityEvidence[] = [
       { label: 'Seen in', detail: `${a.occurrences} of ${sessions.length} session${sessions.length === 1 ? '' : 's'}` },
+      { label: 'Pattern', detail: patternLabel(consistency.pattern) },
       { label: 'Confidence', detail: `${confidence}%` },
       { label: 'Based on', detail: `${a.sampleSize} shot${a.sampleSize === 1 ? '' : 's'}` },
     ];
     priorities.push({
       id: a.id, label: a.label, summary: a.summary, severity: a.severity,
-      confidence, score: a.score, occurrences: a.occurrences, sampleSize: a.sampleSize,
+      confidence, score: a.score * consistency.factor, occurrences: a.occurrences,
+      sampleSize: a.sampleSize, pattern: consistency.pattern,
       trend, source: 'launch_monitor', recommendedPlanHref: planHref(), evidence,
     });
   }
