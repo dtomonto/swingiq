@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -30,6 +30,7 @@ export type NavGroupId =
   | 'growth'
   | 'support'
   | 'operations'
+  | 'devops'
   | 'governance'
   | 'learn';
 
@@ -47,6 +48,7 @@ export const NAV_GROUPS: NavGroup[] = [
   { id: 'growth', label: 'Growth & Money' },
   { id: 'support', label: 'Support' },
   { id: 'operations', label: 'Operations' },
+  { id: 'devops', label: 'Developer Operations' },
   { id: 'governance', label: 'Governance' },
   { id: 'learn', label: 'Learn' },
 ];
@@ -358,6 +360,14 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'operations', built: true, permission: 'logs.view',
     blurb: 'Every admin action: who changed what, when, before and after.',
     keywords: ['audit', 'log', 'history', 'activity'],
+  },
+
+  // ── Developer Operations ───────────────────────────────────
+  {
+    id: 'branch-guardian', label: 'BranchGuardianOS', href: '/admin/branch-guardian', icon: GitBranch,
+    group: 'devops', built: true, permission: 'devops.manage',
+    blurb: 'Git/worktree governance: a live Git Cleanliness Score, branch & worktree health, ranked NON-DESTRUCTIVE cleanup recommendations with copy-paste-safe commands, protected-branch & naming rules, and an audit log. Nothing is ever executed — it prepares commands and you approve them.',
+    keywords: ['branchguardian', 'branch guardian', 'branchguardianos', 'git', 'branches', 'worktree', 'worktrees', 'cleanup', 'stale branches', 'merged branches', 'hygiene', 'developer operations', 'devops', 'rebase', 'prune', 'naming convention', 'release hygiene', 'repo health'],
   },
 
   // ── Governance ─────────────────────────────────────────────

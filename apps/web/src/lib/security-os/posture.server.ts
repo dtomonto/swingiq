@@ -25,6 +25,7 @@ import path from 'node:path';
 import { isConfigured, isSupabaseConfigured, isAiCoachConfigured, isAiVisionConfigured } from '@/lib/capabilities';
 import { adminEmails } from '@/lib/auth/admin-allowlist';
 import { loadFindings } from '@/lib/admin/audits/data';
+import { loadSnapshot } from '@/lib/branch-guardian/snapshot.server';
 import type { PostureInput } from './types';
 import type { AuditRobotFinding } from './findings';
 
@@ -159,6 +160,26 @@ function ciWorkflows(re: RegExp): boolean | null {
   return dirContentMatches('.github/workflows', re);
 }
 
+/**
+ * Whether the BranchGuardianOS git snapshot shows ZERO risky untracked files
+ * (.env / keys / dumps / logs) across any worktree. null when the snapshot is
+ * absent/empty (couldn't read). This is BranchGuardianOS feeding securityOS.
+ */
+function untrackedSecretsClean(): boolean | null {
+  try {
+    const snap = loadSnapshot();
+    if (!snap.git || (snap.branches.length === 0 && snap.worktrees.length === 0)) return null;
+    let risky = 0;
+    for (const w of snap.worktrees) risky += w.dirty?.untrackedRisky?.length ?? 0;
+    if (snap.currentDirty && !snap.worktrees.some((w) => w.isPrimary)) {
+      risky += snap.currentDirty.untrackedRisky?.length ?? 0;
+    }
+    return risky === 0;
+  } catch {
+    return null;
+  }
+}
+
 function safeAuditFindings(): { findings: AuditRobotFinding[]; open: number } {
   try {
     const open = loadFindings().filter((f) => f.trackStatus !== 'done');
@@ -206,6 +227,7 @@ export function gatherPosture(now: Date = new Date()): PostureBundle {
     securityTests: hasFileNamed('src', /(security-os|rbac|authoriz|admin[-_.]access|rate-limit)\.test\.tsx?$/i),
     productionEnv: process.env.NODE_ENV === 'production',
     auditAccessToken: isConfigured(process.env.AUDIT_ACCESS_TOKEN),
+    untrackedSecretsClean: untrackedSecretsClean(),
     openAuditFindings: open,
   };
 

@@ -33,6 +33,7 @@
     "docs:admin-guide:build": "python scripts/admin-guide/build-pdf.py",
     "features:scan": "node scripts/scan-features.mjs",
     "setup:scan": "node scripts/scan-setup.mjs",
+    "scan:branches": "node scripts/scan-branches.mjs",
     "social:queue": "node scripts/generate-social-queue.mjs",
     "hooks:install": "node scripts/install-hooks.mjs",
     "growth:report": "node scripts/growth-report.mjs",

@@ -44,6 +44,7 @@ function bundle(partial: Partial<SignalBundle> = {}): SignalBundle {
     featureEducation: { gaps: 0, needsReview: 0, drift: 0 },
     platformData: FULL_DATA,
     analyticsConfigured: true,
+    branchHygiene: { available: false, staleBranches: 0, mergedEligible: 0, worktreesNeedingReview: 0, maxBehindMain: 0, worstBehindBranch: null, riskyUntracked: 0, cleanliness: 0 },
     totals: { features: 0, sports: 7, drills: 0 },
     ...partial,
   };

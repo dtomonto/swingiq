@@ -91,6 +91,7 @@ are part of the same "robots keep the project healthy" picture:
 | **Custom security scanner** | Every push (via CI) | Flags public secret vars, unsanitized HTML, `eval`, hardcoded keys | `security-reports/custom-check-results.txt` |
 | **Auto-publish updates hook** | On commit with `Update:` / `Dev-Update:` trailer | Creates `/updates` (draft) + `/dev-updates` (live) entries | post-commit git hook (`npm run hooks:install`) |
 | **Growth report / plan** | On-demand | Growth surface counts + weekly content/outreach plan | `npm run growth:report` · `npm run growth:plan` |
+| **BranchGuardianOS snapshot** (`scan-branches`) | On-demand — run **monthly** as a Git hygiene review | Read-only git inventory → committed snapshot powering `/admin/branch-guardian` (branch/worktree health, non-destructive cleanup recommendations). Never runs git from the app; never deletes/pushes. | `npm run scan:branches` · see `BRANCH_GUARDIAN_OS.md` |
 
 ---
 
