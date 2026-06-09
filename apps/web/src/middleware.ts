@@ -36,7 +36,6 @@ const PUBLIC_PATHS = new Set([
   // Marketing & product
   '/how-it-works',
   '/methodology',
-  '/features',
   '/swinglab',
   '/pricing',
   '/faq',
@@ -71,6 +70,10 @@ const PUBLIC_PATHS = new Set([
 // NOTE: the sport prefixes also cover the hyphenated pillar pages
 // (e.g. '/golf' matches both '/golf/fix-slice' and '/golf-swing-analysis').
 const PUBLIC_SUBTREES = [
+  // Feature hub + every per-feature guide (/features AND /features/<slug>).
+  // Must be a SUBTREE, not an exact path — otherwise the detail pages redirect
+  // logged-out visitors to /login in cloud mode (caught via preview).
+  '/features',
   '/tools',
   '/challenges',
   '/blog',
