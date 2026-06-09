@@ -39,6 +39,9 @@ function VerdictChip({ value }: { value: DrillFeedbackValue }) {
 
 export function ImprovementLoopsCard() {
   const { ready, loops, effectiveness, retestedCount } = useImprovementLoops();
+  // North-star: a "completed improvement loop" is an issue carried all the way
+  // to a retest (issue → drill → measured outcome). The rest are still in flight.
+  const inProgress = Math.max(0, loops.length - retestedCount);
 
   return (
     <div className="rounded-xl border border-border bg-card p-5 space-y-4">
@@ -64,6 +67,27 @@ export function ImprovementLoopsCard() {
         </div>
       ) : (
         <>
+          {/* North-star: completed improvement loops (the one number to watch) */}
+          <div className="grid grid-cols-3 gap-2">
+            <div className="rounded-lg border border-primary/30 bg-primary/10 p-3 text-center">
+              <p className="text-2xl font-bold text-primary leading-none">{retestedCount}</p>
+              <p className="text-[11px] font-medium text-primary/90 mt-1 leading-tight">Loops completed</p>
+            </div>
+            <div className="rounded-lg border border-border bg-muted/40 p-3 text-center">
+              <p className="text-2xl font-bold text-foreground leading-none">{loops.length}</p>
+              <p className="text-[11px] text-muted-foreground mt-1 leading-tight">Issues worked</p>
+            </div>
+            <div className="rounded-lg border border-border bg-muted/40 p-3 text-center">
+              <p className="text-2xl font-bold text-foreground leading-none">{inProgress}</p>
+              <p className="text-[11px] text-muted-foreground mt-1 leading-tight">In progress</p>
+            </div>
+          </div>
+          <p className="text-[11px] text-muted-foreground -mt-1">
+            A <span className="font-medium text-foreground">completed loop</span> is an issue you
+            carried all the way to a retest — issue → drill → measured outcome. It&apos;s the truest
+            signal that your practice is actually working.
+          </p>
+
           {/* Per-fault loops */}
           <ul className="space-y-3">
             {loops.slice(0, 6).map((loop) => (
