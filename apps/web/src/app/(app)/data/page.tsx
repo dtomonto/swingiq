@@ -23,6 +23,7 @@ import { formatLastExport } from '@/lib/community/backup-health';
 import { getExportableModules } from '@/lib/backup/registry';
 import { wipeAllDeviceData } from '@/lib/storage/device-data';
 import { DeleteAccountCard } from '@/components/data/DeleteAccountCard';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import type { SwingVantageBackup, RestorePreview, RestoreResult } from '@/lib/backup/schema';
 import {
   Download, Upload, Shield, Lock, AlertTriangle, CheckCircle,
@@ -71,6 +72,7 @@ export default function DataCenterPage() {
         downloadBackup(backup);
       }
       store.recordExport();
+      track(ANALYTICS_EVENTS.DATA_EXPORT_REQUESTED, { encrypted: exportEncrypt });
       setExported(true);
       setTimeout(() => setExported(false), 4000);
     } catch {

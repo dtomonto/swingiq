@@ -18,6 +18,7 @@ import { AlertTriangle, Trash2, RefreshCw, ShieldX } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useAuth } from '@/lib/auth/useAuth';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { wipeAllDeviceData } from '@/lib/storage/device-data';
 import {
   canConfirmDeletion,
@@ -41,6 +42,7 @@ export function DeleteAccountCard() {
     if (!canConfirmDeletion(typed)) return;
     setPending(true);
     setError(null);
+    track(ANALYTICS_EVENTS.DATA_DELETE_REQUESTED, { scope: 'account+cloud' });
 
     const result = await requestAccountDeletion();
     if (!result.ok) {

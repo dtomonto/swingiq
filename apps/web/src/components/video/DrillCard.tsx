@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ExternalLink, ChevronDown, ChevronUp, Video } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { cn } from '@/lib/utils';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import type { VideoDrillRecommendation, DrillOutcome } from '@swingiq/core';
 
 interface DrillCardProps {
@@ -43,7 +44,13 @@ export function DrillCard({ drill, onInteraction, className }: DrillCardProps) {
             <p className="text-xs text-muted-foreground mt-1">{drill.goal}</p>
           </div>
           <button
-            onClick={() => setExpanded((v) => !v)}
+            onClick={() =>
+              setExpanded((v) => {
+                // Funnel: opening a drill is the issue→drill engagement step.
+                if (!v) track(ANALYTICS_EVENTS.DRILL_CLICKED, { drill_id: drill.id, drill_name: drill.name });
+                return !v;
+              })
+            }
             className="text-muted-foreground hover:text-muted-foreground shrink-0 mt-0.5"
             aria-label={expanded ? 'Collapse drill' : 'Expand drill'}
           >
