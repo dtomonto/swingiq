@@ -488,25 +488,6 @@ export const CATALOG: SetupTask[] = [
       { kind: 'command', value: 'npm run hooks:install', label: 'Install git hooks' },
     ],
   },
-  {
-    id: 'remove-framer-motion',
-    title: 'Remove the unused framer-motion dependency (cleanup)',
-    plainEnglish:
-      'A code audit found framer-motion listed as a dependency but never imported anywhere in the app — it bloats install time and adds supply-chain surface for nothing. One command removes it. Safe: nothing uses it, so the build is unaffected.',
-    category: 'local-setup',
-    priority: 'optional',
-    detect: { kind: 'manual' },
-    steps: [
-      'Open a terminal in the project folder.',
-      'Run: npm rm framer-motion -w @swingiq/web',
-      'Commit the updated package.json + package-lock.json, then push.',
-    ],
-    inputs: [
-      { kind: 'command', value: 'npm rm framer-motion -w @swingiq/web', label: 'Remove the dead dependency' },
-      { kind: 'file', value: 'docs/PERFORMANCE.md', label: 'Performance audit (where this was found)' },
-    ],
-  },
-
   // ── Shipping & deploys (reference) ─────────────────────────
   {
     id: 'mental-performance',
