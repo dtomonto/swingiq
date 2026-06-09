@@ -27,6 +27,8 @@ import {
   buildSessionInsight,
   computeSwingScores,
   getRoutineForDiagnosis,
+  MIN_DIAGNOSIS_SHOTS,
+  FULL_CONFIDENCE_SHOTS,
   type DiagnosisOutput,
   type SkillLevel,
 } from '@swingiq/core';
@@ -433,16 +435,33 @@ export function DiagnoseContent() {
         </div>
 
         {result.diagnoses.length === 0 && (
-          <Card>
-            <CardBody className="py-10 text-center">
-              <CheckCircle size={40} className="mx-auto mb-3 text-success" />
-              <p className="font-bold text-foreground">No critical issues detected.</p>
-              <p className="text-muted-foreground text-sm mt-1">
-                Focus on maintaining consistency. Add more shots for a higher-confidence
-                analysis.
-              </p>
-            </CardBody>
-          </Card>
+          result.stats.shot_count < MIN_DIAGNOSIS_SHOTS ? (
+            // Too few shots to diagnose at all — be honest, don't imply a clean
+            // bill of health. The engine returns no diagnoses below the minimum,
+            // so a reassuring "no issues" here would be a false positive.
+            <Card>
+              <CardBody className="py-10 text-center">
+                <Info size={40} className="mx-auto mb-3 text-muted-foreground" />
+                <p className="font-bold text-foreground">Not enough shots to diagnose yet</p>
+                <p className="text-muted-foreground text-sm mt-1">
+                  A read needs at least {MIN_DIAGNOSIS_SHOTS} shots — and about {FULL_CONFIDENCE_SHOTS} for a
+                  confident one. You have {result.stats.shot_count}. Log a few more and SwingVantage will find
+                  your top thing to work on.
+                </p>
+              </CardBody>
+            </Card>
+          ) : (
+            <Card>
+              <CardBody className="py-10 text-center">
+                <CheckCircle size={40} className="mx-auto mb-3 text-success" />
+                <p className="font-bold text-foreground">No critical issues detected.</p>
+                <p className="text-muted-foreground text-sm mt-1">
+                  Based on {result.stats.shot_count} shots, nothing stands out as critical. Focus on maintaining
+                  consistency — add more shots for an even higher-confidence read.
+                </p>
+              </CardBody>
+            </Card>
+          )
         )}
 
         {result.diagnoses.map((d, i) => (
