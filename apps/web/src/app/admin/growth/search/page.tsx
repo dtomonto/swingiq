@@ -14,7 +14,7 @@ import {
   Radar, AlertTriangle, Lightbulb, FileSearch, Map, TrendingDown, Bot,
   Telescope, Plug, CheckCircle2, ArrowRight, ListChecks, KeyRound, Compass,
 } from 'lucide-react';
-import { runSearchIntel } from '@/lib/growth/search-intelligence';
+import { runSearchIntel, loadGscSnapshot } from '@/lib/growth/search-intelligence';
 import { providerStatuses } from '@/lib/growth/link-intelligence';
 import { humanize } from '@/lib/growth/format';
 import { ModuleHeader, SectionCard, Badge, DataSourceBadge } from '../_components/ui';
@@ -26,8 +26,9 @@ export const dynamic = 'force-dynamic';
 
 const BASE = '/admin/growth/search';
 
-export default function SearchIntelligenceCommandCenter() {
-  const r = runSearchIntel();
+export default async function SearchIntelligenceCommandCenter() {
+  const snap = await loadGscSnapshot();
+  const r = runSearchIntel({ gscKeywords: snap?.keywords, gscRankings: snap?.rankings, gscSummary: snap?.summary ?? null });
   const providers = providerStatuses();
 
   const topActions = r.actions.slice(0, 10);
@@ -84,6 +85,21 @@ export default function SearchIntelligenceCommandCenter() {
           </div>
         </div>
       </SectionCard>
+
+      {/* GSC status */}
+      {r.gscConnected && r.gscSummary ? (
+        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-green-500/30 bg-green-500/10 px-3 py-2 text-xs text-green-200">
+          <CheckCircle2 className="w-3.5 h-3.5" />
+          <span><strong>Real Search Console data</strong> — {r.gscSummary.rowCount} queries · avg position {r.gscSummary.avgPosition.toFixed(1)} · {r.gscSummary.totalClicks} clicks (28d).</span>
+          <Link href={`${BASE}/keywords`} className="ml-auto text-green-300 hover:text-green-200">Manage →</Link>
+        </div>
+      ) : (
+        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-gray-800 bg-gray-900 px-3 py-2 text-xs text-gray-400">
+          <Plug className="w-3.5 h-3.5 text-gray-500" />
+          <span>Connect Google Search Console to turn keyword rank, impressions & clicks into <strong>real</strong> data.</span>
+          <Link href={`${BASE}/keywords`} className="ml-auto text-green-400 hover:text-green-300">Connect →</Link>
+        </div>
+      )}
 
       {/* Top actions */}
       <SectionCard

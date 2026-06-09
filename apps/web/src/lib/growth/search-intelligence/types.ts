@@ -174,6 +174,41 @@ export interface KeywordRow {
   businessValueScore: number;
   contentGapScore: number;
   dataSource: DataSource;
+  // ── Real Search Console signals (present only on GSC-sourced rows) ──
+  /** Real average position from Search Console. */
+  currentRank?: number | null;
+  impressions?: number | null;
+  clicks?: number | null;
+  ctr?: number | null;
+}
+
+// ──────────────────────────────────────────────────────────────
+// Google Search Console (§2.4/2.5/2.16) — real rank/impression data.
+// ──────────────────────────────────────────────────────────────
+
+export interface GscRow {
+  query: string;
+  page: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
+
+export interface GscSummary {
+  rowCount: number;
+  totalClicks: number;
+  totalImpressions: number;
+  avgPosition: number;
+  avgCtr: number;
+  fetchedAt: string;
+}
+
+export interface GscSnapshot {
+  siteUrl: string;
+  summary: GscSummary;
+  keywords: KeywordRow[];
+  rankings: RankingSnapshot[];
 }
 
 // ──────────────────────────────────────────────────────────────

@@ -98,13 +98,13 @@ function makeRow(input: {
  * Build the keyword universe. Owned-page keywords win over seeds on collision
  * (we already have a page for them, so they're not a content gap).
  */
-export function buildKeywords(pages: PageIntel[]): KeywordRow[] {
+export function buildKeywords(pages: PageIntel[], opts: { gsc?: KeywordRow[] } = {}): KeywordRow[] {
   const byNorm = new Map<string, KeywordRow>();
   const put = (row: KeywordRow) => {
     const existing = byNorm.get(row.normalizedKeyword);
-    // owned-page > blog-tag > seed
-    const rank = (s: KeywordSource) => (s === 'owned-page' ? 3 : s === 'blog-tag' ? 2 : 1);
-    if (!existing || rank(row.source) > rank(existing.source)) byNorm.set(row.normalizedKeyword, row);
+    // gsc (real) > owned-page > blog-tag > imported > seed
+    const rank = (s: KeywordSource) => (s === 'gsc' ? 5 : s === 'owned-page' ? 4 : s === 'blog-tag' ? 3 : s === 'imported' ? 2 : 1);
+    if (!existing || rank(row.source) >= rank(existing.source)) byNorm.set(row.normalizedKeyword, row);
   };
 
   // 1) Owned-page keywords (real).
@@ -138,6 +138,10 @@ export function buildKeywords(pages: PageIntel[]): KeywordRow[] {
       dataSource: owningUrl ? 'real' : 'placeholder',
     }));
   }
+
+  // 3) Real Search Console rows (when synced) — highest precedence, so an
+  //    estimated keyword becomes a real, ranked one.
+  for (const row of opts.gsc ?? []) put(row);
 
   return Array.from(byNorm.values()).sort((a, b) => b.opportunityScore - a.opportunityScore);
 }

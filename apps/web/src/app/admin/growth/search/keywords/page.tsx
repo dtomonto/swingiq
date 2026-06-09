@@ -10,18 +10,21 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { KeyRound, ArrowLeft, Sparkles } from 'lucide-react';
-import { runSearchIntel } from '@/lib/growth/search-intelligence';
+import { runSearchIntel, loadGscSnapshot, gscStatus } from '@/lib/growth/search-intelligence';
 import { humanize } from '@/lib/growth/format';
 import { ModuleHeader, SectionCard, KpiCard, Badge, DataSourceBadge } from '../../_components/ui';
 import { accent } from '../_ui';
 import { KeywordTools } from './KeywordTools';
+import { ConnectGsc } from './ConnectGsc';
 import type { CsvValue } from '@/lib/growth/search-intelligence';
 
 export const metadata: Metadata = { title: 'Keyword Explorer | GrowthOS', robots: 'noindex, nofollow' };
 export const dynamic = 'force-dynamic';
 
-export default function KeywordExplorerPage() {
-  const r = runSearchIntel();
+export default async function KeywordExplorerPage() {
+  const snap = await loadGscSnapshot();
+  const r = runSearchIntel({ gscKeywords: snap?.keywords, gscRankings: snap?.rankings, gscSummary: snap?.summary ?? null });
+  const status = gscStatus();
   const keywords = r.keywords;
   const gaps = keywords.filter((k) => !k.hasOwnedPage).length;
   const owned = keywords.length - gaps;
@@ -38,6 +41,9 @@ export default function KeywordExplorerPage() {
     business_value: k.businessValueScore,
     source: k.source,
     url: k.targetUrl,
+    rank: k.currentRank ?? null,
+    impressions: k.impressions ?? null,
+    clicks: k.clicks ?? null,
     data_source: k.dataSource,
   }));
 
@@ -49,8 +55,10 @@ export default function KeywordExplorerPage() {
 
       <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 p-3 text-xs text-amber-200/90 leading-relaxed">
         <strong className="text-amber-300">Volume & difficulty are relative estimates</strong> derived from keyword shape — not measured search demand.
-        Connect Search Console or import a CSV to replace them with verified numbers.
+        Rank, impressions & clicks become <strong>real</strong> once Search Console is synced; volume stays an estimate (GSC reports impressions, not demand).
       </div>
+
+      <ConnectGsc status={status} summary={r.gscSummary} />
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <KpiCard label="Keywords" value={keywords.length} icon={KeyRound} source="real" />
@@ -71,6 +79,7 @@ export default function KeywordExplorerPage() {
                 <th className="px-3 py-2 font-medium">Keyword</th>
                 <th className="px-3 py-2 font-medium">Intent</th>
                 <th className="px-3 py-2 font-medium">Cluster</th>
+                <th className="px-3 py-2 font-medium text-right">Rank</th>
                 <th className="px-3 py-2 font-medium text-right">Vol*</th>
                 <th className="px-3 py-2 font-medium text-right">Diff*</th>
                 <th className="px-3 py-2 font-medium text-right">Opportunity</th>
@@ -84,6 +93,7 @@ export default function KeywordExplorerPage() {
                   <td className="px-3 py-2 text-gray-200">{k.keyword}</td>
                   <td className="px-3 py-2 text-gray-400">{humanize(k.intent)}</td>
                   <td className="px-3 py-2 text-gray-500">{humanize(k.topicCluster)}</td>
+                  <td className="px-3 py-2 text-right tabular-nums">{k.currentRank != null ? <span className="text-green-400 font-semibold" title={`${k.impressions ?? 0} impressions · ${k.clicks ?? 0} clicks (Search Console)`}>{k.currentRank}</span> : <span className="text-gray-700">—</span>}</td>
                   <td className="px-3 py-2 text-right text-gray-500 tabular-nums">{k.volumeEstimate}</td>
                   <td className="px-3 py-2 text-right text-gray-500 tabular-nums">{k.difficultyEstimate}</td>
                   <td className={`px-3 py-2 text-right tabular-nums font-semibold ${accent(k.opportunityScore)}`}>{k.opportunityScore}</td>

@@ -26,7 +26,7 @@ import { synthesizeActions } from './actions';
 import { activeProject } from './projects';
 import type {
   Project, PageIntel, TechnicalIssue, KeywordRow, ContentOpportunity,
-  DecaySignal, SearchScores, SearchAction, SearchIntelRun,
+  DecaySignal, SearchScores, SearchAction, SearchIntelRun, RankingSnapshot, GscSummary,
 } from './types';
 
 export interface SearchIntelResult {
@@ -42,9 +42,22 @@ export interface SearchIntelResult {
   actions: SearchAction[];
   /** The full Link Intelligence result (reused panels: AEO, backlinks, gaps, clusters). */
   link: LinkAgentResult;
+  /** Real Search Console rankings when a snapshot was synced + passed in. */
+  gscRankings: RankingSnapshot[];
+  gscSummary: GscSummary | null;
+  gscConnected: boolean;
 }
 
-export function runSearchIntel(opts: { env?: NodeJS.ProcessEnv; now?: number } = {}): SearchIntelResult {
+export interface RunSearchIntelOptions {
+  env?: NodeJS.ProcessEnv;
+  now?: number;
+  /** Real GSC keyword rows (from a synced snapshot) — merged over estimates. */
+  gscKeywords?: KeywordRow[];
+  gscRankings?: RankingSnapshot[];
+  gscSummary?: GscSummary | null;
+}
+
+export function runSearchIntel(opts: RunSearchIntelOptions = {}): SearchIntelResult {
   const env = opts.env ?? process.env;
   const now = opts.now ?? Date.now();
   const ranAt = new Date(now).toISOString();
@@ -55,7 +68,7 @@ export function runSearchIntel(opts: { env?: NodeJS.ProcessEnv; now?: number } =
 
   const pages = buildPageIntel(link.graph);
   const issues = auditSite(pages, link.findings);
-  const keywords = buildKeywords(pages);
+  const keywords = buildKeywords(pages, { gsc: opts.gscKeywords });
   const opportunities = buildOpportunities(keywords, link.clusters, pages);
   const decay = detectDecay(pages, now);
   const sitemap = analyzeSitemap(pages);
@@ -94,7 +107,12 @@ export function runSearchIntel(opts: { env?: NodeJS.ProcessEnv; now?: number } =
     ],
   };
 
-  return { project, run, pages, issues, keywords, opportunities, decay, sitemap, scores, actions, link };
+  return {
+    project, run, pages, issues, keywords, opportunities, decay, sitemap, scores, actions, link,
+    gscRankings: opts.gscRankings ?? [],
+    gscSummary: opts.gscSummary ?? null,
+    gscConnected: Boolean(opts.gscKeywords && opts.gscKeywords.length > 0),
+  };
 }
 
 /**

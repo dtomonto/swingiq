@@ -28,6 +28,11 @@ import { computeClusterHealth } from '../../link-intelligence/clusters';
 import {
   parseCsv, parseCsvRows, toCsv, importKeywords, importRankings, importBacklinks, importByKind,
 } from '../csv';
+import {
+  gscStatus, fetchGscRows, gscRowsToKeywords, gscRowsToRankings, summarizeGsc, buildGscSnapshot,
+  GSC_TOKEN_ENV, GSC_SITE_ENV,
+} from '../gsc';
+import type { GscRow } from '../types';
 
 const FIXED_NOW = Date.parse('2026-06-09T00:00:00Z');
 
@@ -301,5 +306,75 @@ describe('CSV importers', () => {
     expect(importByKind('keywords', 'keyword\nx').kind).toBe('keywords');
     expect(importByKind('rankings', 'keyword,url,position\nx,/y,1').kind).toBe('rankings');
     expect(importByKind('backlinks', 'source_url,target_url\na,b').kind).toBe('backlinks');
+  });
+});
+
+describe('Google Search Console adapter', () => {
+  const GSC_ROWS: GscRow[] = [
+    { query: 'golf swing analysis', page: 'https://swingvantage.com/golf-swing-analysis', clicks: 40, impressions: 1000, ctr: 0.04, position: 6.2 },
+    { query: 'golf swing analysis', page: 'https://swingvantage.com/blog/swing', clicks: 10, impressions: 500, ctr: 0.02, position: 14 },
+    { query: 'fix golf slice', page: 'https://swingvantage.com/golf/fix-slice', clicks: 5, impressions: 300, ctr: 0.016, position: 22 },
+  ];
+
+  it('status is honest about connection + missing env vars', () => {
+    const off = gscStatus({} as NodeJS.ProcessEnv);
+    expect(off.connected).toBe(false);
+    expect(off.missing).toContain(GSC_TOKEN_ENV);
+    expect(off.missing).toContain(GSC_SITE_ENV);
+    const on = gscStatus({ [GSC_TOKEN_ENV]: 'tok', [GSC_SITE_ENV]: 'sc-domain:swingvantage.com' } as NodeJS.ProcessEnv);
+    expect(on.connected).toBe(true);
+    expect(on.siteUrl).toBe('sc-domain:swingvantage.com');
+  });
+
+  it('fetch is keyless-safe (no token → connected:false, no rows, no throw)', async () => {
+    const res = await fetchGscRows({}, {} as NodeJS.ProcessEnv);
+    expect(res.connected).toBe(false);
+    expect(res.rows).toHaveLength(0);
+  });
+
+  it('maps rows → keywords (real rank/impressions, grouped by query)', () => {
+    const kws = gscRowsToKeywords(GSC_ROWS);
+    expect(kws.length).toBe(2); // two distinct queries
+    const gsa = kws.find((k) => k.normalizedKeyword === 'golf swing analysis')!;
+    expect(gsa.source).toBe('gsc');
+    expect(gsa.dataSource).toBe('real');
+    expect(gsa.clicks).toBe(50); // summed across pages
+    expect(gsa.impressions).toBe(1500);
+    expect(gsa.currentRank).toBeGreaterThan(6); // impression-weighted avg of 6.2 & 14
+    expect(gsa.currentRank).toBeLessThan(14);
+    expect(gsa.targetUrl).toBe('/golf-swing-analysis'); // best (most clicks) page, normalized
+    expect(in0to100(gsa.opportunityScore)).toBe(true);
+  });
+
+  it('striking-distance queries score higher opportunity than page-1 winners', () => {
+    const top = gscRowsToKeywords([{ query: 'a golf drill', page: '/golf/a', clicks: 1, impressions: 100, ctr: 0.01, position: 2 }])[0];
+    const striking = gscRowsToKeywords([{ query: 'a golf drill', page: '/golf/a', clicks: 1, impressions: 100, ctr: 0.01, position: 8 }])[0];
+    expect(striking.opportunityScore).toBeGreaterThan(top.opportunityScore);
+  });
+
+  it('maps rows → rankings + summarizes', () => {
+    const ranks = gscRowsToRankings(GSC_ROWS);
+    expect(ranks).toHaveLength(3);
+    expect(ranks[0].dataSource).toBe('real');
+    const sum = summarizeGsc(GSC_ROWS);
+    expect(sum.totalClicks).toBe(55);
+    expect(sum.totalImpressions).toBe(1800);
+    expect(sum.rowCount).toBe(3);
+  });
+
+  it('snapshot has keywords + rankings + summary', () => {
+    const snap = buildGscSnapshot(GSC_ROWS, 'sc-domain:swingvantage.com');
+    expect(snap.siteUrl).toBe('sc-domain:swingvantage.com');
+    expect(snap.keywords.length).toBe(2);
+    expect(snap.rankings.length).toBe(3);
+  });
+
+  it('buildKeywords merges GSC over estimates (real rank wins)', () => {
+    const gsc = gscRowsToKeywords(GSC_ROWS);
+    const merged = buildKeywords(pages, { gsc });
+    const gsa = merged.find((k) => k.normalizedKeyword === 'golf swing analysis')!;
+    expect(gsa.source).toBe('gsc');
+    expect(gsa.currentRank).not.toBeNull();
+    expect(gsa.dataSource).toBe('real');
   });
 });

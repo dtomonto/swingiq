@@ -84,6 +84,26 @@ Reuses the Link Intelligence provider adapters + `providerStatuses()` (Ahrefs / 
 DataForSEO / Search Console). None are required for the MVP. Env vars are the same ones those
 adapters already read — see `lib/growth/link-intelligence/adapters/`.
 
+### Google Search Console (shipped — real rank/impression data)
+
+`gsc.ts` adds a Search Analytics adapter that flips keyword **rank, impressions, clicks, and CTR**
+from estimated to **real** (volume stays an estimate — GSC reports impressions, not demand).
+
+- **Connect:** set `GSC_ACCESS_TOKEN` (OAuth bearer) + `GSC_SITE_URL` (the property, e.g.
+  `sc-domain:swingvantage.com` or `https://swingvantage.com/`). Keyless-safe: with neither set, the
+  module stays estimate-only and labels the panel "not connected" — never faked.
+- **Sync:** Keyword Explorer → *Google Search Console* card → **Sync now**, or
+  `POST /api/growth/search-intelligence/gsc/sync` (admin-only, rate-limited). It pulls the last 28
+  days, maps rows → `KeywordRow` (source `gsc`, `dataSource: 'real'`, with `currentRank` /
+  `impressions` / `clicks` / `ctr`) + `RankingSnapshot[]`, and persists a snapshot to
+  `growth_records` (best-effort).
+- **Read:** the Command Center + Keyword Explorer call `loadGscSnapshot()` and pass it into
+  `runSearchIntel({ gscKeywords, gscRankings })`; GSC rows take precedence over estimates, so the
+  keyword table shows a real **Rank** column and opportunity scoring uses real ranking proximity
+  (striking-distance queries at positions 4–20 score highest).
+- **Note:** server-side persistence (and therefore the Rank column on SSR) requires Supabase to be
+  configured. Service-account JWT auth is a documented follow-up (token auth ships today).
+
 ## Import / export (shipped)
 
 **CSV export** is available on every table (Keyword Explorer, Site Explorer, Site Audit, Content
@@ -128,8 +148,9 @@ cd apps/web && npx jest search-intelligence --runInBand --cacheDirectory ./.jest
 ## Future roadmap
 
 1. Live-HTTP crawler adapter (HTTP status, redirects, rendered meta/H1, broken external links).
-2. Google Search Console + GA4 ingestion → real ranks, impressions, CTR, and true decay.
-3. Full rank-tracker history + SERP-feature tracking (CSV import already feeds it).
+2. ~~Google Search Console ingestion~~ — **shipped** (rank/impressions/clicks; see GSC above).
+   Still open: GA4 ingestion + GSC service-account JWT auth + click-trend-based decay.
+3. Full rank-tracker history + SERP-feature tracking (CSV + GSC import already feed it).
 4. ~~CSV import/export wiring~~ — **shipped** (see Import / export above).
 5. Multi-project switching UI (the `Project` model is already in place).
 6. First-run setup wizard (add project → confirm sitemap → run scan → add competitors/topics).

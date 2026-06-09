@@ -27,6 +27,11 @@ export {
   parseCsv, parseCsvRows, toCsv, importKeywords, importRankings, importBacklinks, importByKind,
   type CsvValue, type ImportResult, type ImportKind,
 } from './csv';
+export {
+  gscStatus, fetchGscRows, gscRowsToKeywords, gscRowsToRankings, summarizeGsc,
+  buildGscSnapshot, persistGscSnapshot, loadGscSnapshot,
+  GSC_TOKEN_ENV, GSC_SITE_ENV, type GscStatus, type GscFetchResult,
+} from './gsc';
 export { computeScores } from './scores';
 export { synthesizeActions } from './actions';
 export {
