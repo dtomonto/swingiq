@@ -153,9 +153,16 @@ function parseRegistry(file) {
   return entries;
 }
 
-const registryFiles = ['seoPages.ts', 'seoPagesWedges.ts', 'seoPagesRacket.ts'].map((f) =>
-  join(CONTENT_DIR, f),
-);
+const registryFiles = [
+  'seoPages.ts',
+  'seoPagesWedges.ts',
+  'seoPagesRacket.ts',
+  // Size-shards of the core registry (roadmap #20) — parsed here too so the
+  // dedupe audit still sees every page after the split.
+  'seoPagesCoreA.ts',
+  'seoPagesCoreB.ts',
+  'seoPagesCoreC.ts',
+].map((f) => join(CONTENT_DIR, f));
 const registry = registryFiles.flatMap(parseRegistry);
 // slug → entry (published only) for resolving registry-backed route files.
 const publishedRegistry = new Map();

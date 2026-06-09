@@ -15,16 +15,21 @@ import { join } from 'path';
 
 const ROOT = process.cwd();
 const REGISTRY = join(ROOT, 'apps/web/src/content/seoPages.ts');
-// SEO pages also live in a sibling wedge file (Phase 3 growth silos),
-// spread into SEO_PAGES. Validate those too.
-const WEDGES = join(ROOT, 'apps/web/src/content/seoPagesWedges.ts');
+// SEO pages also live in sibling files spread into SEO_PAGES — the Phase 3 wedge
+// silos and the size-shards (seoPagesCoreA/B/C, roadmap #20). Validate those too.
+const SIBLINGS = [
+  'seoPagesWedges.ts',
+  'seoPagesCoreA.ts',
+  'seoPagesCoreB.ts',
+  'seoPagesCoreC.ts',
+].map((f) => join(ROOT, 'apps/web/src/content', f));
 const APP_DIR = join(ROOT, 'apps/web/src/app');
 const ROBOTS = join(ROOT, 'apps/web/public/robots.txt');
 
 const src =
   readFileSync(REGISTRY, 'utf8') +
   '\n' +
-  (existsSync(WEDGES) ? readFileSync(WEDGES, 'utf8') : '');
+  SIBLINGS.filter(existsSync).map((f) => readFileSync(f, 'utf8')).join('\n');
 const robots = readFileSync(ROBOTS, 'utf8');
 
 // Split into per-const page objects by matching slug→publishStatus blocks.
