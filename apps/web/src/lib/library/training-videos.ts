@@ -20,7 +20,15 @@
 // ============================================================
 
 import RECORDINGS from './recordings.generated.json';
+// Admin-editable publish overrides (the /admin/library Publishing screen writes
+// this file). Keyed by video id → public boolean. Only stores deviations from a
+// seed's default `public`, so the committed file stays a minimal git diff. The
+// public /learn pages are statically generated, so a change takes effect on the
+// next build/deploy — same model as the /updates publishing flow.
+import PUBLISH_OVERRIDES from '@/data/library-publish-overrides.json';
 import type { LibraryItem, LibraryCategory, LibrarySport } from './types';
+
+const PUBLISH_OVERRIDE_MAP = PUBLISH_OVERRIDES as Record<string, boolean>;
 
 /** Authoring shape (no media paths — those resolve by convention). */
 interface TrainingVideoSeed {
@@ -499,6 +507,21 @@ function fmtDuration(totalSec: number): string {
   return `${m}:${String(s).padStart(2, '0')}`;
 }
 
+/** A seed's intended publish default (before any admin override). */
+export function trainingPublishDefault(id: string): boolean {
+  return TRAINING_VIDEOS.find((v) => v.id === id)?.public ?? false;
+}
+
+/**
+ * Effective public state for a training video: an admin override (from
+ * library-publish-overrides.json) wins; otherwise the seed default applies.
+ * This is the single source of truth the /learn gate (getLearnItems) reads.
+ */
+export function isTrainingPublic(id: string): boolean {
+  const override = PUBLISH_OVERRIDE_MAP[id];
+  return typeof override === 'boolean' ? override : trainingPublishDefault(id);
+}
+
 /**
  * Resolve the training catalogue into LibraryItems, merging any generated
  * recordings by convention. Ids present in recordings.generated.json get
@@ -526,7 +549,7 @@ export function getTrainingItems(): LibraryItem[] {
       route: v.route,
       hasRecording: Boolean(r),
       source: 'training',
-      public: v.public ?? false,
+      public: isTrainingPublic(v.id),
       tags: v.tags,
     };
   });

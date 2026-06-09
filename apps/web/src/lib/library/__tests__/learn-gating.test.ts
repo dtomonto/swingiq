@@ -2,6 +2,7 @@
 // but only `public` items are listed publicly (getLearnItems) so new training
 // videos can be rolled out to search gradually.
 import { getLibraryItems, getLearnItems } from '../index';
+import { isTrainingPublic, trainingPublishDefault } from '../training-videos';
 
 describe('getLearnItems (public /learn gate)', () => {
   it('returns only publicly-listed items', () => {
@@ -35,6 +36,20 @@ describe('getLearnItems (public /learn gate)', () => {
     for (const id of ['slice-fix-drills', 'compare-to-a-reference', 'tennis-topspin-drills']) {
       expect(all.some((i) => i.id === id)).toBe(true);
       expect(learnIds.has(id)).toBe(false);
+    }
+  });
+
+  it('resolves publish state from the admin overrides file, falling back to seed defaults', () => {
+    // With an empty overrides file, effective state equals the seed default and
+    // matches what getLearnItems exposes — the admin toggle only writes deviations.
+    expect(isTrainingPublic('swing-path')).toBe(true);
+    expect(trainingPublishDefault('swing-path')).toBe(true);
+    expect(isTrainingPublic('slice-fix-drills')).toBe(false);
+    expect(trainingPublishDefault('slice-fix-drills')).toBe(false);
+
+    const learnIds = new Set(getLearnItems().map((i) => i.id));
+    for (const i of getLibraryItems().filter((x) => x.source === 'training')) {
+      expect(learnIds.has(i.id)).toBe(isTrainingPublic(i.id));
     }
   });
 });
