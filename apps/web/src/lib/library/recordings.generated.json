@@ -4,5 +4,14 @@
   },
   "launch-monitor-workflow": {
     "durationSec": 54
+  },
+  "drill-library-tour": {
+    "durationSec": 56
+  },
+  "coaching-and-parents": {
+    "durationSec": 57
+  },
+  "film-study-motion-lab": {
+    "durationSec": 57
   }
 }

@@ -84,6 +84,75 @@ export const TRAINING_VIDEOS: TrainingVideoSeed[] = [
       'Then turn the top issue into focused drills, and retest later to prove the change actually moved the numbers.',
     ],
   },
+
+  // ── Drills & Technique ────────────────────────────────────────
+  {
+    id: 'drill-library-tour',
+    title: 'Turn your top fault into the right drills',
+    description:
+      'How SwingVantage takes your number-one fault and matches it to focused, ranked drills you can actually practice.',
+    category: 'drills-technique',
+    sport: 'all',
+    route: '/fix',
+    durationHint: '2:40',
+    tags: ['drills', 'drillmatch', 'fix', 'practice', 'technique', 'fault', 'routine'],
+    script: [
+      'Knowing your fault is only half the job — the part that changes your swing is practising the right drill for it.',
+      'Open Fix and SwingVantage starts from your top diagnosed fault, not a generic list, so the work is aimed at what matters most.',
+      'Each drill is matched to that fault and ranked, with a short reason for why it fits — no guessing which video to copy.',
+      'Every drill shows what good looks like and a simple cue, so you know the feel you are chasing before you start.',
+      'Browse the full Drill Library any time to filter by sport and skill area when you want to work on something specific.',
+      'Add a drill to your practice plan so it is waiting for you next time instead of being forgotten.',
+      'Keep reps honest — a few focused minutes on the right drill beats a long unfocused session.',
+      'Then re-diagnose after a week or two; if the fault score drops, the drill is working — that is how you know it stuck.',
+    ],
+  },
+
+  // ── Coaching & Parent Guides ──────────────────────────────────
+  {
+    id: 'coaching-and-parents',
+    title: 'Coaching and guiding young athletes',
+    description:
+      'How to use SwingVantage as a coach or parent — honest reads, shared progress, and age-appropriate guidance.',
+    category: 'coach-parent',
+    sport: 'all',
+    route: '/coach',
+    durationHint: '2:50',
+    tags: ['coach', 'coaching', 'parents', 'team', 'youth', 'junior', 'guide', 'progress'],
+    script: [
+      'Whether you are a coach with a roster or a parent supporting one player, SwingVantage is built to keep your feedback honest.',
+      'The Coach view gives you each athlete read in plain language, with a confidence level so you can say how sure the read is.',
+      'Use the Team space to keep players organised and see progress side by side without comparing kids unfairly.',
+      'For parents, the Parents guide focuses on encouragement first — what to praise, what to leave to the coach, and when to back off.',
+      'Lean on the data to settle debates calmly: the numbers describe the swing, they do not judge the player.',
+      'Share progress over time rather than single sessions, so a young athlete sees a trend, not one bad day.',
+      'Keep goals process-based — better contact, a smoother tempo — instead of only outcomes like distance or score.',
+      'Above all, let the player own it; SwingVantage gives you the read, your job is the confidence around it.',
+    ],
+  },
+
+  // ── Pro Swing & Film Study ────────────────────────────────────
+  {
+    id: 'film-study-motion-lab',
+    title: 'Film study: train your eye in Motion Lab',
+    description:
+      'Break a swing down frame by frame in Motion Lab and compare it against a reference to train your eye.',
+    category: 'pro-film-study',
+    sport: 'all',
+    route: '/motion-lab',
+    durationHint: '2:45',
+    tags: ['film study', 'motion lab', 'compare', 'video', 'pro swing', 'breakdown', 'frame'],
+    script: [
+      'Film study is how you learn to see a swing — and SwingVantage gives you the tools to do it without a coach in the room.',
+      'Open Motion Lab to trace the body and club through the swing in 3D, so you can watch the sequence, not just guess at it.',
+      'Step through the key moments — setup, top, and impact — and notice the order things move in. Sequence is what separates levels.',
+      'Use Compare to put your swing next to a reference and line up the same positions side by side.',
+      'Look for one difference at a time; trying to fix five things at once is how film study turns into confusion.',
+      'Remember a visual read is a smart estimate, not a launch-monitor measurement — use it to spot patterns, not to chase decimals.',
+      'Save the clip in your video library so you can come back and see whether the change actually shows up later.',
+      'Train your eye on good swings often, and the patterns start to jump out at you on your own — that is the real goal.',
+    ],
+  },
 ];
 
 function fmtDuration(totalSec: number): string {
