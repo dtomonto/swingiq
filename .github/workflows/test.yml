@@ -49,8 +49,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm install --prefer-offline --no-audit --no-fund
-      - name: Add Playwright test runner (not saved to package.json)
-        run: npm install --no-save @playwright/test@^1.60.0
+      - name: Add Playwright test runner + axe (not saved to package.json)
+        run: npm install --no-save @playwright/test@^1.60.0 @axe-core/playwright
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
         working-directory: apps/web
