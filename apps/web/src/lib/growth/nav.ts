@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   Sparkles, Lightbulb, ClipboardList,
   Network, Link2,
+  Radar, FileSearch, AlertTriangle, KeyRound, Map,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -65,6 +66,17 @@ export const GROWTH_NAV: NavGroup[] = [
     items: [
       { key: 'link-intelligence', label: 'Link Intelligence', href: `${BASE}/link-intelligence`, icon: Network, description: 'The links brain: internal-link health, backlink opportunities, competitor gaps, AEO readiness.' },
       { key: 'internal-links', label: 'Internal Links', href: `${BASE}/internal-links`, icon: Link2, description: 'Internal-link recommendations + site audit (orphans, broken, anchors).' },
+    ],
+  },
+  {
+    label: 'Search Intelligence',
+    items: [
+      { key: 'search', label: 'Visibility Command Center', href: `${BASE}/search`, icon: Radar, description: 'SearchIntelligenceOS — what to fix, create, and link today, ranked by impact.' },
+      { key: 'search-explorer', label: 'Site Explorer', href: `${BASE}/search/explorer`, icon: FileSearch, description: 'Every URL: indexability, metadata, schema, link counts, and scores.' },
+      { key: 'search-audit', label: 'Site Audit', href: `${BASE}/search/audit`, icon: AlertTriangle, description: 'Severity-ranked technical SEO issues with evidence + recommended fix.' },
+      { key: 'search-keywords', label: 'Keyword Explorer', href: `${BASE}/search/keywords`, icon: KeyRound, description: 'Owned + strategic keywords scored by relative opportunity.' },
+      { key: 'search-opportunities', label: 'Content Opportunities', href: `${BASE}/search/opportunities`, icon: Lightbulb, description: 'What to create next — scored gaps with a ready-to-use frame.' },
+      { key: 'search-sitemap', label: 'Sitemap Intelligence', href: `${BASE}/search/sitemap`, icon: Map, description: 'Sitemap coverage, indexing risks, and submission priority.' },
     ],
   },
   {

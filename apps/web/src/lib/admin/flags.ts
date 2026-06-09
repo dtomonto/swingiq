@@ -111,6 +111,14 @@ export const FLAG_DEFS: FlagDef[] = [
     group: 'Coaching Intelligence', owner: 'Product', defaultEnabled: false, risk: 'medium', status: 'registry',
   },
 
+  // ── Search Intelligence (GrowthOS) ─────────────────────────
+  {
+    key: 'search_intelligence_os',
+    label: 'SearchIntelligenceOS',
+    description: 'Master switch for the GrowthOS Visibility Command Center (/admin/growth/search). Admin-gated by route today; this flag is reserved for per-operator gating + the nav entry.',
+    group: 'Search Intelligence', owner: 'Growth', defaultEnabled: true, risk: 'low', status: 'registry',
+  },
+
   // ── Mental Performance pillar ──────────────────────────────
   {
     key: 'mental_performance.enabled',
