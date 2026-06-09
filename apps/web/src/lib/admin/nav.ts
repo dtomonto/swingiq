@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -284,6 +284,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'growth', built: true, external: true, permission: 'analytics.view',
     blurb: 'Product insight panels and growth-agent recommendations.',
     keywords: ['insights', 'agents'],
+  },
+  {
+    id: 'milestones', label: 'Milestones', href: '/admin/milestones', icon: Milestone,
+    group: 'growth', built: true, permission: 'milestones.manage',
+    blurb: 'Milestone Authority System: track 100 verifiable brand/product/SEO milestones against real metrics, score each page’s Authority Impact, review & approve earned milestones, and publish dedicated /milestones pages that build domain authority — never fabricated, never thin.',
+    keywords: ['milestones', 'milestone authority', 'achievements', 'authority', 'seo', 'aeo', 'geo', 'domain authority', 'updates', 'milestone pages', 'progress', 'verifiable', 'needs data source', 'authority impact score'],
   },
   {
     id: 'reengage', label: 'Re-engage', href: '/admin/reengage', icon: Mail,

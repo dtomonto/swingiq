@@ -408,6 +408,28 @@ export const CATALOG: SetupTask[] = [
     learnMoreLabel: 'Open BranchGuardianOS',
   },
   {
+    id: 'publish-milestones',
+    title: 'Publish earned milestones (Milestone Authority System)',
+    plainEnglish:
+      'SwingVantage tracks 100 brand/product/SEO milestones and marks each one earned only when a REAL metric proves it. When a milestone is genuinely earned, you approve it in the Milestone Center and it becomes a dedicated /milestones page that builds search authority. Because the live site can\'t write files, publishing is a quick copy-and-commit step. Milestones that need data we can\'t read yet are clearly marked "Needs Data Source" and never auto-publish.',
+    category: 'growth',
+    priority: 'optional',
+    detect: { kind: 'manual' },
+    steps: [
+      'Open the Milestone Center at /admin/milestones and review the Definitions tab.',
+      'For an EARNED milestone you want public, click Approve and enable "Dedicated page".',
+      'Open the Published tab and click "Export approved" to copy the entries.',
+      'Paste them into apps/web/src/content/milestones/published.ts (PUBLISHED_MILESTONES) and commit. The page goes live at /updates/milestones/<slug> and is added to the sitemap.',
+      'Connect real data sources over time (analytics, Search Console, backlinks) to turn "Needs Data Source" milestones into auto-evaluated ones.',
+    ],
+    inputs: [
+      { kind: 'file', value: 'apps/web/src/content/milestones/published.ts', label: 'Where published milestones live' },
+      { kind: 'file', value: 'docs/MILESTONE_AUTHORITY_SYSTEM.md', label: 'How the system works' },
+    ],
+    learnMoreHref: '/admin/milestones',
+    learnMoreLabel: 'Open the Milestone Center',
+  },
+  {
     id: 'install-hooks',
     title: 'Install the auto-publish git hooks (one-time)',
     plainEnglish:

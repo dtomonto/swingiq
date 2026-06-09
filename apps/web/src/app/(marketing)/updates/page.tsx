@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getPublicUpdates, getFeaturedUpdate, getMilestones } from '@/data/updates';
 import { UpdatesContent } from '@/components/updates/UpdatesContent';
+import { PUBLISHED_MILESTONES } from '@/content/milestones/published';
+import { getPublicMilestone, milestonePath } from '@/lib/milestones/page-detail';
 
 // ── SEO Metadata ──────────────────────────────────────────────────────────
 
@@ -75,6 +77,11 @@ export default function UpdatesPage() {
   const updates = getPublicUpdates();
   const featured = getFeaturedUpdate();
   const milestones = getMilestones();
+  const authorityMilestones = PUBLISHED_MILESTONES
+    .map((p) => getPublicMilestone(p.slug))
+    .filter((x): x is NonNullable<typeof x> => Boolean(x))
+    .sort((a, b) => b.published.achievedAt.localeCompare(a.published.achievedAt))
+    .slice(0, 6);
 
   return (
     <main className="min-h-screen bg-card">
@@ -101,6 +108,30 @@ export default function UpdatesPage() {
 
       {/* JSON-LD */}
       <JsonLd data={jsonLd} />
+
+      {/* Milestones Earned — authority milestones, linking to the dedicated hub */}
+      {authorityMilestones.length > 0 && (
+        <section className="py-10 px-4 border-b border-border">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-end justify-between gap-3 mb-4">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">Milestones earned</h2>
+                <p className="text-sm text-muted-foreground mt-1">Verifiable progress markers — no vanity numbers.</p>
+              </div>
+              <Link href="/updates/milestones" className="shrink-0 text-sm text-primary underline hover:no-underline">All milestones →</Link>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {authorityMilestones.map(({ published, definition }) => (
+                <Link key={published.slug} href={milestonePath(published.slug)} className="block rounded-xl border border-border bg-card p-4 hover:border-primary/50 transition-colors">
+                  <span className="text-xs text-muted-foreground">{definition.category}</span>
+                  <h3 className="mt-1 font-semibold text-foreground text-sm leading-snug">{definition.title}</h3>
+                  <p className="mt-1 text-xs text-primary">{published.verifiedMetric}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Dynamic content (filters, cards, FAQ, footer) */}
       <UpdatesContent updates={updates} milestones={milestones} featured={featured} />

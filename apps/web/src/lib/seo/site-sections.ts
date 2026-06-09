@@ -174,6 +174,7 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/contact', label: 'Contact us', section: 'about', priority: 0.5, changeFrequency: 'monthly' },
   { path: '/trust', label: 'Trust & safety', section: 'about', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/updates', label: 'Product updates', section: 'about', priority: 0.7, changeFrequency: 'weekly' },
+  { path: '/updates/milestones', label: 'Milestones', section: 'about', priority: 0.6, changeFrequency: 'weekly' },
   { path: '/dev-updates', label: 'Engineering changelog', section: 'about', priority: 0.5, changeFrequency: 'weekly' },
 
   // ── Trust & legal ─────────────────────────────────────────────────────

@@ -164,6 +164,13 @@ export const ANALYTICS_EVENTS = {
   FOUNDING_MEMBER_NUMBER_ASSIGNED: 'founding_member_number_assigned', // + member_number
   MEMBERSHIP_TIERS_UNLOCKED: 'membership_tiers_unlocked',
   CENTRAL_INTELLIGENCE_VIEWED: 'central_intelligence_viewed', // admin command center
+
+  // Milestone Authority System. Props carry only milestone metadata (slug,
+  // category, authority_band) — never private data. See lib/milestones.
+  MILESTONE_PAGE_VIEW: 'milestone_page_view', // + slug, category
+  MILESTONE_CTA_CLICK: 'milestone_cta_click', // + slug, cta
+  MILESTONE_INTERNAL_LINK_CLICK: 'milestone_internal_link_click', // + slug, target
+  MILESTONE_CARD_CLICK: 'milestone_card_click', // + slug, surface
 } as const;
 
 export type AnalyticsEventName =

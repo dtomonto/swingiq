@@ -2,7 +2,7 @@
 
 # SwingVantage docs index
 
-_113 documents · regenerated 2026-06-09. This file lists everything in `docs/` so it stays current as docs are added._
+_114 documents · regenerated 2026-06-09. This file lists everything in `docs/` so it stays current as docs are added._
 
 ## docs/
 
@@ -87,6 +87,7 @@ _113 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [SwingVantage Backup & Data Portability System](BACKUP_SYSTEM.md) — Schema Version: 1.2.0
 - [SwingVantage Competitive Positioning](COMPETITIVE_POSITIONING.md) — Last updated: June 2026
 - [SwingVantage Launch Readiness Checklist](LAUNCH_READINESS_CHECKLIST.md) — This checklist tells you exactly what to do before you open SwingVantage to the public, before you charge users, and for long-term growth. Every…
+- [SwingVantage Milestone Authority System](MILESTONE_AUTHORITY_SYSTEM.md) — - Admin: Admin → Growth & Money → Milestones (/admin/milestones), perm milestones.manage
 - [SwingVantage Product Roadmap](PRODUCT_ROADMAP.md) — Last updated: June 2026
 - [SwingVantage Security Audit Report](SECURITY_AUDIT_2026-06.md) — Audit date: 2026-06-06 · Scope: apps/web (Next.js 16 App Router), packages/core,
 - [SwingVantage SEO / AEO / GEO Plan](SEO_AEO_GEO_PLAN.md) — Last updated: June 2026 · Superseded — for the current strategy see SEOGEOAEO.md
