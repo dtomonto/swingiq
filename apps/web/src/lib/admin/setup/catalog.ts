@@ -385,6 +385,31 @@ export const CATALOG: SetupTask[] = [
     ],
   },
   {
+    id: 'sentry-error-monitoring',
+    title: 'Turn on error monitoring (Sentry)',
+    plainEnglish:
+      'See crashes the moment they happen instead of hearing about them from a user. The wiring is already in the app — every server and browser error is forwarded to a sink that stays a silent no-op until you connect one. Create a free Sentry project, paste one key, and add a tiny init block (copy-paste from the doc). Nothing changes until you do; it cannot break the app while off.',
+    category: 'reliability',
+    priority: 'recommended',
+    detect: { kind: 'env', anyOf: ['SENTRY_DSN', 'NEXT_PUBLIC_SENTRY_DSN'] },
+    steps: [
+      'Create a free project at sentry.io → choose Next.js → copy the DSN.',
+      'Install the SDK once: npm i @sentry/nextjs (commit the package.json + lockfile change).',
+      'In Vercel → Settings → Environment Variables (and .env.local) add SENTRY_DSN (server) and NEXT_PUBLIC_SENTRY_DSN (client).',
+      'Add the two small init blocks shown in docs/OBSERVABILITY.md §2 to src/instrumentation.ts and src/instrumentation-client.ts — they set the global capture function the reporter already looks for.',
+      'Redeploy, then trigger a test error and confirm it lands in Sentry within a minute.',
+    ],
+    inputs: [
+      { kind: 'url', value: 'https://sentry.io', label: 'Create a Sentry project' },
+      { kind: 'file', value: 'docs/OBSERVABILITY.md', label: 'Exact init blocks + verification (§2)' },
+      { kind: 'command', value: 'npm i @sentry/nextjs', label: 'Install the SDK' },
+      { kind: 'env', value: 'SENTRY_DSN', secret: true, example: 'https://…@…ingest.sentry.io/…', where: 'Vercel → Settings → Environment Variables' },
+      { kind: 'env', value: 'NEXT_PUBLIC_SENTRY_DSN', example: 'https://…@…ingest.sentry.io/… (public)', where: 'Vercel → Settings → Environment Variables' },
+    ],
+    learnMoreHref: '/admin/system-health',
+    learnMoreLabel: 'System Health',
+  },
+  {
     id: 'csp-nonce',
     title: 'Harden the Content-Security-Policy (nonce-based CSP)',
     plainEnglish:
