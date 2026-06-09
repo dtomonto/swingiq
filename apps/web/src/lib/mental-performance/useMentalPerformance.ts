@@ -9,7 +9,7 @@
 // pure store stays JSX/React-free and unit-testable.
 // ============================================================
 
-import { useCallback, useMemo, useSyncExternalStore } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 import { useSport } from '@/contexts/SportContext';
 import type {
   MentalState, MentalRoutine, MentalJournalInsights, PlanAssignment, MentalSport,
@@ -81,18 +81,18 @@ export function useMentalPerformance(): UseMentalPerformance {
     sportRoutines,
     activePlan,
     insights,
-    setSettings: useCallback(setSettings, []),
-    consent: useCallback(consent, []),
-    setStoreLogs: useCallback(setStoreLogs, []),
-    setShareInsights: useCallback(setShareInsights, []),
-    setProfile: useCallback(setProfile, []),
-    saveLog: useCallback(saveLog, []),
-    deleteLog: useCallback(deleteLog, []),
-    clearAllLogs: useCallback(clearAllLogs, []),
-    assignPlan: useCallback(assignPlan, []),
-    advancePlanDay: useCallback(advancePlanDay, []),
-    abandonPlan: useCallback(abandonPlan, []),
-    exportMental: useCallback(exportMental, []),
-    clearAllMentalData: useCallback(clearAllMentalData, []),
+    setSettings,
+    consent,
+    setStoreLogs,
+    setShareInsights,
+    setProfile,
+    saveLog,
+    deleteLog,
+    clearAllLogs,
+    assignPlan,
+    advancePlanDay,
+    abandonPlan,
+    exportMental,
+    clearAllMentalData,
   };
 }

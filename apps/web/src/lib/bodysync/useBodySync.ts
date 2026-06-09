@@ -9,7 +9,7 @@
 // store stays JSX/React-free and unit-testable.
 // ============================================================
 
-import { useCallback, useMemo, useSyncExternalStore } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 import { useSport } from '@/contexts/SportContext';
 import type {
   BodySyncState, ManualCheckin, ReadinessAssessment, CoachingRecommendation, HealthInsight,
@@ -85,15 +85,15 @@ export function useBodySync(performance: PerformancePoint[] = []): UseBodySync {
     assessment,
     recommendation,
     insights,
-    saveCheckin: useCallback(saveCheckin, []),
-    deleteCheckin: useCallback(deleteCheckin, []),
-    setPermissions: useCallback(setPermissions, []),
-    setSettings: useCallback(setSettings, []),
-    consent: useCallback(consent, []),
-    setBaselines: useCallback(setBaselines, []),
-    upsertConnection: useCallback(upsertConnection, []),
-    disconnectProvider: useCallback(disconnectProvider, []),
-    clearAllHealthData: useCallback(clearAllHealthData, []),
-    exportBodySync: useCallback(exportBodySync, []),
+    saveCheckin,
+    deleteCheckin,
+    setPermissions,
+    setSettings,
+    consent,
+    setBaselines,
+    upsertConnection,
+    disconnectProvider,
+    clearAllHealthData,
+    exportBodySync,
   };
 }

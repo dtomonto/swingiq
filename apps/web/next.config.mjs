@@ -6,6 +6,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@swingiq/core'],
+  // React Compiler (stable, top-level in Next 16). Auto-memoizes components and
+  // hooks so we don't hand-write useMemo/useCallback. Default `infer` mode only
+  // compiles things that follow the Rules of React and safely bails out (no
+  // miscompilation) on anything it can't prove safe — so the remaining
+  // react-hooks/* lint warnings don't block it; they just mark un-optimized spots.
+  // Requires babel-plugin-react-compiler (devDependency).
+  reactCompiler: true,
   // Pin the workspace root to the monorepo root (apps/web → ../..). Without this,
   // Next auto-detected a stray lockfile in the home directory and traced the
   // entire project into the serverless output, bloating function size and
