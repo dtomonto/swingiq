@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
+import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { SportProofBlock } from '@/components/proof/SportProofBlock';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -160,6 +161,21 @@ export default function GolfSwingAnalysisPage() {
           </ul>
         </div>
       </section>
+
+      {/* Feature cross-links — inbound links to the per-feature guides */}
+      <FeatureHighlights
+        className="bg-card py-14"
+        heading="The features behind your golf analysis"
+        blurb="Each part of your golf workflow has a full guide — tap any to learn how to use it."
+        slugs={[
+          'ai-diagnostic-engine',
+          'launch-monitor-csv-import',
+          'fix-stack',
+          'swing-score-trends',
+          'loft-gapping-analysis',
+          'motion-lab-3d',
+        ]}
+      />
 
       {/* CTA */}
       <section className="bg-primary py-12">

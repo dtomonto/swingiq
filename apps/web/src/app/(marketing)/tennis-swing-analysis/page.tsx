@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
+import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
@@ -155,6 +156,21 @@ export default function TennisSwingAnalysisPage() {
           </ul>
         </div>
       </section>
+
+      {/* Feature cross-links — inbound links to the per-feature guides */}
+      <FeatureHighlights
+        className="bg-card py-14"
+        heading="The features behind your tennis analysis"
+        blurb="Each part of your stroke workflow has a full guide — tap any to learn how to use it."
+        slugs={[
+          'ai-diagnostic-engine',
+          'swing-video-upload',
+          'phase-by-phase-timeline',
+          'fix-stack',
+          'motion-lab-3d',
+          'athletic-journey',
+        ]}
+      />
 
       {/* CTA */}
       <section className="bg-primary py-12">
