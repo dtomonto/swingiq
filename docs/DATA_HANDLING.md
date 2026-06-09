@@ -14,10 +14,11 @@ is **not** a certification or a substitute for independent legal review.
 - **Private by default.** Before you make an account, everything lives only in
   your browser. Sign in and it syncs to your private account.
 - **No ads, no data sales.** We never run advertising cookies and never sell your
-  data. Analytics is off until the owner configures a provider: the recommended
-  Plausible is cookieless, but optional tools like Microsoft Clarity (heatmaps &
-  session replay) and GA4 do set cookies — so the live app is **not** cookieless
-  by default and shows a cookie notice.
+  data. We don't claim to be cookieless: the recommended Plausible is cookieless,
+  but optional tools like Microsoft Clarity (heatmaps & session replay) and GA4 do
+  set cookies. Clarity is **opt-in** — its tag loads only after you accept the
+  cookie notice; decline (or before you choose) and no analytics cookies are set,
+  and the app works exactly the same.
 
 ## 1. What data exists, and where it lives
 

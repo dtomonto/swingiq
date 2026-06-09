@@ -113,9 +113,11 @@ private — events only print to the developer console and disappear.
 2. Add to `apps/web/.env.local`:
    `NEXT_PUBLIC_CLARITY_PROJECT_ID=your-project-id`
 3. Save and redeploy. Clarity **records sessions and sets cookies**, so the app is
-   no longer cookieless once this is on — pair with a cookie-consent banner in the
-   EU. Optionally add `CLARITY_DATA_EXPORT_TOKEN` (server-side) to read Clarity
-   metrics inside `/admin/clarity`.
+   no longer cookieless once it loads. It's **opt-in**: the tag fires only after
+   the visitor accepts the cookie banner (and the `clarity.enabled` operator flag
+   is on) — see `lib/consent.ts` + `ClarityScript.tsx`. Optionally add
+   `CLARITY_DATA_EXPORT_TOKEN` (server-side) to read Clarity metrics inside
+   `/admin/clarity`.
 
 > You can set more than one — each is independent. After deploying, confirm it
 > works by uploading a test swing and watching the events arrive in the

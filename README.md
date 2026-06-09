@@ -362,7 +362,7 @@ cp apps/web/.env.example apps/web/.env.local
 | `ANTHROPIC_API_KEY` | AI Coach (Anthropic) | console.anthropic.com |
 | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Analytics (**recommended** — cookieless, no consent banner) | plausible.io → your site domain |
 | `NEXT_PUBLIC_GA_ID` | Analytics (Google Analytics 4 — sets cookies, pair with consent banner) | analytics.google.com |
-| `NEXT_PUBLIC_CLARITY_PROJECT_ID` | Heatmaps + session replay (Microsoft Clarity — sets cookies & records sessions, so the app is **not** cookieless once enabled) | clarity.microsoft.com → Settings → Overview |
+| `NEXT_PUBLIC_CLARITY_PROJECT_ID` | Heatmaps + session replay (Microsoft Clarity — sets cookies & records sessions; **opt-in**, loads only after the visitor accepts the cookie banner) | clarity.microsoft.com → Settings → Overview |
 | `NEXT_PUBLIC_GSC_VERIFICATION` | Google Search Console verification + indexing | search.google.com/search-console → HTML tag |
 
 > **Without any keys:** the app runs fully on localStorage. AI Coach returns data-grounded placeholder responses, and analytics events log to the dev console only.
