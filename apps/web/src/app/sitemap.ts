@@ -3,6 +3,7 @@ import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
 import { SITE_URL } from '@/config/site';
 import { getLibraryItems } from '@/lib/library';
 import { learnPath } from '@/lib/library/seo';
+import { getConceptEntries, getDataPointEntries, learnPath as learnEntryPath } from '@/lib/learn';
 import { localizedRoutes, currentLocalesFor } from '@/lib/marketing-i18n/expose';
 import { localizedHref } from '@/lib/marketing-i18n/href';
 import { getPublishedBlogPosts } from '@/data/blog-posts';
@@ -134,6 +135,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
+  // Swing education: flagship concept pages (/learn/<slug>), the data-point
+  // index, and one page per PUBLISHED data point. The registry getters only
+  // return published entries, so drafts can never reach the sitemap.
+  const learnConceptPages: MetadataRoute.Sitemap = [
+    ...getConceptEntries().map((e) => ({
+      url: `${BASE_URL}${learnEntryPath(e)}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+    { url: `${BASE_URL}/learn/data-points`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
+    ...getDataPointEntries().map((e) => ({
+      url: `${BASE_URL}${learnEntryPath(e)}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    })),
+  ];
+
   // Mental Performance pillar: the hub + one page per sport + one page per
   // seeded routine, derived from the routine library so new routines appear
   // here automatically (self-maintaining, like the guide/blog registries).
@@ -188,6 +208,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...challengePages,
     ...blogPages,
     ...learnPages,
+    ...learnConceptPages,
     ...updatePages,
     ...devUpdatePages,
     ...localizedPages,

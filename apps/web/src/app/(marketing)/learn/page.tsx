@@ -4,6 +4,7 @@ import { Clock, PlayCircle } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getLibraryItems, getLibrarySections } from '@/lib/library';
 import { learnItemListSchema, breadcrumbSchema, learnPath } from '@/lib/library/seo';
+import { getConceptEntries, learnPath as conceptHref } from '@/lib/learn';
 
 export const metadata: Metadata = {
   title: 'Video Library — Learn SwingVantage',
@@ -23,6 +24,7 @@ export default function LearnIndexPage() {
   const items = getLibraryItems();
   const recorded = items.filter((i) => i.hasRecording);
   const sections = getLibrarySections(items).filter((s) => s.items.length > 0);
+  const concepts = getConceptEntries();
 
   return (
     <main className="bg-background">
@@ -46,6 +48,33 @@ export default function LearnIndexPage() {
           </Link>
         </div>
       </section>
+
+      {/* Swing concepts & data points (deep written guides) */}
+      {concepts.length > 0 && (
+        <section aria-label="Swing concepts" className="border-b border-border bg-muted px-4 py-12">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-2xl font-bold text-foreground">Swing concepts &amp; data points</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Flagship written guides to the fundamentals — plus a page for every data point we analyze.
+            </p>
+            <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+              {concepts.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={conceptHref(c)}
+                  className="block rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary hover:bg-primary/5"
+                >
+                  <h3 className="text-base font-bold text-foreground">{c.title}</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">{c.descriptionShort}</p>
+                </Link>
+              ))}
+            </div>
+            <Link href="/learn/data-points" className="mt-5 inline-block text-sm font-semibold text-primary hover:underline">
+              Browse all swing data points →
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Sections */}
       <div className="mx-auto max-w-5xl space-y-12 px-4 py-12">
