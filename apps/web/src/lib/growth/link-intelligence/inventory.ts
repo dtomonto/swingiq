@@ -14,7 +14,7 @@
 // ============================================================
 
 import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
-import { getLibraryItems } from '@/lib/library';
+import { getLearnItems } from '@/lib/library';
 import { learnPath } from '@/lib/library/seo';
 import { BLOG_POSTS } from '@/data/blog-posts';
 import { clusterForPage } from './clusters';
@@ -193,8 +193,9 @@ export function buildInventory(): PageNode[] {
     }));
   }
 
-  // 4) Public video library (feature walkthroughs + training)
-  for (const item of getLibraryItems()) {
+  // 4) Public video library (feature walkthroughs + training) — only items
+  //    listed publicly on /learn (gradual rollout: private ones have no page).
+  for (const item of getLearnItems()) {
     const url = normalizeUrl(learnPath(item));
     const sport = (item.sport === 'all' ? 'multi' : item.sport) as LinkSport;
     add(baseNode({

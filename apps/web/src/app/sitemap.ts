@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
 import { SITE_URL } from '@/config/site';
-import { getLibraryItems } from '@/lib/library';
+import { getLearnItems } from '@/lib/library';
 import { learnPath } from '@/lib/library/seo';
 import { localizedRoutes, currentLocalesFor } from '@/lib/marketing-i18n/expose';
 import { localizedHref } from '@/lib/marketing-i18n/href';
@@ -13,6 +13,8 @@ import { getPublicUpdates } from '@/data/updates';
 import { getDevUpdates } from '@/data/devUpdates';
 import { updatePath } from '@/lib/updates/product-detail';
 import { devUpdatePath } from '@/lib/updates/dev-detail';
+import { indexablePublishedMilestones } from '@/content/milestones/published';
+import { milestonePath } from '@/lib/milestones/page-detail';
 
 // Sitemap URLs MUST be on the same host the sitemap is served from, or
 // Google rejects them ("URL not allowed for a Sitemap at this location").
@@ -114,7 +116,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // video-sitemap metadata for recorded videos (SEO/AEO/GEO discovery).
   const learnPages: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/learn`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    ...getLibraryItems().map((item) => ({
+    ...getLearnItems().map((item) => ({
       url: `${BASE_URL}${learnPath(item)}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
@@ -162,6 +164,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: u.isMajorMilestone ? 0.6 : 0.5,
   }));
 
+  // Milestone authority pages: one entry per APPROVED + indexable published
+  // milestone (committed in content/milestones/published.ts). Unapproved /
+  // noindex milestones are excluded by indexablePublishedMilestones(), so a
+  // draft milestone can never reach the sitemap. The /milestones index lives in
+  // CURATED_URLS.
+  const milestonePages: MetadataRoute.Sitemap = indexablePublishedMilestones().map((mItem) => ({
+    url: `${BASE_URL}${milestonePath(mItem.slug)}`,
+    lastModified: mItem.achievedAt ? new Date(mItem.achievedAt).toISOString() : now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.5,
+  }));
+
   // Developer updates: one entry per published (non-draft) developer update
   // detail page. getDevUpdates() filters out drafts.
   const devUpdatePages: MetadataRoute.Sitemap = getDevUpdates().map((u) => ({
@@ -189,6 +203,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogPages,
     ...learnPages,
     ...updatePages,
+    ...milestonePages,
     ...devUpdatePages,
     ...localizedPages,
   ];

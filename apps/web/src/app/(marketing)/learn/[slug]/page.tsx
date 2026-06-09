@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ChevronRight, FileText, ArrowRight, Clock } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { getLibraryItems, getCategoryMeta, type LibraryItem } from '@/lib/library';
+import { getLearnItems, getCategoryMeta, type LibraryItem } from '@/lib/library';
 import {
   videoObjectSchema,
   faqPageSchema,
@@ -14,7 +14,9 @@ import {
 } from '@/lib/library/seo';
 import { absoluteUrl } from '@/config/site';
 
-const ITEMS = getLibraryItems();
+// Only publicly-listed videos get a crawlable /learn page; the rest live
+// in-app only (gradual rollout). A private slug resolves to notFound().
+const ITEMS = getLearnItems();
 const byId = (slug: string): LibraryItem | undefined => ITEMS.find((i) => i.id === slug);
 
 export async function generateStaticParams() {

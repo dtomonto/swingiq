@@ -35,6 +35,12 @@ interface TrainingVideoSeed {
   durationHint: string;
   /** Narration + written walkthrough + transcript + recording script. */
   script: string[];
+  /**
+   * Expose on the public /learn pages + sitemaps. Defaults to false so a new
+   * video lands in the in-app library immediately but is rolled out to search
+   * deliberately — flip to true (a few per week) to publish its /learn page.
+   */
+  public?: boolean;
   tags: string[];
 }
 
@@ -49,6 +55,7 @@ export const TRAINING_VIDEOS: TrainingVideoSeed[] = [
     sport: 'all',
     route: '/diagnose',
     durationHint: '2:30',
+    public: true, // already live on /learn
     tags: ['swing path', 'path', 'slice', 'hook', 'draw', 'fade', 'diagnose', 'motion lab', 'ball flight'],
     script: [
       'Swing path is the direction your club or bat is travelling through impact — and it is one of the biggest reasons the ball curves.',
@@ -72,6 +79,7 @@ export const TRAINING_VIDEOS: TrainingVideoSeed[] = [
     sport: 'golf',
     route: '/sessions/import',
     durationHint: '3:00',
+    public: true, // already live on /learn
     tags: ['launch monitor', 'trackman', 'flightscope', 'skytrak', 'csv', 'import', 'data', 'carry', 'spin'],
     script: [
       'Here is the full workflow for using SwingVantage with your launch monitor — from raw numbers to a practice plan.',
@@ -153,6 +161,138 @@ export const TRAINING_VIDEOS: TrainingVideoSeed[] = [
       'Train your eye on good swings often, and the patterns start to jump out at you on your own — that is the real goal.',
     ],
   },
+
+  // ── Drills & Technique (batch 2) ──────────────────────────────
+  {
+    id: 'slice-fix-drills',
+    title: 'Drills to tame your slice',
+    description:
+      'The two or three drills that actually move a slice — matched to whether it is your path, your face, or both.',
+    category: 'drills-technique',
+    sport: 'golf',
+    route: '/drills',
+    durationHint: '2:30',
+    tags: ['slice', 'drills', 'path', 'face', 'over the top', 'golf', 'fix'],
+    script: [
+      'A slice almost always comes from the face being open to the path at impact — so the fix starts with knowing which one is off.',
+      'Open Diagnose first; if your read shows an out-to-in path, the drills below aim at the path, not just the grip.',
+      'The headcover-outside drill trains you to swing more from the inside, so you stop cutting across the ball.',
+      'For an open face, the split-hand release drill teaches the hands to rotate through, squaring the face sooner.',
+      'Pick one — not both. Slicers who chase two fixes at once usually end up with a new miss instead of fewer.',
+      'Filter the Drill Library to your sport and the path or face area so you only see drills that target your cause.',
+      'Hit ten balls, then check the shape; you are looking for a straighter start and less curve, not a perfect shot.',
+      'Re-diagnose after a week — if the curve is shrinking, keep going; that honest retest is how you know it is working.',
+    ],
+  },
+  {
+    id: 'contact-consistency-drills',
+    title: 'Drills for more consistent contact',
+    description:
+      'Bat-sport drills for squaring up the ball more often — tightening your contact point and staying on plane.',
+    category: 'drills-technique',
+    sport: 'baseball',
+    route: '/drills',
+    durationHint: '2:30',
+    tags: ['contact', 'drills', 'tee work', 'bat path', 'baseball', 'softball', 'consistency'],
+    script: [
+      'Consistent contact is less about swinging harder and more about your barrel arriving on time, on plane, again and again.',
+      'Start with tee work at your real contact point — out front for a pull, deeper for the opposite field — so reps match games.',
+      'The high-tee, low-tee ladder trains your barrel to stay in the zone longer instead of chopping down or uppercutting.',
+      'Use the pause-at-launch drill to feel a balanced load before you fire; rushing the load is a hidden contact killer.',
+      'Keep your eyes quiet and finish your turn — pulling off the ball early is the most common reason barrels miss.',
+      'Filter the Drill Library to your bat sport and the contact area so the drills you see actually fit the problem.',
+      'Track a simple rate — solid contacts out of ten — rather than chasing one perfect swing.',
+      'Re-check after a few sessions; if your solid-contact rate climbs, the drill is doing its job.',
+    ],
+  },
+
+  // ── Coaching & Parent Guides (batch 2) ────────────────────────
+  {
+    id: 'read-report-with-your-athlete',
+    title: 'Reading a report with your young athlete',
+    description:
+      'How to sit down with a SwingVantage report together — leading with what went well and keeping confidence intact.',
+    category: 'coach-parent',
+    sport: 'all',
+    route: '/reports',
+    durationHint: '2:30',
+    tags: ['parents', 'coach', 'report', 'feedback', 'youth', 'confidence', 'review'],
+    script: [
+      'A report is a conversation starter, not a verdict — how you open it matters more than any single number.',
+      'Start with a genuine strength the report shows; young athletes hear the first thing you say the loudest.',
+      'Point to the confidence level on each read so they learn that some findings are strong and some are just hints.',
+      'Pick one thing to work on, together, and let them say it back in their own words — ownership beats instruction.',
+      'Avoid comparing the report to a sibling or a teammate; the only fair comparison is to their own earlier sessions.',
+      'Use the plain-language summary, not the raw metrics, when you are talking to a younger player.',
+      'End by agreeing on a single small action before the next session, so the report turns into a plan, not pressure.',
+      'Then revisit it next time and celebrate the trend — steady progress is the message you want to reinforce.',
+    ],
+  },
+  {
+    id: 'setting-honest-goals',
+    title: 'Setting honest, process-based goals',
+    description:
+      'How to turn a report into goals an athlete can actually control — process over outcome, tracked over time.',
+    category: 'coach-parent',
+    sport: 'all',
+    route: '/journey',
+    durationHint: '2:30',
+    tags: ['goals', 'process', 'journey', 'milestones', 'coach', 'parents', 'motivation'],
+    script: [
+      'The best goals are the ones an athlete can control — a better contact rate, a smoother tempo, not a score or a result.',
+      'Open the Journey to see where the athlete is now; a good goal starts from an honest baseline, not a wish.',
+      'Frame goals around process: "square the face more often," not "stop slicing forever." Process goals are repeatable.',
+      'Make it measurable with something SwingVantage already tracks, so progress is visible without guesswork.',
+      'Set a realistic horizon — a few weeks — and break it into small milestones the athlete can actually feel.',
+      'Write the goal down where they will see it; a goal you revisit is a goal you keep.',
+      'Review it on a steady cadence and adjust without judgement — missing a target is information, not failure.',
+      'Celebrate the trend line over time; that is what keeps a young athlete coming back to the work.',
+    ],
+  },
+
+  // ── Pro Swing & Film Study (batch 2) ──────────────────────────
+  {
+    id: 'compare-to-a-reference',
+    title: 'Compare your swing to a reference',
+    description:
+      'Use Compare to line your swing up against a reference and spot the one difference worth working on.',
+    category: 'pro-film-study',
+    sport: 'all',
+    route: '/compare',
+    durationHint: '2:30',
+    tags: ['compare', 'reference', 'film study', 'side by side', 'positions', 'motion lab'],
+    script: [
+      'Comparing your swing to a reference is one of the fastest ways to see what is actually different, not just what feels off.',
+      'Open Compare and put your clip next to a reference swing for the same motion and sport.',
+      'Line up the same moments — setup, top, and impact — so you are comparing like for like, not random frames.',
+      'Look for the biggest single difference first; the small ones usually take care of themselves once the big one moves.',
+      'Resist grading yourself against a tour pro frame by frame — use the reference to find a direction, not a carbon copy.',
+      'Remember a visual comparison is a smart estimate; treat it as a pattern to explore, not a measurement to obsess over.',
+      'Pick the one position you want to change and take that into a drill, then come back and compare again.',
+      'Save both clips so next time you can see whether the gap to the reference actually narrowed.',
+    ],
+  },
+  {
+    id: 'reading-takeaway-sequence',
+    title: 'Reading the takeaway and sequence',
+    description:
+      'Train your eye on the first move and the order things fire — the parts of the swing that quietly set up everything else.',
+    category: 'pro-film-study',
+    sport: 'golf',
+    route: '/motion-lab',
+    durationHint: '2:35',
+    tags: ['takeaway', 'sequence', 'tempo', 'film study', 'motion lab', 'kinematic', 'golf'],
+    script: [
+      'Most of what goes right or wrong in a swing is decided early — in the takeaway and the order the body fires.',
+      'Open Motion Lab and watch just the first few feet of the swing; a takeaway that is too far inside or outside sets up a chain reaction.',
+      'Then watch the sequence — lower body, then torso, then arms and club. When that order holds, speed shows up for free.',
+      'Step through frame by frame rather than watching at full speed; the give-aways hide in the transitions.',
+      'Compare a good rep to a poor one of your own; the difference is usually in the sequence, not the positions you can see at impact.',
+      'Keep in mind the 3D read is an estimate from your video, so use it to spot the pattern, not to chase exact angles.',
+      'Pick one early checkpoint to work on — the takeaway or the first move down — and leave the rest alone for now.',
+      'Re-film after some reps and look again; training your eye on the early move pays off across every swing you make.',
+    ],
+  },
 ];
 
 function fmtDuration(totalSec: number): string {
@@ -188,6 +328,7 @@ export function getTrainingItems(): LibraryItem[] {
       route: v.route,
       hasRecording: Boolean(r),
       source: 'training',
+      public: v.public ?? false,
       tags: v.tags,
     };
   });

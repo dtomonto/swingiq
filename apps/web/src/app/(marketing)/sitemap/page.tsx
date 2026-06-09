@@ -11,7 +11,7 @@ import {
 import { PUBLISHED_SEO_PAGES, type Sport } from '@/content/seoPages';
 import { getPublishedBlogPosts } from '@/data/blog-posts';
 import { CHALLENGES } from '@/content/challenges';
-import { getLibraryItems } from '@/lib/library';
+import { getLearnItems } from '@/lib/library';
 import { learnPath } from '@/lib/library/seo';
 
 // Human-friendly HTML sitemap. Crawlable, indexable, and built from the SAME
@@ -111,7 +111,7 @@ export default function HtmlSitemapPage() {
     label: c.title,
   }));
 
-  const libraryItems: LinkItem[] = getLibraryItems().map((item) => ({
+  const libraryItems: LinkItem[] = getLearnItems().map((item) => ({
     href: learnPath(item),
     label: item.title,
   }));
