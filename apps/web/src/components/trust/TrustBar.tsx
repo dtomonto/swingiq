@@ -4,9 +4,10 @@ const ITEMS = [
   { icon: UserX, label: 'No account required' },
   { icon: Zap, label: '100% free' },
   { icon: Lock, label: 'Private by default' },
-  // True by default and with the recommended cookieless analytics (Plausible):
-  // no third-party tracking cookies, so no consent banner is needed.
-  { icon: EyeOff, label: 'No tracking cookies' },
+  // Honest blanket claim: we run no advertising cookies and never sell data.
+  // (We do use privacy-respecting analytics; with Microsoft Clarity enabled
+  // that includes session-replay cookies, so we don't claim "no cookies".)
+  { icon: EyeOff, label: 'No ads, no data sales' },
   { icon: ShieldCheck, label: 'No credit card' },
 ];
 

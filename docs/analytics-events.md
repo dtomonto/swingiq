@@ -106,6 +106,17 @@ private — events only print to the developer console and disappear.
 3. Save and redeploy. Best if you want to build the improvement-loop funnel chart
    directly from the events above.
 
+### Option D — Microsoft Clarity (heatmaps + session replay; sets cookies)
+
+1. Create a project at `clarity.microsoft.com` and copy the Project ID
+   (Settings → Overview).
+2. Add to `apps/web/.env.local`:
+   `NEXT_PUBLIC_CLARITY_PROJECT_ID=your-project-id`
+3. Save and redeploy. Clarity **records sessions and sets cookies**, so the app is
+   no longer cookieless once this is on — pair with a cookie-consent banner in the
+   EU. Optionally add `CLARITY_DATA_EXPORT_TOKEN` (server-side) to read Clarity
+   metrics inside `/admin/clarity`.
+
 > You can set more than one — each is independent. After deploying, confirm it
 > works by uploading a test swing and watching the events arrive in the
 > provider's live view. The admin **Setup** page also shows Analytics as

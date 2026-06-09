@@ -13,8 +13,11 @@ is **not** a certification or a substitute for independent legal review.
   and you can erase it completely at any time (delete). Neither needs our help.
 - **Private by default.** Before you make an account, everything lives only in
   your browser. Sign in and it syncs to your private account.
-- **No tracking cookies.** With the recommended cookieless analytics there are no
-  third-party tracking cookies, so no consent banner is required.
+- **No ads, no data sales.** We never run advertising cookies and never sell your
+  data. Analytics is off until the owner configures a provider: the recommended
+  Plausible is cookieless, but optional tools like Microsoft Clarity (heatmaps &
+  session replay) and GA4 do set cookies — so the live app is **not** cookieless
+  by default and shows a cookie notice.
 
 ## 1. What data exists, and where it lives
 
@@ -24,7 +27,7 @@ is **not** a certification or a substitute for independent legal review.
 | Sessions, shots, diagnoses, scores | Browser | Relational tables, owner-scoped |
 | Swing videos | Analyzed **on-device**; never uploaded by default | (only if/when cloud media is enabled — EXIF stripped at ingest, see privacy notes §1a) |
 | Drill feedback / improvement loops | Browser (capped local store) | Owner-scoped rows |
-| Usage analytics | None until a provider is set | Aggregate, cookieless (Plausible) when configured |
+| Usage analytics | None until a provider is set | Aggregate; cookieless with Plausible, or cookie-based with GA4 / Microsoft Clarity when those are configured |
 
 Crown-jewel control: every `public` user table is **Row-Level-Security scoped to
 its owner** (admin tables are service-role only). A CI gate
@@ -71,9 +74,10 @@ posture (parent/guardian-managed for under-18s; not directed at under-13s) is in
 
 Disclosed by category on the public privacy page: hosting/CDN (Vercel),
 database/auth (Supabase, only when configured), AI narrative/vision (only when a
-key is set, frames-only, not retained), and aggregate analytics (cookieless,
-off until configured). Keyless-first means **none** of these process your data
-until the owner enables them.
+key is set, frames-only, not retained), and aggregate analytics (off until
+configured; cookieless with Plausible, cookie-based with GA4 / Microsoft Clarity).
+Keyless-first means **none** of these process your data until the owner enables
+them.
 
 > Needs legal review before scale: a formal Privacy Policy + Terms, a documented
 > processor list (DPAs), and jurisdiction-specific DSAR SLAs. This document
