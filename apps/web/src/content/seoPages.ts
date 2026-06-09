@@ -14,6 +14,7 @@
 import { WEDGE_PAGES } from './seoPagesWedges';
 import { RACKET_PAGES } from './seoPagesRacket';
 import { GOLF_GAP_PAGES } from './seoPagesGolf';
+import { SOFTBALL_GAP_PAGES } from './seoPagesSoftball';
 // Admin publish overrides (slug → status), set from /admin/updates. Committed,
 // merged at read time so a published page can be pulled — or a draft pushed
 // live — without hand-editing this registry. Empty `{}` = use each page's own
@@ -1441,6 +1442,8 @@ export const SEO_PAGES: SeoPage[] = [
   // Golf scoring-gap pages (break 90, iron consistency, wedge distance) —
   // sibling file, same rationale as the wedges above.
   ...GOLF_GAP_PAGES,
+  // Slow-pitch softball gap pages (practice plan, hitting drills).
+  ...SOFTBALL_GAP_PAGES,
   ...DRAFTS,
 ];
 
