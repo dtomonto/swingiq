@@ -38,7 +38,7 @@ keyless-safe; only the live model call is provider-gated.
 | 2 | Output-grounding validator (numeric claims must trace to `[DATA CONTEXT]`) | 🟢 | SHIPPED `9bf52215`. `validateGrounding` (°/yards/mph/rpm vs context, rounding tolerance); wired into /api/ai-coach as additive `grounding` field. 7 tests. |
 | 3 | Migrate hand-rolled `fetch` → official `@anthropic-ai/sdk` | 🔑 | Typed errors, auto-retry, `.parse()`, `.stream()`. Removes drift across ~10 AI routes. |
 | 6 | App-level response cache keyed on hash(context, question) | 🟢 | SHIPPED `f819dd59`. Pure TtlLruCache + stable cacheKey; wired into /api/ai-coach (returns `cached:true`). 8 tests. |
-| 5 | Longitudinal + conversation memory wired into the prompt | ✅ | `buildLongitudinalContext()` exists but route never assembles it. |
+| 5 | Longitudinal + conversation memory wired into the prompt | 🟢 | SHIPPED `e8611727`. `recent_history` ctx field → `[RECENT HISTORY]` block in buildCoachPrompt; folded into cache key. (Conversation/multi-turn memory = thin follow-up.) |
 
 **Acceptance:** grounding rejects fabricated numbers in tests; structured parse round-trips; cache hit on repeat; keyless path unchanged.
 
