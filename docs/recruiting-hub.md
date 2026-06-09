@@ -19,6 +19,21 @@ imported from a device, AI-estimated, needs verification). The AI never says
 It works for **golf, baseball, fast-pitch softball, slow-pitch softball, and tennis**,
 and it protects minors with guardian controls and private-by-default profiles.
 
+### Find your fit — school & contact recommendations (`/recruiting/recommendations`)
+
+From the athlete's golf data (handicap / scoring + profile-strength tier) plus
+academics (GPA, grad year, region), the hub recommends **which college levels fit**
+(D1 / D2 / D3 / NAIA / JUCO as safety / match / reach / stretch) and **which programs
+to target**, then drafts a ready-to-send outreach message for any of them (reusing
+the existing outreach engine). Inputs prefill from the profile and stay editable.
+
+Honest-first, like the rest of the hub: division bands are **coarse, openly-approximate
+estimates** (not cutoffs); seed schools are tagged only by **factual division + region**
+(no fabricated per-school stats or coach contacts); and every read carries a
+**data-confidence level** plus a "verify the program's current roster and coach on its
+official athletics site" disclaimer. Engine: `lib/recruiting/school-match.ts`
+(`recommendSchools`), pure and deterministic. Linked from the hub as "Find your fit."
+
 ---
 
 ## 1. Product strategy

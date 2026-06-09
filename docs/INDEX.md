@@ -2,7 +2,7 @@
 
 # SwingVantage docs index
 
-_114 documents · regenerated 2026-06-09. This file lists everything in `docs/` so it stays current as docs are added._
+_121 documents · regenerated 2026-06-09. This file lists everything in `docs/` so it stays current as docs are added._
 
 ## docs/
 
@@ -27,10 +27,12 @@ _114 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [Connect a Database — Supabase Setup Walkthrough (one page)](SUPABASE_SETUP_WALKTHROUGH.md) — A click-by-click guide to giving SwingVantage a free cloud database, so people can make real accounts and sync across devices. Cost: $0. Time:…
 - [Daily Notes — Tell Us How You Played, in Your Own Words](DAILY_NOTES.md) — Most of your reps happen out on the course, court, or field — not in front of a
 - [Data Portability Guide](DATA_PORTABILITY.md) — This document explains how SwingVantage handles your data — what you can export, how to import it back, what the backup file contains, and how the…
+- [Digital Asset Library](DIGITAL_ASSET_LIBRARY.md) — The Digital Asset Library at /admin/assets (Admin → Content → "Asset
 - [Duplicate-Content & Originality Audit](SEO_DUPLICATE_CONTENT_AUDIT.md) — You asked: "make sure 0% of the pages could be questioned as being a duplicate,
 - [Feature Education Engine (FEE)](FEATURE_EDUCATION_ENGINE.md) — Every time you ship a feature, this system makes sure that feature gets taught —
 - [Floating Utility Dock](FLOATING_UTILITY_DOCK.md) — The app has small round helper buttons that float in the bottom-right corner
 - [Future-Proofing Guide](FUTURE_PROOFING.md) — This document explains how SwingVantage is built to stay relevant, adaptable, and trustworthy over the long term. It covers the architectural…
+- [Growth / Conversion / Activation — Gap Map](growth-conversion-gap-map.md) — Audited: 2026-06-08 · Fixes shipped: origin/master 9e9046d (live)
 - [How to publish a developer update](HOW_TO_PUBLISH_DEVELOPER_UPDATE.md) — Developer updates are the technical engineering log at /dev-updates. They may
 - [How to publish a product update](HOW_TO_PUBLISH_PRODUCT_UPDATE.md) — Product updates are the plain-English, athlete-facing changelog at /updates.
 - [How to Publish a SwingVantage Product Update](HOW_TO_PUBLISH_UPDATES.md) — This guide explains how to add a new entry to the SwingVantage Updates page at /updates.
@@ -42,6 +44,7 @@ _114 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [Monetization Ethics & No-Dark-Pattern Rules](MONETIZATION_ETHICS.md) — This is the standard for §10 of FIVEPERSONAMASTERPLAN.md. It is policy + a map of what already enforces it — most of it is already implemented.
 - [Motion Lab — 3D Motion Analysis](motion-lab.md) — Motion Lab is a new page in SwingVantage where someone can upload (or record) a short
 - [Multilingual Marketing — Self-Maintaining Localization](I18N_LOCALIZATION.md) — SwingVantage's public pages used to be English-only. This system lets them appear
+- [Performance & Core Web Vitals](PERFORMANCE.md) — Audit: 2026-06-09 (Sprint 2 of the growth program).
 - [Phase 1 — UX Foundations (clutter, onboarding memory, sign-out)](PHASE_1_UX_FOUNDATIONS.md) — After signing in, the app felt busy: several cards and pop-ups competed for
 - [Phase 10 — Golf Grading, Player Profiles & Benchmarks](PHASE_10_GRADING.md) — SwingVantage now grades your golf against your own level, not against tour
 - [Phase 2 + 3 — Universal Import & Learned Column Mapping](PHASE_2_3_IMPORT.md) — Getting your launch-monitor / simulator data into SwingVantage used to be a
@@ -52,6 +55,7 @@ _114 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [Player Recruiting Hub](recruiting-hub.md) — This is the feature that turns everything an athlete already does in SwingVantage —
 - [pose3d — Proprietary 3D Pose Reconstruction](pose3d.md) — Single-camera "3D" can only ever estimate depth. This module adds two genuinely
 - [Rebrand Completion Report — SwingIQ → SwingVantage](REBRAND_SWINGVANTAGE_REPORT.md) — The whole product is now SwingVantage (domain swingvantage.com). Everything a user,
+- [SearchIntelligenceOS — GrowthOS Visibility Command Center](SEARCH_INTELLIGENCE_OS.md) — An internal, Ahrefs-class Search Intelligence Operating System inside GrowthOS. It tells you
 - [Security and Privacy Guide](SECURITY_AND_PRIVACY.md) — This document covers everything related to keeping SwingVantage users safe — how data is protected, what security measures are built in, what…
 - [Security Automation Guide](security-automation.md) — This document explains the automated security systems that run on every push and pull request to the SwingVantage repository.
 - [SEO / AEO / GEO strategy for SwingVantage updates](SEO_GEO_AEO_UPDATES_STRATEGY.md) — How the update detail pages earn discoverability in classic search (SEO), AI answer
@@ -86,9 +90,11 @@ _114 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [SwingVantage Analytics Plan](ANALYTICS_PLAN.md) — Last updated: June 2026
 - [SwingVantage Backup & Data Portability System](BACKUP_SYSTEM.md) — Schema Version: 1.2.0
 - [SwingVantage Competitive Positioning](COMPETITIVE_POSITIONING.md) — Last updated: June 2026
+- [SwingVantage Intelligence Upgrade — Sprint Plan](INTELLIGENCE_UPGRADE_PLAN.md) — Program to execute all 25 recommendations from the 2026-06-09 product-intelligence audit.
 - [SwingVantage Launch Readiness Checklist](LAUNCH_READINESS_CHECKLIST.md) — This checklist tells you exactly what to do before you open SwingVantage to the public, before you charge users, and for long-term growth. Every…
 - [SwingVantage Milestone Authority System](MILESTONE_AUTHORITY_SYSTEM.md) — - Admin: Admin → Growth & Money → Milestones (/admin/milestones), perm milestones.manage
 - [SwingVantage Product Roadmap](PRODUCT_ROADMAP.md) — Last updated: June 2026
+- [SwingVantage Roadmap — completing the 25 recommendations](ROADMAP.md) — Created 2026-06-09 from the full-codebase analysis. This is the execution plan for
 - [SwingVantage Security Audit Report](SECURITY_AUDIT_2026-06.md) — Audit date: 2026-06-06 · Scope: apps/web (Next.js 16 App Router), packages/core,
 - [SwingVantage SEO / AEO / GEO Plan](SEO_AEO_GEO_PLAN.md) — Last updated: June 2026 · Superseded — for the current strategy see SEOGEOAEO.md
 - [SwingVantage SEO Content Calendar — Researched Cluster Backlog](SEO_CONTENT_CALENDAR.md) — Last updated: June 2026 · Companion to SEOCONTENTPLAN.md (the how) and apps/web/src/content/seoPages.ts (the registry).
@@ -116,6 +122,7 @@ _114 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [Admin Audit Logging](security/admin-audit-logging.md) — Two complementary trails make admin actions accountable:
 - [AI Security](security/ai-security.md) — SwingVantage uses AI for swing analysis and coaching, so AI is a first-class
 - [Data Governance](security/data-governance.md) — How SwingVantage handles data, and the privacy-by-design principles securityOS
+- [F6 — Nonce-based CSP (drop `script-src 'unsafe-inline'`)](security/F6-nonce-csp.md) — Sprint 4 of the growth program. Turnkey implementation — apply + validate on a
 - [File Upload Security](security/file-upload-security.md) — SwingVantage accepts user images/video for swing analysis, so upload handling
 - [Incident Response Runbook](security/incident-response-runbook.md) — Fast-path playbooks for the incidents most likely to affect SwingVantage.
 - [Secure Development Checklist](security/secure-development-checklist.md) — Run this before merging anything non-trivial and before launching a feature.

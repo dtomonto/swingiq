@@ -17,8 +17,24 @@ accessible player; videos that aren't recorded yet still open — to their writt
 walkthrough — so nothing is ever a dead end. Empty training rails show a friendly
 "coming soon" home, so there's always an obvious place for new content to land.
 
-Two training videos ship scripted and ready to record: **"Understanding swing path"**
-and **"Using SwingVantage with your launch monitor."**
+**20 training videos** are recorded and live across all five rails (swing path,
+launch-monitor data, drills & technique across every sport, coaching & parent
+guides, and pro film study), alongside the feature walkthroughs.
+
+### Publishing to the public `/learn` pages
+
+The in-app `/library` shows every recorded video. The public, crawlable `/learn`
+pages (the SEO/AEO/GEO surface) show only videos flipped **public**, so new
+content rolls out to search gradually. Control this from the admin dashboard at
+**`/admin/library`** ("Content → Library Publishing") — each video has a
+Public / In-app-only toggle. State lives in a committed overrides file
+(`src/data/library-publish-overrides.json`); because `/learn` is statically
+generated, a flip is a git diff that goes live on the next deploy (same model as
+the changelog Publishing screen). `getLearnItems()` is the single gate, used by
+the `/learn` index, slug pages, and both sitemaps. 11 of the 20 are public today;
+the rest are staged for the weekly drip. See also the
+[Digital Asset Library](DIGITAL_ASSET_LIBRARY.md) for a catalog of every
+generated media asset.
 
 ---
 
