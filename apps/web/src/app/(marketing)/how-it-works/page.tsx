@@ -1,4 +1,5 @@
 import { buildMetadata } from '@/lib/seo/metadata';
+import { ogCardUrl } from '@/lib/og/card';
 import { LocalizedHowItWorks } from '@/components/marketing/LocalizedHowItWorks';
 import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 
@@ -11,6 +12,11 @@ export const metadata = buildMetadata({
   description:
     'Learn how SwingVantage analyzes your swing in 4 steps: select your sport, upload data or video, get AI analysis, and follow your personalized practice plan.',
   path: '/how-it-works',
+  ogImage: ogCardUrl({
+    eyebrow: 'How it works',
+    title: 'AI Swing Analysis in 4 Steps',
+    subtitle: 'Pick your sport, upload, get your top fix, follow the plan.',
+  }),
 });
 
 export default function HowItWorksPage() {

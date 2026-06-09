@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { ogCardUrl } from '@/lib/og/card';
 import { FEATURE_GROUPS, ALL_FEATURES, featureHref } from '@/content/features';
 
 // buildMetadata adds canonical + hreflang alternates to localized versions
@@ -11,6 +12,11 @@ export const metadata = buildMetadata({
   description:
     'Every SwingVantage feature with a full how-to guide: AI diagnosis, launch-monitor import, video analysis, drills, practice scheduling and progress tracking — all sports.',
   path: '/features',
+  ogImage: ogCardUrl({
+    eyebrow: 'Features',
+    title: 'Everything SwingVantage Does — Free',
+    subtitle: 'Every feature with a full how-to guide, for all 7 sports.',
+  }),
 });
 
 const SITE = 'https://swingvantage.com';
