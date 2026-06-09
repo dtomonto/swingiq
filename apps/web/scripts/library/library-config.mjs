@@ -472,4 +472,112 @@ export const LIBRARY_CONFIG = {
       await h.dwell(900);
     },
   },
+
+  // Feature Deep-Dives (batch 2) — progress tracking + honest retest.
+  'progress-tracking-deepdive': {
+    lines: [
+      'Progress is where SwingVantage answers the only question that matters: are you actually getting better?',
+      'Open Progress and you will see your key metrics trend over time, not just your latest session in isolation.',
+      'One session is noise; a trend is signal. SwingVantage leans on the trend so a single good or bad day does not fool you.',
+      'Watch consistency, not just your best number — a tighter spread usually means more than one flushed shot.',
+      'When you change something, set a baseline first, then retest after a few sessions to see if the line really moved.',
+      'The honest retest is the whole point: it tells you whether a fix worked or whether you just had a good warm-up.',
+      'If a trend is flat, that is information too — it means it is time to try a different fix, not to try harder at the same one.',
+      'Come back to Progress on a steady cadence; improvement you can see is what keeps you practising the right things.',
+    ],
+    async scenes(h) {
+      await h.go('/progress');
+      await h.dwell(3200);
+      await h.gentleScroll(5800, 0.85);
+      await h.dwell(2000);
+      await h.scrollTop(1200);
+      await h.go('/diagnose');
+      await h.dwell(2800);
+      await h.gentleScroll(4800, 0.7);
+      await h.dwell(1600);
+      await h.scrollTop(1000);
+      await h.dwell(900);
+    },
+  },
+
+  // Feature Deep-Dives (batch 2) — readiness / BodySync.
+  'readiness-and-bodysync': {
+    lines: [
+      'How your body feels on a given day changes what a smart practice looks like — BodySync is where that gets accounted for.',
+      'Open BodySync and log a few honest signals: sleep, energy, and any soreness. It takes seconds and it is private to you.',
+      'SwingVantage turns those into a readiness read, so a low-energy day suggests technique and feel over max-effort reps.',
+      'On a green day, that is your cue to push speed or work something demanding while your body can handle it.',
+      'This is not medical advice and never a diagnosis — it is a simple, honest nudge to train in tune with your body.',
+      'Pair readiness with the warm-up suggestions so you start ready instead of grinding cold.',
+      'Over time you will see how rest and recovery line up with your better sessions in Progress.',
+      'Used consistently, BodySync keeps you training hard on the right days and training smart on the rest.',
+    ],
+    async scenes(h) {
+      await h.go('/bodysync');
+      await h.dwell(3200);
+      await h.gentleScroll(5800, 0.85);
+      await h.dwell(2000);
+      await h.scrollTop(1200);
+      await h.go('/pre-round');
+      await h.dwell(2800);
+      await h.gentleScroll(4800, 0.75);
+      await h.dwell(1600);
+      await h.scrollTop(1000);
+      await h.dwell(900);
+    },
+  },
+
+  // Launch Monitor & Data (batch 2) — photo import.
+  'photo-import-deepdive': {
+    lines: [
+      'Not every launch monitor exports a file — so SwingVantage lets you snap a photo of the screen and pull the numbers from it.',
+      'Open the photo import and add a clear, straight-on shot of the monitor display, with the metrics in focus.',
+      'Good light and no glare make a big difference; a crisp photo reads far more accurately than a blurry, angled one.',
+      'SwingVantage extracts the values and shows them back to you — always review them against the screen before you save.',
+      'Fix any misread number right there; a quick check now keeps your history clean and your trends honest.',
+      'This is a reading aid, not a measurement device — the truth is the monitor, the photo just saves you typing.',
+      'Save it as a session and from there it powers Diagnose and Progress exactly like a CSV import would.',
+      'When in doubt about a value, re-shoot rather than guess — clean data in is what makes everything downstream trustworthy.',
+    ],
+    async scenes(h) {
+      await h.go('/sessions/import/image');
+      await h.dwell(3200);
+      await h.gentleScroll(5200, 0.7);
+      await h.dwell(2000);
+      await h.scrollTop(1000);
+      await h.go('/sessions/import');
+      await h.dwell(2600);
+      await h.gentleScroll(4200, 0.6);
+      await h.dwell(1400);
+      await h.scrollTop(900);
+      await h.dwell(900);
+    },
+  },
+
+  // Launch Monitor & Data (batch 2) — reading your numbers.
+  'reading-your-numbers': {
+    lines: [
+      'A launch monitor throws a lot of numbers at you — the skill is knowing which few actually explain your shot.',
+      'Ball speed is your power; it is the single biggest driver of how far the ball can go.',
+      'Smash factor is ball speed divided by club speed — it tells you how efficiently you struck it, with center contact the goal.',
+      'Launch angle and spin work together to set your carry and how the ball holds or releases when it lands.',
+      'Too much spin balloons the ball and costs distance; too little can make it dive — the right window depends on your speed.',
+      'Carry is the honest distance number to track, because total roll depends on the ground, not your swing.',
+      'In Diagnose, SwingVantage reads these patterns for you and ranks what to address first, each with a confidence level.',
+      'Do not chase every number at once — fix the one that explains the most, retest, and let the rest follow.',
+    ],
+    async scenes(h) {
+      await h.go('/diagnose');
+      await h.dwell(3200);
+      await h.gentleScroll(5800, 0.8);
+      await h.dwell(2000);
+      await h.scrollTop(1200);
+      await h.go('/progress');
+      await h.dwell(2800);
+      await h.gentleScroll(4800, 0.75);
+      await h.dwell(1600);
+      await h.scrollTop(1000);
+      await h.dwell(900);
+    },
+  },
 };

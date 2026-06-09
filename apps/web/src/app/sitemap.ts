@@ -141,8 +141,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // index, and one page per PUBLISHED data point. The registry getters only
   // return published entries, so drafts can never reach the sitemap.
   const learnConceptPages: MetadataRoute.Sitemap = [
+    // Emit the static `/learn/` prefix literally (not via learnEntryPath) so the
+    // sitemap-coverage gate recognises /learn as a registry-enumerated section
+    // and treats its concept children (grip/swing-plane/weight-distribution) as
+    // covered. learnEntryPath(e) for a concept entry is exactly `/learn/${slug}`.
     ...getConceptEntries().map((e) => ({
-      url: `${BASE_URL}${learnEntryPath(e)}`,
+      url: `${BASE_URL}/learn/${e.slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
