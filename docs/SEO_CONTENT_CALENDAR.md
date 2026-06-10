@@ -152,7 +152,7 @@ on golf — target mix per cycle:
 - [x] padel — pillar / AI swing-analysis hub
 - [x] padel-bandeja
 - [x] padel-wall-rebound-technique
-- [~] padel-vibora
+- [x] padel-vibora
 - [~] padel-serve-analysis
 - [~] padel-video-analysis
 - [~] padel-practice-plan

@@ -5,7 +5,7 @@
 // build-time gate in scripts/check-duplicate-content.mjs, but it imports the
 // REAL data (not a regex parse), so it can't be fooled by formatting.
 
-import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
+import { PUBLISHED_SEO_PAGES, SEO_PAGES } from '@/content/seoPages';
 
 /** Token-set (Jaccard) similarity over normalized words. 1 = identical set. */
 function similarity(a: string, b: string): number {
@@ -60,6 +60,15 @@ describe('SEO registry — every published page is original', () => {
 
   it('has unique slugs', () => {
     expect(findDuplicates(PUBLISHED_SEO_PAGES.map((p) => p.slug))).toEqual([]);
+  });
+
+  // Drafts share the same slug namespace as published pages: a draft whose slug
+  // collides with a published page (e.g. a backlog stub left behind after the
+  // full page was written elsewhere) never routes, but it DOES collide on React
+  // keys wherever the whole registry is rendered (e.g. the PublishingOS publish
+  // queue). Guard the entire SEO_PAGES list, not just the published subset.
+  it('has unique slugs across the entire registry (drafts included)', () => {
+    expect(findDuplicates(SEO_PAGES.map((p) => p.slug))).toEqual([]);
   });
 
   it('has unique titles', () => {

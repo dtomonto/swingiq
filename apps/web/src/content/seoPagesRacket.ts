@@ -414,7 +414,10 @@ const RACKET_DRAFTS: SeoPage[] = [
   draft('padel-video-analysis', 'padel', 'padel video analysis', 'Padel Video Analysis'),
   draft('padel-practice-plan', 'padel', 'padel practice plan', 'Padel Practice Plan for Beginners'),
   draft('padel-drills', 'padel', 'padel footwork drills', 'Padel Drills & Footwork for Beginners'),
-  draft('padel-vibora', 'padel', 'how to hit a vibora in padel', 'How to Hit a Víbora in Padel'),
+  // 'padel-vibora' is the canonical, fully-written published page in
+  // seoPagesGaps.ts (PADEL_VIBORA / MULTI_SPORT_GAP_PAGES). This thin draft stub
+  // was superseded once that page was authored — removed to keep slugs unique
+  // (a duplicate slug collides on React keys in the PublishingOS publish queue).
   draft('padel-serve-analysis', 'padel', 'padel serve mechanics', 'Padel Serve Mechanics & Analysis'),
   draft('padel-doubles-strategy', 'padel', 'padel doubles strategy', 'Padel Doubles Strategy & Positioning'),
 ];
