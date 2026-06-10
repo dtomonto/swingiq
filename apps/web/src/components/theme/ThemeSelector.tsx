@@ -8,7 +8,7 @@ import { useSwingVantageStore } from '@/store';
 import { useAuth } from '@/lib/auth/useAuth';
 import { cn } from '@/lib/utils';
 import { THEMES, normalizeThemeId, type ThemeDef, type ThemeId } from '@/lib/theme/themes';
-import { recommendTheme, type ThemeRecommendation } from '@/lib/theme-lab';
+import { recommendTheme, getThemeLabEntry, type ThemeRecommendation } from '@/lib/theme-lab';
 import {
   DEFAULT_CONTROL,
   readThemeLabControl,
@@ -69,9 +69,16 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
       ? recommendTheme({ sport: activeSport, prefersDark, currentThemeId: active })
       : null;
 
+  // Seasonal themes (e.g. Christmas Swing Lab) only appear in the picker when
+  // the user has opted into seasonal themes — otherwise the grid is the core set.
+  const visibleThemes = THEMES.filter((t) => {
+    if (getThemeLabEntry(t.id)?.labCategory === 'seasonal') return control.allowSeasonal;
+    return true;
+  });
+
   // Roving focus + selection for the radio pattern (Arrow / Home / End).
   const onKeyDown = (e: React.KeyboardEvent, index: number) => {
-    const last = THEMES.length - 1;
+    const last = visibleThemes.length - 1;
     let next: number | null = null;
     switch (e.key) {
       case 'ArrowRight':
@@ -92,7 +99,7 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
         return;
     }
     e.preventDefault();
-    const theme = THEMES[next];
+    const theme = visibleThemes[next];
     select(theme.id);
     btnRefs.current[next]?.focus();
   };
@@ -103,7 +110,7 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
         <span id="theme-selector-label" className="text-sm font-medium text-foreground">
           App Theme
         </span>
-        <span className="text-xs text-muted-foreground">{THEMES.length} art directions</span>
+        <span className="text-xs text-muted-foreground">{visibleThemes.length} art directions</span>
       </div>
 
       {showSignupGate && (
@@ -154,9 +161,10 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
         aria-labelledby="theme-selector-label"
         className="grid grid-cols-2 sm:grid-cols-3 gap-3"
       >
-        {THEMES.map((theme, i) => {
+        {visibleThemes.map((theme, i) => {
           const selected = theme.id === active;
           const recommended = recommendation?.themeId === theme.id;
+          const seasonal = getThemeLabEntry(theme.id)?.labCategory === 'seasonal';
           return (
             <button
               key={theme.id}
@@ -167,7 +175,7 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
               role="radio"
               aria-checked={selected}
               disabled={!canUseThemes}
-              tabIndex={selected || (!THEMES.some((t) => t.id === active) && i === 0) ? 0 : -1}
+              tabIndex={selected || (!visibleThemes.some((t) => t.id === active) && i === 0) ? 0 : -1}
               onClick={() => select(theme.id)}
               onKeyDown={(e) => onKeyDown(e, i)}
               className={cn(
@@ -189,6 +197,11 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
                     <span className="truncate">{theme.name}</span>
                     {recommended && !selected && (
                       <Sparkles size={12} className="shrink-0 text-primary" aria-hidden="true" />
+                    )}
+                    {seasonal && (
+                      <span className="shrink-0 rounded-full border border-primary/40 px-1.5 text-[9px] font-semibold uppercase tracking-wide text-link">
+                        Seasonal
+                      </span>
                     )}
                   </h3>
                   {selected ? (

@@ -198,4 +198,17 @@ describe('theme-lab/resolve — resolveThemeForUser hierarchy', () => {
     const r = resolveThemeForUser({});
     expect(r).toEqual({ themeId: DEFAULT_THEME_ID, source: 'global-default' });
   });
+
+  it('Christmas Swing Lab auto-applies for opted-in users in December (real registry)', () => {
+    const dec = new Date('2026-12-20T12:00:00Z');
+    expect(resolveThemeForUser({ allowSeasonal: true, now: dec })).toEqual({
+      themeId: 'christmas-swing-lab',
+      source: 'seasonal',
+    });
+    // Outside the window → the brand default.
+    const july = new Date('2026-07-20T12:00:00Z');
+    expect(resolveThemeForUser({ allowSeasonal: true, now: july }).source).toBe('global-default');
+    // Opted out, even in December → the brand default.
+    expect(resolveThemeForUser({ allowSeasonal: false, now: dec }).source).toBe('global-default');
+  });
 });

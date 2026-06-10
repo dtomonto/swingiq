@@ -22,6 +22,7 @@ export const THEME_CONTEXTS = [
   'field-court',
   'arcade-practice',
   'bird-print',
+  'christmas-swing-lab',
 ] as const;
 
 export type ThemeContext = (typeof THEME_CONTEXTS)[number];

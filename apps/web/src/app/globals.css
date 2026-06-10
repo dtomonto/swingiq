@@ -806,6 +806,74 @@
     --app-bg-repeat: repeat, no-repeat, no-repeat;
   }
 
+  /* Christmas Swing Lab — seasonal dark theme: deep evergreen night, holly
+     green, festive gold + Christmas red. Mirrors the dark-performance lightness
+     relationships (AA-proven) with festive hues. No motion (reduced-motion-safe
+     by construction — the seasonal flavor is color + a static snow/sparkle
+     pattern only). */
+  [data-theme='christmas-swing-lab'] {
+    color-scheme: dark;
+    --background: 158 38% 6%;
+    --foreground: 40 25% 96%;
+    --card: 158 28% 9%;
+    --card-foreground: 40 25% 96%;
+    --popover: 158 28% 11%;
+    --popover-foreground: 40 25% 96%;
+    --primary: 146 70% 45%;
+    --primary-foreground: 150 42% 7%;
+    --secondary: 158 18% 15%;
+    --secondary-foreground: 40 22% 94%;
+    --muted: 158 16% 14%;
+    --muted-foreground: 40 14% 72%;
+    --accent: 158 18% 15%;
+    --accent-foreground: 40 22% 94%;
+    --accent-secondary: 42 88% 56%;
+    --accent-secondary-foreground: 40 55% 8%;
+    --success: 146 70% 45%;
+    --success-foreground: 150 42% 7%;
+    --warning: 38 92% 58%;
+    --warning-foreground: 30 45% 10%;
+    --error: 0 74% 50%;
+    --error-foreground: 0 0% 100%;
+    --destructive: 0 74% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 158 16% 20%;
+    --input: 158 16% 20%;
+    --ring: 146 64% 48%;
+    --chart-1: 146 64% 52%;
+    --chart-2: 0 74% 62%;
+    --chart-3: 42 88% 60%;
+    --chart-4: 199 84% 62%;
+    --chart-5: 320 45% 70%;
+    --link: 42 84% 64%;
+    --link-hover: 42 86% 74%;
+    --warning-text: 38 92% 62%;
+    --success-text: 146 60% 60%;
+    --error-text: 0 86% 76%;
+    /* ── Art direction: evergreen night, holly green + gold, candy-cane CTA ── */
+    --card-radius: 0.75rem;
+    --shadow-card:
+      0 1px 2px hsl(0 0% 0% / 0.55),
+      0 8px 24px -12px hsl(0 0% 0% / 0.55);
+    --shadow-elevated:
+      0 24px 56px -20px hsl(0 0% 0% / 0.78),
+      0 0 0 1px hsl(146 70% 45% / 0.12);
+    --glow: 0 0 0 1px hsl(146 70% 46% / 0.45), 0 0 18px -2px hsl(146 70% 46% / 0.45);
+    --glow-strong: 0 0 0 1px hsl(146 70% 50% / 0.6), 0 0 28px 0 hsl(146 70% 50% / 0.55);
+    --gradient-primary: linear-gradient(135deg, hsl(146 66% 46%), hsl(0 64% 44%));
+    --gradient-hero:
+      radial-gradient(900px 520px at 28% -10%, hsl(146 64% 46% / 0.14), transparent 60%),
+      radial-gradient(900px 520px at 78% -10%, hsl(0 74% 50% / 0.12), transparent 60%);
+    --font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='64'%20height='64'%3E%3Cg%20fill='%23ffffff'%20fill-opacity='0.06'%3E%3Ccircle%20cx='12'%20cy='14'%20r='1.6'/%3E%3Ccircle%20cx='44'%20cy='30'%20r='1.1'/%3E%3Ccircle%20cx='26'%20cy='50'%20r='1.4'/%3E%3Ccircle%20cx='56'%20cy='56'%20r='1'/%3E%3C/g%3E%3Cg%20fill='%23facc15'%20fill-opacity='0.07'%3E%3Ccircle%20cx='52'%20cy='12'%20r='1.1'/%3E%3Ccircle%20cx='16'%20cy='38'%20r='1.1'/%3E%3C/g%3E%3C/svg%3E");
+    --app-bg-image:
+      var(--pattern-overlay),
+      radial-gradient(900px 520px at 84% -6%, hsl(0 74% 50% / 0.10), transparent 58%),
+      radial-gradient(1000px 560px at 8% 4%, hsl(146 64% 46% / 0.12), transparent 58%);
+    --app-bg-size: 64px 64px, cover, cover;
+    --app-bg-repeat: repeat, no-repeat, no-repeat;
+  }
+
   /* ════════════════════════════════════════════════════════════════════
      PER-SPORT ACCENT TOKENS  (theme-agnostic sport identity colors)
      Each sport keeps ONE identity color across every theme; the paired

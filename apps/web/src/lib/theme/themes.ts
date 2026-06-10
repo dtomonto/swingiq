@@ -13,7 +13,8 @@ export type ThemeId =
   | 'heritage-club'
   | 'field-court'
   | 'arcade-practice'
-  | 'bird-print';
+  | 'bird-print'
+  | 'christmas-swing-lab';
 
 export type ThemeCategory = 'light' | 'dark';
 
@@ -144,6 +145,20 @@ export const THEMES: ThemeDef[] = [
       text: 'hsl(205 32% 16%)',
       primary: 'hsl(192 62% 34%)',
       accent: 'hsl(8 72% 49%)',
+    },
+  },
+  {
+    id: 'christmas-swing-lab',
+    name: 'Christmas Swing Lab',
+    tagline: 'Festive evergreen, holly green & gold — a seasonal lab theme.',
+    category: 'dark',
+    hasPattern: true,
+    swatches: {
+      bg: 'hsl(158 38% 6%)',
+      surface: 'hsl(158 30% 9%)',
+      text: 'hsl(40 25% 96%)',
+      primary: 'hsl(146 60% 43%)',
+      accent: 'hsl(0 72% 52%)',
     },
   },
 ];

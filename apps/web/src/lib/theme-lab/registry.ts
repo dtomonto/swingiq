@@ -42,10 +42,18 @@ export interface ThemeLabEntry {
   seasonal?: SeasonalWindow;
 }
 
-// Per-theme overrides on top of the sensible defaults below. Future seasonal /
-// experimental themes set their metadata here; the 7 shipped themes are all
-// live `core` themes available to everyone, so they need no overrides.
-const OVERRIDES: Partial<Record<ThemeId, Partial<ThemeLabEntry>>> = {};
+// Per-theme overrides on top of the sensible defaults below. The 7 launched
+// themes are all live `core` themes available to everyone (no overrides);
+// Christmas Swing Lab is a SEASONAL, opt-in theme — it only auto-applies inside
+// its December window (for opted-in users on the default), but a registered
+// user can still pick it year-round from the selector when seasonal is on.
+const OVERRIDES: Partial<Record<ThemeId, Partial<ThemeLabEntry>>> = {
+  'christmas-swing-lab': {
+    labCategory: 'seasonal',
+    visibility: 'opt-in',
+    seasonal: { start: '12-01', end: '12-31' },
+  },
+};
 
 const DEFAULT_ENTRY: Omit<ThemeLabEntry, 'themeId' | 'name'> = {
   labCategory: 'core',

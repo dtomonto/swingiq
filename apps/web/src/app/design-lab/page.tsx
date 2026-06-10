@@ -107,6 +107,51 @@ export default function DesignLabPage() {
           </div>
         </section>
 
+        {/* Christmas Swing Lab — the seasonal theme (#3 step 5), rendered live in
+            its own palette so it can be reviewed any time of year. */}
+        <section className="mb-12" data-theme="christmas-swing-lab">
+          <h2 className="mb-4 font-heading text-lg font-semibold uppercase tracking-tight text-foreground">
+            Christmas Swing Lab — seasonal theme
+          </h2>
+          <div className="relative overflow-hidden rounded-theme border border-border bg-background p-6 shadow-theme">
+            <div className="absolute inset-0 bg-theme-hero" aria-hidden="true" />
+            <div className="absolute inset-0 bg-theme-pattern opacity-80" aria-hidden="true" />
+            <div className="relative grid gap-4 sm:grid-cols-2">
+              <div className="rounded-theme bg-card p-5 text-card-foreground shadow-theme">
+                <div className="flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full btn-theme-primary" />
+                  <span className="font-heading text-sm font-semibold uppercase tracking-tight">
+                    Swing analysis
+                  </span>
+                  <span className="ml-auto rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-bold text-success-text">
+                    A
+                  </span>
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Top fault · <span className="text-link">Early extension</span>
+                </p>
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="rounded-md btn-theme-primary px-3 py-1.5 text-xs font-bold text-primary-foreground">
+                    Analyze
+                  </span>
+                  <span className="rounded-md bg-accent-secondary px-3 py-1.5 text-xs font-bold text-accent-secondary-foreground">
+                    Gold
+                  </span>
+                  <span className="rounded-md bg-error px-3 py-1.5 text-xs font-bold text-error-foreground">
+                    Red
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center gap-2">
+                <ScoreRing score={88} size={84} strokeWidth={7} label="Overall" glow />
+                <p className="text-xs text-muted-foreground">
+                  Holly green · festive gold · Christmas red — AA-validated, reduced-motion-safe.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Glow ON vs OFF, across the score-colour range, at the hero size. */}
         <section className="mb-12">
           <h2 className="mb-4 font-heading text-lg font-semibold uppercase tracking-tight">Glow on vs off — across grades</h2>

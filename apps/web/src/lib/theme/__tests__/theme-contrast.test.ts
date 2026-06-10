@@ -135,7 +135,7 @@ function ratioFor(
 }
 
 describe('theme token contrast (WCAG AA)', () => {
-  it('parses all seven theme contexts from globals.css', () => {
+  it('parses every theme context from globals.css', () => {
     for (const id of THEME_CONTEXTS) {
       expect(themes[id]).toBeDefined();
       // sanity: the base palette is present for every theme

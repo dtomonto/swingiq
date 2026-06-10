@@ -19,14 +19,24 @@ describe('theme-lab/registry', () => {
     }
   });
 
-  it('the shipped themes are live core themes available to everyone', () => {
-    for (const e of THEME_LAB_REGISTRY) {
-      expect(e.labCategory).toBe('core');
+  it('the launched core themes are live and available to everyone', () => {
+    const core = THEME_LAB_REGISTRY.filter((e) => e.labCategory === 'core');
+    expect(core.length).toBeGreaterThanOrEqual(7);
+    for (const e of core) {
       expect(e.status).toBe('active');
       expect(e.visibility).toBe('all');
       expect(e.sportCompat).toBe('all');
       expect(e.pageCompat).toBe('all');
     }
+  });
+
+  it('Christmas Swing Lab is a seasonal, opt-in theme with a December window', () => {
+    const xmas = getThemeLabEntry('christmas-swing-lab');
+    expect(xmas).toBeDefined();
+    expect(xmas!.labCategory).toBe('seasonal');
+    expect(xmas!.visibility).toBe('opt-in');
+    expect(xmas!.status).toBe('active'); // active so it's selectable year-round
+    expect(xmas!.seasonal).toEqual({ start: '12-01', end: '12-31' });
   });
 
   it('isThemeActive guards unknown / inactive / null', () => {
