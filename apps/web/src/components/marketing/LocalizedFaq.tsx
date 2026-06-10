@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { LanguageCode } from '@/lib/i18n';
 import { getMarketingT } from '@/lib/marketing-i18n/dict';
 import { localizedHref } from '@/lib/marketing-i18n/href';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 // Section structure (order + how many Q&As each has). Copy comes from the dict.
@@ -29,18 +30,7 @@ export function LocalizedFaq({ locale }: { locale: LanguageCode }) {
   return (
     <div className="min-h-screen bg-card">
       {/* Header */}
-      <div className="bg-primary text-primary-foreground py-14 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-sm">SV</span>
-            </div>
-            <Link href={localizedHref('/', locale)} className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('faqPage.hero.title')}</h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">{t('faqPage.hero.subtitle')}</p>
-        </div>
-      </div>
+      <MarketingHero title={t('faqPage.hero.title')} subtitle={t('faqPage.hero.subtitle')} />
 
       {/* FAQ content */}
       <div className="max-w-3xl mx-auto px-4 py-12 space-y-12">

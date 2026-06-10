@@ -3,6 +3,7 @@ import { ChevronRight } from 'lucide-react';
 import type { LanguageCode } from '@/lib/i18n';
 import { getMarketingT } from '@/lib/marketing-i18n/dict';
 import { localizedHref } from '@/lib/marketing-i18n/href';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getFeature, featureHref } from '@/content/features';
 import { LOCALIZED_FEATURE_GROUPS as GROUPS } from './localized-features-data';
@@ -54,23 +55,13 @@ export function LocalizedFeatures({ locale }: { locale: LanguageCode }) {
       <JsonLd data={structuredData} />
 
       {/* Header */}
-      <div className="bg-primary text-primary-foreground py-14 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-sm">SV</span>
-            </div>
-            <Link href={localizedHref('/', locale)} className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('features.hero.title')}</h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">{t('features.hero.subtitle')}</p>
-          <div className="flex flex-wrap justify-center gap-3 mt-6 text-sm">
-            {HERO_TAGS.map((tag) => (
-              <span key={tag} className="bg-primary/50 text-primary-foreground/90 px-3 py-1 rounded-full">{t(`features.hero.${tag}`)}</span>
-            ))}
-          </div>
+      <MarketingHero title={t('features.hero.title')} subtitle={t('features.hero.subtitle')}>
+        <div className="flex flex-wrap justify-center gap-3 text-sm">
+          {HERO_TAGS.map((tag) => (
+            <span key={tag} className="rounded-full border border-border bg-secondary px-3 py-1 text-muted-foreground">{t(`features.hero.${tag}`)}</span>
+          ))}
         </div>
-      </div>
+      </MarketingHero>
 
       {/* Feature groups */}
       <div className="max-w-4xl mx-auto px-4 py-12 space-y-14">

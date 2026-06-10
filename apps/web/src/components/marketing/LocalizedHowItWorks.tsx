@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { LanguageCode } from '@/lib/i18n';
 import { getMarketingDict } from '@/lib/marketing-i18n/dict';
 import { localizedHref } from '@/lib/marketing-i18n/href';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 /**
@@ -59,19 +60,14 @@ export function LocalizedHowItWorks({ locale }: { locale: LanguageCode }) {
       <JsonLd data={jsonLd} />
 
       {/* Hero */}
-      <header className="bg-primary text-primary-foreground">
-        <div className="max-w-4xl mx-auto px-4 py-14 text-center">
-          <p className="text-primary-foreground/80 text-sm font-semibold uppercase tracking-widest mb-3">{t.hero.eyebrow}</p>
-          <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-4">{t.hero.title}</h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto mb-8">{t.hero.subtitle}</p>
-          <Link
-            href={localizedHref('/start', locale)}
-            className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors inline-block"
-          >
-            {t.hero.cta}
-          </Link>
-        </div>
-      </header>
+      <MarketingHero eyebrow={t.hero.eyebrow} title={t.hero.title} subtitle={t.hero.subtitle}>
+        <Link
+          href={localizedHref('/start', locale)}
+          className="inline-block rounded-xl bg-primary px-8 py-3 font-bold text-primary-foreground shadow-theme transition-colors hover:bg-primary/90"
+        >
+          {t.hero.cta}
+        </Link>
+      </MarketingHero>
 
       {/* 4-step process */}
       <section className="bg-card py-16">
