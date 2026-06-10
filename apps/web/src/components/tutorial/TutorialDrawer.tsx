@@ -181,7 +181,7 @@ export function TutorialDrawer({
           {!isLastStep ? (
             <button
               onClick={() => setStep((s) => s + 1)}
-              className="flex items-center gap-1 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary transition-colors"
+              className="flex items-center gap-1 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary transition-colors"
               aria-label="Next step"
             >
               Next
@@ -190,7 +190,7 @@ export function TutorialDrawer({
           ) : (
             <button
               onClick={handleComplete}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary transition-colors"
             >
               <CheckCircle size={16} aria-hidden="true" />
               Got it

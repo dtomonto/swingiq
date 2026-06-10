@@ -213,7 +213,7 @@ export function TutorialCenter() {
         {/* CTA */}
         <button
           onClick={startTrack}
-          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary"
+          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary"
         >
           <PlayCircle size={18} aria-hidden="true" />
           {watchedInTrack > 0 && !trackComplete ? 'Resume tutorial' : trackComplete ? 'Watch again' : 'Start tutorial'}

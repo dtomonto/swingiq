@@ -115,7 +115,7 @@ export function AnalysisTransparency({
       {nextAction && (
         <Link
           href={nextAction.href}
-          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary"
+          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary"
         >
           {nextAction.label}
           <ArrowRight size={16} aria-hidden="true" />

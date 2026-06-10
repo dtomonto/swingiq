@@ -104,7 +104,7 @@ export default function TimelinePage() {
               Import launch-monitor data, log a session, or save a daily note and it will appear here in order.
             </p>
             <div className="mt-4 flex justify-center gap-2">
-              <Link href="/sessions/import" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:opacity-90">Import data</Link>
+              <Link href="/sessions/import" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">Import data</Link>
               <Link href="/diagnose" className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-foreground hover:bg-muted">Analyze a swing</Link>
             </div>
           </CardBody>
@@ -118,7 +118,7 @@ export default function TimelinePage() {
                 key={t}
                 onClick={() => setTypeFilter(t)}
                 className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
-                  typeFilter === t ? 'border-primary bg-primary text-white' : 'border-border text-muted-foreground hover:text-foreground'
+                  typeFilter === t ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {t === 'all' ? `All (${summary.total})` : `${TYPE_META[t as TimelineEventType].label} (${summary.byType[t as TimelineEventType]})`}

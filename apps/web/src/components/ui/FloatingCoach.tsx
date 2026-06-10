@@ -150,7 +150,7 @@ export function FloatingCoach() {
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={cn(
                   'max-w-[90%] px-3 py-2 rounded-xl text-xs leading-relaxed',
-                  msg.role === 'user' ? 'bg-primary text-white' :
+                  msg.role === 'user' ? 'bg-primary text-primary-foreground' :
                   msg.isError ? 'bg-error/10 border border-error/30 text-error' :
                   'bg-muted text-foreground'
                 )}>
@@ -208,7 +208,7 @@ export function FloatingCoach() {
       >
         {open ? <X size={20} className="text-white" /> : <MessageSquare size={20} className="text-white" />}
         {!open && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full text-white text-xs flex items-center justify-center font-bold">
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full text-primary-foreground text-xs flex items-center justify-center font-bold">
             AI
           </span>
         )}

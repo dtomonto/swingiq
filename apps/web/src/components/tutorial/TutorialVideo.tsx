@@ -347,7 +347,7 @@ export function TutorialVideo({
               onClick={startPlayback}
               aria-expanded={!playable ? showSteps : undefined}
               aria-controls={!playable ? stepsId : undefined}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
             >
               <PlayCircle size={16} aria-hidden="true" />
               {cta}

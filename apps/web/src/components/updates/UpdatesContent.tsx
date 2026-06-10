@@ -61,7 +61,7 @@ function MilestoneTimeline({ milestones }: MilestoneProps) {
           <li key={m.id} className="flex gap-4 sm:gap-6">
             {/* Step circle */}
             <div
-              className="relative z-10 shrink-0 w-10 h-10 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center shadow-xs"
+              className="relative z-10 shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-xs"
               aria-hidden="true"
             >
               {i + 1}
@@ -202,7 +202,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
                   className={[
                     'inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors',
                     selectedSport === opt.value
-                      ? 'bg-primary text-white border-primary'
+                      ? 'bg-primary text-primary-foreground border-primary'
                       : 'bg-card text-muted-foreground border-border hover:border-primary/50 hover:text-primary',
                   ].join(' ')}
                   aria-pressed={selectedSport === opt.value}

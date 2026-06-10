@@ -26,7 +26,7 @@ export function NextBestActionCard({ action }: { action: AgentAction }) {
         )}
       </div>
       <Link href={action.href}>
-        <Button size="sm" className="bg-primary hover:bg-primary text-white whitespace-nowrap">
+        <Button size="sm" className="bg-primary hover:bg-primary text-primary-foreground whitespace-nowrap">
           Continue
           <ChevronRight size={14} />
         </Button>

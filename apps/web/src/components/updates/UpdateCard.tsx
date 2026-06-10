@@ -77,7 +77,7 @@ export function UpdateCard({ update, featured = false, className }: UpdateCardPr
             </Badge>
           )}
           {featured && (
-            <Badge variant="success" className="bg-primary text-white">
+            <Badge variant="success" className="bg-primary text-primary-foreground">
               Latest update
             </Badge>
           )}

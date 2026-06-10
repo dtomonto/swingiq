@@ -10,7 +10,7 @@ import { NotCoachReplacementNotice } from '@/components/trust/NotCoachReplacemen
 export function ChallengeView({ challenge }: { challenge: Challenge }) {
   return (
     <main className="min-h-screen bg-card">
-      <div className="bg-primary px-4 py-12 text-white">
+      <div className="bg-primary px-4 py-12 text-primary-foreground">
         <div className="mx-auto max-w-2xl">
           <Breadcrumbs
             items={[{ name: 'Home', path: '/' }, { name: 'Challenges', path: '/challenges' }, { name: challenge.title, path: `/challenges/${challenge.slug}` }]}
@@ -32,7 +32,7 @@ export function ChallengeView({ challenge }: { challenge: Challenge }) {
         <ol className="mt-8 space-y-4">
           {challenge.days.map((d) => (
             <li key={d.day} className="flex items-start gap-4 rounded-xl border border-border p-4">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                 {d.day}
               </span>
               <div>
@@ -55,9 +55,9 @@ export function ChallengeView({ challenge }: { challenge: Challenge }) {
           />
         </div>
 
-        <div className="mt-6 rounded-2xl bg-primary p-6 text-center text-white">
+        <div className="mt-6 rounded-2xl bg-primary p-6 text-center text-primary-foreground">
           <p className="mb-4 text-lg font-bold">Track your progress with a free analysis</p>
-          <Link href="/dashboard" className="inline-block rounded-xl bg-primary px-8 py-3 font-bold text-white transition-colors hover:bg-primary-foreground/90">
+          <Link href="/dashboard" className="inline-block rounded-xl bg-primary px-8 py-3 font-bold text-primary-foreground transition-colors hover:bg-primary-foreground/90">
             Analyze My Swing Free
           </Link>
         </div>

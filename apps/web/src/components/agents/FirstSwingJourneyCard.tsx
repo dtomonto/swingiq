@@ -56,7 +56,7 @@ export function FirstSwingJourneyCard({
             key={i}
             className="flex items-center gap-2 rounded-lg bg-white/10 px-3 py-2"
           >
-            <span className="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-primary text-white text-xs font-bold">
+            <span className="shrink-0 grid place-items-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-bold">
               {i + 1}
             </span>
             <span className="text-sm text-white/90 leading-tight">{step}</span>
@@ -67,7 +67,7 @@ export function FirstSwingJourneyCard({
       {/* Actions */}
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <Link href="/start">
-          <Button size="sm" className="bg-primary hover:bg-primary text-white whitespace-nowrap">
+          <Button size="sm" className="bg-primary hover:bg-primary text-primary-foreground whitespace-nowrap">
             Start Here — Free
             <ChevronRight size={14} />
           </Button>

@@ -166,7 +166,7 @@ export default function CommunityPage() {
               <h2 className="text-lg font-semibold text-foreground">{t('community.joinCommunity')}</h2>
               <p className="text-sm text-muted-foreground max-w-sm mx-auto">{t('community.communityDesc')}</p>
               <div className="flex justify-center gap-3 flex-wrap">
-                <Link href="/sessions/import" className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary transition-colors">
+                <Link href="/sessions/import" className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary transition-colors">
                   Import Session
                 </Link>
                 <Link href="/sessions/log" className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-card text-foreground border border-border hover:bg-muted transition-colors">
@@ -330,7 +330,7 @@ export default function CommunityPage() {
                 <p className="text-xs text-muted-foreground mt-0.5">{t('community.exportReminder')}</p>
               </div>
               <div className="flex gap-2 shrink-0">
-                <Link href="/data" className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary transition-colors">
+                <Link href="/data" className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary transition-colors">
                   <Download size={14} aria-hidden="true" />
                   {t('community.exportData')}
                 </Link>

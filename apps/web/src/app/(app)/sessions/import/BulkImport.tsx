@@ -211,7 +211,7 @@ export function BulkImport() {
         <p className="text-sm text-muted-foreground mt-1">or</p>
         <label className="mt-2 inline-block cursor-pointer">
           <input type="file" accept=".csv,.xlsx,.json" multiple className="hidden" onChange={onFileInput} />
-          <span className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:opacity-90">
+          <span className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:opacity-90">
             Browse for files
           </span>
         </label>

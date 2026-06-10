@@ -65,7 +65,7 @@ export function TutorialWelcomePrompt() {
         <Link
           href="/tutorial"
           onClick={() => setDismissed(true)}
-          className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-primary"
+          className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary"
         >
           Watch the tour
           <ArrowRight size={13} aria-hidden="true" />

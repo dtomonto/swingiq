@@ -212,11 +212,11 @@ export function SeoArticle({ page }: { page: SeoPage }) {
         )}
 
         {/* CTA */}
-        <section className="mb-8 rounded-2xl bg-primary p-6 text-center text-white">
+        <section className="mb-8 rounded-2xl bg-primary p-6 text-center text-primary-foreground">
           <p className="mb-4 text-lg font-bold">Ready to see your own swing?</p>
           <Link
             href={page.cta.href}
-            className="inline-block rounded-xl bg-primary px-8 py-3 font-bold text-white transition-colors hover:bg-primary-foreground/90"
+            className="inline-block rounded-xl bg-primary px-8 py-3 font-bold text-primary-foreground transition-colors hover:bg-primary-foreground/90"
           >
             {page.cta.label}
           </Link>

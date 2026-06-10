@@ -360,7 +360,7 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
 
           {/* Conversion: into the product loop */}
           <div className="mt-4 flex flex-wrap gap-3">
-            <Link href="/start" className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary/90">
+            <Link href="/start" className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
               Analyze my swing free
             </Link>
             <Link href="/sample-report/golf" className="rounded-xl border border-border px-5 py-2.5 text-sm font-semibold text-foreground hover:border-primary/50">

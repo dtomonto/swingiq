@@ -66,7 +66,7 @@ function MilestoneTimeline({ milestones }: { milestones: DevUpdate[] }) {
         {milestones.map((m, i) => (
           <li key={m.id} className="flex gap-4 sm:gap-6">
             <div
-              className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white shadow-xs"
+              className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground shadow-xs"
               aria-hidden="true"
             >
               {i + 1}
@@ -241,7 +241,7 @@ export function DevUpdatesContent({ updates, milestones, stats }: DevUpdatesCont
                 className={cn(
                   'rounded-full border px-3 py-1.5 text-xs font-medium transition-colors',
                   selectedCategory === cat
-                    ? 'border-primary bg-primary text-white'
+                    ? 'border-primary bg-primary text-primary-foreground'
                     : 'border-border bg-card text-muted-foreground hover:border-primary/50 hover:text-primary',
                 )}
                 aria-pressed={selectedCategory === cat}

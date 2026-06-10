@@ -25,7 +25,7 @@ export interface AudienceConfig {
 export function AudienceLanding({ config }: { config: AudienceConfig }) {
   return (
     <main className="min-h-screen bg-card">
-      <section className="bg-primary px-4 py-16 text-white">
+      <section className="bg-primary px-4 py-16 text-primary-foreground">
         <div className="mx-auto max-w-3xl">
           <Breadcrumbs
             items={[{ name: 'Home', path: '/' }, { name: config.name, path: `/${config.slug}` }]}
@@ -33,7 +33,7 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
           />
           <h1 className="text-3xl font-bold md:text-4xl">{config.headline}</h1>
           <p className="mt-4 max-w-2xl text-lg text-primary-foreground/90">{config.positioning}</p>
-          <Link href="#get-started" className="mt-6 inline-block rounded-xl bg-primary px-7 py-3 font-bold text-white transition-colors hover:bg-primary-foreground/90">
+          <Link href="#get-started" className="mt-6 inline-block rounded-xl bg-primary px-7 py-3 font-bold text-primary-foreground transition-colors hover:bg-primary-foreground/90">
             {config.ctaLabel}
           </Link>
         </div>
@@ -58,7 +58,7 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
           <ol className="mt-5 space-y-3">
             {config.how.map((step, i) => (
               <li key={step} className="flex items-start gap-3">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">{i + 1}</span>
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">{i + 1}</span>
                 <span className="text-foreground">{step}</span>
               </li>
             ))}
@@ -83,7 +83,7 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
         </div>
       </section>
 
-      <section id="get-started" className="scroll-mt-16 bg-primary px-4 py-14 text-white">
+      <section id="get-started" className="scroll-mt-16 bg-primary px-4 py-14 text-primary-foreground">
         <div className="mx-auto max-w-lg text-center">
           <h2 className="text-2xl font-bold">{config.ctaLabel}</h2>
           <p className="mt-2 text-primary-foreground/90">{config.captureSub}</p>

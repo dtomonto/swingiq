@@ -208,7 +208,7 @@ export function GuideCompanion() {
             </button>
             <button
               onClick={closeAndRemember}
-              className="rounded-lg bg-primary text-white text-xs font-semibold px-3.5 py-1.5 hover:opacity-90 transition-opacity"
+              className="rounded-lg bg-primary text-primary-foreground text-xs font-semibold px-3.5 py-1.5 hover:opacity-90 transition-opacity"
             >
               Got it
             </button>

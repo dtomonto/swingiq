@@ -105,7 +105,7 @@ export function EmailCapture({
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="rounded-xl bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary disabled:opacity-60 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+          className="rounded-xl bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary disabled:opacity-60 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
         >
           {status === 'submitting' ? 'Sending…' : submitLabel}
         </button>

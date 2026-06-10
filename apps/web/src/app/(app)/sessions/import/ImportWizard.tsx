@@ -394,12 +394,12 @@ export function ImportWizard() {
               <div
                 className={cn(
                   'flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors',
-                  isActive ? 'bg-primary text-white' : isDone ? 'bg-primary/15 text-primary' : 'bg-muted text-muted-foreground',
+                  isActive ? 'bg-primary text-primary-foreground' : isDone ? 'bg-primary/15 text-primary' : 'bg-muted text-muted-foreground',
                 )}
               >
                 <span className={cn(
                   'w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold',
-                  isActive ? 'bg-card text-primary' : isDone ? 'bg-primary text-white' : 'bg-muted text-muted-foreground',
+                  isActive ? 'bg-card text-primary' : isDone ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground',
                 )}>
                   {isDone ? '✓' : n}
                 </span>
@@ -481,7 +481,7 @@ export function ImportWizard() {
               <p className="text-sm text-muted-foreground mt-1">or</p>
               <label className="mt-3 inline-block cursor-pointer">
                 <input type="file" accept=".csv,.xlsx" className="hidden" onChange={onFileInput} />
-                <span className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary">
+                <span className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary">
                   Browse for file
                 </span>
               </label>
