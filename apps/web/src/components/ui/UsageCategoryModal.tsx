@@ -12,6 +12,7 @@
 import { useState, useEffect } from 'react';
 import { useSwingVantageStore, type UsageCategory } from '@/store';
 import { Shield, Users, User, GraduationCap, AlertTriangle } from 'lucide-react';
+import { useOnboarding } from '@/lib/onboarding/useOnboarding';
 import type { OnboardingRole } from '@/lib/onboarding/state';
 
 // Map the safety usage-category to the onboarding role so the onboarding
@@ -64,19 +65,25 @@ const CATEGORIES: Array<{
 ];
 
 export function UsageCategoryModal() {
-  const { settings, updateSettings, advanceOnboarding, setOnboardingRole } = useSwingVantageStore();
+  const { updateSettings, advanceOnboarding, setOnboardingRole } = useSwingVantageStore();
+  // `ready` = the persisted store has hydrated (so we never flash before the
+  // saved answer loads). `hasIdentity` = the DURABLE, data-derived signal that
+  // the athlete already told us who they are — profile / sport / role / usage
+  // category, synced via the onboarding marker. Once true it never regresses, so
+  // a returning user (even on a fresh device once signed in) is never re-asked.
+  const { ready, hasIdentity } = useOnboarding();
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState<Exclude<UsageCategory, null> | null>(null);
 
-  // Show the modal only after hydration and only if category not yet set
+  // Show ONCE, only for a brand-new athlete who hasn't been identified yet.
+  // The render is also gated on `hasIdentity` below, so it disappears the moment
+  // identity is known (here or anywhere else) without a setState-in-effect.
   useEffect(() => {
-    if (settings.usage_category === null) {
-      // Small delay so the page content renders first
-      const t = setTimeout(() => setVisible(true), 800);
-      return () => clearTimeout(t);
-    }
-    return undefined;
-  }, [settings.usage_category]);
+    if (!ready || hasIdentity) return undefined;
+    // Small delay so the page content renders first.
+    const t = setTimeout(() => setVisible(true), 800);
+    return () => clearTimeout(t);
+  }, [ready, hasIdentity]);
 
   function handleConfirm() {
     if (!selected) return;
@@ -92,7 +99,7 @@ export function UsageCategoryModal() {
     setVisible(false);
   }
 
-  if (!visible) return null;
+  if (!visible || hasIdentity) return null;
 
   const isUnder13 = selected === 'minor_under_13';
 
