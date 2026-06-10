@@ -130,9 +130,16 @@ export async function runMotionAnalysis(
     };
   });
 
+  // Carry the clip's real frame rate when we have it (falling back to a nominal
+  // 30) so anything reading track.fps — tempo/duration labels — reflects the
+  // actual capture, not a hard-coded guess. Frame-level math still keys off the
+  // measured tMs timestamps.
+  const nominalFps =
+    options.estimatedFps && options.estimatedFps > 0 ? Math.round(options.estimatedFps) : 30;
+
   let track: MotionPoseTrack = {
     schema: 'mediapipe_pose_33',
-    fps: 30,
+    fps: nominalFps,
     frames,
     attemptedFrames: extraction.frames.length,
     trackingConfidence: visCount > 0 ? +(visSum / visCount).toFixed(3) : 0,

@@ -17,14 +17,12 @@ import type { SwingVideoMetadata } from '@swingiq/core';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
+import { getAuthenticatedUser } from '@/lib/supabase-server';
 
 interface VideoAnalysisRequest {
   video_id: string;
-  // user_id is intentionally NOT accepted from the client body — it must be
-  // derived server-side from the authenticated session to prevent IDOR attacks.
-  // TODO: once Supabase auth is wired up, read user_id from the verified session:
-  //   const { data: { user } } = await supabase.auth.getUser();
-  //   const user_id = user?.id;
+  // user_id is intentionally NOT accepted from the client body — it is derived
+  // server-side from the authenticated session below to prevent IDOR attacks.
   session_id: string | null;
   metadata: SwingVideoMetadata;
 }
@@ -46,10 +44,11 @@ export async function POST(req: NextRequest) {
 
   const { video_id, session_id, metadata } = body;
 
-  // Derive user identity server-side. Until Supabase auth is wired up,
-  // use a placeholder. Replace with real session lookup before going to production.
-  // TODO: const user_id = await getAuthenticatedUserId(req);
-  const user_id = 'anonymous';
+  // Derive user identity server-side from the verified Supabase session (never
+  // trusted from the client body). Falls back to 'anonymous' for logged-out use
+  // or when Supabase isn't configured, so analysis still works.
+  const authedUser = await getAuthenticatedUser();
+  const user_id = authedUser?.id ?? 'anonymous';
 
   if (!video_id || !metadata) {
     return NextResponse.json(

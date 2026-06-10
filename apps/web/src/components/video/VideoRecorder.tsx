@@ -26,6 +26,7 @@ import {
   AlertCircle,
   Smartphone,
   ShieldCheck,
+  User,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import type { SwingVideoMetadata, VisualSport } from '@swingiq/core';
@@ -105,7 +106,15 @@ export function VideoRecorder({ onVideoReady, onError, sport = 'golf', disabled 
       try {
         stopStream();
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode, width: { ideal: 1280 }, height: { ideal: 720 } },
+          // Request a high frame rate — swings are fast, so 60fps (when the
+          // device supports it) cuts motion blur and sharpens the swing-window
+          // detection downstream. The device falls back to its best available.
+          video: {
+            facingMode,
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            frameRate: { ideal: 60 },
+          },
           audio: false,
         });
         streamRef.current = stream;
@@ -253,8 +262,8 @@ export function VideoRecorder({ onVideoReady, onError, sport = 'golf', disabled 
           <div>
             <p className="text-base font-semibold text-foreground">Record your swing</p>
             <p className="text-sm text-muted-foreground mt-1">
-              Up to {MAX_SECONDS}s. Film yourself or someone else — the recording stays on your
-              device and nothing is uploaded.
+              Up to {MAX_SECONDS}s. Film yourself or someone else — the clip stays on your device;
+              only sampled frames are sent for analysis, never the full video.
             </p>
           </div>
           <Button onClick={() => enableCamera(facing)} disabled={disabled}>
@@ -372,6 +381,12 @@ export function VideoRecorder({ onVideoReady, onError, sport = 'golf', disabled 
         <p className="flex items-center gap-1.5 text-xs text-muted-foreground sm:hidden">
           <Smartphone className="w-3.5 h-3.5 shrink-0" />
           Tip: turn your phone sideways (landscape) so your whole body and club fit.
+        </p>
+      )}
+      {state === 'ready' && (
+        <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <User className="w-3.5 h-3.5 shrink-0" />
+          Keep just the athlete in frame — only one person is tracked per clip.
         </p>
       )}
       {(state === 'idle' || state === 'ready') && (
