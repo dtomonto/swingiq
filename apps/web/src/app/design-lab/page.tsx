@@ -15,6 +15,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ScoreRing } from '@/components/ui/ScoreRing';
+import { SportShell } from '@/components/sport/SportShell';
+import { ALL_SPORT_BRANDS } from '@/lib/sport-brand/registry';
 
 export const metadata: Metadata = {
   title: 'Design Lab (dev)',
@@ -70,6 +72,25 @@ export default function DesignLabPage() {
                 <p className="mt-1 text-sm text-muted-foreground">{p.blurb}</p>
                 <span className="mt-3 inline-block text-xs font-semibold text-link">Open →</span>
               </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* SportShell — the reusable per-sport branded wrapper (Phase 4). */}
+        <section className="mb-12">
+          <h2 className="mb-4 font-heading text-lg font-semibold uppercase tracking-tight">SportShell — per-sport accent + motif</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {ALL_SPORT_BRANDS.map((b) => (
+              <SportShell key={b.sport} sport={b.sport} motif className="rounded-theme border border-border bg-card p-5 shadow-theme">
+                <div className="flex items-center gap-2.5">
+                  <span className="h-9 w-9 shrink-0 rounded-lg border-2" style={{ borderColor: 'var(--sport-accent)' }} aria-hidden="true" />
+                  <span className="font-heading text-sm font-semibold uppercase tracking-tight text-foreground">{b.slug.replace('-', ' ')}</span>
+                </div>
+                <p className="mt-2 text-[11px] text-muted-foreground">
+                  accent <code className="text-link">{b.accentVar}</code>
+                </p>
+                <span className="mt-3 block h-1.5 rounded-full" style={{ background: 'var(--sport-accent)' }} aria-hidden="true" />
+              </SportShell>
             ))}
           </div>
         </section>

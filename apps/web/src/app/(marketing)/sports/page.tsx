@@ -13,6 +13,7 @@ import { useMemo } from 'react';
 import { ArrowRight, Check, LayoutDashboard } from 'lucide-react';
 import type { SportId } from '@swingiq/core';
 import { useSport, SPORT_DISPLAY } from '@/contexts/SportContext';
+import { sportAccentVars } from '@/lib/sport-brand/registry';
 import { useSwingVantageStore } from '@/store';
 
 const SPORT_ORDER: SportId[] = ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'];
@@ -114,23 +115,28 @@ export default function SportSelectionPage() {
             const stat = statsBySport[sport];
             const isActive = sport === activeSport;
             return (
-              <li key={sport}>
+              <li key={sport} style={sportAccentVars(sport)}>
                 <button
                   type="button"
                   onClick={() => choose(sport)}
                   aria-label={`${stat.started ? 'Continue' : 'Start'} ${display.name}`}
-                  className={`group w-full h-full text-left rounded-2xl border-2 bg-card p-5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                    isActive
-                      ? 'border-primary shadow-sm'
-                      : 'border-border hover:border-primary/50'
-                  }`}
+                  className="group w-full h-full text-left rounded-2xl border-2 border-border bg-card p-5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background hover:border-[color:var(--sport-accent)]"
+                  style={isActive ? { borderColor: 'var(--sport-accent)' } : undefined}
                 >
                   <div className="flex items-start justify-between gap-2 mb-3">
-                    <span className="text-4xl leading-none" aria-hidden="true">
-                      {display.emoji}
+                    {/* Per-sport accent tile — branded via the sport-brand registry. */}
+                    <span
+                      className="inline-flex h-14 w-14 items-center justify-center rounded-xl border-2 leading-none"
+                      style={{ borderColor: 'var(--sport-accent)' }}
+                      aria-hidden="true"
+                    >
+                      <span className="text-3xl">{display.emoji}</span>
                     </span>
                     {isActive && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-primary/15 text-primary text-xs font-semibold px-2 py-0.5">
+                      <span
+                        className="inline-flex items-center gap-1 rounded-full text-xs font-semibold px-2 py-0.5"
+                        style={{ backgroundColor: 'var(--sport-accent)', color: 'var(--sport-accent-foreground)' }}
+                      >
                         <Check size={12} strokeWidth={3} aria-hidden="true" /> Active
                       </span>
                     )}
