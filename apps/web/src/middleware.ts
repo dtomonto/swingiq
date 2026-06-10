@@ -97,6 +97,10 @@ const PUBLIC_SUBTREES = [
   // WITHOUT an account — the page itself enforces the link's password,
   // revocation, expiry, and per-item visibility, and is noindex.
   '/player',
+  // Dev-only design/preview lab for auth-gated components (e.g. the dashboard
+  // ScoreRing glow). The pages themselves notFound() in production, so this
+  // prefix is only ever reachable in development; it stays noindex.
+  '/design-lab',
 ];
 
 // Prefixes that are always public (static assets, Next.js internals, health).
