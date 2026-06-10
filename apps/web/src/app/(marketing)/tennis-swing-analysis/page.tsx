@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SportAnalysisHero } from '@/components/marketing/SportAnalysisHero';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -98,32 +99,15 @@ export default function TennisSwingAnalysisPage() {
       <Breadcrumbs items={crumbs} className="max-w-4xl mx-auto px-4 pt-4" />
 
       {/* Hero */}
-      <header className="bg-primary text-primary-foreground">
-        <div className="max-w-4xl mx-auto px-4 py-14 text-center">
-          <p className="text-primary-foreground/80 text-sm font-semibold uppercase tracking-widest mb-3">Free Tool</p>
-          <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-4">
-            AI Tennis Stroke Analysis<br className="sm:hidden" /> — Free for Every Level
-          </h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto mb-8">
-            Upload a video of your forehand, backhand, or serve. Our AI diagnoses your stroke faults
-            phase-by-phase and builds a personalized drill plan — free.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/video"
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors"
-            >
-              Analyze My Strokes
-            </Link>
-            <Link
-              href="/signup"
-              className="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3 rounded-xl transition-colors border border-white/20"
-            >
-              Create Free Account
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SportAnalysisHero
+        accentVar="--sport-tennis"
+        eyebrow="Free Tool"
+        title="AI Tennis Stroke Analysis"
+        titleAccent="— Free for Every Level"
+        subtitle="Upload a video of your forehand, backhand, or serve. Our AI diagnoses your stroke faults phase-by-phase and builds a personalized drill plan — free."
+        primaryCta={{ label: 'Analyze My Strokes', href: '/video' }}
+        secondaryCta={{ label: 'Create Free Account', href: '/signup' }}
+      />
 
       {/* How it works */}
       <section className="bg-card py-14">

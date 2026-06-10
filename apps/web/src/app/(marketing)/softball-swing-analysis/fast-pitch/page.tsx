@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SportAnalysisHero } from '@/components/marketing/SportAnalysisHero';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { SportProofBlock } from '@/components/proof/SportProofBlock';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -76,32 +77,16 @@ export default function FastPitchHubPage() {
       <Breadcrumbs items={crumbs} className="max-w-4xl mx-auto px-4 pt-4" />
 
       {/* Hero */}
-      <header className="bg-primary text-primary-foreground">
-        <div className="max-w-4xl mx-auto px-4 py-14 text-center">
-          <p className="text-primary-foreground/80 text-sm font-semibold uppercase tracking-widest mb-3">Fast Pitch · Free Tool</p>
-          <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-4">
-            Catch up to speed.<br className="sm:hidden" /> Stop getting jammed.
-          </h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto mb-8">
-            Free AI fast-pitch swing analysis. Shorten your path, start earlier, and improve your contact point —
-            get your single highest-priority fix, three drills, and a 7-day plan. No account required.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/start?sport=softball_fast"
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors"
-            >
-              Analyze My Fast-Pitch Swing Free
-            </Link>
-            <Link
-              href="/sample-report/fast-pitch"
-              className="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3 rounded-xl transition-colors border border-white/20"
-            >
-              See a Sample Report
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SportAnalysisHero
+        accentVar="--sport-softball-fast"
+        eyebrow="Fast Pitch · Free Tool"
+        title="Catch up to speed."
+        titleAccent="Stop getting jammed."
+        subtitle="Free AI fast-pitch swing analysis. Shorten your path, start earlier, and improve your contact point — get your single highest-priority fix, three drills, and a 7-day plan. No account required."
+        primaryCta={{ label: 'Analyze My Fast-Pitch Swing Free', href: '/start?sport=softball_fast' }}
+        secondaryCta={{ label: 'See a Sample Report', href: '/sample-report/fast-pitch' }}
+        chips={[]}
+      />
 
       {/* What we analyze */}
       <section className="bg-card py-14">

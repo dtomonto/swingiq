@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SportAnalysisHero } from '@/components/marketing/SportAnalysisHero';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { SportProofBlock } from '@/components/proof/SportProofBlock';
@@ -101,32 +102,15 @@ export default function BaseballSwingAnalysisPage() {
       <Breadcrumbs items={crumbs} className="max-w-4xl mx-auto px-4 pt-4" />
 
       {/* Hero */}
-      <header className="bg-primary text-primary-foreground">
-        <div className="max-w-4xl mx-auto px-4 py-14 text-center">
-          <p className="text-primary-foreground/80 text-sm font-semibold uppercase tracking-widest mb-3">Free Tool</p>
-          <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-4">
-            AI Baseball Swing Analysis<br className="sm:hidden" /> — Exit Velocity to Bat Path
-          </h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto mb-8">
-            Import HitTrax, Rapsodo, or Blast Motion data. Upload a swing video. Get instant AI
-            diagnosis of your swing faults and a targeted drill plan — free.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/sessions/import/image"
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors"
-            >
-              Import Hitting Data
-            </Link>
-            <Link
-              href="/video"
-              className="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3 rounded-xl transition-colors border border-white/20"
-            >
-              Upload Swing Video
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SportAnalysisHero
+        accentVar="--sport-baseball"
+        eyebrow="Free Tool"
+        title="AI Baseball Swing Analysis"
+        titleAccent="— Exit Velocity to Bat Path"
+        subtitle="Import HitTrax, Rapsodo, or Blast Motion data. Upload a swing video. Get instant AI diagnosis of your swing faults and a targeted drill plan — free."
+        primaryCta={{ label: 'Import Hitting Data', href: '/sessions/import/image' }}
+        secondaryCta={{ label: 'Upload Swing Video', href: '/video' }}
+      />
 
       {/* How it works */}
       <section className="bg-card py-14">

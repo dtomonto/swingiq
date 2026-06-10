@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SportAnalysisHero } from '@/components/marketing/SportAnalysisHero';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -89,32 +90,15 @@ export default function SoftballSwingAnalysisPage() {
       <Breadcrumbs items={crumbs} className="max-w-4xl mx-auto px-4 pt-4" />
 
       {/* Hero */}
-      <header className="bg-primary text-primary-foreground">
-        <div className="max-w-4xl mx-auto px-4 py-14 text-center">
-          <p className="text-primary-foreground/80 text-sm font-semibold uppercase tracking-widest mb-3">Free Tool</p>
-          <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-4">
-            AI Softball Swing Analysis<br className="sm:hidden" /> — Slow Pitch &amp; Fast Pitch
-          </h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto mb-8">
-            Slow pitch and fast pitch need almost opposite swings. Pick your discipline below for a
-            diagnosis, drills, and benchmarks built for it — free, no account required.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/sessions/import/image"
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors"
-            >
-              Import Hitting Data
-            </Link>
-            <Link
-              href="/video"
-              className="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3 rounded-xl transition-colors border border-white/20"
-            >
-              Upload Swing Video
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SportAnalysisHero
+        accentVar="--sport-softball-fast"
+        eyebrow="Free Tool"
+        title="AI Softball Swing Analysis"
+        titleAccent="— Slow Pitch & Fast Pitch"
+        subtitle="Slow pitch and fast pitch need almost opposite swings. Pick your discipline below for a diagnosis, drills, and benchmarks built for it — free, no account required."
+        primaryCta={{ label: 'Import Hitting Data', href: '/sessions/import/image' }}
+        secondaryCta={{ label: 'Upload Swing Video', href: '/video' }}
+      />
 
       {/* Choose your path */}
       <section className="bg-card py-14">
