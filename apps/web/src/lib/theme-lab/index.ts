@@ -6,3 +6,7 @@ export * from './resolve';
 export * from './recommend';
 export * from './experiments';
 export * from './color';
+export * from './library';
+export * from './generate';
+export * from './publish';
+export * from './recommendations';
