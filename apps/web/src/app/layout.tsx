@@ -81,10 +81,14 @@ export const viewport: Viewport = {
   themeColor: '#0B0F0C',
 };
 
-// Pre-paint theme bootstrap: applies the persisted curated theme to <html>
-// before React hydrates so there is no flash of the default theme. Kept in
-// sync with lib/theme/themes (theme ids) and ThemeApplicator.
-const THEME_BOOTSTRAP = `(function(){try{var ids=['standard','dark-performance','coach-mode','heritage-club','field-court','arcade-practice','bird-print'];var dark={'dark-performance':1,'arcade-practice':1};var t='dark-performance';var raw=localStorage.getItem('swingiq-store');if(raw){var s=JSON.parse(raw);var c=s&&s.state&&s.state.settings&&s.state.settings.colorTheme;if(ids.indexOf(c)!==-1){t=c;}}var el=document.documentElement;el.setAttribute('data-theme',t);if(dark[t]){el.classList.add('dark');}else{el.classList.remove('dark');}}catch(e){}})();`;
+// Pre-paint theme bootstrap: applies the *resolved* curated theme to <html>
+// before React hydrates so there is no flash of the wrong theme. Mirrors the
+// Theme Lab resolution order used by ThemeApplicator: operator force
+// (device-local override, then the build-env pin baked in below) wins, else the
+// user's persisted preference, else the default. Kept in sync with
+// lib/theme/themes (ids), lib/theme-lab/control (storage key) and ThemeApplicator.
+const THEME_ENV_FORCE = process.env.NEXT_PUBLIC_THEME_LAB_FORCE || '';
+const THEME_BOOTSTRAP = `(function(){try{var ids=['standard','dark-performance','coach-mode','heritage-club','field-court','arcade-practice','bird-print'];var dark={'dark-performance':1,'arcade-practice':1};var t='dark-performance';var forced='';var fraw=localStorage.getItem('swingiq-theme-lab');if(fraw){var f=JSON.parse(fraw);if(f&&ids.indexOf(f.forcedThemeId)!==-1){forced=f.forcedThemeId;}}var envForce=${JSON.stringify(THEME_ENV_FORCE)};if(!forced&&ids.indexOf(envForce)!==-1){forced=envForce;}if(forced){t=forced;}else{var raw=localStorage.getItem('swingiq-store');if(raw){var s=JSON.parse(raw);var c=s&&s.state&&s.state.settings&&s.state.settings.colorTheme;if(ids.indexOf(c)!==-1){t=c;}}}var el=document.documentElement;el.setAttribute('data-theme',t);if(dark[t]){el.classList.add('dark');}else{el.classList.remove('dark');}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
