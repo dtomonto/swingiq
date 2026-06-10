@@ -1,10 +1,19 @@
 'use client';
 
-import { useRef } from 'react';
-import { Check, Info, Moon, Sun } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Check, Info, Moon, Sparkles, Sun } from 'lucide-react';
+import type { SportId } from '@swingiq/core';
 import { useSwingVantageStore } from '@/store';
 import { cn } from '@/lib/utils';
 import { THEMES, normalizeThemeId, type ThemeDef, type ThemeId } from '@/lib/theme/themes';
+import { recommendTheme, type ThemeRecommendation } from '@/lib/theme-lab';
+import {
+  DEFAULT_CONTROL,
+  readThemeLabControl,
+  writeThemeLabControl,
+  THEME_LAB_CHANGE_EVENT,
+  type ThemeLabControl,
+} from '@/lib/theme-lab/control';
 
 /**
  * Premium theme picker. Each card renders a live, miniature "app" in the
@@ -17,12 +26,33 @@ import { THEMES, normalizeThemeId, type ThemeDef, type ThemeId } from '@/lib/the
  * navigation (WAI-ARIA radio pattern). Selection is also obvious without
  * color alone (ring + check badge + "Selected" text).
  */
-export function ThemeSelector() {
+export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | null } = {}) {
   const active = useSwingVantageStore((s) => normalizeThemeId(s.settings.colorTheme));
+  const prefersDark = useSwingVantageStore((s) => s.settings.theme === 'dark');
   const updateSettings = useSwingVantageStore((s) => s.updateSettings);
   const btnRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
+  // Theme Lab per-device opt-ins (seasonal + suggestions). Subscribe so toggles
+  // here and elsewhere stay in sync without a reload.
+  const [control, setControl] = useState<ThemeLabControl>(DEFAULT_CONTROL);
+  useEffect(() => {
+    const sync = () => setControl(readThemeLabControl());
+    sync();
+    window.addEventListener('storage', sync);
+    window.addEventListener(THEME_LAB_CHANGE_EVENT, sync);
+    return () => {
+      window.removeEventListener('storage', sync);
+      window.removeEventListener(THEME_LAB_CHANGE_EVENT, sync);
+    };
+  }, []);
+
   const select = (id: ThemeId) => updateSettings({ colorTheme: id });
+
+  // A gentle, privacy-safe suggestion derived from the active sport / dark
+  // leaning. Only shown when suggestions are on and there's a better fit.
+  const recommendation: ThemeRecommendation | null = control.allowRecommended
+    ? recommendTheme({ sport: activeSport, prefersDark, currentThemeId: active })
+    : null;
 
   // Roving focus + selection for the radio pattern (Arrow / Home / End).
   const onKeyDown = (e: React.KeyboardEvent, index: number) => {
@@ -61,6 +91,25 @@ export function ThemeSelector() {
         <span className="text-xs text-muted-foreground">{THEMES.length} art directions</span>
       </div>
 
+      {recommendation && (
+        <div className="mb-3 flex flex-wrap items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-3 py-2.5">
+          <Sparkles size={16} className="shrink-0 text-primary" aria-hidden="true" />
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-medium text-foreground">
+              Recommended: {THEMES.find((t) => t.id === recommendation.themeId)?.name}
+            </p>
+            <p className="text-xs text-muted-foreground">{recommendation.reason}</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => select(recommendation.themeId)}
+            className="shrink-0 rounded-lg btn-theme-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground"
+          >
+            Apply
+          </button>
+        </div>
+      )}
+
       <div
         role="radiogroup"
         aria-labelledby="theme-selector-label"
@@ -68,6 +117,7 @@ export function ThemeSelector() {
       >
         {THEMES.map((theme, i) => {
           const selected = theme.id === active;
+          const recommended = recommendation?.themeId === theme.id;
           return (
             <button
               key={theme.id}
@@ -95,8 +145,11 @@ export function ThemeSelector() {
               {/* Label */}
               <div className="p-3 bg-card">
                 <div className="flex items-center justify-between gap-2">
-                  <h3 className="font-semibold text-sm text-card-foreground leading-tight truncate">
-                    {theme.name}
+                  <h3 className="flex min-w-0 items-center gap-1 font-semibold text-sm text-card-foreground leading-tight">
+                    <span className="truncate">{theme.name}</span>
+                    {recommended && !selected && (
+                      <Sparkles size={12} className="shrink-0 text-primary" aria-hidden="true" />
+                    )}
                   </h3>
                   {selected ? (
                     <span className="shrink-0 inline-flex items-center justify-center h-5 w-5 rounded-full bg-primary text-primary-foreground">
@@ -123,6 +176,22 @@ export function ThemeSelector() {
         })}
       </div>
 
+      {/* Theme Lab opt-ins (per-device) */}
+      <div className="mt-3 space-y-2 rounded-lg border border-border px-3 py-2.5">
+        <ToggleRow
+          label="Theme suggestions"
+          hint="Show a recommended theme based on your sport."
+          checked={control.allowRecommended}
+          onChange={(v) => setControl(writeThemeLabControl({ allowRecommended: v }))}
+        />
+        <ToggleRow
+          label="Seasonal themes"
+          hint="Let limited-time seasonal themes appear in their window."
+          checked={control.allowSeasonal}
+          onChange={(v) => setControl(writeThemeLabControl({ allowSeasonal: v }))}
+        />
+      </div>
+
       {/* Reminder: themes are cosmetic only */}
       <div className="mt-3 flex items-start gap-2 rounded-lg bg-muted px-3 py-2.5">
         <Info size={15} className="text-muted-foreground shrink-0 mt-0.5" aria-hidden="true" />
@@ -131,6 +200,47 @@ export function ThemeSelector() {
           change — pick whatever feels right.
         </p>
       </div>
+    </div>
+  );
+}
+
+/** Compact, accessible opt-in switch used for the Theme Lab preferences. */
+function ToggleRow({
+  label,
+  hint,
+  checked,
+  onChange,
+}: {
+  label: string;
+  hint: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <div className="min-w-0">
+        <p className="text-sm font-medium text-foreground">{label}</p>
+        <p className="text-xs text-muted-foreground">{hint}</p>
+      </div>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        aria-label={label}
+        onClick={() => onChange(!checked)}
+        className={cn(
+          'relative h-6 w-11 shrink-0 rounded-full transition-colors',
+          'focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+          checked ? 'bg-primary' : 'bg-muted-foreground/30',
+        )}
+      >
+        <span
+          className={cn(
+            'absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform',
+            checked ? 'translate-x-5' : 'translate-x-0.5',
+          )}
+        />
+      </button>
     </div>
   );
 }

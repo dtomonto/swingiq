@@ -64,6 +64,15 @@ describe('theme-lab/control', () => {
     const c = readThemeLabControl();
     expect(c.forcedThemeId).toBe('coach-mode');
     expect(c.allowSeasonal).toBe(true);
+    expect(c.allowRecommended).toBe(true); // default on, untouched
+  });
+
+  it('allowRecommended defaults ON and only an explicit false turns it off', () => {
+    expect(readThemeLabControl().allowRecommended).toBe(true);
+    writeThemeLabControl({ allowRecommended: false });
+    expect(readThemeLabControl().allowRecommended).toBe(false);
+    writeThemeLabControl({ allowRecommended: true });
+    expect(readThemeLabControl().allowRecommended).toBe(true);
   });
 
   it('ignores a forced theme that is not an active theme', () => {
@@ -88,12 +97,11 @@ describe('theme-lab/control', () => {
   });
 
   it('effectiveForcedTheme: device pin beats env pin beats nothing', () => {
+    const base = { allowSeasonal: false, allowRecommended: true };
     process.env.NEXT_PUBLIC_THEME_LAB_FORCE = 'coach-mode';
-    expect(effectiveForcedTheme({ forcedThemeId: null, allowSeasonal: false })).toBe('coach-mode');
-    expect(effectiveForcedTheme({ forcedThemeId: 'field-court', allowSeasonal: false })).toBe(
-      'field-court',
-    );
+    expect(effectiveForcedTheme({ forcedThemeId: null, ...base })).toBe('coach-mode');
+    expect(effectiveForcedTheme({ forcedThemeId: 'field-court', ...base })).toBe('field-court');
     delete process.env.NEXT_PUBLIC_THEME_LAB_FORCE;
-    expect(effectiveForcedTheme({ forcedThemeId: null, allowSeasonal: false })).toBeNull();
+    expect(effectiveForcedTheme({ forcedThemeId: null, ...base })).toBeNull();
   });
 });

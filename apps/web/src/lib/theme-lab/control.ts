@@ -24,9 +24,15 @@ export interface ThemeLabControl {
   forcedThemeId: ThemeId | null;
   /** Per-user opt-in to seasonal themes. */
   allowSeasonal: boolean;
+  /** Per-user opt-in to theme suggestions in the selector. Default ON. */
+  allowRecommended: boolean;
 }
 
-export const DEFAULT_CONTROL: ThemeLabControl = { forcedThemeId: null, allowSeasonal: false };
+export const DEFAULT_CONTROL: ThemeLabControl = {
+  forcedThemeId: null,
+  allowSeasonal: false,
+  allowRecommended: true,
+};
 
 /**
  * Operator force baked in from the build env — the cross-device seam. Only
@@ -52,6 +58,8 @@ export function readThemeLabControl(): ThemeLabControl {
     return {
       forcedThemeId: forced && isThemeActive(forced) ? forced : null,
       allowSeasonal: !!parsed.allowSeasonal,
+      // Default ON: only an explicit stored `false` turns suggestions off.
+      allowRecommended: parsed.allowRecommended !== false,
     };
   } catch {
     return DEFAULT_CONTROL;

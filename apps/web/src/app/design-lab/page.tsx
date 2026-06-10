@@ -17,6 +17,7 @@ import { notFound } from 'next/navigation';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { SportShell } from '@/components/sport/SportShell';
 import { ALL_SPORT_BRANDS } from '@/lib/sport-brand/registry';
+import { ThemeSelector } from '@/components/theme/ThemeSelector';
 
 export const metadata: Metadata = {
   title: 'Design Lab (dev)',
@@ -92,6 +93,17 @@ export default function DesignLabPage() {
                 <span className="mt-3 block h-1.5 rounded-full" style={{ background: 'var(--sport-accent)' }} aria-hidden="true" />
               </SportShell>
             ))}
+          </div>
+        </section>
+
+        {/* ThemeSelector — user-facing selector with the Theme Lab recommendation
+            + opt-ins (#3 step 6/7). activeSport=golf so the suggestion surfaces. */}
+        <section className="mb-12">
+          <h2 className="mb-4 font-heading text-lg font-semibold uppercase tracking-tight">
+            Theme selector — recommendation + opt-ins
+          </h2>
+          <div className="max-w-xl rounded-theme border border-border bg-card p-6 shadow-theme">
+            <ThemeSelector activeSport="golf" />
           </div>
         </section>
 

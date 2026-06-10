@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { CheckCircle, Trash2, HardDrive, HelpCircle, Database } from 'lucide-react';
 import Link from 'next/link';
 import { useTutorial } from '@/hooks/useTutorial';
+import { useSport } from '@/contexts/SportContext';
 import { ThemeSelector } from '@/components/theme/ThemeSelector';
 import { CoachingToneSelector } from '@/components/settings/CoachingToneSelector';
 import { AccountSyncCard } from '@/components/sync/AccountSyncCard';
@@ -15,6 +16,7 @@ import { GuardianConsentPanel } from '@/components/guardian-consent/GuardianCons
 
 export default function SettingsPage() {
   const { settings, updateSettings, reset } = useSwingVantageStore();
+  const { activeSport } = useSport();
   const { resetAll: resetTutorials, tutorialProgress } = useTutorial();
   const [saved, setSaved] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
@@ -62,7 +64,7 @@ export default function SettingsPage() {
                 <option value="meters">Meters</option>
               </select>
             </div>
-            <ThemeSelector />
+            <ThemeSelector activeSport={activeSport} />
           </CardBody>
         </Card>
 
