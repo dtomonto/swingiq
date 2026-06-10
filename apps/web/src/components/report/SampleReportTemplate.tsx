@@ -24,6 +24,7 @@ import {
   Users,
   ShieldQuestion,
   Info,
+  ArrowRight,
 } from 'lucide-react';
 import type { SampleReport } from '@/content/sampleReports';
 import { ShareableReportCard } from '@/components/report/ShareableReportCard';
@@ -202,7 +203,7 @@ export function SampleReportTemplate({ report }: { report: SampleReport }) {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href={report.modeChooser.slowHref}
-              className="rounded-xl bg-primary-foreground px-6 py-3 font-bold text-primary transition-colors hover:bg-primary-foreground/90"
+              className="rounded-xl bg-background px-6 py-3 font-bold text-foreground transition-opacity hover:opacity-90"
             >
               Slow Pitch →
             </Link>
@@ -219,9 +220,10 @@ export function SampleReportTemplate({ report }: { report: SampleReport }) {
           <p className="mb-4 text-lg font-bold">Get your own {report.sportLabel} report free</p>
           <Link
             href={report.startSport ? `/start?sport=${report.startSport}` : '/start'}
-            className="inline-block rounded-xl bg-primary-foreground px-8 py-3 font-bold text-primary transition-colors hover:bg-primary-foreground/90"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-background px-8 py-3 font-bold text-foreground transition-opacity hover:opacity-90"
           >
             Analyze My Swing Free
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
           <p className="mt-3 text-xs text-primary-foreground/80">No account required · Free · Private by default</p>
         </section>
