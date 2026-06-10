@@ -1,5 +1,6 @@
 import { buildMetadata } from '@/lib/seo/metadata';
 import { AudienceLanding, type AudienceConfig } from '@/components/landing/AudienceLanding';
+import { PERSONA_CTA_MAP } from '@/lib/personas/cta-map';
 
 export const metadata = buildMetadata({
   title: 'SwingVantage for Teams — Affordable Swing Development',
@@ -26,7 +27,7 @@ const config: AudienceConfig = {
     'Coaches and parents support those priorities between team practices.',
     'The team retests and tracks progress over a season.',
   ],
-  ctaLabel: 'Start a team pilot',
+  ctaLabel: PERSONA_CTA_MAP.teams.ctaLabel,
   captureHeading: 'Start a team pilot',
   captureSub: 'Tell us about your team and we’ll help you roll it out.',
 };

@@ -1,5 +1,6 @@
 import { buildMetadata } from '@/lib/seo/metadata';
 import { AudienceLanding, type AudienceConfig } from '@/components/landing/AudienceLanding';
+import { PERSONA_CTA_MAP } from '@/lib/personas/cta-map';
 
 export const metadata = buildMetadata({
   title: 'Partner with SwingVantage — Facilities & Ranges',
@@ -26,7 +27,7 @@ const config: AudienceConfig = {
     'Members run analyses and bring priorities to lessons at your facility.',
     'You convert engaged members into lessons and memberships.',
   ],
-  ctaLabel: 'Partner with SwingVantage',
+  ctaLabel: PERSONA_CTA_MAP.partners.ctaLabel,
   captureHeading: 'Partner with SwingVantage',
   captureSub: 'Tell us about your facility and we’ll explore a partnership.',
 };

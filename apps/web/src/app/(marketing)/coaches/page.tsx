@@ -1,5 +1,6 @@
 import { buildMetadata } from '@/lib/seo/metadata';
 import { AudienceLanding, type AudienceConfig } from '@/components/landing/AudienceLanding';
+import { PERSONA_CTA_MAP } from '@/lib/personas/cta-map';
 
 export const metadata = buildMetadata({
   title: 'SwingVantage for Coaches — Better Practice Between Sessions',
@@ -26,7 +27,7 @@ const config: AudienceConfig = {
     'They practice that priority between sessions and retest.',
     'They bring their SwingVantage summary to your lesson so you can confirm and fine-tune.',
   ],
-  ctaLabel: 'Start a free coach pilot',
+  ctaLabel: PERSONA_CTA_MAP.coaches.ctaLabel,
   captureHeading: 'Start a free coach pilot',
   captureSub: 'Tell us about your program and we’ll help you get a few athletes set up.',
 };

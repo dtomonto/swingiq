@@ -1,5 +1,6 @@
 import { buildMetadata } from '@/lib/seo/metadata';
 import { AudienceLanding, type AudienceConfig } from '@/components/landing/AudienceLanding';
+import { PERSONA_CTA_MAP } from '@/lib/personas/cta-map';
 
 export const metadata = buildMetadata({
   title: 'SwingVantage for Creators — Support Educational Swing Content',
@@ -26,7 +27,7 @@ const config: AudienceConfig = {
     'Show the single top priority and the drills that address it.',
     'Point your audience to a free analysis so they can try it themselves.',
   ],
-  ctaLabel: 'Collaborate with SwingVantage',
+  ctaLabel: PERSONA_CTA_MAP.creators.ctaLabel,
   captureHeading: 'Collaborate with SwingVantage',
   captureSub: 'Tell us about your content and audience and we’ll explore working together.',
   showCoachNotice: false,
