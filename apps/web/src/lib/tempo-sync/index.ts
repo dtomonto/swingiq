@@ -39,3 +39,19 @@ export {
 } from './tempo';
 
 export { useTempoMetronome, type TempoMetronomeState } from './useTempoMetronome';
+
+export { scoreRhythm, SCORE_TOLERANCE_MS, type RhythmScore } from './scoring';
+
+export {
+  loadTempoHistory,
+  saveTempoEntry,
+  clearTempoHistory,
+  subscribeTempoHistory,
+  getTempoStoreVersion,
+  tempoTrend,
+  type TempoEntry,
+  type TempoSource,
+  type TempoTrend,
+} from './storage';
+
+export { useTempoHistory } from './useTempoHistory';

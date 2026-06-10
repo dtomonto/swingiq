@@ -3,6 +3,8 @@
 // ============================================================
 
 import type { TemporalIntelligence } from '@/lib/motion-lab';
+import { scoreRhythm, SCORE_TOLERANCE_MS } from '../scoring';
+import { tempoTrend, type TempoEntry } from '../storage';
 import {
   REFERENCE_FPS,
   FULL_SWING_PRESETS,
@@ -207,5 +209,77 @@ describe('repsPerMinute', () => {
     const t = customTiming(1000, 3);
     expect(repsPerMinute(t, 1000)).toBe(30); // 2s cycle → 30/min
     expect(repsPerMinute(t, 0)).toBe(60);
+  });
+});
+
+describe('scoreRhythm', () => {
+  it('returns null with no taps', () => {
+    expect(scoreRhythm([])).toBeNull();
+  });
+
+  it('scores dead-on taps as a perfect A', () => {
+    const s = scoreRhythm([0, 0, 0])!;
+    expect(s.accuracy).toBe(100);
+    expect(s.grade).toBe('A');
+    expect(s.tendencyMs).toBe(0);
+  });
+
+  it('uses absolute error for accuracy but signed mean for tendency', () => {
+    const s = scoreRhythm([100, 120, 80])!; // consistently late
+    expect(s.tendencyMs).toBeGreaterThan(0);
+    expect(s.note).toMatch(/late/i);
+    expect(s.accuracy).toBeLessThan(100);
+  });
+
+  it('detects an early tendency', () => {
+    const s = scoreRhythm([-90, -110, -100])!;
+    expect(s.tendencyMs).toBeLessThan(0);
+    expect(s.note).toMatch(/early/i);
+  });
+
+  it('floors accuracy at zero beyond the tolerance', () => {
+    const s = scoreRhythm([SCORE_TOLERANCE_MS * 2, SCORE_TOLERANCE_MS * 2])!;
+    expect(s.accuracy).toBe(0);
+    expect(s.grade).toBe('D');
+  });
+
+  it('reports the worst single error', () => {
+    expect(scoreRhythm([10, -200, 30])!.worstErrorMs).toBe(200);
+  });
+});
+
+function entry(ratio: number, at: number): TempoEntry {
+  const total = 1000;
+  const downMs = total / (ratio + 1);
+  return { id: `e${at}`, at, source: 'tap', totalMs: total, backMs: total - downMs, downMs, ratio };
+}
+
+describe('tempoTrend', () => {
+  it('returns null on an empty history', () => {
+    expect(tempoTrend([])).toBeNull();
+  });
+
+  it('reads one entry as n/a direction', () => {
+    const t = tempoTrend([entry(2.4, 3)])!;
+    expect(t.count).toBe(1);
+    expect(t.direction).toBe('n/a');
+  });
+
+  it('flags improvement when the latest ratio is nearer the ideal', () => {
+    // newest-first: latest 2.9 (close to 3), oldest 1.8 (far)
+    const t = tempoTrend([entry(2.9, 3), entry(2.3, 2), entry(1.8, 1)])!;
+    expect(t.direction).toBe('improving');
+    expect(t.bestRatio).toBe(2.9);
+  });
+
+  it('flags drift when the latest ratio is further from the ideal', () => {
+    const t = tempoTrend([entry(1.8, 3), entry(2.4, 2), entry(2.9, 1)])!;
+    expect(t.direction).toBe('drifting');
+  });
+
+  it('reads small changes as steady and averages the ratios', () => {
+    const t = tempoTrend([entry(3.0, 3), entry(2.95, 2), entry(3.05, 1)])!;
+    expect(t.direction).toBe('steady');
+    expect(t.avgRatio).toBeCloseTo(3, 1);
   });
 });

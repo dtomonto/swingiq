@@ -28,9 +28,15 @@ export interface TempoMetronomeState {
   /** True once a count-in is running, before the first real rep. */
   countingIn: boolean;
   audioSupported: boolean;
+  /** Signed timing errors (ms) of taps vs the Strike beat; +late, -early. */
+  tapErrors: number[];
   start: () => void;
   stop: () => void;
   toggle: () => void;
+  /** Record a "I struck the ball now" tap, scored against the nearest Strike. */
+  registerTap: () => void;
+  /** Clear accumulated tap-scoring errors without stopping playback. */
+  resetScore: () => void;
 }
 
 interface Config {
@@ -39,6 +45,8 @@ interface Config {
   restMs: number;
   soundEnabled: boolean;
   countIn: boolean;
+  /** Pulse the device on each cue (where supported). */
+  haptics: boolean;
 }
 
 const LOOKAHEAD_S = 0.2; // schedule this far ahead of the audio clock
@@ -52,6 +60,21 @@ const TONE: Record<TempoBeatKind, { freq: number; durMs: number; gain: number }>
   top: { freq: 880, durMs: 70, gain: 0.18 },
   impact: { freq: 1320, durMs: 110, gain: 0.26 },
 };
+
+// Haptic pulse length (ms) per cue — the strike gets a firmer buzz.
+const HAPTIC_MS: Record<TempoBeatKind, number> = { takeaway: 12, top: 12, impact: 28 };
+/** Match a tap to a Strike beat only within this window. */
+const TAP_MATCH_WINDOW_S = 0.6;
+
+function vibrate(ms: number): void {
+  try {
+    if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
+      navigator.vibrate(ms);
+    }
+  } catch {
+    /* haptics are best-effort */
+  }
+}
 
 function getAudioContextCtor(): typeof AudioContext | null {
   if (typeof window === 'undefined') return null;
@@ -79,6 +102,7 @@ export function useTempoMetronome(config: Config): TempoMetronomeState {
   const [progress, setProgress] = useState(-1);
   const [lastBeat, setLastBeat] = useState<TempoBeatKind | null>(null);
   const [countingIn, setCountingIn] = useState(false);
+  const [tapErrors, setTapErrors] = useState<number[]>([]);
 
   // Latest config, mirrored into a ref so the scheduler/visual loops always
   // read live values without being torn down and rebuilt on every prop change.
@@ -99,6 +123,9 @@ export function useTempoMetronome(config: Config): TempoMetronomeState {
   const flashUntilRef = useRef(0);
   // Tracks whether the very first takeaway has passed (count-in vs rep 1).
   const countInDoneRef = useRef(false);
+  // Recent Strike-beat times (audio clock) for matching scoring taps.
+  const impactTimesRef = useRef<number[]>([]);
+  const errorsRef = useRef<number[]>([]);
 
   const audioSupported = getAudioContextCtor() != null;
 
@@ -113,6 +140,7 @@ export function useTempoMetronome(config: Config): TempoMetronomeState {
     }
     cyclesRef.current = [];
     pendingBeatsRef.current = [];
+    impactTimesRef.current = [];
     setPlaying(false);
     setCountingIn(false);
     setProgress(-1);
@@ -132,7 +160,10 @@ export function useTempoMetronome(config: Config): TempoMetronomeState {
     repsDoneRef.current = 0;
     cyclesRef.current = [];
     pendingBeatsRef.current = [];
+    impactTimesRef.current = [];
+    errorsRef.current = [];
     setRep(0);
+    setTapErrors([]);
 
     // Optional count-in: a few evenly spaced ticks before the first takeaway.
     let firstStart = now + 0.12;
@@ -166,6 +197,7 @@ export function useTempoMetronome(config: Config): TempoMetronomeState {
             const tone = TONE[b.kind];
             scheduleClick(audio, at, tone.freq, tone.durMs, tone.gain);
           }
+          if (b.kind === 'impact') impactTimesRef.current.push(at);
           pendingBeatsRef.current.push({ at, kind: b.kind });
         }
         cyclesRef.current.push({ start: cstart, total: totalS });
@@ -186,6 +218,7 @@ export function useTempoMetronome(config: Config): TempoMetronomeState {
         const b = pend.shift()!;
         setLastBeat(b.kind);
         flashUntilRef.current = clock + 0.16;
+        if (cfgRef.current.haptics) vibrate(HAPTIC_MS[b.kind]);
         if (b.kind === 'takeaway') {
           if (countInDoneRef.current) {
             repsDoneRef.current += 1;
@@ -218,8 +251,9 @@ export function useTempoMetronome(config: Config): TempoMetronomeState {
       setProgress(prog);
       setCountingIn(resting && clock < firstStart);
 
-      // Prune fully-finished cycles to keep the arrays tiny.
+      // Prune fully-finished cycles + stale impact times to keep arrays tiny.
       cyclesRef.current = cyclesRef.current.filter((c) => clock <= c.start + c.total + 0.5);
+      impactTimesRef.current = impactTimesRef.current.filter((t) => clock - t < TAP_MATCH_WINDOW_S + 0.2);
 
       rafRef.current = requestAnimationFrame(draw);
     };
@@ -232,6 +266,30 @@ export function useTempoMetronome(config: Config): TempoMetronomeState {
     else start();
   }, [start, stop]);
 
+  // Score a "struck the ball now" tap against the nearest Strike beat.
+  const registerTap = useCallback(() => {
+    if (!timerRef.current) return; // only meaningful while playing
+    const audio = ctxRef.current;
+    const now = audio ? audio.currentTime : performance.now() / 1000;
+    let nearest: number | null = null;
+    let bestGap = Infinity;
+    for (const t of impactTimesRef.current) {
+      const gap = Math.abs(now - t);
+      if (gap < bestGap) {
+        bestGap = gap;
+        nearest = t;
+      }
+    }
+    if (nearest == null || bestGap > TAP_MATCH_WINDOW_S) return; // no beat to score against
+    errorsRef.current = [...errorsRef.current, (now - nearest) * 1000];
+    setTapErrors(errorsRef.current);
+  }, []);
+
+  const resetScore = useCallback(() => {
+    errorsRef.current = [];
+    setTapErrors([]);
+  }, []);
+
   // Clean up on unmount.
   useEffect(() => () => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -239,5 +297,18 @@ export function useTempoMetronome(config: Config): TempoMetronomeState {
     void ctxRef.current?.close();
   }, []);
 
-  return { isPlaying, rep, progress, lastBeat, countingIn, audioSupported, start, stop, toggle };
+  return {
+    isPlaying,
+    rep,
+    progress,
+    lastBeat,
+    countingIn,
+    audioSupported,
+    tapErrors,
+    start,
+    stop,
+    toggle,
+    registerTap,
+    resetScore,
+  };
 }

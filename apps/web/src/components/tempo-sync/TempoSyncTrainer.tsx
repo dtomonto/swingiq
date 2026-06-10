@@ -11,7 +11,10 @@
 // ============================================================
 
 import { useMemo, useState } from 'react';
-import { Play, Square, Volume2, VolumeX, Hourglass, Activity, Hand, RotateCcw } from 'lucide-react';
+import {
+  Play, Square, Volume2, VolumeX, Hourglass, Activity, Hand, RotateCcw,
+  Vibrate, Target, Save, Trash2, TrendingUp, TrendingDown, Minus,
+} from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
 import type { TemporalIntelligence } from '@/lib/motion-lab';
@@ -27,9 +30,15 @@ import {
   repsPerMinute,
   syncFromTemporal,
   tempoFromTaps,
+  scoreRhythm,
   useTempoMetronome,
+  saveTempoEntry,
+  clearTempoHistory,
+  tempoTrend,
+  useTempoHistory,
   type TempoBeatKind,
   type TempoPreset,
+  type TempoSource,
 } from '@/lib/tempo-sync';
 
 interface Props {
@@ -75,7 +84,9 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
   const [tempoPct, setTempoPct] = useState(100);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [countIn, setCountIn] = useState(true);
+  const [haptics, setHaptics] = useState(false);
   const [taps, setTaps] = useState<number[]>([]);
+  const [savedId, setSavedId] = useState<string | null>(null);
 
   const preset = getPreset(presetId);
   const base = useMemo(() => presetTiming(preset), [preset]);
@@ -83,9 +94,13 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
   const beats = useMemo(() => beatSchedule(timing), [timing]);
   const restMs = Math.max(800, timing.totalMs * 1.1);
 
-  const metro = useTempoMetronome({ timing, beats, restMs, soundEnabled, countIn });
+  const metro = useTempoMetronome({ timing, beats, restMs, soundEnabled, countIn, haptics });
 
   const sync = useMemo(() => (temporal ? syncFromTemporal(temporal) : null), [temporal]);
+  const score = useMemo(() => scoreRhythm(metro.tapErrors), [metro.tapErrors]);
+
+  const history = useTempoHistory();
+  const trend = useMemo(() => tempoTrend(history), [history]);
 
   const backFrac = timing.totalMs > 0 ? timing.backMs / timing.totalMs : 0.75;
   const angle = armAngle(metro.progress, backFrac);
@@ -119,6 +134,14 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
     setTaps((prev) => (prev.length >= 3 ? [performance.now()] : [...prev, performance.now()]));
   }
 
+  function saveTempo(source: TempoSource, totalMs: number, backMs: number, downMs: number, ratio: number) {
+    const entry = saveTempoEntry({ source, totalMs, backMs, downMs, ratio });
+    if (entry) {
+      setSavedId(entry.id);
+      window.setTimeout(() => setSavedId((cur) => (cur === entry.id ? null : cur)), 1800);
+    }
+  }
+
   return (
     <Card className={cn(variant === 'embedded' && 'bg-card/60')}>
       <CardBody className="space-y-4">
@@ -142,13 +165,24 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
             <p className="mt-1 leading-relaxed text-foreground/90">
               <span className="font-medium">{sync.verdict.label}.</span> {sync.verdict.detail}
             </p>
-            <button
-              type="button"
-              onClick={applySync}
-              className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              Sync trainer to my swing
-            </button>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={applySync}
+                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                Sync trainer to my swing
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  saveTempo('sync', sync.measuredTotalMs, sync.measuredBackMs ?? 0, sync.measuredThroughMs ?? 0, sync.measuredRatio)
+                }
+                className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-[11px] font-medium hover:bg-foreground/5"
+              >
+                <Save className="h-3 w-3" /> Save
+              </button>
+            </div>
           </div>
         )}
 
@@ -294,6 +328,19 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
           >
             <Hourglass className="h-4 w-4" />
           </button>
+          <button
+            type="button"
+            onClick={() => setHaptics((h) => !h)}
+            aria-pressed={haptics}
+            aria-label="Toggle haptics"
+            title={haptics ? 'Vibration on' : 'Vibration off'}
+            className={cn(
+              'rounded-xl border p-3 transition-colors',
+              haptics ? 'border-primary/40 text-foreground' : 'border-border text-muted-foreground hover:text-foreground',
+            )}
+          >
+            <Vibrate className="h-4 w-4" />
+          </button>
         </div>
 
         {/* Tap your own tempo — no camera needed */}
@@ -341,18 +388,107 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
               <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">
                 <span className="font-medium text-foreground">{tapResult.verdict.label}.</span> {tapResult.verdict.detail}
               </p>
-              <button
-                type="button"
-                onClick={() => applyTarget(tapResult.totalMs, tapResult.recommended)}
-                className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-              >
-                Train the ideal rhythm at this speed
-              </button>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => applyTarget(tapResult.totalMs, tapResult.recommended)}
+                  className="inline-flex items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                >
+                  Train the ideal rhythm at this speed
+                </button>
+                <button
+                  type="button"
+                  onClick={() => saveTempo('tap', tapResult.totalMs, tapResult.backMs, tapResult.downMs, tapResult.ratio)}
+                  className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-[11px] font-medium text-muted-foreground hover:text-foreground"
+                >
+                  <Save className="h-3 w-3" /> Save
+                </button>
+              </div>
             </div>
           ) : taps.length === 3 ? (
             <p className="text-[11px] text-warning">Those taps came out of order — reset and try again.</p>
           ) : null}
         </div>
+
+        {/* Rhythm score — tap along with the metronome on every Strike */}
+        <div className="space-y-2 rounded-lg border border-border bg-card/40 p-3">
+          <div className="flex items-center gap-2">
+            <Target className="h-4 w-4 text-muted-foreground" />
+            <p className="text-xs font-semibold text-foreground">Rhythm score</p>
+            {metro.tapErrors.length > 0 && (
+              <button
+                type="button"
+                onClick={metro.resetScore}
+                className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
+              >
+                <RotateCcw className="h-3 w-3" /> Reset
+              </button>
+            )}
+          </div>
+          <p className="text-[11px] leading-relaxed text-muted-foreground">
+            Press play, then tap the pad the instant you&apos;d strike the ball each rep. We score how close you land to the beat.
+          </p>
+          <button
+            type="button"
+            onClick={metro.registerTap}
+            disabled={!metro.isPlaying}
+            className="w-full rounded-lg border border-dashed border-primary/40 py-4 text-sm font-semibold text-foreground transition-colors hover:bg-primary/10 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {metro.isPlaying ? 'Tap on Strike' : 'Press play to score'}
+          </button>
+          {score && (
+            <div className="flex items-center gap-3 rounded-md border border-border bg-background/60 p-2.5">
+              <div className="flex flex-col items-center justify-center rounded-md px-2.5 py-1" style={{ backgroundColor: `${accent}1a` }}>
+                <span className="text-lg font-bold leading-none tabular-nums" style={{ color: accent }}>{score.grade}</span>
+                <span className="mt-0.5 text-[9px] uppercase tracking-wide text-muted-foreground">{score.accuracy}%</span>
+              </div>
+              <div className="min-w-0">
+                <p className="text-[11px] text-foreground tabular-nums">
+                  {score.taps} tap{score.taps === 1 ? '' : 's'} · avg {score.avgErrorMs}ms ·{' '}
+                  {score.tendencyMs > 0 ? `${score.tendencyMs}ms late` : score.tendencyMs < 0 ? `${-score.tendencyMs}ms early` : 'on the beat'}
+                </p>
+                <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">{score.note}</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Saved tempo history + trend */}
+        {trend && (
+          <div className="space-y-2 rounded-lg border border-border bg-card/40 p-3">
+            <div className="flex items-center gap-2">
+              {trend.direction === 'improving' ? (
+                <TrendingUp className="h-4 w-4 text-success" />
+              ) : trend.direction === 'drifting' ? (
+                <TrendingDown className="h-4 w-4 text-warning" />
+              ) : (
+                <Minus className="h-4 w-4 text-muted-foreground" />
+              )}
+              <p className="text-xs font-semibold text-foreground">My tempo · {trend.count} saved</p>
+              <button
+                type="button"
+                onClick={clearTempoHistory}
+                aria-label="Clear saved tempo history"
+                className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
+              >
+                <Trash2 className="h-3 w-3" /> Clear
+              </button>
+            </div>
+            <p className="text-[11px] leading-relaxed text-muted-foreground">{trend.summary}</p>
+            <ul className="space-y-1">
+              {history.slice(0, 5).map((e) => (
+                <li key={e.id} className="flex items-center justify-between text-[11px] tabular-nums">
+                  <span className={cn('font-medium text-foreground', savedId === e.id && 'text-primary')}>
+                    {e.ratio}:1 <span className="font-normal text-muted-foreground">· {fmtMs(e.totalMs)}</span>
+                  </span>
+                  <span className="text-muted-foreground">
+                    {e.source} · {new Date(e.at).toLocaleDateString()}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {!metro.audioSupported && (
           <p className="text-[11px] text-muted-foreground">
