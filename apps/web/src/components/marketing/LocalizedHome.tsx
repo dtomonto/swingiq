@@ -20,6 +20,7 @@ import { buildGraph, organizationSchema, websiteSchema, softwareApplicationSchem
 import { SampleReportPreview } from '@/components/trust';
 import { TutorialVideo } from '@/components/tutorial/TutorialVideo';
 import { ReturningUserRedirect } from '@/components/marketing/ReturningUserRedirect';
+import { LiveKinematicPanel } from '@/components/demo/LiveKinematicPanel';
 
 /**
  * The single marketing homepage, parameterized by locale — used by the English
@@ -444,42 +445,47 @@ function AnalysisReportCard() {
         <p className="mt-0.5 font-heading font-semibold uppercase tracking-tight text-foreground">Address hip rotation alignment</p>
       </div>
 
-      {/* Drill tiles */}
+      {/* Drill tiles — each opens the matching surface in the live sample */}
       <div className="mt-4 grid grid-cols-3 gap-3">
         {[
-          { icon: Target, label: 'Wall Drill', href: undefined },
-          { icon: Activity, label: 'Tempo Sync', href: '/tools/swing-tempo-trainer' },
-          { icon: User, label: 'Profile', href: undefined },
-        ].map(({ icon: Icon, label, href }) => {
-          const inner = (
-            <>
-              <Icon size={18} className="mx-auto text-primary" aria-hidden="true" />
-              <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-            </>
-          );
-          return href ? (
-            <Link
-              key={label}
-              href={href}
-              className="rounded-lg border border-border bg-secondary p-3 text-center transition-colors hover:border-primary/50 hover:bg-primary/10"
-            >
-              {inner}
-            </Link>
-          ) : (
-            <div key={label} className="rounded-lg border border-border bg-secondary p-3 text-center">
-              {inner}
-            </div>
-          );
-        })}
+          { icon: Target, label: 'Wall Drill', next: 'training' },
+          { icon: Activity, label: 'Tempo Sync', next: 'training' },
+          { icon: User, label: 'Profile', next: 'profile' },
+        ].map(({ icon: Icon, label, next }) => (
+          <Link
+            key={label}
+            href={`/demo?next=${next}`}
+            className="group rounded-lg border border-border bg-secondary p-3 text-center transition-colors hover:border-primary/60 hover:bg-primary/5"
+          >
+            <Icon size={18} className="mx-auto text-primary" aria-hidden="true" />
+            <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground group-hover:text-foreground">{label}</p>
+          </Link>
+        ))}
       </div>
 
-      {/* Tracking panel */}
-      <div className="mt-4 flex aspect-video items-end rounded-lg border border-border bg-background p-3">
+      {/* Live kinematic tracking visual (cycles all 7 sports) */}
+      <Link
+        href="/demo?next=report"
+        className="group mt-4 block aspect-video focus:outline-none"
+        aria-label="See the live sample analysis report"
+      >
+        <LiveKinematicPanel className="h-full w-full transition-shadow group-hover:shadow-theme-lg group-focus-visible:ring-2 group-focus-visible:ring-ring" />
+      </Link>
+
+      {/* CTA into the real sample report */}
+      <Link
+        href="/demo?next=report"
+        className="mt-3 flex items-center justify-between rounded-lg border border-border bg-secondary px-3 py-2.5 text-left transition-colors hover:border-primary/60 hover:bg-primary/5"
+      >
         <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide text-link">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" aria-hidden="true" />
           Kinematic tracking active
         </span>
-      </div>
+        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-foreground">
+          See the full report
+          <ArrowRight size={13} aria-hidden="true" />
+        </span>
+      </Link>
     </div>
   );
 }
