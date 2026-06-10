@@ -340,7 +340,7 @@ export default function ProgressPage() {
                   {idx === arr.length - 1 ? 'Latest' : format(new Date(snap.date), 'MMM d')}
                 </p>
                 <p className="text-xs text-muted-foreground mb-3 truncate">{snap.club_name}</p>
-                <ScoreRing score={snap.overall} size={70} strokeWidth={6} label="Overall" />
+                <ScoreRing score={snap.overall} size={70} strokeWidth={6} label="Overall" glow />
                 <div className="grid grid-cols-2 gap-2 mt-3">
                   <div>
                     <p className="text-xs text-muted-foreground">Face</p>

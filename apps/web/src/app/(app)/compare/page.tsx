@@ -251,7 +251,7 @@ function SessionComparisonTab() {
                 <p className="text-xs text-muted-foreground mb-4">
                   {format(new Date(analysisA.date), 'MMM d, yyyy')} · {analysisA.shot_count} shots · {analysisA.club_name}
                 </p>
-                <ScoreRing score={analysisA.overall} size={80} strokeWidth={7} label="Overall" />
+                <ScoreRing score={analysisA.overall} size={80} strokeWidth={7} label="Overall" glow />
                 {analysisA.primary_issue && (
                   <Badge variant="warning" className="mt-3 text-xs">{analysisA.primary_issue}</Badge>
                 )}
@@ -266,7 +266,7 @@ function SessionComparisonTab() {
                 <p className="text-xs text-muted-foreground mb-4">
                   {format(new Date(analysisB.date), 'MMM d, yyyy')} · {analysisB.shot_count} shots · {analysisB.club_name}
                 </p>
-                <ScoreRing score={analysisB.overall} size={80} strokeWidth={7} label="Overall" />
+                <ScoreRing score={analysisB.overall} size={80} strokeWidth={7} label="Overall" glow />
                 {analysisB.primary_issue && (
                   <Badge variant="warning" className="mt-3 text-xs">{analysisB.primary_issue}</Badge>
                 )}

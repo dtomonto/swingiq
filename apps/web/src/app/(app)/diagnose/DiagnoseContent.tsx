@@ -365,9 +365,9 @@ export function DiagnoseContent() {
             </select>
           )}
 
-          <ScoreRing score={scores.overall} size={64} strokeWidth={6} label="Overall" />
-          <ScoreRing score={scores.face_control} size={64} strokeWidth={6} label="Face" />
-          <ScoreRing score={scores.strike_quality} size={64} strokeWidth={6} label="Strike" />
+          <ScoreRing score={scores.overall} size={64} strokeWidth={6} label="Overall" glow />
+          <ScoreRing score={scores.face_control} size={64} strokeWidth={6} label="Face" glow />
+          <ScoreRing score={scores.strike_quality} size={64} strokeWidth={6} label="Strike" glow />
         </div>
       </div>
 
