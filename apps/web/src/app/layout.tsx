@@ -12,13 +12,26 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { siteConfig } from '@/config/site';
 import { ServiceWorkerRegistrar } from '@/components/pwa/ServiceWorkerRegistrar';
 
+// Body font — used for nearly all text on every page, so it's the one font we
+// keep preloaded on the critical path (preload defaults to true).
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 // Display face for the Dark Performance (B) brand — bold, technical headings.
 // Exposed as a CSS variable and consumed via `--font-heading` per theme.
+//
+// Kept OFF the critical render path on purpose: it's a headings-only face used
+// by just 2 of the 8 themes and always sits behind a `system-ui` fallback, yet
+// next/font preloads by default — emitting a render-blocking <link rel=preload>
+// on every page (even the 6 themes that never use it), which competes with the
+// body font and regressed FCP/LCP (see docs/PERFORMANCE.md). `preload: false`
+// drops that critical-path request; `display: 'swap'` (next/font's default,
+// pinned here for clarity) still paints headings instantly in the fallback and
+// swaps Space Grotesk in once it arrives — no invisible text, no layout shift.
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   weight: ['500', '600', '700'],
   variable: '--font-space-grotesk',
+  preload: false,
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
