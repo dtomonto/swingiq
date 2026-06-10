@@ -17,6 +17,7 @@ import { MotionRecorder } from './MotionRecorder';
 import { VideoTrimmer } from './VideoTrimmer';
 import { SportMotionSelector } from './SportMotionSelector';
 import { RecordingGuidance } from './RecordingGuidance';
+import { MotionLabTrustNote } from './MotionLabTrustNote';
 import { MotionAnalysisProgress } from './MotionAnalysisProgress';
 import { MotionResultsDashboard } from './MotionResultsDashboard';
 import { Button } from '@/components/ui/Button';
@@ -276,6 +277,8 @@ export function MotionLabWizard() {
                 />
               </CardBody>
             </Card>
+
+            <MotionLabTrustNote />
 
             <div className="flex justify-end">
               <Button disabled={!motionType} onClick={() => setStep('capture')}>

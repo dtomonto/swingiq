@@ -42,6 +42,13 @@ footage with overlays drawn on it*. That is now built:
   capture step **before** upload. Pure data + selectors, unit-tested; complements
   the post-analysis `CameraQualityReport` (guidance prevents bad clips; the gate
   explains them after).
+- **`components/motion-lab/MotionLabTrustNote.tsx`** — a consolidated, honest
+  "how your video & data are handled" disclosure (spec §12): on-device analysis,
+  video never uploaded or saved, delete anytime, confidence labelling, and "not
+  medical." Shown on the select step before the user commits a clip.
+- **`components/motion-lab/MotionLabGate.tsx`** — wires the `motion_lab.enabled`
+  operator flag (admin kill-switch) so the lab can be turned off without a
+  redeploy; default stays on.
 
 ### Privacy invariant (do not regress)
 
