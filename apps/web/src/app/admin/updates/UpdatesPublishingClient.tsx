@@ -114,9 +114,13 @@ export function UpdatesPublishingClient({
         <div className="flex items-start gap-2 rounded-xl border border-sky-500/30 bg-sky-500/10 p-3 text-sm text-sky-200">
           <Lock className="mt-0.5 h-4 w-4 shrink-0" />
           <p>
-            View-only here. Publishing edits a versioned data file, which the production filesystem
-            can&apos;t write. Run SwingVantage locally to publish, then commit &amp; push — the page
-            goes live on the next deploy.
+            This legacy screen edits a versioned data file, which the production filesystem can&apos;t
+            write — so toggles here are local-only. Production publishing is no longer a dead-end:{' '}
+            <a href="/admin/publishing" className="font-medium underline hover:no-underline">
+              open PublishingOS
+            </a>{' '}
+            to publish durably (database-backed, revalidated live, with rollback &amp; an audit trail) —
+            no commit, push or deploy required.
           </p>
         </div>
       )}

@@ -11,6 +11,7 @@
 // ============================================================
 
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { requireAdmin, contextCan } from '@/lib/admin/context';
 import {
   setPublishState,
@@ -20,11 +21,29 @@ import {
 } from '@/lib/admin/updates-store';
 import { setContentPublishState } from '@/lib/admin/content-publish-store';
 import { validateUpdate, scoreUpdateQuality } from '@/lib/updates/validation';
+import { recordPublishDecision } from '@/lib/publishing/service';
+import type { PublishEntityType } from '@/lib/publishing/types';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const KINDS: PublishKind[] = ['product', 'dev', 'seo', 'blog'];
+
+/** Map the legacy publish kind to a PublishingOS entity type. */
+const KIND_TO_ENTITY: Record<PublishKind, PublishEntityType> = {
+  product: 'update',
+  dev: 'dev-update',
+  seo: 'seo-page',
+  blog: 'blog-post',
+};
+
+/** Public route each kind controls (revalidated after a durable publish). */
+const KIND_TO_ROUTE: Record<PublishKind, string> = {
+  product: '/updates',
+  dev: '/dev-updates',
+  seo: '/',
+  blog: '/blog',
+};
 
 /**
  * GET /api/admin/updates — per-row quality scores for the Publishing table.
@@ -58,7 +77,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   }
 
-  let body: { kind?: string; id?: string; action?: string } = {};
+  let body: { kind?: string; id?: string; action?: string; riskAcknowledged?: boolean } = {};
   try {
     body = await req.json();
   } catch {
@@ -111,16 +130,45 @@ export async function POST(req: Request) {
     kind === 'product' || kind === 'dev'
       ? setPublishState(kind, id, publish)
       : setContentPublishState(kind, id, publish);
+
   if (!result.ok) {
     if (result.reason === 'read-only') {
-      return NextResponse.json(
-        {
-          error: 'read-only',
-          message:
-            'Publishing writes to a versioned data file, which is only possible in your local dev environment. Toggle there, then commit & push.',
-        },
-        { status: 409 },
-      );
+      // PRODUCTION PATH: the filesystem is read-only, so instead of dead-ending
+      // we persist the decision durably in PublishingOS (a DB override the
+      // public read path honours) and revalidate the affected route. This is
+      // what makes "publish in production" real — no commit/push required.
+      const decision = await recordPublishDecision({
+        entityType: KIND_TO_ENTITY[kind],
+        entityId: id,
+        title: readProductCandidate(id)?.title ?? id,
+        slug: id,
+        action: publish ? 'publish' : 'unpublish',
+        actorEmail: admin.email ?? undefined,
+        riskAcknowledged: body.riskAcknowledged === true,
+        affectedRoutes: [KIND_TO_ROUTE[kind]],
+      });
+      if (!decision.ok) {
+        return NextResponse.json(
+          { error: decision.reason, message: decision.message },
+          { status: decision.reason === 'blocked-critical' ? 423 : 422 },
+        );
+      }
+      try {
+        revalidatePath(KIND_TO_ROUTE[kind]);
+      } catch {
+        /* revalidation is best-effort */
+      }
+      return NextResponse.json({
+        ok: true,
+        kind,
+        id,
+        published: decision.published,
+        mode: 'instant-db',
+        persistent: decision.persistent,
+        actor: admin.email ?? 'header-admin',
+        ...(quality ? { qualityScore: quality.score, needsHumanReview: quality.needsHumanReview } : {}),
+        ...(validationWarnings.length > 0 ? { warnings: validationWarnings } : {}),
+      });
     }
     if (result.reason === 'not-found') {
       return NextResponse.json({ error: 'not found' }, { status: 404 });
@@ -128,11 +176,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: result.reason }, { status: 500 });
   }
 
+  // LOCAL PATH: the file write succeeded — a reviewable git diff to commit/push.
+  try {
+    revalidatePath(KIND_TO_ROUTE[kind]);
+  } catch {
+    /* revalidation is best-effort */
+  }
   return NextResponse.json({
     ok: true,
     kind,
     id,
     published: result.published,
+    mode: 'file',
     actor: admin.email ?? 'header-admin',
     ...(quality ? { qualityScore: quality.score, needsHumanReview: quality.needsHumanReview } : {}),
     ...(validationWarnings.length > 0 ? { warnings: validationWarnings } : {}),

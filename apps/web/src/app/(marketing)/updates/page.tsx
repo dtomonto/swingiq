@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { getPublicUpdates, getFeaturedUpdate, getMilestones } from '@/data/updates';
+import {
+  getEffectivePublicUpdates,
+  getEffectiveFeaturedUpdate,
+  getEffectiveMilestones,
+} from '@/lib/publishing/public-updates.server';
 import { UpdatesContent } from '@/components/updates/UpdatesContent';
 import { PUBLISHED_MILESTONES } from '@/content/milestones/published';
 import { getPublicMilestone, milestonePath } from '@/lib/milestones/page-detail';
@@ -73,10 +77,12 @@ const jsonLd = {
 
 // ── Page component ────────────────────────────────────────────────────────
 
-export default function UpdatesPage() {
-  const updates = getPublicUpdates();
-  const featured = getFeaturedUpdate();
-  const milestones = getMilestones();
+export default async function UpdatesPage() {
+  const [updates, featured, milestones] = await Promise.all([
+    getEffectivePublicUpdates(),
+    getEffectiveFeaturedUpdate(),
+    getEffectiveMilestones(),
+  ]);
   const authorityMilestones = PUBLISHED_MILESTONES
     .map((p) => getPublicMilestone(p.slug))
     .filter((x): x is NonNullable<typeof x> => Boolean(x))

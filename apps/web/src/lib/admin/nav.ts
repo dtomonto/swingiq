@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -110,6 +110,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'overview', built: true,
     blurb: 'Every internal audit robot’s findings (SEO, AI, Engagement, Build-health) surfaced in-app, with open → in-progress → done tracking.',
     keywords: ['audit', 'audits', 'reports', 'findings', 'seo audit', 'ai audit', 'security audit', 'master report', 'opportunities', 'recommendations'],
+  },
+  {
+    id: 'publishing-os', label: 'PublishingOS', href: '/admin/publishing', icon: Send,
+    group: 'overview', built: true, permission: 'content.publish',
+    blurb: 'The publishing operating layer: turn admin decisions into safe, live product changes through a Draft → Review → Validated → Published → Rolled-back workflow. Durable database-backed publishing (no read-only-filesystem dead-ends), risk-classified confirmation, a publishable-areas audit, validation gates and an audit trail.',
+    keywords: ['publishingos', 'publishing os', 'publish', 'publishing', 'publish center', 'go live', 'rollback', 'roll back', 'unpublish', 'schedule', 'draft', 'review', 'validate', 'deploy', 'publish queue', 'publishable areas', 'version history', 'audit trail', 'durable publishing', 'view only', 'read only'],
   },
   {
     id: 'central-intelligence', label: 'Central Intelligence', href: '/admin/central-intelligence', icon: BrainCircuit,

@@ -101,6 +101,15 @@ function allUpdates(): Update[] {
   return [...UPDATES, ...AUTO_UPDATES];
 }
 
+/**
+ * Every update (seed + auto-generated), UNFILTERED. Used by the override-aware
+ * server read path so a durable PublishingOS decision can promote a draft to
+ * public or pull a live entry, without editing this registry. Pure (no IO).
+ */
+export function getAllUpdates(): Update[] {
+  return allUpdates();
+}
+
 export function getPublicUpdates(): Update[] {
   return allUpdates().filter(isPublicUpdate).sort((a, b) => {
     // Pinned updates float to the very top, ahead of newest-first ordering.
