@@ -177,14 +177,22 @@ npx tsc --noEmit
 
 ## 7. Roadmap (phases)
 
-- **Phase 1 — MVP (this PR):** camera permission, live preview, sport/action
+- **Phase 1 — MVP (done):** camera permission, live preview, sport/action
   presets, on-device pose, framing overlays, full-body/head/feet/centering/
   distance/orientation/lighting checks, Frame Readiness Score, voice + captions +
   haptics, countdown, recording, retake intelligence, saved-angle foundation,
   device fallback, analytics, admin console, unit + e2e tests.
-- **Phase 2 — Kinetic foundation:** skeletal overlay, camera-motion proxy
-  (devicemotion / landmark jitter), auto-trim + motion-event detection, full
-  retest-same-angle flow, deep in-app handoff to the analyzer, saved-location memory.
+- **Phase 2 — Kinetic foundation (done):** live **skeletal overlay**
+  (confidence-aware joints + bones, toggleable), **auto-trim + motion-event
+  detection** (`AutoTrimEngine` from per-frame joint-motion energy; the active
+  window is detected and surfaced, and analysis concentrates there),
+  **motion safe-zone prediction** (`MotionSafeZoneEngine` — forward-looking
+  "you'll run out of room" guard with a sport movement envelope),
+  **retest-same-angle** flow (`SavedAnglesCard` → re-enter the saved preset),
+  and the **deep in-app handoff** to the existing `/video` analyzer (clip handed
+  straight to the configure screen via the same `handleVideoReady` an upload
+  uses — no re-upload). Remaining for later: camera-shake proxy (devicemotion),
+  saved-location memory.
 - **Phase 3 — Advanced biomechanics:** tempo / balance / hip-shoulder separation
   proxies, swing-plane proxy, movement-box analytics, frame-by-frame stepping,
   side-by-side comparison, kinematic-sequence estimates (all confidence-labelled).
@@ -194,13 +202,33 @@ npx tsc --noEmit
 
 ---
 
-## 8. Known limitations (MVP)
+## 8. Deep analyzer handoff (Phase 2)
 
-- **Camera-motion proxy** is reported as `unknown` for now (stability still scored
-  conservatively); Phase 2 wires devicemotion / landmark-jitter.
-- **Auto-trim** is instrumented (`auto_trim_applied`) but not yet applied — Phase 2.
-- **Analyzer handoff** in the review step offers download + the existing upload
-  path; deep in-app handoff (clip → `/video` analyzer state) is a Phase 2 item.
+From the review step, **Use this clip** hands the recorded clip straight to the
+existing `/video` analyzer with no re-upload:
+
+1. The recorded `Blob` is wrapped in a `File`; `extractVideoMetadata()` (the
+   analyzer's own helper) fills width/height/duration/frame-rate.
+2. `setPendingClip()` stashes `{ file, metadata, objectUrl, sport, action,
+   trimWindow }` in an in-memory bridge (`lib/record-assist/handoff.ts`).
+3. `setActiveSport()` points the app at the right sport, then we route to `/video`.
+4. Both analyzers (`VideoAnalyzerContent`, `SportVideoAnalyzerContent`) call
+   `useRecordAssistHandoff(sport, handleVideoReady)` on mount — it consumes the
+   matching clip and replays it through the **same** `handleVideoReady(file,
+   metadata, objectUrl)` an upload uses, landing on the configure screen with
+   frames already warming.
+
+The clip never leaves the device in this step — it is one browser session handing
+a `File` to another route's component.
+
+## 9. Known limitations
+
+- **Camera-shake proxy** is still reported as `unknown` (stability scored
+  conservatively). Phase 2 added per-frame *joint*-motion energy (used for
+  auto-trim), but devicemotion-based *camera* shake is a later item.
+- **Auto-trim** detects and surfaces the active-motion window and the analyzer's
+  frame extraction is already motion-aware, so analysis concentrates there;
+  RecordAssist does not re-encode/clip the file bytes (no client-side transcode).
 - Live pose needs WebGL + a secure context; without them RecordAssist degrades to
   manual framing guides (overlays + checklist) and still records.
 - Adoption/quality dashboards are powered by the events listed in the admin

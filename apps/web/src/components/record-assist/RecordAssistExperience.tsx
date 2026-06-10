@@ -1,12 +1,17 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { Video, ArrowLeft, Download, BookmarkPlus, RotateCw } from 'lucide-react';
+import { Video, ArrowLeft, Download, BookmarkPlus, RotateCw, Sparkles, Loader2 } from 'lucide-react';
+import { useSport } from '@/contexts/SportContext';
+import { extractVideoMetadata } from '@/lib/video-metadata';
 import { getPreset } from '@/lib/record-assist/engines/sport-preset-engine';
 import { evaluateRetake } from '@/lib/record-assist/engines/retake-engine';
+import { setPendingClip } from '@/lib/record-assist/handoff';
+import { toPlatformSport } from '@/lib/record-assist/sports';
 import {
   useDeviceCompatibility,
   useRecordAssistAnalytics,
@@ -16,6 +21,7 @@ import type {
   RecordAssistSport,
   SportActionId,
   VoiceMode,
+  CameraView,
 } from '@/lib/record-assist/types';
 import { SportAngleSelector } from './SportAngleSelector';
 import { SetupInstructionCard } from './SetupInstructionCard';
@@ -24,7 +30,8 @@ import { PrivacyNotice } from './PrivacyNotice';
 import { DeviceCompatibilityWarning } from './DeviceCompatibilityWarning';
 import { GuidedCameraView, type GuidedRecordingMeta } from './GuidedCameraView';
 import { RetakeRecommendationCard } from './RetakeRecommendationCard';
-import { saveAnglePreset } from '@/lib/record-assist/saved-angles';
+import { SavedAnglesCard } from './SavedAnglesCard';
+import { saveAnglePreset, type SavedAngle } from '@/lib/record-assist/saved-angles';
 
 type Phase = 'select' | 'capture' | 'review';
 
@@ -34,11 +41,19 @@ export interface RecordAssistExperienceProps {
 }
 
 /** End-to-end guided self-recording: select → frame → record → review. */
+/** Map a RecordAssist view to the analyzer's camera-angle field. */
+function toCameraAngle(view: CameraView): 'down_the_line' | 'face_on' | 'unknown' {
+  return view === 'down_the_line' || view === 'face_on' ? view : 'unknown';
+}
+
 export function RecordAssistExperience({ initialSport = 'golf', className }: RecordAssistExperienceProps) {
   const compat = useDeviceCompatibility();
   const analytics = useRecordAssistAnalytics();
+  const router = useRouter();
+  const { setActiveSport } = useSport();
 
   const [phase, setPhase] = useState<Phase>('select');
+  const [handingOff, setHandingOff] = useState(false);
   const [sport, setSport] = useState<RecordAssistSport>(initialSport);
   const [action, setAction] = useState<SportActionId | null>(null);
   const [voiceMode, setVoiceMode] = useState<VoiceMode>('coach');
@@ -75,8 +90,22 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
     setRecorded({ result, meta });
     setSavedAngle(false);
     analytics.recordingCompleted(sport, preset?.action ?? action ?? '', meta.durationSeconds);
+    if (meta.trimWindow) {
+      analytics.autoTrimApplied(meta.durationSeconds, meta.trimWindow.end - meta.trimWindow.start);
+    }
     setPhase('review');
   }, [analytics, sport, preset, action]);
+
+  const retestAngle = useCallback((angle: SavedAngle) => {
+    setSport(angle.sport);
+    setAction(angle.action);
+    analytics.retestSameAngle(angle.sport, angle.action);
+    const p = getPreset(angle.sport, angle.action);
+    if (p) {
+      analytics.started(angle.sport, p.action);
+      setPhase('capture');
+    }
+  }, [analytics]);
 
   const recommendation = useMemo(() => {
     if (!recorded?.meta.quality) return null;
@@ -95,12 +124,40 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
     setPhase('capture');
   }, [analytics, recorded]);
 
-  const proceed = useCallback(() => {
+  const proceed = useCallback(async () => {
+    if (!recorded || !preset || handingOff) return;
     analytics.retakeSkipped();
     analytics.analysisStarted(sport);
-    // MVP handoff: the clip is available for download / upload to the
-    // existing analyzer. Deep in-app handoff is a documented Phase 2 item.
-  }, [analytics, sport]);
+    setHandingOff(true);
+    try {
+      const platformSport = toPlatformSport(sport);
+      const ext = recorded.result.mimeType.includes('mp4') ? 'mp4' : 'webm';
+      const file = new File([recorded.result.blob], `swingvantage-${sport}-${preset.action}.${ext}`, {
+        type: recorded.result.blob.type || recorded.result.mimeType,
+      });
+      // Reuse the analyzer's own metadata extractor so width/height/duration/
+      // frame-rate are exactly what the pipeline expects.
+      const meta = await extractVideoMetadata(file);
+      const { objectUrl, ...metadata } = meta;
+      // Hand the clip to the analyzer route and point the app at the right sport.
+      setPendingClip({
+        file,
+        metadata: { ...metadata, camera_angle: toCameraAngle(preset.recommendedView) },
+        objectUrl,
+        sport: platformSport,
+        action: preset.action,
+        trimWindow: recorded.meta.trimWindow,
+        createdAt: Date.now(),
+      });
+      setActiveSport(platformSport);
+      // The original review object URL is superseded by the analyzer's.
+      URL.revokeObjectURL(recorded.result.url);
+      router.push('/video');
+    } catch {
+      // Extraction failed — stay on review; the download fallback still works.
+      setHandingOff(false);
+    }
+  }, [recorded, preset, handingOff, analytics, sport, setActiveSport, router]);
 
   const saveAngle = useCallback(() => {
     if (!preset) return;
@@ -119,6 +176,7 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
         {compat && compat.tier !== 'full' && (
           <DeviceCompatibilityWarning result={compat} />
         )}
+        <SavedAnglesCard onRetest={retestAngle} />
         <Card>
           <CardBody className="space-y-5">
             <SportAngleSelector
@@ -189,12 +247,29 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
           <video src={recorded.result.url} controls playsInline className="mx-auto max-h-[60vh] w-full" />
         </div>
 
+        {recorded.meta.trimWindow && (
+          <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <Sparkles className="h-3.5 w-3.5 text-primary" aria-hidden />
+            Auto-trim found the active motion at{' '}
+            <span className="font-medium text-foreground">
+              {recorded.meta.trimWindow.start.toFixed(1)}s–{recorded.meta.trimWindow.end.toFixed(1)}s
+            </span>
+            {' '}— analysis will focus there.
+          </p>
+        )}
+
         {recommendation && (
           <RetakeRecommendationCard
             recommendation={recommendation}
             onRetake={retake}
             onProceed={proceed}
           />
+        )}
+
+        {handingOff && (
+          <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Opening the analyzer…
+          </p>
         )}
 
         <Card>

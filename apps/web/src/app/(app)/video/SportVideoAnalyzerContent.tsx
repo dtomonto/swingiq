@@ -32,6 +32,7 @@ import { useSport } from '@/contexts/SportContext';
 import { getSportConfig, SPORT_CAMERA_ANGLES } from '@swingiq/core';
 import type { SportId, SwingVideoMetadata, VisionSpeed } from '@swingiq/core';
 import { warmSwingPreparation, forgetPreparedSwing } from '@/lib/video/prepare-swing';
+import { useRecordAssistHandoff } from '@/lib/record-assist/hooks/useRecordAssistHandoff';
 import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector';
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';
@@ -103,6 +104,10 @@ export function SportVideoAnalyzerContent() {
     },
     [],
   );
+
+  // Deep handoff: a clip recorded in RecordAssist (/record-assist) for this
+  // sport lands here straight on the configure screen — no re-upload.
+  useRecordAssistHandoff(activeSport, handleVideoReady);
 
   const handleRemoveVideo = () => {
     if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);

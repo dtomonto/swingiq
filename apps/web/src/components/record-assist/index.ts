@@ -6,6 +6,7 @@ export * from './SetupInstructionCard';
 export * from './VoiceGuidanceControls';
 export * from './ReadinessScoreBadge';
 export * from './AthleteFrameOverlay';
+export * from './SkeletonOverlay';
 export * from './GuidanceCaption';
 export * from './RecordingCountdown';
 export * from './RetakeRecommendationCard';

@@ -12,3 +12,5 @@ export * from './voice-guidance-engine';
 export * from './retake-engine';
 export * from './compatibility-engine';
 export * from './analytics-engine';
+export * from './auto-trim-engine';
+export * from './motion-safe-zone-engine';

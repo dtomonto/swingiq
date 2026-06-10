@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
-import { Circle, Square, SwitchCamera, Loader2 } from 'lucide-react';
+import { Circle, Square, SwitchCamera, Loader2, PersonStanding } from 'lucide-react';
 import {
   useCameraStream,
   getStreamFromVideo,
@@ -11,7 +11,10 @@ import {
   useVoiceGuidance,
   useRecordingState,
 } from '@/lib/record-assist/hooks';
+import type { CaptureSample } from '@/lib/record-assist/hooks/useGuidedCapture';
 import type { RecordingResult } from '@/lib/record-assist/hooks/useRecordingState';
+import { detectMotionWindowSeconds } from '@/lib/record-assist/engines/auto-trim-engine';
+import { predictSafeZone } from '@/lib/record-assist/engines/motion-safe-zone-engine';
 import type {
   SportActionPreset,
   CameraOrientation,
@@ -21,6 +24,7 @@ import type {
 } from '@/lib/record-assist/types';
 import { CameraPermissionPanel } from './CameraPermissionPanel';
 import { AthleteFrameOverlay } from './AthleteFrameOverlay';
+import { SkeletonOverlay } from './SkeletonOverlay';
 import { ReadinessScoreBadge } from './ReadinessScoreBadge';
 import { GuidanceCaption } from './GuidanceCaption';
 import { RecordingCountdown } from './RecordingCountdown';
@@ -30,6 +34,8 @@ export interface GuidedRecordingMeta {
   detectionRate: number;
   quality: FrameQualitySignals | null;
   durationSeconds: number;
+  /** Auto-trim active-motion window (seconds), when detected. */
+  trimWindow?: { start: number; end: number };
 }
 
 export interface GuidedCameraViewProps {
@@ -64,7 +70,16 @@ export function GuidedCameraView(props: GuidedCameraViewProps) {
   const recording = useRecordingState();
   const [phase, setPhase] = useState<LivePhase>('framing');
   const [countdown, setCountdown] = useState<number | null>(null);
+  const [showSkeleton, setShowSkeleton] = useState(true);
   const orientation: CameraOrientation = preset.recommendedOrientation;
+
+  // Per-frame motion samples collected only while recording → auto-trim.
+  const phaseRef = useRef<LivePhase>('framing');
+  phaseRef.current = phase;
+  const samplesRef = useRef<CaptureSample[]>([]);
+  const collectSample = useCallback((s: CaptureSample) => {
+    if (phaseRef.current === 'recording') samplesRef.current.push(s);
+  }, []);
 
   // Guidance loop runs while framing/counting down/recording (keeps the
   // detection-rate aggregate flowing) — voice is paused once we start.
@@ -75,7 +90,11 @@ export function GuidedCameraView(props: GuidedCameraViewProps) {
     orientation,
     active: cameraReady,
     poseEnabled,
+    onSample: collectSample,
   });
+
+  // Forward-looking "you'll run out of room" guard.
+  const safeZone = predictSafeZone(guided.quality, preset);
 
   const voice = useVoiceGuidance({
     quality: guided.quality,
@@ -126,11 +145,18 @@ export function GuidedCameraView(props: GuidedCameraViewProps) {
   useEffect(() => {
     if (recording.status === 'stopped' && recording.result) {
       const durationSeconds = recording.result.durationMs / 1000;
+      // Normalize sample timestamps to start at 0 from the first recording tick.
+      const samples = samplesRef.current;
+      const t0 = samples.length ? samples[0].tMs : 0;
+      const normalized = samples.map((s) => ({ tMs: s.tMs - t0, energy: s.energy }));
+      const trimWindow =
+        detectMotionWindowSeconds(normalized, recording.result.durationMs) ?? undefined;
       onRecorded(recording.result, {
         readinessAtStart: latest.current.score,
         detectionRate: latest.current.detectionRate,
         quality: latest.current.quality,
         durationSeconds,
+        trimWindow,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -152,6 +178,7 @@ export function GuidedCameraView(props: GuidedCameraViewProps) {
         voice.speakCountdown(0);
         const stream = getStreamFromVideo(camera.videoRef.current);
         recordingStartedAt.current = Date.now();
+        samplesRef.current = []; // fresh motion buffer for auto-trim
         if (stream) recording.start(stream);
         setPhase('recording');
         setTimeout(() => setCountdown(null), 600);
@@ -192,6 +219,16 @@ export function GuidedCameraView(props: GuidedCameraViewProps) {
         />
 
         <AthleteFrameOverlay quality={guided.quality} preset={preset} />
+        {showSkeleton && guided.poseReady && <SkeletonOverlay pose={guided.pose} />}
+
+        {/* Forward-looking safe-zone nudge (predictive, not "cut off now") */}
+        {phase === 'framing' && safeZone.willLeaveFrame && safeZone.advice && (
+          <div className="absolute inset-x-3 top-12 flex justify-center">
+            <span className="rounded-full bg-warning/90 px-3 py-1 text-xs font-semibold text-warning-foreground shadow">
+              {safeZone.advice}
+            </span>
+          </div>
+        )}
 
         {/* Pose-loading hint */}
         {poseEnabled && !guided.poseReady && (
@@ -212,16 +249,32 @@ export function GuidedCameraView(props: GuidedCameraViewProps) {
           </div>
         )}
 
-        {/* Camera switch */}
+        {/* Camera + skeleton controls */}
         {phase === 'framing' && (
-          <button
-            type="button"
-            onClick={camera.switchCamera}
-            aria-label="Switch camera"
-            className="absolute bottom-3 right-3 rounded-full bg-black/60 p-2.5 text-white backdrop-blur-sm tap-target"
-          >
-            <SwitchCamera className="h-5 w-5" aria-hidden />
-          </button>
+          <div className="absolute bottom-3 right-3 flex flex-col gap-2">
+            <button
+              type="button"
+              onClick={camera.switchCamera}
+              aria-label="Switch camera"
+              className="rounded-full bg-black/60 p-2.5 text-white backdrop-blur-sm tap-target"
+            >
+              <SwitchCamera className="h-5 w-5" aria-hidden />
+            </button>
+            {poseEnabled && guided.poseReady && (
+              <button
+                type="button"
+                aria-pressed={showSkeleton}
+                aria-label={showSkeleton ? 'Hide skeleton overlay' : 'Show skeleton overlay'}
+                onClick={() => setShowSkeleton((v) => !v)}
+                className={cn(
+                  'rounded-full p-2.5 backdrop-blur-sm tap-target',
+                  showSkeleton ? 'bg-primary/80 text-primary-foreground' : 'bg-black/60 text-white',
+                )}
+              >
+                <PersonStanding className="h-5 w-5" aria-hidden />
+              </button>
+            )}
+          </div>
         )}
 
         {/* Caption */}
