@@ -37,20 +37,23 @@ MotionLab work so the next session can pick up without re-deriving context.
 
 ## Open follow-ups (NOT done — pick up here)
 
-1. **E2E not browser-verified.** Chromium download was blocked in the cloud sandbox,
-   so `e2e/motion-lab.spec.ts` is best-effort (dismisses the usage-category modal +
-   hides the floating help dock / bottom nav that intercept clicks) but was never run
-   to green. **On desktop:** `cd apps/web && npm run test:e2e:install && npm run test:e2e`
-   then fix any remaining selector/overlay flakiness in the 3 interactive tests
-   (lab-opens test already passes).
-2. **Pre-existing master-wide CI reds (NOT from this PR) — worth a separate cleanup:**
-   - `Custom Security Checks` (`scripts/security-check.mjs`): 17 false positives —
-     example/public keys in `lib/secrets/__tests__/secrets.test.ts`,
-     `lib/notifications/web-push.ts`, `lib/connector-os/security/turnstile.ts`, etc.
-   - `E2E` job: 6 `e2e/a11y.spec.ts` violations on marketing pages (/, /features,
-     /how-it-works, /pricing, /golf-swing-analysis, /features/ai-diagnostic-engine).
-   - (Jest's trust-linter once flagged "treatment" in `data/updatesPart1.ts` — a
-     disclaimer false-positive — but it was green at merge.)
+_Status updated after a follow-up pass; master now at `1b2f182`._
+
+1. **E2E not browser-verified — STILL OPEN (needs a browser).** Chromium download is
+   blocked in the cloud sandbox, so `e2e/motion-lab.spec.ts` is best-effort (dismisses
+   the usage-category modal + hides the floating help dock / bottom nav that intercept
+   clicks) but was never run to green. **On desktop:**
+   `cd apps/web && npm run test:e2e:install && npm run test:e2e`, then fix any remaining
+   selector/overlay flakiness in the 3 interactive tests (the lab-opens test passes).
+2. **`Custom Security Checks` — RESOLVED upstream (no action).** Master (via PR #16)
+   already allowlisted the public VAPID/Turnstile keys and skips test-file key
+   fixtures; `node scripts/security-check.mjs` now PASSES on `master`.
+3. **`E2E` a11y violations — STILL OPEN (needs a browser to verify).** 6 `e2e/a11y.spec.ts`
+   failures on marketing pages (/, /features, /how-it-works, /pricing,
+   /golf-swing-analysis, /features/ai-diagnostic-engine). axe runs through Playwright,
+   so these can only be reproduced/fixed where Chromium is available.
+4. Jest's trust-linter ("treatment" in `data/updatesPart1.ts`) was a transient
+   disclaimer false-positive and is green on master — no action needed.
 
 ## Notes
 
