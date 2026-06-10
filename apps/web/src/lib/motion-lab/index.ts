@@ -141,6 +141,13 @@ export {
   type BalanceEstimate,
   type StanceRead,
 } from './overlay-geometry';
+export {
+  getRecordingGuide,
+  recordingTipsFor,
+  ANGLE_CHECKLIST,
+  type SportRecordingGuide,
+  type AngleCheckItem,
+} from './recording-guidance';
 export { downloadSessionJson, downloadSessionCsv } from './export';
 export { printSessionReport } from './print-report';
 export { useMotionSessions } from './useMotionSessions';

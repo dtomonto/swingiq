@@ -36,6 +36,12 @@ footage with overlays drawn on it*. That is now built:
   stance read, lead-side resolution). No I/O, no React.
 - Wired into `MotionResultsDashboard` with a **Video / 3D** toggle. The video
   lab is the default when a freshly-analysed clip is in memory.
+- **`lib/motion-lab/recording-guidance.ts` + `components/motion-lab/RecordingGuidance.tsx`**
+  — sport-specific "how to film this" tips (tennis / pickleball / padel / golf /
+  baseball / softball) plus a self-confirm angle-quality checklist, shown in the
+  capture step **before** upload. Pure data + selectors, unit-tested; complements
+  the post-analysis `CameraQualityReport` (guidance prevents bad clips; the gate
+  explains them after).
 
 ### Privacy invariant (do not regress)
 
@@ -65,8 +71,8 @@ Tracked here so it isn't lost. None of this is built yet.
 3. **Admin controls.** Enable/disable the lab and the video-overlay surface by
    sport / cohort / beta flag from the admin OS; surface upload volume,
    completion rate, average confidence, and most-common detected faults by sport.
-4. **Recording guidance + angle-quality checklist** shown *before* upload, with
-   sport-specific tips (tennis/pickleball/padel), reusing `CameraQualityCheck`.
+4. ~~**Recording guidance + angle-quality checklist** shown *before* upload~~ —
+   **shipped** (see `recording-guidance.ts` / `RecordingGuidance.tsx`).
 5. **Manual landmark correction.** A "fix this joint" mode on the overlay canvas
    feeding `ImplementManualHints` and a future pose-correction seam, so low-
    confidence frames can be hand-tuned. The overlay-geometry layer is already

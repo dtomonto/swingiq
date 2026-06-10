@@ -16,12 +16,13 @@ import { VideoUpload, VideoPreviewCard } from '@/components/video/VideoUpload';
 import { MotionRecorder } from './MotionRecorder';
 import { VideoTrimmer } from './VideoTrimmer';
 import { SportMotionSelector } from './SportMotionSelector';
+import { RecordingGuidance } from './RecordingGuidance';
 import { MotionAnalysisProgress } from './MotionAnalysisProgress';
 import { MotionResultsDashboard } from './MotionResultsDashboard';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import {
-  runMotionAnalysis, runMultiViewMotionAnalysis, saveSession, deleteSession, useMotionSessions, sessionsFor, getMotion, SKILL_LEVELS,
+  runMotionAnalysis, runMultiViewMotionAnalysis, saveSession, deleteSession, useMotionSessions, sessionsFor, getMotion, getSport, SKILL_LEVELS,
 } from '@/lib/motion-lab';
 import type {
   SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext, MotionSkillLevel, PoseModelQuality,
@@ -305,6 +306,7 @@ export function MotionLabWizard() {
 
             {!videoFile ? (
               <>
+                <RecordingGuidance sport={sport} motionType={motionType} accent={getSport(sport).accent} />
                 <div className="flex gap-1 p-1 rounded-lg bg-muted w-fit mx-auto">
                   {([['upload', 'Upload', Upload], ['record', 'Record', Video]] as const).map(([id, label, Icon]) => (
                     <button
