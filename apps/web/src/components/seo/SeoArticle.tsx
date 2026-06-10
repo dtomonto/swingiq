@@ -211,14 +211,18 @@ export function SeoArticle({ page }: { page: SeoPage }) {
           </section>
         )}
 
-        {/* CTA */}
-        <section className="mb-8 rounded-2xl bg-primary p-6 text-center text-primary-foreground">
+        {/* CTA — "Dark Performance" (B) treatment: the action is a dark
+            bg-background chip on the green panel (mirrors MarketingCTA / the
+            homepage CTA) so it reads as primary instead of an invisible
+            green-on-green button. */}
+        <section className="mb-8 rounded-2xl bg-primary p-6 text-center text-primary-foreground shadow-theme-lg">
           <p className="mb-4 text-lg font-bold">Ready to see your own swing?</p>
           <Link
             href={page.cta.href}
-            className="inline-block rounded-xl bg-primary px-8 py-3 font-bold text-primary-foreground transition-colors hover:bg-primary-foreground/90"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-background px-8 py-3 font-bold text-foreground transition-opacity hover:opacity-90"
           >
             {page.cta.label}
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
           <p className="mt-3 text-xs text-primary-foreground/80">No account required · Free · Private by default</p>
         </section>
