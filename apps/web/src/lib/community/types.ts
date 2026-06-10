@@ -78,6 +78,15 @@ export interface ChallengeDefinition {
   isDataChallenge: boolean;
   /** Returns progress 0–100 given state */
   getProgress: (ctx: ChallengeContext) => number;
+  // ── Optional: per-sport layered journey metadata (generated challenges) ──
+  /** Feature family this challenge belongs to (groups the journey by feature). */
+  feature?: string;
+  /** Layer depth: 1 = top-level milestone, 2+ = a sub-challenge within it. */
+  tier?: number;
+  /** Parent challenge id when this is a layered sub-challenge (else null). */
+  parentId?: string | null;
+  /** Part of the sport's Founding Member journey. */
+  founding?: boolean;
 }
 
 export interface ChallengeActive {

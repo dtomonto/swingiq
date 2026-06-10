@@ -11,7 +11,8 @@ import {
   __resetFoundingStoreForTests,
 } from '../founding-server';
 
-const eligible = { profileCompleted: true, validSessionCount: 12 };
+// The live gate is the per-sport journey: completedFoundingCount ≥ FOUNDING_JOURNEY_REQUIRED (12).
+const eligible = { profileCompleted: true, validSessionCount: 12, completedFoundingCount: 12 };
 
 beforeEach(async () => {
   __resetFoundingStoreForTests();

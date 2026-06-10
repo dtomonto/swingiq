@@ -26,7 +26,7 @@ import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 import type { SportId } from '@swingiq/core';
 import type { FoundingCampaignProgress } from './types';
 import { buildCampaignProgress } from './founding';
-import { FOUNDING_REQUIRED_COUNT, FOUNDING_REQUIRED_SESSIONS, FOUNDING_COUNTER_BASELINE } from './config';
+import { FOUNDING_REQUIRED_COUNT, FOUNDING_COUNTER_BASELINE, FOUNDING_JOURNEY_REQUIRED } from './config';
 
 const TABLE = 'growth_records';
 const MEMBER_KIND = 'founding-member';
@@ -196,6 +196,8 @@ export interface ClaimInput {
   sport?: SportId | null;
   profileCompleted: boolean;
   validSessionCount: number;
+  /** Founding challenges completed for the athlete's sport (the live gate). */
+  completedFoundingCount?: number;
   /** True when the eligibility was checked against server-side synced data. */
   serverVerified?: boolean;
 }
@@ -227,15 +229,14 @@ export async function claimFoundingMembership(input: ClaimInput): Promise<ClaimR
     };
   }
 
-  // Server-side eligibility gate. The client cannot bypass these.
-  const eligible = input.profileCompleted && input.validSessionCount >= FOUNDING_REQUIRED_SESSIONS;
+  // Server-side eligibility gate: the per-sport founding journey. Client can't bypass.
+  const completedFounding = Math.max(0, Math.floor(input.completedFoundingCount ?? 0));
+  const eligible = completedFounding >= FOUNDING_JOURNEY_REQUIRED;
   if (!eligible) {
     const qualifiedCount = await getQualifiedCount();
     return {
       ok: false,
-      reason: !input.profileCompleted
-        ? 'Profile is not complete yet.'
-        : `Need ${FOUNDING_REQUIRED_SESSIONS} valid sessions (have ${input.validSessionCount}).`,
+      reason: `Complete ${FOUNDING_JOURNEY_REQUIRED} of your sport's founding challenges (done ${completedFounding}).`,
       record: null,
       progress: buildCampaignProgress({ qualifiedCount, requiredCount, baseline: config.baseline, manualOverride: config.manualOverride }),
     };
