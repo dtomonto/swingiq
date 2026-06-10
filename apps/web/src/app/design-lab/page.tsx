@@ -12,6 +12,7 @@
 // ============================================================
 
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 
@@ -54,6 +55,24 @@ export default function DesignLabPage() {
             scores, skipped on the small rings repeated in lists &amp; grids.
           </p>
         </header>
+
+        {/* Seeded previews of the auth-gated surfaces. */}
+        <section className="mb-12">
+          <h2 className="mb-4 font-heading text-lg font-semibold uppercase tracking-tight">Seeded previews (no login)</h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              { href: '/design-lab/dashboard', title: 'Dashboard', blurb: 'Real DashboardContent — the glowing Overall score in context.' },
+              { href: '/design-lab/diagnose', title: 'Diagnose', blurb: 'Real result with three engine-scored glowing rings.' },
+              { href: '/design-lab/publishing', title: 'PublishingOS', blurb: 'Admin command center + the entity Detail drawer (click a queue row).' },
+            ].map((p) => (
+              <Link key={p.href} href={p.href} className="rounded-theme border border-border bg-card p-5 shadow-theme transition-colors hover:border-primary/50">
+                <h3 className="font-heading text-base font-semibold uppercase tracking-tight text-foreground">{p.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{p.blurb}</p>
+                <span className="mt-3 inline-block text-xs font-semibold text-link">Open →</span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* Glow ON vs OFF, across the score-colour range, at the hero size. */}
         <section className="mb-12">
