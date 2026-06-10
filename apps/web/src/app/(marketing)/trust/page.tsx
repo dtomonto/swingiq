@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Shield, Lock, Eye, Trash2, AlertTriangle, Users, CheckCircle } from 'lucide-react';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
@@ -54,20 +55,11 @@ export default function TrustPage() {
   return (
     <div className="min-h-screen bg-card">
       {/* Header */}
-      <div className="bg-primary text-primary-foreground py-14 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-sm">SV</span>
-            </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Trust &amp; Safety</h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
-            SwingVantage is built on a simple principle: your data is yours, the AI is honest about its limits, and nothing happens without your knowledge.
-          </p>
-        </div>
-      </div>
+      <MarketingHero
+        title="Trust &"
+        titleAccent="Safety"
+        subtitle="SwingVantage is built on a simple principle: your data is yours, the AI is honest about its limits, and nothing happens without your knowledge."
+      />
 
       {/* Summary row */}
       <div className="bg-primary/10 border-b border-primary/20 py-6 px-4">

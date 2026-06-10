@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
@@ -112,20 +113,11 @@ export default function GlossaryPage() {
       <JsonLd data={structuredData} />
 
       {/* Header */}
-      <div className="bg-primary text-primary-foreground py-14 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-sm">SV</span>
-            </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Swing & Performance Glossary</h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
-            Plain-English definitions for every term SwingVantage uses — launch monitor metrics, batting stats, stroke terminology, and AI concepts.
-          </p>
-        </div>
-      </div>
+      <MarketingHero
+        title="Swing & Performance"
+        titleAccent="Glossary"
+        subtitle="Plain-English definitions for every term SwingVantage uses — launch monitor metrics, batting stats, stroke terminology, and AI concepts."
+      />
 
       {/* Jump links */}
       <div className="bg-muted border-b border-border py-4 px-4 sticky top-0 z-10">

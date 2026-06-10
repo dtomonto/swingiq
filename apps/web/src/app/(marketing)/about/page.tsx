@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 
 export const metadata: Metadata = {
   title: 'About SwingVantage | Free AI Swing Analysis Platform',
@@ -52,20 +53,11 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-card">
       {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-base">SV</span>
-            </div>
-            <span className="text-white font-bold text-2xl">SwingVantage</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">About SwingVantage</h1>
-          <p className="text-primary-foreground/90 text-xl max-w-2xl mx-auto">
-            Making professional-quality swing coaching accessible to every athlete, at every level, for free.
-          </p>
-        </div>
-      </section>
+      <MarketingHero
+        title="About"
+        titleAccent="SwingVantage"
+        subtitle="Making professional-quality swing coaching accessible to every athlete, at every level, for free."
+      />
 
       {/* Mission */}
       <section className="py-16 px-4 bg-card">

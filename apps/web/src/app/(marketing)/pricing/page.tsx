@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { BILLING_TIERS } from '@/lib/billing/tiers';
 import { PricingCTA } from './PricingCTA';
@@ -15,10 +16,11 @@ export const metadata = buildMetadata({
 export default function PricingPage() {
   return (
     <div className="min-h-screen bg-card">
-      <div className="bg-primary text-primary-foreground py-16 px-4 text-center">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">Simple, Honest Pricing</h1>
-        <p className="text-primary-foreground/90 text-lg">Start free. No credit card required.</p>
-      </div>
+      <MarketingHero
+        title="Simple, Honest"
+        titleAccent="Pricing"
+        subtitle="Start free. No credit card required."
+      />
 
       <div className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid gap-8 md:grid-cols-3">

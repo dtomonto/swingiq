@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { ogCardUrl } from '@/lib/og/card';
@@ -60,26 +61,22 @@ export default function FeaturesPage() {
       <JsonLd data={structuredData} />
 
       {/* Header */}
-      <div className="bg-primary text-primary-foreground py-14 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-sm">SV</span>
-            </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Everything SwingVantage Does — Free</h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
+      <MarketingHero
+        title="Everything SwingVantage Does"
+        titleAccent="— Free"
+        subtitle={
+          <>
             Every feature. Every sport. No credit card. No account required to start.
-            <span className="block text-primary-foreground/80 text-base mt-1">Tap any feature for a full guide on how to use it.</span>
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 mt-6 text-sm">
-            {['Golf', 'Tennis', 'Pickleball', 'Padel', 'Baseball', 'Slow Pitch Softball', 'Fast Pitch Softball'].map((s) => (
-              <span key={s} className="bg-primary/50 text-primary-foreground/90 px-3 py-1 rounded-full">{s}</span>
-            ))}
-          </div>
+            <span className="mt-1 block text-base">Tap any feature for a full guide on how to use it.</span>
+          </>
+        }
+      >
+        <div className="flex flex-wrap justify-center gap-3 text-sm">
+          {['Golf', 'Tennis', 'Pickleball', 'Padel', 'Baseball', 'Slow Pitch Softball', 'Fast Pitch Softball'].map((s) => (
+            <span key={s} className="rounded-full border border-border bg-secondary px-3 py-1 text-muted-foreground">{s}</span>
+          ))}
         </div>
-      </div>
+      </MarketingHero>
 
       {/* Feature groups */}
       <div className="max-w-4xl mx-auto px-4 py-12 space-y-14">

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata = buildMetadata({
@@ -12,23 +13,18 @@ export default function ParentsPage() {
   return (
     <div className="min-h-screen bg-card">
       {/* Hero */}
-      <div className="bg-primary text-primary-foreground py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            Help Your Young Athlete Improve with AI Swing Analysis
-          </h1>
-          <p className="text-primary-foreground/90 text-lg mb-8 max-w-2xl mx-auto">
-            SwingVantage gives parents and coaches a tool to identify the highest-priority swing improvement,
-            suggest sport-specific drills, and track progress — for golf, tennis, baseball, and softball.
-          </p>
-          <Link
-            href="/start"
-            className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-semibold px-8 py-3 rounded-xl text-lg transition-colors"
-          >
-            Try SwingVantage Free
-          </Link>
-        </div>
-      </div>
+      <MarketingHero
+        title="Help Your Young Athlete Improve with"
+        titleAccent="AI Swing Analysis"
+        subtitle="SwingVantage gives parents and coaches a tool to identify the highest-priority swing improvement, suggest sport-specific drills, and track progress — for golf, tennis, baseball, and softball."
+      >
+        <Link
+          href="/start"
+          className="inline-block rounded-xl bg-primary px-8 py-3 text-lg font-semibold text-primary-foreground shadow-theme transition-colors hover:bg-primary/90"
+        >
+          Try SwingVantage Free
+        </Link>
+      </MarketingHero>
 
       {/* Safety section */}
       <div className="bg-warning/10 border-y border-warning/30 py-8 px-4">

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { getPublishedBlogPosts } from '@/data/blog-posts';
 
 const SPORT_FILTERS = ['All', 'Golf', 'Tennis', 'Pickleball', 'Padel', 'Baseball', 'Softball'] as const;
@@ -39,21 +40,19 @@ export default function BlogIndexPage() {
   return (
     <main className="min-h-screen bg-card">
       {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">SwingVantage Blog</h1>
-          <p className="text-primary-foreground/90 text-xl max-w-2xl mx-auto mb-8">
-            Swing tips, analysis guides, and training advice for golf, tennis, baseball, and softball.
-          </p>
-          <input
-            type="search"
-            placeholder="Search posts..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="w-full max-w-md mx-auto block px-4 py-3 rounded-xl text-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-primary/50"
-          />
-        </div>
-      </section>
+      <MarketingHero
+        title="SwingVantage"
+        titleAccent="Blog"
+        subtitle="Swing tips, analysis guides, and training advice for golf, tennis, baseball, and softball."
+      >
+        <input
+          type="search"
+          placeholder="Search posts..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="mx-auto block w-full max-w-md rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-2 focus:ring-primary/50"
+        />
+      </MarketingHero>
 
       {/* Filter pills */}
       <section className="bg-muted border-b border-border py-4 px-4 sticky top-0 z-10">

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
@@ -175,20 +176,11 @@ export default function ResourcesPage() {
       <JsonLd data={structuredData} />
 
       {/* Header */}
-      <div className="bg-primary text-primary-foreground py-14 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-sm">SV</span>
-            </div>
-            <Link href="/" className="text-white font-bold text-xl hover:text-primary-foreground/80 transition-colors">SwingVantage</Link>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Swing Training Resources</h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
-            Guides and references to help you understand your swing data and make better use of your practice time — for all 5 sports.
-          </p>
-        </div>
-      </div>
+      <MarketingHero
+        title="Swing Training"
+        titleAccent="Resources"
+        subtitle="Guides and references to help you understand your swing data and make better use of your practice time — for all 5 sports."
+      />
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 py-12 space-y-14">
