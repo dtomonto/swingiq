@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
 // MotionLab critical flow (#prompt acceptance criterion 20). Driven through the
 // built-in SAMPLE analyses — a synthetic motion run through the REAL engine — so
@@ -7,9 +7,29 @@ import { test, expect } from '@playwright/test';
 // covered by the unit suites; here we exercise select → analyse → replay →
 // one fix → drill → retest end to end.
 
+/**
+ * Dismiss the brand-new-device first-run overlays (the full-screen usage-category
+ * modal + the cookie bar) that float over app routes and intercept clicks — the
+ * same way a real user would. Mirrors e2e/floating-help-overlap.spec.ts.
+ */
+async function dismissFirstRunOverlays(page: Page) {
+  const adult = page.getByRole('button', { name: /Adult athlete/i });
+  try {
+    await adult.waitFor({ state: 'visible', timeout: 5_000 });
+    await adult.click();
+    await page.getByRole('button', { name: /Continue to SwingVantage/i }).click();
+  } catch { /* modal already handled in this context */ }
+  const accept = page.getByRole('button', { name: /^Accept$/ });
+  try {
+    await accept.waitFor({ state: 'visible', timeout: 3_000 });
+    await accept.click();
+  } catch { /* no cookie bar */ }
+}
+
 test.describe('MotionLab', () => {
   test('the lab opens with the sport selector and sample gallery', async ({ page }) => {
     await page.goto('/motion-lab');
+    await dismissFirstRunOverlays(page);
     await expect(page.getByRole('heading', { name: /motion lab/i })).toBeVisible();
     await expect(page.getByRole('heading', { name: /analyse any motion in 3d/i })).toBeVisible();
 
@@ -23,6 +43,7 @@ test.describe('MotionLab', () => {
 
   test('a rally-sport sample analyses, replays, and gives one fix · drill · retest', async ({ page }) => {
     await page.goto('/motion-lab');
+    await dismissFirstRunOverlays(page);
 
     // 1) Select sport + use a sample clip (one click runs the real engine).
     await page.getByRole('button', { name: /tennis forehand/i }).click();
@@ -34,7 +55,7 @@ test.describe('MotionLab', () => {
     // 3) Replay (default 3D & Phases tab) surfaces the continuous-movement read —
     //    the rally-sport "how did I recover / get ready for the next ball" layer.
     await expect(page.getByText(/movement intelligence/i)).toBeVisible();
-    await expect(page.getByText(/next-ready position/i)).toBeVisible();
+    await expect(page.getByText(/next-ready position/i).first()).toBeVisible();
 
     // 4) Coaching tab → the retest protocol closes the loop.
     await page.getByRole('button', { name: 'Coaching' }).click();
@@ -49,6 +70,7 @@ test.describe('MotionLab', () => {
 
   test('a swing-sport sample omits the rally movement layer', async ({ page }) => {
     await page.goto('/motion-lab');
+    await dismissFirstRunOverlays(page);
     await page.getByRole('button', { name: /golf driver/i }).click();
     await expect(page.getByText(/biggest opportunity/i)).toBeVisible();
     // Golf is a discrete swing — no continuous-movement card.
@@ -61,6 +83,7 @@ test.describe('MotionLab', () => {
   test('works on a mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/motion-lab');
+    await dismissFirstRunOverlays(page);
     await page.getByRole('button', { name: /pickleball dink/i }).click();
     await expect(page.getByText(/biggest opportunity/i)).toBeVisible();
     await expect(page.getByText(/movement intelligence/i)).toBeVisible();
