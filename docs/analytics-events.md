@@ -96,7 +96,9 @@ private — events only print to the developer console and disappear.
 1. Create a GA4 property and copy its Measurement ID (looks like `G-XXXXXXXXXX`).
 2. Add to `apps/web/.env.local`:
    `NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX`
-3. Save and redeploy. Pair with a cookie-consent banner if you have EU visitors.
+3. Save and redeploy. GA4 sets cookies, so it's consent-gated automatically by the
+   built-in cookie banner (`lib/consent.ts` + `ConsentGatedAnalytics.tsx`) — it
+   loads only with the visitor's consent.
 
 ### Option C — PostHog (product analytics: funnels, retention)
 
@@ -104,7 +106,8 @@ private — events only print to the developer console and disappear.
 2. Add to `apps/web/.env.local`:
    `NEXT_PUBLIC_POSTHOG_KEY=phc_your-key-here`
 3. Save and redeploy. Best if you want to build the improvement-loop funnel chart
-   directly from the events above.
+   directly from the events above. PostHog sets cookies, so it's consent-gated
+   automatically by the built-in cookie banner — it loads only with consent.
 
 ### Option D — Microsoft Clarity (heatmaps + session replay; sets cookies)
 
@@ -113,9 +116,9 @@ private — events only print to the developer console and disappear.
 2. Add to `apps/web/.env.local`:
    `NEXT_PUBLIC_CLARITY_PROJECT_ID=your-project-id`
 3. Save and redeploy. Clarity **records sessions and sets cookies**, so the app is
-   no longer cookieless once it loads. It's **opt-in**: the tag fires only after
-   the visitor accepts the cookie banner (and the `clarity.enabled` operator flag
-   is on) — see `lib/consent.ts` + `ClarityScript.tsx`. Optionally add
+   no longer cookieless once it loads. It's consent-gated: the tag fires only with
+   the visitor's consent via the cookie banner (and while the `clarity.enabled`
+   operator flag is on) — see `lib/consent.ts` + `ClarityScript.tsx`. Optionally add
    `CLARITY_DATA_EXPORT_TOKEN` (server-side) to read Clarity metrics inside
    `/admin/clarity`.
 

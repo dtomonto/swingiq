@@ -15,10 +15,10 @@ is **not** a certification or a substitute for independent legal review.
   your browser. Sign in and it syncs to your private account.
 - **No ads, no data sales.** We never run advertising cookies and never sell your
   data. We don't claim to be cookieless: the recommended Plausible is cookieless,
-  but optional tools like Microsoft Clarity (heatmaps & session replay) and GA4 do
-  set cookies. Clarity is **opt-in** — its tag loads only after you accept the
-  cookie notice; decline (or before you choose) and no analytics cookies are set,
-  and the app works exactly the same.
+  but the optional analytics tools — Microsoft Clarity (heatmaps & session replay),
+  Google Analytics, and PostHog — set cookies. These are all governed by your
+  choice in the cookie banner; decline and none of them run, and the app works
+  exactly the same.
 
 ## 1. What data exists, and where it lives
 
