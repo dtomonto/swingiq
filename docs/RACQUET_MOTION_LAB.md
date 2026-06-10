@@ -62,12 +62,16 @@ Tracked here so it isn't lost. None of this is built yet.
    visitor can experience the overlay lab before uploading. Needs a small sample
    asset under `public/` and a `loadSampleSession()` seam; respect the privacy
    model (sample clip is shipped, not user data).
-2. **Analytics instrumentation.** Emit Motion-Lab events (lab opened, sport/shot
-   selected, uploaded, trimmed, analysis started/completed/failed, overlay
-   toggled, slow-mo used, frame-step used, phase clicked, report saved, drill
-   opened, retest started, clip deleted). Requires adding the event names to the
-   typed `AnalyticsEventName` union in `@swingiq/core` (`lib/growth/types.ts`)
-   and rebuilding `dist`; keep it behind the existing keyless analytics seam.
+2. ~~**Analytics instrumentation.**~~ — **shipped.** Motion-Lab events
+   (`MOTION_LAB_*` in `packages/core/src/analytics/events.ts`) are emitted from
+   the wizard, the video lab, and the results dashboard: opened, sport/motion
+   selected, analysis started/completed/failed, view-mode changed, overlay
+   toggled, slow-mo used, frame-stepped, phase clicked, report exported, session
+   deleted. All go through the keyless/consent-safe `track()` seam (no-ops
+   unless a provider is loaded) and carry only non-private metadata (sport,
+   motion, confidence *band*, layer, speed) — never video, landmarks, or raw
+   biometric values. Rapid controls (frame-step) fire at most once per mount.
+   _Still open:_ a `MOTION_LAB_SAMPLE_VIEWED` event once demo mode lands.
 3. **Admin controls.** Enable/disable the lab and the video-overlay surface by
    sport / cohort / beta flag from the admin OS; surface upload volume,
    completion rate, average confidence, and most-common detected faults by sport.

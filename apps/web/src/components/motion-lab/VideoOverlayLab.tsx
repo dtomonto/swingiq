@@ -38,6 +38,8 @@ import {
   balanceEstimate, balanceVerdict, stanceRead, leadSide,
 } from '@/lib/motion-lab';
 import { cn } from '@/lib/utils';
+// Aliased: this component already has a `track` prop (the pose track).
+import { track as trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics';
 
 // ── Overlay layer registry ────────────────────────────────────
 
@@ -95,6 +97,9 @@ export function VideoOverlayLab({
   const wrapRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef(0);
   const loopRef = useRef<{ start: number; end: number } | null>(null);
+  // Fire usage signals at most once per mount so rapid stepping/looping can't
+  // flood analytics — what matters is "did the user use this control at all".
+  const usedStepRef = useRef(false);
 
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState<(typeof SPEEDS)[number]>(0.5);
@@ -111,7 +116,11 @@ export function VideoOverlayLab({
   const hasPath = !!objectTracking?.available && (objectTracking?.trace.points.length ?? 0) >= 2;
   const empty = frames.length === 0;
 
-  const toggle = (id: LayerId) => setLayers((l) => ({ ...l, [id]: !l[id] }));
+  const toggle = (id: LayerId) => setLayers((l) => {
+    const next = !l[id];
+    trackEvent(ANALYTICS_EVENTS.MOTION_LAB_OVERLAY_TOGGLED, { layer: id, on: next });
+    return { ...l, [id]: next };
+  });
 
   // tMs of a pose frame → seconds on the video timeline (frames carry source ts).
   const frameSeconds = useCallback((i: number) => (frames[i]?.tMs ?? 0) / 1000, [frames]);
@@ -305,6 +314,7 @@ export function VideoOverlayLab({
   const applySpeed = (s: (typeof SPEEDS)[number]) => {
     setSpeed(s);
     if (videoRef.current) videoRef.current.playbackRate = s;
+    if (s < 1) trackEvent(ANALYTICS_EVENTS.MOTION_LAB_SLOWMO_USED, { speed: s });
   };
 
   const seekTo = useCallback((seconds: number) => {
@@ -317,11 +327,15 @@ export function VideoOverlayLab({
 
   const stepFrame = useCallback((dir: 1 | -1) => {
     if (empty) return;
+    if (!usedStepRef.current) { usedStepRef.current = true; trackEvent(ANALYTICS_EVENTS.MOTION_LAB_FRAME_STEPPED); }
     const next = Math.max(0, Math.min(frames.length - 1, frameIdx + dir));
     seekTo(frameSeconds(next));
   }, [empty, frames.length, frameIdx, frameSeconds, seekTo]);
 
-  const jumpToPhase = (p: MotionPhaseSegment) => seekTo((frames[p.keyFrame]?.tMs ?? p.startMs) / 1000);
+  const jumpToPhase = (p: MotionPhaseSegment) => {
+    trackEvent(ANALYTICS_EVENTS.MOTION_LAB_PHASE_CLICKED, { phase: p.key });
+    seekTo((frames[p.keyFrame]?.tMs ?? p.startMs) / 1000);
+  };
 
   const toggleLoop = (p: MotionPhaseSegment) => {
     if (loopKey === p.key) { loopRef.current = null; setLoopKey(null); return; }

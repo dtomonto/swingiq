@@ -31,6 +31,7 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
 import { Film, Box as BoxIcon } from 'lucide-react';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 
 type Tab = 'viewer' | 'scores' | 'metrics' | 'coaching' | 'drills' | 'compare';
 
@@ -102,13 +103,13 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={() => downloadSessionJson(session)}>
+          <Button variant="outline" size="sm" onClick={() => { downloadSessionJson(session); track(ANALYTICS_EVENTS.MOTION_LAB_REPORT_EXPORTED, { format: 'json' }); }}>
             <Download className="w-4 h-4" /> JSON
           </Button>
-          <Button variant="outline" size="sm" onClick={() => downloadSessionCsv(session)}>
+          <Button variant="outline" size="sm" onClick={() => { downloadSessionCsv(session); track(ANALYTICS_EVENTS.MOTION_LAB_REPORT_EXPORTED, { format: 'csv' }); }}>
             <Download className="w-4 h-4" /> CSV
           </Button>
-          <Button variant="outline" size="sm" onClick={() => printSessionReport(session)}>
+          <Button variant="outline" size="sm" onClick={() => { printSessionReport(session); track(ANALYTICS_EVENTS.MOTION_LAB_REPORT_EXPORTED, { format: 'pdf' }); }}>
             <FileText className="w-4 h-4" /> PDF
           </Button>
           <Button variant="ghost" size="sm" onClick={onNewMotion}>
@@ -186,7 +187,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
               {([['video', 'Video + overlays', Film], ['3d', '3D skeleton', BoxIcon]] as const).map(([id, label, Icon]) => (
                 <button
                   key={id}
-                  onClick={() => setViewerMode(id)}
+                  onClick={() => { setViewerMode(id); track(ANALYTICS_EVENTS.MOTION_LAB_VIEW_MODE_CHANGED, { mode: id }); }}
                   className={cn(
                     'flex items-center gap-1.5 text-sm font-medium rounded-md px-3 py-1.5 transition-colors',
                     viewerMode === id ? 'bg-card text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground',

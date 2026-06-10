@@ -29,6 +29,7 @@ import type {
 } from '@/lib/motion-lab';
 import type { SwingVideoMetadata } from '@swingiq/core';
 import { cn } from '@/lib/utils';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 
 type Step = 'select' | 'capture' | 'analyzing' | 'results';
 
@@ -101,6 +102,10 @@ export function MotionLabWizard() {
 
   const allSessions = useMotionSessions();
 
+  // Fires once when the lab is opened (keyless/consent-safe — no-ops unless an
+  // analytics provider is actually loaded). Carries no private data.
+  useEffect(() => { track(ANALYTICS_EVENTS.MOTION_LAB_OPENED); }, []);
+
   useEffect(() => () => { if (objectUrl) URL.revokeObjectURL(objectUrl); }, [objectUrl]);
   useEffect(() => () => { if (objectUrlB) URL.revokeObjectURL(objectUrlB); }, [objectUrlB]);
 
@@ -145,6 +150,7 @@ export function MotionLabWizard() {
     setError(null);
     setStep('analyzing');
     setStage('extracting');
+    track(ANALYTICS_EVENTS.MOTION_LAB_ANALYSIS_STARTED, { sport, motion: motionType, view, capture_mode: captureMode });
     const capture: CaptureContext = {
       sport,
       motionType,
@@ -179,9 +185,15 @@ export function MotionLabWizard() {
       setSaved(Boolean(persisted));
       setResultVideoUrl(objectUrl);
       setStep('results');
+      track(ANALYTICS_EVENTS.MOTION_LAB_ANALYSIS_COMPLETED, {
+        sport, motion: motionType,
+        // a coarse band, never the raw biometric values
+        confidence_band: result.scoreboard.confidence >= 0.66 ? 'high' : result.scoreboard.confidence >= 0.33 ? 'medium' : 'low',
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Analysis failed. Please try another clip.');
       setStep('capture');
+      track(ANALYTICS_EVENTS.MOTION_LAB_ANALYSIS_FAILED, { sport, motion: motionType });
     }
   }, [videoFile, videoFileB, captureMode, motionType, sport, view, handedness, skillLevel, modelQuality, proDepth, videoMeta, trim, objectUrl]);
 
@@ -196,6 +208,7 @@ export function MotionLabWizard() {
 
   const handleDelete = useCallback(() => {
     if (session) deleteSession(session.id);
+    track(ANALYTICS_EVENTS.MOTION_LAB_SESSION_DELETED);
     startOver();
   }, [session, startOver]);
 
@@ -258,8 +271,8 @@ export function MotionLabWizard() {
                 <SportMotionSelector
                   sport={sport}
                   motionType={motionType}
-                  onSport={(s) => { setSport(s); setMotionType(null); }}
-                  onMotion={setMotionType}
+                  onSport={(s) => { setSport(s); setMotionType(null); track(ANALYTICS_EVENTS.MOTION_LAB_SPORT_SELECTED, { sport: s }); }}
+                  onMotion={(m) => { setMotionType(m); track(ANALYTICS_EVENTS.MOTION_LAB_MOTION_SELECTED, { sport, motion: m }); }}
                 />
               </CardBody>
             </Card>
