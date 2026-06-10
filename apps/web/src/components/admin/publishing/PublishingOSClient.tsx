@@ -18,6 +18,8 @@ import {
 import { recordAudit } from '@/lib/admin/stores/audit-log';
 import { getPublishingDirection, setPublishingDirection } from '@/lib/admin/publishing-prefs';
 import { DIRECTIONS, DEFAULT_DIRECTION, getDirection, type DirectionId } from './directions';
+import { PublishDetailDrawer } from './PublishDetailDrawer';
+import { entityKey } from '@/lib/publishing/detail';
 import type { PublishingOSData, QueueItem } from '@/lib/publishing/admin-data.server';
 import type { PublishableArea } from '@/lib/publishing/entity-registry';
 import type { RiskLevel, PublishMode } from '@/lib/publishing/types';
@@ -72,6 +74,10 @@ export function PublishingOSClient({ data, actor }: { data: PublishingOSData; ac
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [confirm, setConfirm] = useState<QueueItem | null>(null);
+  // The drawer tracks an item by identity (kind+id) and re-reads the LIVE row
+  // from `queue`, so its publish/draft state stays in sync after a toggle.
+  const [detailRef, setDetailRef] = useState<{ kind: QueueItem['kind']; id: string } | null>(null);
+  const detailItem = detailRef ? queue.find((q) => q.kind === detailRef.kind && q.id === detailRef.id) ?? null : null;
 
   const skin = getDirection(directionId);
 
@@ -143,11 +149,23 @@ export function PublishingOSClient({ data, actor }: { data: PublishingOSData; ac
 
         {view === 'overview' && <Overview data={data} skin={skin} onJump={setView} />}
         {view === 'queue' && (
-          <PublishQueue queue={queue} skin={skin} busy={busy} onToggle={onToggle} />
+          <PublishQueue queue={queue} skin={skin} busy={busy} onToggle={onToggle} onOpen={(i) => setDetailRef({ kind: i.kind, id: i.id })} />
         )}
         {view === 'areas' && <AreasAudit areas={data.areas} summary={data.areasSummary} skin={skin} />}
         {view === 'activity' && <Activity data={data} skin={skin} />}
       </div>
+
+      {detailItem && (
+        <PublishDetailDrawer
+          item={detailItem}
+          entity={data.entities[entityKey(detailItem.entityType, detailItem.id)]}
+          events={data.eventsByEntity[entityKey(detailItem.entityType, detailItem.id)] ?? []}
+          queue={queue}
+          busy={busy}
+          onToggle={onToggle}
+          onClose={() => setDetailRef(null)}
+        />
+      )}
 
       {confirm && (
         <ConfirmModal item={confirm} onCancel={() => setConfirm(null)} onConfirm={() => doToggle(confirm, true)} />
@@ -366,8 +384,8 @@ function Overview({ data, skin, onJump }: { data: PublishingOSData; skin: Return
 
 // ── Publish queue ─────────────────────────────────────────────────────────
 function PublishQueue({
-  queue, skin, busy, onToggle,
-}: { queue: QueueItem[]; skin: ReturnType<typeof getDirection>; busy: string | null; onToggle: (i: QueueItem) => void }) {
+  queue, skin, busy, onToggle, onOpen,
+}: { queue: QueueItem[]; skin: ReturnType<typeof getDirection>; busy: string | null; onToggle: (i: QueueItem) => void; onOpen: (i: QueueItem) => void }) {
   const [risk, setRisk] = useState<'all' | RiskLevel>('all');
   const [status, setStatus] = useState<'all' | 'live' | 'draft'>('all');
   const [type, setType] = useState<'all' | string>('all');
@@ -398,7 +416,12 @@ function PublishQueue({
               registries (e.g. a repeated SEO slug) — keeps keys unique. */}
           {filtered.map((item, idx) => (
             <li key={`${item.kind}:${item.id}:${idx}`} className={`flex flex-wrap items-center justify-between gap-3 ${skin.row} ${skin.density === 'compact' ? 'p-2.5' : 'p-3.5'}`}>
-              <div className="min-w-0">
+              <button
+                type="button"
+                onClick={() => onOpen(item)}
+                className="min-w-0 flex-1 cursor-pointer rounded-md text-left transition-colors hover:bg-white/5"
+                aria-label={`Open details for ${item.title}`}
+              >
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="truncate text-sm font-medium text-gray-100">{item.title}</span>
                   <Pill className={item.published ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30' : 'bg-gray-800 text-gray-400 border-gray-700'}>
@@ -407,8 +430,8 @@ function PublishQueue({
                   <Pill className={RISK_TONE[item.risk]}>{item.risk}</Pill>
                   <Pill className={MODE_TONE[item.publishMode]}>{MODE_LABEL[item.publishMode]}</Pill>
                 </div>
-                <p className="mt-0.5 font-mono text-[11px] text-gray-600">{[item.entityType, item.category, item.date].filter(Boolean).join(' · ')}</p>
-              </div>
+                <p className="mt-0.5 font-mono text-[11px] text-gray-600">{[item.entityType, item.category, item.date].filter(Boolean).join(' · ')} · view details</p>
+              </button>
               <button
                 role="switch"
                 aria-checked={item.published}

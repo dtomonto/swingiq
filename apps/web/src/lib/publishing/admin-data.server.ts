@@ -12,8 +12,8 @@ import { readSeoRows, readBlogRows } from '@/lib/admin/content-publish-store';
 import { classifyRisk } from './risk';
 import { areaForType, PUBLISHABLE_AREAS, summarizeAreas, type PublishableArea } from './entity-registry';
 import { getRecentEvents } from './service';
-import { isPublishingPersistent } from './store';
-import type { PublishEntityType, PublishEvent, PublishMode, RiskLevel } from './types';
+import { isPublishingPersistent, listEntities, listEvents } from './store';
+import type { PublishableEntity, PublishEntityType, PublishEvent, PublishMode, RiskLevel } from './types';
 
 const KIND_TO_ENTITY: Record<PublishRow['kind'], PublishEntityType> = {
   product: 'update',
@@ -56,6 +56,12 @@ export interface PublishingOSData {
   areas: PublishableArea[];
   areasSummary: ReturnType<typeof summarizeAreas>;
   recentEvents: PublishEvent[];
+  /** Durable entity snapshots keyed by `${entityType}:${entityId}` — powers the
+   *  per-item detail drawer (lifecycle/version). Only populated entities exist
+   *  (an entity is created on its first publish decision), so this stays small. */
+  entities: Record<string, PublishableEntity>;
+  /** This-entity audit events keyed by the same entity key (newest-first). */
+  eventsByEntity: Record<string, PublishEvent[]>;
 }
 
 function toQueueItem(row: PublishRow): QueueItem {
@@ -89,6 +95,17 @@ export async function getPublishingOSData(): Promise<PublishingOSData> {
   const recentEvents = await getRecentEvents(25);
   const persistent = isPublishingPersistent();
 
+  // Per-entity snapshots + audit history for the detail drawer. Two store reads
+  // total, grouped in memory — no per-item round-trips.
+  const allEntities = await listEntities();
+  const allEvents = await listEvents();
+  const entities: Record<string, PublishableEntity> = {};
+  for (const e of allEntities) entities[e.id] = e;
+  const eventsByEntity: Record<string, PublishEvent[]> = {};
+  for (const ev of allEvents) {
+    (eventsByEntity[ev.publishableEntityId] ??= []).push(ev);
+  }
+
   const live = queue.filter((q) => q.published).length;
   const drafts = queue.length - live;
   const highRisk = queue.filter((q) => q.risk === 'high' || q.risk === 'critical').length;
@@ -110,5 +127,7 @@ export async function getPublishingOSData(): Promise<PublishingOSData> {
     areas: PUBLISHABLE_AREAS,
     areasSummary: summarizeAreas(),
     recentEvents,
+    entities,
+    eventsByEntity,
   };
 }
