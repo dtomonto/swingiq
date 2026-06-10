@@ -17,7 +17,7 @@
 // ============================================================
 
 import type { FoundingCampaignProgress, FoundingCampaignStatus, FoundingUserProgress } from './types';
-import { FOUNDING_REQUIRED_COUNT, FOUNDING_REQUIRED_SESSIONS } from './config';
+import { FOUNDING_REQUIRED_COUNT, FOUNDING_REQUIRED_SESSIONS, FOUNDING_COUNTER_BASELINE } from './config';
 
 export interface FoundingEvaluationInput {
   profileCompleted: boolean;
@@ -26,7 +26,7 @@ export interface FoundingEvaluationInput {
   /** Server-assigned member number once claimed + confirmed (else null). */
   memberNumber?: number | null;
   qualifiedAt?: string | null;
-  /** True when the 1,000 spots are already filled (from campaign progress). */
+  /** True when all founding spots are already filled (from campaign progress). */
   campaignFull?: boolean;
   requiredSessions?: number;
 }
@@ -40,7 +40,7 @@ function deriveStatus(
   campaignFull: boolean,
 ): FoundingCampaignStatus {
   if (memberNumber != null) return 'qualified';
-  if (eligible) return campaignFull ? 'waitlisted_after_1000' : 'qualified';
+  if (eligible) return campaignFull ? 'waitlisted_after_cap' : 'qualified';
   if (profileCompleted) return 'profile_complete_sessions_needed';
   if (profileCompletionPercent > 0 || validSessionCount > 0) return 'profile_incomplete';
   return 'not_started';
@@ -78,10 +78,14 @@ export function evaluateFoundingFathersStatus(input: FoundingEvaluationInput): F
 }
 
 export interface MembershipGateInput {
+  /** REAL qualified-member count (the public counter adds the launch baseline). */
   qualifiedCount: number;
   requiredCount?: number;
   /** Admin override: true = force-unlock, false = force-lock, null = automatic. */
   manualOverride?: boolean | null;
+  /** Public launch baseline added to the real count (defaults to the constant;
+   *  pass 0 to compute against raw real counts, e.g. in tests). */
+  baseline?: number;
 }
 
 /**
@@ -96,11 +100,15 @@ export function shouldUnlockMembershipTiers(input: MembershipGateInput): boolean
   return input.qualifiedCount >= required;
 }
 
-/** Build the public, privacy-safe campaign progress object. */
+/** Build the public, privacy-safe campaign progress object. The displayed
+ *  count = launch baseline + real qualified members, capped at requiredCount. */
 export function buildCampaignProgress(input: MembershipGateInput): FoundingCampaignProgress {
   const requiredCount = input.requiredCount ?? FOUNDING_REQUIRED_COUNT;
-  const qualifiedCount = Math.max(0, Math.floor(input.qualifiedCount || 0));
-  const enabled = shouldUnlockMembershipTiers({ ...input, requiredCount });
+  const baseline = Math.max(0, Math.floor(input.baseline ?? FOUNDING_COUNTER_BASELINE));
+  const realQualified = Math.max(0, Math.floor(input.qualifiedCount || 0));
+  const qualifiedCount = Math.min(requiredCount, baseline + realQualified);
+  // The membership gate + "full" use the SAME displayed (baselined) count.
+  const enabled = shouldUnlockMembershipTiers({ qualifiedCount, requiredCount, manualOverride: input.manualOverride });
   const full = qualifiedCount >= requiredCount;
 
   let reason: string;

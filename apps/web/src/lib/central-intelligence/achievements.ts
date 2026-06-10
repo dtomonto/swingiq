@@ -24,7 +24,7 @@ export const FOUNDING_MEMBER_ACHIEVEMENT: Achievement = {
   id: 'founding-member',
   name: 'Founding Member',
   description:
-    'Among the first 1,000 SwingVantage pioneers — completed a full player profile and recorded 10 sessions.',
+    'Among the first 100 SwingVantage pioneers — completed the Founding Journey and locked in a free account for life.',
   icon: '🏛️',
   tier: 'founding',
 };

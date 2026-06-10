@@ -137,7 +137,7 @@ export type FoundingCampaignStatus =
   | 'profile_incomplete' // has begun but profile not complete
   | 'profile_complete_sessions_needed' // profile done, < required sessions
   | 'qualified' // both conditions met
-  | 'waitlisted_after_1000' // qualified-eligible but the 1000 spots are gone
+  | 'waitlisted_after_cap' // qualified-eligible but all founding spots are gone
   | 'disqualified'; // abuse/fraud handling only
 
 /** The user's own progress — computed locally, never trusts the client for #. */

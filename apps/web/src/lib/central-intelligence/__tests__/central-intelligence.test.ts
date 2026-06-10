@@ -178,7 +178,7 @@ describe('founding fathers qualification', () => {
   });
   it('waitlists an eligible user once the campaign is full', () => {
     const r = evaluateFoundingFathersStatus({ profileCompleted: true, profileCompletionPercent: 100, validSessionCount: 10, campaignFull: true });
-    expect(r.status).toBe('waitlisted_after_1000');
+    expect(r.status).toBe('waitlisted_after_cap');
   });
   it('reports the server member number when present', () => {
     const r = evaluateFoundingFathersStatus({ profileCompleted: true, profileCompletionPercent: 100, validSessionCount: 10, memberNumber: 42 });
@@ -189,7 +189,7 @@ describe('founding fathers qualification', () => {
 
 describe('membership tier gate', () => {
   it('stays locked below the required count', () => {
-    expect(shouldUnlockMembershipTiers({ qualifiedCount: 999 })).toBe(false);
+    expect(shouldUnlockMembershipTiers({ qualifiedCount: FOUNDING_REQUIRED_COUNT - 1 })).toBe(false);
   });
   it('unlocks at the required count', () => {
     expect(shouldUnlockMembershipTiers({ qualifiedCount: FOUNDING_REQUIRED_COUNT })).toBe(true);
@@ -198,11 +198,16 @@ describe('membership tier gate', () => {
     expect(shouldUnlockMembershipTiers({ qualifiedCount: 0, manualOverride: true })).toBe(true);
     expect(shouldUnlockMembershipTiers({ qualifiedCount: 5000, manualOverride: false })).toBe(false);
   });
-  it('builds privacy-safe campaign progress', () => {
-    const p = buildCampaignProgress({ qualifiedCount: 247 });
-    expect(p.remaining).toBe(FOUNDING_REQUIRED_COUNT - 247);
+  it('builds privacy-safe campaign progress (raw, baseline 0)', () => {
+    const p = buildCampaignProgress({ qualifiedCount: 30, baseline: 0 });
+    expect(p.remaining).toBe(FOUNDING_REQUIRED_COUNT - 30);
     expect(p.full).toBe(false);
     expect(p.membershipTiersEnabled).toBe(false);
+  });
+  it('applies the public launch baseline to the displayed count', () => {
+    const p = buildCampaignProgress({ qualifiedCount: 0, baseline: 55, requiredCount: 100 });
+    expect(p.qualifiedCount).toBe(55);
+    expect(p.remaining).toBe(45);
   });
 });
 

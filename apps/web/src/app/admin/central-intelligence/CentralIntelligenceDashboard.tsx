@@ -196,7 +196,7 @@ function FoundingPanel({
 
       <SectionCard
         title="Membership-tier gate"
-        description="Paid membership tiers stay locked until the first 1,000 Founding Members qualify — unless you override."
+        description="Paid membership tiers stay locked until the first 100 Founding Members qualify — unless you override. Those 100 keep a free account for life."
       >
         <div className="flex flex-wrap gap-2">
           {options.map((o) => {
@@ -435,7 +435,7 @@ function GrowthOsPanel({ data, progress }: { data: CIDashboard; progress: Foundi
       </SectionCard>
       <HelpPanel title="GrowthOS integration">
         <p>The Founding Members campaign appears in GrowthOS as a launch-era activation campaign. The
-          membership-tier strategy stays locked until 1,000 members qualify — keeping the free-first
+          membership-tier strategy stays locked until 100 members qualify — keeping the free-first
           go-to-market intact.</p>
       </HelpPanel>
     </div>

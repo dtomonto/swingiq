@@ -26,7 +26,7 @@ import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 import type { SportId } from '@swingiq/core';
 import type { FoundingCampaignProgress } from './types';
 import { buildCampaignProgress } from './founding';
-import { FOUNDING_REQUIRED_COUNT, FOUNDING_REQUIRED_SESSIONS } from './config';
+import { FOUNDING_REQUIRED_COUNT, FOUNDING_REQUIRED_SESSIONS, FOUNDING_COUNTER_BASELINE } from './config';
 
 const TABLE = 'growth_records';
 const MEMBER_KIND = 'founding-member';
@@ -38,7 +38,7 @@ export interface FoundingMemberRecord {
   kind: typeof MEMBER_KIND;
   userId: string;
   memberNumber: number | null; // null when waitlisted after the cap
-  status: 'qualified' | 'waitlisted_after_1000';
+  status: 'qualified' | 'waitlisted_after_cap';
   sport: SportId | null;
   validSessionCountAtClaim: number;
   profileCompleteAtClaim: boolean;
@@ -51,6 +51,8 @@ export interface FoundingConfigRecord {
   id: typeof CONFIG_ID;
   kind: typeof CONFIG_KIND;
   requiredCount: number;
+  /** Public launch baseline the counter starts at (real members climb from here). */
+  baseline: number;
   /** true = force-unlock tiers, false = force-lock, null = automatic at cap. */
   manualOverride: boolean | null;
   updatedAt: string;
@@ -89,6 +91,7 @@ const DEFAULT_CONFIG: FoundingConfigRecord = {
   id: CONFIG_ID,
   kind: CONFIG_KIND,
   requiredCount: FOUNDING_REQUIRED_COUNT,
+  baseline: FOUNDING_COUNTER_BASELINE,
   manualOverride: null,
   updatedAt: '1970-01-01T00:00:00.000Z',
 };
@@ -106,7 +109,7 @@ export async function getFoundingConfig(): Promise<FoundingConfigRecord> {
 }
 
 export async function setFoundingConfig(
-  patch: Partial<Pick<FoundingConfigRecord, 'requiredCount' | 'manualOverride'>>,
+  patch: Partial<Pick<FoundingConfigRecord, 'requiredCount' | 'manualOverride' | 'baseline'>>,
 ): Promise<FoundingConfigRecord> {
   const current = await getFoundingConfig();
   const next: FoundingConfigRecord = { ...current, ...patch, id: CONFIG_ID, kind: CONFIG_KIND, updatedAt: new Date().toISOString() };
@@ -220,7 +223,7 @@ export async function claimFoundingMembership(input: ClaimInput): Promise<ClaimR
     return {
       ok: true,
       record: existing,
-      progress: buildCampaignProgress({ qualifiedCount, requiredCount, manualOverride: config.manualOverride }),
+      progress: buildCampaignProgress({ qualifiedCount, requiredCount, baseline: config.baseline, manualOverride: config.manualOverride }),
     };
   }
 
@@ -234,20 +237,24 @@ export async function claimFoundingMembership(input: ClaimInput): Promise<ClaimR
         ? 'Profile is not complete yet.'
         : `Need ${FOUNDING_REQUIRED_SESSIONS} valid sessions (have ${input.validSessionCount}).`,
       record: null,
-      progress: buildCampaignProgress({ qualifiedCount, requiredCount, manualOverride: config.manualOverride }),
+      progress: buildCampaignProgress({ qualifiedCount, requiredCount, baseline: config.baseline, manualOverride: config.manualOverride }),
     };
   }
 
   const qualifiedBefore = await getQualifiedCount();
   const now = new Date().toISOString();
-  const capReached = qualifiedBefore >= requiredCount;
+  // The public counter starts at the configured baseline, so real member
+  // numbers continue from there (first real member = baseline + 1) and the cap
+  // is reached once baseline + real members fills every spot.
+  const displayedBefore = (config.baseline ?? FOUNDING_COUNTER_BASELINE) + qualifiedBefore;
+  const capReached = displayedBefore >= requiredCount;
 
   const record: FoundingMemberRecord = {
     id: `founding-member-${input.userId}`,
     kind: MEMBER_KIND,
     userId: input.userId,
-    memberNumber: capReached ? null : qualifiedBefore + 1,
-    status: capReached ? 'waitlisted_after_1000' : 'qualified',
+    memberNumber: capReached ? null : displayedBefore + 1,
+    status: capReached ? 'waitlisted_after_cap' : 'qualified',
     sport: input.sport ?? null,
     validSessionCountAtClaim: input.validSessionCount,
     profileCompleteAtClaim: input.profileCompleted,
@@ -260,12 +267,12 @@ export async function claimFoundingMembership(input: ClaimInput): Promise<ClaimR
   return {
     ok: true,
     record,
-    progress: buildCampaignProgress({ qualifiedCount: qualifiedAfter, requiredCount, manualOverride: config.manualOverride }),
+    progress: buildCampaignProgress({ qualifiedCount: qualifiedAfter, requiredCount, baseline: config.baseline, manualOverride: config.manualOverride }),
   };
 }
 
 /** Public, privacy-safe campaign progress (used by the global banner). */
 export async function getFoundingCampaignProgress(): Promise<FoundingCampaignProgress> {
   const [config, qualifiedCount] = await Promise.all([getFoundingConfig(), getQualifiedCount()]);
-  return buildCampaignProgress({ qualifiedCount, requiredCount: config.requiredCount, manualOverride: config.manualOverride });
+  return buildCampaignProgress({ qualifiedCount, requiredCount: config.requiredCount, baseline: config.baseline, manualOverride: config.manualOverride });
 }

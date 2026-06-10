@@ -20,7 +20,7 @@ const opts = (over: Partial<{ profilePercent: number; validSessions: number; mem
 describe('founding banner content', () => {
   it('logged-out state shows the campaign pitch + sign-up CTA', () => {
     const c = buildFoundingBannerContent('logged_out', opts());
-    expect(c.message).toMatch(/first 1,000/i);
+    expect(c.message).toMatch(/first 100|free for life/i);
     expect(c.cta?.href).toBe('/signup');
   });
 
@@ -28,7 +28,7 @@ describe('founding banner content', () => {
     const c = buildFoundingBannerContent('profile_incomplete', opts({ profilePercent: 60, validSessions: 2 }));
     expect(c.message).toContain('60%');
     expect(c.message).toContain(`2/${FOUNDING_REQUIRED_SESSIONS}`);
-    expect(c.cta?.href).toBe('/profile');
+    expect(c.cta?.href).toBe('/founding');
   });
 
   it('sessions-needed state shows remaining sessions + record CTA', () => {

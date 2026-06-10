@@ -13,8 +13,11 @@ import {
 
 const eligible = { profileCompleted: true, validSessionCount: 12 };
 
-beforeEach(() => {
+beforeEach(async () => {
   __resetFoundingStoreForTests();
+  // Most tests below exercise the RAW member-number mechanics, so neutralize
+  // the public launch baseline (its own behavior is covered separately).
+  await setFoundingConfig({ baseline: 0 });
 });
 
 describe('founding member numbers', () => {
@@ -56,8 +59,22 @@ describe('founding member numbers', () => {
     const c = await claimFoundingMembership({ userId: 'C', ...eligible });
     expect(a.record?.memberNumber).toBe(1);
     expect(b.record?.memberNumber).toBe(2);
-    expect(c.record?.status).toBe('waitlisted_after_1000');
+    expect(c.record?.status).toBe('waitlisted_after_cap');
     expect(c.record?.memberNumber).toBeNull();
+  });
+
+  it('honors the public launch baseline: counter starts at it, numbers continue from it', async () => {
+    await setFoundingConfig({ baseline: 55, requiredCount: 100 });
+    // Counter shows the baseline before anyone qualifies.
+    let progress = await getFoundingCampaignProgress();
+    expect(progress.qualifiedCount).toBe(55);
+    expect(progress.remaining).toBe(45);
+    expect(progress.full).toBe(false);
+    // First real member gets #56; the counter ticks to 56.
+    const a = await claimFoundingMembership({ userId: 'A', ...eligible });
+    expect(a.record?.memberNumber).toBe(56);
+    progress = await getFoundingCampaignProgress();
+    expect(progress.qualifiedCount).toBe(56);
   });
 });
 

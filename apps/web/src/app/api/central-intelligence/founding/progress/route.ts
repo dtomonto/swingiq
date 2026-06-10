@@ -9,6 +9,7 @@
 
 import { NextResponse } from 'next/server';
 import { getFoundingCampaignProgress } from '@/lib/central-intelligence/founding-server';
+import { FOUNDING_REQUIRED_COUNT } from '@/lib/central-intelligence/config';
 
 export const runtime = 'nodejs';
 // Revalidate at most every 30s; the banner reads a near-real-time count.
@@ -23,7 +24,7 @@ export async function GET() {
   } catch {
     // Never break page rendering — fall back to a safe empty-state count.
     return NextResponse.json(
-      { qualifiedCount: 0, requiredCount: 1000, remaining: 1000, full: false, membershipTiersEnabled: false, membershipUnlockReason: 'unavailable' },
+      { qualifiedCount: 0, requiredCount: FOUNDING_REQUIRED_COUNT, remaining: FOUNDING_REQUIRED_COUNT, full: false, membershipTiersEnabled: false, membershipUnlockReason: 'unavailable' },
       { status: 200 },
     );
   }

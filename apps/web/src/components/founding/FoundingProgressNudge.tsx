@@ -18,7 +18,7 @@
 import Link from 'next/link';
 import { Trophy, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useFoundingProgress } from './useFoundingProgress';
-import { FOUNDING_REQUIRED_SESSIONS } from '@/lib/central-intelligence';
+import { FOUNDING_REQUIRED_SESSIONS, FOUNDING_REQUIRED_COUNT } from '@/lib/central-intelligence';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 
 export function FoundingProgressNudge() {
@@ -27,7 +27,7 @@ export function FoundingProgressNudge() {
   // Only nudge a signed-in user who can still qualify.
   if (!mounted || !authed) return null;
   if (memberNumber != null) return null; // already a Founding Member
-  if (campaign?.full) return null; // all 1,000 spots claimed
+  if (campaign?.full) return null; // all founding spots claimed
 
   const sessions = Math.min(user.validSessionCount, FOUNDING_REQUIRED_SESSIONS);
   const sessionsLeft = Math.max(0, FOUNDING_REQUIRED_SESSIONS - user.validSessionCount);
@@ -36,7 +36,7 @@ export function FoundingProgressNudge() {
   const sessionsPct = Math.min(100, (user.validSessionCount / FOUNDING_REQUIRED_SESSIONS) * 100);
 
   // One proximity-aware headline + the single most useful next action.
-  let headline = 'Join the Founding 1,000';
+  let headline = `Join the Founding ${FOUNDING_REQUIRED_COUNT} — free for life`;
   let next: { href: string; label: string; cta: string };
   if (!profileDone) {
     next = { href: '/profile', label: 'Complete your profile', cta: 'founding_nudge_profile' };

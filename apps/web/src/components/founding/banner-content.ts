@@ -7,7 +7,15 @@
 // a thin shell over this.
 // ============================================================
 
-import { FOUNDING_REQUIRED_SESSIONS, formatMemberNumber } from '@/lib/central-intelligence';
+import {
+  FOUNDING_REQUIRED_SESSIONS,
+  FOUNDING_REQUIRED_COUNT,
+  FOUNDING_PERK_SHORT,
+  formatMemberNumber,
+} from '@/lib/central-intelligence';
+
+/** Human count of founding spots, e.g. 100. */
+const SPOTS = FOUNDING_REQUIRED_COUNT.toLocaleString();
 
 export type FoundingBannerState =
   | 'logged_out'
@@ -64,9 +72,9 @@ export function buildFoundingBannerContent(
     case 'qualified':
       return {
         message: opts.memberNumber != null
-          ? `🏛️ You're Founding Member ${formatMemberNumber(opts.memberNumber)}!`
+          ? `🏛️ You're Founding Member ${formatMemberNumber(opts.memberNumber)} — free for life!`
           : `🏛️ You qualified — claiming your Founding Member number…`,
-        detail: 'Thank you for being one of the first. Your spot is locked in.',
+        detail: `Thank you for being one of the first ${SPOTS}. Your spot — and your free-for-life account — is locked in.`,
         cta: { label: 'View your badge', href: '/profile' },
       };
     case 'sessions_needed':
@@ -78,20 +86,20 @@ export function buildFoundingBannerContent(
     case 'profile_incomplete':
       return {
         message: `Your progress: Profile ${opts.profilePercent}% · ${opts.validSessions}/${FOUNDING_REQUIRED_SESSIONS} sessions`,
-        detail: 'Complete your profile + record 10 sessions to qualify.',
-        cta: { label: 'Complete profile', href: '/profile' },
+        detail: `Finish the Founding Journey to lock in a ${FOUNDING_PERK_SHORT.toLowerCase()} account.`,
+        cta: { label: 'Continue the journey', href: '/founding' },
       };
     case 'full':
       return {
-        message: 'All 1,000 Founding Member spots are claimed.',
+        message: `All ${SPOTS} Founding Member spots are claimed.`,
         detail: 'Thank you to our founding community — more is coming.',
         cta: null,
       };
     case 'logged_out':
     default:
       return {
-        message: 'Claim your place in the first 1,000.',
-        detail: 'Create your account, complete your profile, and record 10 sessions to qualify.',
+        message: `Be one of the first ${SPOTS} — free for life.`,
+        detail: `Create your account and complete the Founding Journey to lock in a ${FOUNDING_PERK_SHORT.toLowerCase()} account.`,
         cta: { label: 'Get started', href: '/signup' },
       };
   }

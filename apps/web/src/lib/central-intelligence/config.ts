@@ -11,10 +11,28 @@
 // ============================================================
 
 /** Number of qualified Founding Members the launch campaign accepts. */
-export const FOUNDING_REQUIRED_COUNT = 1000;
+export const FOUNDING_REQUIRED_COUNT = 100;
 
 /** Valid sessions a user must record to qualify (alongside a complete profile). */
 export const FOUNDING_REQUIRED_SESSIONS = 10;
+
+/**
+ * Owner-set launch baseline for the PUBLIC founding counter. The displayed
+ * tally starts here and climbs as REAL members qualify (capped at
+ * FOUNDING_REQUIRED_COUNT). Real member badge numbers continue from the
+ * baseline (the first real Founding Member is #{baseline + 1}), so the badge
+ * and the counter always agree. This is a deliberate, single-sourced social-
+ * proof seed — change it (or set it to 0) here and it flows everywhere.
+ */
+export const FOUNDING_COUNTER_BASELINE = 55;
+
+/**
+ * The Founding-Member reward: the first FOUNDING_REQUIRED_COUNT athletes who
+ * complete the Founding Journey lock in a free account FOR LIFE — even after
+ * paid membership tiers launch. Surfaced wherever we explain the campaign.
+ */
+export const FOUNDING_PERK = 'A free account for life — locked in, even after membership tiers launch.';
+export const FOUNDING_PERK_SHORT = 'Free for life';
 
 /**
  * Profile completion threshold (percent) that counts as "fully complete"
