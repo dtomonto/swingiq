@@ -19,6 +19,19 @@ import { assertEnv } from '@/lib/config/env';
 import { reportError } from '@/lib/observability/report';
 
 export async function register(): Promise<void> {
+  // Load dashboard-managed (vault) keys into process.env BEFORE validation, so a
+  // key added from /admin/integrations activates features exactly like a host env
+  // var. Node runtime only (the vault uses node:crypto) — dynamic-imported so it
+  // never bundles into the edge instrumentation. Best-effort; never throws.
+  if (process.env.NEXT_RUNTIME === 'nodejs') {
+    try {
+      const { hydrateSecretsIntoEnv } = await import('@/lib/secrets/resolve.server');
+      await hydrateSecretsIntoEnv();
+    } catch {
+      /* vault unavailable — fall through to env-only configuration */
+    }
+  }
+
   // Non-fatal by default; throws only under STRICT_ENV (intentional, so a bad
   // production configuration is surfaced at boot rather than as a runtime 500).
   assertEnv();
