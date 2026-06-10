@@ -14,6 +14,7 @@ import type {
   TempoBeat,
   TempoVerdict,
   TempoSyncResult,
+  TapTempoResult,
 } from './types';
 
 /** Reference capture rate the frame-count presets are expressed in. */
@@ -211,6 +212,28 @@ export function syncFromTemporal(t: TemporalIntelligence): TempoSyncResult | nul
     verdict: tempoVerdict(measuredRatio, idealRatio),
     recommended: nearestFullSwingPreset(t.totalMs),
     confidence: clamp(t.confidence, 0, 1),
+  };
+}
+
+/**
+ * Build a tempo read from three tap timestamps (ms) — the moments the athlete
+ * marked Set, Top, and Strike on a real practice swing. Returns null when the
+ * taps are out of order or degenerate. Recommends a full-swing preset matched
+ * to the tapped speed (at the ideal 3:1), so they can groove the rhythm next.
+ */
+export function tempoFromTaps(setMs: number, topMs: number, strikeMs: number): TapTempoResult | null {
+  const backMs = topMs - setMs;
+  const downMs = strikeMs - topMs;
+  if (!(backMs > 0) || !(downMs > 0)) return null;
+  const totalMs = backMs + downMs;
+  const ratio = +(backMs / downMs).toFixed(2);
+  return {
+    totalMs,
+    backMs,
+    downMs,
+    ratio,
+    verdict: tempoVerdict(ratio, IDEAL_FULL_RATIO),
+    recommended: nearestFullSwingPreset(totalMs),
   };
 }
 

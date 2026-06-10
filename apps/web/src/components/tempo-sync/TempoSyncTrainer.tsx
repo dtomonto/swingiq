@@ -11,7 +11,7 @@
 // ============================================================
 
 import { useMemo, useState } from 'react';
-import { Play, Square, Volume2, VolumeX, Hourglass, Activity } from 'lucide-react';
+import { Play, Square, Volume2, VolumeX, Hourglass, Activity, Hand, RotateCcw } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
 import type { TemporalIntelligence } from '@/lib/motion-lab';
@@ -26,8 +26,10 @@ import {
   beatSchedule,
   repsPerMinute,
   syncFromTemporal,
+  tempoFromTaps,
   useTempoMetronome,
   type TempoBeatKind,
+  type TempoPreset,
 } from '@/lib/tempo-sync';
 
 interface Props {
@@ -73,6 +75,7 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
   const [tempoPct, setTempoPct] = useState(100);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [countIn, setCountIn] = useState(true);
+  const [taps, setTaps] = useState<number[]>([]);
 
   const preset = getPreset(presetId);
   const base = useMemo(() => presetTiming(preset), [preset]);
@@ -91,14 +94,29 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
 
   const flashColor = (kind: TempoBeatKind) => (metro.lastBeat === kind ? accent : 'hsl(var(--muted-foreground))');
 
-  function applySync() {
-    if (!sync) return;
+  // Keep the athlete's own speed but groove the ideal-ratio preset: scale the
+  // preset so one rep matches the measured total swing time.
+  function applyTarget(totalMs: number, recommended: TempoPreset) {
     metro.stop();
-    setPresetId(sync.recommended.id);
-    // Keep the athlete's own speed: scale so the rep matches their measured total.
-    const baseTotal = presetTiming(sync.recommended).totalMs;
-    const pct = Math.round((baseTotal / Math.max(1, sync.measuredTotalMs)) * 100);
+    setPresetId(recommended.id);
+    const baseTotal = presetTiming(recommended).totalMs;
+    const pct = Math.round((baseTotal / Math.max(1, totalMs)) * 100);
     setTempoPct(Math.max(MIN_TEMPO_PCT, Math.min(MAX_TEMPO_PCT, pct)));
+  }
+
+  function applySync() {
+    if (sync) applyTarget(sync.measuredTotalMs, sync.recommended);
+  }
+
+  const TAP_LABELS = ['Set', 'Top', 'Strike'];
+  const tapResult = useMemo(
+    () => (taps.length === 3 ? tempoFromTaps(taps[0], taps[1], taps[2]) : null),
+    [taps],
+  );
+
+  function handleTap() {
+    metro.stop();
+    setTaps((prev) => (prev.length >= 3 ? [performance.now()] : [...prev, performance.now()]));
   }
 
   return (
@@ -276,6 +294,64 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
           >
             <Hourglass className="h-4 w-4" />
           </button>
+        </div>
+
+        {/* Tap your own tempo — no camera needed */}
+        <div className="space-y-2 rounded-lg border border-border bg-card/40 p-3">
+          <div className="flex items-center gap-2">
+            <Hand className="h-4 w-4 text-muted-foreground" />
+            <p className="text-xs font-semibold text-foreground">Tap your own tempo</p>
+            {taps.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setTaps([])}
+                className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
+              >
+                <RotateCcw className="h-3 w-3" /> Reset
+              </button>
+            )}
+          </div>
+          <p className="text-[11px] leading-relaxed text-muted-foreground">
+            Make a practice swing and tap on each beat: <span className="text-foreground">Set</span> at takeaway,{' '}
+            <span className="text-foreground">Top</span> at the top, <span className="text-foreground">Strike</span> at the ball.
+          </p>
+          <button
+            type="button"
+            onClick={handleTap}
+            className="w-full rounded-lg border border-dashed border-primary/40 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-primary/10 active:translate-y-px"
+          >
+            {taps.length < 3 ? `Tap: ${TAP_LABELS[taps.length]}` : 'Tap to measure again'}
+          </button>
+          <div className="flex items-center justify-center gap-3">
+            {TAP_LABELS.map((label, i) => (
+              <span key={label} className="flex items-center gap-1.5 text-[10px] uppercase tracking-wide">
+                <span
+                  className={cn('h-2 w-2 rounded-full', taps.length > i ? 'bg-primary' : 'bg-border')}
+                  aria-hidden="true"
+                />
+                <span className={taps.length > i ? 'text-foreground' : 'text-muted-foreground'}>{label}</span>
+              </span>
+            ))}
+          </div>
+          {tapResult ? (
+            <div className="rounded-md border border-border bg-background/60 p-2.5">
+              <p className="text-xs font-semibold text-foreground tabular-nums">
+                Your tempo · {tapResult.ratio}:1 <span className="font-normal text-muted-foreground">({fmtMs(tapResult.totalMs)})</span>
+              </p>
+              <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">
+                <span className="font-medium text-foreground">{tapResult.verdict.label}.</span> {tapResult.verdict.detail}
+              </p>
+              <button
+                type="button"
+                onClick={() => applyTarget(tapResult.totalMs, tapResult.recommended)}
+                className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                Train the ideal rhythm at this speed
+              </button>
+            </div>
+          ) : taps.length === 3 ? (
+            <p className="text-[11px] text-warning">Those taps came out of order — reset and try again.</p>
+          ) : null}
         </div>
 
         {!metro.audioSupported && (

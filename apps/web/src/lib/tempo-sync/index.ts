@@ -11,6 +11,7 @@ export type {
   TempoTone,
   TempoVerdict,
   TempoSyncResult,
+  TapTempoResult,
 } from './types';
 
 export {
@@ -33,6 +34,7 @@ export {
   tempoVerdict,
   nearestFullSwingPreset,
   syncFromTemporal,
+  tempoFromTaps,
   repsPerMinute,
 } from './tempo';
 

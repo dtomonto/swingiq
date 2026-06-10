@@ -80,3 +80,18 @@ export interface TempoSyncResult {
   /** Tracking confidence carried through from the motion read (0–1). */
   confidence: number;
 }
+
+/**
+ * Result of capturing a tempo by tapping along to a real practice swing
+ * (Set → Top → Strike). No camera needed — the taps themselves are the
+ * measurement, so the numbers are the athlete's own.
+ */
+export interface TapTempoResult {
+  totalMs: number;
+  backMs: number;
+  downMs: number;
+  ratio: number;
+  verdict: TempoVerdict;
+  /** Full-swing preset matched to the tapped speed, at the ideal ratio. */
+  recommended: TempoPreset;
+}

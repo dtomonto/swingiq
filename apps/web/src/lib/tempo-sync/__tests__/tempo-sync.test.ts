@@ -17,6 +17,7 @@ import {
   tempoVerdict,
   nearestFullSwingPreset,
   syncFromTemporal,
+  tempoFromTaps,
   repsPerMinute,
   idealRatioForPreset,
 } from '../tempo';
@@ -174,6 +175,30 @@ describe('syncFromTemporal', () => {
   it('calls out a rushed real swing', () => {
     const r = syncFromTemporal(temporal({ tempoRatio: 1.8 }))!;
     expect(r.verdict.tone).toBe('rushed');
+  });
+});
+
+describe('tempoFromTaps', () => {
+  it('measures back/down/ratio from three in-order taps', () => {
+    const r = tempoFromTaps(1000, 1750, 2000)!; // 750 back, 250 down
+    expect(r.backMs).toBe(750);
+    expect(r.downMs).toBe(250);
+    expect(r.totalMs).toBe(1000);
+    expect(r.ratio).toBeCloseTo(3, 5);
+    expect(r.verdict.tone).toBe('smooth');
+    expect(r.recommended.sport).toBe('golf');
+  });
+
+  it('flags a rushed tapped tempo', () => {
+    const r = tempoFromTaps(0, 600, 1000)!; // 600 back, 400 down → 1.5:1
+    expect(r.ratio).toBeCloseTo(1.5, 5);
+    expect(r.verdict.tone).toBe('rushed');
+  });
+
+  it('returns null for out-of-order or degenerate taps', () => {
+    expect(tempoFromTaps(1000, 900, 2000)).toBeNull(); // top before set
+    expect(tempoFromTaps(0, 500, 500)).toBeNull(); // no downswing
+    expect(tempoFromTaps(0, 0, 0)).toBeNull();
   });
 });
 
