@@ -13,6 +13,7 @@ import { SectionCard } from '@/components/admin/SectionCard';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecheckButton } from '@/components/admin/RecheckButton';
+import { KeysManager } from '@/components/admin/KeysManager';
 import { getSystemStatus } from '@/lib/admin/data/system';
 
 export const metadata: Metadata = { title: 'Integrations | Admin', robots: 'noindex, nofollow' };
@@ -65,6 +66,10 @@ export default function IntegrationsPage() {
             )}
           </SectionCard>
         ))}
+      </div>
+
+      <div className="border-t border-gray-800 pt-6">
+        <KeysManager />
       </div>
 
       <HelpPanel>
