@@ -14,6 +14,8 @@ import { ArrowRight, Check, LayoutDashboard } from 'lucide-react';
 import type { SportId } from '@swingiq/core';
 import { useSport, SPORT_DISPLAY } from '@/contexts/SportContext';
 import { useSwingVantageStore } from '@/store';
+import { SportHero } from '@/components/sport/SportHero';
+import { sportAccentStyle } from '@/lib/sport-brand/registry';
 
 const SPORT_ORDER: SportId[] = ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'];
 
@@ -98,15 +100,18 @@ export default function SportSelectionPage() {
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-4 py-10 sm:py-14">
-        <div className="max-w-2xl mb-8 sm:mb-10">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">Choose your sport</h1>
-          <p className="text-muted-foreground">
-            SwingVantage adapts every analysis, drill, and coaching cue to your sport. Pick one to start —
-            or continue where you left off.
-          </p>
-        </div>
+      {/* Branded hero for the active sport — the page takes on that sport's
+          accent + motif, so the hub feels like a premium, sport-specific entry. */}
+      <SportHero
+        sport={activeSport}
+        variant="spotlight"
+        eyebrow="SwingVantage"
+        title="Choose your sport"
+        subtitle="SwingVantage adapts every analysis, drill, and coaching cue to your sport. Pick one to start — or continue where you left off."
+        motif
+      />
 
+      <div className="max-w-5xl mx-auto px-4 pb-12 sm:pb-16">
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SPORT_ORDER.map((sport) => {
             const display = SPORT_DISPLAY[sport];
@@ -119,10 +124,11 @@ export default function SportSelectionPage() {
                   type="button"
                   onClick={() => choose(sport)}
                   aria-label={`${stat.started ? 'Continue' : 'Start'} ${display.name}`}
-                  className={`group w-full h-full text-left rounded-2xl border-2 bg-card p-5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                  style={sportAccentStyle(sport)}
+                  className={`group w-full h-full text-left rounded-2xl border-2 bg-card p-5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--sport-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                     isActive
-                      ? 'border-primary shadow-sm'
-                      : 'border-border hover:border-primary/50'
+                      ? 'border-[var(--sport-accent)] shadow-sm'
+                      : 'border-border hover:border-[var(--sport-accent)]'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-3">
@@ -130,7 +136,7 @@ export default function SportSelectionPage() {
                       {display.emoji}
                     </span>
                     {isActive && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-primary/15 text-primary text-xs font-semibold px-2 py-0.5">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[var(--sport-accent)] text-[var(--sport-accent-foreground)] text-xs font-semibold px-2 py-0.5">
                         <Check size={12} strokeWidth={3} aria-hidden="true" /> Active
                       </span>
                     )}
