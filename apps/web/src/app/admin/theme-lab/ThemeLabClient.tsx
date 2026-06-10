@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { RotateCcw, ShieldAlert } from 'lucide-react';
 import { StatusBadge, type BadgeTone } from '@/components/admin/StatusBadge';
 import { recordAudit } from '@/lib/admin/stores/audit-log';
+import { ThemeExperimentsPanel } from './ThemeExperimentsPanel';
 import { useSwingVantageStore } from '@/store';
 import { THEMES, DEFAULT_THEME_ID, normalizeThemeId, type ThemeId } from '@/lib/theme/themes';
 import { THEME_LAB_REGISTRY, resolveThemeForUser } from '@/lib/theme-lab';
@@ -190,6 +191,11 @@ export function ThemeLabClient({ actor }: { actor: string }) {
             }`}
           />
         </button>
+      </div>
+
+      {/* Experiments + segments */}
+      <div className="border-t border-gray-800 pt-6">
+        <ThemeExperimentsPanel actor={actor} />
       </div>
 
       {/* Registry */}

@@ -117,6 +117,11 @@ export interface AppSettings {
   theme: 'light' | 'dark' | 'system';
   /** Active curated theme from the multi-theme system (see lib/theme/themes). */
   colorTheme: ThemeId;
+  /** Whether `colorTheme` is an explicit user pick or the brand default. Used by
+   *  Theme Lab so experiments / seasonal themes never override an explicit
+   *  choice. Optional + back-compat: a non-default colorTheme without this flag
+   *  is treated as an explicit pick. */
+  colorThemeSource?: 'default' | 'user';
   show_estimated_warnings: boolean;
   coaching_style: 'detailed' | 'concise' | 'encouragement' | 'balanced';
   /** Audience-oriented tone (Beginner/Parent/Competitive/Coach). Optional for
@@ -373,6 +378,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   // Dark Performance (B) is the launched brand default; users can still pick
   // any of the curated themes, which persists and overrides this.
   colorTheme: DEFAULT_THEME_ID,
+  colorThemeSource: 'default',
   show_estimated_warnings: true,
   coaching_style: 'balanced',
   coaching_tone: 'beginner',

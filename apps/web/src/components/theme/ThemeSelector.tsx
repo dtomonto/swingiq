@@ -46,7 +46,9 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
     };
   }, []);
 
-  const select = (id: ThemeId) => updateSettings({ colorTheme: id });
+  // Mark the choice as explicit so Theme Lab experiments / seasonal never
+  // override what the user deliberately picked.
+  const select = (id: ThemeId) => updateSettings({ colorTheme: id, colorThemeSource: 'user' });
 
   // A gentle, privacy-safe suggestion derived from the active sport / dark
   // leaning. Only shown when suggestions are on and there's a better fit.
