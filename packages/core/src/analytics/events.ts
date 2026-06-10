@@ -191,6 +191,35 @@ export const ANALYTICS_EVENTS = {
   MOTION_LAB_REPORT_EXPORTED: 'motion_lab_report_exported', // + format (json | csv | pdf)
   MOTION_LAB_SESSION_DELETED: 'motion_lab_session_deleted',
   MOTION_LAB_SAMPLE_VIEWED: 'motion_lab_sample_viewed', // + sport, motion
+
+  // RecordAssist Vision (guided on-device self-recording). Props carry ONLY
+  // non-private capture metadata: sport, action, view, readiness band, reason
+  // codes, device tier. Never the video, landmarks, or biometric values. See
+  // lib/record-assist and docs/RECORD_ASSIST.md.
+  RECORD_ASSIST_STARTED: 'record_assist_started', // + sport, action
+  CAMERA_PERMISSION_GRANTED: 'camera_permission_granted',
+  CAMERA_PERMISSION_DENIED: 'camera_permission_denied',
+  ATHLETE_DETECTED: 'athlete_detected', // + sport
+  ATHLETE_NOT_DETECTED: 'athlete_not_detected', // + sport
+  VOICE_GUIDANCE_PLAYED: 'voice_guidance_played', // + message_id, category
+  READINESS_SCORE_CHANGED: 'readiness_score_changed', // + band, sport
+  READINESS_SCORE_PASSED: 'readiness_score_passed', // + band, sport
+  RECORDING_STARTED: 'recording_started', // + sport, action, band
+  RECORDING_COMPLETED: 'recording_completed', // + sport, action, duration_s
+  AUTO_TRIM_APPLIED: 'auto_trim_applied', // + before_s, after_s
+  RETAKE_RECOMMENDED: 'retake_recommended', // + reasons
+  RETAKE_ACCEPTED: 'retake_accepted',
+  RETAKE_SKIPPED: 'retake_skipped',
+  ANALYSIS_STARTED_AFTER_GUIDED_RECORDING: 'analysis_started_after_guided_recording', // + sport
+  ANALYSIS_FAILED_DUE_TO_VIDEO_QUALITY: 'analysis_failed_due_to_video_quality', // + sport
+  SPORT_PRESET_SELECTED: 'sport_preset_selected', // + sport
+  ANGLE_PRESET_SELECTED: 'angle_preset_selected', // + sport, action, view
+  MUTE_VOICE_ENABLED: 'mute_voice_enabled',
+  ACCESSIBILITY_CAPTION_ENABLED: 'accessibility_caption_enabled',
+  UNSUPPORTED_BROWSER_DETECTED: 'unsupported_browser_detected', // + reason
+  DEVICE_COMPATIBILITY_WARNING_SHOWN: 'device_compatibility_warning_shown', // + tier
+  SAVED_ANGLE_PRESET_CREATED: 'saved_angle_preset_created', // + sport, action
+  RETEST_SAME_ANGLE_STARTED: 'retest_same_angle_started', // + sport, action
 } as const;
 
 export type AnalyticsEventName =

@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -168,6 +168,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'media-ai', built: true, permission: 'media.view',
     blurb: 'Analyzed swing videos & photos (metadata) — review, re-run, retention.',
     keywords: ['videos', 'media', 'photos', 'storage'],
+  },
+  {
+    id: 'record-assist', label: 'RecordAssist', href: '/admin/record-assist', icon: Video,
+    group: 'media-ai', built: true, permission: 'media.view',
+    blurb: 'Guided on-device self-recording: sport/action presets, the Frame Readiness scoring model, the voice-guidance catalog, device-compatibility tiers, and a camera-free QA simulator that runs the real engines.',
+    keywords: ['record', 'recordassist', 'record assist', 'camera', 'guided recording', 'framing', 'readiness', 'voice guidance', 'pose', 'capture', 'self-record', 'kinetic', 'overlay'],
   },
   {
     id: 'ai-analyses', label: 'AI Analyses', href: '/admin/ai-analyses', icon: Brain,
