@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { FileText, ChevronRight, Activity, Upload, Copy, CheckCircle, Printer } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { FileText, ChevronRight, Activity, Copy, CheckCircle, Printer } from 'lucide-react';
 import { useSwingVantageStore } from '@/store';
 import { runDiagnosticEngine, computeSwingScores } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
@@ -273,17 +274,13 @@ export default function ReportsPage() {
           </CardHeader>
           <CardBody>
             {sorted.length === 0 ? (
-              <div className="text-center py-8">
-                <Activity size={32} className="mx-auto text-muted-foreground mb-3" />
-                <p className="text-muted-foreground text-sm mb-4">
-                  No sessions yet. Import a CSV to generate your first report.
-                </p>
-                <Link href="/sessions/import">
-                  <Button size="sm">
-                    <Upload size={14} /> Import Session
-                  </Button>
-                </Link>
-              </div>
+              <EmptyState
+                compact
+                icon={Activity}
+                title="No reports yet"
+                description="Import a CSV to generate your first report."
+                action={{ label: 'Import Session', href: '/sessions/import' }}
+              />
             ) : (
               <div className="space-y-1">
                 {sorted.slice(0, 8).map((s) => (

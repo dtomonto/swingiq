@@ -5,6 +5,7 @@ import { Card, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { ScoreRing } from '@/components/ui/ScoreRing';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { Upload, ChevronRight, Trash2, Calendar, Activity, Video } from 'lucide-react';
 import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
@@ -71,18 +72,15 @@ export default function SessionsPage() {
         </div>
 
         {filteredSessions.length === 0 ? (
-          <div className="text-center py-20">
-            <Activity size={48} className="mx-auto text-muted-foreground mb-4" />
-            <p className="text-muted-foreground text-lg font-medium mb-2">
-              No {sportName} sessions yet
-            </p>
-            <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">
-              {sportLabels.empty_sessions}
-            </p>
-            <Link href={importHref}>
-              <Button><ImportIcon size={16} /> {isGolf ? 'Import Your First Session' : 'Analyze Your First Video'}</Button>
-            </Link>
-          </div>
+          <EmptyState
+            icon={Activity}
+            title={`No ${sportName} sessions yet`}
+            description={sportLabels.empty_sessions}
+            action={{
+              label: isGolf ? 'Import Your First Session' : 'Analyze Your First Video',
+              href: importHref,
+            }}
+          />
         ) : (
           <div className="space-y-3">
             {filteredSessions.map((session) => {

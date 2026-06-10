@@ -2,7 +2,8 @@
 
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useState, useMemo } from 'react';
-import { ExternalLink, Search, Sparkles } from 'lucide-react';
+import { ExternalLink, Search, Sparkles, Dumbbell } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
 import {
   ALL_SPORTS_INCLUDING_GOLF,
   TENNIS_DRILLS,
@@ -191,9 +192,11 @@ export default function DrillsPage() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-16">
-            <p className="text-muted-foreground">No drills match your filters.</p>
-          </div>
+          <EmptyState
+            icon={Dumbbell}
+            title="No drills match your filters"
+            description="Try clearing a filter to see more drills."
+          />
         )}
       </div>
     </>

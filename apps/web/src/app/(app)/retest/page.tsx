@@ -9,9 +9,8 @@
 // fabricated, and comparisons are clearly labelled directional.
 // ============================================================
 
-import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
-import { RotateCcw, Video, ClipboardCheck } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { RotateCcw, ClipboardCheck } from 'lucide-react';
 import { useRetests } from '@/lib/retest';
 import { RetestReminderCard } from '@/components/retest/RetestReminderCard';
 import { RetestResultCard } from '@/components/retest/RetestResultCard';
@@ -38,19 +37,12 @@ export default function RetestPage() {
         )}
 
         {isEmpty && (
-          <div className="text-center py-16">
-            <ClipboardCheck size={48} className="mx-auto text-muted-foreground mb-4" />
-            <p className="text-foreground text-lg font-medium mb-2">No retests yet</p>
-            <p className="text-muted-foreground text-sm mb-6 max-w-sm mx-auto">
-              Analyze a swing video, complete the suggested drills, then come back here to prove
-              you improved.
-            </p>
-            <Link href="/video">
-              <Button>
-                <Video size={16} /> Analyze a swing
-              </Button>
-            </Link>
-          </div>
+          <EmptyState
+            icon={ClipboardCheck}
+            title="No retests yet"
+            description="Analyze a swing video, complete the suggested drills, then come back here to prove you improved."
+            action={{ label: 'Analyze a swing', href: '/video' }}
+          />
         )}
 
         {ready && targets.length > 0 && (

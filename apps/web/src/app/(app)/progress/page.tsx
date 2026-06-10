@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
-import { TrendingUp, TrendingDown, Minus, Upload, Activity } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { TrendingUp, TrendingDown, Minus, Activity } from 'lucide-react';
 import Link from 'next/link';
 import { useSwingVantageStore } from '@/store';
 import { useSport } from '@/contexts/SportContext';
@@ -298,18 +298,12 @@ export default function ProgressPage() {
     return (
       <>
         <div className="p-6 max-w-5xl mx-auto">
-          <div className="text-center py-20">
-            <Activity size={48} className="mx-auto text-muted-foreground mb-4" />
-            <p className="text-muted-foreground text-lg font-medium mb-2">No sessions yet</p>
-            <p className="text-muted-foreground text-sm mb-6">
-              Import sessions to track your progress over time.
-            </p>
-            <Link href="/sessions/import">
-              <Button>
-                <Upload size={16} /> Import Your First Session
-              </Button>
-            </Link>
-          </div>
+          <EmptyState
+            icon={Activity}
+            title="No sessions yet"
+            description="Import sessions to track your progress over time."
+            action={{ label: 'Import Your First Session', href: '/sessions/import' }}
+          />
         </div>
       </>
     );
