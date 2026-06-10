@@ -11,12 +11,12 @@
 // ============================================================
 
 import { useMemo, useState } from 'react';
+import Link from 'next/link';
 import {
   Activity, Video, NotebookPen, Target, Package, Compass, Clock, CloudCheck, Smartphone,
 } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { EmptyState } from '@/components/ui/EmptyState';
 import { useSwingVantageStore } from '@/store';
 import { useAuth } from '@/lib/auth/useAuth';
 import { buildTimeline, summarizeTimeline, filterTimeline } from '@/lib/timeline/build';
@@ -97,15 +97,16 @@ export default function TimelinePage() {
 
       {allEvents.length === 0 ? (
         <Card>
-          <CardBody>
-            <EmptyState
-              size="lg"
-              icon={Clock}
-              title="Your timeline starts with your first session"
-              description="Import launch-monitor data, log a session, or save a daily note and it will appear here in order."
-              action={{ label: 'Import data', href: '/sessions/import' }}
-              secondaryAction={{ label: 'Analyze a swing', href: '/diagnose' }}
-            />
+          <CardBody className="py-14 text-center">
+            <Clock size={36} className="mx-auto mb-3 text-muted-foreground" />
+            <p className="font-semibold text-foreground">Your timeline starts with your first session</p>
+            <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">
+              Import launch-monitor data, log a session, or save a daily note and it will appear here in order.
+            </p>
+            <div className="mt-4 flex justify-center gap-2">
+              <Link href="/sessions/import" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:opacity-90">Import data</Link>
+              <Link href="/diagnose" className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-foreground hover:bg-muted">Analyze a swing</Link>
+            </div>
           </CardBody>
         </Card>
       ) : (
@@ -165,7 +166,7 @@ export default function TimelinePage() {
           </ol>
 
           {events.length === 0 && (
-            <EmptyState title="No events match this filter" description="Try a different type or sport filter." />
+            <p className="py-8 text-center text-sm text-muted-foreground">No events match this filter.</p>
           )}
         </>
       )}

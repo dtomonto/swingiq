@@ -14,7 +14,6 @@ import {
 } from '@swingiq/core';
 import type { SportId } from '@swingiq/core';
 import { cn } from '@/lib/utils';
-import { EmptyState } from '@/components/ui/EmptyState';
 import { useSwingVantageStore, useLatestDiagnosedSession } from '@/store';
 import { useSport } from '@/contexts/SportContext';
 
@@ -192,11 +191,9 @@ export default function DrillsPage() {
         </div>
 
         {filtered.length === 0 && (
-          <EmptyState
-            icon={Search}
-            title="No drills match your filters"
-            description="Try clearing a filter or searching a different term."
-          />
+          <div className="text-center py-16">
+            <p className="text-muted-foreground">No drills match your filters.</p>
+          </div>
         )}
       </div>
     </>
