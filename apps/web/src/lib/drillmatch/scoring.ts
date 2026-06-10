@@ -18,7 +18,8 @@ import type {
   RankedDrill,
 } from './types';
 import { getCandidatesForSport, isAssumedEquipment } from './catalog';
-import { FEEDBACK_WEIGHTS, latestFeedbackValue, localDrillFeedbackRepo } from './feedback';
+import { latestFeedbackValue, localDrillFeedbackRepo } from './feedback';
+import { drillEffectiveness } from './effectiveness';
 
 const STOPWORDS = new Set([
   'the', 'a', 'an', 'and', 'or', 'of', 'to', 'in', 'on', 'my', 'your', 'for', 'with',
@@ -156,17 +157,21 @@ export function scoreDrill(
     if (goalOverlap > 0) add('Supports your goal', 6);
   }
 
-  // ── Feedback memory (makes DrillMatch smarter over time) ──
+  // ── Feedback memory (#24: weigh the FULL history, not just the latest) ──
+  // Mirror latestFeedbackValue's fault-specific-preferred-else-any selection,
+  // then apply a sample/recency-aware nudge so a drill that consistently helps
+  // outranks one helped once. A single record reproduces the old fixed nudge.
   const feedback = latestFeedbackValue(drill.id, input.faultId, repo);
   if (feedback) {
-    const w = FEEDBACK_WEIGHTS[feedback];
+    const faultRecords = input.faultId ? repo.getFor(drill.id, input.faultId) : [];
+    const records = faultRecords.length > 0 ? faultRecords : repo.getFor(drill.id);
     const label =
       feedback === 'helped'
         ? 'You said this helped before'
         : feedback === 'no_change'
           ? 'No change reported last time'
           : 'You found this unhelpful before';
-    add(label, w);
+    add(label, drillEffectiveness(records).nudge);
   }
 
   const rawScore = reasons.reduce((sum, r) => sum + r.weight, 0);
