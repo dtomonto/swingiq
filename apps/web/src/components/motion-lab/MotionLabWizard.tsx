@@ -93,6 +93,10 @@ export function MotionLabWizard() {
   const [error, setError] = useState<string | null>(null);
   const [session, setSession] = useState<MotionSession | null>(null);
   const [saved, setSaved] = useState(false);
+  // The clip URL that belongs to the CURRENTLY-shown result. Set only on a
+  // fresh analysis; cleared when opening a saved session so the video lab never
+  // pairs one session's overlays with another clip's footage.
+  const [resultVideoUrl, setResultVideoUrl] = useState<string | null>(null);
 
   const allSessions = useMotionSessions();
 
@@ -126,6 +130,7 @@ export function MotionLabWizard() {
     resetCapture();
     setSession(null);
     setSaved(false);
+    setResultVideoUrl(null);
     setMotionType(null);
     setStep('select');
   }, [resetCapture]);
@@ -171,16 +176,18 @@ export function MotionLabWizard() {
       const persisted = saveSession(result);
       setSession(persisted ?? result);
       setSaved(Boolean(persisted));
+      setResultVideoUrl(objectUrl);
       setStep('results');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Analysis failed. Please try another clip.');
       setStep('capture');
     }
-  }, [videoFile, videoFileB, captureMode, motionType, sport, view, handedness, skillLevel, modelQuality, proDepth, videoMeta, trim]);
+  }, [videoFile, videoFileB, captureMode, motionType, sport, view, handedness, skillLevel, modelQuality, proDepth, videoMeta, trim, objectUrl]);
 
   const openSession = useCallback((s: MotionSession) => {
     setSession(s);
     setSaved(true);
+    setResultVideoUrl(null); // saved sessions never retain the video
     setSport(s.capture.sport);
     setMotionType(s.capture.motionType);
     setStep('results');
@@ -424,6 +431,7 @@ export function MotionLabWizard() {
             session={session}
             priorSessions={priorSessions}
             saved={saved}
+            videoUrl={resultVideoUrl}
             onNewMotion={startOver}
             onDelete={handleDelete}
           />

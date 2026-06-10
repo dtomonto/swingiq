@@ -123,6 +123,24 @@ export {
   getMotionStoreVersion,
   type MotionProfile,
 } from './persistence';
+export {
+  LM,
+  OVERLAY_BONES,
+  OVERLAY_JOINTS,
+  frameIndexForTime,
+  jointAngle2D,
+  overlayJointAngles,
+  balanceEstimate,
+  balanceVerdict,
+  stanceRead,
+  leadSide,
+  frameVisibility,
+  expectsImplementOverlay,
+  frameAt,
+  type OverlayAngle,
+  type BalanceEstimate,
+  type StanceRead,
+} from './overlay-geometry';
 export { downloadSessionJson, downloadSessionCsv } from './export';
 export { printSessionReport } from './print-report';
 export { useMotionSessions } from './useMotionSessions';
