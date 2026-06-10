@@ -252,7 +252,7 @@ export function ImportWizard() {
       setStep(3);
     };
     reader.readAsText(f);
-  }, [brand]);
+  }, [brand, importMappings]);
 
   // "This data looks wrong?" — hand the file to the AI agent and let it
   // override the current mapping. Used on the preview step.
