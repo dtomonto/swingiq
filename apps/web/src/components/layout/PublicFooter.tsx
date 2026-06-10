@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { LanguageCode } from '@/lib/i18n';
 import { getMarketingDict } from '@/lib/marketing-i18n/dict';
 import { localizedHref } from '@/lib/marketing-i18n/href';
+import { CookieSettingsLink } from '@/components/ui/CookieSettingsLink';
 
 // Column structure: stable href + the dictionary key for the visible label.
 // Labels are translated per locale; hrefs are English base paths and get
@@ -156,6 +157,9 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
               >
                 Sitemap
               </Link>
+              {/* Re-open the cookie-consent banner to change the choice.
+                  Hidden when no cookie-setting analytics is configured. */}
+              <CookieSettingsLink />
               <span>{f.privacyLine}</span>
             </div>
           </div>
