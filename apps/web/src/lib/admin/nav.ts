@@ -376,6 +376,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['api', 'providers', 'connections', 'keys'],
   },
   {
+    id: 'connector-os', label: 'ConnectorOS', href: '/admin/connector-os', icon: Plug,
+    group: 'operations', built: true, permission: 'integrations.manage',
+    blurb: 'One honest status board for every connector — analytics, reliability, SEO, security, video and monetization — grouped by layer, showing configured vs keyless-default and the env var(s) that turn each on. Single typed source of truth (lib/connector-os); booleans only, never secrets.',
+    keywords: ['connectoros', 'connector os', 'connectors', 'connector status', 'analytics', 'posthog', 'ga4', 'sentry', 'turnstile', 'indexnow', 'bing', 'mux', 'cloudinary', 'mediapipe', 'keyless', 'env', 'observability', 'reliability', 'video', 'status board'],
+  },
+  {
     id: 'audit-access', label: 'External Auditor Access', href: '/admin/audit-access', icon: ScanSearch,
     group: 'operations', built: true, permission: 'integrations.manage',
     blurb: 'Give an external auditor (e.g. ChatGPT) read-only access to a single JSON packet — verbatim sitemap & robots, the logged-in app surface, analytics overview — so it can audit the whole app on request.',

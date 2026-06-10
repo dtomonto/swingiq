@@ -23,6 +23,8 @@
     "check:admin-consistency": "node scripts/check-admin-page-consistency.mjs",
     "branches:prune": "node scripts/prune-merged-branches.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
+    "seo:indexnow": "node scripts/seo-indexnow.mjs",
+    "seo:validate": "node scripts/validate-seo.mjs && node scripts/check-sitemap-coverage.mjs",
     "check:duplicate-content": "node scripts/check-duplicate-content.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:links": "node scripts/validate-links.mjs",
