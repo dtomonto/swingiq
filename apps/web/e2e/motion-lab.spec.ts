@@ -8,11 +8,19 @@ import { test, expect, type Page } from '@playwright/test';
 // one fix → drill → retest end to end.
 
 /**
- * Dismiss the brand-new-device first-run overlays (the full-screen usage-category
- * modal + the cookie bar) that float over app routes and intercept clicks — the
- * same way a real user would. Mirrors e2e/floating-help-overlap.spec.ts.
+ * Get the MotionLab page interaction-ready. On a brand-new device the app shell
+ * floats several layers over the page that intercept clicks but are unrelated to
+ * MotionLab: the full-screen usage-category modal, the cookie bar, the floating
+ * help dock and the mobile bottom navigation. Dismiss the first two the way a
+ * real user would, and hide the persistent chrome so feature clicks land.
  */
 async function dismissFirstRunOverlays(page: Page) {
+  // Hide unrelated, persistent app chrome that overlaps the page bottom.
+  await page.addStyleTag({
+    content: `[data-testid="floating-help-dock"], .floating-dock,
+      nav[aria-label="Bottom navigation"] { display: none !important; }`,
+  }).catch(() => { /* style injection best-effort */ });
+
   const adult = page.getByRole('button', { name: /Adult athlete/i });
   try {
     await adult.waitFor({ state: 'visible', timeout: 5_000 });
