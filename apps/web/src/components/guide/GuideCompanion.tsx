@@ -186,10 +186,10 @@ export function GuideCompanion() {
               <Link
                 href={nextBestAction.href}
                 onClick={closeAndRemember}
-                className="mt-0.5 flex items-center justify-between gap-2 rounded-xl bg-golf-dark text-white px-3.5 py-2.5 hover:bg-primary transition-colors"
+                className="group mt-0.5 flex items-center justify-between gap-2 rounded-xl bg-golf-dark text-white px-3.5 py-2.5 hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 <span className="min-w-0">
-                  <span className="block text-[11px] text-white/80 font-medium">Your next best step</span>
+                  <span className="block text-[11px] text-white/80 font-medium group-hover:text-primary-foreground/80">Your next best step</span>
                   <span className="block text-sm font-semibold truncate">{nextBestAction.label}</span>
                 </span>
                 <ChevronRight size={16} className="shrink-0" aria-hidden="true" />
