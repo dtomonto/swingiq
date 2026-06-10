@@ -135,6 +135,16 @@ export const MANAGED_KEYS: ManagedKey[] = [
     docsUrl: 'https://github.com/settings/tokens',
   },
   {
+    name: 'GITHUB_REPO', label: 'GitHub repo (owner/repo)', provider: 'github', providerLabel: 'GitHub',
+    category: 'devops', secret: false, activates: 'Target repo for the deploy-backed PR executor',
+    detect: /^[\w.-]+\/[\w.-]+$/, placeholder: 'owner/repo',
+  },
+  {
+    name: 'GITHUB_DEFAULT_BRANCH', label: 'GitHub base branch', provider: 'github', providerLabel: 'GitHub',
+    category: 'devops', secret: false, activates: 'Base branch PRs target (default master)',
+    placeholder: 'master',
+  },
+  {
     name: 'CRON_SECRET', label: 'Cron secret', provider: 'internal', providerLabel: 'Internal',
     category: 'devops', secret: true, activates: 'Authenticates scheduled (cron) jobs',
     placeholder: 'a long random string',
