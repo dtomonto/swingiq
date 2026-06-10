@@ -161,9 +161,10 @@ export default async function LearnVideoPage({
           </p>
           <Link
             href={item.route ?? '/start'}
-            className="mt-4 inline-block rounded-xl bg-primary-foreground px-6 py-3 text-sm font-bold text-primary transition-colors hover:bg-primary-foreground/90"
+            className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-background px-6 py-3 text-sm font-bold text-foreground transition-opacity hover:opacity-90"
           >
             Get started free
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </section>
 

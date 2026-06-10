@@ -94,7 +94,7 @@ export function FoundingFathersCounterBanner() {
           <Link
             href={content.cta.href}
             onClick={onCta}
-            className="rounded-full bg-primary-foreground px-3 py-0.5 text-xs font-semibold text-primary underline-offset-2 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+            className="rounded-full bg-background px-3 py-0.5 text-xs font-semibold text-foreground underline-offset-2 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
           >
             {content.cta.label}
           </Link>
