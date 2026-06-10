@@ -155,6 +155,12 @@ export const NAV_ITEMS: NavItem[] = [
     blurb: 'Tune the per-profile, per-dimension scores golf sessions are graded against.',
     keywords: ['grading', 'benchmark', 'profile', 'beginner', 'professional', 'score'],
   },
+  {
+    id: 'research', label: 'Research & Benchmarks', href: '/admin/research', icon: Telescope,
+    group: 'people', built: true, permission: 'users.view',
+    blurb: 'Golf Research & Benchmark Evolution — a 90-day cycle that scores curated sources and generates evidence-backed benchmark-change proposals for admin review (approve / reject / defer). Nothing changes automatically; approved changes publish as a new benchmark version. Dry-run + audit-logged.',
+    keywords: ['research', 'benchmark', 'evolution', 'proposals', 'sources', 'evidence', 'grading', 'golf', 'quarterly', 'review', '90-day'],
+  },
 
   // ── Media & AI ─────────────────────────────────────────────
   {

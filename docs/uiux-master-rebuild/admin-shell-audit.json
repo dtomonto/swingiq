@@ -1,10 +1,10 @@
 {
   "summary": {
-    "generatedAt": "2026-06-10T19:23:52.521Z",
+    "generatedAt": "2026-06-10T20:02:02.759Z",
     "totalRoutes": 126,
     "staticRoutes": 114,
     "dynamicRoutes": 12,
-    "navRegistered": 61,
+    "navRegistered": 62,
     "hubChildren": 53,
     "sectionChildren": 9,
     "hubs": [
@@ -14,7 +14,7 @@
     "adminChromePages": 71,
     "adminChromePageHeader": 64,
     "usesStatusBadge": 50,
-    "orphanedCount": 2,
+    "orphanedCount": 1,
     "noHeadingCount": 4,
     "handRolledHeaderCount": 3,
     "metaWithoutExplicitNoindex": 0
@@ -33,20 +33,6 @@
       "explicitNoindex": true,
       "hasDynamicExport": false,
       "usesStatusBadge": false
-    },
-    {
-      "route": "/admin/research",
-      "file": "apps/web/src/app/admin/research/page.tsx",
-      "isDynamic": false,
-      "inNav": false,
-      "hubChild": false,
-      "sectionChild": false,
-      "usesPageHeader": false,
-      "hasHeading": true,
-      "hasMetadata": true,
-      "explicitNoindex": true,
-      "hasDynamicExport": false,
-      "usesStatusBadge": true
     }
   ],
   "noHeader": [
@@ -126,7 +112,7 @@
       "route": "/admin/research",
       "file": "apps/web/src/app/admin/research/page.tsx",
       "isDynamic": false,
-      "inNav": false,
+      "inNav": true,
       "hubChild": false,
       "sectionChild": false,
       "usesPageHeader": false,
@@ -1598,7 +1584,7 @@
       "route": "/admin/research",
       "file": "apps/web/src/app/admin/research/page.tsx",
       "isDynamic": false,
-      "inNav": false,
+      "inNav": true,
       "hubChild": false,
       "sectionChild": false,
       "usesPageHeader": false,
