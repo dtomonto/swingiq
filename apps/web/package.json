@@ -16,6 +16,9 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "storybook:install": "npm i -D storybook@^10 @storybook/nextjs-vite@^10 @storybook/addon-a11y@^10 vite@^7",
+    "tutorials:record": "node scripts/video-studio/record-batch.mjs",
+    "tutorials:record:all": "node scripts/video-studio/record-batch.mjs group:all",
+    "tutorials:record:install": "npm i -D playwright ffmpeg-static && npx playwright install chromium",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {

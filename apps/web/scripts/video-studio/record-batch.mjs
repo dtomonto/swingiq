@@ -220,10 +220,12 @@ async function recordOne(id) {
 const args = process.argv.slice(2);
 let ids = [];
 for (const a of args) {
-  if (a.startsWith('group:')) ids.push(...(GROUPS[a.slice(6)] || []));
+  if (a === 'group:all') ids.push(...Object.values(GROUPS).flat()); // every tutorial, one pass
+  else if (a.startsWith('group:')) ids.push(...(GROUPS[a.slice(6)] || []));
   else ids.push(a);
 }
-if (!ids.length) { console.error('usage: record-batch.mjs <id|group:name> ...'); process.exit(1); }
+ids = [...new Set(ids)]; // de-dupe if groups overlap
+if (!ids.length) { console.error('usage: record-batch.mjs <id|group:name|group:all> ...'); process.exit(1); }
 
 await ensureState();
 const done = [], failed = [];
