@@ -43,6 +43,7 @@ export { compareSessions } from './comparison';
 export {
   runMotionAnalysis,
   runMultiViewMotionAnalysis,
+  analyzePoseTrack,
   ANALYSIS_VERSION,
   MODEL_VERSION,
   type MotionStage,
@@ -123,6 +124,38 @@ export {
   getMotionStoreVersion,
   type MotionProfile,
 } from './persistence';
+export {
+  LM,
+  OVERLAY_BONES,
+  OVERLAY_JOINTS,
+  frameIndexForTime,
+  jointAngle2D,
+  overlayJointAngles,
+  balanceEstimate,
+  balanceVerdict,
+  stanceRead,
+  leadSide,
+  frameVisibility,
+  expectsImplementOverlay,
+  frameAt,
+  type OverlayAngle,
+  type BalanceEstimate,
+  type StanceRead,
+} from './overlay-geometry';
+export {
+  getRecordingGuide,
+  recordingTipsFor,
+  ANGLE_CHECKLIST,
+  type SportRecordingGuide,
+  type AngleCheckItem,
+} from './recording-guidance';
+export {
+  SAMPLE_SPECS,
+  generateSamplePoseTrack,
+  buildSampleSession,
+  isSampleSession,
+  type SampleSpec,
+} from './sample';
 export { downloadSessionJson, downloadSessionCsv } from './export';
 export { printSessionReport } from './print-report';
 export { useMotionSessions } from './useMotionSessions';

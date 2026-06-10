@@ -171,6 +171,26 @@ export const ANALYTICS_EVENTS = {
   MILESTONE_CTA_CLICK: 'milestone_cta_click', // + slug, cta
   MILESTONE_INTERNAL_LINK_CLICK: 'milestone_internal_link_click', // + slug, target
   MILESTONE_CARD_CLICK: 'milestone_card_click', // + slug, surface
+
+  // Motion Lab (slow-motion video overlay lab — racquet & swing sports).
+  // Props carry ONLY non-private analysis metadata: sport, motion, view,
+  // skill, confidence band, overlay layer, playback speed, viewer mode.
+  // Never the video, landmarks, or any biometric values. See
+  // components/motion-lab and docs/RACQUET_MOTION_LAB.md.
+  MOTION_LAB_OPENED: 'motion_lab_opened',
+  MOTION_LAB_SPORT_SELECTED: 'motion_lab_sport_selected', // + sport
+  MOTION_LAB_MOTION_SELECTED: 'motion_lab_motion_selected', // + sport, motion
+  MOTION_LAB_ANALYSIS_STARTED: 'motion_lab_analysis_started', // + sport, motion, view, capture_mode
+  MOTION_LAB_ANALYSIS_COMPLETED: 'motion_lab_analysis_completed', // + sport, motion, confidence_band
+  MOTION_LAB_ANALYSIS_FAILED: 'motion_lab_analysis_failed', // + sport, motion
+  MOTION_LAB_VIEW_MODE_CHANGED: 'motion_lab_view_mode_changed', // + mode (video | 3d)
+  MOTION_LAB_OVERLAY_TOGGLED: 'motion_lab_overlay_toggled', // + layer, on
+  MOTION_LAB_SLOWMO_USED: 'motion_lab_slowmo_used', // + speed
+  MOTION_LAB_FRAME_STEPPED: 'motion_lab_frame_stepped',
+  MOTION_LAB_PHASE_CLICKED: 'motion_lab_phase_clicked', // + phase
+  MOTION_LAB_REPORT_EXPORTED: 'motion_lab_report_exported', // + format (json | csv | pdf)
+  MOTION_LAB_SESSION_DELETED: 'motion_lab_session_deleted',
+  MOTION_LAB_SAMPLE_VIEWED: 'motion_lab_sample_viewed', // + sport, motion
 } as const;
 
 export type AnalyticsEventName =

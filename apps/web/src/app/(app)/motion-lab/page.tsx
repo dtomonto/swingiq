@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { MotionLabWizard } from '@/components/motion-lab/MotionLabWizard';
+import { MotionLabGate } from '@/components/motion-lab/MotionLabGate';
 
 export const metadata: Metadata = {
   title: 'Motion Lab — 3D Motion Analysis | SwingVantage',
@@ -8,5 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function MotionLabPage() {
-  return <MotionLabWizard />;
+  // Gated by the `motion_lab.enabled` operator flag (admin → Feature Flags).
+  return <MotionLabGate />;
 }

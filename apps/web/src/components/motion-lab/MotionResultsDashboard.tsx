@@ -14,6 +14,7 @@ import {
 import type { MotionSession, MotionPhaseSegment } from '@/lib/motion-lab';
 import { downloadSessionJson, downloadSessionCsv, printSessionReport, getSport, skillLabel, computeRepeatability } from '@/lib/motion-lab';
 import { Motion3DViewer } from './Motion3DViewer';
+import { VideoOverlayLab } from './VideoOverlayLab';
 import { PhaseTimeline } from './PhaseTimeline';
 import { MotionScoreboard } from './MotionScoreboard';
 import { MetricsPanel } from './MetricsPanel';
@@ -29,6 +30,8 @@ import { MotionComparisonPanel } from './MotionComparisonPanel';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
+import { Film, Box as BoxIcon } from 'lucide-react';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 
 type Tab = 'viewer' | 'scores' | 'metrics' | 'coaching' | 'drills' | 'compare';
 
@@ -45,12 +48,23 @@ interface Props {
   session: MotionSession;
   priorSessions: MotionSession[];
   saved: boolean;
+  /**
+   * In-memory object URL of the clip just analysed (the live wizard session).
+   * Present only for a fresh analysis — saved sessions never retain the video,
+   * so this is null when reopening from the library and the viewer falls back
+   * to the 3D reconstruction.
+   */
+  videoUrl?: string | null;
+  /** True for a built-in demo session (synthetic motion, real engine). */
+  isSample?: boolean;
   onNewMotion: () => void;
   onDelete?: () => void;
 }
 
-export function MotionResultsDashboard({ session, priorSessions, saved, onNewMotion, onDelete }: Props) {
+export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl = null, isSample = false, onNewMotion, onDelete }: Props) {
   const [tab, setTab] = useState<Tab>('viewer');
+  // Default to the slow-mo video lab when the real clip is available.
+  const [viewerMode, setViewerMode] = useState<'video' | '3d'>(videoUrl ? 'video' : '3d');
   const [activePhase, setActivePhase] = useState<string | null>(null);
   const [compareId, setCompareId] = useState<string | null>(priorSessions[0]?.id ?? null);
   const accent = getSport(session.capture.sport).accent;
@@ -84,20 +98,27 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
         <div className="flex items-center gap-3">
           <span className="text-3xl">{session.emoji}</span>
           <div>
-            <h1 className="text-lg font-bold text-foreground">{session.sportLabel} · {session.motionLabel}</h1>
+            <h1 className="text-lg font-bold text-foreground flex items-center gap-2">
+              {session.sportLabel} · {session.motionLabel}
+              {isSample && (
+                <span className="text-[10px] font-bold uppercase tracking-wide bg-primary/15 text-primary rounded-full px-2 py-0.5">Sample</span>
+              )}
+            </h1>
             <p className="text-xs text-muted-foreground">
-              {new Date(session.createdAt).toLocaleString()} · {skillLabel(session.capture.skillLevel ?? 'intermediate')} · {session.keyFault}
+              {isSample
+                ? 'Demo · synthetic motion run through the real analysis engine'
+                : `${new Date(session.createdAt).toLocaleString()} · ${skillLabel(session.capture.skillLevel ?? 'intermediate')} · ${session.keyFault}`}
             </p>
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={() => downloadSessionJson(session)}>
+          <Button variant="outline" size="sm" onClick={() => { downloadSessionJson(session); track(ANALYTICS_EVENTS.MOTION_LAB_REPORT_EXPORTED, { format: 'json' }); }}>
             <Download className="w-4 h-4" /> JSON
           </Button>
-          <Button variant="outline" size="sm" onClick={() => downloadSessionCsv(session)}>
+          <Button variant="outline" size="sm" onClick={() => { downloadSessionCsv(session); track(ANALYTICS_EVENTS.MOTION_LAB_REPORT_EXPORTED, { format: 'csv' }); }}>
             <Download className="w-4 h-4" /> CSV
           </Button>
-          <Button variant="outline" size="sm" onClick={() => printSessionReport(session)}>
+          <Button variant="outline" size="sm" onClick={() => { printSessionReport(session); track(ANALYTICS_EVENTS.MOTION_LAB_REPORT_EXPORTED, { format: 'pdf' }); }}>
             <FileText className="w-4 h-4" /> PDF
           </Button>
           <Button variant="ghost" size="sm" onClick={onNewMotion}>
@@ -167,7 +188,39 @@ export function MotionResultsDashboard({ session, priorSessions, saved, onNewMot
       {/* Tab content */}
       {tab === 'viewer' && (
         <div className="space-y-4">
-          <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} implement={session.objectTracking ?? null} />
+          {/* Video lab (real clip + overlays) vs 3D reconstruction. The video
+              lab is only available for a freshly-analysed clip — saved sessions
+              keep the pose track but never the video, by design. */}
+          {videoUrl && (
+            <div className="flex items-center gap-1 p-1 rounded-lg bg-muted w-fit">
+              {([['video', 'Video + overlays', Film], ['3d', '3D skeleton', BoxIcon]] as const).map(([id, label, Icon]) => (
+                <button
+                  key={id}
+                  onClick={() => { setViewerMode(id); track(ANALYTICS_EVENTS.MOTION_LAB_VIEW_MODE_CHANGED, { mode: id }); }}
+                  className={cn(
+                    'flex items-center gap-1.5 text-sm font-medium rounded-md px-3 py-1.5 transition-colors',
+                    viewerMode === id ? 'bg-card text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground',
+                  )}
+                >
+                  <Icon className="w-4 h-4" />{label}
+                </button>
+              ))}
+            </div>
+          )}
+          {videoUrl && viewerMode === 'video' ? (
+            <VideoOverlayLab
+              key={videoUrl}
+              videoUrl={videoUrl}
+              track={session.poseTrack}
+              phases={session.phases}
+              objectTracking={session.objectTracking ?? null}
+              handedness={session.capture.handedness}
+              sport={session.capture.sport}
+              accent={accent}
+            />
+          ) : (
+            <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} implement={session.objectTracking ?? null} />
+          )}
           <PhaseTimeline phases={session.phases} accent={accent} activeKey={activePhase} onSelect={onPhaseSelect} />
           {activePhase && (
             <Card>

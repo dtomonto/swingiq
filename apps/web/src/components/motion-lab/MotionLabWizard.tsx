@@ -10,24 +10,28 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   ChevronLeft, ChevronRight, Zap, AlertCircle, Loader2, FlaskConical,
-  History, Trash2, ArrowRight, Upload, Video, Boxes, CheckCircle2, X,
+  History, Trash2, ArrowRight, Upload, Video, Boxes, CheckCircle2, X, Sparkles,
 } from 'lucide-react';
 import { VideoUpload, VideoPreviewCard } from '@/components/video/VideoUpload';
 import { MotionRecorder } from './MotionRecorder';
 import { VideoTrimmer } from './VideoTrimmer';
 import { SportMotionSelector } from './SportMotionSelector';
+import { RecordingGuidance } from './RecordingGuidance';
+import { MotionLabTrustNote } from './MotionLabTrustNote';
 import { MotionAnalysisProgress } from './MotionAnalysisProgress';
 import { MotionResultsDashboard } from './MotionResultsDashboard';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import {
-  runMotionAnalysis, runMultiViewMotionAnalysis, saveSession, deleteSession, useMotionSessions, sessionsFor, getMotion, SKILL_LEVELS,
+  runMotionAnalysis, runMultiViewMotionAnalysis, saveSession, deleteSession, useMotionSessions, sessionsFor, getMotion, getSport, SKILL_LEVELS,
+  SAMPLE_SPECS, buildSampleSession, isSampleSession,
 } from '@/lib/motion-lab';
 import type {
-  SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext, MotionSkillLevel, PoseModelQuality,
+  SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext, MotionSkillLevel, PoseModelQuality, SampleSpec,
 } from '@/lib/motion-lab';
 import type { SwingVideoMetadata } from '@swingiq/core';
 import { cn } from '@/lib/utils';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 
 type Step = 'select' | 'capture' | 'analyzing' | 'results';
 
@@ -93,8 +97,16 @@ export function MotionLabWizard() {
   const [error, setError] = useState<string | null>(null);
   const [session, setSession] = useState<MotionSession | null>(null);
   const [saved, setSaved] = useState(false);
+  // The clip URL that belongs to the CURRENTLY-shown result. Set only on a
+  // fresh analysis; cleared when opening a saved session so the video lab never
+  // pairs one session's overlays with another clip's footage.
+  const [resultVideoUrl, setResultVideoUrl] = useState<string | null>(null);
 
   const allSessions = useMotionSessions();
+
+  // Fires once when the lab is opened (keyless/consent-safe — no-ops unless an
+  // analytics provider is actually loaded). Carries no private data.
+  useEffect(() => { track(ANALYTICS_EVENTS.MOTION_LAB_OPENED); }, []);
 
   useEffect(() => () => { if (objectUrl) URL.revokeObjectURL(objectUrl); }, [objectUrl]);
   useEffect(() => () => { if (objectUrlB) URL.revokeObjectURL(objectUrlB); }, [objectUrlB]);
@@ -126,6 +138,7 @@ export function MotionLabWizard() {
     resetCapture();
     setSession(null);
     setSaved(false);
+    setResultVideoUrl(null);
     setMotionType(null);
     setStep('select');
   }, [resetCapture]);
@@ -139,6 +152,7 @@ export function MotionLabWizard() {
     setError(null);
     setStep('analyzing');
     setStage('extracting');
+    track(ANALYTICS_EVENTS.MOTION_LAB_ANALYSIS_STARTED, { sport, motion: motionType, view, capture_mode: captureMode });
     const capture: CaptureContext = {
       sport,
       motionType,
@@ -171,27 +185,48 @@ export function MotionLabWizard() {
       const persisted = saveSession(result);
       setSession(persisted ?? result);
       setSaved(Boolean(persisted));
+      setResultVideoUrl(objectUrl);
       setStep('results');
+      track(ANALYTICS_EVENTS.MOTION_LAB_ANALYSIS_COMPLETED, {
+        sport, motion: motionType,
+        // a coarse band, never the raw biometric values
+        confidence_band: result.scoreboard.confidence >= 0.66 ? 'high' : result.scoreboard.confidence >= 0.33 ? 'medium' : 'low',
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Analysis failed. Please try another clip.');
       setStep('capture');
+      track(ANALYTICS_EVENTS.MOTION_LAB_ANALYSIS_FAILED, { sport, motion: motionType });
     }
-  }, [videoFile, videoFileB, captureMode, motionType, sport, view, handedness, skillLevel, modelQuality, proDepth, videoMeta, trim]);
+  }, [videoFile, videoFileB, captureMode, motionType, sport, view, handedness, skillLevel, modelQuality, proDepth, videoMeta, trim, objectUrl]);
 
   const openSession = useCallback((s: MotionSession) => {
     setSession(s);
     setSaved(true);
+    setResultVideoUrl(null); // saved sessions never retain the video
     setSport(s.capture.sport);
     setMotionType(s.capture.motionType);
     setStep('results');
   }, []);
 
+  const openSample = useCallback((spec: SampleSpec) => {
+    const s = buildSampleSession(spec);
+    setSession(s);
+    setSaved(false);
+    setResultVideoUrl(null); // a sample has no video — the 3D viewer shows it
+    setSport(s.capture.sport);
+    setMotionType(s.capture.motionType);
+    setStep('results');
+    track(ANALYTICS_EVENTS.MOTION_LAB_SAMPLE_VIEWED, { sport: spec.sport, motion: spec.motion });
+  }, []);
+
   const handleDelete = useCallback(() => {
     if (session) deleteSession(session.id);
+    track(ANALYTICS_EVENTS.MOTION_LAB_SESSION_DELETED);
     startOver();
   }, [session, startOver]);
 
-  const priorSessions = session
+  // Samples are never persisted, so they have no real prior sessions to compare.
+  const priorSessions = session && !isSampleSession(session)
     ? sessionsFor(session.capture.sport, session.capture.motionType).filter((s) => s.id !== session.id)
     : [];
 
@@ -250,11 +285,15 @@ export function MotionLabWizard() {
                 <SportMotionSelector
                   sport={sport}
                   motionType={motionType}
-                  onSport={(s) => { setSport(s); setMotionType(null); }}
-                  onMotion={setMotionType}
+                  onSport={(s) => { setSport(s); setMotionType(null); track(ANALYTICS_EVENTS.MOTION_LAB_SPORT_SELECTED, { sport: s }); }}
+                  onMotion={(m) => { setMotionType(m); track(ANALYTICS_EVENTS.MOTION_LAB_MOTION_SELECTED, { sport, motion: m }); }}
                 />
               </CardBody>
             </Card>
+
+            <SampleGallery onOpen={openSample} />
+
+            <MotionLabTrustNote />
 
             <div className="flex justify-end">
               <Button disabled={!motionType} onClick={() => setStep('capture')}>
@@ -298,6 +337,7 @@ export function MotionLabWizard() {
 
             {!videoFile ? (
               <>
+                <RecordingGuidance sport={sport} motionType={motionType} accent={getSport(sport).accent} />
                 <div className="flex gap-1 p-1 rounded-lg bg-muted w-fit mx-auto">
                   {([['upload', 'Upload', Upload], ['record', 'Record', Video]] as const).map(([id, label, Icon]) => (
                     <button
@@ -424,11 +464,43 @@ export function MotionLabWizard() {
             session={session}
             priorSessions={priorSessions}
             saved={saved}
+            videoUrl={resultVideoUrl}
+            isSample={isSampleSession(session)}
             onNewMotion={startOver}
-            onDelete={handleDelete}
+            onDelete={isSampleSession(session) ? undefined : handleDelete}
           />
         )}
       </div>
+    </div>
+  );
+}
+
+// ── Sample gallery (try-before-you-upload demos) ───────────────
+function SampleGallery({ onOpen }: { onOpen: (spec: SampleSpec) => void }) {
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-2">
+        <Sparkles className="w-4 h-4 text-primary" />
+        <p className="text-sm font-semibold text-foreground">See it first — try a sample analysis</p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        {SAMPLE_SPECS.map((spec) => (
+          <button
+            key={spec.id}
+            onClick={() => onOpen(spec)}
+            className="flex items-center gap-3 rounded-lg border border-border bg-card p-3 text-left hover:border-primary/40 transition-colors"
+          >
+            <span className="text-2xl">{spec.emoji}</span>
+            <span className="min-w-0">
+              <span className="block text-sm font-semibold text-foreground truncate">{spec.label}</span>
+              <span className="block text-xs text-muted-foreground truncate">{spec.blurb}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+      <p className="text-[11px] text-muted-foreground mt-1.5">
+        Samples are a synthetic motion run through the real analysis engine — labelled “Sample,” not saved, and no video.
+      </p>
     </div>
   );
 }
