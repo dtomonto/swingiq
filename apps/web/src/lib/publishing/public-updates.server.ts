@@ -18,6 +18,7 @@ import { getAllUpdates, isPublicUpdate, type Update } from '@/data/updates';
 import { getAllDevUpdates, isPublicDevUpdate, type DevUpdate } from '@/data/devUpdates';
 import { devUpdateSlug } from '@/lib/updates/dev-detail';
 import { BLOG_POSTS, isPublishedBlogPost, type BlogPost } from '@/data/blog-posts';
+import { SEO_PAGES, effectiveSeoStatus, type SeoPage } from '@/content/seoPages';
 import { getPublishOverrides } from './store';
 import { applyOverrides, applyOverridesByKey } from './overrides';
 
@@ -89,4 +90,27 @@ export async function getEffectivePublicBlogPosts(): Promise<BlogPost[]> {
 /** A single effectively-published blog post by slug (drafts → undefined → 404). */
 export async function getEffectiveBlogPost(slug: string): Promise<BlogPost | undefined> {
   return (await getEffectivePublicBlogPosts()).find((p) => p.slug === slug);
+}
+
+// ── SEO pages (crawl surface / sitemap) ───────────────────────────────────
+// SEO content pages are STATICALLY rendered + source-controlled, so the durable
+// override is honoured on the CRAWL surface (the sitemap) rather than forcing 40
+// static pages dynamic. Unpublishing an SEO page drops it from the sitemap (the
+// search-facing effect); hard removal of the route stays deploy-backed.
+
+/** Published SEO pages with durable overrides applied (keyed by slug). Mirrors
+ *  PUBLISHED_SEO_PAGES; used by the sitemap so a durable hide de-indexes a page. */
+export async function getEffectivePublishedSeoPages(): Promise<SeoPage[]> {
+  const overrides = await getPublishOverrides('seo-page');
+  return applyOverridesByKey(SEO_PAGES, overrides, (p) => effectiveSeoStatus(p) === 'published', (p) => p.slug);
+}
+
+/** Whether a single SEO page is effectively published (durable override on top
+ *  of its file/base status). */
+export async function isEffectiveSeoPagePublished(slug: string): Promise<boolean> {
+  const page = SEO_PAGES.find((p) => p.slug === slug);
+  if (!page) return false;
+  const overrides = await getPublishOverrides('seo-page');
+  const o = overrides[slug];
+  return o === undefined ? effectiveSeoStatus(page) === 'published' : o;
 }

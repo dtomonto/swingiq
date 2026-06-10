@@ -124,7 +124,7 @@ export async function GET(req: Request) {
 
   let sitemapEntryCount: number | null = null;
   try {
-    sitemapEntryCount = sitemap().length;
+    sitemapEntryCount = (await sitemap()).length;
   } catch {
     sitemapEntryCount = null;
   }

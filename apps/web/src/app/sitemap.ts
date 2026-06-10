@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next';
-import { PUBLISHED_SEO_PAGES } from '@/content/seoPages';
 import { ALL_FEATURES, featureHref } from '@/content/features';
 import { SITE_URL } from '@/config/site';
 import { getLearnItems } from '@/lib/library';
@@ -7,13 +6,20 @@ import { learnPath } from '@/lib/library/seo';
 import { getConceptEntries, getDataPointEntries, learnPath as learnEntryPath } from '@/lib/learn';
 import { localizedRoutes, currentLocalesFor } from '@/lib/marketing-i18n/expose';
 import { localizedHref } from '@/lib/marketing-i18n/href';
-import { getPublishedBlogPosts } from '@/data/blog-posts';
 import { CHALLENGES } from '@/content/challenges';
 import { CURATED_URLS } from '@/lib/seo/site-sections';
 import { getAllSituationParams } from '@/lib/mental-performance/routines';
-import { getPublicUpdates } from '@/data/updates';
-import { getDevUpdates } from '@/data/devUpdates';
 import { updatePath } from '@/lib/updates/product-detail';
+// Override-aware reads: a durable PublishingOS publish decision drops a hidden
+// page from the crawl surface (de-index) / adds a promoted one. With no
+// overrides these return exactly the previous PUBLISHED_SEO_PAGES /
+// getPublished*() sets, so the sitemap is unchanged by default.
+import {
+  getEffectivePublishedSeoPages,
+  getEffectivePublicBlogPosts,
+  getEffectivePublicUpdates,
+  getEffectivePublicDevUpdates,
+} from '@/lib/publishing/public-updates.server';
 import { devUpdatePath } from '@/lib/updates/dev-detail';
 import { indexablePublishedMilestones } from '@/content/milestones/published';
 import { milestonePath } from '@/lib/milestones/page-detail';
@@ -51,8 +57,18 @@ function languagesFor(path: string): Record<string, string> | undefined {
   return languages;
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date().toISOString();
+
+  // Resolve the override-aware sets once (durable PublishingOS decisions drop
+  // hidden pages from the crawl surface). Parallel; cheap (one store read each,
+  // in-memory when Supabase is unconfigured).
+  const [seoPub, blogPub, updatePub, devPub] = await Promise.all([
+    getEffectivePublishedSeoPages(),
+    getEffectivePublicBlogPosts(),
+    getEffectivePublicUpdates(),
+    getEffectivePublicDevUpdates(),
+  ]);
 
   // One entry per localized (e.g. /es) page, each carrying its hreflang group.
   const localizedPages: MetadataRoute.Sitemap = localizedRoutes().map(({ locale, path }) => ({
@@ -66,7 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Programmatic SEO landing pages (only those marked 'published'). Includes
   // the pickleball & padel hubs and every published guide, so a new guide
   // appears here automatically.
-  const seoPages: MetadataRoute.Sitemap = PUBLISHED_SEO_PAGES.map((p) => ({
+  const seoPages: MetadataRoute.Sitemap = seoPub.map((p) => ({
     url: `${BASE_URL}/${p.slug}`,
     lastModified: now,
     changeFrequency: 'monthly',
@@ -106,7 +122,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // publishDate (a real signal) rather than the build time.
   const blogPages: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
-    ...getPublishedBlogPosts().map((post) => ({
+    ...blogPub.map((post) => ({
       url: `${BASE_URL}/blog/${post.slug}`,
       lastModified: post.publishDate ? new Date(post.publishDate).toISOString() : now,
       changeFrequency: 'yearly' as const,
@@ -182,7 +198,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // entry per PUBLISHED, PUBLIC update detail page. getPublicUpdates() already
   // excludes drafts, private, hidden, and not-yet-public items, so draft/private
   // pages can never reach the sitemap. lastmod uses each update's own updatedAt.
-  const updatePages: MetadataRoute.Sitemap = getPublicUpdates().map((u) => ({
+  const updatePages: MetadataRoute.Sitemap = updatePub.map((u) => ({
     url: `${BASE_URL}${updatePath(u)}`,
     lastModified: u.updatedAt ? new Date(u.updatedAt).toISOString() : now,
     changeFrequency: 'monthly' as const,
@@ -203,7 +219,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Developer updates: one entry per published (non-draft) developer update
   // detail page. getDevUpdates() filters out drafts.
-  const devUpdatePages: MetadataRoute.Sitemap = getDevUpdates().map((u) => ({
+  const devUpdatePages: MetadataRoute.Sitemap = devPub.map((u) => ({
     url: `${BASE_URL}${devUpdatePath(u)}`,
     lastModified: u.date ? new Date(u.date).toISOString() : now,
     changeFrequency: 'monthly' as const,

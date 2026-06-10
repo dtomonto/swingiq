@@ -3,6 +3,8 @@ import {
   getEffectiveDevUpdateBySlug,
   getEffectivePublicBlogPosts,
   getEffectiveBlogPost,
+  getEffectivePublishedSeoPages,
+  isEffectiveSeoPagePublished,
 } from '../public-updates.server';
 import { setPublishOverride, __resetMemoryStore } from '../store';
 import { devUpdateSlug } from '@/lib/updates/dev-detail';
@@ -60,6 +62,29 @@ describe('publishing/public-reads (override-aware)', () => {
     await setPublishOverride('blog-post', target.slug, true);
     expect((await getEffectivePublicBlogPosts()).find((p) => p.slug === target.slug)).toBeDefined();
     expect(await getEffectiveBlogPost(target.slug)).toBeDefined();
+  });
+
+  it('seo: no override returns the base published set', async () => {
+    const base = await getEffectivePublishedSeoPages();
+    expect(base.length).toBeGreaterThan(0);
+  });
+
+  it('seo: a durable override hides a page from the crawl set + single-check', async () => {
+    const base = await getEffectivePublishedSeoPages();
+    const target = base[0];
+    expect(await isEffectiveSeoPagePublished(target.slug)).toBe(true);
+
+    await setPublishOverride('seo-page', target.slug, false);
+    expect((await getEffectivePublishedSeoPages()).find((p) => p.slug === target.slug)).toBeUndefined();
+    expect(await isEffectiveSeoPagePublished(target.slug)).toBe(false);
+
+    await setPublishOverride('seo-page', target.slug, true);
+    expect((await getEffectivePublishedSeoPages()).find((p) => p.slug === target.slug)).toBeDefined();
+    expect(await isEffectiveSeoPagePublished(target.slug)).toBe(true);
+  });
+
+  it('seo: an unknown slug is never published', async () => {
+    expect(await isEffectiveSeoPagePublished('no-such-seo-slug-xyz')).toBe(false);
   });
 
   it('overrides are surface-scoped: a blog override never affects dev-updates', async () => {

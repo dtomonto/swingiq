@@ -37,13 +37,13 @@ const STATUS_BADGE: Record<BarrierStatus, { tone: BadgeTone; label: string; Icon
   manual: { tone: 'warning', label: 'Manual upload', Icon: Upload },
 };
 
-export default function AdminAuditAccessPage() {
+export default async function AdminAuditAccessPage() {
   const enabled = isAuditAccessConfigured();
   const summary = barrierSummary();
 
   let sitemapEntryCount = 0;
   try {
-    sitemapEntryCount = sitemap().length;
+    sitemapEntryCount = (await sitemap()).length;
   } catch {
     sitemapEntryCount = 0;
   }
