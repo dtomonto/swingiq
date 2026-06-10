@@ -400,6 +400,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['flags', 'rollout', 'beta', 'experiments'],
   },
   {
+    id: 'theme-lab', label: 'Theme Lab', href: '/admin/theme-lab', icon: Contrast,
+    group: 'operations', built: true, permission: 'flags.manage',
+    blurb: 'Govern the live theme: pin every visitor to one theme (a kill-switch for a broken theme), opt into seasonal themes, and see exactly which theme the resolver returns and why. Local-first operator control over the 7-theme engine; appearance only, never data or coaching.',
+    keywords: ['theme', 'themes', 'theme lab', 'themelab', 'dark performance', 'appearance', 'look', 'kill-switch', 'pin', 'seasonal', 'rollout', 'design', 'brand', 'data-theme'],
+  },
+  {
     id: 'audit-log', label: 'Audit Log', href: '/admin/audit-log', icon: ScrollText,
     group: 'operations', built: true, permission: 'logs.view',
     blurb: 'Every admin action: who changed what, when, before and after.',
