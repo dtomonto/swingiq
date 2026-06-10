@@ -19,7 +19,7 @@ export const UPDATES_PART_1: Update[] = [
     metaDescription:
       'SwingVantage now coaches the mental game: short reset routines, a keyless coach, on-course/field/court meditations, training plans and a private journal across golf, baseball, softball, tennis, pickleball and padel. Performance coaching, not therapy.',
     summary:
-      'Your mechanics matter — your response after the mistake matters just as much. Mental Performance is a new section that helps you manage emotions, recover after errors, and build repeatable reset routines: a keyless coach that maps your sport, what happened, and how you feel to the right reset; 27 short routines you can run between a shot, pitch, or point (now with optional on-device spoken narration); training plans; and a private, consent-based journal. It is performance coaching — not medical or mental-health treatment — and it screens for crisis language to point you to real help.',
+      'Your mechanics matter — your response after the mistake matters just as much. Mental Performance is a new section that helps you manage emotions, recover after errors, and build repeatable reset routines: a keyless coach that maps your sport, what happened, and how you feel to the right reset; 27 short routines you can run between a shot, pitch, or point (now with optional on-device spoken narration); training plans; and a private, consent-based journal. It is performance coaching — not medical or mental-health care — and it screens for crisis language to point you to real help.',
     releaseDate: '2026-06-08',
     displayDate: 'June 2026',
     category: 'New Feature',
@@ -53,7 +53,7 @@ export const UPDATES_PART_1: Update[] = [
       'composure under pressure',
     ],
     answerEngineSummary:
-      'SwingVantage Mental Performance is a sport-psychology section across golf, baseball, slow- and fast-pitch softball, tennis, pickleball and padel. It offers a keyless coach that maps sport, mistake and emotion to a reset routine; 27 short reset/pre-performance/meditation routines (with optional on-device spoken narration via the Web Speech API); deterministic training plans; and a consent-based journal that surfaces triggers and composure trends. It is performance coaching, not medical or mental-health treatment, and screens free text for crisis/medical language to route users to real help.',
+      'SwingVantage Mental Performance is a sport-psychology section across golf, baseball, slow- and fast-pitch softball, tennis, pickleball and padel. It offers a keyless coach that maps sport, mistake and emotion to a reset routine; 27 short reset/pre-performance/meditation routines (with optional on-device spoken narration via the Web Speech API); deterministic training plans; and a consent-based journal that surfaces triggers and composure trends. It is performance coaching, not medical or mental-health care, and screens free text for crisis/medical language to route users to real help.',
     generativeSearchSummary:
       'SwingVantage added Mental Performance — emotion management and mistake recovery for all seven sports, with a keyless coach, short reset routines (now narrated on-device), training plans, and a private journal. Performance coaching, not therapy.',
     internalLinkTargets: ['/mental-performance', '/features', '/methodology'],
