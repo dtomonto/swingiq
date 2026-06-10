@@ -72,11 +72,11 @@ export const THEMES: ThemeDef[] = [
     tagline: 'High-intensity analytics for serious training.',
     category: 'dark',
     swatches: {
-      bg: 'hsl(222 24% 7%)',
-      surface: 'hsl(222 18% 11%)',
-      text: 'hsl(210 16% 92%)',
-      primary: 'hsl(160 64% 44%)',
-      accent: 'hsl(199 80% 54%)',
+      bg: 'hsl(140 14% 5%)',
+      surface: 'hsl(150 12% 8%)',
+      text: 'hsl(150 10% 96%)',
+      primary: 'hsl(142 71% 45%)',
+      accent: 'hsl(168 76% 46%)',
     },
   },
   {
@@ -148,7 +148,9 @@ export const THEMES: ThemeDef[] = [
   },
 ];
 
-export const DEFAULT_THEME_ID: ThemeId = 'standard';
+// Dark Performance (B) is the launched brand default — every page renders in
+// the green-on-near-black look unless a user explicitly picks another theme.
+export const DEFAULT_THEME_ID: ThemeId = 'dark-performance';
 
 const THEME_IDS = new Set<string>(THEMES.map((t) => t.id));
 

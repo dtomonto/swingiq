@@ -11,6 +11,7 @@ import type { GolferProfileInput, Shot, DiagnosisOutput } from '@swingiq/core';
 import type { SportId } from '@swingiq/core';
 import type { LanguageCode } from '@/lib/i18n';
 import type { ThemeId } from '@/lib/theme/themes';
+import { DEFAULT_THEME_ID } from '@/lib/theme/themes';
 import type { CoachingTone } from '@/lib/coaching/tones';
 import type { CommunityState } from '@/lib/community/types';
 import { DEFAULT_COMMUNITY_STATE } from '@/lib/community/types';
@@ -369,7 +370,9 @@ export type SwingVantageSlice<T> = StateCreator<
 export const DEFAULT_SETTINGS: AppSettings = {
   units: 'yards',
   theme: 'light',
-  colorTheme: 'standard',
+  // Dark Performance (B) is the launched brand default; users can still pick
+  // any of the curated themes, which persists and overrides this.
+  colorTheme: DEFAULT_THEME_ID,
   show_estimated_warnings: true,
   coaching_style: 'balanced',
   coaching_tone: 'beginner',

@@ -1,30 +1,37 @@
 import Link from 'next/link';
+import {
+  ArrowRight,
+  ShieldCheck,
+  Lock,
+  Zap,
+  EyeOff,
+  Clock,
+  UserX,
+  Target,
+  Activity,
+  User,
+  Crosshair,
+} from 'lucide-react';
 import type { LanguageCode } from '@/lib/i18n';
 import { getMarketingDict } from '@/lib/marketing-i18n/dict';
 import { localizedHref } from '@/lib/marketing-i18n/href';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildGraph, organizationSchema, websiteSchema, softwareApplicationSchema, faqPageSchema } from '@/lib/seo/jsonLd';
-import {
-  TrustBar,
-  LiveAndFreeBadge,
-  SampleReportPreview,
-  PrivacyAssuranceBlock,
-  YouthSafetyNotice,
-  NotCoachReplacementNotice,
-} from '@/components/trust';
-import { ThemePreviewStrip } from '@/components/theme/ThemePreviewStrip';
+import { SampleReportPreview } from '@/components/trust';
 import { TutorialVideo } from '@/components/tutorial/TutorialVideo';
-import { PersonaPathCards } from '@/components/persona/PersonaPathCards';
-import { SportProofBlock } from '@/components/proof/SportProofBlock';
 import { ReturningUserRedirect } from '@/components/marketing/ReturningUserRedirect';
 
 /**
  * The single marketing homepage, parameterized by locale — used by the English
- * page (locale="en") AND /es, /fr. All copy comes from the marketing dictionary
- * (one source of truth, no drift). Interactive sections that are not yet
- * localized (persona cards, tutorial video, theme strip, sample-report preview,
- * proof block, parent/coach trust blocks) render ONLY for English, so the
- * English page is lossless while translated pages never show English mid-page.
+ * page (locale="en") AND /es, /fr. Shared copy comes from the marketing
+ * dictionary (one source of truth, no drift).
+ *
+ * Visual design = the "Dark Performance" (B) brand: green-on-near-black, big
+ * Space Grotesk headlines, a glowing product-preview card. The theme tokens do
+ * the heavy lifting (every page is dark by default), so this file only sets
+ * structure + the B section flow. English gets the full B experience (problem,
+ * sport selector, sample output, benefits); translated pages render a leaner
+ * dict-only page so they never show English mid-page.
  */
 export function LocalizedHome({ locale }: { locale: LanguageCode }) {
   const dict = getMarketingDict(locale);
@@ -62,144 +69,215 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
   ];
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background text-foreground">
       {/* Returning visitors skip the marketing splash (→ /login, or /dashboard
-          if signed in). New visitors see the full page. Client-only; renders
-          nothing and leaves the server-rendered HTML (and SEO) intact. */}
+          if signed in). New visitors see the full page. */}
       <ReturningUserRedirect />
 
-      {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-10 h-10 bg-golf-fairway rounded-xl flex items-center justify-center">
-              <span className="text-golf-dark font-black text-base">SV</span>
-            </div>
-            <span className="text-primary-foreground font-bold text-2xl">SwingVantage</span>
-          </div>
-          <div className="mb-4 flex justify-center">
-            {isEn ? (
-              <LiveAndFreeBadge />
-            ) : (
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-                {h.hero.badge}
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-theme-hero px-4 pb-16 pt-16 sm:pb-24 sm:pt-24">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-link">
+              <span className="relative flex h-2 w-2" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
-            )}
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            {h.hero.titleLine1}
-            <br />
-            <span className="text-primary-foreground/80">{h.hero.titleLine2}</span>
-          </h1>
-          <p className="text-primary-foreground/90 text-xl mb-10 max-w-2xl mx-auto">{h.hero.subtitle}</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={localizedHref('/start', locale)} className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-4 rounded-xl text-lg transition-colors">
-              {h.hero.ctaStart}
-            </Link>
-            <Link href="/video" className="border border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 font-semibold px-8 py-4 rounded-xl text-lg transition-colors">
-              {h.hero.ctaAnalyze}
-            </Link>
-          </div>
-          <p className="text-primary-foreground/80 text-sm mt-5">
-            {h.hero.note}
-            {isEn && (
-              <>
-                {' '}
-                <Link href="#sample-report" className="underline hover:text-primary-foreground">See a sample report</Link>.
-              </>
-            )}
-            <span className="block mt-1">{h.hero.noteLine2}</span>
-          </p>
-          {isEn && <TrustBar className="mt-6 text-primary-foreground/80" />}
-        </div>
-      </section>
+              {isEn ? 'Live now · Free performance analysis' : h.hero.badge}
+            </span>
 
-      {/* Persona router (English-only for now) */}
-      {isEn && <PersonaPathCards />}
+            <h1 className="mt-6 font-heading text-4xl font-bold uppercase leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              {isEn ? (
+                <>
+                  Find the one fix{' '}
+                  <span className="text-link">holding your swing back</span>
+                </>
+              ) : (
+                <>
+                  {h.hero.titleLine1}{' '}
+                  <span className="text-link">{h.hero.titleLine2}</span>
+                </>
+              )}
+            </h1>
 
-      {/* How it works */}
-      <section className="py-16 px-4 bg-muted">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">{h.how.heading}</h2>
-          {isEn && (
-            <div className="mx-auto mb-12 max-w-2xl">
-              <TutorialVideo placement="home-hero" page="/" />
-            </div>
-          )}
-          <div className="grid md:grid-cols-4 gap-6">
-            {steps.map((item, i) => (
-              <div key={item.title} className="text-center">
-                <div className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4">
-                  {i + 1}
-                </div>
-                <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Themes (English-only for now) */}
-      {isEn && (
-        <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-3">Make it yours</h2>
-            <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Seven premium themes — from a clean Standard look to Dark Performance training mode.
-              Themes change the look only; your coaching results never change.
+            <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+              {isEn
+                ? 'Upload a swing video or import launch-monitor data — get your top fix, the drills to groove it, and a practice plan. 100% free.'
+                : h.hero.subtitle}
             </p>
-            <ThemePreviewStrip />
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href={localizedHref('/start', locale)}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-7 py-4 text-base font-bold text-primary-foreground shadow-theme transition-colors hover:bg-primary/90"
+              >
+                {isEn ? 'Analyze My Swing — Free' : h.hero.ctaStart}
+                <ArrowRight size={18} aria-hidden="true" />
+              </Link>
+              <Link
+                href={isEn ? '#how-it-works' : '/video'}
+                className="inline-flex items-center justify-center rounded-xl border border-border px-7 py-4 text-base font-semibold text-foreground transition-colors hover:bg-secondary"
+              >
+                {isEn ? 'See how it works' : h.hero.ctaAnalyze}
+              </Link>
+            </div>
+
+            {isEn ? (
+              <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                {[
+                  { icon: UserX, label: 'No account required' },
+                  { icon: Zap, label: '100% free' },
+                  { icon: Lock, label: 'Private by default' },
+                ].map(({ icon: Icon, label }) => (
+                  <li key={label} className="flex items-center gap-2">
+                    <Icon size={16} className="shrink-0 text-link" aria-hidden="true" />
+                    {label}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-6 text-sm text-muted-foreground">
+                {h.hero.note}
+                <span className="mt-1 block">{h.hero.noteLine2}</span>
+              </p>
+            )}
+          </div>
+
+          {/* Product-preview card (illustrative UI mock — English only). */}
+          {isEn && <AnalysisReportCard />}
+        </div>
+      </section>
+
+      {/* ── Problem (English only) ───────────────────────────────────────── */}
+      {isEn && (
+        <section className="px-4 py-16 sm:py-20">
+          <div className="mx-auto max-w-6xl">
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="font-heading text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">
+                Practice without proof is just repetition
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Most reps just groove the same mistakes. SwingVantage shows you exactly what to change —
+                and gives you the evidence it worked.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              {[
+                {
+                  icon: EyeOff,
+                  title: "You can't see your own swing",
+                  desc: 'Feel vs. real is the biggest gap in sports. We bridge it with frame-by-frame AI analysis that sees what the naked eye misses.',
+                },
+                {
+                  icon: Clock,
+                  title: 'Lessons are easy to forget',
+                  desc: 'Instruction fades, but data stays. Get a permanent digital record of every session with clear, actionable takeaways.',
+                },
+                {
+                  icon: Crosshair,
+                  title: "Generic tips don't fit you",
+                  desc: 'Stop following "standard" advice. Our AI analyzes your unique biomechanics for guidance tailored specifically to your body.',
+                },
+              ].map(({ icon: Icon, title, desc }) => (
+                <div key={title} className="rounded-theme border border-border bg-card p-6 shadow-theme">
+                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-primary/30 bg-primary/10">
+                    <Icon size={22} className="text-primary" aria-hidden="true" />
+                  </div>
+                  <h3 className="font-heading text-lg font-semibold uppercase tracking-tight text-foreground">{title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}
 
-      {/* Why SwingVantage */}
-      <section className="py-16 px-4 bg-muted">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-center text-foreground mb-10">{h.why.heading}</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {whyItems.map((item) => (
-              <div key={item.title} className="bg-card border border-border p-6 rounded-xl shadow-xs">
-                <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
+      {/* ── How it works ─────────────────────────────────────────────────── */}
+      <section id="how-it-works" className="scroll-mt-16 border-y border-border bg-card/40 px-4 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-center font-heading text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">
+            {isEn ? 'From upload to improvement in 60 seconds' : h.how.heading}
+          </h2>
+          {isEn && (
+            <div className="mx-auto mb-12 mt-8 max-w-2xl">
+              <TutorialVideo placement="home-hero" page="/" />
+            </div>
+          )}
+          <div className="mt-12 grid gap-8 md:grid-cols-4">
+            {steps.map((item, i) => (
+              <div key={item.title} className="text-center">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary font-heading text-lg font-bold text-primary-foreground ring-glow">
+                  {i + 1}
+                </div>
+                <h3 className="font-heading font-semibold uppercase tracking-tight text-foreground">{item.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Free tools */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-3">{ft.heading}</h2>
-          <p className="text-center text-muted-foreground mb-10">{ft.subtitle}</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {tools.map((t) => (
-              <Link key={t.href} href={t.href} className="block p-5 border border-border rounded-xl hover:border-primary hover:bg-primary/5 transition-colors">
-                <h3 className="font-semibold text-foreground mb-1">{t.name}</h3>
-                <p className="text-xs text-muted-foreground">{t.desc}</p>
-              </Link>
-            ))}
-          </div>
-          <p className="text-center mt-6">
-            <Link href="/tools" className="text-sm font-semibold text-primary hover:underline">{ft.seeAll}</Link>
-          </p>
-        </div>
-      </section>
-
-      {/* Sample report preview (English-only for now) */}
+      {/* ── Sport selector (English only) ────────────────────────────────── */}
       {isEn && (
-        <section id="sample-report" className="scroll-mt-16 py-16 px-4 bg-muted">
-          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+        <section className="px-4 py-16 sm:py-20">
+          <div className="mx-auto max-w-6xl">
+            <div className="text-center">
+              <h2 className="font-heading text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">
+                Choose your discipline
+              </h2>
+              <p className="mt-3 text-muted-foreground">Optimized engines for major rotational sports.</p>
+            </div>
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { glyph: '⛳', name: 'Golf', tagline: 'Perfect your drive mechanics.', href: '/golf-swing-analysis', accent: 'var(--sport-golf)' },
+                { glyph: '🎾', name: 'Tennis', tagline: 'Serve and groundstroke power.', href: '/tennis-swing-analysis', accent: 'var(--sport-tennis)' },
+                { glyph: '⚾', name: 'Baseball', tagline: 'Exit velocity and swing plane.', href: '/baseball-swing-analysis', accent: 'var(--sport-baseball)' },
+                { glyph: '🥎', name: 'Softball', tagline: 'Fast-pitch swing efficiency.', href: '/softball-swing-analysis', accent: 'var(--sport-softball-fast)' },
+              ].map((s) => (
+                <Link
+                  key={s.name}
+                  href={s.href}
+                  className="group rounded-theme border border-border bg-card p-6 shadow-theme transition-colors hover:border-primary/50"
+                >
+                  <div
+                    className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl border bg-secondary text-2xl"
+                    style={{ borderColor: `hsl(${s.accent})` }}
+                    aria-hidden="true"
+                  >
+                    {s.glyph}
+                  </div>
+                  <h3 className="font-heading text-xl font-semibold uppercase tracking-tight text-foreground">{s.name}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{s.tagline}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-link">
+                    Analyze
+                    <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Sample output (English only) ─────────────────────────────────── */}
+      {isEn && (
+        <section id="sample-report" className="scroll-mt-16 border-y border-border bg-card/40 px-4 py-16 sm:py-20">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">See what you&apos;ll get</h2>
-              <p className="text-muted-foreground mb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-link">What you&apos;ll actually receive</span>
+              <h2 className="mt-3 font-heading text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">
+                See what you&apos;ll get
+              </h2>
+              <p className="mt-4 text-muted-foreground">
                 Every analysis leads with your single highest-priority issue — not an overwhelming list.
                 You get the top fix, three beginner-safe drills tied to that issue, and a simple practice plan.
               </p>
-              <Link href="/video" className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-xl transition-colors">
+              <Link
+                href="/video"
+                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
                 Analyze My Swing Free
+                <ArrowRight size={18} aria-hidden="true" />
               </Link>
             </div>
             <SampleReportPreview />
@@ -207,45 +285,82 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
         </section>
       )}
 
-      {/* Proof strip (English-only for now) */}
-      {isEn && <SportProofBlock reportSlug="golf" heading="See the proof, not just the promise" />}
+      {/* ── Why / benefits ───────────────────────────────────────────────── */}
+      <section className="px-4 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-center font-heading text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">
+            {isEn ? 'Built for athletes who want proof' : h.why.heading}
+          </h2>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {isEn
+              ? [
+                  { icon: ShieldCheck, title: 'Private by default', desc: 'Video analysis runs in your browser when possible. Your swing data is never shared publicly — and we run no ad cookies and never sell data.' },
+                  { icon: Target, title: 'Pro-grade accuracy', desc: 'Frame-by-frame biomechanics powered by computer vision, graded against your level — not tour pros — so the feedback actually fits you.' },
+                  { icon: Zap, title: 'Instant feedback', desc: 'Your top fix, matched drills, and a practice plan in minutes — no appointment, no waiting, no credit card.' },
+                ].map(({ icon: Icon, title, desc }) => (
+                  <div key={title} className="rounded-theme border border-border bg-card p-6 shadow-theme">
+                    <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-primary/30 bg-primary/10">
+                      <Icon size={22} className="text-primary" aria-hidden="true" />
+                    </div>
+                    <h3 className="font-heading text-lg font-semibold uppercase tracking-tight text-foreground">{title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+                  </div>
+                ))
+              : whyItems.map((item) => (
+                  <div key={item.title} className="rounded-theme border border-border bg-card p-6 shadow-theme">
+                    <h3 className="font-heading font-semibold uppercase tracking-tight text-foreground">{item.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                ))}
+          </div>
+        </div>
+      </section>
 
-      {/* Parent & coach trust (English-only for now) */}
+      {/* ── Free tools (English only) ────────────────────────────────────── */}
       {isEn && (
-        <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-3">Built for confident, private practice</h2>
-            <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Parents, coaches, and players can trust how SwingVantage handles data and sets honest expectations.
-            </p>
-            <div className="grid md:grid-cols-2 gap-6 items-start">
-              <PrivacyAssuranceBlock />
-              <div className="space-y-4">
-                <YouthSafetyNotice />
-                <NotCoachReplacementNotice />
-              </div>
+        <section className="border-t border-border px-4 py-16 sm:py-20">
+          <div className="mx-auto max-w-6xl">
+            <h2 className="text-center font-heading text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">{ft.heading}</h2>
+            <p className="mt-3 text-center text-muted-foreground">{ft.subtitle}</p>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {tools.map((t) => (
+                <Link
+                  key={t.href}
+                  href={t.href}
+                  className="block rounded-theme border border-border bg-card p-5 transition-colors hover:border-primary/50"
+                >
+                  <h3 className="font-semibold text-foreground">{t.name}</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">{t.desc}</p>
+                </Link>
+              ))}
             </div>
+            <p className="mt-6 text-center">
+              <Link href="/tools" className="text-sm font-semibold text-link hover:underline">{ft.seeAll}</Link>
+            </p>
           </div>
         </section>
       )}
 
-      {/* Disclaimer */}
-      <section className="py-8 px-4 bg-warning/10 border-y border-warning/30">
-        <div className="max-w-3xl mx-auto text-center">
+      {/* ── Disclaimer ───────────────────────────────────────────────────── */}
+      <section className="border-y border-warning/30 bg-warning/10 px-4 py-8">
+        <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs text-foreground">{h.disclaimer}</p>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-16 px-4">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-center text-foreground mb-10">{h.faq.heading}</h2>
-          <div className="space-y-4">
+      {/* ── FAQ ──────────────────────────────────────────────────────────── */}
+      <section className="px-4 py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-center font-heading text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">{h.faq.heading}</h2>
+          <div className="mt-10 space-y-3">
             {faqs.map((faq) => (
-              <div key={faq.q} className="border border-border rounded-xl p-5">
-                <h3 className="font-semibold text-foreground mb-1">{faq.q}</h3>
-                <p className="text-sm text-muted-foreground">{faq.a}</p>
-              </div>
+              <details key={faq.q} className="group rounded-theme border border-border bg-card p-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between font-semibold text-foreground">
+                  {faq.q}
+                  <ArrowRight size={16} className="shrink-0 text-muted-foreground transition-transform group-open:rotate-90" aria-hidden="true" />
+                </summary>
+                <p className="mt-3 text-sm text-muted-foreground">{faq.a}</p>
+              </details>
             ))}
           </div>
         </div>
@@ -260,14 +375,96 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
         )}
       />
 
-      {/* Final CTA */}
-      <section className="bg-primary text-primary-foreground py-16 px-4 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">{h.finalCta.heading}</h2>
-        <p className="text-primary-foreground/90 mb-8">{h.finalCta.subtitle}</p>
-        <Link href={localizedHref('/start', locale)} className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-10 py-4 rounded-xl text-lg transition-colors">
-          {h.finalCta.button}
-        </Link>
+      {/* ── Final CTA ────────────────────────────────────────────────────── */}
+      <section className="px-4 pb-20 pt-4">
+        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl bg-primary px-6 py-16 text-center text-primary-foreground shadow-theme-lg">
+          <h2 className="font-heading text-3xl font-bold uppercase tracking-tight sm:text-4xl">
+            {isEn ? 'Ready to fix your swing?' : h.finalCta.heading}
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-primary-foreground/90">
+            {isEn ? 'Find your top fix with frame-by-frame AI analysis — free, no account required.' : h.finalCta.subtitle}
+          </p>
+          <Link
+            href={localizedHref('/start', locale)}
+            className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-background px-10 py-4 text-base font-bold text-foreground transition-opacity hover:opacity-90"
+          >
+            {isEn ? 'Analyze My Swing — Free' : h.finalCta.button}
+            <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
       </section>
     </main>
+  );
+}
+
+/**
+ * Illustrative product-preview card shown in the hero (English). This is a
+ * static UI mockup of what a report looks like — not a real user's data — so
+ * it carries representative chrome (sample session id, score, fix), never
+ * fabricated metrics presented as fact.
+ */
+function AnalysisReportCard() {
+  const radius = 26;
+  const circumference = 2 * Math.PI * radius;
+  const score = 88;
+  const dash = (score / 100) * circumference;
+
+  return (
+    <div className="relative rounded-2xl border border-border bg-card p-5 shadow-theme-lg ring-glow lg:p-6">
+      {/* Header */}
+      <div className="flex items-start justify-between">
+        <div>
+          <h3 className="font-heading text-lg font-bold uppercase tracking-tight text-foreground">Analysis Report</h3>
+          <p className="mt-0.5 text-xs uppercase tracking-wider text-muted-foreground">Session ID · SV-0842</p>
+        </div>
+        <div className="relative h-16 w-16" aria-hidden="true">
+          <svg viewBox="0 0 64 64" className="h-16 w-16 -rotate-90">
+            <circle cx="32" cy="32" r={radius} fill="none" stroke="hsl(var(--border))" strokeWidth="5" />
+            <circle
+              cx="32"
+              cy="32"
+              r={radius}
+              fill="none"
+              stroke="hsl(var(--primary))"
+              strokeWidth="5"
+              strokeLinecap="round"
+              strokeDasharray={`${dash} ${circumference}`}
+            />
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="font-heading text-base font-bold text-link">{score}%</span>
+            <span className="text-[9px] uppercase tracking-wide text-muted-foreground">Score</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Primary fix banner */}
+      <div className="mt-5 rounded-xl border-l-2 border-primary bg-primary/10 px-4 py-3">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-link">Primary fix identified</p>
+        <p className="mt-0.5 font-heading font-semibold uppercase tracking-tight text-foreground">Address hip rotation alignment</p>
+      </div>
+
+      {/* Drill tiles */}
+      <div className="mt-4 grid grid-cols-3 gap-3">
+        {[
+          { icon: Target, label: 'Wall Drill' },
+          { icon: Activity, label: 'Tempo Sync' },
+          { icon: User, label: 'Profile' },
+        ].map(({ icon: Icon, label }) => (
+          <div key={label} className="rounded-lg border border-border bg-secondary p-3 text-center">
+            <Icon size={18} className="mx-auto text-primary" aria-hidden="true" />
+            <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Tracking panel */}
+      <div className="mt-4 flex aspect-video items-end rounded-lg border border-border bg-background p-3">
+        <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide text-link">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" aria-hidden="true" />
+          Kinematic tracking active
+        </span>
+      </div>
+    </div>
   );
 }

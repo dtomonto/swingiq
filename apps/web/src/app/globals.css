@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+/* Dark Performance (B) brand default — see lib/theme/themes.ts */
 
 @theme {
   --color-border: hsl(var(--border));
@@ -434,66 +435,69 @@
     color-scheme: light;
   }
 
-  /* Dark Performance — near-black, graphite cards, athletic teal. */
+  /* Dark Performance (B) — the default brand. Green-tinted near-black
+     (#0B0F0C), graphite cards, and a single bright performance green
+     (#22C55E ≈ hsl(142 71% 45%)) used as the accent everywhere. Tuned so
+     every token pair below clears WCAG AA (see theme-contrast.test.ts). */
   [data-theme='dark-performance'],
   .dark {
     color-scheme: dark;
-    --background: 222 24% 7%;
-    --foreground: 210 16% 92%;
-    --card: 222 18% 11%;
-    --card-foreground: 210 16% 92%;
-    --popover: 222 18% 13%;
-    --popover-foreground: 210 16% 92%;
-    --primary: 160 64% 44%;
-    --primary-foreground: 222 40% 8%;
-    --secondary: 222 14% 18%;
-    --secondary-foreground: 210 16% 92%;
-    --muted: 222 14% 16%;
-    --muted-foreground: 215 14% 64%;
-    --accent: 222 14% 18%;
-    --accent-foreground: 210 16% 92%;
-    --accent-secondary: 199 80% 54%;
-    --accent-secondary-foreground: 222 40% 8%;
-    --success: 152 58% 50%;
-    --success-foreground: 222 40% 8%;
+    --background: 140 14% 5%;
+    --foreground: 150 10% 96%;
+    --card: 150 12% 8%;
+    --card-foreground: 150 10% 96%;
+    --popover: 150 12% 10%;
+    --popover-foreground: 150 10% 96%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 150 40% 7%;
+    --secondary: 150 10% 14%;
+    --secondary-foreground: 150 10% 94%;
+    --muted: 150 9% 13%;
+    --muted-foreground: 150 8% 66%;
+    --accent: 150 10% 14%;
+    --accent-foreground: 150 10% 94%;
+    --accent-secondary: 168 76% 46%;
+    --accent-secondary-foreground: 150 40% 7%;
+    --success: 142 71% 45%;
+    --success-foreground: 150 40% 7%;
     --warning: 38 92% 58%;
     --warning-foreground: 30 45% 10%;
-    --error: 0 70% 48%;
+    --error: 0 72% 48%;
     --error-foreground: 0 0% 100%;
-    --destructive: 0 70% 48%;
+    --destructive: 0 72% 48%;
     --destructive-foreground: 0 0% 100%;
-    --border: 222 14% 20%;
-    --input: 222 14% 20%;
-    --ring: 160 64% 44%;
-    --chart-1: 160 64% 50%;
-    --chart-2: 199 80% 58%;
-    --chart-3: 217 80% 66%;
+    --border: 150 9% 18%;
+    --input: 150 9% 18%;
+    --ring: 142 71% 45%;
+    --chart-1: 142 71% 52%;
+    --chart-2: 168 76% 50%;
+    --chart-3: 199 84% 60%;
     --chart-4: 38 92% 62%;
     --chart-5: 280 65% 68%;
-    --link: 160 64% 60%;
-    --link-hover: 160 64% 70%;
-    --warning-text: 38 92% 58%;
-    --success-text: 152 58% 55%;
-    --error-text: 0 80% 70%;
-    /* ── Art direction: performance lab, carbon + neon grid ── */
-    --card-radius: 0.625rem;
+    --link: 142 64% 60%;
+    --link-hover: 142 66% 70%;
+    --warning-text: 38 92% 60%;
+    --success-text: 142 64% 58%;
+    --error-text: 0 85% 74%;
+    /* ── Art direction: performance lab, carbon + green grid + glow ── */
+    --card-radius: 0.75rem;
     --shadow-card:
       0 1px 2px hsl(0 0% 0% / 0.55),
       0 8px 24px -12px hsl(0 0% 0% / 0.55);
     --shadow-elevated:
-      0 24px 56px -20px hsl(0 0% 0% / 0.75),
-      0 0 0 1px hsl(160 64% 44% / 0.10);
-    --glow: 0 0 0 1px hsl(160 64% 44% / 0.45), 0 0 18px -2px hsl(160 64% 44% / 0.45);
-    --glow-strong: 0 0 0 1px hsl(160 64% 50% / 0.6), 0 0 28px 0 hsl(160 64% 50% / 0.55);
-    --gradient-primary: linear-gradient(135deg, hsl(160 70% 50%), hsl(174 68% 42%));
-    --gradient-hero: radial-gradient(1100px 560px at 50% -10%, hsl(160 64% 44% / 0.18), transparent 60%);
-    --font-heading: var(--font-sans);
-    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%3E%3Cpath%20d='M40%200H0V40'%20fill='none'%20stroke='%237dd3c0'%20stroke-opacity='0.12'%20stroke-width='1'/%3E%3C/svg%3E");
+      0 24px 56px -20px hsl(0 0% 0% / 0.78),
+      0 0 0 1px hsl(142 71% 45% / 0.12);
+    --glow: 0 0 0 1px hsl(142 71% 45% / 0.45), 0 0 18px -2px hsl(142 71% 45% / 0.45);
+    --glow-strong: 0 0 0 1px hsl(142 71% 50% / 0.6), 0 0 28px 0 hsl(142 71% 50% / 0.55);
+    --gradient-primary: linear-gradient(135deg, hsl(142 72% 50%), hsl(152 70% 40%));
+    --gradient-hero: radial-gradient(1100px 560px at 50% -10%, hsl(142 71% 45% / 0.16), transparent 60%);
+    --font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+    --pattern-overlay: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%3E%3Cpath%20d='M40%200H0V40'%20fill='none'%20stroke='%2322c55e'%20stroke-opacity='0.12'%20stroke-width='1'/%3E%3C/svg%3E");
     --app-bg-image:
-      radial-gradient(900px 520px at 86% -6%, hsl(199 80% 54% / 0.12), transparent 58%),
-      radial-gradient(1000px 560px at 8% 6%, hsl(160 64% 44% / 0.12), transparent 58%),
-      repeating-linear-gradient(0deg, hsl(210 16% 92% / 0.035) 0 1px, transparent 1px 40px),
-      repeating-linear-gradient(90deg, hsl(210 16% 92% / 0.035) 0 1px, transparent 1px 40px);
+      radial-gradient(900px 520px at 86% -6%, hsl(142 71% 45% / 0.10), transparent 58%),
+      radial-gradient(1000px 560px at 8% 6%, hsl(142 71% 45% / 0.12), transparent 58%),
+      repeating-linear-gradient(0deg, hsl(150 10% 96% / 0.03) 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(90deg, hsl(150 10% 96% / 0.03) 0 1px, transparent 1px 40px);
     --app-bg-size: cover, cover, auto, auto;
     --app-bg-repeat: no-repeat, no-repeat, repeat, repeat;
   }

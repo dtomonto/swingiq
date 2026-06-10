@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/layout/Providers';
 import { FoundingFathersCounterBanner } from '@/components/founding/FoundingFathersCounterBanner';
@@ -13,6 +13,13 @@ import { siteConfig } from '@/config/site';
 import { ServiceWorkerRegistrar } from '@/components/pwa/ServiceWorkerRegistrar';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+// Display face for the Dark Performance (B) brand — bold, technical headings.
+// Exposed as a CSS variable and consumed via `--font-heading` per theme.
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  variable: '--font-space-grotesk',
+});
 
 export const metadata: Metadata = {
   title: 'SwingVantage — AI Swing Performance Platform',
@@ -69,23 +76,30 @@ export const viewport: Viewport = {
   // form controls at ≥16px on small screens so allowing zoom does not trigger
   // iOS Safari's focus auto-zoom (the usual reason teams disable scaling).
   viewportFit: 'cover',
-  themeColor: '#1a3a2a',
+  // Dark Performance (B) base — near-black, matches the default theme so the
+  // mobile browser chrome blends into the page instead of flashing green.
+  themeColor: '#0B0F0C',
 };
 
 // Pre-paint theme bootstrap: applies the persisted curated theme to <html>
 // before React hydrates so there is no flash of the default theme. Kept in
 // sync with lib/theme/themes (theme ids) and ThemeApplicator.
-const THEME_BOOTSTRAP = `(function(){try{var ids=['standard','dark-performance','coach-mode','heritage-club','field-court','arcade-practice','bird-print'];var dark={'dark-performance':1,'arcade-practice':1};var t='standard';var raw=localStorage.getItem('swingiq-store');if(raw){var s=JSON.parse(raw);var c=s&&s.state&&s.state.settings&&s.state.settings.colorTheme;if(ids.indexOf(c)!==-1){t=c;}}var el=document.documentElement;el.setAttribute('data-theme',t);if(dark[t]){el.classList.add('dark');}}catch(e){}})();`;
+const THEME_BOOTSTRAP = `(function(){try{var ids=['standard','dark-performance','coach-mode','heritage-club','field-court','arcade-practice','bird-print'];var dark={'dark-performance':1,'arcade-practice':1};var t='dark-performance';var raw=localStorage.getItem('swingiq-store');if(raw){var s=JSON.parse(raw);var c=s&&s.state&&s.state.settings&&s.state.settings.colorTheme;if(ids.indexOf(c)!==-1){t=c;}}var el=document.documentElement;el.setAttribute('data-theme',t);if(dark[t]){el.classList.add('dark');}else{el.classList.remove('dark');}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning data-theme="standard">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      data-theme="dark-performance"
+      className={`dark ${inter.variable} ${spaceGrotesk.variable}`}
+    >
       <head>
         {/* Trusted, developer-authored static constant (THEME_BOOTSTRAP) with no
             user input — not an XSS sink; safe to inline. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
       </head>
-      <body className={`${inter.variable} font-sans antialiased bg-background min-h-screen`}>
+      <body className="font-sans antialiased bg-background min-h-screen">
         <Providers>
           {/* Global Founding Members counter — slim, normal-flow bar at the very
               top of every public/app page (self-hides on /admin + auth). */}
