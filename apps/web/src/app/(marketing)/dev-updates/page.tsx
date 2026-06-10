@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getDevUpdates, getDevMilestones, DEV_STATS } from '@/data/devUpdates';
+import { DEV_STATS } from '@/data/devUpdates';
+import { getEffectivePublicDevUpdates, getEffectiveDevMilestones } from '@/lib/publishing/public-updates.server';
 import { DevUpdatesContent } from '@/components/dev-updates/DevUpdatesContent';
 import { serializeJsonLd } from '@/lib/seo/serialize-json-ld';
 import { devUpdateUrl } from '@/lib/updates/dev-detail';
@@ -25,9 +26,12 @@ export const metadata: Metadata = {
 
 // ── Structured data (JSON-LD) ─────────────────────────────────────────────
 
-export default function DevUpdatesPage() {
-  const updates = getDevUpdates();
-  const milestones = getDevMilestones();
+export default async function DevUpdatesPage() {
+  // Override-aware reads: a durable PublishingOS publish decision (the prod path)
+  // is honoured here. With no overrides these return exactly getDevUpdates()/
+  // getDevMilestones() — a zero-behaviour-change wrapper.
+  const updates = await getEffectivePublicDevUpdates();
+  const milestones = await getEffectiveDevMilestones();
 
   const jsonLd = {
     '@context': 'https://schema.org',

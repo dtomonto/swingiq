@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Badge } from '@/components/ui/Badge';
 import {
-  getPublicDevUpdateBySlug,
   publicDevUpdateSlugs,
   getRelatedDevUpdates,
   buildDevUpdateFaqs,
@@ -13,6 +12,7 @@ import {
   devUpdateAiAnswer,
   devUpdatePath,
 } from '@/lib/updates/dev-detail';
+import { getEffectiveDevUpdateBySlug } from '@/lib/publishing/public-updates.server';
 
 const IMPACT_LABEL: Record<string, string> = {
   major: 'Major',
@@ -30,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const update = getPublicDevUpdateBySlug(slug);
+  const update = await getEffectiveDevUpdateBySlug(slug);
   if (!update) return { robots: { index: false, follow: false } };
   return buildDevUpdateMetadata(update);
 }
@@ -41,7 +41,7 @@ export default async function DevUpdateDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const update = getPublicDevUpdateBySlug(slug);
+  const update = await getEffectiveDevUpdateBySlug(slug);
   if (!update) notFound();
 
   const related = getRelatedDevUpdates(update);

@@ -22,11 +22,26 @@ export function applyOverrides<T extends { id: string }>(
   overrides: Record<string, boolean>,
   isBasePublished: (item: T) => boolean,
 ): T[] {
+  return applyOverridesByKey(items, overrides, isBasePublished, (item) => item.id);
+}
+
+/**
+ * Like {@link applyOverrides}, but for surfaces whose override key is NOT a
+ * field called `id` (e.g. blog posts keyed by `slug`). The durable override map
+ * is keyed by `keyOf(item)`. Same additive guarantee: an empty map returns
+ * exactly `items.filter(isBasePublished)`.
+ */
+export function applyOverridesByKey<T>(
+  items: T[],
+  overrides: Record<string, boolean>,
+  isBasePublished: (item: T) => boolean,
+  keyOf: (item: T) => string,
+): T[] {
   if (!overrides || Object.keys(overrides).length === 0) {
     return items.filter(isBasePublished);
   }
   return items.filter((item) => {
-    const o = overrides[item.id];
+    const o = overrides[keyOf(item)];
     return o === undefined ? isBasePublished(item) : o;
   });
 }

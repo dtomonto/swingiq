@@ -1,4 +1,4 @@
-import { applyOverrides, isEffectivelyPublished } from '../overrides';
+import { applyOverrides, applyOverridesByKey, isEffectivelyPublished } from '../overrides';
 
 interface Item {
   id: string;
@@ -33,5 +33,22 @@ describe('publishing/overrides', () => {
     expect(isEffectivelyPublished(items[1], { b: true }, isBase)).toBe(true);
     expect(isEffectivelyPublished(items[0], { a: false }, isBase)).toBe(false);
     expect(isEffectivelyPublished(items[0], {}, isBase)).toBe(true);
+  });
+
+  it('applyOverridesByKey merges on a custom key (e.g. slug)', () => {
+    const posts = [
+      { slug: 'x', live: true },
+      { slug: 'y', live: false },
+    ];
+    const isLive = (p: { live: boolean }) => p.live;
+    // empty → no-op
+    expect(applyOverridesByKey(posts, {}, isLive, (p) => p.slug).map((p) => p.slug)).toEqual(['x']);
+    // promote y, demote x — keyed by slug, not id
+    const out = applyOverridesByKey(posts, { y: true, x: false }, isLive, (p) => p.slug);
+    expect(out.map((p) => p.slug)).toEqual(['y']);
+  });
+
+  it('applyOverrides delegates to the id keyer (unchanged behaviour)', () => {
+    expect(applyOverrides(items, { b: true }, isBase).map((i) => i.id).sort()).toEqual(['a', 'b', 'c']);
   });
 });

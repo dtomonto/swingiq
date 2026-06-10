@@ -92,7 +92,7 @@ describe('publishing/detail', () => {
   it('falls back to the registry public routes when the snapshot has none', () => {
     const d = buildPublishDetail(baseInput({ entityType: 'blog-post', entityId: 'b', slug: 'b' }));
     expect(d.area?.owner).toBe('Content');
-    expect(d.affectedRoutes).toEqual(['/blog/*']);
+    expect(d.affectedRoutes).toEqual(['/blog', '/blog/*']);
   });
 
   it('can revert only when currently live', () => {

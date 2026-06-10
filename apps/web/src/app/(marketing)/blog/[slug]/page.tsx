@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MarketingCTA } from '@/components/marketing/MarketingCTA';
-import { getPublishedBlogPosts, getPublishedBlogPost } from '@/data/blog-posts';
+import { getPublishedBlogPosts } from '@/data/blog-posts';
+import { getEffectiveBlogPost } from '@/lib/publishing/public-updates.server';
 
 export async function generateStaticParams() {
   return getPublishedBlogPosts().map((post) => ({ slug: post.slug }));
@@ -14,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPublishedBlogPost(slug);
+  const post = await getEffectiveBlogPost(slug);
   if (!post) return {};
   return {
     title: post.metaTitle,
@@ -79,7 +80,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPublishedBlogPost(slug);
+  const post = await getEffectiveBlogPost(slug);
   if (!post) notFound();
 
   const relatedPosts = post.relatedSlugs
