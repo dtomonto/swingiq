@@ -48,13 +48,12 @@ export function isFoundingBannerHidden(pathname: string | null | undefined): boo
 }
 
 /**
- * Minimum real qualified-member count before we surface a numeric "X / 1,000"
- * counter publicly. Below this, a bare "— / 1,000" (or "0 / 1,000") reads as
- * *negative* proof — it advertises a lack of traction to cold visitors. Until
- * the campaign has visible momentum we frame it as an achievement to earn
- * ("Join the Founding 1,000") rather than a tally to judge.
+ * Minimum real qualified-member count before we surface the numeric "X / 100"
+ * counter publicly. Set to 1 so the ACTUAL member count is shown as soon as the
+ * first real member qualifies (no seeded head-start); at literally zero we still
+ * frame it as a goal to join ("Join the Founding 100") rather than show "0 / 100".
  */
-export const FOUNDING_COUNTER_MIN_TO_SHOW = 25;
+export const FOUNDING_COUNTER_MIN_TO_SHOW = 1;
 
 /** Whether the numeric counter has enough real members to motivate rather than deter. */
 export function shouldShowFoundingCount(

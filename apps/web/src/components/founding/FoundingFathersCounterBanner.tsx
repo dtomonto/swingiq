@@ -10,9 +10,9 @@
 //
 // Lives in normal document flow at the very top of <body> so it never
 // overlaps sticky headers or the bottom-right help dock, and simply
-// scrolls away with the page. Theme-safe (bg-primary/text-primary-
-// foreground is a designed AA pair across all 7 themes), keyboard +
-// screen-reader friendly, and responsive (collapses to count + CTA on
+// scrolls away with the page. Banner text is white for maximum legibility on
+// the green (bg-primary) bar; the CTA chip stays a dark bg-background pill.
+// Keyboard + screen-reader friendly, responsive (collapses to count + CTA on
 // mobile). Never renders private data.
 // ============================================================
 
@@ -63,7 +63,7 @@ export function FoundingFathersCounterBanner() {
     <aside
       role="region"
       aria-label="Founding Members campaign progress"
-      className="w-full bg-primary text-primary-foreground"
+      className="w-full bg-primary text-white"
     >
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-3 gap-y-1 px-3 py-1.5 text-xs sm:text-sm">
         {/* Lead label. We only show the numeric "X / 1,000" tally once enough

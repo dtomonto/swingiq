@@ -17,14 +17,12 @@ export const FOUNDING_REQUIRED_COUNT = 100;
 export const FOUNDING_REQUIRED_SESSIONS = 10;
 
 /**
- * Owner-set launch baseline for the PUBLIC founding counter. The displayed
- * tally starts here and climbs as REAL members qualify (capped at
- * FOUNDING_REQUIRED_COUNT). Real member badge numbers continue from the
- * baseline (the first real Founding Member is #{baseline + 1}), so the badge
- * and the counter always agree. This is a deliberate, single-sourced social-
- * proof seed — change it (or set it to 0) here and it flows everywhere.
+ * Launch baseline for the PUBLIC founding counter. 0 = show the ACTUAL number of
+ * qualified members (no seeded head-start): the first real Founding Member is
+ * #001 and the counter reflects real signups only. Single-sourced — change it
+ * here and it flows everywhere (counter, badge numbers, cap math).
  */
-export const FOUNDING_COUNTER_BASELINE = 55;
+export const FOUNDING_COUNTER_BASELINE = 0;
 
 /**
  * The Founding-Member reward: the first FOUNDING_REQUIRED_COUNT athletes who
