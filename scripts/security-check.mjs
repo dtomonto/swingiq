@@ -78,12 +78,28 @@ function rel(p) {
 //   • PostHog project key (phc_...) — a write-only ingestion key, public by design.
 // The secret-bearing counterparts (SUPABASE_SERVICE_ROLE_KEY, STRIPE_SECRET_KEY,
 // STRIPE_WEBHOOK_SECRET, etc.) are deliberately NOT NEXT_PUBLIC_ and stay caught.
+//   • VAPID PUBLIC key — Web Push REQUIRES the browser to have it: the service
+//     worker passes it to pushManager.subscribe(). The signing secret is
+//     VAPID_PRIVATE_KEY (NOT NEXT_PUBLIC_) and stays caught.
+//   • Cloudflare Turnstile SITE key — rendered into the page so the widget can
+//     load (like a reCAPTCHA site key). Verification uses
+//     CLOUDFLARE_TURNSTILE_SECRET_KEY (NOT NEXT_PUBLIC_), which stays caught.
 const PUBLIC_KEY_ALLOWLIST = new Set([
   "NEXT_PUBLIC_SUPABASE_ANON_KEY",
   "NEXT_PUBLIC_SUPABASE_URL",
   "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
   "NEXT_PUBLIC_POSTHOG_KEY",
+  "NEXT_PUBLIC_VAPID_PUBLIC_KEY",
+  "NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY",
 ]);
+
+// Test files legitimately contain key-SHAPED fixtures — e.g. the secrets
+// module's own unit tests feed fake `sk-ant-…` / `sk-proj-…` / `AIza…` strings
+// to exercise the detector, encryptor and masker. The prefix scan below would
+// only ever produce false positives on those fixtures, so it skips test files.
+// Real-secret coverage for tests is not lost: the Gitleaks job scans every file
+// (tests included) with entropy + allowlist rules tuned to catch live keys.
+const TEST_FILE_PATTERN = /(\.test\.|\.spec\.|[/\\]__tests__[/\\])/;
 
 function checkPublicSecrets(filePath, lines, findings) {
   const pattern = /NEXT_PUBLIC_\w*(KEY|SECRET|TOKEN|PASSWORD|PRIVATE)\w*/gi;
@@ -191,6 +207,8 @@ function checkConsoleLog(filePath, lines, findings) {
  * These prefixes are the start of real secret keys.
  */
 function checkHardcodedKeys(filePath, lines, findings) {
+  // Test fixtures are key-SHAPED but fake (see TEST_FILE_PATTERN note) — skip them.
+  if (TEST_FILE_PATTERN.test(filePath)) return;
   // Match actual key-looking strings (quoted), not variable names or comments that explain them
   const patterns = [
     { pattern: /["'`]sk-proj-[A-Za-z0-9_-]{10,}/, label: "OpenAI project key (sk-proj-)" },

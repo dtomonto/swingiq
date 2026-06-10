@@ -5,6 +5,7 @@
 // API route, and records every change in the local-first audit log.
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { ExternalLink, Lock, AlertTriangle } from 'lucide-react';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { SectionCard } from '@/components/admin/SectionCard';
@@ -116,9 +117,9 @@ export function UpdatesPublishingClient({
           <p>
             This legacy screen edits a versioned data file, which the production filesystem can&apos;t
             write — so toggles here are local-only. Production publishing is no longer a dead-end:{' '}
-            <a href="/admin/publishing" className="font-medium underline hover:no-underline">
+            <Link href="/admin/publishing" className="font-medium underline hover:no-underline">
               open PublishingOS
-            </a>{' '}
+            </Link>{' '}
             to publish durably (database-backed, revalidated live, with rollback &amp; an audit trail) —
             no commit, push or deploy required.
           </p>
