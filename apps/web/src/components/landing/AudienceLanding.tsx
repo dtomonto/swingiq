@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, ArrowRight } from 'lucide-react';
 import type { LeadSource } from '@/lib/email/capture';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -33,8 +33,9 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
           />
           <h1 className="text-3xl font-bold md:text-4xl">{config.headline}</h1>
           <p className="mt-4 max-w-2xl text-lg text-primary-foreground/90">{config.positioning}</p>
-          <Link href="#get-started" className="mt-6 inline-block rounded-xl bg-primary px-7 py-3 font-bold text-primary-foreground transition-colors hover:bg-primary-foreground/90">
+          <Link href="#get-started" className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-background px-7 py-3 font-bold text-foreground transition-opacity hover:opacity-90">
             {config.ctaLabel}
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>
       </section>
