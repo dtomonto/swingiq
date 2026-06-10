@@ -193,6 +193,8 @@ function ConfidenceBadge({ level }: { level: string }) {
 
 // ── Main page ─────────────────────────────────────────────────
 
+const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
+
 export default function ImageImportPage() {
   const { activeSport, sportName } = useSport();
   const { addSession } = useSwingVantageStore();
@@ -223,8 +225,6 @@ export default function ImageImportPage() {
   // Step 4 state
   const [saved, setSaved] = useState(false);
   const [savedShotCount, setSavedShotCount] = useState(0);
-
-  const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
 
   // ── File handling ─────────────────────────────────────────
 
@@ -299,7 +299,7 @@ export default function ImageImportPage() {
     setColumnHeaders(defaultCols);
     setTableRows([Array(defaultCols.length).fill('')]);
     setStep(2);
-  }, [dataSource, imageFile]);
+  }, [dataSource, imageFile, sport]);
 
   const addRow = useCallback(() => {
     setTableRows((prev) => [...prev, Array(columnHeaders.length).fill('')]);

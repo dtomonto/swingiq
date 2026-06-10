@@ -36,6 +36,17 @@ export async function generateMetadata({
   });
 }
 
+// Module-scope presentational component (no render-scope closure) so it isn't
+// re-created on every render.
+function Field({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-4">
+      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</div>
+      <div className="mt-1 text-foreground">{value}</div>
+    </div>
+  );
+}
+
 export default async function RoutineDetailPage({
   params,
 }: { params: Promise<{ sport: string; situation: string }> }) {
@@ -70,13 +81,6 @@ export default async function RoutineDetailPage({
     ),
     breadcrumbListSchema(crumbs),
     faqPageSchema(faqs),
-  );
-
-  const Field = ({ label, value }: { label: string; value: string }) => (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</div>
-      <div className="mt-1 text-foreground">{value}</div>
-    </div>
   );
 
   return (
