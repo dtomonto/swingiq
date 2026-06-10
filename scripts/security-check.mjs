@@ -92,6 +92,14 @@ const PUBLIC_KEY_ALLOWLIST = new Set([
   "NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY",
 ]);
 
+// Test files legitimately contain key-SHAPED fixtures — e.g. the secrets
+// module's own unit tests feed fake `sk-ant-…` / `sk-proj-…` / `AIza…` strings
+// to exercise the detector, encryptor and masker. The prefix scan below would
+// only ever produce false positives on those fixtures, so it skips test files.
+// Real-secret coverage for tests is not lost: the Gitleaks job scans every file
+// (tests included) with entropy + allowlist rules tuned to catch live keys.
+const TEST_FILE_PATTERN = /(\.test\.|\.spec\.|[/\\]__tests__[/\\])/;
+
 function checkPublicSecrets(filePath, lines, findings) {
   const pattern = /NEXT_PUBLIC_\w*(KEY|SECRET|TOKEN|PASSWORD|PRIVATE)\w*/gi;
   lines.forEach((line, i) => {
@@ -193,12 +201,6 @@ function checkConsoleLog(filePath, lines, findings) {
   });
 }
 
-/** Test files (unit/spec) and fixtures, where fake key-shaped strings are legitimate. */
-function isTestFile(filePath) {
-  const p = filePath.replace(/\\/g, "/");
-  return /\/__tests__\//.test(p) || /\.(test|spec)\.[tj]sx?$/.test(p) || /\/__fixtures__\//.test(p);
-}
-
 /**
  * Check 5 — Hardcoded API key prefixes.
  * These prefixes are the start of real secret keys.
@@ -209,7 +211,8 @@ function isTestFile(filePath) {
  * leaks anywhere are still caught by the Gitleaks secret-scan CI job.
  */
 function checkHardcodedKeys(filePath, lines, findings) {
-  if (isTestFile(filePath)) return;
+  // Test fixtures are key-SHAPED but fake (see TEST_FILE_PATTERN note) — skip them.
+  if (TEST_FILE_PATTERN.test(filePath)) return;
   // Match actual key-looking strings (quoted), not variable names or comments that explain them
   const patterns = [
     { pattern: /["'`]sk-proj-[A-Za-z0-9_-]{10,}/, label: "OpenAI project key (sk-proj-)" },

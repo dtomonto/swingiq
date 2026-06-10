@@ -33,7 +33,7 @@ export default function LessonEditor() {
   const seed = !isNew && !cmsLesson ? getLesson(id) : undefined;
   const base = cmsLesson ?? seed;
 
-  const [lessonId] = useState(isNew ? `cms-l-${Math.random().toString(36).slice(2, 8)}` : id);
+  const [lessonId] = useState(() => (isNew ? `cms-l-${Math.random().toString(36).slice(2, 8)}` : id));
   const [title, setTitle] = useState(base?.title ?? '');
   const [estMinutes, setEstMinutes] = useState(String(base?.estMinutes ?? 6));
   const [difficulty, setDifficulty] = useState<Difficulty>(base?.difficulty ?? 'foundational');

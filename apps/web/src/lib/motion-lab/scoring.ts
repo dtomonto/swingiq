@@ -30,14 +30,14 @@ function clamp(n: number, lo = 0, hi = 100): number {
 const DISCLAIMER =
   'This Motion Score is a directional estimate from a single-camera video — not a measured biomechanical result.';
 
-interface ComponentSpec {
+export interface ScoreComponentSpec {
   id: string;
   label: string;
   weight: number;
   metricIds: string[];
 }
 
-const COMPONENTS: ComponentSpec[] = [
+const COMPONENTS: ScoreComponentSpec[] = [
   { id: 'power', label: 'Power Efficiency', weight: 1.2, metricIds: ['hip_shoulder_sep', 'hand_speed_peak', 'sequencing'] },
   { id: 'sequencing', label: 'Sequencing', weight: 1.2, metricIds: ['sequencing', 'hip_shoulder_sep'] },
   { id: 'rotation', label: 'Rotation', weight: 1.0, metricIds: ['shoulder_turn', 'hip_turn', 'rom', 'rotation_quality'] },
@@ -45,6 +45,13 @@ const COMPONENTS: ComponentSpec[] = [
   { id: 'timing', label: 'Timing', weight: 0.9, metricIds: ['tempo_ratio', 'sequencing'] },
   { id: 'consistency', label: 'Consistency', weight: 0.8, metricIds: ['head_stability', 'spine_change'] },
 ];
+
+/**
+ * The component → metric → weight map the Motion Score is built from, exposed
+ * read-only so the admin MotionLab surface can show operators exactly how each
+ * sport's score is composed without duplicating the spec.
+ */
+export const SCORE_COMPONENTS: ReadonlyArray<ScoreComponentSpec> = COMPONENTS;
 
 function componentNote(id: string, score: number): string {
   const tier = score >= 80 ? 'a real strength' : score >= 60 ? 'solid, with room to grow' : score >= 40 ? 'a clear opportunity' : 'the place to start';

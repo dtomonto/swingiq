@@ -8,7 +8,7 @@ import {
   shouldShowFoundingCount,
   FOUNDING_COUNTER_MIN_TO_SHOW,
 } from '../banner-content';
-import { FOUNDING_REQUIRED_SESSIONS } from '@/lib/central-intelligence';
+import { FOUNDING_JOURNEY_REQUIRED } from '@/lib/central-intelligence';
 
 const opts = (over: Partial<{ profilePercent: number; validSessions: number; memberNumber: number | null }> = {}) => ({
   profilePercent: 50,
@@ -24,18 +24,17 @@ describe('founding banner content', () => {
     expect(c.cta?.href).toBe('/signup');
   });
 
-  it('profile-incomplete state shows percent + sessions + profile CTA', () => {
-    const c = buildFoundingBannerContent('profile_incomplete', opts({ profilePercent: 60, validSessions: 2 }));
-    expect(c.message).toContain('60%');
-    expect(c.message).toContain(`2/${FOUNDING_REQUIRED_SESSIONS}`);
+  it('journey-not-started state shows challenge progress + journey CTA', () => {
+    const c = buildFoundingBannerContent('profile_incomplete', opts({ validSessions: 2 }));
+    expect(c.message).toContain(`2/${FOUNDING_JOURNEY_REQUIRED}`);
     expect(c.cta?.href).toBe('/founding');
   });
 
-  it('sessions-needed state shows remaining sessions + record CTA', () => {
+  it('journey-in-progress state shows remaining challenges + journey CTA', () => {
     const c = buildFoundingBannerContent('sessions_needed', opts({ validSessions: 6 }));
-    expect(c.message).toContain(`6/${FOUNDING_REQUIRED_SESSIONS}`);
-    expect(c.detail).toContain('4'); // 10 - 6 remaining
-    expect(c.cta?.href).toBe('/sessions');
+    expect(c.message).toContain(`6/${FOUNDING_JOURNEY_REQUIRED}`);
+    expect(c.detail).toContain('6'); // 12 - 6 remaining
+    expect(c.cta?.href).toBe('/founding');
   });
 
   it('qualified state shows the member number when assigned', () => {

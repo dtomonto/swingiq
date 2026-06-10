@@ -262,6 +262,12 @@ export interface MotionSession {
    * deceleration. Optional for backward-compat. See lib/motion-lab/temporal.
    */
   temporal?: import('./temporal').TemporalIntelligence;
+  /**
+   * Continuous-movement intelligence (ready → contact → recover → next-ready)
+   * for the rally sports (tennis / pickleball / padel). Undefined for discrete
+   * swing sports and for older saved sessions. See lib/motion-lab/continuous-movement.
+   */
+  continuousMovement?: import('./continuous-movement').ContinuousMovementSummary;
   status: ProcessingStatus;
   analysisVersion: string;
   modelVersion: string;

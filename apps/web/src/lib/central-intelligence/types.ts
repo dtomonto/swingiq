@@ -152,6 +152,10 @@ export interface FoundingUserProgress {
   /** Server-assigned, tamper-proof. Null until claimed + confirmed. */
   memberNumber: number | null;
   qualifiedAt: string | null;
+  /** Per-sport founding challenges completed (the live journey gate). */
+  completedFoundingCount?: number;
+  /** How many sport challenges must be completed to qualify. */
+  requiredJourney?: number;
 }
 
 /** Public, privacy-safe campaign progress (no individual data). */

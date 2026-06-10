@@ -12,7 +12,7 @@
 // Everything is admin-only and runs locally (no network call).
 // ============================================================
 
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
   Blend, Users, ListChecks, FlaskConical, ShieldCheck, AlertTriangle,
   Check, X, Lock, BookOpen, Plus, Trash2, Star, Save, Download, TrendingUp, Film,
@@ -113,7 +113,7 @@ export function CoachMixDashboard() {
   const [mixName, setMixName] = useState('My Mix');
   const [editingMixId, setEditingMixId] = useState<string | null>(null);
 
-  const weightFor = (id: string, fallback: number) => weights[id] ?? fallback;
+  const weightFor = useCallback((id: string, fallback: number) => weights[id] ?? fallback, [weights]);
 
   const mix: CoachMix = useMemo(
     () => ({
@@ -126,7 +126,7 @@ export function CoachMixDashboard() {
       userLabelMode: labelMode,
       createdAt: '2026-06-08T00:00:00.000Z',
     }),
-    [coachInspired, weights, labelMode, mixName, editingMixId],
+    [coachInspired, labelMode, mixName, editingMixId, weightFor],
   );
 
   const strategy = useMemo(() => resolveCoachMix(mix, profiles), [mix, profiles]);

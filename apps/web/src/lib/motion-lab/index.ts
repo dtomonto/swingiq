@@ -29,7 +29,19 @@ export {
   angularVelocityDeg,
 } from './kinematics3d';
 export { detectPhases } from './phases';
-export { computeScoreboard } from './scoring';
+export { computeScoreboard, SCORE_COMPONENTS, type ScoreComponentSpec } from './scoring';
+export {
+  computeContinuousMovement,
+  isContinuousSport,
+  movementModelFor,
+  movementModelLabel,
+  type MovementModel,
+  type ContinuousMovementSummary,
+  type MovementCheckpoint,
+  type MovementFocus,
+  type ContactEvent,
+  type CheckpointStatus,
+} from './continuous-movement';
 export { buildReport, keyFaultLine } from './reporting';
 export { prescribeDrills, getCatalogDrill } from './drills';
 export {
@@ -143,6 +155,17 @@ export {
   type StanceRead,
 } from './overlay-geometry';
 export {
+  OVERLAY_LAYER_META,
+  OVERLAY_DENSITY_PRESETS,
+  OVERLAY_DENSITY_LABEL,
+  OVERLAY_DENSITY_HINT,
+  layersForDensity,
+  densityForLayers,
+  type OverlayLayerId,
+  type OverlayDensity,
+  type OverlayLayerState,
+} from './overlay-density';
+export {
   getRecordingGuide,
   recordingTipsFor,
   ANGLE_CHECKLIST,
@@ -156,6 +179,11 @@ export {
   isSampleSession,
   type SampleSpec,
 } from './sample';
+export {
+  buildRetestProtocol,
+  type RetestProtocol,
+  type RetestCheckpoint,
+} from './retest-protocols';
 export { downloadSessionJson, downloadSessionCsv } from './export';
 export { printSessionReport } from './print-report';
 export { useMotionSessions } from './useMotionSessions';

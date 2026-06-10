@@ -4,8 +4,9 @@
 // ============================================================
 
 import type { ChallengeDefinition, ChallengeContext, ChallengeActive } from './types';
+import { generateSportChallenges } from './challenge-generator';
 
-export const CHALLENGES: ChallengeDefinition[] = [
+const BASE_CHALLENGES: ChallengeDefinition[] = [
   // ── Data Discipline Challenges ──────────────────────────────
   {
     id: 'backup_champion',
@@ -243,6 +244,13 @@ export const CHALLENGES: ChallengeDefinition[] = [
     },
   },
 ];
+
+/**
+ * The full challenge library: the hand-authored anchors above PLUS the generated
+ * per-sport, layered journey (250+ system-wide, ~140 founding-tagged across the
+ * 7 sports). Consumers keep importing CHALLENGES unchanged.
+ */
+export const CHALLENGES: ChallengeDefinition[] = [...BASE_CHALLENGES, ...generateSportChallenges()];
 
 export function getChallengeProgress(
   challenge: ChallengeDefinition,

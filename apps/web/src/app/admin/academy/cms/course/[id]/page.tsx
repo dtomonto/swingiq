@@ -32,7 +32,7 @@ export default function CourseEditor() {
   const seed = !isNew && !cmsCourse ? getCourse(id) : undefined;
   const base = cmsCourse ?? seed;
 
-  const [courseId] = useState(isNew ? `cms-c-${Math.random().toString(36).slice(2, 8)}` : id);
+  const [courseId] = useState(() => (isNew ? `cms-c-${Math.random().toString(36).slice(2, 8)}` : id));
   const [title, setTitle] = useState(base?.title ?? '');
   const [slug, setSlug] = useState(base?.slug ?? '');
   const [summary, setSummary] = useState(base?.summary ?? '');
