@@ -87,7 +87,7 @@ export function PracticePlanTool() {
           <ChoiceGroup label="Plan length" name="horizon" value={a.horizon} onChange={set('horizon')}
             choices={[{ value: '7', label: '7-day' }, { value: '30', label: '30-day' }]} />
           {error && <p role="alert" className="mb-3 text-sm font-medium text-error">{error}</p>}
-          <button type="submit" className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition-colors hover:bg-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1">
+          <button type="submit" className="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1">
             Build My Plan
           </button>
         </form>

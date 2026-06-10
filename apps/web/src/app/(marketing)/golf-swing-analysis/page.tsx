@@ -123,7 +123,7 @@ export default function GolfSwingAnalysisPage() {
           <ol className="grid sm:grid-cols-3 gap-6">
             {howSteps.map((s, i) => (
               <li key={s.name} className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-primary text-white font-black text-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-black text-lg flex items-center justify-center mb-4">
                   {i + 1}
                 </div>
                 <h3 className="font-bold text-foreground mb-2">{s.name}</h3>

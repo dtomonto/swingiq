@@ -167,7 +167,7 @@ export default function AthleteGeneralIntelligencePage() {
           </p>
           <Link
             href="/start"
-            className="mt-4 inline-flex items-center rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary"
+            className="mt-4 inline-flex items-center rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Start Here — Free
           </Link>

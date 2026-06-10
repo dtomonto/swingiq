@@ -91,7 +91,7 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
         {/* Logo + tagline */}
         <div className="flex items-center gap-3 mb-8">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shrink-0">
-            <span className="text-white font-black text-sm" aria-hidden="true">SV</span>
+            <span className="text-primary-foreground font-black text-sm" aria-hidden="true">SV</span>
           </div>
           <div>
             <span className="text-foreground font-bold text-lg">SwingVantage</span>
@@ -121,7 +121,7 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
         </div>
 
         {/* In-development disclaimer — invites feedback site-wide */}
-        <div className="border-t border-gray-800 pt-6">
+        <div className="border-t border-border pt-6">
           <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
             <strong className="text-foreground">{f.buildingTitle}</strong> {f.buildingBody}{' '}
             <Link href={localizedHref('/contact', locale)} className="font-semibold text-foreground underline hover:text-primary">
@@ -132,7 +132,7 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
         </div>
 
         {/* AI disclaimer + copyright */}
-        <div className="border-t border-gray-800 pt-6 mt-6 space-y-3">
+        <div className="border-t border-border pt-6 mt-6 space-y-3">
           <p className="text-xs text-muted-foreground leading-relaxed max-w-3xl">
             <strong className="text-muted-foreground">{f.aiDisclaimerLabel}</strong> {f.aiDisclaimerBody}
           </p>

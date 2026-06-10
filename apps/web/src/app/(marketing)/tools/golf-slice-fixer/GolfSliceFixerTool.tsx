@@ -144,7 +144,7 @@ export function GolfSliceFixerTool() {
 
           {error && <p role="alert" className="mb-3 text-sm font-medium text-error">{error}</p>}
 
-          <button type="submit" className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition-colors hover:bg-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1">
+          <button type="submit" className="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1">
             Get My Slice Diagnosis
           </button>
         </form>

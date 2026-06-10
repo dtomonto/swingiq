@@ -98,7 +98,7 @@ export default function DataPointsIndexPage() {
           <p className="mt-1 text-sm text-muted-foreground">Get your top fix, three drills, and a 7-day plan — free.</p>
           <Link
             href="/start"
-            className="mt-4 inline-block rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary/90"
+            className="mt-4 inline-block rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
           >
             Analyze my swing free
           </Link>

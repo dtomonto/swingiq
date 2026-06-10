@@ -79,7 +79,7 @@ export function ToolCta({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="block w-full rounded-xl bg-primary py-3 text-center font-semibold text-white transition-colors hover:bg-primary"
+      className="block w-full rounded-xl bg-primary py-3 text-center font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
     >
       {label}
     </Link>
