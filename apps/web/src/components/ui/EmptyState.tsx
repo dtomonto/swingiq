@@ -20,7 +20,13 @@ export interface EmptyStateAction {
   href?: string;
   onClick?: () => void;
   variant?: 'primary' | 'outline';
+  /** Optional leading icon inside the button. */
+  icon?: LucideIcon;
 }
+
+/** Visual prominence. `sm` (default) matches the original inline empty;
+ *  `lg` is for primary "get started" moments (e.g. an empty sessions list). */
+export type EmptyStateSize = 'sm' | 'md' | 'lg';
 
 export interface EmptyStateProps {
   icon?: LucideIcon;
@@ -30,16 +36,22 @@ export interface EmptyStateProps {
   secondaryAction?: EmptyStateAction;
   /** Tighter padding for use inside small cards/side panels. */
   compact?: boolean;
+  /** Prominence — defaults to `sm` to preserve existing call-sites. */
+  size?: EmptyStateSize;
   className?: string;
 }
 
-function ActionButton({ action }: { action: EmptyStateAction }) {
+const SIZE_STYLES: Record<EmptyStateSize, { pad: string; icon: number; title: string; desc: string; btn: 'sm' | 'md' }> = {
+  sm: { pad: 'py-8', icon: 36, title: 'text-sm font-semibold', desc: 'text-xs', btn: 'sm' },
+  md: { pad: 'py-12', icon: 44, title: 'text-base font-semibold', desc: 'text-sm', btn: 'sm' },
+  lg: { pad: 'py-16', icon: 48, title: 'text-lg font-semibold', desc: 'text-sm', btn: 'md' },
+};
+
+function ActionButton({ action, size }: { action: EmptyStateAction; size: 'sm' | 'md' }) {
+  const ActionIcon = action.icon;
   const button = (
-    <Button
-      size="sm"
-      variant={action.variant ?? 'primary'}
-      onClick={action.onClick}
-    >
+    <Button size={size} variant={action.variant ?? 'primary'} onClick={action.onClick}>
+      {ActionIcon && <ActionIcon size={size === 'md' ? 16 : 14} aria-hidden="true" />}
       {action.label}
     </Button>
   );
@@ -53,28 +65,33 @@ export function EmptyState({
   action,
   secondaryAction,
   compact = false,
+  size = 'sm',
   className,
 }: EmptyStateProps) {
+  const s = SIZE_STYLES[size];
+  // `compact` keeps its original tight padding + smaller icon override.
+  const pad = compact ? 'py-4' : s.pad;
+  const iconSize = compact ? 28 : s.icon;
   return (
-    <div className={cn('text-center', compact ? 'py-4' : 'py-8', className)}>
+    <div className={cn('text-center', pad, className)}>
       {Icon && (
         <Icon
-          size={compact ? 28 : 36}
+          size={iconSize}
           className="mx-auto text-muted-foreground mb-2"
           aria-hidden="true"
         />
       )}
-      <p className="text-foreground text-sm font-semibold">{title}</p>
+      <p className={cn('text-foreground', s.title)}>{title}</p>
       {description && (
-        <p className="text-muted-foreground text-xs mt-1 max-w-sm mx-auto leading-relaxed">
+        <p className={cn('text-muted-foreground mt-1 max-w-sm mx-auto leading-relaxed', s.desc)}>
           {description}
         </p>
       )}
       {(action || secondaryAction) && (
         <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-          {action && <ActionButton action={action} />}
+          {action && <ActionButton action={action} size={s.btn} />}
           {secondaryAction && (
-            <ActionButton action={{ variant: 'outline', ...secondaryAction }} />
+            <ActionButton action={{ variant: 'outline', ...secondaryAction }} size={s.btn} />
           )}
         </div>
       )}

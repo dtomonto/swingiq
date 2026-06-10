@@ -13,6 +13,7 @@ import { useMemo, useState } from 'react';
 import { useSport } from '@/contexts/SportContext';
 import { CoachSummaryCard } from '@/components/agents/CoachSummaryCard';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 const REPORT_TYPES = [
   {
@@ -273,17 +274,12 @@ export default function ReportsPage() {
           </CardHeader>
           <CardBody>
             {sorted.length === 0 ? (
-              <div className="text-center py-8">
-                <Activity size={32} className="mx-auto text-muted-foreground mb-3" />
-                <p className="text-muted-foreground text-sm mb-4">
-                  No sessions yet. Import a CSV to generate your first report.
-                </p>
-                <Link href="/sessions/import">
-                  <Button size="sm">
-                    <Upload size={14} /> Import Session
-                  </Button>
-                </Link>
-              </div>
+              <EmptyState
+                icon={Activity}
+                title="No sessions yet"
+                description="Import a CSV to generate your first report."
+                action={{ label: 'Import Session', href: '/sessions/import', icon: Upload }}
+              />
             ) : (
               <div className="space-y-1">
                 {sorted.slice(0, 8).map((s) => (
