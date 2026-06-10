@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Check, Info, Moon, Sparkles, Sun } from 'lucide-react';
+import { Check, Info, Lock, Moon, Sparkles, Sun } from 'lucide-react';
+import Link from 'next/link';
 import type { SportId } from '@swingiq/core';
 import { useSwingVantageStore } from '@/store';
+import { useAuth } from '@/lib/auth/useAuth';
 import { cn } from '@/lib/utils';
 import { THEMES, normalizeThemeId, type ThemeDef, type ThemeId } from '@/lib/theme/themes';
 import { recommendTheme, type ThemeRecommendation } from '@/lib/theme-lab';
@@ -32,6 +34,13 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
   const updateSettings = useSwingVantageStore((s) => s.updateSettings);
   const btnRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
+  // Themes are an account feature: only a registered user (cloud or local
+  // account) may pick or use a theme. Anonymous visitors stay on the brand
+  // default and see a sign-up prompt instead of a working picker.
+  const { status } = useAuth();
+  const canUseThemes = status === 'authenticated';
+  const showSignupGate = status === 'anonymous';
+
   // Theme Lab per-device opt-ins (seasonal + suggestions). Subscribe so toggles
   // here and elsewhere stay in sync without a reload.
   const [control, setControl] = useState<ThemeLabControl>(DEFAULT_CONTROL);
@@ -47,14 +56,18 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
   }, []);
 
   // Mark the choice as explicit so Theme Lab experiments / seasonal never
-  // override what the user deliberately picked.
-  const select = (id: ThemeId) => updateSettings({ colorTheme: id, colorThemeSource: 'user' });
+  // override what the user deliberately picked. Gated to registered accounts.
+  const select = (id: ThemeId) => {
+    if (!canUseThemes) return;
+    updateSettings({ colorTheme: id, colorThemeSource: 'user' });
+  };
 
   // A gentle, privacy-safe suggestion derived from the active sport / dark
-  // leaning. Only shown when suggestions are on and there's a better fit.
-  const recommendation: ThemeRecommendation | null = control.allowRecommended
-    ? recommendTheme({ sport: activeSport, prefersDark, currentThemeId: active })
-    : null;
+  // leaning. Only shown to registered users who keep suggestions on.
+  const recommendation: ThemeRecommendation | null =
+    canUseThemes && control.allowRecommended
+      ? recommendTheme({ sport: activeSport, prefersDark, currentThemeId: active })
+      : null;
 
   // Roving focus + selection for the radio pattern (Arrow / Home / End).
   const onKeyDown = (e: React.KeyboardEvent, index: number) => {
@@ -93,6 +106,29 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
         <span className="text-xs text-muted-foreground">{THEMES.length} art directions</span>
       </div>
 
+      {showSignupGate && (
+        <div className="mb-3 flex flex-wrap items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-3 py-2.5">
+          <Lock size={16} className="shrink-0 text-primary" aria-hidden="true" />
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-medium text-foreground">Themes are a free account feature</p>
+            <p className="text-xs text-muted-foreground">
+              Create a free account to pick and use any theme. Previews below.
+            </p>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <Link
+              href="/signup"
+              className="rounded-lg btn-theme-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground"
+            >
+              Sign up free
+            </Link>
+            <Link href="/login" className="text-xs font-semibold text-link">
+              Sign in
+            </Link>
+          </div>
+        </div>
+      )}
+
       {recommendation && (
         <div className="mb-3 flex flex-wrap items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-3 py-2.5">
           <Sparkles size={16} className="shrink-0 text-primary" aria-hidden="true" />
@@ -105,7 +141,8 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
           <button
             type="button"
             onClick={() => select(recommendation.themeId)}
-            className="shrink-0 rounded-lg btn-theme-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground"
+            disabled={!canUseThemes}
+            className="shrink-0 rounded-lg btn-theme-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground disabled:opacity-50"
           >
             Apply
           </button>
@@ -129,13 +166,14 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
               type="button"
               role="radio"
               aria-checked={selected}
+              disabled={!canUseThemes}
               tabIndex={selected || (!THEMES.some((t) => t.id === active) && i === 0) ? 0 : -1}
               onClick={() => select(theme.id)}
               onKeyDown={(e) => onKeyDown(e, i)}
               className={cn(
                 'group relative text-left rounded-xl border-2 overflow-hidden bg-card',
                 'transition-[transform,box-shadow,border-color] duration-200',
-                'hover:-translate-y-0.5',
+                canUseThemes ? 'hover:-translate-y-0.5' : 'cursor-not-allowed opacity-60',
                 'focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
                 selected
                   ? 'border-primary ring-glow shadow-theme-lg'
@@ -178,21 +216,23 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
         })}
       </div>
 
-      {/* Theme Lab opt-ins (per-device) */}
-      <div className="mt-3 space-y-2 rounded-lg border border-border px-3 py-2.5">
-        <ToggleRow
-          label="Theme suggestions"
-          hint="Show a recommended theme based on your sport."
-          checked={control.allowRecommended}
-          onChange={(v) => setControl(writeThemeLabControl({ allowRecommended: v }))}
-        />
-        <ToggleRow
-          label="Seasonal themes"
-          hint="Let limited-time seasonal themes appear in their window."
-          checked={control.allowSeasonal}
-          onChange={(v) => setControl(writeThemeLabControl({ allowSeasonal: v }))}
-        />
-      </div>
+      {/* Theme Lab opt-ins (per-device) — registered users only. */}
+      {canUseThemes && (
+        <div className="mt-3 space-y-2 rounded-lg border border-border px-3 py-2.5">
+          <ToggleRow
+            label="Theme suggestions"
+            hint="Show a recommended theme based on your sport."
+            checked={control.allowRecommended}
+            onChange={(v) => setControl(writeThemeLabControl({ allowRecommended: v }))}
+          />
+          <ToggleRow
+            label="Seasonal themes"
+            hint="Let limited-time seasonal themes appear in their window."
+            checked={control.allowSeasonal}
+            onChange={(v) => setControl(writeThemeLabControl({ allowSeasonal: v }))}
+          />
+        </div>
+      )}
 
       {/* Reminder: themes are cosmetic only */}
       <div className="mt-3 flex items-start gap-2 rounded-lg bg-muted px-3 py-2.5">

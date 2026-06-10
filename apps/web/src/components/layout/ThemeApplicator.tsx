@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSwingVantageStore } from '@/store';
+import { useAuth } from '@/lib/auth/useAuth';
 import { DEFAULT_THEME_ID, isDarkTheme, normalizeThemeId } from '@/lib/theme/themes';
 import {
   resolveThemeForUser,
@@ -42,6 +43,12 @@ export function ThemeApplicator() {
   const themeSource = useSwingVantageStore((s) => s.settings.colorThemeSource);
   const usageCategory = useSwingVantageStore((s) => s.settings.usage_category);
 
+  // Themes are an account feature: anonymous visitors always get the brand
+  // default (an operator pin still wins). `loading` keeps the current theme so
+  // a registered user never flashes the default before auth resolves.
+  const { status } = useAuth();
+  const registered = status !== 'anonymous';
+
   const [control, setControl] = useState<ThemeLabControl>(DEFAULT_CONTROL);
   const [experiments, setExperiments] = useState<ThemeExperimentConfig[]>([]);
 
@@ -71,20 +78,21 @@ export function ThemeApplicator() {
     const segment = segmentForUsageCategory(usageCategory);
     const segmentDefault = segment ? readSegmentDefaults()[segment] ?? null : null;
 
+    // Account gate: anonymous visitors get only the operator pin or the brand
+    // default — no preference, experiment, segment, or seasonal theme applies.
     const { themeId } = resolveThemeForUser({
       forcedThemeId: effectiveForcedTheme(control),
-      // Only enroll non-explicit users in experiments (never override a pick).
-      experiment: explicit ? null : activeRunningExperiment(experiments),
+      experiment: registered && !explicit ? activeRunningExperiment(experiments) : null,
       userId: getThemeAnonId(),
-      userPreferenceThemeId: explicit ? savedPreference : null,
-      segmentDefaultThemeId: segmentDefault,
-      allowSeasonal: control.allowSeasonal,
+      userPreferenceThemeId: registered && explicit ? savedPreference : null,
+      segmentDefaultThemeId: registered ? segmentDefault : null,
+      allowSeasonal: registered && control.allowSeasonal,
     });
 
     const root = document.documentElement;
     root.setAttribute('data-theme', themeId);
     root.classList.toggle('dark', isDarkTheme(themeId));
-  }, [savedPreference, themeSource, usageCategory, control, experiments]);
+  }, [savedPreference, themeSource, usageCategory, control, experiments, registered]);
 
   return null;
 }
