@@ -144,7 +144,7 @@ function StepIndicator({ current }: { current: number }) {
               <div
                 className={[
                   'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-colors',
-                  done ? 'bg-primary border-primary text-white' : '',
+                  done ? 'bg-primary border-primary text-primary-foreground' : '',
                   active ? 'bg-card border-primary text-primary' : '',
                   !done && !active ? 'bg-card border-border text-muted-foreground' : '',
                 ].join(' ')}

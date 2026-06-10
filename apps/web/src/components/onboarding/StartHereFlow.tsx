@@ -325,7 +325,7 @@ export function StartHereFlow() {
             <Link
               href="/dashboard"
               onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta: 'start_here_resume' })}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary"
             >
               Pick up where you left off
               <ArrowRight size={16} aria-hidden="true" />
@@ -532,7 +532,7 @@ export function StartHereFlow() {
             <Link
               href={selectedMethod.href}
               onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta: `start_here_${selectedMethod.value}` })}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary"
             >
               Continue
               <ArrowRight size={16} aria-hidden="true" />
@@ -653,7 +653,7 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
         <Link
           href="/motion-lab"
           onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta: 'start_here_motion_lab', context: 'start_here_result' })}
-          className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition-colors hover:opacity-90 sm:w-auto"
+          className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-colors hover:opacity-90 sm:w-auto"
         >
           Analyze a real swing in Motion Lab
           <ArrowRight size={16} aria-hidden="true" />
@@ -705,7 +705,7 @@ function PrimaryButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary disabled:bg-muted disabled:text-muted-foreground"
+      className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary disabled:bg-muted disabled:text-muted-foreground"
     >
       {children}
       <ArrowRight size={16} aria-hidden="true" />
@@ -757,7 +757,7 @@ function NextAction({
       onClick={() => track(ANALYTICS_EVENTS.CTA_CLICKED, { cta })}
       className={`flex items-center justify-between gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors ${
         primary
-          ? 'bg-primary text-white hover:bg-primary'
+          ? 'bg-primary text-primary-foreground hover:bg-primary'
           : 'border border-border text-foreground hover:border-primary/50 hover:bg-primary/10'
       }`}
     >

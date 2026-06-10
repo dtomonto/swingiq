@@ -294,7 +294,7 @@ export default function LogSessionPage() {
                   onClick={() => set('felt_rating', String(n))}
                   className={`w-10 h-10 rounded-full font-bold text-sm transition-all ${
                     form.felt_rating === String(n)
-                      ? 'bg-primary text-white shadow-md scale-110'
+                      ? 'bg-primary text-primary-foreground shadow-md scale-110'
                       : 'bg-muted text-muted-foreground hover:bg-muted'
                   }`}
                 >

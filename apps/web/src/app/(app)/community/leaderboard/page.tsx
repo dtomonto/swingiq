@@ -72,7 +72,7 @@ export default function LeaderboardPage() {
               className={cn(
                 'px-4 py-2 rounded-full text-sm font-medium transition-colors',
                 metric === m.id
-                  ? 'bg-primary text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : 'bg-muted text-muted-foreground hover:bg-muted'
               )}
             >

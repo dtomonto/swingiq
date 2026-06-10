@@ -38,7 +38,7 @@ export function ChoiceGroup({
               onClick={() => onChange(c.value)}
               className={`rounded-xl border px-4 py-2 text-sm font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 ${
                 selected
-                  ? 'border-primary bg-primary text-white'
+                  ? 'border-primary bg-primary text-primary-foreground'
                   : 'border-border bg-card text-foreground hover:border-primary/50'
               }`}
             >

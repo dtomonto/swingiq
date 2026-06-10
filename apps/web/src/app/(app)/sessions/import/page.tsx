@@ -39,7 +39,7 @@ export default function ImportPage() {
               onClick={() => setMode(id)}
               className={cn(
                 'flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
-                mode === id ? 'bg-primary text-white' : 'text-muted-foreground hover:text-foreground',
+                mode === id ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground',
               )}
             >
               <Icon size={15} aria-hidden="true" />

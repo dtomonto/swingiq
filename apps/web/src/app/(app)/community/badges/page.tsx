@@ -108,7 +108,7 @@ export default function BadgesPage() {
               className={cn(
                 'px-3 py-1 rounded-full text-xs font-medium transition-colors',
                 activeCategory === cat.id
-                  ? 'bg-primary text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : 'bg-muted text-muted-foreground hover:bg-muted'
               )}
             >

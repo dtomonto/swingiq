@@ -71,7 +71,7 @@ export default function GroupsPage() {
                 className={cn(
                   'px-3 py-1 rounded-full text-xs font-medium transition-colors capitalize',
                   sportFilter === sport
-                    ? 'bg-primary text-white'
+                    ? 'bg-primary text-primary-foreground'
                     : 'bg-muted text-muted-foreground hover:bg-muted'
                 )}
               >
