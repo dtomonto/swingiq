@@ -7,6 +7,8 @@
 // ============================================================
 
 import type { Metadata } from 'next';
+import { Megaphone } from 'lucide-react';
+import { PageHeader } from '@/components/admin/PageHeader';
 import { AD_PLACEMENTS, HOUSE_ADS } from '@/lib/ads';
 import { isAdsConfigured } from '@/lib/capabilities';
 
@@ -19,13 +21,11 @@ export default function AdminAdsPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-6">
-      <header>
-        <h1 className="text-2xl font-bold text-gray-100">AdsOS</h1>
-        <p className="mt-1 text-sm text-gray-400">
-          Phase-2 monetization, keyless-first. With no network connected, slots run house
-          promotions that grow the product; paid ads switch on automatically once a network is set.
-        </p>
-      </header>
+      <PageHeader
+        title="AdsOS"
+        icon={Megaphone}
+        description="Phase-2 monetization, keyless-first. With no network connected, slots run house promotions that grow the product; paid ads switch on automatically once a network is set."
+      />
 
       {/* Network status */}
       <section className="rounded-xl border border-gray-800 bg-gray-900 p-5">

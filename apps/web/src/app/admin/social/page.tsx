@@ -7,6 +7,8 @@
 // ============================================================
 
 import type { Metadata } from 'next';
+import { Share2 } from 'lucide-react';
+import { PageHeader } from '@/components/admin/PageHeader';
 import { BLOG_POSTS } from '@/data/blog-posts';
 import { OPTION_CHOICES } from '@/lib/social/options';
 import { DEFAULT_PLATFORMS, ALL_PLATFORMS } from '@/lib/social/platforms';
@@ -45,13 +47,11 @@ export default function SocialAdminPage() {
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <header className="mb-6">
-        <h1 className="text-xl font-bold text-gray-100">Blog → Social Studio</h1>
-        <p className="text-sm text-gray-400 mt-1">
-          Turn any blog post into platform-native social posts. Review, edit, approve, copy, and
-          export. Nothing is ever auto-published.
-        </p>
-      </header>
+      <PageHeader
+        title="Blog → Social Studio"
+        icon={Share2}
+        description="Turn any blog post into platform-native social posts. Review, edit, approve, copy, and export. Nothing is ever auto-published."
+      />
       <SocialStudio
         posts={posts}
         choices={OPTION_CHOICES}

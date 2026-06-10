@@ -11,6 +11,8 @@
 // admin-restricted.
 // ============================================================
 
+import { Bot } from 'lucide-react';
+import { PageHeader } from '@/components/admin/PageHeader';
 import { GrowthAgentsPanel } from '@/components/growth';
 
 export const metadata = {
@@ -21,14 +23,11 @@ export const metadata = {
 export default function AdminGrowthAgentsPage() {
   return (
     <div className="mx-auto max-w-2xl p-4 sm:p-6 space-y-5">
-      <header>
-        <h1 className="text-xl font-bold text-gray-100">Growth Agents</h1>
-        <p className="text-sm text-gray-400 mt-1">
-          Live read from the seven growth agents for the current account, with full
-          per-agent detail. Admin-only — this exposes internal reasoning (churn
-          drivers, the dispatch decision, referral moments).
-        </p>
-      </header>
+      <PageHeader
+        title="Growth Agents"
+        icon={Bot}
+        description="Live read from the seven growth agents for the current account, with full per-agent detail. Admin-only — this exposes internal reasoning (churn drivers, the dispatch decision, referral moments)."
+      />
 
       {/* Themed surface so the panel's tokens render correctly inside the
           dark admin chrome. */}
