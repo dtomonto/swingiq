@@ -76,13 +76,20 @@ function rel(p) {
 //   • Supabase anon key — Row Level Security protects data, not the key.
 //   • Stripe PUBLISHABLE key (pk_...) — the secret key is STRIPE_SECRET_KEY.
 //   • PostHog project key (phc_...) — a write-only ingestion key, public by design.
+//   • VAPID PUBLIC key — Web Push requires the browser to hold the public key to
+//     subscribe; the private counterpart is VAPID_PRIVATE_KEY (not NEXT_PUBLIC_).
+//   • Cloudflare Turnstile SITE key — rendered in the widget like a reCAPTCHA
+//     site key; the secret is TURNSTILE_SECRET_KEY (not NEXT_PUBLIC_).
 // The secret-bearing counterparts (SUPABASE_SERVICE_ROLE_KEY, STRIPE_SECRET_KEY,
-// STRIPE_WEBHOOK_SECRET, etc.) are deliberately NOT NEXT_PUBLIC_ and stay caught.
+// STRIPE_WEBHOOK_SECRET, VAPID_PRIVATE_KEY, TURNSTILE_SECRET_KEY, etc.) are
+// deliberately NOT NEXT_PUBLIC_ and stay caught.
 const PUBLIC_KEY_ALLOWLIST = new Set([
   "NEXT_PUBLIC_SUPABASE_ANON_KEY",
   "NEXT_PUBLIC_SUPABASE_URL",
   "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
   "NEXT_PUBLIC_POSTHOG_KEY",
+  "NEXT_PUBLIC_VAPID_PUBLIC_KEY",
+  "NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY",
 ]);
 
 function checkPublicSecrets(filePath, lines, findings) {
@@ -186,11 +193,23 @@ function checkConsoleLog(filePath, lines, findings) {
   });
 }
 
+/** Test files (unit/spec) and fixtures, where fake key-shaped strings are legitimate. */
+function isTestFile(filePath) {
+  const p = filePath.replace(/\\/g, "/");
+  return /\/__tests__\//.test(p) || /\.(test|spec)\.[tj]sx?$/.test(p) || /\/__fixtures__\//.test(p);
+}
+
 /**
  * Check 5 — Hardcoded API key prefixes.
  * These prefixes are the start of real secret keys.
+ *
+ * Skipped for test files: secret-detection/encryption/masking tests must embed
+ * fake key-shaped strings (e.g. "sk-ant-secret-value-123") to exercise the very
+ * code that finds them. This only relaxes the prefix HEURISTIC for tests — real
+ * leaks anywhere are still caught by the Gitleaks secret-scan CI job.
  */
 function checkHardcodedKeys(filePath, lines, findings) {
+  if (isTestFile(filePath)) return;
   // Match actual key-looking strings (quoted), not variable names or comments that explain them
   const patterns = [
     { pattern: /["'`]sk-proj-[A-Za-z0-9_-]{10,}/, label: "OpenAI project key (sk-proj-)" },

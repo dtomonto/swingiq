@@ -19,7 +19,7 @@ test.describe('RecordAssist — guided recording entry', () => {
   });
 
   test('shows the privacy notice and voice modes', async ({ page }) => {
-    await expect(page.getByText(/runs entirely on your device/i)).toBeVisible();
+    await expect(page.getByText(/run entirely on your device/i)).toBeVisible();
     await expect(page.getByRole('radio', { name: /coach/i })).toBeVisible();
     await expect(page.getByRole('radio', { name: /silent/i })).toBeVisible();
   });
@@ -28,9 +28,11 @@ test.describe('RecordAssist — guided recording entry', () => {
     const recordBtn = page.getByRole('button', { name: /record with guidance/i });
     await expect(recordBtn).toBeDisabled();
 
-    // Pick a sport + action.
+    // Pick a sport + action (wait for each to be actionable to avoid races).
     await page.getByRole('button', { name: /^Tennis/i }).first().click();
-    await page.getByRole('button', { name: /serve/i }).first().click();
+    const serve = page.getByRole('button', { name: /serve/i }).first();
+    await expect(serve).toBeVisible();
+    await serve.click();
 
     await expect(recordBtn).toBeEnabled();
     await recordBtn.click();
