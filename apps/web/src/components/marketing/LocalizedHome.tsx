@@ -273,14 +273,14 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
                 You get the top fix, three beginner-safe drills tied to that issue, and a simple practice plan.
               </p>
               <Link
-                href="/video"
+                href={localizedHref('/start', locale)}
                 className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
               >
                 Analyze My Swing Free
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
             </div>
-            <SampleReportPreview />
+            <SampleReportPreview href={localizedHref('/start', locale)} />
           </div>
         </section>
       )}
