@@ -72,9 +72,14 @@ Tracked here so it isn't lost. None of this is built yet.
    motion, confidence *band*, layer, speed) — never video, landmarks, or raw
    biometric values. Rapid controls (frame-step) fire at most once per mount.
    _Still open:_ a `MOTION_LAB_SAMPLE_VIEWED` event once demo mode lands.
-3. **Admin controls.** Enable/disable the lab and the video-overlay surface by
-   sport / cohort / beta flag from the admin OS; surface upload volume,
-   completion rate, average confidence, and most-common detected faults by sport.
+3. **Admin controls.** ~~Enable/disable the lab~~ — **shipped**: the
+   `motion_lab.enabled` operator flag is now *wired* (`lib/admin/flags.ts`
+   `status: 'wired'`). The route renders through `MotionLabGate`, which reads the
+   flag via `useSyncExternalStore` and shows a friendly "turned off" screen when
+   an operator disables it (admin → Feature Flags). _Still open:_ enable by
+   sport / cohort / beta, and the usage dashboards (upload volume, completion
+   rate, average confidence, most-common faults by sport) — those need a
+   queryable telemetry store, not just the fire-and-forget analytics events.
 4. ~~**Recording guidance + angle-quality checklist** shown *before* upload~~ —
    **shipped** (see `recording-guidance.ts` / `RecordingGuidance.tsx`).
 5. **Manual landmark correction.** A "fix this joint" mode on the overlay canvas

@@ -69,8 +69,8 @@ export const FLAG_DEFS: FlagDef[] = [
   {
     key: 'motion_lab.enabled',
     label: 'Motion Lab (3D)',
-    description: 'Browser-side 3D motion analysis lab. Live today at /motion-lab — default reflects that.',
-    group: 'Experimental', owner: 'Product', defaultEnabled: true, risk: 'medium', status: 'registry',
+    description: 'Browser-side 3D + slow-motion video analysis lab. Live at /motion-lab; this flag is the operator kill-switch — turning it off shows a friendly "turned off" screen instead of the lab.',
+    group: 'Experimental', owner: 'Product', defaultEnabled: true, risk: 'medium', status: 'wired',
   },
 
   // ── Coaching Intelligence initiative (see /admin/development) ──
