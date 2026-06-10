@@ -26,6 +26,7 @@ import { ImplementPathCard } from './ImplementPathCard';
 import { KineticChainCard } from './KineticChainCard';
 import { TemporalCard } from './TemporalCard';
 import { ContinuousMovementSummary } from './ContinuousMovementSummary';
+import { RetestProtocolCard } from './RetestProtocolCard';
 import { AnalysisDebugPanel } from './AnalysisDebugPanel';
 import { MotionComparisonPanel } from './MotionComparisonPanel';
 import { Button } from '@/components/ui/Button';
@@ -265,6 +266,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
         <div className="space-y-4">
           <MotionCoachNarrativeCard session={session} />
           <CoachingReport report={session.report} />
+          <RetestProtocolCard session={session} accent={accent} />
         </div>
       )}
       {tab === 'drills' && <DrillPlan plan={session.drills} />}

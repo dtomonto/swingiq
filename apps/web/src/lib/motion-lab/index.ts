@@ -179,6 +179,11 @@ export {
   isSampleSession,
   type SampleSpec,
 } from './sample';
+export {
+  buildRetestProtocol,
+  type RetestProtocol,
+  type RetestCheckpoint,
+} from './retest-protocols';
 export { downloadSessionJson, downloadSessionCsv } from './export';
 export { printSessionReport } from './print-report';
 export { useMotionSessions } from './useMotionSessions';

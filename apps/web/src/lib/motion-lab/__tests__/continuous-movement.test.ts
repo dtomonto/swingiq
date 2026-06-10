@@ -93,9 +93,12 @@ describe('continuous movement integrates into the pipeline', () => {
   it('attaches a summary to rally-sport sample sessions only', () => {
     for (const spec of SAMPLE_SPECS) {
       const session = buildSampleSession(spec);
-      // All three sample specs are rally sports → all should carry the read.
-      expect(session.continuousMovement).toBeDefined();
-      expect(session.continuousMovement?.movementModel).toBe('continuous_rally');
+      if (isContinuousSport(spec.sport)) {
+        expect(session.continuousMovement).toBeDefined();
+        expect(session.continuousMovement?.movementModel).toBe('continuous_rally');
+      } else {
+        expect(session.continuousMovement).toBeUndefined();
+      }
     }
   });
 });

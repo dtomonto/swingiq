@@ -27,14 +27,18 @@ export interface SampleSpec {
 }
 
 export const SAMPLE_SPECS: SampleSpec[] = [
+  { id: 'golf-driver', sport: 'golf', motion: 'driver', label: 'Golf driver', blurb: 'Full rotational swing', emoji: '⛳' },
   { id: 'tennis-forehand', sport: 'tennis', motion: 'forehand', label: 'Tennis forehand', blurb: 'Low-to-high groundstroke', emoji: '🎾' },
+  { id: 'baseball-swing', sport: 'baseball', motion: 'hitting', label: 'Baseball swing', blurb: 'Stride and rotate', emoji: '⚾' },
+  { id: 'softball-slow-swing', sport: 'softball_slow', motion: 'hitting', label: 'Slow-pitch swing', blurb: 'Controlled carry', emoji: '🥎' },
+  { id: 'softball-fast-swing', sport: 'softball_fast', motion: 'hitting', label: 'Fastpitch swing', blurb: 'Compact quick swing', emoji: '🥎' },
   { id: 'pickleball-dink', sport: 'pickleball', motion: 'dink', label: 'Pickleball dink', blurb: 'Soft kitchen control', emoji: '🏓' },
   { id: 'padel-bandeja', sport: 'padel', motion: 'bandeja', label: 'Padel bandeja', blurb: 'Controlled overhead', emoji: '🎾' },
 ];
 
 // ── Procedural skeleton ───────────────────────────────────────
 
-type SwingStyle = 'groundstroke' | 'dink' | 'overhead';
+type SwingStyle = 'groundstroke' | 'dink' | 'overhead' | 'golf' | 'bat';
 
 /** Smoothstep eased interpolation between ordered keyframes (scalar). */
 function sampleKeyframes(keys: Array<{ p: number; v: number }>, p: number): number {
@@ -68,6 +72,24 @@ function wristKeys(style: SwingStyle): { x: Array<{ p: number; v: number }>; y: 
       x: [{ p: 0, v: 0.42 }, { p: 0.35, v: 0.44 }, { p: 0.62, v: 0.34 }, { p: 1, v: 0.30 }],
       y: [{ p: 0, v: 0.52 }, { p: 0.35, v: 0.54 }, { p: 0.62, v: 0.50 }, { p: 1, v: 0.44 }],
       z: [{ p: 0, v: 0.0 }, { p: 0.35, v: 0.02 }, { p: 0.62, v: -0.10 }, { p: 1, v: -0.04 }],
+    };
+  }
+  if (style === 'golf') {
+    // Full swing: hands sweep up and behind to a high top, drop down to a LOW
+    // ball on the ground (high y), then wrap up to a high finish.
+    return {
+      x: [{ p: 0, v: 0.42 }, { p: 0.40, v: 0.58 }, { p: 0.66, v: 0.30 }, { p: 1, v: 0.40 }],
+      y: [{ p: 0, v: 0.52 }, { p: 0.40, v: 0.16 }, { p: 0.66, v: 0.68 }, { p: 1, v: 0.20 }],
+      z: [{ p: 0, v: 0.02 }, { p: 0.40, v: 0.12 }, { p: 0.66, v: -0.16 }, { p: 1, v: -0.02 }],
+    };
+  }
+  if (style === 'bat') {
+    // Hitting swing: load the hands up and back, then a level sweep through a
+    // chest-height contact out front, finishing high over the front shoulder.
+    return {
+      x: [{ p: 0, v: 0.40 }, { p: 0.34, v: 0.48 }, { p: 0.62, v: 0.26 }, { p: 1, v: 0.40 }],
+      y: [{ p: 0, v: 0.36 }, { p: 0.34, v: 0.30 }, { p: 0.62, v: 0.42 }, { p: 1, v: 0.20 }],
+      z: [{ p: 0, v: 0.02 }, { p: 0.34, v: 0.07 }, { p: 0.62, v: -0.15 }, { p: 1, v: -0.02 }],
     };
   }
   // groundstroke: low-to-high, big arc, waist-height contact out front, wrap finish.
@@ -166,6 +188,8 @@ export function generateSamplePoseTrack(style: SwingStyle, frameCount = 28, dtMs
 
 function styleFor(spec: SampleSpec): SwingStyle {
   if (spec.motion === 'bandeja' || spec.motion === 'vibora' || spec.motion === 'smash') return 'overhead';
+  if (spec.sport === 'golf') return 'golf';
+  if (spec.sport === 'baseball' || spec.sport.startsWith('softball')) return 'bat';
   if (spec.sport === 'pickleball') return 'dink';
   return 'groundstroke';
 }
