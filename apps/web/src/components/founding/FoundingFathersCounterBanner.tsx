@@ -10,10 +10,11 @@
 //
 // Lives in normal document flow at the very top of <body> so it never
 // overlaps sticky headers or the bottom-right help dock, and simply
-// scrolls away with the page. Banner text is white for maximum legibility on
-// the green (bg-primary) bar; the CTA chip stays a dark bg-background pill.
-// Keyboard + screen-reader friendly, responsive (collapses to count + CTA on
-// mobile). Never renders private data.
+// scrolls away with the page. Styled as a calm, low-saturation bar: a faint
+// primary tint behind normal foreground text (easy on the eyes), with the
+// brand green kept to small accents — the 🏛️ icon and the solid CTA pill —
+// rather than flooding the whole strip. Keyboard + screen-reader friendly,
+// responsive (collapses to count + CTA on mobile). Never renders private data.
 // ============================================================
 
 import Link from 'next/link';
@@ -63,7 +64,7 @@ export function FoundingFathersCounterBanner() {
     <aside
       role="region"
       aria-label="Founding Members campaign progress"
-      className="w-full bg-primary text-white"
+      className="w-full border-b border-primary/15 bg-primary/[0.06] text-foreground"
     >
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-3 gap-y-1 px-3 py-1.5 text-xs sm:text-sm">
         {/* Lead label. We only show the numeric "X / 1,000" tally once enough
@@ -75,26 +76,26 @@ export function FoundingFathersCounterBanner() {
             <span>
               Founding Members:{' '}
               <span className="tabular-nums">{qualified}</span>
-              <span className="opacity-80"> / {required.toLocaleString()}</span>
+              <span className="text-muted-foreground"> / {required.toLocaleString()}</span>
             </span>
           ) : (
             <span>Join the Founding {required.toLocaleString()}</span>
           )}
         </span>
 
-        <span className="hidden h-3 w-px bg-current opacity-30 sm:inline-block" aria-hidden="true" />
+        <span className="hidden h-3 w-px bg-border sm:inline-block" aria-hidden="true" />
 
         {/* Contextual message + CTA */}
         <span className="text-center">
           <span className="font-medium">{content.message}</span>
-          {content.detail && <span className="ml-1 hidden opacity-90 sm:inline">{content.detail}</span>}
+          {content.detail && <span className="ml-1 hidden text-muted-foreground sm:inline">{content.detail}</span>}
         </span>
 
         {content.cta && (
           <Link
             href={content.cta.href}
             onClick={onCta}
-            className="rounded-full bg-background px-3 py-0.5 text-xs font-semibold text-foreground underline-offset-2 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+            className="rounded-full bg-primary px-3 py-0.5 text-xs font-semibold text-primary-foreground underline-offset-2 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             {content.cta.label}
           </Link>
