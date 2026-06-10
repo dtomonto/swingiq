@@ -259,6 +259,30 @@ export async function runMultiViewMotionAnalysis(
 }
 
 /**
+ * Analyse an ALREADY-BUILT pose track (no video extraction or pose detection).
+ * The clean seam used by the sample/demo builder and by future providers that
+ * supply their own landmarks — it runs the exact same downstream engine as the
+ * video pipelines, so a sample is the engine's honest read of that track, never
+ * hand-authored numbers.
+ */
+export function analyzePoseTrack(
+  track: MotionPoseTrack,
+  capture: CaptureContext,
+  options: { qualitySource?: Partial<QualitySourceInput>; modelVersion?: string } = {},
+): MotionSession {
+  const startedAt = typeof performance !== 'undefined' ? performance.now() : Date.now();
+  const lastMs = track.frames.length > 0 ? track.frames[track.frames.length - 1].tMs : 0;
+  const qualitySource: QualitySourceInput = {
+    resolution: options.qualitySource?.resolution ?? '1080x1920',
+    durationSeconds: options.qualitySource?.durationSeconds ?? +(lastMs / 1000).toFixed(2),
+    attemptedFrames: options.qualitySource?.attemptedFrames ?? track.frames.length,
+    swingWindowDetected: options.qualitySource?.swingWindowDetected ?? true,
+    estimatedFps: options.qualitySource?.estimatedFps ?? track.fps,
+  };
+  return assembleSession(track, capture, qualitySource, options.modelVersion ?? 'synthetic-track-1.0.0', startedAt);
+}
+
+/**
  * Shared downstream: segment phases → metrics → scores → report → drills →
  * quality → MotionSession. Works for any track (single-view estimate OR
  * multi-view measured), so the two capture paths stay DRY.

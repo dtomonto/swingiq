@@ -190,6 +190,7 @@ export const ANALYTICS_EVENTS = {
   MOTION_LAB_PHASE_CLICKED: 'motion_lab_phase_clicked', // + phase
   MOTION_LAB_REPORT_EXPORTED: 'motion_lab_report_exported', // + format (json | csv | pdf)
   MOTION_LAB_SESSION_DELETED: 'motion_lab_session_deleted',
+  MOTION_LAB_SAMPLE_VIEWED: 'motion_lab_sample_viewed', // + sport, motion
 } as const;
 
 export type AnalyticsEventName =

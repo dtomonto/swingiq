@@ -43,6 +43,7 @@ export { compareSessions } from './comparison';
 export {
   runMotionAnalysis,
   runMultiViewMotionAnalysis,
+  analyzePoseTrack,
   ANALYSIS_VERSION,
   MODEL_VERSION,
   type MotionStage,
@@ -148,6 +149,13 @@ export {
   type SportRecordingGuide,
   type AngleCheckItem,
 } from './recording-guidance';
+export {
+  SAMPLE_SPECS,
+  generateSamplePoseTrack,
+  buildSampleSession,
+  isSampleSession,
+  type SampleSpec,
+} from './sample';
 export { downloadSessionJson, downloadSessionCsv } from './export';
 export { printSessionReport } from './print-report';
 export { useMotionSessions } from './useMotionSessions';

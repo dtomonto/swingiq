@@ -55,11 +55,13 @@ interface Props {
    * to the 3D reconstruction.
    */
   videoUrl?: string | null;
+  /** True for a built-in demo session (synthetic motion, real engine). */
+  isSample?: boolean;
   onNewMotion: () => void;
   onDelete?: () => void;
 }
 
-export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl = null, onNewMotion, onDelete }: Props) {
+export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl = null, isSample = false, onNewMotion, onDelete }: Props) {
   const [tab, setTab] = useState<Tab>('viewer');
   // Default to the slow-mo video lab when the real clip is available.
   const [viewerMode, setViewerMode] = useState<'video' | '3d'>(videoUrl ? 'video' : '3d');
@@ -96,9 +98,16 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
         <div className="flex items-center gap-3">
           <span className="text-3xl">{session.emoji}</span>
           <div>
-            <h1 className="text-lg font-bold text-foreground">{session.sportLabel} · {session.motionLabel}</h1>
+            <h1 className="text-lg font-bold text-foreground flex items-center gap-2">
+              {session.sportLabel} · {session.motionLabel}
+              {isSample && (
+                <span className="text-[10px] font-bold uppercase tracking-wide bg-primary/15 text-primary rounded-full px-2 py-0.5">Sample</span>
+              )}
+            </h1>
             <p className="text-xs text-muted-foreground">
-              {new Date(session.createdAt).toLocaleString()} · {skillLabel(session.capture.skillLevel ?? 'intermediate')} · {session.keyFault}
+              {isSample
+                ? 'Demo · synthetic motion run through the real analysis engine'
+                : `${new Date(session.createdAt).toLocaleString()} · ${skillLabel(session.capture.skillLevel ?? 'intermediate')} · ${session.keyFault}`}
             </p>
           </div>
         </div>

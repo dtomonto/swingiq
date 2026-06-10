@@ -64,11 +64,16 @@ clip's footage.
 
 Tracked here so it isn't lost. None of this is built yet.
 
-1. **Demo / sample mode.** Pre-baked sample sessions (tennis forehand, pickleball
-   dink, padel bandeja/wall-rebound) with a bundled sample clip + pose track so a
-   visitor can experience the overlay lab before uploading. Needs a small sample
-   asset under `public/` and a `loadSampleSession()` seam; respect the privacy
-   model (sample clip is shipped, not user data).
+1. ~~**Demo / sample mode.**~~ — **shipped** (`lib/motion-lab/sample.ts`).
+   Three "Try a sample" demos (tennis forehand, pickleball dink, padel bandeja)
+   on the select step. Rather than bundle a video, each generates a smooth,
+   plausible synthetic pose track and runs it through the **real** engine via the
+   new `analyzePoseTrack` seam — so a sample is the engine's honest read of a
+   synthetic motion, never hand-authored numbers. Clearly labelled "Sample,"
+   never persisted, and (having no video) shown via the 3D viewer. Structurally
+   unit-tested (`sample.test.ts`). _Note:_ the synthetic skeleton's visual polish
+   wasn't verifiable in the headless build env — worth a real-browser pass to
+   tune the arc/proportions if it looks stiff.
 2. ~~**Analytics instrumentation.**~~ — **shipped.** Motion-Lab events
    (`MOTION_LAB_*` in `packages/core/src/analytics/events.ts`) are emitted from
    the wizard, the video lab, and the results dashboard: opened, sport/motion

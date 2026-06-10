@@ -10,7 +10,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   ChevronLeft, ChevronRight, Zap, AlertCircle, Loader2, FlaskConical,
-  History, Trash2, ArrowRight, Upload, Video, Boxes, CheckCircle2, X,
+  History, Trash2, ArrowRight, Upload, Video, Boxes, CheckCircle2, X, Sparkles,
 } from 'lucide-react';
 import { VideoUpload, VideoPreviewCard } from '@/components/video/VideoUpload';
 import { MotionRecorder } from './MotionRecorder';
@@ -24,9 +24,10 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import {
   runMotionAnalysis, runMultiViewMotionAnalysis, saveSession, deleteSession, useMotionSessions, sessionsFor, getMotion, getSport, SKILL_LEVELS,
+  SAMPLE_SPECS, buildSampleSession, isSampleSession,
 } from '@/lib/motion-lab';
 import type {
-  SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext, MotionSkillLevel, PoseModelQuality,
+  SportId, MotionTypeId, CameraView, Handedness, MotionSession, MotionStage, CaptureContext, MotionSkillLevel, PoseModelQuality, SampleSpec,
 } from '@/lib/motion-lab';
 import type { SwingVideoMetadata } from '@swingiq/core';
 import { cn } from '@/lib/utils';
@@ -207,13 +208,25 @@ export function MotionLabWizard() {
     setStep('results');
   }, []);
 
+  const openSample = useCallback((spec: SampleSpec) => {
+    const s = buildSampleSession(spec);
+    setSession(s);
+    setSaved(false);
+    setResultVideoUrl(null); // a sample has no video — the 3D viewer shows it
+    setSport(s.capture.sport);
+    setMotionType(s.capture.motionType);
+    setStep('results');
+    track(ANALYTICS_EVENTS.MOTION_LAB_SAMPLE_VIEWED, { sport: spec.sport, motion: spec.motion });
+  }, []);
+
   const handleDelete = useCallback(() => {
     if (session) deleteSession(session.id);
     track(ANALYTICS_EVENTS.MOTION_LAB_SESSION_DELETED);
     startOver();
   }, [session, startOver]);
 
-  const priorSessions = session
+  // Samples are never persisted, so they have no real prior sessions to compare.
+  const priorSessions = session && !isSampleSession(session)
     ? sessionsFor(session.capture.sport, session.capture.motionType).filter((s) => s.id !== session.id)
     : [];
 
@@ -277,6 +290,8 @@ export function MotionLabWizard() {
                 />
               </CardBody>
             </Card>
+
+            <SampleGallery onOpen={openSample} />
 
             <MotionLabTrustNote />
 
@@ -450,11 +465,42 @@ export function MotionLabWizard() {
             priorSessions={priorSessions}
             saved={saved}
             videoUrl={resultVideoUrl}
+            isSample={isSampleSession(session)}
             onNewMotion={startOver}
-            onDelete={handleDelete}
+            onDelete={isSampleSession(session) ? undefined : handleDelete}
           />
         )}
       </div>
+    </div>
+  );
+}
+
+// ── Sample gallery (try-before-you-upload demos) ───────────────
+function SampleGallery({ onOpen }: { onOpen: (spec: SampleSpec) => void }) {
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-2">
+        <Sparkles className="w-4 h-4 text-primary" />
+        <p className="text-sm font-semibold text-foreground">See it first — try a sample analysis</p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        {SAMPLE_SPECS.map((spec) => (
+          <button
+            key={spec.id}
+            onClick={() => onOpen(spec)}
+            className="flex items-center gap-3 rounded-lg border border-border bg-card p-3 text-left hover:border-primary/40 transition-colors"
+          >
+            <span className="text-2xl">{spec.emoji}</span>
+            <span className="min-w-0">
+              <span className="block text-sm font-semibold text-foreground truncate">{spec.label}</span>
+              <span className="block text-xs text-muted-foreground truncate">{spec.blurb}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+      <p className="text-[11px] text-muted-foreground mt-1.5">
+        Samples are a synthetic motion run through the real analysis engine — labelled “Sample,” not saved, and no video.
+      </p>
     </div>
   );
 }
