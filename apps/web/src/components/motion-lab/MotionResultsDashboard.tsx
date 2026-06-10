@@ -25,6 +25,7 @@ import { CameraQualityCheck } from './CameraQualityCheck';
 import { ImplementPathCard } from './ImplementPathCard';
 import { KineticChainCard } from './KineticChainCard';
 import { TemporalCard } from './TemporalCard';
+import { ContinuousMovementSummary } from './ContinuousMovementSummary';
 import { AnalysisDebugPanel } from './AnalysisDebugPanel';
 import { MotionComparisonPanel } from './MotionComparisonPanel';
 import { Button } from '@/components/ui/Button';
@@ -220,6 +221,11 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
             />
           ) : (
             <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} implement={session.objectTracking ?? null} />
+          )}
+          {/* Rally sports: how you prepared, moved, contacted, recovered and got
+              ready for the next ball — the half the discrete swing read misses. */}
+          {session.continuousMovement && (
+            <ContinuousMovementSummary summary={session.continuousMovement} accent={accent} />
           )}
           <PhaseTimeline phases={session.phases} accent={accent} activeKey={activePhase} onSelect={onPhaseSelect} />
           {activePhase && (

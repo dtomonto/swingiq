@@ -36,6 +36,9 @@ import type { SportId } from '@swingiq/core';
 import {
   OVERLAY_BONES, OVERLAY_JOINTS, LM, frameIndexForTime, overlayJointAngles,
   balanceEstimate, balanceVerdict, stanceRead, leadSide,
+  OVERLAY_DENSITY_LABEL, OVERLAY_DENSITY_HINT,
+  layersForDensity, densityForLayers,
+  type OverlayLayerId, type OverlayDensity,
 } from '@/lib/motion-lab';
 import { cn } from '@/lib/utils';
 // Aliased: this component already has a `track` prop (the pose track).
@@ -43,7 +46,7 @@ import { track as trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics';
 
 // ── Overlay layer registry ────────────────────────────────────
 
-type LayerId = 'skeleton' | 'angles' | 'balance' | 'contact' | 'path' | 'footwork' | 'phase';
+type LayerId = OverlayLayerId;
 
 interface LayerDef {
   id: LayerId;
@@ -60,6 +63,8 @@ const LAYERS: LayerDef[] = [
   { id: 'footwork', label: 'Footwork', icon: Footprints },
   { id: 'phase', label: 'Phase', icon: Tag },
 ];
+
+const DENSITIES: Array<Exclude<OverlayDensity, 'custom'>> = ['simple', 'coach', 'lab'];
 
 const SPEEDS = [0.25, 0.5, 0.75, 1] as const;
 const CONF_FADE = 0.35; // landmarks below this visibility are drawn faint
@@ -107,20 +112,28 @@ export function VideoOverlayLab({
   const [frameIdx, setFrameIdx] = useState(0); // current pose-track frame (display)
   const [bookmarks, setBookmarks] = useState<number[]>([]);
   const [loopKey, setLoopKey] = useState<string | null>(null);
-  const [layers, setLayers] = useState<Record<LayerId, boolean>>({
-    skeleton: true, angles: false, balance: false, contact: true, path: true, footwork: false, phase: true,
-  });
+  // Default to "Coach" density — a real read without overwhelming a casual user.
+  const [layers, setLayers] = useState<Record<LayerId, boolean>>(() => layersForDensity('coach'));
 
   const frames = track.frames;
   const lead = leadSide(handedness);
   const hasPath = !!objectTracking?.available && (objectTracking?.trace.points.length ?? 0) >= 2;
   const empty = frames.length === 0;
 
+  // Which density preset the current layer-map matches ('custom' once a single
+  // layer is toggled by hand) — drives the highlighted Simple/Coach/Lab pill.
+  const density = densityForLayers(layers);
+
   const toggle = (id: LayerId) => setLayers((l) => {
     const next = !l[id];
     trackEvent(ANALYTICS_EVENTS.MOTION_LAB_OVERLAY_TOGGLED, { layer: id, on: next });
     return { ...l, [id]: next };
   });
+
+  const applyDensity = (d: Exclude<OverlayDensity, 'custom'>) => {
+    setLayers(layersForDensity(d));
+    trackEvent(ANALYTICS_EVENTS.MOTION_LAB_OVERLAY_DENSITY_CHANGED, { density: d });
+  };
 
   // tMs of a pose frame → seconds on the video timeline (frames carry source ts).
   const frameSeconds = useCallback((i: number) => (frames[i]?.tMs ?? 0) / 1000, [frames]);
@@ -440,6 +453,32 @@ export function VideoOverlayLab({
             <p className="text-sm font-medium text-white">No body pose was detected in this clip.</p>
             <p className="text-xs text-slate-300 mt-1">You can still scrub the video — re-film with the full body in frame and good light for overlays.</p>
           </div>
+        )}
+      </div>
+
+      {/* Overlay density: progressive disclosure (Simple → Coach → Lab) */}
+      <div className="bg-[#0b1220] border-t border-white/10 px-3 py-2 flex flex-wrap items-center gap-1.5">
+        <span className="text-[10px] uppercase tracking-wide text-slate-500 mr-0.5">Detail</span>
+        <div role="group" aria-label="Overlay detail level" className="inline-flex rounded-full border border-white/15 overflow-hidden">
+          {DENSITIES.map((d) => (
+            <button
+              key={d}
+              onClick={() => applyDensity(d)}
+              disabled={empty}
+              aria-pressed={density === d}
+              title={OVERLAY_DENSITY_HINT[d]}
+              className={cn(
+                'text-[11px] font-medium px-2.5 py-1 transition-colors',
+                empty ? 'opacity-35 cursor-not-allowed text-slate-400'
+                  : density === d ? 'bg-sky-500 text-white' : 'text-slate-300 hover:bg-white/10',
+              )}
+            >
+              {OVERLAY_DENSITY_LABEL[d]}
+            </button>
+          ))}
+        </div>
+        {density === 'custom' && (
+          <span className="text-[10px] text-slate-500">Custom — {LAYERS.filter((l) => layers[l.id]).length} layers</span>
         )}
       </div>
 

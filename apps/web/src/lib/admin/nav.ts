@@ -182,6 +182,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['ai quality', 'output quality', 'coaching quality', 'safety language', 'hallucination', 'overpromising', 'clarity', 'readability', 'confidence calibration', 'content qa', 'trust'],
   },
   {
+    id: 'motion-lab', label: 'MotionLab', href: '/admin/motion-lab', icon: Activity,
+    group: 'media-ai', built: true, permission: 'ai.review',
+    blurb: 'The movement-intelligence control surface: every sport’s motion profile (phases, movement model, overlays), how the Motion Score is composed, the overlay density presets, and a low-confidence review queue computed from on-device sessions. Read-only — honest about single-camera estimates.',
+    keywords: ['motion lab', 'motionlab', 'motion', 'movement', 'biomechanics', 'overlays', 'phases', 'profiles', 'scoring weights', 'continuous movement', 'recovery', 'rally', 'low confidence', 'review queue', 'tennis', 'pickleball', 'padel', 'golf', 'swing'],
+  },
+  {
     id: 'agents', label: 'Agent Registry', href: '/admin/agents', icon: Bot,
     group: 'media-ai', built: true,
     blurb: 'One honest inventory of every agent & automation — what each does, what it reads/produces, keyless vs optional-AI, how it is turned on/off, its safety guardrails, and where to inspect it.',

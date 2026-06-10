@@ -185,6 +185,7 @@ export const ANALYTICS_EVENTS = {
   MOTION_LAB_ANALYSIS_FAILED: 'motion_lab_analysis_failed', // + sport, motion
   MOTION_LAB_VIEW_MODE_CHANGED: 'motion_lab_view_mode_changed', // + mode (video | 3d)
   MOTION_LAB_OVERLAY_TOGGLED: 'motion_lab_overlay_toggled', // + layer, on
+  MOTION_LAB_OVERLAY_DENSITY_CHANGED: 'motion_lab_overlay_density_changed', // + density (simple | coach | lab)
   MOTION_LAB_SLOWMO_USED: 'motion_lab_slowmo_used', // + speed
   MOTION_LAB_FRAME_STEPPED: 'motion_lab_frame_stepped',
   MOTION_LAB_PHASE_CLICKED: 'motion_lab_phase_clicked', // + phase
