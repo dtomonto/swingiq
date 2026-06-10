@@ -13,8 +13,17 @@
 /** Number of qualified Founding Members the launch campaign accepts. */
 export const FOUNDING_REQUIRED_COUNT = 100;
 
-/** Valid sessions a user must record to qualify (alongside a complete profile). */
+/** Valid sessions a user must record to qualify (legacy sessions-based gate;
+ *  retained for back-compat helpers). The live gate is the per-sport journey. */
 export const FOUNDING_REQUIRED_SESSIONS = 10;
+
+/**
+ * Founding qualification is now the PER-SPORT journey: complete this many of YOUR
+ * sport's founding challenges (out of ~20) to lock in a Founding Member spot. A
+ * single-sport athlete can reach it entirely within their own sport — we never
+ * require touching a second sport.
+ */
+export const FOUNDING_JOURNEY_REQUIRED = 12;
 
 /**
  * Launch baseline for the PUBLIC founding counter. 0 = show the ACTUAL number of

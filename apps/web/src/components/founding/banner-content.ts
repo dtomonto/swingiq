@@ -8,7 +8,7 @@
 // ============================================================
 
 import {
-  FOUNDING_REQUIRED_SESSIONS,
+  FOUNDING_JOURNEY_REQUIRED,
   FOUNDING_REQUIRED_COUNT,
   FOUNDING_PERK_SHORT,
   formatMemberNumber,
@@ -78,15 +78,15 @@ export function buildFoundingBannerContent(
       };
     case 'sessions_needed':
       return {
-        message: `Profile complete · ${opts.validSessions}/${FOUNDING_REQUIRED_SESSIONS} sessions`,
-        detail: `Record ${Math.max(0, FOUNDING_REQUIRED_SESSIONS - opts.validSessions)} more valid session(s) to claim Founding Member status.`,
-        cta: { label: 'Record a session', href: '/sessions' },
+        message: `Founding journey · ${opts.validSessions}/${FOUNDING_JOURNEY_REQUIRED} challenges`,
+        detail: `Complete ${Math.max(0, FOUNDING_JOURNEY_REQUIRED - opts.validSessions)} more of your sport's founding challenges to claim Founding Member status.`,
+        cta: { label: 'Continue the journey', href: '/founding' },
       };
     case 'profile_incomplete':
       return {
-        message: `Your progress: Profile ${opts.profilePercent}% · ${opts.validSessions}/${FOUNDING_REQUIRED_SESSIONS} sessions`,
-        detail: `Finish the Founding Journey to lock in a ${FOUNDING_PERK_SHORT.toLowerCase()} account.`,
-        cta: { label: 'Continue the journey', href: '/founding' },
+        message: `Founding journey · ${opts.validSessions}/${FOUNDING_JOURNEY_REQUIRED} challenges`,
+        detail: `Complete your sport's founding challenges to lock in a ${FOUNDING_PERK_SHORT.toLowerCase()} account.`,
+        cta: { label: 'Start the journey', href: '/founding' },
       };
     case 'full':
       return {

@@ -17,7 +17,7 @@
 // ============================================================
 
 import type { FoundingCampaignProgress, FoundingCampaignStatus, FoundingUserProgress } from './types';
-import { FOUNDING_REQUIRED_COUNT, FOUNDING_REQUIRED_SESSIONS, FOUNDING_COUNTER_BASELINE } from './config';
+import { FOUNDING_REQUIRED_COUNT, FOUNDING_REQUIRED_SESSIONS, FOUNDING_COUNTER_BASELINE, FOUNDING_JOURNEY_REQUIRED } from './config';
 
 export interface FoundingEvaluationInput {
   profileCompleted: boolean;
@@ -74,6 +74,48 @@ export function evaluateFoundingFathersStatus(input: FoundingEvaluationInput): F
     status,
     memberNumber,
     qualifiedAt: input.qualifiedAt ?? null,
+  };
+}
+
+export interface FoundingJourneyInput {
+  /** Founding challenges completed for the athlete's chosen sport. */
+  completedFoundingCount: number;
+  requiredJourney?: number;
+  memberNumber?: number | null;
+  qualifiedAt?: string | null;
+  campaignFull?: boolean;
+}
+
+/**
+ * Evaluate Founding eligibility from the PER-SPORT JOURNEY: a user qualifies when
+ * they've completed `requiredJourney` of their sport's founding challenges. This
+ * is the live gate (replacing the flat profile + sessions rule). The legacy
+ * fields are populated with the journey counts so existing readers stay sane.
+ */
+export function evaluateFoundingJourney(input: FoundingJourneyInput): FoundingUserProgress {
+  const requiredJourney = Math.max(1, Math.floor(input.requiredJourney ?? FOUNDING_JOURNEY_REQUIRED));
+  const completed = Math.max(0, Math.floor(input.completedFoundingCount || 0));
+  const memberNumber = input.memberNumber ?? null;
+  const eligible = completed >= requiredJourney;
+  const percent = Math.min(100, Math.round((completed / requiredJourney) * 100));
+
+  let status: FoundingCampaignStatus;
+  if (memberNumber != null) status = 'qualified';
+  else if (eligible) status = input.campaignFull ? 'waitlisted_after_cap' : 'qualified';
+  else if (completed > 0) status = 'profile_incomplete'; // journey in progress
+  else status = 'not_started';
+
+  return {
+    profileCompleted: eligible,
+    profileCompletionPercent: percent,
+    validSessionCount: completed,
+    requiredSessions: requiredJourney,
+    eligible,
+    status,
+    memberNumber,
+    qualifiedAt: input.qualifiedAt ?? null,
+    completedFoundingCount: completed,
+    requiredJourney,
   };
 }
 

@@ -31,6 +31,8 @@ interface ClaimBody {
   sport?: SportId | null;
   profileCompleted?: boolean;
   validSessionCount?: number;
+  /** Founding challenges completed for the athlete's sport (the live gate). */
+  completedFoundingCount?: number;
 }
 
 export async function POST(req: NextRequest) {
@@ -62,6 +64,7 @@ export async function POST(req: NextRequest) {
     sport: body.sport ?? null,
     profileCompleted: body.profileCompleted === true,
     validSessionCount: Math.max(0, Math.floor(Number(body.validSessionCount) || 0)),
+    completedFoundingCount: Math.max(0, Math.floor(Number(body.completedFoundingCount) || 0)),
     // Identity is server-verified in cloud mode; eligibility counts are still
     // client-reported until relational re-derivation lands (documented).
     serverVerified: isSupabaseConfigured,
