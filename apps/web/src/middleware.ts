@@ -47,6 +47,10 @@ const PUBLIC_PATHS = new Set([
   '/dev-updates',
   '/start',
   '/free-swing-analysis',
+  // Founding Members campaign — public so new visitors can see the journey
+  // + free-for-life offer before signing up (the checklist itself reads the
+  // local store once they're in).
+  '/founding',
   // PWA offline fallback — served by the service worker when a navigation
   // fails offline. Must be reachable without a session so the worker can
   // precache it regardless of auth state. See public/sw.js.
@@ -123,6 +127,11 @@ const PUBLIC_PREFIXES = [
   // it to pick the cookie-consent default (EU opt-in vs. opt-out). Returns an
   // aggregate region only (no IP/PII). See app/api/region and lib/consent.ts.
   '/api/region',
+  // Founding-campaign progress — PUBLIC, privacy-safe aggregate counter (no
+  // user data). The global counter banner + the /founding journey read it on
+  // public pages, so a logged-out visitor must reach it or the counter never
+  // shows. See app/api/central-intelligence/founding/progress.
+  '/api/central-intelligence/founding/progress',
   // Email-confirmation / auth callbacks must be reachable while logged
   // out — they are what ESTABLISH the session. See app/auth/confirm.
   '/auth/',

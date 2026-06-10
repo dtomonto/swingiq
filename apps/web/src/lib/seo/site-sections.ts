@@ -113,6 +113,7 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/', label: 'Home', section: 'main', priority: 1.0, changeFrequency: 'weekly' },
   { path: '/how-it-works', label: 'How it works', section: 'main', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/start', label: 'Get started', section: 'main', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/founding', label: 'Founding Members — free for life', section: 'main', priority: 0.8, changeFrequency: 'weekly' },
   { path: '/features', label: 'Features', section: 'main', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/faq', label: 'Frequently asked questions', section: 'main', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/pricing', label: 'Pricing', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
