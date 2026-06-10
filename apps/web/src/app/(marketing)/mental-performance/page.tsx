@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -193,8 +194,9 @@ export default function MentalPerformanceHub() {
           <p className="mx-auto mt-3 max-w-xl text-primary-foreground/90">
             Get an instant reset the next time you make a mistake — and build the routine that makes it automatic.
           </p>
-          <Link href="/mental" className="mt-6 inline-block rounded-xl bg-primary-foreground px-8 py-3 font-bold text-primary transition-colors hover:bg-primary-foreground/90">
+          <Link href="/mental" className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-background px-8 py-3 font-bold text-foreground transition-opacity hover:opacity-90">
             Start with the Mental Performance Coach
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>
       </div>

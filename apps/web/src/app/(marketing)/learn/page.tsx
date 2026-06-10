@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Clock, PlayCircle } from 'lucide-react';
+import { Clock, PlayCircle, ArrowRight } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getLearnItems, getLibrarySections } from '@/lib/library';
 import { learnItemListSchema, breadcrumbSchema, learnPath } from '@/lib/library/seo';
@@ -42,9 +42,10 @@ export default function LearnIndexPage() {
           </p>
           <Link
             href="/start"
-            className="mt-6 inline-block rounded-xl bg-primary-foreground px-6 py-3 text-sm font-bold text-primary transition-colors hover:bg-primary-foreground/90"
+            className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-background px-6 py-3 text-sm font-bold text-foreground transition-opacity hover:opacity-90"
           >
             Try SwingVantage free
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>
       </section>

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CalendarCheck } from 'lucide-react';
+import { CalendarCheck, ArrowRight } from 'lucide-react';
 import type { Challenge } from '@/content/challenges';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -57,8 +57,9 @@ export function ChallengeView({ challenge }: { challenge: Challenge }) {
 
         <div className="mt-6 rounded-2xl bg-primary p-6 text-center text-primary-foreground">
           <p className="mb-4 text-lg font-bold">Track your progress with a free analysis</p>
-          <Link href="/dashboard" className="inline-block rounded-xl bg-primary px-8 py-3 font-bold text-primary-foreground transition-colors hover:bg-primary-foreground/90">
+          <Link href="/dashboard" className="inline-flex items-center justify-center gap-2 rounded-xl bg-background px-8 py-3 font-bold text-foreground transition-opacity hover:opacity-90">
             Analyze My Swing Free
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>
       </div>

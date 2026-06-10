@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
@@ -128,8 +129,9 @@ export default async function RoutineDetailPage({
           <p className="mx-auto mt-2 max-w-md text-primary-foreground/90 text-sm">
             Get this reset the instant you need it, plus a drill to make it automatic.
           </p>
-          <Link href="/mental" className="mt-5 inline-block rounded-xl bg-primary-foreground px-7 py-3 font-bold text-primary transition-colors hover:bg-primary-foreground/90">
+          <Link href="/mental" className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-background px-7 py-3 font-bold text-foreground transition-opacity hover:opacity-90">
             Open the Mental Performance Coach
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>
 
