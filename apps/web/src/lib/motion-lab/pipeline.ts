@@ -33,6 +33,7 @@ import { buildMultiViewTrack } from './multiview';
 import { estimateImplementPath } from './object-tracking';
 import { computeKineticChain } from './kinetic-chain';
 import { computeTemporal } from './temporal';
+import { computeContinuousMovement } from './continuous-movement';
 import { newSessionId } from './persistence';
 
 export const ANALYSIS_VERSION = 'motionlab-1.0.0';
@@ -320,6 +321,8 @@ function assembleSession(
   const kineticChain = computeKineticChain(track, capture, series, objectTracking);
   // Temporal intelligence (durations, contact-window stability, tempo). Never throws.
   const temporal = computeTemporal(track, capture, series, phases);
+  // Continuous-movement read for rally sports (null for discrete swings). Never throws.
+  const continuousMovement = computeContinuousMovement(track, capture, series, phases) ?? undefined;
 
   onProgress?.('rendering');
 
@@ -348,6 +351,7 @@ function assembleSession(
     objectTracking,
     kineticChain,
     temporal,
+    continuousMovement,
     status: 'complete',
     analysisVersion: ANALYSIS_VERSION,
     modelVersion,
