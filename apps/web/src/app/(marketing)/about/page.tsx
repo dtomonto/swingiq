@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { MarketingHero } from '@/components/marketing/MarketingHero';
+import { MarketingCTA } from '@/components/marketing/MarketingCTA';
 
 export const metadata: Metadata = {
   title: 'About SwingVantage | Free AI Swing Analysis Platform',
@@ -135,13 +135,11 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary text-primary-foreground py-16 px-4 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">Start Improving Your Swing Today</h2>
-        <p className="text-primary-foreground/90 mb-8 text-sm">Free AI analysis for golf, tennis, baseball, and softball. No account needed.</p>
-        <Link href="/start" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
-          Analyze My Swing Free
-        </Link>
-      </section>
+      <MarketingCTA
+        heading="Start Improving Your Swing Today"
+        body="Free AI analysis for golf, tennis, baseball, and softball. No account needed."
+        cta={{ label: 'Analyze My Swing Free', href: '/start' }}
+      />
 
     </main>
   );

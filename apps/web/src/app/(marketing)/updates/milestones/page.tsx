@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { MarketingCTA } from '@/components/marketing/MarketingCTA';
 import { SITE_URL } from '@/config/site';
 import { PUBLISHED_MILESTONES } from '@/content/milestones/published';
 import { getPublicMilestone, milestonePath } from '@/lib/milestones/page-detail';
@@ -89,11 +90,11 @@ export default function MilestonesIndexPage() {
         </div>
       </section>
 
-      <section className="bg-primary text-primary-foreground py-14 px-4 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3">Be part of the next milestone</h2>
-        <p className="text-primary-foreground/90 mb-7 text-sm max-w-xl mx-auto">Analyze a swing free — no account required — and see what honest AI coaching looks like.</p>
-        <Link href="/start" className="inline-block bg-primary-foreground text-primary hover:opacity-90 font-bold px-8 py-3 rounded-xl transition-opacity">Analyze My Swing Free</Link>
-      </section>
+      <MarketingCTA
+        heading="Be part of the next milestone"
+        body="Analyze a swing free — no account required — and see what honest AI coaching looks like."
+        cta={{ label: 'Analyze My Swing Free', href: '/start' }}
+      />
     </main>
   );
 }

@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { SportAnalysisHero } from '@/components/marketing/SportAnalysisHero';
+import { MarketingCTA } from '@/components/marketing/MarketingCTA';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { SportProofBlock } from '@/components/proof/SportProofBlock';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -129,18 +129,11 @@ export default function FastPitchHubPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-12">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-primary-foreground mb-3">Get on time this week</h2>
-          <p className="text-primary-foreground/90 mb-6 text-sm">Free. No subscription. Your data stays private.</p>
-          <Link
-            href="/start?sport=softball_fast"
-            className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-10 py-3 rounded-xl transition-colors inline-block"
-          >
-            Analyze My Fast-Pitch Swing Free
-          </Link>
-        </div>
-      </section>
+      <MarketingCTA
+        heading="Get on time this week"
+        body="Free. No subscription. Your data stays private."
+        cta={{ label: 'Analyze My Fast-Pitch Swing Free', href: '/start?sport=softball_fast' }}
+      />
 
       {/* FAQ */}
       <section className="bg-card py-14">

@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { SportAnalysisHero } from '@/components/marketing/SportAnalysisHero';
+import { MarketingCTA } from '@/components/marketing/MarketingCTA';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { SportProofBlock } from '@/components/proof/SportProofBlock';
@@ -166,18 +166,11 @@ export default function BaseballSwingAnalysisPage() {
       />
 
       {/* CTA */}
-      <section className="bg-primary py-12">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-primary-foreground mb-3">Start tracking your development</h2>
-          <p className="text-primary-foreground/90 mb-6 text-sm">Free. No subscription required. Your data stays private.</p>
-          <Link
-            href="/start"
-            className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-10 py-3 rounded-xl transition-colors inline-block"
-          >
-            Analyze My Baseball Swing Free
-          </Link>
-        </div>
-      </section>
+      <MarketingCTA
+        heading="Start tracking your development"
+        body="Free. No subscription required. Your data stays private."
+        cta={{ label: 'Analyze My Baseball Swing Free', href: '/start' }}
+      />
 
       {/* FAQ */}
       <section className="bg-card py-14">

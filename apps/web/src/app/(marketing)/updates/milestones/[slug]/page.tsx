@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { MarketingCTA } from '@/components/marketing/MarketingCTA';
 import { Badge } from '@/components/ui/Badge';
 import {
   getPublicMilestone, buildMilestoneFaqs, buildMilestoneMetadata, buildMilestoneJsonLd,
@@ -137,11 +138,11 @@ export default async function MilestonePage({ params }: { params: Promise<{ slug
         </div>
       </article>
 
-      <section className="bg-primary text-primary-foreground py-14 px-4 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3">Try it on your own swing</h2>
-        <p className="text-primary-foreground/90 mb-7 text-sm max-w-xl mx-auto">Upload a swing video or import your data and get a free, personalized breakdown — no account required.</p>
-        <Link href="/start" className="inline-block bg-primary-foreground text-primary hover:opacity-90 font-bold px-8 py-3 rounded-xl transition-opacity">Analyze My Swing Free</Link>
-      </section>
+      <MarketingCTA
+        heading="Try it on your own swing"
+        body="Upload a swing video or import your data and get a free, personalized breakdown — no account required."
+        cta={{ label: 'Analyze My Swing Free', href: '/start' }}
+      />
     </main>
   );
 }

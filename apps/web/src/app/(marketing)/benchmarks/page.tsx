@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { BENCHMARKS } from '@/data/benchmarks';
 import { MarketingHero } from '@/components/marketing/MarketingHero';
+import { MarketingCTA } from '@/components/marketing/MarketingCTA';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata = buildMetadata({
@@ -42,13 +43,11 @@ export default function BenchmarksIndexPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary text-primary-foreground py-16 px-4 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">See How Your Data Compares</h2>
-        <p className="text-primary-foreground/90 mb-8 text-sm">Import a session and SwingVantage shows your numbers against these benchmarks in real time.</p>
-        <Link href="/start" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
-          Analyze My Swing Free
-        </Link>
-      </section>
+      <MarketingCTA
+        heading="See How Your Data Compares"
+        body="Import a session and SwingVantage shows your numbers against these benchmarks in real time."
+        cta={{ label: 'Analyze My Swing Free', href: '/start' }}
+      />
 
     </main>
   );

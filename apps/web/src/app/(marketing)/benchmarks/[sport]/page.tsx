@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { MarketingCTA } from '@/components/marketing/MarketingCTA';
 import { BENCHMARKS } from '@/data/benchmarks';
 
 export async function generateStaticParams() {
@@ -98,13 +99,11 @@ export default async function SportBenchmarkPage({
       </section>
 
       {/* CTA */}
-      <section className="bg-primary text-primary-foreground py-16 px-4 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">See How Your Data Compares in SwingVantage</h2>
-        <p className="text-primary-foreground/90 mb-8 text-sm">Import a session and SwingVantage shows your {data.sport.toLowerCase()} numbers against these benchmarks automatically.</p>
-        <Link href="/start" className="inline-block bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors">
-          Analyze My Swing Free
-        </Link>
-      </section>
+      <MarketingCTA
+        heading="See How Your Data Compares in SwingVantage"
+        body={`Import a session and SwingVantage shows your ${data.sport.toLowerCase()} numbers against these benchmarks automatically.`}
+        cta={{ label: 'Analyze My Swing Free', href: '/start' }}
+      />
 
     </main>
   );

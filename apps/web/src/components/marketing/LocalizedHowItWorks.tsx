@@ -126,20 +126,20 @@ export function LocalizedHowItWorks({ locale }: { locale: LanguageCode }) {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-12">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">{t.cta.heading}</h2>
-          <p className="text-primary-foreground/90 mb-6 text-sm">{t.cta.subtitle}</p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+      <section className="px-4 py-16">
+        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl bg-primary px-6 py-16 text-center text-primary-foreground shadow-theme-lg">
+          <h2 className="font-heading text-3xl font-bold uppercase tracking-tight sm:text-4xl">{t.cta.heading}</h2>
+          <p className="mx-auto mt-4 max-w-xl text-primary-foreground/90">{t.cta.subtitle}</p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Link
               href="/signup"
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold px-8 py-3 rounded-xl transition-colors"
+              className="inline-flex items-center justify-center rounded-xl bg-background px-8 py-4 text-base font-bold text-foreground transition-opacity hover:opacity-90"
             >
               {t.cta.createAccount}
             </Link>
             <Link
               href="/dashboard"
-              className="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3 rounded-xl transition-colors border border-white/20"
+              className="inline-flex items-center justify-center rounded-xl border border-primary-foreground/30 px-8 py-4 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
             >
               {t.cta.goToDashboard}
             </Link>
