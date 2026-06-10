@@ -114,6 +114,51 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
         </div>
       </section>
 
+      {/* Problem — name the pain before the pitch (English-only, like the
+          other interactive marketing sections). */}
+      {isEn && (
+        <section className="py-16 px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="max-w-2xl mx-auto text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+                Practice without proof is just repetition
+              </h2>
+              <p className="text-muted-foreground">
+                Most players guess at what&apos;s wrong — and groove the same mistake every session.
+                Here&apos;s what gets in the way:
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-card border border-border p-6 rounded-xl shadow-xs">
+                <h3 className="font-semibold text-foreground mb-2">You can&apos;t see your own swing</h3>
+                <p className="text-sm text-muted-foreground">
+                  Without a clear read on what your body and club are actually doing, it&apos;s easy to
+                  spend weeks fixing the wrong thing.
+                </p>
+              </div>
+              <div className="bg-card border border-border p-6 rounded-xl shadow-xs">
+                <h3 className="font-semibold text-foreground mb-2">Lessons are easy to forget</h3>
+                <p className="text-sm text-muted-foreground">
+                  One-off lessons are expensive and the cues fade fast — by your next session you&apos;re
+                  back to guessing.
+                </p>
+              </div>
+              <div className="bg-card border border-border p-6 rounded-xl shadow-xs">
+                <h3 className="font-semibold text-foreground mb-2">Generic tips don&apos;t fit you</h3>
+                <p className="text-sm text-muted-foreground">
+                  Advice from videos isn&apos;t tuned to your swing, your sport, or your level — so it
+                  rarely sticks.
+                </p>
+              </div>
+            </div>
+            <p className="text-center text-muted-foreground mt-8 max-w-2xl mx-auto">
+              SwingVantage gives you the one fix that matters most — backed by your data, tied to drills,
+              and tracked over time.
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* Persona router (English-only for now) */}
       {isEn && <PersonaPathCards />}
 
@@ -140,22 +185,8 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
         </div>
       </section>
 
-      {/* Themes (English-only for now) */}
-      {isEn && (
-        <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-3">Make it yours</h2>
-            <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Seven premium themes — from a clean Standard look to Dark Performance training mode.
-              Themes change the look only; your coaching results never change.
-            </p>
-            <ThemePreviewStrip />
-          </div>
-        </section>
-      )}
-
       {/* Why SwingVantage */}
-      <section className="py-16 px-4 bg-muted">
+      <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-center text-foreground mb-10">{h.why.heading}</h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -166,25 +197,6 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Free tools */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-3">{ft.heading}</h2>
-          <p className="text-center text-muted-foreground mb-10">{ft.subtitle}</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {tools.map((t) => (
-              <Link key={t.href} href={t.href} className="block p-5 border border-border rounded-xl hover:border-primary hover:bg-primary/5 transition-colors">
-                <h3 className="font-semibold text-foreground mb-1">{t.name}</h3>
-                <p className="text-xs text-muted-foreground">{t.desc}</p>
-              </Link>
-            ))}
-          </div>
-          <p className="text-center mt-6">
-            <Link href="/tools" className="text-sm font-semibold text-primary hover:underline">{ft.seeAll}</Link>
-          </p>
         </div>
       </section>
 
@@ -225,6 +237,39 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
                 <NotCoachReplacementNotice />
               </div>
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Free tools — secondary content, below the conversion + trust arc */}
+      <section className="py-16 px-4 bg-muted">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-3">{ft.heading}</h2>
+          <p className="text-center text-muted-foreground mb-10">{ft.subtitle}</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {tools.map((t) => (
+              <Link key={t.href} href={t.href} className="block p-5 border border-border rounded-xl bg-card hover:border-primary hover:bg-primary/5 transition-colors">
+                <h3 className="font-semibold text-foreground mb-1">{t.name}</h3>
+                <p className="text-xs text-muted-foreground">{t.desc}</p>
+              </Link>
+            ))}
+          </div>
+          <p className="text-center mt-6">
+            <Link href="/tools" className="text-sm font-semibold text-primary hover:underline">{ft.seeAll}</Link>
+          </p>
+        </div>
+      </section>
+
+      {/* Themes (English-only for now) — a "make it yours" beat after trust */}
+      {isEn && (
+        <section className="py-16 px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-3">Make it yours</h2>
+            <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
+              Seven premium themes — from a clean Standard look to Dark Performance training mode.
+              Themes change the look only; your coaching results never change.
+            </p>
+            <ThemePreviewStrip />
           </div>
         </section>
       )}
