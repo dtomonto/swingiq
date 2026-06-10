@@ -8,6 +8,12 @@ interface ScoreRingProps {
   strokeWidth?: number;
   label?: string;
   className?: string;
+  /**
+   * "Dark Performance" (B) glowing-data-viz treatment: haloes the progress ring
+   * in its own score color. Opt-in (default off) so existing rings are unchanged;
+   * use it on prominent metrics (dashboard overall score, diagnose result).
+   */
+  glow?: boolean;
 }
 
 function getScoreColor(score: number): string {
@@ -26,7 +32,7 @@ function getGrade(score: number): string {
   return 'F';
 }
 
-export function ScoreRing({ score, size = 80, strokeWidth = 6, label, className }: ScoreRingProps) {
+export function ScoreRing({ score, size = 80, strokeWidth = 6, label, className, glow = false }: ScoreRingProps) {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const offset = circumference - (score / 100) * circumference;
@@ -54,7 +60,10 @@ export function ScoreRing({ score, size = 80, strokeWidth = 6, label, className 
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             strokeLinecap="round"
-            style={{ transition: 'stroke-dashoffset 0.5s ease' }}
+            style={{
+              transition: 'stroke-dashoffset 0.5s ease',
+              ...(glow ? { filter: `drop-shadow(0 0 ${Math.max(4, Math.round(strokeWidth * 0.85))}px ${color})` } : {}),
+            }}
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">

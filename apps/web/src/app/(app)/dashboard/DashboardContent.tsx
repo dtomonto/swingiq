@@ -557,7 +557,7 @@ export function DashboardContent() {
               {displayScore > 0 ? (
                 <>
                   <div className="flex justify-center">
-                    <ScoreRing score={displayScore} size={100} strokeWidth={8} label="Overall" />
+                    <ScoreRing score={displayScore} size={100} strokeWidth={8} label="Overall" glow />
                   </div>
                   {liveStats && (
                     <div className="grid grid-cols-2 gap-2">
