@@ -10,7 +10,7 @@ deploy** (which needs Lighthouse/PageSpeed against a preview — see below).
 
 | Lever | Status | Evidence |
 | --- | --- | --- |
-| Web fonts | ✅ optimal | `Inter` via `next/font/google` — self-hosted, no render-blocking `<link>`, no CLS (`app/layout.tsx`) |
+| Web fonts | ✅ optimal | `Inter` (body) via `next/font/google` — self-hosted, preloaded, no CLS. The `Space_Grotesk` heading face (2 themes only) is `preload: false` + `display: swap`, so it stays OFF the critical path and never render-blocks FCP/LCP (`app/layout.tsx`) |
 | Heavy 3D (`three`) | ✅ code-split | loaded via `next/dynamic` (`components/swinglab/LabExperience.tsx`), not in any route's initial JS |
 | Pose model (`@mediapipe/tasks-vision`) | ✅ lazy | type-only import + runtime `import()` + CDN-hosted WASM/model (`lib/pose/pose-detection.ts`) |
 | Package imports | ✅ on | `experimental.optimizePackageImports` (next.config) |
