@@ -21,11 +21,106 @@
 // ============================================================
 
 export const CONSENT_KEY = 'swingiq_cookie_consent';
+/** sessionStorage key caching the resolved region for this session. */
+const REGION_KEY = 'swingiq_region';
 
-/** Custom event fired in-tab whenever the choice changes (for live updates). */
+/** Custom event fired in-tab whenever the choice (or region) changes. */
 const CONSENT_EVENT = 'swingiq-consent-change';
 
 export type ConsentDecision = 'accepted' | 'declined';
+
+// ── Region (geo-aware default) ────────────────────────────────
+// EU/EEA/UK (and Switzerland) require prior opt-in: nothing loads until the
+// visitor explicitly accepts. Everywhere else defaults to ON with an easy
+// opt-out. The region is resolved once per session from the edge geo header
+// via GET /api/region; until it is known we behave as 'eu' (the safe default).
+
+export type Region = 'eu' | 'other';
+
+/** ISO-3166 alpha-2 codes that get the strict opt-in treatment. */
+const OPT_IN_COUNTRIES = new Set([
+  // EU 27
+  'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU',
+  'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE',
+  // EEA + UK + Switzerland
+  'IS', 'LI', 'NO', 'GB', 'CH',
+]);
+
+/** Whether a country code is in the opt-in (GDPR-style) region. */
+export function isOptInCountry(code: string | null | undefined): boolean {
+  return Boolean(code && OPT_IN_COUNTRIES.has(code.trim().toUpperCase()));
+}
+
+/** Map a country code to a consent region (null = unknown). */
+export function regionForCountry(code: string | null | undefined): Region | null {
+  if (!code || !code.trim()) return null;
+  return isOptInCountry(code) ? 'eu' : 'other';
+}
+
+/** The region resolved this session, or null when not yet known. */
+export function getRegion(): Region | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const v = sessionStorage.getItem(REGION_KEY);
+    return v === 'eu' || v === 'other' ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Cache the resolved region for the session and notify subscribers. */
+export function setRegion(region: Region): void {
+  if (typeof window === 'undefined') return;
+  try {
+    sessionStorage.setItem(REGION_KEY, region);
+  } catch {
+    /* sessionStorage unavailable */
+  }
+  try {
+    window.dispatchEvent(new Event(CONSENT_EVENT));
+  } catch {
+    /* no-op */
+  }
+}
+
+let regionFetch: Promise<void> | null = null;
+let regionSettled = false;
+
+/**
+ * Whether the region lookup has finished (success OR failure). The banner waits
+ * for this so it appears once in its final mode rather than flipping from
+ * opt-in to opt-out mid-resolution. An unresolved region counts as settled the
+ * moment the lookup completes — it just falls back to the safe opt-in default.
+ */
+export function isRegionSettled(): boolean {
+  return regionSettled || getRegion() !== null;
+}
+
+/**
+ * Resolve the region once per session from /api/region (idempotent). A known
+ * region short-circuits; an in-flight fetch is reused. An 'unknown' result
+ * (no geo header) leaves the region null so the safe opt-in default stands.
+ */
+export function ensureRegion(): void {
+  if (typeof window === 'undefined' || getRegion() !== null || regionFetch) return;
+  const settle = () => {
+    regionSettled = true;
+    try {
+      window.dispatchEvent(new Event(CONSENT_EVENT));
+    } catch {
+      /* no-op */
+    }
+  };
+  regionFetch = fetch('/api/region', { cache: 'no-store' })
+    .then((r) => r.json())
+    .then((j: { region?: string }) => {
+      if (j.region === 'eu' || j.region === 'other') setRegion(j.region);
+    })
+    .catch(() => {
+      /* network error — stay on the safe opt-in default */
+    })
+    .finally(settle);
+}
 
 /** One integration that sets cookies / records and therefore needs opt-in. */
 export interface ConsentItem {
@@ -93,11 +188,24 @@ export function getConsent(): ConsentDecision | null {
 }
 
 /**
- * True only when the visitor has explicitly accepted. Absent or declined
- * consent both return false — cookie-setting analytics stay off by default.
+ * Whether cookie-setting analytics may run, given the region:
+ *   • 'other'        — default ON: runs unless the visitor explicitly declined.
+ *   • 'eu' / unknown — strict opt-in: runs only after an explicit accept.
+ * The unknown (null) case deliberately uses the safe opt-in branch, so nothing
+ * loads before the region is resolved.
  */
 export function hasAnalyticsConsent(): boolean {
+  if (getRegion() === 'other') return getConsent() !== 'declined';
   return getConsent() === 'accepted';
+}
+
+/**
+ * How the banner should present, or null when it should not show yet:
+ *   • 'optin'  — EU/unknown: explicit Accept all / Decline, nothing pre-checked.
+ *   • 'optout' — elsewhere: a pre-checked "Accept all" the visitor can untick.
+ */
+export function bannerMode(): 'optin' | 'optout' {
+  return getRegion() === 'other' ? 'optout' : 'optin';
 }
 
 /** Record the visitor's choice and notify subscribers (this tab + others). */

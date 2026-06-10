@@ -15,9 +15,9 @@
 // ============================================================
 
 import Script from 'next/script';
-import { useSyncExternalStore } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import { isFlagEnabled, useFeatureFlags } from '@/lib/admin/stores/feature-flags';
-import { hasAnalyticsConsent, subscribeConsent } from '@/lib/consent';
+import { hasAnalyticsConsent, subscribeConsent, ensureRegion } from '@/lib/consent';
 
 const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || '';
 
@@ -32,10 +32,11 @@ export function ClarityScript() {
     () => false,
   );
 
-  // Clarity sets cookies and records sessions, so it loads ONLY after the
-  // visitor accepts cookies. No consent (declined or not-yet-chosen) → the tag
-  // never loads, and the app works normally without it. Subscribing here means
-  // accepting in the banner starts Clarity immediately, with no page reload.
+  // Resolve the consent region once (idempotent), then gate on region-aware
+  // consent: EU/unknown is opt-in (loads only after an explicit accept),
+  // elsewhere is default-on (loads unless the visitor opted out). Subscribing
+  // means a choice — or the region resolving — takes effect with no reload.
+  useEffect(() => { ensureRegion(); }, []);
   const consented = useSyncExternalStore(subscribeConsent, hasAnalyticsConsent, () => false);
 
   if (!CLARITY_PROJECT_ID || !flagEnabled || !consented) return null;

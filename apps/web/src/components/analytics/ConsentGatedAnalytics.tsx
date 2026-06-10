@@ -16,14 +16,17 @@
 // ============================================================
 
 import Script from 'next/script';
-import { useSyncExternalStore } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import { GA_ID } from '@/lib/analytics';
-import { hasAnalyticsConsent, subscribeConsent } from '@/lib/consent';
+import { hasAnalyticsConsent, subscribeConsent, ensureRegion } from '@/lib/consent';
 
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY || '';
 const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com';
 
 export function ConsentGatedAnalytics() {
+  // Resolve the consent region once (idempotent) and gate on region-aware
+  // consent — EU/unknown opt-in, elsewhere default-on with opt-out.
+  useEffect(() => { ensureRegion(); }, []);
   const consented = useSyncExternalStore(subscribeConsent, hasAnalyticsConsent, () => false);
   if (!consented) return null;
 

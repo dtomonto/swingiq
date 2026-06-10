@@ -12,21 +12,33 @@ import {
   consentItems,
   provisionedConsentItems,
   consentRequired,
+  setRegion,
+  getRegion,
+  regionForCountry,
+  isOptInCountry,
+  bannerMode,
   CONSENT_KEY,
 } from '../consent';
 
-type G = { window?: unknown; localStorage?: unknown; Event?: unknown };
+type G = { window?: unknown; localStorage?: unknown; sessionStorage?: unknown; Event?: unknown };
 const g = global as G;
 
-function installBrowserGlobals() {
+function makeStorage() {
   const store: Record<string, string> = {};
+  return {
+    getItem: (k: string) => (k in store ? store[k] : null),
+    setItem: (k: string, v: string) => { store[k] = v; },
+    removeItem: (k: string) => { delete store[k]; },
+  };
+}
+
+function installBrowserGlobals() {
   const listeners: Record<string, Array<() => void>> = {};
+  const localStorage = makeStorage();
+  const sessionStorage = makeStorage();
   const win = {
-    localStorage: {
-      getItem: (k: string) => (k in store ? store[k] : null),
-      setItem: (k: string, v: string) => { store[k] = v; },
-      removeItem: (k: string) => { delete store[k]; },
-    },
+    localStorage,
+    sessionStorage,
     dispatchEvent: (e: { type: string }) => {
       (listeners[e.type] ?? []).forEach((fn) => fn());
       return true;
@@ -37,19 +49,22 @@ function installBrowserGlobals() {
     },
   };
   g.window = win;
-  g.localStorage = win.localStorage;
+  g.localStorage = localStorage;
+  g.sessionStorage = sessionStorage;
   g.Event = class { type: string; constructor(t: string) { this.type = t; } };
 }
 
 describe('consent gate', () => {
   const realWindow = g.window;
   const realLocalStorage = g.localStorage;
+  const realSessionStorage = g.sessionStorage;
   const realEvent = g.Event;
 
   beforeEach(() => installBrowserGlobals());
   afterEach(() => {
     g.window = realWindow;
     g.localStorage = realLocalStorage;
+    g.sessionStorage = realSessionStorage;
     g.Event = realEvent;
     jest.restoreAllMocks();
   });
@@ -105,6 +120,48 @@ describe('consent gate', () => {
     acceptAll();
     clearConsent();
     expect(getConsent()).toBeNull();
+  });
+
+  // ── Geo-aware defaults ──────────────────────────────────────
+  it('EU/unknown region is strict opt-in (off until accepted)', () => {
+    expect(getRegion()).toBeNull(); // unknown defaults to opt-in
+    expect(bannerMode()).toBe('optin');
+    expect(hasAnalyticsConsent()).toBe(false); // undecided → off
+    setRegion('eu');
+    expect(bannerMode()).toBe('optin');
+    expect(hasAnalyticsConsent()).toBe(false);
+    acceptAll();
+    expect(hasAnalyticsConsent()).toBe(true);
+  });
+
+  it('non-EU region is default-on with opt-out', () => {
+    setRegion('other');
+    expect(bannerMode()).toBe('optout');
+    expect(hasAnalyticsConsent()).toBe(true); // undecided → ON by default
+    declineAll();
+    expect(hasAnalyticsConsent()).toBe(false); // explicit opt-out respected
+  });
+
+  it('setRegion persists for the session and is read back', () => {
+    setRegion('other');
+    expect(getRegion()).toBe('other');
+  });
+});
+
+describe('region classification (pure)', () => {
+  it('treats EU/EEA/UK/CH as opt-in', () => {
+    ['DE', 'FR', 'gb', 'NO', 'CH', 'IE'].forEach((c) => expect(isOptInCountry(c)).toBe(true));
+    expect(regionForCountry('DE')).toBe('eu');
+  });
+
+  it('treats other countries as opt-out region', () => {
+    ['US', 'CA', 'AU', 'JP', 'BR'].forEach((c) => expect(isOptInCountry(c)).toBe(false));
+    expect(regionForCountry('US')).toBe('other');
+  });
+
+  it('returns null region for an unknown/empty country', () => {
+    expect(regionForCountry('')).toBeNull();
+    expect(regionForCountry(null)).toBeNull();
   });
 });
 

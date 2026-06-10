@@ -115,6 +115,10 @@ const PUBLIC_PREFIXES = [
   // to /login and the form silently fails (the lead/feedback never arrives).
   '/api/contact',
   '/api/email-capture',
+  // Consent region lookup — a logged-out visitor on any public page must reach
+  // it to pick the cookie-consent default (EU opt-in vs. opt-out). Returns an
+  // aggregate region only (no IP/PII). See app/api/region and lib/consent.ts.
+  '/api/region',
   // Email-confirmation / auth callbacks must be reachable while logged
   // out — they are what ESTABLISH the session. See app/auth/confirm.
   '/auth/',
