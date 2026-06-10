@@ -113,9 +113,16 @@ const orphaned = rows.filter(
 );
 const hubChildren = rows.filter((r) => r.hubChild);
 const sectionChildren = rows.filter((r) => r.sectionChild && !r.hubChild);
-const noHeader = rows.filter((r) => !r.hasHeading);
-const noPageHeader = rows.filter((r) => r.hasHeading && !r.usesPageHeader); // hand-rolled <h1>
+
+// The PageHeader contract applies to pages rendered in the ADMIN CHROME. Hub
+// children (/admin/academy, /admin/growth) are separate sub-apps with their own
+// layout + design system (theme tokens, own nav), so they correctly do NOT use
+// the admin PageHeader — exclude them from the header-consistency findings.
+const adminChrome = rows.filter((r) => !r.hubChild && !hubPrefixes.includes(r.route));
+const noHeader = adminChrome.filter((r) => !r.hasHeading);
+const noPageHeader = adminChrome.filter((r) => r.hasHeading && !r.usesPageHeader); // hand-rolled <h1>
 const metaNoNoindex = rows.filter((r) => r.hasMetadata && !r.explicitNoindex);
+const adminChromePageHeader = adminChrome.filter((r) => r.usesPageHeader).length;
 
 const summary = {
   generatedAt: new Date().toISOString(),
@@ -126,7 +133,8 @@ const summary = {
   hubChildren: hubChildren.length,
   sectionChildren: sectionChildren.length,
   hubs: hubPrefixes,
-  usesPageHeader: rows.filter((r) => r.usesPageHeader).length,
+  adminChromePages: adminChrome.length,
+  adminChromePageHeader,
   usesStatusBadge: rows.filter((r) => r.usesStatusBadge).length,
   orphanedCount: orphaned.length,
   noHeadingCount: noHeader.length,
@@ -162,14 +170,20 @@ measures per-page consistency on top of that.
 | Total routes | ${summary.totalRoutes} |
 | Static / dynamic | ${summary.staticRoutes} / ${summary.dynamicRoutes} |
 | Registered in main nav | ${summary.navRegistered} |
-| Hub children (own sub-nav: ${summary.hubs.join(', ')}) | ${summary.hubChildren} |
+| Hub children (own design system: ${summary.hubs.join(', ')}) | ${summary.hubChildren} |
 | Section sub-routes (parent in nav) | ${summary.sectionChildren} |
-| Use shared \`PageHeader\` | ${summary.usesPageHeader} (${pct(summary.usesPageHeader)}) |
-| Use \`StatusBadge\` vocab | ${summary.usesStatusBadge} (${pct(summary.usesStatusBadge)}) |
+| **Admin-chrome pages** (the PageHeader contract applies) | **${summary.adminChromePages}** |
+| &nbsp;&nbsp;↳ use shared \`PageHeader\` | ${summary.adminChromePageHeader} (${Math.round((summary.adminChromePageHeader / summary.adminChromePages) * 100)}%) |
+| Use \`StatusBadge\` vocab | ${summary.usesStatusBadge} |
 | **Orphaned (static, no nav entry)** | **${summary.orphanedCount}** |
-| No detectable heading (PageHeader/h1) | ${summary.noHeadingCount} |
-| Hand-rolled \`<h1>\` (not PageHeader) | ${summary.handRolledHeaderCount} |
+| Admin-chrome: no detectable heading | ${summary.noHeadingCount} |
+| Admin-chrome: hand-rolled \`<h1>\` (not PageHeader) | ${summary.handRolledHeaderCount} |
 | Own metadata without explicit noindex | ${summary.metaWithoutExplicitNoindex} (inherit layout noindex) |
+
+> **Hub children are excluded from the header findings below.** \`/admin/academy\`
+> and \`/admin/growth\` are separate sub-apps with their own layout, nav and design
+> system (theme tokens, not the gray admin chrome), so they correctly do not use
+> the admin \`PageHeader\`. The findings target only pages in the admin chrome.
 
 ## Orphaned routes — reachable by URL but not in the admin nav
 
@@ -209,14 +223,17 @@ ${list(noPageHeader)}
    reachable only by direct URL. Add a \`nav.ts\` entry for each genuine tool, or
    confirm it is an intentional, unlisted debug/deep-link view (e.g.
    \`/admin/growth-agents\` documents itself as an admin debug view).
-2. **Header consistency** — migrate the ${noPageHeader.length} hand-rolled \`<h1>\`
-   headers to \`PageHeader\` so every page carries the icon + plain-English
-   "what / why" description the shell contract expects.
-3. **Caveat for "no heading"** — most are \`/admin/academy\` & \`/admin/growth\` hub
-   children (they inherit a header from the hub) or thin server wrappers whose
+2. **Header consistency** — admin-chrome PageHeader adoption is
+   ${Math.round((summary.adminChromePageHeader / summary.adminChromePages) * 100)}%.
+   The ${noPageHeader.length} hand-rolled \`<h1>\`(s) left are mostly headers
+   embedded in client-component card layouts (e.g. \`reengage/DripConsole\`,
+   \`research/ResearchAdminContent\`) — convert as a follow-up where the layout
+   allows, but they are not top-of-page swaps like the rest.
+3. **"No heading" is mostly a scan limitation** — the ${noHeader.length}
+   admin-chrome routes with no detected heading are thin server wrappers whose
    header lives in an imported client component OUTSIDE the route dir (e.g.
-   \`components/admin/publishing/PublishingOSClient\`). Verify before treating as a
-   gap — this scan only reads each route's own directory.
+   \`components/admin/publishing/PublishingOSClient\`, \`video-studio\`). Verify
+   before treating as a gap — this scan only reads each route's own directory.
 
 _Re-run any time: \`node scripts/audit-admin-shell.mjs\`._
 `;
