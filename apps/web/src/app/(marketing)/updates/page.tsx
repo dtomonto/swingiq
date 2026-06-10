@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { JsonLd } from '@/components/seo/JsonLd';
 import {
   getEffectivePublicUpdates,
@@ -92,25 +93,15 @@ export default async function UpdatesPage() {
   return (
     <main className="min-h-screen bg-card">
       {/* Page header */}
-      <section className="bg-primary text-primary-foreground py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-3 mb-6">
-            <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity" aria-label="SwingVantage home">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-black text-sm">SV</span>
-              </div>
-              <span className="text-white font-bold text-lg">SwingVantage</span>
-            </Link>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-3">SwingVantage Updates</h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl">
-            Follow meaningful SwingVantage improvements, new training features, and product progress — written in plain English, not technical notes.
-          </p>
-          <p className="text-primary-foreground/90 text-sm mt-4">
-            {updates.length} update{updates.length !== 1 ? 's' : ''} published &mdash; newest first
-          </p>
-        </div>
-      </section>
+      <MarketingHero
+        title="SwingVantage"
+        titleAccent="Updates"
+        subtitle="Follow meaningful SwingVantage improvements, new training features, and product progress — written in plain English, not technical notes."
+      >
+        <p className="text-sm text-muted-foreground">
+          {updates.length} update{updates.length !== 1 ? 's' : ''} published &mdash; newest first
+        </p>
+      </MarketingHero>
 
       {/* JSON-LD */}
       <JsonLd data={jsonLd} />

@@ -37,26 +37,26 @@ export default async function MilestonePage({ params }: { params: Promise<{ slug
     <main className="min-h-screen bg-card">
       <JsonLd data={jsonLd} />
 
-      <section className="bg-primary text-primary-foreground py-14 px-4">
+      <section className="bg-theme-hero border-b border-border py-14 px-4">
         <div className="max-w-3xl mx-auto">
-          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-primary-foreground/80">
+          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-muted-foreground">
             <ol className="flex flex-wrap items-center gap-1.5">
-              <li><Link href="/" className="hover:underline">Home</Link></li>
+              <li><Link href="/" className="text-link hover:underline">Home</Link></li>
               <li aria-hidden="true">/</li>
-              <li><Link href="/updates" className="hover:underline">Updates</Link></li>
+              <li><Link href="/updates" className="text-link hover:underline">Updates</Link></li>
               <li aria-hidden="true">/</li>
-              <li><Link href="/updates/milestones" className="hover:underline">Milestones</Link></li>
+              <li><Link href="/updates/milestones" className="text-link hover:underline">Milestones</Link></li>
               <li aria-hidden="true">/</li>
-              <li className="text-primary-foreground/60" aria-current="page">{def.title}</li>
+              <li className="text-foreground/60" aria-current="page">{def.title}</li>
             </ol>
           </nav>
           <div className="flex flex-wrap items-center gap-2 mb-4">
-            <Badge variant="default" className="bg-white/15 text-white">{def.category}</Badge>
-            <Badge variant="success" className="bg-white/20 text-white">Verified milestone</Badge>
+            <Badge variant="default" className="bg-secondary text-foreground">{def.category}</Badge>
+            <Badge variant="success" className="bg-primary/15 text-link">Verified milestone</Badge>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-3 leading-tight">{def.title}</h1>
-          <p className="text-primary-foreground/90 text-lg">{content.summary}</p>
-          <div className="mt-5 text-sm text-primary-foreground/80">
+          <h1 className="font-heading text-3xl md:text-4xl font-bold mb-3 leading-tight text-foreground">{def.title}</h1>
+          <p className="text-muted-foreground text-lg">{content.summary}</p>
+          <div className="mt-5 text-sm text-muted-foreground">
             <span className="font-semibold">Verified:</span> {published.verifiedMetric} · <time dateTime={published.achievedAt}>{published.achievedAt}</time>
           </div>
         </div>

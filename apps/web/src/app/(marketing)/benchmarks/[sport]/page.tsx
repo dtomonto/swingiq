@@ -34,16 +34,16 @@ export default async function SportBenchmarkPage({
   return (
     <main className="min-h-screen bg-card">
       {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-16 px-4">
+      <section className="bg-theme-hero border-b border-border py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-2 mb-4">
-            <Link href="/benchmarks" className="text-primary-foreground/80 text-sm hover:underline">
+            <Link href="/benchmarks" className="text-link text-sm hover:underline">
               ← Benchmarks
             </Link>
           </div>
           <div className="text-3xl mb-3">{data.emoji}</div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-3">{data.sport} Benchmarks</h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl">{data.description}</p>
+          <h1 className="font-heading text-3xl md:text-4xl font-bold mb-3 text-foreground">{data.sport} Benchmarks</h1>
+          <p className="text-muted-foreground text-lg max-w-2xl">{data.description}</p>
         </div>
       </section>
 

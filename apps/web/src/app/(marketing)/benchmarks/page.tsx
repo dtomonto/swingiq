@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BENCHMARKS } from '@/data/benchmarks';
+import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata = buildMetadata({
@@ -13,14 +14,11 @@ export default function BenchmarksIndexPage() {
   return (
     <main className="min-h-screen bg-card">
       {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Performance Benchmarks</h1>
-          <p className="text-primary-foreground/90 text-xl max-w-2xl mx-auto">
-            See what good looks like. Benchmark ranges for beginner through elite athletes across all four sports.
-          </p>
-        </div>
-      </section>
+      <MarketingHero
+        title="Performance"
+        titleAccent="Benchmarks"
+        subtitle="See what good looks like. Benchmark ranges for beginner through elite athletes across all four sports."
+      />
 
       {/* Sport cards */}
       <section className="py-16 px-4 bg-muted">

@@ -54,29 +54,29 @@ export default async function DevUpdateDetailPage({
       <JsonLd data={jsonLd} />
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <section className="bg-primary text-primary-foreground py-14 px-4">
+      <section className="bg-theme-hero border-b border-border py-14 px-4">
         <div className="max-w-3xl mx-auto">
-          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-primary-foreground/80">
+          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-muted-foreground">
             <ol className="flex flex-wrap items-center gap-1.5">
-              <li><Link href="/" className="hover:underline">Home</Link></li>
+              <li><Link href="/" className="text-link hover:underline">Home</Link></li>
               <li aria-hidden="true">/</li>
-              <li><Link href="/dev-updates" className="hover:underline">Developer Updates</Link></li>
+              <li><Link href="/dev-updates" className="text-link hover:underline">Developer Updates</Link></li>
               <li aria-hidden="true">/</li>
-              <li className="text-primary-foreground/60" aria-current="page">{update.title}</li>
+              <li className="text-foreground/60" aria-current="page">{update.title}</li>
             </ol>
           </nav>
 
           <div className="flex flex-wrap items-center gap-2 mb-4">
-            <Badge variant="default" className="bg-white/15 text-white">{update.category}</Badge>
-            <Badge variant="default" className="bg-white/15 text-white">{IMPACT_LABEL[update.impact]}</Badge>
+            <Badge variant="default" className="bg-secondary text-foreground">{update.category}</Badge>
+            <Badge variant="default" className="bg-secondary text-foreground">{IMPACT_LABEL[update.impact]}</Badge>
             {update.version && (
-              <span className="rounded-sm bg-white/15 px-2 py-0.5 font-mono text-xs">{update.version}</span>
+              <span className="rounded-sm border border-border bg-secondary text-foreground px-2 py-0.5 font-mono text-xs">{update.version}</span>
             )}
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold mb-3 leading-tight">{update.title}</h1>
-          <p className="text-primary-foreground/90 text-lg">{update.headline}</p>
-          <p className="mt-5 text-sm text-primary-foreground/80">
+          <h1 className="font-heading text-3xl md:text-4xl font-bold mb-3 leading-tight text-foreground">{update.title}</h1>
+          <p className="text-muted-foreground text-lg">{update.headline}</p>
+          <p className="mt-5 text-sm text-muted-foreground">
             <time dateTime={update.date}>Published {update.displayDate}</time>
           </p>
         </div>

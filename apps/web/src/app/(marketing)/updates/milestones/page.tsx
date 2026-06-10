@@ -44,19 +44,19 @@ export default function MilestonesIndexPage() {
     <main className="min-h-screen bg-card">
       <JsonLd data={jsonLd} />
 
-      <section className="bg-primary text-primary-foreground py-14 px-4">
+      <section className="bg-theme-hero border-b border-border py-14 px-4">
         <div className="max-w-3xl mx-auto">
-          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-primary-foreground/80">
+          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-muted-foreground">
             <ol className="flex flex-wrap items-center gap-1.5">
-              <li><Link href="/" className="hover:underline">Home</Link></li>
+              <li><Link href="/" className="text-link hover:underline">Home</Link></li>
               <li aria-hidden="true">/</li>
-              <li><Link href="/updates" className="hover:underline">Updates</Link></li>
+              <li><Link href="/updates" className="text-link hover:underline">Updates</Link></li>
               <li aria-hidden="true">/</li>
-              <li className="text-primary-foreground/60" aria-current="page">Milestones</li>
+              <li className="text-foreground/60" aria-current="page">Milestones</li>
             </ol>
           </nav>
-          <h1 className="text-3xl md:text-4xl font-bold mb-3 leading-tight">SwingVantage Milestones</h1>
-          <p className="text-primary-foreground/90 text-lg">
+          <h1 className="font-heading text-3xl md:text-4xl font-bold mb-3 leading-tight text-foreground">SwingVantage Milestones</h1>
+          <p className="text-muted-foreground text-lg">
             Honest markers of our progress building AI swing coaching across seven sports. Every milestone here is
             verifiable — we never publish a number we can&apos;t prove.
           </p>

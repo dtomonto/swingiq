@@ -88,10 +88,10 @@ export default async function BlogPostPage({
   return (
     <main className="min-h-screen bg-card">
       {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-16 px-4">
+      <section className="bg-theme-hero border-b border-border py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-2 mb-4">
-            <Link href="/blog" className="text-primary-foreground/80 text-sm hover:underline">
+            <Link href="/blog" className="text-link text-sm hover:underline">
               ← Blog
             </Link>
           </div>
@@ -99,10 +99,10 @@ export default async function BlogPostPage({
             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${SPORT_BADGE_COLORS[post.sport] ?? 'bg-muted text-muted-foreground'}`}>
               {post.sport === 'all' ? 'All Sports' : post.sport.charAt(0).toUpperCase() + post.sport.slice(1)}
             </span>
-            <span className="text-primary-foreground/80 text-xs">{post.category}</span>
+            <span className="text-muted-foreground text-xs">{post.category}</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">{post.title}</h1>
-          <div className="text-primary-foreground/80 text-sm">
+          <h1 className="font-heading text-3xl md:text-4xl font-bold mb-4 leading-tight text-foreground">{post.title}</h1>
+          <div className="text-muted-foreground text-sm">
             {post.displayDate} &middot; {post.readingTime}
           </div>
         </div>

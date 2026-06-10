@@ -67,39 +67,39 @@ export default async function UpdateDetailPage({
       <JsonLd data={jsonLd} />
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <section className="bg-primary text-primary-foreground py-14 px-4">
+      <section className="bg-theme-hero border-b border-border py-14 px-4">
         <div className="max-w-3xl mx-auto">
           {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-primary-foreground/80">
+          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-muted-foreground">
             <ol className="flex flex-wrap items-center gap-1.5">
-              <li><Link href="/" className="hover:underline">Home</Link></li>
+              <li><Link href="/" className="text-link hover:underline">Home</Link></li>
               <li aria-hidden="true">/</li>
-              <li><Link href="/updates" className="hover:underline">Updates</Link></li>
+              <li><Link href="/updates" className="text-link hover:underline">Updates</Link></li>
               <li aria-hidden="true">/</li>
-              <li className="text-primary-foreground/60" aria-current="page">{update.title}</li>
+              <li className="text-foreground/60" aria-current="page">{update.title}</li>
             </ol>
           </nav>
 
           <div className="flex flex-wrap items-center gap-2 mb-4">
-            <Badge variant="default" className="bg-white/15 text-white">{update.category}</Badge>
+            <Badge variant="default" className="bg-secondary text-foreground">{update.category}</Badge>
             {update.sport && (
-              <Badge variant="default" className="bg-white/15 text-white">
+              <Badge variant="default" className="bg-secondary text-foreground">
                 {SPORT_EMOJI[update.sport] ? `${SPORT_EMOJI[update.sport]} ` : ''}{update.sport}
               </Badge>
             )}
             {update.status !== 'published' && (
-              <Badge variant="warning" className="bg-warning text-white capitalize">
+              <Badge variant="warning" className="bg-warning text-warning-foreground capitalize">
                 {update.status.replace(/_/g, ' ')}
               </Badge>
             )}
             {update.isMajorMilestone && (
-              <Badge variant="success" className="bg-white/20 text-white">Major milestone</Badge>
+              <Badge variant="success" className="bg-primary/15 text-link">Major milestone</Badge>
             )}
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold mb-3 leading-tight">{update.title}</h1>
-          <p className="text-primary-foreground/90 text-lg">{update.summary}</p>
-          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-primary-foreground/80">
+          <h1 className="font-heading text-3xl md:text-4xl font-bold mb-3 leading-tight text-foreground">{update.title}</h1>
+          <p className="text-muted-foreground text-lg">{update.summary}</p>
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
             <time dateTime={update.releaseDate}>Published {update.displayDate}</time>
             {update.audience && update.audience.length > 0 && (
               <span>For {update.audience.join(', ')}</span>
