@@ -76,14 +76,13 @@ function rel(p) {
 //   • Supabase anon key — Row Level Security protects data, not the key.
 //   • Stripe PUBLISHABLE key (pk_...) — the secret key is STRIPE_SECRET_KEY.
 //   • PostHog project key (phc_...) — a write-only ingestion key, public by design.
+//   • VAPID PUBLIC key — Web Push requires the browser to hold the public key to
+//     subscribe; the private counterpart is VAPID_PRIVATE_KEY (not NEXT_PUBLIC_).
+//   • Cloudflare Turnstile SITE key — rendered in the widget like a reCAPTCHA
+//     site key; the secret is TURNSTILE_SECRET_KEY (not NEXT_PUBLIC_).
 // The secret-bearing counterparts (SUPABASE_SERVICE_ROLE_KEY, STRIPE_SECRET_KEY,
-// STRIPE_WEBHOOK_SECRET, etc.) are deliberately NOT NEXT_PUBLIC_ and stay caught.
-//   • VAPID PUBLIC key — Web Push REQUIRES the browser to have it: the service
-//     worker passes it to pushManager.subscribe(). The signing secret is
-//     VAPID_PRIVATE_KEY (NOT NEXT_PUBLIC_) and stays caught.
-//   • Cloudflare Turnstile SITE key — rendered into the page so the widget can
-//     load (like a reCAPTCHA site key). Verification uses
-//     CLOUDFLARE_TURNSTILE_SECRET_KEY (NOT NEXT_PUBLIC_), which stays caught.
+// STRIPE_WEBHOOK_SECRET, VAPID_PRIVATE_KEY, TURNSTILE_SECRET_KEY, etc.) are
+// deliberately NOT NEXT_PUBLIC_ and stay caught.
 const PUBLIC_KEY_ALLOWLIST = new Set([
   "NEXT_PUBLIC_SUPABASE_ANON_KEY",
   "NEXT_PUBLIC_SUPABASE_URL",
@@ -205,6 +204,11 @@ function checkConsoleLog(filePath, lines, findings) {
 /**
  * Check 5 — Hardcoded API key prefixes.
  * These prefixes are the start of real secret keys.
+ *
+ * Skipped for test files: secret-detection/encryption/masking tests must embed
+ * fake key-shaped strings (e.g. "sk-ant-secret-value-123") to exercise the very
+ * code that finds them. This only relaxes the prefix HEURISTIC for tests — real
+ * leaks anywhere are still caught by the Gitleaks secret-scan CI job.
  */
 function checkHardcodedKeys(filePath, lines, findings) {
   // Test fixtures are key-SHAPED but fake (see TEST_FILE_PATTERN note) — skip them.
