@@ -8,22 +8,22 @@ import {
   getPublicMilestone, buildMilestoneFaqs, buildMilestoneMetadata, buildMilestoneJsonLd,
   relatedPublishedMilestones, nextMilestones, resolveMilestoneLinks, milestonePath,
 } from '@/lib/milestones/page-detail';
-import { publishedMilestoneSlugs } from '@/content/milestones/published';
+import { isEffectiveMilestonePublished } from '@/lib/publishing/public-updates.server';
 
-// Pre-render only published milestones; unknown/unapproved slugs 404 (no orphans).
-export function generateStaticParams() {
-  return publishedMilestoneSlugs().map((slug) => ({ slug }));
-}
+// Fully dynamic so a durable PublishingOS override flips this milestone live/dark
+// on the next request. A demoted (or unknown) slug 404s.
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const p = getPublicMilestone(slug);
+  const p = (await isEffectiveMilestonePublished(slug)) ? getPublicMilestone(slug) : undefined;
   if (!p) return { robots: { index: false, follow: false } };
   return buildMilestoneMetadata(p);
 }
 
 export default async function MilestonePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  if (!(await isEffectiveMilestonePublished(slug))) notFound();
   const p = getPublicMilestone(slug);
   if (!p) notFound();
 

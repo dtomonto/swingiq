@@ -19,9 +19,9 @@ import {
   getEffectivePublicUpdates,
   getEffectivePublicDevUpdates,
   getEffectivePublicLearnItems,
+  getEffectiveIndexableMilestones,
 } from '@/lib/publishing/public-updates.server';
 import { devUpdatePath } from '@/lib/updates/dev-detail';
-import { indexablePublishedMilestones } from '@/content/milestones/published';
 import { milestonePath } from '@/lib/milestones/page-detail';
 
 // Sitemap URLs MUST be on the same host the sitemap is served from, or
@@ -211,7 +211,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // noindex milestones are excluded by indexablePublishedMilestones(), so a
   // draft milestone can never reach the sitemap. The /updates/milestones index
   // lives in CURATED_URLS.
-  const milestonePages: MetadataRoute.Sitemap = indexablePublishedMilestones().map((mItem) => ({
+  const milestonePages: MetadataRoute.Sitemap = (await getEffectiveIndexableMilestones()).map((mItem) => ({
     url: `${BASE_URL}${milestonePath(mItem.slug)}`,
     lastModified: mItem.achievedAt ? new Date(mItem.achievedAt).toISOString() : now,
     changeFrequency: 'monthly' as const,

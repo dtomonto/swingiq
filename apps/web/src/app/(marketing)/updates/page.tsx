@@ -6,9 +6,9 @@ import {
   getEffectivePublicUpdates,
   getEffectiveFeaturedUpdate,
   getEffectiveMilestones,
+  getEffectivePublishedMilestones,
 } from '@/lib/publishing/public-updates.server';
 import { UpdatesContent } from '@/components/updates/UpdatesContent';
-import { PUBLISHED_MILESTONES } from '@/content/milestones/published';
 import { getPublicMilestone, milestonePath } from '@/lib/milestones/page-detail';
 
 // ── SEO Metadata ──────────────────────────────────────────────────────────
@@ -84,7 +84,7 @@ export default async function UpdatesPage() {
     getEffectiveFeaturedUpdate(),
     getEffectiveMilestones(),
   ]);
-  const authorityMilestones = PUBLISHED_MILESTONES
+  const authorityMilestones = (await getEffectivePublishedMilestones())
     .map((p) => getPublicMilestone(p.slug))
     .filter((x): x is NonNullable<typeof x> => Boolean(x))
     .sort((a, b) => b.published.achievedAt.localeCompare(a.published.achievedAt))

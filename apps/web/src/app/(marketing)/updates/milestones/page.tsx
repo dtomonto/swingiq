@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { MarketingCTA } from '@/components/marketing/MarketingCTA';
 import { SITE_URL } from '@/config/site';
-import { PUBLISHED_MILESTONES } from '@/content/milestones/published';
+import { getEffectivePublishedMilestones } from '@/lib/publishing/public-updates.server';
 import { getPublicMilestone, milestonePath } from '@/lib/milestones/page-detail';
 
 export const metadata: Metadata = {
@@ -14,8 +14,13 @@ export const metadata: Metadata = {
   openGraph: { title: 'SwingVantage Milestones', description: 'Verifiable progress building honest AI swing coaching across seven sports.', type: 'website', url: `${SITE_URL}/updates/milestones` },
 };
 
-export default function MilestonesIndexPage() {
-  const items = PUBLISHED_MILESTONES
+// Fully dynamic so a durable PublishingOS override flips a milestone live/dark
+// on the next request.
+export const dynamic = 'force-dynamic';
+
+export default async function MilestonesIndexPage() {
+  const published = await getEffectivePublishedMilestones();
+  const items = published
     .map((p) => getPublicMilestone(p.slug))
     .filter((x): x is NonNullable<typeof x> => Boolean(x))
     .sort((a, b) => b.published.achievedAt.localeCompare(a.published.achievedAt));

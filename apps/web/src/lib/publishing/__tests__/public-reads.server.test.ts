@@ -7,6 +7,8 @@ import {
   isEffectiveSeoPagePublished,
   getEffectivePublicLearnItems,
   getEffectiveLearnItem,
+  getEffectivePublishedMilestones,
+  isEffectiveMilestonePublished,
 } from '../public-updates.server';
 import { setPublishOverride, __resetMemoryStore } from '../store';
 import { devUpdateSlug } from '@/lib/updates/dev-detail';
@@ -122,5 +124,28 @@ describe('publishing/public-reads (override-aware)', () => {
     expect(await getEffectiveLearnItem(priv.id)).toBeUndefined();
     await setPublishOverride('library-video', priv.id, true);
     expect(await getEffectiveLearnItem(priv.id)).toBeDefined();
+  });
+
+  it('milestones: no override returns the base published set', async () => {
+    const base = await getEffectivePublishedMilestones();
+    expect(base.length).toBeGreaterThan(0);
+  });
+
+  it('milestones: a durable override hides a milestone, then restores it', async () => {
+    const base = await getEffectivePublishedMilestones();
+    const target = base[0];
+    expect(await isEffectiveMilestonePublished(target.slug)).toBe(true);
+
+    await setPublishOverride('milestone', target.slug, false);
+    expect((await getEffectivePublishedMilestones()).find((p) => p.slug === target.slug)).toBeUndefined();
+    expect(await isEffectiveMilestonePublished(target.slug)).toBe(false);
+
+    await setPublishOverride('milestone', target.slug, true);
+    expect((await getEffectivePublishedMilestones()).find((p) => p.slug === target.slug)).toBeDefined();
+    expect(await isEffectiveMilestonePublished(target.slug)).toBe(true);
+  });
+
+  it('milestones: an unknown slug is never published', async () => {
+    expect(await isEffectiveMilestonePublished('no-such-milestone-xyz')).toBe(false);
   });
 });

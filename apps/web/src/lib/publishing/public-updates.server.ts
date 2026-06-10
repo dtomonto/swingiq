@@ -19,6 +19,8 @@ import { getAllDevUpdates, isPublicDevUpdate, type DevUpdate } from '@/data/devU
 import { devUpdateSlug } from '@/lib/updates/dev-detail';
 import { BLOG_POSTS, isPublishedBlogPost, type BlogPost } from '@/data/blog-posts';
 import { getLibraryItems, type LibraryItem } from '@/lib/library';
+import { PUBLISHED_MILESTONES, indexablePublishedMilestones } from '@/content/milestones/published';
+import type { PublishedMilestone } from '@/lib/milestones/types';
 import { SEO_PAGES, effectiveSeoStatus, type SeoPage } from '@/content/seoPages';
 import { getPublishOverrides } from './store';
 import { applyOverrides, applyOverridesByKey } from './overrides';
@@ -107,6 +109,32 @@ export async function getEffectivePublicLearnItems(): Promise<LibraryItem[]> {
  *  both directions; a demoted item → undefined → 404). */
 export async function getEffectiveLearnItem(id: string): Promise<LibraryItem | undefined> {
   return (await getEffectivePublicLearnItems()).find((i) => i.id === id);
+}
+
+// ── Milestones (/updates/milestones authority pages) ──────────────────────
+
+/** Published milestones with durable overrides applied (keyed by slug). Base =
+ *  every entry in PUBLISHED_MILESTONES is published; an override can durably hide
+ *  one. With no overrides it returns exactly PUBLISHED_MILESTONES. */
+export async function getEffectivePublishedMilestones(): Promise<PublishedMilestone[]> {
+  const overrides = await getPublishOverrides('milestone');
+  return applyOverridesByKey(PUBLISHED_MILESTONES, overrides, () => true, (p) => p.slug);
+}
+
+/** Indexable (sitemap) milestones with overrides applied — a durable hide also
+ *  de-indexes the page. */
+export async function getEffectiveIndexableMilestones(): Promise<PublishedMilestone[]> {
+  const overrides = await getPublishOverrides('milestone');
+  return applyOverridesByKey(indexablePublishedMilestones(), overrides, () => true, (p) => p.slug);
+}
+
+/** Whether a single milestone is effectively published (durable override on top
+ *  of its base published state). */
+export async function isEffectiveMilestonePublished(slug: string): Promise<boolean> {
+  const base = PUBLISHED_MILESTONES.some((p) => p.slug === slug);
+  const overrides = await getPublishOverrides('milestone');
+  const o = overrides[slug];
+  return o === undefined ? base : o;
 }
 
 // ── SEO pages (crawl surface / sitemap) ───────────────────────────────────
