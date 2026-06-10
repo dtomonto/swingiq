@@ -13,6 +13,9 @@
     "eval:agi": "jest src/lib/agi/eval",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install chromium",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "storybook:install": "npm i -D storybook@^10 @storybook/nextjs-vite@^10 @storybook/addon-a11y@^10 vite@^7",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {

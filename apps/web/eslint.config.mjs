@@ -26,6 +26,10 @@ export default [
       'next-env.d.ts',
       '*.config.js',
       '*.config.mjs',
+      // Storybook (opt-in tooling, like e2e) — deps aren't in the default
+      // install, so don't lint its config/stories against missing modules.
+      '.storybook/**',
+      '**/*.stories.tsx',
     ],
   },
   ...nextCoreWebVitals,
