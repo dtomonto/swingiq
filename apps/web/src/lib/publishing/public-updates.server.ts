@@ -18,6 +18,7 @@ import { getAllUpdates, isPublicUpdate, type Update } from '@/data/updates';
 import { getAllDevUpdates, isPublicDevUpdate, type DevUpdate } from '@/data/devUpdates';
 import { devUpdateSlug } from '@/lib/updates/dev-detail';
 import { BLOG_POSTS, isPublishedBlogPost, type BlogPost } from '@/data/blog-posts';
+import { getLibraryItems, type LibraryItem } from '@/lib/library';
 import { SEO_PAGES, effectiveSeoStatus, type SeoPage } from '@/content/seoPages';
 import { getPublishOverrides } from './store';
 import { applyOverrides, applyOverridesByKey } from './overrides';
@@ -90,6 +91,22 @@ export async function getEffectivePublicBlogPosts(): Promise<BlogPost[]> {
 /** A single effectively-published blog post by slug (drafts → undefined → 404). */
 export async function getEffectiveBlogPost(slug: string): Promise<BlogPost | undefined> {
   return (await getEffectivePublicBlogPosts()).find((p) => p.slug === slug);
+}
+
+// ── Learn (/learn library videos) ─────────────────────────────────────────
+
+/** Public /learn items with durable overrides applied (keyed by item id). Base
+ *  = each item's own `public` flag, so an override can promote a private video
+ *  or demote a public one. With no overrides it returns exactly getLearnItems(). */
+export async function getEffectivePublicLearnItems(): Promise<LibraryItem[]> {
+  const overrides = await getPublishOverrides('library-video');
+  return applyOverridesByKey(getLibraryItems(), overrides, (i) => i.public, (i) => i.id);
+}
+
+/** A single effectively-public /learn item by id (durable override honoured in
+ *  both directions; a demoted item → undefined → 404). */
+export async function getEffectiveLearnItem(id: string): Promise<LibraryItem | undefined> {
+  return (await getEffectivePublicLearnItems()).find((i) => i.id === id);
 }
 
 // ── SEO pages (crawl surface / sitemap) ───────────────────────────────────

@@ -2,9 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Clock, PlayCircle, ArrowRight } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { getLearnItems, getLibrarySections } from '@/lib/library';
+import { getLibrarySections } from '@/lib/library';
+import { getEffectivePublicLearnItems } from '@/lib/publishing/public-updates.server';
 import { learnItemListSchema, breadcrumbSchema, learnPath } from '@/lib/library/seo';
 import { getConceptEntries, learnPath as conceptHref } from '@/lib/learn';
+
+// Fully dynamic so a durable PublishingOS override flips a video live/dark on
+// the next request, with no rebuild.
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Video Library — Learn SwingVantage',
@@ -20,8 +25,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LearnIndexPage() {
-  const items = getLearnItems();
+export default async function LearnIndexPage() {
+  const items = await getEffectivePublicLearnItems();
   const recorded = items.filter((i) => i.hasRecording);
   const sections = getLibrarySections(items).filter((s) => s.items.length > 0);
   const concepts = getConceptEntries();

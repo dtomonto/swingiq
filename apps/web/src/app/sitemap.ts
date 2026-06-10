@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { ALL_FEATURES, featureHref } from '@/content/features';
 import { SITE_URL } from '@/config/site';
-import { getLearnItems } from '@/lib/library';
 import { learnPath } from '@/lib/library/seo';
 import { getConceptEntries, getDataPointEntries, learnPath as learnEntryPath } from '@/lib/learn';
 import { localizedRoutes, currentLocalesFor } from '@/lib/marketing-i18n/expose';
@@ -19,6 +18,7 @@ import {
   getEffectivePublicBlogPosts,
   getEffectivePublicUpdates,
   getEffectivePublicDevUpdates,
+  getEffectivePublicLearnItems,
 } from '@/lib/publishing/public-updates.server';
 import { devUpdatePath } from '@/lib/updates/dev-detail';
 import { indexablePublishedMilestones } from '@/content/milestones/published';
@@ -132,9 +132,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Public video library: the index + one crawlable page per video, with
   // video-sitemap metadata for recorded videos (SEO/AEO/GEO discovery).
+  const learnItems = await getEffectivePublicLearnItems();
   const learnPages: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/learn`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    ...getLearnItems().map((item) => ({
+    ...learnItems.map((item) => ({
       url: `${BASE_URL}${learnPath(item)}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,

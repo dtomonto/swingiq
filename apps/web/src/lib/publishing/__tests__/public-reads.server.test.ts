@@ -5,9 +5,12 @@ import {
   getEffectiveBlogPost,
   getEffectivePublishedSeoPages,
   isEffectiveSeoPagePublished,
+  getEffectivePublicLearnItems,
+  getEffectiveLearnItem,
 } from '../public-updates.server';
 import { setPublishOverride, __resetMemoryStore } from '../store';
 import { devUpdateSlug } from '@/lib/updates/dev-detail';
+import { getLibraryItems } from '@/lib/library';
 
 // These reads merge the durable override (in-memory in tests) on top of each
 // surface's base published state. We assert the ADDITIVE guarantee (no override
@@ -92,5 +95,32 @@ describe('publishing/public-reads (override-aware)', () => {
     await setPublishOverride('blog-post', 'whatever-slug', false);
     const devAfter = await getEffectivePublicDevUpdates();
     expect(devAfter.length).toBe(devBase.length);
+  });
+
+  it('learn: no override returns the base public set', async () => {
+    const base = await getEffectivePublicLearnItems();
+    expect(base.length).toBeGreaterThan(0);
+    expect(base.every((i) => i.public)).toBe(true);
+  });
+
+  it('learn: a durable override (keyed by id) hides a live video, then restores it', async () => {
+    const base = await getEffectivePublicLearnItems();
+    const target = base[0];
+
+    await setPublishOverride('library-video', target.id, false);
+    expect((await getEffectivePublicLearnItems()).find((i) => i.id === target.id)).toBeUndefined();
+    expect(await getEffectiveLearnItem(target.id)).toBeUndefined();
+
+    await setPublishOverride('library-video', target.id, true);
+    expect((await getEffectivePublicLearnItems()).find((i) => i.id === target.id)).toBeDefined();
+    expect(await getEffectiveLearnItem(target.id)).toBeDefined();
+  });
+
+  it('learn: a durable override promotes a private video onto /learn', async () => {
+    const priv = getLibraryItems().find((i) => !i.public);
+    if (!priv) return; // all public — nothing to promote
+    expect(await getEffectiveLearnItem(priv.id)).toBeUndefined();
+    await setPublishOverride('library-video', priv.id, true);
+    expect(await getEffectiveLearnItem(priv.id)).toBeDefined();
   });
 });

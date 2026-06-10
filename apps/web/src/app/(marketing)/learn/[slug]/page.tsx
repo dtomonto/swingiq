@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ChevronRight, FileText, ArrowRight, Clock } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { getLearnItems, getCategoryMeta, type LibraryItem } from '@/lib/library';
+import { getCategoryMeta } from '@/lib/library';
+import { getEffectivePublicLearnItems } from '@/lib/publishing/public-updates.server';
 import {
   videoObjectSchema,
   faqPageSchema,
@@ -14,14 +15,9 @@ import {
 } from '@/lib/library/seo';
 import { absoluteUrl } from '@/config/site';
 
-// Only publicly-listed videos get a crawlable /learn page; the rest live
-// in-app only (gradual rollout). A private slug resolves to notFound().
-const ITEMS = getLearnItems();
-const byId = (slug: string): LibraryItem | undefined => ITEMS.find((i) => i.id === slug);
-
-export async function generateStaticParams() {
-  return ITEMS.map((i) => ({ slug: i.id }));
-}
+// Fully dynamic so a durable PublishingOS override flips this page live/dark on
+// the next request. Only effectively-public videos resolve; the rest 404.
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({
   params,
@@ -29,7 +25,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const item = byId(slug);
+  const item = (await getEffectivePublicLearnItems()).find((i) => i.id === slug);
   if (!item) return {};
   const path = learnPath(item);
   return {
@@ -55,13 +51,14 @@ export default async function LearnVideoPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const item = byId(slug);
+  const items = await getEffectivePublicLearnItems();
+  const item = items.find((i) => i.id === slug);
   if (!item) notFound();
 
   const meta = getCategoryMeta(item.category);
   const faqs = videoFaqs(item);
   const video = videoObjectSchema(item);
-  const related = ITEMS.filter((i) => i.category === item.category && i.id !== item.id).slice(0, 3);
+  const related = items.filter((i) => i.category === item.category && i.id !== item.id).slice(0, 3);
 
   return (
     <main className="bg-background">
