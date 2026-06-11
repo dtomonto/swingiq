@@ -5,7 +5,7 @@
 // pinned Favorites + Recently-visited shortcuts, optional subgroup headers,
 // per-item star to pin, and scroll-the-active-item-into-view on load.
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ArrowUpRight, ChevronDown, Star, Clock, Pin } from 'lucide-react';
@@ -45,11 +45,9 @@ export function AdminSidebar({ role, onNavigate }: AdminSidebarProps) {
     setCollapsed(getCollapsedGroups());
   }, []);
 
-  const activeRef = useRef<HTMLAnchorElement>(null);
-  useEffect(() => {
-    activeRef.current?.scrollIntoView({ block: 'nearest' });
-  }, [pathname, mounted]);
-
+  // No scrollIntoView on load (it yanked the rail — audit F8). The active
+  // item carries `scroll-mt-2` so the browser keeps it clear of the top edge
+  // if it ever needs to scroll into view, without a jarring jump.
   const isActive = (item: NavItem) =>
     pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href + '/'));
 
@@ -81,9 +79,8 @@ export function AdminSidebar({ role, onNavigate }: AdminSidebarProps) {
     }
     const pinned = favorites.includes(item.id);
     return (
-      <li key={`${keyPrefix}${item.id}`} className="relative">
+      <li key={`${keyPrefix}${item.id}`} className={`relative ${active ? 'scroll-mt-2' : ''}`}>
         <Link
-          ref={active ? activeRef : undefined}
           href={item.href}
           title={item.blurb}
           onClick={onNavigate}
@@ -91,6 +88,9 @@ export function AdminSidebar({ role, onNavigate }: AdminSidebarProps) {
         >
           <Icon className={`h-4 w-4 shrink-0 ${active ? 'text-link' : ''}`} />
           <span className="flex-1 truncate pr-5">{item.label}</span>
+          {item.incidentDot && (
+            <span className="h-2 w-2 shrink-0 rounded-full bg-error" aria-label="live incident" />
+          )}
           {item.external && <ArrowUpRight className="h-3 w-3 text-muted-foreground/70" />}
         </Link>
         {mounted && (
@@ -116,7 +116,7 @@ export function AdminSidebar({ role, onNavigate }: AdminSidebarProps) {
         {noSub.length > 0 && <ul className="space-y-0.5">{noSub.map((i) => renderItem(i))}</ul>}
         {subgroups.map((sg) => (
           <div key={sg} className="mt-1.5">
-            <p className="px-2 pb-0.5 text-[9px] font-medium uppercase tracking-wider text-muted-foreground/60">{sg}</p>
+            <p className="px-2 pb-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">{sg}</p>
             <ul className="space-y-0.5">{items.filter((i) => i.subgroup === sg).map((i) => renderItem(i))}</ul>
           </div>
         ))}
@@ -144,6 +144,10 @@ export function AdminSidebar({ role, onNavigate }: AdminSidebarProps) {
       )}
 
       {groups.map(({ group, items }) => {
+        // Pinned group carries no label — render it open, without a header.
+        if (!group.label) {
+          return <div key={group.id}>{renderGroupBody(items)}</div>;
+        }
         const isCollapsed = mounted && collapsed.includes(group.id) && group.id !== activeGroup;
         return (
           <div key={group.id}>
