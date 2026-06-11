@@ -14,6 +14,7 @@
 
 import {
   X, ShieldAlert, CheckCircle2, AlertTriangle, Info, Clock, GitBranch, Route, History, ExternalLink,
+  FileText, Users, RotateCcw,
 } from 'lucide-react';
 import { buildPublishDetail, type DetailInput } from '@/lib/publishing/detail';
 import type { QueueItem } from '@/lib/publishing/admin-data.server';
@@ -37,7 +38,7 @@ function Pill({ className, children }: { className: string; children: React.Reac
 
 function Section({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
-    <section className="space-y-2 border-t border-white/5 pt-4">
+    <section className="space-y-2 border-t border-border/60 pt-4">
       <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         {icon} {title}
       </h3>
@@ -80,15 +81,16 @@ export function PublishDetailDrawer({
     d.validation.status === 'failed' ? 'text-error-text' :
     d.validation.status === 'warnings' ? 'text-link' :
     d.validation.status === 'passed' ? 'text-success-text' : 'text-muted-foreground';
+  const warnCount = d.validation.checks.filter((c) => !c.passed && c.level !== 'error').length;
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-foreground/60" role="dialog" aria-modal="true" aria-label={`Details for ${item.title}`}>
       {/* Click-away backdrop */}
       <button type="button" aria-label="Close details" className="absolute inset-0 cursor-default" onClick={onClose} />
 
-      <aside className="relative h-full w-full max-w-xl overflow-y-auto border-l border-white/10 bg-background shadow-2xl">
+      <aside className="relative h-full w-full max-w-xl overflow-y-auto border-l border-border bg-background shadow-2xl">
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-white/10 bg-background/95 p-5 backdrop-blur">
+        <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-border bg-background/95 p-5 backdrop-blur">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <h2 className="truncate text-base font-semibold text-foreground">{item.title}</h2>
@@ -98,7 +100,7 @@ export function PublishDetailDrawer({
             </div>
             <p className="mt-0.5 font-mono text-[11px] text-muted-foreground">{d.key}</p>
           </div>
-          <button onClick={onClose} aria-label="Close" className="shrink-0 rounded-md p-1 text-muted-foreground hover:bg-white/5 hover:text-foreground">
+          <button onClick={onClose} aria-label="Close" className="shrink-0 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -108,8 +110,8 @@ export function PublishDetailDrawer({
           <Section icon={<ShieldAlert className="h-3.5 w-3.5" />} title="Risk & blast radius">
             <div className="flex flex-wrap items-center gap-2">
               <Pill className={RISK_TONE[d.risk.level]}>{d.risk.level} risk</Pill>
-              <Pill className="bg-white/5 text-foreground border-white/10">{MODE_LABEL[item.publishMode]}</Pill>
-              <Pill className="bg-white/5 text-foreground border-white/10">confirm: {d.risk.confirmation}</Pill>
+              <Pill className="bg-muted text-foreground border-border">{MODE_LABEL[item.publishMode]}</Pill>
+              <Pill className="bg-muted text-foreground border-border">confirm: {d.risk.confirmation}</Pill>
               {!d.risk.allowsInstant && <Pill className="bg-error/10 text-error-text border-error/30">engineering review</Pill>}
             </div>
             <p className="text-sm leading-relaxed text-foreground">{d.risk.explanation}</p>
@@ -163,7 +165,7 @@ export function PublishDetailDrawer({
             ) : (
               <ul className="flex flex-wrap gap-1.5">
                 {d.affectedRoutes.map((r) => (
-                  <li key={r}><Pill className="bg-white/5 text-foreground border-white/10 font-mono">{r}</Pill></li>
+                  <li key={r}><Pill className="bg-muted text-foreground border-border font-mono">{r}</Pill></li>
                 ))}
               </ul>
             )}
@@ -205,10 +207,37 @@ export function PublishDetailDrawer({
               </ol>
             )}
           </Section>
+
+          {/* Four-question publish gate — what / who / risk / undo */}
+          <Section icon={<ShieldAlert className="h-3.5 w-3.5" />} title="Before you publish">
+            <ul className="space-y-2.5">
+              <GateRow
+                icon={<FileText className="h-4 w-4" />}
+                label="What"
+                value={`${item.title} · ${d.lifecycle.hasSnapshot ? `v${d.lifecycle.version}` : 'new entity'}${warnCount > 0 ? ` · ${warnCount} warning${warnCount === 1 ? '' : 's'} to accept` : ''}`}
+              />
+              <GateRow
+                icon={<Users className="h-4 w-4" />}
+                label="Who"
+                value={`${d.affectedRoutes.length} public route${d.affectedRoutes.length === 1 ? '' : 's'}${d.area ? ` · ${d.area.liveConnected ? 'live-connected' : MODE_LABEL[item.publishMode].toLowerCase()}` : ''}`}
+              />
+              <GateRow
+                icon={<ShieldAlert className="h-4 w-4" />}
+                label="Risk"
+                value={`${d.risk.level} risk${d.risk.allowsInstant ? '' : ' · engineering review required'}`}
+                tone={d.risk.level === 'critical' ? 'text-error-text' : d.risk.level === 'low' ? 'text-success-text' : 'text-link'}
+              />
+              <GateRow
+                icon={<RotateCcw className="h-4 w-4" />}
+                label="Undo"
+                value={d.canRevert ? 'One-click unpublish reverts to draft and revalidates the route.' : 'First publish creates a versioned snapshot you can roll back.'}
+              />
+            </ul>
+          </Section>
         </div>
 
         {/* Action footer — reuses the guarded queue toggle */}
-        <div className="sticky bottom-0 flex items-center justify-between gap-3 border-t border-white/10 bg-background/95 p-4 backdrop-blur">
+        <div className="sticky bottom-0 flex items-center justify-between gap-3 border-t border-border bg-background/95 p-4 backdrop-blur">
           <p className="text-[11px] text-muted-foreground">
             {d.canRevert ? 'Unpublishing reverts to draft and revalidates the route.' : 'Publishing flips the durable override and revalidates the route.'}
           </p>
@@ -226,6 +255,18 @@ export function PublishDetailDrawer({
         </div>
       </aside>
     </div>
+  );
+}
+
+function GateRow({ icon, label, value, tone }: { icon: React.ReactNode; label: string; value: string; tone?: string }) {
+  return (
+    <li className="flex items-start gap-2.5 text-sm">
+      <span className="mt-0.5 shrink-0 text-link">{icon}</span>
+      <span className="min-w-0">
+        <span className="font-semibold text-foreground">{label}:</span>{' '}
+        <span className={tone ?? 'text-muted-foreground'}>{value}</span>
+      </span>
+    </li>
   );
 }
 

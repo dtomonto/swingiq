@@ -185,9 +185,9 @@ function Header({
   persistent: boolean;
 }) {
   return (
-    <header className="sticky top-0 z-30 -mx-4 -mt-4 mb-1 flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-white/10 bg-foreground/50 px-4 py-3 backdrop-blur sm:-mx-6 sm:-mt-6 sm:px-6">
+    <header className="sticky top-0 z-30 -mx-4 -mt-4 mb-1 flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-border bg-card/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:-mt-6 sm:px-6">
       <div className="flex items-center gap-3">
-        <span className={`grid h-10 w-10 place-items-center ${skin.radius} bg-white/5 ${skin.accentText}`}>
+        <span className={`grid h-10 w-10 place-items-center ${skin.radius} bg-muted ${skin.accentText}`}>
           <Rocket className="h-5 w-5" />
         </span>
         <div>
@@ -198,7 +198,7 @@ function Header({
 
       <div className="ml-auto flex flex-wrap items-center gap-3">
         <EnvChip env={env} persistent={persistent} />
-        <div className="flex items-center gap-1 rounded-lg bg-white/5 p-1" role="tablist" aria-label="Design direction">
+        <div className="flex items-center gap-1 rounded-lg bg-muted p-1" role="tablist" aria-label="Design direction">
           {DIRECTIONS.map((d) => {
             const active = d.id === directionId;
             return (
@@ -419,7 +419,7 @@ function PublishQueue({
               <button
                 type="button"
                 onClick={() => onOpen(item)}
-                className="min-w-0 flex-1 cursor-pointer rounded-md text-left transition-colors hover:bg-white/5"
+                className="min-w-0 flex-1 cursor-pointer rounded-md text-left transition-colors hover:bg-muted"
                 aria-label={`Open details for ${item.title}`}
               >
                 <div className="flex flex-wrap items-center gap-2">
