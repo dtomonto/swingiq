@@ -7,29 +7,29 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.js"
     },
     "./types": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/types/index.mjs",
-      "require": "./dist/types/index.js",
-      "types": "./dist/types/index.d.ts"
+      "require": "./dist/types/index.js"
     },
     "./diagnostic": {
+      "types": "./dist/diagnostic/index.d.ts",
       "import": "./dist/diagnostic/index.mjs",
-      "require": "./dist/diagnostic/index.js",
-      "types": "./dist/diagnostic/index.d.ts"
+      "require": "./dist/diagnostic/index.js"
     },
     "./scoring": {
+      "types": "./dist/scoring/index.d.ts",
       "import": "./dist/scoring/index.mjs",
-      "require": "./dist/scoring/index.js",
-      "types": "./dist/scoring/index.d.ts"
+      "require": "./dist/scoring/index.js"
     },
     "./training": {
+      "types": "./dist/training/index.d.ts",
       "import": "./dist/training/index.mjs",
-      "require": "./dist/training/index.js",
-      "types": "./dist/training/index.d.ts"
+      "require": "./dist/training/index.js"
     }
   },
   "scripts": {
