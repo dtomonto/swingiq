@@ -48,15 +48,17 @@ function Section({
   icon: Icon,
   title,
   children,
+  paper = false,
 }: {
   icon: React.ComponentType<{ size?: number; className?: string; 'aria-hidden'?: boolean }>;
   title: string;
   children: React.ReactNode;
+  paper?: boolean;
 }) {
   return (
-    <section className="border-t border-border pt-8">
-      <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-foreground">
-        <Icon size={20} className="text-primary" aria-hidden={true} />
+    <section className={cn('border-t pt-8', paper ? 'border-document-fg/15' : 'border-border')}>
+      <h2 className={cn('mb-3 flex items-center gap-2 text-xl font-bold', paper ? 'text-document-fg' : 'text-foreground')}>
+        <Icon size={20} className={paper ? 'text-document-accent' : 'text-primary'} aria-hidden={true} />
         {title}
       </h2>
       {children}
@@ -64,12 +66,12 @@ function Section({
   );
 }
 
-function Bullets({ items }: { items: string[] }) {
+function Bullets({ items, paper = false }: { items: string[]; paper?: boolean }) {
   return (
-    <ul className="space-y-1.5 text-sm text-muted-foreground">
+    <ul className={cn('space-y-1.5 text-sm', paper ? 'text-document-fg/70' : 'text-muted-foreground')}>
       {items.map((t) => (
         <li key={t} className="flex gap-2">
-          <span className="mt-0.5 text-primary" aria-hidden="true">•</span>
+          <span className={cn('mt-0.5', paper ? 'text-document-accent' : 'text-primary')} aria-hidden="true">•</span>
           <span>{t}</span>
         </li>
       ))}
@@ -82,11 +84,15 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
   const faults = resolveRelatedFaults(entry);
   const coachStyles = resolveRelatedCoachStyles(entry);
   const isConcept = entry.kind === 'concept';
-  // Design V2: open the article on the light "document" surface (premium-paper
-  // masthead). Env-gated so this stays a server component. Scoped to the hero —
-  // the dense body keeps its shipped theme styling (its Section/Bullets are
-  // shared with in-card contexts, so a full re-ink belongs in its own pass).
+  // Design V2: render the whole article on the light "document" surface
+  // (premium paper) — masthead card + paper body sheet. Env-gated so this stays
+  // a server component. Flag-aware ink helpers below keep the OFF path identical
+  // (each pair's `false` branch is the original theme class).
   const v2 = designV2EnabledFromEnv();
+  const ink = v2 ? 'text-document-fg' : 'text-foreground';
+  const inkMuted = v2 ? 'text-document-fg/70' : 'text-muted-foreground';
+  const inkAccent = v2 ? 'text-document-accent' : 'text-primary';
+  const cardCls = v2 ? 'border-document-fg/15 bg-document-fg/[0.04]' : 'border-border bg-card';
   const hubCrumb = isConcept
     ? { name: 'Learn', path: '/learn' }
     : { name: 'Data points', path: '/learn/data-points' };
@@ -156,72 +162,77 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
         </div>
       </div>
 
-      <article className="mx-auto max-w-3xl space-y-8 px-4 py-10">
+      <article
+        className={cn(
+          'mx-auto max-w-3xl space-y-8 px-4 py-10',
+          v2 && 'mt-6 rounded-2xl bg-document text-document-fg shadow-theme-lg sm:px-8',
+        )}
+      >
         {/* Overview — beginner first, advanced behind disclosure */}
-        <Section icon={BookOpen} title="Overview">
-          <p className="text-foreground">{entry.explanationBeginner}</p>
-          <details className="group mt-3 rounded-xl border border-border bg-card p-4">
-            <summary className="cursor-pointer list-none font-semibold text-primary">
+        <Section paper={v2} icon={BookOpen} title="Overview">
+          <p className={ink}>{entry.explanationBeginner}</p>
+          <details className={cn('group mt-3 rounded-xl border p-4', cardCls)}>
+            <summary className={cn('cursor-pointer list-none font-semibold', inkAccent)}>
               <span className="inline-flex items-center gap-1">
                 <ChevronRight size={16} className="transition-transform group-open:rotate-90" aria-hidden="true" />
                 Go deeper — the advanced explanation
               </span>
             </summary>
-            <p className="mt-3 text-sm text-muted-foreground">{entry.explanationAdvanced}</p>
+            <p className={cn('mt-3 text-sm', inkMuted)}>{entry.explanationAdvanced}</p>
           </details>
         </Section>
 
         {/* Why it matters */}
-        <Section icon={Target} title="Why it matters">
-          <p className="text-muted-foreground">{entry.whyItMatters}</p>
+        <Section paper={v2} icon={Target} title="Why it matters">
+          <p className={inkMuted}>{entry.whyItMatters}</p>
         </Section>
 
         {/* How SwingVantage detects it + confidence */}
-        <Section icon={Search} title="How SwingVantage detects this">
-          <p className="text-muted-foreground">{entry.detectionLogic}</p>
+        <Section paper={v2} icon={Search} title="How SwingVantage detects this">
+          <p className={inkMuted}>{entry.detectionLogic}</p>
           <ConfidenceNote basis={entry.evidenceBasis} explanation={entry.confidenceExplanation} />
         </Section>
 
         {/* Good vs poor */}
-        <Section icon={CheckCircle2} title="What good looks like — and what doesn't">
+        <Section paper={v2} icon={CheckCircle2} title="What good looks like — and what doesn't">
           <div className="rounded-xl border border-success/30 bg-success/10 p-4">
-            <p className="text-sm font-semibold text-foreground">Good pattern</p>
-            <p className="mt-1 text-sm text-muted-foreground">{entry.goodPattern}</p>
+            <p className={cn('text-sm font-semibold', ink)}>Good pattern</p>
+            <p className={cn('mt-1 text-sm', inkMuted)}>{entry.goodPattern}</p>
           </div>
           <div className="mt-3">
-            <p className="mb-2 text-sm font-semibold text-foreground">Common poor patterns</p>
-            <Bullets items={entry.poorPatterns} />
+            <p className={cn('mb-2 text-sm font-semibold', ink)}>Common poor patterns</p>
+            <Bullets paper={v2} items={entry.poorPatterns} />
           </div>
         </Section>
 
         {/* Causes + symptoms + result */}
-        <Section icon={Activity} title="Causes, what you feel, and the result">
+        <Section paper={v2} icon={Activity} title="Causes, what you feel, and the result">
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-xl border border-border bg-card p-4">
-              <p className="mb-2 text-sm font-semibold text-foreground">Common causes</p>
-              <Bullets items={entry.commonCauses} />
+            <div className={cn('rounded-xl border p-4', cardCls)}>
+              <p className={cn('mb-2 text-sm font-semibold', ink)}>Common causes</p>
+              <Bullets paper={v2} items={entry.commonCauses} />
             </div>
-            <div className="rounded-xl border border-border bg-card p-4">
-              <p className="mb-2 text-sm font-semibold text-foreground">What you may feel</p>
-              <Bullets items={entry.symptoms} />
+            <div className={cn('rounded-xl border p-4', cardCls)}>
+              <p className={cn('mb-2 text-sm font-semibold', ink)}>What you may feel</p>
+              <Bullets paper={v2} items={entry.symptoms} />
             </div>
           </div>
           {entry.ballFlightOrResult && entry.ballFlightOrResult.length > 0 && (
-            <div className="mt-4 rounded-xl border border-border bg-card p-4">
-              <p className="mb-2 text-sm font-semibold text-foreground">What the result may look like</p>
-              <Bullets items={entry.ballFlightOrResult} />
+            <div className={cn('mt-4 rounded-xl border p-4', cardCls)}>
+              <p className={cn('mb-2 text-sm font-semibold', ink)}>What the result may look like</p>
+              <Bullets paper={v2} items={entry.ballFlightOrResult} />
             </div>
           )}
         </Section>
 
         {/* Sport variations */}
         {entry.sportVariations && entry.sportVariations.length > 0 && (
-          <Section icon={BookOpen} title="By sport">
+          <Section paper={v2} icon={BookOpen} title="By sport">
             <dl className="space-y-3">
               {entry.sportVariations.map((v) => (
-                <div key={v.sport} className="rounded-xl border border-border bg-card p-4">
-                  <dt className="text-sm font-semibold text-foreground">{sportLabel(v.sport)}</dt>
-                  <dd className="mt-1 text-sm text-muted-foreground">{v.note}</dd>
+                <div key={v.sport} className={cn('rounded-xl border p-4', cardCls)}>
+                  <dt className={cn('text-sm font-semibold', ink)}>{sportLabel(v.sport)}</dt>
+                  <dd className={cn('mt-1 text-sm', inkMuted)}>{v.note}</dd>
                 </div>
               ))}
             </dl>
@@ -231,27 +242,27 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
         {/* Self-checks + upload tips */}
         {((entry.selfChecks && entry.selfChecks.length > 0) ||
           (entry.videoUploadTips && entry.videoUploadTips.length > 0)) && (
-          <Section icon={Search} title="Check it yourself">
+          <Section paper={v2} icon={Search} title="Check it yourself">
             {entry.selfChecks && entry.selfChecks.length > 0 && (
               <ul className="space-y-2">
                 {entry.selfChecks.map((c) => (
-                  <li key={c.label} className="rounded-xl border border-border bg-card p-4">
-                    <p className="text-sm font-semibold text-foreground">{c.label}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">{c.detail}</p>
+                  <li key={c.label} className={cn('rounded-xl border p-4', cardCls)}>
+                    <p className={cn('text-sm font-semibold', ink)}>{c.label}</p>
+                    <p className={cn('mt-1 text-sm', inkMuted)}>{c.detail}</p>
                   </li>
                 ))}
               </ul>
             )}
             {entry.videoUploadTips && entry.videoUploadTips.length > 0 && (
-              <details className="group mt-3 rounded-xl border border-border bg-card p-4">
-                <summary className="cursor-pointer list-none font-semibold text-primary">
+              <details className={cn('group mt-3 rounded-xl border p-4', cardCls)}>
+                <summary className={cn('cursor-pointer list-none font-semibold', inkAccent)}>
                   <span className="inline-flex items-center gap-1">
                     <ChevronRight size={16} className="transition-transform group-open:rotate-90" aria-hidden="true" />
                     Video upload tips for an accurate read
                   </span>
                 </summary>
                 <div className="mt-3">
-                  <Bullets items={entry.videoUploadTips} />
+                  <Bullets paper={v2} items={entry.videoUploadTips} />
                 </div>
               </details>
             )}
@@ -259,22 +270,27 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
         )}
 
         {/* Drills */}
-        <Section icon={Dumbbell} title="Drills">
+        <Section paper={v2} icon={Dumbbell} title="Drills">
           <div className="space-y-3">
             {entry.drills.map((d) => (
-              <div key={d.name} className="rounded-xl border border-border bg-card p-4">
+              <div key={d.name} className={cn('rounded-xl border p-4', cardCls)}>
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="font-semibold text-foreground">{d.name}</p>
+                  <p className={cn('font-semibold', ink)}>{d.name}</p>
                   {d.level && (
-                    <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium capitalize text-primary">
+                    <span
+                      className={cn(
+                        'rounded-full px-2 py-0.5 text-xs font-medium capitalize',
+                        v2 ? 'bg-document-accent/10 text-document-accent' : 'bg-primary/10 text-primary',
+                      )}
+                    >
                       {d.level}
                     </span>
                   )}
                 </div>
-                <p className="mt-1 text-sm text-muted-foreground"><span className="font-medium text-foreground">Goal:</span> {d.goal}</p>
-                <p className="mt-1 text-sm text-muted-foreground"><span className="font-medium text-foreground">How:</span> {d.how}</p>
-                {d.feel && <p className="mt-1 text-sm text-muted-foreground"><span className="font-medium text-foreground">Feel:</span> {d.feel}</p>}
-                <div className="mt-2 flex flex-wrap gap-3 text-xs text-muted-foreground">
+                <p className={cn('mt-1 text-sm', inkMuted)}><span className={cn('font-medium', ink)}>Goal:</span> {d.goal}</p>
+                <p className={cn('mt-1 text-sm', inkMuted)}><span className={cn('font-medium', ink)}>How:</span> {d.how}</p>
+                {d.feel && <p className={cn('mt-1 text-sm', inkMuted)}><span className={cn('font-medium', ink)}>Feel:</span> {d.feel}</p>}
+                <div className={cn('mt-2 flex flex-wrap gap-3 text-xs', inkMuted)}>
                   {d.reps && <span>🔁 {d.reps}</span>}
                   {d.equipment && <span>🧰 {d.equipment}</span>}
                 </div>
@@ -284,27 +300,27 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
         </Section>
 
         {/* Practice plan + progression */}
-        <Section icon={CalendarCheck} title="Your practice plan">
-          <ol className="space-y-1.5 text-sm text-muted-foreground">
+        <Section paper={v2} icon={CalendarCheck} title="Your practice plan">
+          <ol className={cn('space-y-1.5 text-sm', inkMuted)}>
             {entry.practicePlan.map((p, i) => (
               <li key={p} className="flex gap-2">
-                <span className="font-semibold text-primary">{i + 1}.</span>
+                <span className={cn('font-semibold', inkAccent)}>{i + 1}.</span>
                 <span>{p}</span>
               </li>
             ))}
           </ol>
           {entry.progressionLadder && entry.progressionLadder.length > 0 && (
-            <details className="group mt-3 rounded-xl border border-border bg-card p-4">
-              <summary className="cursor-pointer list-none font-semibold text-primary">
+            <details className={cn('group mt-3 rounded-xl border p-4', cardCls)}>
+              <summary className={cn('cursor-pointer list-none font-semibold', inkAccent)}>
                 <span className="inline-flex items-center gap-1">
                   <ChevronRight size={16} className="transition-transform group-open:rotate-90" aria-hidden="true" />
                   Progression ladder (beginner → advanced)
                 </span>
               </summary>
-              <ol className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+              <ol className={cn('mt-3 space-y-1.5 text-sm', inkMuted)}>
                 {entry.progressionLadder.map((p, i) => (
                   <li key={p} className="flex gap-2">
-                    <span className="font-semibold text-primary">{i + 1}.</span>
+                    <span className={cn('font-semibold', inkAccent)}>{i + 1}.</span>
                     <span>{p}</span>
                   </li>
                 ))}
@@ -316,17 +332,17 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
         {/* Troubleshooting + extra sections */}
         {((entry.troubleshooting && entry.troubleshooting.length > 0) ||
           (entry.extraSections && entry.extraSections.length > 0)) && (
-          <Section icon={Wrench} title="Troubleshooting & deeper reading">
+          <Section paper={v2} icon={Wrench} title="Troubleshooting & deeper reading">
             <div className="space-y-2">
               {[...(entry.extraSections ?? []), ...(entry.troubleshooting ?? [])].map((s) => (
-                <details key={s.heading} className="group rounded-xl border border-border bg-card p-4">
-                  <summary className="cursor-pointer list-none font-semibold text-foreground">
+                <details key={s.heading} className={cn('group rounded-xl border p-4', cardCls)}>
+                  <summary className={cn('cursor-pointer list-none font-semibold', ink)}>
                     <span className="inline-flex items-center gap-1">
-                      <ChevronRight size={16} className="text-primary transition-transform group-open:rotate-90" aria-hidden="true" />
+                      <ChevronRight size={16} className={cn('transition-transform group-open:rotate-90', inkAccent)} aria-hidden="true" />
                       {s.heading}
                     </span>
                   </summary>
-                  <p className="mt-3 text-sm text-muted-foreground">{s.body}</p>
+                  <p className={cn('mt-3 text-sm', inkMuted)}>{s.body}</p>
                 </details>
               ))}
             </div>
@@ -335,17 +351,17 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
 
         {/* FAQs */}
         {entry.faqs.length > 0 && (
-          <Section icon={HelpCircle} title="FAQs">
+          <Section paper={v2} icon={HelpCircle} title="FAQs">
             <div className="space-y-2">
               {entry.faqs.map((f) => (
-                <details key={f.question} className="group rounded-xl border border-border bg-card p-4">
-                  <summary className="cursor-pointer list-none font-semibold text-foreground">
+                <details key={f.question} className={cn('group rounded-xl border p-4', cardCls)}>
+                  <summary className={cn('cursor-pointer list-none font-semibold', ink)}>
                     <span className="inline-flex items-center gap-1">
-                      <ChevronRight size={16} className="text-primary transition-transform group-open:rotate-90" aria-hidden="true" />
+                      <ChevronRight size={16} className={cn('transition-transform group-open:rotate-90', inkAccent)} aria-hidden="true" />
                       {f.question}
                     </span>
                   </summary>
-                  <p className="mt-3 text-sm text-muted-foreground">{f.answer}</p>
+                  <p className={cn('mt-3 text-sm', inkMuted)}>{f.answer}</p>
                 </details>
               ))}
             </div>
@@ -353,25 +369,25 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
         )}
 
         {/* Related + internal links */}
-        <Section icon={Link2} title="Keep going">
+        <Section paper={v2} icon={Link2} title="Keep going">
           {(related.concepts.length > 0 || related.dataPoints.length > 0 || faults.length > 0) && (
             <div className="grid gap-4 sm:grid-cols-2">
               {related.concepts.length > 0 && (
-                <RelatedList title="Related concepts" links={related.concepts} />
+                <RelatedList paper={v2} title="Related concepts" links={related.concepts} />
               )}
               {related.dataPoints.length > 0 && (
-                <RelatedList title="Related data points" links={related.dataPoints} />
+                <RelatedList paper={v2} title="Related data points" links={related.dataPoints} />
               )}
               {faults.length > 0 && (
-                <div className="rounded-xl border border-border bg-card p-4">
-                  <p className="mb-2 text-sm font-semibold text-foreground">Related swing faults</p>
+                <div className={cn('rounded-xl border p-4', cardCls)}>
+                  <p className={cn('mb-2 text-sm font-semibold', ink)}>Related swing faults</p>
                   <ul className="space-y-1.5 text-sm">
                     {faults.map((f) => (
                       <li key={f.name}>
                         {f.href ? (
-                          <Link href={f.href} className="text-primary hover:underline">{f.name}</Link>
+                          <Link href={f.href} className={cn('hover:underline', inkAccent)}>{f.name}</Link>
                         ) : (
-                          <span className="text-muted-foreground">{f.name}</span>
+                          <span className={inkMuted}>{f.name}</span>
                         )}
                       </li>
                     ))}
@@ -379,40 +395,64 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
                 </div>
               )}
               {coachStyles.length > 0 && (
-                <div className="rounded-xl border border-border bg-card p-4">
-                  <p className="mb-2 text-sm font-semibold text-foreground">Explained for these coaching styles</p>
+                <div className={cn('rounded-xl border p-4', cardCls)}>
+                  <p className={cn('mb-2 text-sm font-semibold', ink)}>Explained for these coaching styles</p>
                   <div className="flex flex-wrap gap-1.5">
                     {coachStyles.map((c) => (
-                      <span key={c.id} className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                      <span
+                        key={c.id}
+                        className={cn(
+                          'rounded-full px-2.5 py-0.5 text-xs font-medium',
+                          v2 ? 'bg-document-accent/10 text-document-accent' : 'bg-primary/10 text-primary',
+                        )}
+                      >
                         {c.label}
                       </span>
                     ))}
                   </div>
-                  <p className="mt-2 text-xs text-muted-foreground">
+                  <p className={cn('mt-2 text-xs', inkMuted)}>
                     Pick your coaching style in{' '}
-                    <Link href="/settings" className="text-primary hover:underline">Settings</Link> to tailor your reports and drills.
+                    <Link href="/settings" className={cn('hover:underline', inkAccent)}>Settings</Link> to tailor your reports and drills.
                   </p>
                 </div>
               )}
             </div>
           )}
 
-          {/* Conversion: into the product loop */}
+          {/* Conversion: into the product loop. The primary CTA stays
+              SwingVantage chrome (bg-primary) even on the paper sheet. */}
           <div className="mt-4 flex flex-wrap gap-3">
             <Link href="/start" className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
               Analyze my swing free
             </Link>
-            <Link href="/sample-report/golf" className="rounded-xl border border-border px-5 py-2.5 text-sm font-semibold text-foreground hover:border-primary/50">
+            <Link
+              href="/sample-report/golf"
+              className={cn(
+                'rounded-xl border px-5 py-2.5 text-sm font-semibold hover:border-primary/50',
+                v2 ? 'border-document-fg/20 text-document-fg' : 'border-border text-foreground',
+              )}
+            >
               See a sample report
             </Link>
-            <Link href="/dashboard" className="rounded-xl border border-border px-5 py-2.5 text-sm font-semibold text-foreground hover:border-primary/50">
+            <Link
+              href="/dashboard"
+              className={cn(
+                'rounded-xl border px-5 py-2.5 text-sm font-semibold hover:border-primary/50',
+                v2 ? 'border-document-fg/20 text-document-fg' : 'border-border text-foreground',
+              )}
+            >
               My dashboard
             </Link>
           </div>
         </Section>
 
         {/* Honest, non-medical disclaimer */}
-        <p className="border-t border-border pt-6 text-xs text-muted-foreground">
+        <p
+          className={cn(
+            'pt-6 text-xs',
+            v2 ? 'border-t border-document-fg/15 text-document-fg/70' : 'border-t border-border text-muted-foreground',
+          )}
+        >
           SwingVantage explanations are educational, not medical advice. Video-based reads are
           labeled by confidence; treat estimated and inferred findings as starting points, not
           measurements. Last reviewed {entry.lastReviewedAt}.
@@ -424,14 +464,22 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
   );
 }
 
-function RelatedList({ title, links }: { title: string; links: { label: string; href: string }[] }) {
+function RelatedList({
+  title,
+  links,
+  paper = false,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+  paper?: boolean;
+}) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <p className="mb-2 text-sm font-semibold text-foreground">{title}</p>
+    <div className={cn('rounded-xl border p-4', paper ? 'border-document-fg/15 bg-document-fg/[0.04]' : 'border-border bg-card')}>
+      <p className={cn('mb-2 text-sm font-semibold', paper ? 'text-document-fg' : 'text-foreground')}>{title}</p>
       <ul className="space-y-1.5 text-sm">
         {links.map((l) => (
           <li key={l.href}>
-            <Link href={l.href} className="inline-flex items-center gap-1 text-primary hover:underline">
+            <Link href={l.href} className={cn('inline-flex items-center gap-1 hover:underline', paper ? 'text-document-accent' : 'text-primary')}>
               {l.label}
               <ChevronRight size={13} aria-hidden="true" />
             </Link>
