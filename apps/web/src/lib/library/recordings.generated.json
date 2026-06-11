@@ -1,27 +1,27 @@
 {
   "swing-path": {
-    "durationSec": 60
+    "durationSec": 59
   },
   "launch-monitor-workflow": {
-    "durationSec": 54
-  },
-  "drill-library-tour": {
-    "durationSec": 56
-  },
-  "coaching-and-parents": {
-    "durationSec": 57
-  },
-  "film-study-motion-lab": {
-    "durationSec": 57
-  },
-  "slice-fix-drills": {
     "durationSec": 55
   },
+  "drill-library-tour": {
+    "durationSec": 55
+  },
+  "coaching-and-parents": {
+    "durationSec": 56
+  },
+  "film-study-motion-lab": {
+    "durationSec": 58
+  },
+  "slice-fix-drills": {
+    "durationSec": 56
+  },
   "contact-consistency-drills": {
-    "durationSec": 54
+    "durationSec": 55
   },
   "read-report-with-your-athlete": {
-    "durationSec": 53
+    "durationSec": 54
   },
   "setting-honest-goals": {
     "durationSec": 52
@@ -30,33 +30,33 @@
     "durationSec": 54
   },
   "reading-takeaway-sequence": {
-    "durationSec": 58
+    "durationSec": 59
   },
   "tennis-topspin-drills": {
-    "durationSec": 55
+    "durationSec": 56
   },
   "pickleball-dink-drills": {
-    "durationSec": 52
+    "durationSec": 53
   },
   "padel-wall-drills": {
     "durationSec": 55
   },
   "fastpitch-timing-drills": {
-    "durationSec": 54
+    "durationSec": 55
   },
   "slowpitch-line-drive-drills": {
     "durationSec": 54
   },
   "readiness-and-bodysync": {
-    "durationSec": 53
+    "durationSec": 54
   },
   "progress-tracking-deepdive": {
     "durationSec": 57
   },
   "photo-import-deepdive": {
-    "durationSec": 55
+    "durationSec": 56
   },
   "reading-your-numbers": {
-    "durationSec": 55
+    "durationSec": 54
   }
 }
