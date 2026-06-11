@@ -71,7 +71,7 @@ export function SettingsPanel({ config, adapters, onUpdate, onReset, onReprocess
           </div>
         }
       >
-        {saved && <p className="mb-3 text-xs text-emerald-400">Saved — existing signals were re-classified and re-scored.</p>}
+        {saved && <p className="mb-3 text-xs text-success-text">Saved — existing signals were re-classified and re-scored.</p>}
         <div className="grid gap-3 md:grid-cols-2">
           <Field label="Brand terms" value={brand} onChange={setBrand} />
           <Field label="Brand misspellings" value={misspell} onChange={setMisspell} />
@@ -87,7 +87,7 @@ export function SettingsPanel({ config, adapters, onUpdate, onReset, onReprocess
       <SectionCard title="Priority scoring weights" description="Priority is a transparent weighted sum — tune what matters most. Save to apply.">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {(Object.keys(WEIGHT_LABELS) as (keyof ScoringWeights)[]).map((k) => (
-            <label key={k} className="text-xs text-gray-400">
+            <label key={k} className="text-xs text-muted-foreground">
               {WEIGHT_LABELS[k]}
               <input
                 type="number" min={0} max={40} value={weights[k]}
@@ -100,8 +100,8 @@ export function SettingsPanel({ config, adapters, onUpdate, onReset, onReprocess
       </SectionCard>
 
       <SectionCard title="AI classification" description="Optional enhancement layer over the always-on rules classifier.">
-        <div className="flex items-center justify-between rounded-lg border border-gray-800 bg-gray-950/40 px-3 py-2.5">
-          <p className="text-sm text-gray-300">
+        <div className="flex items-center justify-between rounded-lg border border-border bg-background/40 px-3 py-2.5">
+          <p className="text-sm text-foreground">
             Rules-based classification is active and keyless. AI refinement is a scaffolded seam — it stays off until an AI provider is configured, so nothing here depends on a key.
           </p>
           <StatusBadge tone={config.aiClassificationEnabled ? 'success' : 'neutral'}>{config.aiClassificationEnabled ? 'AI on' : 'Rules only'}</StatusBadge>
@@ -111,17 +111,17 @@ export function SettingsPanel({ config, adapters, onUpdate, onReset, onReprocess
       <SectionCard title="Source adapters" description="Every source, its live state and exactly how to enable it. Secrets are never shown — only whether a variable is set.">
         <ul className="space-y-2">
           {adapters.map((a) => (
-            <li key={a.id} className="rounded-lg border border-gray-800 bg-gray-950/40 p-3">
+            <li key={a.id} className="rounded-lg border border-border bg-background/40 p-3">
               <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-medium text-gray-200">{a.name}</p>
+                <p className="text-sm font-medium text-foreground">{a.name}</p>
                 <StatusBadge tone={ADAPTER_STATE_TONE[a.state]}>{ADAPTER_STATE_LABEL[a.state]}</StatusBadge>
               </div>
-              <p className="mt-1 text-xs text-gray-500">{a.setupInstructions}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{a.setupInstructions}</p>
               <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                 {a.envVars.length > 0 ? a.envVars.map((v) => (
-                  <code key={v} className="rounded bg-gray-800 px-1.5 py-0.5 text-[10px] text-gray-400">{v}{a.hasCredentials ? ' ✓' : ''}</code>
-                )) : <span className="text-[10px] text-gray-600">No credentials required</span>}
-                <span className="text-[10px] text-gray-600">· dedup: {a.dedupeStrategy}</span>
+                  <code key={v} className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{v}{a.hasCredentials ? ' ✓' : ''}</code>
+                )) : <span className="text-[10px] text-muted-foreground/70">No credentials required</span>}
+                <span className="text-[10px] text-muted-foreground/70">· dedup: {a.dedupeStrategy}</span>
               </div>
             </li>
           ))}
@@ -133,7 +133,7 @@ export function SettingsPanel({ config, adapters, onUpdate, onReset, onReprocess
 
 function Field({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   return (
-    <label className="text-xs text-gray-400">
+    <label className="text-xs text-muted-foreground">
       {label}
       <textarea value={value} onChange={(e) => onChange(e.target.value)} rows={2} className={`${INPUT_CLS} mt-1`} placeholder="comma or newline separated" />
     </label>

@@ -13,13 +13,13 @@ export default function PrPage() {
       records={authorityRepo.list()}
       intro={
         <div className="space-y-2">
-          <div className="rounded-lg bg-green-500/10 border border-green-500/20 p-3 text-xs text-green-200/90">
-            <strong className="text-green-300">Backlink opportunities are auto-discovered</strong> by the{' '}
+          <div className="rounded-lg bg-success/10 border border-success/20 p-3 text-xs text-success-text/90">
+            <strong className="text-success-text">Backlink opportunities are auto-discovered</strong> by the{' '}
             <Link href="/admin/growth/link-intelligence" className="underline underline-offset-2">Link Intelligence Agent</Link>{' '}
             (look for ones owned by &ldquo;Link Intelligence Agent&rdquo;). Draft white-hat outreach with the AI Strategist; the agent never sends anything automatically.
           </div>
-          <div className="rounded-lg bg-gray-900 border border-gray-800 p-3 text-xs text-gray-400">
-            Authority-building only. <strong className="text-gray-300">Never fabricate</strong> press mentions, endorsements, awards, or results —
+          <div className="rounded-lg bg-card border border-border p-3 text-xs text-muted-foreground">
+            Authority-building only. <strong className="text-foreground">Never fabricate</strong> press mentions, endorsements, awards, or results —
             track real opportunities through to a verifiable backlink or placement.
           </div>
         </div>

@@ -54,8 +54,8 @@ export default async function AdminApprovalsPage() {
         description="Review / approve / implement. Highest severity first."
       >
         {items.length === 0 ? (
-          <div className="flex flex-col items-center gap-2 py-8 text-center text-sm text-gray-500">
-            <CheckCircle2 className="h-8 w-8 text-emerald-500/70" />
+          <div className="flex flex-col items-center gap-2 py-8 text-center text-sm text-muted-foreground">
+            <CheckCircle2 className="h-8 w-8 text-success-text/70" />
             <p>Nothing in the automated queues right now.</p>
             <p className="text-xs">New audit findings, drafts and opportunities will appear here as your agents run.</p>
           </div>
@@ -75,18 +75,18 @@ export default async function AdminApprovalsPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> Your one-stop hub for everything that
+          <strong className="text-foreground">What this is.</strong> Your one-stop hub for everything that
           needs the owner. Instead of hopping between Feature Education, Publishing, Video Studio, SEO and
           the <Link href="/admin/audits">Audit Reports</Link>, the Action Center collects each tool&apos;s
           pending work into one list and sends you straight to the right place to act.
         </p>
         <p>
-          <strong className="text-gray-300">Why it&apos;s honest.</strong> Every row is a live count from a
+          <strong className="text-foreground">Why it&apos;s honest.</strong> Every row is a live count from a
           real source — never a placeholder. When a queue is empty it simply doesn&apos;t show. Some queues
           live in your browser (Generated Fixes), so they appear once the page loads.
         </p>
         <p>
-          <strong className="text-gray-300">What it doesn&apos;t do.</strong> It doesn&apos;t replace the
+          <strong className="text-foreground">What it doesn&apos;t do.</strong> It doesn&apos;t replace the
           tools or push anything for you — actions still happen in each tool (and publish/apply still become
           a git diff you push), keeping the &ldquo;you review &amp; ship&rdquo; model intact.
         </p>

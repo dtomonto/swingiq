@@ -51,12 +51,12 @@ export default async function SystemHealthPage() {
 
       {(Object.keys(byCategory) as IntegrationCategory[]).map((cat) => (
         <SectionCard key={cat} title={cat}>
-          <ul className="divide-y divide-gray-800">
+          <ul className="divide-y divide-border">
             {byCategory[cat].map((i) => (
               <li key={i.id} className="flex items-start justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-gray-200">{i.name}</p>
-                  <p className="mt-0.5 text-xs text-gray-500">{i.detail}</p>
+                  <p className="text-sm font-medium text-foreground">{i.name}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{i.detail}</p>
                 </div>
                 <StatusBadge tone={i.connected ? 'success' : 'neutral'}>
                   {i.connected ? 'Connected' : 'Off'}
@@ -71,7 +71,7 @@ export default async function SystemHealthPage() {
         title="AI Cost Guard"
         description="Global daily ceiling on estimated AI spend — the kill-switch that protects the API bill from distributed abuse."
         actions={
-          <Link href="/admin/ai-usage" className="text-xs font-medium text-emerald-400 hover:underline">
+          <Link href="/admin/ai-usage" className="text-xs font-medium text-success-text hover:underline">
             Usage &amp; billing →
           </Link>
         }
@@ -96,7 +96,7 @@ export default async function SystemHealthPage() {
                 tone={aiBudget.remainingCents > 0 ? 'success' : 'warning'}
               />
             </div>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-muted-foreground">
               Spend is a rough upper-bound estimate (not billed amounts), reset daily at 00:00 UTC. Counter:{' '}
               {aiBudget.source === 'upstash'
                 ? 'shared across all instances (Upstash).'
@@ -105,13 +105,13 @@ export default async function SystemHealthPage() {
             </p>
           </div>
         ) : (
-          <div className="flex items-start gap-3 rounded-lg border border-gray-800 bg-gray-950 p-3 text-sm text-gray-400">
-            <Wallet className="mt-0.5 h-4 w-4 shrink-0 text-gray-500" />
+          <div className="flex items-start gap-3 rounded-lg border border-border bg-background p-3 text-sm text-muted-foreground">
+            <Wallet className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
             <p>
               No global daily AI budget is set, so total AI spend is uncapped (per-IP rate limits still apply). To arm
               the kill-switch, set{' '}
-              <code className="rounded bg-gray-800 px-1 text-gray-300">AI_DAILY_BUDGET_CENTS</code> (e.g.{' '}
-              <code className="rounded bg-gray-800 px-1 text-gray-300">500</code> = $5.00/day). Pair with Upstash so the
+              <code className="rounded bg-muted px-1 text-foreground">AI_DAILY_BUDGET_CENTS</code> (e.g.{' '}
+              <code className="rounded bg-muted px-1 text-foreground">500</code> = $5.00/day). Pair with Upstash so the
               cap holds across every instance.
             </p>
           </div>
@@ -119,8 +119,8 @@ export default async function SystemHealthPage() {
       </SectionCard>
 
       <SectionCard title="Background jobs & queues" description="What runs behind the scenes.">
-        <div className="flex items-start gap-3 rounded-lg border border-gray-800 bg-gray-950 p-3 text-sm text-gray-400">
-          <ServerCog className="mt-0.5 h-4 w-4 shrink-0 text-gray-500" />
+        <div className="flex items-start gap-3 rounded-lg border border-border bg-background p-3 text-sm text-muted-foreground">
+          <ServerCog className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
           <p>
             Heavy work (video analysis, OCR, AI generation) runs on demand rather than through a persistent
             worker queue, so there is no job backlog to display. Scheduled content/SEO/audit tasks run on the
@@ -132,17 +132,17 @@ export default async function SystemHealthPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A health snapshot of the integrations
+          <strong className="text-foreground">What this is.</strong> A health snapshot of the integrations
           SwingVantage depends on. &ldquo;Connected&rdquo; means a real key is configured and that capability
           is live; &ldquo;Off&rdquo; means the app falls back to its keyless behaviour.
         </p>
         <p>
-          <strong className="text-gray-300">What good looks like.</strong> For full operation you want
+          <strong className="text-foreground">What good looks like.</strong> For full operation you want
           Supabase (accounts), the service role (admin data), and an AI vision provider connected. Ads and
           billing are intentionally off pre-revenue.
         </p>
         <p>
-          <strong className="text-gray-300">What to do.</strong> To change a state, set the matching keys on
+          <strong className="text-foreground">What to do.</strong> To change a state, set the matching keys on
           the <Link href="/admin/integrations">Integrations</Link> page, then press <em>Re-check</em>.
         </p>
       </HelpPanel>

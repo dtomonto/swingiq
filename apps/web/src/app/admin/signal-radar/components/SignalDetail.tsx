@@ -68,20 +68,20 @@ export function SignalDetail({
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end" role="dialog" aria-modal="true">
-      <button className="absolute inset-0 bg-black/60" onClick={onClose} aria-label="Close" />
-      <div className="relative z-10 flex h-full w-full max-w-xl flex-col overflow-y-auto border-l border-gray-800 bg-gray-950 shadow-2xl">
+      <button className="absolute inset-0 bg-foreground/60" onClick={onClose} aria-label="Close" />
+      <div className="relative z-10 flex h-full w-full max-w-xl flex-col overflow-y-auto border-l border-border bg-background shadow-2xl">
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-gray-800 bg-gray-950/95 p-4 backdrop-blur">
+        <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-border bg-background/95 p-4 backdrop-blur">
           <div className="min-w-0">
-            <p className="text-xs text-gray-500">{SOURCE_TYPE_LABEL[signal.sourceType]} · {signal.sourceName}</p>
-            <h3 className="mt-0.5 text-base font-semibold text-gray-100">{signal.title || 'Signal'}</h3>
+            <p className="text-xs text-muted-foreground">{SOURCE_TYPE_LABEL[signal.sourceType]} · {signal.sourceName}</p>
+            <h3 className="mt-0.5 text-base font-semibold text-foreground">{signal.title || 'Signal'}</h3>
           </div>
-          <button onClick={onClose} className="shrink-0 rounded-lg p-1.5 text-gray-400 hover:bg-gray-800" aria-label="Close"><X className="h-5 w-5" /></button>
+          <button onClick={onClose} className="shrink-0 rounded-lg p-1.5 text-muted-foreground hover:bg-muted" aria-label="Close"><X className="h-5 w-5" /></button>
         </div>
 
         <div className="space-y-5 p-4">
           {readOnly && (
-            <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-200">
+            <div className="rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-xs text-link">
               This is sample data — actions are disabled. Add a real signal to triage and convert.
             </div>
           )}
@@ -89,23 +89,23 @@ export function SignalDetail({
           <SignalBadges signal={signal} showStatus />
 
           {/* Why it matters + recommended action */}
-          <div className="rounded-xl border border-gray-800 bg-gray-900 p-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Why it matters</p>
-            <p className="mt-1 text-sm text-gray-300">{whyItMatters(c)}</p>
-            <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Recommended next action</p>
-            <p className="mt-1 text-sm text-amber-300">{OPPORTUNITY_LABEL[c.opportunity]}</p>
+          <div className="rounded-xl border border-border bg-card p-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Why it matters</p>
+            <p className="mt-1 text-sm text-foreground">{whyItMatters(c)}</p>
+            <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Recommended next action</p>
+            <p className="mt-1 text-sm text-link">{OPPORTUNITY_LABEL[c.opportunity]}</p>
           </div>
 
           {/* Full text */}
           <section>
-            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">Mention text</p>
-            <p className="whitespace-pre-wrap rounded-lg border border-gray-800 bg-gray-900 p-3 text-sm text-gray-300">{signal.cleanText}</p>
-            <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-gray-500">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Mention text</p>
+            <p className="whitespace-pre-wrap rounded-lg border border-border bg-card p-3 text-sm text-foreground">{signal.cleanText}</p>
+            <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
               {signal.authorName && <span>By {signal.authorName}</span>}
               {signal.publishedAt && <span>Published {fmt(signal.publishedAt)}</span>}
               <span>Discovered {fmt(signal.discoveredAt)}</span>
               {signal.sourceUrl && (
-                <a href={signal.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-amber-400 hover:underline">
+                <a href={signal.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-link hover:underline">
                   <ExternalLink className="h-3 w-3" /> Open source
                 </a>
               )}
@@ -113,14 +113,14 @@ export function SignalDetail({
           </section>
 
           {/* Scores */}
-          <section className="grid grid-cols-2 gap-4 rounded-xl border border-gray-800 bg-gray-900 p-4">
+          <section className="grid grid-cols-2 gap-4 rounded-xl border border-border bg-card p-4">
             <ScoreBar label="Priority" value={signal.scores.priority} tone="red" />
             <ScoreBar label="Confidence" value={signal.scores.confidence} tone="sky" />
             <ScoreBar label="Relevance" value={signal.scores.relevance} tone="emerald" />
             <ScoreBar label="Source reliability" value={signal.scores.sourceReliability} tone="amber" />
             {signal.scores.priorityFactors.length > 0 && (
-              <div className="col-span-2 mt-1 flex flex-wrap gap-1.5 border-t border-gray-800 pt-3">
-                <span className="text-xs text-gray-500">Priority from:</span>
+              <div className="col-span-2 mt-1 flex flex-wrap gap-1.5 border-t border-border pt-3">
+                <span className="text-xs text-muted-foreground">Priority from:</span>
                 {signal.scores.priorityFactors.map((f) => (
                   <StatusBadge key={f.label} tone="neutral">{f.label} +{f.points}</StatusBadge>
                 ))}
@@ -130,7 +130,7 @@ export function SignalDetail({
 
           {/* Classification + reclassify */}
           <section>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Classification {c.method === 'manual_override' ? '(operator override)' : '(rules)'}
             </p>
             <div className="grid grid-cols-2 gap-2">
@@ -139,9 +139,9 @@ export function SignalDetail({
               <Reclass label="Sport" value={c.sport} options={SPORTS} labels={SPORT_LABEL} disabled={readOnly} onChange={(v) => onOverride(signal.id, { sport: v })} />
               <Reclass label="Urgency" value={c.urgency} options={URGENCIES} labels={URGENCY_LABEL} disabled={readOnly} onChange={(v) => onOverride(signal.id, { urgency: v })} />
             </div>
-            <p className="mt-2 text-xs text-gray-500">Audience: {AUDIENCE_LABEL[c.audience]}</p>
+            <p className="mt-2 text-xs text-muted-foreground">Audience: {AUDIENCE_LABEL[c.audience]}</p>
             {c.rationale.length > 0 && (
-              <ul className="mt-2 list-disc space-y-0.5 pl-5 text-xs text-gray-600">
+              <ul className="mt-2 list-disc space-y-0.5 pl-5 text-xs text-muted-foreground/70">
                 {c.rationale.map((r, i) => <li key={i}>{r}</li>)}
               </ul>
             )}
@@ -149,7 +149,7 @@ export function SignalDetail({
 
           {/* Status workflow */}
           <section>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Status</p>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status</p>
             <div className="flex flex-wrap gap-2">
               {statusBtn('reviewed', 'primary')}
               {statusBtn('in_progress')}
@@ -161,7 +161,7 @@ export function SignalDetail({
 
           {/* Conversions */}
           <section>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Convert to action</p>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Convert to action</p>
             <div className="flex flex-wrap gap-2">
               {CONVERSIONS.map(({ kind, icon: Icon }) => (
                 <Btn key={kind} size="sm" disabled={readOnly} onClick={() => onConvert(signal.id, kind)}>
@@ -172,16 +172,16 @@ export function SignalDetail({
             {conversions.length > 0 && (
               <ul className="mt-3 space-y-2">
                 {conversions.map((cv) => (
-                  <li key={cv.id} className="rounded-lg border border-gray-800 bg-gray-900 p-2.5">
+                  <li key={cv.id} className="rounded-lg border border-border bg-card p-2.5">
                     <div className="flex items-center justify-between">
                       <StatusBadge tone="accent">{CONVERSION_LABEL[cv.kind]}</StatusBadge>
-                      <span className="text-xs text-gray-500">{cv.status}</span>
+                      <span className="text-xs text-muted-foreground">{cv.status}</span>
                     </div>
                     <dl className="mt-2 space-y-1">
                       {Object.entries(cv.fields).filter(([, v]) => v).map(([k, v]) => (
                         <div key={k} className="flex gap-2 text-xs">
-                          <dt className="shrink-0 text-gray-500">{k}:</dt>
-                          <dd className="text-gray-300">{v}</dd>
+                          <dt className="shrink-0 text-muted-foreground">{k}:</dt>
+                          <dd className="text-foreground">{v}</dd>
                         </div>
                       ))}
                     </dl>
@@ -193,13 +193,13 @@ export function SignalDetail({
 
           {/* Notes */}
           <section>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Notes</p>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Notes</p>
             {signal.notes.length > 0 && (
               <ul className="mb-2 space-y-1.5">
                 {signal.notes.map((n) => (
-                  <li key={n.id} className="rounded-lg border border-gray-800 bg-gray-900 p-2 text-xs">
-                    <span className="text-gray-300">{n.body}</span>
-                    <span className="mt-0.5 block text-gray-600">{n.author} · {fmt(n.at)}</span>
+                  <li key={n.id} className="rounded-lg border border-border bg-card p-2 text-xs">
+                    <span className="text-foreground">{n.body}</span>
+                    <span className="mt-0.5 block text-muted-foreground/70">{n.author} · {fmt(n.at)}</span>
                   </li>
                 ))}
               </ul>
@@ -214,7 +214,7 @@ export function SignalDetail({
           </section>
 
           {!readOnly && (
-            <div className="border-t border-gray-800 pt-3">
+            <div className="border-t border-border pt-3">
               <Btn size="sm" tone="danger" onClick={() => onRemove(signal.id)}><Trash2 className="h-3.5 w-3.5" /> Delete signal</Btn>
             </div>
           )}
@@ -228,7 +228,7 @@ function Reclass<T extends string>({ label, value, options, labels, disabled, on
   label: string; value: T; options: T[]; labels: Record<T, string>; disabled?: boolean; onChange: (v: T) => void;
 }) {
   return (
-    <label className="text-xs text-gray-500">
+    <label className="text-xs text-muted-foreground">
       {label}
       <select value={value} disabled={disabled} onChange={(e) => onChange(e.target.value as T)} className={`${INPUT_CLS} mt-1`}>
         {options.map((o) => <option key={o} value={o}>{labels[o]}</option>)}

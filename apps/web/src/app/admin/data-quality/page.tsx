@@ -74,7 +74,7 @@ export default function AdminDataQualityPage() {
 
       {withIssues.length > 0 ? (
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold text-gray-300">Needs attention</h2>
+          <h2 className="text-sm font-semibold text-foreground">Needs attention</h2>
           {withIssues.map((c) => (
             <SectionCard
               key={c.id}
@@ -82,36 +82,36 @@ export default function AdminDataQualityPage() {
                 <span className="flex items-center gap-2">
                   {c.label}
                   <StatusBadge tone={SEVERITY_TONE[c.severity]}>{c.severity}</StatusBadge>
-                  <span className="text-xs font-normal text-gray-500">{c.issues.length}</span>
+                  <span className="text-xs font-normal text-muted-foreground">{c.issues.length}</span>
                 </span>
               }
               description={c.description}
               actions={
-                <Link href={c.href} className="text-xs text-amber-400 hover:underline">
+                <Link href={c.href} className="text-xs text-link hover:underline">
                   Fix →
                 </Link>
               }
             >
-              <ul className="divide-y divide-gray-800/70 text-sm">
+              <ul className="divide-y divide-border/70 text-sm">
                 {c.issues.slice(0, 25).map((issue) => (
                   <li key={issue.id} className="flex flex-col gap-0.5 py-2 sm:flex-row sm:items-baseline sm:gap-3">
-                    <code className="shrink-0 text-xs text-amber-300/90">{issue.entity}</code>
-                    <span className="text-gray-400">{issue.detail}</span>
+                    <code className="shrink-0 text-xs text-link/90">{issue.entity}</code>
+                    <span className="text-muted-foreground">{issue.detail}</span>
                   </li>
                 ))}
                 {c.issues.length > 25 && (
-                  <li className="py-2 text-xs text-gray-500">+ {c.issues.length - 25} more…</li>
+                  <li className="py-2 text-xs text-muted-foreground">+ {c.issues.length - 25} more…</li>
                 )}
               </ul>
-              <p className="mt-3 text-xs text-gray-500">
-                <span className="text-gray-400">How to fix:</span> {c.fix}
+              <p className="mt-3 text-xs text-muted-foreground">
+                <span className="text-muted-foreground">How to fix:</span> {c.fix}
               </p>
             </SectionCard>
           ))}
         </section>
       ) : (
         <SectionCard>
-          <p className="flex items-center gap-2 text-sm text-emerald-400">
+          <p className="flex items-center gap-2 text-sm text-success-text">
             <CheckCircle2 className="h-4 w-4" />
             Every data-quality check passed across {report.scanned} pages. Nice and clean.
           </p>
@@ -122,7 +122,7 @@ export default function AdminDataQualityPage() {
         <SectionCard title="Passing checks" description="Checks currently with zero findings.">
           <div className="flex flex-wrap gap-2">
             {clean.map((c) => (
-              <span key={c.id} className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-2.5 py-1 text-xs text-emerald-300/90">
+              <span key={c.id} className="inline-flex items-center gap-1.5 rounded-full border border-success/20 bg-success/5 px-2.5 py-1 text-xs text-success-text/90">
                 <CheckCircle2 className="h-3 w-3" />
                 {c.label}
               </span>
@@ -133,18 +133,18 @@ export default function AdminDataQualityPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A keyless, deterministic auditor that
+          <strong className="text-foreground">What this is.</strong> A keyless, deterministic auditor that
           keeps your content clean as it scales. It scans the SEO content registry on each load and reports
           exactly what it finds — no guessing, and passing checks are shown too so you can trust the green.
         </p>
         <p>
-          <strong className="text-gray-300">Related CI gates.</strong> Two scripts run the same spirit of
+          <strong className="text-foreground">Related CI gates.</strong> Two scripts run the same spirit of
           check in CI and on commit: <code>scripts/check-sitemap-coverage.mjs</code> flags public pages
           missing from the sitemap, and the duplicate-content gate flags near-duplicate titles/descriptions.
           This board surfaces the registry-level issues in-app between those runs.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Work the <em>critical</em> findings
+          <strong className="text-foreground">What to do next.</strong> Work the <em>critical</em> findings
           first (they can break routing), then warnings (SEO/quality), then info (polish). Each card links to{' '}
           <Link href="/admin/seo">SEO</Link>, <Link href="/admin/content">Content</Link> or{' '}
           <Link href="/admin/sports">Sports</Link> where the fix lives.

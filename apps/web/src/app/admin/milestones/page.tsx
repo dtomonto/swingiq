@@ -42,19 +42,19 @@ export default async function MilestonesAdminPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> Every milestone is tied to a real,
+          <strong className="text-foreground">What this is.</strong> Every milestone is tied to a real,
           measurable trigger. The engine reads what it can (registered users, analyses, sports live,
           published pages, shipped features) and honestly marks the rest <em>Needs Data Source</em> — it
           never fabricates a number.
         </p>
         <p>
-          <strong className="text-gray-300">How publishing works.</strong> A milestone only gets a public
+          <strong className="text-foreground">How publishing works.</strong> A milestone only gets a public
           page after you <em>approve</em> it and commit it. Use “Export approved” to copy the entries into
           <code> content/milestones/published.ts</code> and commit — that is what makes pages live and adds
           them to the sitemap. Drafts and estimates never become public pages.
         </p>
         <p>
-          <strong className="text-gray-300">Authority Impact Score.</strong> An admin-only 0–100 estimate of
+          <strong className="text-foreground">Authority Impact Score.</strong> An admin-only 0–100 estimate of
           how much SEO/AEO/GEO authority a milestone page would add, so you publish the high-leverage ones
           first and hold “Do Not Publish Yet” items back.
         </p>

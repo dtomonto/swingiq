@@ -26,7 +26,7 @@ export function FeatureFlagsClient({ actor }: { actor: string }) {
 
   const [pending, setPending] = useState<string | null>(null); // key awaiting confirm (high risk)
 
-  if (!mounted) return <p className="text-sm text-gray-500">Loading flags…</p>;
+  if (!mounted) return <p className="text-sm text-muted-foreground">Loading flags…</p>;
 
   const rows = flagRows(overrides);
 
@@ -42,16 +42,16 @@ export function FeatureFlagsClient({ actor }: { actor: string }) {
   return (
     <div className="space-y-3">
       {rows.map(({ def, override, enabled }) => (
-        <div key={def.key} className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+        <div key={def.key} className="rounded-xl border border-border bg-card p-4">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="text-sm font-semibold text-gray-100">{def.label}</p>
+                <p className="text-sm font-semibold text-foreground">{def.label}</p>
                 <StatusBadge tone={RISK_TONE[def.risk]}>{def.risk} risk</StatusBadge>
                 <StatusBadge tone={def.status === 'wired' ? 'success' : 'neutral'}>{def.status}</StatusBadge>
               </div>
-              <p className="mt-0.5 text-xs text-gray-500">{def.description}</p>
-              <p className="mt-0.5 font-mono text-[11px] text-gray-600">{def.key} · {def.group} · {def.owner}</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">{def.description}</p>
+              <p className="mt-0.5 font-mono text-[11px] text-muted-foreground/70">{def.key} · {def.group} · {def.owner}</p>
             </div>
 
             {/* Toggle switch */}
@@ -59,7 +59,7 @@ export function FeatureFlagsClient({ actor }: { actor: string }) {
               role="switch"
               aria-checked={enabled}
               onClick={() => (def.risk === 'high' && !enabled ? setPending(def.key) : doToggle(def.key, def.label))}
-              className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${enabled ? 'bg-emerald-500' : 'bg-gray-700'}`}
+              className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${enabled ? 'bg-success' : 'bg-muted'}`}
             >
               <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${enabled ? 'translate-x-5' : 'translate-x-0.5'}`} />
             </button>
@@ -67,36 +67,36 @@ export function FeatureFlagsClient({ actor }: { actor: string }) {
 
           {/* Rollout + segments */}
           <div className="mt-3 flex flex-wrap items-center gap-4">
-            <label className="flex items-center gap-2 text-xs text-gray-500">
+            <label className="flex items-center gap-2 text-xs text-muted-foreground">
               Rollout %
               <input
                 type="number" min={0} max={100}
                 value={override?.rolloutPct ?? (enabled ? 100 : 0)}
                 onChange={(e) => setFlag(def.key, { rolloutPct: Math.max(0, Math.min(100, Number(e.target.value))) }, actor)}
-                className="w-16 rounded border border-gray-700 bg-gray-950 px-2 py-1 text-gray-200"
+                className="w-16 rounded border border-border bg-background px-2 py-1 text-foreground"
               />
             </label>
-            <label className="flex flex-1 items-center gap-2 text-xs text-gray-500">
+            <label className="flex flex-1 items-center gap-2 text-xs text-muted-foreground">
               Segments
               <input
                 type="text"
                 defaultValue={(override?.segments ?? []).join(', ')}
                 placeholder="e.g. beginners, golf"
                 onBlur={(e) => setFlag(def.key, { segments: e.target.value.split(',').map((s) => s.trim()).filter(Boolean) }, actor)}
-                className="min-w-0 flex-1 rounded border border-gray-700 bg-gray-950 px-2 py-1 text-gray-200"
+                className="min-w-0 flex-1 rounded border border-border bg-background px-2 py-1 text-foreground"
               />
             </label>
             {override && (
               <button
                 onClick={() => { reset(def.key); recordAudit({ actor, action: 'flag.reset', entityType: 'feature-flag', entityId: def.key, summary: `Reset "${def.label}" to default` }); }}
-                className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-300"
+                className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
               >
                 <RotateCcw className="h-3 w-3" /> Reset
               </button>
             )}
           </div>
           {override && (
-            <p className="mt-2 text-[11px] text-gray-600">
+            <p className="mt-2 text-[11px] text-muted-foreground/70">
               Changed by {override.updatedBy} · {formatRelativeTime(override.updatedAt)}
             </p>
           )}

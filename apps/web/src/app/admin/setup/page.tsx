@@ -38,30 +38,30 @@ export default function AdminSetupPage() {
 
       <HelpPanel title="How this page works (and stays up to date)">
         <p>
-          <strong className="text-gray-300">Read top to bottom.</strong> Cards are sorted so the
+          <strong className="text-foreground">Read top to bottom.</strong> Cards are sorted so the
           things that need action come first, with the most important ones (Required, then
           Recommended) at the top. Each card explains what it is, why it matters, the exact steps,
           and every value to copy.
         </p>
         <p>
-          <strong className="text-gray-300">Two kinds of ‘Done’.</strong> For anything we can see —
+          <strong className="text-foreground">Two kinds of ‘Done’.</strong> For anything we can see —
           a key you added, an integration that&apos;s connected — the card flips to{' '}
-          <span className="text-emerald-400">Done</span> on its own and is marked “detected
+          <span className="text-success-text">Done</span> on its own and is marked “detected
           automatically”. For things we genuinely can&apos;t see from here (a database file you
           pasted into Supabase, a DNS record), use the <em>I&apos;ve done this</em> button to tick
           it off — that&apos;s remembered on this browser.
         </p>
         <p>
-          <strong className="text-gray-300">New items appear by themselves.</strong> Add a database
+          <strong className="text-foreground">New items appear by themselves.</strong> Add a database
           file (<code>supabase-*.sql</code>) or ship a feature with a{' '}
           <code>Setup:</code> note in its commit, and a matching card shows up here automatically —
           no one has to remember to add it. Keys and integrations are read live every time you open
           this page.
         </p>
         <p>
-          Most settings are entered in your hosting dashboard (<strong className="text-gray-300">Vercel
+          Most settings are entered in your hosting dashboard (<strong className="text-foreground">Vercel
           → Settings → Environment Variables</strong>) and take effect on the next deploy. Database
-          files are pasted into <strong className="text-gray-300">Supabase → SQL Editor</strong> and
+          files are pasted into <strong className="text-foreground">Supabase → SQL Editor</strong> and
           take effect immediately.
         </p>
       </HelpPanel>

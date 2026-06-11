@@ -92,19 +92,19 @@ const RISK_REGISTER: RiskItem[] = [
 
 function RiskIcon({ status }: { status: RiskStatus }) {
   if (status === 'ok') {
-    return <Check className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />;
+    return <Check className="w-4 h-4 text-success-text shrink-0 mt-0.5" />;
   }
   if (status === 'monitor') {
-    return <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />;
+    return <AlertTriangle className="w-4 h-4 text-link shrink-0 mt-0.5" />;
   }
-  return <ShieldAlert className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />;
+  return <ShieldAlert className="w-4 h-4 text-error-text shrink-0 mt-0.5" />;
 }
 
 function RiskStatusBadge({ status }: { status: RiskStatus }) {
   const classes: Record<RiskStatus, string> = {
-    ok: 'text-green-400 bg-green-400/10 border-green-400/30',
-    monitor: 'text-amber-400 bg-amber-400/10 border-amber-400/30',
-    'needs-attention': 'text-red-400 bg-red-400/10 border-red-400/30',
+    ok: 'text-success-text bg-success/10 border-success/30',
+    monitor: 'text-link bg-primary/10 border-primary/30',
+    'needs-attention': 'text-error-text bg-error/10 border-error/30',
   };
   const labels: Record<RiskStatus, string> = {
     ok: 'OK',
@@ -128,39 +128,39 @@ export default async function PrivacyPage() {
       {/* ── Consent records ─────────────────────────────────── */}
       <SectionCard title="Consent records" icon={FileText}>
         {consentRecords.length === 0 ? (
-          <p className="text-sm text-gray-500">No consent records found.</p>
+          <p className="text-sm text-muted-foreground">No consent records found.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-xs min-w-[600px]">
               <thead>
-                <tr className="border-b border-gray-700">
-                  <th className="text-left py-2 pr-4 text-gray-400 font-medium whitespace-nowrap">Channel</th>
-                  <th className="text-left py-2 pr-4 text-gray-400 font-medium whitespace-nowrap">State</th>
-                  <th className="text-left py-2 pr-4 text-gray-400 font-medium whitespace-nowrap">Source</th>
-                  <th className="text-left py-2 pr-4 text-gray-400 font-medium whitespace-nowrap">Region</th>
-                  <th className="text-left py-2 pr-4 text-gray-400 font-medium whitespace-nowrap">Retention note</th>
-                  <th className="text-left py-2 text-gray-400 font-medium whitespace-nowrap">Data</th>
+                <tr className="border-b border-border">
+                  <th className="text-left py-2 pr-4 text-muted-foreground font-medium whitespace-nowrap">Channel</th>
+                  <th className="text-left py-2 pr-4 text-muted-foreground font-medium whitespace-nowrap">State</th>
+                  <th className="text-left py-2 pr-4 text-muted-foreground font-medium whitespace-nowrap">Source</th>
+                  <th className="text-left py-2 pr-4 text-muted-foreground font-medium whitespace-nowrap">Region</th>
+                  <th className="text-left py-2 pr-4 text-muted-foreground font-medium whitespace-nowrap">Retention note</th>
+                  <th className="text-left py-2 text-muted-foreground font-medium whitespace-nowrap">Data</th>
                 </tr>
               </thead>
               <tbody>
                 {consentRecords.map((record) => (
                   <tr
                     key={record.id}
-                    className="border-b border-gray-800 hover:bg-gray-800/40 transition-colors"
+                    className="border-b border-border hover:bg-muted/40 transition-colors"
                   >
-                    <td className="py-2.5 pr-4 text-gray-200 font-medium whitespace-nowrap">
+                    <td className="py-2.5 pr-4 text-foreground font-medium whitespace-nowrap">
                       {humanize(record.channel)}
                     </td>
                     <td className="py-2.5 pr-4 whitespace-nowrap">
                       <StatusBadge status={record.state} />
                     </td>
-                    <td className="py-2.5 pr-4 text-gray-400 max-w-[180px]">
+                    <td className="py-2.5 pr-4 text-muted-foreground max-w-[180px]">
                       {record.source}
                     </td>
-                    <td className="py-2.5 pr-4 text-gray-400 whitespace-nowrap">
+                    <td className="py-2.5 pr-4 text-muted-foreground whitespace-nowrap">
                       {record.region}
                     </td>
-                    <td className="py-2.5 pr-4 text-gray-400 max-w-[240px]">
+                    <td className="py-2.5 pr-4 text-muted-foreground max-w-[240px]">
                       {record.retentionNote || '—'}
                     </td>
                     <td className="py-2.5">
@@ -177,30 +177,30 @@ export default async function PrivacyPage() {
       {/* ── Tracking pixel inventory ─────────────────────────── */}
       <SectionCard title="Tracking pixel inventory" icon={Radio}>
         {pixels.length === 0 ? (
-          <p className="text-sm text-gray-500">No tracking pixels recorded.</p>
+          <p className="text-sm text-muted-foreground">No tracking pixels recorded.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-xs min-w-[640px]">
               <thead>
-                <tr className="border-b border-gray-700">
-                  <th className="text-left py-2 pr-4 text-gray-400 font-medium whitespace-nowrap">Vendor</th>
-                  <th className="text-left py-2 pr-4 text-gray-400 font-medium whitespace-nowrap">Purpose</th>
-                  <th className="text-left py-2 pr-4 text-gray-400 font-medium whitespace-nowrap">Requires consent</th>
-                  <th className="text-left py-2 pr-4 text-gray-400 font-medium whitespace-nowrap">Timing</th>
-                  <th className="text-left py-2 pr-4 text-gray-400 font-medium whitespace-nowrap">Risk note</th>
-                  <th className="text-left py-2 text-gray-400 font-medium whitespace-nowrap">Data</th>
+                <tr className="border-b border-border">
+                  <th className="text-left py-2 pr-4 text-muted-foreground font-medium whitespace-nowrap">Vendor</th>
+                  <th className="text-left py-2 pr-4 text-muted-foreground font-medium whitespace-nowrap">Purpose</th>
+                  <th className="text-left py-2 pr-4 text-muted-foreground font-medium whitespace-nowrap">Requires consent</th>
+                  <th className="text-left py-2 pr-4 text-muted-foreground font-medium whitespace-nowrap">Timing</th>
+                  <th className="text-left py-2 pr-4 text-muted-foreground font-medium whitespace-nowrap">Risk note</th>
+                  <th className="text-left py-2 text-muted-foreground font-medium whitespace-nowrap">Data</th>
                 </tr>
               </thead>
               <tbody>
                 {pixels.map((pixel) => (
                   <tr
                     key={pixel.id}
-                    className="border-b border-gray-800 hover:bg-gray-800/40 transition-colors"
+                    className="border-b border-border hover:bg-muted/40 transition-colors"
                   >
-                    <td className="py-2.5 pr-4 text-gray-200 font-medium whitespace-nowrap">
+                    <td className="py-2.5 pr-4 text-foreground font-medium whitespace-nowrap">
                       {pixel.vendor}
                     </td>
-                    <td className="py-2.5 pr-4 text-gray-400 max-w-[160px]">
+                    <td className="py-2.5 pr-4 text-muted-foreground max-w-[160px]">
                       {pixel.purpose}
                     </td>
                     <td className="py-2.5 pr-4 whitespace-nowrap">
@@ -210,18 +210,18 @@ export default async function PrivacyPage() {
                     </td>
                     <td className="py-2.5 pr-4 whitespace-nowrap">
                       {pixel.loadsBeforeConsent ? (
-                        <Badge className="text-red-400 bg-red-400/10 border-red-400/30">
+                        <Badge className="text-error-text bg-error/10 border-error/30">
                           <ShieldAlert className="w-3 h-3" />
                           fires pre-consent
                         </Badge>
                       ) : (
-                        <Badge className="text-green-400 bg-green-400/10 border-green-400/30">
+                        <Badge className="text-success-text bg-success/10 border-success/30">
                           <Check className="w-3 h-3" />
                           waits for consent
                         </Badge>
                       )}
                     </td>
-                    <td className="py-2.5 pr-4 text-gray-400 max-w-[200px]">
+                    <td className="py-2.5 pr-4 text-muted-foreground max-w-[200px]">
                       {pixel.riskNote || '—'}
                     </td>
                     <td className="py-2.5">
@@ -238,7 +238,7 @@ export default async function PrivacyPage() {
       {/* ── Governance risk register ─────────────────────────── */}
       <SectionCard title="Governance risk register / internal warnings" icon={ShieldCheck}>
         <div className="space-y-3">
-          <p className="text-xs text-gray-500 pb-1">
+          <p className="text-xs text-muted-foreground pb-1">
             Internal governance checklist. These statuses reflect the current state of this application —
             review whenever a new integration, pixel, or message channel is added.
           </p>
@@ -249,10 +249,10 @@ export default async function PrivacyPage() {
               className={[
                 'rounded-lg border px-3 py-2.5',
                 item.status === 'ok'
-                  ? 'bg-green-500/5 border-green-500/20'
+                  ? 'bg-success/5 border-success/20'
                   : item.status === 'monitor'
-                    ? 'bg-amber-500/5 border-amber-500/20'
-                    : 'bg-red-500/5 border-red-500/20',
+                    ? 'bg-primary/5 border-primary/20'
+                    : 'bg-error/5 border-error/20',
               ].join(' ')}
             >
               <div className="flex items-start gap-2.5">
@@ -263,17 +263,17 @@ export default async function PrivacyPage() {
                       className={[
                         'text-xs font-semibold',
                         item.status === 'ok'
-                          ? 'text-green-300'
+                          ? 'text-success-text'
                           : item.status === 'monitor'
-                            ? 'text-amber-300'
-                            : 'text-red-300',
+                            ? 'text-link'
+                            : 'text-error-text',
                       ].join(' ')}
                     >
                       {item.label}
                     </span>
                     <RiskStatusBadge status={item.status} />
                   </div>
-                  <p className="text-xs text-gray-400 leading-relaxed">{item.note}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.note}</p>
                 </div>
               </div>
             </div>
@@ -282,18 +282,18 @@ export default async function PrivacyPage() {
       </SectionCard>
 
       {/* ── Closing consent-aware note ───────────────────────── */}
-      <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 space-y-1.5">
-        <p className="text-xs font-semibold text-gray-300">
+      <div className="rounded-xl border border-border bg-card p-4 space-y-1.5">
+        <p className="text-xs font-semibold text-foreground">
           GrowthOS analytics is consent-aware by design
         </p>
-        <p className="text-xs text-gray-400 leading-relaxed">
-          Every call to <code className="text-green-300 bg-gray-800 px-1 rounded">analytics.track()</code> checks
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          Every call to <code className="text-success-text bg-muted px-1 rounded">analytics.track()</code> checks
           consent before emitting any event. When the required consent channel is{' '}
-          <span className="text-amber-300 font-medium">unknown</span> or{' '}
-          <span className="text-red-300 font-medium">denied</span>, the call returns{' '}
-          <code className="text-gray-300 bg-gray-800 px-1 rounded">{"{ status: 'dropped' }"}</code> and nothing
+          <span className="text-link font-medium">unknown</span> or{' '}
+          <span className="text-error-text font-medium">denied</span>, the call returns{' '}
+          <code className="text-foreground bg-muted px-1 rounded">{"{ status: 'dropped' }"}</code> and nothing
           is sent — events degrade to a silent no-op, never to unsolicited tracking.
-          See <code className="text-green-300 bg-gray-800 px-1 rounded">apps/web/src/lib/growth/analytics.ts</code> for
+          See <code className="text-success-text bg-muted px-1 rounded">apps/web/src/lib/growth/analytics.ts</code> for
           the full implementation.
         </p>
       </div>

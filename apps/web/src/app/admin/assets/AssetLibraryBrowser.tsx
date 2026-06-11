@@ -97,62 +97,62 @@ export function AssetLibraryBrowser({ records, stats }: { records: AssetRecord[]
               className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
                 source === t.id
                   ? 'border-primary/60 bg-primary/15 text-primary'
-                  : 'border-gray-700 bg-gray-800/40 text-gray-300 hover:bg-gray-800'
+                  : 'border-border bg-muted/40 text-foreground hover:bg-muted'
               }`}
             >
-              {t.label} <span className="text-gray-500">{t.count}</span>
+              {t.label} <span className="text-muted-foreground">{t.count}</span>
             </button>
           ))}
         </div>
         <div className="relative sm:w-56">
-          <Search className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-500" />
+          <Search className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search assets…"
-            className="w-full rounded-lg border border-gray-700 bg-gray-900/60 py-1.5 pl-8 pr-2 text-xs text-gray-200 placeholder:text-gray-500 focus:border-primary/50 focus:outline-none"
+            className="w-full rounded-lg border border-border bg-card/60 py-1.5 pl-8 pr-2 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none"
           />
         </div>
       </div>
 
       {filtered.length === 0 ? (
-        <p className="rounded-lg border border-gray-800 bg-gray-900/40 px-4 py-10 text-center text-sm text-gray-500">
+        <p className="rounded-lg border border-border bg-card/40 px-4 py-10 text-center text-sm text-muted-foreground">
           No assets match.
         </p>
       ) : (
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((r) => (
-            <li key={`${r.source}:${r.id}`} className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/40">
+            <li key={`${r.source}:${r.id}`} className="overflow-hidden rounded-xl border border-border bg-card/40">
               {/* Preview */}
-              <div className="relative aspect-video w-full bg-gray-800">
+              <div className="relative aspect-video w-full bg-muted">
                 {r.poster ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={r.poster} alt={`${r.title} preview`} loading="lazy" className="h-full w-full object-cover" />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center text-gray-600">
+                  <div className="flex h-full w-full items-center justify-center text-muted-foreground/70">
                     <Clapperboard className="h-7 w-7" />
                   </div>
                 )}
                 {r.durationLabel && (
-                  <span className="absolute bottom-1.5 right-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white">
+                  <span className="absolute bottom-1.5 right-1.5 rounded bg-foreground/70 px-1.5 py-0.5 text-[10px] font-medium text-white">
                     {r.durationLabel}
                   </span>
                 )}
-                <span className="absolute left-1.5 top-1.5 rounded bg-black/60 px-1.5 py-0.5 text-[10px] font-medium text-gray-200">
+                <span className="absolute left-1.5 top-1.5 rounded bg-foreground/60 px-1.5 py-0.5 text-[10px] font-medium text-foreground">
                   {r.sourceLabel}
                 </span>
               </div>
               {/* Body */}
               <div className="p-3">
-                <p className="truncate text-sm font-semibold text-gray-100" title={r.title}>{r.title}</p>
+                <p className="truncate text-sm font-semibold text-foreground" title={r.title}>{r.title}</p>
                 <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-[10px]">
-                  <span className={`inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 ${r.public ? 'bg-emerald-600/15 text-emerald-300' : 'bg-gray-700/50 text-gray-400'}`}>
+                  <span className={`inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 ${r.public ? 'bg-success/15 text-success-text' : 'bg-muted/50 text-muted-foreground'}`}>
                     {r.public ? <Globe className="h-3 w-3" /> : <Lock className="h-3 w-3" />}
                     {r.public ? 'Public' : 'Internal'}
                   </span>
-                  {r.placeholder && <span className="rounded bg-amber-600/15 px-1.5 py-0.5 text-amber-300">Placeholder</span>}
-                  {r.usedOn && <span className="truncate text-gray-500">· {r.usedOn}</span>}
+                  {r.placeholder && <span className="rounded bg-primary/15 px-1.5 py-0.5 text-link">Placeholder</span>}
+                  {r.usedOn && <span className="truncate text-muted-foreground">· {r.usedOn}</span>}
                 </div>
                 {/* Files */}
                 <div className="mt-2 flex flex-wrap gap-1.5">
@@ -164,7 +164,7 @@ export function AssetLibraryBrowser({ records, stats }: { records: AssetRecord[]
                         href={f.path}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1 rounded border border-gray-700 px-1.5 py-0.5 text-[10px] text-gray-300 hover:bg-gray-800"
+                        className="inline-flex items-center gap-1 rounded border border-border px-1.5 py-0.5 text-[10px] text-foreground hover:bg-muted"
                         title={`Open ${f.kind} — ${f.path}`}
                       >
                         <Icon className="h-3 w-3" /> {f.kind}
@@ -183,9 +183,9 @@ export function AssetLibraryBrowser({ records, stats }: { records: AssetRecord[]
 
 function Stat({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-lg border border-gray-800 bg-gray-900/40 px-3 py-2">
-      <p className="text-lg font-bold text-white">{value}</p>
-      <p className="text-[11px] text-gray-500">{label}</p>
+    <div className="rounded-lg border border-border bg-card/40 px-3 py-2">
+      <p className="text-lg font-bold text-foreground">{value}</p>
+      <p className="text-[11px] text-muted-foreground">{label}</p>
     </div>
   );
 }

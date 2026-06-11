@@ -89,6 +89,27 @@
   --color-sport-softball-fast: hsl(var(--sport-softball-fast));
   --color-sport-softball-fast-foreground: hsl(var(--sport-softball-fast-foreground));
 
+  /* ── "Document" surface — the AI report renders as light paper ──────────
+     Reports/captures read as a light sheet in EVERY theme (sunlight-proof,
+     print-true). These map the per-theme `--surface-document*` channels to
+     Tailwind utilities (`bg-document`, `text-document-fg`,
+     `text-document-accent`) so a report sheet never inherits a dark theme. */
+  --color-document: hsl(var(--surface-document));
+  --color-document-fg: hsl(var(--surface-document-foreground));
+  --color-document-accent: hsl(var(--surface-document-accent));
+
+  /* ── Active-sport identity accent (the `data-sport` axis) ───────────────
+     One identity color per sport, layered ON TOP of the theme via
+     `[data-sport]` (see the sport-identity layer below). These map the
+     generic sport-accent vocabulary to Tailwind utilities used ONLY in
+     identity zones — sport chips/heroes, sport-landing accents, per-sport
+     data series, active-sport nav state. NEVER on buttons or status colors;
+     `--primary` and chrome stay SwingVantage in every sport. */
+  --color-sport-accent: hsl(var(--sport-accent));
+  --color-sport-accent-fg: hsl(var(--sport-accent-foreground));
+  --color-sport-accent-text: hsl(var(--sport-accent-text));
+  --color-sport-secondary: hsl(var(--sport-secondary));
+
   /* ── Component-surface utilities (nav / drawer / bottom-nav) ────────────
      These map 1:1 onto the semantic component vocabulary defined in the base
      layer below. They give the navigation surfaces — the exact place the
@@ -203,6 +224,61 @@
       opacity: 1;
     }
   }
+}
+
+/* ── Nested-theme support for Coach Mode (admin chrome) ────────────────────
+   Tailwind v4 `@theme` emits the `--color-*` utility variables on :root, so
+   they compute from the ROOT theme. A nested `[data-theme="coach-mode"]` (the
+   admin shell) redefines `--background` / `--card` / … for its subtree, but
+   utilities like `bg-card` still read the root-computed `--color-card`. Re-
+   binding the `--color-*` vars here makes Tailwind utilities re-resolve from
+   Coach Mode's own raw tokens, so the admin actually renders as the light
+   whiteboard theme even while the app default theme stays dark. On <html
+   data-theme="coach-mode"> it resolves to the same values @theme produces —
+   additive and reversible. */
+[data-theme='coach-mode'] {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-secondary: hsl(var(--accent-secondary));
+  --color-accent-secondary-foreground: hsl(var(--accent-secondary-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+  --color-error: hsl(var(--error));
+  --color-error-foreground: hsl(var(--error-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-surface: hsl(var(--card));
+  --color-elevated: hsl(var(--popover));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  --color-link: hsl(var(--link));
+  --color-link-hover: hsl(var(--link-hover));
+  --color-warning-text: hsl(var(--warning-text));
+  --color-success-text: hsl(var(--success-text));
+  --color-error-text: hsl(var(--error-text));
+  --color-document: hsl(var(--surface-document));
+  --color-document-fg: hsl(var(--surface-document-foreground));
+  --color-document-accent: hsl(var(--surface-document-accent));
 }
 
 /*
@@ -428,6 +504,10 @@
     --warning-text: 38 92% 31%;
     --success-text: 142 64% 30%;
     --error-text: 0 72% 40%;
+    /* Document surface — AI report renders as light paper in every theme. */
+    --surface-document: 0 0% 100%;
+    --surface-document-foreground: 222 22% 14%;
+    --surface-document-accent: 142 64% 26%;
     /* ── Art direction: clean, premium, airy ── */
     --card-radius: 0.75rem;
     --shadow-card:
@@ -495,6 +575,10 @@
     --warning-text: 38 92% 60%;
     --success-text: 142 64% 58%;
     --error-text: 0 85% 74%;
+    /* Document surface — the report stays light paper on this dark theme. */
+    --surface-document: 40 20% 97%;
+    --surface-document-foreground: 222 22% 14%;
+    --surface-document-accent: 142 64% 26%;
     /* ── Art direction: performance lab, carbon + green grid + glow ── */
     --card-radius: 0.75rem;
     --shadow-card:
@@ -557,6 +641,10 @@
     --warning-text: 32 90% 32%;
     --success-text: 152 60% 30%;
     --error-text: 0 70% 40%;
+    /* Document surface — AI report renders as light paper in every theme. */
+    --surface-document: 0 0% 100%;
+    --surface-document-foreground: 217 33% 17%;
+    --surface-document-accent: 217 79% 38%;
     /* ── Art direction: clean whiteboard, graph-paper ── */
     --card-radius: 0.5rem;
     --shadow-card:
@@ -616,6 +704,10 @@
     --warning-text: 36 74% 29%;
     --success-text: 150 40% 27%;
     --error-text: 4 60% 38%;
+    /* Document surface — AI report renders as light paper in every theme. */
+    --surface-document: 40 36% 98%;
+    --surface-document-foreground: 218 38% 18%;
+    --surface-document-accent: 150 34% 25%;
     /* ── Art direction: clubhouse, parchment grain, brass, serif ── */
     --card-radius: 0.375rem;
     --shadow-card:
@@ -676,6 +768,10 @@
     --warning-text: 36 84% 32%;
     --success-text: 135 45% 28%;
     --error-text: 6 66% 38%;
+    /* Document surface — AI report renders as light paper in every theme. */
+    --surface-document: 80 20% 99%;
+    --surface-document-foreground: 150 18% 15%;
+    --surface-document-accent: 135 45% 26%;
     /* ── Art direction: chalk lines, turf, clay ── */
     --card-radius: 0.625rem;
     --shadow-card:
@@ -737,6 +833,10 @@
     --warning-text: 45 95% 60%;
     --success-text: 152 72% 55%;
     --error-text: 352 90% 72%;
+    /* Document surface — the report stays light paper on this dark theme. */
+    --surface-document: 250 30% 97%;
+    --surface-document-foreground: 256 30% 15%;
+    --surface-document-accent: 280 72% 38%;
     /* ── Art direction: neon arcade, pixel grid + glow ── */
     --card-radius: 0.875rem;
     --shadow-card:
@@ -799,6 +899,10 @@
     --warning-text: 36 86% 32%;
     --success-text: 162 54% 30%;
     --error-text: 4 70% 40%;
+    /* Document surface — AI report renders as light paper in every theme. */
+    --surface-document: 0 0% 100%;
+    --surface-document-foreground: 205 32% 16%;
+    --surface-document-accent: 192 64% 28%;
     /* ── Art direction: golf-streetwear, original bird-flight motif ──
        Pattern is an ORIGINAL abstract gull/feather motif (simple two-arc
        silhouettes + seed dots) — no third-party marks or trade dress. */
@@ -866,6 +970,10 @@
     --warning-text: 38 92% 62%;
     --success-text: 146 60% 60%;
     --error-text: 0 86% 76%;
+    /* Document surface — the report stays light paper on this dark theme. */
+    --surface-document: 40 25% 97%;
+    --surface-document-foreground: 158 30% 10%;
+    --surface-document-accent: 146 60% 24%;
     /* ── Art direction: evergreen night, holly green + gold, candy-cane CTA ── */
     --card-radius: 0.75rem;
     --shadow-card:
@@ -912,6 +1020,154 @@
     --sport-softball-slow-foreground: 0 0% 100%;
     --sport-softball-fast: 330 66% 44%;
     --sport-softball-fast-foreground: 0 0% 100%;
+  }
+
+  /* ════════════════════════════════════════════════════════════════════
+     SPORT IDENTITY LAYER  (the second axis: `data-sport`)
+     `data-theme` is MOOD (surfaces, semantics, depth). `data-sport` is
+     IDENTITY — a mini-brand layered on top. Both are set on a wrapper:
+
+         <body data-theme="dark-performance" data-sport="tennis">
+
+     Binding inheritance rules (see guidelines/sport-identities.md):
+       • Sport NEVER overrides --primary, --background, --card or any
+         semantic/status token. CTAs and chrome are always SwingVantage.
+       • Sport OWNS: --sport-accent (+fg/+text), --sport-secondary,
+         --sport-wash (hero), --sport-pattern (texture), --sport-viz-1..3,
+         --sport-duration / --sport-ease (motion personality).
+       • Components consume sport tokens ONLY in identity zones: sport
+         chips/heroes, sport-landing accents, per-sport data series, the
+         active-sport nav state. Never on buttons or status colors.
+       • New sport = add ONE block here. Nothing else changes.
+     Enforced by sport-identity-tokens.test.ts (no semantic-token leak,
+     AA-tested accent pairs).
+     ════════════════════════════════════════════════════════════════════ */
+
+  /* Neutral defaults — no sport selected: identity falls back to the theme. */
+  :root {
+    --sport-accent: var(--primary);
+    --sport-accent-foreground: var(--primary-foreground);
+    --sport-accent-text: var(--link);
+    --sport-secondary: var(--accent-secondary);
+    --sport-wash: none;
+    --sport-pattern: none;
+    --sport-viz-1: var(--chart-1);
+    --sport-viz-2: var(--chart-2);
+    --sport-viz-3: var(--chart-3);
+    --sport-duration: 250ms;
+    --sport-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ⛳ GOLF — "The Lab at the Club": precise, calm, course-strategic.
+     Fairway green + brass. Contour-ring texture. Slowest motion. */
+  [data-sport='golf'] {
+    --sport-accent: 142 64% 30%;
+    --sport-accent-foreground: 0 0% 100%;
+    --sport-accent-text: 142 64% 26%;
+    --sport-secondary: 38 54% 44%; /* brass */
+    --sport-wash: radial-gradient(900px 420px at 50% -10%, hsl(142 64% 30% / 0.14), transparent 62%);
+    --sport-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='none' stroke='%231f7a4d' stroke-opacity='0.09' stroke-width='1.2'%3E%3Ccircle cx='60' cy='60' r='18'/%3E%3Ccircle cx='60' cy='60' r='34'/%3E%3Ccircle cx='60' cy='60' r='50'/%3E%3C/g%3E%3C/svg%3E");
+    --sport-viz-1: 142 64% 36%;
+    --sport-viz-2: 38 54% 44%;
+    --sport-viz-3: 218 20% 45%;
+    --sport-duration: 260ms;
+    --sport-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 🎾 TENNIS — "Rally Velocity": kinetic, sharp, directional.
+     Optic yellow (near-black label) + court blue. Fastest motion. */
+  [data-sport='tennis'] {
+    --sport-accent: 52 96% 54%;
+    --sport-accent-foreground: 52 95% 12%;
+    --sport-accent-text: 45 95% 27%;
+    --sport-secondary: 210 70% 35%; /* court blue */
+    --sport-wash: linear-gradient(112deg, hsl(210 70% 35% / 0.14), transparent 55%), radial-gradient(800px 380px at 80% -10%, hsl(52 96% 54% / 0.12), transparent 60%);
+    --sport-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M-8 64 L64 -8 M12 84 L84 12' stroke='%231d63a8' stroke-opacity='0.09' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    --sport-viz-1: 52 90% 44%;
+    --sport-viz-2: 210 70% 45%;
+    --sport-viz-3: 152 50% 40%;
+    --sport-duration: 140ms;
+    --sport-ease: cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  /* ⚾ BASEBALL — "The Cage": powerful, data-rich, rotational.
+     Diamond red + dugout navy. Stitch-arc texture. Weighted motion. */
+  [data-sport='baseball'] {
+    --sport-accent: 0 68% 44%;
+    --sport-accent-foreground: 0 0% 100%;
+    --sport-accent-text: 0 68% 40%;
+    --sport-secondary: 220 45% 25%; /* navy */
+    --sport-wash: radial-gradient(900px 420px at 50% -10%, hsl(0 68% 44% / 0.12), transparent 60%), linear-gradient(180deg, hsl(220 45% 25% / 0.08), transparent 200px);
+    --sport-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cg fill='none' stroke='%23bd2424' stroke-opacity='0.10' stroke-width='1.6' stroke-dasharray='2 5' stroke-linecap='round'%3E%3Cpath d='M16 -6 Q 36 45 16 96'/%3E%3Cpath d='M74 -6 Q 54 45 74 96'/%3E%3C/g%3E%3C/svg%3E");
+    --sport-viz-1: 0 68% 50%;
+    --sport-viz-2: 220 45% 48%;
+    --sport-viz-3: 35 80% 45%;
+    --sport-duration: 220ms;
+    --sport-ease: cubic-bezier(0.3, 0, 0.1, 1);
+  }
+
+  /* 🥎 SLOW-PITCH SOFTBALL — "Sunday Power": practical, team-first.
+     Clay orange + dusk gold. High-arc trajectory texture. */
+  [data-sport='softball_slow'] {
+    --sport-accent: 26 80% 38%;
+    --sport-accent-foreground: 0 0% 100%;
+    --sport-accent-text: 26 80% 34%;
+    --sport-secondary: 45 85% 47%; /* dusk gold */
+    --sport-wash: radial-gradient(900px 420px at 50% -10%, hsl(26 80% 38% / 0.13), transparent 60%);
+    --sport-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='70'%3E%3Cpath d='M6 64 Q 70 -18 134 64' fill='none' stroke='%23ad5816' stroke-opacity='0.10' stroke-width='1.6' stroke-dasharray='1 7' stroke-linecap='round'/%3E%3C/svg%3E");
+    --sport-viz-1: 26 80% 46%;
+    --sport-viz-2: 45 85% 42%;
+    --sport-viz-3: 135 40% 38%;
+    --sport-duration: 220ms;
+    --sport-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 🥎 FAST-PITCH SOFTBALL — "Full Speed": explosive, disciplined.
+     Magenta + graphite. Speed-line texture. Snappy motion. */
+  [data-sport='softball_fast'] {
+    --sport-accent: 330 66% 44%;
+    --sport-accent-foreground: 0 0% 100%;
+    --sport-accent-text: 330 66% 38%;
+    --sport-secondary: 240 8% 30%; /* graphite */
+    --sport-wash: linear-gradient(100deg, hsl(330 66% 44% / 0.13), transparent 55%);
+    --sport-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Cg stroke='%23b82475' stroke-opacity='0.10' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M4 10 H30'/%3E%3Cpath d='M14 22 H52'/%3E%3Cpath d='M30 34 H66'/%3E%3C/g%3E%3C/svg%3E");
+    --sport-viz-1: 330 66% 50%;
+    --sport-viz-2: 240 8% 48%;
+    --sport-viz-3: 200 60% 45%;
+    --sport-duration: 130ms;
+    --sport-ease: cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  /* 🏓 PICKLEBALL — "Win the Kitchen": modern, social, strategic.
+     Lime + deep teal. Ball-perforation dot texture. */
+  [data-sport='pickleball'] {
+    --sport-accent: 84 58% 30%;
+    --sport-accent-foreground: 0 0% 100%;
+    --sport-accent-text: 84 58% 26%;
+    --sport-secondary: 185 55% 28%; /* deep teal */
+    --sport-wash: radial-gradient(900px 420px at 50% -10%, hsl(84 58% 36% / 0.13), transparent 60%), radial-gradient(700px 360px at 90% 10%, hsl(185 55% 32% / 0.09), transparent 60%);
+    --sport-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cg fill='%235a7a1f' fill-opacity='0.10'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Ccircle cx='36' cy='12' r='3'/%3E%3Ccircle cx='24' cy='28' r='3'/%3E%3Ccircle cx='12' cy='44' r='3'/%3E%3Ccircle cx='36' cy='44' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    --sport-viz-1: 84 58% 38%;
+    --sport-viz-2: 185 55% 38%;
+    --sport-viz-3: 35 85% 48%;
+    --sport-duration: 180ms;
+    --sport-ease: cubic-bezier(0.3, 0, 0.1, 1);
+  }
+
+  /* 🎾 PADEL — "Glass Court": premium, international, tactical.
+     Cobalt + sand. Glass-grid sheen texture. */
+  [data-sport='padel'] {
+    --sport-accent: 205 75% 40%;
+    --sport-accent-foreground: 0 0% 100%;
+    --sport-accent-text: 205 75% 34%;
+    --sport-secondary: 35 35% 62%; /* sand */
+    --sport-wash: linear-gradient(160deg, hsl(205 75% 40% / 0.13), transparent 55%), linear-gradient(20deg, hsl(35 35% 62% / 0.08), transparent 45%);
+    --sport-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg fill='none' stroke='%231976b3' stroke-opacity='0.08' stroke-width='1'%3E%3Cpath d='M0 0 H64 M0 32 H64 M0 0 V64 M32 0 V64'/%3E%3Cpath d='M0 64 L64 0' stroke-opacity='0.05' stroke-width='6'/%3E%3C/g%3E%3C/svg%3E");
+    --sport-viz-1: 205 75% 46%;
+    --sport-viz-2: 35 45% 48%;
+    --sport-viz-3: 168 45% 38%;
+    --sport-duration: 220ms;
+    --sport-ease: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* ════════════════════════════════════════════════════════════════════

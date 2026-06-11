@@ -60,22 +60,22 @@ export default function AdminQaPage() {
           title={
             <span className="flex items-center gap-2">
               {cat.label}
-              <span className="text-xs font-normal text-gray-500">({cat.scenarios.length})</span>
+              <span className="text-xs font-normal text-muted-foreground">({cat.scenarios.length})</span>
             </span>
           }
           description={cat.description}
         >
           <ul className="space-y-3">
             {cat.scenarios.map((s) => (
-              <li key={s.id} className="rounded-xl border border-gray-800 bg-gray-950/40 p-3">
+              <li key={s.id} className="rounded-xl border border-border bg-background/40 p-3">
                 <div className="mb-1.5 flex items-start justify-between gap-2">
-                  <span className="text-sm font-medium text-gray-100">{s.title}</span>
+                  <span className="text-sm font-medium text-foreground">{s.title}</span>
                   <StatusBadge tone={PRIORITY_META[s.priority].tone}>{PRIORITY_META[s.priority].label}</StatusBadge>
                 </div>
                 <ul className="space-y-1">
                   {s.steps.map((step, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-400">
-                      <span aria-hidden className="mt-0.5 text-gray-600">☐</span>
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span aria-hidden className="mt-0.5 text-muted-foreground/70">☐</span>
                       <span>{step}</span>
                     </li>
                   ))}
@@ -88,18 +88,18 @@ export default function AdminQaPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A living QA checklist. Instead of a stale
+          <strong className="text-foreground">What this is.</strong> A living QA checklist. Instead of a stale
           test-plan doc, the scenarios are regenerated from your real registries every load — add an admin
           section, an agent or a sport and its checks appear here automatically.
         </p>
         <p>
-          <strong className="text-gray-300">How to use it.</strong> Before a release, work top-down by
+          <strong className="text-foreground">How to use it.</strong> Before a release, work top-down by
           priority: <strong>P0</strong> are blockers (a broken or unguarded admin route, a safety guardrail
           that fails), <strong>P1</strong> are important flows and accessibility, <strong>P2</strong> are
           polish. Tick each box as you verify it manually.
         </p>
         <p>
-          <strong className="text-gray-300">Automated tests.</strong> This complements (does not replace) the
+          <strong className="text-foreground">Automated tests.</strong> This complements (does not replace) the
           unit suites in <code>src/**/__tests__</code> run by Jest in CI. A future iteration could record
           pass/fail per scenario and surface the last QA run here.
         </p>

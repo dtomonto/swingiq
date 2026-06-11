@@ -27,12 +27,12 @@ export default async function AdminSupportPage() {
       <SectionCard><SupportClient actor={actor} /></SectionCard>
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A lightweight ticket queue. It starts empty
+          <strong className="text-foreground">What this is.</strong> A lightweight ticket queue. It starts empty
           because there&apos;s no inbound channel wired yet — log tickets manually, or connect the contact form
           / email later to feed this automatically.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Triage by priority, resolve, and check
+          <strong className="text-foreground">What to do next.</strong> Triage by priority, resolve, and check
           the user&apos;s record (Users) for context when a ticket references their account.
         </p>
       </HelpPanel>

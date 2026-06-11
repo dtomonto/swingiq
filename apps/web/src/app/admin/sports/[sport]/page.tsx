@@ -35,7 +35,7 @@ export default async function AdminSportDetailPage({ params }: { params: Promise
   const display = ALL_SPORTS_INCLUDING_GOLF.find((s) => s.id === sport);
 
   const back = (
-    <Link href="/admin/sports" className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-200">
+    <Link href="/admin/sports" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
       <ArrowLeft className="h-3.5 w-3.5" /> All sports
     </Link>
   );
@@ -44,7 +44,7 @@ export default async function AdminSportDetailPage({ params }: { params: Promise
     return (
       <div className="mx-auto max-w-3xl space-y-4 p-4 sm:p-6">
         {back}
-        <SectionCard><p className="py-6 text-center text-sm text-gray-400">Unknown sport.</p></SectionCard>
+        <SectionCard><p className="py-6 text-center text-sm text-muted-foreground">Unknown sport.</p></SectionCard>
       </div>
     );
   }
@@ -62,7 +62,7 @@ export default async function AdminSportDetailPage({ params }: { params: Promise
       />
 
       <SectionCard title="Overview">
-        <p className="text-sm text-gray-300">{display.description}</p>
+        <p className="text-sm text-foreground">{display.description}</p>
       </SectionCard>
 
       {config ? (
@@ -73,12 +73,12 @@ export default async function AdminSportDetailPage({ params }: { params: Promise
                 const { name, description } = phaseText((config.phases as Record<string, unknown>)[key]);
                 return (
                   <li key={key} className="flex gap-3 text-sm">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gray-800 text-[11px] text-gray-400">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-[11px] text-muted-foreground">
                       {i + 1}
                     </span>
                     <div>
-                      <p className="font-medium text-gray-200">{name || titleize(key)}</p>
-                      {description && <p className="text-xs text-gray-500">{description}</p>}
+                      <p className="font-medium text-foreground">{name || titleize(key)}</p>
+                      {description && <p className="text-xs text-muted-foreground">{description}</p>}
                     </div>
                   </li>
                 );
@@ -90,30 +90,30 @@ export default async function AdminSportDetailPage({ params }: { params: Promise
             <ul className="space-y-2">
               {Object.entries(config.camera_angle_guidance).map(([angle, text]) => (
                 <li key={angle} className="text-sm">
-                  <span className="font-medium text-amber-300">{CAMERA_LABELS[angle] ?? titleize(angle)}:</span>{' '}
-                  <span className="text-gray-400">{String(text)}</span>
+                  <span className="font-medium text-link">{CAMERA_LABELS[angle] ?? titleize(angle)}:</span>{' '}
+                  <span className="text-muted-foreground">{String(text)}</span>
                 </li>
               ))}
             </ul>
           </SectionCard>
 
           <SectionCard title="Benchmarks" description={`Version ${config.benchmark_version}.`}>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {Object.keys(config.benchmarks ?? {}).length} benchmark metric group(s) configured.
             </p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {Object.keys(config.benchmarks ?? {}).slice(0, 24).map((k) => (
-                <code key={k} className="rounded bg-gray-800 px-1.5 py-0.5 font-mono text-[11px] text-gray-300">
+                <code key={k} className="rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] text-foreground">
                   {k}
                 </code>
               ))}
             </div>
-            <p className="mt-3 text-xs text-gray-500">{config.evidence_note}</p>
+            <p className="mt-3 text-xs text-muted-foreground">{config.evidence_note}</p>
           </SectionCard>
         </>
       ) : (
         <SectionCard title="Golf analysis">
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-muted-foreground">
             Golf uses the dedicated launch-monitor and video-analysis engines rather than the multi-sport
             registry, so its phases and benchmarks are configured in the <code>video-analysis</code> module.
             The marketing-facing description and tagline above are the display config.
@@ -123,12 +123,12 @@ export default async function AdminSportDetailPage({ params }: { params: Promise
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The full analysis setup for {display.name}:
+          <strong className="text-foreground">What this is.</strong> The full analysis setup for {display.name}:
           the phases evaluated, how each camera angle is described to users, and the benchmark version plus the
           evidence statement that keeps SwingVantage&apos;s claims honest.
         </p>
         <p>
-          <strong className="text-gray-300">What good looks like.</strong> The evidence note should accurately
+          <strong className="text-foreground">What good looks like.</strong> The evidence note should accurately
           describe how confident the benchmarks are. If the science changes, bump the benchmark version in the
           registry so users see it&apos;s current.
         </p>

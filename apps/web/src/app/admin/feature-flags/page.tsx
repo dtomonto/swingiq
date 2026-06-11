@@ -34,15 +34,15 @@ export default async function AdminFeatureFlagsPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A safe switchboard for product features.
+          <strong className="text-foreground">What this is.</strong> A safe switchboard for product features.
           Each flag shows its risk level and whether app code already reads it.
         </p>
         <p>
-          <strong className="text-gray-300">High-risk flags.</strong> Enabling a high-risk flag (e.g.
+          <strong className="text-foreground">High-risk flags.</strong> Enabling a high-risk flag (e.g.
           auto-publishing AI pages) asks for confirmation, because it can affect safety or what goes live.
         </p>
         <p>
-          <strong className="text-gray-300">Rollback.</strong> Toggle off, or press Reset to return a flag to
+          <strong className="text-foreground">Rollback.</strong> Toggle off, or press Reset to return a flag to
           its registry default. Every change is in the audit log.
         </p>
       </HelpPanel>

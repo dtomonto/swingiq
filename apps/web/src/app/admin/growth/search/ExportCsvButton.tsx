@@ -36,7 +36,7 @@ export function ExportCsvButton({
     <button
       onClick={download}
       disabled={rows.length === 0}
-      className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 bg-gray-800/60 hover:bg-gray-700/60 disabled:opacity-50 text-gray-200 text-xs font-medium px-2.5 py-1.5"
+      className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted/60 hover:bg-muted/60 disabled:opacity-50 text-foreground text-xs font-medium px-2.5 py-1.5"
       title={rows.length === 0 ? 'Nothing to export' : `Export ${rows.length} rows`}
     >
       <Download className="w-3.5 h-3.5" /> {label}

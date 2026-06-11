@@ -29,7 +29,7 @@ export default async function AdminUploadsPage() {
       />
 
       {/* The single most important honesty note for this section. */}
-      <div className="flex items-start gap-2 rounded-xl border border-sky-500/20 bg-sky-500/[0.05] px-4 py-3 text-sm text-sky-200">
+      <div className="flex items-start gap-2 rounded-xl border border-primary/20 bg-primary/[0.05] px-4 py-3 text-sm text-link">
         <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />
         <span>
           Swing videos are processed on each user&apos;s device and are <strong>never uploaded</strong> to
@@ -52,17 +52,17 @@ export default async function AdminUploadsPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The media operations view. Because videos
+          <strong className="text-foreground">What this is.</strong> The media operations view. Because videos
           never leave the device, &ldquo;media management&rdquo; here means reviewing the records of what was
           analyzed, spotting patterns, and clicking through to the AI result.
         </p>
         <p>
-          <strong className="text-gray-300">Why there&apos;s no storage meter.</strong> There&apos;s no
+          <strong className="text-foreground">Why there&apos;s no storage meter.</strong> There&apos;s no
           server-side video storage to measure — a deliberate privacy and cost choice. If hosted media is
           added later (e.g. opt-in shareable clips), storage and CDN status would surface here.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Click a record to open the full analysis
+          <strong className="text-foreground">What to do next.</strong> Click a record to open the full analysis
           (same detail as AI Analyses).
         </p>
       </HelpPanel>

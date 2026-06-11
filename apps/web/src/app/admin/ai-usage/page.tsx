@@ -75,12 +75,12 @@ export default async function AiUsagePage() {
       </div>
 
       {!usage.enabled && (
-        <div className="flex items-start gap-3 rounded-lg border border-gray-800 bg-gray-950 p-3 text-sm text-gray-400">
-          <BarChart3 className="mt-0.5 h-4 w-4 shrink-0 text-gray-500" />
+        <div className="flex items-start gap-3 rounded-lg border border-border bg-background p-3 text-sm text-muted-foreground">
+          <BarChart3 className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
           <p>
             No AI provider is configured yet, so there are no paid calls to meter — usage will start
             appearing here automatically once you connect a provider on the{' '}
-            <Link className="text-emerald-400 hover:underline" href="/admin/integrations">Integrations</Link> page.
+            <Link className="text-success-text hover:underline" href="/admin/integrations">Integrations</Link> page.
           </p>
         </div>
       )}
@@ -97,30 +97,30 @@ export default async function AiUsagePage() {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-start justify-between gap-3 rounded-lg border border-gray-800 bg-gray-950 p-3 transition hover:border-emerald-500/40 hover:bg-gray-900"
+              className="group flex items-start justify-between gap-3 rounded-lg border border-border bg-background p-3 transition hover:border-success/40 hover:bg-card"
             >
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <CreditCard className="h-4 w-4 shrink-0 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-200">{link.name}</span>
+                  <CreditCard className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <span className="text-sm font-medium text-foreground">{link.name}</span>
                   {link.configured ? (
                     <StatusBadge tone="success">In use</StatusBadge>
                   ) : (
                     <StatusBadge tone="neutral">Not connected</StatusBadge>
                   )}
                 </div>
-                <p className="mt-1 text-xs text-gray-500">{link.detail}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{link.detail}</p>
               </div>
-              <ExternalLink className="mt-0.5 h-4 w-4 shrink-0 text-gray-600 group-hover:text-emerald-400" />
+              <ExternalLink className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground/70 group-hover:text-success-text" />
             </a>
           ))}
         </div>
-        <p className="mt-3 text-xs text-gray-500">
+        <p className="mt-3 text-xs text-muted-foreground">
           Want a hard spend ceiling instead? Set{' '}
-          <code className="rounded bg-gray-800 px-1 text-gray-300">AI_DAILY_BUDGET_CENTS</code> (e.g.{' '}
-          <code className="rounded bg-gray-800 px-1 text-gray-300">500</code> = $5.00/day). When reached, paid
+          <code className="rounded bg-muted px-1 text-foreground">AI_DAILY_BUDGET_CENTS</code> (e.g.{' '}
+          <code className="rounded bg-muted px-1 text-foreground">500</code> = $5.00/day). When reached, paid
           calls pause and the app serves its keyless fallback until the next UTC day. See{' '}
-          <Link className="text-emerald-400 hover:underline" href="/admin/system-health">System Health</Link>.
+          <Link className="text-success-text hover:underline" href="/admin/system-health">System Health</Link>.
         </p>
       </SectionCard>
 
@@ -130,16 +130,16 @@ export default async function AiUsagePage() {
         description="Which AI-backed features are driving spend. Counts are exact; cost is an upper-bound estimate."
       >
         {usage.byOp.length === 0 ? (
-          <p className="text-sm text-gray-500">No AI calls recorded in this window yet.</p>
+          <p className="text-sm text-muted-foreground">No AI calls recorded in this window yet.</p>
         ) : (
-          <ul className="divide-y divide-gray-800">
+          <ul className="divide-y divide-border">
             {usage.byOp.map((row) => (
               <li key={row.op} className="flex items-center justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-medium text-gray-200">{row.label}</p>
-                  <p className="text-xs text-gray-500">{row.calls} call{row.calls === 1 ? '' : 's'}</p>
+                  <p className="truncate text-sm font-medium text-foreground">{row.label}</p>
+                  <p className="text-xs text-muted-foreground">{row.calls} call{row.calls === 1 ? '' : 's'}</p>
                 </div>
-                <span className="shrink-0 text-sm font-semibold tabular-nums text-gray-300">{usd(row.cents)}</span>
+                <span className="shrink-0 text-sm font-semibold tabular-nums text-foreground">{usd(row.cents)}</span>
               </li>
             ))}
           </ul>
@@ -151,15 +151,15 @@ export default async function AiUsagePage() {
         <ul className="space-y-1.5">
           {usage.byDay.map((d) => (
             <li key={d.date} className="flex items-center gap-3 text-xs">
-              <span className="w-20 shrink-0 tabular-nums text-gray-500">{d.date.slice(5)}</span>
-              <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-gray-800">
+              <span className="w-20 shrink-0 tabular-nums text-muted-foreground">{d.date.slice(5)}</span>
+              <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-muted">
                 <div
-                  className="h-full rounded-full bg-emerald-500/70"
+                  className="h-full rounded-full bg-success/70"
                   style={{ width: `${Math.round((d.cents / maxDayCents) * 100)}%` }}
                 />
               </div>
-              <span className="w-16 shrink-0 text-right tabular-nums text-gray-400">{usd(d.cents)}</span>
-              <span className="w-14 shrink-0 text-right tabular-nums text-gray-600">{d.calls} ✕</span>
+              <span className="w-16 shrink-0 text-right tabular-nums text-muted-foreground">{usd(d.cents)}</span>
+              <span className="w-14 shrink-0 text-right tabular-nums text-muted-foreground/70">{d.calls} ✕</span>
             </li>
           ))}
         </ul>
@@ -167,11 +167,11 @@ export default async function AiUsagePage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A single place to watch AI spend and add
+          <strong className="text-foreground">What this is.</strong> A single place to watch AI spend and add
           capacity. Every paid AI call (vision, coaching, OCR, growth, etc.) is metered by feature and day.
         </p>
         <p>
-          <strong className="text-gray-300">Estimates vs. exact.</strong> Costs are coarse upper-bound estimates
+          <strong className="text-foreground">Estimates vs. exact.</strong> Costs are coarse upper-bound estimates
           (the guard errs toward protecting the bill), so they may read slightly high — call <em>counts</em> are
           exact. Figures reset daily at 00:00 UTC. Counter source:{' '}
           {usage.source === 'upstash'
@@ -181,7 +181,7 @@ export default async function AiUsagePage() {
               : 'metering is currently off.'}
         </p>
         <p>
-          <strong className="text-gray-300">Paying for more.</strong> The buttons above open your provider&apos;s
+          <strong className="text-foreground">Paying for more.</strong> The buttons above open your provider&apos;s
           own billing console; SwingVantage never stores a card. Topping up there raises your real API capacity
           immediately.
         </p>

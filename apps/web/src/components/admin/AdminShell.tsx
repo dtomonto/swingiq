@@ -25,11 +25,17 @@ export interface AdminShellProps {
 
 function Brand() {
   return (
-    <Link href="/admin" className="flex items-center gap-2 px-4 py-3">
-      <span className="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-2 py-0.5 rounded-sm">
-        SV
+    <Link href="/admin" className="flex items-center gap-2.5 px-4 py-3">
+      <span
+        className="flex h-7 w-7 items-center justify-center rounded-md text-[11px] font-extrabold tracking-tight text-white"
+        style={{ background: 'linear-gradient(135deg, #2d5a40, #14532d)' }}
+      >
+        sV
       </span>
-      <span className="text-sm font-semibold text-gray-100">Admin</span>
+      <span className="leading-tight">
+        <span className="block text-[13px] font-bold text-foreground">SwingVantage</span>
+        <span className="block text-[9px] font-bold uppercase tracking-[0.12em] text-link">Admin OS</span>
+      </span>
     </Link>
   );
 }
@@ -69,9 +75,9 @@ export function AdminShell({ email, role, actionCount = 0, children }: AdminShel
   const can = (p: Permission) => roleHasPermission(role, p);
 
   return (
-    <div className="flex min-h-screen bg-gray-950 text-gray-100">
+    <div data-theme="coach-mode" className="flex min-h-screen bg-background text-foreground">
       {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-gray-800 bg-gray-900 lg:flex">
+      <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-border bg-card lg:flex">
         <Brand />
         <div className="min-h-0 flex-1">
           <AdminSidebar role={role} />
@@ -83,15 +89,15 @@ export function AdminShell({ email, role, actionCount = 0, children }: AdminShel
         <div className="fixed inset-0 z-40 lg:hidden">
           <button
             aria-label="Close navigation"
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-foreground/60"
             onClick={() => setDrawerOpen(false)}
           />
-          <aside className="absolute left-0 top-0 flex h-full w-64 flex-col border-r border-gray-800 bg-gray-900">
+          <aside className="absolute left-0 top-0 flex h-full w-64 flex-col border-r border-border bg-card">
             <div className="flex items-center justify-between">
               <Brand />
               <button
                 onClick={() => setDrawerOpen(false)}
-                className="tap-target mr-3 rounded-md text-gray-400 hover:bg-gray-800"
+                className="tap-target mr-3 rounded-md text-muted-foreground hover:bg-muted"
                 aria-label="Close navigation"
               >
                 <X className="h-5 w-5" />

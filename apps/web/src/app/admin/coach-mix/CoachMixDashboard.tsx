@@ -86,9 +86,9 @@ const SAMPLE_FAULTS = [
   { id: 'slice', label: 'Slice' },
 ];
 
-function Bar({ pct, color = 'bg-violet-500' }: { pct: number; color?: string }) {
+function Bar({ pct, color = 'bg-primary' }: { pct: number; color?: string }) {
   return (
-    <div className="h-2 w-full overflow-hidden rounded-full bg-gray-800" role="presentation">
+    <div className="h-2 w-full overflow-hidden rounded-full bg-muted" role="presentation">
       <div className={`h-full rounded-full ${color}`} style={{ width: `${Math.min(100, Math.max(0, pct))}%` }} />
     </div>
   );
@@ -196,7 +196,7 @@ export function CoachMixDashboard() {
   return (
     <div className="space-y-4">
       {/* Ethics banner */}
-      <div className="flex items-start gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-300">
+      <div className="flex items-start gap-2 rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-xs text-success-text">
         <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />
         <p>
           <strong>Ethical by design.</strong> Coach Mix learns generalized principles, never content.
@@ -206,7 +206,7 @@ export function CoachMixDashboard() {
       </div>
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-1 border-b border-gray-800">
+      <div className="flex flex-wrap gap-1 border-b border-border">
         {TABS.map((t) => {
           const Icon = t.icon;
           const active = t.id === tab;
@@ -215,7 +215,7 @@ export function CoachMixDashboard() {
               key={t.id}
               onClick={() => setTab(t.id)}
               className={`-mb-px flex items-center gap-1.5 border-b-2 px-3 py-2 text-sm font-medium transition ${
-                active ? 'border-violet-500 text-violet-300' : 'border-transparent text-gray-400 hover:text-gray-200'
+                active ? 'border-primary text-link' : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
               <Icon className="h-4 w-4" />
@@ -253,34 +253,34 @@ export function CoachMixDashboard() {
                     <StatusBadge key={t} tone="neutral">{t.replace(/_/g, ' ')}</StatusBadge>
                   ))}
                 </div>
-                <p className="text-xs text-gray-400">
-                  <span className="text-gray-500">Swing model:</span> {p.swingModelTarget.name} ·{' '}
+                <p className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground">Swing model:</span> {p.swingModelTarget.name} ·{' '}
                   {p.swingModelTarget.primaryMovementPattern}
                 </p>
                 {p.adminNote && (
-                  <p className="flex items-start gap-1.5 rounded border border-amber-500/20 bg-amber-500/5 p-2 text-xs text-amber-300">
+                  <p className="flex items-start gap-1.5 rounded border border-primary/20 bg-primary/5 p-2 text-xs text-link">
                     <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" /> {p.adminNote}
                   </p>
                 )}
                 {p.id !== SWINGVANTAGE_DEFAULT_COACH_ID && (
-                  <div className="flex flex-wrap items-center gap-2 border-t border-gray-800 pt-2">
-                    <span className="text-xs text-gray-500">Visibility:</span>
+                  <div className="flex flex-wrap items-center gap-2 border-t border-border pt-2">
+                    <span className="text-xs text-muted-foreground">Visibility:</span>
                     <select
                       value={p.visibility}
                       onChange={(e) => setProfileOverride(p.id, { visibility: e.target.value as Visibility })}
-                      className="rounded border border-gray-700 bg-gray-950 px-2 py-1 text-xs text-gray-200"
+                      className="rounded border border-border bg-background px-2 py-1 text-xs text-foreground"
                     >
                       {VISIBILITIES.map((v) => <option key={v} value={v}>{v.replace(/_/g, ' ')}</option>)}
                     </select>
                     <button
                       onClick={() => setProfileOverride(p.id, { status: p.status === 'archived' ? 'active' : 'archived' })}
-                      className="rounded border border-gray-700 px-2 py-1 text-xs text-gray-300 hover:bg-gray-800"
+                      className="rounded border border-border px-2 py-1 text-xs text-foreground hover:bg-muted"
                     >
                       {p.status === 'archived' ? 'Unarchive' : 'Archive'}
                     </button>
                   </div>
                 )}
-                <p className="border-t border-gray-800 pt-2 text-[11px] italic text-gray-500">{COACH_MIX_DISCLAIMER}</p>
+                <p className="border-t border-border pt-2 text-[11px] italic text-muted-foreground">{COACH_MIX_DISCLAIMER}</p>
               </div>
             </SectionCard>
           ))}
@@ -295,43 +295,43 @@ export function CoachMixDashboard() {
                 placeholder="Source title"
                 value={form.title}
                 onChange={(e) => setF('title', e.target.value)}
-                className="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-gray-200"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-foreground"
               />
               <input
                 placeholder="URL or upload reference"
                 value={form.urlOrUploadRef}
                 onChange={(e) => setF('urlOrUploadRef', e.target.value)}
-                className="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-gray-200"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-foreground"
               />
               <div className="grid grid-cols-2 gap-2">
-                <select value={form.coachProfileId} onChange={(e) => setF('coachProfileId', e.target.value)} className="rounded-lg border border-gray-700 bg-gray-950 px-2 py-2 text-gray-200">
+                <select value={form.coachProfileId} onChange={(e) => setF('coachProfileId', e.target.value)} className="rounded-lg border border-border bg-background px-2 py-2 text-foreground">
                   <option value="">Coach profile…</option>
                   {coachInspired.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
                 </select>
-                <select value={form.type} onChange={(e) => setF('type', e.target.value as SourceType)} className="rounded-lg border border-gray-700 bg-gray-950 px-2 py-2 text-gray-200">
+                <select value={form.type} onChange={(e) => setF('type', e.target.value as SourceType)} className="rounded-lg border border-border bg-background px-2 py-2 text-foreground">
                   {SOURCE_TYPES.map((s) => <option key={s} value={s}>{SOURCE_TYPE_LABELS[s]}</option>)}
                 </select>
-                <select value={form.sport} onChange={(e) => setF('sport', e.target.value as LearningSource['sport'])} className="rounded-lg border border-gray-700 bg-gray-950 px-2 py-2 text-gray-200">
+                <select value={form.sport} onChange={(e) => setF('sport', e.target.value as LearningSource['sport'])} className="rounded-lg border border-border bg-background px-2 py-2 text-foreground">
                   {SPORTS.map((s) => <option key={s} value={s}>{s.replace(/_/g, ' ')}</option>)}
                 </select>
-                <input placeholder="Topic (e.g. shallowing)" value={form.topic} onChange={(e) => setF('topic', e.target.value)} className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-gray-200" />
-                <input placeholder="Technique category" value={form.techniqueCategory} onChange={(e) => setF('techniqueCategory', e.target.value)} className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-gray-200" />
-                <input placeholder="Drill category" value={form.drillCategory} onChange={(e) => setF('drillCategory', e.target.value)} className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-gray-200" />
-                <select value={form.permissionStatus} onChange={(e) => setF('permissionStatus', e.target.value as LearningSource['permissionStatus'])} className="rounded-lg border border-gray-700 bg-gray-950 px-2 py-2 text-gray-200">
+                <input placeholder="Topic (e.g. shallowing)" value={form.topic} onChange={(e) => setF('topic', e.target.value)} className="rounded-lg border border-border bg-background px-3 py-2 text-foreground" />
+                <input placeholder="Technique category" value={form.techniqueCategory} onChange={(e) => setF('techniqueCategory', e.target.value)} className="rounded-lg border border-border bg-background px-3 py-2 text-foreground" />
+                <input placeholder="Drill category" value={form.drillCategory} onChange={(e) => setF('drillCategory', e.target.value)} className="rounded-lg border border-border bg-background px-3 py-2 text-foreground" />
+                <select value={form.permissionStatus} onChange={(e) => setF('permissionStatus', e.target.value as LearningSource['permissionStatus'])} className="rounded-lg border border-border bg-background px-2 py-2 text-foreground">
                   {PERMISSIONS.map((p) => <option key={p} value={p}>permission: {p}</option>)}
                 </select>
-                <select value={form.copyrightStatus} onChange={(e) => setF('copyrightStatus', e.target.value as LearningSource['copyrightStatus'])} className="rounded-lg border border-gray-700 bg-gray-950 px-2 py-2 text-gray-200">
+                <select value={form.copyrightStatus} onChange={(e) => setF('copyrightStatus', e.target.value as LearningSource['copyrightStatus'])} className="rounded-lg border border-border bg-background px-2 py-2 text-foreground">
                   {COPYRIGHTS.map((c) => <option key={c} value={c}>copyright: {c}</option>)}
                 </select>
               </div>
-              <label className="flex items-center gap-2 text-xs text-gray-300">
-                <input type="checkbox" checked={form.approvedForLearning} onChange={(e) => setF('approvedForLearning', e.target.checked)} className="accent-violet-500" />
+              <label className="flex items-center gap-2 text-xs text-foreground">
+                <input type="checkbox" checked={form.approvedForLearning} onChange={(e) => setF('approvedForLearning', e.target.checked)} className="accent-primary" />
                 Approved for learning (admin confirms permission to learn from this source)
               </label>
               <button
                 onClick={submitSource}
                 disabled={!form.title.trim() || !form.coachProfileId}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/10 px-3 py-2 text-sm font-medium text-violet-300 hover:bg-violet-500/20 disabled:opacity-40"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-primary/40 bg-primary/10 px-3 py-2 text-sm font-medium text-link hover:bg-primary/20 disabled:opacity-40"
               >
                 <Plus className="h-4 w-4" /> Add source
               </button>
@@ -340,23 +340,23 @@ export function CoachMixDashboard() {
 
           <SectionCard title={`Sources (${data.sources.length})`} description="Extract concepts from a cleared source into the review queue.">
             <div className="space-y-2">
-              {data.sources.length === 0 && <p className="text-sm text-gray-500">No sources yet. Add one to begin.</p>}
+              {data.sources.length === 0 && <p className="text-sm text-muted-foreground">No sources yet. Add one to begin.</p>}
               {data.sources.map((s) => (
-                <div key={s.id} className="rounded-lg border border-gray-800 bg-gray-950 p-3 text-sm">
+                <div key={s.id} className="rounded-lg border border-border bg-background p-3 text-sm">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <p className="text-gray-200">{s.title}</p>
-                      <p className="text-xs text-gray-500">{profileName(s.coachProfileId)} · {s.topic || '—'}</p>
+                      <p className="text-foreground">{s.title}</p>
+                      <p className="text-xs text-muted-foreground">{profileName(s.coachProfileId)} · {s.topic || '—'}</p>
                     </div>
                     <div className="flex shrink-0 items-center gap-1.5">
                       {s.approvedForLearning ? <StatusBadge tone="success">approved</StatusBadge> : <StatusBadge tone="warning">not approved</StatusBadge>}
                     </div>
                   </div>
                   <div className="mt-2 flex gap-2">
-                    <button onClick={() => { extractFromSource(s.id); setTab('queue'); }} className="inline-flex items-center gap-1 rounded-md border border-violet-500/40 bg-violet-500/10 px-2.5 py-1 text-xs font-medium text-violet-300 hover:bg-violet-500/20">
+                    <button onClick={() => { extractFromSource(s.id); setTab('queue'); }} className="inline-flex items-center gap-1 rounded-md border border-primary/40 bg-primary/10 px-2.5 py-1 text-xs font-medium text-link hover:bg-primary/20">
                       <Download className="h-3.5 w-3.5" /> Extract
                     </button>
-                    <button onClick={() => removeSource(s.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 bg-red-500/10 px-2.5 py-1 text-xs font-medium text-red-300 hover:bg-red-500/20">
+                    <button onClick={() => removeSource(s.id)} className="inline-flex items-center gap-1 rounded-md border border-error/40 bg-error/10 px-2.5 py-1 text-xs font-medium text-error-text hover:bg-error/20">
                       <Trash2 className="h-3.5 w-3.5" /> Remove
                     </button>
                   </div>
@@ -374,59 +374,59 @@ export function CoachMixDashboard() {
               {coachInspired.map((p) => (
                 <div key={p.id}>
                   <div className="mb-1 flex items-center justify-between text-sm">
-                    <span className="text-gray-200">{p.name}</span>
-                    <span className="tabular-nums text-gray-400">{weightFor(p.id, p.defaultInfluenceWeight)}%</span>
+                    <span className="text-foreground">{p.name}</span>
+                    <span className="tabular-nums text-muted-foreground">{weightFor(p.id, p.defaultInfluenceWeight)}%</span>
                   </div>
                   <input
                     type="range" min={0} max={100} step={5}
                     value={weightFor(p.id, p.defaultInfluenceWeight)}
                     onChange={(e) => setWeights((w) => ({ ...w, [p.id]: Number(e.target.value) }))}
-                    className="w-full accent-violet-500"
+                    className="w-full accent-primary"
                     aria-label={`${p.name} influence weight`}
                   />
                 </div>
               ))}
-              <div className="grid grid-cols-2 gap-2 border-t border-gray-800 pt-3">
+              <div className="grid grid-cols-2 gap-2 border-t border-border pt-3">
                 <div>
-                  <label htmlFor="cm-mix-name" className="mb-1 block text-xs text-gray-500">Mix name</label>
-                  <input id="cm-mix-name" value={mixName} onChange={(e) => setMixName(e.target.value)} className="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200" />
+                  <label htmlFor="cm-mix-name" className="mb-1 block text-xs text-muted-foreground">Mix name</label>
+                  <input id="cm-mix-name" value={mixName} onChange={(e) => setMixName(e.target.value)} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
                 </div>
                 <div>
-                  <label htmlFor="cm-label-mode" className="mb-1 block text-xs text-gray-500">User label mode</label>
-                  <select id="cm-label-mode" value={labelMode} onChange={(e) => setLabelMode(e.target.value as UserLabelMode)} className="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200">
+                  <label htmlFor="cm-label-mode" className="mb-1 block text-xs text-muted-foreground">User label mode</label>
+                  <select id="cm-label-mode" value={labelMode} onChange={(e) => setLabelMode(e.target.value as UserLabelMode)} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground">
                     {LABEL_MODES.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
                   </select>
                 </div>
               </div>
-              <button onClick={onSaveMix} className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-violet-500/10 px-3 py-2 text-sm font-medium text-violet-300 hover:bg-violet-500/20">
+              <button onClick={onSaveMix} className="inline-flex items-center gap-1.5 rounded-lg border border-primary/40 bg-primary/10 px-3 py-2 text-sm font-medium text-link hover:bg-primary/20">
                 <Save className="h-4 w-4" /> {editingMixId ? 'Update mix' : 'Save mix'}
               </button>
 
-              <div className="rounded-lg border border-gray-800 bg-gray-950 p-3 text-xs">
-                <p className="mb-1.5 text-gray-500">Resolved blend (normalized to 100%):</p>
+              <div className="rounded-lg border border-border bg-background p-3 text-xs">
+                <p className="mb-1.5 text-muted-foreground">Resolved blend (normalized to 100%):</p>
                 {resolvedWeights.map((r) => (
                   <div key={r.profile.id} className="mb-1 flex items-center gap-2">
-                    <span className="w-40 shrink-0 truncate text-gray-300">{r.profile.name}</span>
+                    <span className="w-40 shrink-0 truncate text-foreground">{r.profile.name}</span>
                     <Bar pct={r.weightPct} />
-                    <span className="w-10 shrink-0 text-right tabular-nums text-gray-400">{r.weightPct}%</span>
+                    <span className="w-10 shrink-0 text-right tabular-nums text-muted-foreground">{r.weightPct}%</span>
                   </div>
                 ))}
               </div>
 
               {data.mixes.length > 0 && (
-                <div className="rounded-lg border border-gray-800 bg-gray-950 p-3">
-                  <p className="mb-2 text-xs text-gray-500">Saved mixes</p>
+                <div className="rounded-lg border border-border bg-background p-3">
+                  <p className="mb-2 text-xs text-muted-foreground">Saved mixes</p>
                   <div className="space-y-1.5">
                     {data.mixes.map((m) => (
                       <div key={m.id} className="flex items-center justify-between gap-2 text-sm">
-                        <span className="flex items-center gap-1.5 text-gray-300">
-                          {data.activeMixId === m.id && <Star className="h-3.5 w-3.5 text-amber-400" />}
+                        <span className="flex items-center gap-1.5 text-foreground">
+                          {data.activeMixId === m.id && <Star className="h-3.5 w-3.5 text-link" />}
                           {m.name}
                         </span>
                         <span className="flex shrink-0 gap-1">
-                          <button onClick={() => loadMix(m)} className="rounded border border-gray-700 px-2 py-0.5 text-xs text-gray-300 hover:bg-gray-800">Load</button>
-                          <button onClick={() => setActiveMixId(m.id)} className="rounded border border-gray-700 px-2 py-0.5 text-xs text-gray-300 hover:bg-gray-800">Set active</button>
-                          <button onClick={() => deleteMix(m.id)} className="rounded border border-red-500/30 px-2 py-0.5 text-xs text-red-300 hover:bg-red-500/10">Delete</button>
+                          <button onClick={() => loadMix(m)} className="rounded border border-border px-2 py-0.5 text-xs text-foreground hover:bg-muted">Load</button>
+                          <button onClick={() => setActiveMixId(m.id)} className="rounded border border-border px-2 py-0.5 text-xs text-foreground hover:bg-muted">Set active</button>
+                          <button onClick={() => deleteMix(m.id)} className="rounded border border-error/30 px-2 py-0.5 text-xs text-error-text hover:bg-error/10">Delete</button>
                         </span>
                       </div>
                     ))}
@@ -438,8 +438,8 @@ export function CoachMixDashboard() {
 
           <SectionCard title="Resolved coaching strategy" description="How this blend changes SwingVantage's coaching.">
             <div className="space-y-3 text-sm">
-              <div className="rounded-lg border border-violet-500/20 bg-violet-500/5 p-3">
-                <p className="text-gray-200">{strategy.influenceSummary}</p>
+              <div className="rounded-lg border border-primary/20 bg-primary/5 p-3">
+                <p className="text-foreground">{strategy.influenceSummary}</p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   {strategy.influenceTags.map((t) => <StatusBadge key={t} tone="accent">{t}</StatusBadge>)}
                   <StatusBadge tone={strategy.coachNamesVisible ? 'warning' : 'neutral'}>
@@ -448,31 +448,31 @@ export function CoachMixDashboard() {
                 </div>
               </div>
               <div>
-                <p className="mb-1 text-xs uppercase tracking-wide text-gray-500">Explanation style</p>
+                <p className="mb-1 text-xs uppercase tracking-wide text-muted-foreground">Explanation style</p>
                 <StatusBadge tone="info">{strategy.explanationStyle.replace(/_/g, ' ')}</StatusBadge>
               </div>
               <div>
-                <p className="mb-1 text-xs uppercase tracking-wide text-gray-500">Diagnostic priority</p>
-                <ol className="list-inside list-decimal text-gray-300">
+                <p className="mb-1 text-xs uppercase tracking-wide text-muted-foreground">Diagnostic priority</p>
+                <ol className="list-inside list-decimal text-foreground">
                   {strategy.diagnosticPriority.slice(0, 6).map((d) => <li key={d}>{d.replace(/_/g, ' ')}</li>)}
-                  {strategy.diagnosticPriority.length === 0 && <li className="list-none text-gray-500">—</li>}
+                  {strategy.diagnosticPriority.length === 0 && <li className="list-none text-muted-foreground">—</li>}
                 </ol>
               </div>
               <div>
-                <p className="mb-1 text-xs uppercase tracking-wide text-gray-500">Lead movement cues</p>
-                <ul className="list-inside list-disc text-gray-300">
+                <p className="mb-1 text-xs uppercase tracking-wide text-muted-foreground">Lead movement cues</p>
+                <ul className="list-inside list-disc text-foreground">
                   {strategy.movementCues.map((c) => <li key={c}>{c}</li>)}
                 </ul>
               </div>
               <div>
-                <p className="mb-1 text-xs uppercase tracking-wide text-gray-500">Favored drill families</p>
+                <p className="mb-1 text-xs uppercase tracking-wide text-muted-foreground">Favored drill families</p>
                 <div className="flex flex-wrap gap-1.5">
                   {Object.entries(strategy.drillCategoryWeights).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([cat, w]) => (
                     <StatusBadge key={cat} tone={w > 1 ? 'accent' : 'neutral'}>{cat} ×{w}</StatusBadge>
                   ))}
                 </div>
               </div>
-              <p className="border-t border-gray-800 pt-2 text-xs text-gray-500"><span className="text-gray-400">Retest:</span> {strategy.retestProtocol}</p>
+              <p className="border-t border-border pt-2 text-xs text-muted-foreground"><span className="text-muted-foreground">Retest:</span> {strategy.retestProtocol}</p>
             </div>
           </SectionCard>
         </div>
@@ -492,12 +492,12 @@ export function CoachMixDashboard() {
           >
             <div className="space-y-2">
               {data.concepts.length === 0 && (
-                <p className="text-sm text-gray-500">
-                  Queue is empty. Add a source under <button onClick={() => setTab('sources')} className="text-violet-300 underline">Sources</button> and click Extract.
+                <p className="text-sm text-muted-foreground">
+                  Queue is empty. Add a source under <button onClick={() => setTab('sources')} className="text-link underline">Sources</button> and click Extract.
                 </p>
               )}
               {data.concepts.map((c) => (
-                <div key={c.id} className="rounded-lg border border-gray-800 bg-gray-950 p-3">
+                <div key={c.id} className="rounded-lg border border-border bg-background p-3">
                   <div className="mb-1.5 flex flex-wrap items-center gap-2">
                     <StatusBadge tone="neutral">{c.type.replace(/_/g, ' ')}</StatusBadge>
                     <StatusBadge tone={RISK_TONE[c.ipRisk]}>IP risk: {c.ipRisk}</StatusBadge>
@@ -506,21 +506,21 @@ export function CoachMixDashboard() {
                       {c.reviewStatus.replace(/_/g, ' ')}
                     </StatusBadge>
                   </div>
-                  <p className="text-sm text-gray-300">{c.summary}</p>
-                  <p className="mt-1 text-xs text-gray-500"><span className="text-gray-400">SwingVantage rewrite:</span> {c.suggestedRewrite}</p>
+                  <p className="text-sm text-foreground">{c.summary}</p>
+                  <p className="mt-1 text-xs text-muted-foreground"><span className="text-muted-foreground">SwingVantage rewrite:</span> {c.suggestedRewrite}</p>
                   {(c.reviewStatus === 'pending' || c.reviewStatus === 'needs_source_review') && (
                     <div className="mt-2 flex gap-2">
-                      <button onClick={() => decideConcept(c.id, 'approve')} className="inline-flex items-center gap-1 rounded-md border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-300 hover:bg-emerald-500/20">
+                      <button onClick={() => decideConcept(c.id, 'approve')} className="inline-flex items-center gap-1 rounded-md border border-success/40 bg-success/10 px-2.5 py-1 text-xs font-medium text-success-text hover:bg-success/20">
                         <Check className="h-3.5 w-3.5" /> Approve
                       </button>
-                      <button onClick={() => decideConcept(c.id, 'reject')} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 bg-red-500/10 px-2.5 py-1 text-xs font-medium text-red-300 hover:bg-red-500/20">
+                      <button onClick={() => decideConcept(c.id, 'reject')} className="inline-flex items-center gap-1 rounded-md border border-error/40 bg-error/10 px-2.5 py-1 text-xs font-medium text-error-text hover:bg-error/20">
                         <X className="h-3.5 w-3.5" /> Reject
                       </button>
                     </div>
                   )}
                   {c.reviewStatus === 'approved' && (
                     <div className="mt-2">
-                      <button onClick={() => makeVideoConcept(c)} className="inline-flex items-center gap-1 rounded-md border border-sky-500/40 bg-sky-500/10 px-2.5 py-1 text-xs font-medium text-sky-300 hover:bg-sky-500/20">
+                      <button onClick={() => makeVideoConcept(c)} className="inline-flex items-center gap-1 rounded-md border border-primary/40 bg-primary/10 px-2.5 py-1 text-xs font-medium text-link hover:bg-primary/20">
                         <Film className="h-3.5 w-3.5" /> Make video concept
                       </button>
                     </div>
@@ -528,14 +528,14 @@ export function CoachMixDashboard() {
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-xs text-gray-500">{influencing.length} approved concept{influencing.length === 1 ? '' : 's'} would influence recommendations.</p>
+            <p className="mt-3 text-xs text-muted-foreground">{influencing.length} approved concept{influencing.length === 1 ? '' : 's'} would influence recommendations.</p>
           </SectionCard>
         </div>
       )}
 
       {tab === 'videos' && (
         <div className="space-y-4">
-          <div className="flex items-start gap-2 rounded-lg border border-sky-500/30 bg-sky-500/10 px-3 py-2 text-xs text-sky-300">
+          <div className="flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-xs text-link">
             <Film className="mt-0.5 h-4 w-4 shrink-0" />
             <p>
               Original SwingVantage video concepts built from <strong>approved</strong> learned concepts + your active
@@ -545,9 +545,9 @@ export function CoachMixDashboard() {
           </div>
           {data.videoConcepts.length === 0 && (
             <SectionCard>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 No video concepts yet. In the{' '}
-                <button onClick={() => setTab('queue')} className="text-violet-300 underline">Review Queue</button>, approve a
+                <button onClick={() => setTab('queue')} className="text-link underline">Review Queue</button>, approve a
                 concept and click “Make video concept”.
               </p>
             </SectionCard>
@@ -566,41 +566,41 @@ export function CoachMixDashboard() {
               description={v.coachMixInfluence}
             >
               <div className="space-y-2 text-sm">
-                <p className="text-xs text-gray-400">
-                  <span className="text-gray-500">Target:</span> {v.targetProblem} · <span className="text-gray-500">Objective:</span> {v.swingModelObjective}
+                <p className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground">Target:</span> {v.targetProblem} · <span className="text-muted-foreground">Objective:</span> {v.swingModelObjective}
                 </p>
                 <div>
-                  <p className="mb-1 text-xs uppercase tracking-wide text-gray-500">Script outline</p>
-                  <ol className="list-inside list-decimal space-y-0.5 text-xs text-gray-300">
+                  <p className="mb-1 text-xs uppercase tracking-wide text-muted-foreground">Script outline</p>
+                  <ol className="list-inside list-decimal space-y-0.5 text-xs text-foreground">
                     {v.scriptOutline.map((s, i) => <li key={i}>{s}</li>)}
                   </ol>
                 </div>
                 <div>
-                  <p className="mb-1 text-xs uppercase tracking-wide text-gray-500">Shot list</p>
-                  <ul className="list-inside list-disc space-y-0.5 text-xs text-gray-300">
+                  <p className="mb-1 text-xs uppercase tracking-wide text-muted-foreground">Shot list</p>
+                  <ul className="list-inside list-disc space-y-0.5 text-xs text-foreground">
                     {v.shotList.map((s, i) => <li key={i}>{s}</li>)}
                   </ul>
                 </div>
-                <p className="text-xs text-gray-400"><span className="text-gray-500">Retest:</span> {v.retestInstructions}</p>
+                <p className="text-xs text-muted-foreground"><span className="text-muted-foreground">Retest:</span> {v.retestInstructions}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {v.seoKeywords.slice(0, 6).map((k) => <StatusBadge key={k} tone="neutral">{k}</StatusBadge>)}
                 </div>
-                <div className="flex flex-wrap gap-2 border-t border-gray-800 pt-2">
+                <div className="flex flex-wrap gap-2 border-t border-border pt-2">
                   {v.approvalStatus !== 'approved' && (
-                    <button onClick={() => setVideoConceptStatus(v.id, 'approved')} className="inline-flex items-center gap-1 rounded-md border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-300 hover:bg-emerald-500/20">
+                    <button onClick={() => setVideoConceptStatus(v.id, 'approved')} className="inline-flex items-center gap-1 rounded-md border border-success/40 bg-success/10 px-2.5 py-1 text-xs font-medium text-success-text hover:bg-success/20">
                       <Check className="h-3.5 w-3.5" /> Approve
                     </button>
                   )}
                   {v.approvalStatus !== 'rejected' && (
-                    <button onClick={() => setVideoConceptStatus(v.id, 'rejected')} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 bg-red-500/10 px-2.5 py-1 text-xs font-medium text-red-300 hover:bg-red-500/20">
+                    <button onClick={() => setVideoConceptStatus(v.id, 'rejected')} className="inline-flex items-center gap-1 rounded-md border border-error/40 bg-error/10 px-2.5 py-1 text-xs font-medium text-error-text hover:bg-error/20">
                       <X className="h-3.5 w-3.5" /> Reject
                     </button>
                   )}
-                  <button onClick={() => removeVideoConcept(v.id)} className="inline-flex items-center gap-1 rounded-md border border-gray-700 px-2.5 py-1 text-xs font-medium text-gray-300 hover:bg-gray-800">
+                  <button onClick={() => removeVideoConcept(v.id)} className="inline-flex items-center gap-1 rounded-md border border-border px-2.5 py-1 text-xs font-medium text-foreground hover:bg-muted">
                     <Trash2 className="h-3.5 w-3.5" /> Remove
                   </button>
                 </div>
-                <p className="text-[11px] italic text-gray-500">Approved concepts are ready to hand to Video Studio (Admin → Video Studio) for production.</p>
+                <p className="text-[11px] italic text-muted-foreground">Approved concepts are ready to hand to Video Studio (Admin → Video Studio) for production.</p>
               </div>
             </SectionCard>
           ))}
@@ -610,7 +610,7 @@ export function CoachMixDashboard() {
       {tab === 'trends' && (
         <div className="space-y-4">
           {trendData.isSample && (
-            <div className="flex items-start gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+            <div className="flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-xs text-link">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
               <p>
                 Showing <strong>illustrative sample data</strong>. Once privacy-safe aggregates are wired in, this reads
@@ -628,13 +628,13 @@ export function CoachMixDashboard() {
           ] as const).map(([title, items]) => (
             <SectionCard key={title} title={title}>
               {items.length === 0 ? (
-                <p className="text-sm text-gray-500">—</p>
+                <p className="text-sm text-muted-foreground">—</p>
               ) : (
                 <ul className="space-y-2">
                   {items.map((s, i) => (
-                    <li key={i} className="rounded-lg border border-gray-800 bg-gray-950 p-2.5 text-sm">
-                      <p className="text-gray-200">{s.suggestion}</p>
-                      <p className="text-xs text-gray-500">{s.reason} · cohort {s.cohort}</p>
+                    <li key={i} className="rounded-lg border border-border bg-background p-2.5 text-sm">
+                      <p className="text-foreground">{s.suggestion}</p>
+                      <p className="text-xs text-muted-foreground">{s.reason} · cohort {s.cohort}</p>
                     </li>
                   ))}
                 </ul>
@@ -655,7 +655,7 @@ export function CoachMixDashboard() {
                 key={f.id}
                 onClick={() => setFaultId(f.id)}
                 className={`rounded-full border px-3 py-1 text-xs font-medium ${
-                  faultId === f.id ? 'border-violet-500 bg-violet-500/10 text-violet-300' : 'border-gray-700 text-gray-400 hover:text-gray-200'
+                  faultId === f.id ? 'border-primary bg-primary/10 text-link' : 'border-border text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {f.label}
@@ -663,34 +663,34 @@ export function CoachMixDashboard() {
             ))}
           </div>
           <div className="space-y-3 text-sm">
-            <div className="rounded-lg border border-gray-800 bg-gray-950 p-3">
-              <p className="text-xs uppercase tracking-wide text-gray-500">1 · Top issue</p>
-              <p className="text-gray-200">{recommendation.topIssue}</p>
-              <p className="mt-1 text-xs text-gray-400">{recommendation.whyItMatters}</p>
+            <div className="rounded-lg border border-border bg-background p-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">1 · Top issue</p>
+              <p className="text-foreground">{recommendation.topIssue}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{recommendation.whyItMatters}</p>
             </div>
             {recommendation.firstDrill && (
-              <div className="rounded-lg border border-violet-500/20 bg-violet-500/5 p-3">
-                <p className="text-xs uppercase tracking-wide text-gray-500">2 · Do this first</p>
-                <p className="font-medium text-gray-100">{recommendation.firstDrill.drill.name}</p>
-                <p className="mt-0.5 text-xs text-gray-400">{recommendation.firstDrill.why}</p>
-                <div className="mt-1.5 grid grid-cols-2 gap-2 text-xs text-gray-400 sm:grid-cols-3">
-                  <span><span className="text-gray-500">Feel:</span> {recommendation.whatToFeel}</span>
-                  <span><span className="text-gray-500">Success:</span> {recommendation.whatSuccessLooksLike}</span>
-                  <span><span className="text-gray-500">~min:</span> {recommendation.firstDrill.drill.estimatedMinutes}</span>
+              <div className="rounded-lg border border-primary/20 bg-primary/5 p-3">
+                <p className="text-xs uppercase tracking-wide text-muted-foreground">2 · Do this first</p>
+                <p className="font-medium text-foreground">{recommendation.firstDrill.drill.name}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">{recommendation.firstDrill.why}</p>
+                <div className="mt-1.5 grid grid-cols-2 gap-2 text-xs text-muted-foreground sm:grid-cols-3">
+                  <span><span className="text-muted-foreground">Feel:</span> {recommendation.whatToFeel}</span>
+                  <span><span className="text-muted-foreground">Success:</span> {recommendation.whatSuccessLooksLike}</span>
+                  <span><span className="text-muted-foreground">~min:</span> {recommendation.firstDrill.drill.estimatedMinutes}</span>
                 </div>
               </div>
             )}
-            <div className="rounded-lg border border-gray-800 bg-gray-950 p-3">
-              <p className="text-xs uppercase tracking-wide text-gray-500">3 · Retest &amp; connection</p>
-              <p className="text-gray-300">{recommendation.howToRetest}</p>
-              <p className="mt-1 text-xs text-gray-400">{recommendation.howItConnectsToYourGame}</p>
+            <div className="rounded-lg border border-border bg-background p-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">3 · Retest &amp; connection</p>
+              <p className="text-foreground">{recommendation.howToRetest}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{recommendation.howItConnectsToYourGame}</p>
             </div>
             {recommendation.alternatives.length > 0 && (
               <div>
-                <p className="mb-1 text-xs uppercase tracking-wide text-gray-500">Alternatives</p>
+                <p className="mb-1 text-xs uppercase tracking-wide text-muted-foreground">Alternatives</p>
                 <ul className="space-y-1">
                   {recommendation.alternatives.map((d) => (
-                    <li key={d.drill.id} className="flex items-center justify-between text-xs text-gray-400">
+                    <li key={d.drill.id} className="flex items-center justify-between text-xs text-muted-foreground">
                       <span>{d.drill.name}</span>
                       <span className="tabular-nums">score {d.coachScore}{d.influenceMultiplier > 1 ? ` (×${d.influenceMultiplier})` : ''}</span>
                     </li>
@@ -698,7 +698,7 @@ export function CoachMixDashboard() {
                 </ul>
               </div>
             )}
-            <p className="border-t border-gray-800 pt-2 text-[11px] italic text-gray-500">
+            <p className="border-t border-border pt-2 text-[11px] italic text-muted-foreground">
               {recommendation.influenceSummary} {recommendation.coachNamesVisible ? '' : 'Coach names are hidden in user output.'}
             </p>
           </div>

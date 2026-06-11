@@ -41,16 +41,16 @@ export function CompetitorWatch({ insights, competitors, onSave, disabled }: {
         ) : (
           <ul className="space-y-3">
             {insights.filter((i) => i.signalCount > 0).map((i) => (
-              <li key={i.competitorId} className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+              <li key={i.competitorId} className="rounded-xl border border-border bg-card p-4">
                 <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-sm font-semibold text-gray-100">{i.competitorName}</h3>
+                  <h3 className="text-sm font-semibold text-foreground">{i.competitorName}</h3>
                   <StatusBadge tone="info">{i.signalCount} signals</StatusBadge>
                 </div>
-                <div className="mt-2 flex flex-wrap gap-1.5 text-xs text-gray-500">
-                  <span className="text-emerald-400">+{i.sentimentBreakdown.positive} pos</span>
-                  <span className="text-gray-400">{i.sentimentBreakdown.neutral} neu</span>
-                  <span className="text-red-400">{i.sentimentBreakdown.negative} neg</span>
-                  <span className="text-amber-400">{i.sentimentBreakdown.mixed} mixed</span>
+                <div className="mt-2 flex flex-wrap gap-1.5 text-xs text-muted-foreground">
+                  <span className="text-success-text">+{i.sentimentBreakdown.positive} pos</span>
+                  <span className="text-muted-foreground">{i.sentimentBreakdown.neutral} neu</span>
+                  <span className="text-error-text">{i.sentimentBreakdown.negative} neg</span>
+                  <span className="text-link">{i.sentimentBreakdown.mixed} mixed</span>
                 </div>
                 {i.weaknesses.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1.5">
@@ -60,7 +60,7 @@ export function CompetitorWatch({ insights, competitors, onSave, disabled }: {
                 {i.positioningAngles.length > 0 && (
                   <ul className="mt-3 space-y-1">
                     {i.positioningAngles.map((a) => (
-                      <li key={a} className="flex items-start gap-2 text-xs text-amber-200">
+                      <li key={a} className="flex items-start gap-2 text-xs text-link">
                         <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0" /> {a}
                       </li>
                     ))}
@@ -75,10 +75,10 @@ export function CompetitorWatch({ insights, competitors, onSave, disabled }: {
       <SectionCard title="Configure competitors" description="Toggle who SignalRadar watches, or add your own. Disabled when previewing sample data.">
         <ul className="mb-4 grid gap-2 sm:grid-cols-2">
           {competitors.map((c) => (
-            <li key={c.id} className="flex items-center justify-between gap-2 rounded-lg border border-gray-800 bg-gray-950/40 px-3 py-2">
+            <li key={c.id} className="flex items-center justify-between gap-2 rounded-lg border border-border bg-background/40 px-3 py-2">
               <div className="min-w-0">
-                <p className="truncate text-sm text-gray-200">{c.name}</p>
-                <p className="truncate text-xs text-gray-600">{c.category}{insightFor(c.id)?.signalCount ? ` · ${insightFor(c.id)!.signalCount} signals` : ''}</p>
+                <p className="truncate text-sm text-foreground">{c.name}</p>
+                <p className="truncate text-xs text-muted-foreground/70">{c.category}{insightFor(c.id)?.signalCount ? ` · ${insightFor(c.id)!.signalCount} signals` : ''}</p>
               </div>
               <Btn size="sm" tone={c.enabled ? 'primary' : 'ghost'} disabled={disabled} onClick={() => toggle(c.id)}>{c.enabled ? 'Watching' : 'Off'}</Btn>
             </li>

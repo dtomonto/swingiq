@@ -16,8 +16,8 @@ const columns: Column<AnalysisRow>[] = [
     sortValue: (r) => r.fileName,
     render: (r) => (
       <div className="min-w-0">
-        <div className="truncate font-medium text-gray-200">{r.fileName || 'untitled'}</div>
-        {r.cameraAngle && <div className="text-xs text-gray-500">{r.cameraAngle.replace(/_/g, ' ')}</div>}
+        <div className="truncate font-medium text-foreground">{r.fileName || 'untitled'}</div>
+        {r.cameraAngle && <div className="text-xs text-muted-foreground">{r.cameraAngle.replace(/_/g, ' ')}</div>}
       </div>
     ),
   },
@@ -25,7 +25,7 @@ const columns: Column<AnalysisRow>[] = [
     key: 'userEmail',
     header: 'User',
     sortValue: (r) => r.userEmail ?? '',
-    render: (r) => <span className="block max-w-[14rem] truncate text-gray-300">{r.userEmail ?? r.userId}</span>,
+    render: (r) => <span className="block max-w-[14rem] truncate text-foreground">{r.userEmail ?? r.userId}</span>,
   },
   {
     key: 'sport',
@@ -37,13 +37,13 @@ const columns: Column<AnalysisRow>[] = [
     key: 'overallScore',
     header: 'Score',
     sortValue: (r) => r.overallScore,
-    render: (r) => <span className="tabular-nums text-gray-300">{r.overallScore || '—'}</span>,
+    render: (r) => <span className="tabular-nums text-foreground">{r.overallScore || '—'}</span>,
   },
   {
     key: 'createdAt',
     header: 'Analyzed',
     sortValue: (r) => r.createdAt,
-    render: (r) => <span className="text-gray-500">{r.createdAt ? formatRelativeTime(r.createdAt) : '—'}</span>,
+    render: (r) => <span className="text-muted-foreground">{r.createdAt ? formatRelativeTime(r.createdAt) : '—'}</span>,
   },
 ];
 

@@ -61,15 +61,15 @@ export default function AdminContentPage() {
         {surfaces.map((s) => {
           const Icon = s.icon;
           return (
-            <Link key={s.href} href={s.href} className="group flex items-start gap-3 rounded-xl border border-gray-800 bg-gray-900 p-4 hover:border-gray-700">
-              <span className="rounded-lg bg-gray-800 p-2 text-amber-400"><Icon className="h-4 w-4" /></span>
+            <Link key={s.href} href={s.href} className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 hover:border-border">
+              <span className="rounded-lg bg-muted p-2 text-link"><Icon className="h-4 w-4" /></span>
               <span className="min-w-0 flex-1">
-                <span className="flex items-center gap-1 text-sm font-medium text-gray-100">
+                <span className="flex items-center gap-1 text-sm font-medium text-foreground">
                   {s.label}
-                  {s.external ? <ArrowUpRight className="h-3 w-3 text-gray-600" /> : null}
+                  {s.external ? <ArrowUpRight className="h-3 w-3 text-muted-foreground/70" /> : null}
                 </span>
-                <span className="mt-0.5 block text-xs text-gray-500">{s.desc}</span>
-                {typeof s.count === 'number' && <span className="mt-1 block text-xs text-amber-300/80">{s.count} items</span>}
+                <span className="mt-0.5 block text-xs text-muted-foreground">{s.desc}</span>
+                {typeof s.count === 'number' && <span className="mt-1 block text-xs text-link/80">{s.count} items</span>}
               </span>
             </Link>
           );
@@ -79,18 +79,18 @@ export default function AdminContentPage() {
       <SectionCard title="Recent blog posts" description={`${BLOG_POSTS.length} total in the catalog.`}>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-[11px] uppercase tracking-wide text-gray-500">
+            <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
               <tr><th className="pb-2 pr-3">Title</th><th className="pb-2 pr-3">Sport</th><th className="pb-2 pr-3">Category</th><th className="pb-2 pr-3">Date</th><th className="pb-2"></th></tr>
             </thead>
-            <tbody className="text-gray-300">
+            <tbody className="text-foreground">
               {recentBlog.map((p) => (
-                <tr key={p.slug} className="border-t border-gray-800">
-                  <td className="max-w-[18rem] truncate py-2 pr-3 text-gray-200">{p.title}</td>
+                <tr key={p.slug} className="border-t border-border">
+                  <td className="max-w-[18rem] truncate py-2 pr-3 text-foreground">{p.title}</td>
                   <td className="py-2 pr-3">{sportShort(p.sport === 'all' ? 'multi' : p.sport)}</td>
-                  <td className="py-2 pr-3 text-gray-400">{p.category}</td>
-                  <td className="py-2 pr-3 text-gray-500">{p.publishDate ? formatDate(p.publishDate) : '—'}</td>
+                  <td className="py-2 pr-3 text-muted-foreground">{p.category}</td>
+                  <td className="py-2 pr-3 text-muted-foreground">{p.publishDate ? formatDate(p.publishDate) : '—'}</td>
                   <td className="py-2">
-                    <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline">
+                    <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-link hover:underline">
                       View <ExternalLink className="h-3 w-3" />
                     </a>
                   </td>
@@ -103,12 +103,12 @@ export default function AdminContentPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The hub for everything SwingVantage
+          <strong className="text-foreground">What this is.</strong> The hub for everything SwingVantage
           publishes. Blog and SEO content currently live in versioned data files; this page is the single
           place to see counts and jump into each tool.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Review the generated-fix queue before
+          <strong className="text-foreground">What to do next.</strong> Review the generated-fix queue before
           pages go live, keep high-priority SEO pages published, and use the social/video tools to amplify new
           posts.
         </p>

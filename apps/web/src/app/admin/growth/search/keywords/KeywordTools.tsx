@@ -51,28 +51,28 @@ export function KeywordTools({ exportRows }: { exportRows: Record<string, CsvVal
     <div className="space-y-4">
       {/* Import / export toolbar */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs text-gray-500">Import</span>
+        <span className="text-xs text-muted-foreground">Import</span>
         <select
           value={kind}
           onChange={(e) => setKind(e.target.value as ImportKind)}
-          className="bg-gray-900 border border-gray-800 rounded-lg px-2 py-1.5 text-xs text-gray-200 focus:outline-hidden focus:ring-1 focus:ring-green-500"
+          className="bg-card border border-border rounded-lg px-2 py-1.5 text-xs text-foreground focus:outline-hidden focus:ring-1 focus:ring-success"
         >
           {KINDS.map((k) => <option key={k} value={k}>{humanize(k)}</option>)}
         </select>
         <button
           onClick={() => fileRef.current?.click()}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-green-600 hover:bg-green-500 text-white text-xs font-semibold px-2.5 py-1.5"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-success hover:bg-success text-white text-xs font-semibold px-2.5 py-1.5"
         >
           <Upload className="w-3.5 h-3.5" /> Choose CSV…
         </button>
         <input ref={fileRef} type="file" accept=".csv,text/csv" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onFile(f); }} />
-        <span className="text-[11px] text-gray-600 font-mono hidden sm:inline">cols: {TEMPLATE[kind]}</span>
+        <span className="text-[11px] text-muted-foreground/70 font-mono hidden sm:inline">cols: {TEMPLATE[kind]}</span>
         <div className="ml-auto"><ExportCsvButton rows={exportRows} filename="swingvantage-keywords.csv" label="Export keywords" /></div>
       </div>
 
       {/* Import summary */}
       {summary ? (
-        <div className={`rounded-lg border p-3 text-xs ${summary.errors.length ? 'border-amber-500/30 bg-amber-500/10 text-amber-200' : 'border-green-500/30 bg-green-500/10 text-green-200'}`}>
+        <div className={`rounded-lg border p-3 text-xs ${summary.errors.length ? 'border-primary/30 bg-primary/10 text-link' : 'border-success/30 bg-success/10 text-success-text'}`}>
           <p className="flex items-center gap-1.5 font-medium">
             {summary.errors.length ? <AlertTriangle className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
             Imported {summary.ok} {humanize(summary.kind).toLowerCase()} row(s){summary.errors.length ? `, skipped ${summary.errors.length}` : ''}.
@@ -85,16 +85,16 @@ export function KeywordTools({ exportRows }: { exportRows: Record<string, CsvVal
       {imported.keywords.length > 0 ? (
         <ImportedSection title={`Imported keywords (${imported.keywords.length})`} onClear={() => clearImported('keywords')}>
           <table className="w-full text-left text-xs">
-            <thead className="text-gray-500"><tr><th className="py-1">Keyword</th><th>Intent</th><th className="text-right">Vol</th><th className="text-right">Diff</th><th className="text-right">Opp.</th><th>URL</th><th>Source</th></tr></thead>
-            <tbody className="divide-y divide-gray-800">
+            <thead className="text-muted-foreground"><tr><th className="py-1">Keyword</th><th>Intent</th><th className="text-right">Vol</th><th className="text-right">Diff</th><th className="text-right">Opp.</th><th>URL</th><th>Source</th></tr></thead>
+            <tbody className="divide-y divide-border">
               {imported.keywords.slice(0, 100).map((k) => (
                 <tr key={k.id}>
-                  <td className="py-1 text-gray-200">{k.keyword}</td>
-                  <td className="text-gray-400">{humanize(k.intent)}</td>
-                  <td className="text-right tabular-nums text-gray-400">{k.volumeEstimate}</td>
-                  <td className="text-right tabular-nums text-gray-400">{k.difficultyEstimate}</td>
+                  <td className="py-1 text-foreground">{k.keyword}</td>
+                  <td className="text-muted-foreground">{humanize(k.intent)}</td>
+                  <td className="text-right tabular-nums text-muted-foreground">{k.volumeEstimate}</td>
+                  <td className="text-right tabular-nums text-muted-foreground">{k.difficultyEstimate}</td>
                   <td className={`text-right tabular-nums font-semibold ${accent(k.opportunityScore)}`}>{k.opportunityScore}</td>
-                  <td className="font-mono text-gray-500 truncate max-w-[160px]">{k.targetUrl ?? '—'}</td>
+                  <td className="font-mono text-muted-foreground truncate max-w-[160px]">{k.targetUrl ?? '—'}</td>
                   <td><DataSourceBadge source={k.dataSource} /></td>
                 </tr>
               ))}
@@ -110,10 +110,10 @@ export function KeywordTools({ exportRows }: { exportRows: Record<string, CsvVal
       {imported.rankings.length > 0 ? (
         <ImportedSection title={`Imported rankings (${imported.rankings.length})`} onClear={() => clearImported('rankings')}>
           <table className="w-full text-left text-xs">
-            <thead className="text-gray-500"><tr><th className="py-1">Keyword</th><th>URL</th><th className="text-right">Pos</th><th>Device</th><th>Checked</th></tr></thead>
-            <tbody className="divide-y divide-gray-800">
+            <thead className="text-muted-foreground"><tr><th className="py-1">Keyword</th><th>URL</th><th className="text-right">Pos</th><th>Device</th><th>Checked</th></tr></thead>
+            <tbody className="divide-y divide-border">
               {imported.rankings.slice(0, 100).map((r) => (
-                <tr key={r.id}><td className="py-1 text-gray-200">{r.keyword}</td><td className="font-mono text-gray-500 truncate max-w-[180px]">{r.url}</td><td className="text-right tabular-nums text-gray-300">{r.position}</td><td className="text-gray-400">{r.device}</td><td className="text-gray-500">{r.checkedAt}</td></tr>
+                <tr key={r.id}><td className="py-1 text-foreground">{r.keyword}</td><td className="font-mono text-muted-foreground truncate max-w-[180px]">{r.url}</td><td className="text-right tabular-nums text-foreground">{r.position}</td><td className="text-muted-foreground">{r.device}</td><td className="text-muted-foreground">{r.checkedAt}</td></tr>
               ))}
             </tbody>
           </table>
@@ -125,10 +125,10 @@ export function KeywordTools({ exportRows }: { exportRows: Record<string, CsvVal
       {imported.backlinks.length > 0 ? (
         <ImportedSection title={`Imported backlinks (${imported.backlinks.length})`} onClear={() => clearImported('backlinks')}>
           <table className="w-full text-left text-xs">
-            <thead className="text-gray-500"><tr><th className="py-1">Source</th><th>Target</th><th>Anchor</th><th className="text-right">Authority</th><th>Nofollow</th></tr></thead>
-            <tbody className="divide-y divide-gray-800">
+            <thead className="text-muted-foreground"><tr><th className="py-1">Source</th><th>Target</th><th>Anchor</th><th className="text-right">Authority</th><th>Nofollow</th></tr></thead>
+            <tbody className="divide-y divide-border">
               {imported.backlinks.slice(0, 100).map((b) => (
-                <tr key={b.id}><td className="py-1 font-mono text-gray-300 truncate max-w-[160px]">{b.sourceDomain}</td><td className="font-mono text-gray-500 truncate max-w-[160px]">{b.targetUrl}</td><td className="text-gray-400 truncate max-w-[120px]">{b.anchorText || '—'}</td><td className="text-right tabular-nums text-gray-400">{b.authorityEstimate ?? '—'}</td><td className="text-gray-500">{b.nofollow ? 'yes' : 'no'}</td></tr>
+                <tr key={b.id}><td className="py-1 font-mono text-foreground truncate max-w-[160px]">{b.sourceDomain}</td><td className="font-mono text-muted-foreground truncate max-w-[160px]">{b.targetUrl}</td><td className="text-muted-foreground truncate max-w-[120px]">{b.anchorText || '—'}</td><td className="text-right tabular-nums text-muted-foreground">{b.authorityEstimate ?? '—'}</td><td className="text-muted-foreground">{b.nofollow ? 'yes' : 'no'}</td></tr>
               ))}
             </tbody>
           </table>
@@ -141,10 +141,10 @@ export function KeywordTools({ exportRows }: { exportRows: Record<string, CsvVal
 
 function ImportedSection({ title, onClear, children }: { title: string; onClear: () => void; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900 overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-gray-800 bg-gray-800/40">
-        <div className="flex items-center gap-2"><FileUp className="w-3.5 h-3.5 text-green-400" /><h3 className="text-xs font-semibold text-gray-200">{title}</h3><Badge className="text-blue-400 bg-blue-400/10 border-blue-400/30">imported</Badge></div>
-        <button onClick={onClear} className="inline-flex items-center gap-1 text-[11px] text-gray-500 hover:text-red-400"><Trash2 className="w-3 h-3" /> Clear</button>
+    <div className="rounded-xl border border-border bg-card overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-muted/40">
+        <div className="flex items-center gap-2"><FileUp className="w-3.5 h-3.5 text-success-text" /><h3 className="text-xs font-semibold text-foreground">{title}</h3><Badge className="text-blue-400 bg-blue-400/10 border-blue-400/30">imported</Badge></div>
+        <button onClick={onClear} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-error-text"><Trash2 className="w-3 h-3" /> Clear</button>
       </div>
       <div className="p-4 overflow-x-auto">{children}</div>
     </div>

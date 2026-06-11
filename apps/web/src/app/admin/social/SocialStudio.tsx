@@ -67,9 +67,9 @@ const title = (s: string) => s.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUp
 const postKey = (p: { platform: string; variationType: string }) => `${p.platform}:${p.variationType}`;
 
 function scoreColor(score: number): string {
-  if (score >= 80) return 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30';
-  if (score >= 60) return 'bg-amber-500/15 text-amber-300 border-amber-500/30';
-  return 'bg-red-500/15 text-red-300 border-red-500/30';
+  if (score >= 80) return 'bg-success/15 text-success-text border-success/30';
+  if (score >= 60) return 'bg-primary/15 text-link border-primary/30';
+  return 'bg-error/15 text-error-text border-error/30';
 }
 
 export function SocialStudio({
@@ -440,15 +440,15 @@ export function SocialStudio({
     [result],
   );
 
-  const field = 'w-full bg-gray-900 border border-gray-700 rounded-md px-2.5 py-1.5 text-sm text-gray-100 focus:border-emerald-500 outline-none';
+  const field = 'w-full bg-card border border-border rounded-md px-2.5 py-1.5 text-sm text-foreground focus:border-success outline-none';
   const btn = 'px-3 py-1.5 rounded-md text-sm font-medium transition-colors disabled:opacity-50';
 
   return (
     <div className="grid lg:grid-cols-[300px_1fr] gap-6">
       {/* ---- Controls ---- */}
       <aside className="space-y-4">
-        <div className="bg-gray-900 border border-gray-800 rounded-lg p-4 space-y-3">
-          <label htmlFor="ss-blog-post" className="block text-xs font-semibold text-gray-300">Blog post</label>
+        <div className="bg-card border border-border rounded-lg p-4 space-y-3">
+          <label htmlFor="ss-blog-post" className="block text-xs font-semibold text-foreground">Blog post</label>
           <select id="ss-blog-post" className={field} value={slug} onChange={(e) => setSlug(e.target.value)}>
             {posts.map((p) => (
               <option key={p.slug} value={p.slug}>
@@ -458,26 +458,26 @@ export function SocialStudio({
           </select>
 
           {pending.filter((p) => !dismissed.has(p.slug)).length > 0 && (
-            <div className="rounded-md border border-amber-500/30 bg-amber-500/10 p-2.5">
-              <p className="text-[11px] font-semibold text-amber-300 mb-1.5">
+            <div className="rounded-md border border-primary/30 bg-primary/10 p-2.5">
+              <p className="text-[11px] font-semibold text-link mb-1.5">
                 Flagged for social (new posts)
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {pending
                   .filter((p) => !dismissed.has(p.slug))
                   .map((p) => (
-                    <span key={p.slug} className="inline-flex items-center gap-1 rounded bg-amber-500/15 border border-amber-500/30 px-1.5 py-0.5">
+                    <span key={p.slug} className="inline-flex items-center gap-1 rounded bg-primary/15 border border-primary/30 px-1.5 py-0.5">
                       <button
                         onClick={() => setSlug(p.slug)}
                         title={p.title}
-                        className="text-[11px] text-amber-200 hover:text-white max-w-[150px] truncate"
+                        className="text-[11px] text-link hover:text-white max-w-[150px] truncate"
                       >
                         {p.title}
                       </button>
                       <button
                         onClick={() => setDismissed((d) => new Set(d).add(p.slug))}
                         title="Dismiss"
-                        className="text-amber-400/70 hover:text-amber-200 text-[11px] leading-none"
+                        className="text-link/70 hover:text-link text-[11px] leading-none"
                       >
                         ×
                       </button>
@@ -488,10 +488,10 @@ export function SocialStudio({
           )}
 
           <div>
-            <span className="block text-xs font-semibold text-gray-300 mb-1.5">Platforms</span>
+            <span className="block text-xs font-semibold text-foreground mb-1.5">Platforms</span>
             <div className="grid grid-cols-2 gap-1.5">
               {choices.platforms.map((p) => (
-                <label key={p} className="flex items-center gap-1.5 text-xs text-gray-300">
+                <label key={p} className="flex items-center gap-1.5 text-xs text-foreground">
                   <input
                     type="checkbox"
                     checked={platforms.has(p)}
@@ -515,43 +515,43 @@ export function SocialStudio({
           <Select label="CTA intensity" value={ctaIntensity} onChange={setCtaIntensity} opts={choices.ctaIntensities} cls={field} />
 
           <div>
-            <label htmlFor="ss-campaign" className="block text-xs font-semibold text-gray-300 mb-1">Campaign (optional)</label>
+            <label htmlFor="ss-campaign" className="block text-xs font-semibold text-foreground mb-1">Campaign (optional)</label>
             <input id="ss-campaign" className={field} value={campaign} onChange={(e) => setCampaign(e.target.value)} placeholder="blog_distribution" />
           </div>
 
-          <button onClick={generate} disabled={loading || !slug} className={`${btn} w-full bg-emerald-600 hover:bg-emerald-500 text-white`}>
+          <button onClick={generate} disabled={loading || !slug} className={`${btn} w-full bg-success hover:bg-success text-white`}>
             {loading ? 'Generating…' : 'Generate social posts'}
           </button>
-          {error && <p className="text-xs text-red-400">{error}</p>}
+          {error && <p className="text-xs text-error-text">{error}</p>}
         </div>
       </aside>
 
       {/* ---- Results ---- */}
       <main className="min-w-0">
         {!result ? (
-          <div className="bg-gray-900 border border-gray-800 border-dashed rounded-lg p-10 text-center text-gray-500 text-sm">
+          <div className="bg-card border border-border border-dashed rounded-lg p-10 text-center text-muted-foreground text-sm">
             Pick a post and platforms, then generate. Posts work with or without an AI key.
           </div>
         ) : (
           <div className="space-y-4">
             {/* Summary */}
-            <div className="bg-gray-900 border border-gray-800 rounded-lg p-4">
+            <div className="bg-card border border-border rounded-lg p-4">
               <div className="flex items-center justify-between gap-3 flex-wrap">
                 <div className="flex items-center gap-2">
-                  <span className={`text-xs px-2 py-0.5 rounded border ${result.source === 'ai' ? 'bg-sky-500/15 text-sky-300 border-sky-500/30' : 'bg-gray-700/40 text-gray-300 border-gray-600'}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded border ${result.source === 'ai' ? 'bg-primary/15 text-link border-primary/30' : 'bg-muted/40 text-foreground border-border'}`}>
                     {result.source === 'ai' ? `AI-written (${result.model})` : 'Keyless draft'}
                   </span>
-                  <span className="text-xs text-gray-500">{result.posts.length} posts</span>
+                  <span className="text-xs text-muted-foreground">{result.posts.length} posts</span>
                 </div>
                 <div className="flex gap-2 items-center flex-wrap">
-                  <button onClick={generate} disabled={loading} className={`${btn} bg-gray-700 hover:bg-gray-600 text-gray-100`}>
+                  <button onClick={generate} disabled={loading} className={`${btn} bg-muted hover:bg-muted text-foreground`}>
                     {loading ? 'Regenerating…' : 'Regenerate all'}
                   </button>
                   <button
                     onClick={saveToLibrary}
                     disabled={savingLib || !!savedInfo}
                     title="Saves this generation, your edits, and approvals. Further edits/approvals then save automatically."
-                    className={`${btn} ${savedInfo ? 'bg-emerald-700 text-white' : 'bg-emerald-600 hover:bg-emerald-500 text-white'}`}
+                    className={`${btn} ${savedInfo ? 'bg-success text-white' : 'bg-success hover:bg-success text-white'}`}
                   >
                     {savingLib ? 'Saving…' : savedInfo ? 'Saved ✓' : 'Save to library'}
                   </button>
@@ -562,7 +562,7 @@ export function SocialStudio({
                       if (s) loadSnapshot(s);
                     }}
                     value={savedInfo?.genId ?? ''}
-                    className="bg-gray-800 border border-gray-700 rounded-md px-2 py-1.5 text-xs text-gray-200"
+                    className="bg-muted border border-border rounded-md px-2 py-1.5 text-xs text-foreground"
                   >
                     <option value="">Library{library.length ? ` (${library.length})` : ''}…</option>
                     {library.map((g) => (
@@ -571,32 +571,32 @@ export function SocialStudio({
                       </option>
                     ))}
                   </select>
-                  <button onClick={exportCsv} className={`${btn} bg-gray-700 hover:bg-gray-600 text-gray-100`}>
+                  <button onClick={exportCsv} className={`${btn} bg-muted hover:bg-muted text-foreground`}>
                     Export CSV
                   </button>
-                  <button onClick={loadLearning} className={`${btn} bg-gray-700 hover:bg-gray-600 text-gray-100`}>
+                  <button onClick={loadLearning} className={`${btn} bg-muted hover:bg-muted text-foreground`}>
                     What&apos;s working
                   </button>
                   {persistOff && (
-                    <span className="text-xs text-amber-400/80">
+                    <span className="text-xs text-link/80">
                       Library off — run server/supabase_schema_social.sql to enable saving
                     </span>
                   )}
                 </div>
               </div>
-              <p className="text-sm text-gray-300 mt-3">
-                <span className="text-gray-500">Angle:</span> {title(result.analysis.primaryAngle)} ·{' '}
-                <span className="text-gray-500">Funnel:</span> {title(result.analysis.funnelStage)} ·{' '}
-                <span className="text-gray-500">Audience:</span> {title(result.analysis.targetAudience)}
+              <p className="text-sm text-foreground mt-3">
+                <span className="text-muted-foreground">Angle:</span> {title(result.analysis.primaryAngle)} ·{' '}
+                <span className="text-muted-foreground">Funnel:</span> {title(result.analysis.funnelStage)} ·{' '}
+                <span className="text-muted-foreground">Audience:</span> {title(result.analysis.targetAudience)}
               </p>
-              <p className="text-xs text-gray-500 mt-1">Insight: {result.analysis.strongestInsight}</p>
+              <p className="text-xs text-muted-foreground mt-1">Insight: {result.analysis.strongestInsight}</p>
             </div>
 
             {learning && (
-              <div className="bg-gray-900 border border-gray-800 rounded-lg p-4">
-                <h3 className="text-sm font-semibold text-gray-100 mb-2">What&apos;s working</h3>
+              <div className="bg-card border border-border rounded-lg p-4">
+                <h3 className="text-sm font-semibold text-foreground mb-2">What&apos;s working</h3>
                 {!learning.hasData ? (
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-muted-foreground">
                     No performance data yet. Record metrics on published posts (the Metrics button),
                     then this shows your best hooks, CTAs, and platforms — and the generator leans into them.
                   </p>
@@ -610,16 +610,16 @@ export function SocialStudio({
                       ] as const
                     ).map(([label, field]) => (
                       <div key={field}>
-                        <p className="text-gray-500 mb-1">{label}</p>
+                        <p className="text-muted-foreground mb-1">{label}</p>
                         {learning[field].slice(0, 3).map((r) => (
-                          <p key={r.key} className="text-gray-300">
+                          <p key={r.key} className="text-foreground">
                             {title(r.key)}{' '}
-                            <span className="text-gray-500">
+                            <span className="text-muted-foreground">
                               · {(r.ctr * 100).toFixed(1)}% CTR ({r.samples})
                             </span>
                           </p>
                         ))}
-                        {learning[field].length === 0 && <p className="text-gray-600">—</p>}
+                        {learning[field].length === 0 && <p className="text-muted-foreground/70">—</p>}
                       </div>
                     ))}
                   </div>
@@ -633,7 +633,7 @@ export function SocialStudio({
                 <button
                   key={p}
                   onClick={() => setActive(p)}
-                  className={`px-2.5 py-1 rounded-md text-xs font-medium ${active === p ? 'bg-emerald-600 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
+                  className={`px-2.5 py-1 rounded-md text-xs font-medium ${active === p ? 'bg-success text-white' : 'bg-muted text-foreground hover:bg-muted'}`}
                 >
                   {platformLabel(p)}
                 </button>
@@ -643,14 +643,14 @@ export function SocialStudio({
             {/* Active platform posts */}
             {active && (
               <div className="flex items-center justify-between">
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-muted-foreground">
                   {platformLabel(active)} · {PLATFORM_RULES[active].linkRule.replace(/_/g, ' ')} · hashtags{' '}
                   {PLATFORM_RULES[active].hashtagRange.join('–')}
                 </p>
                 <button
                   onClick={() => regeneratePlatform(active)}
                   disabled={regenPlatform === active}
-                  className={`${btn} bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs`}
+                  className={`${btn} bg-muted hover:bg-muted text-foreground text-xs`}
                 >
                   {regenPlatform === active ? 'Regenerating…' : `Regenerate ${platformLabel(active)}`}
                 </button>
@@ -665,16 +665,16 @@ export function SocialStudio({
                 const over = text.length > max;
                 const status = statuses[key];
                 return (
-                  <div key={key} className="bg-gray-900 border border-gray-800 rounded-lg p-4">
+                  <div key={key} className="bg-card border border-border rounded-lg p-4">
                     <div className="flex items-center justify-between gap-2 mb-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-gray-100">{title(post.variationType)}</span>
+                        <span className="text-sm font-semibold text-foreground">{title(post.variationType)}</span>
                         <span className={`text-xs px-1.5 py-0.5 rounded border ${scoreColor(post.qualityScore)}`}>
                           {post.qualityScore}
                         </span>
-                        <span className="text-xs text-gray-500">{title(post.hookType)} hook</span>
+                        <span className="text-xs text-muted-foreground">{title(post.hookType)} hook</span>
                       </div>
-                      <span className={`text-xs ${over ? 'text-red-400' : 'text-gray-500'}`}>
+                      <span className={`text-xs ${over ? 'text-error-text' : 'text-muted-foreground'}`}>
                         {text.length}/{max}
                       </span>
                     </div>
@@ -684,47 +684,47 @@ export function SocialStudio({
                       onChange={(e) => setEdits((prev) => ({ ...prev, [key]: e.target.value }))}
                       onBlur={() => persistEdit(post)}
                       rows={Math.min(8, Math.max(3, Math.ceil(text.length / 60)))}
-                      className="w-full bg-gray-950 border border-gray-700 rounded-md p-2.5 text-sm text-gray-100 font-mono leading-relaxed focus:border-emerald-500 outline-none"
+                      className="w-full bg-background border border-border rounded-md p-2.5 text-sm text-foreground font-mono leading-relaxed focus:border-success outline-none"
                     />
 
                     {post.hashtags.length > 0 && (
-                      <p className="text-xs text-sky-300/80 mt-1.5">{post.hashtags.join(' ')}</p>
+                      <p className="text-xs text-link/80 mt-1.5">{post.hashtags.join(' ')}</p>
                     )}
 
                     {post.warnings.length > 0 && (
                       <ul className="mt-2 space-y-0.5">
                         {post.warnings.map((w, i) => (
-                          <li key={i} className="text-xs text-amber-400/90">⚠ {w}</li>
+                          <li key={i} className="text-xs text-link/90">⚠ {w}</li>
                         ))}
                       </ul>
                     )}
 
                     <details className="mt-2">
-                      <summary className="text-xs text-gray-500 cursor-pointer">Link &amp; rationale</summary>
-                      <p className="text-xs text-gray-400 mt-1 break-all">{post.utmUrl || '(link in pin destination)'}</p>
-                      <p className="text-xs text-gray-500 mt-1 italic">{post.rationale}</p>
+                      <summary className="text-xs text-muted-foreground cursor-pointer">Link &amp; rationale</summary>
+                      <p className="text-xs text-muted-foreground mt-1 break-all">{post.utmUrl || '(link in pin destination)'}</p>
+                      <p className="text-xs text-muted-foreground mt-1 italic">{post.rationale}</p>
                     </details>
 
                     <div className="flex items-center gap-2 mt-3">
-                      <button onClick={() => copyPost(post)} className={`${btn} bg-emerald-600/90 hover:bg-emerald-500 text-white text-xs`}>
+                      <button onClick={() => copyPost(post)} className={`${btn} bg-success/90 hover:bg-success text-white text-xs`}>
                         {copied === key ? 'Copied!' : 'Copy'}
                       </button>
                       <button
                         onClick={() => setStatusAndPersist(key, status === 'approved' ? undefined : 'approved')}
-                        className={`${btn} text-xs ${status === 'approved' ? 'bg-emerald-700 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
+                        className={`${btn} text-xs ${status === 'approved' ? 'bg-success text-white' : 'bg-muted text-foreground hover:bg-muted'}`}
                       >
                         {status === 'approved' ? '✓ Approved' : 'Approve'}
                       </button>
                       <button
                         onClick={() => setStatusAndPersist(key, status === 'rejected' ? undefined : 'rejected')}
-                        className={`${btn} text-xs ${status === 'rejected' ? 'bg-red-700 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
+                        className={`${btn} text-xs ${status === 'rejected' ? 'bg-error text-white' : 'bg-muted text-foreground hover:bg-muted'}`}
                       >
                         {status === 'rejected' ? '✕ Rejected' : 'Reject'}
                       </button>
                       {savedInfo?.postIds[key] && (
                         <button
                           onClick={() => toggleHistory(post)}
-                          className={`${btn} text-xs bg-gray-800 text-gray-300 hover:bg-gray-700`}
+                          className={`${btn} text-xs bg-muted text-foreground hover:bg-muted`}
                         >
                           {openHistory === key ? 'Hide history' : 'History'}
                         </button>
@@ -732,7 +732,7 @@ export function SocialStudio({
                       {savedInfo?.postIds[key] && (
                         <button
                           onClick={() => setOpenMetrics(openMetrics === key ? null : key)}
-                          className={`${btn} text-xs bg-gray-800 text-gray-300 hover:bg-gray-700`}
+                          className={`${btn} text-xs bg-muted text-foreground hover:bg-muted`}
                         >
                           {openMetrics === key ? 'Hide metrics' : 'Metrics'}
                         </button>
@@ -744,7 +744,7 @@ export function SocialStudio({
                             onClick={() => publishOne(post)}
                             disabled={publishState[key] === 'publishing'}
                             title={`Publish via ${publishCaps.channels[post.platform]}`}
-                            className={`${btn} text-xs bg-sky-700 text-white hover:bg-sky-600`}
+                            className={`${btn} text-xs bg-primary text-white hover:bg-primary`}
                           >
                             {publishState[key] === 'publishing'
                               ? 'Publishing…'
@@ -756,7 +756,7 @@ export function SocialStudio({
                         if (!ps || ps === 'publishing') return null;
                         const ok = ps.outcome === 'published' || ps.outcome === 'queued';
                         return (
-                          <span className={`text-xs ${ok ? 'text-emerald-400' : 'text-red-400'}`}>
+                          <span className={`text-xs ${ok ? 'text-success-text' : 'text-error-text'}`}>
                             {ps.outcome}
                             {ps.detail ? ` — ${ps.detail}` : ''}
                           </span>
@@ -768,44 +768,44 @@ export function SocialStudio({
                             type="datetime-local"
                             value={scheduleInput[key] ?? ''}
                             onChange={(e) => setScheduleInput((s) => ({ ...s, [key]: e.target.value }))}
-                            className="bg-gray-950 border border-gray-700 rounded px-1.5 py-1 text-xs text-gray-200"
+                            className="bg-background border border-border rounded px-1.5 py-1 text-xs text-foreground"
                           />
                           <button
                             onClick={() => scheduleOne(post)}
                             disabled={!scheduleInput[key]}
-                            className={`${btn} text-xs bg-gray-800 text-gray-300 hover:bg-gray-700`}
+                            className={`${btn} text-xs bg-muted text-foreground hover:bg-muted`}
                           >
                             Schedule
                           </button>
                         </span>
                       )}
                       {scheduledAt[key] && (
-                        <span className="text-xs text-sky-300">
+                        <span className="text-xs text-link">
                           ⏰ {new Date(scheduledAt[key]).toLocaleString()}
                         </span>
                       )}
                     </div>
 
                     {openHistory === key && (
-                      <div className="mt-2 border-t border-gray-800 pt-2">
+                      <div className="mt-2 border-t border-border pt-2">
                         {!versions[key] ? (
-                          <p className="text-xs text-gray-500">Loading history…</p>
+                          <p className="text-xs text-muted-foreground">Loading history…</p>
                         ) : versions[key].length === 0 ? (
-                          <p className="text-xs text-gray-500">No saved edits yet — edits are recorded once you save to the library.</p>
+                          <p className="text-xs text-muted-foreground">No saved edits yet — edits are recorded once you save to the library.</p>
                         ) : (
                           <ul className="space-y-1.5">
                             {versions[key].map((v) => (
-                              <li key={v.id} className="text-xs text-gray-400 flex items-start justify-between gap-2">
+                              <li key={v.id} className="text-xs text-muted-foreground flex items-start justify-between gap-2">
                                 <span className="min-w-0">
-                                  <span className="text-gray-500">{new Date(v.createdAt).toLocaleString()}:</span>{' '}
-                                  <span className="text-gray-300">
+                                  <span className="text-muted-foreground">{new Date(v.createdAt).toLocaleString()}:</span>{' '}
+                                  <span className="text-foreground">
                                     {v.text.slice(0, 120)}
                                     {v.text.length > 120 ? '…' : ''}
                                   </span>
                                 </span>
                                 <button
                                   onClick={() => restoreVersion(post, v.text)}
-                                  className="shrink-0 text-emerald-400 hover:text-emerald-300"
+                                  className="shrink-0 text-success-text hover:text-success-text"
                                 >
                                   Restore
                                 </button>
@@ -817,13 +817,13 @@ export function SocialStudio({
                     )}
 
                     {openMetrics === key && (
-                      <div className="mt-2 border-t border-gray-800 pt-2">
-                        <p className="text-xs text-gray-500 mb-1.5">
+                      <div className="mt-2 border-t border-border pt-2">
+                        <p className="text-xs text-muted-foreground mb-1.5">
                           Enter numbers from your analytics (Plausible/GA) to feed the learning loop.
                         </p>
                         <div className="flex flex-wrap items-end gap-2">
                           {(['impressions', 'clicks', 'engagements'] as const).map((f) => (
-                            <label key={f} className="text-[11px] text-gray-400">
+                            <label key={f} className="text-[11px] text-muted-foreground">
                               <span className="block mb-0.5 capitalize">{f}</span>
                               <input
                                 type="number"
@@ -835,17 +835,17 @@ export function SocialStudio({
                                     return { ...s, [key]: { ...cur, [f]: e.target.value } };
                                   })
                                 }
-                                className="w-20 bg-gray-950 border border-gray-700 rounded px-1.5 py-1 text-xs text-gray-100"
+                                className="w-20 bg-background border border-border rounded px-1.5 py-1 text-xs text-foreground"
                               />
                             </label>
                           ))}
                           <button
                             onClick={() => saveMetrics(post)}
-                            className={`${btn} text-xs bg-emerald-700 text-white hover:bg-emerald-600`}
+                            className={`${btn} text-xs bg-success text-white hover:bg-success`}
                           >
                             Save metrics
                           </button>
-                          {metricsMsg[key] && <span className="text-xs text-emerald-400">{metricsMsg[key]}</span>}
+                          {metricsMsg[key] && <span className="text-xs text-success-text">{metricsMsg[key]}</span>}
                         </div>
                       </div>
                     )}
@@ -893,7 +893,7 @@ function Select({
 }) {
   return (
     <div>
-      <label className="block text-xs font-semibold text-gray-300 mb-1">{label}</label>
+      <label className="block text-xs font-semibold text-foreground mb-1">{label}</label>
       <select className={cls} value={value} onChange={(e) => onChange(e.target.value)}>
         {opts.map((o) => (
           <option key={o} value={o}>
@@ -907,8 +907,8 @@ function Select({
 
 function Panel({ title: t, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-lg p-4">
-      <h3 className="text-sm font-semibold text-gray-100 mb-2">{t}</h3>
+    <div className="bg-card border border-border rounded-lg p-4">
+      <h3 className="text-sm font-semibold text-foreground mb-2">{t}</h3>
       <div className="space-y-1.5">{children}</div>
     </div>
   );
@@ -916,8 +916,8 @@ function Panel({ title: t, children }: { title: string; children: React.ReactNod
 
 function Row({ k, v }: { k: string; v: string }) {
   return (
-    <p className="text-xs text-gray-400">
-      <span className="text-gray-500">{k}:</span> {v}
+    <p className="text-xs text-muted-foreground">
+      <span className="text-muted-foreground">{k}:</span> {v}
     </p>
   );
 }

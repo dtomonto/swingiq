@@ -54,8 +54,8 @@ export default async function SearchIntelligenceCommandCenter() {
       </ModuleHeader>
 
       {/* Honesty banner */}
-      <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200/90">
-        <p className="font-semibold text-amber-300">What&apos;s real vs. what needs a connection</p>
+      <div className="rounded-xl border border-primary/30 bg-primary/10 p-4 text-sm text-link/90">
+        <p className="font-semibold text-link">What&apos;s real vs. what needs a connection</p>
         <p className="mt-1 text-xs leading-relaxed">
           The technical audit, page intelligence, internal-link health, sitemap analysis and AEO readiness are{' '}
           <strong>computed live from your real pages</strong>. Keyword volume/difficulty are{' '}
@@ -77,9 +77,9 @@ export default async function SearchIntelligenceCommandCenter() {
           <ScoreTile label="AEO readiness" breakdown={r.scores.aeoReadiness} />
           <ScoreTile label="Backlink authority" breakdown={r.scores.backlinkAuthority} />
           <ScoreTile label="Growth momentum" breakdown={r.scores.growthMomentum} />
-          <div className="rounded-xl border border-gray-800 bg-gray-900 p-3.5 flex flex-col justify-center">
-            <p className="text-[11px] text-gray-500">Scan summary</p>
-            <p className="text-[11px] text-gray-400 mt-1 leading-snug">
+          <div className="rounded-xl border border-border bg-card p-3.5 flex flex-col justify-center">
+            <p className="text-[11px] text-muted-foreground">Scan summary</p>
+            <p className="text-[11px] text-muted-foreground mt-1 leading-snug">
               {r.run.pagesAnalyzed} pages · {r.run.issuesFound} issues · {r.run.opportunitiesFound} opportunities
             </p>
           </div>
@@ -88,16 +88,16 @@ export default async function SearchIntelligenceCommandCenter() {
 
       {/* GSC status */}
       {r.gscConnected && r.gscSummary ? (
-        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-green-500/30 bg-green-500/10 px-3 py-2 text-xs text-green-200">
+        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-xs text-success-text">
           <CheckCircle2 className="w-3.5 h-3.5" />
           <span><strong>Real Search Console data</strong> — {r.gscSummary.rowCount} queries · avg position {r.gscSummary.avgPosition.toFixed(1)} · {r.gscSummary.totalClicks} clicks (28d).</span>
-          <Link href={`${BASE}/keywords`} className="ml-auto text-green-300 hover:text-green-200">Manage →</Link>
+          <Link href={`${BASE}/keywords`} className="ml-auto text-success-text hover:text-success-text">Manage →</Link>
         </div>
       ) : (
-        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-gray-800 bg-gray-900 px-3 py-2 text-xs text-gray-400">
-          <Plug className="w-3.5 h-3.5 text-gray-500" />
+        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-xs text-muted-foreground">
+          <Plug className="w-3.5 h-3.5 text-muted-foreground" />
           <span>Connect Google Search Console to turn keyword rank, impressions & clicks into <strong>real</strong> data.</span>
-          <Link href={`${BASE}/keywords`} className="ml-auto text-green-400 hover:text-green-300">Connect →</Link>
+          <Link href={`${BASE}/keywords`} className="ml-auto text-success-text hover:text-success-text">Connect →</Link>
         </div>
       )}
 
@@ -105,18 +105,18 @@ export default async function SearchIntelligenceCommandCenter() {
       <SectionCard
         title="Today's prioritized actions"
         icon={ListChecks}
-        action={<Link href="#" className="text-xs text-gray-600">Impact × Confidence × Urgency × Value ÷ Effort</Link>}
+        action={<Link href="#" className="text-xs text-muted-foreground/70">Impact × Confidence × Urgency × Value ÷ Effort</Link>}
       >
         {topActions.length === 0 ? (
-          <p className="text-sm text-gray-500">No actions — your search posture is healthy. 🎉</p>
+          <p className="text-sm text-muted-foreground">No actions — your search posture is healthy. 🎉</p>
         ) : (
           <ul className="space-y-2">
             {topActions.map((a) => (
-              <li key={a.id} className="rounded-lg border border-gray-800 bg-gray-800/40 p-3">
+              <li key={a.id} className="rounded-lg border border-border bg-muted/40 p-3">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <p className="text-sm text-gray-200">{a.title}</p>
-                    <p className="text-xs text-gray-500 mt-0.5">{a.whyItMatters}</p>
+                    <p className="text-sm text-foreground">{a.title}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{a.whyItMatters}</p>
                   </div>
                   <BandBadge band={a.band} score={a.priorityScore} />
                 </div>
@@ -125,7 +125,7 @@ export default async function SearchIntelligenceCommandCenter() {
                   {a.canClaudeImplement ? <Pill tone="green"><Bot className="w-2.5 h-2.5" /> Claude can implement</Pill> : null}
                   {a.requiresApproval ? <Pill tone="amber">needs approval</Pill> : null}
                   {a.relatedUrl ? (
-                    <Link href={`${BASE}/page-intel?url=${encodeURIComponent(a.relatedUrl)}`} className="text-[11px] text-green-400 hover:text-green-300 font-mono truncate">
+                    <Link href={`${BASE}/page-intel?url=${encodeURIComponent(a.relatedUrl)}`} className="text-[11px] text-success-text hover:text-success-text font-mono truncate">
                       {a.relatedUrl}
                     </Link>
                   ) : null}
@@ -138,16 +138,16 @@ export default async function SearchIntelligenceCommandCenter() {
 
       <div className="grid lg:grid-cols-2 gap-5">
         {/* Highest-impact opportunities */}
-        <SectionCard title="Highest-impact content opportunities" icon={Lightbulb} action={<Link href={`${BASE}/opportunities`} className="text-xs text-green-400 hover:text-green-300">Open →</Link>}>
-          {topOpps.length === 0 ? <p className="text-sm text-gray-500">No gaps detected.</p> : (
+        <SectionCard title="Highest-impact content opportunities" icon={Lightbulb} action={<Link href={`${BASE}/opportunities`} className="text-xs text-success-text hover:text-success-text">Open →</Link>}>
+          {topOpps.length === 0 ? <p className="text-sm text-muted-foreground">No gaps detected.</p> : (
             <ul className="space-y-2">
               {topOpps.map((o) => (
-                <li key={o.id} className="rounded-lg border border-gray-800 bg-gray-800/40 p-3">
+                <li key={o.id} className="rounded-lg border border-border bg-muted/40 p-3">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-sm text-gray-200 min-w-0 truncate">{o.title}</p>
-                    <Badge className={`bg-gray-800 border-gray-700 ${accent(o.priorityScore)}`}>{o.priorityScore}</Badge>
+                    <p className="text-sm text-foreground min-w-0 truncate">{o.title}</p>
+                    <Badge className={`bg-muted border-border ${accent(o.priorityScore)}`}>{o.priorityScore}</Badge>
                   </div>
-                  <p className="text-[11px] text-gray-500 mt-1 font-mono truncate">/{o.proposedSlug}</p>
+                  <p className="text-[11px] text-muted-foreground mt-1 font-mono truncate">/{o.proposedSlug}</p>
                 </li>
               ))}
             </ul>
@@ -155,16 +155,16 @@ export default async function SearchIntelligenceCommandCenter() {
         </SectionCard>
 
         {/* Technical blockers */}
-        <SectionCard title="Technical blockers" icon={AlertTriangle} action={<Link href={`${BASE}/audit`} className="text-xs text-green-400 hover:text-green-300">Site Audit →</Link>}>
-          {blockers.length === 0 ? <p className="text-sm text-gray-500">No critical/high issues. 🎉</p> : (
+        <SectionCard title="Technical blockers" icon={AlertTriangle} action={<Link href={`${BASE}/audit`} className="text-xs text-success-text hover:text-success-text">Site Audit →</Link>}>
+          {blockers.length === 0 ? <p className="text-sm text-muted-foreground">No critical/high issues. 🎉</p> : (
             <ul className="space-y-2">
               {blockers.map((i) => (
-                <li key={i.id} className="rounded-lg border border-gray-800 bg-gray-800/40 p-3">
+                <li key={i.id} className="rounded-lg border border-border bg-muted/40 p-3">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-sm text-gray-200 min-w-0">{i.title}</p>
+                    <p className="text-sm text-foreground min-w-0">{i.title}</p>
                     <SeverityBadge severity={i.severity} />
                   </div>
-                  <p className="text-[11px] text-gray-500 mt-0.5 truncate">{i.url ?? `${i.affectedUrls.length} pages`}</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{i.url ?? `${i.affectedUrls.length} pages`}</p>
                 </li>
               ))}
             </ul>
@@ -172,13 +172,13 @@ export default async function SearchIntelligenceCommandCenter() {
         </SectionCard>
 
         {/* Sitemap / indexing risks */}
-        <SectionCard title="Sitemap & indexing risks" icon={Map} action={<Link href={`${BASE}/sitemap`} className="text-xs text-green-400 hover:text-green-300">Open →</Link>}>
-          {sitemapRisks.length === 0 ? <p className="text-sm text-gray-500">Sitemap is clean. 🎉</p> : (
+        <SectionCard title="Sitemap & indexing risks" icon={Map} action={<Link href={`${BASE}/sitemap`} className="text-xs text-success-text hover:text-success-text">Open →</Link>}>
+          {sitemapRisks.length === 0 ? <p className="text-sm text-muted-foreground">Sitemap is clean. 🎉</p> : (
             <ul className="space-y-2">
               {sitemapRisks.map((e) => (
-                <li key={e.url} className="flex items-center justify-between gap-2 rounded-lg border border-gray-800 bg-gray-800/40 px-3 py-2">
-                  <span className="text-xs font-mono text-gray-300 truncate">{e.url}</span>
-                  <Badge className="text-amber-400 bg-amber-400/10 border-amber-400/30">{humanize(e.flag)}</Badge>
+                <li key={e.url} className="flex items-center justify-between gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2">
+                  <span className="text-xs font-mono text-foreground truncate">{e.url}</span>
+                  <Badge className="text-link bg-primary/10 border-primary/30">{humanize(e.flag)}</Badge>
                 </li>
               ))}
             </ul>
@@ -186,13 +186,13 @@ export default async function SearchIntelligenceCommandCenter() {
         </SectionCard>
 
         {/* Pages to work on */}
-        <SectionCard title="Pages to work on next" icon={FileSearch} action={<Link href={`${BASE}/explorer`} className="text-xs text-green-400 hover:text-green-300">Site Explorer →</Link>}>
+        <SectionCard title="Pages to work on next" icon={FileSearch} action={<Link href={`${BASE}/explorer`} className="text-xs text-success-text hover:text-success-text">Site Explorer →</Link>}>
           <ul className="space-y-1.5">
             {workOn.map((p) => (
               <li key={p.url}>
-                <Link href={`${BASE}/page-intel?url=${encodeURIComponent(p.url)}`} className="flex items-center justify-between gap-2 rounded-lg border border-gray-800 bg-gray-800/40 px-3 py-2 hover:border-gray-700">
-                  <span className="text-xs font-mono text-gray-300 truncate">{p.url}</span>
-                  <span className="text-[11px] text-gray-500 shrink-0">P{p.priorityScore} · Q{p.qualityScore}</span>
+                <Link href={`${BASE}/page-intel?url=${encodeURIComponent(p.url)}`} className="flex items-center justify-between gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2 hover:border-border">
+                  <span className="text-xs font-mono text-foreground truncate">{p.url}</span>
+                  <span className="text-[11px] text-muted-foreground shrink-0">P{p.priorityScore} · Q{p.qualityScore}</span>
                 </Link>
               </li>
             ))}
@@ -201,18 +201,18 @@ export default async function SearchIntelligenceCommandCenter() {
 
         {/* Decay risks */}
         <SectionCard title="Content decay risk" icon={TrendingDown}>
-          {decay.length === 0 ? <p className="text-sm text-gray-500">No structural decay risk detected.</p> : (
+          {decay.length === 0 ? <p className="text-sm text-muted-foreground">No structural decay risk detected.</p> : (
             <ul className="space-y-2">
               {decay.map((d) => (
-                <li key={d.url} className="rounded-lg border border-gray-800 bg-gray-800/40 p-3">
+                <li key={d.url} className="rounded-lg border border-border bg-muted/40 p-3">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-sm text-gray-200 min-w-0 truncate">{d.title}</p>
+                    <p className="text-sm text-foreground min-w-0 truncate">{d.title}</p>
                     <span className="flex items-center gap-1.5 shrink-0">
-                      <Badge className="text-amber-400 bg-amber-400/10 border-amber-400/30">{d.riskScore}</Badge>
+                      <Badge className="text-link bg-primary/10 border-primary/30">{d.riskScore}</Badge>
                       <DataSourceBadge source={d.dataSource} />
                     </span>
                   </div>
-                  <p className="text-[11px] text-gray-500 mt-0.5">{d.reasons.map((x) => x.replace(/-/g, ' ')).join(' · ')}</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">{d.reasons.map((x) => x.replace(/-/g, ' ')).join(' · ')}</p>
                 </li>
               ))}
             </ul>
@@ -220,15 +220,15 @@ export default async function SearchIntelligenceCommandCenter() {
         </SectionCard>
 
         {/* AEO readiness (reused) */}
-        <SectionCard title="AI-search (AEO/GEO) readiness" icon={Bot} action={<Link href="/admin/growth/link-intelligence" className="text-xs text-green-400 hover:text-green-300">Link Intelligence →</Link>}>
+        <SectionCard title="AI-search (AEO/GEO) readiness" icon={Bot} action={<Link href="/admin/growth/link-intelligence" className="text-xs text-success-text hover:text-success-text">Link Intelligence →</Link>}>
           <ul className="space-y-2">
             {weakAeo.map((a) => (
-              <li key={a.url} className="rounded-lg border border-gray-800 bg-gray-800/40 p-3">
+              <li key={a.url} className="rounded-lg border border-border bg-muted/40 p-3">
                 <div className="flex items-start justify-between gap-2">
-                  <p className="text-sm text-gray-200 min-w-0 truncate">{a.title}</p>
-                  <Badge className={`bg-gray-800 border-gray-700 ${accent(a.score)}`}>{a.score}</Badge>
+                  <p className="text-sm text-foreground min-w-0 truncate">{a.title}</p>
+                  <Badge className={`bg-muted border-border ${accent(a.score)}`}>{a.score}</Badge>
                 </div>
-                <p className="text-[11px] text-gray-500 mt-1">{a.recommendations[0]}</p>
+                <p className="text-[11px] text-muted-foreground mt-1">{a.recommendations[0]}</p>
               </li>
             ))}
           </ul>
@@ -236,41 +236,41 @@ export default async function SearchIntelligenceCommandCenter() {
       </div>
 
       {/* Competitor gaps (reused) */}
-      <SectionCard title="Competitor link gaps" icon={Telescope} action={<Link href="/admin/growth/market-intel" className="text-xs text-green-400 hover:text-green-300">Market Intel →</Link>}>
+      <SectionCard title="Competitor link gaps" icon={Telescope} action={<Link href="/admin/growth/market-intel" className="text-xs text-success-text hover:text-success-text">Market Intel →</Link>}>
         <div className="grid sm:grid-cols-2 gap-2">
           {competitorGaps.map((g) => (
-            <div key={g.id} className="rounded-lg border border-gray-800 bg-gray-800/40 p-3">
-              <p className="text-sm text-gray-200">{g.competitor}</p>
-              <p className="text-xs text-gray-500 mt-0.5">{g.recommendedAction}</p>
+            <div key={g.id} className="rounded-lg border border-border bg-muted/40 p-3">
+              <p className="text-sm text-foreground">{g.competitor}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{g.recommendedAction}</p>
             </div>
           ))}
         </div>
       </SectionCard>
 
       {/* Provider status */}
-      <SectionCard title="Data providers" icon={Plug} action={<Link href="/admin/integrations" className="text-xs text-green-400 hover:text-green-300">Integrations →</Link>}>
+      <SectionCard title="Data providers" icon={Plug} action={<Link href="/admin/integrations" className="text-xs text-success-text hover:text-success-text">Integrations →</Link>}>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
           {providers.map((p) => (
-            <div key={p.id} className="rounded-lg border border-gray-800 bg-gray-800/40 p-3">
+            <div key={p.id} className="rounded-lg border border-border bg-muted/40 p-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-300">{p.label}</span>
-                {p.connected ? <CheckCircle2 className="w-3.5 h-3.5 text-green-400" /> : <Plug className="w-3.5 h-3.5 text-gray-600" />}
+                <span className="text-xs text-foreground">{p.label}</span>
+                {p.connected ? <CheckCircle2 className="w-3.5 h-3.5 text-success-text" /> : <Plug className="w-3.5 h-3.5 text-muted-foreground/70" />}
               </div>
-              <p className="text-[10px] text-gray-600 mt-1">{p.connected ? 'Connected' : `Set ${p.envVars[0]}`}</p>
+              <p className="text-[10px] text-muted-foreground/70 mt-1">{p.connected ? 'Connected' : `Set ${p.envVars[0]}`}</p>
             </div>
           ))}
         </div>
       </SectionCard>
 
       {/* Sub-navigation footer */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-gray-500">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
         <ArrowRight className="w-3.5 h-3.5" />
-        <Link href={`${BASE}/explorer`} className="hover:text-green-300 flex items-center gap-1"><FileSearch className="w-3 h-3" /> Site Explorer</Link>
-        <Link href={`${BASE}/audit`} className="hover:text-green-300 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Site Audit</Link>
-        <Link href={`${BASE}/keywords`} className="hover:text-green-300 flex items-center gap-1"><KeyRound className="w-3 h-3" /> Keywords</Link>
-        <Link href={`${BASE}/opportunities`} className="hover:text-green-300 flex items-center gap-1"><Lightbulb className="w-3 h-3" /> Opportunities</Link>
-        <Link href={`${BASE}/sitemap`} className="hover:text-green-300 flex items-center gap-1"><Map className="w-3 h-3" /> Sitemap</Link>
-        <Link href={`${BASE}/briefs`} className="hover:text-green-300 flex items-center gap-1"><FileSearch className="w-3 h-3" /> Brief Generator</Link>
+        <Link href={`${BASE}/explorer`} className="hover:text-success-text flex items-center gap-1"><FileSearch className="w-3 h-3" /> Site Explorer</Link>
+        <Link href={`${BASE}/audit`} className="hover:text-success-text flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Site Audit</Link>
+        <Link href={`${BASE}/keywords`} className="hover:text-success-text flex items-center gap-1"><KeyRound className="w-3 h-3" /> Keywords</Link>
+        <Link href={`${BASE}/opportunities`} className="hover:text-success-text flex items-center gap-1"><Lightbulb className="w-3 h-3" /> Opportunities</Link>
+        <Link href={`${BASE}/sitemap`} className="hover:text-success-text flex items-center gap-1"><Map className="w-3 h-3" /> Sitemap</Link>
+        <Link href={`${BASE}/briefs`} className="hover:text-success-text flex items-center gap-1"><FileSearch className="w-3 h-3" /> Brief Generator</Link>
       </div>
     </div>
   );

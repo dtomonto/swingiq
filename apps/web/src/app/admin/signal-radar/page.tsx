@@ -46,25 +46,25 @@ export default async function SignalRadarPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A brand-intelligence command center: a Signal
+          <strong className="text-foreground">What this is.</strong> A brand-intelligence command center: a Signal
           Inbox, sentiment / intent / sport / priority scoring, a Mention Map, competitor watch, AI answer-engine
           visibility, and one-click conversion of signals into content ideas, product feedback, partnership leads
           and reputation risks. Every signal answers “why does this matter, and what should we do next?”.
         </p>
         <p>
-          <strong className="text-gray-300">How it collects (safely).</strong> Keyless-first and ToS-safe — add a
+          <strong className="text-foreground">How it collects (safely).</strong> Keyless-first and ToS-safe — add a
           signal manually, or paste a Google Alerts digest, an RSS/Atom feed, or a CSV export. Automated adapters
           (Reddit, YouTube, Search Console, backlinks) are <em>scaffolded</em> and stay honest: they show as
           placeholders until credentials exist and never pretend to be collecting. No scraping, no robots.txt
           violations, no secrets in the UI.
         </p>
         <p>
-          <strong className="text-gray-300">How it’s honest.</strong> Classification is rules-based and explainable
+          <strong className="text-foreground">How it’s honest.</strong> Classification is rules-based and explainable
           (open a signal to see why it was labelled). Priority is a transparent weighted sum you can tune in
           Settings. Demo signals are flagged “Sample” and excluded from anything implying a real mention.
         </p>
         <p>
-          <strong className="text-gray-300">How your work is saved.</strong> Collected signals, triage, notes,
+          <strong className="text-foreground">How your work is saved.</strong> Collected signals, triage, notes,
           conversions and settings live in your browser, so this works in production and survives reloads.
         </p>
       </HelpPanel>

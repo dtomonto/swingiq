@@ -70,7 +70,7 @@ export default function AdminAccessibilityPage() {
         >
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="text-[11px] uppercase tracking-wide text-gray-500">
+              <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
                 <tr>
                   <th className="pb-2 pr-3">Pair</th>
                   <th className="pb-2 pr-3">Preview</th>
@@ -79,20 +79,20 @@ export default function AdminAccessibilityPage() {
                   <th className="pb-2">Grade</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-300">
+              <tbody className="text-foreground">
                 {t.pairs.map((p) => (
-                  <tr key={p.label} className="border-t border-gray-800">
+                  <tr key={p.label} className="border-t border-border">
                     <td className="py-2 pr-3">{p.label}</td>
                     <td className="py-2 pr-3">
                       <span
-                        className="inline-flex items-center justify-center rounded px-2 py-1 text-xs font-semibold ring-1 ring-gray-700"
+                        className="inline-flex items-center justify-center rounded px-2 py-1 text-xs font-semibold ring-1 ring-border"
                         style={{ backgroundColor: p.bg, color: p.fg }}
                       >
                         Aa
                       </span>
                     </td>
                     <td className="py-2 pr-3 tabular-nums">{p.ratio.toFixed(2)}:1</td>
-                    <td className="py-2 pr-3 text-gray-500">{p.minNeeded.toFixed(1)}:1</td>
+                    <td className="py-2 pr-3 text-muted-foreground">{p.minNeeded.toFixed(1)}:1</td>
                     <td className="py-2">
                       <StatusBadge tone={GRADE_TONE[p.grade]}>
                         {p.passes
@@ -110,18 +110,18 @@ export default function AdminAccessibilityPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A contrast auditor that reads the real
+          <strong className="text-foreground">What this is.</strong> A contrast auditor that reads the real
           theme palette and computes WCAG 2.1 ratios for the pairs that decide readability — body text on the
           page, text on cards, and accents. AA needs 4.5:1 for body text (3:1 for large/UI); AAA is 7:1.
         </p>
         <p>
-          <strong className="text-gray-300">Why it matters.</strong> It is the guard against the worst theme
+          <strong className="text-foreground">Why it matters.</strong> It is the guard against the worst theme
           bug: text that disappears into its background. If a theme edit pushes a pair below AA, it shows up
           here in red with the exact ratio — fix the token in <code>globals.css</code> /
           <code>lib/theme/themes.ts</code> until it passes.
         </p>
         <p>
-          <strong className="text-gray-300">Also enforced in CI.</strong> The same minimums are guarded by
+          <strong className="text-foreground">Also enforced in CI.</strong> The same minimums are guarded by
           <code>lib/theme/__tests__/theme-contrast.test.ts</code>, which parses <code>globals.css</code> and
           fails the build if any theme regresses — this board is the in-app, human-readable view of that.
         </p>

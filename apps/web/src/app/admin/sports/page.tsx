@@ -33,33 +33,33 @@ export default function AdminSportsPage() {
           <Link
             key={s.id}
             href={`/admin/sports/${s.id}`}
-            className="group rounded-xl border border-gray-800 bg-gray-900 p-4 hover:border-gray-700"
+            className="group rounded-xl border border-border bg-card p-4 hover:border-border"
           >
             <div className="flex items-start justify-between">
               <span className="text-2xl" aria-hidden>{s.emoji}</span>
-              <ArrowUpRight className="h-4 w-4 text-gray-600 group-hover:text-gray-400" />
+              <ArrowUpRight className="h-4 w-4 text-muted-foreground/70 group-hover:text-muted-foreground" />
             </div>
-            <p className="mt-2 text-sm font-semibold text-gray-100">{s.name}</p>
-            <p className="text-xs text-amber-300/80">{s.tagline}</p>
-            <p className="mt-1.5 line-clamp-2 text-xs text-gray-500">{s.description}</p>
+            <p className="mt-2 text-sm font-semibold text-foreground">{s.name}</p>
+            <p className="text-xs text-link/80">{s.tagline}</p>
+            <p className="mt-1.5 line-clamp-2 text-xs text-muted-foreground">{s.description}</p>
           </Link>
         ))}
       </div>
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The control reference for each sport. It
+          <strong className="text-foreground">What this is.</strong> The control reference for each sport. It
           shows the swing phases the AI looks for, the benchmark values it compares against, and the camera
           guidance shown to users.
         </p>
         <p>
-          <strong className="text-gray-300">How configuration works today.</strong> Sport analysis is defined
+          <strong className="text-foreground">How configuration works today.</strong> Sport analysis is defined
           in code (the <code>@swingiq/core</code> sport registry) so it can be versioned and tested. This
           screen is the authoritative, plain-English view of that setup; deeper editing happens in the
           registry. Adding a brand-new sport is intentionally a one-place change there.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Open a sport to review its phases and
+          <strong className="text-foreground">What to do next.</strong> Open a sport to review its phases and
           benchmark version, and confirm the evidence note reads accurately for users.
         </p>
       </HelpPanel>

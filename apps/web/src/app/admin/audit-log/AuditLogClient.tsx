@@ -43,7 +43,7 @@ export function AuditLogClient() {
     URL.revokeObjectURL(url);
   }
 
-  if (!mounted) return <p className="text-sm text-gray-500">Loading audit log…</p>;
+  if (!mounted) return <p className="text-sm text-muted-foreground">Loading audit log…</p>;
 
   return (
     <div className="space-y-3">
@@ -52,45 +52,45 @@ export function AuditLogClient() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search actions, actor, entity…"
-          className="min-w-[12rem] flex-1 rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100 outline-none focus:border-amber-500"
+          className="min-w-[12rem] flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-ring"
         />
         <select
           value={sev}
           onChange={(e) => setSev(e.target.value as typeof sev)}
-          className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200"
+          className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
         >
           <option value="all">All severities</option>
           <option value="info">Info</option>
           <option value="warning">Warning</option>
           <option value="critical">Critical</option>
         </select>
-        <button onClick={exportJson} disabled={entries.length === 0} className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 px-2.5 py-2 text-xs text-gray-300 hover:bg-gray-800 disabled:opacity-40">
+        <button onClick={exportJson} disabled={entries.length === 0} className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2.5 py-2 text-xs text-foreground hover:bg-muted disabled:opacity-40">
           <Download className="h-3.5 w-3.5" /> Export
         </button>
-        <button onClick={() => setConfirmClear(true)} disabled={entries.length === 0} className="inline-flex items-center gap-1.5 rounded-lg border border-red-500/40 px-2.5 py-2 text-xs text-red-300 hover:bg-red-500/10 disabled:opacity-40">
+        <button onClick={() => setConfirmClear(true)} disabled={entries.length === 0} className="inline-flex items-center gap-1.5 rounded-lg border border-error/40 px-2.5 py-2 text-xs text-error-text hover:bg-error/10 disabled:opacity-40">
           <Trash2 className="h-3.5 w-3.5" /> Clear
         </button>
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-gray-700 bg-gray-900/50 p-8 text-center text-sm text-gray-500">
+        <div className="rounded-xl border border-dashed border-border bg-card/50 p-8 text-center text-sm text-muted-foreground">
           {entries.length === 0
             ? 'No admin actions recorded yet on this device. Toggling a flag, suspending a user, or reviewing a fix will appear here.'
             : 'No entries match your filter.'}
         </div>
       ) : (
-        <ul className="divide-y divide-gray-800 rounded-xl border border-gray-800">
+        <ul className="divide-y divide-border rounded-xl border border-border">
           {filtered.map((e) => (
             <li key={e.id} className="flex items-start gap-3 p-3">
               <StatusBadge tone={SEV_TONE[e.severity]}>{e.severity}</StatusBadge>
               <div className="min-w-0 flex-1">
-                <p className="text-sm text-gray-200">{e.summary}</p>
-                <p className="mt-0.5 text-[11px] text-gray-500">
+                <p className="text-sm text-foreground">{e.summary}</p>
+                <p className="mt-0.5 text-[11px] text-muted-foreground">
                   <span className="font-mono">{e.action}</span> · {e.entityType}
                   {e.entityId ? ` · ${e.entityId}` : ''} · {e.actor}
                 </p>
               </div>
-              <time className="shrink-0 text-[11px] text-gray-600" title={formatDate(e.at)}>
+              <time className="shrink-0 text-[11px] text-muted-foreground/70" title={formatDate(e.at)}>
                 {formatRelativeTime(e.at)}
               </time>
             </li>

@@ -11,15 +11,15 @@ export interface HelpPanelProps {
 
 export function HelpPanel({ title = 'What is this & what to do', children }: HelpPanelProps) {
   return (
-    <details className="group rounded-xl border border-gray-800 bg-gray-900/60 p-4 [&_a]:text-amber-400 [&_a:hover]:underline">
-      <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-medium text-gray-200">
+    <details className="group rounded-xl border border-border bg-card/60 p-4 [&_a]:text-link [&_a:hover]:underline">
+      <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-medium text-foreground">
         <span className="flex items-center gap-2">
-          <HelpCircle className="h-4 w-4 text-amber-400" />
+          <HelpCircle className="h-4 w-4 text-link" />
           {title}
         </span>
-        <ChevronDown className="h-4 w-4 text-gray-500 transition-transform group-open:rotate-180" />
+        <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" />
       </summary>
-      <div className="mt-3 space-y-2 text-sm leading-relaxed text-gray-400">{children}</div>
+      <div className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">{children}</div>
     </details>
   );
 }

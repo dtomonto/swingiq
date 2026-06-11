@@ -12,9 +12,9 @@ import { formatRelativeTime } from '@/lib/admin/format';
 import type { AuditSeverity } from '@/lib/admin/audit';
 
 const DOT: Record<AuditSeverity, string> = {
-  info: 'bg-sky-400',
-  warning: 'bg-amber-400',
-  critical: 'bg-red-400',
+  info: 'bg-primary',
+  warning: 'bg-warning',
+  critical: 'bg-error',
 };
 
 export function RecentActivity({ limit = 6 }: { limit?: number }) {
@@ -23,15 +23,15 @@ export function RecentActivity({ limit = 6 }: { limit?: number }) {
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
-    return <p className="text-sm text-gray-500">Loading recent activity…</p>;
+    return <p className="text-sm text-muted-foreground">Loading recent activity…</p>;
   }
 
   if (entries.length === 0) {
     return (
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-muted-foreground">
         No admin actions recorded yet. Changes you make (toggling flags, editing content, moderating
         media) will appear here and in the{' '}
-        <Link href="/admin/audit-log" className="text-amber-400 hover:underline">
+        <Link href="/admin/audit-log" className="text-link hover:underline">
           audit log
         </Link>
         .
@@ -45,15 +45,15 @@ export function RecentActivity({ limit = 6 }: { limit?: number }) {
         <li key={e.id} className="flex items-start gap-2.5 text-sm">
           <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${DOT[e.severity]}`} />
           <span className="min-w-0 flex-1">
-            <span className="text-gray-200">{e.summary}</span>
-            <span className="ml-2 text-xs text-gray-600">
+            <span className="text-foreground">{e.summary}</span>
+            <span className="ml-2 text-xs text-muted-foreground/70">
               {e.actor} · {formatRelativeTime(e.at)}
             </span>
           </span>
         </li>
       ))}
       <li className="pt-1">
-        <Link href="/admin/audit-log" className="flex items-center gap-1 text-xs text-amber-400 hover:underline">
+        <Link href="/admin/audit-log" className="flex items-center gap-1 text-xs text-link hover:underline">
           <ScrollText className="h-3 w-3" /> View full audit log
         </Link>
       </li>

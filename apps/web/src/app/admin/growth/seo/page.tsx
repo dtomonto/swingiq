@@ -94,7 +94,7 @@ function AiStratBadge({ taskKey }: { taskKey: string }) {
       className="shrink-0"
       title="Draft this now in the AI Strategist"
     >
-      <Badge className="bg-green-500/15 border-green-500/30 text-green-400 hover:bg-green-500/25 transition-colors gap-1">
+      <Badge className="bg-success/15 border-success/30 text-success-text hover:bg-success/25 transition-colors gap-1">
         <Sparkles className="w-2.5 h-2.5" />
         via AI Strategist
       </Badge>
@@ -106,7 +106,7 @@ function AiStratBadge({ taskKey }: { taskKey: string }) {
 function LiveToolBadge({ href, label }: { href: string; label: string }) {
   return (
     <Link href={href} className="shrink-0" title={`Open ${label}`}>
-      <Badge className="bg-green-500/15 border-green-500/30 text-green-400 hover:bg-green-500/25 transition-colors gap-1">
+      <Badge className="bg-success/15 border-success/30 text-success-text hover:bg-success/25 transition-colors gap-1">
         <CheckCircle2 className="w-2.5 h-2.5" />
         Live · {label}
       </Badge>
@@ -123,16 +123,16 @@ function CapabilityList({ items }: { items: CapabilityItem[] }) {
         return (
           <li key={item.label} className="flex items-center gap-2.5">
             {shipped ? (
-              <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-success-text shrink-0" />
             ) : (
-              <Circle className="w-4 h-4 text-gray-700 shrink-0" />
+              <Circle className="w-4 h-4 text-muted-foreground/60 shrink-0" />
             )}
-            <span className={shipped ? 'text-sm text-gray-200 flex-1' : 'text-sm text-gray-400 flex-1'}>
+            <span className={shipped ? 'text-sm text-foreground flex-1' : 'text-sm text-muted-foreground flex-1'}>
               {item.label}
             </span>
             {item.href && item.liveLabel && <LiveToolBadge href={item.href} label={item.liveLabel} />}
             {item.aiTask && <AiStratBadge taskKey={item.aiTask} />}
-            {!shipped && <Badge className="bg-gray-800 border-gray-700 text-gray-600">planned</Badge>}
+            {!shipped && <Badge className="bg-muted border-border text-muted-foreground/70">planned</Badge>}
           </li>
         );
       })}
@@ -143,13 +143,13 @@ function CapabilityList({ items }: { items: CapabilityItem[] }) {
 // ── Legend note ───────────────────────────────────────────────
 function CapabilityLegend() {
   return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-1 text-[11px] text-gray-500">
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-1 text-[11px] text-muted-foreground">
       <span className="flex items-center gap-1">
-        <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
+        <CheckCircle2 className="w-3.5 h-3.5 text-success-text" />
         Draftable today via AI Strategist
       </span>
       <span className="flex items-center gap-1">
-        <Circle className="w-3.5 h-3.5 text-gray-700" />
+        <Circle className="w-3.5 h-3.5 text-muted-foreground/60" />
         Planned capability
       </span>
     </div>
@@ -169,8 +169,8 @@ export default async function SeoPage() {
       />
 
       {/* Honest disclaimer */}
-      <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 p-3 text-xs text-amber-200/90 leading-relaxed">
-        <strong className="text-amber-300">Planning tools + demo content.</strong>{' '}
+      <div className="rounded-lg border border-primary/20 bg-primary/10 p-3 text-xs text-link/90 leading-relaxed">
+        <strong className="text-link">Planning tools + demo content.</strong>{' '}
         These capability checklists are your roadmap — connect Google Search Console, Ahrefs, or Semrush
         later to replace demo content with live keyword rankings, impression data, and real gap analysis.
         Nothing here is presented as a real production metric.
@@ -183,10 +183,10 @@ export default async function SeoPage() {
         action={<CapabilityLegend />}
       >
         <div className="space-y-4">
-          <p className="text-xs text-gray-500 leading-relaxed">
+          <p className="text-xs text-muted-foreground leading-relaxed">
             Keyword planning, cluster strategy, and content operations for Google organic visibility.
             Items marked{' '}
-            <span className="inline-flex items-center gap-1 text-green-400">
+            <span className="inline-flex items-center gap-1 text-success-text">
               <Sparkles className="w-3 h-3" /> via AI Strategist
             </span>{' '}
             can be drafted immediately — click to open the AI Strategist with that task pre-selected.
@@ -201,12 +201,12 @@ export default async function SeoPage() {
         icon={BookOpen}
       >
         <div className="space-y-4">
-          <p className="text-xs text-gray-500 leading-relaxed">
+          <p className="text-xs text-muted-foreground leading-relaxed">
             Structure content for featured snippets, People Also Ask boxes, and zero-click answers.
             The AI Strategist can generate{' '}
             <Link
               href="/admin/growth/ai-strategist?task=aeo-snippet"
-              className="text-green-400 hover:text-green-300 underline underline-offset-2"
+              className="text-success-text hover:text-success-text underline underline-offset-2"
             >
               AEO answer blocks
             </Link>{' '}
@@ -222,12 +222,12 @@ export default async function SeoPage() {
         icon={Globe}
       >
         <div className="space-y-4">
-          <p className="text-xs text-gray-500 leading-relaxed">
+          <p className="text-xs text-muted-foreground leading-relaxed">
             Optimise for AI-powered search surfaces (ChatGPT, Perplexity, Google AI Overviews).
             The AI Strategist can draft{' '}
             <Link
               href="/admin/growth/ai-strategist?task=geo-summary"
-              className="text-green-400 hover:text-green-300 underline underline-offset-2"
+              className="text-success-text hover:text-success-text underline underline-offset-2"
             >
               AI-ready brand summaries
             </Link>{' '}
@@ -240,7 +240,7 @@ export default async function SeoPage() {
       {/* Discoverability content pipeline */}
       <SectionCard title="Discoverability content pipeline" icon={Search}>
         <div className="space-y-4">
-          <p className="text-xs text-gray-500 leading-relaxed">
+          <p className="text-xs text-muted-foreground leading-relaxed">
             All SEO pages, AEO answers, GEO-ready summaries, comparison pages, and how-to guides
             currently in the content pipeline. Expand any row for full details.
           </p>

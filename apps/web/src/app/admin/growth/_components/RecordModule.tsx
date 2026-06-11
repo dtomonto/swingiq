@@ -50,7 +50,7 @@ function renderValue(record: AnyRecord, def: ColumnDef | FieldDef): React.ReactN
       return (
         <span className="flex flex-wrap gap-1">
           {arr.map((c, i) => (
-            <span key={i} className="text-[11px] px-1.5 py-0.5 rounded bg-gray-800 border border-gray-700 text-gray-300">{c}</span>
+            <span key={i} className="text-[11px] px-1.5 py-0.5 rounded bg-muted border border-border text-foreground">{c}</span>
           ))}
         </span>
       );
@@ -143,7 +143,7 @@ export function RecordModule({
       {kpis.length > 0 && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {kpis.map((k, i) => (
-            <KpiCard key={i} label={k.label} value={k.value} sublabel={k.sublabel} accent={k.accent ?? 'text-green-400'} />
+            <KpiCard key={i} label={k.label} value={k.value} sublabel={k.sublabel} accent={k.accent ?? 'text-success-text'} />
           ))}
         </div>
       )}
@@ -151,20 +151,20 @@ export function RecordModule({
       {/* Controls */}
       <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
         <div className="relative max-w-xs w-full">
-          <Search className="w-4 h-4 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={`Search ${def.itemNoun}…`}
-            className="w-full bg-gray-900 border border-gray-800 rounded-lg pl-9 pr-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-hidden focus:ring-1 focus:ring-green-500"
+            className="w-full bg-card border border-border rounded-lg pl-9 pr-3 py-2 text-sm text-foreground placeholder-muted-foreground/70 focus:outline-hidden focus:ring-1 focus:ring-success"
           />
         </div>
         <div className="flex items-center gap-3">
-          <p className="text-xs text-gray-500">{filtered.length} of {records.length} {def.itemNoun}</p>
+          <p className="text-xs text-muted-foreground">{filtered.length} of {records.length} {def.itemNoun}</p>
           {kind && (
             <button
               onClick={() => setForm({ mode: 'create' })}
-              className="text-xs px-3 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-white font-semibold flex items-center gap-1.5 shrink-0"
+              className="text-xs px-3 py-2 rounded-lg bg-success hover:bg-success text-white font-semibold flex items-center gap-1.5 shrink-0"
             >
               <Plus className="w-3.5 h-3.5" /> New
             </button>
@@ -182,8 +182,8 @@ export function RecordModule({
               className={cn(
                 'text-xs px-2.5 py-1 rounded-lg border transition-colors capitalize',
                 filter === val
-                  ? 'bg-green-600 border-green-500 text-white'
-                  : 'bg-gray-900 border-gray-800 text-gray-400 hover:border-gray-700',
+                  ? 'bg-success border-success text-white'
+                  : 'bg-card border-border text-muted-foreground hover:border-border',
               )}
             >
               {val.replace(/[-_]/g, ' ')}
@@ -196,13 +196,13 @@ export function RecordModule({
       {filtered.length === 0 ? (
         <EmptyState icon={Inbox} title={`No ${def.itemNoun} match`} description="Try clearing the search or filter." />
       ) : (
-        <div className="rounded-xl border border-gray-800 bg-gray-900 overflow-hidden">
+        <div className="rounded-xl border border-border bg-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-800 bg-gray-800/30">
+                <tr className="border-b border-border bg-muted/30">
                   {def.columns.map((col) => (
-                    <th key={col.key} className={cn('text-left px-4 py-2.5 text-xs font-medium text-gray-400', col.className)}>
+                    <th key={col.key} className={cn('text-left px-4 py-2.5 text-xs font-medium text-muted-foreground', col.className)}>
                       {col.label}
                     </th>
                   ))}
@@ -213,10 +213,10 @@ export function RecordModule({
                   <tr
                     key={r.id}
                     onClick={() => setSelectedId(r.id)}
-                    className="border-b border-gray-800/60 last:border-0 hover:bg-gray-800/40 cursor-pointer transition-colors"
+                    className="border-b border-border/60 last:border-0 hover:bg-muted/40 cursor-pointer transition-colors"
                   >
                     {def.columns.map((col, ci) => (
-                      <td key={col.key} className={cn('px-4 py-3 align-top', ci === 0 ? 'text-gray-200 font-medium' : 'text-gray-400', col.className)}>
+                      <td key={col.key} className={cn('px-4 py-3 align-top', ci === 0 ? 'text-foreground font-medium' : 'text-muted-foreground', col.className)}>
                         {renderValue(r, col)}
                       </td>
                     ))}
@@ -233,33 +233,33 @@ export function RecordModule({
       {/* Detail slide-over */}
       {selected && (
         <div className="fixed inset-0 z-50 flex justify-end" role="dialog" aria-modal="true">
-          <button type="button" aria-label="Close" tabIndex={-1} className="absolute inset-0 bg-black/60 cursor-default" onClick={() => setSelectedId(null)} />
-          <div className="relative w-full max-w-md bg-gray-950 border-l border-gray-800 h-full overflow-y-auto">
-            <div className="sticky top-0 bg-gray-950/95 backdrop-blur border-b border-gray-800 px-5 py-4 flex items-start justify-between gap-3">
+          <button type="button" aria-label="Close" tabIndex={-1} className="absolute inset-0 bg-foreground/60 cursor-default" onClick={() => setSelectedId(null)} />
+          <div className="relative w-full max-w-md bg-background border-l border-border h-full overflow-y-auto">
+            <div className="sticky top-0 bg-background/95 backdrop-blur border-b border-border px-5 py-4 flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-100">{String(selected.name ?? 'Detail')}</p>
-                <p className="text-xs text-gray-500 mt-0.5 capitalize">{def.itemNoun.replace(/s$/, '')}</p>
+                <p className="text-sm font-semibold text-foreground">{String(selected.name ?? 'Detail')}</p>
+                <p className="text-xs text-muted-foreground mt-0.5 capitalize">{def.itemNoun.replace(/s$/, '')}</p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 {kind && (
                   <>
                     <button
                       onClick={() => setForm({ mode: 'edit', record: selected })}
-                      className="text-xs px-2 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:border-gray-600 flex items-center gap-1"
+                      className="text-xs px-2 py-1.5 rounded-lg bg-muted border border-border text-foreground hover:border-border flex items-center gap-1"
                     >
                       <Pencil className="w-3.5 h-3.5" /> Edit
                     </button>
                     <button
                       onClick={() => deleteRecord(selected)}
                       disabled={deleting}
-                      className="text-xs px-2 py-1.5 rounded-lg bg-red-600/15 border border-red-600/30 text-red-400 hover:bg-red-600/25 flex items-center gap-1 disabled:opacity-50"
+                      className="text-xs px-2 py-1.5 rounded-lg bg-error/15 border border-error/30 text-error-text hover:bg-error/25 flex items-center gap-1 disabled:opacity-50"
                       aria-label="Delete"
                     >
                       {deleting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
                     </button>
                   </>
                 )}
-                <button onClick={() => setSelectedId(null)} className="text-gray-500 hover:text-gray-300 px-1" aria-label="Close">
+                <button onClick={() => setSelectedId(null)} className="text-muted-foreground hover:text-foreground px-1" aria-label="Close">
                   <X className="w-5 h-5" />
                 </button>
               </div>

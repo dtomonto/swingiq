@@ -56,9 +56,9 @@ const TABS: { id: TabId; label: string; icon: LucideIcon }[] = [
   { id: 'connect', label: 'Connect', icon: Plug },
 ];
 
-function Bar({ pct, color = 'bg-sky-500' }: { pct: number; color?: string }) {
+function Bar({ pct, color = 'bg-primary' }: { pct: number; color?: string }) {
   return (
-    <div className="h-2 w-full overflow-hidden rounded-full bg-gray-800" role="presentation">
+    <div className="h-2 w-full overflow-hidden rounded-full bg-muted" role="presentation">
       <div className={`h-full rounded-full ${color}`} style={{ width: `${Math.min(100, Math.max(0, pct))}%` }} />
     </div>
   );
@@ -109,8 +109,8 @@ export function AnalyticsOsDashboard({ dashboard }: { dashboard: Dashboard }) {
               onClick={() => setTab(t.id)}
               className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
                 active
-                  ? 'border-violet-500/40 bg-violet-500/15 text-violet-200'
-                  : 'border-gray-700 bg-gray-900 text-gray-400 hover:text-gray-200'
+                  ? 'border-primary/40 bg-primary/15 text-link'
+                  : 'border-border bg-card text-muted-foreground hover:text-foreground'
               }`}
             >
               <Icon className="h-3.5 w-3.5" aria-hidden="true" />
@@ -123,13 +123,13 @@ export function AnalyticsOsDashboard({ dashboard }: { dashboard: Dashboard }) {
       {/* Live data controls (only meaningful when fully connected) */}
       {isFull && tab !== 'overview' && tab !== 'connect' && (
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs text-gray-500">Range</span>
+          <span className="text-xs text-muted-foreground">Range</span>
           {[7, 30, 90].map((d) => (
             <button
               key={d}
               onClick={() => setDays(d)}
               className={`rounded-md border px-2 py-1 text-xs transition ${
-                days === d ? 'border-violet-500/40 bg-violet-500/15 text-violet-200' : 'border-gray-700 bg-gray-900 text-gray-400 hover:text-gray-200'
+                days === d ? 'border-primary/40 bg-primary/15 text-link' : 'border-border bg-card text-muted-foreground hover:text-foreground'
               }`}
             >
               {d}d
@@ -138,7 +138,7 @@ export function AnalyticsOsDashboard({ dashboard }: { dashboard: Dashboard }) {
           <button
             onClick={() => loadLive(days)}
             disabled={loading}
-            className="ml-auto inline-flex items-center gap-1.5 rounded-md border border-gray-700 bg-gray-900 px-2.5 py-1 text-xs text-gray-300 hover:text-gray-100 disabled:opacity-50"
+            className="ml-auto inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1 text-xs text-foreground hover:text-foreground disabled:opacity-50"
           >
             {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <RefreshCw className="h-3.5 w-3.5" />}
             Refresh
@@ -161,7 +161,7 @@ export function AnalyticsOsDashboard({ dashboard }: { dashboard: Dashboard }) {
 function ConnectionRibbon({ level, region }: { level: Dashboard['connection']['level']; region: string }) {
   if (level === 'full') {
     return (
-      <div className="flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-300">
+      <div className="flex items-center gap-2 rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-xs text-success-text">
         <CheckCircle2 className="h-4 w-4 shrink-0" />
         <span><strong>Fully connected</strong> to PostHog ({region.toUpperCase()}). Live analytics and flag management are on.</span>
       </div>
@@ -169,7 +169,7 @@ function ConnectionRibbon({ level, region }: { level: Dashboard['connection']['l
   }
   if (level === 'ingest') {
     return (
-      <div className="flex items-start gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+      <div className="flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-xs text-link">
         <KeyRound className="mt-0.5 h-4 w-4 shrink-0" />
         <span>
           <strong>Events are flowing to PostHog ✓</strong> ({region.toUpperCase()}). To read analytics and manage flags
@@ -180,7 +180,7 @@ function ConnectionRibbon({ level, region }: { level: Dashboard['connection']['l
     );
   }
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-300">
+    <div className="flex items-start gap-2 rounded-lg border border-error/30 bg-error/10 px-3 py-2 text-xs text-error-text">
       <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
       <span><strong>No PostHog project key set.</strong> Add <code>NEXT_PUBLIC_POSTHOG_KEY</code> (see the Connect tab).</span>
     </div>
@@ -212,13 +212,13 @@ function OverviewPanel({ dashboard }: { dashboard: Dashboard }) {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> Your single control center for everything PostHog
+          <strong className="text-foreground">What this is.</strong> Your single control center for everything PostHog
           does — product &amp; web analytics, session replay, funnels, retention, feature flags, A/B experiments,
           surveys, cohorts and SQL. Items marked <em>Live in OS</em> or <em>Manage here</em> render and act inside
           SwingVantage; <em>Open in PostHog</em> deep-links to PostHog&apos;s rich interactive view.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Events are already being collected. Add a
+          <strong className="text-foreground">What to do next.</strong> Events are already being collected. Add a
           PostHog personal API key in the <strong>Connect</strong> tab to turn on live numbers and flag management
           inside this dashboard.
         </p>
@@ -231,22 +231,22 @@ function CapabilityCard({ cap }: { cap: ResolvedCapability }) {
   const Icon = ICONS[cap.icon] ?? LayoutDashboard;
   const meta = STATE_META[cap.state];
   return (
-    <div className="flex items-start gap-3 rounded-xl border border-gray-800 bg-gray-900 p-3">
-      <span className="mt-0.5 shrink-0 rounded-lg bg-gray-800 p-2 text-violet-300">
+    <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-3">
+      <span className="mt-0.5 shrink-0 rounded-lg bg-muted p-2 text-link">
         <Icon className="h-4 w-4" aria-hidden="true" />
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="text-sm font-semibold text-gray-100">{cap.label}</p>
+          <p className="text-sm font-semibold text-foreground">{cap.label}</p>
           <StatusBadge tone={meta.tone}>{meta.label}</StatusBadge>
         </div>
-        <p className="mt-0.5 text-xs text-gray-500">{cap.description}</p>
+        <p className="mt-0.5 text-xs text-muted-foreground">{cap.description}</p>
         {cap.href && (
           <a
             href={cap.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-medium text-amber-400 hover:underline"
+            className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-medium text-link hover:underline"
           >
             Open in PostHog <ExternalLink className="h-3 w-3" />
           </a>
@@ -262,9 +262,9 @@ function NeedsKeyPanel({ what }: { what: string }) {
   return (
     <SectionCard>
       <div className="flex items-start gap-3">
-        <KeyRound className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
-        <div className="text-sm text-gray-400">
-          <p className="font-semibold text-gray-200">Add a PostHog personal API key to see {what} here.</p>
+        <KeyRound className="mt-0.5 h-5 w-5 shrink-0 text-link" />
+        <div className="text-sm text-muted-foreground">
+          <p className="font-semibold text-foreground">Add a PostHog personal API key to see {what} here.</p>
           <p className="mt-1 text-xs">
             Events are already being collected. The <strong>Connect</strong> tab has the exact steps and the two
             environment variables to add (<code>POSTHOG_PERSONAL_API_KEY</code> and <code>POSTHOG_PROJECT_ID</code>).
@@ -278,7 +278,7 @@ function NeedsKeyPanel({ what }: { what: string }) {
 
 function LiveError({ error }: { error: string }) {
   return (
-    <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-300">
+    <div className="rounded-lg border border-error/30 bg-error/10 px-3 py-2 text-xs text-error-text">
       {error}
     </div>
   );
@@ -309,7 +309,7 @@ function WebPanel({ live, loading, error, isFull }: { live: LiveSnapshot | null;
           <div className="flex h-28 items-end gap-1">
             {o.byDay.map((d) => (
               <div key={d.date} className="group relative flex-1" title={`${d.date}: ${d.pageviews}`}>
-                <div className="w-full rounded-t bg-violet-500/70 group-hover:bg-violet-400" style={{ height: `${(d.pageviews / peak) * 100}%` }} />
+                <div className="w-full rounded-t bg-primary/70 group-hover:bg-primary" style={{ height: `${(d.pageviews / peak) * 100}%` }} />
               </div>
             ))}
           </div>
@@ -317,8 +317,8 @@ function WebPanel({ live, loading, error, isFull }: { live: LiveSnapshot | null;
       )}
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <NamedCountCard title="Top pages" rows={live.topPages} error={live.errors.topPages} color="bg-emerald-500" />
-        <NamedCountCard title="Top referrers" rows={live.topReferrers} error={live.errors.topReferrers} color="bg-sky-500" />
+        <NamedCountCard title="Top pages" rows={live.topPages} error={live.errors.topPages} color="bg-success" />
+        <NamedCountCard title="Top referrers" rows={live.topReferrers} error={live.errors.topReferrers} color="bg-primary" />
       </div>
     </div>
   );
@@ -331,14 +331,14 @@ function NamedCountCard({ title, rows, error, color }: { title: string; rows: { 
       {error ? (
         <LiveError error={error} />
       ) : rows.length === 0 ? (
-        <p className="text-sm text-gray-500">No data in this range yet.</p>
+        <p className="text-sm text-muted-foreground">No data in this range yet.</p>
       ) : (
         <ul className="space-y-2">
           {rows.map((r) => (
             <li key={r.name} className="flex items-center gap-3 text-sm">
-              <span className="w-40 shrink-0 truncate text-gray-300" title={r.name}>{r.name}</span>
+              <span className="w-40 shrink-0 truncate text-foreground" title={r.name}>{r.name}</span>
               <Bar pct={(r.count / peak) * 100} color={color} />
-              <span className="w-12 text-right tabular-nums text-gray-400">{formatNumber(r.count)}</span>
+              <span className="w-12 text-right tabular-nums text-muted-foreground">{formatNumber(r.count)}</span>
             </li>
           ))}
         </ul>
@@ -354,7 +354,7 @@ function ProductPanel({ dashboard, live, loading, isFull }: { dashboard: Dashboa
     <div className="space-y-4">
       {isFull ? (
         loading && !live ? <LoadingPanel /> : (
-          <NamedCountCard title="Top events" rows={live?.topEvents ?? []} error={live?.errors.topEvents} color="bg-violet-500" />
+          <NamedCountCard title="Top events" rows={live?.topEvents ?? []} error={live?.errors.topEvents} color="bg-primary" />
         )
       ) : (
         <NeedsKeyPanel what="live event volumes" />
@@ -364,18 +364,18 @@ function ProductPanel({ dashboard, live, loading, isFull }: { dashboard: Dashboa
         <div className="space-y-4">
           {dashboard.funnels.map((f) => (
             <div key={f.name}>
-              <p className="text-sm font-medium text-amber-300">{f.name}</p>
-              <p className="mb-1.5 text-xs text-gray-500">{f.description}</p>
-              <div className="flex flex-wrap items-center gap-1.5 text-xs text-gray-400">
+              <p className="text-sm font-medium text-link">{f.name}</p>
+              <p className="mb-1.5 text-xs text-muted-foreground">{f.description}</p>
+              <div className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
                 {f.steps.map((s, i) => (
                   <span key={s.label} className="flex items-center gap-1.5">
-                    <span className="flex flex-col rounded bg-gray-800 px-2 py-1 leading-tight">
-                      <span className="text-gray-300">{s.label}</span>
-                      <code className="text-[10px] text-emerald-400/80">
+                    <span className="flex flex-col rounded bg-muted px-2 py-1 leading-tight">
+                      <span className="text-foreground">{s.label}</span>
+                      <code className="text-[10px] text-success-text/80">
                         {s.event ?? 'PostHog-native (returning users)'}
                       </code>
                     </span>
-                    {i < f.steps.length - 1 && <span className="text-gray-600">→</span>}
+                    {i < f.steps.length - 1 && <span className="text-muted-foreground/70">→</span>}
                   </span>
                 ))}
               </div>
@@ -387,7 +387,7 @@ function ProductPanel({ dashboard, live, loading, isFull }: { dashboard: Dashboa
       <SectionCard title="Event catalog" description={`${dashboard.trackedEvents.length} events SwingVantage is instrumented to send`}>
         <div className="flex flex-wrap gap-1.5">
           {dashboard.trackedEvents.map((e) => (
-            <code key={e} className="rounded bg-gray-800 px-1.5 py-0.5 font-mono text-[11px] text-gray-300">{e}</code>
+            <code key={e} className="rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] text-foreground">{e}</code>
           ))}
         </div>
       </SectionCard>
@@ -433,21 +433,21 @@ function FlagsPanel({ live, loading, isFull, onChanged }: { live: LiveSnapshot |
         description="Toggle a flag here and it changes in PostHog for everyone. These are your real product flags (separate from the device-local operator flags under Feature Flags)."
       >
         {flags.length === 0 ? (
-          <p className="text-sm text-gray-500">No feature flags in this PostHog project yet.</p>
+          <p className="text-sm text-muted-foreground">No feature flags in this PostHog project yet.</p>
         ) : (
           <div className="space-y-2">
             {flags.map((f) => (
-              <div key={f.id} className="flex items-center justify-between gap-3 rounded-xl border border-gray-800 bg-gray-900 p-3">
+              <div key={f.id} className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-3">
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-gray-100">{f.name}</p>
-                  <p className="font-mono text-[11px] text-gray-600">{f.key}{f.rolloutPercentage != null ? ` · ${f.rolloutPercentage}% rollout` : ''}</p>
+                  <p className="truncate text-sm font-semibold text-foreground">{f.name}</p>
+                  <p className="font-mono text-[11px] text-muted-foreground/70">{f.key}{f.rolloutPercentage != null ? ` · ${f.rolloutPercentage}% rollout` : ''}</p>
                 </div>
                 <button
                   role="switch"
                   aria-checked={f.active}
                   disabled={busyId === f.id}
                   onClick={() => toggle(f)}
-                  className={`relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:opacity-50 ${f.active ? 'bg-emerald-500' : 'bg-gray-700'}`}
+                  className={`relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:opacity-50 ${f.active ? 'bg-success' : 'bg-muted'}`}
                 >
                   <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${f.active ? 'translate-x-5' : 'translate-x-0.5'}`} />
                 </button>
@@ -508,7 +508,7 @@ function ExplorePanel({ live, isFull }: { live: LiveSnapshot | null; isFull: boo
           <button
             onClick={run}
             disabled={running}
-            className="inline-flex items-center gap-1.5 rounded-md border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-xs font-medium text-violet-200 hover:bg-violet-500/25 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-md border border-primary/40 bg-primary/15 px-3 py-1.5 text-xs font-medium text-link hover:bg-primary/25 disabled:opacity-50"
           >
             {running ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Play className="h-3.5 w-3.5" />}
             Run
@@ -520,18 +520,18 @@ function ExplorePanel({ live, isFull }: { live: LiveSnapshot | null; isFull: boo
           onChange={(e) => setSql(e.target.value)}
           spellCheck={false}
           rows={6}
-          className="w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 font-mono text-xs text-gray-200 focus:outline-none focus:ring-2 focus:ring-violet-500"
+          className="w-full rounded-lg border border-border bg-background px-3 py-2 font-mono text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
         />
         {err && <div className="mt-2"><LiveError error={err} /></div>}
         {result && (
           <div className="mt-3 overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="text-gray-500">
-                <tr>{result.columns.map((col) => <th key={col} className="border-b border-gray-800 py-1.5 pr-3 font-medium">{col}</th>)}</tr>
+              <thead className="text-muted-foreground">
+                <tr>{result.columns.map((col) => <th key={col} className="border-b border-border py-1.5 pr-3 font-medium">{col}</th>)}</tr>
               </thead>
-              <tbody className="divide-y divide-gray-800">
+              <tbody className="divide-y divide-border">
                 {result.rows.map((row, i) => (
-                  <tr key={i} className="text-gray-300">
+                  <tr key={i} className="text-foreground">
                     {(row as unknown[]).map((cell, j) => (
                       <td key={j} className="py-1.5 pr-3 tabular-nums">{cell === null ? '—' : String(cell)}</td>
                     ))}
@@ -539,8 +539,8 @@ function ExplorePanel({ live, isFull }: { live: LiveSnapshot | null; isFull: boo
                 ))}
               </tbody>
             </table>
-            {result.rows.length === 0 && <p className="py-3 text-center text-gray-600">No rows.</p>}
-            {result.truncated && <p className="mt-2 text-[11px] text-amber-400">Showing the first 200 rows.</p>}
+            {result.rows.length === 0 && <p className="py-3 text-center text-muted-foreground/70">No rows.</p>}
+            {result.truncated && <p className="mt-2 text-[11px] text-link">Showing the first 200 rows.</p>}
           </div>
         )}
       </SectionCard>
@@ -593,7 +593,7 @@ function ConnectPanel({ dashboard }: { dashboard: Dashboard }) {
           <button
             onClick={runTest}
             disabled={testing}
-            className="inline-flex items-center gap-1.5 rounded-md border border-gray-700 bg-gray-900 px-3 py-1.5 text-xs text-gray-300 hover:text-gray-100 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-xs text-foreground hover:text-foreground disabled:opacity-50"
           >
             {testing ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <RefreshCw className="h-3.5 w-3.5" />}
             Test now
@@ -601,7 +601,7 @@ function ConnectPanel({ dashboard }: { dashboard: Dashboard }) {
         }
       >
         {!test ? (
-          <p className="text-sm text-gray-500">Press <strong>Test now</strong> to verify both keys against PostHog.</p>
+          <p className="text-sm text-muted-foreground">Press <strong>Test now</strong> to verify both keys against PostHog.</p>
         ) : (
           <div className="space-y-2 text-sm">
             <TestRow
@@ -626,14 +626,14 @@ function ConnectPanel({ dashboard }: { dashboard: Dashboard }) {
       </SectionCard>
 
       <SectionCard title="Turn on live numbers & flag management" description="Optional — events already collect without this.">
-        <ol className="list-decimal space-y-2 pl-5 text-sm text-gray-400">
+        <ol className="list-decimal space-y-2 pl-5 text-sm text-muted-foreground">
           <li>In PostHog, open <strong>Settings → Personal API keys → Create personal API key</strong>. Give it read access (and <em>Feature flag write</em> if you want to toggle flags here).</li>
           <li>Find your <strong>Project ID</strong> in <strong>Settings → Project</strong> (a number).</li>
           <li>Add both as environment variables, then redeploy:</li>
         </ol>
-        <pre className="mt-3 overflow-x-auto rounded-lg border border-gray-800 bg-gray-950 p-3 font-mono text-[11px] text-gray-300">{`POSTHOG_PERSONAL_API_KEY=phx_your_personal_key
+        <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-[11px] text-foreground">{`POSTHOG_PERSONAL_API_KEY=phx_your_personal_key
 POSTHOG_PROJECT_ID=12345`}</pre>
-        <p className="mt-2 text-xs text-gray-500">
+        <p className="mt-2 text-xs text-muted-foreground">
           Locally: add them to <code>apps/web/.env.local</code>. In production: <strong>Vercel → Settings → Environment Variables</strong>.
           The personal key is read server-side only and never sent to the browser.
         </p>
@@ -641,7 +641,7 @@ POSTHOG_PROJECT_ID=12345`}</pre>
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">Two different keys.</strong> The <em>project key</em> (<code>phc_…</code>) is public
+          <strong className="text-foreground">Two different keys.</strong> The <em>project key</em> (<code>phc_…</code>) is public
           and lets the site <em>send</em> events. The <em>personal API key</em> (<code>phx_…</code>) is secret and lets this OS
           <em> read</em> your data back and manage flags. You already have the first one.
         </p>
@@ -651,13 +651,13 @@ POSTHOG_PROJECT_ID=12345`}</pre>
 }
 
 function TestRow({ label, ok, detail, neutral }: { label: string; ok: boolean; detail: string; neutral?: boolean }) {
-  const tone = neutral ? 'text-gray-400' : ok ? 'text-emerald-300' : 'text-red-300';
+  const tone = neutral ? 'text-muted-foreground' : ok ? 'text-success-text' : 'text-error-text';
   const Icon = neutral ? KeyRound : ok ? CheckCircle2 : AlertTriangle;
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-gray-800 bg-gray-900 px-3 py-2">
+    <div className="flex items-start gap-2 rounded-lg border border-border bg-card px-3 py-2">
       <Icon className={`mt-0.5 h-4 w-4 shrink-0 ${tone}`} />
       <div>
-        <p className="font-medium text-gray-200">{label}</p>
+        <p className="font-medium text-foreground">{label}</p>
         <p className={`text-xs ${tone}`}>{detail}</p>
       </div>
     </div>
@@ -669,7 +669,7 @@ function TestRow({ label, ok, detail, neutral }: { label: string; ok: boolean; d
 function LoadingPanel() {
   return (
     <SectionCard>
-      <div className="flex items-center gap-2 text-sm text-gray-500">
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <Loader2 className="h-4 w-4 animate-spin" /> Loading live data from PostHog…
       </div>
     </SectionCard>

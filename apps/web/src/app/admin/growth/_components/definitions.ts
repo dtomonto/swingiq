@@ -103,8 +103,8 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     kpis: (r) => [
       { label: 'Strategies', value: r.length },
       { label: 'In progress', value: countWhere(r, (x) => x.status === 'in-progress'), accent: 'text-blue-400' },
-      { label: 'Avg priority', value: avgPriority(r), sublabel: 'ICE + fit + urgency', accent: 'text-amber-400' },
-      { label: 'High impact', value: countWhere(r, (x) => (x.priority as PriorityInputs)?.impact === 'high'), accent: 'text-green-400' },
+      { label: 'Avg priority', value: avgPriority(r), sublabel: 'ICE + fit + urgency', accent: 'text-link' },
+      { label: 'High impact', value: countWhere(r, (x) => (x.priority as PriorityInputs)?.impact === 'high'), accent: 'text-success-text' },
     ],
   },
 
@@ -141,8 +141,8 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     ],
     kpis: (r) => [
       { label: 'Campaigns', value: r.length },
-      { label: 'Active', value: countWhere(r, (x) => x.status === 'active'), accent: 'text-green-400' },
-      { label: 'In draft / idea', value: countWhere(r, (x) => x.status === 'draft' || x.status === 'idea'), accent: 'text-amber-400' },
+      { label: 'Active', value: countWhere(r, (x) => x.status === 'active'), accent: 'text-success-text' },
+      { label: 'In draft / idea', value: countWhere(r, (x) => x.status === 'draft' || x.status === 'idea'), accent: 'text-link' },
       { label: 'Planned budget', value: formatUsd(sumBudget(r, 'budgetUsd')), accent: 'text-blue-400' },
     ],
   },
@@ -178,8 +178,8 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     ],
     kpis: (r) => [
       { label: 'Channels', value: r.length },
-      { label: 'Active', value: countWhere(r, (x) => x.status === 'active'), accent: 'text-green-400' },
-      { label: 'High-potential', value: countWhere(r, (x) => x.status === 'high-potential'), accent: 'text-amber-400' },
+      { label: 'Active', value: countWhere(r, (x) => x.status === 'active'), accent: 'text-success-text' },
+      { label: 'High-potential', value: countWhere(r, (x) => x.status === 'high-potential'), accent: 'text-link' },
       { label: 'Total budget/mo', value: formatUsd(sumBudget(r, 'monthlyBudgetUsd')), accent: 'text-blue-400' },
     ],
   },
@@ -219,7 +219,7 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     kpis: (r) => [
       { label: 'Paid campaigns', value: r.length },
       { label: 'Total budget', value: formatUsd(sumBudget(r, 'budgetUsd')), accent: 'text-blue-400' },
-      { label: 'Live', value: countWhere(r, (x) => x.status === 'active'), accent: 'text-green-400' },
+      { label: 'Live', value: countWhere(r, (x) => x.status === 'active'), accent: 'text-success-text' },
       { label: 'Projected', value: countWhere(r, (x) => x.dataSource === 'placeholder'), sublabel: 'not yet live', accent: 'text-purple-400' },
     ],
   },
@@ -252,9 +252,9 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     ],
     kpis: (r) => [
       { label: 'Assets', value: r.length },
-      { label: 'Published', value: countWhere(r, (x) => x.status === 'published'), accent: 'text-green-400' },
-      { label: 'In pipeline', value: countWhere(r, (x) => ['idea', 'brief', 'draft', 'in-review'].includes(String(x.status))), accent: 'text-amber-400' },
-      { label: 'Needs refresh', value: countWhere(r, (x) => x.status === 'refresh-needed'), accent: 'text-red-400' },
+      { label: 'Published', value: countWhere(r, (x) => x.status === 'published'), accent: 'text-success-text' },
+      { label: 'In pipeline', value: countWhere(r, (x) => ['idea', 'brief', 'draft', 'in-review'].includes(String(x.status))), accent: 'text-link' },
+      { label: 'Needs refresh', value: countWhere(r, (x) => x.status === 'refresh-needed'), accent: 'text-error-text' },
     ],
   },
 
@@ -286,8 +286,8 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     kpis: (r) => [
       { label: 'Posts', value: r.length },
       { label: 'Scheduled', value: countWhere(r, (x) => x.status === 'scheduled'), accent: 'text-blue-400' },
-      { label: 'Published', value: countWhere(r, (x) => x.status === 'published'), accent: 'text-green-400' },
-      { label: 'Ideas', value: countWhere(r, (x) => x.status === 'idea'), accent: 'text-amber-400' },
+      { label: 'Published', value: countWhere(r, (x) => x.status === 'published'), accent: 'text-success-text' },
+      { label: 'Ideas', value: countWhere(r, (x) => x.status === 'idea'), accent: 'text-link' },
     ],
   },
 
@@ -315,9 +315,9 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     ],
     kpis: (r) => [
       { label: 'Messages', value: r.length },
-      { label: 'Ready', value: countWhere(r, (x) => x.status === 'ready'), accent: 'text-green-400' },
-      { label: 'Drafts', value: countWhere(r, (x) => x.status === 'draft'), accent: 'text-amber-400' },
-      { label: 'Send-enabled', value: countWhere(r, (x) => x.sendEnabled === true), sublabel: 'safe default off', accent: 'text-red-400' },
+      { label: 'Ready', value: countWhere(r, (x) => x.status === 'ready'), accent: 'text-success-text' },
+      { label: 'Drafts', value: countWhere(r, (x) => x.status === 'draft'), accent: 'text-link' },
+      { label: 'Send-enabled', value: countWhere(r, (x) => x.sendEnabled === true), sublabel: 'safe default off', accent: 'text-error-text' },
     ],
   },
 
@@ -501,9 +501,9 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     ],
     kpis: (r) => [
       { label: 'Proof assets', value: r.length },
-      { label: 'Usable', value: countWhere(r, (x) => x.permissionStatus === 'granted' && x.riskLevel !== 'unusable'), accent: 'text-green-400' },
-      { label: 'Pending permission', value: countWhere(r, (x) => x.permissionStatus === 'pending'), accent: 'text-amber-400' },
-      { label: 'Unusable', value: countWhere(r, (x) => x.riskLevel === 'unusable'), accent: 'text-red-400' },
+      { label: 'Usable', value: countWhere(r, (x) => x.permissionStatus === 'granted' && x.riskLevel !== 'unusable'), accent: 'text-success-text' },
+      { label: 'Pending permission', value: countWhere(r, (x) => x.permissionStatus === 'pending'), accent: 'text-link' },
+      { label: 'Unusable', value: countWhere(r, (x) => x.riskLevel === 'unusable'), accent: 'text-error-text' },
     ],
   },
 
@@ -533,8 +533,8 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     kpis: (r) => [
       { label: 'Opportunities', value: r.length },
       { label: 'Prioritized', value: countWhere(r, (x) => x.status === 'prioritized'), accent: 'text-blue-400' },
-      { label: 'Shipped', value: countWhere(r, (x) => x.status === 'shipped' || x.status === 'done'), accent: 'text-green-400' },
-      { label: 'Avg priority', value: avgPriority(r), accent: 'text-amber-400' },
+      { label: 'Shipped', value: countWhere(r, (x) => x.status === 'shipped' || x.status === 'done'), accent: 'text-success-text' },
+      { label: 'Avg priority', value: avgPriority(r), accent: 'text-link' },
     ],
   },
 
@@ -567,8 +567,8 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     kpis: (r) => [
       { label: 'Experiments', value: r.length },
       { label: 'Running', value: countWhere(r, (x) => x.status === 'running'), accent: 'text-blue-400' },
-      { label: 'Prioritized', value: countWhere(r, (x) => x.status === 'prioritized'), accent: 'text-amber-400' },
-      { label: 'Avg priority', value: avgPriority(r), accent: 'text-green-400' },
+      { label: 'Prioritized', value: countWhere(r, (x) => x.status === 'prioritized'), accent: 'text-link' },
+      { label: 'Avg priority', value: avgPriority(r), accent: 'text-success-text' },
     ],
   },
 
@@ -694,8 +694,8 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     ],
     kpis: (r) => [
       { label: 'Recommendations', value: r.length },
-      { label: 'High priority', value: countWhere(r, (x) => priorityScore(x.priority as PriorityInputs) >= 55), accent: 'text-amber-400' },
-      { label: 'Quick wins', value: countWhere(r, (x) => (x.priority as PriorityInputs)?.effort === 'low' && (x.priority as PriorityInputs)?.impact === 'high'), sublabel: 'high impact · low effort', accent: 'text-green-400' },
+      { label: 'High priority', value: countWhere(r, (x) => priorityScore(x.priority as PriorityInputs) >= 55), accent: 'text-link' },
+      { label: 'Quick wins', value: countWhere(r, (x) => (x.priority as PriorityInputs)?.effort === 'low' && (x.priority as PriorityInputs)?.impact === 'high'), sublabel: 'high impact · low effort', accent: 'text-success-text' },
       { label: 'Data-backed', value: countWhere(r, (x) => x.basis === 'data'), sublabel: 'rest are strategic', accent: 'text-blue-400' },
     ],
   },
@@ -723,8 +723,8 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     kpis: (r) => [
       { label: 'Tasks', value: r.length },
       { label: 'In progress', value: countWhere(r, (x) => x.status === 'in-progress'), accent: 'text-blue-400' },
-      { label: 'To do', value: countWhere(r, (x) => x.status === 'todo'), accent: 'text-amber-400' },
-      { label: 'Done', value: countWhere(r, (x) => x.status === 'done'), accent: 'text-green-400' },
+      { label: 'To do', value: countWhere(r, (x) => x.status === 'todo'), accent: 'text-link' },
+      { label: 'Done', value: countWhere(r, (x) => x.status === 'done'), accent: 'text-success-text' },
     ],
   },
 
@@ -759,8 +759,8 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     ],
     kpis: (r) => [
       { label: 'Recommendations', value: r.length },
-      { label: 'Pending', value: countWhere(r, (x) => x.status === 'pending'), accent: 'text-amber-400' },
-      { label: 'Safe to auto-apply', value: countWhere(r, (x) => x.autoSafe === true), sublabel: 'one-click', accent: 'text-green-400' },
+      { label: 'Pending', value: countWhere(r, (x) => x.status === 'pending'), accent: 'text-link' },
+      { label: 'Safe to auto-apply', value: countWhere(r, (x) => x.autoSafe === true), sublabel: 'one-click', accent: 'text-success-text' },
       { label: 'Applied', value: countWhere(r, (x) => x.status === 'applied' || x.status === 'auto-applied'), accent: 'text-blue-400' },
     ],
   },
@@ -789,9 +789,9 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     ],
     kpis: (r) => [
       { label: 'Findings', value: r.length },
-      { label: 'Orphans', value: countWhere(r, (x) => x.findingType === 'orphan'), accent: 'text-red-400' },
-      { label: 'Broken links', value: countWhere(r, (x) => x.findingType === 'broken-internal'), accent: 'text-red-400' },
-      { label: 'High severity', value: countWhere(r, (x) => x.severity === 'high' || x.severity === 'critical'), accent: 'text-amber-400' },
+      { label: 'Orphans', value: countWhere(r, (x) => x.findingType === 'orphan'), accent: 'text-error-text' },
+      { label: 'Broken links', value: countWhere(r, (x) => x.findingType === 'broken-internal'), accent: 'text-error-text' },
+      { label: 'High severity', value: countWhere(r, (x) => x.severity === 'high' || x.severity === 'critical'), accent: 'text-link' },
     ],
   },
 };

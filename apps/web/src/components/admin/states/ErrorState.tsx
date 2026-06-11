@@ -13,10 +13,10 @@ export function ErrorState({
   children?: ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-red-500/30 bg-red-500/[0.06] p-6 text-center">
-      <AlertOctagon className="mx-auto h-8 w-8 text-red-400" />
-      <h3 className="mt-2 text-sm font-semibold text-gray-100">{title}</h3>
-      {detail && <p className="mx-auto mt-1 max-w-md text-sm text-gray-400">{detail}</p>}
+    <div className="rounded-xl border border-error/30 bg-error/[0.06] p-6 text-center">
+      <AlertOctagon className="mx-auto h-8 w-8 text-error-text" />
+      <h3 className="mt-2 text-sm font-semibold text-foreground">{title}</h3>
+      {detail && <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">{detail}</p>}
       {children}
     </div>
   );

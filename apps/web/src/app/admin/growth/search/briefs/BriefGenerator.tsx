@@ -43,7 +43,7 @@ export function BriefGenerator({ initial }: { initial: { topic?: string; sport?:
       {/* Form */}
       <form
         onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
-        className="rounded-xl border border-gray-800 bg-gray-900 p-4 grid sm:grid-cols-2 gap-3"
+        className="rounded-xl border border-border bg-card p-4 grid sm:grid-cols-2 gap-3"
       >
         <Field label="Topic">
           <input value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="e.g. fix golf slice" className={inputCls} />
@@ -62,7 +62,7 @@ export function BriefGenerator({ initial }: { initial: { topic?: string; sport?:
           </select>
         </Field>
         <div className="sm:col-span-2">
-          <button type="submit" className="inline-flex items-center gap-1.5 rounded-lg bg-green-600 hover:bg-green-500 text-white text-sm font-semibold px-4 py-2">
+          <button type="submit" className="inline-flex items-center gap-1.5 rounded-lg bg-success hover:bg-success text-white text-sm font-semibold px-4 py-2">
             <Sparkles className="w-4 h-4" /> Generate brief
           </button>
         </div>
@@ -70,11 +70,11 @@ export function BriefGenerator({ initial }: { initial: { topic?: string; sport?:
 
       {/* Brief */}
       {brief ? (
-        <div className="rounded-xl border border-gray-800 bg-gray-900 overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800 bg-gray-800/40">
-            <h2 className="text-sm font-semibold text-gray-200">{brief.h1}</h2>
-            <button onClick={copy} className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-200">
-              {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+        <div className="rounded-xl border border-border bg-card overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/40">
+            <h2 className="text-sm font-semibold text-foreground">{brief.h1}</h2>
+            <button onClick={copy} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground">
+              {copied ? <Check className="w-3.5 h-3.5 text-success-text" /> : <Copy className="w-3.5 h-3.5" />}
               {copied ? 'Copied' : 'Copy JSON'}
             </button>
           </div>
@@ -92,18 +92,18 @@ export function BriefGenerator({ initial }: { initial: { topic?: string; sport?:
               <Label>Outline</Label>
               <ul className="space-y-1.5">
                 {brief.outline.map((s, i) => (
-                  <li key={i} className="text-gray-300">
+                  <li key={i} className="text-foreground">
                     <span className="font-medium">{s.heading}</span>
-                    <span className="text-gray-500 text-xs"> — {s.subpoints.join('; ')}</span>
+                    <span className="text-muted-foreground text-xs"> — {s.subpoints.join('; ')}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <Block label="Direct-answer block"><span className="text-gray-400 italic">{brief.directAnswerBlock}</span></Block>
+            <Block label="Direct-answer block"><span className="text-muted-foreground italic">{brief.directAnswerBlock}</span></Block>
             <div>
               <Label>FAQs</Label>
               <ul className="space-y-1.5">
-                {brief.faqs.map((f, i) => <li key={i} className="text-gray-300"><span className="font-medium">{f.question}</span> <span className="text-gray-500 text-xs">— {f.answer}</span></li>)}
+                {brief.faqs.map((f, i) => <li key={i} className="text-foreground"><span className="font-medium">{f.question}</span> <span className="text-muted-foreground text-xs">— {f.answer}</span></li>)}
               </ul>
             </div>
             {brief.howToSteps.length > 0 ? <ListBlock label="How-to steps" items={brief.howToSteps} ordered /> : null}
@@ -115,35 +115,35 @@ export function BriefGenerator({ initial }: { initial: { topic?: string; sport?:
             </div>
             <Block label="Differentiation angle">{brief.differentiationAngle}</Block>
             <Block label="CTA">{brief.cta}</Block>
-            <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-300">
+            <div className="rounded-lg border border-error/30 bg-error/10 p-3 text-xs text-error-text">
               <strong>No fabrication:</strong> {brief.noFabricationWarning}
             </div>
           </div>
         </div>
       ) : (
-        <p className="text-sm text-gray-500">Enter a topic and generate a production-ready brief. It never auto-publishes.</p>
+        <p className="text-sm text-muted-foreground">Enter a topic and generate a production-ready brief. It never auto-publishes.</p>
       )}
     </div>
   );
 }
 
-const inputCls = 'w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-hidden focus:ring-1 focus:ring-green-500';
+const inputCls = 'w-full bg-background border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder-muted-foreground/70 focus:outline-hidden focus:ring-1 focus:ring-success';
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <label className="block"><span className="text-xs text-gray-500 mb-1 block">{label}</span>{children}</label>;
+  return <label className="block"><span className="text-xs text-muted-foreground mb-1 block">{label}</span>{children}</label>;
 }
 function Label({ children }: { children: React.ReactNode }) {
-  return <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-1">{children}</p>;
+  return <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">{children}</p>;
 }
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><Label>{label}</Label><p className="text-gray-300">{children}</p></div>;
+  return <div><Label>{label}</Label><p className="text-foreground">{children}</p></div>;
 }
 function ListBlock({ label, items, ordered }: { label: string; items: string[]; ordered?: boolean }) {
   return (
     <div>
       <Label>{label}</Label>
       <ul className="space-y-0.5">
-        {items.map((it, i) => <li key={i} className="text-gray-300 text-xs">{ordered ? `${i + 1}. ` : '• '}{it}</li>)}
+        {items.map((it, i) => <li key={i} className="text-foreground text-xs">{ordered ? `${i + 1}. ` : '• '}{it}</li>)}
       </ul>
     </div>
   );

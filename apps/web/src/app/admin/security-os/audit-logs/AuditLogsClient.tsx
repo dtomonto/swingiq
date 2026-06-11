@@ -14,9 +14,9 @@ import { useSecurityOS } from '@/lib/security-os/useSecurityOS';
 import type { SecurityAuditSeverity } from '@/lib/security-os/types';
 
 const SEV_TONE: Record<SecurityAuditSeverity, string> = {
-  info: 'bg-gray-800 text-gray-300',
-  warning: 'bg-amber-500/15 text-amber-300',
-  critical: 'bg-red-500/15 text-red-300',
+  info: 'bg-muted text-foreground',
+  warning: 'bg-primary/15 text-link',
+  critical: 'bg-error/15 text-error-text',
 };
 
 export function AuditLogsClient() {
@@ -48,48 +48,48 @@ export function AuditLogsClient() {
     URL.revokeObjectURL(url);
   };
 
-  if (!sec.ready) return <p className="text-sm text-gray-500">Loading…</p>;
+  if (!sec.ready) return <p className="text-sm text-muted-foreground">Loading…</p>;
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-gray-800 bg-gray-900 p-3">
+      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-card p-3">
         <div className="relative">
-          <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-500" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className="w-40 rounded-lg border border-gray-700 bg-gray-950 py-1.5 pl-7 pr-2 text-sm text-gray-200 placeholder:text-gray-600 focus:border-amber-500/50 focus:outline-none" />
+          <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className="w-40 rounded-lg border border-border bg-background py-1.5 pl-7 pr-2 text-sm text-foreground placeholder:text-muted-foreground/70 focus:border-primary/50 focus:outline-none" />
         </div>
-        <select value={severity} onChange={(e) => setSeverity(e.target.value as SecurityAuditSeverity | 'all')} className="rounded-lg border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-200 focus:outline-none">
+        <select value={severity} onChange={(e) => setSeverity(e.target.value as SecurityAuditSeverity | 'all')} className="rounded-lg border border-border bg-background px-2 py-1.5 text-sm text-foreground focus:outline-none">
           <option value="all">All severities</option>
           <option value="info">Info</option>
           <option value="warning">Warning</option>
           <option value="critical">Critical</option>
         </select>
-        <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="rounded-lg border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-300 focus:outline-none" />
-        <span className="text-xs text-gray-600">to</span>
-        <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="rounded-lg border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-300 focus:outline-none" />
+        <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="rounded-lg border border-border bg-background px-2 py-1.5 text-sm text-foreground focus:outline-none" />
+        <span className="text-xs text-muted-foreground/70">to</span>
+        <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="rounded-lg border border-border bg-background px-2 py-1.5 text-sm text-foreground focus:outline-none" />
         <div className="ml-auto flex gap-2">
-          <button onClick={exportJson} className="inline-flex items-center gap-1 rounded-lg border border-gray-700 px-2.5 py-1.5 text-xs font-medium text-gray-200 hover:bg-gray-800"><Download className="h-3.5 w-3.5" /> Export</button>
-          <button onClick={() => sec.clearAudit()} className="inline-flex items-center gap-1 rounded-lg border border-gray-700 px-2.5 py-1.5 text-xs font-medium text-gray-400 hover:bg-gray-800"><Trash2 className="h-3.5 w-3.5" /> Clear</button>
+          <button onClick={exportJson} className="inline-flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted"><Download className="h-3.5 w-3.5" /> Export</button>
+          <button onClick={() => sec.clearAudit()} className="inline-flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-muted-foreground hover:bg-muted"><Trash2 className="h-3.5 w-3.5" /> Clear</button>
         </div>
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-gray-800 bg-gray-900/50 p-8 text-center">
-          <ShieldCheck className="mx-auto mb-2 h-6 w-6 text-gray-600" />
-          <p className="text-sm text-gray-400">No audit entries yet.</p>
-          <p className="mt-1 text-xs text-gray-600">Triage a finding or change a setting and the action is recorded here.</p>
+        <div className="rounded-xl border border-dashed border-border bg-card/50 p-8 text-center">
+          <ShieldCheck className="mx-auto mb-2 h-6 w-6 text-muted-foreground/70" />
+          <p className="text-sm text-muted-foreground">No audit entries yet.</p>
+          <p className="mt-1 text-xs text-muted-foreground/70">Triage a finding or change a setting and the action is recorded here.</p>
         </div>
       ) : (
-        <ul className="divide-y divide-gray-800 overflow-hidden rounded-xl border border-gray-800 bg-gray-900">
+        <ul className="divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
           {filtered.map((e) => (
             <li key={e.id} className="flex items-start justify-between gap-3 p-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase ${SEV_TONE[e.severity]}`}>{e.severity}</span>
-                  <code className="rounded bg-gray-800 px-1.5 py-0.5 font-mono text-[10px] text-gray-400">{e.action}</code>
-                  <span className="text-xs text-gray-500">{e.entityType}</span>
+                  <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">{e.action}</code>
+                  <span className="text-xs text-muted-foreground">{e.entityType}</span>
                 </div>
-                <p className="mt-1 text-sm text-gray-200">{e.summary}</p>
-                <p className="mt-0.5 text-[11px] text-gray-600">{e.actor} · {new Date(e.at).toLocaleString()}</p>
+                <p className="mt-1 text-sm text-foreground">{e.summary}</p>
+                <p className="mt-0.5 text-[11px] text-muted-foreground/70">{e.actor} · {new Date(e.at).toLocaleString()}</p>
               </div>
             </li>
           ))}

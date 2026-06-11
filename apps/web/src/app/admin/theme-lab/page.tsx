@@ -36,18 +36,18 @@ export default async function AdminThemeLabPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">Resolution order.</strong> Operator pin → direct
+          <strong className="text-foreground">Resolution order.</strong> Operator pin → direct
           assignment → experiment → the visitor&apos;s saved preference → segment default → seasonal
           (when opted in) → the global default. The first <em>active</em> theme wins; a retired or
           unknown theme is skipped.
         </p>
         <p>
-          <strong className="text-gray-300">Kill-switch.</strong> If a theme ships broken, pin
+          <strong className="text-foreground">Kill-switch.</strong> If a theme ships broken, pin
           everyone to the default here while you fix it — no deploy required for your device, or set
           the env pin for every visitor.
         </p>
         <p>
-          <strong className="text-gray-300">Seasonal.</strong> Seasonal themes only appear when a
+          <strong className="text-foreground">Seasonal.</strong> Seasonal themes only appear when a
           visitor opts in <em>and</em> today falls inside the theme&apos;s window. None are
           registered yet, so the toggle is a no-op until one ships.
         </p>

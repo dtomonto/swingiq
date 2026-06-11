@@ -66,7 +66,7 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
   const running = useMemo(() => activeRunningExperiment(experiments), [experiments]);
   const sampleVariant = running ? bucketVariant(sampleId || 'anon', running) : null;
 
-  if (!mounted) return <p className="text-sm text-gray-500">Loading experiments…</p>;
+  if (!mounted) return <p className="text-sm text-muted-foreground">Loading experiments…</p>;
 
   function create() {
     const trimmed = name.trim();
@@ -132,31 +132,31 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
-        <FlaskConical className="h-4 w-4 text-sky-400" />
-        <h3 className="text-sm font-semibold text-gray-100">Experiments &amp; segments</h3>
+        <FlaskConical className="h-4 w-4 text-link" />
+        <h3 className="text-sm font-semibold text-foreground">Experiments &amp; segments</h3>
       </div>
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-muted-foreground">
         A/B test themes across the population still on the default (explicit picks are never
         enrolled). Bucketing is deterministic per visitor. Nothing affects users until you press
         Start.
       </p>
 
       {/* New experiment */}
-      <div className="rounded-xl border border-gray-800 bg-gray-900 p-4">
-        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+      <div className="rounded-xl border border-border bg-card p-4">
+        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
           New 50/50 experiment
         </p>
         <div className="flex flex-wrap items-end gap-2">
-          <label className="flex flex-col gap-1 text-xs text-gray-500">
+          <label className="flex flex-col gap-1 text-xs text-muted-foreground">
             Name
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Dark vs Standard"
-              className="rounded border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-200"
+              className="rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground"
             />
           </label>
-          <div className="flex flex-col gap-1 text-xs text-gray-500">
+          <div className="flex flex-col gap-1 text-xs text-muted-foreground">
             <span>Variant A</span>
             <ThemeOptionSelect
               ariaLabel="Variant A theme"
@@ -164,7 +164,7 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
               onChange={(v) => v && setVariantA(v)}
             />
           </div>
-          <div className="flex flex-col gap-1 text-xs text-gray-500">
+          <div className="flex flex-col gap-1 text-xs text-muted-foreground">
             <span>Variant B</span>
             <ThemeOptionSelect
               ariaLabel="Variant B theme"
@@ -175,32 +175,32 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
           <button
             onClick={create}
             disabled={!name.trim() || variantA === variantB}
-            className="rounded-lg bg-emerald-500/90 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-lg bg-success/90 px-3 py-1.5 text-xs font-semibold text-white hover:bg-success disabled:cursor-not-allowed disabled:opacity-40"
           >
             Create draft
           </button>
         </div>
         {variantA === variantB && (
-          <p className="mt-1.5 text-[11px] text-amber-400">Pick two different themes.</p>
+          <p className="mt-1.5 text-[11px] text-link">Pick two different themes.</p>
         )}
       </div>
 
       {/* Experiment list */}
       {experiments.length === 0 ? (
-        <p className="text-xs text-gray-600">No experiments yet.</p>
+        <p className="text-xs text-muted-foreground/70">No experiments yet.</p>
       ) : (
         <div className="space-y-2">
           {experiments.map((exp) => (
-            <div key={exp.id} className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+            <div key={exp.id} className="rounded-xl border border-border bg-card p-4">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-sm font-semibold text-gray-100">{exp.name}</p>
+                    <p className="text-sm font-semibold text-foreground">{exp.name}</p>
                     <StatusBadge tone={STATUS_TONE[exp.status]}>{exp.status}</StatusBadge>
                   </div>
-                  <p className="mt-1 flex flex-wrap gap-1.5 text-[11px] text-gray-500">
+                  <p className="mt-1 flex flex-wrap gap-1.5 text-[11px] text-muted-foreground">
                     {exp.variants.map((v) => (
-                      <span key={v.themeId} className="rounded bg-gray-800 px-1.5 py-0.5 text-gray-300">
+                      <span key={v.themeId} className="rounded bg-muted px-1.5 py-0.5 text-foreground">
                         {themeName(v.themeId)} {v.weight}%
                       </span>
                     ))}
@@ -210,14 +210,14 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
                   {exp.status !== 'running' ? (
                     <button
                       onClick={() => changeStatus(exp, 'running')}
-                      className="inline-flex items-center gap-1 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1 text-xs text-emerald-300 hover:bg-emerald-500/20"
+                      className="inline-flex items-center gap-1 rounded-lg border border-success/40 bg-success/10 px-2.5 py-1 text-xs text-success-text hover:bg-success/20"
                     >
                       <Play className="h-3 w-3" /> Start
                     </button>
                   ) : (
                     <button
                       onClick={() => changeStatus(exp, 'stopped')}
-                      className="inline-flex items-center gap-1 rounded-lg border border-amber-500/40 bg-amber-500/10 px-2.5 py-1 text-xs text-amber-300 hover:bg-amber-500/20"
+                      className="inline-flex items-center gap-1 rounded-lg border border-primary/40 bg-primary/10 px-2.5 py-1 text-xs text-link hover:bg-primary/20"
                     >
                       <Square className="h-3 w-3" /> Stop
                     </button>
@@ -225,7 +225,7 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
                   <button
                     onClick={() => destroy(exp)}
                     aria-label={`Delete ${exp.name}`}
-                    className="inline-flex items-center rounded-lg p-1 text-gray-500 hover:text-red-400"
+                    className="inline-flex items-center rounded-lg p-1 text-muted-foreground hover:text-error-text"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
@@ -237,28 +237,28 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
       )}
 
       {/* Bucketing preview */}
-      <div className="rounded-xl border border-gray-800 bg-gray-950 p-4">
-        <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Bucketing preview</p>
+      <div className="rounded-xl border border-border bg-background p-4">
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Bucketing preview</p>
         {running ? (
           <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
             <input
               value={sampleId}
               onChange={(e) => setSampleId(e.target.value)}
-              className="rounded border border-gray-700 bg-gray-900 px-2 py-1 text-sm text-gray-200"
+              className="rounded border border-border bg-card px-2 py-1 text-sm text-foreground"
             />
-            <span className="text-gray-500">→</span>
+            <span className="text-muted-foreground">→</span>
             <StatusBadge tone="neutral">{sampleVariant ? themeName(sampleVariant) : '—'}</StatusBadge>
-            <span className="font-mono text-[11px] text-gray-600">in &ldquo;{running.id}&rdquo;</span>
+            <span className="font-mono text-[11px] text-muted-foreground/70">in &ldquo;{running.id}&rdquo;</span>
           </div>
         ) : (
-          <p className="mt-1 text-xs text-gray-600">No experiment is running.</p>
+          <p className="mt-1 text-xs text-muted-foreground/70">No experiment is running.</p>
         )}
       </div>
 
       {/* Segment defaults */}
       <div className="space-y-2">
-        <h4 className="text-sm font-semibold text-gray-100">Segment defaults</h4>
-        <p className="text-xs text-gray-500">
+        <h4 className="text-sm font-semibold text-foreground">Segment defaults</h4>
+        <p className="text-xs text-muted-foreground">
           A fallback theme for a segment (mapped from the visitor&apos;s usage type). Applies only to
           users without an explicit pick, below any running experiment.
         </p>
@@ -266,7 +266,7 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
           {SEGMENTS.map((seg) => (
             <div
               key={seg}
-              className="flex items-center justify-between gap-2 rounded-lg border border-gray-800 bg-gray-900 px-3 py-2 text-xs text-gray-400"
+              className="flex items-center justify-between gap-2 rounded-lg border border-border bg-card px-3 py-2 text-xs text-muted-foreground"
             >
               <span className="capitalize">{seg}</span>
               <ThemeOptionSelect
@@ -300,7 +300,7 @@ function ThemeOptionSelect({
       value={value}
       aria-label={ariaLabel}
       onChange={(e) => onChange(e.target.value as ThemeId | '')}
-      className="rounded border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-200"
+      className="rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground"
     >
       {allowNone && <option value="">None</option>}
       {ACTIVE_THEMES.map((e) => (

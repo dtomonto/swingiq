@@ -112,7 +112,7 @@ export function UpdatesPublishingClient({
   return (
     <div className="space-y-6">
       {!writable && (
-        <div className="flex items-start gap-2 rounded-xl border border-sky-500/30 bg-sky-500/10 p-3 text-sm text-sky-200">
+        <div className="flex items-start gap-2 rounded-xl border border-primary/30 bg-primary/10 p-3 text-sm text-link">
           <Lock className="mt-0.5 h-4 w-4 shrink-0" />
           <p>
             This legacy screen edits a versioned data file, which the production filesystem can&apos;t
@@ -127,14 +127,14 @@ export function UpdatesPublishingClient({
       )}
 
       {error && (
-        <div className="flex items-start gap-2 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
+        <div className="flex items-start gap-2 rounded-xl border border-error/30 bg-error/10 p-3 text-sm text-error-text">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
           <p>{error}</p>
         </div>
       )}
 
       {notice && (
-        <div className="flex items-start gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-200">
+        <div className="flex items-start gap-2 rounded-xl border border-success/30 bg-success/10 p-3 text-sm text-success-text">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
           <p>{notice}</p>
         </div>
@@ -231,7 +231,7 @@ function PublishSection({
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline"
+            className="inline-flex items-center gap-1 text-xs text-link hover:underline"
           >
             View public page <ExternalLink className="h-3 w-3" />
           </a>
@@ -239,7 +239,7 @@ function PublishSection({
       )}
 
       {rows.length === 0 ? (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           No entries yet
           {kind === 'product' || kind === 'dev'
             ? ' — they appear after a commit with an Update:/Dev-Update: trailer.'
@@ -250,17 +250,17 @@ function PublishSection({
           {rows.map((row) => (
             <li
               key={row.id}
-              className="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-gray-800 bg-gray-900 p-3"
+              className="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-border bg-card p-3"
             >
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <p className="text-sm font-medium text-gray-100">{row.title}</p>
+                  <p className="text-sm font-medium text-foreground">{row.title}</p>
                   <StatusBadge tone={row.published ? 'success' : 'neutral'}>
                     {row.published ? 'Live' : 'Draft'}
                   </StatusBadge>
                   {quality?.[row.id] && <QualityChip info={quality[row.id]} />}
                 </div>
-                <p className="mt-0.5 font-mono text-[11px] text-gray-600">
+                <p className="mt-0.5 font-mono text-[11px] text-muted-foreground/70">
                   {[row.date, row.category, row.sourceCommit].filter(Boolean).join(' · ')}
                 </p>
               </div>
@@ -272,7 +272,7 @@ function PublishSection({
                 disabled={!writable || busy === row.id}
                 onClick={() => onToggle(row)}
                 className={`relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:opacity-40 ${
-                  row.published ? 'bg-emerald-500' : 'bg-gray-700'
+                  row.published ? 'bg-success' : 'bg-muted'
                 }`}
               >
                 <span

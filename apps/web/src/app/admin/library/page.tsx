@@ -37,19 +37,19 @@ export default async function AdminLibraryPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">In-app vs. public.</strong> The signed-in{' '}
+          <strong className="text-foreground">In-app vs. public.</strong> The signed-in{' '}
           <code>/library</code> always shows every video. This screen only controls the public{' '}
           <code>/learn</code> pages — the search / answer-engine surface — so you can publish on a
           deliberate cadence instead of all at once.
         </p>
         <p>
-          <strong className="text-gray-300">Why gradual.</strong> Publishing a few quality pages a
+          <strong className="text-foreground">Why gradual.</strong> Publishing a few quality pages a
           week reads as an active, maintained library and avoids thin / duplicate-content flags on a
           young domain. Recorded videos also emit rich VideoObject data; unrecorded ones publish as
           honest transcript pages.
         </p>
         <p>
-          <strong className="text-gray-300">How publishing is saved.</strong> A toggle edits a
+          <strong className="text-foreground">How publishing is saved.</strong> A toggle edits a
           versioned overrides file, so your change is a normal git diff you commit &amp; push.{' '}
           <code>/learn</code> is statically generated, so it goes live on the next deploy. Production
           runs read-only, so publish from your local dev environment, then push.

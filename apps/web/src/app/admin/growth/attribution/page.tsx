@@ -26,7 +26,7 @@ export default async function AttributionPage() {
 
       {/* Model explainer */}
       <SectionCard title="Attribution models" icon={Info}>
-        <div className="space-y-3 text-sm text-gray-400 leading-relaxed">
+        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
           <div className="grid sm:grid-cols-3 gap-3">
             <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-3">
               <p className="text-xs font-semibold text-blue-300 mb-1">First-touch</p>
@@ -36,10 +36,10 @@ export default async function AttributionPage() {
                 generate initial awareness.
               </p>
             </div>
-            <div className="rounded-lg border border-green-500/20 bg-green-500/5 p-3">
-              <p className="text-xs font-semibold text-green-300 mb-1">Last-touch</p>
-              <p className="text-xs text-green-200/70">
-                100% of the credit goes to the <strong className="text-green-200">most recent</strong> channel before
+            <div className="rounded-lg border border-success/20 bg-success/5 p-3">
+              <p className="text-xs font-semibold text-success-text mb-1">Last-touch</p>
+              <p className="text-xs text-success-text/70">
+                100% of the credit goes to the <strong className="text-success-text">most recent</strong> channel before
                 conversion. Useful for identifying which channels close the deal. The simplest model
                 and most common default in ad platforms.
               </p>
@@ -54,12 +54,12 @@ export default async function AttributionPage() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-300/90">
-            <strong className="text-amber-300">Consent-aware capture:</strong>{' '}
+          <div className="rounded-lg border border-primary/30 bg-primary/10 p-3 text-xs text-link/90">
+            <strong className="text-link">Consent-aware capture:</strong>{' '}
             Attribution events only fire when the visitor has explicitly granted <em>analytics</em> consent.
             GrowthOS uses a deny-by-default consent model — if consent is unknown or denied, the{' '}
-            <code className="text-amber-100 text-[11px]">track()</code> call in{' '}
-            <code className="text-amber-100 text-[11px]">lib/growth/analytics.ts</code> drops the event
+            <code className="text-link text-[11px]">track()</code> call in{' '}
+            <code className="text-link text-[11px]">lib/growth/analytics.ts</code> drops the event
             silently. No data is collected before consent.
           </div>
         </div>
@@ -89,26 +89,26 @@ export default async function AttributionPage() {
           <div className="overflow-x-auto -mx-4 px-4">
             <table className="w-full text-xs min-w-[720px]">
               <thead>
-                <tr className="border-b border-gray-700">
-                  <th className="text-left py-2.5 pr-3 text-gray-400 font-medium whitespace-nowrap">Event</th>
-                  <th className="text-left py-2.5 pr-3 text-gray-400 font-medium whitespace-nowrap">Time</th>
-                  <th className="text-left py-2.5 pr-3 text-gray-400 font-medium whitespace-nowrap">Source</th>
-                  <th className="text-left py-2.5 pr-3 text-gray-400 font-medium whitespace-nowrap">Medium</th>
-                  <th className="text-left py-2.5 pr-3 text-gray-400 font-medium whitespace-nowrap">Campaign</th>
-                  <th className="text-left py-2.5 pr-3 text-gray-400 font-medium whitespace-nowrap">Page</th>
-                  <th className="text-left py-2.5 text-gray-400 font-medium whitespace-nowrap">Device</th>
+                <tr className="border-b border-border">
+                  <th className="text-left py-2.5 pr-3 text-muted-foreground font-medium whitespace-nowrap">Event</th>
+                  <th className="text-left py-2.5 pr-3 text-muted-foreground font-medium whitespace-nowrap">Time</th>
+                  <th className="text-left py-2.5 pr-3 text-muted-foreground font-medium whitespace-nowrap">Source</th>
+                  <th className="text-left py-2.5 pr-3 text-muted-foreground font-medium whitespace-nowrap">Medium</th>
+                  <th className="text-left py-2.5 pr-3 text-muted-foreground font-medium whitespace-nowrap">Campaign</th>
+                  <th className="text-left py-2.5 pr-3 text-muted-foreground font-medium whitespace-nowrap">Page</th>
+                  <th className="text-left py-2.5 text-muted-foreground font-medium whitespace-nowrap">Device</th>
                 </tr>
               </thead>
               <tbody>
                 {events.map((ev) => (
-                  <tr key={ev.id} className="border-b border-gray-800 hover:bg-gray-800/40 transition-colors">
+                  <tr key={ev.id} className="border-b border-border hover:bg-muted/40 transition-colors">
                     {/* Event name */}
                     <td className="py-2.5 pr-3 whitespace-nowrap">
-                      <span className="font-mono text-green-400/90">{ev.eventName}</span>
+                      <span className="font-mono text-success-text/90">{ev.eventName}</span>
                     </td>
 
                     {/* Timestamp */}
-                    <td className="py-2.5 pr-3 text-gray-400 whitespace-nowrap">
+                    <td className="py-2.5 pr-3 text-muted-foreground whitespace-nowrap">
                       {ev.timestamp
                         ? formatDate(ev.timestamp)
                         : '—'}
@@ -117,41 +117,41 @@ export default async function AttributionPage() {
                     {/* Source */}
                     <td className="py-2.5 pr-3 whitespace-nowrap">
                       {ev.source ? (
-                        <span className="px-1.5 py-0.5 rounded bg-gray-800 border border-gray-700 text-gray-300">
+                        <span className="px-1.5 py-0.5 rounded bg-muted border border-border text-foreground">
                           {ev.source}
                         </span>
                       ) : (
-                        <span className="text-gray-600">—</span>
+                        <span className="text-muted-foreground/70">—</span>
                       )}
                     </td>
 
                     {/* Medium */}
                     <td className="py-2.5 pr-3 whitespace-nowrap">
                       {ev.medium ? (
-                        <span className="px-1.5 py-0.5 rounded bg-gray-800 border border-gray-700 text-gray-300">
+                        <span className="px-1.5 py-0.5 rounded bg-muted border border-border text-foreground">
                           {ev.medium}
                         </span>
                       ) : (
-                        <span className="text-gray-600">—</span>
+                        <span className="text-muted-foreground/70">—</span>
                       )}
                     </td>
 
                     {/* Campaign */}
-                    <td className="py-2.5 pr-3 text-gray-400 whitespace-nowrap max-w-[160px] truncate" title={ev.campaign ?? undefined}>
-                      {ev.campaign ?? <span className="text-gray-600">—</span>}
+                    <td className="py-2.5 pr-3 text-muted-foreground whitespace-nowrap max-w-[160px] truncate" title={ev.campaign ?? undefined}>
+                      {ev.campaign ?? <span className="text-muted-foreground/70">—</span>}
                     </td>
 
                     {/* Page */}
-                    <td className="py-2.5 pr-3 text-gray-500 whitespace-nowrap max-w-[140px] truncate font-mono text-[11px]" title={ev.page ?? undefined}>
+                    <td className="py-2.5 pr-3 text-muted-foreground whitespace-nowrap max-w-[140px] truncate font-mono text-[11px]" title={ev.page ?? undefined}>
                       {ev.page ?? '—'}
                     </td>
 
                     {/* Device */}
                     <td className="py-2.5 whitespace-nowrap">
                       {ev.deviceType ? (
-                        <span className="text-gray-400 capitalize">{ev.deviceType}</span>
+                        <span className="text-muted-foreground capitalize">{ev.deviceType}</span>
                       ) : (
-                        <span className="text-gray-600">—</span>
+                        <span className="text-muted-foreground/70">—</span>
                       )}
                     </td>
                   </tr>
@@ -161,7 +161,7 @@ export default async function AttributionPage() {
           </div>
         )}
 
-        <p className="text-[11px] text-gray-600 mt-3 pt-3 border-t border-gray-800">
+        <p className="text-[11px] text-muted-foreground/70 mt-3 pt-3 border-t border-border">
           Showing {events.length} event{events.length !== 1 ? 's' : ''}.
           User IDs are anonymized — GrowthOS stores an anonymous browser ID, not PII.
           Events are tagged with UTM parameters when they are present in the URL at the time of the event.

@@ -80,21 +80,21 @@ export default function ConnectorOsPage() {
 
       {byLayer.map(({ layer, items }) => (
         <SectionCard key={layer} title={LAYER_LABELS[layer]}>
-          <ul className="divide-y divide-gray-800">
+          <ul className="divide-y divide-border">
             {items.map((c) => (
               <li key={c.id} className="flex items-start justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-sm font-medium text-gray-200">{c.label}</p>
+                    <p className="text-sm font-medium text-foreground">{c.label}</p>
                     {c.truth && (
-                      <span className="rounded bg-gray-800 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-gray-400">
+                      <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
                         {c.truth}
                       </span>
                     )}
                     <StatusBadge tone={STAGE_TONE[c.stage]}>{c.stage}</StatusBadge>
                   </div>
-                  <p className="mt-0.5 text-xs text-gray-500">{c.blurb}</p>
-                  <p className="mt-1 font-mono text-[10px] text-gray-600">{c.envVars.join('  ·  ')}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{c.blurb}</p>
+                  <p className="mt-1 font-mono text-[10px] text-muted-foreground/70">{c.envVars.join('  ·  ')}</p>
                 </div>
                 <StatusBadge tone={c.configured ? 'success' : 'neutral'}>
                   {c.configured ? 'Configured' : 'Keyless'}
@@ -107,20 +107,20 @@ export default function ConnectorOsPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The ConnectorOS status board —
-          a single typed registry (<code className="rounded bg-gray-800 px-1 text-gray-300">lib/connector-os</code>)
+          <strong className="text-foreground">What this is.</strong> The ConnectorOS status board —
+          a single typed registry (<code className="rounded bg-muted px-1 text-foreground">lib/connector-os</code>)
           that every connector reads. It returns booleans only and never exposes a secret value.
         </p>
         <p>
-          <strong className="text-gray-300">Stages.</strong> <em>live</em> = wired &amp; usable now ·{' '}
+          <strong className="text-foreground">Stages.</strong> <em>live</em> = wired &amp; usable now ·{' '}
           <em>scaffold</em> = code + docs ready, needs keys/SDK · <em>future</em> = planned.
         </p>
         <p>
-          <strong className="text-gray-300">What to do.</strong> Set the listed env var(s) to turn a
+          <strong className="text-foreground">What to do.</strong> Set the listed env var(s) to turn a
           connector on, then press <em>Re-check</em>. Manage keys on{' '}
           <Link href="/admin/integrations">Integrations</Link>, see plain-English service status on{' '}
           <Link href="/admin/system-health">System Health</Link>. Full docs live in{' '}
-          <code className="rounded bg-gray-800 px-1 text-gray-300">docs/connector-os/</code>.
+          <code className="rounded bg-muted px-1 text-foreground">docs/connector-os/</code>.
         </p>
       </HelpPanel>
     </div>

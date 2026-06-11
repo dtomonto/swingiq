@@ -53,10 +53,10 @@ export default function AdminLearningPage() {
         <ol className="space-y-2">
           {CHECKLIST.map((c, i) => (
             <li key={c.href} className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gray-800 text-[11px] text-gray-400">{i + 1}</span>
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-[11px] text-muted-foreground">{i + 1}</span>
               <div>
-                <Link href={c.href} className="text-sm font-medium text-gray-100 hover:text-amber-300">{c.title}</Link>
-                <p className="text-xs text-gray-500">{c.detail}</p>
+                <Link href={c.href} className="text-sm font-medium text-foreground hover:text-link">{c.title}</Link>
+                <p className="text-xs text-muted-foreground">{c.detail}</p>
               </div>
             </li>
           ))}
@@ -68,11 +68,11 @@ export default function AdminLearningPage() {
           {playbooks.map((p) => {
             const Icon = p.icon;
             return (
-              <Link key={p.id} href={p.href} className="flex items-start gap-2.5 rounded-lg border border-gray-800 bg-gray-950 p-3 hover:border-gray-700">
-                <Icon className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+              <Link key={p.id} href={p.href} className="flex items-start gap-2.5 rounded-lg border border-border bg-background p-3 hover:border-border">
+                <Icon className="mt-0.5 h-4 w-4 shrink-0 text-link" />
                 <span>
-                  <span className="block text-sm font-medium text-gray-200">{p.label}</span>
-                  <span className="block text-xs text-gray-500">{p.blurb}</span>
+                  <span className="block text-sm font-medium text-foreground">{p.label}</span>
+                  <span className="block text-xs text-muted-foreground">{p.blurb}</span>
                 </span>
               </Link>
             );
@@ -84,8 +84,8 @@ export default function AdminLearningPage() {
         <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
           {GLOSSARY.map(([term, def]) => (
             <div key={term}>
-              <dt className="text-sm font-semibold text-amber-300">{term}</dt>
-              <dd className="text-xs text-gray-400">{def}</dd>
+              <dt className="text-sm font-semibold text-link">{term}</dt>
+              <dd className="text-xs text-muted-foreground">{def}</dd>
             </div>
           ))}
         </dl>
@@ -97,7 +97,7 @@ export default function AdminLearningPage() {
           what to do next.</em> Look for the &ldquo;What is this&rdquo; panel at the bottom of each screen.
         </p>
         <p>
-          <CheckCircle2 className="mr-1 inline h-3.5 w-3.5 text-emerald-400" />
+          <CheckCircle2 className="mr-1 inline h-3.5 w-3.5 text-success-text" />
           Honesty first: where live data needs a connection that isn&apos;t set up, you&apos;ll see a clear
           prompt — never a fake number.
         </p>

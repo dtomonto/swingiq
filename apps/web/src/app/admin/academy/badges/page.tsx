@@ -6,7 +6,7 @@ import { useMounted } from '@/components/academy/parts';
 import { cn } from '@/lib/utils';
 
 const TIER_RING: Record<string, string> = {
-  bronze: 'ring-amber-700/40', silver: 'ring-slate-400/50', gold: 'ring-yellow-500/50', platinum: 'ring-cyan-400/50',
+  bronze: 'ring-ring/40', silver: 'ring-border/50', gold: 'ring-yellow-500/50', platinum: 'ring-cyan-400/50',
 };
 
 export default function BadgesPage() {

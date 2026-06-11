@@ -94,28 +94,28 @@ export default async function AdminAuditAccessPage() {
         description="Set one server environment variable to a long random secret. Until then, the endpoint returns 404 (fully off)."
       >
         {enabled ? (
-          <div className="flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
+          <div className="flex items-center gap-2 rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success-text">
             <CheckCircle2 className="h-4 w-4" /> AUDIT_ACCESS_TOKEN is set — audit access is live.
           </div>
         ) : (
-          <div className="flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-300">
+          <div className="flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-sm text-link">
             <Lock className="h-4 w-4" /> Not set yet — the endpoint is disabled (404) until you add the token.
           </div>
         )}
 
         <div className="mt-4 space-y-3 text-sm">
-          <div className="flex items-center justify-between gap-3 rounded-lg border border-gray-800 bg-gray-950 px-3 py-2 font-mono text-xs text-gray-300">
-            <span className="flex items-center gap-2"><KeyRound className="h-3.5 w-3.5 text-amber-400" /> AUDIT_ACCESS_TOKEN</span>
+          <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-background px-3 py-2 font-mono text-xs text-foreground">
+            <span className="flex items-center gap-2"><KeyRound className="h-3.5 w-3.5 text-link" /> AUDIT_ACCESS_TOKEN</span>
             <CopyButton text="AUDIT_ACCESS_TOKEN" label="env var name" />
           </div>
-          <p className="text-gray-500">
+          <p className="text-muted-foreground">
             Generate a strong value (any long random string), e.g.:
           </p>
-          <div className="flex items-center justify-between gap-3 rounded-lg border border-gray-800 bg-gray-950 px-3 py-2 font-mono text-xs text-gray-300">
+          <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-background px-3 py-2 font-mono text-xs text-foreground">
             <span>openssl rand -hex 32</span>
             <CopyButton text="openssl rand -hex 32" label="generate command" />
           </div>
-          <p className="text-gray-500">
+          <p className="text-muted-foreground">
             Add it in your host (Vercel → Project → Settings → Environment Variables) and redeploy. Rotate it any
             time by changing the value — old links stop working immediately.
           </p>
@@ -128,18 +128,18 @@ export default async function AdminAuditAccessPage() {
         description="Replace YOUR_TOKEN with the value you set, then paste this into ChatGPT (or any auditor)."
       >
         <div className="space-y-3 text-sm">
-          <div className="flex items-center justify-between gap-3 rounded-lg border border-gray-800 bg-gray-950 px-3 py-2 font-mono text-xs text-gray-300">
+          <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-background px-3 py-2 font-mono text-xs text-foreground">
             <span className="truncate">{urlTemplate}</span>
             <CopyButton text={urlTemplate} label="audit URL" />
           </div>
-          <div className="rounded-lg border border-gray-800 bg-gray-950 p-3">
+          <div className="rounded-lg border border-border bg-background p-3">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-xs font-medium text-gray-400">Ready-to-paste prompt</span>
+              <span className="text-xs font-medium text-muted-foreground">Ready-to-paste prompt</span>
               <CopyButton text={shareablePrompt} label="auditor prompt" />
             </div>
-            <p className="whitespace-pre-wrap text-xs leading-relaxed text-gray-400">{shareablePrompt}</p>
+            <p className="whitespace-pre-wrap text-xs leading-relaxed text-muted-foreground">{shareablePrompt}</p>
           </div>
-          <p className="text-gray-500">
+          <p className="text-muted-foreground">
             The token can be passed as <code>?token=…</code> (shown above) or as an{' '}
             <code>Authorization: Bearer …</code> header.
           </p>
@@ -155,12 +155,12 @@ export default async function AdminAuditAccessPage() {
           {AUDIT_BARRIERS.map((b) => {
             const s = STATUS_BADGE[b.status];
             return (
-              <li key={b.id} className="rounded-lg border border-gray-800 bg-gray-950 p-3">
+              <li key={b.id} className="rounded-lg border border-border bg-background p-3">
                 <div className="flex items-start justify-between gap-3">
-                  <p className="text-sm text-gray-200">{b.barrier}</p>
+                  <p className="text-sm text-foreground">{b.barrier}</p>
                   <StatusBadge tone={s.tone}><s.Icon className="h-3 w-3" /> {s.label}</StatusBadge>
                 </div>
-                <p className="mt-1.5 text-xs leading-relaxed text-gray-500">{b.resolution}</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{b.resolution}</p>
               </li>
             );
           })}
@@ -179,21 +179,21 @@ export default async function AdminAuditAccessPage() {
         </div>
 
         <div className="mt-4">
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             Logged-in app surface (described for the auditor)
           </h3>
-          <ul className="divide-y divide-gray-800 rounded-lg border border-gray-800">
+          <ul className="divide-y divide-border rounded-lg border border-border">
             {APP_SURFACE.map((r) => (
               <li key={r.path} className="flex items-start gap-3 px-3 py-2">
-                <code className="shrink-0 text-xs text-amber-400">{r.path}</code>
-                <span className="text-xs text-gray-400">{r.purpose}</span>
+                <code className="shrink-0 text-xs text-link">{r.path}</code>
+                <span className="text-xs text-muted-foreground">{r.purpose}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <p className="mt-4 flex items-start gap-2 text-xs text-gray-500">
-          <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
+        <p className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
+          <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-success-text" />
           Also included: verbatim robots.txt &amp; sitemap.xml, boolean capability flags, public route list, and —
           when a PostHog read key is configured — the aggregate web analytics overview. GA4 &amp; Search Console
           exports remain a manual upload.
@@ -205,10 +205,10 @@ export default async function AdminAuditAccessPage() {
         title="Still needs a manual upload"
         description="Honest limits — these can't be served as JSON. Hand them to the auditor directly."
       >
-        <ul className="space-y-1.5 text-sm text-gray-400">
+        <ul className="space-y-1.5 text-sm text-muted-foreground">
           {STILL_CANNOT_PROVIDE.map((item) => (
             <li key={item} className="flex items-start gap-2">
-              <Upload className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" /> {item}
+              <Upload className="mt-0.5 h-3.5 w-3.5 shrink-0 text-link" /> {item}
             </li>
           ))}
         </ul>

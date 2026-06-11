@@ -20,7 +20,7 @@ export default async function SecurityRecommendationsPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-4 sm:p-6">
-      <Link href="/admin/security-os" className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-300">
+      <Link href="/admin/security-os" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-3.5 w-3.5" /> securityOS
       </Link>
       <PageHeader
@@ -33,7 +33,7 @@ export default async function SecurityRecommendationsPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">How priority is set.</strong> Severity drives most of the score,
+          <strong className="text-foreground">How priority is set.</strong> Severity drives most of the score,
           nudged by risk score and how easily it can be fixed now. Recommendations are recomputed from your
           OPEN findings, so triaging or accepting a risk removes it here too.
         </p>

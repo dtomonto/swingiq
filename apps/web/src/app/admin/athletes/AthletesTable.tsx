@@ -16,8 +16,8 @@ const columns: Column<AthleteRow>[] = [
     sortValue: (r) => r.email ?? r.name ?? '',
     render: (r) => (
       <div className="min-w-0">
-        <div className="truncate font-medium text-gray-200">{r.name || r.email || '—'}</div>
-        {r.name && r.email && <div className="truncate text-xs text-gray-500">{r.email}</div>}
+        <div className="truncate font-medium text-foreground">{r.name || r.email || '—'}</div>
+        {r.name && r.email && <div className="truncate text-xs text-muted-foreground">{r.email}</div>}
       </div>
     ),
   },
@@ -31,18 +31,18 @@ const columns: Column<AthleteRow>[] = [
     key: 'skill',
     header: 'Skill / Rating',
     sortValue: (r) => r.skill ?? '',
-    render: (r) => <span className="capitalize text-gray-300">{r.skill ?? '—'}</span>,
+    render: (r) => <span className="capitalize text-foreground">{r.skill ?? '—'}</span>,
   },
   {
     key: 'goal',
     header: 'Primary goal',
-    render: (r) => <span className="block max-w-[18rem] truncate text-gray-400">{r.goal ?? '—'}</span>,
+    render: (r) => <span className="block max-w-[18rem] truncate text-muted-foreground">{r.goal ?? '—'}</span>,
   },
   {
     key: 'updatedAt',
     header: 'Updated',
     sortValue: (r) => r.updatedAt,
-    render: (r) => <span className="text-gray-500">{r.updatedAt ? formatRelativeTime(r.updatedAt) : '—'}</span>,
+    render: (r) => <span className="text-muted-foreground">{r.updatedAt ? formatRelativeTime(r.updatedAt) : '—'}</span>,
   },
 ];
 

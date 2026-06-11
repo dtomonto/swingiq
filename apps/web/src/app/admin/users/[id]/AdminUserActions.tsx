@@ -74,7 +74,7 @@ export function AdminUserActions({ userId, email, suspended, exportData }: Admin
     <div className="flex flex-wrap items-center gap-2">
       <button
         onClick={exportJson}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 px-2.5 py-1.5 text-xs text-gray-300 hover:bg-gray-800"
+        className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2.5 py-1.5 text-xs text-foreground hover:bg-muted"
       >
         <Download className="h-3.5 w-3.5" /> Export data
       </button>
@@ -83,15 +83,15 @@ export function AdminUserActions({ userId, email, suspended, exportData }: Admin
         onClick={() => setConfirmOpen(true)}
         className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium ${
           suspended
-            ? 'bg-emerald-600/80 text-white hover:bg-emerald-500'
-            : 'border border-red-500/40 text-red-300 hover:bg-red-500/10'
+            ? 'bg-success/80 text-white hover:bg-success'
+            : 'border border-error/40 text-error-text hover:bg-error/10'
         }`}
       >
         {suspended ? <RotateCcw className="h-3.5 w-3.5" /> : <Ban className="h-3.5 w-3.5" />}
         {suspended ? 'Restore account' : 'Suspend account'}
       </button>
 
-      {error && <span className="text-xs text-red-400">{error}</span>}
+      {error && <span className="text-xs text-error-text">{error}</span>}
 
       <ConfirmDialog
         open={confirmOpen}

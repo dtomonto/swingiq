@@ -34,7 +34,7 @@ export default async function AdminAnalysisDetailPage({ params }: { params: Prom
   const detail = await getAnalysis(id);
 
   const back = (
-    <Link href="/admin/ai-analyses" className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-200">
+    <Link href="/admin/ai-analyses" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
       <ArrowLeft className="h-3.5 w-3.5" /> All analyses
     </Link>
   );
@@ -52,7 +52,7 @@ export default async function AdminAnalysisDetailPage({ params }: { params: Prom
     return (
       <div className="mx-auto max-w-3xl space-y-4 p-4 sm:p-6">
         {back}
-        <SectionCard><p className="py-6 text-center text-sm text-gray-400">Analysis not found.</p></SectionCard>
+        <SectionCard><p className="py-6 text-center text-sm text-muted-foreground">Analysis not found.</p></SectionCard>
       </div>
     );
   }
@@ -90,7 +90,7 @@ export default async function AdminAnalysisDetailPage({ params }: { params: Prom
 
       {a.primaryIssue && (
         <SectionCard title="Primary issue">
-          <p className="text-sm text-gray-200">{a.primaryIssue}</p>
+          <p className="text-sm text-foreground">{a.primaryIssue}</p>
         </SectionCard>
       )}
 
@@ -99,12 +99,12 @@ export default async function AdminAnalysisDetailPage({ params }: { params: Prom
         description={detail.session ? `From session "${detail.session.name || detail.session.id}".` : 'No linked session.'}
       >
         {!detail.session || detail.session.diagnoses.length === 0 ? (
-          <p className="text-sm text-gray-500">No detailed diagnoses stored for this analysis.</p>
+          <p className="text-sm text-muted-foreground">No detailed diagnoses stored for this analysis.</p>
         ) : (
           <ul className="space-y-1.5">
             {detail.session.diagnoses.map((d, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400" />
+              <li key={i} className="flex items-start gap-2 text-sm text-foreground">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-warning" />
                 {diagnosisLabel(d, i)}
               </li>
             ))}
@@ -113,7 +113,7 @@ export default async function AdminAnalysisDetailPage({ params }: { params: Prom
       </SectionCard>
 
       <SectionCard title="Video">
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-muted-foreground">
           The swing video itself is processed on the user&apos;s device and is never uploaded to SwingVantage,
           so there is no file to play here — only the analysis metadata above. This is a core privacy
           guarantee of the product.
@@ -122,11 +122,11 @@ export default async function AdminAnalysisDetailPage({ params }: { params: Prom
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The full record of one AI swing analysis:
+          <strong className="text-foreground">What this is.</strong> The full record of one AI swing analysis:
           its score, detected issues, originating session diagnoses and the user it belongs to.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> If the score looks wrong for the
+          <strong className="text-foreground">What to do next.</strong> If the score looks wrong for the
           described issue, that&apos;s a signal to review the sport&apos;s analysis rules. Open the user to see
           this analysis in the context of their whole journey.
         </p>

@@ -97,9 +97,9 @@ export function DrillManager({ baseDrills }: { baseDrills: BaseDrillLike[] }) {
   return (
     <div className="space-y-4">
       {/* Local-only banner */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-amber-500/20 bg-amber-500/5 px-4 py-3 text-xs text-amber-200/90">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-xs text-link/90">
         <span className="inline-flex items-center gap-1.5"><Database className="h-4 w-4" /> Preview overlay — saved in this browser only.</span>
-        <span className="text-amber-300/70">Nothing is written to live data. Use <strong>Export JSON</strong> to commit changes for everyone.</span>
+        <span className="text-link/70">Nothing is written to live data. Use <strong>Export JSON</strong> to commit changes for everyone.</span>
       </div>
 
       {/* Stats */}
@@ -114,20 +114,20 @@ export function DrillManager({ baseDrills }: { baseDrills: BaseDrillLike[] }) {
 
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-2">
-        <button onClick={startNew} className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500 px-3 py-1.5 text-sm font-semibold text-gray-950 hover:bg-amber-400">
+        <button onClick={startNew} className="inline-flex items-center gap-1.5 rounded-lg bg-warning px-3 py-1.5 text-sm font-semibold text-foreground hover:bg-warning">
           <Plus className="h-4 w-4" /> New custom drill
         </button>
-        <button onClick={doExport} disabled={editCount === 0} className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 bg-gray-800 px-3 py-1.5 text-sm text-gray-200 hover:border-amber-500/50 disabled:opacity-40">
-          {exported ? <Check className="h-4 w-4 text-emerald-400" /> : <Download className="h-4 w-4" />} {exported ? 'Exported' : 'Export JSON'}
+        <button onClick={doExport} disabled={editCount === 0} className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-3 py-1.5 text-sm text-foreground hover:border-primary/50 disabled:opacity-40">
+          {exported ? <Check className="h-4 w-4 text-success-text" /> : <Download className="h-4 w-4" />} {exported ? 'Exported' : 'Export JSON'}
         </button>
-        <button onClick={doReset} disabled={editCount === 0} className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 bg-gray-800 px-3 py-1.5 text-sm text-gray-300 hover:border-red-500/50 hover:text-red-300 disabled:opacity-40">
+        <button onClick={doReset} disabled={editCount === 0} className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-3 py-1.5 text-sm text-foreground hover:border-error/50 hover:text-error-text disabled:opacity-40">
           <RotateCcw className="h-4 w-4" /> Reset all ({editCount})
         </button>
         <input
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Filter drills…"
-          className="ml-auto w-44 rounded-lg border border-gray-700 bg-gray-950 px-3 py-1.5 text-sm text-gray-100 placeholder-gray-500 outline-none focus:border-amber-500/60"
+          className="ml-auto w-44 rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground placeholder-muted-foreground outline-none focus:border-primary/60"
         />
       </div>
 
@@ -135,7 +135,7 @@ export function DrillManager({ baseDrills }: { baseDrills: BaseDrillLike[] }) {
       {form && (
         <SectionCard title={form.kind === 'custom' && form.name === '' ? 'New custom drill' : `Editing: ${form.name || '(unnamed)'}`}>
           {errors.length > 0 && (
-            <ul className="mb-3 space-y-1 rounded-lg bg-red-500/5 p-2 text-xs text-red-300 ring-1 ring-red-500/20">
+            <ul className="mb-3 space-y-1 rounded-lg bg-error/5 p-2 text-xs text-error-text ring-1 ring-error/20">
               {errors.map((e, i) => <li key={i} className="flex items-center gap-1.5"><AlertTriangle className="h-3 w-3" />{e}</li>)}
             </ul>
           )}
@@ -157,8 +157,8 @@ export function DrillManager({ baseDrills }: { baseDrills: BaseDrillLike[] }) {
             </Field>
           </div>
           <div className="mt-3 flex gap-2">
-            <button onClick={save} className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500 px-3 py-1.5 text-sm font-semibold text-gray-950 hover:bg-amber-400"><Save className="h-4 w-4" /> Save</button>
-            <button onClick={() => { setForm(null); setErrors([]); }} className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 bg-gray-800 px-3 py-1.5 text-sm text-gray-300"><X className="h-4 w-4" /> Cancel</button>
+            <button onClick={save} className="inline-flex items-center gap-1.5 rounded-lg bg-warning px-3 py-1.5 text-sm font-semibold text-foreground hover:bg-warning"><Save className="h-4 w-4" /> Save</button>
+            <button onClick={() => { setForm(null); setErrors([]); }} className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-3 py-1.5 text-sm text-foreground"><X className="h-4 w-4" /> Cancel</button>
           </div>
         </SectionCard>
       )}
@@ -167,40 +167,40 @@ export function DrillManager({ baseDrills }: { baseDrills: BaseDrillLike[] }) {
       <SectionCard title={`Drills (${visible.length})`} description="Override a code drill, retire it, or create custom ones. Edits stay local until exported.">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-[11px] uppercase tracking-wide text-gray-500">
+            <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th className="pb-2 pr-3">Drill</th><th className="pb-2 pr-3">Sport</th><th className="pb-2 pr-3">Category</th>
                 <th className="pb-2 pr-3">Level</th><th className="pb-2 pr-3">Status</th><th className="pb-2 pr-3">Source</th><th className="pb-2">Actions</th>
               </tr>
             </thead>
-            <tbody className="text-gray-300">
+            <tbody className="text-foreground">
               {visible.map((d) => (
-                <tr key={`${d.custom ? 'c' : 'b'}:${d.id}`} className="border-t border-gray-800">
+                <tr key={`${d.custom ? 'c' : 'b'}:${d.id}`} className="border-t border-border">
                   <td className="py-2 pr-3">
-                    <span className="font-medium text-gray-100">{d.name}</span>
+                    <span className="font-medium text-foreground">{d.name}</span>
                     {d.custom && <StatusBadge tone="accent">custom</StatusBadge>}
                     {d.edited && !d.custom && <StatusBadge tone="info">edited</StatusBadge>}
                   </td>
-                  <td className="py-2 pr-3 text-gray-400">{d.sport}</td>
-                  <td className="py-2 pr-3 text-gray-400">{d.category}</td>
-                  <td className="py-2 pr-3 text-gray-500">{d.difficulty}</td>
+                  <td className="py-2 pr-3 text-muted-foreground">{d.sport}</td>
+                  <td className="py-2 pr-3 text-muted-foreground">{d.category}</td>
+                  <td className="py-2 pr-3 text-muted-foreground">{d.difficulty}</td>
                   <td className="py-2 pr-3">
                     <select
                       value={d.status}
                       onChange={(e) => quickStatus(d, e.target.value as DrillStatus)}
-                      className="rounded border border-gray-700 bg-gray-900 px-1.5 py-0.5 text-xs text-gray-200"
+                      className="rounded border border-border bg-card px-1.5 py-0.5 text-xs text-foreground"
                       aria-label={`Status for ${d.name}`}
                     >
                       {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </td>
-                  <td className="py-2 pr-3 text-gray-500">{d.sourceLabel}</td>
+                  <td className="py-2 pr-3 text-muted-foreground">{d.sourceLabel}</td>
                   <td className="py-2">
                     <div className="flex items-center gap-1">
                       <StatusBadge tone={STATUS_TONE[d.status]}>{d.status}</StatusBadge>
-                      <button onClick={() => (d.custom ? startCustomEdit(d) : startBaseEdit(d))} title="Edit" className="rounded p-1 text-gray-400 hover:text-amber-300"><SquarePen className="h-4 w-4" /></button>
+                      <button onClick={() => (d.custom ? startCustomEdit(d) : startBaseEdit(d))} title="Edit" className="rounded p-1 text-muted-foreground hover:text-link"><SquarePen className="h-4 w-4" /></button>
                       {(d.custom || d.edited) && (
-                        <button onClick={() => revert(d)} title={d.custom ? 'Delete' : 'Revert'} className="rounded p-1 text-gray-400 hover:text-red-300">
+                        <button onClick={() => revert(d)} title={d.custom ? 'Delete' : 'Revert'} className="rounded p-1 text-muted-foreground hover:text-error-text">
                           {d.custom ? <Trash2 className="h-4 w-4" /> : <RotateCcw className="h-4 w-4" />}
                         </button>
                       )}
@@ -216,12 +216,12 @@ export function DrillManager({ baseDrills }: { baseDrills: BaseDrillLike[] }) {
   );
 }
 
-const inputCls = 'w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-1.5 text-sm text-gray-100 placeholder-gray-500 outline-none focus:border-amber-500/60';
+const inputCls = 'w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground placeholder-muted-foreground outline-none focus:border-primary/60';
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-xs text-gray-400">{label}</span>
+      <span className="mb-1 block text-xs text-muted-foreground">{label}</span>
       {children}
     </label>
   );

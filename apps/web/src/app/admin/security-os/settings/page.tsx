@@ -18,7 +18,7 @@ export default async function SecuritySettingsPage() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-6 p-4 sm:p-6">
-      <Link href="/admin/security-os" className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-300">
+      <Link href="/admin/security-os" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-3.5 w-3.5" /> securityOS
       </Link>
       <PageHeader
@@ -31,11 +31,11 @@ export default async function SecuritySettingsPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">Weights</strong> control how much each domain contributes to the
+          <strong className="text-foreground">Weights</strong> control how much each domain contributes to the
           overall score. They&apos;re normalized at scoring time, so they don&apos;t need to sum to 100.
         </p>
         <p>
-          <strong className="text-gray-300">AI strictness</strong> set to <em>strict</em> treats partial AI
+          <strong className="text-foreground">AI strictness</strong> set to <em>strict</em> treats partial AI
           checks as failures — useful once you&apos;re actively hardening the AI surface.
         </p>
       </HelpPanel>

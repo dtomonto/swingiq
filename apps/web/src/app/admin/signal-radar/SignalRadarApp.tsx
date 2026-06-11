@@ -67,7 +67,7 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
     <div className="space-y-4">
       {/* Tab bar + primary action */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <nav className="flex flex-wrap gap-1 rounded-xl border border-gray-800 bg-gray-900 p-1">
+        <nav className="flex flex-wrap gap-1 rounded-xl border border-border bg-card p-1">
           {TABS.map((t) => {
             const Icon = t.icon;
             return (
@@ -75,7 +75,7 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
                 key={t.id}
                 onClick={() => setTab(t.id)}
                 className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-                  tab === t.id ? 'bg-amber-500/15 text-amber-300' : 'text-gray-400 hover:bg-gray-800'
+                  tab === t.id ? 'bg-primary/15 text-link' : 'text-muted-foreground hover:bg-muted'
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -90,7 +90,7 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
       </div>
 
       {usingSample && (
-        <div className="flex items-start gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+        <div className="flex items-start gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm text-link">
           <Info className="mt-0.5 h-4 w-4 shrink-0" />
           <p>
             Showing <strong>sample data</strong> so you can see how SignalRadar works. These are not real mentions.

@@ -14,21 +14,21 @@ export interface MetricStatProps {
 }
 
 const VALUE_TONE: Record<NonNullable<MetricStatProps['tone']>, string> = {
-  default: 'text-gray-100',
-  success: 'text-emerald-400',
-  warning: 'text-amber-400',
-  muted: 'text-gray-500',
+  default: 'text-foreground',
+  success: 'text-success-text',
+  warning: 'text-link',
+  muted: 'text-muted-foreground',
 };
 
 export function MetricStat({ label, value, hint, icon: Icon, tone = 'default' }: MetricStatProps) {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+    <div className="rounded-xl border border-border bg-card p-4">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>
-        {Icon && <Icon className="h-4 w-4 text-gray-600" />}
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+        {Icon && <Icon className="h-4 w-4 text-muted-foreground/70" />}
       </div>
       <p className={`mt-2 text-2xl font-bold tabular-nums ${VALUE_TONE[tone]}`}>{value}</p>
-      {hint && <p className="mt-1 text-xs text-gray-500">{hint}</p>}
+      {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
     </div>
   );
 }

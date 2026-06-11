@@ -60,39 +60,39 @@ export function SetupBoard({ tasks, signal }: { tasks: SetupTask[]; signal: Setu
   return (
     <div className="space-y-5">
       {/* Progress header */}
-      <div className="rounded-xl border border-gray-800 bg-gray-900 p-5">
+      <div className="rounded-xl border border-border bg-card p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <ListChecks className="h-5 w-5 text-amber-400" />
-            <h2 className="font-semibold text-gray-100">Your setup progress</h2>
+            <ListChecks className="h-5 w-5 text-link" />
+            <h2 className="font-semibold text-foreground">Your setup progress</h2>
           </div>
-          <span className="text-sm tabular-nums text-gray-400">
+          <span className="text-sm tabular-nums text-muted-foreground">
             {summary.essentialsDone}/{summary.essentialsTotal} essentials done
           </span>
         </div>
 
-        <div className="mt-3 h-2.5 w-full overflow-hidden rounded-full bg-gray-800">
+        <div className="mt-3 h-2.5 w-full overflow-hidden rounded-full bg-muted">
           <div
-            className={`h-full rounded-full transition-all ${allEssentialsDone ? 'bg-emerald-500' : 'bg-amber-500'}`}
+            className={`h-full rounded-full transition-all ${allEssentialsDone ? 'bg-success' : 'bg-warning'}`}
             style={{ width: `${pct}%` }}
           />
         </div>
 
         <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
           {summary.requiredOutstanding > 0 ? (
-            <span className="font-medium text-amber-400">
+            <span className="font-medium text-link">
               {summary.requiredOutstanding} required step{summary.requiredOutstanding === 1 ? '' : 's'} left before launch
             </span>
           ) : allEssentialsDone ? (
-            <span className="inline-flex items-center gap-1.5 font-medium text-emerald-400">
+            <span className="inline-flex items-center gap-1.5 font-medium text-success-text">
               <PartyPopper className="h-4 w-4" /> All essentials are set up — nice work.
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1.5 font-medium text-emerald-400">
+            <span className="inline-flex items-center gap-1.5 font-medium text-success-text">
               <CheckCircle2 className="h-4 w-4" /> No required steps outstanding.
             </span>
           )}
-          <span className="text-gray-500">
+          <span className="text-muted-foreground">
             {summary.optionalDone}/{summary.optionalTotal} optional extras enabled
           </span>
         </div>
@@ -115,8 +115,8 @@ export function SetupBoard({ tasks, signal }: { tasks: SetupTask[]; signal: Setu
               onClick={() => setFilter(f.id)}
               className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
                 active
-                  ? 'border-amber-500/40 bg-amber-500/10 text-amber-300'
-                  : 'border-gray-800 bg-gray-900 text-gray-400 hover:border-gray-700 hover:text-gray-200'
+                  ? 'border-primary/40 bg-primary/10 text-link'
+                  : 'border-border bg-card text-muted-foreground hover:border-border hover:text-foreground'
               }`}
             >
               {f.label} <span className="tabular-nums opacity-70">({count})</span>
@@ -127,7 +127,7 @@ export function SetupBoard({ tasks, signal }: { tasks: SetupTask[]; signal: Setu
 
       {/* Groups */}
       {groups.length === 0 ? (
-        <div className="rounded-xl border border-gray-800 bg-gray-900 p-8 text-center text-sm text-gray-500">
+        <div className="rounded-xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
           {filter === 'done'
             ? 'Nothing marked done yet — work through the steps above and they\'ll move here.'
             : 'Nothing here. Switch filters to see more.'}
@@ -136,8 +136,8 @@ export function SetupBoard({ tasks, signal }: { tasks: SetupTask[]; signal: Setu
         groups.map((group) => (
           <section key={group.category} className="space-y-3">
             <div>
-              <h2 className="text-sm font-semibold text-gray-200">{group.label}</h2>
-              <p className="text-xs text-gray-500">{group.blurb}</p>
+              <h2 className="text-sm font-semibold text-foreground">{group.label}</h2>
+              <p className="text-xs text-muted-foreground">{group.blurb}</p>
             </div>
             <div className="grid gap-3">
               {group.tasks.map((task) => (

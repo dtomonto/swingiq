@@ -20,7 +20,7 @@ export default async function SecurityFindingsPage() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
-      <Link href="/admin/security-os" className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-300">
+      <Link href="/admin/security-os" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-3.5 w-3.5" /> securityOS
       </Link>
       <PageHeader
@@ -33,12 +33,12 @@ export default async function SecurityFindingsPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">Risk score</strong> combines severity, likelihood and impact.
-          <strong className="text-gray-300"> Source</strong> shows whether a finding came from the posture
+          <strong className="text-foreground">Risk score</strong> combines severity, likelihood and impact.
+          <strong className="text-foreground"> Source</strong> shows whether a finding came from the posture
           scan or an internal audit robot.
         </p>
         <p>
-          <strong className="text-gray-300">Accepting risk</strong> records your justification and removes the
+          <strong className="text-foreground">Accepting risk</strong> records your justification and removes the
           item from the active to-do — use it deliberately, and revisit accepted risks periodically.
         </p>
       </HelpPanel>

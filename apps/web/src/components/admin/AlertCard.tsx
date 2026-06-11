@@ -8,10 +8,10 @@ import type { LucideIcon } from 'lucide-react';
 export type AlertSeverity = 'info' | 'success' | 'warning' | 'critical';
 
 const STYLES: Record<AlertSeverity, { ring: string; icon: LucideIcon; tint: string }> = {
-  info: { ring: 'border-sky-500/30 bg-sky-500/[0.06]', icon: Info, tint: 'text-sky-400' },
-  success: { ring: 'border-emerald-500/30 bg-emerald-500/[0.06]', icon: CheckCircle2, tint: 'text-emerald-400' },
-  warning: { ring: 'border-amber-500/30 bg-amber-500/[0.06]', icon: AlertTriangle, tint: 'text-amber-400' },
-  critical: { ring: 'border-red-500/40 bg-red-500/[0.08]', icon: AlertOctagon, tint: 'text-red-400' },
+  info: { ring: 'border-primary/30 bg-primary/[0.06]', icon: Info, tint: 'text-link' },
+  success: { ring: 'border-success/30 bg-success/[0.06]', icon: CheckCircle2, tint: 'text-success-text' },
+  warning: { ring: 'border-warning/35 bg-warning/[0.06]', icon: AlertTriangle, tint: 'text-warning-text' },
+  critical: { ring: 'border-error/40 bg-error/[0.08]', icon: AlertOctagon, tint: 'text-error-text' },
 };
 
 export interface AlertCardProps {
@@ -30,8 +30,8 @@ export function AlertCard({ severity, title, detail, href, cta }: AlertCardProps
       <div className="flex items-start gap-3">
         <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${s.tint}`} />
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold text-gray-100">{title}</p>
-          {detail && <p className="mt-0.5 text-sm text-gray-400">{detail}</p>}
+          <p className="text-sm font-semibold text-foreground">{title}</p>
+          {detail && <p className="mt-0.5 text-sm text-muted-foreground">{detail}</p>}
           {href && (
             <Link
               href={href}

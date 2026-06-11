@@ -62,9 +62,9 @@ const TABS: { id: TabId; label: string; icon: LucideIcon }[] = [
   { id: 'connect', label: 'Connect', icon: Plug },
 ];
 
-function Bar({ pct, color = 'bg-sky-500' }: { pct: number; color?: string }) {
+function Bar({ pct, color = 'bg-primary' }: { pct: number; color?: string }) {
   return (
-    <div className="h-2 w-full overflow-hidden rounded-full bg-gray-800" role="presentation">
+    <div className="h-2 w-full overflow-hidden rounded-full bg-muted" role="presentation">
       <div className={`h-full rounded-full ${color}`} style={{ width: `${Math.min(100, Math.max(0, pct))}%` }} />
     </div>
   );
@@ -123,8 +123,8 @@ export function ClarityOsDashboard({ dashboard }: { dashboard: Dashboard }) {
               onClick={() => setTab(t.id)}
               className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
                 active
-                  ? 'border-sky-500/40 bg-sky-500/15 text-sky-200'
-                  : 'border-gray-700 bg-gray-900 text-gray-400 hover:text-gray-200'
+                  ? 'border-primary/40 bg-primary/15 text-link'
+                  : 'border-border bg-card text-muted-foreground hover:text-foreground'
               }`}
             >
               <Icon className="h-3.5 w-3.5" aria-hidden="true" />
@@ -168,15 +168,15 @@ function MasterSwitchCard({ connection }: { connection: Dashboard['connection'] 
   const provisioned = connection.ingestConfigured;
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gray-800 bg-gray-900 p-4">
+    <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4">
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="text-sm font-semibold text-gray-100">Microsoft Clarity tag</p>
+          <p className="text-sm font-semibold text-foreground">Microsoft Clarity tag</p>
           <StatusBadge tone={!provisioned ? 'warning' : enabled ? 'success' : 'neutral'}>
             {!provisioned ? 'Not provisioned' : enabled ? 'On' : 'Off'}
           </StatusBadge>
         </div>
-        <p className="mt-1 max-w-xl text-xs text-gray-500">
+        <p className="mt-1 max-w-xl text-xs text-muted-foreground">
           {provisioned
             ? 'Master kill-switch for the heatmap / session-recording tag. The tag also only loads for visitors who accept cookies (consent-gated). Device-local like all operator flags — the durable, all-visitor control is the NEXT_PUBLIC_CLARITY_PROJECT_ID env var.'
             : 'Set NEXT_PUBLIC_CLARITY_PROJECT_ID first (Connect tab). With no project id the tag can’t load, so this switch has nothing to control yet.'}
@@ -188,7 +188,7 @@ function MasterSwitchCard({ connection }: { connection: Dashboard['connection'] 
         aria-label="Toggle Microsoft Clarity tag"
         disabled={!provisioned}
         onClick={() => toggle(CLARITY_FLAG, 'clarity-os')}
-        className={`relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${enabled ? 'bg-emerald-500' : 'bg-gray-700'}`}
+        className={`relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${enabled ? 'bg-success' : 'bg-muted'}`}
       >
         <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${enabled ? 'translate-x-5' : 'translate-x-0.5'}`} />
       </button>
@@ -201,7 +201,7 @@ function MasterSwitchCard({ connection }: { connection: Dashboard['connection'] 
 function ConnectionRibbon({ level }: { level: Dashboard['connection']['level'] }) {
   if (level === 'full') {
     return (
-      <div className="flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-300">
+      <div className="flex items-center gap-2 rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-xs text-success-text">
         <CheckCircle2 className="h-4 w-4 shrink-0" />
         <span><strong>Fully connected</strong> to Microsoft Clarity. Live metrics and deep links are on.</span>
       </div>
@@ -209,7 +209,7 @@ function ConnectionRibbon({ level }: { level: Dashboard['connection']['level'] }
   }
   if (level === 'ingest') {
     return (
-      <div className="flex items-start gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+      <div className="flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-xs text-link">
         <KeyRound className="mt-0.5 h-4 w-4 shrink-0" />
         <span>
           <strong>Clarity is recording ✓</strong> Heatmaps and session recordings are collecting in Clarity. To read
@@ -220,7 +220,7 @@ function ConnectionRibbon({ level }: { level: Dashboard['connection']['level'] }
     );
   }
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-300">
+    <div className="flex items-start gap-2 rounded-lg border border-error/30 bg-error/10 px-3 py-2 text-xs text-error-text">
       <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
       <span><strong>No Clarity project id set.</strong> Add <code>NEXT_PUBLIC_CLARITY_PROJECT_ID</code> (see the Connect tab).</span>
     </div>
@@ -252,13 +252,13 @@ function OverviewPanel({ dashboard }: { dashboard: Dashboard }) {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> Your single control center for Microsoft Clarity —
+          <strong className="text-foreground">What this is.</strong> Your single control center for Microsoft Clarity —
           session recordings, heatmaps, traffic, engagement and the behavioral quality signals (rage clicks, dead
           clicks, script errors). Items marked <em>Live in OS</em> render inside SwingVantage from Clarity&apos;s Data
           Export API; <em>Open in Clarity</em> deep-links to Clarity&apos;s rich interactive view.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Recordings &amp; heatmaps collect automatically
+          <strong className="text-foreground">What to do next.</strong> Recordings &amp; heatmaps collect automatically
           once the project id is set. Add a Data Export API token in the <strong>Connect</strong> tab to turn on live
           numbers in this dashboard.
         </p>
@@ -271,22 +271,22 @@ function CapabilityCard({ cap }: { cap: ResolvedCapability }) {
   const Icon = ICONS[cap.icon] ?? LayoutDashboard;
   const meta = STATE_META[cap.state];
   return (
-    <div className="flex items-start gap-3 rounded-xl border border-gray-800 bg-gray-900 p-3">
-      <span className="mt-0.5 shrink-0 rounded-lg bg-gray-800 p-2 text-sky-300">
+    <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-3">
+      <span className="mt-0.5 shrink-0 rounded-lg bg-muted p-2 text-link">
         <Icon className="h-4 w-4" aria-hidden="true" />
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="text-sm font-semibold text-gray-100">{cap.label}</p>
+          <p className="text-sm font-semibold text-foreground">{cap.label}</p>
           <StatusBadge tone={meta.tone}>{meta.label}</StatusBadge>
         </div>
-        <p className="mt-0.5 text-xs text-gray-500">{cap.description}</p>
+        <p className="mt-0.5 text-xs text-muted-foreground">{cap.description}</p>
         {cap.href && (
           <a
             href={cap.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-medium text-sky-400 hover:underline"
+            className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-medium text-link hover:underline"
           >
             Open in Clarity <ExternalLink className="h-3 w-3" />
           </a>
@@ -302,9 +302,9 @@ function NeedsKeyPanel({ what }: { what: string }) {
   return (
     <SectionCard>
       <div className="flex items-start gap-3">
-        <KeyRound className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
-        <div className="text-sm text-gray-400">
-          <p className="font-semibold text-gray-200">Add a Clarity Data Export API token to see {what} here.</p>
+        <KeyRound className="mt-0.5 h-5 w-5 shrink-0 text-link" />
+        <div className="text-sm text-muted-foreground">
+          <p className="font-semibold text-foreground">Add a Clarity Data Export API token to see {what} here.</p>
           <p className="mt-1 text-xs">
             Recordings &amp; heatmaps are already collecting. The <strong>Connect</strong> tab has the exact steps and
             the one environment variable to add (<code>CLARITY_DATA_EXPORT_TOKEN</code>). Until then, use the
@@ -318,7 +318,7 @@ function NeedsKeyPanel({ what }: { what: string }) {
 
 function LiveError({ error }: { error: string }) {
   return (
-    <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-300">
+    <div className="rounded-lg border border-error/30 bg-error/10 px-3 py-2 text-xs text-error-text">
       {error}
     </div>
   );
@@ -345,24 +345,24 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-2 rounded-lg border border-gray-800 bg-gray-900 px-3 py-2">
-        <span className="text-xs text-gray-500">Window</span>
+      <div className="flex flex-wrap items-center gap-2 rounded-lg border border-border bg-card px-3 py-2">
+        <span className="text-xs text-muted-foreground">Window</span>
         {[1, 2, 3].map((d) => (
           <button
             key={d}
             onClick={() => onDays(d)}
             className={`rounded-md border px-2 py-1 text-xs transition ${
-              days === d ? 'border-sky-500/40 bg-sky-500/15 text-sky-200' : 'border-gray-700 bg-gray-900 text-gray-400 hover:text-gray-200'
+              days === d ? 'border-primary/40 bg-primary/15 text-link' : 'border-border bg-card text-muted-foreground hover:text-foreground'
             }`}
           >
             {d}d
           </button>
         ))}
-        <span className="ml-2 text-xs text-gray-500">Breakdown</span>
+        <span className="ml-2 text-xs text-muted-foreground">Breakdown</span>
         <select
           value={dimension}
           onChange={(e) => onDimension(e.target.value)}
-          className="rounded-md border border-gray-700 bg-gray-950 px-2 py-1 text-xs text-gray-300"
+          className="rounded-md border border-border bg-background px-2 py-1 text-xs text-foreground"
           aria-label="Breakdown dimension"
         >
           <option value="">None</option>
@@ -373,7 +373,7 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
         <button
           onClick={onLoad}
           disabled={loading}
-          className="ml-auto inline-flex items-center gap-1.5 rounded-md border border-sky-500/40 bg-sky-500/15 px-2.5 py-1 text-xs font-medium text-sky-200 hover:bg-sky-500/25 disabled:opacity-50"
+          className="ml-auto inline-flex items-center gap-1.5 rounded-md border border-primary/40 bg-primary/15 px-2.5 py-1 text-xs font-medium text-link hover:bg-primary/25 disabled:opacity-50"
         >
           {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <RefreshCw className="h-3.5 w-3.5" />}
           {live ? 'Refresh' : 'Load metrics'}
@@ -381,13 +381,13 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-[11px] text-gray-500">
+        <p className="text-[11px] text-muted-foreground">
           Clarity&apos;s export API covers only the last 1–3 days and is capped at ~10 calls/day per project, so metrics
           load on demand here (not automatically) and results are cached for 10 min to protect the budget.
         </p>
         {meta && meta.callsUsedToday != null && meta.dailyLimit != null && (
-          <span className="inline-flex items-center gap-1.5 rounded-md border border-gray-700 bg-gray-900 px-2 py-1 text-[11px] text-gray-400">
-            <span className={meta.callsUsedToday >= meta.dailyLimit ? 'text-amber-400' : 'text-gray-300'}>
+          <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2 py-1 text-[11px] text-muted-foreground">
+            <span className={meta.callsUsedToday >= meta.dailyLimit ? 'text-link' : 'text-foreground'}>
               {meta.callsUsedToday}/{meta.dailyLimit}
             </span>
             export calls used today
@@ -400,7 +400,7 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
 
       {!live && !loading && !error && (
         <SectionCard>
-          <p className="text-sm text-gray-500">Press <strong>Load metrics</strong> to pull the latest {days}-day snapshot from Clarity.</p>
+          <p className="text-sm text-muted-foreground">Press <strong>Load metrics</strong> to pull the latest {days}-day snapshot from Clarity.</p>
         </SectionCard>
       )}
 
@@ -428,12 +428,12 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
           <SectionCard title="Quality signals" description="Behavioral friction Clarity detects — lower is better.">
             <div className="grid gap-2 sm:grid-cols-2">
               {live.signals.map((s) => (
-                <div key={s.id} className="flex items-center justify-between gap-3 rounded-xl border border-gray-800 bg-gray-900 p-3">
+                <div key={s.id} className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-3">
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-gray-100">{s.label}</p>
-                    <p className="text-[11px] text-gray-500">{s.pct != null ? `${s.pct.toFixed(1)}% of sessions` : 'No data'}</p>
+                    <p className="text-sm font-medium text-foreground">{s.label}</p>
+                    <p className="text-[11px] text-muted-foreground">{s.pct != null ? `${s.pct.toFixed(1)}% of sessions` : 'No data'}</p>
                   </div>
-                  <span className="shrink-0 tabular-nums text-sm text-gray-300">{formatNumber(s.sessions)}</span>
+                  <span className="shrink-0 tabular-nums text-sm text-foreground">{formatNumber(s.sessions)}</span>
                 </div>
               ))}
             </div>
@@ -442,16 +442,16 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
           {live.breakdown && (
             <SectionCard title={`By ${live.breakdown.dimension.toLowerCase()}`} description={`Top ${live.breakdown.rows.length} by sessions`}>
               {live.breakdown.rows.length === 0 ? (
-                <p className="text-sm text-gray-500">No breakdown data returned for this dimension.</p>
+                <p className="text-sm text-muted-foreground">No breakdown data returned for this dimension.</p>
               ) : (
                 <ul className="space-y-2">
                   {live.breakdown.rows.map((r) => {
                     const peak = Math.max(1, ...live.breakdown!.rows.map((x) => x.sessions ?? 0));
                     return (
                       <li key={r.name} className="flex items-center gap-3 text-sm">
-                        <span className="w-32 shrink-0 truncate text-gray-300" title={r.name}>{r.name}</span>
-                        <Bar pct={((r.sessions ?? 0) / peak) * 100} color="bg-sky-500" />
-                        <span className="w-12 text-right tabular-nums text-gray-400">{formatNumber(r.sessions)}</span>
+                        <span className="w-32 shrink-0 truncate text-foreground" title={r.name}>{r.name}</span>
+                        <Bar pct={((r.sessions ?? 0) / peak) * 100} color="bg-primary" />
+                        <span className="w-12 text-right tabular-nums text-muted-foreground">{formatNumber(r.sessions)}</span>
                       </li>
                     );
                   })}
@@ -460,21 +460,21 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
             </SectionCard>
           )}
 
-          <p className="text-[11px] text-gray-600">
+          <p className="text-[11px] text-muted-foreground/70">
             Fetched {new Date(live.fetchedAt).toLocaleString()} · metrics returned: {live.metricsReturned.join(', ') || 'none'}
           </p>
 
-          <details className="rounded-lg border border-gray-800 bg-gray-900">
-            <summary className="cursor-pointer px-3 py-2 text-xs font-medium text-gray-400 hover:text-gray-200">
+          <details className="rounded-lg border border-border bg-card">
+            <summary className="cursor-pointer px-3 py-2 text-xs font-medium text-muted-foreground hover:text-foreground">
               Raw Clarity response (verify field shapes)
             </summary>
-            <div className="border-t border-gray-800 px-3 py-2">
-              <p className="mb-2 text-[11px] text-gray-500">
+            <div className="border-t border-border px-3 py-2">
+              <p className="mb-2 text-[11px] text-muted-foreground">
                 The numbers above are parsed defensively from this payload (unknown field names fall back to
                 &ldquo;—&rdquo; rather than guessing). If a metric shows &ldquo;—&rdquo; but has a value here, the field
                 mapping in <code>lib/clarity/client.ts</code> needs that key added.
               </p>
-              <pre className="max-h-80 overflow-auto rounded border border-gray-800 bg-gray-950 p-3 font-mono text-[10px] leading-relaxed text-gray-300">
+              <pre className="max-h-80 overflow-auto rounded border border-border bg-background p-3 font-mono text-[10px] leading-relaxed text-foreground">
                 {JSON.stringify(live.raw, null, 2)}
               </pre>
             </div>
@@ -494,8 +494,8 @@ function ObservePanel({ dashboard }: { dashboard: Dashboard }) {
   if (!connection.ingestConfigured) {
     return (
       <SectionCard>
-        <div className="flex items-start gap-3 text-sm text-gray-400">
-          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
+        <div className="flex items-start gap-3 text-sm text-muted-foreground">
+          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-link" />
           <p>Set <code>NEXT_PUBLIC_CLARITY_PROJECT_ID</code> first (see the <strong>Connect</strong> tab). Recordings and heatmaps appear in Clarity once the tag is live.</p>
         </div>
       </SectionCard>
@@ -566,7 +566,7 @@ function ConnectPanel({ dashboard }: { dashboard: Dashboard }) {
           <button
             onClick={runTest}
             disabled={testing}
-            className="inline-flex items-center gap-1.5 rounded-md border border-gray-700 bg-gray-900 px-3 py-1.5 text-xs text-gray-300 hover:text-gray-100 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-xs text-foreground hover:text-foreground disabled:opacity-50"
           >
             {testing ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Play className="h-3.5 w-3.5" />}
             Test now
@@ -574,7 +574,7 @@ function ConnectPanel({ dashboard }: { dashboard: Dashboard }) {
         }
       >
         {!test ? (
-          <p className="text-sm text-gray-500">Press <strong>Test now</strong> to verify the export token against Clarity.</p>
+          <p className="text-sm text-muted-foreground">Press <strong>Test now</strong> to verify the export token against Clarity.</p>
         ) : (
           <div className="space-y-2 text-sm">
             <TestRow
@@ -600,18 +600,18 @@ function ConnectPanel({ dashboard }: { dashboard: Dashboard }) {
       </SectionCard>
 
       <SectionCard title="Set up Microsoft Clarity" description="Two pieces: the tag (records sessions) and the export token (reads numbers here).">
-        <ol className="list-decimal space-y-2 pl-5 text-sm text-gray-400">
+        <ol className="list-decimal space-y-2 pl-5 text-sm text-muted-foreground">
           <li>Create a project at <strong>clarity.microsoft.com</strong>, then open <strong>Settings → Overview</strong> and copy the <strong>Project ID</strong>.</li>
           <li>For live numbers here, open <strong>Settings → Data export</strong> and <strong>Generate new API token</strong>.</li>
           <li>Add these environment variables, then redeploy:</li>
         </ol>
-        <pre className="mt-3 overflow-x-auto rounded-lg border border-gray-800 bg-gray-950 p-3 font-mono text-[11px] text-gray-300">{`NEXT_PUBLIC_CLARITY_PROJECT_ID=your_project_id
+        <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-[11px] text-foreground">{`NEXT_PUBLIC_CLARITY_PROJECT_ID=your_project_id
 CLARITY_DATA_EXPORT_TOKEN=your_data_export_token`}</pre>
-        <p className="mt-2 text-xs text-gray-500">
+        <p className="mt-2 text-xs text-muted-foreground">
           Locally: add them to <code>apps/web/.env.local</code>. In production: <strong>Vercel → Settings → Environment Variables</strong>.
           The export token is read server-side only and never sent to the browser.
         </p>
-        <p className="mt-2 text-xs text-amber-400/90">
+        <p className="mt-2 text-xs text-link/90">
           Privacy: Clarity records sessions and sets cookies (unlike the cookieless Plausible default). The tag is
           consent-gated — it loads only for visitors who accept cookies in the banner; everyone else uses the app
           normally without it. Keep masking on for youth safety.
@@ -620,7 +620,7 @@ CLARITY_DATA_EXPORT_TOKEN=your_data_export_token`}</pre>
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">Two different credentials.</strong> The <em>project id</em> is public and
+          <strong className="text-foreground">Two different credentials.</strong> The <em>project id</em> is public and
           loads the recording tag in the browser. The <em>Data Export API token</em> is secret and lets this OS read
           your metrics back. You can set the first without the second — recordings and heatmaps still work.
         </p>
@@ -630,13 +630,13 @@ CLARITY_DATA_EXPORT_TOKEN=your_data_export_token`}</pre>
 }
 
 function TestRow({ label, ok, detail, neutral }: { label: string; ok: boolean; detail: string; neutral?: boolean }) {
-  const tone = neutral ? 'text-gray-400' : ok ? 'text-emerald-300' : 'text-red-300';
+  const tone = neutral ? 'text-muted-foreground' : ok ? 'text-success-text' : 'text-error-text';
   const Icon = neutral ? KeyRound : ok ? CheckCircle2 : AlertTriangle;
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-gray-800 bg-gray-900 px-3 py-2">
+    <div className="flex items-start gap-2 rounded-lg border border-border bg-card px-3 py-2">
       <Icon className={`mt-0.5 h-4 w-4 shrink-0 ${tone}`} />
       <div>
-        <p className="font-medium text-gray-200">{label}</p>
+        <p className="font-medium text-foreground">{label}</p>
         <p className={`text-xs ${tone}`}>{detail}</p>
       </div>
     </div>
@@ -648,7 +648,7 @@ function TestRow({ label, ok, detail, neutral }: { label: string; ok: boolean; d
 function LoadingPanel() {
   return (
     <SectionCard>
-      <div className="flex items-center gap-2 text-sm text-gray-500">
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <Loader2 className="h-4 w-4 animate-spin" /> Loading live data from Clarity…
       </div>
     </SectionCard>

@@ -46,20 +46,20 @@ export default async function AdminCopilotPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A read-only assistant for running
+          <strong className="text-foreground">What this is.</strong> A read-only assistant for running
           SwingVantage. It composes the same honest data the rest of the dashboard uses — platform metrics,
           system health, smart alerts, the Action Center inbox and feature-education coverage — into answers
           you can act on. Every number is computed from real signals; when data is missing it tells you so
           rather than guessing.
         </p>
         <p>
-          <strong className="text-gray-300">Safety.</strong> The Copilot never takes destructive actions. It
+          <strong className="text-foreground">Safety.</strong> The Copilot never takes destructive actions. It
           suggests next steps and links you to the tool that handles them, where you stay in control. By
           default it runs fully offline with no model calls (no AI spend). User data is used ethically to
           improve the product experience and is <em>never sold</em>.
         </p>
         <p>
-          <strong className="text-gray-300">Optional AI.</strong> A model layer can refine answers when an
+          <strong className="text-foreground">Optional AI.</strong> A model layer can refine answers when an
           operator explicitly enables it (<code>ADMIN_COPILOT_AI=1</code> plus a registered adapter). When
           that happens, answers are clearly labeled <em>AI-assisted</em>. New here? Start with the{' '}
           <Link href="/admin/learning">Admin Academy</Link>.

@@ -27,11 +27,11 @@ export default async function AdminFeedbackPage() {
       <SectionCard><FeedbackClient actor={actor} /></SectionCard>
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The feedback-to-roadmap pipeline. Tag each
+          <strong className="text-foreground">What this is.</strong> The feedback-to-roadmap pipeline. Tag each
           item by type, then advance its status as you act on it.
         </p>
         <p>
-          <strong className="text-gray-300">What good looks like.</strong> Recurring themes (e.g. several
+          <strong className="text-foreground">What good looks like.</strong> Recurring themes (e.g. several
           &ldquo;AI result&rdquo; notes about the same fault) become &ldquo;Planned&rdquo; improvements rather
           than getting lost.
         </p>

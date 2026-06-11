@@ -59,7 +59,7 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
     setEdited(next);
   }, [base]);
 
-  if (!mounted) return <p className="text-sm text-gray-500">Loading builder…</p>;
+  if (!mounted) return <p className="text-sm text-muted-foreground">Loading builder…</p>;
 
   const previewStyle = Object.fromEntries(
     TOKENS.map((t) => [t.cssVar, edited[t.cssVar] ?? '']),
@@ -104,22 +104,22 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
       <div ref={seedRef} data-theme={base} aria-hidden className="pointer-events-none absolute h-0 w-0 overflow-hidden" />
 
       <div className="flex items-center gap-2">
-        <Wand2 className="h-4 w-4 text-violet-400" />
-        <h3 className="text-sm font-semibold text-gray-100">Token builder</h3>
+        <Wand2 className="h-4 w-4 text-link" />
+        <h3 className="text-sm font-semibold text-foreground">Token builder</h3>
       </div>
-      <p className="text-xs text-gray-500">
-        Tweak a theme&apos;s core tokens and export a <code className="text-gray-400">[data-theme]</code>{' '}
-        block. Paste it into <code className="text-gray-400">globals.css</code> and commit — nothing
+      <p className="text-xs text-muted-foreground">
+        Tweak a theme&apos;s core tokens and export a <code className="text-muted-foreground">[data-theme]</code>{' '}
+        block. Paste it into <code className="text-muted-foreground">globals.css</code> and commit — nothing
         is published automatically.
       </p>
 
       <div className="flex flex-wrap items-end gap-2">
-        <label className="flex flex-col gap-1 text-xs text-gray-500">
+        <label className="flex flex-col gap-1 text-xs text-muted-foreground">
           Seed from
           <select
             value={base}
             onChange={(e) => setBase(e.target.value as ThemeId)}
-            className="rounded border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-200"
+            className="rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground"
           >
             {THEMES.map((t) => (
               <option key={t.id} value={t.id}>
@@ -128,12 +128,12 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
             ))}
           </select>
         </label>
-        <label className="flex flex-col gap-1 text-xs text-gray-500">
+        <label className="flex flex-col gap-1 text-xs text-muted-foreground">
           New theme name
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="rounded border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-200"
+            className="rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground"
           />
         </label>
       </div>
@@ -146,8 +146,8 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
             return (
               <div key={t.cssVar} className="flex items-center justify-between gap-2">
                 <div className="min-w-0">
-                  <p className="text-xs font-medium text-gray-300">{t.label}</p>
-                  <p className="font-mono text-[10px] text-gray-600">
+                  <p className="text-xs font-medium text-foreground">{t.label}</p>
+                  <p className="font-mono text-[10px] text-muted-foreground/70">
                     {t.cssVar}: {edited[t.cssVar]}
                   </p>
                 </div>
@@ -156,7 +156,7 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
                   value={hex}
                   aria-label={`${t.label} color`}
                   onChange={(e) => setToken(t.cssVar, e.target.value)}
-                  className="h-7 w-10 shrink-0 cursor-pointer rounded border border-gray-700 bg-transparent"
+                  className="h-7 w-10 shrink-0 cursor-pointer rounded border border-border bg-transparent"
                 />
               </div>
             );
@@ -167,7 +167,7 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
         <div>
           <div
             style={previewStyle}
-            className="rounded-xl border border-gray-800 p-4"
+            className="rounded-xl border border-border p-4"
           >
             <div
               className="rounded-lg p-3"
@@ -202,7 +202,7 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
           <div className="mt-2 flex items-center gap-2">
             <button
               onClick={copyCss}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-violet-500/90 px-3 py-1.5 text-xs font-semibold text-white hover:bg-violet-500"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-primary/90 px-3 py-1.5 text-xs font-semibold text-white hover:bg-primary"
             >
               <Copy className="h-3.5 w-3.5" /> {copied ? 'Copied!' : 'Copy CSS'}
             </button>
@@ -215,7 +215,7 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
                 for (const t of TOKENS) next[t.cssVar] = cs.getPropertyValue(t.cssVar).trim();
                 setEdited(next);
               }}
-              className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-300"
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
             >
               <RotateCcw className="h-3 w-3" /> Reset to base
             </button>
@@ -224,14 +224,14 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
       </div>
 
       {/* Export block */}
-      <pre className="overflow-x-auto rounded-lg border border-gray-800 bg-gray-950 p-3 font-mono text-[11px] text-gray-300">
+      <pre className="overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-[11px] text-foreground">
         {exportCss()}
       </pre>
 
       {/* Preview across journeys */}
-      <div className="space-y-2 border-t border-gray-800 pt-4">
-        <h4 className="text-sm font-semibold text-gray-100">Preview across journeys</h4>
-        <p className="text-xs text-gray-500">
+      <div className="space-y-2 border-t border-border pt-4">
+        <h4 className="text-sm font-semibold text-foreground">Preview across journeys</h4>
+        <p className="text-xs text-muted-foreground">
           Pin the seed theme ({THEMES.find((t) => t.id === base)?.name}) on this device and open a
           real journey in a new tab. Clear the pin from the kill-switch above when done.
         </p>
@@ -240,7 +240,7 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
             <button
               key={j.href}
               onClick={() => previewJourney(j.href)}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 bg-gray-900 px-3 py-1.5 text-xs text-gray-300 hover:border-gray-600"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 text-xs text-foreground hover:border-border"
             >
               <ExternalLink className="h-3 w-3" /> {j.label}
             </button>

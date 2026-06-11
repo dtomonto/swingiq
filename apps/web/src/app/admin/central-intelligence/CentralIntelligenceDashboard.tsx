@@ -43,9 +43,9 @@ const PRIORITY_TONE: Record<RecommendationPriority, BadgeTone> = {
   critical: 'danger', high: 'warning', medium: 'info', low: 'neutral',
 };
 
-function Bar({ pct, color = 'bg-sky-500' }: { pct: number; color?: string }) {
+function Bar({ pct, color = 'bg-primary' }: { pct: number; color?: string }) {
   return (
-    <div className="h-2 w-full overflow-hidden rounded-full bg-gray-800" role="presentation">
+    <div className="h-2 w-full overflow-hidden rounded-full bg-muted" role="presentation">
       <div className={`h-full rounded-full ${color}`} style={{ width: `${Math.min(100, Math.max(0, pct))}%` }} />
     </div>
   );
@@ -85,7 +85,7 @@ export function CentralIntelligenceDashboard({ data }: { data: CIDashboard }) {
     <div className="space-y-4">
       {/* Data-source honesty banner */}
       {data.dataSource === 'sample' && (
-        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+        <div className="rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-xs text-link">
           Aggregate panels show <strong>illustrative sample data</strong> so you can explore the
           command center. The Founding Members campaign numbers are <strong>live</strong>. Wire the
           relational aggregate (docs) to replace samples with real platform data.
@@ -105,8 +105,8 @@ export function CentralIntelligenceDashboard({ data }: { data: CIDashboard }) {
               onClick={() => setTab(t.id)}
               className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
                 active
-                  ? 'border-violet-500/40 bg-violet-500/15 text-violet-200'
-                  : 'border-gray-700 bg-gray-900 text-gray-400 hover:text-gray-200'
+                  ? 'border-primary/40 bg-primary/15 text-link'
+                  : 'border-border bg-card text-muted-foreground hover:text-foreground'
               }`}
             >
               <Icon className="h-3.5 w-3.5" aria-hidden="true" />
@@ -153,9 +153,9 @@ function OverviewPanel({ data, progress }: { data: CIDashboard; progress: Foundi
         <ul className="space-y-2">
           {e.topSports.map((s) => (
             <li key={s.sport} className="flex items-center gap-3 text-sm">
-              <span className="w-28 shrink-0 capitalize text-gray-300">{s.sport.replace('_', ' ')}</span>
-              <Bar pct={(s.sessions / (e.topSports[0]?.sessions || 1)) * 100} color="bg-emerald-500" />
-              <span className="w-10 text-right tabular-nums text-gray-400">{s.sessions}</span>
+              <span className="w-28 shrink-0 capitalize text-foreground">{s.sport.replace('_', ' ')}</span>
+              <Bar pct={(s.sessions / (e.topSports[0]?.sessions || 1)) * 100} color="bg-success" />
+              <span className="w-10 text-right tabular-nums text-muted-foreground">{s.sessions}</span>
             </li>
           ))}
         </ul>
@@ -190,8 +190,8 @@ function FoundingPanel({
       </div>
 
       <SectionCard title="Campaign progress" description="Profile complete + 10 valid sessions = a Founding Member. Member numbers are assigned server-side in qualification order.">
-        <Bar pct={(progress.qualifiedCount / progress.requiredCount) * 100} color="bg-violet-500" />
-        <p className="mt-2 text-xs text-gray-500">{progress.qualifiedCount} of {progress.requiredCount.toLocaleString()} Founding Member spots claimed.</p>
+        <Bar pct={(progress.qualifiedCount / progress.requiredCount) * 100} color="bg-primary" />
+        <p className="mt-2 text-xs text-muted-foreground">{progress.qualifiedCount} of {progress.requiredCount.toLocaleString()} Founding Member spots claimed.</p>
       </SectionCard>
 
       <SectionCard
@@ -207,34 +207,34 @@ function FoundingPanel({
                 disabled={saving}
                 onClick={() => onOverride(o.v)}
                 className={`rounded-lg border px-3 py-2 text-left text-xs transition disabled:opacity-50 ${
-                  active ? 'border-violet-500/50 bg-violet-500/15 text-violet-100' : 'border-gray-700 bg-gray-900 text-gray-400 hover:text-gray-200'
+                  active ? 'border-primary/50 bg-primary/15 text-link' : 'border-border bg-card text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <span className="block font-semibold">{o.label}</span>
-                <span className="block text-[11px] text-gray-500">{o.hint}</span>
+                <span className="block text-[11px] text-muted-foreground">{o.hint}</span>
               </button>
             );
           })}
         </div>
         <p className="mt-3 flex items-center gap-2 text-xs">
-          <span className="text-gray-500">Membership tiers:</span>
+          <span className="text-muted-foreground">Membership tiers:</span>
           <StatusBadge tone={progress.membershipTiersEnabled ? 'success' : 'neutral'}>
             {progress.membershipTiersEnabled ? 'Unlocked' : 'Locked'}
           </StatusBadge>
-          <span className="text-gray-500">{progress.membershipUnlockReason}</span>
+          <span className="text-muted-foreground">{progress.membershipUnlockReason}</span>
         </p>
       </SectionCard>
 
       <SectionCard title={`Founding Members (${data.founding.membersCount})`} description="Most recent qualified members. Numbers are immutable once assigned.">
         {data.founding.members.length === 0 ? (
-          <p className="text-sm text-gray-500">No Founding Members yet. The first qualified user becomes {formatMemberNumber(1)}.</p>
+          <p className="text-sm text-muted-foreground">No Founding Members yet. The first qualified user becomes {formatMemberNumber(1)}.</p>
         ) : (
-          <ul className="divide-y divide-gray-800">
+          <ul className="divide-y divide-border">
             {data.founding.members.slice(0, 25).map((m) => (
               <li key={m.id} className="flex items-center justify-between py-1.5 text-sm">
-                <span className="font-semibold tabular-nums text-violet-300">{m.memberNumber != null ? formatMemberNumber(m.memberNumber) : 'Waitlist'}</span>
-                <span className="capitalize text-gray-400">{m.sport ?? '—'}</span>
-                <span className="text-xs text-gray-600">{new Date(m.qualifiedAt).toLocaleDateString()}</span>
+                <span className="font-semibold tabular-nums text-link">{m.memberNumber != null ? formatMemberNumber(m.memberNumber) : 'Waitlist'}</span>
+                <span className="capitalize text-muted-foreground">{m.sport ?? '—'}</span>
+                <span className="text-xs text-muted-foreground/70">{new Date(m.qualifiedAt).toLocaleDateString()}</span>
               </li>
             ))}
           </ul>
@@ -251,14 +251,14 @@ function ProfilePanel({ data }: { data: CIDashboard }) {
       {p.distributions.map((d) => (
         <SectionCard key={d.dimension} title={d.dimension} description={d.suppressed ? 'Cohort too small to anonymize safely.' : `${d.total} players`}>
           {d.suppressed ? (
-            <p className="text-sm text-gray-500">Suppressed — not enough data to show without risking identity.</p>
+            <p className="text-sm text-muted-foreground">Suppressed — not enough data to show without risking identity.</p>
           ) : (
             <ul className="space-y-2">
               {d.buckets.map((b) => (
                 <li key={b.label} className="flex items-center gap-3 text-sm">
-                  <span className="w-32 shrink-0 capitalize text-gray-300">{b.label.replace('_', ' ')}</span>
+                  <span className="w-32 shrink-0 capitalize text-foreground">{b.label.replace('_', ' ')}</span>
                   <Bar pct={b.percent} />
-                  <span className="w-12 text-right tabular-nums text-gray-400">{b.percent}%</span>
+                  <span className="w-12 text-right tabular-nums text-muted-foreground">{b.percent}%</span>
                 </li>
               ))}
             </ul>
@@ -270,7 +270,7 @@ function ProfilePanel({ data }: { data: CIDashboard }) {
         <ul className="space-y-2">
           {p.topMissingFields.map((f) => (
             <li key={f.label} className="flex items-center justify-between text-sm">
-              <span className="text-gray-300">{f.label}</span>
+              <span className="text-foreground">{f.label}</span>
               <StatusBadge tone="warning">{f.count} missing</StatusBadge>
             </li>
           ))}
@@ -281,14 +281,14 @@ function ProfilePanel({ data }: { data: CIDashboard }) {
         <ul className="space-y-2">
           {p.completionFunnel.map((s) => (
             <li key={s.label} className="flex items-center gap-3 text-sm">
-              <span className="w-44 shrink-0 text-gray-300">{s.label}</span>
-              <Bar pct={s.conversionFromTop} color="bg-sky-500" />
-              <span className="w-20 text-right tabular-nums text-gray-400">{s.count} ({s.conversionFromTop}%)</span>
+              <span className="w-44 shrink-0 text-foreground">{s.label}</span>
+              <Bar pct={s.conversionFromTop} color="bg-primary" />
+              <span className="w-20 text-right tabular-nums text-muted-foreground">{s.count} ({s.conversionFromTop}%)</span>
             </li>
           ))}
         </ul>
         {p.biggestDropOff && (
-          <p className="mt-3 text-xs text-amber-300">
+          <p className="mt-3 text-xs text-link">
             Biggest drop-off: {p.biggestDropOff.from} → {p.biggestDropOff.to} (−{p.biggestDropOff.lostPercent}%). Focus here first.
           </p>
         )}
@@ -311,9 +311,9 @@ function SessionPanel({ data }: { data: CIDashboard }) {
         <ul className="space-y-2">
           {Object.entries(s.sourceBreakdown).map(([source, count]) => (
             <li key={source} className="flex items-center gap-3 text-sm">
-              <span className="w-32 shrink-0 capitalize text-gray-300">{source.replace('_', ' ')}</span>
-              <Bar pct={(count / totalSources) * 100} color="bg-emerald-500" />
-              <span className="w-10 text-right tabular-nums text-gray-400">{count}</span>
+              <span className="w-32 shrink-0 capitalize text-foreground">{source.replace('_', ' ')}</span>
+              <Bar pct={(count / totalSources) * 100} color="bg-success" />
+              <span className="w-10 text-right tabular-nums text-muted-foreground">{count}</span>
             </li>
           ))}
         </ul>
@@ -322,7 +322,7 @@ function SessionPanel({ data }: { data: CIDashboard }) {
         <ul className="space-y-2">
           {s.topRecurringIssues.map((i) => (
             <li key={i.issue} className="flex items-center justify-between text-sm">
-              <span className="capitalize text-gray-300">{i.issue}</span>
+              <span className="capitalize text-foreground">{i.issue}</span>
               <StatusBadge tone="info">{i.count}</StatusBadge>
             </li>
           ))}
@@ -346,10 +346,10 @@ function CoachingPanel({ data }: { data: CIDashboard }) {
           {c.drillEffectiveness.map((d) => (
             <li key={d.drill} className="text-sm">
               <div className="flex items-center justify-between">
-                <span className="text-gray-300">{d.drill} <span className="text-xs text-gray-600">({d.sport})</span></span>
-                <span className="text-xs text-gray-500">{d.helpfulPct}% helpful</span>
+                <span className="text-foreground">{d.drill} <span className="text-xs text-muted-foreground/70">({d.sport})</span></span>
+                <span className="text-xs text-muted-foreground">{d.helpfulPct}% helpful</span>
               </div>
-              <div className="mt-1"><Bar pct={d.completionRate} color="bg-violet-500" /></div>
+              <div className="mt-1"><Bar pct={d.completionRate} color="bg-primary" /></div>
             </li>
           ))}
         </ul>
@@ -382,31 +382,31 @@ function ExplorerPanel({ data }: { data: CIDashboard }) {
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search by id, sport, skill, status…"
         aria-label="Search users"
-        className="mb-3 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-violet-500"
+        className="mb-3 w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary"
       />
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="text-xs uppercase tracking-wide text-gray-500">
+          <thead className="text-xs uppercase tracking-wide text-muted-foreground">
             <tr>
               <th className="py-2 pr-3">Athlete</th><th className="pr-3">Sport</th><th className="pr-3">Profile</th>
               <th className="pr-3">Sessions</th><th className="pr-3">Status</th><th className="pr-3">Top issue</th><th>Consent</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-800">
+          <tbody className="divide-y divide-border">
             {rows.map((u) => (
-              <tr key={u.id} className="text-gray-300">
+              <tr key={u.id} className="text-foreground">
                 <td className="py-2 pr-3 font-mono text-xs">{u.id}</td>
                 <td className="pr-3 capitalize">{u.primarySport.replace('_', ' ')}</td>
                 <td className="pr-3 tabular-nums">{u.profilePercent}%</td>
                 <td className="pr-3 tabular-nums">{u.validSessions}</td>
                 <td className="pr-3"><StatusBadge tone={u.status === 'qualified' ? 'success' : 'neutral'}>{u.status.replace(/_/g, ' ')}</StatusBadge></td>
-                <td className="pr-3 text-gray-500">{u.recurringIssue ?? '—'}</td>
+                <td className="pr-3 text-muted-foreground">{u.recurringIssue ?? '—'}</td>
                 <td><StatusBadge tone={u.consent === 'granted' ? 'success' : 'danger'}>{u.consent}</StatusBadge></td>
               </tr>
             ))}
           </tbody>
         </table>
-        {rows.length === 0 && <p className="py-4 text-center text-sm text-gray-600">No matching records.</p>}
+        {rows.length === 0 && <p className="py-4 text-center text-sm text-muted-foreground/70">No matching records.</p>}
       </div>
     </SectionCard>
   );
@@ -428,7 +428,7 @@ function GrowthOsPanel({ data, progress }: { data: CIDashboard; progress: Foundi
           {data.recommendations.filter((r) => ['growth', 'retention', 'onboarding', 'content'].includes(r.area)).slice(0, 5).map((r) => (
             <li key={r.id} className="flex items-start gap-2 text-sm">
               <StatusBadge tone={PRIORITY_TONE[r.priority]}>{r.priority}</StatusBadge>
-              <span className="text-gray-300">{r.title}</span>
+              <span className="text-foreground">{r.title}</span>
             </li>
           ))}
         </ul>
@@ -457,10 +457,10 @@ function GovernancePanel({ data }: { data: CIDashboard }) {
         <MetricStat label="Missing purpose labels" value={g.missingPurposeLabels} tone={g.missingPurposeLabels === 0 ? 'success' : 'warning'} />
       </div>
       <SectionCard title="Our data ethics" description="The promises surfaced to users — enforced in code.">
-        <ul className="space-y-2 text-sm text-gray-300">
+        <ul className="space-y-2 text-sm text-foreground">
           {Object.values(DATA_ETHICS).map((line) => (
             <li key={line} className="flex items-start gap-2">
-              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" aria-hidden="true" />
+              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-success-text" aria-hidden="true" />
               <span>{line}</span>
             </li>
           ))}
@@ -478,7 +478,7 @@ function RecommendationsPanel({ data }: { data: CIDashboard }) {
   return (
     <div className="space-y-3">
       {data.recommendations.length === 0 && (
-        <SectionCard><p className="text-sm text-gray-400">No recommendations right now — the platform signals look healthy.</p></SectionCard>
+        <SectionCard><p className="text-sm text-muted-foreground">No recommendations right now — the platform signals look healthy.</p></SectionCard>
       )}
       {data.recommendations.map((r) => (
         <SectionCard key={r.id}>
@@ -486,13 +486,13 @@ function RecommendationsPanel({ data }: { data: CIDashboard }) {
             <div>
               <div className="flex items-center gap-2">
                 <StatusBadge tone={PRIORITY_TONE[r.priority]}>{r.priority}</StatusBadge>
-                <h3 className="font-semibold text-gray-100">{r.title}</h3>
+                <h3 className="font-semibold text-foreground">{r.title}</h3>
               </div>
-              <p className="mt-1 text-sm text-gray-400">{r.rationale}</p>
-              <p className="mt-1 text-xs text-gray-500"><strong>Impact:</strong> {r.expectedImpact}</p>
-              <p className="mt-0.5 text-xs text-gray-500"><strong>How:</strong> {r.suggestedImplementation}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{r.rationale}</p>
+              <p className="mt-1 text-xs text-muted-foreground"><strong>Impact:</strong> {r.expectedImpact}</p>
+              <p className="mt-0.5 text-xs text-muted-foreground"><strong>How:</strong> {r.suggestedImplementation}</p>
             </div>
-            <span className="shrink-0 text-[11px] uppercase tracking-wide text-gray-600">{r.area.replace('_', ' ')}</span>
+            <span className="shrink-0 text-[11px] uppercase tracking-wide text-muted-foreground/70">{r.area.replace('_', ' ')}</span>
           </div>
         </SectionCard>
       ))}

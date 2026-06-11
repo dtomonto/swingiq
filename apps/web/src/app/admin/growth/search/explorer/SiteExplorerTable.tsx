@@ -65,25 +65,25 @@ export function SiteExplorerTable({ rows }: { rows: ExplorerRow[] }) {
       {/* Controls */}
       <div className="flex flex-wrap items-center gap-2">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="w-3.5 h-3.5 text-gray-600 absolute left-2.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-3.5 h-3.5 text-muted-foreground/70 absolute left-2.5 top-1/2 -translate-y-1/2" />
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Filter by URL, title, or keyword…"
-            className="w-full bg-gray-900 border border-gray-800 rounded-lg pl-8 pr-2 py-1.5 text-xs text-gray-200 placeholder-gray-600 focus:outline-hidden focus:ring-1 focus:ring-green-500"
+            className="w-full bg-card border border-border rounded-lg pl-8 pr-2 py-1.5 text-xs text-foreground placeholder-muted-foreground/70 focus:outline-hidden focus:ring-1 focus:ring-success"
           />
         </div>
         <Select value={type} onChange={setType} options={pageTypes} label="Type" />
         <Select value={source} onChange={setSource} options={sources} label="Source" />
         <Select value={sort} onChange={(v) => setSort(v as SortKey)} options={['priorityScore', 'qualityScore', 'internalLinksIn', 'wordCount']} label="Sort" />
-        <span className="text-[11px] text-gray-500 ml-auto">{filtered.length} / {rows.length} pages</span>
+        <span className="text-[11px] text-muted-foreground ml-auto">{filtered.length} / {rows.length} pages</span>
         <ExportCsvButton rows={filtered as unknown as Record<string, CsvValue>[]} filename="swingvantage-site-explorer.csv" />
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-xl border border-gray-800">
+      <div className="overflow-x-auto rounded-xl border border-border">
         <table className="w-full text-left text-xs">
-          <thead className="bg-gray-800/50 text-gray-500">
+          <thead className="bg-muted/50 text-muted-foreground">
             <tr>
               <th className="px-3 py-2 font-medium">URL</th>
               <th className="px-3 py-2 font-medium">Type</th>
@@ -98,31 +98,31 @@ export function SiteExplorerTable({ rows }: { rows: ExplorerRow[] }) {
               <th className="px-3 py-2" />
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-800">
+          <tbody className="divide-y divide-border">
             {filtered.map((r) => (
-              <tr key={r.url} className="hover:bg-gray-800/30">
+              <tr key={r.url} className="hover:bg-muted/30">
                 <td className="px-3 py-2 max-w-[260px]">
-                  <Link href={`${BASE}/page-intel?url=${encodeURIComponent(r.url)}`} className="text-gray-200 hover:text-green-300 truncate block font-mono">{r.url}</Link>
-                  <span className="text-[10px] text-gray-600 truncate block">{r.title}</span>
+                  <Link href={`${BASE}/page-intel?url=${encodeURIComponent(r.url)}`} className="text-foreground hover:text-success-text truncate block font-mono">{r.url}</Link>
+                  <span className="text-[10px] text-muted-foreground/70 truncate block">{r.title}</span>
                 </td>
-                <td className="px-3 py-2 text-gray-400 whitespace-nowrap">{humanize(r.pageType)}</td>
+                <td className="px-3 py-2 text-muted-foreground whitespace-nowrap">{humanize(r.pageType)}</td>
                 <td className="px-3 py-2 text-center">{r.indexable ? <Dot ok /> : <Dot />}</td>
                 <td className="px-3 py-2 text-center">{r.inSitemap ? <Dot ok /> : <Dot warn />}</td>
-                <td className="px-3 py-2 text-center text-gray-400">{r.schemaCount || '—'}</td>
-                <td className="px-3 py-2 text-right text-gray-400 tabular-nums">{r.wordCount ?? '—'}</td>
-                <td className="px-3 py-2 text-right text-gray-400 tabular-nums">{r.internalLinksIn}·{r.internalLinksOut}</td>
-                <td className="px-3 py-2 text-right tabular-nums">{r.isOrphan ? <span className="text-red-400">orphan</span> : r.depth}</td>
+                <td className="px-3 py-2 text-center text-muted-foreground">{r.schemaCount || '—'}</td>
+                <td className="px-3 py-2 text-right text-muted-foreground tabular-nums">{r.wordCount ?? '—'}</td>
+                <td className="px-3 py-2 text-right text-muted-foreground tabular-nums">{r.internalLinksIn}·{r.internalLinksOut}</td>
+                <td className="px-3 py-2 text-right tabular-nums">{r.isOrphan ? <span className="text-error-text">orphan</span> : r.depth}</td>
                 <td className={`px-3 py-2 text-right tabular-nums font-semibold ${accent(r.qualityScore)}`}>{r.qualityScore}</td>
                 <td className={`px-3 py-2 text-right tabular-nums font-semibold ${accent(r.priorityScore)}`}>{r.priorityScore}</td>
                 <td className="px-3 py-2">
-                  <a href={r.url} target="_blank" rel="noreferrer" className="text-gray-600 hover:text-gray-300"><ExternalLink className="w-3.5 h-3.5" /></a>
+                  <a href={r.url} target="_blank" rel="noreferrer" className="text-muted-foreground/70 hover:text-foreground"><ExternalLink className="w-3.5 h-3.5" /></a>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      {filtered.length === 0 ? <p className="text-sm text-gray-500 text-center py-6">No pages match these filters.</p> : null}
+      {filtered.length === 0 ? <p className="text-sm text-muted-foreground text-center py-6">No pages match these filters.</p> : null}
       <div className="flex justify-end"><DataSourceBadge source="real" /></div>
     </div>
   );
@@ -130,12 +130,12 @@ export function SiteExplorerTable({ rows }: { rows: ExplorerRow[] }) {
 
 function Select({ value, onChange, options, label }: { value: string; onChange: (v: string) => void; options: string[]; label: string }) {
   return (
-    <label className="flex items-center gap-1 text-[11px] text-gray-500">
+    <label className="flex items-center gap-1 text-[11px] text-muted-foreground">
       <span className="hidden sm:inline">{label}</span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="bg-gray-900 border border-gray-800 rounded-lg px-2 py-1.5 text-xs text-gray-200 focus:outline-hidden focus:ring-1 focus:ring-green-500"
+        className="bg-card border border-border rounded-lg px-2 py-1.5 text-xs text-foreground focus:outline-hidden focus:ring-1 focus:ring-success"
       >
         {options.map((o) => <option key={o} value={o}>{o === 'all' ? `All ${label.toLowerCase()}s` : humanize(o)}</option>)}
       </select>
@@ -144,6 +144,6 @@ function Select({ value, onChange, options, label }: { value: string; onChange: 
 }
 
 function Dot({ ok, warn }: { ok?: boolean; warn?: boolean }) {
-  const cls = ok ? 'bg-green-500' : warn ? 'bg-amber-500' : 'bg-gray-600';
+  const cls = ok ? 'bg-success' : warn ? 'bg-warning' : 'bg-muted';
   return <span className={`inline-block h-2 w-2 rounded-full ${cls}`} />;
 }

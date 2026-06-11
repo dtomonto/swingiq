@@ -103,10 +103,10 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
   return (
     <div className="space-y-6">
       {/* ── Hero: score + headline counts ─────────────────────────────── */}
-      <section className="grid gap-4 rounded-xl border border-gray-800 bg-gray-900 p-5 sm:grid-cols-[auto,1fr]">
+      <section className="grid gap-4 rounded-xl border border-border bg-card p-5 sm:grid-cols-[auto,1fr]">
         <div className="flex flex-col items-center justify-center gap-2">
           <ScoreDial score={score.overall} band={score.band} confidence={score.confidence} />
-          <p className="text-xs text-gray-500">Maturity: <span className="text-gray-300">{score.maturity}</span></p>
+          <p className="text-xs text-muted-foreground">Maturity: <span className="text-foreground">{score.maturity}</span></p>
         </div>
         <div className="space-y-3">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -122,13 +122,13 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
             <MetricStat label="Resolved" value={counts.resolved} icon={CheckCircle2} tone="success" />
           </div>
           <div className="flex flex-wrap gap-2">
-            <Link href="/admin/security-os/findings" className="inline-flex items-center gap-1 rounded-lg bg-amber-500/90 px-3 py-1.5 text-sm font-medium text-gray-950 hover:bg-amber-400">
+            <Link href="/admin/security-os/findings" className="inline-flex items-center gap-1 rounded-lg bg-primary/90 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-warning">
               <ListChecks className="h-4 w-4" /> View findings
             </Link>
-            <Link href="/admin/security-os/recommendations" className="inline-flex items-center gap-1 rounded-lg border border-gray-700 px-3 py-1.5 text-sm font-medium text-gray-200 hover:bg-gray-800">
+            <Link href="/admin/security-os/recommendations" className="inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted">
               <Gauge className="h-4 w-4" /> Recommendations
             </Link>
-            <Link href="/admin/security-os/audit-logs" className="inline-flex items-center gap-1 rounded-lg border border-gray-700 px-3 py-1.5 text-sm font-medium text-gray-200 hover:bg-gray-800">
+            <Link href="/admin/security-os/audit-logs" className="inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted">
               <ScrollText className="h-4 w-4" /> Audit log
             </Link>
           </div>
@@ -141,8 +141,8 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
           {score.categories.map((cat) => (
             <li key={cat.id} className="grid grid-cols-[1fr,2fr] items-center gap-3">
               <div className="min-w-0">
-                <p className="truncate text-sm text-gray-200">{cat.label}</p>
-                <p className="text-[11px] text-gray-500">weight {cat.weight}% · {Math.round(cat.confidence * 100)}% signal</p>
+                <p className="truncate text-sm text-foreground">{cat.label}</p>
+                <p className="text-[11px] text-muted-foreground">weight {cat.weight}% · {Math.round(cat.confidence * 100)}% signal</p>
               </div>
               <ScoreBar value={cat.score} />
             </li>
@@ -155,7 +155,7 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
           {domains.map((d) => (
             <div key={d.domain} className={`rounded-lg border p-3 ${d.cls}`}>
-              <p className="text-xs font-medium text-gray-300">{d.domain}</p>
+              <p className="text-xs font-medium text-foreground">{d.domain}</p>
               <p className="mt-1 text-sm font-semibold capitalize">{d.label}</p>
             </div>
           ))}
@@ -164,15 +164,15 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
 
       {/* ── Do Today / This Week / Monitor ─────────────────────────────── */}
       <div className="grid gap-4 lg:grid-cols-3">
-        <RecBucket title="Do Today" icon={AlertTriangle} items={buckets.do_today} accent="text-red-300" />
-        <RecBucket title="This Week" icon={Clock} items={buckets.this_week} accent="text-amber-300" />
-        <RecBucket title="Monitor" icon={Activity} items={buckets.monitor} accent="text-sky-300" />
+        <RecBucket title="Do Today" icon={AlertTriangle} items={buckets.do_today} accent="text-error-text" />
+        <RecBucket title="This Week" icon={Clock} items={buckets.this_week} accent="text-link" />
+        <RecBucket title="Monitor" icon={Activity} items={buckets.monitor} accent="text-link" />
       </div>
 
       {(buckets.needs_manual_setup.length > 0 || buckets.waiting_on_credentials.length > 0) && (
         <div className="grid gap-4 lg:grid-cols-2">
-          <RecBucket title={BUCKET_LABEL.needs_manual_setup} icon={SettingsIcon} items={buckets.needs_manual_setup} accent="text-violet-300" />
-          <RecBucket title={BUCKET_LABEL.waiting_on_credentials} icon={Lock} items={buckets.waiting_on_credentials} accent="text-violet-300" />
+          <RecBucket title={BUCKET_LABEL.needs_manual_setup} icon={SettingsIcon} items={buckets.needs_manual_setup} accent="text-link" />
+          <RecBucket title={BUCKET_LABEL.waiting_on_credentials} icon={Lock} items={buckets.waiting_on_credentials} accent="text-link" />
         </div>
       )}
 
@@ -180,13 +180,13 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
       <div className="grid gap-4 lg:grid-cols-3">
         <Panel title="Recently improved" hint="Findings you've resolved.">
           {improved.length === 0 ? (
-            <p className="text-xs text-gray-500">Nothing resolved yet. Resolve a finding and it shows up here.</p>
+            <p className="text-xs text-muted-foreground">Nothing resolved yet. Resolve a finding and it shows up here.</p>
           ) : (
             <ul className="space-y-2">
               {improved.map((v) => (
                 <li key={v.id} className="flex items-start gap-2 text-sm">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
-                  <span className="text-gray-300">{v.title}</span>
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success-text" />
+                  <span className="text-foreground">{v.title}</span>
                 </li>
               ))}
             </ul>
@@ -195,24 +195,24 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
 
         <Panel title="Security trend" hint="Overall score over time (one snapshot per day).">
           <div className="flex items-center gap-3">
-            <TrendingUp className="h-4 w-4 text-amber-400" />
+            <TrendingUp className="h-4 w-4 text-link" />
             <Sparkline points={trend} />
           </div>
         </Panel>
 
         <Panel title="System confidence" hint="How much of the posture we could actually read.">
-          <p className="text-2xl font-bold tabular-nums text-gray-100">{score.confidence}%</p>
+          <p className="text-2xl font-bold tabular-nums text-foreground">{score.confidence}%</p>
           {hasUnknowns ? (
             <div className="mt-2">
-              <p className="text-xs text-gray-500">{unknownChecks.length} check(s) couldn&apos;t be read (excluded from the score):</p>
+              <p className="text-xs text-muted-foreground">{unknownChecks.length} check(s) couldn&apos;t be read (excluded from the score):</p>
               <ul className="mt-1 space-y-1">
                 {unknownChecks.slice(0, 4).map((c) => (
-                  <li key={c.id} className="text-[11px] text-gray-400">• {c.title}</li>
+                  <li key={c.id} className="text-[11px] text-muted-foreground">• {c.title}</li>
                 ))}
               </ul>
             </div>
           ) : (
-            <p className="mt-2 text-xs text-gray-500">Every check produced a real signal.</p>
+            <p className="mt-2 text-xs text-muted-foreground">Every check produced a real signal.</p>
           )}
         </Panel>
       </div>
@@ -221,19 +221,19 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
       <Panel title="More security domains" hint="Deeper centers land in the next waves of securityOS.">
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
           {SOON.map((s) => (
-            <div key={s.label} className="flex items-start gap-2 rounded-lg border border-gray-800 bg-gray-950 p-3">
-              <s.icon className="mt-0.5 h-4 w-4 shrink-0 text-gray-500" />
+            <div key={s.label} className="flex items-start gap-2 rounded-lg border border-border bg-background p-3">
+              <s.icon className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
               <div>
-                <p className="text-xs font-medium text-gray-300">{s.label}</p>
-                <span className="mt-0.5 inline-block rounded bg-gray-800 px-1.5 py-0.5 text-[9px] uppercase tracking-wide text-gray-500">Soon</span>
+                <p className="text-xs font-medium text-foreground">{s.label}</p>
+                <span className="mt-0.5 inline-block rounded bg-muted px-1.5 py-0.5 text-[9px] uppercase tracking-wide text-muted-foreground">Soon</span>
               </div>
             </div>
           ))}
-          <Link href="/admin/security-os/runbooks" className="flex items-start gap-2 rounded-lg border border-gray-800 bg-gray-950 p-3 hover:border-gray-700">
-            <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+          <Link href="/admin/security-os/runbooks" className="flex items-start gap-2 rounded-lg border border-border bg-background p-3 hover:border-border">
+            <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-link" />
             <div>
-              <p className="text-xs font-medium text-gray-300">Runbooks</p>
-              <span className="mt-0.5 inline-block text-[9px] uppercase tracking-wide text-emerald-400">Available</span>
+              <p className="text-xs font-medium text-foreground">Runbooks</p>
+              <span className="mt-0.5 inline-block text-[9px] uppercase tracking-wide text-success-text">Available</span>
             </div>
           </Link>
         </div>
@@ -254,16 +254,16 @@ const SOON = [
 function CountTile({ label, value, tone }: { label: string; value: number; tone: 'danger' | 'warning' | 'muted' }) {
   const cls =
     value === 0
-      ? 'border-gray-800 text-gray-500'
+      ? 'border-border text-muted-foreground'
       : tone === 'danger'
-        ? 'border-red-500/40 text-red-300'
+        ? 'border-error/40 text-error-text'
         : tone === 'warning'
-          ? 'border-amber-500/40 text-amber-300'
-          : 'border-gray-700 text-gray-300';
+          ? 'border-primary/40 text-link'
+          : 'border-border text-foreground';
   return (
-    <div className={`rounded-lg border bg-gray-950 p-3 text-center ${cls}`}>
+    <div className={`rounded-lg border bg-background p-3 text-center ${cls}`}>
       <p className="text-2xl font-bold tabular-nums">{value}</p>
-      <p className="text-[11px] uppercase tracking-wide text-gray-500">{label}</p>
+      <p className="text-[11px] uppercase tracking-wide text-muted-foreground">{label}</p>
     </div>
   );
 }
@@ -282,20 +282,20 @@ function RecBucket({
   return (
     <Panel title={<span className={`inline-flex items-center gap-1.5 ${accent}`}><Icon className="h-4 w-4" /> {title}</span>} hint={`${items.length} item${items.length === 1 ? '' : 's'}`}>
       {items.length === 0 ? (
-        <p className="text-xs text-gray-500">Nothing here right now.</p>
+        <p className="text-xs text-muted-foreground">Nothing here right now.</p>
       ) : (
         <ul className="space-y-2">
           {items.slice(0, 5).map((r) => (
             <li key={r.id}>
               <Link
                 href={r.relatedLinks[0]?.href ?? '/admin/security-os/findings'}
-                className="group flex items-start justify-between gap-2 rounded-lg border border-gray-800 bg-gray-950 p-2.5 hover:border-gray-700"
+                className="group flex items-start justify-between gap-2 rounded-lg border border-border bg-background p-2.5 hover:border-border"
               >
                 <div className="min-w-0">
-                  <p className="truncate text-sm text-gray-200">{r.title}</p>
-                  <p className="mt-0.5 text-[11px] text-gray-500">{r.riskDomain} · {EFFORT_LABEL[r.effort] ?? r.effort} fix{r.canClaudeFix ? ' · Claude can help' : ''}</p>
+                  <p className="truncate text-sm text-foreground">{r.title}</p>
+                  <p className="mt-0.5 text-[11px] text-muted-foreground">{r.riskDomain} · {EFFORT_LABEL[r.effort] ?? r.effort} fix{r.canClaudeFix ? ' · Claude can help' : ''}</p>
                 </div>
-                <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-gray-600 group-hover:text-gray-400" />
+                <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground/70 group-hover:text-muted-foreground" />
               </Link>
             </li>
           ))}
@@ -308,10 +308,10 @@ function RecBucket({
 // ── domain posture helper ─────────────────────────────────────────────────
 const RESULT_RANK: Record<string, number> = { fail: 0, partial: 1, unknown: 2, pass: 3 };
 const DOMAIN_CLS: Record<string, string> = {
-  fail: 'border-red-500/40 bg-red-500/5 text-red-300',
-  partial: 'border-amber-500/40 bg-amber-500/5 text-amber-300',
-  unknown: 'border-gray-700 bg-gray-950 text-gray-400',
-  pass: 'border-emerald-500/30 bg-emerald-500/5 text-emerald-300',
+  fail: 'border-error/40 bg-error/5 text-error-text',
+  partial: 'border-primary/40 bg-primary/5 text-link',
+  unknown: 'border-border bg-background text-muted-foreground',
+  pass: 'border-success/30 bg-success/5 text-success-text',
 };
 const RESULT_WORD: Record<string, string> = { fail: 'At risk', partial: 'Needs work', unknown: 'Unknown', pass: 'Protected' };
 

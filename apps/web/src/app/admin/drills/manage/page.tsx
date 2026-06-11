@@ -58,18 +58,18 @@ export default function AdminDrillEditorPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">How editing works.</strong> Drills live in code
+          <strong className="text-foreground">How editing works.</strong> Drills live in code
           (<code>data/drills-content.ts</code> and the DrillMatch catalog), so this editor builds a
           <em> local overlay</em> on top of them. You can override a code drill, create a brand-new custom
           drill, or retire one. Everything you do here is saved only in <em>your</em> browser.
         </p>
         <p>
-          <strong className="text-gray-300">Going global.</strong> When you are happy, click <em>Export
+          <strong className="text-foreground">Going global.</strong> When you are happy, click <em>Export
           JSON</em> and hand the file to a developer (or commit it yourself) to apply the change for all
           users. This keeps production data safe: no destructive writes ever happen from the browser.
         </p>
         <p>
-          <strong className="text-gray-300">Status &amp; safety.</strong> New and edited drills start as
+          <strong className="text-foreground">Status &amp; safety.</strong> New and edited drills start as
           <em> draft</em>; mark them <em>active</em> when reviewed, or <em>retired</em> to phase one out.
           Deleting a custom drill or resetting all edits asks for confirmation first.
         </p>

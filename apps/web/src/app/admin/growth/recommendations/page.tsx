@@ -11,9 +11,9 @@ export default function RecommendationsPage() {
       definitionId="recommendations"
       records={recommendationsRepo.list()}
       intro={
-        <div className="rounded-lg bg-gray-900 border border-gray-800 p-3 text-xs text-gray-400">
-          Prioritized growth actions across every lever. Items are labeled <strong className="text-gray-300">Data-backed</strong> (from real analytics)
-          or <strong className="text-gray-300">Strategic</strong> (from product context) — today they&apos;re strategic until analytics is connected.
+        <div className="rounded-lg bg-card border border-border p-3 text-xs text-muted-foreground">
+          Prioritized growth actions across every lever. Items are labeled <strong className="text-foreground">Data-backed</strong> (from real analytics)
+          or <strong className="text-foreground">Strategic</strong> (from product context) — today they&apos;re strategic until analytics is connected.
         </div>
       }
     />

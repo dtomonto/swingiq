@@ -61,7 +61,7 @@ export function AiVisibility({ tests, onUpsert, onRemove }: {
         </div>
         <div className="mt-3 flex flex-wrap gap-1.5">
           {STARTERS.filter((s) => !tests.some((t) => t.query === s)).map((s) => (
-            <button key={s} onClick={() => add(s)} className="rounded-full border border-gray-700 bg-gray-800 px-2.5 py-1 text-xs text-gray-300 hover:border-amber-500/40 hover:text-amber-300">
+            <button key={s} onClick={() => add(s)} className="rounded-full border border-border bg-muted px-2.5 py-1 text-xs text-foreground hover:border-primary/40 hover:text-link">
               + {s}
             </button>
           ))}
@@ -73,17 +73,17 @@ export function AiVisibility({ tests, onUpsert, onRemove }: {
       ) : (
         <ul className="space-y-3">
           {tests.map((t) => (
-            <li key={t.id} className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+            <li key={t.id} className="rounded-xl border border-border bg-card p-4">
               <div className="flex items-start justify-between gap-3">
-                <p className="text-sm font-medium text-gray-100">{t.query}</p>
-                <button onClick={() => onRemove(t.id)} className="shrink-0 rounded-lg p-1 text-gray-500 hover:bg-gray-800 hover:text-red-400" aria-label="Delete test"><Trash2 className="h-4 w-4" /></button>
+                <p className="text-sm font-medium text-foreground">{t.query}</p>
+                <button onClick={() => onRemove(t.id)} className="shrink-0 rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-error-text" aria-label="Delete test"><Trash2 className="h-4 w-4" /></button>
               </div>
 
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                <label className="text-xs text-gray-400">Platform
+                <label className="text-xs text-muted-foreground">Platform
                   <input value={t.platform} onChange={(e) => onUpsert({ ...t, platform: e.target.value })} className={`${INPUT_CLS} mt-1`} />
                 </label>
-                <label className="text-xs text-gray-400">SwingVantage appeared?
+                <label className="text-xs text-muted-foreground">SwingVantage appeared?
                   <select
                     value={t.swingVantageAppeared === null ? 'unknown' : t.swingVantageAppeared ? 'yes' : 'no'}
                     onChange={(e) => onUpsert({ ...t, swingVantageAppeared: e.target.value === 'unknown' ? null : e.target.value === 'yes', status: e.target.value === 'no' ? 'action_needed' : 'tested' })}
@@ -94,13 +94,13 @@ export function AiVisibility({ tests, onUpsert, onRemove }: {
                     <option value="no">No</option>
                   </select>
                 </label>
-                <label className="text-xs text-gray-400 sm:col-span-2">Result summary
+                <label className="text-xs text-muted-foreground sm:col-span-2">Result summary
                   <textarea value={t.resultSummary} onChange={(e) => onUpsert({ ...t, resultSummary: e.target.value })} rows={2} placeholder="What did the AI answer? Which tools did it name?" className={`${INPUT_CLS} mt-1`} />
                 </label>
-                <label className="text-xs text-gray-400">Competitors mentioned (comma-sep)
+                <label className="text-xs text-muted-foreground">Competitors mentioned (comma-sep)
                   <input value={t.competitorsMentioned.join(', ')} onChange={(e) => onUpsert({ ...t, competitorsMentioned: e.target.value.split(',').map((s) => s.trim()).filter(Boolean) })} className={`${INPUT_CLS} mt-1`} />
                 </label>
-                <label className="text-xs text-gray-400">Recommended page to create/improve
+                <label className="text-xs text-muted-foreground">Recommended page to create/improve
                   <input value={t.recommendedPage} onChange={(e) => onUpsert({ ...t, recommendedPage: e.target.value })} className={`${INPUT_CLS} mt-1`} />
                 </label>
               </div>

@@ -37,12 +37,12 @@ export default async function AdminSecurityPage() {
       />
 
       <SectionCard title="Security posture" description="How admin access is currently locked down.">
-        <ul className="divide-y divide-gray-800">
+        <ul className="divide-y divide-border">
           {posture.map((p) => (
             <li key={p.label} className="flex items-start justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
               <div className="min-w-0">
-                <p className="text-sm font-medium text-gray-200">{p.label}</p>
-                <p className="mt-0.5 text-xs text-gray-500">{p.detail}</p>
+                <p className="text-sm font-medium text-foreground">{p.label}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">{p.detail}</p>
               </div>
               <StatusBadge tone={p.ok ? 'success' : 'warning'}>{p.ok ? 'On' : 'Off'}</StatusBadge>
             </li>
@@ -57,18 +57,18 @@ export default async function AdminSecurityPage() {
             const all = r.permissions === '*';
             const perms = all ? [] : (r.permissions as readonly string[]);
             return (
-              <div key={id} className="rounded-lg border border-gray-800 bg-gray-950 p-3">
+              <div key={id} className="rounded-lg border border-border bg-background p-3">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-semibold text-gray-100">{r.label}</p>
+                  <p className="text-sm font-semibold text-foreground">{r.label}</p>
                   <StatusBadge tone={all ? 'danger' : 'neutral'}>{all ? 'All' : `${perms.length}`}</StatusBadge>
                 </div>
-                <p className="mt-0.5 text-xs text-gray-500">{r.description}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">{r.description}</p>
                 {!all && (
                   <div className="mt-2 flex flex-wrap gap-1">
                     {perms.slice(0, 10).map((p) => (
-                      <code key={p} className="rounded bg-gray-800 px-1 py-0.5 font-mono text-[10px] text-gray-400">{p}</code>
+                      <code key={p} className="rounded bg-muted px-1 py-0.5 font-mono text-[10px] text-muted-foreground">{p}</code>
                     ))}
-                    {perms.length > 10 && <span className="text-[10px] text-gray-600">+{perms.length - 10}</span>}
+                    {perms.length > 10 && <span className="text-[10px] text-muted-foreground/70">+{perms.length - 10}</span>}
                   </div>
                 )}
               </div>
@@ -83,16 +83,16 @@ export default async function AdminSecurityPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The admin permission model. Anyone who
+          <strong className="text-foreground">What this is.</strong> The admin permission model. Anyone who
           clears the front-door guard is a Super Admin by default; finer roles remove capabilities.
         </p>
         <p>
-          <strong className="text-gray-300">Server is the source of truth.</strong> Real enforcement uses
+          <strong className="text-foreground">Server is the source of truth.</strong> Real enforcement uses
           <code> ADMIN_EMAILS</code> (who&apos;s an admin) and <code>ADMIN_ROLES</code> (their role). The
           assignment list here is a convenience/plan — it can&apos;t grant access on its own.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Keep the allowlist tight, set
+          <strong className="text-foreground">What to do next.</strong> Keep the allowlist tight, set
           <code> ADMIN_ROLES</code> for least-privilege, and review the posture items above.
         </p>
       </HelpPanel>

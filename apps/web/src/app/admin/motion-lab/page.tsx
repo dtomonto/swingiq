@@ -55,29 +55,29 @@ export default function AdminMotionLabPage() {
       >
         <div className="space-y-4">
           {inv.profiles.map((p) => (
-            <div key={p.sport} className="rounded-lg border border-gray-800 bg-gray-900/40 p-3">
+            <div key={p.sport} className="rounded-lg border border-border bg-card/40 p-3">
               <div className="mb-2 flex flex-wrap items-center gap-2">
                 <span className="text-lg" aria-hidden>{p.emoji}</span>
-                <h3 className="text-sm font-semibold text-gray-100">{p.name}</h3>
+                <h3 className="text-sm font-semibold text-foreground">{p.name}</h3>
                 <StatusBadge tone={p.continuous ? 'accent' : 'neutral'}>
                   {p.continuous ? 'Continuous rally' : 'Discrete swing'}
                 </StatusBadge>
-                <span className="text-xs text-gray-500">{p.motions.length} motions</span>
+                <span className="text-xs text-muted-foreground">{p.motions.length} motions</span>
               </div>
               <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
                 {p.motions.map((m) => (
-                  <div key={m.id} className="rounded-md border border-gray-800/80 bg-gray-950/40 p-2.5">
+                  <div key={m.id} className="rounded-md border border-border/80 bg-background/40 p-2.5">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-medium text-gray-200">{m.label}</span>
+                      <span className="text-xs font-medium text-foreground">{m.label}</span>
                       {m.rotational && (
-                        <span className="rounded-full bg-gray-800 px-1.5 py-0.5 text-[10px] text-gray-400">rotational</span>
+                        <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">rotational</span>
                       )}
-                      <span className="ml-auto text-[10px] text-gray-500">{m.movementModelLabel}</span>
+                      <span className="ml-auto text-[10px] text-muted-foreground">{m.movementModelLabel}</span>
                     </div>
                     <div className="mt-1.5 flex flex-wrap gap-1">
                       {m.phases.map((ph, i) => (
-                        <span key={ph.key} className="inline-flex items-center rounded bg-gray-800/70 px-1.5 py-0.5 text-[10px] text-gray-400">
-                          <span className="mr-1 text-gray-600">{i + 1}</span>{ph.label}
+                        <span key={ph.key} className="inline-flex items-center rounded bg-muted/70 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                          <span className="mr-1 text-muted-foreground/70">{i + 1}</span>{ph.label}
                         </span>
                       ))}
                     </div>
@@ -97,7 +97,7 @@ export default function AdminMotionLabPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-gray-800 text-xs uppercase tracking-wide text-gray-500">
+              <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
                 <th className="py-2 pr-4 font-medium">Component</th>
                 <th className="py-2 pr-4 font-medium">Weight</th>
                 <th className="py-2 font-medium">Metrics</th>
@@ -105,10 +105,10 @@ export default function AdminMotionLabPage() {
             </thead>
             <tbody>
               {inv.scoreComponents.map((c) => (
-                <tr key={c.id} className="border-b border-gray-800/60 last:border-0">
-                  <td className="py-2 pr-4 font-medium text-gray-200">{c.label}</td>
-                  <td className="py-2 pr-4 tabular-nums text-gray-300">×{c.weight}</td>
-                  <td className="py-2 text-xs text-gray-400">{c.metricIds.join(', ')}</td>
+                <tr key={c.id} className="border-b border-border/60 last:border-0">
+                  <td className="py-2 pr-4 font-medium text-foreground">{c.label}</td>
+                  <td className="py-2 pr-4 tabular-nums text-foreground">×{c.weight}</td>
+                  <td className="py-2 text-xs text-muted-foreground">{c.metricIds.join(', ')}</td>
                 </tr>
               ))}
             </tbody>
@@ -126,20 +126,20 @@ export default function AdminMotionLabPage() {
             const preset = OVERLAY_DENSITY_PRESETS[d];
             const on = OVERLAY_LAYER_META.filter((l) => preset[l.id]);
             return (
-              <div key={d} className="rounded-lg border border-gray-800 bg-gray-900/40 p-3">
+              <div key={d} className="rounded-lg border border-border bg-card/40 p-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-gray-100">{OVERLAY_DENSITY_LABEL[d]}</span>
-                  <span className="ml-auto text-[10px] text-gray-500">{on.length}/{OVERLAY_LAYER_META.length}</span>
+                  <span className="text-sm font-semibold text-foreground">{OVERLAY_DENSITY_LABEL[d]}</span>
+                  <span className="ml-auto text-[10px] text-muted-foreground">{on.length}/{OVERLAY_LAYER_META.length}</span>
                 </div>
-                <p className="mt-0.5 text-xs text-gray-500">{OVERLAY_DENSITY_HINT[d]}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">{OVERLAY_DENSITY_HINT[d]}</p>
                 <div className="mt-2 flex flex-wrap gap-1">
                   {OVERLAY_LAYER_META.map((l) => (
                     <span
                       key={l.id}
                       className={
                         preset[l.id]
-                          ? 'rounded-full border border-sky-500/40 bg-sky-500/10 px-1.5 py-0.5 text-[10px] text-sky-300'
-                          : 'rounded-full border border-gray-800 px-1.5 py-0.5 text-[10px] text-gray-600 line-through'
+                          ? 'rounded-full border border-primary/40 bg-primary/10 px-1.5 py-0.5 text-[10px] text-link'
+                          : 'rounded-full border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground/70 line-through'
                       }
                     >
                       {l.label}
@@ -162,21 +162,21 @@ export default function AdminMotionLabPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A single operating surface for the
+          <strong className="text-foreground">What this is.</strong> A single operating surface for the
           MotionLab movement-intelligence layer. Profiles, phases, score weights and overlay presets are read
-          straight from <code className="mx-1 rounded bg-gray-800 px-1">lib/motion-lab</code> so this never
+          straight from <code className="mx-1 rounded bg-muted px-1">lib/motion-lab</code> so this never
           drifts from what the product actually ships.
         </p>
         <p>
-          <strong className="text-gray-300">Continuous vs discrete.</strong> Tennis, pickleball and padel are
+          <strong className="text-foreground">Continuous vs discrete.</strong> Tennis, pickleball and padel are
           scored as continuous rally movement — the engine reads ready position, contact spacing, recovery and
           the next-ready step, not just the strike frame. Golf, baseball and softball are discrete swings.
         </p>
         <p>
-          <strong className="text-gray-300">Changing config.</strong> Phase templates live in
-          <code className="mx-1 rounded bg-gray-800 px-1">taxonomy.ts</code>, score weights in
-          <code className="mx-1 rounded bg-gray-800 px-1">scoring.ts</code>, and overlay presets in
-          <code className="mx-1 rounded bg-gray-800 px-1">overlay-density.ts</code>. Edit there and commit to
+          <strong className="text-foreground">Changing config.</strong> Phase templates live in
+          <code className="mx-1 rounded bg-muted px-1">taxonomy.ts</code>, score weights in
+          <code className="mx-1 rounded bg-muted px-1">scoring.ts</code>, and overlay presets in
+          <code className="mx-1 rounded bg-muted px-1">overlay-density.ts</code>. Edit there and commit to
           roll a change out to everyone.
         </p>
       </HelpPanel>

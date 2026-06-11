@@ -59,7 +59,7 @@ export function SignalInbox({ signals, onOpenSignal, onAdd }: {
 
       <div className="flex flex-wrap items-center gap-2">
         <div className="relative flex-1 min-w-[180px]">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-600" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/70" />
           <input
             value={query}
             onChange={(e) => { setQuery(e.target.value); setPage(0); }}
@@ -89,18 +89,18 @@ export function SignalInbox({ signals, onOpenSignal, onAdd }: {
         <ul className="space-y-2">
           {pageItems.map((s) => (
             <li key={s.id}>
-              <div className="rounded-xl border border-gray-800 bg-gray-900 p-3 transition-colors hover:border-gray-700">
+              <div className="rounded-xl border border-border bg-card p-3 transition-colors hover:border-border">
                 <div className="flex items-start justify-between gap-3">
                   <button onClick={() => onOpenSignal(s.id)} className="min-w-0 flex-1 text-left">
                     <div className="flex items-center gap-2">
-                      {s.title && <p className="truncate text-sm font-medium text-gray-100">{s.title}</p>}
-                      <span className="shrink-0 text-xs text-gray-500">· {s.sourceName}</span>
+                      {s.title && <p className="truncate text-sm font-medium text-foreground">{s.title}</p>}
+                      <span className="shrink-0 text-xs text-muted-foreground">· {s.sourceName}</span>
                     </div>
-                    <p className="mt-0.5 line-clamp-2 text-sm text-gray-400">{s.cleanText}</p>
+                    <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">{s.cleanText}</p>
                     <div className="mt-2"><SignalBadges signal={s} showStatus /></div>
                   </button>
                   {s.sourceUrl && (
-                    <a href={s.sourceUrl} target="_blank" rel="noreferrer" className="shrink-0 rounded-lg p-1.5 text-gray-500 hover:bg-gray-800 hover:text-amber-400" title="Open source">
+                    <a href={s.sourceUrl} target="_blank" rel="noreferrer" className="shrink-0 rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-link" title="Open source">
                       <ExternalLink className="h-4 w-4" />
                     </a>
                   )}
@@ -112,7 +112,7 @@ export function SignalInbox({ signals, onOpenSignal, onAdd }: {
       )}
 
       {pageCount > 1 && (
-        <div className="flex items-center justify-between text-sm text-gray-400">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>{filtered.length} signals · page {safePage + 1} of {pageCount}</span>
           <div className="flex gap-2">
             <Btn size="sm" disabled={safePage === 0} onClick={() => setPage(safePage - 1)}>Prev</Btn>

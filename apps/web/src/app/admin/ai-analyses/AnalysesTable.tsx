@@ -9,10 +9,10 @@ import { formatRelativeTime } from '@/lib/admin/format';
 import type { AnalysisRow } from '@/lib/admin/data/analyses';
 
 function scoreTone(score: number): string {
-  if (score <= 0) return 'text-gray-500';
-  if (score < 60) return 'text-red-400';
-  if (score < 85) return 'text-amber-400';
-  return 'text-emerald-400';
+  if (score <= 0) return 'text-muted-foreground';
+  if (score < 60) return 'text-error-text';
+  if (score < 85) return 'text-link';
+  return 'text-success-text';
 }
 
 const columns: Column<AnalysisRow>[] = [
@@ -26,7 +26,7 @@ const columns: Column<AnalysisRow>[] = [
     key: 'userEmail',
     header: 'User',
     sortValue: (r) => r.userEmail ?? '',
-    render: (r) => <span className="block max-w-[14rem] truncate text-gray-300">{r.userEmail ?? r.userId}</span>,
+    render: (r) => <span className="block max-w-[14rem] truncate text-foreground">{r.userEmail ?? r.userId}</span>,
   },
   {
     key: 'overallScore',
@@ -38,18 +38,18 @@ const columns: Column<AnalysisRow>[] = [
     key: 'issuesCount',
     header: 'Issues',
     sortValue: (r) => r.issuesCount,
-    render: (r) => <span className="tabular-nums text-gray-400">{r.issuesCount}</span>,
+    render: (r) => <span className="tabular-nums text-muted-foreground">{r.issuesCount}</span>,
   },
   {
     key: 'primaryIssue',
     header: 'Primary issue',
-    render: (r) => <span className="block max-w-[16rem] truncate text-gray-400">{r.primaryIssue ?? '—'}</span>,
+    render: (r) => <span className="block max-w-[16rem] truncate text-muted-foreground">{r.primaryIssue ?? '—'}</span>,
   },
   {
     key: 'createdAt',
     header: 'When',
     sortValue: (r) => r.createdAt,
-    render: (r) => <span className="text-gray-500">{r.createdAt ? formatRelativeTime(r.createdAt) : '—'}</span>,
+    render: (r) => <span className="text-muted-foreground">{r.createdAt ? formatRelativeTime(r.createdAt) : '—'}</span>,
   },
 ];
 

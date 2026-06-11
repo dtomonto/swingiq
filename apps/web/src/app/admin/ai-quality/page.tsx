@@ -61,21 +61,21 @@ export default function AdminAiQualityPage() {
         title={
           <span className="flex items-center gap-2">
             Flagged for review
-            <span className="text-xs font-normal text-gray-500">({flagged.length})</span>
+            <span className="text-xs font-normal text-muted-foreground">({flagged.length})</span>
           </span>
         }
         description="Coaching text scoring below “good”, worst first. Good items are hidden."
       >
         {flagged.length === 0 ? (
-          <p className="flex items-center gap-2 text-sm text-emerald-400">
+          <p className="flex items-center gap-2 text-sm text-success-text">
             <BadgeCheck className="h-4 w-4" /> Every scored text is clear, honest and safe. Nice.
           </p>
         ) : (
           <ul className="space-y-3">
             {flagged.slice(0, 40).map((item) => (
-              <li key={item.id} className="rounded-xl border border-gray-800 bg-gray-950/40 p-3">
+              <li key={item.id} className="rounded-xl border border-border bg-background/40 p-3">
                 <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2">
-                  <code className="text-xs text-amber-300/90">{item.label}</code>
+                  <code className="text-xs text-link/90">{item.label}</code>
                   <div className="flex items-center gap-1.5">
                     <StatusBadge tone={GRADE_TONE[item.result.grade]}>{item.result.grade}</StatusBadge>
                     <StatusBadge tone="neutral">{item.result.score}/100</StatusBadge>
@@ -83,7 +83,7 @@ export default function AdminAiQualityPage() {
                 </div>
                 <ul className="space-y-1">
                   {item.result.findings.filter((f) => f.level !== 'good').map((f, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-400">
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
                       <StatusBadge tone={GRADE_TONE[f.level]}>{f.dimension}</StatusBadge>
                       <span>{f.message}</span>
                     </li>
@@ -91,25 +91,25 @@ export default function AdminAiQualityPage() {
                 </ul>
               </li>
             ))}
-            {flagged.length > 40 && <li className="text-xs text-gray-500">+ {flagged.length - 40} more…</li>}
+            {flagged.length > 40 && <li className="text-xs text-muted-foreground">+ {flagged.length - 40} more…</li>}
           </ul>
         )}
       </SectionCard>
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A content-quality auditor focused on the
+          <strong className="text-foreground">What this is.</strong> A content-quality auditor focused on the
           words, not the structure. Where <em>Data Quality</em> checks slugs and metadata, this reads the
           coaching prose and scores it for the things that build (or break) trust: safety, honesty, calibrated
           confidence and plain-English clarity.
         </p>
         <p>
-          <strong className="text-gray-300">Keyless.</strong> The scorer is fully deterministic — no model
+          <strong className="text-foreground">Keyless.</strong> The scorer is fully deterministic — no model
           calls, no AI spend. It is the same kind of check you would want a reviewer to run, encoded once and
           applied to every piece. It can later be pointed at live AI swing-analysis outputs as that data lands.
         </p>
         <p>
-          <strong className="text-gray-300">How to act.</strong> Work safety fails first (a medical/diagnostic
+          <strong className="text-foreground">How to act.</strong> Work safety fails first (a medical/diagnostic
           claim is never acceptable — coaching is performance-only), then honesty (remove guarantees/hype),
           then clarity. Edit the source text in the SEO/content registry and re-check here.
         </p>

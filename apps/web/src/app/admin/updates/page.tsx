@@ -45,19 +45,19 @@ export default async function AdminUpdatesPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">Why everything starts as a draft.</strong> The public
+          <strong className="text-foreground">Why everything starts as a draft.</strong> The public
           /updates and /dev-updates pages are search-indexed. Holding new entries as drafts means a
           commit can never push something live before you&apos;ve read it.
         </p>
         <p>
-          <strong className="text-gray-300">How publishing is saved.</strong> A toggle edits the
+          <strong className="text-foreground">How publishing is saved.</strong> A toggle edits the
           versioned data file the page reads, so your change is a normal git diff you commit &amp;
           push — the same way all SwingVantage content goes live. Because production runs on a
           read-only filesystem, this screen is view-only there; publish from your local dev
           environment, then push.
         </p>
         <p>
-          <strong className="text-gray-300">Safety net.</strong> A guard in the generator already
+          <strong className="text-foreground">Safety net.</strong> A guard in the generator already
           refuses to create any entry whose text looks like a secret, key, or file path — so drafts
           are safe to review.
         </p>

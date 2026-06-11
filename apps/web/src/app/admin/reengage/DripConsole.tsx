@@ -36,12 +36,12 @@ export function DripConsole({ emailConfigured }: { emailConfigured: boolean }) {
     <div className="mx-auto max-w-5xl space-y-6 p-6">
       <header className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-2xl font-bold text-gray-100">Drip Marketing</h1>
+          <h1 className="text-2xl font-bold text-foreground">Drip Marketing</h1>
           <HealthPill health={s.analysis.health} />
         </div>
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-muted-foreground">
           The full re-engagement drip cycle — every lifecycle campaign, its audience, cadence and copy.{' '}
-          <span className="text-amber-400">Draft-first: nothing sends from this screen.</span> Tune the
+          <span className="text-link">Draft-first: nothing sends from this screen.</span> Tune the
           strategy here, then export it to commit into the engine.
         </p>
         <div className="flex flex-wrap gap-2 text-xs">
@@ -55,7 +55,7 @@ export function DripConsole({ emailConfigured }: { emailConfigured: boolean }) {
         </div>
       </header>
 
-      <nav className="flex gap-1 border-b border-gray-800">
+      <nav className="flex gap-1 border-b border-border">
         {([['cycle', 'Drip Cycle'], ['campaigns', 'Campaigns'], ['strategy', 'Strategy']] as [Tab, string][]).map(
           ([id, label]) => (
             <button
@@ -64,8 +64,8 @@ export function DripConsole({ emailConfigured }: { emailConfigured: boolean }) {
               onClick={() => setTab(id)}
               className={`-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors ${
                 tab === id
-                  ? 'border-emerald-500 text-emerald-300'
-                  : 'border-transparent text-gray-400 hover:text-gray-200'
+                  ? 'border-success text-success-text'
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
               {label}
@@ -101,10 +101,10 @@ export function DripConsole({ emailConfigured }: { emailConfigured: boolean }) {
 
 function Stat({ label, value, tone }: { label: string; value: string; tone?: 'good' | 'warn' }) {
   const color =
-    tone === 'good' ? 'text-emerald-300' : tone === 'warn' ? 'text-amber-300' : 'text-gray-200';
+    tone === 'good' ? 'text-success-text' : tone === 'warn' ? 'text-link' : 'text-foreground';
   return (
-    <span className="rounded-lg border border-gray-800 bg-gray-900 px-3 py-1.5">
-      <span className="text-gray-500">{label}: </span>
+    <span className="rounded-lg border border-border bg-card px-3 py-1.5">
+      <span className="text-muted-foreground">{label}: </span>
       <span className={`font-medium ${color}`}>{value}</span>
     </span>
   );
@@ -112,27 +112,27 @@ function Stat({ label, value, tone }: { label: string; value: string; tone?: 'go
 
 function bandColor(band: StrategyHealth['band']): string {
   return band === 'excellent'
-    ? 'text-emerald-300'
+    ? 'text-success-text'
     : band === 'good'
-      ? 'text-green-300'
+      ? 'text-success-text'
       : band === 'fair'
-        ? 'text-amber-300'
-        : 'text-red-300';
+        ? 'text-link'
+        : 'text-error-text';
 }
 
 function HealthPill({ health }: { health: StrategyHealth }) {
   return (
-    <div className="flex items-center gap-2 rounded-lg border border-gray-800 bg-gray-900 px-3 py-1.5">
+    <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-1.5">
       <Gauge className={`h-4 w-4 ${bandColor(health.band)}`} />
       <span className={`text-lg font-bold ${bandColor(health.band)}`}>{health.score}</span>
-      <span className="text-xs text-gray-500">/100 · {health.band.replace('-', ' ')}</span>
+      <span className="text-xs text-muted-foreground">/100 · {health.band.replace('-', ' ')}</span>
     </div>
   );
 }
 
 function ChannelChips({ channels }: { channels: NudgeChannel[] }) {
   if (channels.length === 0) {
-    return <span className="text-[11px] text-red-400">no channels</span>;
+    return <span className="text-[11px] text-error-text">no channels</span>;
   }
   return (
     <div className="flex flex-wrap gap-1">
@@ -141,7 +141,7 @@ function ChannelChips({ channels }: { channels: NudgeChannel[] }) {
         return (
           <span
             key={c}
-            className="inline-flex items-center gap-1 rounded-sm border border-gray-700 bg-gray-800 px-1.5 py-0.5 text-[11px] font-medium text-gray-300"
+            className="inline-flex items-center gap-1 rounded-sm border border-border bg-muted px-1.5 py-0.5 text-[11px] font-medium text-foreground"
           >
             <Icon className="h-3 w-3" /> {label}
           </span>
@@ -161,23 +161,23 @@ function CycleView({ campaigns }: { campaigns: DripCampaign[] }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-start gap-2 rounded-lg border border-gray-800 bg-gray-900 p-3 text-xs text-gray-400">
-        <Route className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+      <div className="flex items-start gap-2 rounded-lg border border-border bg-card p-3 text-xs text-muted-foreground">
+        <Route className="mt-0.5 h-4 w-4 shrink-0 text-success-text" />
         <p>
           As a player goes quiet, the engine escalates along this timeline (by days since last activity).
-          It delivers <strong className="text-gray-300">at most one</strong> nudge at a time — the highest-priority
+          It delivers <strong className="text-foreground">at most one</strong> nudge at a time — the highest-priority
           one that applies. Event-based campaigns fire on a behaviour rather than a day count.
         </p>
       </div>
 
       {/* Timeline rail */}
       <div>
-        <h2 className="mb-3 text-sm font-semibold text-gray-200">Lifecycle timeline</h2>
+        <h2 className="mb-3 text-sm font-semibold text-foreground">Lifecycle timeline</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {timeline.map((c, i) => (
             <div key={c.triggerId} className="relative">
               {i < timeline.length - 1 && (
-                <ArrowRight className="absolute -right-2.5 top-8 z-10 hidden h-4 w-4 text-gray-700 lg:block" />
+                <ArrowRight className="absolute -right-2.5 top-8 z-10 hidden h-4 w-4 text-muted-foreground/60 lg:block" />
               )}
               <TimelineCard campaign={c} />
             </div>
@@ -187,8 +187,8 @@ function CycleView({ campaigns }: { campaigns: DripCampaign[] }) {
 
       {/* Event-based */}
       <div>
-        <h2 className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-gray-200">
-          <Zap className="h-4 w-4 text-amber-400" /> Event-based campaigns
+        <h2 className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground">
+          <Zap className="h-4 w-4 text-link" /> Event-based campaigns
         </h2>
         <div className="grid gap-3 sm:grid-cols-3">
           {events.map((c) => (
@@ -204,22 +204,22 @@ function TimelineCard({ campaign: c }: { campaign: DripCampaign }) {
   const stageLabel = DRIP_STAGES.find((s) => s.id === c.stage)?.label ?? c.stage;
   return (
     <div
-      className={`flex h-full flex-col rounded-xl border bg-gray-900 p-4 ${
-        c.enabled ? 'border-gray-800' : 'border-gray-800/50 opacity-60'
+      className={`flex h-full flex-col rounded-xl border bg-card p-4 ${
+        c.enabled ? 'border-border' : 'border-border/50 opacity-60'
       }`}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="rounded-sm bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-300">
+        <span className="rounded-sm bg-success/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-success-text">
           {c.kind === 'timeline' && c.dayThreshold != null ? `Day ${c.dayThreshold}+` : stageLabel}
         </span>
-        {!c.enabled && <span className="text-[10px] font-medium text-gray-500">off</span>}
+        {!c.enabled && <span className="text-[10px] font-medium text-muted-foreground">off</span>}
       </div>
-      <p className="mt-2 text-sm font-semibold text-gray-100">{c.label}</p>
-      <p className="mt-1 text-xs text-gray-400">{c.cohortDescription}</p>
-      <p className="mt-2 line-clamp-2 text-xs text-gray-500">“{c.message.title}”</p>
+      <p className="mt-2 text-sm font-semibold text-foreground">{c.label}</p>
+      <p className="mt-1 text-xs text-muted-foreground">{c.cohortDescription}</p>
+      <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">“{c.message.title}”</p>
       <div className="mt-auto flex items-center justify-between gap-2 pt-3">
         <ChannelChips channels={c.channels} />
-        <span className="shrink-0 text-[10px] text-gray-600">P{c.priority}</span>
+        <span className="shrink-0 text-[10px] text-muted-foreground/70">P{c.priority}</span>
       </div>
     </div>
   );
@@ -281,7 +281,7 @@ function CampaignCard({
 
   return (
     <section
-      className={`rounded-xl border bg-gray-900 ${c.enabled ? 'border-gray-800' : 'border-gray-800/50'}`}
+      className={`rounded-xl border bg-card ${c.enabled ? 'border-border' : 'border-border/50'}`}
     >
       {/* Header row */}
       <div className="flex flex-wrap items-center gap-3 p-4">
@@ -291,34 +291,34 @@ function CampaignCard({
           aria-pressed={c.enabled}
           aria-label={`${c.enabled ? 'Disable' : 'Enable'} ${c.label}`}
           className={`inline-flex h-6 items-center gap-1 rounded-full px-2 text-[11px] font-semibold ${
-            c.enabled ? 'bg-emerald-500/20 text-emerald-300' : 'bg-gray-800 text-gray-500'
+            c.enabled ? 'bg-success/20 text-success-text' : 'bg-muted text-muted-foreground'
           }`}
         >
           <Power className="h-3 w-3" /> {c.enabled ? 'On' : 'Off'}
         </button>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <p className="truncate text-sm font-semibold text-gray-100">{c.label}</p>
+            <p className="truncate text-sm font-semibold text-foreground">{c.label}</p>
             {c.customized && (
               <span className="rounded-sm bg-blue-500/15 px-1.5 py-0.5 text-[10px] font-medium text-blue-300">
                 customized
               </span>
             )}
           </div>
-          <p className="truncate text-xs text-gray-500">{c.condition}</p>
+          <p className="truncate text-xs text-muted-foreground">{c.condition}</p>
         </div>
         <ChannelChips channels={c.channels} />
         <button
           type="button"
           onClick={onToggleOpen}
-          className="inline-flex items-center gap-1 rounded-lg border border-gray-700 px-2.5 py-1.5 text-xs font-medium text-gray-300 hover:bg-gray-800"
+          className="inline-flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted"
         >
           <Pencil className="h-3.5 w-3.5" /> {open ? 'Close' : 'Edit'}
         </button>
       </div>
 
       {/* Breakdown grid (always visible) */}
-      <div className="grid gap-3 border-t border-gray-800 px-4 py-3 text-xs sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 border-t border-border px-4 py-3 text-xs sm:grid-cols-2 lg:grid-cols-4">
         <Field label="Audience" value={c.cohortDescription} />
         <Field label="Priority" value={`${c.priority} (higher wins)`} />
         <Field label="Cooldown" value={`${c.cooldownDays} day${c.cooldownDays === 1 ? '' : 's'}`} />
@@ -327,7 +327,7 @@ function CampaignCard({
 
       {/* Editor + preview */}
       {open && (
-        <div className="space-y-4 border-t border-gray-800 p-4">
+        <div className="space-y-4 border-t border-border p-4">
           {/* Strategy controls */}
           <div className="grid gap-4 sm:grid-cols-2">
             <NumberField
@@ -348,7 +348,7 @@ function CampaignCard({
           </div>
 
           <div>
-            <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-gray-500">Channels</p>
+            <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Channels</p>
             <div className="flex flex-wrap gap-2">
               {ALL_CHANNELS.map((ch) => {
                 const on = c.channels.includes(ch);
@@ -362,12 +362,12 @@ function CampaignCard({
                     aria-pressed={on}
                     className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors ${
                       on
-                        ? 'border-emerald-500/50 bg-emerald-500/15 text-emerald-300'
-                        : 'border-gray-700 text-gray-400 hover:bg-gray-800'
+                        ? 'border-success/50 bg-success/15 text-success-text'
+                        : 'border-border text-muted-foreground hover:bg-muted'
                     }`}
                   >
                     <Icon className="h-3.5 w-3.5" /> {label}
-                    {on && blocked && <span className="text-amber-400">(no provider)</span>}
+                    {on && blocked && <span className="text-link">(no provider)</span>}
                   </button>
                 );
               })}
@@ -392,21 +392,21 @@ function CampaignCard({
 
           {/* Live preview */}
           <div className="grid gap-3 md:grid-cols-2">
-            <div className="rounded-lg border border-gray-800 bg-gray-950 p-3">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Email draft</p>
-              <p className="mt-1 text-sm font-medium text-gray-200">Subject: {payloads.email.subject}</p>
-              <p className="mt-2 text-sm font-semibold text-gray-100">{payloads.email.heading}</p>
-              <p className="mt-1 text-sm text-gray-400">{payloads.email.body}</p>
-              <p className="mt-2 text-sm text-emerald-400">
-                {payloads.email.cta.label} → <span className="text-gray-500">{payloads.email.cta.url}</span>
+            <div className="rounded-lg border border-border bg-background p-3">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Email draft</p>
+              <p className="mt-1 text-sm font-medium text-foreground">Subject: {payloads.email.subject}</p>
+              <p className="mt-2 text-sm font-semibold text-foreground">{payloads.email.heading}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{payloads.email.body}</p>
+              <p className="mt-2 text-sm text-success-text">
+                {payloads.email.cta.label} → <span className="text-muted-foreground">{payloads.email.cta.url}</span>
               </p>
             </div>
-            <div className="rounded-lg border border-gray-800 bg-gray-950 p-3">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">In-app / Push</p>
-              <p className="mt-1 text-sm font-semibold text-gray-100">{payloads.in_app.title}</p>
-              <p className="mt-1 text-sm text-gray-400">{payloads.in_app.body}</p>
-              <p className="mt-2 text-sm text-emerald-400">
-                {payloads.in_app.cta.label} → <span className="text-gray-500">{payloads.push.url}</span>
+            <div className="rounded-lg border border-border bg-background p-3">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">In-app / Push</p>
+              <p className="mt-1 text-sm font-semibold text-foreground">{payloads.in_app.title}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{payloads.in_app.body}</p>
+              <p className="mt-2 text-sm text-success-text">
+                {payloads.in_app.cta.label} → <span className="text-muted-foreground">{payloads.push.url}</span>
               </p>
             </div>
           </div>
@@ -415,7 +415,7 @@ function CampaignCard({
             <button
               type="button"
               onClick={() => resetOverride(id)}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 px-3 py-1.5 text-xs font-medium text-gray-300 hover:bg-gray-800"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted"
             >
               <RotateCcw className="h-3.5 w-3.5" /> Revert to code default
             </button>
@@ -429,8 +429,8 @@ function CampaignCard({
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-[10px] uppercase tracking-wide text-gray-600">{label}</p>
-      <p className="mt-0.5 text-gray-300">{value}</p>
+      <p className="text-[10px] uppercase tracking-wide text-muted-foreground/70">{label}</p>
+      <p className="mt-0.5 text-foreground">{value}</p>
     </div>
   );
 }
@@ -440,7 +440,7 @@ function NumberField({
 }: { id: string; label: string; hint?: string; value: number; min?: number; onChange: (v: number) => void }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+      <label htmlFor={id} className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
         {label}
       </label>
       <input
@@ -449,9 +449,9 @@ function NumberField({
         min={min}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="mt-1 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100 outline-none focus:border-emerald-500"
+        className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-success"
       />
-      {hint && <p className="mt-1 text-[10px] text-gray-600">{hint}</p>}
+      {hint && <p className="mt-1 text-[10px] text-muted-foreground/70">{hint}</p>}
     </div>
   );
 }
@@ -461,14 +461,14 @@ function TextField({
 }: { id: string; label: string; value: string; onChange: (v: string) => void }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+      <label htmlFor={id} className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
         {label}
       </label>
       <input
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100 outline-none focus:border-emerald-500"
+        className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-success"
       />
     </div>
   );
@@ -479,7 +479,7 @@ function TextArea({
 }: { id: string; label: string; value: string; onChange: (v: string) => void }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+      <label htmlFor={id} className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
         {label}
       </label>
       <textarea
@@ -487,7 +487,7 @@ function TextArea({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={2}
-        className="mt-1 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100 outline-none focus:border-emerald-500"
+        className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-success"
       />
     </div>
   );
@@ -526,27 +526,27 @@ function StrategyView({
   return (
     <div className="space-y-6">
       {/* Health battery */}
-      <section className="rounded-xl border border-gray-800 bg-gray-900 p-5">
+      <section className="rounded-xl border border-border bg-card p-5">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-gray-200">Strategy health</h2>
+          <h2 className="text-sm font-semibold text-foreground">Strategy health</h2>
           <HealthPill health={a.health} />
         </div>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {a.health.factors.map((f) => (
             <div key={f.key}>
               <div className="flex items-center justify-between text-xs">
-                <span className="text-gray-300">{f.label}</span>
-                <span className="font-medium text-gray-400">{f.score}</span>
+                <span className="text-foreground">{f.label}</span>
+                <span className="font-medium text-muted-foreground">{f.score}</span>
               </div>
-              <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-gray-800">
+              <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
                 <div
                   className={`h-full rounded-full ${
-                    f.score >= 70 ? 'bg-emerald-500' : f.score >= 50 ? 'bg-amber-500' : 'bg-red-500'
+                    f.score >= 70 ? 'bg-success' : f.score >= 50 ? 'bg-warning' : 'bg-error'
                   }`}
                   style={{ width: `${f.score}%` }}
                 />
               </div>
-              <p className="mt-1 text-[10px] text-gray-600">{f.detail}</p>
+              <p className="mt-1 text-[10px] text-muted-foreground/70">{f.detail}</p>
             </div>
           ))}
         </div>
@@ -555,34 +555,34 @@ function StrategyView({
       {/* Warnings + recommendations */}
       {(a.warnings.length > 0 || a.coverageGaps.length > 0 || a.recommendations.length > 0) && (
         <section className="grid gap-3 md:grid-cols-2">
-          <div className="rounded-xl border border-gray-800 bg-gray-900 p-4">
-            <h3 className="flex items-center gap-1.5 text-sm font-semibold text-amber-300">
+          <div className="rounded-xl border border-border bg-card p-4">
+            <h3 className="flex items-center gap-1.5 text-sm font-semibold text-link">
               <AlertTriangle className="h-4 w-4" /> Watch-outs
             </h3>
-            <ul className="mt-2 space-y-1.5 text-xs text-gray-400">
+            <ul className="mt-2 space-y-1.5 text-xs text-muted-foreground">
               {[...a.warnings, ...a.coverageGaps].map((w, i) => (
                 <li key={i} className="flex gap-1.5">
-                  <span className="text-amber-500">•</span> {w}
+                  <span className="text-link">•</span> {w}
                 </li>
               ))}
               {a.warnings.length === 0 && a.coverageGaps.length === 0 && (
-                <li className="flex items-center gap-1.5 text-emerald-400">
+                <li className="flex items-center gap-1.5 text-success-text">
                   <CheckCircle2 className="h-3.5 w-3.5" /> No issues detected.
                 </li>
               )}
             </ul>
           </div>
-          <div className="rounded-xl border border-gray-800 bg-gray-900 p-4">
-            <h3 className="flex items-center gap-1.5 text-sm font-semibold text-emerald-300">
+          <div className="rounded-xl border border-border bg-card p-4">
+            <h3 className="flex items-center gap-1.5 text-sm font-semibold text-success-text">
               <Info className="h-4 w-4" /> Recommendations
             </h3>
-            <ul className="mt-2 space-y-1.5 text-xs text-gray-400">
+            <ul className="mt-2 space-y-1.5 text-xs text-muted-foreground">
               {a.recommendations.length === 0 ? (
                 <li>Address the watch-outs to raise the health score.</li>
               ) : (
                 a.recommendations.map((r, i) => (
                   <li key={i} className="flex gap-1.5">
-                    <span className="text-emerald-500">•</span> {r}
+                    <span className="text-success-text">•</span> {r}
                   </li>
                 ))
               )}
@@ -592,22 +592,22 @@ function StrategyView({
       )}
 
       {/* Priority resolution */}
-      <section className="rounded-xl border border-gray-800 bg-gray-900 p-5">
-        <h2 className="text-sm font-semibold text-gray-200">Priority resolution</h2>
-        <p className="mt-1 text-xs text-gray-500">
+      <section className="rounded-xl border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">Priority resolution</h2>
+        <p className="mt-1 text-xs text-muted-foreground">
           When several campaigns apply at once, the engine delivers the highest priority. {a.cadenceNote}
         </p>
         <div className="mt-3 space-y-1.5">
           {a.priorityOrder.map((p) => (
             <div
               key={p.triggerId}
-              className={`flex items-center gap-3 rounded-lg border border-gray-800 bg-gray-950 px-3 py-2 text-xs ${
+              className={`flex items-center gap-3 rounded-lg border border-border bg-background px-3 py-2 text-xs ${
                 p.enabled ? '' : 'opacity-50'
               }`}
             >
-              <span className="w-8 shrink-0 font-mono text-gray-500">P{p.priority}</span>
-              <span className="flex-1 font-medium text-gray-200">{p.label}</span>
-              <span className="text-gray-600">
+              <span className="w-8 shrink-0 font-mono text-muted-foreground">P{p.priority}</span>
+              <span className="flex-1 font-medium text-foreground">{p.label}</span>
+              <span className="text-muted-foreground/70">
                 {p.suppresses.length > 0 ? `suppresses ${p.suppresses.length}` : '—'}
               </span>
             </div>
@@ -617,21 +617,21 @@ function StrategyView({
 
       {/* Channel mix + deliverability */}
       <section className="grid gap-3 md:grid-cols-2">
-        <div className="rounded-xl border border-gray-800 bg-gray-900 p-5">
-          <h2 className="text-sm font-semibold text-gray-200">Channel mix</h2>
+        <div className="rounded-xl border border-border bg-card p-5">
+          <h2 className="text-sm font-semibold text-foreground">Channel mix</h2>
           <div className="mt-3 space-y-2.5">
             {a.channelMix.map((c) => {
               const { label, Icon } = CHANNEL_META[c.channel];
               return (
                 <div key={c.channel}>
                   <div className="flex items-center gap-2 text-xs">
-                    <Icon className="h-3.5 w-3.5 text-gray-400" />
-                    <span className="flex-1 text-gray-300">{label}</span>
-                    <span className="text-gray-500">{c.count} campaigns</span>
+                    <Icon className="h-3.5 w-3.5 text-muted-foreground" />
+                    <span className="flex-1 text-foreground">{label}</span>
+                    <span className="text-muted-foreground">{c.count} campaigns</span>
                   </div>
-                  <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-gray-800">
+                  <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
                     <div
-                      className="h-full rounded-full bg-emerald-500"
+                      className="h-full rounded-full bg-success"
                       style={{ width: `${(c.count / maxChannel) * 100}%` }}
                     />
                   </div>
@@ -640,22 +640,22 @@ function StrategyView({
             })}
           </div>
         </div>
-        <div className="rounded-xl border border-gray-800 bg-gray-900 p-5">
-          <h2 className="text-sm font-semibold text-gray-200">Deliverability</h2>
+        <div className="rounded-xl border border-border bg-card p-5">
+          <h2 className="text-sm font-semibold text-foreground">Deliverability</h2>
           <div className="mt-3 space-y-2">
             {a.deliverability.map((d) => {
               const { label, Icon } = CHANNEL_META[d.channel];
               return (
                 <div key={d.channel} className="flex items-start gap-2 text-xs">
-                  <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gray-400" />
+                  <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />
                   <div className="flex-1">
-                    <span className="font-medium text-gray-200">{label}</span>
-                    <p className="text-gray-500">{d.note}</p>
+                    <span className="font-medium text-foreground">{label}</span>
+                    <p className="text-muted-foreground">{d.note}</p>
                   </div>
                   {d.ready ? (
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success-text" />
                   ) : (
-                    <Clock className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+                    <Clock className="mt-0.5 h-4 w-4 shrink-0 text-link" />
                   )}
                 </div>
               );
@@ -665,8 +665,8 @@ function StrategyView({
       </section>
 
       {/* Engine settings + export */}
-      <section className="rounded-xl border border-gray-800 bg-gray-900 p-5">
-        <h2 className="text-sm font-semibold text-gray-200">Engine settings</h2>
+      <section className="rounded-xl border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">Engine settings</h2>
         <div className="mt-3 max-w-xs">
           <NumberField
             id="global-daily-cap"
@@ -677,11 +677,11 @@ function StrategyView({
             onChange={(v) => setSettings({ globalDailyCap: v })}
           />
         </div>
-        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-gray-800 pt-4">
+        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border pt-4">
           <button
             type="button"
             onClick={copyJson}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-medium text-white hover:bg-emerald-500"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-success px-3 py-2 text-xs font-medium text-white hover:bg-success"
           >
             <Copy className="h-3.5 w-3.5" /> {copied ? 'Copied!' : 'Export strategy as JSON'}
           </button>
@@ -691,12 +691,12 @@ function StrategyView({
               if (confirm('Reset all campaign overrides and settings to the shipped defaults?')) resetAll();
             }}
             disabled={customizedCount === 0 && settings.globalDailyCap === 1}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 px-3 py-2 text-xs font-medium text-gray-300 hover:bg-gray-800 disabled:opacity-40"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-2 text-xs font-medium text-foreground hover:bg-muted disabled:opacity-40"
           >
             <RotateCcw className="h-3.5 w-3.5" /> Reset all
           </button>
-          <p className="text-[11px] text-gray-600">
-            Export captures your tweaks; commit them into <code className="text-gray-500">lib/reengage/triggers.ts</code> to ship globally.
+          <p className="text-[11px] text-muted-foreground/70">
+            Export captures your tweaks; commit them into <code className="text-muted-foreground">lib/reengage/triggers.ts</code> to ship globally.
           </p>
         </div>
       </section>

@@ -56,7 +56,7 @@ export default async function AdminAuditsPage() {
 
       {/* Summary */}
       <section>
-        <h2 className="mb-2 text-sm font-semibold text-gray-300">Findings at a glance</h2>
+        <h2 className="mb-2 text-sm font-semibold text-foreground">Findings at a glance</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           <MetricStat label="Total findings" value={String(summary.total)} hint="across all audits" />
           <MetricStat label="Needs you (P0/P1)" value={String(summary.openCritical)} hint="open & high-priority" tone={summary.openCritical > 0 ? 'default' : 'muted'} />
@@ -65,7 +65,7 @@ export default async function AdminAuditsPage() {
           <MetricStat label="Done" value={String(summary.done)} hint="resolved / tracked done" tone="muted" />
         </div>
         {meta.masterGenerated && (
-          <p className="mt-2 text-xs text-gray-500">
+          <p className="mt-2 text-xs text-muted-foreground">
             Master report generated {fmtDate(meta.masterGenerated)} · mirrored into the dashboard {fmtDate(meta.syncedAt)}.
           </p>
         )}
@@ -78,22 +78,22 @@ export default async function AdminAuditsPage() {
       >
         <div className="grid gap-3 sm:grid-cols-2">
           {sources.map((a) => (
-            <div key={a.id} className="rounded-xl border border-gray-800 bg-gray-900/60 p-3">
+            <div key={a.id} className="rounded-xl border border-border bg-card/60 p-3">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-100">{a.label}</span>
+                <span className="text-sm font-medium text-foreground">{a.label}</span>
                 <StatusBadge tone="neutral">{a.cadence}</StatusBadge>
                 {a.href && (
-                  <Link href={a.href} className="ml-auto text-gray-500 hover:text-amber-400" aria-label={`Open ${a.label} tool`}>
+                  <Link href={a.href} className="ml-auto text-muted-foreground hover:text-link" aria-label={`Open ${a.label} tool`}>
                     <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 )}
               </div>
-              <p className="mt-1 text-xs text-gray-400">{a.blurb}</p>
-              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-gray-500">
+              <p className="mt-1 text-xs text-muted-foreground">{a.blurb}</p>
+              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
                 <span>Last run: {fmtDate(a.lastRunDate)}</span>
                 {a.nextRunIso && <span>· Next: {fmtDate(a.nextRunIso)}</span>}
                 {a.lastReport && (
-                  <span className="text-gray-600">· {a.lastReport.path}</span>
+                  <span className="text-muted-foreground/70">· {a.lastReport.path}</span>
                 )}
               </div>
             </div>
@@ -109,11 +109,11 @@ export default async function AdminAuditsPage() {
         {hasData ? (
           <AuditFindingsTable findings={findings} writable={meta.writable} />
         ) : (
-          <div className="py-6 text-center text-sm text-gray-500">
+          <div className="py-6 text-center text-sm text-muted-foreground">
             <p>No findings yet.</p>
             <p className="mt-1">
-              Run your audits (or <code className="text-gray-400">node scripts/sync-audit-reports.mjs</code>) to
-              populate this from <code className="text-gray-400">docs/master-audit-report.json</code>.
+              Run your audits (or <code className="text-muted-foreground">node scripts/sync-audit-reports.mjs</code>) to
+              populate this from <code className="text-muted-foreground">docs/master-audit-report.json</code>.
             </p>
           </div>
         )}
@@ -121,20 +121,20 @@ export default async function AdminAuditsPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> Your scheduled audit robots (SEO, AI
+          <strong className="text-foreground">What this is.</strong> Your scheduled audit robots (SEO, AI
           features, Engagement, Build-health) and the monthly master compiler write reports to{' '}
           <code>docs/</code>. This hub mirrors them into the dashboard so everything the robots find is
           visible here, alongside <Link href="/admin/approvals">the Action Center</Link> which collects
           what needs your review or approval.
         </p>
         <p>
-          <strong className="text-gray-300">How tracking is saved.</strong> Marking a finding
+          <strong className="text-foreground">How tracking is saved.</strong> Marking a finding
           open/in-progress/done edits a small versioned data file, so your change is a normal git diff you
           commit &amp; push — the same model as Publishing. Production runs read-only, so it&apos;s
           view-only there; track from local dev, then push.
         </p>
         <p>
-          <strong className="text-gray-300">Staying current.</strong> The mirror refreshes automatically
+          <strong className="text-foreground">Staying current.</strong> The mirror refreshes automatically
           after each commit (post-commit hook), or run{' '}
           <code>npm run audits:sync</code> any time.
         </p>

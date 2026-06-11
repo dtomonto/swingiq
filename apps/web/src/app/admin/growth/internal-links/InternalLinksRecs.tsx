@@ -17,16 +17,16 @@ const SECRET_KEY = 'growthos.adminSecret';
 type Action = 'approve' | 'reject' | 'auto-apply';
 
 function statusClass(status: string): string {
-  if (status === 'approved' || status === 'applied' || status === 'auto-applied') return 'text-green-400 bg-green-400/10 border-green-400/30';
-  if (status === 'rejected') return 'text-red-400 bg-red-400/10 border-red-400/30';
-  if (status === 'snoozed') return 'text-gray-400 bg-gray-400/10 border-gray-500/30';
-  return 'text-amber-400 bg-amber-400/10 border-amber-400/30';
+  if (status === 'approved' || status === 'applied' || status === 'auto-applied') return 'text-success-text bg-success/10 border-success/30';
+  if (status === 'rejected') return 'text-error-text bg-error/10 border-error/30';
+  if (status === 'snoozed') return 'text-muted-foreground bg-muted/10 border-border/30';
+  return 'text-link bg-primary/10 border-primary/30';
 }
 
 function scoreClass(score: number): string {
-  if (score >= 70) return 'text-green-400';
-  if (score >= 45) return 'text-amber-400';
-  return 'text-red-400';
+  if (score >= 70) return 'text-success-text';
+  if (score >= 45) return 'text-link';
+  return 'text-error-text';
 }
 
 export function InternalLinksRecs({ recs: initial }: { recs: InternalLinkRecommendation[] }) {
@@ -72,7 +72,7 @@ export function InternalLinksRecs({ recs: initial }: { recs: InternalLinkRecomme
   ];
 
   if (recs.length === 0) {
-    return <p className="text-sm text-gray-500">No internal-link recommendations right now — run the agent or check back after new content ships.</p>;
+    return <p className="text-sm text-muted-foreground">No internal-link recommendations right now — run the agent or check back after new content ships.</p>;
   }
 
   return (
@@ -81,7 +81,7 @@ export function InternalLinksRecs({ recs: initial }: { recs: InternalLinkRecomme
         {tabs.map((t) => (
           <button key={t.id} onClick={() => setFilter(t.id)}
             className={cn('text-xs px-2.5 py-1 rounded-lg border transition-colors',
-              filter === t.id ? 'bg-green-600 border-green-500 text-white' : 'bg-gray-900 border-gray-800 text-gray-400 hover:border-gray-700')}>
+              filter === t.id ? 'bg-success border-success text-white' : 'bg-card border-border text-muted-foreground hover:border-border')}>
             {t.label}
           </button>
         ))}
@@ -89,19 +89,19 @@ export function InternalLinksRecs({ recs: initial }: { recs: InternalLinkRecomme
 
       <ul className="space-y-2">
         {filtered.map((rec) => (
-          <li key={rec.id} className="rounded-xl border border-gray-800 bg-gray-900 p-3">
+          <li key={rec.id} className="rounded-xl border border-border bg-card p-3">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className={cn('text-sm font-semibold', scoreClass(rec.score))}>{rec.score}</span>
-                  <span className="text-sm text-gray-200 truncate">{rec.name}</span>
+                  <span className="text-sm text-foreground truncate">{rec.name}</span>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">{rec.contextSentence}</p>
-                <div className="mt-1.5 flex items-center gap-2 flex-wrap text-[11px] text-gray-500">
-                  <span className="px-1.5 py-0.5 rounded bg-gray-800 border border-gray-700 font-mono">{rec.sourceUrl}</span>
+                <p className="text-xs text-muted-foreground mt-1">{rec.contextSentence}</p>
+                <div className="mt-1.5 flex items-center gap-2 flex-wrap text-[11px] text-muted-foreground">
+                  <span className="px-1.5 py-0.5 rounded bg-muted border border-border font-mono">{rec.sourceUrl}</span>
                   <ExternalLink className="w-3 h-3" />
-                  <span className="px-1.5 py-0.5 rounded bg-gray-800 border border-gray-700 font-mono">{rec.destinationUrl}</span>
-                  <span className="px-1.5 py-0.5 rounded bg-gray-800 border border-gray-700">anchor: {rec.anchorKind}</span>
+                  <span className="px-1.5 py-0.5 rounded bg-muted border border-border font-mono">{rec.destinationUrl}</span>
+                  <span className="px-1.5 py-0.5 rounded bg-muted border border-border">anchor: {rec.anchorKind}</span>
                   <span className={cn('px-1.5 py-0.5 rounded border', statusClass(rec.status))}>{rec.status}</span>
                 </div>
               </div>
@@ -111,26 +111,26 @@ export function InternalLinksRecs({ recs: initial }: { recs: InternalLinkRecomme
               <div className="mt-2.5 flex items-center gap-2">
                 {rec.autoSafe ? (
                   <button onClick={() => act(rec, 'auto-apply')} disabled={busy === rec.id + 'auto-apply'}
-                    className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-green-600 hover:bg-green-500 text-white font-semibold disabled:opacity-60">
+                    className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-success hover:bg-success text-white font-semibold disabled:opacity-60">
                     {busy === rec.id + 'auto-apply' ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Zap className="w-3.5 h-3.5" />} Auto-apply
                   </button>
                 ) : (
                   <button onClick={() => act(rec, 'approve')} disabled={busy === rec.id + 'approve'}
-                    className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-200 hover:border-gray-600 disabled:opacity-60">
+                    className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-muted border border-border text-foreground hover:border-border disabled:opacity-60">
                     {busy === rec.id + 'approve' ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Check className="w-3.5 h-3.5" />} Approve
                   </button>
                 )}
                 <button onClick={() => act(rec, 'reject')} disabled={busy === rec.id + 'reject'}
-                  className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-400 hover:text-red-300 hover:border-red-500/40 disabled:opacity-60">
+                  className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-muted border border-border text-muted-foreground hover:text-error-text hover:border-error/40 disabled:opacity-60">
                   <X className="w-3.5 h-3.5" /> Reject
                 </button>
-                {!rec.autoSafe && <span className="text-[11px] text-gray-600">Manual review (not auto-safe).</span>}
+                {!rec.autoSafe && <span className="text-[11px] text-muted-foreground/70">Manual review (not auto-safe).</span>}
               </div>
             )}
           </li>
         ))}
       </ul>
-      <p className="text-[11px] text-gray-600">
+      <p className="text-[11px] text-muted-foreground/70">
         &ldquo;Auto-apply&rdquo; records the accepted decision and is gated to safe, high-confidence, natural-anchor links.
         It doesn&apos;t edit page source at runtime — insert via your content workflow. Everything is reversible.
       </p>

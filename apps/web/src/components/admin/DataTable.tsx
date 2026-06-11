@@ -121,7 +121,7 @@ export function DataTable<T>({
       {/* Toolbar */}
       {searchText && (
         <div className="relative max-w-xs">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
             value={query}
             onChange={(e) => {
@@ -129,15 +129,15 @@ export function DataTable<T>({
               setPage(0);
             }}
             placeholder={searchPlaceholder}
-            className="w-full rounded-lg border border-gray-700 bg-gray-950 py-2 pl-9 pr-3 text-sm text-gray-100 outline-none focus:border-amber-500"
+            className="w-full rounded-lg border border-border bg-background py-2 pl-9 pr-3 text-sm text-foreground outline-none focus:border-ring"
           />
         </div>
       )}
 
       {/* Bulk action bar */}
       {hasBulk && selectedIds.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/[0.06] px-3 py-2 text-sm">
-          <span className="text-gray-300">{selectedIds.length} selected</span>
+        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-primary/30 bg-primary/[0.06] px-3 py-2 text-sm">
+          <span className="text-foreground">{selectedIds.length} selected</span>
           <div className="flex flex-wrap gap-2">
             {bulkActions!.map((a) => (
               <button
@@ -145,15 +145,15 @@ export function DataTable<T>({
                 onClick={() => a.onRun(selectedIds)}
                 className={`rounded-md px-2 py-1 text-xs font-medium ${
                   a.danger
-                    ? 'bg-red-600/80 text-white hover:bg-red-500'
-                    : 'bg-gray-800 text-gray-200 hover:bg-gray-700'
+                    ? 'bg-error/80 text-white hover:bg-error'
+                    : 'bg-muted text-foreground hover:bg-muted'
                 }`}
               >
                 {a.label}
               </button>
             ))}
           </div>
-          <button onClick={() => setSelected(new Set())} className="ml-auto text-xs text-gray-500 hover:text-gray-300">
+          <button onClick={() => setSelected(new Set())} className="ml-auto text-xs text-muted-foreground hover:text-foreground">
             Clear
           </button>
         </div>
@@ -161,9 +161,9 @@ export function DataTable<T>({
 
       {/* Table — tablet / desktop (≥640px). On phones the card list below
           replaces it so columns never crush or force horizontal scrolling. */}
-      <div className="hidden overflow-x-auto rounded-xl border border-gray-800 sm:block">
+      <div className="hidden overflow-x-auto rounded-xl border border-border sm:block">
         <table className="w-full text-left text-sm">
-          <thead className="bg-gray-900/80 text-[11px] uppercase tracking-wide text-gray-500">
+          <thead className="bg-card/80 text-[11px] uppercase tracking-wide text-muted-foreground">
             <tr>
               {hasBulk && (
                 <th className="w-10 px-3 py-2">
@@ -171,7 +171,7 @@ export function DataTable<T>({
                     type="checkbox"
                     checked={allOnPageSelected}
                     onChange={toggleSelectAllOnPage}
-                    className="accent-amber-500"
+                    className="accent-primary"
                     aria-label="Select all on page"
                   />
                 </th>
@@ -181,7 +181,7 @@ export function DataTable<T>({
                   {c.sortValue ? (
                     <button
                       onClick={() => toggleSort(c.key)}
-                      className="inline-flex items-center gap-1 hover:text-gray-300"
+                      className="inline-flex items-center gap-1 hover:text-foreground"
                     >
                       {c.header}
                       {sortKey === c.key ? (
@@ -197,18 +197,18 @@ export function DataTable<T>({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-800 text-gray-300">
+          <tbody className="divide-y divide-border text-foreground">
             {loading ? (
               Array.from({ length: 5 }).map((_, i) => (
                 <tr key={i}>
                   <td colSpan={columns.length + (hasBulk ? 1 : 0)} className="px-3 py-3">
-                    <div className="h-4 w-full animate-pulse rounded bg-gray-800" />
+                    <div className="h-4 w-full animate-pulse rounded bg-muted" />
                   </td>
                 </tr>
               ))
             ) : pageRows.length === 0 ? (
               <tr>
-                <td colSpan={columns.length + (hasBulk ? 1 : 0)} className="px-3 py-10 text-center text-gray-500">
+                <td colSpan={columns.length + (hasBulk ? 1 : 0)} className="px-3 py-10 text-center text-muted-foreground">
                   {emptyState ?? 'No records found.'}
                 </td>
               </tr>
@@ -219,7 +219,7 @@ export function DataTable<T>({
                 return (
                   <tr
                     key={id}
-                    className={href ? 'cursor-pointer hover:bg-gray-900/60' : 'hover:bg-gray-900/40'}
+                    className={href ? 'cursor-pointer hover:bg-card/60' : 'hover:bg-card/40'}
                     onClick={href ? () => router.push(href) : undefined}
                   >
                     {hasBulk && (
@@ -228,7 +228,7 @@ export function DataTable<T>({
                           type="checkbox"
                           checked={selected.has(id)}
                           onChange={() => toggleRow(id)}
-                          className="accent-amber-500"
+                          className="accent-primary"
                           aria-label="Select row"
                         />
                       </td>
@@ -253,13 +253,13 @@ export function DataTable<T>({
       <div className="space-y-2 sm:hidden">
         {loading ? (
           Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="rounded-xl border border-gray-800 p-3">
-              <div className="h-4 w-2/3 animate-pulse rounded bg-gray-800" />
-              <div className="mt-2 h-3 w-full animate-pulse rounded bg-gray-800/70" />
+            <div key={i} className="rounded-xl border border-border p-3">
+              <div className="h-4 w-2/3 animate-pulse rounded bg-muted" />
+              <div className="mt-2 h-3 w-full animate-pulse rounded bg-muted/70" />
             </div>
           ))
         ) : pageRows.length === 0 ? (
-          <div className="rounded-xl border border-gray-800 px-3 py-10 text-center text-gray-500">
+          <div className="rounded-xl border border-border px-3 py-10 text-center text-muted-foreground">
             {emptyState ?? 'No records found.'}
           </div>
         ) : (
@@ -270,14 +270,14 @@ export function DataTable<T>({
             const renderCell = (c: Column<T>): ReactNode =>
               c.render ? c.render(row) : String((row as Record<string, unknown>)[c.key] ?? '');
             return (
-              <div key={id} className="rounded-xl border border-gray-800 bg-gray-900/40 p-3">
+              <div key={id} className="rounded-xl border border-border bg-card/40 p-3">
                 <div className="flex items-start gap-2">
                   {hasBulk && (
                     <input
                       type="checkbox"
                       checked={selected.has(id)}
                       onChange={() => toggleRow(id)}
-                      className="mt-1 accent-amber-500"
+                      className="mt-1 accent-primary"
                       aria-label="Select row"
                     />
                   )}
@@ -285,7 +285,7 @@ export function DataTable<T>({
                     {href ? (
                       <Link
                         href={href}
-                        className="block rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                        className="block rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
                       >
                         {renderCell(primary)}
                       </Link>
@@ -295,13 +295,13 @@ export function DataTable<T>({
                   </div>
                 </div>
                 {rest.length > 0 && (
-                  <div className="mt-2.5 space-y-1.5 border-t border-gray-800/70 pt-2.5">
+                  <div className="mt-2.5 space-y-1.5 border-t border-border/70 pt-2.5">
                     {rest.map((c) => (
                       <div key={c.key} className="flex items-start justify-between gap-3 text-sm">
-                        <span className="shrink-0 text-[11px] font-medium uppercase tracking-wide text-gray-500">
+                        <span className="shrink-0 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
                           {c.header}
                         </span>
-                        <span className="min-w-0 text-right text-gray-300">{renderCell(c)}</span>
+                        <span className="min-w-0 text-right text-foreground">{renderCell(c)}</span>
                       </div>
                     ))}
                   </div>
@@ -314,7 +314,7 @@ export function DataTable<T>({
 
       {/* Pagination */}
       {sorted.length > pageSize && (
-        <div className="flex items-center justify-between text-xs text-gray-500">
+        <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span>
             {safePage * pageSize + 1}–{Math.min((safePage + 1) * pageSize, sorted.length)} of {sorted.length}
           </span>
@@ -322,7 +322,7 @@ export function DataTable<T>({
             <button
               onClick={() => setPage((p) => Math.max(0, p - 1))}
               disabled={safePage === 0}
-              className="tap-target rounded hover:bg-gray-800 disabled:opacity-30"
+              className="tap-target rounded hover:bg-muted disabled:opacity-30"
               aria-label="Previous page"
             >
               <ChevronLeft className="h-4 w-4" />
@@ -333,7 +333,7 @@ export function DataTable<T>({
             <button
               onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
               disabled={safePage >= pageCount - 1}
-              className="tap-target rounded hover:bg-gray-800 disabled:opacity-30"
+              className="tap-target rounded hover:bg-muted disabled:opacity-30"
               aria-label="Next page"
             >
               <ChevronRight className="h-4 w-4" />

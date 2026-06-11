@@ -169,7 +169,7 @@ export function ReliabilityDashboard({ actor, signals, ingestedEvents }: Props) 
   return (
     <div className="space-y-6">
       {!signals.crossUserCaptureEnabled && (
-        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+        <div className="rounded-lg border border-primary/30 bg-primary/10 px-4 py-3 text-sm text-link">
           Cross-user runtime capture is <strong>off</strong> (no durable backend configured). Showing this admin
           session&apos;s captured failures + signal-derived health only — no numbers are invented for other users.
         </div>
@@ -316,7 +316,7 @@ export function ReliabilityDashboard({ actor, signals, ingestedEvents }: Props) 
 
                   <details className="text-xs">
                     <summary className="cursor-pointer text-muted-foreground">Technical details ({v.recentEvents.length} recent)</summary>
-                    <pre className="mt-2 max-h-48 overflow-auto rounded bg-black/30 p-2 text-[11px] text-foreground/80">
+                    <pre className="mt-2 max-h-48 overflow-auto rounded bg-foreground/30 p-2 text-[11px] text-foreground/80">
                       {JSON.stringify(v.recentEvents, null, 2)}
                     </pre>
                   </details>

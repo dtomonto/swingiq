@@ -23,7 +23,7 @@ export default async function FindingDetailPage({ params }: { params: Promise<{ 
 
   return (
     <div className="mx-auto max-w-3xl space-y-6 p-4 sm:p-6">
-      <Link href="/admin/security-os/findings" className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-300">
+      <Link href="/admin/security-os/findings" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-3.5 w-3.5" /> All findings
       </Link>
       <FindingDetailClient actor={ctx.email ?? 'admin'} finding={finding} generatedAt={scan.generatedAt} />

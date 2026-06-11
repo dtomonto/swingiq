@@ -47,7 +47,7 @@ export default function AdminMonetizationPage() {
       </div>
 
       {!isAdsConfigured && (
-        <div className="rounded-xl border border-amber-500/20 bg-amber-500/[0.05] px-4 py-3 text-sm text-amber-200">
+        <div className="rounded-xl border border-primary/20 bg-primary/[0.05] px-4 py-3 text-sm text-link">
           No ad network connected, so revenue is $0 by design — slots run house promotions that grow the
           product. Per the GTM plan, only switch on paid ads once the free audience is large enough to be worth
           an advertiser&apos;s spend. RPM / CTR / fill data appears here once a network reports it.
@@ -57,17 +57,17 @@ export default function AdminMonetizationPage() {
       <SectionCard title="Placements" description={`${activePlacements} of ${AD_PLACEMENTS.length} active.`}>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-[11px] uppercase tracking-wide text-gray-500">
+            <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
               <tr><th className="pb-2 pr-3">Slot</th><th className="pb-2 pr-3">Surface</th><th className="pb-2 pr-3">Format</th><th className="pb-2">Status</th></tr>
             </thead>
-            <tbody className="text-gray-300">
+            <tbody className="text-foreground">
               {AD_PLACEMENTS.map((p) => (
-                <tr key={p.id} className="border-t border-gray-800">
-                  <td className="py-2 pr-3 font-medium text-gray-200">{p.label}</td>
-                  <td className="py-2 pr-3 text-gray-400">{p.surface}</td>
+                <tr key={p.id} className="border-t border-border">
+                  <td className="py-2 pr-3 font-medium text-foreground">{p.label}</td>
+                  <td className="py-2 pr-3 text-muted-foreground">{p.surface}</td>
                   <td className="py-2 pr-3">{p.format}</td>
                   <td className="py-2">
-                    <span className={p.enabled ? 'text-emerald-400' : 'text-gray-500'}>
+                    <span className={p.enabled ? 'text-success-text' : 'text-muted-foreground'}>
                       {p.enabled ? 'on' : 'off'}{p.sensitive ? ' · sensitive' : ''}
                     </span>
                   </td>
@@ -79,28 +79,28 @@ export default function AdminMonetizationPage() {
       </SectionCard>
 
       <SectionCard title="UX safety rules (always on)">
-        <ul className="space-y-1.5 text-sm text-gray-400">
+        <ul className="space-y-1.5 text-sm text-muted-foreground">
           {SAFETY_RULES.map((r) => (
             <li key={r} className="flex items-start gap-2">
-              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-success-text" />
               {r}
             </li>
           ))}
         </ul>
       </SectionCard>
 
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-muted-foreground">
         For network keys, house-ad inventory and placement details, see{' '}
-        <Link href="/admin/ads" className="text-amber-400 hover:underline">AdsOS</Link>.
+        <Link href="/admin/ads" className="text-link hover:underline">AdsOS</Link>.
       </p>
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The monetization control center. Today
+          <strong className="text-foreground">What this is.</strong> The monetization control center. Today
           that&apos;s ads (keyless-first), with affiliate and membership surfaces as future phases.
         </p>
         <p>
-          <strong className="text-gray-300">What good looks like.</strong> A great free experience first;
+          <strong className="text-foreground">What good looks like.</strong> A great free experience first;
           revenue that never degrades core tool pages. Higher ad density belongs on blog pages, not the
           analyzer.
         </p>

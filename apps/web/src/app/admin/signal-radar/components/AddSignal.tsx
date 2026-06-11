@@ -67,11 +67,11 @@ export function AddSignal({ onClose, onAddManual, onImport }: {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true">
-      <button className="absolute inset-0 bg-black/60" onClick={onClose} aria-label="Close" />
-      <div className="relative z-10 flex max-h-[90vh] w-full max-w-lg flex-col overflow-y-auto rounded-2xl border border-gray-800 bg-gray-950 shadow-2xl">
-        <div className="flex items-center justify-between border-b border-gray-800 p-4">
-          <h3 className="text-base font-semibold text-gray-100">Add / import signals</h3>
-          <button onClick={onClose} className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-800" aria-label="Close"><X className="h-5 w-5" /></button>
+      <button className="absolute inset-0 bg-foreground/60" onClick={onClose} aria-label="Close" />
+      <div className="relative z-10 flex max-h-[90vh] w-full max-w-lg flex-col overflow-y-auto rounded-2xl border border-border bg-background shadow-2xl">
+        <div className="flex items-center justify-between border-b border-border p-4">
+          <h3 className="text-base font-semibold text-foreground">Add / import signals</h3>
+          <button onClick={onClose} className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted" aria-label="Close"><X className="h-5 w-5" /></button>
         </div>
 
         <div className="space-y-4 p-4">
@@ -87,7 +87,7 @@ export function AddSignal({ onClose, onAddManual, onImport }: {
           />
 
           {result && (
-            <div className="flex items-start gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200">
+            <div className="flex items-start gap-2 rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-sm text-success-text">
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" /> {result}
             </div>
           )}
@@ -95,34 +95,34 @@ export function AddSignal({ onClose, onAddManual, onImport }: {
           {mode === 'manual' ? (
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-3">
-                <label className="text-xs text-gray-400">Source type
+                <label className="text-xs text-muted-foreground">Source type
                   <select value={sourceType} onChange={(e) => setSourceType(e.target.value as SignalSourceType)} className={`${INPUT_CLS} mt-1`}>
                     {MANUAL_SOURCES.map((s) => <option key={s} value={s}>{SOURCE_TYPE_LABEL[s]}</option>)}
                   </select>
                 </label>
-                <label className="text-xs text-gray-400">Sport (optional override)
+                <label className="text-xs text-muted-foreground">Sport (optional override)
                   <select value={sportHint} onChange={(e) => setSportHint(e.target.value as SignalSport)} className={`${INPUT_CLS} mt-1`}>
                     {SPORTS.map((s) => <option key={s} value={s}>{s === 'unknown' ? 'Auto-detect' : SPORT_LABEL[s]}</option>)}
                   </select>
                 </label>
               </div>
-              <label className="block text-xs text-gray-400">Source name
+              <label className="block text-xs text-muted-foreground">Source name
                 <input value={sourceName} onChange={(e) => setSourceName(e.target.value)} placeholder="e.g. r/golf, YouTube, a blog" className={`${INPUT_CLS} mt-1`} />
               </label>
-              <label className="block text-xs text-gray-400">Source URL
+              <label className="block text-xs text-muted-foreground">Source URL
                 <input value={sourceUrl} onChange={(e) => setSourceUrl(e.target.value)} placeholder="https://…" className={`${INPUT_CLS} mt-1`} />
               </label>
-              <label className="block text-xs text-gray-400">Title (optional)
+              <label className="block text-xs text-muted-foreground">Title (optional)
                 <input value={title} onChange={(e) => setTitle(e.target.value)} className={`${INPUT_CLS} mt-1`} />
               </label>
-              <label className="block text-xs text-gray-400">Mention text / quote *
+              <label className="block text-xs text-muted-foreground">Mention text / quote *
                 <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} placeholder="Paste the comment, post, quote, email or screenshot description…" className={`${INPUT_CLS} mt-1`} />
               </label>
               <div className="grid grid-cols-2 gap-3">
-                <label className="text-xs text-gray-400">Author (optional)
+                <label className="text-xs text-muted-foreground">Author (optional)
                   <input value={authorName} onChange={(e) => setAuthorName(e.target.value)} className={`${INPUT_CLS} mt-1`} />
                 </label>
-                <label className="text-xs text-gray-400">Published (optional)
+                <label className="text-xs text-muted-foreground">Published (optional)
                   <input type="date" value={publishedAt} onChange={(e) => setPublishedAt(e.target.value)} className={`${INPUT_CLS} mt-1`} />
                 </label>
               </div>
@@ -133,7 +133,7 @@ export function AddSignal({ onClose, onAddManual, onImport }: {
             </div>
           ) : (
             <div className="space-y-3">
-              <p className="text-xs text-gray-500">{IMPORT_HINT[mode]}</p>
+              <p className="text-xs text-muted-foreground">{IMPORT_HINT[mode]}</p>
               <textarea value={bulk} onChange={(e) => setBulk(e.target.value)} rows={10} placeholder="Paste here…" className={`${INPUT_CLS} font-mono text-xs`} />
               <div className="flex justify-end gap-2">
                 <Btn onClick={onClose}>Close</Btn>

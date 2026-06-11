@@ -41,7 +41,7 @@ export function PriorityBadge({ priority }: { priority: PriorityInputs }) {
 
 // ── KPI / stat card ───────────────────────────────────────────
 export function KpiCard({
-  label, value, sublabel, icon: Icon, accent = 'text-green-400', source,
+  label, value, sublabel, icon: Icon, accent = 'text-success-text', source,
 }: {
   label: string;
   value: ReactNode;
@@ -51,14 +51,14 @@ export function KpiCard({
   source?: DataSource;
 }) {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+    <div className="rounded-xl border border-border bg-card p-4">
       <div className="flex items-center justify-between mb-2">
         {Icon ? <Icon className={cn('w-4 h-4', accent)} /> : <span />}
         {source ? <DataSourceBadge source={source} /> : null}
       </div>
       <p className={cn('text-2xl font-bold leading-none', accent)}>{value}</p>
-      <p className="text-xs text-gray-400 mt-1.5">{label}</p>
-      {sublabel ? <p className="text-[11px] text-gray-600 mt-0.5">{sublabel}</p> : null}
+      <p className="text-xs text-muted-foreground mt-1.5">{label}</p>
+      {sublabel ? <p className="text-[11px] text-muted-foreground/70 mt-0.5">{sublabel}</p> : null}
     </div>
   );
 }
@@ -74,11 +74,11 @@ export function SectionCard({
   className?: string;
 }) {
   return (
-    <div className={cn('rounded-xl border border-gray-800 bg-gray-900 overflow-hidden', className)}>
-      <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-gray-800 bg-gray-800/40">
+    <div className={cn('rounded-xl border border-border bg-card overflow-hidden', className)}>
+      <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-border bg-muted/40">
         <div className="flex items-center gap-2 min-w-0">
-          {Icon ? <Icon className="w-4 h-4 text-green-400 shrink-0" /> : null}
-          <h2 className="text-sm font-semibold text-gray-200 truncate">{title}</h2>
+          {Icon ? <Icon className="w-4 h-4 text-success-text shrink-0" /> : null}
+          <h2 className="text-sm font-semibold text-foreground truncate">{title}</h2>
         </div>
         {action}
       </div>
@@ -100,13 +100,13 @@ export function ModuleHeader({
     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
       <div className="flex items-start gap-3 min-w-0">
         {Icon ? (
-          <div className="rounded-lg bg-green-400/10 border border-green-400/20 p-2 shrink-0">
-            <Icon className="w-5 h-5 text-green-400" />
+          <div className="rounded-lg bg-success/10 border border-success/20 p-2 shrink-0">
+            <Icon className="w-5 h-5 text-success-text" />
           </div>
         ) : null}
         <div className="min-w-0">
-          <h1 className="text-xl font-bold text-gray-100">{title}</h1>
-          <p className="text-sm text-gray-400 mt-0.5">{description}</p>
+          <h1 className="text-xl font-bold text-foreground">{title}</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">{description}</p>
         </div>
       </div>
       {children ? <div className="shrink-0">{children}</div> : null}
@@ -124,10 +124,10 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-dashed border-gray-700 bg-gray-900/50 p-8 text-center">
-      {Icon ? <Icon className="w-8 h-8 text-gray-600 mx-auto mb-3" /> : null}
-      <p className="text-sm font-semibold text-gray-300">{title}</p>
-      <p className="text-xs text-gray-500 mt-1 max-w-md mx-auto">{description}</p>
+    <div className="rounded-xl border border-dashed border-border bg-card/50 p-8 text-center">
+      {Icon ? <Icon className="w-8 h-8 text-muted-foreground/70 mx-auto mb-3" /> : null}
+      <p className="text-sm font-semibold text-foreground">{title}</p>
+      <p className="text-xs text-muted-foreground mt-1 max-w-md mx-auto">{description}</p>
       {action ? <div className="mt-4">{action}</div> : null}
     </div>
   );
@@ -150,9 +150,9 @@ export function MockDataNote({ children }: { children?: ReactNode }) {
 /** Definition-style field row used in detail panels. */
 export function FieldRow({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="grid grid-cols-3 gap-2 py-1.5 border-b border-gray-800/60 last:border-0">
-      <dt className="text-xs text-gray-500 col-span-1">{label}</dt>
-      <dd className="text-xs text-gray-300 col-span-2">{children || '—'}</dd>
+    <div className="grid grid-cols-3 gap-2 py-1.5 border-b border-border/60 last:border-0">
+      <dt className="text-xs text-muted-foreground col-span-1">{label}</dt>
+      <dd className="text-xs text-foreground col-span-2">{children || '—'}</dd>
     </div>
   );
 }

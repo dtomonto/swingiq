@@ -95,11 +95,11 @@ export function RecordForm({
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4" role="dialog" aria-modal="true">
-      <button type="button" aria-label="Close" tabIndex={-1} className="absolute inset-0 bg-black/60 cursor-default" onClick={onClose} />
-      <div className="relative w-full max-w-lg max-h-[88vh] overflow-y-auto bg-gray-950 border border-gray-800 rounded-2xl shadow-2xl">
-        <div className="sticky top-0 bg-gray-950/95 backdrop-blur border-b border-gray-800 px-5 py-4 flex items-center justify-between">
-          <p className="text-sm font-semibold text-gray-100">{isEdit ? 'Edit' : 'New'} {def.itemNoun.replace(/s$/, '')}</p>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-300" aria-label="Close"><X className="w-5 h-5" /></button>
+      <button type="button" aria-label="Close" tabIndex={-1} className="absolute inset-0 bg-foreground/60 cursor-default" onClick={onClose} />
+      <div className="relative w-full max-w-lg max-h-[88vh] overflow-y-auto bg-background border border-border rounded-2xl shadow-2xl">
+        <div className="sticky top-0 bg-background/95 backdrop-blur border-b border-border px-5 py-4 flex items-center justify-between">
+          <p className="text-sm font-semibold text-foreground">{isEdit ? 'Edit' : 'New'} {def.itemNoun.replace(/s$/, '')}</p>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground" aria-label="Close"><X className="w-5 h-5" /></button>
         </div>
 
         <div className="p-5 space-y-4">
@@ -108,16 +108,16 @@ export function RecordForm({
           ))}
 
           {error && (
-            <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-xs text-red-300">{error}</div>
+            <div className="rounded-lg bg-error/10 border border-error/30 p-3 text-xs text-error-text">{error}</div>
           )}
         </div>
 
-        <div className="sticky bottom-0 bg-gray-950/95 backdrop-blur border-t border-gray-800 px-5 py-3 flex justify-end gap-2">
-          <button onClick={onClose} className="text-xs px-3 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:border-gray-600">Cancel</button>
+        <div className="sticky bottom-0 bg-background/95 backdrop-blur border-t border-border px-5 py-3 flex justify-end gap-2">
+          <button onClick={onClose} className="text-xs px-3 py-2 rounded-lg bg-muted border border-border text-foreground hover:border-border">Cancel</button>
           <button
             onClick={() => submit()}
             disabled={saving || !String(values.name ?? '').trim()}
-            className={cn('text-xs px-4 py-2 rounded-lg font-semibold flex items-center gap-1.5', saving || !String(values.name ?? '').trim() ? 'bg-gray-700 text-gray-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-500 text-white')}
+            className={cn('text-xs px-4 py-2 rounded-lg font-semibold flex items-center gap-1.5', saving || !String(values.name ?? '').trim() ? 'bg-muted text-muted-foreground cursor-not-allowed' : 'bg-success hover:bg-success text-white')}
           >
             {saving ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Saving…</> : <><Save className="w-3.5 h-3.5" /> {isEdit ? 'Save changes' : 'Create'}</>}
           </button>
@@ -127,10 +127,10 @@ export function RecordForm({
   );
 }
 
-const inputCls = 'w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-hidden focus:ring-1 focus:ring-green-500';
+const inputCls = 'w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder-muted-foreground/70 focus:outline-hidden focus:ring-1 focus:ring-success';
 
 function Field({ field, value, onChange }: { field: FormFieldDef; value: unknown; onChange: (v: unknown) => void }) {
-  const label = <label className="text-xs font-medium text-gray-400 mb-1 block">{field.label}{field.key === 'name' ? ' *' : ''}</label>;
+  const label = <label className="text-xs font-medium text-muted-foreground mb-1 block">{field.label}{field.key === 'name' ? ' *' : ''}</label>;
 
   if (field.input === 'priority') {
     const p = (value as PriorityInputs) ?? { impact: 'medium', confidence: 'medium', effort: 'medium' };
@@ -140,7 +140,7 @@ function Field({ field, value, onChange }: { field: FormFieldDef; value: unknown
         <div className="grid grid-cols-3 gap-2">
           {(['impact', 'confidence', 'effort'] as const).map((dim) => (
             <div key={dim}>
-              <p className="text-[10px] uppercase tracking-wide text-gray-600 mb-1">{dim}</p>
+              <p className="text-[10px] uppercase tracking-wide text-muted-foreground/70 mb-1">{dim}</p>
               <select value={p[dim]} onChange={(e) => onChange({ ...p, [dim]: e.target.value })} className={inputCls}>
                 {SCALES.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
@@ -154,8 +154,8 @@ function Field({ field, value, onChange }: { field: FormFieldDef; value: unknown
   if (field.input === 'checkbox') {
     return (
       <label className="flex items-center gap-2 cursor-pointer">
-        <input type="checkbox" checked={!!value} onChange={(e) => onChange(e.target.checked)} className="w-4 h-4 rounded border-gray-700 bg-gray-900 accent-green-500" />
-        <span className="text-xs text-gray-300">{field.label}</span>
+        <input type="checkbox" checked={!!value} onChange={(e) => onChange(e.target.checked)} className="w-4 h-4 rounded border-border bg-card accent-success" />
+        <span className="text-xs text-foreground">{field.label}</span>
       </label>
     );
   }

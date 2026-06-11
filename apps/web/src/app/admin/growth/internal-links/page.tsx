@@ -42,8 +42,8 @@ export default async function InternalLinksPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <KpiCard label="Recommendations" value={recs.length} icon={Link2} source="real" />
-        <KpiCard label="Pending" value={pending} accent="text-amber-400" source="real" />
-        <KpiCard label="Safe to auto-apply" value={autoSafe} accent="text-green-400" sublabel="one-click" source="real" />
+        <KpiCard label="Pending" value={pending} accent="text-link" source="real" />
+        <KpiCard label="Safe to auto-apply" value={autoSafe} accent="text-success-text" sublabel="one-click" source="real" />
         <KpiCard label="Applied" value={applied} accent="text-blue-400" source="real" />
       </div>
 
@@ -55,26 +55,26 @@ export default async function InternalLinksPage() {
         <SectionCard title="Anchor health — over-optimized destinations" icon={Hash}>
           <ul className="space-y-2">
             {overOptimized.map((p) => (
-              <li key={p.destinationUrl} className="flex items-center justify-between rounded-lg border border-gray-800 bg-gray-800/40 px-3 py-2">
-                <span className="text-xs font-mono text-gray-300 truncate">{p.destinationUrl}</span>
-                <span className="text-[11px] text-amber-400">diversity {p.diversityScore}/100 · {p.total} inbound</span>
+              <li key={p.destinationUrl} className="flex items-center justify-between rounded-lg border border-border bg-muted/40 px-3 py-2">
+                <span className="text-xs font-mono text-foreground truncate">{p.destinationUrl}</span>
+                <span className="text-[11px] text-link">diversity {p.diversityScore}/100 · {p.total} inbound</span>
               </li>
             ))}
           </ul>
-          <p className="mt-2 text-[11px] text-gray-600">Vary inbound anchors toward descriptive / partial-match phrasing to avoid over-optimization.</p>
+          <p className="mt-2 text-[11px] text-muted-foreground/70">Vary inbound anchors toward descriptive / partial-match phrasing to avoid over-optimization.</p>
         </SectionCard>
       )}
 
       <SectionCard title="Site link audit" icon={Search}>
         <RecordModule definitionId="link-audit" records={r.findings} hideNote />
-        <p className="mt-3 text-[11px] text-gray-600">
+        <p className="mt-3 text-[11px] text-muted-foreground/70">
           Findings are computed live. Run the agent to persist them (so they appear here after navigation and can be tracked).
         </p>
       </SectionCard>
 
-      <div className="text-xs text-gray-500">
+      <div className="text-xs text-muted-foreground">
         Looking for the big picture? Open the{' '}
-        <Link href="/admin/growth/link-intelligence" className="text-green-400 hover:underline">Link Intelligence hub</Link>.
+        <Link href="/admin/growth/link-intelligence" className="text-success-text hover:underline">Link Intelligence hub</Link>.
       </div>
     </div>
   );

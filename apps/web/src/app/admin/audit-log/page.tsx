@@ -26,16 +26,16 @@ export default function AdminAuditLogPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> Every mutating admin action (toggling a
+          <strong className="text-foreground">What this is.</strong> Every mutating admin action (toggling a
           flag, suspending a user, reviewing a generated fix) writes an entry here so changes are accountable.
         </p>
         <p>
-          <strong className="text-gray-300">Where it&apos;s stored.</strong> Entries are kept locally on this
+          <strong className="text-foreground">Where it&apos;s stored.</strong> Entries are kept locally on this
           device (the most recent 500). For a shared, server-side trail across admins, an
           <code> admin_audit_log</code> table can be added later and mirrored automatically.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Use it to confirm a change happened, or
+          <strong className="text-foreground">What to do next.</strong> Use it to confirm a change happened, or
           export a snapshot before a risky operation.
         </p>
       </HelpPanel>

@@ -51,7 +51,7 @@ export default async function AdminNotificationsPage() {
 
       <SectionCard title="Alerts" description={`${alerts.length} active signal${alerts.length === 1 ? '' : 's'}.`}>
         {alerts.length === 0 ? (
-          <p className="py-4 text-center text-sm text-gray-500">All clear — no active alerts.</p>
+          <p className="py-4 text-center text-sm text-muted-foreground">All clear — no active alerts.</p>
         ) : (
           <div className="space-y-3">
             {alerts.map((a) => (
@@ -74,11 +74,11 @@ export default async function AdminNotificationsPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A single place to catch failures, review
+          <strong className="text-foreground">What this is.</strong> A single place to catch failures, review
           queues, opportunities and incidents. Severity runs info → success → warning → critical.
         </p>
         <p>
-          <strong className="text-gray-300">Why it&apos;s honest.</strong> Every alert is grounded in something
+          <strong className="text-foreground">Why it&apos;s honest.</strong> Every alert is grounded in something
           observed (a missing integration, a real sport-usage trend). Outbound delivery (email/Slack) can be
           wired later; today this is the in-app center.
         </p>

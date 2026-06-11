@@ -30,14 +30,14 @@ export default async function GrowthOverviewPage() {
 
   // Live internal-link health from the Link Intelligence Agent (in-memory).
   const link = runLinkAgent({ cadence: 'manual' });
-  const linkAccent = link.run.internalLinkHealth >= 70 ? 'text-green-400' : link.run.internalLinkHealth >= 45 ? 'text-amber-400' : 'text-red-400';
+  const linkAccent = link.run.internalLinkHealth >= 70 ? 'text-success-text' : link.run.internalLinkHealth >= 45 ? 'text-link' : 'text-error-text';
 
   const portfolio = [
     { label: 'Channels', value: snap.counts.channels, icon: Layers, href: '/admin/growth/channels', accent: 'text-blue-400' },
-    { label: 'Active campaigns', value: snap.counts.activeCampaigns, icon: Megaphone, href: '/admin/growth/campaigns', accent: 'text-green-400' },
+    { label: 'Active campaigns', value: snap.counts.activeCampaigns, icon: Megaphone, href: '/admin/growth/campaigns', accent: 'text-success-text' },
     { label: 'Experiments', value: snap.counts.experiments, icon: FlaskConical, href: '/admin/growth/experiments', accent: 'text-purple-400' },
-    { label: 'Content in pipeline', value: snap.counts.contentInProgress, icon: FileText, href: '/admin/growth/content', accent: 'text-amber-400' },
-    { label: 'Open recommendations', value: snap.counts.openRecommendations, icon: Lightbulb, href: '/admin/growth/recommendations', accent: 'text-green-400' },
+    { label: 'Content in pipeline', value: snap.counts.contentInProgress, icon: FileText, href: '/admin/growth/content', accent: 'text-link' },
+    { label: 'Open recommendations', value: snap.counts.openRecommendations, icon: Lightbulb, href: '/admin/growth/recommendations', accent: 'text-success-text' },
     { label: 'Open tasks', value: snap.counts.openTasks, icon: ClipboardList, href: '/admin/growth/operations', accent: 'text-blue-400' },
     { label: 'Internal-link health', value: `${link.run.internalLinkHealth}/100`, icon: Network, href: '/admin/growth/link-intelligence', accent: linkAccent },
   ];
@@ -51,18 +51,18 @@ export default async function GrowthOverviewPage() {
       />
 
       {/* Data honesty banner */}
-      <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
+      <div className="rounded-xl border border-primary/30 bg-primary/10 p-4">
         <div className="flex items-start gap-3">
-          <TrendingUp className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-          <div className="text-sm text-amber-200/90">
-            <p className="font-semibold text-amber-300">Reading the numbers</p>
+          <TrendingUp className="w-5 h-5 text-link shrink-0 mt-0.5" />
+          <div className="text-sm text-link/90">
+            <p className="font-semibold text-link">Reading the numbers</p>
             <p className="mt-1 text-xs leading-relaxed">
               Portfolio counts below are <strong>real counts of items you&apos;ve planned in GrowthOS</strong> (seeded with demo data today).
               Funnel performance KPIs are <strong>placeholders</strong> until you connect an analytics provider —
               GrowthOS never shows invented metrics as real.{' '}
               {analyticsOn
                 ? 'Analytics is configured ✓'
-                : <>Analytics is <strong>not connected</strong> — set <code className="text-amber-100">NEXT_PUBLIC_PLAUSIBLE_DOMAIN</code> or <code className="text-amber-100">NEXT_PUBLIC_GA_ID</code>.</>}
+                : <>Analytics is <strong>not connected</strong> — set <code className="text-link">NEXT_PUBLIC_PLAUSIBLE_DOMAIN</code> or <code className="text-link">NEXT_PUBLIC_GA_ID</code>.</>}
             </p>
           </div>
         </div>
@@ -70,17 +70,17 @@ export default async function GrowthOverviewPage() {
 
       {/* Portfolio counts (real counts of planned work) */}
       <div>
-        <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Growth portfolio</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Growth portfolio</p>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
           {portfolio.map((p) => (
             <Link key={p.label} href={p.href} className="group">
-              <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 hover:border-gray-700 transition-colors h-full">
+              <div className="rounded-xl border border-border bg-card p-4 hover:border-border transition-colors h-full">
                 <div className="flex items-center justify-between mb-2">
                   <p.icon className={`w-4 h-4 ${p.accent}`} />
-                  <ArrowRight className="w-3.5 h-3.5 text-gray-600 group-hover:text-gray-400 transition-colors" />
+                  <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/70 group-hover:text-muted-foreground transition-colors" />
                 </div>
                 <p className={`text-2xl font-bold ${p.accent}`}>{p.value}</p>
-                <p className="text-xs text-gray-400 mt-1">{p.label}</p>
+                <p className="text-xs text-muted-foreground mt-1">{p.label}</p>
               </div>
             </Link>
           ))}
@@ -89,7 +89,7 @@ export default async function GrowthOverviewPage() {
 
       {/* Funnel KPIs (placeholder until analytics connected) */}
       <div>
-        <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Funnel performance</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Funnel performance</p>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {snap.metrics.slice(0, 4).map((m) => (
             <KpiCard
@@ -98,7 +98,7 @@ export default async function GrowthOverviewPage() {
               value={m.value === null ? '—' : String(m.value)}
               sublabel={m.definition}
               source={m.dataSource}
-              accent="text-gray-300"
+              accent="text-foreground"
             />
           ))}
         </div>
@@ -109,25 +109,25 @@ export default async function GrowthOverviewPage() {
         <SectionCard
           title="AI strategic recommendations"
           icon={Lightbulb}
-          action={<Link href="/admin/growth/recommendations" className="text-xs text-green-400 hover:text-green-300">View all →</Link>}
+          action={<Link href="/admin/growth/recommendations" className="text-xs text-success-text hover:text-success-text">View all →</Link>}
         >
           <div className="space-y-3">
             {snap.topRecommendations.map((r) => (
-              <div key={r.id} className="rounded-lg border border-gray-800 bg-gray-800/40 p-3">
+              <div key={r.id} className="rounded-lg border border-border bg-muted/40 p-3">
                 <div className="flex items-start justify-between gap-2">
-                  <p className="text-sm font-medium text-gray-200">{r.name}</p>
+                  <p className="text-sm font-medium text-foreground">{r.name}</p>
                   <PriorityBadge priority={r.priority} />
                 </div>
-                <p className="text-xs text-gray-400 mt-1 leading-relaxed">{r.reasoning}</p>
-                <div className="flex items-center gap-2 mt-2 text-[11px] text-gray-500">
-                  <span className="px-1.5 py-0.5 rounded bg-gray-800 border border-gray-700">{humanize(r.lever)}</span>
+                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{r.reasoning}</p>
+                <div className="flex items-center gap-2 mt-2 text-[11px] text-muted-foreground">
+                  <span className="px-1.5 py-0.5 rounded bg-muted border border-border">{humanize(r.lever)}</span>
                   <span>·</span>
                   <span>{r.basis === 'data' ? 'Data-backed' : 'Strategic'}</span>
                 </div>
               </div>
             ))}
             {!aiOn && (
-              <p className="text-[11px] text-gray-600 pt-1">
+              <p className="text-[11px] text-muted-foreground/70 pt-1">
                 Tip: connect an AI provider (<code>AI_PROVIDER</code> + key) to generate tailored recommendations in the AI Strategist.
               </p>
             )}
@@ -138,23 +138,23 @@ export default async function GrowthOverviewPage() {
         <SectionCard
           title="Upcoming on the calendar"
           icon={CalendarDays}
-          action={<Link href="/admin/growth/calendar" className="text-xs text-green-400 hover:text-green-300">Open calendar →</Link>}
+          action={<Link href="/admin/growth/calendar" className="text-xs text-success-text hover:text-success-text">Open calendar →</Link>}
         >
           <div className="space-y-2">
             {snap.upcoming.length === 0 ? (
-              <p className="text-xs text-gray-500">Nothing scheduled yet.</p>
+              <p className="text-xs text-muted-foreground">Nothing scheduled yet.</p>
             ) : (
               snap.upcoming.map((c) => (
-                <div key={c.id} className="flex items-center gap-3 rounded-lg border border-gray-800 bg-gray-800/40 px-3 py-2">
+                <div key={c.id} className="flex items-center gap-3 rounded-lg border border-border bg-muted/40 px-3 py-2">
                   <div className="text-center shrink-0 w-12">
-                    <p className="text-[10px] text-gray-500 uppercase">{new Date(c.date).toLocaleDateString('en-US', { month: 'short' })}</p>
-                    <p className="text-sm font-bold text-gray-200">{new Date(c.date).getDate()}</p>
+                    <p className="text-[10px] text-muted-foreground uppercase">{new Date(c.date).toLocaleDateString('en-US', { month: 'short' })}</p>
+                    <p className="text-sm font-bold text-foreground">{new Date(c.date).getDate()}</p>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm text-gray-200 truncate">{c.name}</p>
-                    <p className="text-[11px] text-gray-500">{humanize(c.itemType)} · {c.channel}</p>
+                    <p className="text-sm text-foreground truncate">{c.name}</p>
+                    <p className="text-[11px] text-muted-foreground">{humanize(c.itemType)} · {c.channel}</p>
                   </div>
-                  <span className="text-[11px] text-gray-500 shrink-0">{formatDate(c.date)}</span>
+                  <span className="text-[11px] text-muted-foreground shrink-0">{formatDate(c.date)}</span>
                 </div>
               ))
             )}
@@ -164,19 +164,19 @@ export default async function GrowthOverviewPage() {
 
       {/* Welcome / what is this */}
       <SectionCard title="What is GrowthOS?" icon={Sparkles}>
-        <div className="text-sm text-gray-400 space-y-2 leading-relaxed">
+        <div className="text-sm text-muted-foreground space-y-2 leading-relaxed">
           <p>
             GrowthOS is your internal marketing operating system — 28 connected modules spanning strategy, channels,
             campaigns, SEO/AEO/GEO, content, social, lifecycle, paid media, experiments, CRO, brand, analytics, and an AI strategist.
           </p>
           <p>
-            Everything is <strong className="text-gray-300">draft-first and honest</strong>: AI output is labeled as drafts for your review,
+            Everything is <strong className="text-foreground">draft-first and honest</strong>: AI output is labeled as drafts for your review,
             no message ever auto-sends, and every number is tagged with where it came from. Use the left sidebar to explore.
           </p>
           <div className="flex flex-wrap gap-2 pt-1">
-            <Link href="/admin/growth/strategy" className="text-xs px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:border-gray-600">Strategy Hub →</Link>
-            <Link href="/admin/growth/ai-strategist" className="text-xs px-3 py-1.5 rounded-lg bg-green-600/15 border border-green-600/30 text-green-300 hover:bg-green-600/25">Try the AI Strategist →</Link>
-            <Link href="/admin/growth/analytics" className="text-xs px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:border-gray-600">UTM builder →</Link>
+            <Link href="/admin/growth/strategy" className="text-xs px-3 py-1.5 rounded-lg bg-muted border border-border text-foreground hover:border-border">Strategy Hub →</Link>
+            <Link href="/admin/growth/ai-strategist" className="text-xs px-3 py-1.5 rounded-lg bg-success/15 border border-success/30 text-success-text hover:bg-success/25">Try the AI Strategist →</Link>
+            <Link href="/admin/growth/analytics" className="text-xs px-3 py-1.5 rounded-lg bg-muted border border-border text-foreground hover:border-border">UTM builder →</Link>
           </div>
         </div>
       </SectionCard>

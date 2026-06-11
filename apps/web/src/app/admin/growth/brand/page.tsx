@@ -122,14 +122,14 @@ export default async function BrandVoicePage() {
           >
             {/* Category-level framing note */}
             {isApprovedClaims && (
-              <div className="mb-3 rounded-lg bg-green-500/10 border border-green-500/20 px-3 py-2 text-xs text-green-300">
+              <div className="mb-3 rounded-lg bg-success/10 border border-success/20 px-3 py-2 text-xs text-success-text">
                 <CheckCircle className="inline-block w-3.5 h-3.5 mr-1.5 -mt-0.5" />
                 <strong>Substantiated claims only.</strong> Each item below has been verified and
                 may be used in marketing copy, ads, and sales collateral.
               </div>
             )}
             {isBannedClaims && (
-              <div className="mb-3 rounded-lg bg-red-500/10 border border-red-500/20 px-3 py-2 text-xs text-red-300">
+              <div className="mb-3 rounded-lg bg-error/10 border border-error/20 px-3 py-2 text-xs text-error-text">
                 <Ban className="inline-block w-3.5 h-3.5 mr-1.5 -mt-0.5" />
                 <strong>Do not use — ever.</strong> These claims are stored here so the AI
                 Strategist knows to avoid them. They are unsubstantiated, legally risky, or
@@ -144,29 +144,29 @@ export default async function BrandVoicePage() {
                   className={[
                     'rounded-lg border px-3 py-2.5',
                     isApprovedClaims
-                      ? 'bg-green-500/5 border-green-500/20'
+                      ? 'bg-success/5 border-success/20'
                       : isBannedClaims
-                        ? 'bg-red-500/5 border-red-500/20'
-                        : 'bg-gray-800/40 border-gray-800',
+                        ? 'bg-error/5 border-error/20'
+                        : 'bg-muted/40 border-border',
                   ].join(' ')}
                 >
                   <div className="flex items-start gap-2">
                     {/* Claim treatment badges */}
                     {isApprovedClaims && (
-                      <CheckCircle className="w-3.5 h-3.5 text-green-400 shrink-0 mt-0.5" />
+                      <CheckCircle className="w-3.5 h-3.5 text-success-text shrink-0 mt-0.5" />
                     )}
                     {isBannedClaims && (
-                      <Ban className="w-3.5 h-3.5 text-red-400 shrink-0 mt-0.5" />
+                      <Ban className="w-3.5 h-3.5 text-error-text shrink-0 mt-0.5" />
                     )}
 
                     <p
                       className={[
                         'text-sm leading-relaxed flex-1',
                         isApprovedClaims
-                          ? 'text-gray-200'
+                          ? 'text-foreground'
                           : isBannedClaims
-                            ? 'text-red-300/80 line-through decoration-red-500/50'
-                            : 'text-gray-300',
+                            ? 'text-error-text/80 line-through decoration-error-text/50'
+                            : 'text-foreground',
                       ].join(' ')}
                     >
                       {asset.content}
@@ -174,13 +174,13 @@ export default async function BrandVoicePage() {
 
                     {/* Status badge for claim categories */}
                     {isApprovedClaims && (
-                      <Badge className="text-green-400 bg-green-400/10 border-green-400/30 shrink-0 self-start">
+                      <Badge className="text-success-text bg-success/10 border-success/30 shrink-0 self-start">
                         <CheckCircle className="w-3 h-3" />
                         Approved claim
                       </Badge>
                     )}
                     {isBannedClaims && (
-                      <Badge className="text-red-400 bg-red-400/10 border-red-400/30 shrink-0 self-start">
+                      <Badge className="text-error-text bg-error/10 border-error/30 shrink-0 self-start">
                         <Ban className="w-3 h-3" />
                         Banned
                       </Badge>
@@ -188,7 +188,7 @@ export default async function BrandVoicePage() {
 
                     {/* For non-claim categories, show approved/unapproved state if applicable */}
                     {!isApprovedClaims && !isBannedClaims && !asset.approved && (
-                      <Badge className="text-amber-400 bg-amber-400/10 border-amber-400/30 shrink-0 self-start">
+                      <Badge className="text-link bg-primary/10 border-primary/30 shrink-0 self-start">
                         Draft
                       </Badge>
                     )}
@@ -201,10 +201,10 @@ export default async function BrandVoicePage() {
       })}
 
       {categories.length === 0 && (
-        <div className="rounded-xl border border-dashed border-gray-700 bg-gray-900/50 p-8 text-center">
-          <Palette className="w-8 h-8 text-gray-600 mx-auto mb-3" />
-          <p className="text-sm font-semibold text-gray-300">No brand voice assets yet</p>
-          <p className="text-xs text-gray-500 mt-1 max-w-md mx-auto">
+        <div className="rounded-xl border border-dashed border-border bg-card/50 p-8 text-center">
+          <Palette className="w-8 h-8 text-muted-foreground/70 mx-auto mb-3" />
+          <p className="text-sm font-semibold text-foreground">No brand voice assets yet</p>
+          <p className="text-xs text-muted-foreground mt-1 max-w-md mx-auto">
             Add positioning, tone, approved claims, and banned claims to populate this library.
           </p>
         </div>

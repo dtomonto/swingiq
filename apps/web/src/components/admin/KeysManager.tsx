@@ -114,15 +114,15 @@ export function KeysManager() {
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-2">
-        <KeyRound className="h-5 w-5 text-emerald-400" />
-        <h2 className="text-base font-semibold text-gray-100">Keys &amp; Secrets</h2>
+        <KeyRound className="h-5 w-5 text-success-text" />
+        <h2 className="text-base font-semibold text-foreground">Keys &amp; Secrets</h2>
       </div>
 
       {!vaultWritable && (
-        <div className="flex items-start gap-2 rounded-xl border border-amber-500/30 bg-amber-500/[0.06] px-4 py-3 text-sm text-amber-200">
+        <div className="flex items-start gap-2 rounded-xl border border-primary/30 bg-primary/[0.06] px-4 py-3 text-sm text-link">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
           <span>
-            The vault is locked. Set <code className="rounded bg-gray-800 px-1 font-mono text-[11px]">SECRETS_ENCRYPTION_KEY</code>{' '}
+            The vault is locked. Set <code className="rounded bg-muted px-1 font-mono text-[11px]">SECRETS_ENCRYPTION_KEY</code>{' '}
             (a 32-byte base64 string) in your host to store keys here. Until then keys must be set as host
             env vars; this page shows their status read-only.
           </span>
@@ -130,15 +130,15 @@ export function KeysManager() {
       )}
 
       {error && (
-        <div className="rounded-xl border border-red-500/30 bg-red-500/[0.06] px-4 py-3 text-sm text-red-300">{error}</div>
+        <div className="rounded-xl border border-error/30 bg-error/[0.06] px-4 py-3 text-sm text-error-text">{error}</div>
       )}
 
       {/* Add / replace via paste + auto-detect */}
-      <div className="rounded-xl border border-gray-800 bg-gray-900/40 p-4">
-        <div className="flex items-center gap-2 text-sm font-medium text-gray-200">
-          <Wand2 className="h-4 w-4 text-emerald-400" /> Add or replace a key
+      <div className="rounded-xl border border-border bg-card/40 p-4">
+        <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+          <Wand2 className="h-4 w-4 text-success-text" /> Add or replace a key
         </div>
-        <p className="mt-1 text-xs text-gray-500">Paste a key — the provider is detected automatically. Values are encrypted at rest and never shown again.</p>
+        <p className="mt-1 text-xs text-muted-foreground">Paste a key — the provider is detected automatically. Values are encrypted at rest and never shown again.</p>
         <input
           type="password"
           autoComplete="off"
@@ -152,14 +152,14 @@ export function KeysManager() {
           }}
           placeholder="Paste an API key or value…"
           disabled={!vaultWritable || busy}
-          className="mt-3 w-full rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 font-mono text-sm text-gray-100 placeholder:text-gray-600 focus:border-emerald-500 focus:outline-none disabled:opacity-50"
+          className="mt-3 w-full rounded-lg border border-border bg-background px-3 py-2 font-mono text-sm text-foreground placeholder:text-muted-foreground/70 focus:border-success focus:outline-none disabled:opacity-50"
         />
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <select
             value={targetName}
             onChange={(e) => setTargetName(e.target.value)}
             disabled={!vaultWritable || busy}
-            className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100 focus:border-emerald-500 focus:outline-none disabled:opacity-50"
+            className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-success focus:outline-none disabled:opacity-50"
           >
             <option value="">Select destination key…</option>
             {MANAGED_KEYS.map((k) => (
@@ -169,14 +169,14 @@ export function KeysManager() {
             ))}
           </select>
           {detected && (
-            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/[0.08] px-2.5 py-1 text-xs text-emerald-300">
+            <span className="inline-flex items-center gap-1 rounded-full border border-success/30 bg-success/[0.08] px-2.5 py-1 text-xs text-success-text">
               <ShieldCheck className="h-3 w-3" /> Detected: {detected.providerLabel}
             </span>
           )}
           <button
             onClick={() => void save()}
             disabled={!vaultWritable || busy || !targetName || !pasted.trim()}
-            className="ml-auto rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-40"
+            className="ml-auto rounded-lg bg-success px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-40"
           >
             {busy ? 'Saving…' : 'Save key'}
           </button>
@@ -185,22 +185,22 @@ export function KeysManager() {
 
       {/* Status list */}
       {loading ? (
-        <p className="text-sm text-gray-500">Loading keys…</p>
+        <p className="text-sm text-muted-foreground">Loading keys…</p>
       ) : (
         grouped.map(({ cat, items }) => (
           <div key={cat} className="space-y-2">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-600">{CATEGORY_LABEL[cat]}</p>
-            <div className="overflow-hidden rounded-xl border border-gray-800">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/70">{CATEGORY_LABEL[cat]}</p>
+            <div className="overflow-hidden rounded-xl border border-border">
               {items.map((s) => (
-                <div key={s.name} className="flex items-center gap-3 border-b border-gray-800 bg-gray-900/30 px-4 py-3 last:border-b-0">
+                <div key={s.name} className="flex items-center gap-3 border-b border-border bg-card/30 px-4 py-3 last:border-b-0">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="truncate text-sm font-medium text-gray-100">{s.label}</span>
+                      <span className="truncate text-sm font-medium text-foreground">{s.label}</span>
                       <SourceBadge source={s.source} />
                     </div>
-                    <p className="truncate text-xs text-gray-500">{s.providerLabel} · {s.activates}</p>
+                    <p className="truncate text-xs text-muted-foreground">{s.providerLabel} · {s.activates}</p>
                     {s.source !== 'none' && (
-                      <code className="mt-0.5 block font-mono text-[11px] text-gray-400">{s.masked}</code>
+                      <code className="mt-0.5 block font-mono text-[11px] text-muted-foreground">{s.masked}</code>
                     )}
                   </div>
                   {s.source === 'vault' && (
@@ -208,7 +208,7 @@ export function KeysManager() {
                       onClick={() => void remove(s.name)}
                       disabled={busy}
                       title="Remove from vault"
-                      className="rounded-lg border border-gray-700 p-2 text-gray-400 transition-colors hover:border-red-500/40 hover:text-red-300 disabled:opacity-40"
+                      className="rounded-lg border border-border p-2 text-muted-foreground transition-colors hover:border-error/40 hover:text-error-text disabled:opacity-40"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </button>
@@ -225,9 +225,9 @@ export function KeysManager() {
 
 function SourceBadge({ source }: { source: SecretStatus['source'] }) {
   const map = {
-    env: { label: 'Host env', cls: 'border-sky-500/30 bg-sky-500/[0.08] text-sky-300' },
-    vault: { label: 'Vault', cls: 'border-emerald-500/30 bg-emerald-500/[0.08] text-emerald-300' },
-    none: { label: 'Not set', cls: 'border-gray-700 bg-gray-800/40 text-gray-500' },
+    env: { label: 'Host env', cls: 'border-primary/30 bg-primary/[0.08] text-link' },
+    vault: { label: 'Vault', cls: 'border-success/30 bg-success/[0.08] text-success-text' },
+    none: { label: 'Not set', cls: 'border-border bg-muted/40 text-muted-foreground' },
   } as const;
   const m = map[source];
   return <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold ${m.cls}`}>{m.label}</span>;

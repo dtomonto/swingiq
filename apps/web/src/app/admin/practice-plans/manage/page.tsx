@@ -48,18 +48,18 @@ export default function AdminPlanEditorPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">Why templates.</strong> Plans are personalized per athlete by the
+          <strong className="text-foreground">Why templates.</strong> Plans are personalized per athlete by the
           planner, so there is no fixed list to manage. These templates seed that system — a curated starting
           point per sport and level that you can shape. Editing here builds a <em>local overlay</em>; the
           planner logic still lives in <code>lib/agents/workflows/practice-planner.ts</code>.
         </p>
         <p>
-          <strong className="text-gray-300">Going global.</strong> Click <em>Export JSON</em> and commit the
+          <strong className="text-foreground">Going global.</strong> Click <em>Export JSON</em> and commit the
           file (or hand it to a developer) to apply your templates for all users. Production data stays safe:
           no destructive writes ever happen from the browser.
         </p>
         <p>
-          <strong className="text-gray-300">Status &amp; safety.</strong> New and edited templates start as
+          <strong className="text-foreground">Status &amp; safety.</strong> New and edited templates start as
           <em> draft</em>; mark them <em>active</em> when reviewed, or <em>retired</em> to phase one out.
           Deleting a custom template or resetting all edits asks for confirmation first.
         </p>

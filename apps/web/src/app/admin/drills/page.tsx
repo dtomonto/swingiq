@@ -57,18 +57,18 @@ export default function AdminDrillLibraryPage() {
         <SectionCard
           title={
             <span className="flex items-center gap-2">
-              <AlertTriangle className="h-4 w-4 text-amber-400" />
+              <AlertTriangle className="h-4 w-4 text-link" />
               Possible duplicate drills
-              <span className="text-xs font-normal text-gray-500">{library.duplicateNames.length}</span>
+              <span className="text-xs font-normal text-muted-foreground">{library.duplicateNames.length}</span>
             </span>
           }
           description="Drill names that appear in more than one catalog — worth checking whether they should be merged."
         >
-          <ul className="space-y-1 text-sm text-gray-400">
+          <ul className="space-y-1 text-sm text-muted-foreground">
             {library.duplicateNames.slice(0, 12).map((d) => (
               <li key={d.name}>
-                <span className="text-gray-200">{titleize(d.name)}</span>{' '}
-                <span className="text-xs text-gray-500">({d.ids.join(', ')})</span>
+                <span className="text-foreground">{titleize(d.name)}</span>{' '}
+                <span className="text-xs text-muted-foreground">({d.ids.join(', ')})</span>
               </li>
             ))}
           </ul>
@@ -81,13 +81,13 @@ export default function AdminDrillLibraryPage() {
           title={
             <span className="flex items-center gap-2">
               {titleize(group.sport)}
-              <span className="text-xs font-normal text-gray-500">({group.drills.length})</span>
+              <span className="text-xs font-normal text-muted-foreground">({group.drills.length})</span>
             </span>
           }
         >
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="text-[11px] uppercase tracking-wide text-gray-500">
+              <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
                 <tr>
                   <th className="pb-2 pr-3">Drill</th>
                   <th className="pb-2 pr-3">Category</th>
@@ -98,25 +98,25 @@ export default function AdminDrillLibraryPage() {
                   <th className="pb-2">Source</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-300">
+              <tbody className="text-foreground">
                 {group.drills.map((d) => (
-                  <tr key={`${d.source}:${d.id}`} className="border-t border-gray-800 align-top">
+                  <tr key={`${d.source}:${d.id}`} className="border-t border-border align-top">
                     <td className="py-2 pr-3">
-                      <span className="font-medium text-gray-100">{d.name}</span>
+                      <span className="font-medium text-foreground">{d.name}</span>
                       {d.safetyNote && (
                         <span className="ml-1 inline-flex" title={d.safetyNote}>
-                          <ShieldCheck className="inline h-3 w-3 text-emerald-400" />
+                          <ShieldCheck className="inline h-3 w-3 text-success-text" />
                         </span>
                       )}
                     </td>
-                    <td className="py-2 pr-3 text-gray-400">{d.category}</td>
+                    <td className="py-2 pr-3 text-muted-foreground">{d.category}</td>
                     <td className="py-2 pr-3">
                       <StatusBadge tone={DIFFICULTY_TONE[d.difficulty]}>{d.difficulty}</StatusBadge>
                     </td>
-                    <td className="max-w-[16rem] py-2 pr-3 text-gray-400">{d.targetFault}</td>
-                    <td className="py-2 pr-3 text-gray-500">{d.duration}</td>
-                    <td className="py-2 pr-3 text-gray-500">{d.equipment.length ? d.equipment.join(', ') : '—'}</td>
-                    <td className="py-2 text-gray-500">{d.source === 'drillmatch' ? 'DrillMatch' : 'Content'}</td>
+                    <td className="max-w-[16rem] py-2 pr-3 text-muted-foreground">{d.targetFault}</td>
+                    <td className="py-2 pr-3 text-muted-foreground">{d.duration}</td>
+                    <td className="py-2 pr-3 text-muted-foreground">{d.equipment.length ? d.equipment.join(', ') : '—'}</td>
+                    <td className="py-2 text-muted-foreground">{d.source === 'drillmatch' ? 'DrillMatch' : 'Content'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -127,18 +127,18 @@ export default function AdminDrillLibraryPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> One read-only view of every drill the
+          <strong className="text-foreground">What this is.</strong> One read-only view of every drill the
           product can recommend, pulled live from the real catalogs — the multi-sport content drills and the
           DrillMatch fault-fixing candidates. It exists so you can see coverage at a glance: which sports and
           difficulty levels are well-served, what targets faults, and where drills may be duplicated.
         </p>
         <p>
-          <strong className="text-gray-300">Sources.</strong> Drills marked <em>Content</em> come from the
+          <strong className="text-foreground">Sources.</strong> Drills marked <em>Content</em> come from the
           curated drill content set; <em>DrillMatch</em> drills are the fault-matched candidates the Fix Stack
           scores against. Equipment and safety notes are shown where the source provides them.
         </p>
         <p>
-          <strong className="text-gray-300">Editing.</strong> This board is read-only today. Drills are
+          <strong className="text-foreground">Editing.</strong> This board is read-only today. Drills are
           defined in code (<code>data/drills-content.ts</code> and the DrillMatch catalog); editing/creating
           drills from the admin UI is a planned follow-up tracked in the Data &amp; AI roadmap.
         </p>

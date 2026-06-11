@@ -30,15 +30,15 @@ export default function AdminBenchmarksPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">How grading uses this.</strong> A session&apos;s 0–100 dimension
+          <strong className="text-foreground">How grading uses this.</strong> A session&apos;s 0–100 dimension
           scores are compared to the row for the player&apos;s profile. Meeting the benchmark is a B; clearing
           it by ~10 is an A; falling short drops to C/D/F — all relative to their level.
         </p>
         <p>
-          <strong className="text-gray-300">Local vs global.</strong> There is no benchmark backend, so an
+          <strong className="text-foreground">Local vs global.</strong> There is no benchmark backend, so an
           edit here is an operator override on this device (handy for tuning + preview). To roll a change
           out to everyone, use <em>Copy as JSON</em> and commit it as the new default in
-          <code className="mx-1 rounded bg-gray-800 px-1">lib/grading/profiles.ts</code>.
+          <code className="mx-1 rounded bg-muted px-1">lib/grading/profiles.ts</code>.
         </p>
       </HelpPanel>
     </div>

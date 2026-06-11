@@ -49,28 +49,28 @@ export function ConnectGsc({ status, summary }: { status: GscStatus; summary: Gs
   }
 
   return (
-    <div className={`rounded-xl border p-4 ${status.connected ? 'border-green-500/30 bg-green-500/5' : 'border-gray-800 bg-gray-900'}`}>
+    <div className={`rounded-xl border p-4 ${status.connected ? 'border-success/30 bg-success/5' : 'border-border bg-card'}`}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 min-w-0">
           {status.connected
-            ? <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />
-            : <Plug className="w-5 h-5 text-gray-500 shrink-0" />}
+            ? <CheckCircle2 className="w-5 h-5 text-success-text shrink-0" />
+            : <Plug className="w-5 h-5 text-muted-foreground shrink-0" />}
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-gray-100">Google Search Console</p>
-            <p className="text-xs text-gray-500 truncate">{status.note}</p>
+            <p className="text-sm font-semibold text-foreground">Google Search Console</p>
+            <p className="text-xs text-muted-foreground truncate">{status.note}</p>
           </div>
         </div>
         {status.connected ? (
           <button
             onClick={() => sync()}
             disabled={state === 'syncing'}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-green-600 hover:bg-green-500 disabled:opacity-60 text-white text-sm font-semibold px-3.5 py-2"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-success hover:bg-success disabled:opacity-60 text-white text-sm font-semibold px-3.5 py-2"
           >
             {state === 'syncing' ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
             {state === 'syncing' ? 'Syncing…' : state === 'done' ? 'Synced' : 'Sync now'}
           </button>
         ) : (
-          <span className="text-[11px] text-amber-400 font-mono">set {status.missing.join(' + ')}</span>
+          <span className="text-[11px] text-link font-mono">set {status.missing.join(' + ')}</span>
         )}
       </div>
 
@@ -83,16 +83,16 @@ export function ConnectGsc({ status, summary }: { status: GscStatus; summary: Gs
         </div>
       ) : null}
 
-      {note ? <p className="mt-2 text-[11px] text-gray-500">{note}</p> : null}
+      {note ? <p className="mt-2 text-[11px] text-muted-foreground">{note}</p> : null}
     </div>
   );
 }
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-gray-800 bg-gray-800/40 px-3 py-2">
-      <p className="text-sm font-bold text-gray-100 tabular-nums">{value}</p>
-      <p className="text-[10px] text-gray-500">{label}</p>
+    <div className="rounded-lg border border-border bg-muted/40 px-3 py-2">
+      <p className="text-sm font-bold text-foreground tabular-nums">{value}</p>
+      <p className="text-[10px] text-muted-foreground">{label}</p>
     </div>
   );
 }

@@ -87,10 +87,10 @@ export function RecordAssistAdminDashboard() {
           <StatusBadge tone={enabled ? 'success' : 'danger'}>
             {enabled ? 'RecordAssist is ON' : 'RecordAssist is OFF'}
           </StatusBadge>
-          <Link href="/admin/feature-flags" className="text-sm text-amber-400 hover:underline">
+          <Link href="/admin/feature-flags" className="text-sm text-link hover:underline">
             Manage in Feature Flags →
           </Link>
-          <Link href="/record-assist" className="text-sm text-amber-400 hover:underline">
+          <Link href="/record-assist" className="text-sm text-link hover:underline">
             Open the live experience →
           </Link>
         </div>
@@ -103,20 +103,20 @@ export function RecordAssistAdminDashboard() {
             <table className="w-full text-sm">
               <tbody>
                 {Object.entries(DEFAULT_WEIGHTS).map(([k, v]) => (
-                  <tr key={k} className="border-b border-gray-800">
-                    <td className="py-1.5 capitalize text-gray-300">{k.replace(/_/g, ' ')}</td>
-                    <td className="py-1.5 text-right font-mono text-gray-100">{v}</td>
+                  <tr key={k} className="border-b border-border">
+                    <td className="py-1.5 capitalize text-foreground">{k.replace(/_/g, ' ')}</td>
+                    <td className="py-1.5 text-right font-mono text-foreground">{v}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <ul className="space-y-1.5 text-sm text-gray-300">
-            <li><span className="font-mono text-red-400">0–39</span> · Not usable</li>
-            <li><span className="font-mono text-amber-400">40–69</span> · Needs adjustment</li>
-            <li><span className="font-mono text-emerald-400">70–84</span> · Usable</li>
-            <li><span className="font-mono text-emerald-400">85–100</span> · Excellent</li>
-            <li className="pt-2 text-xs text-gray-500">
+          <ul className="space-y-1.5 text-sm text-foreground">
+            <li><span className="font-mono text-error-text">0–39</span> · Not usable</li>
+            <li><span className="font-mono text-link">40–69</span> · Needs adjustment</li>
+            <li><span className="font-mono text-success-text">70–84</span> · Usable</li>
+            <li><span className="font-mono text-success-text">85–100</span> · Excellent</li>
+            <li className="pt-2 text-xs text-muted-foreground">
               Per-sport presets can nudge these weights (renormalized back to 100). Recording is never
               blocked — low scores warn but allow proceed.
             </li>
@@ -132,7 +132,7 @@ export function RecordAssistAdminDashboard() {
         <div className="grid gap-3 sm:grid-cols-4">
           <Field label="Sport">
             <select
-              className="w-full rounded-lg border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-100 focus:border-amber-500 focus:outline-none"
+              className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-sm text-foreground focus:border-ring focus:outline-none"
               value={sport}
               onChange={(e) => {
                 const s = e.target.value as RecordAssistSport;
@@ -146,21 +146,21 @@ export function RecordAssistAdminDashboard() {
             </select>
           </Field>
           <Field label="Action">
-            <select className="w-full rounded-lg border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-100 focus:border-amber-500 focus:outline-none" value={action} onChange={(e) => setAction(e.target.value)}>
+            <select className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-sm text-foreground focus:border-ring focus:outline-none" value={action} onChange={(e) => setAction(e.target.value)}>
               {actions.map((a) => (
                 <option key={a.action} value={a.action}>{a.label}</option>
               ))}
             </select>
           </Field>
           <Field label="Scenario">
-            <select className="w-full rounded-lg border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-100 focus:border-amber-500 focus:outline-none" value={scenario} onChange={(e) => setScenario(e.target.value as ScenarioId)}>
+            <select className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-sm text-foreground focus:border-ring focus:outline-none" value={scenario} onChange={(e) => setScenario(e.target.value as ScenarioId)}>
               {SCENARIOS.map((s) => (
                 <option key={s.id} value={s.id}>{s.label}</option>
               ))}
             </select>
           </Field>
           <Field label="Orientation">
-            <select className="w-full rounded-lg border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-100 focus:border-amber-500 focus:outline-none" value={orientation} onChange={(e) => setOrientation(e.target.value as CameraOrientation)}>
+            <select className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-sm text-foreground focus:border-ring focus:outline-none" value={orientation} onChange={(e) => setOrientation(e.target.value as CameraOrientation)}>
               <option value="landscape">Landscape</option>
               <option value="portrait">Portrait</option>
             </select>
@@ -169,25 +169,25 @@ export function RecordAssistAdminDashboard() {
 
         {sim && (
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-lg border border-gray-800 bg-gray-950 p-4">
-              <p className="text-xs uppercase tracking-wide text-gray-500">Readiness</p>
-              <p className="mt-1 text-3xl font-bold text-gray-100">{sim.readiness.score}</p>
+            <div className="rounded-lg border border-border bg-background p-4">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Readiness</p>
+              <p className="mt-1 text-3xl font-bold text-foreground">{sim.readiness.score}</p>
               <StatusBadge tone={STATE_TONE[sim.readiness.state]}>
                 {sim.readiness.state.replace(/_/g, ' ')}
               </StatusBadge>
-              <p className="mt-2 text-xs text-gray-500">Confidence: {sim.readiness.confidence}</p>
+              <p className="mt-2 text-xs text-muted-foreground">Confidence: {sim.readiness.confidence}</p>
             </div>
-            <div className="rounded-lg border border-gray-800 bg-gray-950 p-4">
-              <p className="text-xs uppercase tracking-wide text-gray-500">Top voice cue</p>
-              <p className="mt-1 text-sm text-gray-100">{sim.voice ? `“${sim.voice.text}”` : 'Silent (frame is good)'}</p>
-              {sim.voice && <p className="mt-1 text-xs text-gray-500">id: {sim.voice.id} · {sim.voice.category}</p>}
+            <div className="rounded-lg border border-border bg-background p-4">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Top voice cue</p>
+              <p className="mt-1 text-sm text-foreground">{sim.voice ? `“${sim.voice.text}”` : 'Silent (frame is good)'}</p>
+              {sim.voice && <p className="mt-1 text-xs text-muted-foreground">id: {sim.voice.id} · {sim.voice.category}</p>}
             </div>
-            <div className="rounded-lg border border-gray-800 bg-gray-950 p-4">
-              <p className="text-xs uppercase tracking-wide text-gray-500">Retake verdict</p>
-              <p className="mt-1 text-sm font-medium text-gray-100">
+            <div className="rounded-lg border border-border bg-background p-4">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Retake verdict</p>
+              <p className="mt-1 text-sm font-medium text-foreground">
                 {sim.retake.recommended ? 'Retake recommended' : 'Clip accepted'}
               </p>
-              <ul className="mt-1 space-y-0.5 text-xs text-gray-500">
+              <ul className="mt-1 space-y-0.5 text-xs text-muted-foreground">
                 {sim.retake.reasons.map((r) => <li key={r.id}>• {r.reason}</li>)}
               </ul>
             </div>
@@ -202,25 +202,25 @@ export function RecordAssistAdminDashboard() {
       >
         {insights ? (
           <>
-            <p className="mb-3 text-xs text-gray-500">
-              Overall confidence: <span className="font-mono text-gray-300">{insights.confidence}</span>
-              {' · '}tracked frames: <span className="font-mono text-gray-300">{insights.trackedFrames}</span>
+            <p className="mb-3 text-xs text-muted-foreground">
+              Overall confidence: <span className="font-mono text-foreground">{insights.confidence}</span>
+              {' · '}tracked frames: <span className="font-mono text-foreground">{insights.trackedFrames}</span>
             </p>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {insights.metrics.map((m) => (
-                <div key={m.key} className="rounded-lg border border-gray-800 bg-gray-950 p-4">
+                <div key={m.key} className="rounded-lg border border-border bg-background p-4">
                   <div className="flex items-center justify-between">
-                    <p className="text-xs uppercase tracking-wide text-gray-500">{m.label}</p>
-                    <code className="text-xs text-amber-300">{m.confidence}</code>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">{m.label}</p>
+                    <code className="text-xs text-link">{m.confidence}</code>
                   </div>
-                  <p className="mt-1 text-2xl font-bold text-gray-100">{m.display}</p>
-                  <p className="mt-1 text-xs text-gray-500">{m.read}</p>
+                  <p className="mt-1 text-2xl font-bold text-foreground">{m.display}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">{m.read}</p>
                 </div>
               ))}
             </div>
           </>
         ) : (
-          <p className="text-sm text-gray-500">Select a sport/action to compute insights.</p>
+          <p className="text-sm text-muted-foreground">Select a sport/action to compute insights.</p>
         )}
       </SectionCard>
 
@@ -234,13 +234,13 @@ export function RecordAssistAdminDashboard() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-xs uppercase text-gray-500">
+              <tr className="text-left text-xs uppercase text-muted-foreground">
                 <th className="py-2">Sport</th><th>Action</th><th>Orientation</th><th>View</th><th>Implement risk</th>
               </tr>
             </thead>
             <tbody>
               {allPresets().map((p) => (
-                <tr key={`${p.sport}-${p.action}`} className="border-t border-gray-800 text-gray-300">
+                <tr key={`${p.sport}-${p.action}`} className="border-t border-border text-foreground">
                   <td className="py-1.5 capitalize">{p.sport}</td>
                   <td>{p.label}</td>
                   <td>{p.recommendedOrientation}</td>
@@ -257,10 +257,10 @@ export function RecordAssistAdminDashboard() {
       <SectionCard title="Analytics instrumentation" description="Events the guided-recording funnel emits through the central analytics layer. Adoption/quality dashboards read these from your analytics provider (e.g. PostHog).">
         <div className="flex flex-wrap gap-2">
           {INSTRUMENTED_EVENTS.map((e) => (
-            <code key={e} className="rounded bg-gray-800 px-2 py-1 text-xs text-amber-300">{e}</code>
+            <code key={e} className="rounded bg-muted px-2 py-1 text-xs text-link">{e}</code>
           ))}
         </div>
-        <p className="mt-3 text-xs text-gray-500">
+        <p className="mt-3 text-xs text-muted-foreground">
           Props carry only non-private capture metadata (sport, action, view, readiness band, reason
           codes, device tier) — never the video, landmarks, or biometric values.
         </p>
@@ -283,7 +283,7 @@ export function RecordAssistAdminDashboard() {
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <label className="block text-xs font-medium text-gray-400">
+    <label className="block text-xs font-medium text-muted-foreground">
       {label}
       <div className="mt-1">{children}</div>
     </label>
@@ -308,9 +308,9 @@ function VoiceCatalog({ sport, action }: { sport: RecordAssistSport; action: str
   return (
     <ul className="space-y-1.5 text-sm">
       {cues.map((c) => (
-        <li key={c.id} className="flex items-center justify-between gap-3 border-b border-gray-800 pb-1.5">
-          <span className="text-gray-200">“{c.text}”</span>
-          <code className="shrink-0 text-xs text-gray-500">{c.category}</code>
+        <li key={c.id} className="flex items-center justify-between gap-3 border-b border-border pb-1.5">
+          <span className="text-foreground">“{c.text}”</span>
+          <code className="shrink-0 text-xs text-muted-foreground">{c.category}</code>
         </li>
       ))}
     </ul>

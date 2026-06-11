@@ -55,18 +55,18 @@ export default async function AdminAnalysesPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A review surface for AI swing analyses. The
+          <strong className="text-foreground">What this is.</strong> A review surface for AI swing analyses. The
           queues are derived purely from the real overall score: low scores are the most likely to need a
           human eye or indicate a difficult clip.
         </p>
         <p>
-          <strong className="text-gray-300">Honest limits.</strong> SwingVantage stores analysis
+          <strong className="text-foreground">Honest limits.</strong> SwingVantage stores analysis
           <em> metadata</em> (sport, score, issue counts) — not the swing video, which is processed on-device
           and never uploaded. There is no separate &ldquo;confidence&rdquo; or &ldquo;failed&rdquo; flag in the
           data, so we don&apos;t invent one; the score is the honest signal.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Open a low-scoring analysis to see its
+          <strong className="text-foreground">What to do next.</strong> Open a low-scoring analysis to see its
           detected issues and the originating session&apos;s diagnoses.
         </p>
       </HelpPanel>

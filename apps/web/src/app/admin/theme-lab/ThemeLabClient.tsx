@@ -60,7 +60,7 @@ export function ThemeLabClient({ actor }: { actor: string }) {
     };
   }, []);
 
-  if (!mounted) return <p className="text-sm text-gray-500">Loading Theme Lab…</p>;
+  if (!mounted) return <p className="text-sm text-muted-foreground">Loading Theme Lab…</p>;
 
   const env = envForcedTheme();
   const effectiveForce = effectiveForcedTheme(control);
@@ -98,15 +98,15 @@ export function ThemeLabClient({ actor }: { actor: string }) {
   return (
     <div className="space-y-6">
       {/* Live resolution */}
-      <div className="rounded-xl border border-gray-800 bg-gray-900 p-4">
-        <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
+      <div className="rounded-xl border border-border bg-card p-4">
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           This browser resolves to
         </p>
         <div className="mt-1.5 flex flex-wrap items-center gap-2">
-          <span className="text-lg font-semibold text-gray-100">{themeName(resolution.themeId)}</span>
+          <span className="text-lg font-semibold text-foreground">{themeName(resolution.themeId)}</span>
           <StatusBadge tone="neutral">via {resolution.source}</StatusBadge>
         </div>
-        <p className="mt-1 font-mono text-[11px] text-gray-600">
+        <p className="mt-1 font-mono text-[11px] text-muted-foreground/70">
           force={effectiveForce ?? '—'} · preference={savedPreference} · seasonal=
           {control.allowSeasonal ? 'on' : 'off'}
         </p>
@@ -115,23 +115,23 @@ export function ThemeLabClient({ actor }: { actor: string }) {
       {/* Operator pin / kill-switch */}
       <div className="space-y-3">
         <div className="flex items-center gap-2">
-          <ShieldAlert className="h-4 w-4 text-amber-400" />
-          <h3 className="text-sm font-semibold text-gray-100">Operator pin (kill-switch)</h3>
+          <ShieldAlert className="h-4 w-4 text-link" />
+          <h3 className="text-sm font-semibold text-foreground">Operator pin (kill-switch)</h3>
         </div>
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-muted-foreground">
           Force every visitor on this device to one theme. The cross-device pin is the build env{' '}
-          <code className="font-mono text-gray-400">NEXT_PUBLIC_THEME_LAB_FORCE</code>, currently{' '}
-          <span className="font-mono text-gray-300">{env ? themeName(env) : 'unset'}</span>. A device
+          <code className="font-mono text-muted-foreground">NEXT_PUBLIC_THEME_LAB_FORCE</code>, currently{' '}
+          <span className="font-mono text-foreground">{env ? themeName(env) : 'unset'}</span>. A device
           pin overrides it for you.
         </p>
 
         <div className="flex flex-wrap items-center gap-2">
-          <label className="flex items-center gap-2 text-xs text-gray-500">
+          <label className="flex items-center gap-2 text-xs text-muted-foreground">
             Pin to
             <select
               value={control.forcedThemeId ?? ''}
               onChange={(e) => setPin(e.target.value ? (e.target.value as ThemeId) : null)}
-              className="rounded border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-200"
+              className="rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground"
             >
               <option value="">No pin (off)</option>
               {activeThemes.map((e) => (
@@ -145,7 +145,7 @@ export function ThemeLabClient({ actor }: { actor: string }) {
           {control.forcedThemeId !== DEFAULT_THEME_ID && (
             <button
               onClick={() => setPin(DEFAULT_THEME_ID)}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-300 hover:bg-amber-500/20"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-primary/40 bg-primary/10 px-3 py-1.5 text-xs font-medium text-link hover:bg-primary/20"
             >
               <ShieldAlert className="h-3.5 w-3.5" /> Kill-switch → default
             </button>
@@ -154,7 +154,7 @@ export function ThemeLabClient({ actor }: { actor: string }) {
           {control.forcedThemeId && (
             <button
               onClick={() => setPin(null)}
-              className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-300"
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
             >
               <RotateCcw className="h-3 w-3" /> Clear pin
             </button>
@@ -162,7 +162,7 @@ export function ThemeLabClient({ actor }: { actor: string }) {
         </div>
 
         {control.forcedThemeId && (
-          <p className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-3 py-2 text-xs text-amber-300">
+          <p className="rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 text-xs text-link">
             Pinned to <strong>{themeName(control.forcedThemeId)}</strong> on this device. Visitors&apos;
             saved preferences are ignored until you clear the pin.
           </p>
@@ -170,10 +170,10 @@ export function ThemeLabClient({ actor }: { actor: string }) {
       </div>
 
       {/* Seasonal opt-in */}
-      <div className="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-gray-800 bg-gray-900 p-4">
+      <div className="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-border bg-card p-4">
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-gray-100">Seasonal themes</p>
-          <p className="mt-0.5 text-xs text-gray-500">
+          <p className="text-sm font-semibold text-foreground">Seasonal themes</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">
             Opt this device into seasonal themes. They only show inside their active window. None are
             registered yet.
           </p>
@@ -184,7 +184,7 @@ export function ThemeLabClient({ actor }: { actor: string }) {
           aria-label="Opt into seasonal themes"
           onClick={() => setSeasonal(!control.allowSeasonal)}
           className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
-            control.allowSeasonal ? 'bg-emerald-500' : 'bg-gray-700'
+            control.allowSeasonal ? 'bg-success' : 'bg-muted'
           }`}
         >
           <span
@@ -196,16 +196,16 @@ export function ThemeLabClient({ actor }: { actor: string }) {
       </div>
 
       {/* Experiments + segments */}
-      <div className="border-t border-gray-800 pt-6">
+      <div className="border-t border-border pt-6">
         <ThemeExperimentsPanel actor={actor} />
       </div>
 
       {/* Registry */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-gray-100">Theme registry</h3>
-        <div className="overflow-hidden rounded-xl border border-gray-800">
+        <h3 className="text-sm font-semibold text-foreground">Theme registry</h3>
+        <div className="overflow-hidden rounded-xl border border-border">
           <table className="w-full text-left text-sm">
-            <thead className="bg-gray-900 text-[11px] uppercase tracking-wide text-gray-500">
+            <thead className="bg-card text-[11px] uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th className="px-3 py-2 font-medium">Theme</th>
                 <th className="px-3 py-2 font-medium">Category</th>
@@ -214,16 +214,16 @@ export function ThemeLabClient({ actor }: { actor: string }) {
                 <th className="px-3 py-2 text-right font-medium">Rollout</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-800 bg-gray-950">
+            <tbody className="divide-y divide-border bg-background">
               {THEME_LAB_REGISTRY.map((e) => (
                 <tr key={e.themeId}>
-                  <td className="px-3 py-2 text-gray-200">
+                  <td className="px-3 py-2 text-foreground">
                     {e.name}
                     {e.themeId === DEFAULT_THEME_ID && (
-                      <span className="ml-1.5 text-[10px] text-emerald-400">default</span>
+                      <span className="ml-1.5 text-[10px] text-success-text">default</span>
                     )}
                   </td>
-                  <td className="px-3 py-2 text-gray-500">{e.labCategory}</td>
+                  <td className="px-3 py-2 text-muted-foreground">{e.labCategory}</td>
                   <td className="px-3 py-2">
                     <StatusBadge tone={STATUS_TONE[e.status] ?? 'neutral'}>{e.status}</StatusBadge>
                   </td>
@@ -232,7 +232,7 @@ export function ThemeLabClient({ actor }: { actor: string }) {
                       {e.visibility}
                     </StatusBadge>
                   </td>
-                  <td className="px-3 py-2 text-right font-mono text-xs text-gray-400">
+                  <td className="px-3 py-2 text-right font-mono text-xs text-muted-foreground">
                     {e.rolloutPercent ?? 100}%
                   </td>
                 </tr>
@@ -243,12 +243,12 @@ export function ThemeLabClient({ actor }: { actor: string }) {
       </div>
 
       {/* Token builder + cross-journey preview */}
-      <div className="border-t border-gray-800 pt-6">
+      <div className="border-t border-border pt-6">
         <ThemeBuilderPanel actor={actor} />
       </div>
 
       {/* Library · generation · publishing-center · recommendations */}
-      <div className="border-t border-gray-800 pt-6">
+      <div className="border-t border-border pt-6">
         <ThemeLibraryPanel actor={actor} />
       </div>
     </div>

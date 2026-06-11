@@ -30,14 +30,14 @@ const REC_TONE = { approve: 'success', review: 'warning', reject: 'danger' } as 
 function ScoreBar({ label, value, invert }: { label: string; value: number; invert?: boolean }) {
   const good = invert ? value < 50 : value >= 60;
   const mid = value >= 40 && value < 60;
-  const color = good ? 'bg-emerald-500/70' : mid ? 'bg-amber-500/70' : 'bg-red-500/70';
+  const color = good ? 'bg-success/70' : mid ? 'bg-primary/70' : 'bg-error/70';
   return (
     <div className="flex items-center gap-2 text-[11px]">
-      <span className="w-20 shrink-0 text-gray-500">{label}</span>
-      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-800">
+      <span className="w-20 shrink-0 text-muted-foreground">{label}</span>
+      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${value}%` }} />
       </div>
-      <span className="w-7 shrink-0 text-right tabular-nums text-gray-400">{value}</span>
+      <span className="w-7 shrink-0 text-right tabular-nums text-muted-foreground">{value}</span>
     </div>
   );
 }
@@ -90,14 +90,14 @@ export function GeneratedFixesClient({ existingKeywords }: { existingKeywords: s
     });
   }
 
-  if (!mounted) return <p className="text-sm text-gray-500">Loading review queue…</p>;
+  if (!mounted) return <p className="text-sm text-muted-foreground">Loading review queue…</p>;
 
   return (
     <div className="space-y-5">
       {/* Add / score */}
-      <div className="rounded-xl border border-gray-800 bg-gray-900 p-4">
-        <p className="text-sm font-semibold text-gray-100">Score a fix opportunity</p>
-        <p className="mt-0.5 text-xs text-gray-500">
+      <div className="rounded-xl border border-border bg-card p-4">
+        <p className="text-sm font-semibold text-foreground">Score a fix opportunity</p>
+        <p className="mt-0.5 text-xs text-muted-foreground">
           Enter a user search or an AI-detected issue. It&apos;s classified and scored before anything is created.
         </p>
         <div className="mt-3 flex flex-col gap-2 sm:flex-row">
@@ -106,26 +106,26 @@ export function GeneratedFixesClient({ existingKeywords }: { existingKeywords: s
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && add()}
             placeholder='e.g. "how to stop topping the golf ball"'
-            className="flex-1 rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100 outline-none focus:border-amber-500"
+            className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-ring"
           />
           <select
             value={source}
             onChange={(e) => setSource(e.target.value as FixSource)}
-            className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200"
+            className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
           >
             {SOURCES.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
           </select>
           <button
             onClick={add}
             disabled={query.trim().length < 3}
-            className="rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-gray-950 hover:bg-amber-400 disabled:opacity-40"
+            className="rounded-lg bg-warning px-3 py-2 text-sm font-medium text-foreground hover:bg-warning disabled:opacity-40"
           >
             Score &amp; queue
           </button>
         </div>
 
         {preview && (
-          <div className="mt-3 grid gap-1.5 rounded-lg border border-gray-800 bg-gray-950 p-3 sm:grid-cols-2">
+          <div className="mt-3 grid gap-1.5 rounded-lg border border-border bg-background p-3 sm:grid-cols-2">
             <ScoreBar label="Relevance" value={preview.relevance} />
             <ScoreBar label="Quality" value={preview.quality} />
             <ScoreBar label="Duplication" value={preview.duplication} invert />
@@ -144,9 +144,9 @@ export function GeneratedFixesClient({ existingKeywords }: { existingKeywords: s
       {candidates.length > 0 && (
         <div className="flex flex-wrap gap-2 text-xs">
           {(['needs_review', 'approved', 'rejected', 'merged'] as FixStatus[]).map((st) => (
-            <span key={st} className="rounded-lg border border-gray-800 bg-gray-900 px-2.5 py-1">
-              <span className="capitalize text-gray-400">{st.replace('_', ' ')}</span>{' '}
-              <span className="font-semibold tabular-nums text-gray-200">{counts[st] ?? 0}</span>
+            <span key={st} className="rounded-lg border border-border bg-card px-2.5 py-1">
+              <span className="capitalize text-muted-foreground">{st.replace('_', ' ')}</span>{' '}
+              <span className="font-semibold tabular-nums text-foreground">{counts[st] ?? 0}</span>
             </span>
           ))}
         </div>
@@ -154,10 +154,10 @@ export function GeneratedFixesClient({ existingKeywords }: { existingKeywords: s
 
       {/* Queue */}
       {candidates.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-gray-700 bg-gray-900/50 p-8 text-center">
-          <Wand2 className="mx-auto h-7 w-7 text-amber-400" />
-          <p className="mt-2 text-sm font-medium text-gray-200">No candidates in the queue</p>
-          <p className="mx-auto mt-1 max-w-md text-sm text-gray-500">
+        <div className="rounded-xl border border-dashed border-border bg-card/50 p-8 text-center">
+          <Wand2 className="mx-auto h-7 w-7 text-link" />
+          <p className="mt-2 text-sm font-medium text-foreground">No candidates in the queue</p>
+          <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">
             Add a query above to run it through the relevance gate. When the generation pipeline is wired to
             auto-feed user searches and AI-detected issues, they&apos;ll land here for the same review.
           </p>
@@ -167,11 +167,11 @@ export function GeneratedFixesClient({ existingKeywords }: { existingKeywords: s
           {candidates.map((c) => {
             const rec = recommendFix(c.scores);
             return (
-              <li key={c.id} className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+              <li key={c.id} className="rounded-xl border border-border bg-card p-4">
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <p className="font-medium text-gray-100">{c.query}</p>
-                    <p className="mt-0.5 text-xs text-gray-500">
+                    <p className="font-medium text-foreground">{c.query}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">
                       {c.sport ?? 'general'} · {c.source.replace('_', ' ')}
                     </p>
                   </div>
@@ -187,19 +187,19 @@ export function GeneratedFixesClient({ existingKeywords }: { existingKeywords: s
                   <ScoreBar label="Duplication" value={c.scores.duplication} invert />
                   <ScoreBar label="SEO opp." value={c.scores.seoOpportunity} />
                 </div>
-                <p className="mt-2 text-xs text-gray-500">{rec.reason}</p>
+                <p className="mt-2 text-xs text-muted-foreground">{rec.reason}</p>
 
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <button onClick={() => act(c.id, 'approved', c.query)} className="inline-flex items-center gap-1 rounded-md bg-emerald-600/80 px-2 py-1 text-xs font-medium text-white hover:bg-emerald-500">
+                  <button onClick={() => act(c.id, 'approved', c.query)} className="inline-flex items-center gap-1 rounded-md bg-success/80 px-2 py-1 text-xs font-medium text-white hover:bg-success">
                     <Check className="h-3.5 w-3.5" /> Approve
                   </button>
-                  <button onClick={() => act(c.id, 'merged', c.query)} className="inline-flex items-center gap-1 rounded-md bg-gray-800 px-2 py-1 text-xs text-gray-200 hover:bg-gray-700">
+                  <button onClick={() => act(c.id, 'merged', c.query)} className="inline-flex items-center gap-1 rounded-md bg-muted px-2 py-1 text-xs text-foreground hover:bg-muted">
                     <GitMerge className="h-3.5 w-3.5" /> Merge
                   </button>
-                  <button onClick={() => act(c.id, 'rejected', c.query)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-2 py-1 text-xs text-red-300 hover:bg-red-500/10">
+                  <button onClick={() => act(c.id, 'rejected', c.query)} className="inline-flex items-center gap-1 rounded-md border border-error/40 px-2 py-1 text-xs text-error-text hover:bg-error/10">
                     <X className="h-3.5 w-3.5" /> Reject
                   </button>
-                  <button onClick={() => remove(c.id)} className="ml-auto inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-gray-500 hover:text-gray-300">
+                  <button onClick={() => remove(c.id)} className="ml-auto inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground hover:text-foreground">
                     <Trash2 className="h-3.5 w-3.5" /> Delete
                   </button>
                 </div>

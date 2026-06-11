@@ -51,17 +51,17 @@ export default async function AdminUsersPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The directory of every account. Each row
+          <strong className="text-foreground">What this is.</strong> The directory of every account. Each row
           shows the user&apos;s email, the sports they&apos;ve set up, their self-reported skill level, whether
           they confirmed their email, and when they last signed in.
         </p>
         <p>
-          <strong className="text-gray-300">Privacy note.</strong> Swing videos are processed on each
+          <strong className="text-foreground">Privacy note.</strong> Swing videos are processed on each
           user&apos;s device and never uploaded, so you&apos;ll see a user&apos;s activity and analysis
           <em> metadata</em> — not their raw footage.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Click any user to see their full journey
+          <strong className="text-foreground">What to do next.</strong> Click any user to see their full journey
           — profile, sessions, analyses and engagement — in one place. Suspend/export actions live on the
           detail page and are audit-logged.
         </p>

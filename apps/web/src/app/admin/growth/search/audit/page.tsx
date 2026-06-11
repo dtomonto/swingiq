@@ -57,41 +57,41 @@ export default function SiteAuditPage() {
       <ModuleHeader icon={AlertTriangle} title="Site Audit" description="Technical SEO issues with severity, evidence, and a recommended fix.">
         <div className="flex items-center gap-2">
           <ExportCsvButton rows={exportRows} filename="swingvantage-site-audit.csv" />
-          <Link href="/admin/growth/search" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-200"><ArrowLeft className="w-4 h-4" /> Command Center</Link>
+          <Link href="/admin/growth/search" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="w-4 h-4" /> Command Center</Link>
         </div>
       </ModuleHeader>
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
-        <KpiCard label="Critical" value={counts.critical} accent={counts.critical ? 'text-red-400' : 'text-green-400'} source="real" />
-        <KpiCard label="High" value={counts.high} accent={counts.high ? 'text-orange-400' : 'text-green-400'} source="real" />
-        <KpiCard label="Medium" value={counts.medium} accent="text-amber-400" source="real" />
+        <KpiCard label="Critical" value={counts.critical} accent={counts.critical ? 'text-error-text' : 'text-success-text'} source="real" />
+        <KpiCard label="High" value={counts.high} accent={counts.high ? 'text-orange-400' : 'text-success-text'} source="real" />
+        <KpiCard label="Medium" value={counts.medium} accent="text-link" source="real" />
         <KpiCard label="Low" value={counts.low} accent="text-blue-400" source="real" />
         <KpiCard label="Total" value={r.issues.length} source="real" />
       </div>
 
       {groups.length === 0 ? (
-        <SectionCard title="No issues" icon={AlertTriangle}><p className="text-sm text-gray-500">Clean audit — nothing to fix right now. 🎉</p></SectionCard>
+        <SectionCard title="No issues" icon={AlertTriangle}><p className="text-sm text-muted-foreground">Clean audit — nothing to fix right now. 🎉</p></SectionCard>
       ) : groups.map(({ cat, items }) => (
         <SectionCard key={cat} title={`${humanize(cat)} · ${items.length}`} icon={AlertTriangle}>
           <ul className="space-y-2">
             {items.map((i) => (
-              <li key={i.id} className="rounded-lg border border-gray-800 bg-gray-800/40 p-3">
+              <li key={i.id} className="rounded-lg border border-border bg-muted/40 p-3">
                 <div className="flex items-start justify-between gap-2">
-                  <p className="text-sm text-gray-200">{i.title}</p>
+                  <p className="text-sm text-foreground">{i.title}</p>
                   <div className="flex items-center gap-1.5 shrink-0">
                     <SeverityBadge severity={i.severity} />
-                    <Badge className="bg-gray-800 border-gray-700 text-gray-400">P{i.priorityScore}</Badge>
+                    <Badge className="bg-muted border-border text-muted-foreground">P{i.priorityScore}</Badge>
                   </div>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">{i.description}</p>
-                <p className="text-xs text-gray-400 mt-1"><span className="text-gray-600">Fix:</span> {i.recommendedFix}</p>
+                <p className="text-xs text-muted-foreground mt-1">{i.description}</p>
+                <p className="text-xs text-muted-foreground mt-1"><span className="text-muted-foreground/70">Fix:</span> {i.recommendedFix}</p>
                 <div className="mt-2 flex flex-wrap items-center gap-1.5">
                   <Pill>impact {i.expectedImpact}</Pill>
                   <Pill>effort {i.fixComplexity}</Pill>
                   <Pill>{i.confidence}% conf.</Pill>
                   {i.autoFixAvailable ? <Pill tone="green"><Bot className="w-2.5 h-2.5" /> auto-fixable</Pill> : null}
                   {i.requiresApproval ? <Pill tone="amber">needs approval</Pill> : null}
-                  {i.url ? <Link href={`/admin/growth/search/page-intel?url=${encodeURIComponent(i.url)}`} className="text-[11px] text-green-400 hover:text-green-300 font-mono truncate">{i.affectedUrls.length > 1 ? `${i.affectedUrls.length} pages` : i.url}</Link> : null}
+                  {i.url ? <Link href={`/admin/growth/search/page-intel?url=${encodeURIComponent(i.url)}`} className="text-[11px] text-success-text hover:text-success-text font-mono truncate">{i.affectedUrls.length > 1 ? `${i.affectedUrls.length} pages` : i.url}</Link> : null}
                 </div>
               </li>
             ))}

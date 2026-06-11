@@ -56,17 +56,17 @@ export default async function SecurityOSPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A security command center for the
+          <strong className="text-foreground">What this is.</strong> A security command center for the
           operator — what&apos;s vulnerable, why it matters, how urgent it is, and exactly what to do today.
           The Security Health Score is a weighted roll-up of real posture checks across seven domains.
         </p>
         <p>
-          <strong className="text-gray-300">How it&apos;s honest.</strong> Checks resolve to pass, partial,
+          <strong className="text-foreground">How it&apos;s honest.</strong> Checks resolve to pass, partial,
           fail or <em>unknown</em>. An <em>unknown</em> check (a signal we couldn&apos;t read) is excluded from
           the score and instead lowers the visible confidence — nothing is ever silently assumed safe.
         </p>
         <p>
-          <strong className="text-gray-300">How your progress is saved.</strong> Triaging findings, accepting
+          <strong className="text-foreground">How your progress is saved.</strong> Triaging findings, accepting
           risk, notes, settings and the score history are saved in your browser, so this works in production
           and survives re-scans. Every status change writes a redacted entry to the security audit log.
         </p>

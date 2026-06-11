@@ -84,32 +84,32 @@ export function FindingsClient({ actor, findings, generatedAt }: Props) {
   return (
     <div className="space-y-4">
       {/* Filters */}
-      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-gray-800 bg-gray-900 p-3">
+      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-card p-3">
         <div className="relative">
-          <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-500" />
+          <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search findings…"
-            className="w-44 rounded-lg border border-gray-700 bg-gray-950 py-1.5 pl-7 pr-2 text-sm text-gray-200 placeholder:text-gray-600 focus:border-amber-500/50 focus:outline-none"
+            className="w-44 rounded-lg border border-border bg-background py-1.5 pl-7 pr-2 text-sm text-foreground placeholder:text-muted-foreground/70 focus:border-primary/50 focus:outline-none"
           />
         </div>
         <Select value={severity} onChange={(v) => setSeverity(v as SeverityFilter)} options={[['all', 'All severities'], ['critical', 'Critical'], ['high', 'High'], ['medium', 'Medium'], ['low', 'Low'], ['informational', 'Info']]} />
         <Select value={category} onChange={(v) => setCategory(v as ScoreCategoryId | 'all')} options={[['all', 'All categories'], ...Object.entries(CATEGORY_LABEL)]} />
         <Select value={status} onChange={(v) => setStatus(v as StatusFilter)} options={[['open', 'Open'], ['all', 'All statuses'], ...Object.entries(FINDING_STATUS_LABEL)]} />
         <Select value={sort} onChange={(v) => setSort(v as SortKey)} options={[['severity', 'Sort: severity'], ['risk', 'Sort: risk'], ['date', 'Sort: date']]} />
-        <button onClick={exportJson} className="ml-auto inline-flex items-center gap-1 rounded-lg border border-gray-700 px-2.5 py-1.5 text-xs font-medium text-gray-200 hover:bg-gray-800">
+        <button onClick={exportJson} className="ml-auto inline-flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted">
           <Download className="h-3.5 w-3.5" /> Export
         </button>
       </div>
 
-      <p className="text-xs text-gray-500">{filtered.length} finding{filtered.length === 1 ? '' : 's'}</p>
+      <p className="text-xs text-muted-foreground">{filtered.length} finding{filtered.length === 1 ? '' : 's'}</p>
 
       {/* List */}
       {filtered.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-gray-800 bg-gray-900/50 p-8 text-center">
-          <p className="text-sm text-gray-400">No findings match these filters.</p>
-          <p className="mt-1 text-xs text-gray-600">A clean filter here is good news — try &ldquo;All statuses&rdquo; to see resolved items.</p>
+        <div className="rounded-xl border border-dashed border-border bg-card/50 p-8 text-center">
+          <p className="text-sm text-muted-foreground">No findings match these filters.</p>
+          <p className="mt-1 text-xs text-muted-foreground/70">A clean filter here is good news — try &ldquo;All statuses&rdquo; to see resolved items.</p>
         </div>
       ) : (
         <ul className="space-y-2">
@@ -117,25 +117,25 @@ export function FindingsClient({ actor, findings, generatedAt }: Props) {
             <li key={v.id}>
               <Link
                 href={`/admin/security-os/findings/${encodeURIComponent(v.id)}`}
-                className="group flex items-start justify-between gap-3 rounded-xl border border-gray-800 bg-gray-900 p-4 hover:border-gray-700"
+                className="group flex items-start justify-between gap-3 rounded-xl border border-border bg-card p-4 hover:border-border"
               >
                 <div className="min-w-0 space-y-1.5">
                   <div className="flex flex-wrap items-center gap-2">
                     <SeverityPill severity={v.severity} />
-                    <span className="rounded border border-gray-700 bg-gray-800/60 px-1.5 py-0.5 text-[10px] text-gray-400">{CATEGORY_LABEL[v.category]}</span>
-                    <span className="text-[10px] uppercase tracking-wide text-gray-600">{v.source}</span>
-                    {v.overdue && <span className="rounded bg-red-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-red-300">Overdue</span>}
+                    <span className="rounded border border-border bg-muted/60 px-1.5 py-0.5 text-[10px] text-muted-foreground">{CATEGORY_LABEL[v.category]}</span>
+                    <span className="text-[10px] uppercase tracking-wide text-muted-foreground/70">{v.source}</span>
+                    {v.overdue && <span className="rounded bg-error/15 px-1.5 py-0.5 text-[10px] font-semibold text-error-text">Overdue</span>}
                     {!OPEN_FINDING_STATUSES.includes(v.status) && (
-                      <span className="rounded bg-gray-800 px-1.5 py-0.5 text-[10px] text-gray-400">{FINDING_STATUS_LABEL[v.status]}</span>
+                      <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{FINDING_STATUS_LABEL[v.status]}</span>
                     )}
                   </div>
-                  <p className="text-sm font-medium text-gray-100">{v.title}</p>
-                  <p className="line-clamp-2 text-xs text-gray-500">{v.description}</p>
+                  <p className="text-sm font-medium text-foreground">{v.title}</p>
+                  <p className="line-clamp-2 text-xs text-muted-foreground">{v.description}</p>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-1">
-                  <span className="text-lg font-bold tabular-nums text-gray-300">{v.riskScore}</span>
-                  <span className="text-[10px] text-gray-600">risk</span>
-                  <ChevronRight className="h-4 w-4 text-gray-600 group-hover:text-gray-400" />
+                  <span className="text-lg font-bold tabular-nums text-foreground">{v.riskScore}</span>
+                  <span className="text-[10px] text-muted-foreground/70">risk</span>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground/70 group-hover:text-muted-foreground" />
                 </div>
               </Link>
             </li>
@@ -151,7 +151,7 @@ function Select({ value, onChange, options }: { value: string; onChange: (v: str
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="rounded-lg border border-gray-700 bg-gray-950 px-2 py-1.5 text-sm text-gray-200 focus:border-amber-500/50 focus:outline-none"
+      className="rounded-lg border border-border bg-background px-2 py-1.5 text-sm text-foreground focus:border-primary/50 focus:outline-none"
     >
       {options.map(([v, label]) => (
         <option key={v} value={v}>{label}</option>

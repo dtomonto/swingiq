@@ -46,14 +46,14 @@ export default function SiteExplorerPage() {
   return (
     <div className="space-y-6">
       <ModuleHeader icon={FileSearch} title="Site Explorer" description="Every discovered URL with indexability, metadata, schema, link counts, and scores.">
-        <Link href="/admin/growth/search" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-200"><ArrowLeft className="w-4 h-4" /> Command Center</Link>
+        <Link href="/admin/growth/search" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="w-4 h-4" /> Command Center</Link>
       </ModuleHeader>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <KpiCard label="Pages" value={rows.length} icon={FileSearch} source="real" />
-        <KpiCard label="Orphans" value={orphans} accent={orphans ? 'text-red-400' : 'text-green-400'} source="real" />
-        <KpiCard label="Missing from sitemap" value={missingSitemap} accent={missingSitemap ? 'text-amber-400' : 'text-green-400'} source="real" />
-        <KpiCard label="No structured data" value={noSchema} accent={noSchema ? 'text-amber-400' : 'text-green-400'} source="real" />
+        <KpiCard label="Orphans" value={orphans} accent={orphans ? 'text-error-text' : 'text-success-text'} source="real" />
+        <KpiCard label="Missing from sitemap" value={missingSitemap} accent={missingSitemap ? 'text-link' : 'text-success-text'} source="real" />
+        <KpiCard label="No structured data" value={noSchema} accent={noSchema ? 'text-link' : 'text-success-text'} source="real" />
       </div>
 
       <SectionCard title="URL inventory" icon={FileSearch}>

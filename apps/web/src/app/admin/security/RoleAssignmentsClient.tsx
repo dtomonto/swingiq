@@ -22,7 +22,7 @@ export function RoleAssignmentsClient({ actor }: { actor: string }) {
   const [email, setEmail] = useState('');
   const [role, setRole_] = useState<RoleId>('content_manager');
 
-  if (!mounted) return <p className="text-sm text-gray-500">Loading…</p>;
+  if (!mounted) return <p className="text-sm text-muted-foreground">Loading…</p>;
 
   function add() {
     const e = email.trim().toLowerCase();
@@ -40,35 +40,35 @@ export function RoleAssignmentsClient({ actor }: { actor: string }) {
           onChange={(e) => setEmail(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && add()}
           placeholder="admin@email.com"
-          className="flex-1 rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100 outline-none focus:border-amber-500"
+          className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-ring"
         />
         <select
           value={role}
           onChange={(e) => setRole_(e.target.value as RoleId)}
-          className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200"
+          className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
         >
           {ROLE_IDS.map((r) => <option key={r} value={r}>{ROLES[r].label}</option>)}
         </select>
-        <button onClick={add} className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-gray-950 hover:bg-amber-400">
+        <button onClick={add} className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-warning px-3 py-2 text-sm font-medium text-foreground hover:bg-warning">
           <UserPlus className="h-4 w-4" /> Assign
         </button>
       </div>
 
       {assignments.length === 0 ? (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           No role overlays set. Everyone who passes the admin guard is a Super Admin until assigned a finer
-          role here (and, for server enforcement, in <code className="text-gray-400">ADMIN_ROLES</code>).
+          role here (and, for server enforcement, in <code className="text-muted-foreground">ADMIN_ROLES</code>).
         </p>
       ) : (
-        <ul className="divide-y divide-gray-800 rounded-xl border border-gray-800">
+        <ul className="divide-y divide-border rounded-xl border border-border">
           {assignments.map((a) => (
             <li key={a.email} className="flex items-center justify-between gap-3 p-3">
-              <span className="min-w-0 truncate text-sm text-gray-200">{a.email}</span>
+              <span className="min-w-0 truncate text-sm text-foreground">{a.email}</span>
               <div className="flex items-center gap-2">
                 <StatusBadge tone="accent">{ROLES[a.role]?.label ?? a.role}</StatusBadge>
                 <button
                   onClick={() => { remove(a.email); recordAudit({ actor, action: 'role.remove', entityType: 'admin-role', entityId: a.email, summary: `Removed role overlay for ${a.email}`, severity: 'warning' }); }}
-                  className="text-gray-500 hover:text-red-400"
+                  className="text-muted-foreground hover:text-error-text"
                   aria-label="Remove"
                 >
                   <Trash2 className="h-4 w-4" />

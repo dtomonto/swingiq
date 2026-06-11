@@ -13,18 +13,18 @@ export default async function CreatorsPage() {
     <div className="space-y-8">
       <ModuleHeader icon={nav?.icon} title={nav?.label ?? 'Creators / Affiliates'} description={nav?.description ?? ''} />
 
-      <div className="rounded-lg bg-amber-500/10 border border-amber-500/30 p-3 text-xs text-amber-300">
+      <div className="rounded-lg bg-primary/10 border border-primary/30 p-3 text-xs text-link">
         <strong>Compliance:</strong> every sponsored or affiliate placement must carry a clear disclosure (#ad / sponsored / FTC affiliate disclosure).
         Tracking links and coupon codes are placeholders until your affiliate platform is connected.
       </div>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-gray-300">Creator & influencer partners</h2>
+        <h2 className="text-sm font-semibold text-foreground">Creator & influencer partners</h2>
         <RecordModule definitionId="creators" records={creators} hideNote />
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-gray-300">Affiliate partners</h2>
+        <h2 className="text-sm font-semibold text-foreground">Affiliate partners</h2>
         <RecordModule definitionId="affiliates" records={affiliates} />
       </section>
     </div>

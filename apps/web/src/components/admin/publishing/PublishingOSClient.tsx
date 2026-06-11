@@ -27,10 +27,10 @@ import type { RiskLevel, PublishMode } from '@/lib/publishing/types';
 type View = 'overview' | 'queue' | 'areas' | 'activity';
 
 const RISK_TONE: Record<RiskLevel, string> = {
-  low: 'bg-gray-800 text-gray-300 border-gray-700',
-  medium: 'bg-sky-500/10 text-sky-300 border-sky-500/30',
-  high: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
-  critical: 'bg-red-500/10 text-red-300 border-red-500/30',
+  low: 'bg-muted text-foreground border-border',
+  medium: 'bg-primary/10 text-link border-primary/30',
+  high: 'bg-primary/10 text-link border-primary/30',
+  critical: 'bg-error/10 text-error-text border-error/30',
 };
 
 const MODE_LABEL: Record<PublishMode, string> = {
@@ -39,9 +39,9 @@ const MODE_LABEL: Record<PublishMode, string> = {
   hybrid: 'Hybrid',
 };
 const MODE_TONE: Record<PublishMode, string> = {
-  instant: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
-  deploy_backed: 'bg-violet-500/10 text-violet-300 border-violet-500/30',
-  hybrid: 'bg-sky-500/10 text-sky-300 border-sky-500/30',
+  instant: 'bg-success/10 text-success-text border-success/30',
+  deploy_backed: 'bg-primary/10 text-link border-primary/30',
+  hybrid: 'bg-primary/10 text-link border-primary/30',
 };
 
 function Pill({ className, children }: { className: string; children: React.ReactNode }) {
@@ -135,12 +135,12 @@ export function PublishingOSClient({ data, actor }: { data: PublishingOSData; ac
         <EnvironmentBanner env={data.environment} persistent={data.persistent} skin={skin} />
 
         {error && (
-          <div className="flex items-start gap-2 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
+          <div className="flex items-start gap-2 rounded-xl border border-error/30 bg-error/10 p-3 text-sm text-error-text">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" /> <p>{error}</p>
           </div>
         )}
         {notice && (
-          <div className="flex items-start gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-200">
+          <div className="flex items-start gap-2 rounded-xl border border-success/30 bg-success/10 p-3 text-sm text-success-text">
             <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" /> <p>{notice}</p>
           </div>
         )}
@@ -185,14 +185,14 @@ function Header({
   persistent: boolean;
 }) {
   return (
-    <header className="sticky top-0 z-30 -mx-4 -mt-4 mb-1 flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-white/10 bg-black/50 px-4 py-3 backdrop-blur sm:-mx-6 sm:-mt-6 sm:px-6">
+    <header className="sticky top-0 z-30 -mx-4 -mt-4 mb-1 flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-white/10 bg-foreground/50 px-4 py-3 backdrop-blur sm:-mx-6 sm:-mt-6 sm:px-6">
       <div className="flex items-center gap-3">
         <span className={`grid h-10 w-10 place-items-center ${skin.radius} bg-white/5 ${skin.accentText}`}>
           <Rocket className="h-5 w-5" />
         </span>
         <div>
           <h1 className="text-lg font-semibold">PublishingOS</h1>
-          <p className="text-xs text-gray-400">Turn admin decisions into safe, live product changes.</p>
+          <p className="text-xs text-muted-foreground">Turn admin decisions into safe, live product changes.</p>
         </div>
       </div>
 
@@ -217,7 +217,7 @@ function Header({
           })}
         </div>
       </div>
-      <p className="w-full text-xs text-gray-500">
+      <p className="w-full text-xs text-muted-foreground">
         <span className={skin.accentText}>{skin.name}.</span> {skin.blurb}
       </p>
     </header>
@@ -226,12 +226,12 @@ function Header({
 
 function EnvChip({ env, persistent }: { env: PublishingOSData['environment']; persistent: boolean }) {
   if (env === 'local-file') {
-    return <Pill className="bg-sky-500/10 text-sky-300 border-sky-500/30"><HardDrive className="h-3 w-3" /> Local · file-backed</Pill>;
+    return <Pill className="bg-primary/10 text-link border-primary/30"><HardDrive className="h-3 w-3" /> Local · file-backed</Pill>;
   }
   if (env === 'durable-db' || persistent) {
-    return <Pill className="bg-emerald-500/10 text-emerald-300 border-emerald-500/30"><Database className="h-3 w-3" /> Durable · DB-backed</Pill>;
+    return <Pill className="bg-success/10 text-success-text border-success/30"><Database className="h-3 w-3" /> Durable · DB-backed</Pill>;
   }
-  return <Pill className="bg-amber-500/10 text-amber-300 border-amber-500/30"><CloudOff className="h-3 w-3" /> Ephemeral · this session</Pill>;
+  return <Pill className="bg-primary/10 text-link border-primary/30"><CloudOff className="h-3 w-3" /> Ephemeral · this session</Pill>;
 }
 
 // ── Environment banner (replaces the "view-only" dead end) ────────────────
@@ -283,9 +283,9 @@ function Banner({
   body: string;
 }) {
   const tones = {
-    sky: 'border-sky-500/30 bg-sky-500/10 text-sky-100',
-    emerald: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100',
-    amber: 'border-amber-500/30 bg-amber-500/10 text-amber-100',
+    sky: 'border-primary/30 bg-primary/10 text-link',
+    emerald: 'border-success/30 bg-success/10 text-success-text',
+    amber: 'border-primary/30 bg-primary/10 text-link',
   } as const;
   return (
     <div className={`flex items-start gap-3 ${skin.radius} border p-4 text-sm ${tones[tone]}`}>
@@ -340,8 +340,8 @@ function Overview({ data, skin, onJump }: { data: PublishingOSData; skin: Return
         {tiles.map((t) => (
           <div key={t.label} className={`${skin.stat} p-4`}>
             <p className={skin.statValue}>{t.value}</p>
-            <p className="mt-1 text-xs font-medium text-gray-300">{t.label}</p>
-            <p className="text-[11px] text-gray-500">{t.hint}</p>
+            <p className="mt-1 text-xs font-medium text-foreground">{t.label}</p>
+            <p className="text-[11px] text-muted-foreground">{t.hint}</p>
           </div>
         ))}
       </div>
@@ -353,9 +353,9 @@ function Overview({ data, skin, onJump }: { data: PublishingOSData; skin: Return
             <button onClick={() => onJump('queue')} className={`text-xs ${skin.accentText} hover:underline`}>Open queue →</button>
           </div>
           <ul className="space-y-2 text-sm">
-            <li className="flex items-center justify-between"><span className="text-gray-300">Drafts ready to review</span><span className="tabular-nums text-gray-100">{s.drafts}</span></li>
-            <li className="flex items-center justify-between"><span className="text-gray-300">High-risk pending</span><span className="tabular-nums text-amber-300">{s.highRisk}</span></li>
-            <li className="flex items-center justify-between"><span className="text-gray-300">Failed publishes</span><span className="tabular-nums text-red-300">{s.failed}</span></li>
+            <li className="flex items-center justify-between"><span className="text-foreground">Drafts ready to review</span><span className="tabular-nums text-foreground">{s.drafts}</span></li>
+            <li className="flex items-center justify-between"><span className="text-foreground">High-risk pending</span><span className="tabular-nums text-link">{s.highRisk}</span></li>
+            <li className="flex items-center justify-between"><span className="text-foreground">Failed publishes</span><span className="tabular-nums text-error-text">{s.failed}</span></li>
           </ul>
         </div>
 
@@ -365,13 +365,13 @@ function Overview({ data, skin, onJump }: { data: PublishingOSData; skin: Return
             <button onClick={() => onJump('activity')} className={`text-xs ${skin.accentText} hover:underline`}>All activity →</button>
           </div>
           {data.recentEvents.length === 0 ? (
-            <p className="text-sm text-gray-500">No publish events yet. Publish something from the queue to see it here.</p>
+            <p className="text-sm text-muted-foreground">No publish events yet. Publish something from the queue to see it here.</p>
           ) : (
             <ul className="space-y-2 text-sm">
               {data.recentEvents.slice(0, 5).map((e) => (
                 <li key={e.id} className="flex items-center justify-between gap-3">
-                  <span className="truncate text-gray-300">{e.message}</span>
-                  <span className="shrink-0 font-mono text-[11px] text-gray-500">{e.createdAt.slice(0, 10)}</span>
+                  <span className="truncate text-foreground">{e.message}</span>
+                  <span className="shrink-0 font-mono text-[11px] text-muted-foreground">{e.createdAt.slice(0, 10)}</span>
                 </li>
               ))}
             </ul>
@@ -401,15 +401,15 @@ function PublishQueue({
   return (
     <div className={`${skin.card} p-5`}>
       <div className="mb-4 flex flex-wrap items-center gap-2">
-        <Filter className="h-4 w-4 text-gray-500" />
+        <Filter className="h-4 w-4 text-muted-foreground" />
         <Select value={type} onChange={setType} options={[['all', 'All types'], ...types.map((t) => [t, t] as [string, string])]} />
         <Select value={risk} onChange={(v) => setRisk(v as 'all' | RiskLevel)} options={[['all', 'All risk'], ['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['critical', 'Critical']]} />
         <Select value={status} onChange={(v) => setStatus(v as 'all' | 'live' | 'draft')} options={[['all', 'All status'], ['live', 'Live'], ['draft', 'Draft']]} />
-        <span className="ml-auto text-xs text-gray-500">{filtered.length} item{filtered.length === 1 ? '' : 's'}</span>
+        <span className="ml-auto text-xs text-muted-foreground">{filtered.length} item{filtered.length === 1 ? '' : 's'}</span>
       </div>
 
       {filtered.length === 0 ? (
-        <p className="py-8 text-center text-sm text-gray-500">Nothing matches these filters.</p>
+        <p className="py-8 text-center text-sm text-muted-foreground">Nothing matches these filters.</p>
       ) : (
         <ul className={skin.density === 'compact' ? 'space-y-1.5' : 'space-y-2.5'}>
           {/* index in the key guards against duplicate slugs in the source
@@ -423,14 +423,14 @@ function PublishQueue({
                 aria-label={`Open details for ${item.title}`}
               >
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="truncate text-sm font-medium text-gray-100">{item.title}</span>
-                  <Pill className={item.published ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30' : 'bg-gray-800 text-gray-400 border-gray-700'}>
+                  <span className="truncate text-sm font-medium text-foreground">{item.title}</span>
+                  <Pill className={item.published ? 'bg-success/10 text-success-text border-success/30' : 'bg-muted text-muted-foreground border-border'}>
                     {item.published ? 'Live' : 'Draft'}
                   </Pill>
                   <Pill className={RISK_TONE[item.risk]}>{item.risk}</Pill>
                   <Pill className={MODE_TONE[item.publishMode]}>{MODE_LABEL[item.publishMode]}</Pill>
                 </div>
-                <p className="mt-0.5 font-mono text-[11px] text-gray-600">{[item.entityType, item.category, item.date].filter(Boolean).join(' · ')} · view details</p>
+                <p className="mt-0.5 font-mono text-[11px] text-muted-foreground/70">{[item.entityType, item.category, item.date].filter(Boolean).join(' · ')} · view details</p>
               </button>
               <button
                 role="switch"
@@ -438,7 +438,7 @@ function PublishQueue({
                 aria-label={`${item.published ? 'Unpublish' : 'Publish'} ${item.title}`}
                 disabled={busy === item.id}
                 onClick={() => onToggle(item)}
-                className={`relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:opacity-40 ${item.published ? 'bg-emerald-500' : 'bg-gray-700'}`}
+                className={`relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:opacity-40 ${item.published ? 'bg-success' : 'bg-muted'}`}
               >
                 <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${item.published ? 'translate-x-5' : 'translate-x-0.5'}`} />
               </button>
@@ -455,7 +455,7 @@ function Select({ value, onChange, options }: { value: string; onChange: (v: str
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="rounded-md border border-gray-700 bg-gray-900 px-2.5 py-1.5 text-xs text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
+      className="rounded-md border border-border bg-card px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-border"
     >
       {options.map(([v, l]) => (
         <option key={v} value={v}>{l}</option>
@@ -466,12 +466,12 @@ function Select({ value, onChange, options }: { value: string; onChange: (v: str
 
 // ── Publishable areas audit ───────────────────────────────────────────────
 const SOURCE_TONE: Record<PublishableArea['source'], string> = {
-  'live-connected': 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
-  'db-ready': 'bg-sky-500/10 text-sky-300 border-sky-500/30',
-  'file-backed': 'bg-violet-500/10 text-violet-300 border-violet-500/30',
-  'mock-backed': 'bg-amber-500/10 text-amber-300 border-amber-500/30',
-  hardcoded: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
-  'needs-integration': 'bg-red-500/10 text-red-300 border-red-500/30',
+  'live-connected': 'bg-success/10 text-success-text border-success/30',
+  'db-ready': 'bg-primary/10 text-link border-primary/30',
+  'file-backed': 'bg-primary/10 text-link border-primary/30',
+  'mock-backed': 'bg-primary/10 text-link border-primary/30',
+  hardcoded: 'bg-primary/10 text-link border-primary/30',
+  'needs-integration': 'bg-error/10 text-error-text border-error/30',
 };
 
 function AreasAudit({
@@ -491,34 +491,34 @@ function AreasAudit({
         ].map(([l, v]) => (
           <div key={String(l)} className={`${skin.stat} p-3`}>
             <p className={skin.statValue}>{v as number}</p>
-            <p className="text-[11px] text-gray-400">{l as string}</p>
+            <p className="text-[11px] text-muted-foreground">{l as string}</p>
           </div>
         ))}
       </div>
 
       <div className={`${skin.card} overflow-hidden`}>
-        <div className="flex items-center justify-between border-b border-gray-800 p-4">
+        <div className="flex items-center justify-between border-b border-border p-4">
           <h2 className={skin.heading}>Publishable areas</h2>
-          <label className="flex items-center gap-2 text-xs text-gray-400">
-            <input type="checkbox" checked={onlyHighRisk} onChange={(e) => setOnlyHighRisk(e.target.checked)} className="accent-emerald-500" />
+          <label className="flex items-center gap-2 text-xs text-muted-foreground">
+            <input type="checkbox" checked={onlyHighRisk} onChange={(e) => setOnlyHighRisk(e.target.checked)} className="accent-success" />
             High-risk only
           </label>
         </div>
-        <div className="divide-y divide-gray-800">
+        <div className="divide-y divide-border">
           {rows.map((a) => (
             <div key={a.key} className="grid gap-2 p-4 lg:grid-cols-[1.4fr_1fr_1.6fr] lg:items-center">
               <div>
-                <p className="text-sm font-medium text-gray-100">{a.area}</p>
-                <p className="font-mono text-[11px] text-gray-600">{a.entityType} · {a.owner}</p>
+                <p className="text-sm font-medium text-foreground">{a.area}</p>
+                <p className="font-mono text-[11px] text-muted-foreground/70">{a.entityType} · {a.owner}</p>
               </div>
               <div className="flex flex-wrap items-center gap-1.5">
                 <Pill className={SOURCE_TONE[a.source]}>{a.source}</Pill>
                 <Pill className={MODE_TONE[a.publishMode]}>{MODE_LABEL[a.publishMode]}</Pill>
                 <Pill className={RISK_TONE[a.riskLevel]}>{a.riskLevel}</Pill>
-                {a.liveConnected && <Pill className="bg-emerald-500/10 text-emerald-300 border-emerald-500/30"><CheckCircle2 className="h-3 w-3" /> live</Pill>}
+                {a.liveConnected && <Pill className="bg-success/10 text-success-text border-success/30"><CheckCircle2 className="h-3 w-3" /> live</Pill>}
               </div>
               <div className="flex items-center justify-between gap-3">
-                <p className="text-xs text-gray-400">{a.recommendedAction}</p>
+                <p className="text-xs text-muted-foreground">{a.recommendedAction}</p>
                 <a href={a.adminHref} className={`shrink-0 text-xs ${skin.accentText} hover:underline`}>Open <ExternalLink className="inline h-3 w-3" /></a>
               </div>
             </div>
@@ -535,18 +535,18 @@ function Activity({ data, skin }: { data: PublishingOSData; skin: ReturnType<typ
     <div className={`${skin.card} p-5`}>
       <h2 className={`mb-3 ${skin.heading}`}>Publish activity (audit trail)</h2>
       {data.recentEvents.length === 0 ? (
-        <p className="text-sm text-gray-500">No publish events recorded yet this session.</p>
+        <p className="text-sm text-muted-foreground">No publish events recorded yet this session.</p>
       ) : (
         <ul className="space-y-2">
           {data.recentEvents.map((e) => (
             <li key={e.id} className={`flex flex-wrap items-center justify-between gap-2 ${skin.row} p-3`}>
               <div className="min-w-0">
-                <p className="truncate text-sm text-gray-200">{e.message}</p>
-                <p className="font-mono text-[11px] text-gray-600">
+                <p className="truncate text-sm text-foreground">{e.message}</p>
+                <p className="font-mono text-[11px] text-muted-foreground/70">
                   {e.entityType} · {e.fromStatus} → {e.toStatus} · {e.actorEmail ?? 'system'}
                 </p>
               </div>
-              <span className="shrink-0 font-mono text-[11px] text-gray-500">{e.createdAt.replace('T', ' ').slice(0, 16)}</span>
+              <span className="shrink-0 font-mono text-[11px] text-muted-foreground">{e.createdAt.replace('T', ' ').slice(0, 16)}</span>
             </li>
           ))}
         </ul>
@@ -558,27 +558,27 @@ function Activity({ data, skin }: { data: PublishingOSData; skin: ReturnType<typ
 // ── Risk confirmation modal ───────────────────────────────────────────────
 function ConfirmModal({ item, onCancel, onConfirm }: { item: QueueItem; onCancel: () => void; onConfirm: () => void }) {
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4" role="dialog" aria-modal="true" aria-label="Confirm publish">
-      <div className="w-full max-w-md rounded-2xl border border-amber-500/30 bg-gray-900 p-5 shadow-2xl">
+    <div className="fixed inset-0 z-50 grid place-items-center bg-foreground/60 p-4" role="dialog" aria-modal="true" aria-label="Confirm publish">
+      <div className="w-full max-w-md rounded-2xl border border-primary/30 bg-card p-5 shadow-2xl">
         <div className="mb-3 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-amber-300">
+          <div className="flex items-center gap-2 text-link">
             <ShieldAlert className="h-5 w-5" />
             <h3 className="font-semibold">Confirm {item.risk}-risk publish</h3>
           </div>
-          <button onClick={onCancel} aria-label="Cancel" className="text-gray-500 hover:text-gray-200"><X className="h-4 w-4" /></button>
+          <button onClick={onCancel} aria-label="Cancel" className="text-muted-foreground hover:text-foreground"><X className="h-4 w-4" /></button>
         </div>
-        <p className="text-sm text-gray-300">
-          You are about to publish <strong className="text-gray-100">“{item.title}”</strong> ({item.entityType}). This is a
-          {' '}<span className="text-amber-300">{item.risk}-risk</span> change to a search- or product-critical surface.
+        <p className="text-sm text-foreground">
+          You are about to publish <strong className="text-foreground">“{item.title}”</strong> ({item.entityType}). This is a
+          {' '}<span className="text-link">{item.risk}-risk</span> change to a search- or product-critical surface.
         </p>
-        <ul className="mt-3 space-y-1 text-xs text-gray-400">
-          <li>• It will be published via the <strong className="text-gray-200">{MODE_LABEL[item.publishMode].toLowerCase()}</strong> path and the route revalidated.</li>
+        <ul className="mt-3 space-y-1 text-xs text-muted-foreground">
+          <li>• It will be published via the <strong className="text-foreground">{MODE_LABEL[item.publishMode].toLowerCase()}</strong> path and the route revalidated.</li>
           <li>• A rollback target is kept — you can unpublish or roll back from the queue.</li>
           <li>• This action is recorded in the audit trail.</li>
         </ul>
         <div className="mt-5 flex justify-end gap-2">
-          <button onClick={onCancel} className="rounded-md border border-gray-700 px-3 py-1.5 text-sm text-gray-300 hover:bg-gray-800">Cancel</button>
-          <button onClick={onConfirm} className="rounded-md bg-amber-500 px-3 py-1.5 text-sm font-medium text-gray-950 hover:bg-amber-400">Confirm &amp; publish</button>
+          <button onClick={onCancel} className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted">Cancel</button>
+          <button onClick={onConfirm} className="rounded-md bg-warning px-3 py-1.5 text-sm font-medium text-foreground hover:bg-warning">Confirm &amp; publish</button>
         </div>
       </div>
     </div>

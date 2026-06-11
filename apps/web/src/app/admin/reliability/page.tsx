@@ -40,19 +40,19 @@ export default async function ReliabilityPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A founder-friendly reliability layer.
+          <strong className="text-foreground">What this is.</strong> A founder-friendly reliability layer.
           It captures failures from the app&apos;s existing error reporting + analytics, groups repeated
           failures into issues, and shows you a prioritized inbox with suggested next steps and a
           one-click &ldquo;Copy Debug Context&rdquo; you can paste into Claude Code.
         </p>
         <p className="mt-2">
-          <strong className="text-gray-300">Daily:</strong> glance at System Status and any open
-          critical/high issues, failed uploads and failed logins. <strong className="text-gray-300">Weekly:</strong>{' '}
-          resolve fixed issues, copy debug context for anything recurring. <strong className="text-gray-300">Monthly:</strong>{' '}
+          <strong className="text-foreground">Daily:</strong> glance at System Status and any open
+          critical/high issues, failed uploads and failed logins. <strong className="text-foreground">Weekly:</strong>{' '}
+          resolve fixed issues, copy debug context for anything recurring. <strong className="text-foreground">Monthly:</strong>{' '}
           review the top failure categories and tune alert thresholds. See{' '}
           <code>docs/reliability-os/founder-guide.md</code>.
         </p>
-        <p className="mt-2 text-amber-300/80">
+        <p className="mt-2 text-link/80">
           Cross-user runtime capture requires a durable backend (Supabase). When it&apos;s off, this
           shows your admin session&apos;s captured failures + signal-derived health only — it never
           invents numbers for other users.

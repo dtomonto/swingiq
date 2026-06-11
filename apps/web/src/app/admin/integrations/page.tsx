@@ -31,7 +31,7 @@ export default function IntegrationsPage() {
         actions={<RecheckButton label="Test connections" />}
       />
 
-      <div className="flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] px-4 py-3 text-sm text-emerald-300">
+      <div className="flex items-center gap-2 rounded-xl border border-success/20 bg-success/[0.05] px-4 py-3 text-sm text-success-text">
         <ShieldCheck className="h-4 w-4 shrink-0" />
         <span>
           {connectedCount} of {totalCount} connected. This page shows only whether a key is present — never
@@ -44,20 +44,20 @@ export default function IntegrationsPage() {
           <SectionCard key={i.id}>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-100">{i.name}</p>
-                <p className="text-[11px] uppercase tracking-wide text-gray-600">{i.category}</p>
+                <p className="text-sm font-semibold text-foreground">{i.name}</p>
+                <p className="text-[11px] uppercase tracking-wide text-muted-foreground/70">{i.category}</p>
               </div>
               <StatusBadge tone={i.connected ? 'success' : 'neutral'}>
                 {i.connected ? 'Connected' : 'Not connected'}
               </StatusBadge>
             </div>
-            <p className="mt-2 text-sm text-gray-400">{i.detail}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{i.detail}</p>
             {i.envVars.length > 0 && (
               <div className="mt-3">
-                <p className="text-[11px] uppercase tracking-wide text-gray-600">Configure with</p>
+                <p className="text-[11px] uppercase tracking-wide text-muted-foreground/70">Configure with</p>
                 <div className="mt-1 flex flex-wrap gap-1.5">
                   {i.envVars.map((v) => (
-                    <code key={v} className="rounded bg-gray-800 px-1.5 py-0.5 font-mono text-[11px] text-gray-300">
+                    <code key={v} className="rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] text-foreground">
                       {v}
                     </code>
                   ))}
@@ -68,23 +68,23 @@ export default function IntegrationsPage() {
         ))}
       </div>
 
-      <div className="border-t border-gray-800 pt-6">
+      <div className="border-t border-border pt-6">
         <KeysManager />
       </div>
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> The connection status of every third-party
+          <strong className="text-foreground">What this is.</strong> The connection status of every third-party
           service. Keys are set as environment variables (in <code>.env.local</code> for development or in
           your host&apos;s dashboard for production), then the app picks them up on the next deploy/restart.
         </p>
         <p>
-          <strong className="text-gray-300">Security.</strong> Secrets are never displayed or sent to the
+          <strong className="text-foreground">Security.</strong> Secrets are never displayed or sent to the
           browser — only the boolean &ldquo;is it configured&rdquo; is. <em>Test connections</em> re-reads the
           server&apos;s view of which keys are present.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> For full admin functionality, connect
+          <strong className="text-foreground">What to do next.</strong> For full admin functionality, connect
           Supabase and set <code>SUPABASE_SERVICE_ROLE_KEY</code> so cross-user sections (Users, Athletes,
           Media, AI Analyses) can load real data.
         </p>

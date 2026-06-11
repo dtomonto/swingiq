@@ -27,7 +27,7 @@ export function SupportClient({ actor }: { actor: string }) {
 
   const [form, setForm] = useState({ subject: '', requester: '', sport: 'golf', category: 'general', priority: 'normal' as TicketPriority, body: '' });
 
-  if (!mounted) return <p className="text-sm text-gray-500">Loading tickets…</p>;
+  if (!mounted) return <p className="text-sm text-muted-foreground">Loading tickets…</p>;
 
   function add() {
     if (!form.subject.trim()) return;
@@ -38,33 +38,33 @@ export function SupportClient({ actor }: { actor: string }) {
 
   return (
     <div className="space-y-4">
-      <div className="grid gap-2 rounded-xl border border-gray-800 bg-gray-900 p-4 sm:grid-cols-2">
-        <input value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} placeholder="Subject" className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100 sm:col-span-2" />
-        <input value={form.requester} onChange={(e) => setForm({ ...form, requester: e.target.value })} placeholder="Requester (email)" className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100" />
-        <input value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} placeholder="Category" className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100" />
-        <select value={form.sport} onChange={(e) => setForm({ ...form, sport: e.target.value })} className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200">
+      <div className="grid gap-2 rounded-xl border border-border bg-card p-4 sm:grid-cols-2">
+        <input value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} placeholder="Subject" className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground sm:col-span-2" />
+        <input value={form.requester} onChange={(e) => setForm({ ...form, requester: e.target.value })} placeholder="Requester (email)" className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+        <input value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} placeholder="Category" className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+        <select value={form.sport} onChange={(e) => setForm({ ...form, sport: e.target.value })} className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground">
           {['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'].map((s) => <option key={s} value={s}>{sportLabel(s)}</option>)}
         </select>
-        <select value={form.priority} onChange={(e) => setForm({ ...form, priority: e.target.value as TicketPriority })} className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-200">
+        <select value={form.priority} onChange={(e) => setForm({ ...form, priority: e.target.value as TicketPriority })} className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground">
           {PRIORITY.map((p) => <option key={p} value={p}>{p}</option>)}
         </select>
-        <textarea value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} placeholder="Details…" rows={2} className="rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100 sm:col-span-2" />
-        <button onClick={add} disabled={!form.subject.trim()} className="rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-gray-950 hover:bg-amber-400 disabled:opacity-40 sm:col-span-2">Log ticket</button>
+        <textarea value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} placeholder="Details…" rows={2} className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground sm:col-span-2" />
+        <button onClick={add} disabled={!form.subject.trim()} className="rounded-lg bg-warning px-3 py-2 text-sm font-medium text-foreground hover:bg-warning disabled:opacity-40 sm:col-span-2">Log ticket</button>
       </div>
 
       {tickets.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-gray-700 bg-gray-900/50 p-8 text-center text-sm text-gray-500">
+        <p className="rounded-xl border border-dashed border-border bg-card/50 p-8 text-center text-sm text-muted-foreground">
           No tickets yet. Log one above, or wire an inbound channel (email/contact form) to feed this queue.
         </p>
       ) : (
         <ul className="space-y-2">
           {tickets.map((t) => (
-            <li key={t.id} className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+            <li key={t.id} className="rounded-xl border border-border bg-card p-4">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div className="min-w-0">
-                  <p className="font-medium text-gray-100">{t.subject}</p>
-                  <p className="mt-0.5 text-xs text-gray-500">{t.requester || 'unknown'} · {sportLabel(t.sport)} · {t.category} · {formatRelativeTime(t.createdAt)}</p>
-                  {t.body && <p className="mt-1 text-sm text-gray-400">{t.body}</p>}
+                  <p className="font-medium text-foreground">{t.subject}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{t.requester || 'unknown'} · {sportLabel(t.sport)} · {t.category} · {formatRelativeTime(t.createdAt)}</p>
+                  {t.body && <p className="mt-1 text-sm text-muted-foreground">{t.body}</p>}
                 </div>
                 <div className="flex items-center gap-2">
                   <StatusBadge tone={PRIORITY_TONE[t.priority]}>{t.priority}</StatusBadge>
@@ -75,11 +75,11 @@ export function SupportClient({ actor }: { actor: string }) {
                 <select
                   value={t.status}
                   onChange={(e) => { setStatus(t.id, e.target.value as TicketStatus); recordAudit({ actor, action: 'ticket.status', entityType: 'support-ticket', entityId: t.id, summary: `Ticket "${t.subject}" → ${e.target.value}` }); }}
-                  className="rounded border border-gray-700 bg-gray-950 px-2 py-1 text-xs text-gray-200"
+                  className="rounded border border-border bg-background px-2 py-1 text-xs text-foreground"
                 >
                   {STATUS.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>
-                <button onClick={() => remove(t.id)} className="ml-auto text-gray-500 hover:text-red-400" aria-label="Delete"><Trash2 className="h-4 w-4" /></button>
+                <button onClick={() => remove(t.id)} className="ml-auto text-muted-foreground hover:text-error-text" aria-label="Delete"><Trash2 className="h-4 w-4" /></button>
               </div>
             </li>
           ))}

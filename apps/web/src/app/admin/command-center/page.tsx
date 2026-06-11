@@ -49,19 +49,19 @@ export default async function CommandCenterPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A daily, prioritized to-do list for the
+          <strong className="text-foreground">What this is.</strong> A daily, prioritized to-do list for the
           operator. Each recommendation is generated from a real signal in your app — drill coverage gaps,
           open audit findings, undocumented features, pending setup, missing analytics — and scored
           transparently so you always know <em>why</em> it&apos;s near the top.
         </p>
         <p>
-          <strong className="text-gray-300">How it&apos;s honest.</strong> The engine never fabricates
+          <strong className="text-foreground">How it&apos;s honest.</strong> The engine never fabricates
           analytics. When data is missing it says so and tells you how to start collecting it. Best-practice
           starters are labelled &ldquo;Initial recommendation&rdquo; so they&apos;re never mistaken for
           measured results.
         </p>
         <p>
-          <strong className="text-gray-300">How your progress is saved.</strong> Marking items in-progress,
+          <strong className="text-foreground">How your progress is saved.</strong> Marking items in-progress,
           complete, snoozed or dismissed (and your notes &amp; settings) is saved in your browser, so it works
           in production and survives re-scans. Press <em>Run Intelligence Scan</em> any time to recompute from
           the latest signals.

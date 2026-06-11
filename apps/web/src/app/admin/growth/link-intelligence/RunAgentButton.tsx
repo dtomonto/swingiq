@@ -43,7 +43,7 @@ export function RunAgentButton({ cadence = 'manual' }: { cadence?: string }) {
     <button
       onClick={() => run()}
       disabled={state === 'running'}
-      className="inline-flex items-center gap-1.5 rounded-lg bg-green-600 hover:bg-green-500 disabled:opacity-60 text-white text-sm font-semibold px-3.5 py-2"
+      className="inline-flex items-center gap-1.5 rounded-lg bg-success hover:bg-success disabled:opacity-60 text-white text-sm font-semibold px-3.5 py-2"
     >
       {state === 'running' ? <Loader2 className="w-4 h-4 animate-spin" /> : state === 'done' ? <Check className="w-4 h-4" /> : <Play className="w-4 h-4" />}
       {state === 'running' ? 'Running…' : state === 'done' ? 'Saved' : 'Run agent now'}

@@ -14,7 +14,7 @@ export default async function CrmPage() {
     <div className="space-y-8">
       <ModuleHeader icon={nav?.icon} title={nav?.label ?? 'Email / CRM'} description={nav?.description ?? ''} />
 
-      <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-xs text-red-300 flex items-start gap-2">
+      <div className="rounded-lg bg-error/10 border border-error/30 p-3 text-xs text-error-text flex items-start gap-2">
         <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5" />
         <span>
           <strong>Draft-first by default.</strong> GrowthOS never sends a real email, SMS, or push. Messages stay in
@@ -24,12 +24,12 @@ export default async function CrmPage() {
       </div>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-gray-300">Messages</h2>
+        <h2 className="text-sm font-semibold text-foreground">Messages</h2>
         <RecordModule definitionId="crm" records={messages} hideNote />
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-gray-300">Lifecycle automations</h2>
+        <h2 className="text-sm font-semibold text-foreground">Lifecycle automations</h2>
         <RecordModule definitionId="automations" records={automations} />
       </section>
     </div>

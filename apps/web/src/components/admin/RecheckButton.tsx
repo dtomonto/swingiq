@@ -17,7 +17,7 @@ export function RecheckButton({ label = 'Re-check' }: { label?: string }) {
         router.refresh();
         setTimeout(() => setSpinning(false), 700);
       }}
-      className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 px-2.5 py-1.5 text-xs text-gray-300 hover:bg-gray-800"
+      className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2.5 py-1.5 text-xs text-foreground hover:bg-muted"
     >
       <RefreshCw className={`h-3.5 w-3.5 ${spinning ? 'animate-spin' : ''}`} />
       {label}

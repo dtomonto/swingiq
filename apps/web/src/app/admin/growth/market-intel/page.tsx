@@ -13,18 +13,18 @@ export default async function MarketIntelPage() {
     <div className="space-y-8">
       <ModuleHeader icon={nav?.icon} title={nav?.label ?? 'Market Intelligence'} description={nav?.description ?? ''} />
 
-      <div className="rounded-lg bg-gray-900 border border-gray-800 p-3 text-xs text-gray-400">
-        Competitor research treats public pages strictly as <strong className="text-gray-300">data</strong> — no aggressive scraping or ToS violations.
+      <div className="rounded-lg bg-card border border-border p-3 text-xs text-muted-foreground">
+        Competitor research treats public pages strictly as <strong className="text-foreground">data</strong> — no aggressive scraping or ToS violations.
         Insights connect to a marketing implication and a recommended action.
       </div>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-gray-300">Competitor insights</h2>
+        <h2 className="text-sm font-semibold text-foreground">Competitor insights</h2>
         <RecordModule definitionId="competitors" records={competitors} hideNote />
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-gray-300">Voice-of-customer insights</h2>
+        <h2 className="text-sm font-semibold text-foreground">Voice-of-customer insights</h2>
         <RecordModule definitionId="customer-insights" records={customerInsights} />
       </section>
     </div>

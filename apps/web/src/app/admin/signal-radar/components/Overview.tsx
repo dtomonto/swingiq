@@ -68,13 +68,13 @@ export function Overview({
           {dashboard.needsAttention.length === 0 ? (
             <EmptyState title="No active signals yet" hint="Add or import signals to populate the queue." action={<Btn tone="primary" onClick={onAdd}><Plus className="h-4 w-4" /> Add signal</Btn>} />
           ) : (
-            <ul className="divide-y divide-gray-800">
+            <ul className="divide-y divide-border">
               {dashboard.needsAttention.map((s) => (
                 <li key={s.id}>
-                  <button onClick={() => onOpenSignal(s.id)} className="w-full py-3 text-left transition-colors hover:bg-gray-800/40">
+                  <button onClick={() => onOpenSignal(s.id)} className="w-full py-3 text-left transition-colors hover:bg-muted/40">
                     <div className="flex items-start justify-between gap-3">
-                      <p className="line-clamp-2 text-sm text-gray-200">{s.title || s.cleanText}</p>
-                      <span className="shrink-0 text-xs text-gray-500">{s.sourceName}</span>
+                      <p className="line-clamp-2 text-sm text-foreground">{s.title || s.cleanText}</p>
+                      <span className="shrink-0 text-xs text-muted-foreground">{s.sourceName}</span>
                     </div>
                     <div className="mt-1.5"><SignalBadges signal={s} /></div>
                   </button>
@@ -87,20 +87,20 @@ export function Overview({
         {/* Notifications rail */}
         <SectionCard title="Alerts" description="Auto-derived from your signals.">
           {dashboard.notifications.length === 0 ? (
-            <p className="text-xs text-gray-600">No alerts. New high-priority, negative or opportunity signals appear here.</p>
+            <p className="text-xs text-muted-foreground/70">No alerts. New high-priority, negative or opportunity signals appear here.</p>
           ) : (
             <ul className="space-y-2">
               {dashboard.notifications.slice(0, 8).map((n) => (
                 <li key={n.id}>
                   <button
                     onClick={() => n.signalId && onOpenSignal(n.signalId)}
-                    className="w-full rounded-lg border border-gray-800 bg-gray-950/40 p-2.5 text-left transition-colors hover:bg-gray-800/40"
+                    className="w-full rounded-lg border border-border bg-background/40 p-2.5 text-left transition-colors hover:bg-muted/40"
                   >
                     <div className="flex items-center gap-2">
                       <StatusBadge tone={NOTE_TONE[n.severity]}>{n.severity}</StatusBadge>
-                      <span className="text-xs font-medium text-gray-200">{n.title}</span>
+                      <span className="text-xs font-medium text-foreground">{n.title}</span>
                     </div>
-                    <p className="mt-1 line-clamp-2 text-xs text-gray-500">{n.detail}</p>
+                    <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{n.detail}</p>
                   </button>
                 </li>
               ))}
@@ -123,10 +123,10 @@ export function Overview({
       >
         <ul className="grid gap-2 sm:grid-cols-2">
           {adapters.map((a) => (
-            <li key={a.id} className="flex items-center justify-between gap-2 rounded-lg border border-gray-800 bg-gray-950/40 px-3 py-2">
+            <li key={a.id} className="flex items-center justify-between gap-2 rounded-lg border border-border bg-background/40 px-3 py-2">
               <div className="min-w-0">
-                <p className="truncate text-sm text-gray-200">{a.name}</p>
-                <p className="truncate text-xs text-gray-600">{a.blurb}</p>
+                <p className="truncate text-sm text-foreground">{a.name}</p>
+                <p className="truncate text-xs text-muted-foreground/70">{a.blurb}</p>
               </div>
               <StatusBadge tone={ADAPTER_STATE_TONE[a.state]}>{ADAPTER_STATE_LABEL[a.state]}</StatusBadge>
             </li>
@@ -141,9 +141,9 @@ function ChecklistItem({ done, label, hint, action }: { done: boolean; label: st
   return (
     <li className="flex items-center justify-between gap-3">
       <span className="flex items-center gap-2">
-        {done ? <CheckCircle2 className="h-4 w-4 text-emerald-400" /> : <Circle className="h-4 w-4 text-gray-600" />}
-        <span className={done ? 'text-gray-400 line-through' : 'text-gray-200'}>{label}</span>
-        {hint && <span className="text-xs text-gray-600">— {hint}</span>}
+        {done ? <CheckCircle2 className="h-4 w-4 text-success-text" /> : <Circle className="h-4 w-4 text-muted-foreground/70" />}
+        <span className={done ? 'text-muted-foreground line-through' : 'text-foreground'}>{label}</span>
+        {hint && <span className="text-xs text-muted-foreground/70">— {hint}</span>}
       </span>
       {action}
     </li>

@@ -49,8 +49,8 @@ function CopyButton({
       className={cn(
         'inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg border transition-all shrink-0',
         copied
-          ? 'bg-green-500/15 border-green-500/40 text-green-400'
-          : 'bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-600 hover:text-gray-200',
+          ? 'bg-success/15 border-success/40 text-success-text'
+          : 'bg-muted border-border text-muted-foreground hover:border-border hover:text-foreground',
         className,
       )}
     >
@@ -83,8 +83,8 @@ export function UtmBuilder({ savedLinks }: Props) {
       <div className="space-y-5">
         {/* Preset buttons */}
         <div>
-          <p className="text-xs font-medium text-gray-400 mb-2 flex items-center gap-1.5">
-            <Zap className="w-3.5 h-3.5 text-green-400" />
+          <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
+            <Zap className="w-3.5 h-3.5 text-success-text" />
             Quick presets — sets source &amp; medium
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -99,8 +99,8 @@ export function UtmBuilder({ savedLinks }: Props) {
                 className={cn(
                   'text-xs px-2.5 py-1 rounded-lg border transition-all',
                   source === preset.source && medium === preset.medium
-                    ? 'bg-green-600/20 border-green-500/50 text-green-300'
-                    : 'bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-600 hover:text-gray-200',
+                    ? 'bg-success/20 border-success/50 text-success-text'
+                    : 'bg-muted border-border text-muted-foreground hover:border-border hover:text-foreground',
                 )}
               >
                 {preset.label}
@@ -113,8 +113,8 @@ export function UtmBuilder({ savedLinks }: Props) {
         <div className="grid sm:grid-cols-2 gap-3">
           {/* Base URL — full width */}
           <div className="sm:col-span-2">
-            <label htmlFor="utm-base-url" className="block text-xs font-medium text-gray-400 mb-1">
-              Base URL <span className="text-red-400">*</span>
+            <label htmlFor="utm-base-url" className="block text-xs font-medium text-muted-foreground mb-1">
+              Base URL <span className="text-error-text">*</span>
             </label>
             <input
               id="utm-base-url"
@@ -123,21 +123,21 @@ export function UtmBuilder({ savedLinks }: Props) {
               onChange={(e) => setBaseUrl(e.target.value)}
               placeholder="https://swingiq.app/"
               className={cn(
-                'w-full rounded-lg border bg-gray-800 px-3 py-2 text-sm text-gray-200 placeholder-gray-600',
-                'focus:outline-none focus:ring-1 focus:ring-green-500 transition-colors',
-                missingBaseUrl ? 'border-amber-500/60' : 'border-gray-700',
+                'w-full rounded-lg border bg-muted px-3 py-2 text-sm text-foreground placeholder-muted-foreground/70',
+                'focus:outline-none focus:ring-1 focus:ring-success transition-colors',
+                missingBaseUrl ? 'border-primary/60' : 'border-border',
               )}
             />
             {missingBaseUrl && (
-              <p className="text-[11px] text-amber-400 mt-0.5">Enter a base URL to generate a link.</p>
+              <p className="text-[11px] text-link mt-0.5">Enter a base URL to generate a link.</p>
             )}
           </div>
 
           {/* Source */}
           <div>
-            <label htmlFor="utm-source" className="block text-xs font-medium text-gray-400 mb-1">
-              utm_source <span className="text-red-400">*</span>
-              <span className="text-gray-600 font-normal ml-1">e.g. google, newsletter</span>
+            <label htmlFor="utm-source" className="block text-xs font-medium text-muted-foreground mb-1">
+              utm_source <span className="text-error-text">*</span>
+              <span className="text-muted-foreground/70 font-normal ml-1">e.g. google, newsletter</span>
             </label>
             <input
               id="utm-source"
@@ -145,15 +145,15 @@ export function UtmBuilder({ savedLinks }: Props) {
               value={source}
               onChange={(e) => setSource(e.target.value)}
               placeholder="google"
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-green-500 transition-colors"
+              className="w-full rounded-lg border border-border bg-muted px-3 py-2 text-sm text-foreground placeholder-muted-foreground/70 focus:outline-none focus:ring-1 focus:ring-success transition-colors"
             />
           </div>
 
           {/* Medium */}
           <div>
-            <label htmlFor="utm-medium" className="block text-xs font-medium text-gray-400 mb-1">
-              utm_medium <span className="text-red-400">*</span>
-              <span className="text-gray-600 font-normal ml-1">e.g. cpc, email, social</span>
+            <label htmlFor="utm-medium" className="block text-xs font-medium text-muted-foreground mb-1">
+              utm_medium <span className="text-error-text">*</span>
+              <span className="text-muted-foreground/70 font-normal ml-1">e.g. cpc, email, social</span>
             </label>
             <input
               id="utm-medium"
@@ -161,15 +161,15 @@ export function UtmBuilder({ savedLinks }: Props) {
               value={medium}
               onChange={(e) => setMedium(e.target.value)}
               placeholder="cpc"
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-green-500 transition-colors"
+              className="w-full rounded-lg border border-border bg-muted px-3 py-2 text-sm text-foreground placeholder-muted-foreground/70 focus:outline-none focus:ring-1 focus:ring-success transition-colors"
             />
           </div>
 
           {/* Campaign */}
           <div>
-            <label htmlFor="utm-campaign" className="block text-xs font-medium text-gray-400 mb-1">
-              utm_campaign <span className="text-red-400">*</span>
-              <span className="text-gray-600 font-normal ml-1">e.g. summer-launch</span>
+            <label htmlFor="utm-campaign" className="block text-xs font-medium text-muted-foreground mb-1">
+              utm_campaign <span className="text-error-text">*</span>
+              <span className="text-muted-foreground/70 font-normal ml-1">e.g. summer-launch</span>
             </label>
             <input
               id="utm-campaign"
@@ -177,15 +177,15 @@ export function UtmBuilder({ savedLinks }: Props) {
               value={campaign}
               onChange={(e) => setCampaign(e.target.value)}
               placeholder="summer-launch"
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-green-500 transition-colors"
+              className="w-full rounded-lg border border-border bg-muted px-3 py-2 text-sm text-foreground placeholder-muted-foreground/70 focus:outline-none focus:ring-1 focus:ring-success transition-colors"
             />
           </div>
 
           {/* Term (optional) */}
           <div>
-            <label htmlFor="utm-term" className="block text-xs font-medium text-gray-400 mb-1">
+            <label htmlFor="utm-term" className="block text-xs font-medium text-muted-foreground mb-1">
               utm_term
-              <span className="text-gray-600 font-normal ml-1">optional · paid keyword</span>
+              <span className="text-muted-foreground/70 font-normal ml-1">optional · paid keyword</span>
             </label>
             <input
               id="utm-term"
@@ -193,15 +193,15 @@ export function UtmBuilder({ savedLinks }: Props) {
               value={term}
               onChange={(e) => setTerm(e.target.value)}
               placeholder="golf swing app"
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-green-500 transition-colors"
+              className="w-full rounded-lg border border-border bg-muted px-3 py-2 text-sm text-foreground placeholder-muted-foreground/70 focus:outline-none focus:ring-1 focus:ring-success transition-colors"
             />
           </div>
 
           {/* Content (optional) — full width */}
           <div className="sm:col-span-2">
-            <label htmlFor="utm-content" className="block text-xs font-medium text-gray-400 mb-1">
+            <label htmlFor="utm-content" className="block text-xs font-medium text-muted-foreground mb-1">
               utm_content
-              <span className="text-gray-600 font-normal ml-1">optional · ad variant or creative ID</span>
+              <span className="text-muted-foreground/70 font-normal ml-1">optional · ad variant or creative ID</span>
             </label>
             <input
               id="utm-content"
@@ -209,21 +209,21 @@ export function UtmBuilder({ savedLinks }: Props) {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="hero-cta-v2"
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-green-500 transition-colors"
+              className="w-full rounded-lg border border-border bg-muted px-3 py-2 text-sm text-foreground placeholder-muted-foreground/70 focus:outline-none focus:ring-1 focus:ring-success transition-colors"
             />
           </div>
         </div>
 
         {/* Generated URL output */}
         <div>
-          <p className="text-xs font-medium text-gray-400 mb-1.5">Generated URL</p>
+          <p className="text-xs font-medium text-muted-foreground mb-1.5">Generated URL</p>
           {missingRequired ? (
-            <div className="rounded-lg border border-gray-700 bg-gray-800/50 px-3 py-2.5 text-xs text-gray-600">
+            <div className="rounded-lg border border-border bg-muted/50 px-3 py-2.5 text-xs text-muted-foreground/70">
               Fill in source, medium, and campaign to generate the URL.
             </div>
           ) : (
             <div className="flex items-start gap-2">
-              <code className="flex-1 min-w-0 block rounded-lg border border-green-500/30 bg-green-500/5 px-3 py-2.5 text-xs text-green-300 break-all leading-relaxed">
+              <code className="flex-1 min-w-0 block rounded-lg border border-success/30 bg-success/5 px-3 py-2.5 text-xs text-success-text break-all leading-relaxed">
                 {generatedUrl}
               </code>
               <CopyButton
@@ -240,18 +240,18 @@ export function UtmBuilder({ savedLinks }: Props) {
         {/* Saved links */}
         {savedLinks.length > 0 && (
           <div>
-            <p className="text-xs font-semibold text-gray-400 mb-2 pt-1 border-t border-gray-800">
+            <p className="text-xs font-semibold text-muted-foreground mb-2 pt-1 border-t border-border">
               Saved links ({savedLinks.length})
             </p>
             <div className="space-y-2">
               {savedLinks.map((link) => (
                 <div
                   key={link.id}
-                  className="rounded-lg border border-gray-800 bg-gray-800/40 px-3 py-2.5 flex items-start gap-3"
+                  className="rounded-lg border border-border bg-muted/40 px-3 py-2.5 flex items-start gap-3"
                 >
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-gray-300 truncate">{link.name}</p>
-                    <p className="text-[11px] text-gray-500 mt-0.5 break-all leading-relaxed">
+                    <p className="text-xs font-medium text-foreground truncate">{link.name}</p>
+                    <p className="text-[11px] text-muted-foreground mt-0.5 break-all leading-relaxed">
                       {link.generatedUrl}
                     </p>
                   </div>

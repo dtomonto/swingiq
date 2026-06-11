@@ -58,18 +58,18 @@ export default async function BranchGuardianPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A developer-operations command center —
+          <strong className="text-foreground">What this is.</strong> A developer-operations command center —
           which branches and worktrees are clean, stale, abandoned, merged or risky, and exactly what to do
           about each. The Git Cleanliness Score is a weighted roll-up of branch + worktree hygiene.
         </p>
         <p>
-          <strong className="text-gray-300">How it stays safe.</strong> The app never runs git. The inventory
+          <strong className="text-foreground">How it stays safe.</strong> The app never runs git. The inventory
           comes from a committed snapshot (<code>npm run scan:branches</code>), and every cleanup is generated
           as copy-paste command text labelled by safety. Destructive commands sit behind an explicit approval
           and are never executed for you. Protected branches are never deletion candidates.
         </p>
         <p>
-          <strong className="text-gray-300">How your progress is saved.</strong> Reviewing, snoozing and
+          <strong className="text-foreground">How your progress is saved.</strong> Reviewing, snoozing and
           approving recommendations, settings and the score history are saved in your browser, so this works in
           production and survives re-scans. Every action writes a redacted entry to the audit log.
         </p>

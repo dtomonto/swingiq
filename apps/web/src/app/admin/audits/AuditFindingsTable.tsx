@@ -80,7 +80,7 @@ export function AuditFindingsTable({
   return (
     <div className="space-y-3">
       {!writable && (
-        <div className="flex items-start gap-2 rounded-xl border border-sky-500/30 bg-sky-500/10 p-3 text-sm text-sky-200">
+        <div className="flex items-start gap-2 rounded-xl border border-primary/30 bg-primary/10 p-3 text-sm text-link">
           <Lock className="mt-0.5 h-4 w-4 shrink-0" />
           <p>
             View-only here. Marking a finding edits a versioned data file the production filesystem
@@ -90,7 +90,7 @@ export function AuditFindingsTable({
       )}
 
       {error && (
-        <div className="flex items-start gap-2 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
+        <div className="flex items-start gap-2 rounded-xl border border-error/30 bg-error/10 p-3 text-sm text-error-text">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
           <p>{error}</p>
         </div>
@@ -99,62 +99,62 @@ export function AuditFindingsTable({
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
         <div className="flex items-center gap-1.5">
-          <span className="text-gray-500">Priority:</span>
+          <span className="text-muted-foreground">Priority:</span>
           {priorities.map((p) => (
             <button
               key={p}
               onClick={() => setPriorityFilter(p)}
-              className={`rounded-full px-2 py-0.5 ${priorityFilter === p ? 'bg-amber-500/20 text-amber-300' : 'text-gray-400 hover:text-gray-200'}`}
+              className={`rounded-full px-2 py-0.5 ${priorityFilter === p ? 'bg-primary/20 text-link' : 'text-muted-foreground hover:text-foreground'}`}
             >
               {p === 'all' ? 'All' : p}
             </button>
           ))}
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-gray-500">Status:</span>
+          <span className="text-muted-foreground">Status:</span>
           {statuses.map((s) => (
             <button
               key={s}
               onClick={() => setStatusFilter(s)}
-              className={`rounded-full px-2 py-0.5 ${statusFilter === s ? 'bg-amber-500/20 text-amber-300' : 'text-gray-400 hover:text-gray-200'}`}
+              className={`rounded-full px-2 py-0.5 ${statusFilter === s ? 'bg-primary/20 text-link' : 'text-muted-foreground hover:text-foreground'}`}
             >
               {s === 'all' ? 'All' : TRACK_LABEL[s]}
             </button>
           ))}
         </div>
-        <span className="ml-auto text-gray-500">
+        <span className="ml-auto text-muted-foreground">
           {visible.length} of {rows.length}
         </span>
       </div>
 
       {visible.length === 0 ? (
-        <p className="py-6 text-center text-sm text-gray-500">No findings match these filters.</p>
+        <p className="py-6 text-center text-sm text-muted-foreground">No findings match these filters.</p>
       ) : (
         <ul className="space-y-2">
           {visible.map((f) => (
-            <li key={f.id} className="rounded-xl border border-gray-800 bg-gray-900/60 p-3">
+            <li key={f.id} className="rounded-xl border border-border bg-card/60 p-3">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-gray-500">{f.id}</span>
+                <span className="font-mono text-xs text-muted-foreground">{f.id}</span>
                 <StatusBadge tone={PRIORITY_TONE[f.priority] ?? 'neutral'}>{f.priority}</StatusBadge>
-                <span className="text-xs text-gray-400">{f.category}</span>
+                <span className="text-xs text-muted-foreground">{f.category}</span>
                 <span className="ml-auto">
                   <StatusBadge tone={TRACK_TONE[f.trackStatus]}>{TRACK_LABEL[f.trackStatus]}</StatusBadge>
                 </span>
               </div>
-              <p className="mt-1.5 text-sm text-gray-200">{f.finding}</p>
+              <p className="mt-1.5 text-sm text-foreground">{f.finding}</p>
               {f.recommendation && (
-                <p className="mt-1 text-xs text-gray-400">
-                  <span className="text-gray-500">Recommended:</span> {f.recommendation}
+                <p className="mt-1 text-xs text-muted-foreground">
+                  <span className="text-muted-foreground">Recommended:</span> {f.recommendation}
                 </p>
               )}
               <div className="mt-2 flex flex-wrap items-center gap-2">
-                {f.effort && <span className="text-[11px] text-gray-500">Effort {f.effort}</span>}
-                {f.confidence && <span className="text-[11px] text-gray-500">· {f.confidence} confidence</span>}
+                {f.effort && <span className="text-[11px] text-muted-foreground">Effort {f.effort}</span>}
+                {f.confidence && <span className="text-[11px] text-muted-foreground">· {f.confidence} confidence</span>}
                 {f.sources.length > 0 && (
-                  <span className="text-[11px] text-gray-500">· from {f.sources.join(', ')}</span>
+                  <span className="text-[11px] text-muted-foreground">· from {f.sources.join(', ')}</span>
                 )}
                 {writable && (
-                  <span className="ml-auto inline-flex overflow-hidden rounded-lg border border-gray-700">
+                  <span className="ml-auto inline-flex overflow-hidden rounded-lg border border-border">
                     {TRACK_ORDER.map((s) => (
                       <button
                         key={s}
@@ -162,8 +162,8 @@ export function AuditFindingsTable({
                         onClick={() => setStatus(f, s)}
                         className={`px-2 py-1 text-[11px] transition-colors disabled:opacity-50 ${
                           f.trackStatus === s
-                            ? 'bg-amber-500/20 text-amber-300'
-                            : 'text-gray-400 hover:bg-gray-800 hover:text-gray-200'
+                            ? 'bg-primary/20 text-link'
+                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                         }`}
                       >
                         {TRACK_LABEL[s]}

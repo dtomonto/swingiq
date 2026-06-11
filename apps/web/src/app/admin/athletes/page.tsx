@@ -44,9 +44,9 @@ export default async function AdminAthletesPage() {
           {sportEntries.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {sportEntries.map(([sport, count]) => (
-                <span key={sport} className="rounded-lg border border-gray-800 bg-gray-900 px-3 py-1.5 text-sm">
-                  <span className="text-gray-300">{sportLabel(sport)}</span>{' '}
-                  <span className="font-semibold tabular-nums text-amber-300">{count}</span>
+                <span key={sport} className="rounded-lg border border-border bg-card px-3 py-1.5 text-sm">
+                  <span className="text-foreground">{sportLabel(sport)}</span>{' '}
+                  <span className="font-semibold tabular-nums text-link">{count}</span>
                 </span>
               ))}
             </div>
@@ -59,16 +59,16 @@ export default async function AdminAthletesPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> A directory of athletic profiles. SwingVantage
+          <strong className="text-foreground">What this is.</strong> A directory of athletic profiles. SwingVantage
           stores a structured golf profile and a flexible per-sport profile for the other six sports — each
           becomes a row here.
         </p>
         <p>
-          <strong className="text-gray-300">What good looks like.</strong> Profiles with a skill level and a
+          <strong className="text-foreground">What good looks like.</strong> Profiles with a skill level and a
           goal let the AI coach personalize. Sparse profiles are a prompt to encourage onboarding completion.
         </p>
         <p>
-          <strong className="text-gray-300">What to do next.</strong> Click any athlete to open their full
+          <strong className="text-foreground">What to do next.</strong> Click any athlete to open their full
           journey (every sport profile, sessions and analyses in one place).
         </p>
       </HelpPanel>

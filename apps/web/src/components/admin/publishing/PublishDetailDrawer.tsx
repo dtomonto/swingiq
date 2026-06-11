@@ -20,10 +20,10 @@ import type { QueueItem } from '@/lib/publishing/admin-data.server';
 import type { PublishableEntity, PublishEvent, RiskLevel, PublishMode, ValidationCheck } from '@/lib/publishing/types';
 
 const RISK_TONE: Record<RiskLevel, string> = {
-  low: 'bg-gray-800 text-gray-300 border-gray-700',
-  medium: 'bg-sky-500/10 text-sky-300 border-sky-500/30',
-  high: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
-  critical: 'bg-red-500/10 text-red-300 border-red-500/30',
+  low: 'bg-muted text-foreground border-border',
+  medium: 'bg-primary/10 text-link border-primary/30',
+  high: 'bg-primary/10 text-link border-primary/30',
+  critical: 'bg-error/10 text-error-text border-error/30',
 };
 const MODE_LABEL: Record<PublishMode, string> = { instant: 'Instant', deploy_backed: 'Requires deploy', hybrid: 'Hybrid' };
 
@@ -38,7 +38,7 @@ function Pill({ className, children }: { className: string; children: React.Reac
 function Section({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
     <section className="space-y-2 border-t border-white/5 pt-4">
-      <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
+      <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         {icon} {title}
       </h3>
       {children}
@@ -77,28 +77,28 @@ export function PublishDetailDrawer({
   const d = buildPublishDetail(input, entity, events, existingSlugs);
 
   const vTone =
-    d.validation.status === 'failed' ? 'text-red-300' :
-    d.validation.status === 'warnings' ? 'text-amber-300' :
-    d.validation.status === 'passed' ? 'text-emerald-300' : 'text-gray-400';
+    d.validation.status === 'failed' ? 'text-error-text' :
+    d.validation.status === 'warnings' ? 'text-link' :
+    d.validation.status === 'passed' ? 'text-success-text' : 'text-muted-foreground';
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/60" role="dialog" aria-modal="true" aria-label={`Details for ${item.title}`}>
+    <div className="fixed inset-0 z-50 flex justify-end bg-foreground/60" role="dialog" aria-modal="true" aria-label={`Details for ${item.title}`}>
       {/* Click-away backdrop */}
       <button type="button" aria-label="Close details" className="absolute inset-0 cursor-default" onClick={onClose} />
 
-      <aside className="relative h-full w-full max-w-xl overflow-y-auto border-l border-white/10 bg-gray-950 shadow-2xl">
+      <aside className="relative h-full w-full max-w-xl overflow-y-auto border-l border-white/10 bg-background shadow-2xl">
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-white/10 bg-gray-950/95 p-5 backdrop-blur">
+        <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-white/10 bg-background/95 p-5 backdrop-blur">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="truncate text-base font-semibold text-gray-100">{item.title}</h2>
-              <Pill className={item.published ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30' : 'bg-gray-800 text-gray-400 border-gray-700'}>
+              <h2 className="truncate text-base font-semibold text-foreground">{item.title}</h2>
+              <Pill className={item.published ? 'bg-success/10 text-success-text border-success/30' : 'bg-muted text-muted-foreground border-border'}>
                 {item.published ? 'Live' : 'Draft'}
               </Pill>
             </div>
-            <p className="mt-0.5 font-mono text-[11px] text-gray-500">{d.key}</p>
+            <p className="mt-0.5 font-mono text-[11px] text-muted-foreground">{d.key}</p>
           </div>
-          <button onClick={onClose} aria-label="Close" className="shrink-0 rounded-md p-1 text-gray-500 hover:bg-white/5 hover:text-gray-200">
+          <button onClick={onClose} aria-label="Close" className="shrink-0 rounded-md p-1 text-muted-foreground hover:bg-white/5 hover:text-foreground">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -108,11 +108,11 @@ export function PublishDetailDrawer({
           <Section icon={<ShieldAlert className="h-3.5 w-3.5" />} title="Risk & blast radius">
             <div className="flex flex-wrap items-center gap-2">
               <Pill className={RISK_TONE[d.risk.level]}>{d.risk.level} risk</Pill>
-              <Pill className="bg-white/5 text-gray-300 border-white/10">{MODE_LABEL[item.publishMode]}</Pill>
-              <Pill className="bg-white/5 text-gray-300 border-white/10">confirm: {d.risk.confirmation}</Pill>
-              {!d.risk.allowsInstant && <Pill className="bg-red-500/10 text-red-300 border-red-500/30">engineering review</Pill>}
+              <Pill className="bg-white/5 text-foreground border-white/10">{MODE_LABEL[item.publishMode]}</Pill>
+              <Pill className="bg-white/5 text-foreground border-white/10">confirm: {d.risk.confirmation}</Pill>
+              {!d.risk.allowsInstant && <Pill className="bg-error/10 text-error-text border-error/30">engineering review</Pill>}
             </div>
-            <p className="text-sm leading-relaxed text-gray-300">{d.risk.explanation}</p>
+            <p className="text-sm leading-relaxed text-foreground">{d.risk.explanation}</p>
           </Section>
 
           {/* Validation */}
@@ -127,17 +127,17 @@ export function PublishDetailDrawer({
               {d.validation.checks.map((c: ValidationCheck) => (
                 <li key={c.id} className="flex items-start gap-2 text-sm">
                   {c.passed
-                    ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                    ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success-text" />
                     : c.level === 'error'
-                      ? <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-400" />
-                      : <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />}
-                  <span className={c.passed ? 'text-gray-400' : c.level === 'error' ? 'text-red-200' : 'text-amber-200'}>
-                    {c.label}{c.detail ? <span className="block text-[11px] text-gray-500">{c.detail}</span> : null}
+                      ? <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-error-text" />
+                      : <Info className="mt-0.5 h-4 w-4 shrink-0 text-link" />}
+                  <span className={c.passed ? 'text-muted-foreground' : c.level === 'error' ? 'text-error-text' : 'text-link'}>
+                    {c.label}{c.detail ? <span className="block text-[11px] text-muted-foreground">{c.detail}</span> : null}
                   </span>
                 </li>
               ))}
             </ul>
-            <p className="text-[11px] text-gray-600">Shallow pre-flight (title + slug). The server runs the full content/SEO gate at publish time.</p>
+            <p className="text-[11px] text-muted-foreground/70">Shallow pre-flight (title + slug). The server runs the full content/SEO gate at publish time.</p>
           </Section>
 
           {/* Lifecycle */}
@@ -152,18 +152,18 @@ export function PublishDetailDrawer({
                 {d.lifecycle.scheduledFor && <Row label="Scheduled" value={fmt(d.lifecycle.scheduledFor)} />}
               </dl>
             ) : (
-              <p className="text-sm text-gray-500">No durable snapshot yet — a versioned record is created the first time this is published from here.</p>
+              <p className="text-sm text-muted-foreground">No durable snapshot yet — a versioned record is created the first time this is published from here.</p>
             )}
           </Section>
 
           {/* Affected routes */}
           <Section icon={<Route className="h-3.5 w-3.5" />} title="Affected routes">
             {d.affectedRoutes.length === 0 ? (
-              <p className="text-sm text-gray-500">No public routes recorded.</p>
+              <p className="text-sm text-muted-foreground">No public routes recorded.</p>
             ) : (
               <ul className="flex flex-wrap gap-1.5">
                 {d.affectedRoutes.map((r) => (
-                  <li key={r}><Pill className="bg-white/5 text-gray-300 border-white/10 font-mono">{r}</Pill></li>
+                  <li key={r}><Pill className="bg-white/5 text-foreground border-white/10 font-mono">{r}</Pill></li>
                 ))}
               </ul>
             )}
@@ -173,30 +173,30 @@ export function PublishDetailDrawer({
           {d.area && (
             <Section icon={<GitBranch className="h-3.5 w-3.5" />} title="Source of truth">
               <div className="flex flex-wrap items-center gap-2">
-                <Pill className={d.area.liveConnected ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30' : 'bg-amber-500/10 text-amber-300 border-amber-500/30'}>
+                <Pill className={d.area.liveConnected ? 'bg-success/10 text-success-text border-success/30' : 'bg-primary/10 text-link border-primary/30'}>
                   {d.area.source}
                 </Pill>
-                <span className="text-xs text-gray-500">owner: {d.area.owner}</span>
-                <a href={d.area.adminHref} className="ml-auto text-xs text-sky-300 hover:underline">
+                <span className="text-xs text-muted-foreground">owner: {d.area.owner}</span>
+                <a href={d.area.adminHref} className="ml-auto text-xs text-link hover:underline">
                   Manage <ExternalLink className="inline h-3 w-3" />
                 </a>
               </div>
-              <p className="text-xs text-gray-400">{d.area.recommendedAction}</p>
+              <p className="text-xs text-muted-foreground">{d.area.recommendedAction}</p>
             </Section>
           )}
 
           {/* Audit timeline */}
           <Section icon={<History className="h-3.5 w-3.5" />} title="Audit timeline">
             {d.timeline.length === 0 ? (
-              <p className="text-sm text-gray-500">No events recorded for this entity yet.</p>
+              <p className="text-sm text-muted-foreground">No events recorded for this entity yet.</p>
             ) : (
               <ol className="space-y-2">
                 {d.timeline.map((t) => (
                   <li key={t.id} className="flex items-start gap-3 text-sm">
-                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-600" />
+                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted" />
                     <div className="min-w-0">
-                      <p className="text-gray-300">{t.message}</p>
-                      <p className="font-mono text-[11px] text-gray-600">
+                      <p className="text-foreground">{t.message}</p>
+                      <p className="font-mono text-[11px] text-muted-foreground/70">
                         {t.action}{t.fromStatus ? ` · ${t.fromStatus} → ${t.toStatus}` : ''} · {t.actor} · {fmt(t.at)}
                       </p>
                     </div>
@@ -208,8 +208,8 @@ export function PublishDetailDrawer({
         </div>
 
         {/* Action footer — reuses the guarded queue toggle */}
-        <div className="sticky bottom-0 flex items-center justify-between gap-3 border-t border-white/10 bg-gray-950/95 p-4 backdrop-blur">
-          <p className="text-[11px] text-gray-500">
+        <div className="sticky bottom-0 flex items-center justify-between gap-3 border-t border-white/10 bg-background/95 p-4 backdrop-blur">
+          <p className="text-[11px] text-muted-foreground">
             {d.canRevert ? 'Unpublishing reverts to draft and revalidates the route.' : 'Publishing flips the durable override and revalidates the route.'}
           </p>
           <button
@@ -217,8 +217,8 @@ export function PublishDetailDrawer({
             onClick={() => onToggle(item)}
             className={`shrink-0 rounded-md px-4 py-2 text-sm font-medium disabled:opacity-40 ${
               item.published
-                ? 'border border-gray-700 text-gray-200 hover:bg-gray-800'
-                : 'bg-emerald-500 text-gray-950 hover:bg-emerald-400'
+                ? 'border border-border text-foreground hover:bg-muted'
+                : 'bg-success text-foreground hover:bg-success'
             }`}
           >
             {busy === item.id ? 'Working…' : item.published ? 'Unpublish' : 'Publish'}
@@ -232,8 +232,8 @@ export function PublishDetailDrawer({
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <>
-      <dt className="text-gray-500">{label}</dt>
-      <dd className="text-right font-mono text-[12px] text-gray-200">{value}</dd>
+      <dt className="text-muted-foreground">{label}</dt>
+      <dd className="text-right font-mono text-[12px] text-foreground">{value}</dd>
     </>
   );
 }

@@ -32,17 +32,17 @@ export default async function AdminAssetsPage() {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">Where this comes from.</strong> The catalog is built from the
+          <strong className="text-foreground">Where this comes from.</strong> The catalog is built from the
           same registries the app uses (the library &amp; tutorial video catalogs and the Video Studio store),
           so a new recording or generated asset shows up here automatically — nothing to sync by hand.
         </p>
         <p>
-          <strong className="text-gray-300">Adding a source.</strong> Brand assets, blog→social creative, and
+          <strong className="text-foreground">Adding a source.</strong> Brand assets, blog→social creative, and
           share-card images can plug into the same aggregator: add one collector in
           <code> lib/admin/asset-library.ts</code> and it appears here.
         </p>
         <p>
-          <strong className="text-gray-300">Read-only.</strong> This screen catalogs and links to media; it
+          <strong className="text-foreground">Read-only.</strong> This screen catalogs and links to media; it
           doesn&apos;t edit or delete it. Use Video Studio or the recorder pipelines to produce new assets.
         </p>
       </HelpPanel>

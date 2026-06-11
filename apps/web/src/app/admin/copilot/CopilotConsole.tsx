@@ -95,12 +95,12 @@ export function CopilotConsole({
   return (
     <div className="space-y-4">
       {/* Safety / provenance banner */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-3 text-xs text-gray-400">
-        <span className="inline-flex items-center gap-1.5 text-emerald-400">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-border bg-card/60 px-4 py-3 text-xs text-muted-foreground">
+        <span className="inline-flex items-center gap-1.5 text-success-text">
           <ShieldCheck className="h-4 w-4" /> Read-only — never publishes, emails or deletes
         </span>
         <span className="inline-flex items-center gap-1.5">
-          <Database className="h-4 w-4 text-gray-500" /> Answers computed from your live admin data
+          <Database className="h-4 w-4 text-muted-foreground" /> Answers computed from your live admin data
         </span>
         <span className="inline-flex items-center gap-1.5">
           <StatusBadge tone={meta.connected ? 'success' : 'warning'}>
@@ -117,9 +117,9 @@ export function CopilotConsole({
             type="button"
             disabled={busy}
             onClick={() => ask({ intent: s.id }, s.question)}
-            className="inline-flex items-center gap-1.5 rounded-full border border-gray-700 bg-gray-900 px-3 py-1.5 text-xs font-medium text-gray-300 transition hover:border-amber-500/50 hover:text-amber-300 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground transition hover:border-primary/50 hover:text-link disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <Sparkles className="h-3 w-3 text-amber-400" />
+            <Sparkles className="h-3 w-3 text-link" />
             {s.question}
           </button>
         ))}
@@ -131,21 +131,21 @@ export function CopilotConsole({
           <div key={turn.id} className="space-y-2">
             {/* Question */}
             <div className="flex justify-end">
-              <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-amber-500/10 px-4 py-2 text-sm text-amber-100 ring-1 ring-amber-500/20">
+              <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-primary/10 px-4 py-2 text-sm text-link ring-1 ring-ring/20">
                 {turn.question}
               </p>
             </div>
             {/* Answer */}
             {turn.error ? (
-              <div className="flex items-start gap-2 rounded-xl border border-red-500/30 bg-red-500/5 px-4 py-3 text-sm text-red-300">
+              <div className="flex items-start gap-2 rounded-xl border border-error/30 bg-error/5 px-4 py-3 text-sm text-error-text">
                 <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
                 <span>{turn.error}</span>
               </div>
             ) : turn.answer ? (
               <AnswerCard answer={turn.answer} />
             ) : (
-              <div className="inline-flex items-center gap-2 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-sm text-gray-400">
-                <Loader2 className="h-4 w-4 animate-spin text-amber-400" /> Thinking…
+              <div className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-sm text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin text-link" /> Thinking…
               </div>
             )}
           </div>
@@ -165,12 +165,12 @@ export function CopilotConsole({
           placeholder="Ask anything about your platform…"
           maxLength={500}
           autoComplete="off"
-          className="flex-1 rounded-xl border border-gray-700 bg-gray-950 px-4 py-2.5 text-sm text-gray-100 placeholder-gray-500 outline-none focus:border-amber-500/60 focus:ring-1 focus:ring-amber-500/40"
+          className="flex-1 rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground outline-none focus:border-primary/60 focus:ring-1 focus:ring-ring/40"
         />
         <button
           type="submit"
           disabled={busy || !input.trim()}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-gray-950 transition hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-warning px-4 py-2.5 text-sm font-semibold text-foreground transition hover:bg-warning disabled:cursor-not-allowed disabled:opacity-50"
         >
           {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
           Ask
@@ -185,7 +185,7 @@ function AnswerCard({ answer }: { answer: CopilotAnswer }) {
   return (
     <SectionCard>
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-        <h3 className="font-semibold text-gray-100">{answer.title}</h3>
+        <h3 className="font-semibold text-foreground">{answer.title}</h3>
         <div className="flex items-center gap-1.5">
           <StatusBadge tone={isAi ? 'accent' : 'neutral'}>
             {isAi ? (
@@ -202,13 +202,13 @@ function AnswerCard({ answer }: { answer: CopilotAnswer }) {
         </div>
       </div>
 
-      <p className="text-sm leading-relaxed text-gray-300">{answer.summary}</p>
+      <p className="text-sm leading-relaxed text-foreground">{answer.summary}</p>
 
       {answer.bullets.length > 0 && (
         <ul className="mt-3 space-y-1.5">
           {answer.bullets.map((b, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-gray-400">
-              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-500/70" />
+            <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-primary/70" />
               <span>{b}</span>
             </li>
           ))}
@@ -216,7 +216,7 @@ function AnswerCard({ answer }: { answer: CopilotAnswer }) {
       )}
 
       {answer.caveat && (
-        <p className="mt-3 flex items-start gap-2 rounded-lg bg-amber-500/5 px-3 py-2 text-xs text-amber-300/90 ring-1 ring-amber-500/20">
+        <p className="mt-3 flex items-start gap-2 rounded-lg bg-primary/5 px-3 py-2 text-xs text-link/90 ring-1 ring-ring/20">
           <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <span>{answer.caveat}</span>
         </p>
@@ -229,7 +229,7 @@ function AnswerCard({ answer }: { answer: CopilotAnswer }) {
               <Link
                 key={i}
                 href={a.href}
-                className="inline-flex items-center gap-1 rounded-lg border border-gray-700 bg-gray-800 px-3 py-1.5 text-xs font-medium text-gray-200 transition hover:border-amber-500/50 hover:text-amber-300"
+                className="inline-flex items-center gap-1 rounded-lg border border-border bg-muted px-3 py-1.5 text-xs font-medium text-foreground transition hover:border-primary/50 hover:text-link"
               >
                 {a.label}
                 <ArrowUpRight className="h-3 w-3" />
@@ -237,7 +237,7 @@ function AnswerCard({ answer }: { answer: CopilotAnswer }) {
             ) : (
               <span
                 key={i}
-                className="inline-flex items-center gap-1 rounded-lg border border-gray-800 bg-gray-900 px-3 py-1.5 text-xs font-medium text-gray-500"
+                className="inline-flex items-center gap-1 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground"
               >
                 {a.label} (soon)
               </span>
@@ -247,17 +247,17 @@ function AnswerCard({ answer }: { answer: CopilotAnswer }) {
       )}
 
       {answer.sources.length > 0 && (
-        <p className="mt-3 text-[11px] text-gray-500">
+        <p className="mt-3 text-[11px] text-muted-foreground">
           Sources:{' '}
           {answer.sources.map((sourceItem, i) => (
             <span key={i}>
               {i > 0 && ' · '}
               {sourceItem.href ? (
-                <Link href={sourceItem.href} className="text-gray-400 hover:text-amber-300 hover:underline">
+                <Link href={sourceItem.href} className="text-muted-foreground hover:text-link hover:underline">
                   {sourceItem.label}
                 </Link>
               ) : (
-                <span className="text-gray-400">{sourceItem.label}</span>
+                <span className="text-muted-foreground">{sourceItem.label}</span>
               )}
             </span>
           ))}
