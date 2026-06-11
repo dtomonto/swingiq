@@ -5,6 +5,8 @@
 > **actual code in the repository today**, section by section, with exact
 > file/route locations and an honest list of what is real vs. waiting on you.
 
+> **Update (2026-06-10):** Sport coverage has since grown to **7 sports** (golf, tennis, pickleball, padel, baseball, slow-pitch & fast-pitch softball) — pickleball and padel were added after this snapshot. References to "five sports" below reflect the June 2026 state.
+
 ---
 
 ## In Plain English (start here)

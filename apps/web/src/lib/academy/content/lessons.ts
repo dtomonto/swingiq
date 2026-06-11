@@ -12,7 +12,7 @@ export const LESSONS: Lesson[] = [
     difficulty: 'foundational', version: V,
     objectives: [
       'State what SwingVantage is in one sentence',
-      'Name the five supported sports',
+      'Name the seven supported sports',
       'Describe the try-first, honest-by-design product philosophy',
     ],
     whyItMatters:
@@ -59,14 +59,14 @@ export const LESSONS: Lesson[] = [
   {
     id: 'l-sports-overview', title: 'Supported Sports Overview', estMinutes: 6, roleIds: 'all',
     difficulty: 'foundational', version: V,
-    objectives: ['Name all five sports', 'Describe how guidance differs by sport at a high level'],
+    objectives: ['Name all seven sports', 'Describe how guidance differs by sport at a high level'],
     whyItMatters: 'Multi-sport is a key differentiator; staff must speak to each sport credibly.',
     walkthrough: [
       'Golf, tennis, baseball, slow-pitch softball, and fast-pitch softball each have tailored models, equipment context, and coaching language.',
       'The user picks a sport (and can switch sports). The analysis, drills, and even camera guidance adapt to that sport.',
     ],
     commonMistakes: ['Treating slow-pitch and fast-pitch softball as identical — they are modeled separately.'],
-    completionCriteria: 'List all five sports and one way guidance differs.',
+    completionCriteria: 'List all seven sports and one way guidance differs.',
     relatedFeatures: [{ label: 'Sports', route: '/sports' }],
   },
   {
@@ -574,7 +574,7 @@ export const LESSONS: Lesson[] = [
     whyItMatters: 'Leadership needs a shared, accurate strategic frame to make consistent calls.',
     walkthrough: [
       'GTM order: grow free users → ads (first revenue) → membership tiers. Subscriptions are a later phase, not next.',
-      'Moat: honest, prioritized AI coaching across five sports, privacy, and a growing base of each athlete’s own progress data.',
+      'Moat: honest, prioritized AI coaching across seven sports, privacy, and a growing base of each athlete’s own progress data.',
     ],
     quizId: 'q-exec',
     completionCriteria: 'Pass the executive knowledge check.',

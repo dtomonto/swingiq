@@ -234,7 +234,7 @@ export const UPDATES_PART_3: Update[] = [
     answerEngineSummary:
       'SwingVantage added an intelligent product layer that welcomes returning athletes back with a summary of their last focus, a confidence-rated top priority, a personalized practice plan, and a pre-game focus card across golf, tennis, baseball, and softball. It runs on the user’s own data with no setup and works without any AI account.',
     generativeSearchSummary:
-      'SwingVantage now provides a "pick up where you left off" experience and a clear next-best-step recommendation on every visit, plus personalized practice plans and pre-game focus guidance for all five supported sports.',
+      'SwingVantage now provides a "pick up where you left off" experience and a clear next-best-step recommendation on every visit, plus personalized practice plans and pre-game focus guidance for all seven supported sports.',
     internalLinkTargets: ['/dashboard', '/training', '/pre-round', '/reports'],
     isMajorMilestone: true,
     isFeatured: false,

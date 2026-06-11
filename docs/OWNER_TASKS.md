@@ -76,7 +76,7 @@ Use this file to track what has already been built and what you still need to se
 - [x] Honest "estimated" labels throughout
 
 ### AI Coach
-- [x] Five sport-specific system prompts
+- [x] Seven sport-specific system prompts
 - [x] Answers grounded in actual data (launch monitor stats or video analysis results)
 - [x] Rate limiting and off-topic guardrails
 - [x] Works with OpenAI (GPT-4o-mini) or Anthropic (Claude)

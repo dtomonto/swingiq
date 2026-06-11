@@ -107,7 +107,7 @@ Generates a personalized 7-day practice week based on diagnosis and frequency pr
 - Tennis/Baseball/Softball: full sport-specific warm-up checklist with coaching cues
 
 ### 📹 Drill Library
-- 80+ drills across all five sports
+- 80+ drills across all seven sports
 - Defaults to active sport's drills
 - Searchable and filterable by difficulty
 - "Recommended for Your Swing" card based on active diagnosis
@@ -160,17 +160,17 @@ Generates a personalized 7-day practice week based on diagnosis and frequency pr
 - Appears on the **Diagnose, Training, and Retest** screens
 
 ### 🏆 Milestones
-Sport-specific achievement system across all five sports.
+Sport-specific achievement system across all seven sports.
 
 ### 🤖 AI Coach
-Five sport-specific system prompts — grounded in your actual data. Never invents measurements.
+Seven sport-specific system prompts — grounded in your actual data. Never invents measurements.
 
 ### 📋 Reports
 Sport-aware coach report generator. Copy a formatted summary to share with your coach.
 - **Share as an image** — turn your report card (top priority, recommended drills, practice plan) into a clean, ready-to-post square image. The image is built privately on-device; mobile shares straight to messages/social apps, desktop downloads it.
 
 ### 🎥 Professional Swing Reference Library & Side-by-Side Comparison
-- Browse 32 seeded professional athlete profiles across 5 sports (all pending admin verification)
+- Browse 32 seeded professional athlete profiles across several sports (all pending admin verification)
 - Filter by sport, sex, movement type, handedness, and style tags
 - Preview reference detail with YouTube search fallback (privacy-enhanced embeds for verified videos)
 - Side-by-side comparison: your video on the left, professional reference on the right

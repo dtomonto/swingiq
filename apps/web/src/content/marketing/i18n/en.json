@@ -70,12 +70,12 @@
   "home": {
     "meta": {
       "title": "SwingVantage — Free AI Swing Analysis for Golf, Tennis, Baseball & Softball",
-      "description": "Upload a swing video or import launch monitor data. Get a free AI-powered breakdown of your top swing fault, personalized drills, and a practice plan. Supports golf, tennis, baseball, and softball."
+      "description": "Upload a swing video or import launch monitor data. Get a free AI-powered breakdown of your top swing fault, personalized drills, and a practice plan. Supports golf, tennis, pickleball, padel, baseball, and softball."
     },
     "hero": {
       "badge": "Live & Free",
       "titleLine1": "One fix. One plan. One retest.",
-      "titleLine2": "Free swing improvement for golf, tennis, baseball & softball",
+      "titleLine2": "Free swing improvement for golf, tennis, pickleball, padel, baseball & softball",
       "subtitle": "SwingVantage is the everyday improvement edge for athletes — and parents of athletes. Upload a swing and get the single fix that matters most, the drills to groove it, and a plan that gets you there.",
       "ctaStart": "Start Here — Free",
       "ctaAnalyze": "Analyze My Swing",
@@ -85,7 +85,7 @@
     "how": {
       "heading": "How SwingVantage Works",
       "step1Title": "Choose Your Sport",
-      "step1Desc": "Select golf, tennis, baseball, or softball. SwingVantage adapts every analysis, drill, and coaching cue to your sport.",
+      "step1Desc": "Select golf, tennis, pickleball, padel, baseball, or softball. SwingVantage adapts every analysis, drill, and coaching cue to your sport.",
       "step2Title": "Upload or Enter Data",
       "step2Desc": "Upload a swing video, import launch monitor CSV data, or snap a photo of your performance table.",
       "step3Title": "Get Your Diagnosis",
@@ -108,7 +108,7 @@
       "t1Name": "Golf Slice Fixer",
       "t1Desc": "Diagnose your slice + 7-day plan",
       "t2Name": "Swing Mistake Quiz",
-      "t2Desc": "Find your top issue across 5 sports",
+      "t2Desc": "Find your top issue across 7 sports",
       "t3Name": "Practice Plan Generator",
       "t3Desc": "7-day & 30-day plans with retests",
       "t4Name": "At-Home Drill Generator",
@@ -123,13 +123,13 @@
     "faq": {
       "heading": "Frequently Asked Questions",
       "q1": "What is SwingVantage?",
-      "a1": "SwingVantage is a free, AI-powered swing analysis platform for golf, tennis, baseball, and softball. Upload a swing video or import launch-monitor data and it gives you a clear read on your highest-impact swing fault, sport-specific drills, and a practice plan — a smarter vantage point on your swing, without expensive private coaching.",
+      "a1": "SwingVantage is a free, AI-powered swing analysis platform for golf, tennis, pickleball, padel, baseball, and softball. Upload a swing video or import launch-monitor data and it gives you a clear read on your highest-impact swing fault, sport-specific drills, and a practice plan — a smarter vantage point on your swing, without expensive private coaching.",
       "q2": "Is SwingVantage free?",
       "a2": "Yes. SwingVantage's full analysis, drill recommendations, and progress tracking are free. No credit card required.",
       "q3": "Do I need to create an account?",
       "a3": "No — you can start instantly with no account, and your data is saved privately on your device. Create a free account anytime to sync it securely across your devices, or use Backup & Restore to move it yourself. Your swing videos stay private either way.",
       "q4": "What sports does SwingVantage support?",
-      "a4": "Golf, tennis, baseball, slow pitch softball, and fast pitch softball — each with its own sport-specific diagnostic engine.",
+      "a4": "Golf, tennis, pickleball, padel, baseball, slow pitch softball, and fast pitch softball — each with its own sport-specific diagnostic engine.",
       "q5": "Does SwingVantage replace a coach?",
       "a5": "SwingVantage is your everyday improvement edge — it pinpoints the single highest-impact fix in your swing and hands you the drills and plan to groove it, no appointment needed. For injury concerns or advanced technique work it pairs perfectly with a qualified coach, and you will show up to those sessions already ahead.",
       "q6": "Is my swing video private?",
@@ -139,7 +139,7 @@
     },
     "finalCta": {
       "heading": "Start Improving Your Swing Today",
-      "subtitle": "Free AI analysis for golf, tennis, baseball, and softball. No account needed.",
+      "subtitle": "Free AI analysis for golf, tennis, pickleball, padel, baseball, and softball. No account needed.",
       "button": "Start Here — Free"
     }
   },
@@ -151,13 +151,13 @@
     "hero": {
       "eyebrow": "How It Works",
       "title": "Better Technique in 4 Steps",
-      "subtitle": "SwingVantage combines a deterministic analysis engine with AI to give every athlete a personalized, data-driven development path — across 5 sports.",
+      "subtitle": "SwingVantage combines a deterministic analysis engine with AI to give every athlete a personalized, data-driven development path — across 7 sports.",
       "cta": "Start My Free Swing Check"
     },
     "process": {
       "heading": "The SwingVantage Process",
       "step1Title": "Select Your Sport",
-      "step1Desc": "SwingVantage supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own analysis engine, drill library, and benchmarks calibrated for that discipline.",
+      "step1Desc": "SwingVantage supports golf, tennis, pickleball, padel, baseball, slow pitch softball, and fast pitch softball. Each sport has its own analysis engine, drill library, and benchmarks calibrated for that discipline.",
       "step2Title": "Upload or Enter Your Data",
       "step2Desc": "Import a CSV from your launch monitor, upload a swing video, take a screenshot and enter your stats manually, or connect a Bluetooth sensor. SwingVantage meets you where your data already lives.",
       "step3Title": "Get Your AI Analysis",
@@ -166,7 +166,7 @@
       "step4Desc": "Receive targeted drills matched to your exact fault pattern, a weekly practice schedule based on your availability, and progress benchmarks so you can see measurable improvement."
     },
     "sports": {
-      "heading": "5 Sports, One Platform",
+      "heading": "7 Sports, One Platform",
       "subtitle": "Every sport has a dedicated analysis engine. You can switch sports at any time.",
       "learnMore": "Learn more →",
       "golfName": "Golf",
@@ -220,7 +220,7 @@
   "features": {
     "meta": {
       "title": "SwingVantage Features — AI Swing Analysis, Diagnostics & Training Tools",
-      "description": "Every SwingVantage feature explained: AI swing diagnosis, launch monitor import, video analysis, drill library, practice scheduling, progress tracking, equipment diagnostics, and more — for golf, tennis, baseball, and softball."
+      "description": "Every SwingVantage feature explained: AI swing diagnosis, launch monitor import, video analysis, drill library, practice scheduling, progress tracking, equipment diagnostics, and more — for golf, tennis, pickleball, padel, baseball, and softball."
     },
     "hero": {
       "title": "Everything SwingVantage Does — Free",
@@ -245,11 +245,11 @@
       "diagnosis": {
         "heading": "Swing Diagnosis",
         "f1Name": "AI Diagnostic Engine",
-        "f1Sports": "All 5 sports",
+        "f1Sports": "All 7 sports",
         "f1Desc": "A rules-based engine compares your data against sport-specific benchmarks and identifies your highest-priority swing fault — ranked by severity, confidence, and impact on performance.",
         "f1Detail": "Each finding includes the evidence used to reach the conclusion, likely causes, and what to expect if the issue is corrected.",
         "f2Name": "Confidence Labels",
-        "f2Sports": "All 5 sports",
+        "f2Sports": "All 7 sports",
         "f2Desc": "Every diagnosis shows a confidence level and lists exactly what data was used. When data is limited, SwingVantage says so rather than guessing.",
         "f2Detail": "Labels include: High Confidence, Moderate Confidence, Low Confidence / Limited Data.",
         "f3Name": "Competing Hypotheses",
@@ -263,7 +263,7 @@
         "f1Desc": "Import CSV exports from FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, SkyTrak, and other common formats. A 7-step wizard walks you through column mapping and session setup.",
         "f1Detail": "The normalizer handles different column name formats and unit conversions automatically.",
         "f2Name": "Screenshot / Image Import",
-        "f2Sports": "All 5 sports",
+        "f2Sports": "All 7 sports",
         "f2Desc": "Upload a photo of a launch monitor screen, stats table, or scoreboard. SwingVantage provides a side-by-side data entry form so you can enter values while referencing the image.",
         "f2Detail": "Optional OCR auto-extraction activates when an extraction provider is configured — it pre-fills the review table from your image and you confirm every value before saving. Manual entry is always the default.",
         "f3Name": "Manual Session Log",
@@ -276,45 +276,45 @@
       "training": {
         "heading": "Training & Drills",
         "f1Name": "Fix Stack — One Fix at a Time",
-        "f1Sports": "All 5 sports",
+        "f1Sports": "All 7 sports",
         "f1Desc": "SwingVantage finds your single highest-impact issue and turns it into a three-step loop: one body cue to feel, the best-matched drill for your level and the gear you have, and an honest before/after retest.",
         "f1Detail": "Deterministic and local-first — it learns from what worked for you and needs no account.",
         "f2Name": "Personalized Drill Recommendations",
-        "f2Sports": "All 5 sports",
+        "f2Sports": "All 7 sports",
         "f2Desc": "Every diagnosis generates 3–5 sport-specific drills tailored to your exact fault pattern. Each drill includes a YouTube search link so you can immediately find video demonstrations.",
         "f2Detail": "Drills are ranked by expected impact on your primary fault.",
         "f3Name": "Training Routine Generator",
-        "f3Sports": "All 5 sports",
+        "f3Sports": "All 7 sports",
         "f3Desc": "Generates a structured training routine based on your active diagnosis and skill level. Includes warm-up, focused drill work, and feedback checkpoints.",
         "f4Name": "Practice Schedule",
-        "f4Sports": "All 5 sports",
+        "f4Sports": "All 7 sports",
         "f4Desc": "Creates a 7-day practice schedule based on your available days and session length. Each day has a focused theme tied to your current training priorities.",
         "f5Name": "Drill Library",
-        "f5Sports": "All 5 sports",
+        "f5Sports": "All 7 sports",
         "f5Desc": "Browse the full drill library filtered by sport, issue category, and difficulty. Each drill entry explains what it corrects and how to perform it.",
         "f6Name": "Pre-Round / Pre-Game Warm-Up",
-        "f6Sports": "All 5 sports",
+        "f6Sports": "All 7 sports",
         "f6Desc": "Generates a personalized pre-round warm-up sequence for golf, or a sport-specific pre-game activation checklist for tennis, baseball, and softball.",
         "f6Detail": "Warm-ups are adapted to your active diagnosis and how much time you have before play."
       },
       "video": {
         "heading": "Video Analysis",
         "f1Name": "Swing Video Upload",
-        "f1Sports": "All 5 sports",
+        "f1Sports": "All 7 sports",
         "f1Desc": "Upload a video of your swing from the face-on, down-the-line, or sport-specific angle. SwingVantage segments the video into phases and provides coaching notes for each phase.",
         "f1Detail": "Every video read is a heuristic estimate that sharpens as you add data — a confident starting point you can act on today. For full on-device pose tracking and a rotatable 3D reconstruction, see Motion Lab below.",
         "f2Name": "Phase-by-Phase Timeline",
-        "f2Sports": "All 5 sports",
+        "f2Sports": "All 7 sports",
         "f2Desc": "Each sport has its own swing phases. Golf: address, backswing, transition, downswing, impact, follow-through. Tennis, baseball, and softball have sport-appropriate phases.",
         "f3Name": "Pro Reference Comparison",
-        "f3Sports": "All 5 sports",
+        "f3Sports": "All 7 sports",
         "f3Desc": "Browse a curated library of professional athlete swing references filtered by sport. Use as a visual learning reference alongside your own video.",
         "f3Detail": "References are publicly available YouTube videos. SwingVantage does not host or own the footage."
       },
       "motionLab": {
         "heading": "3D Motion Analysis — Motion Lab",
         "f1Name": "Motion Lab (3D)",
-        "f1Sports": "All 5 sports",
+        "f1Sports": "All 7 sports",
         "f1Desc": "Turn a phone clip into a 3D figure of your motion you can spin, slow down, and step through — with a phase-by-phase breakdown, scores for power, rotation, balance, sequencing, timing, and consistency, your top 3 fixes, and a practice plan.",
         "f1Detail": "Runs privately on your own device. One camera gives an estimated 3D read; filming the same rep from two angles about 90° apart produces measured 3D. No medical, injury, or tour-grade claims."
       },
@@ -334,27 +334,27 @@
       "progress": {
         "heading": "Progress & AI Coach",
         "f1Name": "Session History",
-        "f1Sports": "All 5 sports",
+        "f1Sports": "All 7 sports",
         "f1Desc": "Every session is saved with its full shot data, diagnosis, scores, and training recommendations. Filter by sport, date range, or club/movement type.",
         "f2Name": "Swing Score Trends",
         "f2Sports": "Golf",
         "f2Desc": "Track your overall swing score, face control, path control, strike quality, consistency, and dispersion across sessions on a time-series chart.",
         "f3Name": "Milestones",
-        "f3Sports": "All 5 sports",
+        "f3Sports": "All 7 sports",
         "f3Desc": "Automatically tracks key milestones — sessions completed, videos analyzed, personal bests, streaks, and improvement markers.",
         "f4Name": "Retest — Prove the Change",
-        "f4Sports": "All 5 sports",
+        "f4Sports": "All 7 sports",
         "f4Desc": "SwingVantage reminds you when a diagnosed finding is due for a retest, then — after you re-analyze under the same conditions — shows an honest before-and-after read of whether it actually changed.",
         "f4Detail": "Comparisons are labeled directional reads from your data and video, not lab-measured biomechanics.",
         "f5Name": "Player Arc",
-        "f5Sports": "All 5 sports",
+        "f5Sports": "All 7 sports",
         "f5Desc": "The story of your improvement over time — the faults that keep coming back, which drills actually worked for you, and honest proof of what each retest changed. It builds with every session.",
         "f6Name": "SwingVantage Labs",
-        "f6Sports": "All 5 sports",
+        "f6Sports": "All 7 sports",
         "f6Desc": "An in-app home for emerging, on-device tools: a daily readiness score, a private player model, cross-sport skill transfer, your performance graph, and benchmark mirrors.",
         "f6Detail": "Some are early versions — each is honest about its confidence and what it does not know yet.",
         "f7Name": "AI Coach Chat",
-        "f7Sports": "All 5 sports",
+        "f7Sports": "All 7 sports",
         "f7Desc": "Ask the AI coach questions about your swing, drills, or practice strategy. The AI coach uses your actual session data and active diagnosis as context.",
         "f7Detail": "Powered by a large language model. Responses are coaching suggestions, not professional instruction."
       },
@@ -397,7 +397,7 @@
       "sports": {
         "heading": "Supported Sports",
         "q1": "What sports does SwingVantage support?",
-        "a1": "SwingVantage supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own diagnostic engine, drill library, and coaching logic.",
+        "a1": "SwingVantage supports golf, tennis, pickleball, padel, baseball, slow pitch softball, and fast pitch softball. Each sport has its own diagnostic engine, drill library, and coaching logic.",
         "q2": "Can I switch between sports in the same account?",
         "a2": "Yes. SwingVantage remembers your selected sport across sessions. You can switch sports at any time from the sidebar or sport selector — the entire interface adapts to the sport you are using.",
         "q3": "Does SwingVantage analyze slow pitch softball separately from fast pitch?",

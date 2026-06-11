@@ -10,7 +10,7 @@ export const COURSES: Course[] = [
     id: 'c-what-is', slug: 'what-swingvantage-is', title: 'What SwingVantage Is',
     summary: 'The crisp, accurate mental model of the product everyone shares.',
     roleIds: 'all', difficulty: 'foundational', estMinutes: 13, emoji: '🧭',
-    objectives: ['Describe the product in one sentence', 'Name the five sports', 'Explain the honest-by-design philosophy'],
+    objectives: ['Describe the product in one sentence', 'Name the seven sports', 'Explain the honest-by-design philosophy'],
     modules: [mod('m-what-is', 'The Basics', ['l-what-is-overview', 'l-what-is-value'])],
     badgeId: 'b-product-tour',
   },
@@ -19,7 +19,7 @@ export const COURSES: Course[] = [
     summary: 'How the multi-sport model works across golf, tennis, baseball, and softball.',
     roleIds: 'all', difficulty: 'foundational', estMinutes: 6, emoji: '🏟️',
     sports: ['golf', 'tennis', 'baseball', 'softball'],
-    objectives: ['Name all five sports', 'Describe how guidance differs by sport'],
+    objectives: ['Name all seven sports', 'Describe how guidance differs by sport'],
     modules: [mod('m-sports', 'Multi-Sport', ['l-sports-overview'])],
   },
   {

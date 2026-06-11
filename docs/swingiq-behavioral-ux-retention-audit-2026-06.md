@@ -1,6 +1,8 @@
 # SwingVantage — Behavioral Science, UX, Engagement & Retention Audit
 
 **Date:** June 2, 2026
+
+> **Update (2026-06-10):** Sport coverage has since grown to **7 sports** (golf, tennis, pickleball, padel, baseball, slow-pitch & fast-pitch softball); pickleball and padel were added after this audit. "Five sports" below reflects the June 2, 2026 snapshot.
 **Scope:** Full product — live marketing site (`swingiq-web-nine.vercel.app`) + the in-app product (`(app)` routes) read directly from source.
 **Method:** This is *not* a homepage skim. The live site was fetched, and because the real app lives behind a local-first experience that a crawler can't reach, the actual route source was read: onboarding (`/start`), both dashboards (golf + non-golf), the AI video analyzer, the "Today's Fix" / Welcome-Back layer, the Swing Passport (milestones), the community/XP system, the AI Coach, and the navigation shell.
 

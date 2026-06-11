@@ -69,8 +69,8 @@
   },
   "home": {
     "meta": {
-      "title": "SwingVantage — Analyse de swing par IA gratuite pour le golf, le tennis, le baseball et le softball",
-      "description": "Téléversez une vidéo de votre swing ou importez les données de votre moniteur de lancement. Obtenez gratuitement une analyse par IA de votre principal défaut de swing, des exercices personnalisés et un plan d'entraînement. Compatible golf, tennis, baseball et softball."
+      "title": "SwingVantage — Analyse de swing par IA gratuite pour le golf, le tennis, le pickleball, le padel, le baseball et le softball",
+      "description": "Téléversez une vidéo de votre swing ou importez les données de votre moniteur de lancement. Obtenez gratuitement une analyse par IA de votre principal défaut de swing, des exercices personnalisés et un plan d'entraînement. Compatible golf, tennis, pickleball, padel, baseball et softball."
     },
     "hero": {
       "badge": "En direct et gratuit",
@@ -85,7 +85,7 @@
     "how": {
       "heading": "Comment fonctionne SwingVantage",
       "step1Title": "Choisissez votre sport",
-      "step1Desc": "Sélectionnez le golf, le tennis, le baseball ou le softball. SwingVantage adapte chaque analyse, exercice et conseil de coaching à votre sport.",
+      "step1Desc": "Sélectionnez le golf, le tennis, le pickleball, le padel, le baseball ou le softball. SwingVantage adapte chaque analyse, exercice et conseil de coaching à votre sport.",
       "step2Title": "Téléversez ou saisissez des données",
       "step2Desc": "Téléversez une vidéo de votre swing, importez les données CSV de votre moniteur de lancement ou prenez une photo de votre tableau de performance.",
       "step3Title": "Obtenez votre diagnostic",
@@ -108,7 +108,7 @@
       "t1Name": "Correcteur de slice au golf",
       "t1Desc": "Diagnostiquez votre slice + plan de 7 jours",
       "t2Name": "Quiz des erreurs de swing",
-      "t2Desc": "Trouvez votre principal problème dans 5 sports",
+      "t2Desc": "Trouvez votre principal problème dans 7 sports",
       "t3Name": "Générateur de plan d'entraînement",
       "t3Desc": "Plans de 7 et 30 jours avec nouveaux tests",
       "t4Name": "Générateur d'exercices à la maison",
@@ -123,13 +123,13 @@
     "faq": {
       "heading": "Questions fréquentes",
       "q1": "Qu'est-ce que SwingVantage ?",
-      "a1": "SwingVantage est une plateforme gratuite d'analyse de swing par IA pour le golf, le tennis, le baseball et le softball. Téléversez une vidéo de votre swing ou importez les données de votre moniteur de lancement, et elle vous donne une lecture claire de votre défaut de swing le plus important, des exercices propres à votre sport et un plan d'entraînement — un meilleur point de vue sur votre swing, sans cours particuliers coûteux.",
+      "a1": "SwingVantage est une plateforme gratuite d'analyse de swing par IA pour le golf, le tennis, le pickleball, le padel, le baseball et le softball. Téléversez une vidéo de votre swing ou importez les données de votre moniteur de lancement, et elle vous donne une lecture claire de votre défaut de swing le plus important, des exercices propres à votre sport et un plan d'entraînement — un meilleur point de vue sur votre swing, sans cours particuliers coûteux.",
       "q2": "SwingVantage est-il gratuit ?",
       "a2": "Oui. L'analyse complète de SwingVantage, les recommandations d'exercices et le suivi des progrès sont gratuits. Aucune carte bancaire requise.",
       "q3": "Dois-je créer un compte ?",
       "a3": "Non — vous pouvez commencer instantanément sans compte, et vos données sont enregistrées en privé sur votre appareil. Créez un compte gratuit à tout moment pour les synchroniser en toute sécurité sur vos appareils, ou utilisez la Sauvegarde et restauration pour les déplacer vous-même. Vos vidéos de swing restent privées dans tous les cas.",
       "q4": "Quels sports SwingVantage prend-il en charge ?",
-      "a4": "Le golf, le tennis, le baseball, le softball lancer lent et le softball lancer rapide — chacun avec son propre moteur de diagnostic dédié.",
+      "a4": "Le golf, le tennis, le pickleball, le padel, le baseball, le softball lancer lent et le softball lancer rapide — chacun avec son propre moteur de diagnostic dédié.",
       "q5": "SwingVantage remplace-t-il un entraîneur ?",
       "a5": "SwingVantage est votre avantage quotidien — il identifie la correction à plus fort impact dans votre swing et vous fournit les exercices et le plan pour la maîtriser, sans rendez-vous. Pour les blessures ou le travail technique avancé, il se combine parfaitement avec un entraîneur qualifié, et vous arriverez déjà en avance.",
       "q6": "Ma vidéo de swing est-elle privée ?",
@@ -139,25 +139,25 @@
     },
     "finalCta": {
       "heading": "Commencez à améliorer votre swing dès aujourd'hui",
-      "subtitle": "Analyse par IA gratuite pour le golf, le tennis, le baseball et le softball. Aucun compte requis.",
+      "subtitle": "Analyse par IA gratuite pour le golf, le tennis, le pickleball, le padel, le baseball et le softball. Aucun compte requis.",
       "button": "Commencer ici — Gratuit"
     }
   },
   "howItWorks": {
     "meta": {
-      "title": "Comment fonctionne SwingVantage — Analyse de swing par IA pour le golf, le tennis, le baseball et le softball",
+      "title": "Comment fonctionne SwingVantage — Analyse de swing par IA pour le golf, le tennis, le pickleball, le padel, le baseball et le softball",
       "description": "Découvrez comment SwingVantage analyse votre swing en 4 étapes : choisissez votre sport, téléversez des données ou une vidéo, obtenez l'analyse par IA et suivez votre plan d'entraînement personnalisé."
     },
     "hero": {
       "eyebrow": "Comment ça marche",
       "title": "Une meilleure technique en 4 étapes",
-      "subtitle": "SwingVantage combine un moteur d'analyse déterministe et l'IA pour offrir à chaque athlète un parcours de développement personnalisé et fondé sur les données — dans 5 sports.",
+      "subtitle": "SwingVantage combine un moteur d'analyse déterministe et l'IA pour offrir à chaque athlète un parcours de développement personnalisé et fondé sur les données — dans 7 sports.",
       "cta": "Lancer mon analyse gratuite"
     },
     "process": {
       "heading": "Le processus SwingVantage",
       "step1Title": "Choisissez votre sport",
-      "step1Desc": "SwingVantage prend en charge le golf, le tennis, le baseball, le softball lancer lent et le softball lancer rapide. Chaque sport a son propre moteur d'analyse, sa bibliothèque d'exercices et ses références calibrées pour cette discipline.",
+      "step1Desc": "SwingVantage prend en charge le golf, le tennis, le pickleball, le padel, le baseball, le softball lancer lent et le softball lancer rapide. Chaque sport a son propre moteur d'analyse, sa bibliothèque d'exercices et ses références calibrées pour cette discipline.",
       "step2Title": "Téléversez ou saisissez vos données",
       "step2Desc": "Importez un CSV depuis votre moniteur de lancement, téléversez une vidéo de swing, faites une capture d'écran et saisissez vos statistiques manuellement, ou connectez un capteur Bluetooth. SwingVantage s'adapte à l'endroit où vivent déjà vos données.",
       "step3Title": "Obtenez votre analyse par IA",
@@ -166,7 +166,7 @@
       "step4Desc": "Recevez des exercices ciblés adaptés à votre schéma exact de défauts, un calendrier d'entraînement hebdomadaire selon vos disponibilités et des références de progression pour constater une amélioration mesurable."
     },
     "sports": {
-      "heading": "5 sports, une seule plateforme",
+      "heading": "7 sports, une seule plateforme",
       "subtitle": "Chaque sport dispose d'un moteur d'analyse dédié. Vous pouvez changer de sport à tout moment.",
       "learnMore": "En savoir plus →",
       "golfName": "Golf",
@@ -220,7 +220,7 @@
   "features": {
     "meta": {
       "title": "Fonctionnalités de SwingVantage — Analyse de swing par IA, diagnostic et outils d'entraînement",
-      "description": "Toutes les fonctionnalités de SwingVantage expliquées : diagnostic de swing par IA, import de moniteur de lancement, analyse vidéo, bibliothèque d'exercices, planification d'entraînement, suivi des progrès, diagnostic d'équipement et plus encore — pour le golf, le tennis, le baseball et le softball."
+      "description": "Toutes les fonctionnalités de SwingVantage expliquées : diagnostic de swing par IA, import de moniteur de lancement, analyse vidéo, bibliothèque d'exercices, planification d'entraînement, suivi des progrès, diagnostic d'équipement et plus encore — pour le golf, le tennis, le pickleball, le padel, le baseball et le softball."
     },
     "hero": {
       "title": "Tout ce que fait SwingVantage — Gratuit",
@@ -245,11 +245,11 @@
       "diagnosis": {
         "heading": "Diagnostic de swing",
         "f1Name": "Moteur de diagnostic par IA",
-        "f1Sports": "Les 5 sports",
+        "f1Sports": "Les 7 sports",
         "f1Desc": "Un moteur fondé sur des règles compare vos données à des références propres à chaque sport et identifie votre défaut de swing prioritaire — classé par gravité, confiance et impact sur la performance.",
         "f1Detail": "Chaque constat inclut les preuves utilisées pour parvenir à la conclusion, les causes probables et ce à quoi s'attendre si le problème est corrigé.",
         "f2Name": "Étiquettes de confiance",
-        "f2Sports": "Les 5 sports",
+        "f2Sports": "Les 7 sports",
         "f2Desc": "Chaque diagnostic affiche un niveau de confiance et indique précisément quelles données ont été utilisées. Quand les données sont limitées, SwingVantage le dit plutôt que de deviner.",
         "f2Detail": "Les étiquettes incluent : Confiance élevée, Confiance modérée, Confiance faible / Données limitées.",
         "f3Name": "Hypothèses concurrentes",
@@ -263,7 +263,7 @@
         "f1Desc": "Importez les exports CSV de FlightScope, TrackMan, Foresight GCQuad, Garmin Approach, Rapsodo, SkyTrak et d'autres formats courants. Un assistant en 7 étapes vous guide pour le mappage des colonnes et la configuration de la séance.",
         "f1Detail": "Le normaliseur gère automatiquement les différents formats de noms de colonnes et les conversions d'unités.",
         "f2Name": "Import de capture / d'image",
-        "f2Sports": "Les 5 sports",
+        "f2Sports": "Les 7 sports",
         "f2Desc": "Téléversez une photo de l'écran d'un moniteur de lancement, d'un tableau de statistiques ou d'un tableau d'affichage. SwingVantage propose un formulaire de saisie côte à côte pour entrer les valeurs tout en consultant l'image.",
         "f2Detail": "L'extraction automatique par OCR (optionnelle) s'active lorsqu'un fournisseur d'extraction est configuré — elle préremplit le tableau de revue à partir de votre image et vous confirmez chaque valeur avant d'enregistrer. La saisie manuelle reste toujours l'option par défaut.",
         "f3Name": "Journal de séance manuel",
@@ -276,45 +276,45 @@
       "training": {
         "heading": "Entraînement et exercices",
         "f1Name": "Fix Stack — Une correction à la fois",
-        "f1Sports": "Les 5 sports",
+        "f1Sports": "Les 7 sports",
         "f1Desc": "SwingVantage trouve votre unique problème à plus fort impact et le transforme en une boucle en trois étapes : une sensation corporelle à ressentir, l'exercice le mieux adapté à votre niveau et à votre matériel, et un test honnête avant/après.",
         "f1Detail": "Déterministe et local d'abord — il apprend de ce qui a fonctionné pour vous et ne nécessite aucun compte.",
         "f2Name": "Recommandations d'exercices personnalisées",
-        "f2Sports": "Les 5 sports",
+        "f2Sports": "Les 7 sports",
         "f2Desc": "Chaque diagnostic génère 3 à 5 exercices propres à votre sport, adaptés à votre schéma exact de défauts. Chaque exercice inclut un lien de recherche YouTube pour trouver immédiatement des démonstrations vidéo.",
         "f2Detail": "Les exercices sont classés selon l'impact attendu sur votre défaut principal.",
         "f3Name": "Générateur de routine d'entraînement",
-        "f3Sports": "Les 5 sports",
+        "f3Sports": "Les 7 sports",
         "f3Desc": "Génère une routine d'entraînement structurée selon votre diagnostic actif et votre niveau. Comprend échauffement, travail d'exercices ciblé et points de contrôle de retour.",
         "f4Name": "Calendrier d'entraînement",
-        "f4Sports": "Les 5 sports",
+        "f4Sports": "Les 7 sports",
         "f4Desc": "Crée un calendrier d'entraînement de 7 jours selon vos jours disponibles et la durée des séances. Chaque jour a un thème ciblé lié à vos priorités d'entraînement actuelles.",
         "f5Name": "Bibliothèque d'exercices",
-        "f5Sports": "Les 5 sports",
+        "f5Sports": "Les 7 sports",
         "f5Desc": "Parcourez la bibliothèque complète d'exercices filtrée par sport, catégorie de problème et difficulté. Chaque exercice explique ce qu'il corrige et comment l'exécuter.",
         "f6Name": "Échauffement avant la partie",
-        "f6Sports": "Les 5 sports",
+        "f6Sports": "Les 7 sports",
         "f6Desc": "Génère une séquence d'échauffement personnalisée avant une partie de golf, ou une liste d'activation propre au sport avant un match de tennis, de baseball et de softball.",
         "f6Detail": "Les échauffements sont adaptés à votre diagnostic actif et au temps dont vous disposez avant de jouer."
       },
       "video": {
         "heading": "Analyse vidéo",
         "f1Name": "Téléversement de vidéo de swing",
-        "f1Sports": "Les 5 sports",
+        "f1Sports": "Les 7 sports",
         "f1Desc": "Téléversez une vidéo de votre swing de face, dans l'axe ou sous un angle propre au sport. SwingVantage segmente la vidéo en phases et fournit des notes de coaching pour chaque phase.",
         "f1Detail": "Chaque lecture vidéo est une estimation heuristique qui s'affine à mesure que vous ajoutez des données — un point de départ fiable et exploitable dès aujourd'hui. Pour un suivi complet de la posture sur l'appareil et une reconstruction 3D pivotable, voir Motion Lab ci-dessous.",
         "f2Name": "Chronologie phase par phase",
-        "f2Sports": "Les 5 sports",
-        "f2Desc": "Chaque sport a ses propres phases de swing. Golf : adresse, montée, transition, descente, impact, finition. Le tennis, le baseball et le softball ont des phases adaptées à chaque sport.",
+        "f2Sports": "Les 7 sports",
+        "f2Desc": "Chaque sport a ses propres phases de swing. Golf : adresse, montée, transition, descente, impact, finition. Le tennis, le pickleball, le padel, le baseball et le softball ont des phases adaptées à chaque sport.",
         "f3Name": "Comparaison avec des références pro",
-        "f3Sports": "Les 5 sports",
+        "f3Sports": "Les 7 sports",
         "f3Desc": "Parcourez une bibliothèque organisée de références de swing d'athlètes professionnels filtrée par sport. À utiliser comme référence visuelle d'apprentissage à côté de votre propre vidéo.",
         "f3Detail": "Les références sont des vidéos YouTube disponibles publiquement. SwingVantage n'héberge ni ne possède ces séquences."
       },
       "motionLab": {
         "heading": "Analyse de mouvement 3D — Motion Lab",
         "f1Name": "Motion Lab (3D)",
-        "f1Sports": "Les 5 sports",
+        "f1Sports": "Les 7 sports",
         "f1Desc": "Transformez un clip de téléphone en une figure 3D de votre mouvement que vous pouvez faire pivoter, ralentir et parcourir image par image — avec une décomposition phase par phase, des scores de puissance, de rotation, d'équilibre, de séquençage, de timing et de régularité, vos 3 principales corrections et un plan d'entraînement.",
         "f1Detail": "S'exécute en privé sur votre propre appareil. Une caméra donne une lecture 3D estimée ; filmer la même répétition sous deux angles séparés d'environ 90° produit une 3D mesurée. Aucune prétention médicale, de blessure ou de niveau professionnel."
       },
@@ -334,27 +334,27 @@
       "progress": {
         "heading": "Progrès et coach IA",
         "f1Name": "Historique des séances",
-        "f1Sports": "Les 5 sports",
+        "f1Sports": "Les 7 sports",
         "f1Desc": "Chaque séance est enregistrée avec l'ensemble de ses données de frappe, son diagnostic, ses scores et ses recommandations d'entraînement. Filtrez par sport, plage de dates ou type de club/mouvement.",
         "f2Name": "Tendances du score de swing",
         "f2Sports": "Golf",
         "f2Desc": "Suivez votre score de swing global, le contrôle de la face, le contrôle de la trajectoire, la qualité de frappe, la régularité et la dispersion au fil des séances sur un graphique temporel.",
         "f3Name": "Jalons",
-        "f3Sports": "Les 5 sports",
+        "f3Sports": "Les 7 sports",
         "f3Desc": "Suit automatiquement les jalons clés — séances réalisées, vidéos analysées, records personnels, séries et marqueurs de progression.",
         "f4Name": "Nouveau test — Prouvez le changement",
-        "f4Sports": "Les 5 sports",
+        "f4Sports": "Les 7 sports",
         "f4Desc": "SwingVantage vous rappelle quand un constat diagnostiqué doit être retesté, puis — après une nouvelle analyse dans les mêmes conditions — affiche une lecture honnête avant/après pour voir s'il a réellement changé.",
         "f4Detail": "Les comparaisons sont étiquetées comme des lectures directionnelles de vos données et de votre vidéo, et non comme une biomécanique mesurée en laboratoire.",
         "f5Name": "Trajectoire du joueur",
-        "f5Sports": "Les 5 sports",
+        "f5Sports": "Les 7 sports",
         "f5Desc": "L'histoire de votre progression au fil du temps — les défauts qui reviennent, les exercices qui ont vraiment fonctionné pour vous et la preuve honnête de ce que chaque nouveau test a changé. Elle se construit à chaque séance.",
         "f6Name": "SwingVantage Labs",
-        "f6Sports": "Les 5 sports",
+        "f6Sports": "Les 7 sports",
         "f6Desc": "Un espace dans l'app pour des outils émergents exécutés sur l'appareil : un score de préparation quotidien, un modèle de joueur privé, le transfert de compétences entre sports, votre graphique de performance et des miroirs de référence.",
         "f6Detail": "Certains sont des versions précoces — chacun est honnête sur sa confiance et sur ce qu'il ne sait pas encore.",
         "f7Name": "Chat avec le coach IA",
-        "f7Sports": "Les 5 sports",
+        "f7Sports": "Les 7 sports",
         "f7Desc": "Posez des questions au coach IA sur votre swing, vos exercices ou votre stratégie d'entraînement. Le coach IA utilise vos données réelles de séance et votre diagnostic actif comme contexte.",
         "f7Detail": "Propulsé par un grand modèle de langage. Les réponses sont des suggestions de coaching, pas un enseignement professionnel."
       },
@@ -397,7 +397,7 @@
       "sports": {
         "heading": "Sports pris en charge",
         "q1": "Quels sports SwingVantage prend-il en charge ?",
-        "a1": "SwingVantage prend en charge le golf, le tennis, le baseball, le softball lancer lent et le softball lancer rapide. Chaque sport a son propre moteur de diagnostic, sa bibliothèque d'exercices et sa logique de coaching.",
+        "a1": "SwingVantage prend en charge le golf, le tennis, le pickleball, le padel, le baseball, le softball lancer lent et le softball lancer rapide. Chaque sport a son propre moteur de diagnostic, sa bibliothèque d'exercices et sa logique de coaching.",
         "q2": "Puis-je passer d'un sport à l'autre dans le même compte ?",
         "a2": "Oui. SwingVantage mémorise le sport sélectionné d'une séance à l'autre. Vous pouvez changer de sport à tout moment depuis la barre latérale ou le sélecteur de sport — toute l'interface s'adapte au sport que vous utilisez.",
         "q3": "SwingVantage analyse-t-il le softball lancer lent séparément du lancer rapide ?",

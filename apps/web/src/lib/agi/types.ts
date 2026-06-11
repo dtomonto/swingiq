@@ -4,7 +4,7 @@
 // "AGI" here = **Athlete General Intelligence**. SwingVantage already has many
 // *narrow* engines — each is brilliant at exactly one task (motion metrics,
 // drill matching, readiness, benchmarks). This module is the *general* one:
-// a single reasoning system that works across ALL five sports and ALL of
+// a single reasoning system that works across ALL seven sports and ALL of
 // those signals at once. It fuses them into one model of the whole athlete,
 // reasons over that model, transfers what it learns between sports, and
 // shows its work.

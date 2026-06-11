@@ -174,7 +174,7 @@ function scriptFor(opp: VideoOpportunity): string[] {
     case 'comparison':
       return [
         'How does SwingVantage compare? Here’s the honest version.',
-        'You get AI-assisted analysis across five sports, in your browser.',
+        'You get AI-assisted analysis across seven sports, in your browser.',
         'Findings are explained in plain language, with confidence levels.',
         'No special hardware required to get started.',
         opp.suggestedCta,

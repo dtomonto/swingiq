@@ -89,7 +89,7 @@ export function LocalizedHowItWorks({ locale }: { locale: LanguageCode }) {
         </div>
       </section>
 
-      {/* 5 sports */}
+      {/* 7 sports */}
       <section className="bg-muted py-16">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-2xl font-bold text-foreground mb-3">{t.sports.heading}</h2>

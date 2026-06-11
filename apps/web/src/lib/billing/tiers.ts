@@ -32,7 +32,7 @@ export const BILLING_TIERS: BillingTier[] = [
     priceMonthly: 0,
     tagline: 'Everything you need to improve — forever free.',
     features: [
-      'All 5 sports (golf, tennis, baseball, softball)',
+      'All 7 sports (golf, tennis, pickleball, padel, baseball, softball)',
       'AI swing analysis & priority-issue diagnosis',
       'Athlete General Intelligence — your cross-sport priority + coach-shareable report',
       'Drill recommendations + practice plans',

@@ -1,7 +1,7 @@
 // ============================================================
 // SwingVantage — Multi-Sport Fault Ontology: Data + Resolver
 // ------------------------------------------------------------
-// A curated set of high-value faults across all five sports,
+// A curated set of high-value faults across all seven sports,
 // plus an honest generic resolver so EVERY fault id (including
 // the ~80 in core and any new AI-surfaced label) maps to a
 // usable entry — never to fabricated detail.

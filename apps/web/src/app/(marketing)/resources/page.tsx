@@ -179,7 +179,7 @@ export default function ResourcesPage() {
       <MarketingHero
         title="Swing Training"
         titleAccent="Resources"
-        subtitle="Guides and references to help you understand your swing data and make better use of your practice time — for all 5 sports."
+        subtitle="Guides and references to help you understand your swing data and make better use of your practice time — for all 7 sports."
       />
 
       {/* Content */}

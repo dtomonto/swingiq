@@ -169,7 +169,7 @@ npm run type-check        # TypeScript noEmit
 
 ## Sport Support
 
-All 5 sports are supported with independent diagnostic engines in `packages/core/src/sports/`:
+All 7 sports are supported with independent diagnostic engines in `packages/core/src/sports/`:
 
 | Sport | ID | Diagnostic Issues | Notes |
 |-------|----|------------------|-------|

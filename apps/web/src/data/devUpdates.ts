@@ -429,13 +429,13 @@ export const DEV_UPDATES: DevUpdate[] = [
     displayDate: 'June 2026',
     category: 'Motion Intelligence',
     impact: 'major',
-    headline: 'Browser-native 3D swing analysis across all five sports, with no video ever leaving the device.',
+    headline: 'Browser-native 3D swing analysis across all seven sports, with no video ever leaving the device.',
     details:
       'Motion Lab estimates body pose from a single phone video and reconstructs the swing in three dimensions — so rotation, tilt, and sequencing are measured through depth instead of guessed from a flat silhouette. The whole pipeline runs client-side, which keeps athletes’ video private and removes server cost from the most expensive part of the product.',
     highlights: [
       'Single-camera pose → depth-aware 3D reconstruction',
       'Custom canvas viewer (not a heavyweight Three.js scene) for low-end phones',
-      'Same engine generalizes across all 5 sports',
+      'Same engine generalizes across all 7 sports',
     ],
     stack: ['TypeScript', 'MediaPipe', 'Canvas 2D', 'WebWorkers'],
     isMilestone: true,
@@ -634,7 +634,7 @@ export const DEV_UPDATES: DevUpdate[] = [
   },
   {
     id: 'dev-multi-sport-engines',
-    title: 'Five sports, five real diagnostic engines',
+    title: 'Seven sports, seven real diagnostic engines',
     date: '2026-05-29',
     displayDate: 'May 2026',
     category: 'Architecture',

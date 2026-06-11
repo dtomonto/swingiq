@@ -142,7 +142,7 @@ export const UPDATES_PART_2: Update[] = [
   },
   {
     id: 'update-006',
-    title: 'SwingVantage Expands to Support 5 Sports',
+    title: 'SwingVantage Expands to Support 7 Sports',
     slug: 'multi-sport-expansion',
     summary:
       'SwingVantage now supports golf, tennis, baseball, slow pitch softball, and fast pitch softball. Each sport has its own analysis engine, drill library, and coaching feedback.',
@@ -176,7 +176,7 @@ export const UPDATES_PART_2: Update[] = [
   },
   {
     id: 'update-007',
-    title: 'Sport-Specific Coaching and Feedback for All 5 Sports',
+    title: 'Sport-Specific Coaching and Feedback for All 7 Sports',
     slug: 'sport-specific-training-feedback',
     summary:
       'Each sport in SwingVantage now receives coaching language, drill recommendations, and analysis that is specific to how that sport is actually played.',

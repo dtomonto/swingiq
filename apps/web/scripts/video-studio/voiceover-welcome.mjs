@@ -45,7 +45,7 @@ if (!KEY) throw new Error('OPENAI_API_KEY not found in env or .env.local');
 const NARRATION = [
   'Welcome to SwingVantage — your personal performance system for golf, tennis, baseball, and softball. Whatever you play, the goal is the same: help you get measurably better, your way.',
   'The idea is simple. Analyze your swing, see the single most important thing to work on, practice it with a focused plan, and watch yourself improve over time.',
-  'Every feature works for free, across all five sports. You get clear, honest feedback — and when the data is limited, SwingVantage tells you, instead of guessing.',
+  'Every feature works for free, across all seven sports. You get clear, honest feedback — and when the data is limited, SwingVantage tells you, instead of guessing.',
   "Getting started takes about two minutes. Just pick the sport you're working on — no account and no credit card needed — and you'll get your first personalized result right away.",
   'From there, your Today dashboard becomes home base. It shows your main focus, your recent sessions, your scores, and the single best thing to do next.',
   "And as you log more sessions, SwingVantage tracks your progress, so you can see real, lasting improvement. Welcome aboard — let's get started.",

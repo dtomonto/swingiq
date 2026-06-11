@@ -875,7 +875,7 @@
     "whereToFindIt": "Go to Sessions → Import from Screenshot/Photo, then upload your image and review the values.",
     "userActionRequired": "None — manual entry is always available too; the photo step is an optional shortcut.",
     "seoKeywords": ["launch monitor screenshot import", "photo of stats import", "import swing data from picture", "trackman screenshot", "all sports data import"],
-    "answerEngineSummary": "SwingVantage lets users import performance data from a photo or screenshot of any readable stats table for all five sports; extracted values are pre-filled with confidence notes and must be reviewed and confirmed by the user before analysis.",
+    "answerEngineSummary": "SwingVantage lets users import performance data from a photo or screenshot of any readable stats table for all seven sports; extracted values are pre-filled with confidence notes and must be reviewed and confirmed by the user before analysis.",
     "isFeatured": false,
     "isMajorMilestone": false,
     "createdAt": "2026-06-03",

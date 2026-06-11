@@ -5,6 +5,8 @@
 > **Owner action needed:** confirm the Tennis tier (see "Sport Strategy Toggle") and say "go" to start Phase 1.
 > **Core principle:** All persona/sport configuration in this plan (`personas.ts`, `sampleReports.ts`, `sportProof.ts`, `positioning.ts`, `seoPages.ts`, `sportStrategy.ts`) is **developer-only** — typed config files edited in code and deployed via commit. There is no admin UI and nothing is exposed to end users.
 
+> **Update (2026-06-10):** Delivered and expanded since authoring. SwingVantage now supports **7 sports** (golf, tennis, pickleball, padel, baseball, slow-pitch & fast-pitch softball), and the sample-report set has grown from the 5 planned to **8** (`/sample-report/{golf,tennis,pickleball,padel,baseball,slow-pitch,fast-pitch}` + the softball chooser). "Five sports / five sample reports" below reflects the original 2026-06-06 plan, not current scope.
+
 ---
 
 ## In Plain English (start here)

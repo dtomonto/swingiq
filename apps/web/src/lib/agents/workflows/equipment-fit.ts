@@ -1,7 +1,7 @@
 // ============================================================
 // SwingVantage — Workflow: Equipment Fit
 // ------------------------------------------------------------
-// Modest, non-pushy equipment guidance for all 5 sports. Never
+// Modest, non-pushy equipment guidance for all 7 sports. Never
 // forces product links and never over-claims. Recommends fit
 // considerations and "worth testing" categories first, and asks
 // for more data before recommending changes.
