@@ -20,6 +20,8 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { getSportTaxonomy } from '@swingiq/core';
+import { cn } from '@/lib/utils';
+import { designV2EnabledFromEnv } from '@/lib/design-v2';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ConfidenceNote } from './ConfidenceNote';
@@ -80,9 +82,58 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
   const faults = resolveRelatedFaults(entry);
   const coachStyles = resolveRelatedCoachStyles(entry);
   const isConcept = entry.kind === 'concept';
+  // Design V2: open the article on the light "document" surface (premium-paper
+  // masthead). Env-gated so this stays a server component. Scoped to the hero —
+  // the dense body keeps its shipped theme styling (its Section/Bullets are
+  // shared with in-card contexts, so a full re-ink belongs in its own pass).
+  const v2 = designV2EnabledFromEnv();
   const hubCrumb = isConcept
     ? { name: 'Learn', path: '/learn' }
     : { name: 'Data points', path: '/learn/data-points' };
+
+  // Masthead content (eyebrow chips + title + description + sport chips). Ink is
+  // flag-aware: document tokens on the V2 paper sheet, theme tokens otherwise.
+  const masthead = (
+    <>
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        <span
+          className={cn(
+            'rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide',
+            v2 ? 'bg-document-accent/10 text-document-accent' : 'bg-primary/10 text-primary',
+          )}
+        >
+          {isConcept ? 'Core concept' : 'Data point'}
+        </span>
+        <span
+          className={cn(
+            'rounded-full border px-2.5 py-0.5 text-xs font-medium',
+            v2 ? 'border-document-fg/20 text-document-fg/70' : 'border-border text-muted-foreground',
+          )}
+        >
+          {EVIDENCE_LABEL[entry.evidenceBasis]}
+        </span>
+      </div>
+      <h1 className={cn('text-3xl font-bold sm:text-4xl', v2 ? 'text-document-fg' : 'text-foreground')}>
+        {entry.title}
+      </h1>
+      <p className={cn('mt-3 text-lg', v2 ? 'text-document-fg/70' : 'text-muted-foreground')}>
+        {entry.descriptionShort}
+      </p>
+      <div className="mt-4 flex flex-wrap gap-1.5">
+        {entry.sports.map((s) => (
+          <span
+            key={s}
+            className={cn(
+              'rounded-md px-2 py-0.5 text-xs ring-1',
+              v2 ? 'bg-document-fg/5 text-document-fg/70 ring-document-fg/15' : 'bg-card text-muted-foreground ring-border',
+            )}
+          >
+            {sportLabel(s)}
+          </span>
+        ))}
+      </div>
+    </>
+  );
 
   return (
     <main className="min-h-screen bg-background">
@@ -97,23 +148,11 @@ export function LearnArticle({ entry }: { entry: LearnEntry }) {
               { name: entry.title, path: '' },
             ]}
           />
-          <div className="mb-3 flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary">
-              {isConcept ? 'Core concept' : 'Data point'}
-            </span>
-            <span className="rounded-full border border-border px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
-              {EVIDENCE_LABEL[entry.evidenceBasis]}
-            </span>
-          </div>
-          <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{entry.title}</h1>
-          <p className="mt-3 text-lg text-muted-foreground">{entry.descriptionShort}</p>
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {entry.sports.map((s) => (
-              <span key={s} className="rounded-md bg-card px-2 py-0.5 text-xs text-muted-foreground ring-1 ring-border">
-                {sportLabel(s)}
-              </span>
-            ))}
-          </div>
+          {v2 ? (
+            <div className="rounded-2xl bg-document p-6 shadow-theme-lg sm:p-8">{masthead}</div>
+          ) : (
+            masthead
+          )}
         </div>
       </div>
 
