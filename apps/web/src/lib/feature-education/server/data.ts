@@ -31,7 +31,7 @@ import {
   gapForFeature,
 } from '../coverage';
 import { detectDrift } from '../drift';
-import { SEEDED_IN_APP_HELP } from './seed-help';
+import { SEEDED_ASSETS } from './seed-help';
 import {
   makeFeeAudit,
   type FeatureRecord,
@@ -41,6 +41,19 @@ import {
   type AssetVersion,
   type FeeAuditLog,
 } from '../types';
+
+/**
+ * Union the committed, source-controlled published seed (curated cards +
+ * generated shipping content) with whatever the repo has, so coverage, gaps,
+ * and the in-app reader reflect it out of the box — regardless of backend. A
+ * repo asset with the same id wins, so the admin pipeline can always override
+ * or retire a seeded asset.
+ */
+function withSeed(stored: EducationAsset[]): EducationAsset[] {
+  const byId = new Map<string, EducationAsset>();
+  for (const a of [...SEEDED_ASSETS, ...stored]) byId.set(a.id, a);
+  return [...byId.values()];
+}
 
 /** Build feature records from the live app map (surfaces + admin nav). */
 export function appMapFeatures(now: Date = new Date()): FeatureRecord[] {
@@ -73,7 +86,8 @@ export function appMapFeatures(now: Date = new Date()): FeatureRecord[] {
 /** Load the registry with coverage recomputed from current assets. */
 export async function loadFeatures(now: Date = new Date()): Promise<FeatureRecord[]> {
   const repo = getRepo();
-  const [features, assets] = await Promise.all([repo.listFeatures(), repo.listAssets()]);
+  const [features, stored] = await Promise.all([repo.listFeatures(), repo.listAssets()]);
+  const assets = withSeed(stored);
   return features
     .map((f) => refreshCoverage(f, assets, now))
     .sort((a, b) => a.name.localeCompare(b.name));
@@ -89,7 +103,8 @@ export async function runScan(actor = 'admin', now: Date = new Date()): Promise<
   detected: number;
 }> {
   const repo = getRepo();
-  const [previous, assets] = await Promise.all([repo.listFeatures(), repo.listAssets()]);
+  const [previous, stored] = await Promise.all([repo.listFeatures(), repo.listAssets()]);
+  const assets = withSeed(stored);
   const detected = appMapFeatures(now);
   const merged = mergeFeatures(previous, detected).map((f) => refreshCoverage(f, assets, now));
 
@@ -123,12 +138,13 @@ export interface OverviewData {
 /** Everything the dashboard overview needs, in one call. */
 export async function loadOverview(now: Date = new Date()): Promise<OverviewData> {
   const repo = getRepo();
-  const [rawFeatures, assets, storedDrift, audit] = await Promise.all([
+  const [rawFeatures, storedAssets, storedDrift, audit] = await Promise.all([
     repo.listFeatures(),
     repo.listAssets(),
     repo.listDrift(),
     repo.listAudit(20),
   ]);
+  const assets = withSeed(storedAssets);
   const features = rawFeatures
     .map((f) => refreshCoverage(f, assets, now))
     .sort((a, b) => a.name.localeCompare(b.name));
@@ -164,7 +180,7 @@ export async function loadFeatureDetail(
   const repo = getRepo();
   const feature = await repo.getFeature(id);
   if (!feature) return null;
-  const allAssets = await repo.listAssetsForFeature(id);
+  const allAssets = withSeed(await repo.listAssetsForFeature(id)).filter((a) => a.featureId === id);
   const withCov = refreshCoverage(feature, allAssets, now);
   const versionsByAsset: Record<string, AssetVersion[]> = {};
   await Promise.all(
@@ -189,11 +205,12 @@ export async function loadAlertCounts(now: Date = new Date()): Promise<{
   needsReview: number;
 }> {
   const repo = getRepo();
-  const [features, assets, drift] = await Promise.all([
+  const [features, storedAssets, drift] = await Promise.all([
     repo.listFeatures(),
     repo.listAssets(),
     repo.listDrift(),
   ]);
+  const assets = withSeed(storedAssets);
   const withCov = features.map((f) => refreshCoverage(f, assets, now));
   const gaps = computeGaps(withCov, assets, now);
   const needsReview = assets.filter((a) => a.status === 'needs-review' || a.needsHumanReview).length;
@@ -208,7 +225,7 @@ export async function publishedInAppHelpForRoute(route: string): Promise<Educati
   // out of the box regardless of backend. A repo asset with the same id wins
   // (set last), so the admin pipeline can override or retire a seeded card.
   const byId = new Map<string, EducationAsset>();
-  for (const a of [...SEEDED_IN_APP_HELP, ...stored]) byId.set(a.id, a);
+  for (const a of [...SEEDED_ASSETS, ...stored]) byId.set(a.id, a);
   return [...byId.values()].filter(
     (a) => a.type === 'in-app-help' && a.status === 'published' && a.inAppHelp?.route === route,
   );

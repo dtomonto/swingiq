@@ -17,6 +17,7 @@
 // ============================================================
 
 import type { EducationAsset } from '../types';
+import GENERATED_SEED from '@/data/feature-education-seed.json';
 
 const ISO = '2026-06-08T00:00:00.000Z';
 
@@ -57,3 +58,24 @@ export const SEEDED_IN_APP_HELP: EducationAsset[] = [
     updatedAt: ISO,
   },
 ];
+
+/**
+ * Engine-GENERATED published shipping content for every grounded, confident
+ * feature in the registry — an in-app-help card per feature plus a public
+ * FAQ + SEO/AEO article for public features. Produced deterministically by
+ * `server/seed-build.ts` and committed as `data/feature-education-seed.json`
+ * (regenerate with `FEE_BUILD_SEED=1 npx jest build-seed.gen`).
+ *
+ * Honest by design: only grounded, security-safe, non-needs-review features are
+ * here — low-confidence detections and ungrounded features are withheld for
+ * human review rather than auto-published.
+ */
+export const SEEDED_FEATURE_EDUCATION = GENERATED_SEED as unknown as EducationAsset[];
+
+/**
+ * All committed, source-controlled PUBLISHED assets (curated cards + generated
+ * shipping content). The data layer unions these with repo assets so coverage,
+ * gaps, and the in-app reader reflect them out of the box; a repo asset with
+ * the same id wins, so the admin pipeline can override or retire any seed.
+ */
+export const SEEDED_ASSETS: EducationAsset[] = [...SEEDED_IN_APP_HELP, ...SEEDED_FEATURE_EDUCATION];
