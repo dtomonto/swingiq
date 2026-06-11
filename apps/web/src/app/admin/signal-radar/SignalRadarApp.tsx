@@ -7,12 +7,13 @@
 // are shown read-only behind a clearly-labelled banner.
 
 import { useMemo, useState } from 'react';
-import { LayoutGrid, Inbox, Map, Swords, Bot, SlidersHorizontal, Plus, Info } from 'lucide-react';
+import { LayoutGrid, Inbox, Map, Swords, Bot, SlidersHorizontal, Plus, Info, Trophy, Sparkles } from 'lucide-react';
 import type { AdapterStatus, Signal } from '@/lib/signal-radar/types';
 import type { AdapterHealthSummary } from '@/lib/signal-radar/adapters';
 import { useSignalRadar } from '@/lib/signal-radar/useSignalRadar';
 import { buildDashboard } from '@/lib/signal-radar/engine';
 import { buildCompetitorInsights } from '@/lib/signal-radar/competitors';
+import { buildStrategyBrief } from '@/lib/signal-radar/strategy';
 import { Btn } from './components/ui';
 import { Overview } from './components/Overview';
 import { SignalInbox } from './components/SignalInbox';
@@ -22,6 +23,8 @@ import { MentionMap } from './components/MentionMap';
 import { CompetitorWatch } from './components/CompetitorWatch';
 import { AiVisibility } from './components/AiVisibility';
 import { SettingsPanel } from './components/SettingsPanel';
+import { SportIntelligence } from './components/SportIntelligence';
+import { StrategyBrief } from './components/StrategyBrief';
 
 export interface SignalRadarAppProps {
   actor: string;
@@ -31,14 +34,16 @@ export interface SignalRadarAppProps {
   generatedAt: string;
 }
 
-type Tab = 'overview' | 'inbox' | 'map' | 'competitors' | 'ai' | 'settings';
+type Tab = 'overview' | 'inbox' | 'sports' | 'map' | 'competitors' | 'ai' | 'brief' | 'settings';
 
 const TABS: { id: Tab; label: string; icon: typeof Inbox }[] = [
   { id: 'overview', label: 'Overview', icon: LayoutGrid },
   { id: 'inbox', label: 'Signal Inbox', icon: Inbox },
+  { id: 'sports', label: 'Sport Intel', icon: Trophy },
   { id: 'map', label: 'Mention Map', icon: Map },
   { id: 'competitors', label: 'Competitors', icon: Swords },
   { id: 'ai', label: 'AI Visibility', icon: Bot },
+  { id: 'brief', label: 'Strategy Brief', icon: Sparkles },
   { id: 'settings', label: 'Settings', icon: SlidersHorizontal },
 ];
 
@@ -56,6 +61,10 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
   const competitorInsights = useMemo(
     () => buildCompetitorInsights(signals, sr.competitors),
     [signals, sr.competitors],
+  );
+  const brief = useMemo(
+    () => buildStrategyBrief(signals, dashboard, competitorInsights),
+    [signals, dashboard, competitorInsights],
   );
 
   const selected = signals.find((s) => s.id === selectedId) ?? null;
@@ -113,7 +122,16 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
       {tab === 'inbox' && (
         <SignalInbox signals={signals} onOpenSignal={setSelectedId} onAdd={() => setAddOpen(true)} />
       )}
+      {tab === 'sports' && (
+        <SportIntelligence
+          signals={signals}
+          config={sr.config}
+          competitors={sr.competitors}
+          onOpenSignal={setSelectedId}
+        />
+      )}
       {tab === 'map' && <MentionMap dashboard={dashboard} onOpenSignal={setSelectedId} />}
+      {tab === 'brief' && <StrategyBrief brief={brief} onOpenSignal={setSelectedId} />}
       {tab === 'competitors' && (
         <CompetitorWatch
           insights={competitorInsights}

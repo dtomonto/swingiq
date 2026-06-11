@@ -60,7 +60,9 @@ const BUYER_CUES = ['budget', 'looking to buy', 'for my academy', 'pricing', 'en
 const MEDIA_CUES = ['journalist', 'writing an article', 'press', 'reporter', 'roundup', 'review site'];
 
 const QUESTION_CUES = ['how do i', 'how to', 'how can i', 'is there', 'anyone know', 'which', 'what app', 'recommend', 'looking for', 'best app', '?'];
-const COMPARISON_CUES = ['vs', 'versus', 'alternative to', 'compared to', 'instead of', 'better than', 'or '];
+// NB: anchor ' vs ' with spaces and omit a bare 'or' — those match inside
+// common words ("for", "work") and cause false-positive comparison intent.
+const COMPARISON_CUES = [' vs ', 'versus', 'alternative to', 'compared to', 'instead of', 'better than'];
 const FEATURE_CUES = ['wish it had', 'should add', 'would be great if', 'feature request', 'please add', 'can you add', 'needs a'];
 const BUG_CUES = ['bug', 'crash', 'crashes', 'error', 'broken', 'glitch', 'wont load', "won't load", 'stuck', 'freezes'];
 const SUPPORT_CUES = ['refund', 'cancel', "can't log in", 'cant login', 'reset password', 'account', 'charged', 'billing', 'support'];
