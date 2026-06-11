@@ -63,16 +63,19 @@ async function boxOf(locator: Locator): Promise<Box> {
 /**
  * Dismiss first-run overlays that float over the app on a brand-new device
  * (the full-screen usage-category modal and the bottom cookie bar). They are
- * unrelated to the dock but intercept clicks, so the dock-interaction test
- * clears them the way a real user would.
+ * unrelated to the dock but intercept clicks, so clear them before the
+ * dock-interaction test runs.
  */
 async function dismissFirstRunOverlays(page: Page) {
-  const adult = page.getByRole('button', { name: /Adult athlete/i });
-  try {
-    await adult.waitFor({ state: 'visible', timeout: 5_000 });
-    await adult.click();
-    await page.getByRole('button', { name: /Continue to SwingVantage/i }).click();
-  } catch { /* modal already handled in this context */ }
+  // Hide the usage-category modal deterministically rather than clicking through
+  // it: the modal mounts ~800ms after store hydration, so a bounded click-through
+  // races on slow CI (it can appear after the wait window, then intercept later
+  // clicks). A <style> in <head> applies the instant the modal mounts and can't
+  // lose that race. Hide ONLY the modal — this suite asserts on the floating
+  // dock, so that chrome must stay visible.
+  await page.addStyleTag({
+    content: '[aria-labelledby="usage-modal-title"]{display:none !important}',
+  }).catch(() => { /* style injection best-effort */ });
   const accept = page.getByRole('button', { name: /^Accept$/ });
   try {
     await accept.waitFor({ state: 'visible', timeout: 3_000 });
