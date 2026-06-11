@@ -246,6 +246,8 @@ export interface SignalRadarConfig {
   alertMinSeverity: NotificationSeverity;
   /** Notification kinds the operator has muted (won't fire as alerts). */
   mutedAlertKinds: SignalNotificationKind[];
+  /** RSS/Atom feed URLs the scheduled poller collects from (keyless). */
+  feedSources: string[];
 }
 
 // ── Adapter framework ───────────────────────────────────────

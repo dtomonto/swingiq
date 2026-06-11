@@ -136,6 +136,7 @@ export const DEFAULT_CONFIG: SignalRadarConfig = {
   aiClassificationEnabled: false,
   alertMinSeverity: 'low',
   mutedAlertKinds: [],
+  feedSources: [],
 };
 
 /** All competitor match terms flattened — used by the classifier. */

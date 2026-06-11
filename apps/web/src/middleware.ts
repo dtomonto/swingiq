@@ -158,6 +158,10 @@ const PUBLIC_PREFIXES = [
   // SIGNALRADAR_WEBHOOK_SECRET (safeEqual) and returns 404 when that secret
   // is unset (fully off by default). See api/signal-radar/webhook.
   '/api/signal-radar/webhook',
+  // SignalRadar scheduled feed collection — Vercel Cron has no Supabase
+  // session; the route self-protects with CRON_SECRET (or the admin guard).
+  // See api/signal-radar/cron.
+  '/api/signal-radar/cron',
 ];
 
 // A subtree prefix P matches: the index (P), nested children (P/…), and the
