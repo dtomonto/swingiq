@@ -204,10 +204,28 @@ async function recordOne(id) {
     '-c:v', 'libx264', '-preset', 'slow', '-crf', '30', '-pix_fmt', 'yuv420p',
     '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', outMp4], { stdio: 'ignore' });
 
-  // Poster
-  const posterAt = cfg.posterAt ?? Math.min(3, Math.max(1, (vDur || 4) / 3));
-  execFileSync(FF, ['-y', '-loglevel', 'error', '-ss', String(posterAt), '-i', outMp4,
-    '-frames:v', '1', '-q:v', '3', join(SOURCES, `${id}-poster.jpg`)]);
+  // Poster. A fixed early offset is unsafe: in dev mode the first route can
+  // still be compiling (blank near-black frame), which is how 25 clips once
+  // shipped a ~5.6KB black poster. So unless a clip pins cfg.posterAt, sample
+  // several offsets deeper into the clip and keep the frame with the most
+  // content (largest JPEG — a flat dark frame compresses to ~5-6KB).
+  const posterPath = join(SOURCES, `${id}-poster.jpg`);
+  if (cfg.posterAt != null) {
+    execFileSync(FF, ['-y', '-loglevel', 'error', '-ss', String(cfg.posterAt), '-i', outMp4,
+      '-frames:v', '1', '-q:v', '3', posterPath]);
+  } else {
+    const dur = probeSeconds(outMp4) || vDur || 12;
+    let best = null, bestSize = 0;
+    for (const frac of [0.4, 0.55, 0.7, 0.85]) {
+      const cand = join(WORK, `${id}-poster-${frac}.jpg`);
+      execFileSync(FF, ['-y', '-loglevel', 'error', '-ss', (dur * frac).toFixed(1), '-i', outMp4,
+        '-frames:v', '1', '-q:v', '3', cand]);
+      const size = existsSync(cand) ? statSync(cand).size : 0;
+      if (size > bestSize) { bestSize = size; best = cand; }
+    }
+    if (best) copyFileSync(best, posterPath);
+    if (bestSize < 15000) console.log(`  !! poster for ${id} looks blank (${bestSize}B) — check the recording`);
+  }
 
   // Update manifest
   const manifest = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, 'utf8')) : {};
