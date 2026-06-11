@@ -21,6 +21,7 @@ case "$last_subject" in
   "chore(features): refresh feature registry"*) exit 0 ;;
   "chore(setup): refresh setup registry"*) exit 0 ;;
   "chore(audits): refresh audit reports"*) exit 0 ;;
+  "chore(changes): refresh changes feed"*) exit 0 ;;
 esac
 [ -n "$SWINGVANTAGE_UPDATES_HOOK" ] && exit 0
 export SWINGVANTAGE_UPDATES_HOOK=1
@@ -91,6 +92,19 @@ if ! git diff --quiet -- "$audits_file" 2>/dev/null; then
   git add -- "$audits_file"
   git commit -m "chore(audits): refresh audit reports" -- "$audits_file" || exit 0
   echo "swingvantage: refreshed audit reports (see /admin/audits)."
+fi
+
+# ── Changes feed: snapshot recent commits for the admin "What changed" ticker ──
+# Keeps changes-feed.generated.json current so /admin shows the last 30 days of
+# shipped changes. The runtime prunes again to 30 days + folds in admin actions
+# live, so a stale snapshot can only ever show LESS, never fabricate. Pure
+# snapshot — the app never runs git.
+node apps/web/scripts/scan-changes.mjs >/dev/null 2>&1 || exit 0
+changes_file="apps/web/src/data/changes-feed.generated.json"
+if ! git diff --quiet -- "$changes_file" 2>/dev/null; then
+  git add -- "$changes_file"
+  git commit -m "chore(changes): refresh changes feed" -- "$changes_file" || exit 0
+  echo "swingvantage: refreshed changes feed (see /admin)."
 fi
 
 fi  # end SWINGVANTAGE_REGISTRY_AUTOCOMMIT guard
