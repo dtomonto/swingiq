@@ -12,6 +12,43 @@ import type { Update } from './updates';
 
 export const UPDATES_PART_3: Update[] = [
   {
+    id: 'update-087',
+    title: 'See a Free Live Sample Report Before You Start — in Your Sport',
+    slug: 'free-live-sample-report-demo',
+    metaTitle: 'Free Live Sample Swing Report — Try It in Any of 7 Sports',
+    metaDescription:
+      'Explore a complete SwingVantage sample report, athlete profile, and training plan for golf, tennis, pickleball, padel, baseball, slow-pitch, and fast-pitch softball — free, no account needed.',
+    summary:
+      'You can now explore a complete, live sample report — the diagnosis, athlete profile, and training plan a registered athlete sees — before creating anything. Flip between all seven sports with one tap and watch a live kinematic preview right on the homepage.',
+    releaseDate: '2026-06-10',
+    displayDate: 'June 2026',
+    category: 'New Feature',
+    status: 'published',
+    visibility: 'public',
+    sport: 'All Sports',
+    sortOrder: 201,
+    audience: ['all athletes', 'parents', 'coaches'],
+    userBenefit:
+      'You can see exactly what SwingVantage produces — a prioritized fix, phase-by-phase breakdown, real drills, and a 7-day plan — for your specific sport, with no sign-up, by visiting the new /demo experience.',
+    whyItMatters:
+      'Seeing a real, worked example in your own sport removes the guesswork before you start. The sample is honest by construction: golf runs through the same diagnostic and scoring engine on sample swings, and the racquet and bat sports are assembled from each sport’s real phase definitions, drill library, and benchmark windows — every surface clearly labelled a free sample.',
+    whereToFindIt:
+      'Tap the live kinematic panel on the homepage, or visit /demo, then use the always-on sport switcher to flip between golf, tennis, pickleball, padel, baseball, slow-pitch, and fast-pitch softball.',
+    seoKeywords: [
+      'free sample swing report',
+      'AI swing analysis demo',
+      'try swing analysis free',
+      'sample golf swing report',
+      'multi-sport swing analysis',
+    ],
+    answerEngineSummary:
+      'SwingVantage offers a free, no-account /demo experience that shows a complete sample report, athlete profile, and training plan for all seven supported sports (golf, tennis, pickleball, padel, baseball, slow-pitch and fast-pitch softball), with an always-on sport switcher and a live kinematic preview on the homepage.',
+    isFeatured: true,
+    isMajorMilestone: false,
+    createdAt: '2026-06-10',
+    updatedAt: '2026-06-10',
+  },
+  {
     id: 'update-015',
     title: 'New SwingVantage Updates Page',
     slug: 'swingiq-updates-page',

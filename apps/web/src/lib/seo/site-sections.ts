@@ -145,6 +145,7 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/tools/swing-tempo-trainer', label: 'Swing Tempo Trainer', section: 'tools', priority: 0.6, changeFrequency: 'monthly' },
 
   // ── Sample reports ────────────────────────────────────────────────────
+  { path: '/demo', label: 'Live sample report — pick your sport', section: 'sample-reports', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/sample-report', label: 'Sample reports (all sports)', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/sample-report/golf', label: 'Sample golf report', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/sample-report/tennis', label: 'Sample tennis report', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
