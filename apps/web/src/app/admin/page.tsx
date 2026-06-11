@@ -19,6 +19,9 @@ import { AlertCard } from '@/components/admin/AlertCard';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecentActivity } from '@/components/admin/RecentActivity';
+import { TierSection } from '@/components/admin/TierSection';
+import { ConfidencePill } from '@/components/admin/ConfidencePill';
+import { ScoreRing } from '@/components/ui/ScoreRing';
 import { getSystemStatus } from '@/lib/admin/data/system';
 import { getPlatformMetrics } from '@/lib/admin/data/metrics';
 import { deriveAlerts, type AdminAlert } from '@/lib/admin/alerts';
@@ -35,6 +38,24 @@ const SPORT_LABELS: Record<string, string> = {
   golf: 'Golf', tennis: 'Tennis', pickleball: 'Pickleball', padel: 'Padel',
   baseball: 'Baseball', softball_slow: 'Slow-pitch', softball_fast: 'Fast-pitch',
 };
+
+/** A 2-col grid of interpreted alert cards for one attention tier. */
+function AlertGrid({ items }: { items: AdminAlert[] }) {
+  return (
+    <div className="grid gap-3 sm:grid-cols-2">
+      {items.map((a) => (
+        <AlertCard
+          key={a.id}
+          severity={a.severity}
+          title={a.title}
+          detail={a.detail}
+          href={a.href && isHrefBuilt(a.href) ? a.href : undefined}
+          cta={a.cta}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default async function AdminCommandCenter() {
   const system = getSystemStatus();
@@ -98,6 +119,27 @@ export default async function AdminCommandCenter() {
   const tools = NAV_ITEMS.filter((i) => i.external && i.built);
   const muted = !metrics.connected;
 
+  // ── Briefing model: health score + four attention tiers ──────────────────
+  const tiers = {
+    critical: alerts.filter((a) => a.severity === 'critical'),
+    warning: alerts.filter((a) => a.severity === 'warning'),
+    info: alerts.filter((a) => a.severity === 'info'),
+    success: alerts.filter((a) => a.severity === 'success'),
+  };
+  const criticalCount = tiers.critical.length;
+  const decisionCount = tiers.warning.length;
+  const watchCount = tiers.info.length;
+  // Honest + transparent: starts at 100 and is dragged down by the same open
+  // alerts shown below, weighted by severity. Never an invented figure.
+  const healthScore = Math.max(40, 100 - criticalCount * 22 - decisionCount * 7 - watchCount * 2);
+  const confidence: 'low' | 'medium' | 'high' = metrics.connected ? 'high' : 'medium';
+  const executiveSentence =
+    criticalCount > 0
+      ? `${criticalCount} ${criticalCount === 1 ? 'issue needs' : 'issues need'} you now${decisionCount ? `, plus ${decisionCount} ${decisionCount === 1 ? 'decision' : 'decisions'} waiting` : ''}. Work the top tier first.`
+      : decisionCount > 0
+        ? `Nothing on fire — ${decisionCount} ${decisionCount === 1 ? 'decision' : 'decisions'} waiting${watchCount ? ` and ${watchCount} to watch` : ''}. ${metrics.connected ? 'Live metrics are flowing.' : 'Running in local mode — connect the service role for cross-user data.'}`
+        : `All clear — no incidents or decisions waiting${watchCount ? `, ${watchCount} item${watchCount === 1 ? '' : 's'} to watch` : ''}. ${metrics.connected ? 'Live metrics are flowing.' : 'Running in local mode.'}`;
+
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
       <PageHeader
@@ -110,6 +152,29 @@ export default async function AdminCommandCenter() {
           </StatusBadge>
         }
       />
+
+      {/* Executive summary — the interpreted briefing (health · so-what · confidence) */}
+      <SectionCard level="elevated">
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <ScoreRing score={healthScore} size={88} label="Product health" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[10.5px] font-bold uppercase tracking-[0.07em] text-link">
+              Today&apos;s read · {metrics.connected ? 'live data' : 'local mode'}
+            </p>
+            <p className="mt-1.5 text-[14.5px] leading-relaxed text-foreground">{executiveSentence}</p>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <ConfidencePill level={confidence} />
+              {criticalCount > 0 && <StatusBadge tone="critical">{criticalCount} critical</StatusBadge>}
+              {decisionCount > 0 && (
+                <StatusBadge tone="warning">
+                  {decisionCount} decision{decisionCount === 1 ? '' : 's'} waiting
+                </StatusBadge>
+              )}
+              {criticalCount === 0 && decisionCount === 0 && <StatusBadge tone="routine">All clear</StatusBadge>}
+            </div>
+          </div>
+        </div>
+      </SectionCard>
 
       {/* Today's Command Center — the daily starting point */}
       <Link
@@ -131,19 +196,29 @@ export default async function AdminCommandCenter() {
         <ArrowRight className="h-4 w-4 shrink-0 text-link group-hover:translate-x-0.5 transition-transform" />
       </Link>
 
-      {/* Smart alerts */}
+      {/* Four attention tiers — interpreted, severity-ranked */}
       {alerts.length > 0 && (
-        <div className="grid gap-3 sm:grid-cols-2">
-          {alerts.map((a) => (
-            <AlertCard
-              key={a.id}
-              severity={a.severity === 'success' ? 'success' : a.severity}
-              title={a.title}
-              detail={a.detail}
-              href={a.href && isHrefBuilt(a.href) ? a.href : undefined}
-              cta={a.cta}
-            />
-          ))}
+        <div className="space-y-5">
+          {tiers.critical.length > 0 && (
+            <TierSection tier="critical" label="Needs you now" count={tiers.critical.length}>
+              <AlertGrid items={tiers.critical} />
+            </TierSection>
+          )}
+          {tiers.warning.length > 0 && (
+            <TierSection tier="warning" label="Decisions waiting" count={tiers.warning.length}>
+              <AlertGrid items={tiers.warning} />
+            </TierSection>
+          )}
+          {tiers.info.length > 0 && (
+            <TierSection tier="watch" label="Watch this week" count={tiers.info.length}>
+              <AlertGrid items={tiers.info} />
+            </TierSection>
+          )}
+          {tiers.success.length > 0 && (
+            <TierSection tier="routine" label="Routine" count={tiers.success.length}>
+              <AlertGrid items={tiers.success} />
+            </TierSection>
+          )}
         </div>
       )}
 
