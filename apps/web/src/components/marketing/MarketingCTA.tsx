@@ -23,7 +23,7 @@ export function MarketingCTA({
     <section className="px-4 py-16">
       <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl bg-primary px-6 py-16 text-center text-primary-foreground shadow-theme-lg">
         <h2 className="font-heading text-3xl font-bold uppercase tracking-tight sm:text-4xl">{heading}</h2>
-        <p className="mx-auto mt-4 max-w-xl text-primary-foreground/90">{body}</p>
+        <p className="mx-auto mt-4 max-w-xl text-primary-foreground">{body}</p>
         <Link
           href={cta.href}
           className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-background px-10 py-4 text-base font-bold text-foreground transition-opacity hover:opacity-90"

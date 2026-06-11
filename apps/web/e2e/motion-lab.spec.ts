@@ -57,7 +57,7 @@ test.describe('MotionLab', () => {
     await page.getByRole('button', { name: /tennis forehand/i }).click();
 
     // 2) Results render with the prioritized single fix.
-    await expect(page.getByText(/biggest opportunity/i)).toBeVisible();
+    await expect(page.getByText('Biggest opportunity', { exact: true })).toBeVisible();
     await expect(page.getByText(/tennis/i).first()).toBeVisible();
 
     // 3) Replay (default 3D & Phases tab) surfaces the continuous-movement read —
@@ -80,7 +80,7 @@ test.describe('MotionLab', () => {
     await page.goto('/motion-lab');
     await dismissFirstRunOverlays(page);
     await page.getByRole('button', { name: /golf driver/i }).click();
-    await expect(page.getByText(/biggest opportunity/i)).toBeVisible();
+    await expect(page.getByText('Biggest opportunity', { exact: true })).toBeVisible();
     // Golf is a discrete swing — no continuous-movement card.
     await expect(page.getByText(/movement intelligence/i)).toHaveCount(0);
     // But it still closes the loop with a retest protocol.
@@ -93,7 +93,7 @@ test.describe('MotionLab', () => {
     await page.goto('/motion-lab');
     await dismissFirstRunOverlays(page);
     await page.getByRole('button', { name: /pickleball dink/i }).click();
-    await expect(page.getByText(/biggest opportunity/i)).toBeVisible();
+    await expect(page.getByText('Biggest opportunity', { exact: true })).toBeVisible();
     await expect(page.getByText(/movement intelligence/i)).toBeVisible();
   });
 });
