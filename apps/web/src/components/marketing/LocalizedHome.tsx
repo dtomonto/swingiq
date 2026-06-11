@@ -13,6 +13,8 @@ import {
   Crosshair,
 } from 'lucide-react';
 import type { LanguageCode } from '@/lib/i18n';
+import { cn } from '@/lib/utils';
+import { designV2EnabledFromEnv } from '@/lib/design-v2';
 import { getMarketingDict } from '@/lib/marketing-i18n/dict';
 import { localizedHref } from '@/lib/marketing-i18n/href';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -38,6 +40,9 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
   const dict = getMarketingDict(locale);
   const h = dict.home;
   const isEn = locale === 'en';
+  // Design V2: env-gated (keeps this a server component — no client JS on the
+  // SEO homepage). When on, the sport cards light up with their identity layer.
+  const v2 = designV2EnabledFromEnv();
 
   const steps = [
     { title: h.how.step1Title, desc: h.how.step1Desc },
@@ -234,27 +239,57 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
                 { glyph: '🎾', name: 'Tennis', tagline: 'Serve and groundstroke power.', href: '/tennis-swing-analysis', accent: 'var(--sport-tennis)' },
                 { glyph: '⚾', name: 'Baseball', tagline: 'Exit velocity and swing plane.', href: '/baseball-swing-analysis', accent: 'var(--sport-baseball)' },
                 { glyph: '🥎', name: 'Softball', tagline: 'Fast-pitch swing efficiency.', href: '/softball-swing-analysis', accent: 'var(--sport-softball-fast)' },
-              ].map((s) => (
-                <Link
-                  key={s.name}
-                  href={s.href}
-                  className="group rounded-theme border border-border bg-card p-6 shadow-theme transition-colors hover:border-primary/50"
-                >
-                  <div
-                    className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl border bg-secondary text-2xl"
-                    style={{ borderColor: `hsl(${s.accent})` }}
-                    aria-hidden="true"
+              ].map((s) => {
+                // Design V2: per-sport identity wash + pattern (mirrors the sport
+                // landing heroes). data-sport is set LOCALLY on the card; the
+                // wash/pattern are inline var() styles (they cascade-resolve on
+                // the nested data-sport wrapper). Flag OFF = the card is unchanged.
+                const slug = s.accent.replace('var(--sport-', '').replace(')', '').replace(/-/g, '_');
+                const cardInner = (
+                  <>
+                    <div
+                      className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl border bg-secondary text-2xl"
+                      style={{ borderColor: `hsl(${s.accent})` }}
+                      aria-hidden="true"
+                    >
+                      {s.glyph}
+                    </div>
+                    <h3 className="font-heading text-xl font-semibold uppercase tracking-tight text-foreground">{s.name}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">{s.tagline}</p>
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-link">
+                      Analyze
+                      <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                    </span>
+                  </>
+                );
+                return (
+                  <Link
+                    key={s.name}
+                    href={s.href}
+                    {...(v2 ? { 'data-sport': slug } : {})}
+                    className={cn(
+                      'group rounded-theme border border-border bg-card p-6 shadow-theme transition-colors hover:border-primary/50',
+                      v2 && 'relative overflow-hidden',
+                    )}
                   >
-                    {s.glyph}
-                  </div>
-                  <h3 className="font-heading text-xl font-semibold uppercase tracking-tight text-foreground">{s.name}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{s.tagline}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-link">
-                    Analyze
-                    <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-                  </span>
-                </Link>
-              ))}
+                    {v2 && (
+                      <>
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-0"
+                          style={{ backgroundImage: 'var(--sport-wash)' }}
+                        />
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-0 bg-repeat"
+                          style={{ backgroundImage: 'var(--sport-pattern)' }}
+                        />
+                      </>
+                    )}
+                    {v2 ? <span className="relative block">{cardInner}</span> : cardInner}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>
