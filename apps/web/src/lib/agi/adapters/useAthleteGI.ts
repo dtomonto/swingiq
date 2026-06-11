@@ -18,6 +18,7 @@ import { useMotionSessions } from '@/lib/motion-lab';
 import { useSwingVantageStore } from '@/store';
 import { runAthleteGI } from '../engine';
 import { loadHistory, recordSnapshot } from '../history';
+import { loadInsightFeedback } from '../insight-feedback';
 import type { AthleteGIResult } from '../types';
 import { bundleFromMotionSessions } from './motion-lab';
 import { bundleFromStore } from './store-sessions';
@@ -41,6 +42,9 @@ export function useAthleteGI(): AthleteGIResult {
   const allowCrossSport = useSwingVantageStore((s) => s.settings.allow_cross_sport === true);
   // Read prior snapshots once on mount (excludes today, so progress is honest).
   const [history] = useState(loadHistory);
+  // Read insight verdicts once on mount; they re-rank insights (up higher, down
+  // demoted) on the next load — matching the mount-time snapshot pattern above.
+  const [insightFeedback] = useState(loadInsightFeedback);
 
   const result = useMemo(() => {
     const identity = identityFromStore(profile, sportProfiles);
@@ -52,8 +56,8 @@ export function useAthleteGI(): AthleteGIResult {
       ],
       identity,
     );
-    return runAthleteGI({ ...bundle, readiness, history, provenDrills, allowCrossSport });
-  }, [motionSessions, profile, sportProfiles, sessions, videos, dailyNotes, readiness, history, provenDrills, allowCrossSport]);
+    return runAthleteGI({ ...bundle, readiness, history, provenDrills, allowCrossSport, insightFeedback });
+  }, [motionSessions, profile, sportProfiles, sessions, videos, dailyNotes, readiness, history, provenDrills, allowCrossSport, insightFeedback]);
 
   // Persist today's snapshot for next time (dedupes per day; no-op without data).
   useEffect(() => {

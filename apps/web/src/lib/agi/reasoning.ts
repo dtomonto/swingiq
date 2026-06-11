@@ -499,6 +499,14 @@ export function reason(
   ];
   const insights = [...candidates.filter((x): x is Insight => x !== null), ...extra];
 
+  // Per-insight feedback bias (the audit-flagged learning signal): an insight the
+  // athlete up-voted ranks higher next time; a down-voted one is demoted. Applied
+  // only within the leverage tier — it never overrides a safety-caution or keystone
+  // lead. Deterministic and bounded.
+  const fb = bundle.insightFeedback ?? {};
+  const feedbackAdj = (i: Insight): number =>
+    fb[i.id] === 'up' ? 0.15 : fb[i.id] === 'down' ? -0.6 : 0;
+
   // Safety-caution readiness leads; otherwise a keystone leads; then leverage.
   insights.sort((a, b) => {
     const al = leadsAll(a);
@@ -506,8 +514,8 @@ export function reason(
     if (al !== bl) return al ? -1 : 1;
     if (a.kind === 'keystone' && b.kind !== 'keystone') return -1;
     if (b.kind === 'keystone' && a.kind !== 'keystone') return 1;
-    const av = a.leverage * 0.65 + a.confidence * 0.35;
-    const bv = b.leverage * 0.65 + b.confidence * 0.35;
+    const av = a.leverage * 0.65 + a.confidence * 0.35 + feedbackAdj(a);
+    const bv = b.leverage * 0.65 + b.confidence * 0.35 + feedbackAdj(b);
     return bv - av;
   });
 

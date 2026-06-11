@@ -160,6 +160,10 @@ export interface SignalBundle {
   history?: AGISnapshot[];
   /** Optional drills the athlete has personally found helpful. */
   provenDrills?: ProvenDrill[];
+  /** Optional per-insight verdicts ('up' | 'down') the athlete gave on prior
+   *  insights. Feeds insight RE-RANKING (the audit-flagged gap): up-voted
+   *  insights rank higher, down-voted are demoted. Keyed by insight id. */
+  insightFeedback?: Record<string, 'up' | 'down'>;
   /** Opt-in (Phase 9): allow cross-sport transfers/insights. When false (the
    *  default), Athlete GI keeps recommendations within the active sport even if
    *  the athlete has data in several sports. */

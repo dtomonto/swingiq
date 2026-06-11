@@ -10,7 +10,7 @@
 import type { GolferProfileInput } from '@swingiq/core';
 import { runAthleteGI } from '../engine';
 import { buildWorldModel, scoreBand } from '../world-model';
-import { isThinModel } from '../reasoning';
+import { isThinModel, reason } from '../reasoning';
 import { DEMO_BUNDLE } from '../demo';
 import { buildCommitment, isRetestDue } from '../commitment';
 import { buildTeamSummary, type TeamMember } from '../team';
@@ -30,6 +30,7 @@ import type {
   Basis,
   CapabilityId,
   CapabilitySignal,
+  Insight,
   ReadinessSnapshot,
   SignalBundle,
   SportId,
@@ -766,5 +767,45 @@ describe('AGI — shareable report', () => {
     const html = buildAgiReportHtml(r);
     expect(html).not.toMatch(/<script>x<\/script>/);
     expect(html).toMatch(/&lt;script&gt;/);
+  });
+});
+
+describe('insight feedback re-ranking (P1)', () => {
+  const model = buildWorldModel({ signals: [], sportSessions: [] });
+  const mk = (id: string): Insight => ({
+    id,
+    kind: 'strength',
+    title: id,
+    summary: '',
+    capability: null,
+    sports: [],
+    reasoning: [],
+    basis: 'estimated',
+    confidence: 0.5,
+    leverage: 0.5,
+    action: '',
+  });
+
+  it('ranks two equal insights in injected order without feedback', () => {
+    const ids = reason(model, { signals: [], sportSessions: [] }, [mk('fb_a'), mk('fb_b')]).map((i) => i.id);
+    expect(ids.indexOf('fb_a')).toBeLessThan(ids.indexOf('fb_b'));
+  });
+
+  it('promotes an up-voted insight above an equal peer', () => {
+    const ids = reason(
+      model,
+      { signals: [], sportSessions: [], insightFeedback: { fb_b: 'up' } },
+      [mk('fb_a'), mk('fb_b')],
+    ).map((i) => i.id);
+    expect(ids.indexOf('fb_b')).toBeLessThan(ids.indexOf('fb_a'));
+  });
+
+  it('demotes a down-voted insight below an equal peer', () => {
+    const ids = reason(
+      model,
+      { signals: [], sportSessions: [], insightFeedback: { fb_a: 'down' } },
+      [mk('fb_a'), mk('fb_b')],
+    ).map((i) => i.id);
+    expect(ids.indexOf('fb_a')).toBeGreaterThan(ids.indexOf('fb_b'));
   });
 });
