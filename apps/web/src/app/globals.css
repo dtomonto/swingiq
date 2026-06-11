@@ -390,6 +390,44 @@
   background-attachment: var(--app-bg-attachment, fixed);
 }
 
+/* ── Liquid Glass — Apple-style frosted navigator material ───────────────
+   A translucent, blurred, saturated surface with a specular top highlight and
+   a soft lift, for the floating mobile navigator. The ::before adds the glassy
+   top glint. Degrades to a solid nav surface where backdrop-filter is
+   unsupported (older Android webviews), so the bar is never see-through-broken. */
+@utility liquid-glass-nav {
+  position: relative;
+  background: hsl(var(--bottom-nav-bg) / 0.68);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  border-top: 1px solid hsl(0 0% 100% / 0.12);
+  box-shadow:
+    inset 0 1px 0 0 hsl(0 0% 100% / 0.10),
+    0 -10px 30px -14px hsl(0 0% 0% / 0.6);
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 45%;
+    background: linear-gradient(to bottom, hsl(0 0% 100% / 0.10), hsl(0 0% 100% / 0));
+    pointer-events: none;
+  }
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .liquid-glass-nav { background: hsl(var(--bottom-nav-bg)); }
+}
+
+/* Installed PWA (Add to Home Screen): with viewport-fit=cover + a translucent
+   status bar, the page renders UNDER the status bar / notch, which hid the
+   top-of-page Founding Members banner. Reserve the top safe-area inset on the
+   body in standalone so the banner clears the status bar. No effect in a
+   normal browser tab (the inset resolves to 0 there). */
+@media (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
 /* Themed elevation. Replaces flat Tailwind shadows on surfaces so depth
    reads correctly on both light and dark palettes. */
 @utility shadow-theme {

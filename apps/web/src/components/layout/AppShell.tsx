@@ -93,8 +93,11 @@ export function AppShell({ children }: AppShellProps) {
 
       {/* ── Main content area ── */}
       <div className="flex flex-col flex-1 min-w-0">
-        {/* Mobile top bar */}
-        <header className="sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-nav border-b border-border lg:hidden shadow-xs no-print">
+        {/* Mobile top bar — pins below the status bar in an installed PWA */}
+        <header
+          className="sticky z-30 flex items-center justify-between px-4 py-3 bg-nav border-b border-border lg:hidden shadow-xs no-print"
+          style={{ top: 'env(safe-area-inset-top, 0px)' }}
+        >
           <button
             onClick={() => setDrawerOpen(true)}
             aria-label="Open navigation menu"
@@ -115,8 +118,11 @@ export function AppShell({ children }: AppShellProps) {
           </div>
         </header>
 
-        {/* Page content */}
-        <main id="main-content" className="flex-1 overflow-auto pb-20 lg:pb-0">
+        {/* Page content — reserve room for the floating nav + home indicator */}
+        <main
+          id="main-content"
+          className="flex-1 overflow-auto pb-[calc(5rem+env(safe-area-inset-bottom,0px))] lg:pb-0"
+        >
           <OfflineBanner />
           {/* Contextual in-app help published by the Feature Education Engine
               for the current route. Renders nothing until an admin publishes
@@ -127,43 +133,52 @@ export function AppShell({ children }: AppShellProps) {
           {children}
         </main>
 
-        {/* ── Mobile bottom navigation bar ── */}
+        {/* ── Mobile bottom navigation — Liquid Glass ──
+            A frosted, blurred navigator that floats above the home indicator.
+            The glass surface extends to the screen edge while the safe-area
+            inset keeps the tappable row clear of the iOS home bar. */}
         <nav
-          className="fixed bottom-0 left-0 right-0 z-30 bg-bottom-nav border-t border-border flex lg:hidden safe-area-inset-bottom no-print"
+          className="fixed inset-x-0 bottom-0 z-30 flex lg:hidden no-print"
           aria-label="Bottom navigation"
         >
-          {BOTTOM_NAV.map(({ href, label, icon: Icon }) => {
-            const isActive = pathname === href || pathname.startsWith(href + '/');
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={cn(
-                  'flex-1 flex flex-col items-center justify-center py-2 gap-0.5 text-xs font-medium transition-colors',
-                  isActive
-                    ? 'text-bottom-nav-active'
-                    : 'text-muted-foreground hover:text-foreground',
-                )}
-              >
-                <Icon
-                  size={20}
-                  className={cn(
-                    isActive ? 'text-bottom-nav-active' : 'text-muted-foreground',
-                  )}
-                />
-                <span className="leading-tight">{label}</span>
-              </Link>
-            );
-          })}
-          {/* "More" button opens the full drawer */}
-          <button
-            onClick={() => setDrawerOpen(true)}
-            className="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
-            aria-label="More navigation options"
+          <div
+            className="liquid-glass-nav mx-auto flex w-full max-w-md items-stretch gap-0.5 rounded-t-3xl px-2 pt-1.5"
+            style={{ paddingBottom: 'calc(0.25rem + env(safe-area-inset-bottom, 0px))' }}
           >
-            <Menu size={20} className="text-muted-foreground" />
-            <span className="leading-tight">More</span>
-          </button>
+            {BOTTOM_NAV.map(({ href, label, icon: Icon }) => {
+              const isActive = pathname === href || pathname.startsWith(href + '/');
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={cn(
+                    'group relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-2 min-h-[3.25rem] text-[11px] font-medium transition-colors',
+                    isActive ? 'text-bottom-nav-active' : 'text-muted-foreground hover:text-foreground',
+                  )}
+                >
+                  {/* "Liquid" selection blob behind the active tab */}
+                  {isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-1 inset-y-0.5 rounded-2xl bg-primary/12 ring-1 ring-inset ring-primary/25"
+                    />
+                  )}
+                  <Icon size={23} className="relative z-10 transition-transform duration-200 group-active:scale-90" />
+                  <span className="relative z-10 leading-none">{label}</span>
+                </Link>
+              );
+            })}
+            {/* "More" button opens the full drawer */}
+            <button
+              onClick={() => setDrawerOpen(true)}
+              className="group relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-2 min-h-[3.25rem] text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="More navigation options"
+            >
+              <Menu size={23} className="relative z-10 transition-transform duration-200 group-active:scale-90" />
+              <span className="relative z-10 leading-none">More</span>
+            </button>
+          </div>
         </nav>
       </div>
 
