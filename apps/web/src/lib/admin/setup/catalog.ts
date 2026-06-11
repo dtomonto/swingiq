@@ -541,6 +541,31 @@ export const CATALOG: SetupTask[] = [
     learnMoreLabel: 'Mental Performance console',
   },
   {
+    id: 'signal-radar-automation',
+    title: 'Turn on automated signal collection (SignalRadar)',
+    plainEnglish:
+      'SignalRadar already works with no keys — you can add or import mentions by hand today. These optional keys let mentions arrive ON THEIR OWN: a webhook your automations (Zapier/Make) can POST to, and a scheduled poller that pulls RSS/feeds. Collected signals only persist once Supabase is connected (the two go-live cards above).',
+    category: 'growth',
+    priority: 'optional',
+    detect: { kind: 'env', anyOf: ['SIGNALRADAR_WEBHOOK_SECRET', 'SIGNALRADAR_FEEDS'] },
+    steps: [
+      'First connect Supabase + the Service Role key (the two go-live cards above) — without a database there is nowhere for automated signals to land, and the endpoints will say so honestly.',
+      'WEBHOOK: open SignalRadar → Automation → Webhook and click “Generate” to make a secret. Add it in Vercel as SIGNALRADAR_WEBHOOK_SECRET, redeploy, then use the “Send test” button there to confirm it works end-to-end.',
+      'Point your automation (Zapier/Make/a script) at /api/signal-radar/webhook with header  x-signalradar-secret: <your secret>  and a JSON body like {"text":"…","title":"…","url":"…"}.',
+      'SCHEDULED FEEDS: in SignalRadar → Automation → Scheduled feeds, paste RSS/feed URLs (a blog /feed, or reddit.com/r/golf/search.rss?q=swing+analysis), click “Copy env”, and add it in Vercel as SIGNALRADAR_FEEDS.',
+      'Add CRON_SECRET (a long random string), then have any scheduler (Vercel Cron, GitHub Actions, cron-job.org) GET /api/signal-radar/cron daily with header  Authorization: Bearer <CRON_SECRET>. “Run now” on that page triggers it immediately.',
+    ],
+    inputs: [
+      { kind: 'url', value: '/admin/signal-radar', label: 'Open SignalRadar → Automation' },
+      { kind: 'env', value: 'SIGNALRADAR_WEBHOOK_SECRET', secret: true, example: '(generate one in SignalRadar → Automation)', where: 'Vercel → Settings → Environment Variables' },
+      { kind: 'env', value: 'SIGNALRADAR_FEEDS', example: 'https://example.com/feed,https://www.reddit.com/r/golf/search.rss?q=swing', where: 'Vercel → Settings → Environment Variables' },
+      { kind: 'env', value: 'CRON_SECRET', secret: true, example: '(32+ random characters — shared with the publishing/social crons)', where: 'Vercel → Settings → Environment Variables' },
+      { kind: 'command', value: 'openssl rand -hex 32', label: 'Generate a random secret' },
+    ],
+    learnMoreHref: '/admin/signal-radar',
+    learnMoreLabel: 'SignalRadar → Automation',
+  },
+  {
     id: 'deploy-how',
     title: 'How your changes go live',
     plainEnglish:

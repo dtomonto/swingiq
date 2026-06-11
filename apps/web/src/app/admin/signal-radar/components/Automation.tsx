@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Webhook, Database, Rss, Copy, KeyRound, Send, CheckCircle2, ExternalLink, Zap } from 'lucide-react';
+import { Webhook, Database, Rss, Copy, KeyRound, Send, CheckCircle2, ExternalLink, Zap, BookOpen, ChevronDown } from 'lucide-react';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import type { BadgeTone } from '@/components/admin/StatusBadge';
@@ -52,6 +52,8 @@ export function Automation({ automation, config, onUpdate }: {
           <MiniStat label="Scheduled feeds" ok={envFeedCount > 0} okText={`${envFeedCount} via env`} offText="Not scheduled" />
         </div>
       </SectionCard>
+
+      <GuidePanel />
 
       {/* Step 1 — durable store (the gate) */}
       <StepCard n={1} icon={Database} title="Durable store" tone={storeEnabled ? 'success' : 'warning'}
@@ -218,5 +220,73 @@ function FeedsStep({ cronConfigured, envFeedCount, config, onUpdate }: {
         </div>
       </div>
     </StepCard>
+  );
+}
+
+const CURL_EXAMPLE = (origin: string) =>
+  `curl -X POST ${origin}/api/signal-radar/webhook \\\n  -H "x-signalradar-secret: YOUR_SECRET" \\\n  -H "content-type: application/json" \\\n  -d '{"text":"Tried SwingVantage for my golf swing — great!","title":"r/golf","url":"https://www.reddit.com/r/golf/...","sourceType":"reddit"}'`;
+
+const FEED_EXAMPLES = [
+  'https://www.reddit.com/r/golf/search.rss?q=swing%20analysis&sort=new',
+  'https://www.reddit.com/r/tennis/search.rss?q=stroke%20analysis&sort=new',
+  'https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID',
+].join('\n');
+
+/** A full, self-contained setup + usage guide — everything in one place. */
+function GuidePanel() {
+  return (
+    <details className="group rounded-xl border border-border bg-card/60 p-4">
+      <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-medium text-foreground">
+        <span className="flex items-center gap-2"><BookOpen className="h-4 w-4 text-link" /> Full setup &amp; usage guide</span>
+        <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" />
+      </summary>
+
+      <div className="mt-4 space-y-5 text-sm leading-relaxed text-muted-foreground">
+        <section>
+          <h4 className="mb-1 font-semibold text-foreground">Three ways to collect signals</h4>
+          <ol className="list-decimal space-y-1 pl-5">
+            <li><strong className="text-foreground">By hand</strong> — Signal Inbox → “Add / import” → Manual. Paste any mention, quote, URL or screenshot text.</li>
+            <li><strong className="text-foreground">Import</strong> — “Add / import” → Google Alerts (paste a digest), RSS (paste a feed body), or CSV. Keyless and ToS-safe.</li>
+            <li><strong className="text-foreground">Automate</strong> (this tab) — a webhook your tools push to, and a scheduled poller that pulls feeds. Needs the keys below.</li>
+          </ol>
+          <p className="mt-1 text-xs text-muted-foreground/70">Everything is keyless by default; automation only adds “arrives on its own”.</p>
+        </section>
+
+        <section>
+          <h4 className="mb-2 font-semibold text-foreground">Environment variables (set in your host, e.g. Vercel → Settings → Environment Variables, then redeploy)</h4>
+          <ul className="space-y-1.5">
+            <li><code className="rounded bg-muted px-1 text-[11px] text-foreground">NEXT_PUBLIC_SUPABASE_URL</code> + <code className="rounded bg-muted px-1 text-[11px] text-foreground">SUPABASE_SERVICE_ROLE_KEY</code> — the durable store. Without these, automated collection accepts requests but persists nothing (and says so).</li>
+            <li><code className="rounded bg-muted px-1 text-[11px] text-foreground">SIGNALRADAR_WEBHOOK_SECRET</code> — turns the webhook on. Generate it in Step 2 above.</li>
+            <li><code className="rounded bg-muted px-1 text-[11px] text-foreground">SIGNALRADAR_FEEDS</code> — comma-separated feed URLs the scheduler pulls. Build the list in Step 3 → “Copy env”.</li>
+            <li><code className="rounded bg-muted px-1 text-[11px] text-foreground">CRON_SECRET</code> — auth for the scheduler (shared with the publishing/social crons).</li>
+          </ul>
+          <p className="mt-1 text-xs text-muted-foreground/70">The dashboard can’t write these (production runs read-only) — it generates the values and you paste them in. Secrets are never displayed back.</p>
+        </section>
+
+        <section>
+          <h4 className="mb-2 font-semibold text-foreground">Webhook — full example</h4>
+          <CopyRow label="POST a mention (replace YOUR_SECRET)" value={CURL_EXAMPLE(originUrl(''))} hint="Only “text” (or “title”) is required. sourceType is optional and whitelisted; everything is re-validated server-side." />
+        </section>
+
+        <section>
+          <h4 className="mb-2 font-semibold text-foreground">Scheduled feeds — example URLs</h4>
+          <CopyRow label="Paste into Step 3 (https only; private hosts are rejected)" value={FEED_EXAMPLES} hint="Any RSS/Atom feed works — a blog /feed, a subreddit search .rss, a YouTube channel feed." />
+        </section>
+
+        <section>
+          <h4 className="mb-1 font-semibold text-foreground">What happens to a collected signal</h4>
+          <p>Each one is de-duplicated (by URL, else text), then <strong className="text-foreground">classified</strong> (sentiment · intent · sport · audience · urgency · opportunity) and <strong className="text-foreground">scored</strong> (priority · confidence · relevance · source reliability) by transparent rules — open any signal to see exactly why it was labelled. Automated ones arrive tagged <strong className="text-foreground">“Ingested”</strong>; click <strong className="text-foreground">Adopt</strong> in the detail drawer to triage, note or convert them.</p>
+        </section>
+
+        <section>
+          <h4 className="mb-1 font-semibold text-foreground">Turn a signal into action</h4>
+          <p>From a signal’s detail drawer, convert it to a content idea (lands as a draft in PublishingOS), product feedback (lands in the Feedback inbox), or a partnership / support / reputation item. Tune what alerts you in <strong className="text-foreground">Settings → Alerts</strong> (severity threshold + per-kind muting).</p>
+        </section>
+
+        <p className="text-xs text-muted-foreground/70">
+          Privacy &amp; honesty: nothing is fabricated, demo rows are flagged “Sample”, secrets are never shown, and automated adapters report their real state rather than pretending to collect.
+        </p>
+      </div>
+    </details>
   );
 }
