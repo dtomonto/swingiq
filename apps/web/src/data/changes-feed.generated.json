@@ -1,0 +1,556 @@
+[
+  {
+    "sha": "0a5ebc823e8e1be22be3d65d4e6f1fade8dab21b",
+    "at": "2026-06-11T14:27:04-04:00",
+    "type": "feat",
+    "scope": "admin-os",
+    "subject": "Phase 6 — Decision drawer + staged rollout controls"
+  },
+  {
+    "sha": "4add2a323ad156bdbbbda11c40a7a43122293792",
+    "at": "2026-06-11T14:11:39-04:00",
+    "type": "feat",
+    "scope": "feature-education",
+    "subject": "generate + commit published shipping learning content"
+  },
+  {
+    "sha": "93c4851b015fb0c9afa48f64ca4ce337b4f9f032",
+    "at": "2026-06-11T14:01:15-04:00",
+    "type": "fix",
+    "scope": "publishing",
+    "subject": "admin queue reflects durable publish overrides"
+  },
+  {
+    "sha": "fe613ef86dcbac7b3da0dfc1f58093b5cc1478d4",
+    "at": "2026-06-11T13:26:29-04:00",
+    "type": "feat",
+    "scope": "admin-os",
+    "subject": "Phase 4 — consolidate Product Health surfaces behind tabs"
+  },
+  {
+    "sha": "dfdbb5cfc0056503b0cf218a07de3d95694b07a3",
+    "at": "2026-06-11T12:34:32-04:00",
+    "type": "fix",
+    "scope": "seo",
+    "subject": "include feature detail pages in sitemap; clear 2 a11y lint warns"
+  },
+  {
+    "sha": "48c08211a688466d5beac25b18294c465fa226e2",
+    "at": "2026-06-11T12:25:52-04:00",
+    "type": "fix",
+    "scope": "admin-os",
+    "subject": "audit Coach Night on the contrast board (F9)"
+  },
+  {
+    "sha": "8625d194d72f4f6d5c75ded3e2b223a3a0cd327c",
+    "at": "2026-06-11T11:58:30-04:00",
+    "type": "feat",
+    "scope": "design-v2",
+    "subject": "Phase 8 GA flip — redesign is now the default (flag kept as rollback)"
+  },
+  {
+    "sha": "6949dfb1ab3ad1902c20e10f671cbf64b85d5b98",
+    "at": "2026-06-11T11:58:10-04:00",
+    "type": "feat",
+    "scope": "admin-os",
+    "subject": "Phase 6 — Decision Center (one ranked queue)"
+  },
+  {
+    "sha": "1895bbda73c7c37578500ba792957d87de39fd92",
+    "at": "2026-06-11T11:41:24-04:00",
+    "type": "polish",
+    "scope": "hero",
+    "subject": "stronger softball uppercut + shorter padel backswing; lint ignore storybook-static"
+  },
+  {
+    "sha": "0a5b42aa88f4d1d5d5cfa79b906933c151d10ace",
+    "at": "2026-06-11T11:40:40-04:00",
+    "type": "feat",
+    "scope": "admin-os",
+    "subject": "Phase 7 — Coach Night dark operator mode (flag-gated)"
+  },
+  {
+    "sha": "07fe7b4b0da68ab9bc0a6f104cc92fbd66f039c6",
+    "at": "2026-06-11T11:29:08-04:00",
+    "type": "feat",
+    "scope": "design-v2",
+    "subject": "Phase 7 follow-up — full Learn article body on the document surface"
+  },
+  {
+    "sha": "e5754c1740324ab57db5fc91300f484e4b4fea80",
+    "at": "2026-06-11T11:16:29-04:00",
+    "type": "docs",
+    "scope": "design-v2",
+    "subject": "add DESIGN_V2.md — token axes, components, flag, ramp"
+  },
+  {
+    "sha": "4dd3f0285697037ec4b99221387a5d515f254c05",
+    "at": "2026-06-11T11:05:35-04:00",
+    "type": "feat",
+    "scope": "admin-os",
+    "subject": "Phase 5 — publishing four-question gate + Coach Mode fix"
+  },
+  {
+    "sha": "80ff039d61c40a2060651bf991e9ab515096916e",
+    "at": "2026-06-11T09:54:28-04:00",
+    "type": "feat",
+    "scope": "admin-os",
+    "subject": "Phase 4 — consolidated Product Health overview"
+  },
+  {
+    "sha": "697076d000cfe6f74454b26feacc314481817edb",
+    "at": "2026-06-11T09:46:28-04:00",
+    "type": "feat",
+    "scope": "design-v2",
+    "subject": "Phase 7 — flag-gated document-surface masthead on Learn articles"
+  },
+  {
+    "sha": "0128eca49a80585a5238108efe946607811dc0cf",
+    "at": "2026-06-11T09:36:44-04:00",
+    "type": "feat",
+    "scope": "admin-os",
+    "subject": "Phase 3 — interpreted briefing on the Command Center home"
+  },
+  {
+    "sha": "f33377790050655f5648108244e927130bceea72",
+    "at": "2026-06-11T09:27:56-04:00",
+    "type": "feat",
+    "scope": "design-v2",
+    "subject": "Phase 6-A — flag-gated sport identity on homepage sport cards"
+  },
+  {
+    "sha": "84c23c3594adadf1df1879a9fbc4704c4095d491",
+    "at": "2026-06-11T09:26:42-04:00",
+    "type": "feat",
+    "scope": "tooling",
+    "subject": "npm run publish-safe — land commits on master without force-push"
+  },
+  {
+    "sha": "fb5993b966045cd718296e1301291cd796017529",
+    "at": "2026-06-11T08:58:15-04:00",
+    "type": "feat",
+    "scope": "design-v2",
+    "subject": "Phase 6 — flag-gated sport-identity layer on landing heroes"
+  },
+  {
+    "sha": "03de14229c5fbe65c923493b028575ee38b7f1fe",
+    "at": "2026-06-11T09:01:57-04:00",
+    "type": "feat",
+    "scope": "admin-os",
+    "subject": "Phase 2 — component upgrades (additive, backward-compatible)"
+  },
+  {
+    "sha": "c0c694b0b842524ef265d1a814106503aeaaba07",
+    "at": "2026-06-11T08:49:10-04:00",
+    "type": "fix",
+    "scope": "seo",
+    "subject": "refresh og-default share image to the dark \"B\" design"
+  },
+  {
+    "sha": "05a9ad88f44a2c225cff5762404ece1c456c3e55",
+    "at": "2026-06-11T08:28:07-04:00",
+    "type": "feat",
+    "scope": "design-v2",
+    "subject": "Phase 5 — flag-gated one-next-action dashboard hero"
+  },
+  {
+    "sha": "f7a5bd2a7652a7d60be0cec5f868c5973eedbc12",
+    "at": "2026-06-11T08:24:30-04:00",
+    "type": "feat",
+    "scope": "hero",
+    "subject": "photoreal multi-sport kinematic swing panel"
+  },
+  {
+    "sha": "70683685171f9b156f54a26d1c4fdaa8d1dedd4a",
+    "at": "2026-06-11T07:55:36-04:00",
+    "type": "feat",
+    "scope": "design-v2",
+    "subject": "re-land Phase 0/3/4 stack orphaned by concurrent master rebase"
+  },
+  {
+    "sha": "0c0652f5ac668e147f3ca90040daaf80f20d0ddf",
+    "at": "2026-06-11T07:57:44-04:00",
+    "type": "feat",
+    "scope": "admin-os",
+    "subject": "Phase 1 — nav by intent, plain-noun labels, F8 fix"
+  },
+  {
+    "sha": "42893164c7714ddb373893b9d08ed043fb733314",
+    "at": "2026-06-11T07:37:43-04:00",
+    "type": "fix",
+    "scope": "video-studio",
+    "subject": "content-aware tutorial poster extraction"
+  },
+  {
+    "sha": "6df26f968bbeafe92d2afdfc27c4d38ab3b8d758",
+    "at": "2026-06-11T07:33:31-04:00",
+    "type": "fix",
+    "scope": "admin-os",
+    "subject": "Coach Mode cleanup — residual accent colors to tokens"
+  },
+  {
+    "sha": "a2e8cd4ec8e8d173a7e488632dd737e8c86b8fff",
+    "at": "2026-06-11T07:33:20-04:00",
+    "type": "fix",
+    "scope": "tutorial",
+    "subject": "real poster frames for 25 walkthrough videos"
+  },
+  {
+    "sha": "4f109164ff09b38675b026d88afd17a8540d7b60",
+    "at": "2026-06-11T07:23:52-04:00",
+    "type": "fix",
+    "scope": "design-v2",
+    "subject": "restore design-v2 flag module to un-break master"
+  },
+  {
+    "sha": "9b8b7f968a9038f642f7bbafb128261b773ed5c6",
+    "at": "2026-06-11T07:18:12-04:00",
+    "type": "feat",
+    "scope": "admin-os",
+    "subject": "Phase 0 — flip admin chrome to light Coach Mode tokens"
+  },
+  {
+    "sha": "38464da224de73e221c101922d2dc4c713ea6a62",
+    "at": "2026-06-11T07:17:04-04:00",
+    "type": "feat",
+    "scope": "design-v2",
+    "subject": "Phase 4 pt2 — flag-gated \"capture is paper\" upload zone"
+  },
+  {
+    "sha": "de465447454a048059447fddec189697529a0e7b",
+    "at": "2026-06-11T07:14:31-04:00",
+    "type": "fix",
+    "scope": "design-v2",
+    "subject": "scope data-sport to <html> so sport @theme utilities resolve"
+  },
+  {
+    "sha": "79e13968a351b71bb3346950296890bf2ab42493",
+    "at": "2026-06-11T07:05:56-04:00",
+    "type": "chore",
+    "scope": "tutorial",
+    "subject": "re-record welcome video for the dark \"B\" homepage"
+  },
+  {
+    "sha": "d1fcf6385400dba249d056d19b933871db351bf6",
+    "at": "2026-06-11T01:18:20-04:00",
+    "type": "feat",
+    "scope": "signal-radar",
+    "subject": "SignalRadar OS — admin brand/digital-signal intelligence"
+  },
+  {
+    "sha": "64013ae60b1073307c9d99bf4c8912497dddeb1c",
+    "at": "2026-06-10T23:48:13-04:00",
+    "type": "chore",
+    "scope": "core",
+    "subject": "order exports 'types' condition first to silence tsup warnings"
+  },
+  {
+    "sha": "3b23823d4a5e4973316c34269bedc7e8bb80e362",
+    "at": "2026-06-10T23:44:15-04:00",
+    "type": "docs",
+    "scope": "claude",
+    "subject": "append SwingVantage product & design guide to CLAUDE.md"
+  },
+  {
+    "sha": "9b9f235a272bbd1a640249f6249dd21f25f9fae7",
+    "at": "2026-06-10T23:28:56-04:00",
+    "type": "test",
+    "scope": "e2e",
+    "subject": "de-flake the usage-modal dismissal in two green-but-racy specs (#23)"
+  },
+  {
+    "sha": "5757115ec080327e7779a333beab2c30f0ee9571",
+    "at": "2026-06-10T23:28:29-04:00",
+    "type": "feat",
+    "scope": "founding",
+    "subject": "soften Founding Members banner + daily publishing cron (#12)"
+  },
+  {
+    "sha": "6908ef41a78b22454d5acb7a632fe640b3f6efd3",
+    "at": "2026-06-10T23:28:10-04:00",
+    "type": "feat",
+    "scope": "reliability-os",
+    "subject": "admin Health Command Center (Phase 1) (#22)"
+  },
+  {
+    "sha": "ccf799661ba3db9b0554d223ab85784f13fcb54e",
+    "at": "2026-06-10T22:55:29-04:00",
+    "type": "content",
+    "scope": "dev-updates",
+    "subject": "publish the BranchGuardianOS dev-update"
+  },
+  {
+    "sha": "96ab6ab291450fee63e67c882392d10fa3cbdec9",
+    "at": "2026-06-10T22:41:58-04:00",
+    "type": "feat",
+    "scope": "marketing",
+    "subject": "lead homepage persona cards with all 7 sports"
+  },
+  {
+    "sha": "bec8682807154c57a1a32494ca90acc59489a313",
+    "at": "2026-06-10T22:35:28-04:00",
+    "type": "feat",
+    "scope": "sports",
+    "subject": "wire pickleball + padel into DrillMatch catalog (7-sport parity)"
+  },
+  {
+    "sha": "cc526fccf00aacf96d43851fe0cccf428e3bb286",
+    "at": "2026-06-10T22:29:43-04:00",
+    "type": "chore",
+    "scope": "admin",
+    "subject": "regenerate feature registry (admin guides)"
+  },
+  {
+    "sha": "d1da8218d7dd8da6b58d8cd077c7467e92163d6e",
+    "at": "2026-06-10T22:26:53-04:00",
+    "type": "refactor",
+    "scope": "demo",
+    "subject": "kebab-case the demo lib filenames (naming gate)"
+  },
+  {
+    "sha": "8a28af7cf1dffea2afd4f542fc3db165170d58ac",
+    "at": "2026-06-10T22:24:29-04:00",
+    "type": "feat",
+    "scope": "updates",
+    "subject": "announce the free 7-sport live demo + index /demo"
+  },
+  {
+    "sha": "35137b1388399dbfb5d28908e0394341fff95e23",
+    "at": "2026-06-10T22:19:43-04:00",
+    "type": "feat",
+    "scope": "analytics",
+    "subject": "instrument the /demo experience"
+  },
+  {
+    "sha": "4e47fca0106e673a945248c091a7710b8b3a79a1",
+    "at": "2026-06-10T23:57:39Z",
+    "type": "feat",
+    "scope": "marketing",
+    "subject": "live kinematic hero + free 7-sport sample report experience"
+  },
+  {
+    "sha": "ff0b4ea7feccd3765c15ff33075fa4d144d54ff7",
+    "at": "2026-06-10T22:17:18-04:00",
+    "type": "docs",
+    "scope": "sports",
+    "subject": "reflect all 7 sports across marketing copy, docs & i18n"
+  },
+  {
+    "sha": "64fa2a2f46f6781c0dea431049145c04608066a4",
+    "at": "2026-06-10T22:01:11-04:00",
+    "type": "fix",
+    "scope": "a11y",
+    "subject": "paint hero glow as behind-content overlay so contrast is provable (#19)"
+  },
+  {
+    "sha": "065db564b07572e8d20c3fb980cc0df65a1e8ad8",
+    "at": "2026-06-10T21:53:35-04:00",
+    "type": "docs",
+    "scope": "maintenance",
+    "subject": "record 2026-06-10 branch/worktree/remote cleanup"
+  },
+  {
+    "sha": "7c15f71c5c3366949bf561a2f97609e2aff6c83a",
+    "at": "2026-06-10T21:52:13-04:00",
+    "type": "test",
+    "scope": "record-assist",
+    "subject": "dismiss first-run overlays + fix strict-mode assertion"
+  },
+  {
+    "sha": "ec3dd06f8bbe13e0bd674325e62d40146f219572",
+    "at": "2026-06-10T21:44:14-04:00",
+    "type": "feat",
+    "scope": "record-assist",
+    "subject": "Phase 3 — advanced biomechanics (reuse Motion Lab) (#20)"
+  },
+  {
+    "sha": "cc93e08dc6913b25b7a27513381c2f2e52811285",
+    "at": "2026-06-10T21:05:08-04:00",
+    "type": "feat",
+    "scope": "sample-report",
+    "subject": "tennis, pickleball & padel sample reports"
+  },
+  {
+    "sha": "fa44ec9572bdf441061655d8ef240d833be124a9",
+    "at": "2026-06-10T20:41:38-04:00",
+    "type": "test",
+    "scope": "motion-lab",
+    "subject": "browser-verify e2e + fix marketing a11y contrast"
+  },
+  {
+    "sha": "b6dfcbd9932ce540965ac2b1eb05eb27770a1d9e",
+    "at": "2026-06-10T20:31:18-04:00",
+    "type": "feat",
+    "scope": "publishing",
+    "subject": "surface scheduled-publish reminders in the admin Action Center"
+  },
+  {
+    "sha": "f0f904926040bb40bf1324c38da26827242b1601",
+    "at": "2026-06-11T00:04:35Z",
+    "type": "feat",
+    "scope": "tempo-sync",
+    "subject": "cross-session tempo trend in Motion Lab"
+  },
+  {
+    "sha": "5158a3aeb421523c8bf528fc3da8192c300d12f3",
+    "at": "2026-06-10T20:18:26-04:00",
+    "type": "fix",
+    "scope": "seo",
+    "subject": "add /tools/swing-tempo-trainer to the sitemap registry"
+  },
+  {
+    "sha": "1eb82d390749f782ff2d53831e33e326d0df784a",
+    "at": "2026-06-10T17:53:27-04:00",
+    "type": "feat",
+    "scope": "publishing",
+    "subject": "scheduling cron for due publishes (Part 6)"
+  },
+  {
+    "sha": "681fcb01428d3f1000c83d7ddac5285e2d2bdcd7",
+    "at": "2026-06-10T20:02:14-04:00",
+    "type": "other",
+    "subject": "Merge pull request #18 from dtomonto/claude/happy-wozniak-a23iog"
+  },
+  {
+    "sha": "6abd2f75075148b57c65e7ded525a1f6a07646b6",
+    "at": "2026-06-11T00:01:51Z",
+    "type": "admin",
+    "scope": "roadmap",
+    "subject": "surface open follow-ups for every unfinished initiative"
+  },
+  {
+    "sha": "4b270264b0ed5bcf13debdc796fd39ba98ada3e2",
+    "at": "2026-06-10T20:01:40-04:00",
+    "type": "feat",
+    "scope": "tempo-sync",
+    "subject": "Tempo Sync swing-tempo trainer (#17)"
+  },
+  {
+    "sha": "343b9bf53614f22834b4af52ec9980f334261ca3",
+    "at": "2026-06-10T19:52:03-04:00",
+    "type": "feat",
+    "scope": "record-assist",
+    "subject": "RecordAssist Vision + Kinetic Tracking OS (Phases 1–2) (#15)"
+  },
+  {
+    "sha": "1b2f1824af17b0702cdefbab1fc55637ddfe871c",
+    "at": "2026-06-10T19:45:30-04:00",
+    "type": "other",
+    "subject": "Merge pull request #16 from dtomonto/claude/happy-wozniak-a23iog"
+  },
+  {
+    "sha": "54ec18ea03e35adc224d0afed38dc6008a141efd",
+    "at": "2026-06-10T23:44:57Z",
+    "type": "chore",
+    "scope": "lint",
+    "subject": "lazy-init random ids in academy CMS (react-hooks/purity)"
+  },
+  {
+    "sha": "a4fe139788042601129a05a7910beeed37a875dd",
+    "at": "2026-06-10T19:13:44-04:00",
+    "type": "other",
+    "subject": "Merge PR #13: MotionLab continuous-movement, overlay density, admin surface, retest + e2e"
+  },
+  {
+    "sha": "c0bb7ec3bb9cd3da65a9a368a5b70cea9f1a2dea",
+    "at": "2026-06-10T23:13:14Z",
+    "type": "test",
+    "scope": "motion-lab",
+    "subject": "hide overlapping app chrome in e2e clicks"
+  },
+  {
+    "sha": "3faf5f926d36c57f7746e62141751ee45bf7a9a3",
+    "at": "2026-06-10T19:05:00-04:00",
+    "type": "other",
+    "subject": "Merge pull request #14 from dtomonto/claude/happy-wozniak-a23iog"
+  },
+  {
+    "sha": "284cfdeb3c4776115d8eb504ee2a474410bbc693",
+    "at": "2026-06-10T23:04:20Z",
+    "type": "chore",
+    "scope": "lint",
+    "subject": "clear react-hooks static-components & exhaustive-deps warnings"
+  },
+  {
+    "sha": "612dfae6ee83f7c9dc589ac5791cbfe2ef3c902f",
+    "at": "2026-06-10T23:03:23Z",
+    "type": "test",
+    "scope": "motion-lab",
+    "subject": "dismiss first-run onboarding modal in e2e"
+  },
+  {
+    "sha": "407598c5e4681309773adde42ee2b4adf9ab4b43",
+    "at": "2026-06-10T19:01:44-04:00",
+    "type": "perf",
+    "scope": "web",
+    "subject": "keep the Space Grotesk heading font off the critical path (#10)"
+  },
+  {
+    "sha": "e293b25e9da99733ee0d2185e88b57efd7b3a0de",
+    "at": "2026-06-10T18:57:16-04:00",
+    "type": "chore",
+    "scope": "tutorials",
+    "subject": "re-record all 36 walkthrough videos in the B (Dark Performance) design"
+  },
+  {
+    "sha": "2b267ff780634568a17570eece3b893cdf5d93f2",
+    "at": "2026-06-10T22:53:58Z",
+    "type": "other",
+    "subject": "Merge remote-tracking branch 'origin/master' into claude/hopeful-wozniak-j59lnv"
+  },
+  {
+    "sha": "cdcec7e33dc038932cd21d76cbaf5e0a98b97064",
+    "at": "2026-06-10T18:44:30-04:00",
+    "type": "feat",
+    "scope": "founding",
+    "subject": "per-sport journey page + challenge-completion qualification"
+  },
+  {
+    "sha": "8315c76af35f25e55a4f023e4ad2c99aa4b410fe",
+    "at": "2026-06-10T22:45:35Z",
+    "type": "feat",
+    "scope": "motion-lab",
+    "subject": "retest protocols, full 7-sport mock data, e2e coverage"
+  },
+  {
+    "sha": "15e80d0cc149e112b6f58c219db697ae61345bb2",
+    "at": "2026-06-10T18:43:52-04:00",
+    "type": "other",
+    "subject": "Merge pull request #11 from dtomonto/claude/happy-wozniak-a23iog"
+  },
+  {
+    "sha": "0cdc9b6f4eed945b68a3bddb0069bf3161a8e621",
+    "at": "2026-06-10T22:43:34Z",
+    "type": "fix",
+    "scope": "admin",
+    "subject": "use next/link for the PublishingOS link (unbreak lint/build)"
+  },
+  {
+    "sha": "5819c515ca623d2227b2f93ceb1e37462e3fc79d",
+    "at": "2026-06-10T22:29:09Z",
+    "type": "feat",
+    "scope": "motion-lab",
+    "subject": "continuous-movement engine, overlay density modes, admin surface"
+  },
+  {
+    "sha": "18d5f6beee10d2a2bc6e7ed32a3cac1429705803",
+    "at": "2026-06-10T18:19:33-04:00",
+    "type": "feat",
+    "scope": "community",
+    "subject": "per-sport layered challenge library (250+ system, 100+ founding)"
+  },
+  {
+    "sha": "2e4f9117ecccbb5460c9949c8fa1e548bc4b1dc0",
+    "at": "2026-06-10T18:19:29-04:00",
+    "type": "fix",
+    "scope": "founding",
+    "subject": "show the actual member count (no +55 seed) + white banner text"
+  },
+  {
+    "sha": "c1df114151b3d483f93c78edbe71f3caa51b9036",
+    "at": "2026-06-10T17:54:23-04:00",
+    "type": "docs",
+    "scope": "tutorials",
+    "subject": "one-command re-record path for the walkthrough videos (old design)"
+  }
+]

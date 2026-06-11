@@ -19,6 +19,7 @@ import { AlertCard } from '@/components/admin/AlertCard';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecentActivity } from '@/components/admin/RecentActivity';
+import { ChangesScroller } from '@/components/admin/ChangesScroller';
 import { TierSection } from '@/components/admin/TierSection';
 import { ConfidencePill } from '@/components/admin/ConfidencePill';
 import { ScoreRing } from '@/components/ui/ScoreRing';
@@ -356,6 +357,12 @@ export default async function AdminCommandCenter() {
           </SectionCard>
         </div>
       </div>
+
+      {/* What changed — auto-updating 30-day ticker (shipped commits + admin actions) */}
+      <section>
+        <h2 className="mb-2 text-sm font-semibold text-foreground">What changed</h2>
+        <ChangesScroller />
+      </section>
 
       {/* Existing tools */}
       <section>
