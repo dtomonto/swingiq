@@ -80,3 +80,55 @@ The shared `%TEMP%\jest` cache races between agents and produces bogus
   hook auto-refreshes the feature/setup/audit registries (expect extra chore commits).
 
 When in doubt, prefer the smallest reversible change and leave the tree clean.
+
+---
+
+# SwingVantage — product & design guide
+
+## Product
+SwingVantage is a premium AI-powered multi-sport swing improvement platform.
+
+## Core promise
+One fix. One plan. One retest.
+
+## Design standard
+The UI must feel premium, polished, mobile-first, trustworthy, and commercially credible.
+
+## Sports
+Golf, tennis, baseball, softball, pickleball, and padel.
+
+Each sport should feel like its own branded product while still belonging to the SwingVantage parent system.
+
+## Implementation principles
+- Preserve existing functionality unless explicitly changing it.
+- Prefer reusable components over page-specific UI.
+- Use Tailwind CSS and shadcn/ui patterns where appropriate.
+- Keep components composable.
+- Avoid hard-coded one-off styling.
+- Use design tokens where possible.
+- Prioritize mobile-first UX.
+- Run lint/build/tests after major changes.
+- Do not introduce unnecessary dependencies.
+- Keep accessibility, keyboard navigation, contrast, and semantic HTML in mind.
+- Every major UI change should improve clarity, trust, and conversion.
+
+## Core UX priorities
+1. Homepage clarity
+2. Sport-specific branded experiences
+3. Upload / recording flow simplicity
+4. AI report readability
+5. Dashboard actionability
+6. Today's Tasks usability
+7. Admin publishing confidence
+8. Privacy-forward trust signals
+
+## QA expectations
+After changes:
+- Run lint
+- Run typecheck if available
+- Run tests if available
+- Check mobile layouts
+- Check empty states
+- Check loading states
+- Check error states
+- Summarize risks
