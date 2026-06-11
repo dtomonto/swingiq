@@ -14,6 +14,7 @@ import {
 } from '@/lib/video-metadata';
 import type { SwingVideoMetadata, VisualSport } from '@swingiq/core';
 import { VideoRecorder } from './VideoRecorder';
+import { useDesignV2 } from '@/lib/design-v2-client';
 
 interface VideoUploadProps {
   onVideoReady: (file: File, metadata: SwingVideoMetadata, objectUrl: string) => void;
@@ -38,6 +39,20 @@ export function VideoUpload({
   const [processingError, setProcessingError] = useState<string | null>(null);
   const [privacyAcknowledged, setPrivacyAcknowledged] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const v2 = useDesignV2();
+
+  // Design V2 "capture is paper" treatment for the drop zone — the upload step
+  // happens in daylight, so it reads as a light document sheet. Flag OFF keeps
+  // the original theme-surface classes byte-for-byte. On the light paper we
+  // MUST switch to document ink: theme `text-foreground` is near-white on the
+  // dark default theme and would vanish on the sheet (the same contrast trap
+  // the report hero handles).
+  const dropIdleSurface = v2 ? 'border-document-fg/25 bg-document text-document-fg' : 'border-border bg-muted';
+  const dropInkHeading = v2 ? 'text-document-fg' : 'text-foreground';
+  const dropInkBody = v2 ? 'text-document-fg/70' : 'text-muted-foreground';
+  const dropInkAccent = v2 ? 'text-document-accent' : 'text-primary';
+  const dropTileIdle = v2 ? 'bg-document-accent/10' : 'bg-muted';
+  const dropIconIdle = v2 ? 'text-document-accent' : 'text-muted-foreground';
 
   const handleFile = useCallback(
     async (file: File) => {
@@ -186,7 +201,7 @@ export function VideoUpload({
           'flex flex-col items-center justify-center gap-4 p-10 text-center',
           isDragging && privacyAcknowledged
             ? 'border-primary bg-primary/10'
-            : 'border-border bg-muted',
+            : dropIdleSurface,
           (!privacyAcknowledged || disabled) && 'opacity-50 cursor-not-allowed',
           privacyAcknowledged && !disabled && !isProcessing && 'cursor-pointer hover:border-primary/50 hover:bg-primary/10',
         )}
@@ -218,29 +233,29 @@ export function VideoUpload({
         {isProcessing ? (
           <>
             <div className="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin" />
-            <p className="text-sm text-muted-foreground font-medium">Reading video metadata…</p>
+            <p className={cn('text-sm font-medium', dropInkBody)}>Reading video metadata…</p>
           </>
         ) : (
           <>
             <div className={cn(
               'w-16 h-16 rounded-2xl flex items-center justify-center',
-              isDragging && privacyAcknowledged ? 'bg-primary/15' : 'bg-muted',
+              isDragging && privacyAcknowledged ? 'bg-primary/15' : dropTileIdle,
             )}>
               <Video className={cn(
                 'w-8 h-8',
-                isDragging && privacyAcknowledged ? 'text-primary' : 'text-muted-foreground',
+                isDragging && privacyAcknowledged ? 'text-primary' : dropIconIdle,
               )} />
             </div>
 
             <div>
-              <p className="text-base font-semibold text-foreground">
+              <p className={cn('text-base font-semibold', dropInkHeading)}>
                 {isDragging && privacyAcknowledged ? 'Drop your video here' : 'Upload your swing video'}
               </p>
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className={cn('text-sm mt-1', dropInkBody)}>
                 Drag and drop, or{' '}
-                <span className="text-primary font-medium">tap to browse</span>
+                <span className={cn('font-medium', dropInkAccent)}>tap to browse</span>
               </p>
-              <p className="text-xs text-muted-foreground mt-2">
+              <p className={cn('text-xs mt-2', dropInkBody)}>
                 MP4, MOV, WebM · Max 500 MB · Max 5 minutes
               </p>
             </div>
