@@ -96,7 +96,6 @@ export const DEV_STATS: DevStat[] = [
 export const DEV_UPDATES: DevUpdate[] = [
   {
     id: 'dev-branch-guardian',
-    status: 'draft',
     version: 'BranchGuardianOS',
     title: 'BranchGuardianOS — a non-destructive Git and worktree governance OS for the admin',
     date: '2026-06-08',
