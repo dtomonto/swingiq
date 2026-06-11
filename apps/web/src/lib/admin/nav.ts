@@ -172,6 +172,12 @@ export const NAV_ITEMS: NavItem[] = [
   },
   // Decision Center
   {
+    id: 'decisions', label: 'Decision Center', href: '/admin/decisions', icon: Scale,
+    group: 'operate', subgroup: 'Decision Center', built: true, countType: 'decision',
+    blurb: 'One ranked queue for every decision that needs you — approvals, audit findings and review queues, top-down by priority.',
+    keywords: ['decisions', 'decision center', 'queue', 'priority', 'what needs me', 'ranked', 'approve', 'review queue', 'triage'],
+  },
+  {
     id: 'action-center', label: 'Action Center', href: '/admin/approvals', icon: Inbox,
     group: 'operate', subgroup: 'Decision Center', built: true,
     blurb: 'One inbox for everything that needs you — drafts to approve, SEO & video opportunities, audit findings — each linking to the tool that handles it.',
