@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, Lock, UserX, Zap, type LucideIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { designV2EnabledFromEnv } from '@/lib/design-v2';
 
 type Cta = { label: string; href: string };
 type Chip = { icon: LucideIcon; label: string };
@@ -48,9 +50,37 @@ export function SportAnalysisHero({
 }) {
   const accent = `hsl(var(${accentVar}))`;
 
+  // Design V2: light up the FULL sport identity (wash + pattern) on the hero.
+  // Env-gated (not the cookie) so this stays a server component — no client JS
+  // on SEO landing pages. `data-sport` is derived from the accent token
+  // (`--sport-golf` → `golf`, `--sport-softball-slow` → `softball_slow`) and set
+  // LOCALLY on the hero so it shows THIS page's sport regardless of the
+  // visitor's active sport. The wash/pattern are inline `var()` styles (they
+  // resolve down the cascade on a nested `data-sport` wrapper — unlike the
+  // root-computed `@theme` bg-sport-* utilities).
+  const v2 = designV2EnabledFromEnv();
+  const sportSlug = accentVar.replace('--sport-', '').replace(/-/g, '_');
+
   return (
-    <header className="relative overflow-hidden bg-theme-hero">
-      <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:py-24">
+    <header
+      className="relative overflow-hidden bg-theme-hero"
+      {...(v2 ? { 'data-sport': sportSlug } : {})}
+    >
+      {v2 && (
+        <>
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{ backgroundImage: 'var(--sport-wash)' }}
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute inset-0 bg-repeat"
+            style={{ backgroundImage: 'var(--sport-pattern)' }}
+            aria-hidden="true"
+          />
+        </>
+      )}
+      <div className={cn('mx-auto max-w-4xl px-4 py-16 text-center sm:py-24', v2 && 'relative z-10')}>
         <span
           className="inline-flex items-center gap-2 rounded-full border bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-link"
           style={{ borderColor: `hsl(var(${accentVar}) / 0.45)` }}
