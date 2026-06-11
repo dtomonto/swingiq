@@ -16,11 +16,9 @@ import { loadFindings } from '@/lib/admin/audits/data';
 import { loadAlertCounts } from '@/lib/feature-education/server/data';
 import { scanForOpportunities } from '@/lib/video-studio';
 import { runLinkAgent } from '@/lib/growth/link-intelligence';
-
-// NOTE: A "Publishing / changelog drafts" adapter (wrapping updates-store's
-// readPublishSnapshot) is intentionally NOT wired here yet — that module is a
-// concurrent, not-yet-on-origin feature. Re-add it as one more entry in
-// SERVER_ADAPTERS once @/lib/admin/updates-store ships to master.
+import { listEntities } from '@/lib/publishing/store';
+import { isExecutorConfigured } from '@/lib/publishing/executor/config.server';
+import { summarizeScheduleStatus } from '@/lib/publishing/schedule-status';
 
 // ── Audit findings → the high-priority open items ────────────────────────────
 const auditAdapter: ActionSourceAdapter = {
@@ -150,10 +148,87 @@ const linkIntelligenceAdapter: ActionSourceAdapter = {
   },
 };
 
+// ── PublishingOS → scheduled-publish reminders & next steps ──────────────────
+// Surfaces the cron's queue so the operator sees what will auto-publish, what is
+// stuck, and what failed — without opening the PublishingOS console.
+const publishingAdapter: ActionSourceAdapter = {
+  id: 'publishing',
+  label: 'PublishingOS',
+  async collect() {
+    const [entities, executorConfigured] = await Promise.all([
+      listEntities(),
+      isExecutorConfigured(),
+    ]);
+    const s = summarizeScheduleStatus(entities, new Date().toISOString(), executorConfigured);
+    const items: ActionItem[] = [];
+
+    if (s.failed > 0) {
+      items.push({
+        id: 'publishing:failed',
+        source: 'publishing',
+        sourceLabel: 'PublishingOS',
+        title: `${s.failed} publish${s.failed === 1 ? '' : 'es'} failed — retry needed`,
+        detail: 'A scheduled publish or deploy attempt failed. Retry or roll back from PublishingOS.',
+        severity: 'critical',
+        count: s.failed,
+        href: '/admin/publishing',
+        cta: 'Open PublishingOS',
+      });
+    }
+
+    if (s.dueBlocked > 0) {
+      items.push({
+        id: 'publishing:due-blocked',
+        source: 'publishing',
+        sourceLabel: 'PublishingOS',
+        title: `${s.dueBlocked} deploy-backed publish${s.dueBlocked === 1 ? '' : 'es'} stuck — executor not configured`,
+        detail: 'These are due but need a Git deploy. Set GITHUB_TOKEN + GITHUB_REPO in Keys & Secrets so the cron can open the PR.',
+        severity: 'warning',
+        count: s.dueBlocked,
+        href: '/admin/publishing',
+        cta: 'Configure executor',
+      });
+    }
+
+    if (s.dueNow > 0) {
+      items.push({
+        id: 'publishing:due-now',
+        source: 'publishing',
+        sourceLabel: 'PublishingOS',
+        title: `${s.dueNow} scheduled publish${s.dueNow === 1 ? '' : 'es'} due now`,
+        detail: 'The hourly publishing cron will action these on its next run. Review or unschedule from PublishingOS.',
+        severity: 'info',
+        count: s.dueNow,
+        href: '/admin/publishing',
+        cta: 'Review queue',
+      });
+    }
+
+    if (s.upcoming > 0) {
+      const when = s.nextScheduledFor ? new Date(s.nextScheduledFor) : null;
+      const nextLabel = when && !Number.isNaN(when.getTime()) ? when.toLocaleString() : 'a future time';
+      items.push({
+        id: 'publishing:upcoming',
+        source: 'publishing',
+        sourceLabel: 'PublishingOS',
+        title: `${s.upcoming} publish${s.upcoming === 1 ? '' : 'es'} scheduled`,
+        detail: `Next goes live ${nextLabel}. The cron publishes due items automatically.`,
+        severity: 'info',
+        count: s.upcoming,
+        href: '/admin/publishing',
+        cta: 'View schedule',
+      });
+    }
+
+    return items;
+  },
+};
+
 /** All server-side Action Center adapters, in a stable order. */
 export const SERVER_ADAPTERS: ActionSourceAdapter[] = [
   auditAdapter,
   featureEducationAdapter,
   linkIntelligenceAdapter,
   videoStudioAdapter,
+  publishingAdapter,
 ];

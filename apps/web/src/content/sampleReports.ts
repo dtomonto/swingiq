@@ -1,17 +1,22 @@
 // ============================================================
 // SwingVantage — Sample Reports (content config, DEVELOPER-ONLY)
 //
-// Five sport-specific worked examples so any visitor can "see what
+// Eight sport-specific worked examples so any visitor can "see what
 // they'll get" before starting. ALL data here is illustrative — it
 // is never presented as a real athlete's result (see confidenceLevel
-// + trustDisclaimer on every entry). Rendered by
-// components/report/SampleReportTemplate.tsx.
+// + trustDisclaimer on every entry). The detected issue, drills, and
+// coaching cues are grounded in the real per-sport registry content in
+// packages/core/src/sports/<sport>/{drills,phases,benchmarks,analysis}.ts.
+// Rendered by components/report/SampleReportTemplate.tsx.
 //
 // See docs/FIVE_PERSONA_MASTER_PLAN.md §7.
 // ============================================================
 
 export type SampleReportSlug =
   | 'golf'
+  | 'tennis'
+  | 'pickleball'
+  | 'padel'
   | 'baseball'
   | 'slow-pitch'
   | 'fast-pitch'
@@ -131,6 +136,207 @@ const GOLF: SampleReport = {
     topIssue: 'Out-to-in club path producing a slice',
     drills: ['Headcover gate drill (path)', 'Pump-and-drop transition (sequence)', 'Split-hand release (face)'],
     planSummary: '7 days: shallow the path first → add release → build speed → retest on day 7.',
+  },
+};
+
+const TENNIS: SampleReport = {
+  slug: 'tennis',
+  sportLabel: 'Tennis',
+  sportEmoji: '🎾',
+  startSport: 'tennis',
+  metaTitle: 'Sample Tennis Swing Report — Fixing Late Contact',
+  metaDescription:
+    'See a complete SwingVantage tennis report: why your forehand is late, the top fix to meet the ball out front, three drills, a 7-day plan, and how to retest. Sample data.',
+  title: 'Sample Tennis Report: Meeting the Ball Out Front',
+  intro:
+    'A worked example for a recreational player whose forehand keeps arriving late. Your real report is built from your own swing.',
+  userProfile:
+    'Recreational 3.0–3.5 player, plays weekly doubles. Main complaint: the forehand feels rushed and "pushy" — little pace and a lot of balls floating long or into the net.',
+  inputData: [
+    'One side-view swing video (forehand groundstrokes)',
+    'Self-reported pattern: rushed, pushed forehands with no pace',
+    'No racket-sensor or radar data provided',
+  ],
+  issueDetected:
+    'Late contact point: the hitting arm is beside or behind the front hip at contact rather than out in front — a preparation-and-timing issue, not a grip problem.',
+  highestPriorityFix:
+    'Prepare the unit turn earlier and meet the ball out in front of the lead hip, extending the arm through contact instead of pushing at the ball beside the body.',
+  evidenceUsed: [
+    'On the side view, the racket is still preparing when the ball is already arriving (late unit turn)',
+    'Contact appears beside/behind the hip line rather than roughly an arm-length in front',
+    'A short, blocked finish suggests the arm never extended through the contact zone',
+  ],
+  confidenceLevel: ILLUSTRATIVE,
+  confidenceNote:
+    'A clear side-view video supports a confident read on preparation timing and contact point. Exact racket-head speed would need a sensor or radar.',
+  whyItMatters:
+    'Contact point sets everything downstream. Meeting the ball late forces an arm-only "push" with no pace or margin; getting turned early and contacting out front lets the body drive the shot and adds both control and power without swinging harder.',
+  drills: [
+    { name: 'Toss-and-hit contact-point drill', how: 'Drop or self-toss a ball to the exact spot you want to contact it — in front of and out from the lead hip — and hit over a cone placed there. Train the same forward contact every rep. 3 sets of 20 feeds.' },
+    { name: 'Shadow-swing extension', how: 'Shadow-swing in slow motion in front of a mirror and pause at contact. Check the arm is roughly 80% extended out front (long, not locked). Add 10 wall-touches at the correct contact point. ~3 minutes.' },
+    { name: 'Early-preparation bounce-call', how: 'In a rally, call "turn!" the instant your opponent contacts the ball; the racket must be back and loaded before the ball bounces on your side. Trains preparation off the opponent’s cue, not the bounce. 20-minute rally.' },
+  ],
+  practicePlan7Day: [
+    { day: 'Days 1–2', focus: 'Toss-and-hit contact-point drill only. Groove a forward contact in front of the hip.' },
+    { day: 'Days 3–4', focus: 'Add shadow-swing extension to feel the arm reach through contact.' },
+    { day: 'Day 5', focus: 'Add the early-preparation bounce-call in cooperative rallies at 70%.' },
+    { day: 'Day 6', focus: 'Combine all three in live rallies; notice the ball jumping off the strings with more pace.' },
+    { day: 'Day 7', focus: 'Retest: re-film forehands from the same side angle and compare contact point.' },
+  ],
+  retestInstructions:
+    'On day 7, re-film 10–15 forehands from the same side-view angle and distance. Freeze at contact: is the racket out in front of the lead hip now, with the arm extended? Re-record every 1–2 weeks to track the trend, not a single ball.',
+  progressMetrics: [
+    'Contact point (beside/behind the hip → roughly an arm-length out front)',
+    'Arm extension through contact (blocked/short → long finish)',
+    'Racket-head speed at contact, if you ever measure it (intermediate target ~65 mph)',
+  ],
+  coachSummary:
+    'Player contacts the forehand late, beside the body, producing pushed strokes with no pace. Priority: earlier unit turn and contact out front with extension. Drills assigned: toss-and-hit contact point, shadow extension, early-preparation bounce-call. Retest in 7 days from a fixed side angle.',
+  whatWeCannotKnow: [
+    'Exact racket-head speed or spin without a sensor/radar',
+    'Whether footwork or ball-reading is part of the lateness (needs live, multi-angle looks)',
+    'Anything about wrist, elbow, or shoulder health — stop if you feel pain',
+  ],
+  trustDisclaimer:
+    'This is an illustrative example built from sample data, not a real player’s result, and not certified instruction. SwingVantage gives heuristic estimates that sharpen as you add more swings. For injury concerns or advanced work, pair it with a qualified coach.',
+  card: {
+    topIssue: 'Late contact point on the forehand → pushed, paceless strokes',
+    drills: ['Toss-and-hit contact point (out front)', 'Shadow-swing extension (reach)', 'Early-preparation bounce-call (timing)'],
+    planSummary: '7 days: prepare earlier → contact out front → extend through the ball → retest on day 7.',
+  },
+};
+
+const PICKLEBALL: SampleReport = {
+  slug: 'pickleball',
+  sportLabel: 'Pickleball',
+  sportEmoji: '🏓',
+  startSport: 'pickleball',
+  metaTitle: 'Sample Pickleball Swing Report — Stop Popping Up Dinks',
+  metaDescription:
+    'See a complete SwingVantage pickleball report: why your dinks float up to get attacked, the top fix to keep them low, three drills, a 7-day plan, and how to retest. Sample data.',
+  title: 'Sample Pickleball Report: Keeping Dinks Low',
+  intro:
+    'A worked example for a player whose dinks keep floating up into the attack zone. Your real report is built from your own swing.',
+  userProfile:
+    'Rec 3.0–3.5 player who loses kitchen exchanges. Main complaint: dinks sit up at net height and get put away, so they keep losing the soft game.',
+  inputData: [
+    'One side-view swing video (cross-court dinking at the kitchen line)',
+    'Self-reported pattern: dinks pop up and get attacked',
+    'No paddle-sensor data provided',
+  ],
+  issueDetected:
+    'Dinks popping up: the paddle face is too open at contact (or the ball is lifted with the wrist instead of the legs), so the ball leaves high and sits in the attack zone.',
+  highestPriorityFix:
+    'Stabilize a slightly-open, quiet paddle face and lift with the legs, not the wrist, so the ball skims low over the net and stays unattackable.',
+  evidenceUsed: [
+    'On the side view the paddle face is angled noticeably upward at contact',
+    'The dink trajectory rises above net-and-shoulder height (an attackable arc)',
+    'A wristy, flicking motion suggests the lift is coming from the hand rather than the legs',
+  ],
+  confidenceLevel: ILLUSTRATIVE,
+  confidenceNote:
+    'A side-view video supports a confident read on paddle-face angle and dink arc. Precise net-clearance height would need a fixed reference or sensor to confirm.',
+  whyItMatters:
+    'In the soft game, anything above net height is a free attack for your opponent. Keeping the dink low — a few inches over the tape with a quiet face — removes their put-away and is the single biggest swing in who controls the kitchen.',
+  drills: [
+    { name: 'Net-skimmer dink gate', how: 'Set a string or eye-line target a few inches above the net tape and dink cross-court trying to send every ball just over it. Keep the face slightly open and stable; lift with the legs, not the wrist. 5 minutes cross-court, then 5 straight-ahead.' },
+    { name: 'Paddle-face control wall', how: 'Stand a few feet from a wall and dink continuously against it. Ball striking high means the face is too open — adjust to a square/slightly-open face that returns it low, keeping the wrist quiet through contact. ~8 minutes.' },
+    { name: 'Attackable-ball recognition', how: 'Dink with a partner and call "up!" or "down!" before each contact: roll-attack only balls above net height, keep everything below it soft. Trains patience and shot selection. 10-minute game, tracking unforced speed-ups.' },
+  ],
+  practicePlan7Day: [
+    { day: 'Days 1–2', focus: 'Net-skimmer dink gate only. Groove a low arc just over the tape with a quiet face.' },
+    { day: 'Days 3–4', focus: 'Add the paddle-face control wall to stabilize the face angle.' },
+    { day: 'Day 5', focus: 'Add attackable-ball recognition; speed up only the balls that float above the net.' },
+    { day: 'Day 6', focus: 'Live kitchen exchanges keeping the low, leg-driven feel.' },
+    { day: 'Day 7', focus: 'Retest: re-film cross-court dinks from the same side angle and compare arc height.' },
+  ],
+  retestInstructions:
+    'On day 7, re-film a cross-court dink rally from the same side angle. Watch net clearance and face angle: are the dinks skimming low (a few inches over) instead of sitting up? Chart attackable vs. unattackable dinks over the next couple of weeks.',
+  progressMetrics: [
+    'Dink net clearance (sitting up → a few inches over the tape, intermediate target ~7")',
+    'Paddle-face angle at contact (open/lifting → quiet and stable)',
+    'Unforced speed-up errors (down toward zero)',
+  ],
+  coachSummary:
+    'Player pops dinks up with an open, wristy face, giving away free attacks. Priority: stable slightly-open face, leg-driven lift, keep dinks low. Drills: net-skimmer gate, paddle-face wall, attackable-ball recognition. Retest in 7 days from a fixed side angle.',
+  whatWeCannotKnow: [
+    'Exact net-clearance height or paddle speed without a fixed reference/sensor',
+    'Whether positioning or footwork at the kitchen line is contributing (needs live looks)',
+    'Anything about wrist or shoulder health — stop if you feel pain',
+  ],
+  trustDisclaimer:
+    'This is an illustrative example built from sample data, not a real player’s result, and not certified instruction. SwingVantage gives heuristic estimates that sharpen as you add more swings. For injury concerns or advanced work, pair it with a qualified coach.',
+  card: {
+    topIssue: 'Dinks popping up into the attack zone',
+    drills: ['Net-skimmer dink gate (low arc)', 'Paddle-face control wall (stable face)', 'Attackable-ball recognition (selection)'],
+    planSummary: '7 days: quiet the face → lift with the legs → keep dinks low → retest arc height on day 7.',
+  },
+};
+
+const PADEL: SampleReport = {
+  slug: 'padel',
+  sportLabel: 'Padel',
+  sportEmoji: '🎾',
+  startSport: 'padel',
+  metaTitle: 'Sample Padel Swing Report — Fixing a Weak Bandeja',
+  metaDescription:
+    'See a complete SwingVantage padel report: why your bandeja sits up and gets countered, the top fix to hold the net, three drills, a 7-day plan, and how to retest. Sample data.',
+  title: 'Sample Padel Report: A Bandeja That Holds the Net',
+  intro:
+    'A worked example for a player whose bandeja keeps sitting up and losing the net. Your real report is built from your own swing.',
+  userProfile:
+    'Recreational player who keeps getting pushed back off the net. Main complaint: the bandeja lands short and floats, so opponents counter and take over the point.',
+  inputData: [
+    'One side-view swing video (bandeja on backhand-side lobs)',
+    'Self-reported pattern: short, sitting bandejas that get countered',
+    'No racket-sensor data provided',
+  ],
+  issueDetected:
+    'Weak / sitting bandeja: a flat, short overhead with a high finish — usually a square stance, contact behind the body, or no slice brush on the ball — so it lacks the depth and control to hold the net.',
+  highestPriorityFix:
+    'Turn side-on early and contact slightly in front with a slice brush, finishing low and out toward a deep cross-court target so the bandeja holds the net instead of sitting up.',
+  evidenceUsed: [
+    'On the side view the stance is square and contact is behind the body line',
+    'A flat overhead with a high follow-through rather than a low, controlled finish toward the target',
+    'The resulting short, floaty depth matches a bandeja with no slice control',
+  ],
+  confidenceLevel: ILLUSTRATIVE,
+  confidenceNote:
+    'A clear side-view video supports a confident read on stance, contact point, and finish on the bandeja. Exact ball speed and spin would need a sensor.',
+  whyItMatters:
+    'In padel the bandeja is a placement shot whose whole job is to keep you at the net. A flat, short one hands the initiative back; a deep, sliced bandeja that finishes low buys time and holds your net position — usually more decisive than trying to smash every lob.',
+  drills: [
+    { name: 'Bandeja control & depth', how: 'A partner lobs to your backhand-side overhead; turn side-on early, contact slightly in front with a slice brush, and aim deep cross-court near the side glass. Finish low and out toward the target — not over the shoulder. 3 sets of 12.' },
+    { name: 'Smash-or-bandeja decision', how: 'Partner mixes deep lobs and short, high sit-ups. Play a controlled bandeja/víbora on deep or awkward lobs; only flat-smash the short, comfortable ones. Call your choice aloud before contact. 15-minute game, tracking selection.' },
+    { name: 'Net volley block & place', how: 'Partner feeds drives and dipping balls; block with a firm, slightly-open, stable face and minimal swing, punching the volley deep to the corners. Keeps you set at the net after the bandeja. 3 sets of 15.' },
+  ],
+  practicePlan7Day: [
+    { day: 'Days 1–2', focus: 'Bandeja control & depth only. Groove the side-on turn, forward contact, and low finish.' },
+    { day: 'Days 3–4', focus: 'Add the smash-or-bandeja decision game to default to control under pressure.' },
+    { day: 'Day 5', focus: 'Add net volley block & place to hold the net after the overhead.' },
+    { day: 'Day 6', focus: 'Live points keeping the deep, sliced bandeja and staying forward.' },
+    { day: 'Day 7', focus: 'Retest: re-film bandejas from the same side angle and compare depth and finish.' },
+  ],
+  retestInstructions:
+    'On day 7, re-film 10–15 bandejas from the same side-view angle. Check the stance (side-on?), contact point (in front?), and finish (low and out?). Chart how often the bandeja lands deep and you hold the net over the next couple of weeks.',
+  progressMetrics: [
+    'Bandeja depth/control (short and sitting → deep and repeatable, intermediate target ~0.72)',
+    'Finish direction (high over the shoulder → low and out toward the target)',
+    'Net-hold rate through bandeja exchanges (intermediate target ~58%)',
+  ],
+  coachSummary:
+    'Player hits a flat, short bandeja from a square stance with contact behind the body, losing the net. Priority: side-on turn, contact in front, slice brush, low finish, deep cross-court. Drills: bandeja control & depth, smash-or-bandeja decision, net volley block & place. Retest in 7 days from a fixed side angle.',
+  whatWeCannotKnow: [
+    'Exact ball speed or spin without a sensor',
+    'Court positioning and footwork patterns from a single-shot clip (needs live looks)',
+    'Anything about shoulder or back health — warm up the overhead and stop if you feel pain',
+  ],
+  trustDisclaimer:
+    'This is an illustrative example built from sample data, not a real player’s result, and not certified instruction. SwingVantage gives heuristic estimates that sharpen as you add more swings. For injury concerns or advanced work, pair it with a qualified coach.',
+  card: {
+    topIssue: 'Weak, sitting bandeja that loses the net',
+    drills: ['Bandeja control & depth (slice, deep)', 'Smash-or-bandeja decision (selection)', 'Net volley block & place (hold the net)'],
+    planSummary: '7 days: side-on turn → contact in front with slice → finish low and deep → retest on day 7.',
   },
 };
 
@@ -409,6 +615,9 @@ const SOFTBALL_CHOOSER: SampleReport = {
 
 export const SAMPLE_REPORTS: SampleReport[] = [
   GOLF,
+  TENNIS,
+  PICKLEBALL,
+  PADEL,
   BASEBALL,
   SLOW_PITCH,
   FAST_PITCH,

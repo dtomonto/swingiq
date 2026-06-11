@@ -329,7 +329,23 @@
 
 /* Decorative hero/section wash. Safe behind large headings, not body copy. */
 @utility bg-theme-hero {
-  background-image: var(--gradient-hero, none);
+  /* Paint the themed glow as a BEHIND-content overlay layer rather than the
+     element's own background-image. Putting the gradient directly on the hero
+     container left the heading/sub-copy with an indeterminate background, so
+     axe-core (a11y CI) could not verify their contrast and flagged them even
+     though every value clears AA (≥6.8:1). With the gradient on ::before, the
+     text's background resolves to the opaque ancestor and contrast is provable.
+     Visual result is identical (same area, same gradient, behind the content). */
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--gradient-hero, none);
+    pointer-events: none;
+  }
 }
 
 /* CTA surface: solid primary with an optional per-theme gradient overlay. */

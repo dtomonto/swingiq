@@ -1,5 +1,4 @@
 import { test, expect, type Page } from '@playwright/test';
-import { hideUsageCategoryModal, hideFloatingChrome } from './helpers/first-run';
 
 // MotionLab critical flow (#prompt acceptance criterion 20). Driven through the
 // built-in SAMPLE analyses — a synthetic motion run through the REAL engine — so
@@ -11,21 +10,23 @@ import { hideUsageCategoryModal, hideFloatingChrome } from './helpers/first-run'
 /**
  * Get the MotionLab page interaction-ready. On a brand-new device the app shell
  * floats several layers over the page that intercept clicks but are unrelated to
- * MotionLab: the full-screen usage-category onboarding modal, the cookie bar,
- * the floating help dock and the mobile bottom navigation. Hide the overlays
- * outright and accept the cookie bar so feature clicks land.
- *
- * The usage modal is hidden via CSS rather than clicked through because it mounts
- * ~800ms after store hydration — on slow CI it can appear AFTER a click-through
- * wait window and then intercept later clicks. It has its own dedicated coverage.
+ * MotionLab: the full-screen usage-category modal, the cookie bar, the floating
+ * help dock and the mobile bottom navigation. Dismiss the first two the way a
+ * real user would, and hide the persistent chrome so feature clicks land.
  */
 async function dismissFirstRunOverlays(page: Page) {
-  // Race-proof hide of the usage-category modal + the floating help dock / bottom
-  // nav that overlap the page and intercept clicks (shared helpers — see docs).
-  await hideUsageCategoryModal(page);
-  await hideFloatingChrome(page);
+  // Hide unrelated, persistent app chrome that overlaps the page bottom.
+  await page.addStyleTag({
+    content: `[data-testid="floating-help-dock"], .floating-dock,
+      nav[aria-label="Bottom navigation"] { display: none !important; }`,
+  }).catch(() => { /* style injection best-effort */ });
 
-  // Accept the cookie bar the way a real user would (separate from the modal).
+  const adult = page.getByRole('button', { name: /Adult athlete/i });
+  try {
+    await adult.waitFor({ state: 'visible', timeout: 5_000 });
+    await adult.click();
+    await page.getByRole('button', { name: /Continue to SwingVantage/i }).click();
+  } catch { /* modal already handled in this context */ }
   const accept = page.getByRole('button', { name: /^Accept$/ });
   try {
     await accept.waitFor({ state: 'visible', timeout: 3_000 });
@@ -56,8 +57,6 @@ test.describe('MotionLab', () => {
     await page.getByRole('button', { name: /tennis forehand/i }).click();
 
     // 2) Results render with the prioritized single fix.
-    // Anchor on the section label exactly — the phrase "biggest opportunity" also
-    // appears in the summary + fix sentences, which would trip strict mode.
     await expect(page.getByText('Biggest opportunity', { exact: true })).toBeVisible();
     await expect(page.getByText(/tennis/i).first()).toBeVisible();
 
@@ -81,8 +80,6 @@ test.describe('MotionLab', () => {
     await page.goto('/motion-lab');
     await dismissFirstRunOverlays(page);
     await page.getByRole('button', { name: /golf driver/i }).click();
-    // Anchor on the section label exactly — the phrase "biggest opportunity" also
-    // appears in the summary + fix sentences, which would trip strict mode.
     await expect(page.getByText('Biggest opportunity', { exact: true })).toBeVisible();
     // Golf is a discrete swing — no continuous-movement card.
     await expect(page.getByText(/movement intelligence/i)).toHaveCount(0);
@@ -96,8 +93,6 @@ test.describe('MotionLab', () => {
     await page.goto('/motion-lab');
     await dismissFirstRunOverlays(page);
     await page.getByRole('button', { name: /pickleball dink/i }).click();
-    // Anchor on the section label exactly — the phrase "biggest opportunity" also
-    // appears in the summary + fix sentences, which would trip strict mode.
     await expect(page.getByText('Biggest opportunity', { exact: true })).toBeVisible();
     await expect(page.getByText(/movement intelligence/i)).toBeVisible();
   });

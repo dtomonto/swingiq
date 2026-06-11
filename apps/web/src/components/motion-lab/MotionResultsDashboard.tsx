@@ -26,6 +26,7 @@ import { ImplementPathCard } from './ImplementPathCard';
 import { KineticChainCard } from './KineticChainCard';
 import { TemporalCard } from './TemporalCard';
 import { TempoSyncTrainer } from '@/components/tempo-sync/TempoSyncTrainer';
+import { TempoTrendCard } from './TempoTrendCard';
 import { ContinuousMovementSummary } from './ContinuousMovementSummary';
 import { RetestProtocolCard } from './RetestProtocolCard';
 import { AnalysisDebugPanel } from './AnalysisDebugPanel';
@@ -277,6 +278,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
 
       {tab === 'compare' && (
         <div className="space-y-4">
+          <TempoTrendCard sessions={[session, ...priorSessions]} accent={accent} />
           {repeatability.available && repeatability.score != null && (
             <Card>
               <CardBody className="space-y-2">

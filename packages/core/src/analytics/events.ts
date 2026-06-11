@@ -221,6 +221,11 @@ export const ANALYTICS_EVENTS = {
   DEVICE_COMPATIBILITY_WARNING_SHOWN: 'device_compatibility_warning_shown', // + tier
   SAVED_ANGLE_PRESET_CREATED: 'saved_angle_preset_created', // + sport, action
   RETEST_SAME_ANGLE_STARTED: 'retest_same_angle_started', // + sport, action
+  // Phase 3 — advanced biomechanics review surfaces.
+  MOTION_INSIGHTS_COMPUTED: 'motion_insights_computed', // + sport, action, confidence, tracked_frames
+  FRAME_STEP_USED: 'frame_step_used', // + sport, action
+  CLIP_COMPARISON_VIEWED: 'clip_comparison_viewed', // + sport, action
+  CAMERA_SHAKE_PROXY_ENABLED: 'camera_shake_proxy_enabled', // + sport
 } as const;
 
 export type AnalyticsEventName =

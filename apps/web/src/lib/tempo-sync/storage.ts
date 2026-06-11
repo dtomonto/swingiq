@@ -165,3 +165,44 @@ export function tempoTrend(entries: TempoEntry[], idealRatio = IDEAL_FULL_RATIO)
     summary: SUMMARY[direction],
   };
 }
+
+// ── Bridge: Motion Lab sessions → tempo entries ───────────────
+/** Minimal shape we need from a stored Motion Lab session (kept structural so
+ *  tempo-sync stays decoupled from the full MotionSession type). */
+export interface TempoSessionLike {
+  id: string;
+  createdAt: string;
+  temporal?: {
+    tempoRatio: number | null;
+    loadDurationMs: number | null;
+    totalMs: number;
+  } | null;
+}
+
+/**
+ * Map stored Motion Lab sessions into tempo entries (newest first) so the same
+ * trend math powers a cross-session view. Only sessions with a real measured
+ * tempo are included; back/through fall back to the ratio when load timing
+ * wasn't isolated. The session's own measured numbers flow through unchanged.
+ */
+export function sessionsToTempoEntries(sessions: TempoSessionLike[]): TempoEntry[] {
+  return sessions
+    .filter((s) => s.temporal && s.temporal.tempoRatio != null && s.temporal.totalMs > 0)
+    .map((s) => {
+      const t = s.temporal!;
+      const ratio = t.tempoRatio!;
+      const backMs = t.loadDurationMs ?? (t.totalMs * ratio) / (ratio + 1);
+      const downMs = Math.max(0, t.totalMs - backMs);
+      const at = new Date(s.createdAt).getTime();
+      return {
+        id: s.id,
+        at: Number.isFinite(at) ? at : Date.now(),
+        source: 'sync' as TempoSource,
+        totalMs: t.totalMs,
+        backMs,
+        downMs,
+        ratio: +ratio.toFixed(2),
+      };
+    })
+    .sort((a, b) => b.at - a.at);
+}

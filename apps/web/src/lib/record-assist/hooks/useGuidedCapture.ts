@@ -15,11 +15,17 @@ import type {
   SportActionPreset,
 } from '../types';
 
-/** One per-frame motion sample (for auto-trim). */
+/** One per-frame motion sample (for auto-trim + Phase 3 biomechanics). */
 export interface CaptureSample {
   tMs: number;
   energy: number;
   personDetected: boolean;
+  /**
+   * The frame's pose landmarks when a person was detected. Phase 3 buffers
+   * these during recording to feed the biomechanics bridge. Undefined when
+   * no pose was found that tick.
+   */
+  landmarks?: PoseLandmark[];
 }
 
 export interface GuidedCaptureState {
@@ -45,6 +51,12 @@ export interface UseGuidedCaptureOptions {
   fps?: number;
   /** Per-frame motion sample sink (used by auto-trim during recording). */
   onSample?: (sample: CaptureSample) => void;
+  /**
+   * Camera-shake proxy getter (0 = steady … 1 = very shaky), read each tick
+   * and fed into the frame's `motion` signal so stability stops being scored
+   * as "unknown". Undefined return = not measurable. See runtime/devicemotion.
+   */
+  cameraMotion?: () => number | undefined;
 }
 
 const DETECTION_WINDOW = 30; // frames used for the rolling detection rate
@@ -77,7 +89,7 @@ function motionEnergy(prev: PoseLandmark[] | null, curr: PoseLandmark[] | null):
  * and exposes them reactively. All inference is local; nothing is uploaded.
  */
 export function useGuidedCapture(opts: UseGuidedCaptureOptions): GuidedCaptureState {
-  const { videoRef, preset, orientation, active, poseEnabled, fps = 8, onSample } = opts;
+  const { videoRef, preset, orientation, active, poseEnabled, fps = 8, onSample, cameraMotion } = opts;
   const detectorRef = useRef<LivePoseDetector | null>(null);
   const rafRef = useRef<number | null>(null);
   const lastTickRef = useRef(0);
@@ -86,6 +98,8 @@ export function useGuidedCapture(opts: UseGuidedCaptureOptions): GuidedCaptureSt
   const startRef = useRef(0);
   const onSampleRef = useRef(onSample);
   onSampleRef.current = onSample;
+  const cameraMotionRef = useRef(cameraMotion);
+  cameraMotionRef.current = cameraMotion;
 
   const [state, setState] = useState<GuidedCaptureState>({
     quality: null,
@@ -144,7 +158,14 @@ export function useGuidedCapture(opts: UseGuidedCaptureOptions): GuidedCaptureSt
       const energy = motionEnergy(prevLandmarksRef.current, currLandmarks);
       prevLandmarksRef.current = currLandmarks;
       if (onSampleRef.current) {
-        onSampleRef.current({ tMs: now - startRef.current, energy, personDetected });
+        onSampleRef.current({
+          tMs: now - startRef.current,
+          energy,
+          personDetected,
+          // Phase 3: retain the landmarks so the recording buffer can drive
+          // the biomechanics bridge once the clip is done.
+          landmarks: currLandmarks ?? undefined,
+        });
       }
 
       const frame: FrameSignalInput = {
@@ -153,9 +174,9 @@ export function useGuidedCapture(opts: UseGuidedCaptureOptions): GuidedCaptureSt
         pose,
         luma: stats?.luma,
         contrast: stats?.contrast,
-        // Camera-motion proxy is left undefined for the MVP (handled as
-        // "unknown" by the engine); Phase 2 wires devicemotion / jitter.
-        motion: undefined,
+        // Camera-shake proxy (devicemotion) when available, else undefined —
+        // the engine scores stability as "unknown" rather than over-claiming.
+        motion: cameraMotionRef.current?.(),
         orientation,
       };
 

@@ -4,7 +4,7 @@
 
 import type { TemporalIntelligence } from '@/lib/motion-lab';
 import { scoreRhythm, SCORE_TOLERANCE_MS } from '../scoring';
-import { tempoTrend, type TempoEntry } from '../storage';
+import { tempoTrend, sessionsToTempoEntries, type TempoEntry, type TempoSessionLike } from '../storage';
 import {
   REFERENCE_FPS,
   FULL_SWING_PRESETS,
@@ -281,5 +281,55 @@ describe('tempoTrend', () => {
     const t = tempoTrend([entry(3.0, 3), entry(2.95, 2), entry(3.05, 1)])!;
     expect(t.direction).toBe('steady');
     expect(t.avgRatio).toBeCloseTo(3, 1);
+  });
+});
+
+describe('sessionsToTempoEntries', () => {
+  function session(id: string, createdAt: string, temporal: TempoSessionLike['temporal']): TempoSessionLike {
+    return { id, createdAt, temporal };
+  }
+
+  it('keeps only sessions with a real measured tempo', () => {
+    const entries = sessionsToTempoEntries([
+      session('a', '2026-01-01T00:00:00Z', { tempoRatio: 3, loadDurationMs: 750, totalMs: 1000 }),
+      session('b', '2026-01-02T00:00:00Z', { tempoRatio: null, loadDurationMs: null, totalMs: 1000 }),
+      session('c', '2026-01-03T00:00:00Z', null),
+      session('d', '2026-01-04T00:00:00Z', { tempoRatio: 2.5, loadDurationMs: null, totalMs: 0 }),
+    ]);
+    expect(entries.map((e) => e.id)).toEqual(['a']);
+  });
+
+  it('passes measured load timing through and derives through-time', () => {
+    const [e] = sessionsToTempoEntries([
+      session('a', '2026-01-01T00:00:00Z', { tempoRatio: 3, loadDurationMs: 750, totalMs: 1000 }),
+    ]);
+    expect(e.backMs).toBe(750);
+    expect(e.downMs).toBe(250);
+    expect(e.ratio).toBe(3);
+    expect(e.source).toBe('sync');
+  });
+
+  it('falls back to the ratio when load timing is missing', () => {
+    const [e] = sessionsToTempoEntries([
+      session('a', '2026-01-01T00:00:00Z', { tempoRatio: 3, loadDurationMs: null, totalMs: 1000 }),
+    ]);
+    expect(e.backMs).toBeCloseTo(750, 5);
+    expect(e.downMs).toBeCloseTo(250, 5);
+  });
+
+  it('returns entries newest-first regardless of input order', () => {
+    const entries = sessionsToTempoEntries([
+      session('old', '2026-01-01T00:00:00Z', { tempoRatio: 2, loadDurationMs: 600, totalMs: 900 }),
+      session('new', '2026-03-01T00:00:00Z', { tempoRatio: 3, loadDurationMs: 700, totalMs: 933 }),
+    ]);
+    expect(entries.map((e) => e.id)).toEqual(['new', 'old']);
+  });
+
+  it('feeds straight into tempoTrend', () => {
+    const entries = sessionsToTempoEntries([
+      session('new', '2026-03-01T00:00:00Z', { tempoRatio: 2.9, loadDurationMs: 700, totalMs: 933 }),
+      session('old', '2026-01-01T00:00:00Z', { tempoRatio: 1.9, loadDurationMs: 600, totalMs: 900 }),
+    ]);
+    expect(tempoTrend(entries)!.direction).toBe('improving');
   });
 });
