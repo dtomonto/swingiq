@@ -41,6 +41,8 @@ import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeC
 import type { DiagnosisOutput, Shot, ClubGapInput } from '@swingiq/core';
 import { format } from 'date-fns';
 import { useSport } from '@/contexts/SportContext';
+import { useDesignV2 } from '@/lib/design-v2-client';
+import { DashboardNextAction } from '@/components/dashboard/DashboardNextAction';
 import { useMemo, useState } from 'react';
 
 // ── Quick Actions ─────────────────────────────────────────────
@@ -72,6 +74,7 @@ export function DashboardContent() {
   const latestSession = useLatestDiagnosedSession();
   const overallScore = useOverallScore();
   const { isGolf } = useSport();
+  const designV2 = useDesignV2();
 
   const topDiagnosis = latestSession?.diagnoses[0];
   // Newest session by created_at. Don't trust array order: after a cloud
@@ -219,6 +222,15 @@ export function DashboardContent() {
     }
   }, [clubs]);
 
+  // Design V2: the single "next action" headline, derived from data the page
+  // already has — no fabricated "plan day" counter. Active fix → plan; else a
+  // diagnose / upload prompt depending on whether any session exists yet.
+  const nextAction = activeDiagnosis
+    ? { headline: `Work your #1 fix: ${activeDiagnosis.title}`, ctaHref: '/training', ctaLabel: 'Open your plan' }
+    : mostRecentSession
+      ? { headline: 'Run your diagnosis to find your #1 fix', ctaHref: '/diagnose', ctaLabel: 'Diagnose now' }
+      : { headline: 'Upload your first swing to get your #1 fix', ctaHref: '/video', ctaLabel: 'Upload a swing' };
+
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Header */}
@@ -243,6 +255,15 @@ export function DashboardContent() {
           </div>
         </div>
       </div>
+
+      {/* Design V2: the one-next-action hero (sole glow). Flag OFF = unchanged. */}
+      {designV2 && (
+        <DashboardNextAction
+          headline={nextAction.headline}
+          ctaHref={nextAction.ctaHref}
+          ctaLabel={nextAction.ctaLabel}
+        />
+      )}
 
       {/* BodySync: today's readiness + recommended session (only when enabled) */}
       <ReadinessSummaryCard />
@@ -515,7 +536,15 @@ export function DashboardContent() {
                 <>
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <p className="font-semibold text-foreground">{mostRecentSession.name}</p>
+                      <p className="font-semibold text-foreground">
+                        {designV2 && (
+                          <span
+                            className="mr-2 inline-block h-2 w-2 rounded-full bg-sport-accent align-middle"
+                            aria-hidden="true"
+                          />
+                        )}
+                        {mostRecentSession.name}
+                      </p>
                       <p className="text-xs text-muted-foreground">
                         {format(new Date(mostRecentSession.date || mostRecentSession.created_at), 'MMM d, yyyy')}
                         {' · '}{mostRecentSession.club_name}
