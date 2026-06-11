@@ -6,11 +6,12 @@
 // (localStorage); when there is none yet, server-provided sample signals
 // are shown read-only behind a clearly-labelled banner.
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { LayoutGrid, Inbox, Map, Swords, Bot, SlidersHorizontal, Plus, Info, Trophy, Sparkles } from 'lucide-react';
-import type { AdapterStatus, Signal } from '@/lib/signal-radar/types';
+import type { AdapterStatus, Signal, ConversionKind } from '@/lib/signal-radar/types';
 import type { AdapterHealthSummary } from '@/lib/signal-radar/adapters';
 import { useSignalRadar } from '@/lib/signal-radar/useSignalRadar';
+import { useSupport } from '@/lib/admin/stores/support';
 import { buildDashboard } from '@/lib/signal-radar/engine';
 import { buildCompetitorInsights } from '@/lib/signal-radar/competitors';
 import { buildStrategyBrief } from '@/lib/signal-radar/strategy';
@@ -86,6 +87,32 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
   const conversionsForSelected = selected
     ? sr.conversions.filter((c) => c.signalId === selected.id)
     : [];
+
+  // Convert a signal AND route it into the matching existing pipeline:
+  // product feedback → the admin Feedback store (local), content idea →
+  // a PublishingOS draft (server). Both are best-effort; the SignalRadar
+  // conversion record is created regardless.
+  const addFeedback = useSupport((s) => s.addFeedback);
+  const handleConvert = useCallback(
+    (id: string, kind: ConversionKind) => {
+      const conv = sr.convertSignal(id, kind);
+      if (!conv) return null;
+      const sig = signals.find((s) => s.id === id);
+      if (kind === 'product_feedback' && sig) {
+        const type = sig.classification.intent === 'bug_report' ? 'bug'
+          : sig.classification.intent === 'feature_request' ? 'feature' : 'ux';
+        addFeedback({ type, summary: `[SignalRadar] ${conv.signalSummary}`, source: 'SignalRadar' });
+      } else if (kind === 'content_idea') {
+        void fetch('/api/signal-radar/convert-content', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ conversionId: conv.id, title: conv.fields.suggestedTitle || conv.signalSummary, summary: conv.signalSummary }),
+        }).catch(() => { /* best-effort handoff */ });
+      }
+      return conv;
+    },
+    [sr, signals, addFeedback],
+  );
 
   return (
     <div className="space-y-4">
@@ -181,7 +208,7 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
           onSetStatus={sr.setStatus}
           onAddNote={sr.addNote}
           onOverride={sr.overrideClassification}
-          onConvert={sr.convertSignal}
+          onConvert={handleConvert}
           onRemove={(id) => { sr.removeSignal(id); setSelectedId(null); }}
           onAdopt={(s) => sr.adoptSignal(s)}
         />
