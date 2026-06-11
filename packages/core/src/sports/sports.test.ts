@@ -579,3 +579,69 @@ describe('runSportAnalysis dispatcher', () => {
     }
   });
 });
+
+// ──────────────────────────────────────────────────────────────
+// P3 · pose-derived fault detection (non-golf)
+// ──────────────────────────────────────────────────────────────
+
+describe('P3 · pose-derived detection from real geometry', () => {
+  const NON_GOLF: Array<Exclude<SportAnalysisInput['sport_id'], 'golf'>> = [
+    'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast',
+  ];
+  // Synthesized pose track: strong lateral hip sway + limited shoulder rotation
+  // + head drift → trips the pose rules every sport has at least one of.
+  const pose = {
+    framesWithPose: 30,
+    shoulderTurnRangeDeg: 6,
+    spineAngleRangeDeg: 30,
+    headSwayPct: 22,
+    hipSwayPct: 28,
+  };
+
+  test('every non-golf sport detects ≥1 fault from pose geometry', () => {
+    for (const sport of NON_GOLF) {
+      const result = runSportAnalysis({ ...mockInput(sport), pose });
+      const poseIssues = result.detected_issues.filter((i) => i.detection_basis === 'pose');
+      expect(poseIssues.length).toBeGreaterThan(0);
+      for (const pi of poseIssues) {
+        expect(pi.is_estimated).toBe(true); // single camera stays estimated
+        expect(pi.confidence).toBeGreaterThan(0);
+        expect(pi.confidence).toBeLessThanOrEqual(0.65); // conservative
+        expect(pi.description).toMatch(/measured|drifted|moved|°|%/); // cites the value
+        expect(pi.sport_id).toBe(sport);
+      }
+    }
+  });
+
+  test('no pose → no pose-derived issues (back-compat with metadata-only)', () => {
+    for (const sport of NON_GOLF) {
+      const result = runSportAnalysis(mockInput(sport));
+      expect(result.detected_issues.every((i) => i.detection_basis !== 'pose')).toBe(true);
+    }
+  });
+
+  test('a confident pose detection is not undercut by a calm pose track', () => {
+    // A clean motion (little sway, full turn) should not invent pose faults.
+    const calm = { framesWithPose: 30, shoulderTurnRangeDeg: 55, spineAngleRangeDeg: 6, headSwayPct: 3, hipSwayPct: 4 };
+    const result = runSportAnalysis({ ...mockInput('tennis'), pose: calm });
+    expect(result.detected_issues.filter((i) => i.detection_basis === 'pose')).toHaveLength(0);
+  });
+
+  test('pose detection supersedes the same-id metadata guess', () => {
+    const short = { ...mockInput('tennis'), metadata: { ...mockInput('tennis').metadata, duration_seconds: 1.0 } };
+    // Metadata-only run fires weak_unit_turn from the duration heuristic.
+    const metaOnly = runSportAnalysis(short).detected_issues.find((i) => i.id === 'weak_unit_turn');
+    expect(metaOnly).toBeDefined();
+    expect(metaOnly?.detection_basis ?? 'metadata').toBe('metadata');
+    // With pose, the same id survives exactly once, now pose-derived.
+    const withPose = runSportAnalysis({ ...short, pose }).detected_issues.filter((i) => i.id === 'weak_unit_turn');
+    expect(withPose).toHaveLength(1);
+    expect(withPose[0].detection_basis).toBe('pose');
+  });
+
+  test('insufficient posed frames yields no pose detection', () => {
+    const sparse = { ...pose, framesWithPose: 2 };
+    const result = runSportAnalysis({ ...mockInput('baseball'), pose: sparse });
+    expect(result.detected_issues.filter((i) => i.detection_basis === 'pose')).toHaveLength(0);
+  });
+});

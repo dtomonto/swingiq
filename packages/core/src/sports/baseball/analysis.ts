@@ -6,6 +6,7 @@
 // ============================================================
 
 import type { SportAnalysisInput, SportDetectedIssue, SportSwingAnalysis } from '../types';
+import { applyPoseIssues } from '../pose-detection';
 import { BASEBALL_PHASE_SEQUENCE, BASEBALL_PHASE_DEFINITIONS } from './phases';
 import { BASEBALL_DRILLS } from './drills';
 
@@ -362,6 +363,9 @@ export function runBaseballAnalysis(input: SportAnalysisInput): SportSwingAnalys
       });
     }
   }
+
+  // P3: pose-derived detections — supersede the metadata guess for the same id.
+  applyPoseIssues(detectedIssues, 'baseball', input.pose);
 
   const severityOrder = { critical: 0, notable: 1, minor: 2, watch: 3 };
   detectedIssues.sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);

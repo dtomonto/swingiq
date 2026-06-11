@@ -5,6 +5,7 @@
 // ============================================================
 
 import type { SportAnalysisInput, SportDetectedIssue, SportSwingAnalysis } from '../types';
+import { applyPoseIssues } from '../pose-detection';
 import { SLOW_PITCH_PHASE_SEQUENCE, SLOW_PITCH_PHASE_DEFINITIONS } from './phases';
 import { SLOW_PITCH_DRILLS } from './drills';
 
@@ -359,6 +360,9 @@ export function runSlowPitchAnalysis(input: SportAnalysisInput): SportSwingAnaly
       });
     }
   }
+
+  // P3: pose-derived detections — supersede the metadata guess for the same id.
+  applyPoseIssues(detectedIssues, 'softball_slow', input.pose);
 
   const severityOrder = { critical: 0, notable: 1, minor: 2, watch: 3 };
   detectedIssues.sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);

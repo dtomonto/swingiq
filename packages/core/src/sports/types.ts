@@ -231,7 +231,18 @@ export interface SportDetectedIssue {
   description: string;
   likely_cause: string;
   confidence: number;       // 0-1 (heuristic always 0.3-0.65)
+  /**
+   * Single-camera analysis is always an ESTIMATE (2D, depth reconstructed) —
+   * this stays `true` even for pose-derived detections.
+   */
   is_estimated: true;
+  /**
+   * How the issue was detected:
+   *   - 'metadata' (default): heuristic from clip duration / camera angle only.
+   *   - 'pose': from actual MediaPipe pose geometry (real landmark motion), with
+   *     a calibrated confidence. Still estimated, but grounded in measured motion.
+   */
+  detection_basis?: 'metadata' | 'pose';
   visual_indicator: string;
   sport_id: SportId;
 }
@@ -352,9 +363,34 @@ export interface SportVideoMetadata {
   camera_angle: string;
 }
 
+/**
+ * Camera-agnostic pose descriptors derived from a MediaPipe pose track (the
+ * same proxies `lib/pose/pose-metrics.ts` computes on-device). Real measured
+ * motion — passed in so the deterministic analyzers can detect faults from
+ * geometry instead of clip-duration/camera heuristics. All are proxies, not
+ * lab measurements (single camera, 2D).
+ */
+export interface SportPoseFeatures {
+  /** Frames a usable pose was detected in (more = more reliable). */
+  framesWithPose: number;
+  /** Range of the shoulder-line angle across frames (rotation proxy), degrees. */
+  shoulderTurnRangeDeg: number;
+  /** Range of spine tilt (shoulder-mid → hip-mid) across frames (posture-change proxy), degrees. */
+  spineAngleRangeDeg: number;
+  /** Horizontal range of the head across frames, % of frame width (head stability). */
+  headSwayPct: number;
+  /** Horizontal range of the hip midpoint across frames, % of frame width (sway/slide). */
+  hipSwayPct: number;
+}
+
 export interface SportAnalysisInput {
   sport_id: SportId;
   metadata: SportVideoMetadata;
   user_id: string;
   skill_level?: SkillLevel;
+  /**
+   * Optional on-device pose descriptors. When present, the analyzer adds
+   * pose-derived detections (detection_basis: 'pose') from real motion.
+   */
+  pose?: SportPoseFeatures;
 }

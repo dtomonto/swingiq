@@ -6,6 +6,7 @@
 // ============================================================
 
 import type { SportAnalysisInput, SportDetectedIssue, SportSwingAnalysis } from '../types';
+import { applyPoseIssues } from '../pose-detection';
 import { PICKLEBALL_PHASE_SEQUENCE, PICKLEBALL_PHASE_DEFINITIONS } from './phases';
 import { PICKLEBALL_DRILLS } from './drills';
 
@@ -220,6 +221,9 @@ export function runPickleballAnalysis(input: SportAnalysisInput): SportSwingAnal
       });
     }
   }
+
+  // P3: pose-derived detections — supersede the metadata guess for the same id.
+  applyPoseIssues(detectedIssues, 'pickleball', input.pose);
 
   const severityOrder = { critical: 0, notable: 1, minor: 2, watch: 3 };
   detectedIssues.sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);

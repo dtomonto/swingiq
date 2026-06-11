@@ -6,6 +6,7 @@
 // ============================================================
 
 import type { SportAnalysisInput, SportDetectedIssue, SportSwingAnalysis } from '../types';
+import { applyPoseIssues } from '../pose-detection';
 import { TENNIS_PHASE_SEQUENCE, TENNIS_PHASE_DEFINITIONS } from './phases';
 import { TENNIS_DRILLS } from './drills';
 
@@ -382,6 +383,9 @@ export function runTennisAnalysis(input: SportAnalysisInput): SportSwingAnalysis
   }
 
   // Sort by severity
+  // P3: pose-derived detections — supersede the metadata guess for the same id.
+  applyPoseIssues(detectedIssues, 'tennis', input.pose);
+
   const severityOrder = { critical: 0, notable: 1, minor: 2, watch: 3 };
   detectedIssues.sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);
 

@@ -4,6 +4,7 @@
 
 export * from './types';
 export * from './sport-registry';
+export * from './pose-detection';
 
 // Tennis
 export * from './tennis/phases';

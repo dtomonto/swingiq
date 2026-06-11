@@ -6,6 +6,7 @@
 // ============================================================
 
 import type { SportAnalysisInput, SportDetectedIssue, SportSwingAnalysis } from '../types';
+import { applyPoseIssues } from '../pose-detection';
 import { PADEL_PHASE_SEQUENCE, PADEL_PHASE_DEFINITIONS } from './phases';
 import { PADEL_DRILLS } from './drills';
 
@@ -206,6 +207,9 @@ export function runPadelAnalysis(input: SportAnalysisInput): SportSwingAnalysis 
       });
     }
   }
+
+  // P3: pose-derived detections — supersede the metadata guess for the same id.
+  applyPoseIssues(detectedIssues, 'padel', input.pose);
 
   const severityOrder = { critical: 0, notable: 1, minor: 2, watch: 3 };
   detectedIssues.sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);
