@@ -16,9 +16,12 @@ export interface SectionCardProps {
   level?: 'elevated' | 'card' | 'flat';
 }
 
+// The app exposes the theme shadows as the `shadow-theme` / `shadow-theme-lg`
+// utilities (→ var(--shadow-card) / var(--shadow-elevated)); `shadow-card` is
+// not a real utility.
 const LEVEL_SHADOW: Record<NonNullable<SectionCardProps['level']>, string> = {
-  elevated: 'shadow-elevated',
-  card: 'shadow-card',
+  elevated: 'shadow-theme-lg',
+  card: 'shadow-theme',
   flat: '',
 };
 

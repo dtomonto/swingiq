@@ -29,7 +29,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video, HeartPulse, Radar,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video, HeartPulse, Radar, ServerCog,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -98,10 +98,16 @@ export const NAV_ITEMS: NavItem[] = [
   // ══ Operate — is it working? who needs help? ═══════════════
   // Product Health
   {
-    id: 'system-health', label: 'System Health', href: '/admin/system-health', icon: Activity,
+    id: 'health', label: 'Product Health', href: '/admin/health', icon: Activity,
+    group: 'operate', subgroup: 'Product Health', built: true, permission: 'logs.view',
+    blurb: 'One place for what’s running and what’s broken — system status, reliability, QA and data quality.',
+    keywords: ['health', 'product health', 'overview', 'status', 'incidents', 'reliabilityos', 'system health', 'what is wrong'],
+  },
+  {
+    id: 'system-health', label: 'System Health', href: '/admin/system-health', icon: ServerCog,
     group: 'operate', subgroup: 'Product Health', built: true, permission: 'logs.view',
     blurb: 'Integrations, queues, jobs and incidents — in plain English.',
-    keywords: ['health', 'status', 'uptime', 'queue', 'jobs', 'product health'],
+    keywords: ['health', 'status', 'uptime', 'queue', 'jobs', 'integrations', 'system health'],
   },
   {
     id: 'reliability-os', label: 'Reliability', href: '/admin/reliability', icon: HeartPulse,
