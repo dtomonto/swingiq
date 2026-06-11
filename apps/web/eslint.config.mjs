@@ -30,6 +30,10 @@ export default [
       // install, so don't lint its config/stories against missing modules.
       '.storybook/**',
       '**/*.stories.tsx',
+      // Local `build-storybook` output (git-ignored). Linting walks into its
+      // minified vendor bundles otherwise → 158 phantom errors locally that
+      // CI never sees (the dir doesn't exist there). Match CI behaviour.
+      'storybook-static/**',
     ],
   },
   ...nextCoreWebVitals,
