@@ -31,7 +31,15 @@ import { DeviceCompatibilityWarning } from './DeviceCompatibilityWarning';
 import { GuidedCameraView, type GuidedRecordingMeta } from './GuidedCameraView';
 import { RetakeRecommendationCard } from './RetakeRecommendationCard';
 import { SavedAnglesCard } from './SavedAnglesCard';
+import { MotionInsightsCard } from './MotionInsightsCard';
+import { FrameStepper, type FrameStepperPhase } from './FrameStepper';
+import { MotionComparisonPanel } from '@/components/motion-lab/MotionComparisonPanel';
 import { saveAnglePreset, type SavedAngle } from '@/lib/record-assist/saved-angles';
+import {
+  getReferenceClip,
+  saveReferenceClip,
+  type ReferenceClip,
+} from '@/lib/record-assist/reference-clips';
 
 type Phase = 'select' | 'capture' | 'review';
 
@@ -61,6 +69,11 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
   const [hapticsOn, setHapticsOn] = useState(true);
   const [recorded, setRecorded] = useState<{ result: RecordingResult; meta: GuidedRecordingMeta } | null>(null);
   const [savedAngle, setSavedAngle] = useState(false);
+  // Phase 3 review surfaces.
+  const [showStepper, setShowStepper] = useState(false);
+  const [showCompare, setShowCompare] = useState(false);
+  const [savedReference, setSavedReference] = useState(false);
+  const [reference, setReference] = useState<ReferenceClip | null>(null);
 
   const preset = useMemo(() => getPreset(sport, action ?? ''), [sport, action]);
 
@@ -89,10 +102,21 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
   const handleRecorded = useCallback((result: RecordingResult, meta: GuidedRecordingMeta) => {
     setRecorded({ result, meta });
     setSavedAngle(false);
-    analytics.recordingCompleted(sport, preset?.action ?? action ?? '', meta.durationSeconds);
+    setShowStepper(false);
+    setShowCompare(false);
+    setSavedReference(false);
+    const act = preset?.action ?? action ?? '';
+    analytics.recordingCompleted(sport, act, meta.durationSeconds);
     if (meta.trimWindow) {
       analytics.autoTrimApplied(meta.durationSeconds, meta.trimWindow.end - meta.trimWindow.start);
     }
+    if (meta.analysis) {
+      analytics.motionInsightsComputed(
+        sport, act, meta.analysis.insights.confidence, meta.analysis.insights.trackedFrames,
+      );
+    }
+    // Surface a comparison option when a reference for this angle exists.
+    setReference(getReferenceClip(sport, act));
     setPhase('review');
   }, [analytics, sport, preset, action]);
 
@@ -169,6 +193,24 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
     analytics.savedAnglePreset(sport, preset.action);
   }, [preset, sport, analytics]);
 
+  // Phase 3: persist this clip's analysis as the reference for this angle.
+  const saveReference = useCallback(() => {
+    if (!preset || !recorded?.meta.analysis) return;
+    saveReferenceClip(sport, preset.action, recorded.meta.analysis.session);
+    setSavedReference(true);
+    setReference(getReferenceClip(sport, preset.action));
+  }, [preset, sport, recorded]);
+
+  const openCompare = useCallback(() => {
+    if (!preset) return;
+    setShowCompare(true);
+    analytics.comparisonViewed(sport, preset.action);
+  }, [analytics, preset, sport]);
+
+  const onFrameStep = useCallback(() => {
+    if (preset) analytics.frameStepUsed(sport, preset.action);
+  }, [analytics, preset, sport]);
+
   // ── Select phase ──────────────────────────────────────────
   if (phase === 'select') {
     return (
@@ -233,6 +275,7 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
           onReadinessPassed={(score) => analytics.readinessPassed(score, sport)}
           onVoiceMessage={(m) => analytics.voicePlayed(m.id, m.category)}
           onRecorded={handleRecorded}
+          onCameraShakeEnabled={() => analytics.cameraShakeProxyEnabled(sport)}
         />
         <SetupInstructionCard preset={preset} />
       </div>
@@ -241,6 +284,20 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
 
   // ── Review phase ──────────────────────────────────────────
   if (phase === 'review' && recorded) {
+    const analysis = recorded.meta.analysis;
+    // Map Motion Lab phases onto 0–1 positions for the stepper markers.
+    const stepperPhases: FrameStepperPhase[] | undefined = (() => {
+      if (!analysis) return undefined;
+      const frames = analysis.session.poseTrack.frames;
+      const totalMs = frames.length ? frames[frames.length - 1].tMs : 0;
+      if (totalMs <= 0) return undefined;
+      return analysis.session.phases.map((p) => ({
+        key: p.key,
+        label: p.label,
+        startFraction: p.startMs / totalMs,
+      }));
+    })();
+
     return (
       <div className={cn('space-y-4', className)}>
         <div className="overflow-hidden rounded-2xl bg-black">
@@ -256,6 +313,48 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
             </span>
             {' '}— analysis will focus there.
           </p>
+        )}
+
+        {analysis?.insights && <MotionInsightsCard insights={analysis.insights} />}
+
+        {/* Frame-by-frame stepping */}
+        <Card>
+          <CardBody className="space-y-3">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-semibold text-foreground">Frame-by-frame</p>
+              <Button variant="ghost" size="sm" onClick={() => setShowStepper((v) => !v)}>
+                {showStepper ? 'Hide' : 'Step through frames'}
+              </Button>
+            </div>
+            {showStepper && (
+              <FrameStepper src={recorded.result.url} phases={stepperPhases} onStep={onFrameStep} />
+            )}
+          </CardBody>
+        </Card>
+
+        {/* Side-by-side comparison against a saved reference */}
+        {analysis && (
+          <Card>
+            <CardBody className="space-y-3">
+              <p className="text-sm font-semibold text-foreground">Compare</p>
+              {reference ? (
+                showCompare ? (
+                  <MotionComparisonPanel base={analysis.session} compare={reference.session} />
+                ) : (
+                  <Button variant="outline" onClick={openCompare}>
+                    Compare with saved reference ({new Date(reference.savedAt).toLocaleDateString()})
+                  </Button>
+                )
+              ) : (
+                <p className="text-xs text-muted-foreground">
+                  Save this clip as a reference to compare future swings of this angle against it.
+                </p>
+              )}
+              <Button variant="ghost" size="sm" onClick={saveReference} disabled={savedReference}>
+                {savedReference ? 'Saved as reference' : 'Save as reference'}
+              </Button>
+            </CardBody>
+          </Card>
         )}
 
         {recommendation && (

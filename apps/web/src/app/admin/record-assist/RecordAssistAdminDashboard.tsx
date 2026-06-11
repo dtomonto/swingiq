@@ -23,7 +23,8 @@ import { evaluateFrameQuality } from '@/lib/record-assist/engines/frame-quality-
 import { computeReadiness } from '@/lib/record-assist/engines/readiness-score-engine';
 import { selectGuidance } from '@/lib/record-assist/engines/voice-guidance-engine';
 import { evaluateRetake } from '@/lib/record-assist/engines/retake-engine';
-import { SCENARIOS, buildScenarioFrame, type ScenarioId } from '@/lib/record-assist/sim';
+import { SCENARIOS, buildScenarioFrame, buildScenarioSwingTrack, type ScenarioId } from '@/lib/record-assist/sim';
+import { analyzeRecording } from '@/lib/record-assist/biomechanics';
 import { RECORD_ASSIST_SPORT_META } from '@/lib/record-assist/sports';
 import type { RecordAssistSport, CameraOrientation } from '@/lib/record-assist/types';
 
@@ -34,6 +35,8 @@ const INSTRUMENTED_EVENTS = [
   'retake_recommended', 'retake_accepted', 'retake_skipped',
   'analysis_started_after_guided_recording', 'sport_preset_selected',
   'angle_preset_selected', 'saved_angle_preset_created', 'retest_same_angle_started',
+  'motion_insights_computed', 'frame_step_used', 'clip_comparison_viewed',
+  'camera_shake_proxy_enabled',
 ];
 
 const STATE_TONE: Record<string, 'success' | 'warning' | 'danger' | 'neutral'> = {
@@ -69,6 +72,12 @@ export function RecordAssistAdminDashboard() {
     });
     return { quality, readiness, voice, retake };
   }, [preset, scenario, orientation]);
+
+  // Phase 3: run the REAL biomechanics bridge on a synthetic swing track.
+  const insights = useMemo(() => {
+    if (!preset) return null;
+    return analyzeRecording(buildScenarioSwingTrack(), preset)?.insights ?? null;
+  }, [preset]);
 
   return (
     <div className="space-y-6">
@@ -183,6 +192,35 @@ export function RecordAssistAdminDashboard() {
               </ul>
             </div>
           </div>
+        )}
+      </SectionCard>
+
+      {/* Motion insights (Phase 3) */}
+      <SectionCard
+        title="Motion insights (Phase 3)"
+        description="Runs the real biomechanics bridge (reusing the Motion Lab engine) on a synthetic swing track — no camera required. Single-view reads are proxies, capped at medium confidence."
+      >
+        {insights ? (
+          <>
+            <p className="mb-3 text-xs text-gray-500">
+              Overall confidence: <span className="font-mono text-gray-300">{insights.confidence}</span>
+              {' · '}tracked frames: <span className="font-mono text-gray-300">{insights.trackedFrames}</span>
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {insights.metrics.map((m) => (
+                <div key={m.key} className="rounded-lg border border-gray-800 bg-gray-950 p-4">
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs uppercase tracking-wide text-gray-500">{m.label}</p>
+                    <code className="text-xs text-amber-300">{m.confidence}</code>
+                  </div>
+                  <p className="mt-1 text-2xl font-bold text-gray-100">{m.display}</p>
+                  <p className="mt-1 text-xs text-gray-500">{m.read}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <p className="text-sm text-gray-500">Select a sport/action to compute insights.</p>
         )}
       </SectionCard>
 

@@ -147,3 +147,37 @@ export function buildScenarioFrame(
     orientation,
   };
 }
+
+/** One captured frame for the Phase 3 biomechanics simulator. */
+export interface SimSwingFrame {
+  tMs: number;
+  landmarks: PoseLandmark[];
+}
+
+/**
+ * A synthetic swing pose track: lead wrist arcs up to the top then down while
+ * the torso turns. Lets the admin QA panel exercise the REAL biomechanics
+ * bridge (tempo / separation / sway / balance / sequencing) without a camera.
+ */
+export function buildScenarioSwingTrack(frames = 24, fps = 8): SimSwingFrame[] {
+  const dt = 1000 / fps;
+  const out: SimSwingFrame[] = [];
+  for (let i = 0; i < frames; i++) {
+    const t = frames > 1 ? i / (frames - 1) : 0; // 0..1
+    const arc = Math.sin(t * Math.PI); // peaks at the top of the backswing
+    const turn = Math.sin(t * Math.PI * 2) * 0.08; // torso rotates through
+    const landmarks = baseLandmarks().map((l, idx) => {
+      switch (idx) {
+        case LM.LEFT_WRIST: return { ...l, x: 0.46 + turn, y: 0.52 - arc * 0.22, z: -arc * 0.1 };
+        case LM.RIGHT_WRIST: return { ...l, x: 0.54 + turn, y: 0.52 - arc * 0.1, z: -arc * 0.05 };
+        case LM.LEFT_SHOULDER: return { ...l, x: 0.46 + turn, z: -arc * 0.12 };
+        case LM.RIGHT_SHOULDER: return { ...l, x: 0.54 + turn, z: arc * 0.12 };
+        case LM.LEFT_HIP: return { ...l, x: 0.46 + turn * 0.4 };
+        case LM.RIGHT_HIP: return { ...l, x: 0.54 + turn * 0.4 };
+        default: return l;
+      }
+    });
+    out.push({ tMs: Math.round(i * dt), landmarks });
+  }
+  return out;
+}
