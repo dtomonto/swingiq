@@ -28,10 +28,10 @@ export default async function AttributionPage() {
       <SectionCard title="Attribution models" icon={Info}>
         <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
           <div className="grid sm:grid-cols-3 gap-3">
-            <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-3">
-              <p className="text-xs font-semibold text-blue-300 mb-1">First-touch</p>
-              <p className="text-xs text-blue-200/70">
-                100% of the conversion credit goes to the <strong className="text-blue-200">very first</strong> channel
+            <div className="rounded-lg border border-primary/20 bg-primary/5 p-3">
+              <p className="text-xs font-semibold text-link mb-1">First-touch</p>
+              <p className="text-xs text-link/70">
+                100% of the conversion credit goes to the <strong className="text-link">very first</strong> channel
                 or campaign that brought the visitor to the site. Useful for understanding which channels
                 generate initial awareness.
               </p>
@@ -44,10 +44,10 @@ export default async function AttributionPage() {
                 and most common default in ad platforms.
               </p>
             </div>
-            <div className="rounded-lg border border-purple-500/20 bg-purple-500/5 p-3">
-              <p className="text-xs font-semibold text-purple-300 mb-1">Multi-touch (planned)</p>
-              <p className="text-xs text-purple-200/70">
-                Credit is <strong className="text-purple-200">distributed across all touchpoints</strong> in the
+            <div className="rounded-lg border border-primary/20 bg-primary/5 p-3">
+              <p className="text-xs font-semibold text-link mb-1">Multi-touch (planned)</p>
+              <p className="text-xs text-link/70">
+                Credit is <strong className="text-link">distributed across all touchpoints</strong> in the
                 customer journey (linear, time-decay, or data-driven weighting). Gives a more complete
                 picture — requires capturing the full event sequence.
               </p>
@@ -72,10 +72,10 @@ export default async function AttributionPage() {
           <DataSourceBadge source="mock" />
         }
       >
-        <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-3 text-xs text-blue-300 mb-4">
+        <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-xs text-link mb-4">
           <strong>Demo data.</strong> These are realistic seed events — not real user data. Real capture
           requires wiring the analytics consent flow + attribution event emission in your app (see{' '}
-          <code className="text-blue-200 text-[11px]">lib/growth/analytics.ts</code> and your signup/conversion
+          <code className="text-link text-[11px]">lib/growth/analytics.ts</code> and your signup/conversion
           flows). Once wired, this table will show live events pulled from your analytics store.
         </div>
 

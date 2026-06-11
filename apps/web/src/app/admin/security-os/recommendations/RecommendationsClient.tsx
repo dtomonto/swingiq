@@ -83,7 +83,7 @@ export function RecommendationsClient({ actor, findings, generatedAt }: { actor:
 function RecCard({ rec }: { rec: SecurityRecommendation }) {
   const [open, setOpen] = useState(false);
   const bandTone =
-    rec.priorityBand === 'critical' ? 'text-error-text' : rec.priorityBand === 'high' ? 'text-orange-300' : rec.priorityBand === 'medium' ? 'text-link' : 'text-link';
+    rec.priorityBand === 'critical' ? 'text-error-text' : rec.priorityBand === 'high' ? 'text-warning-text' : rec.priorityBand === 'medium' ? 'text-link' : 'text-link';
   return (
     <li className="rounded-xl border border-border bg-card">
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-start justify-between gap-3 p-4 text-left">

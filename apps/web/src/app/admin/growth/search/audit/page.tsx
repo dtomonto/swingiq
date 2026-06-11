@@ -63,9 +63,9 @@ export default function SiteAuditPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
         <KpiCard label="Critical" value={counts.critical} accent={counts.critical ? 'text-error-text' : 'text-success-text'} source="real" />
-        <KpiCard label="High" value={counts.high} accent={counts.high ? 'text-orange-400' : 'text-success-text'} source="real" />
+        <KpiCard label="High" value={counts.high} accent={counts.high ? 'text-warning-text' : 'text-success-text'} source="real" />
         <KpiCard label="Medium" value={counts.medium} accent="text-link" source="real" />
-        <KpiCard label="Low" value={counts.low} accent="text-blue-400" source="real" />
+        <KpiCard label="Low" value={counts.low} accent="text-link" source="real" />
         <KpiCard label="Total" value={r.issues.length} source="real" />
       </div>
 

@@ -143,7 +143,7 @@ function ImportedSection({ title, onClear, children }: { title: string; onClear:
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-muted/40">
-        <div className="flex items-center gap-2"><FileUp className="w-3.5 h-3.5 text-success-text" /><h3 className="text-xs font-semibold text-foreground">{title}</h3><Badge className="text-blue-400 bg-blue-400/10 border-blue-400/30">imported</Badge></div>
+        <div className="flex items-center gap-2"><FileUp className="w-3.5 h-3.5 text-success-text" /><h3 className="text-xs font-semibold text-foreground">{title}</h3><Badge className="text-link bg-primary/10 border-primary/30">imported</Badge></div>
         <button onClick={onClear} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-error-text"><Trash2 className="w-3 h-3" /> Clear</button>
       </div>
       <div className="p-4 overflow-x-auto">{children}</div>

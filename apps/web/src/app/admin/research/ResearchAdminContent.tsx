@@ -44,7 +44,7 @@ interface RunResult {
 function StatusBadge({ status }: { status: string }) {
   const config = {
     completed: { color: 'text-success-text bg-success/10 border-success/30', icon: CheckCircle },
-    running:   { color: 'text-blue-400 bg-blue-400/10 border-blue-400/30', icon: RefreshCw },
+    running:   { color: 'text-link bg-primary/10 border-primary/30', icon: RefreshCw },
     failed:    { color: 'text-error-text bg-error/10 border-error/30', icon: XCircle },
     pending:   { color: 'text-link bg-primary/10 border-primary/30', icon: Clock },
     approved:  { color: 'text-success-text bg-success/10 border-success/30', icon: CheckCircle },
@@ -161,8 +161,8 @@ export function ResearchAdminContent() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { label: 'Active Version', value: BASELINE_VERSION.version, icon: Database, color: 'text-success-text' },
-          { label: 'Total Metrics', value: totalMetrics, icon: BarChart2, color: 'text-blue-400' },
-          { label: 'Curated Sources', value: CURATED_SOURCES.length, icon: BookOpen, color: 'text-purple-400' },
+          { label: 'Total Metrics', value: totalMetrics, icon: BarChart2, color: 'text-link' },
+          { label: 'Curated Sources', value: CURATED_SOURCES.length, icon: BookOpen, color: 'text-link' },
           { label: 'Prompt Version', value: PROMPT_VERSION, icon: Zap, color: 'text-link' },
         ].map((stat) => (
           <div key={stat.label} className="rounded-xl border border-border bg-card p-4">
@@ -305,7 +305,7 @@ export function ResearchAdminContent() {
       {runResult && runResult.proposals.length > 0 && (
         <SectionCard title={`Benchmark Change Proposals (${runResult.proposals.length})`} icon={AlertTriangle}>
           <div className="space-y-3">
-            <div className="rounded-lg bg-blue-500/10 border border-blue-500/20 p-3 text-xs text-blue-300">
+            <div className="rounded-lg bg-primary/10 border border-primary/20 p-3 text-xs text-link">
               Review each proposal below. Approve low-risk changes from high-credibility sources.
               Reject anything that lacks sufficient evidence. Changes only apply after your approval
               and are published as a new benchmark version.

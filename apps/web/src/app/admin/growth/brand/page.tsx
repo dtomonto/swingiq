@@ -87,14 +87,14 @@ export default async function BrandVoicePage() {
       />
 
       {/* AI Strategist safety note */}
-      <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+      <div className="rounded-xl border border-primary/30 bg-primary/10 p-4">
         <div className="flex items-start gap-3">
-          <Palette className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
-          <div className="text-sm text-blue-200/90">
-            <p className="font-semibold text-blue-300">This is the AI Strategist&apos;s source of truth</p>
+          <Palette className="w-5 h-5 text-link shrink-0 mt-0.5" />
+          <div className="text-sm text-link/90">
+            <p className="font-semibold text-link">This is the AI Strategist&apos;s source of truth</p>
             <p className="mt-1 text-xs leading-relaxed">
               The AI Strategist reads this library before generating any copy, campaign briefs, or recommendations.
-              It will <strong className="text-blue-200">only use approved claims</strong> and will
+              It will <strong className="text-link">only use approved claims</strong> and will
               never generate content that contradicts the banned-claim entries.
               Keep this library accurate — the quality of every AI draft depends on it.
             </p>

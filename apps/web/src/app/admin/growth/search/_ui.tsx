@@ -43,9 +43,9 @@ export function ScoreTile({ label, breakdown }: { label: string; breakdown: Scor
 
 const SEVERITY_CLASS: Record<IssueSeverity, string> = {
   critical: 'text-error-text bg-error/10 border-error/30',
-  high: 'text-orange-400 bg-orange-400/10 border-orange-400/30',
+  high: 'text-warning-text bg-warning/10 border-warning/30',
   medium: 'text-link bg-primary/10 border-primary/30',
-  low: 'text-blue-400 bg-blue-400/10 border-blue-400/30',
+  low: 'text-link bg-primary/10 border-primary/30',
   informational: 'text-muted-foreground bg-muted/10 border-border/30',
 };
 
@@ -56,7 +56,7 @@ export function SeverityBadge({ severity }: { severity: IssueSeverity }) {
 const BAND_CLASS: Record<ActionBand, string> = {
   critical: 'text-error-text bg-error/10 border-error/30',
   high: 'text-link bg-primary/10 border-primary/30',
-  medium: 'text-blue-400 bg-blue-400/10 border-blue-400/30',
+  medium: 'text-link bg-primary/10 border-primary/30',
   low: 'text-muted-foreground bg-muted/10 border-border/30',
 };
 

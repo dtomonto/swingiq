@@ -300,7 +300,7 @@ function CampaignCard({
           <div className="flex items-center gap-2">
             <p className="truncate text-sm font-semibold text-foreground">{c.label}</p>
             {c.customized && (
-              <span className="rounded-sm bg-blue-500/15 px-1.5 py-0.5 text-[10px] font-medium text-blue-300">
+              <span className="rounded-sm bg-primary/15 px-1.5 py-0.5 text-[10px] font-medium text-link">
                 customized
               </span>
             )}

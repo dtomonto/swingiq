@@ -204,7 +204,7 @@ export default async function PrivacyPage() {
                       {pixel.purpose}
                     </td>
                     <td className="py-2.5 pr-4 whitespace-nowrap">
-                      <Badge className="text-blue-400 bg-blue-400/10 border-blue-400/30">
+                      <Badge className="text-link bg-primary/10 border-primary/30">
                         {humanize(pixel.consentChannel)}
                       </Badge>
                     </td>

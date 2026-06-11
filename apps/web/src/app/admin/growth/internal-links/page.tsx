@@ -44,7 +44,7 @@ export default async function InternalLinksPage() {
         <KpiCard label="Recommendations" value={recs.length} icon={Link2} source="real" />
         <KpiCard label="Pending" value={pending} accent="text-link" source="real" />
         <KpiCard label="Safe to auto-apply" value={autoSafe} accent="text-success-text" sublabel="one-click" source="real" />
-        <KpiCard label="Applied" value={applied} accent="text-blue-400" source="real" />
+        <KpiCard label="Applied" value={applied} accent="text-link" source="real" />
       </div>
 
       <SectionCard title="Internal-link recommendations" icon={Link2}>

@@ -33,12 +33,12 @@ export default async function GrowthOverviewPage() {
   const linkAccent = link.run.internalLinkHealth >= 70 ? 'text-success-text' : link.run.internalLinkHealth >= 45 ? 'text-link' : 'text-error-text';
 
   const portfolio = [
-    { label: 'Channels', value: snap.counts.channels, icon: Layers, href: '/admin/growth/channels', accent: 'text-blue-400' },
+    { label: 'Channels', value: snap.counts.channels, icon: Layers, href: '/admin/growth/channels', accent: 'text-link' },
     { label: 'Active campaigns', value: snap.counts.activeCampaigns, icon: Megaphone, href: '/admin/growth/campaigns', accent: 'text-success-text' },
-    { label: 'Experiments', value: snap.counts.experiments, icon: FlaskConical, href: '/admin/growth/experiments', accent: 'text-purple-400' },
+    { label: 'Experiments', value: snap.counts.experiments, icon: FlaskConical, href: '/admin/growth/experiments', accent: 'text-link' },
     { label: 'Content in pipeline', value: snap.counts.contentInProgress, icon: FileText, href: '/admin/growth/content', accent: 'text-link' },
     { label: 'Open recommendations', value: snap.counts.openRecommendations, icon: Lightbulb, href: '/admin/growth/recommendations', accent: 'text-success-text' },
-    { label: 'Open tasks', value: snap.counts.openTasks, icon: ClipboardList, href: '/admin/growth/operations', accent: 'text-blue-400' },
+    { label: 'Open tasks', value: snap.counts.openTasks, icon: ClipboardList, href: '/admin/growth/operations', accent: 'text-link' },
     { label: 'Internal-link health', value: `${link.run.internalLinkHealth}/100`, icon: Network, href: '/admin/growth/link-intelligence', accent: linkAccent },
   ];
 

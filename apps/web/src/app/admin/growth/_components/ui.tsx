@@ -136,7 +136,7 @@ export function EmptyState({
 /** A small inline note explaining the data is demo/seed data. */
 export function MockDataNote({ children }: { children?: ReactNode }) {
   return (
-    <div className="rounded-lg bg-blue-500/10 border border-blue-500/20 p-3 text-xs text-blue-300">
+    <div className="rounded-lg bg-primary/10 border border-primary/20 p-3 text-xs text-link">
       {children ?? (
         <>
           <strong>Demo data.</strong> These records are realistic seed data so the module is useful immediately.
