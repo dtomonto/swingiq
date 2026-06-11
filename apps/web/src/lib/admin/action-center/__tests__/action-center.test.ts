@@ -4,6 +4,7 @@ import {
   type ActionItem,
 } from '../types';
 import { SERVER_ADAPTERS, collectServerActions, getActionSummary } from '../index';
+import { upsertEntity, __resetMemoryStore as __resetPublishingStore } from '@/lib/publishing/store';
 
 const mk = (over: Partial<ActionItem>): ActionItem => ({
   id: 'x:1',
@@ -76,5 +77,30 @@ describe('server adapters', () => {
     const [items, summary] = await Promise.all([collectServerActions(), getActionSummary()]);
     expect(summary.items).toBe(items.length);
     expect(summary.total).toBe(items.reduce((n, i) => n + i.count, 0));
+  });
+
+  it('surfaces PublishingOS scheduled-publish reminders in the inbox', async () => {
+    __resetPublishingStore();
+    delete process.env.GITHUB_TOKEN;
+    delete process.env.GITHUB_REPO;
+    // A due instant publish (cron will action it) + a due deploy-backed one that
+    // is blocked because no executor is configured.
+    await upsertEntity({
+      id: 'update:u1', entityType: 'update', entityId: 'u1', title: 'u1', status: 'scheduled',
+      publishMode: 'instant', riskLevel: 'low', createdAt: '2026-01-01T00:00:00Z',
+      updatedAt: '2026-01-01T00:00:00Z', version: 1, validationStatus: 'passed',
+      deploymentStatus: 'none', scheduledFor: '2020-01-01T00:00:00Z',
+    });
+    await upsertEntity({
+      id: 'milestone:m1', entityType: 'milestone', entityId: 'm1', title: 'm1', status: 'scheduled',
+      publishMode: 'deploy_backed', riskLevel: 'low', createdAt: '2026-01-01T00:00:00Z',
+      updatedAt: '2026-01-01T00:00:00Z', version: 1, validationStatus: 'passed',
+      deploymentStatus: 'none', scheduledFor: '2020-01-01T00:00:00Z',
+    });
+
+    const items = await collectServerActions();
+    const pub = items.filter((i) => i.source === 'publishing');
+    expect(pub.map((i) => i.id)).toEqual(expect.arrayContaining(['publishing:due-now', 'publishing:due-blocked']));
+    __resetPublishingStore();
   });
 });
