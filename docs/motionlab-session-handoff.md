@@ -35,23 +35,34 @@ MotionLab work so the next session can pick up without re-deriving context.
   retest-protocols, mock-data-coverage suites); full suite green.
 - CI merged via the owner path past pre-existing master-wide red checks (below).
 
-## Open follow-ups (NOT done — pick up here)
+## Follow-ups (all resolved)
 
-_Status updated after a follow-up pass; master now at `1b2f182`._
+_Both browser-only items below were completed on the desktop (2026-06-10). The fixes
+landed on branch `claude/motionlab-e2e-a11y` (commit `35bc1ad7`, off the diverged desktop
+master `f0f90492`). Verified on a keyless prod build: motion-lab 4/4 · a11y 6/6 (0
+serious/critical) · theme-contrast jest 433/433 · tsc clean._
 
-1. **E2E not browser-verified — STILL OPEN (needs a browser).** Chromium download is
-   blocked in the cloud sandbox, so `e2e/motion-lab.spec.ts` is best-effort (dismisses
-   the usage-category modal + hides the floating help dock / bottom nav that intercept
-   clicks) but was never run to green. **On desktop:**
-   `cd apps/web && npm run test:e2e:install && npm run test:e2e`, then fix any remaining
-   selector/overlay flakiness in the 3 interactive tests (the lab-opens test passes).
+1. **E2E browser-verified — DONE.** Ran `e2e/motion-lab.spec.ts` against a keyless prod
+   server on the desktop (Chromium installed via `npx playwright install chromium`). All
+   4 tests pass, deterministic over `--repeat-each=3`. The only real defect in the 3
+   interactive tests was a strict-mode violation — `getByText(/biggest opportunity/i)`
+   matched the section label plus two body paragraphs; scoped it to the exact label
+   `getByText('Biggest opportunity', { exact: true })`. The overlay-dismissal helper was
+   already correct. DESKTOP GOTCHA: `apps/web/.env.local` carries real Supabase keys that
+   Next inlines at build → app routes 307 to `/login`; must build AND start keyless
+   (`NEXT_PUBLIC_SUPABASE_URL= NEXT_PUBLIC_SUPABASE_ANON_KEY= ALLOW_ANONYMOUS_APP=1`).
 2. **`Custom Security Checks` — RESOLVED upstream (no action).** Master (via PR #16)
    already allowlisted the public VAPID/Turnstile keys and skips test-file key
    fixtures; `node scripts/security-check.mjs` now PASSES on `master`.
-3. **`E2E` a11y violations — STILL OPEN (needs a browser to verify).** 6 `e2e/a11y.spec.ts`
-   failures on marketing pages (/, /features, /how-it-works, /pricing,
-   /golf-swing-analysis, /features/ai-diagnostic-engine). axe runs through Playwright,
-   so these can only be reproduced/fixed where Chromium is available.
+3. **`E2E` a11y violations — DONE.** Reproduced with axe (WCAG A/AA, serious+critical) on
+   all 6 marketing pages. Root cause was a single shared component, not per-page: the
+   global Founding Members banner (`FoundingFathersCounterBanner.tsx`) used
+   `bg-primary text-white`, which under the default dark-performance theme is white on the
+   light-green bar (2.3:1) — the same 3 spans flagged on every page. Switched to the paired
+   `text-primary-foreground` token (near-black, ~9:1; AA-safe in every theme). Also hardened
+   two more shared surfaces in the same class: `MarketingCTA` body dropped its `/90` opacity
+   and the how-it-works step circles use the paired token instead of flat white. All 6 pages
+   now report zero serious/critical violations.
 4. Jest's trust-linter ("treatment" in `data/updatesPart1.ts`) was a transient
    disclaimer false-positive and is green on master — no action needed.
 
