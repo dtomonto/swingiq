@@ -240,6 +240,10 @@ export interface SignalRadarConfig {
   weights: ScoringWeights;
   /** When false, the rules classifier is the only path (default). */
   aiClassificationEnabled: boolean;
+  /** Minimum severity a notification must reach to fire as an alert. */
+  alertMinSeverity: NotificationSeverity;
+  /** Notification kinds the operator has muted (won't fire as alerts). */
+  mutedAlertKinds: SignalNotificationKind[];
 }
 
 // ── Adapter framework ───────────────────────────────────────

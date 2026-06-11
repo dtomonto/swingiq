@@ -4,9 +4,12 @@ import { useState } from 'react';
 import { RotateCcw, Save } from 'lucide-react';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { StatusBadge } from '@/components/admin/StatusBadge';
-import type { SignalRadarConfig, ScoringWeights, AdapterStatus } from '@/lib/signal-radar/types';
-import { ADAPTER_STATE_LABEL, ADAPTER_STATE_TONE } from '@/lib/signal-radar/labels';
+import type { SignalRadarConfig, ScoringWeights, AdapterStatus, NotificationSeverity, SignalNotificationKind } from '@/lib/signal-radar/types';
+import { ADAPTER_STATE_LABEL, ADAPTER_STATE_TONE, NOTIFICATION_KIND_LABEL } from '@/lib/signal-radar/labels';
 import { Btn, INPUT_CLS } from './ui';
+
+const ALERT_SEVERITIES: NotificationSeverity[] = ['low', 'medium', 'high', 'critical'];
+const ALERT_KINDS = Object.keys(NOTIFICATION_KIND_LABEL) as SignalNotificationKind[];
 
 const WEIGHT_LABELS: Record<keyof ScoringWeights, string> = {
   directBrandMention: 'Direct brand mention',
@@ -96,6 +99,45 @@ export function SettingsPanel({ config, adapters, onUpdate, onReset, onReprocess
               />
             </label>
           ))}
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Alerts" description="Choose which derived notifications surface on the dashboard. Applies immediately.">
+        <label className="block text-xs text-muted-foreground">
+          Minimum severity to fire
+          <select
+            value={config.alertMinSeverity}
+            onChange={(e) => onUpdate({ alertMinSeverity: e.target.value as NotificationSeverity })}
+            className={`${INPUT_CLS} mt-1 sm:w-48`}
+          >
+            {ALERT_SEVERITIES.map((s) => <option key={s} value={s}>{s[0].toUpperCase() + s.slice(1)} and above</option>)}
+          </select>
+        </label>
+        <p className="mb-2 mt-4 text-xs text-muted-foreground">Mute specific alert types</p>
+        <div className="flex flex-wrap gap-1.5">
+          {ALERT_KINDS.map((kind) => {
+            const muted = config.mutedAlertKinds.includes(kind);
+            return (
+              <button
+                key={kind}
+                onClick={() =>
+                  onUpdate({
+                    mutedAlertKinds: muted
+                      ? config.mutedAlertKinds.filter((k) => k !== kind)
+                      : [...config.mutedAlertKinds, kind],
+                  })
+                }
+                className={`rounded-full border px-2.5 py-1 text-xs transition-colors ${
+                  muted
+                    ? 'border-border bg-background/40 text-muted-foreground/70 line-through'
+                    : 'border-primary/40 bg-primary/15 text-link'
+                }`}
+                title={muted ? 'Muted — click to enable' : 'Active — click to mute'}
+              >
+                {NOTIFICATION_KIND_LABEL[kind]}
+              </button>
+            );
+          })}
         </div>
       </SectionCard>
 

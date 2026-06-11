@@ -17,6 +17,7 @@ import type {
   SignalSourceType,
   AdapterConfigState,
   ConversionKind,
+  SignalNotificationKind,
 } from './types';
 import type { BadgeTone } from '@/components/admin/StatusBadge';
 
@@ -174,3 +175,15 @@ export function priorityTone(priority: number): BadgeTone {
   if (priority >= 35) return 'info';
   return 'neutral';
 }
+
+export const NOTIFICATION_KIND_LABEL: Record<SignalNotificationKind, string> = {
+  high_priority: 'High-priority signal',
+  negative_mention: 'Negative / reputation',
+  high_authority_mention: 'High-authority mention',
+  backlink_opportunity: 'Backlink opportunity',
+  competitor_comparison: 'Competitor comparison',
+  bug_complaint: 'Bug / complaint',
+  repeated_confusion: 'Repeated confusion',
+  sport_spike: 'Sport demand spike',
+  adapter_failure: 'Adapter failure',
+};

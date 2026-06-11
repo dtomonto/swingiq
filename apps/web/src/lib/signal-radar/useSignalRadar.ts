@@ -35,6 +35,7 @@ const K = {
   competitors: 'swingvantage:signal-radar:competitors:v1',
   aiTests: 'swingvantage:signal-radar:ai-tests:v1',
   conversions: 'swingvantage:signal-radar:conversions:v1',
+  dismissedAlerts: 'swingvantage:signal-radar:dismissed-alerts:v1',
 };
 
 function readJson<T>(key: string, fallback: T): T {
@@ -81,6 +82,7 @@ export interface SignalRadarState {
   competitors: CompetitorDef[];
   aiTests: AiVisibilityTest[];
   conversions: SignalConversion[];
+  dismissedAlertIds: string[];
 
   addManualSignal: (input: Omit<RawSignalInput, 'collectionMethod'>) => Signal | null;
   importSignals: (kind: ImportKind, text: string) => { added: number; duplicates: number };
@@ -99,6 +101,9 @@ export interface SignalRadarState {
   removeAiTest: (id: string) => void;
 
   updateConversion: (id: string, patch: Partial<SignalConversion>) => void;
+
+  dismissAlert: (id: string) => void;
+  clearDismissedAlerts: () => void;
 }
 
 export function useSignalRadar(initialActor = 'admin'): SignalRadarState {
@@ -109,6 +114,7 @@ export function useSignalRadar(initialActor = 'admin'): SignalRadarState {
   const [competitors, setCompetitorsState] = useState<CompetitorDef[]>(DEFAULT_COMPETITORS);
   const [aiTests, setAiTests] = useState<AiVisibilityTest[]>([]);
   const [conversions, setConversions] = useState<SignalConversion[]>([]);
+  const [dismissedAlertIds, setDismissedAlertIds] = useState<string[]>([]);
 
   // Hydrate once on mount.
   useEffect(() => {
@@ -117,6 +123,7 @@ export function useSignalRadar(initialActor = 'admin'): SignalRadarState {
     setCompetitorsState(readJson<CompetitorDef[]>(K.competitors, DEFAULT_COMPETITORS));
     setAiTests(readJson<AiVisibilityTest[]>(K.aiTests, []));
     setConversions(readJson<SignalConversion[]>(K.conversions, []));
+    setDismissedAlertIds(readJson<string[]>(K.dismissedAlerts, []));
     setReady(true);
   }, []);
 
@@ -126,6 +133,7 @@ export function useSignalRadar(initialActor = 'admin'): SignalRadarState {
   useEffect(() => { if (ready) writeJson(K.competitors, competitors); }, [ready, competitors]);
   useEffect(() => { if (ready) writeJson(K.aiTests, aiTests); }, [ready, aiTests]);
   useEffect(() => { if (ready) writeJson(K.conversions, conversions); }, [ready, conversions]);
+  useEffect(() => { if (ready) writeJson(K.dismissedAlerts, dismissedAlertIds); }, [ready, dismissedAlertIds]);
 
   const config = resolveConfig(configOverrides);
 
@@ -281,12 +289,19 @@ export function useSignalRadar(initialActor = 'admin'): SignalRadarState {
     setConversions((prev) => prev.map((c) => (c.id === id ? { ...c, ...patch } : c)));
   }, []);
 
+  const dismissAlert = useCallback((id: string) => {
+    setDismissedAlertIds((prev) => (prev.includes(id) ? prev : [...prev, id]));
+  }, []);
+
+  const clearDismissedAlerts = useCallback(() => setDismissedAlertIds([]), []);
+
   return {
     ready, actor, setActor,
-    signals, config, configOverrides, competitors, aiTests, conversions,
+    signals, config, configOverrides, competitors, aiTests, conversions, dismissedAlertIds,
     addManualSignal, importSignals, setStatus, addNote, overrideClassification,
     convertSignal, removeSignal, reprocessAll,
     updateConfig, resetConfig, setCompetitors,
     upsertAiTest, removeAiTest, updateConversion,
+    dismissAlert, clearDismissedAlerts,
   };
 }

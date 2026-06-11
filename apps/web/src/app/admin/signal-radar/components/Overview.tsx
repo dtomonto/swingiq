@@ -1,10 +1,10 @@
 'use client';
 
-import { AlertTriangle, FileText, Link2, Users, Bug, Megaphone, Plus, CheckCircle2, Circle, Bell } from 'lucide-react';
+import { AlertTriangle, FileText, Link2, Users, Bug, Megaphone, Plus, CheckCircle2, Circle, Bell, X } from 'lucide-react';
 import { MetricStat } from '@/components/admin/MetricStat';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { StatusBadge } from '@/components/admin/StatusBadge';
-import type { SignalDashboard, AdapterStatus, NotificationSeverity } from '@/lib/signal-radar/types';
+import type { SignalDashboard, AdapterStatus, NotificationSeverity, SignalNotification } from '@/lib/signal-radar/types';
 import type { AdapterHealthSummary } from '@/lib/signal-radar/adapters';
 import { ADAPTER_STATE_LABEL, ADAPTER_STATE_TONE } from '@/lib/signal-radar/labels';
 import { Btn, DistributionBars, EmptyState, SignalBadges } from './ui';
@@ -14,13 +14,15 @@ const NOTE_TONE: Record<NotificationSeverity, 'danger' | 'warning' | 'info' | 'n
 };
 
 export function Overview({
-  dashboard, adapters, adapterSummary, usingSample, onOpenSignal, onAdd, onGoTab,
+  dashboard, alerts, adapters, adapterSummary, usingSample, onOpenSignal, onDismissAlert, onAdd, onGoTab,
 }: {
   dashboard: SignalDashboard;
+  alerts: SignalNotification[];
   adapters: AdapterStatus[];
   adapterSummary: AdapterHealthSummary;
   usingSample: boolean;
   onOpenSignal: (id: string) => void;
+  onDismissAlert: (id: string) => void;
   onAdd: () => void;
   onGoTab: (t: 'inbox' | 'competitors' | 'settings') => void;
 }) {
@@ -84,23 +86,35 @@ export function Overview({
           )}
         </SectionCard>
 
-        {/* Notifications rail */}
-        <SectionCard title="Alerts" description="Auto-derived from your signals.">
-          {dashboard.notifications.length === 0 ? (
-            <p className="text-xs text-muted-foreground/70">No alerts. New high-priority, negative or opportunity signals appear here.</p>
+        {/* Notifications rail — filtered by the operator's alert rules (Settings). */}
+        <SectionCard
+          title="Alerts"
+          description="Derived from your signals, filtered by your alert rules."
+          actions={<Btn size="sm" onClick={() => onGoTab('settings')}>Rules</Btn>}
+        >
+          {alerts.length === 0 ? (
+            <p className="text-xs text-muted-foreground/70">No alerts. New high-priority, negative or opportunity signals appear here (tune what fires in Settings → Alerts).</p>
           ) : (
             <ul className="space-y-2">
-              {dashboard.notifications.slice(0, 8).map((n) => (
-                <li key={n.id}>
+              {alerts.slice(0, 8).map((n) => (
+                <li key={n.id} className="group relative">
                   <button
                     onClick={() => n.signalId && onOpenSignal(n.signalId)}
-                    className="w-full rounded-lg border border-border bg-background/40 p-2.5 text-left transition-colors hover:bg-muted/40"
+                    className="w-full rounded-lg border border-border bg-background/40 p-2.5 pr-8 text-left transition-colors hover:bg-muted/40"
                   >
                     <div className="flex items-center gap-2">
                       <StatusBadge tone={NOTE_TONE[n.severity]}>{n.severity}</StatusBadge>
                       <span className="text-xs font-medium text-foreground">{n.title}</span>
                     </div>
                     <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{n.detail}</p>
+                  </button>
+                  <button
+                    onClick={() => onDismissAlert(n.id)}
+                    className="absolute right-1.5 top-1.5 rounded p-1 text-muted-foreground/70 hover:bg-muted hover:text-foreground"
+                    aria-label="Dismiss alert"
+                    title="Dismiss"
+                  >
+                    <X className="h-3.5 w-3.5" />
                   </button>
                 </li>
               ))}

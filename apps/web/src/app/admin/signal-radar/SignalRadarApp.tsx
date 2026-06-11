@@ -14,6 +14,7 @@ import { useSignalRadar } from '@/lib/signal-radar/useSignalRadar';
 import { buildDashboard } from '@/lib/signal-radar/engine';
 import { buildCompetitorInsights } from '@/lib/signal-radar/competitors';
 import { buildStrategyBrief } from '@/lib/signal-radar/strategy';
+import { applyAlertRules } from '@/lib/signal-radar/alerts';
 import { Btn } from './components/ui';
 import { Overview } from './components/Overview';
 import { SignalInbox } from './components/SignalInbox';
@@ -66,6 +67,10 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
     () => buildStrategyBrief(signals, dashboard, competitorInsights),
     [signals, dashboard, competitorInsights],
   );
+  const activeAlerts = useMemo(
+    () => applyAlertRules(dashboard.notifications, sr.config).filter((n) => !sr.dismissedAlertIds.includes(n.id)),
+    [dashboard.notifications, sr.config, sr.dismissedAlertIds],
+  );
 
   const selected = signals.find((s) => s.id === selectedId) ?? null;
   const conversionsForSelected = selected
@@ -111,10 +116,12 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
       {tab === 'overview' && (
         <Overview
           dashboard={dashboard}
+          alerts={activeAlerts}
           adapters={props.adapters}
           adapterSummary={props.adapterSummary}
           usingSample={usingSample}
           onOpenSignal={setSelectedId}
+          onDismissAlert={sr.dismissAlert}
           onAdd={() => setAddOpen(true)}
           onGoTab={(t) => setTab(t)}
         />

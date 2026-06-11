@@ -134,6 +134,8 @@ export const DEFAULT_CONFIG: SignalRadarConfig = {
   spamTerms: DEFAULT_SPAM_TERMS,
   weights: DEFAULT_WEIGHTS,
   aiClassificationEnabled: false,
+  alertMinSeverity: 'low',
+  mutedAlertKinds: [],
 };
 
 /** All competitor match terms flattened — used by the classifier. */
