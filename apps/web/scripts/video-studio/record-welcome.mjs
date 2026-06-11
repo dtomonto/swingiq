@@ -45,6 +45,8 @@ const HIDE_CSS = `
   [aria-label="Close your guide"],
   [aria-label="Your SwingVantage guide"],
   [aria-label="New here? Watch a quick tutorial"],
+  [aria-label="Cookie consent"],
+  [class*="border-amber-400"],
   [class*="tsqd-"] { display: none !important; }
 `;
 
@@ -64,6 +66,13 @@ await context.addInitScript((css) => {
   if (document.head) apply();
   else document.addEventListener('DOMContentLoaded', apply);
 }, HIDE_CSS);
+
+// Pre-decline analytics consent so the cookie banner never renders during the
+// capture (privacy-forward + clean footage). Stored as a plain string by
+// lib/consent.ts under `swingiq_cookie_consent`.
+await context.addInitScript(() => {
+  try { localStorage.setItem('swingiq_cookie_consent', 'declined'); } catch {/* no-op */}
+});
 
 const page = await context.newPage();
 
@@ -127,7 +136,7 @@ async function tryClick(locator, timeout = 2500) {
 
 // Scene 1 — Home hero: what SwingVantage is.
 await go('/');
-await tryClick(page.getByRole('button', { name: 'Accept' }), 2500); // cookie
+// Cookie consent is pre-declined via addInitScript, so the banner won't show.
 await tryClick(page.locator('[aria-label="Dismiss"]').first(), 1200); // pwa banner (if any)
 await dwell(2600);
 await gentleScroll(4800, 0.55);
