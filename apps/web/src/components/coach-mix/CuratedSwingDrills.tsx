@@ -16,6 +16,8 @@
 import { useMemo, useState } from 'react';
 import { Play, Bookmark, CheckCircle2, XCircle, RefreshCw, Sparkles } from 'lucide-react';
 import type { SportId } from '@swingiq/core';
+import { ANALYTICS_EVENTS } from '@swingiq/core';
+import { track } from '@/lib/analytics';
 import { rankDrills, localDrillFeedbackRepo } from '@/lib/drillmatch';
 import { drillFeedbackWeights } from '@/lib/agi/adapters/feedback-map';
 import { useAgentContext } from '@/hooks/useAgentContext';
@@ -88,8 +90,15 @@ function CuratedSwingDrillsInner({ sport: sportProp, faultId, faultLabel, whyItM
   // Honest: with no diagnosis yet, show nothing rather than a placeholder fix.
   if (!rec || !rec.firstDrill) return null;
 
-  const setAction = (id: string, action: DrillAction) =>
+  const setAction = (id: string, action: DrillAction) => {
+    const isSelecting = actions[id] !== action;
     setActions((a) => ({ ...a, [id]: a[id] === action ? undefined : action } as Record<string, DrillAction>));
+    // "Do our fixes work?" — acceptance/dismissal signal (no PII: ids only).
+    if (isSelecting) {
+      if (action === 'dismissed') track(ANALYTICS_EVENTS.RECOMMENDATION_DISMISSED, { sport, fault_id: faultId });
+      else track(ANALYTICS_EVENTS.RECOMMENDATION_ACCEPTED, { sport, fault_id: faultId, action });
+    }
+  };
 
   const drills = [rec.firstDrill, ...rec.alternatives];
 

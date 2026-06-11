@@ -74,4 +74,10 @@ describe('core funnel instrumentation', () => {
     expect(ANALYTICS_EVENTS.ANALYSIS_COMPLETED).toBeTruthy();
     expect(ANALYTICS_EVENTS.ANALYSIS_FAILED).toBeTruthy();
   });
+
+  it('exposes the "do our fixes work?" acceptance/outcome events (audit P2)', () => {
+    expect(ANALYTICS_EVENTS.RECOMMENDATION_ACCEPTED).toBe('recommendation_accepted');
+    expect(ANALYTICS_EVENTS.RECOMMENDATION_DISMISSED).toBe('recommendation_dismissed');
+    expect(ANALYTICS_EVENTS.DRILL_FEEDBACK_RECORDED).toBe('drill_feedback_recorded');
+  });
 });

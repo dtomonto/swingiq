@@ -39,7 +39,11 @@ export const ANALYTICS_EVENTS = {
   FIX_STACK_CREATED: 'fix_stack_created',
   DRILL_STARTED: 'drill_started',
   DRILL_COMPLETED: 'drill_completed',
-  DRILL_FEEDBACK_RECORDED: 'drill_feedback_recorded',
+  DRILL_FEEDBACK_RECORDED: 'drill_feedback_recorded', // + sport, value (helped|no_change|hurt), fault_id
+  // "Do our fixes work?" — did the athlete take, or wave off, the curated
+  // recommendation. Powers acceptance-rate analysis per fault/sport.
+  RECOMMENDATION_ACCEPTED: 'recommendation_accepted', // + sport, fault_id, action (saved|completed)
+  RECOMMENDATION_DISMISSED: 'recommendation_dismissed', // + sport, fault_id
   // The loop CLOSES: a completed retest result is surfaced (the north-star
   // "Weekly Completed Improvement Loops" event). Distinct from the intent
   // signal RETEST_PLAN_CLICKED.
