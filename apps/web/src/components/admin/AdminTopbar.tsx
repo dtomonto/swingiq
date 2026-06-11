@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, Search, HelpCircle, ChevronDown, LogOut, UserCircle2, Bell } from 'lucide-react';
+import { Menu, Search, HelpCircle, ChevronDown, LogOut, UserCircle2, Bell, Sun, Moon } from 'lucide-react';
 import { Breadcrumbs } from './Breadcrumbs';
 import { ROLES, type RoleId } from '@/lib/admin/rbac';
 import { activeNavItem } from '@/lib/admin/nav';
@@ -25,11 +25,17 @@ export interface AdminTopbarProps {
   actionCount?: number;
   /** Optional system-pulse strip rendered as a hairline row below the topbar. */
   systemStatus?: SystemStatusEntry[];
+  /** Current admin theme, and whether the dark-mode toggle is available (flag). */
+  theme?: 'coach-mode' | 'coach-night';
+  canToggleTheme?: boolean;
+  onToggleTheme?: () => void;
   onOpenSidebar: () => void;
   onOpenSearch: () => void;
 }
 
-export function AdminTopbar({ email, role, actionCount = 0, systemStatus, onOpenSidebar, onOpenSearch }: AdminTopbarProps) {
+export function AdminTopbar({
+  email, role, actionCount = 0, systemStatus, theme, canToggleTheme, onToggleTheme, onOpenSidebar, onOpenSearch,
+}: AdminTopbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname() || '/admin';
   const sectionLabel = activeNavItem(pathname)?.label ?? 'Admin';
@@ -107,6 +113,15 @@ export function AdminTopbar({ email, role, actionCount = 0, systemStatus, onOpen
                 <p className="text-xs text-link">{ROLES[role]?.label ?? role}</p>
               </div>
               <div className="my-1 border-t border-border" />
+              {canToggleTheme && onToggleTheme && (
+                <button
+                  onClick={() => { onToggleTheme(); setMenuOpen(false); }}
+                  className="flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-left text-sm text-foreground hover:bg-muted"
+                >
+                  {theme === 'coach-night' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                  {theme === 'coach-night' ? 'Light mode (Coach Mode)' : 'Dark mode (Coach Night)'}
+                </button>
+              )}
               <Link
                 href="/admin/learning"
                 onClick={() => setMenuOpen(false)}

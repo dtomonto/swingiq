@@ -140,6 +140,15 @@ export const FLAG_DEFS: FlagDef[] = [
     group: 'Analytics', owner: 'Growth', defaultEnabled: true, risk: 'low', status: 'wired',
   },
 
+  // ── Admin chrome ───────────────────────────────────────────
+  {
+    key: 'admin-dark-mode',
+    label: 'Coach Night (admin dark mode)',
+    description:
+      'Reveal the dark "Coach Night" operator theme toggle in the admin user menu. Device-local; the admin stays on light Coach Mode until an operator opts in. OFF by default while the dark theme is validated.',
+    group: 'Admin', owner: 'Product', defaultEnabled: false, risk: 'low', status: 'wired',
+  },
+
   // ── Mental Performance pillar ──────────────────────────────
   {
     key: 'mental_performance.enabled',

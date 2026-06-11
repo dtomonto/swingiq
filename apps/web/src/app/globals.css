@@ -236,7 +236,8 @@
    whiteboard theme even while the app default theme stays dark. On <html
    data-theme="coach-mode"> it resolves to the same values @theme produces —
    additive and reversible. */
-[data-theme='coach-mode'] {
+[data-theme='coach-mode'],
+[data-theme='coach-night'] {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -662,6 +663,71 @@
       radial-gradient(hsl(217 79% 42% / 0.06) 1px, transparent 1.6px),
       radial-gradient(1100px 520px at 50% -10%, hsl(217 79% 42% / 0.05), transparent 60%);
     --app-bg-size: 22px 22px, cover;
+    --app-bg-repeat: repeat, no-repeat;
+  }
+
+  /* Coach Night — designed dark operator mode (admin only, flag-gated).
+     Same blue + graph-paper identity as Coach Mode, on a deep navy. Status
+     text is stepped up and severity fills go to /0.09 for dark contrast; all
+     pairs are tuned to clear the same WCAG AA matrix as the product themes. */
+  [data-theme='coach-night'] {
+    --background: 218 28% 9%;
+    --foreground: 214 30% 92%;
+    --card: 218 24% 12%;
+    --card-foreground: 214 30% 92%;
+    --popover: 218 24% 12%;
+    --popover-foreground: 214 30% 92%;
+    --primary: 217 80% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 18% 16%;
+    --secondary-foreground: 214 30% 92%;
+    --muted: 217 18% 16%;
+    --muted-foreground: 215 14% 65%;
+    --accent: 217 18% 16%;
+    --accent-foreground: 214 30% 92%;
+    --accent-secondary: 173 52% 46%;
+    --accent-secondary-foreground: 0 0% 100%;
+    --success: 152 50% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 85% 55%;
+    --warning-foreground: 30 60% 8%;
+    --error: 0 75% 60%;
+    --error-foreground: 0 0% 100%;
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 16% 24%;
+    --input: 217 16% 24%;
+    --ring: 217 80% 52%;
+    --chart-1: 217 80% 60%;
+    --chart-2: 173 55% 55%;
+    --chart-3: 152 50% 55%;
+    --chart-4: 38 85% 60%;
+    --chart-5: 268 60% 68%;
+    --link: 213 90% 72%;
+    --link-hover: 213 90% 80%;
+    --warning-text: 38 85% 62%;
+    --success-text: 152 50% 58%;
+    --error-text: 0 75% 68%;
+    /* Document surface — the AI report stays light paper in every theme. */
+    --surface-document: 0 0% 100%;
+    --surface-document-foreground: 217 33% 17%;
+    --surface-document-accent: 217 79% 42%;
+    /* ── Art direction: deep navy, graph-paper dots at 4.5% white, no glow ── */
+    --card-radius: 0.5rem;
+    --shadow-card:
+      0 1px 2px hsl(0 0% 0% / 0.32),
+      0 4px 12px -6px hsl(0 0% 0% / 0.34);
+    --shadow-elevated:
+      0 18px 40px -18px hsl(0 0% 0% / 0.55);
+    --glow: 0 0 0 4px hsl(var(--primary) / 0.18);
+    --glow-strong: 0 0 0 5px hsl(var(--primary) / 0.28);
+    --gradient-primary: linear-gradient(135deg, hsl(217 80% 56%), hsl(222 78% 46%));
+    --gradient-hero: radial-gradient(1100px 540px at 50% -12%, hsl(217 80% 52% / 0.12), transparent 62%);
+    --font-heading: var(--font-sans);
+    --app-bg-image:
+      radial-gradient(hsl(0 0% 100% / 0.045) 1px, transparent 1.6px),
+      radial-gradient(1100px 520px at 50% -10%, hsl(217 80% 52% / 0.08), transparent 60%);
+    --app-bg-size: 18px 18px, cover;
     --app-bg-repeat: repeat, no-repeat;
   }
 

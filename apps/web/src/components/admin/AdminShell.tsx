@@ -13,7 +13,8 @@ import { AdminTopbar, type SystemStatusEntry } from './AdminTopbar';
 import { GlobalSearch } from './GlobalSearch';
 import { roleHasPermission, type RoleId, type Permission } from '@/lib/admin/rbac';
 import { activeNavItem } from '@/lib/admin/nav';
-import { pushRecent } from '@/lib/admin/nav-prefs';
+import { pushRecent, getAdminTheme, setAdminTheme, type AdminTheme } from '@/lib/admin/nav-prefs';
+import { isFlagEnabled } from '@/lib/admin/stores/feature-flags';
 
 export interface AdminShellProps {
   email: string | null;
@@ -45,6 +46,8 @@ function Brand() {
 export function AdminShell({ email, role, actionCount = 0, systemStatus, children }: AdminShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [theme, setTheme] = useState<AdminTheme>('coach-mode');
+  const [darkAllowed, setDarkAllowed] = useState(false);
   const pathname = usePathname();
 
   // Close the mobile drawer on route change.
@@ -74,10 +77,26 @@ export function AdminShell({ email, role, actionCount = 0, systemStatus, childre
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // Coach Night dark mode is opt-in + flag-gated. On mount, if the flag is on,
+  // adopt the operator's saved admin theme. Default stays light Coach Mode, so
+  // there is no change for anyone who hasn't enabled it (and no SSR flash).
+  useEffect(() => {
+    const allowed = isFlagEnabled('admin-dark-mode');
+    setDarkAllowed(allowed);
+    if (allowed) setTheme(getAdminTheme());
+  }, []);
+
+  const toggleTheme = () =>
+    setTheme((t) => {
+      const next: AdminTheme = t === 'coach-night' ? 'coach-mode' : 'coach-night';
+      setAdminTheme(next);
+      return next;
+    });
+
   const can = (p: Permission) => roleHasPermission(role, p);
 
   return (
-    <div data-theme="coach-mode" className="flex min-h-screen bg-background text-foreground">
+    <div data-theme={theme} className="flex min-h-screen bg-background text-foreground">
       {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-border bg-card lg:flex">
         <Brand />
@@ -119,6 +138,9 @@ export function AdminShell({ email, role, actionCount = 0, systemStatus, childre
           role={role}
           actionCount={actionCount}
           systemStatus={systemStatus}
+          theme={theme}
+          canToggleTheme={darkAllowed}
+          onToggleTheme={toggleTheme}
           onOpenSidebar={() => setDrawerOpen(true)}
           onOpenSearch={() => setSearchOpen(true)}
         />

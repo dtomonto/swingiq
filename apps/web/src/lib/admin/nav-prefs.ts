@@ -66,3 +66,23 @@ export function toggleGroupCollapsed(id: string): string[] {
   write(COLLAPSED_KEY, next);
   return next;
 }
+
+// ── Admin chrome theme (Coach Mode light / Coach Night dark) ─
+const THEME_KEY = 'swingiq-admin-theme-v1';
+export type AdminTheme = 'coach-mode' | 'coach-night';
+
+export function getAdminTheme(): AdminTheme {
+  if (typeof window === 'undefined') return 'coach-mode';
+  try {
+    const raw = window.localStorage.getItem(THEME_KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    return parsed === 'coach-night' ? 'coach-night' : 'coach-mode';
+  } catch {
+    return 'coach-mode';
+  }
+}
+
+export function setAdminTheme(theme: AdminTheme): AdminTheme {
+  write(THEME_KEY, theme);
+  return theme;
+}
