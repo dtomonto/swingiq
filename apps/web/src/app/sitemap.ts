@@ -250,6 +250,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...curatedPages,
     ...seoPages,
+    ...featurePages,
     ...mentalPages,
     ...challengePages,
     ...blogPages,

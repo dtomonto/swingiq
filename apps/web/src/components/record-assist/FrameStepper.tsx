@@ -71,6 +71,7 @@ export function FrameStepper({ src, fps = 8, phases, onStep, className }: FrameS
   return (
     <div className={cn('space-y-2', className)}>
       <div className="overflow-hidden rounded-2xl bg-black">
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption -- silent user-recorded swing clip; no audio/dialogue to caption */}
         <video
           ref={videoRef}
           src={src}

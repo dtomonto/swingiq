@@ -301,6 +301,7 @@ export function RecordAssistExperience({ initialSport = 'golf', className }: Rec
     return (
       <div className={cn('space-y-4', className)}>
         <div className="overflow-hidden rounded-2xl bg-black">
+          {/* eslint-disable-next-line jsx-a11y/media-has-caption -- silent user-recorded swing clip; no audio/dialogue to caption */}
           <video src={recorded.result.url} controls playsInline className="mx-auto max-h-[60vh] w-full" />
         </div>
 
