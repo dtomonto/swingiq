@@ -143,16 +143,13 @@ test('every theme renders the mobile nav + sport selector readably', async ({ pa
   await page.goto('/dashboard');
   await page.waitForLoadState('networkidle');
 
-  // Dismiss the first-run "who's using this device?" modal if it intercepts.
-  const usageModal = page.locator('[aria-labelledby="usage-modal-title"]');
-  if (await usageModal.count()) {
-    await page.getByText('Adult athlete (18+)').click().catch(() => {});
-    await page
-      .getByRole('button', { name: /continue to swingvantage/i })
-      .click()
-      .catch(() => {});
-    await page.waitForTimeout(300);
-  }
+  // Hide the first-run "who's using this device?" modal deterministically. It
+  // mounts ~800ms after store hydration, so clicking through it races on slow CI;
+  // a <style> in <head> applies the instant it mounts. We open the nav drawer
+  // below, so hide only the modal — no other chrome.
+  await page.addStyleTag({
+    content: '[aria-labelledby="usage-modal-title"]{display:none !important}',
+  }).catch(() => { /* style injection best-effort */ });
   // Clear any remaining first-run overlay (tutorial nudge, etc.).
   await page.keyboard.press('Escape').catch(() => {});
 
