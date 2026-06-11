@@ -40,8 +40,10 @@ introduces the first one (`runtime/speech.ts` + `VoiceGuidanceEngine`).
 apps/web/src/lib/record-assist/
   types.ts                     # dependency-free type vocabulary
   sports.ts                    # bridge to platform SportId + sport metadata
+  biomechanics.ts              # Phase 3 bridge → Motion Lab engine (proxies)
   saved-angles.ts              # "record same angle again" foundation (localStorage)
-  sim.ts                       # synthetic frames for the documented QA states
+  reference-clips.ts           # Phase 3 saved reference clip for comparison
+  sim.ts                       # synthetic frames + swing track for the QA panel
   engines/                     # PURE, dependency-free, fully unit-tested
     landmarks.ts               # BlazePose 33-pt map + geometry helpers
     frame-quality-engine.ts    # frame signals → structured quality verdict
@@ -55,10 +57,11 @@ apps/web/src/lib/record-assist/
     live-pose.ts               # MediaPipe VIDEO-mode + frame luma/contrast
     camera.ts                  # getUserMedia + MediaRecorder helpers
     speech.ts                  # SpeechSynthesis + Vibration
+    devicemotion.ts            # camera-shake proxy (DeviceMotion, iOS-gated)
   hooks/                       # React glue
-    useDeviceCompatibility, useCameraStream, useGuidedCapture,
+    useDeviceCompatibility, useCameraStream, useGuidedCapture, useDeviceShake,
     useVoiceGuidance, useRecordingState, useRecordAssistAnalytics
-  __tests__/                   # 62 engine unit tests + fixtures
+  __tests__/                   # engine + bridge unit tests + fixtures
 
 apps/web/src/components/record-assist/
   RecordAssistGate · RecordAssistExperience · GuidedCameraView
@@ -155,15 +158,18 @@ Every message carries an `i18nKey` for future translation.
 
 ## 6. Testing
 
-- **62 unit tests** (`npx jest src/lib/record-assist`) across all seven engines,
-  covering every documented state: permission granted/denied, no person, too
-  close/far, off-center, head/feet cut off, low light, busy background, shaky,
-  multiple people, voice throttling, mute/silent, readiness math, preset
-  selection, countdown, retake, device tiers, analytics.
+- **Unit tests** (`npx jest src/lib/record-assist`) across the pure engines and
+  the Phase 3 bridge, covering every documented state: permission granted/denied,
+  no person, too close/far, off-center, head/feet cut off, low light, busy
+  background, shaky, multiple people, voice throttling, mute/silent, readiness
+  math, preset selection, countdown, retake, device tiers, analytics — plus the
+  biomechanics bridge (sport/action mapping, frame gating, honest confidence
+  capping) and the camera-shake proxy math.
 - **Playwright** (`e2e/record-assist.spec.ts`): the deterministic guided-recording
   entry flow (route → gate → sport/action selection → camera-permission panel).
 - **Admin QA simulator** (`/admin/record-assist`): runs the real engines against
-  synthetic frames for every state — no camera required.
+  synthetic frames for every state, plus the **Motion insights** panel that runs
+  the real biomechanics bridge on a synthetic swing track — no camera required.
 
 Run locally:
 
@@ -193,9 +199,20 @@ npx tsc --noEmit
   straight to the configure screen via the same `handleVideoReady` an upload
   uses — no re-upload). Remaining for later: camera-shake proxy (devicemotion),
   saved-location memory.
-- **Phase 3 — Advanced biomechanics:** tempo / balance / hip-shoulder separation
-  proxies, swing-plane proxy, movement-box analytics, frame-by-frame stepping,
-  side-by-side comparison, kinematic-sequence estimates (all confidence-labelled).
+- **Phase 3 — Advanced biomechanics (done):** the review step now surfaces
+  **Motion Insights** — tempo, hip-shoulder separation (X-factor), pelvis sway,
+  finish balance, and kinematic sequencing — plus **frame-by-frame stepping**
+  (`FrameStepper`, with phase markers) and **side-by-side comparison** against a
+  saved reference (`MotionComparisonPanel` + `reference-clips.ts`). The
+  **camera-shake (devicemotion) proxy** (`runtime/devicemotion.ts` +
+  `useDeviceShake`) is wired into the live `motion` signal, closing the Phase 2
+  known-limitation. **Audit-first reuse:** rather than re-implement the math, a
+  thin bridge (`lib/record-assist/biomechanics.ts`) captures the pose time-series
+  during recording and runs it through the platform's canonical Motion Lab engine
+  (`analyzePoseTrack`), distilling a small, honestly confidence-labelled
+  `MotionInsights` summary (single-view reads are proxies, capped at `medium`).
+  The pure `engines/*` stay dependency-free; the bridge is the one place that
+  imports Motion Lab (mirroring how `sports.ts` bridges to `@swingiq/core`).
 - **Phase 4 — Intelligence layer:** personalized setup memory, multi-language
   voice, multi-camera / second-device pairing, admin preset tuning, continuous
   quality learning from anonymized failure categories.
@@ -223,9 +240,12 @@ a `File` to another route's component.
 
 ## 9. Known limitations
 
-- **Camera-shake proxy** is still reported as `unknown` (stability scored
-  conservatively). Phase 2 added per-frame *joint*-motion energy (used for
-  auto-trim), but devicemotion-based *camera* shake is a later item.
+- **Camera-shake proxy** is now wired (Phase 3): `runtime/devicemotion.ts` turns
+  DeviceMotion acceleration jitter into a 0–1 shake proxy fed into the frame's
+  `motion` signal, so stability is scored rather than left `unknown`. It is
+  **opt-in** (a toggle in the capture view) because iOS 13+ requires an explicit
+  permission gesture; where DeviceMotion is unavailable, stability falls back to
+  `unknown` exactly as before.
 - **Auto-trim** detects and surfaces the active-motion window and the analyzer's
   frame extraction is already motion-aware, so analysis concentrates there;
   RecordAssist does not re-encode/clip the file bytes (no client-side transcode).

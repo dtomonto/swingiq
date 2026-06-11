@@ -1,6 +1,7 @@
 export * from './useDeviceCompatibility';
 export * from './useCameraStream';
 export * from './useGuidedCapture';
+export * from './useDeviceShake';
 export * from './useVoiceGuidance';
 export * from './useRecordingState';
 export * from './useRecordAssistAnalytics';

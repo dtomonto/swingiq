@@ -237,6 +237,45 @@ export interface RetakeRecommendation {
   confidence: KineticConfidenceLevel;
 }
 
+// ── Motion insights (Phase 3 — advanced biomechanics proxies) ─
+
+/**
+ * The biomechanics proxies surfaced in the review step. These are distilled
+ * from the platform's Motion Lab engine (see lib/record-assist/biomechanics.ts)
+ * so RecordAssist reuses the canonical math instead of reinventing it. Every
+ * value carries an honest confidence label — single-camera reads are PROXIES,
+ * never lab-grade motion capture.
+ */
+export type MotionInsightKey =
+  | 'tempo'
+  | 'separation'
+  | 'sway'
+  | 'balance'
+  | 'sequencing';
+
+export interface MotionInsightMetric {
+  key: MotionInsightKey;
+  label: string;
+  /** Pre-formatted value for display (e.g. "3.0 : 1", "42°", "18% frame"). */
+  display: string;
+  /** Raw numeric (for trends / comparison), or null when not derivable. */
+  value: number | null;
+  unit: string;
+  confidence: KineticConfidenceLevel;
+  /** One-line plain-English read of what the number means. */
+  read: string;
+}
+
+export interface MotionInsights {
+  /** Frames a usable pose was actually tracked in. */
+  trackedFrames: number;
+  /** Frames we attempted to track (>= trackedFrames). */
+  attemptedFrames: number;
+  /** Overall honesty label across the whole read. */
+  confidence: KineticConfidenceLevel;
+  metrics: MotionInsightMetric[];
+}
+
 // ── Device compatibility (CompatibilityEngine) ──────────────
 
 /** Injected capability snapshot so the engine stays pure/testable. */
@@ -315,4 +354,9 @@ export type RecordAssistAnalyticsEvent =
   | 'unsupported_browser_detected'
   | 'device_compatibility_warning_shown'
   | 'saved_angle_preset_created'
-  | 'retest_same_angle_started';
+  | 'retest_same_angle_started'
+  // Phase 3 — advanced biomechanics review surfaces.
+  | 'motion_insights_computed'
+  | 'frame_step_used'
+  | 'clip_comparison_viewed'
+  | 'camera_shake_proxy_enabled';
