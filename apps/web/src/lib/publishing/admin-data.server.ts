@@ -12,7 +12,7 @@ import { readSeoRows, readBlogRows } from '@/lib/admin/content-publish-store';
 import { classifyRisk } from './risk';
 import { areaForType, PUBLISHABLE_AREAS, summarizeAreas, type PublishableArea } from './entity-registry';
 import { getRecentEvents } from './service';
-import { isPublishingPersistent, listEntities, listEvents } from './store';
+import { isPublishingPersistent, listEntities, listEvents, listPublishOverrides } from './store';
 import type { PublishableEntity, PublishEntityType, PublishEvent, PublishMode, RiskLevel } from './types';
 
 const KIND_TO_ENTITY: Record<PublishRow['kind'], PublishEntityType> = {
@@ -91,6 +91,21 @@ export async function getPublishingOSData(): Promise<PublishingOSData> {
     ...seo.map(toQueueItem),
     ...blog.map(toQueueItem),
   ];
+
+  // In production the runtime FS is read-only, so a publish is recorded as a
+  // durable OVERRIDE (the public read path honours it) rather than a file edit.
+  // The base rows above therefore still read "draft" — merge the overrides in so
+  // the admin queue reflects the EFFECTIVE state, matching what the public sees.
+  // Additive: with no overrides the queue is unchanged.
+  const overrideRows = await listPublishOverrides();
+  if (overrideRows.length > 0) {
+    const ov: Partial<Record<PublishEntityType, Record<string, boolean>>> = {};
+    for (const o of overrideRows) (ov[o.entityType] ??= {})[o.entityId] = o.published;
+    for (const item of queue) {
+      const o = ov[item.entityType]?.[item.id];
+      if (o !== undefined) item.published = o;
+    }
+  }
 
   const recentEvents = await getRecentEvents(25);
   const persistent = isPublishingPersistent();
