@@ -72,3 +72,19 @@ serious/critical) · theme-contrast jest 433/433 · tsc clean._
   copy is "training feedback, not medical diagnosis." New session fields are optional
   (backward-compatible with older saved sessions).
 - This file is a handoff note; delete once the follow-ups are addressed.
+
+## Branch cleanup — REVIEW FOR REMOVAL
+
+All follow-ups are done and the fix is **merged to `master`** (commit `fa44ec95`,
+2026-06-10, owner fast-forward push). The two branches below are retained only as the
+record of this work and are **candidates for deletion pending review** — they carry no
+unmerged changes that master lacks:
+
+- `claude/motionlab-e2e-a11y` — the e2e + a11y fix (`35bc1ad7`); its content is now on
+  `master` as `fa44ec95`. Safe to delete once confirmed redundant.
+- `claude/motionlab-handoff` — this handoff doc only. Delete together with this file
+  once the record is no longer needed.
+
+Suggested check before deleting (non-destructive): `git log --oneline master..origin/<branch>`
+should show nothing unique to keep, then `git push origin --delete <branch>`.
+This is a REVIEW reminder, not an instruction to auto-delete.
