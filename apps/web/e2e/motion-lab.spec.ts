@@ -10,23 +10,22 @@ import { test, expect, type Page } from '@playwright/test';
 /**
  * Get the MotionLab page interaction-ready. On a brand-new device the app shell
  * floats several layers over the page that intercept clicks but are unrelated to
- * MotionLab: the full-screen usage-category modal, the cookie bar, the floating
- * help dock and the mobile bottom navigation. Dismiss the first two the way a
- * real user would, and hide the persistent chrome so feature clicks land.
+ * MotionLab: the full-screen usage-category onboarding modal, the cookie bar,
+ * the floating help dock and the mobile bottom navigation. Hide the overlays
+ * outright and accept the cookie bar so feature clicks land.
+ *
+ * The usage modal is hidden via CSS rather than clicked through because it mounts
+ * ~800ms after store hydration — on slow CI it can appear AFTER a click-through
+ * wait window and then intercept later clicks. It has its own dedicated coverage.
  */
 async function dismissFirstRunOverlays(page: Page) {
-  // Hide unrelated, persistent app chrome that overlaps the page bottom.
   await page.addStyleTag({
-    content: `[data-testid="floating-help-dock"], .floating-dock,
+    content: `[aria-labelledby="usage-modal-title"],
+      [data-testid="floating-help-dock"], .floating-dock,
       nav[aria-label="Bottom navigation"] { display: none !important; }`,
   }).catch(() => { /* style injection best-effort */ });
 
-  const adult = page.getByRole('button', { name: /Adult athlete/i });
-  try {
-    await adult.waitFor({ state: 'visible', timeout: 5_000 });
-    await adult.click();
-    await page.getByRole('button', { name: /Continue to SwingVantage/i }).click();
-  } catch { /* modal already handled in this context */ }
+  // Accept the cookie bar the way a real user would (separate from the modal).
   const accept = page.getByRole('button', { name: /^Accept$/ });
   try {
     await accept.waitFor({ state: 'visible', timeout: 3_000 });

@@ -8,6 +8,13 @@ import { test, expect } from '@playwright/test';
 test.describe('RecordAssist — guided recording entry', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/record-assist');
+    // The first-run usage-category onboarding modal floats over the page (z-200)
+    // and intercepts clicks. It mounts ~800ms after store hydration, so clicking
+    // through it races on slow CI; hide it outright so the guided-recording flow
+    // under test is reachable. The modal is unrelated here and has its own coverage.
+    await page
+      .addStyleTag({ content: '[aria-labelledby="usage-modal-title"]{display:none !important}' })
+      .catch(() => {});
   });
 
   test('renders the guided-recording launcher', async ({ page }) => {
