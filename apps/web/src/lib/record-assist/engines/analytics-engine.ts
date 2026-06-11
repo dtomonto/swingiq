@@ -124,4 +124,27 @@ export class RecordAssistAnalytics {
   retestSameAngle(sport: string, action: string): void {
     this.send('retest_same_angle_started', { sport, action });
   }
+
+  // ── Phase 3 — advanced biomechanics review surfaces ─────────
+
+  motionInsightsComputed(sport: string, action: string, confidence: string, trackedFrames: number): void {
+    this.send('motion_insights_computed', {
+      sport,
+      action,
+      confidence,
+      tracked_frames: Math.round(trackedFrames),
+    });
+  }
+
+  frameStepUsed(sport: string, action: string): void {
+    this.send('frame_step_used', { sport, action });
+  }
+
+  comparisonViewed(sport: string, action: string): void {
+    this.send('clip_comparison_viewed', { sport, action });
+  }
+
+  cameraShakeProxyEnabled(sport: string): void {
+    this.send('camera_shake_proxy_enabled', { sport });
+  }
 }

@@ -3,18 +3,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
-import { Circle, Square, SwitchCamera, Loader2, PersonStanding } from 'lucide-react';
+import { Circle, Square, SwitchCamera, Loader2, PersonStanding, Smartphone } from 'lucide-react';
 import {
   useCameraStream,
   getStreamFromVideo,
   useGuidedCapture,
   useVoiceGuidance,
   useRecordingState,
+  useDeviceShake,
 } from '@/lib/record-assist/hooks';
 import type { CaptureSample } from '@/lib/record-assist/hooks/useGuidedCapture';
 import type { RecordingResult } from '@/lib/record-assist/hooks/useRecordingState';
 import { detectMotionWindowSeconds } from '@/lib/record-assist/engines/auto-trim-engine';
 import { predictSafeZone } from '@/lib/record-assist/engines/motion-safe-zone-engine';
+import { analyzeRecording, type RecordAssistAnalysis } from '@/lib/record-assist/biomechanics';
 import type {
   SportActionPreset,
   CameraOrientation,
@@ -36,6 +38,11 @@ export interface GuidedRecordingMeta {
   durationSeconds: number;
   /** Auto-trim active-motion window (seconds), when detected. */
   trimWindow?: { start: number; end: number };
+  /**
+   * Phase 3 biomechanics analysis distilled from the captured pose track.
+   * Null when too few frames were tracked to say anything honestly.
+   */
+  analysis?: RecordAssistAnalysis | null;
 }
 
 export interface GuidedCameraViewProps {
@@ -49,6 +56,8 @@ export interface GuidedCameraViewProps {
   onReadinessPassed?: (score: number) => void;
   onVoiceMessage?: (m: VoiceGuidanceMessage) => void;
   onRecorded: (result: RecordingResult, meta: GuidedRecordingMeta) => void;
+  /** Fired once the camera-shake proxy is successfully enabled. */
+  onCameraShakeEnabled?: () => void;
   className?: string;
 }
 
@@ -63,7 +72,7 @@ type LivePhase = 'framing' | 'countdown' | 'recording';
 export function GuidedCameraView(props: GuidedCameraViewProps) {
   const {
     preset, poseEnabled, voiceMode, captionsOn, hapticsOn, hapticsSupported,
-    onPermission, onReadinessPassed, onVoiceMessage, onRecorded, className,
+    onPermission, onReadinessPassed, onVoiceMessage, onRecorded, onCameraShakeEnabled, className,
   } = props;
 
   const camera = useCameraStream();
@@ -81,6 +90,10 @@ export function GuidedCameraView(props: GuidedCameraViewProps) {
     if (phaseRef.current === 'recording') samplesRef.current.push(s);
   }, []);
 
+  // Camera-shake proxy (devicemotion). Opt-in via the toggle below; feeds the
+  // guidance loop's `motion` signal so stability stops reading as "unknown".
+  const shake = useDeviceShake();
+
   // Guidance loop runs while framing/counting down/recording (keeps the
   // detection-rate aggregate flowing) — voice is paused once we start.
   const cameraReady = camera.status === 'ready';
@@ -91,6 +104,7 @@ export function GuidedCameraView(props: GuidedCameraViewProps) {
     active: cameraReady,
     poseEnabled,
     onSample: collectSample,
+    cameraMotion: shake.getMotion,
   });
 
   // Forward-looking "you'll run out of room" guard.
@@ -151,12 +165,18 @@ export function GuidedCameraView(props: GuidedCameraViewProps) {
       const normalized = samples.map((s) => ({ tMs: s.tMs - t0, energy: s.energy }));
       const trimWindow =
         detectMotionWindowSeconds(normalized, recording.result.durationMs) ?? undefined;
+      // Phase 3: run the captured pose track through the biomechanics bridge.
+      const poseFrames = samples
+        .filter((s) => s.landmarks && s.landmarks.length > 0)
+        .map((s) => ({ tMs: s.tMs - t0, landmarks: s.landmarks! }));
+      const analysis = analyzeRecording(poseFrames, preset);
       onRecorded(recording.result, {
         readinessAtStart: latest.current.score,
         detectionRate: latest.current.detectionRate,
         quality: latest.current.quality,
         durationSeconds,
         trimWindow,
+        analysis,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -272,6 +292,25 @@ export function GuidedCameraView(props: GuidedCameraViewProps) {
                 )}
               >
                 <PersonStanding className="h-5 w-5" aria-hidden />
+              </button>
+            )}
+            {shake.supported && (
+              <button
+                type="button"
+                aria-pressed={shake.enabled}
+                aria-label={shake.enabled ? 'Camera-shake detection on' : 'Enable camera-shake detection'}
+                title={shake.enabled ? 'Camera-shake detection on' : 'Detect camera shake'}
+                onClick={() => {
+                  if (!shake.enabled) {
+                    void shake.enable().then((ok) => { if (ok) onCameraShakeEnabled?.(); });
+                  }
+                }}
+                className={cn(
+                  'rounded-full p-2.5 backdrop-blur-sm tap-target',
+                  shake.enabled ? 'bg-primary/80 text-primary-foreground' : 'bg-black/60 text-white',
+                )}
+              >
+                <Smartphone className="h-5 w-5" aria-hidden />
               </button>
             )}
           </div>
