@@ -20,6 +20,7 @@
 // ============================================================
 
 import { test, expect, type Page } from '@playwright/test';
+import { hideUsageCategoryModal } from './helpers/first-run';
 
 const THEMES = [
   'standard',
@@ -143,16 +144,10 @@ test('every theme renders the mobile nav + sport selector readably', async ({ pa
   await page.goto('/dashboard');
   await page.waitForLoadState('networkidle');
 
-  // Dismiss the first-run "who's using this device?" modal if it intercepts.
-  const usageModal = page.locator('[aria-labelledby="usage-modal-title"]');
-  if (await usageModal.count()) {
-    await page.getByText('Adult athlete (18+)').click().catch(() => {});
-    await page
-      .getByRole('button', { name: /continue to swingvantage/i })
-      .click()
-      .catch(() => {});
-    await page.waitForTimeout(300);
-  }
+  // Race-proof hide of the first-run "who's using this device?" modal so it
+  // can't intercept the drawer/sport-switcher clicks below (shared helper —
+  // the previous click-through raced its ~800ms-delayed mount).
+  await hideUsageCategoryModal(page);
   // Clear any remaining first-run overlay (tutorial nudge, etc.).
   await page.keyboard.press('Escape').catch(() => {});
 

@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { hideUsageCategoryModal, hideFloatingChrome } from './helpers/first-run';
 
 // RecordAssist guided-recording entry flow. The pre-camera path is fully
 // deterministic (no getUserMedia needed) — it exercises routing, the feature
@@ -8,13 +9,11 @@ import { test, expect } from '@playwright/test';
 test.describe('RecordAssist — guided recording entry', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/record-assist');
-    // The first-run usage-category onboarding modal floats over the page (z-200)
-    // and intercepts clicks. It mounts ~800ms after store hydration, so clicking
-    // through it races on slow CI; hide it outright so the guided-recording flow
-    // under test is reachable. The modal is unrelated here and has its own coverage.
-    await page
-      .addStyleTag({ content: '[aria-labelledby="usage-modal-title"]{display:none !important}' })
-      .catch(() => {});
+    // Hide the first-run chrome that floats over the page and intercepts clicks —
+    // the usage-category modal AND the floating help dock (its profile CTA overlaps
+    // the action buttons). Both are unrelated here and have their own coverage.
+    await hideUsageCategoryModal(page);
+    await hideFloatingChrome(page);
   });
 
   test('renders the guided-recording launcher', async ({ page }) => {
@@ -47,7 +46,9 @@ test.describe('RecordAssist — guided recording entry', () => {
     // Capture phase opens with the camera-permission panel (idle, no getUserMedia
     // required to assert this state).
     await expect(page.getByRole('button', { name: /enable camera/i })).toBeVisible();
-    await expect(page.getByText(/we’ll help you get in frame|help you get in frame/i)).toBeVisible();
+    // Anchor on the panel heading — the same phrase also appears in the body copy,
+    // which would trip strict mode.
+    await expect(page.getByRole('heading', { name: /help you get in frame/i })).toBeVisible();
   });
 
   test('switching sport updates the available actions', async ({ page }) => {

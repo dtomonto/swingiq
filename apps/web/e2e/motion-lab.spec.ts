@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { hideUsageCategoryModal, hideFloatingChrome } from './helpers/first-run';
 
 // MotionLab critical flow (#prompt acceptance criterion 20). Driven through the
 // built-in SAMPLE analyses — a synthetic motion run through the REAL engine — so
@@ -19,11 +20,10 @@ import { test, expect, type Page } from '@playwright/test';
  * wait window and then intercept later clicks. It has its own dedicated coverage.
  */
 async function dismissFirstRunOverlays(page: Page) {
-  await page.addStyleTag({
-    content: `[aria-labelledby="usage-modal-title"],
-      [data-testid="floating-help-dock"], .floating-dock,
-      nav[aria-label="Bottom navigation"] { display: none !important; }`,
-  }).catch(() => { /* style injection best-effort */ });
+  // Race-proof hide of the usage-category modal + the floating help dock / bottom
+  // nav that overlap the page and intercept clicks (shared helpers — see docs).
+  await hideUsageCategoryModal(page);
+  await hideFloatingChrome(page);
 
   // Accept the cookie bar the way a real user would (separate from the modal).
   const accept = page.getByRole('button', { name: /^Accept$/ });
@@ -56,7 +56,9 @@ test.describe('MotionLab', () => {
     await page.getByRole('button', { name: /tennis forehand/i }).click();
 
     // 2) Results render with the prioritized single fix.
-    await expect(page.getByText(/biggest opportunity/i)).toBeVisible();
+    // Anchor on the section label exactly — the phrase "biggest opportunity" also
+    // appears in the summary + fix sentences, which would trip strict mode.
+    await expect(page.getByText('Biggest opportunity', { exact: true })).toBeVisible();
     await expect(page.getByText(/tennis/i).first()).toBeVisible();
 
     // 3) Replay (default 3D & Phases tab) surfaces the continuous-movement read —
@@ -79,7 +81,9 @@ test.describe('MotionLab', () => {
     await page.goto('/motion-lab');
     await dismissFirstRunOverlays(page);
     await page.getByRole('button', { name: /golf driver/i }).click();
-    await expect(page.getByText(/biggest opportunity/i)).toBeVisible();
+    // Anchor on the section label exactly — the phrase "biggest opportunity" also
+    // appears in the summary + fix sentences, which would trip strict mode.
+    await expect(page.getByText('Biggest opportunity', { exact: true })).toBeVisible();
     // Golf is a discrete swing — no continuous-movement card.
     await expect(page.getByText(/movement intelligence/i)).toHaveCount(0);
     // But it still closes the loop with a retest protocol.
@@ -92,7 +96,9 @@ test.describe('MotionLab', () => {
     await page.goto('/motion-lab');
     await dismissFirstRunOverlays(page);
     await page.getByRole('button', { name: /pickleball dink/i }).click();
-    await expect(page.getByText(/biggest opportunity/i)).toBeVisible();
+    // Anchor on the section label exactly — the phrase "biggest opportunity" also
+    // appears in the summary + fix sentences, which would trip strict mode.
+    await expect(page.getByText('Biggest opportunity', { exact: true })).toBeVisible();
     await expect(page.getByText(/movement intelligence/i)).toBeVisible();
   });
 });

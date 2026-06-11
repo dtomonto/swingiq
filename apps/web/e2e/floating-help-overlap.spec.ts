@@ -1,4 +1,5 @@
 import { test, expect, type Page, type Locator } from '@playwright/test';
+import { hideUsageCategoryModal } from './helpers/first-run';
 
 // ============================================================
 // Floating help tools — overlap / collision regression
@@ -64,15 +65,14 @@ async function boxOf(locator: Locator): Promise<Box> {
  * Dismiss first-run overlays that float over the app on a brand-new device
  * (the full-screen usage-category modal and the bottom cookie bar). They are
  * unrelated to the dock but intercept clicks, so the dock-interaction test
- * clears them the way a real user would.
+ * clears them before exercising the dock.
+ *
+ * The modal is hidden race-proof via CSS (shared helper) rather than clicked
+ * through — the click-through raced its ~800ms-delayed mount. We hide ONLY the
+ * modal here, never the dock, which is the very chrome this suite asserts on.
  */
 async function dismissFirstRunOverlays(page: Page) {
-  const adult = page.getByRole('button', { name: /Adult athlete/i });
-  try {
-    await adult.waitFor({ state: 'visible', timeout: 5_000 });
-    await adult.click();
-    await page.getByRole('button', { name: /Continue to SwingVantage/i }).click();
-  } catch { /* modal already handled in this context */ }
+  await hideUsageCategoryModal(page);
   const accept = page.getByRole('button', { name: /^Accept$/ });
   try {
     await accept.waitFor({ state: 'visible', timeout: 3_000 });
