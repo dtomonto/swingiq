@@ -33,7 +33,7 @@ describe('feature-education shipping seed', () => {
       expect(a.generator).toBe('deterministic');
       expect(a.needsHumanReview).toBe(false);
       expect(a.groundedIn.length).toBeGreaterThan(0);
-      expect(['in-app-help', 'faq', 'seo-article']).toContain(a.type);
+      expect(['in-app-help', 'faq', 'seo-article', 'tutorial', 'how-to', 'admin-guide']).toContain(a.type);
     }
   });
 
