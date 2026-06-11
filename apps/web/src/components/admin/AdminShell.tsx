@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { X } from 'lucide-react';
 import { AdminSidebar } from './AdminSidebar';
-import { AdminTopbar } from './AdminTopbar';
+import { AdminTopbar, type SystemStatusEntry } from './AdminTopbar';
 import { GlobalSearch } from './GlobalSearch';
 import { roleHasPermission, type RoleId, type Permission } from '@/lib/admin/rbac';
 import { activeNavItem } from '@/lib/admin/nav';
@@ -20,6 +20,8 @@ export interface AdminShellProps {
   role: RoleId;
   /** Count of items awaiting review (Action Center) — shows a topbar badge. */
   actionCount?: number;
+  /** Optional system-pulse entries for the hairline strip below the topbar. */
+  systemStatus?: SystemStatusEntry[];
   children: React.ReactNode;
 }
 
@@ -40,7 +42,7 @@ function Brand() {
   );
 }
 
-export function AdminShell({ email, role, actionCount = 0, children }: AdminShellProps) {
+export function AdminShell({ email, role, actionCount = 0, systemStatus, children }: AdminShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const pathname = usePathname();
@@ -116,6 +118,7 @@ export function AdminShell({ email, role, actionCount = 0, children }: AdminShel
           email={email}
           role={role}
           actionCount={actionCount}
+          systemStatus={systemStatus}
           onOpenSidebar={() => setDrawerOpen(true)}
           onOpenSearch={() => setSearchOpen(true)}
         />

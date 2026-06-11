@@ -11,22 +11,32 @@ import { Breadcrumbs } from './Breadcrumbs';
 import { ROLES, type RoleId } from '@/lib/admin/rbac';
 import { activeNavItem } from '@/lib/admin/nav';
 
+/** A single system-pulse entry shown in the strip below the topbar. */
+export interface SystemStatusEntry {
+  name: string;
+  value: string;
+  state: 'ok' | 'warn' | 'crit';
+}
+
 export interface AdminTopbarProps {
   email: string | null;
   role: RoleId;
   /** Items awaiting review (Action Center) — renders a badge when > 0. */
   actionCount?: number;
+  /** Optional system-pulse strip rendered as a hairline row below the topbar. */
+  systemStatus?: SystemStatusEntry[];
   onOpenSidebar: () => void;
   onOpenSearch: () => void;
 }
 
-export function AdminTopbar({ email, role, actionCount = 0, onOpenSidebar, onOpenSearch }: AdminTopbarProps) {
+export function AdminTopbar({ email, role, actionCount = 0, systemStatus, onOpenSidebar, onOpenSearch }: AdminTopbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname() || '/admin';
   const sectionLabel = activeNavItem(pathname)?.label ?? 'Admin';
 
   return (
-    <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-card/95 px-4 py-2.5 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur">
+      <div className="flex items-center gap-3 px-4 py-2.5">
       <button
         onClick={onOpenSidebar}
         className="tap-target rounded-md text-muted-foreground hover:bg-muted lg:hidden"
@@ -114,6 +124,22 @@ export function AdminTopbar({ email, role, actionCount = 0, onOpenSidebar, onOpe
           </>
         )}
       </div>
+      </div>
+      {systemStatus && systemStatus.length > 0 && (
+        <div className="flex gap-4 overflow-x-auto border-t border-border px-4 py-1.5">
+          {systemStatus.map((s) => (
+            <span key={s.name} className="flex items-center gap-1.5 whitespace-nowrap text-xs text-muted-foreground">
+              <span
+                className={`h-2 w-2 shrink-0 rounded-full ${
+                  s.state === 'crit' ? 'bg-error' : s.state === 'warn' ? 'bg-warning' : 'bg-success'
+                }`}
+              />
+              <strong className="font-semibold text-foreground">{s.name}</strong>
+              <span className="font-mono text-[11px]">{s.value}</span>
+            </span>
+          ))}
+        </div>
+      )}
     </header>
   );
 }

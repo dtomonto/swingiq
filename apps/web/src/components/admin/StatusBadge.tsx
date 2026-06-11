@@ -3,12 +3,22 @@
 
 import type { ReactNode } from 'react';
 
-export type BadgeTone = 'neutral' | 'success' | 'warning' | 'danger' | 'info' | 'accent';
+export type BadgeTone =
+  // Admin OS 4-level severity scale (+ healthy).
+  | 'critical' | 'warning' | 'watch' | 'routine' | 'healthy'
+  // Legacy tones — kept as aliases so existing callers don't break.
+  | 'neutral' | 'success' | 'danger' | 'info' | 'accent';
 
 const TONES: Record<BadgeTone, string> = {
+  // Severity scale
+  critical: 'bg-error/10 text-error-text border-error/30',
+  warning: 'bg-warning/12 text-warning-text border-warning/30',
+  watch: 'bg-primary/8 text-link border-primary/30',
+  routine: 'bg-success/10 text-success-text border-success/30',
+  healthy: 'bg-success/10 text-success-text border-success/30',
+  // Legacy aliases
   neutral: 'bg-muted text-foreground border-border',
   success: 'bg-success/10 text-success-text border-success/30',
-  warning: 'bg-warning/12 text-warning-text border-warning/30',
   danger: 'bg-error/10 text-error-text border-error/30',
   info: 'bg-primary/10 text-link border-primary/30',
   accent: 'bg-primary/10 text-link border-primary/30',

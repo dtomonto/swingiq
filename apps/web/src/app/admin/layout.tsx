@@ -16,7 +16,9 @@ import { isAdminUser } from '@/lib/auth/admin';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { getServerAdminRole } from '@/lib/admin/context';
 import { collectServerActions } from '@/lib/admin/action-center';
+import { getIntegrationStatuses } from '@/lib/admin/data/system';
 import { AdminShell } from '@/components/admin/AdminShell';
+import type { SystemStatusEntry } from '@/components/admin/AdminTopbar';
 
 export const metadata: Metadata = {
   title: 'Admin | SwingVantage',
@@ -62,8 +64,31 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     actionCount = 0;
   }
 
+  // System-pulse strip below the topbar — a compact, honest read of what's
+  // connected. Best-effort: never let it break the shell.
+  let systemStatus: SystemStatusEntry[] = [];
+  try {
+    const integrations = getIntegrationStatuses();
+    const connected = integrations.filter((i) => i.connected).length;
+    const total = integrations.length;
+    const db = integrations.find((i) => i.id === 'supabase');
+    const ai = integrations.find((i) => i.id === 'ai-coach');
+    const entries: SystemStatusEntry[] = [
+      {
+        name: 'Services',
+        value: `${connected}/${total}`,
+        state: connected === total ? 'ok' : connected >= total * 0.6 ? 'warn' : 'crit',
+      },
+    ];
+    if (db) entries.push({ name: 'Database', value: db.connected ? 'live' : 'local', state: db.connected ? 'ok' : 'warn' });
+    if (ai) entries.push({ name: 'AI', value: ai.connected ? 'on' : 'off', state: ai.connected ? 'ok' : 'warn' });
+    systemStatus = entries;
+  } catch {
+    systemStatus = [];
+  }
+
   return (
-    <AdminShell email={email} role={role} actionCount={actionCount}>
+    <AdminShell email={email} role={role} actionCount={actionCount} systemStatus={systemStatus}>
       {children}
     </AdminShell>
   );

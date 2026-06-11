@@ -9,11 +9,22 @@ export interface SectionCardProps {
   actions?: ReactNode;
   children: ReactNode;
   className?: string;
+  /**
+   * Shadow hierarchy: `elevated` (L2 summary), `card` (L3 trend, default),
+   * `flat` (L4 routine tile — border only).
+   */
+  level?: 'elevated' | 'card' | 'flat';
 }
 
-export function SectionCard({ title, description, actions, children, className }: SectionCardProps) {
+const LEVEL_SHADOW: Record<NonNullable<SectionCardProps['level']>, string> = {
+  elevated: 'shadow-elevated',
+  card: 'shadow-card',
+  flat: '',
+};
+
+export function SectionCard({ title, description, actions, children, className, level = 'card' }: SectionCardProps) {
   return (
-    <section className={`rounded-xl border border-border bg-card p-5 ${className ?? ''}`}>
+    <section className={`rounded-xl border border-border bg-card p-5 ${LEVEL_SHADOW[level]} ${className ?? ''}`}>
       {(title || actions) && (
         <div className="mb-3 flex items-start justify-between gap-3">
           <div>
