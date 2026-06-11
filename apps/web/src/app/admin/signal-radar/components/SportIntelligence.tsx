@@ -43,11 +43,11 @@ export function SportIntelligence({ signals, config, competitors, onOpenSignal }
             key={s}
             onClick={() => setSport(s)}
             className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-              sport === s ? 'bg-amber-500/15 text-amber-300' : 'text-gray-400 hover:bg-gray-800'
+              sport === s ? 'bg-primary/15 text-link' : 'text-muted-foreground hover:bg-muted'
             }`}
           >
             {SPORT_LABEL[s]}
-            <span className="rounded-full bg-gray-800 px-1.5 text-[10px] tabular-nums text-gray-400">{counts[s] ?? 0}</span>
+            <span className="rounded-full bg-muted px-1.5 text-[10px] tabular-nums text-muted-foreground">{counts[s] ?? 0}</span>
           </button>
         ))}
       </div>
@@ -79,8 +79,8 @@ export function SportIntelligence({ signals, config, competitors, onOpenSignal }
           <SectionCard title="Recommended next actions" description="What to do for this sport.">
             <ul className="space-y-1.5">
               {view.recommendedActions.map((a, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                  <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" /> {a}
+                <li key={i} className="flex items-start gap-2 text-sm text-foreground">
+                  <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-link" /> {a}
                 </li>
               ))}
             </ul>
@@ -101,13 +101,13 @@ function SignalList({ title, signals, onOpenSignal }: { title: string; signals: 
   return (
     <SectionCard title={title}>
       {signals.length === 0 ? (
-        <p className="text-xs text-gray-600">None.</p>
+        <p className="text-xs text-muted-foreground/70">None.</p>
       ) : (
         <ul className="space-y-2">
           {signals.map((s) => (
             <li key={s.id}>
-              <button onClick={() => onOpenSignal(s.id)} className="w-full rounded-lg border border-gray-800 bg-gray-950/40 p-2.5 text-left transition-colors hover:bg-gray-800/40">
-                <p className="line-clamp-2 text-xs text-gray-300">{s.title || s.cleanText}</p>
+              <button onClick={() => onOpenSignal(s.id)} className="w-full rounded-lg border border-border bg-background/40 p-2.5 text-left transition-colors hover:bg-muted">
+                <p className="line-clamp-2 text-xs text-foreground">{s.title || s.cleanText}</p>
                 <div className="mt-1.5"><SignalBadges signal={s} /></div>
               </button>
             </li>
