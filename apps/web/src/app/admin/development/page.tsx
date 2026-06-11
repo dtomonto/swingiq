@@ -11,7 +11,7 @@
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Telescope, ShieldCheck, Flag, ArrowRight } from 'lucide-react';
+import { Telescope, ShieldCheck, Flag, ArrowRight, ListTodo } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { HelpPanel } from '@/components/admin/HelpPanel';
@@ -21,6 +21,8 @@ import {
   ROADMAP_COACH_DISCLAIMER,
   COACHING_INTELLIGENCE_FLAGS,
   roadmapStatusCounts,
+  openFollowUpCount,
+  sectionsWithOpenFollowUps,
   type RoadmapStatus,
 } from '@/lib/admin/development-roadmap';
 import { findFlagDef } from '@/lib/admin/flags';
@@ -39,6 +41,8 @@ const STATUS_CHIP: Record<RoadmapStatus, string> = {
 
 export default function AdminDevelopmentPage() {
   const counts = roadmapStatusCounts();
+  const openFollowUps = openFollowUpCount();
+  const pending = sectionsWithOpenFollowUps();
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
@@ -57,8 +61,49 @@ export default function AdminDevelopmentPage() {
           <span className={`rounded-full border px-2.5 py-1 font-medium ${STATUS_CHIP.planned}`}>
             {counts.planned} planned
           </span>
+          <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-2.5 py-1 font-medium text-sky-300">
+            {openFollowUps} open follow-ups
+          </span>
         </div>
       </PageHeader>
+
+      {/* Open follow-ups overview — every unfinished initiative's remaining work,
+          grouped and jump-linked, so paused projects are never lost. */}
+      {pending.length > 0 && (
+        <SectionCard
+          title="Open follow-ups"
+          description="What's left on initiatives that aren't fully shipped yet. Grouped by project — click a heading to jump to its card."
+        >
+          <div className="grid gap-4 sm:grid-cols-2">
+            {pending.map((s) => (
+              <div key={s.id} className="rounded-lg border border-gray-800 bg-gray-950/40 p-3">
+                <a
+                  href={`#${s.id}`}
+                  className="flex items-center justify-between gap-2 text-sm font-semibold text-gray-100 hover:text-amber-400"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-gray-800 text-[11px] font-bold text-amber-400">
+                      {s.letter}
+                    </span>
+                    {s.title}
+                  </span>
+                  <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-medium ${STATUS_CHIP[s.status]}`}>
+                    {ROADMAP_STATUS_LABEL[s.status]}
+                  </span>
+                </a>
+                <ul className="mt-2 space-y-1">
+                  {s.followUps!.map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-xs text-gray-400">
+                      <ListTodo className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-400/70" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </SectionCard>
+      )}
 
       {/* The A–H initiative sections */}
       <div className="space-y-4">
@@ -117,6 +162,22 @@ export default function AdminDevelopmentPage() {
                   </Link>
                 )}
               </div>
+
+              {s.followUps && s.followUps.length > 0 && (
+                <div className="rounded-lg border border-sky-500/20 bg-sky-500/5 p-3">
+                  <p className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-sky-300">
+                    <ListTodo className="h-3.5 w-3.5" /> Open follow-ups ({s.followUps.length})
+                  </p>
+                  <ul className="space-y-1 text-xs text-sky-200/80">
+                    {s.followUps.map((f) => (
+                      <li key={f} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-sky-400/70" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </SectionCard>
         ))}
