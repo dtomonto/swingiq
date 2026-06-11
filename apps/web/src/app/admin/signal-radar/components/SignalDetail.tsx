@@ -46,11 +46,12 @@ function whyItMatters(c: SignalClassification): string {
 }
 
 export function SignalDetail({
-  signal, conversions, readOnly, actor, onClose, onSetStatus, onAddNote, onOverride, onConvert, onRemove,
+  signal, conversions, readOnly, ingested, actor, onClose, onSetStatus, onAddNote, onOverride, onConvert, onRemove, onAdopt,
 }: {
   signal: Signal;
   conversions: SignalConversion[];
   readOnly: boolean;
+  ingested?: boolean;
   actor: string;
   onClose: () => void;
   onSetStatus: (id: string, status: SignalStatus, opts?: { reason?: string }) => void;
@@ -58,12 +59,16 @@ export function SignalDetail({
   onOverride: (id: string, patch: Partial<SignalClassification>) => void;
   onConvert: (id: string, kind: ConversionKind) => SignalConversion | null;
   onRemove: (id: string) => void;
+  onAdopt?: (signal: Signal) => void;
 }) {
   const [note, setNote] = useState('');
   const c = signal.classification;
+  // Ingested signals (durable webhook feed) are read-only until adopted
+  // into local state, exactly like sample data.
+  const locked = readOnly || Boolean(ingested);
 
   const statusBtn = (status: SignalStatus, tone: 'default' | 'primary' | 'danger' = 'default') => (
-    <Btn size="sm" tone={tone} disabled={readOnly} onClick={() => onSetStatus(signal.id, status)}>{STATUS_LABEL[status]}</Btn>
+    <Btn size="sm" tone={tone} disabled={locked} onClick={() => onSetStatus(signal.id, status)}>{STATUS_LABEL[status]}</Btn>
   );
 
   return (
@@ -83,6 +88,13 @@ export function SignalDetail({
           {readOnly && (
             <div className="rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-xs text-link">
               This is sample data — actions are disabled. Add a real signal to triage and convert.
+            </div>
+          )}
+
+          {ingested && !readOnly && (
+            <div className="flex items-center justify-between gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-xs text-link">
+              <span>Ingested via webhook — adopt it to triage, convert and add notes.</span>
+              {onAdopt && <Btn size="sm" tone="primary" onClick={() => onAdopt(signal)}>Adopt</Btn>}
             </div>
           )}
 
@@ -134,10 +146,10 @@ export function SignalDetail({
               Classification {c.method === 'manual_override' ? '(operator override)' : '(rules)'}
             </p>
             <div className="grid grid-cols-2 gap-2">
-              <Reclass label="Sentiment" value={c.sentiment} options={SENTIMENTS} labels={SENTIMENT_LABEL} disabled={readOnly} onChange={(v) => onOverride(signal.id, { sentiment: v })} />
-              <Reclass label="Intent" value={c.intent} options={INTENTS} labels={INTENT_LABEL} disabled={readOnly} onChange={(v) => onOverride(signal.id, { intent: v })} />
-              <Reclass label="Sport" value={c.sport} options={SPORTS} labels={SPORT_LABEL} disabled={readOnly} onChange={(v) => onOverride(signal.id, { sport: v })} />
-              <Reclass label="Urgency" value={c.urgency} options={URGENCIES} labels={URGENCY_LABEL} disabled={readOnly} onChange={(v) => onOverride(signal.id, { urgency: v })} />
+              <Reclass label="Sentiment" value={c.sentiment} options={SENTIMENTS} labels={SENTIMENT_LABEL} disabled={locked} onChange={(v) => onOverride(signal.id, { sentiment: v })} />
+              <Reclass label="Intent" value={c.intent} options={INTENTS} labels={INTENT_LABEL} disabled={locked} onChange={(v) => onOverride(signal.id, { intent: v })} />
+              <Reclass label="Sport" value={c.sport} options={SPORTS} labels={SPORT_LABEL} disabled={locked} onChange={(v) => onOverride(signal.id, { sport: v })} />
+              <Reclass label="Urgency" value={c.urgency} options={URGENCIES} labels={URGENCY_LABEL} disabled={locked} onChange={(v) => onOverride(signal.id, { urgency: v })} />
             </div>
             <p className="mt-2 text-xs text-muted-foreground">Audience: {AUDIENCE_LABEL[c.audience]}</p>
             {c.rationale.length > 0 && (
@@ -155,7 +167,7 @@ export function SignalDetail({
               {statusBtn('in_progress')}
               {statusBtn('responded')}
               {statusBtn('archived')}
-              <Btn size="sm" tone="danger" disabled={readOnly} onClick={() => onSetStatus(signal.id, 'ignored', { reason: 'Marked as noise' })}>Ignore</Btn>
+              <Btn size="sm" tone="danger" disabled={locked} onClick={() => onSetStatus(signal.id, 'ignored', { reason: 'Marked as noise' })}>Ignore</Btn>
             </div>
           </section>
 
@@ -164,7 +176,7 @@ export function SignalDetail({
             <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Convert to action</p>
             <div className="flex flex-wrap gap-2">
               {CONVERSIONS.map(({ kind, icon: Icon }) => (
-                <Btn key={kind} size="sm" disabled={readOnly} onClick={() => onConvert(signal.id, kind)}>
+                <Btn key={kind} size="sm" disabled={locked} onClick={() => onConvert(signal.id, kind)}>
                   <Icon className="h-3.5 w-3.5" /> {CONVERSION_LABEL[kind]}
                 </Btn>
               ))}
@@ -204,7 +216,7 @@ export function SignalDetail({
                 ))}
               </ul>
             )}
-            {!readOnly && (
+            {!locked && (
               <div className="flex gap-2">
                 <input value={note} onChange={(e) => setNote(e.target.value)} placeholder={`Add a note as ${actor}…`} className={INPUT_CLS}
                   onKeyDown={(e) => { if (e.key === 'Enter' && note.trim()) { onAddNote(signal.id, note); setNote(''); } }} />
@@ -213,7 +225,7 @@ export function SignalDetail({
             )}
           </section>
 
-          {!readOnly && (
+          {!locked && (
             <div className="border-t border-border pt-3">
               <Btn size="sm" tone="danger" onClick={() => onRemove(signal.id)}><Trash2 className="h-3.5 w-3.5" /> Delete signal</Btn>
             </div>

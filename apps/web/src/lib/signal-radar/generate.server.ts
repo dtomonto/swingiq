@@ -13,22 +13,30 @@ import 'server-only';
 
 import { resolveAdapterStatuses, summarizeAdapters, type AdapterHealthSummary } from './adapters';
 import { demoSignals } from './sample-data';
+import { isSignalIngestEnabled, listIngestedSignals } from './ingest.server';
 import type { AdapterStatus, Signal } from './types';
 
 export interface SignalRadarServerData {
   adapters: AdapterStatus[];
   adapterSummary: AdapterHealthSummary;
   sampleSignals: Signal[];
+  /** Durable signals fed by the webhook (empty when ingest is keyless/off). */
+  ingestedSignals: Signal[];
+  ingestEnabled: boolean;
   generatedAt: string;
 }
 
-export function generateSignalRadarData(): SignalRadarServerData {
+export async function generateSignalRadarData(): Promise<SignalRadarServerData> {
   const now = new Date().toISOString();
   const adapters = resolveAdapterStatuses(process.env as Record<string, string | undefined>);
+  const ingestEnabled = isSignalIngestEnabled();
+  const ingestedSignals = ingestEnabled ? await listIngestedSignals() : [];
   return {
     adapters,
     adapterSummary: summarizeAdapters(adapters),
     sampleSignals: demoSignals(now),
+    ingestedSignals,
+    ingestEnabled,
     generatedAt: now,
   };
 }

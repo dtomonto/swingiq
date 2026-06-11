@@ -185,6 +185,8 @@ export interface Signal extends NormalizedSignal {
   notes: SignalNote[];
   createdAt: string;
   updatedAt: string;
+  /** True when read from the durable webhook-ingest store (not local yet). */
+  ingested?: boolean;
 }
 
 export interface SignalNote {

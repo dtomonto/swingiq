@@ -23,7 +23,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function SignalRadarPage() {
   const ctx = await requireSignalRadarAccess();
-  const data = generateSignalRadarData();
+  const data = await generateSignalRadarData();
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
@@ -41,6 +41,8 @@ export default async function SignalRadarPage() {
         adapters={data.adapters}
         adapterSummary={data.adapterSummary}
         sampleSignals={data.sampleSignals}
+        ingestedSignals={data.ingestedSignals}
+        ingestEnabled={data.ingestEnabled}
         generatedAt={data.generatedAt}
       />
 

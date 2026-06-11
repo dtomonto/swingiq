@@ -15,6 +15,7 @@ import { buildDashboard } from '@/lib/signal-radar/engine';
 import { buildCompetitorInsights } from '@/lib/signal-radar/competitors';
 import { buildStrategyBrief } from '@/lib/signal-radar/strategy';
 import { applyAlertRules } from '@/lib/signal-radar/alerts';
+import { mergeIngested } from '@/lib/signal-radar/ingest';
 import { Btn } from './components/ui';
 import { Overview } from './components/Overview';
 import { SignalInbox } from './components/SignalInbox';
@@ -32,6 +33,8 @@ export interface SignalRadarAppProps {
   adapters: AdapterStatus[];
   adapterSummary: AdapterHealthSummary;
   sampleSignals: Signal[];
+  ingestedSignals: Signal[];
+  ingestEnabled: boolean;
   generatedAt: string;
 }
 
@@ -54,9 +57,16 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [addOpen, setAddOpen] = useState(false);
 
-  const hasReal = sr.signals.length > 0;
+  // Operator's local signals merged with durable webhook-ingested ones
+  // (dedup by fingerprint, local wins). Ingested-only entries are flagged
+  // for read-only display until adopted.
+  const realSignals = useMemo(
+    () => mergeIngested(sr.signals, props.ingestedSignals),
+    [sr.signals, props.ingestedSignals],
+  );
+  const hasReal = realSignals.length > 0;
   const usingSample = sr.ready && !hasReal;
-  const signals = hasReal ? sr.signals : props.sampleSignals;
+  const signals = hasReal ? realSignals : props.sampleSignals;
 
   const dashboard = useMemo(() => buildDashboard(signals, sr.config), [signals, sr.config]);
   const competitorInsights = useMemo(
@@ -165,6 +175,7 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
           signal={selected}
           conversions={conversionsForSelected}
           readOnly={Boolean(selected.isSeed)}
+          ingested={Boolean(selected.ingested)}
           actor={sr.actor}
           onClose={() => setSelectedId(null)}
           onSetStatus={sr.setStatus}
@@ -172,6 +183,7 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
           onOverride={sr.overrideClassification}
           onConvert={sr.convertSignal}
           onRemove={(id) => { sr.removeSignal(id); setSelectedId(null); }}
+          onAdopt={(s) => sr.adoptSignal(s)}
         />
       )}
 

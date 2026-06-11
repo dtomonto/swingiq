@@ -91,6 +91,7 @@ export interface SignalRadarState {
   overrideClassification: (id: string, patch: Partial<SignalClassification>) => void;
   convertSignal: (id: string, kind: ConversionKind) => SignalConversion | null;
   removeSignal: (id: string) => void;
+  adoptSignal: (signal: Signal) => void;
   reprocessAll: () => void;
 
   updateConfig: (patch: Partial<SignalRadarConfig>) => void;
@@ -254,6 +255,16 @@ export function useSignalRadar(initialActor = 'admin'): SignalRadarState {
     setSignals((prev) => prev.filter((s) => s.id !== id));
   }, []);
 
+  // Copy a durable webhook-ingested signal into local state so it can be
+  // triaged/converted like any other. Idempotent (by fingerprint).
+  const adoptSignal = useCallback((signal: Signal) => {
+    setSignals((prev) => {
+      if (prev.some((s) => s.fingerprint === signal.fingerprint)) return prev;
+      const { ingested: _ingested, ...rest } = signal;
+      return [{ ...rest, updatedAt: nowIso() }, ...prev];
+    });
+  }, []);
+
   const reprocessAll = useCallback(() => {
     const now = nowIso();
     setSignals((prev) =>
@@ -299,7 +310,7 @@ export function useSignalRadar(initialActor = 'admin'): SignalRadarState {
     ready, actor, setActor,
     signals, config, configOverrides, competitors, aiTests, conversions, dismissedAlertIds,
     addManualSignal, importSignals, setStatus, addNote, overrideClassification,
-    convertSignal, removeSignal, reprocessAll,
+    convertSignal, removeSignal, adoptSignal, reprocessAll,
     updateConfig, resetConfig, setCompetitors,
     upsertAiTest, removeAiTest, updateConversion,
     dismissAlert, clearDismissedAlerts,

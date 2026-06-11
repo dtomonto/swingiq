@@ -115,6 +115,7 @@ export function SignalBadges({ signal, showStatus }: { signal: Signal; showStatu
       <StatusBadge tone={URGENCY_TONE[c.urgency]}>{URGENCY_LABEL[c.urgency]}</StatusBadge>
       {showStatus && <StatusBadge tone="neutral">{STATUS_LABEL[signal.status]}</StatusBadge>}
       {signal.isSeed && <StatusBadge tone="warning">Sample</StatusBadge>}
+      {signal.ingested && <StatusBadge tone="info">Ingested</StatusBadge>}
     </div>
   );
 }
