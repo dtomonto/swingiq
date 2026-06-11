@@ -66,9 +66,18 @@ fs.writeFileSync(cfgFile,
   `header = "Content-Type: application/json"\n` +
   `data = "@${bodyPath.replace(/\\/g, '/')}"\n` +
   `silent\nfail-with-body\nmax-time = 120\n`);
-try { execFileSync('curl', ['-K', cfgFile, '-o', VO], { stdio: ['ignore', 'ignore', 'ignore'] }); } catch { /* checked below */ }
+// Retry: the curl→OpenAI call is occasionally flaky here and can produce an
+// empty file on the first try (record-batch / record-library already retry 3×).
+// A single transient miss must not kill the whole welcome render.
+let ok = false;
+for (let attempt = 1; attempt <= 3 && !ok; attempt++) {
+  rmSync(VO, { force: true });
+  try { execFileSync('curl', ['-K', cfgFile, '-o', VO], { stdio: ['ignore', 'ignore', 'ignore'] }); } catch { /* transient — retry */ }
+  ok = existsSync(VO) && fs.statSync(VO).size >= 1000;
+  if (!ok && attempt < 3) console.log(`  tts retry ${attempt}…`);
+}
 rmSync(cfgFile, { force: true });
-if (!existsSync(VO) || fs.statSync(VO).size < 1000) throw new Error('TTS produced no/empty audio at ' + VO);
+if (!ok) throw new Error('TTS produced no/empty audio at ' + VO + ' (after 3 attempts)');
 console.log('voiceover written:', VO, `(${fs.statSync(VO).size} bytes)`);
 
 // ffmpeg prints info to stderr and exits non-zero with just -i; capture safely.

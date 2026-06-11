@@ -25,7 +25,7 @@
 import { chromium } from 'playwright';
 import ffmpegPath from 'ffmpeg-static';
 import { execFileSync } from 'node:child_process';
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, statSync, copyFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LIBRARY_CONFIG } from './library-config.mjs';
@@ -232,9 +232,23 @@ async function recordOne(id) {
     '-c:v', 'libx264', '-preset', 'slow', '-crf', '30', '-pix_fmt', 'yuv420p',
     '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', outMp4], { stdio: 'ignore' });
 
-  const posterAt = Math.min(3, Math.max(1, (vDur || 4) / 3));
-  execFileSync(FF, ['-y', '-loglevel', 'error', '-ss', String(posterAt), '-i', outMp4,
-    '-frames:v', '1', '-q:v', '3', join(OUT, `${id}-poster.jpg`)]);
+  // Poster. A fixed early offset is unsafe: the first route can still be
+  // compiling/rendering (blank near-black frame), which is how heavy pages
+  // (motion-lab, /drills, /sessions/import) shipped ~5.6KB blank posters.
+  // Sample several offsets deeper into the clip and keep the frame with the
+  // most content (largest JPEG — a flat/blank frame compresses to ~5-6KB).
+  const posterPath = join(OUT, `${id}-poster.jpg`);
+  const dur = probeSeconds(outMp4) || vDur || 12;
+  let best = null, bestSize = 0;
+  for (const frac of [0.4, 0.55, 0.7, 0.85]) {
+    const cand = join(WORK, `${id}-poster-${frac}.jpg`);
+    execFileSync(FF, ['-y', '-loglevel', 'error', '-ss', (dur * frac).toFixed(1), '-i', outMp4,
+      '-frames:v', '1', '-q:v', '3', cand]);
+    const size = existsSync(cand) ? statSync(cand).size : 0;
+    if (size > bestSize) { bestSize = size; best = cand; }
+  }
+  if (best) copyFileSync(best, posterPath);
+  if (bestSize < 15000) console.log(`  !! poster for ${id} looks blank (${bestSize}B) — check the recording`);
 
   // Captions track from the narration lines, timed to the voice.
   writeVtt(join(OUT, `${id}.vtt`), cfg.lines, aDur);
