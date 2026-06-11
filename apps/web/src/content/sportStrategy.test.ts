@@ -30,6 +30,8 @@ describe('sportStrategy (current shipped config)', () => {
       'fast-pitch',
       'softball',
       'tennis',
+      'pickleball',
+      'padel',
     ]);
   });
 
@@ -38,10 +40,13 @@ describe('sportStrategy (current shipped config)', () => {
     expect(primaryPersonaIds()).toContain('tennis');
   });
 
-  it('treats pickleball and padel as secondary', () => {
-    expect(effectiveTier('pickleball')).toBe('secondary');
-    expect(effectiveTier('padel')).toBe('secondary');
-    expect(secondaryPersonaIds()).toEqual(['pickleball', 'padel']);
+  it('treats pickleball and padel as primary headline sports', () => {
+    expect(effectiveTier('pickleball')).toBe('primary');
+    expect(effectiveTier('padel')).toBe('primary');
+    expect(primaryPersonaIds()).toContain('pickleball');
+    expect(primaryPersonaIds()).toContain('padel');
+    // All 7 sports now lead — nothing left in the secondary "Also analyze" row.
+    expect(secondaryPersonaIds()).toEqual([]);
   });
 
   it('produces no duplicate destinations across visible personas', () => {
