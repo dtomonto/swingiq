@@ -79,19 +79,30 @@ function influenceMultiplierFor(
 /**
  * Re-rank DrillMatch output through the coach mix. Pure and deterministic;
  * returns at most MAX_USER_DRILLS, highest coach-weighted score first.
+ *
+ * `feedbackWeights` (drillId → multiplier, default none) folds in the athlete's
+ * OWN past verdicts: a drill they marked "hurt" sinks, "helped" rises. Built by
+ * agi/adapters/feedback-map.drillFeedbackWeights — passing nothing preserves the
+ * prior behaviour exactly.
  */
 export function biasRankedDrills(
   ranked: RankedDrill[],
   strategy: CoachingStrategy,
   limit: number = MAX_USER_DRILLS,
+  feedbackWeights: Record<string, number> = {},
 ): CoachInfluencedDrill[] {
   const influenced = ranked.map((r) => {
     const { multiplier, matchedCategory } = influenceMultiplierFor(r.drill, strategy);
-    const coachScore = Math.round(r.score * multiplier);
+    const feedback = feedbackWeights[r.drill.id] ?? 1;
+    const coachScore = Math.round(r.score * multiplier * feedback);
     const why =
-      multiplier > 1 && matchedCategory
-        ? `Favored by your coach mix — it builds "${matchedCategory}", which fits ${strategy.influenceSummary.replace(/^This recommendation is influenced by /, 'your ').replace(/\.$/, '')}.`
-        : `A solid match for your current priority${r.directHit ? ' (directly targets the diagnosed fault)' : ''}.`;
+      feedback < 0.95
+        ? 'Shown lower because your past feedback said it didn’t help — kept here as an option.'
+        : feedback > 1.05
+          ? 'Boosted because you told us this one helped you before.'
+          : multiplier > 1 && matchedCategory
+            ? `Favored by your coach mix — it builds "${matchedCategory}", which fits ${strategy.influenceSummary.replace(/^This recommendation is influenced by /, 'your ').replace(/\.$/, '')}.`
+            : `A solid match for your current priority${r.directHit ? ' (directly targets the diagnosed fault)' : ''}.`;
     return {
       drill: r.drill,
       baseScore: r.score,
@@ -123,8 +134,9 @@ export function buildCuratedRecommendation(
   input: CuratedRecommendationInput,
   strategy: CoachingStrategy,
   ranked: RankedDrill[],
+  feedbackWeights: Record<string, number> = {},
 ): CuratedRecommendation {
-  const drills = biasRankedDrills(ranked, strategy);
+  const drills = biasRankedDrills(ranked, strategy, MAX_USER_DRILLS, feedbackWeights);
   const first = drills[0] ?? null;
 
   return {

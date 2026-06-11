@@ -19,7 +19,8 @@
 import { useMemo, useState } from 'react';
 import { Sparkles, Eye, Play, Bookmark, RefreshCw, CheckCircle2, XCircle, Target } from 'lucide-react';
 import type { SportId } from '@swingiq/core';
-import { rankDrills } from '@/lib/drillmatch';
+import { rankDrills, localDrillFeedbackRepo } from '@/lib/drillmatch';
+import { drillFeedbackWeights } from '@/lib/agi/adapters/feedback-map';
 import { buildCuratedRecommendation } from '@/lib/central-intelligence/coach-mix';
 import { resolveUserStyleStrategy } from '@/lib/central-intelligence/coach-mix/user-styles';
 import { useUserCoachingStyle } from '@/lib/central-intelligence/coach-mix/user-preferences';
@@ -57,11 +58,13 @@ function DashboardCuratedDrillsInner({
   const strategy = useMemo(() => resolveUserStyleStrategy(styleId, sport), [styleId, sport]);
 
   const topIssue = faultLabel ?? (faultId ? faultId.replace(/_/g, ' ') : null);
+  // The athlete's own drill verdicts re-weight ranking (helped ↑, hurt ↓).
+  const feedbackWeights = useMemo(() => drillFeedbackWeights(localDrillFeedbackRepo.all()), []);
   const rec = useMemo(() => {
     if (!topIssue) return null;
     const ranked = rankDrills({ sport, faultId, faultName: faultLabel });
-    return buildCuratedRecommendation({ topIssue, whyItMatters }, strategy, ranked);
-  }, [sport, faultId, faultLabel, topIssue, whyItMatters, strategy]);
+    return buildCuratedRecommendation({ topIssue, whyItMatters }, strategy, ranked, feedbackWeights);
+  }, [sport, faultId, faultLabel, topIssue, whyItMatters, strategy, feedbackWeights]);
 
   const setAction = (id: string, action: DrillAction) =>
     setActions((a) => ({ ...a, [id]: a[id] === action ? undefined : action } as Record<string, DrillAction>));

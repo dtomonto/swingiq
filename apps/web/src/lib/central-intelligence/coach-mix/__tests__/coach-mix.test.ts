@@ -5,6 +5,7 @@
 // ============================================================
 
 import type { RankedDrill } from '@/lib/drillmatch';
+import { drillFeedbackWeights } from '@/lib/agi/adapters/feedback-map';
 import {
   COACH_MIX_DISCLAIMER,
   MAX_USER_DRILLS,
@@ -269,5 +270,46 @@ describe('Coach Mix — recommendation integration', () => {
     expect(rec.howToRetest.length).toBeGreaterThan(0);
     expect(rec.influenceSummary).toBe(strategy.influenceSummary);
     expect(rec.coachNamesVisible).toBe(false);
+  });
+
+  // P1 — the athlete's own drill verdicts re-weight ranking.
+  it('drops a "hurt"-marked drill below a lower-base drill (down-weight)', () => {
+    // Neutral families → coach multiplier 1, so feedback is the only lever.
+    const ranked = [rankedDrill('a', ['putting'], 70), rankedDrill('b', ['grip'], 50)];
+
+    const before = biasRankedDrills(ranked, strategy);
+    expect(before[0].drill.id).toBe('a'); // 70 > 50 with no feedback
+
+    const weights = drillFeedbackWeights([
+      { drillId: 'a', faultId: 'early_extension', sport: 'golf', value: 'hurt' },
+    ]);
+    const after = biasRankedDrills(ranked, strategy, MAX_USER_DRILLS, weights);
+    expect(after[0].drill.id).toBe('b'); // a sank below b
+    const aBefore = before.find((d) => d.drill.id === 'a')!;
+    const aAfter = after.find((d) => d.drill.id === 'a')!;
+    expect(aAfter.coachScore).toBeLessThan(aBefore.coachScore);
+    expect(aAfter.why).toMatch(/didn’t help|did not help/i);
+  });
+});
+
+describe('Coach Mix — drillFeedbackWeights', () => {
+  it('penalizes hurt/no_change and boosts helped, bounded to [0.2, 1.5]', () => {
+    const w = drillFeedbackWeights([
+      { drillId: 'hurt1', faultId: 'f', sport: 'golf', value: 'hurt' },
+      { drillId: 'nc1', faultId: 'f', sport: 'golf', value: 'no_change' },
+      { drillId: 'help1', faultId: 'f', sport: 'golf', value: 'helped' },
+    ]);
+    expect(w.hurt1).toBeLessThan(1);
+    expect(w.nc1).toBeLessThan(1);
+    expect(w.nc1).toBeGreaterThan(w.hurt1); // hurt penalized harder
+    expect(w.help1).toBeGreaterThan(1);
+    for (const v of Object.values(w)) {
+      expect(v).toBeGreaterThanOrEqual(0.2);
+      expect(v).toBeLessThanOrEqual(1.5);
+    }
+  });
+
+  it('returns an empty map for no feedback (no behaviour change)', () => {
+    expect(drillFeedbackWeights([])).toEqual({});
   });
 });

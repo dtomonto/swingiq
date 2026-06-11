@@ -16,7 +16,8 @@
 import { useMemo, useState } from 'react';
 import { Play, Bookmark, CheckCircle2, XCircle, RefreshCw, Sparkles } from 'lucide-react';
 import type { SportId } from '@swingiq/core';
-import { rankDrills } from '@/lib/drillmatch';
+import { rankDrills, localDrillFeedbackRepo } from '@/lib/drillmatch';
+import { drillFeedbackWeights } from '@/lib/agi/adapters/feedback-map';
 import { useAgentContext } from '@/hooks/useAgentContext';
 import {
   isCoachMixUserModuleEnabled,
@@ -75,11 +76,14 @@ function CuratedSwingDrillsInner({ sport: sportProp, faultId, faultLabel, whyItM
     return resolveCoachMix({ ...mix, sport }, profiles);
   }, [data, sport]);
 
+  // The athlete's own drill verdicts re-weight ranking (helped ↑, hurt ↓).
+  const feedbackWeights = useMemo(() => drillFeedbackWeights(localDrillFeedbackRepo.all()), []);
+
   const rec = useMemo(() => {
     if (!topIssue) return null;
     const ranked = rankDrills({ sport, faultId, faultName, skillLevel });
-    return buildCuratedRecommendation({ topIssue, whyItMatters }, strategy, ranked);
-  }, [sport, faultId, faultName, topIssue, skillLevel, whyItMatters, strategy]);
+    return buildCuratedRecommendation({ topIssue, whyItMatters }, strategy, ranked, feedbackWeights);
+  }, [sport, faultId, faultName, topIssue, skillLevel, whyItMatters, strategy, feedbackWeights]);
 
   // Honest: with no diagnosis yet, show nothing rather than a placeholder fix.
   if (!rec || !rec.firstDrill) return null;

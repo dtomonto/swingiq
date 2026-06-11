@@ -48,3 +48,27 @@ export function provenDrillsFrom(
   }
   return out.sort((a, b) => b.helpedCount - a.helpedCount);
 }
+
+/**
+ * Per-drill ranking multiplier from the athlete's OWN verdicts — the learning
+ * signal the audit flagged as collected-but-unused. A drill they marked "hurt"
+ * is strongly down-weighted, "no_change" mildly down-weighted, "helped" slightly
+ * boosted. 1.0 = no opinion. Bounded to [0.2, 1.5], pure + deterministic.
+ * Honest: this is the user's own experience, not a population claim.
+ */
+export function drillFeedbackWeights(records: RawDrillFeedback[]): Record<string, number> {
+  const counts = new Map<string, { helped: number; no_change: number; hurt: number }>();
+  for (const r of records) {
+    const c = counts.get(r.drillId) ?? { helped: 0, no_change: 0, hurt: 0 };
+    if (r.value === 'helped') c.helped += 1;
+    else if (r.value === 'no_change') c.no_change += 1;
+    else if (r.value === 'hurt') c.hurt += 1;
+    counts.set(r.drillId, c);
+  }
+  const out: Record<string, number> = {};
+  for (const [drillId, c] of counts) {
+    const w = 1 + 0.15 * c.helped - 0.3 * c.no_change - 0.6 * c.hurt;
+    out[drillId] = Math.max(0.2, Math.min(1.5, Math.round(w * 1000) / 1000));
+  }
+  return out;
+}
