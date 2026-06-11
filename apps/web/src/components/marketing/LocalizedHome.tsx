@@ -447,15 +447,30 @@ function AnalysisReportCard() {
       {/* Drill tiles */}
       <div className="mt-4 grid grid-cols-3 gap-3">
         {[
-          { icon: Target, label: 'Wall Drill' },
-          { icon: Activity, label: 'Tempo Sync' },
-          { icon: User, label: 'Profile' },
-        ].map(({ icon: Icon, label }) => (
-          <div key={label} className="rounded-lg border border-border bg-secondary p-3 text-center">
-            <Icon size={18} className="mx-auto text-primary" aria-hidden="true" />
-            <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-          </div>
-        ))}
+          { icon: Target, label: 'Wall Drill', href: undefined },
+          { icon: Activity, label: 'Tempo Sync', href: '/tools/swing-tempo-trainer' },
+          { icon: User, label: 'Profile', href: undefined },
+        ].map(({ icon: Icon, label, href }) => {
+          const inner = (
+            <>
+              <Icon size={18} className="mx-auto text-primary" aria-hidden="true" />
+              <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+            </>
+          );
+          return href ? (
+            <Link
+              key={label}
+              href={href}
+              className="rounded-lg border border-border bg-secondary p-3 text-center transition-colors hover:border-primary/50 hover:bg-primary/10"
+            >
+              {inner}
+            </Link>
+          ) : (
+            <div key={label} className="rounded-lg border border-border bg-secondary p-3 text-center">
+              {inner}
+            </div>
+          );
+        })}
       </div>
 
       {/* Tracking panel */}

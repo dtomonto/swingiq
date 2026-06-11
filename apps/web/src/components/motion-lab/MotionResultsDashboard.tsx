@@ -25,6 +25,7 @@ import { CameraQualityCheck } from './CameraQualityCheck';
 import { ImplementPathCard } from './ImplementPathCard';
 import { KineticChainCard } from './KineticChainCard';
 import { TemporalCard } from './TemporalCard';
+import { TempoSyncTrainer } from '@/components/tempo-sync/TempoSyncTrainer';
 import { ContinuousMovementSummary } from './ContinuousMovementSummary';
 import { RetestProtocolCard } from './RetestProtocolCard';
 import { AnalysisDebugPanel } from './AnalysisDebugPanel';
@@ -259,6 +260,9 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
             <KineticChainCard chain={session.kineticChain} accent={accent} />
           )}
           {session.temporal && <TemporalCard temporal={session.temporal} accent={accent} />}
+          {session.temporal && session.temporal.tempoRatio != null && (
+            <TempoSyncTrainer temporal={session.temporal} variant="embedded" accent={accent} />
+          )}
         </div>
       )}
       {tab === 'metrics' && <MetricsPanel metrics={session.metrics} />}
