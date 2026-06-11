@@ -4,9 +4,23 @@ import { test, expect } from '@playwright/test';
 // deterministic (no getUserMedia needed) — it exercises routing, the feature
 // gate, the sport/preset engine, voice controls, and the transition into the
 // camera-permission panel. Live pose + recording are covered by the engine
-// unit tests (62) and validated via the admin QA simulator.
+// unit tests and validated via the admin QA simulator.
 test.describe('RecordAssist — guided recording entry', () => {
   test.beforeEach(async ({ page }) => {
+    // Suppress the floating guide companion, whose auto-opened bubble overlays
+    // page content and intercepts clicks on the action buttons. Seeding its
+    // localStorage (key swingiq-guide-v1) with hidden:true before load is
+    // deterministic — no racing an async overlay. See lib/guide/storage.ts.
+    await page.addInitScript(() => {
+      try {
+        window.localStorage.setItem(
+          'swingiq-guide-v1',
+          JSON.stringify({ version: 1, autoOpen: false, seenPages: [], hidden: true }),
+        );
+      } catch {
+        /* storage unavailable — test will just dismiss overlays the slow way */
+      }
+    });
     await page.goto('/record-assist');
   });
 
@@ -40,7 +54,9 @@ test.describe('RecordAssist — guided recording entry', () => {
     // Capture phase opens with the camera-permission panel (idle, no getUserMedia
     // required to assert this state).
     await expect(page.getByRole('button', { name: /enable camera/i })).toBeVisible();
-    await expect(page.getByText(/we’ll help you get in frame|help you get in frame/i)).toBeVisible();
+    // Target the panel heading specifically — the same copy also appears as a
+    // subtitle paragraph, so a bare getByText would be ambiguous (strict mode).
+    await expect(page.getByRole('heading', { name: /we’ll help you get in frame/i })).toBeVisible();
   });
 
   test('switching sport updates the available actions', async ({ page }) => {
