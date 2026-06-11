@@ -2,19 +2,17 @@
 // SwingVantage — Design V2 feature flag
 //
 // The redesign (token axes + new component variants + restyled
-// surfaces) mounts behind this flag until the Phase 8 GA flip, so
-// every phase is additive and reversible: flag OFF restores the
-// shipped UI exactly.
+// surfaces) shipped behind this flag, phase by phase. As of the Phase 8
+// GA flip it is the DEFAULT experience; the flag is kept as a reversible
+// rollback switch (set the env or a cookie to `0`).
 //
 // Precedence (highest first):
-//   1. Per-request cookie override  `sv_design_v2=1|0` (cohort testing
-//      and the staged 10% → 50% → 100% rollout drive this).
-//   2. Build/runtime env            `NEXT_PUBLIC_DESIGN_V2=1`.
-//   3. Default OFF.
+//   1. Per-request cookie override  `sv_design_v2=1|0` (per-browser opt-in/out).
+//   2. Build/runtime env            `NEXT_PUBLIC_DESIGN_V2=0` to roll back.
+//   3. Default ON (GA).
 //
 // Pure + dependency-free so it runs on the server (cookie string),
-// the client (document.cookie), and in tests. Mirrors the keyless,
-// off-until-enabled pattern used across the app (see capabilities.ts).
+// the client (document.cookie), and in tests.
 // ============================================================
 
 export const DESIGN_V2_COOKIE = 'sv_design_v2';
@@ -31,15 +29,21 @@ function parseFlag(value: string | null | undefined): boolean | null {
   return null;
 }
 
-/** Is the redesign enabled from the environment alone (no cookie override)? */
+/**
+ * Is the redesign enabled from the environment alone (no cookie override)?
+ *
+ * GA (Phase 8): the redesign is now the DEFAULT experience — ON unless
+ * explicitly disabled. `NEXT_PUBLIC_DESIGN_V2=0` (or `false`/`off`/`no`) is the
+ * deploy-wide rollback switch; unset or any truthy value keeps it ON.
+ */
 export function designV2EnabledFromEnv(): boolean {
-  return parseFlag(process.env.NEXT_PUBLIC_DESIGN_V2) === true;
+  return parseFlag(process.env.NEXT_PUBLIC_DESIGN_V2) !== false;
 }
 
 /**
- * Resolve the Design V2 flag. A recognized cookie value WINS over the env
- * (so an operator/cohort can opt a browser in or out regardless of the
- * deploy-wide default); otherwise the env decides; otherwise OFF.
+ * Resolve the Design V2 flag. A recognized cookie value WINS over the env (so a
+ * browser can opt out — `sv_design_v2=0` — or back in regardless of the deploy
+ * default); otherwise the env decides; the env default is now ON (GA).
  *
  * @param cookieValue the raw value of the `sv_design_v2` cookie, if any.
  */

@@ -100,9 +100,13 @@ Every variant/new component has Storybook stories.
 `NEXT_PUBLIC_DESIGN_V2` gates every visual treatment. Resolution
 (`src/lib/design-v2.ts`), highest precedence first:
 
-1. Per-request cookie `sv_design_v2=1|0` — cohort testing + the staged rollout.
-2. Build/runtime env `NEXT_PUBLIC_DESIGN_V2=1`.
-3. Default **OFF**.
+1. Per-request cookie `sv_design_v2=1|0` — per-browser opt-in / opt-out.
+2. Build/runtime env `NEXT_PUBLIC_DESIGN_V2=0` — deploy-wide rollback switch.
+3. Default **ON** (GA, Phase 8).
+
+> **GA status:** as of the Phase 8 flip the redesign is the default experience.
+> The flag is kept purely as a rollback: set `NEXT_PUBLIC_DESIGN_V2=0` (deploy)
+> or a `sv_design_v2=0` cookie (one browser) to restore the previous UI.
 
 - **Client components:** `useDesignV2()` (`src/lib/design-v2-client.ts`) — SSR-safe
   (first render = env, identical server+client; upgrades to apply the cookie
@@ -145,22 +149,29 @@ Run before landing any flagged change (all stay green with the flag OFF):
 
 ---
 
-## 7. Ramping to GA (Phase 8)
+## 7. GA status (Phase 8) & remaining work
 
-The redesign is feature-complete behind the flag. To ship it:
+**The flag default is flipped ON** (tagged `design-v2/ga`): the redesign is the
+default experience on every deploy that doesn't set `NEXT_PUBLIC_DESIGN_V2=0`.
+The flag is intentionally **kept** as the rollback path — nothing was deleted, so
+a single env (deploy-wide) or cookie (one browser) reverts to the previous UI.
+
+Recommended before/around the wider rollout (owner-paced):
 
 1. **Generate + commit visual baselines** with the flag ON, in the keyless build
-   env (so the ON path is the regression reference).
-2. **Cohort ramp** via the `sv_design_v2` cookie (or per-deploy
-   `NEXT_PUBLIC_DESIGN_V2`): 10% → 50% → 100%, watching analytics events,
-   Lighthouse (perf ≥ 85, LCP < 2.5s, CLS < 0.1), and error rates between steps.
-3. **Clean up** — remove the `useDesignV2()` / `designV2EnabledFromEnv()`
-   branches (the ON treatment becomes the only treatment), re-baseline the
-   visual suite, tag `design-v2/ga`, and update this doc.
+   env (`npm run test:e2e:visual:update`) — the ON path becomes the regression
+   reference.
+2. **Watch** analytics events, Lighthouse (perf ≥ 85, LCP < 2.5s, CLS < 0.1), and
+   error rates after the flip. To soften the rollout, gate the deploy env per
+   environment (or use a `sv_design_v2=0` cookie cohort) and lift it gradually.
+3. **Eventual cleanup** (only once the ON path is validated and you're confident
+   you won't roll back): remove the `useDesignV2()` / `designV2EnabledFromEnv()`
+   branches so the redesign is the only code path, then re-baseline. This step is
+   irreversible and deliberately deferred.
 
 ### Known follow-ups (deferred)
 
-- Full-body document re-ink of the report (beyond the FixCard hero) and the Learn
-  article body — large, contrast-sensitive; do with the visual baselines as a net.
+- Full-body document re-ink of the **report** (beyond the FixCard hero) and the
+  **dashboard** (score strip / metrics) — the Learn body is already done.
 - `@axe-core/playwright` route checks + Lighthouse CI (`@lhci/cli`) — both add
   dev-dependencies; install with owner sign-off.

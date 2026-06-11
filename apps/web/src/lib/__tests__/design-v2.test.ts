@@ -1,4 +1,5 @@
-// Design V2 flag — resolution + precedence (cookie override beats env).
+// Design V2 flag — resolution + precedence. As of the Phase 8 GA flip the
+// default is ON; explicit `0` (env or cookie) is the rollback switch.
 
 import {
   DESIGN_V2_COOKIE,
@@ -14,43 +15,43 @@ describe('design-v2 flag', () => {
     else process.env.NEXT_PUBLIC_DESIGN_V2 = ORIGINAL;
   });
 
-  it('defaults OFF with no env and no cookie', () => {
+  it('defaults ON (GA) with no env and no cookie', () => {
     delete process.env.NEXT_PUBLIC_DESIGN_V2;
-    expect(designV2Enabled()).toBe(false);
-    expect(designV2EnabledFromEnv()).toBe(false);
-  });
-
-  it('env enables it', () => {
-    process.env.NEXT_PUBLIC_DESIGN_V2 = '1';
-    expect(designV2EnabledFromEnv()).toBe(true);
     expect(designV2Enabled()).toBe(true);
+    expect(designV2EnabledFromEnv()).toBe(true);
   });
 
-  it('accepts truthy/falsy env spellings', () => {
-    for (const v of ['1', 'true', 'on', 'YES']) {
-      process.env.NEXT_PUBLIC_DESIGN_V2 = v;
-      expect(designV2EnabledFromEnv()).toBe(true);
-    }
-    for (const v of ['0', 'false', 'off', 'no', 'garbage', '']) {
+  it('explicit env=0 (or false/off/no) rolls back to OFF', () => {
+    for (const v of ['0', 'false', 'off', 'no']) {
       process.env.NEXT_PUBLIC_DESIGN_V2 = v;
       expect(designV2EnabledFromEnv()).toBe(false);
     }
   });
 
-  it('cookie override beats env (opt OUT of an enabled deploy)', () => {
+  it('stays ON for truthy spellings and for unrecognized/empty (default)', () => {
+    for (const v of ['1', 'true', 'on', 'YES', 'garbage', '']) {
+      process.env.NEXT_PUBLIC_DESIGN_V2 = v;
+      expect(designV2EnabledFromEnv()).toBe(true);
+    }
+  });
+
+  it('cookie 0 rolls back even on a default (ON) deploy', () => {
+    delete process.env.NEXT_PUBLIC_DESIGN_V2;
+    expect(designV2Enabled('0')).toBe(false);
     process.env.NEXT_PUBLIC_DESIGN_V2 = '1';
     expect(designV2Enabled('0')).toBe(false);
   });
 
-  it('cookie override beats env (opt IN on a disabled deploy)', () => {
-    delete process.env.NEXT_PUBLIC_DESIGN_V2;
+  it('cookie 1 forces ON even when the env rolled back', () => {
+    process.env.NEXT_PUBLIC_DESIGN_V2 = '0';
+    expect(designV2EnabledFromEnv()).toBe(false);
     expect(designV2Enabled('1')).toBe(true);
   });
 
-  it('unrecognized cookie falls through to env', () => {
-    process.env.NEXT_PUBLIC_DESIGN_V2 = '1';
-    expect(designV2Enabled('maybe')).toBe(true);
+  it('unrecognized cookie falls through to the env (default ON)', () => {
     delete process.env.NEXT_PUBLIC_DESIGN_V2;
+    expect(designV2Enabled('maybe')).toBe(true);
+    process.env.NEXT_PUBLIC_DESIGN_V2 = '0';
     expect(designV2Enabled('maybe')).toBe(false);
   });
 });
