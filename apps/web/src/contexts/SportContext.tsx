@@ -39,7 +39,14 @@ function sanitizeSports(ids: SportId[]): SportId[] {
   return out;
 }
 
-// Sport display config (emoji + accent color) used across the app
+// Sport display config (emoji + accent color) used across the app.
+//
+// NOTE — `accentColor` is a raw hex kept ONLY for consumers that cannot read
+// CSS custom properties at paint time (e.g. <canvas> / Three.js / chart libs
+// drawing to a 2D context). For anything that styles the DOM, prefer the
+// token-based `SPORT_TOKENS` / `bg-sport-accent` utilities below: they pick up
+// the active `data-sport` layer in globals.css automatically and ship with
+// WCAG-AA-paired foreground/text variants. New DOM code should not read this hex.
 export const SPORT_DISPLAY: Record<SportId, { emoji: string; accentColor: string; name: string }> = {
   golf: { emoji: '⛳', accentColor: '#22C55E', name: 'Golf' },
   tennis: { emoji: '🎾', accentColor: '#EAB308', name: 'Tennis' },
@@ -49,6 +56,36 @@ export const SPORT_DISPLAY: Record<SportId, { emoji: string; accentColor: string
   softball_slow: { emoji: '🥎', accentColor: '#F97316', name: 'Slow Pitch Softball' },
   softball_fast: { emoji: '🥎', accentColor: '#EC4899', name: 'Fast Pitch Softball' },
 };
+
+/**
+ * SSR-safe references to the ACTIVE sport's identity tokens (the `data-sport`
+ * layer in globals.css). The string values are constant CSS-variable
+ * references — the browser resolves them per active sport at paint time — so
+ * they are identical for every sport and safe to render on the server. Use
+ * them inside identity zones only (sport chips/heroes, sport-landing accents,
+ * per-sport data series, active-sport nav), e.g.:
+ *
+ *   <span style={{ color: SPORT_TOKENS.accentText }} />
+ *   <div style={{ backgroundImage: SPORT_TOKENS.wash }} />
+ *
+ * Never use these on buttons, CTAs, or status colors — those stay SwingVantage
+ * (theme tokens) in every sport.
+ */
+export const SPORT_TOKENS = {
+  accent: 'hsl(var(--sport-accent))',
+  accentForeground: 'hsl(var(--sport-accent-foreground))',
+  accentText: 'hsl(var(--sport-accent-text))',
+  secondary: 'hsl(var(--sport-secondary))',
+  wash: 'var(--sport-wash)',
+  pattern: 'var(--sport-pattern)',
+  viz1: 'hsl(var(--sport-viz-1))',
+  viz2: 'hsl(var(--sport-viz-2))',
+  viz3: 'hsl(var(--sport-viz-3))',
+  duration: 'var(--sport-duration)',
+  ease: 'var(--sport-ease)',
+} as const;
+
+export type SportTokens = typeof SPORT_TOKENS;
 
 interface SportContextValue {
   activeSport: SportId;
@@ -74,8 +111,14 @@ interface SportContextValue {
   sportTagline: string;
   /** Nav labels dictionary for active sport */
   sportLabels: typeof SPORT_NAV_LABELS[keyof typeof SPORT_NAV_LABELS];
-  /** CSS accent color hex */
+  /**
+   * Raw hex accent for the active sport. Canvas/Three.js/chart consumers only —
+   * for DOM styling use `sportTokens` / the `bg-sport-accent` utilities, which
+   * track the active `data-sport` layer and carry AA-paired variants.
+   */
   accentColor: string;
+  /** CSS-variable references to the active sport's identity tokens (DOM-safe). */
+  sportTokens: SportTokens;
 }
 
 const SportContext = createContext<SportContextValue>({
@@ -93,6 +136,7 @@ const SportContext = createContext<SportContextValue>({
   sportTagline: 'Golf Performance',
   sportLabels: SPORT_NAV_LABELS.golf,
   accentColor: '#22C55E',
+  sportTokens: SPORT_TOKENS,
 });
 
 export function SportProvider({ children }: { children: ReactNode }) {
@@ -135,6 +179,21 @@ export function SportProvider({ children }: { children: ReactNode }) {
       // localStorage not available (SSR guard)
     }
   }, []);
+
+  // ── Sport identity bridge (the `data-sport` axis) ──────────────────────
+  // Publish the active sport to <html data-sport="…"> so the sport-identity
+  // token layer in globals.css (--sport-accent, --sport-wash, --sport-viz-*,
+  // …) activates. Set on the ROOT element (alongside `data-theme`), NOT <body>:
+  // Tailwind v4 computes `@theme` `--color-*` utilities (e.g. bg-sport-accent,
+  // text-sport-accent-text) at :root, so a nested `[data-sport]` on <body>
+  // would NOT re-resolve them — the utilities would silently keep the neutral
+  // (primary) accent. Scoping `data-sport` to <html> (= :root) makes the sport
+  // utilities track the active sport exactly like the theme tokens do. Purely
+  // additive: no surface consumes these until the redesign wires identity zones.
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    document.documentElement.dataset.sport = activeSport;
+  }, [activeSport]);
 
   const persistSelected = useCallback((ids: SportId[]) => {
     try {
@@ -237,6 +296,7 @@ export function SportProvider({ children }: { children: ReactNode }) {
         sportTagline: labels.tagline,
         sportLabels: labels,
         accentColor: display.accentColor,
+        sportTokens: SPORT_TOKENS,
       }}
     >
       {children}
