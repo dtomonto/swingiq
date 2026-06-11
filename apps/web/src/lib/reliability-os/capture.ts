@@ -54,12 +54,28 @@ function detectOS(ua: string): string | undefined {
   if (/linux/i.test(ua)) return 'Linux';
   return undefined;
 }
+/** Cryptographically-strong short token (no Math.random in any id path). */
+function randomToken(): string {
+  try {
+    const c = typeof crypto !== 'undefined' ? crypto : undefined;
+    if (c?.randomUUID) return c.randomUUID().replace(/-/g, '').slice(0, 12);
+    if (c?.getRandomValues) {
+      const a = new Uint8Array(8);
+      c.getRandomValues(a);
+      return Array.from(a, (b) => b.toString(16).padStart(2, '0')).join('');
+    }
+  } catch {
+    /* fall through */
+  }
+  // Non-secret fallback (this id is only an anonymous telemetry grouping key).
+  return Date.now().toString(36);
+}
 function sessionId(): string | undefined {
   if (typeof window === 'undefined') return undefined;
   try {
     let id = window.sessionStorage.getItem(SESSION_KEY);
     if (!id) {
-      id = `s_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+      id = `s_${randomToken()}`;
       window.sessionStorage.setItem(SESSION_KEY, id);
     }
     return id;
