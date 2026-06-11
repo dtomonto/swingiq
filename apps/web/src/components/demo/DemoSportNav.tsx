@@ -4,9 +4,11 @@
 // Lets a lead flip between all 7 sports' sample reports instantly, and
 // jump between the Report / Profile / Training surfaces for each.
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ALL_SPORTS_INCLUDING_GOLF } from '@swingiq/core';
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { slugForSport, sportForSlug, type DemoSportId } from '@/lib/demo/demoReport';
 
 type Section = 'report' | 'profile' | 'training';
@@ -34,6 +36,17 @@ export function DemoSportNav({ accent }: { accent: string }) {
   const { slug: activeSlug, section } = parsePath(pathname);
   const activeId = sportForSlug(activeSlug);
 
+  // Capture each demo surface view (sport × section) — the /demo experience was
+  // previously uninstrumented. Fires on every client navigation between sports
+  // or sections since this nav is mounted on every demo page.
+  useEffect(() => {
+    track(ANALYTICS_EVENTS.SAMPLE_ANALYSIS_VIEWED, {
+      sport: activeId ?? activeSlug,
+      section,
+      surface: 'demo',
+    });
+  }, [activeId, activeSlug, section]);
+
   return (
     <div className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur-md">
       <div className="mx-auto max-w-5xl px-4">
@@ -47,6 +60,11 @@ export function DemoSportNav({ accent }: { accent: string }) {
               <Link
                 key={s.id}
                 href={hrefFor(slug, section)}
+                onClick={() => {
+                  if (!isActive) {
+                    track(ANALYTICS_EVENTS.SPORT_SELECTED, { sport: id, context: 'demo_switcher' });
+                  }
+                }}
                 className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
                   isActive
                     ? 'text-background'
