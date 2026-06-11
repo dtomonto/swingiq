@@ -14,6 +14,7 @@ import type { Metadata } from 'next';
 import { Activity } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { HelpPanel } from '@/components/admin/HelpPanel';
+import { HealthTabs } from '@/components/admin/HealthTabs';
 import { requireReliabilityAccess } from './access.server';
 import { gatherReliabilitySignals } from '@/lib/reliability-os/signals.server';
 import { listIngestedEvents } from '@/lib/reliability-os/ingest.server';
@@ -35,6 +36,8 @@ export default async function ReliabilityPage() {
         icon={Activity}
         description="Your operational health command center. See what broke, who/what was affected, how severe it is, whether it's still happening, and what to fix first — translated into plain language. Privacy-first: every captured failure is sanitized to metadata only; unknowns are labelled, never faked."
       />
+
+      <HealthTabs active="reliability" />
 
       <ReliabilityDashboard actor={ctx.email ?? 'admin'} signals={signals} ingestedEvents={ingested} />
 

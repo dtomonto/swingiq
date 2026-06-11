@@ -29,7 +29,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video, HeartPulse, Radar, ServerCog,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video, Radar,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -78,6 +78,9 @@ export interface NavItem {
   incidentDot?: boolean;
   /** Count-pill colour: neutral (work waiting) vs amber (decision waiting). */
   countType?: 'work' | 'decision';
+  /** Extra href prefixes that also activate this item in the sidebar — used when
+   *  absorbed surfaces keep their own routes but appear as tabs of this entry. */
+  matches?: string[];
 }
 
 export const NAV_ITEMS: NavItem[] = [
@@ -101,31 +104,11 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'health', label: 'Product Health', href: '/admin/health', icon: Activity,
     group: 'operate', subgroup: 'Product Health', built: true, permission: 'logs.view',
     blurb: 'One place for what’s running and what’s broken — system status, reliability, QA and data quality.',
-    keywords: ['health', 'product health', 'overview', 'status', 'incidents', 'reliabilityos', 'system health', 'what is wrong'],
-  },
-  {
-    id: 'system-health', label: 'System Health', href: '/admin/system-health', icon: ServerCog,
-    group: 'operate', subgroup: 'Product Health', built: true, permission: 'logs.view',
-    blurb: 'Integrations, queues, jobs and incidents — in plain English.',
-    keywords: ['health', 'status', 'uptime', 'queue', 'jobs', 'integrations', 'system health'],
-  },
-  {
-    id: 'reliability-os', label: 'Reliability', href: '/admin/reliability', icon: HeartPulse,
-    group: 'operate', subgroup: 'Product Health', built: true, permission: 'logs.view',
-    blurb: 'Operational health command center — what broke (uploads, logins, pages, tools), how severe, is it ongoing, and what to fix first. Failures are captured from the existing error/analytics seams, grouped into issues, with suggested next steps + Copy Debug Context. Privacy-first; honest when cross-user capture is off.',
-    keywords: ['reliabilityos', 'reliability os', 'reliability', 'health', 'incidents', 'failures', 'errors', 'uptime', 'monitoring', 'operational', 'failure inbox', 'upload reliability', 'login reliability', 'status', 'outage', 'degraded', 'observability'],
-  },
-  {
-    id: 'qa', label: 'QA & Testing', href: '/admin/qa', icon: ClipboardCheck,
-    group: 'operate', subgroup: 'Product Health', built: true, permission: 'logs.view',
-    blurb: 'A generated manual-QA checklist that tracks the app as it grows — per admin section, AI agent and sport, plus accessibility, mobile, theming and SEO checks. Work P0 first.',
-    keywords: ['qa', 'testing', 'test', 'quality assurance', 'checklist', 'regression', 'scenarios', 'accessibility', 'contrast', 'release checklist', 'smoke test'],
-  },
-  {
-    id: 'data-quality', label: 'Data Quality', href: '/admin/data-quality', icon: Search,
-    group: 'operate', subgroup: 'Product Health', built: true, permission: 'logs.view',
-    blurb: 'Keyless hygiene checks over your content registry — duplicate slugs/titles/meta/keywords, length problems, thin content, mis-tagged sports, missing CTAs — each linking to the fix.',
-    keywords: ['data quality', 'hygiene', 'duplicates', 'duplicate content', 'cannibalization', 'orphaned', 'broken links', 'thin content', 'mistagged', 'stale', 'cleanup', 'integrity'],
+    keywords: ['health', 'product health', 'overview', 'status', 'incidents', 'what is wrong', 'system health', 'integrations', 'uptime', 'queue', 'jobs', 'reliability', 'reliabilityos', 'failures', 'errors', 'monitoring', 'observability', 'qa', 'testing', 'quality assurance', 'data quality', 'hygiene', 'duplicates'],
+    // System Health · Reliability · QA · Data Quality are now tabs of Product
+    // Health (HealthTabs); their routes stay live and `matches` keeps this entry
+    // active in the sidebar on any of them.
+    matches: ['/admin/system-health', '/admin/reliability', '/admin/qa', '/admin/data-quality'],
   },
   // Video Analysis
   {
@@ -537,9 +520,15 @@ export function groupNavItems(items: NavItem[]): { group: NavGroup; items: NavIt
 /** Find the nav item whose href best matches a pathname (longest prefix). */
 export function activeNavItem(pathname: string): NavItem | undefined {
   let best: NavItem | undefined;
+  let bestLen = -1;
   for (const item of NAV_ITEMS) {
-    if (pathname === item.href || pathname.startsWith(item.href + '/')) {
-      if (!best || item.href.length > best.href.length) best = item;
+    for (const href of [item.href, ...(item.matches ?? [])]) {
+      if (pathname === href || pathname.startsWith(href + '/')) {
+        if (href.length > bestLen) {
+          best = item;
+          bestLen = href.length;
+        }
+      }
     }
   }
   return best;

@@ -14,6 +14,7 @@ import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';
 import { StatusBadge, type BadgeTone } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
+import { HealthTabs } from '@/components/admin/HealthTabs';
 import { NAV_ITEMS } from '@/lib/admin/nav';
 import { AGENT_REGISTRY } from '@/lib/admin/agent-registry';
 import { buildQaChecklist, type QaPriority } from '@/lib/admin/qa/scenarios';
@@ -45,6 +46,8 @@ export default function AdminQaPage() {
         description="A generated manual-QA checklist that tracks the app as it grows. Scenarios are derived from your real admin sections, AI agents and sports — plus the accessibility, responsiveness, theming and SEO checks every release should re-run. Work P0 first."
         actions={<StatusBadge tone="info">{stats.scenarios} scenarios</StatusBadge>}
       />
+
+      <HealthTabs active="qa" />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         <MetricStat label="Scenarios" icon={ListChecks} value={String(stats.scenarios)} hint="to verify" />

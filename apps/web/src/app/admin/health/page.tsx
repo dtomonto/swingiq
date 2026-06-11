@@ -14,6 +14,7 @@ import { PageHeader } from '@/components/admin/PageHeader';
 import { MetricCard } from '@/components/admin/MetricCard';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
+import { HealthTabs } from '@/components/admin/HealthTabs';
 import { getSystemStatus } from '@/lib/admin/data/system';
 
 export const metadata: Metadata = { title: 'Product Health | Admin', robots: 'noindex, nofollow' };
@@ -54,6 +55,8 @@ export default function ProductHealthPage() {
           </StatusBadge>
         }
       />
+
+      <HealthTabs active="overview" />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <MetricCard

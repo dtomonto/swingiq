@@ -18,6 +18,7 @@ import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';
 import { StatusBadge, type BadgeTone } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
+import { HealthTabs } from '@/components/admin/HealthTabs';
 import { SEO_PAGES } from '@/content/seoPages';
 import { runDataQualityReport, type DqSeverity, type SeoPageLike } from '@/lib/admin/data-quality/checks';
 
@@ -63,6 +64,8 @@ export default function AdminDataQualityPage() {
           </StatusBadge>
         }
       />
+
+      <HealthTabs active="data" />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         <MetricStat label="Pages scanned" icon={Database} value={String(report.scanned)} hint="SEO content registry" />

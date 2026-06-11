@@ -15,6 +15,7 @@ import { MetricStat } from '@/components/admin/MetricStat';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecheckButton } from '@/components/admin/RecheckButton';
+import { HealthTabs } from '@/components/admin/HealthTabs';
 import { getSystemStatus, type IntegrationCategory } from '@/lib/admin/data/system';
 import { getAiBudgetStatus } from '@/lib/ai-budget';
 
@@ -38,6 +39,8 @@ export default async function SystemHealthPage() {
         description="A plain-English view of what's running. Each row explains what the state means for users — not just whether a switch is on."
         actions={<RecheckButton />}
       />
+
+      <HealthTabs active="services" />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <MetricStat
