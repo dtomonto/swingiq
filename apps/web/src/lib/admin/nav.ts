@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video, HeartPulse,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video, HeartPulse, Radar,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -346,6 +346,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'growth', built: true, external: true,
     blurb: 'Lifecycle re-engagement and churn-aware outreach.',
     keywords: ['retention', 'churn', 'email', 'lifecycle'],
+  },
+  {
+    id: 'signal-radar', label: 'SignalRadar OS', href: '/admin/signal-radar', icon: Radar,
+    group: 'growth', built: true, permission: 'signals.manage',
+    blurb: 'Digital signal intelligence: detect, classify and score who is talking about SwingVantage and what the market is asking for. A Signal Inbox, sentiment/intent/sport/priority scoring, competitor watch, AI answer-engine visibility, a Mention Map and one-click conversion of signals into content ideas, product feedback, partnership leads and reputation risks. Keyless-first (manual + Google Alerts/RSS/CSV import); automated adapters are scaffolded and honest about what is real.',
+    keywords: ['signalradar', 'signal radar', 'signals', 'mentions', 'brand monitoring', 'mention tracker', 'reputation', 'sentiment', 'competitor', 'competitive intelligence', 'backlinks', 'partnerships', 'creators', 'seo opportunities', 'demand', 'social listening', 'ai visibility', 'answer engine', 'brand intelligence', 'market signals', 'radar'],
   },
 
   // ── Support ────────────────────────────────────────────────

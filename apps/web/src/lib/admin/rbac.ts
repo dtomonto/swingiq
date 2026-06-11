@@ -44,6 +44,7 @@ export const PERMISSIONS = [
   'security.manage',
   'devops.manage',
   'milestones.manage',
+  'signals.manage',
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
