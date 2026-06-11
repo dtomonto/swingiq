@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { ALL_SPORTS_INCLUDING_GOLF } from '@swingiq/core';
-import { slugForSport, type DemoSportId } from '@/lib/demo/demoReport';
+import { slugForSport, type DemoSportId } from '@/lib/demo/demo-report';
 import { DemoSampleBanner } from '@/components/demo/DemoSampleBanner';
 
 export const metadata = buildMetadata({

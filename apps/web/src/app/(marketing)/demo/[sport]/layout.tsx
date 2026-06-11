@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { sportForSlug, getDemoSportMeta } from '@/lib/demo/demoReport';
+import { sportForSlug, getDemoSportMeta } from '@/lib/demo/demo-report';
 import { DemoSampleBanner } from '@/components/demo/DemoSampleBanner';
 import { DemoSportNav } from '@/components/demo/DemoSportNav';
 

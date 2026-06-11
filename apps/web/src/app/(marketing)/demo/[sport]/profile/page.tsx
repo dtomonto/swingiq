@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
 import {
   buildDemoReport, sportForSlug, getDemoSportMeta, DEMO_SPORT_SLUGS,
-} from '@/lib/demo/demoReport';
+} from '@/lib/demo/demo-report';
 import { DemoProfileView } from '@/components/demo/DemoProfileView';
 
 export function generateStaticParams() {

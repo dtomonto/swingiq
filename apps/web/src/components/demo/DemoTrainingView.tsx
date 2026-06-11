@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { Target, CalendarDays, ExternalLink, Flame, ChevronRight, ArrowRight } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
-import type { DemoReport } from '@/lib/demo/demoReport';
+import type { DemoReport } from '@/lib/demo/demo-report';
 
 export function DemoTrainingView({ report }: { report: DemoReport }) {
   const { sport } = report;

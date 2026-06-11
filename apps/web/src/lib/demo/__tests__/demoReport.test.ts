@@ -1,4 +1,4 @@
-import { buildDemoReport, DEMO_SPORT_IDS, sportForSlug, slugForSport } from '../demoReport';
+import { buildDemoReport, DEMO_SPORT_IDS, sportForSlug, slugForSport } from '../demo-report';
 
 describe('demo reports', () => {
   it('builds a coherent report for all 7 sports', () => {

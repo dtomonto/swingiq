@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { User, Target, Crosshair, ChevronRight, ArrowRight } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
-import type { DemoReport } from '@/lib/demo/demoReport';
+import type { DemoReport } from '@/lib/demo/demo-report';
 
 export function DemoProfileView({ report }: { report: DemoReport }) {
   const { sport, profile } = report;

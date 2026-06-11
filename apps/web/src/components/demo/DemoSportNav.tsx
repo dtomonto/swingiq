@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ALL_SPORTS_INCLUDING_GOLF } from '@swingiq/core';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
-import { slugForSport, sportForSlug, type DemoSportId } from '@/lib/demo/demoReport';
+import { slugForSport, sportForSlug, type DemoSportId } from '@/lib/demo/demo-report';
 
 type Section = 'report' | 'profile' | 'training';
 

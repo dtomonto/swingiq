@@ -4,7 +4,7 @@
 // One unified view-model so the public /demo can show a comprehensive,
 // switchable report for every sport. HONESTY by construction:
 //   • Golf  → computed by the REAL diagnostic + scoring engine from
-//             sample shots (lib/demo/swingDemo). Nothing hand-typed.
+//             sample shots (lib/demo/swing-demo). Nothing hand-typed.
 //   • Others→ assembled from REAL registry content (phase definitions
 //             + coaching cues, the sport's real drill library, and the
 //             published benchmark windows). The primary fix shown is a
@@ -34,7 +34,7 @@ import type {
   SportId,
   SportDrillRecommendation,
 } from '@swingiq/core';
-import { DEMO_PROFILE, demoDiagnoseSession } from './swingDemo';
+import { DEMO_PROFILE, demoDiagnoseSession } from './swing-demo';
 
 // ── View-model ────────────────────────────────────────────────
 

@@ -15,7 +15,7 @@
 // ============================================================
 
 import { useEffect, useMemo, useState } from 'react';
-import { KINEMATIC_SPORTS, type KinematicMetric } from '@/lib/demo/kinematicSports';
+import { KINEMATIC_SPORTS, type KinematicMetric } from '@/lib/demo/kinematic-sports';
 
 const TICK_MS = 850;
 const TICKS_PER_SPORT = 6; // ~5s per sport

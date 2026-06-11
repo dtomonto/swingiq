@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/Badge';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { LiveKinematicPanel } from '@/components/demo/LiveKinematicPanel';
-import type { DemoReport, PhaseStatus, IssueSeverity } from '@/lib/demo/demoReport';
+import type { DemoReport, PhaseStatus, IssueSeverity } from '@/lib/demo/demo-report';
 
 const PHASE_DOT: Record<PhaseStatus, string> = {
   good: 'bg-success',
