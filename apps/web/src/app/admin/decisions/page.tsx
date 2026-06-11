@@ -14,7 +14,8 @@ import { Scale, CheckCheck } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
-import { DecisionCard, type DecisionBand } from '@/components/admin/DecisionCard';
+import { type DecisionBand, type DecisionVM } from '@/components/admin/DecisionCard';
+import { DecisionsClient } from '@/components/admin/DecisionsClient';
 import { collectServerActions, summarizeActions, type ActionItem, type ActionSeverity } from '@/lib/admin/action-center';
 
 export const metadata: Metadata = { title: 'Decision Center | Admin', robots: 'noindex, nofollow' };
@@ -28,7 +29,7 @@ const BAND_FOR: Record<ActionSeverity, DecisionBand> = {
 };
 const BASE_SCORE: Record<ActionSeverity, number> = { critical: 84, warning: 64, info: 44, success: 28 };
 
-function toDecision(item: ActionItem) {
+function toDecision(item: ActionItem): DecisionVM {
   const cap = item.severity === 'critical' ? 16 : 10;
   const score = Math.min(100, BASE_SCORE[item.severity] + Math.min(Math.max(0, item.count), cap));
   return {
@@ -41,6 +42,8 @@ function toDecision(item: ActionItem) {
     meta: [item.severity, `${item.count} item${item.count === 1 ? '' : 's'}`],
     href: item.href,
     cta: item.cta ?? 'Review',
+    severity: item.severity,
+    count: item.count,
   };
 }
 
@@ -84,21 +87,7 @@ export default async function DecisionCenterPage() {
           </div>
         </div>
       ) : (
-        <div className="space-y-3">
-          {decisions.map((d) => (
-            <DecisionCard
-              key={d.id}
-              score={d.score}
-              band={d.band}
-              type={d.type}
-              title={d.title}
-              read={d.read}
-              meta={d.meta}
-              href={d.href}
-              cta={d.cta}
-            />
-          ))}
-        </div>
+        <DecisionsClient decisions={decisions} />
       )}
 
       <HelpPanel>
