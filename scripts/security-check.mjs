@@ -64,6 +64,17 @@ function rel(p) {
   return relative(ROOT, p).replace(/\\/g, "/");
 }
 
+/**
+ * Test files (e.g. the secret-detector's own __tests__) legitimately contain
+ * sample key-shaped strings (sk-ant-…, AIza…) as fixtures to exercise the
+ * detectors. They never ship to a production bundle, and Gitleaks (a separate
+ * CI job) still scans them for genuinely-committed secrets — so this heuristic
+ * prefix check skips them to avoid false positives on intentional fixtures.
+ */
+function isTestFile(p) {
+  return /([/\\]__tests__[/\\]|\.test\.|\.spec\.)/.test(p);
+}
+
 // ─── Check Functions ──────────────────────────────────────────────────────────
 
 /**
@@ -76,13 +87,20 @@ function rel(p) {
 //   • Supabase anon key — Row Level Security protects data, not the key.
 //   • Stripe PUBLISHABLE key (pk_...) — the secret key is STRIPE_SECRET_KEY.
 //   • PostHog project key (phc_...) — a write-only ingestion key, public by design.
+//   • VAPID PUBLIC key — the public half of the Web Push keypair, sent to the
+//     browser to subscribe; the secret is VAPID_PRIVATE_KEY.
+//   • Cloudflare Turnstile SITE key — rendered in the widget client-side; the
+//     secret is CLOUDFLARE_TURNSTILE_SECRET_KEY.
 // The secret-bearing counterparts (SUPABASE_SERVICE_ROLE_KEY, STRIPE_SECRET_KEY,
-// STRIPE_WEBHOOK_SECRET, etc.) are deliberately NOT NEXT_PUBLIC_ and stay caught.
+// STRIPE_WEBHOOK_SECRET, VAPID_PRIVATE_KEY, CLOUDFLARE_TURNSTILE_SECRET_KEY, etc.)
+// are deliberately NOT NEXT_PUBLIC_ and stay caught.
 const PUBLIC_KEY_ALLOWLIST = new Set([
   "NEXT_PUBLIC_SUPABASE_ANON_KEY",
   "NEXT_PUBLIC_SUPABASE_URL",
   "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
   "NEXT_PUBLIC_POSTHOG_KEY",
+  "NEXT_PUBLIC_VAPID_PUBLIC_KEY",
+  "NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY",
 ]);
 
 function checkPublicSecrets(filePath, lines, findings) {
@@ -232,7 +250,9 @@ for (const srcDir of SRC_DIRS) {
     checkDangerousHtml(file, lines, allFindings);
     checkEval(file, lines, allFindings);
     checkConsoleLog(file, lines, allFindings);
-    checkHardcodedKeys(file, lines, allFindings);
+    // Hardcoded-key prefixes are expected as fixtures in test files; Gitleaks
+    // covers real committed secrets there. All other checks still run on tests.
+    if (!isTestFile(file)) checkHardcodedKeys(file, lines, allFindings);
   }
 }
 
