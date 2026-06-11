@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-09T14:24:50.213Z",
-  "commitRange": "601a5628",
+  "generatedAt": "2026-06-11T02:29:27.991Z",
+  "commitRange": "d1da8218",
   "features": [
     {
       "id": "feat_about",
@@ -36,146 +36,57 @@
       "coverage": {},
       "fingerprint": "00e27df7",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-academy",
       "slug": "admin-academy",
       "name": "Academy",
-      "description": "Academy — detected from /admin/academy/advisor.",
+      "description": "lazy-init random ids in academy CMS (react-hooks/purity)",
       "category": "admin-capability",
       "audiences": [
         "admin"
       ],
       "status": "active",
       "routes": [
-        "/admin/academy/advisor",
-        "/admin/academy/analytics",
-        "/admin/academy/badges",
-        "/admin/academy/catalog",
-        "/admin/academy/certifications",
-        "/admin/academy/certifications/:id",
         "/admin/academy/cms/course/:id",
-        "/admin/academy/cms/generate",
-        "/admin/academy/cms/lesson/:id",
-        "/admin/academy/cms",
-        "/admin/academy/course/:slug",
-        "/admin/academy/dashboard",
-        "/admin/academy",
-        "/admin/academy/lesson/:id",
-        "/admin/academy/path/:slug",
-        "/admin/academy/simulations",
-        "/admin/academy/simulations/:id"
+        "/admin/academy/cms/lesson/:id"
       ],
       "components": [],
       "apiEndpoints": [],
       "dbTables": [],
       "permissions": [],
       "adminControls": [
-        "/admin/academy/advisor",
-        "/admin/academy/analytics",
-        "/admin/academy/badges",
-        "/admin/academy/catalog",
-        "/admin/academy/certifications",
-        "/admin/academy/certifications/:id",
         "/admin/academy/cms/course/:id",
-        "/admin/academy/cms/generate",
-        "/admin/academy/cms/lesson/:id",
-        "/admin/academy/cms",
-        "/admin/academy/course/:slug",
-        "/admin/academy/dashboard",
-        "/admin/academy",
-        "/admin/academy/lesson/:id",
-        "/admin/academy/path/:slug",
-        "/admin/academy/simulations",
-        "/admin/academy/simulations/:id"
+        "/admin/academy/cms/lesson/:id"
       ],
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
         "route-scan",
-        "999662f1"
+        "999662f1",
+        "54ec18ea"
       ],
       "evidence": [
-        {
-          "kind": "route",
-          "ref": "/admin/academy/advisor"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/analytics"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/badges"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/catalog"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/certifications"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/certifications/:id"
-        },
         {
           "kind": "route",
           "ref": "/admin/academy/cms/course/:id"
         },
         {
           "kind": "route",
-          "ref": "/admin/academy/cms/generate"
-        },
-        {
-          "kind": "route",
           "ref": "/admin/academy/cms/lesson/:id"
         },
         {
-          "kind": "route",
-          "ref": "/admin/academy/cms"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/course/:slug"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/dashboard"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/lesson/:id"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/path/:slug"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/simulations"
-        },
-        {
-          "kind": "route",
-          "ref": "/admin/academy/simulations/:id"
+          "kind": "commit",
+          "ref": "54ec18ea"
         }
       ],
       "confidence": 70,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "4ca37374",
+      "fingerprint": "dd79deae",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-accessibility",
@@ -214,13 +125,13 @@
       "coverage": {},
       "fingerprint": "73200a6e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-ads",
       "slug": "admin-ads",
       "name": "Ads",
-      "description": "Ads — detected from /admin/ads.",
+      "description": "standardize 4 top-level admin headers on PageHeader (#2 item 1)",
       "category": "monetization",
       "audiences": [
         "admin"
@@ -239,12 +150,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "7b7c0559"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/admin/ads"
+        },
+        {
+          "kind": "commit",
+          "ref": "7b7c0559"
         }
       ],
       "confidence": 70,
@@ -252,7 +168,7 @@
       "coverage": {},
       "fingerprint": "704246b0",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-agents",
@@ -291,7 +207,7 @@
       "coverage": {},
       "fingerprint": "42959b30",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-ai-analyses",
@@ -335,7 +251,7 @@
       "coverage": {},
       "fingerprint": "305642c7",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-ai-quality",
@@ -374,7 +290,7 @@
       "coverage": {},
       "fingerprint": "a34f42d0",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-ai-usage",
@@ -415,7 +331,7 @@
       "coverage": {},
       "fingerprint": "92e021aa",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-analytics",
@@ -453,7 +369,7 @@
       "coverage": {},
       "fingerprint": "2008f1be",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-approvals",
@@ -491,13 +407,13 @@
       "coverage": {},
       "fingerprint": "ad76f87a",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-assets",
       "slug": "admin-assets",
       "name": "Assets",
-      "description": "Digital Asset Library — one catalog of all generated media",
+      "description": "Assets — detected from /admin/assets.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -523,10 +439,6 @@
         {
           "kind": "route",
           "ref": "/admin/assets"
-        },
-        {
-          "kind": "commit",
-          "ref": "2f4e537b"
         }
       ],
       "confidence": 70,
@@ -534,7 +446,7 @@
       "coverage": {},
       "fingerprint": "8f960f03",
       "createdAt": "2026-06-09T14:08:03.016Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-athletes",
@@ -572,7 +484,7 @@
       "coverage": {},
       "fingerprint": "4e436ffe",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-audit-access",
@@ -611,7 +523,7 @@
       "coverage": {},
       "fingerprint": "33952b0e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-audit-log",
@@ -649,7 +561,7 @@
       "coverage": {},
       "fingerprint": "393392e6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-audits",
@@ -687,7 +599,7 @@
       "coverage": {},
       "fingerprint": "6681e606",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-benchmarks",
@@ -726,7 +638,7 @@
       "coverage": {},
       "fingerprint": "f7613d8a",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-branch-guardian",
@@ -765,7 +677,7 @@
       "coverage": {},
       "fingerprint": "d8fb6092",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-central-intelligence",
@@ -803,7 +715,45 @@
       "coverage": {},
       "fingerprint": "89ca8c55",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_admin-clarity",
+      "slug": "admin-clarity",
+      "name": "Clarity",
+      "description": "Clarity — detected from /admin/clarity.",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/clarity"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/clarity"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/clarity"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "660bb20e",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-coach-mix",
@@ -841,7 +791,7 @@
       "coverage": {},
       "fingerprint": "af247a4f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-command-center",
@@ -880,7 +830,45 @@
       "coverage": {},
       "fingerprint": "17cd1783",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_admin-connector-os",
+      "slug": "admin-connector-os",
+      "name": "Connector Os",
+      "description": "Connector Os — detected from /admin/connector-os.",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/connector-os"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/connector-os"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/connector-os"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "3501fe4e",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-content",
@@ -924,7 +912,7 @@
       "coverage": {},
       "fingerprint": "74772a5b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-copilot",
@@ -963,7 +951,7 @@
       "coverage": {},
       "fingerprint": "110138ee",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-data-quality",
@@ -1002,13 +990,13 @@
       "coverage": {},
       "fingerprint": "0ca32832",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-development",
       "slug": "admin-development",
       "name": "Development",
-      "description": "Development — detected from /admin/development.",
+      "description": "surface open follow-ups for every unfinished initiative",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -1028,12 +1016,17 @@
       "owner": "unassigned",
       "detectedFrom": [
         "route-scan",
-        "bc0af8a0"
+        "bc0af8a0",
+        "6abd2f75"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/admin/development"
+        },
+        {
+          "kind": "commit",
+          "ref": "6abd2f75"
         }
       ],
       "confidence": 70,
@@ -1041,7 +1034,7 @@
       "coverage": {},
       "fingerprint": "7918febf",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-drills",
@@ -1088,7 +1081,7 @@
       "coverage": {},
       "fingerprint": "bb3d0863",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-feature-education",
@@ -1132,7 +1125,7 @@
       "coverage": {},
       "fingerprint": "2b756edf",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-feature-flags",
@@ -1170,7 +1163,7 @@
       "coverage": {},
       "fingerprint": "981ed2f6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-feedback",
@@ -1208,7 +1201,7 @@
       "coverage": {},
       "fingerprint": "adf1e84d",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-growth",
@@ -1476,13 +1469,13 @@
       "coverage": {},
       "fingerprint": "9e9dc779",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-growth-agents",
       "slug": "admin-growth-agents",
       "name": "Growth Agents",
-      "description": "Growth Agents — detected from /admin/growth-agents.",
+      "description": "standardize 4 top-level admin headers on PageHeader (#2 item 1)",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -1501,12 +1494,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "7b7c0559"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/admin/growth-agents"
+        },
+        {
+          "kind": "commit",
+          "ref": "7b7c0559"
         }
       ],
       "confidence": 70,
@@ -1514,7 +1512,7 @@
       "coverage": {},
       "fingerprint": "d6171ae6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-home",
@@ -1557,13 +1555,13 @@
       "coverage": {},
       "fingerprint": "e09deabd",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-insights",
       "slug": "admin-insights",
       "name": "Insights",
-      "description": "Insights — detected from /admin/insights.",
+      "description": "standardize 4 top-level admin headers on PageHeader (#2 item 1)",
       "category": "analytics-reporting",
       "audiences": [
         "admin"
@@ -1582,12 +1580,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "7b7c0559"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/admin/insights"
+        },
+        {
+          "kind": "commit",
+          "ref": "7b7c0559"
         }
       ],
       "confidence": 70,
@@ -1595,13 +1598,13 @@
       "coverage": {},
       "fingerprint": "ca9c591b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-integrations",
       "slug": "admin-integrations",
       "name": "Integrations",
-      "description": "Integrations — detected from /admin/integrations.",
+      "description": "centralized Keys & Secrets manager on /admin/integrations",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -1620,12 +1623,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "ce688ebe"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/admin/integrations"
+        },
+        {
+          "kind": "commit",
+          "ref": "ce688ebe"
         }
       ],
       "confidence": 70,
@@ -1633,7 +1641,7 @@
       "coverage": {},
       "fingerprint": "75f6c7d1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-learning",
@@ -1671,7 +1679,7 @@
       "coverage": {},
       "fingerprint": "ab3c8870",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-legal",
@@ -1709,7 +1717,7 @@
       "coverage": {},
       "fingerprint": "d97a364f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-library",
@@ -1748,7 +1756,7 @@
       "coverage": {},
       "fingerprint": "ca628fe9",
       "createdAt": "2026-06-09T04:52:26.674Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-mental-performance",
@@ -1787,7 +1795,7 @@
       "coverage": {},
       "fingerprint": "6077ab24",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-milestones",
@@ -1826,7 +1834,7 @@
       "coverage": {},
       "fingerprint": "d1e4a7d1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-monetization",
@@ -1864,7 +1872,50 @@
       "coverage": {},
       "fingerprint": "a01f5973",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_admin-motion-lab",
+      "slug": "admin-motion-lab",
+      "name": "Motion Lab",
+      "description": "continuous-movement engine, overlay density modes, admin surface",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/motion-lab"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/motion-lab"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "5819c515"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/motion-lab"
+        },
+        {
+          "kind": "commit",
+          "ref": "5819c515"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "e9b02a9a",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-notifications",
@@ -1902,7 +1953,7 @@
       "coverage": {},
       "fingerprint": "a02c334a",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-practice-plans",
@@ -1950,7 +2001,45 @@
       "coverage": {},
       "fingerprint": "faf4c227",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_admin-publishing",
+      "slug": "admin-publishing",
+      "name": "Publishing",
+      "description": "Publishing — detected from /admin/publishing.",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/publishing"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/publishing"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/publishing"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "31bc517b",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-qa",
@@ -1989,13 +2078,56 @@
       "coverage": {},
       "fingerprint": "f8febccc",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_admin-record-assist",
+      "slug": "admin-record-assist",
+      "name": "Record Assist",
+      "description": "RecordAssist Vision + Kinetic Tracking OS (Phases 1–2) (#15)",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/record-assist"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/record-assist"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "343b9bf5"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/record-assist"
+        },
+        {
+          "kind": "commit",
+          "ref": "343b9bf5"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "2b476055",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-reengage",
       "slug": "admin-reengage",
       "name": "Reengage",
-      "description": "Drip Marketing Console over the re-engagement engine",
+      "description": "Reengage — detected from /admin/reengage.",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -2021,10 +2153,6 @@
         {
           "kind": "route",
           "ref": "/admin/reengage"
-        },
-        {
-          "kind": "commit",
-          "ref": "fd54ae90"
         }
       ],
       "confidence": 70,
@@ -2032,7 +2160,7 @@
       "coverage": {},
       "fingerprint": "f69c4590",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-research",
@@ -2070,7 +2198,7 @@
       "coverage": {},
       "fingerprint": "192af173",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-security",
@@ -2108,7 +2236,7 @@
       "coverage": {},
       "fingerprint": "f0e78288",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-security-os",
@@ -2183,7 +2311,7 @@
       "coverage": {},
       "fingerprint": "ec79b914",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-seo",
@@ -2221,7 +2349,7 @@
       "coverage": {},
       "fingerprint": "c3693753",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-settings",
@@ -2259,7 +2387,7 @@
       "coverage": {},
       "fingerprint": "3806dac3",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-setup",
@@ -2297,13 +2425,13 @@
       "coverage": {},
       "fingerprint": "ce222ca3",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-social",
       "slug": "admin-social",
       "name": "Social",
-      "description": "Social — detected from /admin/social.",
+      "description": "standardize 4 top-level admin headers on PageHeader (#2 item 1)",
       "category": "admin-capability",
       "audiences": [
         "admin"
@@ -2322,12 +2450,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "7b7c0559"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/admin/social"
+        },
+        {
+          "kind": "commit",
+          "ref": "7b7c0559"
         }
       ],
       "confidence": 70,
@@ -2335,7 +2468,7 @@
       "coverage": {},
       "fingerprint": "9080f68d",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-sports",
@@ -2379,7 +2512,7 @@
       "coverage": {},
       "fingerprint": "66b5018c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-support",
@@ -2417,7 +2550,7 @@
       "coverage": {},
       "fingerprint": "c42f0665",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-system-health",
@@ -2457,7 +2590,50 @@
       "coverage": {},
       "fingerprint": "e11d0a0c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_admin-theme-lab",
+      "slug": "admin-theme-lab",
+      "name": "Theme Lab",
+      "description": "/admin/theme-lab operator console (#3)",
+      "category": "admin-capability",
+      "audiences": [
+        "admin"
+      ],
+      "status": "active",
+      "routes": [
+        "/admin/theme-lab"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [
+        "/admin/theme-lab"
+      ],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "2d3bc7b1"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/admin/theme-lab"
+        },
+        {
+          "kind": "commit",
+          "ref": "2d3bc7b1"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "155805fd",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-updates",
@@ -2495,7 +2671,7 @@
       "coverage": {},
       "fingerprint": "445f0884",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-uploads",
@@ -2533,7 +2709,7 @@
       "coverage": {},
       "fingerprint": "29f5dca8",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-users",
@@ -2577,7 +2753,7 @@
       "coverage": {},
       "fingerprint": "609a4dd9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_admin-video-studio",
@@ -2615,7 +2791,7 @@
       "coverage": {},
       "fingerprint": "15a77a9e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_agi",
@@ -2652,7 +2828,7 @@
       "coverage": {},
       "fingerprint": "2b529835",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_ai-coach",
@@ -2689,14 +2865,14 @@
       "coverage": {},
       "fingerprint": "48588437",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-admin",
       "slug": "api-admin",
       "name": "Admin",
-      "description": "Admin — detected from /api/admin/analytics-os.",
-      "category": "analytics-reporting",
+      "description": "live GitHub-PR deploy-backed executor (Part 5)",
+      "category": "backend-api",
       "audiences": [
         "developer",
         "admin"
@@ -2705,13 +2881,7 @@
       "routes": [],
       "components": [],
       "apiEndpoints": [
-        "/api/admin/analytics-os",
-        "/api/admin/audits/status",
-        "/api/admin/copilot",
-        "/api/admin/library-publish",
-        "/api/admin/security-os/scan",
-        "/api/admin/updates",
-        "/api/admin/users/:id"
+        "/api/admin/publishing/execute"
       ],
       "dbTables": [],
       "permissions": [],
@@ -2724,44 +2894,26 @@
         "89beced5",
         "88181624",
         "832821ec",
-        "65d09d32"
+        "65d09d32",
+        "ce688ebe",
+        "be810538"
       ],
       "evidence": [
         {
           "kind": "api",
-          "ref": "/api/admin/analytics-os"
+          "ref": "/api/admin/publishing/execute"
         },
         {
-          "kind": "api",
-          "ref": "/api/admin/audits/status"
-        },
-        {
-          "kind": "api",
-          "ref": "/api/admin/copilot"
-        },
-        {
-          "kind": "api",
-          "ref": "/api/admin/library-publish"
-        },
-        {
-          "kind": "api",
-          "ref": "/api/admin/security-os/scan"
-        },
-        {
-          "kind": "api",
-          "ref": "/api/admin/updates"
-        },
-        {
-          "kind": "api",
-          "ref": "/api/admin/users/:id"
+          "kind": "commit",
+          "ref": "be810538"
         }
       ],
       "confidence": 70,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "252b094b",
+      "fingerprint": "57d809b6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-agents",
@@ -2808,7 +2960,7 @@
       "coverage": {},
       "fingerprint": "d38b9eae",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-ai-coach",
@@ -2845,7 +2997,7 @@
       "coverage": {},
       "fingerprint": "8025e15e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-athletic-journey",
@@ -2882,7 +3034,7 @@
       "coverage": {},
       "fingerprint": "d3837fe3",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-audit",
@@ -2920,7 +3072,7 @@
       "coverage": {},
       "fingerprint": "cd67b786",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-billing",
@@ -2973,7 +3125,7 @@
       "coverage": {},
       "fingerprint": "44fd4348",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-capabilities",
@@ -3010,14 +3162,14 @@
       "coverage": {},
       "fingerprint": "f36eca45",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-central-intelligence",
       "slug": "api-central-intelligence",
       "name": "Central Intelligence",
-      "description": "Central Intelligence — detected from /api/central-intelligence/admin/config.",
-      "category": "user-setting",
+      "description": "per-sport journey page + challenge-completion qualification",
+      "category": "backend-api",
       "audiences": [
         "developer",
         "admin"
@@ -3026,9 +3178,7 @@
       "routes": [],
       "components": [],
       "apiEndpoints": [
-        "/api/central-intelligence/admin/config",
-        "/api/central-intelligence/founding/claim",
-        "/api/central-intelligence/founding/progress"
+        "/api/central-intelligence/founding/claim"
       ],
       "dbTables": [],
       "permissions": [],
@@ -3036,28 +3186,26 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "d7a011fe",
+        "cdcec7e3"
       ],
       "evidence": [
-        {
-          "kind": "api",
-          "ref": "/api/central-intelligence/admin/config"
-        },
         {
           "kind": "api",
           "ref": "/api/central-intelligence/founding/claim"
         },
         {
-          "kind": "api",
-          "ref": "/api/central-intelligence/founding/progress"
+          "kind": "commit",
+          "ref": "cdcec7e3"
         }
       ],
       "confidence": 70,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "2e6c9f88",
+      "fingerprint": "f95bdc9e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-coach-mix",
@@ -3095,7 +3243,7 @@
       "coverage": {},
       "fingerprint": "c2e18184",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-contact",
@@ -3132,7 +3280,7 @@
       "coverage": {},
       "fingerprint": "c68b4249",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-email-capture",
@@ -3169,7 +3317,7 @@
       "coverage": {},
       "fingerprint": "b83520c2",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-feature-education",
@@ -3246,7 +3394,7 @@
       "coverage": {},
       "fingerprint": "d231c618",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-growth",
@@ -3320,7 +3468,7 @@
       "coverage": {},
       "fingerprint": "053040e4",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-import",
@@ -3357,7 +3505,96 @@
       "coverage": {},
       "fingerprint": "90a9b745",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_api-notifications",
+      "slug": "api-notifications",
+      "name": "Notifications",
+      "description": "Notifications — detected from /api/notifications/subscribe.",
+      "category": "backend-api",
+      "audiences": [
+        "developer",
+        "admin"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [],
+      "apiEndpoints": [
+        "/api/notifications/subscribe",
+        "/api/notifications/test",
+        "/api/notifications/unsubscribe"
+      ],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan"
+      ],
+      "evidence": [
+        {
+          "kind": "api",
+          "ref": "/api/notifications/subscribe"
+        },
+        {
+          "kind": "api",
+          "ref": "/api/notifications/test"
+        },
+        {
+          "kind": "api",
+          "ref": "/api/notifications/unsubscribe"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "be21188b",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_api-publishing",
+      "slug": "api-publishing",
+      "name": "Publishing",
+      "description": "scheduling cron for due publishes (Part 6)",
+      "category": "backend-api",
+      "audiences": [
+        "developer",
+        "admin"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [],
+      "apiEndpoints": [
+        "/api/publishing/cron"
+      ],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "1eb82d39"
+      ],
+      "evidence": [
+        {
+          "kind": "api",
+          "ref": "/api/publishing/cron"
+        },
+        {
+          "kind": "commit",
+          "ref": "1eb82d39"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "77bd75ab",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-recruiting",
@@ -3394,7 +3631,44 @@
       "coverage": {},
       "fingerprint": "5434dff2",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_api-region",
+      "slug": "api-region",
+      "name": "Region",
+      "description": "Region — detected from /api/region.",
+      "category": "backend-api",
+      "audiences": [
+        "developer",
+        "admin"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [],
+      "apiEndpoints": [
+        "/api/region"
+      ],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan"
+      ],
+      "evidence": [
+        {
+          "kind": "api",
+          "ref": "/api/region"
+        }
+      ],
+      "confidence": 70,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "ad0f9017",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-research",
@@ -3446,7 +3720,7 @@
       "coverage": {},
       "fingerprint": "77b38127",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-social",
@@ -3518,13 +3792,13 @@
       "coverage": {},
       "fingerprint": "3512ef2b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-user",
       "slug": "api-user",
       "name": "User",
-      "description": "User — detected from /api/user/export.",
+      "description": "User — detected from /api/user/delete.",
       "category": "backend-api",
       "audiences": [
         "developer",
@@ -3534,6 +3808,7 @@
       "routes": [],
       "components": [],
       "apiEndpoints": [
+        "/api/user/delete",
         "/api/user/export",
         "/api/user/import/preview",
         "/api/user/import/restore"
@@ -3547,6 +3822,10 @@
         "route-scan"
       ],
       "evidence": [
+        {
+          "kind": "api",
+          "ref": "/api/user/delete"
+        },
         {
           "kind": "api",
           "ref": "/api/user/export"
@@ -3563,9 +3842,9 @@
       "confidence": 70,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "34f33679",
+      "fingerprint": "b35d0f66",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-video-analysis",
@@ -3602,7 +3881,7 @@
       "coverage": {},
       "fingerprint": "7441333b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-video-studio",
@@ -3689,7 +3968,7 @@
       "coverage": {},
       "fingerprint": "28b0b591",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_api-video-vision-analysis",
@@ -3726,7 +4005,7 @@
       "coverage": {},
       "fingerprint": "5ad256a6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_arc",
@@ -3763,7 +4042,7 @@
       "coverage": {},
       "fingerprint": "1187ddaa",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_athlete-general-intelligence",
@@ -3799,7 +4078,7 @@
       "coverage": {},
       "fingerprint": "066740a0",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_auth",
@@ -3836,7 +4115,7 @@
       "coverage": {},
       "fingerprint": "c8ad2053",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_avatar",
@@ -3873,7 +4152,7 @@
       "coverage": {},
       "fingerprint": "0b0a4a4f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_baseball",
@@ -3939,7 +4218,7 @@
       "coverage": {},
       "fingerprint": "32ec308b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_baseball-swing-analysis",
@@ -3975,7 +4254,7 @@
       "coverage": {},
       "fingerprint": "5f337eba",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_benchmarks",
@@ -4016,7 +4295,7 @@
       "coverage": {},
       "fingerprint": "50f219a8",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_blog",
@@ -4061,7 +4340,7 @@
       "coverage": {},
       "fingerprint": "e61da975",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_bodysync",
@@ -4098,7 +4377,7 @@
       "coverage": {},
       "fingerprint": "b7bf1689",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_challenges",
@@ -4149,7 +4428,7 @@
       "coverage": {},
       "fingerprint": "9bc79274",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_coach",
@@ -4186,13 +4465,13 @@
       "coverage": {},
       "fingerprint": "bfbaf500",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_coaches",
       "slug": "coaches",
       "name": "Coaches",
-      "description": "Coaches — detected from /coaches.",
+      "description": "consolidated persona→CTA map (#1 Phase 2)",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -4209,12 +4488,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "8ff545c2"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/coaches"
+        },
+        {
+          "kind": "commit",
+          "ref": "8ff545c2"
         }
       ],
       "confidence": 75,
@@ -4222,7 +4506,7 @@
       "coverage": {},
       "fingerprint": "326a1364",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_community",
@@ -4283,7 +4567,7 @@
       "coverage": {},
       "fingerprint": "93e1755c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_compare",
@@ -4320,7 +4604,7 @@
       "coverage": {},
       "fingerprint": "a6206985",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_contact",
@@ -4356,13 +4640,13 @@
       "coverage": {},
       "fingerprint": "1fcf056e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_creators",
       "slug": "creators",
       "name": "Creators",
-      "description": "Creators — detected from /creators.",
+      "description": "consolidated persona→CTA map (#1 Phase 2)",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -4379,12 +4663,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "8ff545c2"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/creators"
+        },
+        {
+          "kind": "commit",
+          "ref": "8ff545c2"
         }
       ],
       "confidence": 75,
@@ -4392,7 +4681,7 @@
       "coverage": {},
       "fingerprint": "ecc6b13b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_dashboard",
@@ -4430,13 +4719,13 @@
       "coverage": {},
       "fingerprint": "dfa3bc9e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_data",
       "slug": "data",
       "name": "Data",
-      "description": "remove redundant advanced CodeQL workflow (conflicts with default setup)",
+      "description": "Data — detected from /data.",
       "category": "new-feature",
       "audiences": [
         "new-user",
@@ -4462,10 +4751,6 @@
         {
           "kind": "route",
           "ref": "/data"
-        },
-        {
-          "kind": "commit",
-          "ref": "4e426461"
         }
       ],
       "confidence": 75,
@@ -4473,7 +4758,153 @@
       "coverage": {},
       "fingerprint": "49f653fe",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_data-model",
+      "slug": "data-model",
+      "name": "Data Model",
+      "description": "centralized Keys & Secrets manager on /admin/integrations",
+      "category": "backend-api",
+      "audiences": [
+        "developer",
+        "admin"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [
+        "supabase-secrets"
+      ],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "ce688ebe"
+      ],
+      "evidence": [
+        {
+          "kind": "db",
+          "ref": "supabase-secrets"
+        },
+        {
+          "kind": "commit",
+          "ref": "ce688ebe"
+        }
+      ],
+      "confidence": 50,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "811c9dc5",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_demo",
+      "slug": "demo",
+      "name": "Demo",
+      "description": "kebab-case the demo lib filenames (naming gate)",
+      "category": "ui-change",
+      "audiences": [
+        "all"
+      ],
+      "status": "active",
+      "routes": [
+        "/demo/:sport",
+        "/demo/:sport/profile",
+        "/demo/:sport/training",
+        "/demo"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "4e47fca0",
+        "d1da8218"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/demo/:sport"
+        },
+        {
+          "kind": "route",
+          "ref": "/demo/:sport"
+        },
+        {
+          "kind": "route",
+          "ref": "/demo/:sport/profile"
+        },
+        {
+          "kind": "route",
+          "ref": "/demo/:sport/training"
+        },
+        {
+          "kind": "route",
+          "ref": "/demo"
+        },
+        {
+          "kind": "commit",
+          "ref": "d1da8218"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "4e2f7d3b",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_design-lab",
+      "slug": "design-lab",
+      "name": "Design Lab",
+      "description": "Christmas Swing Lab seasonal theme (#3 step 5 — finishes #3)",
+      "category": "new-feature",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [
+        "/design-lab"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "6a0b2abf",
+        "0ff96cf5",
+        "592830d0"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/design-lab"
+        },
+        {
+          "kind": "commit",
+          "ref": "592830d0"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "619ce7e6",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_dev-updates",
@@ -4515,7 +4946,7 @@
       "coverage": {},
       "fingerprint": "d9381c9f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_diagnose",
@@ -4552,7 +4983,7 @@
       "coverage": {},
       "fingerprint": "24f5c1be",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_drills",
@@ -4589,7 +5020,7 @@
       "coverage": {},
       "fingerprint": "f21a4fdc",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_equipment",
@@ -4631,7 +5062,7 @@
       "coverage": {},
       "fingerprint": "a876c0e6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_faq",
@@ -4667,7 +5098,7 @@
       "coverage": {},
       "fingerprint": "210dbd6e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_features",
@@ -4680,7 +5111,8 @@
       ],
       "status": "active",
       "routes": [
-        "/features"
+        "/features",
+        "/features/:slug"
       ],
       "components": [],
       "apiEndpoints": [],
@@ -4696,14 +5128,18 @@
         {
           "kind": "route",
           "ref": "/features"
+        },
+        {
+          "kind": "route",
+          "ref": "/features/:slug"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "28f547a9",
+      "fingerprint": "dcb4cb39",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_fix",
@@ -4741,7 +5177,7 @@
       "coverage": {},
       "fingerprint": "19fa2ab1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_forgot-password",
@@ -4778,7 +5214,48 @@
       "coverage": {},
       "fingerprint": "daf00939",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_founding",
+      "slug": "founding",
+      "name": "Founding",
+      "description": "the Founding Journey — guided feature-tour checklist at /founding",
+      "category": "ui-change",
+      "audiences": [
+        "all"
+      ],
+      "status": "active",
+      "routes": [
+        "/founding"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "1bf80d7b"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/founding"
+        },
+        {
+          "kind": "commit",
+          "ref": "1bf80d7b"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "e6659666",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_free-swing-analysis",
@@ -4814,7 +5291,7 @@
       "coverage": {},
       "fingerprint": "0bb65a40",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_glossary",
@@ -4850,7 +5327,7 @@
       "coverage": {},
       "fingerprint": "32e995c2",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_golf",
@@ -4926,7 +5403,7 @@
       "coverage": {},
       "fingerprint": "6f24bcf4",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_golf-swing-analysis",
@@ -4962,7 +5439,7 @@
       "coverage": {},
       "fingerprint": "ea048596",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_home",
@@ -5010,7 +5487,7 @@
       "coverage": {},
       "fingerprint": "2a0c975e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_how-it-works",
@@ -5046,7 +5523,7 @@
       "coverage": {},
       "fingerprint": "a4e6fec9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_journey",
@@ -5083,7 +5560,7 @@
       "coverage": {},
       "fingerprint": "761244ee",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lab",
@@ -5120,7 +5597,7 @@
       "coverage": {},
       "fingerprint": "9aa57535",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_labs",
@@ -5157,7 +5634,7 @@
       "coverage": {},
       "fingerprint": "b8779d32",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lang",
@@ -5213,26 +5690,21 @@
       "coverage": {},
       "fingerprint": "875d91f6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_learn",
       "slug": "learn",
       "name": "Learn",
-      "description": "Learn — detected from /learn/data-points.",
+      "description": "wire durable overrides into /learn public reads (fully dynamic)",
       "category": "ui-change",
       "audiences": [
         "all"
       ],
       "status": "active",
       "routes": [
-        "/learn/data-points",
-        "/learn/data-points/:slug",
-        "/learn/grip",
-        "/learn",
-        "/learn/swing-plane",
-        "/learn/weight-distribution",
-        "/learn/:slug"
+        "/learn/:slug",
+        "/learn"
       ],
       "components": [],
       "apiEndpoints": [],
@@ -5244,50 +5716,80 @@
       "detectedFrom": [
         "route-scan",
         "45c13add",
-        "b003b1ff"
+        "b003b1ff",
+        "64e4e49f"
       ],
       "evidence": [
         {
           "kind": "route",
-          "ref": "/learn/data-points"
-        },
-        {
-          "kind": "route",
-          "ref": "/learn/data-points/:slug"
-        },
-        {
-          "kind": "route",
-          "ref": "/learn/grip"
+          "ref": "/learn/:slug"
         },
         {
           "kind": "route",
           "ref": "/learn"
         },
         {
-          "kind": "route",
-          "ref": "/learn/swing-plane"
-        },
-        {
-          "kind": "route",
-          "ref": "/learn/weight-distribution"
-        },
-        {
-          "kind": "route",
-          "ref": "/learn/:slug"
+          "kind": "commit",
+          "ref": "64e4e49f"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "9720e555",
+      "fingerprint": "eb0d7b6b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_lib-academy",
+      "slug": "lib-academy",
+      "name": "Academy",
+      "description": "reflect all 7 sports across marketing copy, docs & i18n",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/academy/content/courses.ts",
+        "lib/academy/content/lessons.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "ff0b4ea7"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/academy/content/courses.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/academy/content/lessons.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "ff0b4ea7"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "8a55587e",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-admin",
       "slug": "lib-admin",
       "name": "Admin",
-      "description": "surface remaining next-steps in the setup hub + un-stale the security audit",
+      "description": "surface scheduled-publish reminders in the admin Action Center",
       "category": "enhancement",
       "audiences": [
         "developer"
@@ -5295,8 +5797,7 @@
       "status": "active",
       "routes": [],
       "components": [
-        "lib/admin/setup/catalog.ts",
-        "lib/admin/setup/status.ts"
+        "lib/admin/action-center/adapters.server.ts"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -5305,45 +5806,41 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "832821ec",
-        "c397fe23",
-        "9548b96f",
-        "d6be1944",
-        "67393f9d",
-        "a5d7b139",
         "65d09d32",
         "87108cbf",
         "999662f1",
         "33a5145e",
         "2f4e537b",
-        "989b1b16"
+        "989b1b16",
+        "2d3bc7b1",
+        "df79a266",
+        "5819c515",
+        "343b9bf5",
+        "6abd2f75",
+        "b6dfcbd9"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "lib/admin/setup/catalog.ts"
-        },
-        {
-          "kind": "component",
-          "ref": "lib/admin/setup/status.ts"
+          "ref": "lib/admin/action-center/adapters.server.ts"
         },
         {
           "kind": "commit",
-          "ref": "989b1b16"
+          "ref": "b6dfcbd9"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "139b42b6",
+      "fingerprint": "d6ab5ebc",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-agents",
       "slug": "lib-agents",
       "name": "Agents",
-      "description": "stall-aware re-engagement nudges",
+      "description": "reflect all 7 sports across marketing copy, docs & i18n",
       "category": "enhancement",
       "audiences": [
         "developer"
@@ -5351,7 +5848,7 @@
       "status": "active",
       "routes": [],
       "components": [
-        "lib/agents/activation/engine.ts"
+        "lib/agents/workflows/equipment-fit.ts"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -5361,24 +5858,65 @@
       "owner": "unassigned",
       "detectedFrom": [
         "999662f1",
-        "25fcd408"
+        "25fcd408",
+        "ff0b4ea7"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "lib/agents/activation/engine.ts"
+          "ref": "lib/agents/workflows/equipment-fit.ts"
         },
         {
           "kind": "commit",
-          "ref": "25fcd408"
+          "ref": "ff0b4ea7"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "01621a6a",
+      "fingerprint": "751b3cfa",
       "createdAt": "2026-06-09T11:42:45.999Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_lib-agi",
+      "slug": "lib-agi",
+      "name": "Agi",
+      "description": "reflect all 7 sports across marketing copy, docs & i18n",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/agi/types.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "ff0b4ea7"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/agi/types.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "ff0b4ea7"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "f5f1d205",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-audit-access",
@@ -5479,6 +6017,46 @@
       "fingerprint": "7a91a19d",
       "createdAt": "2026-06-09T12:51:42.669Z",
       "updatedAt": "2026-06-09T14:08:03.016Z"
+    },
+    {
+      "id": "feat_lib-billing",
+      "slug": "lib-billing",
+      "name": "Billing",
+      "description": "reflect all 7 sports across marketing copy, docs & i18n",
+      "category": "monetization",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/billing/tiers.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "ff0b4ea7"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/billing/tiers.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "ff0b4ea7"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "c9df860d",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-bodysync",
@@ -5614,15 +6192,17 @@
       "id": "feat_lib-central-intelligence",
       "slug": "lib-central-intelligence",
       "name": "Central Intelligence",
-      "description": "emotion & mistake-recovery pillar",
-      "category": "analytics-reporting",
+      "description": "per-sport journey page + challenge-completion qualification",
+      "category": "user-setting",
       "audiences": [
         "developer"
       ],
       "status": "active",
       "routes": [],
       "components": [
-        "lib/central-intelligence/dashboard.ts",
+        "lib/central-intelligence/config.ts",
+        "lib/central-intelligence/founding-server.ts",
+        "lib/central-intelligence/founding.ts",
         "lib/central-intelligence/types.ts"
       ],
       "apiEndpoints": [],
@@ -5633,12 +6213,23 @@
       "owner": "unassigned",
       "detectedFrom": [
         "4028fba5",
-        "83bb9016"
+        "83bb9016",
+        "d7a011fe",
+        "2e4f9117",
+        "cdcec7e3"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "lib/central-intelligence/dashboard.ts"
+          "ref": "lib/central-intelligence/config.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/central-intelligence/founding-server.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/central-intelligence/founding.ts"
         },
         {
           "kind": "component",
@@ -5646,15 +6237,15 @@
         },
         {
           "kind": "commit",
-          "ref": "83bb9016"
+          "ref": "cdcec7e3"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "a0f8cef4",
+      "fingerprint": "61bd3ec2",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T04:25:29.522Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-command-center",
@@ -5706,6 +6297,56 @@
       "fingerprint": "f66cc89f",
       "createdAt": "2026-06-09T04:24:59.972Z",
       "updatedAt": "2026-06-09T11:25:15.748Z"
+    },
+    {
+      "id": "feat_lib-community",
+      "slug": "lib-community",
+      "name": "Community",
+      "description": "per-sport layered challenge library (250+ system, 100+ founding)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/community/challenge-generator.ts",
+        "lib/community/challenges.ts",
+        "lib/community/types.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "18d5f6be"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/community/challenge-generator.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/community/challenges.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/community/types.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "18d5f6be"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "a5846dfa",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-config",
@@ -5789,6 +6430,72 @@
       "updatedAt": "2026-06-09T05:01:27.914Z"
     },
     {
+      "id": "feat_lib-demo",
+      "slug": "lib-demo",
+      "name": "Demo",
+      "description": "kebab-case the demo lib filenames (naming gate)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/demo/demo-report.ts",
+        "lib/demo/demoReport.ts",
+        "lib/demo/kinematic-sports.ts",
+        "lib/demo/kinematicSports.ts",
+        "lib/demo/swing-demo.ts",
+        "lib/demo/swingDemo.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "4e47fca0",
+        "d1da8218"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/demo/demo-report.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/demo/demoReport.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/demo/kinematic-sports.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/demo/kinematicSports.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/demo/swing-demo.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/demo/swingDemo.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "d1da8218"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "8a34e1c4",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
       "id": "feat_lib-email",
       "slug": "lib-email",
       "name": "Email",
@@ -5827,6 +6534,46 @@
       "fingerprint": "99d6e59b",
       "createdAt": "2026-06-09T11:42:45.999Z",
       "updatedAt": "2026-06-09T13:41:05.233Z"
+    },
+    {
+      "id": "feat_lib-faults",
+      "slug": "lib-faults",
+      "name": "Faults",
+      "description": "reflect all 7 sports across marketing copy, docs & i18n",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/faults/ontology.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "ff0b4ea7"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/faults/ontology.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "ff0b4ea7"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "b983bc27",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-feature-education",
@@ -5868,6 +6615,52 @@
       "fingerprint": "ab04cbc5",
       "createdAt": "2026-06-09T04:24:59.972Z",
       "updatedAt": "2026-06-09T13:41:05.233Z"
+    },
+    {
+      "id": "feat_lib-founding-journey",
+      "slug": "lib-founding-journey",
+      "name": "Founding Journey",
+      "description": "per-sport journey page + challenge-completion qualification",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/founding-journey/journey.ts",
+        "lib/founding-journey/sport-journey.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "1bf80d7b",
+        "cdcec7e3"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/founding-journey/journey.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/founding-journey/sport-journey.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "cdcec7e3"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "fa73608a",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-growth",
@@ -6129,16 +6922,17 @@
       "id": "feat_lib-motion-lab",
       "slug": "lib-motion-lab",
       "name": "Motion Lab",
-      "description": "clear safe mechanical warnings (unused vars, stale disables)",
-      "category": "analytics-reporting",
+      "description": "retest protocols, full 7-sport mock data, e2e coverage",
+      "category": "enhancement",
       "audiences": [
         "developer"
       ],
       "status": "active",
       "routes": [],
       "components": [
-        "lib/motion-lab/quality.ts",
-        "lib/motion-lab/reporting.ts"
+        "lib/motion-lab/index.ts",
+        "lib/motion-lab/retest-protocols.ts",
+        "lib/motion-lab/sample.ts"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -6147,28 +6941,34 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "999662f1"
+        "999662f1",
+        "5819c515",
+        "8315c76a"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "lib/motion-lab/quality.ts"
+          "ref": "lib/motion-lab/index.ts"
         },
         {
           "kind": "component",
-          "ref": "lib/motion-lab/reporting.ts"
+          "ref": "lib/motion-lab/retest-protocols.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/motion-lab/sample.ts"
         },
         {
           "kind": "commit",
-          "ref": "999662f1"
+          "ref": "8315c76a"
         }
       ],
       "confidence": 55,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "11764cd6",
+      "fingerprint": "e38b523a",
       "createdAt": "2026-06-09T11:42:45.999Z",
-      "updatedAt": "2026-06-09T13:41:05.233Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-observability",
@@ -6209,6 +7009,46 @@
       "fingerprint": "825759a8",
       "createdAt": "2026-06-09T11:42:45.999Z",
       "updatedAt": "2026-06-09T13:41:05.233Z"
+    },
+    {
+      "id": "feat_lib-personas",
+      "slug": "lib-personas",
+      "name": "Personas",
+      "description": "consolidated persona→CTA map (#1 Phase 2)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/personas/cta-map.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "8ff545c2"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/personas/cta-map.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "8ff545c2"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "091dbab5",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-posthog",
@@ -6254,6 +7094,136 @@
       "fingerprint": "b78fbd2c",
       "createdAt": "2026-06-09T12:18:12.444Z",
       "updatedAt": "2026-06-09T13:47:00.880Z"
+    },
+    {
+      "id": "feat_lib-publishing",
+      "slug": "lib-publishing",
+      "name": "Publishing",
+      "description": "surface scheduled-publish reminders in the admin Action Center",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/publishing/schedule-status.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "64e4e49f",
+        "151335f7",
+        "be810538",
+        "1eb82d39",
+        "b6dfcbd9"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/publishing/schedule-status.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "b6dfcbd9"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "ba2e64f8",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_lib-record-assist",
+      "slug": "lib-record-assist",
+      "name": "Record Assist",
+      "description": "Phase 3 — advanced biomechanics (reuse Motion Lab) (#20)",
+      "category": "analytics-reporting",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/record-assist/biomechanics.ts",
+        "lib/record-assist/engines/analytics-engine.ts",
+        "lib/record-assist/hooks/index.ts",
+        "lib/record-assist/hooks/useDeviceShake.ts",
+        "lib/record-assist/hooks/useGuidedCapture.ts",
+        "lib/record-assist/index.ts",
+        "lib/record-assist/reference-clips.ts",
+        "lib/record-assist/runtime/devicemotion.ts",
+        "lib/record-assist/sim.ts",
+        "lib/record-assist/types.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "343b9bf5",
+        "ec3dd06f"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/record-assist/biomechanics.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/record-assist/engines/analytics-engine.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/record-assist/hooks/index.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/record-assist/hooks/useDeviceShake.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/record-assist/hooks/useGuidedCapture.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/record-assist/index.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/record-assist/reference-clips.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/record-assist/runtime/devicemotion.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/record-assist/sim.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/record-assist/types.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "ec3dd06f"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "5eb09e8c",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-reengage",
@@ -6312,6 +7282,47 @@
       "updatedAt": "2026-06-09T14:24:50.213Z"
     },
     {
+      "id": "feat_lib-secrets",
+      "slug": "lib-secrets",
+      "name": "Secrets",
+      "description": "live GitHub-PR deploy-backed executor (Part 5)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/secrets/registry.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "ce688ebe",
+        "be810538"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/secrets/registry.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "be810538"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "3190e9e3",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
       "id": "feat_lib-security-os",
       "slug": "lib-security-os",
       "name": "Security Os",
@@ -6357,7 +7368,7 @@
       "id": "feat_lib-seo",
       "slug": "lib-seo",
       "name": "SEO",
-      "description": "Milestone Authority System — verifiable milestones → SEO authority pages",
+      "description": "announce the free 7-sport live demo + index /demo",
       "category": "enhancement",
       "audiences": [
         "developer"
@@ -6375,7 +7386,11 @@
       "owner": "unassigned",
       "detectedFrom": [
         "d28d61b3",
-        "a5d7b139"
+        "a5d7b139",
+        "1bf80d7b",
+        "5158a3ae",
+        "cc93e08d",
+        "8a28af7c"
       ],
       "evidence": [
         {
@@ -6384,7 +7399,7 @@
         },
         {
           "kind": "commit",
-          "ref": "a5d7b139"
+          "ref": "8a28af7c"
         }
       ],
       "confidence": 55,
@@ -6392,7 +7407,87 @@
       "coverage": {},
       "fingerprint": "94b45d9a",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T12:08:56.289Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_lib-skilltransfer",
+      "slug": "lib-skilltransfer",
+      "name": "SkillTransfer",
+      "description": "reflect all 7 sports across marketing copy, docs & i18n",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/skillTransfer/map.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "ff0b4ea7"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/skillTransfer/map.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "ff0b4ea7"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "95ce6def",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_lib-sport-brand",
+      "slug": "lib-sport-brand",
+      "name": "Sport Brand",
+      "description": "SportShell reusable per-sport branded wrapper + registry (#1 Phase 4)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/sport-brand/registry.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "6a0b2abf"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/sport-brand/registry.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "6a0b2abf"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "ac2551f8",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-storage",
@@ -6433,6 +7528,203 @@
       "fingerprint": "77c4b743",
       "createdAt": "2026-06-09T12:51:42.669Z",
       "updatedAt": "2026-06-09T14:08:03.016Z"
+    },
+    {
+      "id": "feat_lib-tempo-sync",
+      "slug": "lib-tempo-sync",
+      "name": "Tempo Sync",
+      "description": "cross-session tempo trend in Motion Lab",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/tempo-sync/index.ts",
+        "lib/tempo-sync/storage.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "4b270264",
+        "f0f90492"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/tempo-sync/index.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/tempo-sync/storage.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "f0f90492"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "5c38cebc",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_lib-theme",
+      "slug": "lib-theme",
+      "name": "Theme",
+      "description": "Christmas Swing Lab seasonal theme (#3 step 5 — finishes #3)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/theme/contrast.ts",
+        "lib/theme/themes.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "592830d0"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/theme/contrast.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/theme/themes.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "592830d0"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "27b801cf",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_lib-theme-lab",
+      "slug": "lib-theme-lab",
+      "name": "Theme Lab",
+      "description": "library + generation + publishing-center + ops recommendations (#3 cores)",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/theme-lab/generate.ts",
+        "lib/theme-lab/index.ts",
+        "lib/theme-lab/library.ts",
+        "lib/theme-lab/publish.ts",
+        "lib/theme-lab/recommendations.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "7cbedd9f",
+        "a2e68bc6",
+        "0ff96cf5",
+        "f4e25d3e",
+        "2fe9331b",
+        "592830d0",
+        "c818f233"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/theme-lab/generate.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/theme-lab/index.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/theme-lab/library.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/theme-lab/publish.ts"
+        },
+        {
+          "kind": "component",
+          "ref": "lib/theme-lab/recommendations.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "c818f233"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "4c75c7d3",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_lib-tutorial",
+      "slug": "lib-tutorial",
+      "name": "Tutorial",
+      "description": "re-record all 36 walkthrough videos in the B (Dark Performance) design",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/tutorial/recordings.generated.json"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "e293b25e"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/tutorial/recordings.generated.json"
+        },
+        {
+          "kind": "commit",
+          "ref": "e293b25e"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "04ce6609",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_lib-updates",
@@ -6485,6 +7777,46 @@
       "updatedAt": "2026-06-09T04:49:38.652Z"
     },
     {
+      "id": "feat_lib-video-studio",
+      "slug": "lib-video-studio",
+      "name": "Video Studio",
+      "description": "reflect all 7 sports across marketing copy, docs & i18n",
+      "category": "enhancement",
+      "audiences": [
+        "developer"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "lib/video-studio/brief-generator.ts"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "ff0b4ea7"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "lib/video-studio/brief-generator.ts"
+        },
+        {
+          "kind": "commit",
+          "ref": "ff0b4ea7"
+        }
+      ],
+      "confidence": 55,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "76bf370d",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
       "id": "feat_library",
       "slug": "library",
       "name": "Library",
@@ -6519,7 +7851,7 @@
       "coverage": {},
       "fingerprint": "5d647cd1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_login",
@@ -6557,7 +7889,7 @@
       "coverage": {},
       "fingerprint": "56ff9eab",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_mental",
@@ -6606,21 +7938,19 @@
       "coverage": {},
       "fingerprint": "b7b301fc",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_mental-performance",
       "slug": "mental-performance",
       "name": "Mental Performance",
-      "description": "Mental Performance — detected from /mental-performance.",
+      "description": "clear react-hooks static-components & exhaustive-deps warnings",
       "category": "ui-change",
       "audiences": [
         "all"
       ],
       "status": "active",
       "routes": [
-        "/mental-performance",
-        "/mental-performance/:sport",
         "/mental-performance/:sport/:situation"
       ],
       "components": [],
@@ -6632,28 +7962,25 @@
       "owner": "unassigned",
       "detectedFrom": [
         "route-scan",
-        "83bb9016"
+        "83bb9016",
+        "284cfdeb"
       ],
       "evidence": [
         {
           "kind": "route",
-          "ref": "/mental-performance"
-        },
-        {
-          "kind": "route",
-          "ref": "/mental-performance/:sport"
-        },
-        {
-          "kind": "route",
           "ref": "/mental-performance/:sport/:situation"
+        },
+        {
+          "kind": "commit",
+          "ref": "284cfdeb"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "33a73253",
+      "fingerprint": "3d126708",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_mental-performance-emotion-mistake-recovery-coaching",
@@ -6775,7 +8102,7 @@
       "coverage": {},
       "fingerprint": "4f6931ed",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_milestones",
@@ -6812,7 +8139,7 @@
       "coverage": {},
       "fingerprint": "eeb95de9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_motion-lab",
@@ -6849,13 +8176,13 @@
       "coverage": {},
       "fingerprint": "3147f232",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_notes",
       "slug": "notes",
       "name": "Notes",
-      "description": "remove redundant advanced CodeQL workflow (conflicts with default setup)",
+      "description": "Notes — detected from /notes.",
       "category": "new-feature",
       "audiences": [
         "new-user",
@@ -6880,10 +8207,6 @@
         {
           "kind": "route",
           "ref": "/notes"
-        },
-        {
-          "kind": "commit",
-          "ref": "4e426461"
         }
       ],
       "confidence": 75,
@@ -6891,7 +8214,7 @@
       "coverage": {},
       "fingerprint": "660a9bcb",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_offline",
@@ -6928,7 +8251,7 @@
       "coverage": {},
       "fingerprint": "86c90ab1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_padel",
@@ -6964,7 +8287,7 @@
       "coverage": {},
       "fingerprint": "2be5ba96",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_padel-bandeja",
@@ -7000,7 +8323,7 @@
       "coverage": {},
       "fingerprint": "2a5fe3b4",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_padel-wall-rebound-technique",
@@ -7036,7 +8359,7 @@
       "coverage": {},
       "fingerprint": "6ab3a644",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_parents",
@@ -7072,13 +8395,13 @@
       "coverage": {},
       "fingerprint": "03c52c67",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_partners",
       "slug": "partners",
       "name": "Partners",
-      "description": "Partners — detected from /partners.",
+      "description": "consolidated persona→CTA map (#1 Phase 2)",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -7095,12 +8418,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "8ff545c2"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/partners"
+        },
+        {
+          "kind": "commit",
+          "ref": "8ff545c2"
         }
       ],
       "confidence": 75,
@@ -7108,7 +8436,7 @@
       "coverage": {},
       "fingerprint": "402e7831",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_pickleball",
@@ -7144,7 +8472,7 @@
       "coverage": {},
       "fingerprint": "9d498d69",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_pickleball-dinking",
@@ -7180,7 +8508,7 @@
       "coverage": {},
       "fingerprint": "6180a424",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_pickleball-third-shot-drop",
@@ -7216,7 +8544,7 @@
       "coverage": {},
       "fingerprint": "db9e8cce",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_player",
@@ -7257,7 +8585,7 @@
       "coverage": {},
       "fingerprint": "f5eb38b6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_practice",
@@ -7294,7 +8622,7 @@
       "coverage": {},
       "fingerprint": "30db811b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_pre-round",
@@ -7331,7 +8659,7 @@
       "coverage": {},
       "fingerprint": "20550e16",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_pricing",
@@ -7367,7 +8695,7 @@
       "coverage": {},
       "fingerprint": "3ba2e958",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_privacy",
@@ -7403,7 +8731,7 @@
       "coverage": {},
       "fingerprint": "c717de26",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_profile",
@@ -7440,7 +8768,7 @@
       "coverage": {},
       "fingerprint": "35d37363",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_progress",
@@ -7477,7 +8805,49 @@
       "coverage": {},
       "fingerprint": "82dea311",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_record-assist",
+      "slug": "record-assist",
+      "name": "Record Assist",
+      "description": "RecordAssist Vision + Kinetic Tracking OS (Phases 1–2) (#15)",
+      "category": "new-feature",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [
+        "/record-assist"
+      ],
+      "components": [],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "route-scan",
+        "343b9bf5"
+      ],
+      "evidence": [
+        {
+          "kind": "route",
+          "ref": "/record-assist"
+        },
+        {
+          "kind": "commit",
+          "ref": "343b9bf5"
+        }
+      ],
+      "confidence": 75,
+      "needsHumanReview": false,
+      "coverage": {},
+      "fingerprint": "f5a5595d",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_recruiting",
@@ -7500,6 +8870,7 @@
         "/recruiting/outreach",
         "/recruiting/packet-generator",
         "/recruiting/profile-builder",
+        "/recruiting/recommendations",
         "/recruiting/settings"
       ],
       "components": [],
@@ -7555,15 +8926,19 @@
         },
         {
           "kind": "route",
+          "ref": "/recruiting/recommendations"
+        },
+        {
+          "kind": "route",
           "ref": "/recruiting/settings"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "4a41a60d",
+      "fingerprint": "9c67ab61",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_refer",
@@ -7600,7 +8975,7 @@
       "coverage": {},
       "fingerprint": "6d571a44",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_reminders",
@@ -7637,13 +9012,13 @@
       "coverage": {},
       "fingerprint": "9a7590b9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_reports",
       "slug": "reports",
       "name": "Reports",
-      "description": "Reports — detected from /reports.",
+      "description": "clear react-hooks static-components & exhaustive-deps warnings",
       "category": "new-feature",
       "audiences": [
         "new-user",
@@ -7661,12 +9036,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "284cfdeb"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/reports"
+        },
+        {
+          "kind": "commit",
+          "ref": "284cfdeb"
         }
       ],
       "confidence": 75,
@@ -7674,7 +9054,7 @@
       "coverage": {},
       "fingerprint": "d3a7b7ed",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_reset-password",
@@ -7712,13 +9092,13 @@
       "coverage": {},
       "fingerprint": "76278a55",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_resources",
       "slug": "resources",
       "name": "Resources",
-      "description": "Resources — detected from /resources.",
+      "description": "reflect all 7 sports across marketing copy, docs & i18n",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -7735,12 +9115,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "ff0b4ea7"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/resources"
+        },
+        {
+          "kind": "commit",
+          "ref": "ff0b4ea7"
         }
       ],
       "confidence": 75,
@@ -7748,7 +9133,7 @@
       "coverage": {},
       "fingerprint": "97d0842f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_retest",
@@ -7785,25 +9170,23 @@
       "coverage": {},
       "fingerprint": "34ad8367",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_sample-report",
       "slug": "sample-report",
       "name": "Sample Report",
-      "description": "Sample Report — detected from /sample-report/baseball.",
+      "description": "tennis, pickleball & padel sample reports",
       "category": "ui-change",
       "audiences": [
         "all"
       ],
       "status": "active",
       "routes": [
-        "/sample-report/baseball",
-        "/sample-report/fast-pitch",
-        "/sample-report/golf",
+        "/sample-report/padel",
         "/sample-report",
-        "/sample-report/slow-pitch",
-        "/sample-report/softball"
+        "/sample-report/pickleball",
+        "/sample-report/tennis"
       ],
       "components": [],
       "apiEndpoints": [],
@@ -7813,20 +9196,13 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "cc93e08d"
       ],
       "evidence": [
         {
           "kind": "route",
-          "ref": "/sample-report/baseball"
-        },
-        {
-          "kind": "route",
-          "ref": "/sample-report/fast-pitch"
-        },
-        {
-          "kind": "route",
-          "ref": "/sample-report/golf"
+          "ref": "/sample-report/padel"
         },
         {
           "kind": "route",
@@ -7834,25 +9210,29 @@
         },
         {
           "kind": "route",
-          "ref": "/sample-report/slow-pitch"
+          "ref": "/sample-report/pickleball"
         },
         {
           "kind": "route",
-          "ref": "/sample-report/softball"
+          "ref": "/sample-report/tennis"
+        },
+        {
+          "kind": "commit",
+          "ref": "cc93e08d"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "057b4c5e",
+      "fingerprint": "c3e0a138",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_sessions",
       "slug": "sessions",
       "name": "Sessions",
-      "description": "remove redundant advanced CodeQL workflow (conflicts with default setup)",
+      "description": "clear react-hooks static-components & exhaustive-deps warnings",
       "category": "account-auth",
       "audiences": [
         "new-user",
@@ -7872,7 +9252,8 @@
       "detectedFrom": [
         "route-scan",
         "999662f1",
-        "4e426461"
+        "4e426461",
+        "284cfdeb"
       ],
       "evidence": [
         {
@@ -7881,7 +9262,7 @@
         },
         {
           "kind": "commit",
-          "ref": "4e426461"
+          "ref": "284cfdeb"
         }
       ],
       "confidence": 75,
@@ -7889,13 +9270,13 @@
       "coverage": {},
       "fingerprint": "a3c028a7",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_settings",
       "slug": "settings",
       "name": "Settings",
-      "description": "remove redundant advanced CodeQL workflow (conflicts with default setup)",
+      "description": "theme recommendation + user-facing selector polish (#3 steps 6-7)",
       "category": "user-setting",
       "audiences": [
         "new-user",
@@ -7903,7 +9284,7 @@
       ],
       "status": "active",
       "routes": [
-        "/settings/backup"
+        "/settings"
       ],
       "components": [],
       "apiEndpoints": [],
@@ -7914,24 +9295,25 @@
       "owner": "unassigned",
       "detectedFrom": [
         "route-scan",
-        "4e426461"
+        "4e426461",
+        "0ff96cf5"
       ],
       "evidence": [
         {
           "kind": "route",
-          "ref": "/settings/backup"
+          "ref": "/settings"
         },
         {
           "kind": "commit",
-          "ref": "4e426461"
+          "ref": "0ff96cf5"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "3ed4c512",
+      "fingerprint": "8d8c256b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_signup",
@@ -7969,7 +9351,7 @@
       "coverage": {},
       "fingerprint": "28e6861e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_sitemap",
@@ -8007,7 +9389,7 @@
       "coverage": {},
       "fingerprint": "3fe336e9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_softball",
@@ -8118,7 +9500,7 @@
       "coverage": {},
       "fingerprint": "56791aec",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_softball-swing-analysis",
@@ -8164,13 +9546,13 @@
       "coverage": {},
       "fingerprint": "8105e16e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_sports",
       "slug": "sports",
       "name": "Sports",
-      "description": "Sports — detected from /sports.",
+      "description": "SportShell reusable per-sport branded wrapper + registry (#1 Phase 4)",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -8187,7 +9569,8 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "6a0b2abf"
       ],
       "evidence": [
         {
@@ -8195,8 +9578,8 @@
           "ref": "/sports"
         },
         {
-          "kind": "route",
-          "ref": "/sports"
+          "kind": "commit",
+          "ref": "6a0b2abf"
         }
       ],
       "confidence": 75,
@@ -8204,7 +9587,7 @@
       "coverage": {},
       "fingerprint": "56fec2b9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_start",
@@ -8240,7 +9623,7 @@
       "coverage": {},
       "fingerprint": "97bd8b6e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_swinglab",
@@ -8276,7 +9659,7 @@
       "coverage": {},
       "fingerprint": "772c156f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_team",
@@ -8313,13 +9696,13 @@
       "coverage": {},
       "fingerprint": "605d36d7",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_teams",
       "slug": "teams",
       "name": "Teams",
-      "description": "Teams — detected from /teams.",
+      "description": "consolidated persona→CTA map (#1 Phase 2)",
       "category": "ui-change",
       "audiences": [
         "all"
@@ -8336,12 +9719,17 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "8ff545c2"
       ],
       "evidence": [
         {
           "kind": "route",
           "ref": "/teams"
+        },
+        {
+          "kind": "commit",
+          "ref": "8ff545c2"
         }
       ],
       "confidence": 75,
@@ -8349,7 +9737,7 @@
       "coverage": {},
       "fingerprint": "56bd042c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_tennis",
@@ -8395,7 +9783,7 @@
       "coverage": {},
       "fingerprint": "15f2313c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_tennis-swing-analysis",
@@ -8431,7 +9819,7 @@
       "coverage": {},
       "fingerprint": "8f4d8e7b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_terms",
@@ -8467,7 +9855,7 @@
       "coverage": {},
       "fingerprint": "7c4f56ed",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_timeline",
@@ -8504,27 +9892,20 @@
       "coverage": {},
       "fingerprint": "2c7e67c5",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_tools",
       "slug": "tools",
       "name": "Tools",
-      "description": "Tools — detected from /tools/at-home-swing-drill-generator.",
+      "description": "reflect all 7 sports across marketing copy, docs & i18n",
       "category": "ui-change",
       "audiences": [
         "all"
       ],
       "status": "active",
       "routes": [
-        "/tools/at-home-swing-drill-generator",
-        "/tools/equipment-diagnostic",
-        "/tools/golf-slice-fixer",
-        "/tools",
-        "/tools/practice-plan-generator",
-        "/tools/private-lesson-savings-calculator",
-        "/tools/slow-pitch-line-drive-guide",
-        "/tools/swing-mistake-quiz"
+        "/tools"
       ],
       "components": [],
       "apiEndpoints": [],
@@ -8534,48 +9915,26 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "route-scan"
+        "route-scan",
+        "4b270264",
+        "ff0b4ea7"
       ],
       "evidence": [
-        {
-          "kind": "route",
-          "ref": "/tools/at-home-swing-drill-generator"
-        },
-        {
-          "kind": "route",
-          "ref": "/tools/equipment-diagnostic"
-        },
-        {
-          "kind": "route",
-          "ref": "/tools/golf-slice-fixer"
-        },
         {
           "kind": "route",
           "ref": "/tools"
         },
         {
-          "kind": "route",
-          "ref": "/tools/practice-plan-generator"
-        },
-        {
-          "kind": "route",
-          "ref": "/tools/private-lesson-savings-calculator"
-        },
-        {
-          "kind": "route",
-          "ref": "/tools/slow-pitch-line-drive-guide"
-        },
-        {
-          "kind": "route",
-          "ref": "/tools/swing-mistake-quiz"
+          "kind": "commit",
+          "ref": "ff0b4ea7"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "aa78a958",
+      "fingerprint": "e5f7d3f1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_training",
@@ -8612,7 +9971,7 @@
       "coverage": {},
       "fingerprint": "dc24d7b4",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_trust",
@@ -8648,7 +10007,7 @@
       "coverage": {},
       "fingerprint": "94d1c88c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_tutorial",
@@ -8685,13 +10044,13 @@
       "coverage": {},
       "fingerprint": "f5d69368",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_ui-admin",
       "slug": "ui-admin",
       "name": "Admin",
-      "description": "remove redundant advanced CodeQL workflow (conflicts with default setup)",
+      "description": "centralized Keys & Secrets manager on /admin/integrations",
       "category": "ui-change",
       "audiences": [
         "new-user",
@@ -8700,7 +10059,7 @@
       "status": "active",
       "routes": [],
       "components": [
-        "components/admin/ConfirmDialog.tsx"
+        "components/admin/KeysManager.tsx"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -8709,24 +10068,25 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "4e426461"
+        "4e426461",
+        "ce688ebe"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "components/admin/ConfirmDialog.tsx"
+          "ref": "components/admin/KeysManager.tsx"
         },
         {
           "kind": "commit",
-          "ref": "4e426461"
+          "ref": "ce688ebe"
         }
       ],
       "confidence": 45,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "46421d83",
+      "fingerprint": "67e0e1b4",
       "createdAt": "2026-06-09T13:42:20.789Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_ui-branch-guardian",
@@ -8904,6 +10264,69 @@
       "updatedAt": "2026-06-09T13:41:05.233Z"
     },
     {
+      "id": "feat_ui-demo",
+      "slug": "ui-demo",
+      "name": "Demo",
+      "description": "kebab-case the demo lib filenames (naming gate)",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/demo/DemoProfileView.tsx",
+        "components/demo/DemoReportView.tsx",
+        "components/demo/DemoSportNav.tsx",
+        "components/demo/DemoTrainingView.tsx",
+        "components/demo/LiveKinematicPanel.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "4e47fca0",
+        "35137b13",
+        "d1da8218"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/demo/DemoProfileView.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/demo/DemoReportView.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/demo/DemoSportNav.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/demo/DemoTrainingView.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/demo/LiveKinematicPanel.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "d1da8218"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "9e5d7929",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
       "id": "feat_ui-dev-updates",
       "slug": "ui-dev-updates",
       "name": "Dev Updates",
@@ -8990,8 +10413,8 @@
       "id": "feat_ui-founding",
       "slug": "ui-founding",
       "name": "Founding",
-      "description": "remove redundant advanced CodeQL workflow (conflicts with default setup)",
-      "category": "security-privacy",
+      "description": "browser-verify e2e + fix marketing a11y contrast",
+      "category": "ui-change",
       "audiences": [
         "new-user",
         "returning-user"
@@ -8999,7 +10422,7 @@
       "status": "active",
       "routes": [],
       "components": [
-        "components/founding/PrivacyControls.tsx"
+        "components/founding/FoundingFathersCounterBanner.tsx"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -9010,24 +10433,29 @@
       "detectedFrom": [
         "9e9046df",
         "7e9e66b9",
-        "4e426461"
+        "4e426461",
+        "d7a011fe",
+        "1bf80d7b",
+        "2e4f9117",
+        "cdcec7e3",
+        "fa44ec95"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "components/founding/PrivacyControls.tsx"
+          "ref": "components/founding/FoundingFathersCounterBanner.tsx"
         },
         {
           "kind": "commit",
-          "ref": "4e426461"
+          "ref": "fa44ec95"
         }
       ],
       "confidence": 45,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "b2fb41ca",
+      "fingerprint": "e5a44789",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_ui-guardian-consent",
@@ -9071,10 +10499,10 @@
       "updatedAt": "2026-06-09T14:24:50.213Z"
     },
     {
-      "id": "feat_ui-layout",
-      "slug": "ui-layout",
-      "name": "Layout",
-      "description": "surface published in-app help to users",
+      "id": "feat_ui-guide",
+      "slug": "ui-guide",
+      "name": "Guide",
+      "description": "readable text on GuideCompanion green hover (B regression)",
       "category": "ui-change",
       "audiences": [
         "new-user",
@@ -9083,7 +10511,48 @@
       "status": "active",
       "routes": [],
       "components": [
-        "components/layout/AppShell.tsx"
+        "components/guide/GuideCompanion.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "c45d3827"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/guide/GuideCompanion.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "c45d3827"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "6602fcf4",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_ui-layout",
+      "slug": "ui-layout",
+      "name": "Layout",
+      "description": "RecordAssist Vision + Kinetic Tracking OS (Phases 1–2) (#15)",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/layout/Sidebar.tsx"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -9096,24 +10565,28 @@
         "83bb9016",
         "a013f1ae",
         "5da4cf73",
-        "26033a6a"
+        "26033a6a",
+        "a2e68bc6",
+        "f4e25d3e",
+        "8eb76663",
+        "343b9bf5"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "components/layout/AppShell.tsx"
+          "ref": "components/layout/Sidebar.tsx"
         },
         {
           "kind": "commit",
-          "ref": "26033a6a"
+          "ref": "343b9bf5"
         }
       ],
       "confidence": 45,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "efe8c14b",
+      "fingerprint": "cbf2e8b2",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T05:04:06.845Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_ui-learn",
@@ -9160,6 +10633,52 @@
       "fingerprint": "622c5177",
       "createdAt": "2026-06-09T04:24:59.972Z",
       "updatedAt": "2026-06-09T11:39:11.763Z"
+    },
+    {
+      "id": "feat_ui-marketing",
+      "slug": "ui-marketing",
+      "name": "Marketing",
+      "description": "live kinematic hero + free 7-sport sample report experience",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/marketing/LocalizedHome.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "4f178aef",
+        "5a89de14",
+        "4b270264",
+        "fa44ec95",
+        "ff0b4ea7",
+        "4e47fca0"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/marketing/LocalizedHome.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "4e47fca0"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "ffa132d6",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_ui-mental-performance",
@@ -9249,8 +10768,8 @@
       "id": "feat_ui-motion-lab",
       "slug": "ui-motion-lab",
       "name": "Motion Lab",
-      "description": "remove redundant advanced CodeQL workflow (conflicts with default setup)",
-      "category": "ui-change",
+      "description": "cross-session tempo trend in Motion Lab",
+      "category": "analytics-reporting",
       "audiences": [
         "new-user",
         "returning-user"
@@ -9258,8 +10777,8 @@
       "status": "active",
       "routes": [],
       "components": [
-        "components/motion-lab/MotionLabWizard.tsx",
-        "components/motion-lab/MotionRecorder.tsx"
+        "components/motion-lab/MotionResultsDashboard.tsx",
+        "components/motion-lab/TempoTrendCard.tsx"
       ],
       "apiEndpoints": [],
       "dbTables": [],
@@ -9269,28 +10788,32 @@
       "owner": "unassigned",
       "detectedFrom": [
         "4ec53f9e",
-        "4e426461"
+        "4e426461",
+        "5819c515",
+        "8315c76a",
+        "4b270264",
+        "f0f90492"
       ],
       "evidence": [
         {
           "kind": "component",
-          "ref": "components/motion-lab/MotionLabWizard.tsx"
+          "ref": "components/motion-lab/MotionResultsDashboard.tsx"
         },
         {
           "kind": "component",
-          "ref": "components/motion-lab/MotionRecorder.tsx"
+          "ref": "components/motion-lab/TempoTrendCard.tsx"
         },
         {
           "kind": "commit",
-          "ref": "4e426461"
+          "ref": "f0f90492"
         }
       ],
       "confidence": 45,
       "needsHumanReview": true,
       "coverage": {},
-      "fingerprint": "17c20355",
+      "fingerprint": "277bfef9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_ui-onboarding",
@@ -9335,6 +10858,63 @@
       "updatedAt": "2026-06-09T14:07:06.307Z"
     },
     {
+      "id": "feat_ui-record-assist",
+      "slug": "ui-record-assist",
+      "name": "Record Assist",
+      "description": "Phase 3 — advanced biomechanics (reuse Motion Lab) (#20)",
+      "category": "analytics-reporting",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/record-assist/FrameStepper.tsx",
+        "components/record-assist/GuidedCameraView.tsx",
+        "components/record-assist/MotionInsightsCard.tsx",
+        "components/record-assist/RecordAssistExperience.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "343b9bf5",
+        "ec3dd06f"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/record-assist/FrameStepper.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/record-assist/GuidedCameraView.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/record-assist/MotionInsightsCard.tsx"
+        },
+        {
+          "kind": "component",
+          "ref": "components/record-assist/RecordAssistExperience.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "ec3dd06f"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "d8e41394",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
       "id": "feat_ui-security-os",
       "slug": "ui-security-os",
       "name": "Security Os",
@@ -9374,6 +10954,174 @@
       "fingerprint": "eab97663",
       "createdAt": "2026-06-09T04:24:59.972Z",
       "updatedAt": "2026-06-09T04:52:26.674Z"
+    },
+    {
+      "id": "feat_ui-sport",
+      "slug": "ui-sport",
+      "name": "Sport",
+      "description": "SportShell reusable per-sport branded wrapper + registry (#1 Phase 4)",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/sport/SportShell.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "6a0b2abf"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/sport/SportShell.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "6a0b2abf"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "618e3c14",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_ui-tempo-sync",
+      "slug": "ui-tempo-sync",
+      "name": "Tempo Sync",
+      "description": "Tempo Sync swing-tempo trainer (#17)",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/tempo-sync/TempoSyncTrainer.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "4b270264"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/tempo-sync/TempoSyncTrainer.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "4b270264"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "d01dab74",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_ui-theme",
+      "slug": "ui-theme",
+      "name": "Theme",
+      "description": "Christmas Swing Lab seasonal theme (#3 step 5 — finishes #3)",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/theme/ThemeSelector.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "0ff96cf5",
+        "f4e25d3e",
+        "8eb76663",
+        "592830d0"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/theme/ThemeSelector.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "592830d0"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "5addda69",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
+    },
+    {
+      "id": "feat_ui-ui",
+      "slug": "ui-ui",
+      "name": "Ui",
+      "description": "show the usage-category modal once, never on repeat visits",
+      "category": "ui-change",
+      "audiences": [
+        "new-user",
+        "returning-user"
+      ],
+      "status": "active",
+      "routes": [],
+      "components": [
+        "components/ui/UsageCategoryModal.tsx"
+      ],
+      "apiEndpoints": [],
+      "dbTables": [],
+      "permissions": [],
+      "adminControls": [],
+      "featureFlags": [],
+      "owner": "unassigned",
+      "detectedFrom": [
+        "4f178aef",
+        "e18a81f6"
+      ],
+      "evidence": [
+        {
+          "kind": "component",
+          "ref": "components/ui/UsageCategoryModal.tsx"
+        },
+        {
+          "kind": "commit",
+          "ref": "e18a81f6"
+        }
+      ],
+      "confidence": 45,
+      "needsHumanReview": true,
+      "coverage": {},
+      "fingerprint": "c5fd8aec",
+      "createdAt": "2026-06-11T02:29:27.991Z",
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_ui-updates",
@@ -9466,17 +11214,16 @@
       "id": "feat_updates",
       "slug": "updates",
       "name": "Updates",
-      "description": "Updates — detected from /updates/milestones.",
+      "description": "wire durable overrides into milestones public reads (fully dynamic)",
       "category": "ui-change",
       "audiences": [
         "all"
       ],
       "status": "active",
       "routes": [
-        "/updates/milestones",
         "/updates/milestones/:slug",
-        "/updates",
-        "/updates/:slug"
+        "/updates/milestones",
+        "/updates"
       ],
       "components": [],
       "apiEndpoints": [],
@@ -9488,32 +11235,33 @@
       "detectedFrom": [
         "route-scan",
         "89beced5",
-        "a5d7b139"
+        "a5d7b139",
+        "151335f7"
       ],
       "evidence": [
-        {
-          "kind": "route",
-          "ref": "/updates/milestones"
-        },
         {
           "kind": "route",
           "ref": "/updates/milestones/:slug"
         },
         {
           "kind": "route",
-          "ref": "/updates"
+          "ref": "/updates/milestones"
         },
         {
           "kind": "route",
-          "ref": "/updates/:slug"
+          "ref": "/updates"
+        },
+        {
+          "kind": "commit",
+          "ref": "151335f7"
         }
       ],
       "confidence": 75,
       "needsHumanReview": false,
       "coverage": {},
-      "fingerprint": "c75fbe55",
+      "fingerprint": "6690fbde",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_video",
@@ -9550,7 +11298,7 @@
       "coverage": {},
       "fingerprint": "5d98a2bd",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     },
     {
       "id": "feat_vulnerability-disclosure",
@@ -9586,7 +11334,7 @@
       "coverage": {},
       "fingerprint": "a416ccb2",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-09T14:24:50.213Z"
+      "updatedAt": "2026-06-11T02:29:27.991Z"
     }
   ]
 }
