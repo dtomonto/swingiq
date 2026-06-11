@@ -49,9 +49,11 @@ export {
   subscribeTempoHistory,
   getTempoStoreVersion,
   tempoTrend,
+  sessionsToTempoEntries,
   type TempoEntry,
   type TempoSource,
   type TempoTrend,
+  type TempoSessionLike,
 } from './storage';
 
 export { useTempoHistory } from './useTempoHistory';
