@@ -52,8 +52,9 @@
     "security:check": "node scripts/security-check.mjs",
     "check:rls": "node scripts/check-rls.mjs",
     "check:bundle": "node scripts/check-bundle-budget.mjs",
+    "check:honesty": "node scripts/check-honesty-copy.mjs",
     "security:all": "npm run security:deps && npm run check:rls && npm run security:check",
-    "ci": "npm run type-check && npm run check:naming && npm run security:all"
+    "ci": "npm run type-check && npm run check:naming && npm run check:honesty && npm run security:all"
   },
   "devDependencies": {
     "turbo": "^2.0.0",

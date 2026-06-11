@@ -36,8 +36,10 @@ import type { Shot } from '@swingiq/core';
 import { useSwingVantageStore } from '@/store';
 import { format } from 'date-fns';
 import { ShareableReportCard, type ReportData } from '@/components/report/ShareableReportCard';
+import { DiagnosisFixSheet } from '@/components/report/DiagnosisFixSheet';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
+import { useDesignV2 } from '@/lib/design-v2-client';
 
 // ── Diagnosis card ───────────────────────────────────────────
 
@@ -215,6 +217,9 @@ export function DiagnoseContent() {
   const { sessions, profile } = useSwingVantageStore();
   const skillLevel: SkillLevel = (profile?.skill_level ?? 'beginner') as SkillLevel;
   const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
+  // Design V2 flag — gates the "report is paper" hero treatment below. Called
+  // before any early return so the hook order is stable (rules-of-hooks).
+  const designV2 = useDesignV2();
 
   // Sessions newest-first
   const sorted = useMemo(
@@ -332,6 +337,12 @@ export function DiagnoseContent() {
     'Have a qualified coach validate the top priority',
   ];
 
+  // Design V2 report hero inputs — the single priority fix on document paper.
+  // Pure reads of data already computed above; nothing new is calculated.
+  const topDiagnosis = result.diagnoses[0] ?? null;
+  const heroRoutine = topDiagnosis ? getRoutineForDiagnosis(topDiagnosis.rule.id, skillLevel) : null;
+  const heroDrills = heroRoutine?.drill_steps.slice(0, 3) ?? [];
+
   // ── Full diagnosis view ──────────────────────────────────────
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6">
@@ -371,16 +382,31 @@ export function DiagnoseContent() {
         </div>
       </div>
 
-      {/* What to do next */}
-      <div className="bg-primary text-primary-foreground rounded-xl p-5 flex items-start gap-4">
-        <span className="text-2xl">🎯</span>
-        <div className="flex-1">
-          <p className="font-semibold text-primary-foreground/80 text-sm mb-0.5">
-            What should I do next?
-          </p>
-          <p className="text-primary-foreground font-bold">{insight.what_do_i_do_next}</p>
+      {/* What to do next — the one priority fix.
+          Design V2: rendered as a FixCard on the light "document" surface
+          ("the report is paper") with first-move DrillCards + a gradient retest
+          CTA. Flag OFF keeps the original flat primary banner exactly. */}
+      {designV2 ? (
+        <DiagnosisFixSheet
+          fix={topDiagnosis?.rule.name ?? insight.what_do_i_do_next}
+          whatToDoNext={insight.what_do_i_do_next}
+          confidencePct={topConfidencePct}
+          confidenceNote={transparencyConfidence.reason}
+          drills={heroDrills}
+          retestCriteria={topDiagnosis?.rule.retest.success_criteria}
+          retestShots={topDiagnosis?.rule.retest.shot_count}
+        />
+      ) : (
+        <div className="bg-primary text-primary-foreground rounded-xl p-5 flex items-start gap-4">
+          <span className="text-2xl">🎯</span>
+          <div className="flex-1">
+            <p className="font-semibold text-primary-foreground/80 text-sm mb-0.5">
+              What should I do next?
+            </p>
+            <p className="text-primary-foreground font-bold">{insight.what_do_i_do_next}</p>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Stat summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
