@@ -37,13 +37,17 @@ export interface KinematicSport {
 }
 
 /** Shared core overlay metrics — the kinematic signals every rotary
- *  swing shares (names mirror lib/motion-lab/biomechanics.ts). */
+ *  swing shares (names mirror lib/motion-lab/biomechanics.ts). Ranges are
+ *  WIDE on purpose: the panel maps each sport's live pose into the band on a
+ *  shared scale, so a full golf turn rides the top of the band while a compact
+ *  pickleball stroke sits near the bottom — the cross-sport spread shows up in
+ *  the numbers, not just the figure. */
 const CORE_METRICS: KinematicMetric[] = [
-  { label: 'Hip Rotation', unit: '°', range: [38, 46] },
-  { label: 'Shoulder Turn', unit: '°', range: [86, 98] },
-  { label: 'X-Factor', unit: '°', range: [44, 54] },
-  { label: 'Sequencing', unit: '/100', range: [78, 92] },
-  { label: 'Tempo', unit: ':1', range: [2.8, 3.2] },
+  { label: 'Hip Rotation', unit: '°', range: [22, 50] },
+  { label: 'Shoulder Turn', unit: '°', range: [36, 100] },
+  { label: 'X-Factor', unit: '°', range: [18, 55] },
+  { label: 'Sequencing', unit: '/100', range: [62, 94] },
+  { label: 'Tempo', unit: ':1', range: [2.6, 3.3] },
 ];
 
 /** Per-sport enrichment keyed by registry sport id. */
