@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -170,6 +170,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['videos', 'media', 'photos', 'storage'],
   },
   {
+    id: 'record-assist', label: 'RecordAssist', href: '/admin/record-assist', icon: Video,
+    group: 'media-ai', built: true, permission: 'media.view',
+    blurb: 'Guided on-device self-recording: sport/action presets, the Frame Readiness scoring model, the voice-guidance catalog, device-compatibility tiers, and a camera-free QA simulator that runs the real engines.',
+    keywords: ['record', 'recordassist', 'record assist', 'camera', 'guided recording', 'framing', 'readiness', 'voice guidance', 'pose', 'capture', 'self-record', 'kinetic', 'overlay'],
+  },
+  {
     id: 'ai-analyses', label: 'AI Analyses', href: '/admin/ai-analyses', icon: Brain,
     group: 'media-ai', built: true, permission: 'ai.review',
     blurb: 'Review AI swing outputs, confidence and quality queues.',
@@ -180,6 +186,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'media-ai', built: true, permission: 'ai.review',
     blurb: 'Keyless audit of the coaching/AI prose the product ships — safety language (no medical claims), honesty (no overpromising), confidence calibration and clarity — flagging copy that needs a human edit.',
     keywords: ['ai quality', 'output quality', 'coaching quality', 'safety language', 'hallucination', 'overpromising', 'clarity', 'readability', 'confidence calibration', 'content qa', 'trust'],
+  },
+  {
+    id: 'motion-lab', label: 'MotionLab', href: '/admin/motion-lab', icon: Activity,
+    group: 'media-ai', built: true, permission: 'ai.review',
+    blurb: 'The movement-intelligence control surface: every sport’s motion profile (phases, movement model, overlays), how the Motion Score is composed, the overlay density presets, and a low-confidence review queue computed from on-device sessions. Read-only — honest about single-camera estimates.',
+    keywords: ['motion lab', 'motionlab', 'motion', 'movement', 'biomechanics', 'overlays', 'phases', 'profiles', 'scoring weights', 'continuous movement', 'recovery', 'rally', 'low confidence', 'review queue', 'tennis', 'pickleball', 'padel', 'golf', 'swing'],
   },
   {
     id: 'agents', label: 'Agent Registry', href: '/admin/agents', icon: Bot,

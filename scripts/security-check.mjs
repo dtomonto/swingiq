@@ -64,17 +64,6 @@ function rel(p) {
   return relative(ROOT, p).replace(/\\/g, "/");
 }
 
-/**
- * Test files (e.g. the secret-detector's own __tests__) legitimately contain
- * sample key-shaped strings (sk-ant-…, AIza…) as fixtures to exercise the
- * detectors. They never ship to a production bundle, and Gitleaks (a separate
- * CI job) still scans them for genuinely-committed secrets — so this heuristic
- * prefix check skips them to avoid false positives on intentional fixtures.
- */
-function isTestFile(p) {
-  return /([/\\]__tests__[/\\]|\.test\.|\.spec\.)/.test(p);
-}
-
 // ─── Check Functions ──────────────────────────────────────────────────────────
 
 /**
@@ -87,13 +76,13 @@ function isTestFile(p) {
 //   • Supabase anon key — Row Level Security protects data, not the key.
 //   • Stripe PUBLISHABLE key (pk_...) — the secret key is STRIPE_SECRET_KEY.
 //   • PostHog project key (phc_...) — a write-only ingestion key, public by design.
-//   • VAPID PUBLIC key — the public half of the Web Push keypair, sent to the
-//     browser to subscribe; the secret is VAPID_PRIVATE_KEY.
-//   • Cloudflare Turnstile SITE key — rendered in the widget client-side; the
-//     secret is CLOUDFLARE_TURNSTILE_SECRET_KEY.
+//   • VAPID PUBLIC key — Web Push requires the browser to hold the public key to
+//     subscribe; the private counterpart is VAPID_PRIVATE_KEY (not NEXT_PUBLIC_).
+//   • Cloudflare Turnstile SITE key — rendered in the widget like a reCAPTCHA
+//     site key; the secret is TURNSTILE_SECRET_KEY (not NEXT_PUBLIC_).
 // The secret-bearing counterparts (SUPABASE_SERVICE_ROLE_KEY, STRIPE_SECRET_KEY,
-// STRIPE_WEBHOOK_SECRET, VAPID_PRIVATE_KEY, CLOUDFLARE_TURNSTILE_SECRET_KEY, etc.)
-// are deliberately NOT NEXT_PUBLIC_ and stay caught.
+// STRIPE_WEBHOOK_SECRET, VAPID_PRIVATE_KEY, TURNSTILE_SECRET_KEY, etc.) are
+// deliberately NOT NEXT_PUBLIC_ and stay caught.
 const PUBLIC_KEY_ALLOWLIST = new Set([
   "NEXT_PUBLIC_SUPABASE_ANON_KEY",
   "NEXT_PUBLIC_SUPABASE_URL",
@@ -102,6 +91,14 @@ const PUBLIC_KEY_ALLOWLIST = new Set([
   "NEXT_PUBLIC_VAPID_PUBLIC_KEY",
   "NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY",
 ]);
+
+// Test files legitimately contain key-SHAPED fixtures — e.g. the secrets
+// module's own unit tests feed fake `sk-ant-…` / `sk-proj-…` / `AIza…` strings
+// to exercise the detector, encryptor and masker. The prefix scan below would
+// only ever produce false positives on those fixtures, so it skips test files.
+// Real-secret coverage for tests is not lost: the Gitleaks job scans every file
+// (tests included) with entropy + allowlist rules tuned to catch live keys.
+const TEST_FILE_PATTERN = /(\.test\.|\.spec\.|[/\\]__tests__[/\\])/;
 
 function checkPublicSecrets(filePath, lines, findings) {
   const pattern = /NEXT_PUBLIC_\w*(KEY|SECRET|TOKEN|PASSWORD|PRIVATE)\w*/gi;
@@ -207,8 +204,15 @@ function checkConsoleLog(filePath, lines, findings) {
 /**
  * Check 5 — Hardcoded API key prefixes.
  * These prefixes are the start of real secret keys.
+ *
+ * Skipped for test files: secret-detection/encryption/masking tests must embed
+ * fake key-shaped strings (e.g. "sk-ant-secret-value-123") to exercise the very
+ * code that finds them. This only relaxes the prefix HEURISTIC for tests — real
+ * leaks anywhere are still caught by the Gitleaks secret-scan CI job.
  */
 function checkHardcodedKeys(filePath, lines, findings) {
+  // Test fixtures are key-SHAPED but fake (see TEST_FILE_PATTERN note) — skip them.
+  if (TEST_FILE_PATTERN.test(filePath)) return;
   // Match actual key-looking strings (quoted), not variable names or comments that explain them
   const patterns = [
     { pattern: /["'`]sk-proj-[A-Za-z0-9_-]{10,}/, label: "OpenAI project key (sk-proj-)" },
@@ -250,9 +254,7 @@ for (const srcDir of SRC_DIRS) {
     checkDangerousHtml(file, lines, allFindings);
     checkEval(file, lines, allFindings);
     checkConsoleLog(file, lines, allFindings);
-    // Hardcoded-key prefixes are expected as fixtures in test files; Gitleaks
-    // covers real committed secrets there. All other checks still run on tests.
-    if (!isTestFile(file)) checkHardcodedKeys(file, lines, allFindings);
+    checkHardcodedKeys(file, lines, allFindings);
   }
 }
 

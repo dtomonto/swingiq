@@ -6,28 +6,28 @@
     "durationSec": 23
   },
   "start-here": {
-    "durationSec": 33
+    "durationSec": 34
   },
   "switch-sport": {
     "durationSec": 24
   },
   "navigation": {
-    "durationSec": 27
+    "durationSec": 26
   },
   "diagnose": {
-    "durationSec": 23
+    "durationSec": 34
   },
   "progress": {
-    "durationSec": 23
+    "durationSec": 32
   },
   "sessions": {
     "durationSec": 23
   },
   "compare": {
-    "durationSec": 32
+    "durationSec": 25
   },
   "drills": {
-    "durationSec": 30
+    "durationSec": 31
   },
   "training": {
     "durationSec": 23
@@ -36,78 +36,78 @@
     "durationSec": 23
   },
   "ai-coach": {
-    "durationSec": 31
+    "durationSec": 23
   },
   "video-analysis": {
     "durationSec": 28
   },
   "motion-lab": {
-    "durationSec": 25
+    "durationSec": 23
   },
   "avatar": {
-    "durationSec": 24
+    "durationSec": 33
   },
   "import-data": {
-    "durationSec": 24
+    "durationSec": 33
   },
   "import-image": {
-    "durationSec": 25
+    "durationSec": 30
   },
   "practice-schedule": {
-    "durationSec": 25
+    "durationSec": 29
   },
   "pre-round": {
-    "durationSec": 23
+    "durationSec": 31
   },
   "player-arc": {
-    "durationSec": 23
+    "durationSec": 34
   },
   "retest": {
-    "durationSec": 25
+    "durationSec": 33
   },
   "milestones": {
-    "durationSec": 25
+    "durationSec": 30
   },
   "labs": {
-    "durationSec": 25
+    "durationSec": 31
   },
   "benchmarks": {
-    "durationSec": 25
+    "durationSec": 30
   },
   "reports": {
-    "durationSec": 26
+    "durationSec": 30
   },
   "coach-summary": {
-    "durationSec": 24
+    "durationSec": 32
   },
   "parent-summary": {
-    "durationSec": 24
+    "durationSec": 34
   },
   "profile": {
-    "durationSec": 26
+    "durationSec": 51
   },
   "equipment": {
-    "durationSec": 25
+    "durationSec": 23
   },
   "community": {
-    "durationSec": 26
+    "durationSec": 35
   },
   "badges": {
-    "durationSec": 25
+    "durationSec": 39
   },
   "challenges": {
-    "durationSec": 25
+    "durationSec": 33
   },
   "leaderboard": {
-    "durationSec": 25
+    "durationSec": 32
   },
   "groups": {
-    "durationSec": 25
+    "durationSec": 30
   },
   "data-center": {
-    "durationSec": 28
+    "durationSec": 34
   },
   "settings": {
-    "durationSec": 26
+    "durationSec": 33
   }
 }

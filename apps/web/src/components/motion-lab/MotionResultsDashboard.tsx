@@ -25,6 +25,9 @@ import { CameraQualityCheck } from './CameraQualityCheck';
 import { ImplementPathCard } from './ImplementPathCard';
 import { KineticChainCard } from './KineticChainCard';
 import { TemporalCard } from './TemporalCard';
+import { TempoSyncTrainer } from '@/components/tempo-sync/TempoSyncTrainer';
+import { ContinuousMovementSummary } from './ContinuousMovementSummary';
+import { RetestProtocolCard } from './RetestProtocolCard';
 import { AnalysisDebugPanel } from './AnalysisDebugPanel';
 import { MotionComparisonPanel } from './MotionComparisonPanel';
 import { Button } from '@/components/ui/Button';
@@ -221,6 +224,11 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
           ) : (
             <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} implement={session.objectTracking ?? null} />
           )}
+          {/* Rally sports: how you prepared, moved, contacted, recovered and got
+              ready for the next ball — the half the discrete swing read misses. */}
+          {session.continuousMovement && (
+            <ContinuousMovementSummary summary={session.continuousMovement} accent={accent} />
+          )}
           <PhaseTimeline phases={session.phases} accent={accent} activeKey={activePhase} onSelect={onPhaseSelect} />
           {activePhase && (
             <Card>
@@ -252,6 +260,9 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
             <KineticChainCard chain={session.kineticChain} accent={accent} />
           )}
           {session.temporal && <TemporalCard temporal={session.temporal} accent={accent} />}
+          {session.temporal && session.temporal.tempoRatio != null && (
+            <TempoSyncTrainer temporal={session.temporal} variant="embedded" accent={accent} />
+          )}
         </div>
       )}
       {tab === 'metrics' && <MetricsPanel metrics={session.metrics} />}
@@ -259,6 +270,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
         <div className="space-y-4">
           <MotionCoachNarrativeCard session={session} />
           <CoachingReport report={session.report} />
+          <RetestProtocolCard session={session} accent={accent} />
         </div>
       )}
       {tab === 'drills' && <DrillPlan plan={session.drills} />}

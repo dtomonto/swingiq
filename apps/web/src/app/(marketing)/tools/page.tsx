@@ -11,6 +11,7 @@ export const metadata = buildMetadata({
 
 const TOOLS = [
   { href: '/tools/golf-slice-fixer', emoji: '⛳', name: 'Golf Slice Fixer', desc: 'Diagnose your slice pattern and get drills + a 7-day plan.' },
+  { href: '/tools/swing-tempo-trainer', emoji: '🎵', name: 'Swing Tempo Trainer', desc: 'Groove the classic 3:1 rhythm with an audio-visual tempo metronome.' },
   { href: '/tools/swing-mistake-quiz', emoji: '🏏', name: 'Swing Mistake Quiz', desc: 'Find your likely top issue across 5 sports.' },
   { href: '/tools/at-home-swing-drill-generator', emoji: '🏠', name: 'At-Home Drill Generator', desc: 'Drills tailored to your space, gear, and time.' },
   { href: '/tools/practice-plan-generator', emoji: '📅', name: 'Practice Plan Generator', desc: 'A focused 7-day (and 30-day) plan with retests.' },

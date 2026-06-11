@@ -34,6 +34,7 @@ import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
 import { useSwingAnalysis } from '@/lib/video/useSwingAnalysis';
+import { useRecordAssistHandoff } from '@/lib/record-assist/hooks/useRecordAssistHandoff';
 import { cn } from '@/lib/utils';
 import type { SwingVideoMetadata, VisionSpeed } from '@swingiq/core';
 import { ChevronLeft, Loader2, AlertCircle, Zap, Download, RefreshCw } from 'lucide-react';
@@ -99,6 +100,10 @@ export function VideoAnalyzerContent() {
     },
     [],
   );
+
+  // Deep handoff: a clip recorded in RecordAssist (/record-assist) lands here
+  // straight on the configure screen — same path as an upload, no re-upload.
+  useRecordAssistHandoff('golf', handleVideoReady);
 
   const handleRemoveVideo = () => {
     if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);

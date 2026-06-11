@@ -142,6 +142,7 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/tools/private-lesson-savings-calculator', label: 'Private-Lesson Savings Calculator', section: 'tools', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/tools/slow-pitch-line-drive-guide', label: 'Slow-Pitch Line-Drive Guide', section: 'tools', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/tools/equipment-diagnostic', label: 'Equipment Diagnostic', section: 'tools', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/tools/swing-tempo-trainer', label: 'Swing Tempo Trainer', section: 'tools', priority: 0.6, changeFrequency: 'monthly' },
 
   // ── Sample reports ────────────────────────────────────────────────────
   { path: '/sample-report', label: 'Sample reports (all sports)', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },

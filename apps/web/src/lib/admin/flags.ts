@@ -72,6 +72,18 @@ export const FLAG_DEFS: FlagDef[] = [
     description: 'Browser-side 3D + slow-motion video analysis lab. Live at /motion-lab; this flag is the operator kill-switch — turning it off shows a friendly "turned off" screen instead of the lab.',
     group: 'Experimental', owner: 'Product', defaultEnabled: true, risk: 'medium', status: 'wired',
   },
+  {
+    key: 'record_assist.enabled',
+    label: 'RecordAssist (guided recording)',
+    description: 'On-device guided self-recording: live framing overlays, Frame Readiness Score, and hands-free voice guidance. Live at /record-assist; this flag is the operator kill-switch (turning it off shows a friendly "turned off" screen).',
+    group: 'Capture', owner: 'Product', defaultEnabled: true, risk: 'medium', status: 'wired',
+  },
+  {
+    key: 'record_assist.voice',
+    label: 'RecordAssist voice guidance',
+    description: 'Spoken hands-free coaching during guided recording (captions always remain available). Off → captions-only. Reserved operator control; the in-session Voice/Simple/Silent picker is the user-facing switch.',
+    group: 'Capture', owner: 'Product', defaultEnabled: true, risk: 'low', status: 'registry',
+  },
 
   // ── Coaching Intelligence initiative (see /admin/development) ──
   {

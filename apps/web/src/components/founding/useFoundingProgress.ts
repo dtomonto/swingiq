@@ -20,13 +20,16 @@ import {
   buildSessionInputs,
   calculateProfileCompletion,
   getValidSessionCount,
-  evaluateFoundingFathersStatus,
+  evaluateFoundingJourney,
   earnedSessionMilestones,
   type FoundingCampaignProgress,
   type FoundingUserProgress,
   type ProfileCompletion,
   type StoreStateLike,
 } from '@/lib/central-intelligence';
+import type { SportId } from '@swingiq/core';
+import type { ChallengeContext } from '@/lib/community/types';
+import { buildSportJourney } from '@/lib/founding-journey/sport-journey';
 import {
   useCentralIntelligenceData,
   setCachedFoundingClaim,
@@ -68,7 +71,7 @@ export function useFoundingProgress(): FoundingProgressView {
   useEffect(() => setMounted(true), []);
 
   // ── Local computations ──────────────────────────────────────
-  const { completion, validSessionCount, user: userProgress } = useMemo(() => {
+  const { completion, validSessionCount, completedFoundingCount, user: userProgress } = useMemo(() => {
     const state: StoreStateLike = {
       profile,
       sportProfiles: sportProfiles as StoreStateLike['sportProfiles'],
@@ -80,15 +83,20 @@ export function useFoundingProgress(): FoundingProgressView {
     const snapshot = buildProfileSnapshot(state, ci.primarySportOverride);
     const comp = calculateProfileCompletion(snapshot);
     const validCount = getValidSessionCount(buildSessionInputs(state));
-    const up = evaluateFoundingFathersStatus({
-      profileCompleted: comp.completed,
-      profileCompletionPercent: comp.completionPercent,
-      validSessionCount: validCount,
+    // Per-sport founding journey: completion of the athlete's OWN sport's
+    // founding challenges is the live qualification gate. Founding challenges
+    // depend only on sport-filtered sessions/analyses, so an empty export ctx
+    // suffices for the count.
+    const ctx: ChallengeContext = { sessions, videoAnalyses, lastExportAt: null, exportCount: 0, joinedAt: '' };
+    const sport = (comp.sport ?? null) as SportId | null;
+    const completedFounding = sport ? buildSportJourney(sport, ctx).completed : 0;
+    const up = evaluateFoundingJourney({
+      completedFoundingCount: completedFounding,
       memberNumber: ci.foundingClaim?.memberNumber ?? null,
       qualifiedAt: ci.foundingClaim?.qualifiedAt ?? null,
       campaignFull: campaign?.full ?? false,
     });
-    return { completion: comp, validSessionCount: validCount, user: up };
+    return { completion: comp, validSessionCount: validCount, completedFoundingCount: completedFounding, user: up };
   }, [profile, sportProfiles, clubs, sportEquipment, sessions, videoAnalyses, ci.primarySportOverride, ci.foundingClaim, campaign?.full]);
 
   const memberNumber = ci.foundingClaim?.memberNumber ?? null;
@@ -132,6 +140,7 @@ export function useFoundingProgress(): FoundingProgressView {
             sport: completion.sport,
             profileCompleted: completion.completed,
             validSessionCount,
+            completedFoundingCount,
           }),
         });
         const data = (await res.json()) as {
@@ -160,7 +169,7 @@ export function useFoundingProgress(): FoundingProgressView {
         setClaiming(false);
       }
     })();
-  }, [mounted, authed, user?.id, userProgress.eligible, memberNumber, claiming, completion.sport, completion.completed, validSessionCount]);
+  }, [mounted, authed, user?.id, userProgress.eligible, memberNumber, claiming, completion.sport, completion.completed, validSessionCount, completedFoundingCount]);
 
   // ── Derive the banner state ─────────────────────────────────
   const bannerState: FoundingBannerState = useMemo(() => {
@@ -168,9 +177,9 @@ export function useFoundingProgress(): FoundingProgressView {
     if (!authed) return 'logged_out';
     if (campaign?.full) return 'full';
     if (userProgress.eligible) return 'qualified'; // claiming a number
-    if (!completion.completed) return 'profile_incomplete';
-    return 'sessions_needed';
-  }, [memberNumber, authed, campaign?.full, userProgress.eligible, completion.completed]);
+    if (completedFoundingCount > 0) return 'sessions_needed'; // journey in progress
+    return 'profile_incomplete'; // journey not started
+  }, [memberNumber, authed, campaign?.full, userProgress.eligible, completedFoundingCount]);
 
   return {
     mounted,
