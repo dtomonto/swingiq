@@ -18,7 +18,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video, HeartPulse,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -374,6 +374,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'operations', built: true, permission: 'logs.view',
     blurb: 'Integrations, queues, jobs and incidents — in plain English.',
     keywords: ['health', 'status', 'uptime', 'queue', 'jobs'],
+  },
+  {
+    id: 'reliability-os', label: 'ReliabilityOS', href: '/admin/reliability', icon: HeartPulse,
+    group: 'operations', built: true, permission: 'logs.view',
+    blurb: 'Operational health command center — what broke (uploads, logins, pages, tools), how severe, is it ongoing, and what to fix first. Failures are captured from the existing error/analytics seams, grouped into issues, with suggested next steps + Copy Debug Context. Privacy-first; honest when cross-user capture is off.',
+    keywords: ['reliability', 'health', 'incidents', 'failures', 'errors', 'uptime', 'monitoring', 'operational', 'failure inbox', 'upload reliability', 'login reliability', 'status', 'outage', 'degraded', 'observability'],
   },
   {
     id: 'ai-usage', label: 'AI Usage & Billing', href: '/admin/ai-usage', icon: Coins,

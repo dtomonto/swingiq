@@ -9,8 +9,14 @@
 // ============================================================
 
 import { reportError } from '@/lib/observability/report';
+import { registerOperationalSink } from '@/lib/reliability-os/capture';
 
 if (typeof window !== 'undefined') {
+  // ReliabilityOS: install the operational sink BEFORE the listeners below so
+  // reportError() routes failures into the local capture buffer (it chains to
+  // any prior sink / Sentry, so real error reporting is preserved).
+  registerOperationalSink();
+
   window.addEventListener('error', (event) => {
     reportError(event.error ?? event.message, { kind: 'window.error' });
   });
