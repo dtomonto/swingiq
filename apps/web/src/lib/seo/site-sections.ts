@@ -147,6 +147,9 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   // ── Sample reports ────────────────────────────────────────────────────
   { path: '/sample-report', label: 'Sample reports (all sports)', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/sample-report/golf', label: 'Sample golf report', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/sample-report/tennis', label: 'Sample tennis report', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/sample-report/pickleball', label: 'Sample pickleball report', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/sample-report/padel', label: 'Sample padel report', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/sample-report/baseball', label: 'Sample baseball report', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/sample-report/slow-pitch', label: 'Sample slow-pitch softball report', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/sample-report/fast-pitch', label: 'Sample fast-pitch softball report', section: 'sample-reports', priority: 0.6, changeFrequency: 'monthly' },
