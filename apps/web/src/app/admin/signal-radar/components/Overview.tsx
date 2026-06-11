@@ -1,6 +1,6 @@
 'use client';
 
-import { AlertTriangle, FileText, Link2, Users, Bug, Megaphone, Plus, CheckCircle2, Circle, Bell, X } from 'lucide-react';
+import { AlertTriangle, FileText, Link2, Users, Bug, Megaphone, Plus, CheckCircle2, Circle, Bell, X, Zap } from 'lucide-react';
 import { MetricStat } from '@/components/admin/MetricStat';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { StatusBadge } from '@/components/admin/StatusBadge';
@@ -24,7 +24,7 @@ export function Overview({
   onOpenSignal: (id: string) => void;
   onDismissAlert: (id: string) => void;
   onAdd: () => void;
-  onGoTab: (t: 'inbox' | 'competitors' | 'settings') => void;
+  onGoTab: (t: 'inbox' | 'competitors' | 'settings' | 'automation') => void;
 }) {
   const t = dashboard.totals;
 
@@ -54,6 +54,7 @@ export function Overview({
             <ChecklistItem done label="Brand, sport & competitor terms are pre-configured" hint="Tune them in Settings any time" />
             <ChecklistItem done={false} label="Add or import your first real signal" action={<Btn size="sm" tone="primary" onClick={onAdd}><Plus className="h-3.5 w-3.5" /> Add</Btn>} />
             <ChecklistItem done={false} label="Set up Google Alerts and paste a digest" hint="Settings → adapters explains how" />
+            <ChecklistItem done={false} label="Turn on automated collection (webhook or scheduled feeds)" action={<Btn size="sm" onClick={() => onGoTab('automation')}><Zap className="h-3.5 w-3.5" /> Automate</Btn>} />
             <ChecklistItem done={false} label="Review your first signals and convert an opportunity" />
           </ul>
         </SectionCard>

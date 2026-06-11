@@ -43,6 +43,7 @@ export default async function SignalRadarPage() {
         sampleSignals={data.sampleSignals}
         ingestedSignals={data.ingestedSignals}
         ingestEnabled={data.ingestEnabled}
+        automation={data.automation}
         generatedAt={data.generatedAt}
       />
 

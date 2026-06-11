@@ -14,7 +14,9 @@ import 'server-only';
 import { resolveAdapterStatuses, summarizeAdapters, type AdapterHealthSummary } from './adapters';
 import { demoSignals } from './sample-data';
 import { isSignalIngestEnabled, listIngestedSignals } from './ingest.server';
-import type { AdapterStatus, Signal } from './types';
+import { isConfigured } from '@/lib/capabilities';
+import { parseFeedList } from './feed-url';
+import type { AdapterStatus, Signal, AutomationStatus } from './types';
 
 export interface SignalRadarServerData {
   adapters: AdapterStatus[];
@@ -23,6 +25,7 @@ export interface SignalRadarServerData {
   /** Durable signals fed by the webhook (empty when ingest is keyless/off). */
   ingestedSignals: Signal[];
   ingestEnabled: boolean;
+  automation: AutomationStatus;
   generatedAt: string;
 }
 
@@ -31,12 +34,19 @@ export async function generateSignalRadarData(): Promise<SignalRadarServerData> 
   const adapters = resolveAdapterStatuses(process.env as Record<string, string | undefined>);
   const ingestEnabled = isSignalIngestEnabled();
   const ingestedSignals = ingestEnabled ? await listIngestedSignals() : [];
+  const automation: AutomationStatus = {
+    storeEnabled: ingestEnabled,
+    webhookConfigured: isConfigured(process.env.SIGNALRADAR_WEBHOOK_SECRET),
+    cronConfigured: isConfigured(process.env.CRON_SECRET),
+    envFeedCount: parseFeedList(process.env.SIGNALRADAR_FEEDS).length,
+  };
   return {
     adapters,
     adapterSummary: summarizeAdapters(adapters),
     sampleSignals: demoSignals(now),
     ingestedSignals,
     ingestEnabled,
+    automation,
     generatedAt: now,
   };
 }

@@ -421,3 +421,19 @@ export interface SignalDashboard {
   clusters: SignalCluster[];
   notifications: SignalNotification[];
 }
+
+// ── Automated-collection status ─────────────────────────────
+/**
+ * Live on/off status of the automated-collection pieces — booleans + a
+ * count only, NEVER secret values. Drives the admin Automation panel.
+ */
+export interface AutomationStatus {
+  /** Durable store present (Supabase service role) — the gate for persistence. */
+  storeEnabled: boolean;
+  /** SIGNALRADAR_WEBHOOK_SECRET is set → webhook ingest accepts posts. */
+  webhookConfigured: boolean;
+  /** CRON_SECRET is set → an external scheduler can drive the feed cron. */
+  cronConfigured: boolean;
+  /** Number of valid feeds in the SIGNALRADAR_FEEDS deploy env. */
+  envFeedCount: number;
+}

@@ -7,8 +7,8 @@
 // are shown read-only behind a clearly-labelled banner.
 
 import { useMemo, useState, useCallback } from 'react';
-import { LayoutGrid, Inbox, Map, Swords, Bot, SlidersHorizontal, Plus, Info, Trophy, Sparkles } from 'lucide-react';
-import type { AdapterStatus, Signal, ConversionKind } from '@/lib/signal-radar/types';
+import { LayoutGrid, Inbox, Map, Swords, Bot, SlidersHorizontal, Plus, Info, Trophy, Sparkles, Zap } from 'lucide-react';
+import type { AdapterStatus, Signal, ConversionKind, AutomationStatus } from '@/lib/signal-radar/types';
 import type { AdapterHealthSummary } from '@/lib/signal-radar/adapters';
 import { useSignalRadar } from '@/lib/signal-radar/useSignalRadar';
 import { useSupport } from '@/lib/admin/stores/support';
@@ -28,6 +28,7 @@ import { AiVisibility } from './components/AiVisibility';
 import { SettingsPanel } from './components/SettingsPanel';
 import { SportIntelligence } from './components/SportIntelligence';
 import { StrategyBrief } from './components/StrategyBrief';
+import { Automation } from './components/Automation';
 
 export interface SignalRadarAppProps {
   actor: string;
@@ -36,10 +37,11 @@ export interface SignalRadarAppProps {
   sampleSignals: Signal[];
   ingestedSignals: Signal[];
   ingestEnabled: boolean;
+  automation: AutomationStatus;
   generatedAt: string;
 }
 
-type Tab = 'overview' | 'inbox' | 'sports' | 'map' | 'competitors' | 'ai' | 'brief' | 'settings';
+type Tab = 'overview' | 'inbox' | 'sports' | 'map' | 'competitors' | 'ai' | 'brief' | 'automation' | 'settings';
 
 const TABS: { id: Tab; label: string; icon: typeof Inbox }[] = [
   { id: 'overview', label: 'Overview', icon: LayoutGrid },
@@ -49,6 +51,7 @@ const TABS: { id: Tab; label: string; icon: typeof Inbox }[] = [
   { id: 'competitors', label: 'Competitors', icon: Swords },
   { id: 'ai', label: 'AI Visibility', icon: Bot },
   { id: 'brief', label: 'Strategy Brief', icon: Sparkles },
+  { id: 'automation', label: 'Automation', icon: Zap },
   { id: 'settings', label: 'Settings', icon: SlidersHorizontal },
 ];
 
@@ -186,6 +189,9 @@ export function SignalRadarApp(props: SignalRadarAppProps) {
       )}
       {tab === 'ai' && (
         <AiVisibility tests={sr.aiTests} onUpsert={sr.upsertAiTest} onRemove={sr.removeAiTest} />
+      )}
+      {tab === 'automation' && (
+        <Automation automation={props.automation} config={sr.config} onUpdate={sr.updateConfig} />
       )}
       {tab === 'settings' && (
         <SettingsPanel
