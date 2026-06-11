@@ -76,7 +76,7 @@ export function LocalizedHowItWorks({ locale }: { locale: LanguageCode }) {
           <div className="space-y-10">
             {steps.map((s) => (
               <div key={s.n} className="flex gap-6 items-start">
-                <div className={`w-12 h-12 rounded-full ${s.color} text-white font-black text-xl flex items-center justify-center shrink-0 mt-1`}>
+                <div className={`w-12 h-12 rounded-full ${s.color} text-primary-foreground font-black text-xl flex items-center justify-center shrink-0 mt-1`}>
                   {s.n}
                 </div>
                 <div>
