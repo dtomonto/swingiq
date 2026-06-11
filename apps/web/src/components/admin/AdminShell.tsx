@@ -21,6 +21,8 @@ export interface AdminShellProps {
   role: RoleId;
   /** Count of items awaiting review (Action Center) — shows a topbar badge. */
   actionCount?: number;
+  /** Live per-section counts (nav item id → count) for the sidebar pills. */
+  sectionCounts?: Record<string, number>;
   /** Optional system-pulse entries for the hairline strip below the topbar. */
   systemStatus?: SystemStatusEntry[];
   children: React.ReactNode;
@@ -43,7 +45,7 @@ function Brand() {
   );
 }
 
-export function AdminShell({ email, role, actionCount = 0, systemStatus, children }: AdminShellProps) {
+export function AdminShell({ email, role, actionCount = 0, sectionCounts, systemStatus, children }: AdminShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [theme, setTheme] = useState<AdminTheme>('coach-mode');
@@ -101,7 +103,7 @@ export function AdminShell({ email, role, actionCount = 0, systemStatus, childre
       <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-border bg-card lg:flex">
         <Brand />
         <div className="min-h-0 flex-1">
-          <AdminSidebar role={role} />
+          <AdminSidebar role={role} sectionCounts={sectionCounts} />
         </div>
       </aside>
 
@@ -125,7 +127,7 @@ export function AdminShell({ email, role, actionCount = 0, systemStatus, childre
               </button>
             </div>
             <div className="min-h-0 flex-1">
-              <AdminSidebar role={role} onNavigate={() => setDrawerOpen(false)} />
+              <AdminSidebar role={role} sectionCounts={sectionCounts} onNavigate={() => setDrawerOpen(false)} />
             </div>
           </aside>
         </div>

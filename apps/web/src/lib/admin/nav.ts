@@ -162,13 +162,13 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     id: 'action-center', label: 'Action Center', href: '/admin/approvals', icon: Inbox,
-    group: 'operate', subgroup: 'Decision Center', built: true,
+    group: 'operate', subgroup: 'Decision Center', built: true, countType: 'work',
     blurb: 'One inbox for everything that needs you — drafts to approve, SEO & video opportunities, audit findings — each linking to the tool that handles it.',
     keywords: ['approvals', 'approve', 'review', 'inbox', 'queue', 'todo', 'tasks', 'pending', 'opportunities', 'needs attention', 'implement', 'decision center', 'decisions'],
   },
   {
     id: 'audits', label: 'Audit Reports', href: '/admin/audits', icon: ClipboardCheck,
-    group: 'operate', subgroup: 'Decision Center', built: true,
+    group: 'operate', subgroup: 'Decision Center', built: true, countType: 'work',
     blurb: 'Every internal audit robot’s findings (SEO, AI, Engagement, Build-health) surfaced in-app, with open → in-progress → done tracking.',
     keywords: ['audit', 'audits', 'reports', 'findings', 'seo audit', 'ai audit', 'security audit', 'master report', 'opportunities', 'recommendations'],
   },

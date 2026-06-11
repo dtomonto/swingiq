@@ -19,10 +19,12 @@ import {
 
 export interface AdminSidebarProps {
   role: RoleId;
+  /** Live per-section counts (nav item id → count) for the count pills. */
+  sectionCounts?: Record<string, number>;
   onNavigate?: () => void;
 }
 
-export function AdminSidebar({ role, onNavigate }: AdminSidebarProps) {
+export function AdminSidebar({ role, sectionCounts, onNavigate }: AdminSidebarProps) {
   const pathname = usePathname() || '/admin';
   const visible = useMemo(
     () => NAV_ITEMS.filter((i) => !i.permission || roleHasPermission(role, i.permission)),
@@ -78,6 +80,7 @@ export function AdminSidebar({ role, onNavigate }: AdminSidebarProps) {
       );
     }
     const pinned = favorites.includes(item.id);
+    const count = item.countType ? (sectionCounts?.[item.id] ?? 0) : 0;
     return (
       <li key={`${keyPrefix}${item.id}`} className={`relative ${active ? 'scroll-mt-2' : ''}`}>
         <Link
@@ -88,6 +91,18 @@ export function AdminSidebar({ role, onNavigate }: AdminSidebarProps) {
         >
           <Icon className={`h-4 w-4 shrink-0 ${active ? 'text-link' : ''}`} />
           <span className="flex-1 truncate pr-5">{item.label}</span>
+          {count > 0 && (
+            <span
+              aria-label={`${count} ${item.countType === 'decision' ? 'awaiting a decision' : 'waiting'}`}
+              className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-semibold leading-none tabular-nums transition-opacity ${
+                item.countType === 'decision'
+                  ? 'bg-warning/15 text-warning-text'
+                  : 'bg-muted text-foreground'
+              } ${pinned ? 'opacity-0' : 'group-hover/item:opacity-0'}`}
+            >
+              {count > 99 ? '99+' : count}
+            </span>
+          )}
           {item.incidentDot && (
             <span className="h-2 w-2 shrink-0 rounded-full bg-error" aria-label="live incident" />
           )}

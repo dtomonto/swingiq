@@ -16,6 +16,7 @@ import { isAdminUser } from '@/lib/auth/admin';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { getServerAdminRole } from '@/lib/admin/context';
 import { collectServerActions } from '@/lib/admin/action-center';
+import { activeNavItem } from '@/lib/admin/nav';
 import { getIntegrationStatuses } from '@/lib/admin/data/system';
 import { AdminShell } from '@/components/admin/AdminShell';
 import type { SystemStatusEntry } from '@/components/admin/AdminTopbar';
@@ -55,13 +56,29 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const email = user?.email ?? null;
   const role = getServerAdminRole(email);
 
-  // Action Center count for the persistent topbar badge. Best-effort: never
-  // let it break the shell (defaults to 0 if the roll-up is unavailable).
+  // Action Center count for the persistent topbar badge + per-section sidebar
+  // counts, both derived from the SAME roll-up (one call, no extra cost). The
+  // two aggregator queues (Decision/Action Center) mirror the whole inbox; each
+  // other section gets the count of items that deep-link into it. Best-effort:
+  // never let it break the shell (defaults to empty if the roll-up is down).
   let actionCount = 0;
+  let sectionCounts: Record<string, number> = {};
   try {
-    actionCount = (await collectServerActions()).length;
+    const actions = await collectServerActions();
+    actionCount = actions.length;
+    const counts: Record<string, number> = {};
+    for (const a of actions) {
+      const target = activeNavItem(a.href);
+      if (target) counts[target.id] = (counts[target.id] ?? 0) + Math.max(1, a.count);
+    }
+    if (actions.length > 0) {
+      counts.decisions = actions.length;
+      counts['action-center'] = actions.length;
+    }
+    sectionCounts = counts;
   } catch {
     actionCount = 0;
+    sectionCounts = {};
   }
 
   // System-pulse strip below the topbar — a compact, honest read of what's
@@ -88,7 +105,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <AdminShell email={email} role={role} actionCount={actionCount} systemStatus={systemStatus}>
+    <AdminShell email={email} role={role} actionCount={actionCount} sectionCounts={sectionCounts} systemStatus={systemStatus}>
       {children}
     </AdminShell>
   );
