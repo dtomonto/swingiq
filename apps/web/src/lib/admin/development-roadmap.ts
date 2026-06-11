@@ -43,6 +43,12 @@ export interface RoadmapSection {
   relatedAdminLabel?: string;
   /** Ethics/IP guarantees (used by the coach-inspired section). */
   ethics?: string[];
+  /**
+   * The concrete unfinished next-steps for an initiative that is NOT yet
+   * fully shipped — the "what's left" backlog, surfaced on /admin/development
+   * so paused work is never lost. Live initiatives omit this.
+   */
+  followUps?: string[];
 }
 
 /**
@@ -108,6 +114,11 @@ export const ROADMAP_SECTIONS: RoadmapSection[] = [
       'is gated off until approved.',
     relatedAdminHref: '/admin/coach-mix',
     relatedAdminLabel: 'Coach Mix',
+    followUps: [
+      'Expose athlete-facing teaching-style selection (gated off until approved)',
+      'Wire the resolved strategy beyond DrillMatch into tone/technical-depth of explanations',
+      'Per-athlete strategy persistence + an admin override audit trail',
+    ],
   },
   {
     id: 'coach-inspired-teaching-styles',
@@ -136,6 +147,11 @@ export const ROADMAP_SECTIONS: RoadmapSection[] = [
       'Uses only admin-approved, attributed, legally allowable sources',
       'Labels styles as “inspired by public teaching principles,” not replicas',
     ],
+    followUps: [
+      'Admin review + approval of every seed profile’s sources (each is “needs review” today)',
+      'Turn an approved style into a real DrillMatch influence (nothing affects athletes yet)',
+      'Show the neutral style tag to athletes once a profile is approved',
+    ],
   },
   {
     id: 'ai-drill-video-learning',
@@ -157,6 +173,11 @@ export const ROADMAP_SECTIONS: RoadmapSection[] = [
       'Coach Mix today. The video-concept generator and trend-driven briefs are planned next.',
     relatedAdminHref: '/admin/coach-mix',
     relatedAdminLabel: 'Coach Mix',
+    followUps: [
+      'Build the video-concept generator (drafts from gaps + athlete demand)',
+      'Trend-driven content briefs feeding the review queue',
+      'IP-risk grading surfaced in the admin review queue UI',
+    ],
   },
   {
     id: 'curated-swing-drills',
@@ -176,6 +197,11 @@ export const ROADMAP_SECTIONS: RoadmapSection[] = [
     todayStatus:
       'The widget and its recommendation engine exist behind the NEXT_PUBLIC_COACH_MIX_USER_MODULE ' +
       'switch, OFF by default. It stays invisible to athletes until the owner enables it.',
+    followUps: [
+      'Enable the athlete-facing module (flip NEXT_PUBLIC_COACH_MIX_USER_MODULE / the operator flag)',
+      'Add the Start / Save / Not relevant / I tried this / Retest actions end-to-end',
+      'Surface the “why this drill was chosen” rationale per recommendation',
+    ],
   },
   {
     id: 'trend-intelligence',
@@ -195,6 +221,11 @@ export const ROADMAP_SECTIONS: RoadmapSection[] = [
     todayStatus:
       'Planned. The recommendation and review plumbing it builds on is in place; the aggregation ' +
       'and admin trend panel are the next iteration.',
+    followUps: [
+      'Build the aggregation engine (top problems by sport / skill / miss pattern)',
+      'Admin trend panel with minimum-sample “insufficient data” states',
+      'Feed content gaps into the drill/video creation backlog',
+    ],
   },
   {
     id: 'integrations-motion-launch-sim',
@@ -212,10 +243,19 @@ export const ROADMAP_SECTIONS: RoadmapSection[] = [
       'Swing profiles and the multi-sport athletic development journey',
     ],
     todayStatus:
-      'Mixed: Motion Lab and the universal launch-monitor/simulator importer are live; deeper ' +
-      '3D mapping and tighter swing-profile integration are in development.',
+      'Mixed: Motion Lab (now with a slow-motion video overlay lab + demo mode for tennis, ' +
+      'pickleball and padel) and the universal launch-monitor/simulator importer are live; ' +
+      'deeper 3D mapping and tighter swing-profile integration are in development.',
     relatedAdminHref: '/admin/sports',
     relatedAdminLabel: 'Sports',
+    followUps: [
+      'Real-browser tuning pass on the synthetic demo skeleton (built/verified headless)',
+      'Admin usage dashboards: upload volume, completion rate, avg confidence & top faults by sport',
+      'Manual landmark correction on the overlay canvas (feeds the pose-correction seam)',
+      'Before/after retest comparison inside the video lab',
+      'Migrate Motion Lab set-state-in-effect hydration to useSyncExternalStore (needs browser verify)',
+      'Deeper 3D mapping + tighter swing-profile integration',
+    ],
   },
   {
     id: 'privacy-and-ethics',
@@ -239,6 +279,21 @@ export const ROADMAP_SECTIONS: RoadmapSection[] = [
     relatedAdminLabel: 'Legal & Privacy',
   },
 ];
+
+/** Total open follow-ups across initiatives — drives the summary strip. */
+export function openFollowUpCount(sections: RoadmapSection[] = ROADMAP_SECTIONS): number {
+  return sections.reduce((n, s) => n + (s.followUps?.length ?? 0), 0);
+}
+
+/**
+ * Initiatives that still have unfinished follow-ups, newest-status first
+ * (in-development before planned), so the page can lead with "what's left".
+ */
+export function sectionsWithOpenFollowUps(
+  sections: RoadmapSection[] = ROADMAP_SECTIONS,
+): RoadmapSection[] {
+  return sections.filter((s) => (s.followUps?.length ?? 0) > 0);
+}
 
 /** Roadmap counts by status — drives the summary strip on the page. */
 export function roadmapStatusCounts(
