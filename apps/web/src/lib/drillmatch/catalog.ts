@@ -12,6 +12,8 @@ import {
   VIDEO_DRILLS,
   BASEBALL_DRILLS,
   TENNIS_DRILLS,
+  PICKLEBALL_DRILLS,
+  PADEL_DRILLS,
   FAST_PITCH_DRILLS,
   SLOW_PITCH_DRILLS,
   type SportId,
@@ -194,6 +196,8 @@ export const ALL_DRILL_CANDIDATES: DrillCandidate[] = [
   ...VIDEO_DRILLS.map(fromGolfDrill),
   ...BASEBALL_DRILLS.map(fromSportDrill),
   ...TENNIS_DRILLS.map(fromSportDrill),
+  ...PICKLEBALL_DRILLS.map(fromSportDrill),
+  ...PADEL_DRILLS.map(fromSportDrill),
   ...FAST_PITCH_DRILLS.map(fromSportDrill),
   ...SLOW_PITCH_DRILLS.map(fromSportDrill),
 ];

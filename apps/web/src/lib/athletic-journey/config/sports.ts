@@ -10,10 +10,10 @@
 import type { SportId } from '@swingiq/core';
 import type { SportAvailability } from '../types';
 
-// Keyed by the five sports the Athletic Journey models today. Core's SportId
-// may include additional sports (e.g. pickleball/padel) that aren't part of
-// this product surface yet — getSportAvailability() returns a safe generic
-// "in development" entry for any sport not listed here.
+// Keyed by the seven sports the Athletic Journey models today (golf, tennis,
+// pickleball, padel — live — plus baseball and fast/slow-pitch softball in
+// development). Any core SportId not listed here falls back to a safe generic
+// "in development" entry via getSportAvailability().
 export const SPORT_AVAILABILITY: Partial<Record<SportId, SportAvailability>> = {
   golf: {
     sport: 'golf',

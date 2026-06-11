@@ -46,9 +46,9 @@ function memRepo(): DrillFeedbackRepository {
 }
 
 describe('catalog — normalization of existing drill libraries', () => {
-  it('builds a non-empty catalog covering all five sports', () => {
+  it('builds a non-empty catalog covering all seven sports', () => {
     expect(ALL_DRILL_CANDIDATES.length).toBeGreaterThan(10);
-    for (const sport of ['golf', 'tennis', 'baseball', 'softball_slow', 'softball_fast'] as const) {
+    for (const sport of ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'] as const) {
       expect(getCandidatesForSport(sport).length).toBeGreaterThan(0);
     }
   });
