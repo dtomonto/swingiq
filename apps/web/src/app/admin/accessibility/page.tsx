@@ -15,7 +15,7 @@ import { MetricStat } from '@/components/admin/MetricStat';
 import { StatusBadge, type BadgeTone } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { THEMES } from '@/lib/theme/themes';
-import { auditThemes, type ContrastGrade } from '@/lib/admin/accessibility/contrast';
+import { auditThemes, type ContrastGrade, type ThemeLike } from '@/lib/admin/accessibility/contrast';
 
 export const metadata: Metadata = { title: 'Theme & Accessibility | Admin', robots: 'noindex, nofollow' };
 export const dynamic = 'force-dynamic';
@@ -27,10 +27,31 @@ const GRADE_TONE: Record<ContrastGrade, BadgeTone> = {
   fail: 'danger',
 };
 
+// Admin chrome themes. Coach Mode is already a product theme (in THEMES), but
+// Coach Night is admin-only (not in the user-facing switcher) — it still has to
+// clear the same AA bar, so the auditor audits its own house too (audit F9).
+// Values mirror the [data-theme='coach-night'] block in globals.css; the CI
+// contrast test parses globals.css directly and is the authoritative guard.
+const ADMIN_THEMES: ThemeLike[] = [
+  {
+    id: 'coach-night',
+    name: 'Coach Night (admin dark)',
+    category: 'dark',
+    swatches: {
+      bg: 'hsl(218 28% 9%)',
+      surface: 'hsl(218 24% 12%)',
+      text: 'hsl(214 30% 92%)',
+      primary: 'hsl(217 80% 52%)',
+      accent: 'hsl(173 52% 46%)',
+    },
+  },
+];
+
 export default function AdminAccessibilityPage() {
-  const report = auditThemes(
-    THEMES.map((t) => ({ id: t.id, name: t.name, category: t.category, swatches: t.swatches })),
-  );
+  const report = auditThemes([
+    ...THEMES.map((t) => ({ id: t.id, name: t.name, category: t.category, swatches: t.swatches })),
+    ...ADMIN_THEMES,
+  ]);
   const { stats } = report;
   const healthy = stats.failingPairs === 0;
 
