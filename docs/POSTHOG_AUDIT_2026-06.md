@@ -357,3 +357,24 @@ Owner-only (cannot be done in code — require secrets/infra):
   (separate dep). The client sink is live now; server is a follow-up.
 - **PostHog UI** — create the flags from §G (the bridge consumes them by key), build the
   §E funnels / §F dashboards, mark internal users, add the §I survey.
+
+### PostHog UI setup — provisioning-as-code
+
+The §G flags, §E funnels, §F dashboards, and the §I survey are scripted in
+`apps/web/scripts/posthog-setup.mjs` so the "UI setup" is reproducible, not hand-clicked.
+
+```bash
+cd apps/web
+
+# 1. Dry run — prints the exact plan, writes nothing, needs no key:
+npm run posthog:setup
+
+# 2. Apply — needs a personal API key (write scope) + the project id:
+POSTHOG_PERSONAL_API_KEY=phx_xxx POSTHOG_PROJECT_ID=12345 npm run posthog:setup -- --apply
+
+# Limit to sections: npm run posthog:setup -- --apply --only=flags,survey,dashboards
+```
+
+It is idempotent (skips anything that already exists), ships every flag at **0% rollout**
+(OFF until you ramp), and creates the survey as a **draft** (won't show until you launch it
+in PostHog). The personal key is read from the env and never logged.

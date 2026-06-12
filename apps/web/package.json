@@ -22,6 +22,7 @@
     "tutorials:record:all": "node scripts/video-studio/record-batch.mjs group:all",
     "tutorials:record:install": "npm i -D playwright ffmpeg-static && npx playwright install chromium",
     "changes:scan": "node scripts/scan-changes.mjs",
+    "posthog:setup": "node scripts/posthog-setup.mjs",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
