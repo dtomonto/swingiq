@@ -1,5 +1,121 @@
 [
   {
+    "sha": "e481a259e949e13b84b5f8e4ae3752baaa0eb355",
+    "at": "2026-06-12T12:34:11-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "86f17cd2d24384c76e92b9f892c27d65cc312ec0",
+    "at": "2026-06-12T12:34:11-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "f9cee06db2cf4a2dd288ee4cf1d6883368e2b9d4",
+    "at": "2026-06-12T12:34:11-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "e5cfed36b7aa1401142f70ee415505463d424648",
+    "at": "2026-06-12T12:34:11-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed JSON with regenerated feature registry"
+  },
+  {
+    "sha": "fe67d1b6e47794f9d830bd05bbcc2d68c9c563a0",
+    "at": "2026-06-12T12:20:51-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "0552ecc9e237ed820bc64c2b078e30ce5b52b1db",
+    "at": "2026-06-12T12:20:51-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "5a5c57e6d1f85e421d486cc9422737f697b864ea",
+    "at": "2026-06-12T12:20:51-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "404af66e6c7e25815978d36dc1786fc7eff94b16",
+    "at": "2026-06-12T12:20:51-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "d306cc147cc1f909cb47f5a8a3eb88020d00a8c3",
+    "at": "2026-06-12T12:20:51-04:00",
+    "type": "other",
+    "subject": "Merge remote-tracking branch 'origin/master' into agent/posthog-p0"
+  },
+  {
+    "sha": "6a3732752b9d9ec405aa98a4810595fc5949fd02",
+    "at": "2026-06-12T12:13:05-04:00",
+    "type": "feat",
+    "scope": "intelligence",
+    "subject": "P11 — Motion Lab repeatability into BodySync coaching"
+  },
+  {
+    "sha": "f3f6e4750b0e97057c5b99ac53c5467666599c2e",
+    "at": "2026-06-12T12:03:48-04:00",
+    "type": "other",
+    "subject": "Merge pull request #31 from dtomonto/agent/marketing-i18n-fix"
+  },
+  {
+    "sha": "9140552723968b692e87f548864572cc7d23a6c9",
+    "at": "2026-06-12T12:03:20-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "38592ea39e23bbff97059c81710af47ccf82d51f",
+    "at": "2026-06-12T12:03:20-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "ce4703c88b727a292f0a38246d5d8383041db600",
+    "at": "2026-06-12T12:03:20-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "e0b3b3f2169893f5a7b05b3028c1850561ba3c5e",
+    "at": "2026-06-12T12:03:20-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "ce1d6069ae851664e751de7e87ec06c4427efdb1",
+    "at": "2026-06-12T12:03:20-04:00",
+    "type": "other",
+    "subject": "Merge remote-tracking branch 'origin/master' into agent/posthog-p0"
+  },
+  {
+    "sha": "cede9195c5a5a110f919f4d511a8a62502f16e3e",
+    "at": "2026-06-12T11:58:08-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "51e57500ddbe896d4f49c600bc2c528b152b8c19",
     "at": "2026-06-12T11:58:08-04:00",
     "type": "chore",
@@ -60,6 +176,27 @@
     "at": "2026-06-12T11:57:36-04:00",
     "type": "other",
     "subject": "Merge remote-tracking branch 'origin/master' into agent/marketing-i18n-fix"
+  },
+  {
+    "sha": "b252e888a7910fa9e07fd2629f8639fe4cc82bb7",
+    "at": "2026-06-12T11:33:25-04:00",
+    "type": "feat",
+    "scope": "retest",
+    "subject": "auto-detect a retest on re-upload + show what it is"
+  },
+  {
+    "sha": "2c32c9a4d9e0a46b295f4bbadfde754b840207d9",
+    "at": "2026-06-12T11:23:50-04:00",
+    "type": "feat",
+    "scope": "retest",
+    "subject": "add Retest to the mobile bottom nav"
+  },
+  {
+    "sha": "894edf84dfab52527f0f4a3c9c7b7c2fe9d8ebc8",
+    "at": "2026-06-12T11:13:53-04:00",
+    "type": "feat",
+    "scope": "retest",
+    "subject": "turn every result into a next move"
   },
   {
     "sha": "57a30c285c5fa3d1a635a7ebb3853cb464d444f2",
@@ -165,6 +302,41 @@
     "type": "fix",
     "scope": "feature-education",
     "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "80c04a8c447efe4a484097333d9c48e4f8b26407",
+    "at": "2026-06-12T11:24:00-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "6033d586760ee187ff30e9f10119e69ec0666f21",
+    "at": "2026-06-12T11:24:00-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "09be819b98d4fb81b188a6a41371bf3ab32b7d69",
+    "at": "2026-06-12T11:24:00-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "af6ec59d4653b7f0e5b2491bbf6582707c2450a7",
+    "at": "2026-06-12T11:24:00-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "644a503f5048f9608b3b72edbfa3d96b26ccd9ee",
+    "at": "2026-06-12T11:24:00-04:00",
+    "type": "feat",
+    "scope": "analytics",
+    "subject": "PostHog audit + P0 SDK swap & identity bridge"
   },
   {
     "sha": "5d0f78c91d6812ed442d79414f4b4783791917bb",
@@ -380,177 +552,5 @@
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
-  },
-  {
-    "sha": "f7de5b67cba573a22a5dd29e89a3fceb913b2844",
-    "at": "2026-06-12T08:19:37-04:00",
-    "type": "feat",
-    "scope": "dashboard",
-    "subject": "live cross-tab store sync for in-visit reactivity"
-  },
-  {
-    "sha": "44768a44eee0241ab1c9a7d72d50c18949188f90",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "fix",
-    "scope": "feature-education",
-    "subject": "resync seed (iter 2) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
-  },
-  {
-    "sha": "06af1d13dc80d7b52df4493779e76857ba8625f7",
-    "at": "2026-06-12T08:20:20-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "23405c74ecd2da61185fe3b2ad55b6580bc867d6",
-    "at": "2026-06-12T08:20:20-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "99e940ce42c0774808e64f94657011daa822463c",
-    "at": "2026-06-12T08:20:20-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "a80857de12d0f5e0f4e27b21866d1aff79031576",
-    "at": "2026-06-12T08:20:20-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "2a82edf1b2f10b22fe1272290b51bd1e04796e5d",
-    "at": "2026-06-12T08:20:20-04:00",
-    "type": "fix",
-    "scope": "feature-education",
-    "subject": "resync seed (iter 1) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
-  },
-  {
-    "sha": "861bfa3bd3507c9db68fe88c39f9408f811e8e2f",
-    "at": "2026-06-12T08:19:58-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "d941156a8d101cc83b5b3519e495b5e831113492",
-    "at": "2026-06-12T08:19:58-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "99c53bea2300332f634bc44e41c9aeb0dfaecb87",
-    "at": "2026-06-12T08:19:58-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "a2e2272404814fc46de01b5a7e4d98951c700913",
-    "at": "2026-06-12T08:19:58-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "fb84d90aace6c0e58462297df5ce7ef092e902e6",
-    "at": "2026-06-12T08:19:58-04:00",
-    "type": "other",
-    "subject": "Merge remote-tracking branch 'origin/master' into agent/secrets-vault-config"
-  },
-  {
-    "sha": "b407db80bc2ab1c844f96cbc0c94c77657cbce4b",
-    "at": "2026-06-12T08:12:04-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "77aca509cc636008b31b98b2ca2a5fd8d0e255b0",
-    "at": "2026-06-12T08:12:04-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "e8dc4c113fbb3695042713c743c7099593cf0761",
-    "at": "2026-06-12T08:12:04-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "8f96ccc6ac79d297b39351226842b898e93269c9",
-    "at": "2026-06-12T08:12:04-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "abeb1d7431435fa21f7f0ef6a9df40295d1a8f6a",
-    "at": "2026-06-12T08:12:04-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): seed matches the now-generic registry"
-  },
-  {
-    "sha": "58a0eba4b103895d5a2fa5e859948b62d94f668b",
-    "at": "2026-06-12T08:09:57-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "3c3343676378300eeaa0109d3fad4c5398288d0a",
-    "at": "2026-06-12T08:09:57-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "abd5fcf0c657ca3aa2909f169eb928e216002547",
-    "at": "2026-06-12T08:09:57-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "43455e6b219fd80ca75183b449e4ef4ff21fb22f",
-    "at": "2026-06-12T08:09:57-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "7de6b7a5db388d6dfab7c17422bf6493025ccb26",
-    "at": "2026-06-12T08:09:57-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): regenerate seed from the hook-settled registry"
-  },
-  {
-    "sha": "c7162b7e58f9e9379ee14b4b24aa108f13918427",
-    "at": "2026-06-12T08:07:33-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "37ae1390b40b501a01fc074239a4a98d8f8a5944",
-    "at": "2026-06-12T08:07:33-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "11ffc911a444ea98789f169a4ec33a330fd3e436",
-    "at": "2026-06-12T08:07:33-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
   }
 ]
