@@ -21,11 +21,13 @@ import { saveVideoAnalysis, type SavedVideoAnalysis } from '@/lib/video/history'
 import { logAnalysisFailure } from '@/lib/reliability-os/capture';
 import type { PoseMetrics } from '@/lib/pose';
 import type { AnalysisStage } from '@/components/video/AnalysisProgress';
+import { detectPoseIssues } from '@swingiq/core';
 import type {
   AIVisualAnalysis,
   PreviousAnalysisSummary,
   VisionSpeed,
   VisualSport,
+  SportDetectedIssue,
 } from '@swingiq/core';
 
 export interface SwingAnalysisInput {
@@ -49,6 +51,9 @@ export interface SwingAnalysisResult {
   /** Set when the provider is not configured (mutually exclusive with analysis). */
   notConfiguredMessage: string | null;
   poseMetrics: PoseMetrics | null;
+  /** Honest, pose-derived deterministic faults (non-golf). Computed locally
+   *  from the MediaPipe pose track — available even when AI is keyless. */
+  poseDerivedIssues: SportDetectedIssue[];
   savedRecord: SavedVideoAnalysis | null;
   comparedToPrevious: boolean;
 }
@@ -120,6 +125,14 @@ async function runSwingAnalysisInner(
   advance(sink, 'measuring');
   throwIfAborted(sink.signal);
 
+  // Pose-derived deterministic faults (non-golf). PoseMetrics is structurally
+  // a SportPoseFeatures; detectPoseIssues returns [] for golf or no-pose, so
+  // this is safe + honest (is_estimated, conservative confidence) and works
+  // even when the AI provider is keyless. (Intelligence Learning Audit P3.)
+  const poseDerivedIssues: SportDetectedIssue[] = pose.metrics
+    ? detectPoseIssues(input.sport, pose.metrics)
+    : [];
+
   // 3. Send only the frames + metadata (+ pose summary) to the AI route.
   advance(sink, 'inspecting');
   const res = await fetch('/api/video-vision-analysis', {
@@ -147,6 +160,7 @@ async function runSwingAnalysisInner(
       analysis: null,
       notConfiguredMessage: data.message as string,
       poseMetrics: pose.metrics,
+      poseDerivedIssues,
       savedRecord: null,
       comparedToPrevious: Boolean(input.previous),
     };
@@ -176,6 +190,7 @@ async function runSwingAnalysisInner(
     analysis,
     notConfiguredMessage: null,
     poseMetrics: pose.metrics,
+    poseDerivedIssues,
     savedRecord,
     comparedToPrevious: Boolean(input.previous),
   };

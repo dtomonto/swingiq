@@ -36,6 +36,7 @@ import { useRecordAssistHandoff } from '@/lib/record-assist/hooks/useRecordAssis
 import { useSwingSessionFanout } from '@/lib/swing-session/useSwingSessionFanout';
 import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector';
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
+import { PoseDerivedIssuesCard } from '@/components/video/PoseDerivedIssuesCard';
 import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
 import { useSwingAnalysis } from '@/lib/video/useSwingAnalysis';
@@ -355,11 +356,17 @@ export function SportVideoAnalyzerContent() {
       </div>
 
       {swing.notConfiguredMessage ? (
-        <AINotConfiguredNotice
-          message={swing.notConfiguredMessage}
-          onRetry={handleAnalyze}
-          onStartOver={handleRemoveVideo}
-        />
+        <div className="space-y-4">
+          <AINotConfiguredNotice
+            message={swing.notConfiguredMessage}
+            onRetry={handleAnalyze}
+            onStartOver={handleRemoveVideo}
+          />
+          {/* Even without AI vision, the on-device pose track gives honest,
+              deterministic findings — keyless value. */}
+          {swing.poseMetrics && <PoseSignalsCard metrics={swing.poseMetrics} />}
+          <PoseDerivedIssuesCard issues={swing.poseDerivedIssues} />
+        </div>
       ) : swing.analysis ? (
         <>
         {swing.comparedToPrevious && (
@@ -434,6 +441,7 @@ export function SportVideoAnalyzerContent() {
 
           <div className="space-y-4">
             {swing.poseMetrics && <PoseSignalsCard metrics={swing.poseMetrics} />}
+            <PoseDerivedIssuesCard issues={swing.poseDerivedIssues} />
             <AIVisualAnalysisPanel analysis={swing.analysis} />
           </div>
         </div>

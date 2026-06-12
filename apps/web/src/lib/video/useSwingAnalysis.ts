@@ -140,6 +140,7 @@ export function useSwingAnalysis() {
     analysis: result?.analysis ?? null,
     notConfiguredMessage: result?.notConfiguredMessage ?? null,
     poseMetrics: result?.poseMetrics ?? null,
+    poseDerivedIssues: result?.poseDerivedIssues ?? [],
     savedRecord: result?.savedRecord ?? null,
     comparedToPrevious: result?.comparedToPrevious ?? false,
     error: task?.status === 'error' ? task.error ?? 'Analysis failed.' : null,
