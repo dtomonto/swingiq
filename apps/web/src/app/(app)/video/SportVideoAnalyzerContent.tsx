@@ -24,6 +24,7 @@ import { AIVisualAnalysisPanel } from '@/components/video/AIVisualAnalysisPanel'
 import { AINotConfiguredNotice } from '@/components/video/AINotConfiguredNotice';
 import { RecordingGuide } from '@/components/video/RecordingGuide';
 import { VideoWelcomeBack } from '@/components/video/VideoWelcomeBack';
+import { SavedAnalysisModal } from '@/components/video/SavedAnalysisModal';
 import { VideoProgress } from '@/components/video/VideoProgress';
 import { TutorialVideo } from '@/components/tutorial/TutorialVideo';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
@@ -38,6 +39,7 @@ import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector'
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import { PoseDerivedIssuesCard } from '@/components/video/PoseDerivedIssuesCard';
 import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';
+import type { SavedVideoAnalysis } from '@/lib/video/history';
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
 import { useRetests, findSportRetestTarget } from '@/lib/retest';
 import { useSwingAnalysis } from '@/lib/video/useSwingAnalysis';
@@ -69,6 +71,8 @@ export function SportVideoAnalyzerContent() {
   const retestTarget = findSportRetestTarget(retestTargets, selectedSport);
   const [compareChoice, setCompareChoice] = useState<boolean | null>(null);
   const compareEnabled = compareChoice ?? retestTarget !== null;
+  // A saved analysis the user re-opened from their swing history.
+  const [viewingSaved, setViewingSaved] = useState<SavedVideoAnalysis | null>(null);
 
   // The analysis runs in a background task; this hook bridges to it and exposes
   // live stage/progress + the final result (and re-adopts an in-flight analysis
@@ -191,6 +195,13 @@ export function SportVideoAnalyzerContent() {
           onExport={downloadAnalysisJson}
           onDelete={handleDeleteHistory}
           retestTarget={retestTarget}
+          onView={setViewingSaved}
+        />
+
+        <SavedAnalysisModal
+          record={viewingSaved}
+          onClose={() => setViewingSaved(null)}
+          onExport={downloadAnalysisJson}
         />
 
         <VideoProgress history={history} />
@@ -443,8 +454,8 @@ export function SportVideoAnalyzerContent() {
             </div>
             {swing.savedRecord && (
               <p className="text-xs text-muted-foreground">
-                Saved to your swing history. Only the text analysis is stored — never
-                your video.
+                Saved to your swing history on this device — including the clip, so you
+                can replay it later. Nothing is uploaded.
               </p>
             )}
           </div>

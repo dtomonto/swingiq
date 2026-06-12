@@ -10,7 +10,7 @@
 // owns loading and state so deletes re-render correctly.
 // ============================================================
 
-import { History, Download, Trash2, RefreshCw, RotateCcw } from 'lucide-react';
+import { History, Download, Trash2, RefreshCw, RotateCcw, ChevronRight } from 'lucide-react';
 import type { SavedVideoAnalysis } from '@/lib/video/history';
 import type { RetestTarget } from '@/lib/retest';
 import { cn } from '@/lib/utils';
@@ -46,6 +46,8 @@ interface VideoWelcomeBackProps {
    * by default so SwingVantage can show whether it actually changed.
    */
   retestTarget?: RetestTarget | null;
+  /** Re-open a saved analysis to read it again and replay its clip. */
+  onView?: (record: SavedVideoAnalysis) => void;
   className?: string;
 }
 
@@ -57,6 +59,7 @@ export function VideoWelcomeBack({
   onExport,
   onDelete,
   retestTarget,
+  onView,
   className,
 }: VideoWelcomeBackProps) {
   if (!latest) return null;
@@ -139,15 +142,34 @@ export function VideoWelcomeBack({
             {recent.map((record) => (
               <li
                 key={record.id}
-                className="flex items-center gap-3 rounded-lg bg-muted border border-border p-2.5"
+                className="flex items-center gap-1 rounded-lg bg-muted border border-border p-1 pr-2.5"
               >
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-foreground truncate">{record.topFocus}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {formatDate(record.createdAt)} ·{' '}
-                    {confidenceLabel(record.overallConfidence)} confidence
-                  </p>
-                </div>
+                {onView ? (
+                  <button
+                    type="button"
+                    onClick={() => onView(record)}
+                    className="flex-1 min-w-0 flex items-center gap-2 text-left rounded-md px-1.5 py-1.5 hover:bg-card transition-colors"
+                    aria-label={`Open the saved analysis from ${formatDate(record.createdAt)}`}
+                    title="Open this saved analysis"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground truncate">{record.topFocus}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {formatDate(record.createdAt)} ·{' '}
+                        {confidenceLabel(record.overallConfidence)} confidence
+                      </p>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                  </button>
+                ) : (
+                  <div className="flex-1 min-w-0 px-1.5 py-1.5">
+                    <p className="text-sm font-medium text-foreground truncate">{record.topFocus}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatDate(record.createdAt)} ·{' '}
+                      {confidenceLabel(record.overallConfidence)} confidence
+                    </p>
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={() => onExport(record)}
