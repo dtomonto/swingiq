@@ -10,7 +10,7 @@ import { loadFeatureDetail } from '@/lib/feature-education/server/data';
 export const runtime = 'nodejs';
 
 export async function GET(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
-  const denied = requireAdmin(req);
+  const denied = await requireAdmin(req);
   if (denied) return denied;
   const { id } = await ctx.params;
   if (!id) return NextResponse.json({ error: 'Missing id.' }, { status: 400 });

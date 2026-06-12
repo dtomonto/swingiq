@@ -11,7 +11,7 @@ import { getRepo, computeGaps } from '@/lib/feature-education';
 export const runtime = 'nodejs';
 
 export async function GET(req: NextRequest) {
-  const denied = requireAdmin(req);
+  const denied = await requireAdmin(req);
   if (denied) return denied;
   const now = new Date();
   const repo = getRepo();

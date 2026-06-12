@@ -11,7 +11,7 @@ import { runScan, loadOverview } from '@/lib/feature-education/server/data';
 export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
-  const denied = requireAdmin(req);
+  const denied = await requireAdmin(req);
   if (denied) return denied;
   const tooMany = await limited(req, 'fee-scan', 20);
   if (tooMany) return tooMany;
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const denied = requireAdmin(req);
+  const denied = await requireAdmin(req);
   if (denied) return denied;
   const overview = await loadOverview();
   return NextResponse.json(overview);
