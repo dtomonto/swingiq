@@ -12,8 +12,10 @@
 
 import { X, Lightbulb, BarChart3, Rocket, ArrowRight, History, Info } from 'lucide-react';
 import { RolloutControls } from './RolloutControls';
+import { CopyForClaude } from './CopyForClaude';
 import type { DecisionBand, DecisionVM } from './DecisionCard';
 import type { RolloutPlan } from '@/lib/admin/decision-rollout';
+import { fromDecision } from '@/lib/admin/claude-handoff';
 
 const BAND: Record<DecisionBand, { pill: string; bar: string; score: string }> = {
   critical: { pill: 'bg-error/10 text-error-text border-error/30', bar: 'bg-error', score: 'text-error-text' },
@@ -146,11 +148,9 @@ export function DecisionDrawer({
           </Section>
         </div>
 
-        {/* Footer — deep link to the native tool (the only write path) */}
-        <div className="sticky bottom-0 flex items-center justify-between gap-3 border-t border-border bg-background/95 p-4 backdrop-blur">
-          <p className="text-[11px] text-muted-foreground">
-            The Decision Center ranks &amp; plans; {decision.type} performs the change.
-          </p>
+        {/* Footer — hand to Claude Code, or deep-link to the native tool */}
+        <div className="sticky bottom-0 flex flex-wrap items-center justify-between gap-3 border-t border-border bg-background/95 p-4 backdrop-blur">
+          <CopyForClaude input={fromDecision(decision)} />
           <a
             href={decision.href}
             className="inline-flex shrink-0 items-center gap-1 rounded-md border border-primary/35 bg-primary/[0.06] px-4 py-2 text-sm font-medium text-link hover:border-primary/50"

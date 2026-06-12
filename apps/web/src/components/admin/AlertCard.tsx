@@ -8,6 +8,8 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { Info, CheckCircle2, Eye, AlertTriangle, AlertOctagon, ArrowRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { CopyForClaude } from './CopyForClaude';
+import type { ClaudeFixInput } from '@/lib/admin/claude-handoff';
 
 export type AlertSeverity = 'info' | 'success' | 'watch' | 'warning' | 'critical';
 
@@ -37,10 +39,13 @@ export interface AlertCardProps {
   action?: ReactNode;
   href?: string;
   cta?: string;
+  /** When set, shows a "Copy for Claude Code" affordance that turns this alert
+   *  into a ready-to-paste fix prompt. */
+  fix?: ClaudeFixInput;
 }
 
 export function AlertCard({
-  severity, id, title, interpretation, detail, startedAt, evidence, action, href, cta,
+  severity, id, title, interpretation, detail, startedAt, evidence, action, href, cta, fix,
 }: AlertCardProps) {
   const s = STYLES[severity];
   const Icon = s.icon;
@@ -70,13 +75,18 @@ export function AlertCard({
             </div>
           )}
           {action && <div className="mt-3 rounded-lg border border-border bg-card p-3">{action}</div>}
-          {href && (
-            <Link
-              href={href}
-              className={`mt-2 inline-flex items-center gap-1 text-xs font-medium ${s.tint} hover:underline`}
-            >
-              {cta ?? 'View'} <ArrowRight className="h-3 w-3" />
-            </Link>
+          {(href || fix) && (
+            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+              {href && (
+                <Link
+                  href={href}
+                  className={`inline-flex items-center gap-1 text-xs font-medium ${s.tint} hover:underline`}
+                >
+                  {cta ?? 'View'} <ArrowRight className="h-3 w-3" />
+                </Link>
+              )}
+              {fix && <CopyForClaude input={fix} />}
+            </div>
           )}
         </div>
       </div>
