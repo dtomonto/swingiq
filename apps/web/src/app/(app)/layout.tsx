@@ -10,6 +10,7 @@ import { ContinueProgressBanner } from '@/components/backup/ContinueProgressBann
 import { RelationalSyncProvider } from '@/lib/db';
 import { SaveProgressBanner } from '@/components/sync/SaveProgressBanner';
 import { NudgeProvider } from '@/lib/floating/nudge-manager';
+import { StoreCrossTabSync } from '@/store/CrossTabSync';
 
 /**
  * Shared shell for the authenticated product surface.
@@ -49,6 +50,8 @@ export default function AppGroupLayout({ children }: { children: React.ReactNode
             </FloatingDock>
             <UsageCategoryModal />
             <BackgroundTaskCenter />
+            {/* Live-update open surfaces when data changes in another tab. */}
+            <StoreCrossTabSync />
             <ContinueProgressBanner />
             <SaveProgressBanner />
           </NudgeProvider>
