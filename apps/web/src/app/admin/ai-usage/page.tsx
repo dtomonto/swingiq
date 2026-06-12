@@ -17,6 +17,7 @@ import { MetricStat } from '@/components/admin/MetricStat';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecheckButton } from '@/components/admin/RecheckButton';
+import { AiBudgetEditor } from '@/components/admin/AiBudgetEditor';
 import {
   getAiBudgetStatus,
   getAiUsageReport,
@@ -85,6 +86,14 @@ export default async function AiUsagePage() {
         </div>
       )}
 
+      {/* ── Daily spend cap (editable) ────────────────────── */}
+      <SectionCard
+        title="Daily spend cap"
+        description="The maximum estimated AI spend per UTC day across every feature (coaching, video, OCR…). When reached, paid AI calls pause and the app serves its keyless fallback until the next day. Set 0 for unlimited."
+      >
+        <AiBudgetEditor initialCents={budget.limitCents} initialSource={budget.limitSource} />
+      </SectionCard>
+
       {/* ── Pay for more usage ───────────────────────────── */}
       <SectionCard
         title="Add capacity / pay for more usage"
@@ -116,11 +125,10 @@ export default async function AiUsagePage() {
           ))}
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          Want a hard spend ceiling instead? Set{' '}
-          <code className="rounded bg-muted px-1 text-foreground">AI_DAILY_BUDGET_CENTS</code> (e.g.{' '}
-          <code className="rounded bg-muted px-1 text-foreground">500</code> = $5.00/day). When reached, paid
-          calls pause and the app serves its keyless fallback until the next UTC day. See{' '}
-          <Link className="text-success-text hover:underline" href="/admin/system-health">System Health</Link>.
+          Want a hard spend ceiling? Set it in <strong className="text-foreground">Daily spend cap</strong>{' '}
+          above — no redeploy needed. The{' '}
+          <code className="rounded bg-muted px-1 text-foreground">AI_DAILY_BUDGET_CENTS</code> env var is the
+          deploy-time default the dashboard cap overrides.
         </p>
       </SectionCard>
 

@@ -87,11 +87,59 @@ export function isAiBudgetConfigured(): boolean {
   return dailyBudgetCents() > 0;
 }
 
+// ── Admin-editable override (durable when Upstash is configured) ──
+// Lets the daily cap be changed from the admin dashboard WITHOUT a redeploy.
+// Stored in the same Upstash the counter uses — a single persistent key (no day
+// suffix) — so it survives restarts and is shared fleet-wide. Without Upstash it
+// falls back to a per-instance value that resets on restart (the UI says so).
+//   null  = no override → use the AI_DAILY_BUDGET_CENTS env default
+//   0     = explicitly uncapped (admin chose "no limit")
+//   >0    = the cap, in cents
+const OVERRIDE_KEY = 'ai:budget:override:cents';
+let overrideMemory: number | null = null;
+
+/** The admin override cap in cents, or null when unset (use env). */
+export async function getBudgetOverrideCents(): Promise<number | null> {
+  const creds = upstashCreds();
+  if (creds) {
+    try {
+      const [val] = await upstashPipeline(creds, [['GET', OVERRIDE_KEY]]);
+      if (val === null || val === undefined) return null;
+      const n = Number(val);
+      return Number.isFinite(n) && n >= 0 ? Math.floor(n) : null;
+    } catch {
+      return overrideMemory;
+    }
+  }
+  return overrideMemory;
+}
+
+/** Set (or clear, with null) the admin override cap. Best-effort durable. */
+export async function setBudgetOverrideCents(cents: number | null): Promise<void> {
+  overrideMemory = cents == null ? null : Math.max(0, Math.floor(cents));
+  const creds = upstashCreds();
+  if (!creds) return;
+  try {
+    if (cents == null) await upstashPipeline(creds, [['DEL', OVERRIDE_KEY]]);
+    else await upstashPipeline(creds, [['SET', OVERRIDE_KEY, String(Math.max(0, Math.floor(cents)))]]);
+  } catch {
+    /* best-effort — the in-memory value is already set */
+  }
+}
+
+/** Effective daily cap in cents: admin override when set, else the env default. 0 = uncapped. */
+export async function resolvedDailyBudgetCents(): Promise<number> {
+  const override = await getBudgetOverrideCents();
+  return override != null ? override : dailyBudgetCents();
+}
+
 export interface AiBudgetStatus {
   /** Whether a positive daily ceiling is set (the guard is armed). */
   configured: boolean;
   /** The configured ceiling in cents (0 when off). */
   limitCents: number;
+  /** Where the active cap comes from: admin override, the env default, or off. */
+  limitSource: 'override' | 'env' | 'off';
   /** Estimated spend so far today, in cents. */
   usedCents: number;
   /** Cents remaining before the guard trips (0 when off or exhausted). */
@@ -173,12 +221,17 @@ async function readUsedCents(
 
 /** Snapshot of today's estimated AI spend vs the configured ceiling. */
 export async function getAiBudgetStatus(): Promise<AiBudgetStatus> {
-  const limitCents = dailyBudgetCents();
+  const override = await getBudgetOverrideCents();
+  const envCents = dailyBudgetCents();
+  const limitCents = override != null ? override : envCents;
+  const limitSource: AiBudgetStatus['limitSource'] =
+    override != null ? 'override' : envCents > 0 ? 'env' : 'off';
   const date = dayKey();
   if (limitCents <= 0) {
     return {
       configured: false,
       limitCents: 0,
+      limitSource: 'off',
       usedCents: 0,
       remainingCents: 0,
       exceeded: false,
@@ -190,6 +243,7 @@ export async function getAiBudgetStatus(): Promise<AiBudgetStatus> {
   return {
     configured: true,
     limitCents,
+    limitSource,
     usedCents: used,
     remainingCents: Math.max(0, limitCents - used),
     exceeded: used >= limitCents,
@@ -204,7 +258,7 @@ export async function getAiBudgetStatus(): Promise<AiBudgetStatus> {
  * Never throws — any Upstash error degrades to the in-memory count.
  */
 export async function aiBudgetExceeded(): Promise<boolean> {
-  const limitCents = dailyBudgetCents();
+  const limitCents = await resolvedDailyBudgetCents();
   if (limitCents <= 0) return false;
   const { used } = await readUsedCents(upstashCreds(), counterKey());
   return used >= limitCents;
@@ -220,7 +274,7 @@ export async function recordAiSpend(op: string): Promise<void> {
   // when no kill-switch ceiling is armed (the common "track but don't cap" case).
   await meterAiUsage(op);
 
-  if (dailyBudgetCents() <= 0) return;
+  if ((await resolvedDailyBudgetCents()) <= 0) return;
   const cents = estimateCostCents(op);
   if (cents <= 0) return;
   const key = counterKey();
@@ -520,6 +574,7 @@ export const __test__ = {
   reset: () => {
     memory.clear();
     usageMemory.clear();
+    overrideMemory = null;
   },
   memoryUsed: (date?: string) => memoryGet(COUNTER_PREFIX + (date ?? dayKey())),
   counterKey: () => counterKey(),

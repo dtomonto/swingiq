@@ -12,6 +12,9 @@ import {
   meterAiUsage,
   getAiUsageReport,
   getAiProviderBilling,
+  getBudgetOverrideCents,
+  setBudgetOverrideCents,
+  resolvedDailyBudgetCents,
   __test__,
 } from '@/lib/ai-budget';
 
@@ -208,5 +211,51 @@ describe('provider billing links', () => {
     expect(links.every((l) => l.url.startsWith('https://'))).toBe(true);
     expect(configuredCount).toBe(1);
     expect(links[0]).toMatchObject({ id: 'openai', configured: true });
+  });
+});
+
+describe('ai-budget — admin-editable override', () => {
+  it('starts unset and resolves to the env default', async () => {
+    expect(await getBudgetOverrideCents()).toBeNull();
+    expect(await resolvedDailyBudgetCents()).toBe(0); // env unset in beforeEach
+    process.env.AI_DAILY_BUDGET_CENTS = '500';
+    expect(await resolvedDailyBudgetCents()).toBe(500);
+    delete process.env.AI_DAILY_BUDGET_CENTS;
+  });
+
+  it('the override wins over the env default and is reflected everywhere', async () => {
+    process.env.AI_DAILY_BUDGET_CENTS = '500';
+    await setBudgetOverrideCents(2000); // $20
+    expect(await getBudgetOverrideCents()).toBe(2000);
+    expect(await resolvedDailyBudgetCents()).toBe(2000);
+
+    const status = await getAiBudgetStatus();
+    expect(status.limitCents).toBe(2000);
+    expect(status.limitSource).toBe('override');
+    delete process.env.AI_DAILY_BUDGET_CENTS;
+  });
+
+  it('clearing the override reverts to the env default', async () => {
+    await setBudgetOverrideCents(2000);
+    expect(await resolvedDailyBudgetCents()).toBe(2000);
+    await setBudgetOverrideCents(null);
+    expect(await getBudgetOverrideCents()).toBeNull();
+    expect(await resolvedDailyBudgetCents()).toBe(0);
+    expect((await getAiBudgetStatus()).limitSource).toBe('off');
+  });
+
+  it('an override of 0 means explicitly uncapped (overrides a positive env)', async () => {
+    process.env.AI_DAILY_BUDGET_CENTS = '500';
+    await setBudgetOverrideCents(0);
+    expect(await resolvedDailyBudgetCents()).toBe(0);
+    expect(await aiBudgetExceeded()).toBe(false);
+    delete process.env.AI_DAILY_BUDGET_CENTS;
+  });
+
+  it('the override arms the kill-switch even when no env cap is set', async () => {
+    await setBudgetOverrideCents(2); // 2 cents — trips after a couple of calls
+    expect(await aiBudgetExceeded()).toBe(false);
+    await recordAiSpend('video-vision'); // +5c (estimate) ≥ 2c
+    expect(await aiBudgetExceeded()).toBe(true);
   });
 });
