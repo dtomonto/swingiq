@@ -192,9 +192,15 @@ export type CoachSynthesis = z.infer<typeof CoachSynthesisSchema>;
 export const COACH_SYNTHESIS_JSON_SCHEMA = {
   type: 'object',
   additionalProperties: false,
+  // OpenAI strict json_schema requires `required` to list EVERY key in
+  // `properties`. Optional fields are expressed as nullable, not omitted — hence
+  // coachNotes is required + `['string','null']` (the Zod schema accepts null).
+  // Omitting it from `required` makes OpenAI reject the schema with a 400 and the
+  // coach falls back — so the structured AI coach never runs. (Regression-guarded
+  // in ai-ops.test.ts.)
   required: [
     'summary', 'quickRead', 'whatISee', 'primaryFault', 'oneFix',
-    'whyItMatters', 'practicePlan', 'retestProtocol', 'confidence',
+    'whyItMatters', 'practicePlan', 'retestProtocol', 'coachNotes', 'confidence',
     'evidenceUsed', 'safetyDisclaimer', 'limitations',
   ],
   properties: {
@@ -206,7 +212,7 @@ export const COACH_SYNTHESIS_JSON_SCHEMA = {
     whyItMatters: { type: 'string' },
     practicePlan: { type: 'string' },
     retestProtocol: { type: 'string' },
-    coachNotes: { type: 'string' },
+    coachNotes: { type: ['string', 'null'] },
     confidence: { type: 'number' },
     evidenceUsed: { type: 'array', items: { type: 'string' } },
     safetyDisclaimer: { type: 'string' },
