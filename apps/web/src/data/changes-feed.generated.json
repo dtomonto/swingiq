@@ -1,5 +1,40 @@
 [
   {
+    "sha": "e2ab568382370b95d35c94e88c09128f2f5f1f44",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "4fd8486ecafa6410836f73c792600fa374e08986",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "ee99d3d13bdcd35b3c92d77ef89a4728e231b98a",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "b1973e1bb689af21e95355d494463c8d324eb7ab",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "513757e721ac3daefdb6f6520e677d1b70dd15fc",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "0a9621681f7eea45ba569c7a9e7b3e6d9655f9f6",
     "at": "2026-06-12T11:32:18-04:00",
     "type": "chore",
@@ -515,39 +550,5 @@
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
-  },
-  {
-    "sha": "6e0107c1b951a6d96ced9c6647bb1d9812cca2b5",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "4ab0098aa09454b51c4cdac7a2e16c66edea7c27",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): resync committed seed with the settled registry"
-  },
-  {
-    "sha": "82999d30d01c54aa9bd641b354377168ca6812a9",
-    "at": "2026-06-12T07:45:50-04:00",
-    "type": "feat",
-    "scope": "motion-lab",
-    "subject": "3D avatar viewer + AI vision review tab (#27)"
-  },
-  {
-    "sha": "fec7a244db99b85d3ec5d9424edb2c6e24dae210",
-    "at": "2026-06-12T00:54:14-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "every dashboard metric opens its own explainer page"
-  },
-  {
-    "sha": "17703bb35ae51eb62fda62ea08918eec809464f4",
-    "at": "2026-06-12T00:52:15-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "Copy/Download any alert or finding as a Claude Code fix prompt"
   }
 ]
