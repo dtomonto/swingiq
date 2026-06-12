@@ -94,16 +94,21 @@ export function SavedAnalysisModal({ record, onClose, onExport }: SavedAnalysisM
   if (!record) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-200 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs px-0 sm:px-4 py-0 sm:py-6"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="saved-analysis-title"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 z-200 flex items-end sm:items-center justify-center px-0 sm:px-4 py-0 sm:py-6">
+      {/* Backdrop — click to close. A separate aria-hidden element so the
+          click handler doesn't sit on the role="dialog" node (which trips
+          jsx-a11y/no-noninteractive-element-interactions). Matches the
+          LibraryPlayerModal pattern. */}
       <div
-        className="bg-card w-full max-w-2xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
+        className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+        aria-hidden="true"
+        onClick={onClose}
+      />
+      <div
+        className="relative z-10 bg-card w-full max-w-2xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-2xl"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="saved-analysis-title"
       >
         {/* Header */}
         <div className="sticky top-0 z-10 bg-card border-b border-border px-5 py-4 flex items-start gap-3">
