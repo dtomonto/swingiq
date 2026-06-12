@@ -51,7 +51,9 @@ export async function POST(req: NextRequest) {
         ? 'Vault is locked — set SECRETS_ENCRYPTION_KEY to store keys here.'
         : result.reason === 'empty'
           ? 'Value cannot be empty.'
-          : 'Unknown key.';
+          : result.reason === 'invalid_value'
+            ? 'Value is not an allowed option for this setting.'
+            : 'Unknown key.';
     return NextResponse.json({ error: message }, { status: 400, headers: NO_STORE });
   }
 
