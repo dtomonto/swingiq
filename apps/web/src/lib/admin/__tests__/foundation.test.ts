@@ -86,7 +86,7 @@ describe('nav model', () => {
 
 function systemStub(over: Partial<SystemStatus> = {}): SystemStatus {
   return {
-    capabilities: { auth: true, aiCoach: true, aiVision: true, ocr: true, email: true, billing: false, ads: false, auditAccess: false },
+    capabilities: { auth: true, aiCoach: true, aiVision: true, ocr: true, email: true, billing: false, ads: false, ghin: false, auditAccess: false },
     integrations: [
       { id: 'supabase', name: 'Supabase', category: 'Auth & Database', connected: true, detail: '', envVars: [] },
     ],
@@ -123,7 +123,7 @@ describe('deriveAlerts', () => {
   });
 
   it('warns when AI vision is off', () => {
-    const sys = systemStub({ capabilities: { auth: true, aiCoach: true, aiVision: false, ocr: true, email: true, billing: false, ads: false, auditAccess: false } });
+    const sys = systemStub({ capabilities: { auth: true, aiCoach: true, aiVision: false, ocr: true, email: true, billing: false, ads: false, ghin: false, auditAccess: false } });
     expect(deriveAlerts(sys, metricsStub()).some((a) => a.id === 'no-ai-vision')).toBe(true);
   });
 });

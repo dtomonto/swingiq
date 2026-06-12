@@ -151,6 +151,17 @@ export function isEmailConfigured(): boolean {
   return false;
 }
 
+/**
+ * GHIN handicap lookup. GHIN/USGA has no public API key — the live endpoint
+ * authenticates with a GHIN account (user + password), so both must be set
+ * before any lookup is attempted. Keyless default: golfers enter their GHIN
+ * number + Handicap Index by hand (labeled self-reported); no network call.
+ * SERVER-ONLY (reads secret env vars).
+ */
+export function isGhinConfigured(): boolean {
+  return isConfigured(process.env.GHIN_USER) && isConfigured(process.env.GHIN_PASSWORD);
+}
+
 /** Paid tiers via Stripe. Keyless default: waitlist capture, no charges. */
 export function isStripeConfigured(): boolean {
   return (
@@ -180,6 +191,8 @@ export interface CapabilitySummary {
   billing: boolean;
   /** Ads enabled (Phase 2; else: clean ad-free free experience). */
   ads: boolean;
+  /** Live GHIN handicap lookup (else: manual GHIN # + index entry). */
+  ghin: boolean;
   /** External auditor access enabled (AUDIT_ACCESS_TOKEN set; else: off/404). */
   auditAccess: boolean;
 }
@@ -193,6 +206,7 @@ export function getServerCapabilities(): CapabilitySummary {
     email: isEmailConfigured(),
     billing: isStripeConfigured(),
     ads: isAdsConfigured,
+    ghin: isGhinConfigured(),
     auditAccess: isConfigured(process.env.AUDIT_ACCESS_TOKEN),
   };
 }

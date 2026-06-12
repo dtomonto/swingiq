@@ -169,6 +169,19 @@ export const MANAGED_KEYS: ManagedKey[] = [
     category: 'growth', secret: false, activates: 'Session replay + heatmaps (Clarity)',
     detect: /^[a-z0-9]{10}$/, placeholder: 'abc1defgh2',
   },
+  // ── Golf data (GHIN handicap lookup) ──
+  // GHIN/USGA issues no public API key; the live endpoint authenticates with a
+  // GHIN account. Keyless default = manual GHIN # + Handicap Index entry.
+  {
+    name: 'GHIN_USER', label: 'GHIN account email/number', provider: 'ghin', providerLabel: 'GHIN (USGA)',
+    category: 'growth', secret: true, activates: 'Live Handicap Index lookup on golf profiles',
+    placeholder: 'your GHIN login email or number', docsUrl: 'https://www.ghin.com',
+  },
+  {
+    name: 'GHIN_PASSWORD', label: 'GHIN account password', provider: 'ghin', providerLabel: 'GHIN (USGA)',
+    category: 'growth', secret: true, activates: 'Authenticates the GHIN Handicap Index lookup',
+    placeholder: 'your GHIN password',
+  },
   // ── DevOps (PublishingOS executor + cron) ──
   {
     name: 'GITHUB_TOKEN', label: 'GitHub token', provider: 'github', providerLabel: 'GitHub',
