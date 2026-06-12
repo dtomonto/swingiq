@@ -30,7 +30,6 @@ export const GROUP_ORDER: string[] = [
   'Swing Diagnosis',
   'Data Import',
   'Training & Drills',
-  'Video Analysis',
   '3D Motion Analysis — Motion Lab',
   'Equipment',
   'Progress & AI Coach',

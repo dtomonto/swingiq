@@ -72,7 +72,7 @@ export const en: Translations = {
     training: 'Training',
     practice: 'Practice Schedule',
     preGame: 'Pre-Round',
-    video: 'Video Analysis',
+    video: 'Motion Lab',
     drills: 'Drill Library',
     progress: 'Progress',
     milestones: 'Milestones',

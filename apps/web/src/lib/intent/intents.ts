@@ -27,7 +27,7 @@ export const IMPROVE_INTENTS: ImproveIntent[] = [
     id: 'analyze',
     label: 'Analyze a swing',
     description: 'Upload or record — get your #1 fix',
-    href: '/video',
+    href: '/motion-lab',
     icon: 'video',
   },
   {
