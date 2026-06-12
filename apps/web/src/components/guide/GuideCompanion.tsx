@@ -28,6 +28,7 @@ import Link from 'next/link';
 import { X, ChevronRight, Lightbulb, BellOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAgentInsights } from '@/hooks/useAgentInsights';
+import { useOnboarding } from '@/lib/onboarding/useOnboarding';
 import { getGuideScript } from '@/lib/guide/script';
 import { JOURNEY_STEPS, stageIndex } from '@/lib/guide/journey';
 import { loadGuideState, patchGuideState, markPageSeen } from '@/lib/guide/storage';
@@ -37,6 +38,16 @@ import { GuideMascot } from './GuideMascot';
 export function GuideCompanion() {
   const pathname = usePathname();
   const { nextBestAction, ready } = useAgentInsights();
+
+  // First-run sequencing: a brand-new athlete must first clear the mandatory
+  // youth-safety / identity gate (UsageCategoryModal). Until that's resolved we
+  // hold back the proactive tip so the guide bubble and that full-screen modal
+  // don't both open over a fresh profile's first page and stack. `hasIdentity`
+  // is the same durable, data-derived signal the gate itself uses, so returning
+  // users (already identified) are never delayed; once identity is recorded this
+  // effect re-runs and the guide resumes on the next unseen page.
+  const { ready: identityReady, hasIdentity } = useOnboarding();
+  const identityResolved = identityReady && hasIdentity;
 
   // Open state is owned by the dock (so the guide bubble and the AI Coach
   // chat are mutually exclusive — only one floating panel shows at a time).
@@ -52,16 +63,17 @@ export function GuideCompanion() {
   useEffect(() => setMounted(true), []);
 
   // Proactive open whenever the user lands on a page they haven't
-  // acknowledged yet. Re-runs on every route change.
+  // acknowledged yet. Re-runs on every route change (and when identity is
+  // resolved, so the first-run tip appears right after the safety gate).
   useEffect(() => {
     if (!mounted) return;
     const s = loadGuideState();
     const seen = s.seenPages.includes(pathname);
     setHidden(s.hidden);
     setPageSeen(seen);
-    if (!s.hidden && s.autoOpen && !seen) openDock();
+    if (!s.hidden && s.autoOpen && !seen && identityResolved) openDock();
     else closeDock();
-  }, [pathname, mounted, openDock, closeDock]);
+  }, [pathname, mounted, identityResolved, openDock, closeDock]);
 
   const remember = useCallback(() => {
     markPageSeen(pathname);
