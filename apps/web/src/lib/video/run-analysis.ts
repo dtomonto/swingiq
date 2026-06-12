@@ -47,6 +47,18 @@ export interface SwingAnalysisInput {
   speed: VisionSpeed;
 }
 
+/**
+ * Non-PII operational metadata about the AI vision call, echoed from the route
+ * so the client can attach it to analytics (P2 AI observability). Absent when no
+ * AI ran (keyless / paused / budget). Never carries frames, prompts, or content.
+ */
+export interface AiAnalysisMeta {
+  provider: string;
+  model: string;
+  latencyMs: number;
+  speed?: string;
+}
+
 export interface SwingAnalysisResult {
   /** Validated analysis, or null when the AI provider is not configured. */
   analysis: AIVisualAnalysis | null;
@@ -58,6 +70,8 @@ export interface SwingAnalysisResult {
   poseDerivedIssues: SportDetectedIssue[];
   savedRecord: SavedVideoAnalysis | null;
   comparedToPrevious: boolean;
+  /** AI call metadata for observability; null when no AI provider ran. */
+  aiMeta: AiAnalysisMeta | null;
 }
 
 /** Progress handle — compatible with a background task's run context. */
@@ -165,6 +179,7 @@ async function runSwingAnalysisInner(
       poseDerivedIssues,
       savedRecord: null,
       comparedToPrevious: Boolean(input.previous),
+      aiMeta: null, // no AI ran (keyless / paused / budget)
     };
   }
 
@@ -216,5 +231,6 @@ async function runSwingAnalysisInner(
     poseDerivedIssues,
     savedRecord,
     comparedToPrevious: Boolean(input.previous),
+    aiMeta: (data.aiMeta ?? null) as AiAnalysisMeta | null,
   };
 }
