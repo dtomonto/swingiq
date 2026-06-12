@@ -2179,7 +2179,7 @@
         "heading": "Steps",
         "body": [
           "1. Open AI Usage — Go to /admin/ai-usage.",
-          "2. See what’s on screen — AI Usage is where you per-user daily AI spend cap, editable from the dashboard",
+          "2. See what’s on screen — AI Usage is where you aI Usage — detected from /admin/ai-usage.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -2212,7 +2212,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "AI Usage is where you per-user daily AI spend cap, editable from the dashboard"
+        "detail": "AI Usage is where you aI Usage — detected from /admin/ai-usage."
       },
       {
         "title": "Take the main action",
@@ -2266,13 +2266,13 @@
       {
         "heading": "Tooltip copy",
         "body": [
-          "About AI Usage: per-user daily AI spend cap, editable from the dashboard"
+          "About AI Usage: AI Usage — detected from /admin/ai-usage."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — per-user daily AI spend cap, editable from the dashboard Take the first step to get started."
+          "Nothing here yet — AI Usage — detected from /admin/ai-usage. Take the first step to get started."
         ]
       }
     ],
@@ -2280,7 +2280,7 @@
       "route": "/admin/ai-usage",
       "placement": "tooltip",
       "headline": "About AI Usage",
-      "body": "per-user daily AI spend cap, editable from the dashboard",
+      "body": "AI Usage — detected from /admin/ai-usage.",
       "learnMoreHref": "/help/admin-ai-usage"
     },
     "publishTarget": "in-app",
@@ -8932,6 +8932,10 @@
       {
         "kind": "route",
         "ref": "/admin"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin"
       }
     ],
     "needsHumanReview": false,
@@ -9018,6 +9022,10 @@
       {
         "kind": "route",
         "ref": "/admin"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin"
       }
     ],
     "needsHumanReview": false,
@@ -9043,7 +9051,7 @@
         "heading": "Steps",
         "body": [
           "1. Open Home — Go to /admin.",
-          "2. See what’s on screen — Home is where you every dashboard metric opens its own explainer page",
+          "2. See what’s on screen — Home is where you home — detected from /admin.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -9076,7 +9084,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Home is where you every dashboard metric opens its own explainer page"
+        "detail": "Home is where you home — detected from /admin."
       },
       {
         "title": "Take the main action",
@@ -9112,6 +9120,10 @@
       {
         "kind": "route",
         "ref": "/admin"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin"
       }
     ],
     "needsHumanReview": false,
@@ -9130,13 +9142,13 @@
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Home: every dashboard metric opens its own explainer page"
+          "About Home: Home — detected from /admin."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — every dashboard metric opens its own explainer page Take the first step to get started."
+          "Nothing here yet — Home — detected from /admin. Take the first step to get started."
         ]
       }
     ],
@@ -9144,7 +9156,7 @@
       "route": "/admin",
       "placement": "tooltip",
       "headline": "About Home",
-      "body": "every dashboard metric opens its own explainer page",
+      "body": "Home — detected from /admin.",
       "learnMoreHref": "/help/admin-home"
     },
     "publishTarget": "in-app",
@@ -10583,11 +10595,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/admin/metrics/:id"
+        "ref": "/admin/metrics"
       },
       {
         "kind": "route",
-        "ref": "/admin/metrics"
+        "ref": "/admin/metrics/:id"
       }
     ],
     "needsHumanReview": false,
@@ -10599,7 +10611,7 @@
       {
         "heading": "Setup",
         "body": [
-          "In the admin dashboard at /admin/metrics/:id.",
+          "In the admin dashboard at /admin/metrics.",
           "No special setup is required beyond admin access."
         ]
       },
@@ -10673,11 +10685,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/admin/metrics/:id"
+        "ref": "/admin/metrics"
       },
       {
         "kind": "route",
-        "ref": "/admin/metrics"
+        "ref": "/admin/metrics/:id"
       }
     ],
     "needsHumanReview": false,
@@ -10695,15 +10707,15 @@
       {
         "heading": "Before you start",
         "body": [
-          "In the admin dashboard at /admin/metrics/:id.",
+          "In the admin dashboard at /admin/metrics.",
           "No special permissions required."
         ]
       },
       {
         "heading": "Steps",
         "body": [
-          "1. Open Metrics — Go to /admin/metrics/:id.",
-          "2. See what’s on screen — Metrics is where you every dashboard metric opens its own explainer page",
+          "1. Open Metrics — Go to /admin/metrics.",
+          "2. See what’s on screen — Metrics is where you metrics — detected from /admin/metrics.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -10732,11 +10744,11 @@
     "steps": [
       {
         "title": "Open Metrics",
-        "detail": "Go to /admin/metrics/:id."
+        "detail": "Go to /admin/metrics."
       },
       {
         "title": "See what’s on screen",
-        "detail": "Metrics is where you every dashboard metric opens its own explainer page"
+        "detail": "Metrics is where you metrics — detected from /admin/metrics."
       },
       {
         "title": "Take the main action",
@@ -10771,11 +10783,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/admin/metrics/:id"
+        "ref": "/admin/metrics"
       },
       {
         "kind": "route",
-        "ref": "/admin/metrics"
+        "ref": "/admin/metrics/:id"
       }
     ],
     "needsHumanReview": false,
@@ -10787,28 +10799,28 @@
       {
         "heading": "Recommended placements",
         "body": [
-          "Primary: tooltip on /admin/metrics/:id.",
+          "Primary: tooltip on /admin/metrics.",
           "Also consider: an empty-state explainer and a \"Learn more\" link to the tutorial."
         ]
       },
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Metrics: every dashboard metric opens its own explainer page"
+          "About Metrics: Metrics — detected from /admin/metrics."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — every dashboard metric opens its own explainer page Take the first step to get started."
+          "Nothing here yet — Metrics — detected from /admin/metrics. Take the first step to get started."
         ]
       }
     ],
     "inAppHelp": {
-      "route": "/admin/metrics/:id",
+      "route": "/admin/metrics",
       "placement": "tooltip",
       "headline": "About Metrics",
-      "body": "every dashboard metric opens its own explainer page",
+      "body": "Metrics — detected from /admin/metrics.",
       "learnMoreHref": "/help/admin-metrics"
     },
     "publishTarget": "in-app",
@@ -17923,7 +17935,55 @@
     "groundedIn": [
       {
         "kind": "api",
+        "ref": "/api/admin/ai/budget"
+      },
+      {
+        "kind": "api",
         "ref": "/api/admin/ai/user-cap"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/analytics-os"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/audits/status"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/clarity"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/copilot"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/library-publish"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/publishing/execute"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/search"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/secrets"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/security-os/scan"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/updates"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/users/:id"
       }
     ],
     "needsHumanReview": false,
@@ -17935,7 +17995,7 @@
       {
         "heading": "Setup",
         "body": [
-          "Via the API endpoint /api/admin/ai/user-cap.",
+          "Via the API endpoint /api/admin/ai/budget.",
           "No special setup is required beyond admin access."
         ]
       },
@@ -18009,7 +18069,55 @@
     "groundedIn": [
       {
         "kind": "api",
+        "ref": "/api/admin/ai/budget"
+      },
+      {
+        "kind": "api",
         "ref": "/api/admin/ai/user-cap"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/analytics-os"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/audits/status"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/clarity"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/copilot"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/library-publish"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/publishing/execute"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/search"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/secrets"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/security-os/scan"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/updates"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/admin/users/:id"
       }
     ],
     "needsHumanReview": false,
@@ -18027,14 +18135,14 @@
       {
         "heading": "Before you start",
         "body": [
-          "Via the API endpoint /api/admin/ai/user-cap.",
+          "Via the API endpoint /api/admin/ai/budget.",
           "No special permissions required."
         ]
       },
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Admin is where you per-user daily AI spend cap, editable from the dashboard",
+          "1. See what’s on screen — Admin is where you admin — detected from /api/admin/ai/budget.",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -18063,7 +18171,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Admin is where you per-user daily AI spend cap, editable from the dashboard"
+        "detail": "Admin is where you admin — detected from /api/admin/ai/budget."
       },
       {
         "title": "Take the main action",
@@ -18400,7 +18508,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — AI Coach is where you per-user daily AI spend cap, editable from the dashboard",
+          "1. See what’s on screen — AI Coach is where you aI Coach — detected from /api/ai-coach.",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -18429,7 +18537,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "AI Coach is where you per-user daily AI spend cap, editable from the dashboard"
+        "detail": "AI Coach is where you aI Coach — detected from /api/ai-coach."
       },
       {
         "title": "Take the main action",
@@ -19920,6 +20028,10 @@
       },
       {
         "kind": "api",
+        "ref": "/api/feature-education/help"
+      },
+      {
+        "kind": "api",
         "ref": "/api/feature-education/publish"
       },
       {
@@ -20034,6 +20146,10 @@
       },
       {
         "kind": "api",
+        "ref": "/api/feature-education/help"
+      },
+      {
+        "kind": "api",
         "ref": "/api/feature-education/publish"
       },
       {
@@ -20071,7 +20187,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Feature Education is where you @",
+          "1. See what’s on screen — Feature Education is where you feature Education — detected from /api/feature-education/drift.",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -20100,7 +20216,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Feature Education is where you @"
+        "detail": "Feature Education is where you feature Education — detected from /api/feature-education/drift."
       },
       {
         "title": "Take the main action",
@@ -20477,7 +20593,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Import is where you per-user daily AI spend cap, editable from the dashboard",
+          "1. See what’s on screen — Import is where you import — detected from /api/import/ocr.",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -20506,7 +20622,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Import is where you per-user daily AI spend cap, editable from the dashboard"
+        "detail": "Import is where you import — detected from /api/import/ocr."
       },
       {
         "title": "Take the main action",
@@ -22363,7 +22479,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Video Analysis is where you per-user daily AI spend cap, editable from the dashboard",
+          "1. See what’s on screen — Video Analysis is where you video Analysis — detected from /api/video-analysis.",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -22392,7 +22508,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Video Analysis is where you per-user daily AI spend cap, editable from the dashboard"
+        "detail": "Video Analysis is where you video Analysis — detected from /api/video-analysis."
       },
       {
         "title": "Take the main action",
@@ -22793,7 +22909,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Video Vision Analysis is where you per-user daily AI spend cap, editable from the dashboard",
+          "1. See what’s on screen — Video Vision Analysis is where you video Vision Analysis — detected from /api/video-vision-analysis.",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -22822,7 +22938,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Video Vision Analysis is where you per-user daily AI spend cap, editable from the dashboard"
+        "detail": "Video Vision Analysis is where you video Vision Analysis — detected from /api/video-vision-analysis."
       },
       {
         "title": "Take the main action",
@@ -38166,18 +38282,6 @@
       {
         "kind": "route",
         "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
       }
     ],
     "needsHumanReview": false,
@@ -38189,7 +38293,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Home?\nA: Home — detected from /.",
+          "Q: What is Home?\nA: live cross-tab store sync for in-visit reactivity",
           "Q: Where do I find Home?\nA: In the app at /.",
           "Q: How do I use Home?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Home?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -38203,7 +38307,7 @@
     "faqs": [
       {
         "q": "What is Home?",
-        "a": "Home — detected from /."
+        "a": "live cross-tab store sync for in-visit reactivity"
       },
       {
         "q": "Where do I find Home?",
@@ -38255,18 +38359,6 @@
       {
         "kind": "route",
         "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
       }
     ],
     "needsHumanReview": false,
@@ -38292,7 +38384,7 @@
         "heading": "Steps",
         "body": [
           "1. Open Home — Go to /.",
-          "2. See what’s on screen — Home is where you home — detected from /.",
+          "2. See what’s on screen — Home is where you live cross-tab store sync for in-visit reactivity",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -38325,7 +38417,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Home is where you home — detected from /."
+        "detail": "Home is where you live cross-tab store sync for in-visit reactivity"
       },
       {
         "title": "Take the main action",
@@ -38361,18 +38453,6 @@
       {
         "kind": "route",
         "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
       }
     ],
     "needsHumanReview": false,
@@ -38391,13 +38471,13 @@
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Home: Home — detected from /."
+          "About Home: live cross-tab store sync for in-visit reactivity"
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — Home — detected from /. Take the first step to get started."
+          "Nothing here yet — live cross-tab store sync for in-visit reactivity Take the first step to get started."
         ]
       }
     ],
@@ -38405,7 +38485,7 @@
       "route": "/",
       "placement": "tooltip",
       "headline": "About Home",
-      "body": "Home — detected from /.",
+      "body": "live cross-tab store sync for in-visit reactivity",
       "learnMoreHref": "/help/home"
     },
     "publishTarget": "in-app",
@@ -38429,36 +38509,24 @@
       {
         "kind": "route",
         "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
       }
     ],
     "needsHumanReview": false,
     "createdAt": "2026-06-11T00:00:00.000Z",
     "updatedAt": "2026-06-11T00:00:00.000Z",
     "title": "Home — how it works | SwingVantage",
-    "summary": "Home — detected from /. Learn what Home does and how to use it.",
+    "summary": "live cross-tab store sync for in-visit reactivity Learn what Home does and how to use it.",
     "sections": [
       {
         "heading": "Answer (summary)",
         "body": [
-          "Home lets you home — detected from /. In the app at /."
+          "Home lets you live cross-tab store sync for in-visit reactivity In the app at /."
         ]
       },
       {
         "heading": "What it is",
         "body": [
-          "Home — detected from /."
+          "live cross-tab store sync for in-visit reactivity"
         ]
       },
       {
@@ -38486,20 +38554,20 @@
     ],
     "seo": {
       "title": "Home — how it works | SwingVantage",
-      "description": "Home — detected from /. Learn what Home does and how to use it.",
+      "description": "live cross-tab store sync for in-visit reactivity Learn what Home does and how to use it.",
       "slug": "help/home",
       "keywords": [
         "home",
         "swing analysis",
         "how to",
         "SwingVantage help",
-        "account / auth"
+        "ui change"
       ],
       "schema": [
         "HowTo",
         "FAQPage"
       ],
-      "aeoAnswer": "Home lets you home — detected from /. In the app at /."
+      "aeoAnswer": "Home lets you live cross-tab store sync for in-visit reactivity In the app at /."
     },
     "publishTarget": "seo",
     "security": {
@@ -38522,18 +38590,6 @@
       {
         "kind": "route",
         "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
-      },
-      {
-        "kind": "route",
-        "ref": "/"
       }
     ],
     "needsHumanReview": false,
@@ -38545,7 +38601,7 @@
       {
         "heading": "What it does",
         "body": [
-          "Home — detected from /."
+          "live cross-tab store sync for in-visit reactivity"
         ]
       },
       {
@@ -38571,7 +38627,7 @@
         "heading": "Step by step",
         "body": [
           "1. Open Home — Go to /.",
-          "2. See what’s on screen — Home is where you home — detected from /.",
+          "2. See what’s on screen — Home is where you live cross-tab store sync for in-visit reactivity",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -38613,7 +38669,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Home is where you home — detected from /."
+        "detail": "Home is where you live cross-tab store sync for in-visit reactivity"
       },
       {
         "title": "Take the main action",
@@ -65646,7 +65702,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/dashboard/DashboardNextAction.tsx"
+        "ref": "components/dashboard/RetestNudge.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -65658,7 +65714,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Dashboard?\nA: Phase 5 — flag-gated one-next-action dashboard hero",
+          "Q: What is Dashboard?\nA: surface the improvement loop on dashboards + diagnose",
           "Q: Where do I find Dashboard?\nA: This is an internal capability without a dedicated screen yet.",
           "Q: How do I use Dashboard?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Dashboard?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -65672,7 +65728,7 @@
     "faqs": [
       {
         "q": "What is Dashboard?",
-        "a": "Phase 5 — flag-gated one-next-action dashboard hero"
+        "a": "surface the improvement loop on dashboards + diagnose"
       },
       {
         "q": "Where do I find Dashboard?",
@@ -65723,7 +65779,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/dashboard/DashboardNextAction.tsx"
+        "ref": "components/dashboard/RetestNudge.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -65748,7 +65804,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Dashboard is where you phase 5 — flag-gated one-next-action dashboard hero",
+          "1. See what’s on screen — Dashboard is where you surface the improvement loop on dashboards + diagnose",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -65777,7 +65833,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Dashboard is where you phase 5 — flag-gated one-next-action dashboard hero"
+        "detail": "Dashboard is where you surface the improvement loop on dashboards + diagnose"
       },
       {
         "title": "Take the main action",
@@ -65812,7 +65868,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/dashboard/DashboardNextAction.tsx"
+        "ref": "components/dashboard/RetestNudge.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -65824,7 +65880,7 @@
       {
         "heading": "What it does",
         "body": [
-          "Phase 5 — flag-gated one-next-action dashboard hero"
+          "surface the improvement loop on dashboards + diagnose"
         ]
       },
       {
@@ -65849,7 +65905,7 @@
       {
         "heading": "Step by step",
         "body": [
-          "1. See what’s on screen — Dashboard is where you phase 5 — flag-gated one-next-action dashboard hero",
+          "1. See what’s on screen — Dashboard is where you surface the improvement loop on dashboards + diagnose",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -65886,7 +65942,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Dashboard is where you phase 5 — flag-gated one-next-action dashboard hero"
+        "detail": "Dashboard is where you surface the improvement loop on dashboards + diagnose"
       },
       {
         "title": "Take the main action",
@@ -71637,15 +71693,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/video/AnalysisProgress.tsx"
-      },
-      {
-        "kind": "component",
-        "ref": "components/video/VideoRecorder.tsx"
-      },
-      {
-        "kind": "component",
-        "ref": "components/video/VideoUpload.tsx"
+        "ref": "components/video/PoseDerivedIssuesCard.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -71657,7 +71705,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Video?\nA: make video-analysis data handling explicit — frames go to a third-party AI cloud",
+          "Q: What is Video?\nA: P3 — surface pose-derived non-golf faults in the video flow",
           "Q: Where do I find Video?\nA: This is an internal capability without a dedicated screen yet.",
           "Q: How do I use Video?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Video?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -71671,7 +71719,7 @@
     "faqs": [
       {
         "q": "What is Video?",
-        "a": "make video-analysis data handling explicit — frames go to a third-party AI cloud"
+        "a": "P3 — surface pose-derived non-golf faults in the video flow"
       },
       {
         "q": "Where do I find Video?",
@@ -71722,15 +71770,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/video/AnalysisProgress.tsx"
-      },
-      {
-        "kind": "component",
-        "ref": "components/video/VideoRecorder.tsx"
-      },
-      {
-        "kind": "component",
-        "ref": "components/video/VideoUpload.tsx"
+        "ref": "components/video/PoseDerivedIssuesCard.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -71755,7 +71795,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Video is where you make video-analysis data handling explicit — frames go to a third-party AI cloud",
+          "1. See what’s on screen — Video is where you p3 — surface pose-derived non-golf faults in the video flow",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -71784,7 +71824,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Video is where you make video-analysis data handling explicit — frames go to a third-party AI cloud"
+        "detail": "Video is where you p3 — surface pose-derived non-golf faults in the video flow"
       },
       {
         "title": "Take the main action",
@@ -71819,15 +71859,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/video/AnalysisProgress.tsx"
-      },
-      {
-        "kind": "component",
-        "ref": "components/video/VideoRecorder.tsx"
-      },
-      {
-        "kind": "component",
-        "ref": "components/video/VideoUpload.tsx"
+        "ref": "components/video/PoseDerivedIssuesCard.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -71839,7 +71871,7 @@
       {
         "heading": "What it does",
         "body": [
-          "make video-analysis data handling explicit — frames go to a third-party AI cloud"
+          "P3 — surface pose-derived non-golf faults in the video flow"
         ]
       },
       {
@@ -71864,7 +71896,7 @@
       {
         "heading": "Step by step",
         "body": [
-          "1. See what’s on screen — Video is where you make video-analysis data handling explicit — frames go to a third-party AI cloud",
+          "1. See what’s on screen — Video is where you p3 — surface pose-derived non-golf faults in the video flow",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -71901,7 +71933,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Video is where you make video-analysis data handling explicit — frames go to a third-party AI cloud"
+        "detail": "Video is where you p3 — surface pose-derived non-golf faults in the video flow"
       },
       {
         "title": "Take the main action",
