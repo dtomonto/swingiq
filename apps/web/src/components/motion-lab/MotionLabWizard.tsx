@@ -101,6 +101,9 @@ export function MotionLabWizard() {
   // fresh analysis; cleared when opening a saved session so the video lab never
   // pairs one session's overlays with another clip's footage.
   const [resultVideoUrl, setResultVideoUrl] = useState<string | null>(null);
+  // The clip File paired with the current result — powers the optional AI vision
+  // review. Set only on a fresh single-view analysis; cleared for saved/samples.
+  const [resultVideoFile, setResultVideoFile] = useState<File | null>(null);
 
   const allSessions = useMotionSessions();
 
@@ -139,6 +142,7 @@ export function MotionLabWizard() {
     setSession(null);
     setSaved(false);
     setResultVideoUrl(null);
+    setResultVideoFile(null);
     setMotionType(null);
     setStep('select');
   }, [resetCapture]);
@@ -186,6 +190,7 @@ export function MotionLabWizard() {
       setSession(persisted ?? result);
       setSaved(Boolean(persisted));
       setResultVideoUrl(objectUrl);
+      setResultVideoFile(videoFile);
       setStep('results');
       track(ANALYTICS_EVENTS.MOTION_LAB_ANALYSIS_COMPLETED, {
         sport, motion: motionType,
@@ -203,6 +208,7 @@ export function MotionLabWizard() {
     setSession(s);
     setSaved(true);
     setResultVideoUrl(null); // saved sessions never retain the video
+    setResultVideoFile(null);
     setSport(s.capture.sport);
     setMotionType(s.capture.motionType);
     setStep('results');
@@ -213,6 +219,7 @@ export function MotionLabWizard() {
     setSession(s);
     setSaved(false);
     setResultVideoUrl(null); // a sample has no video — the 3D viewer shows it
+    setResultVideoFile(null);
     setSport(s.capture.sport);
     setMotionType(s.capture.motionType);
     setStep('results');
@@ -465,6 +472,7 @@ export function MotionLabWizard() {
             priorSessions={priorSessions}
             saved={saved}
             videoUrl={resultVideoUrl}
+            videoFile={resultVideoFile}
             isSample={isSampleSession(session)}
             onNewMotion={startOver}
             onDelete={isSampleSession(session) ? undefined : handleDelete}

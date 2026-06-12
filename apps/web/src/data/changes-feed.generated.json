@@ -1,5 +1,61 @@
 [
   {
+    "sha": "e7712a8dd25cca78a835ace6a317036f98821cf7",
+    "at": "2026-06-12T01:18:01-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "15dc3e4c629bc36eb4d9e701c4f5ab87d7d40ff4",
+    "at": "2026-06-12T01:18:01-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "1a1baa0fb2f6ff6df7b20bb8b322626dd1d621df",
+    "at": "2026-06-12T01:18:01-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "523a493b3f24251c58fcad466f61d5a2464af8be",
+    "at": "2026-06-12T01:18:01-04:00",
+    "type": "feat",
+    "scope": "motion-lab",
+    "subject": "add 3D avatar viewer + AI vision review tab"
+  },
+  {
+    "sha": "fec7a244db99b85d3ec5d9424edb2c6e24dae210",
+    "at": "2026-06-12T00:54:14-04:00",
+    "type": "feat",
+    "scope": "admin",
+    "subject": "every dashboard metric opens its own explainer page"
+  },
+  {
+    "sha": "17703bb35ae51eb62fda62ea08918eec809464f4",
+    "at": "2026-06-12T00:52:15-04:00",
+    "type": "feat",
+    "scope": "admin",
+    "subject": "Copy/Download any alert or finding as a Claude Code fix prompt"
+  },
+  {
+    "sha": "c8a0c4102ed0b490ed8105f9e680a49c98a76e43",
+    "at": "2026-06-12T00:25:28-04:00",
+    "type": "feat",
+    "scope": "reliability",
+    "subject": "dedicated analysis-failure + cloud-sync-failure visibility"
+  },
+  {
+    "sha": "7a340c58d6d8de63fe2a5c35807a859a71a8ba49",
+    "at": "2026-06-12T01:07:39-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "12f8dd589c0bc351e71b07f56e947f5a25346e28",
     "at": "2026-06-12T01:07:39-04:00",
     "type": "chore",
@@ -502,61 +558,5 @@
     "type": "chore",
     "scope": "core",
     "subject": "order exports 'types' condition first to silence tsup warnings"
-  },
-  {
-    "sha": "3b23823d4a5e4973316c34269bedc7e8bb80e362",
-    "at": "2026-06-10T23:44:15-04:00",
-    "type": "docs",
-    "scope": "claude",
-    "subject": "append SwingVantage product & design guide to CLAUDE.md"
-  },
-  {
-    "sha": "9b9f235a272bbd1a640249f6249dd21f25f9fae7",
-    "at": "2026-06-10T23:28:56-04:00",
-    "type": "test",
-    "scope": "e2e",
-    "subject": "de-flake the usage-modal dismissal in two green-but-racy specs (#23)"
-  },
-  {
-    "sha": "5757115ec080327e7779a333beab2c30f0ee9571",
-    "at": "2026-06-10T23:28:29-04:00",
-    "type": "feat",
-    "scope": "founding",
-    "subject": "soften Founding Members banner + daily publishing cron (#12)"
-  },
-  {
-    "sha": "6908ef41a78b22454d5acb7a632fe640b3f6efd3",
-    "at": "2026-06-10T23:28:10-04:00",
-    "type": "feat",
-    "scope": "reliability-os",
-    "subject": "admin Health Command Center (Phase 1) (#22)"
-  },
-  {
-    "sha": "ccf799661ba3db9b0554d223ab85784f13fcb54e",
-    "at": "2026-06-10T22:55:29-04:00",
-    "type": "content",
-    "scope": "dev-updates",
-    "subject": "publish the BranchGuardianOS dev-update"
-  },
-  {
-    "sha": "96ab6ab291450fee63e67c882392d10fa3cbdec9",
-    "at": "2026-06-10T22:41:58-04:00",
-    "type": "feat",
-    "scope": "marketing",
-    "subject": "lead homepage persona cards with all 7 sports"
-  },
-  {
-    "sha": "bec8682807154c57a1a32494ca90acc59489a313",
-    "at": "2026-06-10T22:35:28-04:00",
-    "type": "feat",
-    "scope": "sports",
-    "subject": "wire pickleball + padel into DrillMatch catalog (7-sport parity)"
-  },
-  {
-    "sha": "cc526fccf00aacf96d43851fe0cccf428e3bb286",
-    "at": "2026-06-10T22:29:43-04:00",
-    "type": "chore",
-    "scope": "admin",
-    "subject": "regenerate feature registry (admin guides)"
   }
 ]
