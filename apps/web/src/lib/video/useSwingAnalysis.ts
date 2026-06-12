@@ -27,6 +27,7 @@ import {
   type SwingAnalysisResult,
 } from '@/lib/video/run-analysis';
 import type { AnalysisStage } from '@/components/video/AnalysisProgress';
+import { classifyAnalysisError } from '@/lib/video/analysis-error';
 
 const KIND = 'video-analysis';
 
@@ -84,16 +85,31 @@ export function useSwingAnalysis() {
 
     const sport = startedSportRef.current;
     if (task.status === 'error') {
-      track(ANALYTICS_EVENTS.ANALYSIS_FAILED, { sport, reason: task.error ?? 'unknown' });
+      track(ANALYTICS_EVENTS.ANALYSIS_FAILED, {
+        sport,
+        reason: task.error ?? 'unknown',
+        // Coarse failure cause for the AI-reliability funnel (P2). (non-PII)
+        error_code: classifyAnalysisError(task.error),
+      });
       return;
     }
     const r = task.result as SwingAnalysisResult | undefined;
+    const ai = r?.aiMeta;
     track(ANALYTICS_EVENTS.ANALYSIS_COMPLETED, {
       sport,
       // A run can succeed yet return no analysis when no AI provider is set;
       // capturing that shows how many people reach the value moment but hit
       // the "AI not configured" wall.
       configured: Boolean(r?.analysis) && !r?.notConfiguredMessage,
+      // AI observability (P2) — present only when an AI provider actually ran.
+      // Lets PostHog chart AI latency / provider mix / confidence by sport.
+      ...(ai && {
+        ai_provider: ai.provider,
+        ai_model: ai.model,
+        ai_latency_ms: ai.latencyMs,
+        ai_speed: ai.speed,
+      }),
+      ...(r?.analysis && { ai_confidence: r.analysis.overallConfidence }),
     });
   }, [task]);
 

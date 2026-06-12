@@ -24,7 +24,12 @@ export const ANALYTICS_EVENTS = {
   VIDEO_UPLOAD_FAILED: 'video_upload_failed',
   CAMERA_ANGLE_SELECTED: 'camera_angle_selected',
 
-  // Analysis
+  // Analysis. AI observability props (P2) — non-PII, present only when an AI
+  // provider actually ran:
+  //   ANALYSIS_COMPLETED + sport, configured, ai_provider, ai_model,
+  //     ai_latency_ms, ai_speed, ai_confidence (0–1)
+  //   ANALYSIS_FAILED    + sport, reason, error_code (cancelled | network |
+  //     timeout | rate_limited | payload_too_large | provider_error | error)
   ANALYSIS_STARTED: 'analysis_started',
   ANALYSIS_COMPLETED: 'analysis_completed',
   ANALYSIS_FAILED: 'analysis_failed',

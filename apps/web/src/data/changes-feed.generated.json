@@ -1,65 +1,38 @@
 [
   {
-    "sha": "6104958e3d14dcbdae9163bd9a84aa03a10416ab",
-    "at": "2026-06-12T15:11:19-04:00",
+    "sha": "82f9d23d487912514e47c826c235f40af6a2edec",
+    "at": "2026-06-12T15:33:03-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "a7ba048f6afec10d694f2c609415815d8d62852b",
-    "at": "2026-06-12T15:11:19-04:00",
+    "sha": "0fd0f72f7458660613298dce66375e4c6411f25f",
+    "at": "2026-06-12T15:33:03-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "610ce8687cc056200c67c8f654cb262073ec9e17",
-    "at": "2026-06-12T15:11:19-04:00",
+    "sha": "2809c693c5932328c4be6834efb9f54732e15959",
+    "at": "2026-06-12T15:33:03-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "cfb2ff22a10637e8e0ba5aecd94a06888ccb7f34",
-    "at": "2026-06-12T15:11:19-04:00",
-    "type": "other",
-    "subject": "Merge remote-tracking branch 'origin/master' into agent/posthog-p1"
-  },
-  {
-    "sha": "313dbc2c0e753e604082c37afd6fb078e8c329f0",
-    "at": "2026-06-12T15:04:57-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "1d4c99fd85b61e1f165e61ac4734612371de4ad3",
-    "at": "2026-06-12T15:04:57-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "28857ff0f4744e98fa86524dfc0d2b0bf0eb314a",
-    "at": "2026-06-12T15:04:57-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "6e65fe046bf76eccb32400c85cffb290b0a2b481",
-    "at": "2026-06-12T15:04:57-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "ecb096a66db6fa572baa8bbb41ca75555c94dd3a",
-    "at": "2026-06-12T15:04:57-04:00",
+    "sha": "857c5b730cbc59abb16242b24a880484249ccca1",
+    "at": "2026-06-12T15:33:03-04:00",
     "type": "feat",
     "scope": "analytics",
-    "subject": "PostHog P1 — error sink, SPA pageviews, flag bridge"
+    "subject": "P2 AI observability on the swing-analysis funnel"
+  },
+  {
+    "sha": "e02a81ef63028b56003c7aee98b4c9d00cce4d53",
+    "at": "2026-06-12T15:16:32-04:00",
+    "type": "feat",
+    "scope": "analytics",
+    "subject": "PostHog P1 — error sink, SPA pageviews, feature-flag bridge (#42)"
   },
   {
     "sha": "5bd7f43c9c8c87e794123b48cce499446b27a53c",
@@ -550,5 +523,33 @@
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0471ad0e4ab660f2694054c8ae4e285c7463df06",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "f49ddb863fcd028695542ede57e819dfad67ee4c",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "c6cc67a54ecd9f25569190b3c56dc5dc7f4888d5",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "feat",
+    "scope": "retest",
+    "subject": "surface the improvement loop on dashboards + diagnose"
+  },
+  {
+    "sha": "e7fe3ecdab0426fae2fca362a6c701d856df714e",
+    "at": "2026-06-12T09:28:33-04:00",
+    "type": "feat",
+    "scope": "durability",
+    "subject": "always-visible backup-status pill on the dashboard"
   }
 ]

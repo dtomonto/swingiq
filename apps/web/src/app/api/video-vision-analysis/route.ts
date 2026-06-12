@@ -200,6 +200,7 @@ export async function POST(req: NextRequest) {
     // Fast tier asks the model for tight output — fewer tokens, quicker reply.
     concise: speed === 'fast',
   });
+  const latencyMs = Date.now() - t0;
 
   // Observability (AI Provider Control Center): sanitized metadata only.
   const visionOk = outcome.configured !== false && outcome.ok === true;
@@ -208,7 +209,7 @@ export async function POST(req: NextRequest) {
     stage: 'video_intake',
     provider: provider.id,
     model: provider.model || null,
-    latencyMs: Date.now() - t0,
+    latencyMs,
     ok: visionOk,
     fallback: outcome.configured === false ? 'no_provider' : visionOk ? null : 'error',
     schemaRequested: true,
@@ -218,6 +219,12 @@ export async function POST(req: NextRequest) {
   if (outcome.configured === false) {
     return NextResponse.json({ configured: false, message: outcome.reason }, { status: 200 });
   }
+
+  // Non-PII operational metadata describing the AI call — provider id, resolved
+  // model, measured latency, and the speed tier. Surfaced to the client so it can
+  // attach these to the ANALYSIS_COMPLETED / ANALYSIS_FAILED PostHog events
+  // (P2 AI observability). Never includes frames, prompts, or analysis content.
+  const aiMeta = { provider: provider.id, model: provider.model, latencyMs, speed };
 
   if (!outcome.ok) {
     // Developer-safe diagnostic; the client shows a clean retry-able error.
@@ -236,6 +243,8 @@ export async function POST(req: NextRequest) {
         configured: true,
         error:
           'SwingVantage could not complete the AI analysis of your video. Please try again in a moment.',
+        aiMeta,
+        errorCode: classifyProviderError(outcome.error),
       },
       { status: 502 },
     );
@@ -243,5 +252,18 @@ export async function POST(req: NextRequest) {
 
   await recordAiSpend('video-vision');
   await meterUserAiUsage(userId, 'video-vision');
-  return NextResponse.json({ configured: true, analysis: outcome.analysis }, { status: 200 });
+  return NextResponse.json({ configured: true, analysis: outcome.analysis, aiMeta }, { status: 200 });
+}
+
+/**
+ * Coarse, non-PII classification of a provider failure for analytics breakdowns
+ * (no raw error text leaves the server). Lets the AI-reliability funnel split
+ * failures by cause — provider HTTP error vs network vs unparseable output.
+ */
+function classifyProviderError(error: string): string {
+  const e = error.toLowerCase();
+  if (e.includes('api error') || e.includes('http')) return 'provider_http';
+  if (e.includes('reach') || e.includes('network')) return 'network';
+  if (e.includes('empty') || e.includes('schema') || e.includes('valid')) return 'invalid_output';
+  return 'provider_error';
 }
