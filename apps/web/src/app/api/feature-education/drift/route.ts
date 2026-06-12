@@ -11,7 +11,7 @@ import { getRepo, detectDrift, makeFeeAudit } from '@/lib/feature-education';
 export const runtime = 'nodejs';
 
 export async function GET(req: NextRequest) {
-  const denied = requireAdmin(req);
+  const denied = await requireAdmin(req);
   if (denied) return denied;
   const repo = getRepo();
   let drift = await repo.listDrift();
@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   // Allow a scheduled drift audit (CRON_SECRET) or an admin.
-  const denied = requireCronOrAdmin(req);
+  const denied = await requireCronOrAdmin(req);
   if (denied) return denied;
   const tooMany = await limited(req, 'fee-drift', 20);
   if (tooMany) return tooMany;
