@@ -49,6 +49,9 @@ create table public.golfer_profiles (
   name                text not null default '',
   handedness          text not null default 'right',
   handicap            numeric(5,1),
+  ghin_number          text,                                    -- GHIN/USGA golfer id (6–10 digits)
+  handicap_source      text not null default 'self_reported',   -- 'self_reported' | 'ghin_verified'
+  handicap_verified_at timestamptz,                             -- last successful GHIN sync
   scoring_average     numeric(5,1),
   low_round           numeric(5,1),
   primary_goal        text not null default '',

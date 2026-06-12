@@ -4,6 +4,13 @@ export const GolferProfileSchema = z.object({
   name: z.string().min(1, 'Name is required').max(100),
   handedness: z.enum(['right', 'left']),
   handicap: z.number().min(-10).max(54).nullable().optional(),
+  // GHIN (Golf Handicap & Information Network) integration. The GHIN number is
+  // the golfer's identity in the USGA system; `handicap_source` records whether
+  // the stored `handicap` was typed by the user or pulled from GHIN, and
+  // `handicap_verified_at` stamps the last successful GHIN sync (ISO 8601).
+  ghin_number: z.string().regex(/^\d{6,10}$/, 'GHIN number is 6–10 digits').nullable().optional(),
+  handicap_source: z.enum(['self_reported', 'ghin_verified']).default('self_reported'),
+  handicap_verified_at: z.string().datetime().nullable().optional(),
   scoring_average: z.number().min(50).max(150).nullable().optional(),
   low_round: z.number().min(50).max(150).nullable().optional(),
   primary_goal: z.string().min(1).max(500),

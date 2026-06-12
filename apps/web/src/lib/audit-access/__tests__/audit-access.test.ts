@@ -83,7 +83,7 @@ describe('buildAuditBundle (pure)', () => {
     generatedAt: '2026-06-08T00:00:00.000Z',
     capabilities: {
       auth: true, aiCoach: false, aiVision: false, ocr: false,
-      email: false, billing: false, ads: false, auditAccess: true,
+      email: false, billing: false, ads: false, ghin: false, auditAccess: true,
     },
     crawl: {
       robotsTxt: 'User-agent: *\nAllow: /',

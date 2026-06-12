@@ -9,6 +9,7 @@ import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { useSwingVantageStore } from '@/store';
+import { GhinHandicapFields } from './GhinHandicapFields';
 
 function FormField({
   label,
@@ -42,6 +43,8 @@ export function ProfileForm() {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
     // resolvers v5 distinguishes the schema's input (defaults optional) from its
     // output (GolferProfileInput, post-defaults); type useForm with both.
@@ -81,9 +84,7 @@ export function ProfileForm() {
               <option value="left">Left-Handed</option>
             </select>
           </FormField>
-          <FormField label="Handicap" hint="Enter your current official handicap, or your best estimate.">
-            <input {...register('handicap', { valueAsNumber: true })} type="number" step="0.1" className={inputClass} placeholder="12.4" />
-          </FormField>
+          <GhinHandicapFields register={register} setValue={setValue} watch={watch} />
           <FormField label="Scoring Average" hint="Your typical 18-hole score.">
             <input {...register('scoring_average', { valueAsNumber: true })} type="number" className={inputClass} placeholder="84" />
           </FormField>

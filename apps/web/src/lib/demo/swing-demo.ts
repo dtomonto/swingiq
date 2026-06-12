@@ -27,6 +27,7 @@ export const DEMO_PROFILE: GolferProfileInput = {
   name: 'Alex Carter',
   handedness: 'right',
   handicap: 12,
+  handicap_source: 'self_reported',
   scoring_average: 88,
   low_round: 79,
   primary_goal: 'Break 85 consistently',
