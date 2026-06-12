@@ -1,5 +1,40 @@
 [
   {
+    "sha": "4251e36366344a566a1258b379cdecb1b63b6120",
+    "at": "2026-06-12T14:40:00-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "2474a872e2ad196d14149218a95b579e6952fefc",
+    "at": "2026-06-12T14:40:00-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "3efb078c8612e9981419c8e1e1e9ea05e8b837a5",
+    "at": "2026-06-12T14:40:00-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "7fd0a510184a145e6d73a90de48708817f71d1bf",
+    "at": "2026-06-12T14:40:00-04:00",
+    "type": "fix",
+    "scope": "a11y",
+    "subject": "clear blocking jsx-a11y error in SavedAnalysisModal backdrop"
+  },
+  {
+    "sha": "94fee8e5c0db55f3a8df32251ef1e14aa6e3f437",
+    "at": "2026-06-12T14:28:36-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "609105e66311f4571b3716bce8edbffbc056c810",
     "at": "2026-06-12T14:28:36-04:00",
     "type": "chore",
@@ -516,40 +551,5 @@
     "type": "chore",
     "scope": "changes",
     "subject": "refresh changes feed"
-  },
-  {
-    "sha": "828c46ccd8c773da84733bd60354205c8dee907d",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "58dd889121f931840d9d06fa5b056e15f02d3a5f",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "87cea6223cfcba94ea27808c62b0affd551ec8b7",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "f7de5b67cba573a22a5dd29e89a3fceb913b2844",
-    "at": "2026-06-12T08:19:37-04:00",
-    "type": "feat",
-    "scope": "dashboard",
-    "subject": "live cross-tab store sync for in-visit reactivity"
-  },
-  {
-    "sha": "44768a44eee0241ab1c9a7d72d50c18949188f90",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "fix",
-    "scope": "feature-education",
-    "subject": "resync seed (iter 2) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
   }
 ]
