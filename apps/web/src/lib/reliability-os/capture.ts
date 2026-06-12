@@ -158,6 +158,11 @@ export const logPageFailure = (p: Omit<RawOperationalEvent, 'type'>) => logOpera
  *  visible in ReliabilityOS so admins can see when analysis is breaking. */
 export const logAnalysisFailure = (p: Omit<RawOperationalEvent, 'type'>) =>
   logOperationalEvent({ type: 'video_processing_failed', category: 'video_upload', ...p, uploadStage: p.uploadStage ?? 'ai_vision_analysis' });
+/** A cloud data-sync to Supabase failed — the athlete's swings/history may not be
+ *  persisting. Surfaced so admins can catch durability breakage (migration not
+ *  applied, RLS, server/network) instead of it being silent. */
+export const logSyncFailure = (p: Omit<RawOperationalEvent, 'type'>) =>
+  logOperationalEvent({ type: 'api_request_failed', category: 'database', actionName: 'cloud-sync', ...p });
 
 // ── map a generic reportError(error, ctx) into a RawOperationalEvent ──
 function sinkContextToRaw(error: unknown, ctx?: Record<string, unknown>): RawOperationalEvent {

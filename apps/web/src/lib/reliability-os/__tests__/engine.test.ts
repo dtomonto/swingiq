@@ -155,6 +155,19 @@ describe('summarize + alerts + debug', () => {
     expect(s.totalEvents).toBe(4);
   });
 
+  it('counts analysis failures and cloud data-sync failures as distinct signals', () => {
+    const events = [
+      ev({ type: 'video_upload_failed', route: '/upload', at: iso(-5 * 60_000) }),
+      ev({ type: 'video_processing_failed', category: 'video_upload', uploadStage: 'ai_vision_analysis', at: iso(-4 * 60_000) }),
+      ev({ type: 'video_processing_failed', category: 'video_upload', uploadStage: 'ai_vision_analysis', at: iso(-3 * 60_000) }),
+      ev({ type: 'api_request_failed', category: 'database', at: iso(-2 * 60_000) }),
+    ];
+    const s = summarize(events, applyOverrides(buildIssues(events), {}, T0), undefined, T0);
+    expect(s.failedUploads24h).toBe(1); // uploads only — no longer double-counts analyses
+    expect(s.failedAnalyses24h).toBe(2);
+    expect(s.failedSyncs24h).toBe(1);
+  });
+
   it('raises an upload-spike alert past the threshold', () => {
     const events = Array.from({ length: 6 }, (_, i) => ev({ type: 'video_upload_failed', route: '/upload', at: iso(-i * 60_000) }));
     const views = applyOverrides(buildIssues(events), {}, T0);

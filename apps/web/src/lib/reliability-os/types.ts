@@ -206,6 +206,11 @@ export interface ReliabilitySummary {
   openCritical: number;
   openHigh: number;
   failedUploads24h: number;
+  /** AI swing-analysis attempts that failed in the last 24h (video_processing_failed). */
+  failedAnalyses24h: number;
+  /** Cloud data-sync failures in the last 24h (database category) — athlete data
+   *  not persisting. */
+  failedSyncs24h: number;
   failedLogins24h: number;
   pageFailures24h: number;
   toolFailures24h: number;
