@@ -30,6 +30,8 @@ import {
 import { selectCoachTier } from '@/lib/ai-coach/tiering';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
+import type { AiProviderId } from '@/lib/ai/gateway';
 
 // ── Handler ───────────────────────────────────────────────────
 
@@ -81,6 +83,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: placeholder, grounding: validateGrounding(placeholder, ctx) });
   }
 
+  // ── Strategic routing (AI Provider Control Center) ─────────
+  // Consult the live route for the coach-chat task. An admin can disable coaching
+  // (serve the placeholder, no paid call) or re-route it to a specific
+  // provider/model. We apply the provider/model as a hard override ONLY when
+  // it's usable (enabled + that provider's key is set); otherwise we defer to the
+  // gateway's existing env resolution, so unconfigured overrides never error.
+  const route = await resolveLiveRoute('coach_chat');
+  if (!route.enabled) {
+    const placeholder = buildDevPlaceholderResponse(ctx);
+    return NextResponse.json({ message: placeholder, grounding: validateGrounding(placeholder, ctx) });
+  }
+
   // ── Generate via the provider-agnostic AI gateway ─────────
   // The gateway centralizes provider/key resolution, model tiering, the daily
   // AI-budget kill-switch + spend recording, and a single transient-error
@@ -93,6 +107,9 @@ export async function POST(req: NextRequest) {
     // #4 difficulty routing: low-confidence/complex questions get a stronger tier.
     tier: selectCoachTier(ctx),
     spendLabel: 'ai-coach',
+    // Control Center override (only when usable; else gateway resolves from env).
+    provider: route.usable ? (route.provider as AiProviderId) : undefined,
+    model: route.usable && route.model ? route.model : undefined,
     // #1 structured output: the model fills a JSON schema (coaching_text +
     // evidence/fix/drill/safety) so the app can parse + trust-check the pieces.
     jsonSchema: COACH_RESPONSE_JSON_SCHEMA,
