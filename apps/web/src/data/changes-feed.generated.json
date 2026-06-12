@@ -1,5 +1,82 @@
 [
   {
+    "sha": "a21c5ca15c9da2fc053db514cac49d7c3c5fd964",
+    "at": "2026-06-12T18:15:10-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "337f8954d7650f05a249e6223e74962a6cf318c3",
+    "at": "2026-06-12T18:15:10-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "e53e7d5dad5363dbb82090a73918c847ec9cc6f4",
+    "at": "2026-06-12T18:15:10-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "851c3fada79227ebe3ab35ddb71fc61b0a954495",
+    "at": "2026-06-12T18:15:10-04:00",
+    "type": "chore",
+    "scope": "updates",
+    "subject": "publish entries from commit trailers"
+  },
+  {
+    "sha": "6b0a9d33b92a4f609cf55ff081f39b2f011254f5",
+    "at": "2026-06-12T18:15:10-04:00",
+    "type": "docs",
+    "scope": "agents",
+    "subject": "document the Update:/Dev-Update: commit-trailer flow in CLAUDE.md"
+  },
+  {
+    "sha": "c566ec667dd33bc7af54039231a51a543fc72ea2",
+    "at": "2026-06-12T18:05:13-04:00",
+    "type": "feat",
+    "scope": "dev-updates",
+    "subject": "publish AIO-4, AI switchboard, AI observability & strict video SEO milestones"
+  },
+  {
+    "sha": "516f77613846a050276c5219d5d3352d40d1120e",
+    "at": "2026-06-12T17:51:43-04:00",
+    "type": "feat",
+    "scope": "profile",
+    "subject": "integrate GHIN handicap lookup into golf profiles (#48)"
+  },
+  {
+    "sha": "1d119d536a7fa94e839354e7202e4c9e03df400f",
+    "at": "2026-06-12T17:43:02-04:00",
+    "type": "feat",
+    "scope": "analysis-jobs",
+    "subject": "traceable analysis job lifecycle + admin Job Monitor"
+  },
+  {
+    "sha": "036a0ae3408cc4b6e85d8f0c4c665885edd99494",
+    "at": "2026-06-12T17:22:48-04:00",
+    "type": "feat",
+    "scope": "ai",
+    "subject": "per-feature AI on/off switchboard — turn athlete-facing AI off, keep admin AI on (#49)"
+  },
+  {
+    "sha": "c0f492bbd06b3d651e8d975be7b2f42a78e9f3e8",
+    "at": "2026-06-12T16:53:51-04:00",
+    "type": "fix",
+    "scope": "ai-ops",
+    "subject": "make CoachSynthesis JSON schema OpenAI strict-valid (coach synthesis was 400ing) (#47)"
+  },
+  {
+    "sha": "26d34234433e661e578ead2ec7b020dc98266962",
+    "at": "2026-06-12T16:45:17-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "6960357d7397888f11648c7293126857b6f90ce9",
     "at": "2026-06-12T16:45:17-04:00",
     "type": "chore",
@@ -475,81 +552,5 @@
     "type": "chore",
     "scope": "changes",
     "subject": "refresh changes feed"
-  },
-  {
-    "sha": "eb24bb9a2f6e0db8fc6b48f22fb949d7eb624405",
-    "at": "2026-06-12T11:14:16-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "fa4ada1eb8a0c67644c70e779b1206c483d31be2",
-    "at": "2026-06-12T11:14:16-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "a3f84a99d5eed25f39a13140b89a26990a7df1d9",
-    "at": "2026-06-12T11:14:16-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "f3c8cd8dc200f7b784ebe7ce2aec47f4b9f48b4d",
-    "at": "2026-06-12T11:14:16-04:00",
-    "type": "fix",
-    "scope": "updates",
-    "subject": "list product updates strictly newest-first"
-  },
-  {
-    "sha": "6a2ca067340f236d59408629b6bf3c2109208ab7",
-    "at": "2026-06-12T10:57:45-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "181296d38469cdbc9c28019375c1ab7a797900e0",
-    "at": "2026-06-12T10:57:45-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "37edd43d775022e0154855d05d3e644f273b1109",
-    "at": "2026-06-12T10:57:45-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "e230f6e02b5197127b10f06326b539756de027dc",
-    "at": "2026-06-12T10:57:45-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "efe4677e38a24a7287dde48efc90fb5c1b4d160b",
-    "at": "2026-06-12T10:57:45-04:00",
-    "type": "other",
-    "subject": "@ fix(i18n): re-translate the Video Analysis → Motion Lab rebrand (es/fr)"
-  },
-  {
-    "sha": "1ca0b328274591254e5b66ca5402abb1b9dcd78a",
-    "at": "2026-06-12T10:22:40-04:00",
-    "type": "feat",
-    "scope": "intelligence",
-    "subject": "P23 — data-quality scoring for imported sessions"
-  },
-  {
-    "sha": "46ba38d25d20ed27bb21fb00870a63cbf0df6d0f",
-    "at": "2026-06-12T10:11:53-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "per-user + fleet-wide data-pipeline linkage health"
   }
 ]
