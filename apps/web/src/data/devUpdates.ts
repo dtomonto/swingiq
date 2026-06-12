@@ -95,6 +95,113 @@ export const DEV_STATS: DevStat[] = [
 
 export const DEV_UPDATES: DevUpdate[] = [
   {
+    id: 'dev-aio4-orchestrator',
+    version: 'AIO-4',
+    title: 'AIO-4 — an analysis orchestrator and evidence normalizer wired into the live vision route',
+    date: '2026-06-12',
+    displayDate: 'June 2026',
+    category: 'AI & Vision',
+    impact: 'major',
+    headline:
+      'A staged, keyless-safe AI pipeline that grounds the coach on the real frame vision already computed — an honesty gate, not another video round-trip.',
+    details:
+      'AIO-4 completes the AI-Operations pipeline: video intake (frame vision or Gemini) plus on-device MediaPipe measurement → normalize → optional coach synthesis → optional premium narrative. The normalizer is a pure honesty gate — it merges intake observations with measured metrics into a single NormalizedAnalysisEvidence, rejects below-floor claims, surfaces visible conflicts, and blends confidence with penalties so the result is never more confident than its inputs, carrying every limitation forward. The orchestrator runs with dependency-injected providers, is keyless-safe, and never throws: a stage that fails becomes an honest error trace with a terminal status (completed / needs_review / failed) and rolls cost and latency up into the analysis job. A bridge adapts the existing frame-based visual analysis into the orchestrator instead of re-sending the video to Gemini, so the coach grounds on the real frames. It is wired into the live vision route as an additive "structured" field; the AI coach refinement is opt-in and budget-gated, with a deterministic keyless baseline otherwise, and is wrapped so it can never break the core response.',
+    highlights: [
+      'Pure evidence normalizer: rejects below-floor claims, surfaces conflicts, never inflates confidence',
+      'Orchestrator never throws — failures become honest error traces with terminal status',
+      'Frame-vision bridge grounds the coach on real frames, no extra video round-trip',
+      'Coach synthesis is opt-in + budget-gated; deterministic keyless baseline by default',
+      'Layered additively onto the live route so it can never break the core analysis response',
+    ],
+    stack: ['TypeScript', 'Next.js App Router', 'MediaPipe', 'OpenAI', 'Claude', 'Dependency injection'],
+    testing: [
+      'Unit tests across normalize, orchestrator, and bridge; schema self-validation',
+      'Whole-app type-check clean; vision + core suites green with the additive field',
+    ],
+    rollback:
+      'Additive and gated: the structured field layers onto the existing response, and coach synthesis stays off (ENABLE_AIO_COACH_SYNTHESIS) unless explicitly enabled and within budget. Disabling the env flag returns the deterministic baseline with no behavior change.',
+    isMilestone: true,
+  },
+  {
+    id: 'dev-ai-feature-switchboard',
+    version: 'AI Switchboard',
+    title: 'A per-feature AI on/off switchboard — turn athlete-facing AI off, keep admin AI on',
+    date: '2026-06-12',
+    displayDate: 'June 2026',
+    category: 'Security & Privacy',
+    impact: 'notable',
+    headline:
+      'A durable, operator-controlled kill switch for every user-facing AI feature, with each route falling back to its existing keyless or deterministic path — never a broken response.',
+    details:
+      'lib/ai/ai-features.ts catalogs the user-facing AI features (video analysis, AI coach, photo import, journey narrative, recruiting summary) and adds a durable override store that mirrors the AI-budget and routing-override pattern — fleet-wide via Upstash with a per-instance memory fallback. A baseline comes from env (AI_USER_FEATURES_DEFAULT, on by default) and a per-feature override layers on top; isAiFeatureEnabled(id) is the single gate. Every user-facing AI route honors it and returns that route\'s existing keyless / manual / deterministic fallback when off, so turning AI off never costs a paid call and never breaks a response. Admin AI tools — Copilot, Social, Feature Education, Growth — are gated separately and are unaffected. The AI Provider Control Center gains a switchboard: a master all-off / all-on banner plus per-feature toggles that show each route\'s blast radius.',
+    highlights: [
+      'Single gate (isAiFeatureEnabled) honored by every user-facing AI route',
+      'Durable fleet-wide override (Upstash) with per-instance memory fallback',
+      'Off = the route\'s existing keyless/deterministic fallback, no paid call',
+      'Admin AI tools gated separately and unaffected',
+      'Master + per-feature toggles in the AI Provider Control Center, with route blast-radius',
+    ],
+    stack: ['TypeScript', 'Next.js App Router', 'Upstash', 'Local-first'],
+    testing: [
+      'Setup + admin-data suites green; whole-app type-check clean',
+      'Each wired route verified to return its keyless/manual fallback when disabled',
+    ],
+    rollback:
+      'Additive and admin-only. The default is on, so existing behavior is unchanged until an operator flips a switch; clearing the overrides restores the env baseline.',
+  },
+  {
+    id: 'dev-ai-observability-funnel',
+    version: 'PostHog P1–P2',
+    title: 'AI observability — a non-PII funnel across the swing-analysis and AI-coach flows',
+    date: '2026-06-12',
+    displayDate: 'June 2026',
+    category: 'Platform',
+    impact: 'notable',
+    headline:
+      'Make the AI-heavy core flows measurable in PostHog — latency, provider/model mix, confidence, and failure cause — without ever sending a frame, prompt, question, or answer.',
+    details:
+      'Building on the P0 SDK + identity work, this wires the client-side AI funnel. The vision route returns non-PII aiMeta (provider, model, latency, speed) plus a coarse error code, threaded through the analysis result so ANALYSIS_COMPLETED carries provider/model/latency/confidence and ANALYSIS_FAILED carries a classified error code (cancelled, network, timeout, rate_limited, payload_too_large, provider_error). The AI coach is made symmetric across the page and the floating widget: a centralized funnel (opened → question_asked → answered → answer_rated) with a lightweight per-answer 👍/👎 quality signal, and aiMeta on every path including cache and fallback. P1 also added an error sink (window.__svCaptureException → posthog.captureException), App-Router SPA pageviews, an environment super-property for internal-traffic filtering, and a local-first PostHog-aware feature-flag bridge that stays inert until flags exist. No new dependencies and no PII.',
+    highlights: [
+      'aiMeta (provider/model/latency/speed) on every analysis + coach path — never content',
+      'Coarse, classified error codes make failures measurable without leaking detail',
+      'Centralized AI-coach funnel + per-answer quality rating',
+      'Error sink, SPA pageviews, env super-property, and a local-first flag bridge',
+      'Zero new deps, zero PII, no owner action to start collecting',
+    ],
+    stack: ['TypeScript', 'PostHog', 'Next.js App Router'],
+    testing: [
+      'tsc clean, eslint 0; new + regression suites green (video, core vision, posthog/consent, ai-coach/analytics)',
+    ],
+    rollback:
+      'Purely additive instrumentation. It emits non-PII metadata and changes no product behavior; removing the analytics calls or disabling PostHog turns it off with no functional impact.',
+  },
+  {
+    id: 'dev-strict-video-seo',
+    version: 'Video SEO',
+    title: 'CI-enforced strict video SEO across every current and future recorded video',
+    date: '2026-06-12',
+    displayDate: 'June 2026',
+    category: 'Developer Experience',
+    impact: 'notable',
+    headline:
+      'Hold every public recorded video to the strictest video-SEO bar and gate it in CI, so anything generated later inherits the standard automatically.',
+    details:
+      'VideoObject schema now carries a real per-video uploadDate (previously hardcoded), a dateModified stamped on re-record, and isAccessibleForFree, with parity fields on the Video Studio schema. Sitemap video entries gained duration, publication_date, player_loc, family_friendly, requires_subscription, and live. The /learn pages emit og:type video.other with dimensions and a Twitter card. Captions were backfilled as .vtt for all 37 tutorial walkthroughs from real narration — no re-record — and the recorders now generate captions and stamp upload/modified dates going forward. The standard is enforced by validateVideoSeo() and a requirements test that fails CI on any public recorded video missing a poster, captions, a real date, or a transcript.',
+    highlights: [
+      'Real per-video uploadDate + dateModified; isAccessibleForFree on every VideoObject',
+      'Richer sitemap video entries (duration, publication_date, player_loc, and more)',
+      '37 tutorial walkthroughs captioned from real narration, no re-record',
+      'CI gate (validateVideoSeo + requirements test) fails on any non-compliant video',
+      'Recorders now caption and date-stamp future videos automatically',
+    ],
+    stack: ['TypeScript', 'Next.js', 'Schema.org', 'Sitemaps', 'WebVTT'],
+    testing: [
+      'seo-requirements.test.ts gates CI; backfill verified against real narration sources',
+    ],
+    rollback:
+      'Additive metadata and a CI check — no runtime behavior change. The gate can be relaxed by adjusting validateVideoSeo, but the standard is the point.',
+  },
+  {
     id: 'dev-branch-guardian',
     version: 'BranchGuardianOS',
     title: 'BranchGuardianOS — a non-destructive Git and worktree governance OS for the admin',
