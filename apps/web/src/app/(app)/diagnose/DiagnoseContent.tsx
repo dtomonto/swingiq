@@ -39,19 +39,47 @@ import { useSwingVantageStore } from '@/store';
 import { format } from 'date-fns';
 import { ShareableReportCard, type ReportData } from '@/components/report/ShareableReportCard';
 import { DiagnosisFixSheet } from '@/components/report/DiagnosisFixSheet';
+import { BeforeAfter } from '@/components/ui/BeforeAfter';
+import { ProgressTimeline } from '@/components/ui/ProgressTimeline';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { useDesignV2 } from '@/lib/design-v2-client';
 
 // ── Diagnosis card ───────────────────────────────────────────
 
-function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOutput; rank: number; skillLevel: SkillLevel }) {
+function DiagnosisCard({
+  diagnosis,
+  rank,
+  skillLevel,
+  paper = false,
+}: {
+  diagnosis: DiagnosisOutput;
+  rank: number;
+  skillLevel: SkillLevel;
+  /** Render on the light document/report sheet (Design V2 paper body). */
+  paper?: boolean;
+}) {
   const [expanded, setExpanded] = useState(rank === 1);
   const routine = getRoutineForDiagnosis(diagnosis.rule.id, skillLevel);
 
+  // Flag-aware ink. Each `false` branch is the original theme class, so the
+  // OFF (paper=false) render is byte-identical. Severity tints (error/warning/
+  // success/accent-secondary washes) are kept — they read on the light sheet.
+  const ink = paper ? 'text-document-fg' : 'text-foreground';
+  const muted = paper ? 'text-document-fg/60' : 'text-muted-foreground';
+  const accent = paper ? 'text-document-accent' : 'text-primary';
+  const subtleCard = paper ? 'border-document-fg/15 bg-document-fg/[0.04]' : 'border-border bg-muted';
+  const restBorder = paper ? 'border-document-fg/15' : 'border-border';
+  const numBadge = paper ? 'bg-document-accent/10 text-document-accent' : 'bg-primary/15 text-primary';
+
   return (
-    <Card className={rank === 1 ? 'ring-2 ring-error/40' : ''}>
-      <CardHeader>
+    <Card
+      className={cn(
+        rank === 1 && 'ring-2 ring-error/40',
+        paper && 'border-document-fg/15 bg-document text-document-fg',
+      )}
+    >
+      <CardHeader className={paper ? 'border-document-fg/15' : undefined}>
         <button
           onClick={() => setExpanded(!expanded)}
           className="w-full flex items-center justify-between text-left"
@@ -67,18 +95,18 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
             >
               {rank}
             </span>
-            <span className="font-bold text-foreground">{diagnosis.rule.name}</span>
+            <span className={cn('font-bold', ink)}>{diagnosis.rule.name}</span>
             <Badge variant={diagnosis.rule.priority as 'critical' | 'high' | 'medium'}>
               {diagnosis.rule.priority}
             </Badge>
-            <span className="text-xs text-muted-foreground">
+            <span className={cn('text-xs', muted)}>
               Confidence: {diagnosis.confidence}%
             </span>
           </div>
           {expanded ? (
-            <ChevronUp size={16} className="text-muted-foreground" />
+            <ChevronUp size={16} className={muted} />
           ) : (
-            <ChevronDown size={16} className="text-muted-foreground" />
+            <ChevronDown size={16} className={muted} />
           )}
         </button>
       </CardHeader>
@@ -95,7 +123,7 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
 
           {/* Evidence */}
           <div>
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+            <p className={cn('text-xs font-semibold uppercase tracking-wide mb-2', muted)}>
               Evidence
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -106,17 +134,17 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
                     'rounded-lg p-3 border',
                     dp.deviation !== null && Math.abs(dp.deviation) > 2
                       ? 'bg-error/10 border-error/30'
-                      : 'bg-muted border-border',
+                      : subtleCard,
                   )}
                 >
-                  <p className="text-xs text-muted-foreground">{dp.metric}</p>
-                  <p className="font-bold text-foreground text-sm">
+                  <p className={cn('text-xs', muted)}>{dp.metric}</p>
+                  <p className={cn('font-bold text-sm', ink)}>
                     {typeof dp.value === 'number'
                       ? `${dp.value.toFixed(dp.unit === 'rpm' ? 0 : 1)}${dp.unit}`
                       : dp.value}
                   </p>
                   {dp.target_min !== null && dp.target_max !== null && (
-                    <p className="text-xs text-muted-foreground">
+                    <p className={cn('text-xs', muted)}>
                       Target: {dp.target_min}–{dp.target_max}
                       {dp.unit}
                     </p>
@@ -132,7 +160,7 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
               <Info size={14} className="text-accent-secondary" />
               <p className="text-xs font-semibold text-accent-secondary">Likely Cause</p>
             </div>
-            <p className="text-sm text-foreground leading-relaxed">
+            <p className={cn('text-sm leading-relaxed', ink)}>
               {diagnosis.rule.likely_cause}
             </p>
           </div>
@@ -145,36 +173,36 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
                 What Improvement Looks Like
               </p>
             </div>
-            <p className="text-sm text-foreground leading-relaxed">
+            <p className={cn('text-sm leading-relaxed', ink)}>
               {diagnosis.rule.what_improvement_looks_like(diagnosis.stats)}
             </p>
           </div>
 
           {/* Routine + Drills */}
           {routine && (
-            <div className="border rounded-lg overflow-hidden">
-              <div className="bg-muted px-4 py-3 border-b border-border">
-                <p className="font-semibold text-foreground text-sm">{routine.name}</p>
-                <p className="text-xs text-muted-foreground">
+            <div className={cn('border rounded-lg overflow-hidden', restBorder)}>
+              <div className={cn('px-4 py-3 border-b', subtleCard)}>
+                <p className={cn('font-semibold text-sm', ink)}>{routine.name}</p>
+                <p className={cn('text-xs', muted)}>
                   {routine.ball_count} balls · ~{routine.estimated_duration_minutes} min
                 </p>
               </div>
               <div className="px-4 py-3 space-y-2">
                 {routine.drill_steps.slice(0, 3).map((step, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-foreground">
-                    <span className="w-5 h-5 rounded-full bg-primary/15 text-primary flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+                  <div key={i} className={cn('flex gap-2 text-sm', ink)}>
+                    <span className={cn('w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5', numBadge)}>
                       {i + 1}
                     </span>
                     {step}
                   </div>
                 ))}
                 {routine.drill_steps.length > 3 && (
-                  <p className="text-xs text-muted-foreground pl-7">
+                  <p className={cn('text-xs pl-7', muted)}>
                     +{routine.drill_steps.length - 3} more steps in full routine
                   </p>
                 )}
               </div>
-              <div className="border-t px-4 py-3 flex items-center justify-between">
+              <div className={cn('border-t px-4 py-3 flex items-center justify-between', restBorder)}>
                 <div className="flex gap-2 flex-wrap">
                   {routine.drill_recommendations.map((drill) => (
                     <a
@@ -182,7 +210,7 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
                       href={drill.youtube_search_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-primary hover:underline"
+                      className={cn('flex items-center gap-1 text-xs hover:underline', accent)}
                     >
                       <ExternalLink size={11} />
                       {drill.name.length > 25 ? drill.name.substring(0, 25) + '…' : drill.name}
@@ -197,12 +225,12 @@ function DiagnosisCard({ diagnosis, rank, skillLevel }: { diagnosis: DiagnosisOu
           )}
 
           {/* Retest */}
-          <div className="p-4 bg-muted rounded-lg border border-border">
-            <p className="text-xs font-semibold text-muted-foreground mb-1">Retest Protocol</p>
-            <p className="text-sm text-foreground">
+          <div className={cn('p-4 rounded-lg border', subtleCard)}>
+            <p className={cn('text-xs font-semibold mb-1', muted)}>Retest Protocol</p>
+            <p className={cn('text-sm', ink)}>
               {diagnosis.rule.retest.success_criteria}
             </p>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className={cn('text-xs mt-1', muted)}>
               {diagnosis.rule.retest.shot_count} shots · Focus:{' '}
               {diagnosis.rule.retest.focus_metrics.join(', ')}
             </p>
@@ -249,6 +277,33 @@ export function DiagnoseContent() {
 
   const insight = useMemo(() => (result ? buildSessionInsight(result) : null), [result]);
   const scores = useMemo(() => (result ? computeSwingScores(result.stats) : null), [result]);
+
+  // Design V2 report-body primitives — REAL data only (no fabrication):
+  // the saved swing-score history across sessions, and the most recent prior
+  // scored session for an honest "vs last session" delta. Computed before the
+  // early returns so the hook order stays stable.
+  const scoreHistory = useMemo(
+    () =>
+      [...sorted]
+        .filter((s): s is typeof s & { swing_score: number } => typeof s.swing_score === 'number')
+        .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+        .map((s) => ({ label: format(new Date(s.date || s.created_at), 'MMM d'), score: s.swing_score })),
+    [sorted],
+  );
+  const prevScored = useMemo(() => {
+    if (!activeSession) return null;
+    const at = new Date(activeSession.created_at).getTime();
+    return (
+      [...sorted]
+        .filter(
+          (s) =>
+            s.id !== activeSession.id &&
+            typeof s.swing_score === 'number' &&
+            new Date(s.created_at).getTime() < at,
+        )
+        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0] ?? null
+    );
+  }, [sorted, activeSession]);
 
   // Privacy-safe shareable summary built from the top diagnosis.
   const reportData = useMemo<ReportData | null>(() => {
@@ -453,11 +508,45 @@ export function DiagnoseContent() {
       {/* Profile-aware grade (Phase 10) — graded against the player's level. */}
       <GradeCard scores={scores} />
 
-      {/* Diagnoses */}
-      <div className="space-y-4">
+      {/* Diagnoses — Design V2: the report body on the light "document" sheet
+          (the report is paper), led by the real score trend + last-session
+          delta. Flag OFF keeps the original theme section byte-identical. */}
+      <div
+        className={cn(
+          'space-y-4',
+          designV2 && 'rounded-2xl bg-document p-5 text-document-fg shadow-theme-lg sm:p-6',
+        )}
+      >
+        {/* Real progress on paper: score trend (≥2 scored sessions) + honest
+            "vs last session" delta. Self-hides when there's no history yet. */}
+        {designV2 && (scoreHistory.length >= 2 || prevScored) && (
+          <div className="grid gap-3 sm:grid-cols-2">
+            {scoreHistory.length >= 2 && (
+              <div className="rounded-xl border border-document-fg/15 bg-document-fg/[0.03] p-4">
+                <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.05em] text-document-fg/60">
+                  Your score trend
+                </p>
+                <ProgressTimeline onPaper points={scoreHistory} height={84} />
+              </div>
+            )}
+            {prevScored && (
+              <BeforeAfter
+                onPaper
+                label="Overall swing score vs last session"
+                before={prevScored.swing_score as number}
+                after={scores.overall}
+                better={scores.overall >= (prevScored.swing_score as number)}
+                note={`${scores.overall - (prevScored.swing_score as number) >= 0 ? '+' : ''}${
+                  scores.overall - (prevScored.swing_score as number)
+                }`}
+              />
+            )}
+          </div>
+        )}
+
         <div className="flex items-center gap-2">
-          <AlertCircle size={18} className="text-muted-foreground" />
-          <h2 className="text-lg font-bold text-foreground">
+          <AlertCircle size={18} className={designV2 ? 'text-document-fg/60' : 'text-muted-foreground'} />
+          <h2 className={cn('text-lg font-bold', designV2 ? 'text-document-fg' : 'text-foreground')}>
             {result.diagnoses.length} Issue
             {result.diagnoses.length !== 1 ? 's' : ''} Identified
           </h2>
@@ -494,7 +583,7 @@ export function DiagnoseContent() {
         )}
 
         {result.diagnoses.map((d, i) => (
-          <DiagnosisCard key={d.rule.id} diagnosis={d} rank={i + 1} skillLevel={skillLevel} />
+          <DiagnosisCard key={d.rule.id} diagnosis={d} rank={i + 1} skillLevel={skillLevel} paper={designV2} />
         ))}
       </div>
 
