@@ -1,5 +1,47 @@
 [
   {
+    "sha": "90547b99298eaee68b7bf04afb29056abf4c8669",
+    "at": "2026-06-12T01:17:36-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "15f969412e2d228af88067c75a709f94408707b5",
+    "at": "2026-06-12T01:17:36-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "df894311c829fda653b3d441f0c456fbd3829373",
+    "at": "2026-06-12T01:17:36-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "79d015372fef84cad7da15b0bacec12c71913eb9",
+    "at": "2026-06-12T01:17:36-04:00",
+    "type": "feat",
+    "scope": "motion-lab",
+    "subject": "fold AI vision review + 3D avatar into Motion Lab"
+  },
+  {
+    "sha": "c8a0c4102ed0b490ed8105f9e680a49c98a76e43",
+    "at": "2026-06-12T00:25:28-04:00",
+    "type": "feat",
+    "scope": "reliability",
+    "subject": "dedicated analysis-failure + cloud-sync-failure visibility"
+  },
+  {
+    "sha": "7a340c58d6d8de63fe2a5c35807a859a71a8ba49",
+    "at": "2026-06-12T01:07:39-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "12f8dd589c0bc351e71b07f56e947f5a25346e28",
     "at": "2026-06-12T01:07:39-04:00",
     "type": "chore",
@@ -516,47 +558,5 @@
     "type": "test",
     "scope": "e2e",
     "subject": "de-flake the usage-modal dismissal in two green-but-racy specs (#23)"
-  },
-  {
-    "sha": "5757115ec080327e7779a333beab2c30f0ee9571",
-    "at": "2026-06-10T23:28:29-04:00",
-    "type": "feat",
-    "scope": "founding",
-    "subject": "soften Founding Members banner + daily publishing cron (#12)"
-  },
-  {
-    "sha": "6908ef41a78b22454d5acb7a632fe640b3f6efd3",
-    "at": "2026-06-10T23:28:10-04:00",
-    "type": "feat",
-    "scope": "reliability-os",
-    "subject": "admin Health Command Center (Phase 1) (#22)"
-  },
-  {
-    "sha": "ccf799661ba3db9b0554d223ab85784f13fcb54e",
-    "at": "2026-06-10T22:55:29-04:00",
-    "type": "content",
-    "scope": "dev-updates",
-    "subject": "publish the BranchGuardianOS dev-update"
-  },
-  {
-    "sha": "96ab6ab291450fee63e67c882392d10fa3cbdec9",
-    "at": "2026-06-10T22:41:58-04:00",
-    "type": "feat",
-    "scope": "marketing",
-    "subject": "lead homepage persona cards with all 7 sports"
-  },
-  {
-    "sha": "bec8682807154c57a1a32494ca90acc59489a313",
-    "at": "2026-06-10T22:35:28-04:00",
-    "type": "feat",
-    "scope": "sports",
-    "subject": "wire pickleball + padel into DrillMatch catalog (7-sport parity)"
-  },
-  {
-    "sha": "cc526fccf00aacf96d43851fe0cccf428e3bb286",
-    "at": "2026-06-10T22:29:43-04:00",
-    "type": "chore",
-    "scope": "admin",
-    "subject": "regenerate feature registry (admin guides)"
   }
 ]
