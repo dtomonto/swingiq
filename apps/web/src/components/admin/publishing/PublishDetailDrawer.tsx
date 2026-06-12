@@ -236,22 +236,39 @@ export function PublishDetailDrawer({
           </Section>
         </div>
 
-        {/* Action footer — reuses the guarded queue toggle */}
+        {/* Action footer — reuses the guarded queue toggle, except read-only
+            surfaces (milestones, library) whose change lives in the native tool. */}
         <div className="sticky bottom-0 flex items-center justify-between gap-3 border-t border-border bg-background/95 p-4 backdrop-blur">
-          <p className="text-[11px] text-muted-foreground">
-            {d.canRevert ? 'Unpublishing reverts to draft and revalidates the route.' : 'Publishing flips the durable override and revalidates the route.'}
-          </p>
-          <button
-            disabled={busy === item.id}
-            onClick={() => onToggle(item)}
-            className={`shrink-0 rounded-md px-4 py-2 text-sm font-medium disabled:opacity-40 ${
-              item.published
-                ? 'border border-border text-foreground hover:bg-muted'
-                : 'bg-success text-foreground hover:bg-success'
-            }`}
-          >
-            {busy === item.id ? 'Working…' : item.published ? 'Unpublish' : 'Publish'}
-          </button>
+          {item.readOnly ? (
+            <>
+              <p className="text-[11px] text-muted-foreground">
+                Managed in {item.manageLabel ?? 'its native tool'} — PublishingOS shows its live state but doesn’t change it here.
+              </p>
+              <a
+                href={item.manageHref}
+                className="inline-flex shrink-0 items-center gap-1 rounded-md border border-primary/35 bg-primary/[0.06] px-4 py-2 text-sm font-medium text-link hover:border-primary/50"
+              >
+                Manage in {item.manageLabel ?? 'tool'} <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </>
+          ) : (
+            <>
+              <p className="text-[11px] text-muted-foreground">
+                {d.canRevert ? 'Unpublishing reverts to draft and revalidates the route.' : 'Publishing flips the durable override and revalidates the route.'}
+              </p>
+              <button
+                disabled={busy === item.id}
+                onClick={() => onToggle(item)}
+                className={`shrink-0 rounded-md px-4 py-2 text-sm font-medium disabled:opacity-40 ${
+                  item.published
+                    ? 'border border-border text-foreground hover:bg-muted'
+                    : 'bg-success text-foreground hover:bg-success'
+                }`}
+              >
+                {busy === item.id ? 'Working…' : item.published ? 'Unpublish' : 'Publish'}
+              </button>
+            </>
+          )}
         </div>
       </aside>
     </div>

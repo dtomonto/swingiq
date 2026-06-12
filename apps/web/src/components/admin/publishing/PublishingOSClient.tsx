@@ -118,6 +118,10 @@ export function PublishingOSClient({ data, actor }: { data: PublishingOSData; ac
 
   function onToggle(item: QueueItem) {
     if (busy) return;
+    // Read-only surfaces (milestones, library) are managed in their native tool —
+    // never toggled from here. The UI shows a manage link instead of a switch;
+    // this guard is the safety net.
+    if (item.readOnly) return;
     const publishing = !item.published;
     // High/critical risk publishes require explicit confirmation.
     if (publishing && (item.risk === 'high' || item.risk === 'critical')) {
@@ -432,16 +436,27 @@ function PublishQueue({
                 </div>
                 <p className="mt-0.5 font-mono text-[11px] text-muted-foreground/70">{[item.entityType, item.category, item.date].filter(Boolean).join(' · ')} · view details</p>
               </button>
-              <button
-                role="switch"
-                aria-checked={item.published}
-                aria-label={`${item.published ? 'Unpublish' : 'Publish'} ${item.title}`}
-                disabled={busy === item.id}
-                onClick={() => onToggle(item)}
-                className={`relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:opacity-40 ${item.published ? 'bg-success' : 'bg-muted'}`}
-              >
-                <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${item.published ? 'translate-x-5' : 'translate-x-0.5'}`} />
-              </button>
+              {item.readOnly ? (
+                <a
+                  href={item.manageHref}
+                  className="shrink-0 whitespace-nowrap rounded-md border border-border px-2.5 py-1.5 text-xs font-medium text-link hover:bg-muted"
+                  aria-label={`Manage ${item.title} in ${item.manageLabel ?? 'its tool'}`}
+                  title={`Managed in ${item.manageLabel ?? 'its native tool'} — open to change`}
+                >
+                  Manage <ExternalLink className="inline h-3 w-3" />
+                </a>
+              ) : (
+                <button
+                  role="switch"
+                  aria-checked={item.published}
+                  aria-label={`${item.published ? 'Unpublish' : 'Publish'} ${item.title}`}
+                  disabled={busy === item.id}
+                  onClick={() => onToggle(item)}
+                  className={`relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:opacity-40 ${item.published ? 'bg-success' : 'bg-muted'}`}
+                >
+                  <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${item.published ? 'translate-x-5' : 'translate-x-0.5'}`} />
+                </button>
+              )}
             </li>
           ))}
         </ul>

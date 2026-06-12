@@ -17,6 +17,16 @@ jest.mock('@/lib/admin/content-publish-store', () => ({
   readBlogRows: () => [],
 }));
 
+// Isolate the override-merge unit: the read-only inventory surfaces (milestones,
+// library) are appended to the queue from their own real sources, so mock them
+// empty here to keep the queue == the mocked rows and the stats deterministic.
+jest.mock('@/lib/milestones/catalog', () => ({ MILESTONE_CATALOG: [] }));
+jest.mock('@/content/milestones/published', () => ({ PUBLISHED_MILESTONES: [] }));
+jest.mock('@/lib/library/training-videos', () => ({
+  getTrainingItems: () => [],
+  isTrainingPublic: () => false,
+}));
+
 import { getPublishingOSData } from '../admin-data.server';
 import { setPublishOverride, __resetMemoryStore } from '../store';
 
