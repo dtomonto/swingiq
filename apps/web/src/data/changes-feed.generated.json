@@ -1,5 +1,40 @@
 [
   {
+    "sha": "828c46ccd8c773da84733bd60354205c8dee907d",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "58dd889121f931840d9d06fa5b056e15f02d3a5f",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "87cea6223cfcba94ea27808c62b0affd551ec8b7",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "44768a44eee0241ab1c9a7d72d50c18949188f90",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed (iter 2) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "06af1d13dc80d7b52df4493779e76857ba8625f7",
+    "at": "2026-06-12T08:20:20-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "23405c74ecd2da61185fe3b2ad55b6580bc867d6",
     "at": "2026-06-12T08:20:20-04:00",
     "type": "chore",
@@ -514,40 +549,5 @@
     "type": "feat",
     "scope": "admin",
     "subject": "edit the daily AI spend cap from the dashboard (no redeploy)"
-  },
-  {
-    "sha": "84c1bced8dafc1cd6afe8de49453073f910f0121",
-    "at": "2026-06-11T23:43:50-04:00",
-    "type": "feat",
-    "scope": "security-os",
-    "subject": "add Upload Security checks (real ingest-path posture)"
-  },
-  {
-    "sha": "c031bfd2f6734c86e92c17f7e78f84763ba02490",
-    "at": "2026-06-11T22:26:27-04:00",
-    "type": "docs",
-    "scope": "privacy",
-    "subject": "make video-analysis data handling explicit — frames go to a third-party AI cloud"
-  },
-  {
-    "sha": "33de3625fe0fa21cc330bc31fc6a0a71ececc5dc",
-    "at": "2026-06-11T21:27:46-04:00",
-    "type": "feat",
-    "scope": "ai-ops",
-    "subject": "AI provider foundation — schemas, config, router, OpenAI coach (AIO Phase 1)"
-  },
-  {
-    "sha": "0d3631116178e61c9931aa29b5b9b9baf1ac392c",
-    "at": "2026-06-11T21:18:08-04:00",
-    "type": "feat",
-    "scope": "publishing",
-    "subject": "surface milestones + library in the queue as read-only inventory"
-  },
-  {
-    "sha": "f6d29b52d7b6742547a08a0b467583869c866a1a",
-    "at": "2026-06-11T17:46:23-04:00",
-    "type": "feat",
-    "scope": "pwa",
-    "subject": "liquid-glass mobile nav + standalone safe-area fixes"
   }
 ]
