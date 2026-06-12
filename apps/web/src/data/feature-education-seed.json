@@ -22423,6 +22423,10 @@
       },
       {
         "kind": "api",
+        "ref": "/api/video-studio/events"
+      },
+      {
+        "kind": "api",
         "ref": "/api/video-studio/jobs"
       },
       {
@@ -22448,6 +22452,10 @@
       {
         "kind": "api",
         "ref": "/api/video-studio/scan"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/video-studio/serve"
       }
     ],
     "needsHumanReview": false,
@@ -22541,6 +22549,10 @@
       },
       {
         "kind": "api",
+        "ref": "/api/video-studio/events"
+      },
+      {
+        "kind": "api",
         "ref": "/api/video-studio/jobs"
       },
       {
@@ -22566,6 +22578,10 @@
       {
         "kind": "api",
         "ref": "/api/video-studio/scan"
+      },
+      {
+        "kind": "api",
+        "ref": "/api/video-studio/serve"
       }
     ],
     "needsHumanReview": false,
@@ -22590,7 +22606,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Video Studio is where you make cockpit actions work under Supabase auth + add video preview",
+          "1. See what’s on screen — Video Studio is where you video Studio — detected from /api/video-studio/assets.",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -22619,7 +22635,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Video Studio is where you make cockpit actions work under Supabase auth + add video preview"
+        "detail": "Video Studio is where you video Studio — detected from /api/video-studio/assets."
       },
       {
         "title": "Take the main action",
