@@ -22,6 +22,10 @@ interface SecretStatus {
   activates: string;
   source: 'env' | 'vault' | 'none';
   masked: string;
+  control: 'secret' | 'select' | 'text';
+  options?: string[];
+  /** Raw value — present only for non-secret config (selectors / public values). */
+  value?: string;
   updatedAt?: string;
   placeholder?: string;
   docsUrl?: string;
@@ -87,6 +91,29 @@ export function KeysManager() {
       setBusy(false);
     }
   }, [targetName, pasted, load]);
+
+  // Save a non-secret config value (provider select / model text) inline.
+  const saveValue = useCallback(
+    async (name: string, value: string) => {
+      setBusy(true);
+      try {
+        const res = await fetch('/api/admin/secrets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, value }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error ?? 'Save failed.');
+        setError(null);
+        await load();
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Save failed.');
+      } finally {
+        setBusy(false);
+      }
+    },
+    [load],
+  );
 
   const remove = useCallback(
     async (name: string) => {
@@ -191,34 +218,112 @@ export function KeysManager() {
           <div key={cat} className="space-y-2">
             <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/70">{CATEGORY_LABEL[cat]}</p>
             <div className="overflow-hidden rounded-xl border border-border">
-              {items.map((s) => (
-                <div key={s.name} className="flex items-center gap-3 border-b border-border bg-card/30 px-4 py-3 last:border-b-0">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="truncate text-sm font-medium text-foreground">{s.label}</span>
-                      <SourceBadge source={s.source} />
+              {items.map((s) => {
+                const isConfig = s.control !== 'secret';
+                // Host env wins, so a key pinned in env can't be overridden here.
+                const lockedByEnv = s.source === 'env';
+                const disabled = busy || !vaultWritable || lockedByEnv;
+                return (
+                  <div key={s.name} className="flex items-center gap-3 border-b border-border bg-card/30 px-4 py-3 last:border-b-0">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="truncate text-sm font-medium text-foreground">{s.label}</span>
+                        <SourceBadge source={s.source} />
+                      </div>
+                      <p className="truncate text-xs text-muted-foreground">{s.providerLabel} · {s.activates}</p>
+                      {/* Secret keys: masked preview. Config keys: inline editor. */}
+                      {isConfig ? (
+                        <div className="mt-2">
+                          {s.control === 'select' ? (
+                            <ConfigSelect s={s} disabled={disabled} onSave={saveValue} />
+                          ) : (
+                            <ConfigText s={s} disabled={disabled} busy={busy} onSave={saveValue} />
+                          )}
+                          {lockedByEnv && (
+                            <p className="mt-1 text-[11px] text-muted-foreground/70">Pinned by a host env var — remove it from the host to manage here.</p>
+                          )}
+                        </div>
+                      ) : (
+                        s.source !== 'none' && (
+                          <code className="mt-0.5 block font-mono text-[11px] text-muted-foreground">{s.masked}</code>
+                        )
+                      )}
                     </div>
-                    <p className="truncate text-xs text-muted-foreground">{s.providerLabel} · {s.activates}</p>
-                    {s.source !== 'none' && (
-                      <code className="mt-0.5 block font-mono text-[11px] text-muted-foreground">{s.masked}</code>
+                    {s.source === 'vault' && (
+                      <button
+                        onClick={() => void remove(s.name)}
+                        disabled={busy}
+                        title="Remove from vault"
+                        className="rounded-lg border border-border p-2 text-muted-foreground transition-colors hover:border-error/40 hover:text-error-text disabled:opacity-40"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
                     )}
                   </div>
-                  {s.source === 'vault' && (
-                    <button
-                      onClick={() => void remove(s.name)}
-                      disabled={busy}
-                      title="Remove from vault"
-                      className="rounded-lg border border-border p-2 text-muted-foreground transition-colors hover:border-error/40 hover:text-error-text disabled:opacity-40"
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </button>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         ))
       )}
+    </div>
+  );
+}
+
+/** Inline provider dropdown for a 'select' config key — saves on change. */
+function ConfigSelect({
+  s, disabled, onSave,
+}: {
+  s: SecretStatus;
+  disabled: boolean;
+  onSave: (name: string, value: string) => void | Promise<void>;
+}) {
+  const current = s.value ?? s.options?.[0] ?? '';
+  return (
+    <select
+      value={current}
+      disabled={disabled}
+      onChange={(e) => void onSave(s.name, e.target.value)}
+      className="w-full max-w-xs rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:border-success focus:outline-none disabled:opacity-50"
+    >
+      {s.options?.map((o) => (
+        <option key={o} value={o}>{o}</option>
+      ))}
+    </select>
+  );
+}
+
+/** Inline text editor for a 'text' config key (e.g. a model id) — Save button. */
+function ConfigText({
+  s, disabled, busy, onSave,
+}: {
+  s: SecretStatus;
+  disabled: boolean;
+  busy: boolean;
+  onSave: (name: string, value: string) => void | Promise<void>;
+}) {
+  const [draft, setDraft] = useState(s.value ?? '');
+  useEffect(() => { setDraft(s.value ?? ''); }, [s.value]);
+  const dirty = draft.trim() !== (s.value ?? '').trim();
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <input
+        type="text"
+        value={draft}
+        spellCheck={false}
+        autoComplete="off"
+        onChange={(e) => setDraft(e.target.value)}
+        placeholder={s.placeholder}
+        disabled={disabled}
+        className="w-full max-w-xs rounded-lg border border-border bg-background px-3 py-1.5 font-mono text-sm text-foreground placeholder:text-muted-foreground/70 focus:border-success focus:outline-none disabled:opacity-50"
+      />
+      <button
+        onClick={() => void onSave(s.name, draft.trim())}
+        disabled={disabled || busy || !dirty || !draft.trim()}
+        className="rounded-lg border border-border px-3 py-1.5 text-xs font-semibold text-foreground transition-opacity hover:opacity-90 disabled:opacity-40"
+      >
+        Save
+      </button>
     </div>
   );
 }

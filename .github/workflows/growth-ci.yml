@@ -8,6 +8,9 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+  # Allow manual re-runs (e.g. to re-validate a PR head when the pull_request
+  # event didn't re-trigger), mirroring the Tests workflow.
+  workflow_dispatch:
 
 permissions:
   contents: read

@@ -42,6 +42,8 @@ describe('secrets/detect (provider auto-detection)', () => {
     expect(detectKey('sk-ant-abcdefghij1234567890')?.name).toBe('ANTHROPIC_API_KEY');
     expect(detectKey('sk-proj-abcdefghij1234567890ABCDEF')?.name).toBe('OPENAI_API_KEY');
     expect(detectKey('AIzaSyA1234567890abcdefghijklmnopqrstuv')?.provider).toBe('google');
+    // Newer Google AI Studio `AQ.…` key format must also map to Google.
+    expect(detectKey('AQ.Ab8RN6Jc1234567890abcdefghijklmnopqrstuvwxyz')?.provider).toBe('google');
     expect(detectKey('pk_live_abcdefghij1234567890')?.name).toBe('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY');
     expect(detectKey('sk_live_abcdefghij1234567890')?.name).toBe('STRIPE_SECRET_KEY');
     expect(detectKey('whsec_abcdefghij1234567890')?.name).toBe('STRIPE_WEBHOOK_SECRET');
@@ -115,6 +117,54 @@ describe('secrets/store + resolve', () => {
     await setSecret('CRON_SECRET', 'v');
     await deleteSecret('CRON_SECRET');
     expect(await getStoredSecret('CRON_SECRET')).toBeNull();
+  });
+
+  it('activates a saved key in process.env immediately (no restart)', async () => {
+    expect(process.env.CRON_SECRET).toBeUndefined();
+    await setSecret('CRON_SECRET', 'live-now');
+    // Synchronous capability checks read process.env — must see it at once.
+    expect(process.env.CRON_SECRET).toBe('live-now');
+  });
+
+  it('never overrides a real host env value (env wins) when saving', async () => {
+    process.env.CRON_SECRET = 'from-host';
+    await setSecret('CRON_SECRET', 'from-dashboard');
+    expect(process.env.CRON_SECRET).toBe('from-host');
+    const a = (await getSecretStatus()).find((s) => s.name === 'CRON_SECRET')!;
+    expect(a.source).toBe('env');
+    delete process.env.CRON_SECRET;
+  });
+
+  it('delete reverts only an injected process.env value, not host env', async () => {
+    await setSecret('CRON_SECRET', 'injected');
+    expect(process.env.CRON_SECRET).toBe('injected');
+    await deleteSecret('CRON_SECRET');
+    expect(process.env.CRON_SECRET).toBeUndefined();
+  });
+
+  it('select config keys: rejects out-of-options values, accepts + activates a valid one', async () => {
+    delete process.env.AI_VISION_PROVIDER;
+    expect((await setSecret('AI_VISION_PROVIDER', 'banana')).ok).toBe(false);
+    expect((await setSecret('AI_VISION_PROVIDER', 'banana'))).toEqual({ ok: false, reason: 'invalid_value' });
+    const r = await setSecret('AI_VISION_PROVIDER', 'google');
+    expect(r.ok).toBe(true);
+    expect(process.env.AI_VISION_PROVIDER).toBe('google'); // live immediately
+    delete process.env.AI_VISION_PROVIDER;
+  });
+
+  it('status exposes raw value + control for non-secret config, never for secrets', async () => {
+    delete process.env.AI_VISION_PROVIDER;
+    await setSecret('AI_VISION_PROVIDER', 'google');
+    await setSecret('ANTHROPIC_API_KEY', 'sk-ant-secretvalue');
+    const status = await getSecretStatus();
+    const cfg = status.find((s) => s.name === 'AI_VISION_PROVIDER')!;
+    expect(cfg.control).toBe('select');
+    expect(cfg.options).toContain('google');
+    expect(cfg.value).toBe('google'); // config value visible to the operator
+    const sec = status.find((s) => s.name === 'ANTHROPIC_API_KEY')!;
+    expect(sec.control).toBe('secret');
+    expect(sec.value).toBeUndefined(); // credential never returned raw
+    delete process.env.AI_VISION_PROVIDER;
   });
 
   it('getSecretStatus returns masked previews + source, never raw values', async () => {

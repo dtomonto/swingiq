@@ -12,6 +12,16 @@
 
 export type SecretCategory = 'core' | 'ai' | 'email' | 'monetization' | 'growth' | 'devops';
 
+/**
+ * How the dashboard edits this entry:
+ *   'secret' (default) — a pasted/typed value, auto-detected, shown masked.
+ *   'select'           — a fixed choice from `options` (e.g. a provider).
+ *   'text'             — a short free-text config value (e.g. a model id).
+ * 'select'/'text' entries are non-secret runtime CONFIG (provider switches,
+ * model overrides), not credentials — their value is safe to show the operator.
+ */
+export type KeyControl = 'secret' | 'select' | 'text';
+
 export interface ManagedKey {
   /** The env var name (canonical id). */
   name: string;
@@ -24,6 +34,10 @@ export interface ManagedKey {
   secret: boolean;
   /** Plain-English description of what setting this unlocks. */
   activates: string;
+  /** Editor control (default 'secret'). */
+  control?: KeyControl;
+  /** Allowed values for a 'select' control. */
+  options?: string[];
   /** Format matcher used to auto-detect this key from a pasted value. */
   detect?: RegExp;
   /** Example/placeholder shown in the input. */
@@ -31,6 +45,9 @@ export interface ManagedKey {
   /** Where to obtain the key. */
   docsUrl?: string;
 }
+
+/** Provider choices shared by the AI selector settings. */
+const AI_PROVIDER_OPTIONS = ['none', 'anthropic', 'openai', 'google'];
 
 export const MANAGED_KEYS: ManagedKey[] = [
   // ── Core ──
@@ -64,12 +81,37 @@ export const MANAGED_KEYS: ManagedKey[] = [
   {
     name: 'GOOGLE_AI_API_KEY', label: 'Google AI (Gemini) key', provider: 'google', providerLabel: 'Google AI',
     category: 'ai', secret: true, activates: 'AI vision/coach via Gemini',
-    detect: /^AIza[0-9A-Za-z_-]{30,}$/, placeholder: 'AIza...', docsUrl: 'https://aistudio.google.com/app/apikey',
+    // Matches the classic `AIza…` key and the newer `AQ.…` format Google AI Studio now issues.
+    detect: /^(AIza[0-9A-Za-z_-]{30,}|AQ\.[A-Za-z0-9_-]{20,})$/, placeholder: 'AIza... or AQ....', docsUrl: 'https://aistudio.google.com/app/apikey',
   },
   {
     name: 'GOOGLE_CLOUD_VISION_API_KEY', label: 'Google Cloud Vision key', provider: 'google', providerLabel: 'Google Cloud',
     category: 'ai', secret: true, activates: 'OCR launch-monitor import (Google Vision)',
-    detect: /^AIza[0-9A-Za-z_-]{30,}$/, placeholder: 'AIza...',
+    detect: /^(AIza[0-9A-Za-z_-]{30,}|AQ\.[A-Za-z0-9_-]{20,})$/, placeholder: 'AIza... or AQ....',
+  },
+  // ── AI configuration (non-secret runtime selectors) ──
+  // Pick which provider powers each AI feature. Set the matching API key above,
+  // then flip the provider here. 'none' turns the feature off (keyless default).
+  {
+    name: 'AI_VISION_PROVIDER', label: 'AI swing-vision provider', provider: 'ai-config', providerLabel: 'AI configuration',
+    category: 'ai', secret: false, control: 'select', options: AI_PROVIDER_OPTIONS,
+    activates: 'Which provider analyzes swing videos (none = off)',
+  },
+  {
+    name: 'AI_PROVIDER', label: 'AI coach provider', provider: 'ai-config', providerLabel: 'AI configuration',
+    category: 'ai', secret: false, control: 'select', options: AI_PROVIDER_OPTIONS,
+    activates: 'Which provider powers AI coaching + vision fallback (none = off)',
+  },
+  {
+    name: 'OCR_PROVIDER', label: 'OCR provider', provider: 'ai-config', providerLabel: 'AI configuration',
+    category: 'ai', secret: false, control: 'select', options: AI_PROVIDER_OPTIONS,
+    activates: 'Reads numbers off launch-monitor photos (none = manual entry)',
+  },
+  {
+    name: 'AI_VISION_MODEL', label: 'AI vision model (advanced override)', provider: 'ai-config', providerLabel: 'AI configuration',
+    category: 'ai', secret: false, control: 'text',
+    activates: 'Pin one model id; blank = sensible default per speed tier',
+    placeholder: 'e.g. gemini-2.5-flash',
   },
   // ── Email ──
   {

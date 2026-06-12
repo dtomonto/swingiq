@@ -20,7 +20,7 @@ import {
 export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
-  const denied = requireAdmin(req);
+  const denied = await requireAdmin(req);
   if (denied) return denied;
   const tooMany = await limited(req, 'fee-generate', 30);
   if (tooMany) return tooMany;

@@ -9,9 +9,9 @@
 // ============================================================
 
 import { isConfigured } from '@/lib/capabilities';
-import { MANAGED_KEYS, type SecretCategory } from './registry';
+import { MANAGED_KEYS, type SecretCategory, type KeyControl } from './registry';
 import { maskSecret } from './mask';
-import { getStoredSecret, listStoredSecretMeta, vaultWritable } from './store.server';
+import { getStoredSecret, listStoredSecretMeta, vaultWritable, isInjected, markInjected } from './store.server';
 
 export type SecretSource = 'env' | 'vault' | 'none';
 
@@ -34,6 +34,13 @@ export interface SecretStatus {
   source: SecretSource;
   /** Masked preview — safe for the browser. Empty when unset. */
   masked: string;
+  /** Editor control ('secret' | 'select' | 'text'). */
+  control: KeyControl;
+  /** Allowed values for a 'select' control. */
+  options?: string[];
+  /** Current RAW value — populated ONLY for non-secret config (provider/model
+   *  selectors, public NEXT_PUBLIC_* values); never for credentials. */
+  value?: string;
   updatedAt?: string;
   placeholder?: string;
   docsUrl?: string;
@@ -51,15 +58,21 @@ export async function getSecretStatus(): Promise<SecretStatus[]> {
       const envVal = process.env[k.name];
       let source: SecretSource = 'none';
       let masked = '';
+      let raw: string | undefined;
       let updatedAt: string | undefined;
 
-      if (isConfigured(envVal)) {
+      // A genuine host env value wins and reads as 'env'. A value we injected
+      // from the vault lives in process.env too, but must still read as 'vault'
+      // (so the dashboard shows it as managed + removable).
+      if (isConfigured(envVal) && !isInjected(k.name)) {
         source = 'env';
-        masked = maskSecret(envVal!.trim());
+        raw = envVal!.trim();
+        masked = maskSecret(raw);
       } else if (storedMeta.has(k.name)) {
         const plain = await getStoredSecret(k.name);
         if (plain) {
           source = 'vault';
+          raw = plain;
           masked = maskSecret(plain);
           updatedAt = storedMeta.get(k.name)!.updatedAt;
         }
@@ -68,7 +81,12 @@ export async function getSecretStatus(): Promise<SecretStatus[]> {
       return {
         name: k.name, label: k.label, provider: k.provider, providerLabel: k.providerLabel,
         category: k.category, secret: k.secret, activates: k.activates,
-        source, masked, updatedAt, placeholder: k.placeholder, docsUrl: k.docsUrl,
+        source, masked,
+        control: k.control ?? 'secret',
+        options: k.options,
+        // Expose the raw value ONLY for non-secret config — never a credential.
+        value: k.secret ? undefined : raw,
+        updatedAt, placeholder: k.placeholder, docsUrl: k.docsUrl,
       };
     }),
   );
@@ -89,7 +107,10 @@ export function hydrateSecretsIntoEnv(): Promise<void> {
         for (const meta of await listStoredSecretMeta()) {
           if (isConfigured(process.env[meta.name])) continue; // env wins
           const plain = await getStoredSecret(meta.name);
-          if (plain) process.env[meta.name] = plain;
+          if (plain) {
+            process.env[meta.name] = plain;
+            markInjected(meta.name); // so status still reads it as 'vault', not 'env'
+          }
         }
       } catch {
         /* best-effort */
