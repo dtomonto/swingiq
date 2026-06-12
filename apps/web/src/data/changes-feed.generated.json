@@ -1,5 +1,39 @@
 [
   {
+    "sha": "3c3343676378300eeaa0109d3fad4c5398288d0a",
+    "at": "2026-06-12T08:09:57-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "abd5fcf0c657ca3aa2909f169eb928e216002547",
+    "at": "2026-06-12T08:09:57-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "43455e6b219fd80ca75183b449e4ef4ff21fb22f",
+    "at": "2026-06-12T08:09:57-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "7de6b7a5db388d6dfab7c17422bf6493025ccb26",
+    "at": "2026-06-12T08:09:57-04:00",
+    "type": "other",
+    "subject": "@ fix(feature-education): regenerate seed from the hook-settled registry"
+  },
+  {
+    "sha": "c7162b7e58f9e9379ee14b4b24aa108f13918427",
+    "at": "2026-06-12T08:07:33-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "37ae1390b40b501a01fc074239a4a98d8f8a5944",
     "at": "2026-06-12T08:07:33-04:00",
     "type": "chore",
@@ -517,40 +551,5 @@
     "type": "polish",
     "scope": "hero",
     "subject": "stronger softball uppercut + shorter padel backswing; lint ignore storybook-static"
-  },
-  {
-    "sha": "b794b3e6ecdffa529b1b15306eb69bb5e02c47bf",
-    "at": "2026-06-11T11:40:40-04:00",
-    "type": "feat",
-    "scope": "admin-os",
-    "subject": "Phase 7 — Coach Night dark operator mode (flag-gated)"
-  },
-  {
-    "sha": "93476bfe1ecefb54d1c311b73de0103b60861b8a",
-    "at": "2026-06-11T11:05:35-04:00",
-    "type": "feat",
-    "scope": "admin-os",
-    "subject": "Phase 5 — publishing four-question gate + Coach Mode fix"
-  },
-  {
-    "sha": "1fbfbe1e538e0098b9018bb30e69677845ee6cfe",
-    "at": "2026-06-11T11:05:00-04:00",
-    "type": "docs",
-    "scope": "signal-radar",
-    "subject": "full in-dashboard setup + usage instructions"
-  },
-  {
-    "sha": "22eb7984f4b5c56f3ba51cae9622a01d2973b175",
-    "at": "2026-06-11T09:54:28-04:00",
-    "type": "feat",
-    "scope": "admin-os",
-    "subject": "Phase 4 — consolidated Product Health overview"
-  },
-  {
-    "sha": "e1e1cbc10a552703e5a749fca07c0362994ae34d",
-    "at": "2026-06-11T09:46:28-04:00",
-    "type": "feat",
-    "scope": "design-v2",
-    "subject": "Phase 7 — flag-gated document-surface masthead on Learn articles"
   }
 ]
