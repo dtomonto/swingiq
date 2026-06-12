@@ -6439,7 +6439,7 @@
         "heading": "Steps",
         "body": [
           "1. Open Decisions — Go to /admin/decisions.",
-          "2. See what’s on screen — Decisions is where you phase 6 — Decision drawer + staged rollout controls",
+          "2. See what’s on screen — Decisions is where you decisions — detected from /admin/decisions.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -6472,7 +6472,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Decisions is where you phase 6 — Decision drawer + staged rollout controls"
+        "detail": "Decisions is where you decisions — detected from /admin/decisions."
       },
       {
         "title": "Take the main action",
@@ -6526,13 +6526,13 @@
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Decisions: Phase 6 — Decision drawer + staged rollout controls"
+          "About Decisions: Decisions — detected from /admin/decisions."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — Phase 6 — Decision drawer + staged rollout controls Take the first step to get started."
+          "Nothing here yet — Decisions — detected from /admin/decisions. Take the first step to get started."
         ]
       }
     ],
@@ -6540,7 +6540,7 @@
       "route": "/admin/decisions",
       "placement": "tooltip",
       "headline": "About Decisions",
-      "body": "Phase 6 — Decision drawer + staged rollout controls",
+      "body": "Decisions — detected from /admin/decisions.",
       "learnMoreHref": "/help/admin-decisions"
     },
     "publishTarget": "in-app",
