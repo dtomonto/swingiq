@@ -40,6 +40,11 @@ function baseInput(overrides: Partial<PostureInput> = {}): PostureInput {
     auditAccessToken: false,
     untrackedSecretsClean: true,
     openAuditFindings: 0,
+    uploadTypeAllowlist: true,
+    uploadSizeCap: true,
+    uploadDurationCap: true,
+    uploadServerEnforcement: false,
+    uploadContentScan: false,
     ...overrides,
   };
 }
@@ -145,6 +150,34 @@ describe('posture-checks — evaluation', () => {
       expect(['pass', 'partial', 'fail', 'unknown']).toContain(c.result);
       expect((c as unknown as Record<string, unknown>).evaluate).toBeUndefined();
     }
+  });
+});
+
+describe('posture — upload security checks', () => {
+  const find = (input: Partial<PostureInput>, id: string) =>
+    evaluateChecks(baseInput(input)).find((c) => c.id === id)!;
+
+  it('passes the type/size/duration checks when the validation constants are present', () => {
+    expect(find({ uploadTypeAllowlist: true }, 'upload-type-allowlist').result).toBe('pass');
+    expect(find({ uploadSizeCap: true }, 'upload-size-cap').result).toBe('pass');
+    expect(find({ uploadDurationCap: true }, 'upload-duration-cap').result).toBe('pass');
+  });
+
+  it('fails server-enforcement when only client-side validation exists; unknown when unreadable', () => {
+    expect(find({ uploadServerEnforcement: false }, 'upload-server-enforcement').result).toBe('fail');
+    expect(find({ uploadServerEnforcement: null }, 'upload-server-enforcement').result).toBe('unknown');
+    expect(find({ uploadServerEnforcement: true }, 'upload-server-enforcement').result).toBe('pass');
+  });
+
+  it('flags missing content scanning honestly (fail vs unknown)', () => {
+    expect(find({ uploadContentScan: false }, 'upload-content-scan').result).toBe('fail');
+    expect(find({ uploadContentScan: null }, 'upload-content-scan').result).toBe('unknown');
+  });
+
+  it('maps every upload check to the Uploads risk domain under application_security', () => {
+    const uploads = evaluateChecks(baseInput()).filter((c) => c.riskDomain === 'Uploads');
+    expect(uploads).toHaveLength(5);
+    expect(uploads.every((c) => c.category === 'application_security')).toBe(true);
   });
 });
 

@@ -111,7 +111,86 @@ function hasFileNamed(relDir: string, re: RegExp, maxDepth = 5): boolean | null 
   return sawDir ? false : null;
 }
 
+/** Bounded recursive CONTENT search: true if any .ts/.tsx/.sql file under
+ *  relDir matches `re`; false if the dir is reachable but nothing matches;
+ *  null if the dir itself couldn't be read. */
+function treeHasContent(relDir: string, re: RegExp, maxDepth = 6): boolean | null {
+  let sawDir = false;
+  const walk = (dir: string, depth: number): boolean => {
+    if (depth > maxDepth) return false;
+    let entries: fs.Dirent[];
+    try {
+      entries = fs.readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return false;
+    }
+    for (const e of entries) {
+      if (e.name === 'node_modules' || e.name === '.next' || e.name === '.git') continue;
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) {
+        if (walk(full, depth + 1)) return true;
+      } else if (/\.(ts|tsx|sql)$/.test(e.name)) {
+        try {
+          if (re.test(fs.readFileSync(full, 'utf8'))) return true;
+        } catch {
+          /* skip unreadable file */
+        }
+      }
+    }
+    return false;
+  };
+  for (const root of candidateRoots()) {
+    const dir = path.join(root, relDir);
+    try {
+      if (!fs.existsSync(dir)) continue;
+      sawDir = true;
+      if (walk(dir, 0)) return true;
+    } catch {
+      /* try next root */
+    }
+  }
+  return sawDir ? false : null;
+}
+
 // ── individual signals ──────────────────────────────────────────────────────
+
+/** Read the real upload-validation module + ingest path. Every field degrades
+ *  to null when its source can't be read (never fabricates a pass). */
+function uploadSignals(): {
+  typeAllowlist: boolean | null;
+  sizeCap: boolean | null;
+  durationCap: boolean | null;
+  serverEnforcement: boolean | null;
+  contentScan: boolean | null;
+} {
+  const src = readFirst(['src/lib/video-metadata.ts', 'apps/web/src/lib/video-metadata.ts']);
+  const typeAllowlist = src === null ? null : /ACCEPTED_VIDEO_TYPES\s*=\s*\[[^\]]*video\//i.test(src);
+  const sizeCap = src === null ? null : /MAX_VIDEO_SIZE_BYTES\s*=/i.test(src);
+  const durationCap = src === null ? null : /MAX_VIDEO_DURATION_SECONDS\s*=/i.test(src);
+  // Server-side / storage-policy enforcement: an API route that re-validates, or
+  // a Supabase storage bucket file-size / MIME policy. Client validation alone
+  // is bypassable, so this is what actually protects the backend.
+  const apiEnforces = treeHasContent(
+    'src/app/api',
+    /validateVideoFile|MAX_VIDEO_SIZE_BYTES|ACCEPTED_VIDEO_TYPES/i,
+  );
+  const policyEnforces = treeHasContent(
+    'supabase',
+    /file_size_limit|allowed_mime_types/i,
+  );
+  const serverEnforcement =
+    apiEnforces === true || policyEnforces === true
+      ? true
+      : apiEnforces === null && policyEnforces === null
+        ? null
+        : false;
+  // Malware / abusive-content scanning on the ingest path.
+  const contentScan = treeHasContent(
+    'src',
+    /clamav|virus[-_]?scan|malware[-_]?scan|content[-_]?moderation|nsfw[-_]?detect/i,
+  );
+  return { typeAllowlist, sizeCap, durationCap, serverEnforcement, contentScan };
+}
 
 function rateLimiterConfigured(): boolean {
   return (
@@ -205,6 +284,7 @@ export interface PostureBundle {
 /** Gather every live signal into the bundle the engine consumes. */
 export function gatherPosture(now: Date = new Date()): PostureBundle {
   const { findings, open } = safeAuditFindings();
+  const upload = uploadSignals();
 
   const input: PostureInput = {
     now: now.toISOString(),
@@ -229,6 +309,11 @@ export function gatherPosture(now: Date = new Date()): PostureBundle {
     auditAccessToken: isConfigured(process.env.AUDIT_ACCESS_TOKEN),
     untrackedSecretsClean: untrackedSecretsClean(),
     openAuditFindings: open,
+    uploadTypeAllowlist: upload.typeAllowlist,
+    uploadSizeCap: upload.sizeCap,
+    uploadDurationCap: upload.durationCap,
+    uploadServerEnforcement: upload.serverEnforcement,
+    uploadContentScan: upload.contentScan,
   };
 
   return { input, auditFindings: findings };

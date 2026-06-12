@@ -14,7 +14,7 @@ import { useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import {
   ShieldAlert, ListChecks, Activity, AlertTriangle, Clock, CheckCircle2, TrendingUp,
-  Gauge, ScrollText, Settings as SettingsIcon, BookOpen, Bot, Plug, Database, Upload,
+  Gauge, ScrollText, Settings as SettingsIcon, BookOpen, Bot, Plug, Database,
   Lock, ChevronRight,
 } from 'lucide-react';
 import { MetricStat } from '@/components/admin/MetricStat';
@@ -245,7 +245,6 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
 const SOON = [
   { label: 'AI Security Center', icon: Bot },
   { label: 'API Security Center', icon: Plug },
-  { label: 'Upload Security', icon: Upload },
   { label: 'Privacy & Data Governance', icon: Database },
   { label: 'Threat Model', icon: ShieldAlert },
   { label: 'Scan Runner', icon: Activity },

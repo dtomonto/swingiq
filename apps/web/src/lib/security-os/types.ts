@@ -151,6 +151,18 @@ export interface PostureInput {
   untrackedSecretsClean: boolean | null;
   /** Open audit-robot findings (P0/P1/P2) joined in as findings. */
   openAuditFindings: number;
+  // ── Upload security (the video/photo ingest path) ──────────────────────────
+  /** A MIME allowlist restricts which file types can be uploaded. */
+  uploadTypeAllowlist: boolean | null;
+  /** A maximum file-size cap is enforced on uploads. */
+  uploadSizeCap: boolean | null;
+  /** A maximum media-duration cap is enforced. */
+  uploadDurationCap: boolean | null;
+  /** Upload limits are enforced server-side / by a storage policy — not only in
+   *  the browser (which is trivially bypassable). null = couldn't determine. */
+  uploadServerEnforcement: boolean | null;
+  /** Uploaded media is scanned for malicious / abusive content. null = unknown. */
+  uploadContentScan: boolean | null;
 }
 
 /** A single static posture-check definition + its pure evaluator. */

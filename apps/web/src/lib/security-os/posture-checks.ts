@@ -528,6 +528,147 @@ export const POSTURE_CHECKS: PostureCheck[] = [
         'Could not scan the repo for security tests.',
       ),
   },
+
+  // ── Upload security (the video/photo ingest path) ──────────────────────────
+  {
+    id: 'upload-type-allowlist',
+    category: 'application_security',
+    riskDomain: 'Uploads',
+    title: 'Uploads are restricted to an explicit file-type allowlist',
+    description:
+      'The ingest path accepts only known media MIME types (MP4 / MOV / WebM). An allowlist rejects unexpected or executable payloads far more reliably than a blocklist.',
+    severity: 'medium',
+    weight: 1,
+    frameworks: { owaspTop10: 'A04: Insecure Design', owaspAsvs: 'V12.1 File Upload Requirements' },
+    businessImpact: 'Accepting arbitrary file types invites malformed or hostile files into processing and storage.',
+    whatCouldHappen: 'A user submits a non-media or crafted file that crashes the parser or is later served to others.',
+    recommendedFix: 'Keep ACCEPTED_VIDEO_TYPES tight and reject anything off the list before any processing.',
+    stepByStepActions: [
+      'Review ACCEPTED_VIDEO_TYPES in src/lib/video-metadata.ts.',
+      'Confirm the upload control rejects files outside the allowlist.',
+      'Mirror the same allowlist anywhere media is accepted (recorder, import).',
+    ],
+    effort: 'S',
+    canClaudeFix: true,
+    needsCredentials: false,
+    evaluate: (i) =>
+      triState(
+        i.uploadTypeAllowlist,
+        'A MIME allowlist (video/mp4, video/quicktime, video/webm) restricts uploads.',
+        'No upload MIME allowlist detected — any file type may be accepted.',
+        'Could not read the upload-validation module to confirm a type allowlist.',
+      ),
+  },
+  {
+    id: 'upload-size-cap',
+    category: 'application_security',
+    riskDomain: 'Uploads',
+    title: 'A maximum upload file-size is enforced',
+    description:
+      'A hard size cap bounds the memory/processing each upload can consume and blunts denial-of-service via oversized files.',
+    severity: 'medium',
+    weight: 1,
+    frameworks: { owaspTop10: 'A04: Insecure Design', owaspAsvs: 'V12.1 File Upload Requirements' },
+    businessImpact: 'Unbounded uploads can exhaust memory, storage and bandwidth.',
+    whatCouldHappen: 'A multi-gigabyte upload OOMs the processor or fills storage, degrading the app for everyone.',
+    recommendedFix: 'Keep MAX_VIDEO_SIZE_BYTES enforced and apply the same cap server-side / at the storage policy.',
+    stepByStepActions: [
+      'Confirm MAX_VIDEO_SIZE_BYTES is enforced in validateVideoFile.',
+      'Add a matching file_size_limit on the storage bucket so the cap is not client-only.',
+    ],
+    effort: 'S',
+    canClaudeFix: true,
+    needsCredentials: false,
+    evaluate: (i) =>
+      triState(
+        i.uploadSizeCap,
+        'A maximum upload size (MAX_VIDEO_SIZE_BYTES) is enforced.',
+        'No maximum upload size detected — uploads may be unbounded.',
+        'Could not read the upload-validation module to confirm a size cap.',
+      ),
+  },
+  {
+    id: 'upload-duration-cap',
+    category: 'application_security',
+    riskDomain: 'Uploads',
+    title: 'A maximum media duration is enforced',
+    description:
+      'Capping clip length bounds the frame-extraction and analysis work performed per submission.',
+    severity: 'low',
+    weight: 1,
+    frameworks: { owaspTop10: 'A04: Insecure Design', owaspAsvs: 'V12.1 File Upload Requirements' },
+    businessImpact: 'Very long clips multiply client/AI processing cost per submission.',
+    whatCouldHappen: 'A maximal-length clip ties up processing far longer than a normal swing needs.',
+    recommendedFix: 'Keep MAX_VIDEO_DURATION_SECONDS enforced at validation time.',
+    stepByStepActions: ['Confirm MAX_VIDEO_DURATION_SECONDS is checked in validateVideoFile.'],
+    effort: 'S',
+    canClaudeFix: true,
+    needsCredentials: false,
+    evaluate: (i) =>
+      triState(
+        i.uploadDurationCap,
+        'A maximum media duration (MAX_VIDEO_DURATION_SECONDS) is enforced.',
+        'No maximum media duration detected.',
+        'Could not read the upload-validation module to confirm a duration cap.',
+      ),
+  },
+  {
+    id: 'upload-server-enforcement',
+    category: 'application_security',
+    riskDomain: 'Uploads',
+    title: 'Upload limits are enforced beyond the browser',
+    description:
+      'Client-side validation is trivially bypassed by calling the API/storage directly, so the size + type limits must also hold server-side or as a storage-bucket policy.',
+    severity: 'high',
+    weight: 2,
+    frameworks: { owaspTop10: 'A04: Insecure Design', owaspAsvs: 'V12.1 File Upload Requirements', nistSsdf: 'PW.4' },
+    businessImpact: 'If limits live only in the browser, an attacker bypasses them entirely by calling the backend directly.',
+    whatCouldHappen: 'A scripted upload skips the UI and pushes an oversized or non-media file straight to storage.',
+    recommendedFix: 'Add a Supabase storage file_size_limit + allowed_mime_types policy (or a server route that re-validates) so the caps are not client-only.',
+    stepByStepActions: [
+      'Set file_size_limit + allowed_mime_types on the upload storage bucket.',
+      'Or re-run validateVideoFile in the server route that accepts the upload.',
+      'Confirm a direct API/storage call with an oversized file is rejected.',
+    ],
+    effort: 'M',
+    canClaudeFix: false,
+    needsCredentials: true,
+    evaluate: (i) =>
+      triState(
+        i.uploadServerEnforcement,
+        'Server-side or storage-policy upload enforcement was detected.',
+        'Only client-side upload validation was found — the caps are bypassable by calling the backend directly.',
+        'Could not read the API/storage sources to confirm server-side enforcement.',
+      ),
+  },
+  {
+    id: 'upload-content-scan',
+    category: 'application_security',
+    riskDomain: 'Uploads',
+    title: 'Uploaded media is scanned for malicious content',
+    description:
+      'Content / AV scanning on ingest catches malware or abusive uploads before they are stored or served. On-device-only processing is an equally valid control if documented.',
+    severity: 'medium',
+    weight: 1,
+    frameworks: { owaspTop10: 'A08: Software & Data Integrity Failures', owaspAsvs: 'V12.5 File Download Requirements' },
+    businessImpact: 'Unscanned user files can store or serve malware or illegal content under your domain.',
+    whatCouldHappen: 'A hostile file is stored and later served to staff or other users without inspection.',
+    recommendedFix: 'Add an AV/content-moderation step on the ingest path, or document that media never leaves the device.',
+    stepByStepActions: [
+      'Decide whether uploaded media is stored server-side; if so, add an AV/content scan on ingest.',
+      'If processing is fully on-device, record that as the control so this reads as intentional.',
+    ],
+    effort: 'L',
+    canClaudeFix: false,
+    needsCredentials: true,
+    evaluate: (i) =>
+      triState(
+        i.uploadContentScan,
+        'A content/AV scanning step was detected on the ingest path.',
+        'No upload content/AV scanning was detected.',
+        'Could not read the ingest sources to confirm content scanning.',
+      ),
+  },
 ];
 
 /** Evaluate every check against the gathered signals. PURE + deterministic. */
