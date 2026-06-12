@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
-import { Menu, LayoutDashboard, Target, Dumbbell, TrendingUp } from 'lucide-react';
+import { Menu, LayoutDashboard, Target, Dumbbell, TrendingUp, RotateCcw } from 'lucide-react';
 import { Sidebar } from './Sidebar';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -18,12 +18,14 @@ interface AppShellProps {
 }
 
 // The core journey, mirrored in the mobile bottom bar: Today → Analyze →
-// Practice → Progress. "More" opens the full drawer for everything else.
+// Practice → Progress → Retest — the loop closing on "did it actually
+// change?". "More" opens the full drawer for everything else.
 const BOTTOM_NAV = [
   { href: '/dashboard', label: 'Today', icon: LayoutDashboard },
   { href: '/diagnose', label: 'Analyze', icon: Target },
   { href: '/training', label: 'Practice', icon: Dumbbell },
   { href: '/progress', label: 'Progress', icon: TrendingUp },
+  { href: '/retest', label: 'Retest', icon: RotateCcw },
 ] as const;
 
 export function AppShell({ children }: AppShellProps) {

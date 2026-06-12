@@ -13,6 +13,7 @@
 import 'server-only';
 
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { sanitizeOperationalEvent, type RawOperationalEvent } from './fingerprint';
 import type { OperationalEvent } from './types';
 
 const TABLE = 'growth_records';
@@ -36,6 +37,35 @@ export async function ingestOperationalEvent(event: OperationalEvent): Promise<b
   } catch {
     return false;
   }
+}
+
+/**
+ * Build, sanitize, and persist an operational event raised ON THE SERVER (e.g.
+ * an API-route failure). Mirrors the client `logOperationalEvent` path but uses
+ * the durable ingest sink directly — no browser ring buffer. No-op + false when
+ * keyless or on error. Never throws (telemetry must never break a request).
+ */
+export async function recordServerOperationalEvent(raw: RawOperationalEvent): Promise<boolean> {
+  try {
+    const event = sanitizeOperationalEvent({ source: 'server', ...raw });
+    return await ingestOperationalEvent(event);
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * A server-side swing-analysis (AI-vision) attempt failed. Mirrors the client
+ * `logAnalysisFailure` so a provider/route failure is visible in ReliabilityOS
+ * even when the browser never reports it (network down, the route 502s, etc.).
+ */
+export function logServerAnalysisFailure(p: Omit<RawOperationalEvent, 'type'>): Promise<boolean> {
+  return recordServerOperationalEvent({
+    type: 'video_processing_failed',
+    category: 'video_upload',
+    uploadStage: p.uploadStage ?? 'ai_vision_analysis',
+    ...p,
+  });
 }
 
 /** Read the most recent ingested events (admin read path). Empty when keyless. */

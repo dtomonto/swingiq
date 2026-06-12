@@ -215,3 +215,71 @@ new tables.
 - [ ] Admin: `/admin/system-health` shows AI-vision connected/not; `/admin/users/[id]` shows the user's
       sessions + analyses.
 ```
+
+---
+
+# Addendum — 2026-06-12 · Keystone analysis→profile→dashboard disconnect (F1/F2 corrected)
+
+> A re-audit (5 parallel subsystem investigations) found a **critical defect the 2026-06-11
+> pass missed** — and which §1/§3 of this doc described incorrectly. The original audit stated
+> that completed analyses "append to Zustand `video_analyses`" and the dashboard reads them
+> (lines ~41, ~84–86, and QA item "appears in `/admin/ai-analyses`"). **That was not true.**
+
+## What was actually wrong
+
+There are **two** swing-history stores, and the writer/reader were crossed:
+
+- The analysis pipeline (`lib/video/run-analysis.ts`) saved a completed analysis **only** to the
+  device-local rich history (`lib/video/history.ts`, key `swingiq-video-analyses-v1`).
+- The non-golf dashboard's "Recent Analyses" (`NonGolfDashboard.tsx:86`) and the Supabase-synced
+  account record read the Zustand **`video_analyses` slice** — whose only writer,
+  `addVideoAnalysis()` (`store/slices/video.ts:9`), **had zero callers anywhere in the app**
+  (verified by grep; only the definition + test mocks matched).
+
+**Consequences (the user-reported symptoms):**
+
+1. A **non-golf** user could complete an analysis and the dashboard still showed *"No video
+   analyses yet."* — the `video_analyses` slice was permanently empty.
+2. **No swing ever reached the account/profile.** The synced `video_analyses` table projected an
+   always-empty slice, so swings were **not** durable across devices/login — directly
+   contradicting this doc's earlier "unlimited append-only history on the profile" claim. The
+   only place swings lived was the device-local 25-cap cache.
+
+This is why §1's "≥10 swings already satisfied" conclusion was **wrong in practice**: the
+canonical synced record was never populated.
+
+## Fix implemented (2026-06-12)
+
+Wired the missing bridge — the pipeline now records each completed analysis as a swing **on the
+profile**, using the existing synced table (no migration, no new RLS surface):
+
+- **New** `apps/web/src/lib/video/profile-sync.ts`:
+  - `buildProfileVideoAnalysis()` — pure, unit-tested mapping `AIVisualAnalysis` → the
+    `video_analyses` metadata shape. `overall_score = 0` by design (vision yields no swing
+    score; the dashboard hides a 0 rather than fabricate one — `NonGolfDashboard.tsx:150`).
+    Carries the honest signals: `primary_issue`, `phases_count`, `issues_count`, sport, angle.
+  - `syncAnalysisToProfile()` — best-effort `useSwingVantageStore.getState().addVideoAnalysis(...)`;
+    swallows errors so it can never fail an analysis (mirrors the `putClip` best-effort pattern).
+- `run-analysis.ts` now calls `syncAnalysisToProfile()` immediately after `saveVideoAnalysis()`.
+- **Test:** `lib/video/__tests__/profile-sync.test.ts` (3 cases — mapping, blank-name fallback,
+  no-phases tolerance).
+
+**Effect:** completed analyses now (1) appear instantly in the dashboard's Recent Analyses
+(Zustand reactivity) and (2) reconcile to Supabase `video_analyses` when signed in — durable,
+cross-device, **per-profile** history with **no entry cap** (well past ≥10). Rich analysis text
++ replay clips remain device-local by privacy design.
+
+**Verified:** `tsc --noEmit` clean; `src/lib/video` + `src/lib/db` + `src/store` = **96/96 green**.
+
+## Still open after this fix (prioritized)
+
+- **R1 (High)** — Persist the **full** analysis text on the profile (not just metadata): additive
+  nullable `analysis jsonb` on `video_analyses` + projection both ways + owner-applied migration.
+- **R2 (High)** — "Today's Tasks": render `AgiCommitment.drills` as a checkable, persisted daily
+  list (the committed plan's drills are stored but rendered nowhere).
+- **R3 (Medium)** — Retest window should key off the commitment date, not the latest analysis
+  (`retest/targets.ts:40`).
+- **R4 (Medium)** — Provider fetch timeout (`AbortSignal.timeout(55_000)`) to stay under the 60s
+  `maxDuration`.
+- **R5 (Medium)** — Capture **server-side** route failures into ReliabilityOS (today only
+  `console.error` at `route.ts:178`; client capture from the 2026-06-11 pass covers the rest).

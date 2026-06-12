@@ -33,6 +33,7 @@ import { AnalysisSpeedSelector } from '@/components/video/AnalysisSpeedSelector'
 import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
+import { useRetests, findSportRetestTarget } from '@/lib/retest';
 import { useSwingAnalysis } from '@/lib/video/useSwingAnalysis';
 import { useRecordAssistHandoff } from '@/lib/record-assist/hooks/useRecordAssistHandoff';
 import { useSwingSessionFanout } from '@/lib/swing-session/useSwingSessionFanout';
@@ -60,7 +61,14 @@ export function VideoAnalyzerContent() {
   // `useVideoHistory` reads localStorage after hydration and live-updates on
   // save/delete (no setState-in-effect needed).
   const history = useVideoHistory('golf');
-  const [compareEnabled, setCompareEnabled] = useState(false);
+  // An open due/overdue retest for golf means this upload is likely a retest:
+  // default "compare" on (and show a banner) until the user decides otherwise.
+  // `compareChoice` is null until the user touches the toggle, so the auto-on
+  // is purely derived — no setState-in-effect, and the user can always override.
+  const { targets: retestTargets } = useRetests();
+  const retestTarget = findSportRetestTarget(retestTargets, 'golf');
+  const [compareChoice, setCompareChoice] = useState<boolean | null>(null);
+  const compareEnabled = compareChoice ?? retestTarget !== null;
 
   // The analysis itself runs in a background task; this hook bridges to it and
   // exposes live stage/progress + the final result (and re-adopts an in-flight
@@ -209,9 +217,10 @@ export function VideoAnalyzerContent() {
               latest={history[0] ?? null}
               recent={history}
               compareEnabled={compareEnabled}
-              onCompareChange={setCompareEnabled}
+              onCompareChange={setCompareChoice}
               onExport={downloadAnalysisJson}
               onDelete={handleDeleteHistory}
+              retestTarget={retestTarget}
             />
 
             <VideoProgress history={history} />

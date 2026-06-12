@@ -27,6 +27,24 @@ import { validateUpdate, scoreUpdateQuality } from '../validation';
 
 const sampleUpdate = (): Update => getPublicUpdates()[0];
 
+// ── Chronological ordering (newest-first, no pin override) ────────────────
+
+describe('public update ordering', () => {
+  it('product updates are strictly newest-first', () => {
+    const dates = getPublicUpdates().map((u) => new Date(u.releaseDate).getTime());
+    for (let i = 1; i < dates.length; i++) {
+      expect(dates[i - 1]).toBeGreaterThanOrEqual(dates[i]);
+    }
+  });
+
+  it('developer updates are strictly newest-first', () => {
+    const dates = getDevUpdates().map((u) => new Date(u.date).getTime());
+    for (let i = 1; i < dates.length; i++) {
+      expect(dates[i - 1]).toBeGreaterThanOrEqual(dates[i]);
+    }
+  });
+});
+
 // ── Product update detail engine ──────────────────────────────────────────
 
 describe('product update detail', () => {

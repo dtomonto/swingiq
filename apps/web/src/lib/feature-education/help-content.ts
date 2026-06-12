@@ -355,6 +355,7 @@ const SPORTS: Record<string, CuratedHelpTopic> = {
       { q: 'Can I analyze my third-shot drop?', a: 'Yes — it is one of the most-requested shots. Film a few third-shot drops and choose Pickleball. See the dedicated third-shot-drop guide for focused drills.' },
       { q: 'Does it cover the dink and soft game?', a: 'Yes. The soft game is where most points are won and lost, so contact point and paddle control on dinks and resets are a core focus. See the dinking guide for more.' },
       { q: 'Do I need special equipment?', a: 'No — just your phone. No paddle sensors or special cameras required.' },
+      { q: 'Can it tell if I’m improving?', a: 'Yes — retest. Upload a fresh clip later and SwingVantage compares it to your earlier one so you can see whether the fix took hold, instead of guessing.' },
       FREE_FAQ,
     ],
     related: ['pickleball-dinking', 'pickleball-third-shot-drop', 'diagnose', 'drills', 'retest'],
@@ -408,6 +409,7 @@ const SPORTS: Record<string, CuratedHelpTopic> = {
       { q: 'Can it analyze my bandeja?', a: 'Yes — the bandeja is one of the most-requested padel shots. Film a few and choose Padel. See the dedicated bandeja guide for focused drills.' },
       { q: 'Does it understand wall play?', a: 'Yes. Reading and handling balls off the glass is unique to padel and is part of the read. See the wall-rebound technique guide for more.' },
       { q: 'Do I need special equipment?', a: 'No — just your phone. No racket sensors or special cameras required.' },
+      { q: 'Can it tell if I’m improving?', a: 'Yes — retest. Upload a fresh clip later and SwingVantage compares it to your earlier one so you can see whether the fix took hold, instead of guessing.' },
       FREE_FAQ,
     ],
     related: ['padel-bandeja', 'padel-wall-rebound-technique', 'diagnose', 'drills', 'retest'],
@@ -712,8 +714,1042 @@ const CORE: Record<string, CuratedHelpTopic> = {
   },
 };
 
+// ── Sport hubs ────────────────────────────────────────────────
+// The /<sport> landing pages: a home for that sport's free tools, technique
+// articles, and swing analysis. Lighter than the swing-analysis guide; they
+// orient and route into it.
+
+interface SportHubSpec {
+  Sport: string;
+  sport: string;
+  route: string;
+  analysisSlug: string;
+  topics: string[];
+  related: string[];
+  extraFaqs?: AssetFaq[];
+}
+
+function sportHub(s: SportHubSpec): CuratedHelpTopic {
+  return {
+    title: s.Sport,
+    lead: `Your home for ${s.Sport.toLowerCase()} on SwingVantage — free swing analysis, targeted drills, and technique guides in one place.`,
+    answer: `The ${s.Sport} hub brings together everything SwingVantage offers for ${s.Sport.toLowerCase()}: upload a swing for an instant AI breakdown, work targeted drills, and read technique guides — all free from your phone.`,
+    seoTitle: `${s.Sport} — AI Swing Analysis, Drills & Technique`,
+    seoDescription: `Improve your ${s.Sport.toLowerCase()} with SwingVantage: free AI swing analysis, targeted drills, and technique guides. Upload one phone video to get your top fix.`,
+    primaryRoute: s.route,
+    steps: [
+      { title: `Open the ${s.Sport} hub`, detail: `Go to ${s.route} to see ${s.Sport.toLowerCase()} analysis, drills, and guides in one place.` },
+      { title: 'Analyze a swing', detail: `Upload a single ${s.sport} clip to get a prioritized AI breakdown — your number-one fix first.` },
+      { title: 'Pick a focus', detail: `Browse the technique guides and drills for the area you want to work on.` },
+      { title: 'Build it into practice', detail: 'Add drills to your plan so they show up in Today’s Tasks, then retest to confirm progress.' },
+    ],
+    sections: [
+      {
+        heading: `What you’ll find here`,
+        body: [
+          `The ${s.Sport} hub is the front door to everything ${s.Sport.toLowerCase()} on SwingVantage — analysis, drills, and plain-language technique guides, all built around one promise: one fix, one plan, one retest.`,
+        ],
+      },
+      {
+        heading: 'Popular topics',
+        body: [`Players come here to work on:`, ...s.topics.map((t) => `- ${t}`)],
+      },
+      { heading: 'Who it’s for', body: [`${s.Sport} players of every level, plus parents and coaches who want a fast, consistent second opinion — no sensors, just a phone.`] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: `Is ${s.Sport} analysis free?`, a: `Yes — you can analyze a ${s.sport} swing for free from your phone. Some advanced tools and history depth are part of a paid plan.` },
+      { q: `What can SwingVantage do for ${s.Sport.toLowerCase()}?`, a: `Break down your swing from one video, give you targeted drills, track your progress, and let you retest to prove improvement.` },
+      ...(s.extraFaqs ?? []),
+      FREE_FAQ,
+    ],
+    related: s.related,
+  };
+}
+
+const SPORT_HUBS: Record<string, CuratedHelpTopic> = {
+  golf: sportHub({
+    Sport: 'Golf',
+    sport: 'golf',
+    route: '/golf',
+    analysisSlug: 'golf-swing-analysis',
+    topics: ['Fixing a slice', 'Breaking 100, 90, or 80', 'Iron consistency and crisp contact', 'Wedge distance control'],
+    related: ['golf-swing-analysis', 'diagnose', 'drills', 'pre-round', 'motion-lab'],
+    extraFaqs: [
+      { q: 'Can it help me fix my slice?', a: 'Yes — the slice is the most common fault it diagnoses. Upload a swing and it gives you the over-the-top fix and the drills to square the face.' },
+    ],
+  }),
+  tennis: sportHub({
+    Sport: 'Tennis',
+    sport: 'tennis',
+    route: '/tennis',
+    analysisSlug: 'tennis-swing-analysis',
+    topics: ['A more reliable serve', 'One- and two-handed backhands', 'Generating topspin and power', 'Footwork and recovery'],
+    related: ['tennis-swing-analysis', 'diagnose', 'drills', 'mental-performance', 'retest'],
+  }),
+  baseball: sportHub({
+    Sport: 'Baseball',
+    sport: 'baseball',
+    route: '/baseball',
+    analysisSlug: 'baseball-swing-analysis',
+    topics: ['Bat path and attack angle', 'Exit velocity and power', 'Timing and contact consistency', 'A repeatable load and stride'],
+    related: ['baseball-swing-analysis', 'softball', 'diagnose', 'drills', 'retest'],
+  }),
+  softball: sportHub({
+    Sport: 'Softball',
+    sport: 'softball',
+    route: '/softball',
+    analysisSlug: 'softball-swing-analysis',
+    topics: ['Bat path for fastpitch', 'Timing up faster pitching', 'Adding power and exit velocity', 'A consistent, repeatable swing'],
+    related: ['softball-swing-analysis', 'baseball', 'diagnose', 'drills', 'retest'],
+  }),
+};
+
+// ── Technique deep-dives (sport-specific shots) ───────────────
+
+interface TechniqueSpec {
+  title: string;
+  route: string;
+  Sport: string;
+  shot: string;
+  lead: string;
+  answer: string;
+  seoTitle: string;
+  seoDescription: string;
+  keys: string[];
+  mistakes: string[];
+  drills: string[];
+  related: string[];
+}
+
+function technique(s: TechniqueSpec): CuratedHelpTopic {
+  return {
+    title: s.title,
+    lead: s.lead,
+    answer: s.answer,
+    seoTitle: s.seoTitle,
+    seoDescription: s.seoDescription,
+    primaryRoute: s.route,
+    steps: [
+      { title: 'Film the shot', detail: `Record a few reps of your ${s.shot} from the side, in good light, with your whole body in frame.` },
+      { title: `Choose ${s.Sport}`, detail: `Upload your clip and select ${s.Sport} so the read is tuned to your game.` },
+      { title: 'Get your fix', detail: 'You get a prioritized breakdown led by the single change that will help most.' },
+      { title: 'Drill it', detail: 'Work the matched drills, add them to your plan, then retest.' },
+    ],
+    sections: [
+      { heading: `What makes a good ${s.shot}`, body: [`The ${s.shot} comes down to a few things that matter most:`, ...s.keys.map((k) => `- ${k}`)] },
+      { heading: 'Common mistakes', body: s.mistakes.map((m) => `- ${m}`) },
+      { heading: 'Drills that help', body: s.drills.map((d) => `- ${d}`) },
+      ACCURACY_SECTION,
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      BEST_VIDEO_FAQ,
+      { q: `How do I improve my ${s.shot}?`, a: `Film it, get your prioritized fix, and work the matched drills — then retest to confirm the change is sticking. Small, consistent reps beat big one-off changes.` },
+      { q: 'Do I need special equipment?', a: 'No — just your phone. No sensors or special cameras required.' },
+      FREE_FAQ,
+    ],
+    related: s.related,
+  };
+}
+
+const TECHNIQUE: Record<string, CuratedHelpTopic> = {
+  'pickleball-dinking': technique({
+    title: 'Pickleball Dinking',
+    route: '/pickleball-dinking',
+    Sport: 'Pickleball',
+    shot: 'dink',
+    lead: 'Master the soft game — get an AI read on your dink and the drills to keep the ball low and controlled.',
+    answer: 'Dinking is where most pickleball points are won and lost. SwingVantage analyzes your dink from one video — contact point, paddle face, and control — and gives you the single fix and drills to stop popping the ball up.',
+    seoTitle: 'Pickleball Dinking — Technique & Drills',
+    seoDescription: 'Improve your pickleball dink with a free AI analysis: fix your contact point and paddle face, stop popping the ball up, and get targeted soft-game drills.',
+    keys: ['A relaxed grip and quiet paddle face', 'Contact out in front, below the net is fine if it clears', 'Soft hands that absorb pace instead of adding it', 'Patience — out-dink, do not over-attack'],
+    mistakes: ['Popping the ball up by lifting with the wrist', 'Gripping too tight and adding pace', 'Reaching instead of moving your feet', 'Attacking a ball that is too low'],
+    drills: ['Cross-court dink rallies for control', 'Targets in the kitchen to groove placement', 'Soft-hands wall drills to feel the absorb'],
+    related: ['pickleball', 'pickleball-third-shot-drop', 'drills', 'diagnose'],
+  }),
+  'pickleball-third-shot-drop': technique({
+    title: 'Pickleball Third-Shot Drop',
+    route: '/pickleball-third-shot-drop',
+    Sport: 'Pickleball',
+    shot: 'third-shot drop',
+    lead: 'The shot that gets you to the kitchen — get an AI read on your third-shot drop arc and the drills to land it soft.',
+    answer: 'The third-shot drop is the hardest, most important shot in pickleball. SwingVantage analyzes yours from one video and gives you the single fix and drills to make it consistent so you can get to the net.',
+    seoTitle: 'Pickleball Third-Shot Drop — Technique & Drills',
+    seoDescription: 'Make your pickleball third-shot drop consistent with a free AI analysis: fix your arc and contact, land it soft in the kitchen, and get targeted drills.',
+    keys: ['A low-to-high lifting motion, not a flat drive', 'A soft, arcing trajectory that lands in the kitchen', 'A stable base and unhurried tempo', 'Letting the ball drop to a comfortable contact height'],
+    mistakes: ['Driving the ball instead of lifting it', 'Rushing forward before the shot lands', 'Too much pace, so it sails long', 'Tense hands that flatten the arc'],
+    drills: ['Drop-and-drop reps from the baseline', 'Arc targets over the net into the kitchen', 'Shadow the low-to-high path without a ball'],
+    related: ['pickleball', 'pickleball-dinking', 'drills', 'diagnose'],
+  }),
+  'padel-bandeja': technique({
+    title: 'Padel Bandeja',
+    route: '/padel-bandeja',
+    Sport: 'Padel',
+    shot: 'bandeja',
+    lead: 'The defensive overhead that keeps you at the net — get an AI read on your bandeja and the drills to control it.',
+    answer: 'The bandeja is the signature padel overhead — a controlled, defensive smash that keeps you at the net. SwingVantage analyzes yours from one video and gives you the single fix and drills to make it reliable.',
+    seoTitle: 'Padel Bandeja — Technique & Drills',
+    seoDescription: 'Master the padel bandeja with a free AI analysis: fix your contact point and swing shape, keep control and position at the net, and get targeted drills.',
+    keys: ['Contact out in front and slightly to the side', 'A continental grip and a controlled, sliced swing', 'Body turned sideways, weight moving forward', 'Placement and spin over raw power'],
+    mistakes: ['Hitting it flat and hard like a smash', 'Contact too far behind the head', 'Standing square instead of sideways', 'Going for a winner when control is the goal'],
+    drills: ['Shadow swings to groove the sideways turn', 'Feed-and-bandeja reps to a deep target', 'Slice-control drills to feel the spin'],
+    related: ['padel', 'padel-wall-rebound-technique', 'drills', 'diagnose'],
+  }),
+  'padel-wall-rebound-technique': technique({
+    title: 'Padel Wall Play',
+    route: '/padel-wall-rebound-technique',
+    Sport: 'Padel',
+    shot: 'ball off the wall',
+    lead: 'Turn the glass into your friend — get an AI read on how you play balls off the back and side walls.',
+    answer: 'Reading balls off the glass is unique to padel and separates good players from great ones. SwingVantage analyzes how you handle wall rebounds from one video and gives you the single fix and drills to stay calm and in control.',
+    seoTitle: 'Padel Wall Play — Reading Rebounds & Drills',
+    seoDescription: 'Handle padel balls off the back and side glass with a free AI analysis: fix your positioning and timing on wall rebounds and get targeted drills.',
+    keys: ['Reading the bounce early and giving the ball space', 'Moving with the ball, not reaching back for it', 'Letting it come off the glass to a comfortable height', 'Patience — reset rather than force a winner'],
+    mistakes: ['Standing too close and getting handcuffed', 'Taking the ball before it comes off the wall', 'Panicking and over-hitting the rebound', 'Poor footwork that leaves you off balance'],
+    drills: ['Back-glass feed-and-reset reps', 'Side-wall reading drills', 'Footwork patterns to create space from the glass'],
+    related: ['padel', 'padel-bandeja', 'drills', 'diagnose'],
+  }),
+};
+
+// ── Analysis depth & capture ──────────────────────────────────
+
+const ANALYSIS: Record<string, CuratedHelpTopic> = {
+  'free-swing-analysis': {
+    title: 'Free Swing Analysis',
+    lead: 'Analyze your swing for free — no equipment, no sign-up barrier, just your phone and one clip.',
+    answer: 'Free Swing Analysis is the no-cost way to try SwingVantage. Upload a single phone video of any sport and get a real AI breakdown — your top fix, drills, and a plan — without sensors, a launch monitor, or a coach.',
+    seoTitle: 'Free Swing Analysis — AI Swing Analyzer, No Sensors',
+    seoDescription: 'Analyze your golf, tennis, baseball, softball, pickleball, or padel swing free with AI. Upload one phone video and get your top fix, drills, and a plan.',
+    primaryRoute: '/free-swing-analysis',
+    steps: [
+      { title: 'Record one swing', detail: 'Film a single rep from the side, in good light, with your whole body in frame.' },
+      { title: 'Upload it free', detail: 'Choose your sport and drop in your clip — no special gear and no cost to try.' },
+      { title: 'Get your fix', detail: 'In moments you get a prioritized breakdown led by the one change that helps most.' },
+      { title: 'Keep improving', detail: 'Work the drills, then retest to prove the fix worked.' },
+    ],
+    sections: [
+      { heading: 'What “free” gets you', body: ['A real, full AI analysis of one swing — not a watered-down teaser. You see your top fix, drills, and a plan. Some advanced tools and deeper history are part of a paid plan, but the core experience is genuinely free to try.'] },
+      { heading: 'Why no equipment', body: ['SwingVantage reads your swing from ordinary phone video using AI vision. There is nothing to wear, nothing to calibrate, and no launch monitor required.'] },
+      ACCURACY_SECTION,
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      BEST_VIDEO_FAQ,
+      { q: 'Do I have to pay to see my results?', a: 'No — your core analysis, top fix, and drills are free to view. Paid plans add advanced tools and deeper history.' },
+      { q: 'Which sports are supported?', a: 'Golf, tennis, baseball, softball, pickleball, and padel.' },
+      { q: 'Is it really just my phone?', a: 'Yes. A clear, side-on clip from any modern phone is all you need.' },
+    ],
+    related: ['video', 'diagnose', 'drills', 'golf-swing-analysis'],
+  },
+  fix: {
+    title: 'Your One Fix',
+    lead: 'The single most valuable change for your swing right now — what it is, why it matters, and how to work it.',
+    answer: 'Your “one fix” is the highest-impact change SwingVantage found in your swing. Everything is ranked by impact and this is the top of the list — focus here first, work the drills, and retest before moving on.',
+    seoTitle: 'Your One Fix — Focus on the Change That Matters Most',
+    seoDescription: 'Understand your SwingVantage one fix: the single highest-impact change in your swing, why focusing on one thing works, and how to groove it with drills.',
+    primaryRoute: '/fix',
+    steps: [
+      { title: 'Read your fix', detail: 'Your fix explains what it saw and why it is your biggest opportunity, in plain language.' },
+      { title: 'Understand the why', detail: 'Knowing why the change matters helps you own it instead of copying a tip.' },
+      { title: 'Work the drills', detail: 'Do the matched drills that groove exactly this change.' },
+      { title: 'Retest', detail: 'After a week or two, upload a fresh swing to confirm the fix is moving.' },
+    ],
+    sections: [
+      { heading: 'Why just one fix', body: ['Chasing five changes at once is the fastest way to get worse before you get better. SwingVantage ranks everything by impact and asks you to start with the single most valuable change — that focus is what creates real improvement.'] },
+      { heading: 'From fix to results', body: ['A fix only helps if you work it. Send its drills to your plan so they appear in Today’s Tasks, then retest to see the change. Once it takes hold, your next-priority fix becomes the new focus.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'Why only one fix at a time?', a: 'Because focus creates change. The others are ranked beneath it for when you are ready, but you will improve fastest by grooving one thing first.' },
+      { q: 'How do I know my fix worked?', a: 'Retest. Upload a new swing and SwingVantage compares it to your earlier one so you can see real movement.' },
+      { q: 'Can I see my other issues?', a: 'Yes — your full diagnosis lists everything in priority order beneath your top fix.' },
+    ],
+    related: ['diagnose', 'drills', 'retest', 'progress'],
+  },
+  compare: {
+    title: 'Compare Swings',
+    lead: 'Put two swings side by side — yours then vs. now, or your swing next to a model — to see exactly what changed.',
+    answer: 'Compare lets you view two swings side by side and in sync, so differences jump out. Use it to see your before-and-after on a fix, or to line your swing up against a reference.',
+    seoTitle: 'Compare Swings Side by Side',
+    seoDescription: 'Compare two swings side by side on SwingVantage: your before-and-after on a fix or your swing next to a model, synced so the differences are obvious.',
+    primaryRoute: '/compare',
+    steps: [
+      { title: 'Open Compare', detail: 'Go to /compare and pick the two swings you want to view together.' },
+      { title: 'Sync them up', detail: 'Line the swings up at the same moment so you are comparing like with like.' },
+      { title: 'Spot the difference', detail: 'Watch them together to see exactly what changed in your positions and motion.' },
+      { title: 'Act on it', detail: 'Take what you learn back to your fix and drills, then retest again.' },
+    ],
+    sections: [
+      { heading: 'What Compare is for', body: ['Seeing two swings together makes change obvious in a way a single clip cannot. It is the visual partner to your retest — proof you can actually watch.'] },
+      { heading: 'Ways to use it', body: ['- Your swing before a fix vs. after, to confirm progress.', '- Your swing next to a model move you are working toward.', '- Two of your own swings to check consistency.'] },
+      ACCURACY_SECTION,
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What can I compare?', a: 'Two of your own swings (e.g. before and after a fix), or your swing against a reference, viewed side by side and in sync.' },
+      { q: 'How does this help me improve?', a: 'It turns “I think it changed” into something you can see, which makes the fix concrete and motivating.' },
+      BEST_VIDEO_FAQ,
+    ],
+    related: ['retest', 'progress', 'diagnose', 'motion-lab'],
+  },
+  'motion-lab': {
+    title: 'Motion Lab',
+    lead: 'Go deeper than video — a 3D, frame-by-frame kinematic breakdown of how your body actually moves through the swing.',
+    answer: 'Motion Lab turns your swing into a 3D kinematic model from on-device pose tracking, so you can examine rotation, sequencing, and body positions frame by frame — the analytical deep end of SwingVantage.',
+    seoTitle: 'Motion Lab — 3D Kinematic Swing Analysis',
+    seoDescription: 'Go beyond video with SwingVantage Motion Lab: a 3D, frame-by-frame kinematic breakdown of your swing’s rotation, sequencing, and body positions.',
+    primaryRoute: '/motion-lab',
+    steps: [
+      { title: 'Open Motion Lab', detail: 'Go to /motion-lab — your uploaded swing feeds it automatically, no re-upload.' },
+      { title: 'Step through the motion', detail: 'Scrub frame by frame to see your body positions at each phase of the swing.' },
+      { title: 'Read the kinematics', detail: 'Examine rotation, sequencing, and how your body parts move in relation to each other.' },
+      { title: 'Tie it to your fix', detail: 'Use what you see to reinforce your top fix and the drills that groove it.' },
+    ],
+    sections: [
+      { heading: 'What Motion Lab adds', body: ['Where your written analysis tells you the one thing to fix, Motion Lab lets you see the mechanics behind it in 3D. Pose tracking maps your body and builds a kinematic model you can rotate and step through.'] },
+      { heading: 'Who it’s for', body: ['Players, parents, and coaches who want the detail behind the diagnosis. You do not need it to improve — your one fix is enough — but it is there when you want to dig in.'] },
+      ACCURACY_SECTION,
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'Do I need to upload again for Motion Lab?', a: 'No. One upload feeds your written analysis, your 3D avatar, and Motion Lab together.' },
+      { q: 'Is this a real measurement?', a: 'It is a model built from pose tracking — a sharp, detailed read, but still an estimate from video rather than a lab capture. Use it to understand mechanics, not as a certified number.' },
+      { q: 'Do I need Motion Lab to improve?', a: 'No — your one fix and drills are enough. Motion Lab is for when you want to understand the mechanics in depth.' },
+    ],
+    related: ['avatar', 'diagnose', 'compare', 'video'],
+  },
+  avatar: {
+    title: '3D Swing Avatar',
+    lead: 'See your swing as a 3D skeleton you can rotate — built automatically from your uploaded video.',
+    answer: 'The 3D Swing Avatar renders your swing as a rotatable 3D skeleton from on-device pose tracking. It is created automatically from your upload, so you can view your motion from any angle.',
+    seoTitle: '3D Swing Avatar — See Your Swing in 3D',
+    seoDescription: 'View your swing as a rotatable 3D avatar on SwingVantage, built automatically from your uploaded video so you can see your motion from any angle.',
+    primaryRoute: '/avatar',
+    steps: [
+      { title: 'Open your avatar', detail: 'Go to /avatar — it is generated from your uploaded swing automatically.' },
+      { title: 'Rotate and explore', detail: 'Spin the 3D skeleton to view your swing from angles your camera never caught.' },
+      { title: 'Compare angles', detail: 'See positions face-on, down-the-line, or overhead to understand your motion.' },
+      { title: 'Connect it to your fix', detail: 'Use the angles to reinforce the change your diagnosis identified.' },
+    ],
+    sections: [
+      { heading: 'What the avatar shows', body: ['Your phone films from one angle; the 3D avatar lets you view your swing from any angle by reconstructing your body positions in 3D from pose tracking.'] },
+      { heading: 'One upload, many views', body: ['You do not record anything extra — the avatar is built from the same clip that powers your analysis and Motion Lab.'] },
+      ACCURACY_SECTION,
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'How is the 3D avatar made?', a: 'From pose tracking on your uploaded video — SwingVantage estimates your body positions and renders them as a 3D skeleton.' },
+      { q: 'Do I need a special camera?', a: 'No — a normal phone video is enough. A clear, side-on clip gives the best reconstruction.' },
+      { q: 'Is it exactly accurate?', a: 'It is a faithful estimate from video, not a motion-capture suit. Great for understanding angles, not a certified measurement.' },
+    ],
+    related: ['motion-lab', 'video', 'diagnose'],
+  },
+  bodysync: {
+    title: 'BodySync',
+    lead: 'Connect what your body feels to what your swing does — sync your motion so changes transfer from drill to swing.',
+    answer: 'BodySync helps you link the feel of a movement to the mechanics SwingVantage sees, so the changes you groove in drills actually show up in your full swing.',
+    seoTitle: 'BodySync — Connect Feel to Real Swing Mechanics',
+    seoDescription: 'BodySync on SwingVantage helps you link the feel of a movement to your real swing mechanics, so drill changes transfer into your full swing.',
+    primaryRoute: '/bodysync',
+    steps: [
+      { title: 'Open BodySync', detail: 'Go to /bodysync to work on connecting movement and feel.' },
+      { title: 'Focus on the target motion', detail: 'Work the specific body movement tied to your current fix.' },
+      { title: 'Build the feel', detail: 'Repeat until the movement feels natural, not forced.' },
+      { title: 'Transfer it', detail: 'Take the feel into your full swing, then retest to confirm it carried over.' },
+    ],
+    sections: [
+      { heading: 'Why feel matters', body: ['Most swing changes fail because a drill feel never transfers to the real swing. BodySync is about bridging that gap — connecting the movement you practice to the mechanics that show up on video.'] },
+      { heading: 'How to use it', body: ['- Pair BodySync work with your current fix, not random movements.', '- Go slow first, then add speed.', '- Retest your full swing to confirm the change transferred.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What is BodySync for?', a: 'Helping the changes you feel in a drill actually show up in your full swing, instead of disappearing under speed.' },
+      { q: 'Do I need it?', a: 'It is an aid, not a requirement. Your one fix and drills are the core; BodySync helps the change stick.' },
+    ],
+    related: ['drills', 'diagnose', 'motion-lab', 'retest'],
+  },
+  'record-assist': {
+    title: 'Record Assist',
+    lead: 'Capture a clean swing the first time — on-screen framing, a shake warning, and frame-by-frame review.',
+    answer: 'Record Assist is the in-app recorder that helps you film a usable swing: it guides your framing, warns when the phone is shaky, and lets you review frame by frame before you analyze.',
+    seoTitle: 'Record Assist — Film a Clean Swing Every Time',
+    seoDescription: 'Use Record Assist on SwingVantage to capture a clean swing video: on-screen framing guides, a shake warning, and frame-by-frame review before analysis.',
+    primaryRoute: '/record-assist',
+    steps: [
+      { title: 'Open Record Assist', detail: 'Go to /record-assist (or record from the Upload screen) to film in the app.' },
+      { title: 'Frame with the guides', detail: 'Line your body up inside the on-screen guides so the full swing stays in frame.' },
+      { title: 'Hold steady', detail: 'A shake warning tells you if the phone is moving too much — prop it up for best results.' },
+      { title: 'Review and analyze', detail: 'Step through frame by frame to check the capture, then send it straight to analysis.' },
+    ],
+    sections: [
+      { heading: 'Why it exists', body: ['The single biggest factor in a good analysis is a good video. Record Assist removes the guesswork from filming so your very first capture is clean and usable.'] },
+      { heading: 'What it helps with', body: ['- Framing your whole body and the full swing.', '- Steadiness, via a shake warning.', '- Checking the capture frame by frame before you commit.'] },
+      ACCURACY_SECTION,
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      BEST_VIDEO_FAQ,
+      { q: 'Do I have to record in the app?', a: 'No — you can upload an existing clip too. Record Assist just makes capturing a clean swing easier.' },
+      { q: 'Why does it warn about shaking?', a: 'A shaky clip makes the analysis work harder and can lower accuracy. Propping the phone up fixes it.' },
+    ],
+    related: ['video', 'diagnose', 'avatar'],
+  },
+};
+
+// ── Training, progress & motivation ───────────────────────────
+
+const TRAINING: Record<string, CuratedHelpTopic> = {
+  training: {
+    title: 'Training & Today’s Tasks',
+    lead: 'Turn your fix into a plan you actually follow — a short, daily set of tasks that move your swing forward.',
+    answer: 'Training turns your diagnosis into action. It builds a focused plan around your top fix and surfaces it as Today’s Tasks — a short daily checklist — so practice is purposeful instead of vague.',
+    seoTitle: 'Training & Today’s Tasks — Practice With Purpose',
+    seoDescription: 'Turn your SwingVantage fix into a plan: Training builds focused practice around your top fix and surfaces Today’s Tasks so every session moves you forward.',
+    primaryRoute: '/training',
+    steps: [
+      { title: 'Open Training', detail: 'Go to /training to see your plan built around your current fix.' },
+      { title: 'Do Today’s Tasks', detail: 'Work the short daily checklist — usually a drill or two and a quick action.' },
+      { title: 'Keep the streak', detail: 'Come back regularly; the plan adapts as you progress.' },
+      { title: 'Retest', detail: 'After consistent work, upload a fresh swing to confirm the fix is moving.' },
+    ],
+    sections: [
+      { heading: 'From diagnosis to habit', body: ['Knowing your fix is not the same as fixing it. Training bridges the gap by turning your fix and drills into a doable daily plan so the work actually happens.'] },
+      { heading: 'Your first plan', body: ['If you are brand new, Training starts from a true empty state and fills in once you have a diagnosis — no fake sample routine to confuse you.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What are Today’s Tasks?', a: 'A short daily checklist generated from your plan — the drills and actions that move your current fix forward.' },
+      { q: 'Why is my training empty?', a: 'You have not analyzed a swing yet. Once you have a diagnosis, your plan and Today’s Tasks fill in.' },
+      { q: 'How much should I do?', a: 'A little, consistently. A focused 10–20 minutes beats an occasional marathon.' },
+    ],
+    related: ['diagnose', 'drills', 'practice', 'progress', 'reminders'],
+  },
+  practice: {
+    title: 'Practice',
+    lead: 'Make your practice count — structured sessions built around the fix you are working on.',
+    answer: 'Practice gives your sessions structure: instead of hitting balls aimlessly, you work the drills tied to your fix in a focused, repeatable way that actually transfers to your swing.',
+    seoTitle: 'Practice — Structured Sessions That Transfer',
+    seoDescription: 'Make practice count with SwingVantage: structured sessions built around your current fix and drills, so the work transfers into your real swing.',
+    primaryRoute: '/practice',
+    steps: [
+      { title: 'Open Practice', detail: 'Go to /practice to start a focused session around your current fix.' },
+      { title: 'Work your drills', detail: 'Run the drills matched to your fix with intent, not on autopilot.' },
+      { title: 'Track the session', detail: 'Log what you did so it feeds your progress over time.' },
+      { title: 'Retest', detail: 'Periodically upload a fresh swing to confirm the work is paying off.' },
+    ],
+    sections: [
+      { heading: 'Quality over quantity', body: ['Mindless reps build mindless swings. Practice keeps your sessions focused on the one change that matters, with the drills that groove it.'] },
+      { heading: 'Make it transfer', body: ['- Work one fix at a time.', '- Go slow before fast.', '- Film yourself occasionally to check form.', '- Retest every week or two.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'How is Practice different from Training?', a: 'Training is your overall plan and Today’s Tasks; Practice is the focused session where you do the work.' },
+      { q: 'How often should I practice?', a: 'Consistency beats volume — short, regular, focused sessions transfer best.' },
+    ],
+    related: ['training', 'drills', 'diagnose', 'progress'],
+  },
+  'pre-round': {
+    title: 'Pre-Round Warm-Up',
+    lead: 'Show up ready — a quick, focused routine to warm up your body and your swing before you play.',
+    answer: 'Pre-Round gives you a short warm-up routine to prime your body and groove your current feel before a round or match, so you start sharp instead of finding it on the first few holes.',
+    seoTitle: 'Pre-Round Warm-Up — Start Your Round Ready',
+    seoDescription: 'Warm up the right way with SwingVantage Pre-Round: a quick, focused routine to prime your body and your swing feel before you play.',
+    primaryRoute: '/pre-round',
+    steps: [
+      { title: 'Open Pre-Round', detail: 'Go to /pre-round before you play for a quick warm-up routine.' },
+      { title: 'Loosen up', detail: 'Move through the mobility and rhythm work to wake your body up.' },
+      { title: 'Groove your feel', detail: 'Reinforce the simple swing thought tied to your current fix — one thought, not five.' },
+      { title: 'Go play', detail: 'Trust the warm-up and let the round be about playing, not fixing.' },
+    ],
+    sections: [
+      { heading: 'Why warm up with intent', body: ['Most players waste their warm-up grinding on mechanics. Pre-Round keeps it simple: loosen the body, settle the rhythm, and carry one clear thought into play.'] },
+      { heading: 'Keep it simple on game day', body: ['Game day is for trusting, not tinkering. Save real changes for practice; on the day, warm up and let your one thought do the work.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'Is this only for golf?', a: 'The idea applies to any sport: prime your body, settle your rhythm, and carry one simple thought into play.' },
+      { q: 'How long does it take?', a: 'Short by design — enough to feel ready without tiring you out.' },
+    ],
+    related: ['training', 'mental-performance', 'diagnose'],
+  },
+  progress: {
+    title: 'Progress Tracking',
+    lead: 'See your improvement over time — sessions, retests, and trends that prove the work is paying off.',
+    answer: 'Progress shows your improvement over time by pulling together your sessions and retests, so you can see real trends instead of guessing whether you are getting better.',
+    seoTitle: 'Progress Tracking — See Your Improvement Over Time',
+    seoDescription: 'Track your improvement on SwingVantage: Progress pulls together your sessions and retests so you can see real trends and confirm the work is paying off.',
+    primaryRoute: '/progress',
+    steps: [
+      { title: 'Open Progress', detail: 'Go to /progress to see your trends over time.' },
+      { title: 'Review your retests', detail: 'See how your swing has changed across your retests, not just one snapshot.' },
+      { title: 'Spot the trend', detail: 'Look for the direction of travel — steady improvement matters more than any single session.' },
+      { title: 'Adjust your focus', detail: 'If something has stalled, revisit your fix or drills; if it has improved, move to your next priority.' },
+    ],
+    sections: [
+      { heading: 'Why track progress', body: ['Improvement you cannot see is hard to stick with. Progress makes the trend visible so the work feels worth it and you know what is actually moving.'] },
+      { heading: 'Trends over snapshots', body: ['One swing is noisy; a trend is signal. Progress focuses on the direction of travel across sessions and retests, not a single good or bad day.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'How does Progress measure improvement?', a: 'It uses your sessions and retests over time, so you can see whether your fixes are taking hold.' },
+      { q: 'Why is my progress empty?', a: 'You need at least one analysis — and ideally a retest — before there is a trend to show.' },
+      { q: 'How often should I retest?', a: 'Every week or two. Real change shows up over sessions, not single reps.' },
+    ],
+    related: ['retest', 'diagnose', 'compare', 'reports'],
+  },
+  reports: {
+    title: 'Your Reports',
+    lead: 'Every analysis you have run, saved and easy to revisit — your full swing history in one place.',
+    answer: 'Reports is your archive of every swing analysis you have run. Revisit a past diagnosis, compare it to a newer one, or pick up a fix you started — all tied to your private account.',
+    seoTitle: 'Your Reports — Saved Swing Analyses & History',
+    seoDescription: 'Find every swing analysis you have run on SwingVantage in Reports: revisit past diagnoses, compare them to newer swings, and pick up where you left off.',
+    primaryRoute: '/reports',
+    steps: [
+      { title: 'Open Reports', detail: 'Go to /reports to see every analysis you have run.' },
+      { title: 'Reopen a report', detail: 'Tap any past analysis to revisit its fix, drills, and notes.' },
+      { title: 'Compare over time', detail: 'Line an old report up against a newer one to see what changed.' },
+      { title: 'Manage your data', detail: 'Export or delete reports any time from the Data center.' },
+    ],
+    sections: [
+      { heading: 'Your swing history', body: ['Every analysis is saved so your improvement has a paper trail. Reports is where you revisit past diagnoses and see how far you have come.'] },
+      { heading: 'Tied to your account', body: ['Your reports are private to your account and synced across devices, so they are there whether you are on your phone at the range or a laptop at home.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'Where do my past analyses go?', a: 'They are saved in Reports, tied to your private account and synced across your devices.' },
+      { q: 'Can I delete a report?', a: 'Yes — you can export or delete your reports any time from the Data center.' },
+    ],
+    related: ['diagnose', 'progress', 'compare', 'data'],
+  },
+  journey: {
+    title: 'Your Journey',
+    lead: 'The story of your improvement — milestones, retests, and progress laid out as a timeline.',
+    answer: 'Journey lays out your improvement as a timeline — the swings you analyzed, the fixes you worked, the milestones you hit — so your progress feels like a story you are writing, not a number.',
+    seoTitle: 'Your Journey — Your Improvement Timeline',
+    seoDescription: 'See your improvement as a story on SwingVantage: Journey lays out your analyses, fixes, retests, and milestones as a motivating timeline.',
+    primaryRoute: '/journey',
+    steps: [
+      { title: 'Open Journey', detail: 'Go to /journey to see your improvement timeline.' },
+      { title: 'Scroll your story', detail: 'See the analyses, fixes, and milestones that mark your progress.' },
+      { title: 'Celebrate the wins', detail: 'Notice how far you have come — momentum is motivating.' },
+      { title: 'Keep adding to it', detail: 'Every new analysis and retest writes the next chapter.' },
+    ],
+    sections: [
+      { heading: 'Why a journey', body: ['Improvement is rarely a straight line, and a single score hides the story. Journey shows the whole arc so you can see the trend and stay motivated.'] },
+      { heading: 'What fills it in', body: ['Your analyses, retests, fixes worked, and milestones earned all appear on the timeline as you keep using SwingVantage.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What shows up on my Journey?', a: 'Your analyses, fixes, retests, and milestones, laid out over time.' },
+      { q: 'How do I add to it?', a: 'Keep analyzing and retesting — each one adds to the timeline.' },
+    ],
+    related: ['progress', 'milestones', 'reports', 'diagnose'],
+  },
+  benchmarks: {
+    title: 'Benchmarks',
+    lead: 'See how your swing stacks up against meaningful reference points — context for where you are and where to aim.',
+    answer: 'Benchmarks give your numbers context by comparing them to meaningful reference points, so a result is not just a value but a sense of where you stand and what to aim for next.',
+    seoTitle: 'Benchmarks — Put Your Swing in Context',
+    seoDescription: 'Understand where your swing stands with SwingVantage Benchmarks: compare your results to meaningful reference points so you know what to aim for next.',
+    primaryRoute: '/benchmarks',
+    steps: [
+      { title: 'Open Benchmarks', detail: 'Go to /benchmarks to see your results in context.' },
+      { title: 'Find your reference', detail: 'Compare against the reference points relevant to your level and sport.' },
+      { title: 'Set a target', detail: 'Use the gap to pick a realistic next goal.' },
+      { title: 'Work toward it', detail: 'Tie the target back to your fix and drills, then retest.' },
+    ],
+    sections: [
+      { heading: 'Why context matters', body: ['A number on its own means little. Benchmarks turn it into a sense of where you stand and a realistic target to chase.'] },
+      { heading: 'Honest references', body: ['Benchmarks are labeled for what they are. SwingVantage never invents a comparison — where data is limited, it tells you rather than faking precision.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What do Benchmarks compare against?', a: 'Meaningful reference points for your sport and level, so your results have context.' },
+      { q: 'Are the comparisons exact?', a: 'They are honest reference points, clearly labeled — guidance to aim at, not a certified ranking.' },
+    ],
+    related: ['progress', 'diagnose', 'milestones'],
+  },
+  milestones: {
+    title: 'Milestones',
+    lead: 'Earn meaningful, verifiable milestones as you improve — markers of real progress, not vanity badges.',
+    answer: 'Milestones mark real, verifiable progress on your improvement journey. They celebrate genuine achievements — a fix grooved, a retest improved, a streak kept — so motivation is tied to actual results.',
+    seoTitle: 'Milestones — Mark Your Real Progress',
+    seoDescription: 'Earn meaningful, verifiable milestones on SwingVantage as you improve — markers of real progress like grooving a fix or improving a retest.',
+    primaryRoute: '/milestones',
+    steps: [
+      { title: 'Open Milestones', detail: 'Go to /milestones to see what you have earned and what is next.' },
+      { title: 'See what counts', detail: 'Each milestone is tied to a real, verifiable achievement.' },
+      { title: 'Chase the next one', detail: 'Use upcoming milestones as motivation for your next session.' },
+      { title: 'Keep going', detail: 'Milestones add up as you analyze, work fixes, and retest.' },
+    ],
+    sections: [
+      { heading: 'Real, not vanity', body: ['SwingVantage milestones are tied to genuine progress, not arbitrary points. They mark things that actually reflect improvement, so they mean something.'] },
+      { heading: 'Motivation that lasts', body: ['Seeing the next milestone within reach is a simple, powerful nudge to put in one more focused session.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What earns a milestone?', a: 'Real, verifiable achievements on your journey — like grooving a fix, improving a retest, or keeping a streak.' },
+      { q: 'Are milestones just badges?', a: 'No — they are tied to genuine progress, not vanity points.' },
+    ],
+    related: ['journey', 'progress', 'challenges'],
+  },
+  challenges: {
+    title: 'Challenges',
+    lead: 'Stay consistent with structured challenges — like a 30-day program that keeps you showing up.',
+    answer: 'Challenges give your improvement structure and momentum — time-boxed programs (like a 30-day challenge) that keep you practicing consistently and make progress a habit.',
+    seoTitle: 'Challenges — Stay Consistent & Build the Habit',
+    seoDescription: 'Build a practice habit with SwingVantage Challenges: structured, time-boxed programs like a 30-day challenge that keep you showing up and improving.',
+    primaryRoute: '/challenges',
+    steps: [
+      { title: 'Open Challenges', detail: 'Go to /challenges to find a program that fits your goal.' },
+      { title: 'Join one', detail: 'Pick a challenge — like a 30-day program — and commit to it.' },
+      { title: 'Show up daily', detail: 'Do the day’s task; consistency is the whole point.' },
+      { title: 'Finish and retest', detail: 'Complete the challenge, then retest to see how far you came.' },
+    ],
+    sections: [
+      { heading: 'Why challenges work', body: ['Motivation fades; structure lasts. A challenge gives you a clear daily action and an end date, which is exactly what builds a habit.'] },
+      { heading: 'Consistency beats intensity', body: ['A challenge is not about heroic sessions — it is about showing up regularly, which is what actually changes a swing.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What kinds of challenges are there?', a: 'Structured, time-boxed programs — for example a 30-day challenge — designed to keep you consistent.' },
+      { q: 'Do I need to finish in order?', a: 'Challenges are built to be followed day by day, but the real goal is consistency, not perfection.' },
+    ],
+    related: ['training', 'milestones', 'reminders', 'community'],
+  },
+  reminders: {
+    title: 'Reminders',
+    lead: 'Never lose momentum — gentle reminders to practice, retest, and keep your improvement on track.',
+    answer: 'Reminders keep your improvement from stalling by nudging you at the right time — to do today’s practice, to retest a fix, or to come back after a break — so consistency takes care of itself.',
+    seoTitle: 'Reminders — Keep Your Practice on Track',
+    seoDescription: 'Stay consistent with SwingVantage Reminders: gentle nudges to practice, retest, and keep your improvement on track so you never lose momentum.',
+    primaryRoute: '/reminders',
+    steps: [
+      { title: 'Open Reminders', detail: 'Go to /reminders to set up the nudges that fit your routine.' },
+      { title: 'Pick your cadence', detail: 'Choose when and how often you want to be reminded.' },
+      { title: 'Act on the nudge', detail: 'When a reminder lands, do the short task it points you to.' },
+      { title: 'Adjust as needed', detail: 'Tune the frequency so it helps without nagging.' },
+    ],
+    sections: [
+      { heading: 'Why reminders help', body: ['The hardest part of improving is showing up. A well-timed nudge turns intention into action and keeps your streak alive.'] },
+      { heading: 'Helpful, not noisy', body: ['Reminders are meant to support, not pester — set a cadence that keeps you on track without becoming background noise.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What will reminders nudge me to do?', a: 'Practice today’s tasks, retest a fix, or come back after a break — the things that keep momentum.' },
+      { q: 'Can I change how often I get them?', a: 'Yes — tune the cadence so reminders help rather than nag.' },
+    ],
+    related: ['training', 'challenges', 'settings'],
+  },
+  notes: {
+    title: 'Notes',
+    lead: 'Keep your own swing thoughts, feels, and reminders in one place, tied to your sessions.',
+    answer: 'Notes is your personal swing journal — jot down feels that worked, reminders for next time, or what your coach said, all kept with your sessions so you can find them again.',
+    seoTitle: 'Notes — Your Personal Swing Journal',
+    seoDescription: 'Keep your swing thoughts in one place with SwingVantage Notes: record the feels that worked, reminders, and coach feedback alongside your sessions.',
+    primaryRoute: '/notes',
+    steps: [
+      { title: 'Open Notes', detail: 'Go to /notes to capture a thought any time.' },
+      { title: 'Write the feel', detail: 'Note what worked — the swing thought, the feel, the cue.' },
+      { title: 'Tie it to a session', detail: 'Keep notes with the swing or session they relate to so they have context.' },
+      { title: 'Revisit before you play', detail: 'Skim your notes to carry the right thought into practice or a round.' },
+    ],
+    sections: [
+      { heading: 'Why keep notes', body: ['The feel that fixed your swing on Tuesday is easy to forget by Saturday. Notes keeps your best cues and reminders where you can find them.'] },
+      { heading: 'Make them useful', body: ['- Keep notes short and specific.', '- Capture feels, not just mechanics.', '- Revisit them before you practice or play.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What should I put in Notes?', a: 'Swing thoughts and feels that worked, reminders for next time, or feedback from a coach.' },
+      { q: 'Are my notes private?', a: 'Yes — they are tied to your private account and synced across your devices.' },
+    ],
+    related: ['diagnose', 'reports', 'mental'],
+  },
+};
+
+// ── Mind & knowledge ──────────────────────────────────────────
+
+const MIND: Record<string, CuratedHelpTopic> = {
+  mental: {
+    title: 'Mental Journal',
+    lead: 'Train the mental side — a journal to process rounds, nerves, and confidence so your head helps your game.',
+    answer: 'The Mental Journal is where you work on the inner game: reflect on a round or match, process nerves, and build confidence, so your mind becomes an asset instead of an obstacle.',
+    seoTitle: 'Mental Journal — Train the Inner Game',
+    seoDescription: 'Train the mental side of your sport with the SwingVantage Mental Journal: reflect on rounds, process nerves, and build confidence so your head helps your game.',
+    primaryRoute: '/mental/journal',
+    steps: [
+      { title: 'Open the Mental Journal', detail: 'Go to /mental/journal to reflect after a round, match, or practice.' },
+      { title: 'Write it out', detail: 'Capture what happened, how you felt, and what you noticed about your mindset.' },
+      { title: 'Find the pattern', detail: 'Over time, see what triggers nerves or confidence so you can prepare for it.' },
+      { title: 'Carry the lesson', detail: 'Take what you learn into your next pre-round routine and your play.' },
+    ],
+    sections: [
+      { heading: 'Why the mental game', body: ['Technique gets you to the shot; your mind decides what you do with it. Journaling builds self-awareness and resilience that show up under pressure.'] },
+      { heading: 'How to use it', body: ['- Write soon after you play, while it is fresh.', '- Be honest about feelings, not just outcomes.', '- Look for patterns over weeks, not days.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What do I write about?', a: 'How you felt and thought during a round or match — nerves, confidence, focus — not just your scores.' },
+      { q: 'Is this private?', a: 'Yes — your journal is tied to your private account and synced across devices.' },
+    ],
+    related: ['mental-performance', 'pre-round', 'notes'],
+  },
+  'mental-performance': {
+    title: 'Mental Performance',
+    lead: 'Sport-and-situation-specific mental coaching — handle first-tee nerves, big points, and pressure moments.',
+    answer: 'Mental Performance gives you targeted guidance for the moments that matter — first-tee nerves, a big point, closing out a match — tailored to your sport and the situation, so you perform when it counts.',
+    seoTitle: 'Mental Performance — Coaching for Pressure Moments',
+    seoDescription: 'Handle pressure with SwingVantage Mental Performance: sport- and situation-specific mental coaching for first-tee nerves, big points, and closing moments.',
+    primaryRoute: '/mental-performance',
+    steps: [
+      { title: 'Open Mental Performance', detail: 'Go to /mental-performance and pick your sport and the situation you want help with.' },
+      { title: 'Get targeted guidance', detail: 'Receive practical mental tools tuned to that exact moment, not generic advice.' },
+      { title: 'Practice the routine', detail: 'Rehearse the routine so it is automatic when the pressure is real.' },
+      { title: 'Reflect afterward', detail: 'Use the Mental Journal to process how it went and refine your approach.' },
+    ],
+    sections: [
+      { heading: 'Why situation-specific', body: ['First-tee nerves are not the same as closing out a match. Mental Performance meets you in the exact moment with tools that fit it.'] },
+      { heading: 'Build a pressure routine', body: ['The players who handle pressure best rely on a routine, not willpower. This helps you build one you can trust.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What situations does it cover?', a: 'Pressure moments specific to your sport — first-tee nerves, big points, closing out, recovering from a mistake, and more.' },
+      { q: 'Is this a replacement for a sports psychologist?', a: 'No — it is practical mental-skills guidance you can use any time. For deeper work, a qualified professional adds personal support.' },
+    ],
+    related: ['mental', 'pre-round', 'ai-coach'],
+  },
+  glossary: {
+    title: 'Glossary',
+    lead: 'Plain-language definitions for the swing, sport, and analysis terms you will see across SwingVantage.',
+    answer: 'The Glossary explains the terms used across SwingVantage and your sport in plain language, so a word in your diagnosis never leaves you guessing.',
+    seoTitle: 'Glossary — Swing & Analysis Terms Explained',
+    seoDescription: 'Look up swing, sport, and analysis terms in plain language with the SwingVantage Glossary, so nothing in your diagnosis leaves you guessing.',
+    primaryRoute: '/glossary',
+    steps: [
+      { title: 'Open the Glossary', detail: 'Go to /glossary to look up any term.' },
+      { title: 'Find your term', detail: 'Search or browse for the word you saw in your diagnosis or drills.' },
+      { title: 'Read the plain-language definition', detail: 'Get a clear explanation without jargon.' },
+      { title: 'Go deeper', detail: 'Follow links to related guides when you want more than a definition.' },
+    ],
+    sections: [
+      { heading: 'Why a glossary', body: ['Good coaching is clear coaching. The Glossary makes sure the language in your diagnosis and drills is something you actually understand.'] },
+      { heading: 'Built for every sport', body: ['It covers swing and analysis terms across golf, tennis, baseball, softball, pickleball, and padel.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What does the Glossary cover?', a: 'Swing, sport, and analysis terms used across SwingVantage, explained in plain language.' },
+      { q: 'Where do I see these terms?', a: 'In your diagnosis, drills, and reports — the Glossary is there whenever a word is unfamiliar.' },
+    ],
+    related: ['diagnose', 'training', 'equipment'],
+  },
+  equipment: {
+    title: 'Equipment',
+    lead: 'Honest, practical guidance on the gear that actually matters — and what you can safely ignore.',
+    answer: 'Equipment gives you practical, honest guidance on the gear for your sport — what actually helps your game, what is optional, and how to spend wisely instead of chasing marketing.',
+    seoTitle: 'Equipment — Honest Gear Guidance',
+    seoDescription: 'Get honest, practical equipment guidance on SwingVantage: what gear actually matters for your sport, what is optional, and how to spend wisely.',
+    primaryRoute: '/equipment',
+    steps: [
+      { title: 'Open Equipment', detail: 'Go to /equipment for guidance relevant to your sport.' },
+      { title: 'Focus on what matters', detail: 'See which gear actually affects your game versus what is nice-to-have.' },
+      { title: 'Match gear to your level', detail: 'Pick equipment that fits where you are, not where the marketing says you should be.' },
+      { title: 'Get back to the swing', detail: 'Remember: gear helps at the margins; your swing is the main event.' },
+    ],
+    sections: [
+      { heading: 'Gear that helps vs. hype', body: ['The right equipment can help, but most improvement comes from your swing, not your wallet. Equipment guidance keeps the focus honest.'] },
+      { heading: 'Spend wisely', body: ['- Prioritize fit and basics over the latest model.', '- Match gear to your level and goals.', '- Do not let equipment become an excuse to skip practice.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'Will better equipment fix my swing?', a: 'Rarely. Gear helps at the margins; the biggest gains come from working your fix. Equipment guidance helps you spend where it counts.' },
+      { q: 'Is the advice tied to brands?', a: 'The focus is honest, practical guidance on what matters for your game, not pushing specific products.' },
+    ],
+    related: ['diagnose', 'glossary', 'golf'],
+  },
+};
+
+// ── People & accounts ─────────────────────────────────────────
+
+const ACCOUNTS: Record<string, CuratedHelpTopic> = {
+  coaches: {
+    title: 'SwingVantage for Coaches',
+    lead: 'Give every athlete consistent, on-demand analysis and drills — a force multiplier for your coaching.',
+    answer: 'For coaches, SwingVantage is a force multiplier: athletes get instant, consistent AI analysis and matched drills between sessions, so your in-person time goes further and your feedback is reinforced.',
+    seoTitle: 'SwingVantage for Coaches — Scale Your Coaching',
+    seoDescription: 'Coaches use SwingVantage to give every athlete consistent, on-demand AI swing analysis and drills between sessions — making in-person coaching time count.',
+    primaryRoute: '/coaches',
+    steps: [
+      { title: 'Open the Coaches page', detail: 'Go to /coaches to see how SwingVantage fits your coaching.' },
+      { title: 'Get athletes analyzing', detail: 'Have your athletes upload swings so they arrive to sessions already informed.' },
+      { title: 'Reinforce between sessions', detail: 'Use the matched drills and reports so your feedback sticks when you are not there.' },
+      { title: 'Track progress', detail: 'Lean on retests and progress to keep athletes accountable.' },
+    ],
+    sections: [
+      { heading: 'A second set of eyes', body: ['SwingVantage gives your athletes a consistent, instant read any time — reinforcing your message and keeping them working between sessions instead of forgetting it.'] },
+      { heading: 'It complements you, not replaces you', body: ['The AI handles consistency and reps; you bring the human feel, accountability, and relationship. Together they beat either alone.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'Does this replace coaching?', a: 'No — it amplifies it. Athletes get consistent analysis and drills between sessions so your in-person time goes further.' },
+      { q: 'How do my athletes use it?', a: 'They upload swings, get a prioritized fix and drills, and retest — and you reinforce it in person.' },
+    ],
+    related: ['teams', 'parents', 'recruiting', 'diagnose'],
+  },
+  parents: {
+    title: 'SwingVantage for Parents',
+    lead: 'Support your young athlete with honest, encouraging feedback — without needing to be the expert.',
+    answer: 'For parents, SwingVantage makes it easy to support a young athlete: clear, encouraging, honest analysis and drills you can do together, with privacy-first handling of your child’s data.',
+    seoTitle: 'SwingVantage for Parents — Support Your Young Athlete',
+    seoDescription: 'Parents use SwingVantage to support a young athlete with honest, encouraging AI swing feedback and drills — no expertise required, privacy-first.',
+    primaryRoute: '/parents',
+    steps: [
+      { title: 'Open the Parents page', detail: 'Go to /parents to see how to support your athlete.' },
+      { title: 'Film a swing together', detail: 'Capture a clear clip — it can be a fun, low-pressure activity.' },
+      { title: 'Read it together', detail: 'Focus on the one fix and the encouraging, plain-language explanation.' },
+      { title: 'Practice the drills', detail: 'Do the matched drills together and retest to celebrate progress.' },
+    ],
+    sections: [
+      { heading: 'You don’t need to be the expert', body: ['SwingVantage gives you the coaching knowledge so you can focus on support and encouragement. The one-fix-first approach keeps it simple and positive.'] },
+      { heading: 'Privacy for young athletes', body: ['Your child’s data is handled privately, tied to your account, never sold, and removable from the Data center. Guardian consent flows are built in where appropriate.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'Do I need to know the sport?', a: 'No. SwingVantage explains the one fix in plain language and gives you drills to do together — you bring the encouragement.' },
+      { q: 'Is my child’s data safe?', a: 'Yes — it is private to your account, never sold, and you can delete it any time from the Data center.' },
+    ],
+    related: ['coaches', 'diagnose', 'drills', 'data'],
+  },
+  teams: {
+    title: 'SwingVantage for Teams',
+    lead: 'Bring consistent analysis and progress tracking to a whole roster — every athlete improving on the same system.',
+    answer: 'For teams and programs, SwingVantage brings every athlete onto one consistent system of analysis, drills, and progress tracking — so coaches can scale their attention and athletes improve together.',
+    seoTitle: 'SwingVantage for Teams — One System for Your Roster',
+    seoDescription: 'Teams and programs use SwingVantage to give every athlete consistent AI analysis, drills, and progress tracking on one system, so coaching scales.',
+    primaryRoute: '/teams',
+    steps: [
+      { title: 'Open the Teams page', detail: 'Go to /teams to see how SwingVantage fits a roster.' },
+      { title: 'Onboard your athletes', detail: 'Get everyone analyzing swings on the same consistent system.' },
+      { title: 'Standardize the work', detail: 'Use matched drills and plans so the whole roster trains with purpose.' },
+      { title: 'Track the program', detail: 'Lean on progress and retests to see who is improving and where to focus.' },
+    ],
+    sections: [
+      { heading: 'Consistency at scale', body: ['One coach cannot give every athlete daily feedback. SwingVantage makes consistent analysis available to the whole roster, so your attention goes where it is needed most.'] },
+      { heading: 'Everyone on the same page', body: ['Shared language, shared drills, and shared progress tracking make a program easier to run and easier for athletes to buy into.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'How does this help a team?', a: 'Every athlete gets consistent analysis and drills, and coaches get progress tracking across the roster — so coaching scales.' },
+      { q: 'Is it the same as the coaches tools?', a: 'It builds on them for a whole roster rather than individual athletes. See the Coaches guide for the one-on-one view.' },
+    ],
+    related: ['team', 'coaches', 'recruiting', 'community'],
+  },
+  team: {
+    title: 'Your Team',
+    lead: 'Your team space on SwingVantage — roster, shared progress, and the tools to train together.',
+    answer: 'The Team area is your team’s home on SwingVantage: see your roster, shared progress, and the tools that let athletes and coaches train on one consistent system.',
+    seoTitle: 'Your Team on SwingVantage',
+    seoDescription: 'Manage your team on SwingVantage: roster, shared progress, and tools for athletes and coaches to train together on one consistent system.',
+    primaryRoute: '/team',
+    steps: [
+      { title: 'Open your Team', detail: 'Go to /team to see your roster and shared progress.' },
+      { title: 'Check in on athletes', detail: 'See who is analyzing, working their fix, and retesting.' },
+      { title: 'Keep everyone aligned', detail: 'Use shared drills and plans so the team trains with one approach.' },
+      { title: 'Celebrate progress', detail: 'Surface wins and milestones to keep the group motivated.' },
+    ],
+    sections: [
+      { heading: 'Your team’s home base', body: ['The Team area keeps your roster and shared progress in one place, so coaches and athletes are always on the same page.'] },
+      { heading: 'Train together', body: ['Shared language, drills, and progress make team practice more focused and accountability easier.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What’s in the Team area?', a: 'Your roster, shared progress, and tools for training together on one system.' },
+      { q: 'How is this different from Teams?', a: 'The Teams page explains the program offering; your Team is your actual team space inside SwingVantage.' },
+    ],
+    related: ['teams', 'coaches', 'community', 'progress'],
+  },
+  recruiting: {
+    title: 'Recruiting',
+    lead: 'Help athletes get seen — turn analysis and progress into shareable evidence for the next level.',
+    answer: 'Recruiting helps athletes present their game with evidence — progress, analysis, and shareable highlights — so the work they put in is visible to coaches and programs at the next level.',
+    seoTitle: 'Recruiting — Help Athletes Get Seen',
+    seoDescription: 'SwingVantage Recruiting helps athletes turn their analysis and progress into shareable evidence for the next level, so the work they put in gets seen.',
+    primaryRoute: '/recruiting',
+    steps: [
+      { title: 'Open Recruiting', detail: 'Go to /recruiting to see how to present your game.' },
+      { title: 'Build your evidence', detail: 'Use your analyses and progress to show genuine, tracked improvement.' },
+      { title: 'Share with the right people', detail: 'Turn it into something you can share with coaches and programs.' },
+      { title: 'Keep improving', detail: 'The best recruiting story is real progress — keep analyzing and retesting.' },
+    ],
+    sections: [
+      { heading: 'Show the work, not just the highlight', body: ['Recruiters value trajectory. Progress and analysis turn your improvement into evidence, not just a highlight reel.'] },
+      { heading: 'Honest by design', body: ['Everything is grounded in your real sessions. SwingVantage never fabricates numbers — your story stands on genuine data.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'How does Recruiting help me get seen?', a: 'It turns your real analysis and tracked progress into shareable evidence of improvement for coaches and programs.' },
+      { q: 'Is the data real?', a: 'Yes — it is grounded in your actual sessions. SwingVantage never invents metrics.' },
+    ],
+    related: ['progress', 'coaches', 'teams', 'reports'],
+  },
+  community: {
+    title: 'Community',
+    lead: 'Stay motivated with others on the same journey — badges, shared milestones, and encouragement.',
+    answer: 'Community connects you with others working to improve, with badges and shared milestones that make the journey more motivating and less solitary.',
+    seoTitle: 'Community — Improve Alongside Others',
+    seoDescription: 'Stay motivated with the SwingVantage Community: earn badges, share milestones, and improve alongside others on the same journey.',
+    primaryRoute: '/community',
+    steps: [
+      { title: 'Open Community', detail: 'Go to /community to see badges and shared milestones.' },
+      { title: 'Earn your badges', detail: 'Pick up badges as you analyze, work fixes, and keep streaks.' },
+      { title: 'Share milestones', detail: 'Celebrate progress with others on the same path.' },
+      { title: 'Stay consistent', detail: 'Use the encouragement to keep showing up.' },
+    ],
+    sections: [
+      { heading: 'Why community helps', body: ['Improving alongside others is more motivating than going it alone. Badges and shared milestones add encouragement and a sense of momentum.'] },
+      { heading: 'Real progress, celebrated', body: ['Community recognition is tied to genuine effort and milestones, so it actually means something.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What’s in the Community?', a: 'Badges, shared milestones, and encouragement from others on the same improvement journey.' },
+      { q: 'Do I have to share anything?', a: 'You control what you share. Your sessions stay private to your account unless you choose otherwise.' },
+    ],
+    related: ['milestones', 'challenges', 'journey'],
+  },
+  profile: {
+    title: 'Your Profile',
+    lead: 'Your sport, your goals, and your details — the settings that make your analysis and plan fit you.',
+    answer: 'Your Profile holds your sport, goals, and details so SwingVantage can tailor your analysis, drills, and plan to you. Keeping it current keeps your experience accurate.',
+    seoTitle: 'Your Profile — Personalize Your Experience',
+    seoDescription: 'Set up your SwingVantage profile — your sport, goals, and details — so your analysis, drills, and plan are tailored to you.',
+    primaryRoute: '/profile',
+    steps: [
+      { title: 'Open your Profile', detail: 'Go to /profile to set your sport, goals, and details.' },
+      { title: 'Set your sport', detail: 'Choose your primary sport so analysis is tuned to your game.' },
+      { title: 'Add your goals', detail: 'Tell SwingVantage what you are working toward so guidance fits.' },
+      { title: 'Keep it current', detail: 'Update it as your game and goals evolve.' },
+    ],
+    sections: [
+      { heading: 'Why your profile matters', body: ['Your profile is how SwingVantage tailors your experience — the more accurate it is, the more your analysis, drills, and plan fit you.'] },
+      { heading: 'Yours to control', body: ['Your details are private to your account and editable any time, with full data control in the Data center.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'Why set up a profile?', a: 'So your analysis, drills, and plan are tailored to your sport and goals.' },
+      { q: 'Can I change my sport later?', a: 'Yes — update your profile any time as your focus changes.' },
+    ],
+    related: ['settings', 'data', 'dashboard'],
+  },
+  settings: {
+    title: 'Settings',
+    lead: 'Control your account, notifications, privacy, and preferences — SwingVantage your way.',
+    answer: 'Settings is where you control your account, notifications, privacy, and preferences, so SwingVantage works the way you want it to.',
+    seoTitle: 'Settings — Control Your Account & Preferences',
+    seoDescription: 'Manage your SwingVantage account, notifications, privacy, and preferences in Settings, so the app works exactly the way you want.',
+    primaryRoute: '/settings',
+    steps: [
+      { title: 'Open Settings', detail: 'Go to /settings to manage your account and preferences.' },
+      { title: 'Tune notifications', detail: 'Choose what you hear about and how often, including reminders.' },
+      { title: 'Check privacy', detail: 'Review your privacy and data preferences.' },
+      { title: 'Set preferences', detail: 'Adjust the app to suit how you like to work.' },
+    ],
+    sections: [
+      { heading: 'Make it yours', body: ['Settings puts you in control — notifications, privacy, and preferences are all yours to adjust.'] },
+      { heading: 'Privacy front and center', body: ['Manage your data and privacy choices here, with full export and delete available in the Data center.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What can I change in Settings?', a: 'Your account, notifications, privacy preferences, and how the app behaves.' },
+      { q: 'Where do I manage my data?', a: 'In the Data center, where you can export or delete your information.' },
+    ],
+    related: ['profile', 'data', 'reminders'],
+  },
+  data: {
+    title: 'Your Data',
+    lead: 'Full control of your information — view, export, or delete everything you have created, any time.',
+    answer: 'The Data center gives you full control of your information: see what SwingVantage holds, export it, or delete it. Your data is private to your account, never sold, and never used for ads.',
+    seoTitle: 'Your Data — View, Export & Delete Anytime',
+    seoDescription: 'Take control of your information in the SwingVantage Data center: view, export, or delete everything you have created. Private, never sold, no ads.',
+    primaryRoute: '/data',
+    steps: [
+      { title: 'Open the Data center', detail: 'Go to /data to see and manage your information.' },
+      { title: 'Review what’s there', detail: 'See the sessions, reports, and details tied to your account.' },
+      { title: 'Export if you want', detail: 'Download your data whenever you need a copy.' },
+      { title: 'Delete on your terms', detail: 'Remove sessions or your data entirely — your choice, any time.' },
+    ],
+    sections: [
+      { heading: 'Your data, your control', body: ['Everything you create is tied to your private account. The Data center lets you view, export, or delete it whenever you want.'] },
+      { heading: 'Private by principle', body: ['We do not sell your data and we do not run ads. Frames from your swings are sent securely to our AI provider to generate your report — and nothing more.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'Can I delete my data?', a: 'Yes — you can delete sessions or your data entirely from the Data center, any time.' },
+      { q: 'Do you sell my data?', a: 'No. We do not sell your data and we do not run ads.' },
+      { q: 'What happens to my swing videos?', a: 'Frames are sent securely to our AI provider to generate your report. You can remove your sessions whenever you like.' },
+    ],
+    related: ['settings', 'profile', 'reports'],
+  },
+  sessions: {
+    title: 'Sessions & Importing',
+    lead: 'Every swing you analyze is a session — and you can bring in past data, including from images.',
+    answer: 'Sessions are the record of each swing you analyze. You can also import past data — including from images — so your history and progress reflect more than just what you film today.',
+    seoTitle: 'Sessions & Importing Your Data',
+    seoDescription: 'Understand sessions on SwingVantage and import past data — including from images — so your history and progress reflect your full picture.',
+    primaryRoute: '/sessions',
+    steps: [
+      { title: 'Open Sessions', detail: 'Go to /sessions to see your analyzed swings and import options.' },
+      { title: 'Review your history', detail: 'Each session holds the analysis, fix, and notes for that swing.' },
+      { title: 'Import past data', detail: 'Bring in earlier data, including from images, to enrich your history.' },
+      { title: 'Track progress', detail: 'A fuller history means more meaningful progress and benchmarks.' },
+    ],
+    sections: [
+      { heading: 'What a session is', body: ['Every time you analyze a swing, it becomes a session — a saved record of the analysis, your fix, and any notes, tied to your account.'] },
+      { heading: 'Bring in your history', body: ['Importing past data — including from images — lets your progress and benchmarks reflect your full journey, not just today.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What counts as a session?', a: 'Each swing you analyze becomes a session with its analysis, fix, and notes saved to your account.' },
+      { q: 'Can I import old data?', a: 'Yes — you can import past data, including from images, to enrich your history and progress.' },
+    ],
+    related: ['reports', 'progress', 'data', 'video'],
+  },
+  library: {
+    title: 'Video Library',
+    lead: 'A library of tutorials and walkthroughs — watch how to use SwingVantage and how to groove your fixes.',
+    answer: 'The Video Library is a collection of tutorials and walkthroughs: how to use SwingVantage, how to film a great swing, and how to work the drills behind your fixes.',
+    seoTitle: 'Video Library — Tutorials & Walkthroughs',
+    seoDescription: 'Browse the SwingVantage Video Library: tutorials and walkthroughs on using the app, filming a great swing, and grooving the drills behind your fixes.',
+    primaryRoute: '/library',
+    steps: [
+      { title: 'Open the Library', detail: 'Go to /library to browse tutorials and walkthroughs.' },
+      { title: 'Find what you need', detail: 'Look for how-to videos on the feature or drill you are working on.' },
+      { title: 'Watch and apply', detail: 'See the technique in motion, then try it yourself.' },
+      { title: 'Pair it with your fix', detail: 'Use videos to reinforce the drills behind your current fix.' },
+    ],
+    sections: [
+      { heading: 'See it in motion', body: ['Some things are easier to watch than to read. The Video Library shows you how to use SwingVantage and how to groove your fixes, step by step.'] },
+      { heading: 'Tutorials that match your work', body: ['Browse walkthroughs tied to features and drills so the video you watch supports what you are actually working on.'] },
+      PRIVACY_SECTION,
+    ],
+    faqs: [
+      { q: 'What’s in the Video Library?', a: 'Tutorials and walkthroughs on using SwingVantage, filming a great swing, and working the drills behind your fixes.' },
+      { q: 'Is it the same as Learn?', a: 'The Library is video walkthroughs; the Learn area and Help Center add written guides and concepts.' },
+    ],
+    related: ['drills', 'video', 'diagnose'],
+  },
+};
+
 /** All curated guides, keyed by slug. */
-export const CURATED_HELP: Record<string, CuratedHelpTopic> = { ...SPORTS, ...CORE };
+export const CURATED_HELP: Record<string, CuratedHelpTopic> = {
+  ...SPORTS,
+  ...CORE,
+  ...SPORT_HUBS,
+  ...TECHNIQUE,
+  ...ANALYSIS,
+  ...TRAINING,
+  ...MIND,
+  ...ACCOUNTS,
+};
 
 // ── Public allowlist ──────────────────────────────────────────
 // The slugs that are REAL user features and belong in the indexed Help

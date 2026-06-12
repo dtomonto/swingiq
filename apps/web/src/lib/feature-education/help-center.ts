@@ -188,6 +188,23 @@ function buildTopic(slug: string, all: EducationAsset[]): HelpTopic | null {
   return mergeCurated(generated, CURATED_HELP[slug]);
 }
 
+/** A minimal topic skeleton for a curated-only slug (no seed assets). */
+function emptyBase(slug: string): HelpTopic {
+  const isAdmin = slug.startsWith('admin-');
+  return {
+    slug,
+    title: humanize(slug),
+    lead: '',
+    isAdmin,
+    steps: [],
+    sections: [],
+    faqs: [],
+    related: [],
+    curated: false,
+    indexable: isPublicHelpSlug(slug) && !isAdmin,
+  };
+}
+
 /** Overlay a hand-authored curated guide onto the generated baseline. */
 function mergeCurated(base: HelpTopic, curated: CuratedHelpTopic | undefined): HelpTopic {
   if (!curated) return base;
@@ -221,6 +238,12 @@ const TOPICS_BY_SLUG: Map<string, HelpTopic> = (() => {
   for (const [slug, assets] of grouped) {
     const topic = buildTopic(slug, assets);
     if (topic) out.set(slug, topic);
+  }
+  // Curated guides are self-sufficient: a hand-authored topic must render even
+  // if the generated seed has no (published, public-safe) assets for its slug —
+  // so a seed regeneration can never silently drop a curated public guide.
+  for (const slug of Object.keys(CURATED_HELP)) {
+    if (!out.has(slug)) out.set(slug, mergeCurated(emptyBase(slug), CURATED_HELP[slug]));
   }
   return out;
 })();

@@ -201,6 +201,9 @@ export interface CoachingRecommendation {
   explanation: string[];
   /** Sport-specific cues (rotational load, shoulder/elbow, walking fatigue…). */
   sportNotes: string[];
+  /** P11: an estimate-labelled emphasis from recent Motion Lab repeatability
+   *  (null when there isn't enough motion data or the motion is already solid). */
+  motionEmphasis?: string | null;
 }
 
 // ── Insights / correlations ──────────────────────────────────

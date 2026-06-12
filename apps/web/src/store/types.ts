@@ -7,7 +7,7 @@
 // ============================================================
 
 import type { StateCreator } from 'zustand';
-import type { GolferProfileInput, Shot, DiagnosisOutput } from '@swingiq/core';
+import type { GolferProfileInput, Shot, DiagnosisOutput, AIVisualAnalysis } from '@swingiq/core';
 import type { SportId } from '@swingiq/core';
 import type { LanguageCode } from '@/lib/i18n';
 import type { ThemeId } from '@/lib/theme/themes';
@@ -88,6 +88,15 @@ export interface LocalVideoAnalysis {
   phases_count: number;
   issues_count: number;
   primary_issue: string | null;
+  /**
+   * The full validated AI analysis for this swing, when available. Optional so
+   * older rows / metadata-only records stay valid. Persisted on the profile
+   * (Supabase `video_analyses.analysis` jsonb) so the complete historical data
+   * pulled from a swing survives across devices — not just its summary. The
+   * device-local rich cache (lib/video/history.ts) is a separate, capped copy
+   * used for compare/retest/replay.
+   */
+  analysis?: AIVisualAnalysis | null;
   created_at: string;
 }
 

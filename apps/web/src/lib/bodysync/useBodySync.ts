@@ -18,6 +18,7 @@ import { DEFAULT_BODYSYNC_STATE } from './constants';
 import { assessReadiness } from './scoring';
 import { buildRecommendation } from './coaching';
 import { generateInsights, type PerformancePoint } from './insights';
+import { sessionsFor, computeRepeatability } from '@/lib/motion-lab';
 import {
   read, subscribe, todayKey, saveCheckin, deleteCheckin, setPermissions,
   setSettings, consent, setBaselines, upsertConnection, disconnectProvider,
@@ -66,9 +67,17 @@ export function useBodySync(performance: PerformancePoint[] = []): UseBodySync {
     return assessReadiness({ today, history, samples, baselines: state.baselines }, todayKey());
   }, [state.settings.enabled, today, history, samples, state.baselines]);
 
+  // P11: recent Motion Lab repeatability for this sport feeds an honest,
+  // estimate-labelled coaching emphasis. Reads the on-device session history;
+  // null/insufficient data simply yields no nudge.
+  const motion = useMemo(
+    () => computeRepeatability(sessionsFor(activeSport)),
+    [activeSport],
+  );
+
   const recommendation = useMemo<CoachingRecommendation | null>(
-    () => (assessment ? buildRecommendation(assessment, activeSport, today) : null),
-    [assessment, activeSport, today],
+    () => (assessment ? buildRecommendation(assessment, activeSport, today, motion) : null),
+    [assessment, activeSport, today, motion],
   );
 
   const insights = useMemo<HealthInsight[]>(

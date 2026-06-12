@@ -234,6 +234,10 @@ create table public.video_analyses (
   phases_count  integer not null default 0,
   issues_count  integer not null default 0,
   primary_issue text,
+  -- Full validated AI analysis for the swing (durable per-profile history, not
+  -- just summary metadata). Nullable: metadata-only rows stay valid. The raw
+  -- swing video is never stored — frames are processed on-device.
+  analysis      jsonb,
   created_at    text not null default ''
 );
 

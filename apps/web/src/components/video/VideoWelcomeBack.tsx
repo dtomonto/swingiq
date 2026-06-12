@@ -10,8 +10,9 @@
 // owns loading and state so deletes re-render correctly.
 // ============================================================
 
-import { History, Download, Trash2, RefreshCw } from 'lucide-react';
+import { History, Download, Trash2, RefreshCw, RotateCcw } from 'lucide-react';
 import type { SavedVideoAnalysis } from '@/lib/video/history';
+import type { RetestTarget } from '@/lib/retest';
 import { cn } from '@/lib/utils';
 
 function confidenceLabel(score: number): 'High' | 'Medium' | 'Low' {
@@ -39,6 +40,12 @@ interface VideoWelcomeBackProps {
   onCompareChange: (enabled: boolean) => void;
   onExport: (record: SavedVideoAnalysis) => void;
   onDelete: (id: string) => void;
+  /**
+   * An open due/overdue retest for this sport, if any. When present, this is a
+   * retest of an outstanding finding: we surface a banner and "compare" is on
+   * by default so SwingVantage can show whether it actually changed.
+   */
+  retestTarget?: RetestTarget | null;
   className?: string;
 }
 
@@ -49,12 +56,37 @@ export function VideoWelcomeBack({
   onCompareChange,
   onExport,
   onDelete,
+  retestTarget,
   className,
 }: VideoWelcomeBackProps) {
   if (!latest) return null;
 
   return (
     <div className={cn('space-y-3', className)}>
+      {/* Retest detected — this upload answers an outstanding finding. */}
+      {retestTarget && (
+        <div className="rounded-xl border border-accent-secondary/40 bg-accent-secondary/10 p-4">
+          <div className="flex items-start gap-3">
+            <RotateCcw className="w-5 h-5 shrink-0 text-accent-secondary mt-0.5" aria-hidden />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-foreground">
+                Retest detected · {retestTarget.status.label}
+              </p>
+              <p className="text-sm text-muted-foreground mt-0.5">
+                This looks like a retest of{' '}
+                <span className="font-semibold text-foreground">{retestTarget.focus}</span> from{' '}
+                {formatDate(retestTarget.window.diagnosedAt)}. We&apos;ve turned on{' '}
+                <span className="font-medium text-foreground">compare</span> so we can show whether it
+                changed.
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                For a fair read, film from the same angle, distance, and equipment as last time.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Welcome back */}
       <div className="rounded-xl border border-primary/30 bg-primary/10 p-4">
         <div className="flex items-start gap-3">

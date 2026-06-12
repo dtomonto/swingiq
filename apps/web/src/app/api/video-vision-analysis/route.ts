@@ -33,6 +33,7 @@ import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
 import { recordAiCall } from '@/lib/ai/ai-ops/call-log';
 import type { AiProviderName } from '@/lib/ai/ai-ops/schemas';
+import { logServerAnalysisFailure } from '@/lib/reliability-os/ingest.server';
 
 /** Map an orchestrator provider name onto the vision provider's env value. */
 function toVisionProviderEnv(p: AiProviderName): string {
@@ -221,6 +222,15 @@ export async function POST(req: NextRequest) {
   if (!outcome.ok) {
     // Developer-safe diagnostic; the client shows a clean retry-able error.
     console.error('[video-vision-analysis] analysis failed:', outcome.error);
+    // Make the server-side failure visible in ReliabilityOS so admins see when
+    // analysis is breaking even if the browser never reports it. Best-effort,
+    // no-op when keyless; never blocks the error response on its own failure.
+    await logServerAnalysisFailure({
+      route: '/api/video-vision-analysis',
+      actionName: `analyze:${sport}`,
+      error: outcome.error,
+      metadata: { sport, provider: provider.id, model: provider.model, speed },
+    });
     return NextResponse.json(
       {
         configured: true,
