@@ -34,8 +34,10 @@ import {
   Sparkles,
   AlertTriangle,
   Database,
+  Play,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { VideoModal } from '../VideoModal';
 import type {
   VideoOpportunity,
   VideoCreativeBrief,
@@ -103,6 +105,7 @@ export function VideoStudioCockpit({ initial }: { initial: InitialData }) {
   const [reassessments, setReassessments] = useState<VideoReassessment[]>([]);
   const [activeBrief, setActiveBrief] = useState<VideoCreativeBrief | null>(null);
   const [activeAsset, setActiveAsset] = useState<VideoAsset | null>(null);
+  const [viewingAsset, setViewingAsset] = useState<VideoAsset | null>(null);
 
   const run = useCallback(async (label: string, fn: () => Promise<void>) => {
     setBusy(label);
@@ -293,16 +296,28 @@ export function VideoStudioCockpit({ initial }: { initial: InitialData }) {
           onGenerate={genVideo}
           onPublish={publish}
           onAssign={assignPlacement}
+          onView={setViewingAsset}
         />
       )}
 
-      {tab === 'library' && <LibraryPanel assets={assets} placements={placements} busy={busy} onPublish={publish} onAssign={assignPlacement} />}
+      {tab === 'library' && (
+        <LibraryPanel assets={assets} placements={placements} busy={busy} onPublish={publish} onAssign={assignPlacement} onView={setViewingAsset} />
+      )}
 
       {tab === 'queue' && <QueuePanel jobs={jobs} />}
 
       {tab === 'reassess' && <ReassessPanel reassessments={reassessments} busy={busy} onRun={runReassess} />}
 
       {tab === 'settings' && <SettingsPanel providers={initial.providers} budgetCents={initial.budgetCents} storage={initial.storage} />}
+
+      {viewingAsset && (
+        <VideoModal
+          asset={viewingAsset}
+          placementId="admin-preview"
+          open
+          onClose={() => setViewingAsset(null)}
+        />
+      )}
     </div>
   );
 }
@@ -407,6 +422,7 @@ function PipelinePanel({
   onGenerate,
   onPublish,
   onAssign,
+  onView,
 }: {
   brief: VideoCreativeBrief | null;
   asset: VideoAsset | null;
@@ -414,6 +430,7 @@ function PipelinePanel({
   onGenerate: (b: VideoCreativeBrief) => void;
   onPublish: (a: VideoAsset, published: boolean) => void;
   onAssign: (a: VideoAsset) => void;
+  onView: (a: VideoAsset) => void;
 }) {
   if (!brief) {
     return <p className="text-sm text-gray-400">Pick an opportunity and click “Generate brief” to start the pipeline.</p>;
@@ -469,7 +486,7 @@ function PipelinePanel({
         {!asset ? (
           <p className="mt-2 text-sm text-gray-400">Generate the video to preview it here.</p>
         ) : (
-          <AdminPreview asset={asset} busy={busy} onPublish={onPublish} onAssign={onAssign} />
+          <AdminPreview asset={asset} busy={busy} onPublish={onPublish} onAssign={onAssign} onView={onView} />
         )}
       </div>
     </div>
@@ -481,22 +498,34 @@ function AdminPreview({
   busy,
   onPublish,
   onAssign,
+  onView,
 }: {
   asset: VideoAsset;
   busy: string | null;
   onPublish: (a: VideoAsset, published: boolean) => void;
   onAssign: (a: VideoAsset) => void;
+  onView: (a: VideoAsset) => void;
 }) {
   return (
     <div className="mt-2 space-y-3">
-      <div className="overflow-hidden rounded-lg border border-gray-800">
+      <button
+        type="button"
+        onClick={() => onView(asset)}
+        aria-label={`Play “${asset.title}”`}
+        className="group relative block w-full overflow-hidden rounded-lg border border-gray-800"
+      >
         {asset.poster ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={asset.poster} alt={asset.title} loading="lazy" className="aspect-video w-full object-cover" />
         ) : (
           <div className="aspect-video w-full bg-gray-800" />
         )}
-      </div>
+        <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform group-hover:scale-105">
+            <Play size={22} className="ml-0.5 text-gray-900" />
+          </span>
+        </span>
+      </button>
       <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
         <Badge className={asset.published ? 'bg-success/15 text-success' : 'bg-gray-800 text-gray-400'}>
           {asset.published ? 'published' : 'draft'}
@@ -537,12 +566,14 @@ function LibraryPanel({
   busy,
   onPublish,
   onAssign,
+  onView,
 }: {
   assets: VideoAsset[];
   placements: StudioPlacement[];
   busy: string | null;
   onPublish: (a: VideoAsset, published: boolean) => void;
   onAssign: (a: VideoAsset) => void;
+  onView: (a: VideoAsset) => void;
 }) {
   if (assets.length === 0) {
     return (
@@ -558,12 +589,24 @@ function LibraryPanel({
         const placed = placements.filter((p) => p.assetId === a.id);
         return (
           <div key={a.id} className="rounded-xl border border-gray-800 bg-gray-900/60 p-3">
-            {a.poster ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={a.poster} alt={a.title} loading="lazy" className="aspect-video w-full rounded-lg object-cover" />
-            ) : (
-              <div className="aspect-video w-full rounded-lg bg-gray-800" />
-            )}
+            <button
+              type="button"
+              onClick={() => onView(a)}
+              aria-label={`Play “${a.title}”`}
+              className="group relative block w-full overflow-hidden rounded-lg"
+            >
+              {a.poster ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={a.poster} alt={a.title} loading="lazy" className="aspect-video w-full rounded-lg object-cover" />
+              ) : (
+                <div className="aspect-video w-full rounded-lg bg-gray-800" />
+              )}
+              <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform group-hover:scale-105">
+                  <Play size={18} className="ml-0.5 text-gray-900" />
+                </span>
+              </span>
+            </button>
             <h3 className="mt-2 truncate text-sm font-semibold text-gray-100">{a.title}</h3>
             <div className="mt-1 flex flex-wrap items-center gap-1">
               <Badge className={a.published ? 'bg-success/15 text-success' : 'bg-gray-800 text-gray-400'}>{a.published ? 'published' : 'draft'}</Badge>

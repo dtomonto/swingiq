@@ -56,17 +56,20 @@ export function LibraryPublishingClient({
     })).filter((g) => g.items.length > 0);
   }, [rows]);
 
-  async function toggle(row: Row) {
+  // Approve = publish to public /learn; Reject = push back to drafts (in-app only).
+  // Both hit the same guarded API with an explicit action, so the result is
+  // never ambiguous: the row's state pill and buttons update from the response.
+  async function setPublish(row: Row, publish: boolean) {
     if (busy) return;
+    if (row.published === publish) return; // already in the target state — no-op
     setError(null);
     setNotice(null);
     setBusy(row.id);
-    const next = !row.published;
     try {
       const res = await fetch('/api/admin/library-publish', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ id: row.id, action: next ? 'publish' : 'unpublish' }),
+        body: JSON.stringify({ id: row.id, action: publish ? 'publish' : 'unpublish' }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -75,7 +78,9 @@ export function LibraryPublishingClient({
       }
       setRows((prev) => prev.map((r) => (r.id === row.id ? { ...r, published: data.published } : r)));
       setNotice(
-        `${next ? 'Published to' : 'Removed from'} /learn: “${row.title}”. Commit & push the overrides file to deploy.`,
+        publish
+          ? `Approved — published to /learn: “${row.title}”. Commit & push the overrides file to deploy.`
+          : `Rejected — moved back to drafts (in-app only): “${row.title}”. Commit & push the overrides file to deploy.`,
       );
     } catch {
       setError('Network error — could not reach the publishing API.');
@@ -124,25 +129,36 @@ export function LibraryPublishingClient({
                   </div>
                   <span className="text-xs text-muted-foreground">{SPORT_LABELS[row.sport] ?? row.sport}</span>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => toggle(row)}
-                  disabled={!writable || busy === row.id}
-                  aria-pressed={row.published}
-                  className={`inline-flex w-32 shrink-0 items-center justify-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors disabled:opacity-50 ${
-                    row.published
-                      ? 'border-success/60 bg-success/15 text-success-text hover:bg-success/25'
-                      : 'border-border bg-muted/30 text-foreground hover:bg-muted/60'
-                  }`}
-                >
-                  {busy === row.id ? (
-                    <Loader2 size={13} className="animate-spin" />
-                  ) : row.published ? (
-                    <><Globe size={13} /> Public</>
-                  ) : (
-                    <><Lock size={13} /> In-app only</>
-                  )}
-                </button>
+                <div className="flex shrink-0 items-center gap-2">
+                  {/* Current state — rejected/draft rows stay in the list, clearly marked */}
+                  <span
+                    className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-semibold ${
+                      row.published
+                        ? 'border-success/50 bg-success/15 text-success-text'
+                        : 'border-border bg-muted/40 text-muted-foreground'
+                    }`}
+                  >
+                    {row.published ? <><Globe size={11} /> Public</> : <><Lock size={11} /> Draft · in-app only</>}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setPublish(row, true)}
+                    disabled={!writable || busy === row.id || row.published}
+                    title="Publish to the public /learn pages"
+                    className="inline-flex w-24 items-center justify-center gap-1.5 rounded-md border border-success/60 bg-success/15 px-3 py-1.5 text-xs font-semibold text-success-text transition-colors hover:bg-success/25 disabled:opacity-40"
+                  >
+                    {busy === row.id && !row.published ? <Loader2 size={13} className="animate-spin" /> : <><Globe size={13} /> Approve</>}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPublish(row, false)}
+                    disabled={!writable || busy === row.id || !row.published}
+                    title="Push back to drafts (in-app only — removed from /learn)"
+                    className="inline-flex w-24 items-center justify-center gap-1.5 rounded-md border border-border bg-muted/30 px-3 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-muted/60 disabled:opacity-40"
+                  >
+                    {busy === row.id && row.published ? <Loader2 size={13} className="animate-spin" /> : <><Lock size={13} /> Reject</>}
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

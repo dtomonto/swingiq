@@ -18,7 +18,7 @@ import { requireAdmin } from '@/lib/video-studio/server/guards';
 export const runtime = 'nodejs';
 
 export async function GET(req: NextRequest) {
-  const denied = requireAdmin(req);
+  const denied = await requireAdmin(req);
   if (denied) return denied;
   const repo = getRepo();
   const studio = await repo.listPlacements();
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const denied = requireAdmin(req);
+  const denied = await requireAdmin(req);
   if (denied) return denied;
 
   let body: unknown;

@@ -11,7 +11,7 @@ import { requireAdmin, limited } from '@/lib/video-studio/server/guards';
 export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
-  const denied = requireAdmin(req);
+  const denied = await requireAdmin(req);
   if (denied) return denied;
   const tooMany = await limited(req, 'video-studio-scan', 20);
   if (tooMany) return tooMany;
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const denied = requireAdmin(req);
+  const denied = await requireAdmin(req);
   if (denied) return denied;
 
   const repo = getRepo();

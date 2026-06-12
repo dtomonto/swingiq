@@ -5,9 +5,12 @@
 //   Small helpers the video API routes share so auth and rate limiting
 //   are consistent and never copy-pasted wrong:
 //
-//   - requireAdmin(): admin tools need the x-admin-secret header to match
-//     ADMIN_SECRET (constant-time compare). In dev with no secret set, it
-//     allows access for local iteration — same rule as the /admin layout.
+//   - requireAdmin(): authorizes the SAME way as the rest of /admin — an
+//     allowlisted Supabase session OR the x-admin-secret header (and open in
+//     dev when no secret is set). The browser carries the Supabase session
+//     cookie, so the cockpit's fetch() calls authenticate without the client
+//     ever needing the server-only secret. (Header-only auth was a bug: the
+//     client can't send ADMIN_SECRET, so every call 404'd in prod.)
 //   - requireCronOrAdmin(): the reassessment route can also be triggered
 //     by a scheduler carrying CRON_SECRET.
 //   - limited(): one-line rate-limit guard returning a 429 when exceeded.
@@ -20,23 +23,18 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { safeEqual } from '@/lib/security/constant-time';
 import { clientIp } from '@/lib/security/client-ip';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
+import { requireAdmin as requireAdminContext } from '@/lib/admin/context';
 
 /** Returns null when authorized as admin, else a NextResponse to return. */
-export function requireAdmin(req: NextRequest): NextResponse | null {
-  const secret = process.env.ADMIN_SECRET;
-  if (!secret) {
-    // Match /admin layout: allow in dev for local iteration, block otherwise.
-    if (process.env.NODE_ENV === 'development') return null;
-    return NextResponse.json({ error: 'Not found.' }, { status: 404 });
-  }
-  const provided = req.headers.get('x-admin-secret');
-  if (safeEqual(provided, secret)) return null;
+export async function requireAdmin(_req?: NextRequest): Promise<NextResponse | null> {
+  const ctx = await requireAdminContext();
+  if (ctx.ok) return null;
   // 404 (not 403) so we don't confirm the route exists to an unauthorized caller.
   return NextResponse.json({ error: 'Not found.' }, { status: 404 });
 }
 
-/** Allow either an admin header or a scheduler carrying CRON_SECRET. */
-export function requireCronOrAdmin(req: NextRequest): NextResponse | null {
+/** Allow either an admin (session/header) or a scheduler carrying CRON_SECRET. */
+export async function requireCronOrAdmin(req: NextRequest): Promise<NextResponse | null> {
   const cronSecret = process.env.CRON_SECRET;
   if (cronSecret) {
     const provided =

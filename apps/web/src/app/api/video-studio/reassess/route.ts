@@ -24,7 +24,7 @@ const MIN_SAMPLE = 20; // impressions before performance scores are trusted
 const DAY_MS = 86_400_000;
 
 export async function POST(req: NextRequest) {
-  const denied = requireCronOrAdmin(req);
+  const denied = await requireCronOrAdmin(req);
   if (denied) return denied;
   const tooMany = await limited(req, 'video-studio-reassess', 10);
   if (tooMany) return tooMany;
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const denied = requireCronOrAdmin(req);
+  const denied = await requireCronOrAdmin(req);
   if (denied) return denied;
   const repo = getRepo();
   return NextResponse.json({ reassessments: await repo.listReassessments() });
