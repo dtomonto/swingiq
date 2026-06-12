@@ -31,6 +31,7 @@ import { loadAlertCounts } from '@/lib/feature-education/server/data';
 import { collectServerActions, summarizeActions } from '@/lib/admin/action-center';
 import { NAV_ITEMS, isHrefBuilt } from '@/lib/admin/nav';
 import { formatNumber, formatRelativeTime } from '@/lib/admin/format';
+import { fromAlert } from '@/lib/admin/claude-handoff';
 
 export const metadata: Metadata = { title: 'Command Center | Admin', robots: 'noindex, nofollow' };
 export const dynamic = 'force-dynamic';
@@ -52,6 +53,7 @@ function AlertGrid({ items }: { items: AdminAlert[] }) {
           detail={a.detail}
           href={a.href && isHrefBuilt(a.href) ? a.href : undefined}
           cta={a.cta}
+          fix={fromAlert({ title: a.title, detail: a.detail, severity: a.severity, href: a.href })}
         />
       ))}
     </div>
@@ -157,7 +159,13 @@ export default async function AdminCommandCenter() {
       {/* Executive summary — the interpreted briefing (health · so-what · confidence) */}
       <SectionCard level="elevated">
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-          <ScoreRing score={healthScore} size={88} label="Product health" />
+          <Link
+            href="/admin/metrics/platform-product-health"
+            aria-label="What is the Product health score? Open the metric explainer"
+            className="group rounded-xl transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <ScoreRing score={healthScore} size={88} label="Product health" />
+          </Link>
           <div className="min-w-0 flex-1">
             <p className="text-[10.5px] font-bold uppercase tracking-[0.07em] text-link">
               Today&apos;s read · {metrics.connected ? 'live data' : 'local mode'}
@@ -228,28 +236,28 @@ export default async function AdminCommandCenter() {
         <h2 className="mb-2 text-sm font-semibold text-foreground">Platform at a glance</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           <MetricStat
-            label="Accounts" icon={Users} tone={muted ? 'muted' : 'default'}
+            label="Accounts" icon={Users} tone={muted ? 'muted' : 'default'} metricId="platform-accounts"
             value={metrics.counts.authUsers === null ? '—' : `${formatNumber(metrics.counts.authUsers)}${metrics.authUsersCapped ? '+' : ''}`}
             hint="Authenticated users"
           />
           <MetricStat
-            label="Golf profiles" icon={Trophy} tone={muted ? 'muted' : 'default'}
+            label="Golf profiles" icon={Trophy} tone={muted ? 'muted' : 'default'} metricId="platform-golf-profiles"
             value={formatNumber(metrics.counts.golfProfiles)} hint="golfer_profiles"
           />
           <MetricStat
-            label="Sport profiles" icon={Activity} tone={muted ? 'muted' : 'default'}
+            label="Sport profiles" icon={Activity} tone={muted ? 'muted' : 'default'} metricId="platform-sport-profiles"
             value={formatNumber(metrics.counts.sportProfiles)} hint="non-golf sports set up"
           />
           <MetricStat
-            label="Sessions" icon={Database} tone={muted ? 'muted' : 'default'}
+            label="Sessions" icon={Database} tone={muted ? 'muted' : 'default'} metricId="platform-sessions"
             value={formatNumber(metrics.counts.sessions)} hint="practice sessions"
           />
           <MetricStat
-            label="Swing analyses" icon={Brain} tone={muted ? 'muted' : 'default'}
+            label="Swing analyses" icon={Brain} tone={muted ? 'muted' : 'default'} metricId="platform-analyses"
             value={formatNumber(metrics.counts.analyses)} hint="video_analyses"
           />
           <MetricStat
-            label="Gamified" icon={Sparkles} tone={muted ? 'muted' : 'default'}
+            label="Gamified" icon={Sparkles} tone={muted ? 'muted' : 'default'} metricId="platform-community"
             value={formatNumber(metrics.counts.community)} hint="community/XP records"
           />
         </div>
