@@ -1,0 +1,58 @@
+name: Registry Refresh
+
+# Single-writer refresh of the admin "registry" snapshots
+# (feature-registry / setup-registry / audit-reports / changes-feed).
+#
+# These files are DERIVED from global repo state. They used to be regenerated +
+# auto-committed inside the post-commit hook on every commit, in every worktree
+# — which raced when several agents committed at once and left conflict markers
+# in the JSON, catching unrelated tasks up in churn they never authored.
+#
+# This job is the fix: ONE writer on a schedule, instead of N racing agents.
+# It regenerates the snapshots and commits them to master only when they
+# actually change. Per-commit autocommit stays OFF (scripts/hooks/post-commit).
+
+on:
+  # Hourly is plenty — the runtime re-derives the changes feed live, so a
+  # slightly stale snapshot can only ever show LESS, never fabricate.
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch: {}
+
+# Avoid two refreshes racing each other — the very problem this replaces.
+concurrency:
+  group: registry-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    name: Regenerate + commit registry snapshots
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          # Full history: the feature/changes scans read git log for provenance.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Configure committer identity
+        run: |
+          git config user.name "swingvantage-bot"
+          git config user.email "noreply@anthropic.com"
+      - name: Refresh registries (single writer, explicit-pathspec commit)
+        run: npm run registry:refresh
+      - name: Push if anything changed
+        run: |
+          if [ -n "$(git log origin/master..HEAD --oneline)" ]; then
+            git push origin HEAD:master
+          else
+            echo "No registry changes to push."
+          fi

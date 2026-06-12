@@ -55,10 +55,18 @@ fi
 # regenerated + committed on EVERY commit, which (a) is noisy — up to three
 # extra chore commits per commit — and (b) races the JSON files when several
 # agents commit at once (leaving merge-conflict markers). They are now opt-in.
-# Refresh on demand instead:  npm run features:scan ; npm run setup:scan
-# (audits sync via scripts/sync-audit-reports.mjs). A scheduled CI job is the
-# recommended long-term home — see docs/ROADMAP.md (#22).
+# The single-writer replacement now exists — use it instead of this path:
+#   • scheduled:  .github/workflows/registry-refresh.yml (one writer, no race)
+#   • on demand:  npm run registry:refresh
 if [ -n "$SWINGVANTAGE_REGISTRY_AUTOCOMMIT" ]; then
+
+# DEPRECATED PATH — this races the shared registry JSON when several agents
+# commit at once (leaving conflict markers that catch unrelated tasks up). Leave
+# SWINGVANTAGE_REGISTRY_AUTOCOMMIT UNSET and use the single-writer path above.
+# Warn loudly if it's on so it can never be enabled silently by accident.
+echo "swingvantage: WARNING — SWINGVANTAGE_REGISTRY_AUTOCOMMIT is set." >&2
+echo "  Per-commit registry autocommit races other agents. Unset it and use" >&2
+echo "  the single-writer path instead: \`npm run registry:refresh\`." >&2
 
 # ── Feature Education: detect features and refresh the registry ──
 # Keeps the Feature Registry in sync with what shipped so the engine knows
