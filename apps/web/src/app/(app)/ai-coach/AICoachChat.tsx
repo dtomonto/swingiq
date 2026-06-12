@@ -45,7 +45,7 @@ const SPORT_DISPLAY: Record<SportId, {
     avatarBg: 'bg-warning',
     placeholder: 'Ask about your forehand, serve, drills, or next practice focus…',
     greeting:
-      'Hello! I\'m your SwingVantage Tennis Coach. I have access to your video analysis results and tennis profile.\n\nAsk me about your stroke technique, phase-by-phase observations, drill recommendations, or what to focus on in your next practice session.',
+      'Hello! I\'m your SwingVantage Tennis Coach. I have access to your Motion Lab results and tennis profile.\n\nAsk me about your stroke technique, phase-by-phase observations, drill recommendations, or what to focus on in your next practice session.',
   },
   pickleball: {
     emoji: '🏓',
@@ -55,7 +55,7 @@ const SPORT_DISPLAY: Record<SportId, {
     avatarBg: 'bg-lime-600',
     placeholder: 'Ask about your dink, third-shot drop, reset, or next practice focus…',
     greeting:
-      'Hello! I\'m your SwingVantage Pickleball Coach. I have access to your video analysis results and pickleball profile.\n\nAsk me about your compact stroke, paddle-face control, the third-shot drop, dinking, resets, kitchen-line footwork, or what to focus on in your next session.',
+      'Hello! I\'m your SwingVantage Pickleball Coach. I have access to your Motion Lab results and pickleball profile.\n\nAsk me about your compact stroke, paddle-face control, the third-shot drop, dinking, resets, kitchen-line footwork, or what to focus on in your next session.',
   },
   padel: {
     emoji: '🎾',
@@ -65,7 +65,7 @@ const SPORT_DISPLAY: Record<SportId, {
     avatarBg: 'bg-sky-600',
     placeholder: 'Ask about your bandeja, wall play, volleys, lobs, or next practice focus…',
     greeting:
-      'Hello! I\'m your SwingVantage Padel Coach. I have access to your video analysis results and padel profile.\n\nAsk me about your bandeja and overheads, reading the ball off the glass, volleys, lobs, net control, or doubles positioning with your partner.',
+      'Hello! I\'m your SwingVantage Padel Coach. I have access to your Motion Lab results and padel profile.\n\nAsk me about your bandeja and overheads, reading the ball off the glass, volleys, lobs, net control, or doubles positioning with your partner.',
   },
   baseball: {
     emoji: '⚾',

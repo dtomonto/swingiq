@@ -383,7 +383,7 @@ export const ANALYSIS_FEATURES: Feature[] = [
   {
     slug: 'swing-video-upload',
     name: 'Swing Video Upload',
-    group: 'Video Analysis',
+    group: '3D Motion Analysis — Motion Lab',
     sports: 'All 7 sports',
     summary:
       'Upload a video of your swing from the face-on, down-the-line, or sport-specific angle. SwingVantage segments the video into phases and provides coaching notes for each phase.',
@@ -444,7 +444,7 @@ export const ANALYSIS_FEATURES: Feature[] = [
   {
     slug: 'phase-by-phase-timeline',
     name: 'Phase-by-Phase Timeline',
-    group: 'Video Analysis',
+    group: '3D Motion Analysis — Motion Lab',
     sports: 'All 7 sports',
     summary:
       'Each sport has its own swing phases. Golf: address, backswing, transition, downswing, impact, follow-through. Tennis, pickleball, padel, baseball, and softball have sport-appropriate phases.',
@@ -485,7 +485,7 @@ export const ANALYSIS_FEATURES: Feature[] = [
   {
     slug: 'pro-reference-comparison',
     name: 'Pro Reference Comparison',
-    group: 'Video Analysis',
+    group: '3D Motion Analysis — Motion Lab',
     sports: 'All 7 sports',
     summary:
       'Browse a curated library of professional athlete swing references filtered by sport. Use as a visual learning reference alongside your own video.',

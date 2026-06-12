@@ -100,7 +100,7 @@
       "item2Title": "Evidence-Based Drills",
       "item2Desc": "Every recommended drill is tied to the specific issue detected — not generic advice.",
       "item3Title": "Privacy-First Design",
-      "item3Desc": "Video analysis runs locally when possible. Your swing data is never shared publicly by default."
+      "item3Desc": "Motion Lab runs locally when possible. Your swing data is never shared publicly by default."
     },
     "freeTools": {
       "heading": "Free tools to get started",
@@ -133,7 +133,7 @@
       "q5": "Does SwingVantage replace a coach?",
       "a5": "SwingVantage is your everyday improvement edge — it pinpoints the single highest-impact fix in your swing and hands you the drills and plan to groove it, no appointment needed. For injury concerns or advanced technique work it pairs perfectly with a qualified coach, and you will show up to those sessions already ahead.",
       "q6": "Is my swing video private?",
-      "a6": "Yes. Video analysis runs in your browser. Videos are not shared publicly by default.",
+      "a6": "Yes. Motion Lab runs in your browser. Videos are not shared publicly by default.",
       "q7": "Can parents use SwingVantage for youth athletes?",
       "a7": "Yes. Parents and coaches use SwingVantage to give young athletes clear, encouraging feedback in plain language. It is built with youth safety in mind — and it pairs with, rather than replaces, a qualified coach for injury or advanced-technique concerns."
     },
@@ -204,7 +204,7 @@
       "q1": "Is SwingVantage free to use?",
       "a1": "The core analysis tools are free. Advanced features like unlimited session history, team accounts, and professional video review are on the paid roadmap.",
       "q2": "Do I need special equipment?",
-      "a2": "No. A smartphone camera is enough to get started with video analysis. If you have launch monitor or sensor data, you can import it for deeper analysis.",
+      "a2": "No. A smartphone camera is enough to get started with Motion Lab. If you have launch monitor or sensor data, you can import it for deeper analysis.",
       "q3": "Who is SwingVantage for?",
       "a3": "SwingVantage is designed for self-coached athletes, athletes working with coaches who want data-informed instruction, parents tracking youth player development, and facility owners who want a scalable coaching tool.",
       "q4": "Is SwingVantage a replacement for a human coach?",
@@ -220,7 +220,7 @@
   "features": {
     "meta": {
       "title": "SwingVantage Features — AI Swing Analysis, Diagnostics & Training Tools",
-      "description": "Every SwingVantage feature explained: AI swing diagnosis, launch monitor import, video analysis, drill library, practice scheduling, progress tracking, equipment diagnostics, and more — for golf, tennis, pickleball, padel, baseball, and softball."
+      "description": "Every SwingVantage feature explained: AI swing diagnosis, launch monitor import, Motion Lab, drill library, practice scheduling, progress tracking, equipment diagnostics, and more — for golf, tennis, pickleball, padel, baseball, and softball."
     },
     "hero": {
       "title": "Everything SwingVantage Does — Free",
@@ -298,7 +298,7 @@
         "f6Detail": "Warm-ups are adapted to your active diagnosis and how much time you have before play."
       },
       "video": {
-        "heading": "Video Analysis",
+        "heading": "Motion Lab",
         "f1Name": "Swing Video Upload",
         "f1Sports": "All 7 sports",
         "f1Desc": "Upload a video of your swing from the face-on, down-the-line, or sport-specific angle. SwingVantage segments the video into phases and provides coaching notes for each phase.",

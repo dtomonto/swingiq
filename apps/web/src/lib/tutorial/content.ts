@@ -291,7 +291,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
   // ── Video Analysis ────────────────────────────────────────
   '/golf-swing-analysis': {
     id: '/golf-swing-analysis',
-    pageTitle: 'Golf Swing Video Analysis',
+    pageTitle: 'Golf Swing Analysis with Motion Lab',
     intro: 'Upload a video of your golf swing and SwingVantage will analyze your technique, identify issues, and compare your positions to key checkpoints.',
     steps: [
       {
@@ -436,7 +436,7 @@ export const TUTORIAL_REGISTRY: Record<string, TutorialContent> = {
       },
       {
         title: 'What the AI Coach cannot do',
-        body: 'The AI Coach does not watch your live swing. It works from the session data and video analyses you have already saved. For real-time feedback, use Video Analysis.',
+        body: 'The AI Coach does not watch your live swing. It works from the session data and video analyses you have already saved. For real-time feedback, use Motion Lab.',
       },
     ],
   },

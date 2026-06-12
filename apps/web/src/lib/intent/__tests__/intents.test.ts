@@ -26,8 +26,8 @@ describe('IMPROVE_INTENTS', () => {
     }
   });
 
-  it('keeps the core analyze → /video destination (sport-agnostic dispatch)', () => {
+  it('keeps the core analyze → Motion Lab destination (sport-agnostic dispatch)', () => {
     const analyze = IMPROVE_INTENTS.find((i) => i.id === 'analyze');
-    expect(analyze?.href).toBe('/video');
+    expect(analyze?.href).toBe('/motion-lab');
   });
 });

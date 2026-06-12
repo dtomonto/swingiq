@@ -26,11 +26,11 @@ const PICKLEBALL_PILLAR: SeoPage = {
   intent: 'commercial',
   funnelStage: 'consideration',
   priority: 1,
-  title: 'Pickleball Swing & Video Analysis (AI Coaching)',
+  title: 'Pickleball Swing Analysis with Motion Lab (AI Coaching)',
   metaDescription:
     'SwingVantage analyzes your pickleball strokes — dinks, third-shot drops, drives, and volleys — and gives your top priority, beginner-safe drills, and a plan. Free to start.',
   directAnswer:
-    'SwingVantage is an AI swing and video analysis platform built specifically for pickleball — not adapted from tennis. Upload a video of your dink, third-shot drop, or drive and you get your single highest-priority issue, the visible evidence behind it, beginner-safe drills, and a simple practice plan. Pickleball rewards a compact stroke, paddle-face control, and the non-volley-zone (kitchen) game, and the analysis is tuned for exactly that.',
+    'SwingVantage is an AI swing-analysis platform — powered by Motion Lab — built specifically for pickleball — not adapted from tennis. Upload a video of your dink, third-shot drop, or drive and you get your single highest-priority issue, the visible evidence behind it, beginner-safe drills, and a simple practice plan. Pickleball rewards a compact stroke, paddle-face control, and the non-volley-zone (kitchen) game, and the analysis is tuned for exactly that.',
   problemExplanation: [
     'Most coaching content treats pickleball like small-court tennis. It is not: the stroke is compact with no long backswing, the paddle has no strings to brush, and the kitchen line governs footwork and shot selection. Tennis advice often makes pickleball errors worse.',
     'SwingVantage reads your stroke against pickleball-specific checkpoints — backswing compactness, paddle-face angle, contact height, the soft game, and kitchen-line movement — so the feedback fits the sport you actually play.',
@@ -205,11 +205,11 @@ const PADEL_PILLAR: SeoPage = {
   intent: 'commercial',
   funnelStage: 'consideration',
   priority: 1,
-  title: 'Padel Swing & Video Analysis (AI Coaching)',
+  title: 'Padel Swing Analysis with Motion Lab (AI Coaching)',
   metaDescription:
     'SwingVantage analyzes your padel strokes — the bandeja, víbora, smash, volleys, lobs, and wall play — and gives you your top priority, drills, and a plan. Free to start.',
   directAnswer:
-    'SwingVantage is an AI swing and video analysis platform built specifically for padel — not adapted from tennis. Upload a video of your bandeja, volley, or back-glass play and you get your single highest-priority issue, the visible evidence behind it, drills, and a simple practice plan. Padel rewards control over power, reading the ball off the glass, and holding the net with the overhead family, and the analysis is tuned for exactly that.',
+    'SwingVantage is an AI swing-analysis platform — powered by Motion Lab — built specifically for padel — not adapted from tennis. Upload a video of your bandeja, volley, or back-glass play and you get your single highest-priority issue, the visible evidence behind it, drills, and a simple practice plan. Padel rewards control over power, reading the ball off the glass, and holding the net with the overhead family, and the analysis is tuned for exactly that.',
   problemExplanation: [
     'Padel is not "tennis with walls." The glass is in play, the game is always doubles, and the defining shots are the overhead family — the bandeja, víbora, and smash — used to keep the net. A full tennis serve motion on the bandeja is a common, costly mistake.',
     'SwingVantage reads your stroke against padel-specific checkpoints — overhead control, the wall read, lob depth, net transition, and partner positioning — so the feedback fits the sport you actually play.',
@@ -406,12 +406,12 @@ function draft(slug: string, sport: 'pickleball' | 'padel', keyword: string, tit
 }
 
 const RACKET_DRAFTS: SeoPage[] = [
-  draft('pickleball-video-analysis', 'pickleball', 'pickleball video analysis', 'Pickleball Video Analysis'),
+  draft('pickleball-video-analysis', 'pickleball', 'pickleball video analysis', 'Pickleball Swing Analysis — Motion Lab'),
   draft('pickleball-practice-plan', 'pickleball', 'pickleball practice plan', 'Pickleball Practice Plan for Beginners'),
   draft('pickleball-drills', 'pickleball', 'best pickleball drills', 'Best Pickleball Drills for Beginners'),
   draft('pickleball-serve-analysis', 'pickleball', 'pickleball serve mechanics', 'Pickleball Serve Mechanics & Analysis'),
   draft('pickleball-dupr-improvement', 'pickleball', 'dupr improvement plan', 'DUPR Improvement Plan: How to Raise Your Rating'),
-  draft('padel-video-analysis', 'padel', 'padel video analysis', 'Padel Video Analysis'),
+  draft('padel-video-analysis', 'padel', 'padel video analysis', 'Padel Swing Analysis — Motion Lab'),
   draft('padel-practice-plan', 'padel', 'padel practice plan', 'Padel Practice Plan for Beginners'),
   draft('padel-drills', 'padel', 'padel footwork drills', 'Padel Drills & Footwork for Beginners'),
   // 'padel-vibora' is the canonical, fully-written published page in
