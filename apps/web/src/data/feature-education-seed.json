@@ -1819,6 +1819,242 @@
     }
   },
   {
+    "id": "asset_admin-ai-provider_admin-guide",
+    "featureId": "feat_admin-ai-provider",
+    "type": "admin-guide",
+    "audience": "admin",
+    "slug": "admin-ai-provider-admin-guide",
+    "visibility": "admin",
+    "status": "published",
+    "version": 1,
+    "generator": "deterministic",
+    "groundedIn": [
+      {
+        "kind": "route",
+        "ref": "/admin/ai-provider"
+      }
+    ],
+    "needsHumanReview": false,
+    "createdAt": "2026-06-11T00:00:00.000Z",
+    "updatedAt": "2026-06-11T00:00:00.000Z",
+    "title": "AI Provider — admin guide",
+    "summary": "Operate AI Provider: setup, permissions, monitoring, escalation.",
+    "sections": [
+      {
+        "heading": "Setup",
+        "body": [
+          "In the admin dashboard at /admin/ai-provider.",
+          "No special setup is required beyond admin access."
+        ]
+      },
+      {
+        "heading": "Permissions & roles",
+        "body": [
+          "Any admin role can access this; scope with RBAC if needed."
+        ]
+      },
+      {
+        "heading": "Configuration",
+        "body": [
+          "No dedicated configuration; uses platform defaults."
+        ]
+      },
+      {
+        "heading": "Monitoring",
+        "body": [
+          "Watch usage in Analytics and errors in System Health.",
+          "Spot-check outputs for quality before relying on them."
+        ]
+      },
+      {
+        "heading": "Data management",
+        "body": [
+          "Operates on existing account data; no dedicated store to manage."
+        ]
+      },
+      {
+        "heading": "Audit log",
+        "body": [
+          "Admin actions here are recorded in the audit log; review it after changes."
+        ]
+      },
+      {
+        "heading": "Support escalation",
+        "body": [
+          "Tier 1: support enablement doc. Tier 2: admin review. Tier 3: engineering with route + error id."
+        ]
+      },
+      {
+        "heading": "Failure states",
+        "body": [
+          "If the feature errors, it should degrade safely (honest empty/error state) rather than block the page."
+        ]
+      },
+      {
+        "heading": "Operational risks",
+        "body": [
+          "Low operational risk for normal use."
+        ]
+      }
+    ],
+    "publishTarget": "help-center",
+    "security": {
+      "findings": [],
+      "safeToPublishPublicly": true,
+      "scannedAt": "2026-06-11T00:00:00.000Z"
+    }
+  },
+  {
+    "id": "asset_admin-ai-provider_how-to",
+    "featureId": "feat_admin-ai-provider",
+    "type": "how-to",
+    "audience": "admin",
+    "slug": "admin-ai-provider-how-to",
+    "visibility": "user",
+    "status": "published",
+    "version": 1,
+    "generator": "deterministic",
+    "groundedIn": [
+      {
+        "kind": "route",
+        "ref": "/admin/ai-provider"
+      }
+    ],
+    "needsHumanReview": false,
+    "createdAt": "2026-06-11T00:00:00.000Z",
+    "updatedAt": "2026-06-11T00:00:00.000Z",
+    "title": "How to get the most out of AI Provider",
+    "summary": "Task-based steps to get the most out of AI Provider.",
+    "sections": [
+      {
+        "heading": "Goal",
+        "body": [
+          "How to get the most out of AI Provider."
+        ]
+      },
+      {
+        "heading": "Before you start",
+        "body": [
+          "In the admin dashboard at /admin/ai-provider.",
+          "No special permissions required."
+        ]
+      },
+      {
+        "heading": "Steps",
+        "body": [
+          "1. Open AI Provider — Go to /admin/ai-provider.",
+          "2. See what’s on screen — AI Provider is where you aI call observability (provider/latency/fallback/schema health)",
+          "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
+          "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
+          "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
+        ]
+      },
+      {
+        "heading": "Decision points",
+        "body": [
+          "If you’re not sure which option to pick, choose the default — you can change it later."
+        ]
+      },
+      {
+        "heading": "Done when",
+        "body": [
+          "You’ve completed the main action and seen your saved result."
+        ]
+      },
+      {
+        "heading": "If you get stuck",
+        "body": [
+          "Check the troubleshooting guide for this feature.",
+          "Still stuck? Contact support from the in-app help menu."
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "title": "Open AI Provider",
+        "detail": "Go to /admin/ai-provider."
+      },
+      {
+        "title": "See what’s on screen",
+        "detail": "AI Provider is where you aI call observability (provider/latency/fallback/schema health)"
+      },
+      {
+        "title": "Take the main action",
+        "detail": "Use the primary control to run the feature — the screen guides you through it."
+      },
+      {
+        "title": "Review the result",
+        "detail": "Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement."
+      },
+      {
+        "title": "Save or come back",
+        "detail": "Your work is tied to your private account and synced across devices, so you can pick up later."
+      }
+    ],
+    "publishTarget": "help-center",
+    "security": {
+      "findings": [],
+      "safeToPublishPublicly": true,
+      "scannedAt": "2026-06-11T00:00:00.000Z"
+    }
+  },
+  {
+    "id": "asset_admin-ai-provider_in-app-help",
+    "featureId": "feat_admin-ai-provider",
+    "type": "in-app-help",
+    "audience": "all",
+    "slug": "admin-ai-provider-in-app-help",
+    "visibility": "user",
+    "status": "published",
+    "version": 1,
+    "generator": "deterministic",
+    "groundedIn": [
+      {
+        "kind": "route",
+        "ref": "/admin/ai-provider"
+      }
+    ],
+    "needsHumanReview": false,
+    "createdAt": "2026-06-11T00:00:00.000Z",
+    "updatedAt": "2026-06-11T00:00:00.000Z",
+    "title": "AI Provider — in-app help",
+    "summary": "Contextual help recommendations for AI Provider.",
+    "sections": [
+      {
+        "heading": "Recommended placements",
+        "body": [
+          "Primary: tooltip on /admin/ai-provider.",
+          "Also consider: an empty-state explainer and a \"Learn more\" link to the tutorial."
+        ]
+      },
+      {
+        "heading": "Tooltip copy",
+        "body": [
+          "About AI Provider: AI call observability (provider/latency/fallback/schema health)"
+        ]
+      },
+      {
+        "heading": "Empty-state copy",
+        "body": [
+          "Nothing here yet — AI call observability (provider/latency/fallback/schema health) Take the first step to get started."
+        ]
+      }
+    ],
+    "inAppHelp": {
+      "route": "/admin/ai-provider",
+      "placement": "tooltip",
+      "headline": "About AI Provider",
+      "body": "AI call observability (provider/latency/fallback/schema health)",
+      "learnMoreHref": "/help/admin-ai-provider"
+    },
+    "publishTarget": "in-app",
+    "security": {
+      "findings": [],
+      "safeToPublishPublicly": true,
+      "scannedAt": "2026-06-11T00:00:00.000Z"
+    }
+  },
+  {
     "id": "asset_admin-ai-quality_admin-guide",
     "featureId": "feat_admin-ai-quality",
     "type": "admin-guide",
@@ -17935,55 +18171,7 @@
     "groundedIn": [
       {
         "kind": "api",
-        "ref": "/api/admin/ai/budget"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/ai/user-cap"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/analytics-os"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/audits/status"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/clarity"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/copilot"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/library-publish"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/publishing/execute"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/search"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/secrets"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/security-os/scan"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/updates"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/users/:id"
+        "ref": "/api/admin/ai/routing"
       }
     ],
     "needsHumanReview": false,
@@ -17995,7 +18183,7 @@
       {
         "heading": "Setup",
         "body": [
-          "Via the API endpoint /api/admin/ai/budget.",
+          "Via the API endpoint /api/admin/ai/routing.",
           "No special setup is required beyond admin access."
         ]
       },
@@ -18069,55 +18257,7 @@
     "groundedIn": [
       {
         "kind": "api",
-        "ref": "/api/admin/ai/budget"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/ai/user-cap"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/analytics-os"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/audits/status"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/clarity"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/copilot"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/library-publish"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/publishing/execute"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/search"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/secrets"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/security-os/scan"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/updates"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/admin/users/:id"
+        "ref": "/api/admin/ai/routing"
       }
     ],
     "needsHumanReview": false,
@@ -18135,14 +18275,14 @@
       {
         "heading": "Before you start",
         "body": [
-          "Via the API endpoint /api/admin/ai/budget.",
+          "Via the API endpoint /api/admin/ai/routing.",
           "No special permissions required."
         ]
       },
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Admin is where you admin — detected from /api/admin/ai/budget.",
+          "1. See what’s on screen — Admin is where you aI Provider Control Center + live strategic routing",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -18171,7 +18311,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Admin is where you admin — detected from /api/admin/ai/budget."
+        "detail": "Admin is where you aI Provider Control Center + live strategic routing"
       },
       {
         "title": "Take the main action",
@@ -18207,10 +18347,6 @@
       {
         "kind": "api",
         "ref": "/api/agents/csv-map"
-      },
-      {
-        "kind": "api",
-        "ref": "/api/agents/dispatch/send"
       },
       {
         "kind": "api",
@@ -18304,10 +18440,6 @@
       },
       {
         "kind": "api",
-        "ref": "/api/agents/dispatch/send"
-      },
-      {
-        "kind": "api",
         "ref": "/api/agents/enhance"
       }
     ],
@@ -18333,7 +18465,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Agents is where you agents — detected from /api/agents/csv-map.",
+          "1. See what’s on screen — Agents is where you route 4 scattered text calls through the central gateway",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -18362,7 +18494,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Agents is where you agents — detected from /api/agents/csv-map."
+        "detail": "Agents is where you route 4 scattered text calls through the central gateway"
       },
       {
         "title": "Take the main action",
@@ -18508,7 +18640,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — AI Coach is where you aI Coach — detected from /api/ai-coach.",
+          "1. See what’s on screen — AI Coach is where you aI Provider Control Center + live strategic routing",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -18537,7 +18669,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "AI Coach is where you aI Coach — detected from /api/ai-coach."
+        "detail": "AI Coach is where you aI Provider Control Center + live strategic routing"
       },
       {
         "title": "Take the main action",
@@ -18683,7 +18815,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Athletic Journey is where you athletic Journey — detected from /api/athletic-journey/narrative.",
+          "1. See what’s on screen — Athletic Journey is where you route 4 scattered text calls through the central gateway",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -18712,7 +18844,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Athletic Journey is where you athletic Journey — detected from /api/athletic-journey/narrative."
+        "detail": "Athletic Journey is where you route 4 scattered text calls through the central gateway"
       },
       {
         "title": "Take the main action",
@@ -21134,7 +21266,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Recruiting is where you recruiting — detected from /api/recruiting/summary.",
+          "1. See what’s on screen — Recruiting is where you route 4 scattered text calls through the central gateway",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -21163,7 +21295,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Recruiting is where you recruiting — detected from /api/recruiting/summary."
+        "detail": "Recruiting is where you route 4 scattered text calls through the central gateway"
       },
       {
         "title": "Take the main action",
@@ -22909,7 +23041,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Video Vision Analysis is where you video Vision Analysis — detected from /api/video-vision-analysis.",
+          "1. See what’s on screen — Video Vision Analysis is where you persist swing analyses on the profile + harden analysis pipeline",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -22938,7 +23070,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Video Vision Analysis is where you video Vision Analysis — detected from /api/video-vision-analysis."
+        "detail": "Video Vision Analysis is where you persist swing analyses on the profile + harden analysis pipeline"
       },
       {
         "title": "Take the main action",
@@ -30934,7 +31066,11 @@
     "groundedIn": [
       {
         "kind": "db",
-        "ref": "supabase-secrets"
+        "ref": "supabase-relational-schema"
+      },
+      {
+        "kind": "db",
+        "ref": "supabase-video-analysis-fulltext"
       }
     ],
     "needsHumanReview": false,
@@ -30972,7 +31108,7 @@
       {
         "heading": "Data management",
         "body": [
-          "Backed by: supabase-secrets. Handle exports/deletions via the Data/Legal tools."
+          "Backed by: supabase-relational-schema, supabase-video-analysis-fulltext. Handle exports/deletions via the Data/Legal tools."
         ]
       },
       {
@@ -31020,7 +31156,11 @@
     "groundedIn": [
       {
         "kind": "db",
-        "ref": "supabase-secrets"
+        "ref": "supabase-relational-schema"
+      },
+      {
+        "kind": "db",
+        "ref": "supabase-video-analysis-fulltext"
       }
     ],
     "needsHumanReview": false,
@@ -31045,7 +31185,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Data Model is where you centralized Keys & Secrets manager on /admin/integrations",
+          "1. See what’s on screen — Data Model is where you persist swing analyses on the profile + harden analysis pipeline",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -31074,7 +31214,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Data Model is where you centralized Keys & Secrets manager on /admin/integrations"
+        "detail": "Data Model is where you persist swing analyses on the profile + harden analysis pipeline"
       },
       {
         "title": "Take the main action",
@@ -64662,7 +64802,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/admin/PipelineHealthCard.tsx"
+        "ref": "components/admin/AiRoutingEditor.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -64674,7 +64814,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Admin?\nA: per-user + fleet-wide data-pipeline linkage health",
+          "Q: What is Admin?\nA: AI Provider Control Center + live strategic routing",
           "Q: Where do I find Admin?\nA: This is an internal capability without a dedicated screen yet.",
           "Q: How do I use Admin?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Admin?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -64688,7 +64828,7 @@
     "faqs": [
       {
         "q": "What is Admin?",
-        "a": "per-user + fleet-wide data-pipeline linkage health"
+        "a": "AI Provider Control Center + live strategic routing"
       },
       {
         "q": "Where do I find Admin?",
@@ -64739,7 +64879,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/admin/PipelineHealthCard.tsx"
+        "ref": "components/admin/AiRoutingEditor.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -64764,7 +64904,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Admin is where you per-user + fleet-wide data-pipeline linkage health",
+          "1. See what’s on screen — Admin is where you aI Provider Control Center + live strategic routing",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -64793,7 +64933,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Admin is where you per-user + fleet-wide data-pipeline linkage health"
+        "detail": "Admin is where you aI Provider Control Center + live strategic routing"
       },
       {
         "title": "Take the main action",
@@ -64828,7 +64968,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/admin/PipelineHealthCard.tsx"
+        "ref": "components/admin/AiRoutingEditor.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -64840,7 +64980,7 @@
       {
         "heading": "What it does",
         "body": [
-          "per-user + fleet-wide data-pipeline linkage health"
+          "AI Provider Control Center + live strategic routing"
         ]
       },
       {
@@ -64865,7 +65005,7 @@
       {
         "heading": "Step by step",
         "body": [
-          "1. See what’s on screen — Admin is where you per-user + fleet-wide data-pipeline linkage health",
+          "1. See what’s on screen — Admin is where you aI Provider Control Center + live strategic routing",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -64902,7 +65042,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Admin is where you per-user + fleet-wide data-pipeline linkage health"
+        "detail": "Admin is where you aI Provider Control Center + live strategic routing"
       },
       {
         "title": "Take the main action",
@@ -67424,7 +67564,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Guide?\nA: readable text on GuideCompanion green hover (B regression)",
+          "Q: What is Guide?\nA: defer the guide's proactive tip until the safety gate is cleared",
           "Q: Where do I find Guide?\nA: This is an internal capability without a dedicated screen yet.",
           "Q: How do I use Guide?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Guide?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -67438,7 +67578,7 @@
     "faqs": [
       {
         "q": "What is Guide?",
-        "a": "readable text on GuideCompanion green hover (B regression)"
+        "a": "defer the guide's proactive tip until the safety gate is cleared"
       },
       {
         "q": "Where do I find Guide?",
@@ -67514,7 +67654,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Guide is where you readable text on GuideCompanion green hover (B regression)",
+          "1. See what’s on screen — Guide is where you defer the guide's proactive tip until the safety gate is cleared",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -67543,7 +67683,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Guide is where you readable text on GuideCompanion green hover (B regression)"
+        "detail": "Guide is where you defer the guide's proactive tip until the safety gate is cleared"
       },
       {
         "title": "Take the main action",
@@ -67590,7 +67730,7 @@
       {
         "heading": "What it does",
         "body": [
-          "readable text on GuideCompanion green hover (B regression)"
+          "defer the guide's proactive tip until the safety gate is cleared"
         ]
       },
       {
@@ -67615,7 +67755,7 @@
       {
         "heading": "Step by step",
         "body": [
-          "1. See what’s on screen — Guide is where you readable text on GuideCompanion green hover (B regression)",
+          "1. See what’s on screen — Guide is where you defer the guide's proactive tip until the safety gate is cleared",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -67652,7 +67792,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Guide is where you readable text on GuideCompanion green hover (B regression)"
+        "detail": "Guide is where you defer the guide's proactive tip until the safety gate is cleared"
       },
       {
         "title": "Take the main action",
