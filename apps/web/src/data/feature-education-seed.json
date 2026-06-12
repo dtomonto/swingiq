@@ -7767,11 +7767,59 @@
     "groundedIn": [
       {
         "kind": "route",
+        "ref": "/admin/growth/ai-strategist"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/analytics"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/assets"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/growth/attribution"
       },
       {
         "kind": "route",
         "ref": "/admin/growth/brand"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/calendar"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/campaigns"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/channels"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/community"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/content"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/creators"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/crm"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/cro"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/experiments"
       },
       {
         "kind": "route",
@@ -7783,11 +7831,95 @@
       },
       {
         "kind": "route",
+        "ref": "/admin/growth/lifecycle"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/link-intelligence"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/market-intel"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/offers"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/operations"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/paid-media"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/pr"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/growth/privacy"
       },
       {
         "kind": "route",
+        "ref": "/admin/growth/recommendations"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/referral"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/reputation"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/growth/search/audit"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/briefs"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/explorer"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/keywords"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/opportunities"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/page-intel"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/sitemap"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/seo"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/social"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/strategy"
       }
     ],
     "needsHumanReview": false,
@@ -7799,7 +7931,7 @@
       {
         "heading": "Setup",
         "body": [
-          "In the admin dashboard at /admin/growth/attribution.",
+          "In the admin dashboard at /admin/growth/ai-strategist.",
           "No special setup is required beyond admin access."
         ]
       },
@@ -7873,11 +8005,59 @@
     "groundedIn": [
       {
         "kind": "route",
+        "ref": "/admin/growth/ai-strategist"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/analytics"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/assets"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/growth/attribution"
       },
       {
         "kind": "route",
         "ref": "/admin/growth/brand"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/calendar"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/campaigns"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/channels"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/community"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/content"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/creators"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/crm"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/cro"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/experiments"
       },
       {
         "kind": "route",
@@ -7889,11 +8069,95 @@
       },
       {
         "kind": "route",
+        "ref": "/admin/growth/lifecycle"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/link-intelligence"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/market-intel"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/offers"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/operations"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/paid-media"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/pr"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/growth/privacy"
       },
       {
         "kind": "route",
+        "ref": "/admin/growth/recommendations"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/referral"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/reputation"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/growth/search/audit"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/briefs"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/explorer"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/keywords"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/opportunities"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/page-intel"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/sitemap"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/seo"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/social"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/strategy"
       }
     ],
     "needsHumanReview": false,
@@ -7911,15 +8175,15 @@
       {
         "heading": "Before you start",
         "body": [
-          "In the admin dashboard at /admin/growth/attribution.",
+          "In the admin dashboard at /admin/growth/ai-strategist.",
           "No special permissions required."
         ]
       },
       {
         "heading": "Steps",
         "body": [
-          "1. Open Growth — Go to /admin/growth/attribution.",
-          "2. See what’s on screen — Growth is where you coach Mode cleanup — residual accent colors to tokens",
+          "1. Open Growth — Go to /admin/growth/ai-strategist.",
+          "2. See what’s on screen — Growth is where you growth — detected from /admin/growth/ai-strategist.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -7948,11 +8212,11 @@
     "steps": [
       {
         "title": "Open Growth",
-        "detail": "Go to /admin/growth/attribution."
+        "detail": "Go to /admin/growth/ai-strategist."
       },
       {
         "title": "See what’s on screen",
-        "detail": "Growth is where you coach Mode cleanup — residual accent colors to tokens"
+        "detail": "Growth is where you growth — detected from /admin/growth/ai-strategist."
       },
       {
         "title": "Take the main action",
@@ -7987,11 +8251,59 @@
     "groundedIn": [
       {
         "kind": "route",
+        "ref": "/admin/growth/ai-strategist"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/analytics"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/assets"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/growth/attribution"
       },
       {
         "kind": "route",
         "ref": "/admin/growth/brand"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/calendar"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/campaigns"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/channels"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/community"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/content"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/creators"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/crm"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/cro"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/experiments"
       },
       {
         "kind": "route",
@@ -8003,11 +8315,95 @@
       },
       {
         "kind": "route",
+        "ref": "/admin/growth/lifecycle"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/link-intelligence"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/market-intel"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/offers"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/operations"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/paid-media"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/pr"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/growth/privacy"
       },
       {
         "kind": "route",
+        "ref": "/admin/growth/recommendations"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/referral"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/reputation"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/growth/search/audit"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/briefs"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/explorer"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/keywords"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/opportunities"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/page-intel"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/search/sitemap"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/seo"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/social"
+      },
+      {
+        "kind": "route",
+        "ref": "/admin/growth/strategy"
       }
     ],
     "needsHumanReview": false,
@@ -8019,28 +8415,28 @@
       {
         "heading": "Recommended placements",
         "body": [
-          "Primary: tooltip on /admin/growth/attribution.",
+          "Primary: tooltip on /admin/growth/ai-strategist.",
           "Also consider: an empty-state explainer and a \"Learn more\" link to the tutorial."
         ]
       },
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Growth: Coach Mode cleanup — residual accent colors to tokens"
+          "About Growth: Growth — detected from /admin/growth/ai-strategist."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — Coach Mode cleanup — residual accent colors to tokens Take the first step to get started."
+          "Nothing here yet — Growth — detected from /admin/growth/ai-strategist. Take the first step to get started."
         ]
       }
     ],
     "inAppHelp": {
-      "route": "/admin/growth/attribution",
+      "route": "/admin/growth/ai-strategist",
       "placement": "tooltip",
       "headline": "About Growth",
-      "body": "Coach Mode cleanup — residual accent colors to tokens",
+      "body": "Growth — detected from /admin/growth/ai-strategist.",
       "learnMoreHref": "/help/admin-growth"
     },
     "publishTarget": "in-app",
@@ -19276,10 +19672,6 @@
       },
       {
         "kind": "api",
-        "ref": "/api/feature-education/help"
-      },
-      {
-        "kind": "api",
         "ref": "/api/feature-education/publish"
       },
       {
@@ -19394,10 +19786,6 @@
       },
       {
         "kind": "api",
-        "ref": "/api/feature-education/help"
-      },
-      {
-        "kind": "api",
         "ref": "/api/feature-education/publish"
       },
       {
@@ -19435,7 +19823,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Feature Education is where you feature Education — detected from /api/feature-education/drift.",
+          "1. See what’s on screen — Feature Education is where you @",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -19464,7 +19852,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Feature Education is where you feature Education — detected from /api/feature-education/drift."
+        "detail": "Feature Education is where you @"
       },
       {
         "title": "Take the main action",
