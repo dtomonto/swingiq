@@ -1,5 +1,179 @@
 [
   {
+    "sha": "51e57500ddbe896d4f49c600bc2c528b152b8c19",
+    "at": "2026-06-12T11:58:08-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "57549953b26933613df0b142fb95e139af0f7b8d",
+    "at": "2026-06-12T11:58:08-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "53ebfb4ce11b37c5e1c418e44d54acc87b02c574",
+    "at": "2026-06-12T11:58:08-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "29bdda5f3356e3ca1ea9c07896dff35581ef9153",
+    "at": "2026-06-12T11:58:08-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "f3711ce01060423ce2de02f46ac08c9660f0e239",
+    "at": "2026-06-12T11:57:36-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "2f419c99d961e14205b968baebae033dd6f62fc2",
+    "at": "2026-06-12T11:57:36-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "fbf100907d59b438f92d0ae44ba3e6bc16fafc41",
+    "at": "2026-06-12T11:57:36-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "e3cfedbcdc7a04efd76654b004402f64e47200ec",
+    "at": "2026-06-12T11:57:36-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "13baabea3e2c3522eb180302ff3d94c6eb5db725",
+    "at": "2026-06-12T11:57:36-04:00",
+    "type": "other",
+    "subject": "Merge remote-tracking branch 'origin/master' into agent/marketing-i18n-fix"
+  },
+  {
+    "sha": "57a30c285c5fa3d1a635a7ebb3853cb464d444f2",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "fc926f194767d6e745638d4db7445406a52488ad",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0076abc99989a59feee7d35c7caa06b2e9f86c77",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "d1de34ce7cc0ea0682b42611e5718900d2c57b1a",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "aba9b022c1cee626025d42de2752d17882d8e4cd",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "ae1d54def4f7f3c0a9a0caac7350ff3ca58c539e",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "e2ab568382370b95d35c94e88c09128f2f5f1f44",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "4fd8486ecafa6410836f73c792600fa374e08986",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "ee99d3d13bdcd35b3c92d77ef89a4728e231b98a",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "b1973e1bb689af21e95355d494463c8d324eb7ab",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "513757e721ac3daefdb6f6520e677d1b70dd15fc",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "0a9621681f7eea45ba569c7a9e7b3e6d9655f9f6",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0cbbb875dede90e90b9554f173bd4773d09831a3",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "83607ff0193466f7749b5a811f372a438e6eb540",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "9db348b9052844fd7253e3493a7efaf6b0414f5c",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "5d0f78c91d6812ed442d79414f4b4783791917bb",
+    "at": "2026-06-12T11:14:16-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "eb24bb9a2f6e0db8fc6b48f22fb949d7eb624405",
     "at": "2026-06-12T11:14:16-04:00",
     "type": "chore",
@@ -26,6 +200,40 @@
     "type": "fix",
     "scope": "updates",
     "subject": "list product updates strictly newest-first"
+  },
+  {
+    "sha": "6a2ca067340f236d59408629b6bf3c2109208ab7",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "181296d38469cdbc9c28019375c1ab7a797900e0",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "37edd43d775022e0154855d05d3e644f273b1109",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "e230f6e02b5197127b10f06326b539756de027dc",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "efe4677e38a24a7287dde48efc90fb5c1b4d160b",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "other",
+    "subject": "@ fix(i18n): re-translate the Video Analysis → Motion Lab rebrand (es/fr)"
   },
   {
     "sha": "1ca0b328274591254e5b66ca5402abb1b9dcd78a",
@@ -344,211 +552,5 @@
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
-  },
-  {
-    "sha": "6f749700230dd4e27c3dc06b2133e3296e4ce9cf",
-    "at": "2026-06-12T08:07:33-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "b565b7edf58b1b90f68c2777b4228621aec21334",
-    "at": "2026-06-12T08:07:33-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): resync seed after merging master"
-  },
-  {
-    "sha": "3e7fd3fcb9d3f410138bfc3e997b6c35213fd660",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "f7bf5c7ac323246ace10c2eee4db3b3ef0afd823",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "5ffccf9089f98760799b9e8b954a638480ef46a7",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "5daf33110e8aaa4f1c060d38dda536bfaafff139",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "b4e93e07f3ed65106a0f47932bfab7f21c7ed6dc",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "other",
-    "subject": "Merge remote-tracking branch 'origin/master' into agent/secrets-vault-config"
-  },
-  {
-    "sha": "477b171358a428583d0a3802a902e7314c9c0576",
-    "at": "2026-06-12T08:05:48-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "260725d7d510c3f1c52e4ed98c4b249ecff418cd",
-    "at": "2026-06-12T08:05:48-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "88f604b2df65b6c3d1838ecf0199f42aa0e1c2b7",
-    "at": "2026-06-12T08:05:48-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "c6b12fdfbea18b1d4896cda600d9579d7ec32328",
-    "at": "2026-06-12T08:05:48-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "e0987199e3bdff79cf2023a17607cfa5c415e167",
-    "at": "2026-06-12T08:05:48-04:00",
-    "type": "feat",
-    "scope": "motion-lab",
-    "subject": "finish Video Analysis → Motion Lab consolidation"
-  },
-  {
-    "sha": "61d3a72a55417b176f47d6c32908a0a40f65d3a1",
-    "at": "2026-06-12T07:59:44-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "e8d1043dd11af92fa0f6d0ddf77530c0d48f2d88",
-    "at": "2026-06-12T07:59:44-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "9e2396262e2b26db82ec1f390d43b2ea3bd25e6a",
-    "at": "2026-06-12T07:59:44-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "eb6b57c7af4b558b512ceba48d1fea5f7acc9861",
-    "at": "2026-06-12T07:59:44-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "f9bd0b3a46b0529cf12f942acfeb9b340b3900f7",
-    "at": "2026-06-12T07:59:44-04:00",
-    "type": "other",
-    "subject": "@ ci(growth): add workflow_dispatch to Growth CI"
-  },
-  {
-    "sha": "7e8546d8e000f1751200d69927d6c03023d7b199",
-    "at": "2026-06-12T01:16:44-04:00",
-    "type": "feat",
-    "scope": "drills",
-    "subject": "comprehensive per-drill detail pages from a unified catalog"
-  },
-  {
-    "sha": "e4416483d5dfa5a0d7d97e122c17c9c5909de2d3",
-    "at": "2026-06-12T00:43:59-04:00",
-    "type": "feat",
-    "scope": "help",
-    "subject": "build the /help Help Center so every in-app \"Learn more\" resolves"
-  },
-  {
-    "sha": "84be0420418a1f233351ac813be226451632fe72",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "0ea341188365b83f177446e6f35a7b91dc12b85f",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "f98c61add2152bd2b03371c9076100517713b66c",
-    "at": "2026-06-12T01:20:34-04:00",
-    "type": "feat",
-    "scope": "ai",
-    "subject": "per-user daily AI spend cap, editable from the dashboard"
-  },
-  {
-    "sha": "5a3382970a7a8da57d5cb0515cb03a030b4fc12a",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "6e0107c1b951a6d96ced9c6647bb1d9812cca2b5",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "4ab0098aa09454b51c4cdac7a2e16c66edea7c27",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): resync committed seed with the settled registry"
-  },
-  {
-    "sha": "82999d30d01c54aa9bd641b354377168ca6812a9",
-    "at": "2026-06-12T07:45:50-04:00",
-    "type": "feat",
-    "scope": "motion-lab",
-    "subject": "3D avatar viewer + AI vision review tab (#27)"
-  },
-  {
-    "sha": "fec7a244db99b85d3ec5d9424edb2c6e24dae210",
-    "at": "2026-06-12T00:54:14-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "every dashboard metric opens its own explainer page"
-  },
-  {
-    "sha": "17703bb35ae51eb62fda62ea08918eec809464f4",
-    "at": "2026-06-12T00:52:15-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "Copy/Download any alert or finding as a Claude Code fix prompt"
-  },
-  {
-    "sha": "78b12bd67ed88f0f5add8e464e1c0fc9e05c90d3",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "e3db49054709ff6dd6d54aacb812b949bf0b9e69",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
   }
 ]
