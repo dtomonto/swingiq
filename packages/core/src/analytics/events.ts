@@ -36,6 +36,19 @@ export const ANALYTICS_EVENTS = {
   SAMPLE_ANALYSIS_VIEWED: 'sample_analysis_viewed',
   PRIORITY_FIX_VIEWED: 'priority_fix_viewed',
 
+  // AI Coach (chat). The AI-Coach-Quality funnel: opened → question_asked →
+  // answered → answer_rated. Props are non-PII — never the question or answer
+  // text. See lib/ai-coach/analytics.ts.
+  //   AI_COACH_OPENED        + sport, surface (page | floating)
+  //   AI_COACH_QUESTION_ASKED + sport, surface, source (typed | suggested)
+  //   AI_COACH_ANSWERED      + sport, surface, ok, cached, fallback,
+  //     ai_provider, ai_model, ai_latency_ms (AI observability, when AI ran)
+  //   AI_COACH_ANSWER_RATED  + sport, surface, value (helpful | not_helpful)
+  AI_COACH_OPENED: 'ai_coach_opened',
+  AI_COACH_QUESTION_ASKED: 'ai_coach_question_asked',
+  AI_COACH_ANSWERED: 'ai_coach_answered',
+  AI_COACH_ANSWER_RATED: 'ai_coach_answer_rated',
+
   // Drills
   DRILL_CLICKED: 'drill_clicked',
   PRACTICE_PLAN_SAVED: 'practice_plan_saved',

@@ -11,12 +11,23 @@
 // panel is open at a time. See components/layout/FloatingDock.tsx.
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { MessageSquare, X, Send, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useSwingVantageStore, useLatestDiagnosedSession } from '@/store';
 import { usePathname } from 'next/navigation';
 import { useFloatingDock } from '@/components/layout/FloatingDock';
+import {
+  trackCoachOpened,
+  trackCoachQuestion,
+  trackCoachAnswered,
+  type CoachAiMeta,
+  type CoachQuestionSource,
+} from '@/lib/ai-coach/analytics';
+
+// The floating coach builds a golf-context request (golf diagnoses / profile),
+// so its funnel events are attributed to golf.
+const FLOATING_SPORT = 'golf';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -46,6 +57,18 @@ export function FloatingCoach() {
   const { profile } = useSwingVantageStore();
   const latestSession = useLatestDiagnosedSession();
 
+  // AI-Coach-Quality funnel: fire `opened` each time the panel opens (re-armed on
+  // close). Declared before the `hidden` early return so hook order stays stable.
+  const openedRef = useRef(false);
+  useEffect(() => {
+    if (open && !openedRef.current) {
+      openedRef.current = true;
+      trackCoachOpened(FLOATING_SPORT, 'floating');
+    } else if (!open) {
+      openedRef.current = false;
+    }
+  }, [open]);
+
   // Don't show on dedicated AI coach page or auth pages
   const hidden = pathname === '/ai-coach' || pathname === '/login' || pathname === '/signup';
   if (hidden) return null;
@@ -54,13 +77,14 @@ export function FloatingCoach() {
 
   const diagnosisName = latestSession?.diagnoses[0]?.rule?.name;
 
-  const sendMessage = async (text: string) => {
+  const sendMessage = async (text: string, source: CoachQuestionSource = 'typed') => {
     const trimmed = text.trim();
     if (!trimmed || loading) return;
 
     setMessages((prev) => [...prev, { role: 'user', content: trimmed }]);
     setInput('');
     setLoading(true);
+    trackCoachQuestion(FLOATING_SPORT, 'floating', source);
 
     try {
       const coachContext = {
@@ -77,7 +101,10 @@ export function FloatingCoach() {
         body: JSON.stringify(coachContext),
       });
 
-      const data = await res.json() as { message?: string; error?: string };
+      const data = await res.json() as { message?: string; error?: string; aiMeta?: CoachAiMeta };
+
+      const ok = res.ok && !data.error;
+      trackCoachAnswered(FLOATING_SPORT, 'floating', { ok, aiMeta: data.aiMeta });
 
       setMessages((prev) => [
         ...prev,
@@ -88,6 +115,7 @@ export function FloatingCoach() {
         },
       ]);
     } catch {
+      trackCoachAnswered(FLOATING_SPORT, 'floating', { ok: false });
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: 'Could not reach the AI service.', isError: true },
@@ -138,7 +166,7 @@ export function FloatingCoach() {
                 {suggestions.map((s) => (
                   <button
                     key={s}
-                    onClick={() => sendMessage(s)}
+                    onClick={() => sendMessage(s, 'suggested')}
                     className="w-full text-left text-xs px-3 py-2 bg-primary/10 hover:bg-primary/15 text-primary rounded-lg border border-primary/30 transition-colors"
                   >
                     {s}
