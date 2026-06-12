@@ -1,30 +1,91 @@
 [
   {
-    "sha": "a4b7a0b41a90bc3e0ac680b005622714388d3c5b",
-    "at": "2026-06-12T13:01:04-04:00",
+    "sha": "609105e66311f4571b3716bce8edbffbc056c810",
+    "at": "2026-06-12T14:28:36-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "e4aaec161283b9dd544fa72d4ccaf1f76e0a7f09",
-    "at": "2026-06-12T13:01:04-04:00",
+    "sha": "645e1711bf77473ae67de6f4b760bb0e3b13572a",
+    "at": "2026-06-12T14:28:36-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "a2202a7924603498b0400a761da816c85fe8da5f",
-    "at": "2026-06-12T13:01:04-04:00",
+    "sha": "15c252872fe40980bea85943b0f81690da4a70c0",
+    "at": "2026-06-12T14:28:36-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "d1253731856ad14e039f4bfe145fea0c69632168",
-    "at": "2026-06-12T13:01:04-04:00",
+    "sha": "e79856667ea70d489bf5696385f50c2e3437b82f",
+    "at": "2026-06-12T14:28:36-04:00",
+    "type": "test",
+    "scope": "retest",
+    "subject": "de-flake R3 window tests by pinning now + history"
+  },
+  {
+    "sha": "1c323b372bd1e0f43d45114b914d1349d248c6c2",
+    "at": "2026-06-12T14:01:02-04:00",
+    "type": "test",
+    "scope": "feature-education",
+    "subject": "make seed drift guard churn-tolerant (#37)"
+  },
+  {
+    "sha": "eb46177ce5d54f488bae81b89a80c02f1df16604",
+    "at": "2026-06-12T13:40:55-04:00",
     "type": "other",
-    "subject": "Merge remote-tracking branch 'origin/master' into agent/ai-orchestration"
+    "subject": "Merge pull request #38 from dtomonto/agent/visual-baselines-regen"
+  },
+  {
+    "sha": "6d31fba43d116b4073e9cdcdd38ad6dc23cad534",
+    "at": "2026-06-12T13:39:03-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "6ba8dfb604749eff0ea76040c7a59ee1ce420dee",
+    "at": "2026-06-12T13:04:27-04:00",
+    "type": "feat",
+    "scope": "video",
+    "subject": "replay saved swings — clickable history cards + on-device clip"
+  },
+  {
+    "sha": "6d8667950447ecb707d12838101be3608fce596b",
+    "at": "2026-06-12T13:26:12-04:00",
+    "type": "test",
+    "scope": "e2e",
+    "subject": "add chromium-linux visual-regression baselines"
+  },
+  {
+    "sha": "e918c5e8c172375e2006a8220fa8117f2aceff11",
+    "at": "2026-06-12T13:13:51-04:00",
+    "type": "other",
+    "subject": "Merge pull request #36 from dtomonto/agent/visual-baselines-regen"
+  },
+  {
+    "sha": "0af4b5734c8149077e130294ec37075d2f28cb37",
+    "at": "2026-06-12T13:11:40-04:00",
+    "type": "ci",
+    "subject": "add manual Update Visual Baselines workflow"
+  },
+  {
+    "sha": "7970cac76a97cc0171deb95aa54cb781b61ef799",
+    "at": "2026-06-12T13:07:46-04:00",
+    "type": "feat",
+    "scope": "plan",
+    "subject": "Today's Tasks checklist + retest window from commitment date"
+  },
+  {
+    "sha": "bc12969329e3306e543bd3dce39a3421c2f4986b",
+    "at": "2026-06-12T13:06:57-04:00",
+    "type": "feat",
+    "scope": "ai",
+    "subject": "AI Provider Control Center + live strategic routing (#32)"
   },
   {
     "sha": "1c79806619fd2f9a8c967e956e8308088ccd33ea",
@@ -46,41 +107,6 @@
     "type": "feat",
     "scope": "help",
     "subject": "author curated guides for all 53 public features + seed-independent rendering"
-  },
-  {
-    "sha": "3b24d8960723f2362c293548e812b490acfa8030",
-    "at": "2026-06-12T12:20:53-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "cd9b4886ca16200cad66cf79a6e7d0579fa3d984",
-    "at": "2026-06-12T12:20:53-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "4f5b53613f0936ebfcefc4279b2954e02e4df78e",
-    "at": "2026-06-12T12:20:53-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "7f0b9db401779f3fa1736d4cf4f1cda62f9ecfc2",
-    "at": "2026-06-12T12:20:53-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "73263607f331e395757bf907c1de0cf6be616faa",
-    "at": "2026-06-12T12:20:53-04:00",
-    "type": "refactor",
-    "scope": "ai",
-    "subject": "route 4 scattered text calls through the central gateway"
   },
   {
     "sha": "8abfebe93f9de078a73d7bcd5cc842eb8d59600a",
@@ -170,41 +196,6 @@
     "at": "2026-06-12T11:57:36-04:00",
     "type": "other",
     "subject": "Merge remote-tracking branch 'origin/master' into agent/marketing-i18n-fix"
-  },
-  {
-    "sha": "f835ca7c085820f3d3cd9d243e8f600663bcaed6",
-    "at": "2026-06-12T11:55:48-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "b095b16ed2a717191a844c78768566ba80582c5a",
-    "at": "2026-06-12T11:55:48-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "711aebcd60345e4bfaca6b11579dabef38545133",
-    "at": "2026-06-12T11:55:48-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "7d23a49a30c0025b8166a27cc22b4b536cbeae3a",
-    "at": "2026-06-12T11:55:48-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "a22134d56b2407a6fea184e3e7b742dd5cf0bade",
-    "at": "2026-06-12T11:55:48-04:00",
-    "type": "feat",
-    "scope": "ai",
-    "subject": "AI call observability (provider/latency/fallback/schema health)"
   },
   {
     "sha": "b252e888a7910fa9e07fd2629f8639fe4cc82bb7",
@@ -331,41 +322,6 @@
     "type": "fix",
     "scope": "feature-education",
     "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
-  },
-  {
-    "sha": "e1e5c013571da7c90357c8c3eb18fec246f648b5",
-    "at": "2026-06-12T11:24:10-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "286d79f951e4a61151e5324b7e0f79c5dacfd499",
-    "at": "2026-06-12T11:24:10-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "9ebb3608bdbb6fdfbe8ec7d21bb7434e6424487f",
-    "at": "2026-06-12T11:24:10-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "24822154f6568b5f056a1505fd5b8196667dd193",
-    "at": "2026-06-12T11:24:10-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "6d03898c5835a458e6d3e25c53402f31d78e9c67",
-    "at": "2026-06-12T11:24:10-04:00",
-    "type": "feat",
-    "scope": "ai",
-    "subject": "AI Provider Control Center + live strategic routing"
   },
   {
     "sha": "5d0f78c91d6812ed442d79414f4b4783791917bb",
@@ -553,5 +509,47 @@
     "type": "fix",
     "scope": "feature-education",
     "subject": "resync seed (iter 3) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "26660e30a7541fa29bee3469ceb4cfb5b4f761e1",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "828c46ccd8c773da84733bd60354205c8dee907d",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "58dd889121f931840d9d06fa5b056e15f02d3a5f",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "87cea6223cfcba94ea27808c62b0affd551ec8b7",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "f7de5b67cba573a22a5dd29e89a3fceb913b2844",
+    "at": "2026-06-12T08:19:37-04:00",
+    "type": "feat",
+    "scope": "dashboard",
+    "subject": "live cross-tab store sync for in-visit reactivity"
+  },
+  {
+    "sha": "44768a44eee0241ab1c9a7d72d50c18949188f90",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed (iter 2) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
   }
 ]
