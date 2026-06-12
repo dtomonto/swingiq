@@ -44,6 +44,7 @@ import { useSport } from '@/contexts/SportContext';
 import { useDesignV2 } from '@/lib/design-v2-client';
 import { DashboardNextAction } from '@/components/dashboard/DashboardNextAction';
 import { BackupStatusPill } from '@/components/sync/BackupStatusPill';
+import { RetestNudge } from '@/components/dashboard/RetestNudge';
 import { useMemo, useState, type ReactNode } from 'react';
 
 // ── Quick Actions ─────────────────────────────────────────────
@@ -282,6 +283,10 @@ export function DashboardContent({ children }: { children?: ReactNode }) {
           This is the ONE hero action; the supporting panels below collapse
           behind "More for you" so the dashboard stays focused (Phase 1). */}
       <DashboardIntelligence />
+
+      {/* Close the loop: newest retest result + the most-urgent "go retest"
+          reminder. Self-hides until there's something due or a result to show. */}
+      <RetestNudge />
 
       {/* Phase 7: the synthesized #1 priority across ALL sessions (self-hides
           until there's enough to synthesize). */}

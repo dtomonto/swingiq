@@ -36,6 +36,7 @@ import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
 import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
 import { GrowthAgentsPanel } from '@/components/growth';
 import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
+import { RetestNudge } from '@/components/dashboard/RetestNudge';
 import { format } from 'date-fns';
 import { useMemo, type ReactNode } from 'react';
 import type { SportId } from '@swingiq/core';
@@ -395,6 +396,10 @@ export function NonGolfDashboard({ children }: { children?: ReactNode }) {
 
       {/* Intelligent product layer: Welcome Back / next best step + insights */}
       <DashboardIntelligence />
+
+      {/* Close the loop: newest retest result + the most-urgent "go retest"
+          reminder. Self-hides until there's something due or a result to show. */}
+      <RetestNudge />
 
       {/* Athlete General Intelligence: cross-sport keystone + goal, links to /agi */}
       <AthleteGISummary />

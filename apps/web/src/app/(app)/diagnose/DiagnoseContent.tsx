@@ -13,6 +13,7 @@ import {
   Dumbbell,
   Sparkles,
   FileText,
+  RotateCcw,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardBody, CardHeader } from '@/components/ui/Card';
@@ -498,10 +499,15 @@ export function DiagnoseContent() {
       {/* Next steps (Phase 6) — clear, low-friction actions after a diagnosis. */}
       <div className="rounded-xl border border-border bg-card p-4">
         <p className="mb-3 text-sm font-semibold text-foreground">What next?</p>
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
           <Link href="/training">
             <Button variant="outline" size="sm" className="w-full justify-start gap-1.5">
               <Dumbbell size={15} /> Practice plan
+            </Button>
+          </Link>
+          <Link href="/retest">
+            <Button variant="outline" size="sm" className="w-full justify-start gap-1.5">
+              <RotateCcw size={15} /> Retest
             </Button>
           </Link>
           <Link href="/sessions/import">

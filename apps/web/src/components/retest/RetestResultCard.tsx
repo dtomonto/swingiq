@@ -30,10 +30,18 @@ const OUTCOME_META: Record<
 export function RetestResultCard({
   result,
   onAcknowledge,
+  trackOnMount = true,
   className,
 }: {
   result: RetestResult;
   onAcknowledge?: (id: string) => void;
+  /**
+   * Fire the north-star RETEST_COMPLETED funnel event on mount. Defaults to
+   * true (the Retest hub is the canonical firing surface). Secondary surfaces
+   * that re-render this card on every visit (e.g. the dashboard nudge) pass
+   * false so a single closed loop isn't counted once per page view.
+   */
+  trackOnMount?: boolean;
   className?: string;
 }) {
   const [showWhy, setShowWhy] = useState(false);
@@ -45,6 +53,7 @@ export function RetestResultCard({
   // screen. This is the north-star "Weekly Completed Improvement Loops" signal.
   // One event per surfaced result (a new result is a new mount via its key).
   useEffect(() => {
+    if (!trackOnMount) return;
     track(ANALYTICS_EVENTS.RETEST_COMPLETED, {
       sport: result.sport,
       outcome: comparison.outcome,
