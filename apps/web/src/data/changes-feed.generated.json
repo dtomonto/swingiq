@@ -1,5 +1,39 @@
 [
   {
+    "sha": "77aca509cc636008b31b98b2ca2a5fd8d0e255b0",
+    "at": "2026-06-12T08:12:04-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "e8dc4c113fbb3695042713c743c7099593cf0761",
+    "at": "2026-06-12T08:12:04-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "8f96ccc6ac79d297b39351226842b898e93269c9",
+    "at": "2026-06-12T08:12:04-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "abeb1d7431435fa21f7f0ef6a9df40295d1a8f6a",
+    "at": "2026-06-12T08:12:04-04:00",
+    "type": "other",
+    "subject": "@ fix(feature-education): seed matches the now-generic registry"
+  },
+  {
+    "sha": "58a0eba4b103895d5a2fa5e859948b62d94f668b",
+    "at": "2026-06-12T08:09:57-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "3c3343676378300eeaa0109d3fad4c5398288d0a",
     "at": "2026-06-12T08:09:57-04:00",
     "type": "chore",
@@ -516,40 +550,5 @@
     "type": "feat",
     "scope": "design-v2",
     "subject": "Phase 8 GA flip — redesign is now the default (flag kept as rollback)"
-  },
-  {
-    "sha": "677b255e7507a71bdad7e6d8debf1ac678aaff4d",
-    "at": "2026-06-11T11:29:08-04:00",
-    "type": "feat",
-    "scope": "design-v2",
-    "subject": "Phase 7 follow-up — full Learn article body on the document surface"
-  },
-  {
-    "sha": "856713f1fd5d5cb35688a1448b12e604d81bb0d9",
-    "at": "2026-06-11T11:16:29-04:00",
-    "type": "docs",
-    "scope": "design-v2",
-    "subject": "add DESIGN_V2.md — token axes, components, flag, ramp"
-  },
-  {
-    "sha": "622dba500493fa9e4765c6dab5b89970eadf4e3e",
-    "at": "2026-06-11T12:07:26-04:00",
-    "type": "docs",
-    "scope": "intelligence",
-    "subject": "25-priority learning plan from the intelligence/Kinematica/biometrics audit"
-  },
-  {
-    "sha": "c2d21f0b97ebbeceab801d3bd4cea4cd0d6772da",
-    "at": "2026-06-11T11:58:10-04:00",
-    "type": "feat",
-    "scope": "admin-os",
-    "subject": "Phase 6 — Decision Center (one ranked queue)"
-  },
-  {
-    "sha": "38f95f9a63872bcd91559ba06efbe9e104a0a034",
-    "at": "2026-06-11T11:41:24-04:00",
-    "type": "polish",
-    "scope": "hero",
-    "subject": "stronger softball uppercut + shorter padel backswing; lint ignore storybook-static"
   }
 ]
