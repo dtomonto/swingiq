@@ -1,5 +1,40 @@
 [
   {
+    "sha": "fc926f194767d6e745638d4db7445406a52488ad",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0076abc99989a59feee7d35c7caa06b2e9f86c77",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "d1de34ce7cc0ea0682b42611e5718900d2c57b1a",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "aba9b022c1cee626025d42de2752d17882d8e4cd",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "ae1d54def4f7f3c0a9a0caac7350ff3ca58c539e",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "e2ab568382370b95d35c94e88c09128f2f5f1f44",
     "at": "2026-06-12T11:32:30-04:00",
     "type": "chore",
@@ -515,40 +550,5 @@
     "type": "feat",
     "scope": "drills",
     "subject": "comprehensive per-drill detail pages from a unified catalog"
-  },
-  {
-    "sha": "e4416483d5dfa5a0d7d97e122c17c9c5909de2d3",
-    "at": "2026-06-12T00:43:59-04:00",
-    "type": "feat",
-    "scope": "help",
-    "subject": "build the /help Help Center so every in-app \"Learn more\" resolves"
-  },
-  {
-    "sha": "84be0420418a1f233351ac813be226451632fe72",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "0ea341188365b83f177446e6f35a7b91dc12b85f",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "f98c61add2152bd2b03371c9076100517713b66c",
-    "at": "2026-06-12T01:20:34-04:00",
-    "type": "feat",
-    "scope": "ai",
-    "subject": "per-user daily AI spend cap, editable from the dashboard"
-  },
-  {
-    "sha": "5a3382970a7a8da57d5cb0515cb03a030b4fc12a",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
   }
 ]
