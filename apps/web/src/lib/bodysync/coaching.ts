@@ -12,6 +12,7 @@ import type {
   SessionType, SportId, BodyRegion,
 } from './types';
 import { SAFE_LANGUAGE } from './constants';
+import type { RepeatabilityResult } from '@/lib/motion-lab';
 
 interface ZoneTemplate {
   sessionType: SessionType;
@@ -124,8 +125,30 @@ function warmupFor(zone: ReadinessZone, sport: SportId, today: ManualCheckin | n
   return `${base}${rot}${sore ? ', adding light mobility for sore areas' : ''}.`;
 }
 
+/**
+ * An honest, estimate-labelled coaching nudge from recent Motion Lab
+ * repeatability (P11). When the athlete's least-repeatable kinematic (e.g.
+ * balance/tempo) is shaky, or overall repeatability is low, suggest grooving
+ * it — a TRAINING-EMPHASIS hint, never a medical or definitive claim. Returns
+ * null when there isn't enough motion data or the motion is already solid.
+ */
+export function motionLabCoachingNudge(motion: RepeatabilityResult | null | undefined): string | null {
+  if (!motion || !motion.available || motion.score === null) return null;
+  const weak = motion.leastConsistent;
+  const overallShaky = motion.score < 70;
+  const metricShaky = weak !== null && weak.consistency < 65;
+  if (!overallShaky && !metricShaky) return null;
+  const focus = (weak?.name ?? 'mechanics').toLowerCase();
+  return (
+    `Your recent motion shows lower ${focus} consistency ` +
+    `(estimated from your last ${motion.sessionCount} sessions) — a few slow, identical reps ` +
+    `grooving your ${focus} could pay off today.`
+  );
+}
+
 export function buildRecommendation(
   assessment: ReadinessAssessment, sport: SportId, today: ManualCheckin | null,
+  motion?: RepeatabilityResult | null,
 ): CoachingRecommendation {
   const t = ZONE_TEMPLATES[assessment.zone];
   const explanation: string[] = [];
@@ -146,6 +169,10 @@ export function buildRecommendation(
   }
 
   const note = injuryNote(today?.painAreas ?? [], today?.pain ?? 0);
+
+  // P11: fold a recent Motion Lab repeatability signal into the day's emphasis.
+  const motionEmphasis = motionLabCoachingNudge(motion ?? null);
+  if (motionEmphasis) explanation.push(motionEmphasis);
 
   // Performance-opportunity bump: a great day can extend the green plan.
   let durationMinutes = t.durationMinutes;
@@ -170,5 +197,6 @@ export function buildRecommendation(
     confidence: assessment.confidence,
     explanation,
     sportNotes: SPORT_EMPHASIS[sport] ?? SPORT_EMPHASIS.golf,
+    motionEmphasis,
   };
 }
