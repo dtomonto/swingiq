@@ -26,6 +26,7 @@ Legend: ✅ implemented · 🟡 partial · ⬜ recommended (not built)
 | ✅ Growth agents | `/admin/growth-agents`, `lib/agents/*` | 7 deterministic growth agents + coordinator. |
 | ✅ Analytics OS | `/admin/analytics`, `/api/admin/analytics-os` | PostHog control center; read key stays server-side. |
 | ✅ **AI Usage & Billing** | `/admin/ai-usage`, `lib/ai-budget.ts` | Tracks paid AI spend by feature and by UTC day (exact call counts + upper-bound cost estimates), shows the kill-switch cap status, and links straight to each provider's billing console to top up capacity without leaving the dashboard. Metering auto-captures via the existing `recordAiSpend` calls; off only in the fully-keyless case. |
+| ✅ **AI Provider Control Center** | `/admin/ai-provider`, `lib/ai/ai-ops/*` | The strategic routing + observability surface over the AI-Operations layer: per-task provider/model (durable admin overrides), provider health, and sanitized recent-call history. Backs the **AIO-4 orchestrator** (`orchestrator`/`normalize`/`bridge`) that turns frame-vision into normalized evidence → structured *one fix / one plan / one retest* coach report on the live `/api/video-vision-analysis` path. Coach synthesis is opt-in (`ENABLE_AIO_COACH_SYNTHESIS`) + budget-gated; off → a deterministic vision-derived report at no extra cost. |
 
 ---
 
