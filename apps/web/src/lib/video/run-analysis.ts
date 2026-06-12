@@ -164,6 +164,10 @@ async function runSwingAnalysisInner(
       },
       previous: input.previous,
       poseSummary: pose.summary,
+      // Structured on-device pose proxies (numbers only — no images) so the
+      // server's structured report can corroborate the frame vision with
+      // measurement evidence. Privacy unchanged: the video never leaves here.
+      poseMetrics: pose.metrics,
       speed: input.speed,
     }),
     signal: sink.signal,
