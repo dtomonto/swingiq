@@ -13,8 +13,10 @@
 
 import type { DiagnosisOutput } from '@swingiq/core';
 import type { LocalSession } from '@/store';
+import type { AgiCommitment } from '@/lib/agi/commitment';
 import { resolveFault } from '@/lib/faults';
 import { buildWindow, statusFor } from './engine';
+import { commitmentStartForSport } from './targets';
 import type { RetestComparison, RetestResult, RetestStoreState, RetestTarget } from './types';
 
 const GOLF_EMOJI = '⛳';
@@ -55,6 +57,7 @@ export function deriveGolfRetestTargets(
   sessions: LocalSession[],
   store: RetestStoreState,
   now: Date = new Date(),
+  commitment?: AgiCommitment | null,
 ): RetestTarget[] {
   const list = diagnosedGolfSessions(sessions);
   const latest = list[0];
@@ -63,7 +66,15 @@ export function deriveGolfRetestTargets(
   const primary = golfPrimary(latest)!;
   const focus = primary.rule?.name ?? 'your top number';
   const fault = resolveFault(primary.rule?.id ?? 'golf_focus', { label: focus, sport: 'golf' });
-  const window = buildWindow(latest.created_at, fault.retest.activeWindowDays);
+  // Run the window from when the athlete committed to the fix (if later than the
+  // diagnosis) — same rule as the video path, so a golf commitment moves the clock.
+  const commitmentStartIso = commitmentStartForSport(commitment, 'golf');
+  const startIso =
+    commitmentStartIso &&
+    new Date(commitmentStartIso).getTime() > new Date(latest.created_at).getTime()
+      ? commitmentStartIso
+      : latest.created_at;
+  const window = buildWindow(startIso, fault.retest.activeWindowDays);
 
   return [
     {

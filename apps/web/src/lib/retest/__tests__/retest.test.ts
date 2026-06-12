@@ -7,9 +7,25 @@
 // ============================================================
 
 import type { SavedVideoAnalysis } from '@/lib/video/history';
+import type { AgiCommitment } from '@/lib/agi/commitment';
 import { buildWindow, statusFor, compareAnalyses } from '../engine';
 import { deriveRetestTargets, deriveRetestResults } from '../targets';
 import type { RetestStoreState } from '../types';
+
+function makeCommitment(o: {
+  committedAt: string;
+  sport?: string;
+  status?: 'active' | 'done';
+}): AgiCommitment {
+  return {
+    capability: 'rotation' as AgiCommitment['capability'],
+    name: 'Rotation',
+    committedAt: o.committedAt,
+    retestDueAt: o.committedAt,
+    drills: [{ sport: o.sport ?? 'baseball', fix: 'lead hip first', drillId: null }],
+    status: o.status ?? 'active',
+  };
+}
 
 const daysAgo = (n: number) => new Date(Date.now() - n * 86_400_000).toISOString();
 
@@ -173,5 +189,38 @@ describe('derivation from saved history', () => {
     ];
     const store: RetestStoreState = { ...EMPTY_STORE, acknowledgedResultIds: ['b2'] };
     expect(deriveRetestResults(history, store)).toHaveLength(0);
+  });
+});
+
+describe('commitment moves the retest window start (R3)', () => {
+  const history = () => [makeAnalysis({ id: 'b1', sport: 'baseball', createdAt: daysAgo(12) })];
+  const retestBy = (cmt?: AgiCommitment) =>
+    deriveRetestTargets(history(), EMPTY_STORE, new Date(), cmt)[0].window.retestBy;
+
+  it('starts the window at the commitment date when committed after the analysis', () => {
+    const base = deriveRetestTargets(history(), EMPTY_STORE, new Date());
+    const withCmt = deriveRetestTargets(
+      history(),
+      EMPTY_STORE,
+      new Date(),
+      makeCommitment({ committedAt: daysAgo(1) }),
+    );
+    // A later start => later retestBy and fewer days since the clock started.
+    expect(new Date(withCmt[0].window.retestBy).getTime()).toBeGreaterThan(
+      new Date(base[0].window.retestBy).getTime(),
+    );
+    expect(withCmt[0].status.daysSinceDiagnosis).toBeLessThan(base[0].status.daysSinceDiagnosis);
+  });
+
+  it('ignores a done commitment', () => {
+    expect(retestBy(makeCommitment({ committedAt: daysAgo(1), status: 'done' }))).toBe(retestBy());
+  });
+
+  it('ignores a commitment that does not cover the sport', () => {
+    expect(retestBy(makeCommitment({ committedAt: daysAgo(1), sport: 'tennis' }))).toBe(retestBy());
+  });
+
+  it('does not move the window when the commitment predates the analysis', () => {
+    expect(retestBy(makeCommitment({ committedAt: daysAgo(20) }))).toBe(retestBy());
   });
 });

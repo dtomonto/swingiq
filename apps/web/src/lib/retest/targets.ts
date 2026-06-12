@@ -10,9 +10,38 @@
 
 import type { SportId } from '@swingiq/core';
 import type { SavedVideoAnalysis } from '@/lib/video/history';
+import type { AgiCommitment } from '@/lib/agi/commitment';
 import { resolveFault, matchFaultId } from '@/lib/faults';
 import { buildWindow, statusFor, compareAnalyses } from './engine';
 import type { RetestResult, RetestStoreState, RetestTarget } from './types';
+
+/**
+ * When an ACTIVE plan commitment covers this sport, the retest clock should run
+ * from when the athlete committed to the fix (that's when they started
+ * practising it), not from the diagnosis date. Returns that ISO date, or null
+ * when no active commitment applies. Matched by sport via the commitment's
+ * drills (the keystone capability spans sports; drills carry concrete tags).
+ */
+export function commitmentStartForSport(
+  commitment: AgiCommitment | null | undefined,
+  sport: SportId,
+): string | null {
+  if (!commitment || commitment.status !== 'active') return null;
+  return commitment.drills.some((d) => d.sport === sport) ? commitment.committedAt : null;
+}
+
+/**
+ * The window start is the LATER of the diagnosis date and an active commitment's
+ * date: if the athlete committed to the fix after this analysis, the clock to
+ * retest begins when they started practising, not when it was diagnosed. Earlier
+ * commitments (e.g. the analysis IS the retest) leave the analysis date in place.
+ */
+function windowStartFor(diagnosisIso: string, commitmentStartIso: string | null): string {
+  if (!commitmentStartIso) return diagnosisIso;
+  return new Date(commitmentStartIso).getTime() > new Date(diagnosisIso).getTime()
+    ? commitmentStartIso
+    : diagnosisIso;
+}
 
 /** Group analyses by sport, each list newest-first (history is already sorted). */
 function bySport(history: SavedVideoAnalysis[]): Map<SportId, SavedVideoAnalysis[]> {
@@ -31,13 +60,20 @@ function focusSlug(focus: string): string {
 }
 
 /** Turn the most recent analysis for a sport into an OPEN retest target. */
-function toTarget(latest: SavedVideoAnalysis, now: Date): RetestTarget {
+function toTarget(
+  latest: SavedVideoAnalysis,
+  now: Date,
+  commitmentStartIso: string | null = null,
+): RetestTarget {
   const focus = latest.topFocus;
   // Prefer a curated fault (richer retest criteria); fall back to a slug so
   // the ontology can still synthesize an honest generated entry.
   const id = matchFaultId(focus, latest.sport) ?? focusSlug(focus);
   const fault = resolveFault(id, { label: focus, sport: latest.sport });
-  const window = buildWindow(latest.createdAt, fault.retest.activeWindowDays);
+  const window = buildWindow(
+    windowStartFor(latest.createdAt, commitmentStartIso),
+    fault.retest.activeWindowDays,
+  );
   return {
     id: latest.id,
     sport: latest.sport,
@@ -74,14 +110,15 @@ export function deriveRetestTargets(
   history: SavedVideoAnalysis[],
   store: RetestStoreState,
   now: Date = new Date(),
+  commitment?: AgiCommitment | null,
 ): RetestTarget[] {
   const dismissed = new Set(store.dismissedTargetIds);
   const targets: RetestTarget[] = [];
 
-  for (const [, list] of bySport(history)) {
+  for (const [sport, list] of bySport(history)) {
     const latest = list[0];
     if (!latest || dismissed.has(latest.id)) continue;
-    targets.push(toTarget(latest, now));
+    targets.push(toTarget(latest, now, commitmentStartForSport(commitment, sport)));
   }
 
   return sortRetestTargets(targets);

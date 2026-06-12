@@ -28,6 +28,7 @@ import {
 } from './store';
 import { deriveRetestTargets, deriveRetestResults, sortRetestTargets, topRetestTarget } from './targets';
 import { deriveGolfRetestTargets, deriveGolfRetestResults } from './targets.golf';
+import { loadCommitment } from '@/lib/agi/commitment';
 import type { RetestResult, RetestTarget } from './types';
 
 export interface RetestView {
@@ -64,8 +65,14 @@ function golfSignature(): string {
   return `${golf.length}:${latest?.id ?? ''}:${latest?.diagnoses?.length ?? 0}:${latest?.swing_score ?? ''}`;
 }
 
+/** Cheap signature of the active commitment that can shift a retest window. */
+function commitmentSignature(): string {
+  const c = loadCommitment();
+  return c ? `${c.status}:${c.committedAt}` : '';
+}
+
 function snapshotKey(): string {
-  return `${getVideoHistoryVersion()}:${getRetestStoreVersion()}:${golfSignature()}`;
+  return `${getVideoHistoryVersion()}:${getRetestStoreVersion()}:${golfSignature()}:${commitmentSignature()}`;
 }
 
 function getSnapshot(): RetestView {
@@ -75,11 +82,12 @@ function getSnapshot(): RetestView {
   const history = loadVideoHistory();
   const store = loadRetestStore();
   const sessions = useSwingVantageStore.getState().sessions;
+  const commitment = loadCommitment();
   const now = new Date();
 
   const targets = sortRetestTargets([
-    ...deriveRetestTargets(history, store, now),
-    ...deriveGolfRetestTargets(sessions, store, now),
+    ...deriveRetestTargets(history, store, now, commitment),
+    ...deriveGolfRetestTargets(sessions, store, now, commitment),
   ]);
   const results = [
     ...deriveRetestResults(history, store),

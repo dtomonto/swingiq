@@ -5,6 +5,7 @@ import { NonGolfDashboard } from './NonGolfDashboard';
 import { IntentPicker } from '@/components/intent/IntentPicker';
 import { FirstWeekPlanCard } from '@/components/onboarding/FirstWeekPlanCard';
 import { FoundingProgressNudge } from '@/components/founding/FoundingProgressNudge';
+import { TodaysTasks } from '@/components/agi/TodaysTasks';
 import { useSport } from '@/contexts/SportContext';
 
 export default function DashboardPage() {
@@ -21,6 +22,9 @@ export default function DashboardPage() {
       <FoundingProgressNudge />
       {/* Low-cognition front door (§5.1): one question that routes into the flow. */}
       <IntentPicker />
+      {/* The committed plan's drills as a daily checklist. Self-hides until a
+          plan is committed — closes the "One plan" loop on the dashboard. */}
+      <TodaysTasks />
       {/* Guided First 7 Days — self-hides once the athlete graduates. */}
       <FirstWeekPlanCard />
     </>
