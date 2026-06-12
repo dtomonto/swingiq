@@ -9,6 +9,8 @@ interface ProgressTimelineProps {
   points: ProgressTimelinePoint[];
   /** Chart height in px. @default 120 */
   height?: number;
+  /** Document-surface ink (dot ring + labels) for the report paper. @default false */
+  onPaper?: boolean;
   className?: string;
 }
 
@@ -26,8 +28,12 @@ export function scoreBandColor(score: number): string {
  * (falling back to --primary); dots are colored by grade band. Horizontally
  * scrollable on mobile.
  */
-export function ProgressTimeline({ points, height = 120, className }: ProgressTimelineProps) {
+export function ProgressTimeline({ points, height = 120, onPaper = false, className }: ProgressTimelineProps) {
   if (!points.length) return null;
+
+  // Dot ring blends into the surface it sits on; labels follow the surface ink.
+  const dotRing = onPaper ? 'hsl(var(--surface-document))' : 'hsl(var(--card))';
+  const labelInk = onPaper ? 'text-document-fg/60' : 'text-muted-foreground';
 
   const w = 100; // viewBox width units
   const scores = points.map((p) => p.score);
@@ -63,7 +69,7 @@ export function ProgressTimeline({ points, height = 120, className }: ProgressTi
             cy={y(p.score)}
             r={2.4}
             fill={scoreBandColor(p.score)}
-            stroke="hsl(var(--card))"
+            stroke={dotRing}
             strokeWidth={0.8}
           />
         ))}
@@ -78,7 +84,7 @@ export function ProgressTimeline({ points, height = 120, className }: ProgressTi
             <p className="text-[13px] font-bold tabular-nums" style={{ color: scoreBandColor(p.score) }}>
               {p.score}
             </p>
-            <p className="whitespace-nowrap text-[10.5px] text-muted-foreground">{p.label}</p>
+            <p className={cn('whitespace-nowrap text-[10.5px]', labelInk)}>{p.label}</p>
           </div>
         ))}
       </div>

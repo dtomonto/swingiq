@@ -1,73 +1,38 @@
 [
   {
-    "sha": "4251e36366344a566a1258b379cdecb1b63b6120",
-    "at": "2026-06-12T14:40:00-04:00",
+    "sha": "692d22d4410497e3ae080e6245469bbaa1dcb9d0",
+    "at": "2026-06-12T14:28:42-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "2474a872e2ad196d14149218a95b579e6952fefc",
-    "at": "2026-06-12T14:40:00-04:00",
+    "sha": "d2e87cbca1da1fe0960ba37f9687ee848aac7156",
+    "at": "2026-06-12T14:28:42-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "3efb078c8612e9981419c8e1e1e9ea05e8b837a5",
-    "at": "2026-06-12T14:40:00-04:00",
+    "sha": "029cc39f9404d40ab278f77a12bd17e8acfeb810",
+    "at": "2026-06-12T14:28:42-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "7fd0a510184a145e6d73a90de48708817f71d1bf",
-    "at": "2026-06-12T14:40:00-04:00",
+    "sha": "d12791af47383292182aaf9ca01095f9d46107bf",
+    "at": "2026-06-12T14:28:42-04:00",
     "type": "fix",
     "scope": "a11y",
-    "subject": "clear blocking jsx-a11y error in SavedAnalysisModal backdrop"
+    "subject": "SavedAnalysisModal backdrop close is a real button (unblock CI)"
   },
   {
-    "sha": "94fee8e5c0db55f3a8df32251ef1e14aa6e3f437",
-    "at": "2026-06-12T14:28:36-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "609105e66311f4571b3716bce8edbffbc056c810",
-    "at": "2026-06-12T14:28:36-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "645e1711bf77473ae67de6f4b760bb0e3b13572a",
-    "at": "2026-06-12T14:28:36-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "15c252872fe40980bea85943b0f81690da4a70c0",
-    "at": "2026-06-12T14:28:36-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "e79856667ea70d489bf5696385f50c2e3437b82f",
-    "at": "2026-06-12T14:28:36-04:00",
-    "type": "test",
-    "scope": "retest",
-    "subject": "de-flake R3 window tests by pinning now + history"
-  },
-  {
-    "sha": "1c323b372bd1e0f43d45114b914d1349d248c6c2",
-    "at": "2026-06-12T14:01:02-04:00",
-    "type": "test",
-    "scope": "feature-education",
-    "subject": "make seed drift guard churn-tolerant (#37)"
+    "sha": "3a20155fe5fca10c35bc4813a2a34e211a8ae2c3",
+    "at": "2026-06-12T12:52:16-04:00",
+    "type": "feat",
+    "scope": "design-v2",
+    "subject": "paper-surface the report body + DS primitives; dashboard score polish"
   },
   {
     "sha": "eb46177ce5d54f488bae81b89a80c02f1df16604",
@@ -551,5 +516,40 @@
     "type": "chore",
     "scope": "changes",
     "subject": "refresh changes feed"
+  },
+  {
+    "sha": "828c46ccd8c773da84733bd60354205c8dee907d",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "58dd889121f931840d9d06fa5b056e15f02d3a5f",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "87cea6223cfcba94ea27808c62b0affd551ec8b7",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "f7de5b67cba573a22a5dd29e89a3fceb913b2844",
+    "at": "2026-06-12T08:19:37-04:00",
+    "type": "feat",
+    "scope": "dashboard",
+    "subject": "live cross-tab store sync for in-visit reactivity"
+  },
+  {
+    "sha": "44768a44eee0241ab1c9a7d72d50c18949188f90",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed (iter 2) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
   }
 ]
