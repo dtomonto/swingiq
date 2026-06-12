@@ -1,5 +1,47 @@
 [
   {
+    "sha": "d6885dc664b465d7c08cb2e8bdf38a4132d0ff33",
+    "at": "2026-06-12T08:23:23-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0c52cfd4a9f59f7281bd8579e29e0ecb23f0c070",
+    "at": "2026-06-12T08:23:23-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "627e7714c948ea7e363cea7b3e6865231b02ab17",
+    "at": "2026-06-12T08:23:23-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "ac63d38ce0d3528387de6aa76b266cde9e24e448",
+    "at": "2026-06-12T08:23:23-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "await async route guards (unblocks next build)"
+  },
+  {
+    "sha": "f7de5b67cba573a22a5dd29e89a3fceb913b2844",
+    "at": "2026-06-12T08:19:37-04:00",
+    "type": "feat",
+    "scope": "dashboard",
+    "subject": "live cross-tab store sync for in-visit reactivity"
+  },
+  {
+    "sha": "477b171358a428583d0a3802a902e7314c9c0576",
+    "at": "2026-06-12T08:05:48-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "260725d7d510c3f1c52e4ed98c4b249ecff418cd",
     "at": "2026-06-12T08:05:48-04:00",
     "type": "chore",
@@ -516,47 +558,5 @@
     "type": "feat",
     "scope": "signal-radar",
     "subject": "Sport Intelligence views + Strategy Brief (+classifier fix)"
-  },
-  {
-    "sha": "42893164c7714ddb373893b9d08ed043fb733314",
-    "at": "2026-06-11T07:37:43-04:00",
-    "type": "fix",
-    "scope": "video-studio",
-    "subject": "content-aware tutorial poster extraction"
-  },
-  {
-    "sha": "6df26f968bbeafe92d2afdfc27c4d38ab3b8d758",
-    "at": "2026-06-11T07:33:31-04:00",
-    "type": "fix",
-    "scope": "admin-os",
-    "subject": "Coach Mode cleanup — residual accent colors to tokens"
-  },
-  {
-    "sha": "a2e8cd4ec8e8d173a7e488632dd737e8c86b8fff",
-    "at": "2026-06-11T07:33:20-04:00",
-    "type": "fix",
-    "scope": "tutorial",
-    "subject": "real poster frames for 25 walkthrough videos"
-  },
-  {
-    "sha": "4f109164ff09b38675b026d88afd17a8540d7b60",
-    "at": "2026-06-11T07:23:52-04:00",
-    "type": "fix",
-    "scope": "design-v2",
-    "subject": "restore design-v2 flag module to un-break master"
-  },
-  {
-    "sha": "9b8b7f968a9038f642f7bbafb128261b773ed5c6",
-    "at": "2026-06-11T07:18:12-04:00",
-    "type": "feat",
-    "scope": "admin-os",
-    "subject": "Phase 0 — flip admin chrome to light Coach Mode tokens"
-  },
-  {
-    "sha": "38464da224de73e221c101922d2dc4c713ea6a62",
-    "at": "2026-06-11T07:17:04-04:00",
-    "type": "feat",
-    "scope": "design-v2",
-    "subject": "Phase 4 pt2 — flag-gated \"capture is paper\" upload zone"
   }
 ]
