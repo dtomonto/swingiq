@@ -32962,11 +32962,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/drills/:slug"
+        "ref": "/drills"
       },
       {
         "kind": "route",
-        "ref": "/drills"
+        "ref": "/drills/:slug"
       }
     ],
     "needsHumanReview": false,
@@ -32978,8 +32978,8 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Drills?\nA: comprehensive per-drill detail pages from a unified catalog",
-          "Q: Where do I find Drills?\nA: In the app at /drills/:slug.",
+          "Q: What is Drills?\nA: Drills — detected from /drills.",
+          "Q: Where do I find Drills?\nA: In the app at /drills.",
           "Q: How do I use Drills?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Drills?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
           "Q: What permissions do I need?\nA: No special permissions are required.",
@@ -32992,11 +32992,11 @@
     "faqs": [
       {
         "q": "What is Drills?",
-        "a": "comprehensive per-drill detail pages from a unified catalog"
+        "a": "Drills — detected from /drills."
       },
       {
         "q": "Where do I find Drills?",
-        "a": "In the app at /drills/:slug."
+        "a": "In the app at /drills."
       },
       {
         "q": "How do I use Drills?",
@@ -33043,11 +33043,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/drills/:slug"
+        "ref": "/drills"
       },
       {
         "kind": "route",
-        "ref": "/drills"
+        "ref": "/drills/:slug"
       }
     ],
     "needsHumanReview": false,
@@ -33065,15 +33065,15 @@
       {
         "heading": "Before you start",
         "body": [
-          "In the app at /drills/:slug.",
+          "In the app at /drills.",
           "No special permissions required."
         ]
       },
       {
         "heading": "Steps",
         "body": [
-          "1. Open Drills — Go to /drills/:slug.",
-          "2. See what’s on screen — Drills is where you comprehensive per-drill detail pages from a unified catalog",
+          "1. Open Drills — Go to /drills.",
+          "2. See what’s on screen — Drills is where you drills — detected from /drills.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -33102,11 +33102,11 @@
     "steps": [
       {
         "title": "Open Drills",
-        "detail": "Go to /drills/:slug."
+        "detail": "Go to /drills."
       },
       {
         "title": "See what’s on screen",
-        "detail": "Drills is where you comprehensive per-drill detail pages from a unified catalog"
+        "detail": "Drills is where you drills — detected from /drills."
       },
       {
         "title": "Take the main action",
@@ -33141,11 +33141,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/drills/:slug"
+        "ref": "/drills"
       },
       {
         "kind": "route",
-        "ref": "/drills"
+        "ref": "/drills/:slug"
       }
     ],
     "needsHumanReview": false,
@@ -33157,7 +33157,7 @@
       {
         "heading": "Recommended placements",
         "body": [
-          "Primary: announcement on /drills/:slug.",
+          "Primary: announcement on /drills.",
           "Also consider: an empty-state explainer and a \"Learn more\" link to the tutorial.",
           "Show a one-time announcement modal on first visit."
         ]
@@ -33165,21 +33165,21 @@
       {
         "heading": "Tooltip copy",
         "body": [
-          "New: Drills: comprehensive per-drill detail pages from a unified catalog"
+          "New: Drills: Drills — detected from /drills."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — comprehensive per-drill detail pages from a unified catalog Take the first step to get started."
+          "Nothing here yet — Drills — detected from /drills. Take the first step to get started."
         ]
       }
     ],
     "inAppHelp": {
-      "route": "/drills/:slug",
+      "route": "/drills",
       "placement": "announcement",
       "headline": "New: Drills",
-      "body": "comprehensive per-drill detail pages from a unified catalog",
+      "body": "Drills — detected from /drills.",
       "learnMoreHref": "/help/drills"
     },
     "publishTarget": "in-app",
@@ -33202,35 +33202,35 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/drills/:slug"
+        "ref": "/drills"
       },
       {
         "kind": "route",
-        "ref": "/drills"
+        "ref": "/drills/:slug"
       }
     ],
     "needsHumanReview": false,
     "createdAt": "2026-06-11T00:00:00.000Z",
     "updatedAt": "2026-06-11T00:00:00.000Z",
     "title": "Drills — how it works | SwingVantage",
-    "summary": "comprehensive per-drill detail pages from a unified catalog Learn what Drills does and how to use it.",
+    "summary": "Drills — detected from /drills. Learn what Drills does and how to use it.",
     "sections": [
       {
         "heading": "Answer (summary)",
         "body": [
-          "Drills lets you comprehensive per-drill detail pages from a unified catalog In the app at /drills/:slug."
+          "Drills lets you drills — detected from /drills. In the app at /drills."
         ]
       },
       {
         "heading": "What it is",
         "body": [
-          "comprehensive per-drill detail pages from a unified catalog"
+          "Drills — detected from /drills."
         ]
       },
       {
         "heading": "How to do it",
         "body": [
-          "1. Open /drills/:slug.",
+          "1. Open /drills.",
           "2. Take the main action the screen guides you through.",
           "3. Review and save your result."
         ]
@@ -33238,7 +33238,7 @@
       {
         "heading": "FAQ",
         "body": [
-          "Where do I find Drills? In the app at /drills/:slug.",
+          "Where do I find Drills? In the app at /drills.",
           "Is Drills free? Core swing analysis is free."
         ]
       },
@@ -33252,7 +33252,7 @@
     ],
     "seo": {
       "title": "Drills — how it works | SwingVantage",
-      "description": "comprehensive per-drill detail pages from a unified catalog Learn what Drills does and how to use it.",
+      "description": "Drills — detected from /drills. Learn what Drills does and how to use it.",
       "slug": "help/drills",
       "keywords": [
         "drills",
@@ -33265,7 +33265,7 @@
         "HowTo",
         "FAQPage"
       ],
-      "aeoAnswer": "Drills lets you comprehensive per-drill detail pages from a unified catalog In the app at /drills/:slug."
+      "aeoAnswer": "Drills lets you drills — detected from /drills. In the app at /drills."
     },
     "publishTarget": "seo",
     "security": {
@@ -33287,11 +33287,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/drills/:slug"
+        "ref": "/drills"
       },
       {
         "kind": "route",
-        "ref": "/drills"
+        "ref": "/drills/:slug"
       }
     ],
     "needsHumanReview": false,
@@ -33303,7 +33303,7 @@
       {
         "heading": "What it does",
         "body": [
-          "comprehensive per-drill detail pages from a unified catalog"
+          "Drills — detected from /drills."
         ]
       },
       {
@@ -33321,15 +33321,15 @@
       {
         "heading": "When to use it",
         "body": [
-          "In the app at /drills/:slug.",
+          "In the app at /drills.",
           "Use it whenever you want the outcome this feature provides."
         ]
       },
       {
         "heading": "Step by step",
         "body": [
-          "1. Open Drills — Go to /drills/:slug.",
-          "2. See what’s on screen — Drills is where you comprehensive per-drill detail pages from a unified catalog",
+          "1. Open Drills — Go to /drills.",
+          "2. See what’s on screen — Drills is where you drills — detected from /drills.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -33358,7 +33358,7 @@
       {
         "heading": "Related & next",
         "body": [
-          "Open it directly: /drills/:slug",
+          "Open it directly: /drills",
           "See the full release note for this feature for what changed and why.",
           "Browse the Tutorial Center for related walkthroughs."
         ]
@@ -33367,11 +33367,11 @@
     "steps": [
       {
         "title": "Open Drills",
-        "detail": "Go to /drills/:slug."
+        "detail": "Go to /drills."
       },
       {
         "title": "See what’s on screen",
-        "detail": "Drills is where you comprehensive per-drill detail pages from a unified catalog"
+        "detail": "Drills is where you drills — detected from /drills."
       },
       {
         "title": "Take the main action",
@@ -37838,11 +37838,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/help/:slug"
+        "ref": "/help"
       },
       {
         "kind": "route",
-        "ref": "/help"
+        "ref": "/help/:slug"
       }
     ],
     "needsHumanReview": false,
@@ -37854,8 +37854,8 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Help?\nA: build the /help Help Center so every in-app \"Learn more\" resolves",
-          "Q: Where do I find Help?\nA: In the app at /help/:slug.",
+          "Q: What is Help?\nA: Help — detected from /help.",
+          "Q: Where do I find Help?\nA: In the app at /help.",
           "Q: How do I use Help?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Help?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
           "Q: What permissions do I need?\nA: No special permissions are required.",
@@ -37868,11 +37868,11 @@
     "faqs": [
       {
         "q": "What is Help?",
-        "a": "build the /help Help Center so every in-app \"Learn more\" resolves"
+        "a": "Help — detected from /help."
       },
       {
         "q": "Where do I find Help?",
-        "a": "In the app at /help/:slug."
+        "a": "In the app at /help."
       },
       {
         "q": "How do I use Help?",
@@ -37919,11 +37919,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/help/:slug"
+        "ref": "/help"
       },
       {
         "kind": "route",
-        "ref": "/help"
+        "ref": "/help/:slug"
       }
     ],
     "needsHumanReview": false,
@@ -37941,15 +37941,15 @@
       {
         "heading": "Before you start",
         "body": [
-          "In the app at /help/:slug.",
+          "In the app at /help.",
           "No special permissions required."
         ]
       },
       {
         "heading": "Steps",
         "body": [
-          "1. Open Help — Go to /help/:slug.",
-          "2. See what’s on screen — Help is where you build the /help Help Center so every in-app \"Learn more\" resolves",
+          "1. Open Help — Go to /help.",
+          "2. See what’s on screen — Help is where you help — detected from /help.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -37978,11 +37978,11 @@
     "steps": [
       {
         "title": "Open Help",
-        "detail": "Go to /help/:slug."
+        "detail": "Go to /help."
       },
       {
         "title": "See what’s on screen",
-        "detail": "Help is where you build the /help Help Center so every in-app \"Learn more\" resolves"
+        "detail": "Help is where you help — detected from /help."
       },
       {
         "title": "Take the main action",
@@ -38017,11 +38017,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/help/:slug"
+        "ref": "/help"
       },
       {
         "kind": "route",
-        "ref": "/help"
+        "ref": "/help/:slug"
       }
     ],
     "needsHumanReview": false,
@@ -38033,28 +38033,28 @@
       {
         "heading": "Recommended placements",
         "body": [
-          "Primary: tooltip on /help/:slug.",
+          "Primary: tooltip on /help.",
           "Also consider: an empty-state explainer and a \"Learn more\" link to the tutorial."
         ]
       },
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Help: build the /help Help Center so every in-app \"Learn more\" resolves"
+          "About Help: Help — detected from /help."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — build the /help Help Center so every in-app \"Learn more\" resolves Take the first step to get started."
+          "Nothing here yet — Help — detected from /help. Take the first step to get started."
         ]
       }
     ],
     "inAppHelp": {
-      "route": "/help/:slug",
+      "route": "/help",
       "placement": "tooltip",
       "headline": "About Help",
-      "body": "build the /help Help Center so every in-app \"Learn more\" resolves",
+      "body": "Help — detected from /help.",
       "learnMoreHref": "/help/help"
     },
     "publishTarget": "in-app",
@@ -38077,35 +38077,35 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/help/:slug"
+        "ref": "/help"
       },
       {
         "kind": "route",
-        "ref": "/help"
+        "ref": "/help/:slug"
       }
     ],
     "needsHumanReview": false,
     "createdAt": "2026-06-11T00:00:00.000Z",
     "updatedAt": "2026-06-11T00:00:00.000Z",
     "title": "Help — how it works | SwingVantage",
-    "summary": "build the /help Help Center so every in-app \"Learn more\" resolves Learn what Help does and how to use it.",
+    "summary": "Help — detected from /help. Learn what Help does and how to use it.",
     "sections": [
       {
         "heading": "Answer (summary)",
         "body": [
-          "Help lets you build the /help Help Center so every in-app \"Learn more\" resolves In the app at /help/:slug."
+          "Help lets you help — detected from /help. In the app at /help."
         ]
       },
       {
         "heading": "What it is",
         "body": [
-          "build the /help Help Center so every in-app \"Learn more\" resolves"
+          "Help — detected from /help."
         ]
       },
       {
         "heading": "How to do it",
         "body": [
-          "1. Open /help/:slug.",
+          "1. Open /help.",
           "2. Take the main action the screen guides you through.",
           "3. Review and save your result."
         ]
@@ -38113,7 +38113,7 @@
       {
         "heading": "FAQ",
         "body": [
-          "Where do I find Help? In the app at /help/:slug.",
+          "Where do I find Help? In the app at /help.",
           "Is Help free? Core swing analysis is free."
         ]
       },
@@ -38127,7 +38127,7 @@
     ],
     "seo": {
       "title": "Help — how it works | SwingVantage",
-      "description": "build the /help Help Center so every in-app \"Learn more\" resolves Learn what Help does and how to use it.",
+      "description": "Help — detected from /help. Learn what Help does and how to use it.",
       "slug": "help/help",
       "keywords": [
         "help",
@@ -38140,7 +38140,7 @@
         "HowTo",
         "FAQPage"
       ],
-      "aeoAnswer": "Help lets you build the /help Help Center so every in-app \"Learn more\" resolves In the app at /help/:slug."
+      "aeoAnswer": "Help lets you help — detected from /help. In the app at /help."
     },
     "publishTarget": "seo",
     "security": {
@@ -38162,11 +38162,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/help/:slug"
+        "ref": "/help"
       },
       {
         "kind": "route",
-        "ref": "/help"
+        "ref": "/help/:slug"
       }
     ],
     "needsHumanReview": false,
@@ -38178,7 +38178,7 @@
       {
         "heading": "What it does",
         "body": [
-          "build the /help Help Center so every in-app \"Learn more\" resolves"
+          "Help — detected from /help."
         ]
       },
       {
@@ -38196,15 +38196,15 @@
       {
         "heading": "When to use it",
         "body": [
-          "In the app at /help/:slug.",
+          "In the app at /help.",
           "Use it whenever you want the outcome this feature provides."
         ]
       },
       {
         "heading": "Step by step",
         "body": [
-          "1. Open Help — Go to /help/:slug.",
-          "2. See what’s on screen — Help is where you build the /help Help Center so every in-app \"Learn more\" resolves",
+          "1. Open Help — Go to /help.",
+          "2. See what’s on screen — Help is where you help — detected from /help.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -38233,7 +38233,7 @@
       {
         "heading": "Related & next",
         "body": [
-          "Open it directly: /help/:slug",
+          "Open it directly: /help",
           "See the full release note for this feature for what changed and why.",
           "Browse the Tutorial Center for related walkthroughs."
         ]
@@ -38242,11 +38242,11 @@
     "steps": [
       {
         "title": "Open Help",
-        "detail": "Go to /help/:slug."
+        "detail": "Go to /help."
       },
       {
         "title": "See what’s on screen",
-        "detail": "Help is where you build the /help Help Center so every in-app \"Learn more\" resolves"
+        "detail": "Help is where you help — detected from /help."
       },
       {
         "title": "Take the main action",
