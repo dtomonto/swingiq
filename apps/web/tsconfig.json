@@ -39,6 +39,7 @@
     "e2e",
     "playwright.config.ts",
     ".storybook",
-    "**/*.stories.tsx"
+    "**/*.stories.tsx",
+    "**/*.figma.tsx"
   ]
 }
