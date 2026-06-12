@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-12T20:10:55.960Z",
-  "commitRange": "07a43765",
+  "generatedAt": "2026-06-12T20:28:18.100Z",
+  "commitRange": "47fce82a",
   "features": [
     {
       "id": "feat_about",
@@ -36,7 +36,7 @@
       "coverage": {},
       "fingerprint": "00e27df7",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-academy",
@@ -176,7 +176,7 @@
       "coverage": {},
       "fingerprint": "4ca37374",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-accessibility",
@@ -216,7 +216,7 @@
       "coverage": {},
       "fingerprint": "73200a6e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-ads",
@@ -255,7 +255,7 @@
       "coverage": {},
       "fingerprint": "704246b0",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-agents",
@@ -294,7 +294,7 @@
       "coverage": {},
       "fingerprint": "42959b30",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-ai-analyses",
@@ -338,7 +338,7 @@
       "coverage": {},
       "fingerprint": "305642c7",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-ai-provider",
@@ -383,7 +383,7 @@
       "coverage": {},
       "fingerprint": "82996eca",
       "createdAt": "2026-06-12T17:01:06.064Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-ai-quality",
@@ -422,7 +422,7 @@
       "coverage": {},
       "fingerprint": "a34f42d0",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-ai-usage",
@@ -465,7 +465,7 @@
       "coverage": {},
       "fingerprint": "92e021aa",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-analytics",
@@ -503,7 +503,7 @@
       "coverage": {},
       "fingerprint": "2008f1be",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-approvals",
@@ -541,7 +541,7 @@
       "coverage": {},
       "fingerprint": "ad76f87a",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-assets",
@@ -580,7 +580,7 @@
       "coverage": {},
       "fingerprint": "8f960f03",
       "createdAt": "2026-06-09T14:08:03.016Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-athletes",
@@ -618,7 +618,7 @@
       "coverage": {},
       "fingerprint": "4e436ffe",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-audit-access",
@@ -657,7 +657,7 @@
       "coverage": {},
       "fingerprint": "33952b0e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-audit-log",
@@ -695,7 +695,7 @@
       "coverage": {},
       "fingerprint": "393392e6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-audits",
@@ -733,7 +733,7 @@
       "coverage": {},
       "fingerprint": "6681e606",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-benchmarks",
@@ -772,7 +772,7 @@
       "coverage": {},
       "fingerprint": "f7613d8a",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-branch-guardian",
@@ -811,7 +811,7 @@
       "coverage": {},
       "fingerprint": "d8fb6092",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-central-intelligence",
@@ -849,7 +849,7 @@
       "coverage": {},
       "fingerprint": "89ca8c55",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-clarity",
@@ -887,7 +887,7 @@
       "coverage": {},
       "fingerprint": "660bb20e",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-coach-mix",
@@ -925,7 +925,7 @@
       "coverage": {},
       "fingerprint": "af247a4f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-command-center",
@@ -964,7 +964,7 @@
       "coverage": {},
       "fingerprint": "17cd1783",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-connector-os",
@@ -1002,7 +1002,7 @@
       "coverage": {},
       "fingerprint": "3501fe4e",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-content",
@@ -1046,7 +1046,7 @@
       "coverage": {},
       "fingerprint": "74772a5b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-copilot",
@@ -1085,7 +1085,7 @@
       "coverage": {},
       "fingerprint": "110138ee",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-data-quality",
@@ -1125,7 +1125,7 @@
       "coverage": {},
       "fingerprint": "0ca32832",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-decisions",
@@ -1165,7 +1165,7 @@
       "coverage": {},
       "fingerprint": "14e574ad",
       "createdAt": "2026-06-12T05:07:42.596Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-development",
@@ -1205,7 +1205,7 @@
       "coverage": {},
       "fingerprint": "7918febf",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-drills",
@@ -1252,7 +1252,7 @@
       "coverage": {},
       "fingerprint": "bb3d0863",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-feature-education",
@@ -1296,7 +1296,7 @@
       "coverage": {},
       "fingerprint": "2b756edf",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-feature-flags",
@@ -1334,7 +1334,7 @@
       "coverage": {},
       "fingerprint": "981ed2f6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-feedback",
@@ -1372,7 +1372,7 @@
       "coverage": {},
       "fingerprint": "adf1e84d",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-growth",
@@ -1640,7 +1640,7 @@
       "coverage": {},
       "fingerprint": "9e9dc779",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-growth-agents",
@@ -1679,7 +1679,7 @@
       "coverage": {},
       "fingerprint": "d6171ae6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-health",
@@ -1719,7 +1719,7 @@
       "coverage": {},
       "fingerprint": "a2afff84",
       "createdAt": "2026-06-12T05:07:42.596Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-home",
@@ -1767,7 +1767,7 @@
       "coverage": {},
       "fingerprint": "e09deabd",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-insights",
@@ -1806,7 +1806,7 @@
       "coverage": {},
       "fingerprint": "ca9c591b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-integrations",
@@ -1845,7 +1845,7 @@
       "coverage": {},
       "fingerprint": "75f6c7d1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-learning",
@@ -1883,7 +1883,7 @@
       "coverage": {},
       "fingerprint": "ab3c8870",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-legal",
@@ -1922,7 +1922,7 @@
       "coverage": {},
       "fingerprint": "d97a364f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-library",
@@ -1961,7 +1961,7 @@
       "coverage": {},
       "fingerprint": "ca628fe9",
       "createdAt": "2026-06-09T04:52:26.674Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-mental-performance",
@@ -2000,7 +2000,7 @@
       "coverage": {},
       "fingerprint": "6077ab24",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-metrics",
@@ -2045,7 +2045,7 @@
       "coverage": {},
       "fingerprint": "7957607f",
       "createdAt": "2026-06-12T05:18:02.483Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-milestones",
@@ -2084,7 +2084,7 @@
       "coverage": {},
       "fingerprint": "d1e4a7d1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-monetization",
@@ -2122,7 +2122,7 @@
       "coverage": {},
       "fingerprint": "a01f5973",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-motion-lab",
@@ -2161,7 +2161,7 @@
       "coverage": {},
       "fingerprint": "e9b02a9a",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-notifications",
@@ -2199,7 +2199,7 @@
       "coverage": {},
       "fingerprint": "a02c334a",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-practice-plans",
@@ -2247,7 +2247,7 @@
       "coverage": {},
       "fingerprint": "faf4c227",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-publishing",
@@ -2285,7 +2285,7 @@
       "coverage": {},
       "fingerprint": "31bc517b",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-qa",
@@ -2325,7 +2325,7 @@
       "coverage": {},
       "fingerprint": "f8febccc",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-record-assist",
@@ -2364,7 +2364,7 @@
       "coverage": {},
       "fingerprint": "2b476055",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-reengage",
@@ -2403,7 +2403,7 @@
       "coverage": {},
       "fingerprint": "f69c4590",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-reliability",
@@ -2442,7 +2442,7 @@
       "coverage": {},
       "fingerprint": "6d819cc2",
       "createdAt": "2026-06-12T05:07:42.596Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-research",
@@ -2480,7 +2480,7 @@
       "coverage": {},
       "fingerprint": "192af173",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-security",
@@ -2518,7 +2518,7 @@
       "coverage": {},
       "fingerprint": "f0e78288",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-security-os",
@@ -2593,7 +2593,7 @@
       "coverage": {},
       "fingerprint": "ec79b914",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-seo",
@@ -2631,7 +2631,7 @@
       "coverage": {},
       "fingerprint": "c3693753",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-settings",
@@ -2669,7 +2669,7 @@
       "coverage": {},
       "fingerprint": "3806dac3",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-setup",
@@ -2707,7 +2707,7 @@
       "coverage": {},
       "fingerprint": "ce222ca3",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-signal-radar",
@@ -2747,7 +2747,7 @@
       "coverage": {},
       "fingerprint": "3bfe067f",
       "createdAt": "2026-06-12T05:07:42.596Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-social",
@@ -2786,7 +2786,7 @@
       "coverage": {},
       "fingerprint": "9080f68d",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-sports",
@@ -2830,7 +2830,7 @@
       "coverage": {},
       "fingerprint": "66b5018c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-support",
@@ -2868,7 +2868,7 @@
       "coverage": {},
       "fingerprint": "c42f0665",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-system-health",
@@ -2909,7 +2909,7 @@
       "coverage": {},
       "fingerprint": "e11d0a0c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-theme-lab",
@@ -2948,7 +2948,7 @@
       "coverage": {},
       "fingerprint": "155805fd",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-updates",
@@ -2986,7 +2986,7 @@
       "coverage": {},
       "fingerprint": "445f0884",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-uploads",
@@ -3024,7 +3024,7 @@
       "coverage": {},
       "fingerprint": "29f5dca8",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-users",
@@ -3070,7 +3070,7 @@
       "coverage": {},
       "fingerprint": "609a4dd9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_admin-video-studio",
@@ -3108,7 +3108,7 @@
       "coverage": {},
       "fingerprint": "15a77a9e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_agi",
@@ -3145,7 +3145,7 @@
       "coverage": {},
       "fingerprint": "2b529835",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_ai-coach",
@@ -3182,7 +3182,7 @@
       "coverage": {},
       "fingerprint": "48588437",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-admin",
@@ -3234,7 +3234,7 @@
       "coverage": {},
       "fingerprint": "03d1cae8",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-agents",
@@ -3282,13 +3282,13 @@
       "coverage": {},
       "fingerprint": "8dfb706e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-ai-coach",
       "slug": "api-ai-coach",
       "name": "AI Coach",
-      "description": "P2 AI Coach observability + quality funnel",
+      "description": "P2 AI Coach observability + quality funnel (#44)",
       "category": "backend-api",
       "audiences": [
         "developer",
@@ -3311,7 +3311,8 @@
         "f98c61ad",
         "6d03898c",
         "bc129693",
-        "07a43765"
+        "07a43765",
+        "a8901cbe"
       ],
       "evidence": [
         {
@@ -3320,7 +3321,7 @@
         },
         {
           "kind": "commit",
-          "ref": "07a43765"
+          "ref": "a8901cbe"
         }
       ],
       "confidence": 70,
@@ -3328,7 +3329,7 @@
       "coverage": {},
       "fingerprint": "8025e15e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-athletic-journey",
@@ -3371,7 +3372,7 @@
       "coverage": {},
       "fingerprint": "d3837fe3",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-audit",
@@ -3409,7 +3410,7 @@
       "coverage": {},
       "fingerprint": "cd67b786",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-billing",
@@ -3462,7 +3463,7 @@
       "coverage": {},
       "fingerprint": "44fd4348",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-capabilities",
@@ -3499,7 +3500,7 @@
       "coverage": {},
       "fingerprint": "f36eca45",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-central-intelligence",
@@ -3548,7 +3549,7 @@
       "coverage": {},
       "fingerprint": "2e6c9f88",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-coach-mix",
@@ -3586,7 +3587,7 @@
       "coverage": {},
       "fingerprint": "c2e18184",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-contact",
@@ -3623,7 +3624,7 @@
       "coverage": {},
       "fingerprint": "c68b4249",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-email-capture",
@@ -3660,7 +3661,7 @@
       "coverage": {},
       "fingerprint": "b83520c2",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-feature-education",
@@ -3738,7 +3739,7 @@
       "coverage": {},
       "fingerprint": "d231c618",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-growth",
@@ -3812,7 +3813,7 @@
       "coverage": {},
       "fingerprint": "053040e4",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-import",
@@ -3851,7 +3852,7 @@
       "coverage": {},
       "fingerprint": "90a9b745",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-notifications",
@@ -3898,7 +3899,7 @@
       "coverage": {},
       "fingerprint": "be21188b",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-publishing",
@@ -3936,7 +3937,7 @@
       "coverage": {},
       "fingerprint": "77bd75ab",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-recruiting",
@@ -3979,7 +3980,7 @@
       "coverage": {},
       "fingerprint": "5434dff2",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-region",
@@ -4016,7 +4017,7 @@
       "coverage": {},
       "fingerprint": "ad0f9017",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-reliability",
@@ -4053,7 +4054,7 @@
       "coverage": {},
       "fingerprint": "16a3459e",
       "createdAt": "2026-06-12T05:07:42.596Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-research",
@@ -4105,7 +4106,7 @@
       "coverage": {},
       "fingerprint": "77b38127",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-signal-radar",
@@ -4155,7 +4156,7 @@
       "coverage": {},
       "fingerprint": "477b42d3",
       "createdAt": "2026-06-12T05:07:42.596Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-social",
@@ -4227,7 +4228,7 @@
       "coverage": {},
       "fingerprint": "3512ef2b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-user",
@@ -4279,7 +4280,7 @@
       "coverage": {},
       "fingerprint": "b35d0f66",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-video-analysis",
@@ -4318,7 +4319,7 @@
       "coverage": {},
       "fingerprint": "7441333b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-video-studio",
@@ -4406,7 +4407,7 @@
       "coverage": {},
       "fingerprint": "28b0b591",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_api-video-vision-analysis",
@@ -4456,7 +4457,7 @@
       "coverage": {},
       "fingerprint": "5ad256a6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_arc",
@@ -4493,7 +4494,7 @@
       "coverage": {},
       "fingerprint": "1187ddaa",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_athlete-general-intelligence",
@@ -4529,7 +4530,7 @@
       "coverage": {},
       "fingerprint": "066740a0",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_auth",
@@ -4566,7 +4567,7 @@
       "coverage": {},
       "fingerprint": "c8ad2053",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_avatar",
@@ -4603,7 +4604,7 @@
       "coverage": {},
       "fingerprint": "0b0a4a4f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_baseball",
@@ -4669,7 +4670,7 @@
       "coverage": {},
       "fingerprint": "32ec308b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_baseball-swing-analysis",
@@ -4705,7 +4706,7 @@
       "coverage": {},
       "fingerprint": "5f337eba",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_benchmarks",
@@ -4746,7 +4747,7 @@
       "coverage": {},
       "fingerprint": "50f219a8",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_blog",
@@ -4791,7 +4792,7 @@
       "coverage": {},
       "fingerprint": "e61da975",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_bodysync",
@@ -4828,7 +4829,7 @@
       "coverage": {},
       "fingerprint": "b7bf1689",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_challenges",
@@ -4879,7 +4880,7 @@
       "coverage": {},
       "fingerprint": "9bc79274",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_coach",
@@ -4916,7 +4917,7 @@
       "coverage": {},
       "fingerprint": "bfbaf500",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_coaches",
@@ -4953,7 +4954,7 @@
       "coverage": {},
       "fingerprint": "326a1364",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_community",
@@ -5014,7 +5015,7 @@
       "coverage": {},
       "fingerprint": "93e1755c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_compare",
@@ -5051,7 +5052,7 @@
       "coverage": {},
       "fingerprint": "a6206985",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_contact",
@@ -5087,7 +5088,7 @@
       "coverage": {},
       "fingerprint": "1fcf056e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_creators",
@@ -5124,7 +5125,7 @@
       "coverage": {},
       "fingerprint": "ecc6b13b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_dashboard",
@@ -5168,7 +5169,7 @@
       "coverage": {},
       "fingerprint": "dfa3bc9e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_data",
@@ -5207,7 +5208,7 @@
       "coverage": {},
       "fingerprint": "49f653fe",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_data-model",
@@ -5254,7 +5255,7 @@
       "coverage": {},
       "fingerprint": "811c9dc5",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_demo",
@@ -5311,7 +5312,7 @@
       "coverage": {},
       "fingerprint": "4e2f7d3b",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_design-lab",
@@ -5366,7 +5367,7 @@
       "coverage": {},
       "fingerprint": "3aa2aaad",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_dev-updates",
@@ -5408,7 +5409,7 @@
       "coverage": {},
       "fingerprint": "d9381c9f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_diagnose",
@@ -5445,7 +5446,7 @@
       "coverage": {},
       "fingerprint": "24f5c1be",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_drills",
@@ -5488,7 +5489,7 @@
       "coverage": {},
       "fingerprint": "e8abe561",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_equipment",
@@ -5530,7 +5531,7 @@
       "coverage": {},
       "fingerprint": "a876c0e6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_faq",
@@ -5566,7 +5567,7 @@
       "coverage": {},
       "fingerprint": "210dbd6e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_features",
@@ -5607,7 +5608,7 @@
       "coverage": {},
       "fingerprint": "dcb4cb39",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_fix",
@@ -5645,7 +5646,7 @@
       "coverage": {},
       "fingerprint": "19fa2ab1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_forgot-password",
@@ -5682,7 +5683,7 @@
       "coverage": {},
       "fingerprint": "daf00939",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_founding",
@@ -5719,7 +5720,7 @@
       "coverage": {},
       "fingerprint": "e6659666",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_free-swing-analysis",
@@ -5755,7 +5756,7 @@
       "coverage": {},
       "fingerprint": "0bb65a40",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_glossary",
@@ -5791,7 +5792,7 @@
       "coverage": {},
       "fingerprint": "32e995c2",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_golf",
@@ -5867,7 +5868,7 @@
       "coverage": {},
       "fingerprint": "6f24bcf4",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_golf-swing-analysis",
@@ -5903,7 +5904,7 @@
       "coverage": {},
       "fingerprint": "ea048596",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_help",
@@ -5946,7 +5947,7 @@
       "coverage": {},
       "fingerprint": "8d2c06ad",
       "createdAt": "2026-06-12T12:05:49.895Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_home",
@@ -5995,7 +5996,7 @@
       "coverage": {},
       "fingerprint": "2a0c975e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_how-it-works",
@@ -6031,7 +6032,7 @@
       "coverage": {},
       "fingerprint": "a4e6fec9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_journey",
@@ -6068,7 +6069,7 @@
       "coverage": {},
       "fingerprint": "761244ee",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lab",
@@ -6105,7 +6106,7 @@
       "coverage": {},
       "fingerprint": "9aa57535",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_labs",
@@ -6142,7 +6143,7 @@
       "coverage": {},
       "fingerprint": "b8779d32",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lang",
@@ -6198,7 +6199,7 @@
       "coverage": {},
       "fingerprint": "875d91f6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_learn",
@@ -6242,7 +6243,7 @@
       "coverage": {},
       "fingerprint": "afe1b64e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-academy",
@@ -6338,7 +6339,7 @@
       "coverage": {},
       "fingerprint": "fd6fa353",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-agents",
@@ -6428,7 +6429,7 @@
       "coverage": {},
       "fingerprint": "987fc8f5",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-ai",
@@ -6493,13 +6494,13 @@
       "coverage": {},
       "fingerprint": "501c4749",
       "createdAt": "2026-06-12T05:07:42.596Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-ai-coach",
       "slug": "lib-ai-coach",
       "name": "AI Coach",
-      "description": "P2 AI Coach observability + quality funnel",
+      "description": "P2 AI Coach observability + quality funnel (#44)",
       "category": "analytics-reporting",
       "audiences": [
         "developer"
@@ -6516,7 +6517,8 @@
       "featureFlags": [],
       "owner": "unassigned",
       "detectedFrom": [
-        "07a43765"
+        "07a43765",
+        "a8901cbe"
       ],
       "evidence": [
         {
@@ -6525,7 +6527,7 @@
         },
         {
           "kind": "commit",
-          "ref": "07a43765"
+          "ref": "a8901cbe"
         }
       ],
       "confidence": 55,
@@ -6533,7 +6535,7 @@
       "coverage": {},
       "fingerprint": "74a92e02",
       "createdAt": "2026-06-12T20:10:55.960Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-audit-access",
@@ -6724,7 +6726,7 @@
       "coverage": {},
       "fingerprint": "8c5e1837",
       "createdAt": "2026-06-09T12:29:38.197Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-branch-guardian",
@@ -7043,7 +7045,7 @@
       "coverage": {},
       "fingerprint": "13989a9c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-demo",
@@ -7256,7 +7258,7 @@
       "coverage": {},
       "fingerprint": "aed67671",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-founding-journey",
@@ -7576,7 +7578,7 @@
       "coverage": {},
       "fingerprint": "d3949a11",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-mental-performance",
@@ -7836,7 +7838,7 @@
       "coverage": {},
       "fingerprint": "b9341433",
       "createdAt": "2026-06-09T12:18:12.444Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-publishing",
@@ -8067,7 +8069,7 @@
       "coverage": {},
       "fingerprint": "41f6ae55",
       "createdAt": "2026-06-12T05:07:42.596Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-retest",
@@ -8119,7 +8121,7 @@
       "coverage": {},
       "fingerprint": "3223c1f5",
       "createdAt": "2026-06-12T16:20:53.236Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-secrets",
@@ -8692,7 +8694,7 @@
       "coverage": {},
       "fingerprint": "9a416978",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-updates",
@@ -8787,7 +8789,7 @@
       "coverage": {},
       "fingerprint": "f2c0297e",
       "createdAt": "2026-06-12T05:07:42.596Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_lib-video-studio",
@@ -8829,7 +8831,7 @@
       "coverage": {},
       "fingerprint": "d60f2886",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_library",
@@ -8866,7 +8868,7 @@
       "coverage": {},
       "fingerprint": "5d647cd1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_login",
@@ -8904,7 +8906,7 @@
       "coverage": {},
       "fingerprint": "56ff9eab",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_mental",
@@ -8953,7 +8955,7 @@
       "coverage": {},
       "fingerprint": "b7b301fc",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_mental-performance",
@@ -9001,7 +9003,7 @@
       "coverage": {},
       "fingerprint": "33a73253",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_mental-performance-emotion-mistake-recovery-coaching",
@@ -9123,7 +9125,7 @@
       "coverage": {},
       "fingerprint": "4f6931ed",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_milestones",
@@ -9160,7 +9162,7 @@
       "coverage": {},
       "fingerprint": "eeb95de9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_motion-lab",
@@ -9197,7 +9199,7 @@
       "coverage": {},
       "fingerprint": "3147f232",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_notes",
@@ -9235,7 +9237,7 @@
       "coverage": {},
       "fingerprint": "660a9bcb",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_offline",
@@ -9272,7 +9274,7 @@
       "coverage": {},
       "fingerprint": "86c90ab1",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_padel",
@@ -9308,7 +9310,7 @@
       "coverage": {},
       "fingerprint": "2be5ba96",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_padel-bandeja",
@@ -9344,7 +9346,7 @@
       "coverage": {},
       "fingerprint": "2a5fe3b4",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_padel-wall-rebound-technique",
@@ -9380,7 +9382,7 @@
       "coverage": {},
       "fingerprint": "6ab3a644",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_parents",
@@ -9416,7 +9418,7 @@
       "coverage": {},
       "fingerprint": "03c52c67",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_partners",
@@ -9453,7 +9455,7 @@
       "coverage": {},
       "fingerprint": "402e7831",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_pickleball",
@@ -9489,7 +9491,7 @@
       "coverage": {},
       "fingerprint": "9d498d69",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_pickleball-dinking",
@@ -9525,7 +9527,7 @@
       "coverage": {},
       "fingerprint": "6180a424",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_pickleball-third-shot-drop",
@@ -9561,7 +9563,7 @@
       "coverage": {},
       "fingerprint": "db9e8cce",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_player",
@@ -9602,7 +9604,7 @@
       "coverage": {},
       "fingerprint": "f5eb38b6",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_practice",
@@ -9639,7 +9641,7 @@
       "coverage": {},
       "fingerprint": "30db811b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_pre-round",
@@ -9676,7 +9678,7 @@
       "coverage": {},
       "fingerprint": "20550e16",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_pricing",
@@ -9712,7 +9714,7 @@
       "coverage": {},
       "fingerprint": "3ba2e958",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_privacy",
@@ -9748,7 +9750,7 @@
       "coverage": {},
       "fingerprint": "c717de26",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_profile",
@@ -9785,7 +9787,7 @@
       "coverage": {},
       "fingerprint": "35d37363",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_progress",
@@ -9822,7 +9824,7 @@
       "coverage": {},
       "fingerprint": "82dea311",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_record-assist",
@@ -9860,7 +9862,7 @@
       "coverage": {},
       "fingerprint": "f5a5595d",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_recruiting",
@@ -9951,7 +9953,7 @@
       "coverage": {},
       "fingerprint": "9c67ab61",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_refer",
@@ -9988,7 +9990,7 @@
       "coverage": {},
       "fingerprint": "6d571a44",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_reminders",
@@ -10025,7 +10027,7 @@
       "coverage": {},
       "fingerprint": "9a7590b9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_reports",
@@ -10063,7 +10065,7 @@
       "coverage": {},
       "fingerprint": "d3a7b7ed",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_reset-password",
@@ -10101,7 +10103,7 @@
       "coverage": {},
       "fingerprint": "76278a55",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_resources",
@@ -10138,7 +10140,7 @@
       "coverage": {},
       "fingerprint": "97d0842f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_retest",
@@ -10175,7 +10177,7 @@
       "coverage": {},
       "fingerprint": "34ad8367",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_sample-report",
@@ -10252,7 +10254,7 @@
       "coverage": {},
       "fingerprint": "910317bb",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_sessions",
@@ -10312,7 +10314,7 @@
       "coverage": {},
       "fingerprint": "4a8554f8",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_settings",
@@ -10356,7 +10358,7 @@
       "coverage": {},
       "fingerprint": "6169c002",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_signup",
@@ -10394,7 +10396,7 @@
       "coverage": {},
       "fingerprint": "28e6861e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_sitemap",
@@ -10432,7 +10434,7 @@
       "coverage": {},
       "fingerprint": "3fe336e9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_softball",
@@ -10543,7 +10545,7 @@
       "coverage": {},
       "fingerprint": "56791aec",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_softball-swing-analysis",
@@ -10589,7 +10591,7 @@
       "coverage": {},
       "fingerprint": "8105e16e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_sports",
@@ -10630,7 +10632,7 @@
       "coverage": {},
       "fingerprint": "56fec2b9",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_start",
@@ -10666,7 +10668,7 @@
       "coverage": {},
       "fingerprint": "97bd8b6e",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_swinglab",
@@ -10702,7 +10704,7 @@
       "coverage": {},
       "fingerprint": "772c156f",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_team",
@@ -10739,7 +10741,7 @@
       "coverage": {},
       "fingerprint": "605d36d7",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_teams",
@@ -10776,7 +10778,7 @@
       "coverage": {},
       "fingerprint": "56bd042c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_tennis",
@@ -10822,7 +10824,7 @@
       "coverage": {},
       "fingerprint": "15f2313c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_tennis-swing-analysis",
@@ -10858,7 +10860,7 @@
       "coverage": {},
       "fingerprint": "8f4d8e7b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_terms",
@@ -10894,7 +10896,7 @@
       "coverage": {},
       "fingerprint": "7c4f56ed",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_timeline",
@@ -10931,7 +10933,7 @@
       "coverage": {},
       "fingerprint": "2c7e67c5",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_tools",
@@ -11009,7 +11011,7 @@
       "coverage": {},
       "fingerprint": "1fa0a5ab",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_training",
@@ -11046,7 +11048,7 @@
       "coverage": {},
       "fingerprint": "dc24d7b4",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_trust",
@@ -11082,7 +11084,7 @@
       "coverage": {},
       "fingerprint": "94d1c88c",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_tutorial",
@@ -11119,7 +11121,7 @@
       "coverage": {},
       "fingerprint": "f5d69368",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_ui-admin",
@@ -11171,7 +11173,7 @@
       "coverage": {},
       "fingerprint": "07db8fbe",
       "createdAt": "2026-06-09T13:42:20.789Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_ui-agi",
@@ -11212,7 +11214,7 @@
       "coverage": {},
       "fingerprint": "856487c3",
       "createdAt": "2026-06-12T18:28:43.827Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_ui-analytics",
@@ -11259,7 +11261,7 @@
       "coverage": {},
       "fingerprint": "97bf83fb",
       "createdAt": "2026-06-12T16:20:53.236Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_ui-branch-guardian",
@@ -11728,7 +11730,7 @@
       "coverage": {},
       "fingerprint": "6602fcf4",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_ui-intent",
@@ -11821,7 +11823,7 @@
       "coverage": {},
       "fingerprint": "efe8c14b",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_ui-learn",
@@ -12232,7 +12234,7 @@
       "coverage": {},
       "fingerprint": "01020923",
       "createdAt": "2026-06-12T13:35:10.352Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_ui-security-os",
@@ -12446,7 +12448,7 @@
       "id": "feat_ui-ui",
       "slug": "ui-ui",
       "name": "Ui",
-      "description": "P2 AI Coach observability + quality funnel",
+      "description": "P2 AI Coach observability + quality funnel (#44)",
       "category": "ui-change",
       "audiences": [
         "new-user",
@@ -12468,7 +12470,8 @@
         "e18a81f6",
         "58f60a3a",
         "3a20155f",
-        "07a43765"
+        "07a43765",
+        "a8901cbe"
       ],
       "evidence": [
         {
@@ -12477,7 +12480,7 @@
         },
         {
           "kind": "commit",
-          "ref": "07a43765"
+          "ref": "a8901cbe"
         }
       ],
       "confidence": 45,
@@ -12485,7 +12488,7 @@
       "coverage": {},
       "fingerprint": "f302285a",
       "createdAt": "2026-06-11T02:29:27.991Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_ui-updates",
@@ -12573,7 +12576,7 @@
       "coverage": {},
       "fingerprint": "8961d101",
       "createdAt": "2026-06-09T13:42:20.789Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_ui-video-studio",
@@ -12668,7 +12671,7 @@
       "coverage": {},
       "fingerprint": "c75fbe55",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_video",
@@ -12706,7 +12709,7 @@
       "coverage": {},
       "fingerprint": "5d98a2bd",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     },
     {
       "id": "feat_vulnerability-disclosure",
@@ -12742,7 +12745,7 @@
       "coverage": {},
       "fingerprint": "a416ccb2",
       "createdAt": "2026-06-09T04:24:59.972Z",
-      "updatedAt": "2026-06-12T20:10:55.960Z"
+      "updatedAt": "2026-06-12T20:28:18.100Z"
     }
   ]
 }

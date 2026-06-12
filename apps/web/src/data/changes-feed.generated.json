@@ -1,31 +1,38 @@
 [
   {
-    "sha": "f7b26575a478aa2394ee4ec201857bb9fc4e6371",
-    "at": "2026-06-12T16:10:54-04:00",
+    "sha": "6904f37f208e9d20b626108ed00732abad5b9880",
+    "at": "2026-06-12T16:28:17-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "563faeec58300b8ad256da3c1743435e91d6300d",
-    "at": "2026-06-12T16:10:54-04:00",
+    "sha": "7102dc3a2c4bd9522a75580ebadaab56badd2eac",
+    "at": "2026-06-12T16:28:17-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "b07977eb3f975fb279397152723b87703bcaa009",
-    "at": "2026-06-12T16:10:54-04:00",
+    "sha": "c90fdd11c7b2f464283f842966ee68b5d5e68cab",
+    "at": "2026-06-12T16:28:17-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "07a43765e113d9387aca7fc61e9f69e67f09d450",
-    "at": "2026-06-12T16:10:54-04:00",
+    "sha": "47fce82a9b111d5b02930136dfb509512156f92e",
+    "at": "2026-06-12T16:28:17-04:00",
     "type": "feat",
     "scope": "analytics",
-    "subject": "P2 AI Coach observability + quality funnel"
+    "subject": "PostHog UI setup as code (flags/funnels/dashboards/survey)"
+  },
+  {
+    "sha": "a8901cbe5944a5f562188bd04d383e22806faac9",
+    "at": "2026-06-12T16:16:52-04:00",
+    "type": "feat",
+    "scope": "analytics",
+    "subject": "P2 AI Coach observability + quality funnel (#44)"
   },
   {
     "sha": "47cb1528d6e3b273f6377985a44c65a1026a257b",
@@ -544,12 +551,5 @@
     "type": "chore",
     "scope": "changes",
     "subject": "refresh changes feed"
-  },
-  {
-    "sha": "727e66c7ebb70f03dfe6b3b79d7258824783df50",
-    "at": "2026-06-12T08:23:37-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
   }
 ]
