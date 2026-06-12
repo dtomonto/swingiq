@@ -72463,7 +72463,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Video?\nA: finish Video Analysis → Motion Lab consolidation",
+          "Q: What is Video?\nA: Video — detected from /video.",
           "Q: Where do I find Video?\nA: In the app at /video.",
           "Q: How do I use Video?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Video?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -72477,7 +72477,7 @@
     "faqs": [
       {
         "q": "What is Video?",
-        "a": "finish Video Analysis → Motion Lab consolidation"
+        "a": "Video — detected from /video."
       },
       {
         "q": "Where do I find Video?",
@@ -72554,7 +72554,7 @@
         "heading": "Steps",
         "body": [
           "1. Open Video — Go to /video.",
-          "2. See what’s on screen — Video is where you finish Video Analysis → Motion Lab consolidation",
+          "2. See what’s on screen — Video is where you video — detected from /video.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -72587,7 +72587,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Video is where you finish Video Analysis → Motion Lab consolidation"
+        "detail": "Video is where you video — detected from /video."
       },
       {
         "title": "Take the main action",
@@ -72642,13 +72642,13 @@
       {
         "heading": "Tooltip copy",
         "body": [
-          "New: Video: finish Video Analysis → Motion Lab consolidation"
+          "New: Video: Video — detected from /video."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — finish Video Analysis → Motion Lab consolidation Take the first step to get started."
+          "Nothing here yet — Video — detected from /video. Take the first step to get started."
         ]
       }
     ],
@@ -72656,7 +72656,7 @@
       "route": "/video",
       "placement": "announcement",
       "headline": "New: Video",
-      "body": "finish Video Analysis → Motion Lab consolidation",
+      "body": "Video — detected from /video.",
       "learnMoreHref": "/help/video"
     },
     "publishTarget": "in-app",
@@ -72686,18 +72686,18 @@
     "createdAt": "2026-06-11T00:00:00.000Z",
     "updatedAt": "2026-06-11T00:00:00.000Z",
     "title": "Video — how it works | SwingVantage",
-    "summary": "finish Video Analysis → Motion Lab consolidation Learn what Video does and how to use it.",
+    "summary": "Video — detected from /video. Learn what Video does and how to use it.",
     "sections": [
       {
         "heading": "Answer (summary)",
         "body": [
-          "Video lets you finish Video Analysis → Motion Lab consolidation In the app at /video."
+          "Video lets you video — detected from /video. In the app at /video."
         ]
       },
       {
         "heading": "What it is",
         "body": [
-          "finish Video Analysis → Motion Lab consolidation"
+          "Video — detected from /video."
         ]
       },
       {
@@ -72725,7 +72725,7 @@
     ],
     "seo": {
       "title": "Video — how it works | SwingVantage",
-      "description": "finish Video Analysis → Motion Lab consolidation Learn what Video does and how to use it.",
+      "description": "Video — detected from /video. Learn what Video does and how to use it.",
       "slug": "help/video",
       "keywords": [
         "video",
@@ -72738,7 +72738,7 @@
         "HowTo",
         "FAQPage"
       ],
-      "aeoAnswer": "Video lets you finish Video Analysis → Motion Lab consolidation In the app at /video."
+      "aeoAnswer": "Video lets you video — detected from /video. In the app at /video."
     },
     "publishTarget": "seo",
     "security": {
@@ -72772,7 +72772,7 @@
       {
         "heading": "What it does",
         "body": [
-          "finish Video Analysis → Motion Lab consolidation"
+          "Video — detected from /video."
         ]
       },
       {
@@ -72798,7 +72798,7 @@
         "heading": "Step by step",
         "body": [
           "1. Open Video — Go to /video.",
-          "2. See what’s on screen — Video is where you finish Video Analysis → Motion Lab consolidation",
+          "2. See what’s on screen — Video is where you video — detected from /video.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -72840,7 +72840,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Video is where you finish Video Analysis → Motion Lab consolidation"
+        "detail": "Video is where you video — detected from /video."
       },
       {
         "title": "Take the main action",
