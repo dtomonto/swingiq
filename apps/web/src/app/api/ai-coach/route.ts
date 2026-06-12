@@ -70,7 +70,12 @@ export async function POST(req: NextRequest) {
   // API call entirely. App-level, keyed on a stable hash of the structured ctx.
   const cached = getCachedResponse(ctx);
   if (cached) {
-    return NextResponse.json({ message: cached, grounding: validateGrounding(cached, ctx), cached: true });
+    return NextResponse.json({
+      message: cached,
+      grounding: validateGrounding(cached, ctx),
+      cached: true,
+      aiMeta: { cached: true }, // served from cache — no provider call
+    });
   }
 
   // Per-user AI switch: when an operator has turned AI off for this account,
@@ -80,7 +85,11 @@ export async function POST(req: NextRequest) {
   const userId = authedUser?.id ?? 'anonymous';
   if (await isUserAiPaused(userId)) {
     const placeholder = buildDevPlaceholderResponse(ctx);
-    return NextResponse.json({ message: placeholder, grounding: validateGrounding(placeholder, ctx) });
+    return NextResponse.json({
+      message: placeholder,
+      grounding: validateGrounding(placeholder, ctx),
+      aiMeta: { fallback: 'paused' },
+    });
   }
 
   // ── Strategic routing (AI Provider Control Center) ─────────
@@ -92,7 +101,11 @@ export async function POST(req: NextRequest) {
   const route = await resolveLiveRoute('coach_chat');
   if (!route.enabled) {
     const placeholder = buildDevPlaceholderResponse(ctx);
-    return NextResponse.json({ message: placeholder, grounding: validateGrounding(placeholder, ctx) });
+    return NextResponse.json({
+      message: placeholder,
+      grounding: validateGrounding(placeholder, ctx),
+      aiMeta: { fallback: 'disabled' },
+    });
   }
 
   // ── Generate via the provider-agnostic AI gateway ─────────
@@ -101,6 +114,7 @@ export async function POST(req: NextRequest) {
   // retry. It returns a `fallback` (no_provider / over_budget / error) instead
   // of throwing, so keyless installs and over-budget days serve the same
   // data-grounded placeholder the route always has.
+  const startedAt = Date.now();
   const result = await complete({
     system,
     messages: [{ role: 'user', content: user }],
@@ -114,10 +128,18 @@ export async function POST(req: NextRequest) {
     // evidence/fix/drill/safety) so the app can parse + trust-check the pieces.
     jsonSchema: COACH_RESPONSE_JSON_SCHEMA,
   });
+  const latencyMs = Date.now() - startedAt;
+
+  // Non-PII AI call metadata for the AI-Coach-Quality funnel (P2). Provider id +
+  // resolved model + measured latency only — never the question or answer text.
+  const aiMeta = { provider: result.provider, model: result.model, latencyMs };
 
   if (result.fallback === 'error') {
     return NextResponse.json(
-      { error: 'AI service error. Please try again in a moment.' },
+      {
+        error: 'AI service error. Please try again in a moment.',
+        aiMeta: { ...aiMeta, fallback: 'error' },
+      },
       { status: 502 },
     );
   }
@@ -132,12 +154,21 @@ export async function POST(req: NextRequest) {
     await meterUserAiUsage(userId, 'ai-coach');
     // #2 grounding: surface whether the response's measurement claims trace to
     // the player's data so clients can flag/regenerate ungrounded answers.
-    return NextResponse.json({ message, structured, grounding: validateGrounding(message, ctx) });
+    return NextResponse.json({
+      message,
+      structured,
+      grounding: validateGrounding(message, ctx),
+      aiMeta: { ...aiMeta, cached: false },
+    });
   }
 
   // no_provider (keyless) or over_budget → data-grounded placeholder.
   const placeholder = buildDevPlaceholderResponse(ctx);
-  return NextResponse.json({ message: placeholder, grounding: validateGrounding(placeholder, ctx) });
+  return NextResponse.json({
+    message: placeholder,
+    grounding: validateGrounding(placeholder, ctx),
+    aiMeta: { ...aiMeta, fallback: result.fallback },
+  });
 }
 
 /** Returns a data-grounded placeholder when no AI key is configured. */

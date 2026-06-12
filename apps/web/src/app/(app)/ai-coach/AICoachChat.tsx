@@ -1,11 +1,20 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, Bot, AlertCircle, RefreshCw } from 'lucide-react';
+import { Send, Bot, AlertCircle, RefreshCw, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
 import type { CoachContext } from '@/lib/ai-coach-prompts';
 import type { SportId } from '@swingiq/core';
+import {
+  trackCoachOpened,
+  trackCoachQuestion,
+  trackCoachAnswered,
+  trackCoachRated,
+  type CoachAiMeta,
+  type CoachQuestionSource,
+  type CoachRating,
+} from '@/lib/ai-coach/analytics';
 
 // ── Types ─────────────────────────────────────────────────────
 
@@ -208,6 +217,8 @@ export function AICoachChat({
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  // Per-message helpful/not rating (id → value); a message can be rated once.
+  const [rated, setRated] = useState<Record<number, CoachRating>>({});
 
   // Track previous sport so we can detect a change
   const prevSportRef = useRef<SportId>(sport);
@@ -217,6 +228,19 @@ export function AICoachChat({
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
+
+  // AI-Coach-Quality funnel: the coach surface opened (fire once on mount).
+  useEffect(() => {
+    trackCoachOpened(sport, 'page');
+    // Intentionally mount-only — "opened" is the surface mount, not a sport switch.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const rate = (id: number, value: CoachRating) => {
+    if (rated[id]) return;
+    setRated((r) => ({ ...r, [id]: value }));
+    trackCoachRated(sport, 'page', value);
+  };
 
   // Inject a visible system notice when the user switches sports mid-session
   useEffect(() => {
@@ -229,7 +253,7 @@ export function AICoachChat({
     }
   }, [sport, sportName]);
 
-  const sendMessage = async (text: string) => {
+  const sendMessage = async (text: string, source: CoachQuestionSource = 'typed') => {
     const trimmed = text.trim();
     if (!trimmed || loading) return;
 
@@ -237,6 +261,8 @@ export function AICoachChat({
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
     setLoading(true);
+    // Funnel: a question was asked (non-PII — the text is never sent as a prop).
+    trackCoachQuestion(sport, 'page', source);
 
     try {
       const requestBody: CoachContext = {
@@ -250,9 +276,13 @@ export function AICoachChat({
         body: JSON.stringify(requestBody),
       });
 
-      const data = await res.json() as { message?: string; error?: string };
+      const data = await res.json() as { message?: string; error?: string; aiMeta?: CoachAiMeta };
 
-      if (!res.ok || data.error) {
+      const ok = res.ok && !data.error;
+      // AI observability: provider/model/latency/cached/fallback echoed by the route.
+      trackCoachAnswered(sport, 'page', { ok, aiMeta: data.aiMeta });
+
+      if (!ok) {
         setMessages((prev) => [
           ...prev,
           {
@@ -269,6 +299,7 @@ export function AICoachChat({
         ]);
       }
     } catch {
+      trackCoachAnswered(sport, 'page', { ok: false });
       setMessages((prev) => [
         ...prev,
         {
@@ -352,7 +383,9 @@ export function AICoachChat({
             );
           }
 
-          // Regular user / assistant message
+          // Regular user / assistant message. Real AI answers (not the greeting
+          // or an error) get a lightweight helpful/not rating.
+          const canRate = msg.role === 'assistant' && !msg.isError && msg.id !== 0;
           return (
             <div
               key={msg.id}
@@ -370,15 +403,53 @@ export function AICoachChat({
                 </div>
               )}
               <div
-                className={`max-w-[85%] lg:max-w-2xl px-4 py-3 rounded-xl text-sm leading-relaxed whitespace-pre-wrap ${
-                  msg.role === 'user'
-                    ? `${display.avatarBg} text-white`
-                    : msg.isError
-                    ? 'bg-error/10 border border-error/30 text-error'
-                    : 'bg-card border border-border text-foreground'
+                className={`flex flex-col max-w-[85%] lg:max-w-2xl ${
+                  msg.role === 'user' ? 'items-end' : 'items-start'
                 }`}
               >
-                {msg.content}
+                <div
+                  className={`px-4 py-3 rounded-xl text-sm leading-relaxed whitespace-pre-wrap ${
+                    msg.role === 'user'
+                      ? `${display.avatarBg} text-white`
+                      : msg.isError
+                      ? 'bg-error/10 border border-error/30 text-error'
+                      : 'bg-card border border-border text-foreground'
+                  }`}
+                >
+                  {msg.content}
+                </div>
+
+                {canRate && (
+                  <div className="mt-1 flex items-center gap-1.5 pl-1">
+                    {rated[msg.id] ? (
+                      <span className="text-xs text-muted-foreground">
+                        {rated[msg.id] === 'helpful'
+                          ? 'Thanks — glad it helped.'
+                          : 'Thanks for the feedback.'}
+                      </span>
+                    ) : (
+                      <>
+                        <span className="text-xs text-muted-foreground">Was this helpful?</span>
+                        <button
+                          type="button"
+                          onClick={() => rate(msg.id, 'helpful')}
+                          aria-label="Mark this answer helpful"
+                          className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                        >
+                          <ThumbsUp size={14} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => rate(msg.id, 'not_helpful')}
+                          aria-label="Mark this answer not helpful"
+                          className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                        >
+                          <ThumbsDown size={14} />
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           );
@@ -407,7 +478,7 @@ export function AICoachChat({
           {suggestedQuestions.map((q) => (
             <button
               key={q}
-              onClick={() => sendMessage(q)}
+              onClick={() => sendMessage(q, 'suggested')}
               disabled={loading}
               className={`px-3 py-1.5 ${display.color} hover:opacity-80 ${display.textColor} rounded-full text-xs border ${display.borderColor} transition-colors disabled:opacity-50`}
             >
