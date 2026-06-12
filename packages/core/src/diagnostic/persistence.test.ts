@@ -19,6 +19,7 @@ function result(ids: DiagnosisCategory[]): DiagnosticResult {
     diagnoses: diagnoses as unknown as DiagnosticResult['diagnoses'],
     primary: (diagnoses[0] ?? null) as DiagnosticResult['primary'],
     secondary: [],
+    quality: {} as DiagnosticResult['quality'],
   };
 }
 
