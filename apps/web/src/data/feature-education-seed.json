@@ -9987,7 +9987,7 @@
         "heading": "Steps",
         "body": [
           "1. Open Legal — Go to /admin/legal.",
-          "2. See what’s on screen — Legal is where you make video-analysis data handling explicit — frames go to a third-party AI cloud",
+          "2. See what’s on screen — Legal is where you legal — detected from /admin/legal.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -10020,7 +10020,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Legal is where you make video-analysis data handling explicit — frames go to a third-party AI cloud"
+        "detail": "Legal is where you legal — detected from /admin/legal."
       },
       {
         "title": "Take the main action",
@@ -10074,13 +10074,13 @@
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Legal: make video-analysis data handling explicit — frames go to a third-party AI cloud"
+          "About Legal: Legal — detected from /admin/legal."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — make video-analysis data handling explicit — frames go to a third-party AI cloud Take the first step to get started."
+          "Nothing here yet — Legal — detected from /admin/legal. Take the first step to get started."
         ]
       }
     ],
@@ -10088,7 +10088,7 @@
       "route": "/admin/legal",
       "placement": "tooltip",
       "headline": "About Legal",
-      "body": "make video-analysis data handling explicit — frames go to a third-party AI cloud",
+      "body": "Legal — detected from /admin/legal.",
       "learnMoreHref": "/help/admin-legal"
     },
     "publishTarget": "in-app",
@@ -29955,7 +29955,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Dashboard?\nA: lead with the Welcome-back greeting, Founding progress right under it",
+          "Q: What is Dashboard?\nA: Dashboard — detected from /dashboard.",
           "Q: Where do I find Dashboard?\nA: In the app at /dashboard.",
           "Q: How do I use Dashboard?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Dashboard?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -29969,7 +29969,7 @@
     "faqs": [
       {
         "q": "What is Dashboard?",
-        "a": "lead with the Welcome-back greeting, Founding progress right under it"
+        "a": "Dashboard — detected from /dashboard."
       },
       {
         "q": "Where do I find Dashboard?",
@@ -30046,7 +30046,7 @@
         "heading": "Steps",
         "body": [
           "1. Open Dashboard — Go to /dashboard.",
-          "2. See what’s on screen — Dashboard is where you lead with the Welcome-back greeting, Founding progress right under it",
+          "2. See what’s on screen — Dashboard is where you dashboard — detected from /dashboard.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -30079,7 +30079,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Dashboard is where you lead with the Welcome-back greeting, Founding progress right under it"
+        "detail": "Dashboard is where you dashboard — detected from /dashboard."
       },
       {
         "title": "Take the main action",
@@ -30133,13 +30133,13 @@
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Dashboard: lead with the Welcome-back greeting, Founding progress right under it"
+          "About Dashboard: Dashboard — detected from /dashboard."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — lead with the Welcome-back greeting, Founding progress right under it Take the first step to get started."
+          "Nothing here yet — Dashboard — detected from /dashboard. Take the first step to get started."
         ]
       }
     ],
@@ -30147,7 +30147,7 @@
       "route": "/dashboard",
       "placement": "tooltip",
       "headline": "About Dashboard",
-      "body": "lead with the Welcome-back greeting, Founding progress right under it",
+      "body": "Dashboard — detected from /dashboard.",
       "learnMoreHref": "/help/dashboard"
     },
     "publishTarget": "in-app",
@@ -30177,18 +30177,18 @@
     "createdAt": "2026-06-11T00:00:00.000Z",
     "updatedAt": "2026-06-11T00:00:00.000Z",
     "title": "Dashboard — how it works | SwingVantage",
-    "summary": "lead with the Welcome-back greeting, Founding progress right under it Learn what Dashboard does and how to use it.",
+    "summary": "Dashboard — detected from /dashboard. Learn what Dashboard does and how to use it.",
     "sections": [
       {
         "heading": "Answer (summary)",
         "body": [
-          "Dashboard lets you lead with the Welcome-back greeting, Founding progress right under it In the app at /dashboard."
+          "Dashboard lets you dashboard — detected from /dashboard. In the app at /dashboard."
         ]
       },
       {
         "heading": "What it is",
         "body": [
-          "lead with the Welcome-back greeting, Founding progress right under it"
+          "Dashboard — detected from /dashboard."
         ]
       },
       {
@@ -30216,7 +30216,7 @@
     ],
     "seo": {
       "title": "Dashboard — how it works | SwingVantage",
-      "description": "lead with the Welcome-back greeting, Founding progress right under it Learn what Dashboard does and how to use it.",
+      "description": "Dashboard — detected from /dashboard. Learn what Dashboard does and how to use it.",
       "slug": "help/dashboard",
       "keywords": [
         "dashboard",
@@ -30229,7 +30229,7 @@
         "HowTo",
         "FAQPage"
       ],
-      "aeoAnswer": "Dashboard lets you lead with the Welcome-back greeting, Founding progress right under it In the app at /dashboard."
+      "aeoAnswer": "Dashboard lets you dashboard — detected from /dashboard. In the app at /dashboard."
     },
     "publishTarget": "seo",
     "security": {
@@ -30263,7 +30263,7 @@
       {
         "heading": "What it does",
         "body": [
-          "lead with the Welcome-back greeting, Founding progress right under it"
+          "Dashboard — detected from /dashboard."
         ]
       },
       {
@@ -30289,7 +30289,7 @@
         "heading": "Step by step",
         "body": [
           "1. Open Dashboard — Go to /dashboard.",
-          "2. See what’s on screen — Dashboard is where you lead with the Welcome-back greeting, Founding progress right under it",
+          "2. See what’s on screen — Dashboard is where you dashboard — detected from /dashboard.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -30331,7 +30331,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Dashboard is where you lead with the Welcome-back greeting, Founding progress right under it"
+        "detail": "Dashboard is where you dashboard — detected from /dashboard."
       },
       {
         "title": "Take the main action",
@@ -67543,7 +67543,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/layout/AppShell.tsx"
+        "ref": "components/layout/Sidebar.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -67555,7 +67555,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Layout?\nA: liquid-glass mobile nav + standalone safe-area fixes",
+          "Q: What is Layout?\nA: finish Video Analysis → Motion Lab consolidation",
           "Q: Where do I find Layout?\nA: This is an internal capability without a dedicated screen yet.",
           "Q: How do I use Layout?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Layout?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -67569,7 +67569,7 @@
     "faqs": [
       {
         "q": "What is Layout?",
-        "a": "liquid-glass mobile nav + standalone safe-area fixes"
+        "a": "finish Video Analysis → Motion Lab consolidation"
       },
       {
         "q": "Where do I find Layout?",
@@ -67620,7 +67620,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/layout/AppShell.tsx"
+        "ref": "components/layout/Sidebar.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -67645,7 +67645,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Layout is where you liquid-glass mobile nav + standalone safe-area fixes",
+          "1. See what’s on screen — Layout is where you finish Video Analysis → Motion Lab consolidation",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -67674,7 +67674,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Layout is where you liquid-glass mobile nav + standalone safe-area fixes"
+        "detail": "Layout is where you finish Video Analysis → Motion Lab consolidation"
       },
       {
         "title": "Take the main action",
@@ -67709,7 +67709,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/layout/AppShell.tsx"
+        "ref": "components/layout/Sidebar.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -67721,7 +67721,7 @@
       {
         "heading": "What it does",
         "body": [
-          "liquid-glass mobile nav + standalone safe-area fixes"
+          "finish Video Analysis → Motion Lab consolidation"
         ]
       },
       {
@@ -67746,7 +67746,7 @@
       {
         "heading": "Step by step",
         "body": [
-          "1. See what’s on screen — Layout is where you liquid-glass mobile nav + standalone safe-area fixes",
+          "1. See what’s on screen — Layout is where you finish Video Analysis → Motion Lab consolidation",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -67783,7 +67783,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Layout is where you liquid-glass mobile nav + standalone safe-area fixes"
+        "detail": "Layout is where you finish Video Analysis → Motion Lab consolidation"
       },
       {
         "title": "Take the main action",
@@ -72403,7 +72403,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Video?\nA: Video — detected from /video.",
+          "Q: What is Video?\nA: finish Video Analysis → Motion Lab consolidation",
           "Q: Where do I find Video?\nA: In the app at /video.",
           "Q: How do I use Video?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Video?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -72417,7 +72417,7 @@
     "faqs": [
       {
         "q": "What is Video?",
-        "a": "Video — detected from /video."
+        "a": "finish Video Analysis → Motion Lab consolidation"
       },
       {
         "q": "Where do I find Video?",
@@ -72494,7 +72494,7 @@
         "heading": "Steps",
         "body": [
           "1. Open Video — Go to /video.",
-          "2. See what’s on screen — Video is where you video — detected from /video.",
+          "2. See what’s on screen — Video is where you finish Video Analysis → Motion Lab consolidation",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -72527,7 +72527,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Video is where you video — detected from /video."
+        "detail": "Video is where you finish Video Analysis → Motion Lab consolidation"
       },
       {
         "title": "Take the main action",
@@ -72582,13 +72582,13 @@
       {
         "heading": "Tooltip copy",
         "body": [
-          "New: Video: Video — detected from /video."
+          "New: Video: finish Video Analysis → Motion Lab consolidation"
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — Video — detected from /video. Take the first step to get started."
+          "Nothing here yet — finish Video Analysis → Motion Lab consolidation Take the first step to get started."
         ]
       }
     ],
@@ -72596,7 +72596,7 @@
       "route": "/video",
       "placement": "announcement",
       "headline": "New: Video",
-      "body": "Video — detected from /video.",
+      "body": "finish Video Analysis → Motion Lab consolidation",
       "learnMoreHref": "/help/video"
     },
     "publishTarget": "in-app",
@@ -72626,18 +72626,18 @@
     "createdAt": "2026-06-11T00:00:00.000Z",
     "updatedAt": "2026-06-11T00:00:00.000Z",
     "title": "Video — how it works | SwingVantage",
-    "summary": "Video — detected from /video. Learn what Video does and how to use it.",
+    "summary": "finish Video Analysis → Motion Lab consolidation Learn what Video does and how to use it.",
     "sections": [
       {
         "heading": "Answer (summary)",
         "body": [
-          "Video lets you video — detected from /video. In the app at /video."
+          "Video lets you finish Video Analysis → Motion Lab consolidation In the app at /video."
         ]
       },
       {
         "heading": "What it is",
         "body": [
-          "Video — detected from /video."
+          "finish Video Analysis → Motion Lab consolidation"
         ]
       },
       {
@@ -72665,7 +72665,7 @@
     ],
     "seo": {
       "title": "Video — how it works | SwingVantage",
-      "description": "Video — detected from /video. Learn what Video does and how to use it.",
+      "description": "finish Video Analysis → Motion Lab consolidation Learn what Video does and how to use it.",
       "slug": "help/video",
       "keywords": [
         "video",
@@ -72678,7 +72678,7 @@
         "HowTo",
         "FAQPage"
       ],
-      "aeoAnswer": "Video lets you video — detected from /video. In the app at /video."
+      "aeoAnswer": "Video lets you finish Video Analysis → Motion Lab consolidation In the app at /video."
     },
     "publishTarget": "seo",
     "security": {
@@ -72712,7 +72712,7 @@
       {
         "heading": "What it does",
         "body": [
-          "Video — detected from /video."
+          "finish Video Analysis → Motion Lab consolidation"
         ]
       },
       {
@@ -72738,7 +72738,7 @@
         "heading": "Step by step",
         "body": [
           "1. Open Video — Go to /video.",
-          "2. See what’s on screen — Video is where you video — detected from /video.",
+          "2. See what’s on screen — Video is where you finish Video Analysis → Motion Lab consolidation",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -72780,7 +72780,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Video is where you video — detected from /video."
+        "detail": "Video is where you finish Video Analysis → Motion Lab consolidation"
       },
       {
         "title": "Take the main action",
