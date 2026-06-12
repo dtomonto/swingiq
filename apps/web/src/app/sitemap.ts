@@ -3,6 +3,7 @@ import { ALL_FEATURES, featureHref } from '@/content/features';
 import { SITE_URL } from '@/config/site';
 import { learnPath } from '@/lib/library/seo';
 import { getConceptEntries, getDataPointEntries, learnPath as learnEntryPath } from '@/lib/learn';
+import { getHelpGroups, helpPath } from '@/lib/feature-education/help-center';
 import { localizedRoutes, currentLocalesFor } from '@/lib/marketing-i18n/expose';
 import { localizedHref } from '@/lib/marketing-i18n/href';
 import { CHALLENGES } from '@/content/challenges';
@@ -178,6 +179,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 
+  // Help Center: the index + one page per PUBLIC feature guide. Admin/operator
+  // help topics are noindex (internal-facing), so they are excluded here — only
+  // the end-user guides are crawlable. New features appear automatically as the
+  // education seed grows.
+  const helpPages: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/help`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
+    ...getHelpGroups().user.map((t) => ({
+      url: `${BASE_URL}${helpPath(t.slug)}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    })),
+  ];
+
   // Mental Performance pillar: the hub + one page per sport + one page per
   // seeded routine, derived from the routine library so new routines appear
   // here automatically (self-maintaining, like the guide/blog registries).
@@ -256,6 +271,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blogPages,
     ...learnPages,
     ...learnConceptPages,
+    ...helpPages,
     ...updatePages,
     ...milestonePages,
     ...devUpdatePages,
