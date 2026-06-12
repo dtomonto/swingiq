@@ -9,3 +9,5 @@ export * from './narrative-provider';
 export * from './providers/gemini-intake';
 export * from './providers/gemini-test';
 export * from './providers/measurement';
+export * from './providers/gemini-files';
+export * from './retention';
