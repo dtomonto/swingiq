@@ -98,10 +98,20 @@ export function resetUser(): void {
   (window as WindowWithProviders).posthog?.reset?.();
 }
 
+/**
+ * Raw PostHog flag value: `true`/`false` when PostHog has resolved the flag,
+ * or `undefined` when PostHog isn't loaded yet or doesn't define the flag.
+ * Callers that must distinguish "off" from "unknown" (e.g. the local-first flag
+ * bridge) use this; most callers want featureEnabled().
+ */
+export function featureFlag(key: string): boolean | undefined {
+  if (typeof window === 'undefined') return undefined;
+  return (window as WindowWithProviders).posthog?.isFeatureEnabled?.(key);
+}
+
 /** Read a PostHog feature flag; returns `fallback` until flags resolve / when absent. */
 export function featureEnabled(key: string, fallback = false): boolean {
-  if (typeof window === 'undefined') return fallback;
-  return (window as WindowWithProviders).posthog?.isFeatureEnabled?.(key) ?? fallback;
+  return featureFlag(key) ?? fallback;
 }
 
 /** Report an error to the analytics provider (correlates with events/identity). */

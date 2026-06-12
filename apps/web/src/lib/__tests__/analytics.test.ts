@@ -1,7 +1,7 @@
 // Event-QA guard (A3): the analytics abstraction must route custom events to
 // whichever provider is present, and must never throw when none is configured.
 // This guards against silently dropping every event once a provider is wired.
-import { track, identifyUser, resetUser, featureEnabled, captureError } from '../analytics';
+import { track, identifyUser, resetUser, featureEnabled, featureFlag, captureError } from '../analytics';
 import { ANALYTICS_EVENTS } from '@swingiq/core';
 
 describe('analytics track() (A3 event-QA)', () => {
@@ -84,6 +84,19 @@ describe('analytics identity & flags (P0)', () => {
     (global as { window?: unknown }).window = { posthog: { capture: jest.fn(), reset } };
     resetUser();
     expect(reset).toHaveBeenCalled();
+  });
+
+  it('featureFlag returns the raw value, or undefined when unresolved/absent (no fallback)', () => {
+    const isFeatureEnabled = jest.fn((k: string) => (k === 'on' ? true : k === 'off' ? false : undefined));
+    (global as { window?: unknown }).window = { posthog: { capture: jest.fn(), isFeatureEnabled } };
+    expect(featureFlag('on')).toBe(true);
+    expect(featureFlag('off')).toBe(false);
+    expect(featureFlag('unknown')).toBeUndefined(); // resolved-as-unknown stays undefined
+
+    (global as { window?: unknown }).window = {}; // no provider
+    expect(featureFlag('on')).toBeUndefined();
+    (global as { window?: unknown }).window = undefined; // server
+    expect(featureFlag('on')).toBeUndefined();
   });
 
   it('featureEnabled returns the flag value, or the fallback when unresolved/absent', () => {

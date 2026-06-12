@@ -315,3 +315,45 @@ No secrets hardcoded — continue reading `NEXT_PUBLIC_POSTHOG_KEY` /
 8. Build the six funnels (E) and the activation + upload-reliability dashboards (F).
 9. Add the post-analysis "was this fix helpful?" survey.
 10. Lock replay to the masking/allow-list plan (I) before enabling it anywhere.
+
+---
+
+## N. Progress log
+
+### P0 — shipped (PR #33)
+
+Real `posthog-js` SDK replacing the CDN snippet (replay-safe defaults,
+`person_profiles: 'identified_only'`), centralized `identifyUser`/`resetUser`/
+`featureEnabled`/`captureError`, and a `PostHogProvider` auth→identity bridge
+(`identify(user.id)` on sign-in / `reset()` on sign-out, id-only). Checklist items 1, 2.
+
+### P1 — shipped (this PR)
+
+Code (done):
+
+- **Error tracking sink** — `lib/posthog/browser.ts` now registers
+  `window.__svCaptureException` → `posthog.captureException`, so every error reported
+  through `lib/observability/report.ts` (client errors + `instrumentation.ts`
+  `onRequestError`-forwarded ones) lands in PostHog correlated with events/identity. It
+  won't clobber a Sentry sink. (checklist 4, client side)
+- **SPA pageviews** — `capture_pageview: 'history_change'` captures App-Router client
+  navigations, not just hard loads. (checklist 6)
+- **Internal/dev-traffic filtering** — `posthog.register({ environment })` super-property
+  so dev/preview events can be excluded in the PostHog UI. (checklist 6)
+- **Feature-flag bridge** — `isFlagEnabled()` is now local-first + PostHog-aware: operator
+  override (kill-switch) wins → same-key PostHog flag drives rollout → registry default.
+  Inert until PostHog flags are created, so zero behavior change today. (checklist 3)
+
+Owner-only (cannot be done in code — require secrets/infra):
+
+- **Activate the Analytics OS read layer** — set `POSTHOG_PERSONAL_API_KEY` +
+  `POSTHOG_PROJECT_ID` (server-side, no `NEXT_PUBLIC_` prefix). Wiring already exists
+  (`lib/posthog/config.ts` `getReadConfig`); the dashboards stay empty until these are set.
+  (checklist 5)
+- **Source-map upload** — needs the PostHog CLI + a personal API token in the build
+  pipeline; deferred. (checklist 4)
+- **Server-side error sink** — `instrumentation.ts` forwards server errors to
+  `globalThis.__svCaptureException`, but capturing them in PostHog needs `posthog-node`
+  (separate dep). The client sink is live now; server is a follow-up.
+- **PostHog UI** — create the flags from §G (the bridge consumes them by key), build the
+  §E funnels / §F dashboards, mark internal users, add the §I survey.
