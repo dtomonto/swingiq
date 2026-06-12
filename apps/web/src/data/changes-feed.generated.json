@@ -1,5 +1,95 @@
 [
   {
+    "sha": "38592ea39e23bbff97059c81710af47ccf82d51f",
+    "at": "2026-06-12T12:03:20-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "ce4703c88b727a292f0a38246d5d8383041db600",
+    "at": "2026-06-12T12:03:20-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "e0b3b3f2169893f5a7b05b3028c1850561ba3c5e",
+    "at": "2026-06-12T12:03:20-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "ce1d6069ae851664e751de7e87ec06c4427efdb1",
+    "at": "2026-06-12T12:03:20-04:00",
+    "type": "other",
+    "subject": "Merge remote-tracking branch 'origin/master' into agent/posthog-p0"
+  },
+  {
+    "sha": "b252e888a7910fa9e07fd2629f8639fe4cc82bb7",
+    "at": "2026-06-12T11:33:25-04:00",
+    "type": "feat",
+    "scope": "retest",
+    "subject": "auto-detect a retest on re-upload + show what it is"
+  },
+  {
+    "sha": "2c32c9a4d9e0a46b295f4bbadfde754b840207d9",
+    "at": "2026-06-12T11:23:50-04:00",
+    "type": "feat",
+    "scope": "retest",
+    "subject": "add Retest to the mobile bottom nav"
+  },
+  {
+    "sha": "894edf84dfab52527f0f4a3c9c7b7c2fe9d8ebc8",
+    "at": "2026-06-12T11:13:53-04:00",
+    "type": "feat",
+    "scope": "retest",
+    "subject": "turn every result into a next move"
+  },
+  {
+    "sha": "80c04a8c447efe4a484097333d9c48e4f8b26407",
+    "at": "2026-06-12T11:24:00-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "6033d586760ee187ff30e9f10119e69ec0666f21",
+    "at": "2026-06-12T11:24:00-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "09be819b98d4fb81b188a6a41371bf3ab32b7d69",
+    "at": "2026-06-12T11:24:00-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "af6ec59d4653b7f0e5b2491bbf6582707c2450a7",
+    "at": "2026-06-12T11:24:00-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "644a503f5048f9608b3b72edbfa3d96b26ccd9ee",
+    "at": "2026-06-12T11:24:00-04:00",
+    "type": "feat",
+    "scope": "analytics",
+    "subject": "PostHog audit + P0 SDK swap & identity bridge"
+  },
+  {
+    "sha": "5d0f78c91d6812ed442d79414f4b4783791917bb",
+    "at": "2026-06-12T11:14:16-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "eb24bb9a2f6e0db8fc6b48f22fb949d7eb624405",
     "at": "2026-06-12T11:14:16-04:00",
     "type": "chore",
@@ -460,95 +550,5 @@
     "at": "2026-06-12T07:59:44-04:00",
     "type": "other",
     "subject": "@ ci(growth): add workflow_dispatch to Growth CI"
-  },
-  {
-    "sha": "7e8546d8e000f1751200d69927d6c03023d7b199",
-    "at": "2026-06-12T01:16:44-04:00",
-    "type": "feat",
-    "scope": "drills",
-    "subject": "comprehensive per-drill detail pages from a unified catalog"
-  },
-  {
-    "sha": "e4416483d5dfa5a0d7d97e122c17c9c5909de2d3",
-    "at": "2026-06-12T00:43:59-04:00",
-    "type": "feat",
-    "scope": "help",
-    "subject": "build the /help Help Center so every in-app \"Learn more\" resolves"
-  },
-  {
-    "sha": "84be0420418a1f233351ac813be226451632fe72",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "0ea341188365b83f177446e6f35a7b91dc12b85f",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "f98c61add2152bd2b03371c9076100517713b66c",
-    "at": "2026-06-12T01:20:34-04:00",
-    "type": "feat",
-    "scope": "ai",
-    "subject": "per-user daily AI spend cap, editable from the dashboard"
-  },
-  {
-    "sha": "5a3382970a7a8da57d5cb0515cb03a030b4fc12a",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "6e0107c1b951a6d96ced9c6647bb1d9812cca2b5",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "4ab0098aa09454b51c4cdac7a2e16c66edea7c27",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): resync committed seed with the settled registry"
-  },
-  {
-    "sha": "82999d30d01c54aa9bd641b354377168ca6812a9",
-    "at": "2026-06-12T07:45:50-04:00",
-    "type": "feat",
-    "scope": "motion-lab",
-    "subject": "3D avatar viewer + AI vision review tab (#27)"
-  },
-  {
-    "sha": "fec7a244db99b85d3ec5d9424edb2c6e24dae210",
-    "at": "2026-06-12T00:54:14-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "every dashboard metric opens its own explainer page"
-  },
-  {
-    "sha": "17703bb35ae51eb62fda62ea08918eec809464f4",
-    "at": "2026-06-12T00:52:15-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "Copy/Download any alert or finding as a Claude Code fix prompt"
-  },
-  {
-    "sha": "78b12bd67ed88f0f5add8e464e1c0fc9e05c90d3",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "e3db49054709ff6dd6d54aacb812b949bf0b9e69",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
   }
 ]
