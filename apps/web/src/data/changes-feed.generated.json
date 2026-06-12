@@ -1,5 +1,40 @@
 [
   {
+    "sha": "0a9621681f7eea45ba569c7a9e7b3e6d9655f9f6",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0cbbb875dede90e90b9554f173bd4773d09831a3",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "83607ff0193466f7749b5a811f372a438e6eb540",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "9db348b9052844fd7253e3493a7efaf6b0414f5c",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "6a2ca067340f236d59408629b6bf3c2109208ab7",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "181296d38469cdbc9c28019375c1ab7a797900e0",
     "at": "2026-06-12T10:57:45-04:00",
     "type": "chore",
@@ -514,39 +549,5 @@
     "type": "feat",
     "scope": "admin",
     "subject": "Copy/Download any alert or finding as a Claude Code fix prompt"
-  },
-  {
-    "sha": "78b12bd67ed88f0f5add8e464e1c0fc9e05c90d3",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "e3db49054709ff6dd6d54aacb812b949bf0b9e69",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "3e823ed1fd85b76c44fc17a66d338e417bda1816",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "2db7ab2c39201ec93fbe7cc5327be69c7a70ac60",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "bb7e5336ee9d08297c544d8d4e53bcdc4ccac11b",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): await async admin/cron guards in API routes"
   }
 ]
