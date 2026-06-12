@@ -2,14 +2,11 @@
 
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useState, useMemo } from 'react';
-import { ExternalLink, Search, Sparkles, Dumbbell } from 'lucide-react';
+import Link from 'next/link';
+import { ExternalLink, Search, Sparkles, Dumbbell, ArrowRight } from 'lucide-react';
 import { EmptyState } from '@/components/ui/EmptyState';
 import {
   ALL_SPORTS_INCLUDING_GOLF,
-  TENNIS_DRILLS,
-  BASEBALL_DRILLS,
-  SLOW_PITCH_DRILLS,
-  FAST_PITCH_DRILLS,
   getRoutineForDiagnosis,
   type DiagnosisCategory,
 } from '@swingiq/core';
@@ -17,26 +14,11 @@ import type { SportId } from '@swingiq/core';
 import { cn } from '@/lib/utils';
 import { useSwingVantageStore, useLatestDiagnosedSession } from '@/store';
 import { useSport } from '@/contexts/SportContext';
+import { getAllDrills } from '@/lib/drills/catalog';
 
-// Golf drills live in the training routines — we surface a curated list here
-const GOLF_DRILLS = [
-  { id: 'g1', name: 'Gate Drill', goal: 'Groove a square face at impact', difficulty: 'beginner' as const, sport_id: 'golf' as SportId, youtube_search_url: 'https://www.youtube.com/results?search_query=golf+gate+drill+face+control', issue_id: null, phase: 'downswing', reps_or_duration: '20 reps', equipment_needed: '2 tees', safety_note: null },
-  { id: 'g2', name: 'Pause at P3 Drill', goal: 'Check club face angle mid-backswing', difficulty: 'beginner' as const, sport_id: 'golf' as SportId, youtube_search_url: 'https://www.youtube.com/results?search_query=golf+P3+pause+drill+face+angle', issue_id: null, phase: 'backswing', reps_or_duration: '15 reps', equipment_needed: 'Club', safety_note: null },
-  { id: 'g3', name: 'Hip Clearance Drill', goal: 'Learn proper hip rotation through impact', difficulty: 'intermediate' as const, sport_id: 'golf' as SportId, youtube_search_url: 'https://www.youtube.com/results?search_query=golf+hip+rotation+drill+clearance+impact', issue_id: null, phase: 'downswing', reps_or_duration: '10 slow, 10 full', equipment_needed: 'Club', safety_note: null },
-  { id: 'g4', name: 'High Tee Driver Drill', goal: 'Train positive attack angle to reduce spin', difficulty: 'intermediate' as const, sport_id: 'golf' as SportId, youtube_search_url: 'https://www.youtube.com/results?search_query=golf+high+tee+drill+driver+attack+angle+low+spin', issue_id: null, phase: 'impact', reps_or_duration: '15 reps', equipment_needed: 'Driver, high tees', safety_note: null },
-  { id: 'g5', name: 'Alignment Stick Path Drill', goal: 'Visualize and improve club path direction', difficulty: 'beginner' as const, sport_id: 'golf' as SportId, youtube_search_url: 'https://www.youtube.com/results?search_query=golf+alignment+stick+path+drill+outside+in', issue_id: null, phase: 'setup', reps_or_duration: '20 reps', equipment_needed: '2 alignment sticks', safety_note: null },
-  { id: 'g6', name: 'Impact Bag Drill', goal: 'Build a strong impact position with forward shaft lean', difficulty: 'beginner' as const, sport_id: 'golf' as SportId, youtube_search_url: 'https://www.youtube.com/results?search_query=golf+impact+bag+drill+shaft+lean+position', issue_id: null, phase: 'impact', reps_or_duration: '30 reps', equipment_needed: 'Impact bag or cushion', safety_note: 'Do not swing at full speed into the bag.' },
-  { id: 'g7', name: 'Step Drill', goal: 'Improve weight transfer and sequencing', difficulty: 'intermediate' as const, sport_id: 'golf' as SportId, youtube_search_url: 'https://www.youtube.com/results?search_query=golf+step+drill+weight+transfer+sequence', issue_id: null, phase: 'downswing', reps_or_duration: '20 reps', equipment_needed: 'Iron', safety_note: null },
-  { id: 'g8', name: 'Pump Drill', goal: 'Shallow the club on the downswing', difficulty: 'advanced' as const, sport_id: 'golf' as SportId, youtube_search_url: 'https://www.youtube.com/results?search_query=golf+pump+drill+shallow+downswing+lag', issue_id: null, phase: 'transition', reps_or_duration: '20 slow reps', equipment_needed: 'Iron', safety_note: null },
-];
-
-const ALL_DRILLS = [
-  ...GOLF_DRILLS,
-  ...TENNIS_DRILLS,
-  ...BASEBALL_DRILLS,
-  ...SLOW_PITCH_DRILLS,
-  ...FAST_PITCH_DRILLS,
-];
+// One canonical, richly-detailed catalog powers both this grid and the
+// per-drill detail page (each card opens into /drills/[slug]).
+const ALL_DRILLS = getAllDrills();
 
 const DIFFICULTY_COLORS = {
   beginner: 'bg-primary/15 text-primary',
@@ -62,7 +44,7 @@ export default function DrillsPage() {
   }, [training.active_diagnosis_id, latestDiagnosed]);
 
   const filtered = ALL_DRILLS.filter((d) => {
-    const matchSport = sportFilter === 'all' || d.sport_id === sportFilter;
+    const matchSport = sportFilter === 'all' || d.sport === sportFilter;
     const matchDiff = diffFilter === 'all' || d.difficulty === diffFilter;
     const matchSearch = !search || d.name.toLowerCase().includes(search.toLowerCase()) || d.goal.toLowerCase().includes(search.toLowerCase());
     return matchSport && matchDiff && matchSearch;
@@ -78,7 +60,7 @@ export default function DrillsPage() {
             {sportEmoji} {sportName} Drill Library
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
-            {ALL_DRILLS.filter((d) => d.sport_id === activeSport).length} {sportName} drills · {ALL_DRILLS.length} total across all sports. Use the sport filter to explore others.
+            {ALL_DRILLS.filter((d) => d.sport === activeSport).length} {sportName} drills · {ALL_DRILLS.length} total across all sports. Tap any drill for the full walkthrough.
           </p>
         </div>
 
@@ -156,38 +138,36 @@ export default function DrillsPage() {
 
         <p className="text-xs text-muted-foreground mb-4">{filtered.length} drill{filtered.length !== 1 ? 's' : ''} found</p>
 
-        {/* Drill grid */}
+        {/* Drill grid — each card opens its full detail page */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filtered.map((drill) => (
-            <Card key={drill.id} className="hover:shadow-md transition-shadow">
-              <CardBody className="space-y-2">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl">{getSportEmoji(drill.sport_id)}</span>
-                    <h3 className="font-bold text-foreground text-sm">{drill.name}</h3>
+            <Link key={drill.slug} href={`/drills/${drill.slug}`} className="group block">
+              <Card className="h-full hover:shadow-md hover:border-primary/40 transition-all">
+                <CardBody className="space-y-2">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">{getSportEmoji(drill.sport)}</span>
+                      <h3 className="font-bold text-foreground text-sm group-hover:text-primary transition-colors">{drill.name}</h3>
+                    </div>
+                    <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium shrink-0 capitalize', DIFFICULTY_COLORS[drill.difficulty])}>
+                      {drill.difficulty}
+                    </span>
                   </div>
-                  <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium shrink-0', DIFFICULTY_COLORS[drill.difficulty])}>
-                    {drill.difficulty}
+                  <p className="text-xs text-muted-foreground">{drill.goal}</p>
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                    {drill.repsOrDuration && <span>🔄 {drill.repsOrDuration}</span>}
+                    {drill.equipment && <span>🎯 {drill.equipment}</span>}
+                  </div>
+                  {drill.safetyNote && (
+                    <p className="text-xs text-warning bg-warning/10 px-2 py-1 rounded-sm">⚠ {drill.safetyNote}</p>
+                  )}
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-primary mt-1">
+                    View full walkthrough
+                    <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
                   </span>
-                </div>
-                <p className="text-xs text-muted-foreground">{drill.goal}</p>
-                <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                  {drill.reps_or_duration && <span>🔄 {drill.reps_or_duration}</span>}
-                  {drill.equipment_needed && <span>🎯 {drill.equipment_needed}</span>}
-                </div>
-                {drill.safety_note && (
-                  <p className="text-xs text-warning bg-warning/10 px-2 py-1 rounded-sm">⚠ {drill.safety_note}</p>
-                )}
-                <a
-                  href={drill.youtube_search_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-medium hover:bg-red-700 w-fit mt-1"
-                >
-                  <ExternalLink size={11} /> Find on YouTube
-                </a>
-              </CardBody>
-            </Card>
+                </CardBody>
+              </Card>
+            </Link>
           ))}
         </div>
 
