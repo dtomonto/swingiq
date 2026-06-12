@@ -28,3 +28,4 @@ export {
   compareGolfSessions,
 } from './targets.golf';
 export { useRetests, type RetestView } from './useRetests';
+export { nextActionFor, type RetestNextAction, type RetestNextTone } from './next-action';

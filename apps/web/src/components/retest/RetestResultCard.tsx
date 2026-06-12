@@ -10,12 +10,13 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
-import { ChevronDown, ChevronRight, TrendingUp, Minus, HelpCircle, AlertTriangle, X } from 'lucide-react';
+import Link from 'next/link';
+import { ChevronDown, ChevronRight, TrendingUp, Minus, HelpCircle, AlertTriangle, X, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { Badge } from '@/components/ui/Badge';
 import { format } from 'date-fns';
-import type { RetestResult, RetestOutcome } from '@/lib/retest';
+import { nextActionFor, type RetestResult, type RetestOutcome, type RetestNextTone } from '@/lib/retest';
 
 const OUTCOME_META: Record<
   RetestOutcome,
@@ -25,6 +26,14 @@ const OUTCOME_META: Record<
   persisting: { variant: 'warning', ring: 'border-l-warning', icon: Minus, label: 'Still present' },
   inconclusive: { variant: 'info', ring: 'border-l-blue-400', icon: HelpCircle, label: 'Inconclusive' },
   regressed: { variant: 'danger', ring: 'border-l-error', icon: AlertTriangle, label: 'Worse' },
+};
+
+// Tone → accent for the "what to do next" footer. Tokens only (no hardcoded hex).
+const NEXT_TONE: Record<RetestNextTone, string> = {
+  progress: 'text-primary',
+  persist: 'text-warning',
+  recover: 'text-error',
+  reconfirm: 'text-foreground',
 };
 
 export function RetestResultCard({
@@ -48,6 +57,7 @@ export function RetestResultCard({
   const { comparison } = result;
   const meta = OUTCOME_META[comparison.outcome] ?? OUTCOME_META.inconclusive;
   const Icon = meta.icon;
+  const next = nextActionFor(result);
 
   // Funnel: the improvement loop has CLOSED — a completed retest result is on
   // screen. This is the north-star "Weekly Completed Improvement Loops" signal.
@@ -124,6 +134,20 @@ export function RetestResultCard({
               <p>{comparison.confidenceNote}</p>
             </div>
           )}
+
+          <div className="mt-3 border-t border-border pt-3">
+            <p className={cn('text-xs font-semibold uppercase tracking-wide', NEXT_TONE[next.tone])}>
+              {next.title}
+            </p>
+            <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{next.message}</p>
+            <Link
+              href={next.cta.href}
+              className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary focus:outline-hidden focus:ring-2 focus:ring-ring rounded-sm"
+            >
+              {next.cta.label}
+              <ArrowRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
