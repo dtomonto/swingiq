@@ -1,5 +1,39 @@
 [
   {
+    "sha": "181296d38469cdbc9c28019375c1ab7a797900e0",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "37edd43d775022e0154855d05d3e644f273b1109",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "e230f6e02b5197127b10f06326b539756de027dc",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "efe4677e38a24a7287dde48efc90fb5c1b4d160b",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "other",
+    "subject": "@ fix(i18n): re-translate the Video Analysis → Motion Lab rebrand (es/fr)"
+  },
+  {
+    "sha": "c121133007954b71fd0a2ac02928a59f47314df3",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "727e66c7ebb70f03dfe6b3b79d7258824783df50",
     "at": "2026-06-12T08:23:37-04:00",
     "type": "chore",
@@ -514,40 +548,5 @@
     "at": "2026-06-12T01:12:27-04:00",
     "type": "other",
     "subject": "@ fix(feature-education): await async admin/cron guards in API routes"
-  },
-  {
-    "sha": "c8a0c4102ed0b490ed8105f9e680a49c98a76e43",
-    "at": "2026-06-12T00:25:28-04:00",
-    "type": "feat",
-    "scope": "reliability",
-    "subject": "dedicated analysis-failure + cloud-sync-failure visibility"
-  },
-  {
-    "sha": "7a340c58d6d8de63fe2a5c35807a859a71a8ba49",
-    "at": "2026-06-12T01:07:39-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "12f8dd589c0bc351e71b07f56e947f5a25346e28",
-    "at": "2026-06-12T01:07:39-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "2bf9da364aff48a837394aa5d82596b8f4c1c6c6",
-    "at": "2026-06-12T01:07:39-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "0866cb28377452880672ffbfdd11a68cb817cb7d",
-    "at": "2026-06-12T01:07:39-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
   }
 ]
