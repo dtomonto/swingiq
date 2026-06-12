@@ -100,7 +100,7 @@
       "item2Title": "Des exercices fondés sur des preuves",
       "item2Desc": "Chaque exercice recommandé est lié au problème précis détecté — pas de conseils génériques.",
       "item3Title": "Une conception axée sur la confidentialité",
-      "item3Desc": "L'analyse vidéo s'exécute localement quand c'est possible. Vos données de swing ne sont jamais partagées publiquement par défaut."
+      "item3Desc": "Motion Lab s'exécute localement quand c'est possible. Vos données de swing ne sont jamais partagées publiquement par défaut."
     },
     "freeTools": {
       "heading": "Des outils gratuits pour commencer",
@@ -133,7 +133,7 @@
       "q5": "SwingVantage remplace-t-il un entraîneur ?",
       "a5": "SwingVantage est votre avantage quotidien — il identifie la correction à plus fort impact dans votre swing et vous fournit les exercices et le plan pour la maîtriser, sans rendez-vous. Pour les blessures ou le travail technique avancé, il se combine parfaitement avec un entraîneur qualifié, et vous arriverez déjà en avance.",
       "q6": "Ma vidéo de swing est-elle privée ?",
-      "a6": "Oui. L'analyse vidéo s'exécute dans votre navigateur. Les vidéos ne sont pas partagées publiquement par défaut.",
+      "a6": "Oui. Motion Lab s'exécute dans votre navigateur. Les vidéos ne sont pas partagées publiquement par défaut.",
       "q7": "Les parents peuvent-ils utiliser SwingVantage pour de jeunes athlètes ?",
       "a7": "Oui. Les parents et les entraîneurs utilisent SwingVantage pour donner aux jeunes athlètes un retour clair et encourageant, en langage simple. Il est conçu en pensant à la sécurité des mineurs — et il accompagne un entraîneur qualifié, sans le remplacer, pour les questions de blessure ou de technique avancée."
     },
@@ -204,7 +204,7 @@
       "q1": "SwingVantage est-il gratuit ?",
       "a1": "Les outils d'analyse principaux sont gratuits. Les fonctionnalités avancées comme l'historique de séances illimité, les comptes d'équipe et la revue vidéo professionnelle sont prévues dans l'offre payante.",
       "q2": "Ai-je besoin d'un équipement particulier ?",
-      "a2": "Non. La caméra d'un smartphone suffit pour commencer l'analyse vidéo. Si vous avez des données d'un moniteur de lancement ou d'un capteur, vous pouvez les importer pour une analyse plus poussée.",
+      "a2": "Non. La caméra d'un smartphone suffit pour commencer avec Motion Lab. Si vous avez des données d'un moniteur de lancement ou d'un capteur, vous pouvez les importer pour une analyse plus poussée.",
       "q3": "À qui s'adresse SwingVantage ?",
       "a3": "SwingVantage est conçu pour les athlètes autodidactes, les athlètes travaillant avec des entraîneurs et souhaitant un enseignement fondé sur les données, les parents qui suivent le développement de jeunes joueurs et les propriétaires d'installations qui veulent un outil de coaching évolutif.",
       "q4": "SwingVantage remplace-t-il un entraîneur humain ?",
@@ -220,7 +220,7 @@
   "features": {
     "meta": {
       "title": "Fonctionnalités de SwingVantage — Analyse de swing par IA, diagnostic et outils d'entraînement",
-      "description": "Toutes les fonctionnalités de SwingVantage expliquées : diagnostic de swing par IA, import de moniteur de lancement, analyse vidéo, bibliothèque d'exercices, planification d'entraînement, suivi des progrès, diagnostic d'équipement et plus encore — pour le golf, le tennis, le pickleball, le padel, le baseball et le softball."
+      "description": "Toutes les fonctionnalités de SwingVantage expliquées : diagnostic de swing par IA, import de moniteur de lancement, Motion Lab, bibliothèque d'exercices, planification d'entraînement, suivi des progrès, diagnostic d'équipement et plus encore — pour le golf, le tennis, le pickleball, le padel, le baseball et le softball."
     },
     "hero": {
       "title": "Tout ce que fait SwingVantage — Gratuit",
@@ -298,7 +298,7 @@
         "f6Detail": "Les échauffements sont adaptés à votre diagnostic actif et au temps dont vous disposez avant de jouer."
       },
       "video": {
-        "heading": "Analyse vidéo",
+        "heading": "Motion Lab",
         "f1Name": "Téléversement de vidéo de swing",
         "f1Sports": "Les 7 sports",
         "f1Desc": "Téléversez une vidéo de votre swing de face, dans l'axe ou sous un angle propre au sport. SwingVantage segmente la vidéo en phases et fournit des notes de coaching pour chaque phase.",
