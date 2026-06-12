@@ -69,8 +69,6 @@ export interface Update {
   sortOrder: number;
   isFeatured?: boolean;
   isMajorMilestone?: boolean;
-  /** Pinned updates are forced to the top of the public list, ahead of newest-first ordering. */
-  isPinned?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -111,11 +109,10 @@ export function getAllUpdates(): Update[] {
 }
 
 export function getPublicUpdates(): Update[] {
-  return allUpdates().filter(isPublicUpdate).sort((a, b) => {
-    // Pinned updates float to the very top, ahead of newest-first ordering.
-    if (!!a.isPinned !== !!b.isPinned) return a.isPinned ? -1 : 1;
-    return new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime();
-  });
+  // Strictly chronological — most recent update first.
+  return allUpdates()
+    .filter(isPublicUpdate)
+    .sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime());
 }
 
 export function getFeaturedUpdate(): Update | undefined {

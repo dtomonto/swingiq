@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/Button';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 import { MetricCard } from '@/components/ui/MetricCard';
 import { GradeCard } from '@/components/grading/GradeCard';
+import { DataQualityBadge } from '@/components/diagnose/DataQualityBadge';
 import { cn, priorityToColor } from '@/lib/utils';
 import {
   runDiagnosticEngine,
@@ -358,6 +359,7 @@ export function DiagnoseContent() {
               <span className="capitalize"> · {activeSession.launch_monitor}</span>
             )}
           </p>
+          <div className="mt-2"><DataQualityBadge quality={result.quality} /></div>
         </div>
 
         <div className="flex items-center gap-3 flex-wrap">

@@ -5,6 +5,7 @@
 
 import type { Shot, SupportingDataPoint } from '../types';
 import { DIAGNOSTIC_RULES, type SessionStats, type DiagnosticRule } from './rules';
+import { computeImportQuality, type ImportDataQuality } from './data-quality';
 
 /**
  * Robust mean (recommendation #10). With ≥5 valid shots, drops any value more
@@ -88,6 +89,9 @@ export interface DiagnosticResult {
   diagnoses: DiagnosisOutput[];
   primary: DiagnosisOutput | null;
   secondary: DiagnosisOutput[];
+  /** Honest quality of the imported session (completeness/shots/dispersion) —
+   *  a band + the completeness factor already folded into each confidence. */
+  quality: ImportDataQuality;
 }
 
 export interface DiagnosisOutput {
@@ -160,7 +164,8 @@ export function runDiagnosticEngine(
   _userId: string,
 ): DiagnosticResult {
   if (shots.length < MIN_DIAGNOSIS_SHOTS) {
-    return { stats: computeSessionStats(shots, clubCategory), diagnoses: [], primary: null, secondary: [] };
+    const stats = computeSessionStats(shots, clubCategory);
+    return { stats, diagnoses: [], primary: null, secondary: [], quality: computeImportQuality(stats) };
   }
 
   const stats = computeSessionStats(shots, clubCategory);
@@ -172,13 +177,16 @@ export function runDiagnosticEngine(
   // Recommendation #11: a scattered, inconsistent delivery should not earn a
   // high-confidence verdict even with plenty of shots.
   const dispersionFactor = dispersionConfidenceFactor(stats);
+  // P23: an incomplete import (missing key fields) shouldn't earn a
+  // high-confidence verdict either — completeness ONLY, no double-counting.
+  const quality = computeImportQuality(stats);
 
   const triggered: DiagnosisOutput[] = [];
 
   for (const rule of DIAGNOSTIC_RULES) {
     if (rule.check(stats)) {
       const rawConfidence = rule.confidence(stats);
-      const confidence = Math.round(rawConfidence * sampleFactor * dispersionFactor);
+      const confidence = Math.round(rawConfidence * sampleFactor * dispersionFactor * quality.completenessFactor);
       if (confidence >= 40) {
         triggered.push({
           rule,
@@ -211,6 +219,7 @@ export function runDiagnosticEngine(
     diagnoses: triggered,
     primary: triggered[0] ?? null,
     secondary: triggered.slice(1, 3),
+    quality,
   };
 }
 
