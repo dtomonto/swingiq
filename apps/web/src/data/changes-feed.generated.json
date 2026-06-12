@@ -1,31 +1,31 @@
 [
   {
-    "sha": "1d4c99fd85b61e1f165e61ac4734612371de4ad3",
-    "at": "2026-06-12T15:04:57-04:00",
+    "sha": "d2017f960e6a655ff105d51c6284261a2b0715e2",
+    "at": "2026-06-12T15:02:00-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "28857ff0f4744e98fa86524dfc0d2b0bf0eb314a",
-    "at": "2026-06-12T15:04:57-04:00",
+    "sha": "05e985917abcdd06679339bba071004fe0879075",
+    "at": "2026-06-12T15:02:00-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "6e65fe046bf76eccb32400c85cffb290b0a2b481",
-    "at": "2026-06-12T15:04:57-04:00",
+    "sha": "6ebe1a38615d0ae723aee0c12644937daf547228",
+    "at": "2026-06-12T15:02:00-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "ecb096a66db6fa572baa8bbb41ca75555c94dd3a",
-    "at": "2026-06-12T15:04:57-04:00",
-    "type": "feat",
-    "scope": "analytics",
-    "subject": "PostHog P1 — error sink, SPA pageviews, flag bridge"
+    "sha": "cec51290569e70f18aa3d1d348ee99d52b0646dc",
+    "at": "2026-06-12T15:02:00-04:00",
+    "type": "chore",
+    "scope": "gitignore",
+    "subject": "ignore local MCP + design-tool capture artifacts"
   },
   {
     "sha": "fad842296a274968cd0bb6ad7f1c1e3347a2d9ff",

@@ -81,6 +81,11 @@ playwright-report
 test-results
 **/e2e/__screenshots__/
 
+# Local MCP / design-tool capture artifacts (console logs, page snapshots,
+# tool state — generated per session, never committed)
+.playwright-mcp/
+.figma-ds-state.json
+
 # Vercel
 .vercel
 
