@@ -19,7 +19,9 @@ import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecheckButton } from '@/components/admin/RecheckButton';
 import { AiRoutingEditor } from '@/components/admin/AiRoutingEditor';
+import { AiFeatureSwitchboard } from '@/components/admin/AiFeatureSwitchboard';
 import { getEffectiveRouting } from '@/lib/ai/ai-ops/effective-routing';
+import { getAiFeatureSnapshot } from '@/lib/ai/ai-features';
 import { getAiCallStats, getRecentAiCalls } from '@/lib/ai/ai-ops/call-log';
 
 export const metadata: Metadata = {
@@ -31,8 +33,9 @@ export const dynamic = 'force-dynamic';
 const pct = (n: number) => `${Math.round(n * 100)}%`;
 
 export default async function AiProviderPage() {
-  const [snapshot, callStats, recent] = await Promise.all([
+  const [snapshot, features, callStats, recent] = await Promise.all([
     getEffectiveRouting('standard'),
+    getAiFeatureSnapshot(),
     getAiCallStats(),
     getRecentAiCalls(12),
   ]);
@@ -68,6 +71,14 @@ export default async function AiProviderPage() {
           tone={snapshot.source === 'upstash' ? 'success' : 'muted'}
         />
       </div>
+
+      {/* ── AI feature controls (turn athlete-facing AI on/off) ─ */}
+      <SectionCard
+        title="AI feature controls"
+        description="Turn athlete-facing AI on or off — all at once, or one feature at a time. Durable. Admin AI tools (Copilot, Social, Feature Education, Growth) are gated separately and are not affected."
+      >
+        <AiFeatureSwitchboard initialSnapshot={features} />
+      </SectionCard>
 
       {/* ── Provider health ──────────────────────────────── */}
       <SectionCard

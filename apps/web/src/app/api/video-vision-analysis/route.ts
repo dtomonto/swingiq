@@ -32,6 +32,7 @@ import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
 import { recordAiCall } from '@/lib/ai/ai-ops/call-log';
 import type { AiProviderName } from '@/lib/ai/ai-ops/schemas';
@@ -131,6 +132,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       { error: 'Frames were malformed. Please retry the analysis.' },
       { status: 400 },
+    );
+  }
+
+  // Operator AI feature switch (admin "AI Feature Controls"): when video analysis
+  // is turned off for the whole product, return the honest "off" response before
+  // any provider work — the client shows its not-configured notice.
+  if (!(await isAiFeatureEnabled('video-analysis'))) {
+    return NextResponse.json(
+      { configured: false, message: 'AI video analysis is turned off by the operator right now.' },
+      { status: 200 },
     );
   }
 
