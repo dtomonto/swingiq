@@ -194,8 +194,14 @@ describe('derivation from saved history', () => {
 
 describe('commitment moves the retest window start (R3)', () => {
   const history = () => [makeAnalysis({ id: 'b1', sport: 'baseball', createdAt: daysAgo(12) })];
+  // Pin a single `now` + history so the `toBe` equality checks below are exact.
+  // Previously retestBy() rebuilt history() and called new Date() on every
+  // invocation, so comparing two calls flaked by 1ms whenever the millisecond
+  // clock ticked between them (e.g. "…547Z" vs "…546Z").
+  const fixedNow = new Date();
+  const fixedHistory = history();
   const retestBy = (cmt?: AgiCommitment) =>
-    deriveRetestTargets(history(), EMPTY_STORE, new Date(), cmt)[0].window.retestBy;
+    deriveRetestTargets(fixedHistory, EMPTY_STORE, fixedNow, cmt)[0].window.retestBy;
 
   it('starts the window at the commitment date when committed after the analysis', () => {
     const base = deriveRetestTargets(history(), EMPTY_STORE, new Date());
