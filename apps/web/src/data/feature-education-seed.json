@@ -38282,6 +38282,18 @@
       {
         "kind": "route",
         "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
       }
     ],
     "needsHumanReview": false,
@@ -38293,7 +38305,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Home?\nA: live cross-tab store sync for in-visit reactivity",
+          "Q: What is Home?\nA: Home — detected from /.",
           "Q: Where do I find Home?\nA: In the app at /.",
           "Q: How do I use Home?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Home?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -38307,7 +38319,7 @@
     "faqs": [
       {
         "q": "What is Home?",
-        "a": "live cross-tab store sync for in-visit reactivity"
+        "a": "Home — detected from /."
       },
       {
         "q": "Where do I find Home?",
@@ -38359,6 +38371,18 @@
       {
         "kind": "route",
         "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
       }
     ],
     "needsHumanReview": false,
@@ -38384,7 +38408,7 @@
         "heading": "Steps",
         "body": [
           "1. Open Home — Go to /.",
-          "2. See what’s on screen — Home is where you live cross-tab store sync for in-visit reactivity",
+          "2. See what’s on screen — Home is where you home — detected from /.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -38417,7 +38441,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Home is where you live cross-tab store sync for in-visit reactivity"
+        "detail": "Home is where you home — detected from /."
       },
       {
         "title": "Take the main action",
@@ -38453,6 +38477,18 @@
       {
         "kind": "route",
         "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
       }
     ],
     "needsHumanReview": false,
@@ -38471,13 +38507,13 @@
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Home: live cross-tab store sync for in-visit reactivity"
+          "About Home: Home — detected from /."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — live cross-tab store sync for in-visit reactivity Take the first step to get started."
+          "Nothing here yet — Home — detected from /. Take the first step to get started."
         ]
       }
     ],
@@ -38485,7 +38521,7 @@
       "route": "/",
       "placement": "tooltip",
       "headline": "About Home",
-      "body": "live cross-tab store sync for in-visit reactivity",
+      "body": "Home — detected from /.",
       "learnMoreHref": "/help/home"
     },
     "publishTarget": "in-app",
@@ -38509,24 +38545,36 @@
       {
         "kind": "route",
         "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
       }
     ],
     "needsHumanReview": false,
     "createdAt": "2026-06-11T00:00:00.000Z",
     "updatedAt": "2026-06-11T00:00:00.000Z",
     "title": "Home — how it works | SwingVantage",
-    "summary": "live cross-tab store sync for in-visit reactivity Learn what Home does and how to use it.",
+    "summary": "Home — detected from /. Learn what Home does and how to use it.",
     "sections": [
       {
         "heading": "Answer (summary)",
         "body": [
-          "Home lets you live cross-tab store sync for in-visit reactivity In the app at /."
+          "Home lets you home — detected from /. In the app at /."
         ]
       },
       {
         "heading": "What it is",
         "body": [
-          "live cross-tab store sync for in-visit reactivity"
+          "Home — detected from /."
         ]
       },
       {
@@ -38554,20 +38602,20 @@
     ],
     "seo": {
       "title": "Home — how it works | SwingVantage",
-      "description": "live cross-tab store sync for in-visit reactivity Learn what Home does and how to use it.",
+      "description": "Home — detected from /. Learn what Home does and how to use it.",
       "slug": "help/home",
       "keywords": [
         "home",
         "swing analysis",
         "how to",
         "SwingVantage help",
-        "ui change"
+        "account / auth"
       ],
       "schema": [
         "HowTo",
         "FAQPage"
       ],
-      "aeoAnswer": "Home lets you live cross-tab store sync for in-visit reactivity In the app at /."
+      "aeoAnswer": "Home lets you home — detected from /. In the app at /."
     },
     "publishTarget": "seo",
     "security": {
@@ -38590,6 +38638,18 @@
       {
         "kind": "route",
         "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
+      },
+      {
+        "kind": "route",
+        "ref": "/"
       }
     ],
     "needsHumanReview": false,
@@ -38601,7 +38661,7 @@
       {
         "heading": "What it does",
         "body": [
-          "live cross-tab store sync for in-visit reactivity"
+          "Home — detected from /."
         ]
       },
       {
@@ -38627,7 +38687,7 @@
         "heading": "Step by step",
         "body": [
           "1. Open Home — Go to /.",
-          "2. See what’s on screen — Home is where you live cross-tab store sync for in-visit reactivity",
+          "2. See what’s on screen — Home is where you home — detected from /.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -38669,7 +38729,7 @@
       },
       {
         "title": "See what’s on screen",
-        "detail": "Home is where you live cross-tab store sync for in-visit reactivity"
+        "detail": "Home is where you home — detected from /."
       },
       {
         "title": "Take the main action",
@@ -67627,7 +67687,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/layout/Sidebar.tsx"
+        "ref": "components/layout/AppShell.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -67639,7 +67699,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Layout?\nA: finish Video Analysis → Motion Lab consolidation",
+          "Q: What is Layout?\nA: add Retest to the mobile bottom nav",
           "Q: Where do I find Layout?\nA: This is an internal capability without a dedicated screen yet.",
           "Q: How do I use Layout?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Layout?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -67653,7 +67713,7 @@
     "faqs": [
       {
         "q": "What is Layout?",
-        "a": "finish Video Analysis → Motion Lab consolidation"
+        "a": "add Retest to the mobile bottom nav"
       },
       {
         "q": "Where do I find Layout?",
@@ -67704,7 +67764,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/layout/Sidebar.tsx"
+        "ref": "components/layout/AppShell.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -67729,7 +67789,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Layout is where you finish Video Analysis → Motion Lab consolidation",
+          "1. See what’s on screen — Layout is where you add Retest to the mobile bottom nav",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -67758,7 +67818,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Layout is where you finish Video Analysis → Motion Lab consolidation"
+        "detail": "Layout is where you add Retest to the mobile bottom nav"
       },
       {
         "title": "Take the main action",
@@ -67793,7 +67853,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/layout/Sidebar.tsx"
+        "ref": "components/layout/AppShell.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -67805,7 +67865,7 @@
       {
         "heading": "What it does",
         "body": [
-          "finish Video Analysis → Motion Lab consolidation"
+          "add Retest to the mobile bottom nav"
         ]
       },
       {
@@ -67830,7 +67890,7 @@
       {
         "heading": "Step by step",
         "body": [
-          "1. See what’s on screen — Layout is where you finish Video Analysis → Motion Lab consolidation",
+          "1. See what’s on screen — Layout is where you add Retest to the mobile bottom nav",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -67867,7 +67927,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Layout is where you finish Video Analysis → Motion Lab consolidation"
+        "detail": "Layout is where you add Retest to the mobile bottom nav"
       },
       {
         "title": "Take the main action",
@@ -71693,7 +71753,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/video/PoseDerivedIssuesCard.tsx"
+        "ref": "components/video/VideoWelcomeBack.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -71705,7 +71765,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Video?\nA: P3 — surface pose-derived non-golf faults in the video flow",
+          "Q: What is Video?\nA: auto-detect a retest on re-upload + show what it is",
           "Q: Where do I find Video?\nA: This is an internal capability without a dedicated screen yet.",
           "Q: How do I use Video?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Video?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -71719,7 +71779,7 @@
     "faqs": [
       {
         "q": "What is Video?",
-        "a": "P3 — surface pose-derived non-golf faults in the video flow"
+        "a": "auto-detect a retest on re-upload + show what it is"
       },
       {
         "q": "Where do I find Video?",
@@ -71770,7 +71830,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/video/PoseDerivedIssuesCard.tsx"
+        "ref": "components/video/VideoWelcomeBack.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -71795,7 +71855,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Video is where you p3 — surface pose-derived non-golf faults in the video flow",
+          "1. See what’s on screen — Video is where you auto-detect a retest on re-upload + show what it is",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -71824,7 +71884,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Video is where you p3 — surface pose-derived non-golf faults in the video flow"
+        "detail": "Video is where you auto-detect a retest on re-upload + show what it is"
       },
       {
         "title": "Take the main action",
@@ -71859,7 +71919,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/video/PoseDerivedIssuesCard.tsx"
+        "ref": "components/video/VideoWelcomeBack.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -71871,7 +71931,7 @@
       {
         "heading": "What it does",
         "body": [
-          "P3 — surface pose-derived non-golf faults in the video flow"
+          "auto-detect a retest on re-upload + show what it is"
         ]
       },
       {
@@ -71896,7 +71956,7 @@
       {
         "heading": "Step by step",
         "body": [
-          "1. See what’s on screen — Video is where you p3 — surface pose-derived non-golf faults in the video flow",
+          "1. See what’s on screen — Video is where you auto-detect a retest on re-upload + show what it is",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -71933,7 +71993,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Video is where you p3 — surface pose-derived non-golf faults in the video flow"
+        "detail": "Video is where you auto-detect a retest on re-upload + show what it is"
       },
       {
         "title": "Take the main action",
