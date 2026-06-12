@@ -1,5 +1,80 @@
 [
   {
+    "sha": "88242d76bc1ba1515b46ae01c63fa9b39c585d37",
+    "at": "2026-06-12T14:44:04-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "29c9cd4e8d396f7559660eeaa998235bd9c1a446",
+    "at": "2026-06-12T14:44:04-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "597d83662084422bb8ca883f70fd8d3b664c2c83",
+    "at": "2026-06-12T14:44:04-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "eb680aac0e2de511b29e9f94fc3c09762aa7e77a",
+    "at": "2026-06-12T14:44:04-04:00",
+    "type": "other",
+    "subject": "Merge remote-tracking branch 'origin/master' into agent/retest-flake"
+  },
+  {
+    "sha": "73137af2937d7b59f44eaa74c38fab13df80c7e1",
+    "at": "2026-06-12T14:40:00-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "4251e36366344a566a1258b379cdecb1b63b6120",
+    "at": "2026-06-12T14:40:00-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "2474a872e2ad196d14149218a95b579e6952fefc",
+    "at": "2026-06-12T14:40:00-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "3efb078c8612e9981419c8e1e1e9ea05e8b837a5",
+    "at": "2026-06-12T14:40:00-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "7fd0a510184a145e6d73a90de48708817f71d1bf",
+    "at": "2026-06-12T14:40:00-04:00",
+    "type": "fix",
+    "scope": "a11y",
+    "subject": "clear blocking jsx-a11y error in SavedAnalysisModal backdrop"
+  },
+  {
+    "sha": "4e7153a400d07dac0cbdef88770a89e4e2ec5dcf",
+    "at": "2026-06-12T14:33:55-04:00",
+    "type": "other",
+    "subject": "Merge pull request #35 from dtomonto/agent/design-v2-reink-push"
+  },
+  {
+    "sha": "125a5a1e1965ef0b2a99b91d5645117082ce4e6b",
+    "at": "2026-06-12T14:28:42-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "692d22d4410497e3ae080e6245469bbaa1dcb9d0",
     "at": "2026-06-12T14:28:42-04:00",
     "type": "chore",
@@ -21,6 +96,34 @@
     "subject": "refresh feature registry"
   },
   {
+    "sha": "94fee8e5c0db55f3a8df32251ef1e14aa6e3f437",
+    "at": "2026-06-12T14:28:36-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "609105e66311f4571b3716bce8edbffbc056c810",
+    "at": "2026-06-12T14:28:36-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "645e1711bf77473ae67de6f4b760bb0e3b13572a",
+    "at": "2026-06-12T14:28:36-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "15c252872fe40980bea85943b0f81690da4a70c0",
+    "at": "2026-06-12T14:28:36-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
     "sha": "d12791af47383292182aaf9ca01095f9d46107bf",
     "at": "2026-06-12T14:28:42-04:00",
     "type": "fix",
@@ -28,11 +131,25 @@
     "subject": "SavedAnalysisModal backdrop close is a real button (unblock CI)"
   },
   {
+    "sha": "e79856667ea70d489bf5696385f50c2e3437b82f",
+    "at": "2026-06-12T14:28:36-04:00",
+    "type": "test",
+    "scope": "retest",
+    "subject": "de-flake R3 window tests by pinning now + history"
+  },
+  {
     "sha": "3a20155fe5fca10c35bc4813a2a34e211a8ae2c3",
     "at": "2026-06-12T12:52:16-04:00",
     "type": "feat",
     "scope": "design-v2",
     "subject": "paper-surface the report body + DS primitives; dashboard score polish"
+  },
+  {
+    "sha": "1c323b372bd1e0f43d45114b914d1349d248c6c2",
+    "at": "2026-06-12T14:01:02-04:00",
+    "type": "test",
+    "scope": "feature-education",
+    "subject": "make seed drift guard churn-tolerant (#37)"
   },
   {
     "sha": "eb46177ce5d54f488bae81b89a80c02f1df16604",
@@ -433,123 +550,5 @@
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
-  },
-  {
-    "sha": "f49ddb863fcd028695542ede57e819dfad67ee4c",
-    "at": "2026-06-12T08:23:37-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "c6cc67a54ecd9f25569190b3c56dc5dc7f4888d5",
-    "at": "2026-06-12T08:23:37-04:00",
-    "type": "feat",
-    "scope": "retest",
-    "subject": "surface the improvement loop on dashboards + diagnose"
-  },
-  {
-    "sha": "e7fe3ecdab0426fae2fca362a6c701d856df714e",
-    "at": "2026-06-12T09:28:33-04:00",
-    "type": "feat",
-    "scope": "durability",
-    "subject": "always-visible backup-status pill on the dashboard"
-  },
-  {
-    "sha": "2661b256bd9123d9689cbe660c3236a8000b74c7",
-    "at": "2026-06-12T09:15:32-04:00",
-    "type": "feat",
-    "scope": "intelligence",
-    "subject": "P3 — surface pose-derived non-golf faults in the video flow"
-  },
-  {
-    "sha": "9a1c239f6909658365c925f0928ad78db54a787d",
-    "at": "2026-06-12T08:27:07-04:00",
-    "type": "fix",
-    "scope": "training",
-    "subject": "true empty state instead of interactive sample routine"
-  },
-  {
-    "sha": "6907b30e39b28bcdb044c14ba342e8848e19a150",
-    "at": "2026-06-12T08:25:25-04:00",
-    "type": "other",
-    "subject": "Merge pull request #28 from dtomonto/agent/secrets-vault-config"
-  },
-  {
-    "sha": "89d2478f76cc837d64c0eb1e31a93ea3ee4c0daa",
-    "at": "2026-06-12T08:21:12-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "6002436185bfcf18b4e58178d2c3f8c1a9e53f91",
-    "at": "2026-06-12T08:21:12-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "0c6421acca40896d6a71e60854366a06ac180824",
-    "at": "2026-06-12T08:21:12-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "1705be179cb783130ae8f13580358e07b740b14e",
-    "at": "2026-06-12T08:21:12-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "df3f182b18558d338c3b1c13135419a1168f2060",
-    "at": "2026-06-12T08:21:12-04:00",
-    "type": "fix",
-    "scope": "feature-education",
-    "subject": "resync seed (iter 3) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
-  },
-  {
-    "sha": "26660e30a7541fa29bee3469ceb4cfb5b4f761e1",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "828c46ccd8c773da84733bd60354205c8dee907d",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "58dd889121f931840d9d06fa5b056e15f02d3a5f",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "87cea6223cfcba94ea27808c62b0affd551ec8b7",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "f7de5b67cba573a22a5dd29e89a3fceb913b2844",
-    "at": "2026-06-12T08:19:37-04:00",
-    "type": "feat",
-    "scope": "dashboard",
-    "subject": "live cross-tab store sync for in-visit reactivity"
-  },
-  {
-    "sha": "44768a44eee0241ab1c9a7d72d50c18949188f90",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "fix",
-    "scope": "feature-education",
-    "subject": "resync seed (iter 2) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
   }
 ]
