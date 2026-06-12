@@ -3,8 +3,21 @@ import { loadAIConfig } from '../model-config';
 import { createRouter } from '../registry';
 import { createOpenAICoachProvider } from '../coach-provider';
 import { createClaudeNarrativeProvider } from '../narrative-provider';
-import { CoachSynthesisSchema, type NormalizedAnalysisEvidence } from '../schemas';
+import { CoachSynthesisSchema, COACH_SYNTHESIS_JSON_SCHEMA, type NormalizedAnalysisEvidence } from '../schemas';
 import type { AiCompleteResult } from '@/lib/ai/gateway';
+
+describe('COACH_SYNTHESIS_JSON_SCHEMA (OpenAI strict compatibility)', () => {
+  // OpenAI structured outputs run with strict: true, which rejects (HTTP 400)
+  // any schema whose `required` does not list EVERY key in `properties`. If this
+  // drifts, the coach synthesis silently falls back and never produces an AI
+  // report. Guard it.
+  it('requires every property key (strict mode)', () => {
+    const props = Object.keys(COACH_SYNTHESIS_JSON_SCHEMA.properties);
+    const required = COACH_SYNTHESIS_JSON_SCHEMA.required as readonly string[];
+    const missing = props.filter((k) => !required.includes(k));
+    expect(missing).toEqual([]);
+  });
+});
 
 const EVIDENCE: NormalizedAnalysisEvidence = {
   videoIntake: null,
