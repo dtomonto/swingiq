@@ -16591,6 +16591,10 @@
     "groundedIn": [
       {
         "kind": "route",
+        "ref": "/admin/users"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/users/:id"
       }
     ],
@@ -16603,7 +16607,7 @@
       {
         "heading": "Setup",
         "body": [
-          "In the admin dashboard at /admin/users/:id.",
+          "In the admin dashboard at /admin/users.",
           "No special setup is required beyond admin access."
         ]
       },
@@ -16677,6 +16681,10 @@
     "groundedIn": [
       {
         "kind": "route",
+        "ref": "/admin/users"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/users/:id"
       }
     ],
@@ -16695,15 +16703,15 @@
       {
         "heading": "Before you start",
         "body": [
-          "In the admin dashboard at /admin/users/:id.",
+          "In the admin dashboard at /admin/users.",
           "No special permissions required."
         ]
       },
       {
         "heading": "Steps",
         "body": [
-          "1. Open Users — Go to /admin/users/:id.",
-          "2. See what’s on screen — Users is where you per-user AI on/off switch + per-user usage metering",
+          "1. Open Users — Go to /admin/users.",
+          "2. See what’s on screen — Users is where you users — detected from /admin/users.",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -16732,11 +16740,11 @@
     "steps": [
       {
         "title": "Open Users",
-        "detail": "Go to /admin/users/:id."
+        "detail": "Go to /admin/users."
       },
       {
         "title": "See what’s on screen",
-        "detail": "Users is where you per-user AI on/off switch + per-user usage metering"
+        "detail": "Users is where you users — detected from /admin/users."
       },
       {
         "title": "Take the main action",
@@ -16771,6 +16779,10 @@
     "groundedIn": [
       {
         "kind": "route",
+        "ref": "/admin/users"
+      },
+      {
+        "kind": "route",
         "ref": "/admin/users/:id"
       }
     ],
@@ -16783,28 +16795,28 @@
       {
         "heading": "Recommended placements",
         "body": [
-          "Primary: tooltip on /admin/users/:id.",
+          "Primary: tooltip on /admin/users.",
           "Also consider: an empty-state explainer and a \"Learn more\" link to the tutorial."
         ]
       },
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Users: per-user AI on/off switch + per-user usage metering"
+          "About Users: Users — detected from /admin/users."
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — per-user AI on/off switch + per-user usage metering Take the first step to get started."
+          "Nothing here yet — Users — detected from /admin/users. Take the first step to get started."
         ]
       }
     ],
     "inAppHelp": {
-      "route": "/admin/users/:id",
+      "route": "/admin/users",
       "placement": "tooltip",
       "headline": "About Users",
-      "body": "per-user AI on/off switch + per-user usage metering",
+      "body": "Users — detected from /admin/users.",
       "learnMoreHref": "/help/admin-users"
     },
     "publishTarget": "in-app",
