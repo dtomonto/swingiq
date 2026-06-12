@@ -43,6 +43,7 @@ import { format } from 'date-fns';
 import { useSport } from '@/contexts/SportContext';
 import { useDesignV2 } from '@/lib/design-v2-client';
 import { DashboardNextAction } from '@/components/dashboard/DashboardNextAction';
+import { BackupStatusPill } from '@/components/sync/BackupStatusPill';
 import { useMemo, useState, type ReactNode } from 'react';
 
 // ── Quick Actions ─────────────────────────────────────────────
@@ -242,6 +243,8 @@ export function DashboardContent({ children }: { children?: ReactNode }) {
           <p className="text-muted-foreground text-sm mt-0.5">Here is your performance overview and next steps.</p>
         </div>
         <div className="flex items-center gap-3">
+          {/* Always-visible answer to "is my swing history backed up?" */}
+          <BackupStatusPill />
           {training.streak_days > 1 && (
             <div className="flex items-center gap-1 text-warning-text font-bold text-sm">
               <Flame size={16} /> {training.streak_days}-day streak
