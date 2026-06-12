@@ -151,6 +151,40 @@ function ttsTo(mp3Path, narration) {
   if (!ok) throw new Error('TTS failed after 3 attempts (no audio)');
 }
 
+function fmtVtt(sec) {
+  const ms = Math.round((sec - Math.floor(sec)) * 1000);
+  const s = Math.floor(sec) % 60;
+  const m = Math.floor(sec / 60) % 60;
+  const h = Math.floor(sec / 3600);
+  const p = (n, l = 2) => String(n).padStart(l, '0');
+  return `${p(h)}:${p(m)}:${p(s)}.${p(ms, 3)}`;
+}
+
+// Split a narration string back into sentence-ish caption cues.
+function captionLines(narration) {
+  return narration
+    .split(/(?<=[.!?])\s+/)
+    .map((l) => l.trim())
+    .filter(Boolean);
+}
+
+// WebVTT captions from the spoken narration, distributed across the voice
+// duration. Accessibility + the "CC" search signal — same approach the library
+// recorder uses, so every recorded tutorial ships a real captions track.
+function writeVtt(vttPath, narration, audioSec) {
+  const lines = captionLines(narration);
+  const per = audioSec / Math.max(1, lines.length);
+  let t = 0;
+  const cues = ['WEBVTT', ''];
+  for (let i = 0; i < lines.length; i++) {
+    const start = t;
+    const end = i === lines.length - 1 ? audioSec : t + per;
+    t = end;
+    cues.push(String(i + 1), `${fmtVtt(start)} --> ${fmtVtt(end)}`, lines[i], '');
+  }
+  writeFileSync(vttPath, cues.join('\n'));
+}
+
 async function recordOne(id) {
   const cfg = VIDEO_CONFIG[id];
   if (!cfg) throw new Error(`No batch config for "${id}"`);
@@ -227,11 +261,17 @@ async function recordOne(id) {
     if (bestSize < 15000) console.log(`  !! poster for ${id} looks blank (${bestSize}B) — check the recording`);
   }
 
-  // Update manifest
+  // Captions track from the narration, timed to the voice.
+  writeVtt(join(SOURCES, `${id}.vtt`), cfg.narration, aDur || probeSeconds(outMp4) || 12);
+
+  // Update manifest. SEO dates: first-publish date set once (preserved across
+  // re-records so VideoObject.uploadDate stays honest), dateModified each run.
   const manifest = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, 'utf8')) : {};
-  manifest[id] = { durationSec: Math.round(probeSeconds(outMp4)) };
+  const today = new Date().toISOString().slice(0, 10);
+  const uploadDate = manifest[id]?.uploadDate ?? today;
+  manifest[id] = { durationSec: Math.round(probeSeconds(outMp4)), uploadDate, dateModified: today };
   writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n');
-  console.log(`  installed ${outMp4} (${statSync(outMp4).size} bytes), manifest updated`);
+  console.log(`  installed ${outMp4} (${statSync(outMp4).size} bytes) + poster + captions, manifest updated`);
 }
 
 // ── main ────────────────────────────────────────────────────

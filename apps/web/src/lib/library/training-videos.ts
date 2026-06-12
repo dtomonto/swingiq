@@ -529,7 +529,10 @@ export function isTrainingPublic(id: string): boolean {
  * "coming soon" + written walkthrough (script).
  */
 export function getTrainingItems(): LibraryItem[] {
-  const rec = RECORDINGS as Record<string, { durationSec: number }>;
+  const rec = RECORDINGS as Record<
+    string,
+    { durationSec: number; uploadDate?: string; dateModified?: string }
+  >;
   return TRAINING_VIDEOS.map((v) => {
     const r = rec[v.id];
     const base = `/library/${v.id}`;
@@ -547,6 +550,8 @@ export function getTrainingItems(): LibraryItem[] {
       captionsSrc: r ? `${base}.vtt` : undefined,
       script: v.script,
       route: v.route,
+      seoUploadDate: r?.uploadDate,
+      seoModifiedDate: r?.dateModified,
       hasRecording: Boolean(r),
       source: 'training',
       public: isTrainingPublic(v.id),

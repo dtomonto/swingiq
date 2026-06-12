@@ -1,113 +1,150 @@
 {
   "welcome": {
-    "durationSec": 68
+    "durationSec": 68,
+    "uploadDate": "2026-06-11"
   },
   "dashboard": {
-    "durationSec": 23
+    "durationSec": 23,
+    "uploadDate": "2026-06-11"
   },
   "start-here": {
-    "durationSec": 34
+    "durationSec": 34,
+    "uploadDate": "2026-06-11"
   },
   "switch-sport": {
-    "durationSec": 24
+    "durationSec": 24,
+    "uploadDate": "2026-06-11"
   },
   "navigation": {
-    "durationSec": 26
+    "durationSec": 26,
+    "uploadDate": "2026-06-11"
   },
   "diagnose": {
-    "durationSec": 34
+    "durationSec": 34,
+    "uploadDate": "2026-06-11"
   },
   "progress": {
-    "durationSec": 32
+    "durationSec": 32,
+    "uploadDate": "2026-06-11"
   },
   "sessions": {
-    "durationSec": 23
+    "durationSec": 23,
+    "uploadDate": "2026-06-11"
   },
   "compare": {
-    "durationSec": 25
+    "durationSec": 25,
+    "uploadDate": "2026-06-11"
   },
   "drills": {
-    "durationSec": 31
+    "durationSec": 31,
+    "uploadDate": "2026-06-11"
   },
   "training": {
-    "durationSec": 23
+    "durationSec": 23,
+    "uploadDate": "2026-06-11"
   },
   "fix-stack": {
-    "durationSec": 23
+    "durationSec": 23,
+    "uploadDate": "2026-06-11"
   },
   "ai-coach": {
-    "durationSec": 23
+    "durationSec": 23,
+    "uploadDate": "2026-06-11"
   },
   "video-analysis": {
-    "durationSec": 28
+    "durationSec": 28,
+    "uploadDate": "2026-06-11"
   },
   "motion-lab": {
-    "durationSec": 23
+    "durationSec": 23,
+    "uploadDate": "2026-06-11"
   },
   "avatar": {
-    "durationSec": 33
+    "durationSec": 33,
+    "uploadDate": "2026-06-11"
   },
   "import-data": {
-    "durationSec": 33
+    "durationSec": 33,
+    "uploadDate": "2026-06-11"
   },
   "import-image": {
-    "durationSec": 30
+    "durationSec": 30,
+    "uploadDate": "2026-06-11"
   },
   "practice-schedule": {
-    "durationSec": 29
+    "durationSec": 29,
+    "uploadDate": "2026-06-11"
   },
   "pre-round": {
-    "durationSec": 31
+    "durationSec": 31,
+    "uploadDate": "2026-06-11"
   },
   "player-arc": {
-    "durationSec": 34
+    "durationSec": 34,
+    "uploadDate": "2026-06-11"
   },
   "retest": {
-    "durationSec": 33
+    "durationSec": 33,
+    "uploadDate": "2026-06-11"
   },
   "milestones": {
-    "durationSec": 30
+    "durationSec": 30,
+    "uploadDate": "2026-06-11"
   },
   "labs": {
-    "durationSec": 31
+    "durationSec": 31,
+    "uploadDate": "2026-06-11"
   },
   "benchmarks": {
-    "durationSec": 30
+    "durationSec": 30,
+    "uploadDate": "2026-06-11"
   },
   "reports": {
-    "durationSec": 30
+    "durationSec": 30,
+    "uploadDate": "2026-06-11"
   },
   "coach-summary": {
-    "durationSec": 32
+    "durationSec": 32,
+    "uploadDate": "2026-06-11"
   },
   "parent-summary": {
-    "durationSec": 34
+    "durationSec": 34,
+    "uploadDate": "2026-06-11"
   },
   "profile": {
-    "durationSec": 51
+    "durationSec": 51,
+    "uploadDate": "2026-06-11"
   },
   "equipment": {
-    "durationSec": 23
+    "durationSec": 23,
+    "uploadDate": "2026-06-11"
   },
   "community": {
-    "durationSec": 35
+    "durationSec": 35,
+    "uploadDate": "2026-06-11"
   },
   "badges": {
-    "durationSec": 39
+    "durationSec": 39,
+    "uploadDate": "2026-06-11"
   },
   "challenges": {
-    "durationSec": 33
+    "durationSec": 33,
+    "uploadDate": "2026-06-11"
   },
   "leaderboard": {
-    "durationSec": 32
+    "durationSec": 32,
+    "uploadDate": "2026-06-11"
   },
   "groups": {
-    "durationSec": 30
+    "durationSec": 30,
+    "uploadDate": "2026-06-11"
   },
   "data-center": {
-    "durationSec": 34
+    "durationSec": 34,
+    "uploadDate": "2026-06-11"
   },
   "settings": {
-    "durationSec": 33
+    "durationSec": 33,
+    "uploadDate": "2026-06-11"
   }
 }

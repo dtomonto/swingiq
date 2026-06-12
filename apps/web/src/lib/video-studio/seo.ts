@@ -51,6 +51,9 @@ export function videoObjectSchema(input: VideoObjectInput): Json {
     ...(contentUrl ? { contentUrl } : {}),
     ...(asset.transcript ? { transcript: asset.transcript } : {}),
     embedUrl: absoluteUrl(path),
+    inLanguage: 'en',
+    isFamilyFriendly: true,
+    isAccessibleForFree: true,
     publisher: {
       '@type': 'Organization',
       name: siteConfig.siteName,

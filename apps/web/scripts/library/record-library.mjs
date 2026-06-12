@@ -255,7 +255,11 @@ async function recordOne(id) {
 
   const finalSec = Math.round(probeSeconds(outMp4));
   const manifest = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, 'utf8')) : {};
-  manifest[id] = { durationSec: finalSec };
+  // SEO dates: first-publish date set once (preserved across re-records so the
+  // VideoObject.uploadDate stays honest), dateModified bumped every run.
+  const today = new Date().toISOString().slice(0, 10);
+  const uploadDate = manifest[id]?.uploadDate ?? today;
+  manifest[id] = { durationSec: finalSec, uploadDate, dateModified: today };
   writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n');
   console.log(`  installed ${outMp4} (${statSync(outMp4).size} bytes, ${finalSec}s) + poster + captions`);
 }

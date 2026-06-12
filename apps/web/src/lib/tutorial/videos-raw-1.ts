@@ -81,7 +81,8 @@ export const RAW_VIDEOS_1: TutorialVideo[] = [
   {
     id: 'navigation',
     title: 'Finding your way around',
-    description: 'A quick map of the menu so you never feel lost.',
+    description:
+      'A quick map of the SwingVantage menu and navigation so you always know where every feature lives and never feel lost.',
     audiences: 'all',
     category: 'getting-started',
     duration: '1:30',

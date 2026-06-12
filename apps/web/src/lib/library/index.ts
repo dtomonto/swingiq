@@ -56,6 +56,8 @@ function featureWalkthroughs(): LibraryItem[] {
       embedUrl: !isFile ? v.videoUrl : undefined,
       script: v.script,
       route: v.route,
+      seoUploadDate: v.seoUploadDate,
+      seoModifiedDate: v.seoModifiedDate,
       hasRecording: recorded,
       source: 'tutorial',
       // Feature walkthroughs are already public on /learn — keep them listed.

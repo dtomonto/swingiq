@@ -70,6 +70,17 @@ export interface LibraryItem {
   script: string[];
   /** In-app route this video is about ("Open this feature"). */
   route?: string;
+  /**
+   * ISO date (YYYY-MM-DD) the recording was first published. A real signal for
+   * VideoObject.uploadDate + the video sitemap's <publication_date>. Set by the
+   * recorder the first time a video is produced; never overwritten on re-record.
+   */
+  seoUploadDate?: string;
+  /**
+   * ISO date (YYYY-MM-DD) the recording was last (re-)produced. Drives
+   * VideoObject.dateModified. Updated by the recorder on every (re-)record.
+   */
+  seoModifiedDate?: string;
   /** True once a real recording exists. */
   hasRecording: boolean;
   /** Where the item came from. */

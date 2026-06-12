@@ -1,62 +1,82 @@
 {
   "swing-path": {
-    "durationSec": 59
+    "durationSec": 59,
+    "uploadDate": "2026-06-11"
   },
   "launch-monitor-workflow": {
-    "durationSec": 55
+    "durationSec": 55,
+    "uploadDate": "2026-06-11"
   },
   "drill-library-tour": {
-    "durationSec": 55
+    "durationSec": 55,
+    "uploadDate": "2026-06-11"
   },
   "coaching-and-parents": {
-    "durationSec": 56
+    "durationSec": 56,
+    "uploadDate": "2026-06-11"
   },
   "film-study-motion-lab": {
-    "durationSec": 58
+    "durationSec": 58,
+    "uploadDate": "2026-06-11"
   },
   "slice-fix-drills": {
-    "durationSec": 56
+    "durationSec": 56,
+    "uploadDate": "2026-06-11"
   },
   "contact-consistency-drills": {
-    "durationSec": 55
+    "durationSec": 55,
+    "uploadDate": "2026-06-11"
   },
   "read-report-with-your-athlete": {
-    "durationSec": 54
+    "durationSec": 54,
+    "uploadDate": "2026-06-11"
   },
   "setting-honest-goals": {
-    "durationSec": 52
+    "durationSec": 52,
+    "uploadDate": "2026-06-11"
   },
   "compare-to-a-reference": {
-    "durationSec": 54
+    "durationSec": 54,
+    "uploadDate": "2026-06-11"
   },
   "reading-takeaway-sequence": {
-    "durationSec": 59
+    "durationSec": 59,
+    "uploadDate": "2026-06-11"
   },
   "tennis-topspin-drills": {
-    "durationSec": 56
+    "durationSec": 56,
+    "uploadDate": "2026-06-11"
   },
   "pickleball-dink-drills": {
-    "durationSec": 53
+    "durationSec": 53,
+    "uploadDate": "2026-06-11"
   },
   "padel-wall-drills": {
-    "durationSec": 55
+    "durationSec": 55,
+    "uploadDate": "2026-06-11"
   },
   "fastpitch-timing-drills": {
-    "durationSec": 55
+    "durationSec": 55,
+    "uploadDate": "2026-06-11"
   },
   "slowpitch-line-drive-drills": {
-    "durationSec": 54
+    "durationSec": 54,
+    "uploadDate": "2026-06-11"
   },
   "readiness-and-bodysync": {
-    "durationSec": 54
+    "durationSec": 54,
+    "uploadDate": "2026-06-11"
   },
   "progress-tracking-deepdive": {
-    "durationSec": 57
+    "durationSec": 57,
+    "uploadDate": "2026-06-11"
   },
   "photo-import-deepdive": {
-    "durationSec": 56
+    "durationSec": 56,
+    "uploadDate": "2026-06-11"
   },
   "reading-your-numbers": {
-    "durationSec": 54
+    "durationSec": 54,
+    "uploadDate": "2026-06-11"
   }
 }

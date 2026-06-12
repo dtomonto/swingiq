@@ -28,6 +28,8 @@ export async function generateMetadata({
   const item = (await getEffectivePublicLearnItems()).find((i) => i.id === slug);
   if (!item) return {};
   const path = learnPath(item);
+  // Recordings are produced at 1280×720 (see scripts/.../record-*.mjs).
+  const isVideo = Boolean(item.hasRecording && item.mp4Src);
   return {
     title: `${item.title} — SwingVantage Video`,
     description: item.description,
@@ -35,12 +37,26 @@ export async function generateMetadata({
     openGraph: {
       title: item.title,
       description: item.description,
-      type: 'website',
+      // A real video page advertises itself as og video so social/chat
+      // unfurlers offer an inline player; "coming soon" pages stay 'website'.
+      type: isVideo ? 'video.other' : 'website',
       url: absoluteUrl(path),
-      ...(item.poster ? { images: [{ url: absoluteUrl(item.poster) }] } : {}),
-      ...(item.hasRecording && item.mp4Src
-        ? { videos: [{ url: absoluteUrl(item.mp4Src), type: 'video/mp4' }] }
+      ...(item.poster
+        ? { images: [{ url: absoluteUrl(item.poster), width: 1280, height: 720, alt: item.title }] }
         : {}),
+      ...(isVideo
+        ? {
+            videos: [
+              { url: absoluteUrl(item.mp4Src!), type: 'video/mp4', width: 1280, height: 720 },
+            ],
+          }
+        : {}),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: item.title,
+      description: item.description,
+      ...(item.poster ? { images: [absoluteUrl(item.poster)] } : {}),
     },
   };
 }

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { ALL_FEATURES, featureHref } from '@/content/features';
 import { SITE_URL } from '@/config/site';
-import { learnPath } from '@/lib/library/seo';
+import { learnPath, videoUploadDate, durationSeconds } from '@/lib/library/seo';
 import { getConceptEntries, getDataPointEntries, learnPath as learnEntryPath } from '@/lib/learn';
 import { getHelpGroups, helpPath } from '@/lib/feature-education/help-center';
 import { localizedRoutes, currentLocalesFor } from '@/lib/marketing-i18n/expose';
@@ -149,6 +149,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                 thumbnail_loc: `${BASE_URL}${item.poster}`,
                 description: xmlEscape(item.description),
                 content_loc: `${BASE_URL}${item.mp4Src}`,
+                // The crawlable watch page that hosts the player.
+                player_loc: `${BASE_URL}${learnPath(item)}`,
+                // Strongly-recommended Google video-sitemap signals.
+                duration: durationSeconds(item),
+                publication_date: videoUploadDate(item),
+                family_friendly: 'yes' as const,
+                requires_subscription: 'no' as const,
+                live: 'no' as const,
               },
             ],
           }

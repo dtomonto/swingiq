@@ -29,16 +29,30 @@ const ORG = {
   logo: absoluteUrl('/icon-512.png'),
 };
 
+/**
+ * Fallback publication date for recordings produced before per-video dates were
+ * tracked (the first batch of library + tutorial recordings). The recorder now
+ * stamps a real `seoUploadDate` per video, so this only applies to that initial
+ * backfill — it is an honest "these were published on/around this date", never a
+ * fabricated freshness signal. Newer videos always carry their own real date.
+ */
+export const VIDEO_BASELINE_UPLOAD_DATE = '2026-06-11';
+
 /** Seconds → ISO-8601 duration (e.g. 90 → "PT1M30S"). */
 export function isoDuration(seconds: number): string {
   const s = Math.max(0, Math.round(seconds));
   return `PT${Math.floor(s / 60)}M${s % 60}S`;
 }
 
-function durationSeconds(item: LibraryItem): number {
+export function durationSeconds(item: LibraryItem): number {
   if (item.durationSec) return item.durationSec;
   const m = item.durationLabel.match(/^(\d+):(\d{1,2})$/);
   return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : 60;
+}
+
+/** The real publication date for a video (falls back to the baseline). */
+export function videoUploadDate(item: LibraryItem): string {
+  return item.seoUploadDate ?? VIDEO_BASELINE_UPLOAD_DATE;
 }
 
 /** The canonical public path for a video. */
@@ -49,6 +63,11 @@ export function learnPath(item: LibraryItem): string {
 /**
  * schema.org VideoObject for a recorded library video. Returns null when
  * there's no real recording (no thumbnail/content to honestly point at).
+ *
+ * Emits every Google-recognised field we can truthfully fill: name,
+ * description, thumbnailUrl, uploadDate (real), dateModified (when re-recorded),
+ * duration, contentUrl, embedUrl, transcript, inLanguage, isFamilyFriendly,
+ * isAccessibleForFree, and publisher.
  */
 export function videoObjectSchema(item: LibraryItem, opts: { uploadDate?: string } = {}): Json | null {
   if (!item.hasRecording || !item.poster || !item.mp4Src) return null;
@@ -59,13 +78,15 @@ export function videoObjectSchema(item: LibraryItem, opts: { uploadDate?: string
     name: item.title,
     description: item.description,
     thumbnailUrl: [absoluteUrl(item.poster)],
-    uploadDate: opts.uploadDate ?? '2026-06-06',
+    uploadDate: opts.uploadDate ?? videoUploadDate(item),
+    ...(item.seoModifiedDate ? { dateModified: item.seoModifiedDate } : {}),
     duration: isoDuration(durationSeconds(item)),
     contentUrl: absoluteUrl(item.mp4Src),
     embedUrl: absoluteUrl(path),
     transcript: item.script.join('\n'),
     inLanguage: 'en',
     isFamilyFriendly: true,
+    isAccessibleForFree: true,
     publisher: ORG,
     ...(item.route ? { potentialAction: { '@type': 'WatchAction', target: absoluteUrl(path) } } : {}),
   };
@@ -143,4 +164,87 @@ export function learnItemListSchema(items: LibraryItem[]): Json {
  */
 export function answerSummary(item: LibraryItem): string {
   return item.script[0] ?? item.description;
+}
+
+// ============================================================
+// STRICT VIDEO SEO CONTRACT
+// ------------------------------------------------------------
+// The single source of truth for "what every PUBLIC, RECORDED video must
+// satisfy to pass the strictest SEO requirements". The enforcement test
+// (lib/library/__tests__/seo-requirements.test.ts) runs validateVideoSeo over
+// every public recorded video, so a NEW video that lands without (say) a
+// poster, captions, a real upload date, or a transcript fails CI — making the
+// bar apply to all future-generated videos automatically.
+//
+// Mirrors Google's video indexing requirements: the page must offer a real
+// VideoObject (name, thumbnail, uploadDate) + a crawlable transcript + a
+// captions track, and the video sitemap must carry duration + publication date.
+// ============================================================
+
+/** Minimum lengths that keep titles/descriptions useful in search results. */
+export const SEO_LIMITS = {
+  titleMin: 8,
+  titleMax: 100,
+  descriptionMin: 50,
+  descriptionMax: 320,
+  transcriptMinLines: 3,
+} as const;
+
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * Validate a single video against the strict SEO contract. Only PUBLIC, RECORDED
+ * videos are held to the full bar — an honest "coming soon" item (no recording)
+ * emits no VideoObject and is intentionally exempt. Returns the list of failures
+ * (empty === passes).
+ */
+export function validateVideoSeo(item: LibraryItem): string[] {
+  const issues: string[] = [];
+
+  // Unrecorded items are exempt (they emit no VideoObject and carry no media).
+  if (!item.hasRecording) return issues;
+
+  const need = (cond: boolean, msg: string) => {
+    if (!cond) issues.push(msg);
+  };
+
+  need(item.title.trim().length >= SEO_LIMITS.titleMin, `title too short (min ${SEO_LIMITS.titleMin})`);
+  need(item.title.trim().length <= SEO_LIMITS.titleMax, `title too long (max ${SEO_LIMITS.titleMax})`);
+  need(
+    item.description.trim().length >= SEO_LIMITS.descriptionMin,
+    `description too short (min ${SEO_LIMITS.descriptionMin})`,
+  );
+  need(
+    item.description.trim().length <= SEO_LIMITS.descriptionMax,
+    `description too long (max ${SEO_LIMITS.descriptionMax})`,
+  );
+
+  // Media the VideoObject + sitemap must honestly point at.
+  need(Boolean(item.mp4Src), 'missing mp4 source (contentUrl)');
+  need(Boolean(item.poster), 'missing poster (thumbnailUrl)');
+  need(Boolean(item.captionsSrc), 'missing WebVTT captions track (accessibility + CC signal)');
+
+  // Real, structured signals.
+  need(typeof item.durationSec === 'number' && item.durationSec > 0, 'missing/invalid durationSec');
+  need(ISO_DATE.test(videoUploadDate(item)), 'missing/invalid upload date (YYYY-MM-DD)');
+  need(
+    item.seoModifiedDate === undefined || ISO_DATE.test(item.seoModifiedDate),
+    'invalid modified date (must be YYYY-MM-DD)',
+  );
+
+  // Crawlable transcript — the AEO/GEO payload + accessibility.
+  need(
+    item.script.filter((l) => l.trim().length > 0).length >= SEO_LIMITS.transcriptMinLines,
+    `transcript too thin (min ${SEO_LIMITS.transcriptMinLines} lines)`,
+  );
+
+  // The VideoObject itself must build (belt-and-braces against future drift).
+  need(videoObjectSchema(item) !== null, 'VideoObject failed to build');
+
+  return issues;
+}
+
+/** True when a video passes the full strict SEO contract. */
+export function passesVideoSeo(item: LibraryItem): boolean {
+  return validateVideoSeo(item).length === 0;
 }

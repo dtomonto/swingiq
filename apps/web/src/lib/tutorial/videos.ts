@@ -119,6 +119,10 @@ export interface TutorialVideo {
   loop?: boolean;
   /** One-line fallback shown if the recording fails to load (before the script). */
   fallbackText?: string;
+  /** ISO date (YYYY-MM-DD) the recording was first published (SEO uploadDate). */
+  seoUploadDate?: string;
+  /** ISO date (YYYY-MM-DD) the recording was last (re-)produced (SEO dateModified). */
+  seoModifiedDate?: string;
 }
 
 /** A single `<source>` for the inline player. */
@@ -198,7 +202,10 @@ function fmtDuration(totalSec: number): string {
 
 /** Merge generated recordings into the catalogue by id (convention-based paths). */
 function applyRecordings(list: TutorialVideo[]): TutorialVideo[] {
-  const rec = RECORDINGS as Record<string, { durationSec: number }>;
+  const rec = RECORDINGS as Record<
+    string,
+    { durationSec: number; uploadDate?: string; dateModified?: string }
+  >;
   return list.map((v) => {
     const r = rec[v.id];
     if (!r) return v;
@@ -209,7 +216,12 @@ function applyRecordings(list: TutorialVideo[]): TutorialVideo[] {
       mp4Src: `${base}.mp4`,
       poster: `${base}-poster.jpg`,
       thumbnail: `${base}-poster.jpg`,
+      // WebVTT captions are generated alongside the recording (record-batch.mjs)
+      // and backfilled for older recordings — every recorded tutorial has one.
+      captionsSrc: `${base}.vtt`,
       duration: fmtDuration(r.durationSec),
+      seoUploadDate: r.uploadDate,
+      seoModifiedDate: r.dateModified,
     };
   });
 }
