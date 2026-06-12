@@ -15,6 +15,8 @@ import {
   ShieldAlert, Wrench, ListOrdered, Activity, FileText, AlertTriangle, CheckCircle2, Bot, KeyRound,
 } from 'lucide-react';
 import { SeverityPill, FrameworkTags } from '@/components/security-os/SecurityUI';
+import { CopyForClaude } from '@/components/admin/CopyForClaude';
+import { fromSecurityFinding } from '@/lib/admin/claude-handoff';
 import { useSecurityOS } from '@/lib/security-os/useSecurityOS';
 import { applyFindingOverrides } from '@/lib/security-os/findings';
 import {
@@ -73,6 +75,9 @@ export function FindingDetailClient({ actor, finding, generatedAt }: { actor: st
           <span>Due {finding.dueDate}</span>
         </div>
         <FrameworkTags frameworks={finding.frameworks} />
+        <div className="pt-1">
+          <CopyForClaude input={fromSecurityFinding(finding)} />
+        </div>
       </div>
 
       {/* Status workflow */}

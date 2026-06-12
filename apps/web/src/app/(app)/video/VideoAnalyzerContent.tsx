@@ -35,6 +35,7 @@ import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
 import { useSwingAnalysis } from '@/lib/video/useSwingAnalysis';
 import { useRecordAssistHandoff } from '@/lib/record-assist/hooks/useRecordAssistHandoff';
+import { useSwingSessionFanout } from '@/lib/swing-session/useSwingSessionFanout';
 import { cn } from '@/lib/utils';
 import type { SwingVideoMetadata, VisionSpeed } from '@swingiq/core';
 import { ChevronLeft, Loader2, AlertCircle, Zap, Download, RefreshCw } from 'lucide-react';
@@ -104,6 +105,10 @@ export function VideoAnalyzerContent() {
   // Deep handoff: a clip recorded in RecordAssist (/record-assist) lands here
   // straight on the configure screen — same path as an upload, no re-upload.
   useRecordAssistHandoff('golf', handleVideoReady);
+
+  // One upload, fans out: quietly run the on-device Motion Lab pipeline for this
+  // same clip so the 3D Swing Avatar (/avatar) is ready without a re-upload.
+  useSwingSessionFanout(videoFile, videoMetadata, 'golf');
 
   const handleRemoveVideo = () => {
     if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);

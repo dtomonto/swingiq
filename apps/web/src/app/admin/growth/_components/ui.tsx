@@ -7,11 +7,14 @@
 // ============================================================
 
 import type { ReactNode } from 'react';
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DATA_SOURCE_BADGE, PRIORITY_BADGE, statusBadgeClass } from '@/lib/growth/labels';
 import { priorityScore, priorityBand } from '@/lib/growth/scoring';
 import type { DataSource, PriorityInputs } from '@/lib/growth/types';
+import { metricHref } from '@/lib/admin/metrics';
 
 // ── Generic badge ─────────────────────────────────────────────
 export function Badge({ children, className }: { children: ReactNode; className?: string }) {
@@ -41,7 +44,7 @@ export function PriorityBadge({ priority }: { priority: PriorityInputs }) {
 
 // ── KPI / stat card ───────────────────────────────────────────
 export function KpiCard({
-  label, value, sublabel, icon: Icon, accent = 'text-success-text', source,
+  label, value, sublabel, icon: Icon, accent = 'text-success-text', source, metricId, metricValueText,
 }: {
   label: string;
   value: ReactNode;
@@ -49,16 +52,36 @@ export function KpiCard({
   icon?: LucideIcon;
   accent?: string;
   source?: DataSource;
+  /** When set, the tile links to its explainer at /admin/metrics/<metricId>. */
+  metricId?: string;
+  /** Plain-text value passed to the explainer for the uncurated fallback. */
+  metricValueText?: string;
 }) {
+  const clickable = Boolean(metricId);
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
+    <div
+      className={cn(
+        'group relative rounded-xl border border-border bg-card p-4',
+        clickable && 'transition-colors hover:border-primary/40',
+      )}
+    >
       <div className="flex items-center justify-between mb-2">
         {Icon ? <Icon className={cn('w-4 h-4', accent)} /> : <span />}
-        {source ? <DataSourceBadge source={source} /> : null}
+        <div className="flex items-center gap-1.5">
+          {source ? <DataSourceBadge source={source} /> : null}
+          {clickable ? <ArrowUpRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-link transition-colors" aria-hidden /> : null}
+        </div>
       </div>
       <p className={cn('text-2xl font-bold leading-none', accent)}>{value}</p>
       <p className="text-xs text-muted-foreground mt-1.5">{label}</p>
       {sublabel ? <p className="text-[11px] text-muted-foreground/70 mt-0.5">{sublabel}</p> : null}
+      {clickable ? (
+        <Link
+          href={metricHref(metricId!, metricValueText)}
+          aria-label={`What is "${label}"? Open the metric explainer`}
+          className="absolute inset-0 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        />
+      ) : null}
     </div>
   );
 }

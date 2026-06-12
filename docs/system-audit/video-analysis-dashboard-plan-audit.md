@@ -168,8 +168,20 @@ disabled state is honest.
 - Test: `lib/reliability-os/__tests__/analysis-capture.test.ts` asserts a failed analysis lands in the
   ring buffer with the right type/category/stage and a sanitized message.
 
-Everything is additive; with no failures the behaviour is unchanged. A dedicated `failedAnalyses24h`
-summary tile + a per-user pipeline-health panel are the natural follow-ups now that the events accrue.
+Everything is additive; with no failures the behaviour is unchanged.
+
+**Admin failed-analysis visibility (follow-up "c", shipped).** The reliability engine now reports a
+dedicated `failedAnalyses24h` (split out of the broad uploads count) and the `/admin/reliability`
+dashboard shows a **"Failed analyses 24h"** tile — so analysis breakage is a first-class admin signal.
+
+**Cloud-sync durability hardening (follow-up "b", shipped).** A failed Supabase sync used to flip only a
+local `status` (silent), so you couldn't tell if an athlete's swings actually persisted.
+`relational-sync-provider.tsx` now reports sync failures (schema-not-migrated / RLS / server) to
+ReliabilityOS via `logSyncFailure()` (category `database`, throttled to once per failure episode), and the
+dashboard shows a **"Failed data syncs 24h"** tile. This is the observability behind the ≥10-swing
+durability guarantee: if history stops persisting, it now shows up. Verified: `trainingRow()` confirms
+plan/training state also projects to Supabase, and admin System Health already exposes Supabase auth +
+service-role status, so durability is both wired and confirmable.
 
 ## 9. Remaining risks (not changed this pass — need their own focused passes)
 

@@ -11,6 +11,8 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Download, Search, ChevronRight } from 'lucide-react';
 import { SeverityPill } from '@/components/security-os/SecurityUI';
+import { CopyForClaudeBundle } from '@/components/admin/CopyForClaude';
+import { fromSecurityFinding } from '@/lib/admin/claude-handoff';
 import { useSecurityOS } from '@/lib/security-os/useSecurityOS';
 import { applyFindingOverrides, sortFindings } from '@/lib/security-os/findings';
 import {
@@ -98,9 +100,17 @@ export function FindingsClient({ actor, findings, generatedAt }: Props) {
         <Select value={category} onChange={(v) => setCategory(v as ScoreCategoryId | 'all')} options={[['all', 'All categories'], ...Object.entries(CATEGORY_LABEL)]} />
         <Select value={status} onChange={(v) => setStatus(v as StatusFilter)} options={[['open', 'Open'], ['all', 'All statuses'], ...Object.entries(FINDING_STATUS_LABEL)]} />
         <Select value={sort} onChange={(v) => setSort(v as SortKey)} options={[['severity', 'Sort: severity'], ['risk', 'Sort: risk'], ['date', 'Sort: date']]} />
-        <button onClick={exportJson} className="ml-auto inline-flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted">
-          <Download className="h-3.5 w-3.5" /> Export
-        </button>
+        <div className="ml-auto flex items-center gap-2">
+          <CopyForClaudeBundle
+            items={filtered.map((f) => fromSecurityFinding(f))}
+            title="Security OS — open findings"
+            label={`Copy all for Claude Code (${filtered.length})`}
+            dateIso={generatedAt}
+          />
+          <button onClick={exportJson} className="inline-flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted">
+            <Download className="h-3.5 w-3.5" /> Export JSON
+          </button>
+        </div>
       </div>
 
       <p className="text-xs text-muted-foreground">{filtered.length} finding{filtered.length === 1 ? '' : 's'}</p>

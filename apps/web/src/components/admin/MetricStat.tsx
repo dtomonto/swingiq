@@ -5,8 +5,10 @@
 // `MetricStat` is kept as a backward-compatible alias for existing callers.
 
 import type { ReactNode } from 'react';
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import Link from 'next/link';
+import { TrendingUp, TrendingDown, Minus, ArrowUpRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { metricHref } from '@/lib/admin/metrics';
 
 export interface MetricCardProps {
   label: string;
@@ -23,6 +25,12 @@ export interface MetricCardProps {
   trendLabel?: string;
   /** Interpreted status — tints the tile and the value. Only when earned. */
   status?: 'good' | 'warning' | 'critical';
+  /** When set, the whole tile becomes a link to its explainer page
+   *  (/admin/metrics/<metricId>) that defines the metric in depth. */
+  metricId?: string;
+  /** Optional plain-text value passed to the explainer so an uncurated
+   *  metric can still show the number you clicked. */
+  metricValueText?: string;
 }
 
 const VALUE_TONE: Record<NonNullable<MetricCardProps['tone']>, string> = {
@@ -48,15 +56,25 @@ const TREND_ICON = { up: TrendingUp, down: TrendingDown, neutral: Minus } as con
 
 export function MetricCard({
   label, value, unit, hint, icon: Icon, tone = 'default', trend, trendLabel, status,
+  metricId, metricValueText,
 }: MetricCardProps) {
   const valueColor = status ? STATUS_VALUE[status] : VALUE_TONE[tone];
   const tile = status ? STATUS_TILE[status] : '';
   const TrendIcon = trend ? TREND_ICON[trend] : null;
+  const clickable = Boolean(metricId);
   return (
-    <div className={`rounded-xl border border-border bg-card p-4 ${tile}`}>
+    <div
+      className={`group relative rounded-xl border border-border bg-card p-4 ${tile} ${
+        clickable ? 'transition-colors hover:border-primary/40' : ''
+      }`}
+    >
       <div className="flex items-center justify-between">
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-        {Icon && <Icon className="h-4 w-4 text-muted-foreground/70" />}
+        {clickable ? (
+          <ArrowUpRight className="h-4 w-4 text-muted-foreground/40 transition-colors group-hover:text-link" aria-hidden />
+        ) : (
+          Icon && <Icon className="h-4 w-4 text-muted-foreground/70" />
+        )}
       </div>
       <p className={`mt-2 text-2xl font-bold tabular-nums ${valueColor}`}>
         {value}
@@ -69,6 +87,15 @@ export function MetricCard({
         </p>
       )}
       {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
+      {clickable && (
+        // Full-tile overlay link — keeps the markup server-safe and the whole
+        // card a single click target without nesting interactive elements.
+        <Link
+          href={metricHref(metricId!, metricValueText)}
+          aria-label={`What is "${label}"? Open the metric explainer`}
+          className="absolute inset-0 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        />
+      )}
     </div>
   );
 }

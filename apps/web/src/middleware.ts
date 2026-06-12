@@ -84,6 +84,9 @@ const PUBLIC_SUBTREES = [
   '/benchmarks',
   // Public video library (/learn + /learn/<slug>) — crawlable for SEO/AEO/GEO.
   '/learn',
+  // Help Center (/help + /help/<feature-slug>) — the destination for every
+  // in-app "Learn more →" link. Public + crawlable; admin topics are noindex.
+  '/help',
   // Sample reports: the index AND the per-sport children
   // (/sample-report/golf, /baseball, /slow-pitch, /fast-pitch, /softball).
   '/sample-report',
@@ -153,15 +156,6 @@ const PUBLIC_PREFIXES = [
   // AUDIT_ACCESS_TOKEN and returns 404 when that token is unset (fully off
   // by default). See api/audit and /admin/audit-access.
   '/api/audit',
-  // SignalRadar webhook — trusted automations (Zapier/Make) POST mentions
-  // with no Supabase session; the route self-protects with
-  // SIGNALRADAR_WEBHOOK_SECRET (safeEqual) and returns 404 when that secret
-  // is unset (fully off by default). See api/signal-radar/webhook.
-  '/api/signal-radar/webhook',
-  // SignalRadar scheduled feed collection — Vercel Cron has no Supabase
-  // session; the route self-protects with CRON_SECRET (or the admin guard).
-  // See api/signal-radar/cron.
-  '/api/signal-radar/cron',
 ];
 
 // A subtree prefix P matches: the index (P), nested children (P/…), and the

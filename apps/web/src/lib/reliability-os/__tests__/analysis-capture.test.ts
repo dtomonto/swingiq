@@ -5,7 +5,7 @@
 // The repo's Jest runs in the node environment, so we provide the minimal browser
 // globals the localStorage-backed capture path reads.
 
-import { logAnalysisFailure, readBufferedEvents } from '../capture';
+import { logAnalysisFailure, logSyncFailure, readBufferedEvents } from '../capture';
 
 class MemStorage {
   private store = new Map<string, string>();
@@ -59,5 +59,18 @@ describe('ReliabilityOS — swing-analysis failure capture', () => {
     logAnalysisFailure({ error: new Error('frames malformed'), uploadStage: 'frame_extraction' });
     const e = readBufferedEvents()[0];
     expect(e.uploadStage).toBe('frame_extraction');
+  });
+});
+
+describe('ReliabilityOS — cloud data-sync failure capture', () => {
+  it('records a failed Supabase sync as a database operational event', () => {
+    logSyncFailure({ error: new Error('relation "sessions" does not exist'), uploadStage: 'schema_missing' });
+    const events = readBufferedEvents();
+    expect(events.length).toBe(1);
+    const e = events[0];
+    expect(e.category).toBe('database'); // drives the "Failed data syncs 24h" tile
+    expect(e.actionName).toBe('cloud-sync');
+    expect(e.uploadStage).toBe('schema_missing');
+    expect(e.fingerprint).toBeTruthy();
   });
 });

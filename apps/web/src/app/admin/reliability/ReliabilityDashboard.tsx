@@ -182,9 +182,11 @@ export function ReliabilityDashboard({ actor, signals, ingestedEvents }: Props) 
           <StatusBadge tone={STATUS_TONE[summary.status]}>{STATUS_LABEL[summary.status]}</StatusBadge>
         </CardHeader>
         <CardBody>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
             <MetricCard label="Open critical" value={summary.openCritical} status={summary.openCritical > 0 ? 'danger' : 'good'} />
             <MetricCard label="Open high" value={summary.openHigh} status={summary.openHigh > 0 ? 'warning' : 'good'} />
+            <MetricCard label="Failed analyses 24h" value={summary.failedAnalyses24h} status={summary.failedAnalyses24h > 0 ? 'warning' : 'neutral'} />
+            <MetricCard label="Failed data syncs 24h" value={summary.failedSyncs24h} status={summary.failedSyncs24h > 0 ? 'danger' : 'good'} />
             <MetricCard label="Failed uploads 24h" value={summary.failedUploads24h} status={summary.failedUploads24h > 0 ? 'warning' : 'neutral'} />
             <MetricCard label="Failed logins 24h" value={summary.failedLogins24h} status={summary.failedLogins24h > 0 ? 'warning' : 'neutral'} />
             <MetricCard label="Page failures 24h" value={summary.pageFailures24h} status={summary.pageFailures24h > 0 ? 'warning' : 'neutral'} />

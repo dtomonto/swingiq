@@ -19,6 +19,8 @@ import { KpiCard, StatusBadge, DataSourceBadge, PriorityBadge, EmptyState, Field
 import { formatDate } from '@/lib/growth/format';
 import { MODULE_DEFINITIONS, DEFINITION_KIND, type ColumnDef, type FieldDef } from './definitions';
 import { RecordForm } from './RecordForm';
+import { CopyForClaude, CopyForClaudeBundle } from '@/components/admin/CopyForClaude';
+import { fromRecordFields, type ClaudeFixInput } from '@/lib/admin/claude-handoff';
 
 const SECRET_KEY = 'growthos.adminSecret';
 
@@ -60,6 +62,41 @@ function renderValue(record: AnyRecord, def: ColumnDef | FieldDef): React.ReactN
     default:
       return v === null || v === undefined || v === '' ? '—' : String(v);
   }
+}
+
+/** Flatten a record field to plain text for the Claude Code prompt. */
+function plainValue(record: AnyRecord, def: ColumnDef | FieldDef): string {
+  const v = valueOf(record, def);
+  if (v === null || v === undefined || v === '') return '';
+  if (Array.isArray(v)) return (v as unknown[]).map((x) => String(x)).join(', ');
+  return String(v);
+}
+
+/** Turn one record into a ready-to-paste Claude Code fix prompt input,
+ *  using the module's declared detail fields (so it works for any module). */
+function buildRecordFix(
+  record: AnyRecord,
+  fields: FieldDef[],
+  itemNoun: string,
+  definitionId: string,
+): ClaudeFixInput {
+  const fixFields = fields
+    .map((f) => ({ label: f.label, value: plainValue(record, f) }))
+    .filter((f) => f.value && f.value !== '—');
+  const title =
+    String(record.name ?? record.title ?? '').trim() || `${itemNoun.replace(/s$/, '')} ${record.id}`;
+  const affected: string[] = [];
+  for (const key of ['pageUrl', 'url', 'sourceUrl', 'destinationUrl']) {
+    const val = record[key];
+    if (typeof val === 'string' && val.trim()) affected.push(val.trim());
+  }
+  const input = fromRecordFields({
+    title,
+    source: `GrowthOS · ${definitionId.replace(/[-_]/g, ' ')}`,
+    fields: fixFields,
+  });
+  if (affected.length) input.affected = affected;
+  return input;
 }
 
 export function RecordModule({
@@ -161,6 +198,11 @@ export function RecordModule({
         </div>
         <div className="flex items-center gap-3">
           <p className="text-xs text-muted-foreground">{filtered.length} of {records.length} {def.itemNoun}</p>
+          <CopyForClaudeBundle
+            items={filtered.map((r) => buildRecordFix(r, def.detailFields, def.itemNoun, definitionId))}
+            title={`${def.itemNoun} — ${definitionId.replace(/[-_]/g, ' ')}`}
+            label={`Copy all for Claude Code (${filtered.length})`}
+          />
           {kind && (
             <button
               onClick={() => setForm({ mode: 'create' })}
@@ -241,6 +283,10 @@ export function RecordModule({
                 <p className="text-xs text-muted-foreground mt-0.5 capitalize">{def.itemNoun.replace(/s$/, '')}</p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
+                <CopyForClaude
+                  input={buildRecordFix(selected, def.detailFields, def.itemNoun, definitionId)}
+                  label="Copy for Claude"
+                />
                 {kind && (
                   <>
                     <button

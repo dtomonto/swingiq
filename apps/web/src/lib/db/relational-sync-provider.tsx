@@ -30,6 +30,7 @@ import { useSwingVantageStore } from '@/store';
 import type { SwingVantageState, SportEquipment } from '@/store';
 import { exportUserData } from '@/lib/backup/export';
 import { mergeRestore } from '@/lib/backup/restore';
+import { logSyncFailure } from '@/lib/reliability-os/capture';
 import {
   loadAll, reconcile, fillDefaults, freshCaches, primeCaches, isSchemaMissing, type SyncCaches,
 } from './cloud-repo';
@@ -103,6 +104,19 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
   const docPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const docsAvailableRef = useRef(true);
   const docsPrimedRef = useRef(false);
+  // Report a cloud-sync failure to ReliabilityOS at most once per failure episode
+  // (reset on the next success) so a network outage doesn't flood the buffer.
+  const syncFailReportedRef = useRef(false);
+
+  const reportSyncFailure = (err: unknown) => {
+    if (syncFailReportedRef.current) return;
+    syncFailReportedRef.current = true;
+    logSyncFailure({
+      uploadStage: isSchemaMissing(err) ? 'schema_missing' : 'reconcile',
+      error: err,
+      metadata: { schemaMissing: isSchemaMissing(err) },
+    });
+  };
 
   useEffect(() => {
     // Cloud sync only applies when real accounts are on and someone is signed in.
@@ -172,10 +186,12 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
         if (!active) return;
         // Cloud now matches the store → record it as the new agreed base.
         saveBase(uid, computeBase(store.getState()));
+        syncFailReportedRef.current = false; // healthy again
         setStatus('synced');
         if (mainChanged || docsChanged) setLastSyncedAt(new Date().toISOString());
       } catch (err) {
         if (!active) return;
+        reportSyncFailure(err); // make athlete-data sync breakage visible to admins
         if (isSchemaMissing(err)) {
           // Migration not applied yet — stop trying, stay local-only.
           setStatus('unavailable');
@@ -244,6 +260,7 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
 
         // Record the now-agreed state as the base for future delete-sync.
         saveBase(uid, computeBase(store.getState()));
+        syncFailReportedRef.current = false; // healthy again
         setStatus('synced');
         setLastSyncedAt(new Date().toISOString());
 
@@ -265,6 +282,7 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
         }, DOC_POLL_MS);
       } catch (err) {
         if (!active) return;
+        reportSyncFailure(err); // make athlete-data sync breakage visible to admins
         setStatus(isSchemaMissing(err) ? 'unavailable' : 'offline');
       }
     })();

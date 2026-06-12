@@ -18,11 +18,13 @@ import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecheckButton } from '@/components/admin/RecheckButton';
 import { AiBudgetEditor } from '@/components/admin/AiBudgetEditor';
+import { AiUserCapEditor } from '@/components/admin/AiUserCapEditor';
 import {
   getAiBudgetStatus,
   getAiUsageReport,
   getAiProviderBilling,
 } from '@/lib/ai-budget';
+import { getUserAiCapStatus } from '@/lib/ai/user-ai';
 
 export const metadata: Metadata = { title: 'AI Usage & Billing | Admin', robots: 'noindex, nofollow' };
 export const dynamic = 'force-dynamic';
@@ -30,10 +32,11 @@ export const dynamic = 'force-dynamic';
 const usd = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 
 export default async function AiUsagePage() {
-  const [budget, usage, billing] = await Promise.all([
+  const [budget, usage, billing, userCap] = await Promise.all([
     getAiBudgetStatus(),
     getAiUsageReport(14),
     Promise.resolve(getAiProviderBilling()),
+    getUserAiCapStatus(),
   ]);
 
   const maxDayCents = Math.max(1, ...usage.byDay.map((d) => d.cents));
@@ -92,6 +95,14 @@ export default async function AiUsagePage() {
         description="The maximum estimated AI spend per UTC day across every feature (coaching, video, OCR…). When reached, paid AI calls pause and the app serves its keyless fallback until the next day. Set 0 for unlimited."
       >
         <AiBudgetEditor initialCents={budget.limitCents} initialSource={budget.limitSource} />
+      </SectionCard>
+
+      {/* ── Per-user daily spend cap (editable) ───────────── */}
+      <SectionCard
+        title="Per-user daily cap"
+        description="The most estimated AI spend ONE signed-in account can use per UTC day. When a user reaches it, AI auto-pauses for that account (their app serves its keyless fallback) until the next day — everyone else is unaffected. Set 0 for no per-user limit. Anonymous traffic is governed by the global cap above."
+      >
+        <AiUserCapEditor initialCents={userCap.limitCents} initialSource={userCap.limitSource} />
       </SectionCard>
 
       {/* ── Pay for more usage ───────────────────────────── */}

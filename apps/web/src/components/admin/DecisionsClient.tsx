@@ -8,12 +8,14 @@
 // The server page stays a pure data source; all interactivity lives here.
 // ============================================================
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { DecisionCard, type DecisionVM } from './DecisionCard';
 import { DecisionDrawer } from './DecisionDrawer';
+import { CopyForClaudeBundle } from './CopyForClaude';
 import {
   DEFAULT_PLAN, getRolloutPlan, setRolloutPlan, type RolloutPlan,
 } from '@/lib/admin/decision-rollout';
+import { fromDecision } from '@/lib/admin/claude-handoff';
 
 export function DecisionsClient({ decisions }: { decisions: DecisionVM[] }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -42,8 +44,16 @@ export function DecisionsClient({ decisions }: { decisions: DecisionVM[] }) {
     setPlans((prev) => ({ ...prev, [id]: saved }));
   }, []);
 
+  const bundleItems = useMemo(() => decisions.map(fromDecision), [decisions]);
+
   return (
     <>
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <p className="text-xs text-muted-foreground">
+          Hand any decision to Claude Code as a ready-to-paste fix prompt.
+        </p>
+        <CopyForClaudeBundle items={bundleItems} title="Decision Center — open decisions" />
+      </div>
       <div className="space-y-3">
         {decisions.map((d) => (
           <DecisionCard

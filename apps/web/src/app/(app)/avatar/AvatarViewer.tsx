@@ -3,11 +3,13 @@
 import { Suspense, useState, useMemo } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { Info, Upload } from 'lucide-react';
+import { Info, Upload, Video, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useSwingVantageStore } from '@/store';
 import { runDiagnosticEngine } from '@swingiq/core';
 import type { Shot } from '@swingiq/core';
+import { useMotionSessions, getSport, type MotionSession } from '@/lib/motion-lab';
+import { Motion3DViewer } from '@/components/motion-lab/Motion3DViewer';
 
 const SWING_PHASES = [
   'Address',
@@ -92,7 +94,116 @@ function Avatar3DPlaceholder({ phase, fault }: { phase: number; fault: string | 
   );
 }
 
+/**
+ * Top-level router: when a swing video has been uploaded anywhere in the app,
+ * the on-device Motion Lab pipeline has already turned it into a real per-frame
+ * pose track (see lib/swing-session/useSwingSessionFanout). We render THAT in 3D.
+ * With no video session yet, we fall back to the launch-monitor pattern avatar.
+ */
 export function AvatarViewer() {
+  const motionSessions = useMotionSessions();
+  const videoSession = useMemo(
+    () =>
+      [...motionSessions]
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        .find((s) => s.poseTrack?.frames?.length > 0) ?? null,
+    [motionSessions],
+  );
+
+  if (videoSession) return <VideoAvatarView session={videoSession} />;
+  return <LaunchMonitorAvatarView />;
+}
+
+/** Video-driven avatar: the real 3D skeleton reconstructed from the upload. */
+function VideoAvatarView({ session }: { session: MotionSession }) {
+  const accent = getSport(session.capture.sport).accent;
+
+  return (
+    <div className="p-6 max-w-6xl mx-auto">
+      <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">3D Swing Avatar</h1>
+          <p className="text-muted-foreground text-sm mt-1">
+            Built from your latest uploaded swing — {session.emoji} {session.sportLabel} · {session.motionLabel}.
+            No re-upload needed.
+          </p>
+        </div>
+        <Link href="/video">
+          <Button size="sm" variant="outline">
+            <Video size={14} /> Analyze another swing
+          </Button>
+        </Link>
+      </div>
+
+      {/* Honest basis note — this is a single-camera estimate, not motion capture. */}
+      <div className="flex items-start gap-2 p-3 bg-warning/10 border border-warning/30 rounded-lg mb-5">
+        <Info size={16} className="text-warning shrink-0 mt-0.5" />
+        <p className="text-xs text-warning">
+          <strong>Estimated 3D reconstruction.</strong> This avatar is built from on-device pose
+          detection on your video&apos;s frames. Single-camera depth is an estimate, not a lab-grade
+          measurement — orbit, zoom, and scrub to inspect your motion.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* 3D viewer — the real reconstructed skeleton with scrub/orbit/zoom */}
+        <div className="lg:col-span-2">
+          <Motion3DViewer
+            track={session.poseTrack}
+            phases={session.phases}
+            accent={accent}
+            implement={session.objectTracking ?? null}
+            className="h-96"
+          />
+        </div>
+
+        {/* Read-out */}
+        <div className="space-y-4">
+          <Card>
+            <CardHeader><CardTitle>This Swing</CardTitle></CardHeader>
+            <CardBody className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-muted-foreground uppercase tracking-wide">Overall</span>
+                <span className="text-2xl font-bold text-foreground">{session.scoreboard.overall}</span>
+              </div>
+              <div className="rounded-lg bg-muted border border-border p-3">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+                  Key focus
+                </p>
+                <p className="text-sm text-foreground">{session.keyFault}</p>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Tracking confidence {Math.round((session.poseTrack.trackingConfidence ?? 0) * 100)}% ·{' '}
+                {session.poseTrack.frames.length} frames
+              </p>
+            </CardBody>
+          </Card>
+
+          <Card>
+            <CardHeader><CardTitle>Go Deeper</CardTitle></CardHeader>
+            <CardBody className="space-y-2">
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Open this same swing in Motion Lab for the full biomechanical breakdown — phases,
+                kinetic chain, tempo, and drills.
+              </p>
+              <Link href="/motion-lab" className="block">
+                <Button size="sm" variant="outline" className="w-full">
+                  Open Motion Lab <ArrowRight size={14} />
+                </Button>
+              </Link>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Fallback avatar driven by launch-monitor data only (no video uploaded yet).
+ * This is the original /avatar experience, preserved unchanged.
+ */
+function LaunchMonitorAvatarView() {
   const { sessions } = useSwingVantageStore();
   const [phase, setPhase] = useState(7);
   const [activeFault, setActiveFault] = useState<string | null>(null);
@@ -166,6 +277,18 @@ export function AvatarViewer() {
         <h1 className="text-2xl font-bold text-foreground">3D Swing Avatar</h1>
         <p className="text-muted-foreground text-sm mt-1">
           Educational swing model based on your launch-monitor data pattern.
+        </p>
+      </div>
+
+      {/* Upload prompt — the video path produces a real 3D reconstruction */}
+      <div className="flex items-start gap-2 p-3 bg-primary/10 border border-primary/30 rounded-lg mb-3">
+        <Video size={16} className="text-primary shrink-0 mt-0.5" />
+        <p className="text-xs text-foreground">
+          <strong>Want a 3D model of your actual swing?</strong>{' '}
+          <Link href="/video" className="text-primary underline underline-offset-2">
+            Upload a swing video
+          </Link>{' '}
+          and this avatar rebuilds from your real motion — automatically, no re-upload.
         </p>
       </div>
 
