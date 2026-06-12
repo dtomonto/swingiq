@@ -1,31 +1,59 @@
 [
   {
-    "sha": "e7712a8dd25cca78a835ace6a317036f98821cf7",
-    "at": "2026-06-12T01:18:01-04:00",
+    "sha": "260725d7d510c3f1c52e4ed98c4b249ecff418cd",
+    "at": "2026-06-12T08:05:48-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "15dc3e4c629bc36eb4d9e701c4f5ab87d7d40ff4",
-    "at": "2026-06-12T01:18:01-04:00",
+    "sha": "88f604b2df65b6c3d1838ecf0199f42aa0e1c2b7",
+    "at": "2026-06-12T08:05:48-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "1a1baa0fb2f6ff6df7b20bb8b322626dd1d621df",
-    "at": "2026-06-12T01:18:01-04:00",
+    "sha": "c6b12fdfbea18b1d4896cda600d9579d7ec32328",
+    "at": "2026-06-12T08:05:48-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "523a493b3f24251c58fcad466f61d5a2464af8be",
-    "at": "2026-06-12T01:18:01-04:00",
+    "sha": "e0987199e3bdff79cf2023a17607cfa5c415e167",
+    "at": "2026-06-12T08:05:48-04:00",
     "type": "feat",
     "scope": "motion-lab",
-    "subject": "add 3D avatar viewer + AI vision review tab"
+    "subject": "finish Video Analysis → Motion Lab consolidation"
+  },
+  {
+    "sha": "7e8546d8e000f1751200d69927d6c03023d7b199",
+    "at": "2026-06-12T01:16:44-04:00",
+    "type": "feat",
+    "scope": "drills",
+    "subject": "comprehensive per-drill detail pages from a unified catalog"
+  },
+  {
+    "sha": "e4416483d5dfa5a0d7d97e122c17c9c5909de2d3",
+    "at": "2026-06-12T00:43:59-04:00",
+    "type": "feat",
+    "scope": "help",
+    "subject": "build the /help Help Center so every in-app \"Learn more\" resolves"
+  },
+  {
+    "sha": "f98c61add2152bd2b03371c9076100517713b66c",
+    "at": "2026-06-12T01:20:34-04:00",
+    "type": "feat",
+    "scope": "ai",
+    "subject": "per-user daily AI spend cap, editable from the dashboard"
+  },
+  {
+    "sha": "82999d30d01c54aa9bd641b354377168ca6812a9",
+    "at": "2026-06-12T07:45:50-04:00",
+    "type": "feat",
+    "scope": "motion-lab",
+    "subject": "3D avatar viewer + AI vision review tab (#27)"
   },
   {
     "sha": "fec7a244db99b85d3ec5d9424edb2c6e24dae210",
@@ -530,33 +558,5 @@
     "type": "feat",
     "scope": "design-v2",
     "subject": "Phase 4 pt2 — flag-gated \"capture is paper\" upload zone"
-  },
-  {
-    "sha": "de465447454a048059447fddec189697529a0e7b",
-    "at": "2026-06-11T07:14:31-04:00",
-    "type": "fix",
-    "scope": "design-v2",
-    "subject": "scope data-sport to <html> so sport @theme utilities resolve"
-  },
-  {
-    "sha": "79e13968a351b71bb3346950296890bf2ab42493",
-    "at": "2026-06-11T07:05:56-04:00",
-    "type": "chore",
-    "scope": "tutorial",
-    "subject": "re-record welcome video for the dark \"B\" homepage"
-  },
-  {
-    "sha": "d1fcf6385400dba249d056d19b933871db351bf6",
-    "at": "2026-06-11T01:18:20-04:00",
-    "type": "feat",
-    "scope": "signal-radar",
-    "subject": "SignalRadar OS — admin brand/digital-signal intelligence"
-  },
-  {
-    "sha": "64013ae60b1073307c9d99bf4c8912497dddeb1c",
-    "at": "2026-06-10T23:48:13-04:00",
-    "type": "chore",
-    "scope": "core",
-    "subject": "order exports 'types' condition first to silence tsup warnings"
   }
 ]
