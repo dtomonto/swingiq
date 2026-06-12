@@ -7,12 +7,17 @@
 // result must pass validateSummaryBody (no forbidden claims, bounded
 // length) or we return the original. Rate-limited and input-validated.
 // Keyless: with no provider configured this is a safe no-op.
+//
+// Routed through the central AI gateway (provider/key resolution, daily
+// budget kill-switch, spend metering, one retry, structured output, and
+// call observability) — the same path the AI coach uses. No bespoke
+// per-provider fetch lives here anymore.
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
-import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
+import { complete } from '@/lib/ai/gateway';
 import { validateSummaryBody } from '@/lib/recruiting/summary';
 
 const SYSTEM = [
@@ -26,57 +31,15 @@ const SYSTEM = [
   'Return ONLY JSON: {"body": string}.',
 ].join('\n');
 
-function extractJson(raw: string): unknown {
-  const start = raw.indexOf('{');
-  const end = raw.lastIndexOf('}');
-  if (start === -1 || end === -1 || end <= start) return null;
-  try {
-    return JSON.parse(raw.slice(start, end + 1));
-  } catch {
-    return null;
-  }
-}
-
-async function callProvider(system: string, user: string): Promise<string | null> {
-  const provider = process.env.AI_PROVIDER;
-  try {
-    if (provider === 'openai' && process.env.OPENAI_API_KEY) {
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
-        body: JSON.stringify({
-          model: process.env.OPENAI_MODEL ?? 'gpt-4o-mini',
-          messages: [{ role: 'system', content: system }, { role: 'user', content: user }],
-          max_tokens: 700,
-          temperature: 0.4,
-          response_format: { type: 'json_object' },
-        }),
-      });
-      if (!res.ok) return null;
-      const data = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
-      return data.choices?.[0]?.message?.content ?? null;
-    }
-    if (provider === 'anthropic' && process.env.ANTHROPIC_API_KEY) {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': process.env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
-        body: JSON.stringify({
-          model: process.env.ANTHROPIC_MODEL ?? 'claude-haiku-4-5',
-          max_tokens: 700,
-          temperature: 0.4,
-          system,
-          messages: [{ role: 'user', content: `${user}\n\nRespond with JSON only.` }],
-        }),
-      });
-      if (!res.ok) return null;
-      const data = (await res.json()) as { content?: Array<{ type: string; text?: string }> };
-      return data.content?.find((c) => c.type === 'text')?.text ?? null;
-    }
-  } catch {
-    return null;
-  }
-  return null;
-}
+const SUMMARY_SCHEMA = {
+  name: 'recruiting_summary',
+  schema: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['body'],
+    properties: { body: { type: 'string' } },
+  },
+} as const;
 
 export async function POST(req: NextRequest) {
   const ip = clientIp(req);
@@ -104,17 +67,20 @@ export async function POST(req: NextRequest) {
     .filter(Boolean)
     .join('\n\n');
 
-  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set):
-  // when spent, skip the optional re-word and return the grounded original.
-  if (await aiBudgetExceeded()) {
-    return NextResponse.json({ body: original, usedAi: false });
-  }
+  // The gateway handles the budget kill-switch (→ fallback), keyless (→ fallback),
+  // provider/model resolution, retry, spend metering and observability. Any
+  // fallback → return the grounded original unchanged.
+  const result = await complete({
+    system: SYSTEM,
+    messages: [{ role: 'user', content: user }],
+    maxTokens: 700,
+    tier: 'fast',
+    spendLabel: 'recruiting-summary',
+    jsonSchema: SUMMARY_SCHEMA,
+  });
+  if (result.fallback) return NextResponse.json({ body: original, usedAi: false });
 
-  const raw = await callProvider(SYSTEM, user);
-  if (!raw) return NextResponse.json({ body: original, usedAi: false });
-  await recordAiSpend('recruiting-summary');
-
-  const parsed = extractJson(raw) as { body?: unknown } | null;
+  const parsed = result.parsed as { body?: unknown } | null;
   const reworded = parsed && typeof parsed.body === 'string' ? parsed.body.trim() : '';
 
   // Reject anything that fails the no-exaggeration validator → fall back.
