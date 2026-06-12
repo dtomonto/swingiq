@@ -1,65 +1,93 @@
 [
   {
-    "sha": "e481a259e949e13b84b5f8e4ae3752baaa0eb355",
-    "at": "2026-06-12T12:34:11-04:00",
+    "sha": "a4b7a0b41a90bc3e0ac680b005622714388d3c5b",
+    "at": "2026-06-12T13:01:04-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "86f17cd2d24384c76e92b9f892c27d65cc312ec0",
-    "at": "2026-06-12T12:34:11-04:00",
+    "sha": "e4aaec161283b9dd544fa72d4ccaf1f76e0a7f09",
+    "at": "2026-06-12T13:01:04-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "f9cee06db2cf4a2dd288ee4cf1d6883368e2b9d4",
-    "at": "2026-06-12T12:34:11-04:00",
+    "sha": "a2202a7924603498b0400a761da816c85fe8da5f",
+    "at": "2026-06-12T13:01:04-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "e5cfed36b7aa1401142f70ee415505463d424648",
-    "at": "2026-06-12T12:34:11-04:00",
-    "type": "fix",
-    "scope": "feature-education",
-    "subject": "resync seed JSON with regenerated feature registry"
+    "sha": "d1253731856ad14e039f4bfe145fea0c69632168",
+    "at": "2026-06-12T13:01:04-04:00",
+    "type": "other",
+    "subject": "Merge remote-tracking branch 'origin/master' into agent/ai-orchestration"
   },
   {
-    "sha": "fe67d1b6e47794f9d830bd05bbcc2d68c9c563a0",
-    "at": "2026-06-12T12:20:51-04:00",
+    "sha": "1c79806619fd2f9a8c967e956e8308088ccd33ea",
+    "at": "2026-06-12T12:42:17-04:00",
+    "type": "feat",
+    "scope": "analytics",
+    "subject": "PostHog audit + P0 SDK swap & identity bridge (#33)"
+  },
+  {
+    "sha": "2fc12ad4633f69db05e6baa8b43e7317f7391bba",
+    "at": "2026-06-12T12:22:46-04:00",
+    "type": "fix",
+    "scope": "onboarding",
+    "subject": "defer the guide's proactive tip until the safety gate is cleared"
+  },
+  {
+    "sha": "00db0c661718adfc047a54136bb2ed0a2f8fcecf",
+    "at": "2026-06-12T11:43:57-04:00",
+    "type": "feat",
+    "scope": "help",
+    "subject": "author curated guides for all 53 public features + seed-independent rendering"
+  },
+  {
+    "sha": "3b24d8960723f2362c293548e812b490acfa8030",
+    "at": "2026-06-12T12:20:53-04:00",
     "type": "chore",
     "scope": "changes",
     "subject": "refresh changes feed"
   },
   {
-    "sha": "0552ecc9e237ed820bc64c2b078e30ce5b52b1db",
-    "at": "2026-06-12T12:20:51-04:00",
+    "sha": "cd9b4886ca16200cad66cf79a6e7d0579fa3d984",
+    "at": "2026-06-12T12:20:53-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "5a5c57e6d1f85e421d486cc9422737f697b864ea",
-    "at": "2026-06-12T12:20:51-04:00",
+    "sha": "4f5b53613f0936ebfcefc4279b2954e02e4df78e",
+    "at": "2026-06-12T12:20:53-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "404af66e6c7e25815978d36dc1786fc7eff94b16",
-    "at": "2026-06-12T12:20:51-04:00",
+    "sha": "7f0b9db401779f3fa1736d4cf4f1cda62f9ecfc2",
+    "at": "2026-06-12T12:20:53-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "d306cc147cc1f909cb47f5a8a3eb88020d00a8c3",
-    "at": "2026-06-12T12:20:51-04:00",
-    "type": "other",
-    "subject": "Merge remote-tracking branch 'origin/master' into agent/posthog-p0"
+    "sha": "73263607f331e395757bf907c1de0cf6be616faa",
+    "at": "2026-06-12T12:20:53-04:00",
+    "type": "refactor",
+    "scope": "ai",
+    "subject": "route 4 scattered text calls through the central gateway"
+  },
+  {
+    "sha": "8abfebe93f9de078a73d7bcd5cc842eb8d59600a",
+    "at": "2026-06-12T11:48:34-04:00",
+    "type": "feat",
+    "scope": "video",
+    "subject": "persist swing analyses on the profile + harden analysis pipeline"
   },
   {
     "sha": "6a3732752b9d9ec405aa98a4810595fc5949fd02",
@@ -73,40 +101,6 @@
     "at": "2026-06-12T12:03:48-04:00",
     "type": "other",
     "subject": "Merge pull request #31 from dtomonto/agent/marketing-i18n-fix"
-  },
-  {
-    "sha": "9140552723968b692e87f548864572cc7d23a6c9",
-    "at": "2026-06-12T12:03:20-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "38592ea39e23bbff97059c81710af47ccf82d51f",
-    "at": "2026-06-12T12:03:20-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "ce4703c88b727a292f0a38246d5d8383041db600",
-    "at": "2026-06-12T12:03:20-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "e0b3b3f2169893f5a7b05b3028c1850561ba3c5e",
-    "at": "2026-06-12T12:03:20-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "ce1d6069ae851664e751de7e87ec06c4427efdb1",
-    "at": "2026-06-12T12:03:20-04:00",
-    "type": "other",
-    "subject": "Merge remote-tracking branch 'origin/master' into agent/posthog-p0"
   },
   {
     "sha": "cede9195c5a5a110f919f4d511a8a62502f16e3e",
@@ -176,6 +170,41 @@
     "at": "2026-06-12T11:57:36-04:00",
     "type": "other",
     "subject": "Merge remote-tracking branch 'origin/master' into agent/marketing-i18n-fix"
+  },
+  {
+    "sha": "f835ca7c085820f3d3cd9d243e8f600663bcaed6",
+    "at": "2026-06-12T11:55:48-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "b095b16ed2a717191a844c78768566ba80582c5a",
+    "at": "2026-06-12T11:55:48-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "711aebcd60345e4bfaca6b11579dabef38545133",
+    "at": "2026-06-12T11:55:48-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "7d23a49a30c0025b8166a27cc22b4b536cbeae3a",
+    "at": "2026-06-12T11:55:48-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "a22134d56b2407a6fea184e3e7b742dd5cf0bade",
+    "at": "2026-06-12T11:55:48-04:00",
+    "type": "feat",
+    "scope": "ai",
+    "subject": "AI call observability (provider/latency/fallback/schema health)"
   },
   {
     "sha": "b252e888a7910fa9e07fd2629f8639fe4cc82bb7",
@@ -304,39 +333,39 @@
     "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
   },
   {
-    "sha": "80c04a8c447efe4a484097333d9c48e4f8b26407",
-    "at": "2026-06-12T11:24:00-04:00",
+    "sha": "e1e5c013571da7c90357c8c3eb18fec246f648b5",
+    "at": "2026-06-12T11:24:10-04:00",
     "type": "chore",
     "scope": "changes",
     "subject": "refresh changes feed"
   },
   {
-    "sha": "6033d586760ee187ff30e9f10119e69ec0666f21",
-    "at": "2026-06-12T11:24:00-04:00",
+    "sha": "286d79f951e4a61151e5324b7e0f79c5dacfd499",
+    "at": "2026-06-12T11:24:10-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "09be819b98d4fb81b188a6a41371bf3ab32b7d69",
-    "at": "2026-06-12T11:24:00-04:00",
+    "sha": "9ebb3608bdbb6fdfbe8ec7d21bb7434e6424487f",
+    "at": "2026-06-12T11:24:10-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "af6ec59d4653b7f0e5b2491bbf6582707c2450a7",
-    "at": "2026-06-12T11:24:00-04:00",
+    "sha": "24822154f6568b5f056a1505fd5b8196667dd193",
+    "at": "2026-06-12T11:24:10-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "644a503f5048f9608b3b72edbfa3d96b26ccd9ee",
-    "at": "2026-06-12T11:24:00-04:00",
+    "sha": "6d03898c5835a458e6d3e25c53402f31d78e9c67",
+    "at": "2026-06-12T11:24:10-04:00",
     "type": "feat",
-    "scope": "analytics",
-    "subject": "PostHog audit + P0 SDK swap & identity bridge"
+    "scope": "ai",
+    "subject": "AI Provider Control Center + live strategic routing"
   },
   {
     "sha": "5d0f78c91d6812ed442d79414f4b4783791917bb",
@@ -524,33 +553,5 @@
     "type": "fix",
     "scope": "feature-education",
     "subject": "resync seed (iter 3) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
-  },
-  {
-    "sha": "26660e30a7541fa29bee3469ceb4cfb5b4f761e1",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "828c46ccd8c773da84733bd60354205c8dee907d",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "58dd889121f931840d9d06fa5b056e15f02d3a5f",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "87cea6223cfcba94ea27808c62b0affd551ec8b7",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
   }
 ]

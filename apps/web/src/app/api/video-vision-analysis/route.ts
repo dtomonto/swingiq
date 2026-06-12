@@ -30,7 +30,15 @@ import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
+import { recordAiCall } from '@/lib/ai/ai-ops/call-log';
+import type { AiProviderName } from '@/lib/ai/ai-ops/schemas';
 import { logServerAnalysisFailure } from '@/lib/reliability-os/ingest.server';
+
+/** Map an orchestrator provider name onto the vision provider's env value. */
+function toVisionProviderEnv(p: AiProviderName): string {
+  return p === 'gemini' ? 'google' : p; // openai/anthropic pass through
+}
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -114,8 +122,30 @@ export async function POST(req: NextRequest) {
   // server maps it to a concrete model — a client never names a raw model.
   const speed: VisionSpeed = resolveVisionSpeed(body.speed);
 
+  // ── Strategic routing (AI Provider Control Center) ─────────
+  // Consult the live route for the video-intake task. An admin can disable video
+  // understanding (honest "off" message, no paid call) or re-route it to a
+  // specific provider/model. We only OVERLAY the provider/model env when the
+  // admin has explicitly overridden AND that provider's key is set — otherwise
+  // the operator's AI_VISION_PROVIDER env governs exactly as before.
+  const route = await resolveLiveRoute('video_intake');
+  if (!route.enabled) {
+    return NextResponse.json(
+      { configured: false, message: 'AI video analysis is turned off by the operator right now.' },
+      { status: 200 },
+    );
+  }
+  const visionEnv: typeof process.env =
+    route.overridden && route.usable
+      ? {
+          ...process.env,
+          AI_VISION_PROVIDER: toVisionProviderEnv(route.provider),
+          ...(route.model ? { AI_VISION_MODEL: route.model } : {}),
+        }
+      : process.env;
+
   // Resolve the provider. With no key, this yields the disabled provider.
-  const provider = getVisionProvider(process.env, { speed });
+  const provider = getVisionProvider(visionEnv, { speed });
   if (!provider.isConfigured()) {
     const outcome = await provider.analyze({ sport, frames, metadata: {} });
     const message =
@@ -154,6 +184,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const t0 = Date.now();
   const outcome = await provider.analyze({
     sport,
     frames,
@@ -168,6 +199,20 @@ export async function POST(req: NextRequest) {
     poseSummary: typeof body.poseSummary === 'string' ? body.poseSummary : null,
     // Fast tier asks the model for tight output — fewer tokens, quicker reply.
     concise: speed === 'fast',
+  });
+
+  // Observability (AI Provider Control Center): sanitized metadata only.
+  const visionOk = outcome.configured !== false && outcome.ok === true;
+  await recordAiCall({
+    op: 'video-vision',
+    stage: 'video_intake',
+    provider: provider.id,
+    model: provider.model || null,
+    latencyMs: Date.now() - t0,
+    ok: visionOk,
+    fallback: outcome.configured === false ? 'no_provider' : visionOk ? null : 'error',
+    schemaRequested: true,
+    schemaParsed: visionOk,
   });
 
   if (outcome.configured === false) {

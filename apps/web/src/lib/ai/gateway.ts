@@ -15,6 +15,7 @@
 
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { isConfigured } from '@/lib/capabilities';
+import { recordAiCall } from '@/lib/ai/ai-ops/call-log';
 
 export type AiProviderId = 'anthropic' | 'openai' | 'none';
 /** fast = cheapest/quickest · balanced = stronger reasoning · powerful = best. */
@@ -42,6 +43,12 @@ export interface AiCompleteRequest {
    * model without hardcoding it. Empty/undefined falls back to the tier default.
    */
   model?: string;
+  /**
+   * Sampling temperature. Defaults to 0.4. Set 0 for deterministic structured
+   * tasks (e.g. CSV column mapping); applied to OpenAI always and to Anthropic
+   * when provided.
+   */
+  temperature?: number;
 }
 
 export type AiFallback = 'no_provider' | 'over_budget' | 'error';
@@ -120,6 +127,7 @@ async function callOnce(
       system: req.system,
       messages: req.messages.map((m) => ({ role: m.role, content: m.content })),
     };
+    if (req.temperature != null) body.temperature = req.temperature;
     if (req.jsonSchema) {
       body.output_config = { format: { type: 'json_schema', schema: req.jsonSchema.schema } };
     }
@@ -141,7 +149,7 @@ async function callOnce(
   const body: Record<string, unknown> = {
     model,
     max_tokens: maxTokens,
-    temperature: 0.4,
+    temperature: req.temperature ?? 0.4,
     messages: [{ role: 'system', content: req.system }, ...req.messages],
   };
   if (req.jsonSchema) {
@@ -167,6 +175,24 @@ async function callOnce(
  * response — the caller renders its keyless/data-grounded placeholder.
  */
 export async function complete(req: AiCompleteRequest): Promise<AiCompleteResult> {
+  const startedAt = Date.now();
+  const result = await completeInner(req);
+  // Observability (AI Provider Control Center): sanitized metadata only — never
+  // the prompt, response text, or PII. Best-effort; never throws into the call.
+  await recordAiCall({
+    op: req.spendLabel,
+    provider: result.provider,
+    model: result.model,
+    latencyMs: Date.now() - startedAt,
+    ok: result.fallback == null,
+    fallback: result.fallback,
+    schemaRequested: !!req.jsonSchema,
+    schemaParsed: req.jsonSchema ? result.parsed != null : null,
+  });
+  return result;
+}
+
+async function completeInner(req: AiCompleteRequest): Promise<AiCompleteResult> {
   const provider = req.provider ?? resolveProvider();
   if (provider === 'none') {
     return { text: '', provider: 'none', model: null, parsed: null, fallback: 'no_provider' };

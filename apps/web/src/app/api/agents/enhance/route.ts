@@ -19,7 +19,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
-import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
+import { complete } from '@/lib/ai/gateway';
 
 const MAX_TEXT = 2000;
 
@@ -54,65 +54,19 @@ export async function POST(req: NextRequest) {
   const input = text.slice(0, MAX_TEXT);
   const sportLabel = typeof sport === 'string' ? sport.replace('_', ' ') : 'sport';
 
-  const aiProvider = process.env.AI_PROVIDER ?? 'none';
-  const openAiKey = process.env.OPENAI_API_KEY;
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
-
   const user = `Sport: ${sportLabel}\n\nSummary to rewrite:\n${input}`;
 
-  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set):
-  // when spent, skip the paid re-word and return the grounded text unchanged.
-  if (await aiBudgetExceeded()) return NextResponse.json({ text: input });
-
-  // No provider configured → graceful no-op (return original text).
-  try {
-    if (aiProvider === 'openai' && openAiKey) {
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${openAiKey}` },
-        body: JSON.stringify({
-          model: 'gpt-4o-mini',
-          messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
-            { role: 'user', content: user },
-          ],
-          max_tokens: 400,
-          temperature: 0.5,
-        }),
-      });
-      if (!res.ok) return NextResponse.json({ text: input });
-      const data = (await res.json()) as { choices: Array<{ message: { content: string } }> };
-      const out = data.choices[0]?.message?.content?.trim();
-      await recordAiSpend('agents');
-      return NextResponse.json({ text: out || input });
-    }
-
-    if (aiProvider === 'anthropic' && anthropicKey) {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': anthropicKey,
-          'anthropic-version': '2023-06-01',
-        },
-        body: JSON.stringify({
-          model: process.env.ANTHROPIC_MODEL ?? 'claude-haiku-4-5',
-          max_tokens: 400,
-          system: SYSTEM_PROMPT,
-          messages: [{ role: 'user', content: user }],
-        }),
-      });
-      if (!res.ok) return NextResponse.json({ text: input });
-      const data = (await res.json()) as { content: Array<{ type: string; text: string }> };
-      const out = data.content.find((c) => c.type === 'text')?.text?.trim();
-      await recordAiSpend('agents');
-      return NextResponse.json({ text: out || input });
-    }
-  } catch {
-    // Any failure → deterministic fallback.
-    return NextResponse.json({ text: input });
-  }
-
-  // No key configured — return the grounded text unchanged.
-  return NextResponse.json({ text: input });
+  // Routed through the central AI gateway: it resolves provider/model (no more
+  // hardcoded 'gpt-4o-mini'), enforces the daily budget kill-switch, meters
+  // spend, retries once, and records call observability. Any fallback (keyless,
+  // over-budget, error) → return the grounded text unchanged.
+  const result = await complete({
+    system: SYSTEM_PROMPT,
+    messages: [{ role: 'user', content: user }],
+    maxTokens: 400,
+    tier: 'fast',
+    spendLabel: 'agents',
+  });
+  if (result.fallback) return NextResponse.json({ text: input });
+  return NextResponse.json({ text: result.text.trim() || input });
 }

@@ -22,7 +22,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
-import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
+import { complete } from '@/lib/ai/gateway';
 import {
   CSV_MAPPING_SYSTEM_PROMPT,
   buildCsvMappingUserMessage,
@@ -65,65 +65,21 @@ export async function POST(req: NextRequest) {
         .map((r) => (Array.isArray(r) ? r.slice(0, MAX_HEADERS).map(sanitizeCell) : []))
     : [];
 
-  const aiProvider = process.env.AI_PROVIDER ?? 'none';
-  const openAiKey = process.env.OPENAI_API_KEY;
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
-
   const userMessage = buildCsvMappingUserMessage({ headers: cleanHeaders, sampleRows: cleanRows });
 
-  // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set):
-  // when spent, skip the paid mapping — the wizard keeps its deterministic map.
-  if (await aiBudgetExceeded()) return NextResponse.json({ mapping: {} });
-
-  try {
-    if (aiProvider === 'openai' && openAiKey) {
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${openAiKey}` },
-        body: JSON.stringify({
-          model: 'gpt-4o-mini',
-          messages: [
-            { role: 'system', content: CSV_MAPPING_SYSTEM_PROMPT },
-            { role: 'user', content: userMessage },
-          ],
-          max_tokens: 600,
-          temperature: 0,
-          response_format: { type: 'json_object' },
-        }),
-      });
-      if (!res.ok) return NextResponse.json({ mapping: {} });
-      const data = (await res.json()) as { choices: Array<{ message: { content: string } }> };
-      const out = data.choices[0]?.message?.content ?? '';
-      await recordAiSpend('agents');
-      return NextResponse.json({ mapping: parseCsvMappingResponse(out, cleanHeaders) });
-    }
-
-    if (aiProvider === 'anthropic' && anthropicKey) {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': anthropicKey,
-          'anthropic-version': '2023-06-01',
-        },
-        body: JSON.stringify({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 600,
-          system: CSV_MAPPING_SYSTEM_PROMPT,
-          messages: [{ role: 'user', content: userMessage }],
-        }),
-      });
-      if (!res.ok) return NextResponse.json({ mapping: {} });
-      const data = (await res.json()) as { content: Array<{ type: string; text: string }> };
-      const out = data.content.find((c) => c.type === 'text')?.text ?? '';
-      await recordAiSpend('agents');
-      return NextResponse.json({ mapping: parseCsvMappingResponse(out, cleanHeaders) });
-    }
-  } catch {
-    // Any failure → empty mapping; the wizard keeps its deterministic mapping.
-    return NextResponse.json({ mapping: {} });
-  }
-
-  // No provider configured — safe no-op.
-  return NextResponse.json({ mapping: {} });
+  // Routed through the central AI gateway (provider/model resolution — no more
+  // hardcoded model ids, budget kill-switch, spend metering, retry, observability).
+  // temperature:0 keeps the column mapping deterministic; the model's output is
+  // re-validated by parseCsvMappingResponse against the real headers, so a
+  // hallucinated column still can't get through. Any fallback → empty mapping.
+  const result = await complete({
+    system: CSV_MAPPING_SYSTEM_PROMPT,
+    messages: [{ role: 'user', content: userMessage }],
+    maxTokens: 600,
+    temperature: 0,
+    tier: 'fast',
+    spendLabel: 'agents',
+  });
+  if (result.fallback) return NextResponse.json({ mapping: {} });
+  return NextResponse.json({ mapping: parseCsvMappingResponse(result.text, cleanHeaders) });
 }

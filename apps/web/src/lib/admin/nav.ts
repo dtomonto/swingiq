@@ -29,7 +29,7 @@ import {
   Wand2, Share2, Clapperboard, DollarSign, Megaphone, TrendingUp, BarChart3,
   Lightbulb, Mail, LifeBuoy, MessageSquare, Bell, Plug, Flag, ScrollText,
   ShieldCheck, Scale, Settings, GraduationCap, Newspaper, BookOpen, Rocket,
-  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video, Radar,
+  Inbox, ClipboardCheck, BrainCircuit, Gauge, Blend, Telescope, ScanSearch, Sparkles, Bot, Dumbbell, Contrast, ShieldAlert, SquarePen, ClipboardList, Coins, GitBranch, Milestone, Images, Eye, Send, Video, Radar, Network,
 } from 'lucide-react';
 import type { Permission } from './rbac';
 
@@ -146,6 +146,12 @@ export const NAV_ITEMS: NavItem[] = [
     group: 'operate', subgroup: 'Video Analysis', built: true, permission: 'logs.view',
     blurb: 'Track what AI is costing — by feature and by day — and top up provider capacity (pay for more usage) without leaving the dashboard.',
     keywords: ['ai usage', 'ai cost', 'ai spend', 'billing', 'pay', 'top up', 'credits', 'budget', 'tokens', 'metering', 'openai', 'anthropic', 'claude', 'gemini', 'add capacity', 'cost guard', 'wallet'],
+  },
+  {
+    id: 'ai-provider', label: 'AI Provider Control', href: '/admin/ai-provider', icon: Network,
+    group: 'operate', subgroup: 'Video Analysis', built: true, permission: 'logs.view',
+    blurb: 'The strategic AI routing layer: which provider + model handles each task (Gemini video, OpenAI coach, MediaPipe measurement, Claude narrative), provider health, and a durable per-task override you can change without a redeploy.',
+    keywords: ['ai provider', 'ai routing', 'provider control', 'model registry', 'gemini', 'openai', 'anthropic', 'claude', 'mediapipe', 'orchestration', 'router', 'route', 'video understanding', 'coach model', 'failover', 'provider health', 'control center'],
   },
   {
     id: 'agents', label: 'Agent Registry', href: '/admin/agents', icon: Bot,
