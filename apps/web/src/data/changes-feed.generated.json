@@ -1,5 +1,40 @@
 [
   {
+    "sha": "6002436185bfcf18b4e58178d2c3f8c1a9e53f91",
+    "at": "2026-06-12T08:21:12-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0c6421acca40896d6a71e60854366a06ac180824",
+    "at": "2026-06-12T08:21:12-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "1705be179cb783130ae8f13580358e07b740b14e",
+    "at": "2026-06-12T08:21:12-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "df3f182b18558d338c3b1c13135419a1168f2060",
+    "at": "2026-06-12T08:21:12-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed (iter 3) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "26660e30a7541fa29bee3469ceb4cfb5b4f761e1",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "828c46ccd8c773da84733bd60354205c8dee907d",
     "at": "2026-06-12T08:20:44-04:00",
     "type": "chore",
@@ -514,40 +549,5 @@
     "type": "fix",
     "scope": "video-studio",
     "subject": "make cockpit actions work under Supabase auth + add video preview"
-  },
-  {
-    "sha": "61cd0d01b8a5b2e5871a3dc63b00d29697d40b3a",
-    "at": "2026-06-11T23:59:47-04:00",
-    "type": "feat",
-    "scope": "ai-ops",
-    "subject": "Gemini video-intake provider + provider-test (AIO-3 core)"
-  },
-  {
-    "sha": "86ab3805d5e9193bb6a40c2164f598b889180ba1",
-    "at": "2026-06-11T23:56:52-04:00",
-    "type": "feat",
-    "scope": "reliability",
-    "subject": "surface AI-vision analysis failures + system audit"
-  },
-  {
-    "sha": "ad04d358093d387d31da7240e44a6730c9ec34cf",
-    "at": "2026-06-11T21:21:21-04:00",
-    "type": "feat",
-    "scope": "dashboard",
-    "subject": "lead with the Welcome-back greeting, Founding progress right under it"
-  },
-  {
-    "sha": "8f61f0024de4e340b9d350f9ee77d28b8379691a",
-    "at": "2026-06-11T23:30:55-04:00",
-    "type": "fix",
-    "scope": "video",
-    "subject": "stop upload hanging on undecodable files (e.g. iPhone HEVC .mov)"
-  },
-  {
-    "sha": "92176a6f458e0aca546c55edc7634f1a6b2c77f3",
-    "at": "2026-06-11T23:30:38-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "edit the daily AI spend cap from the dashboard (no redeploy)"
   }
 ]
