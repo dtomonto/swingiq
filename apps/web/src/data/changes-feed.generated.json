@@ -1,5 +1,40 @@
 [
   {
+    "sha": "cd9b4886ca16200cad66cf79a6e7d0579fa3d984",
+    "at": "2026-06-12T12:20:53-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "4f5b53613f0936ebfcefc4279b2954e02e4df78e",
+    "at": "2026-06-12T12:20:53-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "7f0b9db401779f3fa1736d4cf4f1cda62f9ecfc2",
+    "at": "2026-06-12T12:20:53-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "73263607f331e395757bf907c1de0cf6be616faa",
+    "at": "2026-06-12T12:20:53-04:00",
+    "type": "refactor",
+    "scope": "ai",
+    "subject": "route 4 scattered text calls through the central gateway"
+  },
+  {
+    "sha": "f835ca7c085820f3d3cd9d243e8f600663bcaed6",
+    "at": "2026-06-12T11:55:48-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "b095b16ed2a717191a844c78768566ba80582c5a",
     "at": "2026-06-12T11:55:48-04:00",
     "type": "chore",
@@ -516,39 +551,5 @@
     "type": "chore",
     "scope": "changes",
     "subject": "refresh changes feed"
-  },
-  {
-    "sha": "0ea341188365b83f177446e6f35a7b91dc12b85f",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "f98c61add2152bd2b03371c9076100517713b66c",
-    "at": "2026-06-12T01:20:34-04:00",
-    "type": "feat",
-    "scope": "ai",
-    "subject": "per-user daily AI spend cap, editable from the dashboard"
-  },
-  {
-    "sha": "5a3382970a7a8da57d5cb0515cb03a030b4fc12a",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "6e0107c1b951a6d96ced9c6647bb1d9812cca2b5",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "4ab0098aa09454b51c4cdac7a2e16c66edea7c27",
-    "at": "2026-06-12T07:46:48-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): resync committed seed with the settled registry"
   }
 ]
