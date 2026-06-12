@@ -1,5 +1,39 @@
 [
   {
+    "sha": "e8d1043dd11af92fa0f6d0ddf77530c0d48f2d88",
+    "at": "2026-06-12T07:59:44-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "9e2396262e2b26db82ec1f390d43b2ea3bd25e6a",
+    "at": "2026-06-12T07:59:44-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "eb6b57c7af4b558b512ceba48d1fea5f7acc9861",
+    "at": "2026-06-12T07:59:44-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "f9bd0b3a46b0529cf12f942acfeb9b340b3900f7",
+    "at": "2026-06-12T07:59:44-04:00",
+    "type": "other",
+    "subject": "@ ci(growth): add workflow_dispatch to Growth CI"
+  },
+  {
+    "sha": "84be0420418a1f233351ac813be226451632fe72",
+    "at": "2026-06-12T07:46:48-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "0ea341188365b83f177446e6f35a7b91dc12b85f",
     "at": "2026-06-12T07:46:48-04:00",
     "type": "chore",
@@ -520,40 +554,5 @@
     "type": "feat",
     "scope": "design-v2",
     "subject": "Phase 4 pt2 — flag-gated \"capture is paper\" upload zone"
-  },
-  {
-    "sha": "de465447454a048059447fddec189697529a0e7b",
-    "at": "2026-06-11T07:14:31-04:00",
-    "type": "fix",
-    "scope": "design-v2",
-    "subject": "scope data-sport to <html> so sport @theme utilities resolve"
-  },
-  {
-    "sha": "79e13968a351b71bb3346950296890bf2ab42493",
-    "at": "2026-06-11T07:05:56-04:00",
-    "type": "chore",
-    "scope": "tutorial",
-    "subject": "re-record welcome video for the dark \"B\" homepage"
-  },
-  {
-    "sha": "d1fcf6385400dba249d056d19b933871db351bf6",
-    "at": "2026-06-11T01:18:20-04:00",
-    "type": "feat",
-    "scope": "signal-radar",
-    "subject": "SignalRadar OS — admin brand/digital-signal intelligence"
-  },
-  {
-    "sha": "64013ae60b1073307c9d99bf4c8912497dddeb1c",
-    "at": "2026-06-10T23:48:13-04:00",
-    "type": "chore",
-    "scope": "core",
-    "subject": "order exports 'types' condition first to silence tsup warnings"
-  },
-  {
-    "sha": "3b23823d4a5e4973316c34269bedc7e8bb80e362",
-    "at": "2026-06-10T23:44:15-04:00",
-    "type": "docs",
-    "scope": "claude",
-    "subject": "append SwingVantage product & design guide to CLAUDE.md"
   }
 ]
