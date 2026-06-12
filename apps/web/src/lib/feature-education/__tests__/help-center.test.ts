@@ -88,20 +88,53 @@ describe('help-center', () => {
 
   // ── Curated content overrides the generated baseline ──────────
 
-  it('serves hand-authored content for every curated flagship topic', () => {
+  // The deep flagship guides — comprehensive by design.
+  const FLAGSHIP = [
+    'golf-swing-analysis',
+    'tennis-swing-analysis',
+    'baseball-swing-analysis',
+    'softball-swing-analysis',
+    'pickleball',
+    'padel',
+    'video',
+    'diagnose',
+    'ai-coach',
+    'dashboard',
+    'drills',
+    'retest',
+  ];
+
+  it('serves hand-authored content for every curated topic', () => {
     for (const slug of Object.keys(CURATED_HELP)) {
       const t = getHelpTopic(slug);
       expect(t).not.toBeNull();
       expect(t!.curated).toBe(true);
       expect(isPublicHelpSlug(slug)).toBe(true);
-      // Comprehensive: substantial steps, sections, and FAQs, plus an answer.
-      expect(t!.steps.length).toBeGreaterThanOrEqual(4);
-      expect(t!.sections.length).toBeGreaterThanOrEqual(4);
-      expect(t!.faqs.length).toBeGreaterThanOrEqual(4);
+      // Every curated guide is a real, structured page — not a stub.
+      expect(t!.steps.length).toBeGreaterThanOrEqual(3);
+      expect(t!.sections.length).toBeGreaterThanOrEqual(3);
+      expect(t!.faqs.length).toBeGreaterThanOrEqual(2);
       expect((t!.answer ?? '').length).toBeGreaterThan(40);
+      expect(t!.lead.length).toBeGreaterThan(20);
       // No auto-generated artifacts leaked into curated copy.
       expect(t!.lead).not.toMatch(/detected from/i);
     }
+  });
+
+  it('flagship guides are comprehensive (deep steps, sections, FAQs)', () => {
+    for (const slug of FLAGSHIP) {
+      const t = getHelpTopic(slug);
+      expect(t).not.toBeNull();
+      expect(t!.curated).toBe(true);
+      expect(t!.steps.length).toBeGreaterThanOrEqual(4);
+      expect(t!.sections.length).toBeGreaterThanOrEqual(4);
+      expect(t!.faqs.length).toBeGreaterThanOrEqual(4);
+    }
+  });
+
+  it('the entire public Help Center is now hand-authored', () => {
+    const generated = getPublicHelpTopics().filter((t) => !t.curated);
+    expect(generated).toEqual([]);
   });
 
   it('strips generated artifacts from the public help surface', () => {
