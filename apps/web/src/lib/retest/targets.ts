@@ -125,3 +125,17 @@ export function deriveRetestResults(
 export function topRetestTarget(targets: RetestTarget[]): RetestTarget | null {
   return targets.find((t) => t.status.status !== 'active') ?? null;
 }
+
+/**
+ * The open due/overdue retest target for a specific sport, if any. Used by the
+ * video analyzer to auto-detect when a fresh upload is actually a retest of an
+ * outstanding finding, so it can turn on "compare to my last swing" and say so.
+ * Active-but-not-yet-due findings are intentionally excluded — re-filming early
+ * shouldn't be framed as a retest.
+ */
+export function findSportRetestTarget(
+  targets: RetestTarget[],
+  sport: SportId,
+): RetestTarget | null {
+  return targets.find((t) => t.sport === sport && t.status.status !== 'active') ?? null;
+}

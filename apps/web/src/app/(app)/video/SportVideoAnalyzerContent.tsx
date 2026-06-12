@@ -39,6 +39,7 @@ import { PoseSignalsCard } from '@/components/video/PoseSignalsCard';
 import { PoseDerivedIssuesCard } from '@/components/video/PoseDerivedIssuesCard';
 import { toPreviousSummary, downloadAnalysisJson, deleteVideoAnalysis } from '@/lib/video/history';
 import { useVideoHistory } from '@/lib/video/useVideoHistory';
+import { useRetests, findSportRetestTarget } from '@/lib/retest';
 import { useSwingAnalysis } from '@/lib/video/useSwingAnalysis';
 
 type AnalysisStep = 'upload' | 'configure' | 'analyzing' | 'results';
@@ -60,7 +61,14 @@ export function SportVideoAnalyzerContent() {
   // `useVideoHistory` reads localStorage after hydration and live-updates on
   // save/delete (no setState-in-effect needed).
   const history = useVideoHistory(selectedSport);
-  const [compareEnabled, setCompareEnabled] = useState(false);
+  // An open due/overdue retest for the selected sport means this upload is
+  // likely a retest: default "compare" on (and show a banner) until the user
+  // decides otherwise. `compareChoice` stays null until the user touches the
+  // toggle, so the auto-on is derived (no setState-in-effect) and overridable.
+  const { targets: retestTargets } = useRetests();
+  const retestTarget = findSportRetestTarget(retestTargets, selectedSport);
+  const [compareChoice, setCompareChoice] = useState<boolean | null>(null);
+  const compareEnabled = compareChoice ?? retestTarget !== null;
 
   // The analysis runs in a background task; this hook bridges to it and exposes
   // live stage/progress + the final result (and re-adopts an in-flight analysis
@@ -78,10 +86,11 @@ export function SportVideoAnalyzerContent() {
     ? 'results'
     : step;
 
-  // Reset the compare toggle whenever the user switches sport.
+  // Reset the compare choice whenever the user switches sport, so the new
+  // sport re-derives its own auto-on from any open retest.
   const handleSelectSport = useCallback((sport: SportId) => {
     setSelectedSport(sport);
-    setCompareEnabled(false);
+    setCompareChoice(null);
   }, []);
 
   useEffect(() => {
@@ -178,9 +187,10 @@ export function SportVideoAnalyzerContent() {
           latest={history[0] ?? null}
           recent={history}
           compareEnabled={compareEnabled}
-          onCompareChange={setCompareEnabled}
+          onCompareChange={setCompareChoice}
           onExport={downloadAnalysisJson}
           onDelete={handleDeleteHistory}
+          retestTarget={retestTarget}
         />
 
         <VideoProgress history={history} />

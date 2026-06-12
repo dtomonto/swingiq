@@ -25,6 +25,7 @@ export * from './diagnostic/rules';
 export * from './diagnostic/engine';
 export * from './diagnostic/persistence';
 export * from './diagnostic/profile-tolerance';
+export * from './diagnostic/data-quality';
 export * from './training/routines';
 export * from './import/normalizer';
 export * from './import/ai-mapping';

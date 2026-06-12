@@ -10,11 +10,19 @@ import {
   howToSchema,
   breadcrumbListSchema,
 } from '@/lib/seo/jsonLd';
-import { getHelpTopic, getHelpTopics, helpPath } from '@/lib/feature-education/help-center';
+import {
+  getHelpGroups,
+  getHelpTopic,
+  helpPath,
+  type HelpTopic,
+} from '@/lib/feature-education/help-center';
+import { isAdminUser } from '@/lib/auth/admin';
 
-// Every published help topic gets a static page; unknown slugs notFound().
+// Only PUBLIC feature guides get a pre-rendered static page. Admin & operator
+// guides are intentionally left out so they are never built into the static
+// export; they render on demand and only for an authenticated admin (below).
 export function generateStaticParams() {
-  return getHelpTopics().map((t) => ({ slug: t.slug }));
+  return getHelpGroups().user.map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata({
@@ -30,8 +38,10 @@ export async function generateMetadata({
     description: topic.seoDescription ?? topic.lead,
     path: helpPath(slug),
     ogType: 'article',
-    // Admin/operator help is real but internal-facing — keep it out of search.
-    noindex: topic.isAdmin,
+    // Only real, allowlisted feature guides are indexable. Admin guides and
+    // non-feature routes (internal modules, auth/legal/marketing, noise) are
+    // kept out of search even though the page still resolves.
+    noindex: !topic.indexable,
   });
 }
 
@@ -49,11 +59,22 @@ export default async function HelpTopicPage({
   const topic = getHelpTopic(slug);
   if (!topic) notFound();
 
+  // Admin & operator guides are internal-facing — only an allowlisted admin
+  // may read them. Everyone else gets a 404 (no hint the page exists).
+  if (topic.isAdmin && !(await isAdminUser())) notFound();
+
   const crumbs = [
     { name: 'Home', path: '/' },
     { name: 'Help Center', path: '/help' },
     { name: topic.title, path: helpPath(slug) },
   ];
+
+  // Resolve related guides for internal linking — keep only ones that exist
+  // and are themselves indexable (never link to a noindex/noise page).
+  const related: HelpTopic[] = (topic.related ?? [])
+    .map((s) => getHelpTopic(s))
+    .filter((t): t is HelpTopic => t !== null && t.indexable && t.slug !== slug)
+    .slice(0, 6);
 
   return (
     <main className="bg-background">
@@ -63,6 +84,7 @@ export default async function HelpTopicPage({
           headline: `${topic.title} — help`,
           description: topic.lead,
           path: helpPath(slug),
+          ...(topic.updated ? { datePublished: topic.updated, dateModified: topic.updated } : {}),
         })}
       />
       {topic.steps.length > 0 && (
@@ -94,6 +116,18 @@ export default async function HelpTopicPage({
           </p>
           <h1 className="mt-1 text-3xl font-bold md:text-4xl">{topic.title}</h1>
           <p className="mt-3 text-sm text-primary-foreground/90 md:text-base">{topic.lead}</p>
+          {topic.updated && (
+            <p className="mt-3 text-xs text-primary-foreground/70">
+              Last updated{' '}
+              <time dateTime={topic.updated}>
+                {new Date(topic.updated).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </time>
+            </p>
+          )}
           {topic.primaryRoute && (
             <Link
               href={topic.primaryRoute}
@@ -176,6 +210,29 @@ export default async function HelpTopicPage({
                   </summary>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
                 </details>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Related guides — internal linking */}
+        {related.length > 0 && (
+          <section aria-label="Related guides">
+            <h2 className="text-2xl font-bold text-foreground">Related guides</h2>
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {related.map((r) => (
+                <Link
+                  key={r.slug}
+                  href={helpPath(r.slug)}
+                  className="group flex flex-col rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary hover:bg-primary/5"
+                >
+                  <span className="text-sm font-bold text-foreground">{r.title}</span>
+                  <span className="mt-1 line-clamp-2 text-xs text-muted-foreground">{r.lead}</span>
+                  <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary">
+                    Read guide
+                    <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  </span>
+                </Link>
               ))}
             </div>
           </section>

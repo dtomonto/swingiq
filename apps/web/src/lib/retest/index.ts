@@ -21,6 +21,7 @@ export {
   deriveRetestResults,
   sortRetestTargets,
   topRetestTarget,
+  findSportRetestTarget,
 } from './targets';
 export {
   deriveGolfRetestTargets,
@@ -28,3 +29,4 @@ export {
   compareGolfSessions,
 } from './targets.golf';
 export { useRetests, type RetestView } from './useRetests';
+export { nextActionFor, type RetestNextAction, type RetestNextTone } from './next-action';

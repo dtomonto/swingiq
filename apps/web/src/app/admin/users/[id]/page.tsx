@@ -12,6 +12,8 @@ import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { NotConnected } from '@/components/admin/states/NotConnected';
 import { getAdminUser } from '@/lib/admin/data/users';
+import { computeUserPipelineHealth } from '@/lib/admin/data/pipeline-health';
+import { UserPipelineHealthCard } from '@/components/admin/PipelineHealthCard';
 import { sportLabel } from '@/lib/admin/sports';
 import { formatDate, formatRelativeTime, titleize } from '@/lib/admin/format';
 import { AdminUserActions } from './AdminUserActions';
@@ -107,6 +109,8 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
         <MetricStat label="Sessions" value={detail.sessions.length} />
         <MetricStat label="Analyses" value={detail.analyses.length} />
       </div>
+
+      <UserPipelineHealthCard health={computeUserPipelineHealth(detail.sessions, detail.analyses)} />
 
       <SectionCard
         title="AI usage"
