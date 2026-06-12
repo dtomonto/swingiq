@@ -8,3 +8,4 @@ export * from './coach-provider';
 export * from './narrative-provider';
 export * from './providers/gemini-intake';
 export * from './providers/gemini-test';
+export * from './providers/measurement';

@@ -36,10 +36,21 @@ export interface VideoIntakeProvider {
   intake(input: VideoIntakeInput): Promise<{ result: VideoIntakeResult | null } & ProviderRunMeta>;
 }
 
+/** Structural shape of lib/pose PoseMetrics (kept import-free so types.ts has no deps). */
+export interface PoseMetricsLike {
+  framesWithPose: number;
+  shoulderTurnRangeDeg: number;
+  spineAngleRangeDeg: number;
+  headSwayPct: number;
+  hipSwayPct: number;
+}
+
 export interface MeasurementInput {
   videoId: string;
   frames?: unknown;
   sport?: string | null;
+  /** Client-computed on-device pose metrics (MediaPipe runs in the browser). */
+  poseMetrics?: PoseMetricsLike | null;
 }
 
 export interface MeasurementProvider {
