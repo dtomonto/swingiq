@@ -14,12 +14,14 @@
 // fabricates mechanical feedback.
 // ============================================================
 
+import { randomUUID } from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import {
   getVisionProvider,
   resolveVisionSpeed,
   dataUrlToFrame,
   VisualSportSchema,
+  type AIVisualAnalysis,
   type VisionFrame,
   type VisionUserProfile,
   type PreviousAnalysisSummary,
@@ -34,6 +36,16 @@ import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
 import { recordAiCall } from '@/lib/ai/ai-ops/call-log';
 import type { AiProviderName } from '@/lib/ai/ai-ops/schemas';
 import { logServerAnalysisFailure } from '@/lib/reliability-os/ingest.server';
+import {
+  runAnalysisPipeline,
+  createBridgedIntakeProvider,
+  visionAnalysisToCoachSynthesis,
+  createOpenAICoachProvider,
+  getMeasurementProvider,
+  loadAIConfig,
+  type CoachSynthesis,
+  type PoseMetricsLike,
+} from '@/lib/ai/ai-ops';
 
 /** Map an orchestrator provider name onto the vision provider's env value. */
 function toVisionProviderEnv(p: AiProviderName): string {
@@ -62,6 +74,10 @@ interface VisionRequestBody {
   profile?: VisionUserProfile | null;
   previous?: PreviousAnalysisSummary | null;
   poseSummary?: string | null;
+  /** Optional structured on-device pose proxies — feeds the orchestrator's
+   *  measurement stage so the structured report can corroborate the frame
+   *  vision. Absent → the structured report runs on vision evidence alone. */
+  poseMetrics?: PoseMetricsLike | null;
   /** Speed tier requested by the client: fast | balanced | thorough. */
   speed?: string;
 }
@@ -252,7 +268,21 @@ export async function POST(req: NextRequest) {
 
   await recordAiSpend('video-vision');
   await meterUserAiUsage(userId, 'video-vision');
-  return NextResponse.json({ configured: true, analysis: outcome.analysis, aiMeta }, { status: 200 });
+
+  // AIO-4: layer the structured orchestrator over the SAME frame-vision result.
+  // This is a pure in-memory bridge — NO additional frames or video leave the
+  // device — that yields normalized evidence + the one-fix / one-plan / one-retest
+  // CoachSynthesis contract. It can never break the core response: any failure is
+  // caught and simply omits `structured`. The existing `analysis` field is
+  // untouched, so current clients keep working unchanged.
+  const structured = await buildStructuredReport(outcome.analysis, {
+    userId,
+    poseMetrics: body.poseMetrics ?? null,
+  });
+  return NextResponse.json(
+    { configured: true, analysis: outcome.analysis, aiMeta, structured },
+    { status: 200 },
+  );
 }
 
 /**
@@ -266,4 +296,79 @@ function classifyProviderError(error: string): string {
   if (e.includes('reach') || e.includes('network')) return 'network';
   if (e.includes('empty') || e.includes('schema') || e.includes('valid')) return 'invalid_output';
   return 'provider_error';
+}
+
+// ──────────────────────────────────────────────────────────────
+// AIO-4 structured report (additive) — runs the orchestrator over the bridged
+// frame-vision evidence. Coach refinement is opt-in + budget-gated; otherwise a
+// deterministic vision-derived contract is returned at no extra cost.
+// ──────────────────────────────────────────────────────────────
+
+interface StructuredReport {
+  coach: CoachSynthesis;
+  /** completed | needs_review — honest, from the blended evidence confidence. */
+  status: 'completed' | 'needs_review';
+  confidence: number;
+  /** Where the coach text came from: the AI coach, or the deterministic baseline. */
+  coachSource: 'ai' | 'derived';
+}
+
+function envOn(v: string | undefined): boolean {
+  const s = (v ?? '').trim().toLowerCase();
+  return s === 'true' || s === '1' || s === 'yes' || s === 'on';
+}
+
+async function buildStructuredReport(
+  analysis: AIVisualAnalysis,
+  ctx: { userId: string; poseMetrics: PoseMetricsLike | null },
+): Promise<StructuredReport | null> {
+  try {
+    const config = loadAIConfig(process.env);
+    // The paid AI coach refinement is OPT-IN (ENABLE_AIO_COACH_SYNTHESIS) and
+    // still respects the daily budget cap. When off, we return the deterministic
+    // vision-derived contract — no second paid call, no behavior/cost change.
+    const coachEnabled = envOn(process.env.ENABLE_AIO_COACH_SYNTHESIS) && !(await aiBudgetExceeded());
+
+    const result = await runAnalysisPipeline(
+      {
+        jobId: randomUUID(),
+        userId: ctx.userId,
+        videoId: randomUUID(),
+        videoRef: 'bridged-frames', // intake is the in-memory vision bridge, not a fetch
+        sport: analysis.meta.sport,
+        mode: 'standard',
+        poseMetrics: ctx.poseMetrics,
+      },
+      {
+        registry: {
+          videoIntake: createBridgedIntakeProvider(analysis),
+          measurement: ctx.poseMetrics ? getMeasurementProvider({ config }) : null,
+          coach: coachEnabled ? createOpenAICoachProvider({ config }) : null,
+          narrative: null,
+        },
+        config,
+      },
+    );
+
+    const usedAiCoach = coachEnabled && result.coach != null;
+    if (usedAiCoach) {
+      // Meter the extra coach call exactly like any other paid AI op.
+      await recordAiSpend('ai-coach-synthesis');
+      await meterUserAiUsage(ctx.userId, 'ai-coach-synthesis');
+    }
+
+    // Always hand back a structured contract: the AI coach when it ran, else the
+    // deterministic vision-derived baseline (honest, no fabrication).
+    const coach = result.coach ?? visionAnalysisToCoachSynthesis(analysis);
+    const confidence = result.evidence.confidenceScore;
+    const status = confidence >= config.system.humanReviewLowConfidenceThreshold ? 'completed' : 'needs_review';
+    return { coach, status, confidence, coachSource: usedAiCoach ? 'ai' : 'derived' };
+  } catch (err) {
+    // Non-fatal: the core `analysis` already succeeded; structured is a bonus.
+    console.error(
+      '[video-vision-analysis] structured orchestrator failed (non-fatal):',
+      err instanceof Error ? err.message : err,
+    );
+    return null;
+  }
 }
