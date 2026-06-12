@@ -1,5 +1,39 @@
 [
   {
+    "sha": "37ae1390b40b501a01fc074239a4a98d8f8a5944",
+    "at": "2026-06-12T08:07:33-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "11ffc911a444ea98789f169a4ec33a330fd3e436",
+    "at": "2026-06-12T08:07:33-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "6f749700230dd4e27c3dc06b2133e3296e4ce9cf",
+    "at": "2026-06-12T08:07:33-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "b565b7edf58b1b90f68c2777b4228621aec21334",
+    "at": "2026-06-12T08:07:33-04:00",
+    "type": "other",
+    "subject": "@ fix(feature-education): resync seed after merging master"
+  },
+  {
+    "sha": "3e7fd3fcb9d3f410138bfc3e997b6c35213fd660",
+    "at": "2026-06-12T08:06:36-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "f7bf5c7ac323246ace10c2eee4db3b3ef0afd823",
     "at": "2026-06-12T08:06:36-04:00",
     "type": "chore",
@@ -518,40 +552,5 @@
     "type": "feat",
     "scope": "design-v2",
     "subject": "Phase 7 — flag-gated document-surface masthead on Learn articles"
-  },
-  {
-    "sha": "104e538c823aa1bba9121cfc02baee7d95e343d0",
-    "at": "2026-06-11T09:46:20-04:00",
-    "type": "feat",
-    "scope": "signal-radar",
-    "subject": "Automation tab — turn on collection from the dashboard"
-  },
-  {
-    "sha": "7cde67e2068316f2258f93ac933b620c92689f83",
-    "at": "2026-06-11T09:36:44-04:00",
-    "type": "feat",
-    "scope": "admin-os",
-    "subject": "Phase 3 — interpreted briefing on the Command Center home"
-  },
-  {
-    "sha": "016a2432382679896a52111c337c2485bb1f062b",
-    "at": "2026-06-11T09:27:56-04:00",
-    "type": "feat",
-    "scope": "design-v2",
-    "subject": "Phase 6-A — flag-gated sport identity on homepage sport cards"
-  },
-  {
-    "sha": "45e54cbf806b32712be9f87dcfb5b63c9549644d",
-    "at": "2026-06-11T08:58:15-04:00",
-    "type": "feat",
-    "scope": "design-v2",
-    "subject": "Phase 6 — flag-gated sport-identity layer on landing heroes"
-  },
-  {
-    "sha": "a79241542718b990cc63745e707091d0413fd1af",
-    "at": "2026-06-11T09:26:42-04:00",
-    "type": "feat",
-    "scope": "tooling",
-    "subject": "npm run publish-safe — land commits on master without force-push"
   }
 ]
