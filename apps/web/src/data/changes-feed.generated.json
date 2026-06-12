@@ -1,31 +1,45 @@
 [
   {
-    "sha": "6904f37f208e9d20b626108ed00732abad5b9880",
-    "at": "2026-06-12T16:28:17-04:00",
+    "sha": "6960357d7397888f11648c7293126857b6f90ce9",
+    "at": "2026-06-12T16:45:17-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "7102dc3a2c4bd9522a75580ebadaab56badd2eac",
-    "at": "2026-06-12T16:28:17-04:00",
+    "sha": "52bc187a417aa25ce2cf7896945eca227851c688",
+    "at": "2026-06-12T16:45:17-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "c90fdd11c7b2f464283f842966ee68b5d5e68cab",
-    "at": "2026-06-12T16:28:17-04:00",
+    "sha": "f771851027209d5795b2e8ba7f1f5ec668a0779a",
+    "at": "2026-06-12T16:45:17-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "47fce82a9b111d5b02930136dfb509512156f92e",
-    "at": "2026-06-12T16:28:17-04:00",
+    "sha": "52bc38586b6a2df1fc7b41d5290fe5cedd50f536",
+    "at": "2026-06-12T16:45:17-04:00",
+    "type": "feat",
+    "scope": "design-system",
+    "subject": "add Figma Code Connect mappings for Button/Badge/Card"
+  },
+  {
+    "sha": "a6623f2d57be746e17b0835e33e4738ee7898777",
+    "at": "2026-06-12T16:40:25-04:00",
     "type": "feat",
     "scope": "analytics",
-    "subject": "PostHog UI setup as code (flags/funnels/dashboards/survey)"
+    "subject": "PostHog UI setup as code (flags/funnels/dashboards/survey) (#46)"
+  },
+  {
+    "sha": "f0ee19393fa22c09dd0489668969914986398ef7",
+    "at": "2026-06-12T16:23:20-04:00",
+    "type": "docs",
+    "scope": "ai-ops",
+    "subject": "reflect AIO-4 orchestrator across docs + admin surfaces (#45)"
   },
   {
     "sha": "a8901cbe5944a5f562188bd04d383e22806faac9",
@@ -537,19 +551,5 @@
     "type": "feat",
     "scope": "admin",
     "subject": "per-user + fleet-wide data-pipeline linkage health"
-  },
-  {
-    "sha": "5fd43b28a91df4bf65f101baa18823f0a267dcba",
-    "at": "2026-06-12T09:50:56-04:00",
-    "type": "feat",
-    "scope": "help",
-    "subject": "admin-gate operator guides + comprehensive flagship content & SEO"
-  },
-  {
-    "sha": "c121133007954b71fd0a2ac02928a59f47314df3",
-    "at": "2026-06-12T08:23:37-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
   }
 ]
