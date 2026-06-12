@@ -151,6 +151,26 @@ export const CATALOG: SetupTask[] = [
     ],
   },
   {
+    id: 'ai-coach-synthesis',
+    title: 'Sharpen video reports with AI coach synthesis (opt-in)',
+    plainEnglish:
+      'After the AI looks at the swing frames, this runs one more focused AI pass (the "orchestrator") that turns everything it saw into a crisp one-fix / one-plan / one-retest report. It is OFF by default — when off, the app still returns a structured report built from the vision result at no extra cost, so this is purely an upgrade. It costs one extra AI call per analysis and always respects your daily spend cap.',
+    category: 'ai',
+    priority: 'optional',
+    detect: { kind: 'env', anyOf: ['ENABLE_AIO_COACH_SYNTHESIS'] },
+    steps: [
+      'Make sure the AI Coach (OpenAI key) is already on — this builds on it.',
+      'In Vercel → Settings → Environment Variables, set ENABLE_AIO_COACH_SYNTHESIS to true.',
+      'Confirm a daily cap is set (see "Cap daily AI spending") — the extra call is budget-gated.',
+      'Redeploy. The video-analysis response now includes a sharpened `structured` coaching report.',
+    ],
+    inputs: [
+      { kind: 'env', value: 'ENABLE_AIO_COACH_SYNTHESIS', example: 'true', where: 'Vercel → Settings → Environment Variables' },
+    ],
+    learnMoreHref: '/admin/ai-provider',
+    learnMoreLabel: 'AI Provider Control Center',
+  },
+  {
     id: 'ocr',
     title: 'Turn on photo import (read numbers off a launch-monitor photo)',
     plainEnglish:
