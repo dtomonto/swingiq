@@ -1,5 +1,61 @@
 [
   {
+    "sha": "286d79f951e4a61151e5324b7e0f79c5dacfd499",
+    "at": "2026-06-12T11:24:10-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "9ebb3608bdbb6fdfbe8ec7d21bb7434e6424487f",
+    "at": "2026-06-12T11:24:10-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "24822154f6568b5f056a1505fd5b8196667dd193",
+    "at": "2026-06-12T11:24:10-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "6d03898c5835a458e6d3e25c53402f31d78e9c67",
+    "at": "2026-06-12T11:24:10-04:00",
+    "type": "feat",
+    "scope": "ai",
+    "subject": "AI Provider Control Center + live strategic routing"
+  },
+  {
+    "sha": "1ca0b328274591254e5b66ca5402abb1b9dcd78a",
+    "at": "2026-06-12T10:22:40-04:00",
+    "type": "feat",
+    "scope": "intelligence",
+    "subject": "P23 — data-quality scoring for imported sessions"
+  },
+  {
+    "sha": "46ba38d25d20ed27bb21fb00870a63cbf0df6d0f",
+    "at": "2026-06-12T10:11:53-04:00",
+    "type": "feat",
+    "scope": "admin",
+    "subject": "per-user + fleet-wide data-pipeline linkage health"
+  },
+  {
+    "sha": "5fd43b28a91df4bf65f101baa18823f0a267dcba",
+    "at": "2026-06-12T09:50:56-04:00",
+    "type": "feat",
+    "scope": "help",
+    "subject": "admin-gate operator guides + comprehensive flagship content & SEO"
+  },
+  {
+    "sha": "c121133007954b71fd0a2ac02928a59f47314df3",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "727e66c7ebb70f03dfe6b3b79d7258824783df50",
     "at": "2026-06-12T08:23:37-04:00",
     "type": "chore",
@@ -494,60 +550,5 @@
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
-  },
-  {
-    "sha": "3e823ed1fd85b76c44fc17a66d338e417bda1816",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "2db7ab2c39201ec93fbe7cc5327be69c7a70ac60",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "bb7e5336ee9d08297c544d8d4e53bcdc4ccac11b",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): await async admin/cron guards in API routes"
-  },
-  {
-    "sha": "c8a0c4102ed0b490ed8105f9e680a49c98a76e43",
-    "at": "2026-06-12T00:25:28-04:00",
-    "type": "feat",
-    "scope": "reliability",
-    "subject": "dedicated analysis-failure + cloud-sync-failure visibility"
-  },
-  {
-    "sha": "7a340c58d6d8de63fe2a5c35807a859a71a8ba49",
-    "at": "2026-06-12T01:07:39-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "12f8dd589c0bc351e71b07f56e947f5a25346e28",
-    "at": "2026-06-12T01:07:39-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "2bf9da364aff48a837394aa5d82596b8f4c1c6c6",
-    "at": "2026-06-12T01:07:39-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "0866cb28377452880672ffbfdd11a68cb817cb7d",
-    "at": "2026-06-12T01:07:39-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
   }
 ]
