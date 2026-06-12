@@ -18,6 +18,8 @@
 
 import { prepareSwing } from '@/lib/video/prepare-swing';
 import { saveVideoAnalysis, type SavedVideoAnalysis } from '@/lib/video/history';
+import { putClip } from '@/lib/video/clip-store';
+import { syncAnalysisToProfile } from '@/lib/video/profile-sync';
 import { logAnalysisFailure } from '@/lib/reliability-os/capture';
 import type { PoseMetrics } from '@/lib/pose';
 import type { AnalysisStage } from '@/components/video/AnalysisProgress';
@@ -183,6 +185,27 @@ async function runSwingAnalysisInner(
     declaredCameraAngle: input.declaredCameraAngle,
     analysis,
   });
+
+  // Record this swing as historical data ON THE PROFILE: write a metadata row
+  // into the account-synced store (video_analyses) so it (1) shows on the
+  // dashboard's Recent Analyses and (2) persists to the user's Supabase
+  // account when signed in — surviving new devices / a browser clear, and
+  // letting a profile hold an unbounded history (≥10). The full text analysis
+  // + replay clip stay device-local by privacy design (see history/clip-store).
+  // Best-effort: a store failure must never fail the analysis.
+  syncAnalysisToProfile({
+    sport: input.sport,
+    fileName: input.videoFile.name,
+    declaredCameraAngle: input.declaredCameraAngle,
+    analysis,
+  });
+
+  // Persist the original clip on-device (IndexedDB) so the user can replay it
+  // later from their swing history. Best-effort: a storage failure must never
+  // fail the analysis, so we keep going regardless of the outcome.
+  if (savedRecord) {
+    await putClip(savedRecord.id, input.videoFile, input.sport).catch(() => false);
+  }
 
   advance(sink, 'plan');
 

@@ -30,6 +30,7 @@ import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { logServerAnalysisFailure } from '@/lib/reliability-os/ingest.server';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -176,6 +177,15 @@ export async function POST(req: NextRequest) {
   if (!outcome.ok) {
     // Developer-safe diagnostic; the client shows a clean retry-able error.
     console.error('[video-vision-analysis] analysis failed:', outcome.error);
+    // Make the server-side failure visible in ReliabilityOS so admins see when
+    // analysis is breaking even if the browser never reports it. Best-effort,
+    // no-op when keyless; never blocks the error response on its own failure.
+    await logServerAnalysisFailure({
+      route: '/api/video-vision-analysis',
+      actionName: `analyze:${sport}`,
+      error: outcome.error,
+      metadata: { sport, provider: provider.id, model: provider.model, speed },
+    });
     return NextResponse.json(
       {
         configured: true,

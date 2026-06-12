@@ -109,6 +109,15 @@ export function dataUrlToFrame(dataUrl: string): VisionFrame | null {
 
 const MAX_OUTPUT_TOKENS = 4096;
 
+/**
+ * Hard timeout for a single provider HTTP call. Kept comfortably under the
+ * route's 60s `maxDuration` so a hung/slow provider aborts and surfaces an
+ * honest network error instead of letting the serverless function overflow its
+ * wall-clock budget. Each `requestRaw` (initial call + the one self-correction
+ * retry) gets its own window.
+ */
+const VISION_FETCH_TIMEOUT_MS = 55_000;
+
 type RawResult = { httpError: string } | { text: string };
 
 type FinalizeResult =
@@ -243,6 +252,7 @@ export class AnthropicVisionProvider extends BaseVisionProvider {
 
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
+      signal: AbortSignal.timeout(VISION_FETCH_TIMEOUT_MS),
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': this.apiKey as string,
@@ -289,6 +299,7 @@ export class OpenAIVisionProvider extends BaseVisionProvider {
 
     const res = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
+      signal: AbortSignal.timeout(VISION_FETCH_TIMEOUT_MS),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.apiKey as string}`,
@@ -336,6 +347,7 @@ export class GoogleVisionProvider extends BaseVisionProvider {
       `?key=${encodeURIComponent(this.apiKey as string)}`;
     const res = await fetch(url, {
       method: 'POST',
+      signal: AbortSignal.timeout(VISION_FETCH_TIMEOUT_MS),
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: system }] },

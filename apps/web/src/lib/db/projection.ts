@@ -190,6 +190,10 @@ export function videoAnalysisRow(v: LocalVideoAnalysis, userId: string): Row {
     phases_count: v.phases_count ?? 0,
     issues_count: v.issues_count ?? 0,
     primary_issue: v.primary_issue ?? null,
+    // Full analysis JSON — durable per-profile history (Supabase jsonb column).
+    // Null when only metadata is known; requires the `analysis` column migration
+    // (supabase-video-analysis-fulltext.sql) to be applied.
+    analysis: v.analysis ?? null,
     created_at: v.created_at ?? '',
   };
 }
@@ -426,6 +430,8 @@ export function rowToVideoAnalysis(r: Row): LocalVideoAnalysis {
     phases_count: Number(r.phases_count ?? 0),
     issues_count: Number(r.issues_count ?? 0),
     primary_issue: (r.primary_issue ?? null) as string | null,
+    // Tolerant of the column being absent on older deployments → null.
+    analysis: (r.analysis ?? null) as LocalVideoAnalysis['analysis'],
     created_at: str(r.created_at),
   };
 }

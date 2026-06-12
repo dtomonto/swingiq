@@ -13,8 +13,11 @@
 // existing data flows are completely unaffected. It is safe to be
 // missing, corrupt, or cleared at any time and never throws.
 //
-// Privacy: we store only the VALIDATED text analysis the AI returned
-// (plus a few labels). We never store the original video or frames.
+// Privacy: this record holds only the VALIDATED text analysis the AI
+// returned (plus a few labels) — never the frames sent to the AI. The
+// original clip is kept SEPARATELY and ON-DEVICE in IndexedDB (see
+// clip-store) so saved swings can be replayed; deletes here cascade to
+// that clip. Nothing is ever uploaded.
 // ============================================================
 
 import type {
@@ -22,6 +25,7 @@ import type {
   VisualSport,
   PreviousAnalysisSummary,
 } from '@swingiq/core';
+import { deleteClip, clearClips } from '@/lib/video/clip-store';
 
 const KEY = 'swingiq-video-analyses-v1';
 
@@ -177,9 +181,10 @@ export function latestForSport(sport: VisualSport): SavedVideoAnalysis | null {
   return historyForSport(sport)[0] ?? null;
 }
 
-/** Remove a single analysis by id. Never throws. */
+/** Remove a single analysis by id (and its on-device replay clip). Never throws. */
 export function deleteVideoAnalysis(id: string): void {
   writeAll(loadVideoHistory().filter((r) => r.id !== id));
+  void deleteClip(id);
 }
 
 /** Clear all saved analyses. Never throws. */
@@ -187,6 +192,7 @@ export function clearVideoHistory(): void {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.removeItem(KEY);
+    void clearClips();
     notifyChange();
   } catch {
     // ignore
