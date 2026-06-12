@@ -9,6 +9,7 @@
 
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 import { requireAdmin } from '@/lib/admin/context';
+import { isUserAiBlocked, getUserAiUsage, type UserAiUsageReport } from '@/lib/ai/user-ai';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 // Defense-in-depth (F4): the service-role client below bypasses RLS, so every
@@ -144,12 +145,23 @@ export interface AdminUserDetail {
   sessions: Array<{ id: string; name: string; sport: string; date: string; shot_count: number; swing_score: number | null; created_at: string }>;
   analyses: Array<{ id: string; sport: string; file_name: string; overall_score: number; primary_issue: string | null; created_at: string }>;
   community: { xp_total: number } | null;
+  /** Whether AI features are currently switched OFF for this account. */
+  aiBlocked: boolean;
+  /** Per-user AI usage over a trailing window (calls + est. cost, by feature). */
+  aiUsage: UserAiUsageReport;
 }
 
 export async function getAdminUser(id: string): Promise<AdminUserDetail> {
+  const emptyUsage: UserAiUsageReport = {
+    enabled: false, windowDays: 14, source: 'off',
+    totals: { calls: 0, cents: 0 },
+    today: { date: new Date().toISOString().slice(0, 10), calls: 0, cents: 0 },
+    byOp: [], byDay: [],
+  };
   const empty: AdminUserDetail = {
     connected: false, reason: NOT_CONNECTED_REASON, user: null,
     golfProfile: null, sportProfiles: [], sessions: [], analyses: [], community: null,
+    aiBlocked: false, aiUsage: emptyUsage,
   };
   if (!(await requireAdmin()).ok) return { ...empty, reason: UNAUTHORIZED_REASON };
   const client = createSupabaseAdminClient();
@@ -183,7 +195,7 @@ export async function getAdminUser(id: string): Promise<AdminUserDetail> {
     /* leave null */
   }
 
-  const [golfProfile, sportProfiles, sessions, analyses, community] = await Promise.all([
+  const [golfProfile, sportProfiles, sessions, analyses, community, aiBlocked, aiUsage] = await Promise.all([
     safe<Record<string, unknown> | null>(
       client.from('golfer_profiles').select('*').eq('user_id', id).maybeSingle(), null,
     ),
@@ -201,6 +213,8 @@ export async function getAdminUser(id: string): Promise<AdminUserDetail> {
     safe<{ xp_total: number } | null>(
       client.from('community_state').select('xp_total').eq('user_id', id).maybeSingle(), null,
     ),
+    isUserAiBlocked(id),
+    getUserAiUsage(id, 14),
   ]);
 
   return {
@@ -211,5 +225,7 @@ export async function getAdminUser(id: string): Promise<AdminUserDetail> {
     sessions: sessions ?? [],
     analyses: analyses ?? [],
     community,
+    aiBlocked,
+    aiUsage,
   };
 }

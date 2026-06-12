@@ -28,6 +28,8 @@ import {
   coachMessageFrom,
 } from '@/lib/ai-coach/structured';
 import { selectCoachTier } from '@/lib/ai-coach/tiering';
+import { getAuthenticatedUser } from '@/lib/supabase-server';
+import { isUserAiBlocked, meterUserAiUsage } from '@/lib/ai/user-ai';
 
 // ── Handler ───────────────────────────────────────────────────
 
@@ -69,6 +71,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: cached, grounding: validateGrounding(cached, ctx), cached: true });
   }
 
+  // Per-user AI switch: when an operator has turned AI off for this account,
+  // serve the same data-grounded placeholder the keyless/over-budget paths use
+  // instead of a paid call. Never fabricates a coaching answer.
+  const authedUser = await getAuthenticatedUser();
+  const userId = authedUser?.id ?? 'anonymous';
+  if (await isUserAiBlocked(userId)) {
+    const placeholder = buildDevPlaceholderResponse(ctx);
+    return NextResponse.json({ message: placeholder, grounding: validateGrounding(placeholder, ctx) });
+  }
+
   // ── Generate via the provider-agnostic AI gateway ─────────
   // The gateway centralizes provider/key resolution, model tiering, the daily
   // AI-budget kill-switch + spend recording, and a single transient-error
@@ -100,6 +112,7 @@ export async function POST(req: NextRequest) {
     const structured = coerceStructuredCoachResponse(result.parsed);
     const message = coachMessageFrom(structured, result.text);
     setCachedResponse(ctx, message);
+    await meterUserAiUsage(userId, 'ai-coach');
     // #2 grounding: surface whether the response's measurement claims trace to
     // the player's data so clients can flag/regenerate ungrounded answers.
     return NextResponse.json({ message, structured, grounding: validateGrounding(message, ctx) });

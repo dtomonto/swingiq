@@ -18,6 +18,7 @@ import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
+import { isUserAiBlocked, meterUserAiUsage } from '@/lib/ai/user-ai';
 
 interface VideoAnalysisRequest {
   video_id: string;
@@ -80,13 +81,21 @@ export async function POST(req: NextRequest) {
   });
 
   // Optionally augment with AI narrative — skipped when the global daily AI
-  // budget is spent (off unless AI_DAILY_BUDGET_CENTS is set).
+  // budget is spent (off unless AI_DAILY_BUDGET_CENTS is set) or when AI is
+  // switched off for this specific account. The deterministic analysis above
+  // always runs regardless; only the paid narrative is gated.
   const aiProvider = process.env.AI_PROVIDER;
-  if (aiProvider && !(await aiBudgetExceeded()) && analysis.detected_issues.length > 0) {
+  if (
+    aiProvider &&
+    !(await isUserAiBlocked(user_id)) &&
+    !(await aiBudgetExceeded()) &&
+    analysis.detected_issues.length > 0
+  ) {
     try {
       const narrative = await generateAINarrative(analysis, aiProvider);
       analysis.ai_narrative = narrative;
       await recordAiSpend('video-analysis');
+      await meterUserAiUsage(user_id, 'video-analysis');
     } catch (err) {
       // AI failure is non-fatal — return analysis without narrative
       console.error('[video-analysis] AI narrative failed:', err instanceof Error ? err.message : err);

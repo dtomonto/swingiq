@@ -28,6 +28,8 @@ import {
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
+import { getAuthenticatedUser } from '@/lib/supabase-server';
+import { isUserAiBlocked, meterUserAiUsage } from '@/lib/ai/user-ai';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -122,6 +124,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ configured: false, message }, { status: 200 });
   }
 
+  // Per-user AI switch: an operator can disable AI for a single account. When
+  // off, serve the same honest "not available" message instead of a paid call.
+  const authedUser = await getAuthenticatedUser();
+  const userId = authedUser?.id ?? 'anonymous';
+  if (await isUserAiBlocked(userId)) {
+    return NextResponse.json(
+      {
+        configured: false,
+        message:
+          'AI swing analysis is turned off for your account. Please contact support if you believe this is a mistake.',
+      },
+      { status: 200 },
+    );
+  }
+
   // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set).
   // When today's estimated budget is spent, pause paid vision calls instead of
   // running up the bill — surfaced honestly to the client as a temporary pause.
@@ -170,5 +187,6 @@ export async function POST(req: NextRequest) {
   }
 
   await recordAiSpend('video-vision');
+  await meterUserAiUsage(userId, 'video-vision');
   return NextResponse.json({ configured: true, analysis: outcome.analysis }, { status: 200 });
 }

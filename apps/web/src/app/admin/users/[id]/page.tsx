@@ -24,6 +24,11 @@ const GOLF_FIELDS = [
   'current_miss', 'desired_shot_shape', 'handedness', 'practice_frequency',
 ];
 
+/** Cents → "$0.00" (estimates are coarse upper bounds — see card footnote). */
+function usd(cents: number): string {
+  return `$${(cents / 100).toFixed(2)}`;
+}
+
 function KeyValues({ data, keys }: { data: Record<string, unknown>; keys: string[] }) {
   const shown = keys.filter((k) => data[k] !== undefined && data[k] !== null && data[k] !== '');
   if (shown.length === 0) return <p className="text-sm text-muted-foreground">No details recorded.</p>;
@@ -79,12 +84,15 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
         icon={UserCircle2}
         description={`Account ${u.id}`}
         actions={
-          <AdminUserActions userId={u.id} email={u.email} suspended={u.suspended} exportData={detail} />
+          <AdminUserActions userId={u.id} email={u.email} suspended={u.suspended} aiBlocked={detail.aiBlocked} exportData={detail} />
         }
       >
         <div className="mt-3 flex flex-wrap gap-2">
           <StatusBadge tone={u.suspended ? 'danger' : 'success'}>
             {u.suspended ? 'Suspended' : 'Active'}
+          </StatusBadge>
+          <StatusBadge tone={detail.aiBlocked ? 'warning' : 'success'}>
+            {detail.aiBlocked ? 'AI off' : 'AI on'}
           </StatusBadge>
           <StatusBadge tone={u.confirmed ? 'success' : 'warning'}>
             {u.confirmed ? 'Email confirmed' : 'Email unconfirmed'}
@@ -99,6 +107,56 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
         <MetricStat label="Sessions" value={detail.sessions.length} />
         <MetricStat label="Analyses" value={detail.analyses.length} />
       </div>
+
+      <SectionCard
+        title="AI usage"
+        description={`AI calls this account has made in the last ${detail.aiUsage.windowDays} days.`}
+      >
+        {detail.aiBlocked && (
+          <div className="mb-4 rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-sm text-warning-text">
+            AI is currently <strong>turned off</strong> for this account. AI features serve a non-AI fallback;
+            the deterministic parts of the app are unaffected. Use “Turn AI on” above to restore access.
+          </div>
+        )}
+        {!detail.aiUsage.enabled ? (
+          <p className="text-sm text-muted-foreground">
+            Per-user AI metering is not active yet — no AI provider is configured, so no paid calls occur.
+          </p>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <MetricStat label="Calls (window)" value={detail.aiUsage.totals.calls} />
+              <MetricStat label="Est. cost (window)" value={usd(detail.aiUsage.totals.cents)} />
+              <MetricStat label="Calls today" value={detail.aiUsage.today.calls} />
+              <MetricStat label="Est. cost today" value={usd(detail.aiUsage.today.cents)} />
+            </div>
+            {detail.aiUsage.byOp.length === 0 ? (
+              <p className="mt-4 text-sm text-muted-foreground">No AI calls recorded in this window.</p>
+            ) : (
+              <div className="mt-4 overflow-x-auto">
+                <table className="w-full text-left text-sm">
+                  <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                    <tr><th className="pb-2 pr-3">Feature</th><th className="pb-2 pr-3">Calls</th><th className="pb-2">Est. cost</th></tr>
+                  </thead>
+                  <tbody className="text-foreground">
+                    {detail.aiUsage.byOp.map((row) => (
+                      <tr key={row.op} className="border-t border-border">
+                        <td className="py-2 pr-3">{row.label}</td>
+                        <td className="py-2 pr-3 tabular-nums">{row.calls}</td>
+                        <td className="py-2 tabular-nums text-muted-foreground">{usd(row.cents)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            <p className="mt-3 text-[11px] text-muted-foreground/70">
+              Call counts are exact. Costs are coarse upper-bound estimates, not billed amounts.
+              {detail.aiUsage.source === 'memory' && ' Counts are per-instance (set UPSTASH_REDIS_REST_URL for durable, fleet-wide totals).'}
+            </p>
+          </>
+        )}
+      </SectionCard>
 
       {detail.golfProfile && (
         <SectionCard title="Golf profile">

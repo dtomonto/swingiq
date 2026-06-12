@@ -10,6 +10,7 @@
 import { NextResponse } from 'next/server';
 import { requireAdmin, contextCan } from '@/lib/admin/context';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { setUserAiBlocked } from '@/lib/ai/user-ai';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -32,6 +33,18 @@ export async function POST(
     /* empty body */
   }
   const action = body.action;
+
+  // Per-user AI switch — durable in Upstash (best-effort), no Supabase needed.
+  if (action === 'ai_disable' || action === 'ai_enable') {
+    await setUserAiBlocked(id, action === 'ai_disable');
+    return NextResponse.json({
+      ok: true,
+      action,
+      id,
+      actor: admin.email ?? 'header-admin',
+    });
+  }
+
   if (action !== 'suspend' && action !== 'restore') {
     return NextResponse.json({ error: 'invalid action' }, { status: 400 });
   }
