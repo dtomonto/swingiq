@@ -37,7 +37,7 @@ import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
 import { GrowthAgentsPanel } from '@/components/growth';
 import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
 import { format } from 'date-fns';
-import { useMemo } from 'react';
+import { useMemo, type ReactNode } from 'react';
 import type { SportId } from '@swingiq/core';
 import { SPORT_QUICK_ACTIONS } from '@swingiq/core';
 import { getSportConfig } from '@swingiq/core';
@@ -361,7 +361,7 @@ function BenchmarksDisclaimerCard({ sport }: { sport: SportId }) {
 
 // ── Main NonGolfDashboard ─────────────────────────────────────
 
-export function NonGolfDashboard() {
+export function NonGolfDashboard({ children }: { children?: ReactNode }) {
   const { activeSport, sportEmoji, sportName } = useSport();
   const { video_analyses, training } = useSwingVantageStore();
 
@@ -385,6 +385,10 @@ export function NonGolfDashboard() {
           </div>
         )}
       </div>
+
+      {/* Slotted directly under the greeting: Founding-Member progress, then the
+          intent front door and first-week plan (passed from the page). */}
+      {children}
 
       {/* BodySync: today's readiness + recommended session (only when enabled) */}
       <ReadinessSummaryCard />

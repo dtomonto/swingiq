@@ -60,7 +60,7 @@ export function IntentPicker() {
   };
 
   return (
-    <section className="px-4 sm:px-6 pt-6 max-w-5xl mx-auto" aria-label="What do you want to improve today?">
+    <section aria-label="What do you want to improve today?">
       <div className="rounded-2xl border border-border bg-card p-5">
         <h2 className="text-lg font-bold text-foreground">What do you want to improve today?</h2>
         <p className="text-sm text-muted-foreground mt-0.5">

@@ -10,20 +10,25 @@ import { useSport } from '@/contexts/SportContext';
 export default function DashboardPage() {
   const { isGolf } = useSport();
 
-  return (
+  // These render INSIDE the dashboard, immediately under the "Welcome back"
+  // greeting — so the personal greeting leads, with Founding-Member progress
+  // directly beneath it, then the low-cognition front door and the guided
+  // first-week plan. Each self-hides when not relevant.
+  const topNudges = (
     <>
-      {/* Low-cognition front door (§5.1): one question that routes into the
-          existing flow. The full sport dashboard renders right below. */}
-      <IntentPicker />
-      {/* Guided First 7 Days — leads new athletes through the activation→habit
-          path one step at a time; self-hides once they graduate (the retention
-          loop that gates Phase 2). */}
-      <FirstWeekPlanCard />
-      {/* Personal Founding-Member progress (profile + sessions) so the qualify
-          loop is visible where users land, not only on /profile. Self-hides
+      {/* Personal Founding-Member progress (profile + sessions). Self-hides
           once qualified or when the campaign is full. */}
       <FoundingProgressNudge />
-      {isGolf ? <DashboardContent /> : <NonGolfDashboard />}
+      {/* Low-cognition front door (§5.1): one question that routes into the flow. */}
+      <IntentPicker />
+      {/* Guided First 7 Days — self-hides once the athlete graduates. */}
+      <FirstWeekPlanCard />
     </>
+  );
+
+  return isGolf ? (
+    <DashboardContent>{topNudges}</DashboardContent>
+  ) : (
+    <NonGolfDashboard>{topNudges}</NonGolfDashboard>
   );
 }

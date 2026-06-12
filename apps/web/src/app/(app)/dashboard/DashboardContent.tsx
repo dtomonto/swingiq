@@ -43,7 +43,7 @@ import { format } from 'date-fns';
 import { useSport } from '@/contexts/SportContext';
 import { useDesignV2 } from '@/lib/design-v2-client';
 import { DashboardNextAction } from '@/components/dashboard/DashboardNextAction';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 
 // ── Quick Actions ─────────────────────────────────────────────
 
@@ -69,7 +69,7 @@ function dnaLabel(val: number | null | undefined, lowLabel: string, highLabel: s
 
 // ─────────────────────────────────────────────────────────────
 
-export function DashboardContent() {
+export function DashboardContent({ children }: { children?: ReactNode }) {
   const { profile, clubs, sessions, training, recordPractice } = useSwingVantageStore();
   const latestSession = useLatestDiagnosedSession();
   const overallScore = useOverallScore();
@@ -255,6 +255,10 @@ export function DashboardContent() {
           </div>
         </div>
       </div>
+
+      {/* Slotted directly under the greeting: Founding-Member progress, then the
+          intent front door and first-week plan (passed from the page). */}
+      {children}
 
       {/* Design V2: the one-next-action hero (sole glow). Flag OFF = unchanged. */}
       {designV2 && (
