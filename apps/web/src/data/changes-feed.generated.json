@@ -1,5 +1,40 @@
 [
   {
+    "sha": "e481a259e949e13b84b5f8e4ae3752baaa0eb355",
+    "at": "2026-06-12T12:34:11-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "86f17cd2d24384c76e92b9f892c27d65cc312ec0",
+    "at": "2026-06-12T12:34:11-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "f9cee06db2cf4a2dd288ee4cf1d6883368e2b9d4",
+    "at": "2026-06-12T12:34:11-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "e5cfed36b7aa1401142f70ee415505463d424648",
+    "at": "2026-06-12T12:34:11-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed JSON with regenerated feature registry"
+  },
+  {
+    "sha": "fe67d1b6e47794f9d830bd05bbcc2d68c9c563a0",
+    "at": "2026-06-12T12:20:51-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "0552ecc9e237ed820bc64c2b078e30ce5b52b1db",
     "at": "2026-06-12T12:20:51-04:00",
     "type": "chore",
@@ -517,40 +552,5 @@
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
-  },
-  {
-    "sha": "f7de5b67cba573a22a5dd29e89a3fceb913b2844",
-    "at": "2026-06-12T08:19:37-04:00",
-    "type": "feat",
-    "scope": "dashboard",
-    "subject": "live cross-tab store sync for in-visit reactivity"
-  },
-  {
-    "sha": "44768a44eee0241ab1c9a7d72d50c18949188f90",
-    "at": "2026-06-12T08:20:44-04:00",
-    "type": "fix",
-    "scope": "feature-education",
-    "subject": "resync seed (iter 2) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
-  },
-  {
-    "sha": "06af1d13dc80d7b52df4493779e76857ba8625f7",
-    "at": "2026-06-12T08:20:20-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "23405c74ecd2da61185fe3b2ad55b6580bc867d6",
-    "at": "2026-06-12T08:20:20-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "99e940ce42c0774808e64f94657011daa822463c",
-    "at": "2026-06-12T08:20:20-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
   }
 ]
