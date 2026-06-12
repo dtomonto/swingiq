@@ -16603,11 +16603,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/admin/users"
+        "ref": "/admin/users/:id"
       },
       {
         "kind": "route",
-        "ref": "/admin/users/:id"
+        "ref": "/admin/users"
       }
     ],
     "needsHumanReview": false,
@@ -16619,7 +16619,7 @@
       {
         "heading": "Setup",
         "body": [
-          "In the admin dashboard at /admin/users.",
+          "In the admin dashboard at /admin/users/:id.",
           "No special setup is required beyond admin access."
         ]
       },
@@ -16693,11 +16693,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/admin/users"
+        "ref": "/admin/users/:id"
       },
       {
         "kind": "route",
-        "ref": "/admin/users/:id"
+        "ref": "/admin/users"
       }
     ],
     "needsHumanReview": false,
@@ -16715,15 +16715,15 @@
       {
         "heading": "Before you start",
         "body": [
-          "In the admin dashboard at /admin/users.",
+          "In the admin dashboard at /admin/users/:id.",
           "No special permissions required."
         ]
       },
       {
         "heading": "Steps",
         "body": [
-          "1. Open Users — Go to /admin/users.",
-          "2. See what’s on screen — Users is where you users — detected from /admin/users.",
+          "1. Open Users — Go to /admin/users/:id.",
+          "2. See what’s on screen — Users is where you per-user + fleet-wide data-pipeline linkage health",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -16752,11 +16752,11 @@
     "steps": [
       {
         "title": "Open Users",
-        "detail": "Go to /admin/users."
+        "detail": "Go to /admin/users/:id."
       },
       {
         "title": "See what’s on screen",
-        "detail": "Users is where you users — detected from /admin/users."
+        "detail": "Users is where you per-user + fleet-wide data-pipeline linkage health"
       },
       {
         "title": "Take the main action",
@@ -16791,11 +16791,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/admin/users"
+        "ref": "/admin/users/:id"
       },
       {
         "kind": "route",
-        "ref": "/admin/users/:id"
+        "ref": "/admin/users"
       }
     ],
     "needsHumanReview": false,
@@ -16807,28 +16807,28 @@
       {
         "heading": "Recommended placements",
         "body": [
-          "Primary: tooltip on /admin/users.",
+          "Primary: tooltip on /admin/users/:id.",
           "Also consider: an empty-state explainer and a \"Learn more\" link to the tutorial."
         ]
       },
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Users: Users — detected from /admin/users."
+          "About Users: per-user + fleet-wide data-pipeline linkage health"
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — Users — detected from /admin/users. Take the first step to get started."
+          "Nothing here yet — per-user + fleet-wide data-pipeline linkage health Take the first step to get started."
         ]
       }
     ],
     "inAppHelp": {
-      "route": "/admin/users",
+      "route": "/admin/users/:id",
       "placement": "tooltip",
       "headline": "About Users",
-      "body": "Users — detected from /admin/users.",
+      "body": "per-user + fleet-wide data-pipeline linkage health",
       "learnMoreHref": "/help/admin-users"
     },
     "publishTarget": "in-app",
@@ -37838,11 +37838,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/help"
+        "ref": "/help/:slug"
       },
       {
         "kind": "route",
-        "ref": "/help/:slug"
+        "ref": "/help"
       }
     ],
     "needsHumanReview": false,
@@ -37854,8 +37854,8 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Help?\nA: Help — detected from /help.",
-          "Q: Where do I find Help?\nA: In the app at /help.",
+          "Q: What is Help?\nA: admin-gate operator guides + comprehensive flagship content & SEO",
+          "Q: Where do I find Help?\nA: In the app at /help/:slug.",
           "Q: How do I use Help?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Help?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
           "Q: What permissions do I need?\nA: No special permissions are required.",
@@ -37868,11 +37868,11 @@
     "faqs": [
       {
         "q": "What is Help?",
-        "a": "Help — detected from /help."
+        "a": "admin-gate operator guides + comprehensive flagship content & SEO"
       },
       {
         "q": "Where do I find Help?",
-        "a": "In the app at /help."
+        "a": "In the app at /help/:slug."
       },
       {
         "q": "How do I use Help?",
@@ -37919,11 +37919,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/help"
+        "ref": "/help/:slug"
       },
       {
         "kind": "route",
-        "ref": "/help/:slug"
+        "ref": "/help"
       }
     ],
     "needsHumanReview": false,
@@ -37941,15 +37941,15 @@
       {
         "heading": "Before you start",
         "body": [
-          "In the app at /help.",
+          "In the app at /help/:slug.",
           "No special permissions required."
         ]
       },
       {
         "heading": "Steps",
         "body": [
-          "1. Open Help — Go to /help.",
-          "2. See what’s on screen — Help is where you help — detected from /help.",
+          "1. Open Help — Go to /help/:slug.",
+          "2. See what’s on screen — Help is where you admin-gate operator guides + comprehensive flagship content & SEO",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -37978,11 +37978,11 @@
     "steps": [
       {
         "title": "Open Help",
-        "detail": "Go to /help."
+        "detail": "Go to /help/:slug."
       },
       {
         "title": "See what’s on screen",
-        "detail": "Help is where you help — detected from /help."
+        "detail": "Help is where you admin-gate operator guides + comprehensive flagship content & SEO"
       },
       {
         "title": "Take the main action",
@@ -38017,11 +38017,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/help"
+        "ref": "/help/:slug"
       },
       {
         "kind": "route",
-        "ref": "/help/:slug"
+        "ref": "/help"
       }
     ],
     "needsHumanReview": false,
@@ -38033,28 +38033,28 @@
       {
         "heading": "Recommended placements",
         "body": [
-          "Primary: tooltip on /help.",
+          "Primary: tooltip on /help/:slug.",
           "Also consider: an empty-state explainer and a \"Learn more\" link to the tutorial."
         ]
       },
       {
         "heading": "Tooltip copy",
         "body": [
-          "About Help: Help — detected from /help."
+          "About Help: admin-gate operator guides + comprehensive flagship content & SEO"
         ]
       },
       {
         "heading": "Empty-state copy",
         "body": [
-          "Nothing here yet — Help — detected from /help. Take the first step to get started."
+          "Nothing here yet — admin-gate operator guides + comprehensive flagship content & SEO Take the first step to get started."
         ]
       }
     ],
     "inAppHelp": {
-      "route": "/help",
+      "route": "/help/:slug",
       "placement": "tooltip",
       "headline": "About Help",
-      "body": "Help — detected from /help.",
+      "body": "admin-gate operator guides + comprehensive flagship content & SEO",
       "learnMoreHref": "/help/help"
     },
     "publishTarget": "in-app",
@@ -38077,35 +38077,35 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/help"
+        "ref": "/help/:slug"
       },
       {
         "kind": "route",
-        "ref": "/help/:slug"
+        "ref": "/help"
       }
     ],
     "needsHumanReview": false,
     "createdAt": "2026-06-11T00:00:00.000Z",
     "updatedAt": "2026-06-11T00:00:00.000Z",
     "title": "Help — how it works | SwingVantage",
-    "summary": "Help — detected from /help. Learn what Help does and how to use it.",
+    "summary": "admin-gate operator guides + comprehensive flagship content & SEO Learn what Help does and how to use it.",
     "sections": [
       {
         "heading": "Answer (summary)",
         "body": [
-          "Help lets you help — detected from /help. In the app at /help."
+          "Help lets you admin-gate operator guides + comprehensive flagship content & SEO In the app at /help/:slug."
         ]
       },
       {
         "heading": "What it is",
         "body": [
-          "Help — detected from /help."
+          "admin-gate operator guides + comprehensive flagship content & SEO"
         ]
       },
       {
         "heading": "How to do it",
         "body": [
-          "1. Open /help.",
+          "1. Open /help/:slug.",
           "2. Take the main action the screen guides you through.",
           "3. Review and save your result."
         ]
@@ -38113,7 +38113,7 @@
       {
         "heading": "FAQ",
         "body": [
-          "Where do I find Help? In the app at /help.",
+          "Where do I find Help? In the app at /help/:slug.",
           "Is Help free? Core swing analysis is free."
         ]
       },
@@ -38127,7 +38127,7 @@
     ],
     "seo": {
       "title": "Help — how it works | SwingVantage",
-      "description": "Help — detected from /help. Learn what Help does and how to use it.",
+      "description": "admin-gate operator guides + comprehensive flagship content & SEO Learn what Help does and how to use it.",
       "slug": "help/help",
       "keywords": [
         "help",
@@ -38140,7 +38140,7 @@
         "HowTo",
         "FAQPage"
       ],
-      "aeoAnswer": "Help lets you help — detected from /help. In the app at /help."
+      "aeoAnswer": "Help lets you admin-gate operator guides + comprehensive flagship content & SEO In the app at /help/:slug."
     },
     "publishTarget": "seo",
     "security": {
@@ -38162,11 +38162,11 @@
     "groundedIn": [
       {
         "kind": "route",
-        "ref": "/help"
+        "ref": "/help/:slug"
       },
       {
         "kind": "route",
-        "ref": "/help/:slug"
+        "ref": "/help"
       }
     ],
     "needsHumanReview": false,
@@ -38178,7 +38178,7 @@
       {
         "heading": "What it does",
         "body": [
-          "Help — detected from /help."
+          "admin-gate operator guides + comprehensive flagship content & SEO"
         ]
       },
       {
@@ -38196,15 +38196,15 @@
       {
         "heading": "When to use it",
         "body": [
-          "In the app at /help.",
+          "In the app at /help/:slug.",
           "Use it whenever you want the outcome this feature provides."
         ]
       },
       {
         "heading": "Step by step",
         "body": [
-          "1. Open Help — Go to /help.",
-          "2. See what’s on screen — Help is where you help — detected from /help.",
+          "1. Open Help — Go to /help/:slug.",
+          "2. See what’s on screen — Help is where you admin-gate operator guides + comprehensive flagship content & SEO",
           "3. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "4. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "5. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -38233,7 +38233,7 @@
       {
         "heading": "Related & next",
         "body": [
-          "Open it directly: /help",
+          "Open it directly: /help/:slug",
           "See the full release note for this feature for what changed and why.",
           "Browse the Tutorial Center for related walkthroughs."
         ]
@@ -38242,11 +38242,11 @@
     "steps": [
       {
         "title": "Open Help",
-        "detail": "Go to /help."
+        "detail": "Go to /help/:slug."
       },
       {
         "title": "See what’s on screen",
-        "detail": "Help is where you help — detected from /help."
+        "detail": "Help is where you admin-gate operator guides + comprehensive flagship content & SEO"
       },
       {
         "title": "Take the main action",
@@ -64602,7 +64602,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/admin/AiUserCapEditor.tsx"
+        "ref": "components/admin/PipelineHealthCard.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -64614,7 +64614,7 @@
       {
         "heading": "Frequently asked questions",
         "body": [
-          "Q: What is Admin?\nA: per-user daily AI spend cap, editable from the dashboard",
+          "Q: What is Admin?\nA: per-user + fleet-wide data-pipeline linkage health",
           "Q: Where do I find Admin?\nA: This is an internal capability without a dedicated screen yet.",
           "Q: How do I use Admin?\nA: Open it, take the main action the screen guides you to, and review your saved result. See the tutorial for step-by-step help.",
           "Q: Why don’t I see Admin?\nA: Make sure you’re signed in. Some features appear only after you’ve added your sport or first session.",
@@ -64628,7 +64628,7 @@
     "faqs": [
       {
         "q": "What is Admin?",
-        "a": "per-user daily AI spend cap, editable from the dashboard"
+        "a": "per-user + fleet-wide data-pipeline linkage health"
       },
       {
         "q": "Where do I find Admin?",
@@ -64679,7 +64679,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/admin/AiUserCapEditor.tsx"
+        "ref": "components/admin/PipelineHealthCard.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -64704,7 +64704,7 @@
       {
         "heading": "Steps",
         "body": [
-          "1. See what’s on screen — Admin is where you per-user daily AI spend cap, editable from the dashboard",
+          "1. See what’s on screen — Admin is where you per-user + fleet-wide data-pipeline linkage health",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -64733,7 +64733,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Admin is where you per-user daily AI spend cap, editable from the dashboard"
+        "detail": "Admin is where you per-user + fleet-wide data-pipeline linkage health"
       },
       {
         "title": "Take the main action",
@@ -64768,7 +64768,7 @@
     "groundedIn": [
       {
         "kind": "component",
-        "ref": "components/admin/AiUserCapEditor.tsx"
+        "ref": "components/admin/PipelineHealthCard.tsx"
       }
     ],
     "needsHumanReview": false,
@@ -64780,7 +64780,7 @@
       {
         "heading": "What it does",
         "body": [
-          "per-user daily AI spend cap, editable from the dashboard"
+          "per-user + fleet-wide data-pipeline linkage health"
         ]
       },
       {
@@ -64805,7 +64805,7 @@
       {
         "heading": "Step by step",
         "body": [
-          "1. See what’s on screen — Admin is where you per-user daily AI spend cap, editable from the dashboard",
+          "1. See what’s on screen — Admin is where you per-user + fleet-wide data-pipeline linkage health",
           "2. Take the main action — Use the primary control to run the feature — the screen guides you through it.",
           "3. Review the result — Read what comes back. Anything based on visual analysis is a smart starting point, not a measurement.",
           "4. Save or come back — Your work is tied to your private account and synced across devices, so you can pick up later."
@@ -64842,7 +64842,7 @@
     "steps": [
       {
         "title": "See what’s on screen",
-        "detail": "Admin is where you per-user daily AI spend cap, editable from the dashboard"
+        "detail": "Admin is where you per-user + fleet-wide data-pipeline linkage health"
       },
       {
         "title": "Take the main action",
