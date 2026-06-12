@@ -1,31 +1,126 @@
 [
   {
-    "sha": "e7712a8dd25cca78a835ace6a317036f98821cf7",
-    "at": "2026-06-12T01:18:01-04:00",
+    "sha": "f7bf5c7ac323246ace10c2eee4db3b3ef0afd823",
+    "at": "2026-06-12T08:06:36-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "15dc3e4c629bc36eb4d9e701c4f5ab87d7d40ff4",
-    "at": "2026-06-12T01:18:01-04:00",
+    "sha": "5ffccf9089f98760799b9e8b954a638480ef46a7",
+    "at": "2026-06-12T08:06:36-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "1a1baa0fb2f6ff6df7b20bb8b322626dd1d621df",
-    "at": "2026-06-12T01:18:01-04:00",
+    "sha": "5daf33110e8aaa4f1c060d38dda536bfaafff139",
+    "at": "2026-06-12T08:06:36-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "523a493b3f24251c58fcad466f61d5a2464af8be",
-    "at": "2026-06-12T01:18:01-04:00",
+    "sha": "b4e93e07f3ed65106a0f47932bfab7f21c7ed6dc",
+    "at": "2026-06-12T08:06:36-04:00",
+    "type": "other",
+    "subject": "Merge remote-tracking branch 'origin/master' into agent/secrets-vault-config"
+  },
+  {
+    "sha": "61d3a72a55417b176f47d6c32908a0a40f65d3a1",
+    "at": "2026-06-12T07:59:44-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "e8d1043dd11af92fa0f6d0ddf77530c0d48f2d88",
+    "at": "2026-06-12T07:59:44-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "9e2396262e2b26db82ec1f390d43b2ea3bd25e6a",
+    "at": "2026-06-12T07:59:44-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "eb6b57c7af4b558b512ceba48d1fea5f7acc9861",
+    "at": "2026-06-12T07:59:44-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "f9bd0b3a46b0529cf12f942acfeb9b340b3900f7",
+    "at": "2026-06-12T07:59:44-04:00",
+    "type": "other",
+    "subject": "@ ci(growth): add workflow_dispatch to Growth CI"
+  },
+  {
+    "sha": "7e8546d8e000f1751200d69927d6c03023d7b199",
+    "at": "2026-06-12T01:16:44-04:00",
+    "type": "feat",
+    "scope": "drills",
+    "subject": "comprehensive per-drill detail pages from a unified catalog"
+  },
+  {
+    "sha": "e4416483d5dfa5a0d7d97e122c17c9c5909de2d3",
+    "at": "2026-06-12T00:43:59-04:00",
+    "type": "feat",
+    "scope": "help",
+    "subject": "build the /help Help Center so every in-app \"Learn more\" resolves"
+  },
+  {
+    "sha": "84be0420418a1f233351ac813be226451632fe72",
+    "at": "2026-06-12T07:46:48-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "0ea341188365b83f177446e6f35a7b91dc12b85f",
+    "at": "2026-06-12T07:46:48-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "f98c61add2152bd2b03371c9076100517713b66c",
+    "at": "2026-06-12T01:20:34-04:00",
+    "type": "feat",
+    "scope": "ai",
+    "subject": "per-user daily AI spend cap, editable from the dashboard"
+  },
+  {
+    "sha": "5a3382970a7a8da57d5cb0515cb03a030b4fc12a",
+    "at": "2026-06-12T07:46:48-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "6e0107c1b951a6d96ced9c6647bb1d9812cca2b5",
+    "at": "2026-06-12T07:46:48-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "4ab0098aa09454b51c4cdac7a2e16c66edea7c27",
+    "at": "2026-06-12T07:46:48-04:00",
+    "type": "other",
+    "subject": "@ fix(feature-education): resync committed seed with the settled registry"
+  },
+  {
+    "sha": "82999d30d01c54aa9bd641b354377168ca6812a9",
+    "at": "2026-06-12T07:45:50-04:00",
     "type": "feat",
     "scope": "motion-lab",
-    "subject": "add 3D avatar viewer + AI vision review tab"
+    "subject": "3D avatar viewer + AI vision review tab (#27)"
   },
   {
     "sha": "fec7a244db99b85d3ec5d9424edb2c6e24dae210",
@@ -40,6 +135,40 @@
     "type": "feat",
     "scope": "admin",
     "subject": "Copy/Download any alert or finding as a Claude Code fix prompt"
+  },
+  {
+    "sha": "78b12bd67ed88f0f5add8e464e1c0fc9e05c90d3",
+    "at": "2026-06-12T01:12:27-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "e3db49054709ff6dd6d54aacb812b949bf0b9e69",
+    "at": "2026-06-12T01:12:27-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "3e823ed1fd85b76c44fc17a66d338e417bda1816",
+    "at": "2026-06-12T01:12:27-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "2db7ab2c39201ec93fbe7cc5327be69c7a70ac60",
+    "at": "2026-06-12T01:12:27-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "bb7e5336ee9d08297c544d8d4e53bcdc4ccac11b",
+    "at": "2026-06-12T01:12:27-04:00",
+    "type": "other",
+    "subject": "@ fix(feature-education): await async admin/cron guards in API routes"
   },
   {
     "sha": "c8a0c4102ed0b490ed8105f9e680a49c98a76e43",
@@ -103,6 +232,40 @@
     "type": "feat",
     "scope": "ai-ops",
     "subject": "measurement provider abstraction — MediaPipe adapter (AIO-2)"
+  },
+  {
+    "sha": "414471ada1774f194eb2f74fdd8fde5925d4cb3f",
+    "at": "2026-06-12T00:21:54-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "506454bea5f40346941130166f685400fd2fd8a0",
+    "at": "2026-06-12T00:21:54-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "5fced5af36de5e31ebb9d38af16d51f55b99898a",
+    "at": "2026-06-12T00:21:54-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "30fe17072e4876f79045d08ad80ba1641adb6bf8",
+    "at": "2026-06-12T00:21:54-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "2b3a27bb679c460f091096f5b579e600bef4a5e9",
+    "at": "2026-06-12T00:21:54-04:00",
+    "type": "other",
+    "subject": "@ feat(secrets): activate the in-dashboard key vault + manage AI provider config"
   },
   {
     "sha": "600e093e2116d74cd111a54449be354a80145831",
@@ -390,173 +553,5 @@
     "type": "feat",
     "scope": "tooling",
     "subject": "npm run publish-safe — land commits on master without force-push"
-  },
-  {
-    "sha": "761b2cf7735ebd6dce678ea1e6e1d28db7df5817",
-    "at": "2026-06-11T09:11:07-04:00",
-    "type": "feat",
-    "scope": "signal-radar",
-    "subject": "route conversions into Feedback + PublishingOS"
-  },
-  {
-    "sha": "65270abc91554778d3d1541219eaa9e179406e10",
-    "at": "2026-06-11T09:11:06-04:00",
-    "type": "feat",
-    "scope": "signal-radar",
-    "subject": "scheduled keyless feed collection (RSS poller + cron)"
-  },
-  {
-    "sha": "8cb497b766e6be96a4f47dd4c711e2251315781c",
-    "at": "2026-06-11T08:28:07-04:00",
-    "type": "feat",
-    "scope": "design-v2",
-    "subject": "Phase 5 — flag-gated one-next-action dashboard hero"
-  },
-  {
-    "sha": "58f60a3a5272e4a83e7e1034994b6015c9d22382",
-    "at": "2026-06-11T07:55:36-04:00",
-    "type": "feat",
-    "scope": "design-v2",
-    "subject": "re-land Phase 0/3/4 stack orphaned by concurrent master rebase"
-  },
-  {
-    "sha": "c5c1bbd4e5d0a96b49d673cfcfa5b303c1a03840",
-    "at": "2026-06-11T09:01:57-04:00",
-    "type": "feat",
-    "scope": "admin-os",
-    "subject": "Phase 2 — component upgrades (additive, backward-compatible)"
-  },
-  {
-    "sha": "41b41126902a40e8a4ee6623c3230b365d968de4",
-    "at": "2026-06-11T08:54:32-04:00",
-    "type": "fix",
-    "scope": "seo",
-    "subject": "refresh og-default share image to the dark \"B\" design"
-  },
-  {
-    "sha": "4acbdf1b9de7de48ff68a2f49f56fcfff37410d9",
-    "at": "2026-06-11T08:50:04-04:00",
-    "type": "feat",
-    "scope": "signal-radar",
-    "subject": "authenticated webhook ingest + durable signal store"
-  },
-  {
-    "sha": "db083d0f27f169a964b82ae4c15ac8ef790d6236",
-    "at": "2026-06-11T07:57:44-04:00",
-    "type": "feat",
-    "scope": "admin-os",
-    "subject": "Phase 1 — nav by intent, plain-noun labels, F8 fix"
-  },
-  {
-    "sha": "60f8e5d5b8164212128e63ddb58b7c48c6a0cc2d",
-    "at": "2026-06-11T08:24:30-04:00",
-    "type": "feat",
-    "scope": "hero",
-    "subject": "photoreal multi-sport kinematic swing panel"
-  },
-  {
-    "sha": "bf4cd9e85335e4d71e874c4a24548690c5c3e15e",
-    "at": "2026-06-11T08:22:14-04:00",
-    "type": "feat",
-    "scope": "signal-radar",
-    "subject": "configurable alert rules (severity threshold + muting)"
-  },
-  {
-    "sha": "ba1058fe6d6c8159632e0f3cdc2de3fb0788bba5",
-    "at": "2026-06-11T08:16:57-04:00",
-    "type": "fix",
-    "scope": "video-tooling",
-    "subject": "robust poster frame selection in library recorder + welcome TTS retry"
-  },
-  {
-    "sha": "a3ef55f2e5e6ee427c6f8c79c745a29b7e536dc9",
-    "at": "2026-06-11T07:57:23-04:00",
-    "type": "chore",
-    "scope": "library",
-    "subject": "re-record all 20 training videos + welcome in the B (Dark Performance) design"
-  },
-  {
-    "sha": "458836734084b5fad842411e335e475a44ad5f5b",
-    "at": "2026-06-11T07:55:06-04:00",
-    "type": "style",
-    "scope": "signal-radar",
-    "subject": "tokenize Sport Intel + Strategy Brief for Coach Mode"
-  },
-  {
-    "sha": "0bed4eb9f8dfcbb27d5b4009fe175e2ad1d669f1",
-    "at": "2026-06-11T07:44:11-04:00",
-    "type": "feat",
-    "scope": "signal-radar",
-    "subject": "Sport Intelligence views + Strategy Brief (+classifier fix)"
-  },
-  {
-    "sha": "42893164c7714ddb373893b9d08ed043fb733314",
-    "at": "2026-06-11T07:37:43-04:00",
-    "type": "fix",
-    "scope": "video-studio",
-    "subject": "content-aware tutorial poster extraction"
-  },
-  {
-    "sha": "6df26f968bbeafe92d2afdfc27c4d38ab3b8d758",
-    "at": "2026-06-11T07:33:31-04:00",
-    "type": "fix",
-    "scope": "admin-os",
-    "subject": "Coach Mode cleanup — residual accent colors to tokens"
-  },
-  {
-    "sha": "a2e8cd4ec8e8d173a7e488632dd737e8c86b8fff",
-    "at": "2026-06-11T07:33:20-04:00",
-    "type": "fix",
-    "scope": "tutorial",
-    "subject": "real poster frames for 25 walkthrough videos"
-  },
-  {
-    "sha": "4f109164ff09b38675b026d88afd17a8540d7b60",
-    "at": "2026-06-11T07:23:52-04:00",
-    "type": "fix",
-    "scope": "design-v2",
-    "subject": "restore design-v2 flag module to un-break master"
-  },
-  {
-    "sha": "9b8b7f968a9038f642f7bbafb128261b773ed5c6",
-    "at": "2026-06-11T07:18:12-04:00",
-    "type": "feat",
-    "scope": "admin-os",
-    "subject": "Phase 0 — flip admin chrome to light Coach Mode tokens"
-  },
-  {
-    "sha": "38464da224de73e221c101922d2dc4c713ea6a62",
-    "at": "2026-06-11T07:17:04-04:00",
-    "type": "feat",
-    "scope": "design-v2",
-    "subject": "Phase 4 pt2 — flag-gated \"capture is paper\" upload zone"
-  },
-  {
-    "sha": "de465447454a048059447fddec189697529a0e7b",
-    "at": "2026-06-11T07:14:31-04:00",
-    "type": "fix",
-    "scope": "design-v2",
-    "subject": "scope data-sport to <html> so sport @theme utilities resolve"
-  },
-  {
-    "sha": "79e13968a351b71bb3346950296890bf2ab42493",
-    "at": "2026-06-11T07:05:56-04:00",
-    "type": "chore",
-    "scope": "tutorial",
-    "subject": "re-record welcome video for the dark \"B\" homepage"
-  },
-  {
-    "sha": "d1fcf6385400dba249d056d19b933871db351bf6",
-    "at": "2026-06-11T01:18:20-04:00",
-    "type": "feat",
-    "scope": "signal-radar",
-    "subject": "SignalRadar OS — admin brand/digital-signal intelligence"
-  },
-  {
-    "sha": "64013ae60b1073307c9d99bf4c8912497dddeb1c",
-    "at": "2026-06-10T23:48:13-04:00",
-    "type": "chore",
-    "scope": "core",
-    "subject": "order exports 'types' condition first to silence tsup warnings"
   }
 ]
