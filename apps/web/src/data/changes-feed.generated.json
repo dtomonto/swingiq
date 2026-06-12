@@ -1,86 +1,170 @@
 [
   {
-    "sha": "38592ea39e23bbff97059c81710af47ccf82d51f",
-    "at": "2026-06-12T12:03:20-04:00",
+    "sha": "51e57500ddbe896d4f49c600bc2c528b152b8c19",
+    "at": "2026-06-12T11:58:08-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "ce4703c88b727a292f0a38246d5d8383041db600",
-    "at": "2026-06-12T12:03:20-04:00",
+    "sha": "57549953b26933613df0b142fb95e139af0f7b8d",
+    "at": "2026-06-12T11:58:08-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "e0b3b3f2169893f5a7b05b3028c1850561ba3c5e",
-    "at": "2026-06-12T12:03:20-04:00",
+    "sha": "53ebfb4ce11b37c5e1c418e44d54acc87b02c574",
+    "at": "2026-06-12T11:58:08-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "ce1d6069ae851664e751de7e87ec06c4427efdb1",
-    "at": "2026-06-12T12:03:20-04:00",
-    "type": "other",
-    "subject": "Merge remote-tracking branch 'origin/master' into agent/posthog-p0"
+    "sha": "29bdda5f3356e3ca1ea9c07896dff35581ef9153",
+    "at": "2026-06-12T11:58:08-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
   },
   {
-    "sha": "b252e888a7910fa9e07fd2629f8639fe4cc82bb7",
-    "at": "2026-06-12T11:33:25-04:00",
-    "type": "feat",
-    "scope": "retest",
-    "subject": "auto-detect a retest on re-upload + show what it is"
-  },
-  {
-    "sha": "2c32c9a4d9e0a46b295f4bbadfde754b840207d9",
-    "at": "2026-06-12T11:23:50-04:00",
-    "type": "feat",
-    "scope": "retest",
-    "subject": "add Retest to the mobile bottom nav"
-  },
-  {
-    "sha": "894edf84dfab52527f0f4a3c9c7b7c2fe9d8ebc8",
-    "at": "2026-06-12T11:13:53-04:00",
-    "type": "feat",
-    "scope": "retest",
-    "subject": "turn every result into a next move"
-  },
-  {
-    "sha": "80c04a8c447efe4a484097333d9c48e4f8b26407",
-    "at": "2026-06-12T11:24:00-04:00",
+    "sha": "f3711ce01060423ce2de02f46ac08c9660f0e239",
+    "at": "2026-06-12T11:57:36-04:00",
     "type": "chore",
     "scope": "changes",
     "subject": "refresh changes feed"
   },
   {
-    "sha": "6033d586760ee187ff30e9f10119e69ec0666f21",
-    "at": "2026-06-12T11:24:00-04:00",
+    "sha": "2f419c99d961e14205b968baebae033dd6f62fc2",
+    "at": "2026-06-12T11:57:36-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "09be819b98d4fb81b188a6a41371bf3ab32b7d69",
-    "at": "2026-06-12T11:24:00-04:00",
+    "sha": "fbf100907d59b438f92d0ae44ba3e6bc16fafc41",
+    "at": "2026-06-12T11:57:36-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "af6ec59d4653b7f0e5b2491bbf6582707c2450a7",
-    "at": "2026-06-12T11:24:00-04:00",
+    "sha": "e3cfedbcdc7a04efd76654b004402f64e47200ec",
+    "at": "2026-06-12T11:57:36-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "644a503f5048f9608b3b72edbfa3d96b26ccd9ee",
-    "at": "2026-06-12T11:24:00-04:00",
-    "type": "feat",
-    "scope": "analytics",
-    "subject": "PostHog audit + P0 SDK swap & identity bridge"
+    "sha": "13baabea3e2c3522eb180302ff3d94c6eb5db725",
+    "at": "2026-06-12T11:57:36-04:00",
+    "type": "other",
+    "subject": "Merge remote-tracking branch 'origin/master' into agent/marketing-i18n-fix"
+  },
+  {
+    "sha": "57a30c285c5fa3d1a635a7ebb3853cb464d444f2",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "fc926f194767d6e745638d4db7445406a52488ad",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0076abc99989a59feee7d35c7caa06b2e9f86c77",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "d1de34ce7cc0ea0682b42611e5718900d2c57b1a",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "aba9b022c1cee626025d42de2752d17882d8e4cd",
+    "at": "2026-06-12T11:32:40-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "ae1d54def4f7f3c0a9a0caac7350ff3ca58c539e",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "e2ab568382370b95d35c94e88c09128f2f5f1f44",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "4fd8486ecafa6410836f73c792600fa374e08986",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "ee99d3d13bdcd35b3c92d77ef89a4728e231b98a",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "b1973e1bb689af21e95355d494463c8d324eb7ab",
+    "at": "2026-06-12T11:32:30-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "513757e721ac3daefdb6f6520e677d1b70dd15fc",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "0a9621681f7eea45ba569c7a9e7b3e6d9655f9f6",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0cbbb875dede90e90b9554f173bd4773d09831a3",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "83607ff0193466f7749b5a811f372a438e6eb540",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "9db348b9052844fd7253e3493a7efaf6b0414f5c",
+    "at": "2026-06-12T11:32:18-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
   },
   {
     "sha": "5d0f78c91d6812ed442d79414f4b4783791917bb",
@@ -116,6 +200,40 @@
     "type": "fix",
     "scope": "updates",
     "subject": "list product updates strictly newest-first"
+  },
+  {
+    "sha": "6a2ca067340f236d59408629b6bf3c2109208ab7",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "181296d38469cdbc9c28019375c1ab7a797900e0",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "37edd43d775022e0154855d05d3e644f273b1109",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "e230f6e02b5197127b10f06326b539756de027dc",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "efe4677e38a24a7287dde48efc90fb5c1b4d160b",
+    "at": "2026-06-12T10:57:45-04:00",
+    "type": "other",
+    "subject": "@ fix(i18n): re-translate the Video Analysis → Motion Lab rebrand (es/fr)"
   },
   {
     "sha": "1ca0b328274591254e5b66ca5402abb1b9dcd78a",
@@ -434,121 +552,5 @@
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
-  },
-  {
-    "sha": "6f749700230dd4e27c3dc06b2133e3296e4ce9cf",
-    "at": "2026-06-12T08:07:33-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "b565b7edf58b1b90f68c2777b4228621aec21334",
-    "at": "2026-06-12T08:07:33-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): resync seed after merging master"
-  },
-  {
-    "sha": "3e7fd3fcb9d3f410138bfc3e997b6c35213fd660",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "f7bf5c7ac323246ace10c2eee4db3b3ef0afd823",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "5ffccf9089f98760799b9e8b954a638480ef46a7",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "5daf33110e8aaa4f1c060d38dda536bfaafff139",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "b4e93e07f3ed65106a0f47932bfab7f21c7ed6dc",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "other",
-    "subject": "Merge remote-tracking branch 'origin/master' into agent/secrets-vault-config"
-  },
-  {
-    "sha": "477b171358a428583d0a3802a902e7314c9c0576",
-    "at": "2026-06-12T08:05:48-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "260725d7d510c3f1c52e4ed98c4b249ecff418cd",
-    "at": "2026-06-12T08:05:48-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "88f604b2df65b6c3d1838ecf0199f42aa0e1c2b7",
-    "at": "2026-06-12T08:05:48-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "c6b12fdfbea18b1d4896cda600d9579d7ec32328",
-    "at": "2026-06-12T08:05:48-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "e0987199e3bdff79cf2023a17607cfa5c415e167",
-    "at": "2026-06-12T08:05:48-04:00",
-    "type": "feat",
-    "scope": "motion-lab",
-    "subject": "finish Video Analysis → Motion Lab consolidation"
-  },
-  {
-    "sha": "61d3a72a55417b176f47d6c32908a0a40f65d3a1",
-    "at": "2026-06-12T07:59:44-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "e8d1043dd11af92fa0f6d0ddf77530c0d48f2d88",
-    "at": "2026-06-12T07:59:44-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "9e2396262e2b26db82ec1f390d43b2ea3bd25e6a",
-    "at": "2026-06-12T07:59:44-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "eb6b57c7af4b558b512ceba48d1fea5f7acc9861",
-    "at": "2026-06-12T07:59:44-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "f9bd0b3a46b0529cf12f942acfeb9b340b3900f7",
-    "at": "2026-06-12T07:59:44-04:00",
-    "type": "other",
-    "subject": "@ ci(growth): add workflow_dispatch to Growth CI"
   }
 ]

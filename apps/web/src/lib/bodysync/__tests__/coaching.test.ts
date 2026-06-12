@@ -1,7 +1,18 @@
 // BodySync — coaching engine tests
 import { assessReadiness } from '../scoring';
-import { buildRecommendation, regionsToAvoid } from '../coaching';
+import { buildRecommendation, regionsToAvoid, motionLabCoachingNudge } from '../coaching';
 import type { ManualCheckin, HealthBaselines } from '../types';
+import type { RepeatabilityResult } from '@/lib/motion-lab';
+
+function rep(over: Partial<RepeatabilityResult>): RepeatabilityResult {
+  return {
+    available: true, sessionCount: 5, score: 80, perMetric: [],
+    mostConsistent: null, leastConsistent: null,
+    summary: '', basis: 'estimated', confidence: 60, ...over,
+  };
+}
+const metric = (name: string, consistency: number) =>
+  ({ id: name.toLowerCase(), name, cv: 0.1, consistency, n: 5 });
 
 const baselines: HealthBaselines = { restingHr: null, hrv: null, sleepHours: 7.5, updatedAt: null };
 function checkin(over: Partial<ManualCheckin>): ManualCheckin {
@@ -53,5 +64,37 @@ describe('regionsToAvoid', () => {
     expect(regionsToAvoid(checkin({ pain: 4, painAreas: ['elbow'] }))).toEqual(['elbow']);
     expect(regionsToAvoid(checkin({ pain: 1, painAreas: ['elbow'] }))).toEqual([]);
     expect(regionsToAvoid(null)).toEqual([]);
+  });
+});
+
+describe('motionLabCoachingNudge (P11)', () => {
+  it('nudges on a shaky least-consistent metric, naming it + labelling it an estimate', () => {
+    const nudge = motionLabCoachingNudge(rep({ score: 78, leastConsistent: metric('Balance', 45) }));
+    expect(nudge).not.toBeNull();
+    expect(nudge!.toLowerCase()).toContain('balance');
+    expect(nudge!.toLowerCase()).toContain('estimated');
+  });
+
+  it('nudges when overall repeatability is low', () => {
+    expect(motionLabCoachingNudge(rep({ score: 55, leastConsistent: metric('Tempo', 70) }))).not.toBeNull();
+  });
+
+  it('stays quiet when the motion is already solid', () => {
+    expect(motionLabCoachingNudge(rep({ score: 88, leastConsistent: metric('Balance', 80) }))).toBeNull();
+  });
+
+  it('stays quiet with no / insufficient motion data', () => {
+    expect(motionLabCoachingNudge(null)).toBeNull();
+    expect(motionLabCoachingNudge(rep({ available: false, score: null }))).toBeNull();
+    expect(motionLabCoachingNudge(rep({ score: null }))).toBeNull();
+  });
+
+  it('flows into buildRecommendation.motionEmphasis + explanation', () => {
+    const a = assess(checkin({ sleepHours: 8, sleepQuality: 5, energy: 5, soreness: 1, stress: 1, pain: 1 }));
+    const rec = buildRecommendation(a, 'golf', null, rep({ score: 60, leastConsistent: metric('Balance', 40) }));
+    expect(rec.motionEmphasis).not.toBeNull();
+    expect(rec.explanation.join(' ').toLowerCase()).toContain('balance');
+    // No motion data → no emphasis, prior behaviour intact.
+    expect(buildRecommendation(a, 'golf', null).motionEmphasis).toBeNull();
   });
 });
