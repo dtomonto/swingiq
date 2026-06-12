@@ -1,5 +1,40 @@
 [
   {
+    "sha": "51e57500ddbe896d4f49c600bc2c528b152b8c19",
+    "at": "2026-06-12T11:58:08-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "57549953b26933613df0b142fb95e139af0f7b8d",
+    "at": "2026-06-12T11:58:08-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "53ebfb4ce11b37c5e1c418e44d54acc87b02c574",
+    "at": "2026-06-12T11:58:08-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "29bdda5f3356e3ca1ea9c07896dff35581ef9153",
+    "at": "2026-06-12T11:58:08-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "f3711ce01060423ce2de02f46ac08c9660f0e239",
+    "at": "2026-06-12T11:57:36-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "2f419c99d961e14205b968baebae033dd6f62fc2",
     "at": "2026-06-12T11:57:36-04:00",
     "type": "chore",
@@ -514,40 +549,6 @@
   {
     "sha": "11ffc911a444ea98789f169a4ec33a330fd3e436",
     "at": "2026-06-12T08:07:33-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "6f749700230dd4e27c3dc06b2133e3296e4ce9cf",
-    "at": "2026-06-12T08:07:33-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "b565b7edf58b1b90f68c2777b4228621aec21334",
-    "at": "2026-06-12T08:07:33-04:00",
-    "type": "other",
-    "subject": "@ fix(feature-education): resync seed after merging master"
-  },
-  {
-    "sha": "3e7fd3fcb9d3f410138bfc3e997b6c35213fd660",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "f7bf5c7ac323246ace10c2eee4db3b3ef0afd823",
-    "at": "2026-06-12T08:06:36-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "5ffccf9089f98760799b9e8b954a638480ef46a7",
-    "at": "2026-06-12T08:06:36-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
