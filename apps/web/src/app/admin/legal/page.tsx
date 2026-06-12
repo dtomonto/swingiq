@@ -69,7 +69,7 @@ export default function AdminLegalPage() {
           <li>• <span className="text-foreground">Coaching estimates</span> — SwingVantage presents heuristic estimates with honest confidence language, not medical or guaranteed advice.</li>
           <li>• <span className="text-foreground">Per-sport evidence notes</span> — each sport states how its benchmarks were derived (see <Link href="/admin/sports" className="text-link hover:underline">Sports</Link>).</li>
           <li>• <span className="text-foreground">Youth safety</span> — sensitive surfaces never carry paid ads; minors never see personalized ads.</li>
-          <li>• <span className="text-foreground">Video privacy</span> — swing videos are processed on-device and never uploaded.</li>
+          <li>• <span className="text-foreground">Video privacy</span> — the full swing video stays on the user&apos;s device and is never uploaded to SwingVantage. When AI analysis is on, only sampled still frames are sent to a third-party AI provider (e.g. Google or OpenAI) for processing in its cloud; Motion Lab analysis is fully on-device.</li>
         </ul>
       </SectionCard>
 

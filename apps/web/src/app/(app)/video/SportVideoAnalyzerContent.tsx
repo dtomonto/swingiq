@@ -300,8 +300,10 @@ export function SportVideoAnalyzerContent() {
         </Button>
 
         <p className="text-center text-xs text-muted-foreground">
-          Only sampled still frames are sent to the AI vision provider — your original video never
-          leaves this device and frames are not stored.
+          To analyze your swing, a few sampled still frames are sent to a third-party AI provider
+          (such as Google or OpenAI) and processed in that provider&apos;s cloud. Your full video is
+          never uploaded, and SwingVantage does not store the frames. For analysis that stays
+          entirely on your device, use Motion Lab.
         </p>
       </div>
     );

@@ -121,10 +121,13 @@ export function VideoUpload({
             <p className="font-semibold mb-1">Privacy notice</p>
             <p className="text-warning leading-relaxed">
               Whether you upload a file or record in the app, your video is processed locally in your
-              browser. When you run an analysis, SwingVantage sends only sampled still frames — not your
-              full video file — to the AI vision provider so it can review your mechanics. Your
-              original video is never uploaded or stored on our servers, the frames are not retained
-              after analysis, and your video is never used to train a shared model.
+              browser. When you run an AI analysis, SwingVantage sends only sampled still frames — not
+              your full video file — to a third-party AI provider (such as Google or OpenAI), where
+              they are processed in that provider&apos;s cloud to review your mechanics. Your full
+              video file is never uploaded, SwingVantage does not store the frames, and your video is
+              never used to train a shared model — but the AI provider receives the frames and handles
+              them under its own privacy policy. For analysis that never leaves your device, use
+              Motion Lab.
             </p>
             <label className="flex items-center gap-2 mt-3 cursor-pointer">
               <input

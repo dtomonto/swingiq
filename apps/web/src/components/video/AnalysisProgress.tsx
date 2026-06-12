@@ -92,7 +92,8 @@ export function AnalysisProgress({ stage }: { stage: AnalysisStage }) {
         })}
       </ol>
       <p className="text-center text-xs text-muted-foreground mt-6">
-        Only still frames are sent for analysis — your original video never leaves this device.
+        Only sampled still frames are sent to a third-party AI provider&apos;s cloud for analysis —
+        your full video file never leaves this device.
       </p>
     </div>
   );

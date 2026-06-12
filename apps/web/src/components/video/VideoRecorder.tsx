@@ -262,8 +262,9 @@ export function VideoRecorder({ onVideoReady, onError, sport = 'golf', disabled 
           <div>
             <p className="text-base font-semibold text-foreground">Record your swing</p>
             <p className="text-sm text-muted-foreground mt-1">
-              Up to {MAX_SECONDS}s. Film yourself or someone else — the clip stays on your device;
-              only sampled frames are sent for analysis, never the full video.
+              Up to {MAX_SECONDS}s. Film yourself or someone else. Your full clip stays on your
+              device — only sampled still frames are sent to a third-party AI provider&apos;s cloud
+              for analysis, never the whole video.
             </p>
           </div>
           <Button onClick={() => enableCamera(facing)} disabled={disabled}>
