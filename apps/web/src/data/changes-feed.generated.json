@@ -1,30 +1,38 @@
 [
   {
-    "sha": "a4b7a0b41a90bc3e0ac680b005622714388d3c5b",
-    "at": "2026-06-12T13:01:04-04:00",
+    "sha": "05ab71ee1795519cc2a67616154ccb706b08ac9e",
+    "at": "2026-06-12T13:09:30-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "e4aaec161283b9dd544fa72d4ccaf1f76e0a7f09",
-    "at": "2026-06-12T13:01:04-04:00",
+    "sha": "3e9678808fddfdba7c008de2230a7ee3e1fa8da8",
+    "at": "2026-06-12T13:09:30-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "a2202a7924603498b0400a761da816c85fe8da5f",
-    "at": "2026-06-12T13:01:04-04:00",
+    "sha": "a5508b994b2166e8419b19a6fe338f3c3b29c546",
+    "at": "2026-06-12T13:09:30-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "d1253731856ad14e039f4bfe145fea0c69632168",
-    "at": "2026-06-12T13:01:04-04:00",
-    "type": "other",
-    "subject": "Merge remote-tracking branch 'origin/master' into agent/ai-orchestration"
+    "sha": "dccd318e5a8606c3f04cd1415e6fcb5094b8fd4a",
+    "at": "2026-06-12T13:09:30-04:00",
+    "type": "test",
+    "scope": "design-v2",
+    "subject": "commit Linux visual-regression baselines (36 PNGs)"
+  },
+  {
+    "sha": "bc12969329e3306e543bd3dce39a3421c2f4986b",
+    "at": "2026-06-12T13:06:57-04:00",
+    "type": "feat",
+    "scope": "ai",
+    "subject": "AI Provider Control Center + live strategic routing (#32)"
   },
   {
     "sha": "1c79806619fd2f9a8c967e956e8308088ccd33ea",
@@ -46,41 +54,6 @@
     "type": "feat",
     "scope": "help",
     "subject": "author curated guides for all 53 public features + seed-independent rendering"
-  },
-  {
-    "sha": "3b24d8960723f2362c293548e812b490acfa8030",
-    "at": "2026-06-12T12:20:53-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "cd9b4886ca16200cad66cf79a6e7d0579fa3d984",
-    "at": "2026-06-12T12:20:53-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "4f5b53613f0936ebfcefc4279b2954e02e4df78e",
-    "at": "2026-06-12T12:20:53-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "7f0b9db401779f3fa1736d4cf4f1cda62f9ecfc2",
-    "at": "2026-06-12T12:20:53-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "73263607f331e395757bf907c1de0cf6be616faa",
-    "at": "2026-06-12T12:20:53-04:00",
-    "type": "refactor",
-    "scope": "ai",
-    "subject": "route 4 scattered text calls through the central gateway"
   },
   {
     "sha": "8abfebe93f9de078a73d7bcd5cc842eb8d59600a",
@@ -170,41 +143,6 @@
     "at": "2026-06-12T11:57:36-04:00",
     "type": "other",
     "subject": "Merge remote-tracking branch 'origin/master' into agent/marketing-i18n-fix"
-  },
-  {
-    "sha": "f835ca7c085820f3d3cd9d243e8f600663bcaed6",
-    "at": "2026-06-12T11:55:48-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "b095b16ed2a717191a844c78768566ba80582c5a",
-    "at": "2026-06-12T11:55:48-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "711aebcd60345e4bfaca6b11579dabef38545133",
-    "at": "2026-06-12T11:55:48-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "7d23a49a30c0025b8166a27cc22b4b536cbeae3a",
-    "at": "2026-06-12T11:55:48-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "a22134d56b2407a6fea184e3e7b742dd5cf0bade",
-    "at": "2026-06-12T11:55:48-04:00",
-    "type": "feat",
-    "scope": "ai",
-    "subject": "AI call observability (provider/latency/fallback/schema health)"
   },
   {
     "sha": "b252e888a7910fa9e07fd2629f8639fe4cc82bb7",
@@ -331,41 +269,6 @@
     "type": "fix",
     "scope": "feature-education",
     "subject": "resync seed Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
-  },
-  {
-    "sha": "e1e5c013571da7c90357c8c3eb18fec246f648b5",
-    "at": "2026-06-12T11:24:10-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "286d79f951e4a61151e5324b7e0f79c5dacfd499",
-    "at": "2026-06-12T11:24:10-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "9ebb3608bdbb6fdfbe8ec7d21bb7434e6424487f",
-    "at": "2026-06-12T11:24:10-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "24822154f6568b5f056a1505fd5b8196667dd193",
-    "at": "2026-06-12T11:24:10-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "6d03898c5835a458e6d3e25c53402f31d78e9c67",
-    "at": "2026-06-12T11:24:10-04:00",
-    "type": "feat",
-    "scope": "ai",
-    "subject": "AI Provider Control Center + live strategic routing"
   },
   {
     "sha": "5d0f78c91d6812ed442d79414f4b4783791917bb",
@@ -553,5 +456,103 @@
     "type": "fix",
     "scope": "feature-education",
     "subject": "resync seed (iter 3) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "26660e30a7541fa29bee3469ceb4cfb5b4f761e1",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "828c46ccd8c773da84733bd60354205c8dee907d",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "58dd889121f931840d9d06fa5b056e15f02d3a5f",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "87cea6223cfcba94ea27808c62b0affd551ec8b7",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "f7de5b67cba573a22a5dd29e89a3fceb913b2844",
+    "at": "2026-06-12T08:19:37-04:00",
+    "type": "feat",
+    "scope": "dashboard",
+    "subject": "live cross-tab store sync for in-visit reactivity"
+  },
+  {
+    "sha": "44768a44eee0241ab1c9a7d72d50c18949188f90",
+    "at": "2026-06-12T08:20:44-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed (iter 2) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "06af1d13dc80d7b52df4493779e76857ba8625f7",
+    "at": "2026-06-12T08:20:20-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "23405c74ecd2da61185fe3b2ad55b6580bc867d6",
+    "at": "2026-06-12T08:20:20-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "99e940ce42c0774808e64f94657011daa822463c",
+    "at": "2026-06-12T08:20:20-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "a80857de12d0f5e0f4e27b21866d1aff79031576",
+    "at": "2026-06-12T08:20:20-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "2a82edf1b2f10b22fe1272290b51bd1e04796e5d",
+    "at": "2026-06-12T08:20:20-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed (iter 1) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "861bfa3bd3507c9db68fe88c39f9408f811e8e2f",
+    "at": "2026-06-12T08:19:58-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "d941156a8d101cc83b5b3519e495b5e831113492",
+    "at": "2026-06-12T08:19:58-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "99c53bea2300332f634bc44e41c9aeb0dfaecb87",
+    "at": "2026-06-12T08:19:58-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
   }
 ]
