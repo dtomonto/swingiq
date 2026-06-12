@@ -18,7 +18,7 @@ import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
-import { isUserAiBlocked, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 
 interface VideoAnalysisRequest {
   video_id: string;
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
   const aiProvider = process.env.AI_PROVIDER;
   if (
     aiProvider &&
-    !(await isUserAiBlocked(user_id)) &&
+    !(await isUserAiPaused(user_id)) &&
     !(await aiBudgetExceeded()) &&
     analysis.detected_issues.length > 0
   ) {

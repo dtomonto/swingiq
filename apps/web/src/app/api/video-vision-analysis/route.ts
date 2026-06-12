@@ -29,7 +29,7 @@ import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
-import { isUserAiBlocked, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -128,7 +128,7 @@ export async function POST(req: NextRequest) {
   // off, serve the same honest "not available" message instead of a paid call.
   const authedUser = await getAuthenticatedUser();
   const userId = authedUser?.id ?? 'anonymous';
-  if (await isUserAiBlocked(userId)) {
+  if (await isUserAiPaused(userId)) {
     return NextResponse.json(
       {
         configured: false,

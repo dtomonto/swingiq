@@ -340,6 +340,135 @@ export async function getUserAiUsage(userId: string, days = 14): Promise<UserAiU
   };
 }
 
+// ── Per-user daily spend cap (automatic pause) ───────────────
+// A dollar ceiling applied to EACH account's own metered spend per UTC day.
+// Once a user's estimated spend today reaches the cap, AI auto-pauses for that
+// user (their routes serve the same honest keyless fallback) until 00:00 UTC,
+// without an operator manually flipping the per-user switch. This is the
+// per-user analogue of the fleet-wide daily cap in lib/ai-budget.
+//
+// Storage mirrors the budget-override pattern: a single durable Upstash key
+// (no day suffix) so the cap is fleet-wide + survives restarts; a per-instance
+// in-memory value otherwise (the admin UI says which).
+//   null  = no override → use the AI_PER_USER_DAILY_BUDGET_CENTS env default
+//   0     = explicitly uncapped (operator chose "no per-user limit")
+//   >0    = the cap, in cents
+const CAP_OVERRIDE_KEY = 'ai:user:cap:cents';
+let capOverrideMemory: number | null = null;
+
+/** Deploy-time default per-user daily cap in cents (0 = off / unlimited). */
+export function perUserDailyCapEnvCents(): number {
+  const raw = process.env.AI_PER_USER_DAILY_BUDGET_CENTS;
+  if (!isConfigured(raw)) return 0;
+  const n = Number(raw);
+  return Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
+}
+
+/** The admin override cap in cents, or null when unset (use env). */
+export async function getUserCapOverrideCents(): Promise<number | null> {
+  const creds = upstashCreds();
+  if (creds) {
+    try {
+      const [val] = await upstashPipeline(creds, [['GET', CAP_OVERRIDE_KEY]]);
+      if (val === null || val === undefined) return null;
+      const n = Number(val);
+      return Number.isFinite(n) && n >= 0 ? Math.floor(n) : null;
+    } catch {
+      return capOverrideMemory;
+    }
+  }
+  return capOverrideMemory;
+}
+
+/** Set (or clear, with null) the admin per-user cap override. Best-effort durable. */
+export async function setUserCapOverrideCents(cents: number | null): Promise<void> {
+  capOverrideMemory = cents == null ? null : Math.max(0, Math.floor(cents));
+  const creds = upstashCreds();
+  if (!creds) return;
+  try {
+    if (cents == null) await upstashPipeline(creds, [['DEL', CAP_OVERRIDE_KEY]]);
+    else await upstashPipeline(creds, [['SET', CAP_OVERRIDE_KEY, String(Math.max(0, Math.floor(cents)))]]);
+  } catch {
+    /* best-effort — the in-memory value is already set */
+  }
+}
+
+/** Effective per-user daily cap in cents: admin override when set, else env. 0 = uncapped. */
+export async function resolvedUserDailyCapCents(): Promise<number> {
+  const override = await getUserCapOverrideCents();
+  return override != null ? override : perUserDailyCapEnvCents();
+}
+
+/** Sum of a single account's estimated metered spend (cents) so far today (UTC). */
+async function getUserTodayCents(userId: string): Promise<number> {
+  const ops = Object.keys(AI_OP_COST_CENTS);
+  const keys = ops.map((op) => usageCentsKey(userId, op));
+  const creds = upstashCreds();
+  if (creds) {
+    try {
+      const results = await upstashPipeline(creds, keys.map((k) => ['GET', k]));
+      return results.reduce<number>((sum, v) => sum + (Number(v ?? 0) || 0), 0);
+    } catch {
+      /* fall through to the in-memory map */
+    }
+  }
+  return keys.reduce<number>((sum, k) => sum + (usageMemory.get(k) ?? 0), 0);
+}
+
+/**
+ * True when this account's estimated spend today has reached the per-user cap.
+ * Anonymous ids and an unset cap (0) are never capped. Never throws — any KV
+ * error fails OPEN (returns false) so a transient outage can't lock out paying
+ * users, exactly like the manual switch.
+ */
+export async function userAiCapExceeded(userId: string | null | undefined): Promise<boolean> {
+  if (!isRealUserId(userId)) return false;
+  const cap = await resolvedUserDailyCapCents();
+  if (cap <= 0) return false;
+  try {
+    return (await getUserTodayCents(userId)) >= cap;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * The single enforcement gate the AI routes consult: AI is paused for a user
+ * when an operator switched them OFF *or* they have hit their daily cap. Serves
+ * as a drop-in replacement for `isUserAiBlocked` at the chokepoints.
+ */
+export async function isUserAiPaused(userId: string | null | undefined): Promise<boolean> {
+  if (!isRealUserId(userId)) return false;
+  if (await isUserAiBlocked(userId)) return true;
+  return userAiCapExceeded(userId);
+}
+
+export interface UserAiCapStatus {
+  /** Whether a positive per-user daily cap is set. */
+  configured: boolean;
+  /** The active cap in cents (0 when off). */
+  limitCents: number;
+  /** Where the active cap comes from. */
+  limitSource: 'override' | 'env' | 'off';
+  /** Where a durable override would be stored. */
+  source: 'upstash' | 'memory';
+}
+
+/** Snapshot of the per-user daily cap for the admin editor. */
+export async function getUserAiCapStatus(): Promise<UserAiCapStatus> {
+  const override = await getUserCapOverrideCents();
+  const envCents = perUserDailyCapEnvCents();
+  const limitCents = override != null ? override : envCents;
+  const limitSource: UserAiCapStatus['limitSource'] =
+    override != null ? 'override' : envCents > 0 ? 'env' : 'off';
+  return {
+    configured: limitCents > 0,
+    limitCents,
+    limitSource,
+    source: upstashCreds() ? 'upstash' : 'memory',
+  };
+}
+
 /**
  * Test-only introspection — not part of the public API. Exercises the
  * in-memory path deterministically without a network round-trip.
@@ -348,6 +477,7 @@ export const __test__ = {
   reset: () => {
     blockedMemory.clear();
     usageMemory.clear();
+    capOverrideMemory = null;
   },
   blockedMemoryHas: (userId: string) => blockedMemory.has(userId),
   usageMemoryCents: (userId: string, op: string, date?: string) =>

@@ -29,7 +29,7 @@ import {
 } from '@/lib/ai-coach/structured';
 import { selectCoachTier } from '@/lib/ai-coach/tiering';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
-import { isUserAiBlocked, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 
 // ── Handler ───────────────────────────────────────────────────
 
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
   // instead of a paid call. Never fabricates a coaching answer.
   const authedUser = await getAuthenticatedUser();
   const userId = authedUser?.id ?? 'anonymous';
-  if (await isUserAiBlocked(userId)) {
+  if (await isUserAiPaused(userId)) {
     const placeholder = buildDevPlaceholderResponse(ctx);
     return NextResponse.json({ message: placeholder, grounding: validateGrounding(placeholder, ctx) });
   }

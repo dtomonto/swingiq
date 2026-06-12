@@ -20,7 +20,7 @@ import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
-import { isUserAiBlocked, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 import { resolveOcrProvider, type ResolvedOcrProvider } from '@/lib/capabilities';
 import {
   buildImageExtractionPrompt,
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<OcrResponse>>
   // manual entry (which always works) instead of a paid extraction call.
   const authedUser = await getAuthenticatedUser();
   const userId = authedUser?.id ?? 'anonymous';
-  if (await isUserAiBlocked(userId)) {
+  if (await isUserAiPaused(userId)) {
     return NextResponse.json({
       configured: true,
       message: 'Auto-extraction is turned off for your account. Please enter your data manually.',

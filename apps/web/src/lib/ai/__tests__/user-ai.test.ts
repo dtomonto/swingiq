@@ -8,6 +8,10 @@ import {
   listBlockedAiUsers,
   meterUserAiUsage,
   getUserAiUsage,
+  setUserCapOverrideCents,
+  getUserAiCapStatus,
+  userAiCapExceeded,
+  isUserAiPaused,
   __test__,
 } from '../user-ai';
 
@@ -92,5 +96,54 @@ describe('per-user usage metering', () => {
     expect(report.today.calls).toBe(1);
     expect(report.today.cents).toBe(1);
     expect(report.byDay[0]?.date).toBe(report.today.date);
+  });
+});
+
+describe('per-user daily spend cap (auto-pause)', () => {
+  it('is off by default — never caps', async () => {
+    const status = await getUserAiCapStatus();
+    expect(status).toMatchObject({ configured: false, limitCents: 0, limitSource: 'off' });
+    await meterUserAiUsage(USER, 'video-vision');
+    await expect(userAiCapExceeded(USER)).resolves.toBe(false);
+  });
+
+  it('auto-pauses an account once its spend reaches the cap', async () => {
+    await setUserCapOverrideCents(100); // $1.00 / user / day
+    const status = await getUserAiCapStatus();
+    expect(status).toMatchObject({ configured: true, limitCents: 100, limitSource: 'override' });
+
+    // 19 vision calls = 95c — still under $1.
+    for (let i = 0; i < 19; i += 1) await meterUserAiUsage(USER, 'video-vision');
+    await expect(userAiCapExceeded(USER)).resolves.toBe(false);
+    await expect(isUserAiPaused(USER)).resolves.toBe(false);
+
+    // One more = $1.00 → at/over the cap.
+    await meterUserAiUsage(USER, 'video-vision');
+    await expect(userAiCapExceeded(USER)).resolves.toBe(true);
+    await expect(isUserAiPaused(USER)).resolves.toBe(true);
+
+    // The cap is per-account — a different user is unaffected.
+    await expect(userAiCapExceeded(OTHER)).resolves.toBe(false);
+  });
+
+  it('never caps anonymous traffic', async () => {
+    await setUserCapOverrideCents(1); // 1c — trivially exceeded if it applied
+    await meterUserAiUsage('anonymous', 'video-vision');
+    await expect(userAiCapExceeded('anonymous')).resolves.toBe(false);
+    await expect(userAiCapExceeded(null)).resolves.toBe(false);
+  });
+
+  it('isUserAiPaused honours the manual switch independently of the cap', async () => {
+    await setUserAiBlocked(USER, true); // no cap set
+    await expect(isUserAiPaused(USER)).resolves.toBe(true);
+  });
+
+  it('clearing the override reverts to no cap', async () => {
+    await setUserCapOverrideCents(100);
+    await setUserCapOverrideCents(null);
+    const status = await getUserAiCapStatus();
+    expect(status.configured).toBe(false);
+    for (let i = 0; i < 30; i += 1) await meterUserAiUsage(USER, 'video-vision');
+    await expect(userAiCapExceeded(USER)).resolves.toBe(false);
   });
 });
