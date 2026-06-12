@@ -96,14 +96,18 @@ export function SavedAnalysisModal({ record, onClose, onExport }: SavedAnalysisM
   return (
     <div
       className="fixed inset-0 z-200 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs px-0 sm:px-4 py-0 sm:py-6"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="saved-analysis-title"
-      onClick={onClose}
+      // Backdrop dismissal: close only on a direct click on the overlay itself,
+      // not on clicks that bubble up from the dialog. Keyboard users close via
+      // the Escape handler above or the explicit close button below.
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <div
         className="bg-card w-full max-w-2xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="saved-analysis-title"
       >
         {/* Header */}
         <div className="sticky top-0 z-10 bg-card border-b border-border px-5 py-4 flex items-start gap-3">

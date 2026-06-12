@@ -193,17 +193,23 @@ describe('derivation from saved history', () => {
 });
 
 describe('commitment moves the retest window start (R3)', () => {
-  const history = () => [makeAnalysis({ id: 'b1', sport: 'baseball', createdAt: daysAgo(12) })];
+  // Freeze the clock. `window.retestBy` is derived from the analysis createdAt
+  // (and the commitment start), so two windows we compare must be built from the
+  // SAME instant. Recomputing `daysAgo(...)` live on each call let 1ms elapse
+  // between the two `Date.now()` reads, leaving the windows 1ms apart — a flake.
+  const NOW = new Date('2026-06-01T12:00:00.000Z');
+  const ago = (n: number) => new Date(NOW.getTime() - n * 86_400_000).toISOString();
+  const history = () => [makeAnalysis({ id: 'b1', sport: 'baseball', createdAt: ago(12) })];
   const retestBy = (cmt?: AgiCommitment) =>
-    deriveRetestTargets(history(), EMPTY_STORE, new Date(), cmt)[0].window.retestBy;
+    deriveRetestTargets(history(), EMPTY_STORE, NOW, cmt)[0].window.retestBy;
 
   it('starts the window at the commitment date when committed after the analysis', () => {
-    const base = deriveRetestTargets(history(), EMPTY_STORE, new Date());
+    const base = deriveRetestTargets(history(), EMPTY_STORE, NOW);
     const withCmt = deriveRetestTargets(
       history(),
       EMPTY_STORE,
-      new Date(),
-      makeCommitment({ committedAt: daysAgo(1) }),
+      NOW,
+      makeCommitment({ committedAt: ago(1) }),
     );
     // A later start => later retestBy and fewer days since the clock started.
     expect(new Date(withCmt[0].window.retestBy).getTime()).toBeGreaterThan(
@@ -213,14 +219,14 @@ describe('commitment moves the retest window start (R3)', () => {
   });
 
   it('ignores a done commitment', () => {
-    expect(retestBy(makeCommitment({ committedAt: daysAgo(1), status: 'done' }))).toBe(retestBy());
+    expect(retestBy(makeCommitment({ committedAt: ago(1), status: 'done' }))).toBe(retestBy());
   });
 
   it('ignores a commitment that does not cover the sport', () => {
-    expect(retestBy(makeCommitment({ committedAt: daysAgo(1), sport: 'tennis' }))).toBe(retestBy());
+    expect(retestBy(makeCommitment({ committedAt: ago(1), sport: 'tennis' }))).toBe(retestBy());
   });
 
   it('does not move the window when the commitment predates the analysis', () => {
-    expect(retestBy(makeCommitment({ committedAt: daysAgo(20) }))).toBe(retestBy());
+    expect(retestBy(makeCommitment({ committedAt: ago(20) }))).toBe(retestBy());
   });
 });
