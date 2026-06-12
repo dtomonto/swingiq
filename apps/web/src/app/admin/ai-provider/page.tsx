@@ -11,7 +11,7 @@
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Network, Coins, ShieldCheck, ShieldAlert } from 'lucide-react';
+import { Network, Coins, ShieldCheck, ShieldAlert, Activity } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';
@@ -20,6 +20,7 @@ import { HelpPanel } from '@/components/admin/HelpPanel';
 import { RecheckButton } from '@/components/admin/RecheckButton';
 import { AiRoutingEditor } from '@/components/admin/AiRoutingEditor';
 import { getEffectiveRouting } from '@/lib/ai/ai-ops/effective-routing';
+import { getAiCallStats, getRecentAiCalls } from '@/lib/ai/ai-ops/call-log';
 
 export const metadata: Metadata = {
   title: 'AI Provider Control Center | Admin',
@@ -27,8 +28,14 @@ export const metadata: Metadata = {
 };
 export const dynamic = 'force-dynamic';
 
+const pct = (n: number) => `${Math.round(n * 100)}%`;
+
 export default async function AiProviderPage() {
-  const snapshot = await getEffectiveRouting('standard');
+  const [snapshot, callStats, recent] = await Promise.all([
+    getEffectiveRouting('standard'),
+    getAiCallStats(),
+    getRecentAiCalls(12),
+  ]);
   const configuredCount = snapshot.health.filter((h) => h.configured).length;
   const liveRoutes = snapshot.routes.filter((r) => r.enabled).length;
   const misrouted = snapshot.routes.filter(
@@ -95,6 +102,73 @@ export default async function AiProviderPage() {
         description="Each AI task and the provider + model that handles it. Edit a route to override the default; reset any time. Measurement is locked to the on-device CV layer by design."
       >
         <AiRoutingEditor initialRoutes={snapshot.routes} source={snapshot.source} />
+      </SectionCard>
+
+      {/* ── Observability ────────────────────────────────── */}
+      <SectionCard
+        title="Recent AI activity"
+        description="Sanitized metadata for the most recent AI calls — provider, model, latency, success/fallback, structured-output health. No prompts, responses, or PII are ever logged."
+      >
+        {callStats.total === 0 ? (
+          <p className="text-sm text-muted-foreground">
+            No AI calls recorded yet. Activity appears here once a provider key is set and the app makes its first
+            coaching or video call.
+          </p>
+        ) : (
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <MetricStat label="Calls logged" value={String(callStats.total)} hint="Recent window" tone="muted" />
+              <MetricStat label="Success rate" value={pct(callStats.okRate)} hint={`${pct(callStats.fallbackRate)} fell back`} tone={callStats.okRate >= 0.9 ? 'success' : callStats.okRate >= 0.6 ? 'warning' : 'muted'} />
+              <MetricStat label="Avg latency" value={callStats.avgLatencyMs == null ? '—' : `${callStats.avgLatencyMs} ms`} hint="Across providers" tone="muted" />
+              <MetricStat label="Schema failures" value={pct(callStats.schemaFailureRate)} hint="Of structured calls" tone={callStats.schemaFailureRate > 0.1 ? 'warning' : 'success'} />
+            </div>
+
+            {callStats.byProvider.length > 0 && (
+              <div>
+                <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">By provider</p>
+                <ul className="divide-y divide-border">
+                  {callStats.byProvider.map((p) => (
+                    <li key={p.key} className="flex items-center justify-between gap-3 py-2 text-sm first:pt-0 last:pb-0">
+                      <span className="font-medium text-foreground">{p.provider}</span>
+                      <span className="flex items-center gap-3 text-xs text-muted-foreground tabular-nums">
+                        <span>{p.calls} call{p.calls === 1 ? '' : 's'}</span>
+                        <span>{p.avgLatencyMs == null ? '—' : `${p.avgLatencyMs} ms`}</span>
+                        {p.fallbackCalls > 0 && <span className="text-warning-text">{p.fallbackCalls} fallback</span>}
+                        {p.schemaFailures > 0 && <span className="text-warning-text">{p.schemaFailures} schema-fail</span>}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div>
+              <p className="mb-1.5 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                <Activity className="h-3.5 w-3.5" /> Latest calls
+              </p>
+              <ul className="space-y-1">
+                {recent.calls.map((c, i) => (
+                  <li key={`${c.at}-${i}`} className="flex items-center justify-between gap-2 rounded border border-border bg-background px-2.5 py-1.5 text-xs">
+                    <span className="flex min-w-0 items-center gap-2">
+                      <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${c.ok ? 'bg-success' : 'bg-warning'}`} />
+                      <span className="font-medium text-foreground">{c.op}</span>
+                      <span className="truncate text-muted-foreground">{c.provider}{c.model ? ` · ${c.model}` : ''}</span>
+                    </span>
+                    <span className="flex shrink-0 items-center gap-2 tabular-nums text-muted-foreground">
+                      {c.latencyMs != null && <span>{c.latencyMs} ms</span>}
+                      <span>{c.ok ? 'ok' : (c.fallback ?? 'fail')}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="text-xs text-muted-foreground">
+              Source: {callStats.source === 'upstash' ? 'shared across instances (Upstash).' : 'per-instance memory — set Upstash for fleet-wide history.'}{' '}
+              Cost shown elsewhere on <Link className="text-success-text hover:underline" href="/admin/ai-usage">AI Usage &amp; Billing</Link>.
+            </p>
+          </div>
+        )}
       </SectionCard>
 
       <HelpPanel>

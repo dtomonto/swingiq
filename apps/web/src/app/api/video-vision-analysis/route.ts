@@ -31,6 +31,7 @@ import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
+import { recordAiCall } from '@/lib/ai/ai-ops/call-log';
 import type { AiProviderName } from '@/lib/ai/ai-ops/schemas';
 
 /** Map an orchestrator provider name onto the vision provider's env value. */
@@ -182,6 +183,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const t0 = Date.now();
   const outcome = await provider.analyze({
     sport,
     frames,
@@ -196,6 +198,20 @@ export async function POST(req: NextRequest) {
     poseSummary: typeof body.poseSummary === 'string' ? body.poseSummary : null,
     // Fast tier asks the model for tight output — fewer tokens, quicker reply.
     concise: speed === 'fast',
+  });
+
+  // Observability (AI Provider Control Center): sanitized metadata only.
+  const visionOk = outcome.configured !== false && outcome.ok === true;
+  await recordAiCall({
+    op: 'video-vision',
+    stage: 'video_intake',
+    provider: provider.id,
+    model: provider.model || null,
+    latencyMs: Date.now() - t0,
+    ok: visionOk,
+    fallback: outcome.configured === false ? 'no_provider' : visionOk ? null : 'error',
+    schemaRequested: true,
+    schemaParsed: visionOk,
   });
 
   if (outcome.configured === false) {

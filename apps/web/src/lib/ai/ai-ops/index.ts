@@ -7,6 +7,7 @@ export * from './registry';
 export * from './task-registry';
 export * from './routing-store';
 export * from './effective-routing';
+export * from './call-log';
 export * from './coach-provider';
 export * from './narrative-provider';
 export * from './providers/gemini-intake';
