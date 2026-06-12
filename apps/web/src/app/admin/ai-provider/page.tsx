@@ -187,6 +187,15 @@ export default async function AiProviderPage() {
           model blank uses the provider&apos;s tier default.
         </p>
         <p>
+          <strong className="text-foreground">Structured report (orchestrator).</strong> On the video-analysis path
+          the frame vision is bridged into normalized evidence and turned into a structured{' '}
+          <em>one fix / one plan / one retest</em> report. The OpenAI{' '}
+          <code className="rounded bg-muted px-1 text-foreground">coach_synthesis</code> step is opt-in — set{' '}
+          <code className="rounded bg-muted px-1 text-foreground">ENABLE_AIO_COACH_SYNTHESIS=true</code> to run it
+          (one extra call per analysis, budget-gated). When off, a deterministic vision-derived report is returned at
+          no extra cost. Privacy is unchanged: only frames + numeric pose proxies are ever sent — never the video.
+        </p>
+        <p>
           <strong className="text-foreground">Spend &amp; keys.</strong> Track cost and caps on{' '}
           <Link className="text-success-text hover:underline" href="/admin/ai-usage">AI Usage &amp; Billing</Link>{' '}
           <Coins className="inline h-3 w-3" />, and add provider keys on{' '}

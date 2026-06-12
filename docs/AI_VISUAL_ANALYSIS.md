@@ -37,12 +37,40 @@ Upload (browser)
         • validates sport + frames, rate-limits, size-guards
         • getVisionProvider(process.env)
             ├─ no key  → { configured: false, message }   (strict no-fake)
-            └─ key set → provider.analyze(frames + sport prompt)
+            └─ key set → provider.analyze(frames + sport prompt)  → analysis
         • Zod-validates the model's JSON before returning
+        • buildStructuredReport(analysis)   ← AIO-4 orchestrator (additive)
+            ├─ bridge:  analysis → NormalizedAnalysisEvidence (pure, in-memory)
+            ├─ measure: MediaPipe pose proxies (when poseMetrics sent)
+            ├─ coach:   OpenAI synthesis  (opt-in: ENABLE_AIO_COACH_SYNTHESIS)
+            └─ → { coach, status, coachSource }
+        • response: { analysis, aiMeta, structured }
    └─ UI renders
         ├─ AIVisualAnalysisPanel       (validated result)
         └─ AINotConfiguredNotice       (no key)
 ```
+
+### AIO-4 orchestrator — the structured report
+
+After the frame vision succeeds, the route layers the **AI-Operations orchestrator**
+(`apps/web/src/lib/ai/ai-ops/`) over the SAME result to produce a structured
+**one fix / one plan / one retest** report, returned as the additive `structured`
+field alongside `analysis`:
+
+- `bridge.ts` adapts the frame-based `AIVisualAnalysis` into the orchestrator's
+  `VideoIntakeResult` evidence — a **pure in-memory transform**, so nothing extra
+  is sent to any provider (privacy is unchanged: frames + numeric pose only).
+- `normalize.ts` merges that evidence with the on-device pose measurement, rejects
+  too-weak claims, surfaces conflicts, and blends an honest confidence.
+- `orchestrator.ts` runs the coach synthesis. The paid OpenAI coach is **opt-in**
+  via `ENABLE_AIO_COACH_SYNTHESIS` (and budget-gated); when off, a **deterministic
+  vision-derived** `CoachSynthesis` is returned at no extra cost. `coachSource` in
+  the response says which path produced it (`ai` vs `derived`).
+
+The existing `analysis` (and `aiMeta`) fields are untouched, and the whole block
+is wrapped so a failure simply omits `structured` — it can never break the core
+response. Admins route/inspect these stages in the **AI Provider Control Center**
+(`/admin/ai-provider`).
 
 Core module: `packages/core/src/video-analysis/visual/`
 - `schema.ts` — Zod schemas + `validateAIResult()` (never throws; returns ok/err)
@@ -61,6 +89,8 @@ Set these in `apps/web/.env.local` (see `apps/web/.env.example`):
 | `AI_VISION_MODEL` | model override | `claude-3-5-sonnet-20241022` / `gpt-4o` / `gemini-1.5-flash` |
 | `MAX_VIDEO_FRAMES_ANALYZED` | frames sampled across the clip | `16` (hard max `24`) |
 | `MAX_VIDEO_UPLOAD_MB` / `MAX_VIDEO_DURATION_SECONDS` | upload limits | `500` / `300` |
+| `ENABLE_AIO_COACH_SYNTHESIS` | opt-in: run the orchestrator's OpenAI coach for the `structured` report (budget-gated; off → deterministic baseline) | `false` |
+| `ENABLE_CLAUDE_PREMIUM_NARRATIVE` | opt-in: long-form narrative polish over the coach synthesis (premium mode) | `false` |
 
 No key configured → the route returns `{ configured: false }` and the UI shows the
 honest notice. Secrets are read from the environment only; nothing is hardcoded.
@@ -131,4 +161,10 @@ when the user runs an analysis. The original video file is never uploaded or
 stored server-side, frames are not persisted after the request, and videos are
 never used to train a shared model. The upload privacy notice and the
 "What happens to my video?" panel reflect this exactly.
+
+The AIO-4 structured report does **not** change this: the bridge + normalize
+stages are pure in-memory transforms of the vision result that already came back,
+and the optional coach synthesis sends only normalized **text evidence** (plus
+numeric pose proxies) — never frames or the video — to the OpenAI coach. Nothing
+new leaves the device because of the orchestrator.
 ```
