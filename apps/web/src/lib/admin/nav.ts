@@ -118,6 +118,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['videos', 'media', 'photos', 'storage', 'video analysis'],
   },
   {
+    id: 'analysis-jobs', label: 'Analysis Jobs', href: '/admin/analysis-jobs', icon: ClipboardList,
+    group: 'operate', subgroup: 'Video Analysis', built: true, permission: 'logs.view',
+    blurb: 'Every swing analysis as a traceable job — lifecycle status, confidence, AI provider/model, retries. Retry, request a rerun, send low-confidence runs to human review. Recorded device-local (fleet mirror deferred).',
+    keywords: ['analysis jobs', 'job monitor', 'pipeline', 'lifecycle', 'queue', 'status', 'failed', 'needs review', 'human review', 'rerun', 'retry', 'confidence', 'traceability', 'video analysis'],
+  },
+  {
     id: 'record-assist', label: 'Recording', href: '/admin/record-assist', icon: Video,
     group: 'operate', subgroup: 'Video Analysis', built: true, permission: 'media.view',
     blurb: 'Guided on-device self-recording: sport/action presets, the Frame Readiness scoring model, the voice-guidance catalog, device-compatibility tiers, and a camera-free QA simulator that runs the real engines.',

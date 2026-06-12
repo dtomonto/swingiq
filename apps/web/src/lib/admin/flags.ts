@@ -67,6 +67,12 @@ export const FLAG_DEFS: FlagDef[] = [
     group: 'Experimental', owner: 'Product', defaultEnabled: true, risk: 'low', status: 'registry',
   },
   {
+    key: 'analysis_jobs.enabled',
+    label: 'Analysis Job tracking',
+    description: 'Record each swing analysis as a traceable job (lifecycle status, confidence, provider/model, retries) and power the Analysis Jobs monitor under Video Analysis. Local-first on each device; turning it off stops recording new jobs (existing jobs stay visible).',
+    group: 'Experimental', owner: 'Product', defaultEnabled: true, risk: 'low', status: 'wired',
+  },
+  {
     key: 'motion_lab.enabled',
     label: 'Motion Lab (3D)',
     description: 'Browser-side 3D + slow-motion video analysis lab. Live at /motion-lab; this flag is the operator kill-switch — turning it off shows a friendly "turned off" screen instead of the lab.',

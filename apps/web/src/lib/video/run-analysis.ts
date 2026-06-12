@@ -21,6 +21,12 @@ import { saveVideoAnalysis, type SavedVideoAnalysis } from '@/lib/video/history'
 import { putClip } from '@/lib/video/clip-store';
 import { syncAnalysisToProfile } from '@/lib/video/profile-sync';
 import { logAnalysisFailure } from '@/lib/reliability-os/capture';
+import {
+  beginAnalysisJob,
+  recordedSink,
+  finishAnalysisJob,
+  failAnalysisJob,
+} from '@/lib/analysis-jobs/recorder';
 import type { PoseMetrics } from '@/lib/pose';
 import type { AnalysisStage } from '@/components/video/AnalysisProgress';
 import { detectPoseIssues } from '@swingiq/core';
@@ -110,9 +116,22 @@ export async function runSwingAnalysis(
   input: SwingAnalysisInput,
   sink: AnalysisProgressSink,
 ): Promise<SwingAnalysisResult> {
+  // Open a traceable job for this run (best-effort, flag-gated). The wrapped
+  // sink mirrors each pipeline stage onto the job; finishing/failing it is
+  // fully guarded so job tracking can never affect the analysis itself.
+  const jobId = beginAnalysisJob({
+    sport: input.sport,
+    sportLabel: input.sportLabel,
+    emoji: input.emoji,
+    declaredCameraAngle: input.declaredCameraAngle,
+    comparedToPrevious: Boolean(input.previous),
+  });
   try {
-    return await runSwingAnalysisInner(input, sink);
+    const result = await runSwingAnalysisInner(input, recordedSink(jobId, sink));
+    finishAnalysisJob(jobId, result);
+    return result;
   } catch (err) {
+    failAnalysisJob(jobId, err);
     // Surface real analysis failures to ReliabilityOS so admins can see breakage
     // (previously these were silent). Cancellations (AbortError) are intentional.
     if (!(err instanceof DOMException && err.name === 'AbortError')) {
