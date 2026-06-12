@@ -1,5 +1,40 @@
 [
   {
+    "sha": "b095b16ed2a717191a844c78768566ba80582c5a",
+    "at": "2026-06-12T11:55:48-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "711aebcd60345e4bfaca6b11579dabef38545133",
+    "at": "2026-06-12T11:55:48-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "7d23a49a30c0025b8166a27cc22b4b536cbeae3a",
+    "at": "2026-06-12T11:55:48-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "a22134d56b2407a6fea184e3e7b742dd5cf0bade",
+    "at": "2026-06-12T11:55:48-04:00",
+    "type": "feat",
+    "scope": "ai",
+    "subject": "AI call observability (provider/latency/fallback/schema health)"
+  },
+  {
+    "sha": "e1e5c013571da7c90357c8c3eb18fec246f648b5",
+    "at": "2026-06-12T11:24:10-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "286d79f951e4a61151e5324b7e0f79c5dacfd499",
     "at": "2026-06-12T11:24:10-04:00",
     "type": "chore",
@@ -515,40 +550,5 @@
     "at": "2026-06-12T07:46:48-04:00",
     "type": "other",
     "subject": "@ fix(feature-education): resync committed seed with the settled registry"
-  },
-  {
-    "sha": "82999d30d01c54aa9bd641b354377168ca6812a9",
-    "at": "2026-06-12T07:45:50-04:00",
-    "type": "feat",
-    "scope": "motion-lab",
-    "subject": "3D avatar viewer + AI vision review tab (#27)"
-  },
-  {
-    "sha": "fec7a244db99b85d3ec5d9424edb2c6e24dae210",
-    "at": "2026-06-12T00:54:14-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "every dashboard metric opens its own explainer page"
-  },
-  {
-    "sha": "17703bb35ae51eb62fda62ea08918eec809464f4",
-    "at": "2026-06-12T00:52:15-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "Copy/Download any alert or finding as a Claude Code fix prompt"
-  },
-  {
-    "sha": "78b12bd67ed88f0f5add8e464e1c0fc9e05c90d3",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "e3db49054709ff6dd6d54aacb812b949bf0b9e69",
-    "at": "2026-06-12T01:12:27-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
   }
 ]
