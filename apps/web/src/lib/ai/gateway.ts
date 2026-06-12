@@ -36,6 +36,12 @@ export interface AiCompleteRequest {
   jsonSchema?: { name: string; schema: Record<string, unknown> } | null;
   /** Override the provider for this call (else resolved from env). */
   provider?: AiProviderId;
+  /**
+   * Explicit model id override (else resolved from tier). Lets config-driven
+   * callers (e.g. the AI-ops coach provider passing OPENAI_COACH_MODEL) pick a
+   * model without hardcoding it. Empty/undefined falls back to the tier default.
+   */
+  model?: string;
 }
 
 export type AiFallback = 'no_provider' | 'over_budget' | 'error';
@@ -169,7 +175,7 @@ export async function complete(req: AiCompleteRequest): Promise<AiCompleteResult
     return { text: '', provider, model: null, parsed: null, fallback: 'over_budget' };
   }
 
-  const model = selectModel(provider, req.tier ?? 'fast');
+  const model = req.model?.trim() ? req.model.trim() : selectModel(provider, req.tier ?? 'fast');
   let attempt = await callOnce(provider, model, req);
   if (!attempt.ok && shouldRetry(attempt.status)) {
     attempt = await callOnce(provider, model, req);

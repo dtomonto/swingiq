@@ -1,0 +1,8 @@
+// SwingVantage — AI Operations layer (master-prompt §4). Public surface.
+export * from './schemas';
+export * from './types';
+export * from './model-config';
+export * from './prompts';
+export * from './registry';
+export * from './coach-provider';
+export * from './narrative-provider';
