@@ -1,5 +1,40 @@
 [
   {
+    "sha": "23405c74ecd2da61185fe3b2ad55b6580bc867d6",
+    "at": "2026-06-12T08:20:20-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "99e940ce42c0774808e64f94657011daa822463c",
+    "at": "2026-06-12T08:20:20-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "a80857de12d0f5e0f4e27b21866d1aff79031576",
+    "at": "2026-06-12T08:20:20-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "2a82edf1b2f10b22fe1272290b51bd1e04796e5d",
+    "at": "2026-06-12T08:20:20-04:00",
+    "type": "fix",
+    "scope": "feature-education",
+    "subject": "resync seed (iter 1) Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+  },
+  {
+    "sha": "861bfa3bd3507c9db68fe88c39f9408f811e8e2f",
+    "at": "2026-06-12T08:19:58-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "d941156a8d101cc83b5b3519e495b5e831113492",
     "at": "2026-06-12T08:19:58-04:00",
     "type": "chore",
@@ -514,40 +549,5 @@
     "type": "feat",
     "scope": "pwa",
     "subject": "liquid-glass mobile nav + standalone safe-area fixes"
-  },
-  {
-    "sha": "4f93bf5221e0f7496260caf0dfe1d335de054dab",
-    "at": "2026-06-11T17:19:00-04:00",
-    "type": "feat",
-    "scope": "sports",
-    "subject": "pose-derived fault detection for non-golf sports (P3)"
-  },
-  {
-    "sha": "9a2a1c9838e0ee04ccc72fe6ee7a4005647d3541",
-    "at": "2026-06-11T17:17:12-04:00",
-    "type": "feat",
-    "scope": "admin-os",
-    "subject": "live sidebar counts on the Decision Center cluster"
-  },
-  {
-    "sha": "f2d634916269401e5a4440194f1fac5c2d4dc2f3",
-    "at": "2026-06-11T16:10:15-04:00",
-    "type": "feat",
-    "scope": "feature-education",
-    "subject": "confirm 70 grounded detections + expand seed to tutorial/how-to/admin-guide"
-  },
-  {
-    "sha": "1b217dfc4eb5d1ebc1649512b98cfe402156da48",
-    "at": "2026-06-11T16:36:37-04:00",
-    "type": "chore",
-    "scope": "hooks",
-    "subject": "wire changes-feed scan into the post-commit hook (opt-in, race-safe)"
-  },
-  {
-    "sha": "0d3a764e15734e31df848634cb13c83f2e035ea1",
-    "at": "2026-06-11T15:46:14-04:00",
-    "type": "feat",
-    "scope": "admin",
-    "subject": "\"What changed\" dashboard scroller — 30-day feed of commits + admin actions, layman summaries"
   }
 ]
