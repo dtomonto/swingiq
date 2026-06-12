@@ -1,31 +1,59 @@
 [
   {
-    "sha": "82f9d23d487912514e47c826c235f40af6a2edec",
-    "at": "2026-06-12T15:33:03-04:00",
+    "sha": "f7b26575a478aa2394ee4ec201857bb9fc4e6371",
+    "at": "2026-06-12T16:10:54-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "0fd0f72f7458660613298dce66375e4c6411f25f",
-    "at": "2026-06-12T15:33:03-04:00",
+    "sha": "563faeec58300b8ad256da3c1743435e91d6300d",
+    "at": "2026-06-12T16:10:54-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "2809c693c5932328c4be6834efb9f54732e15959",
-    "at": "2026-06-12T15:33:03-04:00",
+    "sha": "b07977eb3f975fb279397152723b87703bcaa009",
+    "at": "2026-06-12T16:10:54-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "857c5b730cbc59abb16242b24a880484249ccca1",
-    "at": "2026-06-12T15:33:03-04:00",
+    "sha": "07a43765e113d9387aca7fc61e9f69e67f09d450",
+    "at": "2026-06-12T16:10:54-04:00",
     "type": "feat",
     "scope": "analytics",
-    "subject": "P2 AI observability on the swing-analysis funnel"
+    "subject": "P2 AI Coach observability + quality funnel"
+  },
+  {
+    "sha": "47cb1528d6e3b273f6377985a44c65a1026a257b",
+    "at": "2026-06-12T15:58:31-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "828c03e33dc5b07f72498b44a099f5c3e836c009",
+    "at": "2026-06-12T15:41:26-04:00",
+    "type": "feat",
+    "scope": "seo",
+    "subject": "enforce strict video SEO on all current + future videos"
+  },
+  {
+    "sha": "1480f3b408345fece85eb1f72a2d4ecf63629436",
+    "at": "2026-06-12T15:54:39-04:00",
+    "type": "feat",
+    "scope": "ai-ops",
+    "subject": "AIO-4 — analysis orchestrator + evidence normalizer, wired into the live vision route (#39)"
+  },
+  {
+    "sha": "74f645e1ad258060ef424afa073faa32d5cd09c1",
+    "at": "2026-06-12T15:38:44-04:00",
+    "type": "feat",
+    "scope": "analytics",
+    "subject": "P2 AI observability on the swing-analysis funnel (#43)"
   },
   {
     "sha": "e02a81ef63028b56003c7aee98b4c9d00cce4d53",
@@ -523,33 +551,5 @@
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
-  },
-  {
-    "sha": "0471ad0e4ab660f2694054c8ae4e285c7463df06",
-    "at": "2026-06-12T08:23:37-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "f49ddb863fcd028695542ede57e819dfad67ee4c",
-    "at": "2026-06-12T08:23:37-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "c6cc67a54ecd9f25569190b3c56dc5dc7f4888d5",
-    "at": "2026-06-12T08:23:37-04:00",
-    "type": "feat",
-    "scope": "retest",
-    "subject": "surface the improvement loop on dashboards + diagnose"
-  },
-  {
-    "sha": "e7fe3ecdab0426fae2fca362a6c701d856df714e",
-    "at": "2026-06-12T09:28:33-04:00",
-    "type": "feat",
-    "scope": "durability",
-    "subject": "always-visible backup-status pill on the dashboard"
   }
 ]
