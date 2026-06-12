@@ -30,6 +30,7 @@ import {
 import { selectCoachTier } from '@/lib/ai-coach/tiering';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
 import type { AiProviderId } from '@/lib/ai/gateway';
 
@@ -89,6 +90,17 @@ export async function POST(req: NextRequest) {
       message: placeholder,
       grounding: validateGrounding(placeholder, ctx),
       aiMeta: { fallback: 'paused' },
+    });
+  }
+
+  // Operator AI feature switch (admin "AI Feature Controls"): when AI Coach is
+  // turned off for the whole product, serve the same data-grounded placeholder.
+  if (!(await isAiFeatureEnabled('ai-coach'))) {
+    const placeholder = buildDevPlaceholderResponse(ctx);
+    return NextResponse.json({
+      message: placeholder,
+      grounding: validateGrounding(placeholder, ctx),
+      aiMeta: { fallback: 'feature_off' },
     });
   }
 

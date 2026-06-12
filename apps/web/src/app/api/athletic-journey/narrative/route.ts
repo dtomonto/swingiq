@@ -19,6 +19,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { complete } from '@/lib/ai/gateway';
+import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { validateNarrative, type JourneyNarrative } from '@/lib/athletic-journey';
 
 const SYSTEM = [
@@ -81,6 +82,12 @@ export async function POST(req: NextRequest) {
   const base = (body as { narrative?: unknown }).narrative;
   if (!isNarrativeShape(base)) {
     return NextResponse.json({ error: 'Missing or malformed narrative.' }, { status: 400 });
+  }
+
+  // Operator AI feature switch (admin "AI Feature Controls"): when this narrative
+  // polish is off, echo the deterministic narrative unchanged (no paid call).
+  if (!(await isAiFeatureEnabled('journey-narrative'))) {
+    return NextResponse.json({ narrative: { ...base, enhanced: false } });
   }
 
   // The gateway handles budget (→ fallback), keyless (→ fallback), provider/model,

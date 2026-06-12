@@ -18,6 +18,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { complete } from '@/lib/ai/gateway';
+import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { validateSummaryBody } from '@/lib/recruiting/summary';
 
 const SYSTEM = [
@@ -56,6 +57,12 @@ export async function POST(req: NextRequest) {
   const { body: original, caveats } = (body ?? {}) as { body?: unknown; caveats?: unknown };
   if (typeof original !== 'string' || original.trim().length < 20) {
     return NextResponse.json({ error: 'Missing summary body.' }, { status: 400 });
+  }
+
+  // Operator AI feature switch (admin "AI Feature Controls"): when this summary
+  // polish is off, return the grounded original unchanged (no paid call).
+  if (!(await isAiFeatureEnabled('recruiting-summary'))) {
+    return NextResponse.json({ body: original, usedAi: false });
   }
 
   const caveatText = Array.isArray(caveats) ? caveats.filter((c) => typeof c === 'string').join(' ') : '';

@@ -21,6 +21,7 @@ import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { resolveOcrProvider, type ResolvedOcrProvider } from '@/lib/capabilities';
 import {
   buildImageExtractionPrompt,
@@ -65,6 +66,15 @@ export async function POST(req: NextRequest): Promise<NextResponse<OcrResponse>>
     return NextResponse.json({
       configured: false,
       message: 'Auto-extraction is not enabled. Enter your data manually.',
+    });
+  }
+
+  // Operator AI feature switch (admin "AI Feature Controls"): when photo import
+  // is turned off for the whole product, fall back to manual entry.
+  if (!(await isAiFeatureEnabled('photo-import'))) {
+    return NextResponse.json({
+      configured: false,
+      message: 'Photo auto-extraction is turned off right now. Enter your data manually.',
     });
   }
 
