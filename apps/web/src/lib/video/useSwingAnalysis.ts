@@ -5,7 +5,7 @@
 // ------------------------------------------------------------
 // Bridges the swing-analysis pipeline (runAnalysis) and the global
 // background-task manager so the video analyzers can:
-//   • start an analysis that keeps running after the user leaves /video,
+//   • start an analysis that keeps running after the user leaves /motion-lab,
 //   • read live stage/progress + the final result back off the task,
 //   • re-adopt an in-flight (or just-finished, via the "View" toast)
 //     analysis when the user returns to the page.
@@ -104,7 +104,7 @@ export function useSwingAnalysis() {
       kind: KIND,
       title: meta.title,
       description: meta.description,
-      viewHref: meta.viewHref ?? '/video',
+      viewHref: meta.viewHref ?? '/motion-lab',
       notify: true,
       run: (ctx) => runSwingAnalysis(input, ctx),
       completionMessage: (r) =>

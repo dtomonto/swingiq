@@ -7,9 +7,10 @@
 // ============================================================
 
 import { useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import {
   Box, BarChart3, ClipboardList, Dumbbell, GitCompareArrows, Download,
-  FileText, RotateCcw, Trash2, Lightbulb, Trophy, Repeat,
+  FileText, RotateCcw, Trash2, Lightbulb, Trophy, Repeat, Sparkles,
 } from 'lucide-react';
 import type { MotionSession, MotionPhaseSegment } from '@/lib/motion-lab';
 import { downloadSessionJson, downloadSessionCsv, printSessionReport, getSport, skillLabel, computeRepeatability } from '@/lib/motion-lab';
@@ -31,15 +32,30 @@ import { ContinuousMovementSummary } from './ContinuousMovementSummary';
 import { RetestProtocolCard } from './RetestProtocolCard';
 import { AnalysisDebugPanel } from './AnalysisDebugPanel';
 import { MotionComparisonPanel } from './MotionComparisonPanel';
+import { MotionAIVisionPanel } from './MotionAIVisionPanel';
+
+// The avatar viewer pulls in three.js (WebGL) — load it only when the user
+// switches to Avatar mode, and never on the server.
+const MotionAvatarViewer = dynamic(
+  () => import('./MotionAvatarViewer').then((m) => m.MotionAvatarViewer),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="rounded-xl border border-border bg-[#060a12] h-[420px] flex items-center justify-center text-sm text-slate-300">
+        Loading 3D avatar…
+      </div>
+    ),
+  },
+);
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
-import { Film, Box as BoxIcon } from 'lucide-react';
+import { Film, Box as BoxIcon, PersonStanding } from 'lucide-react';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 
-type Tab = 'viewer' | 'scores' | 'metrics' | 'coaching' | 'drills' | 'compare';
+type Tab = 'viewer' | 'scores' | 'metrics' | 'coaching' | 'drills' | 'compare' | 'ai';
 
-const TABS: Array<{ id: Tab; label: string; icon: typeof Box }> = [
+const BASE_TABS: Array<{ id: Tab; label: string; icon: typeof Box }> = [
   { id: 'viewer', label: '3D & Phases', icon: Box },
   { id: 'scores', label: 'Scores', icon: BarChart3 },
   { id: 'metrics', label: 'Metrics', icon: ClipboardList },
@@ -47,6 +63,9 @@ const TABS: Array<{ id: Tab; label: string; icon: typeof Box }> = [
   { id: 'drills', label: 'Drills', icon: Dumbbell },
   { id: 'compare', label: 'Compare', icon: GitCompareArrows },
 ];
+// The AI vision review needs the in-memory clip (fresh single-view analysis
+// only), so the tab appears only when that File is on hand.
+const AI_TAB = { id: 'ai' as Tab, label: 'AI Vision', icon: Sparkles };
 
 interface Props {
   session: MotionSession;
@@ -59,16 +78,23 @@ interface Props {
    * to the 3D reconstruction.
    */
   videoUrl?: string | null;
+  /**
+   * In-memory File of the freshly-analysed clip — powers the optional AI vision
+   * review (sampled frames → AI provider). Present only for a fresh single-view
+   * analysis; null for saved/sample sessions, which hides the AI Vision tab.
+   */
+  videoFile?: File | null;
   /** True for a built-in demo session (synthetic motion, real engine). */
   isSample?: boolean;
   onNewMotion: () => void;
   onDelete?: () => void;
 }
 
-export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl = null, isSample = false, onNewMotion, onDelete }: Props) {
+export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl = null, videoFile = null, isSample = false, onNewMotion, onDelete }: Props) {
+  const tabs = useMemo(() => (videoFile ? [...BASE_TABS, AI_TAB] : BASE_TABS), [videoFile]);
   const [tab, setTab] = useState<Tab>('viewer');
   // Default to the slow-mo video lab when the real clip is available.
-  const [viewerMode, setViewerMode] = useState<'video' | '3d'>(videoUrl ? 'video' : '3d');
+  const [viewerMode, setViewerMode] = useState<'video' | '3d' | 'avatar'>(videoUrl ? 'video' : '3d');
   const [activePhase, setActivePhase] = useState<string | null>(null);
   const [compareId, setCompareId] = useState<string | null>(priorSessions[0]?.id ?? null);
   const accent = getSport(session.capture.sport).accent;
@@ -94,6 +120,18 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
 
   const ghostTrack = tab === 'compare' && compareSession ? compareSession.poseTrack : null;
   const onPhaseSelect = (p: MotionPhaseSegment) => setActivePhase((k) => (k === p.key ? null : p.key));
+
+  // Viewer modes — the real clip + overlays (fresh single-view analysis only),
+  // the line skeleton, and the rigged 3D avatar. All driven by the same pose
+  // track, so the skeleton + avatar are available even for saved sessions.
+  const viewerModes = useMemo<Array<{ id: 'video' | '3d' | 'avatar'; label: string; icon: typeof Box }>>(
+    () => [
+      ...(videoUrl ? [{ id: 'video' as const, label: 'Video + overlays', icon: Film }] : []),
+      { id: '3d' as const, label: '3D skeleton', icon: BoxIcon },
+      { id: 'avatar' as const, label: '3D avatar', icon: PersonStanding },
+    ],
+    [videoUrl],
+  );
 
   return (
     <div className="space-y-5">
@@ -168,7 +206,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
 
       {/* Tabs */}
       <div className="flex gap-1 overflow-x-auto border-b border-border -mx-1 px-1">
-        {TABS.map((t) => {
+        {tabs.map((t) => {
           const Icon = t.icon;
           const active = tab === t.id;
           return (
@@ -192,26 +230,27 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
       {/* Tab content */}
       {tab === 'viewer' && (
         <div className="space-y-4">
-          {/* Video lab (real clip + overlays) vs 3D reconstruction. The video
-              lab is only available for a freshly-analysed clip — saved sessions
-              keep the pose track but never the video, by design. */}
-          {videoUrl && (
-            <div className="flex items-center gap-1 p-1 rounded-lg bg-muted w-fit">
-              {([['video', 'Video + overlays', Film], ['3d', '3D skeleton', BoxIcon]] as const).map(([id, label, Icon]) => (
-                <button
-                  key={id}
-                  onClick={() => { setViewerMode(id); track(ANALYTICS_EVENTS.MOTION_LAB_VIEW_MODE_CHANGED, { mode: id }); }}
-                  className={cn(
-                    'flex items-center gap-1.5 text-sm font-medium rounded-md px-3 py-1.5 transition-colors',
-                    viewerMode === id ? 'bg-card text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground',
-                  )}
-                >
-                  <Icon className="w-4 h-4" />{label}
-                </button>
-              ))}
-            </div>
-          )}
-          {videoUrl && viewerMode === 'video' ? (
+          {/* Video lab (real clip + overlays) · line skeleton · rigged 3D avatar.
+              The video lab is only available for a freshly-analysed clip — saved
+              sessions keep the pose track but never the video, by design — while
+              the skeleton and avatar are reconstructed from the pose track. */}
+          <div className="flex items-center gap-1 p-1 rounded-lg bg-muted w-fit">
+            {viewerModes.map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                onClick={() => { setViewerMode(id); track(ANALYTICS_EVENTS.MOTION_LAB_VIEW_MODE_CHANGED, { mode: id }); }}
+                className={cn(
+                  'flex items-center gap-1.5 text-sm font-medium rounded-md px-3 py-1.5 transition-colors',
+                  viewerMode === id ? 'bg-card text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground',
+                )}
+              >
+                <Icon className="w-4 h-4" />{label}
+              </button>
+            ))}
+          </div>
+          {viewerMode === 'avatar' ? (
+            <MotionAvatarViewer track={session.poseTrack} phases={session.phases} accent={accent} />
+          ) : videoUrl && viewerMode === 'video' ? (
             <VideoOverlayLab
               key={videoUrl}
               videoUrl={videoUrl}
@@ -275,6 +314,15 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
         </div>
       )}
       {tab === 'drills' && <DrillPlan plan={session.drills} />}
+
+      {tab === 'ai' && videoFile && (
+        <MotionAIVisionPanel
+          file={videoFile}
+          capture={session.capture}
+          sportLabel={session.sportLabel}
+          emoji={session.emoji}
+        />
+      )}
 
       {tab === 'compare' && (
         <div className="space-y-4">
