@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, Zap, SlidersHorizontal, TrendingUp } from 'lucide-react';
+import { ExternalLink, CheckCircle, Clock, Target, AlertCircle, SlidersHorizontal, TrendingUp } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -176,14 +176,54 @@ export function TrainingContent() {
     };
   }, [sessions, training.active_session_id, routine.data_point_being_improved]);
 
+  // No diagnosis yet → a true empty state with a clear next action, NOT an
+  // interactive sample routine (which let users build a streak against a slice
+  // fault they may not have). The plan appears once a real diagnosis exists.
+  if (hasNoData) {
+    return (
+      <div className="p-6 max-w-4xl mx-auto space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Training Routine</h1>
+          <p className="text-muted-foreground text-sm mt-1">Your plan is built from your swing diagnosis.</p>
+        </div>
+        <Card>
+          <CardBody className="flex flex-col items-center gap-4 py-10 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15">
+              <Target size={24} className="text-link" />
+            </div>
+            <div className="max-w-md">
+              <p className="font-semibold text-foreground">No training plan yet</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Run a diagnosis on your swing and we&rsquo;ll build a personalized drill routine
+                that targets your #1 fix &mdash; with progress tracking and a streak.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/diagnose"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                <Target size={15} /> Analyze my swing
+              </Link>
+              <Link
+                href="/sessions/import"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+              >
+                <ExternalLink size={15} /> Import session data
+              </Link>
+            </div>
+          </CardBody>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Training Routine</h1>
-          <p className="text-muted-foreground text-sm mt-1">
-            {hasNoData ? 'Sample routine — import session data for personalized training.' : `Based on: ${routine.name}`}
-          </p>
+          <p className="text-muted-foreground text-sm mt-1">{`Based on: ${routine.name}`}</p>
         </div>
         <div className="flex items-center gap-4">
           {training.streak_days > 0 && (
@@ -337,19 +377,6 @@ export function TrainingContent() {
                 ? "📉 The numbers are moving the wrong way. Review your technique or try a different drill."
                 : '→ No clear change yet. Import more sessions to sharpen this picture.'}
             </p>
-          </CardBody>
-        </Card>
-      )}
-
-      {hasNoData && (
-        <Card className="border-warning/30 bg-warning/10">
-          <CardBody className="flex items-center gap-3">
-            <Zap size={18} className="text-warning shrink-0" />
-            <div>
-              <p className="text-sm font-medium text-warning">No personal diagnosis yet</p>
-              <p className="text-xs text-warning">Import your launch monitor data to get a training routine built specifically for your swing.</p>
-              <Link href="/sessions/import" className="text-xs font-semibold text-success hover:underline mt-1 block">Import your first session →</Link>
-            </div>
           </CardBody>
         </Card>
       )}
