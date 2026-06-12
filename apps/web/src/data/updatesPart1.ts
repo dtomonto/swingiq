@@ -556,7 +556,6 @@ export const UPDATES_PART_1: Update[] = [
       'SwingVantage launched as a web-based AI golf performance platform designed to give everyday players affordable, personalized swing coaching.',
     isMajorMilestone: true,
     isFeatured: false,
-    isPinned: true,
     createdAt: '2026-05-28',
     updatedAt: '2026-05-28',
   },

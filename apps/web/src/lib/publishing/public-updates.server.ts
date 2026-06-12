@@ -25,14 +25,13 @@ import { SEO_PAGES, effectiveSeoStatus, type SeoPage } from '@/content/seoPages'
 import { getPublishOverrides } from './store';
 import { applyOverrides, applyOverridesByKey } from './overrides';
 
-/** Public updates with durable overrides applied, newest-first (pinned first). */
+/** Public updates with durable overrides applied, strictly newest-first. */
 export async function getEffectivePublicUpdates(): Promise<Update[]> {
   const overrides = await getPublishOverrides('update');
   const effective = applyOverrides(getAllUpdates(), overrides, isPublicUpdate);
-  return effective.sort((a, b) => {
-    if (!!a.isPinned !== !!b.isPinned) return a.isPinned ? -1 : 1;
-    return new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime();
-  });
+  return effective.sort(
+    (a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime(),
+  );
 }
 
 /** Featured update from the override-aware set (mirrors getFeaturedUpdate). */
