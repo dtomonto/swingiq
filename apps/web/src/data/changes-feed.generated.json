@@ -1,65 +1,38 @@
 [
   {
-    "sha": "88242d76bc1ba1515b46ae01c63fa9b39c585d37",
-    "at": "2026-06-12T14:44:04-04:00",
+    "sha": "d2017f960e6a655ff105d51c6284261a2b0715e2",
+    "at": "2026-06-12T15:02:00-04:00",
     "type": "chore",
     "scope": "audits",
     "subject": "refresh audit reports"
   },
   {
-    "sha": "29c9cd4e8d396f7559660eeaa998235bd9c1a446",
-    "at": "2026-06-12T14:44:04-04:00",
+    "sha": "05e985917abcdd06679339bba071004fe0879075",
+    "at": "2026-06-12T15:02:00-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
   },
   {
-    "sha": "597d83662084422bb8ca883f70fd8d3b664c2c83",
-    "at": "2026-06-12T14:44:04-04:00",
+    "sha": "6ebe1a38615d0ae723aee0c12644937daf547228",
+    "at": "2026-06-12T15:02:00-04:00",
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
   },
   {
-    "sha": "eb680aac0e2de511b29e9f94fc3c09762aa7e77a",
-    "at": "2026-06-12T14:44:04-04:00",
-    "type": "other",
-    "subject": "Merge remote-tracking branch 'origin/master' into agent/retest-flake"
-  },
-  {
-    "sha": "73137af2937d7b59f44eaa74c38fab13df80c7e1",
-    "at": "2026-06-12T14:40:00-04:00",
+    "sha": "cec51290569e70f18aa3d1d348ee99d52b0646dc",
+    "at": "2026-06-12T15:02:00-04:00",
     "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
+    "scope": "gitignore",
+    "subject": "ignore local MCP + design-tool capture artifacts"
   },
   {
-    "sha": "4251e36366344a566a1258b379cdecb1b63b6120",
-    "at": "2026-06-12T14:40:00-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "2474a872e2ad196d14149218a95b579e6952fefc",
-    "at": "2026-06-12T14:40:00-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "3efb078c8612e9981419c8e1e1e9ea05e8b837a5",
-    "at": "2026-06-12T14:40:00-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "7fd0a510184a145e6d73a90de48708817f71d1bf",
-    "at": "2026-06-12T14:40:00-04:00",
+    "sha": "fad842296a274968cd0bb6ad7f1c1e3347a2d9ff",
+    "at": "2026-06-12T14:49:23-04:00",
     "type": "fix",
-    "scope": "a11y",
-    "subject": "clear blocking jsx-a11y error in SavedAnalysisModal backdrop"
+    "scope": "ci",
+    "subject": "unbreak master — de-flake retest R3 + clear blocking a11y lint error (#40)"
   },
   {
     "sha": "4e7153a400d07dac0cbdef88770a89e4e2ec5dcf",
@@ -96,46 +69,11 @@
     "subject": "refresh feature registry"
   },
   {
-    "sha": "94fee8e5c0db55f3a8df32251ef1e14aa6e3f437",
-    "at": "2026-06-12T14:28:36-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "609105e66311f4571b3716bce8edbffbc056c810",
-    "at": "2026-06-12T14:28:36-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "645e1711bf77473ae67de6f4b760bb0e3b13572a",
-    "at": "2026-06-12T14:28:36-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "15c252872fe40980bea85943b0f81690da4a70c0",
-    "at": "2026-06-12T14:28:36-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
     "sha": "d12791af47383292182aaf9ca01095f9d46107bf",
     "at": "2026-06-12T14:28:42-04:00",
     "type": "fix",
     "scope": "a11y",
     "subject": "SavedAnalysisModal backdrop close is a real button (unblock CI)"
-  },
-  {
-    "sha": "e79856667ea70d489bf5696385f50c2e3437b82f",
-    "at": "2026-06-12T14:28:36-04:00",
-    "type": "test",
-    "scope": "retest",
-    "subject": "de-flake R3 window tests by pinning now + history"
   },
   {
     "sha": "3a20155fe5fca10c35bc4813a2a34e211a8ae2c3",
@@ -547,6 +485,68 @@
   {
     "sha": "0471ad0e4ab660f2694054c8ae4e285c7463df06",
     "at": "2026-06-12T08:23:37-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "f49ddb863fcd028695542ede57e819dfad67ee4c",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "c6cc67a54ecd9f25569190b3c56dc5dc7f4888d5",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "feat",
+    "scope": "retest",
+    "subject": "surface the improvement loop on dashboards + diagnose"
+  },
+  {
+    "sha": "e7fe3ecdab0426fae2fca362a6c701d856df714e",
+    "at": "2026-06-12T09:28:33-04:00",
+    "type": "feat",
+    "scope": "durability",
+    "subject": "always-visible backup-status pill on the dashboard"
+  },
+  {
+    "sha": "2661b256bd9123d9689cbe660c3236a8000b74c7",
+    "at": "2026-06-12T09:15:32-04:00",
+    "type": "feat",
+    "scope": "intelligence",
+    "subject": "P3 — surface pose-derived non-golf faults in the video flow"
+  },
+  {
+    "sha": "9a1c239f6909658365c925f0928ad78db54a787d",
+    "at": "2026-06-12T08:27:07-04:00",
+    "type": "fix",
+    "scope": "training",
+    "subject": "true empty state instead of interactive sample routine"
+  },
+  {
+    "sha": "6907b30e39b28bcdb044c14ba342e8848e19a150",
+    "at": "2026-06-12T08:25:25-04:00",
+    "type": "other",
+    "subject": "Merge pull request #28 from dtomonto/agent/secrets-vault-config"
+  },
+  {
+    "sha": "89d2478f76cc837d64c0eb1e31a93ea3ee4c0daa",
+    "at": "2026-06-12T08:21:12-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
+    "sha": "6002436185bfcf18b4e58178d2c3f8c1a9e53f91",
+    "at": "2026-06-12T08:21:12-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0c6421acca40896d6a71e60854366a06ac180824",
+    "at": "2026-06-12T08:21:12-04:00",
     "type": "chore",
     "scope": "setup",
     "subject": "refresh setup registry"
