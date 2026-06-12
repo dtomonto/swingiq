@@ -27,6 +27,7 @@ import { ScoreRing } from '@/components/ui/ScoreRing';
 import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
 import { MentalPerformanceCard } from '@/components/mental-performance/MentalPerformanceCard';
 import { MetricCard } from '@/components/ui/MetricCard';
+import { scoreBandColor } from '@/components/ui/ProgressTimeline';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { useSwingVantageStore, useLatestDiagnosedSession, useOverallScore } from '@/store';
 import { DashboardIntelligence } from '@/components/agents/DashboardIntelligence';
@@ -602,22 +603,25 @@ export function DashboardContent({ children }: { children?: ReactNode }) {
                   </div>
                   {liveStats && (
                     <div className="grid grid-cols-2 gap-2">
-                      <div className="text-center">
-                        <p className="text-xs text-muted-foreground">Face Control</p>
-                        <p className="font-bold text-foreground">{liveStats.scores.face_control}</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-xs text-muted-foreground">Strike Quality</p>
-                        <p className="font-bold text-foreground">{liveStats.scores.strike_quality}</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-xs text-muted-foreground">Path Control</p>
-                        <p className="font-bold text-foreground">{liveStats.scores.path_control}</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-xs text-muted-foreground">Consistency</p>
-                        <p className="font-bold text-foreground">{liveStats.scores.consistency}</p>
-                      </div>
+                      {/* Design V2: color each sub-score by its grade band (same
+                          bands as ScoreRing / ProgressTimeline) for a consistent
+                          read. Chrome kept; flag OFF = plain text-foreground. */}
+                      {([
+                        ['Face Control', liveStats.scores.face_control],
+                        ['Strike Quality', liveStats.scores.strike_quality],
+                        ['Path Control', liveStats.scores.path_control],
+                        ['Consistency', liveStats.scores.consistency],
+                      ] as const).map(([label, value]) => (
+                        <div key={label} className="text-center">
+                          <p className="text-xs text-muted-foreground">{label}</p>
+                          <p
+                            className="font-bold text-foreground"
+                            style={designV2 ? { color: scoreBandColor(value) } : undefined}
+                          >
+                            {value}
+                          </p>
+                        </div>
+                      ))}
                     </div>
                   )}
                   <p className="text-xs text-center text-muted-foreground">
