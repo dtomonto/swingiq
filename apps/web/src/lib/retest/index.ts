@@ -21,6 +21,7 @@ export {
   deriveRetestResults,
   sortRetestTargets,
   topRetestTarget,
+  findSportRetestTarget,
 } from './targets';
 export {
   deriveGolfRetestTargets,
