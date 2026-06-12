@@ -78,6 +78,19 @@ The shared `%TEMP%\jest` cache races between agents and produces bogus
   absolute paths.
 - Commit messages end with the project's `Co-Authored-By` trailer; a post-commit
   hook auto-refreshes the feature/setup/audit registries (expect extra chore commits).
+- **Announce user-facing work with commit trailers.** The same post-commit hook runs
+  `generate-updates.mjs`, which turns two opt-in trailers into changelog drafts — so
+  the public `/updates` and `/dev-updates` pages stay current automatically instead of
+  needing hand-backfill. When a commit ships something worth announcing, add:
+  - `Update: <one plain-English line for athletes>` → drafts a product update (`/updates`)
+  - `Dev-Update: <one technical line for builders>` → drafts a developer update (`/dev-updates`)
+
+  Both land as **drafts** (nothing goes public until flipped in the data file or
+  `/admin/updates`), a leak-guard blocks secrets/paths, and entries are keyed by SHA so
+  re-runs never duplicate. Use `Update:` only for genuinely athlete-facing changes;
+  `Dev-Update:` for engineering milestones. Refactors/CI/dep-bumps get neither. Optional
+  finer trailers (`Update-Category`, `Dev-Impact`, `Dev-Milestone`, …) are documented in
+  `scripts/generate-updates.mjs` and `docs/AUTO_PUBLISH_UPDATES.md`.
 
 When in doubt, prefer the smallest reversible change and leave the tree clean.
 
