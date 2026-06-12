@@ -1,5 +1,67 @@
 [
   {
+    "sha": "727e66c7ebb70f03dfe6b3b79d7258824783df50",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "0471ad0e4ab660f2694054c8ae4e285c7463df06",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "f49ddb863fcd028695542ede57e819dfad67ee4c",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "c6cc67a54ecd9f25569190b3c56dc5dc7f4888d5",
+    "at": "2026-06-12T08:23:37-04:00",
+    "type": "feat",
+    "scope": "retest",
+    "subject": "surface the improvement loop on dashboards + diagnose"
+  },
+  {
+    "sha": "e7fe3ecdab0426fae2fca362a6c701d856df714e",
+    "at": "2026-06-12T09:28:33-04:00",
+    "type": "feat",
+    "scope": "durability",
+    "subject": "always-visible backup-status pill on the dashboard"
+  },
+  {
+    "sha": "2661b256bd9123d9689cbe660c3236a8000b74c7",
+    "at": "2026-06-12T09:15:32-04:00",
+    "type": "feat",
+    "scope": "intelligence",
+    "subject": "P3 — surface pose-derived non-golf faults in the video flow"
+  },
+  {
+    "sha": "9a1c239f6909658365c925f0928ad78db54a787d",
+    "at": "2026-06-12T08:27:07-04:00",
+    "type": "fix",
+    "scope": "training",
+    "subject": "true empty state instead of interactive sample routine"
+  },
+  {
+    "sha": "6907b30e39b28bcdb044c14ba342e8848e19a150",
+    "at": "2026-06-12T08:25:25-04:00",
+    "type": "other",
+    "subject": "Merge pull request #28 from dtomonto/agent/secrets-vault-config"
+  },
+  {
+    "sha": "89d2478f76cc837d64c0eb1e31a93ea3ee4c0daa",
+    "at": "2026-06-12T08:21:12-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "6002436185bfcf18b4e58178d2c3f8c1a9e53f91",
     "at": "2026-06-12T08:21:12-04:00",
     "type": "chore",
@@ -54,6 +116,13 @@
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
+  },
+  {
+    "sha": "f7de5b67cba573a22a5dd29e89a3fceb913b2844",
+    "at": "2026-06-12T08:19:37-04:00",
+    "type": "feat",
+    "scope": "dashboard",
+    "subject": "live cross-tab store sync for in-visit reactivity"
   },
   {
     "sha": "44768a44eee0241ab1c9a7d72d50c18949188f90",
@@ -480,74 +549,5 @@
     "type": "chore",
     "scope": "features",
     "subject": "refresh feature registry"
-  },
-  {
-    "sha": "d06bb8e6893c0f4d0e48809a963d6d457deda9c8",
-    "at": "2026-06-12T01:07:39-04:00",
-    "type": "feat",
-    "scope": "swing-session",
-    "subject": "one upload populates Video Analysis + 3D Swing Avatar"
-  },
-  {
-    "sha": "b54f2a76a129d0e51a549c20befe8ed7a95720f4",
-    "at": "2026-06-12T01:05:28-04:00",
-    "type": "feat",
-    "scope": "ai-ops",
-    "subject": "finish AIO-3 — Gemini File API upload + privacy/retention policy"
-  },
-  {
-    "sha": "3e93306945ec6035fc1ceb3e4cc686eb82ae00ce",
-    "at": "2026-06-12T00:21:41-04:00",
-    "type": "feat",
-    "scope": "ai",
-    "subject": "per-user AI on/off switch + per-user usage metering"
-  },
-  {
-    "sha": "e28e371692b02ca0828a44f1be68a60cc95ce91d",
-    "at": "2026-06-12T00:39:02-04:00",
-    "type": "feat",
-    "scope": "ai-ops",
-    "subject": "measurement provider abstraction — MediaPipe adapter (AIO-2)"
-  },
-  {
-    "sha": "414471ada1774f194eb2f74fdd8fde5925d4cb3f",
-    "at": "2026-06-12T00:21:54-04:00",
-    "type": "chore",
-    "scope": "changes",
-    "subject": "refresh changes feed"
-  },
-  {
-    "sha": "506454bea5f40346941130166f685400fd2fd8a0",
-    "at": "2026-06-12T00:21:54-04:00",
-    "type": "chore",
-    "scope": "audits",
-    "subject": "refresh audit reports"
-  },
-  {
-    "sha": "5fced5af36de5e31ebb9d38af16d51f55b99898a",
-    "at": "2026-06-12T00:21:54-04:00",
-    "type": "chore",
-    "scope": "setup",
-    "subject": "refresh setup registry"
-  },
-  {
-    "sha": "30fe17072e4876f79045d08ad80ba1641adb6bf8",
-    "at": "2026-06-12T00:21:54-04:00",
-    "type": "chore",
-    "scope": "features",
-    "subject": "refresh feature registry"
-  },
-  {
-    "sha": "2b3a27bb679c460f091096f5b579e600bef4a5e9",
-    "at": "2026-06-12T00:21:54-04:00",
-    "type": "other",
-    "subject": "@ feat(secrets): activate the in-dashboard key vault + manage AI provider config"
-  },
-  {
-    "sha": "600e093e2116d74cd111a54449be354a80145831",
-    "at": "2026-06-12T00:04:30-04:00",
-    "type": "fix",
-    "scope": "video-studio",
-    "subject": "make cockpit actions work under Supabase auth + add video preview"
   }
 ]
