@@ -1,5 +1,39 @@
 [
   {
+    "sha": "e3db49054709ff6dd6d54aacb812b949bf0b9e69",
+    "at": "2026-06-12T01:12:27-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "3e823ed1fd85b76c44fc17a66d338e417bda1816",
+    "at": "2026-06-12T01:12:27-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "2db7ab2c39201ec93fbe7cc5327be69c7a70ac60",
+    "at": "2026-06-12T01:12:27-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "bb7e5336ee9d08297c544d8d4e53bcdc4ccac11b",
+    "at": "2026-06-12T01:12:27-04:00",
+    "type": "other",
+    "subject": "@ fix(feature-education): await async admin/cron guards in API routes"
+  },
+  {
+    "sha": "414471ada1774f194eb2f74fdd8fde5925d4cb3f",
+    "at": "2026-06-12T00:21:54-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "506454bea5f40346941130166f685400fd2fd8a0",
     "at": "2026-06-12T00:21:54-04:00",
     "type": "chore",
@@ -522,40 +556,5 @@
     "type": "feat",
     "scope": "marketing",
     "subject": "lead homepage persona cards with all 7 sports"
-  },
-  {
-    "sha": "bec8682807154c57a1a32494ca90acc59489a313",
-    "at": "2026-06-10T22:35:28-04:00",
-    "type": "feat",
-    "scope": "sports",
-    "subject": "wire pickleball + padel into DrillMatch catalog (7-sport parity)"
-  },
-  {
-    "sha": "cc526fccf00aacf96d43851fe0cccf428e3bb286",
-    "at": "2026-06-10T22:29:43-04:00",
-    "type": "chore",
-    "scope": "admin",
-    "subject": "regenerate feature registry (admin guides)"
-  },
-  {
-    "sha": "d1da8218d7dd8da6b58d8cd077c7467e92163d6e",
-    "at": "2026-06-10T22:26:53-04:00",
-    "type": "refactor",
-    "scope": "demo",
-    "subject": "kebab-case the demo lib filenames (naming gate)"
-  },
-  {
-    "sha": "8a28af7cf1dffea2afd4f542fc3db165170d58ac",
-    "at": "2026-06-10T22:24:29-04:00",
-    "type": "feat",
-    "scope": "updates",
-    "subject": "announce the free 7-sport live demo + index /demo"
-  },
-  {
-    "sha": "35137b1388399dbfb5d28908e0394341fff95e23",
-    "at": "2026-06-10T22:19:43-04:00",
-    "type": "feat",
-    "scope": "analytics",
-    "subject": "instrument the /demo experience"
   }
 ]
