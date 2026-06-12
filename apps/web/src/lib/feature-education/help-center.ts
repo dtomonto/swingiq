@@ -17,10 +17,42 @@
 
 import { SEEDED_ASSETS } from './server/seed-help';
 import { humanize } from './detection';
+import {
+  CURATED_HELP,
+  HELP_CONTENT_UPDATED,
+  isPublicHelpSlug,
+  type CuratedHelpTopic,
+} from './help-content';
 import type { AssetFaq, AssetSection, AssetStep, EducationAsset } from './types';
 
 /** Asset visibilities that are safe to render on a PUBLIC help page. */
 const PUBLIC_SAFE_VISIBILITY = new Set(['public', 'user']);
+
+/**
+ * Scrub the auto-generated fallback text of its tell-tale artifacts so even a
+ * non-curated topic reads like prose, not a debug string:
+ *   - "Foo — detected from /route." → "Foo."
+ *   - "aI" (lowerFirst applied to an acronym) → "AI"
+ * Curated content has none of these, so running it through is a harmless no-op.
+ */
+function cleanText(s: string): string {
+  return s
+    .replace(/\s*—\s*detected from\s+\S+?\.?(?=\s|$)/gi, '.')
+    .replace(/\bDetected\b(?:\s+in\s+[^.]+?)?\s+from\s+[^.]*\./gi, '')
+    .replace(/\bConfidence:\s*\d+\/100[^.]*\.?/gi, '')
+    .replace(/\baI\b/g, 'AI')
+    .replace(/\bUi\b/g, 'UI')
+    .replace(/\s+([.,])/g, '$1')
+    .replace(/\.{2,}/g, '.')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+function cleanSections(sections: AssetSection[]): AssetSection[] {
+  return sections
+    .map((s) => ({ heading: s.heading, body: s.body.map(cleanText).filter(Boolean) }))
+    .filter((s) => s.body.length > 0);
+}
 
 /** Section headings we render specially (steps) or replace (related) — skip in narrative. */
 const SKIP_SECTION = /^(step by step|steps|related|related & next)$/i;
@@ -48,6 +80,14 @@ export interface HelpTopic {
   /** SEO title + description (falls back to a sensible default in the page). */
   seoTitle?: string;
   seoDescription?: string;
+  /** Slugs of related guides for internal linking (public slugs only). */
+  related: string[];
+  /** ISO date the content was last reviewed (for `dateModified`). */
+  updated?: string;
+  /** True when this topic is backed by a hand-authored curated guide. */
+  curated: boolean;
+  /** True when this is a real feature that should be indexed + listed. */
+  indexable: boolean;
 }
 
 /** The help slug a published asset belongs to (its feature, minus `feat_`). */
@@ -106,27 +146,65 @@ function buildTopic(slug: string, all: EducationAsset[]): HelpTopic | null {
   const inApp = assets.find((a) => a.type === 'in-app-help')?.inAppHelp;
 
   const route = primaryRoute(assets);
-  const lead =
+  const lead = cleanText(
     article?.summary ??
-    inApp?.body ??
-    seoAsset?.summary ??
-    `Learn what ${topicTitle(slug, assets)} does and how to use it.`;
+      inApp?.body ??
+      seoAsset?.summary ??
+      `Learn what ${topicTitle(slug, assets)} does and how to use it.`,
+  );
 
-  const sections = (article?.sections ?? []).filter((s) => !SKIP_SECTION.test(s.heading));
-  const faqs = faqAsset?.faqs ?? article?.faqs ?? [];
+  const sections = cleanSections(
+    (article?.sections ?? []).filter((s) => !SKIP_SECTION.test(s.heading)),
+  );
+  const faqs = (faqAsset?.faqs ?? article?.faqs ?? []).map((f) => ({
+    q: cleanText(f.q),
+    a: cleanText(f.a),
+  }));
+  const steps = (article?.steps ?? []).map((s) => ({
+    title: cleanText(s.title),
+    detail: cleanText(s.detail),
+  }));
 
-  return {
+  const isAdmin = (route?.startsWith('/admin') ?? false) || slug.startsWith('admin-');
+
+  // The auto-generated baseline. A curated entry (below) overrides any field.
+  const generated: HelpTopic = {
     slug,
     title: topicTitle(slug, assets),
     lead,
     primaryRoute: route,
-    isAdmin: (route?.startsWith('/admin') ?? false) || slug.startsWith('admin-'),
-    steps: article?.steps ?? [],
+    isAdmin,
+    steps,
     sections,
     faqs,
-    answer: seoAsset?.seo?.aeoAnswer ?? inApp?.body,
+    answer: cleanText(seoAsset?.seo?.aeoAnswer ?? inApp?.body ?? '') || undefined,
     seoTitle: seoAsset?.seo?.title,
     seoDescription: seoAsset?.seo?.description,
+    related: [],
+    curated: false,
+    indexable: isPublicHelpSlug(slug) && !isAdmin,
+  };
+
+  return mergeCurated(generated, CURATED_HELP[slug]);
+}
+
+/** Overlay a hand-authored curated guide onto the generated baseline. */
+function mergeCurated(base: HelpTopic, curated: CuratedHelpTopic | undefined): HelpTopic {
+  if (!curated) return base;
+  return {
+    ...base,
+    title: curated.title ?? base.title,
+    lead: curated.lead,
+    answer: curated.answer,
+    seoTitle: curated.seoTitle,
+    seoDescription: curated.seoDescription,
+    primaryRoute: curated.primaryRoute ?? base.primaryRoute,
+    steps: curated.steps,
+    sections: curated.sections,
+    faqs: curated.faqs,
+    related: curated.related ?? [],
+    updated: HELP_CONTENT_UPDATED,
+    curated: true,
   };
 }
 
@@ -163,14 +241,28 @@ export function helpPath(slug: string): string {
 }
 
 /**
- * Topics split into the public/end-user help and the admin/operator help, for
- * the index page. Both are real, published content; we just group them so the
- * index reads cleanly.
+ * Public, indexable help topics — the real user features on the allowlist.
+ * This is the set that drives the /help index, the sitemap, and static
+ * generation. Curated guides sort first, then the rest, both alphabetical.
+ */
+export function getPublicHelpTopics(): HelpTopic[] {
+  return getHelpTopics()
+    .filter((t) => t.indexable)
+    .sort((a, b) => {
+      if (a.curated !== b.curated) return a.curated ? -1 : 1;
+      return a.title.localeCompare(b.title);
+    });
+}
+
+/**
+ * Topics split into the indexable public/end-user help and the admin/operator
+ * help, for the index page. `user` is pruned to the real-feature allowlist so
+ * the public Help Center is a focused, SEO-grade set rather than every route.
  */
 export function getHelpGroups(): { user: HelpTopic[]; admin: HelpTopic[] } {
   const topics = getHelpTopics();
   return {
-    user: topics.filter((t) => !t.isAdmin),
+    user: getPublicHelpTopics(),
     admin: topics.filter((t) => t.isAdmin),
   };
 }

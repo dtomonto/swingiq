@@ -5,6 +5,11 @@ import { buildMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbListSchema } from '@/lib/seo/jsonLd';
 import { getHelpGroups, helpPath, type HelpTopic } from '@/lib/feature-education/help-center';
+import { isAdminUser } from '@/lib/auth/admin';
+
+// Reading the session (to decide whether to show the admin & operator guides)
+// makes this page dynamic — it must not be cached as a single shared HTML.
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Help Center',
@@ -34,8 +39,31 @@ function TopicGrid({ topics }: { topics: HelpTopic[] }) {
   );
 }
 
-export default function HelpCenterIndex() {
+/** Slugs that are about analyzing a specific sport (grouped on the index). */
+const SPORT_SLUGS = new Set([
+  'golf',
+  'golf-swing-analysis',
+  'tennis',
+  'tennis-swing-analysis',
+  'baseball',
+  'baseball-swing-analysis',
+  'softball',
+  'softball-swing-analysis',
+  'pickleball',
+  'pickleball-dinking',
+  'pickleball-third-shot-drop',
+  'padel',
+  'padel-bandeja',
+  'padel-wall-rebound-technique',
+  'free-swing-analysis',
+]);
+
+export default async function HelpCenterIndex() {
   const { user, admin } = getHelpGroups();
+  const sportGuides = user.filter((t) => SPORT_SLUGS.has(t.slug));
+  const featureGuides = user.filter((t) => !SPORT_SLUGS.has(t.slug));
+  // Admin & operator guides are only listed for an allowlisted admin user.
+  const showAdmin = await isAdminUser();
 
   return (
     <main className="bg-background">
@@ -76,18 +104,29 @@ export default function HelpCenterIndex() {
       <div className="mx-auto max-w-5xl px-4 py-12">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Search size={16} aria-hidden="true" />
-          <span>{user.length} feature guides</span>
+          <span>{user.length} guides</span>
         </div>
 
-        <section aria-label="Feature guides" className="mt-6">
-          <h2 className="text-2xl font-bold text-foreground">Feature guides</h2>
+        {sportGuides.length > 0 && (
+          <section aria-label="Analyze your sport" className="mt-6">
+            <h2 className="text-2xl font-bold text-foreground">Analyze your sport</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              How to get an AI breakdown of your swing in golf, tennis, baseball, softball,
+              pickleball, and padel.
+            </p>
+            <TopicGrid topics={sportGuides} />
+          </section>
+        )}
+
+        <section aria-label="Using SwingVantage" className="mt-14">
+          <h2 className="text-2xl font-bold text-foreground">Using SwingVantage</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Everything you can do in SwingVantage, explained.
+            Recording a swing, reading your diagnosis, drills, progress, and everything else.
           </p>
-          <TopicGrid topics={user} />
+          <TopicGrid topics={featureGuides} />
         </section>
 
-        {admin.length > 0 && (
+        {showAdmin && admin.length > 0 && (
           <section aria-label="Admin & operator guides" className="mt-14">
             <h2 className="text-2xl font-bold text-foreground">Admin &amp; operator guides</h2>
             <p className="mt-1 text-sm text-muted-foreground">
