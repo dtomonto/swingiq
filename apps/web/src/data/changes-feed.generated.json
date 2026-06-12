@@ -1,5 +1,39 @@
 [
   {
+    "sha": "0ea341188365b83f177446e6f35a7b91dc12b85f",
+    "at": "2026-06-12T07:46:48-04:00",
+    "type": "chore",
+    "scope": "audits",
+    "subject": "refresh audit reports"
+  },
+  {
+    "sha": "5a3382970a7a8da57d5cb0515cb03a030b4fc12a",
+    "at": "2026-06-12T07:46:48-04:00",
+    "type": "chore",
+    "scope": "setup",
+    "subject": "refresh setup registry"
+  },
+  {
+    "sha": "6e0107c1b951a6d96ced9c6647bb1d9812cca2b5",
+    "at": "2026-06-12T07:46:48-04:00",
+    "type": "chore",
+    "scope": "features",
+    "subject": "refresh feature registry"
+  },
+  {
+    "sha": "4ab0098aa09454b51c4cdac7a2e16c66edea7c27",
+    "at": "2026-06-12T07:46:48-04:00",
+    "type": "other",
+    "subject": "@ fix(feature-education): resync committed seed with the settled registry"
+  },
+  {
+    "sha": "78b12bd67ed88f0f5add8e464e1c0fc9e05c90d3",
+    "at": "2026-06-12T01:12:27-04:00",
+    "type": "chore",
+    "scope": "changes",
+    "subject": "refresh changes feed"
+  },
+  {
     "sha": "e3db49054709ff6dd6d54aacb812b949bf0b9e69",
     "at": "2026-06-12T01:12:27-04:00",
     "type": "chore",
@@ -521,40 +555,5 @@
     "type": "docs",
     "scope": "claude",
     "subject": "append SwingVantage product & design guide to CLAUDE.md"
-  },
-  {
-    "sha": "9b9f235a272bbd1a640249f6249dd21f25f9fae7",
-    "at": "2026-06-10T23:28:56-04:00",
-    "type": "test",
-    "scope": "e2e",
-    "subject": "de-flake the usage-modal dismissal in two green-but-racy specs (#23)"
-  },
-  {
-    "sha": "5757115ec080327e7779a333beab2c30f0ee9571",
-    "at": "2026-06-10T23:28:29-04:00",
-    "type": "feat",
-    "scope": "founding",
-    "subject": "soften Founding Members banner + daily publishing cron (#12)"
-  },
-  {
-    "sha": "6908ef41a78b22454d5acb7a632fe640b3f6efd3",
-    "at": "2026-06-10T23:28:10-04:00",
-    "type": "feat",
-    "scope": "reliability-os",
-    "subject": "admin Health Command Center (Phase 1) (#22)"
-  },
-  {
-    "sha": "ccf799661ba3db9b0554d223ab85784f13fcb54e",
-    "at": "2026-06-10T22:55:29-04:00",
-    "type": "content",
-    "scope": "dev-updates",
-    "subject": "publish the BranchGuardianOS dev-update"
-  },
-  {
-    "sha": "96ab6ab291450fee63e67c882392d10fa3cbdec9",
-    "at": "2026-06-10T22:41:58-04:00",
-    "type": "feat",
-    "scope": "marketing",
-    "subject": "lead homepage persona cards with all 7 sports"
   }
 ]
