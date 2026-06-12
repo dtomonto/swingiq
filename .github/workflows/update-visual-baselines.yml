@@ -1,0 +1,44 @@
+name: Update Visual Baselines
+
+# Maintenance workflow (manual only). Regenerates the Playwright visual-regression
+# baselines for e2e/visual on the CI platform (ubuntu / chromium-linux) so they
+# match what the "E2E journeys (Playwright)" gate actually compares against, then
+# uploads them as an artifact to download + commit. Run after an intentional UI
+# change. Never runs automatically and never pushes.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  update:
+    name: Generate visual baselines (chromium-linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install dependencies
+        run: npm install --prefer-offline --no-audit --no-fund
+      - name: Add Playwright test runner + axe (not saved to package.json)
+        run: npm install --no-save @playwright/test@^1.60.0 @axe-core/playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+        working-directory: apps/web
+      - name: Regenerate visual baselines (builds + starts the app on :3100)
+        run: npx playwright test e2e/visual --update-snapshots
+        working-directory: apps/web
+        env:
+          CI: 'true'
+      - name: Upload regenerated baselines
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: visual-baselines
+          path: apps/web/e2e/visual/**/*-snapshots/**
+          if-no-files-found: error
+          retention-days: 3
