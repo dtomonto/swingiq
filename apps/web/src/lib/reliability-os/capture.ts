@@ -154,6 +154,10 @@ export const logUploadFailure = (p: Omit<RawOperationalEvent, 'type'>) => logOpe
 export const logAuthFailure = (p: Omit<RawOperationalEvent, 'type'> & { type?: RawOperationalEvent['type'] }) => logOperationalEvent({ type: p.type ?? 'auth_login_failed', category: 'auth', ...p });
 export const logToolFailure = (p: Omit<RawOperationalEvent, 'type'>) => logOperationalEvent({ type: 'tool_execution_failed', category: 'tool', ...p });
 export const logPageFailure = (p: Omit<RawOperationalEvent, 'type'>) => logOperationalEvent({ type: 'page_load_failed', category: 'page', ...p });
+/** A swing-analysis (AI-vision) attempt failed. Makes a previously silent failure
+ *  visible in ReliabilityOS so admins can see when analysis is breaking. */
+export const logAnalysisFailure = (p: Omit<RawOperationalEvent, 'type'>) =>
+  logOperationalEvent({ type: 'video_processing_failed', category: 'video_upload', ...p, uploadStage: p.uploadStage ?? 'ai_vision_analysis' });
 
 // ── map a generic reportError(error, ctx) into a RawOperationalEvent ──
 function sinkContextToRaw(error: unknown, ctx?: Record<string, unknown>): RawOperationalEvent {

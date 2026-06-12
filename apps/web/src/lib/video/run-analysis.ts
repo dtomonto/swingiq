@@ -18,6 +18,7 @@
 
 import { prepareSwing } from '@/lib/video/prepare-swing';
 import { saveVideoAnalysis, type SavedVideoAnalysis } from '@/lib/video/history';
+import { logAnalysisFailure } from '@/lib/reliability-os/capture';
 import type { PoseMetrics } from '@/lib/pose';
 import type { AnalysisStage } from '@/components/video/AnalysisProgress';
 import type {
@@ -85,6 +86,27 @@ function throwIfAborted(signal?: AbortSignal) {
  * promptly. Mirrors the original inline pipeline exactly.
  */
 export async function runSwingAnalysis(
+  input: SwingAnalysisInput,
+  sink: AnalysisProgressSink,
+): Promise<SwingAnalysisResult> {
+  try {
+    return await runSwingAnalysisInner(input, sink);
+  } catch (err) {
+    // Surface real analysis failures to ReliabilityOS so admins can see breakage
+    // (previously these were silent). Cancellations (AbortError) are intentional.
+    if (!(err instanceof DOMException && err.name === 'AbortError')) {
+      logAnalysisFailure({
+        route: typeof window !== 'undefined' ? window.location?.pathname : undefined,
+        actionName: `analyze:${input.sport}`,
+        error: err,
+        metadata: { sport: input.sport, cameraAngle: input.declaredCameraAngle, speed: input.speed },
+      });
+    }
+    throw err;
+  }
+}
+
+async function runSwingAnalysisInner(
   input: SwingAnalysisInput,
   sink: AnalysisProgressSink,
 ): Promise<SwingAnalysisResult> {
