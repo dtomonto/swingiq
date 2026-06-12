@@ -43,6 +43,10 @@ export function initPostHog(): void {
     // and avoids billing for anonymous-only visitors. Anonymous events are still
     // captured and back-filled to the person on identify().
     person_profiles: 'identified_only',
+    // Capture pageviews on initial load AND on App-Router client navigations
+    // (history pushState/replaceState) — without this, SPA route changes would
+    // be undercounted ($pageview only on hard loads). (P1.6)
+    capture_pageview: 'history_change',
     // Capture clicks/submits only — never input values (autocapture never sends
     // field contents). Keeps autocapture useful without DOM noise.
     autocapture: { dom_event_allowlist: ['click', 'submit'] },
@@ -57,6 +61,38 @@ export function initPostHog(): void {
     // Extra courtesy on top of our own consent gate.
     respect_dnt: true,
   });
+
+  // Tag every event with the build environment so PostHog can exclude
+  // dev/preview/internal traffic from product metrics (filter `environment`
+  // in the PostHog UI). (P1.6)
+  posthog.register({ environment: process.env.NODE_ENV || 'production' });
+
+  // Route client-side exceptions into PostHog error tracking via the existing
+  // provider-agnostic observability reporter, so each error correlates with the
+  // user's events, identity, and (if ever enabled) replay. (audit §J)
+  registerPostHogErrorSink();
+}
+
+interface SinkWindow extends Window {
+  __svCaptureException?: (error: unknown, context?: Record<string, unknown>) => void;
+}
+
+/**
+ * Install PostHog as the observability sink (`window.__svCaptureException`),
+ * which lib/observability/report.ts forwards every reported error to. Does not
+ * clobber a sink another provider (e.g. Sentry) already registered.
+ */
+function registerPostHogErrorSink(): void {
+  if (typeof window === 'undefined') return;
+  const w = window as SinkWindow;
+  if (typeof w.__svCaptureException === 'function') return;
+  w.__svCaptureException = (error, context) => {
+    try {
+      posthog.captureException(error, context);
+    } catch {
+      /* never throw from the error sink */
+    }
+  };
 }
 
 /** Whether the SDK has been initialized in this session (test/debug aid). */

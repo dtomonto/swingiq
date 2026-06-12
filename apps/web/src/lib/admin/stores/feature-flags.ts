@@ -11,6 +11,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { FLAG_DEFS, evalFlag, findFlagDef, type FlagOverride } from '../flags';
+import { featureFlag } from '@/lib/analytics';
 
 interface FeatureFlagStore {
   overrides: Record<string, FlagOverride>;
@@ -86,13 +87,26 @@ export const useFeatureFlags = create<FeatureFlagStore>()(
 
 /**
  * Read the effective state of a flag from any client component.
- * Falls back to the registry default when no override is set.
+ *
+ * Resolution order (P1 — local-first, PostHog-aware):
+ *   1. A local operator override (the device-local kill-switch) ALWAYS wins —
+ *      so admins keep instant, certain control regardless of any rollout.
+ *   2. Otherwise a PostHog flag of the same key, when PostHog is loaded and has
+ *      resolved it — this is how a staged % / targeted rollout takes effect.
+ *   3. Otherwise the registry default.
+ *
+ * No PostHog flags exist yet, so step 2 is a no-op today and behavior is
+ * unchanged; it makes PostHog the rollout mechanism the moment a matching flag
+ * is created, without touching any call site.
  */
 export function isFlagEnabled(key: string): boolean {
   const def = findFlagDef(key);
   if (!def) return false;
   const override = useFeatureFlags.getState().overrides[key];
-  return evalFlag(def, override);
+  if (override) return override.enabled;
+  const remote = featureFlag(key);
+  if (typeof remote === 'boolean') return remote;
+  return evalFlag(def); // registry default (no override)
 }
 
 /** All flags with their effective state, for the management table. */
