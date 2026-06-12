@@ -95,15 +95,22 @@ export function SavedAnalysisModal({ record, onClose, onExport }: SavedAnalysisM
 
   return (
     <div
-      className="fixed inset-0 z-200 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs px-0 sm:px-4 py-0 sm:py-6"
+      className="fixed inset-0 z-200 flex items-end sm:items-center justify-center px-0 sm:px-4 py-0 sm:py-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby="saved-analysis-title"
-      onClick={onClose}
     >
+      {/* Backdrop as a real button so the click-to-close handler lives on an
+          interactive element (a11y: no listener on the non-interactive dialog).
+          Mirrors the GlobalSearch modal pattern. */}
+      <button
+        type="button"
+        aria-label="Close saved analysis"
+        className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+        onClick={onClose}
+      />
       <div
-        className="bg-card w-full max-w-2xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
+        className="relative bg-card w-full max-w-2xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-2xl"
       >
         {/* Header */}
         <div className="sticky top-0 z-10 bg-card border-b border-border px-5 py-4 flex items-start gap-3">
