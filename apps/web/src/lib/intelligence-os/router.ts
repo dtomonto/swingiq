@@ -28,10 +28,13 @@ import type {
 } from './types';
 
 export function genId(prefix: string): string {
-  const uuid = typeof crypto !== 'undefined' && 'randomUUID' in crypto
-    ? crypto.randomUUID()
-    : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-  return `io_${prefix}_${uuid}`;
+  const c = (globalThis as { crypto?: Crypto }).crypto;
+  if (c?.randomUUID) return `io_${prefix}_${c.randomUUID()}`;
+  // Fallback without Math.random: 16 secure random bytes → hex.
+  const bytes = new Uint8Array(16);
+  c?.getRandomValues?.(bytes);
+  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
+  return `io_${prefix}_${hex}`;
 }
 
 function estimateCostCents(provider: Provider | null, inputTokens: number, outputTokens: number): number {
