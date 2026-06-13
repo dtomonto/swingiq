@@ -5,6 +5,7 @@ import { buildMetadata } from '@/lib/seo/metadata';
 import { BILLING_TIERS } from '@/lib/billing/tiers';
 import { PricingCTA } from './PricingCTA';
 import { BillingPortalButton } from './BillingPortalButton';
+import { TierInvite } from '@/components/intelligence/TierInvite';
 
 export const metadata = buildMetadata({
   title: 'Pricing — Free AI Swing Analysis',
@@ -75,6 +76,11 @@ export default function PricingPage() {
               </div>
             );
           })}
+        </div>
+
+        {/* Calm, admin-controlled early-access invitation (renders only when enabled). */}
+        <div className="mt-8">
+          <TierInvite slot="pricing" />
         </div>
 
         <BillingPortalButton />

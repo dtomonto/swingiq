@@ -44,3 +44,17 @@ export {
   cacheKey,
   cacheStoreSource,
 } from './cache';
+export {
+  getPlacementState,
+  setPlacementState,
+  placementStoreSource,
+  PLACEMENT_SLOTS,
+} from './placements';
+export type {
+  PlacementState,
+  PlacementPatch,
+  PlacementSetting,
+  PlacementSlotId,
+  PlacementSlotDef,
+  WaitlistTier,
+} from './placements';
