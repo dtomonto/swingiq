@@ -11,6 +11,7 @@
 // ============================================================
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';
 import { StatusBadge } from '@/components/admin/StatusBadge';
@@ -79,7 +80,7 @@ export function TierRolloutControl({ initialMode, counts, persistent }: Props) {
 
       <SectionCard
         title="Rollout mode"
-        description="Choose how the paid tiers (Pro, Team) appear to athletes. Free is always active. Flip to Full rollout when you're ready to launch — checkout opens automatically once Stripe is connected."
+        description="Choose how the paid tiers (Pro, Team) appear to athletes. Free is always active. This is the same switch as the membership-tier gate — flipping it here force-unlocks or force-locks that gate. Checkout opens automatically once Stripe is connected."
       >
         <div className="flex flex-wrap gap-2">
           {OPTIONS.map((o) => {
@@ -145,6 +146,14 @@ export function TierRolloutControl({ initialMode, counts, persistent }: Props) {
           every press is counted here (one per athlete per tier). When the numbers justify it, flip to{' '}
           <strong>Full rollout</strong> to turn the tiers on for everyone. No one is ever charged until Stripe
           is connected.
+        </p>
+        <p className="mt-2">
+          This toggle and the{' '}
+          <Link href="/admin/central-intelligence" className="text-link underline">
+            membership-tier gate
+          </Link>{' '}
+          are the same decision. For automatic unlock once the Founding campaign fills (instead of a manual
+          on/off), use the 3-way control there.
         </p>
       </HelpPanel>
     </div>

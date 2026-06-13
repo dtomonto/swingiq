@@ -1,18 +1,24 @@
 // ============================================================
 // SwingVantage — Tier rollout + waitlist interest store (SERVER-ONLY)
 // ------------------------------------------------------------
-// Owns two durable pieces of state for the gradual paid-tier launch:
-//   1. the ROLLOUT MODE   — 'free' (only Free active) | 'full' (all active),
-//      flipped by an admin from the dashboard to roll the tiers out.
+// Two pieces of state for the gradual paid-tier launch:
+//   1. the ROLLOUT MODE   — 'free' (only Free active) | 'full' (all active).
+//      This is NOT stored independently: it is the SAME decision as the
+//      CentralIntelligence membership-tier gate (founding-server), so the
+//      admin command center and the pricing page can never disagree. The
+//      gate is unlocked automatically once the Founding campaign fills, or
+//      forced on/off by an admin. Here:
+//        full  ⟺ membership tiers unlocked   ⟺ founding manualOverride=true
+//        free  ⟺ membership tiers locked     ⟺ founding manualOverride=false
 //   2. per-user WAITLIST INTEREST — one idempotent record per (tier, user),
 //      so the owner can count how many signed-in users want each tier
 //      before deciding to roll it out.
 //
-// Persistence mirrors the Founding store (lib/central-intelligence/
-// founding-server.ts): a single `growth_records` JSONB table when Supabase
-// is configured, else an in-process store so the whole flow works keyless in
-// dev. Interest is written by an AUTHENTICATED end-user route (one record per
-// user); the rollout mode is written only by the admin-guarded route.
+// Interest persistence mirrors the Founding store: a single `growth_records`
+// JSONB table when Supabase is configured, else an in-process store so the
+// whole flow works keyless in dev. Interest is written by an AUTHENTICATED
+// end-user route (one record per user); the rollout mode is flipped only by
+// the admin-guarded route (which writes the founding gate).
 //
 // SECURITY: uses the service-role admin client (bypasses RLS). Callers are
 // either an authenticated user route (interest) or the admin command center
@@ -21,23 +27,18 @@
 
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 import {
-  DEFAULT_TIER_ROLLOUT_MODE,
+  getFoundingCampaignProgress,
+  isFoundingPersistent,
+  setFoundingConfig,
+} from '@/lib/central-intelligence/founding-server';
+import {
   WAITLIST_TIER_IDS,
   type TierId,
   type TierRolloutMode,
 } from './tiers';
 
 const TABLE = 'growth_records';
-const CONFIG_KIND = 'tier-rollout-config';
-const CONFIG_ID = 'tier-rollout-config';
 const INTEREST_KIND = 'tier-interest';
-
-export interface TierRolloutConfigRecord {
-  id: typeof CONFIG_ID;
-  kind: typeof CONFIG_KIND;
-  mode: TierRolloutMode;
-  updatedAt: string;
-}
 
 export interface TierInterestRecord {
   id: string; // `tier-interest-${tierId}-${userId}`
@@ -50,12 +51,11 @@ export interface TierInterestRecord {
 // ── In-process fallback (keyless/dev) ─────────────────────────
 const GLOBAL_KEY = '__tier_rollout_store__';
 interface MemStore {
-  config: TierRolloutConfigRecord | null;
   interest: Map<string, TierInterestRecord>;
 }
 function memStore(): MemStore {
   const g = globalThis as unknown as Record<string, unknown>;
-  if (!g[GLOBAL_KEY]) g[GLOBAL_KEY] = { config: null, interest: new Map() } as MemStore;
+  if (!g[GLOBAL_KEY]) g[GLOBAL_KEY] = { interest: new Map() } as MemStore;
   return g[GLOBAL_KEY] as MemStore;
 }
 
@@ -63,64 +63,47 @@ function admin() {
   return createSupabaseAdminClient();
 }
 
-/** Test-only: clear the in-process store (keyless mode) between cases. */
+/** Test-only: clear the in-process interest store (keyless mode) between cases. */
 export function __resetTierRolloutStoreForTests(): void {
   const g = globalThis as unknown as Record<string, unknown>;
-  g[GLOBAL_KEY] = { config: null, interest: new Map() };
+  g[GLOBAL_KEY] = { interest: new Map() };
 }
 
-/** Whether real Supabase persistence is active. */
+/** Whether real persistence is active (shared with the Founding gate store). */
 export function isTierRolloutPersistent(): boolean {
-  return admin() !== null;
+  return isFoundingPersistent();
 }
 
-// ── Rollout mode ──────────────────────────────────────────────
+// ── Rollout mode (≡ membership-tier gate) ─────────────────────
 
-const DEFAULT_CONFIG: TierRolloutConfigRecord = {
-  id: CONFIG_ID,
-  kind: CONFIG_KIND,
-  mode: DEFAULT_TIER_ROLLOUT_MODE,
-  updatedAt: '1970-01-01T00:00:00.000Z',
-};
-
-export async function getTierRolloutConfig(): Promise<TierRolloutConfigRecord> {
-  const c = admin();
-  if (!c) return memStore().config ?? DEFAULT_CONFIG;
-  try {
-    const { data, error } = await c.from(TABLE).select('data').eq('kind', CONFIG_KIND).eq('id', CONFIG_ID).maybeSingle();
-    if (error || !data) return DEFAULT_CONFIG;
-    const stored = (data as { data: Partial<TierRolloutConfigRecord> }).data;
-    const mode: TierRolloutMode = stored.mode === 'full' ? 'full' : 'free';
-    return { ...DEFAULT_CONFIG, ...stored, mode };
-  } catch {
-    return DEFAULT_CONFIG;
-  }
-}
-
-/** Convenience: just the current rollout mode. Never throws. */
+/**
+ * The live rollout mode, derived from the CentralIntelligence membership
+ * gate so both surfaces stay in lock-step. Never throws (the gate degrades
+ * to "locked" when unavailable). 'full' once the gate is unlocked.
+ */
 export async function getTierRolloutMode(): Promise<TierRolloutMode> {
-  return (await getTierRolloutConfig()).mode;
+  try {
+    const progress = await getFoundingCampaignProgress();
+    return progress.membershipTiersEnabled ? 'full' : 'free';
+  } catch {
+    return 'free';
+  }
 }
 
-export async function setTierRolloutMode(mode: TierRolloutMode): Promise<TierRolloutConfigRecord> {
-  const next: TierRolloutConfigRecord = {
-    id: CONFIG_ID,
-    kind: CONFIG_KIND,
-    mode: mode === 'full' ? 'full' : 'free',
-    updatedAt: new Date().toISOString(),
-  };
-  const c = admin();
-  if (!c) {
-    memStore().config = next;
-    return next;
-  }
-  const now = new Date().toISOString();
-  try {
-    await c.from(TABLE).upsert({ id: CONFIG_ID, kind: CONFIG_KIND, data: next, created_at: now, updated_at: now }, { onConflict: 'id' });
-  } catch {
-    memStore().config = next;
-  }
-  return next;
+export interface SetTierRolloutResult {
+  mode: TierRolloutMode;
+}
+
+/**
+ * Flip the rollout by writing the membership gate's manual override:
+ *   'full' → force-unlock (true), 'free' → force-lock (false).
+ * Any non-'full' value is treated as 'free'. The 3-way "automatic" state is
+ * still settable from the Central Intelligence command center.
+ */
+export async function setTierRolloutMode(mode: TierRolloutMode): Promise<SetTierRolloutResult> {
+  const full = mode === 'full';
+  await setFoundingConfig({ manualOverride: full });
+  return { mode: full ? 'full' : 'free' };
 }
 
 // ── Waitlist interest ─────────────────────────────────────────

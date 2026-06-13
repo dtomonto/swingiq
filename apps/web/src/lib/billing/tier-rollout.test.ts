@@ -18,6 +18,10 @@ import {
   getTierInterestCounts,
   listTierInterest,
 } from './tier-rollout-server';
+import {
+  __resetFoundingStoreForTests,
+  getFoundingConfig,
+} from '../central-intelligence/founding-server';
 
 describe('tier gating helpers', () => {
   test('free is always rolled out, paid tiers only on full', () => {
@@ -44,23 +48,31 @@ describe('tier gating helpers', () => {
 });
 
 describe('tier rollout store (keyless / in-memory)', () => {
-  beforeEach(() => __resetTierRolloutStoreForTests());
+  beforeEach(() => {
+    __resetTierRolloutStoreForTests();
+    __resetFoundingStoreForTests();
+  });
 
   test('defaults to the free (waitlist) mode', async () => {
     expect(await getTierRolloutMode()).toBe('free');
   });
 
-  test('the mode can be flipped to full and back', async () => {
-    await setTierRolloutMode('full');
+  test('the mode tracks the membership-tier gate and can be flipped both ways', async () => {
+    expect(await setTierRolloutMode('full')).toEqual({ mode: 'full' });
     expect(await getTierRolloutMode()).toBe('full');
-    await setTierRolloutMode('free');
+    // Flipping rollout writes the founding gate's manual override.
+    expect((await getFoundingConfig()).manualOverride).toBe(true);
+
+    expect(await setTierRolloutMode('free')).toEqual({ mode: 'free' });
     expect(await getTierRolloutMode()).toBe('free');
+    expect((await getFoundingConfig()).manualOverride).toBe(false);
   });
 
-  test('an invalid mode is coerced to free', async () => {
+  test('an invalid mode is coerced to free (force-locks the gate)', async () => {
     // @ts-expect-error — exercising the runtime guard
     await setTierRolloutMode('bogus');
     expect(await getTierRolloutMode()).toBe('free');
+    expect((await getFoundingConfig()).manualOverride).toBe(false);
   });
 
   test('recording interest is idempotent per (user, tier)', async () => {
