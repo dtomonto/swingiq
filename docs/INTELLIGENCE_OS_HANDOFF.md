@@ -91,9 +91,13 @@ The high-leverage work is done. Remaining items are polish / diminishing returns
    re-embeds rows that are missing a vector **or** whose `embeddingModel` differs
    from the current `AI_EMBEDDINGS_MODEL`, stamping the new model. Covered by a
    service test.
-2. **Extend client `/observe`** to other deterministic surfaces — Fix Stack
-   (`components/drillmatch/FixStackPanel.tsx`) and retest plans — mirror the
-   one-liner in `CuratedSwingDrills.tsx` (kind `'drill'` / `'retest'`).
+2. ~~**Extend client `/observe`** to other deterministic surfaces — Fix Stack
+   (`components/drillmatch/FixStackPanel.tsx`) and retest plans~~ — ✅ **DONE.**
+   `FixStackPanel` now reports both the deterministic drill (`kind: 'drill'`,
+   feature `fix-stack`) and the retest plan (`kind: 'retest'`, feature
+   `fix-stack-retest`) to `/api/intelligence-os/observe`, deduped per
+   `(sport, fault, drill)`, fire-and-forget and error-swallowed — mirroring
+   `CuratedSwingDrills.tsx`.
 3. **Persist query-time embeddings** — `similarityWithVectors` re-embeds the
    *request* per call (memoized per process). Fine for current volume; revisit only
    at large scale.
