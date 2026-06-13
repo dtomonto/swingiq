@@ -42,6 +42,7 @@ import { SportCardGrid } from '@/components/sport/SportSelector';
 import { ChoiceGroup } from '@/components/tools/fields';
 import { ConfidenceBadge } from '@/components/agents/ConfidenceBadge';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
+import { DeterministicWhyPanel } from '@/components/report/DeterministicWhyPanel';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { useSport } from '@/contexts/SportContext';
 import { useSwingVantageStore } from '@/store';
@@ -606,6 +607,11 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
         confidence={result.confidence}
         whatImproves={result.whatImproves}
       />
+
+      {/* Deterministic engine's explainable read (collapsed by default) —
+          ranked cause, evidence, alternatives and an honest "deeper look" note.
+          Renders only when the engine confidently matched a curated cause. */}
+      {result.diagnosis && <DeterministicWhyPanel diagnosis={result.diagnosis} />}
 
       {/* Drills */}
       <div className="rounded-2xl border border-border bg-card p-5">
