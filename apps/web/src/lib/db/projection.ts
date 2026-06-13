@@ -500,6 +500,7 @@ export const EMPTY_SPORT_EQUIPMENT = DEFAULT_SPORT_EQUIPMENT;
 
 export interface PlayerProfileInput {
   display_name?: string | null;
+  handle?: string | null;
   primary_sport?: string | null;
   sports?: string[];
   skill_level?: string | null;
@@ -516,6 +517,7 @@ export function playerProfileRow(p: PlayerProfileInput, userId: string): Row {
   return {
     user_id: userId,
     display_name: p.display_name ?? null,
+    handle: p.handle ?? null,
     primary_sport: p.primary_sport ?? null,
     sports: p.sports ?? [],
     skill_level: p.skill_level ?? null,

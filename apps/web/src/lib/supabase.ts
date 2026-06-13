@@ -155,6 +155,7 @@ export type Database = {
           id: string;
           user_id: string;
           display_name: string | null;
+          handle: string | null;
           primary_sport: string | null;
           sports: string[];
           skill_level: string | null;
