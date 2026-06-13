@@ -32,6 +32,8 @@
     "generate:sitemap": "node scripts/check-sitemap.mjs && node scripts/check-sitemap-coverage.mjs",
     "check:sitemap:coverage": "node scripts/check-sitemap-coverage.mjs",
     "generate:brand": "node scripts/generate-brand-assets.mjs",
+    "tokens:build": "node scripts/design-tokens/build-tokens.mjs",
+    "tokens:check": "node scripts/design-tokens/build-tokens.mjs --check",
     "updates:generate": "node scripts/generate-updates.mjs",
     "test:scripts": "node --test \"scripts/__tests__/**/*.test.mjs\"",
     "docs:index": "node scripts/build-docs-index.mjs",
@@ -67,13 +69,14 @@
     "@typescript-eslint/parser": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0"
   },
-  "//overrides": "Security: force patched transitive deps. minimatch (ReDoS) pinned >=9 globally; but eslint-plugin-jsx-a11y relies on minimatch's older callable default export, so it gets the patched 3.1.2 (>=3.0.5, ReDoS-safe) via a scoped override. postcss (XSS via next build tooling). All build/dev-time only.",
+  "//overrides": "Security: force patched transitive deps. minimatch (ReDoS) pinned >=9 globally; but eslint-plugin-jsx-a11y relies on minimatch's older callable default export, so it gets the patched 3.1.2 (>=3.0.5, ReDoS-safe) via a scoped override. postcss (XSS via next build tooling). esbuild >=0.28.1 (GHSA-gv7w-rqvm-qjhr dev-server file read / Deno install RCE) — pulled only by storybook/vite/tsup. All build/dev-time only.",
   "overrides": {
     "minimatch": "^9.0.5",
     "eslint-plugin-jsx-a11y": {
       "minimatch": "^3.1.2"
     },
-    "postcss": "^8.5.10"
+    "postcss": "^8.5.10",
+    "esbuild": "^0.28.1"
   },
   "packageManager": "npm@10.8.2",
   "engines": {

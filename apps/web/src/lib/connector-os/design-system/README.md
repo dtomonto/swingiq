@@ -9,9 +9,14 @@ This layer **hardens and documents** that system; it does **not** introduce a ne
 
 - **Figma = design source of truth.** Components/tokens are designed in Figma (paid),
   optionally via the Figma MCP, and flow into code — never the reverse.
-- **Tokens Studio = token interchange.** When adopted, tokens export from Figma →
-  JSON → mapped to the Tailwind theme / CSS variables. Keep it simple: one flat token
-  schema (color, space, radius, type, motion), not a labyrinth.
+- **Tokens Studio = token interchange.** Implemented: `globals.css` (source of
+  truth) is extracted to a Tokens-Studio / W3C-DTCG file at
+  [`tokens/swingvantage.tokens.json`](./tokens/swingvantage.tokens.json) via
+  `npm run tokens:build`, with `npm run tokens:check` guarding drift. Import that
+  file into the Figma Tokens Studio plugin to seed/sync variables. Full pipeline
+  + round-trip steps: [`docs/design-tokens.md`](../../../../../../docs/design-tokens.md).
+  Keep it simple: one flat token schema (color, radius, type), not a labyrinth —
+  gradients/shadows/motion stay code-only.
 
 ## Token schema (initial)
 
@@ -23,6 +28,32 @@ theme.*        experience/theme tokens (light, dark, high-contrast)
 
 Each sport feels like its own premium branded experience while inheriting the parent
 brand's spacing/type/motion — distinct accent, shared skeleton.
+
+## Token sync (runnable — advisory)
+
+The token-interchange step above is wired up as a **non-destructive drift check**:
+
+```bash
+# from apps/web
+npm run figma:tokens                      # theme 'standard' vs Figma
+npm run figma:tokens -- --theme=dark-performance
+npm run figma:tokens -- --check           # exit 1 on drift (optional CI gate)
+```
+
+`scripts/figma-tokens-sync.mjs` reads your Figma tokens — from `apps/web/figma.tokens.json`
+(a Tokens Studio / Variables export you drop in), or the Figma Variables REST API
+when `FIGMA_ACCESS_TOKEN` + `FIGMA_FILE_KEY` are set — and **compares** them to the
+CSS variables in `globals.css`, printing what's in-sync, drifted, missing, or
+unmapped. It writes a `.figma-ds-state.json` snapshot (gitignored) and **never
+edits `globals.css`**: those values are hand-tuned to clear the enforced WCAG-AA
+gates, so promoting a Figma change into code stays a reviewed, manual edit. With no
+source configured it is a keyless no-op (CI-safe). Extend the Figma-path → CSS-var
+mapping in the script's `NAME_MAP` as the Figma file grows.
+
+> **Code Connect** (the components half of the integration) lives separately in
+> `src/components/ui/*.figma.tsx` — see that folder's `CODE_CONNECT.md`. For the
+> live design→code bridge (frames/variables in a session), see
+> [`docs/connector-os/figma-mcp.md`](../../../../../../docs/connector-os/figma-mcp.md).
 
 ## Component standards
 

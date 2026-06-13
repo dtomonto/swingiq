@@ -227,6 +227,13 @@ export const NAV_ITEMS: NavItem[] = [
     blurb: 'The platform intelligence brain: ethical user memory, profile & session intelligence, the Founding Members campaign, recommendations and data governance.',
     keywords: ['central intelligence', 'centralintelligenceos', 'intelligence', 'memory', 'founding', 'founding fathers', 'founding members', 'campaign', 'profile completion', 'sessions', 'recommendations', 'governance', 'brain', 'os'],
   },
+  {
+    id: 'intelligence-os', label: 'Intelligence OS', href: '/admin/intelligence-os', icon: Sparkles,
+    group: 'operate', subgroup: 'Users & Athletes', built: true, permission: 'logs.view',
+    matches: ['/admin/intelligence-os'],
+    blurb: 'First-Party Intelligence OS: captures every third-party AI call, dedupes repeated answers into reusable knowledge & canonical answers, and routes future requests through cache/knowledge first to cut third-party AI spend. Tracks token savings, patterns, evaluations.',
+    keywords: ['intelligence os', 'first-party', 'first party intelligence', 'token savings', 'ai cost', 'canonical answers', 'knowledge', 'answer cache', 'ai activity', 'patterns', 'evaluations', 'flywheel', 'learning', 'cost reduction'],
+  },
   // Support
   {
     id: 'support', label: 'Support', href: '/admin/support', icon: LifeBuoy,
