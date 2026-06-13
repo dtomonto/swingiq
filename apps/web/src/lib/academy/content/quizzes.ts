@@ -89,7 +89,7 @@ export const QUIZZES: Quiz[] = [
         prompt: 'When AI video analysis runs, the user’s full video is uploaded to our servers.',
         options: ['True', 'False'],
         correct: [1],
-        explanation: 'The full video stays on the device; only sampled still frames are sent for analysis. This is a real privacy feature — state it accurately.' },
+        explanation: 'The full video stays on the device; only a small sample of the swing is sent for analysis. This is a real privacy feature — state it accurately.' },
       { id: 'q-upload-3', kind: 'multi-select',
         prompt: 'Good camera guidance includes… (Select all that apply.)',
         options: ['Steady camera / tripod', 'Whole body in frame', 'Film into a bright light behind the athlete', 'Recommended angle for the sport'],

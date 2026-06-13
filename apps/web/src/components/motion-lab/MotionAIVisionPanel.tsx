@@ -139,8 +139,8 @@ export function MotionAIVisionPanel({ file, capture, sportLabel, emoji }: Props)
         <div className="flex items-start gap-2 rounded-lg bg-card border border-border p-2.5">
           <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
           <p className="text-xs text-muted-foreground leading-relaxed">
-            A few sampled still frames are sent to a third-party AI provider and processed in that
-            provider&apos;s cloud. Your full video is never uploaded, and the frames are not stored.
+            A small sample of your swing is sent to a third-party AI provider and processed in that
+            provider&apos;s cloud. Your full video is never uploaded, and it is not stored.
             Everything else in Motion Lab stays entirely on your device.
           </p>
         </div>

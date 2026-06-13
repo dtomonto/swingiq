@@ -92,8 +92,8 @@ export function AnalysisProgress({ stage }: { stage: AnalysisStage }) {
         })}
       </ol>
       <p className="text-center text-xs text-muted-foreground mt-6">
-        Only sampled still frames are sent to a third-party AI provider&apos;s cloud for analysis —
-        your full video file never leaves this device.
+        Only a small sample of your swing is sent to a third-party AI provider&apos;s cloud for
+        analysis — your full video file never leaves this device.
       </p>
     </div>
   );

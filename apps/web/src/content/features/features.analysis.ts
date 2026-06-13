@@ -387,10 +387,10 @@ export const ANALYSIS_FEATURES: Feature[] = [
     sports: 'All 7 sports',
     summary:
       'Upload a video of your swing from the face-on, down-the-line, or sport-specific angle. SwingVantage segments the video into phases and provides coaching notes for each phase.',
-    note: 'Every video read is a heuristic estimate that sharpens as you add data — a confident starting point you can act on today. For full on-device pose tracking and a rotatable 3D reconstruction, see Motion Lab.',
+    note: 'Every video read is an honest estimate that sharpens as you add data — a confident starting point you can act on today. For full on-device 3D analysis you can rotate, see Motion Lab.',
     overview: [
       'Swing Video Upload turns a phone clip into a structured, phase-by-phase read of your motion. Record from the face-on, down-the-line, or a sport-specific angle, upload it, and SwingVantage segments the swing into its natural phases and attaches coaching notes to each one — so you can see where in the motion the problem actually originates.',
-      'Your video is processed locally in your browser. When you run an analysis, only sampled still frames — not your full video — are sent to the AI vision provider for review, and the frames are not retained afterward. Your original footage never leaves your device, and it is never used to train a shared model.',
+      'Your video is processed locally in your browser. When you run an analysis, only a small sample of your swing — not your full video — is sent to the AI vision provider for review, and it is not retained afterward. Your original footage never leaves your device, and it is never used to train a shared model.',
       'Treat the read as a confident starting point rather than a measurement: single-camera video is interpreted heuristically and sharpens as you add data. For on-device pose tracking and a rotatable 3D reconstruction, step up to Motion Lab.',
     ],
     bestFor: [
@@ -431,7 +431,7 @@ export const ANALYSIS_FEATURES: Feature[] = [
       {
         question: 'Is my video uploaded to a server?',
         answer:
-          'Your full video is processed on your device and is never uploaded or stored on our servers. When you analyse, only sampled still frames are sent to the vision provider, and they are not retained afterward.',
+          'Your full video is processed on your device and is never uploaded or stored on our servers. When you analyse, only a small sample of your swing is sent to the vision provider, and it is not retained afterward.',
       },
       {
         question: 'What angle should I film from?',
