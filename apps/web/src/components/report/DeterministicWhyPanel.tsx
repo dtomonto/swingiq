@@ -14,7 +14,14 @@
 import { Lightbulb, CheckCircle2, AlertTriangle, HelpCircle, Sparkles } from 'lucide-react';
 import type { DeterministicDiagnosis } from '@/lib/intelligence/diagnose-types';
 
-export function DeterministicWhyPanel({ diagnosis }: { diagnosis: DeterministicDiagnosis }) {
+export function DeterministicWhyPanel({
+  diagnosis,
+  footerNote,
+}: {
+  diagnosis: DeterministicDiagnosis;
+  /** Overrides the honest footer line (e.g. for a video-derived issue). */
+  footerNote?: string;
+}) {
   const d = diagnosis;
   // Only meaningful when we matched a curated cause.
   if (d.primary.generated) return null;
@@ -104,8 +111,8 @@ export function DeterministicWhyPanel({ diagnosis }: { diagnosis: DeterministicD
         )}
 
         <p className="text-[11px] text-muted-foreground">
-          This is a deterministic estimate from your reported miss — not a video analysis. Confirm it by retesting or
-          uploading a swing.
+          {footerNote ??
+            'This is a deterministic estimate from your reported miss — not a video analysis. Confirm it by retesting or uploading a swing.'}
         </p>
       </div>
     </details>

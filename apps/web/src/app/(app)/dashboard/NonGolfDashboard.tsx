@@ -37,6 +37,8 @@ import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
 import { GrowthAgentsPanel } from '@/components/growth';
 import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
 import { RetestNudge } from '@/components/dashboard/RetestNudge';
+import { DeterministicWhyPanel } from '@/components/report/DeterministicWhyPanel';
+import { analyzeDeterministicSession } from '@/lib/intelligence/diagnose';
 import { format } from 'date-fns';
 import { useMemo, type ReactNode } from 'react';
 import type { SportId } from '@swingiq/core';
@@ -180,6 +182,15 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
     [video_analyses, sport],
   );
 
+  // Token-free explainable read of the video-detected issue: likely cause,
+  // evidence, alternatives, and an honest "deeper look" call. Only when the
+  // engine confidently matches a curated cause for this sport.
+  const diagnosis = useMemo(() => {
+    if (!latest?.primary_issue) return null;
+    const d = analyzeDeterministicSession({ sport, issue: latest.primary_issue });
+    return d.primary.generated ? null : d;
+  }, [latest, sport]);
+
   if (!latest) {
     return (
       <Card>
@@ -206,6 +217,7 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
   }
 
   return (
+    <div className="space-y-3">
     <Card className="border-l-4 border-l-error">
       <CardHeader>
         <div className="flex items-center justify-between">
@@ -243,6 +255,13 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
         </div>
       </CardBody>
     </Card>
+    {diagnosis && (
+      <DeterministicWhyPanel
+        diagnosis={diagnosis}
+        footerNote="This explains the likely cause behind your video-detected issue — confirm it with another angle or your coach."
+      />
+    )}
+    </div>
   );
 }
 

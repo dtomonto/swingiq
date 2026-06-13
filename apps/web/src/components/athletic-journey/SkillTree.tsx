@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/Badge';
 import { AlertTriangle } from 'lucide-react';
 import type { SportId } from '@swingiq/core';
-import type { SkillBranchState } from '@/lib/athletic-journey';
+import type { SkillBranchState, ClassificationCategory } from '@/lib/athletic-journey';
 import { setSelfAssessment, useJourneyStoreData } from '@/lib/athletic-journey/store';
 import { ScoreBar, scoreTextClass } from './_shared';
 
@@ -38,7 +38,16 @@ function SelfRate({ sport, branchId, value }: { sport: SportId; branchId: string
   );
 }
 
-export function SkillTree({ sport, branches }: { sport: SportId; branches: SkillBranchState[] }) {
+export function SkillTree({
+  sport,
+  branches,
+  focusCategory,
+}: {
+  sport: SportId;
+  branches: SkillBranchState[];
+  /** The category tied to the athlete's current diagnosed focus, if any. */
+  focusCategory?: ClassificationCategory;
+}) {
   const store = useJourneyStoreData();
   const assessments = store.selfAssessments[sport] ?? [];
   const ratingFor = (branchId: string) => assessments.find((a) => a.branchId === branchId)?.rating ?? null;
@@ -54,6 +63,9 @@ export function SkillTree({ sport, branches }: { sport: SportId; branches: Skill
                 <span title="Development priority">
                   <AlertTriangle size={13} className="text-warning" aria-label="Development priority" />
                 </span>
+              )}
+              {focusCategory && b.category === focusCategory && (
+                <Badge variant="default" className="text-[10px]">Current focus</Badge>
               )}
             </span>
             <span className={cn('text-sm font-semibold tabular-nums', scoreTextClass(b.score))}>
