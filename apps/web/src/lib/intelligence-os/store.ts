@@ -16,6 +16,7 @@ import { KINDS, DEFAULT_SETTINGS, INTELLIGENCE_SETTINGS_ID } from './config';
 import type {
   AIActivityEvent, KnowledgeItem, CanonicalAnswer, PatternMemory,
   AnswerCacheEntry, EvaluationRecord, TokenSavingsEntry, IntelligenceSettings,
+  ActionTask, ActionReport,
 } from './types';
 
 const TABLE = 'growth_records';
@@ -121,6 +122,8 @@ export const patternRepo = makeRepo<PatternMemory>(KINDS.pattern);
 export const cacheRepo = makeRepo<AnswerCacheEntry>(KINDS.cache);
 export const evaluationRepo = makeRepo<EvaluationRecord>(KINDS.evaluation);
 export const savingsRepo = makeRepo<TokenSavingsEntry>(KINDS.savings);
+export const taskRepo = makeRepo<ActionTask>(KINDS.task);
+export const reportRepo = makeRepo<ActionReport>(KINDS.report);
 
 /** True when the Intelligence OS is backed by a real database. */
 export function isIntelligencePersistent(): boolean {
