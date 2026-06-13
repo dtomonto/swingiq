@@ -1,6 +1,10 @@
 # SwingVantage `/learn` Education System — Build Roadmap & Handoff
 
-**Last updated:** 2026-06-13 · **Status:** Tier 0 + Tier 1 shipped (PRs #67, #77 merged to `master`).
+**Last updated:** 2026-06-13 · **Status:** Tier 0 + Tier 1 + Tier 2 + most of Tier 3 shipped.
+PRs #67, #77 merged; this PR adds 11 more `/learn` pages (Tier 2 + Tier 3) and consolidates the
+parallel `/resources` duplicates into `/learn` via `rel=canonical` (non-destructive). Two Tier-3
+ideas (`single-camera-swing-analysis`, `how-swingvantage-labels-data`) were **intentionally dropped**
+to avoid duplicating `/trust/accuracy-and-limitations` and `/learn/measured-vs-estimated`.
 
 This doc lets a fresh session resume building the `/learn` technology-education hub
 without re-discovery. It captures the architecture, the exact recipe to add a page,

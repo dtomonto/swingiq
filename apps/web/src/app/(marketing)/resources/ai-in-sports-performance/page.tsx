@@ -18,13 +18,19 @@ import {
 
 const SLUG = '/resources/ai-in-sports-performance';
 
-export const metadata = buildMetadata({
-  title: 'AI in Sports Performance: What It Can and Cannot Do',
-  description:
-    'How AI supports sports improvement without replacing structured coaching logic — and why organizing the right data beats simply collecting more of it.',
-  path: SLUG,
-  ogType: 'article',
-});
+export const metadata = {
+  ...buildMetadata({
+    title: 'AI in Sports Performance: What It Can and Cannot Do',
+    description:
+      'How AI supports sports improvement without replacing structured coaching logic — and why organizing the right data beats simply collecting more of it.',
+    path: SLUG,
+    ogType: 'article',
+  }),
+  // Non-destructive dedupe: this page stays live and linked, but points its
+  // canonical at the /learn explainer so search engines consolidate authority
+  // there (single canonical home for the "AI in sports performance" topic).
+  alternates: { canonical: '/learn/ai-in-sports-performance' },
+};
 
 const FAQS = [
   {

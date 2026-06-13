@@ -17,13 +17,19 @@ import {
 
 const SLUG = '/resources/what-is-heuristic-data';
 
-export const metadata = buildMetadata({
-  title: 'What Is Heuristic Data? A Plain-English Guide',
-  description:
-    'Heuristic data is information read through expert rules of thumb to surface the most likely pattern fast. How it differs from raw data, AI, and measurement — with examples.',
-  path: SLUG,
-  ogType: 'article',
-});
+export const metadata = {
+  ...buildMetadata({
+    title: 'What Is Heuristic Data? A Plain-English Guide',
+    description:
+      'Heuristic data is information read through expert rules of thumb to surface the most likely pattern fast. How it differs from raw data, AI, and measurement — with examples.',
+    path: SLUG,
+    ogType: 'article',
+  }),
+  // Non-destructive dedupe: this page stays live and linked, but points its
+  // canonical at the /learn explainer so search engines consolidate authority
+  // there (single canonical home for the "heuristic data" topic).
+  alternates: { canonical: '/learn/what-is-heuristic-data' },
+};
 
 const FAQS = [
   {
