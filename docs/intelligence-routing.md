@@ -71,11 +71,29 @@ return FALLBACK_HEURISTIC;
 ## Wiring AI tiers to the orchestrator
 
 `analyze()` accepts `runHybrid` / `runFullAI` executors. Callers that hold a
-video (e.g. `/api/video-vision-analysis`) wrap the existing
-`runAnalysisPipeline` (`lib/ai/ai-ops/orchestrator.ts`) and pass it in. When no
-executor is supplied (symptom-only requests), AI tiers degrade safely to the
-heuristic floor — you cannot run video AI without video, and the user still gets
-a usable plan. Any executor error is caught and recorded as `FALLBACK_HEURISTIC`.
+video wrap the existing `runAnalysisPipeline` (`lib/ai/ai-ops/orchestrator.ts`)
+and pass it in. When no executor is supplied (symptom-only requests), AI tiers
+degrade safely to the heuristic floor — you cannot run video AI without video,
+and the user still gets a usable plan. Any executor error is caught and recorded
+as `FALLBACK_HEURISTIC`.
+
+### Live video routes (wired)
+
+The expensive video routes keep their own mature execution + response contract,
+so rather than re-route their output through `analyze()`, they consult the
+**same central `decideRoute`** via `gateVideoAnalysis()` (`video-gate.ts`):
+
+- **`/api/video-vision-analysis`** (Premium Retest Plan) — after provider/feature/
+  user-pause checks, the gate decides whether the paid vision call may run under
+  the current Operating Mode. Blocked → honest `{ configured: false, message }`.
+- **`/api/video-analysis`** (AI Swing Report) — the optional paid coach narrative
+  is gated as its final condition; the deterministic analysis always returns.
+
+The gate enforces the kill switch, force-heuristic, and Cost-Saving posture that
+these routes previously bypassed, records each decision to `analysis_logs`, and
+**fails open** (the routes' own provider + budget guards remain the backstop) so
+it can only add safety, never break a working flow. Provider config and the daily
+budget cap keep their existing dedicated guards.
 
 ## Files
 

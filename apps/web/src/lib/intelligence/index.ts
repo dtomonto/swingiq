@@ -24,3 +24,5 @@ export {
 export type { OperatingModeState, OperatingModePatch } from './operating-mode';
 export { logAnalysis, getIntelligenceObservability } from './log';
 export type { IntelligenceObservability } from './log';
+export { gateVideoAnalysis } from './video-gate';
+export type { VideoGateInput, VideoGateResult } from './video-gate';
