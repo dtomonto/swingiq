@@ -26,3 +26,11 @@ export { logAnalysis, getIntelligenceObservability } from './log';
 export type { IntelligenceObservability } from './log';
 export { gateVideoAnalysis } from './video-gate';
 export type { VideoGateInput, VideoGateResult } from './video-gate';
+export { resolveProviderHealth } from './health';
+export {
+  getCachedResult,
+  putCachedResult,
+  isCacheableResult,
+  cacheKey,
+  cacheStoreSource,
+} from './cache';

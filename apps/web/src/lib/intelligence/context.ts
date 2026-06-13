@@ -14,6 +14,7 @@ import { aiBudgetExceeded } from '@/lib/ai-budget';
 import { getCurrentUserEntitlement } from '@/lib/billing/entitlements';
 import type { TierId } from '@/lib/billing/tiers';
 import { getOperatingModeState } from './operating-mode';
+import { resolveProviderHealth } from './health';
 import type { RouteContext } from './router';
 import type { AnalysisRequest } from './types';
 
@@ -26,12 +27,13 @@ export async function resolveRouteContext(
   req: AnalysisRequest,
   opts: { userPlan?: TierId } = {},
 ): Promise<RouteContext> {
-  const [modeState, budgetExceeded, plan] = await Promise.all([
+  const [modeState, budgetExceeded, plan, providerHealthy] = await Promise.all([
     getOperatingModeState().catch(() => null),
     aiBudgetExceeded().catch(() => false),
     opts.userPlan
       ? Promise.resolve(opts.userPlan)
       : getCurrentUserEntitlement().then((e) => e.tier).catch(() => 'free' as TierId),
+    resolveProviderHealth(req.tier),
   ]);
 
   // Premium video tiers need vision; report/coach tiers need a coach provider.
@@ -44,14 +46,16 @@ export async function resolveRouteContext(
     operatingMode: modeState?.mode ?? 'DEFAULT_AI_MODE',
     userPlan: plan,
     providerConfigured,
-    // Provider health is assumed good; a real failure is caught at execution and
-    // degrades to the heuristic floor (FALLBACK_HEURISTIC).
-    providerHealthy: true,
+    // Runtime health from recent-call telemetry; a live failure is also caught at
+    // execution and degrades to the heuristic floor (FALLBACK_HEURISTIC).
+    providerHealthy,
     budgetAllows: !budgetExceeded,
     adminForceHeuristic: modeState?.forceHeuristic ?? false,
     adminKillSwitch: modeState?.killSwitch ?? false,
     adminAllowsAIOverrideForTier: costSavingAiTiers.includes(req.tier),
-    // No reusable cache layer is wired yet; callers can inject one via deps.
+    // The reusable cache is probed by analyze() (a single read, reused as the
+    // getCached dep), which flips cacheHit when it finds an entry. Resolved as a
+    // miss here so a direct routeAnalysis caller without a cache still works.
     cacheHit: false,
     cacheAllowed: true,
   };

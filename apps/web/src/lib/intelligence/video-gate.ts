@@ -79,12 +79,13 @@ export async function gateVideoAnalysis(input: VideoGateInput): Promise<VideoGat
 
   try {
     const base = await resolveRouteContext(req);
-    // The route owns provider/budget resolution; scope the gate to operating-mode
-    // governance by trusting those as satisfied here.
+    // The route owns provider config + budget resolution; scope the gate to
+    // operating-mode governance by trusting those as satisfied here. Runtime
+    // provider health (from base) is kept, so a known outage routes to the
+    // heuristic floor proactively.
     const ctx: RouteContext = {
       ...base,
       providerConfigured: input.providerConfigured ?? true,
-      providerHealthy: true,
       budgetAllows: true,
     };
 

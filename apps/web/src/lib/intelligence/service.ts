@@ -22,6 +22,8 @@ import type { RouteAnalysisDeps } from './router';
 import { resolveRouteContext } from './context';
 import { runHeuristicEstimate } from './heuristic';
 import { logAnalysis } from './log';
+import { tierConfig } from './tiers';
+import { getCachedResult, putCachedResult, isCacheableResult } from './cache';
 import type { AnalysisRequest, AnalysisResult } from './types';
 
 export interface AnalyzeOptions {
@@ -46,11 +48,29 @@ export interface AnalyzeOptions {
  */
 export async function analyze(req: AnalysisRequest, opts: AnalyzeOptions = {}): Promise<AnalysisResult> {
   const ctx = await resolveRouteContext(req, { userPlan: opts.userPlan });
-  return routeAnalysis(req, ctx, {
+  const cfg = tierConfig(req.tier);
+
+  // Reusable cache probe (non-personalized tiers only). A single read, reused as
+  // the getCached dep so the router never fetches twice. A hit flips cacheHit so
+  // decideRoute can choose the CACHED route.
+  let cached: AnalysisResult | null = null;
+  if (cfg.usesCache && !opts.getCached) {
+    cached = await getCachedResult(req).catch(() => null);
+  }
+  const routedCtx = cached ? { ...ctx, cacheHit: true } : ctx;
+
+  const result = await routeAnalysis(req, routedCtx, {
     runHeuristic: (r, route) => runHeuristicEstimate(r, route),
     runHybrid: opts.runHybrid,
     runFullAI: opts.runFullAI,
-    getCached: opts.getCached,
+    getCached: opts.getCached ?? (cached ? () => cached : undefined),
     log: opts.disableLogging ? undefined : logAnalysis,
   });
+
+  // Write-through: store freshly-computed, non-personalized results for reuse.
+  if (cfg.usesCache && result.route !== 'CACHED' && isCacheableResult(result)) {
+    await putCachedResult(req, result).catch(() => {});
+  }
+
+  return result;
 }

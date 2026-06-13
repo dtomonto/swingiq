@@ -15,7 +15,8 @@ of truth for "are we allowed to spend money right now".
 | Per-user pause / metering | `lib/ai/user-ai.ts` | Per-user feature gating. |
 | Per-IP rate limits | `lib/rate-limit.ts` | Slows a single abuser. |
 | Kill switch / force-heuristic | Operating Mode store | Hard stops, set from `/admin/operating-mode`. |
-| Provider health | caught at execution | A failing call degrades to the heuristic floor. |
+| Provider health | `lib/intelligence/health.ts` (recent-call telemetry) + caught at execution | A known-failing provider routes to the heuristic floor proactively; a live failure is also caught. |
+| Reusable cache | `lib/intelligence/cache.ts` (Upstash + memory) | Deterministic estimates are reused across identical requests; AI/personalized results are never cached. |
 
 ## How routing uses them
 

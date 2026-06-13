@@ -95,6 +95,29 @@ these routes previously bypassed, records each decision to `analysis_logs`, and
 it can only add safety, never break a working flow. Provider config and the daily
 budget cap keep their existing dedicated guards.
 
+## Reusable cache
+
+`cache.ts` is a non-personalized recommendation memory (Upstash + in-memory
+fallback). `analyze()` probes it once per request (reusing the read as the
+`getCached` dep, so the router never fetches twice); a hit flips `cacheHit` so
+`decideRoute` returns `CACHED`. After a fresh compute it write-throughs the
+result.
+
+**Safety:** only deterministic results (`sourceMode === 'heuristic'`) are cached.
+AI / hybrid / premium-video findings are **never** stored or reused across users,
+and the key normalizes only symptom-level inputs (sport, issue, symptoms, skill,
+goals, handedness, tier) — never a user id. So a personalized finding can never
+leak between athletes.
+
+## Provider health
+
+`health.ts` derives the router's `providerHealthy` signal from the existing
+recent-call telemetry (`lib/ai/ai-ops/call-log`). It is conservative and
+fail-open: a provider is only "unhealthy" when it has enough recent samples and
+none of the relevant providers are succeeding — otherwise healthy. This lets the
+router skip a provider mid-outage instead of paying for failing calls, while the
+execution-time try/catch remains the real backstop.
+
 ## Files
 
 - `types.ts` — shared vocabulary (OperatingMode, IntelligenceTier, AnalysisRoute, …)
@@ -102,7 +125,10 @@ budget cap keep their existing dedicated guards.
 - `heuristic.ts` — Instant Estimate builder over the fault ontology + drill library
 - `tiers.ts` — the three tier configs + per-tier cost op mapping
 - `operating-mode.ts` — Upstash-backed posture store (Default AI ↔ Cost-Saving)
-- `context.ts` — live signal resolver
+- `context.ts` — live signal resolver (mode, capabilities, budget, plan, health)
+- `cache.ts` — reusable, non-personalized recommendation cache
+- `health.ts` — runtime provider health from call telemetry
+- `video-gate.ts` — operating-mode governance for the live video routes
 - `service.ts` — `analyze()`, the public server entry
 - `log.ts` — best-effort `analysis_logs` writer + admin rollup
 
