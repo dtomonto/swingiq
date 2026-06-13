@@ -37,4 +37,3 @@ or as a short pass after Wave 2.
 
 ## Definition of done
 See `docs/plans/player-experience-overhaul/README.md` → "Shared definitions of done".
-</content>

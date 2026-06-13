@@ -45,4 +45,3 @@ Optionally add a thin typed wrapper in `apps/web/src/lib/analytics.ts` (e.g.
 
 ## Definition of done
 See `docs/plans/player-experience-overhaul/README.md` → "Shared definitions of done".
-</content>

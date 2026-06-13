@@ -71,4 +71,3 @@ Build a thin orchestration over existing engines — **do not duplicate** their 
 
 ## Definition of done
 See `docs/plans/player-experience-overhaul/README.md` → "Shared definitions of done".
-</content>

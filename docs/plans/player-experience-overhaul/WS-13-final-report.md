@@ -31,4 +31,3 @@ Produce the delivery summary the original request asked for, grounded in what ac
 ## Definition of done
 `DELIVERY-REPORT.md` is accurate, evidence-based, and matches the merged code. No fabricated
 results — paste real `tsc`/`eslint`/`jest`/`build` output.
-</content>

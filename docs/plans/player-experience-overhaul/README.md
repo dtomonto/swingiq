@@ -191,4 +191,3 @@ A workstream is done when:
 - `WS-11-production-readiness.md` — Authz, privacy, a11y, states (cross-cutting).
 - `WS-12-acceptance-qa.md` — Acceptance-criteria verification (closeout).
 - `WS-13-final-report.md` — Delivery summary (closeout).
-</content>

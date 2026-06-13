@@ -39,4 +39,3 @@ with evidence (test names, screenshots/route checks, file refs). Fix only trivia
 
 ## Definition of done
 Report complete; build/lint/test results recorded; all criteria pass or have tracked owners.
-</content>

@@ -1,5 +1,9 @@
 import { createBrowserClient } from '@supabase/ssr';
 import { isSupabaseConfigured } from './capabilities';
+import type {
+  FriendshipStatus,
+  SkillNodeStatus,
+} from './db/shared-enums';
 
 export { isSupabaseConfigured };
 
@@ -96,6 +100,15 @@ export type Database = {
           shot_count: number;
           clubs_used: string[];
           primary_diagnosis_id: string | null;
+          // Player Experience Overhaul (WS-06) — additive, nullable so the
+          // legacy self-upload Insert path is unchanged.
+          athlete_user_id?: string | null;
+          athlete_profile_id?: string | null;
+          uploaded_by_user_id?: string | null;
+          assigned_by_user_id?: string | null;
+          upload_context?: string;
+          permission_status?: string;
+          audit_metadata?: Record<string, unknown>;
           created_at: string;
           updated_at: string;
         };
@@ -135,6 +148,80 @@ export type Database = {
         };
         Insert: Omit<Database['public']['Tables']['golf_bags']['Row'], 'id' | 'created_at' | 'updated_at'>;
         Update: Partial<Database['public']['Tables']['golf_bags']['Insert']>;
+      };
+      // ── Player Experience Overhaul (WS-08 data model) ──────────
+      player_profiles: {
+        Row: {
+          id: string;
+          user_id: string;
+          display_name: string | null;
+          primary_sport: string | null;
+          sports: string[];
+          skill_level: string | null;
+          player_type: string | null;
+          goals: unknown;
+          common_issues: unknown;
+          preferences: Record<string, unknown>;
+          profile_intelligence_summary: Record<string, unknown>;
+          journey_state: Record<string, unknown>;
+          skill_tree_state: Record<string, unknown>;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Omit<Database['public']['Tables']['player_profiles']['Row'], 'id' | 'created_at' | 'updated_at'>;
+        Update: Partial<Database['public']['Tables']['player_profiles']['Insert']>;
+      };
+      skill_tree_nodes: {
+        Row: {
+          id: string;
+          player_profile_id: string;
+          user_id: string;
+          sport: string;
+          category: string | null;
+          name: string;
+          description: string | null;
+          status: SkillNodeStatus;
+          level: number;
+          progress_score: number | null;
+          confidence_score: number | null;
+          evidence_summary: Record<string, unknown>;
+          source_session_ids: string[];
+          source_report_ids: string[];
+          retest_dates: unknown;
+          last_updated_at: string;
+          created_at: string;
+        };
+        Insert: Omit<Database['public']['Tables']['skill_tree_nodes']['Row'], 'id' | 'created_at'>;
+        Update: Partial<Database['public']['Tables']['skill_tree_nodes']['Insert']>;
+      };
+      friendships: {
+        Row: {
+          id: string;
+          requester_user_id: string;
+          receiver_user_id: string;
+          status: FriendshipStatus;
+          permissions: Record<string, boolean>;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Omit<Database['public']['Tables']['friendships']['Row'], 'id' | 'created_at' | 'updated_at'>;
+        Update: Partial<Database['public']['Tables']['friendships']['Insert']>;
+      };
+      upload_audit_log: {
+        Row: {
+          id: string;
+          actor_user_id: string;
+          athlete_user_id: string;
+          session_id: string | null;
+          video_analysis_id: string | null;
+          action: string;
+          context: string;
+          permission_status: string | null;
+          metadata: Record<string, unknown>;
+          created_at: string;
+        };
+        Insert: Omit<Database['public']['Tables']['upload_audit_log']['Row'], 'id' | 'created_at'>;
+        Update: Partial<Database['public']['Tables']['upload_audit_log']['Insert']>;
       };
     };
   };

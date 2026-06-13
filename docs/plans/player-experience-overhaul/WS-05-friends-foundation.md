@@ -93,4 +93,3 @@ Props: `{ source_type, has_permission }` where sensible. (Coordinate event-regis
 
 ## Definition of done
 See `docs/plans/player-experience-overhaul/README.md` → "Shared definitions of done".
-</content>

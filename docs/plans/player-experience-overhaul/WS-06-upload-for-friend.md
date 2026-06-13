@@ -95,4 +95,3 @@ accepted friends list AND B's permission allows upload-for-me. The session/video
 
 ## Definition of done
 See `docs/plans/player-experience-overhaul/README.md` → "Shared definitions of done".
-</content>

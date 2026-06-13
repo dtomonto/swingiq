@@ -52,4 +52,3 @@ profile ⇄ skill tree ⇄ journey ⇄ Today ⇄ dashboard ⇄ reports/plans/ret
 
 ## Definition of done
 See `docs/plans/player-experience-overhaul/README.md` → "Shared definitions of done".
-</content>

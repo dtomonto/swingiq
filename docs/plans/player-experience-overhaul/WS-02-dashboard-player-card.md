@@ -61,4 +61,3 @@ Add to `packages/core/src/analytics/events.ts` (coordinate with WS-10).
 
 ## Definition of done
 See `docs/plans/player-experience-overhaul/README.md` → "Shared definitions of done".
-</content>

@@ -116,4 +116,3 @@ None fired here. Add the event-name constants other WS need to
 ## Definition of done
 See "Shared definitions of done" in `docs/plans/player-experience-overhaul/README.md`.
 Output a short note listing migrations to run + new shared types so downstream WS can import them.
-</content>

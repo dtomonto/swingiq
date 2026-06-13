@@ -43,4 +43,3 @@ pass before WS-12. Fix gaps directly or file precise findings per workstream.
 ## Definition of done
 All checklist items pass or have tracked follow-ups; security scripts green; tsc/eslint/jest green.
 See also `docs/plans/player-experience-overhaul/README.md`.
-</content>

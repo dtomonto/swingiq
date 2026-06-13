@@ -248,6 +248,42 @@ export const ANALYTICS_EVENTS = {
   FRAME_STEP_USED: 'frame_step_used', // + sport, action
   CLIP_COMPARISON_VIEWED: 'clip_comparison_viewed', // + sport, action
   CAMERA_SHAKE_PROXY_ENABLED: 'camera_shake_proxy_enabled', // + sport
+
+  // ── Player Experience Overhaul ──────────────────────────────
+  // Shared property conventions (include where meaningful, never PII):
+  //   sport, user_role, skill_level, recommendation_category, source_type,
+  //   confidence_score, upload_context, permission_status.
+  // See docs/plans/player-experience-overhaul/.
+
+  // Today (focused, capped-by-user-type Today surface — WS-01).
+  TODAY_ITEM_VIEWED: 'today_item_viewed', // + kind, category, user_role, skill_level
+  TODAY_ITEM_EXPANDED: 'today_item_expanded', // + kind, category, source_type
+  TODAY_ITEM_COMPLETED: 'today_item_completed', // + kind, category
+
+  // Dashboard player card (premium player-selection screen — WS-02).
+  DASHBOARD_PLAYER_CARD_VIEWED: 'dashboard_player_card_viewed', // + sport, skill_level, archetype, confidence_score
+
+  // Skill tree (auto-generated athlete skill tree — WS-03).
+  SKILL_TREE_VIEWED: 'skill_tree_viewed', // + sport, skill_level
+  SKILL_TREE_NODE_OPENED: 'skill_tree_node_opened', // + sport, node_category, status, confidence_score
+  SKILL_TREE_NODE_UPDATED: 'skill_tree_node_updated', // + sport, node_category, status, source_type, confidence_score
+
+  // Friends / social foundation (WS-05).
+  FRIEND_REQUEST_SENT: 'friend_request_sent', // + source_type
+  FRIEND_REQUEST_ACCEPTED: 'friend_request_accepted',
+  FRIEND_REQUEST_DECLINED: 'friend_request_declined',
+  FRIEND_REMOVED: 'friend_removed',
+
+  // Upload-for-friend video workflow (WS-06).
+  UPLOAD_FOR_FRIEND_STARTED: 'upload_for_friend_started', // + sport, upload_context
+  UPLOAD_FOR_FRIEND_CONFIRMED: 'upload_for_friend_confirmed', // + sport, permission_status
+  UPLOAD_FOR_FRIEND_COMPLETED: 'upload_for_friend_completed', // + sport, permission_status
+  UPLOAD_FOR_FRIEND_FAILED: 'upload_for_friend_failed', // + sport, reason
+  UPLOADED_SESSION_RECEIVED: 'uploaded_session_received', // + sport, upload_context
+
+  // Journey + profile intelligence (WS-04, WS-07).
+  ATHLETE_JOURNEY_UPDATED: 'athlete_journey_updated', // + sport, stage, momentum_band, confidence
+  PLAYER_PROFILE_INTELLIGENCE_UPDATED: 'player_profile_intelligence_updated', // + sport, skill_level, archetype, confidence_score
 } as const;
 
 export type AnalyticsEventName =

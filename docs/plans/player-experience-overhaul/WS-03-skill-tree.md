@@ -86,4 +86,3 @@ presentation, Throwing transition, Error recovery.
 
 ## Definition of done
 See `docs/plans/player-experience-overhaul/README.md` → "Shared definitions of done".
-</content>
