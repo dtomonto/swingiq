@@ -60,12 +60,12 @@ through the system that already exists**, not building a new one.
 
 | # | Area | Severity | Issue | Why it matters | Code location | Figma / design-system implication | Recommended fix |
 |---|------|----------|-------|----------------|---------------|-----------------------------------|-----------------|
-| 1 | Tokens / theme safety | **High** | Motion-Lab viewers hardcode near-black canvases (`bg-[#060a12]`, `bg-[#0b1220]`) + `text-slate-*` + `border-white/10` | Renders as dark holes / invisible text on the 4 light themes; these are user-facing (sessions, drills, sport pages) | `components/motion-lab/Motion3DViewer.tsx`, `VideoOverlayLab.tsx`, `MotionAvatarViewer.tsx`, `MotionResultsDashboard.tsx`, `ImplementPathCard.tsx` | No "stage/viewer" surface token exists (the dark twin of `--surface-document`) | Add `--surface-stage` / `--surface-stage-foreground`; replace hex + slate with `bg-stage`/`text-stage-foreground` (spec in backlog) |
+| 1 | Tokens / theme safety | **High** → _fixed_ | Motion-Lab viewers hardcoded near-black canvases (`bg-[#060a12]`, `bg-[#0b1220]`) + `text-slate-*` | Locked the viewer chrome to raw values; un-retunable design-system-wide | `components/motion-lab/Motion3DViewer.tsx`, `VideoOverlayLab.tsx`, `MotionAvatarViewer.tsx`, `MotionResultsDashboard.tsx`, `ImplementPathCard.tsx` | Needed a "stage/viewer" surface token (the dark twin of `--surface-document`) | **Done** — added `--surface-stage` family + `bg-stage`/`text-stage-*`; migrated all 5 viewers; jest guard added |
 | 2 | Tokens / theme safety | **High** → _fixed_ | Admin GrowthOS badges used raw `text-green-400 / amber-400 / gray-400 …` | Admin renders in **Coach Mode (light)**; `gray-400` text on `gray-400/10` is near-invisible there | `lib/growth/labels.ts` | Honesty/priority/status badges should be a tokenized Figma "Badge/status" set | **Done** — mapped to `success-text / warning-text / error-text / link / accent-secondary / muted` |
 | 3 | Tokens / utilities | **Medium** → _fixed_ | `scoreToColor()` returned raw `text-green-600 … text-red-600` | Shared score util; muddy/low-contrast on dark + club palettes | `lib/utils.ts` | Score color is a semantic state, not a raw hue | **Done** — collapsed to `success-text / warning-text / error-text` (mirrors `scoreToBgColor`) |
 | 4 | Component system | **High** → _partially fixed_ | `Button` was `<button>`-only (no link support) so every "link styled as a button" CTA is hand-rolled | A Figma "Button" can't map to one code component; CTA markup duplicated across header, hero, CTA bands, footer | `components/ui/Button.tsx` + ~6 marketing files | One Figma Button ↔ one code component (button **or** link) | **Done** — refactored to `cva`, exported `buttonVariants`, added `asChild` (Radix Slot). Marketing-CTA migration remains backlog |
 | 5 | Component system | **Medium** → _partially fixed_ | Trust-chip reassurance row inlined verbatim in 2 heroes | Drift risk; not a Figma component | `LocalizedHome.tsx`, `SportAnalysisHero.tsx` | Maps to a Figma "Trust Chips" component | **Done** — extracted `TrustChips`, migrated both sites |
-| 6 | Layout architecture | **Medium** | Section scaffolding duplicated on sport landing pages: "How it works" (6×), metrics grid (3×), FAQ `<dl>` (6×), benefit cards (4×), index grid (3×), `max-w-… mx-auto px-4 py-14` container (~41×) | High maintenance cost; visual drift (py-14 vs 16 vs 20; some `h2` uppercase, some not) | `app/(marketing)/*-swing-analysis/page.tsx`, `tools`, `challenges`, `sample-report`, `LocalizedHowItWorks` | These are textbook Figma **layout components** (auto-layout frames) | Extract `Section`, `SectionHeading`, `HowItWorksGrid`, `MetricsGrid`, `FAQSection`, `BenefitGrid`, `IndexGrid` (backlog, Phase 2) |
+| 6 | Layout architecture | **Medium** → _partially fixed_ | Section scaffolding duplicated on sport landing pages: "How it works" (6×), metrics grid (3×), FAQ `<dl>` (6×), benefit cards (4×), index grid (3×), `max-w-… mx-auto px-4 py-14` container (~41×) | High maintenance cost; visual drift (py-14 vs 16 vs 20; some `h2` uppercase, some not) | `app/(marketing)/*-swing-analysis/page.tsx`, `tools`, `challenges`, `sample-report`, `LocalizedHowItWorks` | These are textbook Figma **layout components** (auto-layout frames) | **Done (sport pages)** — built `Section`/`SectionHeading`/`FAQSection`/`HowItWorksGrid`/`MetricsGrid`, migrated golf/baseball/tennis/softball. `BenefitGrid`/`IndexGrid` + other pages remain |
 | 7 | Component system | **Medium** | `Card` primitive exists but most cards are inline `<div className="rounded-theme border border-border bg-card p-6 shadow-theme">` (~26×) | Inconsistent padding/radius; bypasses the variant API (tint/elevated/glow) | `LocalizedHome.tsx` and most marketing pages | Card variants exist in code but aren't the default building block | Adopt `<Card>` in marketing surfaces; add `padding` variant |
 | 8 | Tokens | **Medium** | ~109 hardcoded hex in component `.tsx` (excl. SVG data-URIs) | Opaque to the theme system | `motion-lab/*`, `demo/LiveKinematicPanel.tsx` (`#ff4d4d`), `admin/AdminShell.tsx` (logo gradient) | These should be tokens or documented fixed-context exceptions | Tokenize the recurring ones; annotate intentional brand marks |
 | 9 | Component system | **Medium** | `Button` uses `rounded-lg` while `Card` uses `rounded-theme` | Buttons don't inherit a theme's radius personality | `components/ui/Button.tsx` | Figma needs a `radius/button` token | Add a `--button-radius` token (kept `rounded-lg` for now to avoid a global visual shift) |
@@ -202,50 +202,62 @@ preserved**. Typecheck, lint, theme/marketing/growth Jest suites (636 tests), an
 | `src/components/marketing/SportAnalysisHero.tsx` | Centered chip row → `<TrustChips … align="center" />` | None (identical markup) |
 | `src/lib/theme/__tests__/theme-safety.test.ts` | Added `lib/growth/labels.ts` + `lib/utils.ts` to the strict token-purity guard | None — locks in the fixes |
 
+### Follow-up implementation — top-3 risks landed
+
+A second pass implemented the three highest backlog items. **Full production
+build passes** (`npm run build`, 0 errors — all routes incl. the migrated sport
+pages prerender), plus tsc, eslint, jest (`src/lib/theme` + marketing, 569),
+`tokens:check`.
+
+| File(s) | Change | Risk |
+|---|---|---|
+| `src/app/globals.css` | **New `--surface-stage` token family** (`-panel`/`-foreground`/`-muted`) + `@theme` utilities (`bg-stage`, `bg-stage-panel`, `text-stage-foreground`, `text-stage-muted`) — the always-dark twin of `--surface-document`. Values mirror the prior hexes (1:1 on dark) | None on default theme |
+| `src/components/motion-lab/{Motion3DViewer,VideoOverlayLab,MotionAvatarViewer,MotionResultsDashboard,ImplementPathCard}.tsx` | Migrated `bg-[#060a12]`/`bg-[#0b1220]` + `text-slate-*` → stage tokens. WebGL scene colors kept as literals (documented). Decorative sky/amber axis accents kept (fixed-context on the dark stage) | Low — byte-equivalent on dark |
+| `eslint.config.mjs` | **New scoped `no-restricted-syntax` rule (error)** banning raw Tailwind palette + hardcoded hex in className across `components/ui|layout|marketing|sport` (verified clean) | None — dirs were clean |
+| `src/lib/theme/__tests__/theme-safety.test.ts` | Guard asserting the 5 viewers use `--surface-stage` (no `bg-[#…]`/slate) | None |
+| `src/components/marketing/{Section,SectionHeading,FAQSection,HowItWorksGrid,MetricsGrid}.tsx` (+ 3 stories) | **New layout primitives** for the repeated section markup | None |
+| `src/app/(marketing)/{golf,baseball,tennis,softball}-swing-analysis/page.tsx` | Migrated How-it-works + Metrics + FAQ to the primitives (byte-identical; not snapshot-covered) | None |
+
 ---
 
 ## Remaining backlog (prioritized)
 
+### ✅ Done (this + the follow-up pass)
+- **`--surface-stage` token + Motion-Lab migration** (the 5 viewer files).
+- **ESLint raw-color rule** (scoped, error) + **viewer stage guard** in jest;
+  `lib/growth/labels.ts` + `lib/utils.ts` added to `GUARDED_FILES`.
+- **Layout primitives** `Section` / `SectionHeading` / `FAQSection` /
+  `HowItWorksGrid` / `MetricsGrid` + migration of the 4 sport-analysis pages.
+- `TrustChips`, `scoreToColor`, GrowthOS badges, `Button` `asChild`.
+
 ### 🔴 Critical (theme-breaking, user-facing)
-1. **`--surface-stage` token + Motion-Lab migration.** Add an always-dark media
-   surface (the dark twin of `--surface-document`):
-   ```css
-   --surface-stage: 222 47% 5%;            /* ~#070b16 */
-   --surface-stage-foreground: 210 20% 92%;
-   --surface-stage-muted: 215 16% 65%;
-   ```
-   Map to `bg-stage` / `text-stage-foreground` in `@theme`, then replace
-   `bg-[#060a12]`, `bg-[#0b1220]`, `border-white/10`, and `text-slate-*` in
-   `Motion3DViewer`, `VideoOverlayLab`, `MotionAvatarViewer`,
-   `MotionResultsDashboard`, `ImplementPathCard`. Update Playwright snapshots.
-2. **`SwingVideoPlayer` / `VideoRecorder` controls** → `bg-stage` + token text;
-   keep `bg-black/NN` scrims (those are intentional and AA-paired with white).
+1. **`SwingVideoPlayer` / `VideoRecorder` controls** → `bg-stage` + token text
+   (still on `gray-*`); keep `bg-black/NN` scrims (intentional, AA-paired). The
+   `--surface-stage` token now exists, so this is a mechanical follow-on.
 
 ### 🟠 High (structure + enforcement)
-3. **ESLint guard for raw colors** — a `no-restricted-syntax`/className rule that
-   flags `text-gray-*`/`text-slate-*`/raw rainbow + bare hex in `.tsx`, with an
-   allowlist for documented fixed-context. Pairs with the broadened jest guard.
-4. **Broaden `theme-safety` `GUARDED_FILES`** to the cleaned components above as
-   they're fixed, so regressions can't return.
-5. **Marketing CTA + layout primitives** — `Section`, `SectionHeading`,
-   `FAQSection`, `HowItWorksGrid`, `BenefitGrid`, `MetricsGrid`, `IndexGrid`,
-   `CtaLink`; migrate the ~50 marketing pages. Highest DRY/Figma-parity payoff.
+2. **Finish the marketing primitive set** — add `BenefitGrid`, `IndexGrid`,
+   `CtaLink`, and migrate the remaining ~46 marketing pages (audience/feature/
+   index/tools) onto `Section` + the grids. The library now exists; this is
+   mechanical, page-by-page. (Avoid the snapshot-covered routes — home, pricing,
+   sample-report, trust — unless updating baselines in the keyless env.)
+3. **Broaden the ESLint rule + jest `GUARDED_FILES`** to more dirs as they're
+   cleaned (next: `components/dashboard`, `components/report`).
 
 ### 🟡 Medium
-6. **Adopt `<Card>`** as the default surface in marketing (replace ~26 inline
+4. **Adopt `<Card>`** as the default surface in marketing (replace ~26 inline
    `bg-card` divs); add a `padding` variant.
-7. **`--button-radius` token** + `rounded-button`; switch `Button` off `rounded-lg`.
-8. **Unify status tones** — one `Badge` tone map reused by GrowthOS labels and
+5. **`--button-radius` token** + `rounded-button`; switch `Button` off `rounded-lg`.
+6. **Unify status tones** — one `Badge` tone map reused by GrowthOS labels and
    `priorityToColor`.
-9. **`AdminShell` logo gradient** + `LiveKinematicPanel` `#ff4d4d` → tokens.
+7. **`AdminShell` logo gradient** + `LiveKinematicPanel` `#ff4d4d` → tokens.
 
 ### 🟢 Nice-to-have
-10. **Finish Figma Code Connect** — replace `node-id=TODO-REPLACE` (needs a Figma
-    Org/Enterprise Dev seat), then `figma:publish`.
-11. `Button` `focus` → `focus-visible`.
-12. `swinglab`/`lab` dark heroes → confirm intent; tokenize or annotate.
-13. Storybook stories for `Section`, `FAQSection`, `TrustChips`, the grids.
-14. `prefers-color-scheme` on `global-error.tsx`.
+8. **Finish Figma Code Connect** — replace `node-id=TODO-REPLACE` (needs a Figma
+   Org/Enterprise Dev seat), then `figma:publish`.
+9. `Button` `focus` → `focus-visible`.
+10. `swinglab`/`lab` dark heroes → confirm intent; tokenize (now `bg-stage`) or annotate.
+11. `prefers-color-scheme` on `global-error.tsx`.
 
 ---
 
@@ -274,13 +286,15 @@ Run before landing a UI change:
 - **Phase 1 — Audit-safe cleanup _(done this pass)_** — `scoreToColor` + GrowthOS
   badges tokenized; `Button` link-enabled; `TrustChips` extracted; guard broadened.
   No visual redesign.
-- **Phase 2 — Component normalization** — `Section`/`SectionHeading` + the grid
-  components; migrate marketing pages; adopt `<Card>`; `CtaLink`/marketing button
-  size.
-- **Phase 3 — Theme-safe design system** — `--surface-stage`; migrate Motion-Lab +
-  video chrome; ESLint raw-color rule; broaden `GUARDED_FILES` app-wide.
+- **Phase 2 — Component normalization _(started)_** — `Section`/`SectionHeading` +
+  `FAQSection`/`HowItWorksGrid`/`MetricsGrid` built and the 4 sport-analysis pages
+  migrated. Remaining: `BenefitGrid`/`IndexGrid`/`CtaLink`, the other ~46 pages,
+  adopt `<Card>`.
+- **Phase 3 — Theme-safe design system _(started)_** — `--surface-stage` shipped +
+  Motion-Lab migrated; ESLint raw-color rule live (scoped); jest viewer guard +
+  `GUARDED_FILES` extended. Remaining: video player chrome; broaden scope dir-by-dir.
 - **Phase 4 — Figma parity layer** — finish Code Connect node-ids + publish;
-  Storybook stories for new components; this doc + a design QA checklist (done).
+  Storybook stories added for the new primitives; this doc + a design QA checklist (done).
 - **Phase 5 — Production hardening** — per-theme Lighthouse/axe runs; expand
   Playwright visual snapshots across themes; cross-browser/mobile validation.
 
