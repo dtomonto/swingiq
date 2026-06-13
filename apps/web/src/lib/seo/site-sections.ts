@@ -186,6 +186,7 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/learn/what-is-the-skill-tree', label: 'What is the skill tree?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/what-is-the-athlete-journey', label: 'What is the athlete journey?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/what-makes-a-good-practice-plan', label: 'What makes a good practice plan?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/single-camera-swing-analysis', label: 'How single-camera swing analysis works', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
 
   // ── Benchmarks ────────────────────────────────────────────────────────
   { path: '/benchmarks', label: 'Benchmarks (all sports)', section: 'benchmarks', priority: 0.7, changeFrequency: 'monthly' },
