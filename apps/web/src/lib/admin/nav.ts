@@ -160,6 +160,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['ai provider', 'ai routing', 'provider control', 'model registry', 'gemini', 'openai', 'anthropic', 'claude', 'mediapipe', 'orchestration', 'router', 'route', 'video understanding', 'coach model', 'failover', 'provider health', 'control center'],
   },
   {
+    id: 'operating-mode', label: 'Operating Mode', href: '/admin/operating-mode', icon: Gauge,
+    group: 'operate', subgroup: 'Video Analysis', built: true, permission: 'logs.view',
+    blurb: 'The GAI Intelligence posture: Default AI Mode vs Cost-Saving Mode, the three analysis tiers (Instant Estimate, AI Swing Report, Premium Retest Plan), safety controls (force-heuristic, kill switch), and routing observability — switch without a redeploy.',
+    keywords: ['operating mode', 'gai', 'general athlete intelligence', 'intelligence router', 'cost saving', 'cost-saving mode', 'default ai mode', 'instant estimate', 'ai swing report', 'premium retest plan', 'heuristic', 'routing', 'kill switch', 'budget', 'spend', 'tiers'],
+  },
+  {
     id: 'agents', label: 'Agent Registry', href: '/admin/agents', icon: Bot,
     group: 'operate', subgroup: 'Video Analysis', built: true,
     blurb: 'One honest inventory of every agent & automation — what each does, what it reads/produces, keyless vs optional-AI, how it is turned on/off, its safety guardrails, and where to inspect it.',
