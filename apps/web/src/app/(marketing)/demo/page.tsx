@@ -8,7 +8,7 @@ import { DemoSampleBanner } from '@/components/demo/DemoSampleBanner';
 export const metadata = buildMetadata({
   title: 'See a Live Sample Report — Pick Your Sport',
   description:
-    'Explore a complete SwingVantage analysis report for any of 7 sports — the same report registered athletes get. Pick your sport to see the full breakdown, drills, and plan. Free, no account.',
+    'Explore a live SwingVantage sample report — pick any of 7 sports and see the full interactive breakdown, top fix, drills, and practice plan. Free, no account required.',
   path: '/demo',
 });
 
