@@ -46,6 +46,8 @@ export { getDeterministicEngineStatus, runGoldenScenarios } from './coverage';
 export type { EngineStatus, SportCoverage, ScenarioSummary, ScenarioRow } from './coverage';
 export { diagnosisToActionCandidate } from './next-action';
 export type { DiagnosisActionOptions } from './next-action';
+export { deriveRetestSignals } from './retest-feedback';
+export type { RetestSignals } from './retest-feedback';
 export { resolveRouteContext } from './context';
 export { analyze } from './service';
 export type { AnalyzeOptions } from './service';

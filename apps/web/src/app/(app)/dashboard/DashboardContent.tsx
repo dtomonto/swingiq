@@ -47,7 +47,9 @@ import { useDesignV2 } from '@/lib/design-v2-client';
 import { DashboardNextAction } from '@/components/dashboard/DashboardNextAction';
 import { DeterministicWhyPanel } from '@/components/report/DeterministicWhyPanel';
 import { analyzeDeterministicSession } from '@/lib/intelligence/diagnose';
+import { deriveRetestSignals } from '@/lib/intelligence/retest-feedback';
 import type { SkillLevel } from '@/lib/intelligence/diagnose-types';
+import { useRetests } from '@/lib/retest';
 import { BackupStatusPill } from '@/components/sync/BackupStatusPill';
 import { RetestNudge } from '@/components/dashboard/RetestNudge';
 import { useMemo, useState, type ReactNode } from 'react';
@@ -233,17 +235,22 @@ export function DashboardContent({ children }: { children?: ReactNode }) {
   // explainable estimate used ONLY when there is no measured diagnosis yet, so
   // it never competes with or contradicts the measured engine. Omitted unless
   // the engine confidently matched a curated cause.
+  // Completed retests feed back into the read: a fix that keeps failing on the
+  // same miss raises urgency, lowers confidence, and tips toward a deeper look.
+  const { results: retestResults } = useRetests();
   const hasMeasuredDiagnosis = Boolean(activeDiagnosis);
   const deterministicRead = useMemo(() => {
     const miss = profile?.current_miss?.trim();
     if (hasMeasuredDiagnosis || !miss) return null;
+    const signals = deriveRetestSignals(miss, 'golf', retestResults);
     const d = analyzeDeterministicSession({
       sport: 'golf',
       issue: miss,
       skillLevel: (profile?.skill_level ?? 'intermediate') as SkillLevel,
+      ...signals,
     });
     return d.primary.generated ? null : d;
-  }, [hasMeasuredDiagnosis, profile?.current_miss, profile?.skill_level]);
+  }, [hasMeasuredDiagnosis, profile?.current_miss, profile?.skill_level, retestResults]);
 
   // Design V2: the single "next action" headline, derived from data the page
   // already has — no fabricated "plan day" counter. Active (measured) fix →
