@@ -3,13 +3,14 @@
 // ------------------------------------------------------------
 // Two pieces of state for the gradual paid-tier launch:
 //   1. the ROLLOUT MODE   — 'free' (only Free active) | 'full' (all active).
-//      This is NOT stored independently: it is the SAME decision as the
-//      CentralIntelligence membership-tier gate (founding-server), so the
-//      admin command center and the pricing page can never disagree. The
-//      gate is unlocked automatically once the Founding campaign fills, or
-//      forced on/off by an admin. Here:
-//        full  ⟺ membership tiers unlocked   ⟺ founding manualOverride=true
-//        free  ⟺ membership tiers locked     ⟺ founding manualOverride=false
+//      This rides on the SAME field as the CentralIntelligence membership-tier
+//      gate (founding-server's manualOverride), so the admin command center
+//      and the pricing page can never disagree. CRUCIALLY, paid-tier rollout
+//      requires EXPLICIT admin approval — it never auto-launches:
+//        full  ⟺ founding manualOverride === true   (admin explicitly approved)
+//        free  ⟺ anything else (false OR automatic)  (approval still pending)
+//      The Founding campaign's automatic-at-cap unlock governs member messaging
+//      but does NOT, on its own, switch paid tiers on. An admin must approve.
 //   2. per-user WAITLIST INTEREST — one idempotent record per (tier, user),
 //      so the owner can count how many signed-in users want each tier
 //      before deciding to roll it out.
@@ -27,7 +28,7 @@
 
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 import {
-  getFoundingCampaignProgress,
+  getFoundingConfig,
   isFoundingPersistent,
   setFoundingConfig,
 } from '@/lib/central-intelligence/founding-server';
@@ -74,17 +75,18 @@ export function isTierRolloutPersistent(): boolean {
   return isFoundingPersistent();
 }
 
-// ── Rollout mode (≡ membership-tier gate) ─────────────────────
+// ── Rollout mode (explicit admin approval only) ───────────────
 
 /**
- * The live rollout mode, derived from the CentralIntelligence membership
- * gate so both surfaces stay in lock-step. Never throws (the gate degrades
- * to "locked" when unavailable). 'full' once the gate is unlocked.
+ * The live rollout mode. 'full' ONLY when an admin has explicitly approved it
+ * (founding manualOverride === true). The automatic-at-cap unlock and the
+ * force-lock state both leave paid tiers gated, so the tiers never go live
+ * without a deliberate decision. Never throws (degrades to 'free').
  */
 export async function getTierRolloutMode(): Promise<TierRolloutMode> {
   try {
-    const progress = await getFoundingCampaignProgress();
-    return progress.membershipTiersEnabled ? 'full' : 'free';
+    const config = await getFoundingConfig();
+    return config.manualOverride === true ? 'full' : 'free';
   } catch {
     return 'free';
   }
@@ -96,9 +98,11 @@ export interface SetTierRolloutResult {
 
 /**
  * Flip the rollout by writing the membership gate's manual override:
- *   'full' → force-unlock (true), 'free' → force-lock (false).
- * Any non-'full' value is treated as 'free'. The 3-way "automatic" state is
- * still settable from the Central Intelligence command center.
+ *   'full' → approve & force-unlock (true), 'free' → force-lock (false).
+ * Any non-'full' value is treated as 'free'. This is the explicit approval —
+ * nothing else launches the paid tiers. The 3-way "automatic" state remains
+ * settable from the Central Intelligence command center for member messaging,
+ * but it will NOT switch the paid tiers on by itself.
  */
 export async function setTierRolloutMode(mode: TierRolloutMode): Promise<SetTierRolloutResult> {
   const full = mode === 'full';

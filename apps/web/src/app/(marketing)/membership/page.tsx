@@ -6,12 +6,17 @@ import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { NotCoachReplacementNotice } from '@/components/trust/NotCoachReplacementNotice';
 import { BILLING_TIERS, getTier } from '@/lib/billing/tiers';
+import { getTierRolloutMode } from '@/lib/billing/tier-rollout-server';
 import {
   buildGraph,
   articleSchema,
   faqPageSchema,
   breadcrumbListSchema,
 } from '@/lib/seo/jsonLd';
+
+// Reads the live rollout mode at request time, so the launch callout + FAQ
+// reflect whether paid tiers are gated (waitlist) or live (upgrade).
+export const dynamic = 'force-dynamic';
 
 export const metadata = buildMetadata({
   title: 'Membership Tiers — Free, Pro & Team Compared',
@@ -134,33 +139,36 @@ const REASONS = [
   },
 ];
 
-const FAQS = [
-  {
-    question: 'Is SwingVantage really free?',
-    answer:
-      'Yes. The Free tier is full coaching intelligence on every swing — AI analysis, your prioritised fix, Athlete General Intelligence, drills and practice plans — and it stays free forever. Pro and Team add depth, memory and reach; they never take features away from Free.',
-  },
-  {
-    question: 'What is the "intelligence difference" between tiers?',
-    answer:
-      'Every tier runs the same honest analysis and confidence labelling. Free gives you the full one-fix coaching loop. Pro adds unlimited narrative coaching, cross-device cloud memory so your intelligence compounds, and measured-data extraction that raises confidence. Team adds squad-level intelligence — one coach view and aggregate analytics across up to 20 athletes.',
-  },
-  {
-    question: 'Do paid tiers change how accurate or honest my results are?',
-    answer:
-      'No. The methodology is identical across tiers: results are labelled measured or estimated with a confidence level, and SwingVantage never shows false precision. Paid tiers add more ways to feed it measured data (which raises confidence) and more depth — not a different version of the truth.',
-  },
-  {
-    question: 'Can I try Pro before paying?',
-    answer:
-      'Pro and Team are rolling out gradually. While they are gated, you can sign in and join the waitlist for the tier you want from the pricing page — we roll out to the athletes who ask first. No one is ever charged before checkout is connected.',
-  },
-  {
-    question: 'How do I keep my free account for life?',
-    answer:
-      'The first 100 Founding Members lock in a free account for life — even after paid tiers launch. Complete your sport’s founding journey to claim your member number on the Founding Members page.',
-  },
-];
+function buildFaqs(rolledOut: boolean): { question: string; answer: string }[] {
+  return [
+    {
+      question: 'Is SwingVantage really free?',
+      answer:
+        'Yes. The Free tier is full coaching intelligence on every swing — AI analysis, your prioritised fix, Athlete General Intelligence, drills and practice plans — and it stays free forever. Pro and Team add depth, memory and reach; they never take features away from Free.',
+    },
+    {
+      question: 'What is the "intelligence difference" between tiers?',
+      answer:
+        'Every tier runs the same honest analysis and confidence labelling. Free gives you the full one-fix coaching loop. Pro adds unlimited narrative coaching, cross-device cloud memory so your intelligence compounds, and measured-data extraction that raises confidence. Team adds squad-level intelligence — one coach view and aggregate analytics across up to 20 athletes.',
+    },
+    {
+      question: 'Do paid tiers change how accurate or honest my results are?',
+      answer:
+        'No. The methodology is identical across tiers: results are labelled measured or estimated with a confidence level, and SwingVantage never shows false precision. Paid tiers add more ways to feed it measured data (which raises confidence) and more depth — not a different version of the truth.',
+    },
+    {
+      question: 'Can I get Pro right now?',
+      answer: rolledOut
+        ? 'Yes — Pro and Team are live. Choose your plan on the pricing page to upgrade. Free stays free.'
+        : 'Pro and Team are rolling out gradually and aren’t open to everyone yet. Sign in and join the waitlist for the tier you want from the pricing page — we roll out to the athletes who ask first, and no one is ever charged before checkout is connected.',
+    },
+    {
+      question: 'How do I keep my free account for life?',
+      answer:
+        'The first 100 Founding Members lock in a free account for life — even after paid tiers launch. Complete your sport’s founding journey to claim your member number on the Founding Members page.',
+    },
+  ];
+}
 
 function Cell({ value }: { value: Cell }) {
   if (value === true) {
@@ -185,7 +193,9 @@ function priceLabel(price: number | null): string {
   return `$${price}/mo`;
 }
 
-export default function MembershipPage() {
+export default async function MembershipPage() {
+  const rolledOut = (await getTierRolloutMode()) === 'full';
+  const faqs = buildFaqs(rolledOut);
   const jsonLd = buildGraph(
     articleSchema({
       headline: 'SwingVantage Membership Tiers — Free, Pro & Team Compared',
@@ -197,7 +207,7 @@ export default function MembershipPage() {
       { name: 'Home', path: '/' },
       { name: 'Membership', path: '/membership' },
     ]),
-    faqPageSchema(FAQS),
+    faqPageSchema(faqs),
   );
 
   return (
@@ -336,20 +346,38 @@ export default function MembershipPage() {
           </div>
         </section>
 
-        {/* Rollout honesty */}
+        {/* Rollout status — reacts to the live rollout mode */}
         <section aria-labelledby="rollout" className="mt-10 rounded-2xl border border-border bg-muted p-6">
-          <h2 id="rollout" className="text-lg font-bold text-foreground">Pro &amp; Team are rolling out gradually</h2>
-          <p className="mt-2 text-sm text-foreground">
-            We&apos;re launching the paid tiers a step at a time. While they&apos;re gated, you can sign in and
-            join the waitlist for the tier you want — we roll out to the athletes who ask first, and no one is
-            ever charged before checkout is connected.
-          </p>
-          <Link
-            href="/pricing"
-            className="mt-4 inline-flex items-center rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            See pricing &amp; join a waitlist
-          </Link>
+          {rolledOut ? (
+            <>
+              <h2 id="rollout" className="text-lg font-bold text-foreground">Pro &amp; Team are available now</h2>
+              <p className="mt-2 text-sm text-foreground">
+                The paid tiers are live. Pick the plan that fits on the pricing page — Free stays free, and you
+                can upgrade or change your mind anytime.
+              </p>
+              <Link
+                href="/pricing"
+                className="mt-4 inline-flex items-center rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                See pricing &amp; upgrade
+              </Link>
+            </>
+          ) : (
+            <>
+              <h2 id="rollout" className="text-lg font-bold text-foreground">Pro &amp; Team are rolling out gradually</h2>
+              <p className="mt-2 text-sm text-foreground">
+                We&apos;re launching the paid tiers a step at a time. While they&apos;re gated, you can sign in
+                and join the waitlist for the tier you want — we roll out to the athletes who ask first, and no
+                one is ever charged before checkout is connected.
+              </p>
+              <Link
+                href="/pricing"
+                className="mt-4 inline-flex items-center rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                See pricing &amp; join a waitlist
+              </Link>
+            </>
+          )}
         </section>
 
         {/* CTA */}
@@ -371,7 +399,7 @@ export default function MembershipPage() {
         <section aria-labelledby="faq" className="mt-12">
           <h2 id="faq" className="text-2xl font-bold text-foreground">Frequently asked questions</h2>
           <div className="mt-4 space-y-4">
-            {FAQS.map((fq) => (
+            {faqs.map((fq) => (
               <div key={fq.question} className="rounded-xl border border-border p-5">
                 <h3 className="font-semibold text-foreground">{fq.question}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{fq.answer}</p>

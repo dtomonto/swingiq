@@ -21,6 +21,8 @@ import {
 import {
   __resetFoundingStoreForTests,
   getFoundingConfig,
+  setFoundingConfig,
+  getFoundingCampaignProgress,
 } from '../central-intelligence/founding-server';
 
 describe('tier gating helpers', () => {
@@ -73,6 +75,14 @@ describe('tier rollout store (keyless / in-memory)', () => {
     await setTierRolloutMode('bogus');
     expect(await getTierRolloutMode()).toBe('free');
     expect((await getFoundingConfig()).manualOverride).toBe(false);
+  });
+
+  test('the automatic-at-cap unlock does NOT roll out paid tiers (approval required)', async () => {
+    // Force the membership gate to auto-unlock (cap reached, no manual override).
+    await setFoundingConfig({ requiredCount: 1, baseline: 5, manualOverride: null });
+    const progress = await getFoundingCampaignProgress();
+    expect(progress.membershipTiersEnabled).toBe(true); // member messaging unlocks…
+    expect(await getTierRolloutMode()).toBe('free'); // …but paid tiers stay gated until approval
   });
 
   test('recording interest is idempotent per (user, tier)', async () => {

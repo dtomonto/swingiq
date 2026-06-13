@@ -148,12 +148,13 @@ export function TierRolloutControl({ initialMode, counts, persistent }: Props) {
           is connected.
         </p>
         <p className="mt-2">
-          This toggle and the{' '}
+          Paid tiers <strong>never launch automatically</strong> — they require your explicit approval here
+          (Full rollout). This toggle shares the{' '}
           <Link href="/admin/central-intelligence" className="text-link underline">
             membership-tier gate
-          </Link>{' '}
-          are the same decision. For automatic unlock once the Founding campaign fills (instead of a manual
-          on/off), use the 3-way control there.
+          </Link>
+          : the Founding campaign&apos;s automatic-at-cap unlock controls member messaging, but it will not
+          switch the paid tiers on by itself until you flip this to Full rollout.
         </p>
       </HelpPanel>
     </div>
