@@ -20,6 +20,7 @@ import type { SportId } from '@swingiq/core';
 import { decideRoute, buildDecisionInput } from './router';
 import type { RouteContext } from './router';
 import { resolveRouteContext } from './context';
+import { isTierActive } from './operating-mode';
 import { logAnalysis } from './log';
 import { estimateCostCents } from '@/lib/ai-budget';
 import { TIER_OP } from './tiers';
@@ -78,6 +79,39 @@ export async function gateVideoAnalysis(input: VideoGateInput): Promise<VideoGat
   };
 
   try {
+    // Rollout gate: a tier still on the waitlist is not live, so no paid AI runs
+    // for it — the route surfaces a "join the waitlist" message instead.
+    if (!(await isTierActive(tier))) {
+      const decision: RouteDecision = {
+        route: 'FALLBACK_HEURISTIC',
+        usesAI: false,
+        reason: 'Tier on waitlist (not yet rolled out)',
+        costEstimateCents: 0,
+      };
+      void logAnalysis({
+        at: new Date().toISOString(),
+        tier,
+        route: decision.route,
+        sourceMode: 'heuristic',
+        sport: input.sport,
+        issue: req.issue,
+        operatingMode: 'DEFAULT_AI_MODE',
+        userPlan: 'free',
+        usesAI: false,
+        confidence: 0,
+        costEstimateCents: 0,
+        costAvoidedCents: estimateCostCents(TIER_OP[tier]),
+        reason: decision.reason,
+        userId: input.userId ?? null,
+      });
+      return {
+        allowAI: false,
+        decision,
+        message:
+          'This deeper analysis is rolling out gradually. Add your name to the waitlist and we’ll let you in — your SwingVantage GAI Instant Estimate is available now.',
+      };
+    }
+
     const base = await resolveRouteContext(req);
     // The route owns provider config + budget resolution; scope the gate to
     // operating-mode governance by trusting those as satisfied here. Runtime

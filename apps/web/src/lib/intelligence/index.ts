@@ -20,8 +20,18 @@ export {
   getOperatingModeState,
   setOperatingModeState,
   operatingModeStoreSource,
+  getTierAvailability,
+  isTierActive,
 } from './operating-mode';
 export type { OperatingModeState, OperatingModePatch } from './operating-mode';
+export {
+  joinTierWaitlist,
+  getJoinedTiers,
+  getTierWaitlistCounts,
+  isWaitlistTier,
+  WAITLIST_TIERS,
+} from './waitlist';
+export type { TierWaitlistCounts } from './waitlist';
 export { logAnalysis, getIntelligenceObservability } from './log';
 export type { IntelligenceObservability } from './log';
 export { gateVideoAnalysis } from './video-gate';

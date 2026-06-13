@@ -15,9 +15,10 @@ import {
   getOperatingModeState,
   setOperatingModeState,
   getIntelligenceObservability,
+  getTierWaitlistCounts,
   DEFAULT_TIER_CONFIGS,
 } from '@/lib/intelligence';
-import type { IntelligenceTier, OperatingMode } from '@/lib/intelligence';
+import type { IntelligenceTier, OperatingMode, TierRolloutStatus } from '@/lib/intelligence';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -36,11 +37,12 @@ async function guard(perm: 'logs.view' | 'settings.manage') {
 export async function GET() {
   const { error } = await guard('logs.view');
   if (error) return error;
-  const [state, observability] = await Promise.all([
+  const [state, observability, waitlist] = await Promise.all([
     getOperatingModeState(),
     getIntelligenceObservability(14),
+    getTierWaitlistCounts(),
   ]);
-  return NextResponse.json({ ok: true, state, tiers: DEFAULT_TIER_CONFIGS, observability });
+  return NextResponse.json({ ok: true, state, tiers: DEFAULT_TIER_CONFIGS, observability, waitlist });
 }
 
 export async function POST(req: Request) {
@@ -52,6 +54,7 @@ export async function POST(req: Request) {
     forceHeuristic?: boolean;
     killSwitch?: boolean;
     costSavingAiTiers?: unknown;
+    tierRollout?: unknown;
   } = {};
   try {
     body = await req.json();
@@ -87,6 +90,17 @@ export async function POST(req: Request) {
       VALID_TIERS.includes(t as IntelligenceTier),
     );
     patch.costSavingAiTiers = tiers;
+  }
+  if (body.tierRollout !== undefined) {
+    if (!body.tierRollout || typeof body.tierRollout !== 'object') {
+      return NextResponse.json({ error: 'invalid-tierRollout' }, { status: 400 });
+    }
+    const rollout: Partial<Record<IntelligenceTier, TierRolloutStatus>> = {};
+    for (const [tier, status] of Object.entries(body.tierRollout as Record<string, unknown>)) {
+      if (!VALID_TIERS.includes(tier as IntelligenceTier)) continue;
+      if (status === 'active' || status === 'waitlist') rollout[tier as IntelligenceTier] = status;
+    }
+    patch.tierRollout = rollout;
   }
 
   const state = await setOperatingModeState(patch);

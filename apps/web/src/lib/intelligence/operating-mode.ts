@@ -21,7 +21,7 @@
 // ============================================================
 
 import { isConfigured } from '@/lib/capabilities';
-import type { IntelligenceTier, OperatingMode } from './types';
+import type { IntelligenceTier, OperatingMode, TierRolloutStatus } from './types';
 
 const STATE_KEY = 'intelligence:operating-mode';
 
@@ -33,6 +33,12 @@ export interface OperatingModeState {
   forceHeuristic: boolean;
   /** Global kill switch — no paid AI calls at all. */
   killSwitch: boolean;
+  /**
+   * Per-tier rollout: 'waitlist' (announced, interest-only) vs 'active' (live).
+   * Instant Estimate is always active; the paid tiers default to 'waitlist'
+   * until an admin flips them to full rollout.
+   */
+  tierRollout: Record<IntelligenceTier, TierRolloutStatus>;
   lastChangedBy: string | null;
   lastChangedAt: string | null;
   /** Where the value came from: durable Upstash or per-instance memory. */
@@ -45,12 +51,22 @@ function envDefaultMode(): OperatingMode {
   return raw && /cost[-_ ]?saving/i.test(raw) ? 'COST_SAVING_MODE' : 'DEFAULT_AI_MODE';
 }
 
+/** Tiers default to waitlist except the always-free Instant Estimate. */
+function defaultTierRollout(): Record<IntelligenceTier, TierRolloutStatus> {
+  return {
+    INSTANT_ESTIMATE: 'active',
+    AI_SWING_REPORT: 'waitlist',
+    PREMIUM_RETEST_PLAN: 'waitlist',
+  };
+}
+
 function defaultState(): Omit<OperatingModeState, 'source'> {
   return {
     mode: envDefaultMode(),
     costSavingAiTiers: ['PREMIUM_RETEST_PLAN'],
     forceHeuristic: false,
     killSwitch: false,
+    tierRollout: defaultTierRollout(),
     lastChangedBy: null,
     lastChangedAt: null,
   };
@@ -90,6 +106,20 @@ async function upstashPipeline(creds: UpstashCreds, commands: string[][]): Promi
 
 const VALID_TIERS: IntelligenceTier[] = ['INSTANT_ESTIMATE', 'AI_SWING_REPORT', 'PREMIUM_RETEST_PLAN'];
 
+/** Parse a stored tier-rollout map, filling gaps with defaults. */
+function sanitizeTierRollout(raw: unknown): Record<IntelligenceTier, TierRolloutStatus> {
+  const out = defaultTierRollout();
+  if (raw && typeof raw === 'object') {
+    for (const t of VALID_TIERS) {
+      const v = (raw as Record<string, unknown>)[t];
+      if (v === 'active' || v === 'waitlist') out[t] = v;
+    }
+  }
+  // The free tier can never be put on a waitlist.
+  out.INSTANT_ESTIMATE = 'active';
+  return out;
+}
+
 /** Coerce an arbitrary parsed value into a clean state (env defaults fill gaps). */
 function sanitize(raw: unknown): Omit<OperatingModeState, 'source'> {
   const base = defaultState();
@@ -102,6 +132,7 @@ function sanitize(raw: unknown): Omit<OperatingModeState, 'source'> {
       : base.costSavingAiTiers,
     forceHeuristic: typeof o.forceHeuristic === 'boolean' ? o.forceHeuristic : base.forceHeuristic,
     killSwitch: typeof o.killSwitch === 'boolean' ? o.killSwitch : base.killSwitch,
+    tierRollout: sanitizeTierRollout(o.tierRollout),
     lastChangedBy: typeof o.lastChangedBy === 'string' ? o.lastChangedBy : base.lastChangedBy,
     lastChangedAt: typeof o.lastChangedAt === 'string' ? o.lastChangedAt : base.lastChangedAt,
   };
@@ -147,6 +178,8 @@ export interface OperatingModePatch {
   costSavingAiTiers?: IntelligenceTier[];
   forceHeuristic?: boolean;
   killSwitch?: boolean;
+  /** Partial per-tier rollout change (merged over the current map). */
+  tierRollout?: Partial<Record<IntelligenceTier, TierRolloutStatus>>;
   /** Email / actor recorded for the audit trail. */
   actor?: string | null;
 }
@@ -161,11 +194,25 @@ export async function setOperatingModeState(patch: OperatingModePatch): Promise<
       : current.costSavingAiTiers,
     forceHeuristic: patch.forceHeuristic ?? current.forceHeuristic,
     killSwitch: patch.killSwitch ?? current.killSwitch,
+    tierRollout: patch.tierRollout
+      ? sanitizeTierRollout({ ...current.tierRollout, ...patch.tierRollout })
+      : current.tierRollout,
     lastChangedBy: patch.actor ?? current.lastChangedBy,
     lastChangedAt: new Date().toISOString(),
   };
   await writeState(next);
   return { ...next, source: operatingModeStoreSource() };
+}
+
+/** The per-tier rollout map (waitlist vs active). */
+export async function getTierAvailability(): Promise<Record<IntelligenceTier, TierRolloutStatus>> {
+  return (await getOperatingModeState()).tierRollout;
+}
+
+/** True when a tier is fully rolled out (usable). Instant Estimate is always on. */
+export async function isTierActive(tier: IntelligenceTier): Promise<boolean> {
+  if (tier === 'INSTANT_ESTIMATE') return true;
+  return (await getTierAvailability())[tier] === 'active';
 }
 
 /** Test-only introspection — exercises the in-memory path without a network. */

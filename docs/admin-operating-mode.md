@@ -42,6 +42,26 @@ Enabling Cost-Saving Mode shows a confirmation prompt.
 
 Both win over mode and tier settings (`ADMIN_FORCED_HEURISTIC`).
 
+## Tier rollout (waitlist → full rollout)
+
+The two paid tiers — **AI Swing Report** and **Premium Retest Plan** — ship on a
+**waitlist** by default; only the free **Instant Estimate** is live. On the page,
+each paid tier has a **Waitlist ↔ Full rollout** toggle plus a live count of how
+many signed-in users have registered interest.
+
+- **Waitlist:** the tier is announced but not active. The live video routes return
+  a "join the waitlist" message instead of a paid call, and the
+  `TierWaitlistButton` lets a signed-in user register interest with one tap
+  (recorded once per user in `tier_waitlist`). Switching a tier to **Full
+  rollout** prompts a confirmation, makes it live immediately, and stops the
+  waitlist from collecting new names. It can be switched back at any time.
+- The rollout state lives in the same operating-mode store (no new schema); the
+  interest counts come from the additive `tier_waitlist` table.
+
+User interest is recorded via `POST /api/intelligence/waitlist` (sign-in
+required, so each interest maps to a real account); `GET` returns per-tier
+rollout status + which tiers the current user already joined.
+
 ## Persistence
 
 State is stored via the operating-mode store (`lib/intelligence/operating-mode.ts`),

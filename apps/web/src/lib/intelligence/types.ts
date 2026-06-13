@@ -27,6 +27,13 @@ export type IntelligenceTier =
   | 'AI_SWING_REPORT'
   | 'PREMIUM_RETEST_PLAN';
 
+/**
+ * Rollout state of a tier. `waitlist` = the tier is announced but not active;
+ * signed-in users can register interest. `active` = fully rolled out and usable.
+ * The free Instant Estimate is always `active`.
+ */
+export type TierRolloutStatus = 'waitlist' | 'active';
+
 /** How a single analysis request was actually served. */
 export type AnalysisRoute =
   | 'HEURISTIC_ONLY'

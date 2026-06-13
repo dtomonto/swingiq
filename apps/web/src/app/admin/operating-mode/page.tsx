@@ -18,6 +18,7 @@ import { OperatingModeControl } from '@/components/admin/OperatingModeControl';
 import {
   getOperatingModeState,
   getIntelligenceObservability,
+  getTierWaitlistCounts,
   DEFAULT_TIER_CONFIGS,
 } from '@/lib/intelligence';
 
@@ -31,9 +32,10 @@ const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 const pct = (n: number) => `${Math.round(n * 100)}%`;
 
 export default async function OperatingModePage() {
-  const [state, obs] = await Promise.all([
+  const [state, obs, waitlist] = await Promise.all([
     getOperatingModeState(),
     getIntelligenceObservability(14),
+    getTierWaitlistCounts(),
   ]);
 
   const tiers = Object.values(DEFAULT_TIER_CONFIGS);
@@ -50,7 +52,11 @@ export default async function OperatingModePage() {
       />
 
       <SectionCard title="Operating mode">
-        <OperatingModeControl initial={state} />
+        <OperatingModeControl
+          initial={state}
+          waitlistCounts={waitlist.counts}
+          waitlistAvailable={waitlist.available}
+        />
       </SectionCard>
 
       {/* ── Intelligence tiers ───────────────────────────── */}
@@ -62,7 +68,18 @@ export default async function OperatingModePage() {
           {tiers.map((t) => (
             <div key={t.tier} className="rounded-xl border border-border bg-card/60 p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="font-semibold text-foreground">{t.name}</span>
+                <span className="flex items-center gap-2 font-semibold text-foreground">
+                  {t.name}
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${
+                      state.tierRollout[t.tier] === 'active'
+                        ? 'bg-success-text/10 text-success-text'
+                        : 'border border-border text-muted-foreground'
+                    }`}
+                  >
+                    {state.tierRollout[t.tier] === 'active' ? 'Live' : 'Waitlist'}
+                  </span>
+                </span>
                 <span className="flex flex-wrap gap-1.5 text-xs">
                   {t.usesHeuristic && <span className="rounded-full border border-border px-2 py-0.5 text-muted-foreground">Heuristic</span>}
                   {t.usesAI && <span className="rounded-full border border-border px-2 py-0.5 text-muted-foreground">AI</span>}

@@ -10,16 +10,18 @@
 // ============================================================
 
 import { useState } from 'react';
-import { Loader2, Check, AlertCircle, Gauge, ShieldAlert, Power } from 'lucide-react';
+import { Loader2, Check, AlertCircle, Gauge, ShieldAlert, Power, Rocket, Users } from 'lucide-react';
 
 type OperatingMode = 'DEFAULT_AI_MODE' | 'COST_SAVING_MODE';
 type IntelligenceTier = 'INSTANT_ESTIMATE' | 'AI_SWING_REPORT' | 'PREMIUM_RETEST_PLAN';
+type TierRolloutStatus = 'waitlist' | 'active';
 
 export interface OperatingModeStateView {
   mode: OperatingMode;
   costSavingAiTiers: IntelligenceTier[];
   forceHeuristic: boolean;
   killSwitch: boolean;
+  tierRollout: Record<IntelligenceTier, TierRolloutStatus>;
   lastChangedBy: string | null;
   lastChangedAt: string | null;
   source: 'upstash' | 'memory';
@@ -31,7 +33,17 @@ const TIER_LABELS: Record<IntelligenceTier, string> = {
   PREMIUM_RETEST_PLAN: 'Premium Retest Plan',
 };
 
-export function OperatingModeControl({ initial }: { initial: OperatingModeStateView }) {
+const WAITLIST_TIERS: IntelligenceTier[] = ['AI_SWING_REPORT', 'PREMIUM_RETEST_PLAN'];
+
+export function OperatingModeControl({
+  initial,
+  waitlistCounts,
+  waitlistAvailable,
+}: {
+  initial: OperatingModeStateView;
+  waitlistCounts?: Partial<Record<IntelligenceTier, number>>;
+  waitlistAvailable?: boolean;
+}) {
   const [state, setState] = useState<OperatingModeStateView>(initial);
   const [busy, setBusy] = useState<string | null>(null);
   const [status, setStatus] = useState<{ kind: 'saved' | 'error'; msg?: string } | null>(null);
@@ -75,6 +87,17 @@ export function OperatingModeControl({ initial }: { initial: OperatingModeStateV
     if (set.has(tier)) set.delete(tier);
     else set.add(tier);
     void post(`tier-${tier}`, { costSavingAiTiers: [...set] });
+  }
+
+  function setRollout(tier: IntelligenceTier, next: TierRolloutStatus) {
+    if (state.tierRollout[tier] === next) return;
+    if (next === 'active') {
+      const ok = window.confirm(
+        `Roll out ${TIER_LABELS[tier]} to everyone?\n\nThis tier becomes live for users immediately and the waitlist stops collecting new names. You can switch it back to waitlist at any time.`,
+      );
+      if (!ok) return;
+    }
+    void post(`rollout-${tier}`, { tierRollout: { [tier]: next } });
   }
 
   const costSaving = state.mode === 'COST_SAVING_MODE';
@@ -181,6 +204,56 @@ export function OperatingModeControl({ initial }: { initial: OperatingModeStateV
           <p className="mt-1 text-xs text-muted-foreground">
             Hard stop on every paid AI call. Heuristic + cache only until turned off.
           </p>
+        </div>
+      </div>
+
+      {/* Tier rollout */}
+      <div className="rounded-xl border border-border bg-card/60 p-4">
+        <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+          <Rocket className="h-4 w-4 text-link" /> Tier rollout
+        </div>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Free Instant Estimate is always live. Each deeper tier starts on a waitlist — switch it to
+          full rollout when you&apos;re ready. {waitlistAvailable === false && '(Apply supabase-tier-waitlist.sql to count interest.)'}
+        </p>
+        <div className="mt-3 space-y-2">
+          {WAITLIST_TIERS.map((tier) => {
+            const active = state.tierRollout[tier] === 'active';
+            const count = waitlistCounts?.[tier];
+            return (
+              <div key={tier} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-background/40 p-3">
+                <span>
+                  <span className="block text-sm font-medium text-foreground">{TIER_LABELS[tier]}</span>
+                  <span className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
+                    <Users className="h-3.5 w-3.5" />
+                    {typeof count === 'number' ? `${count} on the waitlist` : 'waitlist count unavailable'}
+                  </span>
+                </span>
+                <span className="inline-flex overflow-hidden rounded-lg border border-border">
+                  <button
+                    type="button"
+                    onClick={() => setRollout(tier, 'waitlist')}
+                    disabled={busy !== null}
+                    className={`px-3 py-1.5 text-xs font-medium transition ${
+                      !active ? 'bg-primary/[0.12] text-foreground' : 'text-muted-foreground hover:bg-card'
+                    }`}
+                  >
+                    Waitlist
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRollout(tier, 'active')}
+                    disabled={busy !== null}
+                    className={`px-3 py-1.5 text-xs font-medium transition ${
+                      active ? 'bg-primary/[0.12] text-foreground' : 'text-muted-foreground hover:bg-card'
+                    }`}
+                  >
+                    Full rollout
+                  </button>
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
 

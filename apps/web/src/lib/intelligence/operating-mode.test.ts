@@ -6,6 +6,8 @@ import {
   getOperatingMode,
   getOperatingModeState,
   setOperatingModeState,
+  getTierAvailability,
+  isTierActive,
   __test__,
 } from './operating-mode';
 
@@ -41,5 +43,29 @@ describe('operating-mode store', () => {
     expect(s.mode).toBe('DEFAULT_AI_MODE');
     expect(s.costSavingAiTiers).toEqual(['AI_SWING_REPORT']);
     expect(s.killSwitch).toBe(false);
+  });
+});
+
+describe('tier rollout', () => {
+  test('paid tiers default to waitlist; Instant Estimate is always active', async () => {
+    const avail = await getTierAvailability();
+    expect(avail.INSTANT_ESTIMATE).toBe('active');
+    expect(avail.AI_SWING_REPORT).toBe('waitlist');
+    expect(avail.PREMIUM_RETEST_PLAN).toBe('waitlist');
+    expect(await isTierActive('INSTANT_ESTIMATE')).toBe(true);
+    expect(await isTierActive('PREMIUM_RETEST_PLAN')).toBe(false);
+  });
+
+  test('rolling a tier out flips it to active and is durable', async () => {
+    await setOperatingModeState({ tierRollout: { PREMIUM_RETEST_PLAN: 'active' }, actor: 'owner@x.com' });
+    expect(await isTierActive('PREMIUM_RETEST_PLAN')).toBe(true);
+    // Other tiers are untouched.
+    expect(await isTierActive('AI_SWING_REPORT')).toBe(false);
+  });
+
+  test('the free tier can never be put on a waitlist', () => {
+    const s = __test__.sanitize({ tierRollout: { INSTANT_ESTIMATE: 'waitlist', AI_SWING_REPORT: 'active' } });
+    expect(s.tierRollout.INSTANT_ESTIMATE).toBe('active');
+    expect(s.tierRollout.AI_SWING_REPORT).toBe('active');
   });
 });
