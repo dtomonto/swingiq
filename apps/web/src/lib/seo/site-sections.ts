@@ -180,6 +180,13 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/learn/ai-analysis-vs-launch-monitors', label: 'AI swing analysis vs launch monitors', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/is-ai-swing-analysis-worth-it', label: 'Is AI swing analysis worth it?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/how-often-should-you-retest', label: 'How often should you retest your swing?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-the-ai-coach-works', label: 'How the AI Coach works', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-is-a-swing-fault', label: 'What is a swing fault?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/single-camera-swing-analysis', label: 'How single-camera swing analysis works', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-data-swingvantage-uses', label: 'What data does SwingVantage use?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-is-the-skill-tree', label: 'What is the skill tree?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-is-the-athlete-journey', label: 'What is the athlete journey?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-makes-a-good-practice-plan', label: 'What makes a good practice plan?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
 
   // ── Benchmarks ────────────────────────────────────────────────────────
   { path: '/benchmarks', label: 'Benchmarks (all sports)', section: 'benchmarks', priority: 0.7, changeFrequency: 'monthly' },

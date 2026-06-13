@@ -814,6 +814,279 @@ export const TECH_EDUCATION_ARTICLES: TechEducationArticle[] = [
       },
     ],
   },
+  {
+    slug: 'how-the-ai-coach-works',
+    title: 'How the SwingVantage AI Coach Works',
+    heading: 'How the AI Coach Works',
+    description:
+      'How the SwingVantage AI Coach works: it answers your questions and explains your swing report in plain English, grounded in your real findings — and what it will not do.',
+    answerSummary:
+      'The SwingVantage AI Coach is a guide on top of your analysis, not a second opinion. It answers practice questions and explains your report in plain language, grounded in your real findings — a narrative it can reword but never invent. It points you to your next-best action, and will not fabricate metrics or replace a human coach.',
+    breadcrumbLabel: 'How the AI Coach Works',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What is the SwingVantage AI Coach?',
+        answer:
+          'It is an assistant that explains your swing analysis and answers practice questions in plain English. It sits on top of your real report — translating findings and pointing to your next step — rather than acting as a second, separate opinion.',
+      },
+      {
+        question: 'Does the AI Coach make up advice?',
+        answer:
+          'No. Its explanation is grounded in your actual findings and their confidence first; an optional language model may only reword that narrative, never invent a finding. If anything fails, it falls back to the plain, deterministic explanation.',
+      },
+      {
+        question: 'How is the AI Coach different from the swing analysis?',
+        answer:
+          'The analysis produces the findings — your faults, confidence, and prioritized fix. The AI Coach is the layer that explains those findings conversationally and helps you decide what to do next. One generates the result; the other helps you understand it.',
+      },
+      {
+        question: 'Can the AI Coach replace a human coach?',
+        answer:
+          'No, and it does not try to. It is a between-sessions guide that explains your data and keeps you focused, but it cannot give hands-on correction, feel, or accountability. SwingVantage is built to complement a coach, not stand in for one.',
+      },
+      {
+        question: 'What can I ask the AI Coach?',
+        answer:
+          'Practical things tied to your analysis — what to work on today, what a finding means, how to run a drill, or whether you are improving. It answers using your report and history, so guidance stays specific to you rather than generic tips.',
+      },
+    ],
+  },
+  {
+    slug: 'what-is-a-swing-fault',
+    title: 'What Is a Swing Fault?',
+    heading: 'What Is a Swing Fault?',
+    description:
+      'A swing fault is a specific, fixable flaw in your motion — like early extension or casting. Learn how SwingVantage names faults, labels confidence, and turns each into a fix.',
+    answerSummary:
+      'A swing fault is a specific, named flaw in your motion that limits results — for example early extension in golf or casting in baseball. SwingVantage detects faults from your video and inputs, explains each with its likely cause and a confidence label, and turns the one that matters most into a prioritized fix and drill.',
+    breadcrumbLabel: 'What Is a Swing Fault?',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What is a swing fault?',
+        answer:
+          'A swing fault is a discrete, fixable flaw in your motion — a recognizable pattern like early extension, over the top, or casting. It is something concrete you can work on, not a vague sense that a swing looks wrong.',
+      },
+      {
+        question: 'What are some common swing faults?',
+        answer:
+          'In golf, early extension, coming over the top, and casting the club are common. Other sports have their own — a weak unit turn in tennis or an off-balance contact in pickleball. SwingVantage carries a curated library across its sports.',
+      },
+      {
+        question: 'How does SwingVantage detect swing faults?',
+        answer:
+          'It reads your video and inputs to match recognizable patterns, then attaches each fault to its likely cause, the evidence behind it, and a confidence label. Reads estimated from a single camera are marked as estimated, not measured.',
+      },
+      {
+        question: 'Does every swing fault need fixing?',
+        answer:
+          'No. Chasing every imperfection at once stalls progress. SwingVantage ranks faults by impact and what is realistic at your level, then puts the single most valuable one first — your next-best action — instead of a long list.',
+      },
+      {
+        question: 'How does a swing fault become a drill?',
+        answer:
+          'Each fault maps to matched drills and clear retest criteria. The prioritized fault becomes a short practice plan, and a later retest confirms whether the change actually moved the fault — so a named problem turns into proven improvement.',
+      },
+    ],
+  },
+  {
+    slug: 'single-camera-swing-analysis',
+    title: 'How Single-Camera Swing Analysis Works',
+    heading: 'How Single-Camera Swing Analysis Works',
+    description:
+      'How single-camera swing analysis works — and its honest limits. Learn what one phone camera can estimate about your motion, what it cannot measure, and why the labels matter.',
+    answerSummary:
+      'Single-camera swing analysis reads one phone video to estimate your movement and faults. Because it works from 2D video with reconstructed depth — not lab sensors — the reads are motion proxies, not precise measurements, so SwingVantage caps their confidence and labels them estimated. It reliably finds your top fix, within honest limits.',
+    breadcrumbLabel: 'Single-Camera Analysis',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'How does single-camera swing analysis work?',
+        answer:
+          'It uses pose detection on one phone video to track your body through the swing, then applies sport-specific logic to estimate movement and likely faults. Everything is inferred from that single 2D view rather than from dedicated sensors.',
+      },
+      {
+        question: 'Is one camera enough to analyze a swing?',
+        answer:
+          'For directional coaching, yes — one good clip is enough to spot the fix that helps most. For precise three-dimensional measurement it is not, which is why SwingVantage treats single-camera reads as estimates and says so plainly.',
+      },
+      {
+        question: 'Can a phone camera measure true 3D swing angles?',
+        answer:
+          'Not truly. A single camera sees 2D and reconstructs an approximation of depth, so exact 3D joint angles are estimated, not measured. SwingVantage will not present a reconstructed estimate as if it were a lab-grade sensor reading.',
+      },
+      {
+        question: 'How accurate is single-camera analysis?',
+        answer:
+          'It is reliable for identifying common patterns and your priority fix, but its confidence is deliberately capped because it is a motion proxy. Each finding carries a confidence label so you know how much weight to give it.',
+      },
+      {
+        question: 'How do I get the best single-camera results?',
+        answer:
+          'Film from a consistent angle and distance with good light and the full motion in frame. Clean, repeatable footage gives the pose detection more to work with and makes retests comparable. The filming guide covers the details.',
+      },
+    ],
+  },
+  {
+    slug: 'what-data-swingvantage-uses',
+    title: 'What Data Does SwingVantage Use?',
+    heading: 'What Data Does SwingVantage Use?',
+    description:
+      'What data does SwingVantage use? The inputs behind your guidance — video, profile answers, sessions, retests, optional imports — and the privacy rules that protect them.',
+    answerSummary:
+      'SwingVantage builds your guidance from the inputs you share: your swing video, profile answers, sessions, drills, retests, and optional launch-monitor imports or notes. Your video stays private by default and is never used to train AI without your explicit consent. More signals sharpen the read, but you control what you share.',
+    breadcrumbLabel: 'What Data We Use',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What data does SwingVantage use to analyze my swing?',
+        answer:
+          'Mainly your swing video plus the profile answers you provide — sport, level, goals, and equipment — along with session history, drills, and retests. You can also import launch-monitor data or add notes, but only the inputs you choose to share are used.',
+      },
+      {
+        question: 'Does SwingVantage use my video to train AI?',
+        answer:
+          'Not without your explicit consent. Your video is used to analyze your swing and is private by default; it is never fed into model training unless you specifically opt in. Consent is a deliberate choice, never the silent default.',
+      },
+      {
+        question: 'Is my swing data private?',
+        answer:
+          'Yes. Videos are not shared publicly by default, and you control what you upload and can remove it. SwingVantage is privacy-forward: the goal is to help you improve, not to expose your data or quietly repurpose it.',
+      },
+      {
+        question: 'Do I have to share everything to get value?',
+        answer:
+          'No. A single video already produces a useful read. Extra inputs like sessions, retests, or imports sharpen and personalize the guidance over time, but they are optional — you decide how much to share and when.',
+      },
+      {
+        question: 'Can I import data from a launch monitor?',
+        answer:
+          'Yes. Measured numbers from a launch monitor can be imported as extra signals, and they keep their measured label so sensor data is never blended with video estimates into a single misleading figure.',
+      },
+    ],
+  },
+  {
+    slug: 'what-is-the-skill-tree',
+    title: 'What Is the Skill Tree?',
+    heading: 'What Is the Skill Tree?',
+    description:
+      'The SwingVantage skill tree maps your game into sport-specific branches, each scored from real evidence — so you can see your strengths, your gaps, and where to focus next.',
+    answerSummary:
+      'The skill tree maps your game into sport-specific branches such as technique and consistency. Each branch carries a score from real evidence — videos, sessions, and benchmarks — plus an optional self-rating weighted lightly. Branches stay empty until data backs them, so the tree honestly shows where you are strong and where to focus.',
+    breadcrumbLabel: 'What Is the Skill Tree?',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What is the SwingVantage skill tree?',
+        answer:
+          'It is a visual map of your game split into sport-specific branches — areas like technique, consistency, finesse, and tactics. Each branch shows a score and the evidence behind it, so your overall picture is broken into parts you can actually work on.',
+      },
+      {
+        question: 'How are skill tree scores calculated?',
+        answer:
+          'Each branch is scored from real evidence feeding it — your video uploads, sessions, drills, and benchmarks. The more relevant data a branch has, the more meaningful its score; branches with no data stay unscored rather than guessing.',
+      },
+      {
+        question: 'Why are some skill branches empty?',
+        answer:
+          'Because there is no data behind them yet. SwingVantage will not invent a score it cannot support, so an empty branch is an honest prompt to add a video or session there — not a hidden zero or a fabricated number.',
+      },
+      {
+        question: 'Does my self-rating change my skill tree?',
+        answer:
+          'You can add a one-to-five self-rating per branch, but it is weighted lightly on purpose. It seeds an early picture and is never allowed to override the evidence collected from your actual swings and sessions.',
+      },
+      {
+        question: 'How does the skill tree help me improve?',
+        answer:
+          'It turns a vague sense of your game into clear strengths and gaps, and flags which branch is the current priority. That makes it obvious where focused practice will pay off most instead of spreading effort thin.',
+      },
+    ],
+  },
+  {
+    slug: 'what-is-the-athlete-journey',
+    title: 'What Is the Athlete Journey?',
+    heading: 'What Is the Athlete Journey?',
+    description:
+      'The athlete journey maps your improvement as ordered stages, foundation to elite. Learn how SwingVantage places you, tracks momentum, and shows what unlocks the next stage.',
+    answerSummary:
+      'The athlete journey is your improvement mapped as ordered stages, from foundation to elite. SwingVantage places you from a blend of signals — rating, video, sessions, and practice — then shows your momentum and the criteria that unlock the next stage. It turns a vague "get better" into a clear, evidence-based path with milestones.',
+    breadcrumbLabel: 'What Is the Athlete Journey?',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What is the athlete journey in SwingVantage?',
+        answer:
+          'It is your long-term development modeled as ordered stages for your sport, from foundation up to elite. Instead of a single score, it shows where you are on a path, how fast you are moving, and what reaching the next stage takes.',
+      },
+      {
+        question: 'How does SwingVantage decide what stage I am in?',
+        answer:
+          'It blends several signals — any rating you provide, your video analysis, session patterns, practice discipline, and self-assessment — rather than relying on one number, so your placement reflects your real game, not a single test.',
+      },
+      {
+        question: 'What are journey milestones?',
+        answer:
+          'Milestones are concrete achievements within a stage — measurable markers that show progress is real. Hitting them is part of what builds the case for moving up, so improvement is tracked by evidence rather than by feel.',
+      },
+      {
+        question: 'How do I move to the next stage?',
+        answer:
+          'Each stage lists specific unlock criteria — the things you need to demonstrate to advance. SwingVantage shows them plainly and points to the practice and data that close the gap, so progression is transparent rather than mysterious.',
+      },
+      {
+        question: 'Which sports have the athlete journey?',
+        answer:
+          'Golf and tennis have the most complete journeys today, with other sports rolling out. Where a sport is still in development, SwingVantage labels it honestly instead of presenting an unfinished path as if it were complete.',
+      },
+    ],
+  },
+  {
+    slug: 'what-makes-a-good-practice-plan',
+    title: 'What Makes a Good Practice Plan?',
+    heading: 'What Makes a Good Practice Plan?',
+    description:
+      'What makes a good practice plan? One fix, a short warm-up, a few targeted drills, a pressure test, and a clear success metric — exactly how SwingVantage builds yours.',
+    answerSummary:
+      'A good practice plan is short, focused, and provable: one fix at a time, a brief warm-up, a few targeted drills from slow reps to full speed, a small pressure test, and a clear success metric. SwingVantage builds plans this way around your top fix and the time you have, then a retest confirms whether the change held.',
+    breadcrumbLabel: 'A Good Practice Plan',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What makes a good practice plan?',
+        answer:
+          'Focus and proof. A good plan works one fix at a time, warms you up, runs a few targeted drills from slow to full speed, adds a small pressure test, and defines a clear success metric — so practice has a point and you can tell it worked.',
+      },
+      {
+        question: 'How long should a practice plan be?',
+        answer:
+          'Long enough to get quality reps, short enough to actually do — often ten to forty-five minutes. SwingVantage scales the plan to the time you have, because a short plan you finish beats a long one you skip.',
+      },
+      {
+        question: 'Why focus on one fix at a time?',
+        answer:
+          'Because changing several things at once muddies the result and stalls progress. Working a single fix keeps practice clear and makes a retest easy to read — you can tell exactly what changed and why.',
+      },
+      {
+        question: 'What is a pressure test in a practice plan?',
+        answer:
+          'A short set of reps with an explicit success target — for example, hitting your intent on six of ten attempts. It checks whether a change holds under a little pressure instead of only during easy, unhurried reps.',
+      },
+      {
+        question: 'How do I know my practice plan worked?',
+        answer:
+          'Use the success metric during practice, then record a retest under similar conditions. SwingVantage compares it to your baseline and shows what moved — so a finished plan turns into proven progress, not just time spent.',
+      },
+    ],
+  },
 ];
 
 const BY_SLUG: Record<string, TechEducationArticle> = Object.fromEntries(
