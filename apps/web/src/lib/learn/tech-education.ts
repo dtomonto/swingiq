@@ -619,6 +619,201 @@ export const TECH_EDUCATION_ARTICLES: TechEducationArticle[] = [
       },
     ],
   },
+  {
+    slug: 'ai-analysis-vs-private-coach',
+    title: 'AI Swing Analysis vs a Private Coach',
+    heading: 'AI Analysis vs a Private Coach',
+    description:
+      'Compare the cost and value of AI swing analysis versus private lessons — what each does best, where they overlap, and why most athletes get more from using them together.',
+    answerSummary:
+      'A private coach gives hands-on, in-person feedback and accountability; AI swing analysis gives instant, low-cost reads you can run any time. They are not rivals. SwingVantage is built to complement a coach — giving you direction between lessons and helping the time you do spend with a coach count for more.',
+    breadcrumbLabel: 'AI Analysis vs a Coach',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'Is AI swing analysis cheaper than a private coach?',
+        answer:
+          'Usually, yes. A single lesson often costs more than months of app-based analysis, and you can run an AI check any time without booking. The honest trade-off is depth and human accountability, which is where a coach still leads.',
+      },
+      {
+        question: 'Can AI swing analysis replace my coach?',
+        answer:
+          'No, and SwingVantage does not claim to. AI analysis is a complement: it handles fast, repeatable reads and between-lesson direction, while a coach brings hands-on correction, drills tailored in the moment, and real accountability.',
+      },
+      {
+        question: 'What does a private coach do that AI cannot?',
+        answer:
+          'A coach watches you live, feels timing a camera cannot, adjusts on the spot, builds a relationship, and holds you accountable week to week. AI gives structure and speed, but it does not replace in-person, human coaching.',
+      },
+      {
+        question: 'How do AI analysis and a coach work best together?',
+        answer:
+          'Use AI between sessions to spot your top fix and run a focused practice plan, then bring sharper questions and a retest history to your coach. You spend lesson time on real correction instead of basic diagnosis.',
+      },
+      {
+        question: 'Who gets the most value from AI swing analysis?',
+        answer:
+          'Athletes who cannot afford or access frequent lessons, who practice between coaching sessions, or who want a quick, structured read before deciding what to work on. It is least useful if you ignore the plan or never retest.',
+      },
+    ],
+  },
+  {
+    slug: 'what-transfers-between-sports',
+    title: 'What Transfers Between Sports?',
+    heading: 'What Transfers Between Sports?',
+    description:
+      'Concrete examples of swing skills that carry from golf to tennis to baseball — rotation, ground-up sequencing, balance, and timing — and how SwingVantage reuses them.',
+    answerSummary:
+      'More transfers than you might expect. The fundamentals behind a good swing — ground-up sequencing, hip-and-torso rotation, balance, and timing — repeat across golf, tennis, baseball, and pickleball even as the implement and target change. SwingVantage recognizes these shared patterns, so progress in one sport sharpens guidance in another.',
+    breadcrumbLabel: 'What Transfers Between Sports',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'Do swing skills really transfer between sports?',
+        answer:
+          'Many do. The implement and target differ, but the engine of a powerful, repeatable swing — sequencing from the ground up, rotation, and balance — is shared. Learning to sequence well in one sport makes it easier to feel in another.',
+      },
+      {
+        question: 'What carries over from golf to tennis?',
+        answer:
+          'Rotational power, posture, and a stable base transfer directly. Both reward turning the hips and torso in the right order and staying balanced through contact, even though one strikes a ball off the ground and the other in the air.',
+      },
+      {
+        question: 'Does playing baseball help your golf swing?',
+        answer:
+          'It can. Both use a coiled load and an unwind that fires the hips before the hands. The timing differs, but athletes with a baseball background often already own the sequencing that golfers spend years trying to feel.',
+      },
+      {
+        question: 'How does SwingVantage use cross-sport patterns?',
+        answer:
+          'Its Athlete General Intelligence organizes shared movement fundamentals across sports, so what it learns about your sequencing or balance in one sport can inform the read in another instead of starting from zero each time.',
+      },
+      {
+        question: 'Which fundamentals are the same across most sports?',
+        answer:
+          'Ground-up sequencing, hip-and-torso rotation, balance, and timing show up in nearly every swing sport. The exact positions change, but those four pillars are the common thread SwingVantage looks for everywhere.',
+      },
+    ],
+  },
+  {
+    slug: 'ai-analysis-vs-launch-monitors',
+    title: 'AI Swing Analysis vs Launch Monitors',
+    heading: 'AI Analysis vs a Launch Monitor',
+    description:
+      'Do you need a launch monitor? Compare what a launch monitor measures with what AI video analysis estimates — and learn when each tool actually helps your practice most.',
+    answerSummary:
+      'A launch monitor measures ball and club numbers with hardware; AI swing analysis estimates your movement and faults from phone video. One captures precise output data, the other explains the motion that produced it and what to fix — and SwingVantage labels what it measures versus estimates so you never confuse the two.',
+    breadcrumbLabel: 'AI Analysis vs Launch Monitors',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'Do I need a launch monitor to improve my swing?',
+        answer:
+          'No. A launch monitor is excellent for precise ball and club numbers, but it does not tell you how to move. Many athletes improve with video-based analysis of their motion and never own one.',
+      },
+      {
+        question: 'What does a launch monitor measure that AI cannot?',
+        answer:
+          'Dedicated hardware measures outputs like ball speed, spin, launch angle, and club path with sensor-grade precision. AI from phone video estimates body movement instead, and is honest that those numbers are estimated, not measured.',
+      },
+      {
+        question: 'Can AI swing analysis replace a launch monitor?',
+        answer:
+          'Not for measured ball data. They serve different jobs: a launch monitor tells you what the ball did, while AI analysis explains why your body produced that result and which change to prioritize. Used together they are stronger.',
+      },
+      {
+        question: 'Is phone-video analysis as accurate as a launch monitor?',
+        answer:
+          'For raw ball numbers, no — a launch monitor is far more precise. For diagnosing movement and prioritizing one fix, video analysis is often more useful. SwingVantage labels estimated reads clearly so you weigh them correctly.',
+      },
+      {
+        question: 'Can SwingVantage use my launch monitor data?',
+        answer:
+          'Yes. Imported launch-monitor numbers become extra signals the analysis can reason over, and they keep their measured label so the system never blends sensor data and video estimates into one false figure.',
+      },
+    ],
+  },
+  {
+    slug: 'is-ai-swing-analysis-worth-it',
+    title: 'Is AI Swing Analysis Worth It?',
+    heading: 'Is AI Swing Analysis Worth It?',
+    description:
+      'A clear-eyed look at whether AI swing analysis is worth it: what you actually get, where it pays off, where it falls short, and who benefits most before you spend.',
+    answerSummary:
+      'For most recreational athletes, AI swing analysis is worth it when it turns guesswork into one clear thing to practice. Its value comes from speed, low cost, and repeatability — not from replacing real coaching. SwingVantage starts free and labels its confidence honestly, so it pays off most if you run the practice plan and retest.',
+    breadcrumbLabel: 'Is AI Swing Analysis Worth It?',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'Is AI swing analysis worth it?',
+        answer:
+          'For most recreational athletes, yes — when it converts a vague sense that something is off into one prioritized fix and a plan you will follow. Its worth is highest if you practice the recommendation and retest to confirm it.',
+      },
+      {
+        question: 'Who benefits most from AI swing analysis?',
+        answer:
+          'Self-directed athletes who practice between lessons, players without easy access to a coach, and anyone who wants a fast, structured read before deciding what to work on. The more you act on the plan, the more value you get.',
+      },
+      {
+        question: 'When is AI swing analysis not worth it?',
+        answer:
+          'If you never run the suggested plan, never retest, or expect sensor-grade measurements from a phone clip, the value drops. It is a guidance tool, not a guarantee, and it rewards athletes who put the recommendation into practice.',
+      },
+      {
+        question: 'Is free AI swing analysis good enough?',
+        answer:
+          'Often, yes. SwingVantage starts free with a structured first read and a clear next-best action, which is plenty for many common faults. Deeper, paid analysis adds value where extra nuance genuinely helps.',
+      },
+      {
+        question: 'What do I actually get for the money?',
+        answer:
+          'A prioritized fix, the evidence and confidence behind it, drills matched to you, a short practice plan, and a retest to prove it worked — structured guidance you can act on, not a wall of numbers to decode alone.',
+      },
+    ],
+  },
+  {
+    slug: 'how-often-should-you-retest',
+    title: 'How Often Should You Retest Your Swing?',
+    heading: 'How Often Should You Retest Your Swing?',
+    description:
+      'How often should you retest your swing? A practical cadence for re-recording — after enough focused reps on one fix, not every session — so each retest shows real change.',
+    answerSummary:
+      'Retest after you have put in enough focused reps on a single fix to expect a change — for most athletes that is every one to three weeks, not every session. Retesting too often just measures noise. SwingVantage compares each retest to your baseline under similar conditions, so you confirm whether the change held before the next fix.',
+    breadcrumbLabel: 'How Often to Retest',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'How often should you retest your swing?',
+        answer:
+          'Retest once you have practiced a single fix enough to expect real change — commonly every one to three weeks or after a focused block of sessions. A daily retest mostly captures normal swing-to-swing noise, not progress.',
+      },
+      {
+        question: 'How soon after a change should I retest?',
+        answer:
+          'Give the fix enough quality reps to start feeling natural first, usually a few practice sessions. Retesting the same day you learn a change tends to capture an unsettled, in-between move rather than the new pattern.',
+      },
+      {
+        question: 'Can you retest your swing too often?',
+        answer:
+          'Yes. Retesting every session makes random variation look like change and can send you chasing noise. Holding a steady cadence and changing one thing at a time keeps each retest readable and trustworthy.',
+      },
+      {
+        question: 'What should I keep the same when I retest?',
+        answer:
+          'Match the conditions: similar camera angle and distance, the same club or stroke, and a comparable warm-up. Consistent conditions let SwingVantage compare like with like, so a difference reflects your swing, not your setup.',
+      },
+      {
+        question: 'How do I know a retest shows real improvement?',
+        answer:
+          'SwingVantage compares the retest to your baseline and shows what moved, what held, and what to work on next. A change that repeats across retests under similar conditions is real; a one-time blip is not.',
+      },
+    ],
+  },
 ];
 
 const BY_SLUG: Record<string, TechEducationArticle> = Object.fromEntries(

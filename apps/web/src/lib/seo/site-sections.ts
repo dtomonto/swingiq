@@ -175,6 +175,11 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/learn/how-to-film-your-swing', label: 'How to film your swing for AI analysis', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/measured-vs-estimated', label: 'Measured vs estimated swing data', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/how-to-read-your-swing-report', label: 'How to read your AI swing report', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/ai-analysis-vs-private-coach', label: 'AI swing analysis vs a private coach', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-transfers-between-sports', label: 'What transfers between sports?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/ai-analysis-vs-launch-monitors', label: 'AI swing analysis vs launch monitors', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/is-ai-swing-analysis-worth-it', label: 'Is AI swing analysis worth it?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-often-should-you-retest', label: 'How often should you retest your swing?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
 
   // ── Benchmarks ────────────────────────────────────────────────────────
   { path: '/benchmarks', label: 'Benchmarks (all sports)', section: 'benchmarks', priority: 0.7, changeFrequency: 'monthly' },
