@@ -16,6 +16,7 @@ import { MetricStat } from '@/components/admin/MetricStat';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { OperatingModeControl } from '@/components/admin/OperatingModeControl';
 import { TierInvitationsControl } from '@/components/admin/TierInvitationsControl';
+import { EducationalLink } from '@/components/learn/EducationalLink';
 import {
   getOperatingModeState,
   getIntelligenceObservability,
@@ -139,7 +140,9 @@ export default async function OperatingModePage() {
       <HelpPanel>
         <p>
           <strong>What this is.</strong> The control surface for SwingVantage GAI — the layer that routes every
-          analysis through the right mix of deterministic heuristics, cache, and AI providers.
+          analysis through the right mix of{' '}
+          <EducationalLink term="heuristic-data">deterministic heuristics</EducationalLink>, cache, and{' '}
+          <EducationalLink term="ai-sports">AI</EducationalLink> providers.
         </p>
         <p>
           <strong>Default AI Mode</strong> picks the best available quality per tier, still preferring heuristics
