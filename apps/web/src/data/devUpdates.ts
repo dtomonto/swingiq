@@ -1,12 +1,25 @@
 // ── Developer / Engineering Updates ───────────────────────────────────────
 //
-// This is the *technical* companion to the plain-English product changelog at
-// /updates. It exists to show off the engineering milestones behind SwingVantage —
-// the architecture decisions, the AI work, and the platform foundations — in
-// language written for builders, not end users.
+// This is the *technical-flavored* companion to the plain-English product
+// changelog at /updates. It exists to show the engineering progress behind
+// SwingVantage — the capabilities and milestones — for a builder-curious
+// audience.
 //
-// Keep entries honest and concrete. Describe what was actually built and why it
-// was hard or interesting. No invented metrics.
+// ⚠️ PROPRIETARY-PROTECTION POLICY (read before adding or editing an entry)
+// This page is PUBLIC and search-indexed. Treat every field as competitor-
+// readable marketing copy, NOT an engineering write-up. Describe WHAT a change
+// does for athletes and WHY it matters — never HOW it is built.
+//
+//   DO   keep it plain-English and benefit-first; an athlete should understand it.
+//   DON'T name vendors, libraries, SDKs, models, or infra (e.g. the pose/ML
+//        toolkit, the analytics vendor, the database, the AI provider).
+//   DON'T expose internal system codenames, file paths, env-var/flag names,
+//        table counts, file counts, or specific algorithms/heuristics.
+//   DON'T describe internal-only tooling in a way a competitor could copy.
+//
+// A CI test (see __tests__/devUpdates.test.ts) scans every published entry for
+// these tells and fails the build if one slips in. Keep entries honest and
+// concrete about outcomes, never about implementation.
 
 export type DevUpdateCategory =
   | 'AI & Vision'
@@ -32,7 +45,8 @@ export interface DevUpdate {
   id: string;
   /** Draft entries are hidden from the public /dev-updates page. Default: published. */
   status?: DevUpdateStatus;
-  /** Optional human tag, e.g. "v1.2" or "Motion Lab". */
+  /** Optional human tag, e.g. "v1.2". Keep it a product-friendly label — never an
+   *  internal engineering codename. */
   version?: string;
   title: string;
   /** ISO date used for sorting. */
@@ -41,19 +55,29 @@ export interface DevUpdate {
   displayDate: string;
   category: DevUpdateCategory;
   impact: DevUpdateImpact;
-  /** The one-line "show off" headline. */
+  /** The one-line, plain-English "what shipped" headline. */
   headline: string;
-  /** A short technical paragraph: what was built and why it mattered. */
+  /** A short paragraph: what the change does for athletes and why it matters.
+   *  Outcomes only — no implementation detail (see the policy note at the top). */
   details: string;
-  /** Concrete engineering wins worth bragging about. */
+  /** Concrete, athlete-facing wins worth highlighting — benefits, not internals. */
   highlights?: string[];
-  /** Tech / stack tags. */
+  /**
+   * @deprecated No longer surfaced on the public page. We do not publish our
+   * stack, vendors, or libraries. Kept on the type only so auto-generated data
+   * carrying a Dev-Stack value still type-checks; it is intentionally never
+   * rendered. Do not add it to new seed entries.
+   */
   stack?: string[];
-  /** How the change was validated — unit/integration tests, build, type, SEO,
-   *  a11y checks. Rendered as the Testing / Validation section on the detail page. */
+  /**
+   * @deprecated No longer surfaced publicly (it tended to leak internal test
+   * names and suites). Kept on the type for backwards compatibility only.
+   */
   testing?: string[];
-  /** Practical rollback / risk note, rendered on the detail page when present.
-   *  Keep it safe: no secrets, infra detail, or exploit paths. */
+  /**
+   * @deprecated No longer surfaced publicly (it tended to leak env flags and
+   * infra detail). Kept on the type for backwards compatibility only.
+   */
   rollback?: string;
   /** Surface in the milestone timeline at the top of the page. */
   isMilestone?: boolean;
@@ -71,17 +95,17 @@ export const DEV_STATS: DevStat[] = [
   {
     value: '7',
     label: 'Sports, real engines',
-    detail: 'Golf, tennis, pickleball, padel, baseball, slow- and fast-pitch softball — each with its own diagnostic rules, not shared labels.',
+    detail: 'Golf, tennis, pickleball, padel, baseball, slow- and fast-pitch softball — each with its own coaching, not shared labels.',
   },
   {
     value: '3D',
     label: 'Motion analysis in the browser',
-    detail: 'Depth-aware pose estimation runs client-side. No app install, no upload of your video to a server.',
+    detail: 'Your swing is analyzed in 3D right on your device. No app install, and your video is never uploaded to a server.',
   },
   {
     value: '7',
-    label: 'Themes, one token engine',
-    detail: 'A data-theme palette system retokenizes the entire app — coaching logic and data never change.',
+    label: 'Themes, one system',
+    detail: 'A theming system restyles the entire app — your coaching and your data never change.',
   },
   {
     value: '0',
@@ -96,490 +120,407 @@ export const DEV_STATS: DevStat[] = [
 export const DEV_UPDATES: DevUpdate[] = [
   {
     id: 'dev-aio4-orchestrator',
-    version: 'AIO-4',
-    title: 'AIO-4 — an analysis orchestrator and evidence normalizer wired into the live vision route',
+    title: 'Smarter, more honest AI swing coaching',
     date: '2026-06-12',
     displayDate: 'June 2026',
     category: 'AI & Vision',
     impact: 'major',
     headline:
-      'A staged, keyless-safe AI pipeline that grounds the coach on the real frame vision already computed — an honesty gate, not another video round-trip.',
+      'AI coaching now grounds every comment in what we actually measured from your swing — so it stays accurate and never overstates what it sees.',
     details:
-      'AIO-4 completes the AI-Operations pipeline: video intake (frame vision or Gemini) plus on-device MediaPipe measurement → normalize → optional coach synthesis → optional premium narrative. The normalizer is a pure honesty gate — it merges intake observations with measured metrics into a single NormalizedAnalysisEvidence, rejects below-floor claims, surfaces visible conflicts, and blends confidence with penalties so the result is never more confident than its inputs, carrying every limitation forward. The orchestrator runs with dependency-injected providers, is keyless-safe, and never throws: a stage that fails becomes an honest error trace with a terminal status (completed / needs_review / failed) and rolls cost and latency up into the analysis job. A bridge adapts the existing frame-based visual analysis into the orchestrator instead of re-sending the video to Gemini, so the coach grounds on the real frames. It is wired into the live vision route as an additive "structured" field; the AI coach refinement is opt-in and budget-gated, with a deterministic keyless baseline otherwise, and is wrapped so it can never break the core response.',
+      'We rebuilt how AI coaching is produced so it always works from the real measurements taken from your video, not a re-guess. The system is careful by design: it won’t make a claim it can’t support, it flags anything that looks inconsistent, and it never sounds more certain than the evidence allows. Coaching works fully even with no paid AI turned on, and the optional AI layer can never break your core swing report.',
     highlights: [
-      'Pure evidence normalizer: rejects below-floor claims, surfaces conflicts, never inflates confidence',
-      'Orchestrator never throws — failures become honest error traces with terminal status',
-      'Frame-vision bridge grounds the coach on real frames, no extra video round-trip',
-      'Coach synthesis is opt-in + budget-gated; deterministic keyless baseline by default',
-      'Layered additively onto the live route so it can never break the core analysis response',
+      'Coaching is always grounded in the real measurements from your swing',
+      'Won’t overstate findings or sound more confident than the evidence',
+      'Flags anything inconsistent instead of hiding it',
+      'Works fully even with no paid AI enabled',
+      'Built so the optional AI layer can never break your core report',
     ],
-    stack: ['TypeScript', 'Next.js App Router', 'MediaPipe', 'OpenAI', 'Claude', 'Dependency injection'],
-    testing: [
-      'Unit tests across normalize, orchestrator, and bridge; schema self-validation',
-      'Whole-app type-check clean; vision + core suites green with the additive field',
-    ],
-    rollback:
-      'Additive and gated: the structured field layers onto the existing response, and coach synthesis stays off (ENABLE_AIO_COACH_SYNTHESIS) unless explicitly enabled and within budget. Disabling the env flag returns the deterministic baseline with no behavior change.',
     isMilestone: true,
   },
   {
     id: 'dev-ai-feature-switchboard',
-    version: 'AI Switchboard',
-    title: 'A per-feature AI on/off switchboard — turn athlete-facing AI off, keep admin AI on',
+    title: 'One switch to turn AI features on or off',
     date: '2026-06-12',
     displayDate: 'June 2026',
     category: 'Security & Privacy',
     impact: 'notable',
     headline:
-      'A durable, operator-controlled kill switch for every user-facing AI feature, with each route falling back to its existing keyless or deterministic path — never a broken response.',
+      'Every AI-powered feature can be turned off instantly — and when it is, that feature quietly falls back to a reliable non-AI version instead of breaking.',
     details:
-      'lib/ai/ai-features.ts catalogs the user-facing AI features (video analysis, AI coach, photo import, journey narrative, recruiting summary) and adds a durable override store that mirrors the AI-budget and routing-override pattern — fleet-wide via Upstash with a per-instance memory fallback. A baseline comes from env (AI_USER_FEATURES_DEFAULT, on by default) and a per-feature override layers on top; isAiFeatureEnabled(id) is the single gate. Every user-facing AI route honors it and returns that route\'s existing keyless / manual / deterministic fallback when off, so turning AI off never costs a paid call and never breaks a response. Admin AI tools — Copilot, Social, Feature Education, Growth — are gated separately and are unaffected. The AI Provider Control Center gains a switchboard: a master all-off / all-on banner plus per-feature toggles that show each route\'s blast radius.',
+      'We added a simple master control for the AI features you use, plus a switch for each one. Turning any of them off never leaves you with a broken screen — the feature just uses its dependable built-in version instead, at no extra cost. It’s a safety and cost control that keeps the experience smooth no matter what.',
     highlights: [
-      'Single gate (isAiFeatureEnabled) honored by every user-facing AI route',
-      'Durable fleet-wide override (Upstash) with per-instance memory fallback',
-      'Off = the route\'s existing keyless/deterministic fallback, no paid call',
-      'Admin AI tools gated separately and unaffected',
-      'Master + per-feature toggles in the AI Provider Control Center, with route blast-radius',
+      'A master on/off plus a switch for each AI feature',
+      'Turning AI off falls back to a reliable version — never an error',
+      'No surprise costs when features are switched off',
     ],
-    stack: ['TypeScript', 'Next.js App Router', 'Upstash', 'Local-first'],
-    testing: [
-      'Setup + admin-data suites green; whole-app type-check clean',
-      'Each wired route verified to return its keyless/manual fallback when disabled',
-    ],
-    rollback:
-      'Additive and admin-only. The default is on, so existing behavior is unchanged until an operator flips a switch; clearing the overrides restores the env baseline.',
   },
   {
     id: 'dev-ai-observability-funnel',
-    version: 'PostHog P1–P2',
-    title: 'AI observability — a non-PII funnel across the swing-analysis and AI-coach flows',
+    title: 'Measuring quality without ever seeing your content',
     date: '2026-06-12',
     displayDate: 'June 2026',
     category: 'Platform',
     impact: 'notable',
     headline:
-      'Make the AI-heavy core flows measurable in PostHog — latency, provider/model mix, confidence, and failure cause — without ever sending a frame, prompt, question, or answer.',
+      'We can now measure how well swing analysis and the AI coach perform — speed, success rate, and helpfulness — without ever recording your video, questions, or answers.',
     details:
-      'Building on the P0 SDK + identity work, this wires the client-side AI funnel. The vision route returns non-PII aiMeta (provider, model, latency, speed) plus a coarse error code, threaded through the analysis result so ANALYSIS_COMPLETED carries provider/model/latency/confidence and ANALYSIS_FAILED carries a classified error code (cancelled, network, timeout, rate_limited, payload_too_large, provider_error). The AI coach is made symmetric across the page and the floating widget: a centralized funnel (opened → question_asked → answered → answer_rated) with a lightweight per-answer 👍/👎 quality signal, and aiMeta on every path including cache and fallback. P1 also added an error sink (window.__svCaptureException → posthog.captureException), App-Router SPA pageviews, an environment super-property for internal-traffic filtering, and a local-first PostHog-aware feature-flag bridge that stays inert until flags exist. No new dependencies and no PII.',
+      'To keep improving the product we needed to know where things are slow or failing. We added privacy-first measurement that tracks only anonymous performance signals — like how fast analysis runs and whether it succeeded — and never your frames, prompts, questions, or answers. You can even give a quick thumbs-up or thumbs-down on a coaching answer to help us improve.',
     highlights: [
-      'aiMeta (provider/model/latency/speed) on every analysis + coach path — never content',
-      'Coarse, classified error codes make failures measurable without leaking detail',
-      'Centralized AI-coach funnel + per-answer quality rating',
-      'Error sink, SPA pageviews, env super-property, and a local-first flag bridge',
-      'Zero new deps, zero PII, no owner action to start collecting',
+      'Tracks speed and success, never your content',
+      'No video, questions, or answers are ever recorded',
+      'Optional thumbs-up / thumbs-down on coaching answers',
     ],
-    stack: ['TypeScript', 'PostHog', 'Next.js App Router'],
-    testing: [
-      'tsc clean, eslint 0; new + regression suites green (video, core vision, posthog/consent, ai-coach/analytics)',
-    ],
-    rollback:
-      'Purely additive instrumentation. It emits non-PII metadata and changes no product behavior; removing the analytics calls or disabling PostHog turns it off with no functional impact.',
   },
   {
     id: 'dev-strict-video-seo',
     version: 'Video SEO',
-    title: 'CI-enforced strict video SEO across every current and future recorded video',
+    title: 'Every tutorial video held to the same high standard',
     date: '2026-06-12',
     displayDate: 'June 2026',
     category: 'Developer Experience',
     impact: 'notable',
     headline:
-      'Hold every public recorded video to the strictest video-SEO bar and gate it in CI, so anything generated later inherits the standard automatically.',
+      'All of our how-to videos now carry captions, accurate dates, and rich descriptions — and an automatic check makes sure future videos always do too.',
     details:
-      'VideoObject schema now carries a real per-video uploadDate (previously hardcoded), a dateModified stamped on re-record, and isAccessibleForFree, with parity fields on the Video Studio schema. Sitemap video entries gained duration, publication_date, player_loc, family_friendly, requires_subscription, and live. The /learn pages emit og:type video.other with dimensions and a Twitter card. Captions were backfilled as .vtt for all 37 tutorial walkthroughs from real narration — no re-record — and the recorders now generate captions and stamp upload/modified dates going forward. The standard is enforced by validateVideoSeo() and a requirements test that fails CI on any public recorded video missing a poster, captions, a real date, or a transcript.',
+      'We brought every tutorial video up to a single high bar: captions for accessibility, accurate publish dates, and complete descriptions so the videos are easy to find and watch. An automatic check keeps that standard in place for every video we add going forward.',
     highlights: [
-      'Real per-video uploadDate + dateModified; isAccessibleForFree on every VideoObject',
-      'Richer sitemap video entries (duration, publication_date, player_loc, and more)',
-      '37 tutorial walkthroughs captioned from real narration, no re-record',
-      'CI gate (validateVideoSeo + requirements test) fails on any non-compliant video',
-      'Recorders now caption and date-stamp future videos automatically',
+      'Captions added to every tutorial walkthrough',
+      'Accurate dates and complete, searchable descriptions',
+      'An automatic check keeps future videos compliant',
     ],
-    stack: ['TypeScript', 'Next.js', 'Schema.org', 'Sitemaps', 'WebVTT'],
-    testing: [
-      'seo-requirements.test.ts gates CI; backfill verified against real narration sources',
-    ],
-    rollback:
-      'Additive metadata and a CI check — no runtime behavior change. The gate can be relaxed by adjusting validateVideoSeo, but the standard is the point.',
   },
   {
     id: 'dev-branch-guardian',
-    version: 'BranchGuardianOS',
-    title: 'BranchGuardianOS — a non-destructive Git and worktree governance OS for the admin',
+    title: 'Tools that keep our codebase clean and safe',
     date: '2026-06-08',
     displayDate: 'June 2026',
     category: 'Developer Experience',
     impact: 'major',
     headline:
-      'A read-only Git Cleanliness engine that scores branch and worktree health, ranks safe cleanup work, and prepares copy-paste commands you approve — it never runs git for you.',
+      'We built internal safeguards that help us keep our code organized and catch risky files before they ever ship.',
     details:
-      'BranchGuardianOS reads a committed snapshot of repository state (the live site has no shell access to git) and turns it into a live Git Cleanliness Score across branches and worktrees. A pure scoring engine grades staleness, merged-but-undeleted branches, how far each branch trails main, risky untracked files, and naming-convention drift; a recommendation engine then ranks non-destructive cleanup actions and emits copy-paste-safe commands. Nothing is ever executed, and every deletion sits behind an explicit approval step. Protected-branch and naming rules are first-class. It feeds two existing operating systems: a branch-hygiene signal into the admin Command Center, and an untracked-secrets posture check into securityOS. A snapshot-refresh script lets the owner regenerate the data on demand, and an audit log records what was recommended.',
+      'Behind the scenes we added tooling that reviews the health of our codebase and flags anything that should be cleaned up or looks risky — always with a person approving each step. It helps us move quickly without letting clutter or mistakes reach the live product.',
     highlights: [
-      'Read-only by design — prepares commands, never runs git; deletions gated behind explicit approval',
-      'Weighted Git Cleanliness Score over branches and worktrees (staleness, merged, behind-main, risky untracked, naming)',
-      'Ranked, copy-paste-safe cleanup recommendations, each with a plain reason',
-      'Feeds Command Center (branch-hygiene signal) and securityOS (untracked-secrets posture)',
-      'Protected-branch and naming-convention rules as first-class config',
-      'Snapshot-based, so it works on the live site with no shell access to git',
+      'Keeps our codebase organized and healthy',
+      'Flags risky files before they can ship',
+      'Every cleanup step requires human approval',
     ],
-    stack: ['TypeScript', 'Next.js App Router', 'Local-first', 'Git plumbing (read-only)'],
-    testing: [
-      'Unit tests across scan, scoring, recommendations, naming, and protected-branch rules',
-      'Whole-app type-check clean; Command Center and securityOS suites green with the new signals',
-    ],
-    rollback:
-      'Purely additive and admin-only, behind a new devops.manage permission. It reads a committed snapshot and executes nothing, so there is nothing to roll back operationally; the section can be hidden by removing its nav entry.',
     isMilestone: true,
   },
   {
     id: 'dev-mental-performance',
     version: 'Mental Performance',
-    title: 'A local-first Mental Performance pillar — keyless coach, anonymized telemetry, on-device audio',
+    title: 'Mental Performance — coaching for focus and mistake recovery',
     date: '2026-06-08',
     displayDate: 'June 2026',
     category: 'Architecture',
     impact: 'major',
     headline:
-      'An emotion-management & mistake-recovery engine built the SwingVantage way: pure, local-first, consent-gated, keyless — with a deterministic coach and a privacy-first telemetry pipe.',
+      'A private, built-in mental-game coach that helps you reset after mistakes and manage emotions — with crisis safety built in and no account required.',
     details:
-      'lib/mental-performance is a self-contained, local-first module (its own localStorage key, mirrored to the account by the document-sync layer — it never touches the main store). A deterministic, keyless coach maps sport × mistake × emotion to one of 27 seeded reset routines plus a self-talk cue, breath pattern, and practice drill, with a safety screen that routes crisis/medical free text to real help instead of ever attempting therapy. The same data drives a public SEO surface (a hub plus dynamic per-sport and per-routine pages with schema), the in-app coach/journal/plans, and an admin console. It plugs into CentralIntelligenceOS as a first-class recommendation domain and into GrowthOS as an opportunity source. Phase 3 added a privacy-first telemetry pipe: anonymized, opt-in-only events (sport, emotion, mistake category, routine, effectiveness — never free text or identity) that normalize back into the real aggregator. Phase 4 ships on-device guided audio via the Web Speech API — keyless, free, no TTS bill — plus generated meditation scripts and Video Studio briefs.',
+      'We added a Mental Performance pillar that gives you reset routines, self-talk cues, breathing patterns, and drills matched to your sport and the moment you’re in. It’s private by default and works without any account or paid AI. If someone types something that suggests a crisis or a medical issue, it points them to real help instead of trying to coach. There are guided spoken routines, a journal, and plans — all yours and kept private.',
     highlights: [
-      'Deterministic, keyless coach (no API cost) with a crisis/medical safety screen',
-      '27 multi-sport reset routines + plans + a consent-gated journal, all local-first',
-      'Anonymized, opt-in telemetry → real aggregator (no PII, off by default)',
-      'On-device spoken routines via the Web Speech API — zero TTS cost',
-      'First-class CentralIntelligenceOS + GrowthOS integration',
-      'Public SEO pillar fixed to be crawlable (middleware allowlist)',
+      'Reset routines, self-talk, breathing, and drills matched to your sport and moment',
+      'Crisis and medical safety built in — points to real help',
+      'Guided spoken routines that work for free, no account needed',
+      'A private journal and plans you fully control',
     ],
-    stack: ['TypeScript', 'Next.js App Router', 'Local-first', 'Web Speech API', 'useSyncExternalStore'],
-    testing: [
-      '40 unit tests (routines, coach, crisis screen, plans, journal, intelligence k-anonymity, telemetry consent + anonymization, store consent-gating)',
-      'Whole-app type-check on the production base before each ship',
-      'Live verification of the public pages after the crawlability fix',
-    ],
-    rollback:
-      'Additive and flag-gated (NEXT_PUBLIC_MENTAL_PERFORMANCE, default on; MENTAL_AI_ENABLED, default off). The whole section can be hidden with one env var; telemetry stays off until a user explicitly opts in.',
     isMilestone: true,
   },
   {
     id: 'dev-seven-sports',
     version: 'Sports',
-    title: 'Seven sports from one taxonomy — pickleball and padel as first-class engines',
+    title: 'Seven sports, each with its own real coaching engine',
     date: '2026-06-06',
     displayDate: 'June 2026',
     category: 'Architecture',
     impact: 'major',
-    headline: 'Pickleball and padel were added as genuine diagnostic engines, not relabeled tennis — driven by a single canonical sport taxonomy.',
+    headline:
+      'Pickleball and padel were added as genuine, sport-specific coaching engines — not tennis with the labels swapped.',
     details:
-      'A single ordered SPORT_TAXONOMY in @swingiq/core (golf → tennis → pickleball → padel → baseball → slow- → fast-pitch softball) is now the one source of truth that the marketing surface, filters, sport selector, and internal-linking strategy all read from. Pickleball and padel each got their own analysis rules, phase definitions, benchmarks, and drill libraries — modeling compact paddle mechanics, dinks, third-shot drops and kitchen play for pickleball, and wall play, the bandeja/vibora, and doubles positioning for padel. The fault union was extended with pb_* and pd_* issue ids. Padel deliberately has no single numeric rating, so none was invented.',
+      'We expanded to seven sports, and each one gets its own coaching logic, swing phases, benchmarks, and drills. Pickleball understands dinks, third-shot drops, and kitchen play; padel understands wall play and doubles positioning. Where a sport doesn’t have a meaningful single rating, we don’t invent one.',
     highlights: [
-      'One canonical SPORT_TAXONOMY drives every sport-aware surface',
-      'Per-sport analysis, phases, benchmarks, and drills for pickleball + padel',
-      'Typed pb_*/pd_* fault ids; padel rating intentionally omitted',
-      'Live Athletic Journeys for all four racket/club sports',
+      'Pickleball and padel get their own real coaching, not relabeled tennis',
+      'Sport-specific phases, benchmarks, and drills for each sport',
+      'No invented ratings where a sport doesn’t have one',
     ],
-    stack: ['TypeScript', 'Monorepo', 'Rules engine'],
-    testing: [
-      'Unit tests for the new pb_*/pd_* fault ids and per-sport rules',
-      'Type-check across the monorepo (one canonical SPORT_TAXONOMY)',
-      'Production build + sport-selector and filter smoke checks',
-    ],
-    rollback: 'Additive and config-driven — sports are gated by the taxonomy, so a sport can be disabled without touching the shared engine.',
     isMilestone: true,
   },
   {
     id: 'dev-relational-accounts',
     version: 'Accounts',
-    title: 'The account becomes the source of truth — relational sync, real auth, white-label email',
+    title: 'Your account keeps everything in sync — without giving up privacy',
     date: '2026-06-06',
     displayDate: 'June 2026',
     category: 'Architecture',
     impact: 'major',
-    headline: 'A relational Supabase schema plus a sync engine that mirrors the whole local-first store to the cloud — without giving up local-first.',
+    headline:
+      'Sign in and your full history syncs securely across devices, while everything still works locally first and stays private by default.',
     details:
-      'Local-first stayed the default, but signed-in accounts now cloud-sync the entire main store through a relational Supabase schema (14 tables) and a dedicated sync engine in lib/db — projection, a three-way merge for conflict resolution, and a relational sync provider. Real Supabase auth is wired (keys in env, RLS applied), so middleware enforces login on protected routes only in real-accounts mode. Auth email is fully white-labeled: every message sends from the product domain via Resend SMTP with branded templates and on-domain /auth/confirm and /reset-password — no third-party branding visible to users.',
+      'Signing in is optional, but when you do, your sessions and settings sync securely across your devices. We kept the local-first design, so the app still works great without an account. Account emails come from our own brand, with no third-party branding.',
     highlights: [
-      'Relational schema (14 tables) + projection and three-way merge in lib/db',
-      'Local-first preserved; cloud sync layers on for signed-in accounts',
-      'Real Supabase auth with RLS; middleware fail-closed on protected routes',
-      'White-label auth email via Resend SMTP, on-domain confirm/reset flows',
+      'Optional sign-in syncs your history securely across devices',
+      'Still works fully without an account, private by default',
+      'Branded, on-domain account emails',
     ],
-    stack: ['TypeScript', 'Supabase', 'Postgres', 'Resend SMTP'],
     isMilestone: true,
   },
   {
     id: 'dev-bodysync',
     version: 'BodySync',
-    title: 'BodySync — a consent-gated health-performance layer with a connector seam',
+    title: 'BodySync — readiness and recovery, your way',
     date: '2026-06-06',
     displayDate: 'June 2026',
     category: 'Security & Privacy',
     impact: 'notable',
-    headline: 'Readiness scoring and health-aware coaching built privacy-first: opt-in, age-gated to 18+, and never claiming to be medical.',
+    headline:
+      'An optional, privacy-first wellness layer that turns a quick check-in into a readiness score and practice adjustments — never medical, and 18+ only.',
     details:
-      'BodySync (lib/bodysync) turns a manual wellness check-in into a readiness score, a fatigue-risk read, and practice-plan adjustments, all behind an explicit consent gate and a hard 18+ age gate tied to the account usage category. It is self-contained and account-synced via a document mirror, with a connector framework that abstracts optional sources (e.g. an Apple Health import) behind one interface. Every surface carries a non-medical disclaimer, and the data is fully user-owned — exportable and deletable.',
+      'BodySync takes a simple wellness check-in and turns it into a readiness score, a fatigue read, and practice-plan tweaks. It’s strictly opt-in, limited to adults, and never claims to be medical advice. You can connect optional sources like Apple Health, and all of your data stays exportable and deletable.',
     highlights: [
-      'Deterministic readiness + fatigue scoring from manual check-ins',
-      'Explicit consent gate and 18+ age gate enforced before any data is taken',
-      'Connector seam for optional imports (Apple Health) behind one interface',
-      'Non-medical by design; data exportable and deletable',
+      'Turns a quick check-in into readiness and practice adjustments',
+      'Opt-in, 18+, and clearly non-medical',
+      'Optional Apple Health import; your data stays exportable and deletable',
     ],
-    stack: ['TypeScript', 'React', 'localStorage', 'Provider seam'],
     isMilestone: false,
   },
   {
     id: 'dev-athletic-journey',
     version: 'Journey',
-    title: 'Athletic Journey — a config-driven, multi-signal stage classifier',
+    title: 'Athletic Journey — see where you are and what’s next',
     date: '2026-06-06',
     displayDate: 'June 2026',
     category: 'Platform',
     impact: 'notable',
-    headline: 'A blended classifier that places an athlete on a development pathway from many signals — and refuses to fake a score for sports it does not model yet.',
+    headline:
+      'Places you on a clear development path using many signals from your own data — and honestly says when a sport isn’t ready yet instead of faking a score.',
     details:
-      'The Athletic Journey (local-first lib/athletic-journey) blends profile, optional ratings (handicap/UTR/NTRP/DUPR), video reads, logged play, and practice into a stage on a sport-specific ladder (e.g. G0–G10 for golf, T0–T10 for tennis), with momentum and prescriptions, and an optional structured AI narrative. Sport availability is config-driven from one source of truth: golf, tennis, pickleball, and padel are live; baseball and softball render an honest in-development card with a waitlist and never produce stage scoring.',
+      'Athletic Journey blends your profile, optional ratings, video reads, and logged practice into a clear stage on a development ladder for your sport, with momentum and next steps. Golf, tennis, pickleball, and padel are live; baseball and softball show an honest in-development notice instead of a made-up score.',
     highlights: [
-      'Multi-signal classifier with evidence for and against each stage',
-      'Config-driven sport availability (one source of truth)',
-      'In-development sports represented honestly — no faked scoring',
-      'Structured AI narrative stays grounded and provider-optional',
+      'Blends many signals from your own data into a clear stage',
+      'Honest about sports still in development — no faked scores',
+      'Optional ratings sharpen the read but are never required',
     ],
-    stack: ['TypeScript', 'Config-as-code', 'Provider seam'],
     isMilestone: false,
   },
   {
     id: 'dev-recruiting-hub',
     version: 'Recruiting',
-    title: 'Recruiting Hub — provenance-labeled profiles with a public coach view',
+    title: 'Recruiting Hub — an honest profile you control',
     date: '2026-06-06',
     displayDate: 'June 2026',
     category: 'Platform',
     impact: 'notable',
-    headline: 'A recruiting profile where every claim carries its source, and a shareable coach view the athlete fully controls.',
+    headline:
+      'Build a recruiting profile where every stat shows whether it’s verified or self-reported, with a shareable coach view you fully control.',
     details:
-      'The Recruiting Hub (local-first lib/recruiting) builds a profile in which every stat is tagged verified vs. self-reported, with a profile-strength meter, a film library and highlight builder, a downloadable recruiting packet, coach outreach, and analytics. A public /player/[slug] coach view exposes only what the athlete chooses to share. Honest-first guardrails keep the AI describing evidence rather than projecting a ceiling. A cloud schema exists but is optional and currently unapplied — the hub works fully local-first.',
+      'The Recruiting Hub lets you build a profile where each stat is clearly labeled verified or self-reported, with a profile-strength meter, a film library and highlight builder, a downloadable packet, and coach outreach. You choose exactly what a coach sees on your shareable page, and the guidance describes real evidence instead of overpromising.',
     highlights: [
-      'Source-labeled stats (verified vs. self-reported) end to end',
-      'Film library, highlight builder, packet generator, outreach, analytics',
-      'Public coach-view page gated by per-coach visibility controls',
-      'Honest-first AI guardrails; local-first with an optional cloud schema',
+      'Every stat labeled verified or self-reported',
+      'Film library, highlight builder, packet, and outreach',
+      'A shareable coach view you fully control',
     ],
-    stack: ['TypeScript', 'React', 'Next.js dynamic routes'],
     isMilestone: false,
   },
   {
     id: 'dev-security-hardening',
-    title: 'Security hardening — constant-time secrets, fail-closed middleware, distributed rate limiting',
+    title: 'Security hardening across the board',
     date: '2026-06-05',
     displayDate: 'June 2026',
     category: 'Security & Privacy',
     impact: 'notable',
-    headline: 'A full audit followed by shipped Tier-1 fixes that close the highest-leverage gaps first.',
+    headline: 'A full security review followed by fixes that close the highest-priority gaps first.',
     details:
-      'A security audit drove a set of concrete fixes: constant-time comparison for secret/token checks (removing timing side-channels), middleware that fails closed (deny by default) on protected routes, and a distributed rate limiter backed by Upstash so limits hold across serverless instances instead of per-process. Deeper items (row-level security everywhere, CSP nonces, admin RBAC) were deliberately deferred and tracked rather than half-built.',
+      'We ran a security review and shipped the highest-impact fixes: safer handling of secrets, locking down protected areas by default, and stronger limits to prevent abuse. Remaining items were tracked and scheduled rather than half-finished.',
     highlights: [
-      'Constant-time secret/token comparison',
-      'Fail-closed middleware on protected routes',
-      'Distributed Upstash rate limiting across instances',
-      'Remaining items deferred on purpose, not silently dropped',
+      'Safer secret handling and locked-down protected areas',
+      'Stronger abuse limits that hold across our systems',
+      'Remaining work tracked, not silently dropped',
     ],
-    stack: ['TypeScript', 'Next.js middleware', 'Upstash Redis'],
-    testing: [
-      'Unit tests for constant-time comparison and fail-closed middleware paths',
-      'Rate-limiter verified against the shared store across instances',
-      'Dependency + secret-scan security checks in CI',
-    ],
-    rollback: 'The rate limiter degrades safely if its store is unreachable; middleware stays fail-closed, so a rollback never opens a protected route.',
     isMilestone: false,
   },
   {
     id: 'dev-growth-os',
-    version: 'GrowthOS',
-    title: 'GrowthOS — a config-driven marketing OS, deterministic growth agents, and Link Intelligence',
+    title: 'Internal tools to grow sustainably',
     date: '2026-06-06',
     displayDate: 'June 2026',
     category: 'Platform',
     impact: 'notable',
-    headline: 'An admin-only growth platform whose engine is config-driven, whose agents are deterministic, and whose AI is draft-first.',
+    headline:
+      'Admin-only tooling that helps us reach and re-engage athletes responsibly, with every AI draft reviewed by a person before anything goes out.',
     details:
-      'GrowthOS is an in-app omnichannel marketing system (admin-guarded, noindex) with a config-driven engine and Supabase persistence with full CRUD. Underneath sit deterministic growth agents (churn, dispatch, activation, referral, practice-companion, trust-linter, ad-creative) coordinated behind one interface, reconciled with the re-engagement layer through a churn-aware bridge so retention logic is not duplicated. Link Intelligence adds a GrowthOS-native agent engine with its own UI, APIs, and a cron trigger. AI output is draft-first throughout — nothing publishes itself.',
+      'We built internal, admin-only tooling that helps us grow the community in a sustainable, honest way. Anything AI-assisted is created as a draft for a person to review — nothing publishes itself.',
     highlights: [
-      'Config-driven engine + Supabase persistence with full CRUD',
-      'Deterministic growth agents behind a single coordinator',
-      'Churn-aware bridge avoids duplicating the re-engagement layer',
-      'Link Intelligence agent (engine + UI + APIs + cron), draft-first AI',
+      'Admin-only, never visible to athletes',
+      'AI output is always draft-first and human-reviewed',
+      'Built to grow responsibly and honestly',
     ],
-    stack: ['TypeScript', 'Next.js', 'Supabase', 'Cron'],
     isMilestone: false,
   },
   {
     id: 'dev-i18n-self-maintaining',
-    title: 'Self-maintaining multilingual SEO — localized routes with a drift honesty gate',
+    title: 'Multilingual pages that stay accurate',
     date: '2026-06-06',
     displayDate: 'June 2026',
     category: 'Developer Experience',
     impact: 'notable',
-    headline: 'Localized marketing routes that keep themselves honest: shared dictionaries, hreflang/sitemap automation, and a gate that refuses to ship stale translations.',
+    headline:
+      'Localized pages (Spanish first) that automatically refuse to show a translation once the original content has changed underneath it.',
     details:
-      'Marketing SEO localization (Spanish wave 1) ships /es localized routes with correct hreflang alternates and sitemap entries. App and CLI read the same JSON dictionaries, so there is one source of truth for copy. An upkeep job runs weekly as a local-commit-only task, and a drift "honesty gate" blocks publishing a localized page whose source content has changed out from under its translation. AI-assisted translation is keyless-first and off by default, so the system is fully functional with no API keys.',
+      'We began offering localized pages, starting with Spanish, with the search-engine details handled automatically. A built-in check blocks a translated page from going live if its original content has changed, so visitors never see a stale or mismatched translation. Optional AI translation is off by default.',
     highlights: [
-      'Shared JSON dictionaries read by both app and CLI',
-      'Automated hreflang + sitemap for localized routes',
-      'Drift honesty gate prevents stale translations going live',
-      'Keyless-first: AI translation optional and off by default',
+      'Localized pages, starting with Spanish',
+      'An automatic check blocks stale translations from going live',
+      'Optional AI translation, off by default',
     ],
-    stack: ['TypeScript', 'Next.js i18n', 'Docs-as-code'],
     isMilestone: false,
   },
   {
     id: 'dev-rebrand-swingvantage',
     version: 'Brand',
-    title: 'Full identity migration: SwingIQ → SwingVantage',
+    title: 'Full rebrand: SwingIQ → SwingVantage',
     date: '2026-06-04',
     displayDate: 'June 2026',
     category: 'Platform',
     impact: 'notable',
-    headline: 'A whole-codebase rename to SwingVantage that touched 650+ files without wiping a single byte of anyone’s saved data.',
+    headline:
+      'A careful, top-to-bottom rename to SwingVantage that updated the entire app without losing a single byte of anyone’s saved data.',
     details:
-      'The product was renamed from SwingIQ to SwingVantage (swingvantage.com) as a real identity migration, not a blind find-and-replace. A cased sweep moved every visible “SwingIQ” to “SwingVantage” across UI copy, page metadata, OpenGraph/Twitter cards, the PWA manifest, all i18n locales, JSON-LD, docs, and TypeScript identifiers — while a deliberately protected set of lowercase, data-contract identifiers was left untouched: the localStorage persistence key, the @swingiq/* workspace scope, and the backup format (swingiq-backup-v1, the .swingiqbackup extension, and the encryption marker). That boundary is exactly what lets existing users keep every saved swing, session, and setting straight through the rename. The domain and role-based contact emails moved to swingvantage.com, the SQ monogram became SV across the app and the code-generated app icons / OG image, and the homepage now leads with the brand promise.',
+      'We renamed the product from SwingIQ to SwingVantage (swingvantage.com) as a careful, end-to-end migration — every visible mention updated across the app, while the behind-the-scenes identifiers that hold your saved data were deliberately preserved. That’s what let every existing user keep all of their swings, sessions, and settings straight through the change.',
     highlights: [
-      'Cased sweep: 2,174 lines across 655 files, zero “SwingIQ” left',
-      'Protected data-contract identifiers so no local user data was lost',
-      'Regenerated the SV app icons + OG share image from code (no design files)',
-      'Verified end-to-end: type-check, 410 tests, production build, live homepage',
+      'Every visible mention updated to SwingVantage',
+      'Saved data preserved end-to-end — nothing lost',
+      'Verified across the whole app before launch',
     ],
-    stack: ['TypeScript', 'Next.js', 'Codemod', 'sharp'],
     isMilestone: false,
   },
   {
     id: 'dev-monetization-free-ads-tiers',
     version: 'Strategy',
-    title: 'Monetization re-sequenced: free → ads → membership tiers',
+    title: 'A clear, athlete-first path to sustainability',
     date: '2026-06-04',
     displayDate: 'June 2026',
     category: 'Platform',
     impact: 'foundational',
-    headline: 'One canonical monetization order across the whole codebase: grow the free base, monetize via ads for first revenue, then roll out paid tiers.',
+    headline:
+      'One simple order for how the product grows and earns: a great free experience first, then light optional ads, then memberships later.',
     details:
-      'The project was implicitly subscription-first (the checklist, roadmap, and live Pro/Team tiers all treated paid plans as the next step). We made the order explicit and fixed: Phase 1 grow free users → Phase 2 ads (first revenue from the free audience) → Phase 3 membership tiers, each advancing only when the gate ahead is met. A new north-star doc (docs/MONETIZATION_STRATEGY.md) governs the subordinate docs. In code, ads get a keyless-first capability seam (isAdsConfigured + the /api/capabilities summary) that renders zero ads until an ad-network id is set — mirroring how Stripe stays dormant until keys exist — and the pricing CTA now reads "Coming Soon" (with an optional email notify) instead of a waitlist, since subscriptions are Phase 3.',
+      'We made our approach explicit and athlete-first: grow a genuinely useful free experience, then introduce light, youth-safe ads, and only later add optional paid memberships. Paid features stay clearly “coming soon” until then, with optional email notifications.',
     highlights: [
-      'docs/MONETIZATION_STRATEGY.md as the single source of truth (3 phases + the gate between each)',
-      'Ads wired keyless-first/off by default; non-personalized/contextual for youth-safety',
-      'Stripe/Pro/Team rails kept pre-built but explicitly deferred to Phase 3',
-      'Pricing page tiers now show "Coming Soon"',
+      'A great free experience comes first',
+      'Any ads are light and youth-safe',
+      'Memberships are optional and clearly “coming soon”',
     ],
-    stack: ['TypeScript', 'Next.js', 'Capability seam', 'Docs-as-code'],
     isMilestone: false,
   },
   {
     id: 'dev-implement-kinetic-temporal',
-    version: 'Motion Lab',
-    title: 'Implement path, kinetic chain, and temporal intelligence',
+    version: 'Motion',
+    title: 'Reading club/bat/racket path, sequencing, and timing',
     date: '2026-06-04',
     displayDate: 'June 2026',
     category: 'Motion Intelligence',
     impact: 'major',
-    headline: 'The motion engine now reads the implement path, the firing order of the kinetic chain, and how the swing unfolds over time.',
+    headline:
+      'Our motion engine now follows the path of your club, bat, or racket, reads the firing order of your body’s power chain, and measures how your swing unfolds over time.',
     details:
-      'Three new analysis layers sit on top of the existing pose pipeline. Object tracking estimates the club/bat/racket head path by extrapolating along the grip forearm — no pixel detector, so it is honestly labeled ai_inferred with capped confidence and a provider seam for a future ML detector. The kinetic-chain engine times when each link (lower body → torso → arms → implement) peaks and flags power leaks. Temporal intelligence anchors load/transition/acceleration durations to the detected top-of-backswing and strike, and scores contact-window stability and deceleration. Every output is an optional, backward-compatible field on the session, basis + confidence carried through.',
+      'We added three new layers on top of our motion analysis. One estimates the path of your club, bat, or racket and is honestly labeled as an inferred read. Another measures the order your body segments fire in and flags power leaks. The third measures the timing of each phase of your swing and how repeatable your contact is. Every new reading is clearly labeled with how confident we are.',
     highlights: [
-      'Markerless implement path + contact zone (forearm extrapolation, provider seam)',
-      'Kinetic sequencing with power-leak detection, depth-aware',
-      'Phase durations, contact-window stability, and cross-session repeatability',
-      'An AR-style implement-path overlay rendered in the 3D viewer',
+      'Estimates the path of your club, bat, or racket',
+      'Reads your body’s power sequence and flags leaks',
+      'Measures swing timing and how repeatable your contact is',
+      'Every reading honestly labeled with a confidence level',
     ],
-    stack: ['TypeScript', 'Canvas 2D', 'Pure functions', 'Jest'],
     isMilestone: true,
   },
   {
     id: 'dev-coach-team-narrative',
-    version: 'Motion Lab',
-    title: 'Coach & Team roster + a grounded, LLM-optional coach narrative',
+    version: 'Coach & Team',
+    title: 'Coach & Team — a group view plus a grounded coaching summary',
     date: '2026-06-04',
     displayDate: 'June 2026',
     category: 'Platform',
     impact: 'notable',
-    headline: 'A local-first coaching layer: group sessions by athlete, and a conversational coach read that never fabricates.',
+    headline:
+      'Coaches can group athletes and see trends at a glance, with a written coaching summary that never makes up findings.',
     details:
-      'Coach & Team mode is a local-first roster (its own storage key) with pure aggregation — per-athlete trend, recurring faults, and needs-attention flags, plus team-wide common weaknesses and upload tracking. The AI coach narrative composes the analysis into the SwingVantage 8-part format grounded strictly in real numbers; the existing provider seam can optionally rephrase it with an LLM behind a flag (off by default), so it stays fully functional with no API keys and never invents findings.',
+      'Coach & Team mode lets a coach group sessions by athlete and see each athlete’s trends, recurring issues, and who needs attention, plus team-wide patterns. The written coaching summary is built strictly from your real numbers and never invents findings. It works fully without any account or paid AI.',
     highlights: [
-      'Local-first roster, pure tested aggregation, no accounts',
-      'Sessions link to athletes via an optional, backward-compatible field',
-      'Deterministic 8-part coach read, LLM only warms the wording',
+      'Group sessions by athlete; see trends and who needs attention',
+      'Team-wide patterns at a glance',
+      'Coaching summary built only from real numbers — never fabricated',
     ],
-    stack: ['TypeScript', 'React', 'Provider seam', 'localStorage'],
     isMilestone: false,
   },
   {
     id: 'dev-pose-adapters-debug',
-    title: 'Pose-provider adapter set + an AI-validation debug panel',
+    title: 'Flexible motion analysis with a look under the hood',
     date: '2026-06-04',
     displayDate: 'June 2026',
     category: 'Architecture',
     impact: 'foundational',
-    headline: 'The pose seam now has cloud + MoveNet adapters, and the analysis exposes its full internals for validation.',
+    headline:
+      'Our motion analysis can run in more ways while keeping private, on-device analysis the default — and we can now inspect its inner workings to verify accuracy.',
     details:
-      'Completed the PoseProvider adapter set: a cloud adapter (opt-in via env, validates the untrusted response, stays basis estimated, never throws) and a documented MoveNet placeholder, with a selector that prefers on-device for privacy and falls back honestly. A new AI-validation panel surfaces the raw pipeline output — per-frame pose confidence, dropped frames, phase timestamps, raw metrics, object-tracking and kinetic-chain internals, and device capabilities (WebGPU/WebNN/WASM) — so model output can actually be inspected, not trusted blindly.',
+      'We made our motion analysis more flexible in how it can run, while keeping private, on-device analysis the default and falling back gracefully when needed. We also added an internal view that shows the detailed output of the analysis so we can verify it’s accurate rather than trusting it blindly.',
     highlights: [
-      'Cloud + MoveNet adapters behind one interface; on-device stays the default',
-      'Per-frame confidence, dropped frames, and raw internals in one panel',
-      'Everything additive — no change to the working pipeline’s shape',
+      'Private, on-device analysis stays the default',
+      'Falls back gracefully when needed',
+      'An internal view to verify accuracy, not trust blindly',
     ],
-    stack: ['TypeScript', 'MediaPipe', 'useSyncExternalStore'],
     isMilestone: false,
   },
   {
     id: 'dev-motion-lab-3d',
     version: 'Motion Lab',
-    title: 'Depth-aware 3D biomechanics — rotation that finally reads the z-axis',
+    title: '3D swing analysis, right in your browser',
     date: '2026-06-02',
     displayDate: 'June 2026',
     category: 'Motion Intelligence',
     impact: 'major',
-    headline: 'Browser-native 3D swing analysis across all seven sports, with no video ever leaving the device.',
+    headline: '3D swing analysis across all seven sports, running entirely in your browser — your video never leaves your device.',
     details:
-      'Motion Lab estimates body pose from a single phone video and reconstructs the swing in three dimensions — so rotation, tilt, and sequencing are measured through depth instead of guessed from a flat silhouette. The whole pipeline runs client-side, which keeps athletes’ video private and removes server cost from the most expensive part of the product.',
+      'Motion Lab analyzes your swing in three dimensions from a single phone video, so rotation, tilt, and sequencing are measured properly instead of guessed from a flat image. It all runs on your own device, which keeps your video private and works on everyday phones.',
     highlights: [
-      'Single-camera pose → depth-aware 3D reconstruction',
-      'Custom canvas viewer (not a heavyweight Three.js scene) for low-end phones',
-      'Same engine generalizes across all 7 sports',
+      '3D swing analysis from a single phone video',
+      'Runs on your device — your video stays private',
+      'Works across all seven sports, even on everyday phones',
     ],
-    stack: ['TypeScript', 'MediaPipe', 'Canvas 2D', 'WebWorkers'],
     isMilestone: true,
   },
   {
     id: 'dev-pose-consolidation',
-    title: 'Unified lib/pose — one source of truth for movement',
+    title: 'One shared foundation for movement analysis',
     date: '2026-05-30',
     displayDate: 'May 2026',
     category: 'Architecture',
     impact: 'foundational',
-    headline: 'Collapsed scattered pose/motion code into a single shared library every sport draws from.',
+    headline: 'We unified our movement analysis into a single, well-tested foundation that every sport and feature builds on.',
     details:
-      'Pose estimation, smoothing, and keypoint math had grown duplicated across features. Consolidating it into lib/pose gave the retest engine, Motion Lab, and the fault ontology a single, tested foundation — so a fix to the math improves every surface at once instead of one.',
+      'Our movement analysis had grown duplicated across features. We consolidated it into one shared, well-tested foundation, so an improvement to the core makes every feature better at once.',
     highlights: [
-      'One pose pipeline shared by diagnosis, retest, and Motion Lab',
-      'Removed duplicated keypoint/smoothing implementations',
-      'Tested core that downstream features build on',
+      'One shared movement foundation for every sport',
+      'Removed duplicated logic',
+      'Improvements flow to every feature at once',
     ],
-    stack: ['TypeScript', 'Monorepo'],
     isMilestone: true,
   },
   {
     id: 'dev-retest-engine',
-    title: 'Fault ontology + retest engine — closing the improvement loop',
+    title: 'Proving a fix actually worked',
     date: '2026-06-01',
     displayDate: 'June 2026',
     category: 'Motion Intelligence',
     impact: 'major',
-    headline: 'A structured fault taxonomy plus an engine that proves whether a fix actually held.',
+    headline: 'A structured way to track each swing fault plus a retest that gives you an honest before-and-after.',
     details:
-      'Every diagnosed fault maps into a shared ontology with retest conditions (same camera angle, distance, equipment). The engine reminds you when a finding is due, then produces an honest before/after read once you re-analyze. Comparisons are deliberately labelled as directional video reads, not measured biomechanics.',
+      'Every issue we diagnose is tracked, and when you re-record under the same conditions, we give you an honest before-and-after read so you can see whether a fix actually held. We’re clear that these are directional reads from video, not lab measurements.',
     highlights: [
-      'Typed fault taxonomy reused across all sports',
-      'Condition-matched retests for fair before/after comparison',
-      'Role-aware explanations (player / parent / coach) off the same finding',
+      'Each fault tracked with clear retest conditions',
+      'Honest before-and-after when you re-record',
+      'Explanations tailored to player, parent, or coach',
     ],
-    stack: ['TypeScript', 'Rules engine'],
     isMilestone: true,
   },
   {
@@ -589,171 +530,162 @@ export const DEV_UPDATES: DevUpdate[] = [
     displayDate: 'May 2026',
     category: 'AI & Vision',
     impact: 'major',
-    headline: 'The video analyzer now sends real frames to a vision model instead of faking analysis.',
+    headline: 'The video analyzer reads real frames from your swing instead of faking analysis.',
     details:
-      'The swing-video analyzer extracts representative frames and routes them to a vision provider, then folds the result into the deterministic diagnostic layer. The provider is abstracted behind an interface so the model can be swapped without touching feature code.',
+      'Our swing-video analyzer pulls representative frames from your video and uses AI vision to read them, then combines that with our reliable rule-based coaching. The AI part can be upgraded over time without changing the rest of the experience.',
     highlights: [
-      'Frame extraction → vision provider → ranked faults',
-      'Provider-agnostic interface (swap models without rewrites)',
-      'Layered on top of the deterministic rules engine, not replacing it',
+      'Reads real frames from your swing',
+      'Combined with reliable rule-based coaching',
+      'Upgradeable over time without disruption',
     ],
-    stack: ['TypeScript', 'Vision LLM', 'Next.js route handlers'],
     isMilestone: true,
   },
   {
     id: 'dev-moat-labs',
-    title: 'Moat Foundations — readiness, player model, skill transfer & benchmark mirror',
+    version: 'Labs',
+    title: 'Labs — insights that grow with your data',
     date: '2026-06-02',
     displayDate: 'June 2026',
     category: 'Platform',
     impact: 'notable',
-    headline: 'A cluster of local-first intelligence modules that compound on a player’s own data.',
+    headline: 'A set of insight tools that get smarter the more you use SwingVantage, all running on your own data.',
     details:
-      'Shipped readiness scoring, a longitudinal player model, a skill-transfer graph, a performance graph, and a benchmark mirror — all under /labs. Each runs on the data the athlete already has, so insight deepens the more they use SwingVantage without any external dependency.',
+      'We shipped a cluster of insight tools under Labs — things like readiness, a long-term picture of your progress, and personal benchmarks — that all run on the data you already have. The more you use SwingVantage, the sharper they get, with no outside dependency.',
     highlights: [
-      'readiness · playerModel · skillTransfer · performanceGraph · benchmarkMirror',
-      'Honest-first, local-first, no account required',
-      'Composable modules rather than one monolith',
+      'Insights that deepen the more you use the app',
+      'Runs on your own data, privately',
+      'Built as composable pieces, not one black box',
     ],
-    stack: ['TypeScript'],
   },
   {
     id: 'dev-fix-stack-drillmatch',
-    title: 'Fix Stack + DrillMatch — from diagnosis to the right drill',
+    title: 'From diagnosis to the right drill',
     date: '2026-06-02',
     displayDate: 'June 2026',
     category: 'Platform',
     impact: 'notable',
-    headline: 'Turns a ranked fault list into a prioritized stack of fixes and the drills that address them.',
+    headline: 'Turns your ranked list of swing faults into a prioritized set of fixes and the exact drills that address them.',
     details:
-      'DrillMatch maps diagnosed faults to a curated drill library, and Fix Stack orders them so the athlete always sees the single highest-leverage thing first. The framing copy lives in one place (lib/coaching/fixFraming) so the message stays consistent everywhere it appears.',
+      'We connect each diagnosed fault to a matching drill and order them so you always see the single highest-impact thing to work on first. The way it’s framed stays consistent everywhere you see it.',
     highlights: [
-      'Fault → drill matching with a single prioritized stack',
-      'Centralized framing copy (no duplicated CTA strings)',
-      'Player Arc progress intelligence alongside it',
+      'Matches faults to the right drills automatically',
+      'Always shows your highest-impact fix first',
+      'Consistent guidance everywhere it appears',
     ],
-    stack: ['TypeScript'],
   },
   {
     id: 'dev-theme-engine',
-    title: '7-theme token engine — restyle everything, change nothing',
+    title: 'Seven themes, zero risk to your data',
     date: '2026-06-01',
     displayDate: 'June 2026',
     category: 'Design System',
     impact: 'notable',
-    headline: 'A data-theme palette system retokenizes the entire app while coaching and data stay untouched.',
+    headline: 'A theming system that restyles the entire app while your coaching and data stay completely untouched.',
     details:
-      'A single set of CSS custom properties (driven by a data-theme attribute and palette definitions in globals.css) powers seven hand-built themes. Components reference semantic tokens — bg-card, text-foreground, bg-primary — so a theme swap is purely cosmetic and provably can’t alter logic or stored data.',
+      'We built seven hand-crafted themes powered by a single set of design tokens, so switching themes is purely cosmetic and provably can’t change any coaching logic or your stored data. Your theme choice is saved and included in your backups.',
     highlights: [
-      'Semantic tokens, not hard-coded colors, across the app',
-      'Theme choice persisted and included in user backups',
-      'Cosmetic-only guarantee: no coaching/data ever changes',
+      'Seven hand-built themes',
+      'Purely cosmetic — never touches coaching or data',
+      'Your choice is saved and backed up',
     ],
-    stack: ['CSS variables', 'Tailwind', 'Next.js'],
   },
   {
     id: 'dev-agent-layer',
-    title: 'Deterministic agent layer + "Welcome Back"',
+    title: '“Welcome Back” — your best next step, instantly',
     date: '2026-05-31',
     displayDate: 'May 2026',
     category: 'AI & Vision',
     impact: 'notable',
-    headline: 'A deterministic intelligence layer that resumes context and surfaces the single best next step.',
+    headline: 'When you return, the app recaps your last focus and suggests the single best next step — all from your own data, no AI account needed.',
     details:
-      'On return, the app summarizes a player’s last focus, rates confidence in their top priority, and proposes one low-friction next step — all derived from their own data with no AI account required. It is deterministic by design, so the same inputs always produce the same guidance.',
+      'On return, SwingVantage summarizes what you were working on, gauges how your top priority is going, and proposes one easy next step. It’s built to be consistent and reliable, using only your own data.',
     highlights: [
-      'Resume-context + next-best-step on every visit',
-      'Runs with zero external AI dependency',
-      'Wired into both the marketing and app dashboards',
+      'Recaps your focus and suggests one clear next step',
+      'Uses only your own data — no AI account required',
+      'Consistent, reliable guidance every visit',
     ],
-    stack: ['TypeScript'],
   },
   {
     id: 'dev-keyless-start',
-    title: 'Keyless instant start — local-first by default',
+    title: 'Instant start — no sign-up required',
     date: '2026-06-01',
     displayDate: 'June 2026',
     category: 'Architecture',
     impact: 'foundational',
-    headline: 'Removed the sign-up wall: full value with data kept on the device, accounts optional forever.',
+    headline: 'Jump straight into analyzing a swing with your data kept on your device. Accounts are optional, forever.',
     details:
-      'The app boots straight into analysis with state persisted locally in the browser. Sign-up, sign-in, and password reset all exist, but they’re strictly opt-in. This reframed the entire data model around local ownership first, sync second.',
+      'The app starts straight into analysis, with your data saved on your own device. Sign-up and sign-in exist, but they’re always optional. The whole experience is built around you owning your data first.',
     highlights: [
-      'Zero-friction first run, no email required',
-      'Local-first persistence with optional account sync',
-      'Privacy posture that respects parents setting up for kids',
+      'No email or sign-up to get started',
+      'Your data lives on your device by default',
+      'Accounts optional, with sync when you want it',
     ],
-    stack: ['TypeScript', 'IndexedDB / localStorage'],
     isMilestone: true,
   },
   {
     id: 'dev-offline-pwa',
-    title: 'Offline-resilient at the range',
+    title: 'Works at the range, even with bad signal',
     date: '2026-06-01',
     displayDate: 'June 2026',
     category: 'Performance',
     impact: 'notable',
-    headline: 'Graceful offline handling with a queue that completes network work when signal returns.',
+    headline: 'Handles spotty connections gracefully and finishes any pending work automatically once you’re back online.',
     details:
-      'The places people actually train have the worst reception. The app now detects connectivity loss, keeps work safely on-device, surfaces a clear offline banner, and queues anything network-bound to finish automatically on reconnect.',
+      'The places people train often have terrible reception. The app now detects when you lose signal, keeps your work safe on your device, shows a clear offline notice, and finishes anything network-related automatically when you reconnect.',
     highlights: [
-      'Connectivity-aware UI with an offline banner',
-      'Durable on-device work buffer',
-      'Auto-flushing action queue on reconnect',
+      'Detects lost signal and keeps your work safe',
+      'A clear offline notice',
+      'Finishes pending work automatically on reconnect',
     ],
-    stack: ['TypeScript', 'Service Worker', 'PWA'],
   },
   {
     id: 'dev-backup-schema',
     version: 'v1.2',
-    title: 'Backup schema v1.2 — every feature must declare how it exports',
+    title: 'Complete, portable backups of your data',
     date: '2026-05-31',
     displayDate: 'May 2026',
     category: 'Security & Privacy',
     impact: 'notable',
-    headline: 'A versioned, portable backup format that now covers badges, XP, streaks, and tutorial state.',
+    headline: 'A versioned backup format that captures everything you own — sessions, badges, streaks, and more — with a clear restore preview.',
     details:
-      'Backups moved to a versioned schema (v1.2) that captures all user-owned data — sessions, equipment, gamification, community progress, and tutorial history. Restore shows a per-category preview with merge or replace modes. New features are now required to define their export/restore contract so backups stay complete as the platform grows.',
+      'Backups now capture all of your data — sessions, equipment, achievements, and progress — in a portable, versioned format. Restoring shows a preview by category with the choice to merge or replace, and every new feature is required to define how it backs up so your backups stay complete as the app grows.',
     highlights: [
-      'Versioned, forward-compatible export format',
-      'Per-category restore preview with merge / replace',
-      'Export contract enforced for every new feature',
+      'Captures all of your data in one portable file',
+      'Restore preview with merge or replace',
+      'Backups stay complete as the app grows',
     ],
-    stack: ['TypeScript', 'JSON schema'],
   },
   {
     id: 'dev-monorepo-ci',
-    title: 'Turbo monorepo with quality gates wired into CI',
+    title: 'Quality checks on every single change',
     date: '2026-05-31',
     displayDate: 'May 2026',
     category: 'Developer Experience',
     impact: 'foundational',
-    headline: 'Type-checking, naming rules, placeholder/trust scans, and security checks all gate every change.',
+    headline: 'Automated quality and security checks run on every change before it can ship.',
     details:
-      'The project is a Turborepo of apps, packages, and a server, with a CI pipeline that runs type-check, a naming linter, a placeholder/trust scanner, and dependency + secret security checks. Automated monthly audits (SEO/AEO/GEO, AI features, engagement, build health) compile into a single master report.',
+      'Every change to SwingVantage runs through automated checks — for correctness, consistency, honesty of anything shown to you, and security — before it can go live. Regular automated audits roll up into a single health report.',
     highlights: [
-      'Turborepo workspaces: apps / packages / server',
-      'CI gate: type-check · naming · trust scan · security',
-      'Scheduled monthly audits compiled into one executive report',
+      'Automated quality and security checks on every change',
+      'Honesty checks so nothing misleading ships',
+      'Regular audits compiled into one report',
     ],
-    stack: ['Turborepo', 'TypeScript', 'ESLint', 'GitHub Actions'],
   },
   {
     id: 'dev-multi-sport-engines',
-    title: 'Seven sports, seven real diagnostic engines',
+    title: 'Seven sports, seven real coaching engines',
     date: '2026-05-29',
     displayDate: 'May 2026',
     category: 'Architecture',
     impact: 'foundational',
-    headline: 'Treated each sport as a distinct movement model instead of golf with relabeled tips.',
+    headline: 'Each sport is treated as its own distinct motion, not golf with relabeled tips.',
     details:
-      'A tennis serve, a baseball swing, and a golf swing are fundamentally different motions. Rather than share one engine with swapped vocabulary, each sport got its own diagnostic rules, benchmarks, drill library, and coaching language — switching sports retargets the whole experience.',
+      'A tennis serve, a baseball swing, and a golf swing are fundamentally different. Instead of one engine with swapped words, each sport got its own coaching logic, benchmarks, drills, and language — so switching sports retargets the whole experience.',
     highlights: [
-      'Per-sport rules, benchmarks, and drill libraries',
-      'Sport switch retargets dashboard, plan, and feedback',
-      'Foundation the later motion + retest work built on',
+      'Real per-sport coaching, benchmarks, and drills',
+      'Switching sports retargets everything',
+      'The foundation our motion work builds on',
     ],
-    stack: ['TypeScript', 'Rules engine'],
     isMilestone: true,
   },
 ];
