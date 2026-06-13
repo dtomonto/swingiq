@@ -8,7 +8,7 @@ Branch: `claude/busy-pascal-5cteca` (all work pushed). Open PR: `claude/busy-pas
 
 ---
 
-## Status at a glance (11 of 13 workstreams shipped)
+## Status at a glance (13 of 13 workstreams shipped)
 
 | WS | Title | Status | Commit |
 | --- | --- | --- | --- |
@@ -21,10 +21,10 @@ Branch: `claude/busy-pascal-5cteca` (all work pushed). Open PR: `claude/busy-pas
 | WS-01 | Focused Today | ✅ done | `cb137e6` |
 | WS-02 | Dashboard player card | ✅ done | `cb137e6` |
 | WS-07 | Journey integration (capstone) | ✅ done | (this branch) |
-| WS-09 | Services/components hygiene | ⏳ TODO (cross-cutting) | — |
-| WS-11 | Production-readiness audit | ⏳ TODO (cross-cutting) | — |
-| WS-12 | Acceptance-criteria QA | ⏳ TODO (closeout) | — |
-| WS-13 | Final delivery report | ⏳ TODO (closeout) | — |
+| WS-09 | Services/components hygiene | ✅ done | INTEGRATION-NOTES.md |
+| WS-11 | Production-readiness audit | ✅ done | PROD-READINESS-AUDIT.md |
+| WS-12 | Acceptance-criteria QA | ✅ done | ACCEPTANCE-REPORT.md |
+| WS-13 | Final delivery report | ✅ done | DELIVERY-REPORT.md |
 
 Plan docs (`docs/plans/player-experience-overhaul/`) committed in `a63132d` / `045177c`.
 
@@ -84,7 +84,7 @@ route `apps/web/src/app/(app)/today/page.tsx`.
 **WS-02 Dashboard card** — `apps/web/src/components/dashboard/DashboardPlayerCard.tsx`,
 mounted top of `apps/web/src/app/(app)/dashboard/page.tsx` (golf + non-golf).
 
-### Tests (all passing: 62)
+### Tests (all passing: 65)
 `apps/web/src/lib/{player-profile,friends,skill-tree,upload-for-friend,today}/__tests__/` +
 `apps/web/src/lib/db/__tests__/projection-overhaul.test.ts`. Run all:
 `cd apps/web && npx jest player-profile friends skill-tree upload-for-friend today projection-overhaul --runInBand --cacheDirectory ./.jest-cache-all`
@@ -117,15 +117,14 @@ mounted top of `apps/web/src/app/(app)/dashboard/page.tsx` (golf + non-golf).
 - Decision: did NOT add a duplicate skill-tree grid to the journey page — the journey already has
   its branch-based `SkillTree`; integration is in the shared data layer (regression + composition).
 
-### WS-09 / WS-11 — cross-cutting (can run alongside) — next
-- WS-09: confirm no duplicated scoring/authz; shared enums imported from `lib/db/shared-enums.ts`;
-  player card reused for `FriendCard` where sensible. Write `INTEGRATION-NOTES.md` here.
-- WS-11: run `npm run check:rls`, `npm run security:check`, `npm run check:honesty`; verify safe
-  privacy defaults, audit immutability, a11y/states. Write `PROD-READINESS-AUDIT.md` here.
+### WS-09 / WS-11 / WS-12 / WS-13 — ✅ DONE (closeout)
+- WS-09 → `INTEGRATION-NOTES.md` (no duplicated scoring/authz; shared enums/contracts single-sourced).
+- WS-11 → `PROD-READINESS-AUDIT.md` (RLS 90 tables, honesty, security-scan, authz/privacy, a11y/states).
+- WS-12 → `ACCEPTANCE-REPORT.md` (all 18 acceptance criteria met, with honest notes).
+- WS-13 → `DELIVERY-REPORT.md` (full delivery summary + real verification output).
 
-### WS-12 / WS-13 — closeout
-- WS-12: verify every acceptance-criteria checkbox (see `WS-12-acceptance-qa.md`); write `ACCEPTANCE-REPORT.md`.
-- WS-13: write `DELIVERY-REPORT.md` with real `tsc`/`eslint`/`jest`/build output.
+**All 13 workstreams shipped.** Remaining is operational, not code: run the 6 migrations in
+Supabase and a manual live-DB smoke test, then merge PR #80.
 
 ### Known follow-ups / honest gaps
 - Skill tree surfaces in the **profile hub** + dashboard snapshot + Today focus; regression now
