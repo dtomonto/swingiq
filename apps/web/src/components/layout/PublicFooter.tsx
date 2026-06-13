@@ -24,6 +24,10 @@ const COLUMN_DEFS = [
     links: [
       { k: 'howItWorks', href: '/how-it-works' },
       { k: 'methodology', href: '/methodology' },
+      // Un-dicted labels (like Mental Performance / Sitemap below) so adding
+      // these links never gates localized-page visibility on a new shared key.
+      { label: 'Deterministic Intelligence', href: '/deterministic-intelligence' },
+      { label: 'Resources', href: '/resources' },
       { k: 'faq', href: '/faq' },
       { k: 'glossary', href: '/glossary' },
       { k: 'benchmarks', href: '/benchmarks' },
@@ -111,7 +115,7 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
                       href={localizedHref(link.href, locale)}
                       className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      {f.links[link.k]}
+                      {'label' in link ? link.label : f.links[link.k]}
                     </Link>
                   </li>
                 ))}
