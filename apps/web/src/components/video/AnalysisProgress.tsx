@@ -22,9 +22,9 @@ export type AnalysisStage =
 
 const STAGES: { id: AnalysisStage; label: string; detail: string }[] = [
   { id: 'preparing', label: 'Preparing your video', detail: 'Reading the clip in your browser' },
-  { id: 'extracting', label: 'Extracting key frames', detail: 'Sampling the full motion as still images' },
-  { id: 'measuring', label: 'Measuring body positions', detail: 'On-device pose detection (stays on your device)' },
-  { id: 'inspecting', label: 'Inspecting mechanics with AI', detail: 'The AI vision model reviews each frame' },
+  { id: 'extracting', label: 'Capturing your swing', detail: 'Reviewing your full motion' },
+  { id: 'measuring', label: 'Measuring body positions', detail: 'Analyzed privately on your device' },
+  { id: 'inspecting', label: 'Inspecting mechanics with AI', detail: 'AI vision reviews your swing' },
   { id: 'building', label: 'Building your diagnosis', detail: 'Identifying evidence-based priorities' },
   { id: 'plan', label: 'Creating your practice plan', detail: 'Matching drills to what was seen' },
 ];
@@ -92,8 +92,8 @@ export function AnalysisProgress({ stage }: { stage: AnalysisStage }) {
         })}
       </ol>
       <p className="text-center text-xs text-muted-foreground mt-6">
-        Only sampled still frames are sent to a third-party AI provider&apos;s cloud for analysis —
-        your full video file never leaves this device.
+        Only a small sample of your swing is sent to a third-party AI provider&apos;s cloud for
+        analysis — your full video file never leaves this device.
       </p>
     </div>
   );

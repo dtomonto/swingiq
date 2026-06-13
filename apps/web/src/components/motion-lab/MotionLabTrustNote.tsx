@@ -23,12 +23,12 @@ const POINTS: TrustPoint[] = [
   {
     icon: Cpu,
     title: 'Runs on your device',
-    body: 'Pose detection and the 3D reconstruction happen in your browser. Your original video is never uploaded to a server.',
+    body: 'Your 3D swing analysis happens in your browser. Your original video is never uploaded to a server.',
   },
   {
     icon: HardDriveDownload,
     title: 'What gets saved',
-    body: 'Only the analysis — a compact pose track plus the numbers, phases, and coaching report — is saved, and only to this device. The video itself is never saved.',
+    body: 'Only the analysis — a compact motion track plus the numbers, phases, and coaching report — is saved, and only to this device. The video itself is never saved.',
   },
   {
     icon: Trash2,

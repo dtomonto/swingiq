@@ -66,8 +66,8 @@ export default function PrivacyPage() {
             <p>SwingVantage may use third-party services including:</p>
             <ul className="list-disc pl-5 space-y-1">
               <li><strong>Cloud database &amp; authentication:</strong> securely stores your account, profile, and training data</li>
-              <li><strong>Vercel:</strong> hosting and infrastructure</li>
-              <li><strong>OpenAI or Anthropic:</strong> AI coaching narrative generation (only pre-computed stats are sent — no raw personal data)</li>
+              <li><strong>Cloud hosting &amp; infrastructure:</strong> runs the app reliably and securely</li>
+              <li><strong>Third-party AI providers:</strong> AI coaching narrative generation (only pre-computed stats are sent — no raw personal data)</li>
               <li><strong>Analytics:</strong> aggregate usage analytics to improve the product</li>
             </ul>
           </section>

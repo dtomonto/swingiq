@@ -17,8 +17,12 @@
  * hand in the data file, or from the admin Publishing screen at /admin/updates.
  *
  * A leak guard also refuses to emit any entry whose text looks like it contains
- * a secret, an API key, a source-file path, or a scratch marker (TODO/FIXME),
- * so a stray trailer can never publish something that would degrade trust.
+ * a secret, an API key, a source-file path, a scratch marker (TODO/FIXME), OR a
+ * proprietary/implementation tell — an env/config-flag name, an internal system
+ * codename, or a vendor/library/infra name. /updates and especially /dev-updates
+ * are public, competitor-readable pages: they must describe WHAT shipped and WHY
+ * it matters for athletes, never HOW it is built. Trailers that trip the guard
+ * are skipped with a warning; reword them in plain English and re-run.
  *
  * Optional, finer-grained trailers (all single-line):
  *   Product:  Update-Title, Update-Summary, Update-Category, Update-Sport,
@@ -167,6 +171,32 @@ function readCommits() {
     });
 }
 
+// Proprietary / implementation terms that must never appear in public update
+// copy: internal system codenames plus the vendors, libraries, and infra we
+// build on. Distinctive tokens only — words that collide with ordinary English
+// (e.g. "react", "node", "sharp") are deliberately omitted to avoid false
+// positives; the editorial rule (describe the benefit, not the tech) is the
+// primary control and this list is a backstop. Extend it as the stack grows.
+const PROPRIETARY_TERMS = [
+  // Internal system codenames
+  'AIO-4', 'BranchGuardianOS', 'GrowthOS', 'CentralIntelligenceOS', 'securityOS',
+  'PublishingOS', 'MotionLab',
+  // Vendors / libraries / models / infra
+  'Next.js', 'MediaPipe', 'MoveNet', 'Upstash', 'PostHog', 'Supabase',
+  'PostgreSQL', 'Postgres', 'Resend', 'OpenAI', 'Gemini', 'Anthropic', 'Claude',
+  'Three.js', 'WebGPU', 'WebNN', 'Turborepo', 'IndexedDB', 'localStorage',
+  'Redis', 'Tokens Studio',
+];
+
+function escapeRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** Case-insensitive, word-bounded alternation over PROPRIETARY_TERMS. */
+function proprietaryTermsRegex() {
+  return new RegExp(`\\b(?:${PROPRIETARY_TERMS.map(escapeRegex).join('|')})\\b`, 'i');
+}
+
 // ── Safety guard: never let a secret or internal detail reach a public page ──
 //
 // /updates and /dev-updates are public, search-indexed pages. Everything that
@@ -189,6 +219,14 @@ const LEAK_PATTERNS = [
   { name: 'filesystem path', re: /[A-Za-z]:\\[\\\w .-]{3,}|\/(?:home|Users|root|var|etc)\/[\w./-]+/ },
   // Developer scratch markers left in by mistake.
   { name: 'TODO/FIXME marker', re: /\b(?:TODO|FIXME|HACK|XXX|WIP)\b/ },
+  // Env / config flag names (ALL_CAPS_WITH_UNDERSCORES). These are pure
+  // implementation detail and never belong in athlete-facing copy.
+  { name: 'env or config flag name', re: /\b[A-Z][A-Z0-9]{2,}(?:_[A-Z0-9]+)+\b/ },
+  // Proprietary / implementation tells: internal system codenames and the
+  // vendors, libraries, and infrastructure we build on. We do not name our stack
+  // on public pages — describe the benefit, not the technology. (Built from
+  // PROPRIETARY_TERMS below so the list stays easy to extend.)
+  { name: 'proprietary tool, vendor, or internal codename', re: proprietaryTermsRegex() },
 ];
 
 /**

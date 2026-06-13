@@ -38,6 +38,12 @@ const LEAKS = [
   ['unix home path', 'cached under /home/deploy/.env'],
   ['TODO marker', 'New dashboard card. TODO: wire analytics'],
   ['FIXME marker', 'Shipped the thing FIXME this is hacky'],
+  // Proprietary / implementation tells — must be kept off public pages.
+  ['env or config flag', 'Flip ENABLE_AIO_COACH_SYNTHESIS to turn it on'],
+  ['internal codename', 'Shipped GrowthOS for sustainable growth'],
+  ['vendor / infra name', 'Now backed by Supabase and Upstash for sync'],
+  ['library / framework name', 'Built on Next.js and React; runs on Node.js client-side.'],
+  ['AI vendor name', 'Coaching now uses OpenAI for vision'],
 ];
 
 for (const [label, text] of LEAKS) {
@@ -55,7 +61,7 @@ const CLEAN = [
   'Open Athletic Journey from the sidebar (/journey), pick your sport.',
   'Go to Analyze > Motion Lab (3D) in the menu, then upload a clip.',
   'See the simplified plans on the pricing page (/pricing).',
-  'Built on Next.js and React; runs on Node.js client-side.',
+  'Your swing is analyzed in 3D right in your browser — no upload needed.',
   'Optional handicap, UTR/NTRP, or DUPR sharpen the read but are never required.',
   'Read the explainer at /athlete-general-intelligence.',
   'The new /api/ai-coach route now uses your real training data.',

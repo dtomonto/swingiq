@@ -83,7 +83,7 @@ The shared `%TEMP%\jest` cache races between agents and produces bogus
   the public `/updates` and `/dev-updates` pages stay current automatically instead of
   needing hand-backfill. When a commit ships something worth announcing, add:
   - `Update: <one plain-English line for athletes>` → drafts a product update (`/updates`)
-  - `Dev-Update: <one technical line for builders>` → drafts a developer update (`/dev-updates`)
+  - `Dev-Update: <one plain-English line about the outcome>` → drafts a developer update (`/dev-updates`)
 
   Both land as **drafts** (nothing goes public until flipped in the data file or
   `/admin/updates`), a leak-guard blocks secrets/paths, and entries are keyed by SHA so
@@ -91,6 +91,14 @@ The shared `%TEMP%\jest` cache races between agents and produces bogus
   `Dev-Update:` for engineering milestones. Refactors/CI/dep-bumps get neither. Optional
   finer trailers (`Update-Category`, `Dev-Impact`, `Dev-Milestone`, …) are documented in
   `scripts/generate-updates.mjs` and `docs/AUTO_PUBLISH_UPDATES.md`.
+
+  **Protect the product — both pages are public and competitor-readable.** Describe
+  *what* changed and *why it helps an athlete*, never *how it's built*. Never name
+  vendors, libraries, models, infra, internal system codenames, file paths, or
+  config/env flags in `Update:`/`Dev-Update:` copy (or in the curated `DEV_UPDATES`
+  seeds in `apps/web/src/data/devUpdates.ts`). The generator's leak-guard and a CI
+  test (`devUpdates.test.ts`) both enforce this; see the policy in
+  `docs/AUTO_PUBLISH_UPDATES.md` and the header of `devUpdates.ts`.
 
 When in doubt, prefer the smallest reversible change and leave the tree clean.
 

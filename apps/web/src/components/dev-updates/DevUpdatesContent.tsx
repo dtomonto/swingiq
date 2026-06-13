@@ -150,19 +150,6 @@ function DevUpdateCard({ update }: { update: DevUpdate }) {
           </ul>
         )}
 
-        {update.stack && update.stack.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 border-t border-border pt-3">
-            {update.stack.map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full bg-muted px-2.5 py-0.5 font-mono text-xs text-muted-foreground"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        )}
-
         {/* Read full developer report → dedicated page */}
         <div className="mt-4 border-t border-border pt-3">
           <Link
