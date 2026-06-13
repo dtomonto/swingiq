@@ -263,10 +263,10 @@ export function VideoAnalyzerContent() {
 
             <p className="text-center text-xs text-muted-foreground">
               To analyze your swing, a few still frames are extracted and sent to a third-party AI
-              provider (such as Google or OpenAI), where they are processed in that provider&apos;s
-              cloud. Your full video file is never uploaded, and SwingVantage does not store the
-              frames — but the AI provider receives them and handles them under its own privacy
-              policy. For analysis that stays entirely on your device, use Motion Lab instead.
+              provider, where they are processed in that provider&apos;s cloud. Your full video file
+              is never uploaded, and SwingVantage does not store the frames — but the AI provider
+              receives them and handles them under its own privacy policy. For analysis that stays
+              entirely on your device, use Motion Lab instead.
             </p>
           </div>
         )}
