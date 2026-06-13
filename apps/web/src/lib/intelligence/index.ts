@@ -41,6 +41,9 @@ export {
   getSymptomsForSport,
 } from './symptom-rules';
 export type { SymptomRule, SportDiagnosisConfig } from './symptom-rules';
+export { GOLDEN_SCENARIOS } from './golden-scenarios';
+export { getDeterministicEngineStatus, runGoldenScenarios } from './coverage';
+export type { EngineStatus, SportCoverage, ScenarioSummary, ScenarioRow } from './coverage';
 export { resolveRouteContext } from './context';
 export { analyze } from './service';
 export type { AnalyzeOptions } from './service';
