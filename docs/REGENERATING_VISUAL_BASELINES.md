@@ -86,3 +86,10 @@ check is green on the PR head. Because the snapshots are full-page, a real UI
 regression and an intentional change look the same to the gate — so always eyeball
 the regenerated PNGs (or the Playwright diff) before committing, to be sure you're
 baselining the change you meant to make and not a bug.
+
+> **If CI didn't re-run after a `commit_to_branch` push**, the `BASELINE_PUSH_TOKEN`
+> secret is missing, so the commit was pushed with `GITHUB_TOKEN` and the recursion
+> guard suppressed the run (it sits in `action_required` with no jobs). Add the
+> secret (see above) to make this automatic, or re-trigger CI manually with the
+> empty commit shown earlier. You can verify the secret exists under
+> **Settings → Secrets and variables → Actions**.
