@@ -299,6 +299,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['revenue', 'money', 'affiliate', 'rpm'],
   },
   {
+    id: 'tier-rollout', label: 'Tier Rollout', href: '/admin/tier-rollout', icon: Coins,
+    group: 'grow', subgroup: 'Growth & SEO', built: true, permission: 'monetization.manage',
+    blurb: 'Roll the paid membership tiers out gradually: toggle between "Free option" (Pro & Team collect signed-in waitlist interest) and "Full rollout" (all tiers live), backed by live per-tier demand counts.',
+    keywords: ['tier rollout', 'tiers', 'membership', 'pricing', 'waitlist', 'pro', 'team', 'rollout', 'gradual launch', 'paid plans', 'subscription', 'demand', 'interest'],
+  },
+  {
     id: 'ads', label: 'Ads', href: '/admin/ads', icon: Megaphone,
     group: 'grow', subgroup: 'Growth & SEO', built: true, external: true, permission: 'ads.manage',
     blurb: 'Ad network status, placements and house-ad inventory.',

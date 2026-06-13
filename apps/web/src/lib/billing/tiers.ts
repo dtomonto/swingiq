@@ -79,3 +79,29 @@ export const BILLING_TIERS: BillingTier[] = [
 export function getTier(id: TierId): BillingTier | undefined {
   return BILLING_TIERS.find((t) => t.id === id);
 }
+
+// ── Tier rollout (gradual launch) ─────────────────────────────
+// The paid tiers (Pro = "Tier 2", Team = "Tier 3") are launched gradually.
+// A single admin-controlled mode decides whether they are purchasable yet:
+//   'free' → only Free is active; paid tiers show a "join the waitlist" CTA
+//            so interested (signed-in) users can be counted before rollout.
+//   'full' → every tier is rolled out and purchasable (checkout / notify).
+// Free is ALWAYS active in either mode.
+export type TierRolloutMode = 'free' | 'full';
+
+/** The default rollout state: paid tiers gated behind the waitlist. */
+export const DEFAULT_TIER_ROLLOUT_MODE: TierRolloutMode = 'free';
+
+/** Whether a tier is rolled out (purchasable/active) under the given mode. */
+export function isTierRolledOut(id: TierId, mode: TierRolloutMode): boolean {
+  if (id === 'free') return true;
+  return mode === 'full';
+}
+
+/** The paid tiers that can collect waitlist interest while gated. */
+export const WAITLIST_TIER_IDS: TierId[] = BILLING_TIERS.filter((t) => t.id !== 'free').map((t) => t.id);
+
+/** Type guard for a user-supplied tier id. */
+export function isTierId(value: unknown): value is TierId {
+  return value === 'free' || value === 'pro' || value === 'team';
+}
