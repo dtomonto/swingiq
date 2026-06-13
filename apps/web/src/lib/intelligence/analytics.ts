@@ -1,0 +1,54 @@
+// ============================================================
+// SwingVantage — Deterministic Diagnosis: Analytics
+// ------------------------------------------------------------
+// Thin, client-side emitter for the deterministic engine's analytics events.
+// Kept OUT of the pure engine (diagnose.ts stays side-effect-free) — UI call
+// sites invoke this once a diagnosis is shown.
+//
+// PRIVACY: only non-PII engine metadata is sent — sport, skill level, the fault
+// id, confidence, rule/missing-data counts, and the escalation decision. Never
+// any athlete identity, free-text, video, or biometric data (brief §19/§20).
+// ============================================================
+
+import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
+import type { DeterministicDiagnosis } from './diagnose-types';
+
+/**
+ * Emit `deterministic_analysis_completed` plus exactly one escalation event
+ * (recommended | skipped) for a shown diagnosis. `extra` lets the call site add
+ * non-PII context (e.g. the surface the result was shown on).
+ */
+export function trackDeterministicAnalysis(
+  d: DeterministicDiagnosis,
+  extra?: Record<string, string | number | boolean | null>,
+): void {
+  track(ANALYTICS_EVENTS.DETERMINISTIC_ANALYSIS_COMPLETED, {
+    sport: d.sport,
+    skill_level: d.skillLevel,
+    diagnosis: d.primary.faultId,
+    confidence_score: d.confidence,
+    confidence_label: d.confidenceLabel,
+    rule_count_triggered: d.ruleTrace.length,
+    missing_data_count: d.missingData.length,
+    escalation_recommended: d.escalateToAI,
+    engine_version: d.engineVersion,
+    ...extra,
+  });
+
+  if (d.escalateToAI) {
+    track(ANALYTICS_EVENTS.DETERMINISTIC_AI_ESCALATION_RECOMMENDED, {
+      sport: d.sport,
+      diagnosis: d.primary.faultId,
+      confidence_score: d.confidence,
+      reason: d.escalationReasons[0] ?? null,
+      ...extra,
+    });
+  } else {
+    track(ANALYTICS_EVENTS.DETERMINISTIC_AI_ESCALATION_SKIPPED, {
+      sport: d.sport,
+      diagnosis: d.primary.faultId,
+      confidence_score: d.confidence,
+      ...extra,
+    });
+  }
+}

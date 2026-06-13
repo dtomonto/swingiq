@@ -248,6 +248,15 @@ export const ANALYTICS_EVENTS = {
   FRAME_STEP_USED: 'frame_step_used', // + sport, action
   CLIP_COMPARISON_VIEWED: 'clip_comparison_viewed', // + sport, action
   CAMERA_SHAKE_PROXY_ENABLED: 'camera_shake_proxy_enabled', // + sport
+  // Deterministic Diagnosis Engine (token-free symptom→cause). Props carry only
+  // non-PII engine metadata: sport, skill_level, diagnosis (fault id),
+  // confidence_score (0–100), confidence_label, rule_count_triggered,
+  // missing_data_count, escalation_recommended, engine_version. The escalation
+  // events also carry the lead `reason`. Emitted at the UI call site, never from
+  // the pure engine. See lib/intelligence/analytics.ts + diagnose.ts.
+  DETERMINISTIC_ANALYSIS_COMPLETED: 'deterministic_analysis_completed',
+  DETERMINISTIC_AI_ESCALATION_RECOMMENDED: 'deterministic_ai_escalation_recommended',
+  DETERMINISTIC_AI_ESCALATION_SKIPPED: 'deterministic_ai_escalation_skipped',
 } as const;
 
 export type AnalyticsEventName =

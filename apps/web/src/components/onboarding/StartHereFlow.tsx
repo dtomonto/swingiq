@@ -43,6 +43,7 @@ import { ChoiceGroup } from '@/components/tools/fields';
 import { ConfidenceBadge } from '@/components/agents/ConfidenceBadge';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { DeterministicWhyPanel } from '@/components/report/DeterministicWhyPanel';
+import { trackDeterministicAnalysis } from '@/lib/intelligence/analytics';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { useSport } from '@/contexts/SportContext';
 import { useSwingVantageStore } from '@/store';
@@ -267,6 +268,11 @@ export function StartHereFlow() {
       issue: built.issue,
     });
     track(ANALYTICS_EVENTS.PROFILE_COMPLETED, { context: 'start_here', sport: built.sportId });
+
+    // Deterministic engine observability — only when it produced a real read.
+    if (built.diagnosis) {
+      trackDeterministicAnalysis(built.diagnosis, { surface: 'start_here' });
+    }
 
     setStep('result');
   }

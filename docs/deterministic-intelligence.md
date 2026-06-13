@@ -165,7 +165,25 @@ The deterministic engine is **structurally** token-free:
    `HEURISTIC_ONLY` in `COST_SAVING_MODE`** and never calls a provider — covered by
    `router.test.ts`. The engine only *recommends* escalation; the router decides.
 
-## 10. Honesty rules
+## 10. Analytics & observability
+
+The pure engine emits nothing (it stays side-effect-free). UI call sites emit
+events via `lib/intelligence/analytics.ts` once a diagnosis is shown:
+
+| Event | When |
+| --- | --- |
+| `deterministic_analysis_completed` | A diagnosis is surfaced to the athlete. |
+| `deterministic_ai_escalation_recommended` | …and the engine recommends a deeper look. |
+| `deterministic_ai_escalation_skipped` | …and it does not. |
+
+Properties are **non-PII only**: `sport`, `skill_level`, `diagnosis` (fault id),
+`confidence_score`, `confidence_label`, `rule_count_triggered`,
+`missing_data_count`, `escalation_recommended`, `engine_version`, and the lead
+`reason` on escalation. Never identity, free-text, video, or biometrics (§20).
+The event names live in `@swingiq/core` `ANALYTICS_EVENTS`; `track()` routes them
+to whichever provider is configured (PostHog/GA4/…), or the console in dev.
+
+## 11. Honesty rules
 
 - Symptom-pack faults are `typicalEvidenceBasis: 'user_entered'` and every
   diagnosis carries a disclaimer that this is a **reported-symptom estimate, not a
