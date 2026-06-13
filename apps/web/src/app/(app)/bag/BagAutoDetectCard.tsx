@@ -26,8 +26,8 @@ const CONF_BADGE: Record<DetectionConfidence, { variant: 'success' | 'warning' |
 };
 
 export function BagAutoDetectCard() {
-  const { clubs, sessions, addClub, applyCarryUpdate, undoCarryUpdate } = useSwingVantageStore();
-  const [dismissed, setDismissed] = useState(false);
+  const { clubs, sessions, addClub, applyCarryUpdate, undoCarryUpdate, bagDetectDismissedSig, dismissBagDetect } =
+    useSwingVantageStore();
   const [addedNames, setAddedNames] = useState<Set<string>>(new Set());
 
   const golfSessions = useMemo(
@@ -44,8 +44,20 @@ export function BagAutoDetectCard() {
   // matches, but filter defensively too).
   const visibleUpdates = baselineUpdates.filter((u) => !appliedUpdates.some((c) => c.id === u.clubId));
 
+  // Stable signature of what the card is offering. A persisted dismissal hides
+  // the card until this changes (new clubs / fresh drift), so dismiss survives
+  // reloads without burying genuinely new suggestions.
+  const contentSig = useMemo(() => {
+    const parts = [
+      ...newClubs.map((c) => `n:${c.name}`),
+      ...baselineUpdates.map((u) => `u:${u.clubId}:${u.importedCarry}`),
+      ...clubs.filter((c) => c.carry_undo).map((c) => `a:${c.id}:${c.typical_carry}`),
+    ];
+    return parts.sort().join('|');
+  }, [clubs, newClubs, baselineUpdates]);
+
   if (
-    dismissed ||
+    bagDetectDismissedSig === contentSig ||
     golfSessions.length === 0 ||
     (visibleNew.length === 0 && visibleUpdates.length === 0 && appliedUpdates.length === 0)
   ) {
@@ -96,7 +108,7 @@ export function BagAutoDetectCard() {
             Add what&rsquo;s missing or refresh a carry — you stay in control.
           </p>
         </div>
-        <button onClick={() => setDismissed(true)} aria-label="Dismiss" className="text-muted-foreground hover:text-foreground p-1 -m-1">
+        <button onClick={() => dismissBagDetect(contentSig)} aria-label="Dismiss" className="text-muted-foreground hover:text-foreground p-1 -m-1">
           <X size={16} />
         </button>
       </CardHeader>

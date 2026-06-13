@@ -24,6 +24,7 @@ function state(over: Partial<SwingVantageState>): SwingVantageState {
     profile: null,
     sportProfiles: {},
     clubs: [],
+    bagDetectDismissedSig: null,
     sportEquipment: DEFAULT_SPORT_EQUIPMENT,
     sessions: [],
     video_analyses: [],

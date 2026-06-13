@@ -290,6 +290,12 @@ export interface SwingVantageState {
   profile: GolferProfileInput | null;
   sportProfiles: SportProfiles;
   clubs: LocalClub[];
+  /**
+   * Content signature at which the bag auto-detect card was last dismissed.
+   * The card stays hidden while its current signature matches, then re-surfaces
+   * when new clubs/drift are detected (mirrors `welcomeBackDismissedHash`).
+   */
+  bagDetectDismissedSig: string | null;
   sportEquipment: SportEquipment;
   sessions: LocalSession[];
   video_analyses: LocalVideoAnalysis[];
@@ -322,6 +328,8 @@ export interface SwingVantageActions {
   applyCarryUpdate: (id: string, next: { typical_carry: number; imported_carry_avg: number; imported_shot_count: number }) => void;
   /** Revert the last trend-based carry update, restoring the snapshot. */
   undoCarryUpdate: (id: string) => void;
+  /** Persistently dismiss the bag auto-detect card for the given content signature. */
+  dismissBagDetect: (sig: string) => void;
   // Non-golf equipment
   addTennisRacket: (racket: Omit<TennisRacket, 'id' | 'created_at'>) => void;
   removeTennisRacket: (id: string) => void;

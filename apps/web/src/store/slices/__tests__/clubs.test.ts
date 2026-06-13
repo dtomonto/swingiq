@@ -74,6 +74,14 @@ describe('applyCarryUpdate / undoCarryUpdate', () => {
     expect(store().clubs.find((c) => c.id === club.id)!.typical_carry).toBe(150);
   });
 
+  it('dismissBagDetect persists the content signature and reset clears it', () => {
+    expect(store().bagDetectDismissedSig).toBeNull();
+    store().dismissBagDetect('n:7 Iron|u:club_1:162');
+    expect(store().bagDetectDismissedSig).toBe('n:7 Iron|u:club_1:162');
+    store().reset();
+    expect(store().bagDetectDismissedSig).toBeNull();
+  });
+
   it('a hand-edit (updateClub) can clear a pending undo snapshot', () => {
     const club = addClub({ typical_carry: 150 });
     store().applyCarryUpdate(club.id, { typical_carry: 162, imported_carry_avg: 162, imported_shot_count: 9 });

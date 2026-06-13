@@ -38,6 +38,8 @@ export function fillDefaults(partial: Partial<SwingVantageState>): SwingVantageS
     profile: partial.profile ?? null,
     sportProfiles: partial.sportProfiles ?? {},
     clubs: partial.clubs ?? [],
+    // Local-first UI preference (not a synced table); re-set per device.
+    bagDetectDismissedSig: partial.bagDetectDismissedSig ?? null,
     sportEquipment: partial.sportEquipment ?? DEFAULT_SPORT_EQUIPMENT,
     sessions: partial.sessions ?? [],
     video_analyses: partial.video_analyses ?? [],

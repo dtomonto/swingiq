@@ -4,10 +4,19 @@ import { newId } from '../types';
 export const createClubsSlice: SwingVantageSlice<
   Pick<
     SwingVantageStore,
-    'clubs' | 'addClub' | 'updateClub' | 'removeClub' | 'reorderClubs' | 'applyCarryUpdate' | 'undoCarryUpdate'
+    | 'clubs'
+    | 'bagDetectDismissedSig'
+    | 'addClub'
+    | 'updateClub'
+    | 'removeClub'
+    | 'reorderClubs'
+    | 'applyCarryUpdate'
+    | 'undoCarryUpdate'
+    | 'dismissBagDetect'
   >
 > = (set, get) => ({
   clubs: [],
+  bagDetectDismissedSig: null,
 
   addClub: (club) => {
     const newClub: LocalClub = {
@@ -54,4 +63,6 @@ export const createClubsSlice: SwingVantageSlice<
         return { ...rest, ...carry_undo, carry_undo: null };
       }),
     })),
+
+  dismissBagDetect: (sig) => set({ bagDetectDismissedSig: sig }),
 });
