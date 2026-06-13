@@ -32,6 +32,8 @@
     "generate:sitemap": "node scripts/check-sitemap.mjs && node scripts/check-sitemap-coverage.mjs",
     "check:sitemap:coverage": "node scripts/check-sitemap-coverage.mjs",
     "generate:brand": "node scripts/generate-brand-assets.mjs",
+    "tokens:build": "node scripts/design-tokens/build-tokens.mjs",
+    "tokens:check": "node scripts/design-tokens/build-tokens.mjs --check",
     "updates:generate": "node scripts/generate-updates.mjs",
     "test:scripts": "node --test \"scripts/__tests__/**/*.test.mjs\"",
     "docs:index": "node scripts/build-docs-index.mjs",

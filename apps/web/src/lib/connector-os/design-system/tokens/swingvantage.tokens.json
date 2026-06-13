@@ -1,0 +1,2031 @@
+{
+  "primitives": {
+    "brand": {
+      "50": {
+        "$type": "color",
+        "$value": "#f0fdf4"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#dcfce7"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#bbf7d0"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#86efac"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#4ade80"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#22c55e"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#16a34a"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#15803d"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#166534"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#14532d"
+      },
+      "950": {
+        "$type": "color",
+        "$value": "#052e16"
+      }
+    },
+    "golf": {
+      "green": {
+        "$type": "color",
+        "$value": "#16a34a"
+      },
+      "fairway": {
+        "$type": "color",
+        "$value": "#22c55e"
+      },
+      "dark": {
+        "$type": "color",
+        "$value": "#052e16"
+      },
+      "gold": {
+        "$type": "color",
+        "$value": "#ca8a04"
+      },
+      "sand": {
+        "$type": "color",
+        "$value": "#f59e0b"
+      },
+      "sky": {
+        "$type": "color",
+        "$value": "#0ea5e9"
+      }
+    },
+    "font": {
+      "sans": {
+        "$type": "fontFamilies",
+        "$value": "Inter, system-ui, sans-serif"
+      },
+      "mono": {
+        "$type": "fontFamilies",
+        "$value": "JetBrains Mono, Fira Code, monospace"
+      }
+    }
+  },
+  "theme/standard": {
+    "background": {
+      "$type": "color",
+      "$value": "hsl(210 20% 98%)"
+    },
+    "foreground": {
+      "$type": "color",
+      "$value": "hsl(222 22% 14%)"
+    },
+    "card": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "card-foreground": {
+      "$type": "color",
+      "$value": "hsl(222 22% 14%)"
+    },
+    "popover": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "popover-foreground": {
+      "$type": "color",
+      "$value": "hsl(222 22% 14%)"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "hsl(142 64% 26%)"
+    },
+    "primary-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "hsl(210 20% 94%)"
+    },
+    "secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(222 20% 20%)"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "hsl(210 20% 94%)"
+    },
+    "muted-foreground": {
+      "$type": "color",
+      "$value": "hsl(215 16% 40%)"
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "hsl(210 20% 94%)"
+    },
+    "accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(222 20% 20%)"
+    },
+    "accent-secondary": {
+      "$type": "color",
+      "$value": "hsl(188 72% 32%)"
+    },
+    "accent-secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "hsl(142 64% 30%)"
+    },
+    "success-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "hsl(38 92% 40%)"
+    },
+    "warning-foreground": {
+      "$type": "color",
+      "$value": "hsl(30 45% 12%)"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "hsl(0 72% 42%)"
+    },
+    "error-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "destructive": {
+      "$type": "color",
+      "$value": "hsl(0 72% 42%)"
+    },
+    "destructive-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "hsl(214 18% 88%)"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "hsl(214 18% 88%)"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "hsl(142 64% 30%)"
+    },
+    "chart-1": {
+      "$type": "color",
+      "$value": "hsl(142 64% 36%)"
+    },
+    "chart-2": {
+      "$type": "color",
+      "$value": "hsl(188 72% 38%)"
+    },
+    "chart-3": {
+      "$type": "color",
+      "$value": "hsl(217 79% 52%)"
+    },
+    "chart-4": {
+      "$type": "color",
+      "$value": "hsl(38 92% 48%)"
+    },
+    "chart-5": {
+      "$type": "color",
+      "$value": "hsl(280 55% 55%)"
+    },
+    "link": {
+      "$type": "color",
+      "$value": "hsl(142 64% 30%)"
+    },
+    "link-hover": {
+      "$type": "color",
+      "$value": "hsl(142 66% 24%)"
+    },
+    "warning-text": {
+      "$type": "color",
+      "$value": "hsl(38 92% 31%)"
+    },
+    "success-text": {
+      "$type": "color",
+      "$value": "hsl(142 64% 30%)"
+    },
+    "error-text": {
+      "$type": "color",
+      "$value": "hsl(0 72% 40%)"
+    },
+    "surface-document": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "surface-document-foreground": {
+      "$type": "color",
+      "$value": "hsl(222 22% 14%)"
+    },
+    "surface-document-accent": {
+      "$type": "color",
+      "$value": "hsl(142 64% 26%)"
+    },
+    "card-radius": {
+      "$type": "dimension",
+      "$value": "0.75rem"
+    },
+    "radius": {
+      "$type": "dimension",
+      "$value": "0.5rem"
+    }
+  },
+  "theme/dark-performance": {
+    "background": {
+      "$type": "color",
+      "$value": "hsl(140 14% 5%)"
+    },
+    "foreground": {
+      "$type": "color",
+      "$value": "hsl(150 10% 96%)"
+    },
+    "card": {
+      "$type": "color",
+      "$value": "hsl(150 12% 8%)"
+    },
+    "card-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 10% 96%)"
+    },
+    "popover": {
+      "$type": "color",
+      "$value": "hsl(150 12% 10%)"
+    },
+    "popover-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 10% 96%)"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "hsl(142 71% 45%)"
+    },
+    "primary-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 40% 7%)"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "hsl(150 10% 14%)"
+    },
+    "secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 10% 94%)"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "hsl(150 9% 13%)"
+    },
+    "muted-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 8% 66%)"
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "hsl(150 10% 14%)"
+    },
+    "accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 10% 94%)"
+    },
+    "accent-secondary": {
+      "$type": "color",
+      "$value": "hsl(168 76% 46%)"
+    },
+    "accent-secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 40% 7%)"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "hsl(142 71% 45%)"
+    },
+    "success-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 40% 7%)"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "hsl(38 92% 58%)"
+    },
+    "warning-foreground": {
+      "$type": "color",
+      "$value": "hsl(30 45% 10%)"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "hsl(0 72% 48%)"
+    },
+    "error-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "destructive": {
+      "$type": "color",
+      "$value": "hsl(0 72% 48%)"
+    },
+    "destructive-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "hsl(150 9% 18%)"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "hsl(150 9% 18%)"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "hsl(142 71% 45%)"
+    },
+    "chart-1": {
+      "$type": "color",
+      "$value": "hsl(142 71% 52%)"
+    },
+    "chart-2": {
+      "$type": "color",
+      "$value": "hsl(168 76% 50%)"
+    },
+    "chart-3": {
+      "$type": "color",
+      "$value": "hsl(199 84% 60%)"
+    },
+    "chart-4": {
+      "$type": "color",
+      "$value": "hsl(38 92% 62%)"
+    },
+    "chart-5": {
+      "$type": "color",
+      "$value": "hsl(280 65% 68%)"
+    },
+    "link": {
+      "$type": "color",
+      "$value": "hsl(142 64% 60%)"
+    },
+    "link-hover": {
+      "$type": "color",
+      "$value": "hsl(142 66% 70%)"
+    },
+    "warning-text": {
+      "$type": "color",
+      "$value": "hsl(38 92% 60%)"
+    },
+    "success-text": {
+      "$type": "color",
+      "$value": "hsl(142 64% 58%)"
+    },
+    "error-text": {
+      "$type": "color",
+      "$value": "hsl(0 85% 74%)"
+    },
+    "surface-document": {
+      "$type": "color",
+      "$value": "hsl(40 20% 97%)"
+    },
+    "surface-document-foreground": {
+      "$type": "color",
+      "$value": "hsl(222 22% 14%)"
+    },
+    "surface-document-accent": {
+      "$type": "color",
+      "$value": "hsl(142 64% 26%)"
+    },
+    "card-radius": {
+      "$type": "dimension",
+      "$value": "0.75rem"
+    }
+  },
+  "theme/coach-mode": {
+    "background": {
+      "$type": "color",
+      "$value": "hsl(210 30% 99%)"
+    },
+    "foreground": {
+      "$type": "color",
+      "$value": "hsl(217 33% 17%)"
+    },
+    "card": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "card-foreground": {
+      "$type": "color",
+      "$value": "hsl(217 33% 17%)"
+    },
+    "popover": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "popover-foreground": {
+      "$type": "color",
+      "$value": "hsl(217 33% 17%)"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "hsl(217 79% 42%)"
+    },
+    "primary-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "hsl(210 28% 95%)"
+    },
+    "secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(217 33% 20%)"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "hsl(210 28% 95%)"
+    },
+    "muted-foreground": {
+      "$type": "color",
+      "$value": "hsl(217 18% 40%)"
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "hsl(210 28% 95%)"
+    },
+    "accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(217 33% 20%)"
+    },
+    "accent-secondary": {
+      "$type": "color",
+      "$value": "hsl(173 58% 32%)"
+    },
+    "accent-secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "hsl(152 60% 30%)"
+    },
+    "success-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "hsl(32 90% 40%)"
+    },
+    "warning-foreground": {
+      "$type": "color",
+      "$value": "hsl(30 60% 8%)"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "hsl(0 70% 42%)"
+    },
+    "error-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "destructive": {
+      "$type": "color",
+      "$value": "hsl(0 70% 42%)"
+    },
+    "destructive-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "hsl(214 25% 83%)"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "hsl(214 25% 83%)"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "hsl(217 79% 42%)"
+    },
+    "chart-1": {
+      "$type": "color",
+      "$value": "hsl(217 79% 48%)"
+    },
+    "chart-2": {
+      "$type": "color",
+      "$value": "hsl(173 58% 38%)"
+    },
+    "chart-3": {
+      "$type": "color",
+      "$value": "hsl(152 60% 38%)"
+    },
+    "chart-4": {
+      "$type": "color",
+      "$value": "hsl(32 90% 48%)"
+    },
+    "chart-5": {
+      "$type": "color",
+      "$value": "hsl(268 55% 56%)"
+    },
+    "link": {
+      "$type": "color",
+      "$value": "hsl(217 79% 42%)"
+    },
+    "link-hover": {
+      "$type": "color",
+      "$value": "hsl(217 80% 34%)"
+    },
+    "warning-text": {
+      "$type": "color",
+      "$value": "hsl(32 90% 32%)"
+    },
+    "success-text": {
+      "$type": "color",
+      "$value": "hsl(152 60% 30%)"
+    },
+    "error-text": {
+      "$type": "color",
+      "$value": "hsl(0 70% 40%)"
+    },
+    "surface-document": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "surface-document-foreground": {
+      "$type": "color",
+      "$value": "hsl(217 33% 17%)"
+    },
+    "surface-document-accent": {
+      "$type": "color",
+      "$value": "hsl(217 79% 38%)"
+    },
+    "card-radius": {
+      "$type": "dimension",
+      "$value": "0.5rem"
+    }
+  },
+  "theme/coach-night": {
+    "background": {
+      "$type": "color",
+      "$value": "hsl(218 28% 9%)"
+    },
+    "foreground": {
+      "$type": "color",
+      "$value": "hsl(214 30% 92%)"
+    },
+    "card": {
+      "$type": "color",
+      "$value": "hsl(218 24% 12%)"
+    },
+    "card-foreground": {
+      "$type": "color",
+      "$value": "hsl(214 30% 92%)"
+    },
+    "popover": {
+      "$type": "color",
+      "$value": "hsl(218 24% 12%)"
+    },
+    "popover-foreground": {
+      "$type": "color",
+      "$value": "hsl(214 30% 92%)"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "hsl(217 80% 52%)"
+    },
+    "primary-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "hsl(217 18% 16%)"
+    },
+    "secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(214 30% 92%)"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "hsl(217 18% 16%)"
+    },
+    "muted-foreground": {
+      "$type": "color",
+      "$value": "hsl(215 14% 65%)"
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "hsl(217 18% 16%)"
+    },
+    "accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(214 30% 92%)"
+    },
+    "accent-secondary": {
+      "$type": "color",
+      "$value": "hsl(173 52% 46%)"
+    },
+    "accent-secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "hsl(152 50% 45%)"
+    },
+    "success-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "hsl(38 85% 55%)"
+    },
+    "warning-foreground": {
+      "$type": "color",
+      "$value": "hsl(30 60% 8%)"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "hsl(0 75% 60%)"
+    },
+    "error-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "destructive": {
+      "$type": "color",
+      "$value": "hsl(0 75% 60%)"
+    },
+    "destructive-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "hsl(217 16% 24%)"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "hsl(217 16% 24%)"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "hsl(217 80% 52%)"
+    },
+    "chart-1": {
+      "$type": "color",
+      "$value": "hsl(217 80% 60%)"
+    },
+    "chart-2": {
+      "$type": "color",
+      "$value": "hsl(173 55% 55%)"
+    },
+    "chart-3": {
+      "$type": "color",
+      "$value": "hsl(152 50% 55%)"
+    },
+    "chart-4": {
+      "$type": "color",
+      "$value": "hsl(38 85% 60%)"
+    },
+    "chart-5": {
+      "$type": "color",
+      "$value": "hsl(268 60% 68%)"
+    },
+    "link": {
+      "$type": "color",
+      "$value": "hsl(213 90% 72%)"
+    },
+    "link-hover": {
+      "$type": "color",
+      "$value": "hsl(213 90% 80%)"
+    },
+    "warning-text": {
+      "$type": "color",
+      "$value": "hsl(38 85% 62%)"
+    },
+    "success-text": {
+      "$type": "color",
+      "$value": "hsl(152 50% 58%)"
+    },
+    "error-text": {
+      "$type": "color",
+      "$value": "hsl(0 75% 68%)"
+    },
+    "surface-document": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "surface-document-foreground": {
+      "$type": "color",
+      "$value": "hsl(217 33% 17%)"
+    },
+    "surface-document-accent": {
+      "$type": "color",
+      "$value": "hsl(217 79% 42%)"
+    },
+    "card-radius": {
+      "$type": "dimension",
+      "$value": "0.5rem"
+    }
+  },
+  "theme/heritage-club": {
+    "background": {
+      "$type": "color",
+      "$value": "hsl(42 33% 95%)"
+    },
+    "foreground": {
+      "$type": "color",
+      "$value": "hsl(218 38% 18%)"
+    },
+    "card": {
+      "$type": "color",
+      "$value": "hsl(40 36% 98%)"
+    },
+    "card-foreground": {
+      "$type": "color",
+      "$value": "hsl(218 38% 18%)"
+    },
+    "popover": {
+      "$type": "color",
+      "$value": "hsl(40 36% 98%)"
+    },
+    "popover-foreground": {
+      "$type": "color",
+      "$value": "hsl(218 38% 18%)"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "hsl(150 34% 25%)"
+    },
+    "primary-foreground": {
+      "$type": "color",
+      "$value": "hsl(42 40% 96%)"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "hsl(40 25% 90%)"
+    },
+    "secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(218 38% 22%)"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "hsl(40 25% 90%)"
+    },
+    "muted-foreground": {
+      "$type": "color",
+      "$value": "hsl(218 16% 38%)"
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "hsl(40 25% 90%)"
+    },
+    "accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(218 38% 22%)"
+    },
+    "accent-secondary": {
+      "$type": "color",
+      "$value": "hsl(38 56% 33%)"
+    },
+    "accent-secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(42 40% 96%)"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "hsl(150 40% 27%)"
+    },
+    "success-foreground": {
+      "$type": "color",
+      "$value": "hsl(42 40% 96%)"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "hsl(36 74% 29%)"
+    },
+    "warning-foreground": {
+      "$type": "color",
+      "$value": "hsl(40 45% 95%)"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "hsl(4 60% 40%)"
+    },
+    "error-foreground": {
+      "$type": "color",
+      "$value": "hsl(42 40% 96%)"
+    },
+    "destructive": {
+      "$type": "color",
+      "$value": "hsl(4 60% 40%)"
+    },
+    "destructive-foreground": {
+      "$type": "color",
+      "$value": "hsl(42 40% 96%)"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "hsl(40 22% 81%)"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "hsl(40 22% 81%)"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "hsl(150 34% 25%)"
+    },
+    "chart-1": {
+      "$type": "color",
+      "$value": "hsl(150 34% 32%)"
+    },
+    "chart-2": {
+      "$type": "color",
+      "$value": "hsl(218 38% 38%)"
+    },
+    "chart-3": {
+      "$type": "color",
+      "$value": "hsl(38 54% 44%)"
+    },
+    "chart-4": {
+      "$type": "color",
+      "$value": "hsl(4 50% 46%)"
+    },
+    "chart-5": {
+      "$type": "color",
+      "$value": "hsl(200 30% 40%)"
+    },
+    "link": {
+      "$type": "color",
+      "$value": "hsl(150 34% 25%)"
+    },
+    "link-hover": {
+      "$type": "color",
+      "$value": "hsl(150 38% 19%)"
+    },
+    "warning-text": {
+      "$type": "color",
+      "$value": "hsl(36 74% 29%)"
+    },
+    "success-text": {
+      "$type": "color",
+      "$value": "hsl(150 40% 27%)"
+    },
+    "error-text": {
+      "$type": "color",
+      "$value": "hsl(4 60% 38%)"
+    },
+    "surface-document": {
+      "$type": "color",
+      "$value": "hsl(40 36% 98%)"
+    },
+    "surface-document-foreground": {
+      "$type": "color",
+      "$value": "hsl(218 38% 18%)"
+    },
+    "surface-document-accent": {
+      "$type": "color",
+      "$value": "hsl(150 34% 25%)"
+    },
+    "card-radius": {
+      "$type": "dimension",
+      "$value": "0.375rem"
+    }
+  },
+  "theme/field-court": {
+    "background": {
+      "$type": "color",
+      "$value": "hsl(80 18% 96%)"
+    },
+    "foreground": {
+      "$type": "color",
+      "$value": "hsl(150 18% 15%)"
+    },
+    "card": {
+      "$type": "color",
+      "$value": "hsl(80 20% 99%)"
+    },
+    "card-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 18% 15%)"
+    },
+    "popover": {
+      "$type": "color",
+      "$value": "hsl(80 20% 99%)"
+    },
+    "popover-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 18% 15%)"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "hsl(135 45% 28%)"
+    },
+    "primary-foreground": {
+      "$type": "color",
+      "$value": "hsl(80 20% 97%)"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "hsl(80 16% 91%)"
+    },
+    "secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 18% 20%)"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "hsl(80 16% 91%)"
+    },
+    "muted-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 10% 37%)"
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "hsl(80 16% 91%)"
+    },
+    "accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 18% 20%)"
+    },
+    "accent-secondary": {
+      "$type": "color",
+      "$value": "hsl(18 68% 42%)"
+    },
+    "accent-secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(80 20% 97%)"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "hsl(135 45% 28%)"
+    },
+    "success-foreground": {
+      "$type": "color",
+      "$value": "hsl(80 20% 97%)"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "hsl(36 84% 38%)"
+    },
+    "warning-foreground": {
+      "$type": "color",
+      "$value": "hsl(30 60% 8%)"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "hsl(6 66% 42%)"
+    },
+    "error-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "destructive": {
+      "$type": "color",
+      "$value": "hsl(6 66% 42%)"
+    },
+    "destructive-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "hsl(80 14% 83%)"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "hsl(80 14% 83%)"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "hsl(135 45% 28%)"
+    },
+    "chart-1": {
+      "$type": "color",
+      "$value": "hsl(135 45% 34%)"
+    },
+    "chart-2": {
+      "$type": "color",
+      "$value": "hsl(18 68% 48%)"
+    },
+    "chart-3": {
+      "$type": "color",
+      "$value": "hsl(200 55% 42%)"
+    },
+    "chart-4": {
+      "$type": "color",
+      "$value": "hsl(45 80% 46%)"
+    },
+    "chart-5": {
+      "$type": "color",
+      "$value": "hsl(280 40% 52%)"
+    },
+    "link": {
+      "$type": "color",
+      "$value": "hsl(135 45% 28%)"
+    },
+    "link-hover": {
+      "$type": "color",
+      "$value": "hsl(135 48% 22%)"
+    },
+    "warning-text": {
+      "$type": "color",
+      "$value": "hsl(36 84% 32%)"
+    },
+    "success-text": {
+      "$type": "color",
+      "$value": "hsl(135 45% 28%)"
+    },
+    "error-text": {
+      "$type": "color",
+      "$value": "hsl(6 66% 38%)"
+    },
+    "surface-document": {
+      "$type": "color",
+      "$value": "hsl(80 20% 99%)"
+    },
+    "surface-document-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 18% 15%)"
+    },
+    "surface-document-accent": {
+      "$type": "color",
+      "$value": "hsl(135 45% 26%)"
+    },
+    "card-radius": {
+      "$type": "dimension",
+      "$value": "0.625rem"
+    }
+  },
+  "theme/arcade-practice": {
+    "background": {
+      "$type": "color",
+      "$value": "hsl(256 44% 8%)"
+    },
+    "foreground": {
+      "$type": "color",
+      "$value": "hsl(250 36% 95%)"
+    },
+    "card": {
+      "$type": "color",
+      "$value": "hsl(256 36% 13%)"
+    },
+    "card-foreground": {
+      "$type": "color",
+      "$value": "hsl(250 36% 95%)"
+    },
+    "popover": {
+      "$type": "color",
+      "$value": "hsl(256 34% 16%)"
+    },
+    "popover-foreground": {
+      "$type": "color",
+      "$value": "hsl(250 36% 95%)"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "hsl(280 72% 50%)"
+    },
+    "primary-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "hsl(256 28% 20%)"
+    },
+    "secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(250 30% 92%)"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "hsl(256 26% 18%)"
+    },
+    "muted-foreground": {
+      "$type": "color",
+      "$value": "hsl(252 24% 74%)"
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "hsl(256 28% 20%)"
+    },
+    "accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(250 30% 92%)"
+    },
+    "accent-secondary": {
+      "$type": "color",
+      "$value": "hsl(190 90% 56%)"
+    },
+    "accent-secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(222 50% 8%)"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "hsl(152 72% 50%)"
+    },
+    "success-foreground": {
+      "$type": "color",
+      "$value": "hsl(222 50% 8%)"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "hsl(45 95% 58%)"
+    },
+    "warning-foreground": {
+      "$type": "color",
+      "$value": "hsl(30 60% 10%)"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "hsl(352 80% 48%)"
+    },
+    "error-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "destructive": {
+      "$type": "color",
+      "$value": "hsl(352 80% 48%)"
+    },
+    "destructive-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "hsl(266 30% 26%)"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "hsl(266 30% 26%)"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "hsl(322 90% 66%)"
+    },
+    "chart-1": {
+      "$type": "color",
+      "$value": "hsl(322 85% 66%)"
+    },
+    "chart-2": {
+      "$type": "color",
+      "$value": "hsl(190 90% 60%)"
+    },
+    "chart-3": {
+      "$type": "color",
+      "$value": "hsl(152 75% 56%)"
+    },
+    "chart-4": {
+      "$type": "color",
+      "$value": "hsl(45 95% 62%)"
+    },
+    "chart-5": {
+      "$type": "color",
+      "$value": "hsl(268 85% 72%)"
+    },
+    "link": {
+      "$type": "color",
+      "$value": "hsl(280 95% 80%)"
+    },
+    "link-hover": {
+      "$type": "color",
+      "$value": "hsl(280 95% 88%)"
+    },
+    "warning-text": {
+      "$type": "color",
+      "$value": "hsl(45 95% 60%)"
+    },
+    "success-text": {
+      "$type": "color",
+      "$value": "hsl(152 72% 55%)"
+    },
+    "error-text": {
+      "$type": "color",
+      "$value": "hsl(352 90% 72%)"
+    },
+    "surface-document": {
+      "$type": "color",
+      "$value": "hsl(250 30% 97%)"
+    },
+    "surface-document-foreground": {
+      "$type": "color",
+      "$value": "hsl(256 30% 15%)"
+    },
+    "surface-document-accent": {
+      "$type": "color",
+      "$value": "hsl(280 72% 38%)"
+    },
+    "card-radius": {
+      "$type": "dimension",
+      "$value": "0.875rem"
+    }
+  },
+  "theme/bird-print": {
+    "background": {
+      "$type": "color",
+      "$value": "hsl(196 30% 96%)"
+    },
+    "foreground": {
+      "$type": "color",
+      "$value": "hsl(205 32% 16%)"
+    },
+    "card": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "card-foreground": {
+      "$type": "color",
+      "$value": "hsl(205 32% 16%)"
+    },
+    "popover": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "popover-foreground": {
+      "$type": "color",
+      "$value": "hsl(205 32% 16%)"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "hsl(192 62% 34%)"
+    },
+    "primary-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "hsl(196 28% 92%)"
+    },
+    "secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(205 32% 20%)"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "hsl(196 28% 92%)"
+    },
+    "muted-foreground": {
+      "$type": "color",
+      "$value": "hsl(202 16% 39%)"
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "hsl(196 28% 92%)"
+    },
+    "accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(205 32% 20%)"
+    },
+    "accent-secondary": {
+      "$type": "color",
+      "$value": "hsl(8 72% 47%)"
+    },
+    "accent-secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "hsl(162 54% 30%)"
+    },
+    "success-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "hsl(36 86% 42%)"
+    },
+    "warning-foreground": {
+      "$type": "color",
+      "$value": "hsl(30 45% 12%)"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "hsl(4 70% 46%)"
+    },
+    "error-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "destructive": {
+      "$type": "color",
+      "$value": "hsl(4 70% 46%)"
+    },
+    "destructive-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "hsl(196 22% 83%)"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "hsl(196 22% 83%)"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "hsl(192 62% 34%)"
+    },
+    "chart-1": {
+      "$type": "color",
+      "$value": "hsl(192 62% 40%)"
+    },
+    "chart-2": {
+      "$type": "color",
+      "$value": "hsl(8 72% 58%)"
+    },
+    "chart-3": {
+      "$type": "color",
+      "$value": "hsl(168 50% 38%)"
+    },
+    "chart-4": {
+      "$type": "color",
+      "$value": "hsl(40 88% 50%)"
+    },
+    "chart-5": {
+      "$type": "color",
+      "$value": "hsl(268 50% 56%)"
+    },
+    "link": {
+      "$type": "color",
+      "$value": "hsl(192 64% 30%)"
+    },
+    "link-hover": {
+      "$type": "color",
+      "$value": "hsl(192 66% 24%)"
+    },
+    "warning-text": {
+      "$type": "color",
+      "$value": "hsl(36 86% 32%)"
+    },
+    "success-text": {
+      "$type": "color",
+      "$value": "hsl(162 54% 30%)"
+    },
+    "error-text": {
+      "$type": "color",
+      "$value": "hsl(4 70% 40%)"
+    },
+    "surface-document": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "surface-document-foreground": {
+      "$type": "color",
+      "$value": "hsl(205 32% 16%)"
+    },
+    "surface-document-accent": {
+      "$type": "color",
+      "$value": "hsl(192 64% 28%)"
+    },
+    "card-radius": {
+      "$type": "dimension",
+      "$value": "1rem"
+    }
+  },
+  "theme/christmas-swing-lab": {
+    "background": {
+      "$type": "color",
+      "$value": "hsl(158 38% 6%)"
+    },
+    "foreground": {
+      "$type": "color",
+      "$value": "hsl(40 25% 96%)"
+    },
+    "card": {
+      "$type": "color",
+      "$value": "hsl(158 28% 9%)"
+    },
+    "card-foreground": {
+      "$type": "color",
+      "$value": "hsl(40 25% 96%)"
+    },
+    "popover": {
+      "$type": "color",
+      "$value": "hsl(158 28% 11%)"
+    },
+    "popover-foreground": {
+      "$type": "color",
+      "$value": "hsl(40 25% 96%)"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "hsl(146 70% 45%)"
+    },
+    "primary-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 42% 7%)"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "hsl(158 18% 15%)"
+    },
+    "secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(40 22% 94%)"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "hsl(158 16% 14%)"
+    },
+    "muted-foreground": {
+      "$type": "color",
+      "$value": "hsl(40 14% 72%)"
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "hsl(158 18% 15%)"
+    },
+    "accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(40 22% 94%)"
+    },
+    "accent-secondary": {
+      "$type": "color",
+      "$value": "hsl(42 88% 56%)"
+    },
+    "accent-secondary-foreground": {
+      "$type": "color",
+      "$value": "hsl(40 55% 8%)"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "hsl(146 70% 45%)"
+    },
+    "success-foreground": {
+      "$type": "color",
+      "$value": "hsl(150 42% 7%)"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "hsl(38 92% 58%)"
+    },
+    "warning-foreground": {
+      "$type": "color",
+      "$value": "hsl(30 45% 10%)"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "hsl(0 74% 50%)"
+    },
+    "error-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "destructive": {
+      "$type": "color",
+      "$value": "hsl(0 74% 50%)"
+    },
+    "destructive-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "hsl(158 16% 20%)"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "hsl(158 16% 20%)"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "hsl(146 64% 48%)"
+    },
+    "chart-1": {
+      "$type": "color",
+      "$value": "hsl(146 64% 52%)"
+    },
+    "chart-2": {
+      "$type": "color",
+      "$value": "hsl(0 74% 62%)"
+    },
+    "chart-3": {
+      "$type": "color",
+      "$value": "hsl(42 88% 60%)"
+    },
+    "chart-4": {
+      "$type": "color",
+      "$value": "hsl(199 84% 62%)"
+    },
+    "chart-5": {
+      "$type": "color",
+      "$value": "hsl(320 45% 70%)"
+    },
+    "link": {
+      "$type": "color",
+      "$value": "hsl(42 84% 64%)"
+    },
+    "link-hover": {
+      "$type": "color",
+      "$value": "hsl(42 86% 74%)"
+    },
+    "warning-text": {
+      "$type": "color",
+      "$value": "hsl(38 92% 62%)"
+    },
+    "success-text": {
+      "$type": "color",
+      "$value": "hsl(146 60% 60%)"
+    },
+    "error-text": {
+      "$type": "color",
+      "$value": "hsl(0 86% 76%)"
+    },
+    "surface-document": {
+      "$type": "color",
+      "$value": "hsl(40 25% 97%)"
+    },
+    "surface-document-foreground": {
+      "$type": "color",
+      "$value": "hsl(158 30% 10%)"
+    },
+    "surface-document-accent": {
+      "$type": "color",
+      "$value": "hsl(146 60% 24%)"
+    },
+    "card-radius": {
+      "$type": "dimension",
+      "$value": "0.75rem"
+    }
+  },
+  "sport/golf": {
+    "sport-accent": {
+      "$type": "color",
+      "$value": "hsl(142 64% 30%)"
+    },
+    "sport-accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-accent-text": {
+      "$type": "color",
+      "$value": "hsl(142 64% 26%)"
+    },
+    "sport-secondary": {
+      "$type": "color",
+      "$value": "hsl(38 54% 44%)"
+    },
+    "sport-viz-1": {
+      "$type": "color",
+      "$value": "hsl(142 64% 36%)"
+    },
+    "sport-viz-2": {
+      "$type": "color",
+      "$value": "hsl(38 54% 44%)"
+    },
+    "sport-viz-3": {
+      "$type": "color",
+      "$value": "hsl(218 20% 45%)"
+    }
+  },
+  "sport/tennis": {
+    "sport-accent": {
+      "$type": "color",
+      "$value": "hsl(52 96% 54%)"
+    },
+    "sport-accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(52 95% 12%)"
+    },
+    "sport-accent-text": {
+      "$type": "color",
+      "$value": "hsl(45 95% 27%)"
+    },
+    "sport-secondary": {
+      "$type": "color",
+      "$value": "hsl(210 70% 35%)"
+    },
+    "sport-viz-1": {
+      "$type": "color",
+      "$value": "hsl(52 90% 44%)"
+    },
+    "sport-viz-2": {
+      "$type": "color",
+      "$value": "hsl(210 70% 45%)"
+    },
+    "sport-viz-3": {
+      "$type": "color",
+      "$value": "hsl(152 50% 40%)"
+    }
+  },
+  "sport/baseball": {
+    "sport-accent": {
+      "$type": "color",
+      "$value": "hsl(0 68% 44%)"
+    },
+    "sport-accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-accent-text": {
+      "$type": "color",
+      "$value": "hsl(0 68% 40%)"
+    },
+    "sport-secondary": {
+      "$type": "color",
+      "$value": "hsl(220 45% 25%)"
+    },
+    "sport-viz-1": {
+      "$type": "color",
+      "$value": "hsl(0 68% 50%)"
+    },
+    "sport-viz-2": {
+      "$type": "color",
+      "$value": "hsl(220 45% 48%)"
+    },
+    "sport-viz-3": {
+      "$type": "color",
+      "$value": "hsl(35 80% 45%)"
+    }
+  },
+  "sport/softball_slow": {
+    "sport-accent": {
+      "$type": "color",
+      "$value": "hsl(26 80% 38%)"
+    },
+    "sport-accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-accent-text": {
+      "$type": "color",
+      "$value": "hsl(26 80% 34%)"
+    },
+    "sport-secondary": {
+      "$type": "color",
+      "$value": "hsl(45 85% 47%)"
+    },
+    "sport-viz-1": {
+      "$type": "color",
+      "$value": "hsl(26 80% 46%)"
+    },
+    "sport-viz-2": {
+      "$type": "color",
+      "$value": "hsl(45 85% 42%)"
+    },
+    "sport-viz-3": {
+      "$type": "color",
+      "$value": "hsl(135 40% 38%)"
+    }
+  },
+  "sport/softball_fast": {
+    "sport-accent": {
+      "$type": "color",
+      "$value": "hsl(330 66% 44%)"
+    },
+    "sport-accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-accent-text": {
+      "$type": "color",
+      "$value": "hsl(330 66% 38%)"
+    },
+    "sport-secondary": {
+      "$type": "color",
+      "$value": "hsl(240 8% 30%)"
+    },
+    "sport-viz-1": {
+      "$type": "color",
+      "$value": "hsl(330 66% 50%)"
+    },
+    "sport-viz-2": {
+      "$type": "color",
+      "$value": "hsl(240 8% 48%)"
+    },
+    "sport-viz-3": {
+      "$type": "color",
+      "$value": "hsl(200 60% 45%)"
+    }
+  },
+  "sport/pickleball": {
+    "sport-accent": {
+      "$type": "color",
+      "$value": "hsl(84 58% 30%)"
+    },
+    "sport-accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-accent-text": {
+      "$type": "color",
+      "$value": "hsl(84 58% 26%)"
+    },
+    "sport-secondary": {
+      "$type": "color",
+      "$value": "hsl(185 55% 28%)"
+    },
+    "sport-viz-1": {
+      "$type": "color",
+      "$value": "hsl(84 58% 38%)"
+    },
+    "sport-viz-2": {
+      "$type": "color",
+      "$value": "hsl(185 55% 38%)"
+    },
+    "sport-viz-3": {
+      "$type": "color",
+      "$value": "hsl(35 85% 48%)"
+    }
+  },
+  "sport/padel": {
+    "sport-accent": {
+      "$type": "color",
+      "$value": "hsl(205 75% 40%)"
+    },
+    "sport-accent-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-accent-text": {
+      "$type": "color",
+      "$value": "hsl(205 75% 34%)"
+    },
+    "sport-secondary": {
+      "$type": "color",
+      "$value": "hsl(35 35% 62%)"
+    },
+    "sport-viz-1": {
+      "$type": "color",
+      "$value": "hsl(205 75% 46%)"
+    },
+    "sport-viz-2": {
+      "$type": "color",
+      "$value": "hsl(35 45% 48%)"
+    },
+    "sport-viz-3": {
+      "$type": "color",
+      "$value": "hsl(168 45% 38%)"
+    }
+  },
+  "sport-accents": {
+    "sport-golf": {
+      "$type": "color",
+      "$value": "hsl(142 64% 30%)"
+    },
+    "sport-golf-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-tennis": {
+      "$type": "color",
+      "$value": "hsl(52 96% 54%)"
+    },
+    "sport-tennis-foreground": {
+      "$type": "color",
+      "$value": "hsl(52 95% 12%)"
+    },
+    "sport-pickleball": {
+      "$type": "color",
+      "$value": "hsl(84 58% 30%)"
+    },
+    "sport-pickleball-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-padel": {
+      "$type": "color",
+      "$value": "hsl(205 75% 40%)"
+    },
+    "sport-padel-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-baseball": {
+      "$type": "color",
+      "$value": "hsl(0 68% 44%)"
+    },
+    "sport-baseball-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-softball-slow": {
+      "$type": "color",
+      "$value": "hsl(26 80% 38%)"
+    },
+    "sport-softball-slow-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    },
+    "sport-softball-fast": {
+      "$type": "color",
+      "$value": "hsl(330 66% 44%)"
+    },
+    "sport-softball-fast-foreground": {
+      "$type": "color",
+      "$value": "hsl(0 0% 100%)"
+    }
+  },
+  "$themes": [
+    {
+      "id": "standard",
+      "name": "standard",
+      "group": "theme",
+      "selectedTokenSets": {
+        "primitives": "source",
+        "sport-accents": "source",
+        "sport/golf": "source",
+        "sport/tennis": "source",
+        "sport/baseball": "source",
+        "sport/softball_slow": "source",
+        "sport/softball_fast": "source",
+        "sport/pickleball": "source",
+        "sport/padel": "source",
+        "theme/standard": "enabled"
+      }
+    },
+    {
+      "id": "dark-performance",
+      "name": "dark-performance",
+      "group": "theme",
+      "selectedTokenSets": {
+        "primitives": "source",
+        "sport-accents": "source",
+        "sport/golf": "source",
+        "sport/tennis": "source",
+        "sport/baseball": "source",
+        "sport/softball_slow": "source",
+        "sport/softball_fast": "source",
+        "sport/pickleball": "source",
+        "sport/padel": "source",
+        "theme/dark-performance": "enabled"
+      }
+    },
+    {
+      "id": "coach-mode",
+      "name": "coach-mode",
+      "group": "theme",
+      "selectedTokenSets": {
+        "primitives": "source",
+        "sport-accents": "source",
+        "sport/golf": "source",
+        "sport/tennis": "source",
+        "sport/baseball": "source",
+        "sport/softball_slow": "source",
+        "sport/softball_fast": "source",
+        "sport/pickleball": "source",
+        "sport/padel": "source",
+        "theme/coach-mode": "enabled"
+      }
+    },
+    {
+      "id": "coach-night",
+      "name": "coach-night",
+      "group": "theme",
+      "selectedTokenSets": {
+        "primitives": "source",
+        "sport-accents": "source",
+        "sport/golf": "source",
+        "sport/tennis": "source",
+        "sport/baseball": "source",
+        "sport/softball_slow": "source",
+        "sport/softball_fast": "source",
+        "sport/pickleball": "source",
+        "sport/padel": "source",
+        "theme/coach-night": "enabled"
+      }
+    },
+    {
+      "id": "heritage-club",
+      "name": "heritage-club",
+      "group": "theme",
+      "selectedTokenSets": {
+        "primitives": "source",
+        "sport-accents": "source",
+        "sport/golf": "source",
+        "sport/tennis": "source",
+        "sport/baseball": "source",
+        "sport/softball_slow": "source",
+        "sport/softball_fast": "source",
+        "sport/pickleball": "source",
+        "sport/padel": "source",
+        "theme/heritage-club": "enabled"
+      }
+    },
+    {
+      "id": "field-court",
+      "name": "field-court",
+      "group": "theme",
+      "selectedTokenSets": {
+        "primitives": "source",
+        "sport-accents": "source",
+        "sport/golf": "source",
+        "sport/tennis": "source",
+        "sport/baseball": "source",
+        "sport/softball_slow": "source",
+        "sport/softball_fast": "source",
+        "sport/pickleball": "source",
+        "sport/padel": "source",
+        "theme/field-court": "enabled"
+      }
+    },
+    {
+      "id": "arcade-practice",
+      "name": "arcade-practice",
+      "group": "theme",
+      "selectedTokenSets": {
+        "primitives": "source",
+        "sport-accents": "source",
+        "sport/golf": "source",
+        "sport/tennis": "source",
+        "sport/baseball": "source",
+        "sport/softball_slow": "source",
+        "sport/softball_fast": "source",
+        "sport/pickleball": "source",
+        "sport/padel": "source",
+        "theme/arcade-practice": "enabled"
+      }
+    },
+    {
+      "id": "bird-print",
+      "name": "bird-print",
+      "group": "theme",
+      "selectedTokenSets": {
+        "primitives": "source",
+        "sport-accents": "source",
+        "sport/golf": "source",
+        "sport/tennis": "source",
+        "sport/baseball": "source",
+        "sport/softball_slow": "source",
+        "sport/softball_fast": "source",
+        "sport/pickleball": "source",
+        "sport/padel": "source",
+        "theme/bird-print": "enabled"
+      }
+    },
+    {
+      "id": "christmas-swing-lab",
+      "name": "christmas-swing-lab",
+      "group": "theme",
+      "selectedTokenSets": {
+        "primitives": "source",
+        "sport-accents": "source",
+        "sport/golf": "source",
+        "sport/tennis": "source",
+        "sport/baseball": "source",
+        "sport/softball_slow": "source",
+        "sport/softball_fast": "source",
+        "sport/pickleball": "source",
+        "sport/padel": "source",
+        "theme/christmas-swing-lab": "enabled"
+      }
+    }
+  ],
+  "$metadata": {
+    "tokenSetOrder": [
+      "primitives",
+      "sport-accents",
+      "theme/standard",
+      "theme/dark-performance",
+      "theme/coach-mode",
+      "theme/coach-night",
+      "theme/heritage-club",
+      "theme/field-court",
+      "theme/arcade-practice",
+      "theme/bird-print",
+      "theme/christmas-swing-lab",
+      "sport/golf",
+      "sport/tennis",
+      "sport/baseball",
+      "sport/softball_slow",
+      "sport/softball_fast",
+      "sport/pickleball",
+      "sport/padel"
+    ],
+    "generatedBy": "scripts/design-tokens/build-tokens.mjs",
+    "source": "apps/web/src/app/globals.css"
+  }
+}

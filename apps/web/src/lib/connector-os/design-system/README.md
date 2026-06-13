@@ -9,9 +9,14 @@ This layer **hardens and documents** that system; it does **not** introduce a ne
 
 - **Figma = design source of truth.** Components/tokens are designed in Figma (paid),
   optionally via the Figma MCP, and flow into code — never the reverse.
-- **Tokens Studio = token interchange.** When adopted, tokens export from Figma →
-  JSON → mapped to the Tailwind theme / CSS variables. Keep it simple: one flat token
-  schema (color, space, radius, type, motion), not a labyrinth.
+- **Tokens Studio = token interchange.** Implemented: `globals.css` (source of
+  truth) is extracted to a Tokens-Studio / W3C-DTCG file at
+  [`tokens/swingvantage.tokens.json`](./tokens/swingvantage.tokens.json) via
+  `npm run tokens:build`, with `npm run tokens:check` guarding drift. Import that
+  file into the Figma Tokens Studio plugin to seed/sync variables. Full pipeline
+  + round-trip steps: [`docs/design-tokens.md`](../../../../../../docs/design-tokens.md).
+  Keep it simple: one flat token schema (color, radius, type), not a labyrinth —
+  gradients/shadows/motion stay code-only.
 
 ## Token schema (initial)
 
