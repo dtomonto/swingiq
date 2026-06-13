@@ -13,7 +13,7 @@ export const ANALYSIS_FEATURES: Feature[] = [
     group: 'Swing Diagnosis',
     sports: 'All 7 sports',
     summary:
-      'A rules-based engine compares your data against sport-specific benchmarks and identifies your highest-priority swing fault — ranked by severity, confidence, and impact on performance.',
+      'SwingVantage compares your data against sport-specific benchmarks and identifies your highest-priority swing fault — ranked by severity, confidence, and impact on performance.',
     note: 'Each finding includes the evidence used to reach the conclusion, likely causes, and what to expect if the issue is corrected.',
     overview: [
       'The Diagnostic Engine is the brain of SwingVantage. Instead of dumping a wall of numbers on you, it reads your shot data, video, or logged session and answers the only question that matters for getting better: "What is the one thing holding me back right now, and what do I do about it?"',

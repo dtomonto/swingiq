@@ -335,7 +335,7 @@ SwingVantage tracks these relationships across your sessions and flags when your
     slug: 'how-ai-swing-analysis-works',
     title: 'How AI Swing Analysis Works (And What It Can and Cannot Do)',
     metaTitle: 'How AI Swing Analysis Works | SwingVantage',
-    metaDescription: 'Learn how AI swing analysis actually works — what heuristic diagnostic engines do, what data they analyze, their real limitations vs professional coaching, and how to use them effectively.',
+    metaDescription: 'Learn how AI swing analysis actually works — what it does, what data it analyzes, its real limitations vs professional coaching, and how to use it effectively.',
     publishDate: '2026-04-05',
     displayDate: 'April 5, 2026',
     sport: 'all',
@@ -344,21 +344,21 @@ SwingVantage tracks these relationships across your sessions and flags when your
     excerpt: 'AI swing analysis is a useful tool — but it is not magic. Here is an honest look at what it can do, what it cannot do, and how to get the most out of it.',
     tags: ['ai analysis', 'how it works', 'coaching', 'swing diagnosis', 'technology'],
     relatedSlugs: ['practice-schedule-for-golfers', 'how-to-read-launch-monitor-data'],
-    content: `## What Heuristic Diagnostic Engines Do
+    content: `## What AI Swing Analysis Actually Does
 
 The term "AI swing analysis" covers a range of different technologies with very different capabilities. It is worth understanding what the technology actually does before trusting its outputs.
 
-SwingVantage uses a **heuristic diagnostic engine** — a rules-based system that compares your data against a set of biomechanically-informed benchmarks. When your launch angle is outside the optimal range, when your face-to-path gap exceeds a threshold, when your bat speed is below average for your level, the engine flags these as potential issues and ranks them by severity.
+SwingVantage compares your data against biomechanically-informed benchmarks tuned to your sport and skill level. When a metric falls outside the optimal range for your level, it flags it as a potential issue and ranks the issues by severity — so you always know the single most important thing to work on first.
 
-This is different from pure machine learning or computer vision. The engine does not learn from every user. It applies a defined set of rules — developed based on coaching principles and research — to your specific data.
+The result is consistent and explainable: the same inputs always produce the same read, every finding is tied to the data behind it, and it's grounded in established coaching principles rather than a black box.
 
 ## What Data Gets Analyzed
 
-For golf, the primary inputs are launch monitor metrics: ball speed, club head speed, launch angle, spin rate, club path, face angle, attack angle, smash factor, and carry distance. The engine compares each metric to a benchmark adjusted for club type and skill level, then identifies which metric is furthest outside the acceptable range and most likely to explain your misses.
+For golf, the primary inputs are launch monitor metrics: ball speed, club head speed, launch angle, spin rate, club path, face angle, attack angle, smash factor, and carry distance. Each is compared to a benchmark adjusted for club type and skill level to surface the issue most likely to explain your misses.
 
 For baseball and softball, the primary inputs are exit velocity, launch angle, bat speed, and attack angle — data that comes from devices like HitTrax, Rapsodo, and Blast Motion.
 
-For video analysis, SwingVantage extracts key frames from your swing and sends them to an AI vision model that examines the actual footage — your setup, body positions, and movement through address, the top of the backswing, and impact. Rather than reducing the swing to estimated joint angles, it reads what is visible in the video itself. It still isn't a substitute for a dedicated tracking device, so treat its feedback as informed coaching observations rather than precise measurements.
+For video analysis, SwingVantage uses computer vision to read your actual footage — your setup, body positions, and movement through address, the top of the backswing, and impact — instead of guessing from a flat outline. It still isn't a substitute for a dedicated tracking device, so treat its feedback as informed coaching observations rather than precise measurements.
 
 ## Real Limitations vs. Professional Coaching
 
