@@ -3,6 +3,7 @@
 import { Users } from 'lucide-react';
 import { FriendsView } from '@/components/friends/FriendsView';
 import { MyHandleCard } from '@/components/friends/MyHandleCard';
+import { UploadForFriendPicker } from '@/components/upload/UploadForFriendPicker';
 
 export default function FriendsPage() {
   return (
@@ -18,6 +19,7 @@ export default function FriendsPage() {
         </p>
       </div>
       <MyHandleCard />
+      <UploadForFriendPicker />
       <FriendsView />
     </div>
   );

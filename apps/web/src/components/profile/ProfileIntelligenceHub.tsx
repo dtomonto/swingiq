@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import { usePlayerProfileIntelligence } from '@/lib/player-profile/usePlayerProfileIntelligence';
+import { SkillTreeGrid } from '@/components/skill-tree/SkillTreeGrid';
 
 const severityVariant = (s: string): 'critical' | 'high' | 'medium' | 'default' =>
   s === 'critical' ? 'critical' : s === 'high' ? 'high' : s === 'medium' ? 'medium' : 'default';
@@ -118,21 +119,19 @@ export function ProfileIntelligenceHub({ sport }: { sport: SportId }) {
               <Button size="sm">{intel.recommendedNextStep.label}</Button>
             </a>
           )}
-          {(intel.recurringPatterns.length > 0 || intel.archetype?.evidence.length) && (
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => setShowDetail((v) => !v)}
-              aria-expanded={showDetail}
-            >
-              <ChevronDown
-                size={14}
-                className={`transition-transform ${showDetail ? 'rotate-180' : ''}`}
-                aria-hidden="true"
-              />
-              {showDetail ? 'Hide details' : 'Why this?'}
-            </Button>
-          )}
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => setShowDetail((v) => !v)}
+            aria-expanded={showDetail}
+          >
+            <ChevronDown
+              size={14}
+              className={`transition-transform ${showDetail ? 'rotate-180' : ''}`}
+              aria-hidden="true"
+            />
+            {showDetail ? 'Hide details' : 'Skill tree & why this'}
+          </Button>
         </div>
 
         {/* Progressive-disclosure detail */}
@@ -160,6 +159,10 @@ export function ProfileIntelligenceHub({ sport }: { sport: SportId }) {
                 </ul>
               </div>
             )}
+            <div>
+              <p className="mb-2 text-xs font-semibold text-muted-foreground">Skill tree</p>
+              <SkillTreeGrid sport={sport} />
+            </div>
           </div>
         )}
       </CardBody>
