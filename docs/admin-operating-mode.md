@@ -69,8 +69,10 @@ appears — adjustable live from `/admin/operating-mode` with **no redeploy**.
 
 - **Master switch** turns every invitation off at once.
 - **Per-slot controls**: enable/disable, target tier, and an optional gentle
-  headline. Registered slots: `post-diagnosis`, `dashboard`, `pricing`,
-  `todays-tasks` (mounted at the high-conversion, value-already-delivered moments).
+  headline. Registered slots: `post-diagnosis` (on by default), `dashboard`,
+  `pricing`, `todays-tasks` (all mounted at high-conversion, value-already-
+  delivered moments; the static/snapshotted surfaces default off — enable any
+  with one click).
 - **Zero-pressure by design**: the `<TierInvite>` card is informational, fully
   dismissible (remembers the dismissal), and only ever shows for a tier still on
   the **waitlist** — there is nothing to "upgrade" to, no urgency, scarcity, or

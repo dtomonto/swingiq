@@ -69,13 +69,16 @@ export interface PlacementState {
   source: 'upstash' | 'memory';
 }
 
-// Conservative, calm defaults: on at the two clearest earned moments; the rest
-// available but off until an admin opts in.
+// Conservative, calm defaults: on at the clearest earned moment (right after a
+// diagnosis result). The static marketing/dashboard surfaces are registered but
+// default OFF — flip them on from the admin tool whenever you like. (Pricing is
+// a visual-regression-snapshotted page, so it stays off by default to keep that
+// baseline stable; one click in the admin turns it on.)
 function defaultSlots(): Record<PlacementSlotId, PlacementSetting> {
   return {
     'post-diagnosis': { enabled: true, tier: 'AI_SWING_REPORT', headline: null },
     dashboard: { enabled: false, tier: 'AI_SWING_REPORT', headline: null },
-    pricing: { enabled: true, tier: 'PREMIUM_RETEST_PLAN', headline: null },
+    pricing: { enabled: false, tier: 'PREMIUM_RETEST_PLAN', headline: null },
     'todays-tasks': { enabled: false, tier: 'AI_SWING_REPORT', headline: null },
   };
 }

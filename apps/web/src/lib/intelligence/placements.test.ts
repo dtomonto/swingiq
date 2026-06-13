@@ -17,7 +17,8 @@ describe('defaults', () => {
     const s = await getPlacementState();
     expect(s.invitationsEnabled).toBe(true);
     expect(s.slots['post-diagnosis'].enabled).toBe(true);
-    expect(s.slots.pricing.enabled).toBe(true);
+    // Static/snapshotted surfaces default off — admin opts in.
+    expect(s.slots.pricing.enabled).toBe(false);
     expect(s.slots.dashboard.enabled).toBe(false);
     expect(s.slots['todays-tasks'].enabled).toBe(false);
   });
@@ -55,8 +56,8 @@ describe('patch round-trip', () => {
     expect(s.slots.dashboard.enabled).toBe(true);
     expect(s.slots.dashboard.tier).toBe('PREMIUM_RETEST_PLAN');
     expect(s.lastChangedBy).toBe('owner@x.com');
-    // Untouched slots preserved.
-    expect(s.slots.pricing.enabled).toBe(true);
+    // Untouched slots preserved (post-diagnosis stays on by default).
+    expect(s.slots['post-diagnosis'].enabled).toBe(true);
 
     await setPlacementState({ invitationsEnabled: false });
     s = await getPlacementState();
