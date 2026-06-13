@@ -12,12 +12,19 @@
 // ============================================================
 
 import { useMemo, useState } from 'react';
-import { Sparkles, Plus, RefreshCw, X, AlertTriangle } from 'lucide-react';
+import { Sparkles, Plus, RefreshCw, X, AlertTriangle, Undo2, Check } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { useSwingVantageStore } from '@/store';
 import { detectBagFromSessions, reconcileBag, type DetectedClub, type DetectionConfidence } from '@/lib/equipment/bag-detection';
+import type { LocalClub } from '@/store/types';
+
+/** Carry-baseline fields we snapshot so an applied update can be reverted exactly. */
+type CarrySnapshot = Pick<
+  LocalClub,
+  'typical_carry' | 'imported_carry_avg' | 'imported_shot_count' | 'source_of_truth'
+>;
 
 const CONF_BADGE: Record<DetectionConfidence, { variant: 'success' | 'warning' | 'default'; label: string }> = {
   high: { variant: 'success', label: 'High confidence' },
@@ -29,7 +36,9 @@ export function BagAutoDetectCard() {
   const { clubs, sessions, addClub, updateClub } = useSwingVantageStore();
   const [dismissed, setDismissed] = useState(false);
   const [addedNames, setAddedNames] = useState<Set<string>>(new Set());
-  const [updatedIds, setUpdatedIds] = useState<Set<string>>(new Set());
+  // Clubs whose baseline we've applied this session → snapshot of their prior
+  // carry values, so a single tap can revert the change exactly.
+  const [undoSnapshots, setUndoSnapshots] = useState<Map<string, CarrySnapshot>>(new Map());
 
   const golfSessions = useMemo(
     () => sessions.filter((s) => (s.sport === 'golf' || !s.sport) && s.shots.length > 0),
@@ -39,9 +48,17 @@ export function BagAutoDetectCard() {
   const { newClubs, baselineUpdates } = useMemo(() => reconcileBag(clubs, detected), [clubs, detected]);
 
   const visibleNew = newClubs.filter((c) => !addedNames.has(c.name));
-  const visibleUpdates = baselineUpdates.filter((u) => !updatedIds.has(u.clubId));
+  // Still-pending updates (applied ones drop out of reconcileBag once the carry
+  // matches, but filter defensively too).
+  const visibleUpdates = baselineUpdates.filter((u) => !undoSnapshots.has(u.clubId));
+  // Updates we've applied this session — kept on screen so they can be undone.
+  const appliedUpdates = clubs.filter((c) => undoSnapshots.has(c.id));
 
-  if (dismissed || golfSessions.length === 0 || (visibleNew.length === 0 && visibleUpdates.length === 0)) {
+  if (
+    dismissed ||
+    golfSessions.length === 0 ||
+    (visibleNew.length === 0 && visibleUpdates.length === 0 && appliedUpdates.length === 0)
+  ) {
     return null;
   }
 
@@ -68,13 +85,33 @@ export function BagAutoDetectCard() {
   const addAll = () => visibleNew.forEach(addClubFrom);
 
   const applyUpdate = (clubId: string, importedCarry: number, shotCount: number) => {
+    const club = clubs.find((c) => c.id === clubId);
+    if (!club) return;
+    // Snapshot the prior carry baseline so the change can be reverted exactly.
+    const snapshot: CarrySnapshot = {
+      typical_carry: club.typical_carry,
+      imported_carry_avg: club.imported_carry_avg ?? null,
+      imported_shot_count: club.imported_shot_count,
+      source_of_truth: club.source_of_truth,
+    };
     updateClub(clubId, {
       typical_carry: importedCarry,
       imported_carry_avg: importedCarry,
       imported_shot_count: shotCount,
       source_of_truth: 'imported',
     });
-    setUpdatedIds((prev) => new Set(prev).add(clubId));
+    setUndoSnapshots((prev) => new Map(prev).set(clubId, snapshot));
+  };
+
+  const undoUpdate = (clubId: string) => {
+    const snapshot = undoSnapshots.get(clubId);
+    if (!snapshot) return;
+    updateClub(clubId, snapshot);
+    setUndoSnapshots((prev) => {
+      const next = new Map(prev);
+      next.delete(clubId);
+      return next;
+    });
   };
 
   return (
@@ -152,6 +189,37 @@ export function BagAutoDetectCard() {
                   </Button>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Applied updates — confirm + offer a one-tap revert */}
+        {appliedUpdates.length > 0 && (
+          <div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Updated this session ({appliedUpdates.length})
+            </p>
+            <div className="space-y-2">
+              {appliedUpdates.map((c) => {
+                const prev = undoSnapshots.get(c.id);
+                return (
+                  <div key={c.id} className="flex items-center gap-3 rounded-lg border border-success/30 bg-success/5 p-2.5">
+                    <Check size={15} className="shrink-0 text-success" aria-hidden="true" />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-semibold text-foreground">{c.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        Carry set to <span className="font-medium text-foreground">{c.typical_carry}</span> yds
+                        {prev && prev.typical_carry !== null && prev.typical_carry !== undefined && (
+                          <> · was <span className="font-medium">{prev.typical_carry}</span> yds</>
+                        )}
+                      </p>
+                    </div>
+                    <Button size="sm" variant="ghost" onClick={() => undoUpdate(c.id)} className="shrink-0">
+                      <Undo2 size={13} /> Undo
+                    </Button>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
