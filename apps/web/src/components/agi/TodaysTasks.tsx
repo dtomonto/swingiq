@@ -14,6 +14,7 @@
 import Link from 'next/link';
 import { CheckCircle2, Circle, ListChecks } from 'lucide-react';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
+import { TierInvite } from '@/components/intelligence/TierInvite';
 import { useTodayTasks } from '@/lib/agi/useTodayTasks';
 
 export function TodaysTasks() {
@@ -100,6 +101,9 @@ export function TodaysTasks() {
             Open practice
           </Link>
         </div>
+
+        {/* Calm, admin-controlled early-access invitation (renders only when enabled). */}
+        <TierInvite slot="todays-tasks" />
       </CardBody>
     </Card>
   );

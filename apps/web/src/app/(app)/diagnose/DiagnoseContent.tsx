@@ -43,6 +43,7 @@ import { BeforeAfter } from '@/components/ui/BeforeAfter';
 import { ProgressTimeline } from '@/components/ui/ProgressTimeline';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
+import { TierInvite } from '@/components/intelligence/TierInvite';
 import { useDesignV2 } from '@/lib/design-v2-client';
 
 // ── Diagnosis card ───────────────────────────────────────────
@@ -618,6 +619,9 @@ export function DiagnoseContent() {
           </Link>
         </div>
       </div>
+
+      {/* Calm, admin-controlled early-access invitation (renders only when enabled). */}
+      <TierInvite slot="post-diagnosis" />
 
       {/* How this diagnosis was produced */}
       <AnalysisTransparency

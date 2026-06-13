@@ -36,6 +36,7 @@ import { NextBadgeNudge } from '@/components/community/NextBadgeNudge';
 import { DailyNotePrompt } from '@/components/dashboard/DailyNotePrompt';
 import { GrowthAgentsPanel } from '@/components/growth';
 import { SecondaryPanels } from '@/components/dashboard/SecondaryPanels';
+import { TierInvite } from '@/components/intelligence/TierInvite';
 import { PriorityPanel } from '@/components/dashboard/PriorityPanel';
 import { DashboardCuratedDrills } from '@/components/coach-mix/DashboardCuratedDrills';
 import { runDiagnosticEngine, computeSwingScores, predictFromDiagnosis, analyzeClubGaps, getRoutineForDiagnosis, type DiagnosisCategory } from '@swingiq/core';
@@ -308,6 +309,9 @@ export function DashboardContent({ children }: { children?: ReactNode }) {
         {/* Growth agents: churn-aware next step + activation progress + earn-moments */}
         <GrowthAgentsPanel />
       </SecondaryPanels>
+
+      {/* Calm, admin-controlled early-access invitation (renders only when enabled). */}
+      <TierInvite slot="dashboard" />
 
       {/* Practice reminder */}
       {practiceReminder !== null && (
