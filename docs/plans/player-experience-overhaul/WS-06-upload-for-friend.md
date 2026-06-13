@@ -16,16 +16,22 @@
 - Explicit pathspec commits; never `git add -A`/`--force`/`--no-verify`. `Co-Authored-By` trailer.
 - Add `Update:` (athlete-facing). Verify: `cd apps/web && npx tsc --noEmit && npx eslint . && npx jest upload-for-friend --runInBand --cacheDirectory ./.jest-cache-uff`.
 
-## What already exists (AUDIT FIRST)
-Inspect the current upload/recording flow before changing it (the exploration of these paths is
-in this plan's working notes; confirm in code):
-- Upload/record UI: `apps/web/src/components/video/`, `apps/web/src/components/record-assist/`,
-  and the upload route under `apps/web/src/app/(app)/` (e.g. an upload/analyze page).
-- Session/video creation + types: `apps/web/src/store/slices/{sessions,video}.ts`,
-  `apps/web/src/store/types.ts` (`LocalSession`, `LocalVideoAnalysis`), DB rows `sessions` /
-  `video_analyses` in `apps/web/src/lib/supabase.ts`, mapping in `apps/web/src/lib/db/projection.ts`.
-- Server upload/analysis route handlers under `apps/web/src/app/api/` (find where a session/video
-  record is created server-side).
+## What already exists (AUDIT FIRST — verified paths)
+The canonical swing-analysis/upload tool is **Motion Lab** (the old `/video` route is retired and
+`permanentRedirect`s to `/motion-lab`). Inspect before changing:
+- Upload/record UI: route `apps/web/src/app/(app)/motion-lab/page.tsx`; components in
+  `apps/web/src/components/motion-lab/` — notably `MotionLabWizard.tsx`, `MotionRecorder.tsx`,
+  `MotionLabGate.tsx`, `VideoTrimmer.tsx`. (Legacy `apps/web/src/components/video/VideoUpload.tsx`
+  + `apps/web/src/components/record-assist/` still exist but are dormant.)
+- **Analysis API (mirror its security pattern):** `apps/web/src/app/api/video-analysis/route.ts`
+  already derives `user_id` server-side from `getAuthenticatedUser()` and **explicitly refuses a
+  client-supplied `user_id` to prevent IDOR** (see its comment at the top of the handler). Your
+  `assignToFriendUserId` resolution MUST follow this exact precedent.
+- Session/video persistence: store slice `apps/web/src/store/slices/video.ts` (`addVideoAnalysis`),
+  also called from `apps/web/src/lib/video/profile-sync.ts`; `apps/web/src/store/slices/sessions.ts`;
+  types in `apps/web/src/store/types.ts` (`LocalSession`, `LocalVideoAnalysis`); DB rows
+  `sessions` / `video_analyses` in `apps/web/src/lib/supabase.ts`; cloud sync in
+  `apps/web/src/lib/db/cloud-repo.ts`; mapping in `apps/web/src/lib/db/projection.ts`.
 **Backward compatibility is mandatory** — the default "upload for me" path must behave exactly as
 today. `athlete_user_id` defaults to the legacy `user_id`.
 
@@ -48,15 +54,18 @@ accepted friends list AND B's permission allows upload-for-me. The session/video
   write an append-only `upload_audit_log` row, fire analytics. Idempotent + auditable.
 
 ### API (extend/guard the existing upload route handler)
-- Accept an optional `assignToFriendUserId`; server resolves via `authz.ts` from `auth.uid()`.
+- Extend `apps/web/src/app/api/video-analysis/route.ts` (or a sibling) to accept an optional
+  `assignToFriendUserId`; server resolves via `authz.ts` from `auth.uid()` — same IDOR-safe
+  pattern that route already uses for `user_id`.
 - Reject (403) if not accepted friends or permission off; (400) on self-assign mismatch.
 - Set `uploaded_by_user_id = auth.uid()`, `assigned_by_user_id = auth.uid()`,
   `athlete_user_id = verified target`, `upload_context = 'friend'`, `permission_status`, and
   `audit_metadata` (timestamp, reason, friendship id). Surface status: pending/processing/
   completed/failed.
 
-### UI (extend the upload flow)
-- "Upload for me" vs "Upload for a friend" toggle. Friend selector shows **only eligible**
+### UI (extend the Motion Lab upload flow)
+- Add the toggle to the Motion Lab wizard (`MotionLabWizard.tsx`).
+  "Upload for me" vs "Upload for a friend" toggle. Friend selector shows **only eligible**
   friends (accepted + `allow_upload_for_me`). Confirmation dialog before assigning to another
   user, clearly showing ownership/privacy. Status display (pending/processing/completed/failed).
 - Receiving friend is notified / the session surfaces in **their** Today/journey/history (WS-07).

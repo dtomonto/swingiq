@@ -22,9 +22,11 @@ The athlete journey already has skill *branches* and a SkillTree UI. Inspect bef
 - `apps/web/src/lib/athletic-journey/config/{golf,tennis,pickleball,padel}.ts` — per-sport
   branches/stages/thresholds (baseball/softball "in development").
 - `apps/web/src/components/athletic-journey/SkillTree.tsx` — existing branch UI.
-- AI routing (deterministic fallback): inspect `apps/web/src/lib/ai/` and `apps/web/src/lib/agi/`
-  for the current AI router + how the codebase degrades when AI output is unavailable. The skill
-  tree MUST work fully without AI (deterministic), and only *enrich* with AI summaries when present.
+- AI routing (deterministic fallback): the AI gateway is `apps/web/src/lib/ai/gateway.ts`
+  (`complete()`, `resolveProvider()`, `selectModel()`); higher-level intelligence in
+  `apps/web/src/lib/agi/` (`engine.ts`, `index.ts`). Study how the codebase degrades when AI is
+  unavailable/paused. The skill tree MUST work fully without AI (deterministic), and only *enrich*
+  with AI summaries when present.
 
 Decision to make in your PR: extend the journey skill-branch model into a richer node graph
 **in place**, or add `apps/web/src/lib/skill-tree/` that composes journey branch state +
