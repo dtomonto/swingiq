@@ -1048,6 +1048,45 @@ export const TECH_EDUCATION_ARTICLES: TechEducationArticle[] = [
       },
     ],
   },
+  {
+    slug: 'single-camera-swing-analysis',
+    title: 'How Single-Camera Swing Analysis Works',
+    heading: 'How Single-Camera Swing Analysis Works',
+    description:
+      'How single-camera swing analysis works — and its honest limits. Learn what one phone camera can estimate about your motion, what it cannot measure, and why the labels matter.',
+    answerSummary:
+      'Single-camera swing analysis reads one phone video to estimate your movement and faults. Because it works from 2D video with reconstructed depth — not lab sensors — the reads are motion proxies, not precise measurements, so SwingVantage caps their confidence and labels them estimated. It reliably finds your top fix, within honest limits.',
+    breadcrumbLabel: 'Single-Camera Analysis',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'How does single-camera swing analysis work?',
+        answer:
+          'It uses pose detection on one phone video to track your body through the swing, then applies sport-specific logic to estimate movement and likely faults. Everything is inferred from that single 2D view rather than from dedicated sensors.',
+      },
+      {
+        question: 'Is one camera enough to analyze a swing?',
+        answer:
+          'For directional coaching, yes — one good clip is enough to spot the fix that helps most. For precise three-dimensional measurement it is not, which is why SwingVantage treats single-camera reads as estimates and says so plainly.',
+      },
+      {
+        question: 'Can a phone camera measure true 3D swing angles?',
+        answer:
+          'Not truly. A single camera sees 2D and reconstructs an approximation of depth, so exact 3D joint angles are estimated, not measured. SwingVantage will not present a reconstructed estimate as if it were a lab-grade sensor reading.',
+      },
+      {
+        question: 'How accurate is single-camera analysis?',
+        answer:
+          'It is reliable for identifying common patterns and your priority fix, but its confidence is deliberately capped because it is a motion proxy. Each finding carries a confidence label so you know how much weight to give it.',
+      },
+      {
+        question: 'How do I get the best single-camera results?',
+        answer:
+          'Film from a consistent angle and distance with good light and the full motion in frame. Clean, repeatable footage gives the pose detection more to work with and makes retests comparable. The filming guide covers the details.',
+      },
+    ],
+  },
 ];
 
 const BY_SLUG: Record<string, TechEducationArticle> = Object.fromEntries(
