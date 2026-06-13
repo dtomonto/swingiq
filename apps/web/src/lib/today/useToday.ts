@@ -13,6 +13,7 @@ import { useAgentInsights } from '@/hooks/useAgentInsights';
 import { usePriorityResult } from '@/lib/priority/usePriorityResult';
 import { usePlayerProfileIntelligence } from '@/lib/player-profile/usePlayerProfileIntelligence';
 import { useSkillTree } from '@/lib/skill-tree/useSkillTree';
+import { useRetests } from '@/lib/retest/useRetests';
 import { buildTodayView, deriveUserType, type TodayView } from './engine';
 
 export function useToday(sport: SportId): TodayView {
@@ -20,6 +21,7 @@ export function useToday(sport: SportId): TodayView {
   const priority = usePriorityResult();
   const profile = usePlayerProfileIntelligence(sport);
   const tree = useSkillTree(sport);
+  const retests = useRetests();
   const sessions = useSwingVantageStore((s) => s.sessions);
   const training = useSwingVantageStore((s) => s.training);
   const profileObj = useSwingVantageStore((s) => s.profile);
@@ -47,6 +49,13 @@ export function useToday(sport: SportId): TodayView {
       ? { label: 'Pick up where you left off in your active fix.', href: '/training' }
       : null;
 
+    // Real retest-due signal: the most urgent open target that is due/overdue.
+    const t = retests.topTarget;
+    const retestDue =
+      t && (t.status.status === 'due' || t.status.status === 'overdue')
+        ? { label: `${t.faultName} — ${t.status.label}`, href: '/retest' }
+        : null;
+
     const secondaryInsights = insights.slice(0, 4).map((i) => ({
       id: i.id,
       title: i.title,
@@ -65,10 +74,11 @@ export function useToday(sport: SportId): TodayView {
           }
         : null,
       criticalAlert,
+      retestDue,
       activePlan,
       dataCoverage: profile.dataCoverage,
       skillFocus,
       secondaryInsights,
     });
-  }, [sessions.length, profileObj, training.last_practice_date, training.active_diagnosis_id, priority.top, tree, nextBestAction, insights, profile.dataCoverage]);
+  }, [sessions.length, profileObj, training.last_practice_date, training.active_diagnosis_id, priority.top, tree, retests.topTarget, nextBestAction, insights, profile.dataCoverage]);
 }

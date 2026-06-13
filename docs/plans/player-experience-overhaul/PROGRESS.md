@@ -8,7 +8,7 @@ Branch: `claude/busy-pascal-5cteca` (all work pushed). Open PR: `claude/busy-pas
 
 ---
 
-## Status at a glance (10 of 13 workstreams shipped)
+## Status at a glance (11 of 13 workstreams shipped)
 
 | WS | Title | Status | Commit |
 | --- | --- | --- | --- |
@@ -20,7 +20,7 @@ Branch: `claude/busy-pascal-5cteca` (all work pushed). Open PR: `claude/busy-pas
 | WS-06 | Upload-for-friend workflow | ✅ done | `4b1c95b` |
 | WS-01 | Focused Today | ✅ done | `cb137e6` |
 | WS-02 | Dashboard player card | ✅ done | `cb137e6` |
-| WS-07 | Journey integration (capstone) | ⏳ TODO | — |
+| WS-07 | Journey integration (capstone) | ✅ done | (this branch) |
 | WS-09 | Services/components hygiene | ⏳ TODO (cross-cutting) | — |
 | WS-11 | Production-readiness audit | ⏳ TODO (cross-cutting) | — |
 | WS-12 | Acceptance-criteria QA | ⏳ TODO (closeout) | — |
@@ -106,19 +106,18 @@ mounted top of `apps/web/src/app/(app)/dashboard/page.tsx` (golf + non-golf).
 
 ## How to resume — remaining work
 
-### WS-07 — Journey integration (capstone) — next
-Goal: make the loop cohesive. Use `docs/plans/player-experience-overhaul/WS-07-journey-integration.md`.
-Concretely:
-- Surface the skill tree (`useSkillTree`) and the Today focus inside the journey page
-  (`apps/web/src/app/(app)/journey/*`) and ensure the dashboard card + Today + profile read the
-  same composed intelligence (they already do via the shared hooks).
-- Feed `regressedCategories` into `buildSkillTree` (currently honest-empty) from journey/priority
-  trends so the `regressed` node state lights up from real data.
-- Ensure friend-assigned sessions (WS-06) attribute to the **athlete's** journey/history (the row
-  is written under `athlete_user_id`/`user_id = athlete`; verify it flows into their views).
-- Fire `athlete_journey_updated`. Extend `apps/web/src/lib/athletic-journey/__tests__`.
+### WS-07 — Journey integration (capstone) — ✅ DONE
+- `apps/web/src/lib/skill-tree/regression.ts` maps the journey's regression state onto skill-tree
+  nodes; wired through `useSkillTree`, so `regressed` nodes now light up wherever the tree is
+  consumed (dashboard card, profile hub, Today skill-focus). Pure + unit-tested.
+- Today now consumes a **real retest-due** signal from `useRetests().topTarget` (`due`/`overdue`).
+- `athlete_journey_updated` fires from `AthleticJourneyDashboard` alongside stage-calc analytics.
+- Friend-assigned sessions already attribute to the athlete (row written under
+  `athlete_user_id`/`user_id = athlete`; verified in WS-06 tests).
+- Decision: did NOT add a duplicate skill-tree grid to the journey page — the journey already has
+  its branch-based `SkillTree`; integration is in the shared data layer (regression + composition).
 
-### WS-09 / WS-11 — cross-cutting (can run alongside)
+### WS-09 / WS-11 — cross-cutting (can run alongside) — next
 - WS-09: confirm no duplicated scoring/authz; shared enums imported from `lib/db/shared-enums.ts`;
   player card reused for `FriendCard` where sensible. Write `INTEGRATION-NOTES.md` here.
 - WS-11: run `npm run check:rls`, `npm run security:check`, `npm run check:honesty`; verify safe
@@ -129,10 +128,9 @@ Concretely:
 - WS-13: write `DELIVERY-REPORT.md` with real `tsc`/`eslint`/`jest`/build output.
 
 ### Known follow-ups / honest gaps
-- Skill tree currently surfaces in the **profile hub** + dashboard snapshot + Today focus; a
-  dedicated full-page skill-tree view and journey-page embed are part of WS-07.
-- `retestDue` in the Today engine is wired as an input but not yet populated from a retest source
-  (left null to avoid fabrication) — populate in WS-07 from `apps/web/src/lib/retest`.
+- Skill tree surfaces in the **profile hub** + dashboard snapshot + Today focus; regression now
+  flows from the journey. A dedicated full-page skill-tree view is a nice-to-have (not built).
+- `retestDue` in Today is now populated from `useRetests().topTarget` (due/overdue). ✓ (WS-07)
 - WS-06 UI initiates from the friends page (assign latest local analysis). Deep integration into
   the Motion Lab record flow was deliberately deferred to avoid destabilizing the 567-line wizard.
 
@@ -141,9 +139,9 @@ Concretely:
 ## One-paragraph resume prompt (paste into a new session)
 
 > Continue the SwingVantage "Player Experience Overhaul" on branch `claude/busy-pascal-5cteca`.
-> Read `docs/plans/player-experience-overhaul/PROGRESS.md` for state. Waves 1–4 (WS-08, WS-10,
-> WS-04, WS-05, WS-03, WS-06, WS-01, WS-02) are shipped, tested (62 passing), and pushed.
-> Implement **WS-07 (journey integration capstone)** next using `WS-07-journey-integration.md`,
-> composing the existing engines (no recompute, no fabrication), then do the closeouts
-> WS-09/11/12/13. Run `npm install` + `npm run build --workspace=@swingiq/core` first; verify with
-> `tsc`/`eslint`/`jest` from `apps/web`; commit with explicit pathspecs + the project trailers.
+> Read `docs/plans/player-experience-overhaul/PROGRESS.md` for state. WS-08, WS-10, WS-04, WS-05,
+> WS-03, WS-06, WS-01, WS-02, WS-07 are shipped, tested (65 passing), and pushed. Do the closeouts
+> next: **WS-09** (services/components hygiene), **WS-11** (production-readiness audit), **WS-12**
+> (acceptance QA), **WS-13** (delivery report) — see their `WS-*.md` files. Run `npm install` +
+> `npm run build --workspace=@swingiq/core` first; verify with `tsc`/`eslint`/`jest` from
+> `apps/web`; commit with explicit pathspecs + the project trailers.

@@ -285,6 +285,12 @@ export function AthleticJourneyDashboard() {
           sport: dashboard.sport, stage_code: dashboard.currentStage.code,
           confidence: dashboard.confidence, momentum_band: dashboard.momentum.band,
         });
+        // WS-07 — the athlete's journey state changed (stage/confidence). One
+        // event the whole overhaul (Today, dashboard card, profile) keys off.
+        track(ANALYTICS_EVENTS.ATHLETE_JOURNEY_UPDATED, {
+          sport: dashboard.sport, stage: dashboard.currentStage.code,
+          momentum_band: dashboard.momentum.band, confidence: dashboard.confidence,
+        });
       }
     }
   }, [calcKey, dashboard]);
