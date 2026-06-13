@@ -13,7 +13,7 @@
 // neutral style tag (e.g. "Athletic Rotation").
 // ============================================================
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Play, Bookmark, CheckCircle2, XCircle, RefreshCw, Sparkles } from 'lucide-react';
 import type { SportId } from '@swingiq/core';
 import { ANALYTICS_EVENTS } from '@swingiq/core';
@@ -86,6 +86,30 @@ function CuratedSwingDrillsInner({ sport: sportProp, faultId, faultLabel, whyItM
     const ranked = rankDrills({ sport, faultId, faultName, skillLevel });
     return buildCuratedRecommendation({ topIssue, whyItMatters }, strategy, ranked, feedbackWeights);
   }, [sport, faultId, faultName, topIssue, skillLevel, whyItMatters, strategy, feedbackWeights]);
+
+  // Feed the First-Party Intelligence OS: report each curated drill recommendation
+  // so recurring ones become reusable first-party patterns/knowledge. Fire-and-
+  // forget, deduped per (sport, issue, drill), and fully error-swallowed — it
+  // never blocks or affects what the athlete sees.
+  const observedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!rec?.firstDrill) return;
+    const sig = `${sport}|${rec.topIssue}|${rec.firstDrill.drill.id}`;
+    if (observedRef.current === sig) return;
+    observedRef.current = sig;
+    void fetch('/api/intelligence-os/observe', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        kind: 'drill',
+        intent: `${sport}: ${rec.topIssue}`,
+        recommendation: `${rec.firstDrill.drill.name} — ${rec.howItConnectsToYourGame}`,
+        sport,
+        feature: 'curated-drills',
+      }),
+      keepalive: true,
+    }).catch(() => {});
+  }, [rec, sport]);
 
   // Honest: with no diagnosis yet, show nothing rather than a placeholder fix.
   if (!rec || !rec.firstDrill) return null;

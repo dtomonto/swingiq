@@ -119,6 +119,22 @@ SwingVantage is local-first. By default, all user data is stored in the browser.
 - Privacy Policy: /privacy
 - Terms of Service: /terms
 
+## How the intelligence engine works (deterministic-first)
+
+SwingVantage's core principle is "Heuristics first. AI when needed." It leads with a deterministic, rules-based diagnostic engine: the same inputs always produce the same finding, and the reasoning is traceable. AI is used selectively — for qualitative review of a few downscaled video still-frames and for premium narrative coaching — never as the sole source of a diagnosis. Every finding carries a confidence label (calibrated by sample size and consistency) and an evidence label (measured vs. estimated). A retest loop confirms whether a fix worked before the system grows more confident.
+
+- Deterministic intelligence (how the engine works): /deterministic-intelligence
+- What is heuristic data: /resources/what-is-heuristic-data
+- AI in sports performance (what AI can and cannot do): /resources/ai-in-sports-performance
+- Accuracy & limitations (how much to trust it): /trust/accuracy-and-limitations
+- Methodology (measured vs. estimated): /methodology
+- Athlete General Intelligence (one engine across sports): /athlete-general-intelligence
+
+Authority articles:
+- What is a deterministic swing analysis engine: /blog/what-is-a-deterministic-swing-analysis-engine
+- Heuristics first, AI when needed: /blog/heuristics-first-ai-when-needed
+- Why one fix beats twenty random tips: /blog/why-one-fix-beats-twenty-tips
+
 ## Sitemap
 
 https://swingvantage.com/sitemap.xml

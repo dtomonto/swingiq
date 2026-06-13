@@ -119,6 +119,8 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/pricing', label: 'Pricing', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/parents', label: 'SwingVantage for parents', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/resources', label: 'Resources', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/resources/what-is-heuristic-data', label: 'What is heuristic data?', section: 'main', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/resources/ai-in-sports-performance', label: 'AI in sports performance', section: 'main', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/glossary', label: 'Swing & launch-monitor glossary', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/sitemap', label: 'Sitemap (this page)', section: 'main', priority: 0.3, changeFrequency: 'monthly' },
 
@@ -158,7 +160,21 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
 
   // ── Methodology / explainers ──────────────────────────────────────────
   { path: '/methodology', label: 'Our methodology (measured vs. estimated)', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/deterministic-intelligence', label: 'Deterministic intelligence (how the engine works)', section: 'methodology', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/athlete-general-intelligence', label: 'Athlete General Intelligence', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-is-heuristic-data', label: 'What is heuristic data?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/ai-in-sports-performance', label: 'What is AI in sports performance?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/heuristic-vs-ai-swing-analysis', label: 'Heuristic vs AI swing analysis', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-retesting-improves-swing-feedback', label: 'Why retesting improves swing feedback', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-swingvantage-uses-player-profiles', label: 'How SwingVantage uses player profiles', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/future-of-ai-coaching-in-recreational-sports', label: 'The future of AI coaching in recreational sports', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/is-ai-swing-analysis-accurate', label: 'Is AI swing analysis accurate?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-is-athlete-general-intelligence', label: 'What is Athlete General Intelligence?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-ai-swing-analysis-works', label: 'How AI swing analysis works', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/does-ai-replace-a-coach', label: 'Does AI replace a coach?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-to-film-your-swing', label: 'How to film your swing for AI analysis', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/measured-vs-estimated', label: 'Measured vs estimated swing data', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-to-read-your-swing-report', label: 'How to read your AI swing report', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
 
   // ── Benchmarks ────────────────────────────────────────────────────────
   { path: '/benchmarks', label: 'Benchmarks (all sports)', section: 'benchmarks', priority: 0.7, changeFrequency: 'monthly' },
@@ -179,6 +195,7 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/about', label: 'About SwingVantage', section: 'about', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/contact', label: 'Contact us', section: 'about', priority: 0.5, changeFrequency: 'monthly' },
   { path: '/trust', label: 'Trust & safety', section: 'about', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/trust/accuracy-and-limitations', label: 'Accuracy & limitations', section: 'about', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/updates', label: 'Product updates', section: 'about', priority: 0.7, changeFrequency: 'weekly' },
   { path: '/updates/milestones', label: 'Milestones', section: 'about', priority: 0.6, changeFrequency: 'weekly' },
   { path: '/dev-updates', label: 'Engineering changelog', section: 'about', priority: 0.5, changeFrequency: 'weekly' },

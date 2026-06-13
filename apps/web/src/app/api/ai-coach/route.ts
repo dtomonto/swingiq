@@ -33,7 +33,8 @@ import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
 import type { AiProviderId } from '@/lib/ai/gateway';
-import { captureAiInteraction } from '@/lib/intelligence-os/capture';
+import { captureAiInteraction, coerceSport } from '@/lib/intelligence-os/capture';
+import { resolveWithFirstPartyIntelligence } from '@/lib/intelligence-os/router';
 
 // ── Handler ───────────────────────────────────────────────────
 
@@ -118,6 +119,31 @@ export async function POST(req: NextRequest) {
       message: placeholder,
       grounding: validateGrounding(placeholder, ctx),
       aiMeta: { fallback: 'disabled' },
+    });
+  }
+
+  // ── First-party intelligence: serve before paying ─────────
+  // Consult the Intelligence OS (exact cache → approved canonical → approved
+  // knowledge) BEFORE the paid model. This is the cost-reduction payoff: a
+  // generic, repeated question can be answered from admin-approved first-party
+  // knowledge with no third-party call. Safe-by-default — a no-op until canonical
+  // answers are approved — and personalized questions are never served from
+  // shared knowledge (the router excludes them), so stat-grounded answers stay
+  // fresh. Every hit auto-writes the token-savings ledger.
+  const firstParty = await resolveWithFirstPartyIntelligence({
+    sourceSystem: 'ai-coach',
+    feature: 'ai-coach',
+    sport: coerceSport(ctx.active_sport),
+    request: ctx.user_question ?? '',
+  });
+  if (
+    firstParty.response &&
+    (firstParty.servedBy === 'canonical-answer' || firstParty.servedBy === 'knowledge' || firstParty.servedBy === 'exact-cache')
+  ) {
+    return NextResponse.json({
+      message: firstParty.response,
+      grounding: validateGrounding(firstParty.response, ctx),
+      aiMeta: { servedBy: firstParty.servedBy, firstParty: true, confidence: firstParty.confidenceScore },
     });
   }
 

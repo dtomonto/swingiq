@@ -203,9 +203,17 @@ pair. The active backend is shown honestly on the Overview page.
 
 ## Instrumented features (Phase 6)
 
-- **AI coach** (`/api/ai-coach`) — non-blocking `captureAiInteraction()` observer.
-- **Video analysis** (`/api/video-analysis`) — captures the issue→narrative
-  mapping as a reusable swing-diagnosis pattern (best-effort, non-blocking).
+- **AI coach** (`/api/ai-coach`) — **serving + capture**. Before paying the
+  model it consults the OS (`resolveWithFirstPartyIntelligence`): a generic,
+  repeated question can be answered from an admin-approved canonical/knowledge
+  answer with no third-party call (safe-by-default — a no-op until canonical
+  answers are approved; personalized questions are never served from shared
+  knowledge). On a miss it pays the model and captures the interaction.
+- **Video analysis** (`/api/video-analysis`) — **serving + capture**. Before
+  generating the AI narrative it consults the OS with the detected-issue
+  signature; a recurring fault set can be answered from an approved canonical
+  swing-diagnosis narrative with no third-party call. On a miss it generates +
+  captures the issue→narrative mapping as reusable knowledge.
 - **Agent / practice-plan enhancement** (`/api/agents/enhance`) — full
   **exact-cache short-circuit**: identical rewrites are served from the
   first-party cache (recorded as avoided AI calls) instead of paying the model.
@@ -213,18 +221,17 @@ pair. The active backend is shown honestly on the Overview page.
   recommendations to `POST /api/intelligence-os/observe`, which records them as
   zero-cost first-party events, dedupes recurring ones into pattern memories,
   and promotes generic ones to knowledge (`recordFirstPartyRecommendation`).
+- **Recruiting summary & athletic-journey narrative** (`/api/recruiting/summary`,
+  `/api/athletic-journey/narrative`) — observer logging for cost/activity
+  visibility; personalized content is not promoted to global knowledge.
 
-## Maintenance
+## Maintenance (scheduled)
 
-`POST /api/admin/intelligence-os/maintenance` (also buttons on the Settings page):
-
-- `{ action: 'retention' }` — runs the hot/warm/cold sweep (`runRetentionSweep`):
-  summarizes old high-value events (drops free-text, keeps metadata/hashes/costs)
-  after `rawEventRetentionDays`, deletes old low-value non-promoted events after
-  `lowValueArchiveDays`. Approved knowledge, canonical answers, patterns and the
-  savings ledger are always preserved; `0` disables a rule.
-- `{ action: 'backfill-embeddings' }` — embeds approved records missing a vector
-  (no-op when embeddings aren't configured).
+The daily Vercel cron `GET /api/intelligence-os/cron` (06:00 UTC) runs the full
+maintenance pass: report retention (hot→warm→cold), the AI-event retention sweep
+(`runRetentionSweep`), and embedding backfill (`backfillEmbeddings`). The same
+actions are available on demand via `POST /api/admin/intelligence-os/maintenance`
+and the Settings-page buttons.
 
 ## Step 5 — small/local model seam
 
@@ -234,9 +241,10 @@ an avoided third-party call. Wire any cheap model behind the `smallModel` seam.
 
 ## Remaining integration gaps (honest)
 
-- **Client adoption of `/observe`:** the drill/retest seam exists server-side;
-  the deterministic generators (client-side `buildPracticePlan` etc.) need a
-  one-line `fetch` to start reporting. Admin audits still call the gateway directly.
+- **Client `/observe` adoption:** the curated-drills surface
+  (`CuratedSwingDrills`) now reports each recommendation to `/observe`; other
+  deterministic surfaces (retest plans, Fix Stack) can adopt the same one-line
+  `fetch`. Admin audits still call the gateway directly.
 - **Stored embeddings** are computed on create/approve + backfilled on demand;
   there's no automatic re-embed when the provider/model changes (re-run backfill).
 - **Retention scheduling:** the sweep runs on demand (admin button/API); wire a
