@@ -10,7 +10,7 @@
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Coins, ExternalLink, CreditCard, BarChart3 } from 'lucide-react';
+import { Coins, ExternalLink, CreditCard, BarChart3, AlertTriangle } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';
@@ -85,6 +85,24 @@ export default async function AiUsagePage() {
             No AI provider is configured yet, so there are no paid calls to meter — usage will start
             appearing here automatically once you connect a provider on the{' '}
             <Link className="text-success-text hover:underline" href="/admin/integrations">Integrations</Link> page.
+          </p>
+        </div>
+      )}
+
+      {usage.enabled && usage.source === 'memory' && (
+        <div className="flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/5 p-3 text-sm text-foreground">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning-text" />
+          <p>
+            <strong className="font-medium">Usage tracking is degraded.</strong>{' '}
+            AI calls are being metered, but counts are kept in <strong className="font-medium">per-instance
+            memory</strong> because Upstash isn&apos;t configured — so figures reset on every deploy and don&apos;t
+            add up across serverless instances. That&apos;s why this dashboard can read $0.00 even while AI is
+            running, and your daily spend cap only holds per-server. Add{' '}
+            <code className="rounded bg-muted px-1 text-foreground">UPSTASH_REDIS_REST_URL</code> and{' '}
+            <code className="rounded bg-muted px-1 text-foreground">UPSTASH_REDIS_REST_TOKEN</code> (free at{' '}
+            <a className="text-success-text hover:underline" href="https://upstash.com" target="_blank" rel="noopener noreferrer">upstash.com</a>),
+            then redeploy — usage will persist fleet-wide. See the{' '}
+            <Link className="text-success-text hover:underline" href="/admin/setup">Setup</Link> page for status.
           </p>
         </div>
       )}
