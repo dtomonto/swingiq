@@ -3,11 +3,10 @@
 // ============================================================
 // ChangesScroller — the admin dashboard "What changed" ticker.
 // Merges shipped commits (committed 30-day snapshot) with admin actions
-// (local-first audit log) into one newest-first, auto-scrolling feed.
-// Entries auto-prune at 30 days (lib/admin/changes). Hydration-safe:
-// renders the stable commit feed on first paint, then folds in the
-// client-only audit entries after mount. Auto-scroll pauses on hover and
-// is disabled under prefers-reduced-motion.
+// (local-first audit log) into one newest-first feed. Entries auto-prune
+// at 30 days (lib/admin/changes). Hydration-safe: renders the stable
+// commit feed on first paint, then folds in the client-only audit entries
+// after mount. The list scrolls only on manual user input (no auto-scroll).
 // ============================================================
 
 import { useEffect, useState } from 'react';
@@ -65,9 +64,6 @@ export function ChangesScroller({ limit = 24 }: { limit?: number }) {
     );
   }
 
-  // Auto-scroll only when there are enough rows to overflow the panel.
-  const animate = feed.length > 7;
-
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
@@ -84,37 +80,17 @@ export function ChangesScroller({ limit = 24 }: { limit?: number }) {
 
       <div
         className="sv-changes-window relative h-56 overflow-hidden rounded-lg border border-border/60 bg-card/40 px-3"
-        aria-label="Recent changes ticker"
+        aria-label="Recent changes"
       >
-        <ul className={animate ? 'sv-changes-track' : 'h-full overflow-y-auto'}>
+        <ul className="h-full overflow-y-auto">
           {feed.map((e) => (
             <Row key={e.id} e={e} />
           ))}
-          {/* Duplicate once for a seamless loop while animating. */}
-          {animate &&
-            feed.map((e) => <Row key={`${e.id}-loop`} e={e} />)}
         </ul>
         {/* top/bottom fade so rows ease in/out of the window */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-card/80 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-card/80 to-transparent" />
       </div>
-
-      <style>{`
-        .sv-changes-track {
-          animation: sv-changes-scroll ${Math.max(20, feed.length * 2.2)}s linear infinite;
-        }
-        .sv-changes-window:hover .sv-changes-track {
-          animation-play-state: paused;
-        }
-        @keyframes sv-changes-scroll {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(-50%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .sv-changes-track { animation: none; }
-          .sv-changes-window { overflow-y: auto; }
-        }
-      `}</style>
     </div>
   );
 }
