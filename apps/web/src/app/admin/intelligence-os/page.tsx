@@ -143,6 +143,8 @@ export default async function IntelligenceOSPage() {
 
       <p className="text-xs text-muted-foreground">
         Generated {new Date(data.generatedAt).toLocaleString()} · data source: <strong>{data.dataSource}</strong>
+        {' · '}semantic matching: <strong>{data.similarityBackend}</strong>
+        {data.similarityBackend === 'lexical' && ' (set OPENAI_API_KEY to enable real embeddings)'}
       </p>
     </div>
   );

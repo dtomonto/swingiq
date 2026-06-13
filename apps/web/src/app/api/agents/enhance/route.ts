@@ -20,6 +20,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, rateLimitResponse } from '@/lib/rate-limit';
 import { clientIp } from '@/lib/security/client-ip';
 import { complete } from '@/lib/ai/gateway';
+import { getSettings } from '@/lib/intelligence-os/store';
+import {
+  normalizeIntelligenceRequest, findExactCacheMatch, recordTokenSavings, upsertCacheEntry,
+} from '@/lib/intelligence-os/router';
+import { captureAiInteraction } from '@/lib/intelligence-os/capture';
+import { SOURCE_SYSTEMS } from '@/lib/intelligence-os/types';
 
 const MAX_TEXT = 2000;
 
@@ -47,7 +53,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing text.' }, { status: 400 });
   }
 
-  const { text, sport } = body as { text?: unknown; sport?: unknown };
+  const { text, sport, source } = body as { text?: unknown; sport?: unknown; source?: unknown };
   if (typeof text !== 'string' || !text.trim()) {
     return NextResponse.json({ error: 'Missing text.' }, { status: 400 });
   }
@@ -55,6 +61,29 @@ export async function POST(req: NextRequest) {
   const sportLabel = typeof sport === 'string' ? sport.replace('_', ' ') : 'sport';
 
   const user = `Sport: ${sportLabel}\n\nSummary to rewrite:\n${input}`;
+
+  // ── Intelligence OS · exact-cache short-circuit ───────────────
+  // Identical (sport, summary) rewrites are served from the first-party answer
+  // cache, skipping the paid call entirely. The dominant caller is the
+  // practice/drill-plan agent flow; `source` lets callers self-label.
+  const ioSource = SOURCE_SYSTEMS.includes(source as never) ? (source as never) : 'drill-plan';
+  const ioFeature = 'agent-summary-enhance';
+  const settings = await getSettings();
+  const norm = normalizeIntelligenceRequest(
+    { sourceSystem: ioSource, feature: ioFeature, sport: typeof sport === 'string' ? (sport as never) : 'none', request: input },
+    settings,
+  );
+  const cacheHit = await findExactCacheMatch(norm);
+  if (cacheHit) {
+    void recordTokenSavings({
+      sourceFeature: ioFeature, servedBy: 'exact-cache',
+      avoidedProvider: cacheHit.providerOriginallyUsed, avoidedModel: cacheHit.modelOriginallyUsed,
+      avoidedInputTokens: Math.round(cacheHit.tokenCostOriginal * 0.6),
+      avoidedOutputTokens: Math.round(cacheHit.tokenCostOriginal * 0.4),
+      costCents: cacheHit.costCentsOriginal, relatedCacheId: cacheHit.id, dataSource: 'real',
+    });
+    return NextResponse.json({ text: cacheHit.response, cached: true });
+  }
 
   // Routed through the central AI gateway: it resolves provider/model (no more
   // hardcoded 'gpt-4o-mini'), enforces the daily budget kill-switch, meters
@@ -68,5 +97,22 @@ export async function POST(req: NextRequest) {
     spendLabel: 'agents',
   });
   if (result.fallback) return NextResponse.json({ text: input });
-  return NextResponse.json({ text: result.text.trim() || input });
+  const enhanced = result.text.trim() || input;
+
+  // Cache the rewrite for identical future requests + log the interaction
+  // (stylistic rephrase → cache the value, don't promote it to knowledge).
+  const estTokens = Math.ceil((SYSTEM_PROMPT.length + user.length + enhanced.length) / 4);
+  void upsertCacheEntry({
+    req: norm, response: enhanced, responseType: 'report-summary',
+    provider: result.provider === 'none' ? null : result.provider, model: result.model,
+    tokens: estTokens, costCents: 0, confidence: 0.7,
+  });
+  void captureAiInteraction({
+    sourceSystem: ioSource, feature: ioFeature, sport: typeof sport === 'string' ? sport : null,
+    request: input, response: enhanced,
+    provider: result.provider === 'none' ? 'none' : result.provider, model: result.model,
+    promote: false,
+  });
+
+  return NextResponse.json({ text: enhanced });
 }
