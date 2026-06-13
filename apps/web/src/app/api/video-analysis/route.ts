@@ -20,6 +20,7 @@ import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
+import { gateVideoAnalysis } from '@/lib/intelligence';
 
 interface VideoAnalysisRequest {
   video_id: string;
@@ -84,14 +85,25 @@ export async function POST(req: NextRequest) {
   // Optionally augment with AI narrative — skipped when the global daily AI
   // budget is spent (off unless AI_DAILY_BUDGET_CENTS is set) or when AI is
   // switched off for this specific account. The deterministic analysis above
-  // always runs regardless; only the paid narrative is gated.
+  // always runs regardless; only the paid narrative is gated. The final
+  // condition routes the paid narrative through the GAI Operating Mode (AI Swing
+  // Report tier), so Cost-Saving / force-heuristic / the kill switch govern it
+  // too — and only evaluates once every cheaper guard has already passed.
   const aiProvider = process.env.AI_PROVIDER;
   if (
     aiProvider &&
     (await isAiFeatureEnabled('video-analysis')) &&
     !(await isUserAiPaused(user_id)) &&
     !(await aiBudgetExceeded()) &&
-    analysis.detected_issues.length > 0
+    analysis.detected_issues.length > 0 &&
+    (
+      await gateVideoAnalysis({
+        sport: 'golf',
+        tier: 'AI_SWING_REPORT',
+        userId: authedUser?.id ?? null,
+        providerConfigured: true,
+      })
+    ).allowAI
   ) {
     try {
       const narrative = await generateAINarrative(analysis, aiProvider);

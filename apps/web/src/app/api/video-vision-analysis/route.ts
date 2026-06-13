@@ -32,6 +32,7 @@ import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
+import { gateVideoAnalysis } from '@/lib/intelligence';
 import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
 import { recordAiCall } from '@/lib/ai/ai-ops/call-log';
@@ -195,6 +196,22 @@ export async function POST(req: NextRequest) {
       },
       { status: 200 },
     );
+  }
+
+  // GAI Operating Mode gate. The platform posture (Default AI vs Cost-Saving),
+  // the force-heuristic toggle, and the kill switch are all enforced here — this
+  // expensive video route now respects the central Intelligence Router instead
+  // of bypassing it. Provider config + budget keep their own dedicated guards
+  // below; the gate governs WHETHER the paid path may run under the mode, records
+  // the decision for observability, and fails open so it can only add safety.
+  const gate = await gateVideoAnalysis({
+    sport,
+    issue: typeof body.notes === 'string' ? body.notes : undefined,
+    userId: authedUser?.id ?? null,
+    providerConfigured: true, // provider.isConfigured() verified above
+  });
+  if (!gate.allowAI) {
+    return NextResponse.json({ configured: false, message: gate.message }, { status: 200 });
   }
 
   // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set).
