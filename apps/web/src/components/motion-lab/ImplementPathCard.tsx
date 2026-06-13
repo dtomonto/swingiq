@@ -81,7 +81,7 @@ export function ImplementPathCard({ tracking, accent = '#22C55E' }: Props) {
 
         <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,200px)_1fr] gap-4 items-center">
           {/* Auto-framed arc */}
-          <div className="rounded-lg bg-[#0b1220] border border-border p-2">
+          <div className="rounded-lg bg-stage-panel border border-border p-2">
             <svg viewBox={`${vbX} ${vbY} ${vbW} ${vbH}`} className="w-full aspect-square" preserveAspectRatio="xMidYMid meet">
               {/* grip→head line at contact (the implement, at the strike) */}
               {contact && contactPoint && (
