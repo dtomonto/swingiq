@@ -148,6 +148,15 @@ export function PublicFooter({ className, locale = 'en' }: PublicFooterProps) {
               >
                 Mental Performance
               </Link>
+              {/* Crawlable link to the membership-tier comparison. Un-dicted
+                  (like Mental Performance / Sitemap) so it never gates
+                  localized-page visibility. */}
+              <Link
+                href={localizedHref('/membership', locale)}
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Membership
+              </Link>
               {/* Crawlable link to the HTML sitemap (every public page). Label is
                   intentionally un-dicted to avoid adding a shared footer key that
                   would gate localized-page visibility. */}

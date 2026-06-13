@@ -117,6 +117,7 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/features', label: 'Features', section: 'main', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/faq', label: 'Frequently asked questions', section: 'main', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/pricing', label: 'Pricing', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/membership', label: 'Membership tiers compared', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/parents', label: 'SwingVantage for parents', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/resources', label: 'Resources', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/glossary', label: 'Swing & launch-monitor glossary', section: 'main', priority: 0.7, changeFrequency: 'monthly' },

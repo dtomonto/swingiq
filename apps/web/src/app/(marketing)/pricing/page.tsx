@@ -79,7 +79,13 @@ export default function PricingPage() {
 
         <BillingPortalButton />
 
-        <p className="text-center text-sm text-muted-foreground mt-12">
+        <p className="text-center text-sm mt-10">
+          <Link href="/membership" className="text-primary font-semibold hover:underline">
+            Compare tiers in detail — the intelligence difference &amp; reasons to upgrade →
+          </Link>
+        </p>
+
+        <p className="text-center text-sm text-muted-foreground mt-6">
           Have questions? Contact us at{' '}
           <a href={`mailto:${siteConfig.contactEmail}`} className="text-primary font-semibold hover:underline">
             {siteConfig.contactEmail}

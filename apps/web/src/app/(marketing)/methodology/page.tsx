@@ -176,6 +176,22 @@ export default function MethodologyPage() {
           </p>
         </Section>
 
+        <Section id="tiers" title="How membership tiers affect your results">
+          <p>
+            They don&apos;t change the truth. Every membership tier — Free, Pro and Team — runs the{' '}
+            <strong>same</strong> analysis and the same honest labelling: each result is marked measured or
+            estimated with a confidence level, and SwingVantage never shows false precision on any plan.
+          </p>
+          <p>
+            What paid tiers add is <strong>depth</strong> (unlimited narrative coaching), <strong>memory</strong>{' '}
+            (cloud sync so your intelligence compounds across sessions and devices), and more ways to feed in{' '}
+            <strong>measured</strong> data (e.g. extracting launch-monitor numbers from a screenshot), which is
+            exactly what raises confidence. See the{' '}
+            <Link href="/membership" className="text-primary hover:underline">membership tiers compared</Link>{' '}
+            for the full breakdown and the intelligence difference between them.
+          </p>
+        </Section>
+
         <Section id="retesting" title="How retesting works">
           <p>
             Improvement is shown conservatively. After you set a baseline and practise, SwingVantage prompts a
@@ -216,6 +232,8 @@ export default function MethodologyPage() {
         <nav aria-label="Related" className="mt-8 border-t border-border pt-5 text-sm">
           <span className="font-semibold text-foreground">Related: </span>
           <Link href="/athlete-general-intelligence" className="text-primary hover:underline">Athlete General Intelligence</Link>
+          <span className="text-muted-foreground"> · </span>
+          <Link href="/membership" className="text-primary hover:underline">Membership Tiers</Link>
           <span className="text-muted-foreground"> · </span>
           <Link href="/trust" className="text-primary hover:underline">Trust &amp; Safety</Link>
           <span className="text-muted-foreground"> · </span>
