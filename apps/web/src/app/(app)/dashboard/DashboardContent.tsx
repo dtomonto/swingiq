@@ -46,6 +46,7 @@ import { useSport } from '@/contexts/SportContext';
 import { useDesignV2 } from '@/lib/design-v2-client';
 import { DashboardNextAction } from '@/components/dashboard/DashboardNextAction';
 import { DeterministicWhyPanel } from '@/components/report/DeterministicWhyPanel';
+import { DeterministicPlanCard } from '@/components/report/DeterministicPlanCard';
 import { analyzeDeterministicSession } from '@/lib/intelligence/diagnose';
 import { deriveRetestSignals } from '@/lib/intelligence/retest-feedback';
 import type { SkillLevel } from '@/lib/intelligence/diagnose-types';
@@ -312,7 +313,16 @@ export function DashboardContent({ children }: { children?: ReactNode }) {
 
       {/* Explainable read of the reported miss (collapsed). Only shows pre-
           measurement, so it complements — never contradicts — a measured diagnosis. */}
-      {deterministicRead && <DeterministicWhyPanel diagnosis={deterministicRead} />}
+      {deterministicRead && (
+        <>
+          <DeterministicWhyPanel diagnosis={deterministicRead} />
+          <DeterministicPlanCard
+            diagnosis={deterministicRead}
+            skillLevel={(profile?.skill_level ?? 'intermediate') as SkillLevel}
+            surface="dashboard"
+          />
+        </>
+      )}
 
       {/* BodySync: today's readiness + recommended session (only when enabled) */}
       <ReadinessSummaryCard />

@@ -46,7 +46,7 @@ const faqItems = [
   {
     question: 'How does the AI golf swing analysis work?',
     answer:
-      'SwingVantage uses a hybrid approach: a deterministic rules engine identifies swing faults based on proven biomechanical benchmarks, then an AI layer generates personalized drill recommendations and practice plans based on your specific pattern.',
+      'SwingVantage analyzes your data against proven biomechanical benchmarks, then generates personalized drill recommendations and practice plans based on your specific pattern and level.',
   },
   {
     question: 'What golf metrics does SwingVantage analyze?',
@@ -69,7 +69,7 @@ const faqItems = [
 // JSON-LD, so the page and structured data never drift.
 const howSteps = [
   { name: 'Upload Your Data', text: 'Import a CSV from your launch monitor, upload a screenshot, or manually enter key metrics.' },
-  { name: 'AI Diagnoses Your Faults', text: 'Our rules engine cross-references 20+ biomechanical benchmarks to identify your top swing pattern issues.' },
+  { name: 'AI Diagnoses Your Faults', text: 'Your data is compared against sport-specific biomechanical benchmarks to identify your top swing pattern issues.' },
   { name: 'Get Your Practice Plan', text: 'Receive drill recommendations, a weekly training schedule, and benchmarks to track improvement.' },
 ];
 

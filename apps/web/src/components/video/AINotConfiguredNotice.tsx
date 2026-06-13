@@ -35,10 +35,9 @@ export function AINotConfiguredNotice({
         <div className="rounded-xl bg-card border border-warning/30 p-4 text-left">
           <p className="text-xs font-semibold text-foreground mb-1">Why you&apos;re seeing this</p>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            SwingVantage only shows mechanical feedback that an AI vision model actually produced from
-            your frames. Because no AI vision provider is connected, there&apos;s nothing real to
-            show — and we won&apos;t invent it. Add an AI vision key (Anthropic, OpenAI, or Google)
-            to enable real analysis.
+            SwingVantage only shows mechanical feedback that AI vision actually produced from
+            your swing. Because AI vision isn&apos;t connected yet, there&apos;s nothing real to
+            show — and we won&apos;t invent it. Connect AI vision to enable real analysis.
           </p>
         </div>
 

@@ -18,6 +18,8 @@ import { MetricStat } from '@/components/admin/MetricStat';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { getDeterministicEngineStatus, runGoldenScenarios } from '@/lib/intelligence/coverage';
+import { TIER_OP } from '@/lib/intelligence/tiers';
+import { estimateCostCents } from '@/lib/ai-budget';
 import type { ConfidenceLabel } from '@/lib/intelligence/types';
 
 export const metadata: Metadata = {
@@ -36,6 +38,10 @@ export default function DeterministicEnginePage() {
   const status = getDeterministicEngineStatus();
   const lab = runGoldenScenarios();
   const allHealthy = status.sports.every((s) => s.healthy);
+  // Cost-savings model: every free deterministic diagnosis avoids one AI swing
+  // report call. This is a per-diagnosis MODEL (not live spend) — live counts
+  // flow to Analytics via the deterministic_* events.
+  const centsAvoidedPerDiagnosis = estimateCostCents(TIER_OP.AI_SWING_REPORT);
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-4 sm:p-6">
@@ -71,6 +77,7 @@ export default function DeterministicEnginePage() {
                 <th className="py-2 pr-3 font-medium tabular-nums">Symptoms</th>
                 <th className="py-2 pr-3 font-medium tabular-nums">Causes</th>
                 <th className="py-2 pr-3 font-medium tabular-nums">Curated faults</th>
+                <th className="py-2 pr-3 font-medium tabular-nums">Prompts</th>
                 <th className="py-2 pr-3 font-medium tabular-nums">Escalate &lt;</th>
                 <th className="py-2 font-medium">Status</th>
               </tr>
@@ -82,6 +89,7 @@ export default function DeterministicEnginePage() {
                   <td className="py-2 pr-3 tabular-nums text-muted-foreground">{s.symptomCount}</td>
                   <td className="py-2 pr-3 tabular-nums text-muted-foreground">{s.candidateFaultCount}</td>
                   <td className="py-2 pr-3 tabular-nums text-muted-foreground">{s.curatedFaultCount}</td>
+                  <td className="py-2 pr-3 tabular-nums text-muted-foreground">{s.missingDataPromptCount}</td>
                   <td className="py-2 pr-3 tabular-nums text-muted-foreground">{s.escalationThreshold}</td>
                   <td className="py-2">
                     <StatusBadge tone={s.healthy ? 'healthy' : 'warning'}>
@@ -140,6 +148,29 @@ export default function DeterministicEnginePage() {
             </li>
           ))}
         </ul>
+      </SectionCard>
+
+      {/* ── Cost savings & telemetry ─────────────────────── */}
+      <SectionCard
+        title="Cost savings & telemetry"
+        description="The deterministic engine is the token-free floor. Every free / Instant-Estimate diagnosis it serves avoids a paid AI call."
+      >
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <MetricStat
+            label="Avoided / free diagnosis"
+            value={`~${centsAvoidedPerDiagnosis}¢`}
+            hint="vs one AI swing report (model)"
+            tone="success"
+          />
+          <MetricStat label="External tokens" value="0" hint="Pure engine, no provider" tone="success" />
+          <MetricStat label="Escalation rate (golden)" value={`${Math.round((lab.escalationCount / Math.max(1, lab.total)) * 100)}%`} hint="Of scenarios" tone="muted" />
+        </div>
+        <p className="mt-3 text-xs text-muted-foreground">
+          This is a per-diagnosis <strong>model</strong>, not live spend. Live counts — most-common diagnoses,
+          escalation rate, plan generation and helpfulness — now flow to{' '}
+          <Link className="text-success-text hover:underline" href="/admin/analytics">Analytics</Link> via the{' '}
+          <code className="rounded bg-muted px-1 text-foreground">deterministic_*</code> events.
+        </p>
       </SectionCard>
 
       <HelpPanel>

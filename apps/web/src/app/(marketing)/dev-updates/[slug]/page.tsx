@@ -107,20 +107,6 @@ export default async function DevUpdateDetailPage({
             </section>
           )}
 
-          {/* ── Stack ──────────────────────────────────────────────────── */}
-          {update.stack && update.stack.length > 0 && (
-            <section>
-              <h2 className="text-xl font-bold text-foreground mb-4">Stack</h2>
-              <div className="flex flex-wrap gap-1.5">
-                {update.stack.map((tech) => (
-                  <span key={tech} className="rounded-full bg-muted px-2.5 py-0.5 font-mono text-xs text-muted-foreground">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </section>
-          )}
-
           {/* ── Testing / validation ───────────────────────────────────── */}
           {update.testing && update.testing.length > 0 && (
             <section>

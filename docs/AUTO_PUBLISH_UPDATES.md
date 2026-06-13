@@ -11,10 +11,17 @@ turns that line into a real entry automatically.**
   one athletes see). For safety they appear as a **draft** first — hidden from the
   public until you flip one switch. That stops anything embarrassing or half-baked
   from going live on its own.
-- `Dev-Update:` lines become entries on the **/dev-updates** page (the engineering
-  log) and go **live right away**, because that page is meant to be technical.
+- `Dev-Update:` lines become entries on the **/dev-updates** page. They also land
+  as a **draft** first and stay hidden until you flip them live — same safety net
+  as the product page.
 - Commits **without** one of those lines are ignored. So your normal "fix typo",
   "refactor", or "bump dependency" commits never clutter the public page.
+
+> **Both pages are public and read by competitors.** Write every `Update:` and
+> `Dev-Update:` line in plain English about *what changed and why it helps an
+> athlete* — never *how it's built*. Don't name vendors, libraries, models, infra,
+> internal codenames, file paths, or config flags. A built-in guard skips any
+> trailer that looks like it leaks one (see "Protecting proprietary detail" below).
 
 Nothing is ever pushed for you — you still push when you're ready, exactly like
 today. The entries simply ride along with your push and appear after the site
@@ -37,7 +44,7 @@ You only ever need these two:
 
 ```
 Update: You can now record your swing right inside the app.
-Dev-Update: Added in-app MediaRecorder capture with a framing overlay.
+Dev-Update: You can record a swing in-app with an on-screen guide for where to stand.
 ```
 
 A commit can have one, both, or neither. Example commit message:
@@ -48,7 +55,7 @@ feat(video): in-app swing recording
 Adds front/back camera capture with a "where to stand" overlay.
 
 Update: You can now record your swing right inside the app — no separate camera app needed.
-Dev-Update: Browser MediaRecorder capture with a framing guide, behind an opt-in flag.
+Dev-Update: In-app swing recording with a framing guide, available behind an opt-in setting.
 ```
 
 > Tip: keep each trailer on a **single line**. If you want a longer description,
@@ -93,7 +100,9 @@ so they do **not** show on the public page yet. When you're happy with the wordi
 4. Change `"visibility": "private"` → `"visibility": "public"`
 5. Commit and push. It goes live on the next deploy.
 
-(Developer `/dev-updates` entries have no draft step — they're live as soon as they deploy.)
+Developer `/dev-updates` entries work the same way — they also land as `"status": "draft"`
+and stay hidden until you flip them to `"published"` in `apps/web/src/data/auto-dev-updates.json`
+(or from `/admin/updates`).
 
 ---
 
@@ -128,7 +137,7 @@ Valid categories: `New Feature`, `Training Improvement`, `Equipment`, `Data & In
 | `Dev-Details:` | A short technical paragraph | the `Dev-Update:` line |
 | `Dev-Category:` | `AI & Vision`, `Motion Intelligence`, `Architecture`, `Platform`, `Performance`, `Design System`, `Security & Privacy`, `Developer Experience` | `Platform` |
 | `Dev-Impact:` | `major`, `notable`, or `foundational` | `notable` |
-| `Dev-Stack:` | Comma-separated tech tags, e.g. `TypeScript, Next.js` | (none) |
+| `Dev-Stack:` | **Deprecated — no longer published.** We don't list our stack on public pages, so this is ignored on the page even if set. | (none) |
 | `Dev-Highlights:` | Semicolon-separated bullet points | (none) |
 | `Dev-Milestone:` | `true` to pin it on the engineering timeline | `false` |
 
@@ -142,12 +151,15 @@ Update-Category: Training Improvement
 Update-Sport: All Sports
 Update-Where: Open Motion Lab, analyze a swing, and check the Scores tab.
 
-Dev-Update: Kinetic-chain engine times when each link peaks and flags power leaks.
+Dev-Update: You can now see how your power flows from the ground up and where it leaks.
 Dev-Category: Motion Intelligence
 Dev-Impact: major
-Dev-Stack: TypeScript, Canvas 2D, Jest
-Dev-Highlights: Depth-aware sequencing; power-leak detection; per-phase durations
+Dev-Highlights: See your power sequence from the ground up; spot where power leaks; see the timing of each phase
 ```
+
+> Notice the `Dev-Update:` line describes the *outcome* ("reads your power
+> sequence and flags leaks"), not the *implementation*. No engine names, no
+> libraries, no internal terms. That's the bar for every public line.
 
 ---
 
@@ -165,6 +177,38 @@ Dev-Highlights: Depth-aware sequencing; power-leak detection; per-phase duration
 
 ---
 
+## Protecting proprietary detail (the public-copy policy)
+
+`/updates` and `/dev-updates` are **public, search-indexed pages a competitor can
+read.** They exist to build trust by showing *what* shipped and *why it helps an
+athlete* — never *how it's built*. Two layers enforce this:
+
+1. **A leak guard in the generator** (`scripts/generate-updates.mjs`). It skips any
+   trailer whose text looks like it contains a secret, a source-file path, a
+   scratch marker, an env/config-flag name, an internal system codename, or a
+   vendor/library/infra name. The commit still lands — reword the trailer in plain
+   English and re-run `npm run updates:generate`.
+2. **A CI test for hand-written entries** (`apps/web/src/data/__tests__/devUpdates.test.ts`).
+   The curated `DEV_UPDATES` seeds in `apps/web/src/data/devUpdates.ts` don't go
+   through the generator, so this test scans every *published* entry and fails the
+   build if one names tech, internals, flags, or file paths.
+
+When you write a line, ask: *"Could a competitor copy us from this?"* If yes,
+rewrite it as a benefit. Some quick swaps:
+
+| ❌ Don't write | ✅ Write instead |
+|---|---|
+| "Pose estimation runs on-device with [library]" | "Your swing is analyzed privately, right on your device" |
+| "Cached results in [vendor] across instances" | "Faster, more reliable results" |
+| "Gated behind the `ENABLE_X` flag" | "Available as an opt-in setting" |
+| "Refactored `lib/foo/bar.ts`" | (skip it — internal refactors aren't athlete-facing) |
+
+The shared term list lives in `PROPRIETARY_TERMS` (in both
+`scripts/generate-updates.mjs` and `apps/web/src/lib/updates/dev-detail.ts`) — keep
+the two copies in sync and extend them as the stack grows.
+
+---
+
 ## Files involved
 
 | File | Role |
@@ -173,4 +217,4 @@ Dev-Highlights: Depth-aware sequencing; power-leak detection; per-phase duration
 | `scripts/hooks/post-commit` | Runs the generator after each commit |
 | `scripts/install-hooks.mjs` | One-time setup (`npm run hooks:install`) |
 | `apps/web/src/data/auto-updates.json` | Product `/updates` entries (drafts land here) |
-| `apps/web/src/data/auto-dev-updates.json` | Developer `/dev-updates` entries (live) |
+| `apps/web/src/data/auto-dev-updates.json` | Developer `/dev-updates` entries (drafts land here) |

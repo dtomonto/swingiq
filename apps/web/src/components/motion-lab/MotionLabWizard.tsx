@@ -279,7 +279,7 @@ export function MotionLabWizard() {
             <div className="text-center max-w-xl mx-auto">
               <h2 className="text-xl font-bold text-foreground">Analyse any motion in 3D</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                Upload or record a clip and get a 3D reconstruction, phase breakdown, biomechanical metrics, and a coaching plan — no special hardware.
+                Upload or record a clip and get a 3D view of your swing, phase breakdown, biomechanical metrics, and a coaching plan — no special hardware.
               </p>
             </div>
 
@@ -444,10 +444,10 @@ export function MotionLabWizard() {
 
                 <Button className="w-full" onClick={analyze} disabled={captureMode === 'multi' && !videoFileB}>
                   {captureMode === 'multi' ? <Boxes className="w-4 h-4" /> : <Zap className="w-4 h-4" />}
-                  {captureMode === 'multi' ? 'Reconstruct true 3D & analyze' : 'Analyze motion'}
+                  {captureMode === 'multi' ? 'Capture true 3D & analyze' : 'Analyze motion'}
                 </Button>
                 <p className="text-center text-xs text-muted-foreground">
-                  Pose detection and 3D reconstruction run entirely on your device. Your original video is never uploaded.
+                  Your 3D swing analysis runs entirely on your device. Your original video is never uploaded.
                 </p>
               </>
             )}

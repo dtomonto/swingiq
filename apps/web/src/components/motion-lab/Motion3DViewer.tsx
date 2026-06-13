@@ -432,7 +432,7 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
         />
         {/* Honest label — reflects whether this is measured (multi-view) or estimated 3D */}
         <div className="absolute top-2 left-2 text-[10px] font-medium text-stage-foreground/80 bg-black/40 rounded px-1.5 py-0.5">
-          {track.basis === 'measured' ? 'Measured 3D · multi-view · drag to orbit' : 'Estimated 3D reconstruction · drag to orbit'}
+          {track.basis === 'measured' ? 'Measured 3D · multi-view · drag to orbit' : 'Estimated 3D · drag to orbit'}
         </div>
         {activePhase && (
           <div className="absolute top-2 right-2 text-[11px] font-semibold text-white bg-black/50 rounded px-2 py-0.5">

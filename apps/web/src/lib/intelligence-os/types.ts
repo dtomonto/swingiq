@@ -109,6 +109,8 @@ export interface KnowledgeItem {
   lastUsedAt: string | null;
   /** Persisted embedding of the canonical question (when embeddings configured). */
   embedding: number[] | null;
+  /** Model that produced `embedding` — lets backfill re-embed on model change. */
+  embeddingModel: string | null;
   dataSource: DataSource;
   createdAt: string;
   updatedAt: string;
@@ -154,6 +156,8 @@ export interface CanonicalAnswer {
   estimatedCostSavedCents: number;
   /** Persisted embedding of the canonical question (when embeddings configured). */
   embedding: number[] | null;
+  /** Model that produced `embedding` — lets backfill re-embed on model change. */
+  embeddingModel: string | null;
   dataSource: DataSource;
   createdAt: string;
   updatedAt: string;

@@ -60,9 +60,9 @@ export function uploadConsent(config: AIModelConfig): UploadConsent {
   return {
     required: true,
     notice:
-      'To analyze this swing, SwingVantage sends sampled still frames (or the clip, for full-video analysis) ' +
-      'to a third-party AI provider (Google Gemini or OpenAI), where they are processed in that provider’s ' +
-      `cloud. SwingVantage does not store them; uploaded media is deleted within ~${days} days and is never ` +
+      'To analyze this swing, SwingVantage sends a small sample of your swing (or the clip, for full-video analysis) ' +
+      'to a third-party AI provider, where it is processed in that provider’s ' +
+      `cloud. SwingVantage does not store it; uploaded media is deleted within ~${days} days and is never ` +
       'used to train a shared model. For analysis that stays entirely on your device, use Motion Lab instead.',
   };
 }

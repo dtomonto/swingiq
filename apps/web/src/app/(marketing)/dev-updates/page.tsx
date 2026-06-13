@@ -11,11 +11,11 @@ import { devUpdateUrl } from '@/lib/updates/dev-detail';
 export const metadata: Metadata = {
   title: 'Developer Updates | The Engineering Behind SwingVantage',
   description:
-    'A technical log of SwingVantage engineering — browser-native 3D motion analysis, real AI vision, a multi-sport diagnostic engine, and the CI quality gates behind it all.',
+    'A plain-English log of what we are building at SwingVantage — 3D swing analysis in your browser, multi-sport coaching, and the quality and privacy standards behind it.',
   openGraph: {
     title: 'Developer Updates | The Engineering Behind SwingVantage',
     description:
-      'The technical story behind SwingVantage — 3D motion intelligence, real AI vision, multi-sport engines, and a local-first architecture.',
+      'The story behind SwingVantage — 3D swing analysis, multi-sport coaching, and a privacy-first, local-first experience.',
     type: 'website',
     url: 'https://swingvantage.com/dev-updates',
   },

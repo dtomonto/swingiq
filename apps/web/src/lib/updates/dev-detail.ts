@@ -63,18 +63,18 @@ export interface DevUpdateFaq {
   a: string;
 }
 
-/** AEO/GEO FAQ derived from the developer update's own fields. */
+/**
+ * AEO/GEO FAQ derived from the developer update's own fields.
+ *
+ * Deliberately omits any "what technologies / what stack" question: this page is
+ * public, and we do not publish our vendors, libraries, or implementation. See
+ * the proprietary-protection policy in @/data/devUpdates.
+ */
 export function buildDevUpdateFaqs(update: DevUpdate): DevUpdateFaq[] {
   const faqs: DevUpdateFaq[] = [
     { q: `What changed in "${update.title}"?`, a: update.headline },
-    { q: 'What was built and why does it matter?', a: update.details },
+    { q: 'What does this do and why does it matter?', a: update.details },
   ];
-  if (update.stack && update.stack.length > 0) {
-    faqs.push({
-      q: 'What technologies are involved?',
-      a: `This work is built with ${update.stack.join(', ')}.`,
-    });
-  }
   return faqs;
 }
 
@@ -129,7 +129,8 @@ export function buildDevUpdateJsonLd(
       mainEntityOfPage: url,
       author: { '@type': 'Organization', name: 'SwingVantage', url: SITE_URL },
       publisher: { '@type': 'Organization', name: 'SwingVantage', url: SITE_URL },
-      ...(update.stack && update.stack.length > 0 ? { keywords: update.stack.join(', ') } : {}),
+      // No `keywords` from stack: we don't publish our technologies (see the
+      // proprietary-protection policy in @/data/devUpdates).
       about: {
         '@type': 'SoftwareApplication',
         name: 'SwingVantage',
@@ -151,6 +152,58 @@ export function buildDevUpdateJsonLd(
   }
 
   return { '@context': 'https://schema.org', '@graph': graph };
+}
+
+// ── Proprietary-disclosure guard (public-copy backstop) ─────────────────────
+//
+// /dev-updates is public and search-indexed. Hand-written seed entries bypass
+// the commit-trailer leak guard in scripts/generate-updates.mjs, so this mirrors
+// it for the rendered page: a CI test (see data/__tests__/devUpdates.test.ts)
+// scans every PUBLISHED developer update through findProprietaryDisclosure() and
+// fails the build if an entry names a vendor/library/infra, an internal system
+// codename, an env/config flag, or a source-file path. Describe the benefit,
+// never the implementation — see the policy note at the top of @/data/devUpdates.
+
+/** Distinctive vendors/libraries/infra + internal codenames kept off public copy.
+ *  Mirrors PROPRIETARY_TERMS in scripts/generate-updates.mjs; keep them in sync. */
+export const PROPRIETARY_TERMS: readonly string[] = [
+  'AIO-4', 'BranchGuardianOS', 'GrowthOS', 'CentralIntelligenceOS', 'securityOS',
+  'PublishingOS', 'MotionLab',
+  'Next.js', 'MediaPipe', 'MoveNet', 'Upstash', 'PostHog', 'Supabase',
+  'PostgreSQL', 'Postgres', 'Resend', 'OpenAI', 'Gemini', 'Anthropic', 'Claude',
+  'Three.js', 'WebGPU', 'WebNN', 'Turborepo', 'IndexedDB', 'localStorage',
+  'Redis', 'Tokens Studio',
+];
+
+function escapeRegExp(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+const PROPRIETARY_PATTERNS: Array<{ name: string; re: RegExp }> = [
+  { name: 'source file path', re: /\b(?:apps|packages|server|scripts|node_modules)\/[\w./-]+|(?:[\w-]+\/)+[\w-]+\.(?:tsx?|jsx?|mjs|cjs|sql|env|py|css|json)\b/ },
+  { name: 'env or config flag name', re: /\b[A-Z][A-Z0-9]{2,}(?:_[A-Z0-9]+)+\b/ },
+  { name: 'vendor, library, infra, or internal codename', re: new RegExp(`\\b(?:${PROPRIETARY_TERMS.map(escapeRegExp).join('|')})\\b`, 'i') },
+];
+
+/** First proprietary/implementation tell found in the given strings, or null. */
+export function findProprietaryDisclosure(...parts: Array<string | undefined>): { name: string; sample: string } | null {
+  const text = parts.filter((p): p is string => typeof p === 'string' && p.length > 0).join('\n');
+  for (const { name, re } of PROPRIETARY_PATTERNS) {
+    const m = text.match(re);
+    if (m) return { name, sample: m[0].slice(0, 48) };
+  }
+  return null;
+}
+
+/** Scan all rendered, athlete-visible fields of a developer update. */
+export function findDevUpdateDisclosure(update: DevUpdate): { name: string; sample: string } | null {
+  return findProprietaryDisclosure(
+    update.title,
+    update.headline,
+    update.details,
+    update.version,
+    ...(update.highlights ?? []),
+  );
 }
 
 function slugify(input: string): string {

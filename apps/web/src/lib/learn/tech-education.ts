@@ -619,6 +619,435 @@ export const TECH_EDUCATION_ARTICLES: TechEducationArticle[] = [
       },
     ],
   },
+  {
+    slug: 'ai-analysis-vs-private-lessons',
+    title: 'AI Swing Analysis vs Private Lessons: Cost & Value',
+    heading: 'AI Swing Analysis vs Private Lessons',
+    description:
+      'Compare the cost and value of AI swing analysis and private lessons — what you get free, where a coach is worth the money, and how to combine both for faster improvement.',
+    answerSummary:
+      'AI swing analysis and private lessons solve different problems. AI gives instant, low-cost, always-available reads and plans; a coach gives hands-on feel and accountability that cost more per hour. For most athletes the best value is using AI between lessons, so every paid hour of coaching goes further.',
+    breadcrumbLabel: 'AI Analysis vs Private Lessons',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'Is AI swing analysis cheaper than private lessons?',
+        answer:
+          'Yes, dramatically. A single private lesson can cost more than a month of range balls, while SwingVantage starts free and stays low-cost. The point is not that one is better — it is that AI covers the everyday reads so you spend lesson money where a human truly adds value.',
+      },
+      {
+        question: 'What do private lessons give that AI can’t?',
+        answer:
+          'A coach can feel your motion in person, adjust grip and posture by hand, read your body language, manage injuries, and tailor advanced technique — things single-camera software cannot do.',
+      },
+      {
+        question: 'What does AI analysis give that lessons can’t?',
+        answer:
+          'It is instant, available every time you practice, remembers your full history, and is consistent and affordable — so you are not waiting weeks between feedback or paying by the hour for a first-pass diagnosis.',
+      },
+      {
+        question: 'How do I get the most value from both?',
+        answer:
+          'Use SwingVantage to find your top fix and practice between lessons, then bring your findings and progress to a coach so the paid time goes straight to hands-on work instead of diagnosis.',
+      },
+      {
+        question: 'Can AI analysis replace lessons entirely?',
+        answer:
+          'For many recreational goals it can carry most of the load, but it is designed to complement coaching, not replace it — especially for injuries and advanced technique. Think of it as the everyday layer between lessons.',
+      },
+    ],
+  },
+  {
+    slug: 'what-transfers-between-sports',
+    title: 'What Transfers Between Your Sports?',
+    heading: 'What Transfers Between Your Sports?',
+    description:
+      'Skills like rotation, sequencing, and balance carry across golf, tennis, baseball, and more. See what actually transfers between your sports — and how to train the overlap.',
+    answerSummary:
+      'A lot transfers between sports because they share underlying capabilities — rotation, kinetic sequencing, balance, and timing. The rotation that powers a golf drive also powers a tennis forehand, so improving a shared capability lifts every sport that uses it. SwingVantage maps your sports onto these shared traits to find the overlap.',
+    breadcrumbLabel: 'What Transfers Between Sports',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'Do skills really transfer between sports?',
+        answer:
+          'Yes — the underlying athletic capabilities do. Sports differ on the surface, but rotation, kinetic sequencing, balance, and timing recur in almost every swing, so building one of them tends to help several sports at once.',
+      },
+      {
+        question: 'What is an example of cross-sport transfer?',
+        answer:
+          'The same coil-and-rotate that powers a golf drive powers a tennis forehand and a baseball swing. Improve your rotational sequencing and all three benefit — that is transfer in action.',
+      },
+      {
+        question: 'How does SwingVantage know what transfers for me?',
+        answer:
+          'It maps each sport-specific measurement onto shared, sport-neutral capabilities, then compares them across the sports you have analyzed to surface where a strength or weakness carries over.',
+      },
+      {
+        question: 'Can a weakness transfer too?',
+        answer:
+          'Yes, and that is the opportunity. A single limiting capability can hold back several sports at once, so fixing it transfers the improvement everywhere it appears.',
+      },
+      {
+        question: 'Do I need to play multiple sports for this to help?',
+        answer:
+          'No. Even within one sport, understanding the shared capabilities clarifies what to train. If you do play several, SwingVantage can find the keystone skill that lifts the most of them together.',
+      },
+    ],
+  },
+  {
+    slug: 'ai-analysis-vs-launch-monitors',
+    title: 'AI Swing Analysis vs Launch Monitors',
+    heading: 'AI Swing Analysis vs Launch Monitors',
+    description:
+      'Do you need a launch monitor? Compare AI video analysis and launch monitors — what each measures, what each estimates, the cost gap, and how they work better together.',
+    answerSummary:
+      'Launch monitors measure ball and club numbers precisely with hardware; AI video analysis estimates the movement that produced them from a phone clip. They answer different questions — one measures the result, the other reads the cause. Used together, the measured numbers corroborate the video read and raise confidence.',
+    breadcrumbLabel: 'AI Analysis vs Launch Monitors',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'Do I need a launch monitor if I use AI swing analysis?',
+        answer:
+          'No. AI analysis works from a phone video and needs no hardware. A launch monitor adds precise measured numbers if you want them, but it is a complement, not a requirement.',
+      },
+      {
+        question: 'What does a launch monitor measure that video can’t?',
+        answer:
+          'Precise ball and club data — ball speed, spin, club path, face angle, attack angle — that a single camera can only estimate. Those are measured numbers from a sensor.',
+      },
+      {
+        question: 'What does AI video analysis show that a launch monitor doesn’t?',
+        answer:
+          'The movement behind the numbers — your setup, sequencing, path tendencies, and balance — and the single fix most likely to change your results. A monitor tells you what happened; video helps explain why.',
+      },
+      {
+        question: 'Can I use both together?',
+        answer:
+          'Yes, and that is ideal. Import your launch-monitor data and SwingVantage combines those measured numbers with the video read, which corroborates the diagnosis and raises confidence.',
+      },
+      {
+        question: 'Which should I start with?',
+        answer:
+          'Start with AI video analysis — it is free, instant, and explains the cause of your misses. Add a launch monitor later if you want measured numbers to go with the picture.',
+      },
+    ],
+  },
+  {
+    slug: 'is-ai-swing-analysis-worth-it',
+    title: 'Is AI Swing Analysis Worth It?',
+    heading: 'Is AI Swing Analysis Worth It?',
+    description:
+      'Is AI swing analysis worth it? Who benefits most, what you get for free, where it saves money versus lessons, and when a launch monitor or coach is the better spend.',
+    answerSummary:
+      'For most recreational and improving athletes, AI swing analysis is worth it: it turns a free phone clip into a prioritized fix and a plan, saves money between lessons, and tracks whether changes work. It matters less if you already have frequent coaching and a launch monitor — though it still makes both go further.',
+    breadcrumbLabel: 'Is AI Swing Analysis Worth It?',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'Who benefits most from AI swing analysis?',
+        answer:
+          'Beginner and intermediate athletes who want fast, affordable direction, players between lessons, and anyone improving on their own. It turns guesswork into a clear next step.',
+      },
+      {
+        question: 'Is it worth it if analysis is free?',
+        answer:
+          'The free tier already delivers a prioritized fix and a plan, so the value is real before you pay anything. Paid depth adds more analysis and history where it helps — but the floor is genuinely useful.',
+      },
+      {
+        question: 'When is it not worth it?',
+        answer:
+          'If you already have frequent, high-quality coaching plus a launch monitor, the marginal gain is smaller — though AI still makes those sessions more productive by handling the everyday reads.',
+      },
+      {
+        question: 'How does it save money?',
+        answer:
+          'It reduces how often you need a paid lesson just to find out what is wrong, and it keeps you progressing between sessions, so each lesson you do take goes further.',
+      },
+      {
+        question: 'Does worth it mean it is always accurate?',
+        answer:
+          'Worth and accuracy are different. AI analysis is a structured estimate with honest confidence labels — valuable for direction, not a lab measurement. It earns its keep by pointing you at the right work.',
+      },
+    ],
+  },
+  {
+    slug: 'how-often-should-you-retest',
+    title: 'How Often Should You Retest Your Swing?',
+    heading: 'How Often Should You Retest Your Swing?',
+    description:
+      'How often should you retest your swing? A simple cadence for retesting after a focused block of practice — and why testing one change at a time keeps your progress clear.',
+    answerSummary:
+      'Retest after a focused block of practice on one change — often a week or a few sessions — rather than every swing. Testing one fix at a time, under similar filming conditions, keeps the result easy to read. Too-frequent retests add noise; too-rare ones let a bad habit settle before you catch it.',
+    breadcrumbLabel: 'How Often to Retest',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'How often should I retest my swing?',
+        answer:
+          'A good rhythm is after a focused block of practice on a single change — commonly a week or a handful of sessions — not after every swing. That gives the change time to show up.',
+      },
+      {
+        question: 'Can I retest too often?',
+        answer:
+          'Yes. Day-to-day swings vary, so retesting constantly mostly captures noise. Give a change real reps before you measure it, or you will chase normal variation.',
+      },
+      {
+        question: 'Should I change one thing or several before a retest?',
+        answer:
+          'One. Isolating a single fix makes the retest easy to read — you know exactly what caused any change. Stacking several muddies the result.',
+      },
+      {
+        question: 'Does the retest need the same setup as my baseline?',
+        answer:
+          'As close as you can manage — same camera angle, lighting, and club or implement — so you are comparing like with like rather than a change in filming.',
+      },
+      {
+        question: 'What if the retest shows no change?',
+        answer:
+          'That is useful information. SwingVantage uses a flat result to adjust the plan — a different drill, a clearer angle, or more reps — instead of leaving you guessing.',
+      },
+    ],
+  },
+  {
+    slug: 'how-the-ai-coach-works',
+    title: 'How the AI Coach Works',
+    heading: 'How the AI Coach Works',
+    description:
+      'How the SwingVantage AI coach works: conversational, context-aware guidance grounded in your own analysis and history — what it does well, and what it deliberately won’t do.',
+    answerSummary:
+      'The AI coach is conversational guidance grounded in your own analysis, profile, and history, so answers fit your sport, level, and goals instead of generic tips. It explains your fix, suggests drills, and adapts as you ask follow-ups — while deferring injury concerns and hands-on technique to a human coach.',
+    breadcrumbLabel: 'How the AI Coach Works',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What is the AI coach?',
+        answer:
+          'It is a conversational assistant grounded in your own SwingVantage analysis and history. You can ask follow-up questions about your fix, drills, or plan and get answers tailored to your sport and level.',
+      },
+      {
+        question: 'How is it different from the swing analysis?',
+        answer:
+          'The analysis produces your report; the AI coach lets you talk through it. It explains the why, adapts to your questions, and helps you apply the plan — using the same findings rather than re-analyzing from scratch.',
+      },
+      {
+        question: 'Does the AI coach make things up?',
+        answer:
+          'It is designed to stay grounded in your data and SwingVantage’s structured logic, and to flag uncertainty rather than fabricate precision. Findings still carry confidence labels so you know how much to trust them.',
+      },
+      {
+        question: 'What won’t the AI coach do?',
+        answer:
+          'It will not diagnose injuries, guarantee results, or replace hands-on coaching. For pain, advanced technique, or in-person correction, it points you to a qualified coach or professional.',
+      },
+      {
+        question: 'Is the AI coach available for every sport?',
+        answer:
+          'It works across SwingVantage’s seven sports, drawing on each sport’s specific logic so the guidance fits golf, tennis, pickleball, padel, baseball, or softball rather than being generic.',
+      },
+    ],
+  },
+  {
+    slug: 'what-is-a-swing-fault',
+    title: 'What Is a Swing Fault?',
+    heading: 'What Is a Swing Fault?',
+    description:
+      'What is a swing fault? Learn how SwingVantage defines, detects, and prioritizes the flaws behind your misses — and why one root fault often causes several symptoms.',
+    answerSummary:
+      'A swing fault is a specific, repeatable flaw in your motion — like an over-the-top path or early extension — that drives your misses. SwingVantage detects faults from video and inputs, then prioritizes the one root fault most responsible for your results, because a single fault often produces several visible symptoms.',
+    breadcrumbLabel: 'What Is a Swing Fault?',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What is a swing fault?',
+        answer:
+          'A swing fault is a specific, repeatable flaw in your technique — such as coming over the top or early extension — that causes poor contact or unwanted ball flight. It is a named cause, not just a bad result.',
+      },
+      {
+        question: 'How is a fault different from a symptom?',
+        answer:
+          'A symptom is what you see (a slice, a fat shot); a fault is the underlying cause. One root fault often creates several symptoms, which is why fixing the cause beats chasing each miss.',
+      },
+      {
+        question: 'How does SwingVantage detect a swing fault?',
+        answer:
+          'It reads setup, path, sequencing, balance, and ball-flight consequences from your video and inputs, then maps them to the most likely fault — labeling how confident the read is.',
+      },
+      {
+        question: 'Why does SwingVantage show only one main fault?',
+        answer:
+          'Because fixing the single highest-impact root fault usually clears several symptoms at once. Leading with one fix keeps practice focused instead of overwhelming you with a long list.',
+      },
+      {
+        question: 'Are swing faults the same in every sport?',
+        answer:
+          'The principle is the same, but the specific faults differ by sport. SwingVantage uses each sport’s mechanics so a baseball bat-path fault and a golf plane fault are each judged on their own terms.',
+      },
+    ],
+  },
+  {
+    slug: 'what-data-swingvantage-uses',
+    title: 'What Data Does SwingVantage Use?',
+    heading: 'What Data Does SwingVantage Use?',
+    description:
+      'What data does SwingVantage use, and how is it kept private? The inputs behind your analysis — video, profile, sessions, and imported sensor numbers — each labeled by source.',
+    answerSummary:
+      'SwingVantage uses the inputs you provide — swing video, your player profile, session history, drill and retest results, and any launch-monitor data you import. Each is labeled by source, used only to personalize your guidance rather than to fabricate metrics, and handled privacy-forward; nothing here is medical advice.',
+    breadcrumbLabel: 'What Data SwingVantage Uses',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What data does SwingVantage use to analyze my swing?',
+        answer:
+          'Your swing video, the player profile you set (sport, level, goals, equipment), your session and retest history, drill feedback, and any launch-monitor or ball-flight data you choose to import.',
+      },
+      {
+        question: 'Is my data used to fabricate metrics?',
+        answer:
+          'No. Every data point is labeled by its source — measured, estimated, AI-inferred, or self-reported — and used to personalize honest guidance, never to invent precision that was not actually captured.',
+      },
+      {
+        question: 'Do I have to provide all of it?',
+        answer:
+          'No. A single video produces a useful analysis. Everything else is optional and simply makes the guidance more personal and confident as it accumulates.',
+      },
+      {
+        question: 'Is my swing data private?',
+        answer:
+          'SwingVantage is built privacy-forward. Your inputs are used to power your analysis and improvement, and the product avoids exposing personal data publicly. Nothing here is medical or injury advice.',
+      },
+      {
+        question: 'Does imported sensor data change my results?',
+        answer:
+          'Yes, helpfully. Measured launch-monitor numbers corroborate what the video estimates, which raises the confidence of the diagnosis and recommendations.',
+      },
+    ],
+  },
+  {
+    slug: 'what-is-the-skill-tree',
+    title: 'What Is the Skill Tree?',
+    heading: 'What Is the Skill Tree?',
+    description:
+      'What is the SwingVantage skill tree? How fundamentals unlock in a clear progression for your sport and level, so you always know which skill is in range to work on next.',
+    answerSummary:
+      'The skill tree is SwingVantage’s map of fundamentals laid out as a progression. It shows which skills you have built and which are in range to work on next for your sport and level, so improvement follows a sensible path instead of jumping to advanced moves before the basics that support them.',
+    breadcrumbLabel: 'What Is the Skill Tree?',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What is the skill tree?',
+        answer:
+          'It is a structured map of the fundamentals for your sport, arranged so each skill builds on the ones before it. It shows what you have working and what is sensible to train next.',
+      },
+      {
+        question: 'How does the skill tree decide what’s next?',
+        answer:
+          'It considers your level, your analysis history, and which fundamentals support the others, so it surfaces skills that are genuinely in range rather than steps you are not ready for.',
+      },
+      {
+        question: 'Why not just work on everything?',
+        answer:
+          'Because skills depend on each other. Trying an advanced move before its supporting fundamentals are in place usually forces compensations. The tree keeps the order productive.',
+      },
+      {
+        question: 'Does the skill tree differ by sport?',
+        answer:
+          'Yes. Each sport has its own fundamentals and progression, so the tree reflects the mechanics that actually matter for golf, tennis, pickleball, padel, baseball, or softball.',
+      },
+      {
+        question: 'How does it connect to my analysis?',
+        answer:
+          'Your swing analysis and retests feed the tree, so progress you make shows up as skills consolidate — and the next recommendation stays aligned with where you actually are.',
+      },
+    ],
+  },
+  {
+    slug: 'what-is-the-athlete-journey',
+    title: 'What Is the Athlete Journey?',
+    heading: 'What Is the Athlete Journey?',
+    description:
+      'What is the athlete journey in SwingVantage? The stages of improvement from first upload to confident player, and how guidance adapts to keep each stage appropriate.',
+    answerSummary:
+      'The athlete journey is the set of stages a player moves through, from a first analysis to confident, self-directed improvement. SwingVantage uses your stage to keep guidance appropriate — encouraging and foundational early on, more precise and advanced as your profile, sessions, and retests accumulate.',
+    breadcrumbLabel: 'What Is the Athlete Journey?',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What is the athlete journey?',
+        answer:
+          'It is the path a player travels through SwingVantage — from first upload and first fix, through building fundamentals, to confident, self-directed practice. It frames where you are and what comes next.',
+      },
+      {
+        question: 'Why does my stage change the guidance?',
+        answer:
+          'Because the right next step depends on where you are. A beginner needs encouraging, foundational direction; an advanced player needs precise, specific work. Matching the stage keeps guidance useful and safe.',
+      },
+      {
+        question: 'How does SwingVantage know my stage?',
+        answer:
+          'From your profile and your accumulating history — sessions, drills, and retests. As those build, the journey advances and the guidance becomes more advanced with it.',
+      },
+      {
+        question: 'Is the athlete journey the same as the skill tree?',
+        answer:
+          'They work together but differ: the skill tree maps which fundamentals to train, while the athlete journey describes your overall stage of development and how guidance adapts to it.',
+      },
+      {
+        question: 'Can the journey span multiple sports?',
+        answer:
+          'Yes. Your development is tracked as an athlete, so progress and stage carry across the sports you analyze rather than resetting for each one.',
+      },
+    ],
+  },
+  {
+    slug: 'what-makes-a-good-practice-plan',
+    title: 'What Makes a Good Practice Plan?',
+    heading: 'What Makes a Good Practice Plan?',
+    description:
+      'What makes a good practice plan? The traits of a plan that actually improves your swing — one focus, the right drills, sensible dosage, and a retest to prove it worked.',
+    answerSummary:
+      'A good practice plan has one clear focus, drills matched to your level and fault, sensible dosage you will actually do, and a retest to confirm it worked. SwingVantage builds plans this way — one fix, one plan, one retest — because scattering attention across many changes at once is what stalls most improvement.',
+    breadcrumbLabel: 'What Makes a Good Practice Plan?',
+    datePublished: PUBLISHED,
+    dateModified: MODIFIED,
+    faqs: [
+      {
+        question: 'What makes a practice plan effective?',
+        answer:
+          'One clear focus, drills suited to your level and your specific fault, a dosage you will realistically complete, and a retest at the end to confirm the change actually worked.',
+      },
+      {
+        question: 'Why should a plan focus on one thing?',
+        answer:
+          'Because attention is limited. Working a single fix lets you groove it and clearly see whether it helped, while juggling many changes at once usually means none of them stick.',
+      },
+      {
+        question: 'How much practice is the right amount?',
+        answer:
+          'Enough to groove the change without burning out — short, focused reps you will actually do beat an ambitious plan you abandon. SwingVantage sizes dosage to be realistic.',
+      },
+      {
+        question: 'How do I know the plan worked?',
+        answer:
+          'Retest at the end. Comparing a fresh analysis to your baseline shows whether the change moved your swing, so you keep going or adjust on evidence rather than feel.',
+      },
+      {
+        question: 'Does SwingVantage build the plan for me?',
+        answer:
+          'Yes. Your report turns your top fix into matched drills and an ordered plan you can run between sessions, then prompts a retest to close the loop.',
+      },
+    ],
+  },
 ];
 
 const BY_SLUG: Record<string, TechEducationArticle> = Object.fromEntries(

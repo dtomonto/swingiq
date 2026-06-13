@@ -175,6 +175,17 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/learn/how-to-film-your-swing', label: 'How to film your swing for AI analysis', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/measured-vs-estimated', label: 'Measured vs estimated swing data', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/how-to-read-your-swing-report', label: 'How to read your AI swing report', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/ai-analysis-vs-private-lessons', label: 'AI swing analysis vs private lessons', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-transfers-between-sports', label: 'What transfers between your sports?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/ai-analysis-vs-launch-monitors', label: 'AI swing analysis vs launch monitors', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/is-ai-swing-analysis-worth-it', label: 'Is AI swing analysis worth it?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-often-should-you-retest', label: 'How often should you retest your swing?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-the-ai-coach-works', label: 'How the AI coach works', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-is-a-swing-fault', label: 'What is a swing fault?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-data-swingvantage-uses', label: 'What data does SwingVantage use?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-is-the-skill-tree', label: 'What is the skill tree?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-is-the-athlete-journey', label: 'What is the athlete journey?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-makes-a-good-practice-plan', label: 'What makes a good practice plan?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
 
   // ── Benchmarks ────────────────────────────────────────────────────────
   { path: '/benchmarks', label: 'Benchmarks (all sports)', section: 'benchmarks', priority: 0.7, changeFrequency: 'monthly' },

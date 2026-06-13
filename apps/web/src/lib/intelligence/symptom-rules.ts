@@ -356,3 +356,11 @@ export function getSymptomsForSport(sport: SportId): { symptom: string; label: s
   if (!cfg) return [];
   return cfg.rules.map((r) => ({ symptom: r.symptom, label: r.label }));
 }
+
+/**
+ * The recommendation limit for a sport + skill level (brief §7): how many
+ * primary vs optional actions to show, so beginners aren't overwhelmed.
+ */
+export function getRecommendationLimit(sport: SportId, skill: SkillLevel): { primary: number; optional: number } {
+  return (CONFIGS[sport] ?? CONFIGS.golf).recommendationLimits[skill] ?? RECOMMENDATION_LIMITS.intermediate;
+}
