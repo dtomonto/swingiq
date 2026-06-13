@@ -58,6 +58,20 @@ export interface LocalClub {
   imported_shot_count?: number;
   /** Whether the club is currently in the active bag (defaults to true). */
   active?: boolean;
+  /**
+   * Snapshot of the carry baseline taken right before the last trend-based
+   * (imported) update, enabling a one-tap, reload-surviving undo. Present only
+   * while an applied update is still revertible; cleared on undo or a manual edit.
+   */
+  carry_undo?: CarryUndoSnapshot | null;
+}
+
+/** The carry fields restored when a trend-based update is undone. */
+export interface CarryUndoSnapshot {
+  typical_carry: number | null;
+  imported_carry_avg?: number | null;
+  imported_shot_count?: number;
+  source_of_truth?: 'user' | 'imported' | 'inferred';
 }
 
 export interface LocalSession {
@@ -304,6 +318,10 @@ export interface SwingVantageActions {
   updateClub: (id: string, updates: Partial<LocalClub>) => void;
   removeClub: (id: string) => void;
   reorderClubs: (clubs: LocalClub[]) => void;
+  /** Apply a trend-based carry baseline, snapshotting the prior values for undo. */
+  applyCarryUpdate: (id: string, next: { typical_carry: number; imported_carry_avg: number; imported_shot_count: number }) => void;
+  /** Revert the last trend-based carry update, restoring the snapshot. */
+  undoCarryUpdate: (id: string) => void;
   // Non-golf equipment
   addTennisRacket: (racket: Omit<TennisRacket, 'id' | 'created_at'>) => void;
   removeTennisRacket: (id: string) => void;
