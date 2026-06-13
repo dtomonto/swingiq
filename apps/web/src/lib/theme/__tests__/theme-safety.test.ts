@@ -24,7 +24,12 @@ const SRC = resolve(__dirname, '../../..');
 
 // ── Layer 1: strict per-file denylist ──────────────────────────────────
 
-/** Audited shell / nav / sport / overlay components that must stay token-pure. */
+/**
+ * Audited token-critical modules that must stay token-pure: the shell / nav /
+ * sport / overlay components, plus the shared label + score utilities whose
+ * class strings fan out to many badges (a raw `text-gray-400` here breaks the
+ * light Coach Mode the admin renders in).
+ */
 const GUARDED_FILES = [
   'components/layout/AppShell.tsx',
   'components/layout/Sidebar.tsx',
@@ -32,6 +37,8 @@ const GUARDED_FILES = [
   'components/ui/PWAInstallBanner.tsx',
   'components/ui/UsageCategoryModal.tsx',
   'components/ui/CookieBanner.tsx',
+  'lib/growth/labels.ts',
+  'lib/utils.ts',
 ];
 
 /** Raw, un-themeable color utilities that must not appear in guarded files. */

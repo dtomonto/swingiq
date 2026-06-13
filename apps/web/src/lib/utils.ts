@@ -39,11 +39,13 @@ export function formatDate(dateStr: string): string {
 }
 
 export function scoreToColor(score: number): string {
-  if (score >= 85) return 'text-green-600';
-  if (score >= 70) return 'text-blue-600';
-  if (score >= 55) return 'text-yellow-600';
-  if (score >= 40) return 'text-orange-600';
-  return 'text-red-600';
+  // Theme-safe score TEXT color. Uses the `*-text` accents (tuned per theme to
+  // clear WCAG AA as a foreground on background/card in every theme), collapsed
+  // to good/ok/bad — mirroring `scoreToBgColor` so a raw Tailwind green/amber/red
+  // can't turn muddy or low-contrast on the dark or club palettes.
+  if (score >= 70) return 'text-success-text';
+  if (score >= 40) return 'text-warning-text';
+  return 'text-error-text';
 }
 
 export function scoreToBgColor(score: number): string {

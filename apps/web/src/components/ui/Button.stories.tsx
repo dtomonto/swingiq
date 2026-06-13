@@ -34,3 +34,14 @@ export const Sizes: Story = {
     </div>
   ),
 };
+
+// `asChild` renders the button styling onto a link (or any element) via Radix
+// Slot — so a Figma "Button" maps to ONE code component whether it's an <a> or
+// a <button>. The rendered element here is a real <a href>, styled as a Button.
+export const AsLink: Story = {
+  render: () => (
+    <Button asChild>
+      <a href="/start">Start free</a>
+    </Button>
+  ),
+};
