@@ -165,6 +165,12 @@ export const NAV_ITEMS: NavItem[] = [
     blurb: 'One honest inventory of every agent & automation — what each does, what it reads/produces, keyless vs optional-AI, how it is turned on/off, its safety guardrails, and where to inspect it.',
     keywords: ['agents', 'agent registry', 'ai agents', 'automations', 'workflows', 'bots', 'growth agents', 'guardrails', 'inventory', 'orchestrator'],
   },
+  {
+    id: 'intelligence-os', label: 'Intelligence OS', href: '/admin/intelligence-os', icon: BrainCircuit,
+    group: 'operate', subgroup: 'Video Analysis', built: true, permission: 'logs.view',
+    blurb: 'First-Party Intelligence OS — learn from every AI interaction, report and outcome so repeated answers, fixes and coaching are served from first-party knowledge (cache → canonical → rules → retrieval) and third-party models become exception handlers, not the default engine. Captures AI activity, dedupes patterns, promotes reusable knowledge, generates Claude Code fix packets, and tracks token savings. Includes the clickable Action Tasks queue.',
+    keywords: ['intelligence os', 'intelligenceos', 'first-party intelligence', 'first party', 'action os', 'action intelligence', 'ai activity', 'knowledge base', 'canonical answers', 'answer cache', 'token savings', 'cost reduction', 'avoided tokens', 'patterns', 'pattern memory', 'learning', 'fix packet', 'claude code', 'tasks', 'opportunities', 'needs attention', 'critical', 'high priority', 'recurring', 'router', 'rag', 'retrieval', 'dedupe'],
+  },
   // Decision Center
   {
     id: 'decisions', label: 'Decision Center', href: '/admin/decisions', icon: Scale,
