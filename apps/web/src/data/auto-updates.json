@@ -1304,8 +1304,8 @@
     "releaseDate": "2026-06-13",
     "displayDate": "June 2026",
     "category": "Golf Training",
-    "status": "draft",
-    "visibility": "private",
+    "status": "published",
+    "visibility": "public",
     "sortOrder": 1000,
     "audience": [
       "all athletes"
