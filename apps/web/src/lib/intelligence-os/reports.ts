@@ -10,7 +10,7 @@
 // Callers are already behind requireAdmin(). Keyless-first via ./store.
 // ============================================================
 
-import { reportRepo } from './store';
+import { reportRepo, getSettings } from './store';
 import { genId } from './router';
 import { stableHash, semanticFingerprint } from './fingerprint';
 import { upsertTask } from './tasks';
@@ -145,4 +145,42 @@ export function recommendedRetentionTier(
   if (ageDays >= settings.lowValueArchiveDays && settings.lowValueArchiveDays > 0) return 'cold';
   if (ageDays >= settings.rawEventRetentionDays && settings.rawEventRetentionDays > 0) return 'warm';
   return 'hot';
+}
+
+// ── Age-based retention sweep (wired to a daily cron) ─────────
+const TIER_RANK: Record<RetentionTier, number> = { hot: 0, warm: 1, cold: 2 };
+
+export interface RetentionSweepResult {
+  scanned: number;
+  demotedToWarm: number;
+  demotedToCold: number;
+  bodiesDropped: number;
+  unchanged: number;
+}
+
+/**
+ * Demote reports to their age-recommended retention tier (hot → warm → cold),
+ * dropping the full body on the first demotion out of hot. Only demotes (never
+ * promotes), so manual escalations to a hotter tier are preserved. Idempotent:
+ * a report already at/below its recommended tier is left untouched. Driven by
+ * the report's age and the IntelligenceSettings retention windows.
+ */
+export async function sweepReportRetention(now = Date.now()): Promise<RetentionSweepResult> {
+  const settings = await getSettings();
+  const reports = await reportRepo.list();
+  const result: RetentionSweepResult = { scanned: 0, demotedToWarm: 0, demotedToCold: 0, bodiesDropped: 0, unchanged: 0 };
+
+  for (const r of reports) {
+    if (r.archived) { result.unchanged += 1; continue; }
+    result.scanned += 1;
+    const target = recommendedRetentionTier(r, settings, now);
+    // Only demote (recommended tier is strictly colder than current).
+    if (TIER_RANK[target] <= TIER_RANK[r.retentionTier]) { result.unchanged += 1; continue; }
+    const hadBody = r.fullBody !== null;
+    await setReportRetention(r.id, target);
+    if (hadBody) result.bodiesDropped += 1;
+    if (target === 'warm') result.demotedToWarm += 1;
+    else if (target === 'cold') result.demotedToCold += 1;
+  }
+  return result;
 }

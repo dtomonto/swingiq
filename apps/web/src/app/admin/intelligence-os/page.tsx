@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { BrainCircuit, Coins, Database, FileCheck2, Repeat } from 'lucide-react';
+import Link from 'next/link';
+import { BrainCircuit, Coins, Database, FileCheck2, Repeat, ClipboardList, FileText } from 'lucide-react';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { MetricCard } from '@/components/admin/MetricStat';
 import { SectionCard } from '@/components/admin/SectionCard';
@@ -21,6 +22,7 @@ function cents(n: number): string {
 export default async function IntelligenceOSPage() {
   const data = await getIntelligenceOverview();
   const m = data.metrics;
+  const a = data.actionOs;
   const hasActivity = m.thirdPartyCalls > 0 || m.aiCallsAvoided > 0 || m.knowledgeItemsTotal > 0;
 
   return (
@@ -67,6 +69,33 @@ export default async function IntelligenceOSPage() {
           <MetricCard label="Canonical answers" value={m.canonicalAnswersTotal} />
           <MetricCard label="Open patterns" value={m.patternsOpen} />
           <MetricCard label="Evaluations" value={m.evaluationsTotal} />
+        </div>
+      </SectionCard>
+
+      {/* Action OS — clickable task queue + report library */}
+      <SectionCard
+        title="Action OS"
+        description="Clickable tasks and the report library. Every Critical / High Priority / Needs Attention item opens a real detail view."
+      >
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          <Link href="/admin/intelligence-os/tasks" aria-label="Open critical tasks">
+            <MetricCard label="Critical tasks" value={a.criticalTasks} icon={ClipboardList} tone={a.criticalTasks > 0 ? 'warning' : 'default'} />
+          </Link>
+          <Link href="/admin/intelligence-os/tasks" aria-label="Open high-priority tasks">
+            <MetricCard label="High priority" value={a.highPriorityTasks} tone={a.highPriorityTasks > 0 ? 'warning' : 'default'} />
+          </Link>
+          <Link href="/admin/intelligence-os/tasks" aria-label="Open needs-attention tasks">
+            <MetricCard label="Needs attention" value={a.needsAttentionTasks} />
+          </Link>
+          <Link href="/admin/intelligence-os/tasks" aria-label="Open opportunities">
+            <MetricCard label="Opportunities" value={a.openOpportunities} tone={a.openOpportunities > 0 ? 'success' : 'default'} />
+          </Link>
+          <Link href="/admin/intelligence-os/reports" aria-label="Open report library">
+            <MetricCard label="Reports" value={a.reportsTotal} icon={FileText} />
+          </Link>
+          <Link href="/admin/intelligence-os/reports" aria-label="Open report library by tier">
+            <MetricCard label="Reports (hot/warm/cold)" value={`${a.reportsHot}/${a.reportsWarm}/${a.reportsCold}`} />
+          </Link>
         </div>
       </SectionCard>
 

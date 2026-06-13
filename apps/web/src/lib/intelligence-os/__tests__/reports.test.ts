@@ -1,8 +1,8 @@
 import {
   upsertReport, generateTasksFromReport, setReportLifecycle, setReportRetention,
-  recommendedRetentionTier, reportFingerprint,
+  recommendedRetentionTier, reportFingerprint, sweepReportRetention,
 } from '../reports';
-import { reportRepo, taskRepo, __resetIntelligenceStoreForTests } from '../store';
+import { reportRepo, taskRepo, saveSettings, __resetIntelligenceStoreForTests } from '../store';
 import type { ReportFinding } from '../types';
 
 beforeEach(() => { __resetIntelligenceStoreForTests(); });
@@ -75,6 +75,39 @@ describe('intelligence-os/reports', () => {
     const { report } = await upsertReport(base);
     const reviewed = await setReportLifecycle(report.id, 'reviewed');
     expect(reviewed!.lifecycleStatus).toBe('reviewed');
+  });
+
+  it('sweepReportRetention demotes aged reports and drops bodies (only demotes, idempotent)', async () => {
+    await saveSettings({ rawEventRetentionDays: 30, lowValueArchiveDays: 180 }, 'test');
+    const now = Date.now();
+    const old = new Date(now - 60 * 86_400_000).toISOString();   // 60d → warm
+    const ancient = new Date(now - 200 * 86_400_000).toISOString(); // 200d → cold
+    const fresh = new Date(now - 1 * 86_400_000).toISOString();   // 1d → hot
+
+    // Seed three reports directly with controlled createdAt + a full body.
+    for (const [id, createdAt] of [['r-old', old], ['r-anc', ancient], ['r-new', fresh]] as const) {
+      await reportRepo.create({
+        id, title: `t-${id}`, type: 'system-health', source: 's', lifecycleStatus: 'generated',
+        severitySummary: '', prioritySummary: '', executiveSummary: '', findings: [],
+        generatedTaskIds: [], evidenceReferences: [], recommendedActions: [], internalLearningTags: [],
+        searchMetadata: '', retentionTier: 'hot', duplicateGroupId: null, fingerprint: id,
+        fullBody: 'body', dataSource: 'real', createdAt, updatedAt: createdAt, archived: false,
+      });
+    }
+
+    const res = await sweepReportRetention(now);
+    expect(res.demotedToWarm).toBe(1);
+    expect(res.demotedToCold).toBe(1);
+    expect(res.bodiesDropped).toBe(2);
+    expect((await reportRepo.get('r-old'))!.retentionTier).toBe('warm');
+    expect((await reportRepo.get('r-old'))!.fullBody).toBeNull();
+    expect((await reportRepo.get('r-anc'))!.retentionTier).toBe('cold');
+    expect((await reportRepo.get('r-new'))!.retentionTier).toBe('hot');
+
+    // Idempotent: a second sweep changes nothing.
+    const second = await sweepReportRetention(now);
+    expect(second.demotedToWarm).toBe(0);
+    expect(second.demotedToCold).toBe(0);
   });
 
   it('recommendedRetentionTier ages reports hot → warm → cold', () => {
