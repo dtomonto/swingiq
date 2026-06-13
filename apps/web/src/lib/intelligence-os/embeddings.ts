@@ -91,6 +91,23 @@ export async function semanticSimilarityHybrid(a: string, b: string): Promise<nu
   return cosineSimilarity(va, vb);
 }
 
+/**
+ * Similarity using PERSISTED candidate vectors when available — avoids
+ * re-embedding curated records on every request. Falls back to embedding the
+ * candidate text (memoized), then to lexical.
+ *   - reqVec: the request embedding (computed once per resolve), or null
+ *   - candVec: the candidate's stored embedding, or null
+ */
+export async function similarityWithVectors(
+  reqText: string, reqVec: number[] | null, candText: string, candVec: number[] | null,
+): Promise<number> {
+  if (!isEmbeddingsConfigured()) return semanticSimilarity(reqText, candText);
+  const rv = reqVec ?? (await embedText(reqText));
+  const cv = candVec ?? (await embedText(candText));
+  if (!rv || !cv) return semanticSimilarity(reqText, candText);
+  return cosineSimilarity(rv, cv);
+}
+
 /** Which similarity backend is currently active — surfaced honestly in the UI. */
 export function similarityBackend(): 'embeddings' | 'lexical' {
   return isEmbeddingsConfigured() ? 'embeddings' : 'lexical';

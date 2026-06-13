@@ -8,7 +8,7 @@
 // ============================================================
 
 import {
-  activityRepo, knowledgeRepo, canonicalRepo, patternRepo, cacheRepo, savingsRepo,
+  activityRepo, knowledgeRepo, canonicalRepo, patternRepo, cacheRepo, savingsRepo, evaluationRepo,
   taskRepo, reportRepo, isIntelligencePersistent, getSettings,
 } from './store';
 import { similarityBackend } from './embeddings';
@@ -69,9 +69,9 @@ function sum(nums: number[]): number { return nums.reduce((a, b) => a + b, 0); }
 function round(n: number): number { return Number(n.toFixed(2)); }
 
 export async function getIntelligenceOverview(): Promise<IntelligenceOverview> {
-  const [events, knowledge, canonical, patterns, cache, savings, tasks, reports, settings] = await Promise.all([
+  const [events, knowledge, canonical, patterns, cache, savings, evaluations, tasks, reports, settings] = await Promise.all([
     activityRepo.list(), knowledgeRepo.list(), canonicalRepo.list(), patternRepo.list(),
-    cacheRepo.list(), savingsRepo.list(), taskRepo.list(), reportRepo.list(), getSettings(),
+    cacheRepo.list(), savingsRepo.list(), evaluationRepo.list(), taskRepo.list(), reportRepo.list(), getSettings(),
   ]);
 
   const liveTasks = tasks.filter((t) => !t.archived);
@@ -107,7 +107,7 @@ export async function getIntelligenceOverview(): Promise<IntelligenceOverview> {
     knowledgeAwaitingReview: knowledge.filter((k) => k.validationStatus === 'candidate' || k.validationStatus === 'needs-review').length,
     canonicalAnswersTotal: canonical.length,
     patternsOpen: patterns.filter((p) => p.status === 'open' || p.status === 'monitoring').length,
-    evaluationsTotal: 0,
+    evaluationsTotal: evaluations.length,
   };
 
   // Highest-value repeated questions: group events by promptHash.

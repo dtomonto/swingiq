@@ -74,7 +74,7 @@ describe('intelligence-os/router', () => {
       semanticFingerprint: 'x', confidenceScore: 0.95, allowedAutoServe: true, requiresAdminReview: false,
       safetyFlags: [], sourceKnowledgeIds: [], regressionTestCases: [], validationStatus: 'approved',
       approvedByAdmin: 'admin@x.com', lastValidatedAt: now, usageCount: 0, aiCallsAvoided: 0,
-      tokensAvoided: 0, estimatedCostSavedCents: 0, dataSource: 'real', createdAt: now, updatedAt: now,
+      tokensAvoided: 0, estimatedCostSavedCents: 0, embedding: null, dataSource: 'real', createdAt: now, updatedAt: now,
     };
     await canonicalRepo.create(canon);
     const d = await resolveWithFirstPartyIntelligence(baseReq);
