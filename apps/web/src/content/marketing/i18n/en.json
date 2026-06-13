@@ -161,7 +161,7 @@
       "step2Title": "Upload or Enter Your Data",
       "step2Desc": "Import a CSV from your launch monitor, upload a swing video, take a screenshot and enter your stats manually, or connect a Bluetooth sensor. SwingVantage meets you where your data already lives.",
       "step3Title": "Get Your AI Analysis",
-      "step3Desc": "SwingVantage analyzes your numbers against proven biomechanical benchmarks, then ranks your top swing faults and pinpoints your highest-leverage fix.",
+      "step3Desc": "A deterministic rules engine cross-references your numbers against proven biomechanical benchmarks. Then an AI layer generates a ranked list of your top swing faults and identifies your highest-leverage fix.",
       "step4Title": "Follow Your Practice Plan",
       "step4Desc": "Receive targeted drills matched to your exact fault pattern, a weekly practice schedule based on your availability, and progress benchmarks so you can see measurable improvement."
     },
@@ -189,7 +189,7 @@
       "card1Title": "Your Data Stays Yours",
       "card1Desc": "Data is processed locally when possible. We never sell your data. Delete your account and all data at any time.",
       "card2Title": "Rules Engine + AI",
-      "card2Desc": "Your analysis is grounded in biomechanical research and your real data. AI adds personalization and plain-English language — never a hallucinated diagnosis.",
+      "card2Desc": "Deterministic rules based on biomechanical research run first. AI adds personalization and language — never hallucinated diagnosis.",
       "card3Title": "Mobile-First",
       "card3Desc": "Built as a Progressive Web App. Works offline for basic features. Installable on any phone without an app store."
     },
@@ -246,7 +246,7 @@
         "heading": "Swing Diagnosis",
         "f1Name": "AI Diagnostic Engine",
         "f1Sports": "All 7 sports",
-        "f1Desc": "SwingVantage compares your data against sport-specific benchmarks and identifies your highest-priority swing fault — ranked by severity, confidence, and impact on performance.",
+        "f1Desc": "A rules-based engine compares your data against sport-specific benchmarks and identifies your highest-priority swing fault — ranked by severity, confidence, and impact on performance.",
         "f1Detail": "Each finding includes the evidence used to reach the conclusion, likely causes, and what to expect if the issue is corrected.",
         "f2Name": "Confidence Labels",
         "f2Sports": "All 7 sports",
@@ -356,7 +356,7 @@
         "f7Name": "AI Coach Chat",
         "f7Sports": "All 7 sports",
         "f7Desc": "Ask the AI coach questions about your swing, drills, or practice strategy. The AI coach uses your actual session data and active diagnosis as context.",
-        "f7Detail": "Powered by AI. Responses are coaching suggestions, not professional instruction."
+        "f7Detail": "Powered by a large language model. Responses are coaching suggestions, not professional instruction."
       },
       "dataSafety": {
         "heading": "Data Safety",
@@ -406,7 +406,7 @@
       "ai": {
         "heading": "How the AI Works",
         "q1": "How does SwingVantage analyze a swing?",
-        "a1": "SwingVantage identifies your highest-priority swing fault by comparing your data against proven, sport-specific benchmarks — similar to how a coach reads a shot pattern — then explains it in plain English with personalized drill recommendations and a practice plan built around your specific pattern.",
+        "a1": "SwingVantage uses two layers. First, a rules-based diagnostic engine compares your data against sport-specific benchmarks to identify your highest-priority swing fault — similar to how a coach would read a shot pattern. Second, an AI language model generates a plain-English explanation, personalized drill recommendations, and a practice plan based on your specific pattern.",
         "q2": "Can SwingVantage see what my swing looks like from a video?",
         "a2": "Yes — upload a swing video and SwingVantage breaks it into phases with coaching notes for each one. Video reads are heuristic estimates: confident, data-backed starting points that sharpen the more you add. Import data from a launch monitor or tracking device and SwingVantage folds those exact numbers straight in for the sharpest read.",
         "q3": "Does SwingVantage replace a private coach?",

@@ -248,6 +248,42 @@ export const ANALYTICS_EVENTS = {
   FRAME_STEP_USED: 'frame_step_used', // + sport, action
   CLIP_COMPARISON_VIEWED: 'clip_comparison_viewed', // + sport, action
   CAMERA_SHAKE_PROXY_ENABLED: 'camera_shake_proxy_enabled', // + sport
+  // Deterministic Diagnosis Engine (token-free symptom→cause). Props carry only
+  // non-PII engine metadata: sport, skill_level, diagnosis (fault id),
+  // confidence_score (0–100), confidence_label, rule_count_triggered,
+  // missing_data_count, escalation_recommended, engine_version. The escalation
+  // events also carry the lead `reason`. Emitted at the UI call site, never from
+  // the pure engine. See lib/intelligence/analytics.ts + diagnose.ts.
+  DETERMINISTIC_ANALYSIS_COMPLETED: 'deterministic_analysis_completed',
+  DETERMINISTIC_AI_ESCALATION_RECOMMENDED: 'deterministic_ai_escalation_recommended',
+  DETERMINISTIC_AI_ESCALATION_SKIPPED: 'deterministic_ai_escalation_skipped',
+  // A deterministic practice plan was generated/shown. + sport, diagnosis,
+  // skill_level, drill_count, estimated_minutes.
+  DETERMINISTIC_PLAN_GENERATED: 'deterministic_plan_generated',
+  // The athlete rated a deterministic read. + sport, diagnosis, helpful.
+  DETERMINISTIC_USER_FEEDBACK_SUBMITTED: 'deterministic_user_feedback_submitted',
+  // A retest verdict on a prior deterministic diagnosis (improved → confirmed,
+  // regressed → rejected). + sport, diagnosis, outcome.
+  DETERMINISTIC_DIAGNOSIS_CONFIRMED: 'deterministic_diagnosis_confirmed',
+  DETERMINISTIC_DIAGNOSIS_REJECTED: 'deterministic_diagnosis_rejected',
+  // An athlete answered a deterministic intake question (sharpening the read
+  // BEFORE any AI). + sport, question_id, answered (bool), confidence_delta.
+  DETERMINISTIC_INTAKE_ANSWERED: 'deterministic_intake_answered',
+
+  // Authority / education / trust content (SEO·AEO·GEO surfaces). Non-PII —
+  // a `slug` (page path) and optional `category`/`target` only. Power the
+  // "does our authority content earn trust + convert?" funnel. See the
+  // /deterministic-intelligence, /resources, /trust authority pages.
+  AUTHORITY_PAGE_VIEWED: 'authority_page_viewed', // + slug, category
+  RESOURCE_ARTICLE_VIEWED: 'resource_article_viewed', // + slug, category
+  GLOSSARY_ENTRY_VIEWED: 'glossary_entry_viewed', // + term
+  TRUST_PAGE_VIEWED: 'trust_page_viewed', // + slug
+  METHODOLOGY_PAGE_VIEWED: 'methodology_page_viewed',
+  AUTHORITY_CTA_CLICKED: 'authority_cta_clicked', // + slug, target (start | trust)
+  RESOURCE_INTERNAL_LINK_CLICKED: 'resource_internal_link_clicked', // + from, to
+  FAQ_EXPANDED: 'faq_expanded', // + slug, question
+  CLAIM_EXPLAINER_OPENED: 'claim_explainer_opened', // + claim_id
+  DETERMINISTIC_ENGINE_LEARN_MORE_CLICKED: 'deterministic_engine_learn_more_clicked', // + from
 } as const;
 
 export type AnalyticsEventName =

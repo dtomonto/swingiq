@@ -270,6 +270,7 @@ export async function createKnowledgeCandidate(event: AIActivityEvent, fullRespo
     failureCount: 0,
     lastUsedAt: now,
     embedding: null, // computed on approval (best-effort, when embeddings configured)
+    embeddingModel: null,
     dataSource: 'real',
     createdAt: now,
     updatedAt: now,

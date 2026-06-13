@@ -48,6 +48,133 @@ export function getPublishedBlogPost(slug: string): BlogPost | undefined {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'what-is-a-deterministic-swing-analysis-engine',
+    title: 'What Is a Deterministic Swing Analysis Engine?',
+    metaTitle: 'What Is a Deterministic Swing Analysis Engine? | SwingVantage',
+    metaDescription:
+      'A deterministic swing analysis engine follows explicit rules, so the same inputs always produce the same answer. Here is what that means, why it matters, and how it differs from a generic AI chatbot.',
+    publishDate: '2026-06-13',
+    displayDate: 'June 13, 2026',
+    sport: 'all',
+    category: 'Intelligence',
+    readingTime: '7 min read',
+    excerpt:
+      'Deterministic means the same inputs always produce the same answer — and you can trace why. Here is why that is the foundation of trustworthy swing analysis.',
+    content: `**A deterministic swing analysis engine follows explicit, written rules, so the same inputs always produce the same answer — and you can trace exactly why.** That single property — repeatability — is what separates a tool you can trust from one that simply sounds confident.
+
+## What "deterministic" actually means
+
+A deterministic system has no randomness in its decision. Give it the same shot data and the same described symptoms, and it returns the same finding every time. SwingVantage checks your numbers against sport-specific rule windows — for example, the face-to-path and start-line values that define a slice — and the rule that fits best becomes your primary finding.
+
+Because the logic is written down rather than generated on the fly, the result is repeatable and inspectable. You can follow the path from your data to the conclusion. Learn more on the [deterministic intelligence](/deterministic-intelligence) hub.
+
+## Why repeatability builds trust
+
+Imagine two analyses of the same swing that disagree. Which do you believe? A deterministic engine removes that problem: the same pattern always reads the same way, for you and for anyone else with the same data. Trust comes from transparency, not from a confident tone.
+
+This is the opposite of a generative model that can phrase the same situation three different ways on three different runs.
+
+## How it differs from an AI chatbot
+
+- A generic chatbot generates plausible text that can vary run to run; a deterministic engine returns the same answer for the same input.
+- A chatbot hides its reasoning; a rules engine exposes the trigger and the evidence.
+- A chatbot can over-state certainty; SwingVantage attaches a calibrated [confidence label](/trust/accuracy-and-limitations) to every finding.
+
+SwingVantage still uses AI — but selectively, for qualitative review of sampled video frames and premium narrative coaching. The diagnosis itself leads with rules.
+
+## Deterministic does not mean certain
+
+Consistency is not the same as certainty. Analysis from a single camera or a small sample carries real uncertainty, so every finding is an estimate with a confidence level, not a lab measurement. A deterministic engine reduces randomness; it does not pretend the uncertainty is gone. See [accuracy and limitations](/trust/accuracy-and-limitations) for the honest version.
+
+## How SwingVantage thinks about this
+
+We would rather be repeatable and transparent than impressive and unaccountable. The engine gives you one priority fix, the evidence behind it, and a retest to confirm it worked. Read the full [methodology](/methodology), or get a free read on your own swing.`,
+    tags: ['deterministic intelligence', 'how it works', 'AI analysis', 'trust'],
+    relatedSlugs: ['heuristics-first-ai-when-needed', 'why-one-fix-beats-twenty-tips', 'how-ai-swing-analysis-works'],
+  },
+  {
+    slug: 'heuristics-first-ai-when-needed',
+    title: 'Heuristics First, AI When Needed: SwingVantage’s Hybrid Intelligence Model',
+    metaTitle: 'Heuristics First, AI When Needed: SwingVantage’s Hybrid Model',
+    metaDescription:
+      'Why SwingVantage leads with a deterministic heuristic engine and uses AI selectively — for explainability, speed, lower cost, and recommendations you can trust.',
+    publishDate: '2026-06-13',
+    displayDate: 'June 13, 2026',
+    sport: 'all',
+    category: 'Intelligence',
+    readingTime: '6 min read',
+    excerpt:
+      'More model calls do not make better coaching. Here is why a deterministic heuristic engine leads, and AI is used only when it earns its keep.',
+    content: `**SwingVantage runs heuristics first and AI when needed — a hybrid model that keeps recommendations explainable and repeatable while still using AI where it genuinely adds value.**
+
+## What "heuristics first" means
+
+A heuristic is a practical rule of thumb that experienced coaches use to read a pattern quickly. SwingVantage encodes a library of these per sport, so a deterministic estimate runs in milliseconds on every analysis — no model call required. This heuristic estimate is the dependable floor for every result. Read [what heuristic data is](/resources/what-is-heuristic-data) for the deep dive.
+
+## Why not just use AI for everything?
+
+More data and more model calls do not automatically create better improvement. Letting a generative model produce the core diagnosis introduces three problems: it can vary run to run, it hides its reasoning, and it costs a call every time. A deterministic engine is consistent, inspectable, and free to run.
+
+So AI is used selectively, where it is genuinely strong:
+
+- Qualitative review of a small set of downscaled video still-frames.
+- Premium narrative coaching that turns structured findings into plain-English guidance.
+
+The structured diagnosis and its confidence come from the rules engine first. More on how AI fits in [AI in sports performance](/resources/ai-in-sports-performance).
+
+## The benefits of leading with rules
+
+- **Explainability:** you see the rule and the evidence behind each recommendation.
+- **Repeatability:** the same inputs always produce the same read.
+- **Speed and cost:** instant, free feedback without waiting on a model.
+- **Resilience:** if an AI provider is unavailable, you still get a complete, confidence-labeled result.
+
+## How SwingVantage thinks about this
+
+The goal is not to sound like the most advanced AI; it is to give you a recommendation you can trust and trace. Rules lead, AI supports, and a [retest](/trust/accuracy-and-limitations) confirms the fix. See the [methodology](/methodology) or try it free.`,
+    tags: ['heuristics', 'hybrid AI', 'deterministic intelligence', 'methodology'],
+    relatedSlugs: ['what-is-a-deterministic-swing-analysis-engine', 'why-one-fix-beats-twenty-tips', 'how-ai-swing-analysis-works'],
+  },
+  {
+    slug: 'why-one-fix-beats-twenty-tips',
+    title: 'Why One Fix Beats Twenty Random Tips',
+    metaTitle: 'Why One Fix Beats Twenty Random Swing Tips | SwingVantage',
+    metaDescription:
+      'Twenty swing tips create decision fatigue, not improvement. Here is why prioritizing one high-leverage fix — with a retest to confirm it — actually changes your swing.',
+    publishDate: '2026-06-13',
+    displayDate: 'June 13, 2026',
+    sport: 'all',
+    category: 'Improvement',
+    readingTime: '5 min read',
+    excerpt:
+      'A pile of tips is not a plan. Here is why one prioritized fix, confirmed by a retest, beats twenty competing pieces of advice.',
+    content: `**One high-leverage fix, confirmed by a retest, changes your swing faster than twenty competing tips — because tips create decision fatigue, and a plan creates progress.**
+
+## More advice is not more improvement
+
+Search any swing problem and you will find dozens of tips, half of them contradicting each other. Trying to apply them all at once is how athletes get worse: every swing chases a different thought, and nothing gets a fair test. A bigger pile of advice increases noise, not skill.
+
+## Why one fix works
+
+SwingVantage ranks possible fixes by impact and confidence, then surfaces the single highest-leverage one. Focusing on one change means:
+
+- Your practice reps all reinforce the same thing.
+- You can actually tell whether it worked.
+- The most common root cause often improves the secondary issues with it.
+
+This ranking comes from a [deterministic engine](/deterministic-intelligence), not a random list — so the one fix is the one your data supports.
+
+## The retest is what makes it real
+
+A fix without a retest is just a hope. Each recommendation comes with a short retest protocol — how many shots, which metric, and what counts as success. When your follow-up numbers move toward the target, the fix is confirmed and your next recommendation gets sharper. That loop is covered in [accuracy and limitations](/trust/accuracy-and-limitations).
+
+## One fix. One plan. One retest.
+
+That is the whole SwingVantage loop, and it is deliberately small. Read the [methodology](/methodology) to see how a diagnosis becomes a practice plan, or get your one fix free.`,
+    tags: ['practice', 'improvement', 'one fix', 'retest'],
+    relatedSlugs: ['what-is-a-deterministic-swing-analysis-engine', 'heuristics-first-ai-when-needed', 'how-to-fix-a-golf-slice'],
+  },
+  {
     slug: 'how-to-fix-a-golf-slice',
     title: 'How to Fix a Golf Slice: The 5 Most Common Causes',
     metaTitle: 'How to Fix a Golf Slice | SwingVantage Golf Tips',
@@ -335,7 +462,7 @@ SwingVantage tracks these relationships across your sessions and flags when your
     slug: 'how-ai-swing-analysis-works',
     title: 'How AI Swing Analysis Works (And What It Can and Cannot Do)',
     metaTitle: 'How AI Swing Analysis Works | SwingVantage',
-    metaDescription: 'Learn how AI swing analysis actually works — what it does, what data it analyzes, its real limitations vs professional coaching, and how to use it effectively.',
+    metaDescription: 'Learn how AI swing analysis actually works — what heuristic diagnostic engines do, what data they analyze, their real limitations vs professional coaching, and how to use them effectively.',
     publishDate: '2026-04-05',
     displayDate: 'April 5, 2026',
     sport: 'all',
@@ -344,21 +471,21 @@ SwingVantage tracks these relationships across your sessions and flags when your
     excerpt: 'AI swing analysis is a useful tool — but it is not magic. Here is an honest look at what it can do, what it cannot do, and how to get the most out of it.',
     tags: ['ai analysis', 'how it works', 'coaching', 'swing diagnosis', 'technology'],
     relatedSlugs: ['practice-schedule-for-golfers', 'how-to-read-launch-monitor-data'],
-    content: `## What AI Swing Analysis Actually Does
+    content: `## What Heuristic Diagnostic Engines Do
 
 The term "AI swing analysis" covers a range of different technologies with very different capabilities. It is worth understanding what the technology actually does before trusting its outputs.
 
-SwingVantage compares your data against biomechanically-informed benchmarks tuned to your sport and skill level. When a metric falls outside the optimal range for your level, it flags it as a potential issue and ranks the issues by severity — so you always know the single most important thing to work on first.
+SwingVantage uses a **heuristic diagnostic engine** — a rules-based system that compares your data against a set of biomechanically-informed benchmarks. When your launch angle is outside the optimal range, when your face-to-path gap exceeds a threshold, when your bat speed is below average for your level, the engine flags these as potential issues and ranks them by severity.
 
-The result is consistent and explainable: the same inputs always produce the same read, every finding is tied to the data behind it, and it's grounded in established coaching principles rather than a black box.
+This is different from pure machine learning or computer vision. The engine does not learn from every user. It applies a defined set of rules — developed based on coaching principles and research — to your specific data.
 
 ## What Data Gets Analyzed
 
-For golf, the primary inputs are launch monitor metrics: ball speed, club head speed, launch angle, spin rate, club path, face angle, attack angle, smash factor, and carry distance. Each is compared to a benchmark adjusted for club type and skill level to surface the issue most likely to explain your misses.
+For golf, the primary inputs are launch monitor metrics: ball speed, club head speed, launch angle, spin rate, club path, face angle, attack angle, smash factor, and carry distance. The engine compares each metric to a benchmark adjusted for club type and skill level, then identifies which metric is furthest outside the acceptable range and most likely to explain your misses.
 
 For baseball and softball, the primary inputs are exit velocity, launch angle, bat speed, and attack angle — data that comes from devices like HitTrax, Rapsodo, and Blast Motion.
 
-For video analysis, SwingVantage uses computer vision to read your actual footage — your setup, body positions, and movement through address, the top of the backswing, and impact — instead of guessing from a flat outline. It still isn't a substitute for a dedicated tracking device, so treat its feedback as informed coaching observations rather than precise measurements.
+For video analysis, SwingVantage extracts key frames from your swing and sends them to an AI vision model that examines the actual footage — your setup, body positions, and movement through address, the top of the backswing, and impact. Rather than reducing the swing to estimated joint angles, it reads what is visible in the video itself. It still isn't a substitute for a dedicated tracking device, so treat its feedback as informed coaching observations rather than precise measurements.
 
 ## Real Limitations vs. Professional Coaching
 

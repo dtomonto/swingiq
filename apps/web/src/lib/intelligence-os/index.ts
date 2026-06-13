@@ -17,7 +17,7 @@ export {
 } from './capture';
 export {
   isEmbeddingsConfigured, embedText, cosineSimilarity, semanticSimilarityHybrid,
-  similarityWithVectors, similarityBackend,
+  similarityWithVectors, similarityBackend, currentEmbeddingModel,
 } from './embeddings';
 export { runRetentionSweep, type RetentionReport } from './retention';
 export {

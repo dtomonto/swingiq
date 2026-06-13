@@ -72,11 +72,11 @@ export default function AboutPage() {
               Our goal is to give any athlete — beginner or advanced, 8 years old or 80 — access to the same quality of feedback that professionals get. Not watered-down advice, but real diagnostic analysis: what is happening in your swing, why it matters, and exactly what to work on next.
             </p>
             <p>
-              SwingVantage combines{' '}
-              <EducationalLink term="heuristic-data">data-backed analysis</EducationalLink>{' '}
-              grounded in biomechanical research with{' '}
-              <EducationalLink term="ai-sports">AI coaching</EducationalLink>{' '}
-              that turns those findings into personalized, plain-English guidance. The result is specific, actionable, and free.
+              SwingVantage uses a hybrid approach: a{' '}
+              <EducationalLink term="heuristic-data">deterministic rules engine</EducationalLink>{' '}
+              that applies biomechanical research to your real data, combined with an{' '}
+              <EducationalLink term="ai-sports">AI layer</EducationalLink>{' '}
+              that generates personalized coaching language around those findings. The result is specific, actionable, and free.
             </p>
           </div>
         </div>

@@ -17,6 +17,48 @@ export const metadata: Metadata = {
   alternates: { canonical: '/resources' },
 };
 
+// Concept / intelligence library — the scalable, category-led top of the
+// resource hub. Each card is an authority page that explains how SwingVantage
+// thinks, building trust and SEO/AEO authority around the engine.
+const CONCEPT_CATEGORIES = [
+  {
+    category: 'Deterministic Intelligence',
+    audience: 'Athlete · Coach · Technical',
+    href: '/deterministic-intelligence',
+    desc: 'What deterministic, rules-based swing analysis means — and why “heuristics first, AI when needed” makes recommendations explainable and repeatable.',
+  },
+  {
+    category: 'Heuristic Data',
+    audience: 'Athlete · Coach',
+    href: '/resources/what-is-heuristic-data',
+    desc: 'How encoded rules of thumb turn your numbers and symptoms into a fast, repeatable first-pass read — and how heuristics differ from raw data and measurement.',
+  },
+  {
+    category: 'AI in Sports',
+    audience: 'Athlete · Parent · Founder note',
+    href: '/resources/ai-in-sports-performance',
+    desc: 'What AI can and cannot do in sports performance, why more data is not automatically better, and how AI should support structured coaching logic.',
+  },
+  {
+    category: 'Methodology',
+    audience: 'Athlete · Coach',
+    href: '/methodology',
+    desc: 'The full SwingVantage loop — profile, diagnosis, one fix, practice plan, retest — and exactly what we measure vs. estimate.',
+  },
+  {
+    category: 'Trust & Privacy',
+    audience: 'Athlete · Parent',
+    href: '/trust/accuracy-and-limitations',
+    desc: 'How accurate the analysis is, what it cannot guarantee, how confidence labels work, and when to consult a coach or medical professional.',
+  },
+  {
+    category: 'Glossary',
+    audience: 'Everyone',
+    href: '/glossary',
+    desc: 'Plain-English definitions for every term — deterministic intelligence, heuristic analysis, confidence, evidence labels, retest, and more.',
+  },
+] as const;
+
 const RESOURCE_SECTIONS = [
   {
     sport: 'Golf',
@@ -184,6 +226,34 @@ export default function ResourcesPage() {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 py-12 space-y-14">
+        {/* Concepts & Intelligence — how SwingVantage thinks */}
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-2xl" aria-hidden="true">🧠</span>
+            <h2 className="text-xl font-bold text-foreground">Concepts &amp; Intelligence</h2>
+          </div>
+          <p className="text-sm text-muted-foreground mb-6 max-w-2xl">
+            How SwingVantage analyzes your swing: deterministic, rules-based intelligence first, AI
+            when it adds value — with confidence labels and a retest loop on everything.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {CONCEPT_CATEGORIES.map((c) => (
+              <Link
+                key={c.href}
+                href={c.href}
+                className="group rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-semibold text-foreground group-hover:text-primary">{c.category}</h3>
+                  <span className="text-primary opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true">→</span>
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
+                <p className="mt-3 text-[11px] font-medium uppercase tracking-wide text-muted-foreground/80">{c.audience}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {RESOURCE_SECTIONS.map((section) => (
           <section key={section.sport}>
             <div className="flex items-center gap-3 mb-6">

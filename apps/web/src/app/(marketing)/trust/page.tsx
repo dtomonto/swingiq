@@ -47,7 +47,7 @@ const TRUST_SECTIONS = [
   {
     icon: AlertTriangle,
     title: 'Honest AI — confident, data-backed, and clearly labelled',
-    body: "SwingVantage combines precise, data-backed analysis with adaptive AI to pinpoint your swing patterns and prescribe the drills that fix them. Outputs are confident, data-backed estimates that sharpen as you add data, and every finding is labelled with the data behind it and a confidence level. SwingVantage pairs perfectly with a qualified coach, trainer, or medical professional for injury concerns and advanced technique work — so you bring them sharper questions and progress faster.",
+    body: "SwingVantage pairs a precise rules-based diagnostic engine with an AI language model to pinpoint your swing patterns and prescribe the drills that fix them. Outputs are confident, data-backed estimates that sharpen as you add data, and every finding is labelled with the data behind it and a confidence level. SwingVantage pairs perfectly with a qualified coach, trainer, or medical professional for injury concerns and advanced technique work — so you bring them sharper questions and progress faster.",
   },
 ];
 
@@ -121,6 +121,8 @@ export default function TrustPage() {
         {/* Navigation */}
         <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
           <Link href="/" className="text-primary hover:underline">← SwingVantage Home</Link>
+          <Link href="/trust/accuracy-and-limitations" className="text-primary hover:underline">Accuracy &amp; Limitations</Link>
+          <Link href="/deterministic-intelligence" className="text-primary hover:underline">Deterministic Intelligence</Link>
           <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
           <Link href="/terms" className="text-primary hover:underline">Terms of Service</Link>
           <Link href="/faq" className="text-primary hover:underline">FAQ</Link>

@@ -19,6 +19,9 @@ import { cn } from '@/lib/utils';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { useSport } from '@/contexts/SportContext';
+import { useSwingVantageStore } from '@/store';
+import { analyzeDeterministicSession } from '@/lib/intelligence/diagnose';
+import { diagnosisToSkillCategory } from '@/lib/athletic-journey/diagnosis-focus';
 import { track, ANALYTICS_EVENTS } from '@/lib/analytics';
 import type { SportId } from '@swingiq/core';
 import {
@@ -265,6 +268,23 @@ export function AthleticJourneyDashboard() {
   const live = isJourneyLive(viewSport);
   const dashboard = useAthleticJourney(viewSport);
 
+  // Tie the athlete's current likely cause to a skill-tree category so the tree
+  // can flag the branch they're working on now. Token-free + honest: derived
+  // from their reported miss (golf) or latest video-detected issue (other
+  // sports), and only when the engine confidently matches a curated cause.
+  const { profile, video_analyses } = useSwingVantageStore();
+  const focusCategory = useMemo(() => {
+    const miss =
+      viewSport === 'golf'
+        ? profile?.current_miss?.trim()
+        : [...video_analyses]
+            .filter((v) => v.sport === viewSport && v.primary_issue)
+            .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]?.primary_issue;
+    if (!miss) return undefined;
+    const d = analyzeDeterministicSession({ sport: viewSport, issue: miss });
+    return d.primary.generated ? undefined : diagnosisToSkillCategory(d);
+  }, [viewSport, profile?.current_miss, video_analyses]);
+
   // Page view + deep-link to the rating panel (?panel=rating).
   useEffect(() => {
     track(ANALYTICS_EVENTS.ATHLETIC_JOURNEY_VIEWED, { sport: viewSport });
@@ -368,7 +388,7 @@ export function AthleticJourneyDashboard() {
 
           <div className="grid gap-5 lg:grid-cols-2">
             <Section title="Skill tree" icon={GitBranch}>
-              <SkillTree sport={viewSport} branches={dashboard.branches} />
+              <SkillTree sport={viewSport} branches={dashboard.branches} focusCategory={focusCategory} />
             </Section>
             <Section title="Milestones" icon={Trophy}>
               <MilestonePanel sport={viewSport} milestones={dashboard.milestones} />

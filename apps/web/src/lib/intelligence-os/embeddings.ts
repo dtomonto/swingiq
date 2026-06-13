@@ -16,8 +16,21 @@
 import { isConfigured } from '@/lib/capabilities';
 import { semanticSimilarity, stableHash } from './fingerprint';
 
-const EMBED_MODEL = process.env.AI_EMBEDDINGS_MODEL || 'text-embedding-3-small';
 const EMBED_DIMENSIONS = 256; // small + cheap; plenty for short questions
+
+/** Resolved at call time so a model switch (env change) is observed live. */
+function embedModel(): string {
+  return process.env.AI_EMBEDDINGS_MODEL || 'text-embedding-3-small';
+}
+
+/**
+ * The embedding model identifier currently in use, or `null` when keyless
+ * (lexical fallback). Persisted alongside vectors so `backfillEmbeddings` can
+ * re-embed records that were embedded with a different model.
+ */
+export function currentEmbeddingModel(): string | null {
+  return isEmbeddingsConfigured() ? embedModel() : null;
+}
 
 /** Injectable embedder for tests (bypasses the network). */
 type Embedder = (text: string) => Promise<number[] | null>;
@@ -47,7 +60,7 @@ async function callOpenAIEmbeddings(text: string): Promise<number[] | null> {
     const res = await fetch('https://api.openai.com/v1/embeddings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
-      body: JSON.stringify({ model: EMBED_MODEL, input: text.slice(0, 8000), dimensions: EMBED_DIMENSIONS }),
+      body: JSON.stringify({ model: embedModel(), input: text.slice(0, 8000), dimensions: EMBED_DIMENSIONS }),
     });
     if (!res.ok) return null;
     const data = await res.json();
@@ -61,7 +74,9 @@ async function callOpenAIEmbeddings(text: string): Promise<number[] | null> {
 /** Embed text (memoized). Returns null when keyless or on error. */
 export async function embedText(text: string): Promise<number[] | null> {
   if (!isEmbeddingsConfigured()) return null;
-  const key = stableHash(text);
+  // Key on model too: after a model switch the same text must re-embed, not
+  // return a stale vector from a previous model.
+  const key = `${embedModel()}::${stableHash(text)}`;
   if (memo.has(key)) return memo.get(key) ?? null;
   const vec = testEmbedder ? await testEmbedder(text) : await callOpenAIEmbeddings(text);
   if (memo.size >= MEMO_LIMIT) memo.clear();

@@ -1,9 +1,11 @@
 import {
   createKnowledge, reviewKnowledge, recordKnowledgeOutcome, createCanonicalAnswer,
   canonicalizeKnowledge, reviewCanonical, createEvaluation, generateFixPacketFromPattern, exportKnowledge,
+  backfillEmbeddings,
 } from '../service';
 import { recordPattern } from '../router';
-import { getSettings, saveSettings, __resetIntelligenceStoreForTests } from '../store';
+import { getSettings, saveSettings, knowledgeRepo, __resetIntelligenceStoreForTests } from '../store';
+import { __setEmbedderForTests, __resetEmbeddingsMemoForTests } from '../embeddings';
 import { DEFAULT_SETTINGS } from '../config';
 
 beforeEach(() => { __resetIntelligenceStoreForTests(); });
@@ -94,6 +96,37 @@ describe('intelligence-os/service', () => {
     expect(JSON.parse(json.body)).toHaveLength(1);
     const md = await exportKnowledge('markdown');
     expect(md.body).toContain('## Exported');
+  });
+
+  it('records the embedding model and re-embeds via backfill when the model changes', async () => {
+    const origModel = process.env.AI_EMBEDDINGS_MODEL;
+    __setEmbedderForTests(async () => [1, 0, 0], true);
+    process.env.AI_EMBEDDINGS_MODEL = 'model-a';
+    try {
+      const k = await createKnowledge({
+        title: 't', knowledgeType: 'coaching-answer', sport: 'golf', topic: 'd',
+        userIntent: 'i', canonicalQuestion: 'how to fix slice', canonicalAnswer: 'a',
+      });
+      expect(k.embedding).not.toBeNull();
+      expect(k.embeddingModel).toBe('model-a');
+
+      // Same model → nothing is stale.
+      expect((await backfillEmbeddings()).knowledge).toBe(0);
+
+      // Switch model → the record is stale and gets re-embedded under the new model.
+      process.env.AI_EMBEDDINGS_MODEL = 'model-b';
+      __resetEmbeddingsMemoForTests();
+      expect((await backfillEmbeddings()).knowledge).toBe(1);
+      expect((await knowledgeRepo.get(k.id))?.embeddingModel).toBe('model-b');
+
+      // Idempotent once aligned.
+      expect((await backfillEmbeddings()).knowledge).toBe(0);
+    } finally {
+      __setEmbedderForTests(null, null);
+      __resetEmbeddingsMemoForTests();
+      if (origModel === undefined) delete process.env.AI_EMBEDDINGS_MODEL;
+      else process.env.AI_EMBEDDINGS_MODEL = origModel;
+    }
   });
 
   it('settings round-trip with defaults', async () => {

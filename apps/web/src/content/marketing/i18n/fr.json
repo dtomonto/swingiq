@@ -161,7 +161,7 @@
       "step2Title": "Téléversez ou saisissez vos données",
       "step2Desc": "Importez un CSV depuis votre moniteur de lancement, téléversez une vidéo de swing, faites une capture d'écran et saisissez vos statistiques manuellement, ou connectez un capteur Bluetooth. SwingVantage s'adapte à l'endroit où vivent déjà vos données.",
       "step3Title": "Obtenez votre analyse par IA",
-      "step3Desc": "SwingVantage analyse vos chiffres par rapport à des références biomécaniques éprouvées, puis classe vos principaux défauts de swing et identifie la correction au plus fort effet de levier.",
+      "step3Desc": "Un moteur de règles déterministe compare vos chiffres à des références biomécaniques éprouvées. Puis une couche d'IA génère une liste classée de vos principaux défauts de swing et identifie la correction au plus fort effet de levier.",
       "step4Title": "Suivez votre plan d'entraînement",
       "step4Desc": "Recevez des exercices ciblés adaptés à votre schéma exact de défauts, un calendrier d'entraînement hebdomadaire selon vos disponibilités et des références de progression pour constater une amélioration mesurable."
     },
@@ -189,7 +189,7 @@
       "card1Title": "Vos données restent les vôtres",
       "card1Desc": "Les données sont traitées localement quand c'est possible. Nous ne vendons jamais vos données. Supprimez votre compte et toutes vos données à tout moment.",
       "card2Title": "Moteur de règles + IA",
-      "card2Desc": "Votre analyse s'appuie sur la recherche biomécanique et vos données réelles. L'IA ajoute la personnalisation et un langage clair — jamais un diagnostic inventé.",
+      "card2Desc": "Des règles déterministes fondées sur la recherche biomécanique s'exécutent en premier. L'IA ajoute la personnalisation et le langage — jamais un diagnostic inventé.",
       "card3Title": "Pensé pour le mobile",
       "card3Desc": "Conçue comme une Progressive Web App. Fonctionne hors ligne pour les fonctions de base. Installable sur n'importe quel téléphone sans passer par un magasin d'applications."
     },
@@ -246,7 +246,7 @@
         "heading": "Diagnostic de swing",
         "f1Name": "Moteur de diagnostic par IA",
         "f1Sports": "Les 7 sports",
-        "f1Desc": "SwingVantage compare vos données à des références propres à chaque sport et identifie votre défaut de swing prioritaire — classé par gravité, confiance et impact sur la performance.",
+        "f1Desc": "Un moteur fondé sur des règles compare vos données à des références propres à chaque sport et identifie votre défaut de swing prioritaire — classé par gravité, confiance et impact sur la performance.",
         "f1Detail": "Chaque constat inclut les preuves utilisées pour parvenir à la conclusion, les causes probables et ce à quoi s'attendre si le problème est corrigé.",
         "f2Name": "Étiquettes de confiance",
         "f2Sports": "Les 7 sports",
@@ -356,7 +356,7 @@
         "f7Name": "Chat avec le coach IA",
         "f7Sports": "Les 7 sports",
         "f7Desc": "Posez des questions au coach IA sur votre swing, vos exercices ou votre stratégie d'entraînement. Le coach IA utilise vos données réelles de séance et votre diagnostic actif comme contexte.",
-        "f7Detail": "Propulsé par l'IA. Les réponses sont des suggestions de coaching, pas un enseignement professionnel."
+        "f7Detail": "Propulsé par un grand modèle de langage. Les réponses sont des suggestions de coaching, pas un enseignement professionnel."
       },
       "dataSafety": {
         "heading": "Sécurité des données",
@@ -406,7 +406,7 @@
       "ai": {
         "heading": "Comment fonctionne l'IA",
         "q1": "Comment SwingVantage analyse-t-il un swing ?",
-        "a1": "SwingVantage identifie votre défaut de swing prioritaire en comparant vos données à des références éprouvées et propres à chaque sport — comme un entraîneur lirait un schéma de frappes — puis l'explique en langage clair avec des recommandations d'exercices personnalisées et un plan d'entraînement adapté à votre schéma spécifique.",
+        "a1": "SwingVantage utilise deux couches. D'abord, un moteur de diagnostic fondé sur des règles compare vos données à des références propres à chaque sport pour identifier votre défaut de swing prioritaire — comme un entraîneur lirait un schéma de frappes. Ensuite, un modèle de langage par IA génère une explication en langage clair, des recommandations d'exercices personnalisées et un plan d'entraînement basés sur votre schéma spécifique.",
         "q2": "SwingVantage peut-il voir à quoi ressemble mon swing à partir d'une vidéo ?",
         "a2": "Oui — téléversez une vidéo de swing et SwingVantage la découpe en phases avec des notes de coaching pour chacune. Les lectures vidéo sont des estimations heuristiques : des points de départ fiables et fondés sur les données qui s'affinent à mesure que vous en ajoutez. Importez des données d'un moniteur de lancement ou d'un dispositif de suivi et SwingVantage intègre ces chiffres exacts pour la lecture la plus précise.",
         "q3": "SwingVantage remplace-t-il un entraîneur particulier ?",
