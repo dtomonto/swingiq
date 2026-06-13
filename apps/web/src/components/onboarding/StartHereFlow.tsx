@@ -43,6 +43,7 @@ import { ChoiceGroup } from '@/components/tools/fields';
 import { ConfidenceBadge } from '@/components/agents/ConfidenceBadge';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
 import { DeterministicWhyPanel } from '@/components/report/DeterministicWhyPanel';
+import { DeterministicPlanCard } from '@/components/report/DeterministicPlanCard';
 import { trackDeterministicAnalysis } from '@/lib/intelligence/analytics';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { useSport } from '@/contexts/SportContext';
@@ -617,7 +618,12 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
       {/* Deterministic engine's explainable read (collapsed by default) —
           ranked cause, evidence, alternatives and an honest "deeper look" note.
           Renders only when the engine confidently matched a curated cause. */}
-      {result.diagnosis && <DeterministicWhyPanel diagnosis={result.diagnosis} />}
+      {result.diagnosis && (
+        <>
+          <DeterministicWhyPanel diagnosis={result.diagnosis} />
+          <DeterministicPlanCard diagnosis={result.diagnosis} surface="start_here" />
+        </>
+      )}
 
       {/* Drills */}
       <div className="rounded-2xl border border-border bg-card p-5">

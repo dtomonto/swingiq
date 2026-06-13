@@ -257,6 +257,15 @@ export const ANALYTICS_EVENTS = {
   DETERMINISTIC_ANALYSIS_COMPLETED: 'deterministic_analysis_completed',
   DETERMINISTIC_AI_ESCALATION_RECOMMENDED: 'deterministic_ai_escalation_recommended',
   DETERMINISTIC_AI_ESCALATION_SKIPPED: 'deterministic_ai_escalation_skipped',
+  // A deterministic practice plan was generated/shown. + sport, diagnosis,
+  // skill_level, drill_count, estimated_minutes.
+  DETERMINISTIC_PLAN_GENERATED: 'deterministic_plan_generated',
+  // The athlete rated a deterministic read. + sport, diagnosis, helpful.
+  DETERMINISTIC_USER_FEEDBACK_SUBMITTED: 'deterministic_user_feedback_submitted',
+  // A retest verdict on a prior deterministic diagnosis (improved → confirmed,
+  // regressed → rejected). + sport, diagnosis, outcome.
+  DETERMINISTIC_DIAGNOSIS_CONFIRMED: 'deterministic_diagnosis_confirmed',
+  DETERMINISTIC_DIAGNOSIS_REJECTED: 'deterministic_diagnosis_rejected',
 
   // Authority / education / trust content (SEO·AEO·GEO surfaces). Non-PII —
   // a `slug` (page path) and optional `category`/`target` only. Power the

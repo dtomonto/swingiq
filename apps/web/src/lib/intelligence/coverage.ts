@@ -23,6 +23,8 @@ export interface SportCoverage {
   candidateFaultCount: number;
   /** Curated fault-ontology entries that apply to the sport. */
   curatedFaultCount: number;
+  /** High-value follow-up questions wired across the sport's rules. */
+  missingDataPromptCount: number;
   escalationThreshold: number;
   /** A sport with at least a few symptoms and candidate causes is "healthy". */
   healthy: boolean;
@@ -46,7 +48,11 @@ export function getDeterministicEngineStatus(): EngineStatus {
     const cfg = getSportDiagnosisConfig(sport);
     const symptomCount = cfg?.rules.length ?? 0;
     const candidates = new Set<string>();
-    for (const r of cfg?.rules ?? []) for (const c of r.candidates) candidates.add(c.faultId);
+    let missingDataPromptCount = 0;
+    for (const r of cfg?.rules ?? []) {
+      for (const c of r.candidates) candidates.add(c.faultId);
+      missingDataPromptCount += r.missingDataPrompts?.length ?? 0;
+    }
     const curatedFaultCount = getFaultsForSport(sport).filter((f) => !f.generated).length;
     return {
       sport,
@@ -54,6 +60,7 @@ export function getDeterministicEngineStatus(): EngineStatus {
       symptomCount,
       candidateFaultCount: candidates.size,
       curatedFaultCount,
+      missingDataPromptCount,
       escalationThreshold: cfg?.escalationConfidenceThreshold ?? 55,
       healthy: symptomCount >= 3 && candidates.size >= 3,
     };
