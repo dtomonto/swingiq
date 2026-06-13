@@ -38,6 +38,7 @@ import { GrowthAgentsPanel } from '@/components/growth';
 import { ReadinessSummaryCard } from '@/components/bodysync/ReadinessSummaryCard';
 import { RetestNudge } from '@/components/dashboard/RetestNudge';
 import { DeterministicWhyPanel } from '@/components/report/DeterministicWhyPanel';
+import { DeterministicPlanCard } from '@/components/report/DeterministicPlanCard';
 import { analyzeDeterministicSession } from '@/lib/intelligence/diagnose';
 import { format } from 'date-fns';
 import { useMemo, type ReactNode } from 'react';
@@ -256,10 +257,13 @@ function PrimaryIssueCard({ sport }: { sport: SportId }) {
       </CardBody>
     </Card>
     {diagnosis && (
-      <DeterministicWhyPanel
-        diagnosis={diagnosis}
-        footerNote="This explains the likely cause behind your video-detected issue — confirm it with another angle or your coach."
-      />
+      <>
+        <DeterministicWhyPanel
+          diagnosis={diagnosis}
+          footerNote="This explains the likely cause behind your video-detected issue — confirm it with another angle or your coach."
+        />
+        <DeterministicPlanCard diagnosis={diagnosis} surface="dashboard_nongolf" />
+      </>
     )}
     </div>
   );

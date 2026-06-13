@@ -14,6 +14,7 @@ describe('getDeterministicEngineStatus', () => {
       expect(s.candidateFaultCount).toBeGreaterThan(0);
       // Pickleball & padel used to be zero — now they must carry curated faults.
       expect(s.curatedFaultCount).toBeGreaterThan(0);
+      expect(s.missingDataPromptCount).toBeGreaterThanOrEqual(0);
       expect(s.healthy).toBe(true);
     }
   });

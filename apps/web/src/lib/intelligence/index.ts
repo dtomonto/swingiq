@@ -39,7 +39,12 @@ export {
   listDiagnosisSports,
   getSportDiagnosisConfig,
   getSymptomsForSport,
+  getRecommendationLimit,
 } from './symptom-rules';
+export { generateDeterministicPlan } from './plan';
+export type { DeterministicPlan, PlanDrill } from './plan';
+// NB: diagnosis history (`./history`) is a 'use client' module — import it
+// directly, not via this (server-importable) barrel.
 export type { SymptomRule, SportDiagnosisConfig } from './symptom-rules';
 export { GOLDEN_SCENARIOS } from './golden-scenarios';
 export { getDeterministicEngineStatus, runGoldenScenarios } from './coverage';
