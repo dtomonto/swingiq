@@ -21,6 +21,7 @@ const CAP_KEYS: CapabilityKey[] = ['auth', 'aiCoach', 'aiVision', 'ocr', 'email'
 const DERIVED_KEYS = new Set([
   'prod-urls', 'admin-protected', 'analytics-any', 'ai-budget',
   'rate-limit-redis', 'cron-secret', 'gsc-verify', 'gsc-search-analytics',
+  'ghin-live',
 ]);
 
 function signal(over: Partial<SetupSignal> = {}): SetupSignal {

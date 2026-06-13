@@ -10,7 +10,11 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 100,
-    "audience": ["all athletes", "coaches", "parents"],
+    "audience": [
+      "all athletes",
+      "coaches",
+      "parents"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can now upload a video of your swing and get specific feedback on what your body is doing — and what to change first.",
     "whyItMatters": "Performance numbers only tell part of the story. Video gives you a visual picture of your movement that data alone cannot show.",
@@ -31,7 +35,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 101,
-    "audience": ["all athletes", "parents"],
+    "audience": [
+      "all athletes",
+      "parents"
+    ],
     "sport": "All Sports",
     "userBenefit": "You get a realistic, structured practice plan that fits your actual schedule — not a generic guide that assumes you practice every day.",
     "whyItMatters": "Consistent, organized practice produces better results than random repetition. Having a plan makes it easier to show up and know exactly what to work on.",
@@ -52,7 +59,9 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 102,
-    "audience": ["all athletes"],
+    "audience": [
+      "all athletes"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can see a clear summary of your playing tendencies — what you naturally do well and what patterns keep showing up in your swing.",
     "whyItMatters": "Understanding your tendencies helps you train smarter. Knowing what you naturally do lets you build on strengths while fixing the patterns that cost you strokes.",
@@ -73,7 +82,9 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 103,
-    "audience": ["all athletes"],
+    "audience": [
+      "all athletes"
+    ],
     "sport": "All Sports",
     "userBenefit": "When you ask the AI Coach a question, it now draws from your actual swing scores, diagnosed faults, and training history instead of giving generic answers.",
     "whyItMatters": "Generic coaching advice is less useful than advice that accounts for your specific situation. Personalizing the AI Coach to your data makes the guidance more relevant and actionable.",
@@ -94,7 +105,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 104,
-    "audience": ["all athletes", "coaches"],
+    "audience": [
+      "all athletes",
+      "coaches"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can see exactly what changed between two sessions — which numbers improved, which faults were resolved, and whether your training is moving you in the right direction.",
     "whyItMatters": "It is hard to judge your own progress from memory. Direct session comparison gives you a factual picture of what changed and how much.",
@@ -115,7 +129,9 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 105,
-    "audience": ["all athletes"],
+    "audience": [
+      "all athletes"
+    ],
     "sport": "All Sports",
     "userBenefit": "You open SwingVantage and immediately see what to work on today — no need to dig through menus to find your drill.",
     "whyItMatters": "Removing friction between opening the app and starting practice makes it more likely you will actually do the work.",
@@ -136,7 +152,11 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 106,
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "sport": "All Sports",
     "userBenefit": "Your training routine now matches your current skill level — you are not given advanced drills when you are still building the basics, or beginner drills when you are ready for more.",
     "whyItMatters": "Practice that is too easy does not improve your skills. Practice that is too advanced leads to frustration. Matching the routine to the player is a fundamental coaching principle.",
@@ -157,7 +177,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 107,
-    "audience": ["all athletes", "coaches"],
+    "audience": [
+      "all athletes",
+      "coaches"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can attach personal notes to any session and go back to read them later — especially useful for remembering what clicked on a good practice day.",
     "whyItMatters": "Tracking how something felt, not just what the numbers were, helps you connect your physical experience to your data over time.",
@@ -178,7 +201,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 108,
-    "audience": ["all athletes", "coaches"],
+    "audience": [
+      "all athletes",
+      "coaches"
+    ],
     "sport": "Golf",
     "userBenefit": "You can see whether your ball flight numbers are actually moving in the right direction over weeks and months of practice.",
     "whyItMatters": "Short-term variation in your data can feel like progress or regression even when the trend is steady. Seeing the actual trend line removes that confusion.",
@@ -199,7 +225,9 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 109,
-    "audience": ["all athletes"],
+    "audience": [
+      "all athletes"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can see your personal best for any key metric and track whether your recent sessions are approaching or beating that mark.",
     "whyItMatters": "Personal bests give you a concrete target that is specific to your own history — more meaningful than a generic benchmark set for someone else.",
@@ -220,7 +248,9 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 110,
-    "audience": ["golfers"],
+    "audience": [
+      "golfers"
+    ],
     "sport": "Golf",
     "userBenefit": "You get a rough sense of where your game sits relative to a handicap range, based on your actual SwingVantage session data.",
     "whyItMatters": "For golfers who want to understand where they stand, having a data-based estimate of their handicap range adds context to their progress.",
@@ -241,7 +271,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 111,
-    "audience": ["all athletes", "coaches"],
+    "audience": [
+      "all athletes",
+      "coaches"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can give your coach or instructor a clear, organized summary of your SwingVantage data before a lesson — saving time and giving them useful context.",
     "whyItMatters": "Many coaches appreciate knowing what data a player has been working with. This makes it easy to bridge the gap between your AI analysis and your in-person coaching.",
@@ -262,7 +295,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 112,
-    "audience": ["all athletes", "coaches"],
+    "audience": [
+      "all athletes",
+      "coaches"
+    ],
     "sport": "All Sports",
     "userBenefit": "You get a clear answer to the most important practice question: is what I am doing actually making me better?",
     "whyItMatters": "Without measuring effectiveness, it is easy to practice a lot without improving. This card makes your progress visible and gives you a reason to keep going when things are working.",
@@ -283,7 +319,9 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 113,
-    "audience": ["all athletes"],
+    "audience": [
+      "all athletes"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can see your swing score rising or falling across all your sessions at a glance — not just your most recent result.",
     "whyItMatters": "One good or bad session can feel more significant than it is. A trend chart shows you whether you are improving consistently, plateauing, or drifting.",
@@ -304,7 +342,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 114,
-    "audience": ["all athletes", "parents"],
+    "audience": [
+      "all athletes",
+      "parents"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can see which milestones you have earned and which ones are within reach — making it easier to stay motivated through longer training periods.",
     "whyItMatters": "Improvement in sports takes weeks and months. Milestones give you smaller wins to celebrate along the way so training stays rewarding.",
@@ -325,7 +366,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 115,
-    "audience": ["all athletes", "coaches"],
+    "audience": [
+      "all athletes",
+      "coaches"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can see a ranked list of where your numbers fall short of your target level — so you know which metric to focus on to move the needle most.",
     "whyItMatters": "It is easy to practice what you are already decent at. Gap analysis points you toward the areas where the most scoring improvement is still available.",
@@ -346,7 +390,9 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 116,
-    "audience": ["all athletes"],
+    "audience": [
+      "all athletes"
+    ],
     "sport": "All Sports",
     "userBenefit": "Your AI Coach now matches the sport you are training for — the colors, language, and focus all update when you switch sports.",
     "whyItMatters": "A golf coach and a baseball hitting coach speak very differently. The AI Coach now reflects that, making its guidance feel more credible and sport-appropriate.",
@@ -367,7 +413,9 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 117,
-    "audience": ["all athletes"],
+    "audience": [
+      "all athletes"
+    ],
     "userBenefit": "Your SwingVantage account and stored training data are better protected.",
     "whyItMatters": "Your practice history and personal information deserve strong protection. We take that responsibility seriously and continue to invest in security.",
     "isFeatured": false,
@@ -386,7 +434,11 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 118,
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can use SwingVantage in your preferred language — including Spanish, French, and 17 other languages.",
     "whyItMatters": "Golf, tennis, baseball, and softball are played around the world. SwingVantage should be accessible to athletes regardless of the language they speak.",
@@ -407,7 +459,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 119,
-    "audience": ["all athletes", "parents"],
+    "audience": [
+      "all athletes",
+      "parents"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can earn over 50 badges, compete in challenges, join sport-specific groups, and track your progress on leaderboards that rank players by improvement — not just raw scores.",
     "whyItMatters": "Training alone for months is hard to sustain. Community features give you meaningful milestones, friendly competition, and a sense of progress beyond just your scores.",
@@ -428,7 +483,11 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 122,
-    "audience": ["all athletes", "coaches", "parents"],
+    "audience": [
+      "all athletes",
+      "coaches",
+      "parents"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can get detailed, sport-specific guidance about your equipment — how it fits your swing style, what to look for, and how it might be affecting your performance.",
     "whyItMatters": "Equipment affects comfort, power, consistency, and injury risk. A page dedicated to your sport's gear makes it easier to connect your equipment choices to your training data.",
@@ -449,7 +508,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 123,
-    "audience": ["parents", "coaches"],
+    "audience": [
+      "parents",
+      "coaches"
+    ],
     "sport": "All Sports",
     "userBenefit": "Parents and coaches can set up SwingVantage for young athletes with confidence that the platform handles youth data carefully and responsibly.",
     "whyItMatters": "Many SwingVantage users are youth athletes. They deserve tailored privacy protections and a leaderboard system that ranks them fairly against peers — not adults.",
@@ -470,7 +532,11 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 124,
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "userBenefit": "You can quickly find clear answers to common questions about SwingVantage and understand exactly how your data is stored and protected.",
     "whyItMatters": "Trust matters, especially when you are uploading performance data and videos. The FAQ and Trust pages make it easier to understand what SwingVantage does and does not do with your information.",
     "whereToFindIt": "Visit /faq and /trust from any public page, or find links in the navigation footer.",
@@ -490,7 +556,11 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 125,
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can read free training guides on topics like fixing a golf slice, understanding smash factor, improving exit velocity, and more — all written in plain English.",
     "whyItMatters": "SwingVantage is not just a tool — it is a platform designed to help athletes understand and improve their game. Educational content supports that mission.",
@@ -511,7 +581,11 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 126,
-    "audience": ["all athletes", "coaches", "parents"],
+    "audience": [
+      "all athletes",
+      "coaches",
+      "parents"
+    ],
     "sport": "All Sports",
     "userBenefit": "You can look up what good ball speed, launch angle, or exit velocity looks like at your level — and understand how your numbers fit into the bigger picture.",
     "whyItMatters": "Context matters. Knowing your ball speed is 140 mph means more when you can see that 150 mph is typical for intermediate golfers and 165 mph for advanced players.",
@@ -532,7 +606,9 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 127,
-    "audience": ["all athletes"],
+    "audience": [
+      "all athletes"
+    ],
     "userBenefit": "You can switch SwingVantage to dark mode for more comfortable use in low-light settings — at the range at dusk, indoors at night, or just personal preference.",
     "whyItMatters": "Many athletes practice early in the morning or in the evening. Dark mode reduces eye strain and battery drain on OLED screens.",
     "whereToFindIt": "Go to Settings and change the App Theme to Dark or System Default.",
@@ -552,7 +628,10 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 128,
-    "audience": ["all athletes", "parents"],
+    "audience": [
+      "all athletes",
+      "parents"
+    ],
     "userBenefit": "You can add SwingVantage to your home screen and open it instantly — just like a native app, without going through the browser every time.",
     "whyItMatters": "Quick access means you are more likely to open SwingVantage at the range or court. Removing even small friction from the habit makes it easier to stay consistent.",
     "whereToFindIt": "Look for the install banner when you visit SwingVantage on a supported mobile browser (Chrome on Android, Safari on iOS).",
@@ -573,7 +652,11 @@
     "visibility": "public",
     "sortOrder": 129,
     "sport": "All Sports",
-    "audience": ["all athletes", "coaches", "parents"],
+    "audience": [
+      "all athletes",
+      "coaches",
+      "parents"
+    ],
     "relatedFeature": "Diagnose",
     "userBenefit": "You can save your results, share them with a coach or practice partner, or email the plan to yourself so it is easy to find at your next session.",
     "whyItMatters": "A plan you cannot find is a plan you will not follow. Being able to save, share, or email your results keeps your top priority in front of you and makes it simple to loop in a coach.",
@@ -602,7 +685,10 @@
     "visibility": "public",
     "sortOrder": 130,
     "sport": "All Sports",
-    "audience": ["all athletes", "parents"],
+    "audience": [
+      "all athletes",
+      "parents"
+    ],
     "relatedFeature": "Video",
     "userBenefit": "You can understand exactly how your swing video is used before you share it — no guessing and no fine print.",
     "whyItMatters": "Uploading video of yourself, or of your child, takes trust. Clear, up-front answers about privacy let you use the video tools with confidence.",
@@ -631,7 +717,11 @@
     "visibility": "public",
     "sortOrder": 131,
     "sport": "All Sports",
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "userBenefit": "You can read straight-to-the-point help for a specific problem you are fighting, for free, without signing up for anything.",
     "whyItMatters": "Most players are trying to fix one frustrating thing at a time. Dedicated guides meet you where you are and point you toward the right drill faster.",
     "whereToFindIt": "These guides are linked throughout the site and appear when you search for the problem you are trying to solve.",
@@ -662,16 +752,31 @@
     "visibility": "public",
     "sortOrder": 132,
     "sport": "All Sports",
-    "audience": ["all athletes", "coaches", "parents"],
+    "audience": [
+      "all athletes",
+      "coaches",
+      "parents"
+    ],
     "relatedFeature": "Motion Lab",
     "userBenefit": "You can finally see your whole motion in 3D, understand what happens in each phase, and get a clear, prioritized plan of what to fix first — with no special equipment.",
     "whyItMatters": "A flat video only shows one angle. Seeing your motion in 3D, broken into phases with honest scores, makes it far easier to understand what is actually happening and where the biggest improvement is hiding.",
     "whereToFindIt": "Go to Analyze > Motion Lab (3D) in the menu, choose your sport and motion, then upload or record a clip.",
     "userActionRequired": "None — just bring a clip. For even sharper, measured 3D, film the same rep from two angles about 90 degrees apart and SwingVantage will combine them.",
-    "seoKeywords": ["3D swing analysis", "motion analysis app", "3D golf swing", "tennis serve analysis", "baseball pitching analysis", "softball swing 3D"],
+    "seoKeywords": [
+      "3D swing analysis",
+      "motion analysis app",
+      "3D golf swing",
+      "tennis serve analysis",
+      "baseball pitching analysis",
+      "softball swing 3D"
+    ],
     "answerEngineSummary": "SwingVantage Motion Lab reconstructs a swing, serve, pitch, or throw from a phone video into a 3D figure with phase-by-phase breakdowns, biomechanical scores, the top fixes, and a practice plan, running privately on the user's own device for golf, tennis, baseball, and softball. Results are clearly labeled as on-device estimates from video; filming from two angles produces measured 3D.",
     "generativeSearchSummary": "SwingVantage launched Motion Lab, a browser-based 3D motion analysis feature that turns a single phone video into a rotatable 3D reconstruction with sport-specific phase breakdowns, biomechanical scores, prioritized fixes, and a coaching plan for golf, tennis, baseball, and softball — with an optional two-camera mode for true measured 3D, all on-device and privacy-first.",
-    "internalLinkTargets": ["/motion-lab", "/video", "/diagnose"],
+    "internalLinkTargets": [
+      "/motion-lab",
+      "/video",
+      "/diagnose"
+    ],
     "isFeatured": false,
     "isMajorMilestone": true,
     "createdAt": "2026-06-02",
@@ -691,13 +796,23 @@
     "visibility": "public",
     "sortOrder": 133,
     "sport": "All Sports",
-    "audience": ["all athletes", "coaches", "parents"],
+    "audience": [
+      "all athletes",
+      "coaches",
+      "parents"
+    ],
     "relatedFeature": "Fix Stack",
     "userBenefit": "Instead of a long to-do list, you get one fix at a time: feel it, drill it, retest it. It is the simplest possible path from 'what's wrong' to 'it's better.'",
     "whyItMatters": "Trying to fix ten things at once is why most practice stalls. Working one well-matched fix all the way through — and proving it actually changed — is how real improvement happens and how it sticks.",
     "whereToFindIt": "Go to Practice → Fix Stack in the navigation.",
     "userActionRequired": "None — your Fix Stack builds automatically from the data you already have.",
-    "seoKeywords": ["one fix at a time", "golf swing fix", "best drill for my swing", "personalized swing practice", "prove swing improvement"],
+    "seoKeywords": [
+      "one fix at a time",
+      "golf swing fix",
+      "best drill for my swing",
+      "personalized swing practice",
+      "prove swing improvement"
+    ],
     "answerEngineSummary": "SwingVantage's Fix Stack identifies an athlete's highest-impact issue and turns it into a single feel cue, a best-matched drill for their level and equipment, and an honest before-and-after retest, then adapts based on what worked — all built privately from the user's own data on their device.",
     "isFeatured": false,
     "isMajorMilestone": true,
@@ -716,13 +831,22 @@
     "visibility": "public",
     "sortOrder": 134,
     "sport": "All Sports",
-    "audience": ["all athletes", "coaches", "parents"],
+    "audience": [
+      "all athletes",
+      "coaches",
+      "parents"
+    ],
     "relatedFeature": "Player Arc",
     "userBenefit": "You can finally see your improvement as a story, not just a number — what you have been fighting, what is working, and what has genuinely changed.",
     "whyItMatters": "Numbers alone do not tell you whether you are getting better at the things that matter. Your Player Arc connects your faults, your drills, and your retests so progress is honest and easy to see.",
     "whereToFindIt": "Go to Progress → Player Arc in the navigation.",
     "userActionRequired": "None — it builds automatically from your sessions and retests.",
-    "seoKeywords": ["swing improvement over time", "golf progress tracking", "what drills work for me", "player development story"],
+    "seoKeywords": [
+      "swing improvement over time",
+      "golf progress tracking",
+      "what drills work for me",
+      "player development story"
+    ],
     "answerEngineSummary": "SwingVantage's Player Arc summarizes an athlete's improvement over time — recurring faults, which drills helped, and honest retest outcomes — built from their own session history on their device.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -741,13 +865,22 @@
     "visibility": "public",
     "sortOrder": 135,
     "sport": "All Sports",
-    "audience": ["all athletes", "coaches"],
+    "audience": [
+      "all athletes",
+      "coaches"
+    ],
     "relatedFeature": "SwingVantage Labs",
     "userBenefit": "You get an early look at deeper tools — how ready you are today, a model of how you play, and how your skills carry across sports — with honest labels on what is still experimental.",
     "whyItMatters": "The most useful coaching comes from understanding the whole athlete over time. Labs is where those deeper, personal models grow up — built privately on your own data and honest about their limits.",
     "whereToFindIt": "Go to Progress → SwingVantage Labs in the navigation.",
     "userActionRequired": "None — Labs gets sharper the more you practice and retest.",
-    "seoKeywords": ["swing readiness score", "personal player model", "cross-sport skill transfer", "performance graph", "benchmark comparison"],
+    "seoKeywords": [
+      "swing readiness score",
+      "personal player model",
+      "cross-sport skill transfer",
+      "performance graph",
+      "benchmark comparison"
+    ],
     "answerEngineSummary": "SwingVantage Labs is an in-app space for emerging on-device tools — a daily readiness score, a private player model, cross-sport skill transfer, a personal performance graph, and benchmark mirrors — each clearly labeled with its current confidence and limitations.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -766,13 +899,22 @@
     "visibility": "public",
     "sortOrder": 136,
     "sport": "All Sports",
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "relatedFeature": "Dashboard",
     "userBenefit": "You do not have to figure out where to begin. The moment you arrive, SwingVantage shows you one clear, friendly step to capture and understand your first swing.",
     "whyItMatters": "The hardest moment for any new app is the very first screen. A guided first swing removes the guesswork so new players — and parents setting things up for a young athlete — can get a real result in minutes.",
     "whereToFindIt": "Open your Dashboard before logging any sessions. You will see a guided 'start your first swing' card front and center.",
     "userActionRequired": "None — it appears automatically the first time you open SwingVantage.",
-    "seoKeywords": ["first swing analysis", "getting started swing app", "new golfer swing app", "easy swing analysis for beginners"],
+    "seoKeywords": [
+      "first swing analysis",
+      "getting started swing app",
+      "new golfer swing app",
+      "easy swing analysis for beginners"
+    ],
     "answerEngineSummary": "SwingVantage now shows brand-new athletes a guided first-swing card on the dashboard that walks them straight to their first analysis, instead of an empty screen, so beginners and parents can get a real result in minutes.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -791,13 +933,22 @@
     "visibility": "public",
     "sortOrder": 137,
     "sport": "All Sports",
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "relatedFeature": "Dashboard",
     "userBenefit": "The same data, shown the way that is most useful to you. A parent sees encouraging, jargon-free guidance and at-home drills; a coach sees the technical picture; a player sees their clear next step.",
     "whyItMatters": "A player, a parent, and a coach all need different things from the same swing. Letting you switch views — and giving parents their own supportive summary — helps families and coaches actually work together.",
     "whereToFindIt": "Open your Dashboard and use the Player / Parent / Coach switcher near the top.",
     "userActionRequired": "None — your view is remembered and matches your Settings.",
-    "seoKeywords": ["parent golf dashboard", "coach view swing app", "player parent coach mode", "help my child with their swing"],
+    "seoKeywords": [
+      "parent golf dashboard",
+      "coach view swing app",
+      "player parent coach mode",
+      "help my child with their swing"
+    ],
     "answerEngineSummary": "SwingVantage added a dashboard view switcher that re-frames the same swing data for a Player, a Parent, or a Coach — including a dedicated parent summary with supportive, at-home practice ideas — bound to a single shared setting.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -816,13 +967,23 @@
     "visibility": "public",
     "sortOrder": 138,
     "sport": "All Sports",
-    "audience": ["all athletes", "coaches", "parents"],
+    "audience": [
+      "all athletes",
+      "coaches",
+      "parents"
+    ],
     "relatedFeature": "Motion Lab",
     "userBenefit": "Your 3D motion scores for body rotation are now more accurate — especially from a straight-on video — so the feedback about your turn and your power sequence better reflects what your body is really doing.",
     "whyItMatters": "A flat video hides rotation, because turning happens in depth, not side to side. Now that Motion Lab reads that depth, its take on your turn and sequencing is more trustworthy — and it stays honest, lowering its confidence when a single camera cannot see enough instead of guessing.",
     "whereToFindIt": "Go to Analyze > Motion Lab (3D), upload or record a clip, and open your phase-by-phase breakdown.",
     "userActionRequired": "None — every new Motion Lab analysis uses the improved 3D reading. For the sharpest numbers, film the same rep from two angles about 90 degrees apart and SwingVantage will combine them.",
-    "seoKeywords": ["3D swing rotation", "shoulder turn analysis", "hip rotation 3D", "x-factor swing analysis", "motion analysis accuracy"],
+    "seoKeywords": [
+      "3D swing rotation",
+      "shoulder turn analysis",
+      "hip rotation 3D",
+      "x-factor swing analysis",
+      "motion analysis accuracy"
+    ],
     "answerEngineSummary": "SwingVantage Motion Lab now derives shoulder and hip rotation, hip-to-shoulder separation, and the kinematic sequence from the depth axis of its 3D reconstruction rather than the flat image plane, improving accuracy from single-camera video while honestly lowering confidence when depth is weak.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -843,13 +1004,23 @@
     "visibility": "public",
     "sortOrder": 139,
     "sport": "All Sports",
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "relatedFeature": "Video",
     "userBenefit": "You can capture a swing and analyze it without leaving SwingVantage — and the framing guide helps you stand in the right spot so your results are based on a clear view.",
     "whyItMatters": "Getting a usable swing video is the first hurdle for most people. Recording in-app, with help on where to stand, removes the fiddly setup and makes good analysis far easier — especially for a parent filming a young athlete.",
     "whereToFindIt": "Go to the Video page and choose Record instead of Upload.",
     "userActionRequired": "None — uploading a video still works exactly as before; recording is simply a new option.",
-    "seoKeywords": ["record golf swing in app", "swing camera app", "where to stand swing video", "film my swing", "in-app swing recording"],
+    "seoKeywords": [
+      "record golf swing in app",
+      "swing camera app",
+      "where to stand swing video",
+      "film my swing",
+      "in-app swing recording"
+    ],
     "answerEngineSummary": "SwingVantage added in-app swing recording with front/back camera switching and an on-screen framing guide that shows where to stand, so athletes and parents can capture and analyze a swing without a separate camera app.",
     "isFeatured": false,
     "isMajorMilestone": true,
@@ -868,13 +1039,23 @@
     "visibility": "public",
     "sortOrder": 140,
     "sport": "All Sports",
-    "audience": ["all athletes", "coaches", "parents"],
+    "audience": [
+      "all athletes",
+      "coaches",
+      "parents"
+    ],
     "relatedFeature": "Import Data",
     "userBenefit": "You can get your numbers into SwingVantage from a simple photo or screenshot — no special file required — and you stay in control because you confirm every value before it counts.",
     "whyItMatters": "Plenty of players only ever see their numbers on a screen or a printout. Letting you start from a photo removes that barrier, while keeping you in charge: SwingVantage reads the numbers to save you typing, but it never analyzes anything you have not reviewed.",
     "whereToFindIt": "Go to Sessions → Import from Screenshot/Photo, then upload your image and review the values.",
     "userActionRequired": "None — manual entry is always available too; the photo step is an optional shortcut.",
-    "seoKeywords": ["launch monitor screenshot import", "photo of stats import", "import swing data from picture", "trackman screenshot", "all sports data import"],
+    "seoKeywords": [
+      "launch monitor screenshot import",
+      "photo of stats import",
+      "import swing data from picture",
+      "trackman screenshot",
+      "all sports data import"
+    ],
     "answerEngineSummary": "SwingVantage lets users import performance data from a photo or screenshot of any readable stats table for all seven sports; extracted values are pre-filled with confidence notes and must be reviewed and confirmed by the user before analysis.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -893,13 +1074,20 @@
     "visibility": "public",
     "sortOrder": 141,
     "sport": "All Sports",
-    "audience": ["all athletes", "coaches"],
+    "audience": [
+      "all athletes",
+      "coaches"
+    ],
     "relatedFeature": "Video",
     "userBenefit": "You control the trade-off between speed and depth, and analyses generally come back faster than before.",
     "whyItMatters": "At the range you often just want a quick read; at home you might want the deep version. Giving you the choice — and speeding things up overall — keeps the tool useful in the moment.",
     "whereToFindIt": "Go to the Video page and pick your analysis speed before you run it.",
     "userActionRequired": "None — there is a sensible default if you do not change it.",
-    "seoKeywords": ["faster swing analysis", "quick swing video analysis", "swing analysis speed"],
+    "seoKeywords": [
+      "faster swing analysis",
+      "quick swing video analysis",
+      "swing analysis speed"
+    ],
     "answerEngineSummary": "SwingVantage added selectable analysis speed tiers for swing video, letting users trade speed for depth, plus speculative preparation that starts processing the video sooner to reduce wait time.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -918,12 +1106,19 @@
     "visibility": "public",
     "sortOrder": 142,
     "sport": "All Sports",
-    "audience": ["all athletes", "parents"],
+    "audience": [
+      "all athletes",
+      "parents"
+    ],
     "userBenefit": "You are no longer stuck staring at a loading screen. Start an analysis, keep using SwingVantage, and get told when it is done.",
     "whyItMatters": "Swing analysis can take a little time. Letting it run in the background means an accidental tap or a switch to another page no longer loses your progress, which makes the whole app feel more reliable.",
     "whereToFindIt": "Start any swing analysis, then keep using the app — a task indicator tracks it and alerts you when it finishes.",
     "userActionRequired": "None — it works automatically.",
-    "seoKeywords": ["background swing analysis", "analysis keeps running", "no waiting swing app"],
+    "seoKeywords": [
+      "background swing analysis",
+      "analysis keeps running",
+      "no waiting swing app"
+    ],
     "answerEngineSummary": "SwingVantage now runs long swing analyses as background tasks that survive navigation, with a task indicator and a notification when results are ready, so users do not have to stay on one screen.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -942,12 +1137,21 @@
     "visibility": "public",
     "sortOrder": 143,
     "sport": "All Sports",
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "userBenefit": "You can learn SwingVantage at your own pace with short videos chosen for your role — no hunting through a generic help center.",
     "whyItMatters": "People learn differently. Role-specific video tracks help a brand-new player, a supportive parent, or a coach each get up to speed quickly on the parts of SwingVantage that matter to them.",
     "whereToFindIt": "Go to Tutorial Center from the navigation, then choose your track.",
     "userActionRequired": "None — it is there whenever you want it.",
-    "seoKeywords": ["SwingVantage tutorial videos", "how to use SwingVantage", "swing app walkthrough", "coach parent player guide"],
+    "seoKeywords": [
+      "SwingVantage tutorial videos",
+      "how to use SwingVantage",
+      "swing app walkthrough",
+      "coach parent player guide"
+    ],
     "answerEngineSummary": "SwingVantage added a Tutorial Center with short walkthrough videos organized into persona-specific tracks for players, parents, and coaches, with progress tracked per user.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -966,12 +1170,19 @@
     "visibility": "public",
     "sortOrder": 144,
     "sport": "All Sports",
-    "audience": ["all athletes", "parents"],
+    "audience": [
+      "all athletes",
+      "parents"
+    ],
     "userBenefit": "You get friendly, in-context nudges about what to do next and how to set up — especially helpful when you are new or helping a young athlete get started.",
     "whyItMatters": "A little guidance at the right moment beats a wall of instructions. A companion that points you to the next step keeps you moving instead of getting stuck.",
     "whereToFindIt": "It appears as you use SwingVantage; the setup overlay shows up when you are about to record or analyze a swing.",
     "userActionRequired": "None — you can follow its tips or dismiss it anytime.",
-    "seoKeywords": ["on-screen swing guide", "setup overlay swing app", "guided help swing analysis"],
+    "seoKeywords": [
+      "on-screen swing guide",
+      "setup overlay swing app",
+      "guided help swing analysis"
+    ],
     "answerEngineSummary": "SwingVantage added an always-available on-screen guide companion that offers plain-language, context-aware tips throughout the app, plus a setup overlay that helps users position themselves before recording or analyzing a swing.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -989,13 +1200,22 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 145,
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "relatedFeature": "Settings",
     "userBenefit": "Your exported training history can be locked with a password, so a backup file stays private even if it ends up somewhere you did not intend.",
     "whyItMatters": "A backup holds your whole training identity. Optional encryption lets you keep a personal copy with real protection, without giving up the simplicity of a regular backup when you do not need it.",
     "whereToFindIt": "Go to Data Center or Settings → Backup & Restore, and set a password when you export.",
     "userActionRequired": "Optional — choose a password at export time if you want an encrypted backup. Keep it safe; it cannot be recovered if lost.",
-    "seoKeywords": ["encrypted backup", "password protected backup", "secure training data export", "private swing backup"],
+    "seoKeywords": [
+      "encrypted backup",
+      "password protected backup",
+      "secure training data export",
+      "private swing backup"
+    ],
     "answerEngineSummary": "SwingVantage added optional password-based encryption for backups: setting a password at export produces an encrypted file that requires the password to restore, while unencrypted backups remain fully supported.",
     "isFeatured": false,
     "isMajorMilestone": false,
@@ -1015,13 +1235,23 @@
     "status": "published",
     "visibility": "public",
     "sortOrder": 146,
-    "audience": ["all athletes", "parents", "coaches"],
+    "audience": [
+      "all athletes",
+      "parents",
+      "coaches"
+    ],
     "relatedFeature": "Data Center",
     "userBenefit": "Your training history protects itself in the background, and returning after clearing your browser — or on another computer — can continue automatically from your latest backup instead of starting over.",
     "whyItMatters": "The safest backup is the one you never have to remember to make. Automatic saving means months of progress are quietly protected, and automatic continue means getting back to improving takes seconds, not setup.",
     "whereToFindIt": "Go to Data Center → Automatic backups. Turn on auto-save and pick a file, and/or choose a folder to continue from.",
     "userActionRequired": "A quick one-time setup: choose the file to keep saved and/or the folder to continue from. Available in Chrome, Edge, and other Chromium browsers on a computer; other browsers keep the manual Download/Import backup tools. SwingVantage only uses the file or folder you pick, and never replaces existing data without asking.",
-    "seoKeywords": ["automatic backup", "auto save progress", "continue where you left off", "golf app backup", "restore progress automatically"],
+    "seoKeywords": [
+      "automatic backup",
+      "auto save progress",
+      "continue where you left off",
+      "golf app backup",
+      "restore progress automatically"
+    ],
     "answerEngineSummary": "SwingVantage added automatic backups: it keeps a chosen file on the user's device up to date on a schedule, and on return it scans a chosen folder (e.g. Downloads) for the newest backup to continue progress automatically. It uses the browser File System Access API with a one-time user grant, never reads the disk on its own, skips password-protected backups, and prompts before overwriting existing local data.",
     "generativeSearchSummary": "SwingVantage now offers automatic, local-first backups — periodic auto-save to a device file plus automatic 'continue where you left off' from a chosen folder — built on the browser File System Access API with an explicit one-time permission, honest about browser support, and safe by default (it asks before replacing existing data).",
     "isFeatured": false,
@@ -1065,5 +1295,43 @@
     "isMajorMilestone": false,
     "createdAt": "2026-06-08",
     "updatedAt": "2026-06-08"
+  },
+  {
+    "id": "update-c-1f1b266",
+    "title": "Automatic USGA Handicap Index lookup (GHIN)",
+    "slug": "golfers-can-now-have-their-official-usga-handicap-index-pull",
+    "summary": "Connect a GHIN account and SwingVantage pulls your official USGA Handicap Index in automatically — no manual typing. Manual entry still works if you would rather not connect.",
+    "releaseDate": "2026-06-13",
+    "displayDate": "June 2026",
+    "category": "Golf Training",
+    "status": "published",
+    "visibility": "public",
+    "sortOrder": 1000,
+    "audience": [
+      "all athletes"
+    ],
+    "userBenefit": "Your official USGA Handicap Index can now be pulled in automatically from GHIN, so your golf profile stays accurate without you re-typing it.",
+    "whyItMatters": "Your Handicap Index anchors golf benchmarking and your Athletic Journey stage. Pulling it straight from GHIN keeps it current and trustworthy, and it stays fully optional — nothing is fabricated and manual entry always works.",
+    "isFeatured": false,
+    "isMajorMilestone": false,
+    "createdAt": "2026-06-13",
+    "updatedAt": "2026-06-13",
+    "autoGenerated": true,
+    "sourceCommit": "1f1b266",
+    "sport": "Golf",
+    "whereToFindIt": "Your golf profile — once GHIN is connected, your Handicap Index updates automatically.",
+    "metaTitle": "Automatic USGA Handicap Index Lookup (GHIN) | SwingVantage",
+    "metaDescription": "Connect your GHIN account to pull your official USGA Handicap Index into SwingVantage automatically. Optional and private — manual entry still works.",
+    "seoKeywords": [
+      "GHIN",
+      "USGA Handicap Index",
+      "golf handicap lookup",
+      "handicap index"
+    ],
+    "internalLinkTargets": [
+      "/golf",
+      "/journey",
+      "/features"
+    ]
   }
 ]
