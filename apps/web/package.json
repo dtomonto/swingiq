@@ -26,6 +26,7 @@
     "figma:parse": "figma connect parse",
     "figma:publish": "figma connect publish",
     "figma:unpublish": "figma connect unpublish",
+    "figma:tokens": "node scripts/figma-tokens-sync.mjs",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
