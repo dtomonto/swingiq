@@ -20,7 +20,7 @@ import type { TierId } from '@/lib/billing/tiers';
 import { routeAnalysis } from './router';
 import type { RouteAnalysisDeps } from './router';
 import { resolveRouteContext } from './context';
-import { runHeuristicEstimate } from './heuristic';
+import { runHeuristicVideoEstimate } from './heuristic-video';
 import { logAnalysis } from './log';
 import { tierConfig } from './tiers';
 import { getCachedResult, putCachedResult, isCacheableResult } from './cache';
@@ -60,7 +60,10 @@ export async function analyze(req: AnalysisRequest, opts: AnalyzeOptions = {}): 
   const routedCtx = cached ? { ...ctx, cacheHit: true } : ctx;
 
   const result = await routeAnalysis(req, routedCtx, {
-    runHeuristic: (r, route) => runHeuristicEstimate(r, route),
+    // Video-grounded heuristic floor: when the request carries on-device pose
+    // proxies it COMPLETES the diagnosis from the measured motion; otherwise it
+    // is identical to the self-reported Instant Estimate (safe superset).
+    runHeuristic: (r, route) => runHeuristicVideoEstimate(r, route),
     runHybrid: opts.runHybrid,
     runFullAI: opts.runFullAI,
     getCached: opts.getCached ?? (cached ? () => cached : undefined),

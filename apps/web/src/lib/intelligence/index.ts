@@ -12,6 +12,7 @@ export { DEFAULT_TIER_CONFIGS, TIER_OP, tierConfig } from './tiers';
 export { decideRoute, buildDecisionInput, routeAnalysis } from './router';
 export type { RouteContext, RouteAnalysisDeps } from './router';
 export { runHeuristicEstimate } from './heuristic';
+export { runHeuristicVideoEstimate } from './heuristic-video';
 export { resolveRouteContext } from './context';
 export { analyze } from './service';
 export type { AnalyzeOptions } from './service';

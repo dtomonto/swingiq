@@ -15,7 +15,7 @@
 // Pure types only (no runtime, no secrets) — safe to import anywhere.
 // ============================================================
 
-import type { SportId } from '@swingiq/core';
+import type { SportId, SportPoseFeatures, SportDetectedIssue } from '@swingiq/core';
 import type { TierId } from '@/lib/billing/tiers';
 
 /** Platform-wide posture toward AI spend, set by an admin. */
@@ -66,6 +66,14 @@ export interface AnalysisRequest {
   handedness?: 'left' | 'right';
   /** True when a swing video is available for deeper (AI) analysis. */
   videoAvailable?: boolean;
+  /**
+   * On-device pose proxies measured from the uploaded video (MediaPipe runs in
+   * the browser — NO AI, NO upload of the clip). When present, the heuristic
+   * engine GROUNDS its diagnosis in the athlete's actual measured motion instead
+   * of their self-reported miss — this is what completes the video diagnosis for
+   * the free tier. Absent → the estimate falls back to the self-reported issue.
+   */
+  poseFeatures?: SportPoseFeatures;
   /** The signed-in user's id (for per-user caps / logging), if any. */
   userId?: string | null;
 }
@@ -92,6 +100,19 @@ export interface AnalysisResult {
   retest: RetestInstruction;
   /** Setup / equipment note when relevant. */
   setupNote?: string;
+  /**
+   * True when this estimate was GROUNDED in motion measured from the uploaded
+   * video (on-device pose), not just the athlete's self-reported miss. Still a
+   * deterministic, single-camera ESTIMATE — never an AI vision read.
+   */
+  videoGrounded?: boolean;
+  /** Whether the diagnosis was driven by measured pose ('pose') or the athlete's
+   *  self-reported miss ('self-report'). */
+  evidenceBasis?: 'pose' | 'self-report';
+  /** On-device measured proxies surfaced as honest, labeled evidence. */
+  measuredSignals?: MeasuredSignal[];
+  /** Conservative, pose-derived findings detected from the video (estimated). */
+  detectedIssues?: SportDetectedIssue[];
   /** Premium upsell shown when a deeper tier would add value. */
   upgradeCTA?: string;
   /** True when the underlying fault entry was synthesized, not curated. */
@@ -110,6 +131,19 @@ export interface DrillRecommendation {
   goal: string;
   /** Optional deep link into the existing drill library. */
   slug?: string;
+}
+
+/**
+ * One on-device measured proxy, surfaced as honest evidence in a video-grounded
+ * estimate. Values are single-camera 2D proxies — always labeled estimated.
+ */
+export interface MeasuredSignal {
+  /** Short label, e.g. "Shoulder rotation". */
+  label: string;
+  /** Human-readable measured value, e.g. "~14°" or "~18% of frame width". */
+  value: string;
+  /** What it indicates for the swing (and that it's a proxy). */
+  note: string;
 }
 
 export interface PracticePlan {

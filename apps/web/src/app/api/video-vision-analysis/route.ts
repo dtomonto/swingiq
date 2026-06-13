@@ -21,6 +21,7 @@ import {
   resolveVisionSpeed,
   dataUrlToFrame,
   VisualSportSchema,
+  type VisualSport,
   type AIVisualAnalysis,
   type VisionFrame,
   type VisionUserProfile,
@@ -32,7 +33,8 @@ import { clientIp } from '@/lib/security/client-ip';
 import { aiBudgetExceeded, recordAiSpend } from '@/lib/ai-budget';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
-import { gateVideoAnalysis } from '@/lib/intelligence';
+import { gateVideoAnalysis, runHeuristicVideoEstimate } from '@/lib/intelligence';
+import type { AnalysisResult } from '@/lib/intelligence';
 import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
 import { recordAiCall } from '@/lib/ai/ai-ops/call-log';
@@ -52,6 +54,36 @@ import {
 /** Map an orchestrator provider name onto the vision provider's env value. */
 function toVisionProviderEnv(p: AiProviderName): string {
   return p === 'gemini' ? 'google' : p; // openai/anthropic pass through
+}
+
+/**
+ * Build a complete, video-grounded GAI Instant Estimate from the on-device pose
+ * proxies the client already computed — so a free / gated request still leaves
+ * with a real plan derived from THEIR measured motion, not just a "not available"
+ * notice. Deterministic: no AI, no extra cost, the clip never leaves the device.
+ * Best-effort: returns null when there is no pose track or on any failure.
+ */
+function buildVideoGroundedEstimate(
+  sport: VisualSport,
+  body: VisionRequestBody,
+  userId: string | null,
+): AnalysisResult | null {
+  if (!body.poseMetrics) return null;
+  try {
+    return runHeuristicVideoEstimate(
+      {
+        tier: 'INSTANT_ESTIMATE',
+        sport,
+        issue: typeof body.notes === 'string' && body.notes.trim() ? body.notes : 'swing',
+        videoAvailable: true,
+        poseFeatures: body.poseMetrics,
+        userId,
+      },
+      'FALLBACK_HEURISTIC',
+    );
+  } catch {
+    return null;
+  }
 }
 
 export const runtime = 'nodejs';
@@ -180,7 +212,10 @@ export async function POST(req: NextRequest) {
       outcome.configured === false
         ? outcome.reason
         : 'AI visual analysis is not currently configured.';
-    return NextResponse.json({ configured: false, message }, { status: 200 });
+    // Keyless (fully free) install: still complete a diagnosis from the on-device
+    // pose proxies the client computed, so the user leaves with a real plan.
+    const estimate = buildVideoGroundedEstimate(sport, body, null);
+    return NextResponse.json({ configured: false, message, estimate }, { status: 200 });
   }
 
   // Per-user AI switch: an operator can disable AI for a single account. When
@@ -211,7 +246,14 @@ export async function POST(req: NextRequest) {
     providerConfigured: true, // provider.isConfigured() verified above
   });
   if (!gate.allowAI) {
-    return NextResponse.json({ configured: false, message: gate.message }, { status: 200 });
+    // Free / gated path still completes a diagnosis: ground the GAI Instant
+    // Estimate in the athlete's on-device pose proxies (no AI, no cost). Additive
+    // `estimate` field — existing clients that only read `message` are unaffected.
+    const estimate = buildVideoGroundedEstimate(sport, body, authedUser?.id ?? null);
+    return NextResponse.json(
+      { configured: false, message: gate.message, estimate },
+      { status: 200 },
+    );
   }
 
   // Global daily AI-spend kill-switch (off unless AI_DAILY_BUDGET_CENTS is set).
