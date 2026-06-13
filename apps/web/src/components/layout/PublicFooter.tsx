@@ -27,6 +27,8 @@ const COLUMN_DEFS = [
       { k: 'faq', href: '/faq' },
       { k: 'glossary', href: '/glossary' },
       { k: 'benchmarks', href: '/benchmarks' },
+      { k: 'heuristicData', href: '/learn/what-is-heuristic-data' },
+      { k: 'aiInSports', href: '/learn/ai-in-sports-performance' },
       { k: 'blog', href: '/blog' },
       { k: 'updates', href: '/updates' },
       { k: 'devUpdates', href: '/dev-updates' },

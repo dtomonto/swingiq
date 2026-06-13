@@ -159,6 +159,8 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   // ── Methodology / explainers ──────────────────────────────────────────
   { path: '/methodology', label: 'Our methodology (measured vs. estimated)', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/athlete-general-intelligence', label: 'Athlete General Intelligence', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-is-heuristic-data', label: 'What is heuristic data?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/ai-in-sports-performance', label: 'What is AI in sports performance?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
 
   // ── Benchmarks ────────────────────────────────────────────────────────
   { path: '/benchmarks', label: 'Benchmarks (all sports)', section: 'benchmarks', priority: 0.7, changeFrequency: 'monthly' },

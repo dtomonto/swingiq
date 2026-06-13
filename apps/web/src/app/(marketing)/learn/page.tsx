@@ -82,6 +82,48 @@ export default async function LearnIndexPage() {
         </section>
       )}
 
+      {/* Technology & intelligence explainers (how SwingVantage thinks) */}
+      <section aria-label="Technology and intelligence" className="border-b border-border bg-background px-4 py-12">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold text-foreground">How SwingVantage thinks</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Plain-English explainers on the technology behind your plan — heuristic intelligence, AI in
+            sports, and how scattered data becomes one next-best action.
+          </p>
+          <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+            {[
+              {
+                href: '/learn/what-is-heuristic-data',
+                title: 'What Is Heuristic Data?',
+                blurb:
+                  'The fast, structured, rules-based logic behind SwingVantage’s instant recommendations.',
+              },
+              {
+                href: '/learn/ai-in-sports-performance',
+                title: 'AI in Sports Performance',
+                blurb:
+                  'How AI connects video, profiles, sessions, and retests into a practical improvement plan.',
+              },
+              {
+                href: '/athlete-general-intelligence',
+                title: 'Athlete General Intelligence',
+                blurb:
+                  'The cross-sport engine that finds the one thing limiting the most of your game.',
+              },
+            ].map((c) => (
+              <Link
+                key={c.href}
+                href={c.href}
+                className="block rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary hover:bg-primary/5"
+              >
+                <h3 className="text-base font-bold text-foreground">{c.title}</h3>
+                <p className="mt-1 text-xs text-muted-foreground">{c.blurb}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Sections */}
       <div className="mx-auto max-w-5xl space-y-12 px-4 py-12">
         {sections.map((section) => (
