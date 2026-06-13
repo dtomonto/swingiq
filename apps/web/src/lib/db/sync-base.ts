@@ -69,13 +69,38 @@ export function computeBase(s: SwingVantageState): SyncBase {
 
 const keyFor = (userId: string) => `swingiq.syncBase.${userId}`;
 
+// Record<string,string> maps the 3-way merge indexes directly (base.clubs[id]).
+const RECORD_FIELDS = [
+  'clubs', 'sessions', 'video', 'tennis', 'pickleball', 'padel',
+  'baseball', 'softball_slow', 'softball_fast', 'sportProfiles',
+] as const;
+// Singleton fingerprints the merge compares as plain hashes.
+const STRING_FIELDS = ['training', 'settings', 'community', 'tutorial', 'agent'] as const;
+
+const isObject = (v: unknown): v is Record<string, unknown> =>
+  typeof v === 'object' && v !== null && !Array.isArray(v);
+
+/**
+ * A base is only usable if it's the right version AND structurally complete —
+ * the 3-way merge indexes `base.clubs[id]`, `base.training`, etc. directly, so a
+ * truncated/corrupt `{ v: 1 }` blob would throw mid-merge. Validate the shape so
+ * a bad base degrades safely to `null` (→ non-destructive union on next sync).
+ */
+function isValidBase(p: unknown): p is SyncBase {
+  if (!isObject(p) || p.v !== 1) return false;
+  for (const f of RECORD_FIELDS) if (!isObject(p[f])) return false;
+  for (const f of STRING_FIELDS) if (typeof p[f] !== 'string') return false;
+  if (!(p.profile === null || typeof p.profile === 'string')) return false;
+  return true;
+}
+
 export function loadBase(userId: string): SyncBase | null {
   if (typeof window === 'undefined') return null;
   try {
     const raw = window.localStorage.getItem(keyFor(userId));
     if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    return parsed && parsed.v === 1 ? (parsed as SyncBase) : null;
+    const parsed: unknown = JSON.parse(raw);
+    return isValidBase(parsed) ? parsed : null;
   } catch {
     return null;
   }

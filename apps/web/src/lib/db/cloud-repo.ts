@@ -74,6 +74,32 @@ export async function deleteAllForUser(client: SupabaseClient, userId: string): 
   }
 }
 
+/**
+ * Count the rows still owned by a user across every synced table. After an auth
+ * user is deleted this MUST be 0 — each table references `auth.users(id) ON
+ * DELETE CASCADE`. A non-zero result means a cascade constraint was dropped and
+ * data was orphaned, so the delete path can surface it instead of silently
+ * leaving a user's data behind. Run with a service-role client (bypasses RLS so
+ * it can see rows the now-deleted user owned). A missing table counts as 0.
+ */
+export async function countResidualUserRows(
+  client: SupabaseClient, userId: string,
+): Promise<number> {
+  let total = 0;
+  for (const table of ALL_TABLES) {
+    const { count, error } = await client
+      .from(table)
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', userId);
+    if (error) {
+      if (isSchemaMissing(error)) continue; // table not applied yet → nothing to count
+      throw error;
+    }
+    total += count ?? 0;
+  }
+  return total;
+}
+
 // ── Sync caches: what we believe the DB currently holds, per table ──
 // Collections map id → row-hash; singletons store a single hash under '@'.
 export interface SyncCaches {
