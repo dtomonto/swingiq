@@ -22,6 +22,7 @@ import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { gateVideoAnalysis } from '@/lib/intelligence';
 import { captureAiInteraction } from '@/lib/intelligence-os/capture';
+import { resolveWithFirstPartyIntelligence } from '@/lib/intelligence-os/router';
 
 interface VideoAnalysisRequest {
   video_id: string;
@@ -107,25 +108,43 @@ export async function POST(req: NextRequest) {
     ).allowAI
   ) {
     try {
-      const narrative = await generateAINarrative(analysis, aiProvider);
-      analysis.ai_narrative = narrative;
-      await recordAiSpend('video-analysis');
-      await meterUserAiUsage(user_id, 'video-analysis');
-      // Intelligence OS (observer): capture the issue→narrative mapping so
-      // recurring swing-diagnosis patterns become reusable first-party knowledge.
-      // Best-effort + non-blocking — never affects the analysis response.
-      void captureAiInteraction({
-        sourceSystem: 'video-analysis',
-        feature: 'video-analysis',
-        sport: 'golf',
-        request: `Swing analysis — detected issues: ${analysis.detected_issues.slice(0, 3).map((i) => i.label).join(', ')}`,
-        response: narrative,
-        provider: aiProvider === 'openai' ? 'openai' : aiProvider === 'anthropic' ? 'anthropic' : 'other',
-        model: null,
-        userId: user_id,
-        relatedVideoId: video_id,
-        confidenceScore: 0.6,
+      // Stable issue signature — identical recurring fault sets fingerprint the
+      // same, so an admin-approved canonical swing-diagnosis narrative can be
+      // reused. The signature is about the fault PATTERN, not the user, so it's
+      // safe to serve from shared knowledge.
+      const issueSignature = `Golf swing issues: ${analysis.detected_issues.slice(0, 3).map((i) => i.label).join(', ')}`;
+
+      // First-party intelligence: serve an approved canonical/knowledge narrative
+      // before paying the model. No-op until canonical answers are approved.
+      const firstParty = await resolveWithFirstPartyIntelligence({
+        sourceSystem: 'video-analysis', feature: 'video-analysis', sport: 'golf', request: issueSignature,
       });
+      if (
+        firstParty.response &&
+        (firstParty.servedBy === 'canonical-answer' || firstParty.servedBy === 'knowledge' || firstParty.servedBy === 'exact-cache')
+      ) {
+        analysis.ai_narrative = firstParty.response;
+      } else {
+        const narrative = await generateAINarrative(analysis, aiProvider);
+        analysis.ai_narrative = narrative;
+        await recordAiSpend('video-analysis');
+        await meterUserAiUsage(user_id, 'video-analysis');
+        // Intelligence OS (observer): capture the issue→narrative mapping so
+        // recurring swing-diagnosis patterns become reusable first-party knowledge.
+        // Best-effort + non-blocking — never affects the analysis response.
+        void captureAiInteraction({
+          sourceSystem: 'video-analysis',
+          feature: 'video-analysis',
+          sport: 'golf',
+          request: issueSignature,
+          response: narrative,
+          provider: aiProvider === 'openai' ? 'openai' : aiProvider === 'anthropic' ? 'anthropic' : 'other',
+          model: null,
+          userId: user_id,
+          relatedVideoId: video_id,
+          confidenceScore: 0.6,
+        });
+      }
     } catch (err) {
       // AI failure is non-fatal — return analysis without narrative
       console.error('[video-analysis] AI narrative failed:', err instanceof Error ? err.message : err);

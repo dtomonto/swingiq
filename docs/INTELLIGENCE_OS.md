@@ -209,8 +209,11 @@ pair. The active backend is shown honestly on the Overview page.
   answer with no third-party call (safe-by-default — a no-op until canonical
   answers are approved; personalized questions are never served from shared
   knowledge). On a miss it pays the model and captures the interaction.
-- **Video analysis** (`/api/video-analysis`) — captures the issue→narrative
-  mapping as a reusable swing-diagnosis pattern (best-effort, non-blocking).
+- **Video analysis** (`/api/video-analysis`) — **serving + capture**. Before
+  generating the AI narrative it consults the OS with the detected-issue
+  signature; a recurring fault set can be answered from an approved canonical
+  swing-diagnosis narrative with no third-party call. On a miss it generates +
+  captures the issue→narrative mapping as reusable knowledge.
 - **Agent / practice-plan enhancement** (`/api/agents/enhance`) — full
   **exact-cache short-circuit**: identical rewrites are served from the
   first-party cache (recorded as avoided AI calls) instead of paying the model.
