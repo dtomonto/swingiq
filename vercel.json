@@ -11,6 +11,10 @@
     {
       "path": "/api/social/run-scheduled",
       "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/intelligence-os/cron",
+      "schedule": "0 6 * * *"
     }
   ]
 }
