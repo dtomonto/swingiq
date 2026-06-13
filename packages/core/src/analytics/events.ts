@@ -266,6 +266,9 @@ export const ANALYTICS_EVENTS = {
   // regressed → rejected). + sport, diagnosis, outcome.
   DETERMINISTIC_DIAGNOSIS_CONFIRMED: 'deterministic_diagnosis_confirmed',
   DETERMINISTIC_DIAGNOSIS_REJECTED: 'deterministic_diagnosis_rejected',
+  // An athlete answered a deterministic intake question (sharpening the read
+  // BEFORE any AI). + sport, question_id, answered (bool), confidence_delta.
+  DETERMINISTIC_INTAKE_ANSWERED: 'deterministic_intake_answered',
 
   // Authority / education / trust content (SEO·AEO·GEO surfaces). Non-PII —
   // a `slug` (page path) and optional `category`/`target` only. Power the

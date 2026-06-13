@@ -43,6 +43,8 @@ export {
 } from './symptom-rules';
 export { generateDeterministicPlan } from './plan';
 export type { DeterministicPlan, PlanDrill } from './plan';
+export { getIntakeQuestions, intakeAnswerSymptoms } from './intake';
+export type { IntakeQuestion, IntakeOption, IntakeSelectOptions } from './intake';
 // NB: diagnosis history (`./history`) is a 'use client' module — import it
 // directly, not via this (server-importable) barrel.
 export type { SymptomRule, SportDiagnosisConfig } from './symptom-rules';

@@ -99,3 +99,18 @@ export function trackDeterministicRetestVerdict(
     track(ANALYTICS_EVENTS.DETERMINISTIC_DIAGNOSIS_REJECTED, { sport, diagnosis: faultId, outcome });
   }
 }
+
+/** Emit when an athlete answers a deterministic intake question (pre-AI). */
+export function trackDeterministicIntake(
+  sport: DeterministicDiagnosis['sport'],
+  questionId: string,
+  answered: boolean,
+  confidenceDelta: number,
+): void {
+  track(ANALYTICS_EVENTS.DETERMINISTIC_INTAKE_ANSWERED, {
+    sport,
+    question_id: questionId,
+    answered,
+    confidence_delta: confidenceDelta,
+  });
+}

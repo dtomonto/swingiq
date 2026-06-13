@@ -472,6 +472,12 @@ export interface QuickResult {
    * cause (otherwise the curated outcome copy above stands on its own).
    */
   diagnosis?: DeterministicDiagnosis;
+  /**
+   * The inputs used to produce `diagnosis`, so the UI can RE-RUN the engine with
+   * extra intake answers and sharpen the read before any AI. Present only when
+   * `diagnosis` is.
+   */
+  engineSeed?: { sport: OnboardingSportId; issue: string; symptoms: string[]; skillLevel: SkillLevel };
 }
 
 const SKILL_LABEL: Record<StartSkillLevel, string> = {
@@ -543,12 +549,13 @@ export function buildQuickResult(args: {
   // a ranked, explainable read (likely cause, evidence, what would change it).
   // We only surface it when it confidently matched a curated cause — otherwise
   // the curated outcome copy above already stands on its own honestly.
-  const engineRead = analyzeDeterministicSession({
+  const engineSeed = {
     sport: args.sportId,
     issue: args.symptom,
     symptoms: [outcome.label],
     skillLevel: SKILL_TO_ENGINE[args.skill],
-  });
+  };
+  const engineRead = analyzeDeterministicSession(engineSeed);
   const diagnosis = engineRead.primary.generated ? undefined : engineRead;
 
   return {
@@ -568,5 +575,6 @@ export function buildQuickResult(args: {
     retestDate: addDaysISO(7),
     parentNote,
     diagnosis,
+    engineSeed: diagnosis ? engineSeed : undefined,
   };
 }
