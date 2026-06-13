@@ -10,6 +10,7 @@ const TABS = [
   { href: '/admin/intelligence-os/knowledge', label: 'Knowledge' },
   { href: '/admin/intelligence-os/canonical-answers', label: 'Canonical Answers' },
   { href: '/admin/intelligence-os/patterns', label: 'Patterns' },
+  { href: '/admin/intelligence-os/tasks', label: 'Tasks' },
   { href: '/admin/intelligence-os/token-savings', label: 'Token Savings' },
   { href: '/admin/intelligence-os/evaluations', label: 'Evaluations' },
   { href: '/admin/intelligence-os/settings', label: 'Settings' },

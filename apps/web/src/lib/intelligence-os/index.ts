@@ -21,6 +21,8 @@ export {
 } from './dashboard';
 export {
   activityRepo, knowledgeRepo, canonicalRepo, patternRepo, cacheRepo, evaluationRepo, savingsRepo,
+  taskRepo, reportRepo,
   getSettings, saveSettings, isIntelligencePersistent, __resetIntelligenceStoreForTests,
 } from './store';
 export * from './service';
+export * from './tasks';

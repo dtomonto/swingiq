@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -30,7 +31,7 @@ export function PatternsBrowser({ initial }: { initial: PatternMemory[] }) {
         {initial.map((p) => (
           <li key={p.id} className="rounded-lg border border-border p-3 text-sm">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="font-medium text-foreground">{p.patternTitle}</span>
+              <Link href={`/admin/intelligence-os/patterns/${p.id}`} className="font-medium text-link hover:underline">{p.patternTitle}</Link>
               <StatusBadge tone={p.occurrenceCount >= 5 ? 'warning' : 'watch'}>×{p.occurrenceCount}</StatusBadge>
               <span className="text-xs text-muted-foreground">{p.patternType} · {p.affectedFeature}{p.affectedRoute ? ` · ${p.affectedRoute}` : ''}</span>
             </div>

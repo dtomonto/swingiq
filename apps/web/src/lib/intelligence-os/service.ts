@@ -8,8 +8,9 @@
 // ============================================================
 
 import {
-  activityRepo, knowledgeRepo, canonicalRepo, patternRepo, evaluationRepo, getSettings,
+  activityRepo, knowledgeRepo, canonicalRepo, patternRepo, evaluationRepo, taskRepo, getSettings,
 } from './store';
+import type { ActionTask } from './types';
 import { genId } from './router';
 import { knowledgeFingerprint, semanticFingerprint, summarize } from './fingerprint';
 import type {
@@ -258,4 +259,95 @@ export async function exportKnowledge(format: 'json' | 'markdown'): Promise<{ bo
     if (k.structuredSteps.length) md.push('**Steps:**', ...k.structuredSteps.map((s, i) => `${i + 1}. ${s}`), '');
   }
   return { body: md.join('\n'), contentType: 'text/markdown', filename: 'intelligence-knowledge.md' };
+}
+
+// ── Task → Claude Code fix packet ─────────────────────────────
+const PRODUCT_CONTEXT =
+  'SwingVantage.com is a premium AI-powered multi-sport swing-improvement platform ' +
+  '(golf, tennis, baseball, slow-pitch & fast-pitch softball, pickleball, padel). ' +
+  'Core promise: "One fix. One plan. One retest." Keyless-first; never fabricate data; ' +
+  'admin surfaces are admin-only + noindex.';
+
+const DO_NOT_BREAK = [
+  'Video uploads', 'Authentication', 'AI coach', 'Video analysis pipeline',
+  'Gemini/OpenAI/Claude provider routing', 'Existing admin features', 'Public user experience',
+];
+
+/** A specific (not generic) Claude Code repair prompt for an Action Task. */
+export function buildTaskRepairPrompt(task: ActionTask): string {
+  const files = task.affectedFilePaths.length ? task.affectedFilePaths : ['(inspect via search — see Context)'];
+  const repro = task.reproductionSteps.length ? task.reproductionSteps : ['(reproduction steps not yet captured)'];
+  const accept = task.acceptanceCriteria.length ? task.acceptanceCriteria : ['Issue no longer reproduces', 'Regression tests added'];
+  return [
+    '# Claude Code Repair Prompt', '',
+    '## Role',
+    'You are an elite senior engineer and product-quality architect working on SwingVantage.com.', '',
+    '## Objective',
+    'Fix the specific issue below without breaking existing functionality.', '',
+    '## Context', PRODUCT_CONTEXT, '',
+    `- Affected feature: ${task.affectedFeature}`,
+    `- Affected route: ${task.affectedRoute ?? 'unknown'}`,
+    `- Affected component: ${task.affectedComponent ?? 'unknown'}`,
+    `- Affected sport: ${task.affectedSport}`,
+    `- Category: ${task.category} · Severity: ${task.severity} · Priority: ${task.priority}`,
+    `- First detected: ${task.firstDetectedAt} · Occurrences: ${task.occurrenceCount}`, '',
+    '## Problem', task.title, '', task.evidenceSummary || '_No evidence summary captured._', '',
+    '## Evidence',
+    `- Root-cause hypothesis: ${task.rootCauseHypothesis || 'unknown'}`,
+    `- User impact: ${task.userImpact || 'unknown'}`,
+    `- Business impact: ${task.businessImpact || 'unknown'}`,
+    ...(task.aiQualityImpact ? [`- AI quality impact: ${task.aiQualityImpact}`] : []),
+    `- Confidence: ${task.confidenceScore}`, '',
+    '### Reproduction steps', ...repro.map((s, i) => `${i + 1}. ${s}`), '',
+    '## Required Fix', task.suggestedNextAction || 'Diagnose the root cause and implement the smallest reversible fix.', '',
+    '## Files to Inspect', ...files.map((f) => `- \`${f}\``), '',
+    '## Tests to Run',
+    '- Unit + integration tests for the affected module',
+    '- Relevant Playwright/e2e flows if user-facing',
+    '- `cd apps/web && npx tsc --noEmit && npm run lint && npx jest <area> --runInBand`', '',
+    '## Acceptance Criteria', ...accept.map((a) => `- ${a}`), '',
+    '## Do Not Break', ...DO_NOT_BREAK.map((d) => `- ${d}`), '',
+    '## Deliverables',
+    '- Code changes', '- Tests (incl. regression prevention)',
+    '- Documentation updates if behavior changed', '- Update the Action OS task status when resolved',
+  ].join('\n');
+}
+
+export async function generateFixPacketFromTask(taskId: string): Promise<FixPacket | null> {
+  const task = await taskRepo.get(taskId);
+  if (!task) return null;
+  return {
+    title: `Fix Packet — ${task.title}`,
+    markdownPrompt: buildTaskRepairPrompt(task),
+    jsonContext: {
+      taskId: task.id, category: task.category, severity: task.severity, priority: task.priority,
+      affectedFeature: task.affectedFeature, affectedRoute: task.affectedRoute,
+      affectedComponent: task.affectedComponent, affectedFilePaths: task.affectedFilePaths,
+      occurrenceCount: task.occurrenceCount, confidenceScore: task.confidenceScore,
+      sport: task.affectedSport, doNotBreak: DO_NOT_BREAK,
+    },
+    acceptanceCriteria: task.acceptanceCriteria.length ? task.acceptanceCriteria : ['Issue no longer reproduces', 'Regression test added'],
+    regressionTests: [`Reproduce "${task.title}" and assert it is handled gracefully.`],
+    relatedKnowledgeIds: task.relatedKnowledgeIds,
+    relatedEventIds: task.relatedEventIds,
+  };
+}
+
+/** Render a FixPacket as a downloadable Markdown or JSON file. */
+export function renderFixPacketFile(packet: FixPacket, format: 'markdown' | 'json'): { body: string; contentType: string; filename: string } {
+  const slug = packet.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'fix-packet';
+  if (format === 'json') {
+    return {
+      body: JSON.stringify({ packetType: 'swingvantage-claude-code-fix-packet', generatedAt: new Date().toISOString(), ...packet }, null, 2),
+      contentType: 'application/json',
+      filename: `${slug}.json`,
+    };
+  }
+  const md = [
+    packet.markdownPrompt, '',
+    '---', '',
+    '## Acceptance criteria', ...packet.acceptanceCriteria.map((a) => `- [ ] ${a}`), '',
+    '## Regression tests', ...packet.regressionTests.map((t) => `- ${t}`), '',
+  ].join('\n');
+  return { body: md, contentType: 'text/markdown', filename: `${slug}.md` };
 }
