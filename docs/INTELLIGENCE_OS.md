@@ -203,7 +203,12 @@ pair. The active backend is shown honestly on the Overview page.
 
 ## Instrumented features (Phase 6)
 
-- **AI coach** (`/api/ai-coach`) — non-blocking `captureAiInteraction()` observer.
+- **AI coach** (`/api/ai-coach`) — **serving + capture**. Before paying the
+  model it consults the OS (`resolveWithFirstPartyIntelligence`): a generic,
+  repeated question can be answered from an admin-approved canonical/knowledge
+  answer with no third-party call (safe-by-default — a no-op until canonical
+  answers are approved; personalized questions are never served from shared
+  knowledge). On a miss it pays the model and captures the interaction.
 - **Video analysis** (`/api/video-analysis`) — captures the issue→narrative
   mapping as a reusable swing-diagnosis pattern (best-effort, non-blocking).
 - **Agent / practice-plan enhancement** (`/api/agents/enhance`) — full
