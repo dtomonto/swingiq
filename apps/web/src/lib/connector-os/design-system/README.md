@@ -46,7 +46,9 @@ source configured it is a keyless no-op (CI-safe). Extend the Figma-path → CSS
 mapping in the script's `NAME_MAP` as the Figma file grows.
 
 > **Code Connect** (the components half of the integration) lives separately in
-> `src/components/ui/*.figma.tsx` — see that folder's `CODE_CONNECT.md`.
+> `src/components/ui/*.figma.tsx` — see that folder's `CODE_CONNECT.md`. For the
+> live design→code bridge (frames/variables in a session), see
+> [`docs/connector-os/figma-mcp.md`](../../../../../../docs/connector-os/figma-mcp.md).
 
 ## Component standards
 
