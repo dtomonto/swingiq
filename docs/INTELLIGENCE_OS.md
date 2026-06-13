@@ -213,18 +213,17 @@ pair. The active backend is shown honestly on the Overview page.
   recommendations to `POST /api/intelligence-os/observe`, which records them as
   zero-cost first-party events, dedupes recurring ones into pattern memories,
   and promotes generic ones to knowledge (`recordFirstPartyRecommendation`).
+- **Recruiting summary & athletic-journey narrative** (`/api/recruiting/summary`,
+  `/api/athletic-journey/narrative`) — observer logging for cost/activity
+  visibility; personalized content is not promoted to global knowledge.
 
-## Maintenance
+## Maintenance (scheduled)
 
-`POST /api/admin/intelligence-os/maintenance` (also buttons on the Settings page):
-
-- `{ action: 'retention' }` — runs the hot/warm/cold sweep (`runRetentionSweep`):
-  summarizes old high-value events (drops free-text, keeps metadata/hashes/costs)
-  after `rawEventRetentionDays`, deletes old low-value non-promoted events after
-  `lowValueArchiveDays`. Approved knowledge, canonical answers, patterns and the
-  savings ledger are always preserved; `0` disables a rule.
-- `{ action: 'backfill-embeddings' }` — embeds approved records missing a vector
-  (no-op when embeddings aren't configured).
+The daily Vercel cron `GET /api/intelligence-os/cron` (06:00 UTC) runs the full
+maintenance pass: report retention (hot→warm→cold), the AI-event retention sweep
+(`runRetentionSweep`), and embedding backfill (`backfillEmbeddings`). The same
+actions are available on demand via `POST /api/admin/intelligence-os/maintenance`
+and the Settings-page buttons.
 
 ## Step 5 — small/local model seam
 
