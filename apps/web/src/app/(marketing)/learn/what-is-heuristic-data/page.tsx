@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { buildMetadata } from '@/lib/seo/metadata';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { NotCoachReplacementNotice } from '@/components/trust/NotCoachReplacementNotice';
 import { EducationalLink } from '@/components/learn/EducationalLink';
 import {
+  AnswerLead,
+  FaqSection,
   EduSection,
   EduCard,
   EduCardGrid,
@@ -15,55 +16,17 @@ import {
   type ComparisonRow,
 } from '@/components/learn/education-ui';
 import {
-  buildGraph,
-  articleSchema,
-  faqPageSchema,
-  breadcrumbListSchema,
-} from '@/lib/seo/jsonLd';
+  getTechEducationArticle,
+  techEducationCrumbs,
+  buildTechEducationMetadata,
+  buildTechEducationGraph,
+} from '@/lib/learn/tech-education';
 import { technologyClaims } from '@/content/technologyClaims';
 
-const PATH = '/learn/what-is-heuristic-data';
+const SLUG = 'what-is-heuristic-data';
+const article = getTechEducationArticle(SLUG)!;
 
-export const metadata = buildMetadata({
-  title: 'What Is Heuristic Data?',
-  description:
-    'Learn how heuristic data helps SwingVantage create fast, structured, sport-specific swing recommendations using player profiles, miss patterns, session history, and retest results.',
-  path: PATH,
-  ogType: 'article',
-});
-
-const FAQS = [
-  {
-    question: 'What is heuristic data?',
-    answer:
-      'Heuristic data is structured, rules-based performance intelligence. It uses known patterns, athlete inputs, symptoms, movement clues, historical results, and sport-specific logic to produce useful guidance quickly — before deeper AI analysis is needed.',
-  },
-  {
-    question: 'Is heuristic data the same as AI?',
-    answer:
-      'No. Heuristic intelligence applies proven, transparent rules to your inputs, so its logic is easy to audit. AI analysis (such as video breakdowns) goes deeper and is better for nuanced patterns. SwingVantage uses heuristics for a fast first pass and AI when more depth adds value — they work together.',
-  },
-  {
-    question: 'Why does SwingVantage use heuristic intelligence?',
-    answer:
-      'Because it is fast, cost-efficient, consistent, and easy to explain. Heuristics give you an instant, structured first read for common swing flaws and a clear next best action, which is ideal for free and instant estimates and for beginner and intermediate athletes.',
-  },
-  {
-    question: 'Is a heuristic estimate accurate?',
-    answer:
-      'A heuristic estimate is a structured starting point, not a final diagnosis. It is reliable for common miss patterns and improves as you add clearer video, more sessions, and retest results. Every SwingVantage finding carries an honest confidence label so you always know how much weight to give it.',
-  },
-  {
-    question: 'How does heuristic data help athletes improve?',
-    answer:
-      'It turns scattered inputs — your sport, skill level, swing miss, ball flight, video clues, and history — into one prioritized next-best action, so you practice the thing most likely to help instead of guessing.',
-  },
-  {
-    question: 'How does heuristic data work with AI analysis?',
-    answer:
-      'Heuristics produce a fast, auditable first pass; AI analysis and video review add depth and confidence over time. Retesting and session history then confirm whether the change actually worked. The combination is what makes the guidance both quick and trustworthy.',
-  },
-];
+export const metadata = buildTechEducationMetadata(SLUG);
 
 const COMPARISON_ROWS: ComparisonRow[] = [
   {
@@ -104,37 +67,20 @@ const COMPARISON_ROWS: ComparisonRow[] = [
 ];
 
 export default function WhatIsHeuristicDataPage() {
-  const crumbs = [
-    { name: 'Home', path: '/' },
-    { name: 'Learn', path: '/learn' },
-    { name: 'What Is Heuristic Data?', path: PATH },
-  ];
-
-  const jsonLd = buildGraph(
-    articleSchema({
-      headline: 'What Is Heuristic Data?',
-      description:
-        'How heuristic data gives SwingVantage fast, structured, sport-specific swing recommendations — and how it works alongside AI analysis.',
-      path: PATH,
-    }),
-    breadcrumbListSchema(crumbs),
-    faqPageSchema(FAQS),
-  );
+  const crumbs = techEducationCrumbs(article);
 
   return (
     <main className="min-h-screen bg-card">
-      <JsonLd data={jsonLd} />
+      <JsonLd data={buildTechEducationGraph(SLUG)} />
 
       <div className="mx-auto max-w-3xl px-4 py-10">
         <Breadcrumbs items={crumbs} className="mb-5" />
 
-        {/* 1. Hero */}
+        {/* 1. Hero — H1 + AEO/GEO direct-answer lead */}
         <header>
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">Learn · Technology</p>
-          <h1 className="mt-1 text-3xl font-bold text-foreground md:text-4xl">What Is Heuristic Data?</h1>
-          <p className="mt-3 text-lg leading-relaxed text-foreground">
-            {technologyClaims.heuristicIntelligence.plainEnglish}
-          </p>
+          <h1 className="mt-1 text-3xl font-bold text-foreground md:text-4xl">{article.heading}</h1>
+          <AnswerLead>{article.answerSummary}</AnswerLead>
           <p className="mt-3 text-muted-foreground">
             It is the fast, practical layer behind SwingVantage’s core promise —{' '}
             <strong className="text-foreground">one fix, one plan, one retest</strong> — so you can act on
@@ -157,9 +103,7 @@ export default function WhatIsHeuristicDataPage() {
             scattered inputs into a clear, useful recommendation. Think of it as the difference between a
             seasoned coach’s quick, experienced read and a random hunch.
           </p>
-          <p>
-            {technologyClaims.heuristicIntelligence.full}
-          </p>
+          <p>{technologyClaims.heuristicIntelligence.full}</p>
         </EduSection>
 
         {/* 3. Why heuristic data matters */}
@@ -224,11 +168,7 @@ export default function WhatIsHeuristicDataPage() {
         </EduSection>
 
         {/* 5. Comparison table */}
-        <EduSection
-          id="compare"
-          eyebrow="Side by side"
-          title="Heuristic Intelligence vs AI Analysis"
-        >
+        <EduSection id="compare" eyebrow="Side by side" title="Heuristic Intelligence vs AI Analysis">
           <p className="text-muted-foreground">
             These are partners, not rivals. SwingVantage leads with heuristics for speed and clarity, then
             adds AI where extra depth earns its keep.
@@ -237,6 +177,13 @@ export default function WhatIsHeuristicDataPage() {
             caption="Comparison of heuristic intelligence and AI analysis across speed, cost, consistency, best use case, depth, explainability, and role in SwingVantage."
             rows={COMPARISON_ROWS}
           />
+          <p className="text-sm text-muted-foreground">
+            Want the deeper breakdown? Read{' '}
+            <Link href="/learn/heuristic-vs-ai-swing-analysis" className="font-medium text-primary hover:underline">
+              Heuristic vs AI Swing Analysis
+            </Link>
+            .
+          </p>
         </EduSection>
 
         {/* 6. Trust callout */}
@@ -255,20 +202,8 @@ export default function WhatIsHeuristicDataPage() {
           />
         </EduSection>
 
-        {/* FAQ */}
-        <section aria-labelledby="faq" className="mt-12">
-          <h2 id="faq" className="text-2xl font-bold text-foreground">
-            Frequently asked questions
-          </h2>
-          <div className="mt-4 space-y-4">
-            {FAQS.map((f) => (
-              <div key={f.question} className="rounded-xl border border-border p-5">
-                <h3 className="font-semibold text-foreground">{f.question}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{f.answer}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* FAQ — mirrors the FAQPage JSON-LD */}
+        <FaqSection faqs={article.faqs} />
 
         {/* Related */}
         <nav aria-label="Related" className="mt-10 border-t border-border pt-5 text-sm">
@@ -277,12 +212,12 @@ export default function WhatIsHeuristicDataPage() {
             AI in Sports Performance
           </Link>
           <span className="text-muted-foreground"> · </span>
-          <Link href="/athlete-general-intelligence" className="text-primary hover:underline">
-            Athlete General Intelligence
+          <Link href="/learn/heuristic-vs-ai-swing-analysis" className="text-primary hover:underline">
+            Heuristic vs AI Swing Analysis
           </Link>
           <span className="text-muted-foreground"> · </span>
-          <Link href="/methodology" className="text-primary hover:underline">
-            Methodology
+          <Link href="/athlete-general-intelligence" className="text-primary hover:underline">
+            Athlete General Intelligence
           </Link>
           <span className="text-muted-foreground"> · </span>
           <Link href="/learn" className="inline-flex items-center gap-1 text-primary hover:underline">

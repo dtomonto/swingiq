@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { buildMetadata } from '@/lib/seo/metadata';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { NotCoachReplacementNotice } from '@/components/trust/NotCoachReplacementNotice';
 import { EducationalLink } from '@/components/learn/EducationalLink';
 import {
+  AnswerLead,
+  FaqSection,
   EduSection,
   EduCard,
   EduCardGrid,
@@ -13,88 +14,34 @@ import {
   CtaRow,
 } from '@/components/learn/education-ui';
 import {
-  buildGraph,
-  articleSchema,
-  faqPageSchema,
-  breadcrumbListSchema,
-} from '@/lib/seo/jsonLd';
-import { technologyClaims, dataScaleClaim } from '@/content/technologyClaims';
+  getTechEducationArticle,
+  techEducationCrumbs,
+  buildTechEducationMetadata,
+  buildTechEducationGraph,
+} from '@/lib/learn/tech-education';
+import { technologyClaims } from '@/content/technologyClaims';
 
-const PATH = '/learn/ai-in-sports-performance';
+const SLUG = 'ai-in-sports-performance';
+const article = getTechEducationArticle(SLUG)!;
 
-export const metadata = buildMetadata({
-  title: 'What Is AI in Sports Performance?',
-  description:
-    'Learn how AI is changing sports performance by combining video, athlete profiles, session data, movement patterns, and retest results into practical improvement plans.',
-  path: PATH,
-  ogType: 'article',
-});
-
-const FAQS = [
-  {
-    question: 'What is AI in sports performance?',
-    answer:
-      'It is software that analyzes patterns, context, and data — video, movement signals, athlete profiles, goals, session history, and results — to produce useful, personalized recommendations. The value is not “AI giving tips,” it is connecting fragmented data into one improvement system.',
-  },
-  {
-    question: 'How does AI help with swing improvement?',
-    answer:
-      'AI can analyze your video, identify likely swing flaws, select drills suited to you, generate a practice plan, and compare retests over time — so you work on the right thing and can see whether it actually changed.',
-  },
-  {
-    question: 'Does AI replace a coach?',
-    answer:
-      'No. SwingVantage is designed to give you data-backed guidance you can act on today and to make your coaching sessions more productive. It pairs with a coach for injury concerns and advanced technique work — it does not replace one.',
-  },
-  {
-    question: 'What data does SwingVantage use?',
-    answer:
-      `SwingVantage is designed to organize and apply ${dataScaleClaim} — including your player profile, video-analysis observations, symptoms, goals, equipment context, session history, drill results, and retest outcomes — into one prioritized plan.`,
-  },
-  {
-    question: 'Why is retesting important?',
-    answer:
-      'Retesting is how you know a change worked. By comparing a fresh analysis to your baseline, SwingVantage can confirm real improvement instead of guessing — and raise the confidence of its guidance over time.',
-  },
-  {
-    question: 'What is the future of sports technology?',
-    answer:
-      'Athletes now have access to more data than ever — video, launch monitors, wearables, session tracking. The winning platforms will not just collect data; they will translate the right data into the right action at the right time.',
-  },
-];
+export const metadata = buildTechEducationMetadata(SLUG);
 
 export default function AiInSportsPerformancePage() {
-  const crumbs = [
-    { name: 'Home', path: '/' },
-    { name: 'Learn', path: '/learn' },
-    { name: 'AI in Sports Performance', path: PATH },
-  ];
-
-  const jsonLd = buildGraph(
-    articleSchema({
-      headline: 'What Is AI in Sports Performance?',
-      description:
-        'How AI combines video, athlete profiles, session data, movement patterns, and retest results into practical improvement plans — and how SwingVantage uses it.',
-      path: PATH,
-    }),
-    breadcrumbListSchema(crumbs),
-    faqPageSchema(FAQS),
-  );
+  const crumbs = techEducationCrumbs(article);
 
   return (
     <main className="min-h-screen bg-card">
-      <JsonLd data={jsonLd} />
+      <JsonLd data={buildTechEducationGraph(SLUG)} />
 
       <div className="mx-auto max-w-3xl px-4 py-10">
         <Breadcrumbs items={crumbs} className="mb-5" />
 
-        {/* 1. Hero */}
+        {/* 1. Hero — H1 + AEO/GEO direct-answer lead */}
         <header>
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">Learn · Technology</p>
-          <h1 className="mt-1 text-3xl font-bold text-foreground md:text-4xl">
-            AI Is Changing How Athletes Improve
-          </h1>
-          <p className="mt-3 text-lg leading-relaxed text-foreground">
+          <h1 className="mt-1 text-3xl font-bold text-foreground md:text-4xl">{article.heading}</h1>
+          <AnswerLead>{article.answerSummary}</AnswerLead>
+          <p className="mt-3 text-muted-foreground">
             SwingVantage brings together video, player-profile data, symptoms, goals, session history, and
             retest results to create practical improvement plans — not a wall of metrics, but a clear next
             step you can act on today.
@@ -168,8 +115,9 @@ export default function AiInSportsPerformancePage() {
             off. Data sitting in ten places is not insight.
           </p>
           <p className="text-muted-foreground">
-            SwingVantage’s job is to organize that data into <strong className="text-foreground">decisions</strong> —
-            to translate everything you have into the one thing worth working on next.
+            SwingVantage’s job is to organize that data into{' '}
+            <strong className="text-foreground">decisions</strong> — to translate everything you have into the
+            one thing worth working on next.
           </p>
         </EduSection>
 
@@ -207,6 +155,16 @@ export default function AiInSportsPerformancePage() {
               <strong className="text-foreground">translate data into action</strong>.
             </li>
           </ul>
+          <p className="text-sm text-muted-foreground">
+            Go deeper:{' '}
+            <Link
+              href="/learn/future-of-ai-coaching-in-recreational-sports"
+              className="font-medium text-primary hover:underline"
+            >
+              The Future of AI Coaching in Recreational Sports
+            </Link>
+            .
+          </p>
         </EduSection>
 
         {/* 8. SwingVantage's role */}
@@ -235,20 +193,8 @@ export default function AiInSportsPerformancePage() {
           />
         </EduSection>
 
-        {/* FAQ */}
-        <section aria-labelledby="faq" className="mt-12">
-          <h2 id="faq" className="text-2xl font-bold text-foreground">
-            Frequently asked questions
-          </h2>
-          <div className="mt-4 space-y-4">
-            {FAQS.map((f) => (
-              <div key={f.question} className="rounded-xl border border-border p-5">
-                <h3 className="font-semibold text-foreground">{f.question}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{f.answer}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* FAQ — mirrors the FAQPage JSON-LD */}
+        <FaqSection faqs={article.faqs} />
 
         {/* Related */}
         <nav aria-label="Related" className="mt-10 border-t border-border pt-5 text-sm">
@@ -257,12 +203,12 @@ export default function AiInSportsPerformancePage() {
             What Is Heuristic Data?
           </Link>
           <span className="text-muted-foreground"> · </span>
-          <Link href="/athlete-general-intelligence" className="text-primary hover:underline">
-            Athlete General Intelligence
+          <Link href="/learn/how-swingvantage-uses-player-profiles" className="text-primary hover:underline">
+            How SwingVantage Uses Player Profiles
           </Link>
           <span className="text-muted-foreground"> · </span>
-          <Link href="/methodology" className="text-primary hover:underline">
-            Methodology
+          <Link href="/athlete-general-intelligence" className="text-primary hover:underline">
+            Athlete General Intelligence
           </Link>
           <span className="text-muted-foreground"> · </span>
           <Link href="/learn" className="inline-flex items-center gap-1 text-primary hover:underline">

@@ -161,6 +161,10 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/athlete-general-intelligence', label: 'Athlete General Intelligence', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/what-is-heuristic-data', label: 'What is heuristic data?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/ai-in-sports-performance', label: 'What is AI in sports performance?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/heuristic-vs-ai-swing-analysis', label: 'Heuristic vs AI swing analysis', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-retesting-improves-swing-feedback', label: 'Why retesting improves swing feedback', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-swingvantage-uses-player-profiles', label: 'How SwingVantage uses player profiles', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/future-of-ai-coaching-in-recreational-sports', label: 'The future of AI coaching in recreational sports', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
 
   // ── Benchmarks ────────────────────────────────────────────────────────
   { path: '/benchmarks', label: 'Benchmarks (all sports)', section: 'benchmarks', priority: 0.7, changeFrequency: 'monthly' },

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import type { TechEducationFaq } from '@/lib/learn/tech-education';
 
 // ============================================================
 // Shared presentational building blocks for the /learn technology
@@ -8,6 +9,42 @@ import { ArrowRight } from 'lucide-react';
 // with the rest of the marketing surface (cf. athlete-general-
 // intelligence). No new dependencies, no one-off colors.
 // ============================================================
+
+/**
+ * The AEO/GEO answer lead: the direct, self-contained answer rendered
+ * immediately under the H1. Marked `data-aeo-summary` so the page's Speakable
+ * schema can point at it — this is the block answer engines quote.
+ */
+export function AnswerLead({ children }: { children: React.ReactNode }) {
+  return (
+    <p data-aeo-summary className="mt-3 text-lg leading-relaxed text-foreground">
+      {children}
+    </p>
+  );
+}
+
+/**
+ * Visible FAQ section whose questions/answers exactly match the page's FAQPage
+ * JSON-LD (Google requires structured data to mirror visible content). Renders
+ * semantic <dl> for accessibility.
+ */
+export function FaqSection({ faqs }: { faqs: TechEducationFaq[] }) {
+  return (
+    <section aria-labelledby="faq" className="mt-12">
+      <h2 id="faq" className="text-2xl font-bold text-foreground">
+        Frequently asked questions
+      </h2>
+      <dl className="mt-4 space-y-4">
+        {faqs.map((f) => (
+          <div key={f.question} className="rounded-xl border border-border p-5">
+            <dt className="font-semibold text-foreground">{f.question}</dt>
+            <dd className="mt-1 text-sm text-muted-foreground">{f.answer}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
 
 /** A titled content section with an accessible heading association. */
 export function EduSection({
