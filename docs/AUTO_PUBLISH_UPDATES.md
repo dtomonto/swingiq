@@ -151,10 +151,10 @@ Update-Category: Training Improvement
 Update-Sport: All Sports
 Update-Where: Open Motion Lab, analyze a swing, and check the Scores tab.
 
-Dev-Update: Motion Lab now reads your body's power sequence and flags where power leaks.
+Dev-Update: You can now see how your power flows from the ground up and where it leaks.
 Dev-Category: Motion Intelligence
 Dev-Impact: major
-Dev-Highlights: Reads your power sequence from the ground up; flags power leaks; shows the timing of each phase
+Dev-Highlights: See your power sequence from the ground up; spot where power leaks; see the timing of each phase
 ```
 
 > Notice the `Dev-Update:` line describes the *outcome* ("reads your power

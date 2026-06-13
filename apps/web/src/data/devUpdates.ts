@@ -191,27 +191,8 @@ export const DEV_UPDATES: DevUpdate[] = [
     ],
   },
   {
-    id: 'dev-branch-guardian',
-    title: 'Tools that keep our codebase clean and safe',
-    date: '2026-06-08',
-    displayDate: 'June 2026',
-    category: 'Developer Experience',
-    impact: 'major',
-    headline:
-      'We built internal safeguards that help us keep our code organized and catch risky files before they ever ship.',
-    details:
-      'Behind the scenes we added tooling that reviews the health of our codebase and flags anything that should be cleaned up or looks risky — always with a person approving each step. It helps us move quickly without letting clutter or mistakes reach the live product.',
-    highlights: [
-      'Keeps our codebase organized and healthy',
-      'Flags risky files before they can ship',
-      'Every cleanup step requires human approval',
-    ],
-    isMilestone: true,
-  },
-  {
     id: 'dev-mental-performance',
-    version: 'Mental Performance',
-    title: 'Mental Performance — coaching for focus and mistake recovery',
+    title: 'Built-in coaching for focus and mistake recovery',
     date: '2026-06-08',
     displayDate: 'June 2026',
     category: 'Architecture',
@@ -219,7 +200,7 @@ export const DEV_UPDATES: DevUpdate[] = [
     headline:
       'A private, built-in mental-game coach that helps you reset after mistakes and manage emotions — with crisis safety built in and no account required.',
     details:
-      'We added a Mental Performance pillar that gives you reset routines, self-talk cues, breathing patterns, and drills matched to your sport and the moment you’re in. It’s private by default and works without any account or paid AI. If someone types something that suggests a crisis or a medical issue, it points them to real help instead of trying to coach. There are guided spoken routines, a journal, and plans — all yours and kept private.',
+      'We added a mental-game coaching pillar that gives you reset routines, self-talk cues, breathing patterns, and drills matched to your sport and the moment you’re in. It’s private by default and works without any account or paid AI. If someone types something that suggests a crisis or a medical issue, it points them to real help instead of trying to coach. There are guided spoken routines, a journal, and plans — all yours and kept private.',
     highlights: [
       'Reset routines, self-talk, breathing, and drills matched to your sport and moment',
       'Crisis and medical safety built in — points to real help',
@@ -268,8 +249,7 @@ export const DEV_UPDATES: DevUpdate[] = [
   },
   {
     id: 'dev-bodysync',
-    version: 'BodySync',
-    title: 'BodySync — readiness and recovery, your way',
+    title: 'Readiness and recovery, your way',
     date: '2026-06-06',
     displayDate: 'June 2026',
     category: 'Security & Privacy',
@@ -277,7 +257,7 @@ export const DEV_UPDATES: DevUpdate[] = [
     headline:
       'An optional, privacy-first wellness layer that turns a quick check-in into a readiness score and practice adjustments — never medical, and 18+ only.',
     details:
-      'BodySync takes a simple wellness check-in and turns it into a readiness score, a fatigue read, and practice-plan tweaks. It’s strictly opt-in, limited to adults, and never claims to be medical advice. You can connect optional sources like Apple Health, and all of your data stays exportable and deletable.',
+      'A new wellness layer takes a simple check-in and turns it into a readiness score, a fatigue read, and practice-plan tweaks. It’s strictly opt-in, limited to adults, and never claims to be medical advice. You can connect optional sources like Apple Health, and all of your data stays exportable and deletable.',
     highlights: [
       'Turns a quick check-in into readiness and practice adjustments',
       'Opt-in, 18+, and clearly non-medical',
@@ -287,8 +267,7 @@ export const DEV_UPDATES: DevUpdate[] = [
   },
   {
     id: 'dev-athletic-journey',
-    version: 'Journey',
-    title: 'Athletic Journey — see where you are and what’s next',
+    title: 'See where you are and what’s next',
     date: '2026-06-06',
     displayDate: 'June 2026',
     category: 'Platform',
@@ -296,7 +275,7 @@ export const DEV_UPDATES: DevUpdate[] = [
     headline:
       'Places you on a clear development path using many signals from your own data — and honestly says when a sport isn’t ready yet instead of faking a score.',
     details:
-      'Athletic Journey blends your profile, optional ratings, video reads, and logged practice into a clear stage on a development ladder for your sport, with momentum and next steps. Golf, tennis, pickleball, and padel are live; baseball and softball show an honest in-development notice instead of a made-up score.',
+      'It blends your profile, optional ratings, video reads, and logged practice into a clear stage on a development ladder for your sport, with momentum and next steps. Golf, tennis, pickleball, and padel are live; baseball and softball show an honest in-development notice instead of a made-up score.',
     highlights: [
       'Blends many signals from your own data into a clear stage',
       'Honest about sports still in development — no faked scores',
@@ -306,8 +285,7 @@ export const DEV_UPDATES: DevUpdate[] = [
   },
   {
     id: 'dev-recruiting-hub',
-    version: 'Recruiting',
-    title: 'Recruiting Hub — an honest profile you control',
+    title: 'An honest recruiting profile you control',
     date: '2026-06-06',
     displayDate: 'June 2026',
     category: 'Platform',
@@ -315,7 +293,7 @@ export const DEV_UPDATES: DevUpdate[] = [
     headline:
       'Build a recruiting profile where every stat shows whether it’s verified or self-reported, with a shareable coach view you fully control.',
     details:
-      'The Recruiting Hub lets you build a profile where each stat is clearly labeled verified or self-reported, with a profile-strength meter, a film library and highlight builder, a downloadable packet, and coach outreach. You choose exactly what a coach sees on your shareable page, and the guidance describes real evidence instead of overpromising.',
+      'It lets you build a recruiting profile where each stat is clearly labeled verified or self-reported, with a profile-strength meter, a film library and highlight builder, a downloadable packet, and coach outreach. You choose exactly what a coach sees on your shareable page, and the guidance describes real evidence instead of overpromising.',
     highlights: [
       'Every stat labeled verified or self-reported',
       'Film library, highlight builder, packet, and outreach',
@@ -337,24 +315,6 @@ export const DEV_UPDATES: DevUpdate[] = [
       'Safer secret handling and locked-down protected areas',
       'Stronger abuse limits that hold across our systems',
       'Remaining work tracked, not silently dropped',
-    ],
-    isMilestone: false,
-  },
-  {
-    id: 'dev-growth-os',
-    title: 'Internal tools to grow sustainably',
-    date: '2026-06-06',
-    displayDate: 'June 2026',
-    category: 'Platform',
-    impact: 'notable',
-    headline:
-      'Admin-only tooling that helps us reach and re-engage athletes responsibly, with every AI draft reviewed by a person before anything goes out.',
-    details:
-      'We built internal, admin-only tooling that helps us grow the community in a sustainable, honest way. Anything AI-assisted is created as a draft for a person to review — nothing publishes itself.',
-    highlights: [
-      'Admin-only, never visible to athletes',
-      'AI output is always draft-first and human-reviewed',
-      'Built to grow responsibly and honestly',
     ],
     isMilestone: false,
   },
@@ -416,7 +376,6 @@ export const DEV_UPDATES: DevUpdate[] = [
   },
   {
     id: 'dev-implement-kinetic-temporal',
-    version: 'Motion',
     title: 'Reading club/bat/racket path, sequencing, and timing',
     date: '2026-06-04',
     displayDate: 'June 2026',
@@ -436,8 +395,7 @@ export const DEV_UPDATES: DevUpdate[] = [
   },
   {
     id: 'dev-coach-team-narrative',
-    version: 'Coach & Team',
-    title: 'Coach & Team — a group view plus a grounded coaching summary',
+    title: 'A coach’s group view plus a grounded coaching summary',
     date: '2026-06-04',
     displayDate: 'June 2026',
     category: 'Platform',
@@ -445,7 +403,7 @@ export const DEV_UPDATES: DevUpdate[] = [
     headline:
       'Coaches can group athletes and see trends at a glance, with a written coaching summary that never makes up findings.',
     details:
-      'Coach & Team mode lets a coach group sessions by athlete and see each athlete’s trends, recurring issues, and who needs attention, plus team-wide patterns. The written coaching summary is built strictly from your real numbers and never invents findings. It works fully without any account or paid AI.',
+      'A new coach mode lets a coach group sessions by athlete and see each athlete’s trends, recurring issues, and who needs attention, plus team-wide patterns. The written coaching summary is built strictly from your real numbers and never invents findings. It works fully without any account or paid AI.',
     highlights: [
       'Group sessions by athlete; see trends and who needs attention',
       'Team-wide patterns at a glance',
@@ -473,7 +431,6 @@ export const DEV_UPDATES: DevUpdate[] = [
   },
   {
     id: 'dev-motion-lab-3d',
-    version: 'Motion Lab',
     title: '3D swing analysis, right in your browser',
     date: '2026-06-02',
     displayDate: 'June 2026',
@@ -481,7 +438,7 @@ export const DEV_UPDATES: DevUpdate[] = [
     impact: 'major',
     headline: '3D swing analysis across all seven sports, running entirely in your browser — your video never leaves your device.',
     details:
-      'Motion Lab analyzes your swing in three dimensions from a single phone video, so rotation, tilt, and sequencing are measured properly instead of guessed from a flat image. It all runs on your own device, which keeps your video private and works on everyday phones.',
+      'Our motion analysis examines your swing in three dimensions from a single phone video, so rotation, tilt, and sequencing are measured properly instead of guessed from a flat image. It all runs on your own device, which keeps your video private and works on everyday phones.',
     highlights: [
       '3D swing analysis from a single phone video',
       'Runs on your device — your video stays private',
@@ -542,15 +499,14 @@ export const DEV_UPDATES: DevUpdate[] = [
   },
   {
     id: 'dev-moat-labs',
-    version: 'Labs',
-    title: 'Labs — insights that grow with your data',
+    title: 'Insights that grow with your data',
     date: '2026-06-02',
     displayDate: 'June 2026',
     category: 'Platform',
     impact: 'notable',
     headline: 'A set of insight tools that get smarter the more you use SwingVantage, all running on your own data.',
     details:
-      'We shipped a cluster of insight tools under Labs — things like readiness, a long-term picture of your progress, and personal benchmarks — that all run on the data you already have. The more you use SwingVantage, the sharper they get, with no outside dependency.',
+      'We shipped a cluster of insight tools — things like readiness, a long-term picture of your progress, and personal benchmarks — that all run on the data you already have. The more you use SwingVantage, the sharper they get, with no outside dependency.',
     highlights: [
       'Insights that deepen the more you use the app',
       'Runs on your own data, privately',
