@@ -59,6 +59,12 @@ function computeDerived(): Record<string, boolean> {
     // Search Console DATA connected (SearchIntelligenceOS) — both halves required.
     'gsc-search-analytics':
       isConfigured(process.env.GSC_ACCESS_TOKEN) && isConfigured(process.env.GSC_SITE_URL),
+    // Live GHIN Handicap Index lookup — all three required (account + the
+    // public Firebase key the GHIN app uses for its session handshake).
+    'ghin-live':
+      isConfigured(process.env.GHIN_USER) &&
+      isConfigured(process.env.GHIN_PASSWORD) &&
+      isConfigured(process.env.GHIN_GOOGLE_API_KEY),
   };
 }
 

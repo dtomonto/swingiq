@@ -62,6 +62,31 @@ User interest is recorded via `POST /api/intelligence/waitlist` (sign-in
 required, so each interest maps to a real account); `GET` returns per-tier
 rollout status + which tiers the current user already joined.
 
+## Tier invitations (no-pressure placements)
+
+A dynamic, admin-managed system for *where* the calm early-access invitation
+appears — adjustable live from `/admin/operating-mode` with **no redeploy**.
+
+- **Master switch** turns every invitation off at once.
+- **Per-slot controls**: enable/disable, target tier, and an optional gentle
+  headline. Registered slots: `post-diagnosis` (on by default), `dashboard`,
+  `pricing`, `todays-tasks` (all mounted at high-conversion, value-already-
+  delivered moments; the static/snapshotted surfaces default off — enable any
+  with one click).
+- **Zero-pressure by design**: the `<TierInvite>` card is informational, fully
+  dismissible (remembers the dismissal), and only ever shows for a tier still on
+  the **waitlist** — there is nothing to "upgrade" to, no urgency, scarcity, or
+  countdowns. Once a tier is rolled out (Live), its invitations auto-hide.
+- **Persistence**: the same durable store pattern (Upstash key
+  `intelligence:placements`, per-instance memory fallback) — no DB schema.
+- **APIs**: `GET /api/intelligence/placements` (public, resolved config the
+  component reads); `GET/POST /api/admin/intelligence/placements` (admin-gated:
+  read = `logs.view`, change = `settings.manage`).
+
+To add a new placement: register a slot in `lib/intelligence/placements.ts`,
+mount `<TierInvite slot="<id>" />` at the spot, and it appears in the admin
+control automatically.
+
 ## Persistence
 
 State is stored via the operating-mode store (`lib/intelligence/operating-mode.ts`),

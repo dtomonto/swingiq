@@ -42,6 +42,11 @@ import { SportCardGrid } from '@/components/sport/SportSelector';
 import { ChoiceGroup } from '@/components/tools/fields';
 import { ConfidenceBadge } from '@/components/agents/ConfidenceBadge';
 import { AnalysisTransparency } from '@/components/trust/AnalysisTransparency';
+import { DeterministicWhyPanel } from '@/components/report/DeterministicWhyPanel';
+import { DeterministicPlanCard } from '@/components/report/DeterministicPlanCard';
+import { DeterministicIntake } from '@/components/report/DeterministicIntake';
+import { analyzeDeterministicSession } from '@/lib/intelligence/diagnose';
+import { trackDeterministicAnalysis } from '@/lib/intelligence/analytics';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { useSport } from '@/contexts/SportContext';
 import { useSwingVantageStore } from '@/store';
@@ -266,6 +271,11 @@ export function StartHereFlow() {
       issue: built.issue,
     });
     track(ANALYTICS_EVENTS.PROFILE_COMPLETED, { context: 'start_here', sport: built.sportId });
+
+    // Deterministic engine observability — only when it produced a real read.
+    if (built.diagnosis) {
+      trackDeterministicAnalysis(built.diagnosis, { surface: 'start_here' });
+    }
 
     setStep('result');
   }
@@ -571,6 +581,21 @@ export function StartHereFlow() {
 function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () => void }) {
   const sport = getSport(result.sportId);
   const tone = getTone(toneFromUserType(result.userType));
+
+  // Pre-AI intake: extra answers re-run the deterministic engine to sharpen the
+  // read before any AI is offered. Falls back to the original diagnosis.
+  const [intakeSymptoms, setIntakeSymptoms] = useState<string[]>([]);
+  const seed = result.engineSeed;
+  const sharpened = useMemo(() => {
+    if (!result.diagnosis) return undefined;
+    if (!seed || intakeSymptoms.length === 0) return result.diagnosis;
+    return analyzeDeterministicSession({
+      sport: seed.sport,
+      issue: seed.issue,
+      symptoms: [...seed.symptoms, ...intakeSymptoms],
+      skillLevel: seed.skillLevel,
+    });
+  }, [result.diagnosis, seed, intakeSymptoms]);
   return (
     <section aria-live="polite" className="space-y-4">
       {/* Headline */}
@@ -606,6 +631,23 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
         confidence={result.confidence}
         whatImproves={result.whatImproves}
       />
+
+      {/* Deterministic engine's explainable read (collapsed by default) —
+          ranked cause, evidence, alternatives and an honest "deeper look" note.
+          Renders only when the engine confidently matched a curated cause. */}
+      {sharpened && (
+        <>
+          {seed && sharpened.confidenceLabel !== 'high' && (
+            <DeterministicIntake
+              sport={seed.sport}
+              knownSymptoms={seed.symptoms}
+              onSymptomsChange={setIntakeSymptoms}
+            />
+          )}
+          <DeterministicWhyPanel diagnosis={sharpened} />
+          <DeterministicPlanCard diagnosis={sharpened} surface="start_here" />
+        </>
+      )}
 
       {/* Drills */}
       <div className="rounded-2xl border border-border bg-card p-5">

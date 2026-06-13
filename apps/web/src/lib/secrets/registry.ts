@@ -182,6 +182,13 @@ export const MANAGED_KEYS: ManagedKey[] = [
     category: 'growth', secret: true, activates: 'Authenticates the GHIN Handicap Index lookup',
     placeholder: 'your GHIN password',
   },
+  {
+    // PUBLIC Firebase API key the GHIN app uses for its session handshake — not a
+    // secret, but required for live lookups (no default is baked into source).
+    name: 'GHIN_GOOGLE_API_KEY', label: 'GHIN Firebase API key (public)', provider: 'ghin', providerLabel: 'GHIN (USGA)',
+    category: 'growth', secret: false, activates: 'Starts the GHIN session handshake for live lookups',
+    detect: /^AIza[A-Za-z0-9_-]{10,}$/, placeholder: 'AIza...',
+  },
   // ── DevOps (PublishingOS executor + cron) ──
   {
     name: 'GITHUB_TOKEN', label: 'GitHub token', provider: 'github', providerLabel: 'GitHub',

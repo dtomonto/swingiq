@@ -163,6 +163,8 @@ High-Priority / AI-Quality / UX / Revenue items clickable and actionable.
 | `…/evaluations` | GET, POST | List · create evaluation |
 | `…/settings` | GET, POST | Read/update thresholds & policies |
 | `…/export` | GET | Export knowledge as Markdown/JSON |
+| `…/maintenance` | POST | Run retention sweep · backfill embeddings (`settings.manage`) |
+| `/api/intelligence-os/observe` | POST | First-party drill/retest telemetry (rate-limited, non-admin) |
 
 Reads require `logs.view`; reviews require `ai.review`; settings require
 `settings.manage`; export requires `data.export`.
@@ -184,15 +186,66 @@ npx jest src/lib/intelligence-os --runInBand --cacheDirectory ./.jest-cache-io
 
 ---
 
+## Semantic matching — lexical or real embeddings (keyless-first)
+
+`lib/intelligence-os/embeddings.ts` provides `semanticSimilarityHybrid()`:
+
+- **Keyless (default):** deterministic *lexical* token-set Jaccard — clearly
+  labeled `lexical` in the admin Overview.
+- **With `OPENAI_API_KEY`:** real **embeddings** (`text-embedding-3-small`,
+  256-dim) compared by cosine similarity, memoized per process so curated
+  candidate sets embed once. Set `AI_EMBEDDINGS=off` to force lexical, or
+  `AI_EMBEDDINGS_MODEL` to override the model.
+
+The router uses the hybrid transparently in `findCanonicalAnswer` and
+`retrieveKnowledge`; if an embedding fails it falls back to lexical for that
+pair. The active backend is shown honestly on the Overview page.
+
+## Instrumented features (Phase 6)
+
+- **AI coach** (`/api/ai-coach`) — **serving + capture**. Before paying the
+  model it consults the OS (`resolveWithFirstPartyIntelligence`): a generic,
+  repeated question can be answered from an admin-approved canonical/knowledge
+  answer with no third-party call (safe-by-default — a no-op until canonical
+  answers are approved; personalized questions are never served from shared
+  knowledge). On a miss it pays the model and captures the interaction.
+- **Video analysis** (`/api/video-analysis`) — **serving + capture**. Before
+  generating the AI narrative it consults the OS with the detected-issue
+  signature; a recurring fault set can be answered from an approved canonical
+  swing-diagnosis narrative with no third-party call. On a miss it generates +
+  captures the issue→narrative mapping as reusable knowledge.
+- **Agent / practice-plan enhancement** (`/api/agents/enhance`) — full
+  **exact-cache short-circuit**: identical rewrites are served from the
+  first-party cache (recorded as avoided AI calls) instead of paying the model.
+- **Drill / retest plans** (deterministic, no third-party AI) — the app reports
+  recommendations to `POST /api/intelligence-os/observe`, which records them as
+  zero-cost first-party events, dedupes recurring ones into pattern memories,
+  and promotes generic ones to knowledge (`recordFirstPartyRecommendation`).
+- **Recruiting summary & athletic-journey narrative** (`/api/recruiting/summary`,
+  `/api/athletic-journey/narrative`) — observer logging for cost/activity
+  visibility; personalized content is not promoted to global knowledge.
+
+## Maintenance (scheduled)
+
+The daily Vercel cron `GET /api/intelligence-os/cron` (06:00 UTC) runs the full
+maintenance pass: report retention (hot→warm→cold), the AI-event retention sweep
+(`runRetentionSweep`), and embedding backfill (`backfillEmbeddings`). The same
+actions are available on demand via `POST /api/admin/intelligence-os/maintenance`
+and the Settings-page buttons.
+
+## Step 5 — small/local model seam
+
+`resolveWithFirstPartyIntelligence(req, { smallModel })` tries a small/local/
+low-cost model *before* the third-party fallback; a served answer is counted as
+an avoided third-party call. Wire any cheap model behind the `smallModel` seam.
+
 ## Remaining integration gaps (honest)
 
-- **Real embeddings:** similarity is deterministic *lexical* (token-set
-  Jaccard), labeled as such. Swap behind `semanticSimilarity` when an embedding
-  provider is wired.
-- **Small/local model tier (step 5)** is a seam, not yet wired.
-- **Live feature instrumentation:** AI coach / video analysis / audits still
-  call the gateway directly; adopt the router incrementally.
-- **Retention jobs** (summarize/archive) are configured in settings but the
-  scheduled sweeper isn't built yet.
-- **Evaluations count on the overview** is a placeholder pending a dedicated
-  aggregate query.
+- **Client `/observe` adoption:** the curated-drills surface
+  (`CuratedSwingDrills`) now reports each recommendation to `/observe`; other
+  deterministic surfaces (retest plans, Fix Stack) can adopt the same one-line
+  `fetch`. Admin audits still call the gateway directly.
+- **Stored embeddings** are computed on create/approve + backfilled on demand;
+  there's no automatic re-embed when the provider/model changes (re-run backfill).
+- **Retention scheduling:** the sweep runs on demand (admin button/API); wire a
+  cron to run it automatically.

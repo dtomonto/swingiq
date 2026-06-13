@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { MarketingHero } from '@/components/marketing/MarketingHero';
 import { MarketingCTA } from '@/components/marketing/MarketingCTA';
+import { EducationalLink } from '@/components/learn/EducationalLink';
 
 export const metadata: Metadata = {
   title: 'About SwingVantage | Free AI Swing Analysis Platform',
@@ -71,7 +72,11 @@ export default function AboutPage() {
               Our goal is to give any athlete — beginner or advanced, 8 years old or 80 — access to the same quality of feedback that professionals get. Not watered-down advice, but real diagnostic analysis: what is happening in your swing, why it matters, and exactly what to work on next.
             </p>
             <p>
-              SwingVantage uses a hybrid approach: a deterministic rules engine that applies biomechanical research to your real data, combined with an AI layer that generates personalized coaching language around those findings. The result is specific, actionable, and free.
+              SwingVantage uses a hybrid approach: a{' '}
+              <EducationalLink term="heuristic-data">deterministic rules engine</EducationalLink>{' '}
+              that applies biomechanical research to your real data, combined with an{' '}
+              <EducationalLink term="ai-sports">AI layer</EducationalLink>{' '}
+              that generates personalized coaching language around those findings. The result is specific, actionable, and free.
             </p>
           </div>
         </div>

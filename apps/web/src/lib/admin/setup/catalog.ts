@@ -364,6 +364,29 @@ export const CATALOG: SetupTask[] = [
     learnMoreHref: '/admin/monetization',
     learnMoreLabel: 'Monetization',
   },
+  {
+    id: 'ghin-live-lookup',
+    title: 'Turn on live Handicap Index lookup (GHIN)',
+    plainEnglish:
+      'Lets a golfer pull their official USGA Handicap Index automatically instead of typing it in. It is OFF by default and entirely optional — without it, golfers simply enter their GHIN number and index by hand, which works fine. GHIN/USGA publishes no public developer key, so the live lookup signs in with a GHIN account (plus the public Firebase key the GHIN app itself uses to start a session).',
+    category: 'growth',
+    priority: 'optional',
+    detect: { kind: 'derived', key: 'ghin-live' },
+    steps: [
+      'Decide which GHIN login the lookup signs in with — any valid GHIN account works.',
+      'In Vercel → Settings → Environment Variables, add GHIN_USER (the login email or GHIN number) and GHIN_PASSWORD.',
+      'Add GHIN_GOOGLE_API_KEY — the PUBLIC Firebase API key the GHIN app uses to begin its session (an "AIza…" string). It is not a secret, but the lookup needs it and nothing is baked into the code.',
+      'Redeploy. A golf profile can now fetch the official Handicap Index; if a lookup ever fails it shows an honest error and never invents a number.',
+    ],
+    inputs: [
+      { kind: 'url', value: 'https://www.ghin.com', label: 'Open GHIN (USGA)' },
+      { kind: 'env', value: 'GHIN_USER', example: 'your GHIN login email or number', where: 'Vercel → Settings → Environment Variables' },
+      { kind: 'env', value: 'GHIN_PASSWORD', secret: true, where: 'Vercel → Settings → Environment Variables' },
+      { kind: 'env', value: 'GHIN_GOOGLE_API_KEY', example: 'AIza… (public Firebase key the GHIN app uses)', where: 'Vercel → Settings → Environment Variables' },
+    ],
+    learnMoreHref: '/admin/integrations',
+    learnMoreLabel: 'Integrations',
+  },
 
   // ── Reliability & security ─────────────────────────────────
   {

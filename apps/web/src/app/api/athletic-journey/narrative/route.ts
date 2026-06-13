@@ -21,6 +21,7 @@ import { clientIp } from '@/lib/security/client-ip';
 import { complete } from '@/lib/ai/gateway';
 import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { validateNarrative, type JourneyNarrative } from '@/lib/athletic-journey';
+import { captureAiInteraction } from '@/lib/intelligence-os/capture';
 
 const SYSTEM = [
   'You re-word a player-development "Athletic Journey" summary for an athlete.',
@@ -107,5 +108,15 @@ export async function POST(req: NextRequest) {
 
   // validateNarrative falls back to base on any structural/hype violation.
   const safe = validateNarrative(base, result.parsed);
+
+  // Intelligence OS (observer): log for cost/activity visibility. Personalized
+  // athlete narrative → not promoted to global knowledge. Non-blocking.
+  void captureAiInteraction({
+    sourceSystem: 'admin-report', feature: 'athletic-journey-narrative',
+    request: base.stageSummary || 'journey narrative', response: safe.stageSummary || '',
+    provider: result.provider === 'none' ? 'none' : result.provider, model: result.model,
+    promote: false,
+  });
+
   return NextResponse.json({ narrative: safe });
 }

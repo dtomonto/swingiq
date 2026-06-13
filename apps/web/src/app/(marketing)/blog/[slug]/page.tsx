@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { MarketingCTA } from '@/components/marketing/MarketingCTA';
 import { getPublishedBlogPosts } from '@/data/blog-posts';
 import { getEffectiveBlogPost } from '@/lib/publishing/public-updates.server';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { buildGraph, articleSchema, breadcrumbListSchema } from '@/lib/seo/jsonLd';
 
 export async function generateStaticParams() {
   return getPublishedBlogPosts().map((post) => ({ slug: post.slug }));
@@ -41,6 +43,36 @@ const SPORT_BADGE_COLORS: Record<string, string> = {
   all: 'bg-muted text-muted-foreground',
 };
 
+// Inline formatting: **bold** and [text](/path) links. Internal paths render
+// as Next <Link>; absolute URLs as plain anchors. Backward-compatible — text
+// without these tokens renders unchanged.
+function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
+  const tokens = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
+  return tokens.map((tok, j) => {
+    const key = `${keyPrefix}-${j}`;
+    if (tok.startsWith('**') && tok.endsWith('**')) {
+      return <strong key={key}>{tok.slice(2, -2)}</strong>;
+    }
+    const link = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(tok);
+    if (link) {
+      const [, label, href] = link;
+      if (href.startsWith('/')) {
+        return (
+          <Link key={key} href={href} className="text-link hover:underline">
+            {label}
+          </Link>
+        );
+      }
+      return (
+        <a key={key} href={href} className="text-link hover:underline" rel="noopener noreferrer">
+          {label}
+        </a>
+      );
+    }
+    return <span key={key}>{tok}</span>;
+  });
+}
+
 function renderContent(content: string): React.ReactNode[] {
   const blocks = content.split('\n\n');
   return blocks.map((block, i) => {
@@ -51,24 +83,28 @@ function renderContent(content: string): React.ReactNode[] {
         </h2>
       );
     }
+    // Bullet list: every line in the block starts with "- ".
+    const lines = block.split('\n');
+    if (lines.length > 0 && lines.every((l) => l.startsWith('- '))) {
+      return (
+        <ul key={i} className="list-disc pl-5 mb-4 space-y-1.5 text-foreground text-sm leading-relaxed">
+          {lines.map((l, j) => (
+            <li key={j}>{renderInline(l.slice(2), `${i}-${j}`)}</li>
+          ))}
+        </ul>
+      );
+    }
     if (block.startsWith('**') && block.includes('.**')) {
       // Bold lead paragraph
-      const parts = block.split(/(\*\*[^*]+\*\*)/g);
       return (
         <p key={i} className="text-foreground text-sm leading-relaxed mb-4">
-          {parts.map((part, j) =>
-            part.startsWith('**') && part.endsWith('**') ? (
-              <strong key={j}>{part.slice(2, -2)}</strong>
-            ) : (
-              part
-            ),
-          )}
+          {renderInline(block, String(i))}
         </p>
       );
     }
     return (
       <p key={i} className="text-foreground text-sm leading-relaxed mb-4">
-        {block}
+        {renderInline(block, String(i))}
       </p>
     );
   });
@@ -87,8 +123,24 @@ export default async function BlogPostPage({
     ? getPublishedBlogPosts().filter((p) => post.relatedSlugs!.includes(p.slug))
     : [];
 
+  const jsonLd = buildGraph(
+    articleSchema({
+      headline: post.title,
+      description: post.metaDescription,
+      path: `/blog/${post.slug}`,
+      datePublished: post.publishDate,
+      dateModified: post.publishDate,
+    }),
+    breadcrumbListSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Blog', path: '/blog' },
+      { name: post.title, path: `/blog/${post.slug}` },
+    ]),
+  );
+
   return (
     <main className="min-h-screen bg-card">
+      <JsonLd data={jsonLd} />
       {/* Hero */}
       <section className="bg-theme-hero border-b border-border py-16 px-4">
         <div className="max-w-4xl mx-auto">

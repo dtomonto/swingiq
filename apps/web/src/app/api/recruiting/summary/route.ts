@@ -20,6 +20,7 @@ import { clientIp } from '@/lib/security/client-ip';
 import { complete } from '@/lib/ai/gateway';
 import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { validateSummaryBody } from '@/lib/recruiting/summary';
+import { captureAiInteraction } from '@/lib/intelligence-os/capture';
 
 const SYSTEM = [
   'You re-word recruiting player summaries for college coaches and scouts.',
@@ -94,6 +95,15 @@ export async function POST(req: NextRequest) {
   if (!reworded || !validateSummaryBody(reworded)) {
     return NextResponse.json({ body: original, usedAi: false });
   }
+
+  // Intelligence OS (observer): log for cost/activity visibility. Personalized
+  // recruiting content → not promoted to global knowledge. Non-blocking.
+  void captureAiInteraction({
+    sourceSystem: 'admin-report', feature: 'recruiting-summary',
+    request: original, response: reworded,
+    provider: result.provider === 'none' ? 'none' : result.provider, model: result.model,
+    promote: false,
+  });
 
   return NextResponse.json({ body: reworded, usedAi: true });
 }

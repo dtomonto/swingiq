@@ -15,10 +15,14 @@ import { SectionCard } from '@/components/admin/SectionCard';
 import { MetricStat } from '@/components/admin/MetricStat';
 import { HelpPanel } from '@/components/admin/HelpPanel';
 import { OperatingModeControl } from '@/components/admin/OperatingModeControl';
+import { TierInvitationsControl } from '@/components/admin/TierInvitationsControl';
+import { EducationalLink } from '@/components/learn/EducationalLink';
 import {
   getOperatingModeState,
   getIntelligenceObservability,
   getTierWaitlistCounts,
+  getPlacementState,
+  PLACEMENT_SLOTS,
   DEFAULT_TIER_CONFIGS,
 } from '@/lib/intelligence';
 
@@ -32,10 +36,11 @@ const dollars = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 const pct = (n: number) => `${Math.round(n * 100)}%`;
 
 export default async function OperatingModePage() {
-  const [state, obs, waitlist] = await Promise.all([
+  const [state, obs, waitlist, placements] = await Promise.all([
     getOperatingModeState(),
     getIntelligenceObservability(14),
     getTierWaitlistCounts(),
+    getPlacementState(),
   ]);
 
   const tiers = Object.values(DEFAULT_TIER_CONFIGS);
@@ -57,6 +62,10 @@ export default async function OperatingModePage() {
           waitlistCounts={waitlist.counts}
           waitlistAvailable={waitlist.available}
         />
+      </SectionCard>
+
+      <SectionCard title="Tier invitations (no-pressure placements)">
+        <TierInvitationsControl initial={placements} slots={PLACEMENT_SLOTS} />
       </SectionCard>
 
       {/* ── Intelligence tiers ───────────────────────────── */}
@@ -131,7 +140,9 @@ export default async function OperatingModePage() {
       <HelpPanel>
         <p>
           <strong>What this is.</strong> The control surface for SwingVantage GAI — the layer that routes every
-          analysis through the right mix of deterministic heuristics, cache, and AI providers.
+          analysis through the right mix of{' '}
+          <EducationalLink term="heuristic-data">deterministic heuristics</EducationalLink>, cache, and{' '}
+          <EducationalLink term="ai-sports">AI</EducationalLink> providers.
         </p>
         <p>
           <strong>Default AI Mode</strong> picks the best available quality per tier, still preferring heuristics

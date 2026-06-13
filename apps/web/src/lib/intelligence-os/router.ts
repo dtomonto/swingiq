@@ -17,9 +17,10 @@ import {
   activityRepo, knowledgeRepo, canonicalRepo, cacheRepo, savingsRepo, patternRepo, getSettings,
 } from './store';
 import {
-  hashText, semanticFingerprint, semanticSimilarity, buildCacheKey, knowledgeFingerprint,
+  hashText, semanticFingerprint, buildCacheKey, knowledgeFingerprint,
   detectSafetyFlags, summarize,
 } from './fingerprint';
+import { semanticSimilarityHybrid, similarityWithVectors } from './embeddings';
 import { ESTIMATED_COST_PER_1K_TOKENS_CENTS, MIN_TRUSTWORTHY_CONFIDENCE } from './config';
 import type {
   AIActivityEvent, KnowledgeItem, CanonicalAnswer, AnswerCacheEntry, TokenSavingsEntry,
@@ -110,7 +111,7 @@ export async function findCanonicalAnswer(req: NormalizedRequest, settings: Inte
     if (a.safetyFlags.some((f) => settings.reviewRequiredSafetyFlags.includes(f))) continue;
     const triggerHit = a.triggerPhrases.some((p) => req.request.toLowerCase().includes(p.toLowerCase()));
     const exactFp = a.semanticFingerprint === req.semanticFp;
-    const sim = exactFp || triggerHit ? 1 : semanticSimilarity(a.canonicalQuestion, req.request);
+    const sim = exactFp || triggerHit ? 1 : await similarityWithVectors(req.request, null, a.canonicalQuestion, a.embedding);
     if (sim >= settings.semanticMatchThreshold && a.confidenceScore >= settings.autoServeConfidenceThreshold) {
       if (!best || sim > best.similarity) best = { answer: a, similarity: sim };
     }
@@ -131,8 +132,8 @@ export async function retrieveKnowledge(req: NormalizedRequest, settings: Intell
       // safety-flagged knowledge stays surfaceable to admins but not auto-served
     }
     const sim = Math.max(
-      semanticSimilarity(item.canonicalQuestion, req.request),
-      semanticSimilarity(item.userIntent, req.request),
+      await similarityWithVectors(req.request, null, item.canonicalQuestion, item.embedding),
+      await semanticSimilarityHybrid(item.userIntent, req.request),
     );
     if (sim > 0.1) scored.push({ item, similarity: sim });
   }
@@ -268,6 +269,8 @@ export async function createKnowledgeCandidate(event: AIActivityEvent, fullRespo
     successCount: 0,
     failureCount: 0,
     lastUsedAt: now,
+    embedding: null, // computed on approval (best-effort, when embeddings configured)
+    embeddingModel: null,
     dataSource: 'real',
     createdAt: now,
     updatedAt: now,
@@ -379,11 +382,17 @@ export interface ThirdPartyResult {
   confidence?: number;
 }
 
+export interface SmallModelResult { text: string; confidence?: number; }
+
 export interface ResolveOptions {
   /** Real third-party call. Omit for keyless/dry-run (decision flags needsThirdParty). */
   callThirdParty?: (req: NormalizedRequest) => Promise<ThirdPartyResult>;
   /** Deterministic rule engine seam (step 3). Return a string to short-circuit. */
   ruleEngine?: (req: NormalizedRequest) => Promise<string | null> | string | null;
+  /** Small/local/low-cost model seam (step 5) — tried before third-party AI.
+   *  Return null to defer to third-party. Served answers count as avoided
+   *  third-party calls in the savings ledger. */
+  smallModel?: (req: NormalizedRequest) => Promise<SmallModelResult | null> | SmallModelResult | null;
   /** Whether to write reusable AI output as a knowledge candidate (default true). */
   promoteToKnowledge?: boolean;
 }
@@ -485,7 +494,19 @@ export async function resolveWithFirstPartyIntelligence(
     }
   }
 
-  // 5/6 · third-party AI — nothing reliable was served above, so AI is needed.
+  // 5 · small/local/low-cost model — tried before paying a frontier model.
+  if (opts.smallModel && !req.personalized) {
+    const small = await opts.smallModel(req);
+    if (small && small.text) {
+      const savings = await recordTokenSavings({
+        sourceFeature: req.feature, servedBy: 'small-model', avoidedProvider: 'anthropic', avoidedModel: null,
+        avoidedInputTokens: 600, avoidedOutputTokens: 500,
+      });
+      return { ...base, response: small.text, servedBy: 'small-model', confidenceScore: small.confidence ?? 0.7, savingsId: savings.id };
+    }
+  }
+
+  // 6 · third-party AI — nothing reliable was served above, so AI is needed.
   // (shouldUseThirdPartyAI stays exported for callers that want to pre-check a
   //  candidate confidence before even building a request.)
   if (!opts.callThirdParty) {

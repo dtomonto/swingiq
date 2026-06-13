@@ -18,6 +18,8 @@ export const KINDS = {
   cache: 'io-answer-cache',
   evaluation: 'io-evaluation',
   savings: 'io-token-savings',
+  task: 'io-action-task',
+  report: 'io-action-report',
   settings: 'io-settings',
 } as const;
 

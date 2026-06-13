@@ -49,6 +49,8 @@ jobs:
         run: npm ci
       - name: Run growth audit
         run: npm run audit:growth
+      - name: Design tokens — fail if the JSON drifts from globals.css
+        run: npm run tokens:check
 
   dependency-audit:
     name: Dependency security audit

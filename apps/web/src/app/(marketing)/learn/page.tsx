@@ -6,6 +6,7 @@ import { getLibrarySections } from '@/lib/library';
 import { getEffectivePublicLearnItems } from '@/lib/publishing/public-updates.server';
 import { learnItemListSchema, breadcrumbSchema, learnPath } from '@/lib/library/seo';
 import { getConceptEntries, learnPath as conceptHref } from '@/lib/learn';
+import { TECH_EDUCATION_ARTICLES, techEducationPath } from '@/lib/learn/tech-education';
 
 // Fully dynamic so a durable PublishingOS override flips a video live/dark on
 // the next request, with no rebuild.
@@ -81,6 +82,40 @@ export default async function LearnIndexPage() {
           </div>
         </section>
       )}
+
+      {/* Technology & intelligence explainers (how SwingVantage thinks) */}
+      <section aria-label="Technology and intelligence" className="border-b border-border bg-background px-4 py-12">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold text-foreground">How SwingVantage thinks</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Plain-English explainers on the technology behind your plan — heuristic intelligence, AI in
+            sports, retesting, player profiles, and how scattered data becomes one next-best action.
+          </p>
+          <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              ...TECH_EDUCATION_ARTICLES.map((a) => ({
+                href: techEducationPath(a.slug),
+                title: a.title,
+                blurb: a.description,
+              })),
+              {
+                href: '/athlete-general-intelligence',
+                title: 'Athlete General Intelligence',
+                blurb: 'The cross-sport engine that finds the one thing limiting the most of your game.',
+              },
+            ].map((c) => (
+              <Link
+                key={c.href}
+                href={c.href}
+                className="block rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary hover:bg-primary/5"
+              >
+                <h3 className="text-base font-bold text-foreground">{c.title}</h3>
+                <p className="mt-1 line-clamp-3 text-xs text-muted-foreground">{c.blurb}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Sections */}
       <div className="mx-auto max-w-5xl space-y-12 px-4 py-12">

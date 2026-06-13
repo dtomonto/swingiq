@@ -33,6 +33,8 @@ import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
 import type { AiProviderId } from '@/lib/ai/gateway';
+import { captureAiInteraction, coerceSport } from '@/lib/intelligence-os/capture';
+import { resolveWithFirstPartyIntelligence } from '@/lib/intelligence-os/router';
 
 // ── Handler ───────────────────────────────────────────────────
 
@@ -120,6 +122,31 @@ export async function POST(req: NextRequest) {
     });
   }
 
+  // ── First-party intelligence: serve before paying ─────────
+  // Consult the Intelligence OS (exact cache → approved canonical → approved
+  // knowledge) BEFORE the paid model. This is the cost-reduction payoff: a
+  // generic, repeated question can be answered from admin-approved first-party
+  // knowledge with no third-party call. Safe-by-default — a no-op until canonical
+  // answers are approved — and personalized questions are never served from
+  // shared knowledge (the router excludes them), so stat-grounded answers stay
+  // fresh. Every hit auto-writes the token-savings ledger.
+  const firstParty = await resolveWithFirstPartyIntelligence({
+    sourceSystem: 'ai-coach',
+    feature: 'ai-coach',
+    sport: coerceSport(ctx.active_sport),
+    request: ctx.user_question ?? '',
+  });
+  if (
+    firstParty.response &&
+    (firstParty.servedBy === 'canonical-answer' || firstParty.servedBy === 'knowledge' || firstParty.servedBy === 'exact-cache')
+  ) {
+    return NextResponse.json({
+      message: firstParty.response,
+      grounding: validateGrounding(firstParty.response, ctx),
+      aiMeta: { servedBy: firstParty.servedBy, firstParty: true, confidence: firstParty.confidenceScore },
+    });
+  }
+
   // ── Generate via the provider-agnostic AI gateway ─────────
   // The gateway centralizes provider/key resolution, model tiering, the daily
   // AI-budget kill-switch + spend recording, and a single transient-error
@@ -164,6 +191,20 @@ export async function POST(req: NextRequest) {
     const message = coachMessageFrom(structured, result.text);
     setCachedResponse(ctx, message);
     await meterUserAiUsage(userId, 'ai-coach');
+    // Intelligence OS (observer): capture this interaction so repeated, non-
+    // personalized questions can become reusable first-party knowledge. Fully
+    // best-effort + non-blocking — never affects the coaching response.
+    void captureAiInteraction({
+      sourceSystem: 'ai-coach',
+      feature: 'ai-coach',
+      sport: ctx.active_sport,
+      request: ctx.user_question ?? '',
+      response: message,
+      provider: result.provider,
+      model: result.model,
+      latencyMs,
+      userId,
+    });
     // #2 grounding: surface whether the response's measurement claims trace to
     // the player's data so clients can flag/regenerate ungrounded answers.
     return NextResponse.json({

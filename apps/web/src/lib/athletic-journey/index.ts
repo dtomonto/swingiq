@@ -12,6 +12,7 @@ export {
   buildJourneyDashboard,
   type BuildOptions,
 } from './engine';
+export { diagnosisToSkillCategory } from './diagnosis-focus';
 
 export {
   classifyPlayerStage,

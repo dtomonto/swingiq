@@ -25,6 +25,8 @@ import type {
   ConfidenceLabel,
   DrillRecommendation,
 } from './types';
+import { analyzeDeterministicSession } from './diagnose';
+import type { SkillLevel } from './diagnose-types';
 
 const ENGINE_VERSION = '1.0.0';
 
@@ -131,9 +133,24 @@ export function runHeuristicEstimate(
   req: AnalysisRequest,
   route: AnalysisRoute = 'HEURISTIC_ONLY',
 ): AnalysisResult {
-  // Resolve the issue to a curated fault when possible, else an honest entry.
+  // Run the deterministic diagnosis engine first: it ranks likely causes from
+  // the reported issue + finer symptoms and carries evidence, missing data, a
+  // confidence reason, and an escalation recommendation. Its top cause sharpens
+  // which fault we resolve when multiple symptoms were reported.
+  const diagnosis = analyzeDeterministicSession({
+    sport: req.sport,
+    issue: req.issue,
+    symptoms: req.symptoms,
+    skillLevel: req.skillLevel as SkillLevel | undefined,
+    goals: req.goals,
+    handedness: req.handedness,
+    videoAvailable: req.videoAvailable,
+  });
+
+  // Resolve the issue to a curated fault: prefer the diagnosis' primary cause,
+  // falling back to direct free-text matching for parity with older callers.
   const matchedId = matchFaultId(req.issue, req.sport);
-  const faultId = matchedId ?? req.issue;
+  const faultId = diagnosis.primary.faultId || matchedId || req.issue;
   const fault = resolveFault(faultId, { label: req.issue, sport: req.sport });
 
   const audience = audienceFor(req.skillLevel);
@@ -166,5 +183,6 @@ export function runHeuristicEstimate(
     poweredBy: 'SwingVantage GAI',
     ruleVersion: ENGINE_VERSION,
     costEstimateCents: 0,
+    diagnosisDetail: diagnosis,
   };
 }

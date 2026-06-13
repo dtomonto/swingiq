@@ -166,6 +166,12 @@ export const NAV_ITEMS: NavItem[] = [
     keywords: ['operating mode', 'gai', 'general athlete intelligence', 'intelligence router', 'cost saving', 'cost-saving mode', 'default ai mode', 'instant estimate', 'ai swing report', 'premium retest plan', 'heuristic', 'routing', 'kill switch', 'budget', 'spend', 'tiers'],
   },
   {
+    id: 'deterministic-engine', label: 'Deterministic Engine', href: '/admin/deterministic-engine', icon: BrainCircuit,
+    group: 'operate', subgroup: 'Video Analysis', built: true, permission: 'logs.view',
+    blurb: 'Inspect the token-free symptom→cause diagnosis engine: per-sport rule & fault coverage, the live golden-scenario evaluation lab (pass/fail, confidence, escalation), and the confidence distribution. Pure + deterministic — zero external AI tokens.',
+    keywords: ['deterministic', 'deterministic engine', 'diagnosis', 'symptom', 'cause', 'heuristic', 'rules engine', 'confidence', 'escalation', 'scenario lab', 'evaluation', 'coverage', 'token-free', 'one fix one plan one retest', 'gai', 'instant estimate'],
+  },
+  {
     id: 'agents', label: 'Agent Registry', href: '/admin/agents', icon: Bot,
     group: 'operate', subgroup: 'Video Analysis', built: true,
     blurb: 'One honest inventory of every agent & automation — what each does, what it reads/produces, keyless vs optional-AI, how it is turned on/off, its safety guardrails, and where to inspect it.',

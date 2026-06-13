@@ -8,9 +8,10 @@
 // ============================================================
 
 import {
-  activityRepo, knowledgeRepo, canonicalRepo, patternRepo, cacheRepo, savingsRepo,
-  isIntelligencePersistent, getSettings,
+  activityRepo, knowledgeRepo, canonicalRepo, patternRepo, cacheRepo, savingsRepo, evaluationRepo,
+  taskRepo, reportRepo, isIntelligencePersistent, getSettings,
 } from './store';
+import { similarityBackend } from './embeddings';
 import type {
   AIActivityEvent, KnowledgeItem, PatternMemory, TokenSavingsEntry, IntelligenceSettings, DataSource,
 } from './types';
@@ -34,12 +35,28 @@ export interface OverviewMetrics {
 export interface RepeatedQuestion { intent: string; count: number; estCostCents: number; }
 export interface FeatureCost { feature: string; calls: number; costCents: number; }
 
+/** Action OS roll-up — the clickable task queue + the report library. */
+export interface ActionOsSummary {
+  tasksTotal: number;
+  criticalTasks: number;
+  highPriorityTasks: number;
+  needsAttentionTasks: number;
+  openOpportunities: number;
+  reportsTotal: number;
+  reportsHot: number;
+  reportsWarm: number;
+  reportsCold: number;
+}
+
 export interface IntelligenceOverview {
   generatedAt: string;
   dataSource: DataSource;
   persistent: boolean;
+  /** Which semantic-matching backend is active (real embeddings vs lexical). */
+  similarityBackend: 'embeddings' | 'lexical';
   settings: IntelligenceSettings;
   metrics: OverviewMetrics;
+  actionOs: ActionOsSummary;
   highestValueRepeatedQuestions: RepeatedQuestion[];
   highestCostWorkflows: FeatureCost[];
   topReusableKnowledge: Pick<KnowledgeItem, 'id' | 'title' | 'usageCount' | 'confidenceScore' | 'validationStatus'>[];
@@ -52,10 +69,26 @@ function sum(nums: number[]): number { return nums.reduce((a, b) => a + b, 0); }
 function round(n: number): number { return Number(n.toFixed(2)); }
 
 export async function getIntelligenceOverview(): Promise<IntelligenceOverview> {
-  const [events, knowledge, canonical, patterns, cache, savings, settings] = await Promise.all([
+  const [events, knowledge, canonical, patterns, cache, savings, evaluations, tasks, reports, settings] = await Promise.all([
     activityRepo.list(), knowledgeRepo.list(), canonicalRepo.list(), patternRepo.list(),
-    cacheRepo.list(), savingsRepo.list(), getSettings(),
+    cacheRepo.list(), savingsRepo.list(), evaluationRepo.list(), taskRepo.list(), reportRepo.list(), getSettings(),
   ]);
+
+  const liveTasks = tasks.filter((t) => !t.archived);
+  const isDone = (s: string) => s === 'fixed' || s === 'verified' || s === 'archived' || s === 'ignored';
+  const needsAttention = new Set(['new', 'triaged', 'needs-review', 'waiting']);
+  const liveReports = reports.filter((r) => !r.archived);
+  const actionOs: ActionOsSummary = {
+    tasksTotal: liveTasks.length,
+    criticalTasks: liveTasks.filter((t) => t.severity === 'critical' && !isDone(t.status)).length,
+    highPriorityTasks: liveTasks.filter((t) => (t.severity === 'high' || t.priority === 'p1') && !isDone(t.status)).length,
+    needsAttentionTasks: liveTasks.filter((t) => needsAttention.has(t.status)).length,
+    openOpportunities: liveTasks.filter((t) => t.category === 'opportunity' && !isDone(t.status)).length,
+    reportsTotal: liveReports.length,
+    reportsHot: liveReports.filter((r) => r.retentionTier === 'hot').length,
+    reportsWarm: liveReports.filter((r) => r.retentionTier === 'warm').length,
+    reportsCold: liveReports.filter((r) => r.retentionTier === 'cold').length,
+  };
 
   const thirdPartyEvents = events.filter((e) => e.provider !== 'first-party' && e.provider !== 'none');
   const cacheHits = sum(cache.map((c) => c.usageCount));
@@ -74,7 +107,7 @@ export async function getIntelligenceOverview(): Promise<IntelligenceOverview> {
     knowledgeAwaitingReview: knowledge.filter((k) => k.validationStatus === 'candidate' || k.validationStatus === 'needs-review').length,
     canonicalAnswersTotal: canonical.length,
     patternsOpen: patterns.filter((p) => p.status === 'open' || p.status === 'monitoring').length,
-    evaluationsTotal: 0,
+    evaluationsTotal: evaluations.length,
   };
 
   // Highest-value repeated questions: group events by promptHash.
@@ -115,8 +148,10 @@ export async function getIntelligenceOverview(): Promise<IntelligenceOverview> {
     generatedAt: new Date().toISOString(),
     dataSource: isIntelligencePersistent() ? 'real' : 'placeholder',
     persistent: isIntelligencePersistent(),
+    similarityBackend: similarityBackend(),
     settings,
     metrics,
+    actionOs,
     highestValueRepeatedQuestions,
     highestCostWorkflows,
     topReusableKnowledge,

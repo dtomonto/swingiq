@@ -107,6 +107,10 @@ export interface KnowledgeItem {
   successCount: number;
   failureCount: number;
   lastUsedAt: string | null;
+  /** Persisted embedding of the canonical question (when embeddings configured). */
+  embedding: number[] | null;
+  /** Model that produced `embedding` — lets backfill re-embed on model change. */
+  embeddingModel: string | null;
   dataSource: DataSource;
   createdAt: string;
   updatedAt: string;
@@ -150,6 +154,10 @@ export interface CanonicalAnswer {
   aiCallsAvoided: number;
   tokensAvoided: number;
   estimatedCostSavedCents: number;
+  /** Persisted embedding of the canonical question (when embeddings configured). */
+  embedding: number[] | null;
+  /** Model that produced `embedding` — lets backfill re-embed on model change. */
+  embeddingModel: string | null;
   dataSource: DataSource;
   createdAt: string;
   updatedAt: string;
@@ -158,6 +166,7 @@ export interface CanonicalAnswer {
 // ── 4 · Pattern Memory ────────────────────────────────────────
 export const PATTERN_TYPES = [
   'recurring-user-question', 'recurring-swing-fault', 'recurring-drill-recommendation',
+  'recurring-retest-recommendation',
   'recurring-upload-issue', 'recurring-ai-quality-issue', 'recurring-ux-friction',
   'recurring-conversion-dropoff', 'recurring-seo-gap', 'recurring-revenue-opportunity',
   'recurring-technical-bug', 'recurring-admin-fix', 'recurring-claude-code-repair-pattern',
@@ -294,4 +303,136 @@ export interface IntelligenceSettings {
   lowValueArchiveDays: number;
   updatedAt: string;
   updatedBy: string | null;
+}
+
+// ── 9 · Action Task ───────────────────────────────────────────
+// The clickable Action OS layer: every Critical / High Priority / Needs
+// Attention item becomes a traceable task with an executive detail view and a
+// downloadable Claude Code fix packet. Patterns/reports/events promote into these.
+export const TASK_SEVERITIES = ['critical', 'high', 'medium', 'low', 'info'] as const;
+export type TaskSeverity = (typeof TASK_SEVERITIES)[number];
+
+export const TASK_PRIORITIES = ['p0', 'p1', 'p2', 'p3'] as const;
+export type TaskPriority = (typeof TASK_PRIORITIES)[number];
+
+export const TASK_STATUSES = [
+  'new', 'triaged', 'in-progress', 'waiting', 'needs-review',
+  'fixed', 'verified', 'monitoring', 'archived', 'ignored',
+] as const;
+export type TaskStatus = (typeof TASK_STATUSES)[number];
+
+export const TASK_CATEGORIES = [
+  'upload', 'authentication', 'video-analysis', 'ai-coach', 'report-generation',
+  'player-dashboard', 'admin-dashboard', 'payments-monetization', 'ads-revenue',
+  'seo-aeo-geo', 'performance', 'mobile-ux', 'accessibility', 'privacy', 'security',
+  'database', 'api', 'model-routing', 'prompt-quality', 'conversion-funnel', 'retention',
+  'engagement', 'content-gap', 'opportunity', 'bug', 'technical-debt', 'growth',
+] as const;
+export type TaskCategory = (typeof TASK_CATEGORIES)[number];
+
+export type FixComplexity = 'trivial' | 'small' | 'medium' | 'large' | 'unknown';
+
+export interface TaskNote { at: string; author: string; body: string; }
+export interface TaskHistoryEntry { at: string; event: string; detail?: string; }
+
+export interface ActionTask {
+  id: string;
+  title: string;
+  severity: TaskSeverity;
+  priority: TaskPriority;
+  status: TaskStatus;
+  category: TaskCategory;
+  source: string;
+  affectedFeature: string;
+  affectedSport: Sport;
+  affectedRoute: string | null;
+  affectedComponent: string | null;
+  affectedFilePaths: string[];
+  owner: string | null;
+  firstDetectedAt: string;
+  lastDetectedAt: string;
+  occurrenceCount: number;
+  suggestedNextAction: string;
+  rootCauseHypothesis: string;
+  evidenceSummary: string;
+  userImpact: string;
+  businessImpact: string;
+  revenueImpact: string | null;
+  brandTrustImpact: string | null;
+  aiQualityImpact: string | null;
+  confidenceScore: number; // 0..1
+  fixComplexity: FixComplexity;
+  estimatedEffort: string | null;
+  dependencies: string[];
+  relatedTaskIds: string[];
+  relatedReportIds: string[];
+  relatedEventIds: string[];
+  relatedKnowledgeIds: string[];
+  reproductionSteps: string[];
+  acceptanceCriteria: string[];
+  resolutionNotes: string | null;
+  internalLearningTags: string[];
+  safetyFlags: SafetyFlag[];
+  /** Dedup key from category + route + component + severity + signature. */
+  fingerprint: string;
+  notes: TaskNote[];
+  history: TaskHistoryEntry[];
+  dataSource: DataSource;
+  createdAt: string;
+  updatedAt: string;
+  archived: boolean;
+}
+
+// ── 10 · Action Report ────────────────────────────────────────
+// Durable, retention-tiered findings that can generate tasks and link back.
+export const REPORT_TYPES = [
+  'system-health', 'ai-quality', 'video-analysis', 'upload-reliability', 'login-auth',
+  'seo-aeo-geo', 'ux-friction', 'conversion-funnel', 'revenue-opportunity', 'ads-monetization',
+  'privacy-security', 'performance', 'accessibility', 'feature-gap', 'growth-opportunity',
+  'admin-operations', 'user-journey',
+] as const;
+export type ReportType = (typeof REPORT_TYPES)[number];
+
+export const REPORT_LIFECYCLES = [
+  'generated', 'reviewed', 'converted-to-tasks', 'in-progress', 'partially-resolved',
+  'resolved', 'monitoring', 'archived', 'superseded', 'deleted',
+] as const;
+export type ReportLifecycle = (typeof REPORT_LIFECYCLES)[number];
+
+/** Space-efficient layered retention: hot keeps the full body; warm/cold keep
+ *  only the summary + findings (the body is dropped/externalized). */
+export type RetentionTier = 'hot' | 'warm' | 'cold';
+
+export interface ReportFinding {
+  id: string;
+  title: string;
+  severity: TaskSeverity;
+  detail: string;
+  recommendation: string;
+}
+
+export interface ActionReport {
+  id: string;
+  title: string;
+  type: ReportType;
+  source: string;
+  lifecycleStatus: ReportLifecycle;
+  severitySummary: string;
+  prioritySummary: string;
+  executiveSummary: string;
+  findings: ReportFinding[];
+  generatedTaskIds: string[];
+  evidenceReferences: string[];
+  recommendedActions: string[];
+  internalLearningTags: string[];
+  searchMetadata: string;
+  retentionTier: RetentionTier;
+  duplicateGroupId: string | null;
+  fingerprint: string;
+  /** Retained only while hot; null once summarized into the warm/cold tier. */
+  fullBody: string | null;
+  dataSource: DataSource;
+  createdAt: string;
+  updatedAt: string;
+  archived: boolean;
 }

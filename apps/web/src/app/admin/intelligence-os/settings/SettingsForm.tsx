@@ -79,6 +79,40 @@ export function SettingsForm({ initial }: { initial: IntelligenceSettings }) {
         <Button onClick={save} loading={saving}>Save settings</Button>
         {msg && <span className="text-sm text-muted-foreground">{msg}</span>}
       </div>
+
+      <MaintenanceControls />
+    </div>
+  );
+}
+
+function MaintenanceControls() {
+  const [busy, setBusy] = useState<string | null>(null);
+  const [result, setResult] = useState<string | null>(null);
+
+  async function run(action: 'retention' | 'backfill-embeddings') {
+    setBusy(action); setResult(null);
+    try {
+      const res = await fetch('/api/admin/intelligence-os/maintenance', {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action }),
+      });
+      const json = await res.json();
+      setResult(json.ok ? JSON.stringify(json.report ?? json.result) : (json.error ?? 'failed'));
+    } catch { setResult('failed'); }
+    finally { setBusy(null); }
+  }
+
+  return (
+    <div className="mt-4 border-t border-border pt-4">
+      <p className="text-sm font-medium text-foreground">Maintenance</p>
+      <p className="mb-2 text-xs text-muted-foreground">
+        Run the retention sweep (summarize/archive old AI events per the thresholds above) or backfill embeddings on
+        approved records (no-op unless an embeddings provider is configured).
+      </p>
+      <div className="flex flex-wrap items-center gap-2">
+        <Button size="sm" variant="secondary" loading={busy === 'retention'} onClick={() => run('retention')}>Run retention sweep</Button>
+        <Button size="sm" variant="secondary" loading={busy === 'backfill-embeddings'} onClick={() => run('backfill-embeddings')}>Backfill embeddings</Button>
+        {result && <code className="text-xs text-muted-foreground">{result}</code>}
+      </div>
     </div>
   );
 }
