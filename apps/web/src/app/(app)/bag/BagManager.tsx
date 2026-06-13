@@ -378,7 +378,8 @@ export function BagManager() {
     // A hand-entered/edited club is user-confirmed — it wins the
     // source-of-truth hierarchy over imported/inferred values (Phase 4).
     if (editingClub) {
-      updateClub(editingClub.id, { ...data, source_of_truth: 'user' });
+      // A hand-edit invalidates any pending trend-update undo for this club.
+      updateClub(editingClub.id, { ...data, source_of_truth: 'user', carry_undo: null });
     } else {
       addClub({ ...data, sort_order: clubs.length, source_of_truth: 'user' });
     }
