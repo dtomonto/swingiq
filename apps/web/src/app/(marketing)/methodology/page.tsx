@@ -215,7 +215,11 @@ export default function MethodologyPage() {
 
         <nav aria-label="Related" className="mt-8 border-t border-border pt-5 text-sm">
           <span className="font-semibold text-foreground">Related: </span>
+          <Link href="/deterministic-intelligence" className="text-primary hover:underline">Deterministic Intelligence</Link>
+          <span className="text-muted-foreground"> · </span>
           <Link href="/athlete-general-intelligence" className="text-primary hover:underline">Athlete General Intelligence</Link>
+          <span className="text-muted-foreground"> · </span>
+          <Link href="/trust/accuracy-and-limitations" className="text-primary hover:underline">Accuracy &amp; Limitations</Link>
           <span className="text-muted-foreground"> · </span>
           <Link href="/trust" className="text-primary hover:underline">Trust &amp; Safety</Link>
           <span className="text-muted-foreground"> · </span>

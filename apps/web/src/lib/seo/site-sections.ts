@@ -119,6 +119,8 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/pricing', label: 'Pricing', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/parents', label: 'SwingVantage for parents', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/resources', label: 'Resources', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/resources/what-is-heuristic-data', label: 'What is heuristic data?', section: 'main', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/resources/ai-in-sports-performance', label: 'AI in sports performance', section: 'main', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/glossary', label: 'Swing & launch-monitor glossary', section: 'main', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/sitemap', label: 'Sitemap (this page)', section: 'main', priority: 0.3, changeFrequency: 'monthly' },
 
@@ -158,6 +160,7 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
 
   // ── Methodology / explainers ──────────────────────────────────────────
   { path: '/methodology', label: 'Our methodology (measured vs. estimated)', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/deterministic-intelligence', label: 'Deterministic intelligence (how the engine works)', section: 'methodology', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/athlete-general-intelligence', label: 'Athlete General Intelligence', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/what-is-heuristic-data', label: 'What is heuristic data?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/ai-in-sports-performance', label: 'What is AI in sports performance?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
@@ -185,6 +188,7 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/about', label: 'About SwingVantage', section: 'about', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/contact', label: 'Contact us', section: 'about', priority: 0.5, changeFrequency: 'monthly' },
   { path: '/trust', label: 'Trust & safety', section: 'about', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/trust/accuracy-and-limitations', label: 'Accuracy & limitations', section: 'about', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/updates', label: 'Product updates', section: 'about', priority: 0.7, changeFrequency: 'weekly' },
   { path: '/updates/milestones', label: 'Milestones', section: 'about', priority: 0.6, changeFrequency: 'weekly' },
   { path: '/dev-updates', label: 'Engineering changelog', section: 'about', priority: 0.5, changeFrequency: 'weekly' },

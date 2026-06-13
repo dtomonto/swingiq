@@ -248,6 +248,21 @@ export const ANALYTICS_EVENTS = {
   FRAME_STEP_USED: 'frame_step_used', // + sport, action
   CLIP_COMPARISON_VIEWED: 'clip_comparison_viewed', // + sport, action
   CAMERA_SHAKE_PROXY_ENABLED: 'camera_shake_proxy_enabled', // + sport
+
+  // Authority / education / trust content (SEO·AEO·GEO surfaces). Non-PII —
+  // a `slug` (page path) and optional `category`/`target` only. Power the
+  // "does our authority content earn trust + convert?" funnel. See the
+  // /deterministic-intelligence, /resources, /trust authority pages.
+  AUTHORITY_PAGE_VIEWED: 'authority_page_viewed', // + slug, category
+  RESOURCE_ARTICLE_VIEWED: 'resource_article_viewed', // + slug, category
+  GLOSSARY_ENTRY_VIEWED: 'glossary_entry_viewed', // + term
+  TRUST_PAGE_VIEWED: 'trust_page_viewed', // + slug
+  METHODOLOGY_PAGE_VIEWED: 'methodology_page_viewed',
+  AUTHORITY_CTA_CLICKED: 'authority_cta_clicked', // + slug, target (start | trust)
+  RESOURCE_INTERNAL_LINK_CLICKED: 'resource_internal_link_clicked', // + from, to
+  FAQ_EXPANDED: 'faq_expanded', // + slug, question
+  CLAIM_EXPLAINER_OPENED: 'claim_explainer_opened', // + claim_id
+  DETERMINISTIC_ENGINE_LEARN_MORE_CLICKED: 'deterministic_engine_learn_more_clicked', // + from
 } as const;
 
 export type AnalyticsEventName =

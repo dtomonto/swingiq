@@ -121,6 +121,8 @@ export default function TrustPage() {
         {/* Navigation */}
         <nav className="flex flex-wrap gap-4 text-sm pt-4 border-t border-border">
           <Link href="/" className="text-primary hover:underline">← SwingVantage Home</Link>
+          <Link href="/trust/accuracy-and-limitations" className="text-primary hover:underline">Accuracy &amp; Limitations</Link>
+          <Link href="/deterministic-intelligence" className="text-primary hover:underline">Deterministic Intelligence</Link>
           <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
           <Link href="/terms" className="text-primary hover:underline">Terms of Service</Link>
           <Link href="/faq" className="text-primary hover:underline">FAQ</Link>
