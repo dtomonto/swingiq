@@ -184,14 +184,40 @@ npx jest src/lib/intelligence-os --runInBand --cacheDirectory ./.jest-cache-io
 
 ---
 
+## Semantic matching — lexical or real embeddings (keyless-first)
+
+`lib/intelligence-os/embeddings.ts` provides `semanticSimilarityHybrid()`:
+
+- **Keyless (default):** deterministic *lexical* token-set Jaccard — clearly
+  labeled `lexical` in the admin Overview.
+- **With `OPENAI_API_KEY`:** real **embeddings** (`text-embedding-3-small`,
+  256-dim) compared by cosine similarity, memoized per process so curated
+  candidate sets embed once. Set `AI_EMBEDDINGS=off` to force lexical, or
+  `AI_EMBEDDINGS_MODEL` to override the model.
+
+The router uses the hybrid transparently in `findCanonicalAnswer` and
+`retrieveKnowledge`; if an embedding fails it falls back to lexical for that
+pair. The active backend is shown honestly on the Overview page.
+
+## Instrumented features (Phase 6)
+
+- **AI coach** (`/api/ai-coach`) — non-blocking `captureAiInteraction()` observer.
+- **Video analysis** (`/api/video-analysis`) — captures the issue→narrative
+  mapping as a reusable swing-diagnosis pattern (best-effort, non-blocking).
+- **Agent / practice-plan enhancement** (`/api/agents/enhance`) — full
+  **exact-cache short-circuit**: identical rewrites are served from the
+  first-party cache (recorded as avoided AI calls) instead of paying the model;
+  misses are cached + logged.
+
 ## Remaining integration gaps (honest)
 
-- **Real embeddings:** similarity is deterministic *lexical* (token-set
-  Jaccard), labeled as such. Swap behind `semanticSimilarity` when an embedding
-  provider is wired.
 - **Small/local model tier (step 5)** is a seam, not yet wired.
-- **Live feature instrumentation:** AI coach / video analysis / audits still
-  call the gateway directly; adopt the router incrementally.
+- **More features:** drill recommendations + retest plans are deterministic
+  (no third-party AI) — instrument them as first-party pattern capture next;
+  admin audits still call the gateway directly.
+- **Stored embeddings:** vectors are computed at query time + memoized per
+  process (not persisted on records yet) — fine for curated volumes; persist on
+  records for very large knowledge bases.
 - **Retention jobs** (summarize/archive) are configured in settings but the
   scheduled sweeper isn't built yet.
 - **Evaluations count on the overview** is a placeholder pending a dedicated

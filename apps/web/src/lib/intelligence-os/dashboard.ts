@@ -11,6 +11,7 @@ import {
   activityRepo, knowledgeRepo, canonicalRepo, patternRepo, cacheRepo, savingsRepo,
   isIntelligencePersistent, getSettings,
 } from './store';
+import { similarityBackend } from './embeddings';
 import type {
   AIActivityEvent, KnowledgeItem, PatternMemory, TokenSavingsEntry, IntelligenceSettings, DataSource,
 } from './types';
@@ -38,6 +39,8 @@ export interface IntelligenceOverview {
   generatedAt: string;
   dataSource: DataSource;
   persistent: boolean;
+  /** Which semantic-matching backend is active (real embeddings vs lexical). */
+  similarityBackend: 'embeddings' | 'lexical';
   settings: IntelligenceSettings;
   metrics: OverviewMetrics;
   highestValueRepeatedQuestions: RepeatedQuestion[];
@@ -115,6 +118,7 @@ export async function getIntelligenceOverview(): Promise<IntelligenceOverview> {
     generatedAt: new Date().toISOString(),
     dataSource: isIntelligencePersistent() ? 'real' : 'placeholder',
     persistent: isIntelligencePersistent(),
+    similarityBackend: similarityBackend(),
     settings,
     metrics,
     highestValueRepeatedQuestions,

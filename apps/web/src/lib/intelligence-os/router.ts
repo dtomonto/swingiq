@@ -17,9 +17,10 @@ import {
   activityRepo, knowledgeRepo, canonicalRepo, cacheRepo, savingsRepo, patternRepo, getSettings,
 } from './store';
 import {
-  hashText, semanticFingerprint, semanticSimilarity, buildCacheKey, knowledgeFingerprint,
+  hashText, semanticFingerprint, buildCacheKey, knowledgeFingerprint,
   detectSafetyFlags, summarize,
 } from './fingerprint';
+import { semanticSimilarityHybrid } from './embeddings';
 import { ESTIMATED_COST_PER_1K_TOKENS_CENTS, MIN_TRUSTWORTHY_CONFIDENCE } from './config';
 import type {
   AIActivityEvent, KnowledgeItem, CanonicalAnswer, AnswerCacheEntry, TokenSavingsEntry,
@@ -110,7 +111,7 @@ export async function findCanonicalAnswer(req: NormalizedRequest, settings: Inte
     if (a.safetyFlags.some((f) => settings.reviewRequiredSafetyFlags.includes(f))) continue;
     const triggerHit = a.triggerPhrases.some((p) => req.request.toLowerCase().includes(p.toLowerCase()));
     const exactFp = a.semanticFingerprint === req.semanticFp;
-    const sim = exactFp || triggerHit ? 1 : semanticSimilarity(a.canonicalQuestion, req.request);
+    const sim = exactFp || triggerHit ? 1 : await semanticSimilarityHybrid(a.canonicalQuestion, req.request);
     if (sim >= settings.semanticMatchThreshold && a.confidenceScore >= settings.autoServeConfidenceThreshold) {
       if (!best || sim > best.similarity) best = { answer: a, similarity: sim };
     }
@@ -131,8 +132,8 @@ export async function retrieveKnowledge(req: NormalizedRequest, settings: Intell
       // safety-flagged knowledge stays surfaceable to admins but not auto-served
     }
     const sim = Math.max(
-      semanticSimilarity(item.canonicalQuestion, req.request),
-      semanticSimilarity(item.userIntent, req.request),
+      await semanticSimilarityHybrid(item.canonicalQuestion, req.request),
+      await semanticSimilarityHybrid(item.userIntent, req.request),
     );
     if (sim > 0.1) scored.push({ item, similarity: sim });
   }

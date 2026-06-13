@@ -13,6 +13,9 @@ export * from './router';
 export { gatewayCallThirdParty } from './provider-adapter';
 export { captureAiInteraction, coerceSport, type CaptureInput } from './capture';
 export {
+  isEmbeddingsConfigured, embedText, cosineSimilarity, semanticSimilarityHybrid, similarityBackend,
+} from './embeddings';
+export {
   getIntelligenceOverview, getSavingsBreakdown,
   type IntelligenceOverview, type OverviewMetrics, type SavingsBreakdown,
 } from './dashboard';

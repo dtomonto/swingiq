@@ -21,6 +21,7 @@ import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { gateVideoAnalysis } from '@/lib/intelligence';
+import { captureAiInteraction } from '@/lib/intelligence-os/capture';
 
 interface VideoAnalysisRequest {
   video_id: string;
@@ -110,6 +111,21 @@ export async function POST(req: NextRequest) {
       analysis.ai_narrative = narrative;
       await recordAiSpend('video-analysis');
       await meterUserAiUsage(user_id, 'video-analysis');
+      // Intelligence OS (observer): capture the issue→narrative mapping so
+      // recurring swing-diagnosis patterns become reusable first-party knowledge.
+      // Best-effort + non-blocking — never affects the analysis response.
+      void captureAiInteraction({
+        sourceSystem: 'video-analysis',
+        feature: 'video-analysis',
+        sport: 'golf',
+        request: `Swing analysis — detected issues: ${analysis.detected_issues.slice(0, 3).map((i) => i.label).join(', ')}`,
+        response: narrative,
+        provider: aiProvider === 'openai' ? 'openai' : aiProvider === 'anthropic' ? 'anthropic' : 'other',
+        model: null,
+        userId: user_id,
+        relatedVideoId: video_id,
+        confidenceScore: 0.6,
+      });
     } catch (err) {
       // AI failure is non-fatal — return analysis without narrative
       console.error('[video-analysis] AI narrative failed:', err instanceof Error ? err.message : err);

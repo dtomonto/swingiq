@@ -55,6 +55,8 @@ export interface CaptureInput {
   confidenceScore?: number;
   relatedVideoId?: string | null;
   relatedReportId?: string | null;
+  /** Set false for stylistic rephrases that shouldn't become knowledge. */
+  promote?: boolean;
 }
 
 /**
@@ -87,7 +89,7 @@ export async function captureAiInteraction(input: CaptureInput): Promise<void> {
     });
 
     // Promotion is internally gated by confidence + privacy/personalization.
-    await createKnowledgeCandidate(event, input.response, settings);
+    if (input.promote !== false) await createKnowledgeCandidate(event, input.response, settings);
   } catch {
     // Best-effort: instrumentation must never affect the live feature.
   }
