@@ -107,6 +107,8 @@ export interface KnowledgeItem {
   successCount: number;
   failureCount: number;
   lastUsedAt: string | null;
+  /** Persisted embedding of the canonical question (when embeddings configured). */
+  embedding: number[] | null;
   dataSource: DataSource;
   createdAt: string;
   updatedAt: string;
@@ -150,6 +152,8 @@ export interface CanonicalAnswer {
   aiCallsAvoided: number;
   tokensAvoided: number;
   estimatedCostSavedCents: number;
+  /** Persisted embedding of the canonical question (when embeddings configured). */
+  embedding: number[] | null;
   dataSource: DataSource;
   createdAt: string;
   updatedAt: string;
@@ -158,6 +162,7 @@ export interface CanonicalAnswer {
 // ── 4 · Pattern Memory ────────────────────────────────────────
 export const PATTERN_TYPES = [
   'recurring-user-question', 'recurring-swing-fault', 'recurring-drill-recommendation',
+  'recurring-retest-recommendation',
   'recurring-upload-issue', 'recurring-ai-quality-issue', 'recurring-ux-friction',
   'recurring-conversion-dropoff', 'recurring-seo-gap', 'recurring-revenue-opportunity',
   'recurring-technical-bug', 'recurring-admin-fix', 'recurring-claude-code-repair-pattern',

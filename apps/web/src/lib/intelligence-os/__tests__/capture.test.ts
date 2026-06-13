@@ -1,5 +1,5 @@
-import { captureAiInteraction, coerceSport } from '../capture';
-import { activityRepo, knowledgeRepo, __resetIntelligenceStoreForTests } from '../store';
+import { captureAiInteraction, coerceSport, recordFirstPartyRecommendation } from '../capture';
+import { activityRepo, knowledgeRepo, patternRepo, __resetIntelligenceStoreForTests } from '../store';
 
 beforeEach(() => { __resetIntelligenceStoreForTests(); });
 
@@ -43,5 +43,29 @@ describe('intelligence-os/capture', () => {
       sourceSystem: 'ai-coach', feature: 'ai-coach', request: '', response: '',
       provider: 'none', model: null,
     })).resolves.toBeUndefined();
+  });
+
+  it('records a first-party drill recommendation as a zero-cost event + pattern + knowledge', async () => {
+    await recordFirstPartyRecommendation({
+      kind: 'drill', sport: 'golf',
+      intent: 'slice with driver, beginner',
+      recommendation: 'Gate drill: place two tees to groove an inside path.',
+    });
+    const events = await activityRepo.list();
+    expect(events).toHaveLength(1);
+    expect(events[0].provider).toBe('first-party');
+    expect(events[0].estimatedCostCents).toBe(0);
+    expect(await patternRepo.list()).toHaveLength(1);
+    expect((await patternRepo.list())[0].patternType).toBe('recurring-drill-recommendation');
+    expect(await knowledgeRepo.list()).toHaveLength(1);
+  });
+
+  it('dedupes repeated recommendations into one pattern (occurrence bump)', async () => {
+    const input = { kind: 'drill' as const, sport: 'golf', intent: 'slice fix', recommendation: 'Strengthen grip drill.' };
+    await recordFirstPartyRecommendation(input);
+    await recordFirstPartyRecommendation(input);
+    const patterns = await patternRepo.list();
+    expect(patterns).toHaveLength(1);
+    expect(patterns[0].occurrenceCount).toBe(2);
   });
 });

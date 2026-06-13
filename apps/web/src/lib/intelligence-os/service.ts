@@ -13,6 +13,13 @@ import {
 import type { ActionTask } from './types';
 import { genId } from './router';
 import { knowledgeFingerprint, semanticFingerprint, summarize } from './fingerprint';
+import { embedText, isEmbeddingsConfigured } from './embeddings';
+
+/** Best-effort embedding — null when keyless or on error (never throws). */
+async function embedIfConfigured(text: string): Promise<number[] | null> {
+  if (!isEmbeddingsConfigured()) return null;
+  try { return await embedText(text); } catch { return null; }
+}
 import type {
   KnowledgeItem, CanonicalAnswer, EvaluationRecord, AnswerFormat, ValidationStatus, SafetyFlag, Audience,
 } from './types';
@@ -60,6 +67,7 @@ export async function createKnowledge(input: CreateKnowledgeInput): Promise<Know
     successCount: 0,
     failureCount: 0,
     lastUsedAt: null,
+    embedding: await embedIfConfigured(input.canonicalQuestion),
     dataSource: 'real',
     createdAt: now,
     updatedAt: now,
@@ -70,7 +78,12 @@ export async function createKnowledge(input: CreateKnowledgeInput): Promise<Know
 
 export async function reviewKnowledge(id: string, status: ValidationStatus, adminEmail: string | null): Promise<KnowledgeItem | undefined> {
   const patch: Partial<KnowledgeItem> = { validationStatus: status };
-  if (status === 'approved') patch.approvedByAdmin = adminEmail;
+  if (status === 'approved') {
+    patch.approvedByAdmin = adminEmail;
+    // Compute the embedding on approval so it's ready for retrieval.
+    const existing = await knowledgeRepo.get(id);
+    if (existing && !existing.embedding) patch.embedding = await embedIfConfigured(existing.canonicalQuestion);
+  }
   if (status === 'archived') patch.archived = true;
   return knowledgeRepo.update(id, patch);
 }
@@ -81,7 +94,11 @@ export async function updateKnowledge(id: string, patch: Partial<KnowledgeItem>)
   if (!existing) return undefined;
   const merged = { ...existing, ...patch };
   merged.fingerprint = knowledgeFingerprint({ userIntent: merged.userIntent, sport: merged.sport, topic: merged.topic, answer: merged.canonicalAnswer });
-  return knowledgeRepo.update(id, { ...patch, fingerprint: merged.fingerprint });
+  const finalPatch: Partial<KnowledgeItem> = { ...patch, fingerprint: merged.fingerprint };
+  if (patch.canonicalQuestion && patch.canonicalQuestion !== existing.canonicalQuestion) {
+    finalPatch.embedding = await embedIfConfigured(patch.canonicalQuestion);
+  }
+  return knowledgeRepo.update(id, finalPatch);
 }
 
 /** Record a positive/negative reuse outcome → adjusts confidence honestly. */
@@ -130,6 +147,7 @@ export async function createCanonicalAnswer(input: CreateCanonicalInput): Promis
     aiCallsAvoided: 0,
     tokensAvoided: 0,
     estimatedCostSavedCents: 0,
+    embedding: await embedIfConfigured(input.canonicalQuestion),
     dataSource: 'real',
     createdAt: now,
     updatedAt: now,
@@ -162,8 +180,31 @@ export async function reviewCanonical(id: string, status: ValidationStatus, admi
 
 export async function updateCanonical(id: string, patch: Partial<CanonicalAnswer>): Promise<CanonicalAnswer | undefined> {
   const next: Partial<CanonicalAnswer> = { ...patch };
-  if (patch.canonicalQuestion) next.semanticFingerprint = semanticFingerprint(patch.canonicalQuestion);
+  if (patch.canonicalQuestion) {
+    next.semanticFingerprint = semanticFingerprint(patch.canonicalQuestion);
+    next.embedding = await embedIfConfigured(patch.canonicalQuestion);
+  }
   return canonicalRepo.update(id, next);
+}
+
+/**
+ * Backfill missing embeddings on approved/usable records. Best-effort; no-op
+ * when embeddings aren't configured. Returns how many of each were embedded.
+ */
+export async function backfillEmbeddings(limit = 200): Promise<{ knowledge: number; canonical: number; backend: 'embeddings' | 'lexical' }> {
+  if (!isEmbeddingsConfigured()) return { knowledge: 0, canonical: 0, backend: 'lexical' };
+  let k = 0; let c = 0;
+  const knowledge = (await knowledgeRepo.list()).filter((x) => !x.embedding && !x.archived).slice(0, limit);
+  for (const item of knowledge) {
+    const vec = await embedIfConfigured(item.canonicalQuestion);
+    if (vec) { await knowledgeRepo.update(item.id, { embedding: vec }); k += 1; }
+  }
+  const canonical = (await canonicalRepo.list()).filter((x) => !x.embedding).slice(0, limit);
+  for (const item of canonical) {
+    const vec = await embedIfConfigured(item.canonicalQuestion);
+    if (vec) { await canonicalRepo.update(item.id, { embedding: vec }); c += 1; }
+  }
+  return { knowledge: k, canonical: c, backend: 'embeddings' };
 }
 
 export async function invalidateCanonical(id: string, reason: string): Promise<CanonicalAnswer | undefined> {

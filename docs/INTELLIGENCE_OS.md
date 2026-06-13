@@ -163,6 +163,8 @@ High-Priority / AI-Quality / UX / Revenue items clickable and actionable.
 | `…/evaluations` | GET, POST | List · create evaluation |
 | `…/settings` | GET, POST | Read/update thresholds & policies |
 | `…/export` | GET | Export knowledge as Markdown/JSON |
+| `…/maintenance` | POST | Run retention sweep · backfill embeddings (`settings.manage`) |
+| `/api/intelligence-os/observe` | POST | First-party drill/retest telemetry (rate-limited, non-admin) |
 
 Reads require `logs.view`; reviews require `ai.review`; settings require
 `settings.manage`; export requires `data.export`.
@@ -206,19 +208,36 @@ pair. The active backend is shown honestly on the Overview page.
   mapping as a reusable swing-diagnosis pattern (best-effort, non-blocking).
 - **Agent / practice-plan enhancement** (`/api/agents/enhance`) — full
   **exact-cache short-circuit**: identical rewrites are served from the
-  first-party cache (recorded as avoided AI calls) instead of paying the model;
-  misses are cached + logged.
+  first-party cache (recorded as avoided AI calls) instead of paying the model.
+- **Drill / retest plans** (deterministic, no third-party AI) — the app reports
+  recommendations to `POST /api/intelligence-os/observe`, which records them as
+  zero-cost first-party events, dedupes recurring ones into pattern memories,
+  and promotes generic ones to knowledge (`recordFirstPartyRecommendation`).
+
+## Maintenance
+
+`POST /api/admin/intelligence-os/maintenance` (also buttons on the Settings page):
+
+- `{ action: 'retention' }` — runs the hot/warm/cold sweep (`runRetentionSweep`):
+  summarizes old high-value events (drops free-text, keeps metadata/hashes/costs)
+  after `rawEventRetentionDays`, deletes old low-value non-promoted events after
+  `lowValueArchiveDays`. Approved knowledge, canonical answers, patterns and the
+  savings ledger are always preserved; `0` disables a rule.
+- `{ action: 'backfill-embeddings' }` — embeds approved records missing a vector
+  (no-op when embeddings aren't configured).
+
+## Step 5 — small/local model seam
+
+`resolveWithFirstPartyIntelligence(req, { smallModel })` tries a small/local/
+low-cost model *before* the third-party fallback; a served answer is counted as
+an avoided third-party call. Wire any cheap model behind the `smallModel` seam.
 
 ## Remaining integration gaps (honest)
 
-- **Small/local model tier (step 5)** is a seam, not yet wired.
-- **More features:** drill recommendations + retest plans are deterministic
-  (no third-party AI) — instrument them as first-party pattern capture next;
-  admin audits still call the gateway directly.
-- **Stored embeddings:** vectors are computed at query time + memoized per
-  process (not persisted on records yet) — fine for curated volumes; persist on
-  records for very large knowledge bases.
-- **Retention jobs** (summarize/archive) are configured in settings but the
-  scheduled sweeper isn't built yet.
-- **Evaluations count on the overview** is a placeholder pending a dedicated
-  aggregate query.
+- **Client adoption of `/observe`:** the drill/retest seam exists server-side;
+  the deterministic generators (client-side `buildPracticePlan` etc.) need a
+  one-line `fetch` to start reporting. Admin audits still call the gateway directly.
+- **Stored embeddings** are computed on create/approve + backfilled on demand;
+  there's no automatic re-embed when the provider/model changes (re-run backfill).
+- **Retention scheduling:** the sweep runs on demand (admin button/API); wire a
+  cron to run it automatically.
