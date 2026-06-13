@@ -103,6 +103,13 @@ export interface AnalysisResult {
   ruleVersion: string;
   /** Upper-bound estimated cost of producing this result, in cents. */
   costEstimateCents: number;
+  /**
+   * The full deterministic diagnosis (ranked causes, evidence, missing data,
+   * confidence reason, escalation recommendation) when this result was produced
+   * by the symptom→cause engine. Optional + additive: AI/cached routes may omit
+   * it, and existing consumers that only read the flat fields are unaffected.
+   */
+  diagnosisDetail?: import('./diagnose-types').DeterministicDiagnosis;
 }
 
 export interface DrillRecommendation {

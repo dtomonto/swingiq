@@ -12,6 +12,35 @@ export { DEFAULT_TIER_CONFIGS, TIER_OP, tierConfig } from './tiers';
 export { decideRoute, buildDecisionInput, routeAnalysis } from './router';
 export type { RouteContext, RouteAnalysisDeps } from './router';
 export { runHeuristicEstimate } from './heuristic';
+export {
+  analyzeDeterministicSession,
+  calculateConfidence,
+  shouldEscalateToAI,
+  getTriggeredRuleTrace,
+  runDeterministicScenarioTest,
+} from './diagnose';
+export type {
+  ConfidenceResult,
+  EscalationResult,
+  ScenarioExpectation,
+  DiagnosisScenario,
+  ScenarioResult,
+} from './diagnose';
+export type {
+  DiagnosisInput,
+  DiagnosisCandidate,
+  DeterministicDiagnosis,
+  TriggeredRule,
+  SkillLevel,
+  DiagnosisUrgency,
+  RetestOutcomeSignal,
+} from './diagnose-types';
+export {
+  listDiagnosisSports,
+  getSportDiagnosisConfig,
+  getSymptomsForSport,
+} from './symptom-rules';
+export type { SymptomRule, SportDiagnosisConfig } from './symptom-rules';
 export { resolveRouteContext } from './context';
 export { analyze } from './service';
 export type { AnalyzeOptions } from './service';

@@ -18,6 +18,7 @@ import type {
   FaultRetestCriteria,
   ResolveFaultOptions,
 } from './types';
+import { SYMPTOM_FAULT_PACKS } from './packs';
 
 const ALL_SPORTS: SportId[] = ['golf', 'tennis', 'pickleball', 'padel', 'baseball', 'softball_slow', 'softball_fast'];
 
@@ -47,7 +48,9 @@ function defaultRetest(partial: Partial<FaultRetestCriteria> = {}): FaultRetestC
 // IDs match core SportIssueId / VisualIssueId where they exist.
 // ──────────────────────────────────────────────────────────────
 
-const CURATED: FaultOntologyEntry[] = [
+// Hand-curated mechanical faults (what the swing IS doing). The symptom packs
+// (what the BALL / OUTCOME is doing) are concatenated below.
+const CURATED_MECHANICAL: FaultOntologyEntry[] = [
   // ── Golf ──────────────────────────────────────────────────────
   {
     id: 'early_extension',
@@ -355,6 +358,14 @@ const CURATED: FaultOntologyEntry[] = [
 // ──────────────────────────────────────────────────────────────
 // Index + helpers
 // ──────────────────────────────────────────────────────────────
+
+/**
+ * The full curated set: hand-authored mechanical faults plus the per-sport
+ * symptom packs (athlete-reported miss patterns). Both are first-class — the
+ * resolver, drill matcher, retest engine, and deterministic diagnosis layer
+ * treat them identically.
+ */
+const CURATED: FaultOntologyEntry[] = [...CURATED_MECHANICAL, ...SYMPTOM_FAULT_PACKS];
 
 const BY_ID = new Map<string, FaultOntologyEntry>(CURATED.map((e) => [e.id, e]));
 
