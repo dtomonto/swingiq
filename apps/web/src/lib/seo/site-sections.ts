@@ -168,6 +168,13 @@ export const CURATED_URLS: readonly CuratedUrl[] = [
   { path: '/learn/how-retesting-improves-swing-feedback', label: 'Why retesting improves swing feedback', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/how-swingvantage-uses-player-profiles', label: 'How SwingVantage uses player profiles', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/learn/future-of-ai-coaching-in-recreational-sports', label: 'The future of AI coaching in recreational sports', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/is-ai-swing-analysis-accurate', label: 'Is AI swing analysis accurate?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/what-is-athlete-general-intelligence', label: 'What is Athlete General Intelligence?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-ai-swing-analysis-works', label: 'How AI swing analysis works', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/does-ai-replace-a-coach', label: 'Does AI replace a coach?', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-to-film-your-swing', label: 'How to film your swing for AI analysis', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/measured-vs-estimated', label: 'Measured vs estimated swing data', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/learn/how-to-read-your-swing-report', label: 'How to read your AI swing report', section: 'methodology', priority: 0.6, changeFrequency: 'monthly' },
 
   // ── Benchmarks ────────────────────────────────────────────────────────
   { path: '/benchmarks', label: 'Benchmarks (all sports)', section: 'benchmarks', priority: 0.7, changeFrequency: 'monthly' },
