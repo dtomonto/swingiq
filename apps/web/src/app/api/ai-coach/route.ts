@@ -33,6 +33,7 @@ import { isUserAiPaused, meterUserAiUsage } from '@/lib/ai/user-ai';
 import { isAiFeatureEnabled } from '@/lib/ai/ai-features';
 import { resolveLiveRoute } from '@/lib/ai/ai-ops/effective-routing';
 import type { AiProviderId } from '@/lib/ai/gateway';
+import { captureAiInteraction } from '@/lib/intelligence-os/capture';
 
 // ── Handler ───────────────────────────────────────────────────
 
@@ -164,6 +165,20 @@ export async function POST(req: NextRequest) {
     const message = coachMessageFrom(structured, result.text);
     setCachedResponse(ctx, message);
     await meterUserAiUsage(userId, 'ai-coach');
+    // Intelligence OS (observer): capture this interaction so repeated, non-
+    // personalized questions can become reusable first-party knowledge. Fully
+    // best-effort + non-blocking — never affects the coaching response.
+    void captureAiInteraction({
+      sourceSystem: 'ai-coach',
+      feature: 'ai-coach',
+      sport: ctx.active_sport,
+      request: ctx.user_question ?? '',
+      response: message,
+      provider: result.provider,
+      model: result.model,
+      latencyMs,
+      userId,
+    });
     // #2 grounding: surface whether the response's measurement claims trace to
     // the player's data so clients can flag/regenerate ungrounded answers.
     return NextResponse.json({

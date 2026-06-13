@@ -11,6 +11,7 @@ export * from './config';
 export * from './fingerprint';
 export * from './router';
 export { gatewayCallThirdParty } from './provider-adapter';
+export { captureAiInteraction, coerceSport, type CaptureInput } from './capture';
 export {
   getIntelligenceOverview, getSavingsBreakdown,
   type IntelligenceOverview, type OverviewMetrics, type SavingsBreakdown,
