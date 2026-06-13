@@ -12,6 +12,41 @@ to their real code counterparts, so Figma **Dev Mode** shows the actual
 
 Figma file: `aXNDKbiBOJPRFWor54x6oC`. Config: [`apps/web/figma.config.json`](../../../figma.config.json).
 
+## Pending mappings (scaffolded — need real node ids)
+
+These nine mappings are **written and `figma:parse`-clean**, but their
+`figma.connect(...)` URL still has the sentinel `node-id=TODO-REPLACE`. They are
+intentionally not publishable until a real node id is filled in — the prop names
+below are **inferred from each component's code** and must be checked against the
+Figma component's actual properties.
+
+| Code component | Mapping file | Inferred Figma props |
+| --- | --- | --- |
+| [`ScoreRing.tsx`](./ScoreRing.tsx) | `ScoreRing.figma.tsx` | Score, Label, Glow |
+| [`MetricCard.tsx`](./MetricCard.tsx) | `MetricCard.figma.tsx` | Label, Value, Unit, Target, Trend, Trend label, Status, Description |
+| [`SportChip.tsx`](./SportChip.tsx) | `SportChip.figma.tsx` | Sport, Active, Size |
+| [`TrustBadge.tsx`](./TrustBadge.tsx) | `TrustBadge.figma.tsx` | Label, Variant |
+| [`FixCard.tsx`](./FixCard.tsx) | `FixCard.figma.tsx` | Eyebrow, Fix, Why, Confidence, Confidence note |
+| [`DrillCard.tsx`](./DrillCard.tsx) | `DrillCard.figma.tsx` | Number, Name, Reps, How, Done, On paper |
+| [`BeforeAfter.tsx`](./BeforeAfter.tsx) | `BeforeAfter.figma.tsx` | Label, Before, After, Unit, Better, Note, On paper |
+| [`ProgressTimeline.tsx`](./ProgressTimeline.tsx) | `ProgressTimeline.figma.tsx` | On paper (points are data-driven) |
+| [`EmptyState.tsx`](./EmptyState.tsx) | `EmptyState.figma.tsx` | Title, Description, Compact |
+
+To finish one (per file):
+
+1. In Figma ▸ **Dev Mode**, select the component → right-click → **Copy link to
+   selection**. Take the `node-id=…` value from that link.
+2. In the matching `*.figma.tsx`, replace `node-id=TODO-REPLACE` with it.
+3. Open the same component's **Properties** panel in Figma; rename the `figma.string` /
+   `figma.boolean` / `figma.enum` keys + enum option labels to match exactly
+   (Figma property names are case-sensitive).
+4. `npm run figma:parse` → confirm it resolves with no error, then move the row up
+   into the table above and `npm run figma:publish` (when on an Org plan).
+
+> If a component does **not** yet exist in the Figma file, design it there first —
+> Code Connect can only link to a real Figma node (Figma is the design source of truth).
+
+
 ## Pipeline (runnable)
 
 `@figma/code-connect` is now a `devDependency`, and the CLI is wired into
