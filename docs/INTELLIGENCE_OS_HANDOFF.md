@@ -84,9 +84,13 @@ npx jest src/lib/intelligence-os --runInBand --cacheDirectory ./.jest-cache-io  
 
 The high-leverage work is done. Remaining items are polish / diminishing returns:
 
-1. **Re-embed on model change** — store `embeddingModel` on records; have
-   `backfillEmbeddings` (`service.ts`) re-embed rows whose model differs from the
-   current `AI_EMBEDDINGS_MODEL`. Currently backfill only fills missing vectors.
+1. ~~**Re-embed on model change**~~ — ✅ **DONE.** `KnowledgeItem`/`CanonicalAnswer`
+   now carry `embeddingModel`; `embeddings.ts` exposes `currentEmbeddingModel()`
+   (resolved at call time) and keys its memo on the model so a switch re-embeds
+   instead of returning a stale vector; `backfillEmbeddings` (`service.ts`)
+   re-embeds rows that are missing a vector **or** whose `embeddingModel` differs
+   from the current `AI_EMBEDDINGS_MODEL`, stamping the new model. Covered by a
+   service test.
 2. **Extend client `/observe`** to other deterministic surfaces — Fix Stack
    (`components/drillmatch/FixStackPanel.tsx`) and retest plans — mirror the
    one-liner in `CuratedSwingDrills.tsx` (kind `'drill'` / `'retest'`).
