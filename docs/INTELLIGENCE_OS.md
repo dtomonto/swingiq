@@ -233,9 +233,10 @@ an avoided third-party call. Wire any cheap model behind the `smallModel` seam.
 
 ## Remaining integration gaps (honest)
 
-- **Client adoption of `/observe`:** the drill/retest seam exists server-side;
-  the deterministic generators (client-side `buildPracticePlan` etc.) need a
-  one-line `fetch` to start reporting. Admin audits still call the gateway directly.
+- **Client `/observe` adoption:** the curated-drills surface
+  (`CuratedSwingDrills`) now reports each recommendation to `/observe`; other
+  deterministic surfaces (retest plans, Fix Stack) can adopt the same one-line
+  `fetch`. Admin audits still call the gateway directly.
 - **Stored embeddings** are computed on create/approve + backfilled on demand;
   there's no automatic re-embed when the provider/model changes (re-run backfill).
 - **Retention scheduling:** the sweep runs on demand (admin button/API); wire a
