@@ -191,6 +191,7 @@ describe('theme safety — media viewers use the always-dark stage surface', () 
     'components/motion-lab/MotionAvatarViewer.tsx',
     'components/motion-lab/MotionResultsDashboard.tsx',
     'components/motion-lab/ImplementPathCard.tsx',
+    'components/video/SwingVideoPlayer.tsx',
   ];
 
   // The 3D/video viewers render on an always-dark "stage" — the dark twin of the

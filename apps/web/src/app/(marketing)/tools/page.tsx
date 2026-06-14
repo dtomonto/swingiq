@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { IndexGrid } from '@/components/marketing/IndexGrid';
 
 export const metadata = buildMetadata({
   title: 'Free Swing Tools — Quizzes, Drill & Practice Generators',
@@ -29,19 +29,7 @@ export default function ToolsIndex() {
         <p className="mt-2 text-muted-foreground">
           Quick, free tools to diagnose your swing and build a plan. No account required.
         </p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {TOOLS.map((t) => (
-            <Link
-              key={t.href}
-              href={t.href}
-              className="block rounded-2xl border border-border p-5 transition-colors hover:border-primary/50 hover:bg-primary/10"
-            >
-              <div className="text-2xl">{t.emoji}</div>
-              <h2 className="mt-2 font-semibold text-foreground">{t.name}</h2>
-              <p className="mt-1 text-sm text-muted-foreground">{t.desc}</p>
-            </Link>
-          ))}
-        </div>
+        <IndexGrid items={TOOLS} />
       </div>
     </main>
   );

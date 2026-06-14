@@ -13,7 +13,7 @@ import { type ButtonHTMLAttributes, forwardRef } from 'react';
 // soup — pair with `asChild` below, or `className={buttonVariants({ variant })}`.
 export const buttonVariants = cva(
   cn(
-    'inline-flex items-center justify-center gap-2 rounded-lg font-medium',
+    'inline-flex items-center justify-center gap-2 rounded-button font-medium',
     'focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-background',
     'disabled:opacity-50 disabled:cursor-not-allowed',
     'transition-[color,background-color,filter,box-shadow,transform] duration-150',

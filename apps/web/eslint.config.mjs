@@ -95,6 +95,13 @@ export default [
       'src/components/layout/**/*.{ts,tsx}',
       'src/components/marketing/**/*.{ts,tsx}',
       'src/components/sport/**/*.{ts,tsx}',
+      'src/components/dashboard/**/*.{ts,tsx}',
+      'src/components/report/**/*.{ts,tsx}',
+      'src/components/trust/**/*.{ts,tsx}',
+      'src/components/proof/**/*.{ts,tsx}',
+      'src/components/features/**/*.{ts,tsx}',
+      'src/components/seo/**/*.{ts,tsx}',
+      'src/components/diagnose/**/*.{ts,tsx}',
     ],
     rules: {
       'no-restricted-syntax': [
