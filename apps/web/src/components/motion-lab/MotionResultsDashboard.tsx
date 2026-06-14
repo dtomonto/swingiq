@@ -41,7 +41,7 @@ const MotionAvatarViewer = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="rounded-xl border border-border bg-[#060a12] h-[420px] flex items-center justify-center text-sm text-slate-300">
+      <div className="rounded-xl border border-border bg-stage h-[420px] flex items-center justify-center text-sm text-stage-foreground">
         Loading 3D avatar…
       </div>
     ),

@@ -2,11 +2,9 @@ import Link from 'next/link';
 import {
   ArrowRight,
   ShieldCheck,
-  Lock,
   Zap,
   EyeOff,
   Clock,
-  UserX,
   Target,
   Activity,
   User,
@@ -22,6 +20,7 @@ import { buildGraph, organizationSchema, websiteSchema, softwareApplicationSchem
 import { SampleReportPreview } from '@/components/trust';
 import { TutorialVideo } from '@/components/tutorial/TutorialVideo';
 import { ReturningUserRedirect } from '@/components/marketing/ReturningUserRedirect';
+import { TrustChips } from '@/components/marketing/TrustChips';
 import { LiveKinematicPanel } from '@/components/demo/LiveKinematicPanel';
 
 /**
@@ -129,18 +128,7 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
             </div>
 
             {isEn ? (
-              <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-                {[
-                  { icon: UserX, label: 'No account required' },
-                  { icon: Zap, label: '100% free' },
-                  { icon: Lock, label: 'Private by default' },
-                ].map(({ icon: Icon, label }) => (
-                  <li key={label} className="flex items-center gap-2">
-                    <Icon size={16} className="shrink-0 text-link" aria-hidden="true" />
-                    {label}
-                  </li>
-                ))}
-              </ul>
+              <TrustChips />
             ) : (
               <p className="mt-6 text-sm text-muted-foreground">
                 {h.hero.note}
