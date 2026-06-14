@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { SportProvider } from '@/contexts/SportContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { ThemeApplicator } from '@/components/layout/ThemeApplicator';
+import { TooltipProvider } from '@/components/ui/Tooltip';
 
 // Deferred, non-critical UI. Both render `null` on the server and only appear
 // after a client effect (cookie consent / PWA install prompt), and both are
@@ -49,12 +50,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <SportProvider>
         <LanguageProvider>
-          <ThemeApplicator />
-          {children}
-          {/* FloatingCoach + UsageCategoryModal are app-only and now live in
-              app/(app)/layout.tsx so they don't leak onto marketing pages. */}
-          <CookieBanner />
-          <PWAInstallBanner />
+          <TooltipProvider delayDuration={300}>
+            <ThemeApplicator />
+            {children}
+            {/* FloatingCoach + UsageCategoryModal are app-only and now live in
+                app/(app)/layout.tsx so they don't leak onto marketing pages. */}
+            <CookieBanner />
+            <PWAInstallBanner />
+          </TooltipProvider>
         </LanguageProvider>
       </SportProvider>
       <ReactQueryDevtools initialIsOpen={false} />
