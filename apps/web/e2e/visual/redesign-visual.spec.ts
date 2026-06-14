@@ -44,7 +44,13 @@ const ROUTES = [
   { name: 'pricing', path: '/pricing' },
   { name: 'sample-report', path: '/sample-report' },
   { name: 'trust', path: '/trust' },
-  { name: 'dashboard', path: '/dashboard' },
+  // NOTE: /dashboard is intentionally excluded. Its anonymous render contains a
+  // time/date-dependent block, so a committed full-page pixel baseline drifts at
+  // the day boundary and produces false failures (a stale baseline can pass for
+  // hours, then fail the next calendar day with no code change). Full-page visual
+  // regression here guards the STATIC redesign surfaces; dynamic app screens like
+  // the dashboard need a frozen clock + masked regions, which is out of scope for
+  // this safety net.
   { name: 'diagnose-report', path: '/diagnose' },
 ] as const;
 
