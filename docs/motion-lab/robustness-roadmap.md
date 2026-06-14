@@ -140,6 +140,13 @@ body track is stable); the cloud/semantic tier moved to last and is explicitly o
 
 ## Status
 
-- **2026-06-14:** Wave 1 started — `MotionPoseRouter` extracted as the detection seam and a
-  node-tier benchmark harness (`npm run motion:benchmark`) added with labeled pose-track
-  fixtures and the brief's pass/fail gates.
+- **2026-06-14 — Wave 1 (done):** `MotionPoseRouter` extracted as the detection seam; node-tier
+  benchmark harness (`npm run motion:benchmark`) with labeled pose-track fixtures and the brief's
+  pass/fail gates.
+- **2026-06-14 — Wave 2 L4 (done):** real camera-motion estimator (`lib/camera-motion.ts`) via
+  block-matching the existing 32×32 signatures; replaces the exposure-variance shake proxy and
+  feeds a true `CAMERA_SHAKE` signal.
+- **2026-06-14 — Wave 2 L3 (done):** cross-frame athlete tracker (`lib/pose/athlete-tracker.ts`)
+  with gap-tolerant greedy association; `detectPoses` now layers on a new `detectPeople`
+  (all-people) call, and the router locks onto the primary athlete's continuous track.
+- **Next:** Wave 2 L1 (blur-aware frame selection), then Wave 3 (MoveNet + fusion).

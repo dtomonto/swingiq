@@ -182,11 +182,18 @@ pipeline now defends against that **on-device**, without ever fabricating data:
    or invents landmarks (the original frames are kept; `modelVersion` is tagged
    `+enhanced`). We deliberately do **not** aggressively sharpen (that can
    hallucinate edges and pull landmarks off the body).
-3. **Primary-athlete selection** — `detectPoses` can detect up to two people and
-   keep the **primary** one (largest + most central + best-tracked, via the pure
-   `selectPrimaryPose`) so a bystander can't capture the track. This is **opt-in**
-   (the Motion Lab pipeline enables it); the live-camera and prepare-swing
-   callers keep the original single-pose default.
+3. **Primary-athlete selection + cross-frame tracking** — `detectPeople` returns
+   all people per frame, and `trackPrimaryAthlete` (`lib/pose/athlete-tracker.ts`)
+   maintains stable track identities across frames (gap-tolerant greedy
+   association) and locks onto the most athlete-like **continuous** track — so a
+   bystander who is briefly larger/more central can't steal frames. `detectPoses`
+   still exposes the original single-pose contract (used by the live-camera and
+   prepare-swing callers); the Motion Lab router uses the multi-person + tracker
+   path. The per-pose scorer (`poseAthleteScore`) is shared between both.
+4. **Real camera-motion** — `lib/camera-motion.ts` block-matches the 32×32
+   signatures to estimate global pan/tilt/shake, giving the profiler an honest
+   steadiness signal (and a true `CAMERA_SHAKE` issue) instead of an
+   exposure-variance proxy.
 
 The profile is attached to the `MotionSession` (`session.videoQuality`), its
 fixes lead the capture recommendations, and the validation panel

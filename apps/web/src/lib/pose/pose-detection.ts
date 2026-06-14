@@ -79,45 +79,69 @@ export interface PoseDetectOptions {
   selectPrimary?: boolean;
 }
 
+type LMPoint = { x: number; y: number; visibility?: number };
+
 /**
- * Pick the primary athlete among several detected poses: the one that is
- * largest, most central, and best-tracked. Pure + deterministic so it is
- * unit-tested. Returns the index of the chosen pose (0 when only one).
+ * How "athlete-like" a single detected pose is: largest + most central +
+ * best-tracked. The athlete is usually nearest the camera (so size dominates),
+ * nudged by how central and how confidently-tracked the candidate is. Pure;
+ * shared by per-frame primary selection and the cross-frame tracker.
+ */
+export function poseAthleteScore(lm: ReadonlyArray<LMPoint>): number {
+  if (!lm || lm.length === 0) return 0;
+  let minX = 1;
+  let minY = 1;
+  let maxX = 0;
+  let maxY = 0;
+  let visSum = 0;
+  let visN = 0;
+  for (const p of lm) {
+    const v = p.visibility ?? 0;
+    if (v > 0.3) {
+      minX = Math.min(minX, p.x);
+      minY = Math.min(minY, p.y);
+      maxX = Math.max(maxX, p.x);
+      maxY = Math.max(maxY, p.y);
+    }
+    visSum += v;
+    visN++;
+  }
+  const area = Math.max(0, maxX - minX) * Math.max(0, maxY - minY); // 0–1
+  const cx = (minX + maxX) / 2;
+  const cy = (minY + maxY) / 2;
+  const centrality = 1 - Math.min(1, Math.hypot(cx - 0.5, cy - 0.5) / 0.707);
+  const meanVis = visN > 0 ? visSum / visN : 0;
+  return area * (0.5 + 0.5 * centrality) * (0.3 + 0.7 * meanVis);
+}
+
+/**
+ * Mean (x, y) of all of a pose's landmarks — a robust centroid for frame-to-frame
+ * association (uses every point, not just high-visibility ones, so a dim pose
+ * still tracks). Null for an empty pose.
+ */
+export function poseCentroid(lm: ReadonlyArray<LMPoint>): { x: number; y: number } | null {
+  if (!lm || lm.length === 0) return null;
+  let sx = 0;
+  let sy = 0;
+  for (const p of lm) {
+    sx += p.x;
+    sy += p.y;
+  }
+  return { x: sx / lm.length, y: sy / lm.length };
+}
+
+/**
+ * Pick the primary athlete among several detected poses (per-frame). Pure +
+ * deterministic so it is unit-tested. Returns the index of the chosen pose.
  */
 export function selectPrimaryPose(
-  poses: ReadonlyArray<ReadonlyArray<{ x: number; y: number; visibility?: number }>>,
+  poses: ReadonlyArray<ReadonlyArray<LMPoint>>,
 ): number {
   if (poses.length <= 1) return 0;
   let best = 0;
   let bestScore = -Infinity;
   for (let i = 0; i < poses.length; i++) {
-    const lm = poses[i];
-    if (!lm || lm.length === 0) continue;
-    let minX = 1;
-    let minY = 1;
-    let maxX = 0;
-    let maxY = 0;
-    let visSum = 0;
-    let visN = 0;
-    for (const p of lm) {
-      const v = p.visibility ?? 0;
-      if (v > 0.3) {
-        minX = Math.min(minX, p.x);
-        minY = Math.min(minY, p.y);
-        maxX = Math.max(maxX, p.x);
-        maxY = Math.max(maxY, p.y);
-      }
-      visSum += v;
-      visN++;
-    }
-    const area = Math.max(0, maxX - minX) * Math.max(0, maxY - minY); // 0–1
-    const cx = (minX + maxX) / 2;
-    const cy = (minY + maxY) / 2;
-    const centrality = 1 - Math.min(1, Math.hypot(cx - 0.5, cy - 0.5) / 0.707);
-    const meanVis = visN > 0 ? visSum / visN : 0;
-    // Size dominates (the athlete is usually nearest the camera), nudged by how
-    // central and how confidently-tracked the candidate is.
-    const score = area * (0.5 + 0.5 * centrality) * (0.3 + 0.7 * meanVis);
+    const score = poseAthleteScore(poses[i]);
     if (score > bestScore) {
       bestScore = score;
       best = i;
@@ -191,9 +215,55 @@ export async function warmupPose(
   }
 }
 
+/** A frame with ALL detected people (for cross-frame tracking). */
+export interface MultiPersonFrame {
+  timestampSeconds: number;
+  /** Every person MediaPipe found, as normalized landmark arrays (may be empty). */
+  people: PoseLandmark[][];
+}
+
 /**
- * Detect pose landmarks on each frame. Returns only the frames where a
- * pose was actually found (so empty ⇒ no usable pose). Never throws.
+ * Detect ALL people on each frame (up to `numPoses`). One entry per analysed
+ * frame, with `people` possibly empty when none was found — so a cross-frame
+ * tracker can reason about gaps. Never throws; [] when no engine is available.
+ */
+export async function detectPeople(
+  frames: PoseDetectInput[],
+  quality: PoseModelQuality = 'lite',
+  numPoses = 2,
+): Promise<MultiPersonFrame[]> {
+  if (typeof window === 'undefined' || frames.length === 0 || !mediapipeEnabled()) return [];
+  const n = Math.max(1, Math.floor(numPoses));
+  const landmarker = await getLandmarker(quality, n);
+  if (!landmarker) return [];
+
+  // Decode every frame up front in parallel — only the inference itself must run
+  // sequentially (a single shared landmarker instance), so overlapping the image
+  // decodes shaves the slowest part of the "detecting" stage.
+  const images = await Promise.all(frames.map((f) => loadImage(f.dataUrl)));
+
+  const out: MultiPersonFrame[] = [];
+  for (let i = 0; i < frames.length; i++) {
+    const img = images[i];
+    if (!img) continue;
+    try {
+      const result = landmarker.detect(img);
+      const people = (result.landmarks ?? []).map((lm) =>
+        lm.map((p) => ({ x: p.x, y: p.y, z: p.z ?? 0, visibility: p.visibility ?? 0 })),
+      );
+      out.push({ timestampSeconds: frames[i].timestampSeconds, people });
+    } catch {
+      // Skip this frame; keep going.
+    }
+  }
+  return out;
+}
+
+/**
+ * Detect pose landmarks on each frame, returning the chosen pose per frame.
+ * Returns only the frames where a pose was actually found (so empty ⇒ no usable
+ * pose). Behaviour is unchanged from the original single-pose path; it now layers
+ * on top of `detectPeople`. Never throws.
  *
  * @param quality model tier — 'lite' (default, fastest) | 'full' | 'heavy'.
  */
@@ -202,42 +272,18 @@ export async function detectPoses(
   quality: PoseModelQuality = 'lite',
   options: PoseDetectOptions = {},
 ): Promise<PoseFrame[]> {
-  if (typeof window === 'undefined' || frames.length === 0 || !mediapipeEnabled()) return [];
   const numPoses = Math.max(1, Math.floor(options.numPoses ?? 1));
-  const landmarker = await getLandmarker(quality, numPoses);
-  if (!landmarker) return [];
-
-  // Decode every frame up front in parallel — only the inference itself must run
-  // sequentially (a single shared landmarker instance), so overlapping the image
-  // decodes shaves the slowest part of the "detecting" stage.
-  const images = await Promise.all(frames.map((f) => loadImage(f.dataUrl)));
+  const multi = await detectPeople(frames, quality, numPoses);
 
   const out: PoseFrame[] = [];
-  for (let i = 0; i < frames.length; i++) {
-    const img = images[i];
-    if (!img) continue;
-    try {
-      const result = landmarker.detect(img);
-      const people = result.landmarks ?? [];
-      // When several people are in frame, prefer the primary athlete (largest +
-      // most central + best-tracked) instead of MediaPipe's first result.
-      const pick =
-        options.selectPrimary && people.length > 1 ? selectPrimaryPose(people) : 0;
-      const lm = people[pick];
-      if (lm && lm.length > 0) {
-        out.push({
-          timestampSeconds: frames[i].timestampSeconds,
-          personCount: people.length,
-          landmarks: lm.map((p) => ({
-            x: p.x,
-            y: p.y,
-            z: p.z ?? 0,
-            visibility: p.visibility ?? 0,
-          })),
-        });
-      }
-    } catch {
-      // Skip this frame; keep going.
+  for (const f of multi) {
+    if (f.people.length === 0) continue;
+    // When several people are in frame, prefer the primary athlete (largest +
+    // most central + best-tracked) instead of MediaPipe's first result.
+    const pick = options.selectPrimary && f.people.length > 1 ? selectPrimaryPose(f.people) : 0;
+    const lm = f.people[pick];
+    if (lm && lm.length > 0) {
+      out.push({ timestampSeconds: f.timestampSeconds, personCount: f.people.length, landmarks: lm });
     }
   }
   return out;

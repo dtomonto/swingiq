@@ -19,12 +19,24 @@
 // so it is unit-tested in node. Never throws — degrades to an empty track.
 // ============================================================
 
-import { detectPoses, type PoseDetectInput, type PoseFrame, type PoseModelQuality } from '@/lib/pose';
+import {
+  detectPeople,
+  trackPrimaryAthlete,
+  type PoseDetectInput,
+  type PoseFrame,
+  type PoseModelQuality,
+} from '@/lib/pose';
 import { planEnhancement, enhanceFrameDataUrl, type GrayLumaStats, type EnhancementPlan } from '@/lib/frame-enhance';
 import type { ExtractedFrame } from '@/lib/frame-extraction';
 
 /** Detect up to two people so a bystander can't capture the primary track. */
-const DETECT_OPTS = { numPoses: 2, selectPrimary: true } as const;
+const NUM_POSES = 2;
+
+/** Detect all people on the frames, then lock onto the primary athlete's track. */
+async function detectPrimaryTrack(input: PoseDetectInput[], quality: PoseModelQuality) {
+  const seq = await detectPeople(input, quality, NUM_POSES);
+  return trackPrimaryAthlete(seq);
+}
 
 /** Recovery triggers when fewer than this share of frames yield a pose… */
 const MIN_POSE_COVERAGE = 0.6;
@@ -110,7 +122,7 @@ export function detectedHasMultiplePeople(detected: PoseFrame[]): boolean {
 
 /** Compose the human-readable detection path (also used to tag the model version). */
 export function describeEnginePath(modelQuality: PoseModelQuality, enhanced: boolean): string {
-  return `mediapipe-${modelQuality}(primary-of-2)${enhanced ? '+enhanced' : ''}`;
+  return `mediapipe-${modelQuality}(tracked-primary)${enhanced ? '+enhanced' : ''}`;
 }
 
 // ── Browser orchestrator ──────────────────────────────────────
@@ -129,35 +141,35 @@ export async function routePoseDetection(
     dataUrl: f.dataUrl,
     timestampSeconds: f.timestampSeconds,
   }));
-  let detected = await detectPoses(baseInput, modelQuality, DETECT_OPTS);
+  let track = await detectPrimaryTrack(baseInput, modelQuality);
   const attempted = frames.length;
   let enhancementApplied = false;
 
   const aggregate = aggregateStats(frameStats);
   const plan = aggregate ? planEnhancement(aggregate) : null;
 
-  if (shouldAttemptRecovery(detected.length, attempted, trackVisibility(detected), plan)) {
+  if (shouldAttemptRecovery(track.frames.length, attempted, trackVisibility(track.frames), plan)) {
     const enhancedInput: PoseDetectInput[] = await Promise.all(
       frames.map(async (f) => ({
         dataUrl: await enhanceFrameDataUrl(f.dataUrl, plan as EnhancementPlan),
         timestampSeconds: f.timestampSeconds,
       })),
     );
-    const retry = await detectPoses(enhancedInput, modelQuality, DETECT_OPTS);
+    const retry = await detectPrimaryTrack(enhancedInput, modelQuality);
     const winner = chooseBetterPass(
-      { posed: detected.length, confidence: trackVisibility(detected) },
-      { posed: retry.length, confidence: trackVisibility(retry) },
+      { posed: track.frames.length, confidence: trackVisibility(track.frames) },
+      { posed: retry.frames.length, confidence: trackVisibility(retry.frames) },
     );
     if (winner === 'retry') {
-      detected = retry;
+      track = retry;
       enhancementApplied = true;
     }
   }
 
   return {
-    detected,
+    detected: track.frames,
     enhancementApplied,
-    multiplePeople: detectedHasMultiplePeople(detected),
+    multiplePeople: track.multiplePeople,
     enginePath: describeEnginePath(modelQuality, enhancementApplied),
   };
 }

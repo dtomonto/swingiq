@@ -88,8 +88,8 @@ describe('detectedHasMultiplePeople', () => {
 });
 
 describe('describeEnginePath', () => {
-  it('names the engine, primary selection, and enhancement', () => {
-    expect(describeEnginePath('lite', false)).toBe('mediapipe-lite(primary-of-2)');
-    expect(describeEnginePath('heavy', true)).toBe('mediapipe-heavy(primary-of-2)+enhanced');
+  it('names the engine, tracking, and enhancement', () => {
+    expect(describeEnginePath('lite', false)).toBe('mediapipe-lite(tracked-primary)');
+    expect(describeEnginePath('heavy', true)).toBe('mediapipe-heavy(tracked-primary)+enhanced');
   });
 });
