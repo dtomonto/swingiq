@@ -9,6 +9,7 @@ import { Lock } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { AchievementDefinition } from '@/lib/community/types';
 import { cn } from '@/lib/utils';
+import { Progress } from '@/components/ui/Progress';
 
 interface AchievementBadgeProps {
   achievement: AchievementDefinition;
@@ -94,19 +95,11 @@ export function AchievementBadge({
             <span>{t('achievements.progress')}</span>
             <span>{progress} / {achievement.maxProgress}</span>
           </div>
-          <div
-            className="h-1.5 bg-muted rounded-full overflow-hidden"
-            role="progressbar"
-            aria-valuenow={progressPercent}
-            aria-valuemin={0}
-            aria-valuemax={100}
+          <Progress
+            value={progressPercent}
+            className="h-1.5"
             aria-label={`${achievement.name} ${t('achievements.progress')}: ${progressPercent}%`}
-          >
-            <div
-              className="h-full bg-primary rounded-full transition-all duration-300"
-              style={{ width: `${Math.min(progressPercent, 100)}%` }}
-            />
-          </div>
+          />
         </div>
       )}
 

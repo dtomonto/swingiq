@@ -11,6 +11,7 @@
 import { CheckCircle2, Circle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { ActivationState } from '@/lib/agents/activation';
+import { Progress } from '@/components/ui/Progress';
 
 export function ActivationChecklist({
   activation,
@@ -29,9 +30,7 @@ export function ActivationChecklist({
           {activation.percent}%
         </span>
       </div>
-      <div className="mt-2 h-1.5 rounded-full bg-muted overflow-hidden" role="progressbar" aria-valuenow={activation.percent} aria-valuemin={0} aria-valuemax={100}>
-        <div className="h-full bg-primary transition-all" style={{ width: `${activation.percent}%` }} />
-      </div>
+      <Progress value={activation.percent} className="mt-2 h-1.5" aria-label={`${activation.percent}% complete`} />
       <ul className="mt-3 space-y-1.5">
         {activation.steps.map((s) => (
           <li

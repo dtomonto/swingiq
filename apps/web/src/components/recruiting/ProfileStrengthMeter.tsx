@@ -11,6 +11,7 @@
 import { TrendingUp, ChevronRight } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { Progress } from '@/components/ui/Progress';
 import {
   type ProfileStrength,
   type StrengthTier,
@@ -56,13 +57,16 @@ export function ProfileStrengthMeter({
             <span>{strength.score}/100</span>
             <span>{strength.checks.filter((c) => c.met).length}/{strength.checks.length} sections</span>
           </div>
-          <div className="h-2.5 w-full rounded-full bg-muted overflow-hidden" role="progressbar" aria-valuenow={strength.score} aria-valuemin={0} aria-valuemax={100}>
-            <div className={`h-full ${TIER_COLOR[strength.tier]} transition-all`} style={{ width: `${strength.score}%` }} />
-          </div>
+          <Progress
+            value={strength.score}
+            className="h-2.5"
+            indicatorClassName={TIER_COLOR[strength.tier]}
+            aria-label="Profile strength"
+          />
         </div>
 
         {strength.notes.map((n) => (
-          <p key={n} className="text-xs text-warning bg-warning/10 rounded-md px-2.5 py-1.5">{n}</p>
+          <p key={n} className="text-xs text-warning-text bg-warning/10 rounded-md px-2.5 py-1.5">{n}</p>
         ))}
 
         {!compact && strength.recommendations.length > 0 && (
