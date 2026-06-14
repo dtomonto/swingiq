@@ -32,12 +32,19 @@ function buildNonceCsp(nonce: string): string {
     "default-src 'self'",
     // 'strict-dynamic' lets Next's nonce'd loader pull in its chunk scripts;
     // drop 'unsafe-inline' (ignored by browsers that honor the nonce anyway).
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://vercel.live`,
+    // 'wasm-unsafe-eval' MUST stay — the on-device MediaPipe pose engine needs
+    // it for WebAssembly.instantiate, or the video overlays report "no body
+    // pose detected". (strict-dynamic ignores host allowlists for scripts, so
+    // the MediaPipe loader is trusted via the nonce chain; only the runtime
+    // FETCHES below need explicit hosts.)
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'wasm-unsafe-eval' https://vercel.live`,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: blob: https://*.supabase.co https://*.supabase.in",
     "media-src 'self' blob: https://*.supabase.co https://*.supabase.in",
-    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://vercel.live",
+    // connect-src must keep the MediaPipe pose assets (WASM runtime on jsdelivr,
+    // model .task on Google Cloud Storage) or on-device pose silently fails.
+    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://vercel.live https://cdn.jsdelivr.net https://storage.googleapis.com",
     "worker-src 'self' blob:",
     "object-src 'none'", "base-uri 'self'", "form-action 'self'",
     "frame-ancestors 'none'", "upgrade-insecure-requests",

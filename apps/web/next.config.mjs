@@ -85,14 +85,21 @@ const nextConfig = {
           { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
           // Content Security Policy
           // Allows: same-origin, Supabase, OpenAI/Anthropic (server-side only, not needed
-          // in CSP), Google Fonts, Vercel analytics/speed insights, and inline styles
+          // in CSP), Google Fonts, Vercel analytics/speed insights, the on-device
+          // MediaPipe pose engine (WASM runtime + model, see below), and inline styles
           // required by Tailwind/Radix. Adjust cdn/analytics hosts as needed.
           {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              // Scripts: allow same-origin + Vercel analytics
-              "script-src 'self' 'unsafe-inline' https://vercel.live",
+              // Scripts: same-origin + inline + Vercel analytics + the MediaPipe
+              // WASM loader script (jsdelivr). 'wasm-unsafe-eval' is REQUIRED for
+              // the on-device pose engine: WebAssembly.instantiate is blocked
+              // without it, so pose detection silently fails and the video
+              // overlays report "no body pose detected" (it's NOT covered by
+              // 'unsafe-inline'). If you self-host the WASM (NEXT_PUBLIC_MEDIAPIPE_*_BASE)
+              // you can drop the jsdelivr host but must keep 'wasm-unsafe-eval'.
+              "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://vercel.live https://cdn.jsdelivr.net",
               // Styles: allow same-origin + inline (Tailwind) + Google Fonts
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               // Fonts: same-origin + Google Fonts CDN
@@ -101,8 +108,13 @@ const nextConfig = {
               "img-src 'self' data: blob: https://*.supabase.co https://*.supabase.in",
               // Media: same-origin + Supabase storage (swing videos)
               "media-src 'self' blob: https://*.supabase.co https://*.supabase.in",
-              // Connections: same-origin + Supabase API/realtime + Vercel
-              "connect-src 'self' https://*.supabase.co https://*.supabase.in wss://*.supabase.co https://vercel.live",
+              // Connections: same-origin + Supabase API/realtime + Vercel + the
+              // on-device MediaPipe pose assets fetched at runtime — the WASM
+              // runtime from jsdelivr and the pose model (.task) from Google
+              // Cloud Storage. Blocking these is what makes the overlays report
+              // "no body pose detected". (Self-hosting via NEXT_PUBLIC_MEDIAPIPE_*_BASE
+              // moves both to same-origin and lets you drop these two hosts.)
+              "connect-src 'self' https://*.supabase.co https://*.supabase.in wss://*.supabase.co https://vercel.live https://cdn.jsdelivr.net https://storage.googleapis.com",
               // Workers: same-origin + blob (video processing)
               "worker-src 'self' blob:",
               // No plugins
