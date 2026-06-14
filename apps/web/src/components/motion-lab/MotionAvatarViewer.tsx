@@ -21,7 +21,7 @@
 // marketing pages.
 // ============================================================
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import {
   Play, Pause, ChevronLeft, ChevronRight, ZoomIn, ZoomOut,
@@ -93,10 +93,16 @@ interface Props {
   track: MotionPoseTrack;
   phases?: MotionPhaseSegment[];
   accent?: string;
+  /**
+   * Phase selected in the external "Motion Phases" timeline. When it changes the
+   * viewer jumps to that phase's representative frame and pauses on it, so picking
+   * a phase lands on that part of the swing.
+   */
+  activePhaseKey?: string | null;
   className?: string;
 }
 
-export function MotionAvatarViewer({ track, phases, accent = '#22C55E', className }: Props) {
+export function MotionAvatarViewer({ track, phases, accent = '#22C55E', activePhaseKey = null, className }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -122,6 +128,30 @@ export function MotionAvatarViewer({ track, phases, accent = '#22C55E', classNam
   const lastFrameRef = useRef(-1);
   useEffect(() => { playingRef.current = playing; }, [playing]);
   useEffect(() => { speedRef.current = speed; }, [speed]);
+
+  // Jump to a specific frame (and pause). Shared by frame-stepping and external
+  // phase selection so both land on an exact frame the same way.
+  const seekToFrame = useCallback((target: number) => {
+    if (empty) return;
+    setPlaying(false);
+    const clamped = Math.max(0, Math.min(frameCount - 1, target));
+    cursorRef.current = clamped;
+    lastFrameRef.current = Math.round(clamped);
+    setFrame(Math.round(clamped));
+  }, [empty, frameCount]);
+
+  // External "Motion Phases" timeline → jump to the picked phase's representative
+  // frame and pause on it, so each phase connects to that part of the swing.
+  useEffect(() => {
+    if (!activePhaseKey || empty) return;
+    const p = phases?.find((ph) => ph.key === activePhaseKey);
+    if (!p) return;
+    // Reflect the externally-selected phase into the transport (pause + playhead).
+    // State is required to update the controls; the effect runs only on an explicit
+    // phase pick and sets nothing it depends on, so there is no cascading loop.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    seekToFrame(p.keyFrame);
+  }, [activePhaseKey, phases, empty, seekToFrame]);
 
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const rigRef = useRef<Rig | null>(null);
@@ -335,12 +365,10 @@ export function MotionAvatarViewer({ track, phases, accent = '#22C55E', classNam
   const zoom = (d: number) => { radiusRef.current = Math.max(1.8, Math.min(6, radiusRef.current + d)); };
 
   const stepFrame = (dir: number) => {
-    setPlaying(false);
     let c = Math.round(cursorRef.current) + dir;
     if (c < 0) c = frameCount - 1;
     if (c > frameCount - 1) c = 0;
-    cursorRef.current = c;
-    setFrame(c);
+    seekToFrame(c);
   };
   const scrubToClientX = (clientX: number) => {
     const el = scrubRef.current;

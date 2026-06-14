@@ -119,7 +119,13 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
   );
 
   const ghostTrack = tab === 'compare' && compareSession ? compareSession.poseTrack : null;
-  const onPhaseSelect = (p: MotionPhaseSegment) => setActivePhase((k) => (k === p.key ? null : p.key));
+  // Selecting a phase in the timeline drives the active viewer (video / 3D /
+  // avatar) to that phase's part of the swing; clicking the open phase clears it.
+  const onPhaseSelect = (p: MotionPhaseSegment) => {
+    const next = activePhase === p.key ? null : p.key;
+    setActivePhase(next);
+    if (next) track(ANALYTICS_EVENTS.MOTION_LAB_PHASE_CLICKED, { phase: p.key, source: 'timeline' });
+  };
 
   // Viewer modes — the real clip + overlays (fresh single-view analysis only),
   // the line skeleton, and the rigged 3D avatar. All driven by the same pose
@@ -249,7 +255,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
             ))}
           </div>
           {viewerMode === 'avatar' ? (
-            <MotionAvatarViewer track={session.poseTrack} phases={session.phases} accent={accent} />
+            <MotionAvatarViewer track={session.poseTrack} phases={session.phases} accent={accent} activePhaseKey={activePhase} />
           ) : videoUrl && viewerMode === 'video' ? (
             <VideoOverlayLab
               key={videoUrl}
@@ -260,9 +266,10 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
               handedness={session.capture.handedness}
               sport={session.capture.sport}
               accent={accent}
+              activePhaseKey={activePhase}
             />
           ) : (
-            <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} implement={session.objectTracking ?? null} />
+            <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} implement={session.objectTracking ?? null} activePhaseKey={activePhase} />
           )}
           {/* Rally sports: how you prepared, moved, contacted, recovered and got
               ready for the next ball — the half the discrete swing read misses. */}

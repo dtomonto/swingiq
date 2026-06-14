@@ -88,6 +88,25 @@ test.describe('MotionLab', () => {
     await expect(page.getByText(/retest your/i)).toBeVisible();
   });
 
+  test('tapping a motion phase drives the viewer to that part of the swing', async ({ page }) => {
+    await page.goto('/motion-lab');
+    await dismissFirstRunOverlays(page);
+
+    // Golf is a discrete swing, so the sample opens on the 3D viewer (a sample has
+    // no clip) which auto-plays — there is exactly one transport on the default
+    // "3D & Phases" tab, and no rally movement controls to disambiguate against.
+    await page.getByRole('button', { name: /golf driver/i }).click();
+    await expect(page.getByText('Biggest opportunity', { exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Pause' })).toBeVisible();
+
+    // Tapping a phase in the Motion Phases timeline must jump the viewer to that
+    // phase and pause on it. Before this wiring the timeline never touched the
+    // viewer, so it kept auto-playing — the regression this guards against.
+    await page.locator('button[title*="tap to jump"]').first().click();
+    await expect(page.getByRole('button', { name: 'Play' })).toBeVisible();
+    await expect(page.getByText(/estimated window/i)).toBeVisible();
+  });
+
   test('works on a mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/motion-lab');
