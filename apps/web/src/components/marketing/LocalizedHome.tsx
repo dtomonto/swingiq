@@ -21,6 +21,7 @@ import { SampleReportPreview } from '@/components/trust';
 import { TutorialVideo } from '@/components/tutorial/TutorialVideo';
 import { ReturningUserRedirect } from '@/components/marketing/ReturningUserRedirect';
 import { TrustChips } from '@/components/marketing/TrustChips';
+import { FeatureGrid } from '@/components/marketing/FeatureGrid';
 import { LiveKinematicPanel } from '@/components/demo/LiveKinematicPanel';
 
 /**
@@ -155,8 +156,9 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
                 and gives you the evidence it worked.
               </p>
             </div>
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {[
+            <FeatureGrid
+              className="mt-12"
+              items={[
                 {
                   icon: EyeOff,
                   title: "You can't see your own swing",
@@ -172,16 +174,8 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
                   title: "Generic tips don't fit you",
                   desc: 'Stop following "standard" advice. Our AI analyzes your unique biomechanics for guidance tailored specifically to your body.',
                 },
-              ].map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="rounded-theme border border-border bg-card p-6 shadow-theme">
-                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-primary/30 bg-primary/10">
-                    <Icon size={22} className="text-primary" aria-hidden="true" />
-                  </div>
-                  <h3 className="font-heading text-lg font-semibold uppercase tracking-tight text-foreground">{title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
-                </div>
-              ))}
-            </div>
+              ]}
+            />
           </div>
         </section>
       )}
@@ -315,28 +309,25 @@ export function LocalizedHome({ locale }: { locale: LanguageCode }) {
           <h2 className="text-center font-heading text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">
             {isEn ? 'Built for athletes who want proof' : h.why.heading}
           </h2>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {isEn
-              ? [
-                  { icon: ShieldCheck, title: 'Private by default', desc: 'Video analysis runs in your browser when possible. Your swing data is never shared publicly — and we run no ad cookies and never sell data.' },
-                  { icon: Target, title: 'Pro-grade accuracy', desc: 'Frame-by-frame biomechanics powered by computer vision, graded against your level — not tour pros — so the feedback actually fits you.' },
-                  { icon: Zap, title: 'Instant feedback', desc: 'Your top fix, matched drills, and a practice plan in minutes — no appointment, no waiting, no credit card.' },
-                ].map(({ icon: Icon, title, desc }) => (
-                  <div key={title} className="rounded-theme border border-border bg-card p-6 shadow-theme">
-                    <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-primary/30 bg-primary/10">
-                      <Icon size={22} className="text-primary" aria-hidden="true" />
-                    </div>
-                    <h3 className="font-heading text-lg font-semibold uppercase tracking-tight text-foreground">{title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
-                  </div>
-                ))
-              : whyItems.map((item) => (
-                  <div key={item.title} className="rounded-theme border border-border bg-card p-6 shadow-theme">
-                    <h3 className="font-heading font-semibold uppercase tracking-tight text-foreground">{item.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">{item.desc}</p>
-                  </div>
-                ))}
-          </div>
+          {isEn ? (
+            <FeatureGrid
+              className="mt-12"
+              items={[
+                { icon: ShieldCheck, title: 'Private by default', desc: 'Video analysis runs in your browser when possible. Your swing data is never shared publicly — and we run no ad cookies and never sell data.' },
+                { icon: Target, title: 'Pro-grade accuracy', desc: 'Frame-by-frame biomechanics powered by computer vision, graded against your level — not tour pros — so the feedback actually fits you.' },
+                { icon: Zap, title: 'Instant feedback', desc: 'Your top fix, matched drills, and a practice plan in minutes — no appointment, no waiting, no credit card.' },
+              ]}
+            />
+          ) : (
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              {whyItems.map((item) => (
+                <div key={item.title} className="rounded-theme border border-border bg-card p-6 shadow-theme">
+                  <h3 className="font-heading font-semibold uppercase tracking-tight text-foreground">{item.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
