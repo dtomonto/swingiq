@@ -92,11 +92,11 @@ export function StationKiosk({
 
       <p className={`text-xs font-semibold uppercase tracking-[0.16em] ${accent.text}`}>{station.systemRole}</p>
       <h3 className={`mt-1 font-black text-white ${centered ? 'text-2xl sm:text-3xl' : 'text-xl'}`}>{station.name}</h3>
-      <p className={`text-sm leading-relaxed text-slate-300 ${centered ? 'mx-auto mt-3 max-w-sm' : 'mt-2'}`}>{station.blurb}</p>
+      <p className={`text-sm leading-relaxed text-stage-foreground ${centered ? 'mx-auto mt-3 max-w-sm' : 'mt-2'}`}>{station.blurb}</p>
 
       <div className={`mt-4 flex flex-wrap gap-1.5 ${centered ? 'justify-center' : ''}`}>
         {station.connects.slice(0, 4).map((c) => (
-          <span key={c} className="rounded-md border border-white/10 bg-white/[0.05] px-2 py-0.5 text-[11px] font-medium text-slate-300">
+          <span key={c} className="rounded-md border border-white/10 bg-white/[0.05] px-2 py-0.5 text-[11px] font-medium text-stage-foreground">
             {c}
           </span>
         ))}
@@ -105,7 +105,7 @@ export function StationKiosk({
       {station.liveHref && (
         <Link
           href={station.liveHref}
-          className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-5 py-2.5 text-sm font-bold text-slate-950 transition-colors hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-5 py-2.5 text-sm font-bold text-stage transition-colors hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-stage"
         >
           {station.liveLabel ?? 'Enter the tool'} <ArrowRight size={15} aria-hidden="true" />
         </Link>
@@ -126,7 +126,7 @@ export function StationRail({ index, onSelect }: { index: number; onSelect: (i: 
           aria-selected={i === index}
           aria-label={s.name}
           onClick={() => onSelect(i)}
-          className={`h-2.5 rounded-full transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+          className={`h-2.5 rounded-full transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-stage ${
             i === index ? 'w-6 bg-emerald-400' : 'w-2.5 bg-white/20 hover:bg-white/40'
           }`}
         />

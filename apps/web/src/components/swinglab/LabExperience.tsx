@@ -43,8 +43,8 @@ export function LabExperience() {
       type="button"
       onClick={() => setView(v)}
       aria-pressed={view === v}
-      className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
-        view === v ? 'bg-emerald-500 text-slate-950' : 'text-slate-300 hover:bg-white/10 hover:text-white'
+      className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-stage ${
+        view === v ? 'bg-emerald-500 text-stage' : 'text-stage-foreground hover:bg-white/10 hover:text-white'
       }`}
     >
       <Icon size={15} aria-hidden="true" /> {label}
@@ -57,12 +57,12 @@ export function LabExperience() {
 
       {resume && (
         <div className="mb-4 flex items-center justify-between gap-3 rounded-2xl border border-emerald-400/20 bg-emerald-500/[0.07] p-4">
-          <p className="text-sm text-slate-300">
+          <p className="text-sm text-stage-foreground">
             Welcome back. <span className="font-semibold text-white">{resume.label}.</span>
           </p>
           <Link
             href={resume.href}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-emerald-500 px-3.5 py-2 text-sm font-bold text-slate-950 transition-colors hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-emerald-500 px-3.5 py-2 text-sm font-bold text-stage transition-colors hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-stage"
           >
             <RotateCcw size={15} aria-hidden="true" /> Resume
           </Link>
@@ -82,7 +82,7 @@ export function LabExperience() {
         (labSystems ? (
           <LabSystems model={labSystems} />
         ) : (
-          <p className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-sm text-slate-400">
+          <p className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-sm text-stage-muted">
             Connecting your systems…
           </p>
         ))}

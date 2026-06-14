@@ -29,7 +29,7 @@ export function StationCard({ station, index }: { station: LabStation; index: nu
       className={`group relative flex h-full scroll-mt-24 flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-[0_1px_0_0_rgba(255,255,255,0.04)_inset] backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/[0.05] ${accent.hoverBorder}`}
     >
       {/* Floor-plan index */}
-      <span aria-hidden="true" className="absolute right-4 top-4 font-mono text-xs font-medium text-slate-600">
+      <span aria-hidden="true" className="absolute right-4 top-4 font-mono text-xs font-medium text-stage-muted">
         {String(index + 1).padStart(2, '0')}
       </span>
 
@@ -43,12 +43,12 @@ export function StationCard({ station, index }: { station: LabStation; index: nu
 
       <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${accent.text}`}>{station.systemRole}</p>
       <h3 id={headingId} className="mt-1 text-lg font-bold text-white">{station.name}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-300">{station.blurb}</p>
+      <p className="mt-2 text-sm leading-relaxed text-stage-foreground">{station.blurb}</p>
 
       {/* Future functions */}
       <ul className="mt-4 space-y-1.5">
         {station.functions.map((fn) => (
-          <li key={fn} className="flex items-start gap-2 text-sm text-slate-400">
+          <li key={fn} className="flex items-start gap-2 text-sm text-stage-muted">
             <span aria-hidden="true" className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${accent.text} bg-current`} />
             {fn}
           </li>
@@ -57,10 +57,10 @@ export function StationCard({ station, index }: { station: LabStation; index: nu
 
       {/* What it connects */}
       <div className="mt-4">
-        <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">Connects</p>
+        <p className="text-[11px] font-medium uppercase tracking-wide text-stage-muted">Connects</p>
         <div className="mt-1.5 flex flex-wrap gap-1.5">
           {station.connects.map((c) => (
-            <span key={c} className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[11px] font-medium text-slate-300">
+            <span key={c} className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[11px] font-medium text-stage-foreground">
               {c}
             </span>
           ))}
@@ -72,15 +72,15 @@ export function StationCard({ station, index }: { station: LabStation; index: nu
         {station.liveHref ? (
           <Link
             href={station.liveHref}
-            className={`inline-flex items-center gap-1.5 text-sm font-semibold ${accent.text} transition-colors hover:text-white focus:outline-none focus-visible:rounded focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950`}
+            className={`inline-flex items-center gap-1.5 text-sm font-semibold ${accent.text} transition-colors hover:text-white focus:outline-none focus-visible:rounded focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-stage`}
           >
             {station.liveLabel ?? 'Available now'}
             <ArrowRight size={15} aria-hidden="true" className="transition-transform group-hover:translate-x-0.5" />
           </Link>
         ) : (
-          <span className="text-sm font-medium text-slate-500">Planned</span>
+          <span className="text-sm font-medium text-stage-muted">Planned</span>
         )}
-        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-500">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-stage-muted">
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-amber-400/80" />
           Lab station planned
         </span>

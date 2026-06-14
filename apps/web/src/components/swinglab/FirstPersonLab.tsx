@@ -67,7 +67,7 @@ export function FirstPersonLab({
       <div
         role="group"
         aria-label="First-person lab walkthrough"
-        className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border border-white/10 bg-slate-950"
+        className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border border-white/10 bg-stage"
         style={{ perspective: '1100px' }}
       >
         {/* Floor + ambient accent glow (decorative) */}
@@ -85,7 +85,7 @@ export function FirstPersonLab({
           type="button"
           onClick={() => go(-1)}
           aria-label="Previous station"
-          className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-900/70 text-white backdrop-blur transition-colors hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+          className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-stage-panel/70 text-white backdrop-blur transition-colors hover:bg-stage-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
         >
           <ChevronLeft size={22} aria-hidden="true" />
         </button>
@@ -93,13 +93,13 @@ export function FirstPersonLab({
           type="button"
           onClick={() => go(1)}
           aria-label="Next station"
-          className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-900/70 text-white backdrop-blur transition-colors hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+          className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-stage-panel/70 text-white backdrop-blur transition-colors hover:bg-stage-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
         >
           <ChevronRight size={22} aria-hidden="true" />
         </button>
 
         {/* Position label */}
-        <div className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-[11px] font-medium text-slate-300">
+        <div className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-white/10 bg-stage/70 px-3 py-1 text-[11px] font-medium text-stage-foreground">
           Station {index + 1} / {total}
         </div>
       </div>

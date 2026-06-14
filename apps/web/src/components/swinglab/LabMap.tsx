@@ -22,7 +22,7 @@ export function LabMap() {
   return (
     <nav
       aria-label="SwingLab 2.0 floor plan"
-      className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950/40 p-5 sm:p-7"
+      className="relative overflow-hidden rounded-3xl border border-white/10 bg-stage/40 p-5 sm:p-7"
     >
       {/* Blueprint grid + ambient glows (decorative) */}
       <div aria-hidden="true" className="absolute inset-0" style={BLUEPRINT_BG} />
@@ -36,7 +36,7 @@ export function LabMap() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300">Lab floor plan</p>
             <h3 className="mt-1 text-lg font-bold text-white sm:text-xl">Choose a station to explore</h3>
           </div>
-          <p className="max-w-xs text-xs leading-relaxed text-slate-400">
+          <p className="max-w-xs text-xs leading-relaxed text-stage-muted">
             A preview of how the lab is laid out. Tap a zone to jump to what it does — the immersive walkthrough is in development.
           </p>
         </div>
@@ -50,13 +50,13 @@ export function LabMap() {
               <li key={station.id}>
                 <a
                   href={`#${station.id}`}
-                  className={`group flex h-full flex-col gap-2 rounded-xl border border-white/10 bg-white/[0.03] p-3 transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/[0.06] ${accent.hoverBorder} focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950`}
+                  className={`group flex h-full flex-col gap-2 rounded-xl border border-white/10 bg-white/[0.03] p-3 transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/[0.06] ${accent.hoverBorder} focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-stage`}
                 >
                   <span className="flex items-center justify-between">
                     <span className={`flex h-8 w-8 items-center justify-center rounded-lg ring-1 ${accent.tile}`}>
                       <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
                     </span>
-                    <span aria-hidden="true" className="font-mono text-[10px] text-slate-600">{String(i + 1).padStart(2, '0')}</span>
+                    <span aria-hidden="true" className="font-mono text-[10px] text-stage-muted">{String(i + 1).padStart(2, '0')}</span>
                   </span>
                   <span className="text-sm font-semibold leading-tight text-white">{station.name}</span>
                   <span className={`text-[11px] font-medium ${accent.text}`}>{station.systemRole}</span>
@@ -67,9 +67,9 @@ export function LabMap() {
         </ul>
 
         {/* The connective idea, stated plainly */}
-        <p className="relative mt-5 border-t border-white/10 pt-4 text-center text-xs text-slate-400">
-          Every station reads from <span className="font-semibold text-slate-200">your profile</span> and connects through{' '}
-          <span className="font-semibold text-slate-200">the AI coach</span> — one memory, one brain, one environment.
+        <p className="relative mt-5 border-t border-white/10 pt-4 text-center text-xs text-stage-muted">
+          Every station reads from <span className="font-semibold text-stage-foreground">your profile</span> and connects through{' '}
+          <span className="font-semibold text-stage-foreground">the AI coach</span> — one memory, one brain, one environment.
         </p>
       </div>
     </nav>

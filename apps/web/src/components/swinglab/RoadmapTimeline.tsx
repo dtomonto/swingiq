@@ -30,9 +30,9 @@ const STATUS_META: Record<PhaseStatus, { label: string; dot: string; ring: strin
   },
   planned: {
     label: 'Planned',
-    dot: 'bg-slate-500',
+    dot: 'bg-stage-muted',
     ring: 'ring-white/10',
-    chip: 'bg-white/5 text-slate-400 ring-1 ring-white/10',
+    chip: 'bg-white/5 text-stage-muted ring-1 ring-white/10',
   },
 };
 
@@ -48,17 +48,17 @@ export function RoadmapTimeline() {
               aria-hidden="true"
               className={`absolute -left-[31px] top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full ring-4 ${meta.dot} ${meta.ring}`}
             >
-              {phase.status === 'current' && <Check size={9} className="text-slate-950" strokeWidth={3.5} />}
+              {phase.status === 'current' && <Check size={9} className="text-stage" strokeWidth={3.5} />}
             </span>
 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">{phase.label}</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-stage-muted">{phase.label}</span>
               <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${meta.chip}`}>
                 {meta.label}
               </span>
             </div>
             <h3 className="mt-1 text-base font-bold text-white">{phase.name}</h3>
-            <p className="mt-1 text-sm leading-relaxed text-slate-400">{phase.detail}</p>
+            <p className="mt-1 text-sm leading-relaxed text-stage-muted">{phase.detail}</p>
           </li>
         );
       })}

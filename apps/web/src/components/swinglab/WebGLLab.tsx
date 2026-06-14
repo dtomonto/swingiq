@@ -644,7 +644,7 @@ function WebGLLabInner({ personalization }: { personalization: LabPersonalizatio
         ref={containerRef}
         role="group"
         aria-label="First-person 3D lab walkthrough"
-        className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border border-white/10 bg-slate-950"
+        className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border border-white/10 bg-stage"
       >
         <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full cursor-grab active:cursor-grabbing" style={{ touchAction: 'none' }} />
 
@@ -653,7 +653,7 @@ function WebGLLabInner({ personalization }: { personalization: LabPersonalizatio
 
         {/* Station detail HUD (real, accessible DOM with the live CTA). */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-5">
-          <div className="pointer-events-auto rounded-2xl border border-white/10 bg-slate-950/70 p-4 backdrop-blur-md">
+          <div className="pointer-events-auto rounded-2xl border border-white/10 bg-stage/70 p-4 backdrop-blur-md">
             <StationKiosk station={LAB_STATIONS[index]} personalization={personalization} align="left" />
           </div>
         </div>
@@ -663,7 +663,7 @@ function WebGLLabInner({ personalization }: { personalization: LabPersonalizatio
           type="button"
           onClick={() => go(-1)}
           aria-label="Previous station"
-          className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-900/70 text-white backdrop-blur transition-colors hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+          className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-stage-panel/70 text-white backdrop-blur transition-colors hover:bg-stage-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
         >
           <ChevronLeft size={22} aria-hidden="true" />
         </button>
@@ -671,18 +671,18 @@ function WebGLLabInner({ personalization }: { personalization: LabPersonalizatio
           type="button"
           onClick={() => go(1)}
           aria-label="Next station"
-          className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-900/70 text-white backdrop-blur transition-colors hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+          className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-stage-panel/70 text-white backdrop-blur transition-colors hover:bg-stage-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
         >
           <ChevronRight size={22} aria-hidden="true" />
         </button>
 
         {/* Position label */}
-        <div className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-[11px] font-medium text-slate-300">
+        <div className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-white/10 bg-stage/70 px-3 py-1 text-[11px] font-medium text-stage-foreground">
           Station {index + 1} / {total}
         </div>
 
         {/* Look-around hint */}
-        <div className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/70 px-2.5 py-1 text-[11px] font-medium text-slate-400">
+        <div className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-stage/70 px-2.5 py-1 text-[11px] font-medium text-stage-muted">
           <Move3d size={12} aria-hidden="true" /> Drag to look
         </div>
       </div>

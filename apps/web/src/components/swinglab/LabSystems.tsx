@@ -24,16 +24,16 @@ export function LabSystems({ model }: { model: LabSystemsModel }) {
         <div className="flex items-center gap-2">
           <Cpu size={16} className="text-emerald-300" aria-hidden="true" />
           <h2 className="text-sm font-bold uppercase tracking-wide text-white">Lab systems</h2>
-          <span className="ml-auto rounded-full bg-white/10 px-2 py-0.5 text-[11px] font-semibold text-slate-300 ring-1 ring-white/15">
+          <span className="ml-auto rounded-full bg-white/10 px-2 py-0.5 text-[11px] font-semibold text-stage-foreground ring-1 ring-white/15">
             {onlineCount}/{totalSystems} online
           </span>
         </div>
-        <p className="mt-3 text-sm leading-relaxed text-slate-200">{summary}</p>
+        <p className="mt-3 text-sm leading-relaxed text-stage-foreground">{summary}</p>
       </section>
 
       {/* Data-flow loop */}
       <section aria-label="Data flow" className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">The connected loop</h3>
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-stage-muted">The connected loop</h3>
         <ul className="mt-3 space-y-2">
           {connections.map((c) => {
             const from = STATION_BY_ID[c.from];
@@ -48,30 +48,30 @@ export function LabSystems({ model }: { model: LabSystemsModel }) {
               >
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-white">
                   <span>{from.name}</span>
-                  <ArrowRight size={14} aria-hidden="true" className={c.active ? 'text-emerald-300' : 'text-slate-600'} />
+                  <ArrowRight size={14} aria-hidden="true" className={c.active ? 'text-emerald-300' : 'text-stage-muted'} />
                   <span>{to.name}</span>
                   <span
                     className={`ml-auto inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
-                      c.active ? 'bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30' : 'bg-white/5 text-slate-500 ring-1 ring-white/10'
+                      c.active ? 'bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30' : 'bg-white/5 text-stage-muted ring-1 ring-white/10'
                     }`}
                   >
-                    <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${c.active ? 'bg-emerald-400 motion-safe:animate-pulse' : 'bg-slate-600'}`} />
+                    <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${c.active ? 'bg-emerald-400 motion-safe:animate-pulse' : 'bg-stage-muted'}`} />
                     {c.active ? 'Live' : 'Idle'}
                   </span>
                 </div>
-                <p className="mt-1 text-xs text-slate-400">{c.label}</p>
+                <p className="mt-1 text-xs text-stage-muted">{c.label}</p>
               </li>
             );
           })}
         </ul>
-        <p className="mt-3 text-[11px] text-slate-500">
+        <p className="mt-3 text-[11px] text-stage-muted">
           Links go live as real data flows between stations — nothing here is simulated.
         </p>
       </section>
 
       {/* Per-station systems */}
       <section aria-label="Systems status" className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">Systems</h3>
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-stage-muted">Systems</h3>
         <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {systems.map((sys) => {
             const station = STATION_BY_ID[sys.stationId];
@@ -85,12 +85,12 @@ export function LabSystems({ model }: { model: LabSystemsModel }) {
                     <Icon size={14} strokeWidth={1.75} aria-hidden="true" />
                   </span>
                   <span className="text-sm font-semibold text-white">{station.name}</span>
-                  <span className={`ml-auto inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide ${sys.online ? 'text-emerald-300' : 'text-slate-500'}`}>
-                    <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${sys.online ? 'bg-emerald-400' : 'bg-slate-600'}`} />
+                  <span className={`ml-auto inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide ${sys.online ? 'text-emerald-300' : 'text-stage-muted'}`}>
+                    <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${sys.online ? 'bg-emerald-400' : 'bg-stage-muted'}`} />
                     {sys.online ? 'Online' : 'Standby'}
                   </span>
                 </div>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-400">{sys.contributes}</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-stage-muted">{sys.contributes}</p>
               </li>
             );
           })}
