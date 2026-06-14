@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import type { LeadSource } from '@/lib/email/capture';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -7,6 +6,8 @@ import { buildGraph, serviceSchema } from '@/lib/seo/jsonLd';
 import { EmailCapture } from '@/components/email/EmailCapture';
 import { PrivacyAssuranceBlock } from '@/components/trust/PrivacyAssuranceBlock';
 import { NotCoachReplacementNotice } from '@/components/trust/NotCoachReplacementNotice';
+import { BenefitGrid } from '@/components/marketing/BenefitGrid';
+import { CtaLink } from '@/components/marketing/CtaLink';
 
 export interface AudienceConfig {
   slug: string;
@@ -33,23 +34,15 @@ export function AudienceLanding({ config }: { config: AudienceConfig }) {
           />
           <h1 className="text-3xl font-bold md:text-4xl">{config.headline}</h1>
           <p className="mt-4 max-w-2xl text-lg text-primary-foreground/90">{config.positioning}</p>
-          <Link href="#get-started" className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-background px-7 py-3 font-bold text-foreground transition-opacity hover:opacity-90">
+          <CtaLink href="#get-started" variant="inverse" className="mt-6">
             {config.ctaLabel}
-            <ArrowRight size={18} aria-hidden="true" />
-          </Link>
+          </CtaLink>
         </div>
       </section>
 
       <section className="px-4 py-14">
         <div className="mx-auto max-w-3xl">
-          <div className="grid gap-6 sm:grid-cols-3">
-            {config.benefits.map((b) => (
-              <div key={b.title} className="rounded-2xl border border-border p-5">
-                <h2 className="font-semibold text-foreground">{b.title}</h2>
-                <p className="mt-1 text-sm text-muted-foreground">{b.desc}</p>
-              </div>
-            ))}
-          </div>
+          <BenefitGrid items={config.benefits} />
         </div>
       </section>
 
