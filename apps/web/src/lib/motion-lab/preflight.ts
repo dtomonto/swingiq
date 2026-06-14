@@ -97,6 +97,11 @@ export interface PreflightInput {
   swingWindowDetected: boolean;
   sport: SportId;
   view: CameraView;
+  /**
+   * Real camera steadiness (0–1, 1 = rock steady) from the camera-motion
+   * estimator. When provided it overrides the exposure-variance proxy.
+   */
+  cameraStability?: number;
 }
 
 const clamp = (v: number, lo: number, hi: number): number => Math.max(lo, Math.min(hi, v));
@@ -133,11 +138,16 @@ export function profileVideoQuality(input: PreflightInput): VideoQualityProfile 
     ? clamp(mean(input.frameStats.map((s) => s.sharpness)), 0, 1)
     : 0.6;
 
-  // Camera-stability proxy: a steady camera holds roughly constant exposure, so
-  // large frame-to-frame brightness swings hint at shake/auto-exposure hunting.
-  const cameraStabilityScore = pixelSignalsAvailable
-    ? clamp(1 - std(input.frameStats.map((s) => s.brightness)) * 4, 0, 1)
-    : 1;
+  // Camera steadiness: prefer the real camera-motion estimate when supplied;
+  // otherwise fall back to the exposure-variance proxy (a steady camera holds
+  // roughly constant exposure, so large brightness swings hint at shake).
+  const haveStabilitySignal = input.cameraStability != null || pixelSignalsAvailable;
+  const cameraStabilityScore =
+    input.cameraStability != null
+      ? clamp(input.cameraStability, 0, 1)
+      : pixelSignalsAvailable
+        ? clamp(1 - std(input.frameStats.map((s) => s.brightness)) * 4, 0, 1)
+        : 1;
 
   const subjectCoverage = clamp(input.subjectCoverage, 0, 1);
   const minEdge = parseMinEdge(input.resolution);
@@ -218,16 +228,18 @@ export function profileVideoQuality(input: PreflightInput): VideoQualityProfile 
         internalDetails: { sharpnessScore: +sharpnessScore.toFixed(3) },
       });
     }
-    if (cameraStabilityScore < 0.5) {
-      issues.push({
-        code: 'CAMERA_SHAKE',
-        severity: 'medium',
-        affectedMetrics: ['rotation', 'balance', 'head movement'],
-        userMessage:
-          'The camera moved during the clip, which adds jitter to the tracked positions.',
-        internalDetails: { cameraStabilityScore: +cameraStabilityScore.toFixed(3) },
-      });
-    }
+  }
+
+  // ── Camera steadiness (real estimate or exposure-variance proxy) ──
+  if (haveStabilitySignal && cameraStabilityScore < 0.5) {
+    issues.push({
+      code: 'CAMERA_SHAKE',
+      severity: 'medium',
+      affectedMetrics: ['rotation', 'balance', 'head movement'],
+      userMessage:
+        'The camera moved during the clip, which adds jitter to the tracked positions.',
+      internalDetails: { cameraStabilityScore: +cameraStabilityScore.toFixed(3) },
+    });
   }
 
   // ── Clip metadata ──────────────────────────────────────────

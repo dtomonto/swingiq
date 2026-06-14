@@ -13,6 +13,7 @@
 // ============================================================
 
 import type { GrayLumaStats } from './frame-enhance';
+import { cameraMotionProfile, type CameraMotionProfile } from './camera-motion';
 
 /**
  * Default number of frames returned for analysis. Concentrated on the detected
@@ -77,6 +78,12 @@ export interface FrameExtractionResult {
    * degrade honestly rather than assume a quality they couldn't measure.
    */
   frameStats?: GrayLumaStats[];
+  /**
+   * Global camera-motion summary (steadiness / shake / pan) estimated across the
+   * scanned candidates. Present only when grayscale signatures were readable;
+   * `perFrame` is omitted to keep the result compact.
+   */
+  cameraMotion?: Omit<CameraMotionProfile, 'perFrame'>;
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -445,12 +452,24 @@ export async function extractSwingFrames(
         ? keptSignatures.map((s) => grayStats(s))
         : undefined;
 
+    // Global camera-motion (steadiness / shake / pan) across the scanned
+    // candidates — computed only when signatures were readable. `perFrame` is
+    // dropped from the result to keep it compact.
+    const allSignatures = candidates.map((c) => c.signature);
+    let cameraMotion: Omit<CameraMotionProfile, 'perFrame'> | undefined;
+    if (signaturesUsable && allSignatures.length >= 3 && allSignatures.every((s) => s.length > 0)) {
+      const { perFrame, ...summary } = cameraMotionProfile(allSignatures, SIG_W, SIG_H);
+      void perFrame;
+      cameraMotion = summary;
+    }
+
     return {
       frames,
       resolution: `${vw}x${vh}`,
       durationSeconds: Number(duration.toFixed(2)),
       swingWindowDetected: window !== null,
       frameStats,
+      cameraMotion,
     };
   } finally {
     revoke();

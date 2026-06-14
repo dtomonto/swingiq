@@ -209,6 +209,7 @@ export async function runMotionAnalysis(
     estimatedFps: options.estimatedFps ?? null,
     durationSeconds: extraction.durationSeconds,
     swingWindowDetected: extraction.swingWindowDetected,
+    cameraStability: extraction.cameraMotion?.stabilityScore,
     sport: capture.sport,
     view: capture.view,
   });
