@@ -7,6 +7,11 @@
 //
 // This is NOT a full account signup — it only stores a local
 // category flag. No PII is collected here.
+//
+// Built on the shared <Dialog> primitive (Radix) for focus-trap, scroll-lock
+// and modal semantics. It's a MUST-ANSWER step, so ESC / outside-click closing
+// is prevented and there's no close affordance — it dismisses only via the
+// Continue action once a category is chosen.
 // ============================================================
 
 import { useState, useEffect } from 'react';
@@ -14,6 +19,8 @@ import { useSwingVantageStore, type UsageCategory } from '@/store';
 import { Shield, Users, User, GraduationCap, AlertTriangle } from 'lucide-react';
 import { useOnboarding } from '@/lib/onboarding/useOnboarding';
 import type { OnboardingRole } from '@/lib/onboarding/state';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/Dialog';
+import { Button } from '@/components/ui/Button';
 
 // Map the safety usage-category to the onboarding role so the onboarding
 // state machine (the single source of truth) records who the athlete is and
@@ -104,30 +111,39 @@ export function UsageCategoryModal() {
   const isUnder13 = selected === 'minor_under_13';
 
   return (
-    <div
-      className="fixed inset-0 z-200 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs px-4 py-6"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="usage-modal-title"
+    <Dialog
+      open={visible}
+      onOpenChange={(open) => {
+        // Must-answer: ignore close requests; only handleConfirm dismisses it.
+        if (open) setVisible(true);
+      }}
     >
-      <div className="bg-card rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <DialogContent
+        hideClose
+        onEscapeKeyDown={(e) => e.preventDefault()}
+        onPointerDownOutside={(e) => e.preventDefault()}
+        onInteractOutside={(e) => e.preventDefault()}
+        // Reset the primitive's padding/grid so the existing per-section layout
+        // is preserved; card surface + scrollable for long content.
+        className="block max-h-[90vh] max-w-md gap-0 overflow-y-auto rounded-2xl bg-card p-0"
+      >
         {/* Header */}
         <div className="px-6 pt-6 pb-4">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shrink-0">
-              <Shield className="text-primary-foreground" size={20} />
+              <Shield className="text-primary-foreground" size={20} aria-hidden="true" />
             </div>
             <div>
-              <h2 id="usage-modal-title" className="text-lg font-bold text-foreground">
+              <DialogTitle className="text-lg font-bold text-foreground">
                 Welcome to SwingVantage
-              </h2>
+              </DialogTitle>
               <p className="text-xs text-muted-foreground">One quick question before you start</p>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground">
+          <DialogDescription className="text-sm text-muted-foreground">
             Who will be using SwingVantage on this device? This helps us apply the right safety settings.
             No personal information is collected.
-          </p>
+          </DialogDescription>
         </div>
 
         {/* Options */}
@@ -145,6 +161,7 @@ export function UsageCategoryModal() {
               <Icon
                 size={18}
                 className={selected === value ? 'text-link' : 'text-muted-foreground'}
+                aria-hidden="true"
               />
               <div className="flex-1 min-w-0">
                 <p className={`text-sm font-medium ${selected === value ? 'text-link' : 'text-foreground'}`}>
@@ -164,8 +181,8 @@ export function UsageCategoryModal() {
         {/* Under-13 warning */}
         {isUnder13 && (
           <div className="mx-6 mb-4 bg-warning/10 border border-warning/30 rounded-xl p-4">
-            <p className="text-sm font-semibold text-warning mb-1">Parent or guardian required</p>
-            <p className="text-sm text-warning">
+            <p className="text-sm font-semibold text-warning-text mb-1">Parent or guardian required</p>
+            <p className="text-sm text-warning-text">
               SwingVantage is not designed for children under 13 without a parent or guardian. Please ask
               a parent or guardian to set up SwingVantage and select <strong>&quot;Parent or guardian&quot;</strong> on this screen.
             </p>
@@ -184,18 +201,14 @@ export function UsageCategoryModal() {
 
         {/* Actions */}
         <div className="px-6 pb-6 space-y-2">
-          <button
-            onClick={handleConfirm}
-            disabled={!selected || isUnder13}
-            className="w-full bg-primary hover:bg-primary disabled:bg-muted disabled:text-muted-foreground text-primary-foreground font-semibold py-3 rounded-xl transition-colors"
-          >
+          <Button onClick={handleConfirm} disabled={!selected || isUnder13} className="w-full">
             Continue to SwingVantage
-          </button>
+          </Button>
           <p className="text-center text-xs text-muted-foreground">
             This is a private setting. You can change it anytime in Settings.
           </p>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
