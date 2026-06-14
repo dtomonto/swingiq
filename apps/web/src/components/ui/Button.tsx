@@ -14,7 +14,9 @@ import { type ButtonHTMLAttributes, forwardRef } from 'react';
 export const buttonVariants = cva(
   cn(
     'inline-flex items-center justify-center gap-2 rounded-button font-medium',
-    'focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-background',
+    // Keyboard-only focus ring (`focus-visible`), so a mouse click stays clean
+    // while keyboard/AT users always get a visible WCAG 2.4.7 indicator.
+    'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
     'disabled:opacity-50 disabled:cursor-not-allowed',
     'transition-[color,background-color,filter,box-shadow,transform] duration-150',
   ),
@@ -22,14 +24,14 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'btn-theme-primary text-primary-foreground shadow-sm hover:brightness-[1.08] hover:shadow-md active:translate-y-px active:brightness-95 focus:ring-ring',
+          'btn-theme-primary text-primary-foreground shadow-sm hover:brightness-[1.08] hover:shadow-md active:translate-y-px active:brightness-95 focus-visible:ring-ring',
         secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80 active:translate-y-px focus:ring-ring',
-        ghost: 'bg-transparent text-foreground hover:bg-muted active:bg-muted/80 focus:ring-ring',
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80 active:translate-y-px focus-visible:ring-ring',
+        ghost: 'bg-transparent text-foreground hover:bg-muted active:bg-muted/80 focus-visible:ring-ring',
         danger:
-          'bg-error text-error-foreground shadow-sm hover:brightness-[1.08] hover:shadow-md active:translate-y-px focus:ring-error',
+          'bg-error text-error-foreground shadow-sm hover:brightness-[1.08] hover:shadow-md active:translate-y-px focus-visible:ring-error',
         outline:
-          'bg-card text-foreground border border-border hover:bg-muted hover:border-border/80 active:translate-y-px focus:ring-ring',
+          'bg-card text-foreground border border-border hover:bg-muted hover:border-border/80 active:translate-y-px focus-visible:ring-ring',
       },
       size: {
         sm: 'px-3 py-1.5 text-sm',

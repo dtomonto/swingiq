@@ -11,6 +11,7 @@ import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { siteConfig, absoluteUrl } from '@/config/site';
 import { ServiceWorkerRegistrar } from '@/components/pwa/ServiceWorkerRegistrar';
+import { SkipLink } from '@/components/ui/SkipLink';
 
 // Body font — used for nearly all text on every page, so it's the one font we
 // keep preloaded on the critical path (preload defaults to true).
@@ -132,11 +133,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
       </head>
       <body className="font-sans antialiased bg-background min-h-screen">
+        {/* First focusable element in the DOM, so a keyboard user's first Tab is
+            the bypass link. Targets the #main-content wrapper below. */}
+        <SkipLink />
         <Providers>
           {/* Global Founding Members counter — slim, normal-flow bar at the very
               top of every public/app page (self-hides on /admin + auth). */}
           <FoundingFathersCounterBanner />
-          {children}
+          {/* Universal skip-link target. `tabIndex={-1}` lets focus land here so
+              the next Tab continues from the page content; `outline-hidden`
+              suppresses a focus ring around the whole region. */}
+          <div id="main-content" tabIndex={-1} className="outline-hidden">
+            {children}
+          </div>
         </Providers>
         <Analytics />
         <VercelAnalytics />
