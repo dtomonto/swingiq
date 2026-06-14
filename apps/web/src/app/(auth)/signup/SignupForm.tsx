@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
+import { Field } from '@/components/ui/Field';
+import { Input } from '@/components/ui/Input';
 import { Eye, EyeOff, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/useAuth';
@@ -18,8 +20,6 @@ export function SignupForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
-
-  const inputClass = 'w-full border border-border rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-ring focus:border-transparent outline-hidden';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,19 +51,50 @@ export function SignupForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="signup-name" className="text-sm font-medium text-foreground block mb-1">Your Name</label>
-        <input id="signup-name" type="text" required value={name} onChange={(e) => setName(e.target.value)} className={inputClass} placeholder="Tiger Woods" autoComplete="name" />
-      </div>
-      <div>
-        <label htmlFor="signup-email" className="text-sm font-medium text-foreground block mb-1">Email</label>
-        <input id="signup-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} placeholder="you@example.com" autoComplete="email" />
-      </div>
-      <div>
-        <label htmlFor="signup-password" className="text-sm font-medium text-foreground block mb-1">Password</label>
+      <Field label="Your Name">
+        <Input
+          id="signup-name"
+          type="text"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Tiger Woods"
+          autoComplete="name"
+        />
+      </Field>
+      <Field label="Email">
+        <Input
+          id="signup-email"
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@example.com"
+          autoComplete="email"
+        />
+      </Field>
+      <div className="space-y-1.5">
+        <label htmlFor="signup-password" className="text-sm font-medium text-foreground">
+          Password
+        </label>
         <div className="relative">
-          <input id="signup-password" type={showPassword ? 'text' : 'password'} required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className={`${inputClass} pr-10`} placeholder="At least 8 characters" autoComplete="new-password" />
-          <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground">
+          <Input
+            id="signup-password"
+            type={showPassword ? 'text' : 'password'}
+            required
+            minLength={8}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="pr-10"
+            placeholder="At least 8 characters"
+            autoComplete="new-password"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
@@ -71,7 +102,7 @@ export function SignupForm() {
 
       {error && (
         <div className="p-3 bg-warning/10 border border-warning/30 rounded-lg">
-          <p className="text-xs text-warning leading-relaxed">{error}</p>
+          <p className="text-xs text-warning-text leading-relaxed">{error}</p>
           <Link href="/dashboard" className="mt-2 inline-block text-xs font-semibold text-primary hover:underline">
             Use SwingVantage without an account →
           </Link>
@@ -80,7 +111,7 @@ export function SignupForm() {
 
       {notice && (
         <div className="p-3 bg-success/10 border border-success/30 rounded-lg">
-          <p className="text-xs text-success leading-relaxed">{notice}</p>
+          <p className="text-xs text-success-text leading-relaxed">{notice}</p>
           <Link href="/login" className="mt-2 inline-block text-xs font-semibold text-primary hover:underline">
             Go to sign in →
           </Link>
@@ -112,7 +143,7 @@ export function SignupForm() {
         and{' '}
         <Link href="/privacy" className="underline hover:text-muted-foreground">privacy policy</Link>.
       </p>
-      <p className="text-xs text-warning bg-warning/10 border border-warning/30 rounded-lg p-3 text-center">
+      <p className="text-xs text-warning-text bg-warning/10 border border-warning/30 rounded-lg p-3 text-center">
         <strong>Under 13?</strong> A parent or guardian must create and manage your account.
         SwingVantage is not directed at children under 13.
       </p>
