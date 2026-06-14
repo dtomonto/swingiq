@@ -5,6 +5,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Send, CheckCircle2, Info } from 'lucide-react';
 import { type ContactTopic } from '@/lib/email/contact';
+import { Field } from '@/components/ui/Field';
+import { Input } from '@/components/ui/Input';
+import { Textarea } from '@/components/ui/Textarea';
+import { Button } from '@/components/ui/Button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 
 type Status = 'idle' | 'submitting' | 'done' | 'error';
 
@@ -88,92 +93,76 @@ export function ContactForm({ supportEmail }: { supportEmail: string }) {
     );
   }
 
-  const inputClasses =
-    'w-full rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring';
-
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="contact-name" className="mb-1 block text-sm font-medium text-foreground">
-            Your name
-          </label>
-          <input
-            id="contact-name"
+        <Field label="Your name" required>
+          <Input
             type="text"
-            required
             autoComplete="name"
             placeholder="Alex Morgan"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className={inputClasses}
           />
-        </div>
-        <div>
-          <label htmlFor="contact-email" className="mb-1 block text-sm font-medium text-foreground">
-            Email
-          </label>
-          <input
-            id="contact-email"
+        </Field>
+        <Field label="Email" required>
+          <Input
             type="email"
-            required
             autoComplete="email"
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={inputClasses}
           />
-        </div>
+        </Field>
       </div>
 
-      <div>
-        <label htmlFor="contact-topic" className="mb-1 block text-sm font-medium text-foreground">
+      {/* Select is a compound control (Root → Trigger), so its label points at the
+          focusable trigger directly rather than via <Field>'s clone-id wiring. */}
+      <div className="space-y-1.5">
+        <label htmlFor="contact-topic" className="block text-sm font-medium text-foreground">
           What&apos;s this about?
         </label>
-        <select
-          id="contact-topic"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value as ContactTopic)}
-          className={inputClasses}
-        >
-          {TOPIC_OPTIONS.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
+        <Select value={topic} onValueChange={(v) => setTopic(v as ContactTopic)}>
+          <SelectTrigger id="contact-topic">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {TOPIC_OPTIONS.map((o) => (
+              <SelectItem key={o.value} value={o.value}>
+                {o.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
-      <div>
-        <label htmlFor="contact-message" className="mb-1 block text-sm font-medium text-foreground">
-          Message
-        </label>
-        <textarea
-          id="contact-message"
-          required
+      <Field label="Message" required>
+        <Textarea
           minLength={10}
           rows={6}
           placeholder="Tell us what you think, what's working, or what we can improve…"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className={`${inputClasses} resize-y`}
+          className="resize-y"
         />
-      </div>
+      </Field>
 
       {status === 'error' && (
-        <p role="alert" className="text-sm font-medium text-error">
+        <p role="alert" className="text-sm font-medium text-error-text">
           {feedback}
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === 'submitting'}
-        className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
-      >
-        <Send size={16} aria-hidden="true" />
-        {status === 'submitting' ? 'Sending…' : 'Send message'}
-      </button>
+      <Button type="submit" loading={status === 'submitting'}>
+        {status === 'submitting' ? (
+          'Sending…'
+        ) : (
+          <>
+            <Send size={16} aria-hidden="true" />
+            Send message
+          </>
+        )}
+      </Button>
 
       <p className="text-xs text-muted-foreground">
         We only use your email to reply to you. See our{' '}
