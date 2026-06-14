@@ -67,7 +67,7 @@ export function DrillCard({
       <div className="flex-1">
         <p className={cn('text-sm font-semibold', ink, done && 'line-through opacity-70')}>
           {typeof n === 'number' && (
-            <span className={cn('mr-2 text-[11px] font-bold tracking-[0.05em]', accent)}>DRILL {n}</span>
+            <span className={cn('mr-2 text-2xs font-bold tracking-[0.05em]', accent)}>DRILL {n}</span>
           )}
           {name}
           {reps && <span className={cn('font-normal', muted)}> · {reps}</span>}

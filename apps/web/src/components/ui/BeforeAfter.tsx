@@ -29,7 +29,7 @@ export function BeforeAfter({ label, before, after, unit = '', better = true, no
     : 'text-muted-foreground line-through decoration-muted-foreground/40';
   return (
     <div className={cn('rounded-theme border p-4 shadow-theme', surface, className)}>
-      <p className={cn('mb-2.5 text-[11px] font-semibold uppercase tracking-[0.05em]', muted)}>{label}</p>
+      <p className={cn('mb-2.5 text-2xs font-semibold uppercase tracking-[0.05em]', muted)}>{label}</p>
       <div className="flex items-center gap-3">
         <div className="flex-1">
           <p className={cn('text-[10.5px]', muted)}>Before</p>

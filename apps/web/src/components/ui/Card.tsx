@@ -103,7 +103,7 @@ interface EyebrowProps extends React.HTMLAttributes<HTMLParagraphElement> {
 export function Eyebrow({ className, children, color = 'link', ...props }: EyebrowProps) {
   return (
     <p
-      className={cn('text-[11px] font-semibold uppercase tracking-[0.06em]', eyebrowColor[color], className)}
+      className={cn('text-2xs font-semibold uppercase tracking-[0.06em]', eyebrowColor[color], className)}
       {...props}
     >
       {children}

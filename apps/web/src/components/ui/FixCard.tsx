@@ -30,7 +30,7 @@ export function FixCard({
 }: FixCardProps) {
   return (
     <div className={cn('rounded-2xl bg-document p-6 text-document-fg shadow-theme-lg', className)}>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-document-accent">{eyebrow}</p>
+      <p className="text-2xs font-semibold uppercase tracking-[0.06em] text-document-accent">{eyebrow}</p>
       <h2 className="mt-1.5 text-xl font-bold leading-snug tracking-[-0.01em] text-document-fg">{fix}</h2>
       {why && <p className="mt-2 text-sm leading-relaxed text-document-fg/70">{why}</p>}
       <div className="mt-3 flex flex-wrap items-center gap-2.5">
