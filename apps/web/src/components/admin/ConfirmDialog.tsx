@@ -3,9 +3,22 @@
 // ConfirmDialog — controlled confirmation modal for dangerous actions
 // (delete, publish, toggle core flag, bulk ops). Supports an optional
 // type-to-confirm phrase for the most destructive operations.
+//
+// Built on the shared <Dialog> primitive (Radix), so focus-trap, ESC-to-close,
+// scroll-lock, return-focus, and `aria-modal` come for free — this file just
+// owns the confirm/cancel layout and the type-to-confirm gate. Public API is
+// unchanged, so existing callers keep working.
 
-import { useEffect, useState, type ReactNode } from 'react';
-import { AlertTriangle, X } from 'lucide-react';
+import { useEffect, useId, useState, type ReactNode } from 'react';
+import { AlertTriangle } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/Dialog';
+import { Button } from '@/components/ui/Button';
 
 export interface ConfirmDialogProps {
   open: boolean;
@@ -32,82 +45,73 @@ export function ConfirmDialog({
   onCancel,
 }: ConfirmDialogProps) {
   const [phrase, setPhrase] = useState('');
+  const descId = useId();
+  const phraseId = useId();
 
   useEffect(() => {
     if (!open) setPhrase('');
   }, [open]);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onCancel();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open, onCancel]);
-
-  if (!open) return null;
-
   const blocked = Boolean(requirePhrase) && phrase.trim() !== requirePhrase;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-label={title}
+    <Dialog
+      open={open}
+      onOpenChange={(next) => {
+        // Radix fires this on ESC / overlay-click / Close — treat any close as cancel.
+        if (!next) onCancel();
+      }}
     >
-      <button aria-label="Dismiss" className="absolute inset-0 bg-foreground/60" onClick={onCancel} />
-      <div className="relative w-full max-w-md rounded-xl border border-border bg-card p-5 shadow-2xl">
-        <div className="flex items-start justify-between gap-3">
+      {/* `description` is rendered as a div (it may be rich ReactNode), wired to
+          the dialog via aria-describedby so we don't force it into a <p>. */}
+      <DialogContent aria-describedby={description != null ? descId : undefined}>
+        <DialogHeader>
           <div className="flex items-start gap-3">
-            {danger && <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-error-text" />}
-            <h2 className="text-base font-semibold text-foreground">{title}</h2>
+            {danger && (
+              <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-error-text" aria-hidden="true" />
+            )}
+            <DialogTitle>{title}</DialogTitle>
           </div>
-          <button onClick={onCancel} className="text-muted-foreground hover:text-foreground" aria-label="Close">
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-
-        {description && <div className="mt-3 text-sm text-muted-foreground">{description}</div>}
+          {description != null && (
+            <div id={descId} className="text-sm text-muted-foreground">
+              {description}
+            </div>
+          )}
+        </DialogHeader>
 
         {requirePhrase && (
-          <div className="mt-4">
-            <label className="text-xs text-muted-foreground">
-              Type <code className="rounded bg-muted px-1 text-foreground">{requirePhrase}</code> to confirm
+          <div>
+            <label htmlFor={phraseId} className="text-xs text-muted-foreground">
+              Type <code className="rounded bg-muted px-1 text-foreground">{requirePhrase}</code> to
+              confirm
             </label>
             <input
+              id={phraseId}
               // Intentional: move focus to the confirm-phrase input when this
               // destructive-action dialog opens (WCAG focus management).
               // eslint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
               value={phrase}
               onChange={(e) => setPhrase(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-ring"
+              className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus-visible:border-ring"
             />
           </div>
         )}
 
-        <div className="mt-5 flex justify-end gap-2">
-          <button
-            onClick={onCancel}
-            className="rounded-lg border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted"
-          >
+        <DialogFooter>
+          <Button variant="secondary" size="sm" onClick={onCancel}>
             {cancelLabel}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant={danger ? 'danger' : 'primary'}
+            size="sm"
             onClick={onConfirm}
             disabled={blocked}
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40 ${
-              danger
-                ? 'bg-error text-white hover:bg-error'
-                : 'bg-warning text-foreground hover:bg-warning'
-            }`}
           >
             {confirmLabel}
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
