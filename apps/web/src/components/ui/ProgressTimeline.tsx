@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn, scoreToColorVar } from '@/lib/utils';
 
 export interface ProgressTimelinePoint {
   label: string;
@@ -14,13 +14,15 @@ interface ProgressTimelineProps {
   className?: string;
 }
 
-/** Grade-band color for a 0–100 score (shared with ScoreRing's bands). */
+/**
+ * Theme-safe grade-band color for a 0–100 score (shared with ScoreRing).
+ * Delegates to the single source of truth in `lib/utils` so dots/labels track
+ * the per-theme, AA-tuned `*-text` accents instead of fixed hex. Apply via a CSS
+ * property (`style`), never an SVG presentation attribute — `var()` only
+ * resolves in CSS.
+ */
 export function scoreBandColor(score: number): string {
-  if (score >= 85) return '#16a34a';
-  if (score >= 70) return '#2563eb';
-  if (score >= 55) return '#ca8a04';
-  if (score >= 40) return '#ea580c';
-  return '#dc2626';
+  return scoreToColorVar(score);
 }
 
 /**
@@ -68,7 +70,7 @@ export function ProgressTimeline({ points, height = 120, onPaper = false, classN
             cx={x(i)}
             cy={y(p.score)}
             r={2.4}
-            fill={scoreBandColor(p.score)}
+            style={{ fill: scoreBandColor(p.score) }}
             stroke={dotRing}
             strokeWidth={0.8}
           />

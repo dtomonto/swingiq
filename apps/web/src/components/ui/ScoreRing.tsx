@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { cn, scoreToColorVar } from '@/lib/utils';
 
 interface ScoreRingProps {
   score: number;
@@ -16,14 +16,6 @@ interface ScoreRingProps {
   glow?: boolean;
 }
 
-function getScoreColor(score: number): string {
-  if (score >= 85) return '#16a34a';
-  if (score >= 70) return '#2563eb';
-  if (score >= 55) return '#ca8a04';
-  if (score >= 40) return '#ea580c';
-  return '#dc2626';
-}
-
 function getGrade(score: number): string {
   if (score >= 85) return 'A';
   if (score >= 70) return 'B';
@@ -36,7 +28,7 @@ export function ScoreRing({ score, size = 80, strokeWidth = 6, label, className,
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const offset = circumference - (score / 100) * circumference;
-  const color = getScoreColor(score);
+  const color = scoreToColorVar(score);
 
   return (
     <div className={cn('flex flex-col items-center gap-1', className)}>
@@ -55,12 +47,14 @@ export function ScoreRing({ score, size = 80, strokeWidth = 6, label, className,
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke={color}
             strokeWidth={strokeWidth}
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             strokeLinecap="round"
             style={{
+              // `stroke` lives here (not as an attribute) so the token's
+              // `var()` resolves — `var()` is ignored in SVG presentation attrs.
+              stroke: color,
               transition: 'stroke-dashoffset 0.5s ease',
               ...(glow ? { filter: `drop-shadow(0 0 ${Math.max(4, Math.round(strokeWidth * 0.85))}px ${color})` } : {}),
             }}

@@ -48,6 +48,18 @@ export function scoreToColor(score: number): string {
   return 'text-error-text';
 }
 
+export function scoreToColorVar(score: number): string {
+  // Theme-safe score color as a resolvable CSS color VALUE (not a class), for
+  // SVG / inline styles a Tailwind class can't reach (ScoreRing stroke,
+  // ProgressTimeline dots). Same good/ok/bad bands as `scoreToColor`, using the
+  // per-theme AA-tuned `*-text` accents instead of fixed hex. IMPORTANT: apply
+  // via a CSS property (e.g. `style={{ stroke }}`), never an SVG presentation
+  // attribute — `var()` only resolves in CSS, not in attribute values.
+  if (score >= 70) return 'hsl(var(--success-text))';
+  if (score >= 40) return 'hsl(var(--warning-text))';
+  return 'hsl(var(--error-text))';
+}
+
 export function scoreToBgColor(score: number): string {
   // Theme-aware tints (collapse 5 grade tiers to good/ok/bad so they stay
   // legible across every theme, including Dark Performance).
