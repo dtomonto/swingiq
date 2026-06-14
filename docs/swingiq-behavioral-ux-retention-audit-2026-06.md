@@ -1,5 +1,10 @@
 # SwingVantage — Behavioral Science, UX, Engagement & Retention Audit
 
+> ⚠️ **Partially superseded (2026-06-13).** Several recommendations here have since
+> shipped (e.g. the home CTA now routes to `/start`; accounts + cloud sync are
+> code-complete). See **[STATUS_REFRESH_2026-06-13.md](STATUS_REFRESH_2026-06-13.md)**
+> for the current, code-verified status before acting on any item below.
+
 **Date:** June 2, 2026
 
 > **Update (2026-06-10):** Sport coverage has since grown to **7 sports** (golf, tennis, pickleball, padel, baseball, slow-pitch & fast-pitch softball); pickleball and padel were added after this audit. "Five sports" below reflects the June 2, 2026 snapshot.
