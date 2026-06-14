@@ -1,7 +1,12 @@
 // SectionCard — the standard bordered panel used across admin pages.
 // Server-safe. Optional header (title/description) + actions slot.
+//
+// Built on the shared <Card> surface (rendered as <section>) so it inherits the
+// theme radius/border/shadow tokens instead of re-declaring them.
 
 import type { ReactNode } from 'react';
+import { Card } from '@/components/ui/Card';
+import { cn } from '@/lib/utils';
 
 export interface SectionCardProps {
   title?: ReactNode;
@@ -16,18 +21,13 @@ export interface SectionCardProps {
   level?: 'elevated' | 'card' | 'flat';
 }
 
-// The app exposes the theme shadows as the `shadow-theme` / `shadow-theme-lg`
-// utilities (→ var(--shadow-card) / var(--shadow-elevated)); `shadow-card` is
-// not a real utility.
-const LEVEL_SHADOW: Record<NonNullable<SectionCardProps['level']>, string> = {
-  elevated: 'shadow-theme-lg',
-  card: 'shadow-theme',
-  flat: '',
-};
-
 export function SectionCard({ title, description, actions, children, className, level = 'card' }: SectionCardProps) {
   return (
-    <section className={`rounded-xl border border-border bg-card p-5 ${LEVEL_SHADOW[level]} ${className ?? ''}`}>
+    <Card
+      as="section"
+      elevated={level === 'elevated'}
+      className={cn('p-5', level === 'flat' && 'shadow-none', className)}
+    >
       {(title || actions) && (
         <div className="mb-3 flex items-start justify-between gap-3">
           <div>
@@ -38,6 +38,6 @@ export function SectionCard({ title, description, actions, children, className, 
         </div>
       )}
       {children}
-    </section>
+    </Card>
   );
 }

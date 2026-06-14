@@ -13,6 +13,9 @@ interface CardRootProps extends CardProps {
   elevated?: boolean;
   /** Add the theme's accent glow ring (neon on dark themes, soft ring on light). */
   glow?: boolean;
+  /** Render a different element (e.g. "section", "article") while keeping the
+   *  card surface. @default "div" */
+  as?: React.ElementType;
 }
 
 // Tints layer a faint status wash + matching border over the card surface.
@@ -32,9 +35,11 @@ export function Card({
   tint = 'none',
   elevated = false,
   glow = false,
+  as,
   style,
   ...props
 }: CardRootProps) {
+  const Comp = as ?? 'div';
   // Compose the box-shadow only when a non-default elevation/glow is requested
   // so the common path stays on the `shadow-theme` utility (byte-identical to
   // before). Glow layers ON TOP of the surface shadow, matching the design ref.
@@ -45,7 +50,7 @@ export function Card({
           .join(', ')
       : undefined;
   return (
-    <div
+    <Comp
       className={cn(
         'bg-card text-card-foreground rounded-theme border border-border',
         !composedShadow && 'shadow-theme',
@@ -56,7 +61,7 @@ export function Card({
       {...props}
     >
       {children}
-    </div>
+    </Comp>
   );
 }
 
