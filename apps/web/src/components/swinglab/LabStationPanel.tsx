@@ -54,11 +54,11 @@ export function LabStationPanel({
         type="button"
         aria-label="Close station details"
         onClick={onClose}
-        className="absolute inset-0 h-full w-full cursor-default bg-slate-950/70 backdrop-blur-sm motion-safe:animate-[fadeIn_0.15s_ease-out]"
+        className="absolute inset-0 h-full w-full cursor-default bg-stage/70 backdrop-blur-sm motion-safe:animate-[fadeIn_0.15s_ease-out]"
       />
 
       {/* Panel — right drawer on >=sm, bottom sheet on mobile */}
-      <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-3xl border-t border-white/10 bg-slate-900 p-6 shadow-2xl motion-safe:animate-[slideUp_0.2s_ease-out] sm:inset-y-0 sm:right-0 sm:left-auto sm:max-h-none sm:w-[24rem] sm:rounded-t-none sm:rounded-l-3xl sm:border-l sm:border-t-0">
+      <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-3xl border-t border-white/10 bg-stage-panel p-6 shadow-2xl motion-safe:animate-[slideUp_0.2s_ease-out] sm:inset-y-0 sm:right-0 sm:left-auto sm:max-h-none sm:w-[24rem] sm:rounded-t-none sm:rounded-l-3xl sm:border-l sm:border-t-0">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
             <span className={`flex h-11 w-11 items-center justify-center rounded-xl ring-1 ${accent.tile}`}>
@@ -74,7 +74,7 @@ export function LabStationPanel({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+            className="rounded-lg p-1.5 text-stage-muted transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
           >
             <X size={18} aria-hidden="true" />
           </button>
@@ -89,13 +89,13 @@ export function LabStationPanel({
           </div>
         )}
 
-        <p className="mt-4 text-sm leading-relaxed text-slate-300">{station.blurb}</p>
+        <p className="mt-4 text-sm leading-relaxed text-stage-foreground">{station.blurb}</p>
 
         <div className="mt-5">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">Inside this station</p>
+          <p className="text-[11px] font-medium uppercase tracking-wide text-stage-muted">Inside this station</p>
           <ul className="mt-2 space-y-1.5">
             {station.functions.map((fn) => (
-              <li key={fn} className="flex items-start gap-2 text-sm text-slate-400">
+              <li key={fn} className="flex items-start gap-2 text-sm text-stage-muted">
                 <span aria-hidden="true" className={`mt-1.5 h-1 w-1 shrink-0 rounded-full bg-current ${accent.text}`} />
                 {fn}
               </li>
@@ -104,10 +104,10 @@ export function LabStationPanel({
         </div>
 
         <div className="mt-5">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">Connects</p>
+          <p className="text-[11px] font-medium uppercase tracking-wide text-stage-muted">Connects</p>
           <div className="mt-1.5 flex flex-wrap gap-1.5">
             {station.connects.map((c) => (
-              <span key={c} className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[11px] font-medium text-slate-300">
+              <span key={c} className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[11px] font-medium text-stage-foreground">
                 {c}
               </span>
             ))}
@@ -117,12 +117,12 @@ export function LabStationPanel({
         {station.liveHref && (
           <Link
             href={station.liveHref}
-            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 text-sm font-bold text-slate-950 transition-colors hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 text-sm font-bold text-stage transition-colors hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-stage-panel"
           >
             {station.liveLabel ?? 'Open the tool'} <ArrowRight size={16} aria-hidden="true" />
           </Link>
         )}
-        <p className="mt-3 text-center text-[11px] text-slate-500">
+        <p className="mt-3 text-center text-[11px] text-stage-muted">
           The tool is live today · the immersive station is in development
         </p>
       </div>

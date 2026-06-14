@@ -131,7 +131,7 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
             <button
               onClick={scanNow}
               disabled={busy}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500 px-3 py-1.5 text-sm font-semibold text-gray-950 hover:bg-amber-400 disabled:opacity-60"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500 px-3 py-1.5 text-sm font-semibold text-stage hover:bg-amber-400 disabled:opacity-60"
             >
               <RefreshCw className={`h-4 w-4 ${busy ? 'animate-spin' : ''}`} />
               {busy ? 'Scanning…' : 'Scan now'}
@@ -160,7 +160,7 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
       </div>
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-1 border-b border-gray-800">
+      <div className="flex flex-wrap gap-1 border-b border-border">
         {TABS.map((t) => {
           const Icon = t.icon;
           const active = tab === t.id;
@@ -169,7 +169,7 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
               key={t.id}
               onClick={() => setTab(t.id)}
               className={`-mb-px inline-flex items-center gap-1.5 border-b-2 px-3 py-2 text-sm font-medium ${
-                active ? 'border-amber-400 text-amber-400' : 'border-transparent text-gray-400 hover:text-gray-200'
+                active ? 'border-amber-400 text-amber-400' : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
               <Icon className="h-4 w-4" />
@@ -184,13 +184,13 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">
             <SectionCard title="Coverage" description="How much of the product is fully taught (published or approved across every warranted asset type).">
-              <div className="mb-2 h-3 overflow-hidden rounded-full bg-gray-800">
+              <div className="mb-2 h-3 overflow-hidden rounded-full bg-muted">
                 <div className="h-full rounded-full bg-emerald-500/70" style={{ width: `${summary.coveragePct}%` }} />
               </div>
-              <div className="flex flex-wrap gap-4 text-sm text-gray-400">
+              <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                 <span><span className="font-semibold text-emerald-400">{summary.fullyCovered}</span> fully covered</span>
                 <span><span className="font-semibold text-amber-400">{summary.partiallyCovered}</span> partial</span>
-                <span><span className="font-semibold text-gray-300">{summary.uncovered}</span> uncovered</span>
+                <span><span className="font-semibold text-muted-foreground">{summary.uncovered}</span> uncovered</span>
               </div>
             </SectionCard>
 
@@ -200,19 +200,19 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
               actions={<button onClick={() => setTab('gaps')} className="text-xs text-amber-400 hover:underline">View all</button>}
             >
               {gaps.length === 0 ? (
-                <p className="text-sm text-gray-500">No gaps — every feature has its warranted assets. 🎉</p>
+                <p className="text-sm text-muted-foreground">No gaps — every feature has its warranted assets. 🎉</p>
               ) : (
                 <ul className="space-y-2">
                   {gaps.slice(0, 6).map((g) => (
                     <li key={g.featureId}>
-                      <Link href={`/admin/feature-education/${g.featureId}`} className="flex items-center justify-between gap-3 rounded-lg border border-gray-800 p-2.5 hover:border-gray-700">
+                      <Link href={`/admin/feature-education/${g.featureId}`} className="flex items-center justify-between gap-3 rounded-lg border border-border p-2.5 hover:border-border">
                         <span className="min-w-0">
-                          <span className="block truncate text-sm font-medium text-gray-200">{g.featureName}</span>
-                          <span className="block truncate text-xs text-gray-500">{g.missing.length} missing · {g.weak.length} weak</span>
+                          <span className="block truncate text-sm font-medium text-foreground">{g.featureName}</span>
+                          <span className="block truncate text-xs text-muted-foreground">{g.missing.length} missing · {g.weak.length} weak</span>
                         </span>
                         <span className="flex items-center gap-2">
                           <StatusBadge tone={g.priorityScore >= 70 ? 'danger' : g.priorityScore >= 40 ? 'warning' : 'neutral'}>P{g.priorityScore}</StatusBadge>
-                          <ArrowUpRight className="h-4 w-4 text-gray-600" />
+                          <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
                         </span>
                       </Link>
                     </li>
@@ -224,11 +224,11 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
 
           <div className="space-y-6">
             <SectionCard title="Storage">
-              <p className="text-sm text-gray-400">{initial.backend}</p>
+              <p className="text-sm text-muted-foreground">{initial.backend}</p>
               {!initial.persistent && (
-                <p className="mt-2 text-xs text-gray-500">
+                <p className="mt-2 text-xs text-muted-foreground">
                   The registry is read from the committed snapshot; generated drafts live in memory. Apply{' '}
-                  <code className="text-gray-400">supabase-feature-education.sql</code> to persist.
+                  <code className="text-muted-foreground">supabase-feature-education.sql</code> to persist.
                 </p>
               )}
             </SectionCard>
@@ -247,25 +247,25 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
         >
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <div className="relative flex-1 min-w-[200px]">
-              <Search className="pointer-events-none absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+              <Search className="pointer-events-none absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <input
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Search name, slug or route…"
-                className="w-full rounded-lg border border-gray-800 bg-gray-950 py-2 pl-8 pr-3 text-sm text-gray-200 placeholder-gray-600 focus:border-amber-500 focus:outline-none"
+                className="w-full rounded-lg border border-border bg-background py-2 pl-8 pr-3 text-sm text-foreground placeholder-muted-foreground focus:border-amber-500 focus:outline-none"
               />
             </div>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value as FeatureCategory | 'all')}
-              className="rounded-lg border border-gray-800 bg-gray-950 px-3 py-2 text-sm text-gray-200 focus:border-amber-500 focus:outline-none"
+              className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-amber-500 focus:outline-none"
             >
               <option value="all">All categories</option>
               {categories.map((c) => (
                 <option key={c} value={c}>{CATEGORY_LABELS[c]}</option>
               ))}
             </select>
-            <label className="flex items-center gap-1.5 text-sm text-gray-400">
+            <label className="flex items-center gap-1.5 text-sm text-muted-foreground">
               <input type="checkbox" checked={reviewOnly} onChange={(e) => setReviewOnly(e.target.checked)} className="accent-amber-500" />
               Needs review
             </label>
@@ -273,7 +273,7 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="text-[11px] uppercase tracking-wide text-gray-500">
+              <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
                 <tr>
                   <th className="pb-2 pr-3">Feature</th>
                   <th className="pb-2 pr-3">Category</th>
@@ -282,28 +282,28 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
                   <th className="pb-2">Status</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-300">
+              <tbody className="text-muted-foreground">
                 {filtered.slice(0, 200).map((f) => {
                   const cov = coverageOf(f);
                   const pct = cov.total ? Math.round((cov.covered / cov.total) * 100) : 0;
                   return (
-                    <tr key={f.id} className="border-t border-gray-800 hover:bg-gray-800/30">
+                    <tr key={f.id} className="border-t border-border hover:bg-muted/30">
                       <td className="py-2 pr-3">
-                        <Link href={`/admin/feature-education/${f.id}`} className="font-medium text-gray-100 hover:text-amber-400">
+                        <Link href={`/admin/feature-education/${f.id}`} className="font-medium text-foreground hover:text-amber-400">
                           {f.name}
                         </Link>
-                        <span className="block truncate text-xs text-gray-500">{f.routes[0] ?? f.apiEndpoints[0] ?? f.slug}</span>
+                        <span className="block truncate text-xs text-muted-foreground">{f.routes[0] ?? f.apiEndpoints[0] ?? f.slug}</span>
                       </td>
-                      <td className="py-2 pr-3 text-xs text-gray-400">{CATEGORY_LABELS[f.category]}</td>
+                      <td className="py-2 pr-3 text-xs text-muted-foreground">{CATEGORY_LABELS[f.category]}</td>
                       <td className="py-2 pr-3">
                         <div className="flex items-center gap-2">
-                          <div className="h-1.5 w-16 overflow-hidden rounded-full bg-gray-800">
+                          <div className="h-1.5 w-16 overflow-hidden rounded-full bg-muted">
                             <div className={`h-full rounded-full ${pct >= 100 ? 'bg-emerald-500/70' : 'bg-amber-500/70'}`} style={{ width: `${pct}%` }} />
                           </div>
-                          <span className="tabular-nums text-xs text-gray-500">{cov.covered}/{cov.total}</span>
+                          <span className="tabular-nums text-xs text-muted-foreground">{cov.covered}/{cov.total}</span>
                         </div>
                       </td>
-                      <td className="py-2 pr-3 tabular-nums text-xs text-gray-400">{f.confidence}</td>
+                      <td className="py-2 pr-3 tabular-nums text-xs text-muted-foreground">{f.confidence}</td>
                       <td className="py-2">
                         {f.needsHumanReview ? (
                           <StatusBadge tone="warning">review</StatusBadge>
@@ -318,7 +318,7 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
                 })}
               </tbody>
             </table>
-            {filtered.length === 0 && <p className="py-6 text-center text-sm text-gray-500">No features match.</p>}
+            {filtered.length === 0 && <p className="py-6 text-center text-sm text-muted-foreground">No features match.</p>}
           </div>
         </SectionCard>
       )}
@@ -327,17 +327,17 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
       {tab === 'gaps' && (
         <SectionCard title={`Content gaps (${gaps.length})`} description="Features missing learning assets, ranked by impact (audience reach × importance × how much is missing).">
           {gaps.length === 0 ? (
-            <p className="text-sm text-gray-500">No gaps. Every feature has its warranted assets.</p>
+            <p className="text-sm text-muted-foreground">No gaps. Every feature has its warranted assets.</p>
           ) : (
             <ul className="space-y-2">
               {gaps.map((g) => (
-                <li key={g.featureId} className="rounded-lg border border-gray-800 p-3">
+                <li key={g.featureId} className="rounded-lg border border-border p-3">
                   <div className="flex items-center justify-between gap-3">
-                    <Link href={`/admin/feature-education/${g.featureId}`} className="font-medium text-gray-100 hover:text-amber-400">{g.featureName}</Link>
+                    <Link href={`/admin/feature-education/${g.featureId}`} className="font-medium text-foreground hover:text-amber-400">{g.featureName}</Link>
                     <StatusBadge tone={g.priorityScore >= 70 ? 'danger' : g.priorityScore >= 40 ? 'warning' : 'neutral'}>Priority {g.priorityScore}</StatusBadge>
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1">
-                    {g.missing.map((t) => <span key={t} className="rounded bg-gray-800 px-1.5 py-0.5 text-[11px] text-gray-400">missing: {t}</span>)}
+                    {g.missing.map((t) => <span key={t} className="rounded bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground">missing: {t}</span>)}
                     {g.weak.map((t) => <span key={t} className="rounded bg-amber-500/10 px-1.5 py-0.5 text-[11px] text-amber-400">weak: {t}</span>)}
                   </div>
                 </li>
@@ -351,14 +351,14 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
       {tab === 'drift' && (
         <SectionCard title={`Drift queue (${drift.length})`} description="Where the product changed but its docs didn't. The engine proposes a fix for each.">
           {drift.length === 0 ? (
-            <p className="text-sm text-gray-500">No drift detected. Docs are in sync with the product.</p>
+            <p className="text-sm text-muted-foreground">No drift detected. Docs are in sync with the product.</p>
           ) : (
             <ul className="space-y-2">
               {drift.map((d) => (
-                <li key={d.id} className="flex items-start justify-between gap-3 rounded-lg border border-gray-800 p-3">
+                <li key={d.id} className="flex items-start justify-between gap-3 rounded-lg border border-border p-3">
                   <div className="min-w-0">
-                    <Link href={`/admin/feature-education/${d.featureId}`} className="text-sm font-medium text-gray-200 hover:text-amber-400">{d.kind}</Link>
-                    <p className="mt-0.5 text-xs text-gray-500">{d.detail}</p>
+                    <Link href={`/admin/feature-education/${d.featureId}`} className="text-sm font-medium text-foreground hover:text-amber-400">{d.kind}</Link>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{d.detail}</p>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
                     <StatusBadge tone="info">{d.proposedAction}</StatusBadge>
@@ -380,17 +380,17 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
 
       <HelpPanel>
         <p>
-          <strong className="text-gray-300">What this is.</strong> An automated documentation department. As you ship
+          <strong className="text-muted-foreground">What this is.</strong> An automated documentation department. As you ship
           features (detected from routes, admin nav and commits), it drafts the tutorials, how-tos, manuals, FAQs,
           troubleshooting, video scripts, release notes and in-app help each one warrants.
         </p>
         <p>
-          <strong className="text-gray-300">How to use it.</strong> Open a feature, click <em>Generate package</em>,
+          <strong className="text-muted-foreground">How to use it.</strong> Open a feature, click <em>Generate package</em>,
           review the drafts (each is quality-scored and security-scanned), then approve and publish. Nothing goes live
           without your approval. Use <em>Scan now</em> after big changes; the git hook keeps the registry fresh on every push.
         </p>
         <p>
-          <strong className="text-gray-300">Add a feature by hand.</strong> Put a{' '}
+          <strong className="text-muted-foreground">Add a feature by hand.</strong> Put a{' '}
           <code>Feature: &lt;name&gt;</code> trailer in any commit and it’s registered with high confidence.
         </p>
       </HelpPanel>
@@ -399,16 +399,16 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
 }
 
 function ActivityList({ audit }: { audit: FeeAuditLog[] }) {
-  if (audit.length === 0) return <p className="text-sm text-gray-500">No activity yet. Run a scan or generate a package.</p>;
+  if (audit.length === 0) return <p className="text-sm text-muted-foreground">No activity yet. Run a scan or generate a package.</p>;
   return (
     <ul className="space-y-1.5">
       {audit.map((a) => (
         <li key={a.id} className="flex items-start justify-between gap-3 text-sm">
           <span className="min-w-0">
-            <span className="text-gray-300">{a.summary}</span>
-            <span className="block text-[11px] text-gray-600">{a.actor} · {a.action}</span>
+            <span className="text-muted-foreground">{a.summary}</span>
+            <span className="block text-[11px] text-muted-foreground">{a.actor} · {a.action}</span>
           </span>
-          <time className="shrink-0 text-[11px] text-gray-600">{new Date(a.createdAt).toLocaleString()}</time>
+          <time className="shrink-0 text-[11px] text-muted-foreground">{new Date(a.createdAt).toLocaleString()}</time>
         </li>
       ))}
     </ul>

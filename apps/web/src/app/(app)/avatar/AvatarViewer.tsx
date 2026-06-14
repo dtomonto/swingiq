@@ -46,7 +46,7 @@ const DIAGNOSIS_FAULTS: Record<string, string[]> = {
 
 function Avatar3DPlaceholder({ phase, fault }: { phase: number; fault: string | null }) {
   return (
-    <div className="w-full h-full flex items-center justify-center bg-linear-to-b from-slate-800 to-slate-900 rounded-xl">
+    <div className="w-full h-full flex items-center justify-center bg-linear-to-b from-stage-panel to-stage-panel rounded-xl">
       <div className="text-center">
         <svg width="120" height="240" viewBox="0 0 120 240" className="mx-auto mb-4">
           {/* Head */}
@@ -85,7 +85,7 @@ function Avatar3DPlaceholder({ phase, fault }: { phase: number; fault: string | 
             <p className="text-red-300 text-xs">{FAULT_TOGGLES.find((f) => f.id === fault)?.label}</p>
           </div>
         )}
-        <p className="text-slate-400 text-xs mt-3 max-w-xs">
+        <p className="text-stage-muted text-xs mt-3 max-w-xs">
           Full 3D model renders in a future update.
           This placeholder shows estimated phase position.
         </p>
@@ -317,7 +317,7 @@ function LaunchMonitorAvatarView() {
         <div className="lg:col-span-2">
           <div className="h-96 rounded-xl overflow-hidden">
             <Suspense fallback={
-              <div className="h-full bg-slate-800 rounded-xl flex items-center justify-center text-white">
+              <div className="h-full bg-stage-panel rounded-xl flex items-center justify-center text-white">
                 Loading...
               </div>
             }>

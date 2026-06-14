@@ -571,7 +571,7 @@ const SHAPE_COLORS: Record<string, string> = {
   draw: 'bg-blue-500',
   hook: 'bg-purple-500',
   push: 'bg-amber-500',
-  pull: 'bg-gray-400',
+  pull: 'bg-muted-foreground',
   push_draw: 'bg-cyan-500',
   pull_fade: 'bg-pink-400',
 };
@@ -620,7 +620,7 @@ function ShotShapeBreakdown({ shots }: { shots: Shot[] }) {
             <span className="text-xs text-muted-foreground w-20 shrink-0">{SHAPE_LABELS[shape] ?? shape}</span>
             <div className="flex-1 h-4 bg-muted rounded-full overflow-hidden">
               <div
-                className={`h-full rounded-full transition-all ${SHAPE_COLORS[shape] ?? 'bg-gray-400'} ${IDEAL_SHAPES.has(shape) ? 'opacity-100' : 'opacity-60'}`}
+                className={`h-full rounded-full transition-all ${SHAPE_COLORS[shape] ?? 'bg-muted-foreground'} ${IDEAL_SHAPES.has(shape) ? 'opacity-100' : 'opacity-60'}`}
                 style={{ width: `${pct}%` }}
               />
             </div>

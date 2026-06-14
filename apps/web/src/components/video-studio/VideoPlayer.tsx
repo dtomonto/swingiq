@@ -218,7 +218,7 @@ function PlaceholderPoster({
       {!started && (
         <span className="absolute inset-0 flex items-center justify-center">
           <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform group-hover:scale-105">
-            <Play size={24} className="ml-0.5 text-gray-900" aria-hidden="true" />
+            <Play size={24} className="ml-0.5 text-stage" aria-hidden="true" />
           </span>
         </span>
       )}

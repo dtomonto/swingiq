@@ -30,10 +30,10 @@ export default async function LabHubPage() {
   if (!allowed) redirect('/dashboard');
 
   return (
-    <div className="relative isolate min-h-screen overflow-hidden bg-slate-950 text-slate-200">
+    <div className="relative isolate min-h-screen overflow-hidden bg-stage text-stage-foreground">
       {/* Ambient lab atmosphere (decorative) */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950 to-[#070b16]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-stage via-stage to-stage-panel" />
         <div className="absolute left-1/2 top-[-10%] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-emerald-600/10 blur-3xl" />
         <div className="absolute right-[-10%] top-[30%] h-[24rem] w-[24rem] rounded-full bg-cyan-600/10 blur-3xl" />
       </div>
@@ -48,14 +48,14 @@ export default async function LabHubPage() {
                 <FlaskConical size={12} aria-hidden="true" /> Admin preview · in development
               </span>
             </div>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-400">
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-stage-muted">
               Your future performance command center. Walk the lab, pick a station, and jump straight into the tool —
               the interactive map is live; the immersive first-person experience is still being built.
             </p>
           </div>
           <Link
             href="/dashboard"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-stage-foreground transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
           >
             <ArrowLeft size={15} aria-hidden="true" /> Dashboard
           </Link>

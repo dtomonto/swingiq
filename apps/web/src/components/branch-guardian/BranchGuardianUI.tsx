@@ -2,7 +2,7 @@
 // BranchGuardianOS — shared presentational components (server-safe)
 // ------------------------------------------------------------
 // Pure, hook-free building blocks shared across the BranchGuardianOS dashboard
-// so the look stays consistent with the rest of the admin (gray-900 panels,
+// so the look stays consistent with the rest of the admin (theme-aware surfaces,
 // emerald/amber/red tone palette). No 'use client' — these render in both
 // server and client components. Mirrors components/security-os/SecurityUI.
 // ============================================================
@@ -62,7 +62,7 @@ export function CleanlinessDial({
         />
       </svg>
       <div className="absolute flex flex-col items-center">
-        <span className="text-3xl font-bold tabular-nums text-gray-100">{value}</span>
+        <span className="text-3xl font-bold tabular-nums text-foreground">{value}</span>
         <span className="text-[11px] font-medium uppercase tracking-wide" style={{ color }}>
           {HEALTH_BAND_LABEL[band]}
         </span>
@@ -77,10 +77,10 @@ export function HealthBar({ value, band }: { value: number; band: HealthBand }) 
   const color = BAND_COLOR[band];
   return (
     <div className="flex items-center gap-2">
-      <div className="h-2 w-full overflow-hidden rounded-full bg-gray-800">
+      <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
         <div className="h-full rounded-full" style={{ width: `${Math.max(0, Math.min(100, value))}%`, background: color }} />
       </div>
-      <span className="w-9 shrink-0 text-right text-xs tabular-nums text-gray-300">{value}</span>
+      <span className="w-9 shrink-0 text-right text-xs tabular-nums text-muted-foreground">{value}</span>
     </div>
   );
 }
@@ -102,7 +102,7 @@ const SEVERITY_TONE: Record<RecSeverity, string> = {
   high: 'bg-orange-500/15 text-orange-300 border-orange-500/40',
   medium: 'bg-amber-500/15 text-amber-300 border-amber-500/40',
   low: 'bg-sky-500/15 text-sky-300 border-sky-500/40',
-  info: 'bg-gray-700/40 text-gray-300 border-gray-600/50',
+  info: 'bg-muted/40 text-muted-foreground border-border/50',
 };
 
 export function SeverityPill({ severity }: { severity: RecSeverity }) {
@@ -142,11 +142,11 @@ function Pill({ children, className }: { children: ReactNode; className: string 
 
 export function Panel({ title, hint, children, actions }: { title: ReactNode; hint?: ReactNode; children: ReactNode; actions?: ReactNode }) {
   return (
-    <section className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+    <section className="rounded-xl border border-border bg-card p-4">
       <div className="mb-3 flex items-start justify-between gap-3">
         <div>
-          <h3 className="text-sm font-semibold text-gray-100">{title}</h3>
-          {hint && <p className="mt-0.5 text-xs text-gray-500">{hint}</p>}
+          <h3 className="text-sm font-semibold text-foreground">{title}</h3>
+          {hint && <p className="mt-0.5 text-xs text-muted-foreground">{hint}</p>}
         </div>
         {actions}
       </div>
@@ -158,7 +158,7 @@ export function Panel({ title, hint, children, actions }: { title: ReactNode; hi
 /** Tiny inline sparkline for the cleanliness trend. */
 export function Sparkline({ points, color = '#34d399', width = 220, height = 44 }: { points: number[]; color?: string; width?: number; height?: number }) {
   if (points.length < 2) {
-    return <p className="text-xs text-gray-500">Not enough history yet — snapshots accrue each day you visit.</p>;
+    return <p className="text-xs text-muted-foreground">Not enough history yet — snapshots accrue each day you visit.</p>;
   }
   const min = Math.min(...points);
   const max = Math.max(...points, min + 1);

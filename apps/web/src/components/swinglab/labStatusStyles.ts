@@ -17,6 +17,6 @@ export const STATUS_CHIP: Record<StationStatusKind, ChipStyle> = {
   retest_due: { className: 'bg-amber-500/15 text-amber-300 ring-1 ring-amber-400/30', dot: 'bg-amber-400' },
   in_progress: { className: 'bg-cyan-500/15 text-cyan-300 ring-1 ring-cyan-400/30', dot: 'bg-cyan-400' },
   new: { className: 'bg-violet-500/15 text-violet-300 ring-1 ring-violet-400/30', dot: 'bg-violet-400' },
-  visited: { className: 'bg-white/10 text-slate-300 ring-1 ring-white/15', dot: 'bg-slate-400' },
-  neutral: { className: 'bg-white/10 text-slate-400 ring-1 ring-white/10', dot: 'bg-slate-500' },
+  visited: { className: 'bg-white/10 text-stage-foreground ring-1 ring-white/15', dot: 'bg-stage-muted' },
+  neutral: { className: 'bg-white/10 text-stage-muted ring-1 ring-white/10', dot: 'bg-stage-muted' },
 };

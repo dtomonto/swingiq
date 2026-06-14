@@ -189,7 +189,7 @@ export function UpdatesContent({ updates, milestones, featured }: UpdatesContent
                 placeholder="Search updates..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 border border-border rounded-lg text-sm text-foreground placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-primary/50 focus:border-transparent"
+                className="w-full pl-9 pr-4 py-2.5 border border-border rounded-lg text-sm text-foreground placeholder-muted-foreground focus:outline-hidden focus:ring-2 focus:ring-primary/50 focus:border-transparent"
               />
             </div>
 

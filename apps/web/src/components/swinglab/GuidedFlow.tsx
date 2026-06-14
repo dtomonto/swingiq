@@ -30,7 +30,7 @@ export function GuidedFlow({ steps }: { steps: GuidedStep[] }) {
             {doneCount}/{steps.length} done
           </span>
         </div>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-stage-muted">
           {allDone ? 'Loop complete — capture a fresh swing to keep improving.' : 'The lab leads — follow the highlighted step.'}
         </p>
       </div>
@@ -56,15 +56,15 @@ export function GuidedFlow({ steps }: { steps: GuidedStep[] }) {
                     isDone
                       ? 'bg-emerald-500/20 text-emerald-300 ring-1 ring-emerald-400/40'
                       : isCurrent
-                        ? 'bg-emerald-500 text-slate-950'
-                        : 'bg-white/10 text-slate-400'
+                        ? 'bg-emerald-500 text-stage'
+                        : 'bg-white/10 text-stage-muted'
                   }`}
                 >
                   {isDone ? <Check size={13} strokeWidth={3} aria-hidden="true" /> : i + 1}
                 </span>
-                <span className="text-xs font-semibold text-slate-300">{station.name}</span>
+                <span className="text-xs font-semibold text-stage-foreground">{station.name}</span>
               </span>
-              <span className={`mt-2 block text-sm font-semibold ${isCurrent ? 'text-white' : 'text-slate-300'}`}>{step.title}</span>
+              <span className={`mt-2 block text-sm font-semibold ${isCurrent ? 'text-white' : 'text-stage-foreground'}`}>{step.title}</span>
               {isCurrent && (
                 <span className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-emerald-300">
                   Start here <ArrowRight size={13} aria-hidden="true" />
@@ -81,7 +81,7 @@ export function GuidedFlow({ steps }: { steps: GuidedStep[] }) {
                 <Link
                   href={station.liveHref}
                   aria-current={isCurrent ? 'step' : undefined}
-                  className={`flex h-full flex-col rounded-xl border p-3 transition-colors hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${containerCls}`}
+                  className={`flex h-full flex-col rounded-xl border p-3 transition-colors hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-stage ${containerCls}`}
                 >
                   {inner}
                 </Link>

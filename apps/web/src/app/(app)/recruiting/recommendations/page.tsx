@@ -25,12 +25,12 @@ const FIT_STYLE: Record<FitLevel, string> = {
   match: 'bg-emerald-600/15 text-emerald-300 border-emerald-600/40',
   safety: 'bg-sky-600/15 text-sky-300 border-sky-600/40',
   reach: 'bg-amber-600/15 text-amber-300 border-amber-600/40',
-  stretch: 'bg-gray-600/20 text-gray-400 border-gray-600/40',
+  stretch: 'bg-muted-foreground/20 text-muted-foreground border-muted-foreground/40',
 };
 const CONFIDENCE_STYLE: Record<'low' | 'medium' | 'high', string> = {
   high: 'text-emerald-400',
   medium: 'text-amber-400',
-  low: 'text-gray-400',
+  low: 'text-muted-foreground',
 };
 
 function numOrNull(v: string): number | null {

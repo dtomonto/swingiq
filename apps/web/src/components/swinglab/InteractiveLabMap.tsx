@@ -81,7 +81,7 @@ export function InteractiveLabMap({
       <div
         role="group"
         aria-label="SwingLab interactive floor plan"
-        className="relative hidden aspect-[16/11] w-full overflow-hidden rounded-3xl border border-white/10 bg-slate-950/60 sm:block"
+        className="relative hidden aspect-[16/11] w-full overflow-hidden rounded-3xl border border-white/10 bg-stage/60 sm:block"
       >
         {/* Floor + ambient glows (decorative) */}
         <div aria-hidden="true" className="absolute left-1/2 top-[56%] h-[150%] w-[150%]" style={FLOOR_GRID} />
@@ -159,7 +159,7 @@ export function InteractiveLabMap({
         })}
 
         {/* Legend */}
-        <div className="pointer-events-none absolute bottom-3 left-3 flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-[11px] text-slate-400">
+        <div className="pointer-events-none absolute bottom-3 left-3 flex items-center gap-2 rounded-full border border-white/10 bg-stage/70 px-3 py-1 text-[11px] text-stage-muted">
           <span aria-hidden="true" className="h-0.5 w-5 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" />
           Suggested journey
         </div>

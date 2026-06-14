@@ -24,7 +24,7 @@ const DAY_MS = 86_400_000;
 const PHASE_BADGE: Record<FunnelStage['phase'], { label: string; cls: string }> = {
   now: { label: 'Focus now', cls: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/30' },
   next: { label: 'Next', cls: 'text-amber-400 bg-amber-400/10 border-amber-400/30' },
-  later: { label: 'Later', cls: 'text-gray-400 bg-gray-400/10 border-gray-600' },
+  later: { label: 'Later', cls: 'text-muted-foreground bg-muted-foreground/10 border-border' },
 };
 
 export function InsightsDashboard() {
@@ -58,19 +58,19 @@ export function InsightsDashboard() {
   return (
     <div className="space-y-6">
       {/* North Star */}
-      <section className="rounded-xl border border-gray-800 bg-gray-900 p-5">
+      <section className="rounded-xl border border-border bg-card p-5">
         <div className="flex items-center gap-2 text-amber-400">
           <Star size={18} aria-hidden="true" />
           <h2 className="font-semibold">North-Star Metric</h2>
         </div>
-        <p className="mt-2 text-lg font-bold text-gray-100">{NORTH_STAR.name}</p>
-        <p className="mt-1 text-sm text-gray-300">{NORTH_STAR.definition}</p>
-        <p className="mt-2 text-sm text-gray-400"><span className="font-medium text-gray-300">Why this one:</span> {NORTH_STAR.why}</p>
+        <p className="mt-2 text-lg font-bold text-foreground">{NORTH_STAR.name}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{NORTH_STAR.definition}</p>
+        <p className="mt-2 text-sm text-muted-foreground"><span className="font-medium text-muted-foreground">Why this one:</span> {NORTH_STAR.why}</p>
       </section>
 
       {/* Provider status (honest) */}
-      <section className="rounded-xl border border-gray-800 bg-gray-900 p-5">
-        <div className="flex items-center gap-2 text-gray-200">
+      <section className="rounded-xl border border-border bg-card p-5">
+        <div className="flex items-center gap-2 text-foreground">
           <BarChart3 size={18} aria-hidden="true" />
           <h2 className="font-semibold">Where the aggregate numbers live</h2>
         </div>
@@ -79,7 +79,7 @@ export function InsightsDashboard() {
           <ProviderPill label="Plausible" on={provider.plausible} />
           <ProviderPill label="PostHog" on={provider.posthog} />
         </div>
-        <p className="mt-3 text-sm text-gray-400">
+        <p className="mt-3 text-sm text-muted-foreground">
           {provider.anyConnected
             ? 'A provider is connected. Cross-user funnel, retention cohorts, and traffic live in that dashboard — this page is the scoreboard + a local preview.'
             : 'No analytics provider is connected yet, so there are no aggregate numbers to show — and this page won’t pretend otherwise. Set NEXT_PUBLIC_GA_ID (or add Plausible/PostHog) to unlock cross-user metrics.'}
@@ -88,25 +88,25 @@ export function InsightsDashboard() {
 
       {/* Funnel */}
       <section>
-        <h2 className="mb-2 px-1 text-sm font-semibold uppercase tracking-wide text-gray-500">The funnel (what to watch, in order)</h2>
+        <h2 className="mb-2 px-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground">The funnel (what to watch, in order)</h2>
         <div className="space-y-2">
           {FUNNEL.map((stage, i) => {
             const reached = isReached(stage.id, snapshot.stageReached);
             const badge = PHASE_BADGE[stage.phase];
             return (
-              <div key={stage.id} className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+              <div key={stage.id} className="rounded-xl border border-border bg-card p-4">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-800 text-xs font-bold text-gray-300">{i + 1}</span>
-                    <h3 className="font-semibold text-gray-100">{stage.label}</h3>
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs font-bold text-muted-foreground">{i + 1}</span>
+                    <h3 className="font-semibold text-foreground">{stage.label}</h3>
                     {reached && <CheckCircle2 size={15} className="text-emerald-400" aria-label="Reached on this account" />}
                   </div>
                   <span className={`rounded-sm border px-2 py-0.5 text-[11px] font-medium ${badge.cls}`}>{badge.label}</span>
                 </div>
-                <p className="mt-1.5 text-sm text-gray-400">{stage.question}</p>
+                <p className="mt-1.5 text-sm text-muted-foreground">{stage.question}</p>
                 <div className="mt-2 grid gap-2 sm:grid-cols-2">
-                  <p className="text-sm"><span className="text-gray-500">Metric:</span> <span className="text-gray-200">{stage.metric}</span></p>
-                  <p className="text-sm"><span className="text-gray-500">Target:</span> <span className="text-gray-200">{stage.target}</span></p>
+                  <p className="text-sm"><span className="text-muted-foreground">Metric:</span> <span className="text-foreground">{stage.metric}</span></p>
+                  <p className="text-sm"><span className="text-muted-foreground">Target:</span> <span className="text-foreground">{stage.target}</span></p>
                 </div>
               </div>
             );
@@ -115,20 +115,20 @@ export function InsightsDashboard() {
       </section>
 
       {/* Local snapshot */}
-      <section className="rounded-xl border border-gray-800 bg-gray-900 p-5">
-        <div className="flex items-center gap-2 text-gray-200">
+      <section className="rounded-xl border border-border bg-card p-5">
+        <div className="flex items-center gap-2 text-foreground">
           <Activity size={18} aria-hidden="true" />
           <h2 className="font-semibold">This account (local preview)</h2>
         </div>
-        <p className="mt-1 text-xs text-gray-500">
+        <p className="mt-1 text-xs text-muted-foreground">
           Computed from your own device data — a real preview of each metric’s shape, not aggregate user numbers.
           Furthest stage reached here: <span className="font-medium text-emerald-400">{labelFor(snapshot.stageReached)}</span>.
         </p>
         <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
           {snapshot.metrics.map((m) => (
-            <div key={m.key} className="rounded-lg border border-gray-800 bg-gray-950 p-3">
-              <p className="text-xl font-bold text-gray-100">{m.value}</p>
-              <p className="text-xs text-gray-400">{m.label}</p>
+            <div key={m.key} className="rounded-lg border border-border bg-background p-3">
+              <p className="text-xl font-bold text-foreground">{m.value}</p>
+              <p className="text-xs text-muted-foreground">{m.label}</p>
             </div>
           ))}
         </div>
@@ -139,7 +139,7 @@ export function InsightsDashboard() {
 
 function ProviderPill({ label, on }: { label: string; on: boolean }) {
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium ${on ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-400' : 'border-gray-700 bg-gray-800 text-gray-400'}`}>
+    <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium ${on ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-400' : 'border-border bg-muted text-muted-foreground'}`}>
       {on ? <CheckCircle2 size={14} /> : <XCircle size={14} />}
       {label}
     </span>
