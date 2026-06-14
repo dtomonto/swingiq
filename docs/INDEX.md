@@ -2,7 +2,7 @@
 
 # SwingVantage docs index
 
-_179 documents · regenerated 2026-06-14. This file lists everything in `docs/` so it stays current as docs are added._
+_180 documents · regenerated 2026-06-14. This file lists everything in `docs/` so it stays current as docs are added._
 
 ## docs/
 
