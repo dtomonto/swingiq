@@ -60,6 +60,26 @@ export {
   type IssueSeverity,
   type PreflightInput,
 } from './preflight';
+export {
+  routePoseDetection,
+  trackVisibility,
+  aggregateStats,
+  shouldAttemptRecovery,
+  chooseBetterPass,
+  detectedHasMultiplePeople,
+  describeEnginePath,
+  type PoseRouterResult,
+} from './pose-router';
+export {
+  runMotionBenchmark,
+  runFixture,
+  buildDefaultFixtures,
+  formatBenchmarkTable,
+  benchmarkPassed,
+  type BenchmarkFixture,
+  type BenchmarkRow,
+  type BenchmarkExpectation,
+} from './motion-bench';
 export { compareSessions } from './comparison';
 export {
   runMotionAnalysis,

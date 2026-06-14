@@ -13,9 +13,9 @@
 // ============================================================
 
 import { extractSwingFrames } from '@/lib/frame-extraction';
-import { detectPoses, type PoseDetectInput, type PoseFrame, type PoseModelQuality } from '@/lib/pose';
-import { planEnhancement, enhanceFrameDataUrl, type GrayLumaStats } from '@/lib/frame-enhance';
+import { detectPoses, type PoseModelQuality } from '@/lib/pose';
 import { profileVideoQuality, type VideoQualityProfile } from './preflight';
+import { routePoseDetection } from './pose-router';
 import { liftAvailable, enrichFrameWithLift, rigPreset, syncViews, selfCalibrate, type RigPreset } from '@/lib/pose3d';
 import type { ViewLandmarks } from './multiview';
 import type {
@@ -72,19 +72,6 @@ const R_HIP = 24;
 const L_ANKLE = 27;
 const R_ANKLE = 28;
 
-/** Mean landmark visibility across detected frames (0–1). */
-function trackVisibility(detected: PoseFrame[]): number {
-  let sum = 0;
-  let n = 0;
-  for (const d of detected) {
-    for (const lm of d.landmarks) {
-      sum += lm.visibility;
-      n++;
-    }
-  }
-  return n > 0 ? sum / n : 0;
-}
-
 /** Mean visibility of a single landmark index across the track. */
 function meanVisAt(frames: MotionPoseFrame[], idx: number): number {
   let s = 0;
@@ -104,21 +91,6 @@ function fullBodyVisibleFrom(frames: MotionPoseFrame[]): boolean {
   const ankleVis = (meanVisAt(frames, L_ANKLE) + meanVisAt(frames, R_ANKLE)) / 2;
   const hipVis = (meanVisAt(frames, L_HIP) + meanVisAt(frames, R_HIP)) / 2;
   return ankleVis > 0.45 && hipVis > 0.5;
-}
-
-/** Mean of each luma field across frames, or null when no stats were measured. */
-function aggregateStats(frameStats: GrayLumaStats[] | undefined): GrayLumaStats | null {
-  if (!frameStats || frameStats.length === 0) return null;
-  const n = frameStats.length;
-  const sum = frameStats.reduce(
-    (a, s) => ({
-      brightness: a.brightness + s.brightness,
-      contrast: a.contrast + s.contrast,
-      sharpness: a.sharpness + s.sharpness,
-    }),
-    { brightness: 0, contrast: 0, sharpness: 0 },
-  );
-  return { brightness: sum.brightness / n, contrast: sum.contrast / n, sharpness: sum.sharpness / n };
 }
 
 /** Light moving-average smoothing on landmark positions to reduce jitter. */
@@ -167,51 +139,20 @@ export async function runMotionAnalysis(
     trimEndSeconds: options.trimEndSeconds ?? undefined,
   });
 
-  // 2) On-device pose detection (real MediaPipe x/y/z). Best-effort. Detect up
-  //    to two people and keep the PRIMARY athlete so a bystander in frame can't
-  //    capture the track.
+  // 2) On-device pose detection with worst-case recovery — primary-athlete
+  //    selection + a low-light enhance-and-retry that's adopted only when it
+  //    recovers more real poses. Centralised in the pose ROUTER so the roadmap's
+  //    cross-frame tracker and second-engine fusion plug in there, not here.
   onProgress?.('detecting');
-  const detectInput: PoseDetectInput[] = extraction.frames.map((f) => ({
-    dataUrl: f.dataUrl,
-    timestampSeconds: f.timestampSeconds,
-  }));
-  const detectOpts = { numPoses: 2, selectPrimary: true } as const;
-  let detected = await detectPoses(detectInput, modelQuality, detectOpts);
+  const routed = await routePoseDetection(extraction.frames, extraction.frameStats, modelQuality);
+  const detected = routed.detected;
+  const enhancementApplied = routed.enhancementApplied;
+  const multiplePeople = routed.multiplePeople;
   const attempted = extraction.frames.length;
-
-  // 2a) WORST-CASE RECOVERY: when the first pass found few or low-confidence
-  //     poses AND the clip reads dark/flat, ENHANCE the frames on-device (gamma +
-  //     contrast stretch) and retry. We adopt the retry only when it recovers
-  //     MORE real poses — enhancement changes whether the detector can SEE the
-  //     athlete, never where the landmarks land, so the track stays honest.
-  let enhancementApplied = false;
-  const aggregate = aggregateStats(extraction.frameStats);
-  const enhancePlan = aggregate ? planEnhancement(aggregate) : null;
-  const firstPassWeak =
-    attempted > 0 &&
-    (detected.length < Math.ceil(attempted * 0.6) || trackVisibility(detected) < 0.5);
-  if (enhancePlan && firstPassWeak) {
-    const enhancedInput: PoseDetectInput[] = await Promise.all(
-      extraction.frames.map(async (f) => ({
-        dataUrl: await enhanceFrameDataUrl(f.dataUrl, enhancePlan),
-        timestampSeconds: f.timestampSeconds,
-      })),
-    );
-    const retry = await detectPoses(enhancedInput, modelQuality, detectOpts);
-    const better =
-      retry.length > detected.length ||
-      (retry.length === detected.length && trackVisibility(retry) > trackVisibility(detected) + 0.03);
-    if (better) {
-      detected = retry;
-      enhancementApplied = true;
-    }
-  }
 
   let visSum = 0;
   let visCount = 0;
-  let multiplePeople = false;
   const frames: MotionPoseFrame[] = detected.map((d) => {
-    if ((d.personCount ?? 1) > 1) multiplePeople = true;
     for (const lm of d.landmarks) {
       visSum += lm.visibility;
       visCount++;

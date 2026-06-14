@@ -11,6 +11,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "eval:agi": "jest src/lib/agi/eval",
+    "motion:benchmark": "jest motion-benchmark --runInBand",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install chromium",
     "test:e2e:visual": "playwright test e2e/visual",
