@@ -658,7 +658,7 @@ export function LiveKinematicPanel({ className = '' }: { className?: string }) {
       {/* ── HUD ───────────────────────────────────────────────────────── */}
       <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-3 py-2">
         <span className="inline-flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-foreground/80">
-          <span className="svq-live h-1.5 w-1.5 rounded-full" style={{ background: '#ff4d4d' }} />
+          <span className="svq-live h-1.5 w-1.5 rounded-full" style={{ background: 'hsl(var(--error))' }} />
           REC
           <span className="tabular-nums text-foreground/55">{timecode(clock.t % (SWING_MS * SWINGS_PER_SPORT))}</span>
         </span>
