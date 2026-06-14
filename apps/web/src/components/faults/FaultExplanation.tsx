@@ -61,7 +61,7 @@ export function FaultExplanation({
               onClick={() => setOverride(a.id)}
               aria-pressed={audience === a.id}
               className={cn(
-                'px-2 py-0.5 rounded-full text-[11px] font-medium transition-colors',
+                'px-2 py-0.5 rounded-full text-2xs font-medium transition-colors',
                 audience === a.id
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-muted text-muted-foreground hover:text-foreground',

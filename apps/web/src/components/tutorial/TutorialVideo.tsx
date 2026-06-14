@@ -286,7 +286,7 @@ export function TutorialVideo({
           <li key={i} className="flex gap-2.5 text-sm text-foreground">
             <span
               aria-hidden="true"
-              className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-[11px] font-bold text-primary"
+              className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-2xs font-bold text-primary"
             >
               {i + 1}
             </span>
@@ -337,7 +337,7 @@ export function TutorialVideo({
         <div className="min-w-0 flex-1 space-y-2">
           <div className="flex items-center gap-2 text-primary">
             <Film size={15} aria-hidden="true" />
-            <span className="text-[11px] font-semibold uppercase tracking-wide">Quick tutorial</span>
+            <span className="text-2xs font-semibold uppercase tracking-wide">Quick tutorial</span>
           </div>
           <h3 className="text-base font-bold text-foreground">{video.title}</h3>
           {blurb && <p className="text-sm text-muted-foreground">{blurb}</p>}

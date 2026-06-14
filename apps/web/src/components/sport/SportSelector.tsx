@@ -169,7 +169,7 @@ export function SportPillDropdown({ className, onClose }: SportPillDropdownProps
           {/* Dropdown */}
           <div className="absolute bottom-full left-0 right-0 mb-1 z-20 bg-popover text-popover-foreground border border-border rounded-xl shadow-theme-lg overflow-hidden">
             {selectedSports.length > 0 && (
-              <p className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+              <p className="px-3 pt-2 pb-1 text-3xs font-semibold uppercase tracking-wide text-muted-foreground">
                 Your sports
               </p>
             )}
@@ -177,7 +177,7 @@ export function SportPillDropdown({ className, onClose }: SportPillDropdownProps
 
             {otherSports.length > 0 && (
               <>
-                <p className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground border-t border-border/50">
+                <p className="px-3 pt-2 pb-1 text-3xs font-semibold uppercase tracking-wide text-muted-foreground border-t border-border/50">
                   Add a sport
                 </p>
                 {otherSports.map(renderRow)}

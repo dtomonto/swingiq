@@ -51,7 +51,7 @@ export function FeatureFlagsClient({ actor }: { actor: string }) {
                 <StatusBadge tone={def.status === 'wired' ? 'success' : 'neutral'}>{def.status}</StatusBadge>
               </div>
               <p className="mt-0.5 text-xs text-muted-foreground">{def.description}</p>
-              <p className="mt-0.5 font-mono text-[11px] text-muted-foreground/70">{def.key} · {def.group} · {def.owner}</p>
+              <p className="mt-0.5 font-mono text-2xs text-muted-foreground/70">{def.key} · {def.group} · {def.owner}</p>
             </div>
 
             {/* Toggle switch */}
@@ -96,7 +96,7 @@ export function FeatureFlagsClient({ actor }: { actor: string }) {
             )}
           </div>
           {override && (
-            <p className="mt-2 text-[11px] text-muted-foreground/70">
+            <p className="mt-2 text-2xs text-muted-foreground/70">
               Changed by {override.updatedBy} · {formatRelativeTime(override.updatedAt)}
             </p>
           )}

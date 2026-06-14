@@ -20,7 +20,7 @@ const ACCENT: Record<HouseAd['accent'], string> = {
 export function HouseAdCard({ ad, onDismiss }: { ad: HouseAd; onDismiss: () => void }) {
   return (
     <div className={`relative rounded-2xl border p-4 ${ACCENT[ad.accent]}`}>
-      <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">From SwingVantage</span>
+      <span className="text-3xs font-semibold uppercase tracking-wide text-muted-foreground">From SwingVantage</span>
       <button
         type="button"
         onClick={onDismiss}

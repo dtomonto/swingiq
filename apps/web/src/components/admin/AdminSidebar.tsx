@@ -94,7 +94,7 @@ export function AdminSidebar({ role, sectionCounts, onNavigate }: AdminSidebarPr
           {count > 0 && (
             <span
               aria-label={`${count} ${item.countType === 'decision' ? 'awaiting a decision' : 'waiting'}`}
-              className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-semibold leading-none tabular-nums transition-opacity ${
+              className={`shrink-0 rounded-full px-1.5 py-0.5 text-3xs font-semibold leading-none tabular-nums transition-opacity ${
                 item.countType === 'decision'
                   ? 'bg-warning/15 text-warning-text'
                   : 'bg-muted text-foreground'
@@ -131,7 +131,7 @@ export function AdminSidebar({ role, sectionCounts, onNavigate }: AdminSidebarPr
         {noSub.length > 0 && <ul className="space-y-0.5">{noSub.map((i) => renderItem(i))}</ul>}
         {subgroups.map((sg) => (
           <div key={sg} className="mt-1.5">
-            <p className="px-2 pb-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">{sg}</p>
+            <p className="px-2 pb-0.5 text-3xs font-medium uppercase tracking-wider text-muted-foreground/60">{sg}</p>
             <ul className="space-y-0.5">{items.filter((i) => i.subgroup === sg).map((i) => renderItem(i))}</ul>
           </div>
         ))}
@@ -143,7 +143,7 @@ export function AdminSidebar({ role, sectionCounts, onNavigate }: AdminSidebarPr
     <nav className="flex h-full flex-col gap-3 overflow-y-auto px-3 py-4">
       {favoriteItems.length > 0 && (
         <div>
-          <p className="flex items-center gap-1 px-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
+          <p className="flex items-center gap-1 px-2 pb-1 text-3xs font-semibold uppercase tracking-wider text-muted-foreground/70">
             <Pin className="h-3 w-3" /> Pinned
           </p>
           <ul className="space-y-0.5">{favoriteItems.map((i) => renderItem(i, 'fav-'))}</ul>
@@ -151,7 +151,7 @@ export function AdminSidebar({ role, sectionCounts, onNavigate }: AdminSidebarPr
       )}
       {recentItems.length > 0 && (
         <div>
-          <p className="flex items-center gap-1 px-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
+          <p className="flex items-center gap-1 px-2 pb-1 text-3xs font-semibold uppercase tracking-wider text-muted-foreground/70">
             <Clock className="h-3 w-3" /> Recent
           </p>
           <ul className="space-y-0.5">{recentItems.map((i) => renderItem(i, 'recent-'))}</ul>
@@ -169,7 +169,7 @@ export function AdminSidebar({ role, sectionCounts, onNavigate }: AdminSidebarPr
             <button
               type="button"
               onClick={() => setCollapsed(toggleGroupCollapsed(group.id))}
-              className="flex w-full items-center justify-between px-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70 hover:text-muted-foreground"
+              className="flex w-full items-center justify-between px-2 pb-1 text-3xs font-semibold uppercase tracking-wider text-muted-foreground/70 hover:text-muted-foreground"
             >
               <span>{NAV_GROUPS.find((g) => g.id === group.id)?.label}</span>
               <ChevronDown className={`h-3 w-3 transition-transform ${isCollapsed ? '-rotate-90' : ''}`} />

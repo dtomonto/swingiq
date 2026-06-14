@@ -45,7 +45,7 @@ function SportButton({
       <span className="text-2xl leading-none" aria-hidden="true">{a.emoji}</span>
       <span className="min-w-0">
         <span className="block text-sm font-semibold text-foreground truncate">{a.displayName}</span>
-        <span className="block text-[11px] text-muted-foreground truncate">{a.tagline}</span>
+        <span className="block text-2xs text-muted-foreground truncate">{a.tagline}</span>
       </span>
       {live ? (
         <CheckCircle2 size={16} className="ml-auto shrink-0 text-success" aria-hidden="true" />

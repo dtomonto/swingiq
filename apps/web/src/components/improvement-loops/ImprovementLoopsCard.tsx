@@ -71,18 +71,18 @@ export function ImprovementLoopsCard() {
           <div className="grid grid-cols-3 gap-2">
             <div className="rounded-lg border border-primary/30 bg-primary/10 p-3 text-center">
               <p className="text-2xl font-bold text-primary leading-none">{retestedCount}</p>
-              <p className="text-[11px] font-medium text-primary/90 mt-1 leading-tight">Loops completed</p>
+              <p className="text-2xs font-medium text-primary/90 mt-1 leading-tight">Loops completed</p>
             </div>
             <div className="rounded-lg border border-border bg-muted/40 p-3 text-center">
               <p className="text-2xl font-bold text-foreground leading-none">{loops.length}</p>
-              <p className="text-[11px] text-muted-foreground mt-1 leading-tight">Issues worked</p>
+              <p className="text-2xs text-muted-foreground mt-1 leading-tight">Issues worked</p>
             </div>
             <div className="rounded-lg border border-border bg-muted/40 p-3 text-center">
               <p className="text-2xl font-bold text-foreground leading-none">{inProgress}</p>
-              <p className="text-[11px] text-muted-foreground mt-1 leading-tight">In progress</p>
+              <p className="text-2xs text-muted-foreground mt-1 leading-tight">In progress</p>
             </div>
           </div>
-          <p className="text-[11px] text-muted-foreground -mt-1">
+          <p className="text-2xs text-muted-foreground -mt-1">
             A <span className="font-medium text-foreground">completed loop</span> is an issue you
             carried all the way to a retest — issue → drill → measured outcome. It&apos;s the truest
             signal that your practice is actually working.

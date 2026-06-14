@@ -323,7 +323,7 @@ export function VideoRecorder({ onVideoReady, onError, sport = 'golf', disabled 
           )}
 
           {state === 'ready' && (
-            <div className="absolute top-3 left-3 bg-black/55 text-white text-[11px] font-medium px-2.5 py-1 rounded-full">
+            <div className="absolute top-3 left-3 bg-black/55 text-white text-2xs font-medium px-2.5 py-1 rounded-full">
               {facing === 'user' ? 'Front camera (selfie)' : 'Back camera'}
             </div>
           )}

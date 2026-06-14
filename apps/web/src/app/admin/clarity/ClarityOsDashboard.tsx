@@ -286,7 +286,7 @@ function CapabilityCard({ cap }: { cap: ResolvedCapability }) {
             href={cap.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-medium text-link hover:underline"
+            className="mt-1.5 inline-flex items-center gap-1 text-2xs font-medium text-link hover:underline"
           >
             Open in Clarity <ExternalLink className="h-3 w-3" />
           </a>
@@ -381,12 +381,12 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-[11px] text-muted-foreground">
+        <p className="text-2xs text-muted-foreground">
           Clarity&apos;s export API covers only the last 1–3 days and is capped at ~10 calls/day per project, so metrics
           load on demand here (not automatically) and results are cached for 10 min to protect the budget.
         </p>
         {meta && meta.callsUsedToday != null && meta.dailyLimit != null && (
-          <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2 py-1 text-[11px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2 py-1 text-2xs text-muted-foreground">
             <span className={meta.callsUsedToday >= meta.dailyLimit ? 'text-link' : 'text-foreground'}>
               {meta.callsUsedToday}/{meta.dailyLimit}
             </span>
@@ -431,7 +431,7 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
                 <div key={s.id} className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-3">
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-foreground">{s.label}</p>
-                    <p className="text-[11px] text-muted-foreground">{s.pct != null ? `${s.pct.toFixed(1)}% of sessions` : 'No data'}</p>
+                    <p className="text-2xs text-muted-foreground">{s.pct != null ? `${s.pct.toFixed(1)}% of sessions` : 'No data'}</p>
                   </div>
                   <span className="shrink-0 tabular-nums text-sm text-foreground">{formatNumber(s.sessions)}</span>
                 </div>
@@ -460,7 +460,7 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
             </SectionCard>
           )}
 
-          <p className="text-[11px] text-muted-foreground/70">
+          <p className="text-2xs text-muted-foreground/70">
             Fetched {new Date(live.fetchedAt).toLocaleString()} · metrics returned: {live.metricsReturned.join(', ') || 'none'}
           </p>
 
@@ -469,12 +469,12 @@ function MetricsPanel({ dashboard, live, meta, loading, error, isFull, days, dim
               Raw Clarity response (verify field shapes)
             </summary>
             <div className="border-t border-border px-3 py-2">
-              <p className="mb-2 text-[11px] text-muted-foreground">
+              <p className="mb-2 text-2xs text-muted-foreground">
                 The numbers above are parsed defensively from this payload (unknown field names fall back to
                 &ldquo;—&rdquo; rather than guessing). If a metric shows &ldquo;—&rdquo; but has a value here, the field
                 mapping in <code>lib/clarity/client.ts</code> needs that key added.
               </p>
-              <pre className="max-h-80 overflow-auto rounded border border-border bg-background p-3 font-mono text-[10px] leading-relaxed text-foreground">
+              <pre className="max-h-80 overflow-auto rounded border border-border bg-background p-3 font-mono text-3xs leading-relaxed text-foreground">
                 {JSON.stringify(live.raw, null, 2)}
               </pre>
             </div>
@@ -605,7 +605,7 @@ function ConnectPanel({ dashboard }: { dashboard: Dashboard }) {
           <li>For live numbers here, open <strong>Settings → Data export</strong> and <strong>Generate new API token</strong>.</li>
           <li>Add these environment variables, then redeploy:</li>
         </ol>
-        <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-[11px] text-foreground">{`NEXT_PUBLIC_CLARITY_PROJECT_ID=your_project_id
+        <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-2xs text-foreground">{`NEXT_PUBLIC_CLARITY_PROJECT_ID=your_project_id
 CLARITY_DATA_EXPORT_TOKEN=your_data_export_token`}</pre>
         <p className="mt-2 text-xs text-muted-foreground">
           Locally: add them to <code>apps/web/.env.local</code>. In production: <strong>Vercel → Settings → Environment Variables</strong>.

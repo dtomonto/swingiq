@@ -57,7 +57,7 @@ export function RetestProtocolCard({ session, accent = '#22C55E' }: Props) {
             {protocol.checkpoints.map((c) => (
               <div key={c.phaseKey} className="rounded-md border border-border bg-card/60 p-2">
                 <p className="text-xs font-medium text-foreground">{c.label}</p>
-                <p className="text-[11px] text-muted-foreground">{c.watchFor}</p>
+                <p className="text-2xs text-muted-foreground">{c.watchFor}</p>
               </div>
             ))}
           </div>
@@ -76,7 +76,7 @@ export function RetestProtocolCard({ session, accent = '#22C55E' }: Props) {
         </div>
 
         {protocol.basis !== 'measured' && (
-          <p className="text-[10px] text-muted-foreground/80">
+          <p className="text-3xs text-muted-foreground/80">
             Comparisons are directional single-camera estimates — keep the camera setup consistent for the fairest read.
           </p>
         )}

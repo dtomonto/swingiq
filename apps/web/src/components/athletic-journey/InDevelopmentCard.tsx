@@ -109,7 +109,7 @@ export function InDevelopmentCard({ availability }: { availability: SportAvailab
           )}
         </div>
 
-        <p className="text-[11px] text-muted-foreground">
+        <p className="text-2xs text-muted-foreground">
           This sport will receive its own journey stages, swing metrics, development pathway, and
           performance intelligence as SwingVantage expands.
         </p>

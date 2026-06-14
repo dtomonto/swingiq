@@ -74,7 +74,7 @@ export function KpiCard({
       </div>
       <p className={cn('text-2xl font-bold leading-none', accent)}>{value}</p>
       <p className="text-xs text-muted-foreground mt-1.5">{label}</p>
-      {sublabel ? <p className="text-[11px] text-muted-foreground/70 mt-0.5">{sublabel}</p> : null}
+      {sublabel ? <p className="text-2xs text-muted-foreground/70 mt-0.5">{sublabel}</p> : null}
       {clickable ? (
         <Link
           href={metricHref(metricId!, metricValueText)}

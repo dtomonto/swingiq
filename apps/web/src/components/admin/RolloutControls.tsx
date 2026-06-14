@@ -36,7 +36,7 @@ export function RolloutControls({
     <div className="space-y-3">
       {/* Step picker — a segmented radiogroup */}
       <div>
-        <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Rollout step</p>
+        <p className="mb-1.5 text-2xs font-semibold uppercase tracking-wide text-muted-foreground">Rollout step</p>
         <div
           role="radiogroup"
           aria-label="Rollout step"
@@ -65,7 +65,7 @@ export function RolloutControls({
             );
           })}
         </div>
-        <p className="mt-1.5 text-[11px] text-muted-foreground">
+        <p className="mt-1.5 text-2xs text-muted-foreground">
           Ship to {step}% first{step < 100 ? ', then widen once it holds.' : ' — full audience in one step.'}
         </p>
       </div>
@@ -76,7 +76,7 @@ export function RolloutControls({
           <ShieldCheck className="h-4 w-4 text-link" />
           <span>
             Auto-verify after step
-            <span className="block text-[11px] font-normal text-muted-foreground">
+            <span className="block text-2xs font-normal text-muted-foreground">
               Re-run checks once the step lands; pause if they regress.
             </span>
           </span>

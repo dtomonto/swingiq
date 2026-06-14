@@ -73,7 +73,7 @@ export function SkillTreeGrid({ sport }: { sport: SportId }) {
             <Badge variant={STATUS_META[open.status].badge}>{STATUS_META[open.status].label}</Badge>
           </div>
           <p className="text-xs text-muted-foreground">{open.evidence.summary}</p>
-          <p className="mt-1 text-[11px] text-muted-foreground">
+          <p className="mt-1 text-2xs text-muted-foreground">
             {open.progressScore === null
               ? 'No measured score yet.'
               : `Progress ${Math.round(open.progressScore)}/100 · confidence ${Math.round((open.confidenceScore ?? 0) * 100)}%`}
@@ -102,7 +102,7 @@ function NodeCell({ node, onOpen }: { node: SkillNode; onOpen: () => void }) {
           style={{ width: `${node.progressScore ?? 0}%` }}
         />
       </div>
-      <span className="mt-1 text-[10px] uppercase tracking-wide text-muted-foreground">{meta.label}</span>
+      <span className="mt-1 text-3xs uppercase tracking-wide text-muted-foreground">{meta.label}</span>
     </button>
   );
 }

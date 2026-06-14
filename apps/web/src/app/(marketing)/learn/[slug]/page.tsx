@@ -142,7 +142,7 @@ export default async function LearnVideoPage({
             {item.script.map((line, i) => (
               <li key={i} className="flex gap-3 text-sm leading-relaxed text-foreground">
                 <span
-                  className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-[11px] font-bold text-primary"
+                  className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-2xs font-bold text-primary"
                   aria-hidden="true"
                 >
                   {i + 1}

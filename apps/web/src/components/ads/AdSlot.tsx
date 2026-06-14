@@ -49,7 +49,7 @@ export function AdSlot({
         data-ad-client={ADS_CLIENT_ID || undefined}
         data-ad-slot={decision.placement.id}
       >
-        <p className="px-3 pt-2 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+        <p className="px-3 pt-2 text-3xs font-semibold uppercase tracking-wide text-muted-foreground">
           Advertisement
         </p>
         {/* The configured ad network renders into this container. */}

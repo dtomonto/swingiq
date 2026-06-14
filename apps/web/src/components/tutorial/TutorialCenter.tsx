@@ -170,7 +170,7 @@ export function TutorialCenter() {
                 <span className={cn('text-sm font-bold', selected ? 'text-primary' : 'text-foreground')}>
                   {meta.label}
                 </span>
-                <span className="text-[11px] leading-tight text-muted-foreground">{meta.blurb}</span>
+                <span className="text-2xs leading-tight text-muted-foreground">{meta.blurb}</span>
               </button>
             );
           })}
@@ -378,12 +378,12 @@ function LibraryCard({
         {audienceLabels.map((label) => (
           <span
             key={label}
-            className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground"
+            className="rounded-full bg-muted px-1.5 py-0.5 text-3xs font-medium text-muted-foreground"
           >
             {label}
           </span>
         ))}
-        <span className="ml-auto inline-flex items-center gap-0.5 text-[11px] font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100">
+        <span className="ml-auto inline-flex items-center gap-0.5 text-2xs font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100">
           Watch <ArrowRight size={11} aria-hidden="true" />
         </span>
       </div>

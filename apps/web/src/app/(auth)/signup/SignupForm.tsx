@@ -92,12 +92,12 @@ export function SignupForm() {
       </Button>
 
       {mode === 'cloud' ? (
-        <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
+        <p className="text-2xs text-muted-foreground text-center leading-relaxed">
           Free forever. Your progress saves to your account and syncs across every device
           you sign in on — so you never lose it. Anything already on this device comes with you.
         </p>
       ) : (
-        <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
+        <p className="text-2xs text-muted-foreground text-center leading-relaxed">
           Your account is created right here on this device — no email confirmation needed.
         </p>
       )}

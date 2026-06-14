@@ -57,10 +57,10 @@ export function FindingDetailClient({ actor, finding, generatedAt }: { actor: st
       <div className="space-y-2">
         <div className="flex flex-wrap items-center gap-2">
           <SeverityPill severity={finding.severity} />
-          <span className="rounded border border-border bg-muted/60 px-1.5 py-0.5 text-[10px] text-muted-foreground">{CATEGORY_LABEL[finding.category]}</span>
-          <span className="text-[10px] uppercase tracking-wide text-muted-foreground/70">{finding.source}</span>
-          {view.overdue && <span className="rounded bg-error/15 px-1.5 py-0.5 text-[10px] font-semibold text-error-text">Overdue</span>}
-          {finding.isSeed && <span className="rounded bg-primary/15 px-1.5 py-0.5 text-[10px] font-semibold text-link">Sample</span>}
+          <span className="rounded border border-border bg-muted/60 px-1.5 py-0.5 text-3xs text-muted-foreground">{CATEGORY_LABEL[finding.category]}</span>
+          <span className="text-3xs uppercase tracking-wide text-muted-foreground/70">{finding.source}</span>
+          {view.overdue && <span className="rounded bg-error/15 px-1.5 py-0.5 text-3xs font-semibold text-error-text">Overdue</span>}
+          {finding.isSeed && <span className="rounded bg-primary/15 px-1.5 py-0.5 text-3xs font-semibold text-link">Sample</span>}
         </div>
         <h1 className="flex items-start gap-2 text-xl font-bold text-foreground">
           <ShieldAlert className="mt-1 h-5 w-5 shrink-0 text-link" />
@@ -122,7 +122,7 @@ export function FindingDetailClient({ actor, finding, generatedAt }: { actor: st
             Accept risk
           </button>
           {view.status === 'accepted_risk' && view.acceptedRiskJustification && (
-            <p className="mt-2 text-[11px] text-link/80">Accepted: {view.acceptedRiskJustification}</p>
+            <p className="mt-2 text-2xs text-link/80">Accepted: {view.acceptedRiskJustification}</p>
           )}
         </div>
 
@@ -161,7 +161,7 @@ export function FindingDetailClient({ actor, finding, generatedAt }: { actor: st
             <li key={i} className="text-sm text-foreground">{s}</li>
           ))}
         </ol>
-        <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
+        <div className="mt-3 flex flex-wrap gap-2 text-2xs">
           <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 ${finding.canClaudeFix ? 'border-success/40 text-success-text' : 'border-border text-muted-foreground'}`}>
             <Bot className="h-3 w-3" /> {finding.canClaudeFix ? 'Claude Code can help implement this' : 'Manual implementation'}
           </span>

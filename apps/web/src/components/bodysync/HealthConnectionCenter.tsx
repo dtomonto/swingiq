@@ -7,13 +7,13 @@ import type { ProviderDescriptor } from '@/lib/bodysync';
 function StatusBadge({ p }: { p: ProviderDescriptor }) {
   if (p.status === 'manual' || p.status === 'connected') {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-[11px] font-medium text-success">
+      <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-2xs font-medium text-success">
         <Check size={11} aria-hidden="true" /> Active
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+    <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-2xs font-medium text-muted-foreground">
       <Clock size={11} aria-hidden="true" /> Coming soon
     </span>
   );
@@ -38,8 +38,8 @@ export function HealthConnectionCenter() {
               </span>
               <StatusBadge p={p} />
             </div>
-            <p className="mt-1.5 text-[11px] text-muted-foreground leading-relaxed">{p.howItConnects}</p>
-            <p className="mt-1.5 text-[10px] uppercase tracking-wide text-muted-foreground">
+            <p className="mt-1.5 text-2xs text-muted-foreground leading-relaxed">{p.howItConnects}</p>
+            <p className="mt-1.5 text-3xs uppercase tracking-wide text-muted-foreground">
               {p.categories.join(' · ')}
             </p>
           </div>

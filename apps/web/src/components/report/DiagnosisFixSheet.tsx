@@ -62,7 +62,7 @@ export function DiagnosisFixSheet({
         <div className="mt-4 rounded-2xl bg-document p-5 shadow-theme-lg">
           {/* On paper: use the document accent, never the theme `--link` (which
               can be a light accent that fails on the light sheet). */}
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.06em] text-document-accent">
+          <p className="mb-3 text-2xs font-semibold uppercase tracking-[0.06em] text-document-accent">
             Your first moves
           </p>
           <div className="space-y-2">

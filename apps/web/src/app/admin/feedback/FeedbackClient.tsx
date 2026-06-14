@@ -67,7 +67,7 @@ export function FeedbackClient({ actor }: { actor: string }) {
               <StatusBadge tone="accent">{f.type.replace('_', ' ')}</StatusBadge>
               <div className="min-w-0 flex-1">
                 <p className="text-sm text-foreground">{f.summary}</p>
-                <p className="mt-0.5 text-[11px] text-muted-foreground">{f.source || '—'} · {formatRelativeTime(f.createdAt)}</p>
+                <p className="mt-0.5 text-2xs text-muted-foreground">{f.source || '—'} · {formatRelativeTime(f.createdAt)}</p>
               </div>
               <select
                 value={f.status}

@@ -15,7 +15,7 @@ const CONFIDENCE_CHIP: Record<KineticConfidenceLevel, { label: string; cls: stri
 function ConfidenceChip({ level }: { level: KineticConfidenceLevel }) {
   const c = CONFIDENCE_CHIP[level];
   return (
-    <span className={cn('rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase', c.cls)}>
+    <span className={cn('rounded px-1.5 py-0.5 text-3xs font-semibold uppercase', c.cls)}>
       {c.label}
     </span>
   );
@@ -68,7 +68,7 @@ export function MotionInsightsCard({ insights, className }: MotionInsightsCardPr
           ))}
         </ul>
 
-        <p className="flex items-start gap-1.5 text-[11px] leading-snug text-muted-foreground">
+        <p className="flex items-start gap-1.5 text-2xs leading-snug text-muted-foreground">
           <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
           These are single-camera estimates (proxies), not lab-grade motion capture.
           Depth-dependent reads like separation use a 2D fallback and are labelled

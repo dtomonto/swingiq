@@ -66,7 +66,7 @@ export function KeywordTools({ exportRows }: { exportRows: Record<string, CsvVal
           <Upload className="w-3.5 h-3.5" /> Choose CSV…
         </button>
         <input ref={fileRef} type="file" accept=".csv,text/csv" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onFile(f); }} />
-        <span className="text-[11px] text-muted-foreground/70 font-mono hidden sm:inline">cols: {TEMPLATE[kind]}</span>
+        <span className="text-2xs text-muted-foreground/70 font-mono hidden sm:inline">cols: {TEMPLATE[kind]}</span>
         <div className="ml-auto"><ExportCsvButton rows={exportRows} filename="swingvantage-keywords.csv" label="Export keywords" /></div>
       </div>
 
@@ -77,7 +77,7 @@ export function KeywordTools({ exportRows }: { exportRows: Record<string, CsvVal
             {summary.errors.length ? <AlertTriangle className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
             Imported {summary.ok} {humanize(summary.kind).toLowerCase()} row(s){summary.errors.length ? `, skipped ${summary.errors.length}` : ''}.
           </p>
-          {summary.errors.slice(0, 4).map((e, i) => <p key={i} className="text-[11px] mt-0.5 opacity-90">{e}</p>)}
+          {summary.errors.slice(0, 4).map((e, i) => <p key={i} className="text-2xs mt-0.5 opacity-90">{e}</p>)}
         </div>
       ) : null}
 
@@ -144,7 +144,7 @@ function ImportedSection({ title, onClear, children }: { title: string; onClear:
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-muted/40">
         <div className="flex items-center gap-2"><FileUp className="w-3.5 h-3.5 text-success-text" /><h3 className="text-xs font-semibold text-foreground">{title}</h3><Badge className="text-link bg-primary/10 border-primary/30">imported</Badge></div>
-        <button onClick={onClear} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-error-text"><Trash2 className="w-3 h-3" /> Clear</button>
+        <button onClick={onClear} className="inline-flex items-center gap-1 text-2xs text-muted-foreground hover:text-error-text"><Trash2 className="w-3 h-3" /> Clear</button>
       </div>
       <div className="p-4 overflow-x-auto">{children}</div>
     </div>

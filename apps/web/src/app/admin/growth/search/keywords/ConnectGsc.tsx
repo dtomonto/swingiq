@@ -70,7 +70,7 @@ export function ConnectGsc({ status, summary }: { status: GscStatus; summary: Gs
             {state === 'syncing' ? 'Syncing…' : state === 'done' ? 'Synced' : 'Sync now'}
           </button>
         ) : (
-          <span className="text-[11px] text-link font-mono">set {status.missing.join(' + ')}</span>
+          <span className="text-2xs text-link font-mono">set {status.missing.join(' + ')}</span>
         )}
       </div>
 
@@ -83,7 +83,7 @@ export function ConnectGsc({ status, summary }: { status: GscStatus; summary: Gs
         </div>
       ) : null}
 
-      {note ? <p className="mt-2 text-[11px] text-muted-foreground">{note}</p> : null}
+      {note ? <p className="mt-2 text-2xs text-muted-foreground">{note}</p> : null}
     </div>
   );
 }
@@ -92,7 +92,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-border bg-muted/40 px-3 py-2">
       <p className="text-sm font-bold text-foreground tabular-nums">{value}</p>
-      <p className="text-[10px] text-muted-foreground">{label}</p>
+      <p className="text-3xs text-muted-foreground">{label}</p>
     </div>
   );
 }

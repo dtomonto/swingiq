@@ -38,7 +38,7 @@ function downloadMarkdown(text: string, filename: string): void {
 }
 
 const BTN =
-  'inline-flex shrink-0 items-center gap-1 rounded-md border border-border bg-muted px-2 py-1 text-[11px] font-medium text-foreground transition-colors hover:border-primary/40 hover:text-link';
+  'inline-flex shrink-0 items-center gap-1 rounded-md border border-border bg-muted px-2 py-1 text-2xs font-medium text-foreground transition-colors hover:border-primary/40 hover:text-link';
 
 /** Single-issue copy + download. Drop next to any alert/finding. */
 export function CopyForClaude({

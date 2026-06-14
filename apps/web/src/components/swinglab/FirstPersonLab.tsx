@@ -99,7 +99,7 @@ export function FirstPersonLab({
         </button>
 
         {/* Position label */}
-        <div className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-[11px] font-medium text-slate-300">
+        <div className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-2xs font-medium text-slate-300">
           Station {index + 1} / {total}
         </div>
       </div>

@@ -63,7 +63,7 @@ export default function AdminAdsPage() {
         </div>
         <div className="mt-3 overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
+            <thead className="text-2xs uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th className="pb-2 pr-3">Slot</th>
                 <th className="pb-2 pr-3">Surface</th>
@@ -100,7 +100,7 @@ export default function AdminAdsPage() {
             <div key={ad.id} className="rounded-lg border border-border bg-background p-3">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold text-foreground">{ad.title}</p>
-                <span className="text-[11px] text-muted-foreground">w{ad.weight}</span>
+                <span className="text-2xs text-muted-foreground">w{ad.weight}</span>
               </div>
               <p className="mt-0.5 text-sm text-muted-foreground">{ad.body}</p>
               <p className="mt-1 text-xs text-success-text">{ad.cta.label} → {ad.cta.href}</p>

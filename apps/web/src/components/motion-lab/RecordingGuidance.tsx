@@ -46,7 +46,7 @@ export function RecordingGuidance({ sport, motionType, accent = '#22C55E', defau
           <span className="block text-xs text-muted-foreground truncate">{guide.bestAngle}</span>
         </span>
         {doneCount > 0 && (
-          <span className="text-[11px] font-semibold tabular-nums text-muted-foreground shrink-0">
+          <span className="text-2xs font-semibold tabular-nums text-muted-foreground shrink-0">
             {doneCount}/{ANGLE_CHECKLIST.length}
           </span>
         )}
@@ -90,13 +90,13 @@ export function RecordingGuidance({ sport, motionType, accent = '#22C55E', defau
                     />
                     <span className="min-w-0">
                       <span className={cn('block text-xs', checked[item.id] ? 'text-muted-foreground line-through' : 'text-foreground')}>{item.label}</span>
-                      <span className="block text-[11px] text-muted-foreground">{item.why}</span>
+                      <span className="block text-2xs text-muted-foreground">{item.why}</span>
                     </span>
                   </label>
                 </li>
               ))}
             </ul>
-            <p className="text-[11px] text-muted-foreground mt-2">
+            <p className="text-2xs text-muted-foreground mt-2">
               This is a guide, not a gate — you can still analyse any clip. After analysis, the Capture Quality report shows how much to trust each read.
             </p>
           </div>

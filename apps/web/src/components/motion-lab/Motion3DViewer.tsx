@@ -431,16 +431,16 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
           onPointerLeave={onPointerUp}
         />
         {/* Honest label — reflects whether this is measured (multi-view) or estimated 3D */}
-        <div className="absolute top-2 left-2 text-[10px] font-medium text-stage-foreground/80 bg-black/40 rounded px-1.5 py-0.5">
+        <div className="absolute top-2 left-2 text-3xs font-medium text-stage-foreground/80 bg-black/40 rounded px-1.5 py-0.5">
           {track.basis === 'measured' ? 'Measured 3D · multi-view · drag to orbit' : 'Estimated 3D · drag to orbit'}
         </div>
         {activePhase && (
-          <div className="absolute top-2 right-2 text-[11px] font-semibold text-white bg-black/50 rounded px-2 py-0.5">
+          <div className="absolute top-2 right-2 text-2xs font-semibold text-white bg-black/50 rounded px-2 py-0.5">
             {activePhase.label}
           </div>
         )}
         {!empty && (liveShoulder != null || liveHip != null) && (
-          <div className="absolute top-9 right-2 text-[10px] font-medium text-stage-foreground bg-black/45 rounded px-2 py-0.5 tabular-nums flex gap-2">
+          <div className="absolute top-9 right-2 text-3xs font-medium text-stage-foreground bg-black/45 rounded px-2 py-0.5 tabular-nums flex gap-2">
             {liveShoulder != null && <span>Shoulders <span className="text-sky-300">{liveShoulder >= 0 ? '+' : ''}{liveShoulder}°</span></span>}
             {liveHip != null && <span>Hips <span className="text-amber-300">{liveHip >= 0 ? '+' : ''}{liveHip}°</span></span>}
           </div>
@@ -448,7 +448,7 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
         {/* View presets */}
         <div className="absolute bottom-2 left-2 flex gap-1">
           {(['front', 'side', 'top'] as ViewPreset[]).map((v) => (
-            <button key={v} onClick={() => setView(v)} className="text-[11px] font-medium text-stage-foreground bg-black/40 hover:bg-black/60 rounded px-2 py-1 capitalize">
+            <button key={v} onClick={() => setView(v)} className="text-2xs font-medium text-stage-foreground bg-black/40 hover:bg-black/60 rounded px-2 py-1 capitalize">
               {v}
             </button>
           ))}
@@ -498,11 +498,11 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
               style={{ left: `${(frame / Math.max(1, frameCount - 1)) * 100}%` }}
             />
           </div>
-          <span className="text-[11px] text-stage-muted tabular-nums w-14 text-right">{frame + 1}/{frameCount}</span>
+          <span className="text-2xs text-stage-muted tabular-nums w-14 text-right">{frame + 1}/{frameCount}</span>
         </div>
         <div className="flex items-center gap-1 flex-wrap">
           {[0.25, 0.5, 1].map((s) => (
-            <button key={s} onClick={() => setSpeed(s)} className={cn('text-[11px] rounded px-1.5 py-0.5', speed === s ? 'bg-sky-500 text-white' : 'text-stage-foreground hover:bg-white/10')}>
+            <button key={s} onClick={() => setSpeed(s)} className={cn('text-2xs rounded px-1.5 py-0.5', speed === s ? 'bg-sky-500 text-white' : 'text-stage-foreground hover:bg-white/10')}>
               {s}×
             </button>
           ))}
@@ -517,7 +517,7 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
           <button className={btn} onClick={() => setView('front')} aria-label="Reset view"><RotateCcw className="w-4 h-4" /></button>
           <button className={btn} onClick={screenshot} aria-label="Screenshot"><Camera className="w-4 h-4" /></button>
           {ghost && (
-            <span className="ml-auto text-[10px] text-stage-muted flex items-center gap-1"><Eye className="w-3 h-3" /> ghost = compare</span>
+            <span className="ml-auto text-3xs text-stage-muted flex items-center gap-1"><Eye className="w-3 h-3" /> ghost = compare</span>
           )}
         </div>
       </div>

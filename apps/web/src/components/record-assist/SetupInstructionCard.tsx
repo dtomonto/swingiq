@@ -55,7 +55,7 @@ export function SetupInstructionCard({ preset, className }: SetupInstructionCard
             <ol className="space-y-1.5">
               {preset.setupSteps.map((step, i) => (
                 <li key={i} className="flex gap-2 text-sm text-foreground">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-[11px] font-semibold text-muted-foreground">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-2xs font-semibold text-muted-foreground">
                     {i + 1}
                   </span>
                   <span>{step}</span>

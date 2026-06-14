@@ -126,7 +126,7 @@ export function CoachingReport({ report }: { report: Report }) {
               <div key={p.phase} className="flex items-start gap-2 text-xs">
                 <span className="font-semibold text-foreground min-w-[92px] shrink-0">{p.label}</span>
                 <span className="text-muted-foreground flex-1">{p.note}</span>
-                <span className="text-[10px] text-muted-foreground shrink-0">{Math.round(p.confidence * 100)}%</span>
+                <span className="text-3xs text-muted-foreground shrink-0">{Math.round(p.confidence * 100)}%</span>
               </div>
             ))}
           </div>

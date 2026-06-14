@@ -82,12 +82,12 @@ export default function AdminDevelopmentPage() {
                   className="flex items-center justify-between gap-2 text-sm font-semibold text-foreground hover:text-link"
                 >
                   <span className="flex items-center gap-2">
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-muted text-[11px] font-bold text-link">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-muted text-2xs font-bold text-link">
                       {s.letter}
                     </span>
                     {s.title}
                   </span>
-                  <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-medium ${STATUS_CHIP[s.status]}`}>
+                  <span className={`shrink-0 rounded-full border px-2 py-0.5 text-3xs font-medium ${STATUS_CHIP[s.status]}`}>
                     {ROADMAP_STATUS_LABEL[s.status]}
                   </span>
                 </a>
@@ -120,7 +120,7 @@ export default function AdminDevelopmentPage() {
                     <p className="mt-0.5 text-xs text-muted-foreground">{s.tagline}</p>
                   </div>
                 </div>
-                <span className={`shrink-0 rounded-full border px-2.5 py-1 text-[11px] font-medium ${STATUS_CHIP[s.status]}`}>
+                <span className={`shrink-0 rounded-full border px-2.5 py-1 text-2xs font-medium ${STATUS_CHIP[s.status]}`}>
                   {ROADMAP_STATUS_LABEL[s.status]}
                 </span>
               </div>
@@ -213,7 +213,7 @@ export default function AdminDevelopmentPage() {
                   {def && <p className="mt-0.5 text-xs text-muted-foreground">{def.description}</p>}
                 </div>
                 <span
-                  className={`shrink-0 rounded-full border px-2 py-0.5 text-[11px] font-medium ${
+                  className={`shrink-0 rounded-full border px-2 py-0.5 text-2xs font-medium ${
                     def?.status === 'wired'
                       ? 'border-success/30 bg-success/10 text-success-text'
                       : 'border-border bg-muted text-muted-foreground'

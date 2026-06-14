@@ -148,7 +148,7 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
         <div className="flex items-center gap-2">
           <Activity className="h-4 w-4" style={{ color: accent }} />
           <p className="text-sm font-semibold text-foreground">Tempo Sync</p>
-          <span className="ml-auto text-[10px] uppercase tracking-wide text-muted-foreground tabular-nums">
+          <span className="ml-auto text-3xs uppercase tracking-wide text-muted-foreground tabular-nums">
             {timing.ratio}:1 · {repsPerMinute(timing, restMs)} reps/min
           </span>
         </div>
@@ -169,7 +169,7 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
               <button
                 type="button"
                 onClick={applySync}
-                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 text-2xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
               >
                 Sync trainer to my swing
               </button>
@@ -178,7 +178,7 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
                 onClick={() =>
                   saveTempo('sync', sync.measuredTotalMs, sync.measuredBackMs ?? 0, sync.measuredThroughMs ?? 0, sync.measuredRatio)
                 }
-                className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-[11px] font-medium hover:bg-foreground/5"
+                className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-2xs font-medium hover:bg-foreground/5"
               >
                 <Save className="h-3 w-3" /> Save
               </button>
@@ -249,7 +249,7 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
                 )}
               >
                 {p.label}
-                <span className="ml-1 text-[10px] opacity-60 tabular-nums">{p.backFrames}/{p.downFrames}</span>
+                <span className="ml-1 text-3xs opacity-60 tabular-nums">{p.backFrames}/{p.downFrames}</span>
               </button>
             );
           })}
@@ -257,7 +257,7 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
 
         {/* speed slider */}
         <div>
-          <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+          <div className="flex items-center justify-between text-2xs text-muted-foreground">
             <span>Slower</span>
             <span className="font-medium text-foreground tabular-nums">{fmtMs(timing.totalMs)} swing</span>
             <span>Faster</span>
@@ -276,15 +276,15 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
         {/* numbers */}
         <div className="grid grid-cols-3 gap-2 text-center">
           <div className="rounded-lg border border-border bg-card/50 p-2">
-            <p className="text-[10px] uppercase tracking-wide text-muted-foreground">Back</p>
+            <p className="text-3xs uppercase tracking-wide text-muted-foreground">Back</p>
             <p className="text-sm font-semibold text-foreground tabular-nums">{fmtMs(timing.backMs)}</p>
           </div>
           <div className="rounded-lg border border-border bg-card/50 p-2">
-            <p className="text-[10px] uppercase tracking-wide text-muted-foreground">Through</p>
+            <p className="text-3xs uppercase tracking-wide text-muted-foreground">Through</p>
             <p className="text-sm font-semibold text-foreground tabular-nums">{fmtMs(timing.downMs)}</p>
           </div>
           <div className="rounded-lg border border-border bg-card/50 p-2">
-            <p className="text-[10px] uppercase tracking-wide text-muted-foreground">Ratio</p>
+            <p className="text-3xs uppercase tracking-wide text-muted-foreground">Ratio</p>
             <p className="text-sm font-semibold text-foreground tabular-nums">{timing.ratio}:1</p>
           </div>
         </div>
@@ -352,13 +352,13 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
               <button
                 type="button"
                 onClick={() => setTaps([])}
-                className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
+                className="ml-auto inline-flex items-center gap-1 text-2xs text-muted-foreground hover:text-foreground"
               >
                 <RotateCcw className="h-3 w-3" /> Reset
               </button>
             )}
           </div>
-          <p className="text-[11px] leading-relaxed text-muted-foreground">
+          <p className="text-2xs leading-relaxed text-muted-foreground">
             Make a practice swing and tap on each beat: <span className="text-foreground">Set</span> at takeaway,{' '}
             <span className="text-foreground">Top</span> at the top, <span className="text-foreground">Strike</span> at the ball.
           </p>
@@ -371,7 +371,7 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
           </button>
           <div className="flex items-center justify-center gap-3">
             {TAP_LABELS.map((label, i) => (
-              <span key={label} className="flex items-center gap-1.5 text-[10px] uppercase tracking-wide">
+              <span key={label} className="flex items-center gap-1.5 text-3xs uppercase tracking-wide">
                 <span
                   className={cn('h-2 w-2 rounded-full', taps.length > i ? 'bg-primary' : 'bg-border')}
                   aria-hidden="true"
@@ -385,28 +385,28 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
               <p className="text-xs font-semibold text-foreground tabular-nums">
                 Your tempo · {tapResult.ratio}:1 <span className="font-normal text-muted-foreground">({fmtMs(tapResult.totalMs)})</span>
               </p>
-              <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">
+              <p className="mt-0.5 text-2xs leading-relaxed text-muted-foreground">
                 <span className="font-medium text-foreground">{tapResult.verdict.label}.</span> {tapResult.verdict.detail}
               </p>
               <div className="mt-2 flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={() => applyTarget(tapResult.totalMs, tapResult.recommended)}
-                  className="inline-flex items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                  className="inline-flex items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 text-2xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                 >
                   Train the ideal rhythm at this speed
                 </button>
                 <button
                   type="button"
                   onClick={() => saveTempo('tap', tapResult.totalMs, tapResult.backMs, tapResult.downMs, tapResult.ratio)}
-                  className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-[11px] font-medium text-muted-foreground hover:text-foreground"
+                  className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-2xs font-medium text-muted-foreground hover:text-foreground"
                 >
                   <Save className="h-3 w-3" /> Save
                 </button>
               </div>
             </div>
           ) : taps.length === 3 ? (
-            <p className="text-[11px] text-warning">Those taps came out of order — reset and try again.</p>
+            <p className="text-2xs text-warning">Those taps came out of order — reset and try again.</p>
           ) : null}
         </div>
 
@@ -419,13 +419,13 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
               <button
                 type="button"
                 onClick={metro.resetScore}
-                className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
+                className="ml-auto inline-flex items-center gap-1 text-2xs text-muted-foreground hover:text-foreground"
               >
                 <RotateCcw className="h-3 w-3" /> Reset
               </button>
             )}
           </div>
-          <p className="text-[11px] leading-relaxed text-muted-foreground">
+          <p className="text-2xs leading-relaxed text-muted-foreground">
             Press play, then tap the pad the instant you&apos;d strike the ball each rep. We score how close you land to the beat.
           </p>
           <button
@@ -443,11 +443,11 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
                 <span className="mt-0.5 text-[9px] uppercase tracking-wide text-muted-foreground">{score.accuracy}%</span>
               </div>
               <div className="min-w-0">
-                <p className="text-[11px] text-foreground tabular-nums">
+                <p className="text-2xs text-foreground tabular-nums">
                   {score.taps} tap{score.taps === 1 ? '' : 's'} · avg {score.avgErrorMs}ms ·{' '}
                   {score.tendencyMs > 0 ? `${score.tendencyMs}ms late` : score.tendencyMs < 0 ? `${-score.tendencyMs}ms early` : 'on the beat'}
                 </p>
-                <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">{score.note}</p>
+                <p className="mt-0.5 text-2xs leading-relaxed text-muted-foreground">{score.note}</p>
               </div>
             </div>
           )}
@@ -469,15 +469,15 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
                 type="button"
                 onClick={clearTempoHistory}
                 aria-label="Clear saved tempo history"
-                className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
+                className="ml-auto inline-flex items-center gap-1 text-2xs text-muted-foreground hover:text-foreground"
               >
                 <Trash2 className="h-3 w-3" /> Clear
               </button>
             </div>
-            <p className="text-[11px] leading-relaxed text-muted-foreground">{trend.summary}</p>
+            <p className="text-2xs leading-relaxed text-muted-foreground">{trend.summary}</p>
             <ul className="space-y-1">
               {history.slice(0, 5).map((e) => (
-                <li key={e.id} className="flex items-center justify-between text-[11px] tabular-nums">
+                <li key={e.id} className="flex items-center justify-between text-2xs tabular-nums">
                   <span className={cn('font-medium text-foreground', savedId === e.id && 'text-primary')}>
                     {e.ratio}:1 <span className="font-normal text-muted-foreground">· {fmtMs(e.totalMs)}</span>
                   </span>
@@ -491,11 +491,11 @@ export function TempoSyncTrainer({ temporal = null, variant = 'page', accent = '
         )}
 
         {!metro.audioSupported && (
-          <p className="text-[11px] text-muted-foreground">
+          <p className="text-2xs text-muted-foreground">
             Your browser can&apos;t play tempo audio here — the visual pendulum still keeps time.
           </p>
         )}
-        <p className="border-t border-border pt-2 text-[10px] leading-relaxed text-muted-foreground/80">
+        <p className="border-t border-border pt-2 text-3xs leading-relaxed text-muted-foreground/80">
           Tempo is the ratio of backswing to downswing time — a smooth ~3:1 is the classic full-swing rhythm
           (about 2:1 for putting). Runs entirely on your device; nothing is recorded or uploaded.
         </p>

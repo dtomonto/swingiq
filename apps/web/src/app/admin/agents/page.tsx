@@ -145,14 +145,14 @@ function AgentCard({ agent, llmConnected }: { agent: RegisteredAgent; llmConnect
       </dl>
 
       {agent.safety && (
-        <p className="mt-3 flex items-start gap-1.5 rounded-lg bg-success/5 px-2.5 py-1.5 text-[11px] text-success-text/90 ring-1 ring-success/20">
+        <p className="mt-3 flex items-start gap-1.5 rounded-lg bg-success/5 px-2.5 py-1.5 text-2xs text-success-text/90 ring-1 ring-success/20">
           <ShieldCheck className="mt-0.5 h-3 w-3 shrink-0" />
           <span>{agent.safety}</span>
         </p>
       )}
 
       <div className="mt-3 flex items-center justify-between gap-2 border-t border-border/70 pt-3">
-        <code className="truncate text-[11px] text-muted-foreground/70" title={agent.module}>{agent.module}</code>
+        <code className="truncate text-2xs text-muted-foreground/70" title={agent.module}>{agent.module}</code>
         <Link
           href={agent.surface.href}
           className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-border bg-muted px-2.5 py-1 text-xs font-medium text-foreground transition hover:border-primary/50 hover:text-link"

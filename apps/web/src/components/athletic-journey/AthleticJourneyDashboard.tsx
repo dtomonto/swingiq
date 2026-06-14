@@ -107,7 +107,7 @@ function CurrentStageCard({ d }: { d: JourneyDashboard }) {
 
         {/* pathway position */}
         <div className="mt-4">
-          <div className="flex justify-between text-[10px] text-muted-foreground mb-1">
+          <div className="flex justify-between text-3xs text-muted-foreground mb-1">
             <span>New</span><span>Professional</span>
           </div>
           <div className="h-2 rounded-full bg-muted overflow-hidden">
@@ -129,7 +129,7 @@ function CurrentStageCard({ d }: { d: JourneyDashboard }) {
               <Gauge size={13} aria-hidden="true" /> Journey momentum
             </p>
             <MomentumGauge score={d.momentum.score} band={d.momentum.band} />
-            <p className="mt-1 text-[11px] text-muted-foreground">{d.momentum.note}</p>
+            <p className="mt-1 text-2xs text-muted-foreground">{d.momentum.note}</p>
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1.5 flex items-center gap-1.5">
@@ -154,7 +154,7 @@ function CurrentStageCard({ d }: { d: JourneyDashboard }) {
         </div>
 
         {/* momentum-is-not-skill disclaimer */}
-        <p className="text-[10px] text-muted-foreground">
+        <p className="text-3xs text-muted-foreground">
           Momentum measures development activity and improvement velocity, not absolute skill.
         </p>
       </CardBody>
@@ -416,7 +416,7 @@ export function AthleticJourneyDashboard() {
             </Section>
           </div>
 
-          <p className="text-[11px] text-muted-foreground flex items-start gap-1.5 px-1">
+          <p className="text-2xs text-muted-foreground flex items-start gap-1.5 px-1">
             <TrendingUp size={13} className="mt-0.5 shrink-0" aria-hidden="true" />
             {dashboard.disclaimer}
           </p>

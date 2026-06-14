@@ -99,7 +99,7 @@ export function VideoProgress({
             );
           })}
         </div>
-        <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
+        <div className="flex justify-between text-3xs text-muted-foreground mt-1">
           <span>oldest</span>
           <span>latest</span>
         </div>

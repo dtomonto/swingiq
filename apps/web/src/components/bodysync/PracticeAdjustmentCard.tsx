@@ -44,7 +44,7 @@ export function PracticeAdjustmentCard({ rec }: { rec: CoachingRecommendation })
 
       {rec.explanation.length > 0 && (
         <div className="mt-3">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Why</p>
+          <p className="text-2xs font-semibold uppercase tracking-wide text-muted-foreground">Why</p>
           <ul className="mt-1 space-y-1">
             {rec.explanation.map((e, i) => (
               <li key={i} className="text-xs text-muted-foreground leading-relaxed">• {e}</li>
@@ -70,7 +70,7 @@ export function PracticeAdjustmentCard({ rec }: { rec: CoachingRecommendation })
 function Stat({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
     <div className="rounded-lg bg-muted/40 px-2.5 py-2">
-      <span className="flex items-center gap-1 text-muted-foreground">{icon}<span className="text-[10px]">{label}</span></span>
+      <span className="flex items-center gap-1 text-muted-foreground">{icon}<span className="text-3xs">{label}</span></span>
       <p className="mt-0.5 text-sm font-semibold text-foreground leading-tight">{value}</p>
     </div>
   );

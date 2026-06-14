@@ -47,7 +47,7 @@ export function SportIntelligence({ signals, config, competitors, onOpenSignal }
             }`}
           >
             {SPORT_LABEL[s]}
-            <span className="rounded-full bg-muted px-1.5 text-[10px] tabular-nums text-muted-foreground">{counts[s] ?? 0}</span>
+            <span className="rounded-full bg-muted px-1.5 text-3xs tabular-nums text-muted-foreground">{counts[s] ?? 0}</span>
           </button>
         ))}
       </div>

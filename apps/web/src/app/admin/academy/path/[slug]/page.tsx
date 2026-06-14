@@ -53,7 +53,7 @@ export default function PathPage() {
                   <h3 className="font-semibold text-foreground group-hover:text-primary">{c.title}</h3>
                   <p className="line-clamp-1 text-sm text-muted-foreground">{c.summary}</p>
                 </div>
-                <div className="w-28 shrink-0"><ProgressBar value={cp.percent} /><p className="mt-1 text-right text-[11px] text-muted-foreground">{cp.percent}%</p></div>
+                <div className="w-28 shrink-0"><ProgressBar value={cp.percent} /><p className="mt-1 text-right text-2xs text-muted-foreground">{cp.percent}%</p></div>
               </Link>
             </li>
           );

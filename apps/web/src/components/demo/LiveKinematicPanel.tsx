@@ -663,7 +663,7 @@ export function LiveKinematicPanel({ className = '' }: { className?: string }) {
           <span className="tabular-nums text-foreground/55">{timecode(clock.t % (SWING_MS * SWINGS_PER_SPORT))}</span>
         </span>
         <span className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide transition-colors duration-500" style={{ borderColor: `${accent}66`, color: accent, background: `${accent}14` }}>
-          <span className="text-[11px] leading-none">{sport.emoji}</span>
+          <span className="text-2xs leading-none">{sport.emoji}</span>
           {sport.name}
         </span>
       </div>
@@ -672,7 +672,7 @@ export function LiveKinematicPanel({ className = '' }: { className?: string }) {
         {shownMetrics.map((m) => (
           <div key={m.label} className="rounded-md border border-border bg-card/80 px-2 py-1 text-right shadow-sm backdrop-blur-sm transition-shadow" style={flash > 0.2 ? { boxShadow: `0 0 ${6 + flash * 10}px ${accent}` } : undefined}>
             <div className="text-[8px] font-medium uppercase tracking-wide text-muted-foreground">{m.label}</div>
-            <div className="font-heading text-[11px] font-bold leading-tight tabular-nums" style={{ color: accent }}>
+            <div className="font-heading text-2xs font-bold leading-tight tabular-nums" style={{ color: accent }}>
               {liveMetric(m, pose, headSpeed)}
               <span className="ml-0.5 text-[8px] font-medium text-muted-foreground">{m.unit}</span>
             </div>

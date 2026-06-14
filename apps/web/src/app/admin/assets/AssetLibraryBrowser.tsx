@@ -135,18 +135,18 @@ export function AssetLibraryBrowser({ records, stats }: { records: AssetRecord[]
                   </div>
                 )}
                 {r.durationLabel && (
-                  <span className="absolute bottom-1.5 right-1.5 rounded bg-foreground/70 px-1.5 py-0.5 text-[10px] font-medium text-white">
+                  <span className="absolute bottom-1.5 right-1.5 rounded bg-foreground/70 px-1.5 py-0.5 text-3xs font-medium text-white">
                     {r.durationLabel}
                   </span>
                 )}
-                <span className="absolute left-1.5 top-1.5 rounded bg-foreground/60 px-1.5 py-0.5 text-[10px] font-medium text-foreground">
+                <span className="absolute left-1.5 top-1.5 rounded bg-foreground/60 px-1.5 py-0.5 text-3xs font-medium text-foreground">
                   {r.sourceLabel}
                 </span>
               </div>
               {/* Body */}
               <div className="p-3">
                 <p className="truncate text-sm font-semibold text-foreground" title={r.title}>{r.title}</p>
-                <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-[10px]">
+                <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-3xs">
                   <span className={`inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 ${r.public ? 'bg-success/15 text-success-text' : 'bg-muted/50 text-muted-foreground'}`}>
                     {r.public ? <Globe className="h-3 w-3" /> : <Lock className="h-3 w-3" />}
                     {r.public ? 'Public' : 'Internal'}
@@ -164,7 +164,7 @@ export function AssetLibraryBrowser({ records, stats }: { records: AssetRecord[]
                         href={f.path}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1 rounded border border-border px-1.5 py-0.5 text-[10px] text-foreground hover:bg-muted"
+                        className="inline-flex items-center gap-1 rounded border border-border px-1.5 py-0.5 text-3xs text-foreground hover:bg-muted"
                         title={`Open ${f.kind} — ${f.path}`}
                       >
                         <Icon className="h-3 w-3" /> {f.kind}
@@ -185,7 +185,7 @@ function Stat({ label, value }: { label: string; value: number | string }) {
   return (
     <div className="rounded-lg border border-border bg-card/40 px-3 py-2">
       <p className="text-lg font-bold text-foreground">{value}</p>
-      <p className="text-[11px] text-muted-foreground">{label}</p>
+      <p className="text-2xs text-muted-foreground">{label}</p>
     </div>
   );
 }

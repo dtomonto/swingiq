@@ -136,7 +136,7 @@ export function EquipmentDiagnosticTool() {
       {result && (
         <ResultPanel>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Fit-risk flags</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-primary">Fit-risk flags</p>
             <ul className="mt-2 space-y-1 text-sm text-foreground">{result.flags.map((f) => <li key={f} className="flex gap-2"><span className="text-warning">⚑</span>{f}</li>)}</ul>
           </div>
           {result.mismatch.length > 0 && (

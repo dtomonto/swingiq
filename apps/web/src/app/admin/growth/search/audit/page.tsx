@@ -91,7 +91,7 @@ export default function SiteAuditPage() {
                   <Pill>{i.confidence}% conf.</Pill>
                   {i.autoFixAvailable ? <Pill tone="green"><Bot className="w-2.5 h-2.5" /> auto-fixable</Pill> : null}
                   {i.requiresApproval ? <Pill tone="amber">needs approval</Pill> : null}
-                  {i.url ? <Link href={`/admin/growth/search/page-intel?url=${encodeURIComponent(i.url)}`} className="text-[11px] text-success-text hover:text-success-text font-mono truncate">{i.affectedUrls.length > 1 ? `${i.affectedUrls.length} pages` : i.url}</Link> : null}
+                  {i.url ? <Link href={`/admin/growth/search/page-intel?url=${encodeURIComponent(i.url)}`} className="text-2xs text-success-text hover:text-success-text font-mono truncate">{i.affectedUrls.length > 1 ? `${i.affectedUrls.length} pages` : i.url}</Link> : null}
                 </div>
               </li>
             ))}

@@ -14,7 +14,7 @@ export function DemoTrainingView({ report }: { report: DemoReport }) {
       <Card className="border-l-4 border-l-primary">
         <CardBody className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-link">
+            <p className="flex items-center gap-1.5 text-3xs font-semibold uppercase tracking-wider text-link">
               <Flame size={12} /> This week&apos;s focus
             </p>
             <h1 className="mt-0.5 font-heading text-xl font-bold text-foreground">{report.primaryFix.title}</h1>
@@ -59,7 +59,7 @@ export function DemoTrainingView({ report }: { report: DemoReport }) {
                 )}
                 <div className="flex flex-wrap items-center gap-3 pt-1">
                   {d.reps && (
-                    <span className="rounded-full bg-muted px-2.5 py-1 text-[11px] font-medium text-foreground">{d.reps}</span>
+                    <span className="rounded-full bg-muted px-2.5 py-1 text-2xs font-medium text-foreground">{d.reps}</span>
                   )}
                   {d.feel && <span className="text-xs italic text-muted-foreground">Feel: {d.feel}</span>}
                   {d.youtube && (

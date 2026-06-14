@@ -93,7 +93,7 @@ function StepCard({ n, icon: Icon, title, status, tone, children }: {
     <SectionCard
       title={
         <span className="flex items-center gap-2">
-          <span className="grid h-5 w-5 place-items-center rounded-full bg-muted text-[11px] font-semibold text-muted-foreground">{n}</span>
+          <span className="grid h-5 w-5 place-items-center rounded-full bg-muted text-2xs font-semibold text-muted-foreground">{n}</span>
           <Icon className="h-4 w-4 text-muted-foreground" /> {title}
         </span>
       }
@@ -198,7 +198,7 @@ function FeedsStep({ cronConfigured, envFeedCount, config, onUpdate }: {
       <div className="space-y-3">
         <p className="text-sm text-muted-foreground">
           Curate keyless RSS/feed URLs below and either <strong className="text-foreground">Run now</strong>, or wire a scheduler to pull them automatically:
-          set <code className="rounded bg-muted px-1 text-[11px]">SIGNALRADAR_FEEDS</code> (use “Copy env”) and point any cron at the endpoint with your <code className="rounded bg-muted px-1 text-[11px]">CRON_SECRET</code>.
+          set <code className="rounded bg-muted px-1 text-2xs">SIGNALRADAR_FEEDS</code> (use “Copy env”) and point any cron at the endpoint with your <code className="rounded bg-muted px-1 text-2xs">CRON_SECRET</code>.
         </p>
 
         <ScheduledCollection config={config} onUpdate={onUpdate} />
@@ -255,10 +255,10 @@ function GuidePanel() {
         <section>
           <h4 className="mb-2 font-semibold text-foreground">Environment variables (set in your host, e.g. Vercel → Settings → Environment Variables, then redeploy)</h4>
           <ul className="space-y-1.5">
-            <li><code className="rounded bg-muted px-1 text-[11px] text-foreground">NEXT_PUBLIC_SUPABASE_URL</code> + <code className="rounded bg-muted px-1 text-[11px] text-foreground">SUPABASE_SERVICE_ROLE_KEY</code> — the durable store. Without these, automated collection accepts requests but persists nothing (and says so).</li>
-            <li><code className="rounded bg-muted px-1 text-[11px] text-foreground">SIGNALRADAR_WEBHOOK_SECRET</code> — turns the webhook on. Generate it in Step 2 above.</li>
-            <li><code className="rounded bg-muted px-1 text-[11px] text-foreground">SIGNALRADAR_FEEDS</code> — comma-separated feed URLs the scheduler pulls. Build the list in Step 3 → “Copy env”.</li>
-            <li><code className="rounded bg-muted px-1 text-[11px] text-foreground">CRON_SECRET</code> — auth for the scheduler (shared with the publishing/social crons).</li>
+            <li><code className="rounded bg-muted px-1 text-2xs text-foreground">NEXT_PUBLIC_SUPABASE_URL</code> + <code className="rounded bg-muted px-1 text-2xs text-foreground">SUPABASE_SERVICE_ROLE_KEY</code> — the durable store. Without these, automated collection accepts requests but persists nothing (and says so).</li>
+            <li><code className="rounded bg-muted px-1 text-2xs text-foreground">SIGNALRADAR_WEBHOOK_SECRET</code> — turns the webhook on. Generate it in Step 2 above.</li>
+            <li><code className="rounded bg-muted px-1 text-2xs text-foreground">SIGNALRADAR_FEEDS</code> — comma-separated feed URLs the scheduler pulls. Build the list in Step 3 → “Copy env”.</li>
+            <li><code className="rounded bg-muted px-1 text-2xs text-foreground">CRON_SECRET</code> — auth for the scheduler (shared with the publishing/social crons).</li>
           </ul>
           <p className="mt-1 text-xs text-muted-foreground/70">The dashboard can’t write these (production runs read-only) — it generates the values and you paste them in. Secrets are never displayed back.</p>
         </section>

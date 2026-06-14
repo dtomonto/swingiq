@@ -149,7 +149,7 @@ export function AutoSyncSection() {
                   Save now
                 </Button>
               </div>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-2xs text-muted-foreground">
                 Auto-saved files are unencrypted so they can be restored automatically. For a
                 password-protected copy, use <strong className="text-foreground">Download Backup</strong> above.
               </p>
@@ -210,7 +210,7 @@ export function AutoSyncSection() {
               )}
 
               {autoRestore.encryptedSkipped > 0 && (
-                <p className="text-[11px] text-muted-foreground flex items-start gap-1.5">
+                <p className="text-2xs text-muted-foreground flex items-start gap-1.5">
                   <Lock size={12} className="mt-0.5 shrink-0" aria-hidden="true" />
                   Skipped {autoRestore.encryptedSkipped} password-protected backup
                   {autoRestore.encryptedSkipped !== 1 ? 's' : ''} — open one from Import Backup above to restore it with your password.
@@ -225,7 +225,7 @@ export function AutoSyncSection() {
                   Check now
                 </Button>
               </div>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-2xs text-muted-foreground">
                 SwingVantage only reads the folder you choose, only to find your backups. If you already have
                 data on this device, it asks before changing anything — it never overwrites without your okay.
               </p>
@@ -258,7 +258,7 @@ function Pill({ tone, children }: { tone: 'ok' | 'muted' | 'error'; children: Re
     : tone === 'error' ? 'bg-error/10 text-error'
     : 'bg-muted text-muted-foreground';
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium ${cls}`}>
+    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-2xs font-medium ${cls}`}>
       {children}
     </span>
   );

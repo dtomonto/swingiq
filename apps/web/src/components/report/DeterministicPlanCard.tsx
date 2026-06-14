@@ -53,7 +53,7 @@ export function DeterministicPlanCard({
           <ClipboardList size={16} className="text-primary" aria-hidden="true" />
           Your practice plan
         </h3>
-        <span className="text-[11px] text-muted-foreground">~{plan.estimatedMinutes} min</span>
+        <span className="text-2xs text-muted-foreground">~{plan.estimatedMinutes} min</span>
       </div>
 
       {/* Short (Today) form */}
@@ -82,7 +82,7 @@ export function DeterministicPlanCard({
       {/* Sharpen-this prompts (missing data → high-value intake questions) */}
       {diagnosis.missingDataPrompts.length > 0 && (
         <div className="mt-3 rounded-xl bg-muted/50 p-3">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Sharpen this</p>
+          <p className="text-2xs font-semibold uppercase tracking-wide text-muted-foreground">Sharpen this</p>
           <ul className="mt-1 space-y-1 text-xs text-muted-foreground">
             {diagnosis.missingDataPrompts.slice(0, 2).map((q) => (
               <li key={q}>• {q}</li>

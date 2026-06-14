@@ -142,7 +142,7 @@ export function ThemeLibraryPanel({ actor }: { actor: string }) {
                     <div className="flex flex-wrap items-center gap-2">
                       <StatusBadge tone={REC_TONE[r.action]}>{r.action}</StatusBadge>
                       <p className="text-sm font-medium text-foreground">{r.title}</p>
-                      <span className="text-[10px] uppercase tracking-wide text-muted-foreground/70">{r.confidence}</span>
+                      <span className="text-3xs uppercase tracking-wide text-muted-foreground/70">{r.confidence}</span>
                     </div>
                     <p className="mt-0.5 text-xs text-muted-foreground">{r.reason}</p>
                   </div>
@@ -166,7 +166,7 @@ export function ThemeLibraryPanel({ actor }: { actor: string }) {
             <Library className="h-4 w-4 text-link" />
             <h3 className="text-sm font-semibold text-foreground">Theme library</h3>
           </div>
-          <p className="font-mono text-[11px] text-muted-foreground/70">
+          <p className="font-mono text-2xs text-muted-foreground/70">
             {stats.total} total · {stats.live} live · {stats.draft} draft · {stats.generated} generated
           </p>
         </div>
@@ -190,7 +190,7 @@ export function ThemeLibraryPanel({ actor }: { actor: string }) {
             className="inline-flex items-center gap-1.5 rounded-lg bg-primary/90 px-3 py-1.5 text-xs font-semibold text-white hover:bg-primary">
             <Sparkles className="h-3.5 w-3.5" /> Generate drafts
           </button>
-          <p className="w-full text-[11px] text-muted-foreground/70">Hue-rotated candidates (contrast preserved). Drafts never auto-publish — refine in the builder, export, commit.</p>
+          <p className="w-full text-2xs text-muted-foreground/70">Hue-rotated candidates (contrast preserved). Drafts never auto-publish — refine in the builder, export, commit.</p>
         </div>
 
         {/* Gallery */}

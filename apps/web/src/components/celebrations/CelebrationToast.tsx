@@ -57,7 +57,7 @@ export function CelebrationToast({
           {celebration.emoji}
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">
+          <p className="text-2xs font-semibold uppercase tracking-wide text-primary">
             🎉 Achievement unlocked
           </p>
           <p className="truncate text-sm font-bold text-foreground">{celebration.title}</p>

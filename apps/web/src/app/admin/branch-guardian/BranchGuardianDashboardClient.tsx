@@ -215,8 +215,8 @@ function BranchesTab({ branches }: { branches: ScoredBranch[] }) {
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-1.5">
                   <span className="truncate font-mono text-sm text-foreground">{b.name}</span>
-                  <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground">{BRANCH_TYPE_LABEL[b.type]}</span>
-                  <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{BRANCH_STATUS_LABEL[b.status]}</span>
+                  <span className="rounded bg-muted px-1.5 py-0.5 text-3xs uppercase tracking-wide text-muted-foreground">{BRANCH_TYPE_LABEL[b.type]}</span>
+                  <span className="rounded bg-muted px-1.5 py-0.5 text-3xs text-muted-foreground">{BRANCH_STATUS_LABEL[b.status]}</span>
                   <RiskPill risk={b.risk} />
                   {b.isProtected && <ShieldCheck className="h-3.5 w-3.5 text-success-text" />}
                 </div>
@@ -255,10 +255,10 @@ function WorktreesTab({ worktrees }: { worktrees: ScoredWorktree[] }) {
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-1.5">
                   <span className="truncate font-mono text-sm text-foreground">{w.path}</span>
-                  {w.isPrimary && <span className="rounded bg-success/15 px-1.5 py-0.5 text-[10px] text-success-text">primary</span>}
+                  {w.isPrimary && <span className="rounded bg-success/15 px-1.5 py-0.5 text-3xs text-success-text">primary</span>}
                   <RiskPill risk={w.risk} />
-                  {w.missingPath && <span className="rounded bg-error/15 px-1.5 py-0.5 text-[10px] text-error-text">missing path</span>}
-                  {w.prunable && <span className="rounded bg-primary/15 px-1.5 py-0.5 text-[10px] text-link">prunable</span>}
+                  {w.missingPath && <span className="rounded bg-error/15 px-1.5 py-0.5 text-3xs text-error-text">missing path</span>}
+                  {w.prunable && <span className="rounded bg-primary/15 px-1.5 py-0.5 text-3xs text-link">prunable</span>}
                 </div>
                 <p className="mt-1 text-xs text-muted-foreground">
                   {w.branch ? <span className="font-mono">{w.branch}</span> : 'detached'} · {w.ageDays !== null ? `${w.ageDays}d` : 'age unknown'}
@@ -326,8 +326,8 @@ function RecCard({ rec, bg, status }: { rec: Recommendation; bg: ReturnType<type
       <div className="flex flex-wrap items-center gap-1.5">
         <SeverityPill severity={rec.severity} />
         <RecSafetyPill safety={rec.safety} />
-        {rec.approvalRequired && <span className="rounded-full border border-error/40 bg-error/10 px-2 py-0.5 text-[11px] font-semibold text-error-text">Approval required</span>}
-        {status !== 'open' && <span className="rounded-full border border-border/50 bg-muted/40 px-2 py-0.5 text-[11px] text-foreground">{REC_STATUS_LABEL[status]}</span>}
+        {rec.approvalRequired && <span className="rounded-full border border-error/40 bg-error/10 px-2 py-0.5 text-2xs font-semibold text-error-text">Approval required</span>}
+        {status !== 'open' && <span className="rounded-full border border-border/50 bg-muted/40 px-2 py-0.5 text-2xs text-foreground">{REC_STATUS_LABEL[status]}</span>}
       </div>
       <h4 className="mt-2 text-sm font-semibold text-foreground">{rec.title}</h4>
       <p className="mt-1 text-sm text-muted-foreground">{rec.reason}</p>
@@ -390,13 +390,13 @@ function CommandRow({ cmd, gated, onCopy }: { cmd: CommandSuggestion; gated: boo
         <div className="flex items-center gap-1.5">
           <CommandSafetyPill safety={cmd.safety} />
           <button onClick={copy} disabled={gated}
-            className={`inline-flex items-center gap-1 rounded px-2 py-1 text-[11px] ${gated ? 'cursor-not-allowed text-muted-foreground/70' : 'text-foreground hover:bg-muted'}`}>
+            className={`inline-flex items-center gap-1 rounded px-2 py-1 text-2xs ${gated ? 'cursor-not-allowed text-muted-foreground/70' : 'text-foreground hover:bg-muted'}`}>
             {copied ? <Check className="h-3 w-3 text-success-text" /> : <Clipboard className="h-3 w-3" />}{gated ? 'Approve to copy' : copied ? 'Copied' : 'Copy'}
           </button>
         </div>
       </div>
-      <code className={`mt-1 block overflow-x-auto whitespace-pre rounded bg-foreground/40 px-2 py-1 font-mono text-[11px] ${gated ? 'blur-[3px] select-none text-muted-foreground/70' : 'text-foreground'}`}>{cmd.command}</code>
-      {cmd.note && !gated && <p className="mt-1 text-[10px] text-muted-foreground">{cmd.note}</p>}
+      <code className={`mt-1 block overflow-x-auto whitespace-pre rounded bg-foreground/40 px-2 py-1 font-mono text-2xs ${gated ? 'blur-[3px] select-none text-muted-foreground/70' : 'text-foreground'}`}>{cmd.command}</code>
+      {cmd.note && !gated && <p className="mt-1 text-3xs text-muted-foreground">{cmd.note}</p>}
     </div>
   );
 }
@@ -424,9 +424,9 @@ function AuditTab({ bg }: { bg: ReturnType<typeof useBranchGuardian> }) {
             <li key={e.id} className="flex items-start justify-between gap-3 rounded-lg border border-border bg-background p-2 text-xs">
               <div className="min-w-0">
                 <p className="text-foreground">{e.summary}</p>
-                <p className="text-[10px] text-muted-foreground/70">{e.action} · {e.actor}</p>
+                <p className="text-3xs text-muted-foreground/70">{e.action} · {e.actor}</p>
               </div>
-              <time className="shrink-0 text-[10px] text-muted-foreground/70">{new Date(e.at).toLocaleString()}</time>
+              <time className="shrink-0 text-3xs text-muted-foreground/70">{new Date(e.at).toLocaleString()}</time>
             </li>
           ))}
         </ul>
@@ -454,14 +454,14 @@ function SettingsTab({ bg, detectedMain }: { bg: ReturnType<typeof useBranchGuar
           <input id="bg-main-branch" value={s.mainBranchOverride} onChange={(e) => bg.updateSettings({ mainBranchOverride: e.target.value })}
             placeholder={detectedMain ?? 'detected automatically'}
             className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground" />
-          <p className="mt-0.5 text-[10px] text-muted-foreground/70">Detected: {detectedMain ?? 'unknown'}. Leave blank to use it.</p>
+          <p className="mt-0.5 text-3xs text-muted-foreground/70">Detected: {detectedMain ?? 'unknown'}. Leave blank to use it.</p>
         </div>
         <div className="sm:col-span-2">
           <label htmlFor="bg-protected-patterns" className="block text-xs text-muted-foreground">Extra protected branch patterns (comma-separated, supports trailing /*)</label>
           <input id="bg-protected-patterns" value={s.protectedPatterns.join(', ')} onChange={(e) => bg.updateSettings({ protectedPatterns: e.target.value.split(',').map((x) => x.trim()).filter(Boolean) })}
             placeholder="e.g. integration/*, demo"
             className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground" />
-          <p className="mt-0.5 text-[10px] text-muted-foreground/70">Always protected: main, master, production, staging, develop, release/*, hotfix/*.</p>
+          <p className="mt-0.5 text-3xs text-muted-foreground/70">Always protected: main, master, production, staging, develop, release/*, hotfix/*.</p>
         </div>
         <Toggle label="Include experiment/* branches in stale flags" checked={s.includeExperimental} onChange={(v) => bg.updateSettings({ includeExperimental: v })} />
         <Toggle label="Include remote-only branches in views" checked={s.includeRemote} onChange={(v) => bg.updateSettings({ includeRemote: v })} />
@@ -537,7 +537,7 @@ function CountTile({ label, value, tone = 'muted' }: { label: string; value: num
   return (
     <div className={`rounded-lg border bg-background p-3 text-center ${cls}`}>
       <p className="text-2xl font-bold tabular-nums">{value}</p>
-      <p className="text-[11px] uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className="text-2xs uppercase tracking-wide text-muted-foreground">{label}</p>
     </div>
   );
 }

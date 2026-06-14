@@ -65,17 +65,17 @@ export function SkillTree({
                 </span>
               )}
               {focusCategory && b.category === focusCategory && (
-                <Badge variant="default" className="text-[10px]">Current focus</Badge>
+                <Badge variant="default" className="text-3xs">Current focus</Badge>
               )}
             </span>
             <span className={cn('text-sm font-semibold tabular-nums', scoreTextClass(b.score))}>
               {b.score === null ? '—' : b.score}
-              <span className="text-[10px] text-muted-foreground font-normal">/100</span>
+              <span className="text-3xs text-muted-foreground font-normal">/100</span>
             </span>
           </div>
           <ScoreBar score={b.score} />
           <div className="flex items-center justify-between gap-2">
-            <span className="text-[10px] text-muted-foreground">
+            <span className="text-3xs text-muted-foreground">
               {b.evidenceCount > 0 ? `${b.evidenceCount} signal${b.evidenceCount === 1 ? '' : 's'}` : 'No data yet'}
               {b.score === null && b.evidenceCount === 0 && <span> · self-rate to seed it</span>}
             </span>
@@ -83,7 +83,7 @@ export function SkillTree({
           </div>
         </div>
       ))}
-      <p className="text-[10px] text-muted-foreground pt-1">
+      <p className="text-3xs text-muted-foreground pt-1">
         Dots are your own 1–5 self-rating (a self-reported signal). Scores also rise as you upload
         videos, log play, and complete benchmarks.
       </p>

@@ -17,7 +17,7 @@ export function SampleReportPreview({
     <div className={`overflow-hidden rounded-2xl border border-border bg-card shadow-xs ${className}`}>
       <div className="flex items-center justify-between border-b border-border bg-muted px-5 py-3">
         <span className="text-sm font-bold text-foreground">Sample report</span>
-        <span className="rounded-full bg-secondary px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+        <span className="rounded-full bg-secondary px-2 py-0.5 text-2xs font-semibold uppercase tracking-wide text-muted-foreground">
           Example
         </span>
       </div>
@@ -25,7 +25,7 @@ export function SampleReportPreview({
       <div className="space-y-4 p-5">
         {/* Top priority issue */}
         <div className="rounded-xl border border-warning/30 bg-warning/10 p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-warning-text">Top priority</p>
+          <p className="text-2xs font-semibold uppercase tracking-wide text-warning-text">Top priority</p>
           <p className="mt-1 font-bold text-foreground">Out-to-in club path</p>
           <p className="mt-1 text-sm text-muted-foreground">
             Your path is producing a left-to-right ball flight (a slice). Fixing this first unlocks the
@@ -51,7 +51,7 @@ export function SampleReportPreview({
           </p>
         </div>
 
-        <p className="text-[11px] italic text-muted-foreground">
+        <p className="text-2xs italic text-muted-foreground">
           Illustrative example using sample data. Your actual report is based on your own swing and
           results are not guaranteed.
         </p>

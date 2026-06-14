@@ -155,7 +155,7 @@ export function PlanManager({ baseTemplates }: { baseTemplates: BasePlanTemplate
       <SectionCard title={`Templates (${visible.length})`} description="Override a planner default, retire it, or create custom templates. Edits stay local until exported.">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
+            <thead className="text-2xs uppercase tracking-wide text-muted-foreground">
               <tr><th className="pb-2 pr-3">Template</th><th className="pb-2 pr-3">Sport</th><th className="pb-2 pr-3">Focus</th><th className="pb-2 pr-3">Min</th><th className="pb-2 pr-3">Status</th><th className="pb-2">Actions</th></tr>
             </thead>
             <tbody className="text-foreground">

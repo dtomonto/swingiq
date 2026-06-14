@@ -210,7 +210,7 @@ export function ThemeSelector({ activeSport = null }: { activeSport?: SportId | 
                     </span>
                   ) : (
                     <span
-                      className="shrink-0 inline-flex items-center gap-0.5 text-[10px] font-medium text-muted-foreground"
+                      className="shrink-0 inline-flex items-center gap-0.5 text-3xs font-medium text-muted-foreground"
                       aria-hidden="true"
                     >
                       {theme.category === 'dark' ? <Moon size={11} /> : <Sun size={11} />}

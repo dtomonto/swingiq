@@ -70,13 +70,13 @@ export default function AdminMotionLabPage() {
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-medium text-foreground">{m.label}</span>
                       {m.rotational && (
-                        <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">rotational</span>
+                        <span className="rounded-full bg-muted px-1.5 py-0.5 text-3xs text-muted-foreground">rotational</span>
                       )}
-                      <span className="ml-auto text-[10px] text-muted-foreground">{m.movementModelLabel}</span>
+                      <span className="ml-auto text-3xs text-muted-foreground">{m.movementModelLabel}</span>
                     </div>
                     <div className="mt-1.5 flex flex-wrap gap-1">
                       {m.phases.map((ph, i) => (
-                        <span key={ph.key} className="inline-flex items-center rounded bg-muted/70 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                        <span key={ph.key} className="inline-flex items-center rounded bg-muted/70 px-1.5 py-0.5 text-3xs text-muted-foreground">
                           <span className="mr-1 text-muted-foreground/70">{i + 1}</span>{ph.label}
                         </span>
                       ))}
@@ -129,7 +129,7 @@ export default function AdminMotionLabPage() {
               <div key={d} className="rounded-lg border border-border bg-card/40 p-3">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-foreground">{OVERLAY_DENSITY_LABEL[d]}</span>
-                  <span className="ml-auto text-[10px] text-muted-foreground">{on.length}/{OVERLAY_LAYER_META.length}</span>
+                  <span className="ml-auto text-3xs text-muted-foreground">{on.length}/{OVERLAY_LAYER_META.length}</span>
                 </div>
                 <p className="mt-0.5 text-xs text-muted-foreground">{OVERLAY_DENSITY_HINT[d]}</p>
                 <div className="mt-2 flex flex-wrap gap-1">
@@ -138,8 +138,8 @@ export default function AdminMotionLabPage() {
                       key={l.id}
                       className={
                         preset[l.id]
-                          ? 'rounded-full border border-primary/40 bg-primary/10 px-1.5 py-0.5 text-[10px] text-link'
-                          : 'rounded-full border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground/70 line-through'
+                          ? 'rounded-full border border-primary/40 bg-primary/10 px-1.5 py-0.5 text-3xs text-link'
+                          : 'rounded-full border border-border px-1.5 py-0.5 text-3xs text-muted-foreground/70 line-through'
                       }
                     >
                       {l.label}

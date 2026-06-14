@@ -26,9 +26,9 @@ function ms(n: number | null): string {
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
     <div className="rounded-lg border border-border bg-card/50 p-2">
-      <p className="text-[10px] text-muted-foreground uppercase tracking-wide">{label}</p>
+      <p className="text-3xs text-muted-foreground uppercase tracking-wide">{label}</p>
       <p className="text-sm font-semibold text-foreground tabular-nums">{value}</p>
-      {hint && <p className="text-[10px] text-muted-foreground">{hint}</p>}
+      {hint && <p className="text-3xs text-muted-foreground">{hint}</p>}
     </div>
   );
 }
@@ -49,7 +49,7 @@ export function TemporalCard({ temporal: t, accent = '#22C55E' }: Props) {
         <div className="flex items-center gap-2">
           <Timer className="w-4 h-4" style={{ color: accent }} />
           <p className="text-sm font-semibold text-foreground">Timing — how your motion unfolds</p>
-          <span className="ml-auto text-[10px] text-muted-foreground tabular-nums">{Math.round(t.confidence * 100)}% conf.</span>
+          <span className="ml-auto text-3xs text-muted-foreground tabular-nums">{Math.round(t.confidence * 100)}% conf.</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -82,7 +82,7 @@ export function TemporalCard({ temporal: t, accent = '#22C55E' }: Props) {
           <ul className="space-y-1.5">
             {t.flags.map((f) => (
               <li key={f.id} className="flex items-start gap-2">
-                <span className={`text-[10px] font-semibold uppercase rounded px-1.5 py-0.5 shrink-0 ${SEVERITY_STYLE[f.severity]}`}>
+                <span className={`text-3xs font-semibold uppercase rounded px-1.5 py-0.5 shrink-0 ${SEVERITY_STYLE[f.severity]}`}>
                   {f.severity}
                 </span>
                 <span className="text-xs text-muted-foreground">
@@ -93,7 +93,7 @@ export function TemporalCard({ temporal: t, accent = '#22C55E' }: Props) {
           </ul>
         )}
 
-        {t.disclaimer && <p className="text-[10px] text-muted-foreground/80 border-t border-border pt-2">{t.disclaimer}</p>}
+        {t.disclaimer && <p className="text-3xs text-muted-foreground/80 border-t border-border pt-2">{t.disclaimer}</p>}
       </CardBody>
     </Card>
   );

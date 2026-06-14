@@ -53,7 +53,7 @@ export default async function DemoPickerPage({
                 <span className="text-4xl" aria-hidden="true">{s.emoji}</span>
                 <span className="font-heading text-sm font-bold text-foreground">{s.name}</span>
                 <span
-                  className="inline-flex items-center gap-1 text-[11px] font-semibold opacity-0 transition-opacity group-hover:opacity-100"
+                  className="inline-flex items-center gap-1 text-2xs font-semibold opacity-0 transition-opacity group-hover:opacity-100"
                   style={{ color: s.accent_hex }}
                 >
                   View report <ArrowRight size={12} />

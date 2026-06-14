@@ -30,7 +30,7 @@ const MODE_LABEL: Record<PublishMode, string> = { instant: 'Instant', deploy_bac
 
 function Pill({ className, children }: { className: string; children: React.ReactNode }) {
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium ${className}`}>
+    <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-2xs font-medium ${className}`}>
       {children}
     </span>
   );
@@ -98,7 +98,7 @@ export function PublishDetailDrawer({
                 {item.published ? 'Live' : 'Draft'}
               </Pill>
             </div>
-            <p className="mt-0.5 font-mono text-[11px] text-muted-foreground">{d.key}</p>
+            <p className="mt-0.5 font-mono text-2xs text-muted-foreground">{d.key}</p>
           </div>
           <button onClick={onClose} aria-label="Close" className="shrink-0 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground">
             <X className="h-4 w-4" />
@@ -134,12 +134,12 @@ export function PublishDetailDrawer({
                       ? <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-error-text" />
                       : <Info className="mt-0.5 h-4 w-4 shrink-0 text-link" />}
                   <span className={c.passed ? 'text-muted-foreground' : c.level === 'error' ? 'text-error-text' : 'text-link'}>
-                    {c.label}{c.detail ? <span className="block text-[11px] text-muted-foreground">{c.detail}</span> : null}
+                    {c.label}{c.detail ? <span className="block text-2xs text-muted-foreground">{c.detail}</span> : null}
                   </span>
                 </li>
               ))}
             </ul>
-            <p className="text-[11px] text-muted-foreground/70">Shallow pre-flight (title + slug). The server runs the full content/SEO gate at publish time.</p>
+            <p className="text-2xs text-muted-foreground/70">Shallow pre-flight (title + slug). The server runs the full content/SEO gate at publish time.</p>
           </Section>
 
           {/* Lifecycle */}
@@ -198,7 +198,7 @@ export function PublishDetailDrawer({
                     <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted" />
                     <div className="min-w-0">
                       <p className="text-foreground">{t.message}</p>
-                      <p className="font-mono text-[11px] text-muted-foreground/70">
+                      <p className="font-mono text-2xs text-muted-foreground/70">
                         {t.action}{t.fromStatus ? ` · ${t.fromStatus} → ${t.toStatus}` : ''} · {t.actor} · {fmt(t.at)}
                       </p>
                     </div>
@@ -241,7 +241,7 @@ export function PublishDetailDrawer({
         <div className="sticky bottom-0 flex items-center justify-between gap-3 border-t border-border bg-background/95 p-4 backdrop-blur">
           {item.readOnly ? (
             <>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-2xs text-muted-foreground">
                 Managed in {item.manageLabel ?? 'its native tool'} — PublishingOS shows its live state but doesn’t change it here.
               </p>
               <a
@@ -253,7 +253,7 @@ export function PublishDetailDrawer({
             </>
           ) : (
             <>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-2xs text-muted-foreground">
                 {d.canRevert ? 'Unpublishing reverts to draft and revalidates the route.' : 'Publishing flips the durable override and revalidates the route.'}
               </p>
               <button

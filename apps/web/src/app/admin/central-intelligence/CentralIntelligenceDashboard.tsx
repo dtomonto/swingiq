@@ -211,7 +211,7 @@ function FoundingPanel({
                 }`}
               >
                 <span className="block font-semibold">{o.label}</span>
-                <span className="block text-[11px] text-muted-foreground">{o.hint}</span>
+                <span className="block text-2xs text-muted-foreground">{o.hint}</span>
               </button>
             );
           })}
@@ -492,7 +492,7 @@ function RecommendationsPanel({ data }: { data: CIDashboard }) {
               <p className="mt-1 text-xs text-muted-foreground"><strong>Impact:</strong> {r.expectedImpact}</p>
               <p className="mt-0.5 text-xs text-muted-foreground"><strong>How:</strong> {r.suggestedImplementation}</p>
             </div>
-            <span className="shrink-0 text-[11px] uppercase tracking-wide text-muted-foreground/70">{r.area.replace('_', ' ')}</span>
+            <span className="shrink-0 text-2xs uppercase tracking-wide text-muted-foreground/70">{r.area.replace('_', ' ')}</span>
           </div>
         </SectionCard>
       ))}

@@ -29,7 +29,7 @@ const SEVERITY_TONE: Record<Severity, string> = {
 
 export function SeverityPill({ severity }: { severity: Severity }) {
   return (
-    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold ${SEVERITY_TONE[severity]}`}>
+    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-2xs font-semibold ${SEVERITY_TONE[severity]}`}>
       {SEVERITY_LABEL[severity]}
     </span>
   );
@@ -45,7 +45,7 @@ const RESULT_TONE: Record<CheckResult, { cls: string; label: string }> = {
 export function ResultChip({ result }: { result: CheckResult }) {
   const t = RESULT_TONE[result];
   return (
-    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold ${t.cls}`}>
+    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-2xs font-semibold ${t.cls}`}>
       {t.label}
     </span>
   );
@@ -95,11 +95,11 @@ export function ScoreDial({
       </svg>
       <div className="absolute flex flex-col items-center">
         <span className="text-3xl font-bold tabular-nums text-gray-100">{score}</span>
-        <span className="text-[11px] font-medium uppercase tracking-wide" style={{ color }}>
+        <span className="text-2xs font-medium uppercase tracking-wide" style={{ color }}>
           {BAND_LABEL[band]}
         </span>
         {typeof confidence === 'number' && (
-          <span className="mt-0.5 text-[10px] text-gray-500">{confidence}% confidence</span>
+          <span className="mt-0.5 text-3xs text-gray-500">{confidence}% confidence</span>
         )}
       </div>
     </div>
@@ -139,7 +139,7 @@ export function FrameworkTags({ frameworks }: { frameworks: FrameworkMapping }) 
         <span
           key={t.label}
           title={t.title}
-          className="rounded border border-gray-700 bg-gray-800/60 px-1.5 py-0.5 text-[10px] font-medium text-gray-400"
+          className="rounded border border-gray-700 bg-gray-800/60 px-1.5 py-0.5 text-3xs font-medium text-gray-400"
         >
           {t.label}
         </span>

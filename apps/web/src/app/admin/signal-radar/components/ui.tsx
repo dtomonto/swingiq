@@ -137,7 +137,7 @@ export function SubTabs<T extends string>({ tabs, active, onChange }: {
         >
           {t.label}
           {typeof t.count === 'number' && (
-            <span className="ml-1.5 rounded-full bg-muted px-1.5 text-[10px] tabular-nums text-muted-foreground">{t.count}</span>
+            <span className="ml-1.5 rounded-full bg-muted px-1.5 text-3xs tabular-nums text-muted-foreground">{t.count}</span>
           )}
         </button>
       ))}

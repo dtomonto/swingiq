@@ -53,7 +53,7 @@ export function AnalysisSpeedSelector({
               <span className={cn('text-xs font-semibold', selected ? 'text-primary' : 'text-foreground')}>
                 {label}
               </span>
-              <span className="text-[11px] leading-tight text-muted-foreground">{hint}</span>
+              <span className="text-2xs leading-tight text-muted-foreground">{hint}</span>
             </button>
           );
         })}

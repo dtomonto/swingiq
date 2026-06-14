@@ -64,7 +64,7 @@ export function DecisionDrawer({
               <span className="rounded-full bg-muted px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wide text-muted-foreground">
                 {decision.type}
               </span>
-              <span className={`rounded-full border px-2 py-0.5 text-[11px] font-medium ${b.pill}`}>
+              <span className={`rounded-full border px-2 py-0.5 text-2xs font-medium ${b.pill}`}>
                 {decision.band}
               </span>
             </div>
@@ -81,7 +81,7 @@ export function DecisionDrawer({
             {decision.score}
           </p>
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">priority</p>
+            <p className="text-3xs font-bold uppercase tracking-wide text-muted-foreground">priority</p>
             <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
               <div className={`h-full rounded-full ${b.bar}`} style={{ width: `${decision.score}%` }} />
             </div>
@@ -101,7 +101,7 @@ export function DecisionDrawer({
             {decision.meta && decision.meta.length > 0 ? (
               <div className="flex flex-wrap items-center gap-1.5">
                 {decision.meta.map((m) => (
-                  <span key={m} className="rounded border border-border bg-background px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
+                  <span key={m} className="rounded border border-border bg-background px-2 py-0.5 font-mono text-2xs text-muted-foreground">
                     {m}
                   </span>
                 ))}
@@ -109,7 +109,7 @@ export function DecisionDrawer({
             ) : (
               <p className="text-sm text-muted-foreground">No additional signals recorded.</p>
             )}
-            <p className="flex items-start gap-1.5 text-[11px] text-muted-foreground/80">
+            <p className="flex items-start gap-1.5 text-2xs text-muted-foreground/80">
               <Info className="mt-0.5 h-3 w-3 shrink-0" />
               Priority {decision.score}/100 is derived transparently from {decision.severity ?? decision.band} severity
               {count > 0 ? ` and ${count} underlying item${count === 1 ? '' : 's'}` : ''} — nothing is invented.
@@ -124,7 +124,7 @@ export function DecisionDrawer({
               autoVerify={plan.autoVerify}
               onAutoVerifyChange={(autoVerify) => onPlanChange({ ...plan, autoVerify })}
             />
-            <p className="text-[11px] text-muted-foreground/80">
+            <p className="text-2xs text-muted-foreground/80">
               {savedAt
                 ? `Plan saved on this device · ${fmt(savedAt)}.`
                 : 'Plan is saved on this device as you adjust it.'}{' '}
@@ -166,7 +166,7 @@ export function DecisionDrawer({
 function Step({ n, text }: { n: number; text: string }) {
   return (
     <li className="flex items-start gap-2.5">
-      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/[0.08] text-[11px] font-bold text-link">
+      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/[0.08] text-2xs font-bold text-link">
         {n}
       </span>
       <span className="text-muted-foreground">{text}</span>

@@ -19,7 +19,7 @@ import { useAuth } from '@/lib/auth/useAuth';
 import { useCloudSync } from '@/lib/db';
 import { CheckCircle2, CloudOff, RefreshCw, HardDrive, Cloud } from 'lucide-react';
 
-const BASE = 'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium whitespace-nowrap transition-colors';
+const BASE = 'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-2xs font-medium whitespace-nowrap transition-colors';
 const TONE = {
   green: `${BASE} bg-success/10 text-success-text`,
   amber: `${BASE} bg-warning/10 text-warning-text hover:bg-warning/15`,

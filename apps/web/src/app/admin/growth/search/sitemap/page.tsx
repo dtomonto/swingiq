@@ -57,7 +57,7 @@ export default function SitemapIntelligencePage() {
               <li key={e.url} className="flex items-start justify-between gap-2 rounded-lg border border-border bg-muted/40 p-3">
                 <div className="min-w-0">
                   <Link href={`/admin/growth/search/page-intel?url=${encodeURIComponent(e.url)}`} className="text-xs font-mono text-foreground hover:text-success-text truncate block">{e.url}</Link>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">{e.note}</p>
+                  <p className="text-2xs text-muted-foreground mt-0.5">{e.note}</p>
                 </div>
                 <Badge className="text-link bg-primary/10 border-primary/30 shrink-0">{humanize(e.flag)}</Badge>
               </li>
@@ -90,7 +90,7 @@ export default function SitemapIntelligencePage() {
             </tbody>
           </table>
         </div>
-        <p className="mt-2 text-[11px] text-muted-foreground/70">Ordered by page priority, with a boost for indexable pages still missing from the sitemap. Submit those first in Search Console.</p>
+        <p className="mt-2 text-2xs text-muted-foreground/70">Ordered by page priority, with a boost for indexable pages still missing from the sitemap. Submit those first in Search Console.</p>
       </SectionCard>
     </div>
   );

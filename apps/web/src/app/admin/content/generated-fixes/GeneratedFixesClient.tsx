@@ -32,7 +32,7 @@ function ScoreBar({ label, value, invert }: { label: string; value: number; inve
   const mid = value >= 40 && value < 60;
   const color = good ? 'bg-success/70' : mid ? 'bg-primary/70' : 'bg-error/70';
   return (
-    <div className="flex items-center gap-2 text-[11px]">
+    <div className="flex items-center gap-2 text-2xs">
       <span className="w-20 shrink-0 text-muted-foreground">{label}</span>
       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${value}%` }} />

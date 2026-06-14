@@ -246,7 +246,7 @@ function CapabilityCard({ cap }: { cap: ResolvedCapability }) {
             href={cap.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-medium text-link hover:underline"
+            className="mt-1.5 inline-flex items-center gap-1 text-2xs font-medium text-link hover:underline"
           >
             Open in PostHog <ExternalLink className="h-3 w-3" />
           </a>
@@ -371,7 +371,7 @@ function ProductPanel({ dashboard, live, loading, isFull }: { dashboard: Dashboa
                   <span key={s.label} className="flex items-center gap-1.5">
                     <span className="flex flex-col rounded bg-muted px-2 py-1 leading-tight">
                       <span className="text-foreground">{s.label}</span>
-                      <code className="text-[10px] text-success-text/80">
+                      <code className="text-3xs text-success-text/80">
                         {s.event ?? 'PostHog-native (returning users)'}
                       </code>
                     </span>
@@ -387,7 +387,7 @@ function ProductPanel({ dashboard, live, loading, isFull }: { dashboard: Dashboa
       <SectionCard title="Event catalog" description={`${dashboard.trackedEvents.length} events SwingVantage is instrumented to send`}>
         <div className="flex flex-wrap gap-1.5">
           {dashboard.trackedEvents.map((e) => (
-            <code key={e} className="rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] text-foreground">{e}</code>
+            <code key={e} className="rounded bg-muted px-1.5 py-0.5 font-mono text-2xs text-foreground">{e}</code>
           ))}
         </div>
       </SectionCard>
@@ -440,7 +440,7 @@ function FlagsPanel({ live, loading, isFull, onChanged }: { live: LiveSnapshot |
               <div key={f.id} className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-3">
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold text-foreground">{f.name}</p>
-                  <p className="font-mono text-[11px] text-muted-foreground/70">{f.key}{f.rolloutPercentage != null ? ` · ${f.rolloutPercentage}% rollout` : ''}</p>
+                  <p className="font-mono text-2xs text-muted-foreground/70">{f.key}{f.rolloutPercentage != null ? ` · ${f.rolloutPercentage}% rollout` : ''}</p>
                 </div>
                 <button
                   role="switch"
@@ -540,7 +540,7 @@ function ExplorePanel({ live, isFull }: { live: LiveSnapshot | null; isFull: boo
               </tbody>
             </table>
             {result.rows.length === 0 && <p className="py-3 text-center text-muted-foreground/70">No rows.</p>}
-            {result.truncated && <p className="mt-2 text-[11px] text-link">Showing the first 200 rows.</p>}
+            {result.truncated && <p className="mt-2 text-2xs text-link">Showing the first 200 rows.</p>}
           </div>
         )}
       </SectionCard>
@@ -631,7 +631,7 @@ function ConnectPanel({ dashboard }: { dashboard: Dashboard }) {
           <li>Find your <strong>Project ID</strong> in <strong>Settings → Project</strong> (a number).</li>
           <li>Add both as environment variables, then redeploy:</li>
         </ol>
-        <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-[11px] text-foreground">{`POSTHOG_PERSONAL_API_KEY=phx_your_personal_key
+        <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-2xs text-foreground">{`POSTHOG_PERSONAL_API_KEY=phx_your_personal_key
 POSTHOG_PROJECT_ID=12345`}</pre>
         <p className="mt-2 text-xs text-muted-foreground">
           Locally: add them to <code>apps/web/.env.local</code>. In production: <strong>Vercel → Settings → Environment Variables</strong>.

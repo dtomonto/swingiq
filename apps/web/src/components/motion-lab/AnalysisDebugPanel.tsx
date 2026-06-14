@@ -39,7 +39,7 @@ function frameVis(landmarks: { v: number }[]): number {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1">
-      <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">{title}</p>
+      <p className="text-3xs font-semibold uppercase tracking-wide text-muted-foreground">{title}</p>
       {children}
     </div>
   );
@@ -47,7 +47,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function KV({ items }: { items: Array<[string, string]> }) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1.5 text-[11px]">
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1.5 text-2xs">
       {items.map(([k, v]) => (
         <div key={k}>
           <p className="text-muted-foreground">{k}</p>
@@ -76,7 +76,7 @@ export function AnalysisDebugPanel({ session }: Props) {
     <details className="rounded-xl border border-border bg-card group">
       <summary className="cursor-pointer list-none px-4 py-3 text-xs font-semibold text-muted-foreground flex items-center gap-2">
         <Bug className="w-3.5 h-3.5" /> Technical details (AI validation)
-        <span className="ml-auto text-[10px] group-open:hidden">show</span>
+        <span className="ml-auto text-3xs group-open:hidden">show</span>
       </summary>
 
       <div className="px-4 pb-4 space-y-4">
@@ -118,7 +118,7 @@ export function AnalysisDebugPanel({ session }: Props) {
                 );
               })}
             </div>
-            <p className="text-[10px] text-muted-foreground">Green ≥70% · amber 40–70% · grey &lt;40% (low-confidence frames).</p>
+            <p className="text-3xs text-muted-foreground">Green ≥70% · amber 40–70% · grey &lt;40% (low-confidence frames).</p>
           </Section>
         )}
 
@@ -126,7 +126,7 @@ export function AnalysisDebugPanel({ session }: Props) {
         {session.phases.length > 0 && (
           <Section title="Phase timestamps">
             <div className="overflow-x-auto">
-              <table className="w-full text-[11px]">
+              <table className="w-full text-2xs">
                 <thead>
                   <tr className="text-muted-foreground text-left">
                     <th className="py-1 pr-3 font-medium">Phase</th>
@@ -169,13 +169,13 @@ export function AnalysisDebugPanel({ session }: Props) {
                 ]}
               />
               {ot.warnings.length > 0 && (
-                <ul className="list-disc list-inside text-[10px] text-warning/90 mt-1">
+                <ul className="list-disc list-inside text-3xs text-warning/90 mt-1">
                   {ot.warnings.map((w, i) => <li key={i}>{w}</li>)}
                 </ul>
               )}
             </>
           ) : (
-            <p className="text-[11px] text-muted-foreground">Not computed for this session.</p>
+            <p className="text-2xs text-muted-foreground">Not computed for this session.</p>
           )}
         </Section>
 
@@ -218,7 +218,7 @@ export function AnalysisDebugPanel({ session }: Props) {
         {/* Raw metric values */}
         <Section title="Raw metrics">
           <div className="overflow-x-auto">
-            <table className="w-full text-[11px]">
+            <table className="w-full text-2xs">
               <thead>
                 <tr className="text-muted-foreground text-left">
                   <th className="py-1 pr-3 font-medium">Metric</th>
@@ -255,7 +255,7 @@ export function AnalysisDebugPanel({ session }: Props) {
               ]}
             />
           ) : (
-            <p className="text-[11px] text-muted-foreground">Detecting…</p>
+            <p className="text-2xs text-muted-foreground">Detecting…</p>
           )}
         </Section>
       </div>

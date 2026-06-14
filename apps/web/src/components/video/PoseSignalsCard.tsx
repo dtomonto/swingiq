@@ -33,7 +33,7 @@ export function PoseSignalsCard({ metrics }: { metrics: PoseMetrics }) {
           <div key={it.label} className="rounded-lg border border-border bg-muted p-2.5">
             <p className="text-xs font-semibold text-muted-foreground">{it.label}</p>
             <p className="text-base font-bold text-foreground">{it.value}</p>
-            <p className="text-[10px] text-muted-foreground leading-snug">{it.hint}</p>
+            <p className="text-3xs text-muted-foreground leading-snug">{it.hint}</p>
           </div>
         ))}
       </div>

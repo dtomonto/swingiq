@@ -49,7 +49,7 @@ export function SportProofBlock({
         <div className="grid gap-4 sm:grid-cols-2">
           {/* Example diagnosis */}
           <div className="rounded-2xl border border-primary/30 bg-primary/5 p-5 sm:col-span-2">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Example diagnosis</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-primary">Example diagnosis</p>
             <p className="mt-1 font-semibold text-foreground">{r.issueDetected}</p>
             <p className="mt-2 text-sm text-muted-foreground"><span className="font-semibold text-foreground">Top fix:</span> {r.highestPriorityFix}</p>
           </div>

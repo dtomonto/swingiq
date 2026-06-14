@@ -33,7 +33,7 @@ export function PracticePrescriptionPanel({
         {prescription.blocks.map((block, i) => (
           <li key={block.id} className="rounded-theme border border-border bg-muted/30 p-3">
             <div className="flex items-center gap-2">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-[11px] font-bold text-primary">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-2xs font-bold text-primary">
                 {i + 1}
               </span>
               {block.category === 'scoring' && i === prescription.blocks.length - 1 ? (
@@ -42,7 +42,7 @@ export function PracticePrescriptionPanel({
                 <Dumbbell size={15} className="text-primary" aria-hidden="true" />
               )}
               <span className="text-sm font-semibold text-foreground">{block.title}</span>
-              <span className="ml-auto text-[10px] text-muted-foreground">{block.frequency}</span>
+              <span className="ml-auto text-3xs text-muted-foreground">{block.frequency}</span>
             </div>
             <p className="mt-1 text-xs text-muted-foreground">{block.rationale}</p>
             <ul className="mt-2 space-y-0.5">
@@ -52,7 +52,7 @@ export function PracticePrescriptionPanel({
                 </li>
               ))}
             </ul>
-            <p className="mt-2 text-[10px] text-muted-foreground">
+            <p className="mt-2 text-3xs text-muted-foreground">
               <span className="font-medium text-foreground/80">Proof it worked:</span> {block.proofMetric}
             </p>
           </li>

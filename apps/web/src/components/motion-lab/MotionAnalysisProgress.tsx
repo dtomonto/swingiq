@@ -37,7 +37,7 @@ export function MotionAnalysisProgress({ stage }: { stage: MotionStage }) {
               'w-6 h-6 rounded-full flex items-center justify-center shrink-0',
               done ? 'bg-success/20 text-success' : active ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground',
             )}>
-              {done ? <Check className="w-3.5 h-3.5" /> : active ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <span className="text-[10px]">{i + 1}</span>}
+              {done ? <Check className="w-3.5 h-3.5" /> : active ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <span className="text-3xs">{i + 1}</span>}
             </div>
             <span className={cn('text-sm', active ? 'text-foreground font-medium' : 'text-muted-foreground')}>{s.label}</span>
           </div>

@@ -111,7 +111,7 @@ export function EmailCapture({
         </button>
       </div>
       {status === 'error' && <p role="alert" className="mt-2 text-xs font-medium text-error">{message}</p>}
-      <p className="mt-2 text-[11px] text-muted-foreground">
+      <p className="mt-2 text-2xs text-muted-foreground">
         We only use your email to send what you asked for. See our{' '}
         <Link href="/privacy" className="underline">privacy policy</Link>.
       </p>

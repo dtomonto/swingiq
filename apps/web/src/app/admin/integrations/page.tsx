@@ -45,7 +45,7 @@ export default function IntegrationsPage() {
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-foreground">{i.name}</p>
-                <p className="text-[11px] uppercase tracking-wide text-muted-foreground/70">{i.category}</p>
+                <p className="text-2xs uppercase tracking-wide text-muted-foreground/70">{i.category}</p>
               </div>
               <StatusBadge tone={i.connected ? 'success' : 'neutral'}>
                 {i.connected ? 'Connected' : 'Not connected'}
@@ -54,10 +54,10 @@ export default function IntegrationsPage() {
             <p className="mt-2 text-sm text-muted-foreground">{i.detail}</p>
             {i.envVars.length > 0 && (
               <div className="mt-3">
-                <p className="text-[11px] uppercase tracking-wide text-muted-foreground/70">Configure with</p>
+                <p className="text-2xs uppercase tracking-wide text-muted-foreground/70">Configure with</p>
                 <div className="mt-1 flex flex-wrap gap-1.5">
                   {i.envVars.map((v) => (
-                    <code key={v} className="rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] text-foreground">
+                    <code key={v} className="rounded bg-muted px-1.5 py-0.5 font-mono text-2xs text-foreground">
                       {v}
                     </code>
                   ))}

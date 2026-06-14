@@ -42,7 +42,7 @@ function Row({ m, sport }: { m: MilestoneState; sport: SportId }) {
               <div className="h-full rounded-full bg-warning" style={{ width: `${Math.round(m.progress * 100)}%` }} />
             </div>
             {m.currentValue !== null && m.targetValue !== null && (
-              <span className="text-[10px] text-muted-foreground tabular-nums">
+              <span className="text-3xs text-muted-foreground tabular-nums">
                 {m.currentValue}/{m.targetValue}{m.unit ? ` ${m.unit}` : ''}
               </span>
             )}

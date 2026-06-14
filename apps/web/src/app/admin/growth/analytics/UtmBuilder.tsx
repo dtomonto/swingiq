@@ -129,7 +129,7 @@ export function UtmBuilder({ savedLinks }: Props) {
               )}
             />
             {missingBaseUrl && (
-              <p className="text-[11px] text-link mt-0.5">Enter a base URL to generate a link.</p>
+              <p className="text-2xs text-link mt-0.5">Enter a base URL to generate a link.</p>
             )}
           </div>
 
@@ -251,7 +251,7 @@ export function UtmBuilder({ savedLinks }: Props) {
                 >
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium text-foreground truncate">{link.name}</p>
-                    <p className="text-[11px] text-muted-foreground mt-0.5 break-all leading-relaxed">
+                    <p className="text-2xs text-muted-foreground mt-0.5 break-all leading-relaxed">
                       {link.generatedUrl}
                     </p>
                   </div>

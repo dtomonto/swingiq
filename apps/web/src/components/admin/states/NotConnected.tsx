@@ -25,7 +25,7 @@ export function NotConnected({ title = 'Not connected', detail, envVars }: NotCo
           {envVars.map((v) => (
             <code
               key={v}
-              className="rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] text-foreground"
+              className="rounded bg-muted px-1.5 py-0.5 font-mono text-2xs text-foreground"
             >
               {v}
             </code>

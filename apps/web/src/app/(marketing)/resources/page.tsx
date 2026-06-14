@@ -248,7 +248,7 @@ export default function ResourcesPage() {
                   <span className="text-primary opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true">→</span>
                 </div>
                 <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
-                <p className="mt-3 text-[11px] font-medium uppercase tracking-wide text-muted-foreground/80">{c.audience}</p>
+                <p className="mt-3 text-2xs font-medium uppercase tracking-wide text-muted-foreground/80">{c.audience}</p>
               </Link>
             ))}
           </div>

@@ -524,7 +524,7 @@ export function DiagnoseContent() {
           <div className="grid gap-3 sm:grid-cols-2">
             {scoreHistory.length >= 2 && (
               <div className="rounded-xl border border-document-fg/15 bg-document-fg/[0.03] p-4">
-                <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.05em] text-document-fg/60">
+                <p className="mb-1 text-2xs font-semibold uppercase tracking-[0.05em] text-document-fg/60">
                   Your score trend
                 </p>
                 <ProgressTimeline onPaper points={scoreHistory} height={84} />

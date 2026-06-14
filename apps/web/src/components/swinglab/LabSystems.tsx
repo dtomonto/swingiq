@@ -24,7 +24,7 @@ export function LabSystems({ model }: { model: LabSystemsModel }) {
         <div className="flex items-center gap-2">
           <Cpu size={16} className="text-emerald-300" aria-hidden="true" />
           <h2 className="text-sm font-bold uppercase tracking-wide text-white">Lab systems</h2>
-          <span className="ml-auto rounded-full bg-white/10 px-2 py-0.5 text-[11px] font-semibold text-slate-300 ring-1 ring-white/15">
+          <span className="ml-auto rounded-full bg-white/10 px-2 py-0.5 text-2xs font-semibold text-slate-300 ring-1 ring-white/15">
             {onlineCount}/{totalSystems} online
           </span>
         </div>
@@ -51,7 +51,7 @@ export function LabSystems({ model }: { model: LabSystemsModel }) {
                   <ArrowRight size={14} aria-hidden="true" className={c.active ? 'text-emerald-300' : 'text-slate-600'} />
                   <span>{to.name}</span>
                   <span
-                    className={`ml-auto inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+                    className={`ml-auto inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-3xs font-bold uppercase tracking-wide ${
                       c.active ? 'bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30' : 'bg-white/5 text-slate-500 ring-1 ring-white/10'
                     }`}
                   >
@@ -64,7 +64,7 @@ export function LabSystems({ model }: { model: LabSystemsModel }) {
             );
           })}
         </ul>
-        <p className="mt-3 text-[11px] text-slate-500">
+        <p className="mt-3 text-2xs text-slate-500">
           Links go live as real data flows between stations — nothing here is simulated.
         </p>
       </section>
@@ -85,7 +85,7 @@ export function LabSystems({ model }: { model: LabSystemsModel }) {
                     <Icon size={14} strokeWidth={1.75} aria-hidden="true" />
                   </span>
                   <span className="text-sm font-semibold text-white">{station.name}</span>
-                  <span className={`ml-auto inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide ${sys.online ? 'text-emerald-300' : 'text-slate-500'}`}>
+                  <span className={`ml-auto inline-flex items-center gap-1 text-3xs font-bold uppercase tracking-wide ${sys.online ? 'text-emerald-300' : 'text-slate-500'}`}>
                     <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${sys.online ? 'bg-emerald-400' : 'bg-slate-600'}`} />
                     {sys.online ? 'Online' : 'Standby'}
                   </span>

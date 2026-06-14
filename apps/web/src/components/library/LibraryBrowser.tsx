@@ -196,11 +196,11 @@ function VideoCard({ item, onOpen }: { item: LibraryItem; onOpen: () => void }) 
             <PlayCircle size={26} className="text-white" aria-hidden="true" />
           </span>
         </span>
-        <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded bg-black/65 px-1.5 py-0.5 text-[11px] font-medium text-white">
+        <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded bg-black/65 px-1.5 py-0.5 text-2xs font-medium text-white">
           <Clock size={10} aria-hidden="true" /> {item.durationLabel}
         </span>
         {!item.hasRecording && (
-          <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur">
+          <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-black/55 px-2 py-0.5 text-3xs font-semibold text-white backdrop-blur">
             <Sparkles size={10} aria-hidden="true" /> Coming soon
           </span>
         )}
@@ -209,7 +209,7 @@ function VideoCard({ item, onOpen }: { item: LibraryItem; onOpen: () => void }) 
         <h3 className="line-clamp-1 text-sm font-bold text-foreground">{item.title}</h3>
         <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">{item.description}</p>
         {item.sport !== 'all' && (
-          <span className="mt-2 inline-block rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+          <span className="mt-2 inline-block rounded bg-muted px-1.5 py-0.5 text-3xs font-medium text-muted-foreground">
             {SPORT_LABELS[item.sport]}
           </span>
         )}

@@ -280,7 +280,7 @@ export function CoachMixDashboard() {
                     </button>
                   </div>
                 )}
-                <p className="border-t border-border pt-2 text-[11px] italic text-muted-foreground">{COACH_MIX_DISCLAIMER}</p>
+                <p className="border-t border-border pt-2 text-2xs italic text-muted-foreground">{COACH_MIX_DISCLAIMER}</p>
               </div>
             </SectionCard>
           ))}
@@ -600,7 +600,7 @@ export function CoachMixDashboard() {
                     <Trash2 className="h-3.5 w-3.5" /> Remove
                   </button>
                 </div>
-                <p className="text-[11px] italic text-muted-foreground">Approved concepts are ready to hand to Video Studio (Admin → Video Studio) for production.</p>
+                <p className="text-2xs italic text-muted-foreground">Approved concepts are ready to hand to Video Studio (Admin → Video Studio) for production.</p>
               </div>
             </SectionCard>
           ))}
@@ -698,7 +698,7 @@ export function CoachMixDashboard() {
                 </ul>
               </div>
             )}
-            <p className="border-t border-border pt-2 text-[11px] italic text-muted-foreground">
+            <p className="border-t border-border pt-2 text-2xs italic text-muted-foreground">
               {recommendation.influenceSummary} {recommendation.coachNamesVisible ? '' : 'Coach names are hidden in user output.'}
             </p>
           </div>

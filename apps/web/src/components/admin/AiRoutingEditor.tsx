@@ -112,24 +112,24 @@ export function AiRoutingEditor({ initialRoutes, source }: Props) {
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm font-medium text-foreground">{r.task.label}</span>
                   {r.overridden && (
-                    <span className="rounded bg-success/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-success-text">
+                    <span className="rounded bg-success/15 px-1.5 py-0.5 text-3xs font-medium uppercase tracking-wide text-success-text">
                       Override
                     </span>
                   )}
                   {!r.enabled && (
-                    <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                    <span className="rounded bg-muted px-1.5 py-0.5 text-3xs font-medium uppercase tracking-wide text-muted-foreground">
                       Off
                     </span>
                   )}
                   {r.enabled && r.provider !== 'none' && r.provider !== 'mediapipe' && !r.providerConfigured && (
-                    <span className="inline-flex items-center gap-1 rounded bg-warning/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-warning-text">
+                    <span className="inline-flex items-center gap-1 rounded bg-warning/15 px-1.5 py-0.5 text-3xs font-medium uppercase tracking-wide text-warning-text">
                       <AlertTriangle className="h-3 w-3" /> No key
                     </span>
                   )}
                 </div>
                 <p className="mt-1 max-w-prose text-xs text-muted-foreground">{r.task.description}</p>
               </div>
-              <code className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground">
+              <code className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-2xs text-muted-foreground">
                 {r.task.stage}
               </code>
             </div>

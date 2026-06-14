@@ -40,11 +40,11 @@ export function SampleReportTemplate({ report }: { report: SampleReport }) {
       {/* Profile + input */}
       <section className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-2xl border border-border bg-card p-5">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Player profile</p>
+          <p className="text-2xs font-semibold uppercase tracking-wide text-muted-foreground">Player profile</p>
           <p className="mt-1 text-sm text-foreground">{report.userProfile}</p>
         </div>
         <div className="rounded-2xl border border-border bg-card p-5">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Input data</p>
+          <p className="text-2xs font-semibold uppercase tracking-wide text-muted-foreground">Input data</p>
           <ul className="mt-1 space-y-1">
             {report.inputData.map((d) => (
               <li key={d} className="flex items-start gap-2 text-sm text-foreground">
@@ -58,9 +58,9 @@ export function SampleReportTemplate({ report }: { report: SampleReport }) {
 
       {/* Issue + top fix */}
       <section className="rounded-2xl border border-warning/30 bg-warning/10 p-5">
-        <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Highest-priority issue</p>
+        <p className="text-2xs font-semibold uppercase tracking-wide text-warning">Highest-priority issue</p>
         <p className="mt-1 font-bold text-foreground">{report.issueDetected}</p>
-        <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide text-primary">The #1 fix</p>
+        <p className="mt-3 text-2xs font-semibold uppercase tracking-wide text-primary">The #1 fix</p>
         <p className="mt-1 text-foreground">{report.highestPriorityFix}</p>
       </section>
 
@@ -154,11 +154,11 @@ export function SampleReportTemplate({ report }: { report: SampleReport }) {
         <h2 className="flex items-center gap-2 text-sm font-bold text-foreground">
           <Users size={16} className="text-primary" aria-hidden="true" /> Coach &amp; parent summary
         </h2>
-        <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">For a coach</p>
+        <p className="mt-2 text-2xs font-semibold uppercase tracking-wide text-muted-foreground">For a coach</p>
         <p className="mt-1 text-sm text-foreground">{report.coachSummary}</p>
         {report.parentSummary && (
           <>
-            <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">For a parent</p>
+            <p className="mt-3 text-2xs font-semibold uppercase tracking-wide text-muted-foreground">For a parent</p>
             <p className="mt-1 text-sm text-foreground">{report.parentSummary}</p>
           </>
         )}

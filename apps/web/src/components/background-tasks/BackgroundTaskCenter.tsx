@@ -168,7 +168,7 @@ function FinishedToast({
         <div className="min-w-0 flex-1">
           <p
             className={cn(
-              'text-[11px] font-semibold uppercase tracking-wide',
+              'text-2xs font-semibold uppercase tracking-wide',
               isError ? 'text-error' : 'text-primary',
             )}
           >

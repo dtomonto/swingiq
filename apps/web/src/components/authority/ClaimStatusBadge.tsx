@@ -36,7 +36,7 @@ export function ClaimStatusBadge({ claimId }: { claimId: string }) {
           if (next) track(ANALYTICS_EVENTS.CLAIM_EXPLAINER_OPENED, { claim_id: claim.id });
         }}
         aria-expanded={open}
-        className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-semibold ${style.cls}`}
+        className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-2xs font-semibold ${style.cls}`}
       >
         <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-current opacity-70" />
         {style.label}
@@ -48,7 +48,7 @@ export function ClaimStatusBadge({ claimId }: { claimId: string }) {
         >
           <span className="block font-semibold text-foreground">Basis</span>
           {claim.basis}
-          <span className="mt-1 block text-[10px] text-muted-foreground/80">
+          <span className="mt-1 block text-3xs text-muted-foreground/80">
             Last reviewed {claim.lastReviewed}
           </span>
         </span>

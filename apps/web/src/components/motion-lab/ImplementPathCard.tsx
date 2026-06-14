@@ -74,7 +74,7 @@ export function ImplementPathCard({ tracking, accent = '#22C55E' }: Props) {
         <div className="flex items-center gap-2">
           <Spline className="w-4 h-4 text-primary" style={{ color: accent }} />
           <p className="text-sm font-semibold text-foreground">{IMPLEMENT_LABEL[tracking.implement] ?? 'Implement path'}</p>
-          <span className="ml-auto text-[10px] font-medium uppercase tracking-wide text-warning bg-warning/10 rounded px-1.5 py-0.5">
+          <span className="ml-auto text-3xs font-medium uppercase tracking-wide text-warning bg-warning/10 rounded px-1.5 py-0.5">
             Estimated
           </span>
         </div>
@@ -113,7 +113,7 @@ export function ImplementPathCard({ tracking, accent = '#22C55E' }: Props) {
                 </g>
               )}
             </svg>
-            <p className="text-[10px] text-muted-foreground text-center mt-1 flex items-center justify-center gap-1">
+            <p className="text-3xs text-muted-foreground text-center mt-1 flex items-center justify-center gap-1">
               <Target className="w-3 h-3 text-orange-500" /> contact zone · arc = estimated head path
             </p>
           </div>
@@ -139,7 +139,7 @@ export function ImplementPathCard({ tracking, accent = '#22C55E' }: Props) {
         </div>
 
         {/* Honesty: disclaimer + any capture warnings */}
-        <div className="flex items-start gap-2 text-[11px] text-muted-foreground border-t border-border pt-2">
+        <div className="flex items-start gap-2 text-2xs text-muted-foreground border-t border-border pt-2">
           <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" />
           <div className="space-y-1">
             <p>{tracking.disclaimer}</p>

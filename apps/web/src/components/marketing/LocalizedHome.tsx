@@ -455,7 +455,7 @@ function AnalysisReportCard() {
 
       {/* Primary fix banner */}
       <div className="mt-5 rounded-xl border-l-2 border-primary bg-primary/10 px-4 py-3">
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-link">Primary fix identified</p>
+        <p className="text-3xs font-semibold uppercase tracking-wider text-link">Primary fix identified</p>
         <p className="mt-0.5 font-heading font-semibold uppercase tracking-tight text-foreground">Address hip rotation alignment</p>
       </div>
 
@@ -472,7 +472,7 @@ function AnalysisReportCard() {
             className="group rounded-lg border border-border bg-secondary p-3 text-center transition-colors hover:border-primary/60 hover:bg-primary/5"
           >
             <Icon size={18} className="mx-auto text-primary" aria-hidden="true" />
-            <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground group-hover:text-foreground">{label}</p>
+            <p className="mt-1.5 text-3xs font-medium uppercase tracking-wide text-muted-foreground group-hover:text-foreground">{label}</p>
           </Link>
         ))}
       </div>
@@ -491,11 +491,11 @@ function AnalysisReportCard() {
         href="/demo?next=report"
         className="mt-3 flex items-center justify-between rounded-lg border border-border bg-secondary px-3 py-2.5 text-left transition-colors hover:border-primary/60 hover:bg-primary/5"
       >
-        <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide text-link">
+        <span className="inline-flex items-center gap-1.5 text-3xs font-semibold uppercase tracking-wide text-link">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" aria-hidden="true" />
           Kinematic tracking active
         </span>
-        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-foreground">
+        <span className="inline-flex items-center gap-1 text-2xs font-bold text-foreground">
           See the full report
           <ArrowRight size={13} aria-hidden="true" />
         </span>

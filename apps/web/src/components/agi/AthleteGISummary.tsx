@@ -41,7 +41,7 @@ export function AthleteGISummary() {
           <span className="text-sm font-semibold text-foreground">Athlete GI</span>
           <Badge variant="info">General</Badge>
           {hasData && (
-            <span className="ml-auto flex items-center gap-2 text-[11px] text-muted-foreground">
+            <span className="ml-auto flex items-center gap-2 text-2xs text-muted-foreground">
               <span className="flex items-center gap-1">
                 <Gauge className="w-3 h-3" aria-hidden="true" />
                 {Math.round(model.coverage * 100)}%
@@ -87,7 +87,7 @@ export function AthleteGISummary() {
         )}
 
         {plan.todayNote && (
-          <p className="text-[11px] text-foreground rounded-lg bg-muted/50 px-2.5 py-1.5">{plan.todayNote}</p>
+          <p className="text-2xs text-foreground rounded-lg bg-muted/50 px-2.5 py-1.5">{plan.todayNote}</p>
         )}
 
         {trend && (

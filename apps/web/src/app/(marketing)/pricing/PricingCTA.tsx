@@ -124,7 +124,7 @@ export function PricingCTA({ tier }: { tier: BillingTier }) {
           Notify me when {tier.name} launches
         </Button>
         {message && <p className="text-xs text-warning">{message}</p>}
-        <p className="text-[11px] text-muted-foreground leading-relaxed">
+        <p className="text-2xs text-muted-foreground leading-relaxed">
           Free stays free. {tier.name} is coming later — leave your email and we&apos;ll let you know.
         </p>
       </form>

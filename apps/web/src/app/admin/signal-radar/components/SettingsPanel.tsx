@@ -162,9 +162,9 @@ export function SettingsPanel({ config, adapters, onUpdate, onReset, onReprocess
               <p className="mt-1 text-xs text-muted-foreground">{a.setupInstructions}</p>
               <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                 {a.envVars.length > 0 ? a.envVars.map((v) => (
-                  <code key={v} className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{v}{a.hasCredentials ? ' ✓' : ''}</code>
-                )) : <span className="text-[10px] text-muted-foreground/70">No credentials required</span>}
-                <span className="text-[10px] text-muted-foreground/70">· dedup: {a.dedupeStrategy}</span>
+                  <code key={v} className="rounded bg-muted px-1.5 py-0.5 text-3xs text-muted-foreground">{v}{a.hasCredentials ? ' ✓' : ''}</code>
+                )) : <span className="text-3xs text-muted-foreground/70">No credentials required</span>}
+                <span className="text-3xs text-muted-foreground/70">· dedup: {a.dedupeStrategy}</span>
               </div>
             </li>
           ))}

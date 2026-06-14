@@ -26,7 +26,7 @@ export function GuidedFlow({ steps }: { steps: GuidedStep[] }) {
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <h2 className="text-sm font-bold uppercase tracking-wide text-white">Your guided path</h2>
-          <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[11px] font-semibold text-emerald-300 ring-1 ring-emerald-400/30">
+          <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-2xs font-semibold text-emerald-300 ring-1 ring-emerald-400/30">
             {doneCount}/{steps.length} done
           </span>
         </div>
@@ -70,7 +70,7 @@ export function GuidedFlow({ steps }: { steps: GuidedStep[] }) {
                   Start here <ArrowRight size={13} aria-hidden="true" />
                 </span>
               )}
-              {isDone && <span className="mt-2 inline-block text-[11px] font-medium text-emerald-300/80">Done</span>}
+              {isDone && <span className="mt-2 inline-block text-2xs font-medium text-emerald-300/80">Done</span>}
             </>
           );
 

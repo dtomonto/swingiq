@@ -65,7 +65,7 @@ export function FoundingProgressNudge() {
           <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-2">
             {/* Profile mini-bar */}
             <div className="min-w-[140px] flex-1">
-              <div className="mb-0.5 flex items-center justify-between text-[11px]">
+              <div className="mb-0.5 flex items-center justify-between text-2xs">
                 <span className="font-medium text-foreground">Profile {profilePct}%</span>
                 {profileDone && (
                   <CheckCircle2 className="h-3 w-3 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
@@ -77,7 +77,7 @@ export function FoundingProgressNudge() {
             </div>
             {/* Sessions mini-bar */}
             <div className="min-w-[140px] flex-1">
-              <div className="mb-0.5 flex items-center justify-between text-[11px]">
+              <div className="mb-0.5 flex items-center justify-between text-2xs">
                 <span className="font-medium text-foreground">
                   Sessions {sessions}/{FOUNDING_REQUIRED_SESSIONS}
                 </span>

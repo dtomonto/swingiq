@@ -65,7 +65,7 @@ export function LabStationPanel({
               <Icon size={22} strokeWidth={1.75} aria-hidden="true" />
             </span>
             <div>
-              <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${accent.text}`}>{station.systemRole}</p>
+              <p className={`text-2xs font-semibold uppercase tracking-[0.14em] ${accent.text}`}>{station.systemRole}</p>
               <h2 id="lab-panel-title" className="text-lg font-bold text-white">{station.name}</h2>
             </div>
           </div>
@@ -92,7 +92,7 @@ export function LabStationPanel({
         <p className="mt-4 text-sm leading-relaxed text-slate-300">{station.blurb}</p>
 
         <div className="mt-5">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">Inside this station</p>
+          <p className="text-2xs font-medium uppercase tracking-wide text-slate-500">Inside this station</p>
           <ul className="mt-2 space-y-1.5">
             {station.functions.map((fn) => (
               <li key={fn} className="flex items-start gap-2 text-sm text-slate-400">
@@ -104,10 +104,10 @@ export function LabStationPanel({
         </div>
 
         <div className="mt-5">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">Connects</p>
+          <p className="text-2xs font-medium uppercase tracking-wide text-slate-500">Connects</p>
           <div className="mt-1.5 flex flex-wrap gap-1.5">
             {station.connects.map((c) => (
-              <span key={c} className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[11px] font-medium text-slate-300">
+              <span key={c} className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-2xs font-medium text-slate-300">
                 {c}
               </span>
             ))}
@@ -122,7 +122,7 @@ export function LabStationPanel({
             {station.liveLabel ?? 'Open the tool'} <ArrowRight size={16} aria-hidden="true" />
           </Link>
         )}
-        <p className="mt-3 text-center text-[11px] text-slate-500">
+        <p className="mt-3 text-center text-2xs text-slate-500">
           The tool is live today · the immersive station is in development
         </p>
       </div>

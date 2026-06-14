@@ -38,7 +38,7 @@ function KeyValues({ data, keys }: { data: Record<string, unknown>; keys: string
     <dl className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3">
       {shown.map((k) => (
         <div key={k}>
-          <dt className="text-[11px] uppercase tracking-wide text-muted-foreground/70">{titleize(k)}</dt>
+          <dt className="text-2xs uppercase tracking-wide text-muted-foreground/70">{titleize(k)}</dt>
           <dd className="text-sm text-foreground">{String(data[k])}</dd>
         </div>
       ))}
@@ -139,7 +139,7 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
             ) : (
               <div className="mt-4 overflow-x-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                  <thead className="text-2xs uppercase tracking-wide text-muted-foreground">
                     <tr><th className="pb-2 pr-3">Feature</th><th className="pb-2 pr-3">Calls</th><th className="pb-2">Est. cost</th></tr>
                   </thead>
                   <tbody className="text-foreground">
@@ -154,7 +154,7 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
                 </table>
               </div>
             )}
-            <p className="mt-3 text-[11px] text-muted-foreground/70">
+            <p className="mt-3 text-2xs text-muted-foreground/70">
               Call counts are exact. Costs are coarse upper-bound estimates, not billed amounts.
               {detail.aiUsage.source === 'memory' && ' Counts are per-instance (set UPSTASH_REDIS_REST_URL for durable, fleet-wide totals).'}
             </p>
@@ -187,7 +187,7 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              <thead className="text-2xs uppercase tracking-wide text-muted-foreground">
                 <tr><th className="pb-2 pr-3">Session</th><th className="pb-2 pr-3">Sport</th><th className="pb-2 pr-3">Date</th><th className="pb-2 pr-3">Shots</th><th className="pb-2">Score</th></tr>
               </thead>
               <tbody className="text-foreground">
@@ -212,7 +212,7 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              <thead className="text-2xs uppercase tracking-wide text-muted-foreground">
                 <tr><th className="pb-2 pr-3">Sport</th><th className="pb-2 pr-3">File</th><th className="pb-2 pr-3">Score</th><th className="pb-2 pr-3">Primary issue</th><th className="pb-2">When</th></tr>
               </thead>
               <tbody className="text-foreground">

@@ -46,7 +46,7 @@ const MODE_TONE: Record<PublishMode, string> = {
 
 function Pill({ className, children }: { className: string; children: React.ReactNode }) {
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium ${className}`}>
+    <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-2xs font-medium ${className}`}>
       {children}
     </span>
   );
@@ -345,7 +345,7 @@ function Overview({ data, skin, onJump }: { data: PublishingOSData; skin: Return
           <div key={t.label} className={`${skin.stat} p-4`}>
             <p className={skin.statValue}>{t.value}</p>
             <p className="mt-1 text-xs font-medium text-foreground">{t.label}</p>
-            <p className="text-[11px] text-muted-foreground">{t.hint}</p>
+            <p className="text-2xs text-muted-foreground">{t.hint}</p>
           </div>
         ))}
       </div>
@@ -375,7 +375,7 @@ function Overview({ data, skin, onJump }: { data: PublishingOSData; skin: Return
               {data.recentEvents.slice(0, 5).map((e) => (
                 <li key={e.id} className="flex items-center justify-between gap-3">
                   <span className="truncate text-foreground">{e.message}</span>
-                  <span className="shrink-0 font-mono text-[11px] text-muted-foreground">{e.createdAt.slice(0, 10)}</span>
+                  <span className="shrink-0 font-mono text-2xs text-muted-foreground">{e.createdAt.slice(0, 10)}</span>
                 </li>
               ))}
             </ul>
@@ -434,7 +434,7 @@ function PublishQueue({
                   <Pill className={RISK_TONE[item.risk]}>{item.risk}</Pill>
                   <Pill className={MODE_TONE[item.publishMode]}>{MODE_LABEL[item.publishMode]}</Pill>
                 </div>
-                <p className="mt-0.5 font-mono text-[11px] text-muted-foreground/70">{[item.entityType, item.category, item.date].filter(Boolean).join(' · ')} · view details</p>
+                <p className="mt-0.5 font-mono text-2xs text-muted-foreground/70">{[item.entityType, item.category, item.date].filter(Boolean).join(' · ')} · view details</p>
               </button>
               {item.readOnly ? (
                 <a
@@ -506,7 +506,7 @@ function AreasAudit({
         ].map(([l, v]) => (
           <div key={String(l)} className={`${skin.stat} p-3`}>
             <p className={skin.statValue}>{v as number}</p>
-            <p className="text-[11px] text-muted-foreground">{l as string}</p>
+            <p className="text-2xs text-muted-foreground">{l as string}</p>
           </div>
         ))}
       </div>
@@ -524,7 +524,7 @@ function AreasAudit({
             <div key={a.key} className="grid gap-2 p-4 lg:grid-cols-[1.4fr_1fr_1.6fr] lg:items-center">
               <div>
                 <p className="text-sm font-medium text-foreground">{a.area}</p>
-                <p className="font-mono text-[11px] text-muted-foreground/70">{a.entityType} · {a.owner}</p>
+                <p className="font-mono text-2xs text-muted-foreground/70">{a.entityType} · {a.owner}</p>
               </div>
               <div className="flex flex-wrap items-center gap-1.5">
                 <Pill className={SOURCE_TONE[a.source]}>{a.source}</Pill>
@@ -557,11 +557,11 @@ function Activity({ data, skin }: { data: PublishingOSData; skin: ReturnType<typ
             <li key={e.id} className={`flex flex-wrap items-center justify-between gap-2 ${skin.row} p-3`}>
               <div className="min-w-0">
                 <p className="truncate text-sm text-foreground">{e.message}</p>
-                <p className="font-mono text-[11px] text-muted-foreground/70">
+                <p className="font-mono text-2xs text-muted-foreground/70">
                   {e.entityType} · {e.fromStatus} → {e.toStatus} · {e.actorEmail ?? 'system'}
                 </p>
               </div>
-              <span className="shrink-0 font-mono text-[11px] text-muted-foreground">{e.createdAt.replace('T', ' ').slice(0, 16)}</span>
+              <span className="shrink-0 font-mono text-2xs text-muted-foreground">{e.createdAt.replace('T', ' ').slice(0, 16)}</span>
             </li>
           ))}
         </ul>

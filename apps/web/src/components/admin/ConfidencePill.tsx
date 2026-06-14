@@ -10,7 +10,7 @@ const TONE: Record<'low' | 'medium' | 'high', string> = {
 export function ConfidencePill({ level }: { level: 'low' | 'medium' | 'high' }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full border border-border bg-background px-2 py-0.5 text-[11px] font-medium ${TONE[level]}`}
+      className={`inline-flex items-center gap-1 rounded-full border border-border bg-background px-2 py-0.5 text-2xs font-medium ${TONE[level]}`}
     >
       {level.charAt(0).toUpperCase() + level.slice(1)} confidence
     </span>

@@ -313,7 +313,7 @@ export default async function AdminCommandCenter() {
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                  <thead className="text-2xs uppercase tracking-wide text-muted-foreground">
                     <tr>
                       <th className="pb-2 pr-3">Sport</th>
                       <th className="pb-2 pr-3">File</th>

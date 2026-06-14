@@ -125,7 +125,7 @@ export function AgiReportCard({ result }: { result: AthleteGIResult }) {
           <summary className="cursor-pointer select-none text-muted-foreground hover:text-foreground">
             Preview the text
           </summary>
-          <pre className="mt-2 max-h-64 overflow-auto whitespace-pre-wrap rounded-lg bg-muted/50 p-3 text-[11px] leading-relaxed text-foreground">
+          <pre className="mt-2 max-h-64 overflow-auto whitespace-pre-wrap rounded-lg bg-muted/50 p-3 text-2xs leading-relaxed text-foreground">
             {text}
           </pre>
         </details>

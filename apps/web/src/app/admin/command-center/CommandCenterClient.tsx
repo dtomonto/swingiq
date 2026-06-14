@@ -196,7 +196,7 @@ export function CommandCenterClient(props: CommandCenterClientProps) {
               }`}
             >
               {s.label}
-              <span className="ml-1.5 text-[10px] text-muted-foreground">{count}</span>
+              <span className="ml-1.5 text-3xs text-muted-foreground">{count}</span>
             </button>
           );
         })}
@@ -241,7 +241,7 @@ export function CommandCenterClient(props: CommandCenterClientProps) {
         </p>
       )}
       {section === 'today' && (
-        <p className="text-center text-[11px] text-muted-foreground/70">
+        <p className="text-center text-2xs text-muted-foreground/70">
           Showing {Math.min(cappedToday.length, todayCount)} of {todayCount} actionable. Items you complete, snooze or
           dismiss move to their tabs and survive the next scan.
         </p>
@@ -255,7 +255,7 @@ export function CommandCenterClient(props: CommandCenterClientProps) {
 function BriefingTile({ icon: Icon, label, value }: { icon: typeof Database; label: string; value: string | null }) {
   return (
     <div className="rounded-xl border border-border bg-card/60 p-3">
-      <div className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+      <div className="flex items-center gap-1.5 text-2xs font-medium uppercase tracking-wide text-muted-foreground">
         <Icon className="h-3.5 w-3.5" /> {label}
       </div>
       <p className="mt-1.5 text-sm text-foreground">{value ?? <span className="text-muted-foreground">Nothing flagged 🎉</span>}</p>
@@ -267,7 +267,7 @@ type CC = ReturnType<typeof useCommandCenter>;
 
 function ActionButtons({ view, cc }: { view: RecommendationView; cc: CC }) {
   const s = view.status;
-  const btn = 'inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-[11px] font-medium transition-colors';
+  const btn = 'inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-2xs font-medium transition-colors';
   return (
     <>
       {s !== 'in_progress' && s !== 'completed' && (
@@ -322,7 +322,7 @@ function RecommendationCard({ view, cc }: { view: RecommendationView; cc: CC }) 
       <h3 className="mt-2 font-semibold text-foreground">{view.title}</h3>
       <p className="mt-1 text-sm text-muted-foreground">{view.summary}</p>
 
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-2xs text-muted-foreground">
         <span>Effort {view.effort}</span>
         <span>· {view.confidence}% confidence</span>
         <span>· {view.impact} impact</span>
@@ -463,7 +463,7 @@ function SettingsPanel({ cc }: { cc: CC }) {
             const off = s.disabledTypes.includes(type);
             return (
               <button key={type} onClick={() => cc.toggleType(type)}
-                className={`rounded-full border px-2.5 py-0.5 text-[11px] ${off ? 'border-border text-muted-foreground/70 line-through' : 'border-primary/40 text-link'}`}>
+                className={`rounded-full border px-2.5 py-0.5 text-2xs ${off ? 'border-border text-muted-foreground/70 line-through' : 'border-primary/40 text-link'}`}>
                 {label}
               </button>
             );

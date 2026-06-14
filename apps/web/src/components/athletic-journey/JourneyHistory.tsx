@@ -60,7 +60,7 @@ export function JourneyHistory({ sport }: { sport: SportId }) {
           </li>
         ))}
       </ul>
-      <p className="text-[10px] text-muted-foreground">Bars show your Journey Momentum on each day recorded.</p>
+      <p className="text-3xs text-muted-foreground">Bars show your Journey Momentum on each day recorded.</p>
     </div>
   );
 }

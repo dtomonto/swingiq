@@ -126,7 +126,7 @@ export function GuideCompanion() {
               <GuideMascot size={26} />
               <div className="min-w-0">
                 <p className="text-white text-sm font-semibold leading-tight">Your guide</p>
-                <p className="text-white/80 text-[11px] leading-tight">Here to show you the way</p>
+                <p className="text-white/80 text-2xs leading-tight">Here to show you the way</p>
               </div>
             </div>
             <button
@@ -161,7 +161,7 @@ export function GuideCompanion() {
                     />
                     <span
                       className={cn(
-                        'text-[10px] leading-none',
+                        'text-3xs leading-none',
                         active ? 'text-primary font-semibold' : 'text-muted-foreground',
                       )}
                     >
@@ -201,7 +201,7 @@ export function GuideCompanion() {
                 className="group mt-0.5 flex items-center justify-between gap-2 rounded-xl bg-golf-dark text-white px-3.5 py-2.5 hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 <span className="min-w-0">
-                  <span className="block text-[11px] text-white/80 font-medium group-hover:text-primary-foreground/80">Your next best step</span>
+                  <span className="block text-2xs text-white/80 font-medium group-hover:text-primary-foreground/80">Your next best step</span>
                   <span className="block text-sm font-semibold truncate">{nextBestAction.label}</span>
                 </span>
                 <ChevronRight size={16} className="shrink-0" aria-hidden="true" />
@@ -213,7 +213,7 @@ export function GuideCompanion() {
           <div className="flex items-center justify-between gap-2 px-4 py-2.5 border-t border-border bg-muted/40">
             <button
               onClick={turnOffTips}
-              className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1 text-2xs text-muted-foreground hover:text-foreground transition-colors"
             >
               <BellOff size={12} aria-hidden="true" />
               Turn off auto-tips

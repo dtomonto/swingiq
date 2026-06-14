@@ -155,7 +155,7 @@ export function AppShell({ children }: AppShellProps) {
                   href={href}
                   aria-current={isActive ? 'page' : undefined}
                   className={cn(
-                    'group relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-2 min-h-[3.25rem] text-[11px] font-medium transition-colors',
+                    'group relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-2 min-h-[3.25rem] text-2xs font-medium transition-colors',
                     isActive ? 'text-bottom-nav-active' : 'text-muted-foreground hover:text-foreground',
                   )}
                 >
@@ -174,7 +174,7 @@ export function AppShell({ children }: AppShellProps) {
             {/* "More" button opens the full drawer */}
             <button
               onClick={() => setDrawerOpen(true)}
-              className="group relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-2 min-h-[3.25rem] text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="group relative flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-2 min-h-[3.25rem] text-2xs font-medium text-muted-foreground hover:text-foreground transition-colors"
               aria-label="More navigation options"
             >
               <Menu size={23} className="relative z-10 transition-transform duration-200 group-active:scale-90" />

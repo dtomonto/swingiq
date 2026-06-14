@@ -133,7 +133,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   return <label className="block"><span className="text-xs text-muted-foreground mb-1 block">{label}</span>{children}</label>;
 }
 function Label({ children }: { children: React.ReactNode }) {
-  return <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">{children}</p>;
+  return <p className="text-2xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">{children}</p>;
 }
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
   return <div><Label>{label}</Label><p className="text-foreground">{children}</p></div>;

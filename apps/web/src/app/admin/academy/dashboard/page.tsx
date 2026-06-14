@@ -104,7 +104,7 @@ export default function DashboardPage() {
         <div className="rounded-theme border border-border bg-card p-4">
           <p className="text-2xl font-bold text-foreground">{level.label}</p>
           <p className="mt-0.5 text-xs text-muted-foreground">{progress.points} pts · {earnedBadgeCount} badges</p>
-          {next && <div className="mt-2"><ProgressBar value={(progress.points / next.minPoints) * 100} /><p className="mt-1 text-[11px] text-muted-foreground">{toNext} pts to {next.label}</p></div>}
+          {next && <div className="mt-2"><ProgressBar value={(progress.points / next.minPoints) * 100} /><p className="mt-1 text-2xs text-muted-foreground">{toNext} pts to {next.label}</p></div>}
         </div>
       </section>
 
@@ -144,7 +144,7 @@ export default function DashboardPage() {
               <div key={c.id} className="rounded-theme border border-border bg-card p-4">
                 <p className="text-sm font-semibold text-foreground">{c.emoji} {c.name}</p>
                 <div className="mt-2"><ProgressBar value={earned ? 100 : ready} /></div>
-                <p className="mt-1 text-[11px] text-muted-foreground">{earned ? 'Earned ✓' : `${ready}% ready`}</p>
+                <p className="mt-1 text-2xs text-muted-foreground">{earned ? 'Earned ✓' : `${ready}% ready`}</p>
               </div>
             );
           })}

@@ -212,7 +212,7 @@ function PlaceholderPoster({
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-secondary" />
       )}
-      <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/55 px-2 py-0.5 text-[11px] font-semibold text-white backdrop-blur">
+      <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/55 px-2 py-0.5 text-2xs font-semibold text-white backdrop-blur">
         <Sparkles size={11} aria-hidden="true" /> Preview
       </span>
       {!started && (

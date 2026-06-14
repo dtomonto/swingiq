@@ -84,12 +84,12 @@ export function AuditLogsClient() {
             <li key={e.id} className="flex items-start justify-between gap-3 p-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase ${SEV_TONE[e.severity]}`}>{e.severity}</span>
-                  <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">{e.action}</code>
+                  <span className={`rounded px-1.5 py-0.5 text-3xs font-semibold uppercase ${SEV_TONE[e.severity]}`}>{e.severity}</span>
+                  <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-3xs text-muted-foreground">{e.action}</code>
                   <span className="text-xs text-muted-foreground">{e.entityType}</span>
                 </div>
                 <p className="mt-1 text-sm text-foreground">{e.summary}</p>
-                <p className="mt-0.5 text-[11px] text-muted-foreground/70">{e.actor} · {new Date(e.at).toLocaleString()}</p>
+                <p className="mt-0.5 text-2xs text-muted-foreground/70">{e.actor} · {new Date(e.at).toLocaleString()}</p>
               </div>
             </li>
           ))}

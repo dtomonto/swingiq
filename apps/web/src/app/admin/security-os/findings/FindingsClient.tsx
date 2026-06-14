@@ -132,11 +132,11 @@ export function FindingsClient({ actor, findings, generatedAt }: Props) {
                 <div className="min-w-0 space-y-1.5">
                   <div className="flex flex-wrap items-center gap-2">
                     <SeverityPill severity={v.severity} />
-                    <span className="rounded border border-border bg-muted/60 px-1.5 py-0.5 text-[10px] text-muted-foreground">{CATEGORY_LABEL[v.category]}</span>
-                    <span className="text-[10px] uppercase tracking-wide text-muted-foreground/70">{v.source}</span>
-                    {v.overdue && <span className="rounded bg-error/15 px-1.5 py-0.5 text-[10px] font-semibold text-error-text">Overdue</span>}
+                    <span className="rounded border border-border bg-muted/60 px-1.5 py-0.5 text-3xs text-muted-foreground">{CATEGORY_LABEL[v.category]}</span>
+                    <span className="text-3xs uppercase tracking-wide text-muted-foreground/70">{v.source}</span>
+                    {v.overdue && <span className="rounded bg-error/15 px-1.5 py-0.5 text-3xs font-semibold text-error-text">Overdue</span>}
                     {!OPEN_FINDING_STATUSES.includes(v.status) && (
-                      <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{FINDING_STATUS_LABEL[v.status]}</span>
+                      <span className="rounded bg-muted px-1.5 py-0.5 text-3xs text-muted-foreground">{FINDING_STATUS_LABEL[v.status]}</span>
                     )}
                   </div>
                   <p className="text-sm font-medium text-foreground">{v.title}</p>
@@ -144,7 +144,7 @@ export function FindingsClient({ actor, findings, generatedAt }: Props) {
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-1">
                   <span className="text-lg font-bold tabular-nums text-foreground">{v.riskScore}</span>
-                  <span className="text-[10px] text-muted-foreground/70">risk</span>
+                  <span className="text-3xs text-muted-foreground/70">risk</span>
                   <ChevronRight className="h-4 w-4 text-muted-foreground/70 group-hover:text-muted-foreground" />
                 </div>
               </Link>

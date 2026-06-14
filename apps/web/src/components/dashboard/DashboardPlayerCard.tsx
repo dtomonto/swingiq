@@ -114,7 +114,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-border py-2">
       <p className="text-sm font-bold text-foreground">{value}</p>
-      <p className="text-[10px] uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className="text-3xs uppercase tracking-wide text-muted-foreground">{label}</p>
     </div>
   );
 }
@@ -122,7 +122,7 @@ function Stat({ label, value }: { label: string; value: string }) {
 function MiniBlock({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-border p-2.5">
-      <p className="text-[10px] uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className="text-3xs uppercase tracking-wide text-muted-foreground">{label}</p>
       <p className="mt-0.5 truncate text-sm font-medium text-foreground">{value}</p>
     </div>
   );

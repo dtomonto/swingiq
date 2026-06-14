@@ -39,13 +39,13 @@ export function PoseDerivedIssuesCard({ issues }: { issues: SportDetectedIssue[]
           <li key={issue.id} className="rounded-lg border border-border bg-muted p-3">
             <div className="flex items-center justify-between gap-2">
               <p className={`text-sm font-semibold ${SEVERITY_TONE[issue.severity] ?? 'text-foreground'}`}>{issue.label}</p>
-              <span className="shrink-0 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+              <span className="shrink-0 text-3xs font-medium uppercase tracking-wide text-muted-foreground">
                 {Math.round(issue.confidence * 100)}% est.
               </span>
             </div>
             <p className="mt-1 text-xs text-muted-foreground leading-snug">{issue.description}</p>
             {issue.likely_cause && (
-              <p className="mt-1 text-[11px] text-muted-foreground/80"><span className="font-medium">Likely cause:</span> {issue.likely_cause}</p>
+              <p className="mt-1 text-2xs text-muted-foreground/80"><span className="font-medium">Likely cause:</span> {issue.likely_cause}</p>
             )}
           </li>
         ))}

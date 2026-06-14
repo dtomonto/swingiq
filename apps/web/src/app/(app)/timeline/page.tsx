@@ -156,8 +156,8 @@ export default function TimelinePage() {
                     </div>
                     {e.detail && <p className="mt-0.5 text-xs text-muted-foreground">{e.detail}</p>}
                     <div className="mt-1.5 flex items-center gap-2">
-                      <Badge variant="default" className="text-[10px]">{meta.label}</Badge>
-                      {e.sport && <span className="text-[10px] capitalize text-muted-foreground">{e.sport.replace(/_/g, ' ')}</span>}
+                      <Badge variant="default" className="text-3xs">{meta.label}</Badge>
+                      {e.sport && <span className="text-3xs capitalize text-muted-foreground">{e.sport.replace(/_/g, ' ')}</span>}
                     </div>
                   </div>
                 </li>

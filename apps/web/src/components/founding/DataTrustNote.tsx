@@ -17,7 +17,7 @@ import { DATA_ETHICS } from '@/lib/central-intelligence';
 export function DataTrustNote({ compact = false }: { compact?: boolean }) {
   if (compact) {
     return (
-      <p className="flex items-start gap-1.5 text-[11px] leading-relaxed text-muted-foreground">
+      <p className="flex items-start gap-1.5 text-2xs leading-relaxed text-muted-foreground">
         <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" aria-hidden="true" />
         <span>
           {DATA_ETHICS.ownExperience} {DATA_ETHICS.neverSold}{' '}

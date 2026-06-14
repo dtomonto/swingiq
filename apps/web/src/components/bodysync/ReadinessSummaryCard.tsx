@@ -82,7 +82,7 @@ export function ReadinessSummaryCard({ compact = false }: { compact?: boolean })
           <div className="flex items-center gap-1.5">
             <span aria-hidden="true">{meta.emoji}</span>
             <span className="text-sm font-bold text-foreground">{meta.label}</span>
-            <span className="text-[10px] uppercase tracking-wide text-muted-foreground">· readiness</span>
+            <span className="text-3xs uppercase tracking-wide text-muted-foreground">· readiness</span>
           </div>
           {recommendation && (
             <p className="mt-0.5 truncate text-xs text-muted-foreground">
@@ -94,7 +94,7 @@ export function ReadinessSummaryCard({ compact = false }: { compact?: boolean })
         <ChevronRight size={18} className="shrink-0 text-muted-foreground" aria-hidden="true" />
       </div>
       {!compact && assessment.injuryRisk.level !== 'none' && (
-        <p className="mt-2 text-[11px] text-warning">
+        <p className="mt-2 text-2xs text-warning">
           ⚠ {assessment.injuryRisk.reasons[0]} — SwingVantage has eased today’s plan.
         </p>
       )}

@@ -57,7 +57,7 @@ export default function AdminMonetizationPage() {
       <SectionCard title="Placements" description={`${activePlacements} of ${AD_PLACEMENTS.length} active.`}>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
+            <thead className="text-2xs uppercase tracking-wide text-muted-foreground">
               <tr><th className="pb-2 pr-3">Slot</th><th className="pb-2 pr-3">Surface</th><th className="pb-2 pr-3">Format</th><th className="pb-2">Status</th></tr>
             </thead>
             <tbody className="text-foreground">

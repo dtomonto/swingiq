@@ -71,7 +71,7 @@ export function ReadinessScoreBadge({ readiness, compact, className }: Readiness
       {!compact && (
         <div className="min-w-0">
           <p className={cn('text-sm font-semibold', meta.text)}>{meta.label}</p>
-          <span className={cn('mt-0.5 inline-block rounded px-1.5 py-0.5 text-[11px] font-medium', meta.chip)}>
+          <span className={cn('mt-0.5 inline-block rounded px-1.5 py-0.5 text-2xs font-medium', meta.chip)}>
             {CONFIDENCE_LABEL[readiness?.confidence ?? 'insufficient']}
           </span>
         </div>

@@ -73,7 +73,7 @@ export default async function AdminSportDetailPage({ params }: { params: Promise
                 const { name, description } = phaseText((config.phases as Record<string, unknown>)[key]);
                 return (
                   <li key={key} className="flex gap-3 text-sm">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-[11px] text-muted-foreground">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-2xs text-muted-foreground">
                       {i + 1}
                     </span>
                     <div>
@@ -103,7 +103,7 @@ export default async function AdminSportDetailPage({ params }: { params: Promise
             </p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {Object.keys(config.benchmarks ?? {}).slice(0, 24).map((k) => (
-                <code key={k} className="rounded bg-muted px-1.5 py-0.5 font-mono text-[11px] text-foreground">
+                <code key={k} className="rounded bg-muted px-1.5 py-0.5 font-mono text-2xs text-foreground">
                   {k}
                 </code>
               ))}

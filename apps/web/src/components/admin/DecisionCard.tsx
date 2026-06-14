@@ -82,7 +82,7 @@ export function DecisionCard({ score, band, type, title, read, meta, href, cta, 
         {meta && meta.length > 0 && (
           <div className="mt-2 flex flex-wrap items-center gap-1.5">
             {meta.map((m) => (
-              <span key={m} className="rounded border border-border bg-background px-2 py-0.5 font-mono text-[10px] text-muted-foreground">
+              <span key={m} className="rounded border border-border bg-background px-2 py-0.5 font-mono text-3xs text-muted-foreground">
                 {m}
               </span>
             ))}

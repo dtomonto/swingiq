@@ -71,7 +71,7 @@ export default async function PageIntelView({ searchParams }: { searchParams: Pr
           <dl>
             <FieldRow label="Title"><span className="text-foreground">{page.metaTitle}</span> <span className="text-muted-foreground/70">({page.metaTitleLength} chars)</span></FieldRow>
             <FieldRow label="Description">{page.metaDescription ? <><span className="text-foreground">{page.metaDescription}</span> <span className="text-muted-foreground/70">({page.metaDescriptionLength} chars)</span></> : <span className="text-link">Not in registry</span>}</FieldRow>
-            <FieldRow label="Canonical"><span className="font-mono text-[11px]">{page.canonicalUrl}</span></FieldRow>
+            <FieldRow label="Canonical"><span className="font-mono text-2xs">{page.canonicalUrl}</span></FieldRow>
             <FieldRow label="Indexable">{page.indexable ? 'Yes' : 'No'} · {page.robots}</FieldRow>
             <FieldRow label="In sitemap">{page.inSitemap ? <span className="text-success-text">Yes</span> : <span className="text-link">No</span>}</FieldRow>
             <FieldRow label="Schema">{page.schemaTypes.length ? page.schemaTypes.join(', ') : <span className="text-link">None</span>}</FieldRow>
@@ -103,13 +103,13 @@ export default async function PageIntelView({ searchParams }: { searchParams: Pr
 
         {/* Internal link suggestions */}
         <SectionCard title="Internal-link suggestions" icon={Link2} action={<Link href="/admin/growth/internal-links" className="text-xs text-success-text hover:text-success-text">Internal Links →</Link>}>
-          <p className="text-[11px] uppercase tracking-wider text-muted-foreground/70 mb-1">Pages that should link here</p>
+          <p className="text-2xs uppercase tracking-wider text-muted-foreground/70 mb-1">Pages that should link here</p>
           {linksInto.length === 0 ? <p className="text-xs text-muted-foreground mb-3">None pending.</p> : (
             <ul className="space-y-1 mb-3">
               {linksInto.map((l) => <li key={l.id} className="text-xs text-foreground font-mono truncate">← {l.sourceUrl}</li>)}
             </ul>
           )}
-          <p className="text-[11px] uppercase tracking-wider text-muted-foreground/70 mb-1">Links this page should add</p>
+          <p className="text-2xs uppercase tracking-wider text-muted-foreground/70 mb-1">Links this page should add</p>
           {linksFrom.length === 0 ? <p className="text-xs text-muted-foreground">None pending.</p> : (
             <ul className="space-y-1">
               {linksFrom.map((l) => <li key={l.id} className="text-xs text-foreground font-mono truncate">→ {l.destinationUrl}</li>)}
@@ -150,10 +150,10 @@ export default async function PageIntelView({ searchParams }: { searchParams: Pr
         <SectionCard title="Recommended Claude Code tasks" icon={Bot}>
           <ul className="space-y-2">
             {claudeTasks.map((t, i) => (
-              <li key={i} className="rounded-lg border border-border bg-background p-3 font-mono text-[11px] text-foreground leading-relaxed">{t}</li>
+              <li key={i} className="rounded-lg border border-border bg-background p-3 font-mono text-2xs text-foreground leading-relaxed">{t}</li>
             ))}
           </ul>
-          <p className="mt-2 text-[11px] text-muted-foreground/70">Copy a prompt into Claude Code. All public-content / canonical / sitemap changes still require admin approval before publishing.</p>
+          <p className="mt-2 text-2xs text-muted-foreground/70">Copy a prompt into Claude Code. All public-content / canonical / sitemap changes still require admin approval before publishing.</p>
         </SectionCard>
       ) : null}
 

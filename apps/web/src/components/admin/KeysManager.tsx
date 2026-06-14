@@ -149,7 +149,7 @@ export function KeysManager() {
         <div className="flex items-start gap-2 rounded-xl border border-primary/30 bg-primary/[0.06] px-4 py-3 text-sm text-link">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
           <span>
-            The vault is locked. Set <code className="rounded bg-muted px-1 font-mono text-[11px]">SECRETS_ENCRYPTION_KEY</code>{' '}
+            The vault is locked. Set <code className="rounded bg-muted px-1 font-mono text-2xs">SECRETS_ENCRYPTION_KEY</code>{' '}
             (a 32-byte base64 string) in your host to store keys here. Until then keys must be set as host
             env vars; this page shows their status read-only.
           </span>
@@ -216,7 +216,7 @@ export function KeysManager() {
       ) : (
         grouped.map(({ cat, items }) => (
           <div key={cat} className="space-y-2">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/70">{CATEGORY_LABEL[cat]}</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-muted-foreground/70">{CATEGORY_LABEL[cat]}</p>
             <div className="overflow-hidden rounded-xl border border-border">
               {items.map((s) => {
                 const isConfig = s.control !== 'secret';
@@ -240,12 +240,12 @@ export function KeysManager() {
                             <ConfigText s={s} disabled={disabled} busy={busy} onSave={saveValue} />
                           )}
                           {lockedByEnv && (
-                            <p className="mt-1 text-[11px] text-muted-foreground/70">Pinned by a host env var — remove it from the host to manage here.</p>
+                            <p className="mt-1 text-2xs text-muted-foreground/70">Pinned by a host env var — remove it from the host to manage here.</p>
                           )}
                         </div>
                       ) : (
                         s.source !== 'none' && (
-                          <code className="mt-0.5 block font-mono text-[11px] text-muted-foreground">{s.masked}</code>
+                          <code className="mt-0.5 block font-mono text-2xs text-muted-foreground">{s.masked}</code>
                         )
                       )}
                     </div>
@@ -335,5 +335,5 @@ function SourceBadge({ source }: { source: SecretStatus['source'] }) {
     none: { label: 'Not set', cls: 'border-border bg-muted/40 text-muted-foreground' },
   } as const;
   const m = map[source];
-  return <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold ${m.cls}`}>{m.label}</span>;
+  return <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-3xs font-semibold ${m.cls}`}>{m.label}</span>;
 }

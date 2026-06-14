@@ -54,7 +54,7 @@ function AthleteCard({
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold text-foreground truncate">{s.athlete.name}</span>
           {s.needsAttention && (
-            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-warning bg-warning/10 rounded px-1.5 py-0.5">
+            <span className="inline-flex items-center gap-1 text-3xs font-semibold text-warning bg-warning/10 rounded px-1.5 py-0.5">
               <AlertTriangle className="w-3 h-3" /> needs attention
             </span>
           )}
@@ -74,7 +74,7 @@ function AthleteCard({
             <div className="flex items-center gap-4">
               <div>
                 <p className="text-2xl font-bold text-foreground leading-none tabular-nums">{s.averageOverall}</p>
-                <p className="text-[10px] text-muted-foreground">avg / 100</p>
+                <p className="text-3xs text-muted-foreground">avg / 100</p>
               </div>
               <Sparkline values={s.trend.map((t) => t.overall)} />
               <div className={`flex items-center gap-1 text-xs font-semibold ${trendTone}`}>
@@ -82,13 +82,13 @@ function AthleteCard({
                 {s.improvement != null && <span className="tabular-nums">{s.improvement > 0 ? '+' : ''}{s.improvement}</span>}
               </div>
             </div>
-            <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+            <div className="flex flex-wrap gap-x-3 gap-y-1 text-2xs text-muted-foreground">
               <span>{s.sessionCount} sessions</span>
               <span>best {s.bestOverall}</span>
               {s.daysSinceActive != null && <span>last {s.daysSinceActive === 0 ? 'today' : `${s.daysSinceActive}d ago`}</span>}
             </div>
             {s.recurringFaults.length > 0 && (
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-2xs text-muted-foreground">
                 Recurring: <span className="text-foreground">{s.recurringFaults.map((f) => `${f.fault} (${f.count})`).join(', ')}</span>
               </p>
             )}
@@ -166,19 +166,19 @@ export function CoachDashboard() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
               <div>
                 <p className="text-xl font-bold text-foreground tabular-nums">{team.athleteCount}</p>
-                <p className="text-[10px] text-muted-foreground">athletes</p>
+                <p className="text-3xs text-muted-foreground">athletes</p>
               </div>
               <div>
                 <p className="text-xl font-bold text-foreground tabular-nums">{team.totalSessions}</p>
-                <p className="text-[10px] text-muted-foreground">sessions</p>
+                <p className="text-3xs text-muted-foreground">sessions</p>
               </div>
               <div>
                 <p className="text-xl font-bold text-foreground tabular-nums">{team.averageOverall ?? '—'}</p>
-                <p className="text-[10px] text-muted-foreground">avg score</p>
+                <p className="text-3xs text-muted-foreground">avg score</p>
               </div>
               <div>
                 <p className="text-xl font-bold text-foreground tabular-nums">{team.recentlyActiveCount}</p>
-                <p className="text-[10px] text-muted-foreground">active (7d)</p>
+                <p className="text-3xs text-muted-foreground">active (7d)</p>
               </div>
             </div>
             {team.aggregateWeaknesses.length > 0 && (
@@ -225,7 +225,7 @@ export function CoachDashboard() {
         <Card>
           <CardBody className="space-y-2">
             <p className="text-sm font-semibold text-foreground">Unassigned sessions ({view.unassigned.length})</p>
-            <p className="text-[11px] text-muted-foreground">Tag each session to an athlete to track their progress.</p>
+            <p className="text-2xs text-muted-foreground">Tag each session to an athlete to track their progress.</p>
             <div className="space-y-1.5">
               {view.unassigned.map((u) => (
                 <div key={u.id} className="flex items-center gap-2 text-xs">
@@ -251,7 +251,7 @@ export function CoachDashboard() {
         </Card>
       )}
 
-      <p className="text-[11px] text-muted-foreground text-center pt-2">
+      <p className="text-2xs text-muted-foreground text-center pt-2">
         Scores are estimated from single-camera video — directional, not lab measurements. No medical, injury-risk, or guaranteed-improvement claims.
       </p>
     </div>

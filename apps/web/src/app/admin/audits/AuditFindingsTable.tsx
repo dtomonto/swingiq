@@ -148,10 +148,10 @@ export function AuditFindingsTable({
                 </p>
               )}
               <div className="mt-2 flex flex-wrap items-center gap-2">
-                {f.effort && <span className="text-[11px] text-muted-foreground">Effort {f.effort}</span>}
-                {f.confidence && <span className="text-[11px] text-muted-foreground">· {f.confidence} confidence</span>}
+                {f.effort && <span className="text-2xs text-muted-foreground">Effort {f.effort}</span>}
+                {f.confidence && <span className="text-2xs text-muted-foreground">· {f.confidence} confidence</span>}
                 {f.sources.length > 0 && (
-                  <span className="text-[11px] text-muted-foreground">· from {f.sources.join(', ')}</span>
+                  <span className="text-2xs text-muted-foreground">· from {f.sources.join(', ')}</span>
                 )}
                 {writable && (
                   <span className="ml-auto inline-flex overflow-hidden rounded-lg border border-border">
@@ -160,7 +160,7 @@ export function AuditFindingsTable({
                         key={s}
                         disabled={busy === f.id}
                         onClick={() => setStatus(f, s)}
-                        className={`px-2 py-1 text-[11px] transition-colors disabled:opacity-50 ${
+                        className={`px-2 py-1 text-2xs transition-colors disabled:opacity-50 ${
                           f.trackStatus === s
                             ? 'bg-primary/20 text-link'
                             : 'text-muted-foreground hover:bg-muted hover:text-foreground'

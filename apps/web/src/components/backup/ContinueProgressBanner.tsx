@@ -65,7 +65,7 @@ export function ContinueProgressBanner() {
             Replace all
           </Button>
         </div>
-        <p className="text-[11px] leading-snug text-muted-foreground">
+        <p className="text-2xs leading-snug text-muted-foreground">
           <strong className="text-foreground">Add</strong> keeps everything you already have and brings in
           anything new. <strong className="text-foreground">Replace</strong> swaps your current data for the
           backup. Nothing changes until you choose.

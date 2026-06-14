@@ -260,7 +260,7 @@ function PublishSection({
                   </StatusBadge>
                   {quality?.[row.id] && <QualityChip info={quality[row.id]} />}
                 </div>
-                <p className="mt-0.5 font-mono text-[11px] text-muted-foreground/70">
+                <p className="mt-0.5 font-mono text-2xs text-muted-foreground/70">
                   {[row.date, row.category, row.sourceCommit].filter(Boolean).join(' · ')}
                 </p>
               </div>

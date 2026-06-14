@@ -130,7 +130,7 @@ export default async function SecurityRunbooksPage() {
                 <p className="text-sm font-medium text-foreground">{d.title}</p>
                 <p className="text-xs text-muted-foreground">{d.blurb}</p>
               </div>
-              <code className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">{d.file}</code>
+              <code className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-3xs text-muted-foreground">{d.file}</code>
             </li>
           ))}
         </ul>

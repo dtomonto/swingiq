@@ -273,7 +273,7 @@ function ReferenceCard({
       {/* Pending verification overlay */}
       {reference.requiresVerification && !isTBD && (
         <div className="absolute top-2 right-2">
-          <Badge variant="warning" className="text-[10px]">Pending</Badge>
+          <Badge variant="warning" className="text-3xs">Pending</Badge>
         </div>
       )}
 
@@ -311,13 +311,13 @@ function ReferenceCard({
           {reference.styleTags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="text-[10px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded-full"
+              className="text-3xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded-full"
             >
               {tag.replace(/_/g, ' ')}
             </span>
           ))}
           {reference.styleTags.length > 3 && (
-            <span className="text-[10px] text-muted-foreground">+{reference.styleTags.length - 3}</span>
+            <span className="text-3xs text-muted-foreground">+{reference.styleTags.length - 3}</span>
           )}
         </div>
       )}

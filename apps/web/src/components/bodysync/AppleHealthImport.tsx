@@ -61,7 +61,7 @@ export function AppleHealthImport() {
         <span className="text-lg" aria-hidden="true">🍎</span>
         <h3 className="text-sm font-bold text-foreground">Import from Apple Health</h3>
         {conn?.status === 'connected' && (
-          <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-[11px] font-medium text-success">
+          <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-2xs font-medium text-success">
             <Check size={11} aria-hidden="true" /> Connected
           </span>
         )}
@@ -76,7 +76,7 @@ export function AppleHealthImport() {
       </p>
 
       {conn?.lastSyncAt && (
-        <p className="mt-1 text-[11px] text-muted-foreground">
+        <p className="mt-1 text-2xs text-muted-foreground">
           Last import {new Date(conn.lastSyncAt).toLocaleString()} · {state.summaries.length} summaries stored.
         </p>
       )}
@@ -111,7 +111,7 @@ export function AppleHealthImport() {
           </p>
           <div className="mt-1.5 flex flex-wrap gap-1.5">
             {Object.entries(result.stats.byMetric).map(([k, n]) => (
-              <span key={k} className="rounded-full bg-card px-2 py-0.5 text-[11px] text-muted-foreground">
+              <span key={k} className="rounded-full bg-card px-2 py-0.5 text-2xs text-muted-foreground">
                 {METRIC_LABEL[k] ?? k}: {n}
               </span>
             ))}

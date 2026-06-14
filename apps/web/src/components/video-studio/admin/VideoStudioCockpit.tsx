@@ -87,7 +87,7 @@ const RISK_BADGE: Record<RiskLevel, string> = {
 
 function Badge({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <span className={cn('inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold', className)}>
+    <span className={cn('inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-2xs font-semibold', className)}>
       {children}
     </span>
   );
@@ -735,7 +735,7 @@ function SettingsPanel({
                   {p.enabled && <Badge className="bg-emerald-500/15 text-emerald-300">implemented</Badge>}
                 </div>
                 <p className="text-xs text-gray-500">{p.note}</p>
-                {p.requiredEnv.length > 0 && <p className="mt-0.5 text-[11px] text-gray-600">env: {p.requiredEnv.join(', ')}</p>}
+                {p.requiredEnv.length > 0 && <p className="mt-0.5 text-2xs text-gray-600">env: {p.requiredEnv.join(', ')}</p>}
               </div>
               <span className="text-xs text-gray-500">{p.capabilities.join(' · ')}</span>
             </div>

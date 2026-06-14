@@ -100,7 +100,7 @@ export function SeoArticle({ page }: { page: SeoPage }) {
 
         {/* Direct answer (AEO/GEO) */}
         <div className="mb-8 rounded-2xl border border-primary/30 bg-primary/10 p-5">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Quick answer</p>
+          <p className="text-2xs font-semibold uppercase tracking-wide text-primary">Quick answer</p>
           <p className="mt-1 text-foreground">{page.directAnswer}</p>
         </div>
 

@@ -145,7 +145,7 @@ export function GradeCard({ scores, ownBaselineOverall }: { scores: SwingScores;
           </div>
         )}
 
-        <Badge variant="info" className="text-[11px]">Graded against your level — not tour pros</Badge>
+        <Badge variant="info" className="text-2xs">Graded against your level — not tour pros</Badge>
       </CardBody>
     </Card>
   );

@@ -41,7 +41,7 @@ export function StationCard({ station, index }: { station: LabStation; index: nu
         </div>
       </div>
 
-      <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${accent.text}`}>{station.systemRole}</p>
+      <p className={`text-2xs font-semibold uppercase tracking-[0.14em] ${accent.text}`}>{station.systemRole}</p>
       <h3 id={headingId} className="mt-1 text-lg font-bold text-white">{station.name}</h3>
       <p className="mt-2 text-sm leading-relaxed text-slate-300">{station.blurb}</p>
 
@@ -57,10 +57,10 @@ export function StationCard({ station, index }: { station: LabStation; index: nu
 
       {/* What it connects */}
       <div className="mt-4">
-        <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">Connects</p>
+        <p className="text-2xs font-medium uppercase tracking-wide text-slate-500">Connects</p>
         <div className="mt-1.5 flex flex-wrap gap-1.5">
           {station.connects.map((c) => (
-            <span key={c} className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[11px] font-medium text-slate-300">
+            <span key={c} className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-2xs font-medium text-slate-300">
               {c}
             </span>
           ))}
@@ -80,7 +80,7 @@ export function StationCard({ station, index }: { station: LabStation; index: nu
         ) : (
           <span className="text-sm font-medium text-slate-500">Planned</span>
         )}
-        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-500">
+        <span className="inline-flex items-center gap-1.5 text-2xs font-medium text-slate-500">
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-amber-400/80" />
           Lab station planned
         </span>

@@ -71,7 +71,7 @@ export function TempoTrendCard({ sessions, accent = '#22C55E' }: Props) {
           ))}
         </svg>
 
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-muted-foreground tabular-nums">
+        <div className="flex flex-wrap gap-x-4 gap-y-1 text-2xs text-muted-foreground tabular-nums">
           <span>Latest <b className="text-foreground">{trend.latest.ratio}:1</b></span>
           <span>Best <b className="text-foreground">{trend.bestRatio}:1</b></span>
           <span>Average <b className="text-foreground">{trend.avgRatio}:1</b></span>

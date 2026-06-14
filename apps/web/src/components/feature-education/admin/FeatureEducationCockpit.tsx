@@ -273,7 +273,7 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="text-[11px] uppercase tracking-wide text-gray-500">
+              <thead className="text-2xs uppercase tracking-wide text-gray-500">
                 <tr>
                   <th className="pb-2 pr-3">Feature</th>
                   <th className="pb-2 pr-3">Category</th>
@@ -337,8 +337,8 @@ export function FeatureEducationCockpit({ initial }: { initial: Overview }) {
                     <StatusBadge tone={g.priorityScore >= 70 ? 'danger' : g.priorityScore >= 40 ? 'warning' : 'neutral'}>Priority {g.priorityScore}</StatusBadge>
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1">
-                    {g.missing.map((t) => <span key={t} className="rounded bg-gray-800 px-1.5 py-0.5 text-[11px] text-gray-400">missing: {t}</span>)}
-                    {g.weak.map((t) => <span key={t} className="rounded bg-amber-500/10 px-1.5 py-0.5 text-[11px] text-amber-400">weak: {t}</span>)}
+                    {g.missing.map((t) => <span key={t} className="rounded bg-gray-800 px-1.5 py-0.5 text-2xs text-gray-400">missing: {t}</span>)}
+                    {g.weak.map((t) => <span key={t} className="rounded bg-amber-500/10 px-1.5 py-0.5 text-2xs text-amber-400">weak: {t}</span>)}
                   </div>
                 </li>
               ))}
@@ -406,9 +406,9 @@ function ActivityList({ audit }: { audit: FeeAuditLog[] }) {
         <li key={a.id} className="flex items-start justify-between gap-3 text-sm">
           <span className="min-w-0">
             <span className="text-gray-300">{a.summary}</span>
-            <span className="block text-[11px] text-gray-600">{a.actor} · {a.action}</span>
+            <span className="block text-2xs text-gray-600">{a.actor} · {a.action}</span>
           </span>
-          <time className="shrink-0 text-[11px] text-gray-600">{new Date(a.createdAt).toLocaleString()}</time>
+          <time className="shrink-0 text-2xs text-gray-600">{new Date(a.createdAt).toLocaleString()}</time>
         </li>
       ))}
     </ul>

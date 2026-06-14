@@ -247,7 +247,7 @@ function AnswerCard({ answer }: { answer: CopilotAnswer }) {
       )}
 
       {answer.sources.length > 0 && (
-        <p className="mt-3 text-[11px] text-muted-foreground">
+        <p className="mt-3 text-2xs text-muted-foreground">
           Sources:{' '}
           {answer.sources.map((sourceItem, i) => (
             <span key={i}>

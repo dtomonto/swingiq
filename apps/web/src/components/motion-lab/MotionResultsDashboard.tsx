@@ -143,7 +143,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
             <h1 className="text-lg font-bold text-foreground flex items-center gap-2">
               {session.sportLabel} · {session.motionLabel}
               {isSample && (
-                <span className="text-[10px] font-bold uppercase tracking-wide bg-primary/15 text-primary rounded-full px-2 py-0.5">Sample</span>
+                <span className="text-3xs font-bold uppercase tracking-wide bg-primary/15 text-primary rounded-full px-2 py-0.5">Sample</span>
               )}
             </h1>
             <p className="text-xs text-muted-foreground">
@@ -220,7 +220,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
             >
               <Icon className="w-4 h-4" />{t.label}
               {t.id === 'compare' && priorSessions.length > 0 && (
-                <span className="ml-0.5 text-[10px] bg-primary/15 text-primary rounded-full px-1.5">{priorSessions.length}</span>
+                <span className="ml-0.5 text-3xs bg-primary/15 text-primary rounded-full px-1.5">{priorSessions.length}</span>
               )}
             </button>
           );
@@ -277,7 +277,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
                   <div key={p.key}>
                     <p className="text-sm font-semibold text-foreground">{p.label}</p>
                     <p className="text-xs text-muted-foreground mt-1">{p.interpretation}</p>
-                    <p className="text-[11px] text-muted-foreground mt-1">Confidence {Math.round(p.confidence * 100)}% · estimated window</p>
+                    <p className="text-2xs text-muted-foreground mt-1">Confidence {Math.round(p.confidence * 100)}% · estimated window</p>
                   </div>
                 ))}
               </CardBody>
@@ -340,7 +340,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
                   </span>
                 </div>
                 <p className="text-xs text-muted-foreground">{repeatability.summary}</p>
-                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
+                <div className="flex flex-wrap gap-x-4 gap-y-1 text-2xs text-muted-foreground">
                   {repeatability.mostConsistent && (
                     <span>Most repeatable: <b className="text-foreground">{repeatability.mostConsistent.name}</b> ({repeatability.mostConsistent.consistency}/100)</span>
                   )}
@@ -349,7 +349,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
                   )}
                 </div>
                 {repeatability.basis !== 'measured' && (
-                  <p className="text-[10px] text-muted-foreground/80">Estimated from single-camera sessions — directional, not a lab measurement.</p>
+                  <p className="text-3xs text-muted-foreground/80">Estimated from single-camera sessions — directional, not a lab measurement.</p>
                 )}
               </CardBody>
             </Card>
@@ -382,7 +382,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
                 </select>
               </div>
               <Motion3DViewer track={session.poseTrack} phases={session.phases} accent={accent} ghost={ghostTrack} />
-              <p className="text-[11px] text-muted-foreground -mt-2">Solid skeleton = this session · grey ghost = the session you’re comparing to.</p>
+              <p className="text-2xs text-muted-foreground -mt-2">Solid skeleton = this session · grey ghost = the session you’re comparing to.</p>
               {compareSession && <MotionComparisonPanel base={session} compare={compareSession} />}
             </>
           )}
@@ -390,7 +390,7 @@ export function MotionResultsDashboard({ session, priorSessions, saved, videoUrl
       )}
 
       {/* Footer note — honest about measured (multi-view) vs estimated (single-view) */}
-      <p className="text-[11px] text-muted-foreground text-center pt-2">
+      <p className="text-2xs text-muted-foreground text-center pt-2">
         {saved ? 'Saved to this device only (analysis + a compact pose track — never your video). ' : 'Not saved. '}
         {session.poseTrack.basis === 'measured'
           ? 'Measured 3D triangulated from two calibrated views (confidence from real reprojection error). No medical or injury claims.'

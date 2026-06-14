@@ -139,14 +139,14 @@ export function FeatureDetail({ initial }: { initial: DetailData }) {
                     <button
                       onClick={() => generateType(t)}
                       disabled={busy !== null}
-                      className="rounded bg-gray-800 px-1.5 py-0.5 text-[11px] text-amber-400 hover:bg-gray-700 disabled:opacity-50"
+                      className="rounded bg-gray-800 px-1.5 py-0.5 text-2xs text-amber-400 hover:bg-gray-700 disabled:opacity-50"
                     >
                       {busy === `gen-${t}` ? '…' : 'Generate'}
                     </button>
                   )}
                 </div>
                 {a?.quality && (
-                  <p className={`mt-1 text-[11px] ${a.quality.passed ? 'text-emerald-400' : 'text-amber-400'}`}>
+                  <p className={`mt-1 text-2xs ${a.quality.passed ? 'text-emerald-400' : 'text-amber-400'}`}>
                     quality {a.quality.overall}/100
                   </p>
                 )}
@@ -234,7 +234,7 @@ function AssetCard({
             {secBlocked ? <ShieldAlert className="h-3 w-3" /> : <ShieldCheck className="h-3 w-3" />}
             {secBlocked ? 'blocked' : 'safe'}
           </StatusBadge>
-          <span className="text-[11px] text-gray-600">v{asset.version}</span>
+          <span className="text-2xs text-gray-600">v{asset.version}</span>
         </div>
       </div>
 
@@ -282,7 +282,7 @@ function AssetCard({
           )}
 
           {versions.length > 0 && (
-            <p className="text-[11px] text-gray-600">{versions.length} version(s) · published target: {asset.publishTarget ?? '—'}</p>
+            <p className="text-2xs text-gray-600">{versions.length} version(s) · published target: {asset.publishTarget ?? '—'}</p>
           )}
 
           {/* Actions */}

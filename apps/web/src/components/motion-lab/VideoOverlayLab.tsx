@@ -440,11 +440,11 @@ export function VideoOverlayLab({
         />
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-        <div className="absolute top-2 left-2 text-[10px] font-medium text-stage-foreground/90 bg-black/50 rounded px-1.5 py-0.5">
+        <div className="absolute top-2 left-2 text-3xs font-medium text-stage-foreground/90 bg-black/50 rounded px-1.5 py-0.5">
           Your clip · overlays are single-camera estimates
         </div>
         {layers.phase && activePhase && (
-          <div className="absolute top-2 right-2 text-[11px] font-semibold text-white bg-black/55 rounded px-2 py-0.5">
+          <div className="absolute top-2 right-2 text-2xs font-semibold text-white bg-black/55 rounded px-2 py-0.5">
             {activePhase.label} · {Math.round(activePhase.confidence * 100)}%
           </div>
         )}
@@ -455,7 +455,7 @@ export function VideoOverlayLab({
                 <p className="text-sm font-medium text-white">Couldn’t load the analysis engine.</p>
                 <p className="text-xs text-stage-foreground mt-1">Overlays use a small one-time download on first use. Check your connection and try again — your video never leaves your device.</p>
                 {track.emptyDetail && (
-                  <p className="text-[10px] text-stage-muted mt-2 break-words max-w-[90%]">Details: {track.emptyDetail}</p>
+                  <p className="text-3xs text-stage-muted mt-2 break-words max-w-[90%]">Details: {track.emptyDetail}</p>
                 )}
               </>
             ) : (
@@ -470,7 +470,7 @@ export function VideoOverlayLab({
 
       {/* Overlay density: progressive disclosure (Simple → Coach → Lab) */}
       <div className="bg-stage-panel border-t border-white/10 px-3 py-2 flex flex-wrap items-center gap-1.5">
-        <span className="text-[10px] uppercase tracking-wide text-stage-muted mr-0.5">Detail</span>
+        <span className="text-3xs uppercase tracking-wide text-stage-muted mr-0.5">Detail</span>
         <div role="group" aria-label="Overlay detail level" className="inline-flex rounded-full border border-white/15 overflow-hidden">
           {DENSITIES.map((d) => (
             <button
@@ -480,7 +480,7 @@ export function VideoOverlayLab({
               aria-pressed={density === d}
               title={OVERLAY_DENSITY_HINT[d]}
               className={cn(
-                'text-[11px] font-medium px-2.5 py-1 transition-colors',
+                'text-2xs font-medium px-2.5 py-1 transition-colors',
                 empty ? 'opacity-35 cursor-not-allowed text-stage-muted'
                   : density === d ? 'bg-sky-500 text-white' : 'text-stage-foreground hover:bg-white/10',
               )}
@@ -490,7 +490,7 @@ export function VideoOverlayLab({
           ))}
         </div>
         {density === 'custom' && (
-          <span className="text-[10px] text-stage-muted">Custom — {LAYERS.filter((l) => layers[l.id]).length} layers</span>
+          <span className="text-3xs text-stage-muted">Custom — {LAYERS.filter((l) => layers[l.id]).length} layers</span>
         )}
       </div>
 
@@ -507,7 +507,7 @@ export function VideoOverlayLab({
               disabled={disabled}
               aria-pressed={on}
               className={cn(
-                'inline-flex items-center gap-1 text-[11px] font-medium rounded-full px-2.5 py-1 border transition-colors',
+                'inline-flex items-center gap-1 text-2xs font-medium rounded-full px-2.5 py-1 border transition-colors',
                 disabled ? 'opacity-35 cursor-not-allowed border-white/10 text-stage-muted'
                   : on ? 'bg-sky-500/20 border-sky-400/50 text-sky-200' : 'border-white/15 text-stage-foreground hover:bg-white/10',
               )}
@@ -557,13 +557,13 @@ export function VideoOverlayLab({
             <div className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_4px_rgba(255,255,255,0.85)] pointer-events-none"
               style={{ left: `${(frameIdx / scrubTotal) * 100}%` }} />
           </button>
-          <span className="text-[11px] text-stage-muted tabular-nums w-14 text-right">{empty ? '—' : `${frameIdx + 1}/${frames.length}`}</span>
+          <span className="text-2xs text-stage-muted tabular-nums w-14 text-right">{empty ? '—' : `${frameIdx + 1}/${frames.length}`}</span>
         </div>
 
         <div className="flex items-center gap-1 flex-wrap">
           {SPEEDS.map((s) => (
             <button key={s} onClick={() => applySpeed(s)}
-              className={cn('text-[11px] rounded px-1.5 py-0.5', speed === s ? 'bg-sky-500 text-white' : 'text-stage-foreground hover:bg-white/10')}>
+              className={cn('text-2xs rounded px-1.5 py-0.5', speed === s ? 'bg-sky-500 text-white' : 'text-stage-foreground hover:bg-white/10')}>
               {s}×
             </button>
           ))}
@@ -571,7 +571,7 @@ export function VideoOverlayLab({
           <button className={btn} onClick={addBookmark} aria-label="Bookmark this moment" title="Bookmark this moment"><Bookmark className="w-4 h-4" /></button>
           <button className={btn} onClick={screenshot} aria-label="Screenshot frame" title="Save frame as image"><Camera className="w-4 h-4" /></button>
           <button className={btn} onClick={toggleFullscreen} aria-label="Fullscreen" title="Fullscreen"><Maximize2 className="w-4 h-4" /></button>
-          <span className="ml-auto text-[10px] text-stage-muted">Space play · ← → frame</span>
+          <span className="ml-auto text-3xs text-stage-muted">Space play · ← → frame</span>
         </div>
 
         {/* Jump-to-phase + loop */}
@@ -579,7 +579,7 @@ export function VideoOverlayLab({
           <div className="flex flex-wrap gap-1 pt-1">
             {phases.map((p) => (
               <span key={p.key} className="inline-flex items-center rounded-md overflow-hidden border border-white/10">
-                <button onClick={() => jumpToPhase(p)} className="text-[10px] text-stage-foreground hover:bg-white/10 px-2 py-1">{p.shortLabel}</button>
+                <button onClick={() => jumpToPhase(p)} className="text-3xs text-stage-foreground hover:bg-white/10 px-2 py-1">{p.shortLabel}</button>
                 <button onClick={() => toggleLoop(p)} aria-label={`Loop ${p.label}`} title={`Loop ${p.label}`}
                   className={cn('px-1.5 py-1 border-l border-white/10', loopKey === p.key ? 'bg-sky-500/30 text-sky-200' : 'text-stage-muted hover:bg-white/10')}>
                   <Repeat className="w-3 h-3" />

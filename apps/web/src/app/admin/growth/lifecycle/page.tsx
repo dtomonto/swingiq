@@ -31,7 +31,7 @@ export default async function LifecyclePage() {
                 <p className="text-sm font-semibold text-foreground">{s.name}</p>
                 <p className="text-xs text-muted-foreground truncate">{s.userDefinition}</p>
               </div>
-              <span className="ml-auto text-[10px] text-muted-foreground/70 shrink-0">Stage {i + 1} / {stages.length}</span>
+              <span className="ml-auto text-3xs text-muted-foreground/70 shrink-0">Stage {i + 1} / {stages.length}</span>
             </div>
             <div className="p-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
               <Field label="User mindset" value={s.userMindset} />
@@ -45,7 +45,7 @@ export default async function LifecyclePage() {
               <div>
                 <div className="flex items-center gap-1 text-success-text/80 mb-1">
                   <Sparkles className="w-3 h-3" />
-                  <span className="text-[10px] uppercase tracking-wide font-semibold">AI next best action</span>
+                  <span className="text-3xs uppercase tracking-wide font-semibold">AI next best action</span>
                 </div>
                 <p className="text-foreground">{s.aiNextBestAction}</p>
               </div>
@@ -54,7 +54,7 @@ export default async function LifecyclePage() {
         ))}
       </div>
 
-      <div className="flex items-center justify-center gap-2 text-[11px] text-muted-foreground/70">
+      <div className="flex items-center justify-center gap-2 text-2xs text-muted-foreground/70">
         Anonymous <ArrowRight className="w-3 h-3" /> New user <ArrowRight className="w-3 h-3" /> Activated
         <ArrowRight className="w-3 h-3" /> Engaged <ArrowRight className="w-3 h-3" /> Advocate
       </div>
@@ -67,7 +67,7 @@ export default async function LifecyclePage() {
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-[10px] uppercase tracking-wide text-muted-foreground/70 mb-1">{label}</p>
+      <p className="text-3xs uppercase tracking-wide text-muted-foreground/70 mb-1">{label}</p>
       <p className="text-foreground">{value}</p>
     </div>
   );

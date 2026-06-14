@@ -29,7 +29,7 @@ export default function BadgesPage() {
                 {got ? b.emoji : '🔒'}
               </div>
               <h3 className="mt-3 font-bold text-foreground">{b.name}</h3>
-              <p className="text-[11px] uppercase tracking-wide text-muted-foreground">{b.tier}</p>
+              <p className="text-2xs uppercase tracking-wide text-muted-foreground">{b.tier}</p>
               <p className="mt-2 text-sm text-muted-foreground">{b.description}</p>
               <p className="mt-2 text-xs text-muted-foreground"><strong className="text-foreground">How to earn:</strong> {b.criteria}</p>
               {got && <p className="mt-2 text-xs font-semibold text-success">✓ Earned</p>}

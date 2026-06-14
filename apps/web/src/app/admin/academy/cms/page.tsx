@@ -16,7 +16,7 @@ const STATUS_STYLE: Record<ContentStatus, string> = {
 };
 
 function StatusBadge({ status }: { status: ContentStatus }) {
-  return <span className={cn('rounded-full px-2 py-0.5 text-[11px] font-medium capitalize', STATUS_STYLE[status])}>{status}</span>;
+  return <span className={cn('rounded-full px-2 py-0.5 text-2xs font-medium capitalize', STATUS_STYLE[status])}>{status}</span>;
 }
 
 export default function CmsDashboard() {
@@ -119,7 +119,7 @@ function CmsList({
             <li key={item.id} className="flex flex-wrap items-center gap-3 rounded-theme border border-border bg-card p-3">
               <Link href={item.editHref} className="font-medium text-foreground hover:text-primary">{item.title}</Link>
               <StatusBadge status={item.status} />
-              <code className="text-[11px] text-muted-foreground">{item.id}</code>
+              <code className="text-2xs text-muted-foreground">{item.id}</code>
               <div className="ml-auto flex flex-wrap gap-1">
                 {STATUS_NEXT[item.status].map((next) => (
                   <button key={next} onClick={() => onStatus(item.id, next)}

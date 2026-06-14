@@ -87,7 +87,7 @@ export default async function MetricExplainerPage({
           <div className="flex flex-col items-end gap-1.5 text-right">
             <SourceBadge source={live?.source ?? def?.dataSource ?? 'derived'} />
             {live?.asOf && (
-              <span className="font-mono text-[10px] text-muted-foreground">
+              <span className="font-mono text-3xs text-muted-foreground">
                 read {live.asOf.replace('T', ' ').slice(0, 16)}
               </span>
             )}
@@ -112,7 +112,7 @@ export default async function MetricExplainerPage({
             <div className="mt-3 flex flex-wrap items-center gap-2">
               <SourceBadge source={def.dataSource} />
               {def.sourceDetail && (
-                <code className="rounded border border-border bg-muted px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
+                <code className="rounded border border-border bg-muted px-2 py-0.5 font-mono text-2xs text-muted-foreground">
                   {def.sourceDetail}
                 </code>
               )}

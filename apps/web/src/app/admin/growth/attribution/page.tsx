@@ -58,8 +58,8 @@ export default async function AttributionPage() {
             <strong className="text-link">Consent-aware capture:</strong>{' '}
             Attribution events only fire when the visitor has explicitly granted <em>analytics</em> consent.
             GrowthOS uses a deny-by-default consent model — if consent is unknown or denied, the{' '}
-            <code className="text-link text-[11px]">track()</code> call in{' '}
-            <code className="text-link text-[11px]">lib/growth/analytics.ts</code> drops the event
+            <code className="text-link text-2xs">track()</code> call in{' '}
+            <code className="text-link text-2xs">lib/growth/analytics.ts</code> drops the event
             silently. No data is collected before consent.
           </div>
         </div>
@@ -75,7 +75,7 @@ export default async function AttributionPage() {
         <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-xs text-link mb-4">
           <strong>Demo data.</strong> These are realistic seed events — not real user data. Real capture
           requires wiring the analytics consent flow + attribution event emission in your app (see{' '}
-          <code className="text-link text-[11px]">lib/growth/analytics.ts</code> and your signup/conversion
+          <code className="text-link text-2xs">lib/growth/analytics.ts</code> and your signup/conversion
           flows). Once wired, this table will show live events pulled from your analytics store.
         </div>
 
@@ -142,7 +142,7 @@ export default async function AttributionPage() {
                     </td>
 
                     {/* Page */}
-                    <td className="py-2.5 pr-3 text-muted-foreground whitespace-nowrap max-w-[140px] truncate font-mono text-[11px]" title={ev.page ?? undefined}>
+                    <td className="py-2.5 pr-3 text-muted-foreground whitespace-nowrap max-w-[140px] truncate font-mono text-2xs" title={ev.page ?? undefined}>
                       {ev.page ?? '—'}
                     </td>
 
@@ -161,7 +161,7 @@ export default async function AttributionPage() {
           </div>
         )}
 
-        <p className="text-[11px] text-muted-foreground/70 mt-3 pt-3 border-t border-border">
+        <p className="text-2xs text-muted-foreground/70 mt-3 pt-3 border-t border-border">
           Showing {events.length} event{events.length !== 1 ? 's' : ''}.
           User IDs are anonymized — GrowthOS stores an anonymous browser ID, not PII.
           Events are tagged with UTM parameters when they are present in the URL at the time of the event.

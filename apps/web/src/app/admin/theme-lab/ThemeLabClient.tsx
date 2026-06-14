@@ -106,7 +106,7 @@ export function ThemeLabClient({ actor }: { actor: string }) {
           <span className="text-lg font-semibold text-foreground">{themeName(resolution.themeId)}</span>
           <StatusBadge tone="neutral">via {resolution.source}</StatusBadge>
         </div>
-        <p className="mt-1 font-mono text-[11px] text-muted-foreground/70">
+        <p className="mt-1 font-mono text-2xs text-muted-foreground/70">
           force={effectiveForce ?? '—'} · preference={savedPreference} · seasonal=
           {control.allowSeasonal ? 'on' : 'off'}
         </p>
@@ -205,7 +205,7 @@ export function ThemeLabClient({ actor }: { actor: string }) {
         <h3 className="text-sm font-semibold text-foreground">Theme registry</h3>
         <div className="overflow-hidden rounded-xl border border-border">
           <table className="w-full text-left text-sm">
-            <thead className="bg-card text-[11px] uppercase tracking-wide text-muted-foreground">
+            <thead className="bg-card text-2xs uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th className="px-3 py-2 font-medium">Theme</th>
                 <th className="px-3 py-2 font-medium">Category</th>
@@ -220,7 +220,7 @@ export function ThemeLabClient({ actor }: { actor: string }) {
                   <td className="px-3 py-2 text-foreground">
                     {e.name}
                     {e.themeId === DEFAULT_THEME_ID && (
-                      <span className="ml-1.5 text-[10px] text-success-text">default</span>
+                      <span className="ml-1.5 text-3xs text-success-text">default</span>
                     )}
                   </td>
                   <td className="px-3 py-2 text-muted-foreground">{e.labCategory}</td>

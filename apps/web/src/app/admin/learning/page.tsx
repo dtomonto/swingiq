@@ -53,7 +53,7 @@ export default function AdminLearningPage() {
         <ol className="space-y-2">
           {CHECKLIST.map((c, i) => (
             <li key={c.href} className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-[11px] text-muted-foreground">{i + 1}</span>
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-2xs text-muted-foreground">{i + 1}</span>
               <div>
                 <Link href={c.href} className="text-sm font-medium text-foreground hover:text-link">{c.title}</Link>
                 <p className="text-xs text-muted-foreground">{c.detail}</p>

@@ -60,15 +60,15 @@ export function AlertCard({
           <div className="flex flex-wrap items-center gap-2">
             <p className="text-sm font-semibold text-foreground">{title}</p>
             {id && (
-              <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] tabular-nums text-muted-foreground">{id}</span>
+              <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-3xs tabular-nums text-muted-foreground">{id}</span>
             )}
-            {startedAt && <span className="font-mono text-[10px] text-muted-foreground">{startedAt}</span>}
+            {startedAt && <span className="font-mono text-3xs text-muted-foreground">{startedAt}</span>}
           </div>
           {body && <p className="mt-1 text-sm text-muted-foreground">{body}</p>}
           {evidence && evidence.length > 0 && (
             <div className="mt-2 flex flex-wrap gap-1.5">
               {evidence.map((e) => (
-                <span key={e} className="rounded border border-border bg-background px-2 py-0.5 font-mono text-[10px] text-muted-foreground">
+                <span key={e} className="rounded border border-border bg-background px-2 py-0.5 font-mono text-3xs text-muted-foreground">
                   {e}
                 </span>
               ))}

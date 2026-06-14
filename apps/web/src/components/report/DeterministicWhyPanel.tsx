@@ -48,7 +48,7 @@ export function DeterministicWhyPanel({
         {/* Supporting evidence */}
         {supporting.length > 0 && (
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-success">What points to it</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-success">What points to it</p>
             <ul className="mt-1.5 space-y-1 text-sm text-foreground">
               {supporting.map((e) => (
                 <li key={e} className="flex gap-2">
@@ -71,7 +71,7 @@ export function DeterministicWhyPanel({
         {/* Contradictions worth double-checking */}
         {d.contradictingEvidence.length > 0 && (
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Worth double-checking</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-warning">Worth double-checking</p>
             <ul className="mt-1.5 space-y-1 text-sm text-foreground">
               {d.contradictingEvidence.slice(0, 2).map((c) => (
                 <li key={c} className="flex gap-2">
@@ -86,7 +86,7 @@ export function DeterministicWhyPanel({
         {/* What would change the read */}
         {changeIt.length > 0 && (
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            <p className="text-2xs font-semibold uppercase tracking-wide text-muted-foreground">
               What would change this
             </p>
             <ul className="mt-1.5 space-y-1 text-sm text-muted-foreground">
@@ -110,7 +110,7 @@ export function DeterministicWhyPanel({
           </div>
         )}
 
-        <p className="text-[11px] text-muted-foreground">
+        <p className="text-2xs text-muted-foreground">
           {footerNote ??
             'This is a deterministic estimate from your reported miss — not a video analysis. Confirm it by retesting or uploading a swing.'}
         </p>

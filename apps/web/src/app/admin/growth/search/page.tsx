@@ -78,8 +78,8 @@ export default async function SearchIntelligenceCommandCenter() {
           <ScoreTile label="Backlink authority" breakdown={r.scores.backlinkAuthority} />
           <ScoreTile label="Growth momentum" breakdown={r.scores.growthMomentum} />
           <div className="rounded-xl border border-border bg-card p-3.5 flex flex-col justify-center">
-            <p className="text-[11px] text-muted-foreground">Scan summary</p>
-            <p className="text-[11px] text-muted-foreground mt-1 leading-snug">
+            <p className="text-2xs text-muted-foreground">Scan summary</p>
+            <p className="text-2xs text-muted-foreground mt-1 leading-snug">
               {r.run.pagesAnalyzed} pages · {r.run.issuesFound} issues · {r.run.opportunitiesFound} opportunities
             </p>
           </div>
@@ -125,7 +125,7 @@ export default async function SearchIntelligenceCommandCenter() {
                   {a.canClaudeImplement ? <Pill tone="green"><Bot className="w-2.5 h-2.5" /> Claude can implement</Pill> : null}
                   {a.requiresApproval ? <Pill tone="amber">needs approval</Pill> : null}
                   {a.relatedUrl ? (
-                    <Link href={`${BASE}/page-intel?url=${encodeURIComponent(a.relatedUrl)}`} className="text-[11px] text-success-text hover:text-success-text font-mono truncate">
+                    <Link href={`${BASE}/page-intel?url=${encodeURIComponent(a.relatedUrl)}`} className="text-2xs text-success-text hover:text-success-text font-mono truncate">
                       {a.relatedUrl}
                     </Link>
                   ) : null}
@@ -147,7 +147,7 @@ export default async function SearchIntelligenceCommandCenter() {
                     <p className="text-sm text-foreground min-w-0 truncate">{o.title}</p>
                     <Badge className={`bg-muted border-border ${accent(o.priorityScore)}`}>{o.priorityScore}</Badge>
                   </div>
-                  <p className="text-[11px] text-muted-foreground mt-1 font-mono truncate">/{o.proposedSlug}</p>
+                  <p className="text-2xs text-muted-foreground mt-1 font-mono truncate">/{o.proposedSlug}</p>
                 </li>
               ))}
             </ul>
@@ -164,7 +164,7 @@ export default async function SearchIntelligenceCommandCenter() {
                     <p className="text-sm text-foreground min-w-0">{i.title}</p>
                     <SeverityBadge severity={i.severity} />
                   </div>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{i.url ?? `${i.affectedUrls.length} pages`}</p>
+                  <p className="text-2xs text-muted-foreground mt-0.5 truncate">{i.url ?? `${i.affectedUrls.length} pages`}</p>
                 </li>
               ))}
             </ul>
@@ -192,7 +192,7 @@ export default async function SearchIntelligenceCommandCenter() {
               <li key={p.url}>
                 <Link href={`${BASE}/page-intel?url=${encodeURIComponent(p.url)}`} className="flex items-center justify-between gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2 hover:border-border">
                   <span className="text-xs font-mono text-foreground truncate">{p.url}</span>
-                  <span className="text-[11px] text-muted-foreground shrink-0">P{p.priorityScore} · Q{p.qualityScore}</span>
+                  <span className="text-2xs text-muted-foreground shrink-0">P{p.priorityScore} · Q{p.qualityScore}</span>
                 </Link>
               </li>
             ))}
@@ -212,7 +212,7 @@ export default async function SearchIntelligenceCommandCenter() {
                       <DataSourceBadge source={d.dataSource} />
                     </span>
                   </div>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">{d.reasons.map((x) => x.replace(/-/g, ' ')).join(' · ')}</p>
+                  <p className="text-2xs text-muted-foreground mt-0.5">{d.reasons.map((x) => x.replace(/-/g, ' ')).join(' · ')}</p>
                 </li>
               ))}
             </ul>
@@ -228,7 +228,7 @@ export default async function SearchIntelligenceCommandCenter() {
                   <p className="text-sm text-foreground min-w-0 truncate">{a.title}</p>
                   <Badge className={`bg-muted border-border ${accent(a.score)}`}>{a.score}</Badge>
                 </div>
-                <p className="text-[11px] text-muted-foreground mt-1">{a.recommendations[0]}</p>
+                <p className="text-2xs text-muted-foreground mt-1">{a.recommendations[0]}</p>
               </li>
             ))}
           </ul>
@@ -256,7 +256,7 @@ export default async function SearchIntelligenceCommandCenter() {
                 <span className="text-xs text-foreground">{p.label}</span>
                 {p.connected ? <CheckCircle2 className="w-3.5 h-3.5 text-success-text" /> : <Plug className="w-3.5 h-3.5 text-muted-foreground/70" />}
               </div>
-              <p className="text-[10px] text-muted-foreground/70 mt-1">{p.connected ? 'Connected' : `Set ${p.envVars[0]}`}</p>
+              <p className="text-3xs text-muted-foreground/70 mt-1">{p.connected ? 'Connected' : `Set ${p.envVars[0]}`}</p>
             </div>
           ))}
         </div>

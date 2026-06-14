@@ -101,7 +101,7 @@ export function LoginForm() {
           </Link>
         </p>
         {mode === 'local' && (
-          <p className="text-[11px] text-muted-foreground leading-relaxed">
+          <p className="text-2xs text-muted-foreground leading-relaxed">
             Your account is saved on this device. No internet account is required.
           </p>
         )}

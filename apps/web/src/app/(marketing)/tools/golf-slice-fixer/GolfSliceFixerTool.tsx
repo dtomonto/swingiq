@@ -153,11 +153,11 @@ export function GolfSliceFixerTool() {
       {result && (
         <ResultPanel>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Likely pattern</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-primary">Likely pattern</p>
             <p className="mt-1 font-bold text-foreground">{result.pattern}</p>
           </div>
           <div className="rounded-xl bg-warning/10 p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Top priority</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-warning">Top priority</p>
             <p className="mt-1 text-foreground">{result.priority}</p>
           </div>
           <div>

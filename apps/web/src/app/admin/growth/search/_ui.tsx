@@ -35,7 +35,7 @@ export function ScoreTile({ label, breakdown }: { label: string; breakdown: Scor
         <div className={cn('h-full rounded-full', barColor(breakdown.score))} style={{ width: `${breakdown.score}%` }} />
       </div>
       {breakdown.factors[0] ? (
-        <p className="mt-1.5 text-[10px] text-muted-foreground/70 leading-snug line-clamp-2">{breakdown.factors[0]}</p>
+        <p className="mt-1.5 text-3xs text-muted-foreground/70 leading-snug line-clamp-2">{breakdown.factors[0]}</p>
       ) : null}
     </div>
   );
@@ -70,5 +70,5 @@ export function Pill({ children, tone = 'gray' }: { children: ReactNode; tone?: 
     : tone === 'amber'
       ? 'text-link bg-primary/10 border-primary/30'
       : 'text-muted-foreground bg-muted border-border';
-  return <span className={cn('inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded border', cls)}>{children}</span>;
+  return <span className={cn('inline-flex items-center gap-1 text-3xs px-1.5 py-0.5 rounded border', cls)}>{children}</span>;
 }

@@ -31,7 +31,7 @@ export function FatigueRiskBanner({ risk }: { risk: InjuryRiskFlag }) {
             SwingVantage will ease drills loading: <span className="font-medium text-foreground">{regionLabels.join(', ')}</span>.
           </p>
         )}
-        <p className="mt-1 text-[11px] text-muted-foreground">If discomfort persists, consider a qualified health professional.</p>
+        <p className="mt-1 text-2xs text-muted-foreground">If discomfort persists, consider a qualified health professional.</p>
       </div>
     </div>
   );

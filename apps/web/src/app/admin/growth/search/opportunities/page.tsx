@@ -66,7 +66,7 @@ export default function OpportunitiesPage() {
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
                   <h3 className="text-sm font-semibold text-foreground">{o.title}</h3>
-                  <p className="text-[11px] text-muted-foreground font-mono mt-0.5">/{o.proposedSlug}</p>
+                  <p className="text-2xs text-muted-foreground font-mono mt-0.5">/{o.proposedSlug}</p>
                 </div>
                 <Badge className={`bg-muted border-border ${accent(o.priorityScore)}`}>{o.priorityScore}</Badge>
               </div>
@@ -78,7 +78,7 @@ export default function OpportunitiesPage() {
                 <Pill>schema: {o.schemaRecommendation}</Pill>
               </div>
               {o.internalLinksToAdd.length > 0 ? (
-                <p className="text-[11px] text-muted-foreground/70 mt-2 truncate">Link from: {o.internalLinksToAdd.join(', ')}</p>
+                <p className="text-2xs text-muted-foreground/70 mt-2 truncate">Link from: {o.internalLinksToAdd.join(', ')}</p>
               ) : null}
               <div className="mt-3 flex items-center justify-between">
                 <Link href={`/admin/growth/search/briefs?topic=${encodeURIComponent(o.targetKeyword)}&sport=${o.sport}&intent=${o.searchIntent}`} className="inline-flex items-center gap-1.5 text-xs font-semibold text-success-text hover:text-success-text">

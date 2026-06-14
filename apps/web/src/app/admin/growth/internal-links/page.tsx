@@ -57,17 +57,17 @@ export default async function InternalLinksPage() {
             {overOptimized.map((p) => (
               <li key={p.destinationUrl} className="flex items-center justify-between rounded-lg border border-border bg-muted/40 px-3 py-2">
                 <span className="text-xs font-mono text-foreground truncate">{p.destinationUrl}</span>
-                <span className="text-[11px] text-link">diversity {p.diversityScore}/100 · {p.total} inbound</span>
+                <span className="text-2xs text-link">diversity {p.diversityScore}/100 · {p.total} inbound</span>
               </li>
             ))}
           </ul>
-          <p className="mt-2 text-[11px] text-muted-foreground/70">Vary inbound anchors toward descriptive / partial-match phrasing to avoid over-optimization.</p>
+          <p className="mt-2 text-2xs text-muted-foreground/70">Vary inbound anchors toward descriptive / partial-match phrasing to avoid over-optimization.</p>
         </SectionCard>
       )}
 
       <SectionCard title="Site link audit" icon={Search}>
         <RecordModule definitionId="link-audit" records={r.findings} hideNote />
-        <p className="mt-3 text-[11px] text-muted-foreground/70">
+        <p className="mt-3 text-2xs text-muted-foreground/70">
           Findings are computed live. Run the agent to persist them (so they appear here after navigation and can be tracked).
         </p>
       </SectionCard>

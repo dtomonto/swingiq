@@ -45,7 +45,7 @@ export function HealthConsentGate({ permissions, onSetPermissions, onConsent }: 
           <div key={x.t} className="rounded-xl border border-border bg-card p-3 text-center">
             <span className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-muted text-primary">{x.icon}</span>
             <p className="mt-1.5 text-xs font-semibold text-foreground">{x.t}</p>
-            <p className="text-[10px] text-muted-foreground leading-tight">{x.d}</p>
+            <p className="text-3xs text-muted-foreground leading-tight">{x.d}</p>
           </div>
         ))}
       </div>
@@ -75,7 +75,7 @@ export function HealthConsentGate({ permissions, onSetPermissions, onConsent }: 
                 <span className="min-w-0">
                   <span className="text-sm font-medium text-foreground">{meta.label}</span>
                   <span className="block text-xs text-muted-foreground leading-relaxed">{meta.why}</span>
-                  <span className="block text-[10px] text-muted-foreground mt-0.5">{meta.examples}</span>
+                  <span className="block text-3xs text-muted-foreground mt-0.5">{meta.examples}</span>
                 </span>
               </button>
             );
@@ -90,7 +90,7 @@ export function HealthConsentGate({ permissions, onSetPermissions, onConsent }: 
           onChange={(e) => setAge18(e.target.checked)}
           className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
         />
-        <span className="text-[11px] text-muted-foreground leading-relaxed">
+        <span className="text-2xs text-muted-foreground leading-relaxed">
           I confirm I am <strong className="text-foreground">18 years or older</strong>. BodySync is
           for adults only.
         </span>
@@ -103,7 +103,7 @@ export function HealthConsentGate({ permissions, onSetPermissions, onConsent }: 
           onChange={(e) => setAgreed(e.target.checked)}
           className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
         />
-        <span className="text-[11px] text-muted-foreground leading-relaxed">
+        <span className="text-2xs text-muted-foreground leading-relaxed">
           I understand {NON_MEDICAL_DISCLAIMER}
         </span>
       </label>
@@ -111,7 +111,7 @@ export function HealthConsentGate({ permissions, onSetPermissions, onConsent }: 
       <Button onClick={onConsent} disabled={!agreed || !age18} className="w-full" size="lg">
         Turn on BodySync
       </Button>
-      <p className="text-center text-[11px] text-muted-foreground">
+      <p className="text-center text-2xs text-muted-foreground">
         You can disconnect devices or delete all health data anytime from this screen.
       </p>
     </div>

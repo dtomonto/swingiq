@@ -29,7 +29,7 @@ export function TierSection({ tier, label, count, children }: TierSectionProps) 
       <div className="mb-2.5 flex items-center gap-2">
         <span className={`h-2 w-2 shrink-0 rounded-full ${TIER_DOT[tier]}`} aria-hidden />
         <h2 className="text-[11.5px] font-bold uppercase tracking-wider text-foreground">{label}</h2>
-        {count != null && <span className="font-mono text-[11px] tabular-nums text-muted-foreground">{count}</span>}
+        {count != null && <span className="font-mono text-2xs tabular-nums text-muted-foreground">{count}</span>}
         <span className="h-px flex-1 bg-border" />
       </div>
       {children}

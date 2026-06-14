@@ -399,7 +399,7 @@ export default function ComparePage() {
             >
               {tab.label}
               {tab.id === 'compare' && selectedReference && (
-                <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 bg-primary/15 text-primary rounded-full text-[10px] font-bold">
+                <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 bg-primary/15 text-primary rounded-full text-3xs font-bold">
                   1
                 </span>
               )}

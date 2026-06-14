@@ -58,7 +58,7 @@ export default function CatalogPage() {
                 <div className="flex items-center justify-between"><span className="text-2xl">{p.emoji}</span><DifficultyPill level={p.difficulty} /></div>
                 <h3 className="mt-2 font-bold text-foreground group-hover:text-primary">{p.title}</h3>
                 <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{p.purpose}</p>
-                <div className="mt-3"><ProgressBar value={pp} /><p className="mt-1 text-[11px] text-muted-foreground">{pp}% · {p.courseIds.length} courses</p></div>
+                <div className="mt-3"><ProgressBar value={pp} /><p className="mt-1 text-2xs text-muted-foreground">{pp}% · {p.courseIds.length} courses</p></div>
               </Link>
             );
           })}
@@ -76,7 +76,7 @@ export default function CatalogPage() {
                 <div className="flex items-center justify-between"><span className="text-2xl">{c.emoji ?? '📘'}</span><DifficultyPill level={c.difficulty} /></div>
                 <h3 className="mt-2 font-bold text-foreground group-hover:text-primary">{c.title}</h3>
                 <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{c.summary}</p>
-                <div className="mt-3"><ProgressBar value={cp} /><p className="mt-1 text-[11px] text-muted-foreground">{cp}% · {c.estMinutes} min</p></div>
+                <div className="mt-3"><ProgressBar value={cp} /><p className="mt-1 text-2xs text-muted-foreground">{cp}% · {c.estMinutes} min</p></div>
               </Link>
             );
           })}

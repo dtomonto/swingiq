@@ -80,7 +80,7 @@ export default function CertificatePage() {
           </div>
         </div>
 
-        <p className="mt-8 text-[11px] text-muted-foreground">Internal SwingVantage enablement credential · ID {cert.id}</p>
+        <p className="mt-8 text-2xs text-muted-foreground">Internal SwingVantage enablement credential · ID {cert.id}</p>
       </div>
     </div>
   );

@@ -69,7 +69,7 @@ function RatingField({
         <label className="text-sm font-medium text-foreground">{label}</label>
         <Badge variant="default">Optional</Badge>
       </div>
-      <p className="text-[11px] text-muted-foreground">{hint}</p>
+      <p className="text-2xs text-muted-foreground">{hint}</p>
       <div className="flex flex-wrap items-center gap-2">
         <input
           type="number"
@@ -106,7 +106,7 @@ function RatingField({
       </div>
       {error && <p className="text-xs text-error">{error}</p>}
       {existing && !error && (
-        <p className="text-[11px] text-muted-foreground">
+        <p className="text-2xs text-muted-foreground">
           Current: <span className="font-medium text-foreground">{existing.value}</span> · {RATING_SOURCE_LABEL[existing.source]}
         </p>
       )}
@@ -134,7 +134,7 @@ function QuickNumber({
   return (
     <div className="rounded-theme border border-border p-3 space-y-2">
       <label className="text-sm font-medium text-foreground">{label}</label>
-      <p className="text-[11px] text-muted-foreground">{hint}</p>
+      <p className="text-2xs text-muted-foreground">{hint}</p>
       <div className="flex items-center gap-2">
         <input
           type="number"

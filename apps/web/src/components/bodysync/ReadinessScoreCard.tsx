@@ -53,7 +53,7 @@ export function ReadinessScoreCard({ assessment }: { assessment: ReadinessAssess
           <div className="flex items-center gap-2">
             <span className="text-2xl" aria-hidden="true">{meta.emoji}</span>
             <span className={`text-lg font-bold ${tone.text}`}>{meta.label}</span>
-            <span className="text-[10px] uppercase tracking-wide text-muted-foreground rounded-full bg-muted px-2 py-0.5">
+            <span className="text-3xs uppercase tracking-wide text-muted-foreground rounded-full bg-muted px-2 py-0.5">
               {assessment.confidence} confidence
             </span>
           </div>
@@ -65,7 +65,7 @@ export function ReadinessScoreCard({ assessment }: { assessment: ReadinessAssess
         {scores.map((s) => (
           <div key={s.label} className="rounded-lg bg-muted/40 px-2 py-2 text-center">
             <p className="text-sm font-semibold text-foreground">{s.v}</p>
-            <p className="text-[10px] text-muted-foreground">{s.label}</p>
+            <p className="text-3xs text-muted-foreground">{s.label}</p>
           </div>
         ))}
       </div>
@@ -95,7 +95,7 @@ export function ReadinessScoreCard({ assessment }: { assessment: ReadinessAssess
               </li>
             ))}
           {assessment.readiness.missing.length > 0 && (
-            <li className="text-[11px] text-muted-foreground pt-1">
+            <li className="text-2xs text-muted-foreground pt-1">
               Add {assessment.readiness.missing.slice(0, 3).join(', ')} to sharpen this estimate.
             </li>
           )}

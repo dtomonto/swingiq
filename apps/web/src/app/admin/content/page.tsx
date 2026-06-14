@@ -79,7 +79,7 @@ export default function AdminContentPage() {
       <SectionCard title="Recent blog posts" description={`${BLOG_POSTS.length} total in the catalog.`}>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
+            <thead className="text-2xs uppercase tracking-wide text-muted-foreground">
               <tr><th className="pb-2 pr-3">Title</th><th className="pb-2 pr-3">Sport</th><th className="pb-2 pr-3">Category</th><th className="pb-2 pr-3">Date</th><th className="pb-2"></th></tr>
             </thead>
             <tbody className="text-foreground">

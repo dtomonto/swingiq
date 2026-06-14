@@ -127,20 +127,20 @@ export function AiFeatureSwitchboard({ initialSnapshot }: Props) {
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm font-medium text-foreground">{f.label}</span>
-                  <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                  <span className="rounded bg-muted px-1.5 py-0.5 text-3xs font-medium uppercase tracking-wide text-muted-foreground">
                     {f.group}
                   </span>
                   {f.enabled ? (
-                    <span className="rounded bg-success/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-success-text">
+                    <span className="rounded bg-success/15 px-1.5 py-0.5 text-3xs font-medium uppercase tracking-wide text-success-text">
                       On
                     </span>
                   ) : (
-                    <span className="rounded bg-error/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-error">
+                    <span className="rounded bg-error/15 px-1.5 py-0.5 text-3xs font-medium uppercase tracking-wide text-error">
                       Off
                     </span>
                   )}
                   {f.overridden && (
-                    <span className="rounded bg-foreground/10 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                    <span className="rounded bg-foreground/10 px-1.5 py-0.5 text-3xs font-medium uppercase tracking-wide text-muted-foreground">
                       Override
                     </span>
                   )}
@@ -148,7 +148,7 @@ export function AiFeatureSwitchboard({ initialSnapshot }: Props) {
                 <p className="mt-1 max-w-prose text-xs text-muted-foreground">{f.description}</p>
                 <div className="mt-1.5 flex flex-wrap gap-1.5">
                   {f.routes.map((r) => (
-                    <code key={r} className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                    <code key={r} className="rounded bg-muted px-1.5 py-0.5 text-3xs text-muted-foreground">
                       {r}
                     </code>
                   ))}

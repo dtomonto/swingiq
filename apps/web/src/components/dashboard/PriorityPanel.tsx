@@ -197,11 +197,11 @@ export function PriorityPanel() {
                 ))}
               </ul>
             )}
-            <p className="mt-2 text-[11px] text-muted-foreground">{READINESS_SAFETY}</p>
+            <p className="mt-2 text-2xs text-muted-foreground">{READINESS_SAFETY}</p>
           </div>
         )}
 
-        <p className="text-[11px] text-muted-foreground">
+        <p className="text-2xs text-muted-foreground">
           Synthesized from {sessions.length} session{sessions.length === 1 ? '' : 's'} — not just your latest — weighted for how recent, severe, and recurring each issue is.
         </p>
       </CardBody>

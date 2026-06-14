@@ -99,7 +99,7 @@ function SidebarContent({
           </div>
           <div>
             <p className="text-sm font-bold text-foreground leading-none">GrowthOS</p>
-            <p className="text-[10px] text-muted-foreground mt-0.5">Marketing operating system</p>
+            <p className="text-3xs text-muted-foreground mt-0.5">Marketing operating system</p>
           </div>
         </div>
         {onNavigate ? (
@@ -124,7 +124,7 @@ function SidebarContent({
       <nav className="flex-1 overflow-y-auto px-3 pb-6 space-y-4">
         {groups.map((group) => (
           <div key={group.label}>
-            <p className="px-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70 mb-1">{group.label}</p>
+            <p className="px-2 text-3xs font-semibold uppercase tracking-wider text-muted-foreground/70 mb-1">{group.label}</p>
             <ul className="space-y-0.5">
               {group.items.map((item) => {
                 const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);

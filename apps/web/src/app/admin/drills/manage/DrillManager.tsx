@@ -167,7 +167,7 @@ export function DrillManager({ baseDrills }: { baseDrills: BaseDrillLike[] }) {
       <SectionCard title={`Drills (${visible.length})`} description="Override a code drill, retire it, or create custom ones. Edits stay local until exported.">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-[11px] uppercase tracking-wide text-muted-foreground">
+            <thead className="text-2xs uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th className="pb-2 pr-3">Drill</th><th className="pb-2 pr-3">Sport</th><th className="pb-2 pr-3">Category</th>
                 <th className="pb-2 pr-3">Level</th><th className="pb-2 pr-3">Status</th><th className="pb-2 pr-3">Source</th><th className="pb-2">Actions</th>

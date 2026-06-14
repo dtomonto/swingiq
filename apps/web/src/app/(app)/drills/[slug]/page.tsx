@@ -188,7 +188,7 @@ export default function DrillDetailPage() {
               >
                 <p className="font-semibold text-sm text-foreground">{r.name}</p>
                 <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{r.goal}</p>
-                <span className={cn('inline-block mt-2 text-[11px] px-2 py-0.5 rounded-full font-medium capitalize', DIFFICULTY_COLORS[r.difficulty])}>
+                <span className={cn('inline-block mt-2 text-2xs px-2 py-0.5 rounded-full font-medium capitalize', DIFFICULTY_COLORS[r.difficulty])}>
                   {r.difficulty}
                 </span>
               </Link>

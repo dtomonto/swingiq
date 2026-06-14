@@ -144,7 +144,7 @@ export default async function LearnIndexPage() {
                         <PlayCircle size={28} className="text-primary/60" aria-hidden="true" />
                       </div>
                     )}
-                    <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded bg-black/65 px-1.5 py-0.5 text-[11px] font-medium text-white">
+                    <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded bg-black/65 px-1.5 py-0.5 text-2xs font-medium text-white">
                       <Clock size={10} aria-hidden="true" /> {item.durationLabel}
                     </span>
                   </div>

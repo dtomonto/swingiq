@@ -109,7 +109,7 @@ function CapabilityBar({ cap }: { cap: CapabilityState }) {
         <span className="text-sm font-medium text-foreground">{cap.name}</span>
         <span className={cn('text-sm font-semibold tabular-nums', scoreText(cap.score))}>
           {observed ? `${cap.score}` : '—'}
-          <span className="text-[10px] text-muted-foreground font-normal">/100</span>
+          <span className="text-3xs text-muted-foreground font-normal">/100</span>
         </span>
       </div>
       <div className="h-2 rounded-full bg-muted overflow-hidden">
@@ -118,7 +118,7 @@ function CapabilityBar({ cap }: { cap: CapabilityState }) {
           style={{ width: observed ? `${cap.score}%` : '0%' }}
         />
       </div>
-      <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+      <div className="flex items-center gap-2 text-3xs text-muted-foreground">
         {observed ? (
           <>
             {cap.band && <span className="capitalize font-medium text-foreground/80">{cap.band}</span>}
@@ -169,7 +169,7 @@ function TrustBadge({ trust }: { trust: AthleteGIResult['trust'] }) {
     <details className="ml-auto">
       <summary
         className={cn(
-          'flex items-center gap-1 text-[11px] font-semibold rounded-full border px-2 py-0.5 cursor-pointer select-none',
+          'flex items-center gap-1 text-2xs font-semibold rounded-full border px-2 py-0.5 cursor-pointer select-none',
           TRUST_TONE[trust.grade] ?? TRUST_TONE.D,
         )}
       >
@@ -178,10 +178,10 @@ function TrustBadge({ trust }: { trust: AthleteGIResult['trust'] }) {
       </summary>
       <div className="absolute right-4 mt-1 w-64 z-10 rounded-lg border border-border bg-card p-3 shadow-md text-left">
         <p className="text-xs font-medium text-foreground">{trust.headline}</p>
-        <p className="text-[10px] text-muted-foreground mt-0.5">Meta-confidence {trust.score}/100</p>
+        <p className="text-3xs text-muted-foreground mt-0.5">Meta-confidence {trust.score}/100</p>
         <ul className="mt-1.5 space-y-1">
           {trust.reasons.map((reason, i) => (
-            <li key={i} className="text-[10px] text-muted-foreground flex items-start gap-1">
+            <li key={i} className="text-3xs text-muted-foreground flex items-start gap-1">
               <span aria-hidden="true">•</span>
               {reason}
             </li>
@@ -191,7 +191,7 @@ function TrustBadge({ trust }: { trust: AthleteGIResult['trust'] }) {
           <Link
             href={trust.nextStep.href}
             onClick={() => track(ANALYTICS_EVENTS.AGI_NEXTSTEP_CLICKED, { grade: trust.grade })}
-            className="mt-2 block rounded-md bg-primary/10 px-2 py-1.5 text-[10px] font-medium text-primary hover:bg-primary/15"
+            className="mt-2 block rounded-md bg-primary/10 px-2 py-1.5 text-3xs font-medium text-primary hover:bg-primary/15"
           >
             → {trust.nextStep.text}
           </Link>
@@ -217,7 +217,7 @@ function InsightCard({
         <div className="flex items-center gap-2 flex-wrap">
           <Badge variant={meta.badge}>{meta.label}</Badge>
           <h3 className="text-sm font-semibold text-foreground">{insight.title}</h3>
-          <span className="ml-auto text-[10px] text-muted-foreground tabular-nums">
+          <span className="ml-auto text-3xs text-muted-foreground tabular-nums">
             {BASIS_LABEL[insight.basis]} · {pct(insight.confidence)} conf.
           </span>
         </div>
@@ -249,7 +249,7 @@ function InsightCard({
                 <li key={i} className="text-xs">
                   <p className="text-foreground">{step.claim}</p>
                   {step.evidence.length > 0 && (
-                    <p className="text-[10px] text-muted-foreground mt-0.5">
+                    <p className="text-3xs text-muted-foreground mt-0.5">
                       Evidence: {step.evidence.join(' · ')}
                     </p>
                   )}
@@ -261,7 +261,7 @@ function InsightCard({
 
         {onFeedback && (
           <div className="flex items-center gap-2 border-t border-border pt-2">
-            <span className="text-[10px] text-muted-foreground">Useful?</span>
+            <span className="text-3xs text-muted-foreground">Useful?</span>
             <button
               type="button"
               aria-label="This is helpful"
@@ -294,7 +294,7 @@ function PlanSection({ result, demo }: { result: AthleteGIResult; demo: boolean 
         <div className="flex items-center gap-2">
           <Target className="w-4 h-4 text-primary" aria-hidden="true" />
           <h2 className="text-sm font-semibold text-foreground">Your one-focus plan</h2>
-          <span className="ml-auto text-[10px] text-muted-foreground tabular-nums">
+          <span className="ml-auto text-3xs text-muted-foreground tabular-nums">
             {BASIS_LABEL[plan.basis]} · {pct(plan.confidence)} conf.
           </span>
         </div>
@@ -342,7 +342,7 @@ function PlanSection({ result, demo }: { result: AthleteGIResult; demo: boolean 
           <div className="grid grid-cols-7 gap-1">
             {plan.week.map((d) => (
               <div key={d.day} className="rounded-md border border-border bg-card/50 p-1.5 text-center">
-                <p className="text-[10px] font-semibold text-foreground">{d.day}</p>
+                <p className="text-3xs font-semibold text-foreground">{d.day}</p>
                 <p className="text-[9px] text-muted-foreground leading-tight mt-0.5 min-h-[2.4em]">{d.focus}</p>
                 <p className="text-[9px] text-primary font-medium mt-0.5">{d.minutes ? `${d.minutes}m` : '—'}</p>
               </div>
@@ -350,7 +350,7 @@ function PlanSection({ result, demo }: { result: AthleteGIResult; demo: boolean 
           </div>
         </div>
 
-        <p className="text-[11px] text-muted-foreground border-t border-border pt-2 flex items-start gap-1.5">
+        <p className="text-2xs text-muted-foreground border-t border-border pt-2 flex items-start gap-1.5">
           <AlertTriangle className="w-3 h-3 text-warning shrink-0 mt-0.5" aria-hidden="true" />
           {plan.retestReminder}
         </p>
@@ -376,7 +376,7 @@ function CommitmentPanel({ plan, demo }: { plan: GeneralPlan; demo: boolean }) {
 
   if (demo) {
     return (
-      <p className="text-[11px] text-muted-foreground border-t border-border pt-2">
+      <p className="text-2xs text-muted-foreground border-t border-border pt-2">
         Committing to a plan is available on your own data.
       </p>
     );
@@ -406,7 +406,7 @@ function CommitmentPanel({ plan, demo }: { plan: GeneralPlan; demo: boolean }) {
             Retest due <span className="font-medium">{fmtDate(commitment!.retestDueAt)}</span>.
           </span>
         </p>
-        <button type="button" onClick={doDone} className="text-[11px] font-medium text-muted-foreground hover:text-foreground underline-offset-2 hover:underline">
+        <button type="button" onClick={doDone} className="text-2xs font-medium text-muted-foreground hover:text-foreground underline-offset-2 hover:underline">
           Mark done
         </button>
       </div>
@@ -441,7 +441,7 @@ function CommitmentPanel({ plan, demo }: { plan: GeneralPlan; demo: boolean }) {
         </div>
       )}
       {active && !committedToThis && (
-        <p className="text-[10px] text-muted-foreground">
+        <p className="text-3xs text-muted-foreground">
           Currently committed to {commitment!.name} — committing here replaces it.
         </p>
       )}
@@ -477,7 +477,7 @@ function EmptyState({ onSeeDemo }: { onSeeDemo: () => void }) {
             See a sample athlete
           </button>
         </div>
-        <p className="text-[11px] text-muted-foreground">No data needed — preview the full analysis on an example athlete.</p>
+        <p className="text-2xs text-muted-foreground">No data needed — preview the full analysis on an example athlete.</p>
       </CardBody>
     </Card>
   );
@@ -554,7 +554,7 @@ export function AthleteGIDashboard() {
         </div>
 
         {/* Honest framing */}
-        <p className="text-[11px] text-muted-foreground/90 leading-relaxed rounded-lg bg-muted/40 px-3 py-2">
+        <p className="text-2xs text-muted-foreground/90 leading-relaxed rounded-lg bg-muted/40 px-3 py-2">
           <span className="font-medium text-foreground">What &ldquo;general&rdquo; means here:</span>{' '}
           breadth and transfer across sports — one engine instead of many narrow ones. It is not a
           claim of human-level AI. Every number comes from your own analysed sessions (single-camera
@@ -624,7 +624,7 @@ export function AthleteGIDashboard() {
             <CardBody className="space-y-4">
               <div className="flex items-center gap-2">
                 <h2 className="text-sm font-semibold text-foreground">Your athletic profile</h2>
-                <span className="ml-auto text-[10px] text-muted-foreground">
+                <span className="ml-auto text-3xs text-muted-foreground">
                   {model.dataMap.totalSessions} session{model.dataMap.totalSessions === 1 ? '' : 's'} ·{' '}
                   {model.sports.length} sport{model.sports.length === 1 ? '' : 's'}
                 </span>
@@ -702,20 +702,20 @@ export function AthleteGIDashboard() {
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-success" aria-hidden="true" />
                   <h2 className="text-sm font-semibold text-foreground">What&apos;s worked for you</h2>
-                  <span className="ml-auto text-[10px] text-muted-foreground">your own drill feedback</span>
+                  <span className="ml-auto text-3xs text-muted-foreground">your own drill feedback</span>
                 </div>
                 <ul className="space-y-1.5">
                   {provenDrills.slice(0, 6).map((d) => (
                     <li key={d.drillId} className="text-xs text-foreground flex items-center gap-2">
                       <CheckCircle2 className="w-3 h-3 text-success shrink-0" aria-hidden="true" />
                       <span className="font-medium">{d.drillName}</span>
-                      <span className="text-[10px] text-muted-foreground">
+                      <span className="text-3xs text-muted-foreground">
                         helped {d.helpedCount}×{d.capability ? ` · ${d.capability}` : ''}
                       </span>
                     </li>
                   ))}
                 </ul>
-                <p className="text-[10px] text-muted-foreground/80 border-t border-border pt-2">
+                <p className="text-3xs text-muted-foreground/80 border-t border-border pt-2">
                   These are the drills you marked as helping — the plan above leads with them.
                 </p>
               </CardBody>
@@ -735,16 +735,16 @@ export function AthleteGIDashboard() {
                     <li key={i} className="text-xs border-s-2 border-accent-secondary/40 ps-3">
                       <p className="font-medium text-foreground">{t.principle}</p>
                       <p className="text-muted-foreground mt-0.5">{t.rationale}</p>
-                      <p className="text-[11px] text-muted-foreground mt-1">
+                      <p className="text-2xs text-muted-foreground mt-1">
                         <span className="font-medium text-foreground">{t.fromSport}:</span> {t.fromExpression}
                       </p>
-                      <p className="text-[11px] text-muted-foreground">
+                      <p className="text-2xs text-muted-foreground">
                         <span className="font-medium text-foreground">{t.toSport}:</span> {t.toExpression}
                       </p>
                     </li>
                   ))}
                 </ul>
-                <p className="text-[10px] text-muted-foreground/80 border-t border-border pt-2">
+                <p className="text-3xs text-muted-foreground/80 border-t border-border pt-2">
                   {transfers[0]?.note}
                 </p>
               </CardBody>
@@ -755,7 +755,7 @@ export function AthleteGIDashboard() {
           <AgiReportCard result={result} />
 
           {/* Footer disclaimer */}
-          <p className="text-[10px] text-muted-foreground/70 leading-relaxed">{result.disclaimer}</p>
+          <p className="text-3xs text-muted-foreground/70 leading-relaxed">{result.disclaimer}</p>
         </>
       )}
     </div>

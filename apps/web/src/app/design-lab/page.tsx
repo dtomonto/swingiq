@@ -87,7 +87,7 @@ export default function DesignLabPage() {
                   <span className="h-9 w-9 shrink-0 rounded-lg border-2" style={{ borderColor: 'var(--sport-accent)' }} aria-hidden="true" />
                   <span className="font-heading text-sm font-semibold uppercase tracking-tight text-foreground">{b.slug.replace('-', ' ')}</span>
                 </div>
-                <p className="mt-2 text-[11px] text-muted-foreground">
+                <p className="mt-2 text-2xs text-muted-foreground">
                   accent <code className="text-link">{b.accentVar}</code>
                 </p>
                 <span className="mt-3 block h-1.5 rounded-full" style={{ background: 'var(--sport-accent)' }} aria-hidden="true" />
@@ -123,7 +123,7 @@ export default function DesignLabPage() {
                   <span className="font-heading text-sm font-semibold uppercase tracking-tight">
                     Swing analysis
                   </span>
-                  <span className="ml-auto rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-bold text-success-text">
+                  <span className="ml-auto rounded-full bg-success/15 px-2 py-0.5 text-3xs font-bold text-success-text">
                     A
                   </span>
                 </div>
@@ -181,7 +181,7 @@ export default function DesignLabPage() {
               <div key={c.where} className="flex flex-col items-center gap-3 rounded-theme border border-border bg-card p-6 shadow-theme">
                 <ScoreRing score={86} size={c.size} strokeWidth={c.stroke} label={c.label} glow={c.glow} />
                 <p className="text-center text-xs text-muted-foreground">{c.where}</p>
-                <span className={`rounded-full border px-2 py-0.5 text-[10px] font-medium ${c.glow ? 'border-primary/30 bg-primary/10 text-link' : 'border-border bg-secondary text-muted-foreground'}`}>
+                <span className={`rounded-full border px-2 py-0.5 text-3xs font-medium ${c.glow ? 'border-primary/30 bg-primary/10 text-link' : 'border-border bg-secondary text-muted-foreground'}`}>
                   glow {c.glow ? 'on' : 'off'}
                 </span>
               </div>

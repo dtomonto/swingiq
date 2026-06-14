@@ -111,7 +111,7 @@ export default async function KeywordExplorerPage() {
           </table>
         </div>
         <div className="mt-2 flex items-center justify-between">
-          <p className="text-[11px] text-muted-foreground/70">* Relative estimates, not measured demand.</p>
+          <p className="text-2xs text-muted-foreground/70">* Relative estimates, not measured demand.</p>
           <DataSourceBadge source="estimated" />
         </div>
       </SectionCard>

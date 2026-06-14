@@ -62,9 +62,9 @@ function InputRow({ input }: { input: SetupInput }) {
           <Lock className="h-2.5 w-2.5" /> keep secret
         </StatusBadge>
       )}
-      {input.where && <span className="text-[11px] text-muted-foreground">— {input.where}</span>}
+      {input.where && <span className="text-2xs text-muted-foreground">— {input.where}</span>}
       {input.example && (
-        <span className="text-[11px] text-muted-foreground/70">e.g. <span className="font-mono">{input.example}</span></span>
+        <span className="text-2xs text-muted-foreground/70">e.g. <span className="font-mono">{input.example}</span></span>
       )}
     </li>
   );
@@ -106,7 +106,7 @@ export function SetupTaskCard({
               </StatusBadge>
             )}
             {task.autoDetected && (
-              <span className="inline-flex items-center gap-1 text-[11px] text-success-text/80">
+              <span className="inline-flex items-center gap-1 text-2xs text-success-text/80">
                 <Sparkles className="h-3 w-3" /> detected automatically
               </span>
             )}
@@ -134,7 +134,7 @@ export function SetupTaskCard({
 
             {task.inputs && task.inputs.length > 0 && (
               <div>
-                <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                <p className="mb-1.5 text-2xs font-semibold uppercase tracking-wide text-muted-foreground">
                   What to copy / open
                 </p>
                 <ul className="space-y-1.5">
@@ -146,7 +146,7 @@ export function SetupTaskCard({
             )}
 
             {task.source && (
-              <p className="text-[11px] text-muted-foreground/70">Source: {task.source}</p>
+              <p className="text-2xs text-muted-foreground/70">Source: {task.source}</p>
             )}
           </div>
         </details>

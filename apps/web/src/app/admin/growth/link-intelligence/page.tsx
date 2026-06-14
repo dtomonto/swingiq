@@ -93,7 +93,7 @@ export default function LinkIntelligenceHub() {
                     <p className="text-sm text-foreground min-w-0 truncate">{rec.name}</p>
                     <Badge className={accent(rec.score).replace('text-', 'text-') + ' bg-muted border-border'}>{rec.score}</Badge>
                   </div>
-                  <div className="mt-1.5 flex items-center gap-2 text-[11px] text-muted-foreground">
+                  <div className="mt-1.5 flex items-center gap-2 text-2xs text-muted-foreground">
                     <span className="px-1.5 py-0.5 rounded bg-muted border border-border">{rec.anchorKind}</span>
                     {rec.autoSafe
                       ? <Badge className="text-success-text bg-success/10 border-success/30">safe to auto-apply</Badge>
@@ -131,7 +131,7 @@ export default function LinkIntelligenceHub() {
               </li>
             ))}
           </ul>
-          <p className="mt-2 text-[11px] text-muted-foreground/70">Curated white-hat examples until a provider is connected. Qualify + draft outreach in Digital PR.</p>
+          <p className="mt-2 text-2xs text-muted-foreground/70">Curated white-hat examples until a provider is connected. Qualify + draft outreach in Digital PR.</p>
         </SectionCard>
 
         {/* Competitor gaps → Market Intel */}
@@ -225,7 +225,7 @@ export default function LinkIntelligenceHub() {
                   ? <CheckCircle2 className="w-3.5 h-3.5 text-success-text" />
                   : <Plug className="w-3.5 h-3.5 text-muted-foreground/70" />}
               </div>
-              <p className="text-[10px] text-muted-foreground/70 mt-1">{p.connected ? 'Connected' : `Set ${p.envVars[0]}`}</p>
+              <p className="text-3xs text-muted-foreground/70 mt-1">{p.connected ? 'Connected' : `Set ${p.envVars[0]}`}</p>
             </div>
           ))}
         </div>

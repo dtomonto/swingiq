@@ -484,7 +484,7 @@ export function StartHereFlow() {
                   <div className="flex-1">
                     <div className="flex items-center justify-between gap-2">
                       <p className={`text-sm font-semibold ${selected ? 'text-primary' : 'text-foreground'}`}>{m.label}</p>
-                      <span className="shrink-0 text-[11px] font-medium text-muted-foreground">{m.timeHint}</span>
+                      <span className="shrink-0 text-2xs font-medium text-muted-foreground">{m.timeHint}</span>
                     </div>
                     <p className="mt-0.5 text-xs text-muted-foreground">{m.description}</p>
                   </div>
@@ -606,12 +606,12 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
           </p>
           <ConfidenceBadge confidence={result.confidence} showReason={false} />
         </div>
-        <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-primary">
+        <p className="mt-2 text-2xs font-semibold uppercase tracking-wide text-primary">
           Your top thing to work on first
         </p>
         <h2 className="mt-1 text-xl font-bold text-foreground">{result.issue}</h2>
         <div className="mt-3 rounded-xl bg-warning/10 p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Why it matters</p>
+          <p className="text-2xs font-semibold uppercase tracking-wide text-warning">Why it matters</p>
           <p className="mt-1 text-foreground">{result.whyItMatters}</p>
         </div>
       </div>
@@ -621,7 +621,7 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
         <p className="text-xs font-semibold text-primary">Coaching mode: {tone.label}</p>
         <p className="mt-1 text-sm text-primary">{tone.resultIntro}</p>
         {tone.note && <p className="mt-2 text-xs text-primary">{tone.note}</p>}
-        <p className="mt-2 text-[11px] text-primary">You can change this in Settings → Coaching Preferences.</p>
+        <p className="mt-2 text-2xs text-primary">You can change this in Settings → Coaching Preferences.</p>
       </div>
 
       {/* Transparency: what this is based on (shared, reusable panel) */}
@@ -686,7 +686,7 @@ function ResultView({ result, onRestart }: { result: QuickResult; onRestart: () 
           this self-reported estimate into a real, MEASURED analysis. One clear
           step beats a wall of equal options at the activation moment. */}
       <div className="rounded-2xl border-2 border-primary/40 bg-primary/5 p-5">
-        <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Recommended next step</p>
+        <p className="text-2xs font-semibold uppercase tracking-wide text-primary">Recommended next step</p>
         <h3 className="mt-1 text-lg font-bold text-foreground">Now make it measured</h3>
         <p className="mt-1 text-sm text-muted-foreground">
           That read came from your answers. Let SwingVantage watch a real swing in 3D — Motion Lab gives you a

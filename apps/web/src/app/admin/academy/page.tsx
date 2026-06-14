@@ -55,7 +55,7 @@ export default function AcademyHome() {
             {next && (
               <div className="mt-3">
                 <ProgressBar value={(progress.points / next.minPoints) * 100} />
-                <p className="mt-1 text-[11px] text-muted-foreground">{toNext} pts to {next.label}</p>
+                <p className="mt-1 text-2xs text-muted-foreground">{toNext} pts to {next.label}</p>
               </div>
             )}
           </div>
@@ -82,7 +82,7 @@ export default function AcademyHome() {
                 <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{p.purpose}</p>
                 <div className="mt-3">
                   <ProgressBar value={pp.percent} />
-                  <p className="mt-1 text-[11px] text-muted-foreground">{pp.percent}% · {p.courseIds.length} courses</p>
+                  <p className="mt-1 text-2xs text-muted-foreground">{pp.percent}% · {p.courseIds.length} courses</p>
                 </div>
               </Link>
             );

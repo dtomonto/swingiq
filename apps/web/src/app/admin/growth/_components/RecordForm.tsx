@@ -140,7 +140,7 @@ function Field({ field, value, onChange }: { field: FormFieldDef; value: unknown
         <div className="grid grid-cols-3 gap-2">
           {(['impact', 'confidence', 'effort'] as const).map((dim) => (
             <div key={dim}>
-              <p className="text-[10px] uppercase tracking-wide text-muted-foreground/70 mb-1">{dim}</p>
+              <p className="text-3xs uppercase tracking-wide text-muted-foreground/70 mb-1">{dim}</p>
               <select value={p[dim]} onChange={(e) => onChange({ ...p, [dim]: e.target.value })} className={inputCls}>
                 {SCALES.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>

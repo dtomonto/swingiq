@@ -135,7 +135,7 @@ export function RecordingOverlay({ sport, angle = 'unknown', className }: Record
 
       {/* Bottom hint chip */}
       <div className="absolute inset-x-0 bottom-2 flex justify-center px-3">
-        <p className="max-w-[90%] rounded-full bg-black/60 px-3 py-1.5 text-center text-[11px] font-medium leading-tight text-white backdrop-blur-sm">
+        <p className="max-w-[90%] rounded-full bg-black/60 px-3 py-1.5 text-center text-2xs font-medium leading-tight text-white backdrop-blur-sm">
           {hintFor(sport, angle)}
         </p>
       </div>

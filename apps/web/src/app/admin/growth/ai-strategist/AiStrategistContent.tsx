@@ -189,7 +189,7 @@ export function AiStrategistContent() {
             <div className="space-y-4">
               {Object.entries(groupedTasks).map(([cat, tasks]) => (
                 <div key={cat}>
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                  <p className="text-2xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
                     {CATEGORY_LABELS[cat] ?? cat}
                   </p>
                   <div className="flex flex-col gap-1.5">
@@ -354,7 +354,7 @@ export function AiStrategistContent() {
 
                     <div className="grid sm:grid-cols-2 gap-3">
                       <div>
-                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Inputs</p>
+                        <p className="text-2xs uppercase tracking-wider text-muted-foreground mb-1">Inputs</p>
                         <ul className="space-y-0.5">
                           {ag.inputs.map((inp) => (
                             <li key={inp} className="text-muted-foreground">· {inp}</li>
@@ -362,7 +362,7 @@ export function AiStrategistContent() {
                         </ul>
                       </div>
                       <div>
-                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Outputs</p>
+                        <p className="text-2xs uppercase tracking-wider text-muted-foreground mb-1">Outputs</p>
                         <ul className="space-y-0.5">
                           {ag.outputs.map((out) => (
                             <li key={out} className="text-muted-foreground">· {out}</li>
@@ -372,17 +372,17 @@ export function AiStrategistContent() {
                     </div>
 
                     <div>
-                      <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Review requirements</p>
+                      <p className="text-2xs uppercase tracking-wider text-muted-foreground mb-1">Review requirements</p>
                       <p className="text-muted-foreground">{ag.reviewRequirements}</p>
                     </div>
 
                     <div>
-                      <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Suggested next action</p>
+                      <p className="text-2xs uppercase tracking-wider text-muted-foreground mb-1">Suggested next action</p>
                       <p className="text-muted-foreground">{ag.suggestedNextAction}</p>
                     </div>
 
                     <div>
-                      <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1.5">Guardrails (inherited)</p>
+                      <p className="text-2xs uppercase tracking-wider text-muted-foreground mb-1.5">Guardrails (inherited)</p>
                       <ul className="space-y-0.5">
                         {ag.guardrails.map((g) => (
                           <li key={g} className="text-muted-foreground">· {g}</li>

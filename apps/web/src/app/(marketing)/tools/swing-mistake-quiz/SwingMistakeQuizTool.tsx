@@ -156,11 +156,11 @@ export function SwingMistakeQuizTool() {
         <ResultPanel>
           <p className="text-sm font-medium text-muted-foreground">{result.sport.label}</p>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Likely top issue</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-primary">Likely top issue</p>
             <p className="mt-1 text-lg font-bold text-foreground">{result.outcome.issue}</p>
           </div>
           <div className="rounded-xl bg-warning/10 p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Key checkpoint</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-warning">Key checkpoint</p>
             <p className="mt-1 text-foreground">{result.outcome.checkpoint}</p>
           </div>
           <div>

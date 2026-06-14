@@ -52,7 +52,7 @@ function renderValue(record: AnyRecord, def: ColumnDef | FieldDef): React.ReactN
       return (
         <span className="flex flex-wrap gap-1">
           {arr.map((c, i) => (
-            <span key={i} className="text-[11px] px-1.5 py-0.5 rounded bg-muted border border-border text-foreground">{c}</span>
+            <span key={i} className="text-2xs px-1.5 py-0.5 rounded bg-muted border border-border text-foreground">{c}</span>
           ))}
         </span>
       );

@@ -106,12 +106,12 @@ function DayDetail({
             <div className="min-w-0 flex-1">
               <p className="text-sm font-medium text-foreground truncate">{item.name}</p>
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
-                <span className={cn('text-[11px] px-1.5 py-0.5 rounded border font-medium', chipClass(item.itemType))}>
+                <span className={cn('text-2xs px-1.5 py-0.5 rounded border font-medium', chipClass(item.itemType))}>
                   {humanize(item.itemType)}
                 </span>
-                <span className="text-[11px] text-muted-foreground">{item.channel}</span>
+                <span className="text-2xs text-muted-foreground">{item.channel}</span>
                 {item.funnelStage && (
-                  <span className="text-[11px] text-muted-foreground/70 capitalize">{item.funnelStage}</span>
+                  <span className="text-2xs text-muted-foreground/70 capitalize">{item.funnelStage}</span>
                 )}
               </div>
             </div>
@@ -149,7 +149,7 @@ function MonthGrid({
         {/* Weekday headers */}
         <div className="grid grid-cols-7 border-b border-border mb-1">
           {WEEKDAYS.map((wd) => (
-            <div key={wd} className="py-2 text-center text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <div key={wd} className="py-2 text-center text-2xs font-semibold uppercase tracking-wider text-muted-foreground">
               {wd}
             </div>
           ))}
@@ -197,7 +197,7 @@ function MonthGrid({
                     <div
                       key={item.id}
                       className={cn(
-                        'text-[10px] px-1.5 py-0.5 rounded border truncate leading-tight font-medium',
+                        'text-3xs px-1.5 py-0.5 rounded border truncate leading-tight font-medium',
                         chipClass(item.itemType),
                       )}
                       title={item.name}
@@ -206,7 +206,7 @@ function MonthGrid({
                     </div>
                   ))}
                   {overflow > 0 && (
-                    <div className="text-[10px] text-muted-foreground pl-0.5">+{overflow} more</div>
+                    <div className="text-3xs text-muted-foreground pl-0.5">+{overflow} more</div>
                   )}
                 </div>
               </button>
@@ -241,13 +241,13 @@ function ListView({ items }: { items: MarketingCalendarItem[] }) {
         >
           {/* Date block */}
           <div className="shrink-0 text-center w-14 pt-0.5">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+            <p className="text-3xs uppercase tracking-wider text-muted-foreground">
               {format(parseISO(item.date), 'MMM')}
             </p>
             <p className="text-lg font-bold text-foreground leading-tight">
               {format(parseISO(item.date), 'd')}
             </p>
-            <p className="text-[10px] text-muted-foreground/70">{format(parseISO(item.date), 'yyyy')}</p>
+            <p className="text-3xs text-muted-foreground/70">{format(parseISO(item.date), 'yyyy')}</p>
           </div>
 
           {/* Divider */}
@@ -257,15 +257,15 @@ function ListView({ items }: { items: MarketingCalendarItem[] }) {
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium text-foreground truncate">{item.name}</p>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
-              <span className={cn('text-[11px] px-1.5 py-0.5 rounded border font-medium', chipClass(item.itemType))}>
+              <span className={cn('text-2xs px-1.5 py-0.5 rounded border font-medium', chipClass(item.itemType))}>
                 {humanize(item.itemType)}
               </span>
-              <span className="text-[11px] text-muted-foreground">{item.channel}</span>
+              <span className="text-2xs text-muted-foreground">{item.channel}</span>
               {item.funnelStage && (
-                <span className="text-[11px] text-muted-foreground/70 capitalize">{item.funnelStage}</span>
+                <span className="text-2xs text-muted-foreground/70 capitalize">{item.funnelStage}</span>
               )}
               {item.endDate && (
-                <span className="text-[11px] text-muted-foreground/70">→ {formatDate(item.endDate)}</span>
+                <span className="text-2xs text-muted-foreground/70">→ {formatDate(item.endDate)}</span>
               )}
             </div>
           </div>
@@ -287,7 +287,7 @@ function Legend() {
       {LEGEND_TYPES.map(([type, label]) => (
         <div key={type} className="flex items-center gap-1.5">
           <span className={cn('w-2.5 h-2.5 rounded-sm border', chipClass(type))} />
-          <span className="text-[11px] text-muted-foreground">{label}</span>
+          <span className="text-2xs text-muted-foreground">{label}</span>
         </div>
       ))}
     </div>

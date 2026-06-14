@@ -25,7 +25,7 @@ export function ActionRow({ item }: { item: ActionItem }) {
       <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${DOT[item.severity]}`} aria-hidden />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[11px] uppercase tracking-wide text-muted-foreground">{item.sourceLabel}</span>
+          <span className="text-2xs uppercase tracking-wide text-muted-foreground">{item.sourceLabel}</span>
           {item.count > 0 && <StatusBadge tone={COUNT_TONE[item.severity]}>{item.count}</StatusBadge>}
         </div>
         <p className="mt-0.5 text-sm font-medium text-foreground">{item.title}</p>

@@ -32,7 +32,7 @@ function Brand() {
   return (
     <Link href="/admin" className="flex items-center gap-2.5 px-4 py-3">
       <span
-        className="flex h-7 w-7 items-center justify-center rounded-md text-[11px] font-extrabold tracking-tight text-white"
+        className="flex h-7 w-7 items-center justify-center rounded-md text-2xs font-extrabold tracking-tight text-white"
         style={{ background: 'linear-gradient(135deg, #2d5a40, #14532d)' }}
       >
         sV

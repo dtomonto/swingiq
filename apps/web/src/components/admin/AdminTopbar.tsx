@@ -65,7 +65,7 @@ export function AdminTopbar({
       >
         <Search className="h-3.5 w-3.5" />
         <span className="hidden sm:inline">Search admin…</span>
-        <kbd className="hidden rounded bg-muted px-1 text-[10px] sm:inline">⌘K</kbd>
+        <kbd className="hidden rounded bg-muted px-1 text-3xs sm:inline">⌘K</kbd>
       </button>
 
       {/* Action Center alert badge — visible from every page. */}
@@ -150,7 +150,7 @@ export function AdminTopbar({
                 }`}
               />
               <strong className="font-semibold text-foreground">{s.name}</strong>
-              <span className="font-mono text-[11px]">{s.value}</span>
+              <span className="font-mono text-2xs">{s.value}</span>
             </span>
           ))}
         </div>

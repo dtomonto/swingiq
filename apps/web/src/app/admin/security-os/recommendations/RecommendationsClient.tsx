@@ -89,7 +89,7 @@ function RecCard({ rec }: { rec: SecurityRecommendation }) {
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-start justify-between gap-3 p-4 text-left">
         <div className="min-w-0">
           <p className="text-sm font-medium text-foreground">{rec.title}</p>
-          <p className="mt-0.5 text-[11px] text-muted-foreground">
+          <p className="mt-0.5 text-2xs text-muted-foreground">
             <span className={bandTone}>{rec.priorityBand}</span> · {rec.riskDomain} · {EFFORT_LABEL[rec.effort] ?? rec.effort}
             {rec.canClaudeFix && ' · Claude can help'}
             {rec.addToCi && ' · CI/CD'}
@@ -105,7 +105,7 @@ function RecCard({ rec }: { rec: SecurityRecommendation }) {
           <Field label="Why it matters">{rec.whyItMatters}</Field>
           <Field label="What could happen">{rec.whatCouldHappen}</Field>
           <div>
-            <p className="mb-1 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">Steps</p>
+            <p className="mb-1 text-2xs font-medium uppercase tracking-wide text-muted-foreground">Steps</p>
             <ol className="list-decimal space-y-1 pl-5">
               {rec.stepByStepActions.map((s, i) => (
                 <li key={i} className="text-sm text-foreground">{s}</li>
@@ -117,7 +117,7 @@ function RecCard({ rec }: { rec: SecurityRecommendation }) {
               <Link key={l.href} href={l.href} className="rounded-lg border border-border px-2 py-1 text-xs text-foreground hover:bg-muted">{l.label}</Link>
             ))}
             {rec.canClaudeFix && (
-              <span className="inline-flex items-center gap-1 text-[11px] text-success-text"><Bot className="h-3 w-3" /> Claude Code can implement this now</span>
+              <span className="inline-flex items-center gap-1 text-2xs text-success-text"><Bot className="h-3 w-3" /> Claude Code can implement this now</span>
             )}
           </div>
         </div>
@@ -129,7 +129,7 @@ function RecCard({ rec }: { rec: SecurityRecommendation }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="mb-0.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className="mb-0.5 text-2xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
       <p className="text-sm text-muted-foreground">{children}</p>
     </div>
   );

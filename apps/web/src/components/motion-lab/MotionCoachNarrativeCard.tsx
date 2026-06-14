@@ -53,7 +53,7 @@ export function MotionCoachNarrativeCard({ session }: { session: MotionSession }
         <div className="flex items-center gap-2">
           <MessageSquare className="w-4 h-4 text-primary" />
           <p className="text-sm font-semibold text-foreground">Your coach&rsquo;s read</p>
-          <span className="ml-auto inline-flex items-center gap-1 text-[10px] text-muted-foreground">
+          <span className="ml-auto inline-flex items-center gap-1 text-3xs text-muted-foreground">
             {enhanced ? (
               <><Sparkles className="w-3 h-3 text-primary" /> AI-enhanced phrasing</>
             ) : (
@@ -69,14 +69,14 @@ export function MotionCoachNarrativeCard({ session }: { session: MotionSession }
           <dl className="space-y-2.5">
             {SECTIONS.map(({ key, label }) => (
               <div key={key}>
-                <dt className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{label}</dt>
+                <dt className="text-2xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</dt>
                 <dd className="text-sm text-foreground leading-relaxed">{narrative[key] as string}</dd>
               </div>
             ))}
           </dl>
         )}
 
-        <p className="text-[10px] text-muted-foreground/80 border-t border-border pt-2">{narrative.disclaimer}</p>
+        <p className="text-3xs text-muted-foreground/80 border-t border-border pt-2">{narrative.disclaimer}</p>
       </CardBody>
     </Card>
   );

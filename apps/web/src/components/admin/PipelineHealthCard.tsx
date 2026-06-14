@@ -69,7 +69,7 @@ export function SystemPipelineHealthCard({ health }: { health: PipelineHealth })
       actions={<StatusPill status={health.status} />}
     >
       <HealthBody health={health} />
-      <p className="mt-3 text-[11px] text-muted-foreground/70">
+      <p className="mt-3 text-2xs text-muted-foreground/70">
         Counts are exact. A &ldquo;gap&rdquo; means data didn&rsquo;t link up (e.g. shots recorded with no
         diagnosis), not a crash — failures stay anonymized in Reliability.
       </p>

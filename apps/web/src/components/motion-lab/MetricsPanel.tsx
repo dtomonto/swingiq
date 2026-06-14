@@ -48,7 +48,7 @@ function MetricRow({ m }: { m: MotionMetric }) {
             )}
           </div>
         </div>
-        <span className="text-[10px] text-muted-foreground shrink-0">{Math.round(m.confidence * 100)}%</span>
+        <span className="text-3xs text-muted-foreground shrink-0">{Math.round(m.confidence * 100)}%</span>
         <ChevronDown className={cn('w-4 h-4 text-muted-foreground transition-transform shrink-0', open && 'rotate-180')} />
       </button>
       {open && (
@@ -59,7 +59,7 @@ function MetricRow({ m }: { m: MotionMetric }) {
           {m.target && (
             <p className="text-muted-foreground"><span className="font-semibold text-foreground">Target: </span>{m.target}</p>
           )}
-          <p className="text-[11px] text-muted-foreground/80 flex items-start gap-1 pt-1">
+          <p className="text-2xs text-muted-foreground/80 flex items-start gap-1 pt-1">
             <Info className="w-3 h-3 mt-0.5 shrink-0" />{m.limitations}
           </p>
         </div>

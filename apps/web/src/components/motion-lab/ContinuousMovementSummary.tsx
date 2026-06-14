@@ -57,7 +57,7 @@ export function ContinuousMovementSummary({ summary, accent = '#0EA5E9' }: Props
           {efficiencyScore != null && (
             <div className="ml-auto text-right shrink-0">
               <p className="text-2xl font-bold tabular-nums" style={{ color: accent }}>{efficiencyScore}</p>
-              <p className="text-[10px] text-muted-foreground -mt-0.5">movement / 100</p>
+              <p className="text-3xs text-muted-foreground -mt-0.5">movement / 100</p>
             </div>
           )}
         </div>
@@ -71,21 +71,21 @@ export function ContinuousMovementSummary({ summary, accent = '#0EA5E9' }: Props
                 <div className="flex items-center gap-1.5">
                   <Icon className="w-3.5 h-3.5 text-muted-foreground" />
                   <span className="text-xs font-semibold text-foreground">{cp.label}</span>
-                  <span className={cn('ml-auto inline-flex items-center gap-1 text-[10px] font-medium', s.text)}>
+                  <span className={cn('ml-auto inline-flex items-center gap-1 text-3xs font-medium', s.text)}>
                     <span className={cn('w-1.5 h-1.5 rounded-full', s.dot)} aria-hidden />
                     {cp.score != null ? `${cp.score}` : s.label}
                   </span>
                 </div>
-                <p className="text-[11px] text-muted-foreground mt-1 leading-snug">{cp.detail}</p>
+                <p className="text-2xs text-muted-foreground mt-1 leading-snug">{cp.detail}</p>
                 {cp.score != null && (
-                  <p className="text-[10px] text-muted-foreground/70 mt-0.5">Confidence {Math.round(cp.confidence * 100)}%</p>
+                  <p className="text-3xs text-muted-foreground/70 mt-0.5">Confidence {Math.round(cp.confidence * 100)}%</p>
                 )}
               </div>
             );
           })}
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-2xs text-muted-foreground">
           <span>{contactEvents.length} contact{contactEvents.length === 1 ? '' : 's'} detected</span>
           <span>·</span>
           <span>Split-step / loaded ready: {splitStepDetected ? 'seen' : 'not seen'}</span>
@@ -94,12 +94,12 @@ export function ContinuousMovementSummary({ summary, accent = '#0EA5E9' }: Props
         </div>
 
         {notes.length > 0 && (
-          <ul className="text-[11px] text-muted-foreground/90 list-disc pl-4 space-y-0.5">
+          <ul className="text-2xs text-muted-foreground/90 list-disc pl-4 space-y-0.5">
             {notes.map((n, i) => <li key={i}>{n}</li>)}
           </ul>
         )}
 
-        <p className="text-[10px] text-muted-foreground/80">
+        <p className="text-3xs text-muted-foreground/80">
           Movement reads are single-camera estimates of where your body is before, during and after contact —
           training guidance, not a lab measurement or medical assessment.
         </p>

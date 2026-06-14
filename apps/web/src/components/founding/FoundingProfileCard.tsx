@@ -126,7 +126,7 @@ export function FoundingProfileCard() {
               <li
                 key={m.id}
                 title={`${m.name} — ${m.description}`}
-                className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] ${
+                className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-2xs ${
                   earned ? 'border-primary/40 bg-primary/10 text-foreground' : 'border-border bg-muted/40 text-muted-foreground opacity-60'
                 }`}
               >

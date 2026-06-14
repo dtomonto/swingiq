@@ -132,7 +132,7 @@ export function LibraryPublishingClient({
                 <div className="flex shrink-0 items-center gap-2">
                   {/* Current state — rejected/draft rows stay in the list, clearly marked */}
                   <span
-                    className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-semibold ${
+                    className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-2xs font-semibold ${
                       row.published
                         ? 'border-success/50 bg-success/15 text-success-text'
                         : 'border-border bg-muted/40 text-muted-foreground'

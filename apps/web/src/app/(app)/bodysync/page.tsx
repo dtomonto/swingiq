@@ -167,7 +167,7 @@ export default function BodySyncPage() {
                 </div>
               )}
             </div>
-            <p className="text-[11px] text-muted-foreground">
+            <p className="text-2xs text-muted-foreground">
               Deleting erases your check-ins, baselines, connections and consent from this device and your account.
             </p>
           </div>

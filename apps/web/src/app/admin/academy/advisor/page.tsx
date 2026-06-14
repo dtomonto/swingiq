@@ -85,7 +85,7 @@ export default function AdvisorPage() {
               <p className="mt-2 text-sm leading-relaxed text-foreground">{t.a.answer}</p>
               {t.a.citations.length > 0 && (
                 <div className="mt-3">
-                  <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Sources</p>
+                  <p className="text-2xs font-bold uppercase tracking-wide text-muted-foreground">Sources</p>
                   <ul className="mt-1 space-y-0.5 text-sm">
                     {t.a.citations.map((c) => (
                       <li key={c.lessonId}>

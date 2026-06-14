@@ -163,7 +163,7 @@ export function DataTable<T>({
           replaces it so columns never crush or force horizontal scrolling. */}
       <div className="hidden overflow-x-auto rounded-xl border border-border sm:block">
         <table className="w-full text-left text-sm">
-          <thead className="bg-card/80 text-[11px] uppercase tracking-wide text-muted-foreground">
+          <thead className="bg-card/80 text-2xs uppercase tracking-wide text-muted-foreground">
             <tr>
               {hasBulk && (
                 <th className="w-10 px-3 py-2">
@@ -298,7 +298,7 @@ export function DataTable<T>({
                   <div className="mt-2.5 space-y-1.5 border-t border-border/70 pt-2.5">
                     {rest.map((c) => (
                       <div key={c.key} className="flex items-start justify-between gap-3 text-sm">
-                        <span className="shrink-0 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                        <span className="shrink-0 text-2xs font-medium uppercase tracking-wide text-muted-foreground">
                           {c.header}
                         </span>
                         <span className="min-w-0 text-right text-foreground">{renderCell(c)}</span>

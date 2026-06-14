@@ -28,11 +28,11 @@ function DrillCard({ drill }: { drill: PrescribedDrill }) {
           <Icon className="w-4 h-4" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">{meta.label}</p>
+          <p className="text-3xs font-semibold uppercase tracking-wide text-muted-foreground">{meta.label}</p>
           <p className="text-sm font-semibold text-foreground truncate">{drill.name}</p>
           <p className="text-xs text-muted-foreground truncate">{drill.problemItSolves}</p>
         </div>
-        <span className="text-[11px] text-muted-foreground flex items-center gap-1 shrink-0"><Clock className="w-3 h-3" />{drill.estimatedMinutes}m</span>
+        <span className="text-2xs text-muted-foreground flex items-center gap-1 shrink-0"><Clock className="w-3 h-3" />{drill.estimatedMinutes}m</span>
         <ChevronDown className={cn('w-4 h-4 text-muted-foreground transition-transform shrink-0', open && 'rotate-180')} />
       </button>
       {open && (
@@ -49,8 +49,8 @@ function DrillCard({ drill }: { drill: PrescribedDrill }) {
           </div>
           <p className="text-muted-foreground"><span className="font-semibold text-error">Common mistake: </span>{drill.commonMistake}</p>
           <div className="flex flex-wrap gap-2 pt-1">
-            <span className="text-[11px] text-muted-foreground">↑ Harder: {drill.progression}</span>
-            <span className="text-[11px] text-muted-foreground">↓ Easier: {drill.regression}</span>
+            <span className="text-2xs text-muted-foreground">↑ Harder: {drill.progression}</span>
+            <span className="text-2xs text-muted-foreground">↓ Easier: {drill.regression}</span>
           </div>
           {drill.videoSearchUrl && (
             <a href={drill.videoSearchUrl} target="_blank" rel="noopener noreferrer"
@@ -82,7 +82,7 @@ export function DrillPlan({ plan }: { plan: Plan }) {
           <div className="grid grid-cols-7 gap-1">
             {plan.weeklyPlan.map((d) => (
               <div key={d.day} className="text-center">
-                <div className="text-[10px] font-semibold text-muted-foreground">{d.day}</div>
+                <div className="text-3xs font-semibold text-muted-foreground">{d.day}</div>
                 <div className={cn('mt-1 rounded-md py-2 px-0.5 text-[9px] leading-tight min-h-[58px] flex flex-col items-center justify-center',
                   d.minutes > 0 ? 'bg-primary/10 text-foreground' : 'bg-muted text-muted-foreground')}>
                   <span className="line-clamp-3">{d.focus}</span>

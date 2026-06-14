@@ -221,7 +221,7 @@ export function ReliabilityDashboard({ actor, signals, ingestedEvents }: Props) 
             <CardBody>
               <p className="text-xs text-muted-foreground">{p.label}</p>
               <p className="mt-1 text-2xl font-bold tabular-nums text-foreground">{p.count}</p>
-              <p className="mt-1 text-[11px] text-muted-foreground">
+              <p className="mt-1 text-2xs text-muted-foreground">
                 {p.last ? `last: ${new Date(p.last.at).toLocaleString()}` : 'no failures in range'}
               </p>
             </CardBody>
@@ -283,7 +283,7 @@ export function ReliabilityDashboard({ actor, signals, ingestedEvents }: Props) 
                 <Badge variant={SEVERITY_VARIANT[v.severity]}>{v.severity}</Badge>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm font-semibold text-foreground">{v.title}</span>
-                  <span className="block text-[11px] text-muted-foreground">
+                  <span className="block text-2xs text-muted-foreground">
                     {v.occurrenceCount}× · {v.affectedSessionCount} session{v.affectedSessionCount === 1 ? '' : 's'} · last {new Date(v.lastSeenAt).toLocaleString()}
                     {v.status !== 'new' ? ` · ${v.status}` : ''}
                   </span>
@@ -318,7 +318,7 @@ export function ReliabilityDashboard({ actor, signals, ingestedEvents }: Props) 
 
                   <details className="text-xs">
                     <summary className="cursor-pointer text-muted-foreground">Technical details ({v.recentEvents.length} recent)</summary>
-                    <pre className="mt-2 max-h-48 overflow-auto rounded bg-foreground/30 p-2 text-[11px] text-foreground/80">
+                    <pre className="mt-2 max-h-48 overflow-auto rounded bg-foreground/30 p-2 text-2xs text-foreground/80">
                       {JSON.stringify(v.recentEvents, null, 2)}
                     </pre>
                   </details>
@@ -339,7 +339,7 @@ export function ReliabilityDashboard({ actor, signals, ingestedEvents }: Props) 
           <p className="text-xs text-muted-foreground">
             Safe, read-only checks against key public routes. Failures are recorded as diagnostic events above.
           </p>
-          {diag && <p className="mt-2 font-mono text-[11px] text-foreground/80">{diag}</p>}
+          {diag && <p className="mt-2 font-mono text-2xs text-foreground/80">{diag}</p>}
         </CardBody>
       </Card>
     </div>

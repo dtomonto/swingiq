@@ -49,14 +49,14 @@ export function KineticChainCard({ chain, accent = '#22C55E' }: Props) {
             const left = `${Math.round((s.peakTimePct ?? 0) * 100)}%`;
             return (
               <div key={s.segment} className="absolute -translate-x-1/2 flex flex-col items-center" style={{ left, top: 0 }}>
-                <span className="text-[10px] text-muted-foreground whitespace-nowrap">{s.label}</span>
+                <span className="text-3xs text-muted-foreground whitespace-nowrap">{s.label}</span>
                 <span className="mt-1 block w-2.5 h-2.5 rounded-full" style={{ background: accent }} />
                 <span className="text-[9px] text-muted-foreground tabular-nums mt-0.5">{Math.round((s.peakTimePct ?? 0) * 100)}%</span>
               </div>
             );
           })}
         </div>
-        <p className="text-[10px] text-muted-foreground -mt-1">
+        <p className="text-3xs text-muted-foreground -mt-1">
           When each link reaches peak speed (0% = start of motion, 100% = end). A good motion fires in this order: lower body → torso → arms → implement.
         </p>
 
@@ -75,7 +75,7 @@ export function KineticChainCard({ chain, accent = '#22C55E' }: Props) {
           <ul className="space-y-1.5">
             {chain.powerLeakFlags.map((f) => (
               <li key={f.id} className="flex items-start gap-2">
-                <span className={`text-[10px] font-semibold uppercase rounded px-1.5 py-0.5 shrink-0 ${SEVERITY_STYLE[f.severity]}`}>
+                <span className={`text-3xs font-semibold uppercase rounded px-1.5 py-0.5 shrink-0 ${SEVERITY_STYLE[f.severity]}`}>
                   {f.severity}
                 </span>
                 <span className="text-xs text-muted-foreground">
@@ -87,12 +87,12 @@ export function KineticChainCard({ chain, accent = '#22C55E' }: Props) {
         )}
 
         <div className="flex items-start gap-2 border-t border-border pt-2">
-          <span className="text-[11px] font-semibold text-muted-foreground shrink-0">Focus:</span>
-          <p className="text-[11px] text-muted-foreground">{chain.recommendedFocus}</p>
+          <span className="text-2xs font-semibold text-muted-foreground shrink-0">Focus:</span>
+          <p className="text-2xs text-muted-foreground">{chain.recommendedFocus}</p>
         </div>
 
         {chain.disclaimer && (
-          <p className="text-[10px] text-muted-foreground/80">{chain.disclaimer}</p>
+          <p className="text-3xs text-muted-foreground/80">{chain.disclaimer}</p>
         )}
       </CardBody>
     </Card>

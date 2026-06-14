@@ -147,7 +147,7 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
               <div key={t.cssVar} className="flex items-center justify-between gap-2">
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-foreground">{t.label}</p>
-                  <p className="font-mono text-[10px] text-muted-foreground/70">
+                  <p className="font-mono text-3xs text-muted-foreground/70">
                     {t.cssVar}: {edited[t.cssVar]}
                   </p>
                 </div>
@@ -178,10 +178,10 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
                 style={{ background: 'hsl(var(--card))', color: 'hsl(var(--card-foreground))' }}
               >
                 <p className="text-xs font-semibold">Swing analysis</p>
-                <p className="mt-0.5 text-[11px] opacity-70">Top fault · Early extension</p>
+                <p className="mt-0.5 text-2xs opacity-70">Top fault · Early extension</p>
                 <div className="mt-2 flex items-center gap-2">
                   <span
-                    className="rounded px-2 py-1 text-[11px] font-bold"
+                    className="rounded px-2 py-1 text-2xs font-bold"
                     style={{ background: 'hsl(var(--primary))', color: 'hsl(var(--primary-foreground))' }}
                   >
                     Analyze
@@ -224,7 +224,7 @@ export function ThemeBuilderPanel({ actor }: { actor: string }) {
       </div>
 
       {/* Export block */}
-      <pre className="overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-[11px] text-foreground">
+      <pre className="overflow-x-auto rounded-lg border border-border bg-background p-3 font-mono text-2xs text-foreground">
         {exportCss()}
       </pre>
 

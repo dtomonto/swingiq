@@ -52,8 +52,8 @@ export function RoadmapTimeline() {
             </span>
 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">{phase.label}</span>
-              <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${meta.chip}`}>
+              <span className="text-2xs font-bold uppercase tracking-[0.16em] text-slate-500">{phase.label}</span>
+              <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-2xs font-semibold ${meta.chip}`}>
                 {meta.label}
               </span>
             </div>

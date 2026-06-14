@@ -68,7 +68,7 @@ export function NudgePreferences() {
         />
       </Row>
 
-      <p className="border-t border-border pt-3 text-[11px] text-muted-foreground">{SERVER_PUSH_NOTE}</p>
+      <p className="border-t border-border pt-3 text-2xs text-muted-foreground">{SERVER_PUSH_NOTE}</p>
     </div>
   );
 }

@@ -87,7 +87,7 @@ export default function AdminPracticePlansPage() {
                 <p className="mt-1 text-xs text-muted-foreground">
                   <span className="text-muted-foreground">Success:</span> {s.plan.successMetric}
                 </p>
-                <p className="mt-2 text-[11px] text-muted-foreground/70">
+                <p className="mt-2 text-2xs text-muted-foreground/70">
                   Equipment: {s.plan.equipmentNeeded.join(', ')}
                 </p>
               </div>

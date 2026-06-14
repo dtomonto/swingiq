@@ -44,7 +44,7 @@ export function DemoReportView({ report }: { report: DemoReport }) {
         />
         <div className="relative flex items-start justify-between gap-4">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-link">
+            <p className="text-3xs font-semibold uppercase tracking-wider text-link">
               {sport.emoji} {sport.name} · {sport.tagline}
             </p>
             <h1 className="mt-1 font-heading text-2xl font-bold uppercase tracking-tight text-foreground">
@@ -56,13 +56,13 @@ export function DemoReportView({ report }: { report: DemoReport }) {
           </div>
           <div className="shrink-0 text-center">
             <ScoreRing score={report.score} size={72} strokeWidth={6} />
-            <p className="mt-1 text-[10px] uppercase tracking-wide text-muted-foreground">Swing Score</p>
+            <p className="mt-1 text-3xs uppercase tracking-wide text-muted-foreground">Swing Score</p>
           </div>
         </div>
 
         {/* Primary fix banner */}
         <div className="relative mt-5 rounded-xl border-l-2 border-primary bg-primary/10 px-4 py-3">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-link">Primary fix identified</p>
+          <p className="text-3xs font-semibold uppercase tracking-wider text-link">Primary fix identified</p>
           <p className="mt-0.5 font-heading text-lg font-semibold uppercase tracking-tight text-foreground">
             {report.primaryFix.title}
           </p>
@@ -123,7 +123,7 @@ export function DemoReportView({ report }: { report: DemoReport }) {
                 {p.cue && <p className="text-xs text-muted-foreground">{p.cue}</p>}
               </div>
               <span
-                className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                className={`shrink-0 rounded-full px-2 py-0.5 text-3xs font-semibold uppercase tracking-wide ${
                   p.status === 'fix'
                     ? 'bg-error/15 text-error'
                     : p.status === 'watch'
@@ -201,7 +201,7 @@ export function DemoReportView({ report }: { report: DemoReport }) {
                   <p className="text-sm font-semibold text-foreground">{b.label}</p>
                   <p className="font-heading text-sm font-bold text-primary">{b.target}</p>
                 </div>
-                <p className="mt-0.5 text-[11px] text-muted-foreground">Healthy range {b.range}</p>
+                <p className="mt-0.5 text-2xs text-muted-foreground">Healthy range {b.range}</p>
                 <p className="mt-1 text-xs text-muted-foreground">{b.note}</p>
               </div>
             ))}
@@ -227,13 +227,13 @@ export function DemoReportView({ report }: { report: DemoReport }) {
             <div key={d.name} className="flex flex-col rounded-lg border border-border bg-muted p-3">
               <p className="text-sm font-semibold text-foreground">{d.name}</p>
               <p className="mt-1 flex-1 text-xs text-muted-foreground">{d.purpose}</p>
-              {d.reps && <p className="mt-2 text-[11px] font-medium text-foreground">{d.reps}</p>}
+              {d.reps && <p className="mt-2 text-2xs font-medium text-foreground">{d.reps}</p>}
               {d.youtube && (
                 <a
                   href={d.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline"
+                  className="mt-2 inline-flex items-center gap-1 text-2xs font-semibold text-primary hover:underline"
                 >
                   <ExternalLink size={11} /> Watch examples
                 </a>

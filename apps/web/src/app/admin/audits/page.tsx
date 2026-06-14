@@ -89,7 +89,7 @@ export default async function AdminAuditsPage() {
                 )}
               </div>
               <p className="mt-1 text-xs text-muted-foreground">{a.blurb}</p>
-              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-2xs text-muted-foreground">
                 <span>Last run: {fmtDate(a.lastRunDate)}</span>
                 {a.nextRunIso && <span>· Next: {fmtDate(a.nextRunIso)}</span>}
                 {a.lastReport && (

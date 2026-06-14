@@ -260,7 +260,7 @@ export function MotionLabWizard() {
               </div>
               <div>
                 <h1 className="text-base font-bold text-foreground leading-tight">Motion Lab</h1>
-                <p className="text-[11px] text-muted-foreground hidden sm:block">AI biomechanics lab · in your browser</p>
+                <p className="text-2xs text-muted-foreground hidden sm:block">AI biomechanics lab · in your browser</p>
               </div>
             </div>
           </div>
@@ -336,7 +336,7 @@ export function MotionLabWizard() {
                 ))}
               </div>
               {captureMode === 'multi' && (
-                <p className="text-[11px] text-muted-foreground text-center max-w-md">
+                <p className="text-2xs text-muted-foreground text-center max-w-md">
                   Film the SAME rep from two angles ~90° apart (one face-on, one down-the-line). SwingVantage triangulates true metric 3D — confidence comes from real reprojection error.
                 </p>
               )}
@@ -506,7 +506,7 @@ function SampleGallery({ onOpen }: { onOpen: (spec: SampleSpec) => void }) {
           </button>
         ))}
       </div>
-      <p className="text-[11px] text-muted-foreground mt-1.5">
+      <p className="text-2xs text-muted-foreground mt-1.5">
         Samples are a synthetic motion run through the real analysis engine — labelled “Sample,” not saved, and no video.
       </p>
     </div>
@@ -551,7 +551,7 @@ function SessionLibrary({ sessions, onOpen, onDelete }: {
                 <button onClick={() => onOpen(s)} className="flex-1 flex items-center gap-2 text-left min-w-0">
                   <span className="text-base">{s.emoji}</span>
                   <span className="text-xs text-foreground truncate">{s.motionLabel}</span>
-                  <span className="text-[11px] text-muted-foreground ml-auto">{new Date(s.createdAt).toLocaleDateString()}</span>
+                  <span className="text-2xs text-muted-foreground ml-auto">{new Date(s.createdAt).toLocaleDateString()}</span>
                   <span className="text-xs font-semibold text-foreground tabular-nums w-7 text-right">{s.scoreboard.overall}</span>
                 </button>
                 <button onClick={() => onDelete(s.id)} aria-label="Delete session" className="text-muted-foreground hover:text-error opacity-0 group-hover:opacity-100 transition-opacity">

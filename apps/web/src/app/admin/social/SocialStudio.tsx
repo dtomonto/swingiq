@@ -459,7 +459,7 @@ export function SocialStudio({
 
           {pending.filter((p) => !dismissed.has(p.slug)).length > 0 && (
             <div className="rounded-md border border-primary/30 bg-primary/10 p-2.5">
-              <p className="text-[11px] font-semibold text-link mb-1.5">
+              <p className="text-2xs font-semibold text-link mb-1.5">
                 Flagged for social (new posts)
               </p>
               <div className="flex flex-wrap gap-1.5">
@@ -470,14 +470,14 @@ export function SocialStudio({
                       <button
                         onClick={() => setSlug(p.slug)}
                         title={p.title}
-                        className="text-[11px] text-link hover:text-white max-w-[150px] truncate"
+                        className="text-2xs text-link hover:text-white max-w-[150px] truncate"
                       >
                         {p.title}
                       </button>
                       <button
                         onClick={() => setDismissed((d) => new Set(d).add(p.slug))}
                         title="Dismiss"
-                        className="text-link/70 hover:text-link text-[11px] leading-none"
+                        className="text-link/70 hover:text-link text-2xs leading-none"
                       >
                         ×
                       </button>
@@ -823,7 +823,7 @@ export function SocialStudio({
                         </p>
                         <div className="flex flex-wrap items-end gap-2">
                           {(['impressions', 'clicks', 'engagements'] as const).map((f) => (
-                            <label key={f} className="text-[11px] text-muted-foreground">
+                            <label key={f} className="text-2xs text-muted-foreground">
                               <span className="block mb-0.5 capitalize">{f}</span>
                               <input
                                 type="number"

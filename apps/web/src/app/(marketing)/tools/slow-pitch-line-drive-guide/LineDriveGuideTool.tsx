@@ -62,11 +62,11 @@ export function LineDriveGuideTool() {
       {guide && (
         <ResultPanel>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Likely swing-path issue</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-primary">Likely swing-path issue</p>
             <p className="mt-1 text-foreground">{guide.pathIssue}</p>
           </div>
           <div className="rounded-xl bg-warning/10 p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Line-drive checkpoint</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-warning">Line-drive checkpoint</p>
             <p className="mt-1 text-foreground">{guide.checkpoint}</p>
           </div>
           <div className="rounded-lg border border-border p-3">

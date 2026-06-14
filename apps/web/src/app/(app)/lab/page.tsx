@@ -44,7 +44,7 @@ export default async function LabHubPage() {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-2xl font-black tracking-tight text-white sm:text-3xl">SwingLab</h1>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/30 bg-amber-500/10 px-2.5 py-1 text-[11px] font-semibold text-amber-300">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/30 bg-amber-500/10 px-2.5 py-1 text-2xs font-semibold text-amber-300">
                 <FlaskConical size={12} aria-hidden="true" /> Admin preview · in development
               </span>
             </div>

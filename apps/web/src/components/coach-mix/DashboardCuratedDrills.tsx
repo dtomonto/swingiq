@@ -98,7 +98,7 @@ function DashboardCuratedDrillsInner({
               {rec.influenceTags.slice(0, 2).map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border border-violet-300 bg-violet-50 px-2 py-0.5 text-[11px] font-medium text-violet-700 dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-300"
+                  className="rounded-full border border-violet-300 bg-violet-50 px-2 py-0.5 text-2xs font-medium text-violet-700 dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-300"
                 >
                   {t}
                 </span>
@@ -126,7 +126,7 @@ function DashboardCuratedDrillsInner({
                       <p className="mt-0.5 text-sm text-muted-foreground">{d.why}</p>
                     </div>
                     {i === 0 && (
-                      <span className="shrink-0 rounded-full bg-violet-600 px-2 py-0.5 text-[11px] font-semibold text-white">Do first</span>
+                      <span className="shrink-0 rounded-full bg-violet-600 px-2 py-0.5 text-2xs font-semibold text-white">Do first</span>
                     )}
                   </div>
                   {i === 0 && (

@@ -142,7 +142,7 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
             <li key={cat.id} className="grid grid-cols-[1fr,2fr] items-center gap-3">
               <div className="min-w-0">
                 <p className="truncate text-sm text-foreground">{cat.label}</p>
-                <p className="text-[11px] text-muted-foreground">weight {cat.weight}% · {Math.round(cat.confidence * 100)}% signal</p>
+                <p className="text-2xs text-muted-foreground">weight {cat.weight}% · {Math.round(cat.confidence * 100)}% signal</p>
               </div>
               <ScoreBar value={cat.score} />
             </li>
@@ -207,7 +207,7 @@ export function SecurityOSDashboardClient({ actor, score, findings, generatedAt,
               <p className="text-xs text-muted-foreground">{unknownChecks.length} check(s) couldn&apos;t be read (excluded from the score):</p>
               <ul className="mt-1 space-y-1">
                 {unknownChecks.slice(0, 4).map((c) => (
-                  <li key={c.id} className="text-[11px] text-muted-foreground">• {c.title}</li>
+                  <li key={c.id} className="text-2xs text-muted-foreground">• {c.title}</li>
                 ))}
               </ul>
             </div>
@@ -262,7 +262,7 @@ function CountTile({ label, value, tone }: { label: string; value: number; tone:
   return (
     <div className={`rounded-lg border bg-background p-3 text-center ${cls}`}>
       <p className="text-2xl font-bold tabular-nums">{value}</p>
-      <p className="text-[11px] uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className="text-2xs uppercase tracking-wide text-muted-foreground">{label}</p>
     </div>
   );
 }
@@ -292,7 +292,7 @@ function RecBucket({
               >
                 <div className="min-w-0">
                   <p className="truncate text-sm text-foreground">{r.title}</p>
-                  <p className="mt-0.5 text-[11px] text-muted-foreground">{r.riskDomain} · {EFFORT_LABEL[r.effort] ?? r.effort} fix{r.canClaudeFix ? ' · Claude can help' : ''}</p>
+                  <p className="mt-0.5 text-2xs text-muted-foreground">{r.riskDomain} · {EFFORT_LABEL[r.effort] ?? r.effort} fix{r.canClaudeFix ? ' · Claude can help' : ''}</p>
                 </div>
                 <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground/70 group-hover:text-muted-foreground" />
               </Link>

@@ -96,7 +96,7 @@ export function StationKiosk({
 
       <div className={`mt-4 flex flex-wrap gap-1.5 ${centered ? 'justify-center' : ''}`}>
         {station.connects.slice(0, 4).map((c) => (
-          <span key={c} className="rounded-md border border-white/10 bg-white/[0.05] px-2 py-0.5 text-[11px] font-medium text-slate-300">
+          <span key={c} className="rounded-md border border-white/10 bg-white/[0.05] px-2 py-0.5 text-2xs font-medium text-slate-300">
             {c}
           </span>
         ))}

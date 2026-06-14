@@ -181,7 +181,7 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
           </button>
         </div>
         {variantA === variantB && (
-          <p className="mt-1.5 text-[11px] text-link">Pick two different themes.</p>
+          <p className="mt-1.5 text-2xs text-link">Pick two different themes.</p>
         )}
       </div>
 
@@ -198,7 +198,7 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
                     <p className="text-sm font-semibold text-foreground">{exp.name}</p>
                     <StatusBadge tone={STATUS_TONE[exp.status]}>{exp.status}</StatusBadge>
                   </div>
-                  <p className="mt-1 flex flex-wrap gap-1.5 text-[11px] text-muted-foreground">
+                  <p className="mt-1 flex flex-wrap gap-1.5 text-2xs text-muted-foreground">
                     {exp.variants.map((v) => (
                       <span key={v.themeId} className="rounded bg-muted px-1.5 py-0.5 text-foreground">
                         {themeName(v.themeId)} {v.weight}%
@@ -248,7 +248,7 @@ export function ThemeExperimentsPanel({ actor }: { actor: string }) {
             />
             <span className="text-muted-foreground">→</span>
             <StatusBadge tone="neutral">{sampleVariant ? themeName(sampleVariant) : '—'}</StatusBadge>
-            <span className="font-mono text-[11px] text-muted-foreground/70">in &ldquo;{running.id}&rdquo;</span>
+            <span className="font-mono text-2xs text-muted-foreground/70">in &ldquo;{running.id}&rdquo;</span>
           </div>
         ) : (
           <p className="mt-1 text-xs text-muted-foreground/70">No experiment is running.</p>

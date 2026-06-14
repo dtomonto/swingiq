@@ -59,7 +59,7 @@ export function CoachingStylePreference({ className }: CoachingStylePreferencePr
         })}
       </div>
 
-      <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
+      <p className="mt-3 text-2xs leading-relaxed text-muted-foreground">
         These are SwingVantage&apos;s own teaching voices. Coach-inspired styles are reviewed and
         kept admin-only — they are never shown here unless an official partnership is documented.
       </p>

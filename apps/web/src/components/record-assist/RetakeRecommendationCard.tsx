@@ -57,7 +57,7 @@ export function RetakeRecommendationCard({
                 <div className="flex items-center gap-2">
                   <span
                     className={cn(
-                      'rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase',
+                      'rounded px-1.5 py-0.5 text-3xs font-semibold uppercase',
                       r.severity === 'blocking' ? 'bg-error/15 text-error' : 'bg-warning/15 text-warning',
                     )}
                   >

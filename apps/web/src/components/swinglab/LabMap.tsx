@@ -33,7 +33,7 @@ export function LabMap() {
         {/* Map header */}
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300">Lab floor plan</p>
+            <p className="text-2xs font-semibold uppercase tracking-[0.18em] text-emerald-300">Lab floor plan</p>
             <h3 className="mt-1 text-lg font-bold text-white sm:text-xl">Choose a station to explore</h3>
           </div>
           <p className="max-w-xs text-xs leading-relaxed text-slate-400">
@@ -56,10 +56,10 @@ export function LabMap() {
                     <span className={`flex h-8 w-8 items-center justify-center rounded-lg ring-1 ${accent.tile}`}>
                       <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
                     </span>
-                    <span aria-hidden="true" className="font-mono text-[10px] text-slate-600">{String(i + 1).padStart(2, '0')}</span>
+                    <span aria-hidden="true" className="font-mono text-3xs text-slate-600">{String(i + 1).padStart(2, '0')}</span>
                   </span>
                   <span className="text-sm font-semibold leading-tight text-white">{station.name}</span>
-                  <span className={`text-[11px] font-medium ${accent.text}`}>{station.systemRole}</span>
+                  <span className={`text-2xs font-medium ${accent.text}`}>{station.systemRole}</span>
                 </a>
               </li>
             );

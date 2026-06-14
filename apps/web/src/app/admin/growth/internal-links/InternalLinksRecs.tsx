@@ -97,7 +97,7 @@ export function InternalLinksRecs({ recs: initial }: { recs: InternalLinkRecomme
                   <span className="text-sm text-foreground truncate">{rec.name}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">{rec.contextSentence}</p>
-                <div className="mt-1.5 flex items-center gap-2 flex-wrap text-[11px] text-muted-foreground">
+                <div className="mt-1.5 flex items-center gap-2 flex-wrap text-2xs text-muted-foreground">
                   <span className="px-1.5 py-0.5 rounded bg-muted border border-border font-mono">{rec.sourceUrl}</span>
                   <ExternalLink className="w-3 h-3" />
                   <span className="px-1.5 py-0.5 rounded bg-muted border border-border font-mono">{rec.destinationUrl}</span>
@@ -124,13 +124,13 @@ export function InternalLinksRecs({ recs: initial }: { recs: InternalLinkRecomme
                   className="inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-muted border border-border text-muted-foreground hover:text-error-text hover:border-error/40 disabled:opacity-60">
                   <X className="w-3.5 h-3.5" /> Reject
                 </button>
-                {!rec.autoSafe && <span className="text-[11px] text-muted-foreground/70">Manual review (not auto-safe).</span>}
+                {!rec.autoSafe && <span className="text-2xs text-muted-foreground/70">Manual review (not auto-safe).</span>}
               </div>
             )}
           </li>
         ))}
       </ul>
-      <p className="text-[11px] text-muted-foreground/70">
+      <p className="text-2xs text-muted-foreground/70">
         &ldquo;Auto-apply&rdquo; records the accepted decision and is gated to safe, high-confidence, natural-anchor links.
         It doesn&apos;t edit page source at runtime — insert via your content workflow. Everything is reversible.
       </p>

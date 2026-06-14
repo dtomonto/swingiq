@@ -52,7 +52,7 @@ export function AcademyToaster() {
         <div key={t.key} className="flex items-center gap-3 rounded-theme border border-primary/30 bg-card px-4 py-3 shadow-theme transition-opacity">
           <span className="text-2xl" aria-hidden>{t.emoji}</span>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">{t.title}</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-primary">{t.title}</p>
             <p className="text-sm font-medium text-foreground">{t.sub}</p>
           </div>
         </div>

@@ -68,7 +68,7 @@ function StageRow({
           className="flex w-full items-center gap-2 text-left"
           aria-expanded={open}
         >
-          <span className="text-[11px] font-mono font-semibold text-muted-foreground">{stage.code}</span>
+          <span className="text-2xs font-mono font-semibold text-muted-foreground">{stage.code}</span>
           <span className={cn('text-sm font-semibold', status === 'current' ? 'text-foreground' : 'text-foreground/90')}>
             {stage.name}
           </span>
@@ -84,7 +84,7 @@ function StageRow({
         {stage.anchors.length > 0 && (
           <div className="mt-1 flex flex-wrap gap-1">
             {stage.anchors.map((an, i) => (
-              <span key={i} className="text-[10px] text-muted-foreground bg-muted rounded px-1.5 py-0.5">
+              <span key={i} className="text-3xs text-muted-foreground bg-muted rounded px-1.5 py-0.5">
                 {an.ratingType === 'golf_handicap' ? 'HCP' : an.ratingType.toUpperCase()} {an.label}
               </span>
             ))}
@@ -95,7 +95,7 @@ function StageRow({
           <div className="mt-2 space-y-3 rounded-theme border border-border bg-muted/30 p-3">
             <p className="text-xs text-muted-foreground leading-relaxed">{stage.description}</p>
             <div>
-              <p className="text-[11px] font-semibold text-foreground mb-1">Primary goals</p>
+              <p className="text-2xs font-semibold text-foreground mb-1">Primary goals</p>
               <ul className="space-y-0.5">
                 {stage.primaryGoals.map((g, i) => (
                   <li key={i} className="text-xs text-muted-foreground flex gap-1.5">
@@ -106,7 +106,7 @@ function StageRow({
             </div>
             {stage.unlockCriteria.length > 0 && (
               <div>
-                <p className="text-[11px] font-semibold text-foreground mb-1">To unlock the next stage</p>
+                <p className="text-2xs font-semibold text-foreground mb-1">To unlock the next stage</p>
                 <ul className="space-y-0.5">
                   {stage.unlockCriteria.map((u) => (
                     <li key={u.id} className="text-xs text-muted-foreground flex gap-1.5">

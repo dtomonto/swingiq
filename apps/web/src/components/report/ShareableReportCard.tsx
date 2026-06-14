@@ -98,7 +98,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
         </div>
 
         <div className="rounded-xl border border-warning/30 bg-warning/10 p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-warning">Top priority</p>
+          <p className="text-2xs font-semibold uppercase tracking-wide text-warning">Top priority</p>
           <p className="mt-1 font-bold text-foreground">{data.topIssue}</p>
           {data.confidence && <p className="mt-1 text-xs text-muted-foreground">Confidence: {data.confidence}</p>}
         </div>
@@ -115,7 +115,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
           <p className="mt-1 text-sm text-muted-foreground">{data.planSummary}</p>
         </div>
 
-        <p className="mt-4 text-[11px] italic text-muted-foreground">
+        <p className="mt-4 text-2xs italic text-muted-foreground">
           AI estimate, not certified instruction. Made with SwingVantage — {siteConfig.liveSiteUrl}
         </p>
       </div>
@@ -159,7 +159,7 @@ export function ShareableReportCard({ data }: { data: ReportData }) {
             <Printer size={15} /> Print / PDF
           </button>
         </div>
-        <p className="mt-2 text-[11px] text-muted-foreground">
+        <p className="mt-2 text-2xs text-muted-foreground">
           Tip: use your browser&apos;s &ldquo;Save as PDF&rdquo; in the print dialog to export a PDF.
         </p>
       </div>

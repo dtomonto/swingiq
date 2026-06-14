@@ -174,7 +174,7 @@ export default function DailyNotesPage() {
                   >
                     <span className="text-2xl" aria-hidden="true">{feelEmoji(f)}</span>
                     <span className="text-xs font-semibold text-foreground leading-tight">{FEEL_LABELS[f]}</span>
-                    <span className="hidden sm:block text-[10px] text-muted-foreground leading-tight">{FEEL_HINTS[f]}</span>
+                    <span className="hidden sm:block text-3xs text-muted-foreground leading-tight">{FEEL_HINTS[f]}</span>
                   </button>
                 );
               })}
@@ -228,7 +228,7 @@ export default function DailyNotesPage() {
                   >
                     {f.label}
                     {f.curated && (
-                      <span className="text-[10px] text-primary" title="Linked to a known fault with retest guidance">★</span>
+                      <span className="text-3xs text-primary" title="Linked to a known fault with retest guidance">★</span>
                     )}
                     <button
                       type="button"
@@ -241,7 +241,7 @@ export default function DailyNotesPage() {
                   </span>
                 ))}
               </div>
-              <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
+              <p className="text-2xs text-muted-foreground mt-2 leading-relaxed">
                 These are read straight from your words, not measured. Remove anything that doesn&apos;t fit —
                 ★ means it links to a known fault with retest guidance.
               </p>

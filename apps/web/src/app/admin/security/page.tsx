@@ -66,9 +66,9 @@ export default async function AdminSecurityPage() {
                 {!all && (
                   <div className="mt-2 flex flex-wrap gap-1">
                     {perms.slice(0, 10).map((p) => (
-                      <code key={p} className="rounded bg-muted px-1 py-0.5 font-mono text-[10px] text-muted-foreground">{p}</code>
+                      <code key={p} className="rounded bg-muted px-1 py-0.5 font-mono text-3xs text-muted-foreground">{p}</code>
                     ))}
-                    {perms.length > 10 && <span className="text-[10px] text-muted-foreground/70">+{perms.length - 10}</span>}
+                    {perms.length > 10 && <span className="text-3xs text-muted-foreground/70">+{perms.length - 10}</span>}
                   </div>
                 )}
               </div>

@@ -87,14 +87,14 @@ export default function ConnectorOsPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="text-sm font-medium text-foreground">{c.label}</p>
                     {c.truth && (
-                      <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                      <span className="rounded bg-muted px-1.5 py-0.5 text-3xs font-medium uppercase tracking-wide text-muted-foreground">
                         {c.truth}
                       </span>
                     )}
                     <StatusBadge tone={STAGE_TONE[c.stage]}>{c.stage}</StatusBadge>
                   </div>
                   <p className="mt-0.5 text-xs text-muted-foreground">{c.blurb}</p>
-                  <p className="mt-1 font-mono text-[10px] text-muted-foreground/70">{c.envVars.join('  ·  ')}</p>
+                  <p className="mt-1 font-mono text-3xs text-muted-foreground/70">{c.envVars.join('  ·  ')}</p>
                 </div>
                 <StatusBadge tone={c.configured ? 'success' : 'neutral'}>
                   {c.configured ? 'Configured' : 'Keyless'}

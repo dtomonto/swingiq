@@ -135,7 +135,7 @@ function CuratedSwingDrillsInner({ sport: sportProp, faultId, faultLabel, whyItM
         </h2>
         <div className="flex flex-wrap gap-1.5">
           {rec.influenceTags.slice(0, 2).map((t) => (
-            <span key={t} className="rounded-full border border-violet-300 bg-violet-50 px-2 py-0.5 text-[11px] font-medium text-violet-700 dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-300">
+            <span key={t} className="rounded-full border border-violet-300 bg-violet-50 px-2 py-0.5 text-2xs font-medium text-violet-700 dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-300">
               {t}
             </span>
           ))}
@@ -160,7 +160,7 @@ function CuratedSwingDrillsInner({ sport: sportProp, faultId, faultLabel, whyItM
                   <p className="font-semibold text-gray-900 dark:text-gray-100">{d.drill.name}</p>
                   <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400">{d.why}</p>
                 </div>
-                {i === 0 && <span className="shrink-0 rounded-full bg-violet-600 px-2 py-0.5 text-[11px] font-semibold text-white">Do first</span>}
+                {i === 0 && <span className="shrink-0 rounded-full bg-violet-600 px-2 py-0.5 text-2xs font-semibold text-white">Do first</span>}
               </div>
               {i === 0 && (
                 <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-gray-600 dark:text-gray-400 sm:grid-cols-4">

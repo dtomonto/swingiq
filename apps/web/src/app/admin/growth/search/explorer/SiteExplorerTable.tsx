@@ -76,7 +76,7 @@ export function SiteExplorerTable({ rows }: { rows: ExplorerRow[] }) {
         <Select value={type} onChange={setType} options={pageTypes} label="Type" />
         <Select value={source} onChange={setSource} options={sources} label="Source" />
         <Select value={sort} onChange={(v) => setSort(v as SortKey)} options={['priorityScore', 'qualityScore', 'internalLinksIn', 'wordCount']} label="Sort" />
-        <span className="text-[11px] text-muted-foreground ml-auto">{filtered.length} / {rows.length} pages</span>
+        <span className="text-2xs text-muted-foreground ml-auto">{filtered.length} / {rows.length} pages</span>
         <ExportCsvButton rows={filtered as unknown as Record<string, CsvValue>[]} filename="swingvantage-site-explorer.csv" />
       </div>
 
@@ -103,7 +103,7 @@ export function SiteExplorerTable({ rows }: { rows: ExplorerRow[] }) {
               <tr key={r.url} className="hover:bg-muted/30">
                 <td className="px-3 py-2 max-w-[260px]">
                   <Link href={`${BASE}/page-intel?url=${encodeURIComponent(r.url)}`} className="text-foreground hover:text-success-text truncate block font-mono">{r.url}</Link>
-                  <span className="text-[10px] text-muted-foreground/70 truncate block">{r.title}</span>
+                  <span className="text-3xs text-muted-foreground/70 truncate block">{r.title}</span>
                 </td>
                 <td className="px-3 py-2 text-muted-foreground whitespace-nowrap">{humanize(r.pageType)}</td>
                 <td className="px-3 py-2 text-center">{r.indexable ? <Dot ok /> : <Dot />}</td>
@@ -130,7 +130,7 @@ export function SiteExplorerTable({ rows }: { rows: ExplorerRow[] }) {
 
 function Select({ value, onChange, options, label }: { value: string; onChange: (v: string) => void; options: string[]; label: string }) {
   return (
-    <label className="flex items-center gap-1 text-[11px] text-muted-foreground">
+    <label className="flex items-center gap-1 text-2xs text-muted-foreground">
       <span className="hidden sm:inline">{label}</span>
       <select
         value={value}

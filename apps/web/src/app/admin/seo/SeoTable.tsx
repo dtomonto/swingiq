@@ -29,7 +29,7 @@ const columns: Column<SeoRow>[] = [
     render: (r) => (
       <div className="min-w-0">
         <div className="truncate font-medium text-foreground">{r.keyword}</div>
-        <div className="truncate font-mono text-[11px] text-muted-foreground">/{r.slug}</div>
+        <div className="truncate font-mono text-2xs text-muted-foreground">/{r.slug}</div>
       </div>
     ),
   },

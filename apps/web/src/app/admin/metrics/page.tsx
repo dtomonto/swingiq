@@ -50,7 +50,7 @@ export default function MetricsIndexPage() {
                     <p className="mt-0.5 text-xs text-muted-foreground">{m.summary}</p>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
-                    <span className="hidden rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground sm:inline">
+                    <span className="hidden rounded border border-border bg-muted px-1.5 py-0.5 text-3xs text-muted-foreground sm:inline">
                       {METRIC_DATA_SOURCE_LABEL[m.dataSource]}
                     </span>
                     <ArrowUpRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-link" />

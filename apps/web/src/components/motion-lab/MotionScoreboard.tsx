@@ -42,7 +42,7 @@ export function MotionScoreboard({ scoreboard, accent = '#22C55E' }: { scoreboar
             Confidence <span className={cn('font-bold', tone(scoreboard.confidence * 100))}>{Math.round(scoreboard.confidence * 100)}%</span>
           </p>
           {scoreboard.disclaimer && (
-            <p className="text-[11px] text-muted-foreground mt-1 flex items-start gap-1">
+            <p className="text-2xs text-muted-foreground mt-1 flex items-start gap-1">
               <Info className="w-3 h-3 mt-0.5 shrink-0" />{scoreboard.disclaimer}
             </p>
           )}
@@ -59,7 +59,7 @@ export function MotionScoreboard({ scoreboard, accent = '#22C55E' }: { scoreboar
             <div className="h-1.5 rounded-full bg-muted overflow-hidden mt-1">
               <div className={cn('h-full rounded-full', barTone(c.score))} style={{ width: `${c.score}%` }} />
             </div>
-            <p className="text-[10px] text-muted-foreground mt-1 leading-tight">{c.note}</p>
+            <p className="text-3xs text-muted-foreground mt-1 leading-tight">{c.note}</p>
           </div>
         ))}
       </div>

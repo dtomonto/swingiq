@@ -56,7 +56,7 @@ export default async function AnalyticsPage() {
               <p className="mt-0.5 text-xs text-success-text/80">
                 Connected providers:{' '}
                 {providers.map((p) => (
-                  <span key={p} className="inline-flex items-center mr-1.5 px-1.5 py-0.5 rounded bg-success/10 border border-success/30 text-success-text font-medium text-[11px]">
+                  <span key={p} className="inline-flex items-center mr-1.5 px-1.5 py-0.5 rounded bg-success/10 border border-success/30 text-success-text font-medium text-2xs">
                     {p.toUpperCase()}
                   </span>
                 ))}
@@ -117,7 +117,7 @@ export default async function AnalyticsPage() {
           </table>
         </div>
         {providers.length === 0 && (
-          <p className="text-[11px] text-muted-foreground/70 mt-3 pt-3 border-t border-border">
+          <p className="text-2xs text-muted-foreground/70 mt-3 pt-3 border-t border-border">
             Values shown as &quot;—&quot; will populate automatically once an analytics provider is connected and events
             are flowing. The definitions above document how each metric will be calculated.
           </p>
@@ -146,7 +146,7 @@ export default async function AnalyticsPage() {
             </span>
           ))}
         </div>
-        <p className="text-[11px] text-muted-foreground/70 mt-3">
+        <p className="text-2xs text-muted-foreground/70 mt-3">
           Each integration will wire into <code>lib/growth/analytics.ts</code> and respect the
           consent layer — data only flows after the visitor grants analytics consent.
         </p>

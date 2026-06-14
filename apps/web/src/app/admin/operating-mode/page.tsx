@@ -80,7 +80,7 @@ export default async function OperatingModePage() {
                 <span className="flex items-center gap-2 font-semibold text-foreground">
                   {t.name}
                   <span
-                    className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${
+                    className={`rounded-full px-2 py-0.5 text-2xs font-medium ${
                       state.tierRollout[t.tier] === 'active'
                         ? 'bg-success-text/10 text-success-text'
                         : 'border border-border text-muted-foreground'

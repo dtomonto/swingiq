@@ -46,7 +46,7 @@ export function LibraryPlayerModal({ item, onClose }: { item: LibraryItem; onClo
       >
         <div className="flex items-start justify-between gap-3 border-b border-border px-5 py-4">
           <div className="min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">{item.durationLabel}</p>
+            <p className="text-2xs font-semibold uppercase tracking-wide text-primary">{item.durationLabel}</p>
             <h2 className="truncate text-lg font-bold text-foreground">{item.title}</h2>
           </div>
           <button
@@ -105,7 +105,7 @@ export function LibraryPlayerModal({ item, onClose }: { item: LibraryItem; onClo
                 {item.script.map((line, i) => (
                   <li key={i} className="flex gap-3 text-sm text-foreground">
                     <span
-                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-[11px] font-bold text-primary"
+                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-2xs font-bold text-primary"
                       aria-hidden="true"
                     >
                       {i + 1}

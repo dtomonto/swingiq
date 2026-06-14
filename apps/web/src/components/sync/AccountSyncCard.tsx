@@ -101,7 +101,7 @@ export function AccountSyncCard() {
             <p className="font-medium text-foreground">{state.title}</p>
             <p className="text-muted-foreground mt-0.5 leading-relaxed">{state.detail}</p>
             {sync === 'synced' && lastSyncedAt && (
-              <p className="text-[11px] text-muted-foreground mt-1">
+              <p className="text-2xs text-muted-foreground mt-1">
                 Last synced {new Date(lastSyncedAt).toLocaleTimeString()}
               </p>
             )}

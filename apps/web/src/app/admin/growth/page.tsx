@@ -119,7 +119,7 @@ export default async function GrowthOverviewPage() {
                   <PriorityBadge priority={r.priority} />
                 </div>
                 <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{r.reasoning}</p>
-                <div className="flex items-center gap-2 mt-2 text-[11px] text-muted-foreground">
+                <div className="flex items-center gap-2 mt-2 text-2xs text-muted-foreground">
                   <span className="px-1.5 py-0.5 rounded bg-muted border border-border">{humanize(r.lever)}</span>
                   <span>·</span>
                   <span>{r.basis === 'data' ? 'Data-backed' : 'Strategic'}</span>
@@ -127,7 +127,7 @@ export default async function GrowthOverviewPage() {
               </div>
             ))}
             {!aiOn && (
-              <p className="text-[11px] text-muted-foreground/70 pt-1">
+              <p className="text-2xs text-muted-foreground/70 pt-1">
                 Tip: connect an AI provider (<code>AI_PROVIDER</code> + key) to generate tailored recommendations in the AI Strategist.
               </p>
             )}
@@ -147,14 +147,14 @@ export default async function GrowthOverviewPage() {
               snap.upcoming.map((c) => (
                 <div key={c.id} className="flex items-center gap-3 rounded-lg border border-border bg-muted/40 px-3 py-2">
                   <div className="text-center shrink-0 w-12">
-                    <p className="text-[10px] text-muted-foreground uppercase">{new Date(c.date).toLocaleDateString('en-US', { month: 'short' })}</p>
+                    <p className="text-3xs text-muted-foreground uppercase">{new Date(c.date).toLocaleDateString('en-US', { month: 'short' })}</p>
                     <p className="text-sm font-bold text-foreground">{new Date(c.date).getDate()}</p>
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm text-foreground truncate">{c.name}</p>
-                    <p className="text-[11px] text-muted-foreground">{humanize(c.itemType)} · {c.channel}</p>
+                    <p className="text-2xs text-muted-foreground">{humanize(c.itemType)} · {c.channel}</p>
                   </div>
-                  <span className="text-[11px] text-muted-foreground shrink-0">{formatDate(c.date)}</span>
+                  <span className="text-2xs text-muted-foreground shrink-0">{formatDate(c.date)}</span>
                 </div>
               ))
             )}

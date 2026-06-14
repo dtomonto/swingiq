@@ -38,7 +38,7 @@ export function SettingsClient({ actor }: { actor: string }) {
             <li key={c.id} className="grid grid-cols-[1fr,auto] items-center gap-3">
               <div>
                 <p className="text-sm text-foreground">{c.label}</p>
-                <p className="text-[11px] text-muted-foreground">{c.blurb}</p>
+                <p className="text-2xs text-muted-foreground">{c.blurb}</p>
               </div>
               <div className="flex items-center gap-2">
                 <input
@@ -85,11 +85,11 @@ export function SettingsClient({ actor }: { actor: string }) {
       {/* Due days */}
       <section className="rounded-xl border border-border bg-card p-5">
         <h2 className="mb-1 text-sm font-semibold text-foreground">Finding due-date rules</h2>
-        <p className="mb-3 text-[11px] text-muted-foreground">Days-to-due by severity for newly derived findings.</p>
+        <p className="mb-3 text-2xs text-muted-foreground">Days-to-due by severity for newly derived findings.</p>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           {SEVERITIES.map((sev) => (
             <label key={sev} className="block">
-              <span className="text-[11px] capitalize text-muted-foreground">{sev}</span>
+              <span className="text-2xs capitalize text-muted-foreground">{sev}</span>
               <NumberInput
                 value={s.dueDays[sev]}
                 min={0}
@@ -109,7 +109,7 @@ function Row({ label, hint, children }: { label: string; hint?: string; children
     <div className="flex items-center justify-between gap-3">
       <div>
         <p className="text-sm text-foreground">{label}</p>
-        {hint && <p className="text-[11px] text-muted-foreground">{hint}</p>}
+        {hint && <p className="text-2xs text-muted-foreground">{hint}</p>}
       </div>
       {children}
     </div>

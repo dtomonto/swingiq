@@ -22,7 +22,7 @@ export function PhaseTimeline({ phases, accent = '#22C55E', activeKey, onSelect 
     <div>
       <div className="flex items-center justify-between mb-1.5">
         <h3 className="text-sm font-semibold text-foreground">Motion Phases</h3>
-        <span className="text-[11px] text-muted-foreground">estimated · tap a phase</span>
+        <span className="text-2xs text-muted-foreground">estimated · tap a phase</span>
       </div>
       <div className="flex w-full h-8 rounded-lg overflow-hidden border border-border">
         {phases.map((p, i) => {
@@ -35,7 +35,7 @@ export function PhaseTimeline({ phases, accent = '#22C55E', activeKey, onSelect 
               onClick={() => onSelect?.(p)}
               title={`${p.label} · confidence ${Math.round(p.confidence * 100)}%`}
               className={cn(
-                'h-full text-[10px] font-medium text-white/95 truncate px-1 border-r border-black/20 last:border-r-0 transition-opacity hover:opacity-100',
+                'h-full text-3xs font-medium text-white/95 truncate px-1 border-r border-black/20 last:border-r-0 transition-opacity hover:opacity-100',
                 active ? 'opacity-100 ring-2 ring-inset ring-white/60' : 'opacity-80',
               )}
               style={{ width: `${widthPct}%`, background: accent, opacity: 0.35 + p.confidence * 0.5 }}
@@ -45,7 +45,7 @@ export function PhaseTimeline({ phases, accent = '#22C55E', activeKey, onSelect 
           );
         })}
       </div>
-      <div className="flex justify-between mt-1 text-[10px] text-muted-foreground">
+      <div className="flex justify-between mt-1 text-3xs text-muted-foreground">
         <span>Start</span>
         <span>Finish</span>
       </div>

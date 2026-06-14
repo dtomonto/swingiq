@@ -85,12 +85,12 @@ export function AuditLogClient() {
               <StatusBadge tone={SEV_TONE[e.severity]}>{e.severity}</StatusBadge>
               <div className="min-w-0 flex-1">
                 <p className="text-sm text-foreground">{e.summary}</p>
-                <p className="mt-0.5 text-[11px] text-muted-foreground">
+                <p className="mt-0.5 text-2xs text-muted-foreground">
                   <span className="font-mono">{e.action}</span> · {e.entityType}
                   {e.entityId ? ` · ${e.entityId}` : ''} · {e.actor}
                 </p>
               </div>
-              <time className="shrink-0 text-[11px] text-muted-foreground/70" title={formatDate(e.at)}>
+              <time className="shrink-0 text-2xs text-muted-foreground/70" title={formatDate(e.at)}>
                 {formatRelativeTime(e.at)}
               </time>
             </li>

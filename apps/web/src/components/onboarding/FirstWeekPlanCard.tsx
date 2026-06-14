@@ -57,7 +57,7 @@ export function FirstWeekPlanCard() {
 
       {/* Today's step — the single thing to do now */}
       <div className="mt-2 rounded-lg border border-border bg-card p-3">
-        <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">Today</p>
+        <p className="text-2xs font-semibold uppercase tracking-wide text-primary">Today</p>
         <p className="mt-0.5 text-sm font-semibold text-foreground">{today.title}</p>
         <p className="mt-0.5 text-xs text-muted-foreground">{today.description}</p>
         <Link

@@ -101,7 +101,7 @@ export function InsightsDashboard() {
                     <h3 className="font-semibold text-gray-100">{stage.label}</h3>
                     {reached && <CheckCircle2 size={15} className="text-emerald-400" aria-label="Reached on this account" />}
                   </div>
-                  <span className={`rounded-sm border px-2 py-0.5 text-[11px] font-medium ${badge.cls}`}>{badge.label}</span>
+                  <span className={`rounded-sm border px-2 py-0.5 text-2xs font-medium ${badge.cls}`}>{badge.label}</span>
                 </div>
                 <p className="mt-1.5 text-sm text-gray-400">{stage.question}</p>
                 <div className="mt-2 grid gap-2 sm:grid-cols-2">

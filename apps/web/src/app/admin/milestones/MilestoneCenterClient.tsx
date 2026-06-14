@@ -95,7 +95,7 @@ function OverviewTab({ evaluated, counts, onJump }: { evaluated: EvaluatedMilest
           {(['strategic', 'high_value', 'supporting', 'low_priority', 'do_not_publish'] as const).map((b) => (
             <div key={b} className="rounded-lg border border-border bg-background p-3 text-center">
               <p className="text-2xl font-bold tabular-nums text-foreground">{counts.byAuthority[b]}</p>
-              <p className="text-[10px] uppercase tracking-wide text-muted-foreground">{b.replace(/_/g, ' ')}</p>
+              <p className="text-3xs uppercase tracking-wide text-muted-foreground">{b.replace(/_/g, ' ')}</p>
             </div>
           ))}
         </div>
@@ -171,7 +171,7 @@ function DefinitionCard({ e, ms }: { e: EvaluatedMilestone; ms: ReturnType<typeo
             <span className="truncate text-sm text-foreground">{def.title}</span>
             <StatusPill status={e.status} />
             <AuthorityPill band={e.authority.band} value={e.authority.value} />
-            {ov?.status === 'approved' && <span className="rounded bg-success/15 px-1.5 py-0.5 text-[10px] text-success-text">approved</span>}
+            {ov?.status === 'approved' && <span className="rounded bg-success/15 px-1.5 py-0.5 text-3xs text-success-text">approved</span>}
           </div>
           <p className="mt-1 text-xs text-muted-foreground">{def.category} · {e.rationale}</p>
         </div>
@@ -266,7 +266,7 @@ function PublishedTab({ evaluated, ms }: { evaluated: EvaluatedMilestone[]; ms: 
         {eligible.length === 0 ? (
           <p className="text-xs text-muted-foreground">Nothing waiting. Approve an earned milestone and enable its dedicated page in Definitions, then export here.</p>
         ) : (
-          <pre className="overflow-x-auto rounded-lg border border-border bg-foreground/40 p-3 text-[11px] text-foreground">{exportText}</pre>
+          <pre className="overflow-x-auto rounded-lg border border-border bg-foreground/40 p-3 text-2xs text-foreground">{exportText}</pre>
         )}
       </Panel>
     </div>
@@ -321,8 +321,8 @@ function AuditTab({ ms }: { ms: ReturnType<typeof useMilestones> }) {
         <ul className="space-y-1.5">
           {ms.auditLog.slice(0, 100).map((a) => (
             <li key={a.id} className="flex items-start justify-between gap-3 rounded-lg border border-border bg-background p-2 text-xs">
-              <div className="min-w-0"><p className="text-foreground">{a.summary}</p><p className="text-[10px] text-muted-foreground/70">{a.action} · {a.actor}</p></div>
-              <time className="shrink-0 text-[10px] text-muted-foreground/70">{new Date(a.at).toLocaleString()}</time>
+              <div className="min-w-0"><p className="text-foreground">{a.summary}</p><p className="text-3xs text-muted-foreground/70">{a.action} · {a.actor}</p></div>
+              <time className="shrink-0 text-3xs text-muted-foreground/70">{new Date(a.at).toLocaleString()}</time>
             </li>
           ))}
         </ul>

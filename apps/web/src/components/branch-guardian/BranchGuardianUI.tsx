@@ -63,7 +63,7 @@ export function CleanlinessDial({
       </svg>
       <div className="absolute flex flex-col items-center">
         <span className="text-3xl font-bold tabular-nums text-gray-100">{value}</span>
-        <span className="text-[11px] font-medium uppercase tracking-wide" style={{ color }}>
+        <span className="text-2xs font-medium uppercase tracking-wide" style={{ color }}>
           {HEALTH_BAND_LABEL[band]}
         </span>
       </div>
@@ -132,7 +132,7 @@ export function RecSafetyPill({ safety }: { safety: RecSafety }) {
 
 function Pill({ children, className }: { children: ReactNode; className: string }) {
   return (
-    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold ${className}`}>
+    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-2xs font-semibold ${className}`}>
       {children}
     </span>
   );

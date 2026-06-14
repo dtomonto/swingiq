@@ -11,7 +11,7 @@ export function NonMedicalDisclaimer({ compact = false }: { compact?: boolean })
       role="note"
     >
       <ShieldCheck size={compact ? 14 : 16} className="mt-0.5 shrink-0" aria-hidden="true" />
-      <p className={compact ? 'text-[11px] leading-relaxed' : 'text-xs leading-relaxed'}>
+      <p className={compact ? 'text-2xs leading-relaxed' : 'text-xs leading-relaxed'}>
         {NON_MEDICAL_DISCLAIMER}
       </p>
     </div>

@@ -157,7 +157,7 @@ export function GlobalSearch({ open, onClose, can }: GlobalSearchProps) {
             className="w-full bg-transparent py-3 text-sm text-foreground outline-none placeholder:text-muted-foreground/70"
           />
           {entityLoading && <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground/70" />}
-          <kbd className="hidden rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground sm:block">esc</kbd>
+          <kbd className="hidden rounded bg-muted px-1.5 py-0.5 text-3xs text-muted-foreground sm:block">esc</kbd>
         </div>
 
         <ul className="max-h-[55vh] overflow-y-auto py-1">
@@ -166,7 +166,7 @@ export function GlobalSearch({ open, onClose, can }: GlobalSearchProps) {
           )}
 
           {navResults.length > 0 && (
-            <li className="px-3 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
+            <li className="px-3 pb-1 pt-2 text-3xs font-semibold uppercase tracking-wider text-muted-foreground/70">
               {showRecent ? 'Recent' : 'Sections'}
             </li>
           )}
@@ -186,7 +186,7 @@ export function GlobalSearch({ open, onClose, can }: GlobalSearchProps) {
                     <span className="ml-2 text-xs text-muted-foreground/70">{groupLabel(item.group)}</span>
                     {!showRecent && <span className="block truncate text-xs text-muted-foreground">{item.blurb}</span>}
                   </span>
-                  {!item.built && <span className="text-[10px] text-muted-foreground/70">Soon</span>}
+                  {!item.built && <span className="text-3xs text-muted-foreground/70">Soon</span>}
                   {i === active && item.built && <CornerDownLeft className="h-3 w-3 text-muted-foreground/70" />}
                 </button>
               </li>
@@ -194,7 +194,7 @@ export function GlobalSearch({ open, onClose, can }: GlobalSearchProps) {
           })}
 
           {entities.length > 0 && (
-            <li className="px-3 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">Records</li>
+            <li className="px-3 pb-1 pt-2 text-3xs font-semibold uppercase tracking-wider text-muted-foreground/70">Records</li>
           )}
           {entities.map((entity, j) => {
             const idx = navCount + j;

@@ -37,7 +37,7 @@ export function DifficultyPill({ level }: { level: 'foundational' | 'intermediat
     intermediate: 'bg-warning/15 text-warning',
     advanced: 'bg-accent-secondary/15 text-accent-secondary',
   } as const;
-  return <span className={cn('rounded-full px-2 py-0.5 text-[11px] font-medium capitalize', map[level])}>{level}</span>;
+  return <span className={cn('rounded-full px-2 py-0.5 text-2xs font-medium capitalize', map[level])}>{level}</span>;
 }
 
 /** Assign a course/path to yourself with an optional due date (manager-style). */

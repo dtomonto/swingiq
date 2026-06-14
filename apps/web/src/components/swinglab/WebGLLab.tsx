@@ -677,12 +677,12 @@ function WebGLLabInner({ personalization }: { personalization: LabPersonalizatio
         </button>
 
         {/* Position label */}
-        <div className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-[11px] font-medium text-slate-300">
+        <div className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-2xs font-medium text-slate-300">
           Station {index + 1} / {total}
         </div>
 
         {/* Look-around hint */}
-        <div className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/70 px-2.5 py-1 text-[11px] font-medium text-slate-400">
+        <div className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/70 px-2.5 py-1 text-2xs font-medium text-slate-400">
           <Move3d size={12} aria-hidden="true" /> Drag to look
         </div>
       </div>

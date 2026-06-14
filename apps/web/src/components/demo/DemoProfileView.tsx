@@ -28,11 +28,11 @@ export function DemoProfileView({ report }: { report: DemoReport }) {
           </CardHeader>
           <CardBody className="space-y-3">
             <div className="rounded-lg border border-primary/30 bg-primary/10 p-3">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-link">Primary goal</p>
+              <p className="text-3xs font-semibold uppercase tracking-wider text-link">Primary goal</p>
               <p className="mt-0.5 text-sm font-semibold text-foreground">{profile.goal}</p>
             </div>
             <div className="rounded-lg border border-border bg-muted p-3">
-              <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+              <p className="flex items-center gap-1.5 text-3xs font-semibold uppercase tracking-wider text-muted-foreground">
                 <Crosshair size={12} /> Current miss
               </p>
               <p className="mt-0.5 text-sm font-semibold text-foreground">{profile.miss}</p>
@@ -51,7 +51,7 @@ export function DemoProfileView({ report }: { report: DemoReport }) {
             <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
               {profile.fields.map((f) => (
                 <div key={f.label}>
-                  <dt className="text-[11px] uppercase tracking-wide text-muted-foreground">{f.label}</dt>
+                  <dt className="text-2xs uppercase tracking-wide text-muted-foreground">{f.label}</dt>
                   <dd className="text-sm font-semibold text-foreground">{f.value}</dd>
                 </div>
               ))}

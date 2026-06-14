@@ -141,7 +141,7 @@ export function InteractiveLabMap({
               >
                 <Icon size={22} strokeWidth={1.75} aria-hidden="true" />
               </span>
-              <span className="mt-1.5 max-w-[7.5rem] text-center text-[11px] font-semibold leading-tight text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.8)]">
+              <span className="mt-1.5 max-w-[7.5rem] text-center text-2xs font-semibold leading-tight text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.8)]">
                 {s.name}
               </span>
               {(isRecommended || chip) && (
@@ -159,7 +159,7 @@ export function InteractiveLabMap({
         })}
 
         {/* Legend */}
-        <div className="pointer-events-none absolute bottom-3 left-3 flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-[11px] text-slate-400">
+        <div className="pointer-events-none absolute bottom-3 left-3 flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-2xs text-slate-400">
           <span aria-hidden="true" className="h-0.5 w-5 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" />
           Suggested journey
         </div>
@@ -187,11 +187,11 @@ export function InteractiveLabMap({
                 </span>
                 <span className="text-sm font-semibold leading-tight text-white">{s.name}</span>
                 {(isRecommended || chip) ? (
-                  <span className={`inline-flex w-fit items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${isRecommended ? STATUS_CHIP.recommended.className : chip!.className}`}>
+                  <span className={`inline-flex w-fit items-center gap-1 rounded-full px-1.5 py-0.5 text-3xs font-bold uppercase tracking-wide ${isRecommended ? STATUS_CHIP.recommended.className : chip!.className}`}>
                     {isRecommended ? 'Start here' : status!.label}
                   </span>
                 ) : (
-                  <span className={`text-[11px] font-medium ${accent.text}`}>{s.systemRole}</span>
+                  <span className={`text-2xs font-medium ${accent.text}`}>{s.systemRole}</span>
                 )}
               </button>
             </li>

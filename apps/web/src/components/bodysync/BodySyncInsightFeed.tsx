@@ -43,7 +43,7 @@ export function BodySyncInsightFeed({ insights }: { insights: HealthInsight[] })
             <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <p className="text-sm font-semibold text-foreground">{ins.title}</p>
-                <span className="text-[10px] uppercase tracking-wide text-muted-foreground rounded-full bg-muted px-1.5 py-0.5">
+                <span className="text-3xs uppercase tracking-wide text-muted-foreground rounded-full bg-muted px-1.5 py-0.5">
                   {ins.confidence}
                 </span>
               </div>

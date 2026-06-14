@@ -102,7 +102,7 @@ export function SetupStanceOverlay({ sport, dim = false, className }: SetupStanc
 
       {/* Caption */}
       <div className="absolute inset-x-0 bottom-3 flex justify-center px-3">
-        <span className="rounded-full bg-black/60 text-white text-[11px] sm:text-xs font-medium px-3 py-1 text-center leading-snug max-w-[90%]">
+        <span className="rounded-full bg-black/60 text-white text-2xs sm:text-xs font-medium px-3 py-1 text-center leading-snug max-w-[90%]">
           Stand inside the frame — keep your whole body and {gear} in view
         </span>
       </div>

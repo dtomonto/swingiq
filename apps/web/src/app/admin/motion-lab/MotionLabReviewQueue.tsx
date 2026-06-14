@@ -67,11 +67,11 @@ export function MotionLabReviewQueue() {
               </div>
               <div className="flex shrink-0 items-center gap-2">
                 {s.quality.verdict === 'poor' && (
-                  <span className="inline-flex items-center gap-1 rounded-full border border-error/40 bg-error/10 px-2 py-0.5 text-[10px] font-medium text-error-text">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-error/40 bg-error/10 px-2 py-0.5 text-3xs font-medium text-error-text">
                     <Camera className="h-3 w-3" /> {s.quality.verdict}
                   </span>
                 )}
-                <span className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-link">
+                <span className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-2xs font-medium text-link">
                   <AlertTriangle className="h-3 w-3" /> {Math.round(s.scoreboard.confidence * 100)}%
                 </span>
               </div>
@@ -80,7 +80,7 @@ export function MotionLabReviewQueue() {
         </ul>
       )}
 
-      <p className="text-[11px] text-muted-foreground">
+      <p className="text-2xs text-muted-foreground">
         Confidence is the mean per-metric confidence from single-camera pose — a directional estimate, not a lab
         measurement. Low values usually mean a poor camera angle, occluded body, or a clip that is too short.
       </p>
