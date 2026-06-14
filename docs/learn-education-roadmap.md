@@ -1,10 +1,13 @@
 # SwingVantage `/learn` Education System — Build Roadmap & Handoff
 
-**Last updated:** 2026-06-13 · **Status:** Tier 0 + Tier 1 + Tier 2 + most of Tier 3 shipped.
-PRs #67, #77 merged; this PR adds 11 more `/learn` pages (Tier 2 + Tier 3) and consolidates the
-parallel `/resources` duplicates into `/learn` via `rel=canonical` (non-destructive). Two Tier-3
-ideas (`single-camera-swing-analysis`, `how-swingvantage-labels-data`) were **intentionally dropped**
-to avoid duplicating `/trust/accuracy-and-limitations` and `/learn/measured-vs-estimated`.
+**Last updated:** 2026-06-14 · **Status:** Tier 0–3 shipped — the `/learn` technology-education
+hub is feature-complete. Merged to `master`: PR #67 (Tier 0), #77 (Tier 1), #85 (Tier 2 + 6 of
+Tier 3, plus a non-destructive `/resources`→`/learn` `rel=canonical` consolidation), and #92
+(`single-camera-swing-analysis`, the 7th Tier-3 page). **One** Tier-3 idea remains
+**intentionally deferred**: `how-swingvantage-labels-data` (the DataSource-taxonomy page), held
+back to avoid duplicating `/learn/measured-vs-estimated` and `/trust/accuracy-and-limitations`.
+(Note: #85 originally dropped `single-camera-swing-analysis` too; #92 then shipped it with a
+distinct 2D-pose/honesty angle, so it is **live**, not dropped.)
 
 This doc lets a fresh session resume building the `/learn` technology-education hub
 without re-discovery. It captures the architecture, the exact recipe to add a page,
@@ -15,7 +18,7 @@ slugs/titles/angles and duplicate-content cautions.
 
 ## 1. What already exists (do NOT rebuild)
 
-**13 live pages**, all registry-driven, under `/learn/<slug>`:
+**25 live pages**, all registry-driven, under `/learn/<slug>`:
 
 Tier 0 (PR #67): `what-is-heuristic-data`, `ai-in-sports-performance`,
 `heuristic-vs-ai-swing-analysis`, `how-retesting-improves-swing-feedback`,
@@ -24,6 +27,13 @@ Tier 0 (PR #67): `what-is-heuristic-data`, `ai-in-sports-performance`,
 Tier 1 (PR #77): `is-ai-swing-analysis-accurate`, `what-is-athlete-general-intelligence`,
 `how-ai-swing-analysis-works`, `does-ai-replace-a-coach`, `how-to-film-your-swing`,
 `measured-vs-estimated`, `how-to-read-your-swing-report`.
+
+Tier 2 (PR #85): `ai-analysis-vs-private-lessons`, `what-transfers-between-sports`,
+`ai-analysis-vs-launch-monitors`, `is-ai-swing-analysis-worth-it`, `how-often-should-you-retest`.
+
+Tier 3 (PRs #85 + #92): `how-the-ai-coach-works`, `what-is-a-swing-fault`,
+`what-data-swingvantage-uses`, `what-is-the-skill-tree`, `what-is-the-athlete-journey`,
+`what-makes-a-good-practice-plan`, and `single-camera-swing-analysis` (#92).
 
 Also live: `content/technologyClaims.ts` (centralized, legally-safe claim config),
 `EducationalLink` component + term registry, and the `/learn` hub "How SwingVantage
@@ -133,9 +143,11 @@ required, bless i18n AND regenerate visual baselines (`npm run test:e2e:visual:u
 
 ---
 
-## 8. BACKLOG — Tier 2 (build next)
+## 8. Tier 2 — ✅ SHIPPED (PR #85)
 
-Section `'methodology'` for all. Drafts below are starting points; finalize wording to pass §4.
+All five shipped under section `'methodology'`. The original draft slug
+`ai-analysis-vs-private-coach` shipped as **`ai-analysis-vs-private-lessons`**; the table below is
+kept for historical reference (drafted angles + dup cautions).
 
 | Slug | Title (`<title>` base) | Angle / intent | Dup cautions |
 |---|---|---|---|
@@ -145,21 +157,28 @@ Section `'methodology'` for all. Drafts below are starting points; finalize word
 | `is-ai-swing-analysis-worth-it` | Is AI Swing Analysis Worth It? | Consideration-stage value/ROI | Distinct from `is-ai-swing-analysis-accurate` (accuracy) and the cost page |
 | `how-often-should-you-retest` | How Often Should You Retest Your Swing? | Retest CADENCE/frequency how-to | Must differ from `how-retesting-improves-swing-feedback` (why) — this is when/how-often |
 
-## 9. BACKLOG — Tier 3 (feature explainers & authority depth)
+## 9. Tier 3 — ✅ SHIPPED (PRs #85 + #92), one deferred
+
+Seven of the eight shipped: the first six in #85, and `single-camera-swing-analysis` in #92.
+**`how-swingvantage-labels-data` is the single deferred item** (see its row + §10). Table kept
+for reference.
 
 | Slug | Title | Angle / intent | Dup cautions |
 |---|---|---|---|
 | `how-the-ai-coach-works` | How the AI Coach Works | Flagship feature, honest "what it won't do" | Distinct from `how-ai-swing-analysis-works` (pipeline) |
 | `what-is-a-swing-fault` | What Is a Swing Fault? | Foundational concept; hub to fault ontology + `/learn/data-points` | — |
-| `single-camera-swing-analysis` | How Single-Camera Swing Analysis Works | Honesty/limits of 2D video | Distinct from `how-to-film-your-swing` and `is-ai-swing-analysis-accurate` |
+| `single-camera-swing-analysis` ✅ #92 | How Single-Camera Swing Analysis Works | Honesty/limits of 2D video | Distinct from `how-to-film-your-swing` and `is-ai-swing-analysis-accurate` |
 | `what-data-swingvantage-uses` | What Data Does SwingVantage Use? | Data types + privacy-forward | Distinct from `how-swingvantage-uses-player-profiles` (personalization) |
 | `what-is-the-skill-tree` | What Is the Skill Tree? | Progression feature explainer | — |
 | `what-is-the-athlete-journey` | What Is the Athlete Journey? | Stages-of-improvement feature | — |
 | `what-makes-a-good-practice-plan` | What Makes a Good Practice Plan? | "one plan" reinforcement; broad intent | — |
-| `how-swingvantage-labels-data` | Why SwingVantage Never Fabricates Metrics | DataSource-label honesty pillar | **HIGH dup-risk with `measured-vs-estimated`** — only build with a clearly distinct angle (the DataSource taxonomy: real/estimated/imported/placeholder/mock), or drop |
+| `how-swingvantage-labels-data` ⏸️ DEFERRED | Why SwingVantage Never Fabricates Metrics | DataSource-label honesty pillar | **HIGH dup-risk with `measured-vs-estimated`** — only build with a clearly distinct angle (the DataSource taxonomy: real/estimated/imported/placeholder/mock), or drop |
 
-## 10. Suggested order to resume
+## 10. Status & what's left
 
-Build Tier 2 as one PR (5 pages), validate per §4, ship green, squash-merge. Then Tier 3 as
-a second PR (7 pages — defer/redefine `how-swingvantage-labels-data` to avoid the dup).
-Same registry-driven recipe; the standards test + duplicate-content gate keep the bar.
+Tiers 0–3 are shipped and live; the `/learn` hub auto-lists them. The **only** remaining backlog
+item is `how-swingvantage-labels-data` (§9), deliberately deferred because its DataSource-taxonomy
+angle overlaps `/learn/measured-vs-estimated`. Build it only if a clearly distinct angle emerges
+(real / estimated / imported / placeholder / mock as an explicit taxonomy); otherwise leave it
+dropped. Any further page follows the same registry-driven recipe (§3); the standards test +
+duplicate-content gate keep the bar.
