@@ -67,9 +67,16 @@ export {
   shouldAttemptRecovery,
   chooseBetterPass,
   detectedHasMultiplePeople,
+  shouldRunSecondEngine,
   describeEnginePath,
   type PoseRouterResult,
 } from './pose-router';
+export {
+  fusePoses,
+  type FusedPoseResult,
+  type FusionOptions,
+  type AgreementLabel,
+} from './pose-fusion';
 export {
   runMotionBenchmark,
   runFixture,

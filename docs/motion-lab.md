@@ -201,6 +201,16 @@ pipeline now defends against that **on-device**, without ever fabricating data:
    signatures to estimate global pan/tilt/shake, giving the profiler an honest
    steadiness signal (and a true `CAMERA_SHAKE` issue) instead of an
    exposure-variance proxy.
+5. **Optional second-engine fusion** — `lib/pose/keypoint-map.ts` maps a MoveNet
+   17-keypoint pose onto the MediaPipe-33 space, and `lib/motion-lab/pose-fusion.ts`
+   compares the two engines per joint (cross-engine **agreement score**,
+   best-source-per-joint, outlier rejection). It is **OFF by default and ships no
+   new runtime dependency**: `lib/pose/movenet-engine.ts` dynamically imports
+   TensorFlow.js only when an operator sets `NEXT_PUBLIC_MOTION_SECOND_ENGINE=movenet`
+   *and* has installed it, degrading honestly to "unavailable" otherwise. The
+   router fuses the validator only when enabled **and** the primary read is
+   uncertain — good video keeps the single-engine fast path. Inference stays
+   on-device; output stays basis `estimated`.
 
 The profile is attached to the `MotionSession` (`session.videoQuality`), its
 fixes lead the capture recommendations, and the validation panel

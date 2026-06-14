@@ -8,6 +8,7 @@ import {
   shouldAttemptRecovery,
   chooseBetterPass,
   detectedHasMultiplePeople,
+  shouldRunSecondEngine,
   describeEnginePath,
 } from '../pose-router';
 import type { PoseFrame } from '@/lib/pose';
@@ -87,9 +88,29 @@ describe('detectedHasMultiplePeople', () => {
   });
 });
 
+describe('shouldRunSecondEngine', () => {
+  it('never runs when disabled', () => {
+    expect(shouldRunSecondEngine(false, 0.2, 3, 10)).toBe(false);
+  });
+  it('never runs when no poses were found', () => {
+    expect(shouldRunSecondEngine(true, 0, 0, 10)).toBe(false);
+  });
+  it('runs when enabled and confidence is below threshold', () => {
+    expect(shouldRunSecondEngine(true, 0.5, 10, 10)).toBe(true);
+  });
+  it('runs when enabled and some frames dropped (posed < attempted)', () => {
+    expect(shouldRunSecondEngine(true, 0.9, 6, 10)).toBe(true);
+  });
+  it('skips clearly-good video (fast path)', () => {
+    expect(shouldRunSecondEngine(true, 0.9, 10, 10)).toBe(false);
+  });
+});
+
 describe('describeEnginePath', () => {
-  it('names the engine, tracking, and enhancement', () => {
+  it('names the engine, tracking, enhancement, and fusion', () => {
     expect(describeEnginePath('lite', false)).toBe('mediapipe-lite(tracked-primary)');
     expect(describeEnginePath('heavy', true)).toBe('mediapipe-heavy(tracked-primary)+enhanced');
+    expect(describeEnginePath('full', false, true)).toBe('mediapipe-full(tracked-primary)+movenet(fused)');
+    expect(describeEnginePath('full', true, true)).toBe('mediapipe-full(tracked-primary)+enhanced+movenet(fused)');
   });
 });

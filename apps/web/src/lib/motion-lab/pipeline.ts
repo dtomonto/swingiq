@@ -195,6 +195,7 @@ export async function runMotionAnalysis(
     depthModel += '+lift3d';
   }
   if (enhancementApplied) depthModel += '+enhanced';
+  if (routed.secondEngineUsed) depthModel += '+movenet';
 
   // Build the honest video-quality profile (tier, issues, dynamic capture fixes)
   // from the signals we actually measured. Surfaced in the result and folded into

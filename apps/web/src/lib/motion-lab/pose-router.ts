@@ -22,15 +22,21 @@
 import {
   detectPeople,
   trackPrimaryAthlete,
+  detectMoveNet,
+  secondEngineEnabled,
   type PoseDetectInput,
   type PoseFrame,
   type PoseModelQuality,
 } from '@/lib/pose';
 import { planEnhancement, enhanceFrameDataUrl, type GrayLumaStats, type EnhancementPlan } from '@/lib/frame-enhance';
+import { fusePoses, type AgreementLabel } from './pose-fusion';
 import type { ExtractedFrame } from '@/lib/frame-extraction';
 
 /** Detect up to two people so a bystander can't capture the primary track. */
 const NUM_POSES = 2;
+
+/** Below this primary confidence we corroborate with the second engine (when enabled). */
+const SECOND_ENGINE_CONFIDENCE = 0.7;
 
 /** Detect all people on the frames, then lock onto the primary athlete's track. */
 async function detectPrimaryTrack(input: PoseDetectInput[], quality: PoseModelQuality) {
@@ -52,6 +58,11 @@ export interface PoseRouterResult {
   enhancementApplied: boolean;
   /** True when more than one person was seen in any analysed frame. */
   multiplePeople: boolean;
+  /** True when a second engine ran and was fused into the result. */
+  secondEngineUsed: boolean;
+  /** 0–1 cross-engine agreement (only when the second engine ran). */
+  modelAgreementScore?: number;
+  agreementLabel?: AgreementLabel;
   /** Human-readable detection path for the debug panel / model version tag. */
   enginePath: string;
 }
@@ -120,9 +131,28 @@ export function detectedHasMultiplePeople(detected: PoseFrame[]): boolean {
   return detected.some((d) => (d.personCount ?? 1) > 1);
 }
 
+/**
+ * Whether to run the second engine: enabled, AND the primary read is not already
+ * clearly-good (some poses found, but confidence below threshold). Good video
+ * keeps the single-engine fast path. Pure.
+ */
+export function shouldRunSecondEngine(
+  enabled: boolean,
+  confidence: number,
+  posed: number,
+  attempted: number,
+): boolean {
+  if (!enabled || posed === 0 || attempted <= 0) return false;
+  return confidence < SECOND_ENGINE_CONFIDENCE || posed < attempted;
+}
+
 /** Compose the human-readable detection path (also used to tag the model version). */
-export function describeEnginePath(modelQuality: PoseModelQuality, enhanced: boolean): string {
-  return `mediapipe-${modelQuality}(tracked-primary)${enhanced ? '+enhanced' : ''}`;
+export function describeEnginePath(
+  modelQuality: PoseModelQuality,
+  enhanced: boolean,
+  secondEngine = false,
+): string {
+  return `mediapipe-${modelQuality}(tracked-primary)${enhanced ? '+enhanced' : ''}${secondEngine ? '+movenet(fused)' : ''}`;
 }
 
 // ── Browser orchestrator ──────────────────────────────────────
@@ -142,6 +172,7 @@ export async function routePoseDetection(
     timestampSeconds: f.timestampSeconds,
   }));
   let track = await detectPrimaryTrack(baseInput, modelQuality);
+  let winningInput = baseInput; // the frames that produced the adopted track
   const attempted = frames.length;
   let enhancementApplied = false;
 
@@ -162,14 +193,38 @@ export async function routePoseDetection(
     );
     if (winner === 'retry') {
       track = retry;
+      winningInput = enhancedInput;
       enhancementApplied = true;
     }
   }
 
+  // Second-engine corroboration (OFF by default). When enabled and the primary
+  // read is uncertain, run MoveNet on the same frames and FUSE — best source per
+  // joint, with a cross-engine agreement score the report can lean on.
+  let detected = track.frames;
+  let secondEngineUsed = false;
+  let modelAgreementScore: number | undefined;
+  let agreementLabel: AgreementLabel | undefined;
+  if (
+    shouldRunSecondEngine(secondEngineEnabled(), trackVisibility(detected), detected.length, attempted)
+  ) {
+    const validator = await detectMoveNet(winningInput);
+    if (validator.length > 0) {
+      const fused = fusePoses(detected, validator);
+      detected = fused.frames;
+      secondEngineUsed = true;
+      modelAgreementScore = fused.modelAgreementScore;
+      agreementLabel = fused.agreementLabel;
+    }
+  }
+
   return {
-    detected: track.frames,
+    detected,
     enhancementApplied,
     multiplePeople: track.multiplePeople,
-    enginePath: describeEnginePath(modelQuality, enhancementApplied),
+    secondEngineUsed,
+    modelAgreementScore,
+    agreementLabel,
+    enginePath: describeEnginePath(modelQuality, enhancementApplied, secondEngineUsed),
   };
 }

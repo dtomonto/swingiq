@@ -8,6 +8,8 @@
 export * from './pose-detection';
 export * from './pose-metrics';
 export * from './athlete-tracker';
+export * from './keypoint-map';
+export * from './movenet-engine';
 
 import { detectPoses, type PoseDetectInput } from './pose-detection';
 import { computePoseMetrics, summarizePoseMetrics, type PoseMetrics } from './pose-metrics';

@@ -114,7 +114,10 @@ const nextConfig = {
               // Cloud Storage. Blocking these is what makes the overlays report
               // "no body pose detected". (Self-hosting via NEXT_PUBLIC_MEDIAPIPE_*_BASE
               // moves both to same-origin and lets you drop these two hosts.)
-              "connect-src 'self' https://*.supabase.co https://*.supabase.in wss://*.supabase.co https://vercel.live https://cdn.jsdelivr.net https://storage.googleapis.com",
+              // tfhub.dev + kaggle.com are the OPTIONAL MoveNet second-engine model
+              // hosts — only used when NEXT_PUBLIC_MOTION_SECOND_ENGINE=movenet (off
+              // by default); harmless to allow otherwise (additive, never restrictive).
+              "connect-src 'self' https://*.supabase.co https://*.supabase.in wss://*.supabase.co https://vercel.live https://cdn.jsdelivr.net https://storage.googleapis.com https://tfhub.dev https://www.kaggle.com",
               // Workers: same-origin + blob (video processing)
               "worker-src 'self' blob:",
               // No plugins

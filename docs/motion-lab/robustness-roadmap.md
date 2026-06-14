@@ -152,5 +152,13 @@ body track is stable); the cloud/semantic tier moved to last and is explicitly o
 - **2026-06-14 — Wave 2 L1 (done):** blur-aware frame selection — `pickSharpestSpread` keeps the
   sharpest candidate per temporal segment (selection beats repair, zero manipulation), plus a
   mild, bounded unsharp in the enhancer's keep-if-better retry path for soft clips.
-- **Wave 2 complete.** Next: **Wave 3** (MoveNet + fusion — the only dep/CSP-heavy wave), and
-  separately the S-effort self-hosting win (`NEXT_PUBLIC_MEDIAPIPE_*_BASE`).
+- **2026-06-14 — Wave 3 L2 (done):** second-engine fusion. `lib/pose/keypoint-map.ts` maps
+  MoveNet-17 → MediaPipe-33; `lib/motion-lab/pose-fusion.ts` compares the two engines per joint
+  (agreement score, best-source selection, outlier rejection); `lib/pose/movenet-engine.ts` is an
+  **optional, OFF-by-default, lazy** MoveNet adapter (no new runtime dependency — TF.js is a
+  dynamically-imported optional peer that degrades to "unavailable" when absent). The router runs +
+  fuses the validator only when enabled AND the primary read is uncertain; good video keeps the
+  single-engine fast path. CSP + `.env.example` document the opt-in.
+- **Roadmap waves complete.** Remaining standalone upgrades: the S-effort self-hosting win
+  (`NEXT_PUBLIC_MEDIAPIPE_*_BASE`); the Playwright video tier to exercise the real MediaPipe path
+  end-to-end (finishes L5); and, when desired, actually installing TF.js to light up MoveNet.
